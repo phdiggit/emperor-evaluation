@@ -4,24 +4,332 @@
   "collections": {
     "records": {
       "positions": [
-        13,
-        49,
-        53,
-        57,
-        58,
-        59,
-        84,
-        86,
-        88,
-        99,
-        113,
+        33,
+        34,
+        37,
+        41,
+        64,
+        66,
+        68,
+        89,
+        102,
+        104,
+        107,
+        108,
+        125,
+        126,
         127,
-        128,
-        140,
-        177,
-        178
+        155
       ],
       "records": [
+        {
+          "sequence": 103,
+          "ruler_id": "RULER-SHADOW-吕光",
+          "task_code": "PROFILE-C1-RULER-SHADOW-吕光",
+          "ruler_name": "吕光",
+          "polity": "十六国",
+          "actual_power_window": "386—399年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G4",
+          "position": "LOW",
+          "score_100": 77,
+          "radar_value": 77,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-吕光",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P103-FOUNDING-TO-DECLINE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI4",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-106-LVGUANG-385",
+                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-107-LIANG-387",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-吕光/traits/A2/0",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-SHADOW-吕光"
+              ],
+              "direct_process_refs": [
+                "WAR-LEAD-106-LVGUANG-385",
+                "WAR-LEAD-107-LIANG-387",
+                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7122",
+                "https://zh.wikisource.org/w/index.php?title=%E6%99%89%E6%9B%B8%2F%E5%8D%B7122&oldid=1554250",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-LVGUANG-FEEDBACK-CORRECTION-001",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-LVGUANG-LATE-FEEDBACK-FAILURE-001"
+              ],
+              "cycle_basis": "东归河西建基是坏牌下可行换路；中期听段业批评转宽简，证明反馈能达。晚年对西秦多路进攻、主将败死后仅撤回，又信谗杀沮渠氏官员引发持续反叛，内战强迁与饥荒未获修复。",
+              "diagnostic_role": "DW2"
+            },
+            {
+              "ruler_name": "吕光",
+              "parent_id": "C1-P103-FOUNDING-RECONFIGURATION",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-吕光-LG-P1",
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-SHADOW-吕光"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-吕光-LG-P1",
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-SHADOW-吕光"
+              ],
+              "cycle_basis": "在远征后把军事资源转成河西政权与地方承载，并通过分职与纳谏阶段性重配合作接口；晚期毁损链仍保留为下沿。",
+              "diagnostic_role": "PS2"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P103-FOUNDING-TO-DECLINE",
+            "C1-P103-FOUNDING-RECONFIGURATION"
+          ],
+          "typical_pattern": "能在前秦崩解后把西征军转为河西政权，亦曾因严刑批评调整；晚年多线用兵、信谗杀官和饥荒反馈中退化。",
+          "counterpattern": {
+            "positive_parent_refs": "C1-P103-FOUNDING-RECONFIGURATION",
+            "counter_parent_refs": "C1-P103-FOUNDING-TO-DECLINE"
+          },
+          "grade_basis": "吕光的军事战略至少有龟兹远征、河西建基、败后重组/退出多个独立周期，达到PS3；晚期内部合作资源反复毁损形成DW3，继承再有DW2。 这是明显的“高军事战略能力 + 晚期内部风险控制严重退化”，不应是G2。 由`G2-LOW / 38`大幅上调为**`G4-LOW / 77`**。",
+          "position_basis": "创业正链和局部纠正阻止降G1。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": "C1-P103-FOUNDING-TO-DECLINE C1-P103-FOUNDING-RECONFIGURATION",
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "CLOSED",
+            "low_grade_gate": {
+              "status": "NOT_REQUIRED",
+              "inherited_bad_hand": "NOT_REQUIRED",
+              "feasible_alternative": "NOT_REQUIRED",
+              "feedback_reachability": "NOT_REQUIRED",
+              "stop_loss": "NOT_REQUIRED"
+            }
+          },
+          "limitations": [
+            "创业正链和局部纠正阻止降G1。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 4,
+          "formal_order": 34
+        },
+        {
+          "sequence": 105,
+          "ruler_id": "RULER-SHADOW-姚苌",
+          "task_code": "PROFILE-C1-RULER-SHADOW-姚苌",
+          "ruler_name": "姚苌",
+          "polity": "十六国",
+          "actual_power_window": "384—393年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G4",
+          "position": "LOW",
+          "score_100": 77,
+          "radar_value": 77,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-姚苌",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P105-FOUNDING-AND-SURRENDER",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-107-LATERCIN-REBELS-390",
+                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-104-XIANGYANG-378-379",
+                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.json#WAR-LEAD-105-GUANZHONG-384",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P105-XINPING-SURRENDER"
+              ],
+              "direct_process_refs": [
+                "WAR-LEAD-105-GUANZHONG-384",
+                "WAR-LEAD-107-LATERCIN-REBELS-390",
+                "WAR-LEAD-104-XIANGYANG-378-379",
+                "docs/史料通读产物/唐以前编年/两晋/卷106-通读总结.md#L55",
+                "docs/史料通读产物/唐以前编年/两晋/卷106-通读总结.md#L56",
+                "docs/史料通读产物/唐以前编年/两晋/卷106-通读总结.md#L57",
+                "docs/史料通读产物/唐以前编年/两晋/卷106-通读总结.md#L58"
+              ],
+              "cycle_basis": "苻坚体系崩解后利用渭北羌户建基是可行路径；新平粮尽时可守约纳降或继续围攻，本人明确允城民返长安，出城后立即坑杀五千，短期取城换长期受降风险且无纠正。",
+              "diagnostic_role": "DW2"
+            },
+            {
+              "ruler_name": "姚苌",
+              "parent_id": "C1-P105-SUCCESSION-TRANSFER",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-姚苌-YC-P2",
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-SHADOW-姚苌"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-姚苌-YC-P2",
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-SHADOW-姚苌"
+              ],
+              "cycle_basis": "在高流动创业环境中预置太子与异质集团的交班接口，形成可跨本人死亡运行的继承资源周期；不额外叠加其他宗室材料。",
+              "diagnostic_role": "PS2"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P105-FOUNDING-AND-SURRENDER",
+            "C1-P105-SUCCESSION-TRANSFER"
+          ],
+          "typical_pattern": "姚苌是本批最典型的“清除跨轴污染后反而上调”。正式C1把新平受降后坑杀与创业建基揉在一个`MIXED_NEGATIVE`父链里；按现口径，受降承诺首先属于M2政治/外交信用，坑杀程序与比例属于C5。把它们拿掉后，姚苌真正的C1主体是创业建基，以及一个独立的生前继承风险预置周期。",
+          "counterpattern": {
+            "positive_parent_refs": "C1-P105-SUCCESSION-TRANSFER",
+            "counter_parent_refs": "C1-P105-FOUNDING-AND-SURRENDER"
+          },
+          "grade_basis": "创业建基与生前继承资源预置属于两个完全不同的国家级问题，各有完整PS2；在短窗口内已达到G4准入。由于第二周期确实来自储位，所以不再额外拿其他宗室材料叠加厚度。 由`G3-LOW`升为`G4-LOW / 77`。",
+          "position_basis": "草创九年且一正一负，取G3低位。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": "C1-P105-FOUNDING-AND-SURRENDER C1-P105-SUCCESSION-TRANSFER",
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "CLOSED",
+            "low_grade_gate": {
+              "status": "NOT_REQUIRED",
+              "inherited_bad_hand": "NOT_REQUIRED",
+              "feasible_alternative": "NOT_REQUIRED",
+              "feedback_reachability": "NOT_REQUIRED",
+              "stop_loss": "NOT_REQUIRED"
+            }
+          },
+          "limitations": [
+            "草创九年且一正一负，取G3低位。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 4,
+          "formal_order": 35
+        },
+        {
+          "sequence": 110,
+          "ruler_id": "RULER-SHADOW-慕容德",
+          "task_code": "PROFILE-C1-RULER-SHADOW-慕容德",
+          "ruler_name": "慕容德",
+          "polity": "十六国",
+          "actual_power_window": "398—405年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G4",
+          "position": "LOW",
+          "score_100": 77,
+          "radar_value": 77,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-慕容德",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P110-SOUTHWARD-PIVOT",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-111-SOUTHYAN-QINGZHOU-399",
+                "docs/史料通读产物/唐以前编年/两晋/卷110-通读总结.md#FIN-LEAD-110-SOUTHYAN-398",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-慕容德/traits/A2/0"
+              ],
+              "direct_process_refs": [
+                "FIN-LEAD-110-SOUTHYAN-398",
+                "WAR-LEAD-111-SOUTHYAN-QINGZHOU-399",
+                "https://zh.wikisource.org/zh/晉書/卷127",
+                "docs/史料通读产物/唐以前编年/两晋/卷110-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷111-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷113-通读总结.md"
+              ],
+              "cycle_basis": "河北崩解后可固守大城、依附他方或南迁；本人听取群臣弃滑台，转取广固青齐核心，并以禁掠、守宰、赈恤和长期免役安置迁民。新核心运行验证换路。",
+              "diagnostic_role": "PS2"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P110-SOUTHWARD-PIVOT"
+          ],
+          "typical_pattern": "慕容德不需要人为拆成两个正周期。他的优势在于一条**真正跨域、跨阶段的国家重建父链**：后燕河北体系崩解后，不仅更换军事落脚点，还同步重写人口、军纪、地方合作和行政承载方式。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-P110-SOUTHWARD-PIVOT"
+            ],
+            "counter_parent_refs": []
+          },
+          "grade_basis": "按合同，“一条有直接定位、跨域多阶段并覆盖四机制的父链”本就可以进入G4。慕容德这一迁徙—建国链符合该门槛；七年窗口、后出史书理想化和继承复验不足决定只能`G4-LOW / 77`。",
+          "position_basis": "七年且主要一条逆风强链，缺跨对象复验。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P110-SOUTHWARD-PIVOT"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COVERAGE_CLOSED",
+            "capability_profile": "CLOSED",
+            "low_grade_gate": {
+              "status": "NOT_REQUIRED",
+              "inherited_bad_hand": "NOT_REQUIRED",
+              "feasible_alternative": "NOT_REQUIRED",
+              "feedback_reachability": "NOT_REQUIRED",
+              "stop_loss": "NOT_REQUIRED"
+            }
+          },
+          "limitations": [
+            "七年且主要一条逆风强链，缺跨对象复验。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 4,
+          "formal_order": 38
+        },
         {
           "sequence": 123,
           "ruler_id": "RULER-SHADOW-石勒",
@@ -33,9 +341,9 @@
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
           "axis_grade": "G4",
-          "position": "HIGH",
-          "score_100": 87,
-          "radar_value": 87,
+          "position": "LOW",
+          "score_100": 77,
+          "radar_value": 77,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -110,14 +418,14 @@
                 "JIN-SHILE-GEPI-WITHDRAWAL-312"
               ],
               "cycle_basis": "前期向江夏、葛陂推进造成补给崩溃，北取可供给核心是现实替代；本人收到饥疫反馈后及时停止并换路，且未同构复发，裁DW1。",
-              "diagnostic_role": "DW1"
+              "diagnostic_role": "DW3"
             }
           ],
           "representative_parent_ids": [
             "C1-P123-XIANGGUO-PIVOT",
             "C1-P123-JIANGXIA-GEPI-COUNTER"
           ],
-          "typical_pattern": "流动作战遭饥疫后果断北撤、弃三台取襄国，重建后勤并以招降分化对手；任性杀谏与诱骗信用构成反例。",
+          "typical_pattern": "石勒最强的C1证据是**战略方向重构**，不是一般纳谏：从江夏、葛陂一带的流动南耗和补给崩溃中迅速换路，北撤、收野谷、取襄国建立可供给核心；此后又以不同政治接口承载胡人旧部与汉人士族。但晚年对石虎这一高度可见的继承风险拒绝重组，是非常典型的C1重大失误。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P123-XIANGGUO-PIVOT"
@@ -126,7 +434,7 @@
               "C1-P123-JIANGXIA-GEPI-COUNTER"
             ]
           },
-          "grade_basis": "葛陂北撤、襄国建基与王浚分化形成PS3；前期南耗已及时换路，裁DW1。",
+          "grade_basis": "DW3足以否定`G4-HIGH`。但“葛陂南耗→北撤襄国建基”是清楚的战略重构，内部集团承载又提供第二类国家级风险配置证据，因此PS3主体仍在。维持`G4-LOW / 77`。",
           "position_basis": "诱骗毁约与杀谏分别主要路由M2、C2/C5；张宾设计贡献显著，本人独占的跨领域高难周期不足历史罕见，故维持G4高位。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -157,7 +465,7 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 4,
-          "formal_order": 14
+          "formal_order": 42
         },
         {
           "sequence": 96,
@@ -217,7 +525,7 @@
             ],
             "counter_parent_refs": []
           },
-          "grade_basis": "从依附司马颖转向独立建政，并在准备攻击鲜卑、乌桓时接受反对意见，形成一条高难PS2创业周期；援颖承诺信用主路由M2。",
+          "grade_basis": "补漏复核没有找到第二条独立正向C1重大周期： - M1平阳； - M4五部/归附集团； - C1脱晋建政 本质均属于同一个创业周期的不同切片。 六年窗口又很短，因此仍止于G3上沿。 **维持`G3-HIGH / 71`**。 --- # 第二十一批汇总 | 人物 | 本批前档位 | 最新裁决 | 动作 | 核心判断 | |---|---:|---:|---|---| | 赵佶 | G0-MID / 7 | **G1-LOW / 18** | 上调 | 海上之盟DW3仍极深，但1125真实转移最高责任与危机资源，存在迟到弱PS2，单一主链不足G0 | | 石虎 | G0-MID / 7 | **G3-LOW / 58** | **大幅上调** | 318—329战区战略已闭合MI3/PS3，349再有换指挥链PS2；成熟主权期资源过载DW4把全生涯压回G3低位 | | 赫连勃勃 | G0-MID / 7 | **G3-MID / 65** | **大幅上调** | 主权期M1为G4-MID且top锚，战略PS3真实；承载失配与储位实兵内战两个DW3阻止G4 | | 完颜亮 | G0-LOW / 2 | **G1-LOW / 18** | 上调 | 南伐DW3近DW4，但当前C1本质仍是一条巨大战略链；其余机制可用反证阻止以单链判G0 | | 胡亥 | G0-LOW / 2 | **G0-LOW / 2** | 维持 | 中枢、信息、承载、军队退出、核心联盟弑主在三年内同时闭合，章邯交付反而强化“可用资源被配置破坏” | | 杨广 | G0-LOW / 2 | **G0-HIGH / 12** | 档内上调 | 三征高丽+信息过滤+江都骁果仍构成DW4；613撤军、614有限退出、雁门重组证明并非完全无换路 | | 高纬 | G0-LOW / 2 | **G1-LOW / 18** | 上调 | 571宫廷禁军危机存在弱PS2；斛律光与近幸信息结构DW3极深，但继承坏牌、短窗和真实恢复排除G0 | | 王莽 | G0-LOW / 2 | **G0-LOW / 2** | 维持 | 匈奴、西域、西羌、迁徙、币制、灾后动员多域反复自致，M4早期联盟能力不能替代C1 PS2 | | 朱载坖 | G3-HIGH / 71 | **G3-HIGH / 71** | 终审维持 | 俺答封贡保留高质量PS2；行政中枢恢复降为PS1支持证，第二独立周期不足 | | 赵恒 | G3-HIGH / 71 | **G3-MID / 65** | 下调位置 | 澶州—澶渊高难PS2仍强，但礼制资源纪律、病中交班接口形成双下沿，且M1本人军事厚度有限 | | 赵煦 | G3-HIGH / 71 | **G3-HIGH / 71** | 维持 | 西夏方向有完整PS2；绍圣党争强负主要路由M4/C5，现不足独立闭合C1 DW3 | | 萧绰 | G3-HIGH / 71 | **G4-MID / 82** | 上调 | 982宿卫—宗室—边防资源重构PS2 + 对宋目标/退出PS2，跨期达到PS3；共同归责与胡辇退出限制上沿 | | 多尔衮 | G3-HIGH / 71 | **G4-LOW / 77** | 上调 | 1643继承强制资源折衷 + 入关北京承载两周期达PS3；本人后续破坏共摄均衡、强制新政权成本压低 | | 冯太后 | G3-HIGH / 71 | **G4-LOW / 77** | 上调 | 解除乙浑单点强权PS2 + 户籍土地基层承载PS2，形成PS3；献文死因不确定不得反写强负 | | 刘渊 | G3-HIGH / 71 | **G3-HIGH / 71** | 维持 | 脱晋—建国—平阳—五部/归附吸收本质为同一创业PS2，不能跨轴重复拆数；交班为DW2 | --- # 全池进度审计：为何146人之后仍差30人 本轮重新用正式C1全池184人表与持续记录逐人编号交叉核对，确认差额不是“记录数口径不同”，而是两处真实批次跳档。 ## 漏审点一：G3-HIGH被提前跳到G3-MID 第七批之后，持续记录直接进入： > `第八批：原正式 G3-MID 第一组八人` 但正式G3-HIGH当时仍剩28人未重审。 本批已补回最前7人： - 朱载坖 - 赵恒 - 赵煦 - 萧绰 - 多尔衮 - 冯太后 - 刘渊 **尚余21名原G3-HIGH漏审：** 1. 李雄 2. 苻健 3. 萧道成 4. 钱镠 5. 陈蒨 6. 马殷 7. 高湛 8. 刘备 9. 赵构 10. 赵昚 11. 李忱 12. 李纯 13. 李亨 14. 李渊 15. 司马昭 16. 孙权 17. 李德明 18. 李乾顺 19. 李元昊 20. 窝阔台 21. 铁穆耳 ## 漏审点二：原G1-LOW实际八人，不是六人 正式G1-LOW为八人，持续记录第十九批只处理了： - 朱翊钧 - 朱允炆 - 慈禧 - 刘彧 - 李儇 - 妥懽帖睦尔 因此另漏： - **李存勖** - **刘祜** ## 当前真实进度 - 正式C1全池：**184人** - 本批完成后持续重审：**161人** - 尚未重审：**23人** - 原G3-HIGH漏审：21人 - 原G1-LOW漏审：2人 因此现在可以明确说：**已经进入真正收口阶段**。不再按“档位继续往下”推进，而是只需把这23名漏审对象补齐，之后即可做184人横向二次验收与正式结算回写。 ## 下一批建议顺序 先补剩余21名G3-HIGH，原因是它们属于同一个早期跳档事故，口径一致，适合连续处理；最后再补李存勖、刘祜两名G1-LOW，然后进入全池最终横校。 --- # 第二十二批：原 G3-HIGH 漏审续补（12人） > 本批对象：李雄、苻健、萧道成、钱镠、陈蒨、马殷、高湛、刘备、赵构、赵昚、李忱、李纯。 > > 本批是前一轮“G3-HIGH跳档事故”的继续修复。特别检查三类旧问题： > > 1. **军事正向是否被C1父链压缩掉。** M1中的国家/战区目标、资源排序、败后换路可对称投影，但现场战术和将领战果不回填。 > 2. **交班和核心强制资源是否漏掉负向。** 储位伦理不进C1；但若已知继承风险与实兵、宫禁、信息入口绑定并实际转化为失控，则属于C1风险隔离。 > 3. **一个概括父链是否掩盖了彼此独立的周期。** 只有对象、窗口、资源命题独立且过程闭合，才允许拆分；不得因为M1/M4有多个父ID机械扩张PS数量。",
           "position_basis": "六年窗口且只闭合一条主要高难周期，缺跨阶段、跨对象的第二次独立复验。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -233,7 +541,7 @@
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
             "density": "COVERAGE_CLOSED",
-            "capability_profile": "CLOSED",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
             "low_grade_gate": {
               "status": "NOT_REQUIRED",
               "inherited_bad_hand": "NOT_REQUIRED",
@@ -247,96 +555,7 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 3,
-          "formal_order": 50
-        },
-        {
-          "sequence": 110,
-          "ruler_id": "RULER-SHADOW-慕容德",
-          "task_code": "PROFILE-C1-RULER-SHADOW-慕容德",
-          "ruler_name": "慕容德",
-          "polity": "十六国",
-          "actual_power_window": "398—405年",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G3",
-          "position": "HIGH",
-          "score_100": 71,
-          "radar_value": 71,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-慕容德",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P110-SOUTHWARD-PIVOT",
-              "direction": "POSITIVE",
-              "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-111-SOUTHYAN-QINGZHOU-399",
-                "docs/史料通读产物/唐以前编年/两晋/卷110-通读总结.md#FIN-LEAD-110-SOUTHYAN-398",
-                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-慕容德/traits/A2/0"
-              ],
-              "direct_process_refs": [
-                "FIN-LEAD-110-SOUTHYAN-398",
-                "WAR-LEAD-111-SOUTHYAN-QINGZHOU-399",
-                "https://zh.wikisource.org/zh/晉書/卷127",
-                "docs/史料通读产物/唐以前编年/两晋/卷110-通读总结.md",
-                "docs/史料通读产物/唐以前编年/两晋/卷111-通读总结.md",
-                "docs/史料通读产物/唐以前编年/两晋/卷113-通读总结.md"
-              ],
-              "cycle_basis": "河北崩解后可固守大城、依附他方或南迁；本人听取群臣弃滑台，转取广固青齐核心，并以禁掠、守宰、赈恤和长期免役安置迁民。新核心运行验证换路。",
-              "diagnostic_role": "PS2"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P110-SOUTHWARD-PIVOT"
-          ],
-          "typical_pattern": "后燕崩解坏牌中及时放弃河北、南下青齐并以免役安置迁民，完成目标收缩与承载重建。",
-          "counterpattern": {
-            "positive_parent_refs": [
-              "C1-P110-SOUTHWARD-PIVOT"
-            ],
-            "counter_parent_refs": []
-          },
-          "grade_basis": "失滑台后南迁青齐并安置迁民为高难PS2；短窗缺跨阶段稳定。",
-          "position_basis": "七年且主要一条逆风强链，缺跨对象复验。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P110-SOUTHWARD-PIVOT"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COVERAGE_CLOSED",
-            "capability_profile": "CLOSED",
-            "low_grade_gate": {
-              "status": "NOT_REQUIRED",
-              "inherited_bad_hand": "NOT_REQUIRED",
-              "feasible_alternative": "NOT_REQUIRED",
-              "feedback_reachability": "NOT_REQUIRED",
-              "stop_loss": "NOT_REQUIRED"
-            }
-          },
-          "limitations": [
-            "七年且主要一条逆风强链，缺跨对象复验。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 3,
-          "formal_order": 54
+          "formal_order": 65
         },
         {
           "sequence": 117,
@@ -402,7 +621,7 @@
             "C1-P117-HEXI-MAINTENANCE",
             "C1-P117-SORTIE-COUNTER"
           ],
-          "typical_pattern": "小国坏牌下优先息兵务农、积储并在侦察反馈后改变出迎方案，目标与承载匹配；跨对象复验有限。",
+          "typical_pattern": "李暠的C1长板是长期保持小国目标与资源承载相匹配，而不是临敌时“听劝改主意”。C2/M1清扫后，主体反而更干净。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P117-HEXI-MAINTENANCE"
@@ -411,7 +630,7 @@
               "C1-P117-SORTIE-COUNTER"
             ]
           },
-          "grade_basis": "河西恢复与劝止出迎是一条PS2；初拟冒进及时纠正为DW1。",
+          "grade_basis": "一个长期、本人高归责且结果边界清楚的PS2，加上继承风险预置辅助，且没有闭合的深C1负证，足以维持`G3-HIGH / 71`；但没有第二个独立重大周期，不进G4。",
           "position_basis": "政权规模不压档，但单对象短链阻断更高位置。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -428,7 +647,7 @@
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
             "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "CLOSED",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
             "low_grade_gate": {
               "status": "NOT_REQUIRED",
               "inherited_bad_hand": "NOT_REQUIRED",
@@ -442,7 +661,798 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 3,
-          "formal_order": 58
+          "formal_order": 67
+        },
+        {
+          "sequence": 122,
+          "ruler_id": "RULER-SHADOW-沮渠蒙逊",
+          "task_code": "PROFILE-C1-RULER-SHADOW-沮渠蒙逊",
+          "ruler_name": "沮渠蒙逊",
+          "polity": "十六国",
+          "actual_power_window": "401—433年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "score_100": 71,
+          "radar_value": 71,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-沮渠蒙逊",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P122-HEXI-MULTIPOLAR",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI4",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P122-HEXI-MULTIPOLAR",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-沮渠蒙逊/traits/A2/0"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7129",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-MENGXUN-REMONSTRATOR-KILLING-001",
+                "docs/史料通读产物/唐以前编年/两晋/卷111-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷112-通读总结.md",
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/69",
+                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L377"
+              ],
+              "cycle_basis": "后凉、西凉、南凉、北魏并存时，本人通过通使、改盟、有限战争保存河西并适时撤救；跨年生存有效。诈降毁约与后期因外部战局迁怒杀言事官，显示风险控制以信用和反馈为代价。"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P122-HEXI-MULTIPOLAR"
+          ],
+          "typical_pattern": "沮渠蒙逊真正属于C1的强项，是河西多极环境下长期控制目标规模、不断改变联盟方向并保留生存选项。原正式C1把“诈降毁约”“杀言事官”等材料一起塞进同一父链，造成C1负向污染偏重。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-P122-HEXI-MULTIPOLAR"
+            ],
+            "counter_parent_refs": []
+          },
+          "grade_basis": "清除C2/C5与M2污染后，沮渠蒙逊在C1里呈现得更干净：一条长期河西多极风险管理强链，没有闭合的深C1反例。 但它仍主要是一组“弱国多边生存”长期策略，缺第二个独立国家级约束域，也不足G4准入。由`G3-MID`上调为`G3-HIGH / 71`。",
+          "position_basis": "条件细节较薄，强正负并存取G3。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P122-HEXI-MULTIPOLAR"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COVERAGE_CLOSED",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "low_grade_gate": {
+              "status": "NOT_REQUIRED",
+              "inherited_bad_hand": "NOT_REQUIRED",
+              "feasible_alternative": "NOT_REQUIRED",
+              "feedback_reachability": "NOT_REQUIRED",
+              "stop_loss": "NOT_REQUIRED"
+            }
+          },
+          "limitations": [
+            "条件细节较薄，强正负并存取G3。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 3,
+          "formal_order": 69
+        },
+        {
+          "sequence": 130,
+          "ruler_id": "RULER-SHADOW-赫连勃勃",
+          "task_code": "PROFILE-C1-RULER-SHADOW-赫连勃勃",
+          "ruler_name": "赫连勃勃",
+          "polity": "十六国",
+          "actual_power_window": "407—425年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G3",
+          "position": "MID",
+          "score_100": 65,
+          "radar_value": 65,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-赫连勃勃",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P130-COERCIVE-OVERLOAD",
+              "direction": "NEGATIVE",
+              "intensity": "MI4",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-赫连勃勃",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-赫连勃勃/traits/A2/0",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P130-LATERCIN-BREAK"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7130",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-HELIAN-FEEDBACK-TERROR-001",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷115-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L201",
+                "docs/史料通读产物/唐以前编年/两晋/卷115-通读总结.md#L134"
+              ],
+              "cycle_basis": "可依后秦、有限独立或高压扩张；本人杀庇护者、背盟后以统万工程和连续战争强征，民无生赖反馈下仍对直视、发笑、进谏者毁目割舌杀害，系统消灭纠错。"
+            },
+            {
+              "parent_id": "C1-RR-149-POSITIVE-MATERIALS",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-赫连勃勃",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-赫连勃勃/traits/A2/0",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P130-LATERCIN-BREAK"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7130",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-HELIAN-FEEDBACK-TERROR-001",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷115-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L201",
+                "docs/史料通读产物/唐以前编年/两晋/卷115-通读总结.md#L134"
+              ],
+              "cycle_basis": "附件终审逐人材料吸纳：与石虎不同，赫连勃勃M1强正向主要发生在自己已经最高主政的407—425窗口。 M1正式记录： - 武将锚`top`； - 五个主要情境； - `S-/D3`、多个`A/D2`； - 407建政、对后秦北边多年度推进等均为本人实际CIC/最高统合。 C1只取： - 弱势夹缝下目标转换； - 根据地与战区资源组织； - 连续多年度对同一强邻的分阶段推进； - 战区对象变化时仍能保持有效的目标—资源匹配。 这已达到**`PS3`**，而不是单场军事高光。；M4 `HLBB-P1`保存的重要事实不能只作为联盟材料： 建国初本人曾面临是否立即扩大进攻的问题，王买德提出更偏“积蓄、利用对手内耗、避免过早硬碰”的路线；赫连勃勃实际采纳并继续重用。 C1只消费目标节奏与资源边界，不把“纳谏”本身加分。 这加强其PS3的`PROBLEM_PRIORITY / GOAL_RESOURCE_FIT`部分。",
+              "diagnostic_role": "PS3"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P130-COERCIVE-OVERLOAD",
+            "C1-RR-149-POSITIVE-MATERIALS"
+          ],
+          "typical_pattern": "强邻夹缝中建国虽有机会识别，但长期以超大工程、高压征役和毁灭反馈通道支撑扩张，无承载与退出。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-RR-149-POSITIVE-MATERIALS"
+            ],
+            "counter_parent_refs": [
+              "C1-P130-COERCIVE-OVERLOAD"
+            ]
+          },
+          "grade_basis": "赫连勃勃不是G0式战略失能： - 主权期军事目标—资源配置明确达PS3； - 建国早期有真实节奏控制； - 但承载、反馈与继承隔离又有两条深DW3。 比石虎稍高的原因是其PS3主要发生在本人最高主政窗口，而非从属战区；但深负证仍阻断G4。 由`G0-MID / 7`大幅上调为**`G3-MID / 65`**。",
+          "position_basis": "不因暴行名声定档；G0由跨阶段承载错配与反馈封闭闭合。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P130-COERCIVE-OVERLOAD",
+              "C1-RR-149-POSITIVE-MATERIALS"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "low_grade_gate": {
+              "status": "CLOSED",
+              "inherited_bad_hand": "REVIEWED",
+              "feasible_alternative": "REVIEWED_IN_PARENT_CHAIN",
+              "feedback_reachability": "REVIEWED_IN_PARENT_CHAIN",
+              "stop_loss": "REVIEWED_IN_PARENT_CHAIN"
+            }
+          },
+          "limitations": [
+            "不因暴行名声定档；G0由跨阶段承载错配与反馈封闭闭合。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 3,
+          "formal_order": 90
+        },
+        {
+          "sequence": 97,
+          "ruler_id": "RULER-SHADOW-刘聪",
+          "task_code": "PROFILE-C1-RULER-SHADOW-刘聪",
+          "ruler_name": "刘聪",
+          "polity": "十六国",
+          "actual_power_window": "310—318年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G3",
+          "position": "LOW",
+          "score_100": 58,
+          "radar_value": 58,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-刘聪",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P097-CHANGAN-PRIORITY",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "晋书/卷102#长安优先级判断"
+              ],
+              "direct_process_refs": [
+                "晋书/卷102#长安优先级判断"
+              ],
+              "cycle_basis": "在多方向竞争中识别长安战略优先并配置资源。",
+              "diagnostic_role": "PS3"
+            },
+            {
+              "parent_id": "C1-P097-CAOYI-SHILE-BALANCE",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "晋书/卷102#曹嶷石勒制衡"
+              ],
+              "direct_process_refs": [
+                "晋书/卷102#曹嶷石勒制衡"
+              ],
+              "cycle_basis": "对曹嶷与石勒采取差异化制衡，避免单一方向暴露。",
+              "diagnostic_role": "PS3"
+            },
+            {
+              "parent_id": "C1-P097-LATE-RESOURCE-MISMATCH",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "晋书/卷102#晚期宫殿供奉军费错配"
+              ],
+              "direct_process_refs": [
+                "晋书/卷102#晚期宫殿供奉军费错配"
+              ],
+              "cycle_basis": "社会压力下仍维持高成本目标，构成DW2，但未闭合同机制历史级失能。",
+              "diagnostic_role": "DW3"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P097-CHANGAN-PRIORITY",
+            "C1-P097-CAOYI-SHILE-BALANCE",
+            "C1-P097-LATE-RESOURCE-MISMATCH"
+          ],
+          "typical_pattern": "刘聪前中期确有很强的外部优先级判断：长安目标排序以及曹嶷—石勒之间的制衡不能抹掉。但原正式C1把“近幸、储位清洗”整体退出，导致晚期最有诊断力的国家级风险链完全缺席。 按当前口径，问题不是刘聪“荒淫”或“听不进谏”，而是他连续把**正式继承、军权、近侍信息和宫廷强制资源**叠加到互相竞争的中心，反馈已经非常充分后仍继续加码。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-P097-CHANGAN-PRIORITY",
+              "C1-P097-CAOYI-SHILE-BALANCE"
+            ],
+            "counter_parent_refs": [
+              "C1-P097-LATE-RESOURCE-MISMATCH"
+            ]
+          },
+          "grade_basis": "长安优先和外部军头制衡使刘聪不能被裁成“全生涯战略失能”；但晚期继承和宫廷强制资源的配置已经发展成反馈后持续加码、本人在世时造成大规模资源损失的DW3，原`G3-MID`明显偏高。 改为`G3-LOW / 58`。其结构与王建一类锚点接近：外部战略可用甚至很强，但内部最高权力风险发生深度崩盘。",
+          "position_basis": "后期资源错配限制上沿；政治伦理与信息问题不重复计入。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P097-CHANGAN-PRIORITY",
+              "C1-P097-CAOYI-SHILE-BALANCE",
+              "C1-P097-LATE-RESOURCE-MISMATCH"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "low_grade_gate": {
+              "status": "CLOSED",
+              "inherited_bad_hand": "REVIEWED",
+              "feasible_alternative": "REVIEWED_IN_PARENT_CHAIN",
+              "feedback_reachability": "REVIEWED_IN_PARENT_CHAIN",
+              "stop_loss": "REVIEWED_IN_PARENT_CHAIN"
+            }
+          },
+          "limitations": [
+            "后期资源错配限制上沿；政治伦理与信息问题不重复计入。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 3,
+          "formal_order": 103
+        },
+        {
+          "sequence": 104,
+          "ruler_id": "RULER-SHADOW-姚兴",
+          "task_code": "PROFILE-C1-RULER-SHADOW-姚兴",
+          "ruler_name": "姚兴",
+          "polity": "十六国",
+          "actual_power_window": "393—416年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G3",
+          "position": "LOW",
+          "score_100": 58,
+          "radar_value": 58,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-姚兴",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P104-PEACE-AND-REVERSAL",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI4",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P104-JIN-PEACE",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P104-SOUTHLING-GUZANG",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-姚兴/traits/A2/0"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7117",
+                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7118",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-YAOXING-HEIR-CAPTURE-001",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-YAOXING-LAW-ADMINISTRATION-001",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L120",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L125",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L126",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L127",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L152",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L153",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L154",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L155",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L156"
+              ],
+              "cycle_basis": "东晋可战可和；本人不顾内部反对，以十二郡换南线和平并完成交接。对南凉则以牲畜官号换姑臧，听当地请留王尚后反悔但追使不及，显示条件判断不稳；晚期姚弼风险反馈又迟迟不处置。"
+            },
+            {
+              "parent_id": "C1-RR-059-NEGATIVE-MATERIALS",
+              "direction": "NEGATIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P104-JIN-PEACE",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P104-SOUTHLING-GUZANG",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-姚兴/traits/A2/0"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7117",
+                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7118",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-YAOXING-HEIR-CAPTURE-001",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-YAOXING-LAW-ADMINISTRATION-001",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L120",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L125",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L126",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L127",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L152",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L153",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L154",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L155",
+                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L156"
+              ],
+              "cycle_basis": "附件终审逐人材料吸纳：姚泓早为正式太子，姚弼后来却获得尚书令、侍中、大将军等高位和真实军事资源，逐渐形成替代继承中心。 更关键的是，风险反馈极其充分： - 梁喜、任谦、尹昭等先后明确指出姚弼夺嫡风险； - 有人直接建议削其羽翼、降低权限； - 姚兴第一次病重时，太子集团在东门，姚弼一方已经聚集数千甲士； - 病愈后群臣要求处置，姚兴只削部分职位，仍保留其王爵和重要军政资源； - 此后又在明确警告“太子与姚弼有隙、重兵不可交”后，仍给姚弼三万兵； - 姚弼再度聚众后被拘，又因太子求情整批赦免，核心风险没有被拆掉； - 最终病末姚弼党羽图谋夺取乘舆、杀太子，姚懿等直接攻端门，宫门发生真实战斗。 这已经不是“死后才知道储位安排不稳”。**本人在世时，多轮反馈—宽赦—重新授权—再次聚兵的同一机制已经反复出现，最后发展成最高权力中心附近的武装冲突。** 姚兴最终强撑病体出面、诛姚弼并重新确认姚泓与顾命结构，属于真实的最后阶段风险重构；它截断了即时夺位，因此不把后续宗室连续叛乱全部倒灌。但这一恢复发生得太迟，不能洗掉前段。 **诊断：`DW3`。**",
+              "diagnostic_role": "DW3"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P104-PEACE-AND-REVERSAL",
+            "C1-RR-059-NEGATIVE-MATERIALS"
+          ],
+          "typical_pattern": "姚兴前中期确有较强的国家级换路能力，尤其能用实质土地/条件交换南线和平；但晚年姚弼争储不是普通“党争背景”，而是一条几乎完全命中C1强负证门的继承—军权风险链。 原正式结算只说“姚弼风险反馈迟迟不处置”，严重度明显不足。该风险在姚兴生前已经多次发展到实际军事动员，最终甚至发生宫门战斗。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-P104-PEACE-AND-REVERSAL"
+            ],
+            "counter_parent_refs": [
+              "C1-RR-059-NEGATIVE-MATERIALS"
+            ]
+          },
+          "grade_basis": "十二郡换和平证明姚兴不是低水平战略者，长期多集团治理也提供承载背景；最终病末又确实完成了一次紧急结构修复。因此不降到G2。 但姚弼链是高归责、替代明确、反馈多轮到达、同机制反复、本人在世时已演成武装宫门冲突的标准DW3。原`G3-MID`不能维持，改为`G3-LOW / 58`。",
+          "position_basis": "强正负跨阶段相抵，不按领土得失换分。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P104-PEACE-AND-REVERSAL",
+              "C1-RR-059-NEGATIVE-MATERIALS"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "low_grade_gate": {
+              "status": "NOT_REQUIRED",
+              "inherited_bad_hand": "NOT_REQUIRED",
+              "feasible_alternative": "NOT_REQUIRED",
+              "feedback_reachability": "NOT_REQUIRED",
+              "stop_loss": "NOT_REQUIRED"
+            }
+          },
+          "limitations": [
+            "强正负跨阶段相抵，不按领土得失换分。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 3,
+          "formal_order": 105
+        },
+        {
+          "sequence": 124,
+          "ruler_id": "RULER-SHADOW-石虎",
+          "task_code": "PROFILE-C1-RULER-SHADOW-石虎",
+          "ruler_name": "石虎",
+          "polity": "十六国",
+          "actual_power_window": "333—349年实际主政",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G3",
+          "position": "LOW",
+          "score_100": 58,
+          "radar_value": 58,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-石虎",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P124-SYSTEMIC-OVERLOAD",
+              "direction": "NEGATIVE",
+              "intensity": "MI4",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-石虎",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-石虎/traits/A2/0"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7106",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-SHIHU-REMONSTRANCE-SUPPRESSION-001",
+                "docs/史料通读产物/唐以前编年/两晋/卷094-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷095-通读总结.md"
+              ],
+              "cycle_basis": "可维持既有恢复、有限边防或全面动员；本人把全国征役、宫苑和战争叠加，卖子、自缢、大量死亡已反馈，仍杀谏臣并立私论偶语律，使朝臣以目、纠错终止。"
+            },
+            {
+              "parent_id": "C1-RR-148-POSITIVE-MATERIALS",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-石虎",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-石虎/traits/A2/0"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7106",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-SHIHU-REMONSTRANCE-SUPPRESSION-001",
+                "docs/史料通读产物/唐以前编年/两晋/卷094-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷095-通读总结.md"
+              ],
+              "cycle_basis": "附件终审逐人材料吸纳：M1联合父链`M1-JOINT-SHIHU-REGIONAL-COMMAND-318-329`为`MI3_SUSTAINED_SYSTEMIC`，不是零散战果拼数。 在石勒最高权力之下，石虎本人真实控制多个战区，连续覆盖： - 平阳救援； - 厌次—徐龛方向； - 青州曹嶷集团； - 河南扩张； - 前赵终局。 本人长期承担principal commander / commander-in-chief级目标、兵力与战区推进。 C1不继承其具体临阵技巧，只消费： > 在不同对手、不同区域和多次压力中，能持续确定战区目标、配置资源并完成阶段切换。 这已达到**战区权限内`PS3`**。 从属阶段不能反写成“国家总体战略”，但也不能因后来当皇帝暴政就把这段本人能力删除。",
+              "diagnostic_role": "PS3"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P124-SYSTEMIC-OVERLOAD",
+            "C1-RR-148-POSITIVE-MATERIALS"
+          ],
+          "typical_pattern": "继承石勒可运行基础后以宫苑、征役和多线军事动员持续抽空承载，社会崩解与群臣杜口反馈中仍无退出。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-RR-148-POSITIVE-MATERIALS"
+            ],
+            "counter_parent_refs": [
+              "C1-P124-SYSTEMIC-OVERLOAD"
+            ]
+          },
+          "grade_basis": "继承石勒可运行基础后以宫苑、征役和多线军事动员持续抽空承载，社会崩解与群臣杜口反馈中仍无退出。",
+          "position_basis": "早期军事实践不抵消最高主政期主模式；不因暴行标签而是按承载与反馈闭环定G0。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P124-SYSTEMIC-OVERLOAD",
+              "C1-RR-148-POSITIVE-MATERIALS"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "low_grade_gate": {
+              "status": "CLOSED",
+              "inherited_bad_hand": "REVIEWED",
+              "feasible_alternative": "REVIEWED_IN_PARENT_CHAIN",
+              "feedback_reachability": "REVIEWED_IN_PARENT_CHAIN",
+              "stop_loss": "REVIEWED_IN_PARENT_CHAIN"
+            }
+          },
+          "limitations": [
+            "早期军事实践不抵消最高主政期主模式；不因暴行标签而是按承载与反馈闭环定G0。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 3,
+          "formal_order": 108
+        },
+        {
+          "sequence": 126,
+          "ruler_id": "RULER-SHADOW-苻坚",
+          "task_code": "PROFILE-C1-RULER-SHADOW-苻坚",
+          "ruler_name": "苻坚",
+          "polity": "十六国",
+          "actual_power_window": "357—385年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G3",
+          "position": "LOW",
+          "score_100": 58,
+          "radar_value": 58,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-苻坚",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P126-EARLY-CONSOLIDATION",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "晋书/卷113#前秦整合降主与恢复生产"
+              ],
+              "direct_process_refs": [
+                "晋书/卷113#前秦整合降主与恢复生产"
+              ],
+              "cycle_basis": "前中期以分层安置、恢复承载和选择性扩张整合北方。",
+              "diagnostic_role": "PS3"
+            },
+            {
+              "parent_id": "C1-P126-FEISHUI-OVERREACH",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "晋书/卷114#淝水南征反对意见",
+                "資治通鑑/卷102#拒绝南征反证"
+              ],
+              "direct_process_refs": [
+                "晋书/卷114#淝水南征反对意见",
+                "資治通鑑/卷102#拒绝南征反证"
+              ],
+              "cycle_basis": "优势条件下拒绝多轮反对并把国家级资源投入高暴露南征，形成DW3。",
+              "diagnostic_role": "DW3"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P126-EARLY-CONSOLIDATION",
+            "C1-P126-FEISHUI-OVERREACH"
+          ],
+          "typical_pattern": "前中期整合降主、恢复生产和分层安置形成强正向模式；统一优势下无视持续反证发动淝水南征，风险隔离与目标承载发生高诊断力崩盘。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-P126-EARLY-CONSOLIDATION"
+            ],
+            "counter_parent_refs": [
+              "C1-P126-FEISHUI-OVERREACH"
+            ]
+          },
+          "grade_basis": "苻坚不是“只有淝水的一次大败”。前中期C1确有长期`PS3`，而晚期又发生一个高烈度、跨外战与内部强集团的复合`DW3`。在“失败不等于全部能力归零”的口径下，原G2-MID偏低；但晚期崩盘也足以阻止进入G3中高。 由`G2-MID / 45`上调为**`G3-LOW / 58`**。",
+          "position_basis": "前中期强正链阻止降G1；淝水DW3不因败亡结果本身生成，而来自明确反证与可行替代被拒。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P126-EARLY-CONSOLIDATION",
+              "C1-P126-FEISHUI-OVERREACH"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "low_grade_gate": {
+              "status": "NOT_REQUIRED",
+              "inherited_bad_hand": "NOT_REQUIRED",
+              "feasible_alternative": "NOT_REQUIRED",
+              "feedback_reachability": "NOT_REQUIRED",
+              "stop_loss": "NOT_REQUIRED"
+            }
+          },
+          "limitations": [
+            "前中期强正链阻止降G1；淝水DW3不因败亡结果本身生成，而来自明确反证与可行替代被拒。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 3,
+          "formal_order": 109
+        },
+        {
+          "sequence": 109,
+          "ruler_id": "RULER-SHADOW-慕容垂",
+          "task_code": "PROFILE-C1-RULER-SHADOW-慕容垂",
+          "ruler_name": "慕容垂",
+          "polity": "十六国",
+          "actual_power_window": "384—396年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "score_100": 51,
+          "radar_value": 51,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-慕容垂",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P109-HEBEI-RESTORATION",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "晋书/卷123#慕容垂河北复国",
+                "資治通鑑/卷107#河北建基"
+              ],
+              "direct_process_refs": [
+                "晋书/卷123#慕容垂河北复国",
+                "資治通鑑/卷107#河北建基"
+              ],
+              "cycle_basis": "在前秦崩解窗口中整合旧部、选择河北建基并恢复政权。",
+              "diagnostic_role": "PS2"
+            },
+            {
+              "parent_id": "C1-P109-CANHEBEI-COUNTER",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "魏书/卷32#高湖预警参合陂",
+                "資治通鑑/卷108#拒绝轻敌预警"
+              ],
+              "direct_process_refs": [
+                "魏书/卷32#高湖预警参合陂",
+                "資治通鑑/卷108#拒绝轻敌预警"
+              ],
+              "cycle_basis": "高湖明确指出太子轻敌风险后仍投入主力，形成高诊断力风险失配。",
+              "diagnostic_role": "DW3"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P109-HEBEI-RESTORATION",
+            "C1-P109-CANHEBEI-COUNTER"
+          ],
+          "typical_pattern": "本次补搜并没有改变慕容垂的核心结构：河北复国是一条完整而高难的PS2；参合陂前的明确轻敌预警被拒仍是DW3。M4中对多集团的吸收大体属于河北复国同一资源生命周期，不能拆成第二个正向周期；储位材料反而只提供上沿限制。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-P109-HEBEI-RESTORATION"
+            ],
+            "counter_parent_refs": [
+              "C1-P109-CANHEBEI-COUNTER"
+            ]
+          },
+          "grade_basis": "一个高质量PS2对一个高诊断DW3，新增材料主要补强原链解释而没有产生第二条独立正向PS2。继续保持G2上沿最符合现有证据。 **维持`G2-HIGH / 51`。**",
+          "position_basis": "复国正链阻止降G1；索马扣使不再承担本人独占负证。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P109-HEBEI-RESTORATION",
+              "C1-P109-CANHEBEI-COUNTER"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "low_grade_gate": {
+              "status": "NOT_REQUIRED",
+              "inherited_bad_hand": "NOT_REQUIRED",
+              "feasible_alternative": "NOT_REQUIRED",
+              "feedback_reachability": "NOT_REQUIRED",
+              "stop_loss": "NOT_REQUIRED"
+            }
+          },
+          "limitations": [
+            "复国正链阻止降G1；索马扣使不再承担本人独占负证。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 2,
+          "formal_order": 126
         },
         {
           "sequence": 118,
@@ -454,10 +1464,10 @@
           "axis_code": "C1",
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
-          "axis_grade": "G3",
+          "axis_grade": "G2",
           "position": "HIGH",
-          "score_100": 71,
-          "radar_value": 71,
+          "score_100": 51,
+          "radar_value": 51,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -539,7 +1549,7 @@
               "C1-P118-QIUCHI-COUNTER"
             ]
           },
-          "grade_basis": "成都建基是一个完整PS2周期；轻赋、纳谏不另算C1周期，仇池覆败另列DW2。",
+          "grade_basis": "全生涯结构现为： - 一条高质量创业`PS2`； - 仇池`DW2`； - 明确预警后的交班强制资源`DW3`。 原G3-HIGH只看到了前两者，高估了长期风险控制的稳定性。 但其建基正链真实、统治窗口较长，且交班暴力发生于死后，不应下到G1。 由`G3-HIGH / 71`下调为**`G2-HIGH / 51`**。",
           "position_basis": "轻赋属于第二项专业结果，纳谏属于C2/C5，均不充当第二个C1正向周期；PS2止于G3高位。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -556,7 +1566,7 @@
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
             "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "CLOSED",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
             "low_grade_gate": {
               "status": "NOT_REQUIRED",
               "inherited_bad_hand": "NOT_REQUIRED",
@@ -569,8 +1579,8 @@
             "轻赋属于第二项专业结果，纳谏属于C2/C5，均不充当第二个C1正向周期；PS2止于G3高位。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 3,
-          "formal_order": 59
+          "grade_numeric": 2,
+          "formal_order": 127
         },
         {
           "sequence": 125,
@@ -582,10 +1592,10 @@
           "axis_code": "C1",
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
-          "axis_grade": "G3",
+          "axis_grade": "G2",
           "position": "HIGH",
-          "score_100": 71,
-          "radar_value": 71,
+          "score_100": 51,
+          "radar_value": 51,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -630,7 +1640,7 @@
             ],
             "counter_parent_refs": []
           },
-          "grade_basis": "入关建基与民政恢复为PS2；张靖案属于C2/C5纠偏，短任不升PS3。",
+          "grade_basis": "四年窗口很短，不能凭死后苻生一朝倒灌；同时其入关和病中平乱都显示真实可用能力。 但一条建基PS2之外，强资源归附与交班都存在明显风险下沿，已不足G3高位。 由`G3-HIGH / 71`下调为**`G2-HIGH / 51`**。",
           "position_basis": "四年短任且仅一条主要链，G4低位封顶。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -646,7 +1656,7 @@
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
             "density": "COVERAGE_CLOSED",
-            "capability_profile": "CLOSED",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
             "low_grade_gate": {
               "status": "NOT_REQUIRED",
               "inherited_bad_hand": "NOT_REQUIRED",
@@ -659,513 +1669,8 @@
             "四年短任且仅一条主要链，G4低位封顶。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 3,
-          "formal_order": 60
-        },
-        {
-          "sequence": 97,
-          "ruler_id": "RULER-SHADOW-刘聪",
-          "task_code": "PROFILE-C1-RULER-SHADOW-刘聪",
-          "ruler_name": "刘聪",
-          "polity": "十六国",
-          "actual_power_window": "310—318年",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G3",
-          "position": "MID",
-          "score_100": 65,
-          "radar_value": 65,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-刘聪",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P097-CHANGAN-PRIORITY",
-              "direction": "POSITIVE",
-              "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "晋书/卷102#长安优先级判断"
-              ],
-              "direct_process_refs": [
-                "晋书/卷102#长安优先级判断"
-              ],
-              "cycle_basis": "在多方向竞争中识别长安战略优先并配置资源。",
-              "diagnostic_role": "PS3"
-            },
-            {
-              "parent_id": "C1-P097-CAOYI-SHILE-BALANCE",
-              "direction": "POSITIVE",
-              "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "晋书/卷102#曹嶷石勒制衡"
-              ],
-              "direct_process_refs": [
-                "晋书/卷102#曹嶷石勒制衡"
-              ],
-              "cycle_basis": "对曹嶷与石勒采取差异化制衡，避免单一方向暴露。",
-              "diagnostic_role": "PS3"
-            },
-            {
-              "parent_id": "C1-P097-LATE-RESOURCE-MISMATCH",
-              "direction": "NEGATIVE",
-              "intensity": "MI2",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY"
-              ],
-              "source_refs": [
-                "晋书/卷102#晚期宫殿供奉军费错配"
-              ],
-              "direct_process_refs": [
-                "晋书/卷102#晚期宫殿供奉军费错配"
-              ],
-              "cycle_basis": "社会压力下仍维持高成本目标，构成DW2，但未闭合同机制历史级失能。",
-              "diagnostic_role": "DW2"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P097-CHANGAN-PRIORITY",
-            "C1-P097-CAOYI-SHILE-BALANCE",
-            "C1-P097-LATE-RESOURCE-MISMATCH"
-          ],
-          "typical_pattern": "长安优先与曹嶷—石勒制衡显示跨对象优先级判断；晚期宫殿、供奉与军费资源错配真实但只达DW2。近幸、杀谏和储位清洗退出C1。",
-          "counterpattern": {
-            "positive_parent_refs": [
-              "C1-P097-CHANGAN-PRIORITY",
-              "C1-P097-CAOYI-SHILE-BALANCE"
-            ],
-            "counter_parent_refs": [
-              "C1-P097-LATE-RESOURCE-MISMATCH"
-            ]
-          },
-          "grade_basis": "长安优先与曹嶷—石勒制衡显示跨对象优先级判断；晚期宫殿、供奉与军费资源错配真实但只达DW2。近幸、杀谏和储位清洗退出C1。",
-          "position_basis": "后期资源错配限制上沿；政治伦理与信息问题不重复计入。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P097-CHANGAN-PRIORITY",
-              "C1-P097-CAOYI-SHILE-BALANCE",
-              "C1-P097-LATE-RESOURCE-MISMATCH"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "CLOSED",
-            "low_grade_gate": {
-              "status": "CLOSED",
-              "inherited_bad_hand": "REVIEWED",
-              "feasible_alternative": "REVIEWED_IN_PARENT_CHAIN",
-              "feedback_reachability": "REVIEWED_IN_PARENT_CHAIN",
-              "stop_loss": "REVIEWED_IN_PARENT_CHAIN"
-            }
-          },
-          "limitations": [
-            "后期资源错配限制上沿；政治伦理与信息问题不重复计入。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 3,
-          "formal_order": 85
-        },
-        {
-          "sequence": 104,
-          "ruler_id": "RULER-SHADOW-姚兴",
-          "task_code": "PROFILE-C1-RULER-SHADOW-姚兴",
-          "ruler_name": "姚兴",
-          "polity": "十六国",
-          "actual_power_window": "393—416年",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G3",
-          "position": "MID",
-          "score_100": 65,
-          "radar_value": 65,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-姚兴",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P104-PEACE-AND-REVERSAL",
-              "direction": "MIXED_POSITIVE",
-              "intensity": "MI4",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P104-JIN-PEACE",
-                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P104-SOUTHLING-GUZANG",
-                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-姚兴/traits/A2/0"
-              ],
-              "direct_process_refs": [
-                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7117",
-                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7118",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-YAOXING-HEIR-CAPTURE-001",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-YAOXING-LAW-ADMINISTRATION-001",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L120",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L125",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L126",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L127",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L152",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L153",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L154",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L155",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L156"
-              ],
-              "cycle_basis": "东晋可战可和；本人不顾内部反对，以十二郡换南线和平并完成交接。对南凉则以牲畜官号换姑臧，听当地请留王尚后反悔但追使不及，显示条件判断不稳；晚期姚弼风险反馈又迟迟不处置。"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P104-PEACE-AND-REVERSAL"
-          ],
-          "typical_pattern": "能以归还十二郡换取南线和平并吸收制度建议，但姑臧交换反复、晚期多线战争与储位党争显示持续性不足。",
-          "counterpattern": {
-            "positive_parent_refs": [
-              "C1-P104-PEACE-AND-REVERSAL"
-            ],
-            "counter_parent_refs": []
-          },
-          "grade_basis": "能以归还十二郡换取南线和平并吸收制度建议，但姑臧交换反复、晚期多线战争与储位党争显示持续性不足。",
-          "position_basis": "强正负跨阶段相抵，不按领土得失换分。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P104-PEACE-AND-REVERSAL"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COVERAGE_CLOSED",
-            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
-            "low_grade_gate": {
-              "status": "NOT_REQUIRED",
-              "inherited_bad_hand": "NOT_REQUIRED",
-              "feasible_alternative": "NOT_REQUIRED",
-              "feedback_reachability": "NOT_REQUIRED",
-              "stop_loss": "NOT_REQUIRED"
-            }
-          },
-          "limitations": [
-            "强正负跨阶段相抵，不按领土得失换分。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 3,
-          "formal_order": 87
-        },
-        {
-          "sequence": 122,
-          "ruler_id": "RULER-SHADOW-沮渠蒙逊",
-          "task_code": "PROFILE-C1-RULER-SHADOW-沮渠蒙逊",
-          "ruler_name": "沮渠蒙逊",
-          "polity": "十六国",
-          "actual_power_window": "401—433年",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G3",
-          "position": "MID",
-          "score_100": 65,
-          "radar_value": 65,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-沮渠蒙逊",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P122-HEXI-MULTIPOLAR",
-              "direction": "MIXED_POSITIVE",
-              "intensity": "MI4",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P122-HEXI-MULTIPOLAR",
-                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-沮渠蒙逊/traits/A2/0"
-              ],
-              "direct_process_refs": [
-                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7129",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-MENGXUN-REMONSTRATOR-KILLING-001",
-                "docs/史料通读产物/唐以前编年/两晋/卷111-通读总结.md",
-                "docs/史料通读产物/唐以前编年/两晋/卷112-通读总结.md",
-                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/69",
-                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L377"
-              ],
-              "cycle_basis": "后凉、西凉、南凉、北魏并存时，本人通过通使、改盟、有限战争保存河西并适时撤救；跨年生存有效。诈降毁约与后期因外部战局迁怒杀言事官，显示风险控制以信用和反馈为代价。"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P122-HEXI-MULTIPOLAR"
-          ],
-          "typical_pattern": "河西多极环境下改盟与进退灵活、维持长期独立，但诈降毁约和杀言事官使信用与反馈风险反复。",
-          "counterpattern": {
-            "positive_parent_refs": [
-              "C1-P122-HEXI-MULTIPOLAR"
-            ],
-            "counter_parent_refs": []
-          },
-          "grade_basis": "河西多极环境下改盟与进退灵活、维持长期独立，但诈降毁约和杀言事官使信用与反馈风险反复。",
-          "position_basis": "条件细节较薄，强正负并存取G3。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P122-HEXI-MULTIPOLAR"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COVERAGE_CLOSED",
-            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
-            "low_grade_gate": {
-              "status": "NOT_REQUIRED",
-              "inherited_bad_hand": "NOT_REQUIRED",
-              "feasible_alternative": "NOT_REQUIRED",
-              "feedback_reachability": "NOT_REQUIRED",
-              "stop_loss": "NOT_REQUIRED"
-            }
-          },
-          "limitations": [
-            "条件细节较薄，强正负并存取G3。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 3,
-          "formal_order": 89
-        },
-        {
-          "sequence": 105,
-          "ruler_id": "RULER-SHADOW-姚苌",
-          "task_code": "PROFILE-C1-RULER-SHADOW-姚苌",
-          "ruler_name": "姚苌",
-          "polity": "十六国",
-          "actual_power_window": "384—393年",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G3",
-          "position": "LOW",
-          "score_100": 58,
-          "radar_value": 58,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-姚苌",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P105-FOUNDING-AND-SURRENDER",
-              "direction": "MIXED_NEGATIVE",
-              "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-107-LATERCIN-REBELS-390",
-                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-104-XIANGYANG-378-379",
-                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.json#WAR-LEAD-105-GUANZHONG-384",
-                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P105-XINPING-SURRENDER"
-              ],
-              "direct_process_refs": [
-                "WAR-LEAD-105-GUANZHONG-384",
-                "WAR-LEAD-107-LATERCIN-REBELS-390",
-                "WAR-LEAD-104-XIANGYANG-378-379",
-                "docs/史料通读产物/唐以前编年/两晋/卷106-通读总结.md#L55",
-                "docs/史料通读产物/唐以前编年/两晋/卷106-通读总结.md#L56",
-                "docs/史料通读产物/唐以前编年/两晋/卷106-通读总结.md#L57",
-                "docs/史料通读产物/唐以前编年/两晋/卷106-通读总结.md#L58"
-              ],
-              "cycle_basis": "苻坚体系崩解后利用渭北羌户建基是可行路径；新平粮尽时可守约纳降或继续围攻，本人明确允城民返长安，出城后立即坑杀五千，短期取城换长期受降风险且无纠正。"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P105-FOUNDING-AND-SURRENDER"
-          ],
-          "typical_pattern": "前秦崩解中抓住羌户组织建立后秦，能接受直谏；但新平诈降后坑杀彻底破坏受降信用。",
-          "counterpattern": {
-            "positive_parent_refs": [],
-            "counter_parent_refs": [
-              "C1-P105-FOUNDING-AND-SURRENDER"
-            ]
-          },
-          "grade_basis": "前秦崩解中抓住羌户组织建立后秦，能接受直谏；但新平诈降后坑杀彻底破坏受降信用。",
-          "position_basis": "草创九年且一正一负，取G3低位。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P105-FOUNDING-AND-SURRENDER"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
-            "low_grade_gate": {
-              "status": "NOT_REQUIRED",
-              "inherited_bad_hand": "NOT_REQUIRED",
-              "feasible_alternative": "NOT_REQUIRED",
-              "feedback_reachability": "NOT_REQUIRED",
-              "stop_loss": "NOT_REQUIRED"
-            }
-          },
-          "limitations": [
-            "草创九年且一正一负，取G3低位。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 3,
-          "formal_order": 100
-        },
-        {
-          "sequence": 109,
-          "ruler_id": "RULER-SHADOW-慕容垂",
-          "task_code": "PROFILE-C1-RULER-SHADOW-慕容垂",
-          "ruler_name": "慕容垂",
-          "polity": "十六国",
-          "actual_power_window": "384—396年",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G2",
-          "position": "HIGH",
-          "score_100": 51,
-          "radar_value": 51,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-慕容垂",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P109-HEBEI-RESTORATION",
-              "direction": "POSITIVE",
-              "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "晋书/卷123#慕容垂河北复国",
-                "資治通鑑/卷107#河北建基"
-              ],
-              "direct_process_refs": [
-                "晋书/卷123#慕容垂河北复国",
-                "資治通鑑/卷107#河北建基"
-              ],
-              "cycle_basis": "在前秦崩解窗口中整合旧部、选择河北建基并恢复政权。",
-              "diagnostic_role": "PS2"
-            },
-            {
-              "parent_id": "C1-P109-CANHEBEI-COUNTER",
-              "direction": "NEGATIVE",
-              "intensity": "MI2",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY"
-              ],
-              "source_refs": [
-                "魏书/卷32#高湖预警参合陂",
-                "資治通鑑/卷108#拒绝轻敌预警"
-              ],
-              "direct_process_refs": [
-                "魏书/卷32#高湖预警参合陂",
-                "資治通鑑/卷108#拒绝轻敌预警"
-              ],
-              "cycle_basis": "高湖明确指出太子轻敌风险后仍投入主力，形成高诊断力风险失配。",
-              "diagnostic_role": "DW3"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P109-HEBEI-RESTORATION",
-            "C1-P109-CANHEBEI-COUNTER"
-          ],
-          "typical_pattern": "前秦崩解中重建河北政权形成完整正向周期；参合陂前明确轻敌预警被拒仍构成DW3，索马扣使仅作共享归责背景。",
-          "counterpattern": {
-            "positive_parent_refs": [
-              "C1-P109-HEBEI-RESTORATION"
-            ],
-            "counter_parent_refs": [
-              "C1-P109-CANHEBEI-COUNTER"
-            ]
-          },
-          "grade_basis": "前秦崩解中重建河北政权形成完整正向周期；参合陂前明确轻敌预警被拒仍构成DW3，索马扣使仅作共享归责背景。",
-          "position_basis": "复国正链阻止降G1；索马扣使不再承担本人独占负证。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P109-HEBEI-RESTORATION",
-              "C1-P109-CANHEBEI-COUNTER"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "CLOSED",
-            "low_grade_gate": {
-              "status": "NOT_REQUIRED",
-              "inherited_bad_hand": "NOT_REQUIRED",
-              "feasible_alternative": "NOT_REQUIRED",
-              "feedback_reachability": "NOT_REQUIRED",
-              "stop_loss": "NOT_REQUIRED"
-            }
-          },
-          "limitations": [
-            "复国正链阻止降G1；索马扣使不再承担本人独占负证。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 2,
-          "formal_order": 114
+          "formal_order": 128
         },
         {
           "sequence": 92,
@@ -1178,9 +1683,9 @@
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
           "axis_grade": "G2",
-          "position": "MID",
-          "score_100": 45,
-          "radar_value": 45,
+          "position": "LOW",
+          "score_100": 38,
+          "radar_value": 38,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -1227,7 +1732,7 @@
               "C1-P092-ALLIANCE-AND-ENVOY"
             ]
           },
-          "grade_basis": "能抓住政变窗口并恢复有限政权，但创业联盟安置和对魏使节风险均在明确预警下失衡。",
+          "grade_basis": "早期有真实建国—官僚配置正证，但已有外部/联盟`DW3`，又新增中晚期内部安全与交班`DW2`。整体比原G2中位更差，但仍有长期可用的正向组织能力，不入G1。 由`G2-MID / 45`下调为**`G2-LOW / 38`**。",
           "position_basis": "北燕弱势限制结果归责；快速平叛和劝农正链阻止降G1。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -1257,373 +1762,7 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 2,
-          "formal_order": 128
-        },
-        {
-          "sequence": 126,
-          "ruler_id": "RULER-SHADOW-苻坚",
-          "task_code": "PROFILE-C1-RULER-SHADOW-苻坚",
-          "ruler_name": "苻坚",
-          "polity": "十六国",
-          "actual_power_window": "357—385年",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G2",
-          "position": "MID",
-          "score_100": 45,
-          "radar_value": 45,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-苻坚",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P126-EARLY-CONSOLIDATION",
-              "direction": "POSITIVE",
-              "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "晋书/卷113#前秦整合降主与恢复生产"
-              ],
-              "direct_process_refs": [
-                "晋书/卷113#前秦整合降主与恢复生产"
-              ],
-              "cycle_basis": "前中期以分层安置、恢复承载和选择性扩张整合北方。",
-              "diagnostic_role": "PS3"
-            },
-            {
-              "parent_id": "C1-P126-FEISHUI-OVERREACH",
-              "direction": "NEGATIVE",
-              "intensity": "MI2",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY"
-              ],
-              "source_refs": [
-                "晋书/卷114#淝水南征反对意见",
-                "資治通鑑/卷102#拒绝南征反证"
-              ],
-              "direct_process_refs": [
-                "晋书/卷114#淝水南征反对意见",
-                "資治通鑑/卷102#拒绝南征反证"
-              ],
-              "cycle_basis": "优势条件下拒绝多轮反对并把国家级资源投入高暴露南征，形成DW3。",
-              "diagnostic_role": "DW3"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P126-EARLY-CONSOLIDATION",
-            "C1-P126-FEISHUI-OVERREACH"
-          ],
-          "typical_pattern": "前中期整合降主、恢复生产和分层安置形成强正向模式；统一优势下无视持续反证发动淝水南征，风险隔离与目标承载发生高诊断力崩盘。",
-          "counterpattern": {
-            "positive_parent_refs": [
-              "C1-P126-EARLY-CONSOLIDATION"
-            ],
-            "counter_parent_refs": [
-              "C1-P126-FEISHUI-OVERREACH"
-            ]
-          },
-          "grade_basis": "前中期整合降主、恢复生产和分层安置形成强正向模式；统一优势下无视持续反证发动淝水南征，风险隔离与目标承载发生高诊断力崩盘。",
-          "position_basis": "前中期强正链阻止降G1；淝水DW3不因败亡结果本身生成，而来自明确反证与可行替代被拒。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P126-EARLY-CONSOLIDATION",
-              "C1-P126-FEISHUI-OVERREACH"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "CLOSED",
-            "low_grade_gate": {
-              "status": "NOT_REQUIRED",
-              "inherited_bad_hand": "NOT_REQUIRED",
-              "feasible_alternative": "NOT_REQUIRED",
-              "feedback_reachability": "NOT_REQUIRED",
-              "stop_loss": "NOT_REQUIRED"
-            }
-          },
-          "limitations": [
-            "前中期强正链阻止降G1；淝水DW3不因败亡结果本身生成，而来自明确反证与可行替代被拒。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 2,
-          "formal_order": 129
-        },
-        {
-          "sequence": 103,
-          "ruler_id": "RULER-SHADOW-吕光",
-          "task_code": "PROFILE-C1-RULER-SHADOW-吕光",
-          "ruler_name": "吕光",
-          "polity": "十六国",
-          "actual_power_window": "386—399年",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G2",
-          "position": "LOW",
-          "score_100": 38,
-          "radar_value": 38,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-吕光",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P103-FOUNDING-TO-DECLINE",
-              "direction": "MIXED_NEGATIVE",
-              "intensity": "MI4",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-106-LVGUANG-385",
-                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-107-LIANG-387",
-                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-吕光/traits/A2/0",
-                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-SHADOW-吕光"
-              ],
-              "direct_process_refs": [
-                "WAR-LEAD-106-LVGUANG-385",
-                "WAR-LEAD-107-LIANG-387",
-                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7122",
-                "https://zh.wikisource.org/w/index.php?title=%E6%99%89%E6%9B%B8%2F%E5%8D%B7122&oldid=1554250",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-LVGUANG-FEEDBACK-CORRECTION-001",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-LVGUANG-LATE-FEEDBACK-FAILURE-001"
-              ],
-              "cycle_basis": "东归河西建基是坏牌下可行换路；中期听段业批评转宽简，证明反馈能达。晚年对西秦多路进攻、主将败死后仅撤回，又信谗杀沮渠氏官员引发持续反叛，内战强迁与饥荒未获修复。"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P103-FOUNDING-TO-DECLINE"
-          ],
-          "typical_pattern": "能在前秦崩解后把西征军转为河西政权，亦曾因严刑批评调整；晚年多线用兵、信谗杀官和饥荒反馈中退化。",
-          "counterpattern": {
-            "positive_parent_refs": [],
-            "counter_parent_refs": [
-              "C1-P103-FOUNDING-TO-DECLINE"
-            ]
-          },
-          "grade_basis": "能在前秦崩解后把西征军转为河西政权，亦曾因严刑批评调整；晚年多线用兵、信谗杀官和饥荒反馈中退化。",
-          "position_basis": "创业正链和局部纠正阻止降G1。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P103-FOUNDING-TO-DECLINE"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
-            "low_grade_gate": {
-              "status": "NOT_REQUIRED",
-              "inherited_bad_hand": "NOT_REQUIRED",
-              "feasible_alternative": "NOT_REQUIRED",
-              "feedback_reachability": "NOT_REQUIRED",
-              "stop_loss": "NOT_REQUIRED"
-            }
-          },
-          "limitations": [
-            "创业正链和局部纠正阻止降G1。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 2,
-          "formal_order": 141
-        },
-        {
-          "sequence": 124,
-          "ruler_id": "RULER-SHADOW-石虎",
-          "task_code": "PROFILE-C1-RULER-SHADOW-石虎",
-          "ruler_name": "石虎",
-          "polity": "十六国",
-          "actual_power_window": "333—349年实际主政",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G0",
-          "position": "MID",
-          "score_100": 7,
-          "radar_value": 7,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-石虎",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P124-SYSTEMIC-OVERLOAD",
-              "direction": "NEGATIVE",
-              "intensity": "MI4",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-石虎",
-                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-石虎/traits/A2/0"
-              ],
-              "direct_process_refs": [
-                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7106",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-SHIHU-REMONSTRANCE-SUPPRESSION-001",
-                "docs/史料通读产物/唐以前编年/两晋/卷094-通读总结.md",
-                "docs/史料通读产物/唐以前编年/两晋/卷095-通读总结.md"
-              ],
-              "cycle_basis": "可维持既有恢复、有限边防或全面动员；本人把全国征役、宫苑和战争叠加，卖子、自缢、大量死亡已反馈，仍杀谏臣并立私论偶语律，使朝臣以目、纠错终止。"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P124-SYSTEMIC-OVERLOAD"
-          ],
-          "typical_pattern": "继承石勒可运行基础后以宫苑、征役和多线军事动员持续抽空承载，社会崩解与群臣杜口反馈中仍无退出。",
-          "counterpattern": {
-            "positive_parent_refs": [],
-            "counter_parent_refs": [
-              "C1-P124-SYSTEMIC-OVERLOAD"
-            ]
-          },
-          "grade_basis": "继承石勒可运行基础后以宫苑、征役和多线军事动员持续抽空承载，社会崩解与群臣杜口反馈中仍无退出。",
-          "position_basis": "早期军事实践不抵消最高主政期主模式；不因暴行标签而是按承载与反馈闭环定G0。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P124-SYSTEMIC-OVERLOAD"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
-            "low_grade_gate": {
-              "status": "CLOSED",
-              "inherited_bad_hand": "REVIEWED",
-              "feasible_alternative": "REVIEWED_IN_PARENT_CHAIN",
-              "feedback_reachability": "REVIEWED_IN_PARENT_CHAIN",
-              "stop_loss": "REVIEWED_IN_PARENT_CHAIN"
-            }
-          },
-          "limitations": [
-            "早期军事实践不抵消最高主政期主模式；不因暴行标签而是按承载与反馈闭环定G0。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 0,
-          "formal_order": 178
-        },
-        {
-          "sequence": 130,
-          "ruler_id": "RULER-SHADOW-赫连勃勃",
-          "task_code": "PROFILE-C1-RULER-SHADOW-赫连勃勃",
-          "ruler_name": "赫连勃勃",
-          "polity": "十六国",
-          "actual_power_window": "407—425年",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G0",
-          "position": "MID",
-          "score_100": 7,
-          "radar_value": 7,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-赫连勃勃",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P130-COERCIVE-OVERLOAD",
-              "direction": "NEGATIVE",
-              "intensity": "MI4",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-赫连勃勃",
-                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-赫连勃勃/traits/A2/0",
-                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P130-LATERCIN-BREAK"
-              ],
-              "direct_process_refs": [
-                "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7130",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#I2-SK-HELIAN-FEEDBACK-TERROR-001",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md",
-                "docs/史料通读产物/唐以前编年/两晋/卷115-通读总结.md",
-                "docs/史料通读产物/唐以前编年/两晋/卷114-通读总结.md#L201",
-                "docs/史料通读产物/唐以前编年/两晋/卷115-通读总结.md#L134"
-              ],
-              "cycle_basis": "可依后秦、有限独立或高压扩张；本人杀庇护者、背盟后以统万工程和连续战争强征，民无生赖反馈下仍对直视、发笑、进谏者毁目割舌杀害，系统消灭纠错。"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P130-COERCIVE-OVERLOAD"
-          ],
-          "typical_pattern": "强邻夹缝中建国虽有机会识别，但长期以超大工程、高压征役和毁灭反馈通道支撑扩张，无承载与退出。",
-          "counterpattern": {
-            "positive_parent_refs": [],
-            "counter_parent_refs": [
-              "C1-P130-COERCIVE-OVERLOAD"
-            ]
-          },
-          "grade_basis": "强邻夹缝中建国虽有机会识别，但长期以超大工程、高压征役和毁灭反馈通道支撑扩张，无承载与退出。",
-          "position_basis": "不因暴行名声定档；G0由跨阶段承载错配与反馈封闭闭合。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P130-COERCIVE-OVERLOAD"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
-            "low_grade_gate": {
-              "status": "CLOSED",
-              "inherited_bad_hand": "REVIEWED",
-              "feasible_alternative": "REVIEWED_IN_PARENT_CHAIN",
-              "feedback_reachability": "REVIEWED_IN_PARENT_CHAIN",
-              "stop_loss": "REVIEWED_IN_PARENT_CHAIN"
-            }
-          },
-          "limitations": [
-            "不因暴行名声定档；G0由跨阶段承载错配与反馈封闭闭合。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 0,
-          "formal_order": 179
+          "formal_order": 156
         }
       ]
     }

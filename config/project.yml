@@ -45,6 +45,7 @@ formal_json_routing:
 formal_settlements:
   first_item:
     max_points: 240
+    component_max_points: {A: 120, B1: 50, B2: 30, C: 40}
     role: conditional_founder_add_on
     authority_mode: markdown_settlement_source
     military_cost_status: fully_adjudicated_net_score_active
@@ -62,6 +63,12 @@ formal_settlements:
       - docs/评分结算/第一项政权奠基与统一贡献及能力/04-第一项C本人军事统帅与战争解题能力正式结算.md
   second_item:
     range: [-27.5, 387]
+    adopted_next_result_mechanism:
+      version: GOVERNANCE-STATE-RECOVERY-V3
+      contract: docs/分项规则/第二项治国净收益/财政民生/02-主态低谷与净恢复机制.md
+      status: UNIFORMLY_ACTIVE_CANONICAL_POOL
+      score_active: true
+      adjudications: config/second-item/governance-state-recovery-adjudications.json
     role: common_governance
     json: docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json
     markdown: docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.md

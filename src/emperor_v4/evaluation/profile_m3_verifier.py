@@ -274,7 +274,6 @@ def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = N
     scale_distribution: Counter[str] = Counter()
     reader_source_count_distribution: Counter[str] = Counter()
     c4_reader_modes: Counter[str] = Counter()
-    k_structure_distribution: Counter[str] = Counter()
     for row in records:
         key = (row["axis_grade"], row["position"])
         if key not in GRADE_PROJECTION:
@@ -352,8 +351,14 @@ def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = N
                 raise ValueError(f"M3 upstream component drift: {row['ruler_id']} {axis}")
         evidence = row.get("ability_evidence") or {}
         sync = evidence.get("upstream_sync") or {}
-        if sync.get("status") != "SYNCED_TO_FORMAL_C1_C4_2026_09_03":
+        if sync.get("status") != "SYNCED_TO_FORMAL_GOVERNANCE_V3":
             raise ValueError(f"M3 upstream sync status missing: {row['ruler_id']}")
+        expected_loss = {
+            axis: {"grade": upstream[axis][row["ruler_id"]].get("loss_grade"), "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"}
+            for axis in ("C1", "C2", "C3")
+        }
+        if evidence.get("state_loss_basis") != expected_loss:
+            raise ValueError(f"M3 upstream loss basis drift: {row['ruler_id']}")
         gate = evidence.get("governance_scale_gate") or {}
         scale_status = gate.get("status")
         if scale_status not in {
@@ -443,7 +448,7 @@ def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = N
             raise ValueError(f"M3 stale C4 cost summary: {row['ruler_id']}")
         if f"{row['axis_grade']}-{row['position']}" not in row["typical_pattern"]:
             raise ValueError(f"M3 stale final-grade narrative: {row['ruler_id']}")
-        expected_k_basis = {
+        expected_legacy_diagnostic = {
             axis: {
                 "K_grade": upstream[axis][row["ruler_id"]]["stability_class_diagnostic_only"],
                 "source_axis": axis,
@@ -451,21 +456,20 @@ def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = N
             }
             for axis in ("C1", "C2", "C3")
         }
-        if evidence.get("stability_k_basis") != expected_k_basis:
-            raise ValueError(f"M3 upstream K basis drift: {row['ruler_id']}")
+        if evidence.get("stability_k_basis") != expected_legacy_diagnostic:
+            raise ValueError(f"M3 historical diagnostic basis drift: {row['ruler_id']}")
+        if any(
+            field in evidence
+            for field in ("stability_k_public_basis", "stability_k_structure_status")
+        ):
+            raise ValueError(f"M3 redundant historical diagnostic metadata remains: {row['ruler_id']}")
         if "weighted_K" in evidence:
-            raise ValueError(f"M3 retains retired weighted K: {row['ruler_id']}")
-        expected_k_status = "DIRECT_FORMAL_C1_C3"
-        if evidence.get("stability_k_structure_status") != expected_k_status:
-            raise ValueError(f"M3 K structure status drift: {row['ruler_id']}")
+            raise ValueError(f"M3 retains retired weighted stability field: {row['ruler_id']}")
         stability = trajectory.get("stability_score_18")
         if not isinstance(stability, (int, float)) or not 0 <= float(stability) <= 18:
             raise ValueError(f"M3 stability adjudication invalid: {row['ruler_id']}")
-        if evidence.get("upstream_sync", {}).get("k_source") != "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC":
-            raise ValueError(f"M3 K source declaration drift: {row['ruler_id']}")
         if evidence.get("upstream_sync", {}).get("c4_source_scope") != "RECOVERY_DETERIORATION_DA_ONLY":
             raise ValueError(f"M3 C4 source scope drift: {row['ruler_id']}")
-        k_structure_distribution[expected_k_status] += 1
         start = trajectory["start_vector"]
         main = trajectory["main_vector"]
         peak = trajectory["peak_vector"]
@@ -557,8 +561,8 @@ def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = N
     if reader_contract.get("source_count_distribution") != dict(reader_source_count_distribution):
         raise ValueError("M3 reader source-count distribution mismatch")
     upstream_summary = settlement["summary"].get("upstream_sync") or {}
-    if upstream_summary.get("k_structure_distribution") != dict(k_structure_distribution):
-        raise ValueError("M3 K structure distribution mismatch")
+    if any(field in upstream_summary for field in ("stability_k_source", "k_structure_distribution")):
+        raise ValueError("M3 redundant historical diagnostic summary remains")
     return {
         "status": "PASS",
         "record_count": len(records),
@@ -567,7 +571,6 @@ def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = N
             row["score_status"] == "EVIDENCE_LIMITED" for row in records
         ),
         "scale_gate_distribution": dict(scale_distribution),
-        "k_structure_distribution": dict(k_structure_distribution),
     }
 
 

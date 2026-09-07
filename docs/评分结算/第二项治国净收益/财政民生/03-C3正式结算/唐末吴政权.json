@@ -8,7 +8,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "江淮由战争、饥乱和流散的崩解状态恢复，史载招抚流移后数年“几复承平之旧”，足以闭合基本社会秩序；但本人窗口长期处于军争环境，后期田頵、安仁义等内部武装反复形成独立区域低谷，故主态C3-3、K2，不以轻徭薄赋等C1材料抬档。 证据链：战乱后招抚流移、数年接近承平；后期控制区仍发生田頵、安仁义等武装反复。",
+          "adjudication_reason": "江淮由战争、饥乱和流散的崩解状态恢复，史载招抚流移后数年“几复承平之旧”，足以闭合基本社会秩序； 证据链：战乱后招抚流移、数年接近承平；后期控制区仍发生田頵、安仁义等武装反复。",
           "authority_attribution": "只消费本人主要控制区和883—905年实际主政窗口。",
           "confidence": "HIGH",
           "evidence": [
@@ -25,15 +25,16 @@
           ],
           "main_band": "C3-3",
           "polity": "唐末吴政权",
-          "rank": 97,
+          "rank": 114,
           "reign_range": "883—905年淮南实际主政",
           "ruler_id": "RULER-SHADOW-杨行密",
           "ruler_name": "杨行密",
-          "score": 26.9,
+          "score": 20.8,
           "stability_class_diagnostic_only": "K2",
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -61,7 +62,37 @@
               "book": "《新五代史》卷61",
               "original_text": "轻徭薄赋，招抚流移，未及数载，几复承平之旧。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "早期强迁流散及后期内部武装反复为持续严重安全低谷，不仅按叛乱名称。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-杨行密",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "早期强迁流散及后期内部武装反复为持续严重安全低谷，不仅按叛乱名称。",
+              "strong_dimensions": [
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "江淮由战争、饥乱和流散的崩解状态恢复，史载招抚流移后数年“几复承平之旧”，足以闭合基本社会秩序； 证据链：战乱后招抚流移、数年接近承平；后期控制区仍发生田頵、安仁义等武装反复。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "《新五代史》卷六十一",
+                "《十国春秋》卷一",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7257",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7259"
+              ]
+            },
+            "score": 20.8
+          }
         }
       ]
     }

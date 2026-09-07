@@ -9,7 +9,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "梁中前期长期承平足以通过受约束系统推断维持四档主态；侯景之乱后，入援军队过淮即纵兵剽掠、建康士民扶老携幼逃难，台城陷后侍卫崩散且侯景纵兵掠夺，普通人身财产安全与基层秩序已经系统崩解，故S_end一档、K0。饥荒死亡、财政军政失衡及战争胜负不再作为C3核心证据。",
+          "adjudication_reason": "梁中前期长期承平足以通过受约束系统推断维持四档主态；饥荒死亡、财政军政失衡及战争胜负不再作为C3核心证据。",
           "authority_attribution": "502—549年本人最高权力；侯景之乱只消费已经发生的人身财产安全和基层秩序后果，不以战争胜负机械降档。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -28,18 +28,19 @@
           ],
           "main_band": "C3-4",
           "polity": "梁",
-          "rank": 44,
+          "rank": 38,
           "reign_range": [
             502,
             549
           ],
           "ruler_id": "RULER-SHADOW-萧衍",
           "ruler_name": "萧衍",
-          "score": 33.6,
+          "score": 32.8,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-4",
+            "S_avg": "C3-4",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -63,10 +64,37 @@
               "book": "《资治通鉴》卷162",
               "original_text": "于是悉撤两宫侍卫，纵兵掠乘舆服御，宫人皆尽收……建康士民逃难四出。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "援军纵掠、建康居民逃难及台城后掠夺为核心广泛严重居民低谷。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-萧衍",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "援军纵掠、建康居民逃难及台城后掠夺为核心广泛严重居民低谷。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "梁中前期长期承平足以通过受约束系统推断维持四档主态；饥荒死亡、财政军政失衡及战争胜负不再作为C3核心证据。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "《资治通鉴》共享通读卡正文"
+              ]
+            },
+            "score": 32.8
+          }
         },
         {
-          "adjudication_reason": "侯景被平后江陵中枢和荆州核心仍能维持基本行政，不能把梁末总体崩坏直接判作萧绎全任一档；但本人为政尚严、司法残酷，加之与萧纪等内战使安全长期脆弱，主态二档。554年西魏围江陵后城防、司法和居民保护全面瓦解，终点一档，故K0。",
+          "adjudication_reason": "侯景被平后江陵中枢和荆州核心仍能维持基本行政，不能把梁末总体崩坏直接判作萧绎全任一档；但本人为政尚严、司法残酷，加之与萧纪等内战使安全长期脆弱，主态二档。554年西魏围江陵后城防、司法和居民保护全面瓦解，终点一档，故历史低谷标签。",
           "authority_attribution": "552—554年本人实际最高权力；侯景之乱遗产只用于起点，554年江陵陷落即退出实际最高权力，身后被杀不延长窗口。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -84,7 +112,7 @@
           ],
           "main_band": "C3-2",
           "polity": "梁",
-          "rank": 163,
+          "rank": 152,
           "reign_range": [
             552,
             555
@@ -92,7 +120,6 @@
           "ruler_id": "RULER-SHADOW-萧绎",
           "ruler_name": "萧绎",
           "score": 14.7,
-          "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",

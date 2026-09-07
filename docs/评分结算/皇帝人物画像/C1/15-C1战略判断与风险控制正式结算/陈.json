@@ -4,9 +4,9 @@
   "collections": {
     "records": {
       "positions": [
-        62,
-        129,
-        174
+        42,
+        139,
+        157
       ],
       "records": [
         {
@@ -19,10 +19,10 @@
           "axis_code": "C1",
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
-          "axis_grade": "G3",
-          "position": "HIGH",
-          "score_100": 71,
-          "radar_value": 71,
+          "axis_grade": "G4",
+          "position": "LOW",
+          "score_100": 77,
+          "radar_value": 77,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -45,26 +45,73 @@
               "direct_process_refs": [
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/53"
               ],
-              "cycle_basis": "陈初可继续军事扩张或先恢复；本人连续减军粮、劝农、给种、减税役，使低位转为基本运行，同时维持北齐北周间有限通使和边界安排。兵无宁岁与国用不足显示上限。"
+              "cycle_basis": "陈初可继续军事扩张或先恢复；本人连续减军粮、劝农、给种、减税役，使低位转为基本运行，同时维持北齐北周间有限通使和边界安排。兵无宁岁与国用不足显示上限。",
+              "diagnostic_role": "PS2"
+            },
+            {
+              "ruler_name": "陈蒨",
+              "parent_id": "C1-P133-LOCAL-GROUP-RECONFIG",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-陈蒨-CQ-P1",
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-SHADOW-陈蒨"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-陈蒨-CQ-P1",
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-SHADOW-陈蒨"
+              ],
+              "cycle_basis": "对梁末地方武装和高功集团分别使用婚姻、身份、封爵、分化与只追首恶的组合，形成与恢复承载周期不同的风险配置。",
+              "diagnostic_role": "PS2"
+            },
+            {
+              "parent_id": "C1-RR-166-NEGATIVE-MATERIALS",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-陈蒨",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P133-POSITIVE",
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-陈蒨-CQ-P1",
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-SHADOW-陈蒨"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/53",
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-陈蒨-CQ-P1",
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-SHADOW-陈蒨"
+              ],
+              "cycle_basis": "附件终审逐人材料吸纳：566年伯宗—陈顼交班留下明显资源不对称；陈昌死亡归责又存在重大史源疑点。 因此不能把继承写成第三条强正链，反而作为`DW2`级上沿限制。",
+              "diagnostic_role": "DW2"
             }
           ],
           "representative_parent_ids": [
-            "C1-P133-RECOVERY-PRIORITY"
+            "C1-P133-RECOVERY-PRIORITY",
+            "C1-P133-LOCAL-GROUP-RECONFIG",
+            "C1-RR-166-NEGATIVE-MATERIALS"
           ],
           "typical_pattern": "战后凋敝中优先减军粮、安流民与恢复征收承载，并以有限外部均势保政权；强国用约束限制高档。",
           "counterpattern": {
-            "positive_parent_refs": [
-              "C1-P133-RECOVERY-PRIORITY"
-            ],
-            "counter_parent_refs": []
+            "positive_parent_refs": "C1-P133-RECOVERY-PRIORITY C1-P133-LOCAL-GROUP-RECONFIG",
+            "counter_parent_refs": "C1-RR-166-NEGATIVE-MATERIALS"
           },
-          "grade_basis": "战后凋敝中优先减军粮、安流民与恢复征收承载，并以有限外部均势保政权；强国用约束限制高档。",
+          "grade_basis": "恢复承载、地方半自治集团、中央高功强制中心，至少三类不同问题中均出现完整资源—风险处置，整体达到PS3。 七年短窗、侯安都处置争议和继承不对称阻止G4中高位。 由`G3-HIGH / 71`上调为**`G4-LOW / 77`**。",
           "position_basis": "通使过程概括且短任，不入G4。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P133-RECOVERY-PRIORITY"
-            ],
+            "scoring_parent_refs": "C1-P133-RECOVERY-PRIORITY C1-P133-LOCAL-GROUP-RECONFIG C1-RR-166-NEGATIVE-MATERIALS",
             "result_nonconversion": true
           },
           "reviews": {
@@ -73,8 +120,8 @@
             "attribution": "CLOSED",
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
-            "density": "COVERAGE_CLOSED",
-            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "CLOSED",
             "low_grade_gate": {
               "status": "NOT_REQUIRED",
               "inherited_bad_hand": "NOT_REQUIRED",
@@ -87,8 +134,8 @@
             "通使过程概括且短任，不入G4。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 3,
-          "formal_order": 63
+          "grade_numeric": 4,
+          "formal_order": 43
         },
         {
           "sequence": 134,
@@ -129,7 +176,8 @@
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/chen.json#I2-QIN95-F---173-048-advice-reception-after-defeat",
                 "docs/史料通读产物/唐以前编年/南北朝/卷170-通读总结.md"
               ],
-              "cycle_basis": "安民保境、结好或继续北伐均可；蔡景历、毛喜提出师老将骄与寝兵结好，本人外放惩处仍推进。失败后承认意见、召回蔡氏是真纠正，但资源与控制损害已成且交班困顿。"
+              "cycle_basis": "安民保境、结好或继续北伐均可；蔡景历、毛喜提出师老将骄与寝兵结好，本人外放惩处仍推进。失败后承认意见、召回蔡氏是真纠正，但资源与控制损害已成且交班困顿。",
+              "diagnostic_role": "DW3"
             }
           ],
           "representative_parent_ids": [
@@ -142,7 +190,7 @@
               "C1-P134-NORTHERN-REVERSAL"
             ]
           },
-          "grade_basis": "前期能处理内部叛乱，后期不纳师老将骄预警继续北进；失败后承认并召回谏臣，但淮南所得已反转。",
+          "grade_basis": "北进`DW3`仍是主模式；蔡景历恢复证明有真实recourse，而叔陵链新增一个共享`DW2`。一正一负均是重要补充，但没有改变总体档位结构。 **维持`G2-MID / 45`。**",
           "position_basis": "北周崛起是外部结构，正向内部收束保留，故不降G1。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -172,7 +220,7 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 2,
-          "formal_order": 130
+          "formal_order": 140
         },
         {
           "sequence": 132,
@@ -184,10 +232,10 @@
           "axis_code": "C1",
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
-          "axis_grade": "G0",
-          "position": "HIGH",
-          "score_100": 12,
-          "radar_value": 12,
+          "axis_grade": "G2",
+          "position": "LOW",
+          "score_100": 38,
+          "radar_value": 38,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -214,14 +262,40 @@
                 "V175-LEAD-CHEN-SHULING-582"
               ],
               "cycle_basis": "强化江防、条件议和或组织多路防御均可；隋整合北方与进攻预警到达后，本人仍未匹配资源和指挥，危机中连续迟滞。亡国只验证，不因单一终局机械判低。"
+            },
+            {
+              "parent_id": "C1-RR-145-POSITIVE-MATERIALS",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#ruler_id=RULER-SHADOW-陈叔宝",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-SHADOW-陈叔宝"
+              ],
+              "direct_process_refs": [
+                "CHAIN-SUI-DESTROY-CHEN-587-589-CHENSHUBAO",
+                "SUI-UNIFICATION-587-589-CHENSHUBAO-SIDE",
+                "V175-LEAD-CHEN-SHULING-582"
+              ],
+              "cycle_basis": "附件终审逐人材料吸纳：陈叔宝是本批最明确的“原G0由单一亡国链压得过低”案例。 正式C1几乎只消费隋灭陈589生命周期；M1甚至把单一极端军事事件裁到G0-HIGH。但跨轴补查显示，582年刚即位时发生的叔陵袭击不是普通宫廷轶事：它是一场直接威胁最高权力的强制资源危机，而陈叔宝本人在其中完成了真实、可执行的应急资源重组。 因此不能继续写成“全生涯没有合法PS2”。；陈叔陵袭击太子/新帝后： - 长沙王陈叔坚控制叔陵； - 萧摩诃奉太子/新帝命出兵平乱； - 新帝受伤期间应急联盟维持宫廷安全； - 平乱后叔坚、萧摩诃获得高位与封赏。 真正进入C1的不是“有人救驾”，而是伤愈后的下一步： - 叔坚已经成为高资源宗室中心； - 继续留在中枢会形成新的强制双中心； - 立即杀掉救主者又会破坏刚形成的合作信用； - 陈叔宝先兑现功后地位，随后把叔坚外放江州，降低其直接中枢强制资源； - 联盟没有因此立即转成第二次武装冲突。 这是一条完整的**高压安全危机—资源重配—风险降阶**周期。 叔坚、萧摩诃承担很大执行份额，故不能写成高质量独占PS2。 **诊断：共享`PS2`。**",
+              "diagnostic_role": "PS2"
             }
           ],
           "representative_parent_ids": [
-            "C1-P132-SUI-INVASION"
+            "C1-P132-SUI-INVASION",
+            "C1-RR-145-POSITIVE-MATERIALS"
           ],
-          "typical_pattern": "隋统一压力与长江防线条件清楚时，备战、用将与危机响应在同一生命周期连续失效；未见退出或联盟替代。",
+          "typical_pattern": "陈叔宝是本批最明确的“原G0由单一亡国链压得过低”案例。 正式C1几乎只消费隋灭陈589生命周期；M1甚至把单一极端军事事件裁到G0-HIGH。但跨轴补查显示，582年刚即位时发生的叔陵袭击不是普通宫廷轶事：它是一场直接威胁最高权力的强制资源危机，而陈叔宝本人在其中完成了真实、可执行的应急资源重组。 因此不能继续写成“全生涯没有合法PS2”。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-RR-145-POSITIVE-MATERIALS"
+            ],
             "counter_parent_refs": [
               "C1-P132-SUI-INVASION"
             ]
@@ -231,7 +305,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P132-SUI-INVASION"
+              "C1-P132-SUI-INVASION",
+              "C1-RR-145-POSITIVE-MATERIALS"
             ],
             "result_nonconversion": true
           },
@@ -255,8 +330,8 @@
             "隋有压倒性优势且只一周期，故G0高位而非低位。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 0,
-          "formal_order": 175
+          "grade_numeric": 2,
+          "formal_order": 158
         }
       ]
     }

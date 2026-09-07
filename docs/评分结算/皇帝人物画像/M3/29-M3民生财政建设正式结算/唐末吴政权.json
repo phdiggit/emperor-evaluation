@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        14
+        53
       ],
       "records": [
         {
@@ -15,26 +15,26 @@
           "actual_power_window": "883—905年淮南实际主政",
           "axis_code": "M3",
           "axis_name": "民生财政建设",
-          "axis_grade": "G4",
-          "position": "LOW",
-          "score_100": 77,
-          "radar_value": 77,
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "score_100": 71,
+          "radar_value": 71,
           "components": {
             "C1": {
               "band": "C1-3",
-              "score": 32.0
+              "score": 22.4
             },
             "C2": {
               "band": "C2-4",
-              "score": 21.7
+              "score": 19.4
             },
             "C3": {
               "band": "C3-3",
-              "score": 26.9
+              "score": 20.8
             },
             "C4": {
               "band": "C4",
-              "score": 11.5
+              "score": 9.5
             }
           },
           "absolute_state_tier": 3,
@@ -85,7 +85,7 @@
               "deep_improvement_axis_count": 3,
               "retained_improvement_axis_count": 3,
               "rollback_axis_count": 1,
-              "recovery_score_27": 16.0,
+              "recovery_score_27": 14.0,
               "stability_score_18": 8.9,
               "start_tier": 1,
               "peak_tier": 3,
@@ -124,14 +124,13 @@
             "deterioration_penalty": 0.0,
             "destructive_amplification_penalty": 4.5,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
+              "status": "SYNCED_TO_FORMAL_GOVERNANCE_V3",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-杨行密",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-杨行密",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-杨行密",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-杨行密"
               ],
-              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
               "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
             "destructive_amplification_grade": "DA1",
@@ -152,8 +151,20 @@
                 "source_field": "stability_class_diagnostic_only"
               }
             },
-            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
-            "stability_k_public_basis": "当前C1—C3正式K为C1=K4、C2=K0、C3=K2；K不进入C4分。M3稳定兑现分8.9/18为本轴逐人裁决值。"
+            "state_loss_basis": {
+              "C1": {
+                "grade": "L3",
+                "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"
+              },
+              "C2": {
+                "grade": "L3",
+                "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"
+              },
+              "C3": {
+                "grade": "L3",
+                "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"
+              }
+            }
           },
           "dynamic_class": "POSITIVE_MAINTENANCE",
           "dynamic_label": "实现正向守成或温和改善",
@@ -163,16 +174,16 @@
           "output_mode": "BOUNDED_PROFILE",
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[1, 1, 1]、[3, 4, 3]、[3, 4, 3]、[3, 3, 3]；恢复16.0/27，稳定8.9/18；恶化扣减0.0，主动成本DA1/4.5。正式逐人裁决为G4-LOW。",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[1, 1, 1]、[3, 4, 3]、[3, 4, 3]、[3, 3, 3]；恢复14.0/27，稳定8.9/18；恶化扣减0.0，主动成本DA1/4.5。正式逐人裁决为G3-HIGH。",
           "counterpattern": "C4残余主动成本已正式裁为DA1；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
           "starting_context": "当前C1—C3正式曲线：接手[1, 1, 1]、主态[3, 4, 3]、最高实现[3, 4, 3]、交班[3, 3, 3]。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分16.0/27；直接读取C1—C3正式K（C1=K4、C2=K0、C3=K2）复核稳定兑现，M3逐人裁决稳定分为8.9/18；K与该稳定判断均不回写C4分。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分14.0/27；以三轴历史稳定诊断作独立画像复核，M3逐人裁决稳定分为8.9/18；该诊断不参与第二项状态计分，L不自动换算M3档位或稳定分，独立稳定判断不回写C4。",
           "costs_and_consequences": "交班局面为[3, 3, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA1，扣减4.5。",
           "behavior_chain": "S0为接手扬州后的治理窗口，902—905外战均在S0后。902主动攻宿州时大舰运粮受阻、士有饥色，最终因粮运不继而退；后勤负担明确但硬兵力不足DA2。 可归责恶化扣0.0分，DA1扣4.5分。",
           "handoff_state": "按交班向量[3, 3, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。",
-          "public_adjudication": "当前C1—C3正式曲线：接手[1, 1, 1]、主态[3, 4, 3]、最高实现[3, 4, 3]、交班[3, 3, 3]。 按正式档界公式重算恢复分16.0/27；直接读取C1—C3正式K（C1=K4、C2=K0、C3=K2）复核稳定兑现，M3逐人裁决稳定分为8.9/18；K与该稳定判断均不回写C4分。 S0为接手扬州后的治理窗口，902—905外战均在S0后。902主动攻宿州时大舰运粮受阻、士有饥色，最终因粮运不继而退；后勤负担明确但硬兵力不足DA2。 可归责恶化扣0.0分，DA1扣4.5分。 交班局面为[3, 3, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA1，扣减4.5。 按交班向量[3, 3, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G4。 当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
-          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G4。",
-          "position_basis": "当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[1, 1, 1]、主态[3, 4, 3]、最高实现[3, 4, 3]、交班[3, 3, 3]。 按正式档界公式重算恢复分16.0/27；直接读取C1—C3历史稳定诊断（C1=历史低谷标签、C2=历史低谷标签、C3=历史低谷标签）复核稳定兑现，M3逐人裁决稳定分为8.9/18；低谷修正与该稳定判断均不回写C4分。 S0为接手扬州后的治理窗口，902—905外战均在S0后。902主动攻宿州时大舰运粮受阻、士有饥色，最终因粮运不继而退；后勤负担明确但硬兵力不足DA2。 可归责恶化扣0.0分，DA1扣4.5分。 交班局面为[3, 3, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA1，扣减4.5。 按交班向量[3, 3, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。 当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。",
+          "position_basis": "当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
           "axis_relevance_check": {
             "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
             "component_codes": [
@@ -240,7 +251,12 @@
               "source_origin": "M3_SUPPLEMENT"
             }
           ],
-          "contract_version": "FORMAL-V3.6"
+          "contract_version": "FORMAL-V3.6",
+          "m3_v2_readjudication": {
+            "status": "APPLIED",
+            "basis": "V2将杨行密交班保留净恢复定为14.0/27；其三轴交班[3,3,3]、稳定兑现8.9/18，未满足M3 G4强建设门，降为G3-HIGH。",
+            "source_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-杨行密"
+          }
         }
       ]
     }

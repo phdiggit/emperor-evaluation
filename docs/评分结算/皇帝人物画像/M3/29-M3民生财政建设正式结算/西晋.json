@@ -22,11 +22,11 @@
           "components": {
             "C1": {
               "band": "C1-4",
-              "score": 50.5
+              "score": 45.3
             },
             "C2": {
               "band": "C2-4",
-              "score": 23.6
+              "score": 21.2
             },
             "C3": {
               "band": "C3-4",
@@ -124,14 +124,13 @@
             "deterioration_penalty": 0.0,
             "destructive_amplification_penalty": 4.5,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
+              "status": "SYNCED_TO_FORMAL_GOVERNANCE_V3",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马炎",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马炎",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马炎",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马炎"
               ],
-              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
               "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
             "destructive_amplification_grade": "DA1",
@@ -152,9 +151,21 @@
                 "source_field": "stability_class_diagnostic_only"
               }
             },
-            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
-            "stability_k_public_basis": "当前C1—C3正式K为C1=K1、C2=K4、C3=K4；K不进入C4分。M3稳定兑现分11.7/18为本轴逐人裁决值。",
-            "civilian_cost_review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-司马炎"
+            "civilian_cost_review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-司马炎",
+            "state_loss_basis": {
+              "C1": {
+                "grade": "L3",
+                "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"
+              },
+              "C2": {
+                "grade": "L2",
+                "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"
+              },
+              "C3": {
+                "grade": "L0",
+                "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"
+              }
+            }
           },
           "dynamic_class": "POSITIVE_MAINTENANCE",
           "dynamic_label": "实现正向守成或温和改善",
@@ -165,9 +176,9 @@
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
           "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 3, 3]、[4, 4, 4]、[4, 4, 4]、[4, 4, 4]；恢复10.0/27，稳定11.7/18；恶化扣减0.0，主动成本DA1/4.5。正式逐人裁决为G4-MID。",
-          "counterpattern": "太康后期自然灾害已由C1-K1消费，与灭吴供役分离。",
+          "counterpattern": "太康后期自然灾害已由C1低谷修正消费，与灭吴供役分离。",
           "starting_context": "当前C1—C3正式曲线：接手[3, 3, 3]、主态[4, 4, 4]、最高实现[4, 4, 4]、交班[4, 4, 4]。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分10.0/27；直接读取C1—C3正式K（C1=K1、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为11.7/18；K与该稳定判断均不回写C4分。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分10.0/27；以三轴历史稳定诊断作独立画像复核，M3逐人裁决稳定分为11.7/18；该诊断不参与第二项状态计分，L不自动换算M3档位或稳定分，独立稳定判断不回写C4。",
           "costs_and_consequences": "交班局面为[4, 4, 4]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA1，扣减4.5。",
           "behavior_chain": "三轴恢复与交班仍按既有本人建设链复核。主动灭吴的实质国家动员支持家庭供役下限；二十余万军不能直接转成显著民力档。",
           "handoff_state": "按交班向量[4, 4, 4]推导C4终局标签为C4T-4；M3单独读取交班保留，不把稳定分回写C4。",

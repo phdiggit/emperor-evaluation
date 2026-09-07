@@ -16,7 +16,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "世宗即位时正隆之乱后“盗贼公行，兵甲未息”，起点仅二档；其后大定七年出现“大兴府狱空”的实际司法结果，乱后被掠良人又有官赎、归业等身份与人身恢复，说明社会安全已经脱离战乱低位并进入可运行、较稳定状态。现有直接结果不足以闭合五档的多区域多轴长期高位，故主态和终点取C3-4。达到四档后未识别足以证明普通社会跌破四档的有效阶段；零散谋反指控不按政治案件数量机械降K，故K4。",
+          "adjudication_reason": "世宗即位时正隆之乱后“盗贼公行，兵甲未息”，起点仅二档；其后大定七年出现“大兴府狱空”的实际司法结果，乱后被掠良人又有官赎、归业等身份与人身恢复，说明社会安全已经脱离战乱低位并进入可运行、较稳定状态。现有直接结果不足以闭合五档的多区域多轴长期高位，故主态和终点取C3-4。达到四档后未识别足以证明普通社会跌破四档的有效阶段；",
           "confidence": "HIGH",
           "evidence": [
             {
@@ -26,16 +26,16 @@
                 "docs/史料通读产物/金/金史/volume-008.source-summary.md",
                 "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md"
               ],
-              "summary": "战后减役赈济、税地治理、禁抑配、官赎与长期和平共同使三轴从受损盘面恢复到稳定；恢复覆盖多阶段并有长期K承压。"
+              "summary": "战后减役赈济、税地治理、禁抑配、官赎与长期和平共同使三轴从受损盘面恢复到稳定；恢复覆盖多阶段并有长期低谷修正承压。"
             }
           ],
           "main_band": "C3-4",
           "polity": "金",
-          "rank": 10,
+          "rank": 26,
           "reign_range": "1161-1189",
           "ruler_id": "RULER-JIN-SHIZONG",
           "ruler_name": "完颜雍",
-          "score": 40.0,
+          "score": 35.8,
           "stability_class_diagnostic_only": "K4",
           "authority_attribution": "1161年辽阳称帝时与海陵政权短期并存，S0按本人最初实际控制区的受损盘面定C3-2；海陵C3-1终点对应其南征军变—弑君残余政权，属分裂/控制范围重构，不强行制造1=2的伪交班。其后只按世宗实际最高权力窗口结算。",
           "evidence_refs": [
@@ -44,6 +44,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-4",
+            "S_avg": "C3-4",
             "S_end": "C3-4"
           },
           "m3_supplement_review": {
@@ -71,10 +72,33 @@
               "book": "《金史》卷六",
               "original_text": "窝斡乱中被掠良人尚未放者，官为赎之。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "初期盗贼公行且被掠良人须赎归，实际人身低谷进入恢复审查，取实质。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-SHIZONG",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "初期盗贼公行且被掠良人须赎归，实际人身低谷进入恢复审查，取实质。",
+              "strong_dimensions": [],
+              "main_representativeness": "世宗即位时正隆之乱后“盗贼公行，兵甲未息”，起点仅二档；其后大定七年出现“大兴府狱空”的实际司法结果，乱后被掠良人又有官赎、归业等身份与人身恢复，说明社会安全已经脱离战乱低位并进入可运行、较稳定状态。现有直接结果不足以闭合五档的多区域多轴长期高位，故主态和终点取C3-4。达到四档后未识别足以证明普通社会跌破四档的有效阶段；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-SHIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-SHIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-SHIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-SHIZONG"
+              ]
+            },
+            "score": 35.8
+          }
         },
         {
-          "adjudication_reason": "减负、赈灾、宋岁币等C1/C2内容退出C3。熙宗前中期《金史》总评“四方无事”，说明社会秩序已从太宗末二档恢复到基本运行；但缺少司法救济和人身财产多轴结果，不上四档。末年“酗酒妄杀，人怀危惧”直接表明社会可预期性和人身安全回落二档，故2→3→2、K0。",
+          "adjudication_reason": "减负、赈灾、宋岁币等C1/C2内容退出C3。熙宗前中期《金史》总评“四方无事”，说明社会秩序已从太宗末二档恢复到基本运行；但缺少司法救济和人身财产多轴结果，不上四档。",
           "confidence": "HIGH",
           "evidence": [
             {
@@ -87,11 +111,11 @@
           ],
           "main_band": "C3-3",
           "polity": "金",
-          "rank": 122,
+          "rank": 86,
           "reign_range": "1135-1149",
           "ruler_id": "RULER-JIN-XIZONG",
           "ruler_name": "完颜亶",
-          "score": 25.8,
+          "score": 23.8,
           "stability_class_diagnostic_only": "K0",
           "authority_attribution": "只按本人实际最高权力窗口；战争外部冲击与本人放大责任分层。",
           "evidence_refs": [
@@ -100,6 +124,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-2"
           },
           "m3_supplement_review": {
@@ -123,10 +148,35 @@
               "book": "《金史》卷四",
               "original_text": "末年酗酒妄杀，人怀危惧。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "末年妄杀与人怀危惧为实质人身及可预期性损害，范围未证广泛灾难，不因历史低谷标签升档。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-XIZONG",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "末年妄杀与人怀危惧为实质人身及可预期性损害，范围未证广泛灾难，不因历史低谷标签升档。",
+              "strong_dimensions": [],
+              "main_representativeness": "减负、赈灾、宋岁币等C1/C2内容退出C3。熙宗前中期《金史》总评“四方无事”，说明社会秩序已从太宗末二档恢复到基本运行；但缺少司法救济和人身财产多轴结果，不上四档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-XIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-XIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-XIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-XIZONG",
+                "docs/史料通读产物/金/金史/volume-004.source-summary.md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md"
+              ]
+            },
+            "score": 23.8
+          }
         },
         {
-          "adjudication_reason": "承接世宗四档，但章宗期直接材料显示州县听讼“往往以权势自居，喜怒自任”，译人操纵罪轻重、货赂公行，冤者甚至二三十年不能正；又有外官不遵杖式、轻用大杖致人死。这不是单一个案，而是对州县司法运行的系统性描述，已经不满足C3-4“司法救济总体稳定”，故主态下修C3-3。泰和伐宋时山东盗贼起，构成一个实质性区域低谷，故K2；交班仍三档。",
+          "adjudication_reason": "承接世宗四档，但章宗期直接材料显示州县听讼“往往以权势自居，喜怒自任”，译人操纵罪轻重、货赂公行，冤者甚至二三十年不能正；又有外官不遵杖式、轻用大杖致人死。这不是单一个案，而是对州县司法运行的系统性描述，已经不满足C3-4“司法救济总体稳定”，故主态下修C3-3。交班仍三档。",
           "confidence": "HIGH",
           "evidence": [
             {
@@ -142,11 +192,11 @@
           ],
           "main_band": "C3-3",
           "polity": "金",
-          "rank": 97,
+          "rank": 86,
           "reign_range": "1189-1208",
           "ruler_id": "RULER-JIN-ZHANGZONG",
           "ruler_name": "完颜璟",
-          "score": 26.9,
+          "score": 23.8,
           "stability_class_diagnostic_only": "K2",
           "authority_attribution": "1189—1208本人最高权力；世宗四档只作起点，章宗任内司法运行和末期社会治安结果决定主态。",
           "evidence_refs": [
@@ -155,6 +205,7 @@
           "state_anchors": {
             "S0": "C3-4",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -182,10 +233,39 @@
               "book": "《金史·王扩传》",
               "original_text": "泰和伐宋，山东盗贼起。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "系统司法问题已进入三档，仅另计山东盗贼造成的实质区域安全低谷。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-ZHANGZONG",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "系统司法问题已进入三档，仅另计山东盗贼造成的实质区域安全低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "承接世宗四档，但章宗期直接材料显示州县听讼“往往以权势自居，喜怒自任”，译人操纵罪轻重、货赂公行，冤者甚至二三十年不能正；又有外官不遵杖式、轻用大杖致人死。这不是单一个案，而是对州县司法运行的系统性描述，已经不满足C3-4“司法救济总体稳定”，故主态下修C3-3。交班仍三档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-ZHANGZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-ZHANGZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-ZHANGZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-ZHANGZONG",
+                "docs/史料通读产物/金/金史/volume-009.source-summary.md",
+                "docs/史料通读产物/金/金史/volume-010.source-summary.md",
+                "docs/史料通读产物/金/金史/volume-011.source-summary.md",
+                "docs/史料通读产物/金/金史/volume-012.source-summary.md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 23.8
+          }
         },
         {
-          "adjudication_reason": "起点处于辽末战争与流离形成的广泛不安全。太祖时期控制区逐步形成基本法令和人口安置，至少可闭合C3-3；但长期征服背景下缺少广域司法救济与基层财产安全的四档结果锚。现有材料未证明恢复完成后另有独立跌破三档阶段，故2→3→3、K4。",
+          "adjudication_reason": "起点处于辽末战争与流离形成的广泛不安全。太祖时期控制区逐步形成基本法令和人口安置，至少可闭合C3-3；但长期征服背景下缺少广域司法救济与基层财产安全的四档结果锚。",
           "confidence": "HIGH",
           "evidence": [
             {
@@ -198,11 +278,11 @@
           ],
           "main_band": "C3-3",
           "polity": "金",
-          "rank": 46,
+          "rank": 75,
           "reign_range": "1115-1123",
           "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
           "ruler_name": "完颜阿骨打",
-          "score": 28.0,
+          "score": 26.2,
           "stability_class_diagnostic_only": "K4",
           "authority_attribution": "只按本人实际最高权力窗口；战争外部冲击与本人放大责任分层。",
           "evidence_refs": [
@@ -211,6 +291,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -240,10 +321,35 @@
               "book": "《契丹国志》卷12",
               "original_text": "致燕人流徙而失业。"
             }
-          ]
+          ],
+          "loss_grade": "L1",
+          "stability_basis": "战争流离与强制迁置在本人窗口有实际人身扰动，最低已证档，不仅由战争名扣。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-ROSTER-323631DDD7CB22F6",
+            "loss_review": {
+              "grade": "L1",
+              "basis": "战争流离与强制迁置在本人窗口有实际人身扰动，最低已证档，不仅由战争名扣。",
+              "strong_dimensions": [],
+              "main_representativeness": "起点处于辽末战争与流离形成的广泛不安全。太祖时期控制区逐步形成基本法令和人口安置，至少可闭合C3-3；但长期征服背景下缺少广域司法救济与基层财产安全的四档结果锚。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-ROSTER-323631DDD7CB22F6",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-ROSTER-323631DDD7CB22F6",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-ROSTER-323631DDD7CB22F6",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-ROSTER-323631DDD7CB22F6",
+                "docs/史料通读产物/金/金史/volume-002.source-summary.md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md"
+              ]
+            },
+            "score": 26.2
+          }
         },
         {
-          "adjudication_reason": "必须承接宣宗末C3-1交班。哀宗前中期在河南残局中一度重建有限行政、军城和司法运行，可恢复到C3-2主态；但蒙古围逼、军变与蔡州最终失守使普通社会保护再度崩解，S_end回C3-1，故K0。",
+          "adjudication_reason": "必须承接宣宗末C3-1交班。哀宗前中期在河南残局中一度重建有限行政、军城和司法运行，可恢复到C3-2主态；",
           "confidence": "HIGH",
           "evidence": [
             {
@@ -262,7 +368,7 @@
           "reign_range": "1224-1234",
           "ruler_id": "RULER-JIN-AIZONG",
           "ruler_name": "完颜守绪",
-          "score": 14.7,
+          "score": 8.8,
           "stability_class_diagnostic_only": "K0",
           "authority_attribution": "1224—1234年本人最高权力；S0与完颜珣S_end直接连续，恢复与再崩解均按本人窗口实际状态结算。",
           "evidence_refs": [
@@ -271,6 +377,7 @@
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -294,10 +401,40 @@
               "book": "《金史》卷17",
               "original_text": "蔡州终局城防、军民生存与社会保护体系彻底失效。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "围城军变下居民保护崩解，核心范围与严重度强；战争胜负本身不单独定档。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-AIZONG",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "围城军变下居民保护崩解，核心范围与严重度强；战争胜负本身不单独定档。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "必须承接宣宗末C3-1交班。哀宗前中期在河南残局中一度重建有限行政、军城和司法运行，可恢复到C3-2主态；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-AIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-AIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-AIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-AIZONG",
+                "docs/史料通读产物/金/金史/volume-017.source-summary(5).md",
+                "docs/史料通读产物/金/金史/volume-018.source-summary(5).md",
+                "docs/史料通读产物/金/金史/volume-019.source-summary(5).md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md"
+              ]
+            },
+            "score": 8.8
+          }
         },
         {
-          "adjudication_reason": "承接熙宗末二档低位。海陵长期宗室清洗、权力恐怖和南伐总动员使社会安全未能恢复；正隆末“天下骚动”，所在盗起、道路梗涩，军变弑君时中枢保护进一步崩解，S_end降C3-1，故K0。",
+          "adjudication_reason": "承接熙宗末二档低位。海陵长期宗室清洗、权力恐怖和南伐总动员使社会安全未能恢复；",
           "confidence": "HIGH",
           "evidence": [
             {
@@ -314,7 +451,7 @@
           "reign_range": "1149-1161",
           "ruler_id": "RULER-JIN-HAILING",
           "ruler_name": "完颜亮",
-          "score": 14.7,
+          "score": 8.8,
           "stability_class_diagnostic_only": "K0",
           "authority_attribution": "1149—1161本人最高权力；宫室与财政成本不直接进C3，核心使用宗室政治恐怖、广域盗乱及末期军政崩解。",
           "evidence_refs": [
@@ -323,6 +460,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -346,10 +484,39 @@
               "book": "《金史》卷6",
               "original_text": "正隆六年南伐“天下骚动”，契丹部反，海陵最终被军中弑杀。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "天下骚动、所在盗起和道路梗涩为广泛严重安全结果，非仅弑君。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-HAILING",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "天下骚动、所在盗起和道路梗涩为广泛严重安全结果，非仅弑君。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "承接熙宗末二档低位。海陵长期宗室清洗、权力恐怖和南伐总动员使社会安全未能恢复；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-HAILING",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-HAILING",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-HAILING",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-HAILING",
+                "docs/史料通读产物/金/金史/volume-005.source-summary.md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/jin.json#material_id=I2-JIN-MAT-309547C07D18F1E4"
+              ]
+            },
+            "score": 8.8
+          }
         },
         {
-          "adjudication_reason": "承接太祖末基本秩序，但天会时期持续征服战争、强制迁徙以及新占区反复，使普通社会人身财产与基层控制长期脆弱，主态降至C3-2。旧K没有独立一档低谷支撑，二档是主要状态本身，故K4。",
+          "adjudication_reason": "承接太祖末基本秩序，但天会时期持续征服战争、强制迁徙以及新占区反复，使普通社会人身财产与基层控制长期脆弱，主态降至C3-2。",
           "confidence": "HIGH",
           "evidence": [
             {
@@ -375,6 +542,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-2"
           },
           "m3_supplement_review": {
@@ -394,10 +562,36 @@
               "book": "《金史》太宗本纪及相关列传",
               "original_text": "天会时期人口迁徙与新占区控制反复，普通社会安全长期脆弱。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "征服迁徙伤害已构成二档主态，不再重复低谷。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-TAIZONG",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "征服迁徙伤害已构成二档主态，不再重复低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "承接太祖末基本秩序，但天会时期持续征服战争、强制迁徙以及新占区反复，使普通社会人身财产与基层控制长期脆弱，主态降至C3-2。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-TAIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-TAIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-TAIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-TAIZONG",
+                "docs/史料通读产物/金/金史/volume-003.source-summary.md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 16.0
+          }
         },
         {
-          "adjudication_reason": "从贞祐中都危机和迁都形成的一档残局起步，河南中枢一度恢复有限行政与司法运行，因此主态可到二档；但山东、河北及河南多地叛乱、军民冲突持续，末期再度落回C3-1。S_end低于主态且为实际末期逆转，K0。",
+          "adjudication_reason": "从贞祐中都危机和迁都形成的一档残局起步，河南中枢一度恢复有限行政与司法运行，因此主态可到二档；但山东、河北及河南多地叛乱、军民冲突持续，末期再度落回C3-1。",
           "confidence": "HIGH",
           "evidence": [
             {
@@ -416,7 +610,7 @@
           "reign_range": "1213-1224",
           "ruler_id": "RULER-JIN-XUANZONG",
           "ruler_name": "完颜珣",
-          "score": 14.7,
+          "score": 8.8,
           "stability_class_diagnostic_only": "K0",
           "authority_attribution": "1213—1224本人最高权力；战争胜负不直接结算，C3只使用迁都后地方控制、军民侵害、盗乱与司法保护结果。",
           "evidence_refs": [
@@ -425,6 +619,7 @@
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -448,10 +643,37 @@
               "book": "《金史》相关列传",
               "original_text": "山东、河北军民杂处、百姓失业、亡命及盗贼问题持续。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "多地叛乱军民冲突持续，较中段有限秩序更深，覆盖与持续强。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-XUANZONG",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "多地叛乱军民冲突持续，较中段有限秩序更深，覆盖与持续强。",
+              "strong_dimensions": [
+                "scope",
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "从贞祐中都危机和迁都形成的一档残局起步，河南中枢一度恢复有限行政与司法运行，因此主态可到二档；但山东、河北及河南多地叛乱、军民冲突持续，末期再度落回C3-1。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-XUANZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-XUANZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-XUANZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-XUANZONG"
+              ]
+            },
+            "score": 8.8
+          }
         },
         {
-          "adjudication_reason": "大安三年以后蒙古军连续攻取西京、昌桓抚等州及东北、河北多地，中都戒严，东京又失守；短任后半段广域控制和普通人安全持续崩解，已经达到一档主态。末年胡沙虎兵变并弑君只作为终局政治暴力旁证，不单独决定档位。主态已在最低档，K4。",
+          "adjudication_reason": "大安三年以后蒙古军连续攻取西京、昌桓抚等州及东北、河北多地，中都戒严，东京又失守；短任后半段广域控制和普通人安全持续崩解，已经达到一档主态。末年胡沙虎兵变并弑君只作为终局政治暴力旁证，不单独决定档位。",
           "confidence": "HIGH",
           "evidence": [
             {
@@ -477,6 +699,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-1",
+            "S_avg": "C3-1",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -504,7 +727,32 @@
               "book": "《金史》卷13",
               "original_text": "1213年胡沙虎率兵入宫、杀官夺权并弑卫绍王，构成交班边界的中枢暴力。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "广域控制与社会安全持续崩解已在最低主态消费。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-WEISHAOWANG",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "广域控制与社会安全持续崩解已在最低主态消费。",
+              "strong_dimensions": [],
+              "main_representativeness": "大安三年以后蒙古军连续攻取西京、昌桓抚等州及东北、河北多地，中都戒严，东京又失守；短任后半段广域控制和普通人安全持续崩解，已经达到一档主态。末年胡沙虎兵变并弑君只作为终局政治暴力旁证，不单独决定档位。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-WEISHAOWANG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-WEISHAOWANG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-WEISHAOWANG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-WEISHAOWANG",
+                "docs/史料通读产物/金/金史/volume-013.source-summary(5).md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md"
+              ]
+            },
+            "score": 5.0
+          }
         }
       ]
     }

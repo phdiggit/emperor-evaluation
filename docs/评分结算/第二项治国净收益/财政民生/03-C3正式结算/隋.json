@@ -9,7 +9,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "开皇前中期统一后的常规秩序与法制运行足以支持四档主态，但晚年用法发生系统性逆转：盗一钱以上皆弃市、律外决杖，上下相驱“以残暴为干能”，且史料直言“喜怒不恒，不复依准科律”。这已不是单一政治个案，而是司法可预期性的结构性下坠，故S_end由四档改为三档、K改K0。重役和衣食不足退出C3核心证据。",
+          "adjudication_reason": "开皇前中期统一后的常规秩序与法制运行足以支持四档主态，但晚年用法发生系统性逆转：盗一钱以上皆弃市、律外决杖，上下相驱“以残暴为干能”，且史料直言“喜怒不恒，不复依准科律”。重役和衣食不足退出C3核心证据。",
           "authority_attribution": "581—604年本人最高权力；中前期社会秩序与晚年司法逆转同窗合成，政治宗室案件只作旁证。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -28,18 +28,19 @@
           ],
           "main_band": "C3-4",
           "polity": "隋",
-          "rank": 37,
+          "rank": 38,
           "reign_range": [
             581,
             604
           ],
           "ruler_id": "RULER-SHADOW-杨坚",
           "ruler_name": "杨坚",
-          "score": 36.8,
+          "score": 32.8,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-4",
+            "S_avg": "C3-4",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -67,10 +68,40 @@
               "book": "《资治通鉴》卷178",
               "original_text": "帝既喜怒不恒，不复依准科律。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "晚年律外决杖、喜怒不用法为广泛严重司法任意，不由末期标签直接扣。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-杨坚",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "晚年律外决杖、喜怒不用法为广泛严重司法任意，不由末期标签直接扣。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "开皇前中期统一后的常规秩序与法制运行足以支持四档主态，但晚年用法发生系统性逆转：盗一钱以上皆弃市、律外决杖，上下相驱“以残暴为干能”，且史料直言“喜怒不恒，不复依准科律”。重役和衣食不足退出C3核心证据。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-杨坚",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-杨坚",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-杨坚",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-杨坚",
+                "《隋书》卷二十四《食货志》",
+                "https://zh.wikisource.org/zh-hans/資治通鑑_(四庫全書本)/卷180",
+                "docs/史料通读产物/唐以前编年/南北朝/卷174-通读总结.md#FIN-LEAD-NC-ZHOU-REFORM-580",
+                "docs/史料通读产物/唐以前编年/隋/卷178-通读总结.md#FIN-LEAD-SUI-RENSHOU-PALACE-593-595"
+              ]
+            },
+            "score": 32.8
+          }
         },
         {
-          "adjudication_reason": "承接杨坚晚年C3-3交班。大业期盗贼蜂起、禁令不行并逐步演成广域基层控制失灵，使主要状态降为C3-2；末年国家与地方保护体系系统崩解，交班为C3-1，构成真实末期逆转，故K0。",
+          "adjudication_reason": "承接杨坚晚年C3-3交班。大业期盗贼蜂起、禁令不行并逐步演成广域基层控制失灵，使主要状态降为C3-2；",
           "authority_attribution": "604—618年本人最高权力；战争胜负不直接换分，只消费其在国内已经实现的普通社会安全后果。",
           "confidence": "HIGH",
           "evidence": [
@@ -96,11 +127,12 @@
           ],
           "ruler_id": "RULER-SHADOW-杨广",
           "ruler_name": "杨广",
-          "score": 14.7,
+          "score": 8.8,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -124,7 +156,41 @@
               "book": "《资治通鉴》卷183",
               "original_text": "盗贼充斥。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "末段禁令不行与地方保护崩解为广泛严重安全低谷。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-杨广",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "末段禁令不行与地方保护崩解为广泛严重安全低谷。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "承接杨坚晚年C3-3交班。大业期盗贼蜂起、禁令不行并逐步演成广域基层控制失灵，使主要状态降为C3-2；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-杨广",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-杨广",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-杨广",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-杨广",
+                "《隋书》卷二十四《食货志》",
+                "docs/史料通读产物/唐以前编年/隋/卷183-通读总结.md:15",
+                "docs/史料通读产物/唐以前编年/隋/卷180-通读总结.md:141",
+                "docs/史料通读产物/唐以前编年/隋/卷180-通读总结.md:147",
+                "docs/史料通读产物/唐以前编年/隋/卷180-通读总结.md:153",
+                "docs/史料通读产物/唐以前编年/隋/卷180-通读总结.md#L103-L127",
+                "docs/史料通读产物/唐以前编年/隋/卷181-通读总结.md#L110-L119",
+                "docs/史料通读产物/唐以前编年/隋/卷181-通读总结.md#L149-L169"
+              ]
+            },
+            "score": 8.8
+          }
         }
       ]
     }

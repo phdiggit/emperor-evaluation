@@ -1,8 +1,16 @@
 from __future__ import annotations
 
 
+import copy
+
 from emperor_v4.evaluation.formal_json_store import load_json
-from emperor_v4.evaluation.profile_markdown import AXIS_FILES, PROFILE_ROOT, render_profile_markdown
+from emperor_v4.evaluation.profile_markdown import (
+    AXIS_FILES,
+    C2_DISPLAY_REF_LIMIT,
+    PROFILE_ROOT,
+    render_profile_markdown,
+)
+from emperor_v4.evaluation.profile_parent_schema import parent_chains
 
 
 def test_completed_c_axes_use_deterministic_reading_views() -> None:
@@ -36,3 +44,26 @@ def test_shared_limitations_are_defined_once_and_referenced() -> None:
     assert markdown.count(repeated) == 1
     assert "### 共用限制说明" in markdown
     assert "`L1`" in markdown
+
+
+def test_c2_reader_view_uses_representatives_and_compacts_source_display() -> None:
+    payload = load_json(PROFILE_ROOT / AXIS_FILES["C2"])
+    markdown = render_profile_markdown(payload)
+
+    assert "完整来源集合与关联父链保留在正式JSON" in markdown
+    assert "  - 来源：" not in markdown
+    for line in markdown.splitlines():
+        if "直接定位" not in line:
+            continue
+        shown = line.split("：", 1)[1].split("；其余", 1)[0]
+        assert len(shown.split("；")) <= C2_DISPLAY_REF_LIMIT
+
+    source_row = next(row for row in payload["records"] if len(parent_chains(row)) >= 2)
+    narrowed = copy.deepcopy(payload)
+    narrowed["records"] = [copy.deepcopy(source_row)]
+    first_id = source_row["parent_chains"][0]["parent_id"]
+    second_id = source_row["parent_chains"][1]["parent_id"]
+    narrowed["records"][0]["representative_parent_ids"] = [first_id]
+    narrowed_markdown = render_profile_markdown(narrowed)
+    assert f"`{first_id}`" in narrowed_markdown
+    assert f"`{second_id}`" not in narrowed_markdown

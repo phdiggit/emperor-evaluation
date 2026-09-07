@@ -31,7 +31,7 @@ SOURCES = {
 SECTIONS = (
     ("first", "第一项：政权奠基与统一贡献及能力", "四轴合计减去军事成本扣分得到第一项净分，最低为0，再按总榜公式折算F。成本栏列正式成本档、档内位置和扣分；不适用保留为不适用。B1、B2在单元格中继续拆出内部等级及分数。"),
     ("method", "第二项：制度行政", "A、B1、B2列方向指数及正式档位、档内位置。A与B1不能直接相加：AB=round1(0.8×[max(A,B1)+0.5×min(A,B1)])；B2折算=round1(45/80×B2指数)。治理手段=AB+B2折算。"),
-    ("finance", "第二项：财政民生", "C1—C3列主档、K诊断标签和最终分；K标签不是额外扣分。C4列正式档、DA档及正向保留−恶化−DA扣分。治理结果为C1至C4之和。"),
+    ("finance", "第二项：财政民生", "C1—C3列主档、L有限修正和最终分；L只进入本轴状态公式。C4列正式档、DA档及正向保留−恶化−DA扣分。治理结果为C1至C4之和。"),
     ("handoff", "第二项：交接质量与合计", "D1、D3为0—5级输入，没有独立可加分；交接得分=min[2×(D1+D3),低侧封顶]。第二项=治理手段+治理结果+交接得分。"),
     ("strategic", "第三项：战略安全与边疆控制", "A1、A2列起点→终点档及现行归责后的分数，各上限60。B1、B2、B4列原档位、原得分率及边界裁决后的合成采用率，二者不一致时不反推新档位。B80=80×(0.55×B1率+0.45×B2率)×(0.70+0.30×B4率)，采用率换为0—1后参与计算。"),
     ("military", "第三项：军事体系、成本与合计", "C1、C2、C3是C50的能力档与上限，不分别加分。成本列全局成本档、档内位置和普通扣分；ML列净毁损档及扣分。实际扣分取两者较大值，第三项=A120+B80+C50−实际扣分。"),
@@ -138,7 +138,7 @@ def component_details(sources: dict[str, Any], pool: dict[str, Any], row: dict[s
             note = f"{r['positive_score_retained']:g}−{r['deterioration_penalty']:g}−{r['destructive_amplification_penalty']:g}"
             equal(r['positive_score_retained']-r['deterioration_penalty']-r['destructive_amplification_penalty'], r['score'], "C4拆分")
         else:
-            grade += f" / {r['stability_class_diagnostic_only']}"
+            grade += f" / {r['loss_grade']}"
         finance.append(cell(label, r["score"], grade, SOURCES[key], note=note))
     equal(sum(c["value"] for c in finance), second["governance_result_score"], "治理结果")
     finance.append(cell("治理结果", second["governance_result_score"], "小计", SOURCES["second"]))

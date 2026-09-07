@@ -4,11 +4,11 @@
   "collections": {
     "records": {
       "positions": [
-        132
+        117
       ],
       "records": [
         {
-          "sequence": 98,
+          "sequence": 118,
           "task_code": "PROFILE-C2-RULER-SHADOW-萧衍",
           "ruler_id": "RULER-SHADOW-萧衍",
           "ruler_name": "萧衍",
@@ -18,23 +18,24 @@
           "axis_name": "信息处理、学习与纠错",
           "axis_grade": "G2",
           "grade_numeric": 2,
-          "position": "LOW",
-          "radar_value": 38,
-          "score_100": 38,
+          "position": "MID",
+          "radar_value": 45,
+          "score_100": 45,
           "axis_evidence_level": "E2",
           "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
           "score_status": "EVIDENCE_LIMITED",
           "formal_status": "FORMAL_CURRENT",
-          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-SHADOW-萧衍",
-          "typical_pattern": "侯景拥兵来投时可拒纳、分散安置或附条件接纳；风险已被指出，本人仍处理条件失当；侯景反复与台城威胁到达后，外围援军统合和退出均失败；长任晚期退化压过创业正链。",
-          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
-          "grade_basis": "萧衍：侯景拥兵来投时可拒纳、分散安置或附条件接纳；风险已被指出，本人仍处理条件失当；侯景反复与台城威胁到达后，外围援军统合和退出均失败；长任晚期退化压过创业正链。",
-          "position_basis": "萧衍：拒绝更新、依赖失真接口或同构复发较突出，仅见有限恢复，故取明显短板档下沿，定为G2-LOW。",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2-ROUND2#RULER-RULER-SHADOW-萧衍",
+          "typical_pattern": "正负混合的有界型：部分情境能够更新判断，但反馈吸收稳定性有限。",
+          "counterpattern": "鄱阳王萧范先后明确报告侯景将反，并提出“不早剪扑，祸及生民”；萧衍以侯景“孤危寄命”判断其不可能反，拒绝萧范主动讨伐。；萧衍把边事专委朱异，朱异不仅判断侯景不会反，后来还不再转呈萧范的警报；侯景威胁已从“有错误判断”发展为“错误责任中心继续过滤反证”。",
+          "grade_basis": "萧衍：鄱阳王萧范先后明确报告侯景将反，并提出“不早剪扑，祸及生民”；萧衍以侯景“孤危寄命”判断其不可能反，拒绝萧范主动讨伐；萧衍把边事专委朱异，朱异不仅判断侯景不会反，后来还不再转呈萧范的警报；侯景威胁已从“有错误判断”发展为“错误责任中心继续过滤反证”",
+          "position_basis": "萧衍：G2-MID档内定位：能力呈局部、混合或材料受限状态；档内位置取决于反馈吸收稳定性和直接证据厚度；主要正证来自反馈后的纠错；保留真实负向下沿；仍受当前阶段覆盖和史料密度边界限制。",
           "axis_relevance_check": {
             "status": "C2_RELEVANT",
             "scoring_parent_refs": [
-              "C2-P127-C1-9FEEF104"
+              "C2-P127-C1-9FEEF104",
+              "C2-R2-F9233D4ABF5F"
             ]
           },
           "limitations": [
@@ -42,14 +43,15 @@
           ],
           "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
           "representative_parent_ids": [
-            "C2-P127-C1-9FEEF104"
+            "C2-P127-C1-9FEEF104",
+            "C2-R2-F9233D4ABF5F"
           ],
           "parent_chains": [
             {
               "parent_id": "C2-P127-C1-9FEEF104",
               "direction": "NEGATIVE",
-              "intensity": "MI4",
-              "basis": "侯景拥兵来投时可拒纳、分散安置或附条件接纳；风险已被指出，本人仍处理条件失当；侯景反复与台城威胁到达后，外围援军统合和退出均失败；长任晚期退化压过创业正链。",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "萧衍询问对策时，羊侃建议急据采石、袭寿阳；朱异仍称侯景无渡江之志，方案被搁置。这里可闭合 。侯景最终渡江、围陷台城只是复验，绝不能因王朝灾难自动写MI4。",
               "cycle_anchor_refs": [
                 "CAMPAIGN-NC-HANSHAN-PENGCHENG-547",
                 "CAMPAIGN-NC-HOUJING-JIANKANG-548-549",
@@ -62,10 +64,36 @@
               "source_parent_refs": [
                 "C1-P127-HOUJING-RISK"
               ],
-              "lifecycle_review": "按C2生命周期核对：侯景拥兵来投时可拒纳、分散安置或附条件接纳；风险已被指出，本人仍处理条件失当；侯景反复与台城威胁到达后，外围援军统合和退出均失败；长任晚期退化压过创业正链。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
-              "secondary_projection_reason": "C2只消费本人取得真实信息和认知更新切片；异议安全、处罚、清洗和程序比例留C5。",
+              "lifecycle_review": "按C2二轮生命周期核对：萧衍询问对策时，羊侃建议急据采石、袭寿阳；朱异仍称侯景无渡江之志，方案被搁置。这里可闭合 。侯景最终渡江、围陷台城只是复验，绝不能因王朝灾难自动写MI4。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
               "cycle_type": "REFUSAL_OR_RECURRENCE",
-              "material_intensity": "MI4",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "REVIEWED",
+                "sanction_or_exclusion_intensity": "MODERATE",
+                "recurrence_scope": "REPEATED_SAME_MECHANISM",
+                "future_channel_effect": "TEMPORARY_CHILLING",
+                "feedback_arrival": "附件二轮逐人裁决确认可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
+              }
+            },
+            {
+              "parent_id": "C2-R2-F9233D4ABF5F",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "墓地埋蜡鹅等物被挖出后，萧衍大惊，原欲穷究太子厌祷；徐勉固谏后停止扩大追查，只诛道士。可计 ：反证使处置收束，但疑心没有完全消除，并继续影响后来储位判断。",
+              "cycle_anchor_refs": [
+                "CAMPAIGN-NC-HANSHAN-PENGCHENG-547",
+                "CAMPAIGN-NC-HOUJING-JIANKANG-548-549",
+                "WAR-LEAD-144-07",
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/163"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2二轮生命周期核对：墓地埋蜡鹅等物被挖出后，萧衍大惊，原欲穷究太子厌祷；徐勉固谏后停止扩大追查，只诛道士。可计 ：反证使处置收束，但疑心没有完全消除，并继续影响后来储位判断。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "cycle_type": "ERROR_CORRECTION",
+              "material_intensity": "MI2_LIFECYCLE",
               "feedback_suppression_review": {
                 "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
               }
@@ -96,20 +124,23 @@
               "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P127-HOUJING",
               "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/163"
             ],
-            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "positive_window_status": "CLOSED_PARENT_PRESENT",
             "negative_window_status": "CLOSED_PARENT_PRESENT",
             "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
             "unresolved_phase_domain_windows": [
               "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
             ],
-            "publication_mode": "BOUNDED_PROFILE"
+            "publication_mode": "BOUNDED_PROFILE",
+            "negative_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE"
           },
-          "review_status": "VALID_NEGATIVE",
+          "review_status": "ROUND2_MANUAL_ADJUDICATED",
           "directional_strength_balance_review": {
             "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
             "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
             "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
-            "suppression_parent_ids": [],
+            "suppression_parent_ids": [
+              "C2-P127-C1-9FEEF104"
+            ],
             "isolated_positive_parent_ids": [],
             "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
             "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"

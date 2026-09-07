@@ -557,7 +557,10 @@ def render_method_markdown(method: dict[str, Any]) -> str:
 
 
 def render_result_markdown(result: dict[str, Any]) -> str:
-    result_md = ["# C1—C4财政民生治理结果正式结算", "", "| 排名 | 人物 | 政权 | C1 | C2 | C3 | C4 | 治理结果分 |", "|---:|---|---|---|---|---|---|---:|"]
+    result_md = ["# C1—C4财政民生治理结果正式结算", ""]
+    if result.get("governance_activation"):
+        result_md.extend(["> C1—C4当前规范池已统一启用 GOVERNANCE-STATE-RECOVERY-V3；池外记录不进入当前综合榜。", ""])
+    result_md.extend(["| 排名 | 人物 | 政权 | C1 | C2 | C3 | C4 | 治理结果分 |", "|---:|---|---|---|---|---|---|---:|"])
     for row in sorted(result["scores"], key=lambda r: (r["rank"], r["ruler_id"])):
         cells = " | ".join(f"{row[f'{axis}_band']}/{row[f'{axis}_score']:.1f}" for axis in FINANCE_PATHS)
         result_md.append(f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {cells} | **{row['score']:.1f}** |")
@@ -575,11 +578,13 @@ def render_handoff_markdown(handoff: dict[str, Any]) -> str:
 
 
 def render_total_markdown(total: dict[str, Any]) -> str:
-    total_md = [
-        "# 第二项治国净收益正式结算", "",
+    total_md = ["# 第二项治国净收益正式结算", ""]
+    if total.get("governance_activation"):
+        total_md.extend(["> 治理结果 C1—C4 当前规范池已统一启用 GOVERNANCE-STATE-RECOVERY-V3；第二项总表保留池外历史记录，综合榜仅读取 `COMPOSITE_READY` 对象。", ""])
+    total_md.extend([
         "| 排名 | 人物 | 政权 | 治理手段/165 | C1/80 | C2/35 | C3/60 | C4 | 治理结果/202 | 交接/20 | 总分/387 |",
         "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
-    ]
+    ])
     for row in total["records"]:
         total_md.append(
             f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {float(row['governance_method_score']):.1f} | "
@@ -660,6 +665,8 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False, refresh_source
     scores = sorted((row["score"] for row in result["scores"]), reverse=True)
     for row in result["scores"]:
         row["rank"] = scores.index(row["score"]) + 1
+    result.pop("v2_activation", None)
+    result["governance_activation"] = load_json(workspace_root / FINANCE_PATHS["C1"]).get("governance_activation")
     result_md_text = render_result_markdown(result)
 
     handoff_root = total_path.parent / "政权交接稳定"
@@ -693,6 +700,8 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False, refresh_source
             1,
         )
     _competition_ranks(total["records"], "second_item_score")
+    total.pop("v2_activation", None)
+    total["governance_activation"] = result.get("governance_activation")
     total_md_text = render_total_markdown(total)
     if write:
         if refresh_source:

@@ -15,7 +15,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "1081年梁氏幽禁秉常后诸酋各拥兵自固、国内大乱，实际权力窗口以二档危机起步；随后秉常复位，史料明确称“国政复常”，说明基本秩序恢复。原二档主态主要由点集、饥荒、军费等越界材料压低；纯C3更符合恢复后的三档。S0低位及恢复过程不降低K，复位后未另证跌破三档，故K4。",
+          "adjudication_reason": "1081年梁氏幽禁秉常后诸酋各拥兵自固、国内大乱，实际权力窗口以二档危机起步；随后秉常复位，史料明确称“国政复常”，说明基本秩序恢复。原二档主态主要由点集、饥荒、军费等越界材料压低；纯C3更符合恢复后的三档。",
           "confidence": "MEDIUM_WINDOW_READJUDICATED",
           "evidence": [
             {
@@ -38,6 +38,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
@@ -71,10 +72,37 @@
               "book": "《西夏书事》卷26",
               "original_text": "秉常“复位”后宋诏亦称“知国政之复常”，支持其后恢复至基本可运行秩序。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "被幽禁时国内大乱属于失权段；复位后国政复常，未另证本人实际治理期有效低谷。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-XIXIA-LIBINGCHANG",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "被幽禁时国内大乱属于失权段；复位后国政复常，未另证本人实际治理期有效低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "1081年梁氏幽禁秉常后诸酋各拥兵自固、国内大乱，实际权力窗口以二档危机起步；随后秉常复位，史料明确称“国政复常”，说明基本秩序恢复。原二档主态主要由点集、饥荒、军费等越界材料压低；纯C3更符合恢复后的三档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-XIXIA-LIBINGCHANG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-XIXIA-LIBINGCHANG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-XIXIA-LIBINGCHANG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LIBINGCHANG",
+                "docs/史料通读产物/西夏/西夏书事/volume-027.source-summary.md#L14",
+                "docs/史料通读产物/西夏/西夏书事/volume-027.source-summary.md#L15",
+                "docs/史料通读产物/西夏/西夏书事/volume-027.source-summary.md#L25",
+                "docs/史料通读产物/西夏/西夏书事/volume-027.source-summary.md#L26"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "现有材料能证明政权长期可运行，但原四档主要由岁赐、边贸、道路桥梁和对宋和平等C2/外交材料支撑，不能直接闭合C3。夏州属户越界侵掠而德明不能禁止又显示基层控制并非高位。按缺证受约束系统推断，只能确认基本可运行秩序C3-3；未识别主态以下的独立有效低谷，故K4。",
+          "adjudication_reason": "现有材料能证明政权长期可运行，但原四档主要由岁赐、边贸、道路桥梁和对宋和平等C2/外交材料支撑，不能直接闭合C3。夏州属户越界侵掠而德明不能禁止又显示基层控制并非高位。按缺证受约束系统推断，只能确认基本可运行秩序C3-3；",
           "confidence": "MEDIUM_WINDOW_READJUDICATED",
           "evidence": [
             {
@@ -97,6 +125,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
@@ -126,10 +155,35 @@
               "book": "《西夏书事》卷九",
               "original_text": "夏州属户以德明纳款，辄越堑侵掠泾原，德明不禁。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "属户越界侵掠的对象未闭合本国普通居民有效低谷，结构控制不足已限制主态。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-XIXIA-LIDEMING",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "属户越界侵掠的对象未闭合本国普通居民有效低谷，结构控制不足已限制主态。",
+              "strong_dimensions": [],
+              "main_representativeness": "现有材料能证明政权长期可运行，但原四档主要由岁赐、边贸、道路桥梁和对宋和平等C2/外交材料支撑，不能直接闭合C3。夏州属户越界侵掠而德明不能禁止又显示基层控制并非高位。按缺证受约束系统推断，只能确认基本可运行秩序C3-3；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-XIXIA-LIDEMING",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-XIXIA-LIDEMING",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-XIXIA-LIDEMING",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LIDEMING",
+                "docs/史料通读产物/西夏/西夏书事/volume-008.source-summary.md#L12",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "亲政前没藏讹庞长期专权，臣民畏惧，故实际亲政窗口从偏低状态起步。1061年谅祚诛讹庞后重新取得最高权力，此后未见普通社会广域失序足以维持二档；原裁决所用频年点集、强迁和部族内附主要属于兵役、人口与边疆问题，不能直接压低C3。现有纯C3只足以闭合基本可运行的三档，并因证据稀疏降低置信度而非降档；S0恢复不降K，故K4。",
+          "adjudication_reason": "亲政前没藏讹庞长期专权，臣民畏惧，故实际亲政窗口从偏低状态起步。1061年谅祚诛讹庞后重新取得最高权力，此后未见普通社会广域失序足以维持二档；原裁决所用频年点集、强迁和部族内附主要属于兵役、人口与边疆问题，不能直接压低C3。现有纯C3只足以闭合基本可运行的三档，并因证据稀疏降低置信度而非降档；",
           "confidence": "MEDIUM_HIGH_WINDOW_READJUDICATED",
           "evidence": [
             {
@@ -149,6 +203,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
@@ -179,10 +234,34 @@
               "book": "《西夏纪》卷13",
               "original_text": "1061年谅祚诛讹庞而亲政；此后材料主要集中边事与其个人荒纵，尚不足证明普通社会持续处于广泛不安全。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "亲政前专权段不倒灌，未证本人窗口另有独立居民低谷。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-XIXIA-LILIANGZUO",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "亲政前专权段不倒灌，未证本人窗口另有独立居民低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "亲政前没藏讹庞长期专权，臣民畏惧，故实际亲政窗口从偏低状态起步。1061年谅祚诛讹庞后重新取得最高权力，此后未见普通社会广域失序足以维持二档；原裁决所用频年点集、强迁和部族内附主要属于兵役、人口与边疆问题，不能直接压低C3。现有纯C3只足以闭合基本可运行的三档，并因证据稀疏降低置信度而非降档；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-XIXIA-LILIANGZUO",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-XIXIA-LILIANGZUO",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-XIXIA-LILIANGZUO",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LILIANGZUO",
+                "docs/史料通读产物/西夏/西夏书事/volume-021.source-summary.md#L33"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "承接前期二档后，长任内政权日常秩序恢复到基本运行；现有“境宇小康，人民乐业”只能作为综合状态旁证，边战、点集、满目疮痍等材料主要落在战争与C1/C2，不能据此制造C3低谷。纯C3直接材料不足支持四档，也未另证恢复后跌破三档阶段，故3/3、K4。",
+          "adjudication_reason": "承接前期二档后，长任内政权日常秩序恢复到基本运行；现有“境宇小康，人民乐业”只能作为综合状态旁证，边战、点集、满目疮痍等材料主要落在战争与C1/C2，不能据此制造C3低谷。",
           "confidence": "MEDIUM_HIGH_WINDOW_READJUDICATED",
           "evidence": [
             {
@@ -206,6 +285,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
@@ -277,10 +357,39 @@
               "book": "《西夏书事》",
               "original_text": "境宇小康，人民乐业。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "战名点集不代人身安全结果，未另证有效阶段。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-XIXIA-LIQIANSHUN",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "战名点集不代人身安全结果，未另证有效阶段。",
+              "strong_dimensions": [],
+              "main_representativeness": "承接前期二档后，长任内政权日常秩序恢复到基本运行；现有“境宇小康，人民乐业”只能作为综合状态旁证，边战、点集、满目疮痍等材料主要落在战争与C1/C2，不能据此制造C3低谷。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-XIXIA-LIQIANSHUN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-XIXIA-LIQIANSHUN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-XIXIA-LIQIANSHUN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LIQIANSHUN",
+                "docs/史料通读产物/西夏/西夏书事/volume-030.source-summary.md#L14",
+                "docs/史料通读产物/西夏/西夏书事/volume-031.source-summary.md#L14",
+                "docs/史料通读产物/西夏/西夏书事/volume-031.source-summary.md#L15",
+                "docs/史料通读产物/西夏/西夏书事/volume-032.source-summary.md#L13",
+                "docs/史料通读产物/西夏/西夏书事/volume-032.source-summary.md#L15",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "原四档主要由长期和平、边贸、礼赐和监察名目支撑，纯C3结果不足。仁孝初年合达之乱实际陷盐州、游骑逼贺兰并震动兴州，构成实质区域安全低谷；任得敬长期专权、分国胁迫主要作为社会可预期性的高档阻断。全任仍能维持国家基本秩序，故主态C3-3；一处实质区域低谷并伴随长期权力危机，K2。",
+          "adjudication_reason": "原四档主要由长期和平、边贸、礼赐和监察名目支撑，纯C3结果不足。仁孝初年合达之乱实际陷盐州、游骑逼贺兰并震动兴州，构成实质区域安全低谷；任得敬长期专权、分国胁迫主要作为社会可预期性的高档阻断。全任仍能维持国家基本秩序，故主态C3-3；",
           "confidence": "MEDIUM_HIGH_WINDOW_READJUDICATED",
           "evidence": [
             {
@@ -301,10 +410,11 @@
           "reign_range": "1139—1193年",
           "ruler_id": "RULER-XIXIA-LIRENXIAO",
           "ruler_name": "李仁孝",
-          "score": 26.9,
+          "score": 23.8,
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
@@ -327,7 +437,7 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "rank": 97,
+          "rank": 86,
           "raw_state_band": "C3-3",
           "formal_band": "C3-3",
           "peak_band": null,
@@ -340,10 +450,33 @@
               "book": "《西夏书事》卷三十七",
               "original_text": "今得敬擅权，至敢分国。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "合达之乱陷城及逼核心为实质区域安全低谷，分国胁迫不直接作居民损害。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-XIXIA-LIRENXIAO",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "合达之乱陷城及逼核心为实质区域安全低谷，分国胁迫不直接作居民损害。",
+              "strong_dimensions": [],
+              "main_representativeness": "原四档主要由长期和平、边贸、礼赐和监察名目支撑，纯C3结果不足。仁孝初年合达之乱实际陷盐州、游骑逼贺兰并震动兴州，构成实质区域安全低谷；任得敬长期专权、分国胁迫主要作为社会可预期性的高档阻断。全任仍能维持国家基本秩序，故主态C3-3；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-XIXIA-LIRENXIAO",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-XIXIA-LIRENXIAO",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-XIXIA-LIRENXIAO",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LIRENXIAO"
+              ]
+            },
+            "score": 23.8
+          }
         },
         {
-          "adjudication_reason": "1209年蒙古军连续突破河西、克夷门并围中兴府，引河水灌城造成居民溺死无算，是已经实现的核心区人身安全重大损害；但政权仍能守城、议和并继续运行，故主态仍为C3-2而非一档。该次都城危机构成独立实质低谷，K2保留。",
+          "adjudication_reason": "1209年蒙古军连续突破河西、克夷门并围中兴府，引河水灌城造成居民溺死无算，是已经实现的核心区人身安全重大损害；但政权仍能守城、议和并继续运行，故主态仍为C3-2而非一档。",
           "confidence": "MEDIUM_WINDOW_READJUDICATED",
           "evidence": [
             {
@@ -362,10 +495,11 @@
           "reign_range": "1206—1211年",
           "ruler_id": "RULER-XIXIA-LIANQUAN",
           "ruler_name": "李安全",
-          "score": 15.4,
+          "score": 8.8,
           "state_anchors": {
             "S0": "C3-4",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-2"
           },
           "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
@@ -390,7 +524,7 @@
             ],
             "applied_orphan_candidate_supplements": []
           },
-          "rank": 156,
+          "rank": 163,
           "raw_state_band": "C3-2",
           "formal_band": "C3-2",
           "peak_band": null,
@@ -403,10 +537,37 @@
               "book": "《西夏书事》卷40",
               "original_text": "中兴府受围月余仍由安全亲督守御，随后求援、议降，说明基层与中枢未在全任持续崩解。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "中兴居民溺死无算是核心区域严重人身低谷，覆盖与严重度强。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-XIXIA-LIANQUAN",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "中兴居民溺死无算是核心区域严重人身低谷，覆盖与严重度强。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "1209年蒙古军连续突破河西、克夷门并围中兴府，引河水灌城造成居民溺死无算，是已经实现的核心区人身安全重大损害；但政权仍能守城、议和并继续运行，故主态仍为C3-2而非一档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-XIXIA-LIANQUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-XIXIA-LIANQUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-XIXIA-LIANQUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LIANQUAN",
+                "docs/史料通读产物/西夏/西夏书事/volume-030.source-summary.md#L16"
+              ]
+            },
+            "score": 8.8
+          }
         },
         {
-          "adjudication_reason": "元昊时期虽然国家组织可运行，但史家总结其“政尚刑诛”，并有大规模族诛、任意杀戮和众怨方兴等持续性高压反证，普通人的司法与人身安全不能达到三档。原K2主要消费战争、兵役与劳役，清洗后没有另证低于二档的有效阶段，故保持二档主态而K改为K4。",
+          "adjudication_reason": "元昊时期虽然国家组织可运行，但史家总结其“政尚刑诛”，并有大规模族诛、任意杀戮和众怨方兴等持续性高压反证，普通人的司法与人身安全不能达到三档。",
           "confidence": "HIGH_WINDOW_READJUDICATED",
           "evidence": [
             {
@@ -434,6 +595,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-2"
           },
           "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
@@ -474,10 +636,33 @@
               "book": "《西夏纪》卷28",
               "original_text": "总评元昊“政尚刑诛”，并称其后期“众怨方兴”，可作为长期高压社会安全的约束性总锚。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "长期刑诛高压已构成二档，战争役夫不重复进本轴。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-XIXIA-LIYUANHAO",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "长期刑诛高压已构成二档，战争役夫不重复进本轴。",
+              "strong_dimensions": [],
+              "main_representativeness": "元昊时期虽然国家组织可运行，但史家总结其“政尚刑诛”，并有大规模族诛、任意杀戮和众怨方兴等持续性高压反证，普通人的司法与人身安全不能达到三档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-XIXIA-LIYUANHAO",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-XIXIA-LIYUANHAO",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-XIXIA-LIYUANHAO",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LIYUANHAO"
+              ]
+            },
+            "score": 16.0
+          }
         },
         {
-          "adjudication_reason": "德旺短窗几乎全程处在西夏末期广域安全崩解中。乾定二年御史张公辅已直陈“败卒旁流”“饥民四散”，并称银州失守后千里范围楼橹、斥堠荡然无存，说明地方控制与社会预期已系统破裂；乾定三年蒙古兵进入河西后又出现士卒四出抄掠、民间窖积尽失、肃州城破后军民尽屠，随后甘州、西凉相继失守，至德旺死时“蒙古兵深入，城邑尽溃”。这些是直接的人身财产安全与基层秩序结果，足以使全窗主态保持C3-1。主态已为最低档，不存在低于主态的有效阶段，故K4。",
+          "adjudication_reason": "德旺短窗几乎全程处在西夏末期广域安全崩解中。乾定二年御史张公辅已直陈“败卒旁流”“饥民四散”，并称银州失守后千里范围楼橹、斥堠荡然无存，说明地方控制与社会预期已系统破裂；乾定三年蒙古兵进入河西后又出现士卒四出抄掠、民间窖积尽失、肃州城破后军民尽屠，随后甘州、西凉相继失守，至德旺死时“蒙古兵深入，城邑尽溃”。这些是直接的人身财产安全与基层秩序结果，足以使全窗主态保持C3-1。",
           "confidence": "HIGH_WINDOW_READJUDICATED",
           "evidence": [
             {
@@ -502,6 +687,7 @@
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-1",
+            "S_avg": "C3-1",
             "S_end": "C3-1"
           },
           "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
@@ -561,7 +747,30 @@
               "book": "《西夏书事》卷四十二",
               "original_text": "甘州、西凉相继失守，德旺卒时史载“蒙古兵深入，城邑尽溃”，足以闭合一档终局。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "全任基层保护崩解已由最低主态消费。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-XIXIA-LIDEWANG",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "全任基层保护崩解已由最低主态消费。",
+              "strong_dimensions": [],
+              "main_representativeness": "德旺短窗几乎全程处在西夏末期广域安全崩解中。乾定二年御史张公辅已直陈“败卒旁流”“饥民四散”，并称银州失守后千里范围楼橹、斥堠荡然无存，说明地方控制与社会预期已系统破裂；乾定三年蒙古兵进入河西后又出现士卒四出抄掠、民间窖积尽失、肃州城破后军民尽屠，随后甘州、西凉相继失守，至德旺死时“蒙古兵深入，城邑尽溃”。这些是直接的人身财产安全与基层秩序结果，足以使全窗主态保持C3-1。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-XIXIA-LIDEWANG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-XIXIA-LIDEWANG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-XIXIA-LIDEWANG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LIDEWANG"
+              ]
+            },
+            "score": 5.0
+          }
         }
       ]
     }

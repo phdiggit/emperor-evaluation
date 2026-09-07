@@ -4,9 +4,9 @@
   "collections": {
     "records": {
       "positions": [
-        64,
-        89,
-        182
+        91,
+        109,
+        177
       ],
       "records": [
         {
@@ -20,9 +20,9 @@
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
           "axis_grade": "G3",
-          "position": "HIGH",
-          "score_100": 71,
-          "radar_value": 71,
+          "position": "MID",
+          "score_100": 65,
+          "radar_value": 65,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -77,7 +77,7 @@
             ],
             "counter_parent_refs": []
           },
-          "grade_basis": "周军攻洛阳、突厥同时入边时，直接完成主次矛盾识别、资源优先级和兑现，形成高难PS2；灾荒赈济执行失败无本人闭合负链。",
+          "grade_basis": "一条高质量PS2 + 两条明显但共享/后果部分在身后的DW2，不足G3上沿。 由`G3-HIGH / 71`下调为**`G3-MID / 65`**。",
           "position_basis": "在位窗口和第二条同强周期不足；赈济执行失败仅作限制。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -93,7 +93,7 @@
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
             "density": "COVERAGE_CLOSED",
-            "capability_profile": "CLOSED",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
             "low_grade_gate": {
               "status": "NOT_REQUIRED",
               "inherited_bad_hand": "NOT_REQUIRED",
@@ -107,7 +107,7 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 3,
-          "formal_order": 65
+          "formal_order": 92
         },
         {
           "sequence": 138,
@@ -120,9 +120,9 @@
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
           "axis_grade": "G3",
-          "position": "MID",
-          "score_100": 65,
-          "radar_value": 65,
+          "position": "LOW",
+          "score_100": 58,
+          "radar_value": 58,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -171,7 +171,7 @@
             "C1-P138-EARLY-SECURITY-ADMIN",
             "C1-P138-LATE-RESOURCE-MISMATCH"
           ],
-          "typical_pattern": "前期行政并省与多方向安全配置形成PS2；晚期营缮、战争与征役叠加反映承载错配，但存在局部调整且财政结果不直接换分，只裁DW2。",
+          "typical_pattern": "高洋前期确有很强的国家优先级与资源配置能力，但晚期退化不能只写成“营缮、战争、征役过重”。跨轴后，幼主高殷—杨愔辅政—高演高湛强叔王的交班结构，是另一条直接命中C1的国家级风险切片。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P138-EARLY-SECURITY-ADMIN"
@@ -180,7 +180,7 @@
               "C1-P138-LATE-RESOURCE-MISMATCH"
             ]
           },
-          "grade_basis": "前期行政并省与多方向安全配置形成PS2；晚期营缮、战争与征役叠加反映承载错配，但存在局部调整且财政结果不直接换分，只裁DW2。",
+          "grade_basis": "清理后结构为“一条PS2 + 两条不同领域DW2”：前期能力真实，但晚期外部资源承载和最高权力交班同时暴露深下沿。 这不足掉出G3，却明显弱于原`G3-MID`的稳定性。改为`G3-LOW / 58`。",
           "position_basis": "晚期财政民生结果仅用于验证目标—资源错配，不把结果本身作为C1负证。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -197,7 +197,7 @@
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
             "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "CLOSED",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
             "low_grade_gate": {
               "status": "NOT_REQUIRED",
               "inherited_bad_hand": "NOT_REQUIRED",
@@ -211,7 +211,7 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 3,
-          "formal_order": 90
+          "formal_order": 110
         },
         {
           "sequence": 140,
@@ -223,10 +223,10 @@
           "axis_code": "C1",
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
-          "axis_grade": "G0",
+          "axis_grade": "G1",
           "position": "LOW",
-          "score_100": 2,
-          "radar_value": 2,
+          "score_100": 18,
+          "radar_value": 18,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -253,14 +253,41 @@
                 "docs/史料通读产物/唐以前编年/南北朝/卷172-通读总结.md"
               ],
               "cycle_basis": "保任名将、整合防线或近幸主导均可；本人持续削弱将领，战场反馈后临战撤退、无重组，府藏军粮与多线失守验证。"
+            },
+            {
+              "parent_id": "C1-RR-153-POSITIVE-MATERIALS",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-高纬/traits/A2/0"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7171",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_qi.json#I2-QIN95-FACT-SUPP29-NORTH-GAP-GAOWEI-B2-CAPTURE-171-080",
+                "docs/史料通读产物/唐以前编年/南北朝/卷169-通读总结.md",
+                "docs/史料通读产物/唐以前编年/南北朝/卷172-通读总结.md"
+              ],
+              "cycle_basis": "附件终审逐人材料吸纳：M4 `GW-P1`提供一条旧C1漏掉的高压资源链： 和士开被高俨集团利用失真诏令杀死后，高俨在宗室与禁军中形成现实强制中心。 高纬没有立刻只靠大清洗解决，而是： - 采纳斛律光“皇帝亲临即可瓦解禁军”的判断； - 实际利用自身合法性直接接管危机现场； - 高俨的禁军支持随之瓦解； - 又部分接受赵彦深“不扩大株连功臣子弟”的意见。 这改变了宫廷强制资源归属和危机处置方式，跨过纯C2门槛。 后续高俨仍被杀，说明恢复没有制度化。 **诊断：弱`PS2`。**",
+              "diagnostic_role": "PS2"
             }
           ],
           "representative_parent_ids": [
-            "C1-P140-DEFENSE-COLLAPSE"
+            "C1-P140-DEFENSE-COLLAPSE",
+            "C1-RR-153-POSITIVE-MATERIALS"
           ],
           "typical_pattern": "好牌与名将尚存时猜忌主将、近幸俘获决策，临战撤退和失败后无重组跨情境复发。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-RR-153-POSITIVE-MATERIALS"
+            ],
             "counter_parent_refs": [
               "C1-P140-DEFENSE-COLLAPSE"
             ]
@@ -270,7 +297,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P140-DEFENSE-COLLAPSE"
+              "C1-P140-DEFENSE-COLLAPSE",
+              "C1-RR-153-POSITIVE-MATERIALS"
             ],
             "result_nonconversion": true
           },
@@ -294,8 +322,8 @@
             "北周进攻外生；G0来自好牌下跨阶段可避免选择。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 0,
-          "formal_order": 183
+          "grade_numeric": 1,
+          "formal_order": 178
         }
       ]
     }

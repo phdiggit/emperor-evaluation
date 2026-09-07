@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        12
+        67
       ],
       "records": [
         {
@@ -17,10 +17,10 @@
           "axis_code": "C1",
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
-          "axis_grade": "G4",
+          "axis_grade": "G3",
           "position": "HIGH",
-          "score_100": 87,
-          "radar_value": 87,
+          "score_100": 71,
+          "radar_value": 71,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -52,24 +52,55 @@
               ],
               "cycle_basis": "孙儒压境时正面对耗或坚壁截粮可选；本人采刘威等方案待敌粮疫后出击，战后又采流民复业、反强换民帛。杭州危机以质子婚姻和俘员交换止战并履约。",
               "diagnostic_role": "PS3"
+            },
+            {
+              "parent_id": "C1-RR-013-NEGATIVE-MATERIALS",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-杨行密/traits/A2/0",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P121-WUYUE-EXCHANGE"
+              ],
+              "direct_process_refs": [
+                "docs/史料通读产物/唐以前编年/唐/卷257-通读总结.md:44",
+                "docs/史料通读产物/唐以前编年/唐/卷259-通读总结.md:28",
+                "docs/史料通读产物/唐以前编年/唐/卷259-通读总结.md:123",
+                "docs/史料通读产物/唐以前编年/唐/卷257-通读总结.md",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.source-summary.md#L36",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.source-summary.md#L37",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.source-summary.md#L41"
+              ],
+              "cycle_basis": "附件终审逐人材料吸纳：田頵、安仁义、朱延寿等都是长期高资源创业将领。到903年前后，多名强将集中形成反叛或退出风险。李神福等已明确预警田頵将反；杨行密本人也知道无故先杀功臣会造成普遍恐惧，因此问题并非“完全没看到风险”，而是始终缺少既能保护功臣安全、又能限制强州镇独立军政资源的成熟中间方案。 最终主要依靠军事平叛和诱杀解决，三名高资源旧将以死亡/清除退出。 **C1诊断：重`DW2`。**；杨行密病重时，杨渥的负面声誉已经被明确指出，周隐等提出过替代/临时方案；但其他诸子年幼，改用刘威等也有合法性与军头冲突风险。杨行密最终仍选择杨渥，却没有建立足够强的辅政互制或限制其亲信扩张的机制。 905年名义交接成功，但杨渥很快与徐温、张颢等旧核心失衡并于908年被杀。后者只能作弱耐久性复验，不能全倒算杨行密。 **诊断：`DW2`。**",
+              "diagnostic_role": "DW2"
             }
           ],
           "representative_parent_ids": [
-            "C1-P121-JIANGHUAI-SEQUENCE"
+            "C1-P121-JIANGHUAI-SEQUENCE",
+            "C1-RR-013-NEGATIVE-MATERIALS"
           ],
-          "typical_pattern": "能在江淮饥乱坏牌下采坚壁截粮、流民复业并以质子婚姻止战，军事—治理—外交排序一致。",
+          "typical_pattern": "外部与战争压力下的止耗、吸收和退出能力很强，但政权内部最关键的两类长期风险——高资源创业将领和继承人——都没有被稳定隔离。因而“战略判断是稳定强长板”的结论站不住。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P121-JIANGHUAI-SEQUENCE"
             ],
-            "counter_parent_refs": []
+            "counter_parent_refs": [
+              "C1-RR-013-NEGATIVE-MATERIALS"
+            ]
           },
-          "grade_basis": "孙儒止耗、战后恢复与杭州危机退出构成PS3；方案贡献按刘威等扣除。",
+          "grade_basis": "外部止耗、恢复和外交退出足以证明PS3，但内部强制资源与继承两个国家级场景都出现实质下沿；再加上不少正向方案有刘威、高勖、李神福等设计份额，`G4-HIGH`明显过高。整体更像“高质量但不稳定的战略能力”，取`G3-HIGH`。",
           "position_basis": "高勖、李神福等设计执行贡献大；本人PS3成立，但独占归责和不同约束复验不足PS4。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P121-JIANGHUAI-SEQUENCE"
+              "C1-P121-JIANGHUAI-SEQUENCE",
+              "C1-RR-013-NEGATIVE-MATERIALS"
             ],
             "result_nonconversion": true
           },
@@ -79,8 +110,8 @@
             "attribution": "CLOSED",
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
-            "density": "COVERAGE_CLOSED",
-            "capability_profile": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
             "low_grade_gate": {
               "status": "NOT_REQUIRED",
               "inherited_bad_hand": "NOT_REQUIRED",
@@ -93,8 +124,8 @@
             "高勖、李神福等设计执行贡献大；本人PS3成立，但独占归责和不同约束复验不足PS4。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 4,
-          "formal_order": 13
+          "grade_numeric": 3,
+          "formal_order": 68
         }
       ]
     }

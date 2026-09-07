@@ -49,7 +49,7 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 1,
+          "rank": 8,
           "reign_range": [
             [
               465,
@@ -62,10 +62,11 @@
           ],
           "ruler_id": "RULER-SHADOW-冯太后",
           "ruler_name": "冯太后",
-          "score": 29.8,
+          "score": 27.4,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C2-4",
+            "S_main": "C2-5",
             "S_avg": "C2-5",
             "S_end": "C2-5"
           },
@@ -106,15 +107,6 @@
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-5",
-            "score": 29.8,
-            "state_anchors": {
-              "S0": "C2-4",
-              "S_avg": "C2-5",
-              "S_end": "C2-5"
-            }
-          },
           "handoff_segment_anchors": [
             {
               "raw_text": "465—467首次临朝=C2-4→C2-2"
@@ -122,7 +114,35 @@
             {
               "raw_text": "476—490再次临朝=C2-3→C2-5"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "太和早中段生产受灾到晚期丰赡存在实质恢复阶段，不因晚期五档抹去。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-冯太后",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "太和早中段生产受灾到晚期丰赡存在实质恢复阶段，不因晚期五档抹去。",
+              "strong_dimensions": [],
+              "main_representativeness": "太和改革窗口有“公私丰赡”的直接综合结果，三长制实施后课调成本大幅下降并获“上下安之”，同时闭合民间生产性余量与公共财政运行。剔除“水旱不困”的C4语义后，两柱仍足以进入五档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-冯太后",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-冯太后",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-冯太后",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-冯太后",
+                "《资治通鉴》共享通读卡正文",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_wei.json#material_id=I2-NWEI-FT-HOUSEHOLD-THREE-CHIEFS-M3-AUDIT",
+                "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷136&oldid=1554191",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_wei.json#material_id=I2-NWEI-FT-THREE-CHIEFS-RECEPTION-R3-AUDIT",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 27.4
+          }
         },
         {
           "adjudication_reason": "490—499比较窗口已经处于太和改革实现后的强态。均输/农官方案实施后，《魏书·食货志》直接给出“自此公私丰赡”，同时三长实施后计省旧负担十余倍；495年太和五铢又在京师和诸州镇通行，市场货币面至少达到健康。P很强、M健康，F/R强，按刘询同类组合可将民间经济柱与公共财政柱均判强，因此由旧C2-4上调C2-5。",
@@ -194,6 +214,7 @@
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C2-5",
+            "S_main": "C2-5",
             "S_avg": "C2-5",
             "S_end": "C2-5"
           },
@@ -213,14 +234,32 @@
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-4",
-            "score": 23.6,
-            "state_anchors": {
-              "S0": "C2-5",
-              "S_avg": "C2-4",
-              "S_end": "C2-4"
-            }
+          "loss_grade": "L0",
+          "stability_basis": "公私丰赡与货币通行支撑高态，未另证有效经济财政低谷。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-拓跋宏",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "公私丰赡与货币通行支撑高态，未另证有效经济财政低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "490—499比较窗口已经处于太和改革实现后的强态。均输/农官方案实施后，《魏书·食货志》直接给出“自此公私丰赡”，同时三长实施后计省旧负担十余倍；495年太和五铢又在京师和诸州镇通行，市场货币面至少达到健康。P很强、M健康，F/R强，按刘询同类组合可将民间经济柱与公共财政柱均判强，因此由旧C2-4上调C2-5。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-拓跋宏",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-拓跋宏",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-拓跋宏",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-拓跋宏",
+                "《资治通鉴》共享通读卡正文",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_wei.json#material_id=I2-QIN95-FACT-SUPP29-TUOBAGUANG-GARRISON-140-11",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7140",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 29.8
           }
         },
         {
@@ -282,17 +321,18 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 12,
+          "rank": 28,
           "reign_range": [
             499,
             515
           ],
           "ruler_id": "RULER-SHADOW-元恪",
           "ruler_name": "元恪",
-          "score": 21.7,
+          "score": 21.2,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C2-5",
+            "S_main": "C2-4",
             "S_avg": "C2-4",
             "S_end": "C2-3"
           },
@@ -312,14 +352,29 @@
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-4",
-            "score": 23.6,
-            "state_anchors": {
-              "S0": "C2-4",
-              "S_avg": "C2-4",
-              "S_end": "C2-3"
-            }
+          "loss_grade": "L2",
+          "stability_basis": "后期粮价与就谷迁食显示生产市场实质下行，财政仍有调度，非系统崩坏。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-元恪",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "后期粮价与就谷迁食显示生产市场实质下行，财政仍有调度，非系统崩坏。",
+              "strong_dimensions": [],
+              "main_representativeness": "元恪承接太和改革后的高位系统，任内没有常规财政结构性失效的硬证，且延昌元年面对京师谷贵仍能一次性出仓粟八十万石，说明R至少健康。后期连续水旱、京师粮价与多地就谷迁食形成本人窗口内真实的生产—市场压力，使S_end降至三档；但这些冲击没有闭合为全任公共财政脆弱，故主态仍保四。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-元恪",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-元恪",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-元恪",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-元恪",
+                "《资治通鉴》共享通读卡正文"
+              ]
+            },
+            "score": 21.2
           }
         },
         {
@@ -380,17 +435,18 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 12,
+          "rank": 22,
           "reign_range": [
             409,
             423
           ],
           "ruler_id": "RULER-SHADOW-拓跋嗣",
           "ruler_name": "拓跋嗣",
-          "score": 23.6,
+          "score": 22.6,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C2-4",
+            "S_main": "C2-4",
             "S_avg": "C2-4",
             "S_end": "C2-4"
           },
@@ -410,14 +466,29 @@
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-4",
-            "score": 23.6,
-            "state_anchors": {
-              "S0": "C2-4",
-              "S_avg": "C2-4",
-              "S_end": "C2-4"
-            }
+          "loss_grade": "L1",
+          "stability_basis": "本人前段农业不熟后丰穰是已证生产低谷，最低档；开仓不等于无损。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-拓跋嗣",
+            "loss_review": {
+              "grade": "L1",
+              "basis": "本人前段农业不熟后丰穰是已证生产低谷，最低档；开仓不等于无损。",
+              "strong_dimensions": [],
+              "main_representativeness": "按既有审核结论保C2-4，但删除“冲击后恢复能力”这一C4污染。本人窗口直接材料显示灾荒后确已形成“岁数丰穰、畜牧滋息”的生产结果；泰常三年又能集中积租于定、相、冀并在多次水灾后减免租税，说明常规财政和粮储体系仍在运行。公共财政的直接余量证据弱于生产面，故四档可保、五档不开放。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-拓跋嗣",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-拓跋嗣",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-拓跋嗣",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-拓跋嗣",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 22.6
           }
         },
         {
@@ -478,17 +549,18 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 12,
+          "rank": 28,
           "reign_range": [
             423,
             452
           ],
           "ruler_id": "RULER-SHADOW-拓跋焘",
           "ruler_name": "拓跋焘",
-          "score": 22.7,
+          "score": 21.2,
           "stability_class_diagnostic_only": "K2",
           "state_anchors": {
             "S0": "C2-4",
+            "S_main": "C2-4",
             "S_avg": "C2-4",
             "S_end": "C2-4"
           },
@@ -508,14 +580,29 @@
             "cost_position": "MID",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-4",
-            "score": 23.6,
-            "state_anchors": {
-              "S0": "C2-4",
-              "S_avg": "C2-4",
-              "S_end": "C2-4"
-            }
+          "loss_grade": "L2",
+          "stability_basis": "长期征运实际生产损耗到后续恢复为实质经济低谷，军国供给充足不抹去。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-拓跋焘",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "长期征运实际生产损耗到后续恢复为实质经济低谷，军国供给充足不抹去。",
+              "strong_dimensions": [],
+              "main_representativeness": "本人窗口内既有长期征运造成的生产损耗，也有太平真君阶段农牧生产恢复、军国供给充足与府藏盈积。公共财政的常规税基细节不够完整，市场货币面材料亦薄，但合同规定缺证只能降低置信度，不能自动判坏；现有P与F/R实际结果足以闭合两柱至少健康，故保四档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-拓跋焘",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-拓跋焘",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-拓跋焘",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-拓跋焘",
+                "刘宋币制反复与轻钱私铸导致粮价和市场崩坏"
+              ]
+            },
+            "score": 21.2
           }
         },
         {
@@ -565,14 +652,15 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 56,
+          "rank": 125,
           "reign_range": "465—476年；471年退位后仍掌权",
           "ruler_id": "RULER-SHADOW-拓跋弘",
           "ruler_name": "拓跋弘",
-          "score": 14.9,
+          "score": 12.5,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C2-2",
+            "S_main": "C2-3",
             "S_avg": "C2-3",
             "S_end": "C2-3"
           },
@@ -592,21 +680,35 @@
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-3",
-            "score": 14.9,
-            "state_anchors": {
-              "S0": "C2-2",
-              "S_avg": "C2-3",
-              "S_end": "C2-3"
-            }
-          },
-          "old_settlement_review": "KEEP_BAND_STRENGTHEN_EVIDENCE；保留：分等租输、罢杂调与战争转运压力均保留。；推翻/修正：删除任何把“民复赡”直接解释成公共财政健康的倾向。。",
           "handoff_segment_anchors": [
             {
               "raw_text": "467—476本人实际主政=C2-2→C2-3"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "连年大旱造成生产受损后恢复为实质经济阶段，税改名目不直接计分。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-拓跋弘",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "连年大旱造成生产受损后恢复为实质经济阶段，税改名目不直接计分。",
+              "strong_dimensions": [],
+              "main_representativeness": "原结算关于三等九品租输、罢十五项杂调和山东征戍转运压力的框架基本成立。新核史料还直接给出“赋敛稍轻，民复赡矣”，说明改革后至少恢复到基本可运行；但这仍主要闭合税负与P侧生活/生产余量，缺市场货币和公共储备的健康结果，而且天安、皇兴间连年大旱与山东转运构成持续约束。因此保C2-3，不把改革动作本身抬成四档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-拓跋弘",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-拓跋弘",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-拓跋弘",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-拓跋弘",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 12.5
+          }
         },
         {
           "adjudication_reason": "原结算关于给牛授田和农业组织形成北魏早期生产基础可以保留；但新核《魏书·食货志》同时给出了很关键的上限反证：虽“比岁大熟”，却“犹未足以久赡”。这意味着P已经强劲恢复，但F/R仍只有有限供给余量。征服所得珍宝畜产只可说明一时国用，不能作为正常财政强证。故主态仍C2-3，晚段生产改善使交班锚维持C2-4，与拓跋嗣S0同步。",
@@ -666,6 +768,7 @@
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C2-2",
+            "S_main": "C2-3",
             "S_avg": "C2-3",
             "S_end": "C2-4"
           },
@@ -685,16 +788,30 @@
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-3",
-            "score": 14.9,
-            "state_anchors": {
-              "S0": "C2-2",
-              "S_avg": "C2-3",
-              "S_end": "C2-4"
-            }
-          },
-          "old_settlement_review": "KEEP_BAND_ADD_BOTTLENECK；保留：给牛授田、农业恢复的正面判断保留。；推翻/修正：旧结算未充分消费“犹未足以久赡”的公共余量反证。。"
+          "loss_grade": "L0",
+          "stability_basis": "不足久赡已由三档弱柱消费，未另证独立失效阶段。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-拓跋珪",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "不足久赡已由三档弱柱消费，未另证独立失效阶段。",
+              "strong_dimensions": [],
+              "main_representativeness": "原结算关于给牛授田和农业组织形成北魏早期生产基础可以保留；但新核《魏书·食货志》同时给出了很关键的上限反证：虽“比岁大熟”，却“犹未足以久赡”。这意味着P已经强劲恢复，但F/R仍只有有限供给余量。征服所得珍宝畜产只可说明一时国用，不能作为正常财政强证。故主态仍C2-3，晚段生产改善使交班锚维持C2-4，与拓跋嗣S0同步。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-拓跋珪",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-拓跋珪",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-拓跋珪",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-拓跋珪",
+                "魏书·刑罚志"
+              ]
+            },
+            "score": 14.9
+          }
         }
       ]
     }

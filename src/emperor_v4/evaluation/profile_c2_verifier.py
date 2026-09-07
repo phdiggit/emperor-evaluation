@@ -175,7 +175,13 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
             assert any(p["cycle_type"] == "TRUTH_ACQUISITION" for p in parents)
             assert coverage["positive_window_status"] == "CLOSED_PARENT_PRESENT"
             if coverage["negative_window_status"] != "CLOSED_PARENT_PRESENT":
-                assert row["position"] == "LOW"
+                assert (
+                    row["position"] == "LOW"
+                    or (
+                        row["axis_grade"] == "G4"
+                        and coverage.get("negative_window_review") == "REVIEWED_NO_CLOSED_NEGATIVE_PARENT"
+                    )
+                )
                 assert coverage["negative_window_status"] == "NO_CLOSED_NEGATIVE_PARENT"
 
     assert audit["canonical_status"] == "FORMAL_CURRENT"
@@ -238,7 +244,13 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         }
         if profile["negative_observation_window_review"] == "REVIEWED_NO_CLOSED_NEGATIVE_PARENT":
             record = record_by_id[profile["ruler_id"]]
-            assert record["position"] == "LOW"
+            assert (
+                record["position"] == "LOW"
+                or (
+                    record["axis_grade"] == "G4"
+                    and record["coverage_review"].get("negative_window_review") == "REVIEWED_NO_CLOSED_NEGATIVE_PARENT"
+                )
+            )
             assert record["coverage_review"]["negative_window_status"] == "NO_CLOSED_NEGATIVE_PARENT"
             assert "不虚构负证" in profile["later_retest_review"]
         assert profile["source_density_asymmetry_review"] == "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE"

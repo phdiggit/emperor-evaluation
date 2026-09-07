@@ -31,18 +31,19 @@
           "evidence_mode": "DIRECT_MACRO_ANCHOR",
           "main_band": "C1-3",
           "material_limitations": [
-            "第二条属于早期存亡危机，不在恢复完成后重复压K；晚年多方向战争缺普通家庭端独立闭合。"
+            "第二条属于早期存亡危机，不在恢复完成后重复压低谷修正；晚年多方向战争缺普通家庭端独立闭合。"
           ],
           "peak_band": null,
           "polity": "唐末吴政权",
-          "rank": 36,
+          "rank": 102,
           "reign_range": "883—905年淮南实际主政",
           "ruler_id": "RULER-SHADOW-杨行密",
           "ruler_name": "杨行密",
-          "score": 32.0,
+          "score": 22.4,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-1",
+            "S_main": "C1-3",
             "S_avg": "C1-3",
             "S_end": "C1-3"
           },
@@ -67,28 +68,6 @@
             "HOUSEHOLD_SUBSISTENCE_SURPLUS",
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
-            "persistence_class": "SINGLE_PHASE_CONFIRMED",
-            "from_band": "C1-1",
-            "to_band": "C1-3",
-            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《新五代史·吴世家》",
@@ -99,7 +78,36 @@
               "original_text": "于是数万户弃资产，焚庐舍，挈老幼迁于广陵。"
             }
           ],
-          "stability_basis": "早期扬州极端饥荒及海陵数万户强迁均集中在S0=C1-1的生存性战争危机；其后“未及数载，几复承平之旧”确认恢复。按规则早期低位及恢复不压K，后续未确认独立C1低谷，故K4。"
+          "stability_basis": "早期相食与强迁家庭断裂纳入本人恢复阶段，覆盖与严重度强，不豁免成功者。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-杨行密",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "早期相食与强迁家庭断裂纳入本人恢复阶段，覆盖与严重度强，不豁免成功者。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "接手扬州时仓廪空虚、饥民相食；其后轻徭薄赋、招抚流移，未数年接近恢复旧日承平，足以闭合从崩溃低位到基本维持。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "《新五代史》卷六十一",
+                "《十国春秋》卷一",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7257",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7259"
+              ]
+            },
+            "score": 22.4
+          }
         }
       ]
     }

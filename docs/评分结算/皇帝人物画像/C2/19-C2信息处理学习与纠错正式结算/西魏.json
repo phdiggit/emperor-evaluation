@@ -4,11 +4,11 @@
   "collections": {
     "records": {
       "positions": [
-        56
+        76
       ],
       "records": [
         {
-          "sequence": 25,
+          "sequence": 77,
           "task_code": "PROFILE-C2-RULER-SHADOW-宇文泰",
           "ruler_id": "RULER-SHADOW-宇文泰",
           "ruler_name": "宇文泰",
@@ -26,11 +26,11 @@
           "confidence": "LOW",
           "score_status": "EVIDENCE_LIMITED",
           "formal_status": "FORMAL_CURRENT",
-          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-SHADOW-宇文泰",
-          "typical_pattern": "苏绰链可证明主动测试专业信源并据结果持续授权，单链不足G3。",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2-ROUND2#RULER-RULER-SHADOW-宇文泰",
+          "typical_pattern": "局部纠错型：能够在部分反馈到达后改判，但直接生命周期或跨域迁移仍有限。",
           "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
-          "grade_basis": "宇文泰：苏绰链可证明主动测试专业信源并据结果持续授权，单链不足G3。",
-          "position_basis": "宇文泰：信息处理短板仍存在，但可用的核验、更新或恢复机制较清楚，故位于明显短板档上沿，定为G2-HIGH。",
+          "grade_basis": "宇文泰：宇文泰先从官署答文中发现异常质量，追问是谁所作；得知苏绰后召见，又以旧史、地理、政术等连续测试其专业能力，通宵问答后才持续授权。它真正的 主动求真链，不是名臣光环或事后用人成功；后续财政、制度、文书等多项授权基本来自同一次“测试—识别—持续使用”信息关系，只能加厚这一父链，不能每项政策再算一条",
+          "position_basis": "宇文泰：G2-HIGH档内定位：能力呈局部、混合或材料受限状态；档内位置取决于反馈吸收稳定性和直接证据厚度；包含主动取证或冲突信源辨析；当前为E1有界证据，不是对全生涯能力低下的断言。",
           "axis_relevance_check": {
             "status": "C2_RELEVANT",
             "scoring_parent_refs": [
@@ -38,7 +38,7 @@
             ]
           },
           "limitations": [
-            "证据完成度为E1，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+            "证据完成度为E1，当前仍是有界画像；新增直接状态转移材料可重新裁决。"
           ],
           "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
           "representative_parent_ids": [
@@ -49,15 +49,15 @@
               "parent_id": "C2-V2-4BB9DD15285C",
               "cycle_type": "TRUTH_ACQUISITION",
               "direction": "POSITIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "苏绰链可证明主动测试专业信源并据结果持续授权，单链不足G3。",
+              "intensity": "MI2",
+              "basis": "宇文泰先从官署答文中发现异常质量，追问是谁所作；得知苏绰后召见，又以旧史、地理、政术等连续测试其专业能力，通宵问答后才持续授权。它属于真正的 ，不是名臣光环或事后用人成功。",
               "cycle_anchor_refs": [
                 "https://zh.wikisource.org/zh/周書/卷23"
               ],
               "source_parent_refs": [],
-              "lifecycle_review": "按C2生命周期核对：苏绰链可证明主动测试专业信源并据结果持续授权，单链不足G3。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "lifecycle_review": "按C2二轮生命周期核对：宇文泰先从官署答文中发现异常质量，追问是谁所作；得知苏绰后召见，又以旧史、地理、政术等连续测试其专业能力，通宵问答后才持续授权。它属于真正的 ，不是名臣光环或事后用人成功。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
               "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
-              "material_intensity": "MI2_LIFECYCLE",
+              "material_intensity": "MI2",
               "feedback_suppression_review": {
                 "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
               }
@@ -87,9 +87,10 @@
             "unresolved_phase_domain_windows": [
               "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
             ],
-            "publication_mode": "BOUNDED_PROFILE"
+            "publication_mode": "BOUNDED_PROFILE",
+            "negative_window_review": "REVIEWED_NO_CLOSED_NEGATIVE_PARENT"
           },
-          "review_status": "REBUILT",
+          "review_status": "ROUND2_MANUAL_ADJUDICATED",
           "directional_strength_balance_review": {
             "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
             "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",

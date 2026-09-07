@@ -55,17 +55,18 @@
           ],
           "peak_band": null,
           "polity": "东魏",
-          "rank": 12,
+          "rank": 22,
           "reign_range": [
             534,
             547
           ],
           "ruler_id": "RULER-SHADOW-高欢",
           "ruler_name": "高欢",
-          "score": 23.6,
+          "score": 22.6,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C2-2",
+            "S_main": "C2-4",
             "S_avg": "C2-4",
             "S_end": "C2-4"
           },
@@ -105,16 +106,30 @@
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-3",
-            "score": 14.9,
-            "state_anchors": {
-              "S0": "C2-2",
-              "S_avg": "C2-3",
-              "S_end": "C2-4"
-            }
-          },
-          "old_settlement_review": "UPGRADE_FROM_C2_3；保留：原结算关于仓盐、屯田/税役和山东恢复的方向全部保留。；推翻/修正：原结算低估“军国之费粗得周赡”与连续丰年的双柱闭合强度，主档升四。。"
+          "loss_grade": "L1",
+          "stability_basis": "军国之费由不足到粗得周赡为财政恢复阶段，最低已证档，未证巨大额外损失。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-高欢",
+            "loss_review": {
+              "grade": "L1",
+              "basis": "军国之费由不足到粗得周赡为财政恢复阶段，最低已证档，未证巨大额外损失。",
+              "strong_dimensions": [],
+              "main_representativeness": "原结算已抓到仓储、盐业与丰年恢复，但把这些结果只判作“基本运行”偏严。《资治通鉴》同一段直接闭合：沿河津梁广置仓积谷、四州煮盐后“军国之费粗得周赡”，随后东方连岁大稔、谷斛九钱；《通典》又记清查无籍户后“租调之入有加”。这已经同时给出P与F/R实际健康结果，足以升C2-4。之所以不进5，是财政表述仅到“粗得周赡”，M面亦缺独立强结果。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/史料通读产物/唐以前编年/南北朝/卷154-通读总结.md#L128"
+              ]
+            },
+            "score": 22.6
+          }
         }
       ]
     }

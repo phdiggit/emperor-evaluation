@@ -4,12 +4,12 @@
   "collections": {
     "records": {
       "positions": [
-        34,
-        181
+        35,
+        182
       ],
       "records": [
         {
-          "sequence": 23,
+          "sequence": 36,
           "task_code": "PROFILE-C2-RULER-QIN-YINGZHENG",
           "ruler_id": "RULER-QIN-YINGZHENG",
           "ruler_name": "嬴政",
@@ -19,26 +19,28 @@
           "axis_name": "信息处理、学习与纠错",
           "axis_grade": "G3",
           "grade_numeric": 3,
-          "position": "LOW",
-          "radar_value": 58,
-          "score_100": 58,
+          "position": "MID",
+          "radar_value": 65,
+          "score_100": 65,
           "axis_evidence_level": "E2",
           "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
           "score_status": "EVIDENCE_LIMITED",
           "formal_status": "FORMAL_CURRENT",
-          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-QIN-YINGZHENG",
-          "typical_pattern": "伐楚时嬴政先采李信二十万人的估算，战败构成直接反证；他随后重新起用此前主张六十万的王翦，接受其资源判断并改变兵力配置，灭楚结果验证改策。 逐客令把客卿一体排除，李斯上书从秦国用人史和现实收益提出反证；嬴政理解后撤销逐客令并恢复任用，形成由身份直觉转向绩效信息的实际更新。 统一后以刑罚禁止非秦史书、私学议政和以古非今，御史案问、官吏见知不举同罪、诸生相互告引形成全国执行；扶苏对反馈封闭的劝阻到达后又被外放，说明不是单次惩罚，而是长期主动收窄反证来源。",
-          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
-          "grade_basis": "嬴政：伐楚时嬴政先采李信二十万人的估算，战败构成直接反证；他随后重新起用此前主张六十万的王翦，接受其资源判断并改变兵力配置，灭楚结果验证改策。 逐客令把客卿一体排除，李斯上书从秦国用人史和现实收益提出反证；嬴政理解后撤销逐客令并恢复任用，形成由身份直觉转向绩效信息的实际更新。 统一后以刑罚禁止非秦史书、私学议政和以古非今，御史案问、官吏见知不举同罪、诸生相互告引形成全国执行；扶苏对反馈封闭的劝阻到达后又被外放，说明不是单次惩罚，而是长期主动收窄反证来源。",
-          "position_basis": "嬴政：合格的求真或纠错能力可以确认，但独立周期、迁移范围或稳定性偏薄，因此取合格档下沿，定为G3-LOW。",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2-ROUND2#RULER-RULER-QIN-YINGZHENG",
+          "typical_pattern": "正负混合、具备迁移能力型：已有真实纠错，也保留信源误判或复发窗口。",
+          "counterpattern": "统一后以刑罚压制非秦史书、私学议政、以古非今及诸生告引，确实是极强的B2/C5反馈封闭；但C2合同明确“渠道不安全本身不算负证”。不能因为潜在反证源被制度性压制，就直接记一条 REFUSAL_OR_RECURRENCE / MI3。；“天下事无小大皆决于上、衡石量书、博士备员不用、丞相受成事”首先描述的是权力组织、分工与信息瓶颈，核心更接近B1/B2。除非逐项证明具体反证已经到达、嬴政反复拒核并在多个对象复发，否则不能用“权力过度集中”本身生成C2 MI3。",
+          "grade_basis": "嬴政：1. 伐楚兵力重估： 先采李信二十万估算，失败直接否定原判断；随后重新起用此前主张六十万的王翦并改变资源配置，灭楚验证改策。计 纠错链。这里奖励的是战败后对兵力判断的更新，不是灭楚功业。 2. 逐客令撤销： 李斯以秦国既往用客史和现实收益反驳“客卿一体逐出”的身份直觉；嬴政撤令并恢复任用。计 纠错链。不能因为潜在反证源被制度性压制，就直接记一条 REFUSAL_OR_RECURRENCE / MI3",
+          "position_basis": "嬴政：G3-MID档内定位：已有可复核的个人求真或纠错生命周期；档内位置主要受跨阶段迁移和上沿稳定性限制；包含主动取证或冲突信源辨析；保留真实负向下沿；仍受当前阶段覆盖和史料密度边界限制。",
           "axis_relevance_check": {
             "status": "C2_RELEVANT",
             "scoring_parent_refs": [
               "C2-P084-CHU-CAMPAIGN-CORRECTION",
               "C2-P084-EXPULSION-ORDER",
               "C2-P084-FEEDBACK-SUPPRESSION-SYSTEM",
-              "C2-P084-PERSONAL-DECISION-BOTTLENECK"
+              "C2-P084-PERSONAL-DECISION-BOTTLENECK",
+              "C2-R2-FE30EB7BF1CD",
+              "C2-R2-ACD893A68E8F"
             ]
           },
           "limitations": [
@@ -49,7 +51,9 @@
             "C2-P084-CHU-CAMPAIGN-CORRECTION",
             "C2-P084-EXPULSION-ORDER",
             "C2-P084-FEEDBACK-SUPPRESSION-SYSTEM",
-            "C2-P084-PERSONAL-DECISION-BOTTLENECK"
+            "C2-P084-PERSONAL-DECISION-BOTTLENECK",
+            "C2-R2-FE30EB7BF1CD",
+            "C2-R2-ACD893A68E8F"
           ],
           "parent_chains": [
             {
@@ -142,12 +146,12 @@
               "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
               "feedback_suppression_review": {
                 "review_status": "REVIEWED",
-                "feedback_arrival": "扶苏已直接指出高压处置会造成天下不安等反作用。",
-                "sanction_or_exclusion_intensity": "EXTREME",
+                "sanction_or_exclusion_intensity": "MODERATE",
                 "recurrence_scope": "SUSTAINED_MULTI_OBJECT",
-                "future_channel_effect": "CHANNEL_DESTRUCTION",
-                "c2_slice": "全国性刑罚把潜在反证源系统排除，反馈到达后仍继续。",
-                "c5_exclusion": "坑杀、族刑等严重性本身不直接换算C2分值。"
+                "future_channel_effect": "SUSTAINED_CHILLING",
+                "feedback_arrival": "附件二轮逐人裁决确认可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
               }
             },
             {
@@ -167,12 +171,58 @@
               "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
               "feedback_suppression_review": {
                 "review_status": "REVIEWED",
-                "feedback_arrival": "长期行政负荷和臣下取容是持续可见反馈，且扶苏提出直接反证。",
-                "sanction_or_exclusion_intensity": "HIGH",
+                "sanction_or_exclusion_intensity": "MODERATE",
                 "recurrence_scope": "SUSTAINED_MULTI_OBJECT",
-                "future_channel_effect": "CHANNEL_DESTRUCTION",
-                "c2_slice": "已知单节点失真风险仍不建立独立复核，跨对象持续复发。",
-                "c5_exclusion": "中央集权程度和权力程序本身留C5。"
+                "future_channel_effect": "SUSTAINED_CHILLING",
+                "feedback_arrival": "附件二轮逐人裁决确认可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
+              }
+            },
+            {
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2二轮生命周期核对：1. 伐楚兵力重估： 先采李信二十万估算，失败直接否定原判断；随后重新起用此前主张六十万的王翦并改变资源配置，灭楚验证改策。计 。这里奖励的是战败后对兵力判断的更新，不是灭楚功业。 2. 逐客令撤销： 李斯以秦国既往用客史和现实收益反驳“客卿一体逐出”的身份直觉；嬴政撤令并恢复任用。计 。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "parent_id": "C2-R2-FE30EB7BF1CD",
+              "basis": "1. 伐楚兵力重估： 先采李信二十万估算，失败直接否定原判断；随后重新起用此前主张六十万的王翦并改变资源配置，灭楚验证改策。计 。这里奖励的是战败后对兵力判断的更新，不是灭楚功业。 2. 逐客令撤销： 李斯以秦国既往用客史和现实收益反驳“客卿一体逐出”的身份直觉；嬴政撤令并恢复任用。计 。",
+              "cycle_anchor_refs": [
+                "資治通鑑/卷007@秦王不用王翦六十万估计至杀七都尉秦军走",
+                "OUTCOME-QIN-CHU",
+                "docs/史料通读产物/唐以前编年/秦/卷006-通读总结.md#L22",
+                "docs/史料通读产物/唐以前编年/秦/卷006-通读总结.md#L26"
+              ],
+              "material_intensity": "MI2",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2二轮生命周期核对：扶苏事件。 扶苏对坑杀/压制会造成天下不安提出具体反对，信息确已到达本人；嬴政没有重新核查或解释风险，而是将扶苏外放。这可以作为 ，但对象仍是一次核心政治议题，不能把全国反馈压制的严重性转换成MI3认知强度。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "parent_id": "C2-R2-ACD893A68E8F",
+              "basis": "扶苏事件。 扶苏对坑杀/压制会造成天下不安提出具体反对，信息确已到达本人；嬴政没有重新核查或解释风险，而是将扶苏外放。这可以作为 ，但对象仍是一次核心政治议题，不能把全国反馈压制的严重性转换成MI3认知强度。",
+              "cycle_anchor_refs": [
+                "資治通鑑/卷007@秦王不用王翦六十万估计至杀七都尉秦军走",
+                "OUTCOME-QIN-CHU",
+                "docs/史料通读产物/唐以前编年/秦/卷006-通读总结.md#L22",
+                "docs/史料通读产物/唐以前编年/秦/卷006-通读总结.md#L26"
+              ],
+              "material_intensity": "MI2",
+              "feedback_suppression_review": {
+                "review_status": "REVIEWED",
+                "sanction_or_exclusion_intensity": "MODERATE",
+                "recurrence_scope": "REPEATED_SAME_MECHANISM",
+                "future_channel_effect": "TEMPORARY_CHILLING",
+                "feedback_arrival": "附件二轮逐人裁决确认可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
               }
             }
           ],
@@ -309,7 +359,8 @@
               "https://zh.wikisource.org/zh-hant/資治通鑑/卷008",
               "https://zh.wikisource.org/zh-hant/史記/卷006"
             ],
-            "excluded_person_specific_source_count": 0
+            "excluded_person_specific_source_count": 0,
+            "negative_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE"
           },
           "directional_strength_balance_review": {
             "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
@@ -317,16 +368,17 @@
             "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
             "suppression_parent_ids": [
               "C2-P084-FEEDBACK-SUPPRESSION-SYSTEM",
-              "C2-P084-PERSONAL-DECISION-BOTTLENECK"
+              "C2-P084-PERSONAL-DECISION-BOTTLENECK",
+              "C2-R2-ACD893A68E8F"
             ],
             "isolated_positive_parent_ids": [],
             "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
             "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
           },
-          "review_status": "VALID"
+          "review_status": "ROUND2_MANUAL_ADJUDICATED"
         },
         {
-          "sequence": 182,
+          "sequence": 183,
           "task_code": "PROFILE-C2-RULER-QIN-HUHAI",
           "ruler_id": "RULER-QIN-HUHAI",
           "ruler_name": "胡亥",
@@ -344,15 +396,16 @@
           "confidence": "MEDIUM",
           "score_status": "EVIDENCE_LIMITED",
           "formal_status": "FORMAL_CURRENT",
-          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-QIN-HUHAI",
-          "typical_pattern": "停阿房、减四边戍、接见章邯并授权议降均是明确替代；本人采赵高深居禁中，拒李斯等建议并追究，章邯败退后只责让、司马欣不得见且遭追捕，主力遂自行降楚；反馈连续到达而风险入口被主动摧毁。",
-          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
-          "grade_basis": "胡亥：停阿房、减四边戍、接见章邯并授权议降均是明确替代；本人采赵高深居禁中，拒李斯等建议并追究，章邯败退后只责让、司马欣不得见且遭追捕，主力遂自行降楚；反馈连续到达而风险入口被主动摧毁。",
-          "position_basis": "胡亥：反馈入口、信息核验和纠错机制均呈持续且难以恢复的严重失能，故取历史级负面档下沿，定为G0-LOW。",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2-ROUND2#RULER-RULER-QIN-HUHAI",
+          "typical_pattern": "反馈拒绝与失真接口主导型：长期拒核、迟改或同构复发构成主要观察模式。",
+          "counterpattern": "他转而追究三人其他罪责。C2不消费两人自杀、李斯受刑死亡本身；计分的是“危机反证到达 → 不核验政策问题 → 把反馈者转成问罪对象”，可裁 REFUSAL_OR_RECURRENCE / NEGATIVE / MI3_SUSTAINED_SYSTEMIC。；史源明确记胡亥接受赵高方案，“常居禁中，与高决诸事”，公卿很少能朝见。这不单靠“渠道不安全”计分，而是承接上一条已发生的反馈拒绝：直接反馈被清除后，本人又主动把后续信息集中到赵高一人。",
+          "grade_basis": "胡亥：最高层反馈到达后主动反向封闭。 冯去疾、李斯、冯劫明确请求停止阿房宫、减少四边戍转，给出的并非抽象道德批评，而是正在爆发全国危机时可直接执行的资源收缩方案；他转而追究三人其他罪责。C2不消费两人自杀、李斯受刑死亡本身",
+          "position_basis": "胡亥：G0-LOW档内定位：已观察到的信息入口或反馈吸收存在严重失能；档内位置取决于局部恢复窗口；保留真实负向下沿；仍受当前阶段覆盖和史料密度边界限制。",
           "axis_relevance_check": {
             "status": "C2_RELEVANT",
             "scoring_parent_refs": [
-              "C2-P083-C1-7D37BFDC"
+              "C2-P083-C1-7D37BFDC",
+              "C2-R2-HUHAI-MILITARY-INTERFACE"
             ]
           },
           "limitations": [
@@ -360,42 +413,61 @@
           ],
           "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
           "representative_parent_ids": [
-            "C2-P083-C1-7D37BFDC"
+            "C2-P083-C1-7D37BFDC",
+            "C2-R2-HUHAI-MILITARY-INTERFACE"
           ],
           "parent_chains": [
             {
-              "parent_id": "C2-P083-C1-7D37BFDC",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
               "direction": "NEGATIVE",
-              "intensity": "MI4",
-              "basis": "停阿房、减四边戍、接见章邯并授权议降均是明确替代；本人采赵高深居禁中，拒李斯等建议并追究，章邯败退后只责让、司马欣不得见且遭追捕，主力遂自行降楚；反馈连续到达而风险入口被主动摧毁。",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "冯去疾、李斯、冯劫把停止阿房、减少戍转等可执行收缩方案带到最高层，胡亥转而追究反馈者并主动深居禁中、授权赵高控制报告。",
               "cycle_anchor_refs": [
                 "https://zh.wikisource.org/w/index.php?title=%E5%8F%B2%E8%A8%98%2F%E5%8D%B7006&oldid=7907969",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/qin.json#I2-QIN-HH-FEEDBACK-CLOSURE-001",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/qin.json#I2-QIN-HH-COURT-CAPTURE-PURGE-001",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/qin.json#I2-QIN-HH-COMMAND-TRUST-COLLAPSE-001",
-                "QIN-CIVIL-WAR",
-                "WAR-LEAD-QIN-CIVIL-WAR",
-                "WAR-LEAD-QIN-ZHANGHAN",
-                "docs/史料通读产物/唐以前编年/秦/卷008-通读总结.md#L24",
-                "docs/史料通读产物/唐以前编年/秦/卷008-通读总结.md#L25",
-                "docs/史料通读产物/唐以前编年/秦/卷008-通读总结.md#L30",
-                "docs/史料通读产物/唐以前编年/秦/卷008-通读总结.md#L43",
-                "docs/史料通读产物/唐以前编年/秦/卷008-通读总结.md#L48",
-                "docs/史料通读产物/唐以前编年/秦/卷008-通读总结.md#L66",
-                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-QIN-HUHAI/traits/A2/0",
-                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P083-REBELS-EXIT",
-                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-QIN-HUHAI"
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/qin.json#I2-QIN-HH-COMMAND-TRUST-COLLAPSE-001"
               ],
-              "source_parent_refs": [
-                "C1-P083-SYSTEMIC-REFUSAL"
-              ],
-              "lifecycle_review": "按C2生命周期核对：停阿房、减四边戍、接见章邯并授权议降均是明确替代；本人采赵高深居禁中，拒李斯等建议并追究，章邯败退后只责让、司马欣不得见且遭追捕，主力遂自行降楚；反馈连续到达而风险入口被主动摧毁。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
-              "secondary_projection_reason": "C2只消费本人取得真实信息和认知更新切片；异议安全、处罚、清洗和程序比例留C5。",
-              "cycle_type": "REFUSAL_OR_RECURRENCE",
-              "material_intensity": "MI4",
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2二轮生命周期核对：冯去疾、李斯、冯劫把停止阿房、减少戍转等可执行收缩方案带到最高层，胡亥转而追究反馈者并主动深居禁中、授权赵高控制报告。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
               "feedback_suppression_review": {
-                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
+                "review_status": "REVIEWED",
+                "sanction_or_exclusion_intensity": "MODERATE",
+                "recurrence_scope": "SUSTAINED_MULTI_OBJECT",
+                "future_channel_effect": "SUSTAINED_CHILLING",
+                "feedback_arrival": "附件二轮逐人裁决确认可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
+              },
+              "parent_id": "C2-P083-C1-7D37BFDC"
+            },
+            {
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "章邯战败后请求增援，司马欣入朝又被赵高拒见、不信并追捕；中央—前线军政接口中的真实军情没有促成重核，章邯集团最终自行转向降楚。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/w/index.php?title=%E5%8F%B2%E8%A8%98%2F%E5%8D%B7006&oldid=7907969",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/qin.json#I2-QIN-HH-FEEDBACK-CLOSURE-001",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/qin.json#I2-QIN-HH-COURT-CAPTURE-PURGE-001",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/qin.json#I2-QIN-HH-COMMAND-TRUST-COLLAPSE-001"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2二轮生命周期核对：章邯战败后请求增援，司马欣入朝又被赵高拒见、不信并追捕；中央—前线军政接口中的真实军情没有促成重核，章邯集团最终自行转向降楚。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "feedback_suppression_review": {
+                "review_status": "REVIEWED",
+                "sanction_or_exclusion_intensity": "MODERATE",
+                "recurrence_scope": "SUSTAINED_MULTI_OBJECT",
+                "future_channel_effect": "SUSTAINED_CHILLING",
+                "feedback_arrival": "附件二轮逐人裁决确认可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
+              },
+              "parent_id": "C2-R2-HUHAI-MILITARY-INTERFACE"
             }
           ],
           "source_unit_ids": [
@@ -437,14 +509,18 @@
             "unresolved_phase_domain_windows": [
               "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
             ],
-            "publication_mode": "BOUNDED_PROFILE"
+            "publication_mode": "BOUNDED_PROFILE",
+            "negative_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE"
           },
-          "review_status": "VALID_SYSTEMIC_NEGATIVE",
+          "review_status": "ROUND2_MANUAL_ADJUDICATED",
           "directional_strength_balance_review": {
             "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
             "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
             "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
-            "suppression_parent_ids": [],
+            "suppression_parent_ids": [
+              "C2-P083-C1-7D37BFDC",
+              "C2-R2-HUHAI-MILITARY-INTERFACE"
+            ],
             "isolated_positive_parent_ids": [],
             "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
             "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"

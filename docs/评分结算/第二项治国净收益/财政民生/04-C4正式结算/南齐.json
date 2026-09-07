@@ -24,7 +24,7 @@
           "period": "qin_through_tang",
           "polity": "南齐",
           "positive_score_retained": 4.0,
-          "rank": 44,
+          "rank": 33,
           "raw_score": 4.0,
           "recovery_score": 4.0,
           "reign_range": [
@@ -39,7 +39,7 @@
           "terminal_cap_applied": false,
           "terminal_reason": "交班raw锚点为民生3档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。",
           "weighted_attributable_deterioration": 0.0,
-          "weighted_net_recovery_delta": 0.5,
+          "weighted_net_recovery_delta": 0.4,
           "m3_supplement_review": {
             "disposition": "REVIEWED_C4_ATTRIBUTION_RETAINED",
             "applied_parent_ids": [
@@ -86,9 +86,9 @@
           },
           "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-2/C2-3/C3-3；交班三轴为C1-3/C2-3/C3-3。",
-          "recovery_and_absorption": "恢复原值4.0；归责FULL（100%）；可归责恢复4.0/27；交班上限24.9；正向保留4.0。",
+          "recovery_and_absorption": "按可比基线至交班保留增量计算净恢复4.0/27；未保留峰值不计分。",
           "behavior_and_attribution": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
-          "handoff_state": "交班raw锚点为民生3档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。",
+          "handoff_state": "交班锚点为C1-3/C2-3/C3-3；终局C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《资治通鉴》卷一百三十五：罢候官千数，停繁密台使，断众募，自是吏民始得安业。",
             "《南齐书》：建元初，检定黄籍。",
@@ -96,7 +96,7 @@
             "《资治通鉴》卷一百三十四：收攸之诸子及宗族，皆杀之。"
           ],
           "public_adjudication": "正向保留4.0分；评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分4.0。",
-          "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
+          "recovery_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
             "2_TO_3": 0.8,
@@ -111,23 +111,29 @@
               "linear_delta": 1,
               "boundary_difficulty_credit": 0.8,
               "axis_weight": 0.5,
-              "weighted_difficulty_credit": 0.4
+              "attribution_factor": 1.0,
+              "weighted_difficulty_credit": 0.4,
+              "retained_increment": true
             },
             "C2": {
               "start_band": "C2-3",
               "highest_achieved_band": "C2-3",
               "linear_delta": 0,
-              "boundary_difficulty_credit": 0,
+              "boundary_difficulty_credit": 0.0,
               "axis_weight": 0.2,
-              "weighted_difficulty_credit": 0.0
+              "attribution_factor": 0,
+              "weighted_difficulty_credit": 0.0,
+              "retained_increment": false
             },
             "C3": {
               "start_band": "C3-3",
               "highest_achieved_band": "C3-3",
               "linear_delta": 0,
-              "boundary_difficulty_credit": 0,
+              "boundary_difficulty_credit": 0.0,
               "axis_weight": 0.3,
-              "weighted_difficulty_credit": 0.0
+              "attribution_factor": 0,
+              "weighted_difficulty_credit": 0.0,
+              "retained_increment": false
             }
           },
           "difficulty_weighted_recovery_credit": 0.4,
@@ -138,10 +144,9 @@
           "terminal_quality": 3.0,
           "deterioration_path_basis": {
             "C1": {
-              "reference_band": "C1-3",
+              "reference_band": "C1-2",
               "end_band": "C1-3",
               "raw_drop": 0,
-              "attribution": "NONE",
               "attribution_factor": 0.0,
               "attributable_drop": 0.0,
               "axis_weight": 0.5
@@ -150,7 +155,6 @@
               "reference_band": "C2-3",
               "end_band": "C2-3",
               "raw_drop": 0,
-              "attribution": "NONE",
               "attribution_factor": 0.0,
               "attributable_drop": 0.0,
               "axis_weight": 0.2
@@ -159,7 +163,6 @@
               "reference_band": "C3-3",
               "end_band": "C3-3",
               "raw_drop": 0,
-              "attribution": "NONE",
               "attribution_factor": 0.0,
               "attributable_drop": 0.0,
               "axis_weight": 0.3
@@ -225,7 +228,7 @@
             "status": "REVIEWED",
             "evidence_mode": "NONE",
             "choice_and_civilian_basis": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。",
-            "absorbed_and_excluded_basis": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "absorbed_and_excluded_basis": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 V3消费核对：C1 从持续征募困扰到吏民安业的实际家庭恢复，最低已证档。；C2 钱少钱贵等弱面已构成三档，未另证独立更低财政阶段。；C3 大量候官和繁密使者扰动到安业为已证有限基层安全恢复；宗族个案不外推。 既有DA只保留本审计所列独立供役、机会成本或其他残余对象；不按L扣分大小另加成本。",
             "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
             "military_input_double_charge": false,
             "source_refs": [
@@ -239,7 +242,106 @@
             ],
             "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-SHADOW-萧道成",
             "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-萧道成"
-          }
+          },
+          "state_recovery_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-萧道成",
+            "baseline": {
+              "C1": {
+                "band": 2,
+                "label": "C1-2",
+                "source": "S0",
+                "status": "RECHECKED_RETAIN_S0",
+                "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
+                "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+              },
+              "C2": {
+                "band": 3,
+                "label": "C2-3",
+                "source": "S0",
+                "status": "RECHECKED_RETAIN_S0",
+                "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
+                "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+              },
+              "C3": {
+                "band": 3,
+                "label": "C3-3",
+                "source": "S0",
+                "status": "RECHECKED_RETAIN_S0",
+                "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
+                "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+              }
+            },
+            "terminal": {
+              "C1": {
+                "band": 3,
+                "label": "C1-3",
+                "source": "S_end"
+              },
+              "C2": {
+                "band": 3,
+                "label": "C2-3",
+                "source": "S_end"
+              },
+              "C3": {
+                "band": 3,
+                "label": "C3-3",
+                "source": "S_end"
+              }
+            },
+            "attribution": {
+              "C1": {
+                "factor": 1.0,
+                "grade": "FULL",
+                "basis": "交班仍高于可比恢复基线；沿用已裁实施责任FULL，只保留实际净增档界。"
+              },
+              "C2": {
+                "factor": 0,
+                "grade": "NONE",
+                "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+              },
+              "C3": {
+                "factor": 0,
+                "grade": "NONE",
+                "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+              }
+            },
+            "calculation": {
+              "raw_recovery": 4.0,
+              "recovery_score": 4.0,
+              "terminal_band": 3,
+              "terminal_cap": 24.9,
+              "positive_retained": 4.0,
+              "axis_details": {
+                "C1": {
+                  "baseline_band": 2,
+                  "end_band": 3,
+                  "attribution_factor": 1.0,
+                  "boundary_credit": 0.8,
+                  "weighted_credit": 0.4,
+                  "retained_increment": true
+                },
+                "C2": {
+                  "baseline_band": 3,
+                  "end_band": 3,
+                  "attribution_factor": 0,
+                  "boundary_credit": 0.0,
+                  "weighted_credit": 0.0,
+                  "retained_increment": false
+                },
+                "C3": {
+                  "baseline_band": 3,
+                  "end_band": 3,
+                  "attribution_factor": 0,
+                  "boundary_credit": 0.0,
+                  "weighted_credit": 0.0,
+                  "retained_increment": false
+                }
+              }
+            }
+          },
+          "attribution_factor_role": "LEGACY_SUMMARY_USE_AXIS_SPECIFIC_PATH",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE"
         },
         {
           "adjudication_reason": "正向保留0.0分；498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分0.0。",
@@ -255,7 +357,7 @@
           "period": "qin_through_tang",
           "polity": "南齐",
           "positive_score_retained": 0.0,
-          "rank": 85,
+          "rank": 77,
           "raw_score": 0.0,
           "recovery_score": 0.0,
           "reign_range": [
@@ -298,9 +400,9 @@
           },
           "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-2/C2-4/C3-3；交班三轴为C1-2/C2-3/C3-3。",
-          "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限24.9；正向保留0.0。",
+          "recovery_and_absorption": "按可比基线至交班保留增量计算净恢复0.0/27；未保留峰值不计分。",
           "behavior_and_attribution": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
-          "handoff_state": "交班raw为C1-2/C2-3/C3-3；终局C4T-3，正向上限24.9。",
+          "handoff_state": "交班锚点为C1-2/C2-3/C3-3；终局C4T-3，正向上限24.9。",
           "public_source_refs": [
             "docs/史料通读产物/唐以前编年/南北朝/卷139-通读总结.md:18",
             "docs/史料通读产物/唐以前编年/南北朝/卷139-通读总结.md:49",
@@ -312,7 +414,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧鸾"
           ],
           "public_adjudication": "正向保留0.0分；498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分0.0。",
-          "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
+          "recovery_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
             "2_TO_3": 0.8,
@@ -325,25 +427,31 @@
               "start_band": "C1-2",
               "highest_achieved_band": "C1-2",
               "linear_delta": 0,
-              "boundary_difficulty_credit": 0,
+              "boundary_difficulty_credit": 0.0,
               "axis_weight": 0.5,
-              "weighted_difficulty_credit": 0.0
+              "attribution_factor": 0,
+              "weighted_difficulty_credit": 0.0,
+              "retained_increment": false
             },
             "C2": {
               "start_band": "C2-4",
-              "highest_achieved_band": "C2-4",
+              "highest_achieved_band": "C2-3",
               "linear_delta": 0,
-              "boundary_difficulty_credit": 0,
+              "boundary_difficulty_credit": 0.0,
               "axis_weight": 0.2,
-              "weighted_difficulty_credit": 0.0
+              "attribution_factor": 0,
+              "weighted_difficulty_credit": 0.0,
+              "retained_increment": false
             },
             "C3": {
               "start_band": "C3-3",
               "highest_achieved_band": "C3-3",
               "linear_delta": 0,
-              "boundary_difficulty_credit": 0,
+              "boundary_difficulty_credit": 0.0,
               "axis_weight": 0.3,
-              "weighted_difficulty_credit": 0.0
+              "attribution_factor": 0,
+              "weighted_difficulty_credit": 0.0,
+              "retained_increment": false
             }
           },
           "difficulty_weighted_recovery_credit": 0.0,
@@ -416,7 +524,7 @@
             "status": "REVIEWED",
             "evidence_mode": "NONE",
             "choice_and_civilian_basis": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。",
-            "absorbed_and_excluded_basis": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "absorbed_and_excluded_basis": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 V3消费核对：C1 连岁征役不堪命已构成二档，不重复低谷。；C2 战争与减税政策不足另证经济阶段，弱税基已由三档吸收。；C3 政治诛戮已限制高档，未另证普通社会低谷。 既有DA只保留本审计所列独立供役、机会成本或其他残余对象；不按L扣分大小另加成本。",
             "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
             "military_input_double_charge": false,
             "source_refs": [
@@ -431,7 +539,133 @@
             ],
             "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
             "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-萧鸾"
-          }
+          },
+          "terminal_quality": 2.5,
+          "state_recovery_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-萧鸾",
+            "baseline": {
+              "C1": {
+                "band": 2,
+                "label": "C1-2",
+                "source": "S0",
+                "status": "RECHECKED_RETAIN_S0",
+                "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
+                "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+              },
+              "C2": {
+                "band": 4,
+                "label": "C2-4",
+                "source": "S0",
+                "status": "RECHECKED_RETAIN_S0",
+                "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
+                "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+              },
+              "C3": {
+                "band": 3,
+                "label": "C3-3",
+                "source": "S0",
+                "status": "RECHECKED_RETAIN_S0",
+                "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
+                "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+              }
+            },
+            "terminal": {
+              "C1": {
+                "band": 2,
+                "label": "C1-2",
+                "source": "S_end"
+              },
+              "C2": {
+                "band": 3,
+                "label": "C2-3",
+                "source": "S_end"
+              },
+              "C3": {
+                "band": 3,
+                "label": "C3-3",
+                "source": "S_end"
+              }
+            },
+            "attribution": {
+              "C1": {
+                "factor": 0,
+                "grade": "NONE",
+                "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+              },
+              "C2": {
+                "factor": 0,
+                "grade": "NONE",
+                "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+              },
+              "C3": {
+                "factor": 0,
+                "grade": "NONE",
+                "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+              }
+            },
+            "calculation": {
+              "raw_recovery": 0.0,
+              "recovery_score": 0.0,
+              "terminal_band": 3,
+              "terminal_cap": 24.9,
+              "positive_retained": 0.0,
+              "axis_details": {
+                "C1": {
+                  "baseline_band": 2,
+                  "end_band": 2,
+                  "attribution_factor": 0,
+                  "boundary_credit": 0.0,
+                  "weighted_credit": 0.0,
+                  "retained_increment": false
+                },
+                "C2": {
+                  "baseline_band": 4,
+                  "end_band": 3,
+                  "attribution_factor": 0,
+                  "boundary_credit": 0.0,
+                  "weighted_credit": 0.0,
+                  "retained_increment": false
+                },
+                "C3": {
+                  "baseline_band": 3,
+                  "end_band": 3,
+                  "attribution_factor": 0,
+                  "boundary_credit": 0.0,
+                  "weighted_credit": 0.0,
+                  "retained_increment": false
+                }
+              }
+            }
+          },
+          "deterioration_path_basis": {
+            "C1": {
+              "reference_band": "C1-2",
+              "end_band": "C1-2",
+              "raw_drop": 0,
+              "attribution_factor": 0.0,
+              "attributable_drop": 0.0,
+              "axis_weight": 0.5
+            },
+            "C2": {
+              "reference_band": "C2-4",
+              "end_band": "C2-3",
+              "raw_drop": 1,
+              "attribution_factor": 0.0,
+              "attributable_drop": 0.0,
+              "axis_weight": 0.2
+            },
+            "C3": {
+              "reference_band": "C3-3",
+              "end_band": "C3-3",
+              "raw_drop": 0,
+              "attribution_factor": 0.0,
+              "attributable_drop": 0.0,
+              "axis_weight": 0.3
+            }
+          },
+          "attribution_factor_role": "LEGACY_SUMMARY_USE_AXIS_SPECIFIC_PATH",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE"
         }
       ]
     }

@@ -4,10 +4,10 @@
   "collections": {
     "records": {
       "positions": [
-        20,
-        112,
-        149,
-        168
+        32,
+        138,
+        156,
+        165
       ],
       "records": [
         {
@@ -21,9 +21,9 @@
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
           "axis_grade": "G4",
-          "position": "MID",
-          "score_100": 82,
-          "radar_value": 82,
+          "position": "LOW",
+          "score_100": 77,
+          "radar_value": 77,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -106,7 +106,7 @@
             "C1-P098-JINGKOU-SEQUENCING",
             "C1-P098-GUANZHONG-HANDOFF-COUNTER"
           ],
-          "typical_pattern": "能以京口为基重建中枢并分阶段处理南燕、后秦等目标，但灭秦后关中留守相互制衡失败，重大成果迅速返工。",
+          "typical_pattern": "刘裕的战略排序和失败后重建能力长期很强，但关中交接是一条高归责、可行替代明确、战略成果迅速崩盘的DW3；再叠加刘穆之单点依赖和身后辅政耐久性不足，G4-MID偏高。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P098-JINGKOU-SEQUENCING"
@@ -115,7 +115,7 @@
               "C1-P098-GUANZHONG-HANDOFF-COUNTER"
             ]
           },
-          "grade_basis": "京口重建与南北分段达到PS3；关中留守在可行替代下造成重大崩盘为DW3。",
+          "grade_basis": "PS3主体依然很强，因此不出G4；但一条真正的DW3已经足以把MID压到LOW，尤其这条直接摧毁了其最重要的北方战略成果之一。改为`G4-LOW / 77`。",
           "position_basis": "北伐现场功归诸将；关中留守为DW3，强正向PS3仍使全生涯保持G4。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -146,7 +146,7 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 4,
-          "formal_order": 21
+          "formal_order": 33
         },
         {
           "sequence": 99,
@@ -159,9 +159,9 @@
           "axis_name": "战略判断与风险控制",
           "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G2",
-          "position": "HIGH",
-          "score_100": 51,
-          "radar_value": 51,
+          "position": "MID",
+          "score_100": 45,
+          "radar_value": 45,
           "axis_evidence_level": "E2",
           "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
@@ -191,14 +191,14 @@
           "representative_parent_ids": [
             "C1-P099-COALITION-FRAGILITY"
           ],
-          "typical_pattern": "能以讨劭联盟取得中枢，但本人重病、文檄军政多由颜竣代理，联盟利益安排未稳且旋即反叛。",
+          "typical_pattern": "刘骏原C1只写“讨刘劭联盟成功但旋即反叛”，且因其途中重病、颜竣代理份额高而保持E2。M4补证使内部资源链更清晰：强藩联盟在建政不到一年即转为大规模内战；随后又把信息、人事和奖惩入口高度集中到戴法兴等私人近侍。两条都命中C1，不只是M4关系质量。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P099-COALITION-FRAGILITY"
             ],
             "counter_parent_refs": []
           },
-          "grade_basis": "能以讨劭联盟取得中枢，但本人重病、文檄军政多由颜竣代理，联盟利益安排未稳且旋即反叛。",
+          "grade_basis": "有一次真实危机PS2，但战后强制资源隔离和长期信息接口都出现独立DW2；本人直接归责仍有代理与强藩自身异志限制。较原G2-HIGH应下修一档内位置，但不进G1。 由`G2-HIGH`下调为**`G2-MID / 45`**。",
           "position_basis": "本人直接归责和长期过程不足，E2中置信度。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -228,7 +228,90 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 2,
-          "formal_order": 113
+          "formal_order": 139
+        },
+        {
+          "sequence": 95,
+          "ruler_id": "RULER-SHADOW-刘彧",
+          "task_code": "PROFILE-C1-RULER-SHADOW-刘彧",
+          "ruler_name": "刘彧",
+          "polity": "刘宋",
+          "actual_power_window": "465—472年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G2",
+          "position": "LOW",
+          "score_100": 38,
+          "radar_value": 38,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-刘彧",
+          "parent_chains": [
+            {
+              "parent_id": "C1-P095-HUAI-NORTH-COLLAPSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#ruler_id=RULER-SHADOW-刘彧",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-SHADOW-刘彧"
+              ],
+              "direct_process_refs": [
+                "WAR-LEAD-131-01",
+                "WAR-LEAD-132-01"
+              ],
+              "cycle_basis": "泰始内战后保存淮北、安抚地方或强攻均可选；本人先逼反薛安都，粮运不继时又无视沈攸之七次拒绝强遣北进，彭城孤军、焦墟再败和淮北丧失闭合。",
+              "diagnostic_role": "DW2"
+            }
+          ],
+          "representative_parent_ids": [
+            "C1-P095-HUAI-NORTH-COLLAPSE"
+          ],
+          "typical_pattern": "内战后可休整或稳淮北，却逼反薛安都，并在粮运不继、主将七拒的反馈下强遣北进，造成连锁失守。",
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "counter_parent_refs": [
+              "C1-P095-HUAI-NORTH-COLLAPSE"
+            ]
+          },
+          "grade_basis": "刘彧现在的结构是： - 泰始内战总体动员：`PS2`； - 淮北方向：`DW3`； - 晚期宗王—幼主风险：`DW2`； - 七年窗口且坏牌明显。 因此原G1-LOW过低：它只消费战后淮北失败，没有对称消费同一人物在内战中真实完成的最高资源统筹。 但一个PS2仍不足抵消外部DW3和内部风险下沿，更不足形成PS3。 由`G1-LOW / 18`上调为**`G2-LOW / 38`**。",
+          "position_basis": "继承内战坏牌已复核；仍因明确替代和多次拒绝降至G1低位，不以失地本身定档。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P095-HUAI-NORTH-COLLAPSE"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "low_grade_gate": {
+              "status": "CLOSED",
+              "inherited_bad_hand": "REVIEWED",
+              "feasible_alternative": "REVIEWED_IN_PARENT_CHAIN",
+              "feedback_reachability": "REVIEWED_IN_PARENT_CHAIN",
+              "stop_loss": "REVIEWED_IN_PARENT_CHAIN"
+            }
+          },
+          "limitations": [
+            "继承内战坏牌已复核；仍因明确替代和多次拒绝降至G1低位，不以失地本身定档。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 2,
+          "formal_order": 157
         },
         {
           "sequence": 93,
@@ -286,7 +369,7 @@
               "C1-P093-REPEATED-NORTHERN-EXPEDITIONS"
             ]
           },
-          "grade_basis": "元嘉前中期积累好牌，却在沈庆之等多方明确反对下反复发动准备不足北伐，失败后再犯并耗尽承载。",
+          "grade_basis": "一条共享PS2下沿，对应： - 跨年北伐DW3； - 任内东宫强制资源崩溃DW3。 两个强负证发生在不同约束域，且均有明确本人可归责部分。 因此虽然早期中枢共辅应补回，仍不足把人物推离G1。 **维持`G1-HIGH / 31`。**",
           "position_basis": "早期长期恢复为正证，不降G0；低档来自好牌下重复可避免选择。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -316,89 +399,7 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 1,
-          "formal_order": 150
-        },
-        {
-          "sequence": 95,
-          "ruler_id": "RULER-SHADOW-刘彧",
-          "task_code": "PROFILE-C1-RULER-SHADOW-刘彧",
-          "ruler_name": "刘彧",
-          "polity": "刘宋",
-          "actual_power_window": "465—472年",
-          "axis_code": "C1",
-          "axis_name": "战略判断与风险控制",
-          "score_status": "FINAL",
-          "axis_grade": "G1",
-          "position": "LOW",
-          "score_100": 18,
-          "radar_value": 18,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
-          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-刘彧",
-          "parent_chains": [
-            {
-              "parent_id": "C1-P095-HUAI-NORTH-COLLAPSE",
-              "direction": "NEGATIVE",
-              "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#ruler_id=RULER-SHADOW-刘彧",
-                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-SHADOW-刘彧"
-              ],
-              "direct_process_refs": [
-                "WAR-LEAD-131-01",
-                "WAR-LEAD-132-01"
-              ],
-              "cycle_basis": "泰始内战后保存淮北、安抚地方或强攻均可选；本人先逼反薛安都，粮运不继时又无视沈攸之七次拒绝强遣北进，彭城孤军、焦墟再败和淮北丧失闭合。"
-            }
-          ],
-          "representative_parent_ids": [
-            "C1-P095-HUAI-NORTH-COLLAPSE"
-          ],
-          "typical_pattern": "内战后可休整或稳淮北，却逼反薛安都，并在粮运不继、主将七拒的反馈下强遣北进，造成连锁失守。",
-          "counterpattern": {
-            "positive_parent_refs": [],
-            "counter_parent_refs": [
-              "C1-P095-HUAI-NORTH-COLLAPSE"
-            ]
-          },
-          "grade_basis": "内战后可休整或稳淮北，却逼反薛安都，并在粮运不继、主将七拒的反馈下强遣北进，造成连锁失守。",
-          "position_basis": "继承内战坏牌已复核；仍因明确替代和多次拒绝降至G1低位，不以失地本身定档。",
-          "axis_relevance_check": {
-            "status": "CLOSED",
-            "scoring_parent_refs": [
-              "C1-P095-HUAI-NORTH-COLLAPSE"
-            ],
-            "result_nonconversion": true
-          },
-          "reviews": {
-            "window": "COVERAGE_CLOSED",
-            "relevance": "CLOSED",
-            "attribution": "CLOSED",
-            "dedup": "CLOSED",
-            "bidirectional": "CLOSED",
-            "density": "COUNTEREVIDENCE_FOUND",
-            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
-            "low_grade_gate": {
-              "status": "CLOSED",
-              "inherited_bad_hand": "REVIEWED",
-              "feasible_alternative": "REVIEWED_IN_PARENT_CHAIN",
-              "feedback_reachability": "REVIEWED_IN_PARENT_CHAIN",
-              "stop_loss": "REVIEWED_IN_PARENT_CHAIN"
-            }
-          },
-          "limitations": [
-            "继承内战坏牌已复核；仍因明确替代和多次拒绝降至G1低位，不以失地本身定档。"
-          ],
-          "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 1,
-          "formal_order": 169
+          "formal_order": 166
         }
       ]
     }

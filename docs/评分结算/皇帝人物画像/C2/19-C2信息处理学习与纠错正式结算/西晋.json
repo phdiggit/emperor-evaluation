@@ -4,11 +4,11 @@
   "collections": {
     "records": {
       "positions": [
-        52
+        74
       ],
       "records": [
         {
-          "sequence": 94,
+          "sequence": 75,
           "task_code": "PROFILE-C2-RULER-SHADOW-司马炎",
           "ruler_id": "RULER-SHADOW-司马炎",
           "ruler_name": "司马炎",
@@ -26,15 +26,16 @@
           "confidence": "MEDIUM",
           "score_status": "EVIDENCE_LIMITED",
           "formal_status": "FORMAL_CURRENT",
-          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-SHADOW-司马炎",
-          "typical_pattern": "伐吴前主动比较多数反对与羊祜、张华方案，并对专业判断持续追问；但主要集中单一大战略事项，储位等领域又有反证吸收不足，故不以成功灭吴抬至G3。",
-          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
-          "grade_basis": "司马炎：伐吴前主动比较多数反对与羊祜、张华方案，并对专业判断持续追问；但主要集中单一大战略事项，储位等领域又有反证吸收不足，故不以成功灭吴抬至G3。",
-          "position_basis": "司马炎：信息处理短板仍存在，但可用的核验、更新或恢复机制较清楚，故位于明显短板档上沿，定为G2-HIGH。",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2-ROUND2#RULER-RULER-SHADOW-司马炎",
+          "typical_pattern": "正负混合的有界型：部分情境能够更新判断，但反馈吸收稳定性有限。",
+          "counterpattern": "刘毅以“八损”等系统论证九品中正已从人才甄别变成权势操纵，卫瓘等也主张改革。司马炎实际“善其言而终不能改”。这不是不知道问题，而是理解反证后没有完成行为更新，可裁 REFUSAL_OR_RECURRENCE / MIXED_NEGATIVE / MI2。；多名大臣反复指出出镇齐王攸与继承安排风险，司马炎仍坚持并处罚部分反对者。处罚烈度留B2；C2只消费在可信反证已到达后仍没有重开核心判断的部分。仍属一个继承父问题，MI2。",
+          "grade_basis": "司马炎：朝中多数反对伐吴时，司马炎没有按多数票直接判断，而持续比较羊祜、张华、杜预等对吴国内政、军力、时机的分析，并追问专业判断后决定推进。可以保 主动求真链。灭吴成功只是复验，不因结果单独加档；刘毅以“八损”等系统论证九品中正已从人才甄别变成权势操纵，卫瓘等也主张改革。司马炎实际“善其言而终不能改”。这不是不知道问题，而是理解反证后没有完成行为更新， 反馈拒绝或同构复发链",
+          "position_basis": "司马炎：G2-HIGH档内定位：能力呈局部、混合或材料受限状态；档内位置取决于反馈吸收稳定性和直接证据厚度；包含主动取证或冲突信源辨析；保留真实负向下沿；仍受当前阶段覆盖和史料密度边界限制。",
           "axis_relevance_check": {
             "status": "C2_RELEVANT",
             "scoring_parent_refs": [
-              "C2-V2-E9A234F5A32A"
+              "C2-V2-E9A234F5A32A",
+              "C2-R2-4AC973B1BC7E"
             ]
           },
           "limitations": [
@@ -42,25 +43,52 @@
           ],
           "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
           "representative_parent_ids": [
-            "C2-V2-E9A234F5A32A"
+            "C2-V2-E9A234F5A32A",
+            "C2-R2-4AC973B1BC7E"
           ],
           "parent_chains": [
             {
               "parent_id": "C2-V2-E9A234F5A32A",
-              "cycle_type": "ERROR_CORRECTION",
-              "direction": "MIXED",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "伐吴前主动比较多数反对与羊祜、张华方案，并对专业判断持续追问；但主要集中单一大战略事项，储位等领域又有反证吸收不足，故不以成功灭吴抬至G3。",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "basis": "朝中多数反对伐吴时，司马炎没有按多数票直接判断，而持续比较羊祜、张华、杜预等对吴国内政、军力、时机的分析，并追问专业判断后决定推进。可以保 。灭吴成功只是复验，不因结果单独加档。",
               "cycle_anchor_refs": [
                 "https://zh.wikisource.org/zh-hans/晉書/卷036",
                 "https://zh.wikisource.org/zh-hans/晉書/卷003"
               ],
               "source_parent_refs": [],
-              "lifecycle_review": "按C2生命周期核对：伐吴前主动比较多数反对与羊祜、张华方案，并对专业判断持续追问；但主要集中单一大战略事项，储位等领域又有反证吸收不足，故不以成功灭吴抬至G3。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "lifecycle_review": "按C2二轮生命周期核对：朝中多数反对伐吴时，司马炎没有按多数票直接判断，而持续比较羊祜、张华、杜预等对吴国内政、军力、时机的分析，并追问专业判断后决定推进。可以保 。灭吴成功只是复验，不因结果单独加档。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
               "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
-              "material_intensity": "MI2_LIFECYCLE",
+              "material_intensity": "MI2",
               "feedback_suppression_review": {
                 "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-R2-4AC973B1BC7E",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2",
+              "basis": "刘毅以“八损”等系统论证九品中正已从人才甄别变成权势操纵，卫瓘等也主张改革。司马炎实际“善其言而终不能改”。这不是不知道问题，而是理解反证后没有完成行为更新，可裁 。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hans/晉書/卷036",
+                "https://zh.wikisource.org/zh-hans/晉書/卷003",
+                "https://zh.wikisource.org/zh-hant/晋书/卷003",
+                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2二轮生命周期核对：刘毅以“八损”等系统论证九品中正已从人才甄别变成权势操纵，卫瓘等也主张改革。司马炎实际“善其言而终不能改”。这不是不知道问题，而是理解反证后没有完成行为更新，可裁 。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2",
+              "feedback_suppression_review": {
+                "review_status": "REVIEWED",
+                "sanction_or_exclusion_intensity": "MODERATE",
+                "recurrence_scope": "REPEATED_SAME_MECHANISM",
+                "future_channel_effect": "TEMPORARY_CHILLING",
+                "feedback_arrival": "附件二轮逐人裁决确认可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
               }
             }
           ],
@@ -80,20 +108,23 @@
             "actual_power_window": "265—290年",
             "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
             "direct_chronological_or_primary_refs": [],
-            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "positive_window_status": "CLOSED_PARENT_PRESENT",
             "negative_window_status": "CLOSED_PARENT_PRESENT",
             "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
             "unresolved_phase_domain_windows": [
               "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
             ],
-            "publication_mode": "BOUNDED_PROFILE"
+            "publication_mode": "BOUNDED_PROFILE",
+            "negative_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE"
           },
-          "review_status": "REBUILT_MIXED",
+          "review_status": "ROUND2_MANUAL_ADJUDICATED",
           "directional_strength_balance_review": {
             "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
             "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
             "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
-            "suppression_parent_ids": [],
+            "suppression_parent_ids": [
+              "C2-R2-4AC973B1BC7E"
+            ],
             "isolated_positive_parent_ids": [],
             "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
             "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"

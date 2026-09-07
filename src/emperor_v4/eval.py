@@ -26,6 +26,11 @@ def _parser() -> argparse.ArgumentParser:
     first_cost.add_argument("--workspace-root", type=Path, default=Path("."))
     formal = commands.add_parser("formal-settlements-verify")
     formal.add_argument("--item", action="append", choices=["first_item", "second_item", "third_item", "fourth_item", "fifth_item"])
+    commands.add_parser("governance-state-recovery-verify")
+    recovery_report = commands.add_parser("governance-state-recovery-report")
+    recovery_report.add_argument("--write", action="store_true")
+    recovery_activate = commands.add_parser("governance-state-recovery-activate")
+    recovery_activate.add_argument("--write", action="store_true")
     totals = commands.add_parser("second-item-totals")
     totals.add_argument("--write", action="store_true")
     sensitivity = commands.add_parser("cost-sensitivity", help="核对或生成不计分的军事成本裁决敏感性分析")
@@ -146,6 +151,11 @@ def _dispatch(args: argparse.Namespace) -> int:
     from emperor_v4.evaluation.third_item_d_settlement import (
         verify_third_item_d_formal_settlement,
     )
+    from emperor_v4.evaluation.governance_state_recovery import (
+        activate_governance_state_recovery,
+        verify_governance_state_recovery_review,
+        write_governance_state_recovery_markdown,
+    )
 
     if args.command == "maintenance":
         import contextlib
@@ -245,6 +255,22 @@ def _dispatch(args: argparse.Namespace) -> int:
         return 0
     if args.command == "formal-settlements-verify":
         report = verify_formal_settlements(Path(".").resolve(), items=set(args.item) if args.item else None)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "governance-state-recovery-verify":
+        report = verify_governance_state_recovery_review(Path(".").resolve())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "governance-state-recovery-report":
+        if not args.write:
+            raise SystemExit("governance-state-recovery-report 必须显式传入 --write")
+        path = write_governance_state_recovery_markdown(Path(".").resolve())
+        print(path.relative_to(Path(".").resolve()).as_posix())
+        return 0
+    if args.command == "governance-state-recovery-activate":
+        if not args.write:
+            raise SystemExit("governance-state-recovery-activate 必须显式传入 --write")
+        report = activate_governance_state_recovery(Path(".").resolve())
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "second-item-a-verify":

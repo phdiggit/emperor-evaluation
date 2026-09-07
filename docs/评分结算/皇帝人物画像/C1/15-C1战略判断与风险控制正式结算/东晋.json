@@ -4,8 +4,8 @@
   "collections": {
     "records": {
       "positions": [
-        85,
-        98
+        103,
+        124
       ],
       "records": [
         {
@@ -19,9 +19,9 @@
           "axis_name": "战略判断与风险控制",
           "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
-          "position": "MID",
-          "score_100": 65,
-          "radar_value": 65,
+          "position": "LOW",
+          "score_100": 58,
+          "radar_value": 58,
           "axis_evidence_level": "E2",
           "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
@@ -47,24 +47,51 @@
                 "CAMPAIGN-V104-104-XIANGYANG-378-379"
               ],
               "cycle_basis": "前秦大举南下时维持谢安体系与防御目标，结果验证方向；战后高位资源本可用于巩固，后期征役无休、仓库空匮反馈下未见同强收缩。因仅有汇总过程，封顶MI2。"
+            },
+            {
+              "parent_id": "C1-RR-058-NEGATIVE-MATERIALS",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马曜"
+              ],
+              "direct_process_refs": [
+                "CAMPAIGN-FEISHUI-382-383",
+                "CAMPAIGN-V104-104-HUAINAN-378-379",
+                "CAMPAIGN-V104-104-XIANGYANG-378-379"
+              ],
+              "cycle_basis": "附件终审逐人材料吸纳：淝水后外部压力明显下降，本可把资源更多用于巩固和恢复；后期却出现征役持续、仓储空匮等承载反馈，未见同强度的目标收缩。 **诊断：`DW2`。**；谢安、桓冲等退出后，司马曜长期倚重司马道子及王国宝等近廷接口。发现道子集团威胁后，又引入王恭、殷仲堪等拥有真实军镇资源的外部力量加以制衡。 问题在于： - 风险已经被本人识别； - 可选的不只有“再造一个外镇强中心”，还包括限制王国宝等近廷资源、明确中外权限边界； - 他后来与道子和解，却没有同步完成近廷接口和外镇权力的结构重配； - 两边继续保持个人化、互不信任的高资源中心。 皇帝396年在宫中被杀具有私人突发因素，不作为C1强负证的直接结果；其后王恭等起兵也发生在身后，不能倒灌。但在本人生命窗口内，“用强节点制强节点、随后复旧而不定边界”的风险已经成立。 **诊断：重`DW2`。**；太子司马德宗能力严重不足是清楚的承载风险，但现有材料没有闭合“存在明确、低成本、已被提出的更优继承替代，而皇帝拒绝”的证据。故只列`LIMITATION / DW1候选`，不因后来东晋政局倒推DW3。",
+              "diagnostic_role": "DW2"
             }
           ],
           "representative_parent_ids": [
-            "C1-P100-DEFENSE-THEN-DRIFT"
+            "C1-P100-DEFENSE-THEN-DRIFT",
+            "C1-RR-058-NEGATIVE-MATERIALS"
           ],
-          "typical_pattern": "淝水危机中维持谢安等授权与防御优先可用，但现场解题归臣将；后期征役无休与仓储空匮显示守成退化。",
+          "typical_pattern": "司马曜原C1将淝水危机中的防御授权与后期征役退化压在一条混合父链内，定为G3-MID。跨轴复核后，晚年司马道子—王国宝近廷集团与王恭、殷仲堪等外镇的相互制衡，是另一条直接命中C1风险结构的负向生命周期。 他的模式不是“毫无风险意识”，而是**能识别强节点，却习惯用另一个个人化强节点去对冲，随后又恢复旧中心，始终没有形成稳定边界。**",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P100-DEFENSE-THEN-DRIFT"
             ],
-            "counter_parent_refs": []
+            "counter_parent_refs": [
+              "C1-RR-058-NEGATIVE-MATERIALS"
+            ]
           },
-          "grade_basis": "淝水危机中维持谢安等授权与防御优先可用，但现场解题归臣将；后期征役无休与仓储空匮显示守成退化。",
+          "grade_basis": "一条高压PS2的本人设计份额有限；晚期又有资源承载DW2和内部强制资源重DW2，且恢复均不完整。原G3-MID偏高。 但没有闭合一个可以无争议裁成DW3的本人战略崩盘，淝水时期的最高授权也是真实正证，因此仍留G3，改为`G3-LOW / 58`。",
           "position_basis": "谢安、谢玄贡献不全归本人；E2中置信度。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P100-DEFENSE-THEN-DRIFT"
+              "C1-P100-DEFENSE-THEN-DRIFT",
+              "C1-RR-058-NEGATIVE-MATERIALS"
             ],
             "result_nonconversion": true
           },
@@ -74,7 +101,7 @@
             "attribution": "CLOSED",
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
-            "density": "COVERAGE_CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
             "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
             "low_grade_gate": {
               "status": "NOT_REQUIRED",
@@ -89,7 +116,7 @@
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 3,
-          "formal_order": 86
+          "formal_order": 104
         },
         {
           "sequence": 102,
@@ -101,10 +128,10 @@
           "axis_code": "C1",
           "axis_name": "战略判断与风险控制",
           "score_status": "FINAL",
-          "axis_grade": "G3",
-          "position": "LOW",
-          "score_100": 58,
-          "radar_value": 58,
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "score_100": 51,
+          "radar_value": 51,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -136,24 +163,57 @@
                 "docs/史料通读产物/唐以前编年/两晋/卷089-通读总结.md#L103"
               ],
               "cycle_basis": "南渡后可漂泊北伐或先建江东支点；本人采王导建议建邺，并因本地冷遇吸纳顾荣、贺循。杜弢受降时虽允赦授官，诸将仍攻击致复叛，后再赦只是补救，显示承诺执行隔离不足。"
+            },
+            {
+              "parent_id": "C1-RR-071-NEGATIVE-MATERIALS",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-司马睿/traits/A2/0",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P102-DUTAO-SURRENDER"
+              ],
+              "direct_process_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/two_jin.json#I2-JIN-SMR-LEGAL-ARBITRARINESS-001",
+                "docs/史料通读产物/唐以前编年/两晋/卷090-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷091-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷092-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷089-通读总结.md#L97",
+                "docs/史料通读产物/唐以前编年/两晋/卷089-通读总结.md#L99",
+                "docs/史料通读产物/唐以前编年/两晋/卷089-通读总结.md#L100",
+                "docs/史料通读产物/唐以前编年/两晋/卷089-通读总结.md#L102",
+                "docs/史料通读产物/唐以前编年/两晋/卷089-通读总结.md#L103"
+              ],
+              "cycle_basis": "附件终审逐人材料吸纳：东晋建国早期高度依赖王导中枢与王敦荆州军镇。随着王氏资源过强，司马睿确实识别了风险；问题在于其重配方式： - 疏远王导； - 引入刘隗、刁协作为近廷反制； - 配置戴渊等中央军事资源； - 但没有分阶段削减王敦外镇军力，也没有形成双方可以接受的新权限/退出边界； - 结果形成两个高度互疑的强制资源中心。 王敦怨恨、双方军事准备、征发及社会反弹均已使冲突升级信号充分可见，仍未形成新的稳定结构。322年王敦起兵，石头城失守，刘隗出逃、刁协被杀，王敦直接控制朝廷；司马睿本人尚在世却已失去实际自主。 王敦具有独立野心，军力差距也不能全部归皇帝，因此是共享归责；但**“识别单点风险后，用一个资源不足的个人化反集团去对冲，而没有解决原强军镇结构”**本身高度可归责。 **诊断：共享`DW3`。**",
+              "diagnostic_role": "DW3"
             }
           ],
           "representative_parent_ids": [
-            "C1-P102-JIANGDONG-AND-DUTAO"
+            "C1-P102-JIANGDONG-AND-DUTAO",
+            "C1-RR-071-NEGATIVE-MATERIALS"
           ],
-          "typical_pattern": "北方崩解坏牌中选择建邺并吸纳江东士族形成支点，但对军镇依赖和受降承诺执行失败暴露风险隔离不足。",
+          "typical_pattern": "司马睿在北方崩解坏牌中选择建邺、吸收江东士族，确有一条高难正周期；但正式C1只把王敦写成“军镇风险限制上沿”，明显过轻。王敦—刘隗刁协的重平衡最终在司马睿本人仍在世时直接击穿首都和最高权力，完整命中C1。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P102-JIANGDONG-AND-DUTAO"
             ],
-            "counter_parent_refs": []
+            "counter_parent_refs": [
+              "C1-RR-071-NEGATIVE-MATERIALS"
+            ]
           },
-          "grade_basis": "北方崩解坏牌中选择建邺并吸纳江东士族形成支点，但对军镇依赖和受降承诺执行失败暴露风险隔离不足。",
+          "grade_basis": "结构与多个G2-HIGH锚点一致：**一条高难PS2 + 一条本人重要归责、最终击穿最高权力的DW3**。北方崩解坏牌、王敦独立野心及王导贡献使其不应继续下压。 由`G3-LOW`降为`G2-HIGH / 51`。",
           "position_basis": "王导与江东士族贡献大，王敦军镇风险限制上沿。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P102-JIANGDONG-AND-DUTAO"
+              "C1-P102-JIANGDONG-AND-DUTAO",
+              "C1-RR-071-NEGATIVE-MATERIALS"
             ],
             "result_nonconversion": true
           },
@@ -163,7 +223,7 @@
             "attribution": "CLOSED",
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
-            "density": "COVERAGE_CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
             "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
             "low_grade_gate": {
               "status": "NOT_REQUIRED",
@@ -177,8 +237,8 @@
             "王导与江东士族贡献大，王敦军镇风险限制上沿。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 3,
-          "formal_order": 99
+          "grade_numeric": 2,
+          "formal_order": 125
         }
       ]
     }

@@ -79,7 +79,7 @@ def test_profile_m3_rejects_local_hard_constraint_breakage() -> None:
         verify_payload(broken)
 
 
-def test_profile_m3_rejects_upstream_curve_k_and_da_drift() -> None:
+def test_profile_m3_rejects_upstream_curve_legacy_diagnostic_and_da_drift() -> None:
     settlement = _load(M3_SETTLEMENT)
 
     broken_curve = copy.deepcopy(settlement)
@@ -89,7 +89,7 @@ def test_profile_m3_rejects_upstream_curve_k_and_da_drift() -> None:
 
     broken_k = copy.deepcopy(settlement)
     broken_k["records"][0]["ability_evidence"]["stability_k_basis"]["C1"]["K_grade"] = "K9"
-    with pytest.raises(ValueError, match="K basis drift"):
+    with pytest.raises(ValueError, match="diagnostic basis drift"):
         verify_payload(broken_k)
 
     broken_da = copy.deepcopy(settlement)
@@ -217,6 +217,16 @@ def test_c4_checklist_structural_recalculation_and_net_legacy_deterioration() ->
         for axis, item in row.get("deterioration_path_basis", {}).items():
             state = axes[axis][row["ruler_id"]]["state_anchors"]
             assert item["end_band"] == state["S_end"]
+
+
+def test_m3_keeps_only_the_minimum_historical_diagnostic_lineage() -> None:
+    settlement = _load(M3_SETTLEMENT)
+    for row in settlement["records"]:
+        evidence = row["ability_evidence"]
+        assert evidence["stability_k_basis"]
+        assert "stability_k_public_basis" not in evidence
+        assert "stability_k_structure_status" not in evidence
+        assert "k_source" not in evidence["upstream_sync"]
 
 
 def test_profile_m3_redundant_summaries_follow_current_structured_values() -> None:

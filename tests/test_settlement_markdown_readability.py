@@ -52,7 +52,7 @@ def _first_table(path: Path) -> list[str]:
     return table
 
 
-def test_second_item_finance_views_keep_curves_k_and_merge_sparse_notes() -> None:
+def test_second_item_finance_views_keep_curves_loss_and_merge_sparse_notes() -> None:
     finance = SECOND_ITEM / "财政民生"
     c1 = _first_table(finance / "01-C1正式结算.md")
     c2 = _first_table(finance / "02-C2正式结算.md")
@@ -61,7 +61,7 @@ def test_second_item_finance_views_keep_curves_k_and_merge_sparse_notes() -> Non
 
     assert "全任曲线 S0→S_main→S_end" in c1[0]
     assert "全任曲线 S0→S_main→S_end" in c2[0]
-    assert "K折损" in c3[0]
+    assert "L有限修正" in c3[0]
     assert "阶段峰值" not in c1[0] and "阶段峰值" not in c2[0]
     assert "恢复 - 可归责恶化 - DA" in c4[0]
 

@@ -21,6 +21,7 @@ from emperor_v4.evaluation.profile_parent_schema import (
 
 AXIS_FILES = profile_axis_files()
 C1_DISPLAY_REF_LIMIT = 4
+C2_DISPLAY_REF_LIMIT = 4
 
 
 def _escape(value: Any) -> str:
@@ -69,10 +70,72 @@ def _representative_parent_chains(row: dict[str, Any]) -> list[dict[str, Any]]:
     return representative_parent_chains(row)
 
 
-def _parent_refs(parent: dict[str, Any], *, compact_sources: bool = False) -> list[str]:
+def _c1_negative_grade(record: dict[str, Any]) -> str:
+    """Return the strongest score-bearing C1 negative diagnostic for the table."""
+
+    roles: list[str] = []
+    for parent in _parent_chains(record):
+        if parent.get("consumption_status") != "SCORING_PARENT":
+            continue
+        direction = str(parent.get("direction") or "")
+        role = str(parent.get("diagnostic_role") or "")
+        if direction == "MIXED_POSITIVE":
+            role = str(parent.get("counter_diagnostic_role") or role)
+        if direction in {"NEGATIVE", "MIXED_NEGATIVE", "MIXED_POSITIVE"} and role.startswith("DW"):
+            roles.append(role)
+    return max(roles, key=lambda value: int(value[2:])) if roles else "DW0"
+
+
+def _c1_type_summary(record: dict[str, Any]) -> str:
+    """Compact person-type label for the C1 full-pool scan table."""
+
+    scoring = [
+        parent
+        for parent in _parent_chains(record)
+        if parent.get("consumption_status") == "SCORING_PARENT"
+    ]
+    positive_count = sum(parent.get("direction") in {"POSITIVE", "MIXED_POSITIVE"} for parent in scoring)
+    negative_grade = _c1_negative_grade(record)
+    has_negative = negative_grade != "DW0"
+    grade = str(record.get("axis_grade") or "")
+    if grade == "G5":
+        return "历史级长板—深下沿复合型" if has_negative else "历史级战略重构型"
+    if grade == "G4":
+        if positive_count >= 2 and has_negative:
+            return "跨域强战略—风险下沿型"
+        if positive_count >= 2:
+            return "跨域战略重构型"
+        return "高难战略适应型" if not has_negative else "强长板—风险失配型"
+    if grade == "G3":
+        if positive_count and has_negative:
+            return "中上战略—风险波动型"
+        if positive_count:
+            return "有限战略适应型"
+        return "战略风险失配型" if has_negative else "战略覆盖有限型"
+    if grade == "G2":
+        return "局部能力—高风险失配型" if has_negative else "局部战略适应型"
+    if grade == "G1":
+        return "低位战略失控型" if has_negative else "低覆盖战略型"
+    return "多机制战略失能型" if has_negative else "战略证据不足型"
+
+
+def _parent_refs(
+    parent: dict[str, Any],
+    *,
+    compact_sources: bool = False,
+    include_cycle_anchors: bool = False,
+) -> list[str]:
     if compact_sources:
-        refs = parent.get("direct_process_refs") or parent.get("source_refs") or []
-        return list(dict.fromkeys(str(ref) for ref in refs))
+        keys = (
+            ("direct_process_refs", "cycle_anchor_refs", "source_refs")
+            if include_cycle_anchors
+            else ("direct_process_refs", "source_refs")
+        )
+        for key in keys:
+            refs = parent.get(key) or []
+            if refs:
+                return list(dict.fromkeys(str(ref) for ref in refs))
+        return []
 
     refs: list[str] = []
     for key in ("source_refs", "direct_process_refs", "cycle_anchor_refs", "source_parent_refs"):
@@ -83,7 +146,13 @@ def _parent_refs(parent: dict[str, Any], *, compact_sources: bool = False) -> li
     return refs
 
 
-def _parent_lines(parent: dict[str, Any], *, compact_sources: bool = False) -> Iterable[str]:
+def _parent_lines(
+    parent: dict[str, Any],
+    *,
+    compact_sources: bool = False,
+    include_cycle_anchors: bool = False,
+    source_limit: int = C1_DISPLAY_REF_LIMIT,
+) -> Iterable[str]:
     direction = parent.get("direction", "—")
     strength = parent.get("intensity") or parent.get("material_strength") or parent.get("material_intensity") or "—"
     mode = str(parent.get("capability_mode") or parent.get("result_responsibility") or "")
@@ -92,11 +161,15 @@ def _parent_lines(parent: dict[str, Any], *, compact_sources: bool = False) -> I
         yield f"- `{parent.get('parent_id', 'NO-ID')}`（{direction_label} / {strength}）：{_parent_basis(parent)}"
     else:
         yield f"- `{parent.get('parent_id', 'NO-ID')}`（{direction} / {strength}）：{_parent_basis(parent)}"
-    refs = _parent_refs(parent, compact_sources=compact_sources)
+    refs = _parent_refs(
+        parent,
+        compact_sources=compact_sources,
+        include_cycle_anchors=include_cycle_anchors,
+    )
     if refs:
-        if compact_sources and len(refs) > C1_DISPLAY_REF_LIMIT:
-            display_refs = refs[:C1_DISPLAY_REF_LIMIT]
-            suffix = f"；其余{len(refs) - C1_DISPLAY_REF_LIMIT}条直接定位见正式JSON"
+        if compact_sources and len(refs) > source_limit:
+            display_refs = refs[:source_limit]
+            suffix = f"；其余{len(refs) - source_limit}条直接定位见正式JSON"
             yield "  - 直接定位（节选）：" + "；".join(display_refs) + suffix
         elif compact_sources:
             yield "  - 直接定位：" + "；".join(refs)
@@ -199,11 +272,21 @@ def _m3_limitations(record: dict[str, Any]) -> str:
 def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, str]) -> list[str]:
     if axis == "C1":
         lines = [
-            "| 雷达值 | 档位 | 位置 | 人物 | 政权 | 证据 | 置信度 | 典型模式 | 限制 |",
+            "| 雷达值 | 档位 | 位置 | 人物 | 政权 | 证据 | 置信度 | 人物类型 | 负证档位 |",
             "|---:|---|---|---|---|---|---|---|---|",
         ]
         for row in records:
-            cells = [row["radar_value"], row["axis_grade"], row["position"], row["ruler_name"], row["polity"], row["axis_evidence_level"], row["confidence"], row["typical_pattern"], _limitations(row, labels)]
+            cells = [
+                row["radar_value"],
+                row["axis_grade"],
+                row["position"],
+                row["ruler_name"],
+                row["polity"],
+                row["axis_evidence_level"],
+                row["confidence"],
+                _c1_type_summary(row),
+                _c1_negative_grade(row),
+            ]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     if axis == "C2":
@@ -280,7 +363,9 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     if axis == "M3":
         reading_source_note = "- 逐人条目分别说明局面、行为、后果与裁档理由；来源按书名与原文逐行列出。"
     elif axis == "C1":
-        reading_source_note = f"- 逐人条目只展开主模式、裁档理由、限制和代表父链；每条父链最多列{C1_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合保留在正式JSON。"
+        reading_source_note = f"- 全池表的‘典型模式’为人物类型摘要，‘限制’只显示最强计分负证档位；逐人条目展开完整主模式、裁档理由、限制和代表父链，每条父链最多列{C1_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合保留在正式JSON。"
+    elif axis == "C2":
+        reading_source_note = f"- 逐人条目只展开核心依据、档内定位、限制和代表父链；每条父链最多列{C2_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合与关联父链保留在正式JSON。"
     else:
         reading_source_note = "- 逐人条目只展开主模式、裁档理由、限制和代表父链；来源紧随父链，避免重复整段口径。"
     lines = [
@@ -370,18 +455,20 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             lines.append("- 武将登记逐项（成果等级/难度｜战役群名称/武将角色）：")
             lines.append(f"  {paired or '—'}")
         parents = _parent_chains(row)
-        if axis == "C1":
+        if axis in {"C1", "C2"}:
             parents = _representative_parent_chains(row)
         if parents:
             lines.append("- **代表父链**：")
             for parent in parents:
                 if axis == "C2":
-                    direction = parent.get("direction", "—")
-                    strength = parent.get("intensity") or parent.get("material_intensity") or "—"
-                    lines.append(f"- （{direction} / {strength}）：{_parent_basis(parent)}")
-                    refs = _parent_refs(parent)
-                    if refs:
-                        lines.append("  - 来源：" + "；".join(refs))
+                    lines.extend(
+                        _parent_lines(
+                            parent,
+                            compact_sources=True,
+                            include_cycle_anchors=True,
+                            source_limit=C2_DISPLAY_REF_LIMIT,
+                        )
+                    )
                 else:
                     lines.extend(_parent_lines(parent, compact_sources=axis == "C1"))
         else:

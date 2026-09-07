@@ -21,7 +21,7 @@
           "evidence": [
             {
               "anchor_time": "1161-1189",
-              "described_state": "战后减役赈济、税地治理、禁抑配、官赎与长期和平共同使三轴从受损盘面恢复到稳定；恢复覆盖多阶段并有长期K承压。",
+              "described_state": "战后减役赈济、税地治理、禁抑配、官赎与长期和平共同使三轴从受损盘面恢复到稳定；恢复覆盖多阶段并有长期低谷修正承压。",
               "identity_window_gate": "ELIGIBLE",
               "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
               "source_locator": "docs/史料通读产物/金/金史/volume-006.source-summary.md",
@@ -31,7 +31,7 @@
                 "docs/史料通读产物/金/金史/volume-008.source-summary.md",
                 "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md"
               ],
-              "verbatim_excerpt": "战后减役赈济、税地治理、禁抑配、官赎与长期和平共同使三轴从受损盘面恢复到稳定；恢复覆盖多阶段并有长期K承压。",
+              "verbatim_excerpt": "战后减役赈济、税地治理、禁抑配、官赎与长期和平共同使三轴从受损盘面恢复到稳定；恢复覆盖多阶段并有长期压力承受。",
               "macro_anchor_specificity_detail": "BOUNDED_DYNASTIC_CURVE_WITH_DIRECT_COUNTEREVIDENCE",
               "result_axis_owner": [
                 "NET_TAX_LABOR_BURDEN"
@@ -44,15 +44,16 @@
           "reign_range": "1161-1189",
           "ruler_id": "RULER-JIN-SHIZONG",
           "ruler_name": "完颜雍",
-          "score": 71.3,
+          "score": 68.7,
           "stability_class_diagnostic_only": "K2",
           "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
           "material_limitations": [
-            "第三项军事成本为C5高位下界，核心是1161—1165宋金链连续四年西北、东南国家级投入，战后仍留新旧军六万人戍守。仅凭“六万人”“四年”不能直接扣C1；本轮之所以调整K，是另有《兵志》把长期番戍明确闭合到军户牲畜损耗与农时丧失。该影响范围仍受限，且世宗已主动讨论减轻番戍，故不下调S_main或S_end。"
+            "第三项军事成本为C5高位下界，核心是1161—1165宋金链连续四年西北、东南国家级投入，战后仍留新旧军六万人戍守。仅凭“六万人”“四年”不能直接扣C1；本轮之所以调整低谷修正，是另有《兵志》把长期番戍明确闭合到军户牲畜损耗与农时丧失。该影响范围仍受限，且世宗已主动讨论减轻番戍，故不下调S_main或S_end。"
           ],
           "peak_band": null,
           "state_anchors": {
             "S0": "C1-3",
+            "S_main": "C1-5",
             "S_avg": "C1-5",
             "S_end": "C1-5"
           },
@@ -84,12 +85,6 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "review_remediation": {
-            "review_id": "SECOND-ITEM-C1-REAUDIT-2026-08-30-B1",
-            "status": "APPLIED",
-            "problem": "原K3只按猛安谋克贫户/土地集中记局部裂缝，遗漏《金史·兵志》对北边军户反复番戍、牲畜与农时损失的直接家庭端闭合。",
-            "directive": "主档与三锚维持C1-3→5→5，score 74.3；K K3→K2。军事成本C5本身不直接扣C1，调整只由已经实现的军户劳役、牲畜与农时损失承担。"
-          },
           "raw_state_band": "C1-5",
           "formal_band": "C1-5",
           "raw_peak_band": null,
@@ -98,41 +93,6 @@
             "HOUSEHOLD_SUBSISTENCE_SURPLUS",
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [
-              {
-                "stage_band": "C1-4",
-                "depth_from_raw_main": 1,
-                "scope_class": "MATERIAL_REGION_OR_DEPTH",
-                "duration_class": "REPEATED_OR_MATERIAL",
-                "repeat_group": "NORTH_FRONTIER_ROTATIONAL_SERVICE",
-                "recovery_confirmed": true,
-                "evidence_strength": "DIRECT_HOUSEHOLD_LABOR_AND_PRODUCTION_CLOSURE",
-                "counts_toward_k": true,
-                "exclusion_reason": null,
-                "basis": "北边番戍反复远途服役并夺农时、损牲畜，构成实质性区域家庭低态；范围仍不足与全局C1-5竞争。"
-              }
-            ]
-          },
-          "persistence_review": {
-            "status": "COMPLETE",
-            "persistence_class": "SINGLE_PHASE_CONFIRMED",
-            "from_band": "C1-3",
-            "to_band": "C1-5",
-            "basis": "主档 C1-4→C1-5；曲线 C1-3→5→5；score 54.9→74.3；K=K3。 《金史》本纪赞直接总结大定时期“家给人足”；《循吏传》又称“大定之间…百姓滋殖，号为小康”，闭合家庭供给/余量与人口再生产。猛安谋克贫户、土地集中作为局部群体低于主态的裂缝，记K3，不覆盖全局高态。联动完颜璟S0。"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "主档与三锚维持C1-3→5→5，score 74.3；K K3→K2。军事成本C5本身不直接扣C1，调整只由已经实现的军户劳役、牲畜与农时损失承担。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "主档与三锚维持C1-3→5→5，score 74.3；K K3→K2。军事成本C5本身不直接扣C1，调整只由已经实现的军户劳役、牲畜与农时损失承担。"
-          },
           "material_basis": [
             {
               "book": "《金史·世宗本纪》",
@@ -151,19 +111,28 @@
               "original_text": "且夺其农时，不得耕种。"
             }
           ],
-          "stability_basis": "原K3偏轻，本轮改K2。《金史·兵志》记世宗本人谈北边番戍，称其“岁冒寒暑，往来千里，甚为劳苦”，并指出役使使军户牲畜难返、夺农时而不能耕种。该链不是单纯军费规模，而是直接落到边疆普通军户的劳动力、牲畜资产和农业生产；且为反复番戍，不符合K3“局部、短时或轻度低谷”的轻度门。影响仍限于北边番戍群体，未挑战全局C1-5主态，故只升至K2，不进K1。",
-          "military_cost_c1_review": {
-            "D_cost_band": "C5",
-            "D_cost_basis": "1161—1165宋金链连续四年国家级多方向投入，战后仍留新旧军六万人戍守。",
-            "household_closure": "后续北边番戍史料直接闭合反复远途兵役、牲畜损耗和农时丧失到边疆军户。",
-            "c1_disposition": "NEW_SUBSTANTIVE_LOCAL_LOW_K3_TO_K2_MAIN_AND_END_UNCHANGED"
-          },
-          "c1_reaudit": {
-            "review_date": "2026-08-30",
-            "status": "REVIEWED_CUMULATIVE",
-            "rating_change": "NONE",
-            "k_final": "K2",
-            "summary": "第一批高档复核：主档/分数维持；强化纯C1证据与第三项军事成本的家庭端闭合。"
+          "stability_basis": "北边军户反复番戍夺农时伤牲畜，为实质群体低谷，范围仍受限。",
+          "loss_grade": "L2",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-SHIZONG",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "北边军户反复番戍夺农时伤牲畜，为实质群体低谷，范围仍受限。",
+              "strong_dimensions": [],
+              "main_representativeness": "战后恢复后主要阶段达到广域富足。《金史·世宗本纪》总结大定时期“家给人足，仓廪有余”；《金史·循吏传》又称“大定之间……百姓滋殖，号为小康”，足以闭合家庭供给、余量与人口再生产，维持C1-5。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-SHIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-SHIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-SHIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-SHIZONG"
+              ]
+            },
+            "score": 68.7
           }
         },
         {
@@ -192,11 +161,11 @@
           ],
           "main_band": "C1-4",
           "polity": "金",
-          "rank": 7,
+          "rank": 20,
           "reign_range": "1189-1208",
           "ruler_id": "RULER-JIN-ZHANGZONG",
           "ruler_name": "完颜璟",
-          "score": 50.5,
+          "score": 45.3,
           "stability_class_diagnostic_only": "K0",
           "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
           "material_limitations": [
@@ -205,6 +174,7 @@
           "peak_band": null,
           "state_anchors": {
             "S0": "C1-5",
+            "S_main": "C1-4",
             "S_avg": "C1-4",
             "S_end": "C1-3"
           },
@@ -217,12 +187,6 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "review_remediation": {
-            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
-            "status": "APPLIED",
-            "problem": "完颜雍终点升C1-5后，原S0=C1-4违反交班硬连续；原理由又混入仓储、学校、司法",
-            "directive": "S0 C1-4→C1-5；主档C1-4、S_end=C1-3维持；K=K0。 C1主证改用《金史》“世宗…休养生息，迄于明昌、承安之间，民物滋殖”约束早中期；泰和以后反复旱饥、饥民鬻男女及军需压力支持终点3。C4按5→4→3重算。"
-          },
           "raw_state_band": "C1-4",
           "formal_band": "C1-4",
           "raw_peak_band": null,
@@ -230,37 +194,6 @@
           "lane_axis_coverage": [
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [
-              {
-                "stage_band": "C1-3",
-                "depth_from_raw_main": 1,
-                "scope_class": "TERMINAL_SCOPE",
-                "duration_class": "TERMINAL",
-                "repeat_group": "C1_REAUDIT_CONSOLIDATED_LOW",
-                "recovery_confirmed": false,
-                "evidence_strength": "REAUDIT_WITH_FORMAL_SOURCE_AND_LEDGER",
-                "counts_toward_k": true,
-                "exclusion_reason": null,
-                "basis": "末期出现未恢复的家庭生计逆转。早中期以《金史》“世宗……休养生息，迄于明昌、承安之间，民物滋殖”约束C1-4主态；泰和以后反复旱饥并出现“饥民鬻男女”等家庭结构破裂，叠加军需压力，支持S_end=C1-3，故K0。"
-              }
-            ]
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "主档C1-4、曲线5→4→3维持；清除仓储/学校/司法等跨项主证，早中期以“民物滋殖”约束，泰和以后家庭饥困与鬻男女支持终点3。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "主档C1-4、曲线5→4→3维持；清除仓储/学校/司法等跨项主证，早中期以“民物滋殖”约束，泰和以后家庭饥困与鬻男女支持终点3。"
-          },
           "material_basis": [
             {
               "book": "《金史》",
@@ -271,21 +204,37 @@
               "original_text": "饥民鬻男女。"
             }
           ],
-          "stability_basis": "泰和以后反复旱饥，并出现“饥民鬻男女”等直接家庭结构损伤；这些家庭结果与晚期军需压力共同确认交班已跌到C1-3且未恢复，故K0。",
-          "military_cost_c1_review": {
-            "D_cost_band": "C5",
-            "D_cost_position": "HIGH",
-            "D_status": "CONFIRMED",
-            "D_cost_basis": "开禧战争同链九路国家级长期投入准入C5高位；防御性起因限制本人归责，反攻规模决定高位。",
-            "household_closure": "战争规模本身不直接生成C1；只作为末期负向搜索与军需压力背景，终点3主要由独立的旱饥、饥民鬻男女等家庭结果闭合。",
-            "c1_disposition": "SUPPORTS_TERMINAL_PRESSURE_CONTEXT_EXISTING_K0_NO_EXTRA_PENALTY"
-          },
-          "c1_reaudit": {
-            "review_date": "2026-08-30",
-            "status": "REVIEWED_CUMULATIVE",
-            "rating_change": "NONE",
-            "k_final": "K0",
-            "summary": "主档C1-4、曲线5→4→3维持；清除仓储/学校/司法等跨项主证，早中期以“民物滋殖”约束，泰和以后家庭饥困与鬻男女支持终点3。"
+          "stability_basis": "泰和反复旱饥与鬻男女为严重持续的独立家庭低谷。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-ZHANGZONG",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "泰和反复旱饥与鬻男女为严重持续的独立家庭低谷。",
+              "strong_dimensions": [
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "承接世宗C1-5高位后，章宗早中期仍可由《金史》“休养生息，迄于明昌、承安之间，民物滋殖”约束在稳定温饱主态；常平仓、学校、司法等政策/跨项材料不再承担C1主证。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-ZHANGZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-ZHANGZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-ZHANGZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-ZHANGZONG",
+                "docs/史料通读产物/金/金史/volume-009.source-summary.md",
+                "docs/史料通读产物/金/金史/volume-010.source-summary.md",
+                "docs/史料通读产物/金/金史/volume-011.source-summary.md",
+                "docs/史料通读产物/金/金史/volume-012.source-summary.md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 45.3
           }
         },
         {
@@ -311,11 +260,11 @@
           ],
           "main_band": "C1-3",
           "polity": "金",
-          "rank": 36,
+          "rank": 102,
           "reign_range": "1149-1161",
           "ruler_id": "RULER-JIN-HAILING",
           "ruler_name": "完颜亮",
-          "score": 29.4,
+          "score": 22.4,
           "stability_class_diagnostic_only": "K0",
           "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
           "material_limitations": [
@@ -324,6 +273,7 @@
           "peak_band": null,
           "state_anchors": {
             "S0": "C1-4",
+            "S_main": "C1-3",
             "S_avg": "C1-3",
             "S_end": "C1-2"
           },
@@ -363,24 +313,6 @@
           "lane_axis_coverage": [
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "继承稳定盘面后虽建设货币与救济接口，但反复宫室、采珠强役、宗室清洗和南伐总动员使三轴持续恶化并以军变弑君结束。"
-          },
           "material_basis": [
             {
               "book": "《金史·海陵本纪》",
@@ -391,7 +323,36 @@
               "original_text": "正隆四年，调诸路兵伐宋，年二十以上、五十以下皆籍之……是时征发不已，民不堪命。"
             }
           ],
-          "stability_basis": "正隆后期“征发不已、民不堪命”距去世很近，南伐继续扩大且无恢复，故S_end=2、K0。"
+          "stability_basis": "征发不已民不堪命，持续且覆盖重要家庭群体，较三档主态更深。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-HAILING",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "征发不已民不堪命，持续且覆盖重要家庭群体，较三档主态更深。",
+              "strong_dimensions": [
+                "scope",
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "承接较高交班后，采珠、营建与南伐征发持续侵占家庭劳力。正隆四年年二十至五十皆籍，且史文直称“征发不已，民不堪命”，末段进入广泛困顿。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-HAILING",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-HAILING",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-HAILING",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-HAILING",
+                "docs/史料通读产物/金/金史/volume-005.source-summary.md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/jin.json#material_id=I2-JIN-MAT-309547C07D18F1E4"
+              ]
+            },
+            "score": 22.4
+          }
         },
         {
           "adjudication_reason": "持续征服和人口迁徙中仍维持基本家庭运行；天会元年发粟赈徙民、赋米给内地匮乏户，只能证明基本维持，不足普遍温饱。",
@@ -416,11 +377,11 @@
           ],
           "main_band": "C1-3",
           "polity": "金",
-          "rank": 36,
+          "rank": 52,
           "reign_range": "1123-1135",
           "ruler_id": "RULER-JIN-TAIZONG",
           "ruler_name": "完颜晟",
-          "score": 31.5,
+          "score": 29.6,
           "stability_class_diagnostic_only": "K3",
           "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
           "material_limitations": [
@@ -429,6 +390,7 @@
           "peak_band": null,
           "state_anchors": {
             "S0": "C1-3",
+            "S_main": "C1-3",
             "S_avg": "C1-3",
             "S_end": "C1-3"
           },
@@ -448,24 +410,6 @@
           "lane_axis_coverage": [
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "多路赈济、备荒仓、均赋役与官赎复业维持基本盘，但全国战争、强制迁徙和新占区反复使社会安全主态低于民生财政。"
-          },
           "material_basis": [
             {
               "book": "《金史·太宗本纪》",
@@ -476,7 +420,32 @@
               "original_text": "徙迁、润、来、显四州之民于沈州。"
             }
           ],
-          "stability_basis": "天会初徙民与“内地匮乏者”构成受限低谷；未闭合跨主要区域长期C1-2状态，战争规模也不能替代家庭结果，故K3。"
+          "stability_basis": "徙民及内地匮乏户须给米，为有界家庭低谷。",
+          "loss_grade": "L1",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-TAIZONG",
+            "loss_review": {
+              "grade": "L1",
+              "basis": "徙民及内地匮乏户须给米，为有界家庭低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "持续征服和人口迁徙中仍维持基本家庭运行；天会元年发粟赈徙民、赋米给内地匮乏户，只能证明基本维持，不足普遍温饱。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-TAIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-TAIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-TAIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-TAIZONG",
+                "docs/史料通读产物/金/金史/volume-003.source-summary.md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 29.6
+          }
         },
         {
           "adjudication_reason": "任内普通家庭总体处于基本维持。皇统前中期连续饥馑、流民与家庭结构裂缝阻止上推普遍温饱；后段出现恢复并以C1-4交班，但不足反推全任主态。",
@@ -501,19 +470,20 @@
           ],
           "main_band": "C1-3",
           "polity": "金",
-          "rank": 36,
+          "rank": 68,
           "reign_range": "1135-1149",
           "ruler_id": "RULER-JIN-XIZONG",
           "ruler_name": "完颜亶",
-          "score": 30.7,
+          "score": 26.4,
           "stability_class_diagnostic_only": "K2",
           "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
           "material_limitations": [
-            "S_end=C1-4主要由后段恢复与交班连续性约束；同一危机簇不得兼作主态降档和K1次级主态。"
+            "S_end=C1-4主要由后段恢复与交班连续性约束；同一危机簇不得兼作主态降档和历史低谷标签次级主态。"
           ],
           "peak_band": null,
           "state_anchors": {
             "S0": "C1-3",
+            "S_main": "C1-3",
             "S_avg": "C1-3",
             "S_end": "C1-4"
           },
@@ -526,59 +496,42 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "review_remediation": {
-            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
-            "status": "APPLIED",
-            "problem": "原C1-4把承平、岁币、赈济等C2/C3/政策混成家庭高态",
-            "directive": "主档 C1-4→C1-3；S_avg 4→3；score 54.9→32.0；S0=C1-3、S_end=C1-4暂维持；K=K1。 K1按新门保留，但理由改写：皇统前中期秋蝗、熙河/陕西赈济及关陕、蒲解、汝蔡饥荒构成连续多年、跨区域低态链，且已深到流民典雇妻女/沦为奴婢等家庭结构破裂。它不是按灾年拆成多个repeat，而是单一持续危机同时命中“持续/范围/深度”强条件，在约十五年统治中具有足够结构分量。末端C1-4只作为后续海陵S0=4的交班约束，persistence=END_ONLY，不得反推全任4档。"
-          },
           "raw_state_band": "C1-3",
           "formal_band": "C1-3",
           "raw_peak_band": null,
           "formal_peak_band": null,
           "lane_axis_coverage": [],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [
-              {
-                "stage_band": "C1-2",
-                "depth_from_raw_main": 1,
-                "scope_class": "MULTI_MAJOR_REGION",
-                "duration_class": "REPEATED_OR_LONG_RELATIVE_TO_WINDOW",
-                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
-                "recovery_confirmed": true,
-                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
-                "counts_toward_k": true,
-                "exclusion_reason": null,
-                "basis": "主档 C1-4→C1-3；S_avg 4→3；score 54.9→32.0；S0=C1-3、S_end=C1-4暂维持；K=K1。 K1按新门保留，但理由改写：皇统前中期秋蝗、熙河/陕西赈济及关陕、蒲解、汝蔡饥荒构成连续多年、跨区域低态链，且已深到流民典雇妻女/沦为奴婢等家庭结构破裂。它不是按灾年拆成多个repeat，而是单一持续危机同时命中“持续/范围/深度”强条件，在约十五年统治中具有足够结构分量。末端C1-4只作为后续海陵S0=4的交班约束，persistence=END_ONLY，不得反推全任4档。"
-              }
-            ]
-          },
-          "persistence_review": {
-            "status": "COMPLETE",
-            "persistence_class": "SINGLE_PHASE_CONFIRMED",
-            "from_band": "C1-3",
-            "to_band": "C1-3",
-            "basis": "主档 C1-4→C1-3；S_avg 4→3；score 54.9→32.0；S0=C1-3、S_end=C1-4暂维持；K=K1。 K1按新门保留，但理由改写：皇统前中期秋蝗、熙河/陕西赈济及关陕、蒲解、汝蔡饥荒构成连续多年、跨区域低态链，且已深到流民典雇妻女/沦为奴婢等家庭结构破裂。它不是按灾年拆成多个repeat，而是单一持续危机同时命中“持续/范围/深度”强条件，在约十五年统治中具有足够结构分量。末端C1-4只作为后续海陵S0=4的交班约束，persistence=END_ONLY，不得反推全任4档。"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "主档 C1-4→C1-3；S_avg 4→3；score 54.9→32.0；S0=C1-3、S_end=C1-4暂维持；K=K1。 K1按新门保留，但理由改写：皇统前中期秋蝗、熙河/陕西赈济及关陕、蒲解、汝蔡饥荒构成连续多年、跨区域低态链，且已深到流民典雇妻女/沦为奴婢等家庭结构破裂。它不是按灾年拆成多个repeat，而是单一持续危机同时命中“持续/范围/深度”强条件，在约十五年统治中具有足够结构分量。末端C1-4只作为后续海陵S0=4的交班约束，persistence=END_ONLY，不得反推全任4档。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "主档 C1-4→C1-3；S_avg 4→3；score 54.9→32.0；S0=C1-3、S_end=C1-4暂维持；K=K1。 K1按新门保留，但理由改写：皇统前中期秋蝗、熙河/陕西赈济及关陕、蒲解、汝蔡饥荒构成连续多年、跨区域低态链，且已深到流民典雇妻女/沦为奴婢等家庭结构破裂。它不是按灾年拆成多个repeat，而是单一持续危机同时命中“持续/范围/深度”强条件，在约十五年统治中具有足够结构分量。末端C1-4只作为后续海陵S0=4的交班约束，persistence=END_ONLY，不得反推全任4档。"
-          },
           "material_basis": [
             {
               "book": "《金史》",
               "original_text": "皇统前中期多地饥馑、赈济，并见流民家庭典雇妻女、沦为奴婢。"
             }
           ],
-          "stability_basis": "前中期连续危机已经参与S_main=C1-3判断，不能整体再次消费为K1；其中流民典雇妻女、沦为奴婢等更深家庭裂缝仍足以构成一个实质性C1-2低谷，故K2。"
+          "stability_basis": "流民典雇妻女沦为奴婢是较三档更深的家庭结果，实质群体低谷。",
+          "loss_grade": "L2",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-XIZONG",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "流民典雇妻女沦为奴婢是较三档更深的家庭结果，实质群体低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "任内普通家庭总体处于基本维持。皇统前中期连续饥馑、流民与家庭结构裂缝阻止上推普遍温饱；后段出现恢复并以C1-4交班，但不足反推全任主态。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-XIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-XIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-XIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-XIZONG",
+                "docs/史料通读产物/金/金史/volume-004.source-summary.md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md"
+              ]
+            },
+            "score": 26.4
+          }
         },
         {
           "adjudication_reason": "战争草创期存在自鬻、典质等低起点，随后减租、省法、安置降附等使核心统治区恢复到基本维持；没有家庭广域稳定温饱强锚，不升4。",
@@ -603,11 +556,11 @@
           ],
           "main_band": "C1-3",
           "polity": "金",
-          "rank": 36,
+          "rank": 52,
           "reign_range": "1115-1123",
           "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
           "ruler_name": "完颜阿骨打",
-          "score": 31.5,
+          "score": 29.6,
           "stability_class_diagnostic_only": "K3",
           "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
           "material_limitations": [
@@ -616,6 +569,7 @@
           "peak_band": null,
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-3",
             "S_avg": "C1-3",
             "S_end": "C1-3"
           },
@@ -637,28 +591,6 @@
           "lane_axis_coverage": [
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
-            "persistence_class": "SINGLE_PHASE_CONFIRMED",
-            "from_band": "C1-2",
-            "to_band": "C1-3",
-            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "债役缓征、赎良、降附安置、减税与交通恢复使战时低位向基本生产财政和社会秩序恢复；持续征服和迁徙限制高档。"
-          },
           "material_basis": [
             {
               "book": "《金史·食货志》",
@@ -673,7 +605,31 @@
               "original_text": "初定东京，即除去辽法，减省租税。"
             }
           ],
-          "stability_basis": "补K3。取燕京路后本人下令“尽徙六州氏族富强工技之民于内地”，属于一个明确但对象受限的强制迁徙家庭扰动；继任太宗时“新迁之户艰苦不能自存、民乏食至鬻子”等可作为交班后效确认，却不能把继任期最深后果全部倒算给阿骨打。因此只登记一个边界明确的低谷K3，不升K2/K1。"
+          "stability_basis": "草创自鬻典质和迁徙扰动合审最低已证档；继任最深后果不倒算。",
+          "loss_grade": "L1",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-ROSTER-323631DDD7CB22F6",
+            "loss_review": {
+              "grade": "L1",
+              "basis": "草创自鬻典质和迁徙扰动合审最低已证档；继任最深后果不倒算。",
+              "strong_dimensions": [],
+              "main_representativeness": "战争草创期存在自鬻、典质等低起点，随后减租、省法、安置降附等使核心统治区恢复到基本维持；没有家庭广域稳定温饱强锚，不升4。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-ROSTER-323631DDD7CB22F6",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-ROSTER-323631DDD7CB22F6",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-ROSTER-323631DDD7CB22F6",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-ROSTER-323631DDD7CB22F6",
+                "docs/史料通读产物/金/金史/volume-002.source-summary.md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md"
+              ]
+            },
+            "score": 29.6
+          }
         },
         {
           "adjudication_reason": "哀宗即位直接承接宣宗末C1-1，不因换帝自动回2；即位初“陕西民方疲敝，未堪力役”也确认低起点。其后有限休兵、停役与恢复使部分阶段回到广泛困顿C1-2。",
@@ -700,11 +656,11 @@
           ],
           "main_band": "C1-2",
           "polity": "金",
-          "rank": 121,
+          "rank": 164,
           "reign_range": "1224-1234",
           "ruler_id": "RULER-JIN-AIZONG",
           "ruler_name": "完颜守绪",
-          "score": 15.7,
+          "score": 7.5,
           "stability_class_diagnostic_only": "K0",
           "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
           "material_limitations": [
@@ -713,6 +669,7 @@
           "peak_band": null,
           "state_anchors": {
             "S0": "C1-1",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-1"
           },
@@ -732,24 +689,6 @@
           "lane_axis_coverage": [
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "危机中整顿官僚、维持学校军储并复按大臣案件，只能守住有限低位；粮运断裂、军变和蔡州终局最终使三轴归入崩溃状态。"
-          },
           "material_basis": [
             {
               "book": "《金史·哀宗本纪》",
@@ -760,7 +699,36 @@
               "original_text": "蔡州城中食尽，军民相食。"
             }
           ],
-          "stability_basis": "蔡州终局“城中食尽，军民相食”再次落入C1-1，退出最高权力前未恢复，故K0。"
+          "stability_basis": "蔡州食尽军民相食是在二档后独立更深失保，核心覆盖与严重度强。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-AIZONG",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "蔡州食尽军民相食是在二档后独立更深失保，核心覆盖与严重度强。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "哀宗即位直接承接宣宗末C1-1，不因换帝自动回2；即位初“陕西民方疲敝，未堪力役”也确认低起点。其后有限休兵、停役与恢复使部分阶段回到广泛困顿C1-2。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-AIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-AIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-AIZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-AIZONG",
+                "docs/史料通读产物/金/金史/volume-017.source-summary(5).md",
+                "docs/史料通读产物/金/金史/volume-018.source-summary(5).md",
+                "docs/史料通读产物/金/金史/volume-019.source-summary(5).md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md"
+              ]
+            },
+            "score": 7.5
+          }
         },
         {
           "adjudication_reason": "继承基本维持盘面后，大饥流亡与外部战争冲击使普通家庭主要状态落入广泛困顿。",
@@ -785,11 +753,11 @@
           ],
           "main_band": "C1-2",
           "polity": "金",
-          "rank": 121,
+          "rank": 164,
           "reign_range": "1208-1213",
           "ruler_id": "RULER-JIN-WEISHAOWANG",
           "ruler_name": "完颜永济",
-          "score": 15.7,
+          "score": 7.5,
           "stability_class_diagnostic_only": "K0",
           "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
           "material_limitations": [
@@ -798,6 +766,7 @@
           "peak_band": null,
           "state_anchors": {
             "S0": "C1-3",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-1"
           },
@@ -817,31 +786,41 @@
           "lane_axis_coverage": [
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "继承可运行盘面后遭大旱大饥与蒙古突破，括马签军、卖敕筹饷和信息封锁放大冲击，三轴跌至低位并以政变弑君收束。"
-          },
           "material_basis": [
             {
               "book": "《金史》卷十三",
               "original_text": "大饥，民多流亡。"
             }
           ],
-          "stability_basis": "末期S_end=C1-1低于主态2且未恢复，K0。家庭结果与战争责任分开处理。"
+          "stability_basis": "末段重要地区流莩满野与持续大饥失保，覆盖与严重度强。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-WEISHAOWANG",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "末段重要地区流莩满野与持续大饥失保，覆盖与严重度强。",
+              "strong_dimensions": [
+                "scope",
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "继承基本维持盘面后，大饥流亡与外部战争冲击使普通家庭主要状态落入广泛困顿。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-WEISHAOWANG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-WEISHAOWANG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-WEISHAOWANG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-WEISHAOWANG",
+                "docs/史料通读产物/金/金史/volume-013.source-summary(5).md",
+                "docs/公共成果/法律/朝代底账/21-金代法律治理结构化登记前底账.md"
+              ]
+            },
+            "score": 7.5
+          }
         },
         {
           "adjudication_reason": "旧S0=C1-2违反交班连续。宣宗即位后不久《金史》已称山东、河北诸郡大部失守、河东州县多残毁，证明卫绍王末C1-1危机仍在延续，故S0改1。南迁后河南中枢出现有限恢复，但全任主要状态仍为广泛困顿2。",
@@ -868,11 +847,11 @@
           ],
           "main_band": "C1-2",
           "polity": "金",
-          "rank": 121,
+          "rank": 164,
           "reign_range": "1213-1224",
           "ruler_id": "RULER-JIN-XUANZONG",
           "ruler_name": "完颜珣",
-          "score": 15.7,
+          "score": 7.5,
           "stability_class_diagnostic_only": "K0",
           "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
           "material_limitations": [
@@ -881,6 +860,7 @@
           "peak_band": null,
           "state_anchors": {
             "S0": "C1-1",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-1"
           },
@@ -900,24 +880,6 @@
           "lane_axis_coverage": [
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "迁都后河南中枢仍能赈灾、维持学校和部分司法复核，但放弃北方、军储失灵、另开宋战与地方叛乱使三轴低位下行。"
-          },
           "material_basis": [
             {
               "book": "《金史·宣宗本纪》",
@@ -928,7 +890,32 @@
               "original_text": "南京大饥，斗米至银二两。"
             }
           ],
-          "stability_basis": "后段南京大饥等再次把交班状态压到C1-1且未恢复，故K0。"
+          "stability_basis": "前段州县残毁与后段南京大饥为独立深失保，核心覆盖及严重度强。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-JIN-XUANZONG",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "前段州县残毁与后段南京大饥为独立深失保，核心覆盖及严重度强。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "旧S0=C1-2违反交班连续。宣宗即位后不久《金史》已称山东、河北诸郡大部失守、河东州县多残毁，证明卫绍王末C1-1危机仍在延续，故S0改1。南迁后河南中枢出现有限恢复，但全任主要状态仍为广泛困顿2。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-JIN-XUANZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-JIN-XUANZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-JIN-XUANZONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-JIN-XUANZONG"
+              ]
+            },
+            "score": 7.5
+          }
         }
       ]
     }

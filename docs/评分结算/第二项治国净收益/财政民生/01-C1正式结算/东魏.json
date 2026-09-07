@@ -40,21 +40,22 @@
           "evidence_mode": "DIRECT_MACRO_ANCHOR",
           "main_band": "C1-3",
           "material_limitations": [
-            "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
+            "低谷修正只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为历史低谷标签。"
           ],
           "peak_band": null,
           "polity": "东魏",
-          "rank": 36,
+          "rank": 52,
           "reign_range": [
             534,
             547
           ],
           "ruler_id": "RULER-SHADOW-高欢",
           "ruler_name": "高欢",
-          "score": 32.0,
+          "score": 29.6,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-3",
             "S_avg": "C1-3",
             "S_end": "C1-3"
           },
@@ -94,35 +95,36 @@
           "lane_axis_coverage": [
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
-            "persistence_class": "SINGLE_PHASE_CONFIRMED",
-            "from_band": "C1-2",
-            "to_band": "C1-3",
-            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《资治通鉴》",
               "original_text": "连年丰收后谷一斛九钱，山东民众逐渐恢复。"
             }
           ],
-          "stability_basis": "S0=C1-2及战后恢复不计K；现有已审家庭材料未确认恢复后独立跌破C1-3的阶段，故补K4。战争规模和胜负本身不机械制造C1低谷。"
+          "stability_basis": "山东民稍复说明本人早段实际家庭恢复，最低已证档。",
+          "loss_grade": "L1",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-高欢",
+            "loss_review": {
+              "grade": "L1",
+              "basis": "山东民稍复说明本人早段实际家庭恢复，最低已证档。",
+              "strong_dimensions": [],
+              "main_representativeness": "主档C1-3维持。东魏控制区在战乱后出现连年丰收、低谷价及“山东民稍复”，证明生产与基本生计恢复；但低粮价和国家仓储不能替代家庭稳定温饱余量，C1-4仍不开放。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/史料通读产物/唐以前编年/南北朝/卷154-通读总结.md#L128"
+              ]
+            },
+            "score": 29.6
+          }
         }
       ]
     }

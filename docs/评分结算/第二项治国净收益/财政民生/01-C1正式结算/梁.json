@@ -122,17 +122,18 @@
           ],
           "peak_band": null,
           "polity": "梁",
-          "rank": 36,
+          "rank": 102,
           "reign_range": [
             502,
             549
           ],
           "ruler_id": "RULER-SHADOW-萧衍",
           "ruler_name": "萧衍",
-          "score": 28.2,
+          "score": 22.4,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-3",
             "S_avg": "C1-3",
             "S_end": "C1-1"
           },
@@ -154,24 +155,6 @@
             "HOUSEHOLD_SUBSISTENCE_SURPLUS",
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《梁书·武帝纪》",
@@ -186,7 +169,33 @@
               "original_text": "米一升七八万钱，人相食，饿死者十之五六。"
             }
           ],
-          "stability_basis": "末期建康及核心区出现极端粮价、人相食和大规模饿死，S_end=C1-1且未恢复；这不是“亡国即1”，而是家庭食物断裂与死亡直接闭合，故K0。"
+          "stability_basis": "末期核心区相食大量饿死是三档外独立深谷，覆盖与严重度强。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-萧衍",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "末期核心区相食大量饿死是三档外独立深谷，覆盖与严重度强。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "前中期国家与基本生产长期可运行，但缺足以把主态抬至C1-4的家庭温饱直接锚；侯景乱前已出现户口减少、层层征敛与流移，晚期继续急剧恶化。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "《资治通鉴》共享通读卡正文"
+              ]
+            },
+            "score": 22.4
+          }
         },
         {
           "adjudication_reason": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。原富庶贡赋和商旅腹地在侯景乱中出现资产耗尽与人口近绝。侯景乱后主要州郡丧失，实际控制区和著籍户同时缩至极低。",
@@ -260,7 +269,6 @@
           "ruler_id": "RULER-SHADOW-萧绎",
           "ruler_name": "萧绎",
           "score": 5.7,
-          "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-1",
             "S_avg": "C1-1",
@@ -275,24 +283,6 @@
             "HOUSEHOLD_SUBSISTENCE_SURPLUS",
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《资治通鉴》",
@@ -303,7 +293,7 @@
               "original_text": "政令所及不足千里，著籍民户不到三万。"
             }
           ],
-          "stability_basis": "S_main已处C1-1最低档，状态体系不存在可继续“跌破主态”的更低档位，因此K按定义取K4。这里的K4只表示K指标在底档没有向下分辨空间，不代表民生稳定、韧性良好或可在C4领取高位稳定承压信用；S0→C1-1的恶化及底档持续由绝对状态与C4归责处理，不在K重复消费。"
+          "stability_basis": "池外既有记录；当前规范池未启用新的低谷修正裁决。"
         }
       ]
     }

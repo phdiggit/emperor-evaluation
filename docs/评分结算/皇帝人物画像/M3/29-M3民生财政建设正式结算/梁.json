@@ -22,19 +22,19 @@
           "components": {
             "C1": {
               "band": "C1-3",
-              "score": 28.2
+              "score": 22.4
             },
             "C2": {
               "band": "C2-4",
-              "score": 19.8
+              "score": 19.4
             },
             "C3": {
               "band": "C3-4",
-              "score": 33.6
+              "score": 32.8
             },
             "C4": {
               "band": "C4",
-              "score": -9.5
+              "score": -17.7
             }
           },
           "absolute_state_tier": 4,
@@ -85,7 +85,7 @@
               "deep_improvement_axis_count": 1,
               "retained_improvement_axis_count": 0,
               "rollback_axis_count": 3,
-              "recovery_score_27": 10.6,
+              "recovery_score_27": 0.0,
               "stability_score_18": 0.0,
               "start_tier": 2,
               "peak_tier": 4,
@@ -108,17 +108,16 @@
               "supporting_formal_fields": []
             },
             "six_band_main_state": false,
-            "deterioration_penalty": 3.9,
+            "deterioration_penalty": 4.2,
             "destructive_amplification_penalty": 13.5,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
+              "status": "SYNCED_TO_FORMAL_GOVERNANCE_V3",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧衍",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧衍",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧衍",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧衍"
               ],
-              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
               "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
             "destructive_amplification_grade": "DA3",
@@ -139,9 +138,21 @@
                 "source_field": "stability_class_diagnostic_only"
               }
             },
-            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
-            "stability_k_public_basis": "当前C1—C3正式K为C1=K0、C2=K0、C3=K0；K不进入C4分。M3稳定兑现分0.0/18为本轴逐人裁决值。",
-            "civilian_cost_review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-萧衍"
+            "civilian_cost_review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-萧衍",
+            "state_loss_basis": {
+              "C1": {
+                "grade": "L3",
+                "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"
+              },
+              "C2": {
+                "grade": "L3",
+                "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"
+              },
+              "C3": {
+                "grade": "L3",
+                "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"
+              }
+            }
           },
           "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
           "dynamic_label": "出现可归责或混合性退步",
@@ -151,11 +162,11 @@
           "output_mode": "BOUNDED_PROFILE",
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 3]、[3, 4, 4]、[3, 4, 4]、[1, 1, 1]；恢复10.6/27，稳定0.0/18；恶化扣减3.9，主动成本DA3/13.5。正式逐人裁决为G1-LOW。",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 3]、[3, 4, 4]、[3, 4, 4]、[1, 1, 1]；恢复0.0/27，稳定0.0/18；恶化扣减4.2，主动成本DA3/13.5。正式逐人裁决为G1-LOW。",
           "counterpattern": "军事坝工投入归军事项，晚期侯景乱与财政崩解已入三轴；不再以二十万施工投入本体额外上推严重多通道。",
           "starting_context": "当前C1—C3正式曲线：接手[2, 2, 3]、主态[3, 4, 4]、最高实现[3, 4, 4]、交班[1, 1, 1]。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分10.6/27；直接读取C1—C3正式K（C1=K0、C2=K0、C3=K0）复核稳定兑现，M3逐人裁决稳定分为0.0/18；K与该稳定判断均不回写C4分。",
-          "costs_and_consequences": "交班局面为[1, 1, 1]；可归责恶化扣减3.9；本人可选择行为的残余额外成本为DA3，扣减13.5。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；以三轴历史稳定诊断作独立画像复核，M3逐人裁决稳定分为0.0/18；该诊断不参与第二项状态计分，L不自动换算M3档位或稳定分，独立稳定判断不回写C4。",
+          "costs_and_consequences": "交班局面为[1, 1, 1]；可归责恶化扣减4.2；本人可选择行为的残余额外成本为DA3，扣减13.5。",
           "behavior_chain": "三轴恢复与交班仍按既有本人建设链复核。浮山堰施工期非战斗役工的严寒疾疫死亡保留极重独立人身与劳力损害。",
           "handoff_state": "按交班向量[1, 1, 1]推导C4终局标签为C4T-1；M3单独读取交班保留，不把稳定分回写C4。",
           "public_adjudication": "当前恢复10.6/27、稳定0.0/18，交班向量[1, 1, 1]；成本只读已去重的DA3，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G1。 档内位置LOW依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。",

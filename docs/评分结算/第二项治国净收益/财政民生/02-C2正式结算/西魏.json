@@ -65,6 +65,7 @@
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C2-2",
+            "S_main": "C2-3",
             "S_avg": "C2-3",
             "S_end": "C2-3"
           },
@@ -84,16 +85,30 @@
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-3",
-            "score": 14.9,
-            "state_anchors": {
-              "S0": "C2-2",
-              "S_avg": "C2-3",
-              "S_end": "C2-4"
-            }
-          },
-          "old_settlement_review": "KEEP_BAND_DOWNGRADE_END_ANCHOR；保留：军户、农业与财政重组形成基本可持续框架的判断保留。；推翻/修正：旧S_end=C2-4证据不足，改C2-3。。"
+          "loss_grade": "L0",
+          "stability_basis": "结构军用广及财政重组已构成三档，制度名不另作损害。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-宇文泰",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "结构军用广及财政重组已构成三档，制度名不另作损害。",
+              "strong_dimensions": [],
+              "main_representativeness": "原结算认为西魏财政军户重组、仓储和农业恢复形成“可持续基础”，但其唯一核心证据其实是苏绰六条与制度推行，结果闭合不足，旧S_end=4偏高。六条中“尽地利”“均赋役”清楚说明当时军用资广、贫弱者重徭远戍等结构问题；这些制度有助于把系统维持在基本运行，却不能直接证明P/M和F/R均已健康。因此主档仍3，交班端由4修正为3。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 14.9
+          }
         }
       ]
     }
