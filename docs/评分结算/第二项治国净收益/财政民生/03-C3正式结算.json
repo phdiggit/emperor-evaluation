@@ -21,19 +21,19 @@
     "database_write": false,
     "formal_document": "财政民生/03-C3正式结算.json",
     "formal_score_write": true,
-    "formula": "canonical pool: max(axis_floor, F(S_main)-axis_max*L_rate), ROUND_HALF_UP(1)",
+    "formula": "canonical pool: max(axis_floor, F(S_main)*(1-L_rate)), ROUND_HALF_UP(1)",
     "max_score": 60,
     "record_count": 195,
     "schema_id": "SECOND-ITEM-C3-FORMAL-V7.0-L-ADJUSTMENT",
     "scope": "秦至清195人；含画像正式池184人",
-    "status": "FORMAL_GOVERNANCE_V3_ACTIVE",
+    "status": "FORMAL_GOVERNANCE_V4_ACTIVE",
     "task_code": "I2-C1-C2-C3-C4-DOCUMENT-QUALITY-REPAIR-185-V1",
     "m3_supplement_review": {
       "status": "FULL_184_ROUTED",
       "new_formal_record_count": 10
     },
     "governance_activation": {
-      "version": "GOVERNANCE-STATE-RECOVERY-V3",
+      "version": "GOVERNANCE-STATE-RECOVERY-V4",
       "review_path": "config/second-item/governance-state-recovery-adjudications.json",
       "reviewed_record_count": 184,
       "out_of_scope_formal_record_count": 11

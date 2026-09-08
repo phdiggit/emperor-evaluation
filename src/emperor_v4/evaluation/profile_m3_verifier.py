@@ -351,7 +351,7 @@ def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = N
                 raise ValueError(f"M3 upstream component drift: {row['ruler_id']} {axis}")
         evidence = row.get("ability_evidence") or {}
         sync = evidence.get("upstream_sync") or {}
-        if sync.get("status") != "SYNCED_TO_FORMAL_GOVERNANCE_V3":
+        if sync.get("status") != "SYNCED_TO_FORMAL_GOVERNANCE_V4":
             raise ValueError(f"M3 upstream sync status missing: {row['ruler_id']}")
         expected_loss = {
             axis: {"grade": upstream[axis][row["ruler_id"]].get("loss_grade"), "role": "STATE_SCORE_ONLY_NOT_M3_GRADE"}
