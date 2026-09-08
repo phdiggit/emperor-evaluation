@@ -12611,12 +12611,12 @@
             "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
           },
           "C3": {
-            "band": 1,
-            "label": "C3-1",
-            "source": "S0",
-            "status": "RECHECKED_RETAIN_S0",
-            "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
-            "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+            "band": 3,
+            "label": "C3-3",
+            "source": "PRE_DAMAGE_COMPARABLE_STATE",
+            "status": "RECHECKED_PRE_DAMAGE_BASELINE",
+            "decision": "USE_PRE_DAMAGE_COMPARABLE_STATE",
+            "basis": "C3-1起点由靖难结束时南京与战后清洗构成；本人在1402年正式窗口前已在同区直接造成重大破坏，前置可比状态由洪武末—靖难前的C3-3闭合。恢复回到C3-3只算止损，不取得C3正向恢复信用。"
           }
         },
         "terminal": {
@@ -12648,15 +12648,13 @@
             "basis": "交班仍高于可比恢复基线；沿用已裁实施责任FULL，只保留实际净增档界。"
           },
           "C3": {
-            "factor": 1.0,
-            "grade": "FULL",
-            "basis": "交班仍高于可比恢复基线；沿用已裁实施责任FULL，只保留实际净增档界。"
+            "factor": 0,
+            "grade": "NONE",
+            "basis": "交班未高于自造破坏前的可比恢复基线；回到C3-3只算止损，不取得正向恢复信用。"
           }
         },
         "current_closed_recovery_axes": [
-          "C1",
-          "C2",
-          "C3"
+          "C2"
         ],
         "current_recovery_path_basis": {
           "C1": {
@@ -12676,12 +12674,12 @@
             "weighted_difficulty_credit": 0.2
           },
           "C3": {
-            "start_band": "C3-1",
+            "start_band": "C3-3",
             "highest_achieved_band": "C3-3",
-            "linear_delta": 2,
-            "boundary_difficulty_credit": 1.4,
+            "linear_delta": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.3,
-            "weighted_difficulty_credit": 0.42
+            "weighted_difficulty_credit": 0.0
           }
         },
         "current_recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
@@ -12691,11 +12689,11 @@
           "basis": "恢复发生于本人唯一或明确主导的实际最高权力窗口。"
         },
         "calculation": {
-          "raw_recovery": 6.2,
-          "recovery_score": 6.2,
+          "raw_recovery": 2.0,
+          "recovery_score": 2.0,
           "terminal_band": 3,
           "terminal_cap": 24.9,
-          "positive_retained": 6.2,
+          "positive_retained": 2.0,
           "axis_details": {
             "C1": {
               "baseline_band": 3,
@@ -12714,12 +12712,12 @@
               "retained_increment": true
             },
             "C3": {
-              "baseline_band": 1,
+              "baseline_band": 3,
               "end_band": 3,
-              "attribution_factor": 1.0,
-              "boundary_credit": 1.4,
-              "weighted_credit": 0.42,
-              "retained_increment": true
+              "attribution_factor": 0,
+              "boundary_credit": 0.0,
+              "weighted_credit": 0.0,
+              "retained_increment": false
             }
           }
         },

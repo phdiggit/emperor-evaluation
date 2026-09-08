@@ -4,13 +4,13 @@
   "collections": {
     "records": {
       "positions": [
-        60,
-        164,
-        166
+        64,
+        101,
+        171
       ],
       "records": [
         {
-          "rank": 52,
+          "rank": 55,
           "ruler_id": "RULER-SHADOW-高纬",
           "ruler_name": "高纬",
           "polity": "北齐",
@@ -52,24 +52,25 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 163,
+          "rank": 99,
           "ruler_id": "RULER-SHADOW-高湛",
           "ruler_name": "高湛",
           "polity": "北齐",
           "source_group": "北齐",
           "status": "FORMAL_SIGNED_ADJUSTMENT",
-          "triggered_axis_count": 2,
+          "triggered_axis_count": 1,
           "axis_results": [
             {
               "axis": "A",
-              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
-              "direction": "NEGATIVE",
-              "magnitude_grade": "CIV2",
-              "band": "LOW",
-              "signed_adjustment": -7.5,
+              "disposition": "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW",
+              "direction": null,
+              "magnitude_grade": null,
+              "band": null,
+              "signed_adjustment": 0,
               "package_refs": [
                 "I4PKG-GAOZHAN-ROYALFAMILY-A"
-              ]
+              ],
+              "eligibility_basis": "EXCLUDED_BY_AXIS_ADMISSION_BOUNDARY_NOT_HISTORICAL_NO_EFFECT"
             },
             {
               "axis": "B",
@@ -92,11 +93,11 @@
               ]
             }
           ],
-          "fourth_item_signed_adjustment": -4.5,
+          "fourth_item_signed_adjustment": 3.0,
           "zero_scan_checked": true
         },
         {
-          "rank": 167,
+          "rank": 172,
           "ruler_id": "RULER-SHADOW-高洋",
           "ruler_name": "高洋",
           "polity": "北齐",
@@ -188,7 +189,11 @@
           "source_coverage": "ADEQUATE",
           "source_refs": [
             "https://zh.wikisource.org/zh-hans/%E5%8C%97%E9%BD%8A%E6%9B%B8/%E5%8D%B728"
-          ]
+          ],
+          "eligibility_review": {
+            "disposition": "GROUP_CONSEQUENCE_ADMISSION_CONFIRMED",
+            "decision": "按前朝元氏宗室身份扩大到多支并近乎清空，已证既存宗室群体毁灭；保留R2及硬门。"
+          }
         },
         {
           "package_code": "I4PKG-WORK-GAOWEI-C-01",
@@ -330,7 +335,7 @@
           "polity": "北齐",
           "axis": "A",
           "direction": "NEGATIVE",
-          "net_tendency": "NEGATIVE_DOMINANT",
+          "net_tendency": "NO_ELIGIBLE_INCREMENT",
           "episode_refs": [],
           "same_chain_support_refs": [],
           "same_chain_effect": "NONE",
@@ -341,27 +346,33 @@
           "contemporary_feasible_frontier": "以同阶段既有真实替代做法校准，不把后世规模或技术当作本人起点。",
           "background_trend": "前代积累与具体执行者的专业创造分开；只消费本人窗口的采用、保护、损害或完成。",
           "attributable_change": "因谗杀宋太妃；又在河清三年因祥异、所书敕字而酷杀年少高百年。只计宗室妇孺的身份性损害，不将全部亲王政治冲突并入。",
-          "relative_change_level": "R2",
-          "relative_change_level_basis": "剥离首犯、军事战斗与其他计分轴同一损害；按对象覆盖和已实现身份后果定级。",
+          "relative_change_level": "R0",
+          "relative_change_level_basis": "宋太妃、高百年为两个具体宫廷处置对象，未闭合宗室身份排斥规则或群体结构后果，不能仅凭妇孺身份计N2。",
           "positive_component_level": null,
           "negative_component_level": null,
           "field_coverage": "仅限以上已定位家属、幼童或母族，不外推其他宗室及全民。",
           "access_expansion": null,
-          "durability_and_handoff": "两案不可逆但群体窄；高孝瑜个人进言与私人冲突不在A重复扩大，R2-LOW。",
+          "durability_and_handoff": "本包不符A轴群体后果准入；原事实与史源保留，持续性不再用于计分或交班增量。",
           "cross_scene_replication": null,
           "attribution_strength": "RULER_DIRECT_OR_AUTHORIZED_IMPLEMENTATION",
           "counterevidence": {
             "count": 1,
-            "summary": "剥离首犯、军事战斗与其他计分轴同一损害；按对象覆盖和已实现身份后果定级。"
+            "summary": "宋太妃、高百年为两个具体宫廷处置对象，未闭合宗室身份排斥规则或群体结构后果，不能仅凭妇孺身份计N2。"
           },
-          "hard_negative_gate": "ACTIVE",
+          "hard_negative_gate": "NONE",
           "knowledge_public_reach": "NOT_APPLICABLE",
           "source_coverage": "PARTIAL_BUT_SUFFICIENT",
           "source_refs": [
             "《北齐书·卷十一》河南王母宋太妃；《北齐书·卷十二》乐陵王百年。",
             "https://zh.wikisource.org/wiki/北齊書/卷11",
             "https://zh.wikisource.org/wiki/北齊書/卷12"
-          ]
+          ],
+          "scoring_eligibility": "REVOKED",
+          "eligibility_review": {
+            "disposition": "EXCLUDED_BY_AXIS_ADMISSION_BOUNDARY",
+            "review_scope": "现有史源、对象范围及第四项合同5.1群体后果准入；不是史实否定或扩搜失败。",
+            "decision": "宋太妃、高百年为两个具体宫廷处置对象，未闭合宗室身份排斥规则或群体结构后果，不能仅凭妇孺身份计N2。"
+          }
         }
       ]
     }

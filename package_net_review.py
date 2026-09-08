@@ -17,7 +17,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 PACKAGE_KINDS = ("contracts", "settlements")
-PACKAGE_LABELS = {"contracts": "GPT前四项评分合同", "settlements": "结算"}
+PACKAGE_LABELS = {"contracts": "GPT前四项评分合同", "settlements": "结算摘要"}
 PACKAGE_OUTPUT_NAMES = {
     "contracts": "净收益体系合同精简版.md",
     "settlements": "净收益体系-结算审查包.zip",
@@ -28,15 +28,12 @@ FORBIDDEN = ("第五项", "人物画像", "profile", "tests", "test", "src", ".c
 GOVERNING = "docs/项目总纲/皇帝综合评价体系评分标准.md"
 
 SETTLEMENT_FIXED = (
-    "docs/评分结算/00-皇帝统治成效综合评分榜.json",
     "docs/评分结算/00-皇帝统治成效综合评分榜.md",
-    "config/common/canonical-ruler-pool.json",
-    "config/common/canonical-ruler-admission-adjudications.yml",
 )
 CONFIG_DIRS = ("config/first-item", "config/second-item", "config/third-item")
 PACKAGE_FIXED = {"settlements": SETTLEMENT_FIXED}
 PACKAGE_ITEM_PARENTS = {"settlements": ("docs/评分结算",)}
-PACKAGE_EXTRA_DIRS = {"settlements": CONFIG_DIRS}
+PACKAGE_EXTRA_DIRS = {"settlements": ()}
 PACKAGE_EXCLUSIONS = {
     "contracts": (
         "正式结算数据、当前排名和人物池状态",
@@ -46,12 +43,9 @@ PACKAGE_EXCLUSIONS = {
         "导航、README、代码、测试、公共成果和史料全文",
     ),
     "settlements": (
-        "总纲、分项与证据合同正文",
-        "代码与测试",
-        "第五项专用文件",
-        "人物画像专用文件",
-        "公共成果和史料全文",
-        "服务运行配置与本地临时产物",
+        "config/下的adjudications、机器配置和其他输入数据",
+        "文件名含审计、audit或adjudication的审计文件",
+        "第五项、人物画像、代码、测试、公共成果和史料全文",
     ),
 }
 
@@ -227,6 +221,18 @@ def current_item_directories(root: Path, parent: str) -> list[Path]:
     return directories
 
 
+def settlement_allowed(path: Path) -> bool:
+    lower_name = path.name.lower()
+    return (
+        path.is_file()
+        and path.suffix.lower() in {".md", ".json"}
+        and "审计" not in path.name
+        and "audit" not in lower_name
+        and "adjudicat" not in lower_name
+        and allowed(path.as_posix())
+    )
+
+
 def collect(root: Path, package: str) -> list[Path]:
     """Whitelist either the contract or settlement roots; never chase arbitrary links."""
     package = validate_package_kind(package)
@@ -252,7 +258,7 @@ def collect(root: Path, package: str) -> list[Path]:
         selected.update(
             p
             for p in directory.rglob("*")
-            if p.is_file() and allowed(p.relative_to(root).as_posix())
+            if settlement_allowed(p)
         )
     for path in selected:
         if not path.is_file():
@@ -869,21 +875,11 @@ def review_note(package: str) -> bytes:
         return _chat_review_note()
     else:
         text = (
-            "# 净收益体系结算审查包\n\n"
-            "## 范围与读取顺序\n\n"
-            "1. 先读 `config/common/canonical-ruler-pool.json`，确认正式评价对象及 `COMPOSITE_READY` 状态。\n"
-            "2. 阅读 `docs/评分结算/00-皇帝统治成效综合评分榜.json` 及其Markdown阅读视图。\n"
-            "3. 再按前四项结算目录检查正式 JSON、Markdown、路由分片和对应裁决输入。\n"
-            "4. 合同正文见配套合同包；本包不把结算快照反向当作规则。\n\n"
-            "## 数据含义\n\n"
-            "本包读取打包时的工作树，包含未提交的当前修改，不运行重建、不修改分数。"
-            "文件内容逐字节保留；文件清单记录源文件和入包内容的SHA-256。\n\n"
-            "JSON是机器读取入口，Markdown是阅读视图；第一项存在Markdown结算权威模式。"
-            "分片JSON入口包含 `payload_metadata`、`collections` 和 `routes`；"
-            "请读取routes中每个分片的相对path，各分片的collections记录中包含positions与records，"
-            "按positions可还原原始顺序；不要把路由索引误认为空结果。\n\n"
-            "本包只分析前四项正式结算、综合榜和结算输入，不审查代码、测试、合同正文、第五项或人物画像。"
-            "第四项的语义验收状态应读取其当前正式声明，结构完整不代表语义复审已闭合。\n"
+            "# 净收益体系结算摘要包（聊天版）\n\n"
+            "本包保留`docs/评分结算/`下按朝代/分项组织的正式JSON分片和结算Markdown；排除画像、配置输入及审计文件。\n\n"
+            "## 使用边界\n\n"
+            "被排除的adjudications和审计文件仍留在正式仓库，不代表正式结果不存在。"
+            "本包不运行重建、不修改分数；正式JSON分片和Markdown阅读页保留。\n"
         )
     return text.encode("utf-8")
 
@@ -925,7 +921,7 @@ def prepare(root: Path, package: str) -> tuple[dict[str, bytes], dict]:
             if target not in entries:
                 raise ValueError(f"路由分片未入包：{name} -> {target}")
     manifest = {
-        "format": "net-benefit-review-package-v2",
+        "format": "net-benefit-settlement-summary-package-v1",
         "package": package,
         "package_label": PACKAGE_LABELS[package],
         "source": "CURRENT_WORKING_TREE_INCLUDING_UNCOMMITTED_CHANGES",

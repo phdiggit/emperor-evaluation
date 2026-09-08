@@ -4,14 +4,14 @@
   "collections": {
     "records": {
       "positions": [
-        50,
-        137,
-        138,
-        158
+        53,
+        145,
+        146,
+        147
       ],
       "records": [
         {
-          "rank": 49,
+          "rank": 52,
           "ruler_id": "RULER-SHADOW-陈蒨",
           "ruler_name": "陈蒨",
           "polity": "陈",
@@ -59,7 +59,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 100,
+          "rank": 105,
           "ruler_id": "RULER-SHADOW-陈叔宝",
           "ruler_name": "陈叔宝",
           "polity": "陈",
@@ -103,7 +103,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 100,
+          "rank": 105,
           "ruler_id": "RULER-SHADOW-陈霸先",
           "ruler_name": "陈霸先",
           "polity": "陈",
@@ -143,24 +143,25 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 156,
+          "rank": 105,
           "ruler_id": "RULER-SHADOW-陈顼",
           "ruler_name": "陈顼",
           "polity": "陈",
           "source_group": "陈",
-          "status": "FORMAL_SIGNED_ADJUSTMENT",
-          "triggered_axis_count": 1,
+          "status": "FORMAL_ZERO_ADJUSTMENT",
+          "triggered_axis_count": 0,
           "axis_results": [
             {
               "axis": "A",
-              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
-              "direction": "NEGATIVE",
-              "magnitude_grade": "CIV1",
-              "band": "LOW",
-              "signed_adjustment": -3,
+              "disposition": "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW",
+              "direction": null,
+              "magnitude_grade": null,
+              "band": null,
+              "signed_adjustment": 0,
               "package_refs": [
                 "I4PKG-CHENXU-A-OUYANG-FAMILY"
-              ]
+              ],
+              "eligibility_basis": "EXCLUDED_BY_AXIS_ADMISSION_BOUNDARY_NOT_HISTORICAL_NO_EFFECT"
             },
             {
               "axis": "B",
@@ -181,7 +182,7 @@
               "package_refs": []
             }
           ],
-          "fourth_item_signed_adjustment": -3,
+          "fourth_item_signed_adjustment": 0,
           "zero_scan_checked": true
         }
       ]
@@ -383,7 +384,7 @@
           "polity": "陈",
           "axis": "A",
           "direction": "NEGATIVE",
-          "net_tendency": "NEGATIVE_DOMINANT",
+          "net_tendency": "NO_ELIGIBLE_INCREMENT",
           "episode_refs": [],
           "same_chain_support_refs": [],
           "same_chain_effect": "NONE",
@@ -394,18 +395,18 @@
           "contemporary_feasible_frontier": "以本窗口实际可行的保留原居、家庭与原有身份为比较，不设现代制度前提。",
           "background_trend": "军事或宫廷局势只是背景；只计明确由本人命令、授权或追认的已实现群体结果。",
           "attributable_change": "太建元年征讨欧阳纥后，纥被诛而家口籍没，欧阳询因年幼获免；只计首犯之外家口身份损害。",
-          "relative_change_level": "R1",
-          "relative_change_level_basis": "对象单一且受害人数未明、存在明确豁免，取R1-LOW，不凭籍没字样机械定R2。",
+          "relative_change_level": "R0",
+          "relative_change_level_basis": "欧阳纥一家籍没且有幼子豁免，未闭合规则扩大或群体结构结果；不能仅凭籍没形成独立N1。",
           "positive_component_level": null,
           "negative_component_level": null,
           "field_coverage": "一个家族的家口；人数、年龄结构不明，已知幼子例外保留。",
           "access_expansion": null,
-          "durability_and_handoff": "籍没已实施，幼子免除是同链范围限制；没有后继稳定身份材料，不作长久大规模判断。",
+          "durability_and_handoff": "本包不符A轴群体后果准入；原事实与史源保留，持续性不再用于计分或交班增量。",
           "cross_scene_replication": null,
           "attribution_strength": "RULER_DIRECT_OR_AUTHORIZED_IMPLEMENTATION",
           "counterevidence": {
             "count": 1,
-            "summary": "欧阳纥确已举兵，其本人战败伏诛不计A；岭南政权归属与收兵不另计正向。"
+            "summary": "欧阳纥一家籍没且有幼子豁免，未闭合规则扩大或群体结构结果；不能仅凭籍没形成独立N1。"
           },
           "hard_negative_gate": "NONE",
           "knowledge_public_reach": "NOT_APPLICABLE",
@@ -413,7 +414,13 @@
           "source_refs": [
             "《陈书·卷九·欧阳頠附纥传》：家口籍没，子询以年幼免。",
             "https://zh.wikisource.org/wiki/陳書/卷9"
-          ]
+          ],
+          "scoring_eligibility": "REVOKED",
+          "eligibility_review": {
+            "disposition": "EXCLUDED_BY_AXIS_ADMISSION_BOUNDARY",
+            "review_scope": "现有史源、对象范围及第四项合同5.1群体后果准入；不是史实否定或扩搜失败。",
+            "decision": "欧阳纥一家籍没且有幼子豁免，未闭合规则扩大或群体结构结果；不能仅凭籍没形成独立N1。"
+          }
         }
       ]
     }

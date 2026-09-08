@@ -5,16 +5,16 @@
     "records": {
       "positions": [
         36,
-        52,
-        53,
-        63,
-        64,
-        66,
-        81,
-        103,
-        105,
-        106,
-        175
+        56,
+        57,
+        68,
+        69,
+        71,
+        86,
+        109,
+        111,
+        112,
+        114
       ],
       "records": [
         {
@@ -62,7 +62,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 52,
+          "rank": 55,
           "ruler_id": "RULER-HAN-LIUHENG",
           "ruler_name": "刘恒",
           "polity": "汉",
@@ -104,7 +104,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 52,
+          "rank": 55,
           "ruler_id": "RULER-HAN-LIUYING",
           "ruler_name": "刘盈",
           "polity": "汉",
@@ -146,7 +146,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 64,
+          "rank": 69,
           "ruler_id": "RULER-HAN-LIUAO",
           "ruler_name": "刘骜",
           "polity": "汉",
@@ -192,7 +192,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 65,
+          "rank": 70,
           "ruler_id": "RULER-HAN-LIUCHE",
           "ruler_name": "刘彻",
           "polity": "汉",
@@ -239,7 +239,7 @@
           "fourth_item_signed_adjustment": 8.0
         },
         {
-          "rank": 66,
+          "rank": 71,
           "ruler_id": "RULER-HAN-LIUXIN",
           "ruler_name": "刘欣",
           "polity": "汉",
@@ -281,7 +281,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 82,
+          "rank": 87,
           "ruler_id": "RULER-XIN-WANGMANG",
           "ruler_name": "王莽",
           "polity": "新",
@@ -326,7 +326,7 @@
           "fourth_item_signed_adjustment": 5.5
         },
         {
-          "rank": 100,
+          "rank": 105,
           "ruler_id": "RULER-HAN-LIUBANG",
           "ruler_name": "刘邦",
           "polity": "汉",
@@ -368,7 +368,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 100,
+          "rank": 105,
           "ruler_id": "RULER-HAN-LIUQI",
           "ruler_name": "刘启",
           "polity": "汉",
@@ -408,7 +408,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 100,
+          "rank": 105,
           "ruler_id": "RULER-HAN-LIUSHI",
           "ruler_name": "刘奭",
           "polity": "汉",
@@ -450,24 +450,25 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 175,
+          "rank": 105,
           "ruler_id": "RULER-HAN-LUYU",
           "ruler_name": "吕雉",
           "polity": "汉",
           "source_group": "西汉",
-          "status": "FORMAL_SIGNED_ADJUSTMENT",
-          "triggered_axis_count": 1,
+          "status": "FORMAL_ZERO_ADJUSTMENT",
+          "triggered_axis_count": 0,
           "axis_results": [
             {
               "axis": "A",
-              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
-              "direction": "NEGATIVE",
-              "magnitude_grade": "CIV2",
-              "band": "MID",
-              "signed_adjustment": -9.5,
+              "disposition": "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW",
+              "direction": null,
+              "magnitude_grade": null,
+              "band": null,
+              "signed_adjustment": 0,
               "package_refs": [
                 "I4PKG-LUIZHI-ROYALCHILDREN-A"
-              ]
+              ],
+              "eligibility_basis": "EXCLUDED_BY_AXIS_ADMISSION_BOUNDARY_NOT_HISTORICAL_NO_EFFECT"
             },
             {
               "axis": "B",
@@ -488,7 +489,7 @@
               "package_refs": []
             }
           ],
-          "fourth_item_signed_adjustment": -9.5,
+          "fourth_item_signed_adjustment": 0,
           "zero_scan_checked": true
         }
       ]
@@ -699,7 +700,11 @@
           "source_refs": [
             "《西汉会要·卷四十九》引《汉书·食货志》：杨可告缗后，没入奴婢分诸苑养狗马禽兽及与诸官；仅以身份没入后果支持A，不重复消费财政收入。",
             "https://zh.wikisource.org/wiki/西漢會要/卷49"
-          ]
+          ],
+          "eligibility_review": {
+            "disposition": "GROUP_CONSEQUENCE_ADMISSION_CONFIRMED",
+            "decision": "告缗使大量人口没入官奴婢并分配诸官，已闭合大规模持久身份降格；保留R3及硬门。"
+          }
         },
         {
           "package_code": "I4PKG-RULER-HAN-LIUCHE-B-01",
@@ -1068,7 +1073,11 @@
             "https://zh.wikisource.org/zh-hant/史記/卷099",
             "《汉书·卷一下·高帝纪下》五年：民以饥饿自卖为人奴婢者，皆免为庶人；流散者复故爵田宅。",
             "https://zh.wikisource.org/wiki/漢書/卷001下"
-          ]
+          ],
+          "eligibility_review": {
+            "disposition": "GROUP_CONSEQUENCE_ADMISSION_CONFIRMED",
+            "decision": "饥饿自卖者免庶人及流散者复爵宅按类别恢复身份，保留P2；强迁独立人群N2亦保留。"
+          }
         },
         {
           "package_code": "I4PKG-WORK-LIUSHI-B-01",
@@ -1326,7 +1335,7 @@
           "polity": "汉",
           "axis": "A",
           "direction": "NEGATIVE",
-          "net_tendency": "NEGATIVE_DOMINANT",
+          "net_tendency": "NO_ELIGIBLE_INCREMENT",
           "episode_refs": [],
           "same_chain_support_refs": [],
           "same_chain_effect": "NONE",
@@ -1337,26 +1346,32 @@
           "contemporary_feasible_frontier": "以同阶段既有真实替代做法校准，不把后世规模或技术当作本人起点。",
           "background_trend": "前代积累与具体执行者的专业创造分开；只消费本人窗口的采用、保护、损害或完成。",
           "attributable_change": "对戚氏母子、燕王建遗子及前少帝先后施以拘禁或杀害，使若干刘氏支系失去后嗣与人身安全；只计已失现实争权能力者及幼童，夺王陵相权不计。",
-          "relative_change_level": "R2",
-          "relative_change_level_basis": "剥离首犯、军事战斗与其他计分轴同一损害；按对象覆盖和已实现身份后果定级。",
+          "relative_change_level": "R0",
+          "relative_change_level_basis": "已定位若干宗室妇孺受害，但尚不足以证成按刘氏身份的系统性清洗或共同体结构破坏；易储、除国与封王本体不能代替群体社会后果，少帝本人也不因年幼自动成为案外家属。",
           "positive_component_level": null,
           "negative_component_level": null,
           "field_coverage": "仅限以上已定位家属、幼童或母族，不外推其他宗室及全民。",
           "access_expansion": null,
-          "durability_and_handoff": "跨惠帝在位与称制两窗口，死亡不可逆；诸吕败后重建刘氏封国是后继新决策，不能复原死者，仍限宗室领域R2。",
+          "durability_and_handoff": "本包不符A轴群体后果准入；原事实与史源保留，持续性不再用于计分或交班增量。",
           "cross_scene_replication": null,
           "attribution_strength": "RULER_DIRECT_OR_AUTHORIZED_IMPLEMENTATION",
           "counterevidence": {
             "count": 1,
-            "summary": "剥离首犯、军事战斗与其他计分轴同一损害；按对象覆盖和已实现身份后果定级。"
+            "summary": "已定位若干宗室妇孺受害，但尚不足以证成按刘氏身份的系统性清洗或共同体结构破坏；易储、除国与封王本体不能代替群体社会后果，少帝本人也不因年幼自动成为案外家属。"
           },
-          "hard_negative_gate": "ACTIVE",
+          "hard_negative_gate": "NONE",
           "knowledge_public_reach": "NOT_APPLICABLE",
           "source_coverage": "PARTIAL_BUT_SUFFICIENT",
           "source_refs": [
             "《史记·卷九·吕太后本纪》如意、燕王子及少帝；惠帝时期归母后实际实施。",
             "https://zh.wikisource.org/wiki/史記/卷009"
-          ]
+          ],
+          "scoring_eligibility": "REVOKED",
+          "eligibility_review": {
+            "disposition": "EXCLUDED_BY_AXIS_ADMISSION_BOUNDARY",
+            "review_scope": "现有史源、对象范围及第四项合同5.1群体后果准入；不是史实否定或扩搜失败。",
+            "decision": "已定位若干宗室妇孺受害，但尚不足以证成按刘氏身份的系统性清洗或共同体结构破坏；易储、除国与封王本体不能代替群体社会后果，少帝本人也不因年幼自动成为案外家属。"
+          }
         }
       ]
     }

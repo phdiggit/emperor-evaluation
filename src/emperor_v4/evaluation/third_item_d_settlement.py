@@ -94,12 +94,18 @@ def _chain_name(chain: Mapping[str, Any]) -> str:
 
 
 _CHALLENGE_LABELS = {
-    "O1_LOCAL_PRESSURE": "局部武装或地方压力",
-    "O2_BORDER_RAIDING": "可持续袭扰边境或争夺有限区域的压力",
-    "O3_MAJOR_DIRECTION_THREAT": "一个主要战略方向的持续压力",
-    "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT": "多方向或核心区域威胁",
-    "O5_CORE_DEFENSE_SYSTEM_THREAT": "迫使核心防务体系系统响应的威胁",
-    "O6_EXISTENTIAL_MILITARY_THREAT": "威胁政权军事生存的压力",
+    "O1": "零散地方力量、残余据点或低于主要方向的短时武装",
+    "O1_LOCAL_PRESSURE": "零散地方力量、残余据点或低于主要方向的短时武装",
+    "O2": "大型流动军、松散联盟或短期割据，缺乏稳定国家机器",
+    "O2_BORDER_RAIDING": "大型流动军、松散联盟或短期割据，缺乏稳定国家机器",
+    "O3": "统一指挥并能持续负责主要方向，但国家纵深、财政兵员或再生能力不完整",
+    "O3_MAJOR_DIRECTION_THREAT": "统一指挥并能持续负责主要方向，但国家纵深、财政兵员或再生能力不完整",
+    "O4": "具有稳定区域、行政征补、财政兵员和持续独立作战能力，但相对评价主体仍有明显层级差",
+    "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT": "具有稳定区域、行政征补、财政兵员和持续独立作战能力，但相对评价主体仍有明显层级差",
+    "O5": "成熟中枢、跨区域主力和持续再动员，处于大体同级竞争并有真实胜机",
+    "O5_CORE_DEFENSE_SYSTEM_THREAT": "成熟中枢、跨区域主力和持续再动员，处于大体同级竞争并有真实胜机",
+    "O6": "实际窗口内明显占据战略优势，持续把评价主体生存、核心根据地或主要战略目标推入重大危机",
+    "O6_EXISTENTIAL_MILITARY_THREAT": "实际窗口内明显占据战略优势，持续把评价主体生存、核心根据地或主要战略目标推入重大危机",
 }
 
 _RESULT_LABELS = {

@@ -259,6 +259,84 @@ def _index(records: Sequence[Mapping[str, Any]], component: str) -> dict[str, Ma
     return indexed
 
 
+def _current_d_security_result_index(
+    workspace_root: Path,
+) -> dict[tuple[str, str], dict[str, str]]:
+    """Index current D chain outcomes without collapsing shared chain IDs."""
+
+    payload = _load(workspace_root / FORMAL_D_PATH)
+    result: dict[tuple[str, str], dict[str, str]] = {}
+    for row in payload.get("records") or ():
+        ruler_id = str(row.get("ruler_id") or "")
+        ruler_name = str(row.get("ruler_name") or "")
+        chains = list(row.get("external_strategic_chains") or ()) + list(
+            row.get("strategic_internal_chains") or ()
+        )
+        for chain in chains:
+            chain_id = str(chain.get("chain_id") or "")
+            if not ruler_id or not chain_id:
+                continue
+            value = {
+                "ruler_id": ruler_id,
+                "ruler_name": ruler_name,
+                "chain_id": chain_id,
+                "security_result_grade": str(
+                    chain.get("security_result_grade") or ""
+                ).strip()
+                or "UNRECORDED",
+            }
+            key = (ruler_id, chain_id)
+            previous = result.get(key)
+            if previous is not None and previous != value:
+                raise ValueError(f"D逐链结果重复且不一致：{ruler_name}/{chain_id}")
+            result[key] = value
+    return result
+
+
+def _build_d_security_result_profile(
+    ruler_id: str,
+    current_refs: Sequence[str],
+    d_results: Mapping[tuple[str, str], Mapping[str, str]],
+) -> dict[str, Any]:
+    grade_refs: dict[str, list[str]] = {}
+    unmatched: list[str] = []
+    for ref in current_refs:
+        result = d_results.get((ruler_id, str(ref)))
+        if result is None:
+            unmatched.append(str(ref))
+            continue
+        grade = str(result.get("security_result_grade") or "UNRECORDED")
+        grade_refs.setdefault(grade, []).append(str(ref))
+    matched = sum(len(refs) for refs in grade_refs.values())
+    known = sum(
+        len(refs) for grade, refs in grade_refs.items() if grade != "UNRECORDED"
+    )
+    if not current_refs:
+        status = "NOT_APPLICABLE"
+    elif not matched:
+        status = "NO_D_CHAIN_MATCH"
+    elif matched < len(current_refs):
+        status = "PARTIAL_D_CHAIN_MATCH"
+    elif known < matched:
+        status = "D_CHAIN_RESULT_UNRECORDED"
+    else:
+        status = "CLOSED_D_CHAIN_RESULT"
+    return {
+        "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
+        "status": status,
+        "selected_task_count": len(current_refs),
+        "matched_task_count": matched,
+        "known_result_count": known,
+        "security_result_grade_counts": {
+            grade: len(grade_refs[grade]) for grade in sorted(grade_refs)
+        },
+        "security_result_grade_refs": {
+            grade: grade_refs[grade] for grade in sorted(grade_refs)
+        },
+        "unmatched_task_refs": unmatched,
+    }
+
+
 def _component_identity(
     name: str,
     rows: Sequence[Mapping[str, Any] | None],
@@ -743,6 +821,26 @@ def _validate_ab_axis_narratives(payload: Mapping[str, Any]) -> None:
             raise ValueError(f"{row['ruler_name']} A1、A2不得使用完全相同的轴专属依据")
 
 
+def _validate_current_ab_score_fields(payload: Mapping[str, Any]) -> None:
+    """Current AB formal records expose only A120, B80 and AB200 totals."""
+    for row in payload.get("records") or ():
+        name = str(row.get("ruler_name"))
+        for legacy_field in ("AB_score_points", "AB_atomic_diagnostic_points"):
+            if legacy_field in row:
+                raise ValueError(f"{name}仍含已移除的旧AB字段：{legacy_field}")
+        for axis_name in ("A1", "A2"):
+            if "axis_points" in ((row.get("axes") or {}).get(axis_name) or {}):
+                raise ValueError(f"{name}仍含旧{axis_name}原子分数字段")
+        ab200 = row.get("AB200_score_points")
+        a120 = row.get("A120_score_points")
+        b80 = row.get("B80_score_points")
+        if ab200 is not None:
+            if a120 is None or b80 is None:
+                raise ValueError(f"{name}当前AB200缺少A120或B80")
+            if round(float(a120) + float(b80), 2) != float(ab200):
+                raise ValueError(f"{name}当前AB200与A120+B80不一致")
+
+
 def _load_a_axis_narrative_adjudications(
     workspace_root: Path,
 ) -> dict[str, Mapping[str, Any]]:
@@ -926,6 +1024,7 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         "military_net_loss": workspace_root / MILITARY_NET_LOSS_PENALTIES_PATH,
     }
     payloads = {key: _load(path) for key, path in paths.items()}
+    _validate_current_ab_score_fields(payloads["AB"])
     _validate_ab_control_contribution_contract(
         payloads["AB"], depth_source=_load(workspace_root / AB_HANDOFF_ADJUDICATIONS_PATH)
     )
@@ -1228,6 +1327,7 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
         credit_payload, ab_payload, _load(workspace_root / C_PATH),
         _load(workspace_root / FORMAL_D_PATH),
     )
+    _validate_current_c_security_result_profiles(workspace_root)
     _validate_result_credit_contract(
         credit_payload,
         ab_payload,
@@ -1358,6 +1458,11 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
     ab_path = workspace_root / AB_PATH
     credit_path = workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH
     ab_payload = _load(ab_path)
+    for row in ab_payload["records"]:
+        row.pop("AB_score_points", None)
+        row.pop("AB_atomic_diagnostic_points", None)
+        for axis_name in ("A1", "A2"):
+            (row.get("axes") or {}).get(axis_name, {}).pop("axis_points", None)
     credit_payload = _load(credit_path)
     handoff_payload = _load(workspace_root / AB_HANDOFF_ADJUDICATIONS_PATH)
     narrative_adjudications = _load_a_axis_narrative_adjudications(workspace_root)
@@ -1429,9 +1534,6 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 if object_id not in regions:
                     raise ValueError(f"{name}的B1区域证据裁决对象不存在：{object_id}")
                 regions[object_id]["evidence_refs"] = list(dict.fromkeys(map(str, refs)))
-            row["AB_score_points"] = round(
-                sum(float(axis["axis_points"]) for axis in row["axes"].values()), 2
-            )
         contribution_type = str(row.get("control_contribution_type") or "")
         if contribution_type not in CONTROL_CONTRIBUTION_CAPS:
             raise ValueError(f"{name}控制成果归责类型非法")
@@ -1503,9 +1605,6 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 raise ValueError(f"{name}的AB主压力补充缺少理由")
             row["primary_threat_refs"] = refs
             row["primary_threat_basis"] = str(threat_supplement["reason"])
-        row["AB_score_points"] = round(
-            sum(float(axis["axis_points"]) for axis in row["axes"].values()), 2
-        )
     unknown_narrative_ids = set(narrative_adjudications) - {
         str(row["ruler_id"]) for row in ab_payload["records"]
     }
@@ -1533,7 +1632,6 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 "A_state_values": A_STATE_VALUES,
                 "A_change_weights": A_CHANGE_WEIGHTS,
                 "B80_formula": "80*(0.55*B1_rate+0.45*B2_rate)*(0.70+0.30*B4_rate)",
-                "legacy_AB_score_points": "ATOMIC_AXIS_DIAGNOSTIC_ONLY_NOT_CURRENT_AB_TOTAL",
             },
         }
     )
@@ -1552,6 +1650,11 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
         str(item["ruler_id"]): item
         for item in adjudication_payload.get("adjudications") or ()
     }
+    configured_return_classes = {
+        str(item["ruler_id"]): item
+        for item in adjudication_payload.get("task_return_class_adjudications") or ()
+    }
+    d_security_results = _current_d_security_result_index(workspace_root)
     shared_binding_adjudications = {
         str(item["parent_cycle_ref"]): item
         for item in adjudication_payload.get(
@@ -1659,6 +1762,14 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
             ).items()
             for ref in outcome_refs or ()
         }
+        configured = configured_return_classes.get(str(row["ruler_id"])) or {}
+        current_ref_set = set(current_refs)
+        for outcome, outcome_refs in dict(
+            configured.get("return_class_refs") or {}
+        ).items():
+            for ref in outcome_refs or ():
+                if str(ref) in current_ref_set:
+                    class_by_ref[str(ref)] = str(outcome)
         resolved = [
             (ref, class_by_ref.get(ref, "UNKNOWN")) for ref in current_refs
         ]
@@ -1671,6 +1782,9 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
         outcome_refs = dict(sorted(outcome_refs.items()))
         known = sum(count for outcome, count in counts.items() if outcome != "UNKNOWN")
         profile_source = str(previous.get("source") or "CURRENT_C_TASKS")
+        d_security_profile = _build_d_security_result_profile(
+            str(row["ruler_id"]), current_refs, d_security_results
+        )
         if (
             any(outcome == "UNKNOWN" for _, outcome in resolved)
             and not profile_source.endswith("_WITH_EXPLICIT_UNKNOWN_CLOSURE")
@@ -1685,6 +1799,7 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
             "known_outcome_count": known,
             "return_class_counts": counts,
             "return_class_refs": outcome_refs,
+            "d_security_result_profile": d_security_profile,
             "status": "QUANTIFIED" if known else (
                 "UNQUANTIFIED" if current_refs else "NOT_APPLICABLE"
             ),
@@ -1746,6 +1861,21 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
         c_path.with_suffix(".md"),
         _render_formal_markdown("C", payload["records"]),
     )
+
+
+def _validate_current_c_security_result_profiles(workspace_root: Path) -> None:
+    payload = _load(workspace_root / C_PATH)
+    d_security_results = _current_d_security_result_index(workspace_root)
+    for row in payload.get("records") or ():
+        refs = [str(ref) for ref in row.get("current_item_task_refs") or ()]
+        actual = (row.get("task_outcome_profile") or {}).get(
+            "d_security_result_profile"
+        )
+        expected = _build_d_security_result_profile(
+            str(row["ruler_id"]), refs, d_security_results
+        )
+        if actual != expected:
+            raise ValueError(f"C/D逐链结果剖面未同步：{row.get('ruler_name')}")
 
 
 def write_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:

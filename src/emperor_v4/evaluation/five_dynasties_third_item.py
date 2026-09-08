@@ -1086,7 +1086,7 @@ def build_five_dynasties_ab_records(
             base.update(
                 {
                     "axes": {axis: {"grade": "UNKNOWN", "reason": decision["pending_reason"]} for axis in ("A1", "A2", "B1", "B2", "B4")},
-                    "AB_score_points": None,
+                    "AB_atomic_diagnostic_points": None,
                     "b1_region_control": {"start": {}, "end": {}},
                     "b1_region_adjudications": [],
                     "b1_control_equivalents": {"start": None, "end": None, "net_change": None, "weighted_value": None},
@@ -1177,7 +1177,7 @@ def build_five_dynasties_ab_records(
         base.update(
             {
                 "axes": axes,
-                "AB_score_points": round(sum(axis["axis_points"] for axis in axes.values()), 2),
+                "AB_atomic_diagnostic_points": round(sum(axis["axis_points"] for axis in axes.values()), 2),
                 "b1_region_control": region_control,
                 "b1_region_adjudications": region_adjudications,
                 "b1_region_ledger_status": region_ledger_status,
@@ -2150,7 +2150,7 @@ def _normalize_qin_tang_bc_parent_cycles(
                 if axis in ab_axis_adjudication:
                     axes[axis] = _axis_b(axis, ab_axis_adjudication[axis])
             ab_row["axes"] = axes
-            ab_row["AB_score_points"] = round(
+            ab_row["AB_atomic_diagnostic_points"] = round(
                 sum(float(axes[axis]["axis_points"]) for axis in ("A1", "A2", "B1", "B2", "B4")),
                 2,
             )
@@ -4275,7 +4275,7 @@ def _render_formal_markdown(
     if kind not in {"AB", "C"}:
         raise ValueError("正式分项Markdown仅支持AB或C；D由军事行动成本和收益登记专用renderer生成")
     current_ab = kind == "AB" and all("AB200_score_points" in row for row in records)
-    score_key = "AB200_score_points" if current_ab else {"AB": "AB_score_points", "C": "C_score_points"}[kind]
+    score_key = "AB200_score_points" if current_ab else {"AB": "AB_atomic_diagnostic_points", "C": "C_score_points"}[kind]
     ranked = _competition_ranked_records(records, score_key)
     unscored = [row for row in records if row.get(score_key) is None]
     values = [float(row[score_key]) for _, row in ranked]
@@ -4497,7 +4497,7 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
         ]
     for row in unscored:
         reason = str(row.get("pending_reason") or "组成部分尚未闭合，第三项不赋中性总分。")
-        ab_value = "—" if row.get("AB_score_points") is None else f"{float(row['AB_score_points']):.1f}"
+        ab_value = "—" if row.get("AB_atomic_diagnostic_points") is None else f"{float(row['AB_atomic_diagnostic_points']):.1f}"
         c_value = "—" if row.get("C_score_points") is None else f"{float(row['C_score_points']):.1f}"
         d_value = "—" if row.get("D_score_points") is None else f"{float(row['D_score_points']):.1f}"
         lines += [
