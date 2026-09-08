@@ -103,7 +103,7 @@
               "label_zh": "开皇律体系",
               "major_node_role": "MAJOR_RESTRUCTURE",
               "material_ids": [
-                "I2-LAW-CHAIN-KAIHUANG-001",
+                "I2-A-KAIHUANG-CORE-RECEPTION-R3",
                 "LAW-16-001-M2-M3-02-AUDIT"
               ],
               "mechanism": "开皇律体系",
@@ -162,7 +162,7 @@
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-LAW-CHAIN-KAIHUANG-001",
+            "I2-A-KAIHUANG-CORE-RECEPTION-R3",
             "I2-SUI-TANG-CENTRAL-ORG-RECEPTION-001",
             "I2-SUI-TANG-SELECTION-RECEPTION-001",
             "I2-SUI-YJ-CENTRAL-ORG-CONSOLIDATION-001-M2-M3-02-AUDIT",
@@ -174,9 +174,6 @@
             "LAW-16-001-M2-M3-02-AUDIT"
           ],
           "direct_material_roles": {
-            "I2-LAW-CHAIN-KAIHUANG-001": [
-              "S_DURABILITY_GATE"
-            ],
             "I2-SUI-TANG-CENTRAL-ORG-RECEPTION-001": [
               "S_DURABILITY_GATE"
             ],
@@ -207,6 +204,9 @@
             "LAW-16-001-M2-M3-02-AUDIT": [
               "A_OPERATION",
               "S_CONSTRUCTION"
+            ],
+            "I2-A-KAIHUANG-CORE-RECEPTION-R3": [
+              "S_DURABILITY_GATE"
             ]
           },
           "direction_card_write": true,
@@ -288,7 +288,7 @@
               "decision": "MAJOR_NODE",
               "durability_gate": "PASS_COUNTS_TOWARD_S",
               "durability_material_ids": [
-                "I2-LAW-CHAIN-KAIHUANG-001"
+                "I2-A-KAIHUANG-CORE-RECEPTION-R3"
               ],
               "institution_domain": "法律与司法",
               "institution_lineage": "魏晋—隋唐—五代—宋律典法源谱系",
@@ -296,16 +296,19 @@
               "label_zh": "开皇律体系",
               "major_node_role": "MAJOR_RESTRUCTURE",
               "material_ids": [
-                "I2-LAW-CHAIN-KAIHUANG-001",
+                "I2-A-KAIHUANG-CORE-RECEPTION-R3",
                 "LAW-16-001-M2-M3-02-AUDIT"
               ],
               "normative_direction": "positive",
-              "reason": "承接前代律学但重组统一法制、刑罚和复核接口，形成唐律直接基线。",
+              "reason": "承前代律学而简化刑种、删减刑条并重定统一法典，唐代仍实际采用对应刑制与法典基线，保留S+；十二篇框架不作为独创，不认领贞观减刑复核和永徽解释接口。",
               "source_artifact_refs": [
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/sui.json"
               ],
               "external_verification_refs": null,
-              "source_kind": "S_BASELINE_NODE"
+              "source_kind": "S_BASELINE_NODE",
+              "reception_scope": "R3",
+              "adjudication_audit_ref": "docs/评分结算/第二项治国净收益/制度行政/05-隋唐律典谱系边际贡献复核.md",
+              "marginal_contribution_boundary": "只认领开皇刑制和统一法典的直接承接；不以炀帝改律或唐律整体声誉自证S++。"
             },
             {
               "S_depth_weight": 1,

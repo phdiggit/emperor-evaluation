@@ -1857,7 +1857,7 @@
           }
         },
         {
-          "adjudication_reason": "原结算关于新法期间“国家收入机制增强不等于公私状态高位”的核心判断保留，而且本轮补出的材料进一步证明二档不是单靠政策争议得出。熙宁十年前后，三司已至“财货困乏、计月支给犹恐不足”，同时有“府库之实耗费殆竭、仓廪之储仅支数月、民间资产朝不谋夕”；市易、茶盐等财源扩张又直接闭合到“民至穷困”和钱荒、百货不通。这里M与F/R在统治中段长期脆弱，足以维持C2-2。需要修正的是终点：元丰后建立元丰库、积聚诸司羡余，元祐元年苏辙追述为“元丰及内库财物山委”，说明交班时R已恢复到可运行，故S_end升为C2-3。",
+          "adjudication_reason": "熙宁末三司常规经费不足，另有内府、州郡储备消耗和官俸勉强续支的同窗记录；市易罚息与钱荒分别约束M面。故主态C2-2由F/R与市场实际脆弱互证，不只依据三司缺钱或政策名目。元丰末内库和元丰库积储强已反映在交班C2-3；静态储备不能遮蔽民间柱限制，也不能倒证中段财政健康。保留4→2→3及L0，措辞限定窗口、账户和受影响群体。",
           "confidence": "HIGH",
           "evidence": [
             {
@@ -1865,63 +1865,104 @@
                 "中国社会科学院历史研究所《元丰政局述论》引熙宁十年李承之奏"
               ],
               "verbatim_excerpt": "近年三司财货困乏，计月支给犹恐不足。",
-              "pillar_tags": [],
-              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "pillar_tags": [
+                "F_FISCAL_BASE"
+              ],
+              "evidence_role": "SCOPED_RESULT_WITH_ACCOUNT_AND_WINDOW",
               "identity_window_gate": "ELIGIBLE",
-              "proof_scope_constraints": []
+              "proof_scope_constraints": [
+                "三司经常性经费，非全部国库"
+              ],
+              "source_ref": "docs/评分结算/第二项治国净收益/财政民生/09-赵顼C1C2与个案外推复核.json#C2"
             },
             {
               "source_works": [
                 "中国社会科学院历史研究所《元丰政局述论》引司马光书"
               ],
               "verbatim_excerpt": "今府库之实耗费殆竭，仓廪之储仅支数月，民间赀产朝不谋夕，而用度日广，掊敛日急。",
-              "pillar_tags": [],
-              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "R_RESERVE_BUFFER"
+              ],
+              "evidence_role": "SCOPED_RESULT_WITH_ACCOUNT_AND_WINDOW",
               "identity_window_gate": "ELIGIBLE",
-              "proof_scope_constraints": []
+              "proof_scope_constraints": [
+                "司马光致吴充书，熙宁末批评奏议；修辞不单独定档"
+              ],
+              "source_ref": "docs/评分结算/第二项治国净收益/财政民生/09-赵顼C1C2与个案外推复核.json#C2"
             },
             {
               "source_works": [
                 "中国社会科学院历史研究所《元丰政局述论》引王安礼言"
               ],
               "verbatim_excerpt": "市易法行，取息滋多，而输官不时者有罚息，民至穷困。",
-              "pillar_tags": [],
-              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "pillar_tags": [
+                "M_MARKET_MONEY"
+              ],
+              "evidence_role": "SCOPED_RESULT_WITH_ACCOUNT_AND_WINDOW",
               "identity_window_gate": "ELIGIBLE",
-              "proof_scope_constraints": []
+              "proof_scope_constraints": [
+                "市易信用及受罚息商户，不外推所有家庭"
+              ],
+              "source_ref": "docs/评分结算/第二项治国净收益/财政民生/09-赵顼C1C2与个案外推复核.json#C2"
             },
             {
               "source_works": [
                 "《宋史·食货志》"
               ],
               "verbatim_excerpt": "比年公私上下，并苦乏钱，百货不通，人情窘迫，谓之钱荒。",
-              "pillar_tags": [],
-              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "pillar_tags": [
+                "M_MARKET_MONEY"
+              ],
+              "evidence_role": "SCOPED_RESULT_WITH_ACCOUNT_AND_WINDOW",
               "identity_window_gate": "ELIGIBLE",
-              "proof_scope_constraints": []
+              "proof_scope_constraints": [
+                "熙宁末现金与交易约束，不等于全部生产断裂"
+              ],
+              "source_ref": "docs/评分结算/第二项治国净收益/财政民生/09-赵顼C1C2与个案外推复核.json#C2"
             },
             {
               "source_works": [
                 "《宋史·食货志》"
               ],
               "verbatim_excerpt": "元丰及内库财物山委，皆先帝多方蓄藏，以备缓急。",
-              "pillar_tags": [],
-              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "pillar_tags": [
+                "R_RESERVE_BUFFER"
+              ],
+              "evidence_role": "SCOPED_RESULT_WITH_ACCOUNT_AND_WINDOW",
               "identity_window_gate": "ELIGIBLE",
-              "proof_scope_constraints": []
+              "proof_scope_constraints": [
+                "元丰末内库与元丰库，不能回填熙宁中段"
+              ],
+              "source_ref": "docs/评分结算/第二项治国净收益/财政民生/09-赵顼C1C2与个案外推复核.json#C2"
+            },
+            {
+              "source_works": [
+                "江小涛《元丰政局述论》引张方平疏"
+              ],
+              "source_url": "https://lishisuo.cssn.cn/xsyj/slxxjs/202008/t20200826_5174594.shtml",
+              "verbatim_excerpt": "數年以來，公私窘乏，內府累世之積，掃地無餘，州郡征稅之儲，上供殆盡。百官廩俸僅而能繼，南郊賞給久而未辦。",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "R_RESERVE_BUFFER"
+              ],
+              "evidence_role": "RESEARCH_QUOTED_PRIMARY",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": [
+                "批评奏议有修辞，不据此判一档；与三司经费及市场结果互证中段脆弱，不反推元丰末仍空。"
+              ]
             }
           ],
           "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
           "high_band_gate": {
             "status": "PASS_C2_2_END_C2_3",
-            "basis": "统治中段M与F/R长期脆弱，主态二档成立；元丰末公共储备恢复但市场与民间经济未闭合健康，交班只回到三档。"
+            "basis": "熙宁末三司常规经费不足，另有内府、州郡储备消耗和官俸勉强续支的同窗记录；市易罚息与钱荒分别约束M面。故主态C2-2由F/R与市场实际脆弱互证，不只依据三司缺钱或政策名目。元丰末内库和元丰库积储强已反映在交班C2-3；静态储备不能遮蔽民间柱限制，也不能倒证中段财政健康。保留4→2→3及L0，措辞限定窗口、账户和受影响群体。"
           },
           "main_band": "C2-2",
           "material_limitations": [
-            "S0=C2-4，与已重裁赵曙S_end直接同步。",
-            "S_end=C2-3，与高滔滔摄政起点同步",
-            "本轮同步其S0保持C2-3。",
-            "元丰库储备强不能覆盖市易、钱荒与民间资产偏弱，也不足把终点判四。"
+            "S0=C2-4承接赵曙交班，S_end=C2-3交给高滔滔。",
+            "三司经费短缺、内府储备和民间交易分别核对，不以账户混同定档。",
+            "批评奏议须与具体账户和市场后果互证，不按修辞强度、政策争议或材料数判档。"
           ],
           "peak_band": null,
           "polity": "北宋",
@@ -1964,22 +2005,29 @@
               "grade": "L0",
               "basis": "资产、市场与财政长期脆弱已由二档消费，交班储备恢复不反造低谷。",
               "strong_dimensions": [],
-              "main_representativeness": "原结算关于新法期间“国家收入机制增强不等于公私状态高位”的核心判断保留，而且本轮补出的材料进一步证明二档不是单靠政策争议得出。熙宁十年前后，三司已至“财货困乏、计月支给犹恐不足”，同时有“府库之实耗费殆竭、仓廪之储仅支数月、民间资产朝不谋夕”；市易、茶盐等财源扩张又直接闭合到“民至穷困”和钱荒、百货不通。这里M与F/R在统治中段长期脆弱，足以维持C2-2。需要修正的是终点：元丰后建立元丰库、积聚诸司羡余，元祐元年苏辙追述为“元丰及内库财物山委”，说明交班时R已恢复到可运行，故S_end升为C2-3。",
+              "main_representativeness": "熙宁末三司常规经费不足，另有内府、州郡储备消耗和官俸勉强续支的同窗记录；市易罚息与钱荒分别约束M面。故主态C2-2由F/R与市场实际脆弱互证，不只依据三司缺钱或政策名目。元丰末内库和元丰库积储强已反映在交班C2-3；静态储备不能遮蔽民间柱限制，也不能倒证中段财政健康。保留4→2→3及L0，措辞限定窗口、账户和受影响群体。",
               "full_window_reviewed": true,
               "deduplication": "资产、市场与财政长期脆弱已由二档消费，交班储备恢复不反造低谷。",
               "evidence_refs": [
-                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-NS-ZHAO-XU",
-                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-NS-ZHAO-XU",
-                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-NS-ZHAO-XU",
-                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-NS-ZHAO-XU",
-                "续资治通鉴",
-                "宋史",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json#material_id=EV039",
-                "docs/史料通读产物/北宋/续资治通鉴/volume-067.source-summary.md"
+                "docs/评分结算/第二项治国净收益/财政民生/09-赵顼C1C2与个案外推复核.json#C2"
               ]
             },
             "score": 7.0
-          }
+          },
+          "material_basis": [
+            {
+              "book": "《江小涛《元丰政局述论》引李承之奏》",
+              "original_text": "近年三司財貨困乏，計月支給猶恐不足。"
+            },
+            {
+              "book": "《江小涛《元丰政局述论》引张方平疏》",
+              "original_text": "數年以來，公私窘乏，內府累世之積，掃地無餘，州郡征稅之儲，上供殆盡。百官廩俸僅而能繼，南郊賞給久而未辦。"
+            },
+            {
+              "book": "《欒城集 (四庫全書本)·卷36》",
+              "original_text": "況陛下富有四海而元豐及內庫錢物山積莫可計數"
+            }
+          ]
         },
         {
           "adjudication_reason": "靖康窗口的C2一档有公私双柱直接硬证：为筹金银而括借私家贵金属，最终达到“民间已空”；同期军粮体系出现“国用乏竭，仓廪不足”，亡国前国家府库蓄积又“为之一空”。战争只提供压力背景，本项真正消费的是已经实现的私人财富、公共财政与储备同时断裂。",

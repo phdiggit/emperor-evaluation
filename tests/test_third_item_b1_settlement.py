@@ -30,39 +30,33 @@ def test_ab_markdown_lists_reader_facing_axis_basis() -> None:
     markdown = path.read_text(encoding="utf-8")
     rows = load_json(path.with_suffix(".json"))["records"]
     for label in (
-        "- A1接手档位：",
-        "- A1交班档位：",
-        "- A2接手档位：",
-        "- A2交班档位：",
-        "- B1任内净变化与交班规模：",
-        "- B2战略价值说明：",
-        "- B4交班成熟度说明：",
+        "**A1 战略威胁**", "**A2 战略边界**", "**B1 控制规模**",
+        "**B2 战略价值**", "**B4 交班成熟度**",
+        "<summary>计分明细与来源</summary>",
     ):
         assert markdown.count(label) == len(rows)
-    b1_lines = [
-        line for line in markdown.splitlines()
-        if line.startswith("- B1任内净变化与交班规模：")
-    ]
-    assert len(b1_lines) == len(rows)
-    assert all(
-        any(
-            marker in line
-            for marker in (
-                "控制规模增加区域：",
-                "控制规模减少区域：",
-                "控制规模净变化区域：无",
-            )
-        )
-        for line in b1_lines
-    )
+    assert markdown.count("<details>") == markdown.count("</details>") == len(rows)
+    sections = re.split(r"(?=^### )", markdown, flags=re.M)[1:]
+    assert len(sections) == len(rows)
+    for row in rows:
+        section = next(part for part in sections if f". {row['ruler_name']}（" in part.splitlines()[0])
+        for axis_code, title in (("A1", "战略威胁"), ("A2", "战略边界")):
+            axis = row["A120_axis_adjudications"][axis_code]
+            assert f"| {axis_code} {title} | {axis['start_grade']}→{axis['end_grade']}档" in section
+            assert f"{float(axis['axis_points']):.2f}／60 |" in section
+        for axis_code in ("B1", "B2", "B4"):
+            rate = float(row['B80_adjudication'][f'adjudicated_{axis_code}_rate'])
+            assert f"| {rate:g}% |" in section
+        assert any(label in section for label in ("控制规模增加区域：", "控制规模减少区域：", "控制规模净变化区域：无"))
+        main = section.split('<details>')[0]
+        assert "NOT_APPLICABLE" not in main
+        assert "截断前轨迹值" not in main
+        assert "完整轨迹依据：" not in main
     assert "跨项排除-" not in markdown
     assert not re.search(r"(?<![A-Za-z0-9_])(?:(?:A1|A2)S[0-5]|S[0-5])(?![A-Za-z0-9_])", markdown)
     assert "只消费本窗口实际恢复、保全或新形成的控制成果；不按战果数量累计" not in markdown
     assert "仅按本人交班时的制度、驻防、和议或防务闭合度裁定，不读继任者结果" not in markdown
     assert "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果" not in markdown
-    for line in markdown.splitlines():
-        if line.startswith(("- A1接手档位：", "- A1交班档位：", "- A2接手档位：", "- A2交班档位：")):
-            assert line.endswith(("。", "！", "？"))
     assert "- A归责：" not in markdown
     assert "- B归责：" not in markdown
     for machine_only_text in (
@@ -78,7 +72,6 @@ def test_ab_markdown_lists_reader_facing_axis_basis() -> None:
         assert machine_only_text not in markdown
 
     rows = load_json(path.with_suffix(".json"))["records"]
-    assert markdown.count("- A轴共同背景：") == sum(bool(row.get("A_axis_common_context")) for row in rows)
     for row in rows:
         a1 = row["axes"]["A1"]
         a2 = row["axes"]["A2"]

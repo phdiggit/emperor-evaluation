@@ -4,6 +4,7 @@ from collections import Counter, defaultdict
 from copy import deepcopy
 from hashlib import sha256
 import json
+from emperor_v4.evaluation.third_item_b_control_depth import render_control_depth_packages
 from pathlib import Path
 import re
 import time
@@ -3918,8 +3919,6 @@ def _b1_region_change_reader_text(row: Mapping[str, Any]) -> str:
 
 def _b_control_reader_basis(row: Mapping[str, Any], axis_code: str, meaning: str) -> str:
     ledger = row.get("b1_region_adjudications") or []
-    expanded = _reader_region_list(ledger, "expanded")
-    contracted = _reader_region_list(ledger, "contracted")
     retained = _reader_region_list(ledger, "retained")
     contribution_type = str(row.get("control_contribution_type") or "")
     contribution_basis = {
@@ -3929,42 +3928,22 @@ def _b_control_reader_basis(row: Mapping[str, Any], axis_code: str, meaning: str
         "INHERITED_ONLY": "交班存量只作客观背景；因仅属继承，不生成本人控制成果信用",
     }.get(contribution_type, "现有正式裁决未闭合本人可归责的正向控制成果")
     parts = [meaning, contribution_basis]
-    background_candidates = [
-        str((row.get("axes", {}).get("A1") or {}).get("reason") or "").strip(),
-        str((row.get("axes", {}).get("A1") or {}).get("rationale") or "").strip(),
-        str(row.get("rationale") or "").strip(),
+    primary = set(row.get("primary_control_package_refs") or [])
+    matched = [
+        item for item in ledger
+        if item.get("object_id") in primary
+        or primary.intersection(item.get("evidence_refs") or [])
     ]
-    row_basis = next(
-        (
-            candidate.removeprefix("整体边疆形势：").strip().rstrip("；。")
-            for candidate in background_candidates
-            if candidate
-            and not any(
-                marker in candidate
-                for marker in ("按本人统治窗口", "安全结果={", "按明朝主体阶段卡")
-            )
-        ),
-        "",
-    )
-    if row_basis:
-        parts.append(f"任内裁决背景：{row_basis}")
-    if expanded:
-        parts.append(f"任内空间账客观增加：{expanded}")
-    if contracted:
-        parts.append(f"任内空间账客观收缩或退出：{contracted}")
-    if retained:
-        label = "交班存量背景" if axis_code == "B2" else "交班客观存量"
-        parts.append(f"{label}：{retained}")
-    if not expanded and not contracted and not retained:
-        if contribution_type == "INHERITED_ONLY":
-            parts.append("没有可识别的本人合格边疆控制包")
-        else:
-            parts.append("B1空间账无独立边疆区域包；本轴信用来自上述整体安全或核心边界维护事实")
-    if axis_code == "B4":
-        control = row.get("b1_control_equivalents") or {}
-        end = control.get("end")
-        if end is not None:
-            parts.append(f"交班控制量为{float(end):g}")
+    facts = [str(item.get("reason") or "").strip() for item in matched]
+    facts = list(dict.fromkeys(fact for fact in facts if fact))
+    if facts:
+        parts.append("相关控制记录：" + "；".join(facts))
+    elif retained:
+        parts.append("交班空间背景：" + retained)
+        if contribution_type != "INHERITED_ONLY":
+            parts.append("本轴具体成果包理由尚未单列，空间存量不代替本人贡献依据")
+    elif contribution_type != "INHERITED_ONLY":
+        parts.append("本轴具体成果包理由尚未单列")
     return _markdown_cell(_reader_state_notation("；".join(parts) + "。"))
 
 
@@ -4390,108 +4369,22 @@ def _render_formal_markdown(
                 f"{int(row['independent_task_count'])} |"
             )
     lines += ["", "## 逐人结算依据", ""]
+    if current_ab:
+        lines += [
+            "先看五轴结果，再读各轴事实与归责。A轴计分行均为最终分数；B轴百分比用于合成B总分，不能直接相加。逐档归责、去重边界及来源可展开查看。",
+            "",
+        ]
     for rank, row in ranked:
-        lines += [f"### {rank}. {row['ruler_name']}（{float(row[score_key]):.1f}）", ""]
+        score_text = f"{float(row[score_key]):.2f}" if current_ab else f"{float(row[score_key]):.1f}"
+        lines += [f"### {rank}. {row['ruler_name']}（{score_text}）", ""]
         if kind == "AB":
             if current_ab:
-                b_current = row["B80_adjudication"]
-                axes = row["axes"]
-                a120_axes = row["A120_axis_adjudications"]
-                b1 = axes["B1"]
-                b2 = axes["B2"]
-                b4 = axes["B4"]
-                control = row.get("b1_control_equivalents") or {}
-                b1_net = control.get("net_change", b1.get("raw_net_change"))
-                b1_end = control.get("end")
-                b1_weighted = control.get("weighted_value", b1.get("weighted_control_value"))
-                b1_net_text = f"{float(b1_net):+g}" if b1_net is not None else "未单列"
-                b1_end_text = f"{float(b1_end):g}" if b1_end is not None else "未单列"
-                b1_weighted_text = f"{float(b1_weighted):g}" if b1_weighted is not None else "未单列"
-                exclusion = row.get("b1_cross_item_excluded_weighted_value")
-                if b1_net is not None and exclusion is not None:
-                    effective_net = float(b1_net) - float(exclusion)
-                    adjustment_text = (
-                        f"跨项扣除{float(exclusion):g}"
-                        if float(exclusion) > 0
-                        else f"跨项补回{abs(float(exclusion)):g}"
-                    )
-                    b1_change_text = (
-                        f"第三项计入净变化{effective_net:+g}"
-                        f"（客观净变化{b1_net_text}，{adjustment_text}）"
-                    )
-                else:
-                    b1_change_text = f"净变化{b1_net_text}"
-                a120_reader_lines = {}
-                for axis_name in ("A1", "A2"):
-                    adjudication = a120_axes[axis_name]
-                    steps = adjudication.get("improvement_step_credits") or []
-                    step_text = (
-                        "；".join(
-                            f"{int(step['from_grade'])}→{int(step['to_grade'])}={float(step['credit']):g}"
-                            for step in steps
-                        )
-                        if steps
-                        else "无正向跨档"
-                    )
-                    maintenance_human = (
-                        {
-                            "NONE": "无额外抗压难度",
-                            "TESTED": "经受压力检验",
-                            "SEVERE": "严重抗压",
-                            "HISTORIC": "历史级抗压",
-                        }.get(
-                            str(adjudication["maintenance_difficulty"]),
-                            human_label(adjudication["maintenance_difficulty"]),
-                        )
-                        if adjudication.get("settlement_type") == "LOW_POSITION_RESILIENCE"
-                        else human_label(adjudication["maintenance_difficulty"])
-                    )
-                    a120_reader_lines[axis_name] = (
-                        f"- {axis_name}主类型：{adjudication['settlement_type_label']}"
-                        f"（`{adjudication['settlement_type']}`）；"
-                        f"{_reader_sentence(str(adjudication['settlement_type_basis']))}"
-                        f"逐档改善{step_text}；"
-                        f"本人可归责变化{float(adjudication['attributable_delta']):g}；"
-                        f"保全难度{adjudication['maintenance_difficulty']}"
-                        f"（{maintenance_human}，"
-                        f"+{float(adjudication['maintenance_bonus']):g}轨迹点）；"
-                        f"{_reader_sentence(str(adjudication['maintenance_basis']))}"
-                    )
-                    structure = adjudication.get("within_band_structure_improvement")
-                    if structure:
-                        from emperor_v4.evaluation.third_item_current_settlement import _within_band_structure_credit
-                        a120_reader_lines[axis_name] += (
-                            f"档内结构改善信用{_within_band_structure_credit(adjudication):g}轨迹点"
-                            "（与封顶推进、守成取高）；"
-                            f"{_reader_sentence(structure['net_improvement_basis'])}"
-                        )
-                    a120_reader_lines[axis_name] += (
-                        f"封顶推进+{float(adjudication.get('ceiling_progress_bonus') or 0):g}轨迹点；"
-                        f"负向调整−{float(adjudication.get('negative_adjustment') or 0):g}轨迹点；"
-                        f"本轴{float(adjudication['axis_points']):g}分。"
-                    )
-                    review = adjudication.get("positive_credit_review")
-                    if review:
-                        a120_reader_lines[axis_name] += f"专项裁决：{_reader_sentence(review['basis'])}"
-                    elif int(adjudication["end_grade"]) == 5:
-                        a120_reader_lines[axis_name] += f"封顶路径裁决：{_reader_sentence(adjudication['ceiling_progress_basis'])}"
-                lines += [
-                    *(
-                        [f"- A轴共同背景：{_reader_sentence(row['A_axis_common_context'])}"]
-                        if str(row.get("A_axis_common_context") or "").strip()
-                        else []
-                    ),
-                    f"- A1接手档位：{_state_grade_label(axes['A1'].get('start'), 'A1')}（{_state_meaning(axes['A1'].get('start'), 'A1')}）；说明：{_reader_sentence(_trajectory_endpoint_basis(row, 'A1', 'start'))}",
-                    f"- A1交班档位：{_state_grade_label(axes['A1'].get('end'), 'A1')}（{_state_meaning(axes['A1'].get('end'), 'A1')}）；说明：{_reader_sentence(_trajectory_endpoint_basis(row, 'A1', 'end'))}",
-                    a120_reader_lines["A1"],
-                    f"- A2接手档位：{_state_grade_label(axes['A2'].get('start'), 'A2')}（{_state_meaning(axes['A2'].get('start'), 'A2')}）；说明：{_reader_sentence(_trajectory_endpoint_basis(row, 'A2', 'start'))}",
-                    f"- A2交班档位：{_state_grade_label(axes['A2'].get('end'), 'A2')}（{_state_meaning(axes['A2'].get('end'), 'A2')}）；说明：{_reader_sentence(_trajectory_endpoint_basis(row, 'A2', 'end'))}",
-                    a120_reader_lines["A2"],
-                    f"- B1任内净变化与交班规模：{b1_change_text}，交班规模{b1_end_text}，计档控制值{b1_weighted_text}；{_b1_region_change_reader_text(row)}；{b1['grade']}（{float(b_current['adjudicated_B1_rate']):.0f}%）。",
-                    f"- B2战略价值说明：{_b_reader_grade(row, 'B2')}；{_b_reader_basis(row, 'B2')}",
-                    f"- B4交班成熟度说明：{_b_reader_grade(row, 'B4')}；{_b_reader_basis(row, 'B4')}",
-                    "",
-                ]
+                from emperor_v4.evaluation.third_item_ab_reading import render_person
+                lines += render_person(
+                    row, b_basis=_b_reader_basis, b_grade=_b_reader_grade,
+                    b_regions=_b1_region_change_reader_text,
+                    depth_lines=render_control_depth_packages,
+                )
             else:
                 lines += [f"- 裁决：{_ab_settlement_basis(row)}", ""]
             continue

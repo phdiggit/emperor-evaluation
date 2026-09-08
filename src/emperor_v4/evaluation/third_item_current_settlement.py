@@ -6,6 +6,10 @@ from typing import Any, Mapping, Sequence
 
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+from emperor_v4.evaluation.third_item_b_control_depth import control_depth_package_ids
+from emperor_v4.evaluation.third_item_a_scoring import (
+    A_CHANGE_WEIGHTS, A_FORMULA, A_STATE_VALUES, calculate_a_axis,
+)
 from emperor_v4.evaluation.opponent_system_contract import (
     build_opponent_system_index,
     load_opponent_system_contract,
@@ -105,8 +109,28 @@ def _axis_grade_number(value: object, axis_name: str) -> int:
 
 def _validate_ab_control_contribution_contract(
     payload: Mapping[str, Any],
+    *, depth_source: Mapping[str, Any] | None = None,
 ) -> None:
+    expected_packages = {
+        str(c["ruler_id"]): c.get("control_depth_packages") or []
+        for c in (depth_source or {}).get("control_contribution_corrections") or []
+        if c.get("control_depth_packages")
+    }
+    if set(expected_packages) - {str(r["ruler_id"]) for r in payload.get("records") or []}:
+        raise ValueError("同域实控升级裁决存在池外人物")
+    all_depth_ids: set[str] = set()
     for row in payload.get("records") or ():
+        if depth_source is not None and (row.get("control_depth_packages") or []) != expected_packages.get(str(row["ruler_id"]), []):
+            raise ValueError("同域实控升级正式证据包与当前裁决源不一致")
+        depth_ids = control_depth_package_ids(row)
+        if all_depth_ids & depth_ids:
+            raise ValueError("同域实控升级成果不得跨主体重复归责")
+        all_depth_ids.update(depth_ids)
+        primary = set(row.get("primary_control_package_refs") or [])
+        if depth_ids - primary or any(str(ref).startswith("B-DEPTH-") and ref not in depth_ids for ref in primary):
+            raise ValueError("同域实控升级登记与主控制成果引用不一致")
+        if depth_ids and row.get("control_contribution_type") != "NEW_RECOVERED_REBUILT":
+            raise ValueError("同域实控升级须按结构重建归责")
         contribution_type = str(row.get("control_contribution_type") or "")
         expected_cap = CONTROL_CONTRIBUTION_CAPS.get(contribution_type)
         if expected_cap is None:
@@ -306,10 +330,14 @@ def _within_band_structure_credit(axis: Mapping[str, Any]) -> float:
     credit = evidence.get("attribution_credit")
     if not isinstance(credit, (int, float)) or isinstance(credit, bool) or credit not in {0.25, 0.5, 0.75, 1.0}:
         raise ValueError("A轴档内结构改善归责信用不合法")
-    if not (int(axis["start_grade"]) == int(axis["end_grade"]) in {1, 2, 3, 4}):
-        raise ValueError("A轴档内结构改善只适用于1至4档同档交班")
-    if axis.get("active_window_segments") or float(axis["objective_delta"]) != 0:
-        raise ValueError("A轴档内结构改善不得重复跨窗口或跨档信用")
+    if not 0 <= int(axis["end_grade"]) < 5:
+        raise ValueError("A轴独立结构建设的5档终点须走封顶路径")
+    if axis.get("active_window_segments"):
+        raise ValueError("A轴独立结构建设须先完成单窗口归责")
+    if int(axis["start_grade"]) != int(axis["end_grade"]) and not str(
+        evidence.get("independent_of_cross_grade_basis") or ""
+    ).strip():
+        raise ValueError("跨档伴随独立建设须说明与跨档已消费成果的边界")
     for key in ("entry_structure", "handover_structure", "attribution_basis", "net_improvement_basis", "deduplication_basis"):
         if not isinstance(evidence.get(key), str) or not evidence[key].strip():
             raise ValueError(f"A轴档内结构改善缺少{key}")
@@ -333,22 +361,9 @@ def _within_band_structure_credit(axis: Mapping[str, Any]) -> float:
     return levels[evidence["improvement_level"]] * float(credit)
 
 
-def _decompose_a120_axis(axis: Mapping[str, Any]) -> tuple[float, float]:
-    end_grade = int(axis["end_grade"])
-    attributable_delta = float(axis["attributable_delta"])
-    positive_raw = 14 * max(0.0, attributable_delta) + max(
-        float(axis.get("ceiling_progress_bonus") or 0),
-        float(axis.get("maintenance_bonus") or 0),
-        _within_band_structure_credit(axis),
-    )
-    anchor_raw = (
-        10 * end_grade
-        + 14 * min(0.0, attributable_delta)
-        - float(axis.get("negative_adjustment") or 0)
-    )
-    anchor = _clamp(0.0, 100.0, anchor_raw)
-    with_positive = _clamp(0.0, 100.0, anchor_raw + positive_raw)
-    return round(anchor * 0.6, 2), round((with_positive - anchor) * 0.6, 2)
+def _decompose_a120_axis(axis_name: str, axis: Mapping[str, Any]) -> tuple[float, float]:
+    result = calculate_a_axis(axis_name, axis, structure_credit=_within_band_structure_credit(axis))
+    return result["non_cost_anchor_points"], result["positive_result_credit_points"]
 
 
 def _validate_result_credit_contract(
@@ -358,9 +373,13 @@ def _validate_result_credit_contract(
     require_synchronized: bool = False,
     workspace_root: Path | None = None,
 ) -> None:
-    if payload.get("schema_id") != "emperor-v4-third-item-result-credit-adjudications-v5":
+    if payload.get("schema_id") != "emperor-v4-third-item-result-credit-adjudications-v6-state-value":
         raise ValueError("A120结果信用合同schema不合法")
     contract = payload.get("contract") or {}
+    if (contract.get("state_values") != A_STATE_VALUES
+            or contract.get("change_weights") != A_CHANGE_WEIGHTS
+            or contract.get("formula") != A_FORMULA):
+        raise ValueError("A状态价值表、变化权重或公式不一致")
     if contract.get("construction_base_points") != CONSTRUCTION_BASE_POINTS:
         raise ValueError("A轴建设基础点须统一为显著14、重大28")
     if contract.get("improvement_attribution_scale") != {
@@ -406,7 +425,7 @@ def _validate_result_credit_contract(
         }
 
     records = list(payload.get("records") or ())
-    if payload.get("record_count") != len(records) or len(records) != 201:
+    if payload.get("record_count") != len(records) or not records:
         raise ValueError("A120结果信用覆盖不闭合")
     if len({str(row.get("ruler_id")) for row in records}) != len(records):
         raise ValueError("A120结果信用存在重复人物ID")
@@ -418,6 +437,8 @@ def _validate_result_credit_contract(
             for row in formal_ab_payload.get("records") or ()
         }
 
+    if formal_ab_payload is not None and set(formal_by_id) != {str(row["ruler_id"]) for row in records}:
+        raise ValueError("A120结果信用与AB当前人物覆盖不一致")
     allowed_credits = {0.0, 0.25, 0.5, 0.75, 1.0}
     for row in records:
         ruler_id = str(row["ruler_id"])
@@ -492,13 +513,16 @@ def _validate_result_credit_contract(
                 raise ValueError(f"{row['ruler_name']} {axis_name}客观起终档不闭合")
 
             steps = list(axis.get("improvement_step_credits") or ())
-            expected_step_count = max(0, objective_delta)
+            expected_step_count = (
+                sum(max(0, int(segment["delta"])) for segment in active_segments)
+                if active_segments else max(0, objective_delta)
+            )
             if len(steps) != expected_step_count:
                 raise ValueError(f"{row['ruler_name']} {axis_name}逐档改善归责数量不一致")
             for index, step in enumerate(steps):
                 if (
-                    int(step.get("from_grade", -1)) != start + index
-                    or int(step.get("to_grade", -1)) != start + index + 1
+                    (not active_segments and int(step.get("from_grade", -1)) != start + index)
+                    or (not active_segments and int(step.get("to_grade", -1)) != start + index + 1)
                     or float(step.get("credit", -1)) not in allowed_credits
                     or not str(step.get("basis") or "").strip()
                 ):
@@ -512,9 +536,9 @@ def _validate_result_credit_contract(
                     consumed_refs.update(map(str, step.get("source_refs") or ()))
                 if consumed_refs & set(map(str, excluded_cross_item_refs)):
                     raise ValueError(f"{row['ruler_name']} {axis_name}混入已由他项消费的成果链")
-            if objective_delta > 0 and abs(sum(float(step["credit"]) for step in steps) - attributable_delta) > 0.001:
+            if not active_segments and objective_delta > 0 and abs(sum(float(step["credit"]) for step in steps) - attributable_delta) > 0.001:
                 raise ValueError(f"{row['ruler_name']} {axis_name}逐档改善归责汇总不一致")
-            if objective_delta <= 0 and attributable_delta > 0:
+            if not active_segments and objective_delta <= 0 and attributable_delta > 0:
                 raise ValueError(f"{row['ruler_name']} {axis_name}无改善却记正向归责")
 
             difficulty = str(axis["maintenance_difficulty"])
@@ -659,19 +683,11 @@ def _validate_result_credit_contract(
             if not str(axis.get("settlement_type_basis") or "").strip():
                 raise ValueError(f"{row['ruler_name']} {axis_name}缺少主类型裁决依据")
 
-            expected_trajectory = _clamp(
-                0.0,
-                100.0,
-                10 * end
-                + 14 * attributable_delta
-                + max(float(axis.get("ceiling_progress_bonus") or 0), bonus, structure_credit)
-                - float(axis.get("negative_adjustment") or 0),
-            )
-            if abs(float(axis["trajectory_value"]) - expected_trajectory) > 0.001:
-                raise ValueError(f"{row['ruler_name']} {axis_name}轨迹值不一致")
-            expected_axis_points = round(expected_trajectory * 0.6, 2)
-            if abs(float(axis["axis_points"]) - expected_axis_points) > 0.001:
-                raise ValueError(f"{row['ruler_name']} {axis_name}轴分不一致")
+            calculated = calculate_a_axis(axis_name, axis, structure_credit=structure_credit)
+            for field, value in calculated.items():
+                if field not in axis or abs(float(axis[field]) - value) > 0.001:
+                    raise ValueError(f"{row['ruler_name']} {axis_name}非线性计分字段不一致：{field}")
+            expected_axis_points = calculated["axis_points"]
             axis_points += expected_axis_points
 
         if len(historic_ref_sets) > 1 and historic_ref_sets[0] & historic_ref_sets[1]:
@@ -910,7 +926,9 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         "military_net_loss": workspace_root / MILITARY_NET_LOSS_PENALTIES_PATH,
     }
     payloads = {key: _load(path) for key, path in paths.items()}
-    _validate_ab_control_contribution_contract(payloads["AB"])
+    _validate_ab_control_contribution_contract(
+        payloads["AB"], depth_source=_load(workspace_root / AB_HANDOFF_ADJUDICATIONS_PATH)
+    )
     _validate_a_axis_closure(payloads["result_credit"], payloads["AB"])
     _validate_cross_item_parent_routing(
         payloads["result_credit"], payloads["AB"], payloads["C"], payloads["D"]
@@ -1020,7 +1038,7 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         if credit_row is not None:
             b80_points = round(float(credit_row["B80_adjudication"]["B80_points"]), 2)
         if credit_row is not None and credit_row.get("score_ready") is True:
-            axis_parts = [_decompose_a120_axis(credit_row["axes"][axis]) for axis in ("A1", "A2")]
+            axis_parts = [_decompose_a120_axis(axis, credit_row["axes"][axis]) for axis in ("A1", "A2")]
             a120_anchor = round(sum(part[0] for part in axis_parts), 2)
             a120_positive = round(sum(part[1] for part in axis_parts), 2)
             a120_points = round(float(credit_row["A120_points"]), 2)
@@ -1203,7 +1221,9 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
     payload = _load(workspace_root / FORMAL_PATH)
     credit_payload = _load(workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH)
     ab_payload = _load(workspace_root / AB_PATH)
-    _validate_ab_control_contribution_contract(ab_payload)
+    _validate_ab_control_contribution_contract(
+        ab_payload, depth_source=_load(workspace_root / AB_HANDOFF_ADJUDICATIONS_PATH)
+    )
     _validate_cross_item_parent_routing(
         credit_payload, ab_payload, _load(workspace_root / C_PATH),
         _load(workspace_root / FORMAL_D_PATH),
@@ -1367,6 +1387,9 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
             row["control_contribution_type"] = contribution_type
             row["control_contribution_route"] = str(correction["control_contribution_route"])
             row["control_contribution_basis"] = str(correction["control_contribution_basis"])
+            if "control_depth_packages" in correction:
+                row["control_depth_packages"] = correction["control_depth_packages"]
+            depth_ids = control_depth_package_ids(row)
             if correction.get("rationale"):
                 row["rationale"] = str(correction["rationale"])
             if correction.get("primary_control_package_refs") is not None:
@@ -1377,7 +1400,7 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                     str(ref) for ref in row.get("parent_cycle_refs") or ()
                 } | {
                     str(ref) for ref in row.get("evidence_event_refs") or ()
-                }
+                } | depth_ids
                 if not refs or not set(refs).issubset(allowed_refs):
                     raise ValueError(f"{name}的AB主控制成果包引用越界")
                 row["primary_control_package_refs"] = refs
@@ -1418,7 +1441,7 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
         credit = credits.get(name)
         if credit is None or str(credit["ruler_id"]) != str(row["ruler_id"]):
             raise ValueError(f"{name}缺少同主体A120/B80当前裁决")
-        parts = [_decompose_a120_axis(credit["axes"][axis]) for axis in ("A1", "A2")]
+        parts = [_decompose_a120_axis(axis, credit["axes"][axis]) for axis in ("A1", "A2")]
         anchor = round(sum(part[0] for part in parts), 2)
         positive = round(sum(part[1] for part in parts), 2)
         a120 = round(float(credit["A120_points"]), 2)
@@ -1493,7 +1516,7 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
     }
     if unknown_contribution_ids:
         raise ValueError(f"AB控制成果裁决存在池外人物：{sorted(unknown_contribution_ids)}")
-    _validate_ab_control_contribution_contract(ab_payload)
+    _validate_ab_control_contribution_contract(ab_payload, depth_source=handoff_payload)
     _validate_ab_axis_narratives(ab_payload)
     _validate_result_credit_contract(
         credit_payload, ab_payload, workspace_root=workspace_root
@@ -1506,7 +1529,9 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 "A120_maximum": 120,
                 "B80_maximum": 80,
                 "AB200_formula": "A120 + B80",
-                "A120_formula": "sum(0.6*clamp(0,100,10*end+14*attributable_delta+max(ceiling_bonus,maintenance_bonus,within_band_structure_credit)-max(reversal_penalty,within_band_deterioration_penalty)))",
+                "A120_formula": f"sum({A_FORMULA})",
+                "A_state_values": A_STATE_VALUES,
+                "A_change_weights": A_CHANGE_WEIGHTS,
                 "B80_formula": "80*(0.55*B1_rate+0.45*B2_rate)*(0.70+0.30*B4_rate)",
                 "legacy_AB_score_points": "ATOMIC_AXIS_DIAGNOSTIC_ONLY_NOT_CURRENT_AB_TOTAL",
             },
