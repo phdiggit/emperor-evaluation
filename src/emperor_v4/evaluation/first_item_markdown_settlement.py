@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 from emperor_v4.evaluation.first_item_weights import (
     A_MAX, B1_MAX, B2_MAX, C_MAX, C_POINTS as _C_POINTS,
+    unification_pool,
 )
 
 
@@ -33,6 +34,39 @@ _C_ROW = re.compile(
     r"\*\*(?P<points>[0-9.]+)\*\*\s*\|$",
     re.MULTILINE,
 )
+
+_A_POOL_DISPLAY = re.compile(r"项目A池为\*\*(?P<pool>[0-9.]+)\*\*")
+_A_POOL_FORMULA = re.compile(
+    r"项目A池\s*=\s*(?P<maximum>[0-9.]+)×\((?P<control>[0-9.]+)/1000\)\^0\.65=(?P<pool>[0-9.]+)"
+)
+
+
+def _validate_a_pool_text_consistency(workspace_root: Path) -> int:
+    """Check displayed project A pools against the current formula and A max."""
+    audited_sections = 0
+    for relative in (COMPONENT_SETTLEMENTS[0], TOTAL_SETTLEMENT):
+        text = (workspace_root / relative).read_text(encoding="utf-8-sig")
+        sections = re.split(r"(?m)(?=^### )", text)
+        for section in sections:
+            display = _A_POOL_DISPLAY.findall(section)
+            if not display:
+                continue
+            formulas = _A_POOL_FORMULA.findall(section)
+            if len(display) != 1 or len(formulas) != 1:
+                raise ValueError(f"第一项A池说明缺少唯一公式：{relative}")
+            maximum, control, formula_pool = map(float, formulas[0])
+            displayed_pool = float(display[0])
+            expected_pool = unification_pool(control)
+            if abs(maximum - A_MAX) > 1e-9:
+                raise ValueError(f"第一项A池上限文字错误：{relative}")
+            if abs(formula_pool - expected_pool) > 1e-9:
+                raise ValueError(f"第一项A池公式结果错误：{relative}")
+            if abs(displayed_pool - formula_pool) > 1e-9:
+                raise ValueError(f"第一项A池说明与公式不一致：{relative}")
+            audited_sections += 1
+    if audited_sections == 0:
+        raise ValueError("第一项A池说明未找到可审计段落")
+    return audited_sections
 
 def load_first_item_markdown_settlement(workspace_root: Path, *, validate_cost: bool = True) -> list[dict[str, Any]]:
     path = workspace_root / TOTAL_SETTLEMENT
@@ -71,6 +105,7 @@ def load_first_item_markdown_settlement(workspace_root: Path, *, validate_cost: 
 
 def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any]:
     rows = load_first_item_markdown_settlement(workspace_root)
+    a_pool_text_audited_sections = _validate_a_pool_text_consistency(workspace_root)
     missing = [
         relative for relative in COMPONENT_SETTLEMENTS
         if not (workspace_root / relative).is_file()
@@ -112,5 +147,6 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
         "ranked_count": len(rows),
         "min_score": min(row["total"] for row in rows),
         "max_score": max(row["total"] for row in rows),
+        "a_pool_text_audited_sections": a_pool_text_audited_sections,
         "component_paths": list(COMPONENT_SETTLEMENTS),
     }

@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.canonical_ruler_pool import canonical_item_name
 from emperor_v4.evaluation.first_item_cost import COST_PATH
 from emperor_v4.evaluation.first_item_markdown_settlement import (
     COMPONENT_SETTLEMENTS, TOTAL_SETTLEMENT, load_first_item_markdown_settlement,
@@ -50,6 +51,16 @@ def _table(path: Path) -> dict[str, list[str]]:
     return result
 
 
+def _canonical_first_index(rows: list[tuple[str, Any]], label: str) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for source_name, value in rows:
+        name = canonical_item_name("first_item", source_name)
+        if name in result:
+            raise ValueError(f"{label}别名归一后人物重复：{name}")
+        result[name] = value
+    return result
+
+
 def load_detail_sources(root: Path) -> dict[str, Any]:
     result: dict[str, Any] = {}
     for key, path in SOURCES.items():
@@ -59,9 +70,18 @@ def load_detail_sources(root: Path) -> dict[str, Any]:
         if len(indexed) != len(rows):
             raise ValueError(f"子项明细人物ID重复：{path}")
         result[key] = indexed
-    result["first"] = {r["name"]: r for r in load_first_item_markdown_settlement(root)}
-    result["first_cost"] = {r["ruler_name"]: r for r in load_json(root / COST_PATH)["records"]}
-    result["first_tables"] = [_table(root / p) for p in COMPONENT_SETTLEMENTS]
+    result["first"] = _canonical_first_index(
+        [(r["name"], r) for r in load_first_item_markdown_settlement(root)],
+        "第一项正式分",
+    )
+    result["first_cost"] = _canonical_first_index(
+        [(r["ruler_name"], r) for r in load_json(root / COST_PATH)["records"]],
+        "第一项军事成本",
+    )
+    result["first_tables"] = [
+        _canonical_first_index(list(_table(root / path).items()), f"第一项明细表 {path}")
+        for path in COMPONENT_SETTLEMENTS
+    ]
     return result
 
 

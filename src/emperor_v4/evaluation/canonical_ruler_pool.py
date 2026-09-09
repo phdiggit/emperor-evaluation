@@ -51,6 +51,19 @@ ITEM_NAME_ALIASES = {
     },
 }
 
+
+def canonical_item_name(item: str, name: str) -> str:
+    """Resolve a settled item's historical display name to the pool name."""
+    aliases = ITEM_NAME_ALIASES.get(item, {})
+    current = str(name)
+    seen: set[str] = set()
+    while current in aliases:
+        if current in seen:
+            raise ValueError(f"{item}名称别名形成循环：{name}")
+        seen.add(current)
+        current = str(aliases[current])
+    return current
+
 CANONICAL_LEGACY_ID_REFS = {
     "RULER-JIN-TAIZONG": [
         "RULER-JIN-WANYAN-SHENG",
@@ -161,7 +174,7 @@ def _index_by_name(payload: Mapping[str, Any], item: str) -> dict[str, Mapping[s
     indexed: dict[str, Mapping[str, Any]] = {}
     for row in records:
         source_name = str(row.get("ruler_name") or "")
-        name = ITEM_NAME_ALIASES.get(item, {}).get(source_name, source_name)
+        name = canonical_item_name(item, source_name)
         if not name or name in indexed:
             raise ValueError(f"{item}存在空姓名或重复姓名：{name}")
         indexed[name] = row
@@ -226,7 +239,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
     })
     first_records = []
     for row in load_first_item_markdown_settlement(workspace_root):
-        canonical_name = ITEM_NAME_ALIASES["first_item"].get(row["name"], row["name"])
+        canonical_name = canonical_item_name("first_item", row["name"])
         first_records.append(
             {
                 "ruler_id": (

@@ -125,7 +125,7 @@ def test_second_item_b2_snapshot_passes_current_verifier() -> None:
 
 def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     payload = build_composite_ranking(Path("."))
-    assert payload["formula"] == "T = S2 + S3 + 0.15 * 637 * (S1 / 240) ^ 1.25 + CIV4"
+    assert payload["formula"] == "T = S2 + S3 + 0.20 * 637 * (S1 / 240) ^ 1.25 + CIV4"
     assert all(
         row["ruler_name"] not in {pending["ruler_name"] for pending in payload["pending_second_item_records"]}
         for row in payload["records"]
