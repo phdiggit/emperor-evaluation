@@ -278,15 +278,6 @@
               "M": "M2",
               "direction": "negative",
               "direction_factor": -1.0,
-              "material_id": "I2-QIN95-FACT-SUPP29-YUANKE-CAPTURE-145-82",
-              "mechanism": "中枢任用俘获",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
-            },
-            {
-              "M": "M2",
-              "direction": "negative",
-              "direction_factor": -1.0,
               "material_id": "I2-QIN95-FACT-SUPP29-YUANKE-FEEDBACK-145-87",
               "mechanism": "拒谏与反馈压制",
               "result_closure": "observed_or_repeated",
@@ -297,7 +288,6 @@
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-QIN95-FACT-SUPP29-YUANKE-CAPTURE-145-82",
             "I2-QIN95-FACT-SUPP29-YUANKE-FEEDBACK-145-87"
           ],
           "direction_card_write": true,
@@ -306,8 +296,8 @@
           "formal_evidence_maturity": "fixed_primary_plus_reused_law_and_handoff_bounded_synthesis",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G1",
-          "grade_basis": "实证链为未闭合正向运行链；同尺度反例为中枢任用俘获、拒谏与反馈压制；反馈主要停留在单点进入、事后自纠或不安全表达，未形成稳定纠错",
-          "grade_gate_basis": "实证链为未闭合正向运行链；同尺度反例为中枢任用俘获、拒谏与反馈压制；反馈主要停留在单点进入、事后自纠或不安全表达，未形成稳定纠错",
+          "grade_basis": "正向：未闭合独立正向链。负向：拒谏与反馈压制。高肇按依附超擢和构罪的任用俘获归B1；该材料未另证因反馈受罚，不作为第二条B2负链。。按剩余机制的主要阶段代表性，主档维持G1。",
+          "grade_gate_basis": "正向：未闭合独立正向链。负向：拒谏与反馈压制。高肇按依附超擢和构罪的任用俘获归B1；该材料未另证因反馈受罚，不作为第二条B2负链。。按剩余机制的主要阶段代表性，主档维持G1。",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
           "index_interval": [
             16.0,
@@ -315,7 +305,7 @@
           ],
           "polity": "北魏",
           "position": "lower",
-          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-2.5，据此确定档内位置。",
+          "position_basis": "有效生命周期权重扣除主档门槛后净余量-1.5，对应下位。",
           "position_q": 0.1,
           "rank": 126,
           "reign_range": [
@@ -324,17 +314,33 @@
           ],
           "ruler_id": "RULER-SHADOW-元恪",
           "ruler_name": "元恪",
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "I2-QIN95-FACT-SUPP29-YUANKE-CAPTURE-145-82"
+          ],
           "material_basis": [
             "《資治通鑑·卷145》：高肇本出高麗，時望輕之。帝既黜六輔，誅咸陽王禧，專委事於肇。肇以在朝親族至少，乃邀結朋援，附之者旬月超擢，不附者陷以大罪。尤忌諸王，以詳位居其上，欲去之，獨執朝政，乃譖之於帝，云「詳與皓、冑、季賢、掃靜謀為逆亂」。夏，四月，帝夜召中尉崔亮入禁中，使彈奏詳貪淫奢縱，及皓等四人怙權貪橫，收皓等系南台，遣虎賁百人圍守詳第。又慮詳驚懼逃逸，遣左右郭翼開金墉門馳出諭旨，示以中尉彈狀，詳曰：「審如中尉所糾，何憂也！正恐更有大罪橫至耳。人與我物，我實受之。」詰朝，有司奏處皓等罪，皆賜死。",
             "《資治通鑑·卷145》：高肇說帝，使宿衛隊主帥羽林虎賁守諸王第，殆同幽禁。彭城王勰切諫，不聽。勰志尚高邁，不樂榮勢，避事家居，而出無山水之適，處無知己之遊，獨對妻子，常鬱鬱不樂。"
           ],
           "settlement_basis": [
-            "实证链为未闭合正向运行链；同尺度反例为中枢任用俘获、拒谏与反馈压制；反馈主要停留在单点进入、事后自纠或不安全表达，未形成稳定纠错",
-            "主档G1；去重后净余量-2.5，对应下位。"
+            "正向：未闭合独立正向链。负向：拒谏与反馈压制。高肇按依附超擢和构罪的任用俘获归行政执行；该材料未另证因反馈受罚，不作为第二条反馈纠错负链。。按剩余机制的主要阶段代表性，主档维持G1。",
+            "主档G1；去重后净余量-1.5，对应下位。"
           ],
-          "position_residual": -2.5,
-          "grade_threshold_consumed": 0.5
+          "position_residual": -1.5,
+          "grade_threshold_consumed": 0.5,
+          "construct_boundary_exclusions": [
+            {
+              "material_ids": [
+                "I2-QIN95-FACT-SUPP29-YUANKE-CAPTURE-145-82"
+              ],
+              "evidence_slice": "PRIMARY",
+              "reason": "高肇按依附超擢和构罪的任用俘获归B1；该材料未另证因反馈受罚，不作为第二条B2负链。"
+            }
+          ],
+          "construct_boundary_review": {
+            "contract": "docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md#21-最小结算单元机制链",
+            "audit_ref": "docs/评分结算/第二项治国净收益/制度行政/06-构念边界复核.md",
+            "decision": "高肇按依附超擢和构罪的任用俘获归B1；该材料未另证因反馈受罚，不作为第二条B2负链。"
+          }
         },
         {
           "M_mixed_profile": [],

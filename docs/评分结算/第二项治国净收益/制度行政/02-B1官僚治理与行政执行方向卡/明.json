@@ -4,16 +4,16 @@
   "collections": {
     "records": {
       "positions": [
-        11,
-        15,
+        10,
         16,
         17,
-        74,
-        75,
-        90,
+        18,
+        19,
+        34,
+        35,
         107,
-        127,
-        128,
+        125,
+        126,
         138,
         139,
         158,
@@ -80,7 +80,7 @@
           "position": "middle-upper",
           "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=1，按合同机械映射为middle-upper。",
           "position_q": 0.7,
-          "rank": 9,
+          "rank": 8,
           "reign_range": "1449-1457",
           "ruler_id": "RULER-MING-ZHU-QIYU",
           "ruler_name": "朱祁钰",
@@ -205,7 +205,7 @@
           "position": "middle",
           "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=0.5，按合同机械映射为middle。",
           "position_q": 0.5,
-          "rank": 14,
+          "rank": 15,
           "reign_range": "1464-1487",
           "ruler_id": "RULER-MING-ZHU-JIANSHEN",
           "ruler_name": "朱见深",
@@ -259,6 +259,144 @@
           "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
           "g4_core_profile_id": "B1-PROFILE-4B9C974DD6F0D94D",
           "g4_secondary_profile_id": "B1-PROFILE-55E8B82868559BF1"
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M3",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "material_id": "B1-SUPP-MING-HONGWU-JINYIWEI-HULAN-001",
+              "mechanism": "洪武中期问责旁路及报核误刑，与后来焚具、移囚刑部和收回典狱接口合为混合偏负M3；空印、郭桓不再另拆第二条同类问责负链。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -1.0,
+              "profile_id": "B1-PROFILE-8011E6D05A511A05",
+              "b1_role": "core",
+              "lifecycle_key": "B1-SUPP-MING-HONGWU-JINYIWEI-HULAN-001",
+              "lifecycle_group_key": "B1-SUPP-MING-HONGWU-JINYIWEI-HULAN-001",
+              "source_refs": [
+                "《明会典》锦衣卫鞫治重囚及洪武二十年焚刑具、囚送刑部",
+                "《明史纪事本末》胡蓝大狱相关纪事"
+              ],
+              "material_ids": [
+                "B1-GATE-MING-TAIZU-ACCOUNTABILITY-LIFECYCLE"
+              ]
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "MING-YZ-STATE-001",
+              "mechanism": "洪武十一年后朝觐官殿最、中央与布政/按察等分层考核、任满覆考并依例黜陟，构成全国考满/考察核心行政机制；官员专业失真作为该链内部限制，不另造重复负链",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-F9390AA2B1B1E021",
+              "b1_role": "core",
+              "lifecycle_key": "MING-YZ-STATE-001",
+              "lifecycle_group_key": "MING-YZ-STATE-001"
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "B1-SUPP-MING-HONGWU-LOCAL-PERFORMANCE-001",
+              "mechanism": "多名地方责任官以可观察治绩被中央识别并连续擢升，形成独立的多责任官绩效识别—升任验证链",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-1FC5EFAC6F73FAAC",
+              "b1_role": "distributed",
+              "lifecycle_key": "B1-SUPP-MING-HONGWU-LOCAL-PERFORMANCE-001",
+              "lifecycle_group_key": "B1-SUPP-MING-HONGWU-LOCAL-PERFORMANCE-001",
+              "source_refs": [
+                "《明史》循吏/列传中洪武地方官治绩与擢升样本（王兴宗等）"
+              ]
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "B1-GATE-MING-TAIZU-ACCOUNTABILITY-LIFECYCLE",
+            "B1-SUPP-MING-HONGWU-JINYIWEI-HULAN-001",
+            "B1-SUPP-MING-HONGWU-LOCAL-PERFORMANCE-001",
+            "MING-YZ-STATE-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 77.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_state": "WORKING_READJUDICATED_TARGET_RECORD",
+          "formal_evidence_maturity": "latest_settlement_plus_targeted_expansion_review",
+          "grade": "G4",
+          "grade_basis": "考满考察core M3与地方官实绩识别M3分别成立。扩搜确认中期报核误刑和典狱旁路，也确认焚具移囚、洪武二十六年重申大小案件归法司的本人窗口收束；合为混合偏负M3。不能从政治清洗或同一问责损害另造G3封顶。两条独立正向门槛仍可闭合主要阶段运行，改G4；重典反复及恢复边界不足支持G5。",
+          "grade_gate_basis": "考满考察core M3与地方官实绩识别M3分别成立。扩搜确认中期报核误刑和典狱旁路，也确认焚具移囚、洪武二十六年重申大小案件归法司的本人窗口收束；合为混合偏负M3。不能从政治清洗或同一问责损害另造G3封顶。两条独立正向门槛仍可闭合主要阶段运行，改G4；重典反复及恢复边界不足支持G5。",
+          "grade_gate_code": "B1_G4_BROAD_STABLE_DELIVERY",
+          "index_interval": [
+            70.0,
+            84.9
+          ],
+          "position": "middle",
+          "position_q": 0.5,
+          "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=0，按合同机械映射为middle。",
+          "rank": 15,
+          "reign_range": "1368-1398",
+          "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+          "ruler_name": "朱元璋",
+          "polity": "明",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "主档依据",
+              "text": "考满考察核心行政机制 M3与地方官实绩识别M3分别成立。扩搜确认中期报核误刑和典狱旁路，也确认焚具移囚、洪武二十六年重申大小案件归法司的本人窗口收束；合为混合偏负M3。不能从政治清洗或同一问责损害另造G3封顶。两条独立正向门槛仍可闭合主要阶段运行，改G4；重典反复及恢复边界不足支持G5。"
+            },
+            {
+              "role": "档内位置依据",
+              "text": "主档已定为G4；有效生命周期权重合计扣除该档门槛占用3后，净余量为0，仅据此确定档内中位（77.5）。净余量不用于跨档比较"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "洪武十一年后朝觐官殿最、中央与布政/按察等分层考核、任满覆考并依例黜陟，构成全国考满/考察核心行政机制；官员专业失真作为该链内部限制，不另造重复负链"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "多名地方责任官以可观察治绩被中央识别并连续擢升，形成独立的多责任官绩效识别—升任验证链"
+            },
+            {
+              "role": "负向依据（M3）",
+              "text": "洪武中期问责旁路及报核误刑，与后来焚具、移囚刑部和收回典狱接口合为混合偏负M3；空印、郭桓不再另拆第二条同类问责负链。"
+            }
+          ],
+          "review_material_absorption_status": "TARGETED_REVIEW_SUPERSEDES_SOURCE_RECORD_FOR_LISTED_PROFILES",
+          "source_snapshot": {
+            "grade": "G3",
+            "position": "middle",
+            "direction_index": 62.5
+          },
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-F9390AA2B1B1E021"
+          ],
+          "g3_core_profile_id": "B1-PROFILE-F9390AA2B1B1E021",
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 3.0,
+          "review_material_basis": [],
+          "construct_boundary_review": {
+            "audit_ref": "docs/评分结算/第二项治国净收益/制度行政/06-构念边界复核.md#主档门禁扩搜裁决",
+            "decision": "考满考察core M3与地方官实绩识别M3分别成立。扩搜确认中期报核误刑和典狱旁路，也确认焚具移囚、洪武二十六年重申大小案件归法司的本人窗口收束；合为混合偏负M3。不能从政治清洗或同一问责损害另造G3封顶。两条独立正向门槛仍可闭合主要阶段运行，改G4；重典反复及恢复边界不足支持G5。"
+          },
+          "g4_gate_review": {
+            "status": "RESOLVED",
+            "source_material_ids": [
+              "B1-GATE-MING-TAIZU-ACCOUNTABILITY-LIFECYCLE"
+            ],
+            "decision": "考满考察core M3与地方官实绩识别M3分别成立。扩搜确认中期报核误刑和典狱旁路，也确认焚具移囚、洪武二十六年重申大小案件归法司的本人窗口收束；合为混合偏负M3。不能从政治清洗或同一问责损害另造G3封顶。两条独立正向门槛仍可闭合主要阶段运行，改G4；重典反复及恢复边界不足支持G5。",
+            "positive_core_profile_id": "B1-PROFILE-F9390AA2B1B1E021",
+            "independent_verification_profile_id": "B1-PROFILE-1FC5EFAC6F73FAAC"
+          },
+          "g4_core_profile_id": "B1-PROFILE-F9390AA2B1B1E021",
+          "g4_secondary_profile_id": "B1-PROFILE-1FC5EFAC6F73FAAC"
         },
         {
           "M_mixed_profile": [],
@@ -324,7 +462,7 @@
           "position": "middle",
           "position_q": 0.5,
           "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=0，按合同机械映射为middle。",
-          "rank": 14,
+          "rank": 15,
           "reign_range": "1567-1572",
           "ruler_id": "RULER-MING-ZHU-ZAIHOU",
           "ruler_name": "朱载坖",
@@ -425,7 +563,7 @@
           "position": "middle",
           "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=0，按合同机械映射为middle。",
           "position_q": 0.5,
-          "rank": 14,
+          "rank": 15,
           "reign_range": "1425-1435",
           "ruler_id": "RULER-MING-ZHU-ZHANJI",
           "ruler_name": "朱瞻基",
@@ -488,20 +626,176 @@
               "M": "M3",
               "direction": "negative",
               "direction_factor": -1.0,
+              "lifecycle_group_key": "B1:RULER-MING-ZHU-DI:V50:SEVERITY-NEGATIVE",
+              "lifecycle_key": "B1:RULER-MING-ZHU-DI:V50:SEVERITY-NEGATIVE",
+              "material_id": "MING-DI-A-EASTERN-DEPOT-001",
+              "mechanism": "纪纲诏狱与东厂秘密缉访旁路持续侵蚀正常司法问责；建制归A，信息压制归B2，人员受害不另算第二功能。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "evidence_slice": "SEVERITY-NEGATIVE",
+              "severity": "N3-domain",
+              "severity_scope": "major-stage",
+              "severity_basis": "纪纲诏狱与东厂秘密缉访旁路持续侵蚀正常司法问责；建制归A，信息压制归B2，人员受害不另算第二功能。",
+              "profile_id": "B1-PROFILE-5FF6391ADA0E5411",
+              "b1_role": "core",
+              "material_ids": [
+                "B1-GATE-MING-CHENGZU-JUDICIAL-LIMIT"
+              ]
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_group_key": "MING-DI-ADMIN-001",
+              "lifecycle_key": "MING-DI-ADMIN-001",
+              "material_id": "MING-DI-ADMIN-001",
+              "mechanism": "府州县实迹考察、巡按按察廉贪与吏部覆考黜陟长期运行core",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-EEB7FB1E863741E6",
+              "b1_role": "core"
+            },
+            {
+              "material_id": "B1-GATE-MING-CHENGZU-CANAL-DELIVERY",
+              "mechanism": "永乐九年中央任宋礼、金纯、周长，调山东及徐州应天镇江役力、减租筹资，分工开河并于二十旬完工受赏；只计组织交付，不计工程价值或民力成本。",
+              "M": "M3",
+              "b1_role": "support",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 2.0,
+              "result_closure": "sustained_or_systemic",
+              "lifecycle_key": "B1-GATE-MING-CHENGZU-CANAL-DELIVERY",
+              "attribution_type": "direct_control",
+              "profile_id": "B1-PROFILE-46E519A361053F49"
+            }
+          ],
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "B1-GATE-MING-CHENGZU-CANAL-DELIVERY",
+            "B1-GATE-MING-CHENGZU-JUDICIAL-LIMIT",
+            "MING-DI-A-EASTERN-DEPOT-001",
+            "MING-DI-ADMIN-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 74.5,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G4",
+          "grade_basis": "地方考察core M3之外，扩搜补入永乐九年会通河多责任层级交付M3，独立第二验证已闭合。纪纲被诛不等于典狱旁路消失，保留司法问责负M3；但不能仅以该负链否定已证的跨期考察和独立工程交付，也不以东厂设置本身代替组织失灵。改G4，负链限制档内位置；没有另证第三项罕见可靠性，不进G5。",
+          "grade_gate_basis": "地方考察core M3之外，扩搜补入永乐九年会通河多责任层级交付M3，独立第二验证已闭合。纪纲被诛不等于典狱旁路消失，保留司法问责负M3；但不能仅以该负链否定已证的跨期考察和独立工程交付，也不以东厂设置本身代替组织失灵。改G4，负链限制档内位置；没有另证第三项罕见可靠性，不进G5。",
+          "grade_gate_code": "B1_G4_BROAD_STABLE_DELIVERY",
+          "index_interval": [
+            70.0,
+            84.9
+          ],
+          "polity": "明",
+          "position": "lower-middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=-1，按合同机械映射为lower-middle。",
+          "position_q": 0.3,
+          "rank": 34,
+          "reign_range": "1402-1424",
+          "ruler_id": "RULER-MING-ZHU-DI",
+          "ruler_name": "朱棣",
+          "verification_material_ids": [
+            "MING-DI-SUCCESSOR-001"
+          ],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "主档依据",
+              "text": "地方考察核心行政机制 M3之外，扩搜补入永乐九年会通河多责任层级交付M3，独立第二验证已闭合。纪纲被诛不等于典狱旁路消失，保留司法问责负M3；但不能仅以该负链否定已证的跨期考察和独立工程交付，也不以东厂设置本身代替组织失灵。改G4，负链限制档内位置；没有另证第三项罕见可靠性，不进G5。"
+            },
+            {
+              "role": "档内位置依据",
+              "text": "主档已定为G4；有效生命周期权重合计扣除该档门槛占用3后，净余量为-1，仅据此确定档内中下位（74.5）。净余量不用于跨档比较"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "府州县实迹考察、巡按按察廉贪与吏部覆考黜陟长期运行核心行政机制"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "永乐九年中央任宋礼、金纯、周长，调山东及徐州应天镇江役力、减租筹资，分工开河并于二十旬完工受赏；只计组织交付，不计工程价值或民力成本。"
+            },
+            {
+              "role": "负向依据（M3）",
+              "text": "纪纲诏狱与东厂秘密缉访旁路持续侵蚀正常司法问责；建制归A，信息压制归B2，人员受害不另算第二功能。"
+            }
+          ],
+          "position_residual": -1.0,
+          "grade_threshold_consumed": 3.0,
+          "v50_source_line": 224,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 452,
+              "review_grade": "G3",
+              "review_position": "middle-upper",
+              "basis": "双向复审后维持。正向并不弱：永乐府州县实迹考察、巡按/按察司察廉贪、吏部覆考黜陟，以及永乐十九年蹇义等巡行实际黜扰民长吏，足以形成core M3；巡行天下、漕运等可作support。反向则更稳定：锦衣卫纪纲自永乐初长期依诏侦察廷臣、制造诏狱并清除官员，至十四年方被诛；十八年又设东厂，使正式官僚体系之外的信息/司法旁路延续至任末。该负链覆盖大半统治期，跨信息、官僚安全、问责至少三面，N3-cross成立，且不存在像胤禛清算年羹尧那样的完整制度恢复。因此G3中上确认，不因正向考察厚度恢复G4。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 224,
+              "review_grade": "G3",
+              "review_position": "middle-upper",
+              "basis": "链：锦衣卫/东厂长期形成正式官僚体系之外的信息、司法问责和人员退出旁路；纪纲被诛后东厂继续，未完成恢复，cross仍阻G4。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-EEB7FB1E863741E6"
+          ],
+          "construct_boundary_review": {
+            "audit_ref": "docs/评分结算/第二项治国净收益/制度行政/06-构念边界复核.md#主档门禁扩搜裁决",
+            "decision": "地方考察core M3之外，扩搜补入永乐九年会通河多责任层级交付M3，独立第二验证已闭合。纪纲被诛不等于典狱旁路消失，保留司法问责负M3；但不能仅以该负链否定已证的跨期考察和独立工程交付，也不以东厂设置本身代替组织失灵。改G4，负链限制档内位置；没有另证第三项罕见可靠性，不进G5。"
+          },
+          "g4_gate_review": {
+            "status": "RESOLVED",
+            "source_material_ids": [
+              "B1-GATE-MING-CHENGZU-CANAL-DELIVERY",
+              "B1-GATE-MING-CHENGZU-JUDICIAL-LIMIT"
+            ],
+            "decision": "地方考察core M3之外，扩搜补入永乐九年会通河多责任层级交付M3，独立第二验证已闭合。纪纲被诛不等于典狱旁路消失，保留司法问责负M3；但不能仅以该负链否定已证的跨期考察和独立工程交付，也不以东厂设置本身代替组织失灵。改G4，负链限制档内位置；没有另证第三项罕见可靠性，不进G5。",
+            "positive_core_profile_id": "B1-PROFILE-EEB7FB1E863741E6",
+            "independent_verification_profile_id": "B1-PROFILE-46E519A361053F49"
+          },
+          "g4_core_profile_id": "B1-PROFILE-EEB7FB1E863741E6",
+          "g4_secondary_profile_id": "B1-PROFILE-46E519A361053F49"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
               "signed_weight": -2.0,
               "material_id": "B1-SUPP-MING-HONGZHI-LIGUANG-CAPTURE-N3",
-              "mechanism": "太监李广以符箓得幸后矫旨授传奉官、四方纳贿，又从中构逮忤宦官的盛应期等下诏狱；给事御史交章论劾而帝不问，死后赂籍虽暴露，交结者又经外戚求解使究治中止",
+              "mechanism": "李广矫旨传奉与贿赂干预任用，死后赂籍追查被寝，保留单功能人事负M3；人员受害和反馈不报不另计第二功能。",
               "result_closure": "sustained_or_systemic",
               "lifecycle_key": "B1:RULER-MING-HONGZHI:V57:LIGUANG-CAPTURE",
               "lifecycle_group_key": "B1:RULER-MING-HONGZHI:V57:LIGUANG-CAPTURE",
               "profile_id": "B1-PROFILE-CC447B77E9154284",
               "b1_role": "core",
-              "severity": "N3-cross",
+              "severity": "N3-domain",
               "severity_scope": "major-stage",
-              "severity_basis": "至少同时击中官员任用/传奉官接口与官僚安全/诏狱问责接口；公开监督未能及时纠正，李广死后追查又被外戚求解中止，未形成本人窗口内完整恢复。",
+              "severity_basis": "同一近侍任用干预及其对相关责任官的构罪不重复拆成两功能；以具体传奉、贿赂任用反例保留domain。",
               "source_basis": [
                 "《明史》卷304：李广“矫旨授传奉官，如成化间故事，四方争纳贿赂”；给事叶绅、御史张缙等交章论劾，帝不问；死后赂籍暴露，诸交结者经寿宁侯张鹤龄求解，究治遂寝。",
                 "《明史》卷223：弘治六年盛应期因忤中贵，李广从中构逮应期及范璋下诏狱。"
+              ],
+              "material_ids": [
+                "B1-GATE-MING-HONGZHI-APPOINTMENT-SCOPE"
               ]
             }
           ],
@@ -537,33 +831,34 @@
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
+            "B1-GATE-MING-HONGZHI-APPOINTMENT-SCOPE",
             "B1-SUPP-MING-HONGZHI-LIGUANG-CAPTURE-N3",
             "B1-SUPP-MING-HONGZHI-OFFICIAL-ASSESSMENT-M3",
             "B1-SUPP-MING-HONGZHI-RELIEF-DELIVERY-M3"
           ],
           "direction_card_write": true,
-          "direction_index": 59.5,
+          "direction_index": 74.5,
           "evidence_sufficiency_gate": "PASS_TARGETED_NEGATIVE_REVIEW",
           "formal_evidence_state": "WORKING_READJUDICATED_TARGET_RECORD",
           "formal_evidence_maturity": "primary_source_targeted_negative_review",
-          "grade": "G3",
-          "grade_basis": "全国外官考察—复核—去留仍成立personnel core M3，多省赈济交付仍为独立support M3。但李广在弘治中期形成的传奉官矫旨纳贿与诏狱构陷并非一般宠幸：它同时俘获官员任用和官僚安全/问责接口，公开台谏未能及时纠正，死后赂籍暴露后的追查又被外戚求解中止，构成major-stage N3-cross。按G4硬门禁必须退回G3。",
-          "grade_gate_basis": "正向core M3保G3；major-stage N3-cross阻断G4。",
-          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "grade": "G4",
+          "grade_basis": "全国外官考察与多省赈济交付两条M3独立成立。李广传奉、纳赂与死后未究均保留负面，但不能再把相关人员受害拆为第二功能；扩搜弘治十二年仍见吏部兼采荐举、按季奏览内外官履历，未证外官考察主链整体被李广接管。按domain限制位置而不作机械封顶，改G4；不以其死推定完整清算，更不升G5。",
+          "grade_gate_basis": "全国外官考察与多省赈济交付两条M3独立成立。李广传奉、纳赂与死后未究均保留负面，但不能再把相关人员受害拆为第二功能；扩搜弘治十二年仍见吏部兼采荐举、按季奏览内外官履历，未证外官考察主链整体被李广接管。按domain限制位置而不作机械封顶，改G4；不以其死推定完整清算，更不升G5。",
+          "grade_gate_code": "B1_G4_BROAD_STABLE_DELIVERY",
           "g3_gate_route": "CORE_M3",
           "g3_gate_profile_ids": [
             "B1-PROFILE-C55C143B27ECA18B"
           ],
-          "g4_core_profile_id": null,
-          "g4_secondary_profile_id": null,
+          "g4_core_profile_id": "B1-PROFILE-C55C143B27ECA18B",
+          "g4_secondary_profile_id": "B1-PROFILE-BFD4FB6947D75FB8",
           "index_interval": [
-            55.0,
-            69.9
+            70.0,
+            84.9
           ],
           "position": "lower-middle",
           "position_q": 0.3,
-          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-0.5，按合同机械映射为lower-middle。",
-          "rank": 74,
+          "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=-1，按合同机械映射为lower-middle。",
+          "rank": 34,
           "reign_range": [
             1487,
             1505
@@ -576,11 +871,11 @@
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "全国外官考察—复核—去留仍成立选任与考课 核心行政机制 M3，多省赈济交付仍为独立行政交付 M3。但李广在弘治中期形成的传奉官矫旨纳贿与诏狱构陷并非一般宠幸：它同时俘获官员任用和官僚安全/问责接口，公开台谏未能及时纠正，死后赂籍暴露后的追查又被外戚求解中止，构成主要阶段 N3（跨功能失灵）。按G4硬门禁必须退回G3。"
+              "text": "全国外官考察与多省赈济交付两条M3独立成立。李广传奉、纳赂与死后未究均保留负面，但不能再把相关人员受害拆为第二功能；扩搜弘治十二年仍见吏部兼采荐举、按季奏览内外官履历，未证外官考察主链整体被李广接管。按domain限制位置而不作机械封顶，改G4；不以其死推定完整清算，更不升G5。"
             },
             {
               "role": "档内位置依据",
-              "text": "主档已定为G3；有效生命周期权重合计扣除该档门槛占用2后，净余量为-0.5，仅据此确定档内中下位（59.5）。净余量不用于跨档比较"
+              "text": "主档已定为G4；有效生命周期权重合计扣除该档门槛占用3后，净余量为-1，仅据此确定档内中下位（74.5）。净余量不用于跨档比较"
             },
             {
               "role": "正向依据（M3）",
@@ -591,8 +886,8 @@
               "text": "多省灾税减免、发仓赈济与分区责任官执行行政交付"
             },
             {
-              "role": "负向依据（M3，cross）",
-              "text": "太监李广以符箓得幸后矫旨授传奉官、四方纳贿，又从中构逮忤宦官的盛应期等下诏狱；给事御史交章论劾而帝不问，死后赂籍虽暴露，交结者又经外戚求解使究治中止"
+              "role": "负向依据（M3）",
+              "text": "李广矫旨传奉与贿赂干预任用，死后赂籍追查被寝，保留单功能人事负M3；人员受害和反馈不报不另计第二功能。"
             }
           ],
           "review_material_absorption_status": "TARGETED_REVIEW_SUPERSEDES_SOURCE_RECORD_FOR_NEGATIVE_CROSS",
@@ -606,246 +901,22 @@
             "B1-SUPP-MING-HONGZHI-RELIEF-DELIVERY-M3",
             "B1-SUPP-MING-HONGZHI-LIGUANG-CAPTURE-N3"
           ],
-          "position_residual": -0.5,
-          "grade_threshold_consumed": 2.0,
-          "review_material_basis": []
-        },
-        {
-          "M_mixed_profile": [],
-          "M_negative_profile": [
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "material_id": "B1-SUPP-MING-HONGWU-JINYIWEI-HULAN-001",
-              "mechanism": "锦衣卫刑狱旁路与胡惟庸、蓝玉等大狱长期扩张，正常司法问责程序和高层官僚安全同时受损，形成主要阶段的高层组织负链",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": -2.0,
-              "profile_id": "B1-PROFILE-8011E6D05A511A05",
-              "b1_role": "core",
-              "lifecycle_key": "B1-SUPP-MING-HONGWU-JINYIWEI-HULAN-001",
-              "lifecycle_group_key": "B1-SUPP-MING-HONGWU-JINYIWEI-HULAN-001",
-              "severity": "N3-cross",
-              "severity_scope": "major-stage",
-              "severity_basis": "分别击中正常司法问责接口与高层官僚安全/人员稳定；不是以“杀人多”或政治残酷本身计负。",
-              "source_refs": [
-                "《明会典》锦衣卫鞫治重囚及洪武二十年焚刑具、囚送刑部",
-                "《明史纪事本末》胡蓝大狱相关纪事"
-              ]
-            }
-          ],
-          "M_positive_profile": [
-            {
-              "M": "M3",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "material_id": "MING-YZ-STATE-001",
-              "mechanism": "洪武十一年后朝觐官殿最、中央与布政/按察等分层考核、任满覆考并依例黜陟，构成全国考满/考察核心行政机制；官员专业失真作为该链内部限制，不另造重复负链",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 2.0,
-              "profile_id": "B1-PROFILE-F9390AA2B1B1E021",
-              "b1_role": "core",
-              "lifecycle_key": "MING-YZ-STATE-001",
-              "lifecycle_group_key": "MING-YZ-STATE-001"
-            },
-            {
-              "M": "M3",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "material_id": "B1-SUPP-MING-HONGWU-LOCAL-PERFORMANCE-001",
-              "mechanism": "多名地方责任官以可观察治绩被中央识别并连续擢升，形成独立的多责任官绩效识别—升任验证链",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 2.0,
-              "profile_id": "B1-PROFILE-1FC5EFAC6F73FAAC",
-              "b1_role": "distributed",
-              "lifecycle_key": "B1-SUPP-MING-HONGWU-LOCAL-PERFORMANCE-001",
-              "lifecycle_group_key": "B1-SUPP-MING-HONGWU-LOCAL-PERFORMANCE-001",
-              "source_refs": [
-                "《明史》循吏/列传中洪武地方官治绩与擢升样本（王兴宗等）"
-              ]
-            }
-          ],
-          "coverage_audit_ids": [],
-          "database_write": false,
-          "direct_material_ids": [
-            "B1-SUPP-MING-HONGWU-JINYIWEI-HULAN-001",
-            "B1-SUPP-MING-HONGWU-LOCAL-PERFORMANCE-001",
-            "MING-YZ-STATE-001"
-          ],
-          "direction_card_write": true,
-          "direction_index": 59.5,
-          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
-          "formal_evidence_state": "WORKING_READJUDICATED_TARGET_RECORD",
-          "formal_evidence_maturity": "latest_settlement_plus_targeted_expansion_review",
-          "grade": "G3",
-          "grade_basis": "正向全国考满/考察core与地方治绩识别链均成立；但锦衣卫刑狱旁路及胡蓝大狱闭合司法问责+官僚安全N3-cross（major-stage），明确阻G4。正负厚度并存。档内位置按当前有效生命周期权重与净余量确定。",
-          "grade_gate_basis": "正向全国考满/考察core与地方治绩识别链均成立；但锦衣卫刑狱旁路及胡蓝大狱闭合司法问责+官僚安全N3-cross（major-stage），明确阻G4。正负厚度并存，维持G3中位。",
-          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
-          "index_interval": [
-            55.0,
-            69.9
-          ],
-          "position": "lower-middle",
-          "position_q": 0.3,
-          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-0.5，按合同机械映射为lower-middle。",
-          "rank": 74,
-          "reign_range": "1368-1398",
-          "ruler_id": "RULER-MING-ZHU-YUANZHANG",
-          "ruler_name": "朱元璋",
-          "polity": "明",
-          "verification_material_ids": [],
-          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
-          "structured_grade_basis": [
-            {
-              "role": "主档依据",
-              "text": "正向全国考满/考察核心行政机制与地方治绩识别链均成立；但锦衣卫刑狱旁路及胡蓝大狱闭合司法问责+官僚安全N3（跨功能失灵）（主要阶段），明确阻G4。正负厚度并存。档内位置按当前有效生命周期权重与净余量确定。"
-            },
-            {
-              "role": "档内位置依据",
-              "text": "主档已定为G3；有效生命周期权重合计扣除该档门槛占用2后，净余量为-0.5，仅据此确定档内中下位（59.5）。净余量不用于跨档比较"
-            },
-            {
-              "role": "正向依据（M3）",
-              "text": "洪武十一年后朝觐官殿最、中央与布政/按察等分层考核、任满覆考并依例黜陟，构成全国考满/考察核心行政机制；官员专业失真作为该链内部限制，不另造重复负链"
-            },
-            {
-              "role": "正向依据（M3）",
-              "text": "多名地方责任官以可观察治绩被中央识别并连续擢升，形成独立的多责任官绩效识别—升任验证链"
-            },
-            {
-              "role": "负向依据（M3，cross）",
-              "text": "锦衣卫刑狱旁路与胡惟庸、蓝玉等大狱长期扩张，正常司法问责程序和高层官僚安全同时受损，形成主要阶段的高层组织负链"
-            }
-          ],
-          "review_material_absorption_status": "TARGETED_REVIEW_SUPERSEDES_SOURCE_RECORD_FOR_LISTED_PROFILES",
-          "source_snapshot": {
-            "grade": "G3",
-            "position": "middle",
-            "direction_index": 62.5
+          "position_residual": -1.0,
+          "grade_threshold_consumed": 3.0,
+          "review_material_basis": [],
+          "construct_boundary_review": {
+            "audit_ref": "docs/评分结算/第二项治国净收益/制度行政/06-构念边界复核.md#主档门禁扩搜裁决",
+            "decision": "全国外官考察与多省赈济交付两条M3独立成立。李广传奉、纳赂与死后未究均保留负面，但不能再把相关人员受害拆为第二功能；扩搜弘治十二年仍见吏部兼采荐举、按季奏览内外官履历，未证外官考察主链整体被李广接管。按domain限制位置而不作机械封顶，改G4；不以其死推定完整清算，更不升G5。"
           },
-          "g3_gate_route": "CORE_M3",
-          "g3_gate_profile_ids": [
-            "B1-PROFILE-F9390AA2B1B1E021"
-          ],
-          "g3_core_profile_id": "B1-PROFILE-F9390AA2B1B1E021",
-          "position_residual": -0.5,
-          "grade_threshold_consumed": 2.0,
-          "review_material_basis": []
-        },
-        {
-          "M_mixed_profile": [],
-          "M_negative_profile": [
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_group_key": "B1:RULER-MING-ZHU-DI:V50:SEVERITY-NEGATIVE",
-              "lifecycle_key": "B1:RULER-MING-ZHU-DI:V50:SEVERITY-NEGATIVE",
-              "material_id": "MING-DI-A-EASTERN-DEPOT-001",
-              "mechanism": "N3-cross：纪纲锦衣卫与东厂旁路长期侵蚀信息和官僚安全",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": -2.0,
-              "evidence_slice": "SEVERITY-NEGATIVE",
-              "severity": "N3-cross",
-              "severity_scope": "major-stage",
-              "severity_basis": "按v20/v50材料并集复核，裁为N3-cross / major-stage。",
-              "profile_id": "B1-PROFILE-5FF6391ADA0E5411",
-              "b1_role": "core"
-            }
-          ],
-          "M_positive_profile": [
-            {
-              "M": "M3",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "lifecycle_group_key": "MING-DI-ADMIN-001",
-              "lifecycle_key": "MING-DI-ADMIN-001",
-              "material_id": "MING-DI-ADMIN-001",
-              "mechanism": "府州县实迹考察、巡按按察廉贪与吏部覆考黜陟长期运行core",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 2.0,
-              "profile_id": "B1-PROFILE-EEB7FB1E863741E6",
-              "b1_role": "core"
-            }
-          ],
-          "coverage_audit_ids": [
-            "MING17-TWO-SOURCE-FAMILY-GATE",
-            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
-          ],
-          "database_write": false,
-          "direct_material_ids": [
-            "MING-DI-A-EASTERN-DEPOT-001",
-            "MING-DI-ADMIN-001"
-          ],
-          "direction_card_write": true,
-          "direction_index": 56.5,
-          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
-          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
-          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
-          "grade": "G3",
-          "grade_basis": "府州县实绩考察、巡按按察辨廉贪与吏部覆考黜陟长期相接，构成可独立支撑G3的考课核心M3。纪纲锦衣卫及东厂旁路长期侵蚀正式信息与官僚安全，形成跨功能负链，未见足以恢复主要阶段可靠性的闭合结果，故G4受阻；不以建制规模或工作量掩盖该缺口。",
-          "grade_gate_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
-          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
-          "index_interval": [
-            55.0,
-            69.9
-          ],
-          "polity": "明",
-          "position": "lower",
-          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-2.5，按合同机械映射为lower。",
-          "position_q": 0.1,
-          "rank": 85,
-          "reign_range": "1402-1424",
-          "ruler_id": "RULER-MING-ZHU-DI",
-          "ruler_name": "朱棣",
-          "verification_material_ids": [
-            "MING-DI-SUCCESSOR-001"
-          ],
-          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
-          "structured_grade_basis": [
-            {
-              "role": "主档依据",
-              "text": "府州县实绩考察、巡按按察辨廉贪与吏部覆考黜陟长期相接，构成可独立支撑G3的考课核心M3。纪纲锦衣卫及东厂旁路长期侵蚀正式信息与官僚安全，形成跨功能负链，未见足以恢复主要阶段可靠性的闭合结果，故G4受阻；不以建制规模或工作量掩盖该缺口。"
-            },
-            {
-              "role": "档内位置依据",
-              "text": "主档已定为G3；有效生命周期权重合计扣除该档门槛占用2后，净余量为-2.5，仅据此确定档内下位（56.5）。净余量不用于跨档比较"
-            },
-            {
-              "role": "正向依据（M3）",
-              "text": "府州县实迹考察、巡按按察廉贪与吏部覆考黜陟长期运行核心行政机制"
-            },
-            {
-              "role": "负向依据（M3，cross）",
-              "text": "N3（跨功能失灵）：纪纲锦衣卫与东厂旁路长期侵蚀信息和官僚安全"
-            }
-          ],
-          "position_residual": -2.5,
-          "grade_threshold_consumed": 2.0,
-          "v50_source_line": 224,
-          "review_material_basis": [
-            {
-              "version": "v20",
-              "line": 452,
-              "review_grade": "G3",
-              "review_position": "middle-upper",
-              "basis": "双向复审后维持。正向并不弱：永乐府州县实迹考察、巡按/按察司察廉贪、吏部覆考黜陟，以及永乐十九年蹇义等巡行实际黜扰民长吏，足以形成core M3；巡行天下、漕运等可作support。反向则更稳定：锦衣卫纪纲自永乐初长期依诏侦察廷臣、制造诏狱并清除官员，至十四年方被诛；十八年又设东厂，使正式官僚体系之外的信息/司法旁路延续至任末。该负链覆盖大半统治期，跨信息、官僚安全、问责至少三面，N3-cross成立，且不存在像胤禛清算年羹尧那样的完整制度恢复。因此G3中上确认，不因正向考察厚度恢复G4。",
-              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
-            },
-            {
-              "version": "v50",
-              "line": 224,
-              "review_grade": "G3",
-              "review_position": "middle-upper",
-              "basis": "链：锦衣卫/东厂长期形成正式官僚体系之外的信息、司法问责和人员退出旁路；纪纲被诛后东厂继续，未完成恢复，cross仍阻G4。",
-              "status": "ABSORBED_ACTIVE_PRECEDENCE"
-            }
-          ],
-          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
-          "g3_gate_route": "CORE_M3",
-          "g3_gate_profile_ids": [
-            "B1-PROFILE-EEB7FB1E863741E6"
-          ]
+          "g4_gate_review": {
+            "status": "RESOLVED",
+            "source_material_ids": [
+              "B1-GATE-MING-HONGZHI-APPOINTMENT-SCOPE"
+            ],
+            "decision": "全国外官考察与多省赈济交付两条M3独立成立。李广传奉、纳赂与死后未究均保留负面，但不能再把相关人员受害拆为第二功能；扩搜弘治十二年仍见吏部兼采荐举、按季奏览内外官履历，未证外官考察主链整体被李广接管。按domain限制位置而不作机械封顶，改G4；不以其死推定完整清算，更不升G5。",
+            "positive_core_profile_id": "B1-PROFILE-C55C143B27ECA18B",
+            "independent_verification_profile_id": "B1-PROFILE-BFD4FB6947D75FB8"
+          }
         },
         {
           "M_mixed_profile": [],
@@ -976,7 +1047,7 @@
           "position": "lower-middle",
           "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-1，按合同机械映射为lower-middle。",
           "position_q": 0.3,
-          "rank": 122,
+          "rank": 121,
           "reign_range": "1645-1646福建隆武实际中枢；郑氏控制作为本人权责限制而非扩张辖境",
           "ruler_id": "RULER-MING-ZHU-YUJIAN",
           "ruler_name": "朱聿键",
@@ -1075,7 +1146,7 @@
           "position": "lower-middle",
           "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-1，按合同机械映射为lower-middle。",
           "position_q": 0.3,
-          "rank": 122,
+          "rank": 121,
           "reign_range": "1398-1402",
           "ruler_id": "RULER-MING-ZHU-YUNWEN",
           "ruler_name": "朱允炆",
@@ -1159,7 +1230,7 @@
           "position": "lower",
           "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-3.5，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 133,
+          "rank": 132,
           "reign_range": "1505-1521",
           "ruler_id": "RULER-MING-ZHU-HOUZHAO",
           "ruler_name": "朱厚照",
@@ -1281,7 +1352,7 @@
           "position": "lower",
           "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-5.5，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 133,
+          "rank": 132,
           "reign_range": "1435-1449; 1457-1464",
           "ruler_id": "RULER-MING-ZHU-QIZHEN",
           "ruler_name": "朱祁镇",
@@ -1795,14 +1866,14 @@
               "lifecycle_group_key": "M2-LSM-E009",
               "lifecycle_key": "M2-LSM-E009",
               "material_id": "M2-LSM-E009",
-              "mechanism": "马士英以军镇拥立并排挤史可法，阮大铖报复性控制人事言路",
+              "mechanism": "马士英阮大铖控制高层任命，江北四镇又不受督师有效节制，分别闭合任用与跨层军政传导失灵；惩谏与报复构狱归B2。",
               "result_closure": "sustained_or_systemic",
               "signed_weight": -2.0,
               "profile_id": "B1-PROFILE-EBDF3B0FCC5B2454",
               "b1_role": "core",
               "severity": "N3-cross",
               "severity_scope": "major-stage",
-              "severity_basis": "马士英凭军镇拥立进入中枢、排挤史可法并使阮大铖控制人事言路；四镇又不受督师有效节制，闭合高层任命与中央—地方军政传导双重失控。"
+              "severity_basis": "马士英阮大铖控制高层任命，江北四镇又不受督师有效节制，分别闭合任用与跨层军政传导失灵；惩谏与报复构狱归B2。"
             }
           ],
           "M_positive_profile": [],
@@ -1821,8 +1892,8 @@
           "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
           "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
           "grade": "G1",
-          "grade_basis": "《明史·马士英传》《弘光朝伪东宫伪后及党祸纪略》｜链：弘光建政初史可法、姜曰广、马士英均入阁，江北又设四镇及督师，说明正式中枢/区域责任接口曾启动；但马士英凭拥立兵力入政府→联结中官、四镇并把史可法排出中枢→阮大铖等进入高层人事/言路体系；四镇除黄得功外多“不法度使”，史可法名义节制而实际难约束。高层任命+中央—地方军政传导双重失控贯穿主要阶段；仍有南京六部、史可法扬州系统等短期运行，因此G1而非G0。",
-          "grade_gate_basis": "《明史·马士英传》《弘光朝伪东宫伪后及党祸纪略》｜链：弘光建政初史可法、姜曰广、马士英均入阁，江北又设四镇及督师，说明正式中枢/区域责任接口曾启动；但马士英凭拥立兵力入政府→联结中官、四镇并把史可法排出中枢→阮大铖等进入高层人事/言路体系；四镇除黄得功外多“不法度使”，史可法名义节制而实际难约束。高层任命+中央—地方军政传导双重失控贯穿主要阶段；仍有南京六部、史可法扬州系统等短期运行，因此G1而非G0。",
+          "grade_basis": "《明史·马士英传》《弘光朝伪东宫伪后及党祸纪略》｜链：弘光建政初史可法、姜曰广、马士英均入阁，江北又设四镇及督师，说明正式中枢/区域责任接口曾启动；但马士英凭拥立兵力入政府→联结中官、四镇并把史可法排出中枢→阮大铖等进入高层人事/言路体系；四镇除黄得功外多“不法度使”，史可法名义节制而实际难约束。高层任命+中央—地方军政传导双重失控贯穿主要阶段；仍有南京六部、史可法扬州系统等短期运行，因此G1而非G0。 本次构念复核：马士英阮大铖控制高层任命，江北四镇又不受督师有效节制，分别闭合任用与跨层军政传导失灵；惩谏与报复构狱归B2。",
+          "grade_gate_basis": "《明史·马士英传》《弘光朝伪东宫伪后及党祸纪略》｜链：弘光建政初史可法、姜曰广、马士英均入阁，江北又设四镇及督师，说明正式中枢/区域责任接口曾启动；但马士英凭拥立兵力入政府→联结中官、四镇并把史可法排出中枢→阮大铖等进入高层人事/言路体系；四镇除黄得功外多“不法度使”，史可法名义节制而实际难约束。高层任命+中央—地方军政传导双重失控贯穿主要阶段；仍有南京六部、史可法扬州系统等短期运行，因此G1而非G0。 本次构念复核：马士英阮大铖控制高层任命，江北四镇又不受督师有效节制，分别闭合任用与跨层军政传导失灵；惩谏与报复构狱归B2。",
           "grade_gate_code": "B1_G1_DYSFUNCTION_DOMINANT",
           "index_interval": [
             20.0,
@@ -1841,7 +1912,7 @@
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "《明史·马士英传》《弘光朝伪东宫伪后及党祸纪略》｜链：弘光建政初史可法、姜曰广、马士英均入阁，江北又设四镇及督师，说明正式中枢/区域责任接口曾启动；但马士英凭拥立兵力入政府→联结中官、四镇并把史可法排出中枢→阮大铖等进入高层人事/言路体系；四镇除黄得功外多“不法度使”，史可法名义节制而实际难约束。高层任命+中央—地方军政传导双重失控贯穿主要阶段；仍有南京六部、史可法扬州系统等短期运行，因此G1而非G0。"
+              "text": "《明史·马士英传》《弘光朝伪东宫伪后及党祸纪略》｜链：弘光建政初史可法、姜曰广、马士英均入阁，江北又设四镇及督师，说明正式中枢/区域责任接口曾启动；但马士英凭拥立兵力入政府→联结中官、四镇并把史可法排出中枢→阮大铖等进入高层人事/言路体系；四镇除黄得功外多“不法度使”，史可法名义节制而实际难约束。高层任命+中央—地方军政传导双重失控贯穿主要阶段；仍有南京六部、史可法扬州系统等短期运行，因此G1而非G0。 本次构念复核：马士英阮大铖控制高层任命，江北四镇又不受督师有效节制，分别闭合任用与跨层军政传导失灵；惩谏与报复构狱归B2。"
             },
             {
               "role": "档内位置依据",
@@ -1853,7 +1924,7 @@
             },
             {
               "role": "负向依据（M3，cross）",
-              "text": "马士英以军镇拥立并排挤史可法，阮大铖报复性控制人事言路"
+              "text": "马士英阮大铖控制高层任命，江北四镇又不受督师有效节制，分别闭合任用与跨层军政传导失灵；惩谏与报复构狱归B2。"
             }
           ],
           "position_residual": -3.0,
@@ -1877,7 +1948,11 @@
               "status": "ABSORBED_ACTIVE_PRECEDENCE"
             }
           ],
-          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "construct_boundary_review": {
+            "audit_ref": "docs/评分结算/第二项治国净收益/制度行政/06-构念边界复核.md",
+            "decision": "马士英阮大铖控制高层任命，江北四镇又不受督师有效节制，分别闭合任用与跨层军政传导失灵；惩谏与报复构狱归B2。"
+          }
         }
       ]
     }

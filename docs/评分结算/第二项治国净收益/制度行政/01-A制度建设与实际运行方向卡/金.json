@@ -4,15 +4,15 @@
   "collections": {
     "records": {
       "positions": [
-        35,
-        36,
-        37,
-        54,
-        82,
-        83,
-        135,
-        136,
-        137
+        38,
+        27,
+        28,
+        49,
+        68,
+        109,
+        142,
+        143,
+        144
       ],
       "records": [
         {
@@ -174,23 +174,12 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 28,
+          "rank": 30,
           "extreme_delta_reopen": false
         },
         {
           "M_mixed_profile": [],
-          "M_negative_profile": [
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "A:RULER-JIN-XIZONG:negative:f1af4f78b3b9",
-              "material_id": "I2-JIN-MAT-2E8F91EA71C86576",
-              "mechanism": "后期酗酒妄杀官员、宗室、皇后与妃嫔，谏诤和规则失效",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
-            }
-          ],
+          "M_negative_profile": [],
           "M_positive_profile": [
             {
               "M": "M3",
@@ -229,35 +218,31 @@
           "database_write": false,
           "direct_material_ids": [
             "I2-JIN-MAT-0FB6A0C232BC0F6E",
-            "I2-JIN-MAT-1536EC1CD51C132C",
-            "I2-JIN-MAT-2E8F91EA71C86576"
+            "I2-JIN-MAT-1536EC1CD51C132C"
           ],
           "direction_card_write": true,
-          "direction_index": 62.5,
+          "direction_index": 65.5,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G3",
-          "grade_basis": "把勃极烈军政结构改造为三省尚书省体系并颁官制仪制、经义词赋科与常制选官接口形成非S重大制度建设，但S_net=0，按合同上限结算G3。",
+          "grade_basis": "两条独立非S重大制度重构均保留正M3，净值4；无耐久S资格，主档仍G3，按两个独立结构接口取中上位。反复妄杀与谏诤失效未另证官制或科举结构被改坏，退出A独立负链；运行与受害分别按B1/B2/C3裁决。",
           "index_interval": [
-            55,
+            55.0,
             69.9
           ],
-          "position": "middle",
-          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=1.00、position权重=0.25；统一净余=0.25，对应middle。",
-          "position_q": 0.5,
-          "verification_material_ids": [],
+          "position": "middle-upper",
+          "position_basis": "两条独立非S重大制度重构均保留正M3，净值4；无耐久S资格，主档仍G3，按两个独立结构接口取中上位。反复妄杀与谏诤失效未另证官制或科举结构被改坏，退出A独立负链；运行与受害分别按B1/B2/C3裁决。",
+          "position_q": 0.7,
+          "verification_material_ids": [
+            "I2-JIN-MAT-2E8F91EA71C86576"
+          ],
           "polity": "金",
           "reign_range": "1135-1149",
           "ruler_id": "RULER-JIN-XIZONG",
           "ruler_name": "完颜亶",
-          "A_C_A_support_mechanism": "把勃极烈军政结构改造为三省尚书省体系并颁官制仪制",
-          "A_grade_thickness_cost": 1.0,
-          "A_independent_M_position_weight": 0.25,
-          "A_independent_M_signed": 1.0,
           "A_position_formula_code": "A_NET_DURABILITY_V2",
-          "A_position_residual": 0.25,
-          "A_structural_thickness": 1.0,
+          "A_position_residual": 2.0,
           "C_A": 2,
           "S_depth_units": 0,
           "S_minus": 0,
@@ -267,15 +252,11 @@
           "S_plus_regular": 0,
           "S_total": 0,
           "direct_material_roles": {
-            "I2-JIN-MAT-0FB6A0C232BC0F6E": [
-              "A_OPERATION",
-              "NON_S_CONSTRUCTION"
-            ],
             "I2-JIN-MAT-1536EC1CD51C132C": [
               "A_OPERATION",
               "NON_S_CONSTRUCTION"
             ],
-            "I2-JIN-MAT-2E8F91EA71C86576": [
+            "I2-JIN-MAT-0FB6A0C232BC0F6E": [
               "A_OPERATION",
               "NON_S_CONSTRUCTION"
             ]
@@ -336,23 +317,30 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 28,
-          "extreme_delta_reopen": false
+          "rank": 27,
+          "extreme_delta_reopen": false,
+          "construct_boundary_exclusions": [
+            {
+              "material_ids": [
+                "I2-JIN-MAT-2E8F91EA71C86576"
+              ],
+              "evidence_slice": "PRIMARY",
+              "reason": "反复妄杀与谏诤失效未另证官制或科举结构被改坏，退出A独立负链；运行与受害分别按B1/B2/C3裁决。"
+            }
+          ],
+          "A_net_units": 4.0,
+          "P_gross": 4.0,
+          "N_gross": 0.0,
+          "v2_explicit_patch": true,
+          "polarization_ratio": 0.0,
+          "construct_boundary_review": {
+            "audit_ref": "docs/评分结算/第二项治国净收益/制度行政/06-构念边界复核.md",
+            "decision": "两条独立非S重大制度重构均保留正M3，净值4；无耐久S资格，主档仍G3，按两个独立结构接口取中上位。反复妄杀与谏诤失效未另证官制或科举结构被改坏，退出A独立负链；运行与受害分别按B1/B2/C3裁决。"
+          }
         },
         {
           "M_mixed_profile": [],
-          "M_negative_profile": [
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "A:RULER-JIN-ZHANGZONG:negative:37f721644ee4",
-              "material_id": "I2-JIN-MAT-87E462F83687FDD9",
-              "mechanism": "后期边警预警被以生事处罚，军需摊派和权臣用事削弱反馈",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
-            }
-          ],
+          "M_negative_profile": [],
           "M_positive_profile": [
             {
               "M": "M3",
@@ -391,35 +379,31 @@
           "database_write": false,
           "direct_material_ids": [
             "I2-JIN-MAT-5C9960B1689E90C0",
-            "I2-JIN-MAT-FAB8316228E55959",
-            "I2-JIN-MAT-87E462F83687FDD9"
+            "I2-JIN-MAT-FAB8316228E55959"
           ],
           "direction_card_write": true,
-          "direction_index": 62.5,
+          "direction_index": 65.5,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G3",
-          "grade_basis": "女真学校、进士与赡学养士制度、改提刑司为按察使司并建立转对、分路巡察和县令考课接口形成非S重大制度建设，但S_net=0，按合同上限结算G3。",
+          "grade_basis": "两条独立非S重大制度重构均保留正M3，净值4；无耐久S资格，主档仍G3，按两个独立结构接口取中上位。处罚边警预警者只闭合B2报忧受压，未另证制度结构破坏，退出A负链。",
           "index_interval": [
-            55,
+            55.0,
             69.9
           ],
-          "position": "middle",
-          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=1.00、position权重=0.25；统一净余=0.25，对应middle。",
-          "position_q": 0.5,
-          "verification_material_ids": [],
+          "position": "middle-upper",
+          "position_basis": "两条独立非S重大制度重构均保留正M3，净值4；无耐久S资格，主档仍G3，按两个独立结构接口取中上位。处罚边警预警者只闭合B2报忧受压，未另证制度结构破坏，退出A负链。",
+          "position_q": 0.7,
+          "verification_material_ids": [
+            "I2-JIN-MAT-87E462F83687FDD9"
+          ],
           "polity": "金",
           "reign_range": "1189-1208",
           "ruler_id": "RULER-JIN-ZHANGZONG",
           "ruler_name": "完颜璟",
-          "A_C_A_support_mechanism": "女真学校、进士与赡学养士制度",
-          "A_grade_thickness_cost": 1.0,
-          "A_independent_M_position_weight": 0.25,
-          "A_independent_M_signed": 1.0,
           "A_position_formula_code": "A_NET_DURABILITY_V2",
-          "A_position_residual": 0.25,
-          "A_structural_thickness": 1.0,
+          "A_position_residual": 2.0,
           "C_A": 2,
           "S_depth_units": 0,
           "S_minus": 0,
@@ -429,15 +413,11 @@
           "S_plus_regular": 0,
           "S_total": 0,
           "direct_material_roles": {
-            "I2-JIN-MAT-5C9960B1689E90C0": [
-              "A_OPERATION",
-              "NON_S_CONSTRUCTION"
-            ],
             "I2-JIN-MAT-FAB8316228E55959": [
               "A_OPERATION",
               "NON_S_CONSTRUCTION"
             ],
-            "I2-JIN-MAT-87E462F83687FDD9": [
+            "I2-JIN-MAT-5C9960B1689E90C0": [
               "A_OPERATION",
               "NON_S_CONSTRUCTION"
             ]
@@ -498,8 +478,26 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 28,
-          "extreme_delta_reopen": false
+          "rank": 27,
+          "extreme_delta_reopen": false,
+          "construct_boundary_exclusions": [
+            {
+              "material_ids": [
+                "I2-JIN-MAT-87E462F83687FDD9"
+              ],
+              "evidence_slice": "PRIMARY",
+              "reason": "处罚边警预警者只闭合B2报忧受压，未另证制度结构破坏，退出A负链。"
+            }
+          ],
+          "A_net_units": 4.0,
+          "P_gross": 4.0,
+          "N_gross": 0.0,
+          "v2_explicit_patch": true,
+          "polarization_ratio": 0.0,
+          "construct_boundary_review": {
+            "audit_ref": "docs/评分结算/第二项治国净收益/制度行政/06-构念边界复核.md",
+            "decision": "两条独立非S重大制度重构均保留正M3，净值4；无耐久S资格，主档仍G3，按两个独立结构接口取中上位。处罚边警预警者只闭合B2报忧受压，未另证制度结构破坏，退出A负链。"
+          }
         },
         {
           "M_mixed_profile": [],
@@ -644,7 +642,7 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 28,
+          "rank": 30,
           "extreme_delta_reopen": false
         },
         {
@@ -752,7 +750,7 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 67,
+          "rank": 66,
           "extreme_delta_reopen": false,
           "a_material_dispositions": [
             {

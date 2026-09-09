@@ -4,16 +4,16 @@
   "collections": {
     "records": {
       "positions": [
-        38,
         39,
         40,
-        52,
-        53,
-        84,
-        85,
-        102,
-        138,
-        171
+        98,
+        65,
+        48,
+        129,
+        110,
+        79,
+        145,
+        168
       ],
       "records": [
         {
@@ -123,7 +123,7 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 28,
+          "rank": 30,
           "extreme_delta_reopen": false
         },
         {
@@ -273,7 +273,7 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 28,
+          "rank": 30,
           "extreme_delta_reopen": false
         },
         {
@@ -398,16 +398,6 @@
           "M_positive_profile": [
             {
               "M": "M3",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "lifecycle_key": "A:RULER-ROSTER-0F3BA2C535371D66:positive:879767ecb45a",
-              "material_id": "I2-LIAO-MAT-BBAFC52C0C5ED8D3",
-              "mechanism": "二十七年摄政中由韩契丹多路重臣共同议政并维持军政交付",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": 1.0
-            },
-            {
-              "M": "M3",
               "counts_toward_S": false,
               "direction": "positive",
               "direction_factor": 1.0,
@@ -421,41 +411,38 @@
               ],
               "mechanism": "同罪同法、贵戚问罪与死刑巡审核复改革",
               "result_closure": "institution_lifecycle_adjudicated",
-              "signed_weight": 3.0
+              "signed_weight": 2.0
             }
           ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
             "I2-LIAO-MAT-5B20CB4093E25289",
-            "I2-LIAO-MAT-BBAFC52C0C5ED8D3"
+            "I2-LIAO-MAT-7DCD550072C43C99"
           ],
           "direction_card_write": true,
-          "direction_index": 62.5,
+          "direction_index": 56.5,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G3",
-          "grade_basis": "同罪同法、贵戚问罪与死刑巡审核复改革形成非S重大制度建设，但S_net=0，按合同上限结算G3。",
+          "grade_basis": "司法改革保留一条非S正M3，净值2，满足G3最低结构，取下位。共同议政和军政交付属于B1运行，没有独立制度结构改变，退出A额外建设链。",
           "index_interval": [
-            55,
+            55.0,
             69.9
           ],
-          "position": "middle",
-          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=1.00、position权重=0.25；统一净余=0.25，对应middle。",
-          "position_q": 0.5,
-          "verification_material_ids": [],
+          "position": "lower",
+          "position_basis": "司法改革保留一条非S正M3，净值2，满足G3最低结构，取下位。共同议政和军政交付属于B1运行，没有独立制度结构改变，退出A额外建设链。",
+          "position_q": 0.1,
+          "verification_material_ids": [
+            "I2-LIAO-MAT-BBAFC52C0C5ED8D3"
+          ],
           "polity": "辽",
           "reign_range": "982-1009实际摄政",
           "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
           "ruler_name": "萧绰",
-          "A_C_A_support_mechanism": "同罪同法、贵戚问罪与死刑巡审核复改革",
-          "A_grade_thickness_cost": 1.0,
-          "A_independent_M_position_weight": 0.25,
-          "A_independent_M_signed": 1.0,
           "A_position_formula_code": "A_NET_DURABILITY_V2",
-          "A_position_residual": 0.25,
-          "A_structural_thickness": 1.0,
+          "A_position_residual": 0.0,
           "C_A": 2,
           "S_depth_units": 0,
           "S_minus": 0,
@@ -469,7 +456,7 @@
               "A_OPERATION",
               "NON_S_CONSTRUCTION"
             ],
-            "I2-LIAO-MAT-BBAFC52C0C5ED8D3": [
+            "I2-LIAO-MAT-7DCD550072C43C99": [
               "A_OPERATION",
               "NON_S_CONSTRUCTION"
             ]
@@ -504,8 +491,26 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 28,
-          "extreme_delta_reopen": false
+          "rank": 66,
+          "extreme_delta_reopen": false,
+          "construct_boundary_exclusions": [
+            {
+              "material_ids": [
+                "I2-LIAO-MAT-BBAFC52C0C5ED8D3"
+              ],
+              "evidence_slice": "PRIMARY",
+              "reason": "共同议政和军政交付属于B1运行，没有独立制度结构改变，退出A额外建设链。"
+            }
+          ],
+          "A_net_units": 2.0,
+          "P_gross": 2.0,
+          "N_gross": 0.0,
+          "v2_explicit_patch": true,
+          "polarization_ratio": 0.0,
+          "construct_boundary_review": {
+            "audit_ref": "docs/评分结算/第二项治国净收益/制度行政/06-构念边界复核.md",
+            "decision": "司法改革保留一条非S正M3，净值2，满足G3最低结构，取下位。共同议政和军政交付属于B1运行，没有独立制度结构改变，退出A额外建设链。"
+          }
         },
         {
           "M_mixed_profile": [],
@@ -666,7 +671,7 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 28,
+          "rank": 30,
           "extreme_delta_reopen": false
         },
         {
