@@ -35,11 +35,8 @@
             "reason": "第三项评价更始政权的国家军队而非刘玄个人前线战功：昆阳—长安阶段能完成新莽终结，但随即在赤眉西进中军令、补给和多将领协同迅速瓦解，长安失守且政权终结。两项能力专用父任务支持C1/C2为2，中央军事体系未恢复使C3为1；第一项个人贡献缺口不得继续把第三项国家体系挂起。"
           },
           "observed_parent_cycle_count": 2,
-          "independent_task_count": 2,
-          "independent_task_groups": [
-            "WAR-LEAD-XIN-COLLAPSE-23",
-            "WAR-LEAD-HAN-STARTUP-GUANZHONG-24"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "current_item_task_count": 0,
           "current_item_task_refs": [],
           "non_scoring_observation_count": 0,
@@ -105,7 +102,12 @@
             "lower_rate": 30,
             "upper_rate": 44
           },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS"
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE"
         },
         {
           "C_overall_grade": "C-3",
@@ -127,22 +129,14 @@
           "cross_reign_slice_refs": [],
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
-          "independent_task_count": 14,
+          "independent_task_count": 6,
           "independent_task_groups": [
             "HAN-QIANG-30-35",
             "WAR-LEAD-HAN-NORTH-36-46",
             "HAN-JIAOZHI-40-43",
             "HAN-SICHUAN-REBELLION-42",
             "HAN-SOUTHWEST-43-45",
-            "HAN-WULING-47-49",
-            "WAR-LEAD-XIN-COLLAPSE-23",
-            "HAN-STARTUP-HEBEI-23-24",
-            "HAN-STARTUP-GUANZHONG-24-27",
-            "HAN-STARTUP-CENTRAL-25-26",
-            "HAN-STARTUP-DENGFENG-NANYANG-26-27",
-            "HAN-STARTUP-EAST-26-30",
-            "HAN-STARTUP-LONGYOU-30-34",
-            "HAN-STARTUP-SHU-33-36"
+            "HAN-WULING-47-49"
           ],
           "major_system_failure_refs": [],
           "non_war_evidence_refs": [],
@@ -169,7 +163,7 @@
           "system_reliability_cap": "C3-3",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -405,7 +399,19 @@
               "WAR-LEAD-XIN-COLLAPSE-23"
             ],
             "status": "PASSED"
-          }
+          },
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "HAN-QIANG-30-35",
+            "WAR-LEAD-HAN-NORTH-36-46",
+            "HAN-JIAOZHI-40-43",
+            "HAN-SICHUAN-REBELLION-42",
+            "HAN-SOUTHWEST-43-45",
+            "HAN-WULING-47-49"
+          ],
+          "parent_cycle_pending_count": 6,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-3",
@@ -456,7 +462,7 @@
           "system_reliability_cap": "C3-3",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -528,7 +534,16 @@
             "HAN-QIANG-57-58",
             "HAN-NORTH-XIONGNU-62-73",
             "WAR-LEAD-HAN-XIYU-73-94"
-          ]
+          ],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "HAN-QIANG-57-58",
+            "HAN-NORTH-XIONGNU-62-73",
+            "WAR-LEAD-HAN-XIYU-73-94"
+          ],
+          "parent_cycle_pending_count": 3,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-3",
@@ -578,7 +593,7 @@
           "system_reliability_cap": "C3-3",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -645,7 +660,16 @@
             "HAN-QIANG-77-78",
             "HAN-LOUZHONG-78-80",
             "WAR-LEAD-HAN-XIYU-73-94"
-          ]
+          ],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "HAN-QIANG-77-78",
+            "HAN-LOUZHONG-78-80",
+            "WAR-LEAD-HAN-XIYU-73-94"
+          ],
+          "parent_cycle_pending_count": 3,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-3",
@@ -700,7 +724,7 @@
           "system_reliability_cap": "C3-3",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -817,7 +841,17 @@
               "window_ref": "LIUZHAO-PERSONAL-RULE-92JUN-105",
               "basis": "全链位于本人亲政期内，保留既有结果与负向事实。"
             }
-          ]
+          ],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "HAN-XIYU-73-94",
+            "HAN-SOUTH-XIONGNU-94-96",
+            "HAN-QIANG-92-102",
+            "HAN-WUMAN-101-102"
+          ],
+          "parent_cycle_pending_count": 4,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-2",
@@ -875,7 +909,7 @@
           "system_reliability_cap": "C3-2",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -886,7 +920,7 @@
           "observed_parent_cycle_count": 10,
           "task_selection_policy": "CLOSED_MATERIAL_PARENT_CYCLES_PLUS_MAJOR_SYSTEM_OUTCOMES",
           "c_only_major_parent_refs": [],
-          "non_scoring_observation_count": 5,
+          "non_scoring_observation_count": 0,
           "task_outcome_profile": {
             "source": "CLOSED_SYSTEM_STRESS_PARENT_CYCLES_WITH_EXPLICIT_UNKNOWN_CLOSURE",
             "selected_task_count": 5,
@@ -961,7 +995,18 @@
               }
             ],
             "basis": "邓绥消费106—121实际临朝阶段；刘祜只消费121年邓绥去世后的亲政阶段。跨121父链按D现有阶段切片复用。"
-          }
+          },
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "HAN-XIYU-106-107-DENGSUI-WINDOW",
+            "HAN-XIYU-119-121-DENGSUI-WINDOW",
+            "HAN-GAOGULI-109-121-DENGSUI-WINDOW",
+            "HAN-XIANBEI-117-121-DENGSUI-WINDOW",
+            "HAN-QIANG-107-121-DENGSUI-WINDOW"
+          ],
+          "parent_cycle_pending_count": 5,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-3",
@@ -1019,7 +1064,7 @@
             "摄政期事实由邓绥消费"
           ],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -1112,7 +1157,17 @@
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "121—125亲政窗口闭合4项体系压力任务：高句丽方向形成E3收束，西域与羌方向形成E2恢复，鲜卑仅E1遏制；没有重大体系失败，也没有达到C4门禁的重大体系胜绩，维持三轴3档并由旧低段调至中段。"
-          }
+          },
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "HAN-GAOGULI-121-122-LIUHU-PERSONAL-WINDOW",
+            "HAN-XIANBEI-121-124-LIUHU-PERSONAL-WINDOW",
+            "HAN-XIYU-121-124-LIUHU-PERSONAL-WINDOW",
+            "HAN-QIANG-121-122-LIUHU-PERSONAL-WINDOW"
+          ],
+          "parent_cycle_pending_count": 4,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-2",
@@ -1171,7 +1226,7 @@
           "system_reliability_cap": "C3-2",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [
             "HAN-XIYU-119-127"
@@ -1240,7 +1295,17 @@
             "HAN-SOUTH-XIONGNU-140-144",
             "HAN-QIANG-140-145",
             "HAN-XIYU-119-127"
-          ]
+          ],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "WAR-LEAD-HAN-JIAOZHI-136-138",
+            "HAN-SOUTH-XIONGNU-140-144",
+            "HAN-QIANG-140-145",
+            "HAN-XIYU-119-127"
+          ],
+          "parent_cycle_pending_count": 4,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-2",
@@ -1291,7 +1356,7 @@
             "摄政窗口较短"
           ],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [
             "HAN-YANGXU-132-145"
@@ -1367,7 +1432,14 @@
                 "nominal_overlap": "146—150"
               }
             ]
-          }
+          },
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "HAN-YANGXU-132-145"
+          ],
+          "parent_cycle_pending_count": 1,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-2",
@@ -1432,7 +1504,7 @@
           "system_reliability_cap": "C3-2",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -1527,7 +1599,19 @@
                 "exclusive_window": "144—150"
               }
             ]
-          }
+          },
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "HAN-QINGYANXU-154-156",
+            "HAN-NORTH-158-159",
+            "HAN-TAISHAN-159-160",
+            "HAN-SOUTH-157-165",
+            "HAN-QIANG-159-169",
+            "HAN-XIANBEI-TANSHIHUAI-156-181"
+          ],
+          "parent_cycle_pending_count": 6,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-1",
@@ -1615,7 +1699,7 @@
           "system_reliability_cap": "C3-1",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [
             "HAN-QIANG-159-169"
@@ -1711,7 +1795,24 @@
             "HAN-LIANGZHOU-CHENCANG-188-189",
             "HAN-HEISHAN-185-205",
             "HAN-LIANGZHOU-184-192"
-          ]
+          ],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "HAN-QIANG-159-169",
+            "HAN-XUSHENG-172-174",
+            "WAR-LEAD-HAN-JIAOZHI-178-181",
+            "HAN-XIANBEI-TANSHIHUAI-156-181",
+            "HAN-YELLOW-TURBAN-184",
+            "HAN-BAIBO-XIONGNU-188-195",
+            "HAN-YIZHOU-MAXIANG-188",
+            "WAR-LEAD-HAN-ZHANGCHUN-WUHUAN-187-189",
+            "HAN-LIANGZHOU-CHENCANG-188-189",
+            "HAN-HEISHAN-185-205",
+            "HAN-LIANGZHOU-184-192"
+          ],
+          "parent_cycle_pending_count": 11,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         }
       ]
     }

@@ -75,6 +75,24 @@ def test_current_source_controls_formal_evidence_and_subject_binding():
         _validate_ab_control_contribution_contract({"records": [r, second]})
 
 
+def test_maturity_review_mirrors_source_without_readjudicating_missing_evidence():
+    r = row()
+    review = {"status": "EVIDENCE_GAP", "basis": "缺少交班接防事实。", "source_refs": ["prior-war"]}
+    source = {
+        "control_contribution_corrections": [{
+            "ruler_id": r["ruler_id"], "control_depth_packages": deepcopy(r["control_depth_packages"]),
+        }],
+        "b4_maturity_review": {"records": [{"ruler_id": r["ruler_id"], **review}]},
+    }
+    r["axes"]["B4"]["maturity_review"] = deepcopy(review)
+    before = deepcopy(r)
+    _validate_ab_control_contribution_contract({"records": [r]}, depth_source=source)
+    assert r == before
+    r["axes"]["B4"]["maturity_review"]["status"] = "CONFIRMED"
+    with pytest.raises(ValueError, match="复核与当前裁决源不一致"):
+        _validate_ab_control_contribution_contract({"records": [r]}, depth_source=source)
+
+
 def test_primary_control_reference_must_resolve_to_registered_package():
     r = row()
     r["primary_control_package_refs"] = ["B-DEPTH-unregistered"]

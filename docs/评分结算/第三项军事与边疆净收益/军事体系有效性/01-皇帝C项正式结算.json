@@ -25,7 +25,10 @@
     "quarantined_extension_count",
     "accepted_extension_count",
     "pending_count",
-    "shared_parent_ruler_binding_contract"
+    "shared_parent_ruler_binding_contract",
+    "parent_cycle_audit_source",
+    "parent_cycle_audit_status",
+    "parent_cycle_audit_summary"
   ],
   "payload_metadata": {
     "canonical_status": "FORMAL_CURRENT",
@@ -33,13 +36,14 @@
     "evidence_ceiling_adjustment_count": 2,
     "formal_repository_entry": true,
     "grade_distribution": {
-      "C-0": 17,
-      "C-1": 26,
-      "C-2": 56,
-      "C-3": 94,
+      "C-0": 15,
+      "C-1": 15,
+      "C-2": 43,
+      "C-3": 73,
       "C-4": 5,
       "C-5": 2,
-      "C-N": 1
+      "C-N": 1,
+      "UNKNOWN": 47
     },
     "partition_counts": {
       "None": 55,
@@ -59,9 +63,9 @@
     "scope": "秦至唐95人当前值 + 五代十国12人当前结算 + 北宋11人",
     "score_range": {
       "maximum": 50.0,
-      "minimum": 1.45
+      "minimum": 0.0
     },
-    "score_ready_count": 201,
+    "score_ready_count": 154,
     "shared_source_root": "docs/史料通读产物/唐以前编年",
     "war_card_audit_index": "docs/史料通读产物/唐以前编年/00-战争卡审计索引.json",
     "south_song_parent_cycle_config": "config/third-item/south-song-third-item-cycle-adjudications.json",
@@ -69,13 +73,28 @@
     "extension_basis": "D战略链只提供去重体系压力任务与事实索引；C1/C2/C3按C合同分别裁决，不读取D档或成本档换算",
     "quarantined_extension_count": 52,
     "accepted_extension_count": 106,
-    "pending_count": 0,
+    "pending_count": 47,
     "shared_parent_ruler_binding_contract": {
       "status": "CLOSED",
-      "shared_parent_count": 44,
-      "binding_count": 88,
+      "shared_parent_count": 24,
+      "binding_count": 48,
       "source": "config/third-item/third-item-c-outcome-adjudications.json",
       "rule": "同一父任务按显式ruler_id与CURRENT/CAPABILITY_ONLY范围分别消费，不复制另一人物行动、结果或成本。"
+    },
+    "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+    "parent_cycle_audit_status": "CURRENT_WITH_EXPLICIT_PENDING_BOUNDARIES",
+    "parent_cycle_audit_summary": {
+      "people": 201,
+      "raw_current_task_count": 1785,
+      "final_current_parent_cycle_count": 1628,
+      "closed_public_cycle_count": 1167,
+      "legacy_pending_cycle_count": 461,
+      "d_only_pending_cycle_count": 152,
+      "non_scoring_observation_count": 4,
+      "new_current_merge_count": 1,
+      "unknown_c_record_count": 47,
+      "status": "CURRENT_WITH_EXPLICIT_PENDING_BOUNDARIES",
+      "policy": "D战略链只作上位交叉索引和辅助合并证据；C父周期必须有独立C主体阶段、窗口、压力对象、连续动员、终局与return_class闭合。"
     }
   },
   "collections": {

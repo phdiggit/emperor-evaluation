@@ -28,16 +28,10 @@
           "cross_reign_slice_refs": [],
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
-          "independent_task_count": 8,
+          "independent_task_count": 2,
           "independent_task_groups": [
             "QIN-XIONGNU-WALL",
-            "QIN-LINGNAN",
-            "OUTCOME-QIN-HAN",
-            "OUTCOME-QIN-ZHAO",
-            "OUTCOME-QIN-WEI",
-            "OUTCOME-QIN-CHU",
-            "OUTCOME-QIN-YAN",
-            "OUTCOME-QIN-QI"
+            "QIN-LINGNAN"
           ],
           "major_system_failure_refs": [],
           "non_war_evidence_refs": [],
@@ -61,7 +55,7 @@
           "system_reliability_cap": "C3-3",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -200,7 +194,15 @@
               "OUTCOME-QIN-ZHAO"
             ],
             "status": "PASSED"
-          }
+          },
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "QIN-XIONGNU-WALL",
+            "QIN-LINGNAN"
+          ],
+          "parent_cycle_pending_count": 2,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-0",
@@ -256,7 +258,7 @@
           "system_reliability_cap": "C3-0",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -315,7 +317,14 @@
           "current_item_task_count": 1,
           "current_item_task_refs": [
             "QIN-CIVIL-WAR"
-          ]
+          ],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "QIN-CIVIL-WAR"
+          ],
+          "parent_cycle_pending_count": 1,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         }
       ]
     }

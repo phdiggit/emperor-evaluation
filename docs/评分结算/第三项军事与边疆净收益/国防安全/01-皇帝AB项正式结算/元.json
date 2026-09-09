@@ -99,11 +99,23 @@
             },
             "B4": {
               "grade": "B4-3",
-              "axis_points": 16.75,
               "band_position": "MID",
               "score_rate": 67,
-              "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
-              "reason": "交班成熟度：西域、河中已有可继承的军政控制，呼罗珊亦形成大部有效控制；但札兰丁抵抗延续、远端网络维持压力高，交班仍有显著脆弱包，取B4-3中位。"
+              "axis_points": 16.75,
+              "reason": "西域、河中已有可继承军政控制，但呼罗珊等远端主包仍存在持续抵抗和征服军临时接续，地方执行未全部转为常态。依这一实质控制缺口维持3档中位，不以距离或维持负担本身限档。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "西域、河中已有可继承军政控制，但呼罗珊等远端主包仍存在持续抵抗和征服军临时接续，地方执行未全部转为常态。依这一实质控制缺口维持3档中位，不以距离或维持负担本身限档。",
+                "source_refs": [
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-160.battle-adjudications.json",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-160.source-summary.md",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-162.battle-adjudications.json",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-162.source-summary.md",
+                  "WAR-CARD-9F1DB1A547E8155400DE-P02",
+                  "WAR-CARD-6142651BA3FFBE5B2A3C-P02",
+                  "WAR-CARD-DF5857507B2EECC09B4C-P02"
+                ]
+              }
             }
           },
           "b1_region_control": {
@@ -390,7 +402,9 @@
             "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/元.json",
             "final_B1_rate": 82.0
           },
-          "b1_cross_item_excluded_weighted_value": 1.3
+          "b1_cross_item_excluded_weighted_value": 1.3,
+          "control_contribution_route": "REAL_REGION_LEDGER",
+          "control_contribution_basis": "沿用当前本人贡献类型与主控制成果包；本条仅更新B4成熟度，未另改B2归责。"
         },
         {
           "ruler_id": "RULER-YUAN-OGEDEI",
@@ -493,11 +507,22 @@
             },
             "B4": {
               "grade": "B4-3",
-              "axis_points": 16.75,
               "band_position": "MID",
               "score_rate": 67,
-              "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
-              "reason": "交班成熟度：西方新增成果已形成可继承的征贡、驻军和军政网络，但控制形式松散、距离遥远且仍需高强度维持，成熟与脆弱包并存，取B4-3中位。"
+              "axis_points": 16.75,
+              "reason": "太宗十二年仍有西域未下诸部，斡罗斯、钦察和马札儿证据表现为连续征服与班师，未见地方常态接管；主包仍有实质成熟缺口，维持B4-3中位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "《元史》太宗十二年仍记贵由‘克西域未下诸部’，次年窝阔台即崩；《元史·速不台传》所载斡罗斯、钦察、马札儿是连续出征、攻城、征服后班师的军事链，未见与高丽‘承制设官分镇’同等级的西方地方接管。西方主包在交班时仍有未下部众和征服军接续的实质控制缺口，故确认B4-3中位；成都、汉州阶段卡不能替代西方主包的成熟度证据。",
+                "source_refs": [
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-170.battle-adjudications.json",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-170.source-summary.md",
+                  "WAR-CARD-9CAF1EF4C2D3743FBE07-P02",
+                  "WAR-CARD-9CAF1EF4C2D3743FBE07-P04",
+                  "https://zh.wikisource.org/zh-hans/%E5%85%83%E5%8F%B2/%E5%8D%B7002",
+                  "https://zh.wikisource.org/zh-hans/%E5%85%83%E5%8F%B2/%E5%8D%B7121"
+                ]
+              }
             }
           },
           "b1_region_control": {
@@ -795,7 +820,9 @@
             "decision_status": "REVIEWED",
             "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/元.json",
             "final_B1_rate": 82.0
-          }
+          },
+          "control_contribution_route": "B4_BOUNDARY_REAUDIT",
+          "control_contribution_basis": "原西方主包对象与阶段卡引用已回源核对；B4确认西方征服链在交班前仍有未下部众和接管缺口。"
         },
         {
           "ruler_id": "RULER-YUAN-MONGKE",
@@ -1440,12 +1467,75 @@
               "reason": "规模与控制强度：平乃颜、应对海都及西南扩展产生跨区域战略作用，但多次远征失败限制全国级净改善。"
             },
             "B4": {
-              "grade": "B4-3",
-              "axis_points": 16.75,
-              "band_position": "MID",
-              "score_rate": 67,
-              "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
-              "reason": "规模与控制强度：行省、诸王和多战区军队具备重复交付能力，海外运输、补给和远征终局的不稳定使结构止于B4-3。"
+              "grade": "B4-4",
+              "band_position": "LOW",
+              "score_rate": 75,
+              "axis_points": 18.75,
+              "reason": "行省、诸王和内陆多战区控制包有重复交付与恢复；海外远征失败是未取得目标，不是既有控制缺口，按压力保全上限裁B4-4低位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "行省、诸王和多战区内陆控制包有重复交付与恢复结果；日本、爪哇等海外远征失败属于未取得目标，不是既有控制成果的成熟度缺口。未登记本人任内主要控制包的实质退控，重大压力下保全上限为4；裁B4-4低位，不升5。",
+                "source_refs": [
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-179.battle-adjudications.json",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-179.source-summary.md",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-180.battle-adjudications.json",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-180.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-186.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-186.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-189.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-189.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-193.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-193.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-185.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-185.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-188.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-188.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-191.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-191.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-192.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-192.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-196.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-196.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-187.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-187.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-190.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-190.source-summary.md",
+                  "WAR-CARD-02B63F78F3A6EAF9DECC-P01",
+                  "WAR-CARD-A7FBB11E6082E50337D2-P01",
+                  "WAR-CARD-91C6DF69010961398F48-P01",
+                  "WAR-CARD-50BAF9CAAD2F4D06D78F-P01",
+                  "WAR-CARD-2518B22FB17EBA0C7CB3-P01",
+                  "WAR-CARD-5E452272AB4214A9F60E-P01",
+                  "WAR-CARD-5E452272AB4214A9F60E-P04",
+                  "WAR-CARD-9AF6089E0EA7595ED2A8-P01",
+                  "WAR-CARD-167A97612A40F03C129C-P01",
+                  "WAR-CARD-A95E0E633B2595A9A026-P01",
+                  "WAR-CARD-BF33F99A2FD994F2D556-P01",
+                  "WAR-CARD-9074F072CA3238962E28-P03",
+                  "WAR-CARD-EF111C59866C21FE8292-P01",
+                  "WAR-CARD-6C5F763420216AEC61C9-P01",
+                  "WAR-CARD-1E836BB9E4B77DB8D144-P01",
+                  "WAR-CARD-EAD15DCA7BE456503D4F-P01",
+                  "WAR-CARD-E68EA3F647032BE48032-P01",
+                  "WAR-CARD-4DD5013438B532FD3380-P01",
+                  "WAR-CARD-88A752669F30BD5E61C8-P02",
+                  "WAR-CARD-EDBF39BE1B3BBEB5E9D5-P01",
+                  "WAR-CARD-03146D3F4A55F40EAC42-P01",
+                  "WAR-CARD-46D5F00EBA12B9C29B3A-P01",
+                  "WAR-CARD-520A8DF6C4F94B182353-P01",
+                  "WAR-CARD-52FEAB692B9DF722F6C7-P01",
+                  "WAR-CARD-85B67DB87AA631D16059-P01",
+                  "WAR-CARD-2EA38930D803CEE14726-P02",
+                  "WAR-CARD-DD506A6EBBFCBC61A48A-P01",
+                  "WAR-CARD-F8916CD7A4578D3B4392-P01",
+                  "WAR-CARD-E2C44AF6DA3F9CF0E726-P03",
+                  "WAR-CARD-A33E7073799E5B4E81A2-P01",
+                  "WAR-CARD-1D7EEDDCDCEBF6005BB9-P02",
+                  "WAR-CARD-2E6BCEF35AA22511E38E-P01",
+                  "WAR-CARD-605C2686F9140A8CED40-P01",
+                  "WAR-CARD-7F46E079D41EB664D301-P02"
+                ]
+              }
             }
           },
           "b1_region_control": {
@@ -1756,8 +1846,8 @@
           "A120_non_cost_anchor_points": 48.0,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 48.0,
-          "B80_score_points": 51.47,
-          "AB200_score_points": 99.47,
+          "B80_score_points": 52.84,
+          "AB200_score_points": 100.84,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -1837,13 +1927,13 @@
             }
           },
           "B80_adjudication": {
-            "B80_points": 51.47,
+            "B80_points": 52.84,
             "formal_B1_rate": 75.0,
             "formal_B2_rate": 67.0,
-            "formal_B4_rate": 67.0,
+            "formal_B4_rate": 75.0,
             "adjudicated_B1_rate": 75.0,
             "adjudicated_B2_rate": 67.0,
-            "adjudicated_B4_rate": 67.0,
+            "adjudicated_B4_rate": 75.0,
             "consistency_basis": "统一核心净扩张仍排除；B1补回西北、西南同值起终存量及耽罗0.25净增，只兑现边疆绝对守成与非统一新增控制，不重复第一项统一成果。"
           },
           "b1_reaudit": {
@@ -1851,7 +1941,9 @@
             "decision_status": "REVIEWED",
             "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/元.json",
             "final_B1_rate": 75.0
-          }
+          },
+          "control_contribution_route": "B4_BOUNDARY_REAUDIT",
+          "control_contribution_basis": "B4边界复核闭合；不改既有B2归责或主控制成果包。"
         },
         {
           "ruler_id": "RULER-YUAN-TEMUR",

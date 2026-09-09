@@ -1319,12 +1319,8 @@ def _apply_c_within_band_position(row: dict[str, Any]) -> None:
                 + 0.55 * int(counts.get("PROPORTIONATE_RETURN", 0))
                 + 0.2 * int(counts.get("LOW_RETURN", 0))
             ) / known
-            successes = int(outcome_profile.get("major_system_success_count") or 0)
-            failures = int(outcome_profile.get("major_system_failure_count") or 0)
-            decisive_balance = (successes + 1) / (successes + failures + 2)
-            raw_outcome_position = 0.65 * quality + 0.35 * decisive_balance
             confidence = min(1.0, known / 4)
-            outcome_position = 0.5 + (raw_outcome_position - 0.5) * confidence
+            outcome_position = 0.5 + (quality - 0.5) * confidence
         else:
             outcome_position = axis_position
         position_decision = row.get("C_score_within_band_adjudication") or {}

@@ -1218,32 +1218,56 @@
           }
         },
         {
-          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。战争后生产、温饱、人口、民间储蓄和国家财用同时处于严重耗损起点。",
+          "adjudication_reason": "统一后民无盖藏、家庭缺少积蓄，兵役仍反复；前196仍以中国新劳苦停止南越远征，前195长安请耕上林反映土地承受约束。以战后恢复尚未完成的困顿阶段保留主态、交班二档，不把返籍、复田宅诏令当成多数家庭已稳定维生，也不以未达富庶压档。前205关中人相食另计L；后任衣食滋殖不倒灌。",
           "confidence": "MEDIUM_HIGH_RULE_CONSTRAINED",
           "evidence": [
             {
-              "anchor_time": "秦末战争至汉初天下既定，约前209—前202",
-              "described_state": "战争后生产、温饱、人口、民间储蓄和国家财用同时处于严重耗损起点。",
-              "identity_window_gate": "ELIGIBLE",
-              "macro_anchor_specificity": "BOUNDED_MULTI_AXIS_MACRO",
-              "proof_scope_constraints": [],
-              "registration_metric_role": "NOT_REGISTRATION_METRIC",
-              "source_voice": "OFFICIAL_SUMMARY",
-              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
-              "source_voice_matches": [
-                "OFFICIAL_SUMMARY"
-              ],
               "source_works": [
                 "汉书·食货志"
               ],
+              "verbatim_excerpt": "天下既定，民亡蓋臧。",
+              "anchor_time": "前202年统一后的恢复阶段",
+              "described_state": "家庭积蓄尚未恢复；结合役负反复支持战后困顿主态，不等同生存崩溃。",
+              "identity_window_gate": "ELIGIBLE",
               "state_roles": [
-                "接班背景",
-                "汉初起点"
+                "主态",
+                "交班限制"
               ],
-              "verbatim_excerpt": "民失作業，而大饑饉。凡米石五千，人相食，死者過半……天下既定，民亡蓋臧，自天子不能具醇駟，而將相或乘牛車。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ],
+              "proof_scope_constraints": [
+                "不以无储蓄单句证明全部家庭不能维生，须与役负、土地约束合读。"
+              ],
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/10-刘邦治理结果与交班锚裁决.md",
+                "docs/史料通读产物/唐以前编年/汉/卷009-通读总结.md",
+                "docs/史料通读产物/唐以前编年/汉/卷011-通读总结.md",
+                "docs/史料通读产物/唐以前编年/汉/卷012-通读总结.md",
+                "https://zh.wikisource.org/wiki/漢書/卷024"
+              ]
+            },
+            {
+              "source_works": [
+                "资治通鉴卷九"
+              ],
+              "verbatim_excerpt": "关中大饥，米斛万钱，人相食。",
+              "anchor_time": "前205六月",
+              "described_state": "前205六月汉控关中大饥、人相食并赴蜀汉就食，已证主要治理地区的严重家庭生存断裂；这是掌权后实际低谷，不是接手截面。主态二档只消费统一后缺余量、役负仍重的困顿，未消费这一更深生存灾难；严重度与范围支持L3，不猜死亡比例。",
+              "identity_window_gate": "ELIGIBLE",
+              "state_roles": [
+                "全任低谷L3"
+              ],
               "result_axis_owner": [
                 "HOUSEHOLD_SUBSISTENCE_SURPLUS",
                 "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ],
+              "proof_scope_constraints": [
+                "限汉控关中，不据此推算死亡比例或巴蜀同时崩溃。"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷009-通读总结.md",
+                "docs/评分结算/第二项治国净收益/财政民生/10-刘邦治理结果与交班锚裁决.md"
               ]
             }
           ],
@@ -1254,11 +1278,11 @@
           ],
           "peak_band": null,
           "polity": "西汉",
-          "rank": 123,
+          "rank": 167,
           "reign_range": "前202—前195",
           "ruler_id": "RULER-HAN-LIUBANG",
           "ruler_name": "刘邦",
-          "score": 17.1,
+          "score": 15.0,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-1",
@@ -1287,34 +1311,48 @@
           ],
           "material_basis": [
             {
-              "book": "《汉书》",
-              "original_text": "民失作業，而大饑饉。凡米石五千，人相食，死者過半……天下既定，民亡蓋臧，自天子不能具醇駟，而將相或乘牛車。"
+              "book": "《汉书·食货志》",
+              "original_text": "天下既定，民亡蓋臧。"
+            },
+            {
+              "book": "《资治通鉴》卷九",
+              "original_text": "关中大饥，米斛万钱，人相食。"
             }
           ],
-          "stability_basis": "战争后家庭耗损已用于广泛困顿主态；现有秦末至汉初合并材料未分出主态以外、本治理窗口的独立深谷，不将同组大饥再扣。",
-          "loss_grade": "L0",
+          "stability_basis": "前205六月汉控关中大饥、人相食并赴蜀汉就食，已证主要治理地区的严重家庭生存断裂；这是掌权后实际低谷，不是接手截面。主态二档只消费统一后缺余量、役负仍重的困顿，未消费这一更深生存灾难；严重度与范围支持L3，不猜死亡比例。",
+          "loss_grade": "L3",
           "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
           "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
           "state_adjudication": {
             "version": "GOVERNANCE-STATE-RECOVERY-V4",
             "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUBANG",
             "loss_review": {
-              "grade": "L0",
-              "basis": "战争后家庭耗损已用于广泛困顿主态；现有秦末至汉初合并材料未分出主态以外、本治理窗口的独立深谷，不将同组大饥再扣。",
-              "strong_dimensions": [],
-              "main_representativeness": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。战争后生产、温饱、人口、民间储蓄和国家财用同时处于严重耗损起点。",
+              "grade": "L3",
+              "basis": "前205六月汉控关中大饥、人相食并赴蜀汉就食，已证主要治理地区的严重家庭生存断裂；这是掌权后实际低谷，不是接手截面。主态二档只消费统一后缺余量、役负仍重的困顿，未消费这一更深生存灾难；严重度与范围支持L3，不猜死亡比例。",
+              "strong_dimensions": [
+                "severity",
+                "scope"
+              ],
+              "main_representativeness": "统一后民无盖藏、家庭缺少积蓄，兵役仍反复；前196仍以中国新劳苦停止南越远征，前195长安请耕上林反映土地承受约束。以战后恢复尚未完成的困顿阶段保留主态、交班二档，不把返籍、复田宅诏令当成多数家庭已稳定维生，也不以未达富庶压档。前205关中人相食另计L；后任衣食滋殖不倒灌。",
               "full_window_reviewed": true,
-              "deduplication": "战争后家庭耗损已用于广泛困顿主态；现有秦末至汉初合并材料未分出主态以外、本治理窗口的独立深谷，不将同组大饥再扣。",
+              "deduplication": "前205六月汉控关中大饥、人相食并赴蜀汉就食，已证主要治理地区的严重家庭生存断裂；这是掌权后实际低谷，不是接手截面。主态二档只消费统一后缺余量、役负仍重的困顿，未消费这一更深生存灾难；严重度与范围支持L3，不猜死亡比例。",
               "evidence_refs": [
-                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUBANG",
-                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUBANG",
-                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUBANG",
-                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUBANG",
-                "汉书·食货志"
+                "docs/评分结算/第二项治国净收益/财政民生/10-刘邦治理结果与交班锚裁决.md",
+                "docs/史料通读产物/唐以前编年/汉/卷009-通读总结.md",
+                "docs/史料通读产物/唐以前编年/汉/卷011-通读总结.md",
+                "docs/史料通读产物/唐以前编年/汉/卷012-通读总结.md",
+                "https://zh.wikisource.org/wiki/漢書/卷024"
               ]
             },
-            "score": 17.1
-          }
+            "score": 15.0
+          },
+          "evidence_refs": [
+            "docs/评分结算/第二项治国净收益/财政民生/10-刘邦治理结果与交班锚裁决.md",
+            "docs/史料通读产物/唐以前编年/汉/卷009-通读总结.md",
+            "docs/史料通读产物/唐以前编年/汉/卷011-通读总结.md",
+            "docs/史料通读产物/唐以前编年/汉/卷012-通读总结.md",
+            "https://zh.wikisource.org/wiki/漢書/卷024"
+          ]
         },
         {
           "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。接手时承平、府库和行政存量强，随后边疆扩张、频繁改制和不稳定法令迅速增加社会与行政扰动。生产受到禁令和徭役压制，俸禄失常引发私征腐败，流民、战争、饥疫和救济克扣共同造成系统性人口社会崩解。",
@@ -1382,7 +1420,7 @@
           ],
           "peak_band": null,
           "polity": "新",
-          "rank": 168,
+          "rank": 167,
           "reign_range": "6—23",
           "ruler_id": "RULER-XIN-WANGMANG",
           "ruler_name": "王莽",

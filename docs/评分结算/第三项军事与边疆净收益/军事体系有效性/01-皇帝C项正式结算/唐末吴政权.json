@@ -12,81 +12,52 @@
           "ruler_name": "杨行密",
           "polity": "吴",
           "reign_range": "902-905",
-          "combat_delivery_grade": "C1-3",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 70.5,
-          "C_score_points": 35.2,
-          "C_score_band_position": 0.75,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "HIGH",
             "reason": "舰队危机处置、鄂州围城与内乱平定表现稳健；但主政后期短、对汴军仍反复，三轴止3。"
           },
           "observed_parent_cycle_count": 4,
-          "independent_task_count": 4,
-          "independent_task_groups": [
-            "CHAIN-YANGXINGMI-FENGHONGDUO-902",
-            "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904",
-            "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
-            "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_DEDUPLICATED_STRATEGIC_CHAINS",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 4
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 4,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CHAIN-YANGXINGMI-FENGHONGDUO-902",
-                "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904",
-                "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
-                "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 4,
-              "matched_task_count": 4,
-              "known_result_count": 4,
-              "security_result_grade_counts": {
-                "E3_REGIONAL_TERMINAL": 1,
-                "E4_MAJOR_STRATEGIC": 2,
-                "EN1": 1
-              },
-              "security_result_grade_refs": {
-                "E3_REGIONAL_TERMINAL": [
-                  "CHAIN-YANGXINGMI-FENGHONGDUO-902"
-                ],
-                "E4_MAJOR_STRATEGIC": [
-                  "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
-                  "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905"
-                ],
-                "EN1": [
-                  "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期4项，已知结果0项，回报剖面={'UNKNOWN': 4}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "舰队危机处置、鄂州围城与内乱平定表现稳健；但主政后期短、对汴军仍反复，三轴止3。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "PARENT-FENGHONGDUO-FLEET-902",
@@ -98,10 +69,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json",
             "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#PARENT-FENGHONGDUO-FLEET-902",
@@ -112,21 +85,24 @@
             "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#PARENT-HUAINAN-DUHONG-EOZHOU-902-905"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 0,
-          "C_score_axis_surplus_position": 0.0,
-          "C_score_outcome_position": 0.0,
-          "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 4,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "CHAIN-YANGXINGMI-FENGHONGDUO-902",
             "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904",
             "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
             "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905"
-          ]
+          ],
+          "parent_cycle_pending_count": 4,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         }
       ]
     }

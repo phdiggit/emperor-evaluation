@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -107,6 +108,20 @@ def _axis_grade_number(value: object, axis_name: str) -> int:
     return int(text[len(prefix):])
 
 
+def _b4_maturity_review_index(source: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
+    reviews: dict[str, dict[str, Any]] = {}
+    for review in (source.get("b4_maturity_review") or {}).get("records") or []:
+        ruler_id = str(review["ruler_id"])
+        if ruler_id in reviews:
+            raise ValueError("B4成熟度复核存在重复人物")
+        if review.get("status") not in {"CONFIRMED", "EVIDENCE_GAP"}:
+            raise ValueError("B4成熟度复核状态非法")
+        if not str(review.get("basis") or "").strip() or not review.get("source_refs"):
+            raise ValueError("B4成熟度复核缺少依据或引用")
+        reviews[ruler_id] = {key: review[key] for key in ("status", "basis", "source_refs")}
+    return reviews
+
+
 def _validate_ab_control_contribution_contract(
     payload: Mapping[str, Any],
     *, depth_source: Mapping[str, Any] | None = None,
@@ -119,7 +134,13 @@ def _validate_ab_control_contribution_contract(
     if set(expected_packages) - {str(r["ruler_id"]) for r in payload.get("records") or []}:
         raise ValueError("同域实控升级裁决存在池外人物")
     all_depth_ids: set[str] = set()
+    maturity_reviews = _b4_maturity_review_index(depth_source or {})
+    ruler_ids = {str(row["ruler_id"]) for row in payload.get("records") or []}
+    if set(maturity_reviews) - ruler_ids:
+        raise ValueError("B4成熟度复核存在池外人物")
     for row in payload.get("records") or ():
+        if depth_source is not None and row["axes"]["B4"].get("maturity_review") != maturity_reviews.get(str(row["ruler_id"])):
+            raise ValueError(f"{row['ruler_name']} B4成熟度复核与当前裁决源不一致")
         if depth_source is not None and (row.get("control_depth_packages") or []) != expected_packages.get(str(row["ruler_id"]), []):
             raise ValueError("同域实控升级正式证据包与当前裁决源不一致")
         depth_ids = control_depth_package_ids(row)
@@ -1430,10 +1451,15 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
     )
     if actual_markdown != expected_markdown:
         raise ValueError("第三项Markdown与正式JSON渲染结果不一致")
+    maturity_statuses = Counter(
+        (row["axes"]["B4"].get("maturity_review") or {}).get("status", "NOT_REVIEWED")
+        for row in ab_payload["records"]
+    )
     return {
         "status": "PASS", "record_count": len(records),
         "score_ready_count": len(ready), "pending_count": len(records) - len(ready),
         "score_range": payload["score_range"],
+        "B4_maturity_review": dict(maturity_statuses),
     }
 
 
@@ -1466,6 +1492,7 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
     credit_payload = _load(credit_path)
     handoff_payload = _load(workspace_root / AB_HANDOFF_ADJUDICATIONS_PATH)
     narrative_adjudications = _load_a_axis_narrative_adjudications(workspace_root)
+    maturity_reviews = _b4_maturity_review_index(handoff_payload)
     _validate_result_credit_contract(credit_payload, workspace_root=workspace_root)
     credits = _index(credit_payload["records"], "result_credit")
     threat_supplements = {
@@ -1534,6 +1561,11 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 if object_id not in regions:
                     raise ValueError(f"{name}的B1区域证据裁决对象不存在：{object_id}")
                 regions[object_id]["evidence_refs"] = list(dict.fromkeys(map(str, refs)))
+        maturity_review = maturity_reviews.get(str(row["ruler_id"]))
+        if maturity_review is not None:
+            row["axes"]["B4"]["maturity_review"] = maturity_review
+        else:
+            row["axes"]["B4"].pop("maturity_review", None)
         contribution_type = str(row.get("control_contribution_type") or "")
         if contribution_type not in CONTROL_CONTRIBUTION_CAPS:
             raise ValueError(f"{name}控制成果归责类型非法")

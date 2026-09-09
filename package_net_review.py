@@ -1,6 +1,6 @@
-"""Build the GPT scoring-contract package and the settlement review package.
+"""Build the GPT scoring-contract packages and settlement review packages.
 
-Usage: python package_net_review.py [--package {all,contracts,settlements}]
+Usage: python package_net_review.py [--package {all,contracts,settlements,profile-contract,profile-settlements}]
 The default output lives in .tmp/review-packages/. No scoring command is run.
 """
 from __future__ import annotations
@@ -16,16 +16,30 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-PACKAGE_KINDS = ("contracts", "settlements")
-PACKAGE_LABELS = {"contracts": "GPT前四项评分合同", "settlements": "结算摘要"}
+PACKAGE_KINDS = ("contracts", "settlements", "profile-contract", "profile-settlements")
+CONTRACT_PACKAGES = {"contracts", "profile-contract"}
+PACKAGE_LABELS = {
+    "contracts": "GPT前四项评分合同",
+    "settlements": "结算摘要",
+    "profile-contract": "人物画像评估合同",
+    "profile-settlements": "人物画像结算审查包",
+}
 PACKAGE_OUTPUT_NAMES = {
     "contracts": "净收益体系合同精简版.md",
     "settlements": "净收益体系-结算审查包.zip",
+    "profile-contract": "人物画像评估合同.md",
+    "profile-settlements": "人物画像结算审查包.zip",
 }
 NET_BENEFIT_ITEMS = ("第一项", "第二项", "第三项", "第四项")
+PROFILE_AXIS_CODES = ("M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5")
 SUFFIXES = {".md", ".json", ".yml", ".yaml"}
 FORBIDDEN = ("第五项", "人物画像", "profile", "tests", "test", "src", ".codex")
 GOVERNING = "docs/项目总纲/皇帝综合评价体系评分标准.md"
+PROFILE_GOVERNING = "docs/项目总纲/皇帝人物画像评估体系合同.md"
+PROFILE_SETTLEMENT_ROOT = "docs/评分结算/皇帝人物画像"
+PROFILE_SETTLEMENT_MANIFEST = f"{PROFILE_SETTLEMENT_ROOT}/00-已结算轴正式入口.json"
+PROFILE_SETTLEMENT_EXCLUDED_DIRS = {"交叉轴复核", "雷达图小样", "视频人物卡小样", "视频文字小样"}
+PROFILE_SETTLEMENT_REVIEW_TOKENS = ("审计", "audit", "adjudicat", "复核", "复裁")
 
 SETTLEMENT_FIXED = (
     "docs/评分结算/00-皇帝统治成效综合评分榜.md",
@@ -46,6 +60,15 @@ PACKAGE_EXCLUSIONS = {
         "config/下的adjudications、机器配置和其他输入数据",
         "文件名含审计、audit或adjudication的审计文件",
         "第五项、人物画像、代码、测试、公共成果和史料全文",
+    ),
+    "profile-contract": (
+        "人物画像正式结算、审计材料和雷达/视频展示小样",
+        "画像总分、轴内排名或综合榜扩展",
+        "代码、测试、配置输入、公共成果和史料全文",
+    ),
+    "profile-settlements": (
+        "人物画像合同、审计/复核材料和雷达/视频展示小样",
+        "第五项、代码、测试、配置输入、公共成果和史料全文",
     ),
 }
 
@@ -70,6 +93,25 @@ CHAT_CONTRACT_SOURCES = (
     "docs/证据规则/军事成本高档与证据裁决合同.md",
     "docs/证据规则/军事对手战争机器O档合同.md",
 )
+
+PROFILE_CONTRACT_SOURCES = (
+    PROFILE_GOVERNING,
+    "docs/分项规则/人物画像轴/00-共同数据与发布合同.md",
+    "docs/分项规则/人物画像轴/01-画像全池工作流合同.md",
+    "docs/分项规则/人物画像轴/02-画像校准与首轮校准合同.md",
+    "docs/分项规则/人物画像轴/03-画像外部印象对照合同.md",
+    "docs/分项规则/人物画像轴/04-画像机器与阅读输出合同.md",
+    "docs/分项规则/人物画像轴/05-画像轴级正式验收合同.md",
+    "docs/分项规则/人物画像轴/M1-军事判断与统帅能力.md",
+    "docs/分项规则/人物画像轴/M2-外交博弈与对外联盟能力.md",
+    "docs/分项规则/人物画像轴/M3-民生财政建设.md",
+    "docs/分项规则/人物画像轴/M4-内部政治联盟与集团整合.md",
+    "docs/分项规则/人物画像轴/C1-战略判断与风险控制.md",
+    "docs/分项规则/人物画像轴/C2-信息处理、学习与纠错.md",
+    "docs/分项规则/人物画像轴/C3-人才识别、配置与授权.md",
+    "docs/分项规则/人物画像轴/C5-权力运用风格与克制.md",
+)
+PROFILE_CONTRACT_DOCUMENT = "人物画像评估合同.md"
 
 # (archive name, ((source path, section-heading regexes to omit), ...))
 CHAT_CONTRACT_RECIPES = (
@@ -208,6 +250,72 @@ def validate_package_kind(package: str) -> str:
     return package
 
 
+def _validate_source_path(root: Path, path: Path, *, suffix: str | None = None) -> None:
+    if not path.is_file():
+        raise FileNotFoundError(path)
+    if path.is_symlink() or not path.resolve().is_relative_to(root):
+        raise ValueError(f"不接受符号链接或仓库外文件：{path}")
+    if suffix is not None and path.suffix.lower() != suffix:
+        raise ValueError(f"来源文件类型不符合白名单：{path}")
+
+
+def _collect_profile_contract_sources(root: Path) -> list[Path]:
+    selected = {root / name for name in PROFILE_CONTRACT_SOURCES}
+    for path in selected:
+        _validate_source_path(root, path, suffix=".md")
+    return sorted(selected, key=lambda p: p.relative_to(root).as_posix())
+
+
+def _profile_settlement_allowed(path: Path, root: Path) -> bool:
+    if not path.is_file() or path.suffix.lower() not in {".md", ".json"}:
+        return False
+    relative = path.relative_to(root / PROFILE_SETTLEMENT_ROOT)
+    if any(part in PROFILE_SETTLEMENT_EXCLUDED_DIRS for part in relative.parts[:-1]):
+        return False
+    lower_name = path.name.lower()
+    return not any(token in lower_name or token in path.name
+                   for token in PROFILE_SETTLEMENT_REVIEW_TOKENS)
+
+
+def _collect_profile_settlements(root: Path) -> list[Path]:
+    profile_root = root / PROFILE_SETTLEMENT_ROOT
+    if not profile_root.is_dir():
+        raise FileNotFoundError(profile_root)
+    selected = {
+        path for path in profile_root.rglob("*")
+        if _profile_settlement_allowed(path, root)
+    }
+    manifest_path = root / PROFILE_SETTLEMENT_MANIFEST
+    _validate_source_path(root, manifest_path, suffix=".json")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8-sig"))
+    axes = manifest.get("axes") if isinstance(manifest, dict) else None
+    if not isinstance(axes, list) or len(axes) != len(PROFILE_AXIS_CODES):
+        raise ValueError("画像正式manifest未登记完整八轴")
+    registered_axes = [axis.get("axis_code") for axis in axes]
+    if registered_axes != list(PROFILE_AXIS_CODES):
+        raise ValueError("画像正式manifest轴序与合同不一致")
+    for axis in axes:
+        for key in ("json", "markdown"):
+            relative = str(axis.get(key) or "")
+            if not relative or Path(relative).is_absolute() or ".." in Path(relative).parts:
+                raise ValueError(f"画像正式manifest路径非法：{relative}")
+            expected = profile_root / Path(relative)
+            _validate_source_path(root, expected)
+            if expected not in selected:
+                raise ValueError(f"画像正式入口未入包：{relative}")
+    for path in selected:
+        _validate_source_path(root, path)
+    return sorted(selected, key=lambda p: p.relative_to(root).as_posix())
+
+
+def _package_entry_allowed(root: Path, name: str, package: str) -> bool:
+    if package != "profile-settlements":
+        return allowed(name)
+    if name in {"文件清单.json", "00-审查说明.md"}:
+        return True
+    return _profile_settlement_allowed(root / Path(name), root)
+
+
 def current_item_directories(root: Path, parent: str) -> list[Path]:
     base = root / parent
     if not base.is_dir():
@@ -247,6 +355,10 @@ def collect(root: Path, package: str) -> list[Path]:
             if path.suffix.lower() != ".md":
                 raise ValueError(f"聊天合同源必须是Markdown：{path}")
         return sorted(selected, key=lambda p: p.relative_to(root).as_posix())
+    if package == "profile-contract":
+        return _collect_profile_contract_sources(root)
+    if package == "profile-settlements":
+        return _collect_profile_settlements(root)
 
     selected = {root / name for name in PACKAGE_FIXED[package]}
     directories = [root / name for name in PACKAGE_EXTRA_DIRS[package]]
@@ -859,10 +971,180 @@ def _prepare_chat_contract_package(root: Path) -> tuple[dict[str, bytes], dict]:
     return entries, manifest
 
 
+def _prepare_profile_contract_package(root: Path) -> tuple[dict[str, bytes], dict]:
+    sources = _collect_profile_contract_sources(root)
+    content = _build_profile_contract_document(root)
+    source_inventory = []
+    for path in sources:
+        relative = path.relative_to(root).as_posix()
+        raw = path.read_bytes()
+        raw.decode("utf-8-sig")
+        source_inventory.append(
+            {
+                "path": relative,
+                "bytes": len(raw),
+                "sha256": hashlib.sha256(raw).hexdigest(),
+            }
+        )
+    generated_inventory = [
+        {
+            "path": PROFILE_CONTRACT_DOCUMENT,
+            "bytes": len(content),
+            "sha256": hashlib.sha256(content).hexdigest(),
+            "source_paths": [item["path"] for item in source_inventory],
+            "transformation": "PROFILE_CONTRACT_SEMANTIC_COMPRESSION",
+        }
+    ]
+    manifest = {
+        "format": "profile-assessment-contract-package-v1",
+        "package": "profile-contract",
+        "package_label": PACKAGE_LABELS["profile-contract"],
+        "source": "CURRENT_WORKING_TREE_INCLUDING_UNCOMMITTED_CHANGES",
+        "scope": list(PROFILE_AXIS_CODES),
+        "file_count": len(generated_inventory),
+        "source_file_count": len(source_inventory),
+        "uncompressed_source_bytes": sum(item["bytes"] for item in source_inventory),
+        "uncompressed_archive_content_bytes": sum(item["bytes"] for item in generated_inventory),
+        "source_files": source_inventory,
+        "files": generated_inventory,
+        "exclusions": list(PACKAGE_EXCLUSIONS["profile-contract"]),
+    }
+    entries = {
+        PROFILE_CONTRACT_DOCUMENT: content,
+        "文件清单.json": encode_json(manifest),
+        "00-审查说明.md": _profile_contract_review_note(),
+    }
+    return entries, manifest
+
+
 def _compose_chat_contract_document(entries: dict[str, bytes]) -> bytes:
     sections = [entries["00-审查说明.md"].decode("utf-8")]
     for archive_name, _ in CHAT_CONTRACT_RECIPES:
         sections.append(entries[archive_name].decode("utf-8"))
+    return ("\n\n---\n\n".join(section.rstrip() for section in sections) + "\n").encode("utf-8")
+
+
+def _profile_contract_review_note() -> bytes:
+    text = (
+        "# 人物画像评估合同（导出说明）\n\n"
+        "正文是从当前列入白名单的人物画像合同源提炼的语义精简版，完整源合同与源哈希仍由打包脚本校验。"
+        "本文件不含正式逐人结算；画像独立于五项评分，不生成画像总分、轴内排名或综合榜。\n"
+    )
+    return text.encode("utf-8")
+
+
+def _build_profile_contract_document(root: Path) -> bytes:
+    del root  # Source existence and hashes are checked by _prepare_profile_contract_package.
+    text = dedent(
+        """
+        # 人物画像评估合同
+
+        > `FORMAL-V2.1 / EIGHT-AXES-FORMALLY-SETTLED`。这是当前源合同的语义精简阅读版，不替代完整合同、正式JSON或同名Markdown。
+        > 人物画像只描述本人在真实情境中的能力结构、行为倾向和稳定短板；独立于五项评分，不设画像总分、轴内排名或综合榜。
+        > 固定发布顺序为`M1、M2、M3、M4、C1、C2、C3、C5`；各轴独立裁决，不因一个轴的变化强制改写其他轴。
+
+        ## 1. 对象与总边界
+
+        评价对象使用正式准入池的稳定`ruler_id`和共同实际权力窗口，窗口按真实选择、否决、授权和归责确定，不以名义在位机械替代。画像只在本人确有适用机会的轴上裁决：先判适用性，再按该轴最低证据范围发布档位、位置和雷达值；`NOT_APPLICABLE`不是零分。
+
+        画像不把国力、版图、国家成果、王朝声望、名臣数量、政策数量、材料数量或外部名次当作本人能力。外部排行只用于发现反差，不是证据或目标；同一事实只有在命题、路由和消费含义独立时才可跨轴辅助引用。
+
+        | 状态 | 处理 |
+        |---|---|
+        | `PROFILE_READY` / `AXIS_READY` | 八轴或单轴已完成适用性、最低证据、语义裁决和发布字段。 |
+        | `EVIDENCE_LIMITED` | 声明范围内检索已完成，但只能支持有界画像；仍须给适用轴档位并标低置信度和限制。 |
+        | `UNRESOLVED_EVIDENCE_GAP` | 关键链或冲突未闭合，只能留在工作状态，不进入正式雷达图。 |
+        | `NOT_APPLICABLE` | 构念对人物确实不适用，不换算为零。 |
+
+        ## 2. 共同证据、归责与去重
+
+        每个可计父情境都要能回答：当时是什么问题和可行选择，本人知道什么，作了什么判断/命令/授权/否决/维持/纠正或明确放任，过程如何运行，反馈是否到达，结果是什么，哪一部分由本人负责，以及相反证据、限制和史源在哪里。输入事件的`profile_episode_id`与轴内聚合的`parent_id`/`parent_ref`分开，不能用人物ID或日期冒充父链。
+
+        - 能力须本人有选择和责任机会；臣下、团队、前任、继任者和外部冲击的结果不能整包上收。结果只能验证选择，不能代替能力证据。
+        - 共同实际权力窗口使用规范池真源；创业从属、最高责任中心、巩固期、成熟统治和晚期交接的权限差异写入阶段与归责，不用缩短窗口偷换结论。
+        - 正负证使用同一构念门。单次高光、单次极端失败、名望或“未发现负面”都不自动构成历史级档位；早善晚退须有具体反馈后复发、扩大或反转证据。
+        - 一个事件先定一个主路由：战略优先级归C1，认知更新归C2，个人选人配置归C3，集团利益信用归M4，战争解题归M1，外交交换归M2，权力比例与强制边界归C5，民生财政结果由M3按第二项正式事实统合。辅助投影必须另证构念并写明理由，不复制档位或分值。
+        - 同一结果、损害、战争成本、恢复或名臣成果不得因多来源、多标签或多轴展示重复消费。画像不反写五项分数，M3也不把`I2.C1—I2.C4`分数相加或一对一转成画像档位。
+
+        ## 3. 证据厚度、置信度与材料密度
+
+        | 等级 | 最低含义 |
+        |---|---|
+        | `E0` | 关键行为链或最低范围未定位，不能验收。 |
+        | `E1` | 一个或少量闭合情境，或机制/阶段/对象偏窄；可给低置信度有界档。 |
+        | `E2` | 多个独立情境，或一条能展示变化的完整生命周期；给中置信度并列缺口。 |
+        | `E3` | 主要命题已有代表性情境，归责、反例和必要限制已复核；可给高置信度，但不预设高档。 |
+
+        `EPISODE_TAG`表示单事件有限外推，`BOUNDED_PROFILE`表示已观察机制和变化范围，`FULL_GRADE`表示主要主张有本人行为、归责、可定位史源、范围限制且无影响结论的未决冲突。`FULL_GRADE`不等于完整生涯通读，也不要求穷尽反例。
+
+        `MATERIAL_DENSITY_LIMITED`是置信度和外推限制，不是自动降档，也不要求补齐完整生涯史。只有G4/G5、单向强画像、关键阶段明显偏窄或反例可能改变结论时，才做定向复核；不得用全池统一数量门、全文通读、父链条数或命中关键词直接定档。缺料仍须说明已见模式、未观察范围和可改档材料，不能默认中性。
+
+        ## 4. 统一档位与发布值
+
+        先裁语义档，再按固定表投影；LOW/MID/HIGH表示典型表现、下沿、恢复、阶段一致性和未决范围，不是材料数量或父链数量加减。
+
+        | 档位 | 共同语义 | 百分区间 |
+        |---|---|---:|
+        | G5 | 主要机制和主要适用阶段呈现历史罕见且稳定的典型表现，困难、失误与恢复不能推翻主模式。 | 90—98 |
+        | G4 | 全生涯典型表现明显强于合格统治者，但覆盖、稳定、迁移或下沿尚未达历史罕见。 | 75—89 |
+        | G3 | 多数诊断情境可用，有长短项但不形成稳定强长板或强短板。 | 55—74 |
+        | G2 | 多数情境受限、失衡或依赖补救，仍有可用机制或阶段。 | 35—54 |
+        | G1 | 主要机制或多数适用阶段反复失效，偶有成功不足以改变主模式。 | 15—34 |
+        | G0 | 主要机制和适用阶段呈现罕见、稳定且难恢复的失能模式。 | 0—14 |
+
+        | 档位 | LOW | MID | HIGH |
+        |---|---:|---:|---:|
+        | G0 | 2 | 7 | 12 |
+        | G1 | 18 | 25 | 31 |
+        | G2 | 38 | 45 | 51 |
+        | G3 | 58 | 65 | 71 |
+        | G4 | 77 | 82 | 87 |
+        | G5 | 91 | 94 | 97 |
+
+        雷达值只取上述固定投影。正式输出保留`axis_grade`、`position`、`radar_value/score_100`、`axis_evidence_level`、`output_mode`、`confidence`、`score_status`、父链、典型/下沿、依据、限制和来源；不输出画像总分、轴内排名或综合排序。
+
+        ## 5. 八轴语义边界
+
+        | 轴 | 核心问题 | 只消费的核心命题 | 不得直接替代 |
+        |---|---|---|---|
+        | M1 军事判断与统帅 | 本人如何选战争、统筹战区、临阵解题并处理失败？ | 国家战果、国力、名将成果、第三项总分或名望。 |
+        | M2 外交博弈与对外联盟 | 能否识别外部利益、组织交换、守约并处理拒绝与退出？ | 领土、和平、岁币、国力差；内部集团归M4。 |
+        | M3 民生财政建设 | 在实际窗口内如何建设、维持、承压、恶化并交班？ | `I2.C1—I2.C4`分数相加、政策数量或单一治理高分。 |
+        | M4 内部政治联盟与集团整合 | 能否让统治共同体内异质集团持续合作、接受安排并安全退出？ | M2外部交换、C3个人选人、C5强制伦理、团队成果总量。 |
+        | C1 战略判断与风险控制 | 能否识别主要矛盾、匹配目标资源、保留退出并按反馈调整？ | 成败、版图、寿命、国力或臣下设计。 |
+        | C2 信息处理、学习与纠错 | 能否求真、理解反证、更新判断并避免同构复发？ | 纳谏次数、渠道存在、一次认错或结果正确。 |
+        | C3 人才识别、配置与授权 | 能否选对人、放对岗位、给真实权限，并在反馈后纠偏？ | 名臣数量、终局治绩、集团信用和处置伦理。 |
+        | C5 权力运用风格与克制 | 如何处理惩罚、株连、异议、特权和伤害反馈，是否守比例边界？ | 治绩、私人美德、名望或把C3强授权自动当克制。 |
+
+        ### 5.1 容易误判的轴级门
+
+        - **M1**：武将档案和战役登记是能力锚与复验入口，不是最终档位映射；必须区分本人战略授权、实际主帅/统筹、现场解题、失败反馈和资源优势下失常。跨方向高难表现才可能进入G4/G5，国家整体胜利不能上收为本人统帅。
+        - **M2**：外部身份、关系阶段和转入内部后的切点分开记录；和亲/联姻只有同时通过“结果改善”和“因果归属”两门才计入该父链。高档须多个独立外交生命周期或高压复验，单次会盟、臣使代劳和终局规模不够。
+        - **M3**：按“建设/恢复量→绝对实现高度→稳定与交班→主动成本”判断。`I2.C1—I2.C3`给绝对局面，`I2.C4`给恢复、恶化和DA事实；不求和、不线性换档。本人已实现的建设不能因后期回落被抹掉，但回落、交班失败和本人主动成本必须限制档位。DA只结算尚未被其他结果吸收的残余主动成本，且归C4所有。
+        - **M4**：只认集团级关系生命周期，须闭合吸收/安排、合作兑现、冲突、信用和退出；宴饮、赏赐、单人任免、族群名单或开国团队规模不独立成高档。外部条约归M2，个人配置归C3，惩罚比例归C5。
+        - **C1**：计分父链至少闭合“问题—信息—可行备选—本人选择—资源/预案—反馈—调整—结果—归责”；结果坏不等于本人错，优势条件下反馈后继续加码才形成强负证。G4/G5需要独立重大周期和直接过程锚，不能由MI或父链数量生成。
+        - **C2**：正向生命周期是求真、辨别、更新和后续验证；负向生命周期须有反馈到达、本人理解机会、可行替代和选择性拒绝/复发。一次纳谏、罪己诏、名臣纠偏或无反馈失败不足以定档；G4/G5需多个具名独立生命周期和反例复验。
+        - **C3**：父链闭合“任务—人选—岗位—真实权限—交付—反馈—监督/收权/替换/续授权”。错误清洗或撤职只有在误判、授权失控、人才损害或复发等后果闭合时才是负证；比例与司法伦理另归C5。高档须跨任务或阶段复验。
+        - **C5**：政治案件先区分`ACTIVE / CONTROLLED / ENDED / UNCERTAIN`威胁状态，再分别审必要性、程序、比例、反馈和扩大处置；家属、宗族和普通人口不继承首谋豁免。政治斗争覆盖须主动检查，不能因人物已低档、旧入口未命中或“政敌”标签跳过；拒绝报复或接受不利复核只有在本人确有可行选择时才形成正向克制。
+
+        ## 6. 执行、发布与变更
+
+        1. 按稳定ID建立人物—轴任务，按轴连接可取得入口；先判适用性，再闭合有诊断力的父情境，最后做必要的反例、阶段、密度和同链冲突复核。机械关键词、计数、外部印象和雷达观感只定位复核，不直接定档。
+        2. 正式JSON是唯一机器裁决源，同名Markdown只能是同值阅读视图；审计JSON只反查覆盖、引用、密度和门禁，不能成为第二档位源。完整父链和完整来源保留在JSON，阅读页可以压缩展示但不得改值、改方向或伪装完整来源。
+        3. 规则变化按轴局部更新合同、正式JSON和Markdown，并运行受影响轴验证；共同合同、schema、轴边界或高风险规则变化才重跑全池影响矩阵。不得用跨轴哈希门把一个轴的变动强制传播到其他轴。
+        4. 所有输出保持离线、确定性、零模型、零网络、零数据库写入；画像正式结果不写入五项综合榜，也不得由榜单或名望反推。
+
+        > 本精简版只压缩语义与重复表达，不改变源合同的八轴边界、证据门、固定投影、归责、去重或发布约束；遇到精确字段、例外条款或轴内算法时，回读对应完整源合同。
+        """
+    ).strip()
+    return (text + "\n").encode("utf-8")
+
+
+def _compose_profile_contract_document(entries: dict[str, bytes]) -> bytes:
+    sections = [
+        entries["00-审查说明.md"].decode("utf-8"),
+        entries[PROFILE_CONTRACT_DOCUMENT].decode("utf-8"),
+    ]
     return ("\n\n---\n\n".join(section.rstrip() for section in sections) + "\n").encode("utf-8")
 
 
@@ -873,14 +1155,25 @@ def encode_json(value: object) -> bytes:
 def review_note(package: str) -> bytes:
     if package == "contracts":
         return _chat_review_note()
-    else:
+    if package == "profile-contract":
+        return _profile_contract_review_note()
+    if package == "profile-settlements":
         text = (
-            "# 净收益体系结算摘要包（聊天版）\n\n"
-            "本包保留`docs/评分结算/`下按朝代/分项组织的正式JSON分片和结算Markdown；排除画像、配置输入及审计文件。\n\n"
+            "# 人物画像结算审查包\n\n"
+            "本包保留八个正式画像轴的JSON/Markdown结算、正式轴入口和八轴汇总；"
+            "排除画像合同、审计/复核材料、雷达图与视频展示小样。\n\n"
             "## 使用边界\n\n"
-            "被排除的adjudications和审计文件仍留在正式仓库，不代表正式结果不存在。"
-            "本包不运行重建、不修改分数；正式JSON分片和Markdown阅读页保留。\n"
+            "正式JSON是逐轴裁决真源，Markdown是同值阅读视图；被排除的审计与复核材料仍留在正式仓库，"
+            "不代表正式结算不存在。本包不运行重建、不修改档位或雷达值。\n"
         )
+        return text.encode("utf-8")
+    text = (
+        "# 净收益体系结算摘要包（聊天版）\n\n"
+        "本包保留`docs/评分结算/`下按朝代/分项组织的正式JSON分片和结算Markdown；排除画像、配置输入及审计文件。\n\n"
+        "## 使用边界\n\n"
+        "被排除的adjudications和审计文件仍留在正式仓库，不代表正式结果不存在。"
+        "本包不运行重建、不修改分数；正式JSON分片和Markdown阅读页保留。\n"
+    )
     return text.encode("utf-8")
 
 
@@ -889,6 +1182,8 @@ def prepare(root: Path, package: str) -> tuple[dict[str, bytes], dict]:
     root = root.resolve()
     if package == "contracts":
         return _prepare_chat_contract_package(root)
+    if package == "profile-contract":
+        return _prepare_profile_contract_package(root)
 
     entries: dict[str, bytes] = {}
     inventory = []
@@ -921,11 +1216,19 @@ def prepare(root: Path, package: str) -> tuple[dict[str, bytes], dict]:
             if target not in entries:
                 raise ValueError(f"路由分片未入包：{name} -> {target}")
     manifest = {
-        "format": "net-benefit-settlement-summary-package-v1",
+        "format": (
+            "profile-settlement-review-package-v1"
+            if package == "profile-settlements"
+            else "net-benefit-settlement-summary-package-v1"
+        ),
         "package": package,
         "package_label": PACKAGE_LABELS[package],
         "source": "CURRENT_WORKING_TREE_INCLUDING_UNCOMMITTED_CHANGES",
-        "scope": list(NET_BENEFIT_ITEMS),
+        "scope": (
+            list(PROFILE_AXIS_CODES)
+            if package == "profile-settlements"
+            else list(NET_BENEFIT_ITEMS)
+        ),
         "file_count": len(inventory),
         "uncompressed_source_bytes": sum(item["bytes"] for item in inventory),
         "router_count": routers,
@@ -941,10 +1244,14 @@ def build(root: Path, output: Path, package: str) -> dict:
     package = validate_package_kind(package)
     entries, manifest = prepare(root, package)
     output = output.resolve()
-    if package == "contracts":
+    if package in CONTRACT_PACKAGES:
         if output.suffix.lower() != ".md":
-            raise ValueError("合同精简版输出路径必须以.md结尾")
-        content = _compose_chat_contract_document(entries)
+            raise ValueError("合同阅读版输出路径必须以.md结尾")
+        content = (
+            _compose_chat_contract_document(entries)
+            if package == "contracts"
+            else _compose_profile_contract_document(entries)
+        )
         output.parent.mkdir(parents=True, exist_ok=True)
         with tempfile.NamedTemporaryFile(dir=output.parent, suffix=".md", delete=False) as tmp:
             tmp.write(content)
@@ -954,13 +1261,17 @@ def build(root: Path, output: Path, package: str) -> dict:
         finally:
             temporary.unlink(missing_ok=True)
         if output.read_bytes() != content:
-            raise ValueError("合同精简版写入校验失败")
+            raise ValueError("合同阅读版写入校验失败")
         return {
             "package": package,
             "package_label": PACKAGE_LABELS[package],
             "output": str(output),
             "source_files": manifest["source_file_count"],
-            "document_sections": len(CHAT_CONTRACT_RECIPES),
+            "document_sections": (
+                len(CHAT_CONTRACT_RECIPES)
+                if package == "contracts"
+                else 1
+            ),
             "document_bytes": len(content),
             "uncompressed_source_bytes": manifest["uncompressed_source_bytes"],
         }
@@ -982,7 +1293,7 @@ def build(root: Path, output: Path, package: str) -> dict:
             if archive.testzip() is not None or set(archive.namelist()) != set(entries):
                 raise ValueError("ZIP完整性校验失败")
             for name, content in entries.items():
-                if not allowed(name) or archive.read(name) != content:
+                if not _package_entry_allowed(root, name, package) or archive.read(name) != content:
                     raise ValueError(f"入包内容或范围校验失败：{name}")
         temporary.replace(output)
     finally:
@@ -1003,19 +1314,19 @@ def build(root: Path, output: Path, package: str) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="生成GPT前四项合同精简文档和结算包（合同文档不含结算数据）"
+        description="生成净收益体系和人物画像的合同阅读版与结算审查包"
     )
     parser.add_argument(
         "--package",
         choices=("all",) + PACKAGE_KINDS,
         default="all",
-        help="生成的包；默认同时生成合同包和结算包",
+        help="生成的包；默认同时生成净收益体系与人物画像的合同、结算四个包",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
         default=ROOT / ".tmp/review-packages",
-        help="同时生成两个包时的输出目录",
+        help="批量生成包时的输出目录",
     )
     parser.add_argument(
         "--output",
@@ -1032,7 +1343,7 @@ def main() -> None:
         for package in packages:
             if len(packages) > 1:
                 print(f"[{PACKAGE_LABELS[package]}包]")
-            if package == "contracts":
+            if package in CONTRACT_PACKAGES:
                 print(PACKAGE_OUTPUT_NAMES[package])
             else:
                 for path in collect(ROOT, package):

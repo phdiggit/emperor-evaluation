@@ -27,80 +27,52 @@
           "reign_range": [
             "1820—1850"
           ],
-          "combat_delivery_grade": "C1-1",
-          "operational_sustainability_cap": "C2-2",
-          "system_reliability_cap": "C3-1",
-          "C_overall_grade": "C-1",
-          "C_score_rate": 33.5,
-          "C_score_points": 16.8,
-          "C_score_band_position": 0.25,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "LOW",
             "reason": "存在局部收束，但国家级主要方向失败支配终点；可见有限动员承载，实战兑现与跨任务可靠性均低。"
           },
           "observed_parent_cycle_count": 3,
-          "independent_task_count": 3,
-          "independent_task_groups": [
-            "BLIND-MN-FIRST-OPIUM-WAR-1839-1842",
-            "BLIND-MN-JHANGIR-1820-1828",
-            "BLIND-MN-KASHGAR-1846-1847"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_STRATEGIC_CHAINS_PLUS_FIRST_ITEM_CAPABILITY_ONLY_WHERE_D_WHOLE_CHAIN_EXCLUDED",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 3
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 3,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "BLIND-MN-FIRST-OPIUM-WAR-1839-1842",
-                "BLIND-MN-JHANGIR-1820-1828",
-                "BLIND-MN-KASHGAR-1846-1847"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 3,
-              "matched_task_count": 3,
-              "known_result_count": 3,
-              "security_result_grade_counts": {
-                "E2": 1,
-                "E3_REGIONAL_TERMINAL": 1,
-                "EN3": 1
-              },
-              "security_result_grade_refs": {
-                "E2": [
-                  "BLIND-MN-KASHGAR-1846-1847"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "BLIND-MN-JHANGIR-1820-1828"
-                ],
-                "EN3": [
-                  "BLIND-MN-FIRST-OPIUM-WAR-1839-1842"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期3项，已知结果0项，回报剖面={'UNKNOWN': 3}；重大体系胜绩0项、重大体系失败1项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "存在局部收束，但国家级主要方向失败支配终点；可见有限动员承载，实战兑现与跨任务可靠性均低。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
-          "major_system_failure_refs": [
-            "BLIND-MN-FIRST-OPIUM-WAR-1839-1842"
-          ],
+          "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "BLIND-MN-JHANGIR-1820-1828",
@@ -109,10 +81,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "SRC-QINGSHIGAO-017-1812282-L0249",
             "SRC-QINGSHIGAO-017-1812282-L0251",
@@ -159,21 +133,24 @@
             "docs/史料通读产物/清/清史稿/volume-019.battle-adjudications.json#cards[0].subject_phase_cards[4]",
             "docs/史料通读产物/清/清史稿/volume-019.battle-adjudications.json#cards[7].subject_phase_cards[0]"
           ],
-          "current_item_task_count": 3,
-          "current_item_task_refs": [
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "excluded_founding_unification_refs": [],
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "BLIND-MN-FIRST-OPIUM-WAR-1839-1842",
             "BLIND-MN-JHANGIR-1820-1828",
             "BLIND-MN-KASHGAR-1846-1847"
           ],
-          "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.125,
-          "C_score_outcome_position": 0.125,
-          "C_score_band": {
-            "lower_rate": 30,
-            "upper_rate": 44
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS"
+          "parent_cycle_pending_count": 3,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-PUBLIC-310D1C92CEE1924D",
@@ -182,106 +159,52 @@
           "reign_range": [
             "1850—1861"
           ],
-          "combat_delivery_grade": "C1-1",
-          "operational_sustainability_cap": "C2-2",
-          "system_reliability_cap": "C3-1",
-          "C_overall_grade": "C-1",
-          "C_score_rate": 33.5,
-          "C_score_points": 16.8,
-          "C_score_band_position": 0.25,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "LOW",
             "reason": "存在局部收束，但国家级主要方向失败支配终点；可见有限动员承载，实战兑现与跨任务可靠性均低。"
           },
           "observed_parent_cycle_count": 9,
-          "independent_task_count": 9,
-          "independent_task_groups": [
-            "YZ-SECOND-OPIUM-WAR-1856-1860",
-            "YZ-KASHGAR-KHOQAND-1857",
-            "YZ-TIBET-GURKHA-1855-1856",
-            "YZ-TAIPING-1850-1861",
-            "YZ-NIAN-1851-1861",
-            "YZ-GUIZHOU-1854-1861",
-            "YZ-YUNNAN-HUI-1853-1861",
-            "YZ-GUANGDONG-1854-1856",
-            "YZ-FUJIAN-1853"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_STRATEGIC_CHAINS_PLUS_FIRST_ITEM_CAPABILITY_ONLY_WHERE_D_WHOLE_CHAIN_EXCLUDED",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 9
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 9,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "YZ-SECOND-OPIUM-WAR-1856-1860",
-                "YZ-KASHGAR-KHOQAND-1857",
-                "YZ-TIBET-GURKHA-1855-1856",
-                "YZ-TAIPING-1850-1861",
-                "YZ-NIAN-1851-1861",
-                "YZ-GUIZHOU-1854-1861",
-                "YZ-YUNNAN-HUI-1853-1861",
-                "YZ-GUANGDONG-1854-1856",
-                "YZ-FUJIAN-1853"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 9,
-              "matched_task_count": 9,
-              "known_result_count": 9,
-              "security_result_grade_counts": {
-                "E1": 1,
-                "E2": 2,
-                "E3_REGIONAL_TERMINAL": 3,
-                "EN2": 1,
-                "EN3": 2
-              },
-              "security_result_grade_refs": {
-                "E1": [
-                  "YZ-TIBET-GURKHA-1855-1856"
-                ],
-                "E2": [
-                  "YZ-GUIZHOU-1854-1861",
-                  "YZ-YUNNAN-HUI-1853-1861"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "YZ-KASHGAR-KHOQAND-1857",
-                  "YZ-GUANGDONG-1854-1856",
-                  "YZ-FUJIAN-1853"
-                ],
-                "EN2": [
-                  "YZ-NIAN-1851-1861"
-                ],
-                "EN3": [
-                  "YZ-SECOND-OPIUM-WAR-1856-1860",
-                  "YZ-TAIPING-1850-1861"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期9项，已知结果0项，回报剖面={'UNKNOWN': 9}；重大体系胜绩0项、重大体系失败3项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "存在局部收束，但国家级主要方向失败支配终点；可见有限动员承载，实战兑现与跨任务可靠性均低。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
-          "major_system_failure_refs": [
-            "YZ-SECOND-OPIUM-WAR-1856-1860",
-            "YZ-TAIPING-1850-1861",
-            "YZ-NIAN-1851-1861"
-          ],
+          "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "QSG-XF-FUJIAN-REBELLION-1853",
@@ -297,10 +220,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/史料通读产物/清/清史稿/volume-020.battle-adjudications.json#QSG-XF-GUANGDONG-REBELLIONS-1854-1856",
             "docs/史料通读产物/清/清史稿/volume-020.battle-adjudications.json#cards[0]",
@@ -316,8 +241,16 @@
             "docs/史料通读产物/清/清史稿/volume-020.battle-adjudications.json#cards[8]",
             "docs/史料通读产物/清/清史稿/volume-020.battle-adjudications.json#cards[9].subject_phase_cards[0]"
           ],
-          "current_item_task_count": 9,
-          "current_item_task_refs": [
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "excluded_founding_unification_refs": [],
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "YZ-SECOND-OPIUM-WAR-1856-1860",
             "YZ-KASHGAR-KHOQAND-1857",
             "YZ-TIBET-GURKHA-1855-1856",
@@ -328,15 +261,10 @@
             "YZ-GUANGDONG-1854-1856",
             "YZ-FUJIAN-1853"
           ],
-          "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.125,
-          "C_score_outcome_position": 0.125,
-          "C_score_band": {
-            "lower_rate": 30,
-            "upper_rate": 44
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS"
+          "parent_cycle_pending_count": 9,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-PUBLIC-79839092B61C3D74",
@@ -345,81 +273,52 @@
           "reign_range": [
             "1889-1898"
           ],
-          "combat_delivery_grade": "C1-1",
-          "operational_sustainability_cap": "C2-2",
-          "system_reliability_cap": "C3-1",
-          "C_overall_grade": "C-1",
-          "C_score_rate": 33.5,
-          "C_score_points": 16.8,
-          "C_score_band_position": 0.25,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "LOW",
             "reason": "存在局部收束，但国家级主要方向失败支配终点；可见有限动员承载，实战兑现与跨任务可靠性均低。"
           },
           "observed_parent_cycle_count": 3,
-          "independent_task_count": 3,
-          "independent_task_groups": [
-            "CHAIN-QING-FIRST-SINO-JAPANESE-WAR-1894-1895",
-            "CHAIN-QING-GERMAN-JIAOZHOU-SEIZURE-1897-1898",
-            "QSG-GX-GANSU-HUI-1895-1896"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_STRATEGIC_CHAINS_PLUS_FIRST_ITEM_CAPABILITY_ONLY_WHERE_D_WHOLE_CHAIN_EXCLUDED",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 3
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 3,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CHAIN-QING-FIRST-SINO-JAPANESE-WAR-1894-1895",
-                "CHAIN-QING-GERMAN-JIAOZHOU-SEIZURE-1897-1898",
-                "QSG-GX-GANSU-HUI-1895-1896"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 3,
-              "matched_task_count": 3,
-              "known_result_count": 3,
-              "security_result_grade_counts": {
-                "E3_REGIONAL_TERMINAL": 1,
-                "EN2": 1,
-                "EN3": 1
-              },
-              "security_result_grade_refs": {
-                "E3_REGIONAL_TERMINAL": [
-                  "QSG-GX-GANSU-HUI-1895-1896"
-                ],
-                "EN2": [
-                  "CHAIN-QING-GERMAN-JIAOZHOU-SEIZURE-1897-1898"
-                ],
-                "EN3": [
-                  "CHAIN-QING-FIRST-SINO-JAPANESE-WAR-1894-1895"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期3项，已知结果0项，回报剖面={'UNKNOWN': 3}；重大体系胜绩0项、重大体系失败2项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "存在局部收束，但国家级主要方向失败支配终点；可见有限动员承载，实战兑现与跨任务可靠性均低。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
-          "major_system_failure_refs": [
-            "CHAIN-QING-FIRST-SINO-JAPANESE-WAR-1894-1895",
-            "CHAIN-QING-GERMAN-JIAOZHOU-SEIZURE-1897-1898"
-          ],
+          "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "QSG-GX-FIRST-SINO-JAPANESE-1894-1895",
@@ -428,10 +327,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#QSG-GX-FIRST-SINO-JAPANESE-1894-1895",
             "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#QSG-GX-JIAOZHOU-1897-1898",
@@ -443,21 +344,24 @@
             "docs/史料通读产物/清/清史稿/volume-024.battle-adjudications.json#cards[3].subject_phase_cards[0]",
             "docs/史料通读产物/清/清史稿/volume-024.battle-adjudications.json#cards[6].subject_phase_cards[0]"
           ],
-          "current_item_task_count": 3,
-          "current_item_task_refs": [
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "excluded_founding_unification_refs": [],
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "CHAIN-QING-FIRST-SINO-JAPANESE-WAR-1894-1895",
             "CHAIN-QING-GERMAN-JIAOZHOU-SEIZURE-1897-1898",
             "QSG-GX-GANSU-HUI-1895-1896"
           ],
-          "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.125,
-          "C_score_outcome_position": 0.125,
-          "C_score_band": {
-            "lower_rate": 30,
-            "upper_rate": 44
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS"
+          "parent_cycle_pending_count": 3,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-ROSTER-D4955237564AB2D6",
@@ -468,128 +372,52 @@
             "1875-1889",
             "1898-1908"
           ],
-          "combat_delivery_grade": "C1-2",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-2",
-          "C_overall_grade": "C-2",
-          "C_score_rate": 52.0,
-          "C_score_points": 26.0,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "长期或多方向投入证明持续承载可到3，但外部/高压任务的交付与跨任务可靠性受重大失败限制，分别只到2。"
           },
           "observed_parent_cycle_count": 15,
-          "independent_task_count": 15,
-          "independent_task_groups": [
-            "CX-WESTERN-TREATY-CRISES-1868-1870",
-            "CX-VIETNAM-BORDER-BANDITS-1868-1881",
-            "CX-KOREA-IMO-1882",
-            "CX-SINO-FRENCH-1883-1885",
-            "CX-BOXER-EIGHT-NATIONS-1900-1901",
-            "CX-RUSSIAN-MANCHURIA-1905",
-            "CX-TAIPING-1861-1865",
-            "CX-NIAN-1861-1868",
-            "CX-SHAAN-GAN-HUI-1862-1875",
-            "CX-XINJIANG-1864-1879",
-            "CX-YUNNAN-HUI-1861-1877",
-            "CX-GUIZHOU-1861-1872",
-            "CX-TAIWAN-DAICHAOCHUN-1862-1863",
-            "CX-SONGPAN-1861-1865",
-            "CX-GUANGXI-1903-1905"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_STRATEGIC_CHAINS_PLUS_FIRST_ITEM_CAPABILITY_ONLY_WHERE_D_WHOLE_CHAIN_EXCLUDED",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 15
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 15,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CX-WESTERN-TREATY-CRISES-1868-1870",
-                "CX-VIETNAM-BORDER-BANDITS-1868-1881",
-                "CX-KOREA-IMO-1882",
-                "CX-SINO-FRENCH-1883-1885",
-                "CX-BOXER-EIGHT-NATIONS-1900-1901",
-                "CX-RUSSIAN-MANCHURIA-1905",
-                "CX-TAIPING-1861-1865",
-                "CX-NIAN-1861-1868",
-                "CX-SHAAN-GAN-HUI-1862-1875",
-                "CX-XINJIANG-1864-1879",
-                "CX-YUNNAN-HUI-1861-1877",
-                "CX-GUIZHOU-1861-1872",
-                "CX-TAIWAN-DAICHAOCHUN-1862-1863",
-                "CX-SONGPAN-1861-1865",
-                "CX-GUANGXI-1903-1905"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 15,
-              "matched_task_count": 15,
-              "known_result_count": 15,
-              "security_result_grade_counts": {
-                "E0": 3,
-                "E2": 2,
-                "E3_MAJOR_STAGE": 1,
-                "E3_REGIONAL_TERMINAL": 2,
-                "E4_MAJOR_STRATEGIC": 4,
-                "EN1": 2,
-                "EN3": 1
-              },
-              "security_result_grade_refs": {
-                "E0": [
-                  "CX-WESTERN-TREATY-CRISES-1868-1870",
-                  "CX-RUSSIAN-MANCHURIA-1905",
-                  "CX-GUANGXI-1903-1905"
-                ],
-                "E2": [
-                  "CX-VIETNAM-BORDER-BANDITS-1868-1881",
-                  "CX-KOREA-IMO-1882"
-                ],
-                "E3_MAJOR_STAGE": [
-                  "CX-SINO-FRENCH-1883-1885"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "CX-XINJIANG-1864-1879",
-                  "CX-GUIZHOU-1861-1872"
-                ],
-                "E4_MAJOR_STRATEGIC": [
-                  "CX-TAIPING-1861-1865",
-                  "CX-NIAN-1861-1868",
-                  "CX-SHAAN-GAN-HUI-1862-1875",
-                  "CX-YUNNAN-HUI-1861-1877"
-                ],
-                "EN1": [
-                  "CX-TAIWAN-DAICHAOCHUN-1862-1863",
-                  "CX-SONGPAN-1861-1865"
-                ],
-                "EN3": [
-                  "CX-BOXER-EIGHT-NATIONS-1900-1901"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期15项，已知结果0项，回报剖面={'UNKNOWN': 15}；重大体系胜绩0项、重大体系失败1项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "长期或多方向投入证明持续承载可到3，但外部/高压任务的交付与跨任务可靠性受重大失败限制，分别只到2。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
-          "major_system_failure_refs": [
-            "CX-BOXER-EIGHT-NATIONS-1900-1901"
-          ],
+          "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "QSG-GX-BOXER-1900-1901",
@@ -618,10 +446,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_THREE_DISCONTINUOUS_WINDOWS",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/史料通读产物/清/清史稿/volume-021.battle-adjudications.json#QSG021-B11",
             "docs/史料通读产物/清/清史稿/volume-021.battle-adjudications.json#QSG021-B13",
@@ -655,24 +485,8 @@
             "docs/史料通读产物/清/清史稿/volume-024.battle-adjudications.json#cards[17].subject_phase_cards[0]",
             "docs/史料通读产物/清/清史稿/volume-024.battle-adjudications.json#cards[27].subject_phase_cards[0]"
           ],
-          "current_item_task_count": 15,
-          "current_item_task_refs": [
-            "CX-WESTERN-TREATY-CRISES-1868-1870",
-            "CX-VIETNAM-BORDER-BANDITS-1868-1881",
-            "CX-KOREA-IMO-1882",
-            "CX-SINO-FRENCH-1883-1885",
-            "CX-BOXER-EIGHT-NATIONS-1900-1901",
-            "CX-RUSSIAN-MANCHURIA-1905",
-            "CX-TAIPING-1861-1865",
-            "CX-NIAN-1861-1868",
-            "CX-SHAAN-GAN-HUI-1862-1875",
-            "CX-XINJIANG-1864-1879",
-            "CX-YUNNAN-HUI-1861-1877",
-            "CX-GUIZHOU-1861-1872",
-            "CX-TAIWAN-DAICHAOCHUN-1862-1863",
-            "CX-SONGPAN-1861-1865",
-            "CX-GUANGXI-1903-1905"
-          ],
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
           "active_rule_windows": [
             {
               "window_ref": "CIXI-REGENCY-1861-1873",
@@ -732,14 +546,33 @@
             "CHAIN-QING-GERMAN-JIAOZHOU-SEIZURE-1897-1898"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.1667,
-          "C_score_outcome_position": 0.1667,
-          "C_score_band": {
-            "lower_rate": 45,
-            "upper_rate": 59
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS"
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "CX-WESTERN-TREATY-CRISES-1868-1870",
+            "CX-VIETNAM-BORDER-BANDITS-1868-1881",
+            "CX-KOREA-IMO-1882",
+            "CX-SINO-FRENCH-1883-1885",
+            "CX-BOXER-EIGHT-NATIONS-1900-1901",
+            "CX-RUSSIAN-MANCHURIA-1905",
+            "CX-TAIPING-1861-1865",
+            "CX-NIAN-1861-1868",
+            "CX-SHAAN-GAN-HUI-1862-1875",
+            "CX-XINJIANG-1864-1879",
+            "CX-YUNNAN-HUI-1861-1877",
+            "CX-GUIZHOU-1861-1872",
+            "CX-TAIWAN-DAICHAOCHUN-1862-1863",
+            "CX-SONGPAN-1861-1865",
+            "CX-GUANGXI-1903-1905"
+          ],
+          "parent_cycle_pending_count": 15,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
@@ -748,86 +581,52 @@
           "reign_range": [
             "1722—1735"
           ],
-          "combat_delivery_grade": "C1-2",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-2",
-          "C_overall_grade": "C-2",
-          "C_score_rate": 52.0,
-          "C_score_points": 26.0,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "长期或多方向投入证明持续承载可到3，但外部/高压任务的交付与跨任务可靠性受重大失败限制，分别只到2。"
           },
           "observed_parent_cycle_count": 5,
-          "independent_task_count": 5,
-          "independent_task_groups": [
-            "YZ-DZUNGAR",
-            "YZ-ZHONGMIAO",
-            "YZ-GUZHOU",
-            "YZ-QINGHAI",
-            "YZ-TIBET"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_STRATEGIC_CHAINS_PLUS_FIRST_ITEM_CAPABILITY_ONLY_WHERE_D_WHOLE_CHAIN_EXCLUDED",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 5
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 5,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "YZ-DZUNGAR",
-                "YZ-ZHONGMIAO",
-                "YZ-GUZHOU",
-                "YZ-QINGHAI",
-                "YZ-TIBET"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 5,
-              "matched_task_count": 5,
-              "known_result_count": 5,
-              "security_result_grade_counts": {
-                "E2": 3,
-                "E3_MAJOR_STAGE": 1,
-                "EN2": 1
-              },
-              "security_result_grade_refs": {
-                "E2": [
-                  "YZ-ZHONGMIAO",
-                  "YZ-GUZHOU",
-                  "YZ-TIBET"
-                ],
-                "E3_MAJOR_STAGE": [
-                  "YZ-QINGHAI"
-                ],
-                "EN2": [
-                  "YZ-DZUNGAR"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期5项，已知结果0项，回报剖面={'UNKNOWN': 5}；重大体系胜绩0项、重大体系失败1项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "长期或多方向投入证明持续承载可到3，但外部/高压任务的交付与跨任务可靠性受重大失败限制，分别只到2。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
-          "major_system_failure_refs": [
-            "YZ-DZUNGAR"
-          ],
+          "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "RULER-PUBLIC-4EB7AC987FECC59F::1722—1735::QSG-009-010-QING-GUZHOU-MIAO-1735-1736",
@@ -838,10 +637,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#RULER-PUBLIC-4EB7AC987FECC59F::1722—1735::QSG-009-QING-DZUNGAR-WAR-1731-1732",
             "docs/史料通读产物/清/清史稿/volume-009.battle-adjudications.json#cards[1].subject_phase_cards[0]",
@@ -850,23 +651,26 @@
             "docs/史料通读产物/清/清史稿/volume-009.battle-adjudications.json#cards[4].subject_phase_cards[0]",
             "docs/史料通读产物/清/清史稿/volume-009.battle-adjudications.json#cards[8].subject_phase_cards[0]"
           ],
-          "current_item_task_count": 5,
-          "current_item_task_refs": [
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "excluded_founding_unification_refs": [],
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "YZ-DZUNGAR",
             "YZ-ZHONGMIAO",
             "YZ-GUZHOU",
             "YZ-QINGHAI",
             "YZ-TIBET"
           ],
-          "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.1667,
-          "C_score_outcome_position": 0.1667,
-          "C_score_band": {
-            "lower_rate": 45,
-            "upper_rate": 59
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS"
+          "parent_cycle_pending_count": 5,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-PUBLIC-72F243B5404B1686",
@@ -875,89 +679,52 @@
           "reign_range": [
             "1873-1875"
           ],
-          "combat_delivery_grade": "C1-3",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 63.5,
-          "C_score_points": 31.8,
-          "C_score_band_position": 0.25,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "LOW",
             "reason": "多个独立任务提供实战、持续和可靠性观察，但仍有未收束或负向任务，统一为3/3/3，不进入C4重大胜绩门。"
           },
           "observed_parent_cycle_count": 5,
-          "independent_task_count": 5,
-          "independent_task_groups": [
-            "CHAIN-QING-JAPAN-TAIWAN-1874",
-            "CHAIN-QING-VIETNAM-BORDER-BANDITS-1873-TERMINAL",
-            "QSG-QING-SHAAN-GAN-HUI-1873-TONGZHI-SLICE",
-            "QSG-QING-XINJIANG-HUI-1873-1875-TONGZHI-SLICE",
-            "QSG-TZ-NORTHEAST-BANDITS-1874"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_STRATEGIC_CHAINS_PLUS_FIRST_ITEM_CAPABILITY_ONLY_WHERE_D_WHOLE_CHAIN_EXCLUDED",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 5
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 5,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CHAIN-QING-JAPAN-TAIWAN-1874",
-                "CHAIN-QING-VIETNAM-BORDER-BANDITS-1873-TERMINAL",
-                "QSG-QING-SHAAN-GAN-HUI-1873-TONGZHI-SLICE",
-                "QSG-QING-XINJIANG-HUI-1873-1875-TONGZHI-SLICE",
-                "QSG-TZ-NORTHEAST-BANDITS-1874"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 5,
-              "matched_task_count": 5,
-              "known_result_count": 5,
-              "security_result_grade_counts": {
-                "E1": 1,
-                "E2": 2,
-                "E3_REGIONAL_TERMINAL": 1,
-                "EN2": 1
-              },
-              "security_result_grade_refs": {
-                "E1": [
-                  "CHAIN-QING-JAPAN-TAIWAN-1874"
-                ],
-                "E2": [
-                  "CHAIN-QING-VIETNAM-BORDER-BANDITS-1873-TERMINAL",
-                  "QSG-TZ-NORTHEAST-BANDITS-1874"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "QSG-QING-SHAAN-GAN-HUI-1873-TONGZHI-SLICE"
-                ],
-                "EN2": [
-                  "QSG-QING-XINJIANG-HUI-1873-1875-TONGZHI-SLICE"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期5项，已知结果0项，回报剖面={'UNKNOWN': 5}；重大体系胜绩0项、重大体系失败1项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "多个独立任务提供实战、持续和可靠性观察，但仍有未收束或负向任务，统一为3/3/3，不进入C4重大胜绩门。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
-          "major_system_failure_refs": [
-            "QSG-QING-XINJIANG-HUI-1873-1875-TONGZHI-SLICE"
-          ],
+          "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "QSG-QING-SHAAN-GAN-HUI-1873-TONGZHI-SLICE",
@@ -968,10 +735,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "SRC-QINGSHIGAO-022-2294671-L0279",
             "SRC-QINGSHIGAO-022-2294671-L0281",
@@ -991,23 +760,26 @@
             "docs/史料通读产物/清/清史稿/volume-022.battle-adjudications.json#cards[14].subject_phase_cards[0]",
             "docs/史料通读产物/清/清史稿/volume-022.battle-adjudications.json#cards[15].subject_phase_cards[0]"
           ],
-          "current_item_task_count": 5,
-          "current_item_task_refs": [
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "excluded_founding_unification_refs": [],
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "CHAIN-QING-JAPAN-TAIWAN-1874",
             "CHAIN-QING-VIETNAM-BORDER-BANDITS-1873-TERMINAL",
             "QSG-QING-SHAAN-GAN-HUI-1873-TONGZHI-SLICE",
             "QSG-QING-XINJIANG-HUI-1873-1875-TONGZHI-SLICE",
             "QSG-TZ-NORTHEAST-BANDITS-1874"
           ],
-          "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 0,
-          "C_score_axis_surplus_position": 0.0,
-          "C_score_outcome_position": 0.0,
-          "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS"
+          "parent_cycle_pending_count": 5,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-PUBLIC-93F6E8CA07BBD59F",
@@ -1042,74 +814,42 @@
             "QSG016-B04"
           ],
           "task_window_scope_review": "当前父周期仅消费本人实际窗口阶段；白莲教前期、江西西宁州及1797苗乱作为重叠主体背景，不计入颙琰当前任务信用。",
-          "combat_delivery_grade": "C1-3",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 67.0,
-          "C_score_points": 33.5,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "多个独立任务提供实战、持续和可靠性观察，但仍有未收束或负向任务，统一为3/3/3，不进入C4重大胜绩门。"
           },
           "observed_parent_cycle_count": 4,
-          "independent_task_count": 4,
-          "independent_task_groups": [
-            "CHAIN-QING-CAIQIAN-MARITIME-WAR-1804-1809",
-            "QSG-JQ-WHITE-LOTUS-REBELLION-1796-1804",
-            "QSG-JQ-POST-WHITELOTUS-MUTINIES-1806-1807",
-            "QSG-JQ-TIANLI-REBELLION-1813"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_STRATEGIC_CHAINS_PLUS_FIRST_ITEM_CAPABILITY_ONLY_WHERE_D_WHOLE_CHAIN_EXCLUDED",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 4
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 4,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CHAIN-QING-CAIQIAN-MARITIME-WAR-1804-1809",
-                "QSG-JQ-WHITE-LOTUS-REBELLION-1796-1804",
-                "QSG-JQ-POST-WHITELOTUS-MUTINIES-1806-1807",
-                "QSG-JQ-TIANLI-REBELLION-1813"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 4,
-              "matched_task_count": 4,
-              "known_result_count": 4,
-              "security_result_grade_counts": {
-                "E2": 1,
-                "E3_MAJOR_STAGE": 1,
-                "E3_REGIONAL_TERMINAL": 1,
-                "E4_MAJOR_STRATEGIC": 1
-              },
-              "security_result_grade_refs": {
-                "E2": [
-                  "QSG-JQ-POST-WHITELOTUS-MUTINIES-1806-1807"
-                ],
-                "E3_MAJOR_STAGE": [
-                  "QSG-JQ-TIANLI-REBELLION-1813"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "CHAIN-QING-CAIQIAN-MARITIME-WAR-1804-1809"
-                ],
-                "E4_MAJOR_STRATEGIC": [
-                  "QSG-JQ-WHITE-LOTUS-REBELLION-1796-1804"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期4项，已知结果0项，回报剖面={'UNKNOWN': 4}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
             "1797年南笼苗乱发生于乾隆训政、颙琰尚未实际亲政的重叠窗口；该父周期只保留为边界背景，不进入颙琰本人当前C任务。白莲教父周期保留，但当前任务视图只消费1799年后的收束阶段。"
@@ -1117,9 +857,9 @@
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "QSG-JQ-CAIQIAN-PIRACY-1804-1809",
@@ -1129,10 +869,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "SRC-QINGSHIGAO-016-1811978-L0383",
             "SRC-QINGSHIGAO-016-1811978-L0531",
@@ -1150,25 +892,28 @@
             "docs/史料通读产物/清/清史稿/volume-016.battle-adjudications.json#cards[4].subject_phase_cards[0]",
             "docs/史料通读产物/清/清史稿/volume-016.battle-adjudications.json#cards[7].subject_phase_cards[0]"
           ],
-          "current_item_task_count": 4,
-          "current_item_task_refs": [
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "excluded_founding_unification_refs": [],
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "excluded_out_of_window_parent_refs": [
+            "CHAIN-QING-MIAO-TERMINALS-1796-1797"
+          ],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "CHAIN-QING-CAIQIAN-MARITIME-WAR-1804-1809",
             "QSG-JQ-WHITE-LOTUS-REBELLION-1796-1804",
             "QSG-JQ-POST-WHITELOTUS-MUTINIES-1806-1807",
             "QSG-JQ-TIANLI-REBELLION-1813"
           ],
-          "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 0,
-          "C_score_axis_surplus_position": 0.0,
-          "C_score_outcome_position": 0.0,
-          "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "excluded_out_of_window_parent_refs": [
-            "CHAIN-QING-MIAO-TERMINALS-1796-1797"
-          ]
+          "parent_cycle_pending_count": 4,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
@@ -1190,10 +935,8 @@
             "reason": "按1个去重体系压力或能力专用父任务裁决：结果=创业统一能力专用证据；己方兵团毁损=由第一项能力窗口回源。C1-4只评价任务兑现，C2-4评价持续动员与恢复，C3-4评价跨阶段和将领可靠性；未把D成果档、成本档或任务数量机械换算成C。"
           },
           "observed_parent_cycle_count": 1,
-          "independent_task_count": 1,
-          "independent_task_groups": [
-            "CAPABILITY_ONLY::TALENT-SUPPLEMENT:努尔哈赤"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
           "task_selection_policy": "FIRST_ITEM_CAPABILITY_ONLY_WINDOW_WHERE_D_UNIFICATION_CHAIN_IS_EXCLUDED",
           "task_outcome_profile": {
@@ -1248,9 +991,14 @@
           "evidence_ceiling": 3,
           "C_score_axis_surplus_position": 0.25,
           "C_score_outcome_position": 0.25,
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 0,
-          "current_item_task_refs": []
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE"
         },
         {
           "ruler_id": "RULER-PUBLIC-A36AC4C1AD8EAA3B",
@@ -1259,74 +1007,52 @@
           "reign_range": [
             "1908—1912"
           ],
-          "combat_delivery_grade": "C1-2",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-2",
-          "C_overall_grade": "C-2",
-          "C_score_rate": 52.0,
-          "C_score_points": 26.0,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "按2个去重体系压力或能力专用父任务裁决：结果={'E2': 1, 'EN3': 1}；己方兵团毁损={'NOT_CLOSED_NO_F3': 1, 'NOT_RECORDED': 1}。C1-2只评价任务兑现，C2-3评价持续动员与恢复，C3-2评价跨阶段和将领可靠性；未把D成果档、成本档或任务数量机械换算成C。"
           },
           "observed_parent_cycle_count": 2,
-          "independent_task_count": 2,
-          "independent_task_groups": [
-            "CHAIN-QING-KHAM-TIBET-CAMPAIGN-1909-1911",
-            "QSG-XINHAI-NATIONAL-COLLAPSE-1911-1912"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_STRATEGIC_CHAINS_PLUS_FIRST_ITEM_CAPABILITY_ONLY_WHERE_D_WHOLE_CHAIN_EXCLUDED",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 2
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 2,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CHAIN-QING-KHAM-TIBET-CAMPAIGN-1909-1911",
-                "QSG-XINHAI-NATIONAL-COLLAPSE-1911-1912"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 2,
-              "matched_task_count": 2,
-              "known_result_count": 2,
-              "security_result_grade_counts": {
-                "E2": 1,
-                "EN3": 1
-              },
-              "security_result_grade_refs": {
-                "E2": [
-                  "CHAIN-QING-KHAM-TIBET-CAMPAIGN-1909-1911"
-                ],
-                "EN3": [
-                  "QSG-XINHAI-NATIONAL-COLLAPSE-1911-1912"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期2项，已知结果0项，回报剖面={'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败1项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "按2个去重体系压力或能力专用父任务裁决：结果={'E2': 1, 'EN3': 1}；己方兵团毁损={'NOT_CLOSED_NO_F3': 1, 'NOT_RECORDED': 1}。C1-2只评价任务兑现，C2-3评价持续动员与恢复，C3-2评价跨阶段和将领可靠性；未把D成果档、成本档或任务数量机械换算成C。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
-          "major_system_failure_refs": [
-            "QSG-XINHAI-NATIONAL-COLLAPSE-1911-1912"
-          ],
+          "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "QSG-XINHAI-NATIONAL-COLLAPSE-1911-1912",
@@ -1334,10 +1060,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "SRC-QINGSHIGAO-025-2692357-L0144",
             "SRC-QINGSHIGAO-025-2692357-L0173",
@@ -1349,19 +1077,22 @@
             "docs/史料通读产物/清/清史稿/volume-025.battle-adjudications.json#QSG-XUANTONG-KHAM-TIBET-CAMPAIGN-1909-1911"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.1667,
-          "C_score_outcome_position": 0.1667,
-          "C_score_band": {
-            "lower_rate": 45,
-            "upper_rate": 59
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 2,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "CHAIN-QING-KHAM-TIBET-CAMPAIGN-1909-1911",
             "QSG-XINHAI-NATIONAL-COLLAPSE-1911-1912"
-          ]
+          ],
+          "parent_cycle_pending_count": 2,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-ROSTER-B32BFAF97E1D9690",
@@ -1383,11 +1114,8 @@
             "reason": "两项可消费的战略性平乱显示军队可完成普通体系任务；统一战争只验证能力，不作为第三项收益或任务质量加分。薄窗口不足以证成C4。"
           },
           "observed_parent_cycle_count": 2,
-          "independent_task_count": 2,
-          "independent_task_groups": [
-            "QSHL-SZ-DONGMING-TIANZHENG-REBELLION-1648",
-            "QSHL-SZ-TIANJIN-BANDITS-1648"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
           "task_selection_policy": "只纳入本人窗口内可检验体系压力父链；第一项已消费的统一推进只留能力专用引用，不进入任务结果、AB或D。",
           "task_outcome_profile": {
@@ -1447,10 +1175,15 @@
             "lower_rate": 60,
             "upper_rate": 74
           },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 0,
           "current_item_task_refs": [],
-          "cross_item_routing_basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。只复用作战能力，不复用安全、控制成果与成本；既有C档位不因路由变化自动升降。"
+          "cross_item_routing_basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。只复用作战能力，不复用安全、控制成果与成本；既有C档位不因路由变化自动升降。",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE"
         },
         {
           "ruler_id": "RULER-PUBLIC-6DACD59C17927ECA",
@@ -1479,87 +1212,52 @@
             "basis": "乾隆内禅后至1799年去世仍训政；颙琰仅在1799年后亲政。1796—1799阶段只作重叠主体历史背景，不把同一阶段的第三项A/C/D信用或成本重复归给另一主体。"
           },
           "task_window_scope_review": "乾隆实际训政至1799；嘉庆元年至四年的相关战争阶段归入重叠主体背景，作为弘历窗口内的阶段证据保留。",
-          "combat_delivery_grade": "C1-4",
-          "operational_sustainability_cap": "C2-4",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 70.5,
-          "C_score_points": 35.2,
-          "C_score_band_position": 0.75,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "HIGH",
             "reason": "西北高难度任务完成并能持续远征，缅甸、安南重大失效与金川重组表明跨方向可靠性不足，C3封顶3。"
           },
           "observed_parent_cycle_count": 5,
-          "independent_task_count": 5,
-          "independent_task_groups": [
-            "HL-DZUNGAR-CONQUEST-1755",
-            "HL-HOJAS-1757-1759",
-            "HL-BURMA",
-            "HL-ANNAM",
-            "HL-SECOND-JINCHUAN-1771-1776"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "只纳入本人窗口内可检验体系压力父链；第一项已消费的统一推进只留能力专用引用，不进入任务结果、AB或D。",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 5
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 5,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "HL-DZUNGAR-CONQUEST-1755",
-                "HL-HOJAS-1757-1759",
-                "HL-BURMA",
-                "HL-ANNAM",
-                "HL-SECOND-JINCHUAN-1771-1776"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 5,
-              "matched_task_count": 5,
-              "known_result_count": 5,
-              "security_result_grade_counts": {
-                "E0": 2,
-                "E3_MAJOR_STAGE": 1,
-                "E3_REGIONAL_TERMINAL": 2
-              },
-              "security_result_grade_refs": {
-                "E0": [
-                  "HL-BURMA",
-                  "HL-ANNAM"
-                ],
-                "E3_MAJOR_STAGE": [
-                  "HL-DZUNGAR-CONQUEST-1755"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "HL-HOJAS-1757-1759",
-                  "HL-SECOND-JINCHUAN-1771-1776"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期5项，已知结果0项，回报剖面={'UNKNOWN': 5}；重大体系胜绩0项、重大体系失败2项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "西北高难度任务完成并能持续远征，缅甸、安南重大失效与金川重组表明跨方向可靠性不足，C3封顶3。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
-          "major_system_failure_refs": [
-            "HL-BURMA",
-            "HL-ANNAM"
-          ],
+          "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "HL-ANNAM",
@@ -1582,31 +1280,36 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#RULER-PUBLIC-6DACD59C17927ECA::1735—1796::QSG-012-QING-HOJAS-WAR-1757-1759",
             "docs/史料通读产物/清/清史稿/volume-012.battle-adjudications.json#cards[11].subject_phase_cards[0]"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 2,
-          "C_score_axis_surplus_position": 0.5,
-          "C_score_outcome_position": 0.5,
-          "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 5,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "HL-DZUNGAR-CONQUEST-1755",
             "HL-HOJAS-1757-1759",
             "HL-BURMA",
             "HL-ANNAM",
             "HL-SECOND-JINCHUAN-1771-1776"
-          ]
+          ],
+          "parent_cycle_pending_count": 5,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
@@ -1615,91 +1318,52 @@
           "reign_range": [
             "1661—1722"
           ],
-          "combat_delivery_grade": "C1-3",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 70.5,
-          "C_score_points": 35.2,
-          "C_score_band_position": 0.75,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "HIGH",
             "reason": "多方向高难度任务总体兑现，噶尔丹三段按独立再授权而非战斗卡累计；援藏首次远征覆没为重要反证但未形成体系崩溃。"
           },
           "observed_parent_cycle_count": 6,
-          "independent_task_count": 6,
-          "independent_task_groups": [
-            "XY-DZUNGAR-1690",
-            "XY-DZUNGAR-1696",
-            "XY-DZUNGAR-1697",
-            "XY-TIBET-RECOVERY",
-            "XY-TAIWAN",
-            "XY-RUSSIA"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "只纳入本人窗口内可检验体系压力父链；第一项已消费的统一推进只留能力专用引用，不进入任务结果、AB或D。",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 6
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 6,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "XY-DZUNGAR-1690",
-                "XY-DZUNGAR-1696",
-                "XY-DZUNGAR-1697",
-                "XY-TIBET-RECOVERY",
-                "XY-TAIWAN",
-                "XY-RUSSIA"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 6,
-              "matched_task_count": 6,
-              "known_result_count": 6,
-              "security_result_grade_counts": {
-                "E2": 1,
-                "E3_MAJOR_STAGE": 1,
-                "E3_REGIONAL_TERMINAL": 3,
-                "E4_MAJOR_STRATEGIC": 1
-              },
-              "security_result_grade_refs": {
-                "E2": [
-                  "XY-DZUNGAR-1690"
-                ],
-                "E3_MAJOR_STAGE": [
-                  "XY-DZUNGAR-1696"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "XY-DZUNGAR-1697",
-                  "XY-TAIWAN",
-                  "XY-RUSSIA"
-                ],
-                "E4_MAJOR_STRATEGIC": [
-                  "XY-TIBET-RECOVERY"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果0项，回报剖面={'UNKNOWN': 6}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "多方向高难度任务总体兑现，噶尔丹三段按独立再授权而非战斗卡累计；援藏首次远征覆没为重要反证但未形成体系崩溃。",
-            "C4重大胜绩门禁未通过：需1项、实有0项，封顶C3。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "RULER-PUBLIC-5B02E75C191C9829::1661—1722::QSG-008-QING-TAIWAN-ZHUYIGUI-1721",
@@ -1712,32 +1376,37 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#RULER-PUBLIC-5B02E75C191C9829::1661—1722::QSG-007-QING-DZUNGAR-ZUUNMOD-WENGJIN-1696",
             "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#RULER-PUBLIC-5B02E75C191C9829::1661—1722::QSG-007-QING-TAIWAN-1683"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 0,
-          "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
-          },
-          "C_score_axis_surplus_position": 0.0,
-          "C_score_outcome_position": 0.0,
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 6,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_band": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "XY-DZUNGAR-1690",
             "XY-DZUNGAR-1696",
             "XY-DZUNGAR-1697",
             "XY-TIBET-RECOVERY",
             "XY-TAIWAN",
             "XY-RUSSIA"
-          ]
+          ],
+          "parent_cycle_pending_count": 6,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
@@ -1746,82 +1415,52 @@
           "reign_range": [
             "1626—1643"
           ],
-          "combat_delivery_grade": "C1-3",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 67.0,
-          "C_score_points": 33.5,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "多方向攻防、朝鲜和蒙古任务证明C4门槛，但宁锦受挫与入关前未完成的主战线使档内只取MID。"
           },
           "observed_parent_cycle_count": 4,
-          "independent_task_count": 4,
-          "independent_task_groups": [
-            "CHAIN-HUANGTAIJI-CHAHAR-MONGOL-1626-1638",
-            "CHAIN-HUANGTAIJI-JOSEON-1627",
-            "CHAIN-HUANGTAIJI-JOSEON-1636-1637",
-            "CHAIN-HUANGTAIJI-NORTHEAST-1626-1643"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "只纳入本人窗口内可检验体系压力父链；第一项已消费的统一推进只留能力专用引用，不进入任务结果、AB或D。",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 4
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 4,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CHAIN-HUANGTAIJI-CHAHAR-MONGOL-1626-1638",
-                "CHAIN-HUANGTAIJI-JOSEON-1627",
-                "CHAIN-HUANGTAIJI-JOSEON-1636-1637",
-                "CHAIN-HUANGTAIJI-NORTHEAST-1626-1643"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 4,
-              "matched_task_count": 4,
-              "known_result_count": 4,
-              "security_result_grade_counts": {
-                "E2": 1,
-                "E3_REGIONAL_TERMINAL": 1,
-                "E4_MAJOR_STRATEGIC": 2
-              },
-              "security_result_grade_refs": {
-                "E2": [
-                  "CHAIN-HUANGTAIJI-NORTHEAST-1626-1643"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "CHAIN-HUANGTAIJI-JOSEON-1627"
-                ],
-                "E4_MAJOR_STRATEGIC": [
-                  "CHAIN-HUANGTAIJI-CHAHAR-MONGOL-1626-1638",
-                  "CHAIN-HUANGTAIJI-JOSEON-1636-1637"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期4项，已知结果0项，回报剖面={'UNKNOWN': 4}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "多方向攻防、朝鲜和蒙古任务证明C4门槛，但宁锦受挫与入关前未完成的主战线使档内只取MID。",
-            "C4重大胜绩门禁未通过：需1项、实有0项，封顶C3。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "QSG-CHAHAR-ALU-1631",
@@ -1887,31 +1526,36 @@
             "FIRST_ITEM_UNIFICATION::CHAIN-HUANGTAIJI-MING-1627-1643"
           ],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#皇太极",
             "docs/史料通读产物/清/清史稿/volume-003.battle-adjudications.json#cards[2].subject_phase_cards[0]"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 0,
-          "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
-          },
-          "C_score_axis_surplus_position": 0.0,
-          "C_score_outcome_position": 0.0,
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 4,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_band": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "cross_item_routing_basis": "对明辽西—松锦统一主链结果和成本归第一项；察哈尔、朝鲜及东北独立链保留。跨项仅复用作战能力，不复用结果与成本。",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "CHAIN-HUANGTAIJI-CHAHAR-MONGOL-1626-1638",
             "CHAIN-HUANGTAIJI-JOSEON-1627",
             "CHAIN-HUANGTAIJI-JOSEON-1636-1637",
             "CHAIN-HUANGTAIJI-NORTHEAST-1626-1643"
           ],
-          "cross_item_routing_basis": "对明辽西—松锦统一主链结果和成本归第一项；察哈尔、朝鲜及东北独立链保留。跨项仅复用作战能力，不复用结果与成本。"
+          "parent_cycle_pending_count": 4,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-PUBLIC-AD29E67DF9E98569",
@@ -1920,69 +1564,52 @@
           "reign_range": [
             "1650-1661"
           ],
-          "combat_delivery_grade": "C1-4",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 67.0,
-          "C_score_points": 33.5,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "窗口内两项边疆/平乱任务可见有限，南方统一仅作能力旁证；不足以在持续性与跨将领可靠性上证成C4。"
           },
           "observed_parent_cycle_count": 2,
-          "independent_task_count": 2,
-          "independent_task_groups": [
-            "FL-AMUR-RUSSIA-1654-1660",
-            "FL-ORDOS-DORJI-1652"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "只纳入本人窗口内可检验体系压力父链；第一项已消费的统一推进只留能力专用引用，不进入任务结果、AB或D。",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 2
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 2,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "FL-AMUR-RUSSIA-1654-1660",
-                "FL-ORDOS-DORJI-1652"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 2,
-              "matched_task_count": 2,
-              "known_result_count": 2,
-              "security_result_grade_counts": {
-                "E2": 2
-              },
-              "security_result_grade_refs": {
-                "E2": [
-                  "FL-AMUR-RUSSIA-1654-1660",
-                  "FL-ORDOS-DORJI-1652"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期2项，已知结果0项，回报剖面={'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "窗口内两项边疆/平乱任务可见有限，南方统一仅作能力旁证；不足以在持续性与跨将领可靠性上证成C4。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "QSG-SZ-AMUR-RUSSIA-1654-1660",
@@ -1992,28 +1619,33 @@
             "FIRST_ITEM_UNIFICATION::QING-SOUTHWEST-CONQUEST-1650-1661"
           ],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#福临",
             "docs/史料通读产物/清/清史稿/volume-005.battle-adjudications.json#cards[11].subject_phase_cards[0]"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.25,
-          "C_score_outcome_position": 0.25,
-          "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 2,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "FL-AMUR-RUSSIA-1654-1660",
             "FL-ORDOS-DORJI-1652"
-          ]
+          ],
+          "parent_cycle_pending_count": 2,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         }
       ]
     }

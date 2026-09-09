@@ -34,14 +34,8 @@
           ],
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
-          "independent_task_count": 5,
-          "independent_task_groups": [
-            "CAMPAIGN-WEI-YAN-396-397",
-            "CAMPAIGN-V111-111-WEI-GAOCHE-399",
-            "WAR-LEAD-106-WEI-385-386",
-            "WAR-LEAD-107-WEI-LIUWEICHEN-391",
-            "CAMPAIGN-V107-107-WEI-ROURAN-391"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "major_system_failure_refs": [
             "CAMPAIGN-V107-107-WEI-ROURAN-391",
             "CAMPAIGN-WEI-YAN-396-397"
@@ -105,7 +99,7 @@
           "system_reliability_cap": "C3-3",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [
             "CAMPAIGN-V111-111-WEI-GAOCHE-399"
@@ -191,7 +185,12 @@
           },
           "current_item_task_count": 0,
           "current_item_task_refs": [],
-          "cross_item_routing_basis": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。只复用作战能力，不复用安全、控制成果与成本；既有C档位不因路由变化自动升降。"
+          "cross_item_routing_basis": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。只复用作战能力，不复用安全、控制成果与成本；既有C档位不因路由变化自动升降。",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE"
         },
         {
           "C_overall_grade": "C-3",
@@ -284,7 +283,7 @@
           "system_reliability_cap": "C3-3",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -351,7 +350,16 @@
             "CAMPAIGN-V115-115-WEI-RELOCATION-410",
             "CAMPAIGN-V117-117-WEI-XIHE-415",
             "NC-V119-LEAD-NC-SONG-WEI-422"
-          ]
+          ],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "CAMPAIGN-V115-115-WEI-RELOCATION-410",
+            "CAMPAIGN-V117-117-WEI-XIHE-415",
+            "NC-V119-LEAD-NC-SONG-WEI-422"
+          ],
+          "parent_cycle_pending_count": 3,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-4",
@@ -374,12 +382,10 @@
           ],
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
-          "independent_task_count": 10,
+          "independent_task_count": 8,
           "independent_task_groups": [
             "WAR-LEAD-NC-WEI-RURAN-424-425",
-            "NC-WEI-XIA-426-430",
             "NC-V121-LEAD-NC-WEI-RURAN-429",
-            "WAR-LEAD-NC-NORTHERN-YAN-END-436-438",
             "NC-V124-LEAD-NC-GAIWU-445-446",
             "NC-V124-LEAD-NC-SHANGGUI-REBELLION-446",
             "NC-V124-LEAD-NC-LIU-CHAO-446",
@@ -466,7 +472,7 @@
           "system_reliability_cap": "C3-4",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [
             "NC-WEI-XIA-426-430"
@@ -481,7 +487,7 @@
           "c_only_major_parent_refs": [
             "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439"
           ],
-          "non_scoring_observation_count": 2,
+          "non_scoring_observation_count": 0,
           "task_outcome_profile": {
             "source": "CLOSED_SYSTEM_STRESS_PARENT_CYCLES_WITH_EXPLICIT_UNKNOWN_CLOSURE",
             "selected_task_count": 8,
@@ -605,7 +611,21 @@
             "NC-WEI-SONG-450-451",
             "NC-WEI-WALL-446-OPEN"
           ],
-          "cross_item_routing_basis": "439年前赫连夏、北燕统一取得链由第一项消费；柔然独立防务与439年后盖吴等内部链保留。跨项仅复用作战能力，不复用结果与成本。"
+          "cross_item_routing_basis": "439年前赫连夏、北燕统一取得链由第一项消费；柔然独立防务与439年后盖吴等内部链保留。跨项仅复用作战能力，不复用结果与成本。",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "WAR-LEAD-NC-WEI-RURAN-424-425",
+            "NC-V121-LEAD-NC-WEI-RURAN-429",
+            "NC-V124-LEAD-NC-GAIWU-445-446",
+            "NC-V124-LEAD-NC-SHANGGUI-REBELLION-446",
+            "NC-V124-LEAD-NC-LIU-CHAO-446",
+            "NC-V125-LEAD-NC-WEI-RURAN-448-449",
+            "NC-WEI-SONG-450-451",
+            "NC-WEI-WALL-446-OPEN"
+          ],
+          "parent_cycle_pending_count": 8,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-3",
@@ -692,7 +712,7 @@
           "system_reliability_cap": "C3-3",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -703,7 +723,7 @@
           "observed_parent_cycle_count": 3,
           "task_selection_policy": "CLOSED_MATERIAL_PARENT_CYCLES_PLUS_MAJOR_SYSTEM_OUTCOMES",
           "c_only_major_parent_refs": [],
-          "non_scoring_observation_count": 1,
+          "non_scoring_observation_count": 0,
           "task_outcome_profile": {
             "source": "CLOSED_SYSTEM_STRESS_PARENT_CYCLES",
             "selected_task_count": 2,
@@ -753,7 +773,15 @@
           "current_item_task_refs": [
             "NC-WEI-QI-SOUTH-494-495",
             "NC-V141-LEAD-141-03"
-          ]
+          ],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "NC-WEI-QI-SOUTH-494-495",
+            "NC-V141-LEAD-141-03"
+          ],
+          "parent_cycle_pending_count": 2,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-3",
@@ -831,7 +859,7 @@
           "system_reliability_cap": "C3-3",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -842,7 +870,7 @@
           "observed_parent_cycle_count": 15,
           "task_selection_policy": "CLOSED_MATERIAL_PARENT_CYCLES_PLUS_MAJOR_SYSTEM_OUTCOMES",
           "c_only_major_parent_refs": [],
-          "non_scoring_observation_count": 2,
+          "non_scoring_observation_count": 0,
           "task_outcome_profile": {
             "source": "CLOSED_SYSTEM_STRESS_PARENT_CYCLES_WITH_EXPLICIT_UNKNOWN_CLOSURE",
             "selected_task_count": 13,
@@ -931,7 +959,26 @@
             "NC-V147-LEAD-147-06",
             "NC-V148-LEAD-148-02",
             "NC-V148-LEAD-148-04"
-          ]
+          ],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "NC-V143-LEAD-143-04",
+            "NC-V145-LEAD-145-01",
+            "NC-V145-LEAD-145-06",
+            "NC-V145-LEAD-145-07",
+            "NC-V146-LEAD-146-01",
+            "NC-V146-LEAD-146-03",
+            "NC-V146-LEAD-146-04",
+            "NC-V146-LEAD-146-07",
+            "NC-V147-LEAD-147-01",
+            "NC-WEI-LIANG-HUAI-506-507",
+            "NC-V147-LEAD-147-06",
+            "NC-V148-LEAD-148-02",
+            "NC-V148-LEAD-148-04"
+          ],
+          "parent_cycle_pending_count": 13,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "C_overall_grade": "C-3",
@@ -1018,7 +1065,7 @@
           "system_reliability_cap": "C3-3",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
@@ -1125,7 +1172,17 @@
               "NC-V133-LEAD-133-01"
             ],
             "basis": "冯太后只消费465—467首次临朝与476—490复临朝阶段；467年青冀早期阶段归本人，468—469青冀终局及470—471任务归拓跋弘。"
-          }
+          },
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
+            "FTH-QINGJI-467-WINDOW",
+            "FTH-CHOUCHI-477-478",
+            "FTH-HUAIBEI-FIVE-FORTS-480-481",
+            "FTH-ROURAN-486-487"
+          ],
+          "parent_cycle_pending_count": 4,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
         },
         {
           "ruler_id": "RULER-SHADOW-拓跋弘",
@@ -1134,81 +1191,52 @@
           "reign_range": [
             "467—476实际掌权"
           ],
-          "combat_delivery_grade": "C1-4",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 70.5,
-          "C_score_points": 35.2,
-          "C_score_band_position": 0.75,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "HIGH",
             "reason": "青齐征服、柔然反击、吐谷浑拒止为多个任务；大规模控制闭合，但只有短实际主政期且没有顶级多方向后勤、将领门。"
           },
           "observed_parent_cycle_count": 4,
-          "independent_task_count": 4,
-          "independent_task_groups": [
-            "TBH-SONG-QINGJI-467-469",
-            "TBH-ROURAN-470-474",
-            "TBH-TUYUHUN-470",
-            "TBH-CHILE-471"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_DEDUPLICATED_STRATEGIC_CHAINS",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 4
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 4,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "TBH-SONG-QINGJI-467-469",
-                "TBH-ROURAN-470-474",
-                "TBH-TUYUHUN-470",
-                "TBH-CHILE-471"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 4,
-              "matched_task_count": 4,
-              "known_result_count": 4,
-              "security_result_grade_counts": {
-                "E2": 2,
-                "E3_MAJOR_STAGE": 1,
-                "E4_MAJOR_STRATEGIC": 1
-              },
-              "security_result_grade_refs": {
-                "E2": [
-                  "TBH-TUYUHUN-470",
-                  "TBH-CHILE-471"
-                ],
-                "E3_MAJOR_STAGE": [
-                  "TBH-ROURAN-470-474"
-                ],
-                "E4_MAJOR_STRATEGIC": [
-                  "TBH-SONG-QINGJI-467-469"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期4项，已知结果0项，回报剖面={'UNKNOWN': 4}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "青齐征服、柔然反击、吐谷浑拒止为多个任务；大规模控制闭合，但只有短实际主政期且没有顶级多方向后勤、将领门。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "NC-V132-LEAD-132-02-XIANWEN-WINDOW",
@@ -1219,10 +1247,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#NC-V132-LEAD-132-02-XIANWEN-WINDOW",
             "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#NC-V132-LEAD-132-04",
@@ -1234,21 +1264,24 @@
             "docs/史料通读产物/唐以前编年/南北朝/卷133-通读总结.md#WAR-LEAD-133-04"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.25,
-          "C_score_outcome_position": 0.25,
-          "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 4,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "TBH-SONG-QINGJI-467-469",
             "TBH-ROURAN-470-474",
             "TBH-TUYUHUN-470",
             "TBH-CHILE-471"
-          ]
+          ],
+          "parent_cycle_pending_count": 4,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         }
       ]
     }

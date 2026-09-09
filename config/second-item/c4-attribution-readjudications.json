@@ -1682,30 +1682,30 @@
             "S_avg": "C1-2",
             "S_end": "C1-2"
           },
-          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。战争后生产、温饱、人口、民间储蓄和国家财用同时处于严重耗损起点。",
-          "loss_grade": "L0",
+          "adjudication_reason": "统一后民无盖藏、家庭缺少积蓄，兵役仍反复；前196仍以中国新劳苦停止南越远征，前195长安请耕上林反映土地承受约束。以战后恢复尚未完成的困顿阶段保留主态、交班二档，不把返籍、复田宅诏令当成多数家庭已稳定维生，也不以未达富庶压档。前205关中人相食另计L；后任衣食滋殖不倒灌。",
+          "loss_grade": "L3",
           "loss_review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUBANG&axis=C1"
         },
         "C2": {
           "state_anchors": {
             "S0": "C2-1",
-            "S_main": "C2-2",
-            "S_avg": "C2-2",
+            "S_main": "C2-3",
+            "S_avg": "C2-3",
             "S_end": "C2-3"
           },
-          "adjudication_reason": "原结算基本准确。汉兴接秦楚战争后的起点是“民失作业而大饥馑”“人相食，死者过半”，天下既定仍“民亡盖臧”，连天子与将相车马都难完备。刘邦随后约法省禁、十五税一，并按官禄与用度征赋，使正常财政和生产开始重建；但这种恢复尚未闭合为两柱健康，真正“衣食滋殖”的高一阶段主要落在孝惠、高后。因此主态仍C2-2，交班端三档。",
-          "loss_grade": "L0",
+          "adjudication_reason": "统一后量吏禄、度官用以赋民，且每年有漕转关东粟供中都官的实际运行，生产、转运和常规财政已形成可接续的基本系统。结合返籍复业及相邻阶段连续性，主态与交班定三档；低积蓄、有限财政余量和抑商限制不足以证明两柱健康，不能由未到四档反推二档。楚汉相持时的停耕停织另计L，后任衣食滋殖不作本人结果。",
+          "loss_grade": "L3",
           "loss_review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUBANG&axis=C2"
         },
         "C3": {
           "state_anchors": {
             "S0": "C3-1",
-            "S_main": "C3-2",
-            "S_avg": "C3-2",
-            "S_end": "C3-2"
+            "S_main": "C3-3",
+            "S_avg": "C3-3",
+            "S_end": "C3-3"
           },
-          "adjudication_reason": "从秦末楚汉战争后的一档崩解起步，汉初法律与地方行政逐步恢复；但任内仍有韩王信、陈豨、英布等多次区域性大规模叛乱，主要社会安全只能到二档。",
-          "loss_grade": "L0",
+          "adjudication_reason": "统一后鲁城受降免屠、项氏支属存活等有界保护结果，结合州县征赋、返籍框架的常态运行及失陷地区重新接管，支持主要治理阶段与交班为可运行秩序三档；单案不单独外推广域安全。政治与地方侵害限制更高档。前197—195赵代劫掠、常山多城失守和马邑受毁另计L3，不用叛乱名称或军损直接压主态；前193曹参民以宁一只属后任。",
+          "loss_grade": "L3",
           "loss_review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUBANG&axis=C3"
         },
         "current_C4": {
@@ -1723,16 +1723,16 @@
       },
       "closed_residual_harm_observations": [
         {
-          "evidence_type": "DIRECT_EVIDENCE_OBSERVATION",
+          "evidence_type": "BOUNDED_CIVILIAN_COST_INFERENCE",
           "axis_roles": [
-            "C1",
-            "C2"
+            "DA"
           ],
-          "observation": "战争后生产、温饱、人口、民间储蓄和国家财用同时处于严重耗损起点。",
+          "observation": "前200未央宫已经完成且高帝接受萧何的豪壮安排；剔除最低首都建设后，仅对可选择增量占用家庭劳力和非军事资源作受约束推断，保留DA1下限，不冒称有役夫、役期或民困实数。",
           "source_refs": [
-            "汉书·食货志"
+            "docs/评分结算/第二项治国净收益/财政民生/10-刘邦治理结果与交班锚裁决.md",
+            "docs/史料通读产物/唐以前编年/汉/卷011-通读总结.md"
           ],
-          "cost_disposition": "CONTEXT_ONLY_CURRENT_COST_DISPOSITION_IN_FORMAL_C4"
+          "cost_disposition": "INFERRED_DA1_RESIDUAL_ONLY"
         }
       ],
       "source_refs": [
@@ -1740,17 +1740,18 @@
         "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUBANG",
         "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUBANG",
         "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUBANG",
-        "汉书·食货志"
+        "汉书·食货志",
+        "docs/评分结算/第二项治国净收益/财政民生/10-刘邦治理结果与交班锚裁决.md"
       ],
       "duplicate_control": {
-        "civilian_objects": "战后饥荒与低储备是恢复起点，不据此推高营造成本档。",
+        "civilian_objects": "前205饥荒、前205—204生产中断和前197—195赵代保护失效分别由C1—C3的L消费，战后困顿由主态消费；军资军粮仍属军事项，不再搬入DA。",
         "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
       },
       "decision": {
         "final_grade": "DA1",
         "final_penalty": 4.5,
         "change_type": "CURRENT_C4_REVIEW_INDEX",
-        "reason": "宫室过度的豪壮增量保留有限成本，不把开国最低首都建设全量列为挥霍。 去重：战后饥荒与低储备是恢复起点，不据此推高营造成本档。 最终DA1扣4.5分；可归责恶化另扣0.0分。",
+        "reason": "前200未央宫已经完成且高帝接受萧何的豪壮安排；剔除最低首都建设后，仅对可选择增量占用家庭劳力和非军事资源作受约束推断，保留DA1下限，不冒称有役夫、役期或民困实数。 去重：前205饥荒、前205—204生产中断和前197—195赵代保护失效分别由C1—C3的L消费，战后困顿由主态消费；军资军粮仍属军事项，不再搬入DA。 最终DA1扣4.5分；可归责恶化另扣0.0分。",
         "basis_version": "C4-CIVILIAN-COST-V1",
         "source_refs": [
           "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-HAN-LIUBANG"
@@ -1758,11 +1759,13 @@
       },
       "da_basis": {
         "basis_version": "C4-CIVILIAN-COST-V1",
-        "behavior_chain": "宫室过度的豪壮增量保留有限成本，不把开国最低首都建设全量列为挥霍。",
-        "grade_boundary": "战后饥荒与低储备是恢复起点，不据此推高营造成本档。",
+        "behavior_chain": "前200未央宫已经完成且高帝接受萧何的豪壮安排；剔除最低首都建设后，仅对可选择增量占用家庭劳力和非军事资源作受约束推断，保留DA1下限，不冒称有役夫、役期或民困实数。",
+        "grade_boundary": "前205饥荒、前205—204生产中断和前197—195赵代保护失效分别由C1—C3的L消费，战后困顿由主态消费；军资军粮仍属军事项，不再搬入DA。",
         "source_refs": [
-          "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-HAN-LIUBANG"
-        ]
+          "docs/评分结算/第二项治国净收益/财政民生/10-刘邦治理结果与交班锚裁决.md",
+          "docs/史料通读产物/唐以前编年/汉/卷011-通读总结.md"
+        ],
+        "evidence_mode": "INFERRED"
       }
     },
     {
@@ -3313,12 +3316,12 @@
         },
         "C3": {
           "state_anchors": {
-            "S0": "C3-2",
+            "S0": "C3-3",
             "S_main": "C3-4",
             "S_avg": "C3-4",
             "S_end": "C3-4"
           },
-          "adjudication_reason": "惠帝—高后共享期的直接社会总评是“天下晏然，刑罚罕用，罪人是希”，足以把普通社会由高帝末二档恢复至普遍安全四档。对刘氏宗室及宫廷政治人物的残酷处置可以阻断更高档，但对象与覆盖范围不足以外推为普通社会低于四档的有效阶段。",
+          "adjudication_reason": "惠帝—高后共享期的直接社会总评是“天下晏然，刑罚罕用，罪人是希”，足以把普通社会由高帝末三档恢复至普遍安全四档。对刘氏宗室及宫廷政治人物的残酷处置可以阻断更高档，但对象与覆盖范围不足以外推为普通社会低于四档的有效阶段。",
           "loss_grade": "L0",
           "loss_review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LUYU&axis=C3"
         },
@@ -3358,7 +3361,8 @@
         "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LUYU",
         "汉书·刑法志",
         "汉书·食货志",
-        "汉书·高后纪"
+        "汉书·高后纪",
+        "docs/评分结算/第二项治国净收益/财政民生/10-刘邦治理结果与交班锚裁决.md"
       ],
       "duplicate_control": {
         "civilian_objects": "长安城共享建设不在本条复制惠帝全额役工。",

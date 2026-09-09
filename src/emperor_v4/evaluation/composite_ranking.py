@@ -154,7 +154,11 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
             "ruler_name": row["ruler_name"],
             "polity": row["polity"],
             "settlement_readiness": row["settlement_readiness"],
-            "not_ranked_reason": "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT",
+            "not_ranked_reason": (
+                "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"
+                if row["settlement_readiness"] == "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"
+                else "PENDING_THIRD_ITEM_FORMAL_SETTLEMENT"
+            ),
         }
         for row in pool["records"]
         if row["pool_status"] == "INCLUDED"
@@ -162,8 +166,18 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
     ]
     if len(ready) != pool["composite_ready_count"]:
         raise ValueError("综合就绪人数与正式池声明不一致")
-    if len(pending) != pool["pending_second_item_count"]:
+    pending_second = [
+        row for row in pending
+        if row["not_ranked_reason"] == "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"
+    ]
+    pending_third = [
+        row for row in pending
+        if row["not_ranked_reason"] == "PENDING_THIRD_ITEM_FORMAL_SETTLEMENT"
+    ]
+    if len(pending_second) != pool["pending_second_item_count"]:
         raise ValueError("待第二项结算人数与正式池声明不一致")
+    if len(pending_third) != pool.get("pending_third_item_count", 0):
+        raise ValueError("待第三项结算人数与正式池声明不一致")
 
     pending_fourth: list[dict[str, Any]] = []
     records: list[dict[str, Any]] = []
@@ -264,14 +278,16 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         "weight_sensitivity": sensitivity,
         "score_precision": "source scores retained; F and T rounded to 2 decimals",
         "record_count": len(records),
-        "pending_second_item_count": len(pending),
+        "pending_second_item_count": len(pending_second),
+        "pending_third_item_count": len(pending_third),
         "pending_fourth_item_count": len(pending_fourth),
         "pending_fourth_item_records": sorted(pending_fourth, key=lambda row: row["ruler_id"]),
         "mean_score": round(mean(scores), 2),
         "median_score": round(median(scores), 2),
         "min_score": min(scores),
         "max_score": max(scores),
-        "pending_second_item_records": pending,
+        "pending_second_item_records": pending_second,
+        "pending_third_item_records": pending_third,
         "records": records,
     }
 
@@ -329,6 +345,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         (
             f"> 本榜只覆盖正式评价池中`COMPOSITE_READY`的{payload['record_count']}人；"
             f"另有{payload['pending_second_item_count']}人因第二项尚未正式结算而不入榜。"
+            f"另有{payload['pending_third_item_count']}人因第三项C父周期语义审计待补而不入榜。"
             f"另有{payload['pending_fourth_item_count']}名原综合就绪对象因第四项证据缺口暂不入榜，不把未知按零分处理。"
             "排名是现行规则与现有正式分项快照的确定性合成，不以历史名望反推分数。"
         ),
@@ -435,6 +452,11 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         lines.append(
             f"| {row['ruler_name']} | {row['polity']} | `PENDING_SECOND_ITEM` |"
         )
+    lines.extend(["", "## 暂不入榜：待第三项正式结算", "",
+                  "以下对象的C父周期语义审计仍有待补边界，不把未知按零分处理。", "",
+                  "| 人物 | 政权 | 状态 |", "|---|---|---|"])
+    for row in payload["pending_third_item_records"]:
+        lines.append(f"| {row['ruler_name']} | {row['polity']} | `PENDING_THIRD_ITEM` |")
     lines.extend(["", "## 暂不入榜：第四项证据缺口", "",
                   "| 人物 | 政权 | 状态 |", "|---|---|---|"])
     for row in payload["pending_fourth_item_records"]:
@@ -492,6 +514,7 @@ def verify_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         "path": OUTPUT_JSON,
         "record_count": expected["record_count"],
         "pending_second_item_count": expected["pending_second_item_count"],
+        "pending_third_item_count": expected["pending_third_item_count"],
         "pending_fourth_item_count": expected["pending_fourth_item_count"],
         "min_score": expected["min_score"],
         "max_score": expected["max_score"],

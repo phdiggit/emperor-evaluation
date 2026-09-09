@@ -30,70 +30,52 @@
           "ruler_name": "刘崇",
           "polity": "北汉",
           "reign_range": "951—954",
-          "combat_delivery_grade": "C1-2",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-2",
-          "C_overall_grade": "C-2",
-          "C_score_rate": 52.0,
-          "C_score_points": 26.0,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "晋州、高平仅作能力佐证，保留其败后守都与再动员事实；当前府州独立链连续失败，体系可靠性仍限C-2中位。"
           },
           "observed_parent_cycle_count": 3,
-          "independent_task_count": 3,
-          "independent_task_groups": [
-            "NORTHERN-HAN-ZHOU-SHANXI-951",
-            "NORTHERN-HAN-ZHOU-FRONTIER-952-953",
-            "NORTHERN-HAN-ZHOU-GAOPING-TAIYUAN-954"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_DEDUPLICATED_STRATEGIC_CHAINS",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 1
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 1,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "NORTHERN-HAN-ZHOU-FRONTIER-952-953"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 1,
-              "matched_task_count": 1,
-              "known_result_count": 1,
-              "security_result_grade_counts": {
-                "EN2": 1
-              },
-              "security_result_grade_refs": {
-                "EN2": [
-                  "NORTHERN-HAN-ZHOU-FRONTIER-952-953"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期1项，已知结果0项，回报剖面={'UNKNOWN': 1}；重大体系胜绩0项、重大体系失败1项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "晋州、高平仅作能力佐证，保留其败后守都与再动员事实；当前府州独立链连续失败，体系可靠性仍限C-2中位。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
-          "major_system_failure_refs": [
-            "NORTHERN-HAN-ZHOU-FRONTIER-952-953"
-          ],
+          "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "WAR-FD-177EA59869352420E01F",
@@ -111,10 +93,12 @@
             "NORTHERN-HAN-ZHOU-SHANXI-951"
           ],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/公共成果/军事/01-战役登记/five_dynasties-00.json#WAR-FD-90C480CBD3DB0685B1D3",
             "docs/公共成果/军事/01-战役登记/five_dynasties-03.json#WAR-FD-1DB7EC948460EE11C94E",
@@ -130,91 +114,74 @@
             "docs/史料通读产物/五代十国/资治通鉴/volume-291.source-summary.md#高平"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.1667,
-          "C_score_outcome_position": 0.1667,
-          "C_score_band": {
-            "lower_rate": 45,
-            "upper_rate": 59
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 1,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "cross_item_routing_basis": "按第一项现行口径，高平主力崩溃及太原恢复属于第一项复国竞争链；第三项删除同链成本C6。跨项仅复用作战能力，不复用结果与成本。 951年连续南攻晋、隰及本人围晋州属于恢复后汉旧土的创业竞争链，第一项C已消费围晋州负证；与954高平同按第一项主链处理，第三项只保留能力佐证，不重复消费结果与成本。",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "NORTHERN-HAN-ZHOU-FRONTIER-952-953"
           ],
-          "cross_item_routing_basis": "按第一项现行口径，高平主力崩溃及太原恢复属于第一项复国竞争链；第三项删除同链成本C6。跨项仅复用作战能力，不复用结果与成本。 951年连续南攻晋、隰及本人围晋州属于恢复后汉旧土的创业竞争链，第一项C已消费围晋州负证；与954高平同按第一项主链处理，第三项只保留能力佐证，不重复消费结果与成本。"
+          "parent_cycle_pending_count": 1,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-SHADOW-刘知远",
           "ruler_name": "刘知远",
           "polity": "后汉",
           "reign_range": "947—948",
-          "combat_delivery_grade": "C1-3",
-          "operational_sustainability_cap": "C2-2",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-2",
-          "C_score_rate": 52.0,
-          "C_score_points": 26.0,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "抗契丹和邺都内乱均能完成任务；统治不足两年，长期后勤和常态跨方向持续证据不足。"
           },
           "observed_parent_cycle_count": 2,
-          "independent_task_count": 2,
-          "independent_task_groups": [
-            "HAN-KHITAN-HENAN-947",
-            "HAN-DUCHONGWEI-YEDU-947-948"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_DEDUPLICATED_STRATEGIC_CHAINS",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 2
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 2,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "HAN-KHITAN-HENAN-947",
-                "HAN-DUCHONGWEI-YEDU-947-948"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 2,
-              "matched_task_count": 2,
-              "known_result_count": 2,
-              "security_result_grade_counts": {
-                "E3_MAJOR_STAGE": 1,
-                "E3_REGIONAL_TERMINAL": 1
-              },
-              "security_result_grade_refs": {
-                "E3_MAJOR_STAGE": [
-                  "HAN-KHITAN-HENAN-947"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "HAN-DUCHONGWEI-YEDU-947-948"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期2项，已知结果0项，回报剖面={'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "抗契丹和邺都内乱均能完成任务；统治不足两年，长期后勤和常态跨方向持续证据不足。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "WAR-FD-390B77185284810FA9CD",
@@ -224,10 +191,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/公共成果/军事/01-战役登记/five_dynasties-00.json#WAR-FD-3E1DC6A1B35CE8F1E90B",
             "docs/公共成果/军事/01-战役登记/five_dynasties-00.json#WAR-FD-50BEA63DCDF07E1EF65F",
@@ -237,91 +206,74 @@
             "docs/史料通读产物/五代十国/资治通鉴/volume-287.source-summary.md#ZZTJ-287-DU-CHONGWEI-YEDU"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 2,
-          "C_score_axis_surplus_position": 0.3333,
-          "C_score_outcome_position": 0.3333,
-          "C_score_band": {
-            "lower_rate": 45,
-            "upper_rate": 59
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 2,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "HAN-KHITAN-HENAN-947",
             "HAN-DUCHONGWEI-YEDU-947-948"
-          ]
+          ],
+          "parent_cycle_pending_count": 2,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-SHADOW-钱镠",
           "ruler_name": "钱镠",
           "polity": "吴越",
           "reign_range": "907-932",
-          "combat_delivery_grade": "C1-2",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-2",
-          "C_overall_grade": "C-2",
-          "C_score_rate": 52.0,
-          "C_score_points": 26.0,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "可完成区域防御与内部恢复，但三万军在无锡重挫说明高难度野战兑现与组织可靠性均有限。"
           },
           "observed_parent_cycle_count": 2,
-          "independent_task_count": 2,
-          "independent_task_groups": [
-            "CHAIN-QIANLIU-WUYUE-WU-919",
-            "CHAIN-QIANLIU-HUZHOU-GAOLI-909"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_DEDUPLICATED_STRATEGIC_CHAINS",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 2
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 2,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CHAIN-QIANLIU-WUYUE-WU-919",
-                "CHAIN-QIANLIU-HUZHOU-GAOLI-909"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 2,
-              "matched_task_count": 2,
-              "known_result_count": 2,
-              "security_result_grade_counts": {
-                "E2": 1,
-                "E3_REGIONAL_TERMINAL": 1
-              },
-              "security_result_grade_refs": {
-                "E2": [
-                  "CHAIN-QIANLIU-HUZHOU-GAOLI-909"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "CHAIN-QIANLIU-WUYUE-WU-919"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期2项，已知结果0项，回报剖面={'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "可完成区域防御与内部恢复，但三万军在无锡重挫说明高难度野战兑现与组织可靠性均有限。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "ZZTJ-267-HUZHOU-GAOLI-0909",
@@ -329,10 +281,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "SRC-ZZTJ-267-1765571-P0083",
             "SRC-ZZTJ-267-1765571-P0095",
@@ -344,117 +298,74 @@
             "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#ZZTJ-270-WUYUE-WU-0919"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.1667,
-          "C_score_outcome_position": 0.1667,
-          "C_score_band": {
-            "lower_rate": 45,
-            "upper_rate": 59
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 2,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "CHAIN-QIANLIU-WUYUE-WU-919",
             "CHAIN-QIANLIU-HUZHOU-GAOLI-909"
-          ]
+          ],
+          "parent_cycle_pending_count": 2,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-SHADOW-李克用",
           "ruler_name": "李克用",
           "polity": "晋",
           "reign_range": "895—908（晋王主政窗口）",
-          "combat_delivery_grade": "C1-2",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-2",
-          "C_overall_grade": "C-2",
-          "C_score_rate": 52.0,
-          "C_score_points": 26.0,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "有潞州正成果和守晋阳能力，但902重挫、906邢州失败与内部军镇问题限制体系评价。"
           },
           "observed_parent_cycle_count": 6,
-          "independent_task_count": 6,
-          "independent_task_groups": [
-            "HEDONG-BIAN-JINYANG-902",
-            "HEDONG-XINGZHOU-906",
-            "HEDONG-LUZHOU-906",
-            "HEDONG-KHITAN-YUNZHOU-907",
-            "HEDONG-ZHENWU-MUTINY-903",
-            "HEDONG-YUNZHOU-MUTINY-903"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_DEDUPLICATED_STRATEGIC_CHAINS",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 6
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 6,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "HEDONG-BIAN-JINYANG-902",
-                "HEDONG-XINGZHOU-906",
-                "HEDONG-LUZHOU-906",
-                "HEDONG-KHITAN-YUNZHOU-907",
-                "HEDONG-ZHENWU-MUTINY-903",
-                "HEDONG-YUNZHOU-MUTINY-903"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 6,
-              "matched_task_count": 6,
-              "known_result_count": 6,
-              "security_result_grade_counts": {
-                "E0": 1,
-                "E1": 1,
-                "E2": 1,
-                "E3_MAJOR_STAGE": 1,
-                "EN1": 1,
-                "EN2": 1
-              },
-              "security_result_grade_refs": {
-                "E0": [
-                  "HEDONG-XINGZHOU-906"
-                ],
-                "E1": [
-                  "HEDONG-KHITAN-YUNZHOU-907"
-                ],
-                "E2": [
-                  "HEDONG-ZHENWU-MUTINY-903"
-                ],
-                "E3_MAJOR_STAGE": [
-                  "HEDONG-LUZHOU-906"
-                ],
-                "EN1": [
-                  "HEDONG-YUNZHOU-MUTINY-903"
-                ],
-                "EN2": [
-                  "HEDONG-BIAN-JINYANG-902"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果0项，回报剖面={'UNKNOWN': 6}；重大体系胜绩0项、重大体系失败1项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "有潞州正成果和守晋阳能力，但902重挫、906邢州失败与内部军镇问题限制体系评价。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
-          "major_system_failure_refs": [
-            "HEDONG-BIAN-JINYANG-902"
-          ],
+          "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "WAR-FD-29BC416045BE5B83399D",
@@ -466,10 +377,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/公共成果/军事/01-战役登记/five_dynasties-05.json#WAR-FD-3BC4FEEE9F982BB0B04E",
             "docs/公共成果/军事/01-战役登记/five_dynasties-05.json#WAR-FD-9B32D83821ED49194189",
@@ -486,107 +399,78 @@
             "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md#ZZTJ-266-KHITAN-ABAOGI-0907"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 1,
-          "C_score_axis_surplus_position": 0.1667,
-          "C_score_outcome_position": 0.1667,
-          "C_score_band": {
-            "lower_rate": 45,
-            "upper_rate": 59
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 6,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "HEDONG-BIAN-JINYANG-902",
             "HEDONG-XINGZHOU-906",
             "HEDONG-LUZHOU-906",
             "HEDONG-KHITAN-YUNZHOU-907",
             "HEDONG-ZHENWU-MUTINY-903",
             "HEDONG-YUNZHOU-MUTINY-903"
-          ]
+          ],
+          "parent_cycle_pending_count": 6,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-SHADOW-马殷",
           "ruler_name": "马殷",
           "polity": "楚",
           "reign_range": "907-930",
-          "combat_delivery_grade": "C1-3",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 67.0,
-          "C_score_points": 33.5,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "面对吴、荆南、南汉的任务结果混合，岳州大捷证明区域兑现，但凤州败退限制上档。"
           },
           "observed_parent_cycle_count": 4,
-          "independent_task_count": 4,
-          "independent_task_groups": [
-            "CHAIN-MAYIN-WU-SHANGGAO-917",
-            "CHAIN-MAYIN-CHU-JINGNAN-928",
-            "CHAIN-MAYIN-WU-YUEZHOU-928",
-            "CHAIN-MAYIN-CHU-SOUTHERN-HAN-FENGZHOU-928"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_DEDUPLICATED_STRATEGIC_CHAINS",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 4
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 4,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CHAIN-MAYIN-WU-SHANGGAO-917",
-                "CHAIN-MAYIN-CHU-JINGNAN-928",
-                "CHAIN-MAYIN-WU-YUEZHOU-928",
-                "CHAIN-MAYIN-CHU-SOUTHERN-HAN-FENGZHOU-928"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 4,
-              "matched_task_count": 4,
-              "known_result_count": 4,
-              "security_result_grade_counts": {
-                "E1": 1,
-                "E2": 1,
-                "E3_REGIONAL_TERMINAL": 1,
-                "EN1": 1
-              },
-              "security_result_grade_refs": {
-                "E1": [
-                  "CHAIN-MAYIN-WU-SHANGGAO-917"
-                ],
-                "E2": [
-                  "CHAIN-MAYIN-CHU-JINGNAN-928"
-                ],
-                "E3_REGIONAL_TERMINAL": [
-                  "CHAIN-MAYIN-WU-YUEZHOU-928"
-                ],
-                "EN1": [
-                  "CHAIN-MAYIN-CHU-SOUTHERN-HAN-FENGZHOU-928"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期4项，已知结果0项，回报剖面={'UNKNOWN': 4}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "面对吴、荆南、南汉的任务结果混合，岳州大捷证明区域兑现，但凤州败退限制上档。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "ZZTJ-269-CHU-WU-SHANGGAO-0917",
@@ -596,10 +480,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "SRC-ZZTJ-269-1765765-P0112",
             "SRC-ZZTJ-276-1767667-P0048",
@@ -613,96 +499,76 @@
             "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#ZZTJ-276-WU-CHU-YUEZHOU-0928"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 0,
-          "C_score_axis_surplus_position": 0.0,
-          "C_score_outcome_position": 0.0,
-          "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 4,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "CHAIN-MAYIN-WU-SHANGGAO-917",
             "CHAIN-MAYIN-CHU-JINGNAN-928",
             "CHAIN-MAYIN-WU-YUEZHOU-928",
             "CHAIN-MAYIN-CHU-SOUTHERN-HAN-FENGZHOU-928"
-          ]
+          ],
+          "parent_cycle_pending_count": 4,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-SHADOW-高季兴",
           "ruler_name": "高季兴",
           "polity": "荆南",
           "reign_range": "924-928",
-          "combat_delivery_grade": "C1-2",
-          "operational_sustainability_cap": "C2-2",
-          "system_reliability_cap": "C3-2",
-          "C_overall_grade": "C-2",
-          "C_score_rate": 52.0,
-          "C_score_points": 26.0,
-          "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
+          "combat_delivery_grade": "UNKNOWN",
+          "operational_sustainability_cap": "UNKNOWN",
+          "system_reliability_cap": "UNKNOWN",
+          "C_overall_grade": "UNKNOWN",
+          "C_score_rate": null,
+          "C_score_points": null,
+          "C_score_band_position": null,
+          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "能以江陵防御拒止后唐，却有峡州、柳浪府反转；缺持续补给与多将领可靠性事实。"
           },
           "observed_parent_cycle_count": 3,
-          "independent_task_count": 3,
-          "independent_task_groups": [
-            "CHAIN-GAOJIXING-SHIZHOU-925",
-            "CHAIN-GAOJIXING-LATER-TANG-926-928",
-            "CHAIN-GAOJIXING-CHU-927-928"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "CURRENT_D_DEDUPLICATED_STRATEGIC_CHAINS",
+          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "task_outcome_profile": {
-            "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 3
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 3,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CHAIN-GAOJIXING-SHIZHOU-925",
-                "CHAIN-GAOJIXING-LATER-TANG-926-928",
-                "CHAIN-GAOJIXING-CHU-927-928"
-              ]
-            },
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {},
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "CLOSED_D_CHAIN_RESULT",
-              "selected_task_count": 3,
-              "matched_task_count": 3,
-              "known_result_count": 3,
-              "security_result_grade_counts": {
-                "E3_REGIONAL_TERMINAL": 1,
-                "EN1": 2
-              },
-              "security_result_grade_refs": {
-                "E3_REGIONAL_TERMINAL": [
-                  "CHAIN-GAOJIXING-LATER-TANG-926-928"
-                ],
-                "EN1": [
-                  "CHAIN-GAOJIXING-SHIZHOU-925",
-                  "CHAIN-GAOJIXING-CHU-927-928"
-                ]
-              },
+              "status": "NOT_APPLICABLE",
+              "selected_task_count": 0,
+              "matched_task_count": 0,
+              "known_result_count": 0,
+              "security_result_grade_counts": {},
+              "security_result_grade_refs": {},
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期3项，已知结果0项，回报剖面={'UNKNOWN': 3}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "能以江陵防御拒止后唐，却有峡州、柳浪府反转；缺持续补给与多将领可靠性事实。"
+            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": null,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "NOT_REVIEWABLE"
           },
           "settled_event_refs": [
             "ZZTJ-273-JINGNAN-SHIZHOU-0925",
@@ -713,30 +579,35 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
-          "unresolved_gaps": [],
-          "score_ready": true,
-          "score_status": "DIRECT_C_SCORE_ASSIGNED",
+          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "unresolved_gaps": [
+            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
+          ],
+          "score_ready": false,
+          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
           "source_refs": [
             "docs/史料通读产物/五代十国/资治通鉴/volume-273.battle-adjudications.json#ZZTJ-273-JINGNAN-SHIZHOU-0925",
             "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json",
             "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": 0,
-          "C_score_axis_surplus_position": 0.0,
-          "C_score_outcome_position": 0.0,
-          "C_score_band": {
-            "lower_rate": 45,
-            "upper_rate": 59
-          },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 3,
-          "current_item_task_refs": [
+          "C_score_support_surplus": null,
+          "C_score_axis_surplus_position": null,
+          "C_score_outcome_position": null,
+          "C_score_band": null,
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [
             "CHAIN-GAOJIXING-SHIZHOU-925",
             "CHAIN-GAOJIXING-LATER-TANG-926-928",
             "CHAIN-GAOJIXING-CHU-927-928"
-          ]
+          ],
+          "parent_cycle_pending_count": 3,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "c5_axis_gate": null,
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
         },
         {
           "ruler_id": "RULER-SHADOW-孟知祥",
@@ -756,14 +627,11 @@
             "reason": "孟知祥形成可独立评价的两川军政体系后，能以多将领和大规模动员击退后唐征蜀、夺取利州，并在鸡踪桥初败后由后阵反转、终结董璋东川体系。两个去重高强任务支持C1/C2四档；样本集中于单一宏区且帝位窗口极短，跨方向长期复制不足，C3取3。"
           },
           "observed_parent_cycle_count": 4,
-          "independent_task_count": 2,
-          "independent_task_groups": [
-            "ZZTJ-277-LIANGCHUAN-0930",
-            "ZZTJ-277-DONGZHANG-MENG-0932"
-          ],
+          "independent_task_count": 0,
+          "independent_task_groups": [],
           "current_item_task_count": 0,
           "current_item_task_refs": [],
-          "non_scoring_observation_count": 2,
+          "non_scoring_observation_count": 0,
           "task_selection_policy": "CURRENT_WINDOW_SYSTEM_STRESS_PLUS_CAPABILITY_ONLY_FOUNDING_TASKS",
           "task_outcome_profile": {
             "source": "DEDUPLICATED_SYSTEM_STRESS_TASKS",
@@ -824,7 +692,12 @@
             "lower_rate": 60,
             "upper_rate": 74
           },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS"
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE"
         },
         {
           "ruler_id": "RULER-FD-ZHU-WEN",
@@ -883,7 +756,7 @@
           "C_score_outcome_position": 0.0,
           "C_score_band_position": 0.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 3,
           "current_item_task_refs": [
             "ZZTJ-267-LINGZHOU-BINNING-0909",
@@ -925,7 +798,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期3项，已知结果0项，回报剖面={'UNKNOWN': 3}；重大体系胜绩0项、重大体系失败0项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期3项，已知结果0项，回报剖面={'UNKNOWN': 3}；重大体系胜绩0项、重大体系失败0项。",
+          "observed_parent_cycle_count": 3,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-ZHU-YOUZHEN",
@@ -1020,7 +900,7 @@
           "C_score_outcome_position": 0.2,
           "C_score_band_position": 0.2,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 15,
           "current_item_task_refs": [
             "ZZTJ-269-JIN-HEBEI-0915",
@@ -1093,7 +973,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期15项，已知结果0项，回报剖面={'UNKNOWN': 15}；重大体系胜绩0项、重大体系失败3项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期15项，已知结果0项，回报剖面={'UNKNOWN': 15}；重大体系胜绩0项、重大体系失败3项。",
+          "observed_parent_cycle_count": 15,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-LI-CUNXU",
@@ -1171,7 +1058,7 @@
           "C_score_outcome_position": 0.5,
           "C_score_band_position": 0.5,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 6,
           "current_item_task_refs": [
             "ZZTJ-273-LUZHOU-YANGLI-0924",
@@ -1217,7 +1104,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果0项，回报剖面={'UNKNOWN': 6}；重大体系胜绩0项、重大体系失败1项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果0项，回报剖面={'UNKNOWN': 6}；重大体系胜绩0项、重大体系失败1项。",
+          "observed_parent_cycle_count": 6,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-LI-SIYUAN",
@@ -1295,7 +1189,7 @@
           "C_score_outcome_position": 0.0,
           "C_score_band_position": 0.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 11,
           "current_item_task_refs": [
             "ZZTJ-275-TANG-JINGNAN-0927",
@@ -1356,7 +1250,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期11项，已知结果0项，回报剖面={'UNKNOWN': 11}；重大体系胜绩0项、重大体系失败0项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期11项，已知结果0项，回报剖面={'UNKNOWN': 11}；重大体系胜绩0项、重大体系失败0项。",
+          "observed_parent_cycle_count": 11,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-SHI-JINGTANG",
@@ -1460,7 +1361,7 @@
           "C_score_outcome_position": 0.0,
           "C_score_band_position": 0.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 15,
           "current_item_task_refs": [
             "ZZTJ-281-ANZHOU-WANGHUI-MUTINY-0937",
@@ -1538,7 +1439,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期15项，已知结果0项，回报剖面={'UNKNOWN': 15}；重大体系胜绩0项、重大体系失败1项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期15项，已知结果0项，回报剖面={'UNKNOWN': 15}；重大体系胜绩0项、重大体系失败1项。",
+          "observed_parent_cycle_count": 15,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-GUO-WEI",
@@ -1604,7 +1512,7 @@
           "C_score_outcome_position": 0.0,
           "C_score_band_position": 0.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 6,
           "current_item_task_refs": [
             "ZZTJ-290-MURONG-YANZHOU-0952",
@@ -1655,7 +1563,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果0项，回报剖面={'UNKNOWN': 6}；重大体系胜绩0项、重大体系失败0项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果0项，回报剖面={'UNKNOWN': 6}；重大体系胜绩0项、重大体系失败0项。",
+          "observed_parent_cycle_count": 6,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-CHAI-RONG",
@@ -1663,10 +1578,8 @@
           "polity": "后周",
           "partition": "五代十国",
           "reign_range": "954-959",
-          "independent_task_count": 5,
+          "independent_task_count": 3,
           "independent_task_groups": [
-            "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
-            "ZZTJ-292-HULUHE-DEFENSE-0955",
             "ZZTJ-293-KHITAN-NHAN-LUZHOU-0957",
             "ZZTJ-293-ZHANGWU-LOCAL-REBELLION-0956",
             "ZZTJ-294-KHITAN-ZHOU-RAID-EASTCITY-0958"
@@ -1722,7 +1635,7 @@
           "C_score_outcome_position": 0.0,
           "C_score_band_position": 0.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 3,
           "current_item_task_refs": [
             "ZZTJ-293-KHITAN-NHAN-LUZHOU-0957",
@@ -1764,7 +1677,14 @@
             "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
             "ZZTJ-292-HULUHE-DEFENSE-0955"
           ],
-          "cross_item_routing_basis": "954—955年高平及同一北方防守主链已由第一项明确消费，成本随链退出第三项。跨项仅复用作战能力，不复用结果与成本。"
+          "cross_item_routing_basis": "954—955年高平及同一北方防守主链已由第一项明确消费，成本随链退出第三项。跨项仅复用作战能力，不复用结果与成本。",
+          "observed_parent_cycle_count": 3,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-LI-BIAN",
@@ -1834,7 +1754,7 @@
           "C_score_outcome_position": 0.0,
           "C_score_band_position": 0.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 2,
           "current_item_task_refs": [
             "ZZTJ-282-ANZHOU-LIJINQUAN-0940",
@@ -1873,7 +1793,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期2项，已知结果0项，回报剖面={'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败2项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期2项，已知结果0项，回报剖面={'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败2项。",
+          "observed_parent_cycle_count": 2,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-LI-YU",
@@ -1930,7 +1857,7 @@
           "C_score_outcome_position": 0.2,
           "C_score_band_position": 0.2,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 1,
           "current_item_task_refs": [
             "SOUTHERN_TANG_DEFENSE_AND_CAPITULATION_974_975"
@@ -1961,7 +1888,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期1项，已知结果0项，回报剖面={'UNKNOWN': 1}；重大体系胜绩0项、重大体系失败1项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期1项，已知结果0项，回报剖面={'UNKNOWN': 1}；重大体系胜绩0项、重大体系失败1项。",
+          "observed_parent_cycle_count": 1,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-WANG-JIAN",
@@ -2018,7 +1952,7 @@
           "C_score_outcome_position": 0.0,
           "C_score_band_position": 0.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 2,
           "current_item_task_refs": [
             "ZZTJ-269-JINGNAN-SHU-KUIZHOU-0914",
@@ -2052,7 +1986,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期2项，已知结果0项，回报剖面={'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败0项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期2项，已知结果0项，回报剖面={'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败0项。",
+          "observed_parent_cycle_count": 2,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-MENG-CHANG",
@@ -2132,7 +2073,7 @@
           "C_score_outcome_position": 0.2,
           "C_score_band_position": 0.2,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 11,
           "current_item_task_refs": [
             "LATER_SHU_DEFENSE_AND_CAPITULATION_964_965",
@@ -2193,7 +2134,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期11项，已知结果0项，回报剖面={'UNKNOWN': 11}；重大体系胜绩0项、重大体系失败2项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期11项，已知结果0项，回报剖面={'UNKNOWN': 11}；重大体系胜绩0项、重大体系失败2项。",
+          "observed_parent_cycle_count": 11,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         },
         {
           "ruler_id": "RULER-FD-LIU-YAN",
@@ -2268,7 +2216,7 @@
           "C_score_outcome_position": 0.0,
           "C_score_band_position": 0.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 6,
           "current_item_task_refs": [
             "ZZTJ-271-MIN-HAN-MEIKOU-0922",
@@ -2319,7 +2267,14 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果0项，回报剖面={'UNKNOWN': 6}；重大体系胜绩0项、重大体系失败0项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果0项，回报剖面={'UNKNOWN': 6}；重大体系胜绩0项、重大体系失败0项。",
+          "observed_parent_cycle_count": 6,
+          "non_scoring_observation_refs": [],
+          "non_scoring_observation_count": 0,
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
+          "parent_cycle_audit_status": "PARTIAL_PARENT_BOUNDARY_REVIEW"
         }
       ]
     }

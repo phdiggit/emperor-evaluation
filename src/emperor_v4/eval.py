@@ -496,6 +496,7 @@ def _dispatch(args: argparse.Namespace) -> int:
                 {
                     "record_count": payload["record_count"],
                     "pending_second_item_count": payload["pending_second_item_count"],
+                    "pending_third_item_count": payload["pending_third_item_count"],
                     "mean_score": payload["mean_score"],
                     "median_score": payload["median_score"],
                     "min_score": payload["min_score"],
@@ -517,6 +518,7 @@ def _dispatch(args: argparse.Namespace) -> int:
                     "included_count": payload["included_count"],
                     "composite_ready_count": payload["composite_ready_count"],
                     "pending_second_item_count": payload["pending_second_item_count"],
+                    "pending_third_item_count": payload["pending_third_item_count"],
                     "pending_first_item_scope_count": payload["pending_first_item_scope_count"],
                     "pending_first_item_formal_settlement_count": payload[
                         "pending_first_item_formal_settlement_count"

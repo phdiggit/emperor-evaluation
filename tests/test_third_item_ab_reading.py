@@ -55,6 +55,10 @@ def test_person_render_is_read_only_and_keeps_decision_boundaries():
         'B80_adjudication': {f'adjudicated_{name}_rate': 0 for name in ('B1', 'B2', 'B4')},
         'control_contribution_type': 'INHERITED_ONLY',
     }
+    row['axes']['B4']['maturity_review'] = {
+        'status': 'EVIDENCE_GAP', 'basis': '仍需本任窗口的接防证据。',
+        'source_refs': ['synthetic-source'],
+    }
     before = deepcopy(row)
     text = '\n'.join(render_person(row, b_basis=lambda *_: '无本人控制成果。',
         b_grade=lambda *_: '', b_regions=lambda *_: '控制规模净变化区域：无', depth_lines=lambda *_: []))
@@ -63,3 +67,5 @@ def test_person_render_is_read_only_and_keeps_decision_boundaries():
     assert '另一方向的主要门户丧失' in text.split('<details>')[0]
     assert text.count('<details>') == text.count('</details>') == 1
     assert '仅继承存量，不计本人控制贡献' in text
+    assert '成熟度待补证：现值暂留，尚未通过边界复核' in text
+    assert '仍需本任窗口的接防证据' in text

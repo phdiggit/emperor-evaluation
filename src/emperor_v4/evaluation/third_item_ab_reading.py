@@ -147,6 +147,9 @@ def render_person(row: Mapping[str, Any], *, b_basis, b_grade, b_regions, depth_
         adjusted = float(row['axes'][name].get('score_rate') or 0) != float(b[f'adjudicated_{name}_rate'])
         basis = b.get('consistency_basis') if adjusted else b_basis(row, name)
         lines += [f"**{name} {titles[name]}**", '', prose(basis, ruler=str(row['ruler_name'])), '']
+        review = row['axes'][name].get('maturity_review') or {}
+        if review.get('status') == 'EVIDENCE_GAP':
+            lines += [f"**成熟度待补证：现值暂留，尚未通过边界复核。** {review['basis']}", '']
     contribution = {
         'NEW_RECOVERED_REBUILT': '新增、收复或重建控制',
         'SAVED_UNDER_MAJOR_PRESSURE': '重大失控压力下的保全或恢复',

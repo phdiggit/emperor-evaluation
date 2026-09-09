@@ -17,7 +17,14 @@ def test_canonical_pool_is_rebuildable_and_feasible() -> None:
     payload = build_canonical_ruler_pool(ROOT)
     included = [row for row in payload["records"] if row["pool_status"] == "INCLUDED"]
     excluded = [row for row in payload["records"] if row["pool_status"] == "EXCLUDED"]
-    assert all(row["evidence_feasibility"]["third_item_formal"] for row in included)
+    assert all(
+        row["evidence_feasibility"]["third_item_formal"]
+        or row["settlement_readiness"] in {
+            "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT",
+            "PENDING_THIRD_ITEM_FORMAL_SETTLEMENT",
+        }
+        for row in included
+    )
     assert all(row["evidence_feasibility"]["fourth_item_formal"] for row in included)
     assert all(row["evidence_feasibility"]["fifth_item_formal"] for row in included)
     assert all(row["first_item_readiness"] == "NOT_APPLICABLE_EXCLUDED" for row in excluded)
@@ -29,6 +36,13 @@ def test_canonical_pool_is_rebuildable_and_feasible() -> None:
     assert all(not row["evidence_feasibility"]["second_item_formal"] for row in pending_second)
     assert all(not row["evidence_feasibility"]["second_item_score_snapshot_present"] for row in pending_second)
     assert all(row["evidence_feasibility"]["second_item_local_evidence_refs"] for row in pending_second)
+    pending_third = [
+        row
+        for row in included
+        if row["settlement_readiness"] == "PENDING_THIRD_ITEM_FORMAL_SETTLEMENT"
+    ]
+    assert len(pending_third) == payload["pending_third_item_count"]
+    assert all(not row["evidence_feasibility"]["third_item_formal"] for row in pending_third)
 
 
 def test_checked_in_pool_matches_current_settlements() -> None:

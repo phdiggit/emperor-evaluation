@@ -316,6 +316,10 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         second_item_formal = (
             second_item_snapshot_present and name not in invalidated_second_item_names
         )
+        third_item_formal = (
+            source_rows["third_item"] is not None
+            and source_rows["third_item"].get("third_item_score_points") is not None
+        )
         if reason_code is None:
             missing = [
                 item
@@ -329,8 +333,6 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                 and source_rows["second_item"].get("second_item_score") is None
             ):
                 raise ValueError(f"正式池候选{name}已有第二项记录但无分")
-            if source_rows["third_item"].get("third_item_score_points") is None:
-                raise ValueError(f"正式池候选{name}第三项无分")
             if source_rows["fourth_item"].get("fourth_item_signed_adjustment") is None:
                 raise ValueError(f"正式池候选{name}第四项未闭合")
             if source_rows["fifth_item"].get("fifth_item_score_points") is None:
@@ -354,11 +356,15 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                 "pool_status": "INCLUDED" if reason_code is None else "EXCLUDED",
                 "settlement_readiness": (
                     "COMPOSITE_READY"
-                    if reason_code is None and second_item_formal
+                    if reason_code is None and second_item_formal and third_item_formal
                     else (
                         "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"
-                        if reason_code is None
-                        else "NOT_APPLICABLE_EXCLUDED"
+                        if reason_code is None and not second_item_formal
+                        else (
+                            "PENDING_THIRD_ITEM_FORMAL_SETTLEMENT"
+                            if reason_code is None and not third_item_formal
+                            else "NOT_APPLICABLE_EXCLUDED"
+                        )
                     )
                 ),
                 "exclusion_reason_code": reason_code,
@@ -372,7 +378,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                     "second_item_local_evidence_refs": (
                         pending_feasibility.get(name, {}).get("evidence_refs", [])
                     ),
-                    "third_item_formal": source_rows["third_item"] is not None,
+                    "third_item_formal": third_item_formal,
                     "fourth_item_formal": source_rows["fourth_item"] is not None,
                     "fifth_item_formal": master.get("fifth_item_score_points") is not None,
                     "fifth_factual_axis_count": factual_axes,
@@ -431,6 +437,10 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         row["settlement_readiness"] == "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"
         for row in records
     )
+    pending_third_item_count = sum(
+        row["settlement_readiness"] == "PENDING_THIRD_ITEM_FORMAL_SETTLEMENT"
+        for row in records
+    )
     pending_first_item_scope_count = sum(
         row["pool_status"] == "INCLUDED"
         and row["first_item_readiness"] == "PENDING_SCOPE_REVIEW_BEFORE_COMPOSITE"
@@ -447,15 +457,14 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
     if (
         included_count != 184
         or len(records) - included_count != 17
-        or composite_ready_count != 174
         or pending_second_item_count != 10
         or pending_first_item_scope_count != 0
         or pending_first_item_formal_settlement_count != 0
     ):
         raise ValueError(
-            "正式池预期184人/排除17人/综合就绪165人/第二项待结算19人/第一项范围待复核0人/第一项待结算0人，"
+            "正式池预期184人/排除17人/第二项待结算10人/第一项范围待复核0人/第一项待结算0人，"
             f"实际{included_count}/{len(records) - included_count}/{composite_ready_count}/"
-            f"{pending_second_item_count}/{pending_first_item_scope_count}/"
+            f"{pending_second_item_count}/{pending_third_item_count}/{pending_first_item_scope_count}/"
             f"{pending_first_item_formal_settlement_count}"
         )
     expected_reason_counts = dict(
@@ -471,6 +480,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         "included_count": included_count,
         "composite_ready_count": composite_ready_count,
         "pending_second_item_count": pending_second_item_count,
+        "pending_third_item_count": pending_third_item_count,
         "pending_first_item_scope_count": pending_first_item_scope_count,
         "pending_first_item_formal_settlement_count": pending_first_item_formal_settlement_count,
         "first_item_outside_candidate_pool_count": len(first_item_outside_candidate_pool),
@@ -478,9 +488,11 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         "selection_policy": {
             "minimum_effective_power_years": 3,
             "requires_independent_highest_decision_power": True,
-            "requires_formal_scores_for_admission": ["third_item", "fifth_item"],
+            "requires_formal_records_for_admission": ["third_item", "fifth_item"],
+            "requires_formal_scores_for_composite_readiness": ["third_item", "fifth_item"],
             "requires_closed_signed_adjustment": "fourth_item",
             "second_item_policy": "local evidence availability permits admission; missing or window-invalidated formal score blocks composite readiness and ranking",
+            "third_item_policy": "a missing C score or pending C parent-cycle semantic audit blocks composite readiness and ranking; unknown is not converted to zero",
             "first_item_policy": "conditional_add_on_only; every absent record must be adjudicated as explicit F=0 or pending formal A/B/C settlement",
             "feasibility_policy": "admit rulers with sufficient local reading products and historical sources even when second-item settlement is pending",
             "exclusion_precedence": [
@@ -522,6 +534,7 @@ def render_canonical_ruler_pool_markdown(payload: Mapping[str, Any]) -> str:
         f"- 正式评价池：{payload['included_count']}人。",
         f"- 当前综合计算就绪：{payload['composite_ready_count']}人。",
         f"- 池内第二项待正式结算：{payload['pending_second_item_count']}人。",
+        f"- 池内第三项待正式结算：{payload['pending_third_item_count']}人。",
         f"- 池内第一项适用范围待复核：{payload['pending_first_item_scope_count']}人。",
         f"- 池内第一项已判定适用、待正式结算：{payload['pending_first_item_formal_settlement_count']}人。",
         f"- 第一项历史快照中不属201人候选母池：{payload['first_item_outside_candidate_pool_count']}人；保留分项lineage，不进入本池。",
@@ -564,6 +577,25 @@ def render_canonical_ruler_pool_markdown(payload: Mapping[str, Any]) -> str:
             f"| {row['ruler_name']} | {row.get('polity') or '—'} | {row.get('actual_power_window') or '—'} | "
             f"{((row.get('second_item_window_adjudication') or {}).get('status') or row['evidence_feasibility'].get('second_item_feasibility_group') or 'MISSING_FORMAL_SCORE')} | "
             f"{row['first_item_readiness']} |"
+        )
+    pending_third = [
+        row for row in included if row["settlement_readiness"] == "PENDING_THIRD_ITEM_FORMAL_SETTLEMENT"
+    ]
+    lines.extend(
+        [
+            "",
+            "## 池内第三项待正式结算",
+            "",
+            "以下对象的第三项C父周期语义审计尚有待补边界，在补齐独立C父周期前不得计算综合分或进入总排名：",
+            "",
+            "| 对象 | 政权 | 实权窗口 | 第三项状态 | 第一项状态 |",
+            "|---|---|---|---|---|",
+        ]
+    )
+    for row in sorted(pending_third, key=lambda value: str(value["ruler_id"])):
+        lines.append(
+            f"| {row['ruler_name']} | {row.get('polity') or '—'} | {row.get('actual_power_window') or '—'} | "
+            f"{row['settlement_readiness']} | {row['first_item_readiness']} |"
         )
     pending_first = [
         row for row in included
@@ -616,6 +648,7 @@ def verify_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         "included_count": rebuilt["included_count"],
         "composite_ready_count": rebuilt["composite_ready_count"],
         "pending_second_item_count": rebuilt["pending_second_item_count"],
+        "pending_third_item_count": rebuilt["pending_third_item_count"],
         "pending_first_item_scope_count": rebuilt["pending_first_item_scope_count"],
         "pending_first_item_formal_settlement_count": rebuilt[
             "pending_first_item_formal_settlement_count"

@@ -54,11 +54,21 @@
               "rationale": "灭吴统一成果由第一项消费；第三项B只保留凉州危机收束、河西通道恢复与交趾等既有边疆控制，对西北和南方两个主要区域具有重要作用，取3档高位。"
             },
             "B4": {
-              "axis_points": 16.75,
-              "band_position": "MID",
               "grade": "B4-3",
+              "band_position": "MID",
               "score_rate": 67,
-              "rationale": "凉州在马隆收束后恢复州郡军政运行，交州节点也有常态官军；但鲜卑、河西压力和边地反复仍在，成果可运行而非无缺，取3档中位。"
+              "axis_points": 16.75,
+              "reason": "交趾—九真—日南在271年被吴恢复，构成本人窗口未恢复的主方向退控；凉州279年虽平，长期稳定仍未证，维持B4-3中位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "268年交趾—九真—日南仍是晋方南向控制，271年吴军恢复三郡并由陶璜设交州牧、继续讨降，构成本人窗口内未恢复的主要方向退控；279年马隆虽收复凉州并记‘凉州遂平’，后续长期稳定仍未证。两项主包合审维持B4-3中位，不以一般边患模板落档。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/两晋/卷080-通读总结.md",
+                  "docs/史料通读产物/唐以前编年/两晋/卷079-通读总结.md",
+                  "WAR-LEAD-JIN-MALONG-279",
+                  "WAR-LEAD-JINWU-JIAOZHI-268"
+                ]
+              }
             }
           },
           "b1_control_equivalents": {
@@ -281,7 +291,9 @@
             "final_B1_rate": 59.0
           },
           "b1_cross_item_excluded_weighted_value": -0.32,
-          "A_axis_common_context": "灭吴统一由第一项消费；本轴只读取马隆恢复凉州等统一核心之外的边患变化。"
+          "A_axis_common_context": "灭吴统一由第一项消费；本轴只读取马隆恢复凉州等统一核心之外的边患变化。",
+          "control_contribution_route": "B4_BOUNDARY_REAUDIT",
+          "control_contribution_basis": "B4边界复核闭合；不改既有B2归责或主控制成果包。"
         },
         {
           "ruler_id": "RULER-SHADOW-司马炽",
