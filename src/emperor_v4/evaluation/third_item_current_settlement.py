@@ -1337,7 +1337,11 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
     from emperor_v4.evaluation.five_dynasties_third_item import (
         _render_formal_markdown, validate_ab_shared_handoffs,
     )
+    from emperor_v4.evaluation.third_item_c_strategy_chain import (
+        verify_third_item_c_strategy_chain_settlement,
+    )
 
+    c_strategy_report = verify_third_item_c_strategy_chain_settlement(workspace_root)
     payload = _load(workspace_root / FORMAL_PATH)
     credit_payload = _load(workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH)
     ab_payload = _load(workspace_root / AB_PATH)
@@ -1459,6 +1463,7 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
         "status": "PASS", "record_count": len(records),
         "score_ready_count": len(ready), "pending_count": len(records) - len(ready),
         "score_range": payload["score_range"],
+        "C_strategy_chain": c_strategy_report,
         "B4_maturity_review": dict(maturity_statuses),
     }
 

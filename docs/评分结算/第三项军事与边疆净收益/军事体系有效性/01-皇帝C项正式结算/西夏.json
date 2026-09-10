@@ -60,7 +60,7 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "1007—1012对甘州、六谷多轮用兵均未取得控制或安全净改善；整体安全与主要边界维持原状态。反复动员证明有限持续能力，但连续不兑现压低C1与C3。"
+            "1007—1012多轮动员连续不兑现；仅作为第一项剥离后的能力证据，1/2/1维持。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
@@ -76,7 +76,7 @@
             "CHAIN-LI-DEMING-GANZHOU-LIUGU-1007-1012"
           ],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
+          "coverage_status": "FIRST_ITEM_C_CAPABILITY_REVIEW",
           "unresolved_gaps": [],
           "score_ready": true,
           "score_status": "DIRECT_C_SCORE_ASSIGNED",
@@ -101,23 +101,98 @@
           "parent_cycle_pending_refs": [],
           "parent_cycle_pending_count": 0,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE"
+          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE",
+          "axis_floor_grade": "C-1",
+          "raw_grade": "C-1",
+          "gate_cap": 5,
+          "final_grade": "C-1",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 0,
+          "strategy_chains": [],
+          "strategy_chain_refs": [],
+          "capability_only_strategy_chain_count": 1,
+          "capability_only_strategy_chains": [
+            {
+              "chain_id": "XIXIA25-68813A95E732",
+              "label": "甘州—六谷1007—1012能力专用链",
+              "period": "1007-1012",
+              "chain_type": "CAPABILITY_ONLY_STRATEGIC",
+              "canonical_strategy_ref": "CHAIN-LI-DEMING-GANZHOU-LIUGU-1007-1012",
+              "terminal_result_class": "NOT_APPLICABLE_CAPABILITY_ONLY",
+              "c_system_outcome_class": "CAPABILITY_ONLY",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "result_credit": 0,
+              "cost_credit": 0,
+              "basis": "当前正式跨项路由已将1004—1028河西扩张主链及其中失败尝试的结果、成本整体归第一项；第三项仅复用作战能力。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json"
+              ],
+              "provenance": "FIRST_ITEM_ROUTED_CAPABILITY_ONLY"
+            }
+          ],
+          "capability_only_strategy_chain_refs": [
+            "XIXIA25-68813A95E732"
+          ],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 0,
+            "known_outcome_count": 0,
+            "return_class_counts": {},
+            "return_class_chain_refs": {},
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE_KEEP_C1",
+          "strategy_chain_review_basis": "1007—1012多轮动员连续不兑现；仅作为第一项剥离后的能力证据，1/2/1维持。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-XIXIA-LIRENXIAO",
           "ruler_name": "李仁孝",
-          "polity": null,
+          "polity": "西夏",
           "reign_range": [
             "1139-1193"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-3",
+          "operational_sustainability_cap": "C2-2",
+          "system_reliability_cap": "C3-2",
+          "C_overall_grade": "C-2",
+          "C_score_rate": 52.0,
+          "C_score_points": 26.0,
+          "C_score_band_position": 0.5,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "1140夏州恢复与1143多州盗乱平定均属内部区域性威胁收束，只证明恢复既有控制，不证明外部安全秩序升档。两项成功支持C1交付，但现有卡未闭合高强度持续后勤和多名将领跨阶段可靠性。"
@@ -148,14 +223,14 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "两次内部区域压力均完成收束，支持C1-3；强度、持续后勤和跨阶段将领样本不足，C2/C3取2。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "CHF-XIXIA-V35-BANDITS-PACIFIED-1143",
@@ -163,12 +238,10 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json#CAMPAIGN-XIXIA-BANDITS-PACIFIED-1143",
             "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json#CAMPAIGN-XIXIA-XIAZHOU-RECOVERY-1140",
@@ -177,10 +250,13 @@
           "current_item_task_count": 0,
           "current_item_task_refs": [],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 1,
+          "C_score_axis_surplus_position": 0.1667,
+          "C_score_outcome_position": 0.1667,
+          "C_score_band": {
+            "lower_rate": 45,
+            "upper_rate": 59
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -190,23 +266,140 @@
           "parent_cycle_pending_count": 2,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-2",
+          "raw_grade": "C-2",
+          "gate_cap": 5,
+          "final_grade": "C-2",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 2,
+          "strategy_chains": [
+            {
+              "chain_id": "XIXIA25-426AD74C0105",
+              "label": "李合达叛乱：夏州失控—灵州受围—复夏州—盐州终结",
+              "period": "1140",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIRENXIAO-LIHEDA-1140",
+              "source_event_refs": [
+                "CHF-XIXIA-V35-XIAZHOU-RECOVERY-1140"
+              ],
+              "member_source_refs": [
+                "XSS-XIA-LIHEDA-REBELLION-1140"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "李合达据夏州、联络契丹诸部并围灵州；任得敬奇袭复夏州后在盐州击败残军，首领死亡，构成同一叛乱责任中心和共同终局。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-EB5528B27664",
+              "label": "1143多州盗乱—抚散—定州夜袭终结",
+              "period": "1143",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIRENXIAO-FAMINE-UNREST-1143",
+              "source_event_refs": [
+                "CHF-XIXIA-V35-BANDITS-PACIFIED-1143"
+              ],
+              "member_source_refs": [
+                "XSS-XIA-FAMINE-UNREST-1143"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "灾后多州盗群形成独立内部压力；多数经抚谕解散，定州两族拒守后被夜袭、首领被诛、余众投降，终局闭合。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "XIXIA25-426AD74C0105",
+            "XIXIA25-EB5528B27664"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 2,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 2
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "XIXIA25-426AD74C0105",
+                "XIXIA25-EB5528B27664"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C2",
+          "strategy_chain_review_basis": "两次内部区域压力均完成收束，支持C1-3；强度、持续后勤和跨阶段将领样本不足，C2/C3取2。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-XIXIA-LIQIANSHUN",
           "ruler_name": "李乾顺",
-          "polity": null,
+          "polity": "西夏",
           "reign_range": [
             "1086-1139"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-1",
+          "operational_sustainability_cap": "C2-3",
+          "system_reliability_cap": "C3-1",
+          "C_overall_grade": "C-1",
+          "C_score_rate": 37.0,
+          "C_score_points": 18.5,
+          "C_score_band_position": 0.5,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "跨数十年持续投入证明承载能力，但主要方向净恶化且反复不兑现，C1与C3只能1档。"
@@ -237,14 +430,14 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "长期多轮宋夏压力显示持续承载能力可到C2-3，但多次失城、败军与反复不兑现压低C1/C3至1；旧1087—1126总链拆除后不按链数机械加分。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "CAMPAIGN-XIXIA-AMAI-CAPTURE-TIANDU-1098",
@@ -257,12 +450,10 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/史料通读产物/西夏/西夏书事/volume-028.battle-adjudications.json",
             "docs/史料通读产物/西夏/西夏书事/volume-030.battle-adjudications.json",
@@ -274,10 +465,13 @@
           "current_item_task_count": 0,
           "current_item_task_refs": [],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 2,
+          "C_score_axis_surplus_position": 0.25,
+          "C_score_outcome_position": 0.25,
+          "C_score_band": {
+            "lower_rate": 30,
+            "upper_rate": 44
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -286,23 +480,280 @@
           "parent_cycle_pending_count": 1,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-1",
+          "raw_grade": "C-1",
+          "gate_cap": 5,
+          "final_grade": "C-1",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 7,
+          "strategy_chains": [
+            {
+              "chain_id": "XIXIA25-12122C6D4208",
+              "label": "镇戎—屈陆山战线",
+              "period": "1087",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIQIANSHUN-1087-ZHENRONG-QULUSHAN",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-ZHENRONG-QULUSHAN-1087"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-ZHENRONG-QULUSHAN-1087"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "该节点在现有公共军事登记中有独立本人窗口、独立动员/战斗终局；没有证据证明与相隔多年的下一节点共享连续国家授权，因此不再并入1087—1126超长总链。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-DFABEFFC9DFF",
+              "label": "顺宁战线",
+              "period": "1096",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIQIANSHUN-1096-SHUNNING",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-SHUNNING-1096"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-SHUNNING-1096"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "该节点在现有公共军事登记中有独立本人窗口、独立动员/战斗终局；没有证据证明与相隔多年的下一节点共享连续国家授权，因此不再并入1087—1126超长总链。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-6B6C097AB7F1",
+              "label": "天都山失守与阿埋被俘",
+              "period": "1098",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIQIANSHUN-1098-TIANDU",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-AMAI-CAPTURE-TIANDU-1098"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-AMAI-CAPTURE-TIANDU-1098"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "该节点在现有公共军事登记中有独立本人窗口、独立动员/战斗终局；没有证据证明与相隔多年的下一节点共享连续国家授权，因此不再并入1087—1126超长总链。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-3687277EAA33",
+              "label": "湟州围攻—援军到达撤退",
+              "period": "1099",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIQIANSHUN-1099-HUANGZHOU",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-HUANGZHOU-1099"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-HUANGZHOU-1099"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "该节点在现有公共军事登记中有独立本人窗口、独立动员/战斗终局；没有证据证明与相隔多年的下一节点共享连续国家授权，因此不再并入1087—1126超长总链。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-D37C53D78AD0",
+              "label": "灵州川败战",
+              "period": "1104",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIQIANSHUN-1104-LINGZHOUCHUAN",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-LINGZHOUCHUAN-1104"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-LINGZHOUCHUAN-1104"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "该节点在现有公共军事登记中有独立本人窗口、独立动员/战斗终局；没有证据证明与相隔多年的下一节点共享连续国家授权，因此不再并入1087—1126超长总链。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-C67FD5E7BD50",
+              "label": "仁多泉守城—失城终局",
+              "period": "1116",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIQIANSHUN-1116-RENDUOQUAN",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-RENDUOQUAN-1116"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-RENDUOQUAN-1116"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "该节点在现有公共军事登记中有独立本人窗口、独立动员/战斗终局；没有证据证明与相隔多年的下一节点共享连续国家授权，因此不再并入1087—1126超长总链。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-F1B7A7C63A8E",
+              "label": "怀德军攻取",
+              "period": "1126",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIQIANSHUN-1126-HUAIDE",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-HUAIDE-1126"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-HUAIDE-1126"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "该节点在现有公共军事登记中有独立本人窗口、独立动员/战斗终局；没有证据证明与相隔多年的下一节点共享连续国家授权，因此不再并入1087—1126超长总链。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "XIXIA25-12122C6D4208",
+            "XIXIA25-DFABEFFC9DFF",
+            "XIXIA25-6B6C097AB7F1",
+            "XIXIA25-3687277EAA33",
+            "XIXIA25-D37C53D78AD0",
+            "XIXIA25-C67FD5E7BD50",
+            "XIXIA25-F1B7A7C63A8E"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 7,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 7
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "XIXIA25-12122C6D4208",
+                "XIXIA25-DFABEFFC9DFF",
+                "XIXIA25-6B6C097AB7F1",
+                "XIXIA25-3687277EAA33",
+                "XIXIA25-D37C53D78AD0",
+                "XIXIA25-C67FD5E7BD50",
+                "XIXIA25-F1B7A7C63A8E"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C1",
+          "strategy_chain_review_basis": "长期多轮宋夏压力显示持续承载能力可到C2-3，但多次失城、败军与反复不兑现压低C1/C3至1；旧1087—1126总链拆除后不按链数机械加分。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-XIXIA-LIANQUAN",
           "ruler_name": "李安全",
-          "polity": null,
+          "polity": "西夏",
           "reign_range": [
             "1206-1211"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-1",
+          "operational_sustainability_cap": "C2-2",
+          "system_reliability_cap": "C3-1",
+          "C_overall_grade": "C-1",
+          "C_score_rate": 33.5,
+          "C_score_points": 16.8,
+          "C_score_band_position": 0.25,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "LOW",
             "reason": "单一蒙古高压任务中五万防御军大败、多个门户失守；有动员事实但交付和可靠性均低。"
@@ -330,29 +781,29 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败1项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "五万军动员证明有限承载，但国家级防御大败且多门户失守，1/2/1。"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "CSTR-LIANQUAN-MONGOL-RIVERWEST-1209"
+          ],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "CAMPAIGN-XIXIA-MONGOL-RIVERWEST-1209"
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json#CAMPAIGN-XIXIA-MONGOL-RIVERWEST-1209",
             "docs/史料通读产物/西夏/西夏书事/volume-040.battle-adjudications.json"
@@ -360,10 +811,13 @@
           "current_item_task_count": 0,
           "current_item_task_refs": [],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 1,
+          "C_score_axis_surplus_position": 0.125,
+          "C_score_outcome_position": 0.125,
+          "C_score_band": {
+            "lower_rate": 30,
+            "upper_rate": 44
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -372,23 +826,116 @@
           "parent_cycle_pending_count": 1,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-1",
+          "raw_grade": "C-1",
+          "gate_cap": 5,
+          "final_grade": "C-1",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 1,
+          "strategy_chains": [
+            {
+              "chain_id": "XIXIA25-E13C6C134B0E",
+              "label": "蒙古河西攻势—五万军大败—中兴府外围门户失守",
+              "period": "1209",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIANQUAN-MONGOL-RIVERWEST-1209",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-MONGOL-RIVERWEST-1209"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-MONGOL-RIVERWEST-1209"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "同一蒙古国家级进攻压力下，五万防御军败、兀剌海与克夷等外围门户失守，作为一个连续国家防御链闭合。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "XIXIA25-E13C6C134B0E"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 1,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 1
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "XIXIA25-E13C6C134B0E"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 1,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C1",
+          "strategy_chain_review_basis": "五万军动员证明有限承载，但国家级防御大败且多门户失守，1/2/1。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "XIXIA25-E13C6C134B0E"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 1,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "XIXIA25-E13C6C134B0E"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-XIXIA-LIDEWANG",
           "ruler_name": "李德旺",
-          "polity": null,
+          "polity": "西夏",
           "reign_range": [
             "1223-1226"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-1",
+          "operational_sustainability_cap": "C2-2",
+          "system_reliability_cap": "C3-1",
+          "C_overall_grade": "C-1",
+          "C_score_rate": 33.5,
+          "C_score_points": 16.8,
+          "C_score_band_position": 0.25,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "LOW",
             "reason": "银州单链出现严重军政与人员损失；只能证明有限动员承载，不能据此推高体系持续性或可靠性。"
@@ -416,29 +963,29 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败1项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "银州单链发生严重人员与军政损失；能证明动员但无法证明可靠持续交付，1/2/1。"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "CSTR-LIDEWANG-MONGOL-YINZHOU-1224"
+          ],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "CAMPAIGN-MONGOL-YINZHOU-1224"
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json#CAMPAIGN-MONGOL-YINZHOU-1224",
             "docs/史料通读产物/西夏/西夏书事/volume-042.battle-adjudications.json"
@@ -446,10 +993,13 @@
           "current_item_task_count": 0,
           "current_item_task_refs": [],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 1,
+          "C_score_axis_surplus_position": 0.125,
+          "C_score_outcome_position": 0.125,
+          "C_score_band": {
+            "lower_rate": 30,
+            "upper_rate": 44
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -458,23 +1008,116 @@
           "parent_cycle_pending_count": 1,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-1",
+          "raw_grade": "C-1",
+          "gate_cap": 5,
+          "final_grade": "C-1",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 1,
+          "strategy_chains": [
+            {
+              "chain_id": "XIXIA25-99D7562827A8",
+              "label": "蒙古银州攻势—数万损失—银州陷落",
+              "period": "1224",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIDEWANG-MONGOL-YINZHOU-1224",
+              "source_event_refs": [
+                "CAMPAIGN-MONGOL-YINZHOU-1224"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-MONGOL-YINZHOU-1224"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "国家存续级蒙古攻势中，银州守备、人员与军政体系在同一连续进攻内被摧毁，单链闭合。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "XIXIA25-99D7562827A8"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 1,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 1
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "XIXIA25-99D7562827A8"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 1,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C1",
+          "strategy_chain_review_basis": "银州单链发生严重人员与军政损失；能证明动员但无法证明可靠持续交付，1/2/1。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "XIXIA25-99D7562827A8"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 1,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "XIXIA25-99D7562827A8"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-XIXIA-LIXIAN",
           "ruler_name": "李睍",
-          "polity": null,
+          "polity": "西夏",
           "reign_range": [
             "1226-1227"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-1",
+          "operational_sustainability_cap": "C2-1",
+          "system_reliability_cap": "C3-1",
+          "C_overall_grade": "C-1",
+          "C_score_rate": 33.5,
+          "C_score_points": 16.8,
+          "C_score_band_position": 0.25,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "LOW",
             "reason": "本人窗口内应里、黄河九渡和夏州连续失守；当前只有一条失败任务，三轴均限1档。"
@@ -502,29 +1145,29 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败1项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "本人窗口内多个关键节点连续失守，单一失败样本三轴均限1。"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "CSTR-LIXIAN-MONGOL-YINGLI-XIAZHOU-1226"
+          ],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "CAMPAIGN-MONGOL-YINGLI-XIAZHOU-1226"
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json#CAMPAIGN-MONGOL-YINGLI-XIAZHOU-1226",
             "docs/史料通读产物/西夏/西夏书事/volume-042.battle-adjudications.json"
@@ -532,10 +1175,13 @@
           "current_item_task_count": 0,
           "current_item_task_refs": [],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 0,
+          "C_score_axis_surplus_position": 0.0,
+          "C_score_outcome_position": 0.0,
+          "C_score_band": {
+            "lower_rate": 30,
+            "upper_rate": 44
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -544,23 +1190,116 @@
           "parent_cycle_pending_count": 1,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-1",
+          "raw_grade": "C-1",
+          "gate_cap": 5,
+          "final_grade": "C-1",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 1,
+          "strategy_chains": [
+            {
+              "chain_id": "XIXIA25-B4E5990BFEE1",
+              "label": "蒙古应里—黄河九渡—夏州连续攻势",
+              "period": "1226",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIXIAN-MONGOL-YINGLI-XIAZHOU-1226",
+              "source_event_refs": [
+                "CAMPAIGN-MONGOL-YINGLI-XIAZHOU-1226"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-MONGOL-YINGLI-XIAZHOU-1226"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "仅消费李睍继位后的1226年本人窗口：应里等县与夏州连续陷落；前任李德旺的银州阶段不倒灌。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "XIXIA25-B4E5990BFEE1"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 1,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 1
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "XIXIA25-B4E5990BFEE1"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 1,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C1",
+          "strategy_chain_review_basis": "本人窗口内多个关键节点连续失守，单一失败样本三轴均限1。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "XIXIA25-B4E5990BFEE1"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 1,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "XIXIA25-B4E5990BFEE1"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-XIXIA-LIBINGCHANG",
           "ruler_name": "李秉常",
-          "polity": null,
+          "polity": "西夏",
           "reign_range": [
             "1067-1086"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-3",
+          "operational_sustainability_cap": "C2-4",
+          "system_reliability_cap": "C3-3",
+          "C_overall_grade": "C-3",
+          "C_score_rate": 67.0,
+          "C_score_points": 33.5,
+          "C_score_band_position": 0.5,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "在O6国家级攻势下保全灵州并恢复夏、银节点，长期动员与补给承载较强；另有北方新威胁，且将领跨任务可靠性不足以到4。"
@@ -591,14 +1330,14 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "虽有多次局部失利，但在宋O6级五路攻势下保全灵州并恢复夏、银节点，长期动员和补给承载达到C2-4；跨任务可靠性仍不足C3-4，故3/4/3。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "CAMPAIGN-XIXIA-DESHUN-1070",
@@ -609,12 +1348,10 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/史料通读产物/西夏/西夏书事/volume-022.battle-adjudications.json",
             "docs/史料通读产物/西夏/西夏书事/volume-023.battle-adjudications.json",
@@ -626,10 +1363,13 @@
           "current_item_task_count": 0,
           "current_item_task_refs": [],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 1,
+          "C_score_axis_surplus_position": 0.25,
+          "C_score_outcome_position": 0.25,
+          "C_score_band": {
+            "lower_rate": 60,
+            "upper_rate": 74
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -639,23 +1379,224 @@
           "parent_cycle_pending_count": 2,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 5,
+          "strategy_chains": [
+            {
+              "chain_id": "XIXIA25-2BC22FE5272C",
+              "label": "德顺进攻失败",
+              "period": "1070",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIBINGCHANG-1070-DESHUN",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-DESHUN-1070"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-DESHUN-1070"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "现有战役源与公共登记均能独立识别本次授权和终局；跨十余年的旧总链不再作为C主评分颗粒。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-4F0D12B24644",
+              "label": "吐蕃河/西北边战",
+              "period": "1071",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIBINGCHANG-1071-TUHUN",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-TUHUN-RIVER-1071"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-TUHUN-RIVER-1071"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "现有战役源与公共登记均能独立识别本次授权和终局；跨十余年的旧总链不再作为C主评分颗粒。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-982E9C4913F6",
+              "label": "回河坪屯骑争夺",
+              "period": "1078",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIBINGCHANG-1078-HUIHEPING",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-HUIHEPING-1078"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-HUIHEPING-1078"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "现有战役源与公共登记均能独立识别本次授权和终局；跨十余年的旧总链不再作为C主评分颗粒。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-A6DE8BD89F10",
+              "label": "宋五路攻夏—灵州防御与夏银恢复",
+              "period": "1081-1082",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIBINGCHANG-1081-1082-FIVE-ROUTE",
+              "source_event_refs": [
+                "XIXIA-FIVE-ROUTE-DEFENSE-1081-1082"
+              ],
+              "member_source_refs": [
+                "XIXIA-FIVE-ROUTE-DEFENSE-1081-1082"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "现有战役源与公共登记均能独立识别本次授权和终局；跨十余年的旧总链不再作为C主评分颗粒。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-AF81A7F0AA5B",
+              "label": "塔坦甘州方向袭扰",
+              "period": "1084",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LIBINGCHANG-1084-TATAN",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-TATAN-GANZHOU-1084"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-TATAN-GANZHOU-1084"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "现有战役源与公共登记均能独立识别本次授权和终局；跨十余年的旧总链不再作为C主评分颗粒。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "XIXIA25-2BC22FE5272C",
+            "XIXIA25-4F0D12B24644",
+            "XIXIA25-982E9C4913F6",
+            "XIXIA25-A6DE8BD89F10",
+            "XIXIA25-AF81A7F0AA5B"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 5,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 5
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "XIXIA25-2BC22FE5272C",
+                "XIXIA25-4F0D12B24644",
+                "XIXIA25-982E9C4913F6",
+                "XIXIA25-A6DE8BD89F10",
+                "XIXIA25-AF81A7F0AA5B"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C3",
+          "strategy_chain_review_basis": "虽有多次局部失利，但在宋O6级五路攻势下保全灵州并恢复夏、银节点，长期动员和补给承载达到C2-4；跨任务可靠性仍不足C3-4，故3/4/3。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-XIXIA-LILIANGZUO",
           "ruler_name": "李谅祚",
-          "polity": null,
+          "polity": "西夏",
           "reign_range": [
             "1048-1067"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-2",
+          "operational_sustainability_cap": "C2-3",
+          "system_reliability_cap": "C3-2",
+          "C_overall_grade": "C-2",
+          "C_score_rate": 52.0,
+          "C_score_points": 26.0,
+          "C_score_band_position": 0.5,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "辽、宋、青唐三方向一胜一局部收束一耐久恶化；持续多方向投入可见，但交付与可靠性均受失败限制。"
@@ -683,17 +1624,19 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败1项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "辽、宋、青唐三方向呈一胜、一局部收束、一耐久恶化；多方向持续投入支持C2-3，但交付与可靠性受失败约束，2/3/2。"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "CSTR-LILIANGZUO-QINGTANG-1058"
+          ],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "CAMPAIGN-XIXIA-HULIDUI-1057",
@@ -703,12 +1646,10 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/史料通读产物/西夏/西夏书事/volume-019.battle-adjudications.json",
             "docs/史料通读产物/西夏/西夏书事/volume-020.battle-adjudications.json"
@@ -716,10 +1657,13 @@
           "current_item_task_count": 0,
           "current_item_task_refs": [],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 1,
+          "C_score_axis_surplus_position": 0.1667,
+          "C_score_outcome_position": 0.1667,
+          "C_score_band": {
+            "lower_rate": 45,
+            "upper_rate": 59
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -730,7 +1674,157 @@
           "parent_cycle_pending_count": 3,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-2",
+          "raw_grade": "C-2",
+          "gate_cap": 5,
+          "final_grade": "C-2",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 3,
+          "strategy_chains": [
+            {
+              "chain_id": "XIXIA25-FC49BFB6E671",
+              "label": "辽夏再战：亲征入境—高坂反击—金肃三角川续战",
+              "period": "1049-1050",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LILIANGZUO-LIAO-XIA-1049-1050",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-XIAOHUI-1049",
+                "CAMPAIGN-XIXIA-JINSU-SANJIAO-1050"
+              ],
+              "member_source_refs": [
+                "XSS-LIAO-XIA-RENEWED-WAR-1049-1050"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "原始《西夏书事》战役卡明确把1049—1050诸阶段置于同一campaign_group；共享辽夏再战目标和连续终局，因此合为一条战略链。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-53F2FDC4462B",
+              "label": "宋夏忽里堆诱击战",
+              "period": "1057",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LILIANGZUO-SONG-HULIDUI-1057",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-HULIDUI-1057"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-HULIDUI-1057"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "按原始战役卡中可识别的独立授权、压力对象与阶段终局闭合；不借用D结果档作为C终局。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "XIXIA25-1ED90BCDD0B2",
+              "label": "青唐方向败战—三大族转投—西蕃反入夏境",
+              "period": "1058",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-LILIANGZUO-QINGTANG-1058",
+              "source_event_refs": [
+                "CAMPAIGN-XIXIA-QINGTANG-1058"
+              ],
+              "member_source_refs": [
+                "CAMPAIGN-XIXIA-QINGTANG-1058"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "按原始战役卡中可识别的独立授权、压力对象与阶段终局闭合；不借用D结果档作为C终局。",
+              "semantic_closure": "CLOSED_FROM_BATTLE_CARD_SEMANTICS",
+              "basis": "由正式C列出的原始战役证据回源重建C战略链；C return_class仍保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/xixia.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "XIXIA25-FC49BFB6E671",
+            "XIXIA25-53F2FDC4462B",
+            "XIXIA25-1ED90BCDD0B2"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 3,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 3
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "XIXIA25-FC49BFB6E671",
+                "XIXIA25-53F2FDC4462B",
+                "XIXIA25-1ED90BCDD0B2"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 1,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C2",
+          "strategy_chain_review_basis": "辽、宋、青唐三方向呈一胜、一局部收束、一耐久恶化；多方向持续投入支持C2-3，但交付与可靠性受失败约束，2/3/2。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "XIXIA25-1ED90BCDD0B2"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 1,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "XIXIA25-1ED90BCDD0B2"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-XIXIA-LIYUANHAO",
@@ -777,8 +1871,7 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "按1个去重体系压力或能力专用父任务裁决：结果=创业统一能力专用证据；己方兵团毁损=由第一项能力窗口回源。C1-4只评价任务兑现，C2-4评价持续动员与恢复，C3-3评价跨阶段和将领可靠性；未把D成果档、成本档或任务数量机械换算成C。",
-            "排除创业统一账后仅余1项独立任务，C1/C3按证据上限3档收束。"
+            "第一项剥离后只保留能力专用证据；证据上限使C1/C3收束至3，C2为4，最终C3。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
@@ -792,7 +1885,7 @@
             "CAPABILITY_ONLY::TALENT-SUPPLEMENT:李元昊"
           ],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
+          "coverage_status": "FIRST_ITEM_C_CAPABILITY_REVIEW",
           "unresolved_gaps": [],
           "score_ready": true,
           "score_status": "DIRECT_C_SCORE_ASSIGNED",
@@ -815,7 +1908,82 @@
           "parent_cycle_pending_refs": [],
           "parent_cycle_pending_count": 0,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE"
+          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 0,
+          "strategy_chains": [],
+          "strategy_chain_refs": [],
+          "capability_only_strategy_chain_count": 1,
+          "capability_only_strategy_chains": [
+            {
+              "chain_id": "XIXIA25-CCBAE658363C",
+              "label": "李元昊创业统一军事能力专用链",
+              "period": "1032-1048",
+              "chain_type": "CAPABILITY_ONLY_STRATEGIC",
+              "canonical_strategy_ref": "CAPABILITY_ONLY::TALENT-SUPPLEMENT:李元昊",
+              "terminal_result_class": "NOT_APPLICABLE_CAPABILITY_ONLY",
+              "c_system_outcome_class": "CAPABILITY_ONLY",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "result_credit": 0,
+              "cost_credit": 0,
+              "basis": "创业统一成果已由第一项消费；第三项仅复用国家军队能力表现，不复用成果、控制量或成本。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/西夏.json"
+              ],
+              "provenance": "FIRST_ITEM_ROUTED_CAPABILITY_ONLY"
+            }
+          ],
+          "capability_only_strategy_chain_refs": [
+            "XIXIA25-CCBAE658363C"
+          ],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 0,
+            "known_outcome_count": 0,
+            "return_class_counts": {},
+            "return_class_chain_refs": {},
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE_KEEP_C3",
+          "strategy_chain_review_basis": "第一项剥离后只保留能力专用证据；证据上限使C1/C3收束至3，C2为4，最终C3。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         }
       ]
     }

@@ -11,98 +11,538 @@
           "ruler_id": "RULER-SHADOW-杨行密",
           "ruler_name": "杨行密",
           "polity": "吴",
-          "reign_range": "902-905",
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "C_score_within_band_adjudication": {
-            "position": "HIGH",
-            "reason": "舰队危机处置、鄂州围城与内乱平定表现稳健；但主政后期短、对汴军仍反复，三轴止3。"
-          },
-          "observed_parent_cycle_count": 4,
-          "independent_task_count": 0,
-          "independent_task_groups": [],
+          "reign_range": "902—905",
+          "combat_delivery_grade": "C1-3",
+          "operational_sustainability_cap": "C2-3",
+          "system_reliability_cap": "C3-3",
+          "C_overall_grade": "C-3",
+          "C_score_rate": 65.7,
+          "C_score_points": 32.9,
+          "C_score_band_position": 0.4071,
+          "C_score_position_method": "STRATEGIC_CHAIN_OUTCOME_AND_AXIS_SURPLUS",
+          "C_score_within_band_adjudication": null,
+          "observed_parent_cycle_count": 7,
+          "independent_task_count": 7,
+          "independent_task_groups": [
+            "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+            "ZZTJ-263-WANGSHIFAN-0903",
+            "ZZTJ-263-YANGXINGMI-EZHOU-0903",
+            "ZZTJ-264-TIANJUN-REBELLION-0903:TIANJUN",
+            "ZZTJ-264-TIANJUN-REBELLION-0903:ANRENYI",
+            "ZZTJ-265-ZHU-HUAINAN-I-0904",
+            "ZZTJ-265-ZHU-HUAINAN-II-0905"
+          ],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "task_selection_policy": "DIRECT_C_SUBJECT_WINDOW_STRATEGIC_CHAINS",
           "task_outcome_profile": {
-            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
-            "known_outcome_count": 0,
-            "return_class_counts": {},
-            "status": "NOT_APPLICABLE",
-            "selected_task_count": 0,
-            "return_class_refs": {},
+            "source": "DIRECT_C_SUBJECT_WINDOW_REVIEW",
+            "selected_task_count": 7,
+            "known_outcome_count": 7,
+            "return_class_counts": {
+              "HIGH_RETURN": 1,
+              "LOW_RETURN": 1,
+              "NEGATIVE_RETURN": 2,
+              "PROPORTIONATE_RETURN": 3
+            },
+            "return_class_refs": {
+              "HIGH_RETURN": [
+                "ZZTJ-265-ZHU-HUAINAN-II-0905"
+              ],
+              "LOW_RETURN": [
+                "ZZTJ-265-ZHU-HUAINAN-I-0904"
+              ],
+              "NEGATIVE_RETURN": [
+                "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+                "ZZTJ-263-WANGSHIFAN-0903"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "ZZTJ-263-YANGXINGMI-EZHOU-0903",
+                "ZZTJ-264-TIANJUN-REBELLION-0903:TIANJUN",
+                "ZZTJ-264-TIANJUN-REBELLION-0903:ANRENYI"
+              ]
+            },
+            "status": "QUANTIFIED",
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "NOT_APPLICABLE",
-              "selected_task_count": 0,
+              "status": "NO_D_CHAIN_MATCH",
+              "selected_task_count": 7,
               "matched_task_count": 0,
               "known_result_count": 0,
               "security_result_grade_counts": {},
               "security_result_grade_refs": {},
-              "unmatched_task_refs": []
+              "unmatched_task_refs": [
+                "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+                "ZZTJ-263-WANGSHIFAN-0903",
+                "ZZTJ-263-YANGXINGMI-EZHOU-0903",
+                "ZZTJ-264-TIANJUN-REBELLION-0903:TIANJUN",
+                "ZZTJ-264-TIANJUN-REBELLION-0903:ANRENYI",
+                "ZZTJ-265-ZHU-HUAINAN-I-0904",
+                "ZZTJ-265-ZHU-HUAINAN-II-0905"
+              ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期7项，已知结果7项，回报剖面={'HIGH_RETURN': 1, 'LOW_RETURN': 1, 'NEGATIVE_RETURN': 2, 'PROPORTIONATE_RETURN': 3}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "七条独立压力链补齐淮南主体阶段：两次攻宿州无功，鄂州及两支叛军最终收束，904守城但拒止不足，905拒守反击有效。多将接续和多方向普通任务可兑现；粮运撤退、舰队被焚与久围不下限制高档，裁3/3/3，以战略链完整结果派生档内位置。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "NOT_REQUIRED_BELOW_C4"
           },
           "settled_event_refs": [
-            "PARENT-FENGHONGDUO-FLEET-902",
-            "PARENT-HUAINAN-ANRENYI-903-905",
-            "PARENT-HUAINAN-DUHONG-EOZHOU-902-905",
-            "PARENT-HUAINAN-TIANJUN-REBELLION-903",
             "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
-            "ZZTJ-264-HUAINAN-SUZHOU-0903"
+            "ZZTJ-263-WANGSHIFAN-0903",
+            "ZZTJ-263-YANGXINGMI-EZHOU-0903",
+            "ZZTJ-264-TIANJUN-REBELLION-0903:TIANJUN",
+            "ZZTJ-264-TIANJUN-REBELLION-0903:ANRENYI",
+            "ZZTJ-265-ZHU-HUAINAN-I-0904",
+            "ZZTJ-265-ZHU-HUAINAN-II-0905"
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "DIRECT_C_SUBJECT_WINDOW_REVIEW_COMPLETE",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "FORMAL_SCORED",
           "source_refs": [
-            "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json",
-            "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#PARENT-FENGHONGDUO-FLEET-902",
-            "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-GESHAN-0902",
-            "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json",
-            "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#PARENT-HUAINAN-TIANJUN-REBELLION-903",
-            "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#PARENT-HUAINAN-ANRENYI-903-905",
-            "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#PARENT-HUAINAN-DUHONG-EOZHOU-902-905"
+            "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-263-WANGSHIFAN-0903",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-YANGXINGMI-EZHOU-0903",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-263-YANGXINGMI-EZHOU-0903",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-265-ZHU-HUAINAN-I-0904",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-265-ZHU-HUAINAN-II-0905",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 0,
+          "C_score_axis_surplus_position": 0.0,
+          "C_score_outcome_position": 0.4071,
+          "C_score_band": {
+            "lower_rate": 60,
+            "upper_rate": 74
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
-          "current_item_task_count": 0,
-          "current_item_task_refs": [],
-          "non_scoring_observation_refs": [],
-          "parent_cycle_pending_refs": [
-            "CHAIN-YANGXINGMI-FENGHONGDUO-902",
-            "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904",
-            "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
-            "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905"
+          "current_item_task_count": 7,
+          "current_item_task_refs": [
+            "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+            "ZZTJ-263-WANGSHIFAN-0903",
+            "ZZTJ-263-YANGXINGMI-EZHOU-0903",
+            "ZZTJ-264-TIANJUN-REBELLION-0903:TIANJUN",
+            "ZZTJ-264-TIANJUN-REBELLION-0903:ANRENYI",
+            "ZZTJ-265-ZHU-HUAINAN-I-0904",
+            "ZZTJ-265-ZHU-HUAINAN-II-0905"
           ],
-          "parent_cycle_pending_count": 4,
-          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-strategy-chain-adjudications.json",
+          "c5_axis_gate": {
+            "C1": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          },
+          "parent_cycle_audit_status": "DIRECT_C_SUBJECT_WINDOW_REVIEW_COMPLETE",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 7,
+          "strategy_chains": [
+            {
+              "chain_id": "C-YANGXINGMI-SUZHOU-902",
+              "label": "讨汴攻宿州",
+              "period": "902",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "C-YANGXINGMI-SUZHOU-902",
+              "source_event_refs": [
+                "ZZTJ-263-YANGXINGMI-SUZHOU-0902"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "known_phase_results": [],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "902奉诏讨汴攻宿州，粮运不继撤还即终局；903配合王师范是重新出兵，另立链。",
+              "basis": "902奉诏讨汴攻宿州，粮运不继撤还即终局；903配合王师范是重新出兵，另立链。",
+              "source_basis": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-YANGXINGMI-SUZHOU-0902"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-YANGXINGMI-SUZHOU-0902"
+              ],
+              "ruler_window": "902",
+              "pressure_object": "讨汴攻宿州",
+              "terminal_result": "杨行密军久攻不克，久雨导致重载不进、士有饥色，最终粮运不继撤还；未见主力毁灭，不额外列重大体系失败。",
+              "subject_binding": {
+                "ruler_id": "RULER-SHADOW-杨行密",
+                "evaluation_subject": "杨行密",
+                "consumption_scope": "C_SYSTEM_CAPABILITY_ONLY_NO_ABD_REWRITE",
+                "actual_process": "杨行密军久攻不克，久雨导致重载不进、士有饥色，最终粮运不继撤还；未见主力毁灭，不额外列重大体系失败。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-YANGXINGMI-SUZHOU-0902"
+                ]
+              },
+              "provenance": "DIRECT_C_SOURCE_WINDOW_ADJUDICATION",
+              "scoring_note": "战略链只计一次；父阶段只作证据，不继承D结果、成本或对方成果。"
+            },
+            {
+              "chain_id": "C-YANGXINGMI-SUZHOU-903",
+              "label": "援王师范攻宿州",
+              "period": "903",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "C-YANGXINGMI-SUZHOU-903",
+              "source_event_refs": [
+                "ZZTJ-263-WANGSHIFAN-0903"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "known_phase_results": [],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "为配合王师范重新遣军数万，目的及授权重置，不并回902。只消费卷264淮南主体阶段，不消费同campaign下王师范或汴军结果。",
+              "basis": "为配合王师范重新遣军数万，目的及授权重置，不并回902。只消费卷264淮南主体阶段，不消费同campaign下王师范或汴军结果。",
+              "source_basis": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-263-WANGSHIFAN-0903"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-263-WANGSHIFAN-0903"
+              ],
+              "ruler_window": "903",
+              "pressure_object": "援王师范攻宿州",
+              "terminal_result": "淮南数万军攻宿州，康怀英救至后撤退，无城池所得。",
+              "subject_binding": {
+                "ruler_id": "RULER-SHADOW-杨行密",
+                "evaluation_subject": "杨行密",
+                "consumption_scope": "C_SYSTEM_CAPABILITY_ONLY_NO_ABD_REWRITE",
+                "actual_process": "淮南数万军攻宿州，康怀英救至后撤退，无城池所得。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-263-WANGSHIFAN-0903"
+                ]
+              },
+              "provenance": "DIRECT_C_SOURCE_WINDOW_ADJUDICATION",
+              "scoring_note": "战略链只计一次；父阶段只作证据，不继承D结果、成本或对方成果。"
+            },
+            {
+              "chain_id": "C-YANGXINGMI-EZHOU-903-905",
+              "label": "攻杜洪鄂州",
+              "period": "903—905年二月",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "C-YANGXINGMI-EZHOU-903-905",
+              "source_event_refs": [
+                "ZZTJ-263-YANGXINGMI-EZHOU-0903"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "known_phase_results": [],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "永兴前进补给节点、长期围鄂至刘存接任拔鄂共享同一目标及终局；903起点按现有原始战役卡，不沿旧别名倒推902。",
+              "basis": "永兴前进补给节点、长期围鄂至刘存接任拔鄂共享同一目标及终局；903起点按现有原始战役卡，不沿旧别名倒推902。",
+              "source_basis": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-YANGXINGMI-EZHOU-0903",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-263-YANGXINGMI-EZHOU-0903"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-YANGXINGMI-EZHOU-0903",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-263-YANGXINGMI-EZHOU-0903"
+              ],
+              "ruler_window": "903—905年二月",
+              "pressure_object": "攻杜洪鄂州",
+              "terminal_result": "杨行密命李神福、刘存攻杜洪，先得馈运节点永兴，李神福病离后刘存接任并于905二月拔鄂；支持持续围城和换将接续，长期未下限制结果质量。",
+              "subject_binding": {
+                "ruler_id": "RULER-SHADOW-杨行密",
+                "evaluation_subject": "杨行密",
+                "consumption_scope": "C_SYSTEM_CAPABILITY_ONLY_NO_ABD_REWRITE",
+                "actual_process": "杨行密命李神福、刘存攻杜洪，先得馈运节点永兴，李神福病离后刘存接任并于905二月拔鄂；支持持续围城和换将接续，长期未下限制结果质量。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-YANGXINGMI-EZHOU-0903",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-263-YANGXINGMI-EZHOU-0903"
+                ]
+              },
+              "provenance": "DIRECT_C_SOURCE_WINDOW_ADJUDICATION",
+              "scoring_note": "战略链只计一次；父阶段只作证据，不继承D结果、成本或对方成果。"
+            },
+            {
+              "chain_id": "C-YANGXINGMI-TIANJUN-903",
+              "label": "平田頵宣州叛乱",
+              "period": "903",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "C-YANGXINGMI-TIANJUN-903",
+              "source_event_refs": [
+                "ZZTJ-264-TIANJUN-REBELLION-0903:TIANJUN"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "known_phase_results": [],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "田頵宣州独立武装主体在903被斩、宣州收复；与安仁义润州据守分开。吉阳磯、皖口、广德、黄池及克宣州均为本链成员。",
+              "basis": "田頵宣州独立武装主体在903被斩、宣州收复；与安仁义润州据守分开。吉阳磯、皖口、广德、黄池及克宣州均为本链成员。",
+              "source_basis": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903"
+              ],
+              "ruler_window": "903",
+              "pressure_object": "平田頵宣州叛乱",
+              "terminal_result": "李神福反击田頵水军，台濛推进、设伏并斩田頵克宣州，杨行密重置军镇；以淮南主体阶段闭合归责，不用田頵叛前独立水战代本人成果。",
+              "subject_binding": {
+                "ruler_id": "RULER-SHADOW-杨行密",
+                "evaluation_subject": "杨行密",
+                "consumption_scope": "C_SYSTEM_CAPABILITY_ONLY_NO_ABD_REWRITE",
+                "actual_process": "李神福反击田頵水军，台濛推进、设伏并斩田頵克宣州，杨行密重置军镇；以淮南主体阶段闭合归责，不用田頵叛前独立水战代本人成果。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903"
+                ]
+              },
+              "provenance": "DIRECT_C_SOURCE_WINDOW_ADJUDICATION",
+              "scoring_note": "战略链只计一次；父阶段只作证据，不继承D结果、成本或对方成果。"
+            },
+            {
+              "chain_id": "C-YANGXINGMI-ANRENYI-903-905",
+              "label": "平安仁义润州叛乱",
+              "period": "903—905",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "C-YANGXINGMI-ANRENYI-903-905",
+              "source_event_refs": [
+                "ZZTJ-264-TIANJUN-REBELLION-0903:ANRENYI"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "known_phase_results": [],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "安仁义焚舰据润州是独立叛军主体；宣州收束后仍坚守逾年，至地道破城另行终局。",
+              "basis": "安仁义焚舰据润州是独立叛军主体；宣州收束后仍坚守逾年，至地道破城另行终局。",
+              "source_basis": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903"
+              ],
+              "ruler_window": "903—905",
+              "pressure_object": "平安仁义润州叛乱",
+              "terminal_result": "安仁义焚东塘舰队；王茂章、徐温协同野战击败叛军，围城逾年后王茂章掘道克城。舰队受损及围城受阻是反证，不能只取末次胜利抬高保障和可靠性。",
+              "subject_binding": {
+                "ruler_id": "RULER-SHADOW-杨行密",
+                "evaluation_subject": "杨行密",
+                "consumption_scope": "C_SYSTEM_CAPABILITY_ONLY_NO_ABD_REWRITE",
+                "actual_process": "安仁义焚东塘舰队；王茂章、徐温协同野战击败叛军，围城逾年后王茂章掘道克城。舰队受损及围城受阻是反证，不能只取末次胜利抬高保障和可靠性。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903"
+                ]
+              },
+              "provenance": "DIRECT_C_SOURCE_WINDOW_ADJUDICATION",
+              "scoring_note": "战略链只计一次；父阶段只作证据，不继承D结果、成本或对方成果。"
+            },
+            {
+              "chain_id": "C-YANGXINGMI-HUAINAN-904",
+              "label": "拒汴军第一次入淮",
+              "period": "904",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "C-YANGXINGMI-HUAINAN-904",
+              "source_event_refs": [
+                "ZZTJ-265-ZHU-HUAINAN-I-0904"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "known_phase_results": [],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "攻宿州转为保卫淮南，任务重置；此次汴军撤退闭合，905再度入淮另立链。",
+              "basis": "攻宿州转为保卫淮南，任务重置；此次汴军撤退闭合，905再度入淮另立链。",
+              "source_basis": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-265-ZHU-HUAINAN-I-0904"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-265-ZHU-HUAINAN-I-0904"
+              ],
+              "ruler_window": "904",
+              "pressure_object": "拒汴军第一次入淮",
+              "terminal_result": "淮南守军坚壁守住寿州，但汴军分路大掠未获充分拒止；C只据守城与拒止效果定低收益，不以民损或D档重复扣分。",
+              "subject_binding": {
+                "ruler_id": "RULER-SHADOW-杨行密",
+                "evaluation_subject": "杨行密",
+                "consumption_scope": "C_SYSTEM_CAPABILITY_ONLY_NO_ABD_REWRITE",
+                "actual_process": "淮南守军坚壁守住寿州，但汴军分路大掠未获充分拒止；C只据守城与拒止效果定低收益，不以民损或D档重复扣分。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-265-ZHU-HUAINAN-I-0904"
+                ]
+              },
+              "provenance": "DIRECT_C_SOURCE_WINDOW_ADJUDICATION",
+              "scoring_note": "战略链只计一次；父阶段只作证据，不继承D结果、成本或对方成果。"
+            },
+            {
+              "chain_id": "C-YANGXINGMI-HUAINAN-905",
+              "label": "拒汴军第二次入淮",
+              "period": "905年秋至十一月交班前",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "C-YANGXINGMI-HUAINAN-905",
+              "source_event_refs": [
+                "ZZTJ-265-ZHU-HUAINAN-II-0905"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "known_phase_results": [],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "朱全忠平襄荆后重新东进，光寿坚壁及撤军后抄击为一链；原文锚P0077—P0084先于十一月杨行密卒P0088，不倒灌906杨渥任务。",
+              "basis": "朱全忠平襄荆后重新东进，光寿坚壁及撤军后抄击为一链；原文锚P0077—P0084先于十一月杨行密卒P0088，不倒灌906杨渥任务。",
+              "source_basis": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-265-ZHU-HUAINAN-II-0905",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-265-ZHU-HUAINAN-II-0905",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md"
+              ],
+              "ruler_window": "905年秋至十一月交班前",
+              "pressure_object": "拒汴军第二次入淮",
+              "terminal_result": "光州拒降、寿州坚壁清野阻止围攻，柴再用抄击退军取得明确战果；杨行密病重交班期的国家体系表现可观察，但不据此声称其亲自战术指挥。",
+              "subject_binding": {
+                "ruler_id": "RULER-SHADOW-杨行密",
+                "evaluation_subject": "杨行密",
+                "consumption_scope": "C_SYSTEM_CAPABILITY_ONLY_NO_ABD_REWRITE",
+                "actual_process": "光州拒降、寿州坚壁清野阻止围攻，柴再用抄击退军取得明确战果；杨行密病重交班期的国家体系表现可观察，但不据此声称其亲自战术指挥。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-265-ZHU-HUAINAN-II-0905",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md"
+                ]
+              },
+              "provenance": "DIRECT_C_SOURCE_WINDOW_ADJUDICATION",
+              "scoring_note": "战略链只计一次；父阶段只作证据，不继承D结果、成本或对方成果。"
+            }
+          ],
+          "strategy_chain_refs": [
+            "C-YANGXINGMI-SUZHOU-902",
+            "C-YANGXINGMI-SUZHOU-903",
+            "C-YANGXINGMI-EZHOU-903-905",
+            "C-YANGXINGMI-TIANJUN-903",
+            "C-YANGXINGMI-ANRENYI-903-905",
+            "C-YANGXINGMI-HUAINAN-904",
+            "C-YANGXINGMI-HUAINAN-905"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 7,
+            "known_outcome_count": 7,
+            "return_class_counts": {
+              "HIGH_RETURN": 1,
+              "LOW_RETURN": 1,
+              "NEGATIVE_RETURN": 2,
+              "PROPORTIONATE_RETURN": 3
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "C-YANGXINGMI-HUAINAN-905"
+              ],
+              "LOW_RETURN": [
+                "C-YANGXINGMI-HUAINAN-904"
+              ],
+              "NEGATIVE_RETURN": [
+                "C-YANGXINGMI-SUZHOU-902",
+                "C-YANGXINGMI-SUZHOU-903"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "C-YANGXINGMI-EZHOU-903-905",
+                "C-YANGXINGMI-TIANJUN-903",
+                "C-YANGXINGMI-ANRENYI-903-905"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+            "ZZTJ-263-WANGSHIFAN-0903",
+            "ZZTJ-263-YANGXINGMI-EZHOU-0903",
+            "ZZTJ-264-TIANJUN-REBELLION-0903:TIANJUN",
+            "ZZTJ-264-TIANJUN-REBELLION-0903:ANRENYI",
+            "ZZTJ-265-ZHU-HUAINAN-I-0904",
+            "ZZTJ-265-ZHU-HUAINAN-II-0905"
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 7,
+          "strategy_chain_parent_cycle_status": "DIRECT_C_SUBJECT_WINDOW_REVIEW_COMPLETE",
+          "strategy_chain_review_batch": "LOCAL-C-GAP-CLOSURE",
+          "strategy_chain_review_status": "DIRECT_C_SUBJECT_WINDOW_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "七条独立压力链补齐淮南主体阶段：两次攻宿州无功，鄂州及两支叛军最终收束，904守城但拒止不足，905拒守反击有效。多将接续和多方向普通任务可兑现；粮运撤退、舰队被焚与久围不下限制高档，裁3/3/3，以战略链完整结果派生档内位置。",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "current_parent_cycle_refs": [
+            "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+            "ZZTJ-263-WANGSHIFAN-0903",
+            "ZZTJ-263-YANGXINGMI-EZHOU-0903",
+            "ZZTJ-264-TIANJUN-REBELLION-0903:TIANJUN",
+            "ZZTJ-264-TIANJUN-REBELLION-0903:ANRENYI",
+            "ZZTJ-265-ZHU-HUAINAN-I-0904",
+            "ZZTJ-265-ZHU-HUAINAN-II-0905"
+          ],
+          "current_parent_cycle_count": 7,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_successes": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "capability_only_major_failure_chain_refs": []
+          },
+          "active_rule_windows": [
+            {
+              "period": "902—905年十一月卒",
+              "consumption_scope": "本人统治窗口内国家军事体系；不主张全部战术为本人亲自指挥",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-263-WANGSHIFAN-0903",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-YANGXINGMI-EZHOU-0903",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-263-YANGXINGMI-EZHOU-0903",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-264-TIANJUN-REBELLION-0903",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-265-ZHU-HUAINAN-I-0904",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#ZZTJ-265-ZHU-HUAINAN-II-0905",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md"
+              ]
+            }
+          ],
+          "strategy_chain_non_scoring_observations": [
+            {
+              "ref": "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-GESHAN-0902",
+              "reason": "葛山实际交战主体是田頵与冯弘铎，杨行密直接可证行为是接纳败后余众；不凭招纳、旧D别名或名义关系直接新增本人C实战票。"
+            }
+          ],
+          "strategy_chain_non_scoring_observation_count": 1
         }
       ]
     }

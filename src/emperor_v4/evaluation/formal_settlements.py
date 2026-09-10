@@ -24,6 +24,9 @@ from emperor_v4.evaluation.second_item_b1_settlement import (
 from emperor_v4.evaluation.third_item_current_settlement import (
     verify_current_third_item_settlement,
 )
+from emperor_v4.evaluation.third_item_c_strategy_chain import (
+    verify_third_item_c_strategy_chain_settlement,
+)
 from emperor_v4.evaluation.third_item_d_settlement import (
     verify_third_item_d_formal_settlement,
 )
@@ -1124,7 +1127,10 @@ def verify_formal_settlements(workspace_root: Path, *, items: set[str] | None = 
         if "second_item" in items:
             result["second_item_components"] = _verify_second_item_components(workspace_root)
         if "third_item" in items:
-            result["third_item_components"] = verify_current_third_item_settlement(workspace_root)
+            result["third_item_components"] = {
+                "C": verify_third_item_c_strategy_chain_settlement(workspace_root),
+                "combined": verify_current_third_item_settlement(workspace_root),
+            }
         return result
     from emperor_v4.evaluation.project_entries import verify as verify_project_entries
     return {
@@ -1135,6 +1141,7 @@ def verify_formal_settlements(workspace_root: Path, *, items: set[str] | None = 
         "composite_ranking": verify_composite_ranking(workspace_root),
         "second_item_components": _verify_second_item_components(workspace_root),
         "third_item_components": {
+            "C": verify_third_item_c_strategy_chain_settlement(workspace_root),
             "D": verify_third_item_d_formal_settlement(workspace_root),
             "combined": verify_current_third_item_settlement(workspace_root),
         },

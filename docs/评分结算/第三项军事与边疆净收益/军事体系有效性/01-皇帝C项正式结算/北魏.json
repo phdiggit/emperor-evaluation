@@ -24,7 +24,7 @@
           "C_score_support_surplus": 2,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "复代与灭刘卫辰进入能力侧，结合参合陂等在位任务支持4/4/3，不以两项创业结果推高可靠性。"
+            "创业竞争窗口延至409，后燕、高车、柴壁、柔然等均只作能力证据；正向极强但柔然链存在明显可靠性反证，维持4/4/3。"
           ],
           "collapse_profile": "NONE",
           "combat_delivery_grade": "C1-4",
@@ -37,8 +37,7 @@
           "independent_task_count": 0,
           "independent_task_groups": [],
           "major_system_failure_refs": [
-            "CAMPAIGN-V107-107-WEI-ROURAN-391",
-            "CAMPAIGN-WEI-YAN-396-397"
+            "CAMPAIGN-V112-112-ROURAN-402"
           ],
           "non_war_evidence_refs": [
             "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷079-通读总结.md",
@@ -102,17 +101,20 @@
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [
+            "CAMPAIGN-WEI-YAN-396-397",
             "CAMPAIGN-V111-111-WEI-GAOCHE-399"
           ],
           "major_victory_gate": {
             "required_count": 0,
-            "actual_count": 1,
+            "actual_count": 2,
             "status": "PASSED"
           },
           "observed_parent_cycle_count": 4,
           "task_selection_policy": "CLOSED_MATERIAL_PARENT_CYCLES_PLUS_MAJOR_SYSTEM_OUTCOMES",
           "c_only_major_parent_refs": [
-            "WAR-LEAD-107-WEI-LIUWEICHEN-391"
+            "CAMPAIGN-WEI-YAN-396-397",
+            "CAMPAIGN-V111-111-WEI-GAOCHE-399",
+            "CAMPAIGN-V112-112-ROURAN-402"
           ],
           "non_scoring_observation_count": 0,
           "task_outcome_profile": {
@@ -135,13 +137,15 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩1项、重大体系失败2项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩2项、重大体系失败1项。",
           "capability_only_parent_refs": [
             "WAR-LEAD-106-WEI-385-386",
             "WAR-LEAD-107-WEI-LIUWEICHEN-391",
             "CAMPAIGN-WEI-YAN-396-397",
             "CAMPAIGN-V111-111-WEI-GAOCHE-399",
-            "CAMPAIGN-V107-107-WEI-ROURAN-391"
+            "CAMPAIGN-V107-107-WEI-ROURAN-391",
+            "CAMPAIGN-V112-112-CHAIBI-402",
+            "CAMPAIGN-V112-112-ROURAN-402"
           ],
           "founder_capability_review": {
             "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
@@ -175,8 +179,8 @@
           },
           "C_score_axis_surplus_position": 0.5,
           "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.4825,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.5,
           "cross_item_identity": {
             "join_key": "拓跋珪",
             "first_item_ruler_id": "RULER-SHADOW-拓跋珪",
@@ -190,36 +194,247 @@
           "parent_cycle_pending_refs": [],
           "parent_cycle_pending_count": 0,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE"
+          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 0,
+          "strategy_chains": [],
+          "strategy_chain_refs": [],
+          "capability_only_strategy_chain_count": 6,
+          "capability_only_strategy_chains": [
+            {
+              "chain_id": "TG-KUHUN-385-386",
+              "label": "复代与窟咄竞争",
+              "period": "385-386",
+              "chain_type": "CAPABILITY_ONLY_FOUNDING",
+              "opponent_system": "窟咄代北竞争集团",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "WAR-LEAD-106-WEI-385-386"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "复代创业主链之一，完成代北竞争结构逆转并建立可持续政权基础。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TG-LIUWEICHEN-391",
+              "label": "朔方刘卫辰终局",
+              "period": "391",
+              "chain_type": "CAPABILITY_ONLY_FOUNDING",
+              "opponent_system": "刘卫辰朔方政权",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "WAR-LEAD-107-WEI-LIUWEICHEN-391"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "击破刘卫辰政权，朔方主要竞争结构终结。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TG-LATERYAN-395-397",
+              "label": "后燕战争：参合陂—河北",
+              "period": "395-397",
+              "chain_type": "CAPABILITY_ONLY_FOUNDING",
+              "opponent_system": "后燕国家机器",
+              "opponent_grade": "O5",
+              "member_parent_refs": [
+                "CAMPAIGN-WEI-YAN-396-397"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": true,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "MIXED_POSITIVE"
+              },
+              "basis": "参合陂后虽一度承受平城失守，仍连续反攻取得中山及河北核心，属O5高难度大链。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TG-GAOCHE-399",
+              "label": "三路越漠击高车",
+              "period": "399",
+              "chain_type": "CAPABILITY_ONLY_FOUNDING",
+              "opponent_system": "高车广域部落体系",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "CAMPAIGN-V111-111-WEI-GAOCHE-399"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": true,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "三路越漠击破高车二十余部及七部，形成显著威胁削弱。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TG-CHAIBI-402",
+              "label": "柴壁击退后秦东进",
+              "period": "402",
+              "chain_type": "CAPABILITY_ONLY_FOUNDING",
+              "opponent_system": "后秦国家机器",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "CAMPAIGN-V112-112-CHAIBI-402"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "恢复乾壁方向并以内外双围阻退后秦国家级东进。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TG-ROURAN-402",
+              "label": "柔然威胁升级",
+              "period": "402",
+              "chain_type": "CAPABILITY_ONLY_FOUNDING",
+              "opponent_system": "柔然",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "CAMPAIGN-V112-112-ROURAN-402"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "axis_signals": {
+                "C1": "NEGATIVE",
+                "C2": "NEGATIVE",
+                "C3": "NEGATIVE"
+              },
+              "basis": "北魏仅获即时缓解，柔然随后兼并扩张并军制化，北方压力耐久升级。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "capability_only_strategy_chain_refs": [
+            "TG-KUHUN-385-386",
+            "TG-LIUWEICHEN-391",
+            "TG-LATERYAN-395-397",
+            "TG-GAOCHE-399",
+            "TG-CHAIBI-402",
+            "TG-ROURAN-402"
+          ],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 0,
+            "known_outcome_count": 0,
+            "return_class_counts": {},
+            "return_class_chain_refs": {},
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "创业竞争窗口延至409，后燕、高车、柴壁、柔然等均只作能力证据；正向极强但柔然链存在明显可靠性反证，维持4/4/3。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 2,
+          "capability_only_major_failure_count": 1,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [
+            "TG-LATERYAN-395-397",
+            "TG-GAOCHE-399"
+          ],
+          "capability_only_major_failure_chain_refs": [
+            "TG-ROURAN-402"
+          ],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 2,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 1,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [
+              "TG-LATERYAN-395-397",
+              "TG-GAOCHE-399"
+            ],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [
+              "TG-ROURAN-402"
+            ],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
-          "C_overall_grade": "C-3",
+          "C_overall_grade": "C-4",
           "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
+            "lower_rate": 75,
+            "upper_rate": 89
           },
-          "C_score_points": 33.2,
-          "C_score_rate": 66.32,
+          "C_score_points": 41.5,
+          "C_score_rate": 83.05,
           "C_score_support_surplus": 0,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "能够承接并多方向运行北魏军事体系，未见战役群级崩溃。",
-            "C4重大胜绩门禁未通过：需1项、实有0项，封顶C3。"
+            "河南422—423对O5刘宋取得滑台、洛阳、虎牢与多郡设治，是明确本体重大体系胜绩；加上柔然解围、河西败后整军修复等多方向证据，事实三轴应为4/4/4，旧C3主要来自门禁回写。"
           ],
           "collapse_profile": "NONE",
-          "combat_delivery_grade": "C1-3",
-          "coverage_status": "DIRECT_EVENTS",
+          "combat_delivery_grade": "C1-4",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [
             "WAR-LEAD-115-WEI-SUCCESSION-409",
             "WAR-LEAD-NC-SONG-WEI-422"
           ],
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
-          "independent_task_count": 3,
+          "independent_task_count": 4,
           "independent_task_groups": [
             "CAMPAIGN-V115-115-WEI-RELOCATION-410",
             "CAMPAIGN-V117-117-WEI-XIHE-415",
-            "NC-V119-LEAD-NC-SONG-WEI-422"
+            "NC-V119-LEAD-NC-SONG-WEI-422",
+            "CAMPAIGN-V115-115-WEI-ROURAN-410"
           ],
           "major_system_failure_refs": [],
           "non_war_evidence_refs": [
@@ -252,7 +467,7 @@
             "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷144-通读总结.md",
             "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷153-通读总结.md"
           ],
-          "operational_sustainability_cap": "C2-3",
+          "operational_sustainability_cap": "C2-4",
           "partition": "两晋十六国南北朝隋",
           "passive_C1_adjustment": null,
           "passive_C1_cap": null,
@@ -280,15 +495,17 @@
             "WAR-LEAD-118-WEI-NORTHYAN-418",
             "WAR-LEAD-NC-SONG-WEI-422"
           ],
-          "system_reliability_cap": "C3-3",
+          "system_reliability_cap": "C3-4",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
-          "major_system_success_refs": [],
+          "major_system_success_refs": [
+            "NC-V119-LEAD-NC-SONG-WEI-422"
+          ],
           "major_victory_gate": {
-            "required_count": 0,
-            "actual_count": 0,
+            "required_count": 1,
+            "actual_count": 1,
             "status": "PASSED"
           },
           "observed_parent_cycle_count": 1,
@@ -296,13 +513,14 @@
           "c_only_major_parent_refs": [],
           "non_scoring_observation_count": 0,
           "task_outcome_profile": {
-            "source": "CLOSED_SYSTEM_STRESS_PARENT_CYCLES",
-            "selected_task_count": 3,
+            "source": "CLOSED_SYSTEM_STRESS_PARENT_CYCLES_WITH_EXPLICIT_UNKNOWN_CLOSURE",
+            "selected_task_count": 4,
             "known_outcome_count": 3,
             "return_class_counts": {
               "HIGH_RETURN": 1,
               "LOW_RETURN": 1,
-              "NEGATIVE_RETURN": 1
+              "NEGATIVE_RETURN": 1,
+              "UNKNOWN": 1
             },
             "return_class_refs": {
               "HIGH_RETURN": [
@@ -313,6 +531,9 @@
               ],
               "NEGATIVE_RETURN": [
                 "CAMPAIGN-V117-117-WEI-XIHE-415"
+              ],
+              "UNKNOWN": [
+                "CAMPAIGN-V115-115-WEI-ROURAN-410"
               ]
             },
             "major_system_success_count": 0,
@@ -321,7 +542,7 @@
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
               "status": "NO_D_CHAIN_MATCH",
-              "selected_task_count": 3,
+              "selected_task_count": 4,
               "matched_task_count": 0,
               "known_result_count": 0,
               "security_result_grade_counts": {},
@@ -329,27 +550,29 @@
               "unmatched_task_refs": [
                 "CAMPAIGN-V115-115-WEI-RELOCATION-410",
                 "CAMPAIGN-V117-117-WEI-XIHE-415",
-                "NC-V119-LEAD-NC-SONG-WEI-422"
+                "NC-V119-LEAD-NC-SONG-WEI-422",
+                "CAMPAIGN-V115-115-WEI-ROURAN-410"
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期3项，已知结果3项，回报剖面={'HIGH_RETURN': 1, 'LOW_RETURN': 1, 'NEGATIVE_RETURN': 1}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期4项，已知结果3项，回报剖面={'HIGH_RETURN': 1, 'LOW_RETURN': 1, 'NEGATIVE_RETURN': 1, 'UNKNOWN': 1}；重大体系胜绩1项、重大体系失败0项。",
           "capability_only_parent_refs": [],
           "C_score_axis_surplus_position": 0.0,
-          "C_score_band_position": 0.4512,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.4512,
+          "C_score_band_position": 0.575,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.575,
           "cross_item_identity": {
             "join_key": "拓跋嗣",
             "first_item_ruler_id": null,
             "third_item_ruler_id": "RULER-SHADOW-拓跋嗣",
             "status": "FIRST_ITEM_NOT_APPLICABLE"
           },
-          "current_item_task_count": 3,
+          "current_item_task_count": 4,
           "current_item_task_refs": [
             "CAMPAIGN-V115-115-WEI-RELOCATION-410",
             "CAMPAIGN-V117-117-WEI-XIHE-415",
-            "NC-V119-LEAD-NC-SONG-WEI-422"
+            "NC-V119-LEAD-NC-SONG-WEI-422",
+            "CAMPAIGN-V115-115-WEI-ROURAN-410"
           ],
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -359,7 +582,209 @@
           ],
           "parent_cycle_pending_count": 3,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-4",
+          "raw_grade": "C-4",
+          "gate_cap": 5,
+          "final_grade": "C-4",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 4,
+          "strategy_chains": [
+            {
+              "chain_id": "TBS-RELOCATION-410",
+              "label": "强迁后盗乱与平定",
+              "period": "410",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "被迁人口武装集团",
+              "opponent_grade": "INTERNAL_REGIONAL",
+              "member_parent_refs": [
+                "CAMPAIGN-V115-115-WEI-RELOCATION-410"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED",
+                "C2": "POSITIVE",
+                "C3": "MIXED"
+              },
+              "basis": "强迁诱发盗乱，后先赦后以万骑收束；能恢复控制，但起因与成本限制正向评价。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBS-ROURAN-410",
+              "label": "柔然围军与亲征解围",
+              "period": "410",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "柔然",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "CAMPAIGN-V115-115-WEI-ROURAN-410"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "拓跋嗣亲征迫柔然遁走并解牛川之围，但柔然威胁主体仍存。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBS-XIHE-415-416",
+              "label": "河西胡众跨年战争",
+              "period": "415-416",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "河西胡众",
+              "opponent_grade": "INTERNAL_O3",
+              "member_parent_refs": [
+                "CAMPAIGN-V117-117-WEI-XIHE-415"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "MIXED_POSITIVE"
+              },
+              "basis": "首轮因公孙表违令而败，随后缩小动员、整军反击完成区域收束，体现纠错后的体系恢复。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBS-SONG-WEI-HENAN-422-423",
+              "label": "对刘宋河南战争",
+              "period": "422-423",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "刘宋国家机器",
+              "opponent_grade": "O5",
+              "member_parent_refs": [
+                "NC-V119-LEAD-NC-SONG-WEI-422"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": true,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "STRONG_POSITIVE"
+              },
+              "basis": "十万级多路长期攻坚后取得滑台、洛阳、虎牢及河南多郡并设治，是明确O5重大体系胜绩。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "strategy_chain_refs": [
+            "TBS-RELOCATION-410",
+            "TBS-ROURAN-410",
+            "TBS-XIHE-415-416",
+            "TBS-SONG-WEI-HENAN-422-423"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 4,
+            "known_outcome_count": 4,
+            "return_class_counts": {
+              "HIGH_RETURN": 1,
+              "LOW_RETURN": 1,
+              "PROPORTIONATE_RETURN": 2
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "TBS-SONG-WEI-HENAN-422-423"
+              ],
+              "LOW_RETURN": [
+                "TBS-RELOCATION-410"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "TBS-ROURAN-410",
+                "TBS-XIHE-415-416"
+              ]
+            },
+            "major_system_success_count": 1,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "CAMPAIGN-V115-115-WEI-RELOCATION-410",
+              "strategy_chain_ref": "TBS-RELOCATION-410",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V115-115-WEI-ROURAN-410",
+              "strategy_chain_ref": "TBS-ROURAN-410",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V117-117-WEI-XIHE-415",
+              "strategy_chain_ref": "TBS-XIHE-415-416",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V119-LEAD-NC-SONG-WEI-422",
+              "strategy_chain_ref": "TBS-SONG-WEI-HENAN-422-423",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 4,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "河南422—423对O5刘宋取得滑台、洛阳、虎牢与多郡设治，是明确本体重大体系胜绩；加上柔然解围、河西败后整军修复等多方向证据，事实三轴应为4/4/4，旧C3主要来自门禁回写。",
+          "strategy_chain_major_success_count": 1,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [
+            "TBS-SONG-WEI-HENAN-422-423"
+          ],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "CAMPAIGN-V115-115-WEI-RELOCATION-410",
+            "CAMPAIGN-V117-117-WEI-XIHE-415",
+            "NC-V119-LEAD-NC-SONG-WEI-422",
+            "CAMPAIGN-V115-115-WEI-ROURAN-410"
+          ],
+          "current_parent_cycle_count": 4,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 1,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [
+              "TBS-SONG-WEI-HENAN-422-423"
+            ],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
           "C_overall_grade": "C-4",
@@ -372,11 +797,11 @@
           "C_score_support_surplus": 0,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "对夏、北凉和西域等多方向有高难度兑现，但柔然方向数次无功或失利，450—451年南征又以高损、未形成持续控制告终，不能达到C1历史顶级且不得形成反复重大失效的5档；多路动员与跨将领运行仍支持C2/C3四档。"
+            "柔然长期方向、三条445—446内部压力及450—451南征刘宋均按战略链处理。448—449柔然结构性衰弱是重大正向，450—451南征是重大反证，综合仍为4/4/4。"
           ],
           "collapse_profile": "NONE",
           "combat_delivery_grade": "C1-4",
-          "coverage_status": "FIRST_ITEM_C_CAPABILITY_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [
             "WAR-LEAD-NC-SONG-WEI-422"
           ],
@@ -475,17 +900,18 @@
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [
+            "NC-V125-LEAD-NC-WEI-RURAN-448-449",
             "NC-WEI-XIA-426-430"
           ],
           "major_victory_gate": {
             "required_count": 1,
-            "actual_count": 1,
+            "actual_count": 2,
             "status": "PASSED"
           },
           "observed_parent_cycle_count": 13,
           "task_selection_policy": "CLOSED_MATERIAL_PARENT_CYCLES_PLUS_MAJOR_SYSTEM_OUTCOMES",
           "c_only_major_parent_refs": [
-            "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439"
+            "NC-WEI-XIA-426-430"
           ],
           "non_scoring_observation_count": 0,
           "task_outcome_profile": {
@@ -556,7 +982,7 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期8项，已知结果7项，回报剖面={'HIGH_RETURN': 2, 'LOW_RETURN': 3, 'NEGATIVE_RETURN': 2, 'UNKNOWN': 1}；重大体系胜绩1项、重大体系失败1项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期8项，已知结果7项，回报剖面={'HIGH_RETURN': 2, 'LOW_RETURN': 3, 'NEGATIVE_RETURN': 2, 'UNKNOWN': 1}；重大体系胜绩2项、重大体系失败1项。",
           "capability_only_parent_refs": [
             "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439",
             "NC-WEI-XIA-426-430",
@@ -593,7 +1019,7 @@
             "position": "MID",
             "reason": "灭夏、北燕、北凉及柔然方向多次兑现，但南征刘宋重大失败和多项低收益使其取C4中位。"
           },
-          "C_score_outcome_position": 0.5072,
+          "C_score_outcome_position": 0.5,
           "cross_item_identity": {
             "join_key": "拓跋焘",
             "first_item_ruler_id": "RULER-SHADOW-拓跋焘",
@@ -625,7 +1051,376 @@
           ],
           "parent_cycle_pending_count": 8,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-4",
+          "raw_grade": "C-4",
+          "gate_cap": 5,
+          "final_grade": "C-4",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 7,
+          "strategy_chains": [
+            {
+              "chain_id": "TBT-ROURAN-424-425",
+              "label": "柔然424—425入寇与反击",
+              "period": "424-425",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "柔然",
+              "opponent_grade": "O5",
+              "member_parent_refs": [
+                "WAR-LEAD-NC-WEI-RURAN-424-425"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "MIXED"
+              },
+              "basis": "守住云中—盛乐核心节点并迫敌退，却未形成持久威胁终结。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBT-ROURAN-429",
+              "label": "柔然429再犯与可汗败亡",
+              "period": "429",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "柔然",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "NC-V121-LEAD-NC-WEI-RURAN-429"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "多路追击后柔然可汗败亡、部众大规模归附，形成重大阶段削弱。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBT-GAIWU-445-446",
+              "label": "盖吴跨区域叛乱",
+              "period": "445-446",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "盖吴关中集团",
+              "opponent_grade": "INTERNAL_O4",
+              "member_parent_refs": [
+                "NC-V124-LEAD-NC-GAIWU-445-446"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "MIXED_POSITIVE"
+              },
+              "basis": "跨区域主集团最终被击破、关中节点恢复，但过程需要多路高强度动员。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBT-LIUCHAO-446",
+              "label": "刘超区域反乱",
+              "period": "446",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "刘超集团",
+              "opponent_grade": "INTERNAL_REGIONAL",
+              "member_parent_refs": [
+                "NC-V124-LEAD-NC-LIU-CHAO-446"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "区域武装被快速击破，安定等节点恢复。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBT-SHANGGUI-446",
+              "label": "上邽与宋多反乱",
+              "period": "446",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "上邽地方反乱集团",
+              "opponent_grade": "INTERNAL_REGIONAL",
+              "member_parent_refs": [
+                "NC-V124-LEAD-NC-SHANGGUI-REBELLION-446"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED",
+                "C2": "POSITIVE",
+                "C3": "MIXED"
+              },
+              "basis": "局部节点恢复但反复仍在，正向只取有限。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBT-ROURAN-448-449",
+              "label": "柔然448—449多路反击",
+              "period": "448-449",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "柔然",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "NC-V125-LEAD-NC-WEI-RURAN-448-449"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": true,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "STRONG_POSITIVE"
+              },
+              "basis": "多路反击后柔然衰弱并长期不敢犯魏塞，是本体重大体系胜绩。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBT-SONG-450-451",
+              "label": "450—451南征刘宋",
+              "period": "450-451",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "刘宋国家机器",
+              "opponent_grade": "O5",
+              "member_parent_refs": [
+                "NC-WEI-SONG-450-451"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "axis_signals": {
+                "C1": "STRONG_NEGATIVE",
+                "C2": "STRONG_NEGATIVE",
+                "C3": "STRONG_NEGATIVE"
+              },
+              "basis": "大举南征虽深入江淮，但未形成耐久控制且消耗、损失与撤退后果显著，作为重大体系失败保留。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "strategy_chain_refs": [
+            "TBT-ROURAN-424-425",
+            "TBT-ROURAN-429",
+            "TBT-GAIWU-445-446",
+            "TBT-LIUCHAO-446",
+            "TBT-SHANGGUI-446",
+            "TBT-ROURAN-448-449",
+            "TBT-SONG-450-451"
+          ],
+          "capability_only_strategy_chain_count": 3,
+          "capability_only_strategy_chains": [
+            {
+              "chain_id": "TBT-XIA-426-430",
+              "label": "灭赫连夏与关中扩张",
+              "period": "426-430",
+              "chain_type": "CAPABILITY_ONLY_FOUNDING",
+              "opponent_system": "赫连夏",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "NC-WEI-XIA-426-430"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": true,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "取得统万、平凉、长安及关中多节点，能力侧高质量大链。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBT-NORTHERNYAN-436-438",
+              "label": "灭北燕与和龙收束",
+              "period": "436-438",
+              "chain_type": "CAPABILITY_ONLY_FOUNDING",
+              "opponent_system": "北燕",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "WAR-LEAD-NC-NORTHERN-YAN-END-436-438"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "北燕核心和龙纳入北魏，区域对手终结。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBT-NORTHERNLIANG-439",
+              "label": "北凉河西终局",
+              "period": "439",
+              "chain_type": "CAPABILITY_ONLY_FOUNDING",
+              "opponent_system": "北凉",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "河西创业统一终局链，保留能力证据。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "capability_only_strategy_chain_refs": [
+            "TBT-XIA-426-430",
+            "TBT-NORTHERNYAN-436-438",
+            "TBT-NORTHERNLIANG-439"
+          ],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 7,
+            "known_outcome_count": 7,
+            "return_class_counts": {
+              "HIGH_RETURN": 2,
+              "LOW_RETURN": 2,
+              "NEGATIVE_RETURN": 1,
+              "PROPORTIONATE_RETURN": 2
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "TBT-ROURAN-429",
+                "TBT-ROURAN-448-449"
+              ],
+              "LOW_RETURN": [
+                "TBT-ROURAN-424-425",
+                "TBT-SHANGGUI-446"
+              ],
+              "NEGATIVE_RETURN": [
+                "TBT-SONG-450-451"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "TBT-GAIWU-445-446",
+                "TBT-LIUCHAO-446"
+              ]
+            },
+            "major_system_success_count": 1,
+            "major_system_failure_count": 1,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "WAR-LEAD-NC-WEI-RURAN-424-425",
+              "strategy_chain_ref": "TBT-ROURAN-424-425",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V121-LEAD-NC-WEI-RURAN-429",
+              "strategy_chain_ref": "TBT-ROURAN-429",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V124-LEAD-NC-GAIWU-445-446",
+              "strategy_chain_ref": "TBT-GAIWU-445-446",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V124-LEAD-NC-LIU-CHAO-446",
+              "strategy_chain_ref": "TBT-LIUCHAO-446",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V124-LEAD-NC-SHANGGUI-REBELLION-446",
+              "strategy_chain_ref": "TBT-SHANGGUI-446",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V125-LEAD-NC-WEI-RURAN-448-449",
+              "strategy_chain_ref": "TBT-ROURAN-448-449",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-WEI-SONG-450-451",
+              "strategy_chain_ref": "TBT-SONG-450-451",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 7,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "柔然长期方向、三条445—446内部压力及450—451南征刘宋均按战略链处理。448—449柔然结构性衰弱是重大正向，450—451南征是重大反证，综合仍为4/4/4。",
+          "strategy_chain_major_success_count": 1,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 1,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [
+            "TBT-ROURAN-448-449"
+          ],
+          "major_system_failure_chain_refs": [
+            "TBT-SONG-450-451"
+          ],
+          "capability_only_major_success_chain_refs": [
+            "TBT-XIA-426-430"
+          ],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "WAR-LEAD-NC-WEI-RURAN-424-425",
+            "NC-V121-LEAD-NC-WEI-RURAN-429",
+            "NC-V124-LEAD-NC-GAIWU-445-446",
+            "NC-V124-LEAD-NC-SHANGGUI-REBELLION-446",
+            "NC-V124-LEAD-NC-LIU-CHAO-446",
+            "NC-V125-LEAD-NC-WEI-RURAN-448-449",
+            "NC-WEI-SONG-450-451",
+            "NC-WEI-WALL-446-OPEN"
+          ],
+          "current_parent_cycle_count": 8,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 1,
+            "capability_only_major_successes": 1,
+            "current_major_failures": 1,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [
+              "TBT-ROURAN-448-449"
+            ],
+            "capability_only_major_success_chain_refs": [
+              "TBT-XIA-426-430"
+            ],
+            "current_major_failure_chain_refs": [
+              "TBT-SONG-450-451"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
           "C_overall_grade": "C-3",
@@ -633,17 +1428,16 @@
             "lower_rate": 60,
             "upper_rate": 74
           },
-          "C_score_points": 32.6,
-          "C_score_rate": 65.18,
-          "C_score_support_surplus": 0,
+          "C_score_points": 34.4,
+          "C_score_rate": 68.8,
+          "C_score_support_surplus": 2,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "多方向长期动员和授权运行较稳定，南征未形成压倒性终局。",
-            "C4重大胜绩门禁未通过：需1项、实有0项，封顶C3。"
+            "正式current仅两条严重漏掉492柔然、493关中七州、497武兴、496代北、498高车等完整军事压力。战略链化后能证明国家级重复动员与主要方向兑现，C1/C2升4；高车远役反叛和多次初败限制C3在3。"
           ],
           "collapse_profile": "NONE",
-          "combat_delivery_grade": "C1-3",
-          "coverage_status": "DIRECT_EVENTS",
+          "combat_delivery_grade": "C1-4",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [
             "WAR-LEAD-NC-WEI-DIDOUGAN-490",
             "WAR-LEAD-NC-WEI-KUMOXI-490"
@@ -684,7 +1478,7 @@
             "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷144-通读总结.md",
             "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷153-通读总结.md"
           ],
-          "operational_sustainability_cap": "C2-3",
+          "operational_sustainability_cap": "C2-4",
           "partition": "两晋十六国南北朝隋",
           "passive_C1_adjustment": null,
           "passive_C1_cap": null,
@@ -714,10 +1508,12 @@
           "parent_cycle_merge_adjudications": [],
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
-          "major_system_success_refs": [],
+          "major_system_success_refs": [
+            "NC-WEI-QI-SOUTH-494-495"
+          ],
           "major_victory_gate": {
             "required_count": 0,
-            "actual_count": 0,
+            "actual_count": 1,
             "status": "PASSED"
           },
           "observed_parent_cycle_count": 3,
@@ -757,12 +1553,12 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期2项，已知结果2项，回报剖面={'LOW_RETURN': 1, 'NEGATIVE_RETURN': 1}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期2项，已知结果2项，回报剖面={'LOW_RETURN': 1, 'NEGATIVE_RETURN': 1}；重大体系胜绩1项、重大体系失败0项。",
           "capability_only_parent_refs": [],
-          "C_score_axis_surplus_position": 0.0,
-          "C_score_band_position": 0.37,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.37,
+          "C_score_axis_surplus_position": 0.5,
+          "C_score_band_position": 0.6286,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.6286,
           "cross_item_identity": {
             "join_key": "拓跋宏",
             "first_item_ruler_id": null,
@@ -781,7 +1577,297 @@
           ],
           "parent_cycle_pending_count": 2,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 7,
+          "strategy_chains": [
+            {
+              "chain_id": "TBM-TUYUHUN-491-492",
+              "label": "吐谷浑洮阳方向",
+              "period": "491-492",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "吐谷浑",
+              "opponent_grade": "O2",
+              "member_parent_refs": [
+                "WAR-LEAD-NC-TUYUHUN-491-492"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "NEUTRAL",
+                "C3": "POSITIVE"
+              },
+              "basis": "攻克二戍并俘三千余，随后归还俘虏、恢复羁縻关系，属有限稳定。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBM-RURAN-492",
+              "label": "十万三路越碛击柔然",
+              "period": "492",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "柔然",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "WAR-LEAD-NC-WEI-RURAN-492"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "十二将、步骑十万三路越碛大破柔然，但未形成耐久控制终局。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBM-GUANZHONG-493",
+              "label": "关中七州支酉王广之乱",
+              "period": "493",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "支酉—王广十万级叛乱",
+              "opponent_grade": "INTERNAL_O4",
+              "member_parent_refs": [
+                "WAR-PARENT-NC-ZHIYOU-WANGGUANG-493"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "MIXED"
+              },
+              "basis": "秦雍七州响应、两路官军初败，随后重组恢复七州控制。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBM-QI-SOUTH-494-498",
+              "label": "494—498南征南齐",
+              "period": "494-498",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "南齐国家机器",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "NC-WEI-QI-SOUTH-494-495",
+                "NC-V141-LEAD-141-03"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": true,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "MIXED_POSITIVE"
+              },
+              "basis": "494—495早期无稳定所得，497—498再征后取得宛、新野及沔北多戍，形成主要方向控制重构；早期失败保留在整链过程内。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBM-WUXING-497",
+              "label": "武兴山地战争",
+              "period": "497",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "武兴山地政权及南齐援军",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "WAR-LEAD-141-02"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "分道破龙门、鹫峡并击败齐援，克武兴并完成区域安集。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBM-DAIBEI-MUTAI-496",
+              "label": "代北穆泰谋乱",
+              "period": "496",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "穆泰宗室边镇集团",
+              "opponent_grade": "INTERNAL_O3",
+              "member_parent_refs": [
+                "NC-WEI-DAIBEI-MUTAI-496"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "快速授权任城王澄处置，恢复代北旧都军政控制。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBM-GAOCHE-498",
+              "label": "高车远役反叛",
+              "period": "498",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "高车军户叛乱",
+              "opponent_grade": "INTERNAL_O3",
+              "member_parent_refs": [
+                "WAR-LEAD-141-05"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED",
+                "C2": "POSITIVE",
+                "C3": "MIXED"
+              },
+              "basis": "南征远役为可证诱因，首次讨伐大败，后改宽抚才陆续收束，可靠性只取混合信号。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "strategy_chain_refs": [
+            "TBM-TUYUHUN-491-492",
+            "TBM-RURAN-492",
+            "TBM-GUANZHONG-493",
+            "TBM-QI-SOUTH-494-498",
+            "TBM-WUXING-497",
+            "TBM-DAIBEI-MUTAI-496",
+            "TBM-GAOCHE-498"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 7,
+            "known_outcome_count": 7,
+            "return_class_counts": {
+              "HIGH_RETURN": 2,
+              "LOW_RETURN": 1,
+              "PROPORTIONATE_RETURN": 4
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "TBM-QI-SOUTH-494-498",
+                "TBM-WUXING-497"
+              ],
+              "LOW_RETURN": [
+                "TBM-GAOCHE-498"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "TBM-TUYUHUN-491-492",
+                "TBM-RURAN-492",
+                "TBM-GUANZHONG-493",
+                "TBM-DAIBEI-MUTAI-496"
+              ]
+            },
+            "major_system_success_count": 1,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "WAR-LEAD-NC-TUYUHUN-491-492",
+              "strategy_chain_ref": "TBM-TUYUHUN-491-492",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "WAR-LEAD-NC-WEI-RURAN-492",
+              "strategy_chain_ref": "TBM-RURAN-492",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "WAR-PARENT-NC-ZHIYOU-WANGGUANG-493",
+              "strategy_chain_ref": "TBM-GUANZHONG-493",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-WEI-QI-SOUTH-494-495",
+              "strategy_chain_ref": "TBM-QI-SOUTH-494-498",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V141-LEAD-141-03",
+              "strategy_chain_ref": "TBM-QI-SOUTH-494-498",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "WAR-LEAD-141-02",
+              "strategy_chain_ref": "TBM-WUXING-497",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-WEI-DAIBEI-MUTAI-496",
+              "strategy_chain_ref": "TBM-DAIBEI-MUTAI-496",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "WAR-LEAD-141-05",
+              "strategy_chain_ref": "TBM-GAOCHE-498",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 8,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "正式current仅两条严重漏掉492柔然、493关中七州、497武兴、496代北、498高车等完整军事压力。战略链化后能证明国家级重复动员与主要方向兑现，C1/C2升4；高车远役反叛和多次初败限制C3在3。",
+          "strategy_chain_major_success_count": 1,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [
+            "TBM-QI-SOUTH-494-498"
+          ],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "NC-WEI-QI-SOUTH-494-495",
+            "NC-V141-LEAD-141-03"
+          ],
+          "current_parent_cycle_count": 2,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 1,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [
+              "TBM-QI-SOUTH-494-498"
+            ],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
           "C_overall_grade": "C-3",
@@ -789,16 +1875,16 @@
             "lower_rate": 60,
             "upper_rate": 74
           },
-          "C_score_points": 32.5,
-          "C_score_rate": 64.95,
+          "C_score_points": 33.9,
+          "C_score_rate": 67.7,
           "C_score_support_surplus": 1,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "长期多方向动员仍可运行，南征反复和军镇问题排除高档。"
+            "13条旧current折为8条战略链，并移除515年死亡后才发生的大乘起事、葭萌—武兴战役；补回514—515本人窗口四路攻蜀。梁魏大战中既有汉中武兴等高兑现，也有钟离、朐山重败，维持3/4/3。"
           ],
           "collapse_profile": "NONE",
           "combat_delivery_grade": "C1-3",
-          "coverage_status": "DIRECT_EVENTS",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [],
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
@@ -815,10 +1901,13 @@
             "NC-V147-LEAD-147-01",
             "NC-WEI-LIANG-HUAI-506-507",
             "NC-V147-LEAD-147-06",
-            "NC-V148-LEAD-148-02",
-            "NC-V148-LEAD-148-04"
+            "NC-V147-LEAD-147-08",
+            "NC-V148-LEAD-148-01::YUANKE-SLICE"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "NC-V146-LEAD-146-04",
+            "NC-V147-LEAD-147-06"
+          ],
           "non_war_evidence_refs": [
             "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷135-通读总结.md",
             "tmp/治理/战争与国防安全/回源资料/南北朝/资治通鉴/卷142-通读总结.md",
@@ -874,12 +1963,12 @@
           "task_outcome_profile": {
             "source": "CLOSED_SYSTEM_STRESS_PARENT_CYCLES_WITH_EXPLICIT_UNKNOWN_CLOSURE",
             "selected_task_count": 13,
-            "known_outcome_count": 8,
+            "known_outcome_count": 7,
             "return_class_counts": {
               "HIGH_RETURN": 1,
-              "LOW_RETURN": 6,
+              "LOW_RETURN": 5,
               "NEGATIVE_RETURN": 1,
-              "UNKNOWN": 5
+              "UNKNOWN": 6
             },
             "return_class_refs": {
               "HIGH_RETURN": [
@@ -890,8 +1979,7 @@
                 "NC-V146-LEAD-146-01",
                 "NC-V146-LEAD-146-03",
                 "NC-V146-LEAD-146-04",
-                "NC-V147-LEAD-147-06",
-                "NC-V148-LEAD-148-04"
+                "NC-V147-LEAD-147-06"
               ],
               "NEGATIVE_RETURN": [
                 "NC-V146-LEAD-146-07"
@@ -901,7 +1989,8 @@
                 "NC-V145-LEAD-145-07",
                 "NC-V147-LEAD-147-01",
                 "NC-WEI-LIANG-HUAI-506-507",
-                "NC-V148-LEAD-148-02"
+                "NC-V147-LEAD-147-08",
+                "NC-V148-LEAD-148-01::YUANKE-SLICE"
               ]
             },
             "major_system_success_count": 0,
@@ -927,17 +2016,17 @@
                 "NC-V147-LEAD-147-01",
                 "NC-WEI-LIANG-HUAI-506-507",
                 "NC-V147-LEAD-147-06",
-                "NC-V148-LEAD-148-02",
-                "NC-V148-LEAD-148-04"
+                "NC-V147-LEAD-147-08",
+                "NC-V148-LEAD-148-01::YUANKE-SLICE"
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期13项，已知结果8项，回报剖面={'HIGH_RETURN': 1, 'LOW_RETURN': 6, 'NEGATIVE_RETURN': 1, 'UNKNOWN': 5}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期13项，已知结果7项，回报剖面={'HIGH_RETURN': 1, 'LOW_RETURN': 5, 'NEGATIVE_RETURN': 1, 'UNKNOWN': 6}；重大体系胜绩0项、重大体系失败2项。",
           "capability_only_parent_refs": [],
           "C_score_axis_surplus_position": 0.25,
-          "C_score_band_position": 0.3538,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.3538,
+          "C_score_band_position": 0.55,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.55,
           "cross_item_identity": {
             "join_key": "元恪",
             "first_item_ruler_id": null,
@@ -957,8 +2046,8 @@
             "NC-V147-LEAD-147-01",
             "NC-WEI-LIANG-HUAI-506-507",
             "NC-V147-LEAD-147-06",
-            "NC-V148-LEAD-148-02",
-            "NC-V148-LEAD-148-04"
+            "NC-V147-LEAD-147-08",
+            "NC-V148-LEAD-148-01::YUANKE-SLICE"
           ],
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -978,7 +2067,368 @@
           ],
           "parent_cycle_pending_count": 13,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 8,
+          "strategy_chains": [
+            {
+              "chain_id": "YK-HUAINAN-SHOUYANG",
+              "label": "寿阳—淮南区域控制",
+              "period": "499-500s",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "南齐",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "NC-V143-LEAD-143-04"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "解除寿阳攻势并实际接收淮南，形成区域耐久控制。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YK-LUYANG-HUYANG-502",
+              "label": "颖州—湖阳内部起事",
+              "period": "502",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "鲁阳蛮起事集团",
+              "opponent_grade": "INTERNAL_REGIONAL",
+              "member_parent_refs": [
+                "NC-V145-LEAD-145-01"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "MIXED"
+              },
+              "basis": "击破围城武装并恢复州城；后续强迁与追杀属非军事人口处置，不反灌军事能力。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YK-LIANG-SOUTH-503-504",
+              "label": "义阳三关—钟离第一轮梁魏战争",
+              "period": "503-504",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "梁国家机器",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "NC-V145-LEAD-145-06",
+                "NC-V145-LEAD-145-07"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "MIXED"
+              },
+              "basis": "义阳三关取得显著正向，但钟离围攻失败并失亡四千余；按同一轮南线战争整链结算为正负混合。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YK-HANZHONG-WUXING-505-506",
+              "label": "汉中—武兴西南战争",
+              "period": "505-506",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "梁及武兴区域体系",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "NC-V146-LEAD-146-01",
+                "NC-V146-LEAD-146-03"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "取得梁州十四郡，并攻灭武兴改置东益州，西南方向兑现度高。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YK-LIANG-HUAIXU-506-508",
+              "label": "梁魏淮徐—悬瓠连续战争",
+              "period": "506-508",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "梁国家机器",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "NC-V146-LEAD-146-04",
+                "NC-V146-LEAD-146-07",
+                "NC-WEI-LIANG-HUAI-506-507"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "axis_signals": {
+                "C1": "MIXED",
+                "C2": "STRONG_POSITIVE",
+                "C3": "MIXED_NEGATIVE"
+              },
+              "basis": "合肥失守、钟离惨败是强反证，但随后多路重组、复悬瓠并守住义阳；整链不能只算失败或只算恢复。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YK-JIZHOU-YUYU-508",
+              "label": "元愉冀州称帝",
+              "period": "508",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "元愉冀州集团",
+              "opponent_grade": "INTERNAL_O3",
+              "member_parent_refs": [
+                "NC-V147-LEAD-147-01"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "围城追获并恢复冀州，异常称帝链完成区域收束。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YK-QUSHAN-511",
+              "label": "朐山围守与雪中崩溃",
+              "period": "511",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "梁",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "NC-V147-LEAD-147-06"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "axis_signals": {
+                "C1": "STRONG_NEGATIVE",
+                "C2": "NEGATIVE",
+                "C3": "STRONG_NEGATIVE"
+              },
+              "basis": "魏军在朐山方向受困撤退，雪中冻死残废比例极高，是明确体系负样本。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YK-SHU-514-515",
+              "label": "十五万四路攻蜀—元恪窗口",
+              "period": "514-515",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "梁蜀地防务",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "NC-V147-LEAD-147-08",
+                "NC-V148-LEAD-148-01::YUANKE-SLICE"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED",
+                "C2": "STRONG_POSITIVE",
+                "C3": "MIXED"
+              },
+              "basis": "十五万四路攻蜀形成国家级投送，元恪死亡后即被召回；本人窗口未形成稳定终局，按有限兑现结算。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "strategy_chain_refs": [
+            "YK-HUAINAN-SHOUYANG",
+            "YK-LUYANG-HUYANG-502",
+            "YK-LIANG-SOUTH-503-504",
+            "YK-HANZHONG-WUXING-505-506",
+            "YK-LIANG-HUAIXU-506-508",
+            "YK-JIZHOU-YUYU-508",
+            "YK-QUSHAN-511",
+            "YK-SHU-514-515"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 8,
+            "known_outcome_count": 8,
+            "return_class_counts": {
+              "HIGH_RETURN": 2,
+              "LOW_RETURN": 1,
+              "NEGATIVE_RETURN": 1,
+              "PROPORTIONATE_RETURN": 4
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "YK-HUAINAN-SHOUYANG",
+                "YK-HANZHONG-WUXING-505-506"
+              ],
+              "LOW_RETURN": [
+                "YK-SHU-514-515"
+              ],
+              "NEGATIVE_RETURN": [
+                "YK-QUSHAN-511"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "YK-LUYANG-HUYANG-502",
+                "YK-LIANG-SOUTH-503-504",
+                "YK-LIANG-HUAIXU-506-508",
+                "YK-JIZHOU-YUYU-508"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 2,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "NC-V143-LEAD-143-04",
+              "strategy_chain_ref": "YK-HUAINAN-SHOUYANG",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V145-LEAD-145-01",
+              "strategy_chain_ref": "YK-LUYANG-HUYANG-502",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V145-LEAD-145-06",
+              "strategy_chain_ref": "YK-LIANG-SOUTH-503-504",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V145-LEAD-145-07",
+              "strategy_chain_ref": "YK-LIANG-SOUTH-503-504",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V146-LEAD-146-01",
+              "strategy_chain_ref": "YK-HANZHONG-WUXING-505-506",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V146-LEAD-146-03",
+              "strategy_chain_ref": "YK-HANZHONG-WUXING-505-506",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V146-LEAD-146-04",
+              "strategy_chain_ref": "YK-LIANG-HUAIXU-506-508",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V146-LEAD-146-07",
+              "strategy_chain_ref": "YK-LIANG-HUAIXU-506-508",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-WEI-LIANG-HUAI-506-507",
+              "strategy_chain_ref": "YK-LIANG-HUAIXU-506-508",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V147-LEAD-147-01",
+              "strategy_chain_ref": "YK-JIZHOU-YUYU-508",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V147-LEAD-147-06",
+              "strategy_chain_ref": "YK-QUSHAN-511",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V147-LEAD-147-08",
+              "strategy_chain_ref": "YK-SHU-514-515",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V148-LEAD-148-01::YUANKE-SLICE",
+              "strategy_chain_ref": "YK-SHU-514-515",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 13,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "13条旧current折为8条战略链，并移除515年死亡后才发生的大乘起事、葭萌—武兴战役；补回514—515本人窗口四路攻蜀。梁魏大战中既有汉中武兴等高兑现，也有钟离、朐山重败，维持3/4/3。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 2,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "YK-LIANG-HUAIXU-506-508",
+            "YK-QUSHAN-511"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "NC-V143-LEAD-143-04",
+            "NC-V145-LEAD-145-01",
+            "NC-V145-LEAD-145-06",
+            "NC-V145-LEAD-145-07",
+            "NC-V146-LEAD-146-01",
+            "NC-V146-LEAD-146-03",
+            "NC-V146-LEAD-146-04",
+            "NC-V146-LEAD-146-07",
+            "NC-V147-LEAD-147-01",
+            "NC-WEI-LIANG-HUAI-506-507",
+            "NC-V147-LEAD-147-06",
+            "NC-V147-LEAD-147-08",
+            "NC-V148-LEAD-148-01::YUANKE-SLICE"
+          ],
+          "current_parent_cycle_count": 13,
+          "parent_cycle_removed_by_v30": [
+            "NC-V148-LEAD-148-02",
+            "NC-V148-LEAD-148-04"
+          ],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 2,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "YK-LIANG-HUAIXU-506-508",
+              "YK-QUSHAN-511"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
           "C_overall_grade": "C-3",
@@ -986,17 +2436,16 @@
             "lower_rate": 60,
             "upper_rate": 74
           },
-          "C_score_points": 32.4,
-          "C_score_rate": 64.72,
+          "C_score_points": 34.6,
+          "C_score_rate": 69.28,
           "C_score_support_surplus": 0,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "两个实际主政窗口内闭合4项体系压力任务：467年青冀阶段、477—478仇池恢复、480—481淮北五固和486—487柔然防务；删除拓跋弘窗口的470女水与471敕勒任务。多方向军政能够交付但没有一项达到C4重大体系胜绩门，维持C1/C2/C3均3档。",
-            "C4重大胜绩门禁未通过：需1项、实有0项，封顶C3。"
+            "四条战略链边界已较干净；严格只消费465—467首次临朝与476—490复临朝，不倒灌拓跋弘467—476窗口。维持3/3/3。"
           ],
           "collapse_profile": "NONE",
           "combat_delivery_grade": "C1-3",
-          "coverage_status": "REVIEWED_DISCONTINUOUS_WINDOWS",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [
             "WAR-LEAD-NC-WEI-DIDOUGAN-490",
             "WAR-LEAD-NC-WEI-KUMOXI-490"
@@ -1127,9 +2576,9 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期4项，已知结果4项，回报剖面={'COMMENSURATE_RETURN': 3, 'HIGH_RETURN': 1}；重大体系胜绩0项、重大体系失败0项。",
           "capability_only_parent_refs": [],
           "C_score_axis_surplus_position": 0.0,
-          "C_score_band_position": 0.3375,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.3375,
+          "C_score_band_position": 0.6625,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.6625,
           "cross_item_identity": {
             "join_key": "冯太后",
             "first_item_ruler_id": null,
@@ -1182,7 +2631,202 @@
           ],
           "parent_cycle_pending_count": 4,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 4,
+          "strategy_chains": [
+            {
+              "chain_id": "FTH-QINGJI-467-WINDOW",
+              "label": "青冀467阶段",
+              "period": "467",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "刘宋",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "NC-V132-LEAD-132-02#467-WINDOW"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "五万骑连续奇袭、攻城与长围，取得无盐、肥城等多个节点；468—469终局归拓跋弘，不越窗。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "FTH-CHOUCHI-477-478",
+              "label": "仇池—葭芦恢复",
+              "period": "477-478",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "仇池杨氏",
+              "opponent_grade": "O2",
+              "member_parent_refs": [
+                "WAR-LEAD-NC-WEI-CHOUCHI-477-478"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "四万级方向反攻恢复仇池—葭芦，区域政治实体仍存。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "FTH-FIVE-FORTS-480-481",
+              "label": "淮北五固起事",
+              "period": "480-481",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "淮北五固起事集团",
+              "opponent_grade": "INTERNAL_O3",
+              "member_parent_refs": [
+                "WAR-LEAD-NC-HUAIBEI-FIVE-FORTS-480-481"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "MIXED_POSITIVE"
+              },
+              "basis": "数万人据五固并一度击破魏军，北魏分兵逐固攻克并恢复东南诸州控制。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "FTH-ROURAN-486-487",
+              "label": "柔然486—487入寇与反击",
+              "period": "486-487",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "柔然",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "WAR-LEAD-NC-WEI-RUORAN-486-487"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "两次入寇后由陆睿反击取胜，威胁主体仍存。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "strategy_chain_refs": [
+            "FTH-QINGJI-467-WINDOW",
+            "FTH-CHOUCHI-477-478",
+            "FTH-FIVE-FORTS-480-481",
+            "FTH-ROURAN-486-487"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 4,
+            "known_outcome_count": 4,
+            "return_class_counts": {
+              "HIGH_RETURN": 1,
+              "PROPORTIONATE_RETURN": 3
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "FTH-QINGJI-467-WINDOW"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "FTH-CHOUCHI-477-478",
+                "FTH-FIVE-FORTS-480-481",
+                "FTH-ROURAN-486-487"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "NC-V132-LEAD-132-02#467-WINDOW",
+              "strategy_chain_ref": "FTH-QINGJI-467-WINDOW",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "WAR-LEAD-NC-WEI-CHOUCHI-477-478",
+              "strategy_chain_ref": "FTH-CHOUCHI-477-478",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "WAR-LEAD-NC-HUAIBEI-FIVE-FORTS-480-481",
+              "strategy_chain_ref": "FTH-FIVE-FORTS-480-481",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "WAR-LEAD-NC-WEI-RUORAN-486-487",
+              "strategy_chain_ref": "FTH-ROURAN-486-487",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 4,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "四条战略链边界已较干净；严格只消费465—467首次临朝与476—490复临朝，不倒灌拓跋弘467—476窗口。维持3/3/3。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "FTH-QINGJI-467-WINDOW",
+            "FTH-CHOUCHI-477-478",
+            "FTH-HUAIBEI-FIVE-FORTS-480-481",
+            "FTH-ROURAN-486-487"
+          ],
+          "current_parent_cycle_count": 4,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
           "ruler_id": "RULER-SHADOW-拓跋弘",
@@ -1191,14 +2835,14 @@
           "reign_range": [
             "467—476实际掌权"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-4",
+          "operational_sustainability_cap": "C2-4",
+          "system_reliability_cap": "C3-3",
+          "C_overall_grade": "C-3",
+          "C_score_rate": 70.5,
+          "C_score_points": 35.2,
+          "C_score_band_position": 0.75,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "HIGH",
             "reason": "青齐征服、柔然反击、吐谷浑拒止为多个任务；大规模控制闭合，但只有短实际主政期且没有顶级多方向后勤、将领门。"
@@ -1226,17 +2870,19 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩1项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "青齐东徐三年攻坚与柔然470—474五年连续防御共同闭合持续作战能力，C2应由3升4；敕勒首轮中伏等跨将领反证使C3仍为3，故4/4/3、final C3。"
           ],
           "major_system_failure_refs": [],
-          "major_system_success_refs": [],
+          "major_system_success_refs": [
+            "NC-V132-LEAD-132-02-XIANWEN-WINDOW"
+          ],
           "major_victory_gate": {
-            "required_count": null,
-            "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "required_count": 0,
+            "actual_count": 1,
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "NC-V132-LEAD-132-02-XIANWEN-WINDOW",
@@ -1247,12 +2893,12 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "unresolved_gaps": [
             "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
           ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#NC-V132-LEAD-132-02-XIANWEN-WINDOW",
             "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#NC-V132-LEAD-132-04",
@@ -1264,10 +2910,13 @@
             "docs/史料通读产物/唐以前编年/南北朝/卷133-通读总结.md#WAR-LEAD-133-04"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 2,
+          "C_score_axis_surplus_position": 0.5,
+          "C_score_outcome_position": 0.775,
+          "C_score_band": {
+            "lower_rate": 60,
+            "upper_rate": 74
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 0,
           "current_item_task_refs": [],
@@ -1281,7 +2930,208 @@
           "parent_cycle_pending_count": 4,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 4,
+          "strategy_chains": [
+            {
+              "chain_id": "TBH-SONG-QINGJI-467-469",
+              "label": "青齐东徐战争",
+              "period": "467-469",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "刘宋国家机器",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "NC-V132-LEAD-132-02-XIANWEN-WINDOW"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": true,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "五万骑持续三年多城攻坚，青、齐、东徐全入魏并建立行政控制，是主要方向持久重构。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBH-ROURAN-470-474",
+              "label": "柔然470—474连续防御",
+              "period": "470-474",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "柔然",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "NC-V132-LEAD-132-04",
+                "NC-V133-LEAD-133-04"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "亲征女水大破柔然并持续多次击退敦煌、晋昌方向入寇，五年连续防务兑现稳定。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBH-TUYUHUN-470",
+              "label": "吐谷浑曼头山方向",
+              "period": "470",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "吐谷浑",
+              "opponent_grade": "O2",
+              "member_parent_refs": [
+                "NC-V132-TUYUHUN-470"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "NEUTRAL",
+                "C3": "POSITIVE"
+              },
+              "basis": "单次区域击退后入贡，主要证明局部防务。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "TBH-CHILE-471",
+              "label": "敕勒沃野—统万叛乱",
+              "period": "471",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "敕勒叛乱",
+              "opponent_grade": "INTERNAL_O3",
+              "member_parent_refs": [
+                "NC-V133-LEAD-133-01"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "MIXED"
+              },
+              "basis": "首次讨伐中伏、主将仅身免，随后源贺收束；属于败后修复的混合样本。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "strategy_chain_refs": [
+            "TBH-SONG-QINGJI-467-469",
+            "TBH-ROURAN-470-474",
+            "TBH-TUYUHUN-470",
+            "TBH-CHILE-471"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 4,
+            "known_outcome_count": 4,
+            "return_class_counts": {
+              "HIGH_RETURN": 2,
+              "PROPORTIONATE_RETURN": 2
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "TBH-SONG-QINGJI-467-469",
+                "TBH-ROURAN-470-474"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "TBH-TUYUHUN-470",
+                "TBH-CHILE-471"
+              ]
+            },
+            "major_system_success_count": 1,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "NC-V132-LEAD-132-02-XIANWEN-WINDOW",
+              "strategy_chain_ref": "TBH-SONG-QINGJI-467-469",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V132-LEAD-132-04",
+              "strategy_chain_ref": "TBH-ROURAN-470-474",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V133-LEAD-133-04",
+              "strategy_chain_ref": "TBH-ROURAN-470-474",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V132-TUYUHUN-470",
+              "strategy_chain_ref": "TBH-TUYUHUN-470",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            },
+            {
+              "parent_ref": "NC-V133-LEAD-133-01",
+              "strategy_chain_ref": "TBH-CHILE-471",
+              "parent_role_in_chain": "EVIDENCE_MEMBER"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 5,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "青齐东徐三年攻坚与柔然470—474五年连续防御共同闭合持续作战能力，C2应由3升4；敕勒首轮中伏等跨将领反证使C3仍为3，故4/4/3、final C3。",
+          "strategy_chain_major_success_count": 1,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [
+            "TBH-SONG-QINGJI-467-469"
+          ],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 1,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [
+              "TBH-SONG-QINGJI-467-469"
+            ],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         }
       ]
     }

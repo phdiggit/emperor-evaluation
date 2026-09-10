@@ -15,16 +15,16 @@
             "lower_rate": 45,
             "upper_rate": 59
           },
-          "C_score_points": 23.9,
-          "C_score_rate": 47.71,
+          "C_score_points": 23.8,
+          "C_score_rate": 47.62,
           "C_score_support_surplus": 1,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "能够建立江东防务，但王敦军权失控暴露中央对统帅和军队控制不足。"
+            "杜曾317与319归为一父周期；靳准318错主体撤出；长沙局部票改按王敦322完整首都危机父周期。去重后5父周期中3负、1低、1相称，仍足以维持C1=2、C2=3、C3=2。"
           ],
           "collapse_profile": "NONE",
           "combat_delivery_grade": "C1-2",
-          "coverage_status": "DIRECT_EVENTS",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [
             "WAR-LEAD-CHANGSHA-322",
             "WAR-LEAD-GANZHUO-322",
@@ -44,11 +44,7 @@
             "CAMPAIGN-V092-CHANGSHA-322",
             "CAMPAIGN-V090-JINZHUN-318"
           ],
-          "major_system_failure_refs": [
-            "CAMPAIGN-V092-CHANGSHA-322",
-            "CAMPAIGN-JIN-DUZENG-315-319",
-            "CAMPAIGN-V090-JINZHUN-318"
-          ],
+          "major_system_failure_refs": [],
           "non_war_evidence_refs": [
             "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷079-通读总结.md",
             "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷080-通读总结.md",
@@ -167,7 +163,7 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期7项，已知结果5项，回报剖面={'LOW_RETURN': 2, 'NEGATIVE_RETURN': 2, 'PROPORTIONATE_RETURN': 1, 'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败3项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期7项，已知结果5项，回报剖面={'LOW_RETURN': 2, 'NEGATIVE_RETURN': 2, 'PROPORTIONATE_RETURN': 1, 'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败0项。",
           "capability_only_parent_refs": [],
           "founder_capability_review": {
             "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
@@ -184,9 +180,9 @@
             "reason": "七项任务含多条重大失败且无重大胜绩，江南立足不能替代实战兑现，2/3/2保留。"
           },
           "C_score_axis_surplus_position": 0.1667,
-          "C_score_band_position": 0.1935,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.1935,
+          "C_score_band_position": 0.1875,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.1875,
           "cross_item_identity": {
             "join_key": "司马睿",
             "first_item_ruler_id": "RULER-SHADOW-司马睿",
@@ -218,7 +214,255 @@
           ],
           "parent_cycle_pending_count": 7,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-2",
+          "raw_grade": "C-2",
+          "gate_cap": 5,
+          "final_grade": "C-2",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 4,
+          "strategy_chains": [
+            {
+              "chain_id": "RETRO30-B007-R037-C01",
+              "label": "司马睿：河东—陈川北方恢复链（317—319）",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V090-HEDONG-317",
+              "source_event_refs": [
+                "CAMPAIGN-V090-HEDONG-317",
+                "CAMPAIGN-V091-CHENCHUAN-319"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V090-HEDONG-317",
+                  "return_class": "NEGATIVE_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                },
+                {
+                  "ref": "CAMPAIGN-V091-CHENCHUAN-319",
+                  "return_class": "NEGATIVE_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "河东317与陈川319共享北方恢复目标并在D战略链中明确合并。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B007-R037-C02",
+              "label": "CAMPAIGN-JIN-DUZENG-315-319",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-JIN-DUZENG-315-319",
+              "source_event_refs": [
+                "CAMPAIGN-JIN-DUZENG-315-319"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-JIN-DUZENG-315-319",
+                  "return_class": "PROPORTIONATE_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B007-R037-C03",
+              "label": "CAMPAIGN-V090-LIUKUN-DEATH-318",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V090-LIUKUN-DEATH-318",
+              "source_event_refs": [
+                "CAMPAIGN-V090-LIUKUN-DEATH-318"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V090-LIUKUN-DEATH-318",
+                  "return_class": "LOW_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B007-R037-C04",
+              "label": "CAMPAIGN-V092-WANGDUN-322",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V092-WANGDUN-322",
+              "source_event_refs": [
+                "CAMPAIGN-V092-WANGDUN-322"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V092-WANGDUN-322",
+                  "return_class": "NEGATIVE_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            }
+          ],
+          "strategy_chain_refs": [
+            "RETRO30-B007-R037-C01",
+            "RETRO30-B007-R037-C02",
+            "RETRO30-B007-R037-C03",
+            "RETRO30-B007-R037-C04"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 4,
+            "known_outcome_count": 4,
+            "return_class_counts": {
+              "LOW_RETURN": 1,
+              "NEGATIVE_RETURN": 2,
+              "PROPORTIONATE_RETURN": 1
+            },
+            "return_class_chain_refs": {
+              "LOW_RETURN": [
+                "RETRO30-B007-R037-C03"
+              ],
+              "NEGATIVE_RETURN": [
+                "RETRO30-B007-R037-C01",
+                "RETRO30-B007-R037-C04"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "RETRO30-B007-R037-C02"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "CAMPAIGN-JIN-DUZENG-315-319",
+              "return_class": "PROPORTIONATE_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V090-HEDONG-317",
+              "return_class": "NEGATIVE_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V090-LIUKUN-DEATH-318",
+              "return_class": "LOW_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V091-CHENCHUAN-319",
+              "return_class": "NEGATIVE_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V092-WANGDUN-322",
+              "return_class": "NEGATIVE_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 5,
+          "strategy_chain_parent_cycle_status": "CURRENT_PARENT_SET_COMPLETE_SHADOW",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGY_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "杜曾317与319归为一父周期；靳准318错主体撤出；长沙局部票改按王敦322完整首都危机父周期。去重后5父周期中3负、1低、1相称，仍足以维持C1=2、C2=3、C3=2。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "WAR-LEAD-HANMIAN-317",
+            "CAMPAIGN-V090-HEDONG-317",
+            "WAR-LEAD-LIUKUN-DEATH-318",
+            "CAMPAIGN-V091-CHENCHUAN-319",
+            "CAMPAIGN-JIN-DUZENG-315-319",
+            "CAMPAIGN-V092-CHANGSHA-322",
+            "CAMPAIGN-V090-JINZHUN-318"
+          ],
+          "current_parent_cycle_count": 7,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 2,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 2,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
           "C_overall_grade": "C-3",
@@ -226,17 +470,16 @@
             "lower_rate": 60,
             "upper_rate": 74
           },
-          "C_score_points": 33.2,
-          "C_score_rate": 66.32,
+          "C_score_points": 34.4,
+          "C_score_rate": 68.75,
           "C_score_support_surplus": 0,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "仅王敦之乱324年收束构成本人任期内独立实质任务；其余跨政权或非本人任务不计，按单任务门槛维持3/3/3。",
-            "仅有低强度父级观察任务，C1/C3最高3档。"
+            "正式current ref误指322甘卓，实际本人任务应为324王敦第二次攻建康。替换后结果由LOW改为HIGH，但单一父任务仍受C1/C3最多3档门禁，三轴不跨档。"
           ],
           "collapse_profile": "NONE",
           "combat_delivery_grade": "C1-3",
-          "coverage_status": "DIRECT_EVENTS",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [
             "WAR-LEAD-CHANGSHA-322",
             "WAR-LEAD-GANZHUO-322",
@@ -336,9 +579,9 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期1项，已知结果1项，回报剖面={'LOW_RETURN': 1}；重大体系胜绩0项、重大体系失败0项。",
           "capability_only_parent_refs": [],
           "C_score_axis_surplus_position": 0.0,
-          "C_score_band_position": 0.4512,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.4512,
+          "C_score_band_position": 0.625,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.625,
           "cross_item_identity": {
             "join_key": "司马绍",
             "first_item_ruler_id": null,
@@ -355,7 +598,121 @@
           ],
           "parent_cycle_pending_count": 1,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 1,
+          "strategy_chains": [
+            {
+              "chain_id": "RETRO30-B007-R038-C01",
+              "label": "CAMPAIGN-V093-WANGDUN-324",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V093-WANGDUN-324",
+              "source_event_refs": [
+                "CAMPAIGN-V093-WANGDUN-324"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V093-WANGDUN-324",
+                  "return_class": "HIGH_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            }
+          ],
+          "strategy_chain_refs": [
+            "RETRO30-B007-R038-C01"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 1,
+            "known_outcome_count": 1,
+            "return_class_counts": {
+              "HIGH_RETURN": 1
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "RETRO30-B007-R038-C01"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "CAMPAIGN-V093-WANGDUN-324",
+              "return_class": "HIGH_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 1,
+          "strategy_chain_parent_cycle_status": "CURRENT_PARENT_SET_COMPLETE_SHADOW",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGY_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "正式current ref误指322甘卓，实际本人任务应为324王敦第二次攻建康。替换后结果由LOW改为HIGH，但单一父任务仍受C1/C3最多3档门禁，三轴不跨档。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "WAR-LEAD-GANZHUO-322"
+          ],
+          "current_parent_cycle_count": 1,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
           "C_overall_grade": "C-3",
@@ -363,16 +720,16 @@
             "lower_rate": 60,
             "upper_rate": 74
           },
-          "C_score_points": 32.9,
-          "C_score_rate": 65.7,
+          "C_score_points": 32.5,
+          "C_score_rate": 64.9,
           "C_score_support_surplus": 0,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "压力测试锚点：淝水兑现突出，但长期依赖少数核心统帅并存在内部分裂。"
+            "撤出不属于东晋的LIANG-387；襄阳378—379由UNKNOWN闭合为NEGATIVE，淮南同年另一独立父周期由UNKNOWN闭合为PROPORTIONATE。淝水HIGH不变，383主动北伐LOW、386北线NEGATIVE不变。"
           ],
           "collapse_profile": "NONE",
           "combat_delivery_grade": "C1-3",
-          "coverage_status": "DIRECT_EVENTS",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [],
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
@@ -385,11 +742,7 @@
             "CAMPAIGN-V106-106-JIN-NORTH-386",
             "CAMPAIGN-V107-107-LIANG-387"
           ],
-          "major_system_failure_refs": [
-            "CAMPAIGN-V104-104-HUAINAN-378-379",
-            "CAMPAIGN-V104-104-XIANGYANG-378-379",
-            "CAMPAIGN-V107-107-LIANG-387"
-          ],
+          "major_system_failure_refs": [],
           "non_war_evidence_refs": [
             "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷079-通读总结.md",
             "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷080-通读总结.md",
@@ -471,12 +824,10 @@
           "parent_cycle_merge_adjudications": [],
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
-          "major_system_success_refs": [
-            "CAMPAIGN-FEISHUI-382-383"
-          ],
+          "major_system_success_refs": [],
           "major_victory_gate": {
             "required_count": 0,
-            "actual_count": 1,
+            "actual_count": 0,
             "status": "PASSED"
           },
           "observed_parent_cycle_count": 5,
@@ -530,12 +881,12 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果3项，回报剖面={'HIGH_RETURN': 1, 'LOW_RETURN': 1, 'NEGATIVE_RETURN': 1, 'UNKNOWN': 3}；重大体系胜绩1项、重大体系失败3项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果3项，回报剖面={'HIGH_RETURN': 1, 'LOW_RETURN': 1, 'NEGATIVE_RETURN': 1, 'UNKNOWN': 3}；重大体系胜绩0项、重大体系失败0项。",
           "capability_only_parent_refs": [],
           "C_score_axis_surplus_position": 0.0,
-          "C_score_band_position": 0.4075,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.4075,
+          "C_score_band_position": 0.35,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.35,
           "cross_item_identity": {
             "join_key": "司马曜",
             "first_item_ruler_id": null,
@@ -562,7 +913,283 @@
           ],
           "parent_cycle_pending_count": 6,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 5,
+          "strategy_chains": [
+            {
+              "chain_id": "RETRO30-B007-R039-C01",
+              "label": "CAMPAIGN-V104-104-XIANGYANG-378-379",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V104-104-XIANGYANG-378-379",
+              "source_event_refs": [
+                "CAMPAIGN-V104-104-XIANGYANG-378-379"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V104-104-XIANGYANG-378-379",
+                  "return_class": "NEGATIVE_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B007-R039-C02",
+              "label": "CAMPAIGN-V104-104-HUAINAN-378-379",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V104-104-HUAINAN-378-379",
+              "source_event_refs": [
+                "CAMPAIGN-V104-104-HUAINAN-378-379"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V104-104-HUAINAN-378-379",
+                  "return_class": "PROPORTIONATE_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B007-R039-C03",
+              "label": "CAMPAIGN-V105-105-JIN-OFFENSIVE-383",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V105-105-JIN-OFFENSIVE-383",
+              "source_event_refs": [
+                "CAMPAIGN-V105-105-JIN-OFFENSIVE-383"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V105-105-JIN-OFFENSIVE-383",
+                  "return_class": "LOW_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B007-R039-C04",
+              "label": "CAMPAIGN-FEISHUI-382-383",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-FEISHUI-382-383",
+              "source_event_refs": [
+                "CAMPAIGN-FEISHUI-382-383"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-FEISHUI-382-383",
+                  "return_class": "HIGH_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B007-R039-C05",
+              "label": "CAMPAIGN-V106-106-JIN-NORTH-386",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V106-106-JIN-NORTH-386",
+              "source_event_refs": [
+                "CAMPAIGN-V106-106-JIN-NORTH-386"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V106-106-JIN-NORTH-386",
+                  "return_class": "NEGATIVE_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            }
+          ],
+          "strategy_chain_refs": [
+            "RETRO30-B007-R039-C01",
+            "RETRO30-B007-R039-C02",
+            "RETRO30-B007-R039-C03",
+            "RETRO30-B007-R039-C04",
+            "RETRO30-B007-R039-C05"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 5,
+            "known_outcome_count": 5,
+            "return_class_counts": {
+              "HIGH_RETURN": 1,
+              "LOW_RETURN": 1,
+              "NEGATIVE_RETURN": 2,
+              "PROPORTIONATE_RETURN": 1
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "RETRO30-B007-R039-C04"
+              ],
+              "LOW_RETURN": [
+                "RETRO30-B007-R039-C03"
+              ],
+              "NEGATIVE_RETURN": [
+                "RETRO30-B007-R039-C01",
+                "RETRO30-B007-R039-C05"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "RETRO30-B007-R039-C02"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "CAMPAIGN-V104-104-XIANGYANG-378-379",
+              "return_class": "NEGATIVE_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V104-104-HUAINAN-378-379",
+              "return_class": "PROPORTIONATE_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V105-105-JIN-OFFENSIVE-383",
+              "return_class": "LOW_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-FEISHUI-382-383",
+              "return_class": "HIGH_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V106-106-JIN-NORTH-386",
+              "return_class": "NEGATIVE_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 5,
+          "strategy_chain_parent_cycle_status": "CURRENT_PARENT_SET_COMPLETE_SHADOW",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGY_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "撤出不属于东晋的LIANG-387；襄阳378—379由UNKNOWN闭合为NEGATIVE，淮南同年另一独立父周期由UNKNOWN闭合为PROPORTIONATE。淝水HIGH不变，383主动北伐LOW、386北线NEGATIVE不变。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "CAMPAIGN-V104-104-XIANGYANG-378-379",
+            "CAMPAIGN-V104-104-HUAINAN-378-379",
+            "CAMPAIGN-V105-105-JIN-OFFENSIVE-383",
+            "CAMPAIGN-FEISHUI-382-383",
+            "CAMPAIGN-V106-106-JIN-NORTH-386",
+            "CAMPAIGN-V107-107-LIANG-387"
+          ],
+          "current_parent_cycle_count": 6,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         }
       ]
     }

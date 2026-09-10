@@ -1755,12 +1755,32 @@ def _validate_bc_parent_cycle_alignment(
         }
         if not set(c_row.get("major_system_failure_refs") or ()).issubset(
             authorized_major_refs
+            | {
+                str(ref)
+                for chain in list(c_row.get("strategy_chains") or ())
+                + list(c_row.get("capability_only_strategy_chains") or ())
+                for field in ("chain_id", "canonical_parent_ref", "canonical_strategy_ref")
+                for ref in ([chain.get(field)] if chain.get(field) else [])
+                + list(chain.get("member_parent_refs") or ())
+                + list(chain.get("source_parent_refs") or ())
+                + list(chain.get("source_event_refs") or ())
+            }
         ):
             raise ValueError(
                 f"{c_row['ruler_name']}的C项重大体系失败未引用去重父周期"
             )
         if not set(c_row.get("major_system_success_refs") or ()).issubset(
             authorized_major_refs
+            | {
+                str(ref)
+                for chain in list(c_row.get("strategy_chains") or ())
+                + list(c_row.get("capability_only_strategy_chains") or ())
+                for field in ("chain_id", "canonical_parent_ref", "canonical_strategy_ref")
+                for ref in ([chain.get(field)] if chain.get(field) else [])
+                + list(chain.get("member_parent_refs") or ())
+                + list(chain.get("source_parent_refs") or ())
+                + list(chain.get("source_event_refs") or ())
+            }
         ):
             raise ValueError(
                 f"{c_row['ruler_name']}的C项重大胜绩未引用去重父周期: "
@@ -2020,6 +2040,11 @@ def _normalize_qin_tang_bc_parent_cycles(
         "RULER-TANG-LICHUN": ["CAMPAIGN-TANG-238-01"],
     }
     for c_row in c_records:
+        if c_row.get("scoring_unit") == "STRATEGIC_CHAIN":
+            # Current C is governed by the strategy-chain writeback source;
+            # this helper only normalizes the legacy Qin-to-Tang parent-cycle
+            # handoff for records being rebuilt by the Five Dynasties writer.
+            continue
         ruler_id = str(c_row.get("ruler_id") or "")
         groups = [str(ref) for ref in c_row.get("independent_task_groups") or ()]
         if len(groups) != len(set(groups)) or int(c_row["independent_task_count"]) != len(groups):
@@ -2272,20 +2297,7 @@ def _validate_formal_abc_contracts(
                 raise ValueError(f"{row['ruler_name']}的C未知状态合同不完整")
             continue
         if row.get("C_overall_grade") == "C-N":
-            if (
-                row.get("no_system_stress_disposition")
-                != "CONFIRMED_NOT_APPLICABLE"
-                or any(row.get(field) != "NOT_APPLICABLE_NO_SYSTEM_STRESS" for field in (
-                    "combat_delivery_grade",
-                    "operational_sustainability_cap",
-                    "system_reliability_cap",
-                ))
-                or float(row.get("C_score_points") or 0) != 0.0
-                or int(row.get("independent_task_count") or 0) != 0
-                or row.get("score_ready") is not True
-            ):
-                raise ValueError(f"{row['ruler_name']}的C-N无实战任务合同不完整")
-            continue
+            raise ValueError("C-N按零分合成已停用，须审查继承体系或保留UNKNOWN")
         grades = [
             _axis_grade(row[field], axis)
             for field, axis in (
@@ -2295,9 +2307,15 @@ def _validate_formal_abc_contracts(
             )
         ]
         overall = _axis_grade(row["C_overall_grade"], "C")
-        tasks = int(row["independent_task_count"])
-        if overall != min(grades):
-            raise ValueError(f"{row['ruler_name']}的C总体档不是三轴最低档")
+        raw = _axis_grade(row.get("raw_grade"), "C") if row.get("raw_grade") is not None else min(grades)
+        final = _axis_grade(row.get("final_grade"), "C") if row.get("final_grade") is not None else overall
+        if raw != min(grades) or overall != final:
+            raise ValueError(f"{row['ruler_name']}的C raw/final档与三轴最低档不闭合")
+        tasks = int(row.get("strategy_chain_count") or 0) + int(
+            row.get("capability_only_strategy_chain_count") or 0
+        )
+        if not tasks:
+            tasks = int(row["independent_task_count"])
         if tasks <= 1 and (grades[0] > 3 or grades[2] > 3):
             raise ValueError(f"{row['ruler_name']}的C项单任务超过证据上限")
         if tasks == 2 and (grades[0] > 4 or grades[2] > 4):
@@ -3602,37 +3620,11 @@ def _align_bc_to_system_stress_parent_cycles(
             f"回报剖面={outcome_counts}；重大体系胜绩{len(success_refs)}项、"
             f"重大体系失败{len(failure_refs)}项。"
         )
-        # C1 is combat delivery, so a non-war institution, garrison, or source-
-        # coverage reference cannot by itself make the C item scoreable.  Such
-        # evidence may support C2/C3 only after at least one actual system-stress
-        # parent cycle has tested the force in war.
+        # Without current combat evidence, retain UNKNOWN at this input layer.
+        # The authoritative strategy source may subsequently supply an explicitly
+        # adjudicated inherited-system assessment; absence alone never yields zero.
         no_scoring_evidence = not stress_refs
-        if no_scoring_evidence and (
-            c_row.get("no_system_stress_disposition")
-            == "CONFIRMED_NOT_APPLICABLE"
-        ):
-            c_row.update({
-                "combat_delivery_grade": "NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                "operational_sustainability_cap": "NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                "system_reliability_cap": "NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                "C_overall_grade": "C-N",
-                "C_score_rate": 0,
-                "C_score_points": 0.0,
-                "C_score_support_surplus": None,
-                "C_score_band": None,
-                "C_score_band_position": 0.0,
-                "score_ready": True,
-                "score_status": "CONFIRMED_NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                "coverage_status": "CONFIRMED_NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                "major_victory_gate": {
-                    "required_count": 0,
-                    "actual_count": 0,
-                    "status": "NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                },
-            })
-            hold_reason = "完整统治窗口复核确认没有可消费的实战体系压力任务；按C-N记未受实战检验，不把史料沉默伪装成C0，也不产生C项表现收益。"
-            c_row["cap_reasons"] = [hold_reason]
-        elif no_scoring_evidence:
+        if no_scoring_evidence:
             c_row.update({
                 "combat_delivery_grade": "UNKNOWN",
                 "operational_sustainability_cap": "UNKNOWN",
@@ -3651,7 +3643,7 @@ def _align_bc_to_system_stress_parent_cycles(
                     "status": "NOT_REVIEWABLE",
                 },
             })
-            hold_reason = "当前没有可消费的实战体系压力父周期，C1无法检验；军制、驻防或史料覆盖只能旁证C2/C3，不能单独生成C总分，故C保持UNKNOWN。"
+            hold_reason = "当前输入层没有实战体系压力证据，先保持UNKNOWN；仅正式战略链源闭合继承基线与任内延续后，才可按无实战继承体系规则计分。"
             if hold_reason not in c_row.setdefault("cap_reasons", []):
                 c_row["cap_reasons"].append(hold_reason)
         else:
@@ -3726,9 +3718,19 @@ def build_five_dynasties_formal_payloads(
         "score_ready_count": sum(bool(row.get("score_ready")) for row in ab["records"]),
     })
     c = _replace_partition_records(load_json(workspace_root / C_PATH), c_records)
+    from emperor_v4.evaluation.third_item_c_strategy_chain import (
+        apply_strategy_chain_writeback_to_payload,
+        load_strategy_chain_source,
+    )
+    strategy_chain_source = load_strategy_chain_source(workspace_root)
     for row in c["records"]:
         row.pop("confidence", None)
     _normalize_qin_tang_bc_parent_cycles(workspace_root, ab["records"], c["records"])
+    # The Qin-to-Tang alignment helper retains legacy parent-cycle mechanics
+    # for AB handoff checks.  Reapply the current C strategy-chain source after
+    # that compatibility pass so it cannot silently restore parent-count
+    # scoring or an old gate-rewritten grade.
+    c = apply_strategy_chain_writeback_to_payload(c, strategy_chain_source)
     _validate_formal_abc_contracts(ab["records"], c["records"])
     c.update({
         "scope": f"秦至唐95人当前值 + 五代十国12人当前结算{extension}",
@@ -4353,8 +4355,8 @@ def _render_formal_markdown(
                 )
     else:
         lines += [
-            "| 排名 | 皇帝 | 政权 | 在位 | C1 | C2 | C3 | C总体 | 得分率 | C/50 | 体系压力父任务 |",
-            "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|",
+            "| 排名 | 皇帝 | 政权 | 在位 | C1 | C2 | C3 | C总体 | 得分率 | C/50 | 当前战略链 | 父周期证据 |",
+            "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
         for rank, row in ranked:
             lines.append(
@@ -4362,7 +4364,7 @@ def _render_formal_markdown(
                 f"{human_label(row['combat_delivery_grade'])} | {human_label(row['operational_sustainability_cap'])} | "
                 f"{human_label(row['system_reliability_cap'])} | {row['C_overall_grade']} | "
                 f"{float(row['C_score_rate']):.1f}% | {float(row[score_key]):.1f} | "
-                f"{int(row['independent_task_count'])} |"
+                f"{int(row.get('strategy_chain_count') or 0)} | {int(row.get('independent_task_count') or 0)} |"
             )
     lines += ["", "## 逐人结算依据", ""]
     if current_ab:
@@ -4390,12 +4392,16 @@ def _render_formal_markdown(
                 "",
             ]
             continue
+        if row.get("system_observation_status") == "INHERITED_UNTESTED":
+            lines += ["- 观察状态：继承体系能力；未受任内实战检验，总档上限C3。", ""]
         c_basis = _joined_reasons(row.get("cap_reasons") or []) or "按C1、C2、C3短板门槛与体系压力父任务暴露定档。"
         position = row.get("C_score_within_band_adjudication") or {}
         position_line = (
             f"- 档内位置：{human_label(position['position'])}；{_markdown_cell(str(position['reason']))}"
             if position else
-            f"- 档内位置：按三轴差值计算，位置系数{float(row.get('C_score_band_position', 0)):.2f}。"
+            ("- 档内位置：无本人战果，按中性位置与三轴差值取高。"
+             if row.get("system_observation_status") == "INHERITED_UNTESTED" else
+             f"- 档内位置：按三轴差值计算，位置系数{float(row.get('C_score_band_position', 0)):.2f}。")
         )
         lines += [
             position_line,

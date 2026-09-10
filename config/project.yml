@@ -21,7 +21,7 @@ canonical_ruler_pool:
   status: current
   candidate_count: 201
   included_count: 184
-  composite_ready_count: 174
+  composite_ready_count: 173
   pending_second_item_count: 10
   pending_first_item_scope_count: 0
   pending_first_item_formal_settlement_count: 0
@@ -82,6 +82,7 @@ formal_settlements:
     markdown: docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.md
     c_parent_cycle_audit_json: config/third-item/third-item-c-parent-cycle-adjudications.json
     c_parent_cycle_audit_markdown: docs/评分结算/第三项军事与边疆净收益/军事体系有效性/02-C父周期逐人语义审计.md
+    c_strategy_chain_adjudications: config/third-item/third-item-c-strategy-chain-adjudications.json
     a_axis_narrative_authority_mode: formal_settlement_patch_source
     a_axis_narrative_json: config/third-item/third-item-a-axis-narrative-adjudications.json
     d_authority_mode: formal_settlement_patch_source
@@ -309,6 +310,6 @@ retained_build_chain:
   military_talent_registry: docs/公共成果/军事/02-武将人才等级.json
   military_cost_benefit_audit_lineage: docs/公共成果/军事/03-军事行动成本和收益登记.json
   first_item_commands: []
-  third_item_commands: [third-item-b1-settlement, third-item-d-verify, third-item-current-settlement]
+  third_item_commands: [third-item-b1-settlement, third-item-c-settlement, third-item-d-verify, third-item-current-settlement]
   composite_ranking_command: composite-ranking --write
   verification_command: formal-settlements-verify

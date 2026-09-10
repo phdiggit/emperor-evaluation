@@ -19,11 +19,11 @@
           "C_score_support_surplus": 0,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "灭陈与江南再整合证明隋军具备多路渡江、快速终结成熟政权和随后恢复控制的高档体系能力；但样本集中于一轮南方统一链，且高句丽失败构成明显反证，不升5档。"
+            "灭陈—590南方收束整合为一条统一能力链，避免与current重复；当前仍有两轮突厥、桂州、南宁、高句丽、交州六链。598高句丽F4是重大失败，但599—603突厥和统一链提供足够重大胜绩对冲，4/4/4不变。"
           ],
           "collapse_profile": "NONE",
           "combat_delivery_grade": "C1-4",
-          "coverage_status": "DIRECT_EVENTS",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [
             "WAR-LEAD-SUI-HANWANG-604"
           ],
@@ -32,11 +32,11 @@
           "independent_task_count": 6,
           "independent_task_groups": [
             "SUI-TURK-581-587",
-            "SUI-SOUTH-CONSOLIDATION-590",
             "SUI-LEAD-SUI-GUIZHOU-597",
             "SUI-LEAD-SUI-GOGURYEO-598",
             "SUI-TURK-599-603",
-            "SUI-LEAD-SUI-JIAOZHOU-602"
+            "SUI-LEAD-SUI-JIAOZHOU-602",
+            "YJ-NANNING-597-598"
           ],
           "major_system_failure_refs": [
             "SUI-LEAD-SUI-GOGURYEO-598"
@@ -86,29 +86,29 @@
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [
-            "SUI-TURK-599-603"
+            "SUI-TURK-599-603",
+            "WAR-PARENT-SUI-UNIFICATION-589"
           ],
           "major_victory_gate": {
             "required_count": 1,
-            "actual_count": 1,
+            "actual_count": 2,
             "status": "PASSED"
           },
           "observed_parent_cycle_count": 6,
           "task_selection_policy": "CLOSED_MATERIAL_PARENT_CYCLES_PLUS_MAJOR_SYSTEM_OUTCOMES",
           "c_only_major_parent_refs": [
-            "SUI-SOUTH-CONSOLIDATION-JIANGNAN-590",
             "WAR-PARENT-SUI-UNIFICATION-589"
           ],
           "non_scoring_observation_count": 0,
           "task_outcome_profile": {
             "source": "CLOSED_SYSTEM_STRESS_PARENT_CYCLES_WITH_EXPLICIT_UNKNOWN_CLOSURE",
             "selected_task_count": 6,
-            "known_outcome_count": 5,
+            "known_outcome_count": 4,
             "return_class_counts": {
               "HIGH_RETURN": 2,
-              "NEGATIVE_RETURN": 2,
+              "NEGATIVE_RETURN": 1,
               "PROPORTIONATE_RETURN": 1,
-              "UNKNOWN": 1
+              "UNKNOWN": 2
             },
             "return_class_refs": {
               "HIGH_RETURN": [
@@ -116,14 +116,14 @@
                 "SUI-LEAD-SUI-JIAOZHOU-602"
               ],
               "NEGATIVE_RETURN": [
-                "SUI-TURK-581-587",
-                "SUI-SOUTH-CONSOLIDATION-590"
+                "SUI-TURK-581-587"
               ],
               "PROPORTIONATE_RETURN": [
                 "SUI-LEAD-SUI-GUIZHOU-597"
               ],
               "UNKNOWN": [
-                "SUI-LEAD-SUI-GOGURYEO-598"
+                "SUI-LEAD-SUI-GOGURYEO-598",
+                "YJ-NANNING-597-598"
               ]
             },
             "major_system_success_count": 1,
@@ -131,15 +131,20 @@
             "status": "QUANTIFIED",
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "NO_D_CHAIN_MATCH",
+              "status": "PARTIAL_D_CHAIN_MATCH",
               "selected_task_count": 6,
-              "matched_task_count": 0,
-              "known_result_count": 0,
-              "security_result_grade_counts": {},
-              "security_result_grade_refs": {},
+              "matched_task_count": 1,
+              "known_result_count": 1,
+              "security_result_grade_counts": {
+                "E0": 1
+              },
+              "security_result_grade_refs": {
+                "E0": [
+                  "YJ-NANNING-597-598"
+                ]
+              },
               "unmatched_task_refs": [
                 "SUI-TURK-581-587",
-                "SUI-SOUTH-CONSOLIDATION-590",
                 "SUI-LEAD-SUI-GUIZHOU-597",
                 "SUI-LEAD-SUI-GOGURYEO-598",
                 "SUI-TURK-599-603",
@@ -147,11 +152,12 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果5项，回报剖面={'HIGH_RETURN': 2, 'NEGATIVE_RETURN': 2, 'PROPORTIONATE_RETURN': 1, 'UNKNOWN': 1}；重大体系胜绩1项、重大体系失败1项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果4项，回报剖面={'HIGH_RETURN': 2, 'NEGATIVE_RETURN': 1, 'PROPORTIONATE_RETURN': 1, 'UNKNOWN': 2}；重大体系胜绩2项、重大体系失败1项。",
           "capability_only_parent_refs": [
             "WAR-PARENT-SUI-UNIFICATION-589",
             "SUI-SOUTH-CONSOLIDATION-JIANGNAN-590",
-            "SUI-SOUTH-CONSOLIDATION-LINGNAN-590"
+            "SUI-SOUTH-CONSOLIDATION-LINGNAN-590",
+            "SUI-SOUTH-CONSOLIDATION-590"
           ],
           "founder_capability_review": {
             "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
@@ -175,7 +181,7 @@
             "position": "MID",
             "reason": "灭陈与江南整合证明高档多路交付，但样本集中于南方统一链且保留高句丽重大失败，取C4中位。"
           },
-          "C_score_outcome_position": 0.5065,
+          "C_score_outcome_position": 0.475,
           "cross_item_identity": {
             "join_key": "杨坚",
             "first_item_ruler_id": "RULER-SHADOW-杨坚",
@@ -185,11 +191,11 @@
           "current_item_task_count": 6,
           "current_item_task_refs": [
             "SUI-TURK-581-587",
-            "SUI-SOUTH-CONSOLIDATION-590",
             "SUI-LEAD-SUI-GUIZHOU-597",
             "SUI-LEAD-SUI-GOGURYEO-598",
             "SUI-TURK-599-603",
-            "SUI-LEAD-SUI-JIAOZHOU-602"
+            "SUI-LEAD-SUI-JIAOZHOU-602",
+            "YJ-NANNING-597-598"
           ],
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -202,7 +208,306 @@
           ],
           "parent_cycle_pending_count": 6,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-4",
+          "raw_grade": "C-4",
+          "gate_cap": 5,
+          "final_grade": "C-4",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 6,
+          "strategy_chains": [
+            {
+              "chain_id": "YJ-TURKS-581-587",
+              "label": "第一次突厥战争",
+              "period": "581-587",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "突厥",
+              "opponent_grade": "O5",
+              "member_parent_refs": [
+                "SUI-TURK-581-587"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "MIXED_POSITIVE"
+              },
+              "basis": "前期有李崇部近三千死亡等强损失，随后多轮反击、扶植与分化使沙钵略称藩划界、阿波被擒；整体为高压下正向收束。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YJ-GUIZHOU-597",
+              "label": "桂州—岭南十七州平乱",
+              "period": "597",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "桂州岭南武装",
+              "opponent_grade": "INTERNAL_O3",
+              "member_parent_refs": [
+                "SUI-LEAD-SUI-GUIZHOU-597"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "岭北岭南两路行动恢复十七州控制。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YJ-NANNING-597-598",
+              "label": "南宁千里远征后复叛",
+              "period": "597-598",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "爨玩南宁集团",
+              "opponent_grade": "INTERNAL_O2",
+              "member_parent_refs": [
+                "YJ-NANNING-597-598"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED_NEGATIVE",
+                "C2": "POSITIVE",
+                "C3": "MIXED"
+              },
+              "basis": "击破三十余部并短暂请降，但爨玩复叛，千里远征未形成耐久终局。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YJ-GOGURYEO-598",
+              "label": "三十万远征高句丽",
+              "period": "598",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "高句丽",
+              "opponent_grade": "O2",
+              "member_parent_refs": [
+                "SUI-LEAD-SUI-GOGURYEO-598"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "axis_signals": {
+                "C1": "STRONG_NEGATIVE",
+                "C2": "CATASTROPHIC_NEGATIVE",
+                "C3": "STRONG_NEGATIVE"
+              },
+              "basis": "三十万水陆远征无战略收益，洪水、饥馁、疾疫与海上风灾造成死者十之八九，闭合F4国家远征体系灾难。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YJ-TURKS-599-603",
+              "label": "扶启民—步迦体系瓦解",
+              "period": "599-603",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "突厥分裂体系",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "SUI-TURK-599-603"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": true,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "STRONG_POSITIVE"
+              },
+              "basis": "多轮反击、驻防与扶植后步迦体系瓦解，主要北方方向形成较耐久新秩序。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YJ-JIAOZHOU-602",
+              "label": "交州三据点收束",
+              "period": "602",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "交州地方武装",
+              "opponent_grade": "INTERNAL_O2",
+              "member_parent_refs": [
+                "SUI-LEAD-SUI-JIAOZHOU-602"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "二十七营推进，以军事迫降恢复三处节点。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "strategy_chain_refs": [
+            "YJ-TURKS-581-587",
+            "YJ-GUIZHOU-597",
+            "YJ-NANNING-597-598",
+            "YJ-GOGURYEO-598",
+            "YJ-TURKS-599-603",
+            "YJ-JIAOZHOU-602"
+          ],
+          "capability_only_strategy_chain_count": 1,
+          "capability_only_strategy_chains": [
+            {
+              "chain_id": "YJ-CHEN-UNIFICATION-587-590",
+              "label": "灭陈与江南—岭南统一收束",
+              "period": "587-590",
+              "chain_type": "CAPABILITY_ONLY",
+              "opponent_system": "陈国家机器及统一后南方抵抗",
+              "opponent_grade": "O5",
+              "member_parent_refs": [
+                "WAR-PARENT-SUI-UNIFICATION-589",
+                "SUI-SOUTH-CONSOLIDATION-JIANGNAN-590",
+                "SUI-SOUTH-CONSOLIDATION-LINGNAN-590"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": true,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "STRONG_POSITIVE"
+              },
+              "basis": "多路渡江迅速终结陈中央，随后处理江南、岭南反抗完成统一链收束；590不再同时作为current重复消费。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "capability_only_strategy_chain_refs": [
+            "YJ-CHEN-UNIFICATION-587-590"
+          ],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 6,
+            "known_outcome_count": 6,
+            "return_class_counts": {
+              "HIGH_RETURN": 1,
+              "LOW_RETURN": 1,
+              "NEGATIVE_RETURN": 1,
+              "PROPORTIONATE_RETURN": 3
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "YJ-TURKS-599-603"
+              ],
+              "LOW_RETURN": [
+                "YJ-NANNING-597-598"
+              ],
+              "NEGATIVE_RETURN": [
+                "YJ-GOGURYEO-598"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "YJ-TURKS-581-587",
+                "YJ-GUIZHOU-597",
+                "YJ-JIAOZHOU-602"
+              ]
+            },
+            "major_system_success_count": 1,
+            "major_system_failure_count": 1,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "SUI-TURK-581-587",
+              "strategy_chain_ref": "YJ-TURKS-581-587",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-LEAD-SUI-GUIZHOU-597",
+              "strategy_chain_ref": "YJ-GUIZHOU-597",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "YJ-NANNING-597-598",
+              "strategy_chain_ref": "YJ-NANNING-597-598",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-LEAD-SUI-GOGURYEO-598",
+              "strategy_chain_ref": "YJ-GOGURYEO-598",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-TURK-599-603",
+              "strategy_chain_ref": "YJ-TURKS-599-603",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-LEAD-SUI-JIAOZHOU-602",
+              "strategy_chain_ref": "YJ-JIAOZHOU-602",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 6,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "灭陈—590南方收束整合为一条统一能力链，避免与current重复；当前仍有两轮突厥、桂州、南宁、高句丽、交州六链。598高句丽F4是重大失败，但599—603突厥和统一链提供足够重大胜绩对冲，4/4/4不变。",
+          "strategy_chain_major_success_count": 1,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 1,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [
+            "YJ-TURKS-599-603"
+          ],
+          "major_system_failure_chain_refs": [
+            "YJ-GOGURYEO-598"
+          ],
+          "capability_only_major_success_chain_refs": [
+            "YJ-CHEN-UNIFICATION-587-590"
+          ],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "SUI-TURK-581-587",
+            "SUI-LEAD-SUI-GUIZHOU-597",
+            "SUI-LEAD-SUI-GOGURYEO-598",
+            "SUI-TURK-599-603",
+            "SUI-LEAD-SUI-JIAOZHOU-602",
+            "YJ-NANNING-597-598"
+          ],
+          "current_parent_cycle_count": 6,
+          "parent_cycle_removed_by_v30": [
+            "SUI-SOUTH-CONSOLIDATION-590"
+          ],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 1,
+            "capability_only_major_successes": 1,
+            "current_major_failures": 1,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [
+              "YJ-TURKS-599-603"
+            ],
+            "capability_only_major_success_chain_refs": [
+              "YJ-CHEN-UNIFICATION-587-590"
+            ],
+            "current_major_failure_chain_refs": [
+              "YJ-GOGURYEO-598"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
           "C_overall_grade": "C-0",
@@ -210,22 +515,22 @@
             "lower_rate": 0,
             "upper_rate": 29
           },
-          "C_score_points": 4.3,
-          "C_score_rate": 8.7,
+          "C_score_points": 6.3,
+          "C_score_rate": 12.69,
           "C_score_support_surplus": 3,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "压力测试锚点：高句丽战争与全国军事崩解相连并成为任期主导状态。"
+            "补回604杨谅十九州内战这一重要正向样本；但三征高句丽和611—618全国叛乱—崩溃是两条独立灾难主链，前者国家远征F4、后者国家军令与主力体系F4终止，2/1/0不变。"
           ],
           "collapse_profile": "NATIONWIDE_DOMINANT_UNRECOVERED",
           "combat_delivery_grade": "C1-2",
-          "coverage_status": "DIRECT_EVENTS",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [
             "WAR-LEAD-SUI-HANWANG-604"
           ],
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
-          "independent_task_count": 9,
+          "independent_task_count": 10,
           "independent_task_groups": [
             "SUI-LEAD-SUI-LINYI-605",
             "SUI-LEAD-SUI-TUYUHUN-608-609",
@@ -235,11 +540,10 @@
             "SUI-REBELLIONS-611-615",
             "SUI-LEAD-SUI-LUOKOU-617B",
             "SUI-COLLAPSE-616-618",
-            "SUI-LEAD-SUI-KHITAN-605"
+            "SUI-LEAD-SUI-KHITAN-605",
+            "SUI-LEAD-SUI-HANWANG-604"
           ],
           "major_system_failure_refs": [
-            "SUI-LEAD-SUI-KHITAN-605",
-            "SUI-COLLAPSE-616-618",
             "SUI-GOGURYEO-611-614",
             "SUI-REBELLIONS-611-615"
           ],
@@ -286,10 +590,12 @@
           "parent_cycle_merge_adjudications": [],
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
-          "major_system_success_refs": [],
+          "major_system_success_refs": [
+            "SUI-LEAD-SUI-HANWANG-604"
+          ],
           "major_victory_gate": {
             "required_count": 0,
-            "actual_count": 0,
+            "actual_count": 1,
             "status": "PASSED"
           },
           "observed_parent_cycle_count": 9,
@@ -298,12 +604,12 @@
           "non_scoring_observation_count": 0,
           "task_outcome_profile": {
             "source": "CLOSED_SYSTEM_STRESS_PARENT_CYCLES_WITH_EXPLICIT_UNKNOWN_CLOSURE",
-            "selected_task_count": 9,
+            "selected_task_count": 10,
             "known_outcome_count": 7,
             "return_class_counts": {
               "LOW_RETURN": 4,
               "NEGATIVE_RETURN": 3,
-              "UNKNOWN": 2
+              "UNKNOWN": 3
             },
             "return_class_refs": {
               "LOW_RETURN": [
@@ -319,7 +625,8 @@
               ],
               "UNKNOWN": [
                 "SUI-LEAD-SUI-LUOKOU-617B",
-                "SUI-LEAD-SUI-KHITAN-605"
+                "SUI-LEAD-SUI-KHITAN-605",
+                "SUI-LEAD-SUI-HANWANG-604"
               ]
             },
             "major_system_success_count": 0,
@@ -328,7 +635,7 @@
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
               "status": "NO_D_CHAIN_MATCH",
-              "selected_task_count": 9,
+              "selected_task_count": 10,
               "matched_task_count": 0,
               "known_result_count": 0,
               "security_result_grade_counts": {},
@@ -342,23 +649,24 @@
                 "SUI-REBELLIONS-611-615",
                 "SUI-LEAD-SUI-LUOKOU-617B",
                 "SUI-COLLAPSE-616-618",
-                "SUI-LEAD-SUI-KHITAN-605"
+                "SUI-LEAD-SUI-KHITAN-605",
+                "SUI-LEAD-SUI-HANWANG-604"
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期9项，已知结果7项，回报剖面={'LOW_RETURN': 4, 'NEGATIVE_RETURN': 3, 'UNKNOWN': 2}；重大体系胜绩0项、重大体系失败4项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期10项，已知结果7项，回报剖面={'LOW_RETURN': 4, 'NEGATIVE_RETURN': 3, 'UNKNOWN': 3}；重大体系胜绩1项、重大体系失败2项。",
           "capability_only_parent_refs": [],
           "C_score_axis_surplus_position": 0.3,
-          "C_score_band_position": 0.3,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.1326,
+          "C_score_band_position": 0.4375,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.4375,
           "cross_item_identity": {
             "join_key": "杨广",
             "first_item_ruler_id": null,
             "third_item_ruler_id": "RULER-SHADOW-杨广",
             "status": "FIRST_ITEM_NOT_APPLICABLE"
           },
-          "current_item_task_count": 9,
+          "current_item_task_count": 10,
           "current_item_task_refs": [
             "SUI-LEAD-SUI-LINYI-605",
             "SUI-LEAD-SUI-TUYUHUN-608-609",
@@ -368,7 +676,8 @@
             "SUI-REBELLIONS-611-615",
             "SUI-LEAD-SUI-LUOKOU-617B",
             "SUI-COLLAPSE-616-618",
-            "SUI-LEAD-SUI-KHITAN-605"
+            "SUI-LEAD-SUI-KHITAN-605",
+            "SUI-LEAD-SUI-HANWANG-604"
           ],
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -384,7 +693,348 @@
           ],
           "parent_cycle_pending_count": 9,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-0",
+          "raw_grade": "C-0",
+          "gate_cap": 5,
+          "final_grade": "C-0",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 8,
+          "strategy_chains": [
+            {
+              "chain_id": "YG-HANWANG-604",
+              "label": "杨谅十九州内战",
+              "period": "604",
+              "chain_type": "CURRENT_INTERNAL_STRATEGIC",
+              "opponent_system": "杨谅十九州军政集团",
+              "opponent_grade": "INTERNAL_O4",
+              "member_parent_refs": [
+                "SUI-LEAD-SUI-HANWANG-604"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": true,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "STRONG_POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "十九州大规模内战中，杨素等多路快速渡河、救城、迂回，围晋阳迫降并完成全国级秩序恢复。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YG-KHITAN-605",
+              "label": "契丹远袭",
+              "period": "605",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "契丹",
+              "opponent_grade": "O2",
+              "member_parent_refs": [
+                "SUI-LEAD-SUI-KHITAN-605"
+              ],
+              "terminal_result_class": "HIGH_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "STRONG_POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "韦云起借启民骑二万分二十营四路突袭契丹，快速击破其主部。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YG-LINYI-605",
+              "label": "林邑远征",
+              "period": "605",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "林邑",
+              "opponent_grade": "O2",
+              "member_parent_refs": [
+                "SUI-LEAD-SUI-LINYI-605"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED",
+                "C2": "NEGATIVE",
+                "C3": "MIXED"
+              },
+              "basis": "攻入林邑国都但归途万人级远征军损失四至五成，军事收益与保障代价明显失衡。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YG-TUYUHUN-608-609",
+              "label": "吐谷浑远征",
+              "period": "608-609",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "吐谷浑",
+              "opponent_grade": "O3",
+              "member_parent_refs": [
+                "SUI-LEAD-SUI-TUYUHUN-608-609"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "MIXED_POSITIVE"
+              },
+              "basis": "亲征并设置四郡，取得区域性控制；后效不够稳定，且巡军过半毁损构成显著反证。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YG-LIUQIU-610",
+              "label": "流求远征",
+              "period": "610",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "流求地方政权",
+              "opponent_grade": "O1",
+              "member_parent_refs": [
+                "SUI-LEAD-SUI-LIUQIU-610"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "POSITIVE",
+                "C2": "POSITIVE",
+                "C3": "POSITIVE"
+              },
+              "basis": "万余跨海远征完成局地军事终结，规模和对手层级有限。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YG-GOGURYEO-611-614",
+              "label": "三征高句丽",
+              "period": "611-614",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "高句丽",
+              "opponent_grade": "O4",
+              "member_parent_refs": [
+                "SUI-GOGURYEO-611-614"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "axis_signals": {
+                "C1": "CATASTROPHIC_NEGATIVE",
+                "C2": "CATASTROPHIC_NEGATIVE",
+                "C3": "STRONG_NEGATIVE"
+              },
+              "basis": "连续三次全国级远征无战略终局，首轮九军三十万五千仅二千七百返，灾难后仍重复再动员。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YG-YANMEN-615",
+              "label": "雁门被围与解围",
+              "period": "615",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "突厥",
+              "opponent_grade": "O5",
+              "member_parent_refs": [
+                "SUI-LEAD-SUI-YANMEN-615"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "MIXED",
+                "C2": "MIXED",
+                "C3": "MIXED"
+              },
+              "basis": "突厥深入包围皇帝与一万七千守军，全国救援后脱围；只实现有限止损。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "YG-REBELLION-COLLAPSE-611-618",
+              "label": "全国叛乱—隋军事体系崩溃",
+              "period": "611-618",
+              "chain_type": "CURRENT_INTERNAL_REGIME_SURVIVAL",
+              "opponent_system": "全国多支叛乱与地方军政集团",
+              "opponent_grade": "INTERNAL_O5",
+              "member_parent_refs": [
+                "SUI-REBELLIONS-611-615",
+                "SUI-LEAD-SUI-LUOKOU-617B",
+                "SUI-COLLAPSE-616-618"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "axis_signals": {
+                "C1": "CATASTROPHIC_NEGATIVE",
+                "C2": "CATASTROPHIC_NEGATIVE",
+                "C3": "CATASTROPHIC_NEGATIVE"
+              },
+              "basis": "高句丽战争汲取后全国多方向持续叛乱，官军反复再动员仍失控；最终国家主力、军令与江都禁军忠诚体系瓦解，皇帝被弑。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            }
+          ],
+          "strategy_chain_refs": [
+            "YG-HANWANG-604",
+            "YG-KHITAN-605",
+            "YG-LINYI-605",
+            "YG-TUYUHUN-608-609",
+            "YG-LIUQIU-610",
+            "YG-GOGURYEO-611-614",
+            "YG-YANMEN-615",
+            "YG-REBELLION-COLLAPSE-611-618"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 8,
+            "known_outcome_count": 8,
+            "return_class_counts": {
+              "HIGH_RETURN": 2,
+              "LOW_RETURN": 2,
+              "NEGATIVE_RETURN": 2,
+              "PROPORTIONATE_RETURN": 2
+            },
+            "return_class_chain_refs": {
+              "HIGH_RETURN": [
+                "YG-HANWANG-604",
+                "YG-KHITAN-605"
+              ],
+              "LOW_RETURN": [
+                "YG-LINYI-605",
+                "YG-YANMEN-615"
+              ],
+              "NEGATIVE_RETURN": [
+                "YG-GOGURYEO-611-614",
+                "YG-REBELLION-COLLAPSE-611-618"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "YG-TUYUHUN-608-609",
+                "YG-LIUQIU-610"
+              ]
+            },
+            "major_system_success_count": 1,
+            "major_system_failure_count": 2,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "SUI-LEAD-SUI-HANWANG-604",
+              "strategy_chain_ref": "YG-HANWANG-604",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-LEAD-SUI-KHITAN-605",
+              "strategy_chain_ref": "YG-KHITAN-605",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-LEAD-SUI-LINYI-605",
+              "strategy_chain_ref": "YG-LINYI-605",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-LEAD-SUI-TUYUHUN-608-609",
+              "strategy_chain_ref": "YG-TUYUHUN-608-609",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-LEAD-SUI-LIUQIU-610",
+              "strategy_chain_ref": "YG-LIUQIU-610",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-GOGURYEO-611-614",
+              "strategy_chain_ref": "YG-GOGURYEO-611-614",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-LEAD-SUI-YANMEN-615",
+              "strategy_chain_ref": "YG-YANMEN-615",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-REBELLIONS-611-615",
+              "strategy_chain_ref": "YG-REBELLION-COLLAPSE-611-618",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-LEAD-SUI-LUOKOU-617B",
+              "strategy_chain_ref": "YG-REBELLION-COLLAPSE-611-618",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "SUI-COLLAPSE-616-618",
+              "strategy_chain_ref": "YG-REBELLION-COLLAPSE-611-618",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 10,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "补回604杨谅十九州内战这一重要正向样本；但三征高句丽和611—618全国叛乱—崩溃是两条独立灾难主链，前者国家远征F4、后者国家军令与主力体系F4终止，2/1/0不变。",
+          "strategy_chain_major_success_count": 1,
+          "strategy_chain_major_failure_count": 2,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [
+            "YG-HANWANG-604"
+          ],
+          "major_system_failure_chain_refs": [
+            "YG-GOGURYEO-611-614",
+            "YG-REBELLION-COLLAPSE-611-618"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "SUI-LEAD-SUI-LINYI-605",
+            "SUI-LEAD-SUI-TUYUHUN-608-609",
+            "SUI-LEAD-SUI-LIUQIU-610",
+            "SUI-LEAD-SUI-YANMEN-615",
+            "SUI-GOGURYEO-611-614",
+            "SUI-REBELLIONS-611-615",
+            "SUI-LEAD-SUI-LUOKOU-617B",
+            "SUI-COLLAPSE-616-618",
+            "SUI-LEAD-SUI-KHITAN-605",
+            "SUI-LEAD-SUI-HANWANG-604"
+          ],
+          "current_parent_cycle_count": 10,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 1,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 2,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [
+              "YG-HANWANG-604"
+            ],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "YG-GOGURYEO-611-614",
+              "YG-REBELLION-COLLAPSE-611-618"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 2,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 1,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 0,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         }
       ]
     }

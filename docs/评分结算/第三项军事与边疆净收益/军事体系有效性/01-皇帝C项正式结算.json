@@ -28,7 +28,13 @@
     "shared_parent_ruler_binding_contract",
     "parent_cycle_audit_source",
     "parent_cycle_audit_status",
-    "parent_cycle_audit_summary"
+    "parent_cycle_audit_summary",
+    "c_strategy_chain_adjudication_source",
+    "c_strategy_chain_adjudication_status",
+    "strategy_chain_scoring_unit",
+    "strategy_chain_parent_cycle_role",
+    "strategy_chain_review_summary",
+    "unpressured_system_review_source"
   ],
   "payload_metadata": {
     "canonical_status": "FORMAL_CURRENT",
@@ -36,14 +42,12 @@
     "evidence_ceiling_adjustment_count": 2,
     "formal_repository_entry": true,
     "grade_distribution": {
-      "C-0": 15,
-      "C-1": 15,
-      "C-2": 43,
-      "C-3": 73,
-      "C-4": 5,
-      "C-5": 2,
-      "C-N": 1,
-      "UNKNOWN": 47
+      "C-0": 17,
+      "C-1": 26,
+      "C-2": 57,
+      "C-3": 79,
+      "C-4": 20,
+      "C-5": 2
     },
     "partition_counts": {
       "None": 55,
@@ -59,13 +63,13 @@
     "record_count": 201,
     "roster_source": "config/common/所有君主.yml",
     "rule_contract": "docs/分项规则/第三项军事与边疆净收益/军事体系有效性/00-规则与计分合同.md",
-    "schema_id": "emperor-v4-third-item-c-formal-settlement-v3-current-closed-only",
+    "schema_id": "emperor-v4-third-item-c-formal-settlement-v4-strategy-chain",
     "scope": "秦至唐95人当前值 + 五代十国12人当前结算 + 北宋11人",
     "score_range": {
-      "maximum": 50.0,
-      "minimum": 0.0
+      "minimum": 0.0,
+      "maximum": 50.0
     },
-    "score_ready_count": 154,
+    "score_ready_count": 201,
     "shared_source_root": "docs/史料通读产物/唐以前编年",
     "war_card_audit_index": "docs/史料通读产物/唐以前编年/00-战争卡审计索引.json",
     "south_song_parent_cycle_config": "config/third-item/south-song-third-item-cycle-adjudications.json",
@@ -73,11 +77,11 @@
     "extension_basis": "D战略链只提供去重体系压力任务与事实索引；C1/C2/C3按C合同分别裁决，不读取D档或成本档换算",
     "quarantined_extension_count": 52,
     "accepted_extension_count": 106,
-    "pending_count": 47,
+    "pending_count": 0,
     "shared_parent_ruler_binding_contract": {
       "status": "CLOSED",
-      "shared_parent_count": 24,
-      "binding_count": 48,
+      "shared_parent_count": 26,
+      "binding_count": 52,
       "source": "config/third-item/third-item-c-outcome-adjudications.json",
       "rule": "同一父任务按显式ruler_id与CURRENT/CAPABILITY_ONLY范围分别消费，不复制另一人物行动、结果或成本。"
     },
@@ -95,7 +99,514 @@
       "unknown_c_record_count": 47,
       "status": "CURRENT_WITH_EXPLICIT_PENDING_BOUNDARIES",
       "policy": "D战略链只作上位交叉索引和辅助合并证据；C父周期必须有独立C主体阶段、窗口、压力对象、连续动员、终局与return_class闭合。"
-    }
+    },
+    "c_strategy_chain_adjudication_source": "config/third-item/third-item-c-strategy-chain-adjudications.json",
+    "c_strategy_chain_adjudication_status": "FORMAL_CURRENT",
+    "strategy_chain_scoring_unit": "STRATEGIC_CHAIN",
+    "strategy_chain_parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+    "strategy_chain_review_summary": {
+      "source_schema_version": "third-item-c-shadow-grade-progress-v2-single-file-master",
+      "source_status_before_writeback": "SHADOW_ONLY_NOT_WRITTEN_TO_FORMAL_C_SETTLEMENT",
+      "rulers_reviewed": 201,
+      "current_strategy_chain_count": 1255,
+      "capability_only_strategy_chain_count": 113,
+      "final_grade_changes": [
+        {
+          "ruler_name": "石勒",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 82.0
+        },
+        {
+          "ruler_name": "刘裕",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 75.0
+        },
+        {
+          "ruler_name": "萧道成",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 78.22
+        },
+        {
+          "ruler_name": "陈霸先",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 82.17
+        },
+        {
+          "ruler_name": "陈蒨",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 87.25
+        },
+        {
+          "ruler_name": "拓跋嗣",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 83.05
+        },
+        {
+          "ruler_name": "高湛",
+          "before": "C-2",
+          "after": "C-4",
+          "score_rate": 85.67
+        },
+        {
+          "ruler_name": "宇文泰",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 82.0
+        },
+        {
+          "ruler_name": "宇文邕",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 82.0
+        },
+        {
+          "ruler_name": "李渊",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 80.95
+        },
+        {
+          "ruler_name": "李纯",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 80.33
+        },
+        {
+          "ruler_name": "李忱",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 79.13
+        },
+        {
+          "ruler_name": "李仁孝",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "李乾顺",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 37.0
+        },
+        {
+          "ruler_name": "李安全",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 33.5
+        },
+        {
+          "ruler_name": "李德旺",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 33.5
+        },
+        {
+          "ruler_name": "李睍",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 33.5
+        },
+        {
+          "ruler_name": "李秉常",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 67.0
+        },
+        {
+          "ruler_name": "李谅祚",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "萧绰",
+          "before": "UNKNOWN",
+          "after": "C-4",
+          "score_rate": 85.5
+        },
+        {
+          "ruler_name": "耶律德光",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 70.5
+        },
+        {
+          "ruler_name": "旻宁",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 33.5
+        },
+        {
+          "ruler_name": "奕詝",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 33.5
+        },
+        {
+          "ruler_name": "载湉",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 33.5
+        },
+        {
+          "ruler_name": "慈禧",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "胤禛",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "载淳",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 63.5
+        },
+        {
+          "ruler_name": "颙琰",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 67.0
+        },
+        {
+          "ruler_name": "完颜亮",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 33.5
+        },
+        {
+          "ruler_name": "完颜亶",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 67.0
+        },
+        {
+          "ruler_name": "完颜守绪",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 37.0
+        },
+        {
+          "ruler_name": "完颜晟",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 67.0
+        },
+        {
+          "ruler_name": "完颜永济",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 33.5
+        },
+        {
+          "ruler_name": "完颜珣",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "完颜璟",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 70.5
+        },
+        {
+          "ruler_name": "完颜雍",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 70.5
+        },
+        {
+          "ruler_name": "刘崇",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "拓跋弘",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 70.5
+        },
+        {
+          "ruler_name": "刘知远",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "钱镠",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "李克用",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "马殷",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "高季兴",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "溥仪",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "弘历",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 70.5
+        },
+        {
+          "ruler_name": "玄烨",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 70.5
+        },
+        {
+          "ruler_name": "皇太极",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 67.0
+        },
+        {
+          "ruler_name": "福临",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 67.0
+        },
+        {
+          "ruler_name": "耶律洪基",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "耶律延禧",
+          "before": "UNKNOWN",
+          "after": "C-0",
+          "score_rate": 7.25
+        },
+        {
+          "ruler_name": "述律平",
+          "before": "UNKNOWN",
+          "after": "C-1",
+          "score_rate": 40.5
+        },
+        {
+          "ruler_name": "耶律阿保机",
+          "before": "UNKNOWN",
+          "after": "C-4",
+          "score_rate": 85.5
+        },
+        {
+          "ruler_name": "耶律大石",
+          "before": "UNKNOWN",
+          "after": "C-4",
+          "score_rate": 85.5
+        },
+        {
+          "ruler_name": "耶律宗真",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 67.0
+        },
+        {
+          "ruler_name": "耶律贤",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 70.5
+        },
+        {
+          "ruler_name": "耶律阮",
+          "before": "UNKNOWN",
+          "after": "C-2",
+          "score_rate": 52.0
+        },
+        {
+          "ruler_name": "耶律隆绪",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 70.5
+        },
+        {
+          "ruler_name": "司马炽",
+          "before": "UNKNOWN",
+          "after": "C-0",
+          "score_rate": 7.25
+        },
+        {
+          "ruler_name": "杨行密",
+          "before": "UNKNOWN",
+          "after": "C-3",
+          "score_rate": 65.7
+        },
+        {
+          "ruler_name": "刘盈",
+          "before": "C-N",
+          "after": "C-2",
+          "score_rate": 52.0
+        }
+      ],
+      "final_grade_change_count": 12,
+      "final_grade_changes_from_scored_records": [
+        {
+          "ruler_name": "石勒",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 82.0
+        },
+        {
+          "ruler_name": "刘裕",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 75.0
+        },
+        {
+          "ruler_name": "萧道成",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 78.22
+        },
+        {
+          "ruler_name": "陈霸先",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 82.17
+        },
+        {
+          "ruler_name": "陈蒨",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 87.25
+        },
+        {
+          "ruler_name": "拓跋嗣",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 83.05
+        },
+        {
+          "ruler_name": "高湛",
+          "before": "C-2",
+          "after": "C-4",
+          "score_rate": 85.67
+        },
+        {
+          "ruler_name": "宇文泰",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 82.0
+        },
+        {
+          "ruler_name": "宇文邕",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 82.0
+        },
+        {
+          "ruler_name": "李渊",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 80.95
+        },
+        {
+          "ruler_name": "李纯",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 80.33
+        },
+        {
+          "ruler_name": "李忱",
+          "before": "C-3",
+          "after": "C-4",
+          "score_rate": 79.13
+        }
+      ],
+      "formal_status_transitions_including_unknown_resolution": 60,
+      "formal_unknown_resolved_count": 47,
+      "formal_unknown_resolved_names": [
+        "李仁孝",
+        "李乾顺",
+        "李安全",
+        "李德旺",
+        "李睍",
+        "李秉常",
+        "李谅祚",
+        "萧绰",
+        "耶律德光",
+        "旻宁",
+        "奕詝",
+        "载湉",
+        "慈禧",
+        "胤禛",
+        "载淳",
+        "颙琰",
+        "完颜亮",
+        "完颜亶",
+        "完颜守绪",
+        "完颜晟",
+        "完颜永济",
+        "完颜珣",
+        "完颜璟",
+        "完颜雍",
+        "刘崇",
+        "拓跋弘",
+        "刘知远",
+        "钱镠",
+        "李克用",
+        "马殷",
+        "高季兴",
+        "溥仪",
+        "弘历",
+        "玄烨",
+        "皇太极",
+        "福临",
+        "耶律洪基",
+        "耶律延禧",
+        "述律平",
+        "耶律阿保机",
+        "耶律大石",
+        "耶律宗真",
+        "耶律贤",
+        "耶律阮",
+        "耶律隆绪",
+        "司马炽",
+        "杨行密"
+      ],
+      "remaining_unknown_names": [],
+      "axis_field_changes_count": 55,
+      "axis_field_changes_including_unknown_resolution": 190,
+      "status": "FORMAL_WRITEBACK_APPLIED",
+      "inherited_unpressured_names": [
+        "刘盈"
+      ]
+    },
+    "unpressured_system_review_source": "config/third-item/third-item-c-strategy-chain-adjudications.json"
   },
   "collections": {
     "records": {

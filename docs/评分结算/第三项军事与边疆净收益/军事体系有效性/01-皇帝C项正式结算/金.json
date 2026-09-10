@@ -22,14 +22,14 @@
           "reign_range": [
             "JIN-HAILING-1150-1161"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-1",
+          "operational_sustainability_cap": "C2-1",
+          "system_reliability_cap": "C3-1",
+          "C_overall_grade": "C-1",
+          "C_score_rate": 33.5,
+          "C_score_points": 16.8,
+          "C_score_band_position": 0.25,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "LOW",
             "reason": "唯一国家级南伐在渡江前后组织崩解；可见长期征发，却没有恢复或跨将领可靠运行事实。"
@@ -57,17 +57,19 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败1项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "国家级南伐终局军变崩解，且同年多个内部责任中心同时失控；长期征发不能抵消交付与可靠性崩坏，维持1/1/1。"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "JIN-HAILING-SONG-INVASION-AND-ARMY-COLLAPSE-1161"
+          ],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "JIN-HAILING-SONG-INVASION-AND-ARMY-COLLAPSE-1161",
@@ -77,12 +79,10 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JIN-HAILING-SONG-INVASION-AND-ARMY-COLLAPSE-1161",
@@ -93,10 +93,13 @@
             "docs/史料通读产物/金/金史/volume-005.battle-adjudications.json#JINSHI-WANGJIU-DAMING-1161"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 0,
+          "C_score_axis_surplus_position": 0.0,
+          "C_score_outcome_position": 0.0,
+          "C_score_band": {
+            "lower_rate": 30,
+            "upper_rate": 44
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 0,
           "current_item_task_refs": [],
@@ -108,7 +111,168 @@
           "parent_cycle_pending_count": 2,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-1",
+          "raw_grade": "C-1",
+          "gate_cap": 5,
+          "final_grade": "C-1",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 4,
+          "strategy_chains": [
+            {
+              "chain_id": "JIN27-FBA356875070",
+              "label": "1161四路伐宋—渡江前后军队组织崩解",
+              "period": "1161",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-HAILING-SONG-INVASION-AND-ARMY-COLLAPSE-1161",
+              "source_event_refs": [
+                "JIN-HAILING-SONG-INVASION-AND-ARMY-COLLAPSE-1161"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "四路国家级伐宋从长期征发、南下到采石受挫、军中兵变弑君，属于同一国家主力与后勤链；最多一张重大失败票。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-59DB60D552F1",
+              "label": "杜奎陕州反乱",
+              "period": "1161",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-DUKUI-SHANZHOU-1161",
+              "source_event_refs": [
+                "JINSHI-DUKUI-SHANZHOU-1161"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "杜奎为独立内部武装责任中心，与契丹窩斡、王九及南伐军变均非同一组织。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-61730CBB78B4",
+              "label": "契丹窩斡叛乱·海陵王窗口",
+              "period": "1161",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-QIDAN-WOA-REBELLION-1161-1162::HAILING",
+              "source_event_refs": [
+                "JINSHI-QIDAN-WOA-REBELLION-1161-1162::HAILING"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "只消费完颜亮在位窗口；窩斡叛乱延续到世宗后，1161之后的平定成果不得倒灌海陵王。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-5C2B618D30DC",
+              "label": "王九大名反乱",
+              "period": "1161",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-WANGJIU-DAMING-1161",
+              "source_event_refs": [
+                "JINSHI-WANGJIU-DAMING-1161"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "王九为大名区域独立武装责任中心，不能与东北契丹叛乱或陕州杜奎合成一票。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "JIN27-FBA356875070",
+            "JIN27-59DB60D552F1",
+            "JIN27-61730CBB78B4",
+            "JIN27-5C2B618D30DC"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 4,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 4
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "JIN27-FBA356875070",
+                "JIN27-59DB60D552F1",
+                "JIN27-61730CBB78B4",
+                "JIN27-5C2B618D30DC"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 1,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C1",
+          "strategy_chain_review_basis": "国家级南伐终局军变崩解，且同年多个内部责任中心同时失控；长期征发不能抵消交付与可靠性崩坏，维持1/1/1。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "JIN27-FBA356875070"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 1,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "JIN27-FBA356875070"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-JIN-XIZONG",
@@ -117,14 +281,14 @@
           "reign_range": [
             "JIN-XIZONG-1135-1150"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-3",
+          "operational_sustainability_cap": "C2-3",
+          "system_reliability_cap": "C3-3",
+          "C_overall_grade": "C-3",
+          "C_score_rate": 67.0,
+          "C_score_points": 33.5,
+          "C_score_band_position": 0.5,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "一条三年多方向宋金战链足以证明中等以上兑现与承载；但只有一个独立体系任务，合同的样本上限禁止C1/C3升4。"
@@ -155,35 +319,36 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "单一但持续三年的多战区国家级战争证明中等以上兑现、承载和可靠性；样本仍不足上4，维持3/3/3。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "JIN-XIZONG-SONG-HENAN-SHAANXI-HUAI-1140-1142"
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JIN-XIZONG-SONG-HENAN-SHAANXI-HUAI-1140-1142",
             "docs/史料通读产物/金/金史/volume-004.battle-adjudications.json#JSH-JIN-SONG-HENAN-SHAANXI-1140"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 0,
+          "C_score_axis_surplus_position": 0.0,
+          "C_score_outcome_position": 0.0,
+          "C_score_band": {
+            "lower_rate": 60,
+            "upper_rate": 74
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 0,
           "current_item_task_refs": [],
@@ -194,7 +359,92 @@
           "parent_cycle_pending_count": 1,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 1,
+          "strategy_chains": [
+            {
+              "chain_id": "JIN27-BB1A89116413",
+              "label": "1140—1142河南—陕西—淮河宋金战争",
+              "period": "1140-1142",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-XIZONG-SONG-HENAN-SHAANXI-HUAI-1140-1142",
+              "source_event_refs": [
+                "JIN-XIZONG-SONG-HENAN-SHAANXI-HUAI-1140-1142"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "1140河南陕西争夺、1140—41反攻与1141—42淮河和议共享同一阶段国家战争终局，公共登记已做高密度父级闭合。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "JIN27-BB1A89116413"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 1,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 1
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "JIN27-BB1A89116413"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C3",
+          "strategy_chain_review_basis": "单一但持续三年的多战区国家级战争证明中等以上兑现、承载和可靠性；样本仍不足上4，维持3/3/3。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-JIN-AIZONG",
@@ -203,14 +453,14 @@
           "reign_range": [
             "JIN-AIZONG-1224-1234"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-1",
+          "operational_sustainability_cap": "C2-2",
+          "system_reliability_cap": "C3-1",
+          "C_overall_grade": "C-1",
+          "C_score_rate": 37.0,
+          "C_score_points": 18.5,
+          "C_score_band_position": 0.5,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "十年生存战争中仍有局部守御和组织行动，故不把亡国自动写成C0；但核心任务终局失败、军政协同未恢复，C1与C3均止1。"
@@ -238,17 +488,19 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败1项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "十年间仍有平阳、泽潞及局部宋边战的恢复/交付，故C2不归零；但蒙古主压力不断升级至国家覆亡，中央与地方军政协同碎裂，C1/C3均止1。"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "DINV::JIN-AIZONG::FINAL-COLLAPSE-1231-1234"
+          ],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "RULER-JIN-AIZONG::JIN-AIZONG-1224-1234::JIN-GUIDE-GUANNU-COUP-1233",
@@ -258,12 +510,10 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/史料通读产物/金/金史/",
             "docs/史料通读产物/金/金史/volume-017.battle-adjudications(5).json#JIN-INTERNAL-XUZHOU-1232",
@@ -283,10 +533,13 @@
             "docs/史料通读产物/金/金史/volume-018.battle-adjudications(5).json#JIN-XUZHOU-GUOANYONG-1232"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 1,
+          "C_score_axis_surplus_position": 0.125,
+          "C_score_outcome_position": 0.125,
+          "C_score_band": {
+            "lower_rate": 30,
+            "upper_rate": 44
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 0,
           "current_item_task_refs": [],
@@ -300,7 +553,359 @@
           "parent_cycle_pending_count": 4,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-1",
+          "raw_grade": "C-1",
+          "gate_cap": 5,
+          "final_grade": "C-1",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 11,
+          "strategy_chains": [
+            {
+              "chain_id": "JIN27-12648E7198AB",
+              "label": "即位初山西蒙古压力链",
+              "period": "1224",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-MONGOL-SHANXI-1224",
+              "source_event_refs": [
+                "JIN-MONGOL-SHANXI-1224"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "1224即位后的独立山西方向应战；与1226、1227之间存在新阶段与新终局，不能只因同一蒙古对手连续十年强并。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-BD766FB588F2",
+              "label": "1226曲沃—晋安方向蒙古战争",
+              "period": "1226",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-MONGOL-QUWO-JINAN-1226",
+              "source_event_refs": [
+                "JIN-MONGOL-QUWO-JINAN-1226"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "独立1226战役阶段，重新授权与阶段终局可识别。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-D420F84D63FB",
+              "label": "1227平阳恢复链",
+              "period": "1227",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-MONGOL-PINGYANG-RECOVERY-1227",
+              "source_event_refs": [
+                "JIN-MONGOL-PINGYANG-RECOVERY-1227"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "金方主动恢复平阳，战略目标由被动应战切换为局部收复，单独闭合。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-42304ADEC730",
+              "label": "1227蒙古西线攻势：德顺—平阳—临洮—商州",
+              "period": "1227",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-AIZONG-MONGOL-WESTERN-OFFENSIVE-1227",
+              "source_event_refs": [
+                "JIN-AIZONG-MONGOL-WESTERN-OFFENSIVE-1227"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "蒙古同一西线攻势连下多个重要节点并逼京兆；与金方平阳恢复为不同主动方和不同终局。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-162224EE7FC7",
+              "label": "1229—1230山西收复—庆阳卫州解围",
+              "period": "1229-1230",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-AIZONG-SHANXI-QINGYANG-WEIZHOU-1229-1230",
+              "source_event_refs": [
+                "JIN-AIZONG-SHANXI-QINGYANG-WEIZHOU-1229-1230"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "新一轮金方恢复与解围授权，泽潞恢复、庆阳与卫州解围共享阶段性反攻目标。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-D1085B309E2C",
+              "label": "1231—1234潼关崩溃—主力覆灭—蔡州亡国终局",
+              "period": "1231-1234",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "DINV::JIN-AIZONG::FINAL-COLLAPSE-1231-1234",
+              "source_event_refs": [
+                "DINV::JIN-AIZONG::FINAL-COLLAPSE-1231-1234"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "1231西线崩溃后连续退守，至1234蔡州陷落、哀宗死、金亡；同一灭金国家存续终局，不再按蔡州等节点重复失败票。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-243EBEAE8483",
+              "label": "1225光州宋金边战",
+              "period": "1225",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-SONG-GUANGZHOU-1225",
+              "source_event_refs": [
+                "JIN-SONG-GUANGZHOU-1225"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "一次独立边境会战，金军取得阶段优势与战马；与后续楚州、龟山另有新授权。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-6435208B17DC",
+              "label": "1227李全—龟山之战",
+              "period": "1227",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-LIQUAN-GUISHAN-1227",
+              "source_event_refs": [
+                "JIN-LIQUAN-GUISHAN-1227"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "李全重新据楚州后金军在龟山败绩，属于独立战斗终局。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-D1F9E9FDB976",
+              "label": "1231楚州浮桥—滶河口对峙及镇淮节点",
+              "period": "1231",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-SONG-CHUZHOU-BRIDGE-1231",
+              "source_event_refs": [
+                "JIN-SONG-CHUZHOU-BRIDGE-1231"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "杨妙真构桥与金军屯防形成独立武装对峙，终局为局部节点变化。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-42EABBCB7C4D",
+              "label": "1233归德官奴忠孝军政变",
+              "period": "1233",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-GUIDE-GUANNU-COUP-1233",
+              "source_event_refs": [
+                "JIN-GUIDE-GUANNU-COUP-1233"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "忠孝军杀从官三百余、拘禁皇帝并持续至反制，属于独立中枢军变链。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-0227DFA6FD73",
+              "label": "1232徐州封仙—国安用军政夺权",
+              "period": "1232",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-INTERNAL-XUZHOU-1232",
+              "source_event_refs": [
+                "JIN-INTERNAL-XUZHOU-1232"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "徐州地方军权脱离中央，封仙—国安用围绕同一徐州责任中心连续闭合。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "JIN27-12648E7198AB",
+            "JIN27-BD766FB588F2",
+            "JIN27-D420F84D63FB",
+            "JIN27-42304ADEC730",
+            "JIN27-162224EE7FC7",
+            "JIN27-D1085B309E2C",
+            "JIN27-243EBEAE8483",
+            "JIN27-6435208B17DC",
+            "JIN27-D1F9E9FDB976",
+            "JIN27-42EABBCB7C4D",
+            "JIN27-0227DFA6FD73"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 11,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 11
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "JIN27-12648E7198AB",
+                "JIN27-BD766FB588F2",
+                "JIN27-D420F84D63FB",
+                "JIN27-42304ADEC730",
+                "JIN27-162224EE7FC7",
+                "JIN27-D1085B309E2C",
+                "JIN27-243EBEAE8483",
+                "JIN27-6435208B17DC",
+                "JIN27-D1F9E9FDB976",
+                "JIN27-42EABBCB7C4D",
+                "JIN27-0227DFA6FD73"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 1,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C1",
+          "strategy_chain_review_basis": "十年间仍有平阳、泽潞及局部宋边战的恢复/交付，故C2不归零；但蒙古主压力不断升级至国家覆亡，中央与地方军政协同碎裂，C1/C3均止1。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "JIN27-D1085B309E2C"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 1,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "JIN27-D1085B309E2C"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [
+            {
+              "observation_id": "JIN27-9CB7D2343E4D",
+              "ref": "JIN-SONG-CHUZHOU-DEFECTION-1226",
+              "label": "1226楚州来降",
+              "role": "EVIDENCE_ONLY_NON_SCORING",
+              "reason": "无战斗取得州城，保留为宋边境链的背景证据，不单独制造C1战略任务。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json"
+              ]
+            },
+            {
+              "observation_id": "JIN27-FBC29A531B21",
+              "ref": "JIN-SONG-DENGZHOU-DEFECTION-1233",
+              "label": "1233邓州转附",
+              "role": "EVIDENCE_ONLY_NON_SCORING",
+              "reason": "正式旧宋边境汇总中的非独立战斗节点；作为控制/可靠性背景，不单独制造C1任务。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json"
+              ]
+            }
+          ],
+          "strategy_chain_non_scoring_observation_count": 2
         },
         {
           "ruler_id": "RULER-JIN-TAIZONG",
@@ -309,14 +914,14 @@
           "reign_range": [
             "JIN-TAIZONG-1123-1135"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-4",
+          "operational_sustainability_cap": "C2-4",
+          "system_reliability_cap": "C3-3",
+          "C_overall_grade": "C-3",
+          "C_score_rate": 67.0,
+          "C_score_points": 33.5,
+          "C_score_band_position": 0.5,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "当前两项任务与两条能力专用统一链共同证明4/4/3体系能力；能力专用链不进入档内成果数量，故C3中位保持33.5。"
@@ -347,14 +952,14 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "统一成果剥离后，张觉及1129—1133三个独立南宋/西线任务仍证明高难度投送和持续动员；跨任务可靠性不足4，维持4/4/3→C3。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "DINV::JIN-TAIZONG::SECOND-SONG-INVASION-1126-1129",
@@ -371,12 +976,10 @@
             "CHAIN-JIN-NORTHERN-SONG-CONQUEST-1125-1129"
           ],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#DINV::JIN-TAIZONG::SECOND-SONG-INVASION-1126-1129",
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JIN-TAIZONG-LIAO-REMNANTS-XINGZHONG-1123-1124",
@@ -408,10 +1011,13 @@
           "current_item_task_refs": [],
           "current_item_task_count": 0,
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 2,
+          "C_score_axis_surplus_position": 0.5,
+          "C_score_outcome_position": 0.5,
+          "C_score_band": {
+            "lower_rate": 60,
+            "upper_rate": 74
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "non_scoring_observation_refs": [],
           "parent_cycle_pending_refs": [
@@ -421,7 +1027,204 @@
           "parent_cycle_pending_count": 2,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 4,
+          "strategy_chains": [
+            {
+              "chain_id": "JIN27-B1C9B36FBBC7",
+              "label": "张觉—南京方向战争",
+              "period": "1123-1124",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-TAIZONG-ZHANGJUE-NANJING-1123-1124",
+              "source_event_refs": [
+                "JIN-TAIZONG-ZHANGJUE-NANJING-1123-1124"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "张觉事件为独立区域压力链；不与灭辽统一终局混算。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-CB3019B56123",
+              "label": "1129—1130江淮—江南追击链",
+              "period": "1129-1130",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-TAIZONG-SONG-YANGTZE-PURSUIT-1129-1130",
+              "source_event_refs": [
+                "JIN-TAIZONG-SONG-YANGTZE-PURSUIT-1129-1130"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "北宋政权已亡后继续针对南宋的长江追击，是新对手体系和新战略终局。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-C4689F2F251F",
+              "label": "1130—1131陕西富平—西线战争",
+              "period": "1130-1131",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-TAIZONG-SONG-SHAANXI-FUPING-1130-1131",
+              "source_event_refs": [
+                "JIN-TAIZONG-SONG-SHAANXI-FUPING-1130-1131"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "战略重心转向陕西与西线控制，授权、战区、终局均区别于江南追击。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-35D86665051A",
+              "label": "1132—1133汉中—和尚原方向战争",
+              "period": "1132-1133",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-TAIZONG-SONG-HANZHONG-1132-1133",
+              "source_event_refs": [
+                "JIN-TAIZONG-SONG-HANZHONG-1132-1133"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "1132后形成新的汉中进攻阶段，与1130—31陕西战线有新的作战目标和终局。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "JIN27-B1C9B36FBBC7",
+            "JIN27-CB3019B56123",
+            "JIN27-C4689F2F251F",
+            "JIN27-35D86665051A"
+          ],
+          "capability_only_strategy_chain_count": 2,
+          "capability_only_strategy_chains": [
+            {
+              "chain_id": "JIN27-4306439AD379",
+              "label": "辽残余终结能力专用链",
+              "chain_type": "CAPABILITY_ONLY_STRATEGIC",
+              "canonical_strategy_ref": "CHAIN-JIN-LIAO-REMNANT-TERMINATION-1123-1125",
+              "terminal_result_class": "NOT_APPLICABLE_CAPABILITY_ONLY",
+              "c_system_outcome_class": "CAPABILITY_ONLY",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "result_credit": 0,
+              "cost_credit": 0,
+              "basis": "灭辽终局及相关控制/成本归第一项；第三项只复用军队能力表现。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "金正式C结算@2ed0152f66ccd64af6f2397f4acdcd821713cf71"
+              ],
+              "provenance": "FIRST_ITEM_ROUTED_CAPABILITY_ONLY"
+            },
+            {
+              "chain_id": "JIN27-27942CE3B17D",
+              "label": "北宋征服能力专用链",
+              "chain_type": "CAPABILITY_ONLY_STRATEGIC",
+              "canonical_strategy_ref": "CHAIN-JIN-NORTHERN-SONG-CONQUEST-1125-1129",
+              "terminal_result_class": "NOT_APPLICABLE_CAPABILITY_ONLY",
+              "c_system_outcome_class": "CAPABILITY_ONLY",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "result_credit": 0,
+              "cost_credit": 0,
+              "basis": "第一次/第二次伐宋至北宋征服属于第一项统一成果；第三项不得恢复成果、控制量和成本。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "金正式C结算@2ed0152f66ccd64af6f2397f4acdcd821713cf71"
+              ],
+              "provenance": "FIRST_ITEM_ROUTED_CAPABILITY_ONLY"
+            }
+          ],
+          "capability_only_strategy_chain_refs": [
+            "JIN27-4306439AD379",
+            "JIN27-27942CE3B17D"
+          ],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 4,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 4
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "JIN27-B1C9B36FBBC7",
+                "JIN27-CB3019B56123",
+                "JIN27-C4689F2F251F",
+                "JIN27-35D86665051A"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C3",
+          "strategy_chain_review_basis": "统一成果剥离后，张觉及1129—1133三个独立南宋/西线任务仍证明高难度投送和持续动员；跨任务可靠性不足4，维持4/4/3→C3。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-JIN-WEISHAOWANG",
@@ -430,14 +1233,14 @@
           "reign_range": [
             "JIN-WEISHAOWANG-1208-1213"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-1",
+          "operational_sustainability_cap": "C2-2",
+          "system_reliability_cap": "C3-1",
+          "C_overall_grade": "C-1",
+          "C_score_rate": 33.5,
+          "C_score_points": 16.8,
+          "C_score_band_position": 0.25,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "LOW",
             "reason": "蒙古主链与西夏链均未完成核心任务，北方重大失效后未见体系恢复；仍能有限调动，故C2不降0。"
@@ -465,17 +1268,20 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败2项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "蒙古主链与西夏边线均未完成核心任务，北方主防体系严重失效；仍能有限调兵，故1/2/1。"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "JINSHI-MONGOL-JIN-NORTH-1211-1212",
+            "JINSHI-JIN-XIA-BORDER-1210-1213"
+          ],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "JINSHI-JIN-XIA-BORDER-1210-1213",
@@ -483,12 +1289,10 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JINSHI-JIN-XIA-BORDER-1210-1213",
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JINSHI-MONGOL-JIN-NORTH-1211-1212",
@@ -496,10 +1300,13 @@
             "docs/史料通读产物/金/金史/volume-013.battle-adjudications(5).json#JINSHI-MONGOL-JIN-NORTH-1211-1212"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 1,
+          "C_score_axis_surplus_position": 0.125,
+          "C_score_outcome_position": 0.125,
+          "C_score_band": {
+            "lower_rate": 30,
+            "upper_rate": 44
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 0,
           "current_item_task_refs": [],
@@ -511,7 +1318,122 @@
           "parent_cycle_pending_count": 2,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-1",
+          "raw_grade": "C-1",
+          "gate_cap": 5,
+          "final_grade": "C-1",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 2,
+          "strategy_chains": [
+            {
+              "chain_id": "JIN27-5509E536209A",
+              "label": "1211—1212蒙古北方国家级入侵",
+              "period": "1211-1212",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-MONGOL-JIN-NORTH-1211-1212",
+              "source_event_refs": [
+                "JINSHI-MONGOL-JIN-NORTH-1211-1212"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "蒙古突破居庸并使北方多路州城、东京等连续退控，国家级防御重大失败。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-5795277F4C91",
+              "label": "1210—1213金夏陕西边战",
+              "period": "1210-1213",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-JIN-XIA-BORDER-1210-1213",
+              "source_event_refs": [
+                "JINSHI-JIN-XIA-BORDER-1210-1213"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "西夏连续进犯葭州、保安、庆阳等方向，独立于蒙古北方主链。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "JIN27-5509E536209A",
+            "JIN27-5795277F4C91"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 2,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 2
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "JIN27-5509E536209A",
+                "JIN27-5795277F4C91"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 2,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C1",
+          "strategy_chain_review_basis": "蒙古主链与西夏边线均未完成核心任务，北方主防体系严重失效；仍能有限调兵，故1/2/1。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 2,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "JIN27-5509E536209A",
+            "JIN27-5795277F4C91"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 2,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "JIN27-5509E536209A",
+              "JIN27-5795277F4C91"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-JIN-XUANZONG",
@@ -520,14 +1442,14 @@
           "reign_range": [
             "JIN-XUANZONG-1213-1224"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-2",
+          "operational_sustainability_cap": "C2-2",
+          "system_reliability_cap": "C3-2",
+          "C_overall_grade": "C-2",
+          "C_score_rate": 52.0,
+          "C_score_points": 26.0,
+          "C_score_band_position": 0.5,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "MID",
             "reason": "多线长期抵抗、地方恢复与对宋战争证明体系未完全失能；但蒙古核心方向持续失控，另开宋战未解决主危机，三轴均止2。"
@@ -555,17 +1477,19 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败1项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "仍有河北恢复、山东平乱及多线持续作战，体系没有完全失能；但蒙古核心方向持续扩大、地方军队和州郡反复叛离，对宋开战也未解决主危机，三轴均止2。"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "JIN-XUANZONG-MONGOL-WAR-1213-1215"
+          ],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "DINV::JIN-XUANZONG::SONG-WAR-1217-1223",
@@ -589,12 +1513,10 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#DINV::JIN-XUANZONG::SONG-WAR-1217-1223",
             "docs/史料通读产物/金/金史/",
@@ -624,10 +1546,13 @@
             "docs/史料通读产物/金/金史/volume-016.battle-adjudications(5).json#JINSHI-YANSHI-JINAN-1220"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 0,
+          "C_score_axis_surplus_position": 0.0,
+          "C_score_outcome_position": 0.0,
+          "C_score_band": {
+            "lower_rate": 45,
+            "upper_rate": 59
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 0,
           "current_item_task_refs": [],
@@ -644,7 +1569,504 @@
           "parent_cycle_pending_count": 7,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-2",
+          "raw_grade": "C-2",
+          "gate_cap": 5,
+          "final_grade": "C-2",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 18,
+          "strategy_chains": [
+            {
+              "chain_id": "JIN27-C173728A04BD",
+              "label": "1217—1223对宋战争",
+              "period": "1217-1223",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "DINV::JIN-XUANZONG::SONG-WAR-1217-1223",
+              "source_event_refs": [
+                "DINV::JIN-XUANZONG::SONG-WAR-1217-1223"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-37BC553BB087",
+              "label": "1213—1223蒙古核心战争（沿公共登记实际边界）",
+              "period": "1213-1223",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-XUANZONG-MONGOL-WAR-1213-1215",
+              "source_event_refs": [
+                "JIN-XUANZONG-MONGOL-WAR-1213-1215"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "该ref名称虽止于1215，但公共登记成员实际连续覆盖1213—1223蒙古主压力；作为一个长期国家存续方向，不按年度再拆。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-175B0F41CBAE",
+              "label": "1213—1223金夏西北边战（沿公共登记实际边界）",
+              "period": "1213-1223",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-XUANZONG-XIA-BORDER-WAR-1213-1215",
+              "source_event_refs": [
+                "JIN-XUANZONG-XIA-BORDER-WAR-1213-1215"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "该ref名称虽止于1215，但公共登记成员实际延续至1223；同一西夏边境连续战争作为一条长期方向链。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-34F35E3D6FC8",
+              "label": "1215北京军变降蒙",
+              "period": "1215",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-BEIJING-MUTINY-DEFECTION-1215",
+              "source_event_refs": [
+                "JINSHI-BEIJING-MUTINY-DEFECTION-1215"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-4712AE91DCF3",
+              "label": "1216河北多州县恢复",
+              "period": "1216",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-HEBEI-LOCAL-RECOVERY-1216",
+              "source_event_refs": [
+                "JINSHI-HEBEI-LOCAL-RECOVERY-1216"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-1B396D5192EF",
+              "label": "1222河间恢复",
+              "period": "1222",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-HEJIAN-RECOVERY-1222",
+              "source_event_refs": [
+                "JINSHI-HEJIAN-RECOVERY-1222"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-96AE74A02FD7",
+              "label": "1222恒州军变",
+              "period": "1222",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-HENGZHOU-MUTINY-1222",
+              "source_event_refs": [
+                "JINSHI-HENGZHOU-MUTINY-1222"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-82F0AD65FE73",
+              "label": "1217辽东伯德胡土叛乱",
+              "period": "1217",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-LIAODONG-BODEHUTU-REBELLION-1217",
+              "source_event_refs": [
+                "JINSHI-LIAODONG-BODEHUTU-REBELLION-1217"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-E15946B09D88",
+              "label": "1215刘二祖—大沫堌平乱",
+              "period": "1215",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-LIUERZU-DAMOGU-1215",
+              "source_event_refs": [
+                "JINSHI-LIUERZU-DAMOGU-1215"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-8C53C553437C",
+              "label": "1223邳州纳合六哥叛乱",
+              "period": "1223",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-PIZHOU-NAHALIUGE-REBELLION-1223",
+              "source_event_refs": [
+                "JINSHI-PIZHOU-NAHALIUGE-REBELLION-1223"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-782D4C38697E",
+              "label": "1221—1223山东—淮北红袄军战争",
+              "period": "1221-1223",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-REDJACKET-SHANDONG-HUAI-1221-1223",
+              "source_event_refs": [
+                "JINSHI-REDJACKET-SHANDONG-HUAI-1221-1223"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-B40255F9A536",
+              "label": "1217山东多州武装平乱",
+              "period": "1217",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-SHANDONG-MULTI-REBELLIONS-1217",
+              "source_event_refs": [
+                "JINSHI-SHANDONG-MULTI-REBELLIONS-1217"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-5B7C442B8126",
+              "label": "1220武仙降蒙",
+              "period": "1220",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-WUXIAN-DEFECTION-1220",
+              "source_event_refs": [
+                "JINSHI-WUXIAN-DEFECTION-1220"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-5DB80B0A5BD8",
+              "label": "1215杨安儿叛乱",
+              "period": "1215",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-YANGANER-REBEL-1215",
+              "source_event_refs": [
+                "JINSHI-YANGANER-REBEL-1215"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-6B629794536C",
+              "label": "1220严实—济南方向事件",
+              "period": "1220",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-YANSHI-JINAN-1220",
+              "source_event_refs": [
+                "JINSHI-YANSHI-JINAN-1220"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-22FCB5C0177A",
+              "label": "1219沂州王公喜事件",
+              "period": "1219",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-YIZHOU-WANGGONGXI-1219",
+              "source_event_refs": [
+                "JINSHI-YIZHOU-WANGGONGXI-1219"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-534EBDE19441",
+              "label": "1217真定史海叛乱",
+              "period": "1217",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-ZHENDING-SHIHAI-REBELLION-1217",
+              "source_event_refs": [
+                "JINSHI-ZHENDING-SHIHAI-REBELLION-1217"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-A72926046932",
+              "label": "1219中山王善叛乱",
+              "period": "1219",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-ZHONGSHAN-WANGSHAN-REBELLION-1219",
+              "source_event_refs": [
+                "JINSHI-ZHONGSHAN-WANGSHAN-REBELLION-1219"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "公共登记将该事件作为独立canonical owner；不同叛乱首领、军变主体或相隔多年的恢复授权不得继续塞入旧7个D聚合容器。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "JIN27-C173728A04BD",
+            "JIN27-37BC553BB087",
+            "JIN27-175B0F41CBAE",
+            "JIN27-34F35E3D6FC8",
+            "JIN27-4712AE91DCF3",
+            "JIN27-1B396D5192EF",
+            "JIN27-96AE74A02FD7",
+            "JIN27-82F0AD65FE73",
+            "JIN27-E15946B09D88",
+            "JIN27-8C53C553437C",
+            "JIN27-782D4C38697E",
+            "JIN27-B40255F9A536",
+            "JIN27-5B7C442B8126",
+            "JIN27-5DB80B0A5BD8",
+            "JIN27-6B629794536C",
+            "JIN27-22FCB5C0177A",
+            "JIN27-534EBDE19441",
+            "JIN27-A72926046932"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 18,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 18
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "JIN27-C173728A04BD",
+                "JIN27-37BC553BB087",
+                "JIN27-175B0F41CBAE",
+                "JIN27-34F35E3D6FC8",
+                "JIN27-4712AE91DCF3",
+                "JIN27-1B396D5192EF",
+                "JIN27-96AE74A02FD7",
+                "JIN27-82F0AD65FE73",
+                "JIN27-E15946B09D88",
+                "JIN27-8C53C553437C",
+                "JIN27-782D4C38697E",
+                "JIN27-B40255F9A536",
+                "JIN27-5B7C442B8126",
+                "JIN27-5DB80B0A5BD8",
+                "JIN27-6B629794536C",
+                "JIN27-22FCB5C0177A",
+                "JIN27-534EBDE19441",
+                "JIN27-A72926046932"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 1,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C2",
+          "strategy_chain_review_basis": "仍有河北恢复、山东平乱及多线持续作战，体系没有完全失能；但蒙古核心方向持续扩大、地方军队和州郡反复叛离，对宋开战也未解决主危机，三轴均止2。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "JIN27-37BC553BB087"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 1,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "JIN27-37BC553BB087"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-JIN-ZHANGZONG",
@@ -653,14 +2075,14 @@
           "reign_range": [
             "JIN-ZHANGZONG-1189-1208"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-3",
+          "operational_sustainability_cap": "C2-3",
+          "system_reliability_cap": "C3-3",
+          "C_overall_grade": "C-3",
+          "C_score_rate": 70.5,
+          "C_score_points": 35.2,
+          "C_score_band_position": 0.75,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "HIGH",
             "reason": "北边、开禧与西夏边境三个任务胜负并存；九路反攻和和议足以支持C3高位，但没有多方向高难度长期可复制事实，不升C4。"
@@ -691,14 +2113,14 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "北边、开禧与西夏方向胜负并存，九路反攻及和议说明较稳定交付，但不足支持四档长期可复制性，维持3/3/3。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "DINV::JIN-ZHANGZONG::KAIXI-WAR-1205-1208",
@@ -708,12 +2130,10 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#DINV::JIN-ZHANGZONG::KAIXI-WAR-1205-1208",
             "docs/史料通读产物/金/金史/",
@@ -722,10 +2142,13 @@
             "docs/史料通读产物/金/金史/volume-011.battle-adjudications.json#JINSHI-NORTH-FRONTIER-CLOSURE-1198"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 0,
+          "C_score_axis_surplus_position": 0.0,
+          "C_score_outcome_position": 0.0,
+          "C_score_band": {
+            "lower_rate": 60,
+            "upper_rate": 74
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 0,
           "current_item_task_refs": [],
@@ -738,7 +2161,164 @@
           "parent_cycle_pending_count": 3,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 4,
+          "strategy_chains": [
+            {
+              "chain_id": "JIN27-51608997D680",
+              "label": "1191阿鲁带金夏边战",
+              "period": "1191",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-JIN-XIA-BORDER-ALUDAI-1191",
+              "source_event_refs": [
+                "JINSHI-JIN-XIA-BORDER-ALUDAI-1191"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "按独立授权、压力对象与阶段终局闭合；不以同年、同对手或D聚合名义强并。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-CDB7AB5312A0",
+              "label": "1195—1196北边战争",
+              "period": "1195-1196",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-ZHANGZONG-NORTH-FRONTIER-1195-1196",
+              "source_event_refs": [
+                "JIN-ZHANGZONG-NORTH-FRONTIER-1195-1196"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "1195—96同一北边阶段按公共登记闭合。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-8A86974BBBA6",
+              "label": "1198北边新一轮收束",
+              "period": "1198",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-NORTH-FRONTIER-CLOSURE-1198",
+              "source_event_refs": [
+                "JINSHI-NORTH-FRONTIER-CLOSURE-1198"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "与1195—96之间存在新的授权/闭合记录，公共登记已分立canonical owner，不再强并成1195—1198总链。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-5CA05336F627",
+              "label": "1205—1208开禧战争",
+              "period": "1205-1208",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "DINV::JIN-ZHANGZONG::KAIXI-WAR-1205-1208",
+              "source_event_refs": [
+                "DINV::JIN-ZHANGZONG::KAIXI-WAR-1205-1208"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "1205守御、1206局部反击和九路反攻、1207西线逆转至1208和议共享同一国家战争终局，保持一链。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "JIN27-51608997D680",
+            "JIN27-CDB7AB5312A0",
+            "JIN27-8A86974BBBA6",
+            "JIN27-5CA05336F627"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 4,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 4
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "JIN27-51608997D680",
+                "JIN27-CDB7AB5312A0",
+                "JIN27-8A86974BBBA6",
+                "JIN27-5CA05336F627"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C3",
+          "strategy_chain_review_basis": "北边、开禧与西夏方向胜负并存，九路反攻及和议说明较稳定交付，但不足支持四档长期可复制性，维持3/3/3。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-JIN-SHIZONG",
@@ -747,14 +2327,14 @@
           "reign_range": [
             "JIN-SHIZONG-1161-1189"
           ],
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "combat_delivery_grade": "C1-4",
+          "operational_sustainability_cap": "C2-3",
+          "system_reliability_cap": "C3-3",
+          "C_overall_grade": "C-3",
+          "C_score_rate": 70.5,
+          "C_score_points": 35.2,
+          "C_score_band_position": 0.75,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "HIGH",
             "reason": "西北和东南反攻、契丹西部平乱等显示高难度任务可兑现；四年多线仍不足闭合多独立方向的顶级后勤，且中都一度失控，C2/C3止3。"
@@ -782,17 +2362,19 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败1项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "西北十六州恢复、东南反攻和契丹平乱显示高战斗兑现；但多线保障和跨阶段可靠性受中都失控与初期混乱约束，维持4/3/3→C3。"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "JINSHI-ZHONGDU-LOCAL-SEIZURE-1161"
+          ],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "PASSED"
           },
           "settled_event_refs": [
             "JIN-SHIZONG-SONG-NORTHWEST-RECOVERY-1161-1163",
@@ -803,12 +2385,10 @@
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "source_refs": [
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JIN-SHIZONG-SONG-NORTHWEST-RECOVERY-1161-1163",
             "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JIN-SHIZONG-SONG-SOUTHEAST-WAR-1163-1165",
@@ -819,10 +2399,13 @@
             "docs/史料通读产物/金/金史/volume-006.battle-adjudications.json#JINSHI-ZHONGDU-LOCAL-SEIZURE-1161"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 1,
+          "C_score_axis_surplus_position": 0.25,
+          "C_score_outcome_position": 0.25,
+          "C_score_band": {
+            "lower_rate": 60,
+            "upper_rate": 74
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "current_item_task_count": 0,
           "current_item_task_refs": [],
@@ -835,7 +2418,169 @@
           "parent_cycle_pending_count": 3,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
           "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 4,
+          "strategy_chains": [
+            {
+              "chain_id": "JIN27-B457131F0467",
+              "label": "1161—1163西北反攻—十六州恢复",
+              "period": "1161-1163",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-SHIZONG-SONG-NORTHWEST-RECOVERY-1161-1163",
+              "source_event_refs": [
+                "JIN-SHIZONG-SONG-NORTHWEST-RECOVERY-1161-1163"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "同一西北反攻军连续恢复德顺、原汝商虢环等州，最终确认宋所侵十六州皆复。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-2F209BE49D35",
+              "label": "1163—1165东南宋金战争—和议",
+              "period": "1163-1165",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JIN-SHIZONG-SONG-SOUTHEAST-WAR-1163-1165",
+              "source_event_refs": [
+                "JIN-SHIZONG-SONG-SOUTHEAST-WAR-1163-1165"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "淮北攻守、金方反攻至1165和议是新的东南战争阶段，不能与西北十六州恢复强并。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-583FFA770A5C",
+              "label": "1161—1162窩斡—契丹西部平乱",
+              "period": "1161-1162",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CSTR-JIN-SHIZONG-QIDAN-SUPPRESSION-1161-1162",
+              "source_event_refs": [
+                "JINSHI-QIDAN-WOA-REBELLION-1161-1162::SHIZONG",
+                "JINSHI-QIDAN-XI-KAOLAO-GUBEIKOU-1162"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "只消费世宗即位后的窩斡主叛乱及同一契丹西部平定延续；海陵王在位时的前段损失不倒灌。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            },
+            {
+              "chain_id": "JIN27-C0AB75D10FB5",
+              "label": "1161中都局部军政失控",
+              "period": "1161",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "JINSHI-ZHONGDU-LOCAL-SEIZURE-1161",
+              "source_event_refs": [
+                "JINSHI-ZHONGDU-LOCAL-SEIZURE-1161"
+              ],
+              "terminal_result_class": "UNKNOWN",
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "中都军政节点一度失控是独立中枢安全链，不与东北契丹平乱或对宋战争合并。",
+              "basis": "由正式C settled event与公共军事登记回源重建；C自身未独立量化return_class，故保持UNKNOWN。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json",
+                "config/third-item/third-item-c-parent-cycle-adjudications.json"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_SEMANTIC_REBUILD"
+            }
+          ],
+          "strategy_chain_refs": [
+            "JIN27-B457131F0467",
+            "JIN27-2F209BE49D35",
+            "JIN27-583FFA770A5C",
+            "JIN27-C0AB75D10FB5"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 4,
+            "known_outcome_count": 0,
+            "return_class_counts": {
+              "UNKNOWN": 4
+            },
+            "return_class_chain_refs": {
+              "UNKNOWN": [
+                "JIN27-B457131F0467",
+                "JIN27-2F209BE49D35",
+                "JIN27-583FFA770A5C",
+                "JIN27-C0AB75D10FB5"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 1,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "FORMAL_UNKNOWN_RESOLVED_TO_C3",
+          "strategy_chain_review_basis": "西北十六州恢复、东南反攻和契丹平乱显示高战斗兑现；但多线保障和跨阶段可靠性受中都失控与初期混乱约束，维持4/3/3→C3。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "JIN27-C0AB75D10FB5"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 1,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "JIN27-C0AB75D10FB5"
+            ],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         },
         {
           "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
@@ -846,9 +2591,9 @@
           "operational_sustainability_cap": "C2-4",
           "system_reliability_cap": "C3-3",
           "C_overall_grade": "C-3",
-          "C_score_rate": 67.0,
-          "C_score_points": 33.5,
-          "C_score_band_position": 0.5,
+          "C_score_rate": 70.5,
+          "C_score_points": 35.2,
+          "C_score_band_position": 0.75,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "HIGH",
@@ -880,8 +2625,7 @@
           "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "按1个去重体系压力或能力专用父任务裁决：结果=创业统一能力专用证据；己方兵团毁损=由第一项能力窗口回源。C1-4只评价任务兑现，C2-4评价持续动员与恢复，C3-4评价跨阶段和将领可靠性；未把D成果档、成本档或任务数量机械换算成C。",
-            "排除创业统一账后仅余1项独立任务，C1/C3按证据上限3档收束。"
+            "当前没有独立第三项成果链；创业统一账只作能力专用证据，维持3/4/3→C3。"
           ],
           "major_system_failure_refs": [],
           "major_system_success_refs": [],
@@ -895,7 +2639,7 @@
             "CAPABILITY_ONLY::TALENT-SUPPLEMENT:完颜阿骨打"
           ],
           "non_war_evidence_refs": [],
-          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
+          "coverage_status": "FIRST_ITEM_C_CAPABILITY_REVIEW",
           "unresolved_gaps": [],
           "score_ready": true,
           "score_status": "DIRECT_C_SCORE_ASSIGNED",
@@ -918,7 +2662,82 @@
           "parent_cycle_pending_refs": [],
           "parent_cycle_pending_count": 0,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE"
+          "parent_cycle_audit_status": "CAPABILITY_ONLY_SEPARATE_NO_CURRENT_CYCLE",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 0,
+          "strategy_chains": [],
+          "strategy_chain_refs": [],
+          "capability_only_strategy_chain_count": 1,
+          "capability_only_strategy_chains": [
+            {
+              "chain_id": "JIN27-ED16D873D3C3",
+              "label": "阿骨打创业统一军事能力专用链",
+              "chain_type": "CAPABILITY_ONLY_STRATEGIC",
+              "canonical_strategy_ref": "CAPABILITY_ONLY::TALENT-SUPPLEMENT:完颜阿骨打",
+              "terminal_result_class": "NOT_APPLICABLE_CAPABILITY_ONLY",
+              "c_system_outcome_class": "CAPABILITY_ONLY",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "result_credit": 0,
+              "cost_credit": 0,
+              "basis": "1114—1123成果、控制与成本由第一项统一贡献窗口消费；第三项只复用军队能力，且样本上限使C1/C3收束为3。",
+              "source_basis": [
+                "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算/金.json",
+                "金正式C结算@2ed0152f66ccd64af6f2397f4acdcd821713cf71"
+              ],
+              "provenance": "FIRST_ITEM_ROUTED_CAPABILITY_ONLY"
+            }
+          ],
+          "capability_only_strategy_chain_refs": [
+            "JIN27-ED16D873D3C3"
+          ],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 0,
+            "known_outcome_count": 0,
+            "return_class_counts": {},
+            "return_class_chain_refs": {},
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "UNQUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [],
+          "strategy_chain_parent_cycle_evidence_count": 0,
+          "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE_KEEP_C3",
+          "strategy_chain_review_basis": "当前没有独立第三项成果链；创业统一账只作能力专用证据，维持3/4/3→C3。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [],
+          "current_parent_cycle_count": 0,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         }
       ]
     }

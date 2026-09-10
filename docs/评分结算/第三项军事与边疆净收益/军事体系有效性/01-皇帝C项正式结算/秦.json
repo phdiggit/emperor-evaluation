@@ -14,17 +14,18 @@
             "lower_rate": 60,
             "upper_rate": 74
           },
-          "C_score_points": 32.6,
-          "C_score_rate": 65.18,
-          "C_score_support_surplus": 0,
+          "C_score_points": 35.2,
+          "C_score_rate": 70.5,
+          "C_score_support_surplus": 3,
           "adjudication_method": "EVENT_BINDING_ADJUDICATION",
           "cap_reasons": [
-            "灭六国战争证明秦军能在多方向、多统帅下持续完成最高难度攻坚，C1取5；但体系建立高度承接既有秦国机器，伐楚初败后才以更大动员修正，持续与可靠性不与李世民、铁木真式顶级无短板体系并列，C2/C3取4。",
-            "C4重大胜绩门禁未通过：需1项、实有0项，封顶C3。"
+            "父周期仅完成边界闭合，任务成员与独立父周期结构未变；没有产生新的升降档理由。",
+            "C4重大胜绩门禁未通过：需1项、实有0项，最终档封顶C3；三轴保留事实候选档。",
+            "C5轴门禁复验未通过：C1封顶4档；不回写或削低其他轴。"
           ],
           "collapse_profile": [],
-          "combat_delivery_grade": "C1-3",
-          "coverage_status": "FULL_REIGN_EVIDENCE",
+          "combat_delivery_grade": "C1-4",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [],
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
@@ -35,7 +36,7 @@
           ],
           "major_system_failure_refs": [],
           "non_war_evidence_refs": [],
-          "operational_sustainability_cap": "C2-3",
+          "operational_sustainability_cap": "C2-4",
           "partition": "秦汉三国",
           "passive_C1_adjustment": null,
           "passive_C1_cap": null,
@@ -52,25 +53,20 @@
             "WAR-LEAD-QIN-LINGNAN",
             "WAR-LEAD-QIN-XIONGNU-WALL"
           ],
-          "system_reliability_cap": "C3-3",
+          "system_reliability_cap": "C3-4",
           "unresolved_gaps": [],
           "parent_cycle_merge_adjudications": [],
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
+            "required_count": 1,
             "actual_count": 0,
-            "status": "PASSED"
+            "status": "CAPPED_TO_C3"
           },
           "observed_parent_cycle_count": 2,
           "task_selection_policy": "CLOSED_MATERIAL_PARENT_CYCLES_PLUS_MAJOR_SYSTEM_OUTCOMES",
-          "c_only_major_parent_refs": [
-            "OUTCOME-QIN-CHU",
-            "OUTCOME-QIN-WEI",
-            "OUTCOME-QIN-YAN",
-            "OUTCOME-QIN-ZHAO"
-          ],
+          "c_only_major_parent_refs": [],
           "non_scoring_observation_count": 0,
           "task_outcome_profile": {
             "source": "CLOSED_SYSTEM_STRESS_PARENT_CYCLES",
@@ -135,10 +131,10 @@
             "opponent_system_evidence": [],
             "reason": "灭六国能力引用直接来自公共统一组合；赵O5、魏O4、楚O5等三个独立高难度任务通过C1门禁，C1为5，C2/C3为4。"
           },
-          "C_score_axis_surplus_position": 0.0,
-          "C_score_band_position": 0.37,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.37,
+          "C_score_axis_surplus_position": 0.75,
+          "C_score_band_position": 0.75,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.3,
           "cross_item_identity": {
             "join_key": "嬴政",
             "first_item_ruler_id": "RULER-QIN-YINGZHENG",
@@ -202,7 +198,164 @@
           ],
           "parent_cycle_pending_count": 2,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-4",
+          "raw_grade": "C-4",
+          "gate_cap": 3,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 2,
+          "strategy_chains": [
+            {
+              "chain_id": "RETRO30-B001-R000-C01",
+              "label": "QIN-XIONGNU-WALL",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "QIN-XIONGNU-WALL",
+              "source_event_refs": [
+                "QIN-XIONGNU-WALL"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "QIN-XIONGNU-WALL",
+                  "return_class": "LOW_RETURN",
+                  "provenance": "FORMAL_CLASS_CARRIED_FORWARD"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B001-R000-C02",
+              "label": "QIN-LINGNAN",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "QIN-LINGNAN",
+              "source_event_refs": [
+                "QIN-LINGNAN"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "QIN-LINGNAN",
+                  "return_class": "NEGATIVE_RETURN",
+                  "provenance": "FORMAL_CLASS_CARRIED_FORWARD"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            }
+          ],
+          "strategy_chain_refs": [
+            "RETRO30-B001-R000-C01",
+            "RETRO30-B001-R000-C02"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 2,
+            "known_outcome_count": 2,
+            "return_class_counts": {
+              "LOW_RETURN": 1,
+              "NEGATIVE_RETURN": 1
+            },
+            "return_class_chain_refs": {
+              "LOW_RETURN": [
+                "RETRO30-B001-R000-C01"
+              ],
+              "NEGATIVE_RETURN": [
+                "RETRO30-B001-R000-C02"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "QIN-XIONGNU-WALL",
+              "return_class": "LOW_RETURN",
+              "class_provenance": "FORMAL_CLASS_CARRIED_FORWARD"
+            },
+            {
+              "parent_ref": "QIN-LINGNAN",
+              "return_class": "NEGATIVE_RETURN",
+              "class_provenance": "FORMAL_CLASS_CARRIED_FORWARD"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 2,
+          "strategy_chain_parent_cycle_status": "CURRENT_PARENT_SET_COMPLETE_SHADOW",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGY_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "父周期仅完成边界闭合，任务成员与独立父周期结构未变；没有产生新的升降档理由。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "QIN-XIONGNU-WALL",
+            "QIN-LINGNAN"
+          ],
+          "current_parent_cycle_count": 2,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 5,
+              "current_major_system_success_refs": [],
+              "status": "FAILED_NO_CURRENT_MAJOR_SYSTEM_SUCCESS",
+              "final_shadow_grade": 4
+            },
+            "C2": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
           "C_overall_grade": "C-0",
@@ -210,12 +363,12 @@
             "lower_rate": 0,
             "upper_rate": 29
           },
-          "C_score_points": 5.9,
-          "C_score_rate": 11.72,
+          "C_score_points": 5.4,
+          "C_score_rate": 10.88,
           "C_score_support_surplus": 1,
           "adjudication_method": "EVENT_BINDING_ADJUDICATION",
           "cap_reasons": [
-            "全国性内战贯穿任期主体，中央军虽有局部反击，却未恢复稳定指挥链，政权在任内崩溃。"
+            "父周期仅完成边界闭合，任务成员与独立父周期结构未变；没有产生新的升降档理由。"
           ],
           "collapse_profile": [
             {
@@ -228,7 +381,7 @@
             }
           ],
           "combat_delivery_grade": "C1-0",
-          "coverage_status": "FULL_REIGN_EVIDENCE",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [],
           "evidence_ceiling": 3,
           "evidence_ceiling_adjustments": [],
@@ -236,9 +389,7 @@
           "independent_task_groups": [
             "QIN-CIVIL-WAR"
           ],
-          "major_system_failure_refs": [
-            "QIN-CIVIL-WAR"
-          ],
+          "major_system_failure_refs": [],
           "non_war_evidence_refs": [],
           "operational_sustainability_cap": "C2-1",
           "partition": "秦汉三国",
@@ -302,12 +453,12 @@
               "unmatched_task_refs": []
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期1项，已知结果1项，回报剖面={'NEGATIVE_RETURN': 1}；重大体系胜绩0项、重大体系失败1项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期1项，已知结果1项，回报剖面={'NEGATIVE_RETURN': 1}；重大体系胜绩0项、重大体系失败0项。",
           "capability_only_parent_refs": [],
           "C_score_axis_surplus_position": 0.1,
-          "C_score_band_position": 0.4042,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.4042,
+          "C_score_band_position": 0.375,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.375,
           "cross_item_identity": {
             "join_key": "胡亥",
             "first_item_ruler_id": null,
@@ -324,7 +475,107 @@
           ],
           "parent_cycle_pending_count": 1,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-0",
+          "raw_grade": "C-0",
+          "gate_cap": 5,
+          "final_grade": "C-0",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 1,
+          "strategy_chains": [
+            {
+              "chain_id": "RETRO30-B001-R001-C01",
+              "label": "QIN-CIVIL-WAR",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "QIN-CIVIL-WAR",
+              "source_event_refs": [
+                "QIN-CIVIL-WAR"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "QIN-CIVIL-WAR",
+                  "return_class": "NEGATIVE_RETURN",
+                  "provenance": "FORMAL_CLASS_CARRIED_FORWARD"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            }
+          ],
+          "strategy_chain_refs": [
+            "RETRO30-B001-R001-C01"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 1,
+            "known_outcome_count": 1,
+            "return_class_counts": {
+              "NEGATIVE_RETURN": 1
+            },
+            "return_class_chain_refs": {
+              "NEGATIVE_RETURN": [
+                "RETRO30-B001-R001-C01"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "QIN-CIVIL-WAR",
+              "return_class": "NEGATIVE_RETURN",
+              "class_provenance": "FORMAL_CLASS_CARRIED_FORWARD"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 1,
+          "strategy_chain_parent_cycle_status": "CURRENT_PARENT_SET_COMPLETE_SHADOW",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGY_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "父周期仅完成边界闭合，任务成员与独立父周期结构未变；没有产生新的升降档理由。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "QIN-CIVIL-WAR"
+          ],
+          "current_parent_cycle_count": 1,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0
         }
       ]
     }

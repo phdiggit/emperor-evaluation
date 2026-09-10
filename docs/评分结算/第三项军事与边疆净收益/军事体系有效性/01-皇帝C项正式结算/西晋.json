@@ -19,11 +19,11 @@
           "C_score_support_surplus": 2,
           "adjudication_method": "HUMAN_BOUNDARY_OVERRIDE",
           "cap_reasons": [
-            "灭吴作为成熟国家战争进入能力侧；主要依赖既成晋军与多路统帅，结合后续军政松弛，维持4/4/3。"
+            "河西树机能270、277、279三票归为同一连续父周期，7项降至5项；完整河西周期取PROPORTIONATE_RETURN，278西陵独立突袭由UNKNOWN闭合为LOW_RETURN。去重后仍有交趾长期失城、西陵272三路救援败退和东北慕容长期压力，故三轴4/4/3不变。"
           ],
           "collapse_profile": "NONE",
           "combat_delivery_grade": "C1-4",
-          "coverage_status": "FIRST_ITEM_C_CAPABILITY_REVIEW",
+          "coverage_status": "FULL_REIGN_STRATEGIC_CHAIN_REVIEW",
           "cross_reign_slice_refs": [],
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
@@ -37,14 +37,7 @@
             "CAMPAIGN-V079-JIN-TUFA-270",
             "CAMPAIGN-V080-JIN-XILING-278"
           ],
-          "major_system_failure_refs": [
-            "CAMPAIGN-V080-JIN-LIANGZHOU-277",
-            "CAMPAIGN-V080-JIN-MALONG-279",
-            "CAMPAIGN-V079-JIN-TUFA-270",
-            "CAMPAIGN-V080-JIN-XILING-278",
-            "CAMPAIGN-V079-JINWU-JIAOZHI-268",
-            "CAMPAIGN-V079-JINWU-XILING-272"
-          ],
+          "major_system_failure_refs": [],
           "non_war_evidence_refs": [
             "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷079-通读总结.md",
             "tmp/治理/战争与国防安全/回源资料/两晋/资治通鉴/卷080-通读总结.md",
@@ -83,12 +76,10 @@
           "parent_cycle_merge_adjudications": [],
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
           "excluded_founding_unification_refs": [],
-          "major_system_success_refs": [
-            "CAMPAIGN-V080-JIN-MALONG-279"
-          ],
+          "major_system_success_refs": [],
           "major_victory_gate": {
             "required_count": 0,
-            "actual_count": 1,
+            "actual_count": 0,
             "status": "PASSED"
           },
           "observed_parent_cycle_count": 8,
@@ -144,7 +135,7 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期7项，已知结果4项，回报剖面={'LOW_RETURN': 2, 'NEGATIVE_RETURN': 1, 'PROPORTIONATE_RETURN': 1, 'UNKNOWN': 3}；重大体系胜绩1项、重大体系失败6项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期7项，已知结果4项，回报剖面={'LOW_RETURN': 2, 'NEGATIVE_RETURN': 1, 'PROPORTIONATE_RETURN': 1, 'UNKNOWN': 3}；重大体系胜绩0项、重大体系失败0项。",
           "capability_only_parent_refs": [
             "WAR-LEAD-JIN-CONQUEST-WU-280"
           ],
@@ -173,8 +164,8 @@
           },
           "C_score_axis_surplus_position": 0.5,
           "C_score_band_position": 0.5,
-          "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
-          "C_score_outcome_position": 0.2322,
+          "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
+          "C_score_outcome_position": 0.23,
           "cross_item_identity": {
             "join_key": "司马炎",
             "first_item_ruler_id": "RULER-SHADOW-司马炎",
@@ -203,95 +194,551 @@
           ],
           "parent_cycle_pending_count": 7,
           "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING"
+          "parent_cycle_audit_status": "PARTIAL_LEGACY_SOURCE_PENDING",
+          "axis_floor_grade": "C-3",
+          "raw_grade": "C-3",
+          "gate_cap": 5,
+          "final_grade": "C-3",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 5,
+          "strategy_chains": [
+            {
+              "chain_id": "RETRO30-B006-R035-C01",
+              "label": "CAMPAIGN-V079-JINWU-JIAOZHI-268",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V079-JINWU-JIAOZHI-268",
+              "source_event_refs": [
+                "CAMPAIGN-V079-JINWU-JIAOZHI-268"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V079-JINWU-JIAOZHI-268",
+                  "return_class": "NEGATIVE_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B006-R035-C02",
+              "label": "CAMPAIGN-V079-JINWU-XILING-272",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V079-JINWU-XILING-272",
+              "source_event_refs": [
+                "CAMPAIGN-V079-JINWU-XILING-272"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V079-JINWU-XILING-272",
+                  "return_class": "LOW_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B006-R035-C03",
+              "label": "CAMPAIGN-V080-JIN-MALONG-279",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V080-JIN-MALONG-279",
+              "source_event_refs": [
+                "CAMPAIGN-V080-JIN-MALONG-279"
+              ],
+              "terminal_result_class": "PROPORTIONATE_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V080-JIN-MALONG-279",
+                  "return_class": "PROPORTIONATE_RETURN",
+                  "provenance": "SHADOW_RECLASSIFIED_AFTER_PARENT_REVIEW"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B006-R035-C04",
+              "label": "CAMPAIGN-V081-JIN-MURONG-282",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V081-JIN-MURONG-282",
+              "source_event_refs": [
+                "CAMPAIGN-V081-JIN-MURONG-282"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V081-JIN-MURONG-282",
+                  "return_class": "LOW_RETURN",
+                  "provenance": "SHADOW_BATCH_FINAL_CLASS"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            },
+            {
+              "chain_id": "RETRO30-B006-R035-C05",
+              "label": "CAMPAIGN-V080-JIN-XILING-278",
+              "period": "SOURCE_REF_ENCODED",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "CAMPAIGN-V080-JIN-XILING-278",
+              "source_event_refs": [
+                "CAMPAIGN-V080-JIN-XILING-278"
+              ],
+              "terminal_result_class": "LOW_RETURN",
+              "known_phase_results": [
+                {
+                  "ref": "CAMPAIGN-V080-JIN-XILING-278",
+                  "return_class": "LOW_RETURN",
+                  "provenance": "SHADOW_RECLASSIFIED_AFTER_PARENT_REVIEW"
+                }
+              ],
+              "c_system_outcome_class": "ORDINARY_OR_UNQUANTIFIED",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "boundary": "单一父任务本身对应独立战略目标/任务重置；横校未发现足以强并的连续终局证据。",
+              "scoring_note": "本条为战略链评分单元；source_event_refs仅为链内父任务/阶段证据，不按数量加权或出票。",
+              "basis": "第30批横校按战略目标—敌对集团—连续国家动员—任务重置/终局归并；仅在跨来源边界足够明确时合并。",
+              "source_basis": [
+                "v29早期批次current_parent_cycles",
+                "第三项C规则合同",
+                "第三项D正式战略链仅作边界参照（不继承E/EN或成本）"
+              ],
+              "provenance": "SHADOW_C_STRATEGIC_CHAIN_HORIZONTAL_RETROFIT_V30"
+            }
+          ],
+          "strategy_chain_refs": [
+            "RETRO30-B006-R035-C01",
+            "RETRO30-B006-R035-C02",
+            "RETRO30-B006-R035-C03",
+            "RETRO30-B006-R035-C04",
+            "RETRO30-B006-R035-C05"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 5,
+            "known_outcome_count": 5,
+            "return_class_counts": {
+              "LOW_RETURN": 3,
+              "NEGATIVE_RETURN": 1,
+              "PROPORTIONATE_RETURN": 1
+            },
+            "return_class_chain_refs": {
+              "LOW_RETURN": [
+                "RETRO30-B006-R035-C02",
+                "RETRO30-B006-R035-C04",
+                "RETRO30-B006-R035-C05"
+              ],
+              "NEGATIVE_RETURN": [
+                "RETRO30-B006-R035-C01"
+              ],
+              "PROPORTIONATE_RETURN": [
+                "RETRO30-B006-R035-C03"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 0,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            {
+              "parent_ref": "CAMPAIGN-V079-JINWU-JIAOZHI-268",
+              "return_class": "NEGATIVE_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V079-JINWU-XILING-272",
+              "return_class": "LOW_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V080-JIN-MALONG-279",
+              "return_class": "PROPORTIONATE_RETURN",
+              "class_provenance": "SHADOW_RECLASSIFIED_AFTER_PARENT_REVIEW"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V081-JIN-MURONG-282",
+              "return_class": "LOW_RETURN",
+              "class_provenance": "SHADOW_BATCH_FINAL_CLASS"
+            },
+            {
+              "parent_ref": "CAMPAIGN-V080-JIN-XILING-278",
+              "return_class": "LOW_RETURN",
+              "class_provenance": "SHADOW_RECLASSIFIED_AFTER_PARENT_REVIEW"
+            }
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 5,
+          "strategy_chain_parent_cycle_status": "CURRENT_PARENT_SET_COMPLETE_SHADOW",
+          "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
+          "strategy_chain_review_status": "STRATEGY_CHAIN_PRIMARY_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "河西树机能270、277、279三票归为同一连续父周期，7项降至5项；完整河西周期取PROPORTIONATE_RETURN，278西陵独立突袭由UNKNOWN闭合为LOW_RETURN。去重后仍有交趾长期失城、西陵272三路救援败退和东北慕容长期压力，故三轴4/4/3不变。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 0,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "current_parent_cycle_refs": [
+            "CAMPAIGN-V079-JINWU-JIAOZHI-268",
+            "CAMPAIGN-V079-JINWU-XILING-272",
+            "CAMPAIGN-V080-JIN-MALONG-279",
+            "CAMPAIGN-V081-JIN-MURONG-282",
+            "CAMPAIGN-V080-JIN-LIANGZHOU-277",
+            "CAMPAIGN-V079-JIN-TUFA-270",
+            "CAMPAIGN-V080-JIN-XILING-278"
+          ],
+          "current_parent_cycle_count": 7,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "capability_only_major_successes": 0,
+            "current_major_failures": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "capability_only_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [],
+            "capability_only_major_failure_chain_refs": [],
+            "note": "重大胜负按战略链去重；能力专用链只参加C高档资格门禁，不恢复A/B/D成果或成本。"
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "c5_axis_revalidation": {
+            "C1": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 4,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 3,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          }
         },
         {
           "ruler_id": "RULER-SHADOW-司马炽",
           "ruler_name": "司马炽",
           "polity": "西晋",
-          "reign_range": null,
-          "combat_delivery_grade": "UNKNOWN",
-          "operational_sustainability_cap": "UNKNOWN",
-          "system_reliability_cap": "UNKNOWN",
-          "C_overall_grade": "UNKNOWN",
-          "C_score_rate": null,
-          "C_score_points": null,
-          "C_score_band_position": null,
-          "C_score_position_method": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "reign_range": "307—311",
+          "combat_delivery_grade": "C1-1",
+          "operational_sustainability_cap": "C2-1",
+          "system_reliability_cap": "C3-0",
+          "C_overall_grade": "C-0",
+          "C_score_rate": 7.25,
+          "C_score_points": 3.6,
+          "C_score_band_position": 0.25,
+          "C_score_position_method": "STRATEGIC_CHAIN_OUTCOME_AND_AXIS_SURPLUS",
           "C_score_within_band_adjudication": {
             "position": "LOW",
-            "reason": "核心防线持续失守且中央军事组织在任内终局性崩溃；仍有局部抵抗，故C1不由政权结果机械写0。"
+            "reason": "独立补建309—311汉赵压力下的晋方体系链：309尚有局部拒退，故兑现不机械判0；其后野战主力、粮运和中央军令崩溃，311被俘前未恢复，裁1/1/0，总档C0低位。宁平与永嘉陷都同链只记一次重大失败，排除313以后继任结果。"
           },
-          "observed_parent_cycle_count": 2,
-          "independent_task_count": 0,
-          "independent_task_groups": [],
+          "observed_parent_cycle_count": 4,
+          "independent_task_count": 4,
+          "independent_task_groups": [
+            "WAR-LEAD-HANZHAO-LUOYANG-309",
+            "WAR-LEAD-HANZHAO-LUOYANG-310",
+            "WAR-LEAD-JIN-NINGPING-311",
+            "WAR-LEAD-HANZHAO-FALL-311"
+          ],
           "non_scoring_observation_count": 0,
-          "task_selection_policy": "PENDING_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "task_selection_policy": "DIRECT_C_SUBJECT_WINDOW_STRATEGIC_CHAINS",
           "task_outcome_profile": {
-            "source": "C_PARENT_AUDIT_WITH_D_ONLY_WITHDRAWAL",
-            "known_outcome_count": 0,
-            "return_class_counts": {},
-            "status": "NOT_APPLICABLE",
-            "selected_task_count": 0,
-            "return_class_refs": {},
+            "source": "DIRECT_C_SUBJECT_WINDOW_REVIEW",
+            "selected_task_count": 4,
+            "known_outcome_count": 4,
+            "return_class_counts": {
+              "LOW_RETURN": 1,
+              "NEGATIVE_RETURN": 2,
+              "PROPORTIONATE_RETURN": 1
+            },
+            "return_class_refs": {
+              "PROPORTIONATE_RETURN": [
+                "WAR-LEAD-HANZHAO-LUOYANG-309"
+              ],
+              "LOW_RETURN": [
+                "WAR-LEAD-HANZHAO-LUOYANG-310"
+              ],
+              "NEGATIVE_RETURN": [
+                "WAR-LEAD-JIN-NINGPING-311",
+                "WAR-LEAD-HANZHAO-FALL-311"
+              ]
+            },
+            "status": "QUANTIFIED",
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
-              "status": "NOT_APPLICABLE",
-              "selected_task_count": 0,
+              "status": "NO_D_CHAIN_MATCH",
+              "selected_task_count": 4,
               "matched_task_count": 0,
               "known_result_count": 0,
               "security_result_grade_counts": {},
               "security_result_grade_refs": {},
-              "unmatched_task_refs": []
+              "unmatched_task_refs": [
+                "WAR-LEAD-HANZHAO-LUOYANG-309",
+                "WAR-LEAD-HANZHAO-LUOYANG-310",
+                "WAR-LEAD-JIN-NINGPING-311",
+                "WAR-LEAD-HANZHAO-FALL-311"
+              ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期4项，已知结果4项，回报剖面={'LOW_RETURN': 1, 'NEGATIVE_RETURN': 2, 'PROPORTIONATE_RETURN': 1}；重大体系胜绩0项、重大体系失败1项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "当前C引用由D战略链/人物命令结果承担，或缺少C主体阶段绑定；D chain_id、member_cycle_refs和E/EN不得替代C体系压力父任务与C return_class。撤出当前C任务集合，待补独立C父周期证据，C保持UNKNOWN。"
+            "独立补建309—311汉赵压力下的晋方体系链：309尚有局部拒退，故兑现不机械判0；其后野战主力、粮运和中央军令崩溃，311被俘前未恢复，裁1/1/0，总档C0低位。宁平与永嘉陷都同链只记一次重大失败，排除313以后继任结果。"
           ],
-          "major_system_failure_refs": [],
+          "major_system_failure_refs": [
+            "WAR-LEAD-HANZHAO-FALL-311"
+          ],
           "major_system_success_refs": [],
           "major_victory_gate": {
-            "required_count": null,
+            "required_count": 0,
             "actual_count": 0,
-            "status": "NOT_REVIEWABLE"
+            "status": "NOT_REQUIRED_BELOW_C4"
           },
           "settled_event_refs": [
-            "SIMA-CHI-EIGHT-PRINCES-TAIL-307-311",
-            "SIMA-CHI-HANZHAO-FALL-309-313"
+            "WAR-LEAD-HANZHAO-LUOYANG-309",
+            "WAR-LEAD-HANZHAO-LUOYANG-310",
+            "WAR-LEAD-JIN-NINGPING-311",
+            "WAR-LEAD-HANZHAO-FALL-311"
           ],
           "capability_only_parent_refs": [],
           "non_war_evidence_refs": [],
-          "coverage_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
-          "unresolved_gaps": [
-            "C_PARENT_CYCLE_SEMANTIC_REVIEW_PENDING"
-          ],
-          "score_ready": false,
-          "score_status": "HOLD_C_PARENT_CYCLE_SEMANTIC_REVIEW",
+          "coverage_status": "DIRECT_C_SUBJECT_WINDOW_REVIEW_COMPLETE",
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "score_status": "FORMAL_SCORED",
           "source_refs": [
-            "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-FALL-311",
+            "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-LUOYANG-309",
+            "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-LUOYANG-310",
             "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-JIN-NINGPING-311",
-            "docs/史料通读产物/唐以前编年/两晋/卷088-通读总结.md#DEF-LEAD-JIN-CHANGAN-313",
-            "docs/史料通读产物/唐以前编年/两晋/卷088-通读总结.md#WAR-LEAD-JIN-CHANGAN-313"
+            "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-FALL-311"
           ],
           "excluded_founding_unification_refs": [],
-          "C_score_support_surplus": null,
-          "C_score_axis_surplus_position": null,
-          "C_score_outcome_position": null,
-          "C_score_band": null,
+          "C_score_support_surplus": 2,
+          "C_score_axis_surplus_position": 0.2,
+          "C_score_outcome_position": 0.375,
+          "C_score_band": {
+            "lower_rate": 0,
+            "upper_rate": 29
+          },
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
-          "current_item_task_count": 0,
-          "current_item_task_refs": [],
-          "non_scoring_observation_refs": [],
-          "parent_cycle_pending_refs": [
-            "SIMA-CHI-HANZHAO-FALL-309-313",
-            "SIMA-CHI-EIGHT-PRINCES-TAIL-307-311"
+          "current_item_task_count": 4,
+          "current_item_task_refs": [
+            "WAR-LEAD-HANZHAO-LUOYANG-309",
+            "WAR-LEAD-HANZHAO-LUOYANG-310",
+            "WAR-LEAD-JIN-NINGPING-311",
+            "WAR-LEAD-HANZHAO-FALL-311"
           ],
-          "parent_cycle_pending_count": 2,
-          "parent_cycle_audit_source": "config/third-item/third-item-c-parent-cycle-adjudications.json",
-          "c5_axis_gate": null,
-          "parent_cycle_audit_status": "PENDING_D_CHAIN_NOT_C_PARENT"
+          "non_scoring_observation_refs": [],
+          "parent_cycle_pending_refs": [],
+          "parent_cycle_pending_count": 0,
+          "parent_cycle_audit_source": "config/third-item/third-item-c-strategy-chain-adjudications.json",
+          "c5_axis_gate": {
+            "C1": {
+              "candidate_grade": 1,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C2": {
+              "candidate_grade": 1,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            },
+            "C3": {
+              "candidate_grade": 0,
+              "status": "NOT_A_GRADE5_CANDIDATE"
+            }
+          },
+          "parent_cycle_audit_status": "DIRECT_C_SUBJECT_WINDOW_REVIEW_COMPLETE",
+          "axis_floor_grade": "C-0",
+          "raw_grade": "C-0",
+          "gate_cap": 5,
+          "final_grade": "C-0",
+          "scoring_unit": "STRATEGIC_CHAIN",
+          "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
+          "strategy_chain_count": 1,
+          "strategy_chains": [
+            {
+              "chain_id": "C-SIMA-CHI-HANZHAO-309-311",
+              "label": "汉赵进逼至永嘉陷都",
+              "period": "309—311年六月被俘",
+              "chain_type": "CURRENT_SYSTEM_PRESSURE_STRATEGIC",
+              "canonical_strategy_ref": "C-SIMA-CHI-HANZHAO-309-311",
+              "source_event_refs": [
+                "WAR-LEAD-HANZHAO-LUOYANG-309",
+                "WAR-LEAD-HANZHAO-LUOYANG-310",
+                "WAR-LEAD-JIN-NINGPING-311",
+                "WAR-LEAD-HANZHAO-FALL-311"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "known_phase_results": [],
+              "c_system_outcome_class": "MAJOR_FAILURE",
+              "major_system_success": false,
+              "major_system_failure": true,
+              "boundary": "本人主政窗口内同一汉赵压力下的中央防御链。309暂时拒退未解除压力，310再逼洛至311主力及都城覆没收束；宁平是该防御体系主力毁灭阶段，不另出票。排除311被俘后的关中恢复及313、316继任结果。",
+              "basis": "本人主政窗口内同一汉赵压力下的中央防御链。309暂时拒退未解除压力，310再逼洛至311主力及都城覆没收束；宁平是该防御体系主力毁灭阶段，不另出票。排除311被俘后的关中恢复及313、316继任结果。",
+              "source_basis": [
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-LUOYANG-309",
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-LUOYANG-310",
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-JIN-NINGPING-311",
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-FALL-311"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-LUOYANG-309",
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-LUOYANG-310",
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-JIN-NINGPING-311",
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-FALL-311"
+              ],
+              "ruler_window": "309—311年六月被俘",
+              "pressure_object": "汉赵进逼至永嘉陷都",
+              "terminal_result": "晋军309年以垣延、北宫纯、孙询等局部反击守洛；310主力出京，311指挥与粮运失效、宁平覆军，洛阳十二战败后陷都，怀帝被俘。评价晋方军队承载与失灵，不把汉赵战果或D链标签直接当C输入。",
+              "subject_binding": {
+                "ruler_id": "RULER-SHADOW-司马炽",
+                "evaluation_subject": "司马炽",
+                "consumption_scope": "C_SYSTEM_CAPABILITY_ONLY_NO_ABD_REWRITE",
+                "actual_process": "晋军309年以垣延、北宫纯、孙询等局部反击守洛；310主力出京，311指挥与粮运失效、宁平覆军，洛阳十二战败后陷都，怀帝被俘。评价晋方军队承载与失灵，不把汉赵战果或D链标签直接当C输入。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-LUOYANG-309",
+                  "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-LUOYANG-310",
+                  "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-JIN-NINGPING-311",
+                  "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-FALL-311"
+                ]
+              },
+              "provenance": "DIRECT_C_SOURCE_WINDOW_ADJUDICATION",
+              "scoring_note": "战略链只计一次；父阶段只作证据，不继承D结果、成本或对方成果。"
+            }
+          ],
+          "strategy_chain_refs": [
+            "C-SIMA-CHI-HANZHAO-309-311"
+          ],
+          "capability_only_strategy_chain_count": 0,
+          "capability_only_strategy_chains": [],
+          "capability_only_strategy_chain_refs": [],
+          "strategy_chain_outcome_profile": {
+            "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
+            "selected_chain_count": 1,
+            "known_outcome_count": 1,
+            "return_class_counts": {
+              "NEGATIVE_RETURN": 1
+            },
+            "return_class_chain_refs": {
+              "NEGATIVE_RETURN": [
+                "C-SIMA-CHI-HANZHAO-309-311"
+              ]
+            },
+            "major_system_success_count": 0,
+            "major_system_failure_count": 1,
+            "status": "QUANTIFIED"
+          },
+          "strategy_chain_parent_cycle_evidence": [
+            "WAR-LEAD-HANZHAO-LUOYANG-309",
+            "WAR-LEAD-HANZHAO-LUOYANG-310",
+            "WAR-LEAD-JIN-NINGPING-311",
+            "WAR-LEAD-HANZHAO-FALL-311"
+          ],
+          "strategy_chain_parent_cycle_evidence_count": 4,
+          "strategy_chain_parent_cycle_status": "DIRECT_C_SUBJECT_WINDOW_REVIEW_COMPLETE",
+          "strategy_chain_review_batch": "LOCAL-C-GAP-CLOSURE",
+          "strategy_chain_review_status": "DIRECT_C_SUBJECT_WINDOW_REVIEW_COMPLETE",
+          "strategy_chain_review_basis": "独立补建309—311汉赵压力下的晋方体系链：309尚有局部拒退，故兑现不机械判0；其后野战主力、粮运和中央军令崩溃，311被俘前未恢复，裁1/1/0，总档C0低位。宁平与永嘉陷都同链只记一次重大失败，排除313以后继任结果。",
+          "strategy_chain_major_success_count": 0,
+          "strategy_chain_major_failure_count": 1,
+          "capability_only_major_success_count": 0,
+          "capability_only_major_failure_count": 0,
+          "major_system_success_chain_refs": [],
+          "major_system_failure_chain_refs": [
+            "C-SIMA-CHI-HANZHAO-309-311"
+          ],
+          "capability_only_major_success_chain_refs": [],
+          "capability_only_major_failure_chain_refs": [],
+          "c_only_major_parent_refs": [],
+          "current_parent_cycle_refs": [
+            "WAR-LEAD-HANZHAO-LUOYANG-309",
+            "WAR-LEAD-HANZHAO-LUOYANG-310",
+            "WAR-LEAD-JIN-NINGPING-311",
+            "WAR-LEAD-HANZHAO-FALL-311"
+          ],
+          "current_parent_cycle_count": 4,
+          "parent_cycle_removed_by_v30": [],
+          "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
+          "major_victory_gate_chain_view": {
+            "current_major_successes": 0,
+            "current_major_failures": 1,
+            "capability_only_major_successes": 0,
+            "capability_only_major_failures": 0,
+            "current_major_success_chain_refs": [],
+            "current_major_failure_chain_refs": [
+              "C-SIMA-CHI-HANZHAO-309-311"
+            ],
+            "capability_only_major_success_chain_refs": [],
+            "capability_only_major_failure_chain_refs": []
+          },
+          "strategy_chain_non_scoring_observations": [],
+          "strategy_chain_non_scoring_observation_count": 0,
+          "active_rule_windows": [
+            {
+              "period": "307—311年六月被俘",
+              "consumption_scope": "本人统治窗口内国家军事体系；不主张全部战术为本人亲自指挥",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-LUOYANG-309",
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-LUOYANG-310",
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-JIN-NINGPING-311",
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-HANZHAO-FALL-311"
+              ]
+            }
+          ]
         }
       ]
     }
