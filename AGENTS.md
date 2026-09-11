@@ -23,7 +23,7 @@
 ## 当前事实
 
 - 第一至第五项均有唯一当前结算入口；第四项全池语义复审已关闭，具体裁决与交班边界见正式入口及共享审计。后续局部改判须同步复核引用；结构校验本身不代替语义裁决。
-- 独立人物画像采用逐轴结算；C1、C2、C3、C4、C5、M1、M2、M3与M4九轴均已正式结算。画像不构成第六项，不进入综合总榜，不设画像总分或轴内排名；正式入口由`config/project.yml`的`profile_assessment`登记。
+- 独立人物画像采用逐轴结算；C1、C2、C3、C4、C5、M1、M2、M3、M4与M5十轴均已正式结算。画像不构成第六项，不进入综合总榜，不设画像总分或轴内排名；正式入口由`config/project.yml`的`profile_assessment`登记。
 - 正式评价池人数、待补对象和就绪状态读取 `config/common/canonical-ruler-pool.json`；综合统计与总排名只能读取 `COMPOSITE_READY` 对象。
 - 正式机器结果只位于 `docs/评分结算/**`，入口由 `config/project.yml` 列出。
 - `docs/公共成果/`、`docs/治理/`、`docs/史料通读产物/` 只因仍被评分 lineage 引用而保留。

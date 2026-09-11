@@ -21,7 +21,7 @@ SAMPLE_RULER_IDS = (
     "RULER-MING-ZHU-YUANZHANG",
     "RULER-NS-ZHAO-JI",
 )
-AXIS_PAGES = (("能力与治理画像", ("M1", "M2", "M3", "M4")), ("决策与用人画像", ("C1", "C2", "C3", "C4", "C5")))
+AXIS_PAGES = (("能力与治理画像", tuple(a for a in AXIS_ORDER if a.startswith("M"))), ("决策与用人画像", tuple(a for a in AXIS_ORDER if a.startswith("C"))))
 
 
 def _pool_contexts() -> dict[str, dict[str, str]]:
@@ -137,12 +137,12 @@ def build_samples() -> dict[str, Any]:
             card["score_alignment"] = _score_alignment_requirement(card["radar_value"], editorial_standard)
             axis_cards[axis_code] = card
         if any(card["radar_value"] != profile.values[index] for index, card in enumerate(axis_cards.values())):
-            raise ValueError(f"九轴文案卡与雷达值不一致：{ruler_id}")
+            raise ValueError(f"十轴文案卡与雷达值不一致：{ruler_id}")
         people.append({
             "ruler_id": ruler_id,
             "ruler_name": profile.ruler_name,
             **contexts[ruler_id],
-            "overview": "九轴独立画像，正式结算展示；不设画像总分或轴内排名。",
+            "overview": "十轴独立画像，正式结算展示；不设画像总分或轴内排名。",
             "axis_cards": axis_cards,
         })
     return {

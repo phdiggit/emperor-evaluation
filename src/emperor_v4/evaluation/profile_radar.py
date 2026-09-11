@@ -22,13 +22,14 @@ AXIS_LABELS = {
     "M2": "外交博弈",
     "M3": "民生财政",
     "M4": "联盟整合",
+    "M5": "组织编排",
     "C1": "战略风控",
     "C2": "学习纠错",
     "C3": "识才授权",
     "C4": "制度设计",
     "C5": "权力克制",
 }
-AXIS_COLORS = ("#2F80ED", "#27AE60", "#F2994A", "#EB5757", "#9B51E0", "#56CCF2", "#F2C94C", "#168A85", "#BB6BD9")
+AXIS_COLORS = ("#2F80ED", "#27AE60", "#F2994A", "#EB5757", "#607D8B", "#9B51E0", "#56CCF2", "#F2C94C", "#168A85", "#BB6BD9")
 SAMPLE_RULER_IDS = (
     "RULER-QIN-YINGZHENG",
     "RULER-HAN-LIUXIU",
@@ -67,14 +68,14 @@ def _project_profile_config() -> dict[str, Any]:
 
 
 def load_profiles() -> dict[str, Profile]:
-    """Load the eight formal axis files and reject any non-canonical join."""
+    """Load the registered formal axes and reject any non-canonical join."""
     config = _project_profile_config()
-    if config["status"] != "nine_axes_formally_settled":
+    if config["status"] != "ten_axes_formally_settled":
         raise ValueError("人物画像尚未正式结算")
     if any(config[key] for key in ("profile_total_enabled", "profile_ranking_enabled", "composite_ranking_write")):
         raise ValueError("人物画像雷达图不得启用总分、排名或综合榜写入")
     if profile_axis_order(config) != AXIS_ORDER:
-        raise ValueError("九轴顺序必须为固定正式顺序")
+        raise ValueError("十轴顺序必须为固定正式顺序")
 
     project = yaml.safe_load(PROJECT.read_text(encoding="utf-8"))
     pool = _read_json(ROOT / project["canonical_ruler_pool"]["json"])
@@ -84,7 +85,7 @@ def load_profiles() -> dict[str, Profile]:
 
     radar_config = config["radar_samples"]
     if tuple(radar_config["axis_order"]) != AXIS_ORDER or radar_config["scale"] != [0, 100]:
-        raise ValueError("雷达图配置必须保留固定九轴顺序和0—100刻度")
+        raise ValueError("雷达图配置必须保留固定十轴顺序和0—100刻度")
     manifest = _read_json(ROOT / config["manifest_json"])
     manifest_axes = {row["axis_code"]: row for row in manifest["axes"]}
     per_axis: dict[str, dict[str, dict[str, Any]]] = {}
@@ -95,10 +96,11 @@ def load_profiles() -> dict[str, Profile]:
         records = payload["records"]
         if (
             payload["canonical_status"] != "FORMAL_CURRENT"
-            or payload["record_count"] != len(records) != 184
+            or payload["record_count"] != len(records)
+            or len(records) != len(expected_ids)
             or payload["axis_code"] != axis_code
         ):
-            raise ValueError(f"{axis_code}不是184人正式轴结算")
+            raise ValueError(f"{axis_code}不是当前正式池轴结算")
         if manifest_axes[axis_code]["json"] != path.relative_to(PROFILE_ROOT).as_posix():
             raise ValueError(f"{axis_code}与正式入口清单不一致")
         rows = {row["ruler_id"]: row for row in records}
@@ -120,7 +122,7 @@ def load_profiles() -> dict[str, Profile]:
     for ruler_id in sorted(expected_ids):
         names = {per_axis[axis_code][ruler_id]["ruler_name"] for axis_code in AXIS_ORDER}
         if len(names) != 1:
-            raise ValueError(f"九轴人物名称不一致：{ruler_id}")
+            raise ValueError(f"十轴人物名称不一致：{ruler_id}")
         values: list[int | None] = []
         display_point_axes: list[str] = []
         for axis_code in AXIS_ORDER:
@@ -301,7 +303,7 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
     }
     (output_dir / "00-雷达图小样索引.json").write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     rationale = "\n".join(
-        f"- `{row.ruler_id}`：{row.ruler_name}（九轴值：{' / '.join(map(str, row.values))}）"
+        f"- `{row.ruler_id}`：{row.ruler_name}（十轴值：{' / '.join(map(str, row.values))}）"
         for row in selected
     )
     omitted_note = ""
@@ -311,8 +313,8 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
             for row in omitted
         )
     (output_dir / "00-雷达图小样说明.md").write_text(
-        "# 九轴人物画像雷达图小样\n\n"
-        "固定九轴顺序为 M1、M2、M3、M4、C1、C2、C3、C4、C5，刻度统一为 0—100。SVG 保留可编辑文本；PNG 以 240 DPI 输出。"
+        "# 十轴人物画像雷达图小样\n\n"
+        "固定十轴顺序为 M1、M2、M3、M4、M5、C1、C2、C3、C4、C5，刻度统一为 0—100。SVG 保留可编辑文本；PNG 以 240 DPI 输出。"
         "八个四字轴标题向外留白，使用多色标签与淡色扇区；对比线继续以线型、标记和颜色共同区分。\n\n"
         "## 候选人物\n\n" + rationale + "\n\n"
         "候选覆盖秦、汉、唐、元、明、清、北宋，并包含高位、低位和明显不均衡画像；选择只服务图表可读性测试，非总分或排名。"

@@ -60,6 +60,7 @@ def _parser() -> argparse.ArgumentParser:
     profile_m4 = commands.add_parser("profile-m4-settlement")
     profile_m4.add_argument("--write", action="store_true")
     commands.add_parser("profile-m4-verify")
+    commands.add_parser("profile-m5-verify")
     profile_markdown = commands.add_parser("profile-markdown")
     profile_markdown.add_argument("--write", action="store_true")
     profile_markdown.add_argument("--axis", action="append", choices=profile_axes)
@@ -234,6 +235,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         print(json.dumps(verify_profile_current(Path(".").resolve(), args.axis), ensure_ascii=False, indent=2))
         return 0
     standalone = {
+        "profile-m5-verify": ("profile_m5", "verify", True),
         "canonical-ruler-pool-verify": ("canonical_ruler_pool", "verify_canonical_ruler_pool", True),
         "composite-ranking-verify": ("composite_ranking", "verify_composite_ranking", True),
         "project-entries-verify": ("project_entries", "verify", True),
