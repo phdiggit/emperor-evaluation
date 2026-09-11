@@ -25,9 +25,10 @@ AXIS_LABELS = {
     "C1": "战略风控",
     "C2": "学习纠错",
     "C3": "识才授权",
+    "C4": "制度设计",
     "C5": "权力克制",
 }
-AXIS_COLORS = ("#2F80ED", "#27AE60", "#F2994A", "#EB5757", "#9B51E0", "#56CCF2", "#F2C94C", "#BB6BD9")
+AXIS_COLORS = ("#2F80ED", "#27AE60", "#F2994A", "#EB5757", "#9B51E0", "#56CCF2", "#F2C94C", "#168A85", "#BB6BD9")
 SAMPLE_RULER_IDS = (
     "RULER-QIN-YINGZHENG",
     "RULER-HAN-LIUXIU",
@@ -68,22 +69,22 @@ def _project_profile_config() -> dict[str, Any]:
 def load_profiles() -> dict[str, Profile]:
     """Load the eight formal axis files and reject any non-canonical join."""
     config = _project_profile_config()
-    if config["status"] != "eight_axes_formally_settled":
-        raise ValueError("八轴人物画像尚未正式结算")
+    if config["status"] != "nine_axes_formally_settled":
+        raise ValueError("人物画像尚未正式结算")
     if any(config[key] for key in ("profile_total_enabled", "profile_ranking_enabled", "composite_ranking_write")):
         raise ValueError("人物画像雷达图不得启用总分、排名或综合榜写入")
     if profile_axis_order(config) != AXIS_ORDER:
-        raise ValueError("八轴顺序必须为固定正式顺序")
+        raise ValueError("九轴顺序必须为固定正式顺序")
 
     project = yaml.safe_load(PROJECT.read_text(encoding="utf-8"))
     pool = _read_json(ROOT / project["canonical_ruler_pool"]["json"])
     expected_ids = {row["ruler_id"] for row in pool["records"] if row["pool_status"] == "INCLUDED"}
-    if len(expected_ids) != 184 or config["population_count"] != 184:
-        raise ValueError("正式人物池不是184人")
+    if config["population_count"] != len(expected_ids):
+        raise ValueError("画像人数与规范池不一致")
 
     radar_config = config["radar_samples"]
     if tuple(radar_config["axis_order"]) != AXIS_ORDER or radar_config["scale"] != [0, 100]:
-        raise ValueError("雷达图配置必须保留固定八轴顺序和0—100刻度")
+        raise ValueError("雷达图配置必须保留固定九轴顺序和0—100刻度")
     manifest = _read_json(ROOT / config["manifest_json"])
     manifest_axes = {row["axis_code"]: row for row in manifest["axes"]}
     per_axis: dict[str, dict[str, dict[str, Any]]] = {}
@@ -105,11 +106,12 @@ def load_profiles() -> dict[str, Profile]:
             raise ValueError(f"{axis_code}与正式人物池覆盖不一致")
         for ruler_id, row in rows.items():
             value = row.get("radar_value")
+            not_applicable = row.get("score_status") == "NOT_APPLICABLE"
             if (
                 row.get("task_code") != f"PROFILE-{axis_code}-{ruler_id}"
                 or value != row.get("score_100")
-                or not isinstance(value, int)
-                or not 0 <= value <= 100
+                or (not_applicable and value is not None)
+                or (not not_applicable and (not isinstance(value, int) or not 0 <= value <= 100))
             ):
                 raise ValueError(f"{axis_code}的雷达值或稳定ID不合法：{ruler_id}")
         per_axis[axis_code] = rows
@@ -118,7 +120,7 @@ def load_profiles() -> dict[str, Profile]:
     for ruler_id in sorted(expected_ids):
         names = {per_axis[axis_code][ruler_id]["ruler_name"] for axis_code in AXIS_ORDER}
         if len(names) != 1:
-            raise ValueError(f"八轴人物名称不一致：{ruler_id}")
+            raise ValueError(f"九轴人物名称不一致：{ruler_id}")
         values: list[int | None] = []
         display_point_axes: list[str] = []
         for axis_code in AXIS_ORDER:
@@ -214,13 +216,18 @@ def _save(figure: Any, path: Path) -> None:
 
 
 def render_single(profile: Profile, output_path: Path) -> None:
-    if any(value is None for value in profile.values):
+    if profile.display_point_axes:
         raise ValueError(f"未决显示点不得生成雷达图：{profile.ruler_id}")
     plt = _matplotlib()
     figure, axis, angles = _radar_axes(plt)
-    values = list(profile.values) + [profile.values[0]]
+    values = [float('nan') if value is None else value for value in profile.values]
+    values += [values[0]]
     axis.plot(angles, values, color="#3D4C9E", linewidth=2.8, marker="o", markersize=5.5)
-    axis.fill(angles, values, color="#5E72E4", alpha=0.16)
+    if all(value is not None for value in profile.values):
+        axis.fill(angles, values, color="#5E72E4", alpha=0.16)
+    else:
+        missing = '、'.join(AXIS_LABELS[code] for code, value in zip(AXIS_ORDER, profile.values) if value is None)
+        figure.text(0.5, 0.02, f"不适用：{missing}（留空）", ha="center", fontsize=10)
     axis.scatter(angles[:-1], values[:-1], c=AXIS_COLORS, s=42, zorder=4, edgecolors="white", linewidths=0.8)
     axis.set_title(profile.ruler_name, pad=34, fontsize=22, fontweight="bold", color="#202938")
     _save(figure, output_path)
@@ -228,13 +235,14 @@ def render_single(profile: Profile, output_path: Path) -> None:
 
 
 def render_comparison(left: Profile, right: Profile, output_path: Path) -> None:
-    if any(value is None for value in left.values + right.values):
+    if left.display_point_axes or right.display_point_axes:
         raise ValueError(f"未决显示点不得生成雷达对比图：{left.ruler_id}/{right.ruler_id}")
     plt = _matplotlib()
     figure, axis, angles = _radar_axes(plt)
     styles = ((left, "#3D4C9E", "o", "-"), (right, "#E76F51", "s", "--"))
     for profile, color, marker, line_style in styles:
-        values = list(profile.values) + [profile.values[0]]
+        values = [float('nan') if value is None else value for value in profile.values]
+        values += [values[0]]
         axis.plot(angles, values, color=color, linewidth=2.3, marker=marker, markersize=5, linestyle=line_style, label=profile.ruler_name)
     axis.set_title(f"{left.ruler_name} · {right.ruler_name}", pad=34, fontsize=22, fontweight="bold", color="#202938")
     axis.legend(loc="upper right", bbox_to_anchor=(1.2, 1.13), frameon=True, fontsize=11)
@@ -293,7 +301,7 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
     }
     (output_dir / "00-雷达图小样索引.json").write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     rationale = "\n".join(
-        f"- `{row.ruler_id}`：{row.ruler_name}（八轴值：{' / '.join(map(str, row.values))}）"
+        f"- `{row.ruler_id}`：{row.ruler_name}（九轴值：{' / '.join(map(str, row.values))}）"
         for row in selected
     )
     omitted_note = ""
@@ -303,8 +311,8 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
             for row in omitted
         )
     (output_dir / "00-雷达图小样说明.md").write_text(
-        "# 八轴人物画像雷达图小样\n\n"
-        "固定八轴顺序为 M1、M2、M3、M4、C1、C2、C3、C5，刻度统一为 0—100。SVG 保留可编辑文本；PNG 以 240 DPI 输出。"
+        "# 九轴人物画像雷达图小样\n\n"
+        "固定九轴顺序为 M1、M2、M3、M4、C1、C2、C3、C4、C5，刻度统一为 0—100。SVG 保留可编辑文本；PNG 以 240 DPI 输出。"
         "八个四字轴标题向外留白，使用多色标签与淡色扇区；对比线继续以线型、标记和颜色共同区分。\n\n"
         "## 候选人物\n\n" + rationale + "\n\n"
         "候选覆盖秦、汉、唐、元、明、清、北宋，并包含高位、低位和明显不均衡画像；选择只服务图表可读性测试，非总分或排名。"

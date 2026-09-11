@@ -652,6 +652,9 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
 
 def render_profile_markdown(settlement: dict[str, Any]) -> str:
     axis = settlement["axis_code"]
+    if axis == "C4":
+        from emperor_v4.evaluation.profile_c4 import render
+        return render(settlement)
     if axis not in AXIS_FILES:
         raise ValueError(f"unsupported profile axis: {axis}")
     records = settlement["records"]
@@ -728,7 +731,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         "## 跨轴计分边界",
         "",
         "- 同一史料或事件出现在多个轴，不等于同一能力被重复计分；正式计分以各轴独立构念、父链命题和归责边界为准。",
-        "- A05审计把同源材料分为合法辅助投影、独立构念投影和需复核候选；审计是边界说明，不是第二份档位来源。",
+        "- 同源材料须分别说明各轴的独立命题与归责边界；当前正式父链保留依据，不依赖历史过程审计。",
     ]
     axis_boundary_note = {
         "M1": "- M1只消费战役、战区、统帅与作战操作；战略目标、风险选择和退出留在C1，外交条件交换留在M2。",

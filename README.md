@@ -28,7 +28,7 @@
 
 按 [AGENTS.md](AGENTS.md) 的改动类型选择检查，以下是按需使用的命令参考，不是每次必跑的步骤。使用当前 Python 环境；需要 UTF-8 子进程或托管能力时再加 `codex-win run --`。
 
-局部维护先按分项及稳定人物ID定位当前记录、下游同步和复核范围。分项代码为`I1`—`I5`、`I2.A`、`I2.B1`、`I2.B2`、`I2.C1`—`I2.C4`、`I3.D`及`profile.M1`等八个画像轴；也支持`pool`和`composite`。
+局部维护先按分项及稳定人物ID定位当前记录、下游同步和复核范围。分项代码为`I1`—`I5`、`I2.A`、`I2.B1`、`I2.B2`、`I2.C1`—`I2.C4`、`I3.D`及`profile.M1`等九个画像轴；也支持`pool`和`composite`。
 
 ```powershell
 python v4.py maintenance --component I2.B2 --ruler-id RULER-HAN-LIUHENG
@@ -99,3 +99,5 @@ python -m pytest -q
 Git 是规则、证据和正式结果的历史载体。正式目录不维护过期阶段报告、失败日志或旧版本结果；可丢弃的诊断、脚本和草稿放 `.tmp/`，当前仍支撑裁决的审计与证据继续保留。数据库写入和生产部署不属于当前仓库执行链；跨项综合排名只允许读取`COMPOSITE_READY`对象并由正式命令确定性生成。
 
 开发、验证、提交与整理按 [AGENTS.md](AGENTS.md) 和全局约定执行。授权交付完成、受影响下游同步、相关验证通过并核对改动范围后即结束，不额外要求全库清理或无关检查。
+
+C4画像局部校验：`python v4.py profile-c4-verify`。

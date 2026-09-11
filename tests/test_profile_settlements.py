@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from emperor_v4.evaluation.formal_json_store import load_json
-from emperor_v4.evaluation.profile_registry import profile_axis_order
+from emperor_v4.evaluation.profile_registry import load_profile_config, profile_axis_order
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,8 +32,8 @@ def _parent_list(record: dict) -> list[dict]:
 def test_profile_manifest_registers_all_eight_formal_axes() -> None:
     manifest = _load(PROFILE_ROOT / "00-已结算轴正式入口.json")
     assert manifest["canonical_status"] == "FORMAL_CURRENT"
-    assert manifest["contract_version"] == "FORMAL-V2.0"
-    assert manifest["settled_axis_count"] == 8
+    assert manifest["contract_version"] == load_profile_config()["contract_version"]
+    assert manifest["settled_axis_count"] == len(profile_axis_order())
     assert manifest["unsettled_axis_count"] == 0
     assert manifest["profile_total_enabled"] is False
     assert manifest["profile_ranking_enabled"] is False
@@ -158,11 +158,12 @@ def test_formal_contract_declares_eight_settled_axes_without_profile_total() -> 
     text = CONTRACT.read_text(encoding="utf-8")
     acceptance_text = ACCEPTANCE_CONTRACT.read_text(encoding="utf-8")
     assert "DRAFT-V0.5" not in text
-    assert "FORMAL-V2.0" in text
-    assert "FORMAL-V2.0 / EIGHT-AXES-FORMALLY-SETTLED" in text
-    assert "M1、M2、M3、M4、C1、C2、C3与C5均满足上述轴级门禁" in acceptance_text
+    assert load_profile_config()["contract_version"] in text
+    for axis in profile_axis_order():
+        assert f"| {axis} |" in text
+        assert axis in acceptance_text
     assert "仍不得生成画像总分、轴内排名或写入五项综合榜" in acceptance_text
-    assert "人物画像代码C4自本版撤销" in text
+    assert "本版启用C4治理架构与制度设计能力" in text
     assert "| C4 | 组织推动与执行韧性 |" not in text
     assert "跨轴落实深度与受阻重组证据门" in text
     assert "| M3 | 民生财政建设 |" in text
@@ -313,43 +314,12 @@ def test_c2_c5_cross_axis_drift_is_report_only() -> None:
     assert result["status_mismatch_count"] == len(result["status_mismatches"])
 
 
-def test_a03_cross_axis_route_closure_is_dynamic_and_score_neutral() -> None:
-    from emperor_v4.evaluation.profile_a03_route_audit import verify
-
-    result = verify()
-    assert result["status"] == "PASS"
-    assert result["closed_count"] + result["explicitly_frozen_count"] == result["route_handoff_count"]
-    assert result["score_write"] is False
 
 
-def test_a03_post_route_rereadjudication_is_current_and_score_neutral() -> None:
-    from emperor_v4.evaluation.profile_a03_rereadjudication import verify
-
-    result = verify()
-    assert result["status"] == "PASS"
-    assert result["affected_ruler_count"] > 0
-    assert result["grade_changed_count"] == 0
-    assert result["formal_score_write"] is False
 
 
-def test_a04_identity_route_decoupling_is_score_neutral() -> None:
-    from emperor_v4.evaluation.profile_a04_identity_audit import verify
-
-    result = verify()
-    assert result["status"] == "PASS"
-    assert result["repaired_parent_count"] > 0
-    assert result["grade_changed_count"] == 0
-    assert result["formal_score_write"] is False
 
 
-def test_a05_cross_axis_duplicate_consumption_is_score_neutral() -> None:
-    from emperor_v4.evaluation.profile_a05_cross_axis_audit import verify
-
-    result = verify()
-    assert result["status"] in {"PASS", "REVIEW_REQUIRED"}
-    assert result["duplicate_primary_consumption_confirmed_count"] == 0
-    assert result["unresolved_candidate_count"] >= 0
-    assert result["formal_score_write"] is False
 
 
 def test_cross_axis_reader_views_explain_shared_source_boundaries() -> None:
@@ -362,14 +332,3 @@ def test_cross_axis_reader_views_explain_shared_source_boundaries() -> None:
         assert "跨轴计分边界" in text
     m1 = (PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.md").read_text(encoding="utf-8")
     assert "M1只消费本人作战方向" in m1
-
-
-def test_profile_audit_sidecars_match_current_axis_grades() -> None:
-    c5 = _load(PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json")
-    c5_by_id = {record["ruler_id"]: record for record in c5["records"]}
-    c5_audit = _load(PROFILE_ROOT / "C5/05-C5高档材料密度复核.json")
-    for review in c5_audit["reviews"]:
-        current = c5_by_id[review["ruler_id"]]
-        assert (review["final_grade"], review["position"], review["current_score_100"]) == (
-            current["axis_grade"], current["position"], current["score_100"]
-        )

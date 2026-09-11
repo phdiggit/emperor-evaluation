@@ -1,0 +1,99 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北周",
+  "collections": {
+    "records": {
+      "positions": [
+        54
+      ],
+      "records": [
+        {
+          "ruler_id": "RULER-SHADOW-宇文邕",
+          "ruler_name": "宇文邕",
+          "polity": "北周",
+          "task_code": "PROFILE-C4-RULER-SHADOW-宇文邕",
+          "actual_power_window": "572—578年诛宇文护后亲政",
+          "axis_code": "C4",
+          "axis_name": "治理架构与制度设计能力",
+          "axis_grade": "G4",
+          "position": "LOW",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "军籍身份重构+宗教组织/民籍重构",
+          "counterpattern": "两条重构都高度集中于约六年的亲政窗口，尤其宗教结构在宣帝后迅速逆转；长期迁移与后继接收明显不足。军籍改革本身也缺少更长周期机制反馈。",
+          "grade_basis": "两个独立结构选择均实际实施；亲政窗口短、后继迅速逆转，长期复验不足",
+          "position_basis": "两个独立结构选择均实际实施；亲政窗口短、后继迅速逆转，长期复验不足",
+          "limitations": [
+            "两条重构都高度集中于约六年的亲政窗口，尤其宗教结构在宣帝后迅速逆转；长期迁移与后继接收明显不足。军籍改革本身也缺少更长周期机制反馈。",
+            "附件未单列证据等级，本次按现有闭合情境补定；保留有界外推，不宣称完整生涯通读。"
+          ],
+          "axis_relevance_check": {
+            "status": "C4_RELEVANT",
+            "boundary": "只消费长期组织、权责、信息与责任接口；制度净收益、认知更新、用人和执行另属原轴。"
+          },
+          "parent_chains": [
+            {
+              "parent_id": "C4P-RULER-SHADOW-宇文邕-01",
+              "title": "独立父链A【军籍—身份结构】",
+              "direction": "MIXED",
+              "mechanism": "建德二年把军士改称侍官，并从民户中募补、除其县籍，重写军人身份、民籍与兵役责任接口；这一改革实际实施，并改变北周军户/民户关系。",
+              "attribution": "依所引裁决材料区分本人、前制与臣下信用，见完整证据。",
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-SHADOW-宇文邕",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_zhou.json#material_id=I2-NZHOU-YUWENYONG-MILITARY-REGISTRATION-REFORM"
+              ],
+              "historical_source_descriptions": [
+                "`I2-NZHOU-YUWENYONG-MILITARY-REGISTRATION-REFORM`；《周书·武帝纪》建德三年；《隋书·食货志》。"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/皇帝人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-SHADOW-宇文邕/evidence_fields/独立父链A【军籍—身份结构】"
+              ]
+            },
+            {
+              "parent_id": "C4P-RULER-SHADOW-宇文邕-02",
+              "title": "独立父链B【宗教组织—民籍关系】",
+              "direction": "MIXED",
+              "mechanism": "建德三年废佛、道二教，毁经像、罢沙门道士并令还民，同时设通道观承接官方教化资源。这里不评价宗教政策善恶，只消费它作为大规模组织身份与民籍结构重写的事实。",
+              "attribution": "依所引裁决材料区分本人、前制与臣下信用，见完整证据。",
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-SHADOW-宇文邕",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_zhou.json#material_id=I2-NZHOU-YUWENYONG-MILITARY-REGISTRATION-REFORM"
+              ],
+              "historical_source_descriptions": [
+                "`I2-NZHOU-YUWENYONG-MILITARY-REGISTRATION-REFORM`；《周书·武帝纪》建德三年；《隋书·食货志》。"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/皇帝人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-SHADOW-宇文邕/evidence_fields/独立父链B【宗教组织—民籍关系】"
+              ]
+            }
+          ],
+          "representative_parent_ids": [
+            "C4P-RULER-SHADOW-宇文邕-01",
+            "C4P-RULER-SHADOW-宇文邕-02"
+          ],
+          "source_refs": [
+            "docs/评分结算/皇帝人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-SHADOW-宇文邕",
+            "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_zhou.json#material_id=I2-NZHOU-YUWENYONG-MILITARY-REGISTRATION-REFORM"
+          ],
+          "adjudication_origin": {
+            "kind": "USER_SUPPLIED_ADJUDICATION",
+            "contract_version": "FORMAL-V2.2",
+            "sheet_file": "C4裁决清单.md",
+            "sheet_line": 125
+          },
+          "applicability": {
+            "status": "APPLICABLE",
+            "basis": "规范实际权力窗口内具有所引结构选择机会。"
+          },
+          "score_100": 77,
+          "radar_value": 77,
+          "evidence_assessment_basis": "附件未单列证据等级；本次依据现有结构情境、运行反馈与反证评定，未补造史源或按缺字段降能力档。",
+          "sequence": 55
+        }
+      ]
+    }
+  }
+}
