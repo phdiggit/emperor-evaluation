@@ -18,7 +18,7 @@ from emperor_v4.evaluation.formal_json_store import (
 )
 
 
-VERSION = "GOVERNANCE-STATE-RECOVERY-V3"
+VERSION = "GOVERNANCE-STATE-RECOVERY-V4"
 REVIEW_PATH = Path("config/second-item/governance-state-recovery-adjudications.json")
 REVIEW_MARKDOWN_PATH = Path(
     "docs/评分结算/第二项治国净收益/财政民生/08-主态低谷与净恢复逐人裁决.md"
@@ -150,7 +150,7 @@ def state_score(axis: str, main: int, loss_grade: str) -> float:
         raise ValueError("Unknown result axis or loss grade")
     points = FIXED_POINTS[axis]
     return _round(max(Decimal(str(points[0])), Decimal(str(points[main - 1]))
-                      - Decimal(str(points[-1])) * LOSS_RATES[loss_grade]))
+                      * (Decimal(1) - LOSS_RATES[loss_grade])))
 
 
 def retained_recovery(
@@ -238,11 +238,19 @@ def _deterioration(row: dict[str, Any]) -> float:
     return _round(min(Decimal(1), weighted / 2) * 13)
 
 
+def _validate_loss_dimensions(loss: dict[str, Any]) -> None:
+    strong = loss.get('strong_dimensions', [])
+    if not isinstance(strong, list) or any(not isinstance(v, str) for v in strong) or len(strong) != len(set(strong)) or not set(strong) <= {'scope', 'duration', 'severity'}:
+        raise ValueError('Invalid loss dimensions')
+    if loss.get('grade') == 'L3' and ('severity' not in strong or not {'scope', 'duration'} & set(strong)):
+        raise ValueError('L3 lacks severity and scope/duration')
+
+
 def verify_governance_state_recovery_review(workspace_root: Path) -> dict[str, Any]:
     """Verify explicit rulings and consumers; never infer historical grades."""
     root = workspace_root.resolve()
     review = load_json(root / REVIEW_PATH)
-    if review.get('schema_version') != 'governance-state-recovery-adjudications-v3' or review.get('version') != VERSION:
+    if review.get('schema_version') != 'governance-state-recovery-adjudications-v4' or review.get('version') != VERSION:
         raise ValueError('Invalid governance review schema/version')
     active = review.get('score_active')
     if not isinstance(active, bool):
@@ -280,11 +288,10 @@ def verify_governance_state_recovery_review(workspace_root: Path) -> dict[str, A
                 target = re.sub(r':\d+(?:-\d+)?$', '', ref.split('#', 1)[0])
                 if ref.startswith(('docs/', 'config/')) and not (root / target).is_file():
                     raise ValueError(f'Missing evidence reference: {rid} {a}: {ref}')
-            strong = loss.get('strong_dimensions', [])
-            if not isinstance(strong, list) or len(strong) != len(set(strong)) or not set(strong) <= {'scope', 'duration', 'severity'}:
-                raise ValueError(f'Invalid loss dimensions: {rid} {a}')
-            if grade == 'L3' and len(strong) < 2:
-                raise ValueError(f'L3 lacks two strong dimensions: {rid} {a}')
+            try:
+                _validate_loss_dimensions(loss)
+            except ValueError as exc:
+                raise ValueError(f'{exc}: {rid} {a}') from exc
             value = state_score(a, s['main_band'], grade)
             if s.get('state_score') != value:
                 raise ValueError(f'State score mismatch: {rid} {a}')
@@ -429,8 +436,8 @@ def activate_governance_state_recovery(workspace_root: Path) -> dict[str, Any]:
                 _apply_c4(row, r)
         _competition_ranks(_records(payload))
         payload.pop('v2_activation', None)
-        payload['status'] = 'FORMAL_GOVERNANCE_V3_ACTIVE'
-        payload['formula'] = 'canonical pool: max(axis_floor, F(S_main)-axis_max*L_rate), ROUND_HALF_UP(1)' if a in AXES else 'retained terminal recovery - attributable deterioration - residual DA'
+        payload['status'] = 'FORMAL_GOVERNANCE_V4_ACTIVE'
+        payload['formula'] = 'canonical pool: max(axis_floor, F(S_main)*(1-L_rate)), ROUND_HALF_UP(1)' if a in AXES else 'retained terminal recovery - attributable deterioration - residual DA'
         payload['governance_activation'] = {'version': VERSION, 'review_path':REVIEW_PATH.as_posix(), 'reviewed_record_count':len(by_id), 'out_of_scope_formal_record_count':len(_records(payload))-len(by_id)}
         if a == 'C4':
             payload['recovery_formula_version'] = VERSION
@@ -453,7 +460,7 @@ def activate_governance_state_recovery(workspace_root: Path) -> dict[str, Any]:
     for a,p in FORMAL_PATHS.items():
         write_json(root / p, payloads[a], ruler_polities=polities)
     write_json(root / CURRENT_REVIEW_PATH, source)
-    review['score_active']=True; review['status']='FORMAL_GOVERNANCE_V3_ACTIVE'
+    review['score_active']=True; review['status']='FORMAL_GOVERNANCE_V4_ACTIVE'
     review['activation']={'version':VERSION,'reviewed_record_count':len(by_id),'status':'ACTIVE'}
     write_json(root / REVIEW_PATH, review)
     write_component_readers(root)
@@ -522,8 +529,8 @@ def refresh_supporting_projections(workspace_root: Path) -> None:
         _apply_c4(row,r)
         cost = row['active_civilian_cost_review']
         basis = cost['absorbed_and_excluded_basis']
-        basis = clean_retired_low_valley_references(basis.split(' V3消费核对：',1)[0], 'absorbed_and_excluded_basis')
-        basis += ' V3消费核对：'+'；'.join(a+' '+r['axes'][a]['loss_review']['basis'] for a in AXES)+' 既有DA只保留本审计所列独立供役、机会成本或其他残余对象；不按L扣分大小另加成本。'
+        basis = clean_retired_low_valley_references(re.split(r' V[34]消费核对：', basis, maxsplit=1)[0], 'absorbed_and_excluded_basis')
+        basis += ' V4消费核对：'+'；'.join(a+' '+r['axes'][a]['loss_review']['deduplication'] for a in AXES)+' 既有DA只保留本审计所列独立供役、机会成本或其他残余对象；不按L扣分大小另加成本。'
         cost['absorbed_and_excluded_basis'] = basis
         entries[row['ruler_id']]['absorbed_and_excluded_basis'] = basis
     polities=load_ruler_polities(root)

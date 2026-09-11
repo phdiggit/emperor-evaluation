@@ -11,8 +11,8 @@
         61,
         62,
         64,
-        99,
         100,
+        101,
         183
       ],
       "records": [
@@ -119,10 +119,10 @@
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
           "score_status": "EVIDENCE_LIMITED",
-          "axis_grade": "G4",
+          "axis_grade": "G3",
           "position": "LOW",
-          "score_100": 77,
-          "radar_value": 77,
+          "score_100": 58,
+          "radar_value": 58,
           "axis_evidence_level": "E2",
           "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
@@ -150,10 +150,14 @@
               },
               "axis_out_reason": "韩信、彭越的封地—会师—夺兵权生命周期属于创业内部军事集团。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "韩信、彭越的封地—会师—夺兵权生命周期属于创业内部军事集团。"
+                "target_parent_ref": null,
+                "reason": "韩信、彭越的封地—会师—夺兵权生命周期属于创业内部军事集团。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -192,15 +196,19 @@
               },
               "axis_out_reason": "白登核心是军事示弱识别、深入与被围的自致战略误判；现材料不足以分离出独立M2条件链。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M1/C1",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "白登核心是军事示弱识别、深入与被围的自致战略误判；现材料不足以分离出独立M2条件链。"
+                "target_parent_ref": null,
+                "reason": "白登核心是军事示弱识别、深入与被围的自致战略误判；现材料不足以分离出独立M2条件链。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
-              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
-              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
-              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+              "relationship_phase": "EXTERNAL_POLITY",
+              "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
             },
             {
               "parent_id": "M2-P016-NANYUE-RECOGNITION",
@@ -234,8 +242,8 @@
             ],
             "counter_parent_refs": []
           },
-          "grade_basis": "当前不发布新的M2实裁；旧G4-LOW仅作为整改前显示点保留。内部韩信/彭越链与白登军事误判已退出；楚廷反间、说齐、鸿沟等新外部候选尚未全部闭合。",
-          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
+          "grade_basis": "按统一补证预算复核卷九至卷十二的外部对象材料：南越承认—通使—称臣构成一条可反查的本人授权与执行生命周期；反间、说齐与鸿沟材料分别受战争战略、臣使/将领执行或跨轴去重边界限制，未再闭合为独立M2计分父链。扩搜后可发布的M2能力是有界、单一外部周期，不保留整改前G4显示点。",
+          "position_basis": "G3-LOW：仅有一条可反查的外部条件—授权—执行生命周期；其他候选未闭合，不以材料空白追加负证，也不足进入G3中高位。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
@@ -260,15 +268,12 @@
             "high_grade_gate": "PASSED"
           },
           "limitations": [
-            "待补证：完成新外部父链的条件、反馈、授权与执行定位，再重算G4位置。"
+            "E2有界画像：南越链可定位，但楚汉战争中的反间、说齐与鸿沟材料仍受主轴、臣使归责或过程拆分限制。",
+            "不把韩信、彭越内部联盟和白登军事误判继续计入M2。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
-          "display_point_only": true,
-          "display_point_reason": "内部韩信/彭越链与白登军事误判已退出；楚廷反间、说齐、鸿沟等新外部候选尚未全部闭合。",
-          "pending_reopen_condition": "完成新外部父链的条件、反馈、授权与执行定位，再重算G4位置。",
-          "historical_display_grade": "G4-LOW",
-          "historical_display_radar_value": 77
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 24,
@@ -440,8 +445,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P031-XIONGNU-LETTER",
-              "M2-P031-NANYUE-EMBARGO"
+              "M2-P031-NANYUE-EMBARGO",
+              "M2-P031-XIONGNU-LETTER"
             ],
             "result_nonconversion": true
           },
@@ -637,8 +642,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P018-WUSUN-ALLIANCE",
-              "M2-P018-DAYUAN-HORSES"
+              "M2-P018-DAYUAN-HORSES",
+              "M2-P018-WUSUN-ALLIANCE"
             ],
             "result_nonconversion": true
           },
@@ -746,8 +751,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P020-XIONGNU-LIFECYCLE",
-              "M2-P020-NANYUE-RESTORATION"
+              "M2-P020-NANYUE-RESTORATION",
+              "M2-P020-XIONGNU-LIFECYCLE"
             ],
             "result_nonconversion": true
           },
@@ -822,10 +827,14 @@
               },
               "axis_out_reason": "七国之乱是本朝宗室/诸侯危机；和亲材料未通过结果门与因果门。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4/M1/C1",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "七国之乱是本朝宗室/诸侯危机；和亲材料未通过结果门与因果门。"
+                "target_parent_ref": null,
+                "reason": "七国之乱是本朝宗室/诸侯危机；和亲材料未通过结果门与因果门。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -839,8 +848,8 @@
             "positive_parent_refs": [],
             "counter_parent_refs": []
           },
-          "grade_basis": "当前不发布新的M2实裁；旧G3-LOW仅作为整改前显示点保留。七国之乱已转M4；和亲未通过结果门/因果门，不能以连续入侵自动造负链。",
-          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
+          "grade_basis": "按统一补证预算复核景帝窗口的匈奴、和亲、边防和七国之乱材料：和亲后连续入侵未通过结果门与因果门；七国之乱属于本朝宗室/诸侯危机并已转M4；未找到可闭合的本人外部条件—反馈—执行M2生命周期。故闭合为E1有界G3-LOW，不把缺料写成外交负证。",
+          "position_basis": "G3-LOW：当前仅能确认有界观察窗口和轴外/背景材料，没有合格外部计分父链；不把七国军事结果或和亲失败自动转入M2。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [],
@@ -855,16 +864,12 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "七国父链的外交条件与本人归责仍薄，纯军事结果已剥离。",
-            "待补证：补齐景帝朝匈奴方向的使节、边市、停战、交换或反馈重谈周期。"
+            "E1有界画像：景帝朝匈奴方向尚无可归本人、含条件交换与反馈重谈的完整外部生命周期。",
+            "七国之乱继续按M4/M1/C1边界处理，和亲继续按M2结果门/因果门失败的背景材料处理。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
-          "display_point_only": true,
-          "display_point_reason": "七国之乱已转M4；和亲未通过结果门/因果门，不能以连续入侵自动造负链。",
-          "pending_reopen_condition": "补齐景帝朝匈奴方向的使节、边市、停战、交换或反馈重谈周期。",
-          "historical_display_grade": "G3-LOW",
-          "historical_display_radar_value": 58
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 25,
@@ -1019,8 +1024,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P168-POSITIVE",
-              "M2-P168-COUNTER"
+              "M2-P168-COUNTER",
+              "M2-P168-POSITIVE"
             ],
             "result_nonconversion": true
           },

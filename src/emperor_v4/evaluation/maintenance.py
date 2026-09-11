@@ -23,7 +23,7 @@ DERIVED = {
     **{f"I2.{axis}": ("I2",) for axis in SECOND_ITEM_COMPONENT_PATHS},
 }
 REVIEW = {
-    "I2.A": ("profile.C3", "profile.C5"),
+    "I2.A": ("profile.C3", "profile.C4", "profile.C5"),
     "I2.B1": ("profile.C3", "profile.C5"),
     "I2.B2": ("profile.C2", "profile.C5"),
     **{f"I2.{axis}": ("profile.M3",) for axis in ("C1", "C2", "C3", "C4")},

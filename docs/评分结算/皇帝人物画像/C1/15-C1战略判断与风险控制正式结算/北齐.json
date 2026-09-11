@@ -4,8 +4,8 @@
   "collections": {
     "records": {
       "positions": [
-        91,
-        109,
+        92,
+        110,
         177
       ],
       "records": [
@@ -64,25 +64,52 @@
               ],
               "cycle_basis": "赈令执行失败未闭合本人拒绝反馈或可行替代，不作负证。",
               "diagnostic_role": "DW0"
+            },
+            {
+              "parent_id": "C1-P139-POWER-RISK-BOUNDARY",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-高湛-GZ-P2",
+                "https://zh.wikisource.org/zh-hant/北齊書/卷7",
+                "https://zh.wikisource.org/zh/北齊書/卷14"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hant/北齊書/卷7",
+                "https://zh.wikisource.org/zh/北齊書/卷14"
+              ],
+              "cycle_basis": "高归彦等强资源集团的权势、私兵与骄纵已形成中枢风险；外放加厚赏未形成双方接受的新边界，构成共享DW2负向下沿。",
+              "diagnostic_role": "DW2",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
             "C1-P139-ZHOU-TURK-PRIORITY",
-            "C1-P139-RELIEF-EXECUTION-LIMIT"
+            "C1-P139-RELIEF-EXECUTION-LIMIT",
+            "C1-P139-POWER-RISK-BOUNDARY"
           ],
           "typical_pattern": "周军攻洛阳、突厥同时入边时，直接完成主次矛盾识别、资源优先级和兑现，形成高难PS2；灾荒赈济执行失败无本人闭合负链。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P139-ZHOU-TURK-PRIORITY"
             ],
-            "counter_parent_refs": []
+            "counter_parent_refs": [
+              "C1-P139-POWER-RISK-BOUNDARY"
+            ]
           },
           "grade_basis": "一条高质量PS2 + 两条明显但共享/后果部分在身后的DW2，不足G3上沿。 由`G3-HIGH / 71`下调为**`G3-MID / 65`**。",
           "position_basis": "在位窗口和第二条同强周期不足；赈济执行失败仅作限制。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P139-ZHOU-TURK-PRIORITY"
+              "C1-P139-ZHOU-TURK-PRIORITY",
+              "C1-P139-POWER-RISK-BOUNDARY"
             ],
             "result_nonconversion": true
           },

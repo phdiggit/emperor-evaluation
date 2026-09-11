@@ -559,7 +559,7 @@ def render_method_markdown(method: dict[str, Any]) -> str:
 def render_result_markdown(result: dict[str, Any]) -> str:
     result_md = ["# C1—C4财政民生治理结果正式结算", ""]
     if result.get("governance_activation"):
-        result_md.extend(["> C1—C4当前规范池已统一启用 GOVERNANCE-STATE-RECOVERY-V3；池外记录不进入当前综合榜。", ""])
+        result_md.extend(["> C1—C4当前规范池已统一启用 GOVERNANCE-STATE-RECOVERY-V4；池外记录不进入当前综合榜。", ""])
     result_md.extend(["| 排名 | 人物 | 政权 | C1 | C2 | C3 | C4 | 治理结果分 |", "|---:|---|---|---|---|---|---|---:|"])
     for row in sorted(result["scores"], key=lambda r: (r["rank"], r["ruler_id"])):
         cells = " | ".join(f"{row[f'{axis}_band']}/{row[f'{axis}_score']:.1f}" for axis in FINANCE_PATHS)
@@ -580,7 +580,7 @@ def render_handoff_markdown(handoff: dict[str, Any]) -> str:
 def render_total_markdown(total: dict[str, Any]) -> str:
     total_md = ["# 第二项治国净收益正式结算", ""]
     if total.get("governance_activation"):
-        total_md.extend(["> 治理结果 C1—C4 当前规范池已统一启用 GOVERNANCE-STATE-RECOVERY-V3；第二项总表保留池外历史记录，综合榜仅读取 `COMPOSITE_READY` 对象。", ""])
+        total_md.extend(["> 治理结果 C1—C4 当前规范池已统一启用 GOVERNANCE-STATE-RECOVERY-V4；第二项总表保留池外历史记录，综合榜仅读取 `COMPOSITE_READY` 对象。", ""])
     total_md.extend([
         "| 排名 | 人物 | 政权 | 治理手段/165 | C1/80 | C2/35 | C3/60 | C4 | 治理结果/202 | 交接/20 | 总分/387 |",
         "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",

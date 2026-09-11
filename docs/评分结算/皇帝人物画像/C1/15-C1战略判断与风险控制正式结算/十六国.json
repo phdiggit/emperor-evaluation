@@ -8,17 +8,17 @@
         34,
         37,
         41,
-        64,
-        66,
-        68,
-        89,
-        102,
-        104,
-        107,
+        65,
+        67,
+        69,
+        90,
+        103,
+        105,
         108,
-        125,
+        109,
         126,
         127,
+        128,
         155
       ],
       "records": [
@@ -98,8 +98,12 @@
           ],
           "typical_pattern": "能在前秦崩解后把西征军转为河西政权，亦曾因严刑批评调整；晚年多线用兵、信谗杀官和饥荒反馈中退化。",
           "counterpattern": {
-            "positive_parent_refs": "C1-P103-FOUNDING-RECONFIGURATION",
-            "counter_parent_refs": "C1-P103-FOUNDING-TO-DECLINE"
+            "positive_parent_refs": [
+              "C1-P103-FOUNDING-RECONFIGURATION"
+            ],
+            "counter_parent_refs": [
+              "C1-P103-FOUNDING-TO-DECLINE"
+            ]
           },
           "grade_basis": "吕光的军事战略至少有龟兹远征、河西建基、败后重组/退出多个独立周期，达到PS3；晚期内部合作资源反复毁损形成DW3，继承再有DW2。 这是明显的“高军事战略能力 + 晚期内部风险控制严重退化”，不应是G2。 由`G2-LOW / 38`大幅上调为**`G4-LOW / 77`**。",
           "position_basis": "创业正链和局部纠正阻止降G1。",
@@ -208,11 +212,15 @@
           ],
           "typical_pattern": "姚苌是本批最典型的“清除跨轴污染后反而上调”。正式C1把新平受降后坑杀与创业建基揉在一个`MIXED_NEGATIVE`父链里；按现口径，受降承诺首先属于M2政治/外交信用，坑杀程序与比例属于C5。把它们拿掉后，姚苌真正的C1主体是创业建基，以及一个独立的生前继承风险预置周期。",
           "counterpattern": {
-            "positive_parent_refs": "C1-P105-SUCCESSION-TRANSFER",
-            "counter_parent_refs": "C1-P105-FOUNDING-AND-SURRENDER"
+            "positive_parent_refs": [
+              "C1-P105-SUCCESSION-TRANSFER"
+            ],
+            "counter_parent_refs": [
+              "C1-P105-FOUNDING-AND-SURRENDER"
+            ]
           },
           "grade_basis": "创业建基与生前继承资源预置属于两个完全不同的国家级问题，各有完整PS2；在短窗口内已达到G4准入。由于第二周期确实来自储位，所以不再额外拿其他宗室材料叠加厚度。 由`G3-LOW`升为`G4-LOW / 77`。",
-          "position_basis": "草创九年且一正一负，取G3低位。",
+          "position_basis": "创业建基与生前继承资源预置是两个独立国家级问题，达到G4准入；短窗口及一正一负结构限制档内位置，取G4-LOW。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": "C1-P105-FOUNDING-AND-SURRENDER C1-P105-SUCCESSION-TRANSFER",
@@ -435,7 +443,7 @@
             ]
           },
           "grade_basis": "DW3足以否定`G4-HIGH`。但“葛陂南耗→北撤襄国建基”是清楚的战略重构，内部集团承载又提供第二类国家级风险配置证据，因此PS3主体仍在。维持`G4-LOW / 77`。",
-          "position_basis": "诱骗毁约与杀谏分别主要路由M2、C2/C5；张宾设计贡献显著，本人独占的跨领域高难周期不足历史罕见，故维持G4高位。",
+          "position_basis": "葛陂南耗后的襄国建基与内部集团承载保留PS3主体；DW3、张宾设计份额和跨域复验限制上沿，取G4-LOW。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
@@ -1720,14 +1728,41 @@
                 "docs/史料通读产物/唐以前编年/两晋/卷118-通读总结.md#L267"
               ],
               "cycle_basis": "万泥、乳陈有功可入公辅或分权安置，本人排除致两州叛乱；扣魏使后太史明确预警强魏将用兵，仍未释放、交换或备战，继而外围被掠。两次都存在可行替代和到达反馈。"
+            },
+            {
+              "parent_id": "C1-P092-EARLY-STATE-REBUILD",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-冯跋-FB-P1",
+                "https://zh.wikisource.org/wiki/晉書/卷125",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷114",
+                "https://tdr.lib.ntu.edu.tw/handle/123456789/25823?mode=full"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/晉書/卷125",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷114",
+                "https://tdr.lib.ntu.edu.tw/handle/123456789/25823?mode=full"
+              ],
+              "cycle_basis": "政变窗口中恢复有限政权、镇压宗室叛乱、吸收文官并在谏争后改令，形成早期建国—官僚配置的本人正向组织周期。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P092-ALLIANCE-AND-ENVOY"
+            "C1-P092-ALLIANCE-AND-ENVOY",
+            "C1-P092-EARLY-STATE-REBUILD"
           ],
           "typical_pattern": "能抓住政变窗口并恢复有限政权，但创业联盟安置和对魏使节风险均在明确预警下失衡。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P092-EARLY-STATE-REBUILD"
+            ],
             "counter_parent_refs": [
               "C1-P092-ALLIANCE-AND-ENVOY"
             ]
@@ -1737,7 +1772,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P092-ALLIANCE-AND-ENVOY"
+              "C1-P092-ALLIANCE-AND-ENVOY",
+              "C1-P092-EARLY-STATE-REBUILD"
             ],
             "result_nonconversion": true
           },

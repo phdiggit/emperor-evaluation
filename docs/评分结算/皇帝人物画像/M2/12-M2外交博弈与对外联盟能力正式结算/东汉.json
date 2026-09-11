@@ -9,9 +9,9 @@
         60,
         63,
         65,
-        97,
         98,
-        101,
+        99,
+        102,
         156,
         157
       ],
@@ -286,15 +286,20 @@
               },
               "axis_out_reason": "金城等羌长期居郡县、受徭役与地方行政支配；强征、边吏压迫、战争与招降不能整体当作外部外交。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4/C5/M1/C3/C2",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "金城等羌长期居郡县、受徭役与地方行政支配；强征、边吏压迫、战争与招降不能整体当作外部外交。"
+                "target_parent_ref": null,
+                "reason": "金城等羌长期居郡县、受徭役与地方行政支配；强征、边吏压迫、战争与招降不能整体当作外部外交。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
-              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
-              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
-              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+              "relationship_phase": "EXTERNAL_TO_INTERNAL_TRANSITION",
+              "political_membership_at_cycle_start": "EXTERNAL_AUTONOMOUS_POLITY_OR_TRIBE",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "羌部转入郡县强征与地方行政控制后"
             },
             {
               "parent_id": "M2-P013-SOUTH-XIONGNU-109-110",
@@ -810,15 +815,20 @@
               },
               "axis_out_reason": "西羌父链起点是并凉刺史虐扰与边地内部关系，选将、军事反馈和败战不能包装为外交。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4/M1/C3/C2",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "西羌父链起点是并凉刺史虐扰与边地内部关系，选将、军事反馈和败战不能包装为外交。"
+                "target_parent_ref": null,
+                "reason": "西羌父链起点是并凉刺史虐扰与边地内部关系，选将、军事反馈和败战不能包装为外交。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
-              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
-              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
-              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+              "relationship_phase": "EXTERNAL_TO_INTERNAL_TRANSITION",
+              "political_membership_at_cycle_start": "EXTERNAL_AUTONOMOUS_POLITY_OR_TRIBE",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "羌部被纳入郡县徭役与地方行政控制后"
             },
             {
               "parent_id": "M2-P017-SOUTH-XIONGNU-140-144",
@@ -972,8 +982,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P021-XIANBEI-TANSHIHUAI",
-              "M2-P021-BANDUN-CORRECTION"
+              "M2-P021-BANDUN-CORRECTION",
+              "M2-P021-XIANBEI-TANSHIHUAI"
             ],
             "result_nonconversion": true
           },

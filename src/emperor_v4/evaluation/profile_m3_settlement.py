@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 import re
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -71,14 +72,14 @@ def sync_governance_inputs() -> None:
         evidence['state_loss_basis'] = {a: {'grade':upstream[a][rid].get('loss_grade'), 'role':'STATE_SCORE_ONLY_NOT_M3_GRADE'} for a in ('C1','C2','C3')}
         evidence.pop('stability_k_public_basis', None)
         evidence.pop('stability_k_structure_status', None)
-        evidence['upstream_sync']['status'] = 'SYNCED_TO_FORMAL_GOVERNANCE_V3'
+        evidence['upstream_sync']['status'] = 'SYNCED_TO_FORMAL_GOVERNANCE_V4'
         evidence['upstream_sync'].pop('k_source', None)
         for field in ('construction_and_maintenance', 'costs_and_consequences', 'behavior_chain', 'counterpattern', 'public_adjudication'):
             if field in record:
                 record[field] = clean_retired_low_valley_references(record[field], field)
     summary_sync = settlement.get('summary', {}).get('upstream_sync')
     if isinstance(summary_sync, dict):
-        summary_sync['status'] = 'SYNCED_TO_FORMAL_GOVERNANCE_V3'
+        summary_sync['status'] = 'SYNCED_TO_FORMAL_GOVERNANCE_V4'
         summary_sync.pop('stability_k_source', None)
         summary_sync.pop('k_structure_distribution', None)
     _write_json(M3_SETTLEMENT, settlement)
@@ -181,6 +182,9 @@ def build(*, write: bool = False) -> dict[str, Any]:
             f"G{tier}": sum(row["axis_grade"] == f"G{tier}" for row in settlement["records"])
             for tier in range(6)
         }
+        settlement["reader_source_contract"]["source_count_distribution"] = dict(
+            Counter(str(len(row.get("source_evidence") or [])) for row in settlement["records"])
+        )
         for record in settlement["records"]:
             record["contract_version"] = M3_CONTRACT_VERSION
             _refresh_redundant_record_text(record)

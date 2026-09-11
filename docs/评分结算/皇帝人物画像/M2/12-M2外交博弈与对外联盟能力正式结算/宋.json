@@ -13,9 +13,9 @@
         73,
         74,
         75,
-        85,
-        128,
-        144,
+        86,
+        129,
+        145,
         162,
         176,
         178
@@ -650,8 +650,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P068-SOUTHERN-TANG",
-              "M2-P068-LIAO-RAPPROCHEMENT"
+              "M2-P068-LIAO-RAPPROCHEMENT",
+              "M2-P068-SOUTHERN-TANG"
             ],
             "result_nonconversion": true
           },
@@ -877,20 +877,28 @@
               "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
               "adversity_origin": "SELF_CAUSED",
-              "source_support": "BOUNDED_LOCAL_SUPPORT",
+              "source_support": "DIRECT_PROCESS_AND_EXECUTION",
               "source_refs": [
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/114",
-                "docs/史料通读产物/南宋/续资治通鉴/volume-137.source-summary.md#L27"
+                "docs/史料通读产物/南宋/续资治通鉴/volume-137.source-summary.md#L27",
+                "https://ctext.org/wiki.pl?chapter=73925&if=en&remap=gb",
+                "https://zh.wikisource.org/zh-hans/續資治通鑑/卷138",
+                "https://zh.wikisource.org/zh-hans/續資治通鑑/卷139"
               ],
-              "cycle_basis": "起手南宋弱势但有恢复愿望；隆兴北伐败后迅速转谈，以称叔侄、减岁币换停战，后长期守约。",
+              "cycle_basis": "隆兴北伐后，宋金围绕四州、岁币、称谓与归正人反复交涉；宋方在战败反馈后收缩目标，最终接受叔侄国、岁币与边界执行安排。原始编年与《宋史纪事本末》可直接核对条件变化与终局执行；但危机由本人批准的北伐引出，且主要议价由臣僚完成，继续保留MI2与E2。",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
-                "before_intensity": "MI3",
+                "before_intensity": "MI2",
                 "after_intensity": "MI2",
-                "source_support": "BOUNDED_LOCAL_SUPPORT",
-                "disposition": "DOWNGRADE_HIGH_MI_WEAK_SOURCE",
-                "basis": "有界材料可保留单一生命周期方向，但不足以证明跨期复现或系统性MI3。"
-              }
+                "source_support": "DIRECT_PROCESS_AND_EXECUTION",
+                "disposition": "PROMOTE_DIRECT_PROCESS_RETAIN_BOUNDED_INTENSITY",
+                "basis": "原始文本可核对战谈条件、反馈与和议执行，但本人归责和第二独立对象复验不足。"
+              },
+              "direct_process_refs": [
+                "https://ctext.org/wiki.pl?chapter=73925&if=en&remap=gb",
+                "https://zh.wikisource.org/zh-hans/續資治通鑑/卷138",
+                "https://zh.wikisource.org/zh-hans/續資治通鑑/卷139"
+              ]
             },
             {
               "parent_id": "M2-P146-COUNTER",
@@ -930,8 +938,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P146-POSITIVE",
-              "M2-P146-COUNTER"
+              "M2-P146-COUNTER",
+              "M2-P146-POSITIVE"
             ],
             "result_nonconversion": true
           },
@@ -944,7 +952,7 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "现有计分父链仍依赖有界摘要或分项汇总，缺少完整直接过程定位；本档位为低或中置信度显示点。"
+            "隆兴和议的条件与执行已补直接原始文本；负向前端误判与本人—臣僚归责仍需保持混合边界，维持E2/G3-MID。"
           ],
           "formal_status": "FORMAL_CURRENT",
           "adjudication_state": "FORMAL_CURRENT",
@@ -1100,8 +1108,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P065-LIAO-WARS",
-              "M2-P065-INTERMARKET"
+              "M2-P065-INTERMARKET",
+              "M2-P065-LIAO-WARS"
             ],
             "result_nonconversion": true
           },
@@ -1145,7 +1153,9 @@
               "source_support": "DIRECT_ALLIANCE_FORMATION_AND_TERMINAL_BREACH",
               "source_refs": [
                 "docs/史料通读产物/南宋/续资治通鉴/volume-166.source-summary.md#SRC-XUZIZHITONGJIAN-166-2324259-P0076",
-                "docs/史料通读产物/南宋/续资治通鉴/volume-167.source-summary.md#SRC-XUZIZHITONGJIAN-167-2323032-P0119"
+                "docs/史料通读产物/南宋/续资治通鉴/volume-167.source-summary.md#SRC-XUZIZHITONGJIAN-167-2323032-P0119",
+                "https://zh.wikisource.org/wiki/續資治通鑑/卷166",
+                "https://zh.wikisource.org/wiki/續資治通鑑/卷167"
               ],
               "cycle_basis": "蒙古使王檝来约夹攻金，宋蒙议定目标与河南条件；金亡后形成边界与撤军空间，理宗在多重预警下推进三京，蒙古使责宋败盟，关系转入长期敌对。M2只消费盟约、战后重谈与信用反馈，不把战损本身重复计入。",
               "intensity_grade_review": {
@@ -1159,7 +1169,11 @@
               "relationship_phase": "EXTERNAL_POLITY",
               "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
               "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/續資治通鑑/卷166",
+                "https://zh.wikisource.org/wiki/續資治通鑑/卷167"
+              ]
             },
             {
               "parent_id": "M2-P147-COUNTER",
@@ -1182,15 +1196,19 @@
               },
               "axis_out_reason": "端平北伐的军事、后勤与空城风险本身转M1/C1；盟约信用反馈已合并进直接M2生命周期。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M1/C1",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "端平北伐的军事、后勤与空城风险本身转M1/C1；盟约信用反馈已合并进直接M2生命周期。"
+                "target_parent_ref": null,
+                "reason": "端平北伐的军事、后勤与空城风险本身转M1/C1；盟约信用反馈已合并进直接M2生命周期。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
-              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
-              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
-              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+              "relationship_phase": "EXTERNAL_POLITY",
+              "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
             }
           ],
           "representative_parent_ids": [
@@ -1332,20 +1350,31 @@
               "direction": "POSITIVE",
               "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
-              "source_support": "BOUNDED_LOCAL_SUPPORT",
+              "source_support": "DIRECT_PROCESS_AND_EXECUTION",
               "source_refs": [
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/143",
-                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L110"
+                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L110",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-156.source-summary.md#L107-L108",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-157.source-summary.md#L41",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-158.source-summary.md#L49-L55",
+                "https://zh.wikisource.org/zh-hans/續資治通鑑/卷158",
+                "https://zh.wikisource.org/zh-hans/金史/卷98"
               ],
-              "cycle_basis": "起手宋金相对稳定；开禧败后能接受议和止损并重建边界执行。",
+              "cycle_basis": "开禧战后，方信孺三次出使金营，围绕归俘、岁币、称谓、割地、犒军与首谋反复交涉；韩侂胄死后，宋廷以交付韩侂胄、苏师旦首级换回淮、陕侵地，金方收受后罢兵并归还大散关、濠州。该段直接闭合了危机后的条件收缩、对方反馈、再授权与终局执行；但主要议价由使臣和中枢完成，不能据此抹平赵扩此前好牌下误判，仍保留MI2/E2。",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
                 "before_intensity": "MI2",
                 "after_intensity": "MI2",
-                "source_support": "BOUNDED_LOCAL_SUPPORT",
-                "disposition": "RETAIN_LIMITED_CASE_OR_LIFECYCLE",
-                "basis": "强度未超出现有有界材料上限，但来源不足以发布高置信度能力终值。"
-              }
+                "source_support": "DIRECT_PROCESS_AND_EXECUTION",
+                "disposition": "PROMOTE_DIRECT_PROCESS_RETAIN_BOUNDED_INTENSITY",
+                "basis": "补查闭合了部分条件、反馈与执行过程，但多边或本人归责边界仍不足以抬高强度、档位或证据级别。"
+              },
+              "direct_process_refs": [
+                "docs/史料通读产物/南宋/续资治通鉴/volume-158.source-summary.md#L51",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-158.source-summary.md#L54-L55",
+                "https://zh.wikisource.org/zh-hans/續資治通鑑/卷158",
+                "https://zh.wikisource.org/zh-hans/金史/卷98"
+              ]
             },
             {
               "parent_id": "M2-P145-COUNTER",
@@ -1381,13 +1410,13 @@
               "M2-P145-COUNTER"
             ]
           },
-          "grade_basis": "一次迟到纠正不能覆盖好牌误判。",
+          "grade_basis": "开禧后议和的条件收缩、首谋交换与侵地归还已有直接过程，但这是一次迟到纠正，不能覆盖好牌下误判，维持G1-MID / 25。",
           "position_basis": "按完整权力窗口的条件质量、执行、重复博弈与纠错厚度置MID。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P145-POSITIVE",
-              "M2-P145-COUNTER"
+              "M2-P145-COUNTER",
+              "M2-P145-POSITIVE"
             ],
             "result_nonconversion": true
           },
@@ -1400,8 +1429,8 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "强度复核仅有别轴汇总结算，缺少可反查的条件—反馈—选择—结果直接过程定位；相关父链只保留MI2，不据结果表宣称MI3/MI4。",
-            "现有计分父链仍依赖有界摘要或分项汇总，缺少完整直接过程定位；本档位为低或中置信度显示点。"
+            "正向父链已补出开禧后直接议和与执行；负向误判及韩侂胄—宁宗之间的本人授权归责仍缺完整可反查过程。",
+            "现有计分父链仍不足以发布全生涯高置信度M2能力终值；一次迟到纠正不能覆盖好牌误判。"
           ],
           "formal_status": "FORMAL_CURRENT",
           "adjudication_state": "FORMAL_CURRENT",

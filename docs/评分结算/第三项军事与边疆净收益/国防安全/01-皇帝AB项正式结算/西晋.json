@@ -9,12 +9,10 @@
       ],
       "records": [
         {
-          "AB_score_points": 90.5,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
             "A1": {
-              "axis_points": 18.4,
               "base_trajectory_value": 46,
               "ceiling_bonus": 0,
               "ceiling_progress": "NONE",
@@ -27,7 +25,6 @@
               "reason": "主要威胁是凉州方向叛乱与边患，马隆恢复凉州使压力由明显被动降到相互制衡，故A1由2档升至3档。"
             },
             "A2": {
-              "axis_points": 18.4,
               "base_trajectory_value": 46,
               "ceiling_bonus": 0,
               "ceiling_progress": "NONE",
@@ -57,11 +54,21 @@
               "rationale": "灭吴统一成果由第一项消费；第三项B只保留凉州危机收束、河西通道恢复与交趾等既有边疆控制，对西北和南方两个主要区域具有重要作用，取3档高位。"
             },
             "B4": {
-              "axis_points": 16.75,
-              "band_position": "MID",
               "grade": "B4-3",
+              "band_position": "MID",
               "score_rate": 67,
-              "rationale": "凉州在马隆收束后恢复州郡军政运行，交州节点也有常态官军；但鲜卑、河西压力和边地反复仍在，成果可运行而非无缺，取3档中位。"
+              "axis_points": 16.75,
+              "reason": "交趾—九真—日南在271年被吴恢复，构成本人窗口未恢复的主方向退控；凉州279年虽平，长期稳定仍未证，维持B4-3中位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "268年交趾—九真—日南仍是晋方南向控制，271年吴军恢复三郡并由陶璜设交州牧、继续讨降，构成本人窗口内未恢复的主要方向退控；279年马隆虽收复凉州并记‘凉州遂平’，后续长期稳定仍未证。两项主包合审维持B4-3中位，不以一般边患模板落档。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/两晋/卷080-通读总结.md",
+                  "docs/史料通读产物/唐以前编年/两晋/卷079-通读总结.md",
+                  "WAR-LEAD-JIN-MALONG-279",
+                  "WAR-LEAD-JINWU-JIAOZHI-268"
+                ]
+              }
             }
           },
           "b1_control_equivalents": {
@@ -139,16 +146,16 @@
           "excluded_founding_unification_refs": [],
           "observed_parent_cycle_count": 8,
           "A120_non_cost_anchor_points": 24.0,
-          "A120_positive_result_credit_points": 16.8,
-          "A120_score_points": 40.8,
+          "A120_positive_result_credit_points": 21.84,
+          "A120_score_points": 45.84,
           "B80_score_points": 47.39,
-          "AB200_score_points": 88.19,
+          "AB200_score_points": 93.23,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
               "attribution_basis": "司马炎 A1（主要威胁能力与战略主动）逐人裁决：主要威胁是凉州方向叛乱与边患，马隆恢复凉州使压力由明显被动降到相互制衡，故A1由2档升至3档。 司马炎是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-V079-JINWU-JIAOZHI-268、CAMPAIGN-V079-JINWU-XILING-272、CAMPAIGN-V080-JIN-MALONG-279、CAMPAIGN-V081-JIN-MURONG-282等8条父链。",
               "attribution_category": "RULER_COMMAND_SYSTEM",
-              "axis_points": 20.4,
+              "axis_points": 22.08,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0.0,
               "end_grade": 3,
@@ -162,7 +169,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 34.0,
+              "trajectory_value": 36.8,
               "within_band_deterioration_basis": "慕容方向EN2威胁恶化",
               "within_band_deterioration_penalty": 10,
               "improvement_step_credits": [
@@ -195,13 +202,21 @@
               ],
               "settlement_type": "CROSS_GRADE_IMPROVEMENT",
               "settlement_type_label": "跨档改善型",
-              "settlement_type_basis": "客观起终档为2→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
+              "settlement_type_basis": "客观起终档为2→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 30.0,
+              "attributable_value_delta": 12.0,
+              "weighted_change_value": 16.8,
+              "unclamped_trajectory_value": 36.8,
+              "non_cost_anchor_points": 12.0,
+              "positive_result_credit_points": 10.08,
+              "positive_value_delta": 12.0,
+              "negative_value_delta": 0.0
             },
             "A2": {
               "attributable_delta": 1.0,
               "attribution_basis": "司马炎 A2（边界、门户、纵深与缓冲体系）逐人裁决：凉州防务与河西交通恢复后，西北主要方向重新具备可运作防线；仍无证据证明全国边界总体安全，故A2由2档升至3档。 司马炎是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-V079-JINWU-JIAOZHI-268、CAMPAIGN-V079-JINWU-XILING-272、CAMPAIGN-V080-JIN-MALONG-279、CAMPAIGN-V081-JIN-MURONG-282等8条父链。",
               "attribution_category": "RULER_COMMAND_SYSTEM",
-              "axis_points": 20.4,
+              "axis_points": 23.76,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0.0,
               "end_grade": 3,
@@ -215,7 +230,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 34.0,
+              "trajectory_value": 39.6,
               "within_band_deterioration_basis": "交趾三郡方向EN2退控",
               "within_band_deterioration_penalty": 10,
               "improvement_step_credits": [
@@ -248,7 +263,15 @@
               ],
               "settlement_type": "CROSS_GRADE_IMPROVEMENT",
               "settlement_type_label": "跨档改善型",
-              "settlement_type_basis": "客观起终档为2→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
+              "settlement_type_basis": "客观起终档为2→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 30.0,
+              "attributable_value_delta": 14.0,
+              "weighted_change_value": 19.6,
+              "unclamped_trajectory_value": 39.6,
+              "non_cost_anchor_points": 12.0,
+              "positive_result_credit_points": 11.76,
+              "positive_value_delta": 14.0,
+              "negative_value_delta": 0.0
             }
           },
           "B80_adjudication": {
@@ -268,7 +291,9 @@
             "final_B1_rate": 59.0
           },
           "b1_cross_item_excluded_weighted_value": -0.32,
-          "A_axis_common_context": "灭吴统一由第一项消费；本轴只读取马隆恢复凉州等统一核心之外的边患变化。"
+          "A_axis_common_context": "灭吴统一由第一项消费；本轴只读取马隆恢复凉州等统一核心之外的边患变化。",
+          "control_contribution_route": "B4_BOUNDARY_REAUDIT",
+          "control_contribution_basis": "B4边界复核闭合；不改既有B2归责或主控制成果包。"
         },
         {
           "ruler_id": "RULER-SHADOW-司马炽",
@@ -284,7 +309,6 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 0,
-              "axis_points": 0.0,
               "transition": "WORSENED",
               "reason": "主要威胁汉赵已由反复入侵者发展为直接终结中央政权的存亡级力量，故A1由2档降至0档。",
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
@@ -297,36 +321,34 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 0,
-              "axis_points": 0.0,
               "transition": "WORSENED",
               "reason": "洛阳门户、都畿防御与外围援应体系相继失效，核心直接暴露且无可移交边界，故A2由2档降至0档。",
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
               "grade": "B1-1",
+              "axis_points": 7.5,
               "band_position": "LOW",
               "score_rate": 30.0,
-              "axis_points": 7.5,
               "reason": "规模与控制强度：307桥接保留西北0.8、交州0.8、宁州0.5；北方库存已在八王/永嘉乱中退出。311后西北失去中央连续控制，交州+宁州1.3作为南方存量桥接东晋。",
               "weighted_control_value": 0.04,
               "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
+              "axis_points": 0.0,
               "band_position": "LOW",
               "score_rate": 0,
-              "axis_points": 0.0,
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             },
             "B4": {
               "grade": "B4-0",
+              "axis_points": 0.0,
               "band_position": "LOW",
               "score_rate": 0,
-              "axis_points": 0.0,
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 7.5,
           "b1_control_equivalents": {
             "start": 0,
             "end": 0,
@@ -407,7 +429,15 @@
               ],
               "settlement_type": "CROSS_GRADE_DETERIORATION",
               "settlement_type_label": "跨档恶化型",
-              "settlement_type_basis": "客观起终档为2→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.5档，负向责任仍由独立字段保留。"
+              "settlement_type_basis": "客观起终档为2→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.5档，负向责任仍由独立字段保留。",
+              "end_state_value": 0.0,
+              "attributable_value_delta": -4.5,
+              "weighted_change_value": -2.25,
+              "unclamped_trajectory_value": -2.25,
+              "non_cost_anchor_points": 0.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": -4.5
             },
             "A2": {
               "attributable_delta": -0.5,
@@ -437,7 +467,15 @@
               ],
               "settlement_type": "CROSS_GRADE_DETERIORATION",
               "settlement_type_label": "跨档恶化型",
-              "settlement_type_basis": "客观起终档为2→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.5档，负向责任仍由独立字段保留。"
+              "settlement_type_basis": "客观起终档为2→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.5档，负向责任仍由独立字段保留。",
+              "end_state_value": 0.0,
+              "attributable_value_delta": -4.0,
+              "weighted_change_value": -2.0,
+              "unclamped_trajectory_value": -2.0,
+              "non_cost_anchor_points": 0.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": -4.0
             }
           },
           "B80_adjudication": {

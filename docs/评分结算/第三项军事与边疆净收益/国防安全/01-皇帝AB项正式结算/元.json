@@ -60,7 +60,6 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 80,
-              "axis_points": 32.0,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "整体边疆形势：1206年蒙古政权形成后，金、西夏及中亚强权仍构成多方向竞争，接手为3档；至1227年，第三项独立消费的花剌子模—中亚—西亚战争已使蒙古形成跨区域主导秩序，未形成耐久统一成果的金夏安全行动只补充威胁变化，交班为5档。攻金遗留控制与灭夏终局归第一项，不作为本轴正向信用重复计入。"
@@ -76,16 +75,15 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 58,
-              "axis_points": 23.2,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "整体边疆形势：1206年蒙古核心已具有效防卫能力但战略纵深尚未闭合，整体为3档；至1227年花剌子模主体系虽被击破，呼罗珊仍有札兰丁抵抗，第三项独立方向达到总体安全但有缺口的4档。攻金耐久成果与灭夏终局归第一项，不用统一前置成果把本轴抬到5档。"
             },
             "B1": {
               "grade": "B1-4",
+              "axis_points": 20.5,
               "band_position": "MID",
               "score_rate": 82.0,
-              "axis_points": 20.5,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：废止‘1206—1227新增整链一律归第一项’的形式节点切法；只排除灭夏终局0.8及攻金遗留控制0.5，花剌子模—中亚—西亚4.25保留在第三项，机械落B1-4 MID。",
               "raw_net_change": 5.55,
@@ -93,9 +91,9 @@
             },
             "B2": {
               "grade": "B2-5",
+              "axis_points": 28.5,
               "band_position": "MID",
               "score_rate": 95,
-              "axis_points": 28.5,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "战略价值：花剌子模国家体系被击破，并形成横跨西域、河中、呼罗珊的控制组合，决定性改变欧亚整体战略格局；金夏统一前置成果不在本轴重复，取B2-5中位。"
             },
@@ -104,11 +102,22 @@
               "band_position": "MID",
               "score_rate": 67,
               "axis_points": 16.75,
-              "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
-              "reason": "交班成熟度：西域、河中已有可继承的军政控制，呼罗珊亦形成大部有效控制；但札兰丁抵抗延续、远端网络维持压力高，交班仍有显著脆弱包，取B4-3中位。"
+              "reason": "西域、河中已有可继承军政控制，但呼罗珊等远端主包仍存在持续抵抗和征服军临时接续，地方执行未全部转为常态。依这一实质控制缺口维持3档中位，不以距离或维持负担本身限档。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "西域、河中已有可继承军政控制，但呼罗珊等远端主包仍存在持续抵抗和征服军临时接续，地方执行未全部转为常态。依这一实质控制缺口维持3档中位，不以距离或维持负担本身限档。",
+                "source_refs": [
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-160.battle-adjudications.json",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-160.source-summary.md",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-162.battle-adjudications.json",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-162.source-summary.md",
+                  "WAR-CARD-9F1DB1A547E8155400DE-P02",
+                  "WAR-CARD-6142651BA3FFBE5B2A3C-P02",
+                  "WAR-CARD-DF5857507B2EECC09B4C-P02"
+                ]
+              }
             }
           },
-          "AB_score_points": 120.95,
           "b1_region_control": {
             "start": {},
             "end": {
@@ -307,7 +316,15 @@
               "settlement_type": "CROSS_GRADE_IMPROVEMENT",
               "settlement_type_label": "跨档改善型",
               "settlement_type_basis": "客观起终档为3→5，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为2档，伴随专项加减仍由独立字段保留。",
-              "ceiling_progress_basis": "花剌子模—中亚—西亚所形成的主导安全秩序已由3→5消费；金夏统一成果排除，未另证未消费的独立封顶增量。"
+              "ceiling_progress_basis": "花剌子模—中亚—西亚所形成的主导安全秩序已由3→5消费；金夏统一成果排除，未另证未消费的独立封顶增量。",
+              "end_state_value": 50.0,
+              "attributable_value_delta": 20.0,
+              "weighted_change_value": 28.0,
+              "unclamped_trajectory_value": 78.0,
+              "non_cost_anchor_points": 30.0,
+              "positive_result_credit_points": 16.8,
+              "positive_value_delta": 20.0,
+              "negative_value_delta": 0.0
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -358,7 +375,15 @@
               ],
               "settlement_type": "CROSS_GRADE_IMPROVEMENT",
               "settlement_type_label": "跨档改善型",
-              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 40.0,
+              "attributable_value_delta": 10.0,
+              "weighted_change_value": 14.0,
+              "unclamped_trajectory_value": 54.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 8.4,
+              "positive_value_delta": 10.0,
+              "negative_value_delta": 0.0
             }
           },
           "B80_adjudication": {
@@ -377,7 +402,9 @@
             "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/元.json",
             "final_B1_rate": 82.0
           },
-          "b1_cross_item_excluded_weighted_value": 1.3
+          "b1_cross_item_excluded_weighted_value": 1.3,
+          "control_contribution_route": "REAL_REGION_LEDGER",
+          "control_contribution_basis": "沿用当前本人贡献类型与主控制成果包；本条仅更新B4成熟度，未另改B2归责。"
         },
         {
           "ruler_id": "RULER-YUAN-OGEDEI",
@@ -441,7 +468,6 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 60,
-              "axis_points": 24.0,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "整体边疆形势：接手时已处支配性战略态势；任内灭金终局成果归第一项，东伊朗、钦察—罗斯、南高加索扩张归第三项，后者巩固而未再跨越5档上限，交班仍为5档。"
@@ -457,16 +483,15 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 60,
-              "axis_points": 24.0,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "整体边疆形势：接手时大陆纵深和主要边疆已形成完整体系；任内灭金终局归第一项，第三项所计西方扩张继续扩大纵深但没有改变5档上限，交班仍为5档。"
             },
             "B1": {
               "grade": "B1-4",
+              "axis_points": 20.5,
               "band_position": "MID",
               "score_rate": 82.0,
-              "axis_points": 20.5,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：本人新增中只排除灭金终局形成的东北0.5与淮河边界0.7；东伊朗0.25、钦察—罗斯1.5、南高加索0.6均属元朝中国统一主链之外的帝国扩张，连同铁木真交班库存的40%守成信用，第三项有效加权值4.57，机械落B1-4 MID。",
               "raw_net_change": 3.55,
@@ -474,9 +499,9 @@
             },
             "B2": {
               "grade": "B2-5",
+              "axis_points": 28.5,
               "band_position": "MID",
               "score_rate": 95,
-              "axis_points": 28.5,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "战略价值：东伊朗完成收束并建立钦察—罗斯、南高加索宗主网络，多个方向共同改变欧亚整体战略格局，取B2-5中位；灭金终局不在本轴重复计入。"
             },
@@ -485,11 +510,21 @@
               "band_position": "MID",
               "score_rate": 67,
               "axis_points": 16.75,
-              "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
-              "reason": "交班成熟度：西方新增成果已形成可继承的征贡、驻军和军政网络，但控制形式松散、距离遥远且仍需高强度维持，成熟与脆弱包并存，取B4-3中位。"
+              "reason": "太宗十二年仍有西域未下诸部，斡罗斯、钦察和马札儿证据表现为连续征服与班师，未见地方常态接管；主包仍有实质成熟缺口，维持B4-3中位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "《元史》太宗十二年仍记贵由‘克西域未下诸部’，次年窝阔台即崩；《元史·速不台传》所载斡罗斯、钦察、马札儿是连续出征、攻城、征服后班师的军事链，未见与高丽‘承制设官分镇’同等级的西方地方接管。西方主包在交班时仍有未下部众和征服军接续的实质控制缺口，故确认B4-3中位；成都、汉州阶段卡不能替代西方主包的成熟度证据。",
+                "source_refs": [
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-170.battle-adjudications.json",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-170.source-summary.md",
+                  "WAR-CARD-9CAF1EF4C2D3743FBE07-P02",
+                  "WAR-CARD-9CAF1EF4C2D3743FBE07-P04",
+                  "https://zh.wikisource.org/zh-hans/%E5%85%83%E5%8F%B2/%E5%8D%B7002",
+                  "https://zh.wikisource.org/zh-hans/%E5%85%83%E5%8F%B2/%E5%8D%B7121"
+                ]
+              }
             }
           },
-          "AB_score_points": 113.75,
           "b1_region_control": {
             "start": {
               "HEXI_NINGXIA_ORDOS": 0.8,
@@ -719,7 +754,15 @@
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "现有A项父链覆盖巴齐马克等集团及东线战事，尚未闭合西征总体成果到本轴主要威胁能力或可交班防御协同的独立映射及本人归责；即按显著14点标准也不能由B项扩张直接转分，当前证据不足。"
               },
-              "ceiling_progress_basis": "现有A项父链覆盖巴齐马克等集团及东线战事，尚未闭合西征总体成果到本轴主要威胁能力或可交班防御协同的独立映射及本人归责；即按显著14点标准也不能由B项扩张直接转分，当前证据不足。"
+              "ceiling_progress_basis": "现有A项父链覆盖巴齐马克等集团及东线战事，尚未闭合西征总体成果到本轴主要威胁能力或可交班防御协同的独立映射及本人归责；即按显著14点标准也不能由B项扩张直接转分，当前证据不足。",
+              "end_state_value": 50.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 50.0,
+              "non_cost_anchor_points": 30.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -750,7 +793,15 @@
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "现有A项父链覆盖巴齐马克等集团及东线战事，尚未闭合西征总体成果到本轴主要威胁能力或可交班防御协同的独立映射及本人归责；即按显著14点标准也不能由B项扩张直接转分，当前证据不足。"
               },
-              "ceiling_progress_basis": "现有A项父链覆盖巴齐马克等集团及东线战事，尚未闭合西征总体成果到本轴主要威胁能力或可交班防御协同的独立映射及本人归责；即按显著14点标准也不能由B项扩张直接转分，当前证据不足。"
+              "ceiling_progress_basis": "现有A项父链覆盖巴齐马克等集团及东线战事，尚未闭合西征总体成果到本轴主要威胁能力或可交班防御协同的独立映射及本人归责；即按显著14点标准也不能由B项扩张直接转分，当前证据不足。",
+              "end_state_value": 50.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 50.0,
+              "non_cost_anchor_points": 30.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             }
           },
           "B80_adjudication": {
@@ -769,7 +820,9 @@
             "decision_status": "REVIEWED",
             "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/元.json",
             "final_B1_rate": 82.0
-          }
+          },
+          "control_contribution_route": "B4_BOUNDARY_REAUDIT",
+          "control_contribution_basis": "原西方主包对象与阶段卡引用已回源核对；B4确认西方征服链在交班前仍有未下部众和接管缺口。"
         },
         {
           "ruler_id": "RULER-YUAN-MONGKE",
@@ -810,7 +863,6 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 60,
-              "axis_points": 24.0,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "整体边疆形势：南宋和大理取得链由第一项消费；安南、高丽两个独立方向的胜绩在既有支配态势上提供有限增量而不重复制造状态跃迁。"
@@ -826,16 +878,15 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 60,
-              "axis_points": 24.0,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "整体边疆形势：蒙古核心边疆安全体系保持完整，保留的两个外部方向均未造成防线净损。"
             },
             "B1": {
               "grade": "B1-4",
+              "axis_points": 22.25,
               "band_position": "HIGH",
               "score_rate": 89.0,
-              "axis_points": 22.25,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：继承钦察—罗斯、西域、河中、东伊朗、东北、淮河等大规模库存产生高额守成信用；吐蕃及旭烈兀西征的非创业独立控制净增继续计入；大理0.5去重。",
               "raw_net_change": 1.55,
@@ -843,22 +894,21 @@
             },
             "B2": {
               "grade": "B2-3",
+              "axis_points": 20.1,
               "band_position": "MID",
               "score_rate": 67,
-              "axis_points": 20.1,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：高丽六城取得和安南破城对东北、西南两个区域产生可识别战略改善。"
             },
             "B4": {
               "grade": "B4-2",
+              "axis_points": 13.0,
               "band_position": "MID",
               "score_rate": 52,
-              "axis_points": 13.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：两个方向可由将领体系交付，但样本少且安南控制持续性有限，结构成熟度止于B4-2。"
             }
           },
-          "AB_score_points": 103.35,
           "b1_region_control": {
             "start": {
               "HEXI_NINGXIA_ORDOS": 0.8,
@@ -1122,7 +1172,15 @@
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "已准入安南、高丽行动主要是阶段施压，尚未证成可移交的主要威胁结构改变或有效防御网络；按统一显著14点标准仍缺持续结构与本人归责证据，统一排除成果不得重入。"
               },
-              "ceiling_progress_basis": "已准入安南、高丽行动主要是阶段施压，尚未证成可移交的主要威胁结构改变或有效防御网络；按统一显著14点标准仍缺持续结构与本人归责证据，统一排除成果不得重入。"
+              "ceiling_progress_basis": "已准入安南、高丽行动主要是阶段施压，尚未证成可移交的主要威胁结构改变或有效防御网络；按统一显著14点标准仍缺持续结构与本人归责证据，统一排除成果不得重入。",
+              "end_state_value": 50.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 50.0,
+              "non_cost_anchor_points": 30.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1153,7 +1211,15 @@
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "已准入安南、高丽行动主要是阶段施压，尚未证成可移交的主要威胁结构改变或有效防御网络；按统一显著14点标准仍缺持续结构与本人归责证据，统一排除成果不得重入。"
               },
-              "ceiling_progress_basis": "已准入安南、高丽行动主要是阶段施压，尚未证成可移交的主要威胁结构改变或有效防御网络；按统一显著14点标准仍缺持续结构与本人归责证据，统一排除成果不得重入。"
+              "ceiling_progress_basis": "已准入安南、高丽行动主要是阶段施压，尚未证成可移交的主要威胁结构改变或有效防御网络；按统一显著14点标准仍缺持续结构与本人归责证据，统一排除成果不得重入。",
+              "end_state_value": 50.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 50.0,
+              "non_cost_anchor_points": 30.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             }
           },
           "B80_adjudication": {
@@ -1363,7 +1429,6 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 48,
-              "axis_points": 19.2,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "整体边疆形势：灭宋统一成果剥离后，从既成元朝稳定优势起算；海都、乃颜等压力被压制，但征日与两次安南远征失败使其未上升至支配秩序。"
@@ -1379,16 +1444,15 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 48,
-              "axis_points": 19.2,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "整体边疆形势：东北、西北和西南边疆总体守住，海外与东南亚远征失败未击穿本土防线，任末仍是总体安全但有缺口。"
             },
             "B1": {
               "grade": "B1-4",
+              "axis_points": 18.75,
               "band_position": "LOW",
               "score_rate": 75.0,
-              "axis_points": 18.75,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：B1全量重审已确认最终档内率。",
               "raw_net_change": 1.45,
@@ -1396,22 +1460,84 @@
             },
             "B2": {
               "grade": "B2-3",
+              "axis_points": 20.1,
               "band_position": "MID",
               "score_rate": 67,
-              "axis_points": 20.1,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：平乃颜、应对海都及西南扩展产生跨区域战略作用，但多次远征失败限制全国级净改善。"
             },
             "B4": {
-              "grade": "B4-3",
-              "band_position": "MID",
-              "score_rate": 67,
-              "axis_points": 16.75,
-              "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
-              "reason": "规模与控制强度：行省、诸王和多战区军队具备重复交付能力，海外运输、补给和远征终局的不稳定使结构止于B4-3。"
+              "grade": "B4-4",
+              "band_position": "LOW",
+              "score_rate": 75,
+              "axis_points": 18.75,
+              "reason": "行省、诸王和内陆多战区控制包有重复交付与恢复；海外远征失败是未取得目标，不是既有控制缺口，按压力保全上限裁B4-4低位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "行省、诸王和多战区内陆控制包有重复交付与恢复结果；日本、爪哇等海外远征失败属于未取得目标，不是既有控制成果的成熟度缺口。未登记本人任内主要控制包的实质退控，重大压力下保全上限为4；裁B4-4低位，不升5。",
+                "source_refs": [
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-179.battle-adjudications.json",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-179.source-summary.md",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-180.battle-adjudications.json",
+                  "docs/史料通读产物/南宋/续资治通鉴/volume-180.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-186.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-186.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-189.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-189.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-193.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-193.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-185.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-185.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-188.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-188.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-191.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-191.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-192.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-192.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-196.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-196.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-187.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-187.source-summary.md",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-190.battle-adjudications.json",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-190.source-summary.md",
+                  "WAR-CARD-02B63F78F3A6EAF9DECC-P01",
+                  "WAR-CARD-A7FBB11E6082E50337D2-P01",
+                  "WAR-CARD-91C6DF69010961398F48-P01",
+                  "WAR-CARD-50BAF9CAAD2F4D06D78F-P01",
+                  "WAR-CARD-2518B22FB17EBA0C7CB3-P01",
+                  "WAR-CARD-5E452272AB4214A9F60E-P01",
+                  "WAR-CARD-5E452272AB4214A9F60E-P04",
+                  "WAR-CARD-9AF6089E0EA7595ED2A8-P01",
+                  "WAR-CARD-167A97612A40F03C129C-P01",
+                  "WAR-CARD-A95E0E633B2595A9A026-P01",
+                  "WAR-CARD-BF33F99A2FD994F2D556-P01",
+                  "WAR-CARD-9074F072CA3238962E28-P03",
+                  "WAR-CARD-EF111C59866C21FE8292-P01",
+                  "WAR-CARD-6C5F763420216AEC61C9-P01",
+                  "WAR-CARD-1E836BB9E4B77DB8D144-P01",
+                  "WAR-CARD-EAD15DCA7BE456503D4F-P01",
+                  "WAR-CARD-E68EA3F647032BE48032-P01",
+                  "WAR-CARD-4DD5013438B532FD3380-P01",
+                  "WAR-CARD-88A752669F30BD5E61C8-P02",
+                  "WAR-CARD-EDBF39BE1B3BBEB5E9D5-P01",
+                  "WAR-CARD-03146D3F4A55F40EAC42-P01",
+                  "WAR-CARD-46D5F00EBA12B9C29B3A-P01",
+                  "WAR-CARD-520A8DF6C4F94B182353-P01",
+                  "WAR-CARD-52FEAB692B9DF722F6C7-P01",
+                  "WAR-CARD-85B67DB87AA631D16059-P01",
+                  "WAR-CARD-2EA38930D803CEE14726-P02",
+                  "WAR-CARD-DD506A6EBBFCBC61A48A-P01",
+                  "WAR-CARD-F8916CD7A4578D3B4392-P01",
+                  "WAR-CARD-E2C44AF6DA3F9CF0E726-P03",
+                  "WAR-CARD-A33E7073799E5B4E81A2-P01",
+                  "WAR-CARD-1D7EEDDCDCEBF6005BB9-P02",
+                  "WAR-CARD-2E6BCEF35AA22511E38E-P01",
+                  "WAR-CARD-605C2686F9140A8CED40-P01",
+                  "WAR-CARD-7F46E079D41EB664D301-P02"
+                ]
+              }
             }
           },
-          "AB_score_points": 94.0,
           "b1_region_control": {
             "start": {
               "HAMI_GATEWAY": 0.2,
@@ -1720,8 +1846,8 @@
           "A120_non_cost_anchor_points": 48.0,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 48.0,
-          "B80_score_points": 51.47,
-          "AB200_score_points": 99.47,
+          "B80_score_points": 52.84,
+          "AB200_score_points": 100.84,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -1751,7 +1877,15 @@
               "positive_credit_review": {
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "统一成果排除后，海都及乃颜压力的应对与海外失败合看，没有可另行确认的同档净结构突破；平乱与守住不自动等于建设。"
-              }
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1781,17 +1915,25 @@
               "positive_credit_review": {
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "统一成果排除后，海都及乃颜压力的应对与海外失败合看，没有可另行确认的同档净结构突破；平乱与守住不自动等于建设。"
-              }
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             }
           },
           "B80_adjudication": {
-            "B80_points": 51.47,
+            "B80_points": 52.84,
             "formal_B1_rate": 75.0,
             "formal_B2_rate": 67.0,
-            "formal_B4_rate": 67.0,
+            "formal_B4_rate": 75.0,
             "adjudicated_B1_rate": 75.0,
             "adjudicated_B2_rate": 67.0,
-            "adjudicated_B4_rate": 67.0,
+            "adjudicated_B4_rate": 75.0,
             "consistency_basis": "统一核心净扩张仍排除；B1补回西北、西南同值起终存量及耽罗0.25净增，只兑现边疆绝对守成与非统一新增控制，不重复第一项统一成果。"
           },
           "b1_reaudit": {
@@ -1799,7 +1941,9 @@
             "decision_status": "REVIEWED",
             "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/元.json",
             "final_B1_rate": 75.0
-          }
+          },
+          "control_contribution_route": "B4_BOUNDARY_REAUDIT",
+          "control_contribution_basis": "B4边界复核闭合；不改既有B2归责或主控制成果包。"
         },
         {
           "ruler_id": "RULER-YUAN-TEMUR",
@@ -1876,7 +2020,6 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 48,
-              "axis_points": 19.2,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "整体边疆形势：承接世祖末期稳定优势，西北与西南压力并未改变总体战略层级。"
@@ -1892,16 +2035,15 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 48,
-              "axis_points": 19.2,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "整体边疆形势：主要边疆维持总体安全，但八百媳妇远征造成显著西南负债。"
             },
             "B1": {
               "grade": "B1-3",
+              "axis_points": 15.0,
               "band_position": "LOW",
               "score_rate": 60.0,
-              "axis_points": 15.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：B1全量重审已确认最终档内率。",
               "raw_net_change": -0.25,
@@ -1909,22 +2051,21 @@
             },
             "B2": {
               "grade": "B2-2",
+              "axis_points": 15.6,
               "band_position": "MID",
               "score_rate": 52,
-              "axis_points": 15.6,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：若干边地胜绩和地方平乱具区域作用，不能抵消西南远征失败。"
             },
             "B4": {
               "grade": "B4-2",
+              "axis_points": 13.0,
               "band_position": "MID",
               "score_rate": 52,
-              "axis_points": 13.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：常态边防仍可运转，但跨区域远征动员与后勤出现重大失灵。"
             }
           },
-          "AB_score_points": 82.0,
           "b1_region_control": {
             "start": {
               "HAMI_GATEWAY": 0.2,
@@ -2139,7 +2280,15 @@
               "positive_credit_review": {
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "西北维持既有格局，八百媳妇行动未成；没有已交班的新威胁结构或防线协同增量。"
-              }
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -2169,7 +2318,15 @@
               "positive_credit_review": {
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "西北维持既有格局，八百媳妇行动未成；没有已交班的新威胁结构或防线协同增量。"
-              }
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             }
           },
           "B80_adjudication": {
@@ -2230,7 +2387,6 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 48,
-              "axis_points": 19.2,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "整体边疆形势：短期窗口继承稳定优势，当前两项低强度周期不足以证明总体态势变化。"
@@ -2246,16 +2402,15 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 48,
-              "axis_points": 19.2,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "整体边疆形势：主要边界维持总体安全，未见可归责的重大改善或破口。"
             },
             "B1": {
               "grade": "B1-3",
+              "axis_points": 15.0,
               "band_position": "LOW",
               "score_rate": 60.0,
-              "axis_points": 15.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：B1全量重审已确认最终档内率。",
               "raw_net_change": 0.0,
@@ -2263,22 +2418,21 @@
             },
             "B2": {
               "grade": "B2-0",
+              "axis_points": 0.0,
               "band_position": "LOW",
               "score_rate": 0,
-              "axis_points": 0.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：没有可归责于本窗口的新建或恢复控制成果。"
             },
             "B4": {
               "grade": "B4-0",
+              "axis_points": 0.0,
               "band_position": "LOW",
               "score_rate": 0,
-              "axis_points": 0.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：存量军事结构为继承所得，两项低强度任务不能证明新增结构贡献。"
             }
           },
-          "AB_score_points": 53.4,
           "b1_region_control": {
             "start": {
               "HAMI_GATEWAY": 0.2,
@@ -2460,7 +2614,15 @@
               "positive_credit_review": {
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "短期继承既有高位，现有材料没有本人新建防御协同或削弱主要威胁的独立成果；既有负向调整不撤。"
-              }
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 35.0,
+              "non_cost_anchor_points": 21.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -2490,7 +2652,15 @@
               "positive_credit_review": {
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "短期继承既有高位，现有材料没有本人新建防御协同或削弱主要威胁的独立成果；既有负向调整不撤。"
-              }
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             }
           },
           "B80_adjudication": {
@@ -2579,7 +2749,6 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 48,
-              "axis_points": 19.2,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "整体边疆形势：九年窗口以内地治安任务为主，元朝总体仍处稳定优势。"
@@ -2595,16 +2764,15 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 48,
-              "axis_points": 19.2,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "整体边疆形势：地方骚乱未形成主要边界破口，边疆安全层级总体稳定。"
             },
             "B1": {
               "grade": "B1-3",
+              "axis_points": 15.0,
               "band_position": "LOW",
               "score_rate": 60.0,
-              "axis_points": 15.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：B1全量重审已确认最终档内率。",
               "raw_net_change": 0.0,
@@ -2612,22 +2780,21 @@
             },
             "B2": {
               "grade": "B2-0",
+              "axis_points": 0.0,
               "band_position": "LOW",
               "score_rate": 0,
-              "axis_points": 0.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：当前材料没有新增或重建的区域级控制成果。"
             },
             "B4": {
               "grade": "B4-0",
+              "axis_points": 0.0,
               "band_position": "LOW",
               "score_rate": 0,
-              "axis_points": 0.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：平常治安处置不足以证明新增可移交军事结构。"
             }
           },
-          "AB_score_points": 53.4,
           "b1_region_control": {
             "start": {
               "HAMI_GATEWAY": 0.2,
@@ -2825,7 +2992,15 @@
               "positive_credit_review": {
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "现有治安与局部平乱材料不等于国家级威胁结构削弱或边防协同建设，高位继承不自动授分。"
-              }
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 35.0,
+              "non_cost_anchor_points": 21.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -2855,7 +3030,15 @@
               "positive_credit_review": {
                 "decision": "EVIDENCE_LIMITED",
                 "basis": "现有治安与局部平乱材料不等于国家级威胁结构削弱或边防协同建设，高位继承不自动授分。"
-              }
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             }
           },
           "B80_adjudication": {
@@ -3680,7 +3863,6 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 0,
-              "axis_points": 0.0,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "整体边疆形势：从仍具全国优势的元朝起点降至大都失守、退出中原的政权生存危机，战略态势完成全级崩塌。"
@@ -3696,16 +3878,15 @@
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
               "trajectory_value": 0,
-              "axis_points": 0.0,
               "score_exclusion_reason": null,
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "整体边疆形势：河南、江淮、江南、湖广、四川直至北方核心依次失控，主要边界和核心防护体系均告破产。"
             },
             "B1": {
               "grade": "B1-0",
+              "axis_points": 0.0,
               "band_position": "LOW",
               "score_rate": 0.0,
-              "axis_points": 0.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：B1全量重审已确认最终档内率。",
               "raw_net_change": -3.7,
@@ -3713,22 +3894,21 @@
             },
             "B2": {
               "grade": "B2-0",
+              "axis_points": 0.0,
               "band_position": "LOW",
               "score_rate": 0,
-              "axis_points": 0.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：局部反攻无法形成任末仍存的区域控制改善，全国控制成果为净负。"
             },
             "B4": {
               "grade": "B4-0",
+              "axis_points": 0.0,
               "band_position": "LOW",
               "score_rate": 0,
-              "axis_points": 0.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
               "reason": "规模与控制强度：军阀内战、跨战区失协和中央动员失灵使军事结构不可持续、不可移交。"
             }
           },
-          "AB_score_points": 0.0,
           "b1_region_control": {
             "start": {
               "HAMI_GATEWAY": 0.2,
@@ -4999,7 +5179,15 @@
               ],
               "settlement_type": "CROSS_GRADE_DETERIORATION",
               "settlement_type_label": "跨档恶化型",
-              "settlement_type_basis": "客观起终档为4→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-4档，负向责任仍由独立字段保留。"
+              "settlement_type_basis": "客观起终档为4→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-4档，负向责任仍由独立字段保留。",
+              "end_state_value": 0.0,
+              "attributable_value_delta": -40.0,
+              "weighted_change_value": -20.0,
+              "unclamped_trajectory_value": -20.0,
+              "non_cost_anchor_points": 0.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": -40.0
             },
             "A2": {
               "attributable_delta": -4.0,
@@ -5152,7 +5340,15 @@
               ],
               "settlement_type": "CROSS_GRADE_DETERIORATION",
               "settlement_type_label": "跨档恶化型",
-              "settlement_type_basis": "客观起终档为4→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-4档，负向责任仍由独立字段保留。"
+              "settlement_type_basis": "客观起终档为4→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-4档，负向责任仍由独立字段保留。",
+              "end_state_value": 0.0,
+              "attributable_value_delta": -40.0,
+              "weighted_change_value": -20.0,
+              "unclamped_trajectory_value": -20.0,
+              "non_cost_anchor_points": 0.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": -40.0
             }
           },
           "B80_adjudication": {

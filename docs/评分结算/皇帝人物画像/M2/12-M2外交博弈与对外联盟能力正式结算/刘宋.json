@@ -5,8 +5,8 @@
     "records": {
       "positions": [
         43,
-        111,
         112,
+        113,
         147
       ],
       "records": [
@@ -138,10 +138,14 @@
               },
               "axis_out_reason": "薛安都等先向刘彧乞降时仍属刘宋内战后的本朝州镇；重兵迎降与预警拒绝属于内部安全信用/认知与军事处置。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4/C2/C1/M1",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "薛安都等先向刘彧乞降时仍属刘宋内战后的本朝州镇；重兵迎降与预警拒绝属于内部安全信用/认知与军事处置。"
+                "target_parent_ref": null,
+                "reason": "薛安都等先向刘彧乞降时仍属刘宋内战后的本朝州镇；重兵迎降与预警拒绝属于内部安全信用/认知与军事处置。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -253,10 +257,12 @@
               },
               "axis_out_reason": "453年讨刘劭联盟由本朝宗室、州镇与功臣组成，内部讨逆与战后利益安全不属于外交。",
               "route_handoff": {
-                "status": "ROUTED",
+                "status": "CLOSED",
                 "target_axis": "M4/M1",
-                "target_parent_ref": "M4-LJ-P1",
-                "reason": "453年讨刘劭联盟由本朝宗室、州镇与功臣组成，内部讨逆与战后利益安全不属于外交。"
+                "target_parent_ref": "M4P-RULER-SHADOW-刘骏-LJ-P1",
+                "reason": "453年讨刘劭联盟由本朝宗室、州镇与功臣组成，内部讨逆与战后利益安全不属于外交。",
+                "original_target_parent_ref": "M4-LJ-P1",
+                "closure_basis": "NORMALIZED_TARGET_PARENT_ALIAS"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",

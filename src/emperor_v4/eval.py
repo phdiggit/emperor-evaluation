@@ -52,6 +52,7 @@ def _parser() -> argparse.ArgumentParser:
     profile_c3 = commands.add_parser("profile-c3-settlement")
     profile_c3.add_argument("--write", action="store_true")
     commands.add_parser("profile-c3-verify")
+    commands.add_parser("profile-c4-verify")
     commands.add_parser("profile-c2-c5-cross-axis-audit")
     profile_m3 = commands.add_parser("profile-m3-settlement")
     profile_m3.add_argument("--write", action="store_true")
@@ -88,6 +89,9 @@ def _parser() -> argparse.ArgumentParser:
         command.add_argument("--workspace-root", type=Path, default=Path("."))
     third_d = commands.add_parser("third-item-d-verify")
     third_d.add_argument("--workspace-root", type=Path, default=Path("."))
+    third_c = commands.add_parser("third-item-c-settlement")
+    third_c.add_argument("--workspace-root", type=Path, default=Path("."))
+    third_c.add_argument("--write", action="store_true")
     third_current = commands.add_parser("third-item-current-settlement")
     third_current.add_argument("--workspace-root", type=Path, default=Path("."))
     third_current.add_argument("--write", action="store_true")
@@ -289,6 +293,10 @@ def _dispatch(args: argparse.Namespace) -> int:
         payload = build_profile_c3_settlement(write=args.write)["settlement"]
         print(json.dumps({"record_count": payload["record_count"], "summary": payload["summary"]}, ensure_ascii=False, indent=2))
         return 0
+    if args.command == "profile-c4-verify":
+        from emperor_v4.evaluation.profile_c4 import verify
+        print(json.dumps(verify(), ensure_ascii=False, indent=2))
+        return 0
     if args.command == "profile-c3-verify":
         print(json.dumps(verify_profile_c3_settlement(), ensure_ascii=False, indent=2))
         return 0
@@ -349,6 +357,7 @@ def _dispatch(args: argparse.Namespace) -> int:
                 {
                     "record_count": payload["record_count"],
                     "pending_second_item_count": payload["pending_second_item_count"],
+                    "pending_third_item_count": payload["pending_third_item_count"],
                     "mean_score": payload["mean_score"],
                     "median_score": payload["median_score"],
                     "min_score": payload["min_score"],
@@ -370,6 +379,7 @@ def _dispatch(args: argparse.Namespace) -> int:
                     "included_count": payload["included_count"],
                     "composite_ready_count": payload["composite_ready_count"],
                     "pending_second_item_count": payload["pending_second_item_count"],
+                    "pending_third_item_count": payload["pending_third_item_count"],
                     "pending_first_item_scope_count": payload["pending_first_item_scope_count"],
                     "pending_first_item_formal_settlement_count": payload[
                         "pending_first_item_formal_settlement_count"
@@ -395,6 +405,18 @@ def _dispatch(args: argparse.Namespace) -> int:
         return _print_written(write_first_item_b_registry(workspace_root))
     if args.command == "third-item-d-verify":
         result = verify_third_item_d_formal_settlement(workspace_root)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "third-item-c-settlement":
+        from emperor_v4.evaluation.third_item_c_strategy_chain import (
+            verify_third_item_c_strategy_chain_settlement,
+            write_third_item_c_strategy_chain_settlement,
+        )
+        result = (
+            write_third_item_c_strategy_chain_settlement(workspace_root)
+            if args.write
+            else verify_third_item_c_strategy_chain_settlement(workspace_root)
+        )
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     if args.command == "third-item-b1-settlement":

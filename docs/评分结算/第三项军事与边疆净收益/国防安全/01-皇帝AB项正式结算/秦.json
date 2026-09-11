@@ -9,12 +9,10 @@
       ],
       "records": [
         {
-          "AB_score_points": 97.8,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
             "A1": {
-              "axis_points": 23.2,
               "base_trajectory_value": 58,
               "ceiling_bonus": 0,
               "ceiling_progress": "NONE",
@@ -27,7 +25,6 @@
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
-              "axis_points": 14.4,
               "base_trajectory_value": 36,
               "ceiling_bonus": 0,
               "ceiling_progress": "NONE",
@@ -57,11 +54,20 @@
               "rationale": "统一核心领土由第一项消费；第三项只读岭南新设郡县及北逐匈奴、河南地—朔方与长城边防成果。两者分别改变南方通道和北方核心防御条件，合计达到主要战略方向关键价值，取4档高位；不把六国统一本身重复计入。"
             },
             "B4": {
-              "axis_points": 18.5,
-              "band_position": "HIGH",
               "grade": "B4-3",
+              "band_position": "HIGH",
               "score_rate": 74,
-              "rationale": "岭南郡县与北方塞防已有行政、驻军和工程节点，不是一次战时占领；但均属新近大规模扩展，交通补给、地方整合和边防承载仍高度依赖中央强制投入，成熟与显著缺口并存，取3档高位。"
+              "axis_points": 18.5,
+              "reason": "岭南郡县和北方塞防已有行政、驻军节点，但新控区的交通供给与地方执行仍高度依赖中央强制输送，必要功能未全部转成可持续常态机制。依实质维持依赖保留3档高位，不因新近或规模大本身限档。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "岭南郡县和北方塞防已有行政、驻军节点，但新控区的交通供给与地方执行仍高度依赖中央强制输送，必要功能未全部转成可持续常态机制。依实质维持依赖保留3档高位，不因新近或规模大本身限档。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/秦/卷007-通读总结.md",
+                  "WAR-LEAD-QIN-LINGNAN",
+                  "WAR-LEAD-QIN-XIONGNU-WALL"
+                ]
+              }
             }
           },
           "b1_control_equivalents": {
@@ -183,11 +189,19 @@
               ],
               "settlement_type": "CROSS_GRADE_IMPROVEMENT",
               "settlement_type_label": "跨档改善型",
-              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 40.0,
+              "attributable_value_delta": 10.0,
+              "weighted_change_value": 14.0,
+              "unclamped_trajectory_value": 54.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 8.4,
+              "positive_value_delta": 10.0,
+              "negative_value_delta": 0.0
             },
             "A2": {
               "attributable_delta": 0.0,
-              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_basis": "本轴客观3→3，无正向跨档；本人发动北边建设并提供国家资源；蒙恬长期主持具体前沿规划与戍守经营，当前材料闭合皇帝战略发起、将领持续主持两层，维持主要归责0.75，不以普通执行本身折减。独立建设另按已列成果结算。",
               "attribution_category": "NO_CHANGE",
               "axis_points": 24.3,
               "ceiling_progress": "NONE",
@@ -209,7 +223,7 @@
               "improvement_step_credits": [],
               "settlement_type": "WITHIN_BAND_STRUCTURAL_IMPROVEMENT",
               "settlement_type_label": "档内结构改善型",
-              "settlement_type_basis": "客观起终档3→3；本人可归责档差0；保全0、结构改善7.5、封顶推进0轨迹点取高，负向调整0点保留，主类型为档内结构改善型。",
+              "settlement_type_basis": "客观3→3；独立建设10.5轨迹点与既有保全取高，故为档内结构改善型。",
               "within_band_structure_improvement": {
                 "axis_scope": "A2",
                 "improvement_level": "SIGNIFICANT",
@@ -219,8 +233,8 @@
                 "attribution_credit": 0.75,
                 "entry_structure": "北边原有旧塞，河南地、阳山与北假尚未形成新的连续戍守联系",
                 "handover_structure": "修缮旧塞并连结长城、亭障与新县戍兵；直道未完成，南北负担仍重",
-                "attribution_basis": "始皇命蒙恬主持北边用兵与戍守建设；统筹支持可识别，具体规划与执行归蒙恬，取主要归责0.75。",
-                "net_improvement_basis": "北边原有旧塞，河南地、阳山与北假尚未形成新的连续戍守联系；交班时修缮旧塞并连结长城、亭障与新县戍兵；直道未完成，南北负担仍重。只计独立网络增量，既有负向调整保留。",
+                "attribution_basis": "本人发动北边建设并提供国家资源；蒙恬长期主持具体前沿规划与戍守经营，当前材料闭合皇帝战略发起、将领持续主持两层，维持主要归责0.75，不以普通执行本身折减。",
+                "net_improvement_basis": "北边原有旧塞，河南地、阳山与北假尚未形成新的连续戍守联系；交班时修缮旧塞并连结长城、亭障与新县戍兵；直道未完成，南北负担仍重。防线与驻戍联系有实质改善，但未完成工程不得计入，不足以认定整体重大重建。按14×0.75=10.5轨迹点记独立建设；既有负向调整保留。",
                 "deduplication_basis": "本成果仅计A2防御协同，不在A1再记同链威胁削弱；B项只计控制及领土成果，C项只计行动表现，均不作为本轴加点理由。",
                 "parent_cycle_refs": [
                   "QIN-XIONGNU-WALL",
@@ -240,8 +254,16 @@
               },
               "positive_credit_review": {
                 "decision": "CREDITED",
-                "basis": "北边原有旧塞，河南地、阳山与北假尚未形成新的连续戍守联系；交班时修缮旧塞并连结长城、亭障与新县戍兵；直道未完成，南北负担仍重。只计独立网络增量，既有负向调整保留。"
-              }
+                "basis": "北边原有旧塞，河南地、阳山与北假尚未形成新的连续戍守联系；交班时修缮旧塞并连结长城、亭障与新县戍兵；直道未完成，南北负担仍重。防线与驻戍联系有实质改善，但未完成工程不得计入，不足以认定整体重大重建。按14×0.75=10.5轨迹点记独立建设；既有负向调整保留。"
+              },
+              "end_state_value": 30.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.5,
+              "non_cost_anchor_points": 18.0,
+              "positive_result_credit_points": 6.3,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
             }
           },
           "B80_adjudication": {
@@ -260,15 +282,15 @@
             "decision_status": "REVISED",
             "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
             "final_B1_rate": 60.0
-          }
+          },
+          "control_contribution_route": "REAL_REGION_LEDGER",
+          "control_contribution_basis": "沿用当前本人贡献类型与主控制成果包；本条仅更新B4成熟度，未另改B2归责。"
         },
         {
-          "AB_score_points": 0.0,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
             "A1": {
-              "axis_points": 0.0,
               "base_trajectory_value": 0,
               "ceiling_bonus": 0,
               "ceiling_progress": "NONE",
@@ -281,7 +303,6 @@
               "reason": "主要威胁由区域起义军发展为能够消灭秦军主力、攻入关中并终结中央政权的存亡级力量，故A1由4档降至0档。"
             },
             "A2": {
-              "axis_points": 0.0,
               "base_trajectory_value": 0,
               "ceiling_bonus": 0,
               "ceiling_progress": "NONE",
@@ -398,7 +419,15 @@
               ],
               "settlement_type": "CROSS_GRADE_DETERIORATION",
               "settlement_type_label": "跨档恶化型",
-              "settlement_type_basis": "客观起终档为4→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-4档，负向责任仍由独立字段保留。"
+              "settlement_type_basis": "客观起终档为4→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-4档，负向责任仍由独立字段保留。",
+              "end_state_value": 0.0,
+              "attributable_value_delta": -40.0,
+              "weighted_change_value": -20.0,
+              "unclamped_trajectory_value": -20.0,
+              "non_cost_anchor_points": 0.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": -40.0
             },
             "A2": {
               "attributable_delta": -3.0,
@@ -427,7 +456,15 @@
               ],
               "settlement_type": "CROSS_GRADE_DETERIORATION",
               "settlement_type_label": "跨档恶化型",
-              "settlement_type_basis": "客观起终档为3→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-3档，负向责任仍由独立字段保留。"
+              "settlement_type_basis": "客观起终档为3→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-3档，负向责任仍由独立字段保留。",
+              "end_state_value": 0.0,
+              "attributable_value_delta": -30.0,
+              "weighted_change_value": -15.0,
+              "unclamped_trajectory_value": -15.0,
+              "non_cost_anchor_points": 0.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": -30.0
             }
           },
           "B80_adjudication": {

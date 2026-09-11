@@ -17,7 +17,7 @@ def _project_score(row: dict, third: dict, factor: float) -> tuple[float, float,
     applied = max(debit, abs(float(third["military_net_loss_penalty"])))
     third_score = round(sum(float(third[k]) for k in ("A120_score_points", "B80_score_points", "C50_score_points")) - applied, 2)
     first = float(row.get("first_item_raw_score") or 0)
-    addon = 0.15 * 637 * (first / 240) ** 1.25 if first > 0 else 0
+    addon = 0.20 * 637 * (first / 240) ** 1.25 if first > 0 else 0
     total = round(float(row["second_item_score"]) + third_score + addon + float(row["fourth_item_adjustment"]), 2)
     return debit, applied, third_score, total
 

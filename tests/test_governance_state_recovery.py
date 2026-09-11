@@ -11,11 +11,12 @@ def test_bounded_loss_formula_floor_and_monotonicity(axis, main):
     assert values == sorted(values, reverse=True)
     assert all(points[0] <= v <= points[main - 1] for v in values)
     for grade, rate in LOSS_RATES.items():
-        expected = max(Decimal(str(points[0])), Decimal(str(points[main - 1])) - Decimal(str(points[-1])) * rate)
+        expected = max(Decimal(str(points[0])), Decimal(str(points[main - 1])) * (1 - rate))
         assert state_score(axis, main, grade) == float(expected.quantize(Decimal('.1'), rounding=ROUND_HALF_UP))
 
 def test_round_final_score_not_the_loss_and_reject_legacy_inputs():
-    assert state_score('C2', 3, 'L1') == 13.9
+    # 35 * 0.93 = 32.55; rounding the 2.45 loss first would give 32.5.
+    assert state_score('C2', 6, 'L2') == 32.6
     for args in [('C1', True, 'L1'), ('C1', 0, 'L1'), ('C1', 7, 'L1'), ('X', 3, 'L1'), ('C1', 3, 'K0')]:
         with pytest.raises(ValueError):
             state_score(*args)
@@ -29,6 +30,28 @@ def test_only_terminal_increment_survives_and_attribution_precedes_cap():
     assert retained_recovery(start, end, full)['positive_retained'] == 27
     assert retained_recovery(start, end, dict.fromkeys(AXES, .5))['positive_retained'] == 26.5
     assert retained_recovery(start, end, dict.fromkeys(AXES, 0))['positive_retained'] == 0
+
+
+@pytest.mark.parametrize('dimensions', [[], ['scope', 'duration'], ['severity'], ['severity', 'severity'], ['severity', 'unknown'], [None]])
+def test_l3_requires_severity_and_a_supported_extent(dimensions):
+    from emperor_v4.evaluation.governance_state_recovery import _validate_loss_dimensions
+    with pytest.raises(ValueError):
+        _validate_loss_dimensions({'grade': 'L3', 'strong_dimensions': dimensions})
+
+
+@pytest.mark.parametrize('dimensions', [['severity', 'scope'], ['severity', 'duration'], ['severity', 'scope', 'duration']])
+def test_l3_accepts_both_contract_extent_routes(dimensions):
+    from emperor_v4.evaluation.governance_state_recovery import _validate_loss_dimensions
+    _validate_loss_dimensions({'grade': 'L3', 'strong_dimensions': dimensions})
+
+
+@pytest.mark.parametrize('axis', AXES)
+@pytest.mark.parametrize('grade,rate', LOSS_RATES.items())
+def test_main_state_monotonicity_and_proportional_bound(axis, grade, rate):
+    scores = [state_score(axis, b, grade) for b in range(1, 7)]
+    assert scores == sorted(scores)
+    for base, score in zip(FIXED_POINTS[axis], scores):
+        assert Decimal(str(base)) - Decimal(str(score)) <= Decimal(str(base)) * rate + Decimal('.05')
 
 def test_axis_specific_baseline_and_terminal_bottleneck():
     result = retained_recovery({'C1':4,'C2':3,'C3':2}, {'C1':6,'C2':2,'C3':6}, {'C1':1,'C2':1,'C3':.5})

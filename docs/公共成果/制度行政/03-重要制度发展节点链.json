@@ -23,12 +23,12 @@
   "scoring_node_count": 294,
   "reference_node_count": 37,
   "excluded_candidate_count": 8,
-  "S_baseline_node_count": 43,
-  "S_plus_node_count": 34,
-  "S_plus_plus_node_count": 9,
+  "S_baseline_node_count": 44,
+  "S_plus_node_count": 36,
+  "S_plus_plus_node_count": 8,
   "S_minus_node_count": 9,
   "S_minus_weight_sum": 9.0,
-  "non_S_major_node_count": 245,
+  "non_S_major_node_count": 244,
   "rebuild_audit": {
     "old_record_count": 186,
     "old_lineage_count": 159,
@@ -1064,7 +1064,8 @@
       "reference_node_count": 1,
       "S_node_ids": [
         "SUI_KAIHUANG_CODE",
-        "TANG_ZHENGUAN_CODE"
+        "TANG_ZHENGUAN_CODE",
+        "TANG_YONGHUI_CODE"
       ],
       "first_chronology_key": 226,
       "last_chronology_key": 960,
@@ -10054,7 +10055,7 @@
       "direction_gate": "PASS_POSITIVE_NO_INTRINSIC_HARM_FOUND",
       "durability_gate": "PASS_COUNTS_TOWARD_S",
       "durability_material_ids": [
-        "I2-LAW-CHAIN-KAIHUANG-001"
+        "I2-A-KAIHUANG-CORE-RECEPTION-R3"
       ],
       "dynasty": "隋",
       "institution_domain": "法律与司法",
@@ -10066,7 +10067,7 @@
       "lineage_status": "MULTI_NODE_LINEAGE",
       "major_node_role": "MAJOR_RESTRUCTURE",
       "material_ids": [
-        "I2-LAW-CHAIN-KAIHUANG-001",
+        "I2-A-KAIHUANG-CORE-RECEPTION-R3",
         "LAW-16-001-M2-M3-02-AUDIT"
       ],
       "normative_direction": "positive",
@@ -10075,7 +10076,7 @@
       "predecessor_node_ids": [
         "A-NQI-GAOZHAN-QI-CODE"
       ],
-      "reason": "承接前代律学但重组统一法制、刑罚和复核接口，形成唐律直接基线。",
+      "reason": "承前代律学而简化刑种、删减刑条并重定统一法典，唐代仍实际采用对应刑制与法典基线，保留S+；十二篇框架不作为独创，不认领贞观减刑复核和永徽解释接口。",
       "reign_range": [
         581,
         604
@@ -10103,7 +10104,9 @@
           "attribution_role": "PRIMARY"
         }
       ],
-      "legacy_node_ids": []
+      "legacy_node_ids": [],
+      "adjudication_audit_ref": "docs/评分结算/第二项治国净收益/制度行政/05-隋唐律典谱系边际贡献复核.md",
+      "marginal_contribution_boundary": "只认领开皇刑制和统一法典的直接承接；不以炀帝改律或唐律整体声誉自证S++。"
     },
     {
       "M_strength": "M2",
@@ -10884,9 +10887,9 @@
       "counts_toward_S": true,
       "decision": "MAJOR_NODE",
       "direction_gate": "PASS_POSITIVE_NO_INTRINSIC_HARM_FOUND",
-      "durability_gate": "PASS_COUNTS_TOWARD_S_PLUSPLUS",
+      "durability_gate": "PASS_COUNTS_TOWARD_S",
       "durability_material_ids": [
-        "I2-TANG-TS-ZHENGUAN-LAW-RECEPTION-001"
+        "I2-A-ZHENGUAN-CORE-RECEPTION-R3"
       ],
       "dynasty": "唐",
       "institution_domain": "法律与司法",
@@ -10898,7 +10901,7 @@
       "lineage_status": "MULTI_NODE_LINEAGE",
       "major_node_role": "MAJOR_RESTRUCTURE",
       "material_ids": [
-        "I2-TANG-TS-ZHENGUAN-LAW-RECEPTION-001",
+        "I2-A-ZHENGUAN-CORE-RECEPTION-R3",
         "MC-TANG-TS-LAW"
       ],
       "normative_direction": "positive",
@@ -10907,7 +10910,7 @@
       "predecessor_node_ids": [
         "IDN-04BA8959B735"
       ],
-      "reason": "在继承十二篇五百条框架内，对死罪、流刑和适用作大规模实质改革并稳定运行。",
+      "reason": "在开皇基线上重组死罪、流刑与死刑覆奏，保留独立重大贡献S+。后唐材料包含近年全不覆奏及调整恢复，现证据只闭合R3；永徽编修律疏不计入本节点耐久增量，撤去S++溢价。",
       "reign_range": "626-649",
       "ruler_id": "RULER-TANG-LISHIMIN",
       "ruler_name": "李世民",
@@ -10916,15 +10919,15 @@
       "successor_node_ids": [
         "TANG_YONGHUI_CODE"
       ],
-      "S_depth_weight": 2,
-      "S_effect": "S++",
+      "S_depth_weight": 1,
+      "S_effect": "S+",
       "S_minus_weight": 0,
       "source_artifact_refs": [
         "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json"
       ],
       "legacy_institution_lineage": "隋唐律典谱系",
       "counts_toward_A": true,
-      "reception_scope": "R4",
+      "reception_scope": "R3",
       "attributions": [
         {
           "ruler_id": "RULER-TANG-LISHIMIN",
@@ -10932,7 +10935,9 @@
           "attribution_role": "PRIMARY"
         }
       ],
-      "legacy_node_ids": []
+      "legacy_node_ids": [],
+      "adjudication_audit_ref": "docs/评分结算/第二项治国净收益/制度行政/05-隋唐律典谱系边际贡献复核.md",
+      "marginal_contribution_boundary": "只归贞观死刑覆奏的制度前态及后世有边界的接收；永徽律疏的编修、权威解释与断狱适用均不归李世民。当前材料闭合R3，不闭合S++。"
     },
     {
       "M_strength": "M2",
@@ -11110,12 +11115,12 @@
       "construction_operation_material_ids": [
         "MC-TANG-GZ-LVSHU-CONSOLIDATION-M2-M3-02-AUDIT"
       ],
-      "counts_toward_S": false,
-      "decision": "CANONICALIZATION",
+      "counts_toward_S": true,
+      "decision": "MAJOR_NODE",
       "direction_gate": "PASS_POSITIVE_NO_INTRINSIC_HARM_FOUND",
-      "durability_gate": "CONSOLIDATION_OF_PREDECESSOR_CORE",
+      "durability_gate": "PASS_COUNTS_TOWARD_S",
       "durability_material_ids": [
-        "I2-LAW-CHAIN-YONGHUI-001"
+        "I2-A-YONGHUI-INTERPRETATION-RECEPTION-R3"
       ],
       "dynasty": "唐",
       "institution_domain": "法律与司法",
@@ -11125,9 +11130,9 @@
       "label_zh": "永徽律疏体系",
       "lineage_id": "LIN-F46632C21482",
       "lineage_status": "MULTI_NODE_LINEAGE",
-      "major_node_role": "CANONICALIZATION",
+      "major_node_role": "MAJOR_RESTRUCTURE",
       "material_ids": [
-        "I2-LAW-CHAIN-YONGHUI-001",
+        "I2-A-YONGHUI-INTERPRETATION-RECEPTION-R3",
         "MC-TANG-GZ-LVSHU-CONSOLIDATION-M2-M3-02-AUDIT"
       ],
       "normative_direction": "positive",
@@ -11136,24 +11141,24 @@
       "predecessor_node_ids": [
         "TANG_ZHENGUAN_CODE"
       ],
-      "reason": "建设动作成立，但现有固定材料未闭合独立R3接收；保留非S重大建设，不计S。",
+      "reason": "官方统一律疏并使断狱实际据疏解释，改变法律适用接口，裁MAJOR_RESTRUCTURE、S+；后梁颁行、后周列为现行断狱法源并与刑统通行闭合R3。不认领前代法典骨架，不宣称首创律注，也不以唐律整体影响推成S++。",
       "reign_range": "649-683",
       "ruler_id": "RULER-TANG-LIZHI",
       "ruler_name": "李治",
       "sequence_index": 7,
-      "source_kind": "NON_S_MAJOR_NODE",
+      "source_kind": "S_BASELINE_NODE",
       "successor_node_ids": [
         "IDN-1007D8E4252B"
       ],
-      "S_effect": "NON_S",
-      "S_depth_weight": 0,
+      "S_effect": "S+",
+      "S_depth_weight": 1,
       "source_artifact_refs": [
         "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json"
       ],
       "legacy_institution_lineage": "隋唐律典谱系",
       "S_minus_weight": 0,
       "counts_toward_A": true,
-      "reception_scope": null,
+      "reception_scope": "R3",
       "attributions": [
         {
           "ruler_id": "RULER-TANG-LIZHI",
@@ -11161,7 +11166,9 @@
           "attribution_role": "PRIMARY"
         }
       ],
-      "legacy_node_ids": []
+      "legacy_node_ids": [],
+      "adjudication_audit_ref": "docs/评分结算/第二项治国净收益/制度行政/05-隋唐律典谱系边际贡献复核.md",
+      "marginal_contribution_boundary": "归责永徽官方统一解释成为司法依据的新增贡献；不认领开皇刑制、贞观减刑与复核，也不宣称首创律注。后梁、后周所用律疏有后续修订，不能把整套唐律的跨朝影响全归永徽。"
     },
     {
       "M_strength": "M3",

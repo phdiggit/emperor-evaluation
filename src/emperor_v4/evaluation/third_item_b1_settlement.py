@@ -392,6 +392,8 @@ def rebuild_third_item_b1(workspace_root: Path, *, write: bool = False) -> dict[
     b80_changes = 0
     for ruler_id, item in decisions.items():
         ab_row = ab_by_id[ruler_id]
+        ab_row.pop("AB_score_points", None)
+        ab_row.pop("AB_atomic_diagnostic_points", None)
         credit_row = credit_by_id[ruler_id]
         rate = float(item["final_rate"])
         old_axis_rate = float(ab_row["axes"]["B1"]["score_rate"])
@@ -405,9 +407,6 @@ def rebuild_third_item_b1(workspace_root: Path, *, write: bool = False) -> dict[
         ab_row["B80_adjudication"] = deepcopy(credit_row["B80_adjudication"])
         ab_row["B80_score_points"] = points
         ab_row["AB200_score_points"] = round(float(ab_row["A120_score_points"]) + points, 2)
-        ab_row["AB_score_points"] = round(
-            sum(float(axis["axis_points"]) for axis in ab_row["axes"].values()), 2
-        )
 
     report: dict[str, Any] = {
         "status": "READY_TO_WRITE" if not write else "WRITTEN",

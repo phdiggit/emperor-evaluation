@@ -9,17 +9,17 @@
         17,
         35,
         55,
-        71,
-        75,
+        72,
         76,
-        90,
-        95,
+        77,
+        91,
         96,
-        101,
-        106,
-        114,
-        146,
+        97,
+        102,
+        107,
+        115,
         147,
+        148,
         162,
         169
       ],
@@ -214,7 +214,7 @@
             "counter_parent_refs": []
           },
           "grade_basis": "拆开后至少有“政权转换”“外部机会克制”“内部强臣—储嗣制衡”三种不同约束，PS3厚度明显高于原G4-LOW；同时没有闭合DW2以上强负证。因此上调为`G4-MID / 82`，但短窗口和压力不足仍阻止HIGH。",
-          "position_basis": "只确认渐进禅代与两次拒绝扩张两个独立周期；后两次拒绝属于同一守成克制机制，不拆成第三周期。高压危机复验不足，故取G4低位。",
+          "position_basis": "政权转换、外部机会克制与内部强臣—储嗣制衡共同支撑G4-MID；短窗口和高压危机复验不足阻止HIGH。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
@@ -577,14 +577,41 @@
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/135"
               ],
               "cycle_basis": "在梁唐吴蜀间称臣可匹配弱资源；本人邀留灭蜀财物、连续索夔忠万州，冲突反馈后仍加码，后唐征讨且新增控制丧失。"
+            },
+            {
+              "parent_id": "C1-P136-EARLY-FEEDBACK-RECOVERY",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-高季兴-GJ-P1",
+                "https://zh.wikisource.org/zh-hant/新五代史/卷69",
+                "https://zh.wikisource.org/zh-hant/舊五代史/卷133",
+                "https://zh.wikisource.org/zh/資治通鑑/卷275"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hant/新五代史/卷69",
+                "https://zh.wikisource.org/zh-hant/舊五代史/卷133",
+                "https://zh.wikisource.org/zh/資治通鑑/卷275"
+              ],
+              "cycle_basis": "荆南弱势期在入洛风险与地方承载压力下，失败后保留梁震、孙光宪等逆耳反馈，并在不同事件中接受劝阻、恢复可用信息接口；构成一条跨阶段但波动的C1正向周期。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P136-OPPORTUNISTIC-SURVIVAL"
+            "C1-P136-OPPORTUNISTIC-SURVIVAL",
+            "C1-P136-EARLY-FEEDBACK-RECOVERY"
           ],
           "typical_pattern": "极弱荆南靠多方称臣维持自治并恢复民业，但邀留财物、索取三州反复招致征讨。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P136-EARLY-FEEDBACK-RECOVERY"
+            ],
             "counter_parent_refs": [
               "C1-P136-OPPORTUNISTIC-SURVIVAL"
             ]
@@ -594,7 +621,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P136-OPPORTUNISTIC-SURVIVAL"
+              "C1-P136-OPPORTUNISTIC-SURVIVAL",
+              "C1-P136-EARLY-FEEDBACK-RECOVERY"
             ],
             "result_nonconversion": true
           },
@@ -1336,14 +1364,39 @@
                 "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md#L37"
               ],
               "cycle_basis": "河东可整军减侵或继续以亲军维系；帑藏空虚、军队卖马自给和侵暴良民反馈明确，本人因担心军散未整治。以金帛换契丹会盟但阿保机背盟附梁，未建立替代缓冲。"
+            },
+            {
+              "parent_id": "C1-P116-SUCCESSION-RECONFIG",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-李克用-LKY-P2",
+                "https://zh.wikisource.org/zh/資治通鑑/卷266",
+                "https://zh.wikisource.org/zh-hans/五代史記_(四庫全書本)/卷04"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh/資治通鑑/卷266",
+                "https://zh.wikisource.org/zh-hans/五代史記_(四庫全書本)/卷04"
+              ],
+              "cycle_basis": "病末将继承人、宗亲重兵者、监军文职与宿将纳入可执行辅立结构，以遗命和多方辅立暂时稳住交接；这是独立于河东军府承载负链的最高军政交班正向周期，后续宗亲谋变不全部倒灌本人。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P116-MILITARY-BASE-STRAIN"
+            "C1-P116-MILITARY-BASE-STRAIN",
+            "C1-P116-SUCCESSION-RECONFIG"
           ],
           "typical_pattern": "李克用原C1只剩一条“河东军府承载—契丹联盟”混合负链，容易把人物写成长期靠军头侵民勉强维持。M4补证显示，至少存在一条独立的最高军政交接周期：病末不是一句“传位给儿子”，而是把继承人、宗室重兵者、监军文职和宿将同时纳入可执行辅立结构。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P116-SUCCESSION-RECONFIG"
+            ],
             "counter_parent_refs": [
               "C1-P116-MILITARY-BASE-STRAIN"
             ]
@@ -1353,7 +1406,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P116-MILITARY-BASE-STRAIN"
+              "C1-P116-MILITARY-BASE-STRAIN",
+              "C1-P116-SUCCESSION-RECONFIG"
             ],
             "result_nonconversion": true
           },

@@ -12,8 +12,8 @@
         68,
         69,
         70,
-        107,
         108,
+        109,
         158,
         159,
         164,
@@ -101,15 +101,20 @@
               "adversity_origin": "MIXED",
               "axis_out_reason": "胡氏独立政权阶段可保留外部欺骗/介入背景；正式设交趾郡县后的采办、地方治理失信、反乱与镇压属于内部领土治理。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4/M1/C1/C5",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "胡氏独立政权阶段可保留外部欺骗/介入背景；正式设交趾郡县后的采办、地方治理失信、反乱与镇压属于内部领土治理。"
+                "target_parent_ref": null,
+                "reason": "胡氏独立政权阶段可保留外部欺骗/介入背景；正式设交趾郡县后的采办、地方治理失信、反乱与镇压属于内部领土治理。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
-              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
-              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
-              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+              "relationship_phase": "EXTERNAL_TO_INTERNAL_TRANSITION",
+              "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "胡氏政权正式设交趾郡县并进入明地方治理后"
             }
           ],
           "representative_parent_ids": [
@@ -132,8 +137,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P048-MALACCA-SAFETY-ORDER",
               "M2-P048-CROSS-REGION-ENVOY-NETWORK",
+              "M2-P048-MALACCA-SAFETY-ORDER",
               "M2-P048-NORTHERN-POLITY-BALANCING"
             ],
             "result_nonconversion": true
@@ -263,8 +268,8 @@
             "status": "CLOSED",
             "scoring_parent_refs": [
               "M2-P059-FOUNDING-RIVALS",
-              "M2-P059-KOREA-ANNAM",
-              "M2-P059-JAPAN"
+              "M2-P059-JAPAN",
+              "M2-P059-KOREA-ANNAM"
             ],
             "result_nonconversion": true
           },
@@ -561,7 +566,8 @@
                 "docs/史料通读产物/明/明通鉴/volume-034.source-summary.md#L13",
                 "docs/史料通读产物/明/明通鉴/volume-037.source-summary.md#L13",
                 "docs/史料通读产物/明/明通鉴/volume-037.source-summary.md#L30",
-                "docs/史料通读产物/明/明通鉴/volume-037.source-summary.md#L55"
+                "docs/史料通读产物/明/明通鉴/volume-037.source-summary.md#L55",
+                "https://zh.m.wikisource.org/wiki/明通鑑/卷040"
               ],
               "cycle_basis": "哈密和吐鲁番均可自主选择。朱见深朝廷先限制哈密贡马与使者规模以控制交换成本；哈密失国后又给衣粮谷种、迁卫苦峪并配置田牛，卷末授权寻找复国机会。工具从贡市约束转到维持流亡政权基础，但在其窗口内未闭合稳定复国，故裁混合平衡。",
               "intensity_grade_review": {
@@ -571,7 +577,10 @@
                 "source_support": "DIRECT_MULTI_STAGE_POLICY_AND_FAILURE",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "direct_process_refs": [
+                "https://zh.m.wikisource.org/wiki/明通鑑/卷040"
+              ]
             }
           ],
           "representative_parent_ids": [
@@ -939,10 +948,12 @@
               },
               "axis_out_reason": "李定国已进入永历封授体系；血诏、晋王与迎驾保护是内部军政集团重新接线。",
               "route_handoff": {
-                "status": "ROUTED",
+                "status": "CLOSED",
                 "target_axis": "M4",
-                "target_parent_ref": "M4-YL-P4",
-                "reason": "李定国已进入永历封授体系；血诏、晋王与迎驾保护是内部军政集团重新接线。"
+                "target_parent_ref": "M4P-RULER-MING-ZHU-YOULANG-YL-P4",
+                "reason": "李定国已进入永历封授体系；血诏、晋王与迎驾保护是内部军政集团重新接线。",
+                "original_target_parent_ref": "M4-YL-P4",
+                "closure_basis": "NORMALIZED_TARGET_PARENT_ALIAS"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -1406,10 +1417,11 @@
               },
               "axis_out_reason": "削藩、宗室安全预期与靖难期赦降属于本朝宗室/内战政治；同一核心生命周期已由M4消费。",
               "route_handoff": {
-                "status": "ROUTED",
+                "status": "CLOSED",
                 "target_axis": "M4",
                 "target_parent_ref": "M4P-RULER-MING-ZHU-YUNWEN-JW-P1",
-                "reason": "削藩、宗室安全预期与靖难期赦降属于本朝宗室/内战政治；同一核心生命周期已由M4消费。"
+                "reason": "削藩、宗室安全预期与靖难期赦降属于本朝宗室/内战政治；同一核心生命周期已由M4消费。",
+                "closure_basis": "EXACT_TARGET_PARENT"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",

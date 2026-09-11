@@ -4,12 +4,12 @@
   "collections": {
     "records": {
       "positions": [
+        5,
         6,
-        7,
-        35,
-        36,
+        42,
+        43,
         100,
-        120,
+        119,
         151,
         184
       ],
@@ -362,7 +362,7 @@
           "position": "lower-middle",
           "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=-0.5，按合同机械映射为lower-middle。",
           "position_q": 0.3,
-          "rank": 29,
+          "rank": 34,
           "reign_range": "1260-1294",
           "ruler_id": "RULER-YUAN-KUBLAI",
           "ruler_name": "忽必烈",
@@ -488,7 +488,7 @@
           "position": "lower-middle",
           "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=-1，按合同机械映射为lower-middle。",
           "position_q": 0.3,
-          "rank": 29,
+          "rank": 34,
           "reign_range": "1294-1307",
           "ruler_id": "RULER-YUAN-TEMUR",
           "ruler_name": "铁穆耳",
@@ -556,38 +556,9 @@
               "signed_weight": -1.0,
               "profile_id": "B1-PROFILE-D7CEAE5BA04DE373",
               "b1_role": "support"
-            },
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_group_key": "YUAN-AR-TEMUDER-CAPTURE",
-              "lifecycle_key": "YUAN-AR-TEMUDER-CAPTURE",
-              "material_id": "YUAN-AR-TEMUDER-CAPTURE",
-              "mechanism": "御史集中弹劾权臣，太后干预最高裁决",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -2.0,
-              "profile_id": "B1-PROFILE-73E113003977B4E4",
-              "b1_role": "support",
-              "severity": "N3-domain",
-              "severity_scope": "localized",
-              "severity_basis": "按该负生命周期实际击中的B1组织功能面与责任窗口裁为N3-domain / localized。"
             }
           ],
           "M_positive_profile": [
-            {
-              "M": "M2",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "lifecycle_group_key": "YUAN-AR-CENSOR-APPROVAL",
-              "lifecycle_key": "YUAN-AR-CENSOR-APPROVAL",
-              "material_id": "YUAN-AR-CENSOR-APPROVAL",
-              "mechanism": "御史提出清理宗王寺观扰民、内侍恩赏与内旨免罪",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": 1.0,
-              "profile_id": "B1-PROFILE-F454192937138FEC",
-              "b1_role": "support"
-            },
             {
               "M": "M3",
               "direction": "positive",
@@ -634,12 +605,10 @@
           ],
           "database_write": false,
           "direct_material_ids": [
-            "YUAN-AR-CENSOR-APPROVAL",
             "YUAN-AR-CENTRAL-CHANNEL",
             "YUAN-AR-EXAM-INSTITUTION",
             "YUAN-AR-FISCAL-CORRECTION",
-            "YUAN-AR-LAND-SURVEY-HARM",
-            "YUAN-AR-TEMUDER-CAPTURE"
+            "YUAN-AR-LAND-SURVEY-HARM"
           ],
           "direction_card_write": true,
           "direction_index": 53.4,
@@ -647,8 +616,8 @@
           "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
           "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
           "grade": "G2",
-          "grade_basis": "中书恢复、科举等正向与田粮苛急、权臣/太后干预并存。",
-          "grade_gate_basis": "中书恢复、科举等正向与田粮苛急、权臣/太后干预并存。",
+          "grade_basis": "正向：废尚书省并恢复政务归中书，限制非亲奉传旨；延续三年一科的分榜科举接口；撤销失败银钞、铜钱并行体系及专设机构。负向：特们德尔推动经理田粮，各省苛急执行。边界排除：御史提出弊端后获准是B2反馈纠偏，未另证执行结果，退出B1；弹劾特们德尔遭太后干预及主劾者外调归B2；不把同一次纠错受阻换名为B1核心失灵。按剩余机制与主要阶段代表性，主档G2。",
+          "grade_gate_basis": "正向：废尚书省并恢复政务归中书，限制非亲奉传旨；延续三年一科的分榜科举接口；撤销失败银钞、铜钱并行体系及专设机构。负向：特们德尔推动经理田粮，各省苛急执行。边界排除：御史提出弊端后获准是B2反馈纠偏，未另证执行结果，退出B1；弹劾特们德尔遭太后干预及主劾者外调归B2；不把同一次纠错受阻换名为B1核心失灵。按剩余机制与主要阶段代表性，主档G2。",
           "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
           "index_interval": [
             40.0,
@@ -656,26 +625,25 @@
           ],
           "polity": "元",
           "position": "upper",
-          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=2，按合同机械映射为upper。",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=3，按合同机械映射为upper。",
           "position_q": 0.9,
           "rank": 100,
           "reign_range": "1311-1320",
           "ruler_id": "RULER-YUAN-AYURBARWADA",
           "ruler_name": "爱育黎拔力八达",
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "YUAN-AR-CENSOR-APPROVAL",
+            "YUAN-AR-TEMUDER-CAPTURE"
+          ],
           "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "中书恢复、科举等正向与田粮苛急、权臣/太后干预并存。"
+              "text": "正向：废尚书省并恢复政务归中书，限制非亲奉传旨；延续三年一科的分榜科举接口；撤销失败银钞、铜钱并行体系及专设机构。负向：特们德尔推动经理田粮，各省苛急执行。边界排除：御史提出弊端后获准是B2反馈纠偏，未另证执行结果，退出B1；弹劾特们德尔遭太后干预及主劾者外调归B2；不把同一次纠错受阻换名为B1核心失灵。按剩余机制与主要阶段代表性，主档G2。"
             },
             {
               "role": "档内位置依据",
-              "text": "主档已定为G2；有效生命周期权重合计扣除该档门槛占用1后，净余量为2，仅据此确定档内上位（53.4）。净余量不用于跨档比较"
-            },
-            {
-              "role": "正向依据（M2）",
-              "text": "御史提出清理宗王寺观扰民、内侍恩赏与内旨免罪"
+              "text": "主档已定为G2；有效生命周期权重合计扣除该档门槛占用1后，净余量为3，仅据此确定档内上位（53.4）。净余量不用于跨档比较"
             },
             {
               "role": "正向依据（M3）",
@@ -692,13 +660,9 @@
             {
               "role": "负向依据（M2）",
               "text": "特们德尔推动经理田粮，各省苛急执行"
-            },
-            {
-              "role": "负向依据（M3）",
-              "text": "御史集中弹劾权臣，太后干预最高裁决"
             }
           ],
-          "position_residual": 2.0,
+          "position_residual": 3.0,
           "grade_threshold_consumed": 1.0,
           "review_material_basis": [
             {
@@ -710,7 +674,28 @@
               "status": "ABSORBED_ACTIVE"
             }
           ],
-          "review_material_absorption_status": "V20_ONLY_ABSORBED"
+          "review_material_absorption_status": "V20_ONLY_ABSORBED",
+          "construct_boundary_exclusions": [
+            {
+              "material_ids": [
+                "YUAN-AR-CENSOR-APPROVAL"
+              ],
+              "evidence_slice": "PRIMARY",
+              "reason": "御史提出弊端后获准是B2反馈纠偏，未另证执行结果，退出B1。"
+            },
+            {
+              "material_ids": [
+                "YUAN-AR-TEMUDER-CAPTURE"
+              ],
+              "evidence_slice": "PRIMARY",
+              "reason": "弹劾特们德尔遭太后干预及主劾者外调归B2；不把同一次纠错受阻换名为B1核心失灵。"
+            }
+          ],
+          "construct_boundary_review": {
+            "contract": "docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md#21-最小结算单元机制链",
+            "audit_ref": "docs/评分结算/第二项治国净收益/制度行政/06-构念边界复核.md",
+            "decision": "御史提出弊端后获准是B2反馈纠偏，未另证执行结果，退出B1。；弹劾特们德尔遭太后干预及主劾者外调归B2；不把同一次纠错受阻换名为B1核心失灵。"
+          }
         },
         {
           "M_mixed_profile": [
@@ -852,7 +837,7 @@
           "position": "lower",
           "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-1.5，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 133,
+          "rank": 132,
           "reign_range": "1307-1311",
           "ruler_id": "RULER-YUAN-KULUG",
           "ruler_name": "海山",
@@ -941,22 +926,6 @@
               "M": "M3",
               "direction": "negative",
               "direction_factor": -1.0,
-              "lifecycle_group_key": "YUAN-TT-CURRENCY-COLLAPSE",
-              "lifecycle_key": "YUAN-TT-CURRENCY-COLLAPSE",
-              "material_id": "YUAN-TT-CURRENCY-COLLAPSE",
-              "mechanism": "反对意见被压后强推新交钞",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -2.0,
-              "profile_id": "B1-PROFILE-1325B719E1D88FE2",
-              "b1_role": "support",
-              "severity": "N3-domain",
-              "severity_scope": "localized",
-              "severity_basis": "按该负生命周期实际击中的B1组织功能面与责任窗口裁为N3-domain / localized。"
-            },
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
               "lifecycle_group_key": "YUAN-TT-HAMA-CAPTURE",
               "lifecycle_key": "YUAN-TT-HAMA-CAPTURE",
               "material_id": "YUAN-TT-HAMA-CAPTURE",
@@ -1023,7 +992,6 @@
             "YUAN-TT-ADMIN-COLLAPSE",
             "YUAN-TT-BAYAN-REMOVAL",
             "YUAN-TT-CAPITAL-ABANDONMENT",
-            "YUAN-TT-CURRENCY-COLLAPSE",
             "YUAN-TT-EXAM-RESTORATION",
             "YUAN-TT-HAMA-CAPTURE",
             "YUAN-TT-TOGHTO-CAPTURE"
@@ -1034,8 +1002,8 @@
           "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
           "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
           "grade": "G0",
-          "grade_basis": "《元史·顺帝本纪》《元史·脱脱传》《元史·百官志八》《元史·食货志》｜前中段确有可用正链：至正十一年贾鲁治河、十二年脱脱复徐州、十三年京畿屯田岁大稔，说明不能从“亡元”倒推全任G0。terminal从至正十四年前后闭合：链①脱脱总制诸王诸省军攻高邮，已连战皆捷、平六合→哈麻借皇后/太子与御史台连续构陷→皇帝突然削脱脱兵柄；军中闻诏大哭并迅速溃散，大量精锐转投红军，**最高任免/监察接口直接反向摧毁正在运行的全国军政总链**。链②兵兴后中书、枢密及行省行院层层增设，总兵官可便宜“承制拟授”，中央只随其索给宣命敕牒，“无有考覈其實”→《百官志》直言“名爵日滥，纪纲日紊”，人事/军功审核体系系统失效。链③江南海运在方国珍、张士诚等区域强人控制下逐年衰减，至正二十三年后东南粟供京师遂止，中央财政/粮运接口长期断裂；同时行省、总兵各据区域，中央对地方的实际任命、财政和军政控制持续收缩。已同时击穿**高层任免与监察、全国军政指挥、官员考核授职、中央—地方财政/粮运**，并覆盖最后十余年主要退出阶段，符合N3-terminal与G0。",
-          "grade_gate_basis": "《元史·顺帝本纪》《元史·脱脱传》《元史·百官志八》《元史·食货志》｜前中段确有可用正链：至正十一年贾鲁治河、十二年脱脱复徐州、十三年京畿屯田岁大稔，说明不能从“亡元”倒推全任G0。terminal从至正十四年前后闭合：链①脱脱总制诸王诸省军攻高邮，已连战皆捷、平六合→哈麻借皇后/太子与御史台连续构陷→皇帝突然削脱脱兵柄；军中闻诏大哭并迅速溃散，大量精锐转投红军，**最高任免/监察接口直接反向摧毁正在运行的全国军政总链**。链②兵兴后中书、枢密及行省行院层层增设，总兵官可便宜“承制拟授”，中央只随其索给宣命敕牒，“无有考覈其實”→《百官志》直言“名爵日滥，纪纲日紊”，人事/军功审核体系系统失效。链③江南海运在方国珍、张士诚等区域强人控制下逐年衰减，至正二十三年后东南粟供京师遂止，中央财政/粮运接口长期断裂；同时行省、总兵各据区域，中央对地方的实际任命、财政和军政控制持续收缩。已同时击穿**高层任免与监察、全国军政指挥、官员考核授职、中央—地方财政/粮运**，并覆盖最后十余年主要退出阶段，符合N3-terminal与G0。",
+          "grade_basis": "正向：与脱脱解除伯颜专权并收回诸卫；恢复科举并连续亲试。负向：皇太子大抚军院与皇帝反复分合军权；拒绝守京意见并携皇太子北奔；哈麻兄弟控制中枢；哈麻借皇后、太子与御史连续构陷脱脱。边界排除：新钞物价与国用损害属于经济财政结果，拒绝反对意见属于B2；未另证独立B1组织失灵，退出额外负链。按剩余机制与主要阶段代表性，主档G0。",
+          "grade_gate_basis": "正向：与脱脱解除伯颜专权并收回诸卫；恢复科举并连续亲试。负向：皇太子大抚军院与皇帝反复分合军权；拒绝守京意见并携皇太子北奔；哈麻兄弟控制中枢；哈麻借皇后、太子与御史连续构陷脱脱。边界排除：新钞物价与国用损害属于经济财政结果，拒绝反对意见属于B2；未另证独立B1组织失灵，退出额外负链。按剩余机制与主要阶段代表性，主档G0。",
           "grade_gate_code": "B1_G0_SYSTEMIC_ADMIN_BREAKDOWN",
           "index_interval": [
             0.0,
@@ -1043,22 +1011,24 @@
           ],
           "polity": "元",
           "position": "lower",
-          "position_basis": "有效生命周期签名M权重合计扣除G0门槛占用0后，净余量=-9，按合同机械映射为lower。",
+          "position_basis": "有效生命周期签名M权重合计扣除G0门槛占用0后，净余量=-7，按合同机械映射为lower。",
           "position_q": 0.1,
           "rank": 179,
           "reign_range": "1333-1370",
           "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
           "ruler_name": "妥懽帖睦尔",
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "YUAN-TT-CURRENCY-COLLAPSE"
+          ],
           "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "《元史·顺帝本纪》《元史·脱脱传》《元史·百官志八》《元史·食货志》｜前中段确有可用正链：至正十一年贾鲁治河、十二年脱脱复徐州、十三年京畿屯田岁大稔，说明不能从“亡元”倒推全任G0。terminal从至正十四年前后闭合：链①脱脱总制诸王诸省军攻高邮，已连战皆捷、平六合→哈麻借皇后/太子与御史台连续构陷→皇帝突然削脱脱兵柄；军中闻诏大哭并迅速溃散，大量精锐转投红军，**最高任免/监察接口直接反向摧毁正在运行的全国军政总链**。链②兵兴后中书、枢密及行省行院层层增设，总兵官可便宜“承制拟授”，中央只随其索给宣命敕牒，“无有考覈其實”→《百官志》直言“名爵日滥，纪纲日紊”，人事/军功审核体系系统失效。链③江南海运在方国珍、张士诚等区域强人控制下逐年衰减，至正二十三年后东南粟供京师遂止，中央财政/粮运接口长期断裂；同时行省、总兵各据区域，中央对地方的实际任命、财政和军政控制持续收缩。已同时击穿**高层任免与监察、全国军政指挥、官员考核授职、中央—地方财政/粮运**，并覆盖最后十余年主要退出阶段，符合N3（广域整体失效）与G0。"
+              "text": "正向：与脱脱解除伯颜专权并收回诸卫；恢复科举并连续亲试。负向：皇太子大抚军院与皇帝反复分合军权；拒绝守京意见并携皇太子北奔；哈麻兄弟控制中枢；哈麻借皇后、太子与御史连续构陷脱脱。边界排除：新钞物价与国用损害属于经济财政结果，拒绝反对意见属于B2；未另证独立B1组织失灵，退出额外负链。按剩余机制与主要阶段代表性，主档G0。"
             },
             {
               "role": "档内位置依据",
-              "text": "主档已定为G0；有效生命周期权重合计扣除该档门槛占用0后，净余量为-9，仅据此确定档内下位（2.0）。净余量不用于跨档比较"
+              "text": "主档已定为G0；有效生命周期权重合计扣除该档门槛占用0后，净余量为-7，仅据此确定档内下位（2.0）。净余量不用于跨档比较"
             },
             {
               "role": "正向依据（M2）",
@@ -1078,10 +1048,6 @@
             },
             {
               "role": "负向依据（M3）",
-              "text": "反对意见被压后强推新交钞"
-            },
-            {
-              "role": "负向依据（M3）",
               "text": "哈麻兄弟控制中枢"
             },
             {
@@ -1089,7 +1055,7 @@
               "text": "哈麻借皇后、太子与御史连续构陷脱脱"
             }
           ],
-          "position_residual": -9.0,
+          "position_residual": -7.0,
           "grade_threshold_consumed": 0.0,
           "v50_source_line": 305,
           "review_material_basis": [
@@ -1110,7 +1076,21 @@
               "status": "ABSORBED_ACTIVE_PRECEDENCE"
             }
           ],
-          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "construct_boundary_exclusions": [
+            {
+              "material_ids": [
+                "YUAN-TT-CURRENCY-COLLAPSE"
+              ],
+              "evidence_slice": "PRIMARY",
+              "reason": "新钞物价与国用损害属于经济财政结果，拒绝反对意见属于B2；未另证独立B1组织失灵，退出额外负链。"
+            }
+          ],
+          "construct_boundary_review": {
+            "contract": "docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md#21-最小结算单元机制链",
+            "audit_ref": "docs/评分结算/第二项治国净收益/制度行政/06-构念边界复核.md",
+            "decision": "新钞物价与国用损害属于经济财政结果，拒绝反对意见属于B2；未另证独立B1组织失灵，退出额外负链。"
+          }
         }
       ]
     }

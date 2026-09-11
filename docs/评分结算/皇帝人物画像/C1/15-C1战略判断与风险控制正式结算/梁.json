@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        69
+        70
       ],
       "records": [
         {
@@ -47,14 +47,39 @@
                 "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L655"
               ],
               "cycle_basis": "侯景拥兵来投时可拒纳、分散安置或附条件接纳；风险已被指出，本人仍处理条件失当。侯景反复与台城威胁到达后，外围援军统合和退出均失败。长任晚期退化压过创业正链。"
+            },
+            {
+              "parent_id": "C1-P127-EARLY-GOVERNANCE-RECONFIGURATION",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-萧衍-XY-P1",
+                "https://zh.wikisource.org/zh-hant/梁書/卷13",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷145"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hant/梁書/卷13",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷145"
+              ],
+              "cycle_basis": "建政初期把旧齐文武与创业功臣转为正式中枢，按文书、制度、选官与军政需求配置资源，并接受范云、沈约、王茂等反向意见后调整；这是一条独立于侯景风险负链的早期战略与组织重构周期。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P127-HOUJING-RISK"
+            "C1-P127-HOUJING-RISK",
+            "C1-P127-EARLY-GOVERNANCE-RECONFIGURATION"
           ],
           "typical_pattern": "创业和长期治理前段可用，晚期在侯景风险明确时接纳失当、缺隔离退出，台城危机中仍迟缓。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P127-EARLY-GOVERNANCE-RECONFIGURATION"
+            ],
             "counter_parent_refs": [
               "C1-P127-HOUJING-RISK"
             ]
@@ -64,7 +89,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P127-HOUJING-RISK"
+              "C1-P127-HOUJING-RISK",
+              "C1-P127-EARLY-GOVERNANCE-RECONFIGURATION"
             ],
             "result_nonconversion": true
           },

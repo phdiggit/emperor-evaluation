@@ -4,6 +4,7 @@ from collections import Counter, defaultdict
 from copy import deepcopy
 from hashlib import sha256
 import json
+from emperor_v4.evaluation.third_item_b_control_depth import render_control_depth_packages
 from pathlib import Path
 import re
 import time
@@ -1085,7 +1086,7 @@ def build_five_dynasties_ab_records(
             base.update(
                 {
                     "axes": {axis: {"grade": "UNKNOWN", "reason": decision["pending_reason"]} for axis in ("A1", "A2", "B1", "B2", "B4")},
-                    "AB_score_points": None,
+                    "AB_atomic_diagnostic_points": None,
                     "b1_region_control": {"start": {}, "end": {}},
                     "b1_region_adjudications": [],
                     "b1_control_equivalents": {"start": None, "end": None, "net_change": None, "weighted_value": None},
@@ -1176,7 +1177,7 @@ def build_five_dynasties_ab_records(
         base.update(
             {
                 "axes": axes,
-                "AB_score_points": round(sum(axis["axis_points"] for axis in axes.values()), 2),
+                "AB_atomic_diagnostic_points": round(sum(axis["axis_points"] for axis in axes.values()), 2),
                 "b1_region_control": region_control,
                 "b1_region_adjudications": region_adjudications,
                 "b1_region_ledger_status": region_ledger_status,
@@ -1318,12 +1319,8 @@ def _apply_c_within_band_position(row: dict[str, Any]) -> None:
                 + 0.55 * int(counts.get("PROPORTIONATE_RETURN", 0))
                 + 0.2 * int(counts.get("LOW_RETURN", 0))
             ) / known
-            successes = int(outcome_profile.get("major_system_success_count") or 0)
-            failures = int(outcome_profile.get("major_system_failure_count") or 0)
-            decisive_balance = (successes + 1) / (successes + failures + 2)
-            raw_outcome_position = 0.65 * quality + 0.35 * decisive_balance
             confidence = min(1.0, known / 4)
-            outcome_position = 0.5 + (raw_outcome_position - 0.5) * confidence
+            outcome_position = 0.5 + (quality - 0.5) * confidence
         else:
             outcome_position = axis_position
         position_decision = row.get("C_score_within_band_adjudication") or {}
@@ -1758,12 +1755,32 @@ def _validate_bc_parent_cycle_alignment(
         }
         if not set(c_row.get("major_system_failure_refs") or ()).issubset(
             authorized_major_refs
+            | {
+                str(ref)
+                for chain in list(c_row.get("strategy_chains") or ())
+                + list(c_row.get("capability_only_strategy_chains") or ())
+                for field in ("chain_id", "canonical_parent_ref", "canonical_strategy_ref")
+                for ref in ([chain.get(field)] if chain.get(field) else [])
+                + list(chain.get("member_parent_refs") or ())
+                + list(chain.get("source_parent_refs") or ())
+                + list(chain.get("source_event_refs") or ())
+            }
         ):
             raise ValueError(
                 f"{c_row['ruler_name']}的C项重大体系失败未引用去重父周期"
             )
         if not set(c_row.get("major_system_success_refs") or ()).issubset(
             authorized_major_refs
+            | {
+                str(ref)
+                for chain in list(c_row.get("strategy_chains") or ())
+                + list(c_row.get("capability_only_strategy_chains") or ())
+                for field in ("chain_id", "canonical_parent_ref", "canonical_strategy_ref")
+                for ref in ([chain.get(field)] if chain.get(field) else [])
+                + list(chain.get("member_parent_refs") or ())
+                + list(chain.get("source_parent_refs") or ())
+                + list(chain.get("source_event_refs") or ())
+            }
         ):
             raise ValueError(
                 f"{c_row['ruler_name']}的C项重大胜绩未引用去重父周期: "
@@ -2023,6 +2040,11 @@ def _normalize_qin_tang_bc_parent_cycles(
         "RULER-TANG-LICHUN": ["CAMPAIGN-TANG-238-01"],
     }
     for c_row in c_records:
+        if c_row.get("scoring_unit") == "STRATEGIC_CHAIN":
+            # Current C is governed by the strategy-chain writeback source;
+            # this helper only normalizes the legacy Qin-to-Tang parent-cycle
+            # handoff for records being rebuilt by the Five Dynasties writer.
+            continue
         ruler_id = str(c_row.get("ruler_id") or "")
         groups = [str(ref) for ref in c_row.get("independent_task_groups") or ()]
         if len(groups) != len(set(groups)) or int(c_row["independent_task_count"]) != len(groups):
@@ -2149,7 +2171,7 @@ def _normalize_qin_tang_bc_parent_cycles(
                 if axis in ab_axis_adjudication:
                     axes[axis] = _axis_b(axis, ab_axis_adjudication[axis])
             ab_row["axes"] = axes
-            ab_row["AB_score_points"] = round(
+            ab_row["AB_atomic_diagnostic_points"] = round(
                 sum(float(axes[axis]["axis_points"]) for axis in ("A1", "A2", "B1", "B2", "B4")),
                 2,
             )
@@ -2275,20 +2297,7 @@ def _validate_formal_abc_contracts(
                 raise ValueError(f"{row['ruler_name']}的C未知状态合同不完整")
             continue
         if row.get("C_overall_grade") == "C-N":
-            if (
-                row.get("no_system_stress_disposition")
-                != "CONFIRMED_NOT_APPLICABLE"
-                or any(row.get(field) != "NOT_APPLICABLE_NO_SYSTEM_STRESS" for field in (
-                    "combat_delivery_grade",
-                    "operational_sustainability_cap",
-                    "system_reliability_cap",
-                ))
-                or float(row.get("C_score_points") or 0) != 0.0
-                or int(row.get("independent_task_count") or 0) != 0
-                or row.get("score_ready") is not True
-            ):
-                raise ValueError(f"{row['ruler_name']}的C-N无实战任务合同不完整")
-            continue
+            raise ValueError("C-N按零分合成已停用，须审查继承体系或保留UNKNOWN")
         grades = [
             _axis_grade(row[field], axis)
             for field, axis in (
@@ -2298,9 +2307,15 @@ def _validate_formal_abc_contracts(
             )
         ]
         overall = _axis_grade(row["C_overall_grade"], "C")
-        tasks = int(row["independent_task_count"])
-        if overall != min(grades):
-            raise ValueError(f"{row['ruler_name']}的C总体档不是三轴最低档")
+        raw = _axis_grade(row.get("raw_grade"), "C") if row.get("raw_grade") is not None else min(grades)
+        final = _axis_grade(row.get("final_grade"), "C") if row.get("final_grade") is not None else overall
+        if raw != min(grades) or overall != final:
+            raise ValueError(f"{row['ruler_name']}的C raw/final档与三轴最低档不闭合")
+        tasks = int(row.get("strategy_chain_count") or 0) + int(
+            row.get("capability_only_strategy_chain_count") or 0
+        )
+        if not tasks:
+            tasks = int(row["independent_task_count"])
         if tasks <= 1 and (grades[0] > 3 or grades[2] > 3):
             raise ValueError(f"{row['ruler_name']}的C项单任务超过证据上限")
         if tasks == 2 and (grades[0] > 4 or grades[2] > 4):
@@ -3605,37 +3620,11 @@ def _align_bc_to_system_stress_parent_cycles(
             f"回报剖面={outcome_counts}；重大体系胜绩{len(success_refs)}项、"
             f"重大体系失败{len(failure_refs)}项。"
         )
-        # C1 is combat delivery, so a non-war institution, garrison, or source-
-        # coverage reference cannot by itself make the C item scoreable.  Such
-        # evidence may support C2/C3 only after at least one actual system-stress
-        # parent cycle has tested the force in war.
+        # Without current combat evidence, retain UNKNOWN at this input layer.
+        # The authoritative strategy source may subsequently supply an explicitly
+        # adjudicated inherited-system assessment; absence alone never yields zero.
         no_scoring_evidence = not stress_refs
-        if no_scoring_evidence and (
-            c_row.get("no_system_stress_disposition")
-            == "CONFIRMED_NOT_APPLICABLE"
-        ):
-            c_row.update({
-                "combat_delivery_grade": "NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                "operational_sustainability_cap": "NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                "system_reliability_cap": "NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                "C_overall_grade": "C-N",
-                "C_score_rate": 0,
-                "C_score_points": 0.0,
-                "C_score_support_surplus": None,
-                "C_score_band": None,
-                "C_score_band_position": 0.0,
-                "score_ready": True,
-                "score_status": "CONFIRMED_NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                "coverage_status": "CONFIRMED_NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                "major_victory_gate": {
-                    "required_count": 0,
-                    "actual_count": 0,
-                    "status": "NOT_APPLICABLE_NO_SYSTEM_STRESS",
-                },
-            })
-            hold_reason = "完整统治窗口复核确认没有可消费的实战体系压力任务；按C-N记未受实战检验，不把史料沉默伪装成C0，也不产生C项表现收益。"
-            c_row["cap_reasons"] = [hold_reason]
-        elif no_scoring_evidence:
+        if no_scoring_evidence:
             c_row.update({
                 "combat_delivery_grade": "UNKNOWN",
                 "operational_sustainability_cap": "UNKNOWN",
@@ -3654,7 +3643,7 @@ def _align_bc_to_system_stress_parent_cycles(
                     "status": "NOT_REVIEWABLE",
                 },
             })
-            hold_reason = "当前没有可消费的实战体系压力父周期，C1无法检验；军制、驻防或史料覆盖只能旁证C2/C3，不能单独生成C总分，故C保持UNKNOWN。"
+            hold_reason = "当前输入层没有实战体系压力证据，先保持UNKNOWN；仅正式战略链源闭合继承基线与任内延续后，才可按无实战继承体系规则计分。"
             if hold_reason not in c_row.setdefault("cap_reasons", []):
                 c_row["cap_reasons"].append(hold_reason)
         else:
@@ -3729,9 +3718,19 @@ def build_five_dynasties_formal_payloads(
         "score_ready_count": sum(bool(row.get("score_ready")) for row in ab["records"]),
     })
     c = _replace_partition_records(load_json(workspace_root / C_PATH), c_records)
+    from emperor_v4.evaluation.third_item_c_strategy_chain import (
+        apply_strategy_chain_writeback_to_payload,
+        load_strategy_chain_source,
+    )
+    strategy_chain_source = load_strategy_chain_source(workspace_root)
     for row in c["records"]:
         row.pop("confidence", None)
     _normalize_qin_tang_bc_parent_cycles(workspace_root, ab["records"], c["records"])
+    # The Qin-to-Tang alignment helper retains legacy parent-cycle mechanics
+    # for AB handoff checks.  Reapply the current C strategy-chain source after
+    # that compatibility pass so it cannot silently restore parent-count
+    # scoring or an old gate-rewritten grade.
+    c = apply_strategy_chain_writeback_to_payload(c, strategy_chain_source)
     _validate_formal_abc_contracts(ab["records"], c["records"])
     c.update({
         "scope": f"秦至唐95人当前值 + 五代十国12人当前结算{extension}",
@@ -3918,8 +3917,6 @@ def _b1_region_change_reader_text(row: Mapping[str, Any]) -> str:
 
 def _b_control_reader_basis(row: Mapping[str, Any], axis_code: str, meaning: str) -> str:
     ledger = row.get("b1_region_adjudications") or []
-    expanded = _reader_region_list(ledger, "expanded")
-    contracted = _reader_region_list(ledger, "contracted")
     retained = _reader_region_list(ledger, "retained")
     contribution_type = str(row.get("control_contribution_type") or "")
     contribution_basis = {
@@ -3929,42 +3926,22 @@ def _b_control_reader_basis(row: Mapping[str, Any], axis_code: str, meaning: str
         "INHERITED_ONLY": "交班存量只作客观背景；因仅属继承，不生成本人控制成果信用",
     }.get(contribution_type, "现有正式裁决未闭合本人可归责的正向控制成果")
     parts = [meaning, contribution_basis]
-    background_candidates = [
-        str((row.get("axes", {}).get("A1") or {}).get("reason") or "").strip(),
-        str((row.get("axes", {}).get("A1") or {}).get("rationale") or "").strip(),
-        str(row.get("rationale") or "").strip(),
+    primary = set(row.get("primary_control_package_refs") or [])
+    matched = [
+        item for item in ledger
+        if item.get("object_id") in primary
+        or primary.intersection(item.get("evidence_refs") or [])
     ]
-    row_basis = next(
-        (
-            candidate.removeprefix("整体边疆形势：").strip().rstrip("；。")
-            for candidate in background_candidates
-            if candidate
-            and not any(
-                marker in candidate
-                for marker in ("按本人统治窗口", "安全结果={", "按明朝主体阶段卡")
-            )
-        ),
-        "",
-    )
-    if row_basis:
-        parts.append(f"任内裁决背景：{row_basis}")
-    if expanded:
-        parts.append(f"任内空间账客观增加：{expanded}")
-    if contracted:
-        parts.append(f"任内空间账客观收缩或退出：{contracted}")
-    if retained:
-        label = "交班存量背景" if axis_code == "B2" else "交班客观存量"
-        parts.append(f"{label}：{retained}")
-    if not expanded and not contracted and not retained:
-        if contribution_type == "INHERITED_ONLY":
-            parts.append("没有可识别的本人合格边疆控制包")
-        else:
-            parts.append("B1空间账无独立边疆区域包；本轴信用来自上述整体安全或核心边界维护事实")
-    if axis_code == "B4":
-        control = row.get("b1_control_equivalents") or {}
-        end = control.get("end")
-        if end is not None:
-            parts.append(f"交班控制量为{float(end):g}")
+    facts = [str(item.get("reason") or "").strip() for item in matched]
+    facts = list(dict.fromkeys(fact for fact in facts if fact))
+    if facts:
+        parts.append("相关控制记录：" + "；".join(facts))
+    elif retained:
+        parts.append("交班空间背景：" + retained)
+        if contribution_type != "INHERITED_ONLY":
+            parts.append("本轴具体成果包理由尚未单列，空间存量不代替本人贡献依据")
+    elif contribution_type != "INHERITED_ONLY":
+        parts.append("本轴具体成果包理由尚未单列")
     return _markdown_cell(_reader_state_notation("；".join(parts) + "。"))
 
 
@@ -4296,7 +4273,7 @@ def _render_formal_markdown(
     if kind not in {"AB", "C"}:
         raise ValueError("正式分项Markdown仅支持AB或C；D由军事行动成本和收益登记专用renderer生成")
     current_ab = kind == "AB" and all("AB200_score_points" in row for row in records)
-    score_key = "AB200_score_points" if current_ab else {"AB": "AB_score_points", "C": "C_score_points"}[kind]
+    score_key = "AB200_score_points" if current_ab else {"AB": "AB_atomic_diagnostic_points", "C": "C_score_points"}[kind]
     ranked = _competition_ranked_records(records, score_key)
     unscored = [row for row in records if row.get(score_key) is None]
     values = [float(row[score_key]) for _, row in ranked]
@@ -4378,8 +4355,8 @@ def _render_formal_markdown(
                 )
     else:
         lines += [
-            "| 排名 | 皇帝 | 政权 | 在位 | C1 | C2 | C3 | C总体 | 得分率 | C/50 | 体系压力父任务 |",
-            "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|",
+            "| 排名 | 皇帝 | 政权 | 在位 | C1 | C2 | C3 | C总体 | 得分率 | C/50 | 当前战略链 | 父周期证据 |",
+            "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
         for rank, row in ranked:
             lines.append(
@@ -4387,111 +4364,25 @@ def _render_formal_markdown(
                 f"{human_label(row['combat_delivery_grade'])} | {human_label(row['operational_sustainability_cap'])} | "
                 f"{human_label(row['system_reliability_cap'])} | {row['C_overall_grade']} | "
                 f"{float(row['C_score_rate']):.1f}% | {float(row[score_key]):.1f} | "
-                f"{int(row['independent_task_count'])} |"
+                f"{int(row.get('strategy_chain_count') or 0)} | {int(row.get('independent_task_count') or 0)} |"
             )
     lines += ["", "## 逐人结算依据", ""]
+    if current_ab:
+        lines += [
+            "先看五轴结果，再读各轴事实与归责。A轴计分行均为最终分数；B轴百分比用于合成B总分，不能直接相加。逐档归责、去重边界及来源可展开查看。",
+            "",
+        ]
     for rank, row in ranked:
-        lines += [f"### {rank}. {row['ruler_name']}（{float(row[score_key]):.1f}）", ""]
+        score_text = f"{float(row[score_key]):.2f}" if current_ab else f"{float(row[score_key]):.1f}"
+        lines += [f"### {rank}. {row['ruler_name']}（{score_text}）", ""]
         if kind == "AB":
             if current_ab:
-                b_current = row["B80_adjudication"]
-                axes = row["axes"]
-                a120_axes = row["A120_axis_adjudications"]
-                b1 = axes["B1"]
-                b2 = axes["B2"]
-                b4 = axes["B4"]
-                control = row.get("b1_control_equivalents") or {}
-                b1_net = control.get("net_change", b1.get("raw_net_change"))
-                b1_end = control.get("end")
-                b1_weighted = control.get("weighted_value", b1.get("weighted_control_value"))
-                b1_net_text = f"{float(b1_net):+g}" if b1_net is not None else "未单列"
-                b1_end_text = f"{float(b1_end):g}" if b1_end is not None else "未单列"
-                b1_weighted_text = f"{float(b1_weighted):g}" if b1_weighted is not None else "未单列"
-                exclusion = row.get("b1_cross_item_excluded_weighted_value")
-                if b1_net is not None and exclusion is not None:
-                    effective_net = float(b1_net) - float(exclusion)
-                    adjustment_text = (
-                        f"跨项扣除{float(exclusion):g}"
-                        if float(exclusion) > 0
-                        else f"跨项补回{abs(float(exclusion)):g}"
-                    )
-                    b1_change_text = (
-                        f"第三项计入净变化{effective_net:+g}"
-                        f"（客观净变化{b1_net_text}，{adjustment_text}）"
-                    )
-                else:
-                    b1_change_text = f"净变化{b1_net_text}"
-                a120_reader_lines = {}
-                for axis_name in ("A1", "A2"):
-                    adjudication = a120_axes[axis_name]
-                    steps = adjudication.get("improvement_step_credits") or []
-                    step_text = (
-                        "；".join(
-                            f"{int(step['from_grade'])}→{int(step['to_grade'])}={float(step['credit']):g}"
-                            for step in steps
-                        )
-                        if steps
-                        else "无正向跨档"
-                    )
-                    maintenance_human = (
-                        {
-                            "NONE": "无额外抗压难度",
-                            "TESTED": "经受压力检验",
-                            "SEVERE": "严重抗压",
-                            "HISTORIC": "历史级抗压",
-                        }.get(
-                            str(adjudication["maintenance_difficulty"]),
-                            human_label(adjudication["maintenance_difficulty"]),
-                        )
-                        if adjudication.get("settlement_type") == "LOW_POSITION_RESILIENCE"
-                        else human_label(adjudication["maintenance_difficulty"])
-                    )
-                    a120_reader_lines[axis_name] = (
-                        f"- {axis_name}主类型：{adjudication['settlement_type_label']}"
-                        f"（`{adjudication['settlement_type']}`）；"
-                        f"{_reader_sentence(str(adjudication['settlement_type_basis']))}"
-                        f"逐档改善{step_text}；"
-                        f"本人可归责变化{float(adjudication['attributable_delta']):g}；"
-                        f"保全难度{adjudication['maintenance_difficulty']}"
-                        f"（{maintenance_human}，"
-                        f"+{float(adjudication['maintenance_bonus']):g}轨迹点）；"
-                        f"{_reader_sentence(str(adjudication['maintenance_basis']))}"
-                    )
-                    structure = adjudication.get("within_band_structure_improvement")
-                    if structure:
-                        from emperor_v4.evaluation.third_item_current_settlement import _within_band_structure_credit
-                        a120_reader_lines[axis_name] += (
-                            f"档内结构改善信用{_within_band_structure_credit(adjudication):g}轨迹点"
-                            "（与封顶推进、守成取高）；"
-                            f"{_reader_sentence(structure['net_improvement_basis'])}"
-                        )
-                    a120_reader_lines[axis_name] += (
-                        f"封顶推进+{float(adjudication.get('ceiling_progress_bonus') or 0):g}轨迹点；"
-                        f"负向调整−{float(adjudication.get('negative_adjustment') or 0):g}轨迹点；"
-                        f"本轴{float(adjudication['axis_points']):g}分。"
-                    )
-                    review = adjudication.get("positive_credit_review")
-                    if review:
-                        a120_reader_lines[axis_name] += f"专项裁决：{_reader_sentence(review['basis'])}"
-                    elif int(adjudication["end_grade"]) == 5:
-                        a120_reader_lines[axis_name] += f"封顶路径裁决：{_reader_sentence(adjudication['ceiling_progress_basis'])}"
-                lines += [
-                    *(
-                        [f"- A轴共同背景：{_reader_sentence(row['A_axis_common_context'])}"]
-                        if str(row.get("A_axis_common_context") or "").strip()
-                        else []
-                    ),
-                    f"- A1接手档位：{_state_grade_label(axes['A1'].get('start'), 'A1')}（{_state_meaning(axes['A1'].get('start'), 'A1')}）；说明：{_reader_sentence(_trajectory_endpoint_basis(row, 'A1', 'start'))}",
-                    f"- A1交班档位：{_state_grade_label(axes['A1'].get('end'), 'A1')}（{_state_meaning(axes['A1'].get('end'), 'A1')}）；说明：{_reader_sentence(_trajectory_endpoint_basis(row, 'A1', 'end'))}",
-                    a120_reader_lines["A1"],
-                    f"- A2接手档位：{_state_grade_label(axes['A2'].get('start'), 'A2')}（{_state_meaning(axes['A2'].get('start'), 'A2')}）；说明：{_reader_sentence(_trajectory_endpoint_basis(row, 'A2', 'start'))}",
-                    f"- A2交班档位：{_state_grade_label(axes['A2'].get('end'), 'A2')}（{_state_meaning(axes['A2'].get('end'), 'A2')}）；说明：{_reader_sentence(_trajectory_endpoint_basis(row, 'A2', 'end'))}",
-                    a120_reader_lines["A2"],
-                    f"- B1任内净变化与交班规模：{b1_change_text}，交班规模{b1_end_text}，计档控制值{b1_weighted_text}；{_b1_region_change_reader_text(row)}；{b1['grade']}（{float(b_current['adjudicated_B1_rate']):.0f}%）。",
-                    f"- B2战略价值说明：{_b_reader_grade(row, 'B2')}；{_b_reader_basis(row, 'B2')}",
-                    f"- B4交班成熟度说明：{_b_reader_grade(row, 'B4')}；{_b_reader_basis(row, 'B4')}",
-                    "",
-                ]
+                from emperor_v4.evaluation.third_item_ab_reading import render_person
+                lines += render_person(
+                    row, b_basis=_b_reader_basis, b_grade=_b_reader_grade,
+                    b_regions=_b1_region_change_reader_text,
+                    depth_lines=render_control_depth_packages,
+                )
             else:
                 lines += [f"- 裁决：{_ab_settlement_basis(row)}", ""]
             continue
@@ -4501,12 +4392,16 @@ def _render_formal_markdown(
                 "",
             ]
             continue
+        if row.get("system_observation_status") == "INHERITED_UNTESTED":
+            lines += ["- 观察状态：继承体系能力；未受任内实战检验，总档上限C3。", ""]
         c_basis = _joined_reasons(row.get("cap_reasons") or []) or "按C1、C2、C3短板门槛与体系压力父任务暴露定档。"
         position = row.get("C_score_within_band_adjudication") or {}
         position_line = (
             f"- 档内位置：{human_label(position['position'])}；{_markdown_cell(str(position['reason']))}"
             if position else
-            f"- 档内位置：按三轴差值计算，位置系数{float(row.get('C_score_band_position', 0)):.2f}。"
+            ("- 档内位置：无本人战果，按中性位置与三轴差值取高。"
+             if row.get("system_observation_status") == "INHERITED_UNTESTED" else
+             f"- 档内位置：按三轴差值计算，位置系数{float(row.get('C_score_band_position', 0)):.2f}。")
         )
         lines += [
             position_line,
@@ -4604,7 +4499,7 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
         ]
     for row in unscored:
         reason = str(row.get("pending_reason") or "组成部分尚未闭合，第三项不赋中性总分。")
-        ab_value = "—" if row.get("AB_score_points") is None else f"{float(row['AB_score_points']):.1f}"
+        ab_value = "—" if row.get("AB_atomic_diagnostic_points") is None else f"{float(row['AB_atomic_diagnostic_points']):.1f}"
         c_value = "—" if row.get("C_score_points") is None else f"{float(row['C_score_points']):.1f}"
         d_value = "—" if row.get("D_score_points") is None else f"{float(row['D_score_points']):.1f}"
         lines += [

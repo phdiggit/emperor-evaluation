@@ -6,6 +6,7 @@ from statistics import mean, median
 from typing import Any, Mapping
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.canonical_ruler_pool import canonical_item_name
 from emperor_v4.evaluation.composite_details import (
     component_details, load_detail_sources,
 )
@@ -17,6 +18,8 @@ from emperor_v4.evaluation.first_item_markdown_settlement import (
 POOL_PATH = "config/common/canonical-ruler-pool.json"
 OUTPUT_JSON = "docs/评分结算/00-皇帝统治成效综合评分榜.json"
 OUTPUT_MARKDOWN = "docs/评分结算/00-皇帝统治成效综合评分榜.md"
+FIRST_ITEM_ADD_ON_COEFFICIENT = 0.20
+FIRST_ITEM_SENSITIVITY_COEFFICIENTS = (0.18, 0.20, 0.22)
 
 SETTLEMENT_SPECS = {
     "second_item": (
@@ -57,7 +60,7 @@ def _weight_sensitivity(
     scenarios = []
     for tilt in (-0.2, 0.0, 0.2):
         normalizer = 637 / (387 * (1 + tilt) + 250 * (1 - tilt))
-        for founder in (0.12, 0.15, 0.18):
+        for founder in FIRST_ITEM_SENSITIVITY_COEFFICIENTS:
             for civilization in (0.8, 1.0, 1.2):
                 scenario_id = f"g{tilt:+.1f}_f{founder:.2f}_c{civilization:.1f}"
                 scenarios.append({
@@ -97,7 +100,7 @@ def _weight_sensitivity(
         ranks = [scenario_ranks[s["id"]][ruler_id] for s in selected]
         return {"best": min(ranks), "worst": max(ranks)}
 
-    baseline = "g+0.0_f0.15_c1.0"
+    baseline = "g+0.0_f0.20_c1.0"
     for row in records:
         ruler_id = row["ruler_id"]
         if scenario_ranks[baseline][ruler_id] != row["rank"]:
@@ -106,8 +109,8 @@ def _weight_sensitivity(
             "all_scenarios": extent(ruler_id, scenarios),
             "add_ons_only": extent(ruler_id, [s for s in scenarios if s["common_tilt"] == 0]),
             "first_item_only": extent(ruler_id, [s for s in scenarios if s["common_tilt"] == 0 and s["fourth_item_multiplier"] == 1]),
-            "fourth_item_only": extent(ruler_id, [s for s in scenarios if s["common_tilt"] == 0 and s["first_item_coefficient"] == 0.15]),
-            "common_items_only": extent(ruler_id, [s for s in scenarios if s["first_item_coefficient"] == 0.15 and s["fourth_item_multiplier"] == 1]),
+            "fourth_item_only": extent(ruler_id, [s for s in scenarios if s["common_tilt"] == 0 and s["first_item_coefficient"] == FIRST_ITEM_ADD_ON_COEFFICIENT]),
+            "common_items_only": extent(ruler_id, [s for s in scenarios if s["first_item_coefficient"] == FIRST_ITEM_ADD_ON_COEFFICIENT and s["fourth_item_multiplier"] == 1]),
             "scenario_ranks": {s["id"]: scenario_ranks[s["id"]][ruler_id] for s in scenarios},
         }
     return {
@@ -132,10 +135,12 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
     indexed = {
         item: _index_records(payload, item) for item, payload in payloads.items()
     }
-    first_item_scores = {
-        row["name"]: row["total"]
-        for row in load_first_item_markdown_settlement(workspace_root)
-    }
+    first_item_scores: dict[str, float] = {}
+    for row in load_first_item_markdown_settlement(workspace_root):
+        canonical_name = canonical_item_name("first_item", row["name"])
+        if canonical_name in first_item_scores:
+            raise ValueError(f"第一项别名归一后人物重复：{canonical_name}")
+        first_item_scores[canonical_name] = row["total"]
     detail_sources = load_detail_sources(workspace_root)
 
     ready = [
@@ -149,7 +154,11 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
             "ruler_name": row["ruler_name"],
             "polity": row["polity"],
             "settlement_readiness": row["settlement_readiness"],
-            "not_ranked_reason": "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT",
+            "not_ranked_reason": (
+                "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"
+                if row["settlement_readiness"] == "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"
+                else "PENDING_THIRD_ITEM_FORMAL_SETTLEMENT"
+            ),
         }
         for row in pool["records"]
         if row["pool_status"] == "INCLUDED"
@@ -157,8 +166,18 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
     ]
     if len(ready) != pool["composite_ready_count"]:
         raise ValueError("综合就绪人数与正式池声明不一致")
-    if len(pending) != pool["pending_second_item_count"]:
+    pending_second = [
+        row for row in pending
+        if row["not_ranked_reason"] == "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"
+    ]
+    pending_third = [
+        row for row in pending
+        if row["not_ranked_reason"] == "PENDING_THIRD_ITEM_FORMAL_SETTLEMENT"
+    ]
+    if len(pending_second) != pool["pending_second_item_count"]:
         raise ValueError("待第二项结算人数与正式池声明不一致")
+    if len(pending_third) != pool.get("pending_third_item_count", 0):
+        raise ValueError("待第三项结算人数与正式池声明不一致")
 
     pending_fourth: list[dict[str, Any]] = []
     records: list[dict[str, Any]] = []
@@ -176,7 +195,15 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
                 "not_ranked_reason": "UNRESOLVED_FOURTH_ITEM_EVIDENCE_GAP",
             })
             continue
-        first_value = first_item_scores.get(pool_row["ruler_name"])
+        first_source_name = (pool_row.get("source_item_names") or {}).get("first_item")
+        first_lookup_name = canonical_item_name(
+            "first_item", first_source_name or pool_row["ruler_name"]
+        )
+        first_value = first_item_scores.get(first_lookup_name)
+        if first_source_name and first_value is None:
+            raise ValueError(
+                f"{pool_row['ruler_name']}的第一项来源“{first_source_name}”归一后未找到正式分"
+            )
         first_applicable = first_value is not None
         first_score = float(first_value) if first_applicable else 0.0
         scores: dict[str, float] = {"first_item": first_score}
@@ -190,7 +217,7 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
             scores[item] = float(value)
 
         first_add_on = (
-            0.15 * 637 * (scores["first_item"] / 240) ** 1.25
+            FIRST_ITEM_ADD_ON_COEFFICIENT * 637 * (scores["first_item"] / 240) ** 1.25
             if scores["first_item"] > 0
             else 0.0
         )
@@ -245,20 +272,22 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         "fourth_item_semantic_review_complete": fourth_review_complete,
         "fourth_item_review_gates": fourth_review,
         "ranking_population": "COMPOSITE_READY",
-        "formula": "T = S2 + S3 + 0.15 * 637 * (S1 / 240) ^ 1.25 + CIV4",
+        "formula": f"T = S2 + S3 + {FIRST_ITEM_ADD_ON_COEFFICIENT:.2f} * 637 * (S1 / 240) ^ 1.25 + CIV4",
         "first_item_not_applicable_policy": "F=0; not treated as a zero-score failure",
         "rank_tie_policy": "competition_rank_then_ruler_id",
         "weight_sensitivity": sensitivity,
         "score_precision": "source scores retained; F and T rounded to 2 decimals",
         "record_count": len(records),
-        "pending_second_item_count": len(pending),
+        "pending_second_item_count": len(pending_second),
+        "pending_third_item_count": len(pending_third),
         "pending_fourth_item_count": len(pending_fourth),
         "pending_fourth_item_records": sorted(pending_fourth, key=lambda row: row["ruler_id"]),
         "mean_score": round(mean(scores), 2),
         "median_score": round(median(scores), 2),
         "min_score": min(scores),
         "max_score": max(scores),
-        "pending_second_item_records": pending,
+        "pending_second_item_records": pending_second,
+        "pending_third_item_records": pending_third,
         "records": records,
     }
 
@@ -316,6 +345,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         (
             f"> 本榜只覆盖正式评价池中`COMPOSITE_READY`的{payload['record_count']}人；"
             f"另有{payload['pending_second_item_count']}人因第二项尚未正式结算而不入榜。"
+            f"另有{payload['pending_third_item_count']}人因第三项C父周期语义审计待补而不入榜。"
             f"另有{payload['pending_fourth_item_count']}名原综合就绪对象因第四项证据缺口暂不入榜，不把未知按零分处理。"
             "排名是现行规则与现有正式分项快照的确定性合成，不以历史名望反推分数。"
         ),
@@ -323,7 +353,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "## 口径",
         "",
         "综合分公式：`T = 第二项 + 第三项 + F + 第四项调整`，其中"
-        "`F = 0.15 × 637 × (第一项净分 / 240)^1.25`。第一项不适用者是`F=0`，"
+        f"`F = {FIRST_ITEM_ADD_ON_COEFFICIENT:.2f} × 637 × (第一项净分 / 240)^1.25`。第一项不适用者是`F=0`，"
         "不是把“不适用”判成第一项零分。总分保留两位小数，采用竞争排名；同分记录按"
         "规范`ruler_id`稳定排序。",
         "",
@@ -331,6 +361,10 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "正式裁决下的条件排序；微小分差不应直接解释为可辨识的历史优劣。表中范围是所列离散"
         "权重情景下的最好至最差名次，不是置信区间，也不是连续参数范围的严格界限。"
         "史料、归责、分项裁决及第一项指数均固定；证据与裁决不确定性尚未评估。",
+        "",
+        "> 综合分不表示历史贡献或统治能力的倍数关系；多项优势叠加可能形成明显领先。"
+        "离群是复核线索，本身不足以证明评分正确或错误。评分是否合理，应检验分项证据、"
+        "归责去重与规则一致性，不以贴合名望或缩小分差为目标。",
         "",
         (
             f"当前均分{payload['mean_score']:.2f}，中位数{payload['median_score']:.2f}，"
@@ -384,7 +418,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "战后清洗及持续后果与后续主动成本分别归责，不把靖难战争本身的损害混入。"
         "李渊的创业成果则须与李世民按阶段归责。具体依据见分项结算。",
         "",
-        "第一项按共同正向上限的15%及指数1.25折算，附加分最多95.55分；"
+        "第一项按共同正向上限的20%及指数1.25折算，附加分最多127.4分；"
         "第一项净分、准入边界及跨项成果与成本去重规则继续按正式合同执行。"
         "该系数统一体现创业贡献，不按个别人物的去重减分补回。",
         "",
@@ -393,7 +427,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "",
         "以下是诊断设置，不修改正式权重，也不根据人物名次选择参数：",
         "",
-        "- 奠基附加系数取12%、15%、18%；文明调整倍数取0.8、1、1.2，正负端同步缩放。共同项固定时形成9种附加项组合。",
+        "- 奠基附加系数取18%、20%、22%；文明调整倍数取0.8、1、1.2，正负端同步缩放。共同项固定时形成9种附加项组合。",
         "- 共同项倾斜参数d取-0.2、0、0.2，以(1+d, 1-d)分别乘第二、三项，再同乘637/[387×(1+d)+250×(1-d)]，保持共同正向上限637及奠基附加尺度一致。",
         f"- 三组参数全组合共{payload['weight_sensitivity']['scenario_count']}种情景，包含基准；总分仍保留两位小数并采用竞争排名。所有情景采用同一入榜池，未结算对象不参与。",
         "",
@@ -422,6 +456,11 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         lines.append(
             f"| {row['ruler_name']} | {row['polity']} | `PENDING_SECOND_ITEM` |"
         )
+    lines.extend(["", "## 暂不入榜：待第三项正式结算", "",
+                  "以下对象的C父周期语义审计仍有待补边界，不把未知按零分处理。", "",
+                  "| 人物 | 政权 | 状态 |", "|---|---|---|"])
+    for row in payload["pending_third_item_records"]:
+        lines.append(f"| {row['ruler_name']} | {row['polity']} | `PENDING_THIRD_ITEM` |")
     lines.extend(["", "## 暂不入榜：第四项证据缺口", "",
                   "| 人物 | 政权 | 状态 |", "|---|---|---|"])
     for row in payload["pending_fourth_item_records"]:
@@ -479,6 +518,7 @@ def verify_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         "path": OUTPUT_JSON,
         "record_count": expected["record_count"],
         "pending_second_item_count": expected["pending_second_item_count"],
+        "pending_third_item_count": expected["pending_third_item_count"],
         "pending_fourth_item_count": expected["pending_fourth_item_count"],
         "min_score": expected["min_score"],
         "max_score": expected["max_score"],

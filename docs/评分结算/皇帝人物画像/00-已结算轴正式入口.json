@@ -1,11 +1,11 @@
 {
   "schema_version": "emperor-profile-formal-axis-manifest-v1",
-  "contract_version": "FORMAL-V2.0",
+  "contract_version": "FORMAL-V2.2",
   "contract": "docs/项目总纲/皇帝人物画像评估体系合同.md",
   "data_contract": "docs/分项规则/人物画像轴/00-共同数据与发布合同.md",
   "canonical_status": "FORMAL_CURRENT",
   "population_count": 184,
-  "settled_axis_count": 8,
+  "settled_axis_count": 9,
   "unsettled_axis_count": 0,
   "profile_total_enabled": false,
   "profile_ranking_enabled": false,
@@ -192,6 +192,33 @@
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
       "formalization_note": "C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图，高档门、生命周期、模板与跨轴边界由轻量语义校验器守护。"
+    },
+    {
+      "axis_code": "C4",
+      "axis_name": "治理架构与制度设计能力",
+      "status": "FORMAL_CURRENT",
+      "contract": "docs/分项规则/人物画像轴/C4-治理架构与制度设计.md",
+      "axis_contract_version": "FORMAL-V2.2",
+      "payload_schema_version": "profile-c4-formal-settlement-v1",
+      "axis_kind": "DIRECT_PROFILE_AXIS",
+      "authority_mode": "FORMAL_JSON_SOURCE",
+      "reader_view_mode": "DETERMINISTIC_GENERATED",
+      "verify_command": "profile-c4-verify",
+      "record_count": 184,
+      "json": "C4/01-C4治理架构与制度设计正式结算.json",
+      "markdown": "C4/01-C4治理架构与制度设计正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [
+        {
+          "audit_kind": "C4_ADJUDICATION_EVIDENCE",
+          "path": "C4/02-C4裁决依据.json"
+        },
+        {
+          "audit_kind": "OUTSIDE_CANONICAL_POOL",
+          "path": "C4/03-C4池外裁决保留.json"
+        }
+      ],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
     },
     {
       "axis_code": "C5",

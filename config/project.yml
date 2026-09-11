@@ -9,7 +9,7 @@ project:
 scoring_contract:
   governing_document: docs/项目总纲/皇帝综合评价体系评分标准.md
   common_positive_denominator: 637
-  first_item_add_on_formula: F = 0.15 * 637 * (S1 / 240) ^ 1.25
+  first_item_add_on_formula: F = 0.20 * 637 * (S1 / 240) ^ 1.25
   composite_formula: T = S2 + S3 + F + CIV4
   scored_items: [first_item, second_item, third_item, fourth_item]
   database_write: false
@@ -21,7 +21,7 @@ canonical_ruler_pool:
   status: current
   candidate_count: 201
   included_count: 184
-  composite_ready_count: 174
+  composite_ready_count: 173
   pending_second_item_count: 10
   pending_first_item_scope_count: 0
   pending_first_item_formal_settlement_count: 0
@@ -36,7 +36,7 @@ formal_json_routing:
   schema_version: formal-json-polity-router-v1
   shard_schema_version: formal-json-polity-shard-v1
   route_key: polity
-  routed_file_count: 22
+  routed_file_count: 21
   loader: src/emperor_v4/evaluation/formal_json_store.py
   polity_source: canonical ruler id, source-item id and legacy id map to config/common/canonical-ruler-pool.json polity; unmatched historical records retain their explicit polity
   scope: tracked settlement JSON files at least 500KB
@@ -64,7 +64,7 @@ formal_settlements:
   second_item:
     range: [-27.5, 387]
     adopted_next_result_mechanism:
-      version: GOVERNANCE-STATE-RECOVERY-V3
+      version: GOVERNANCE-STATE-RECOVERY-V4
       contract: docs/分项规则/第二项治国净收益/财政民生/02-主态低谷与净恢复机制.md
       status: UNIFORMLY_ACTIVE_CANONICAL_POOL
       score_active: true
@@ -80,6 +80,9 @@ formal_settlements:
     role: common_military
     json: docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json
     markdown: docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.md
+    c_parent_cycle_audit_json: config/third-item/third-item-c-parent-cycle-adjudications.json
+    c_parent_cycle_audit_markdown: docs/评分结算/第三项军事与边疆净收益/军事体系有效性/02-C父周期逐人语义审计.md
+    c_strategy_chain_adjudications: config/third-item/third-item-c-strategy-chain-adjudications.json
     a_axis_narrative_authority_mode: formal_settlement_patch_source
     a_axis_narrative_json: config/third-item/third-item-a-axis-narrative-adjudications.json
     d_authority_mode: formal_settlement_patch_source
@@ -109,12 +112,12 @@ adjudication_sensitivity:
   confidence_interval: false
 
 profile_assessment:
-  status: eight_axes_formally_settled
+  status: nine_axes_formally_settled
   role: independent_non_composite_profile
-  contract_version: FORMAL-V2.0
+  contract_version: FORMAL-V2.2
   contract: docs/项目总纲/皇帝人物画像评估体系合同.md
   data_contract: docs/分项规则/人物画像轴/00-共同数据与发布合同.md
-  axis_order: [M1, M2, M3, M4, C1, C2, C3, C5]
+  axis_order: [M1, M2, M3, M4, C1, C2, C3, C4, C5]
   population_count: 184
   profile_total_enabled: false
   profile_ranking_enabled: false
@@ -125,7 +128,7 @@ profile_assessment:
     source: settled_axes_formal_json_only
     output_dir: docs/评分结算/皇帝人物画像/雷达图小样
     scale: [0, 100]
-    axis_order: [M1, M2, M3, M4, C1, C2, C3, C5]
+    axis_order: [M1, M2, M3, M4, C1, C2, C3, C4, C5]
     profile_total_enabled: false
     profile_ranking_enabled: false
     composite_ranking_write: false
@@ -261,6 +264,22 @@ profile_assessment:
         - audit_kind: SYSTEMIC_REVIEW
           path: C3/28-C3高档门与错误清洗系统复核.json
       formalization_note: C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图，高档门、生命周期、模板与跨轴边界由轻量语义校验器守护。
+    C4:
+      name: 治理架构与制度设计能力
+      contract: docs/分项规则/人物画像轴/C4-治理架构与制度设计.md
+      axis_contract_version: FORMAL-V2.2
+      payload_schema_version: profile-c4-formal-settlement-v1
+      axis_kind: DIRECT_PROFILE_AXIS
+      authority_mode: FORMAL_JSON_SOURCE
+      reader_view_mode: DETERMINISTIC_GENERATED
+      verify_command: profile-c4-verify
+      json: docs/评分结算/皇帝人物画像/C4/01-C4治理架构与制度设计正式结算.json
+      markdown: docs/评分结算/皇帝人物画像/C4/01-C4治理架构与制度设计正式结算.md
+      audit_jsons:
+        - audit_kind: C4_ADJUDICATION_EVIDENCE
+          path: C4/02-C4裁决依据.json
+        - audit_kind: OUTSIDE_CANONICAL_POOL
+          path: C4/03-C4池外裁决保留.json
     C5:
       name: 权力运用风格与克制
       contract: docs/分项规则/人物画像轴/C5-权力运用风格与克制.md
@@ -291,6 +310,6 @@ retained_build_chain:
   military_talent_registry: docs/公共成果/军事/02-武将人才等级.json
   military_cost_benefit_audit_lineage: docs/公共成果/军事/03-军事行动成本和收益登记.json
   first_item_commands: []
-  third_item_commands: [third-item-b1-settlement, third-item-d-verify, third-item-current-settlement]
+  third_item_commands: [third-item-b1-settlement, third-item-c-settlement, third-item-d-verify, third-item-current-settlement]
   composite_ranking_command: composite-ranking --write
   verification_command: formal-settlements-verify
