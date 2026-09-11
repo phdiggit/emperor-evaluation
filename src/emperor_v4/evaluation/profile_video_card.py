@@ -125,7 +125,12 @@ def render_card(profile: Profile, context: dict[str, str], portrait_path: Path, 
     temporary_png = output_path.parent / ".video-card-render.png"
     figure.savefig(temporary_png, format="png", dpi=150)
     temporary_png.replace(output_path.with_suffix(".png"))
-    figure.savefig(output_path.with_suffix(".svg"))
+    svg_path = output_path.with_suffix(".svg")
+    figure.savefig(svg_path)
+    svg_path.write_text(
+        "\n".join(line.rstrip() for line in svg_path.read_text(encoding="utf-8").splitlines()) + "\n",
+        encoding="utf-8", newline="\n",
+    )
     plt.close(figure)
 
 

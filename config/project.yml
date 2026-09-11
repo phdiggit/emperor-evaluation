@@ -112,12 +112,15 @@ adjudication_sensitivity:
   confidence_interval: false
 
 profile_assessment:
-  status: nine_axes_formally_settled
+  status: ten_axes_formally_settled
   role: independent_non_composite_profile
-  contract_version: FORMAL-V2.2
+  contract_version: FORMAL-V2.3
   contract: docs/项目总纲/皇帝人物画像评估体系合同.md
   data_contract: docs/分项规则/人物画像轴/00-共同数据与发布合同.md
-  axis_order: [M1, M2, M3, M4, C1, C2, C3, C4, C5]
+  axis_order: [M1, M2, M3, M4, M5, C1, C2, C3, C4, C5]
+  capability_axes: [M1, M2, M4, M5, C1, C2, C3, C4]
+  independent_profile_axes: [M3, C5]
+  summary_markdown: docs/评分结算/皇帝人物画像/十轴结算汇总.md
   population_count: 184
   profile_total_enabled: false
   profile_ranking_enabled: false
@@ -128,7 +131,7 @@ profile_assessment:
     source: settled_axes_formal_json_only
     output_dir: docs/评分结算/皇帝人物画像/雷达图小样
     scale: [0, 100]
-    axis_order: [M1, M2, M3, M4, C1, C2, C3, C4, C5]
+    axis_order: [M1, M2, M3, M4, M5, C1, C2, C3, C4, C5]
     profile_total_enabled: false
     profile_ranking_enabled: false
     composite_ranking_write: false
@@ -212,6 +215,19 @@ profile_assessment:
         - audit_kind: FULL_POOL_REVIEW
           path: M4/37-M4全池两轮复审.json
       formalization_note: M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图，人物裁决变化只通过局部patch进入正式JSON，不由程序自动改档。
+    M5:
+      name: 组织驾驭与执行编排
+      contract: docs/分项规则/人物画像轴/M5-组织驾驭与执行编排.md
+      axis_contract_version: FORMAL-V1.0
+      payload_schema_version: profile-m5-formal-settlement-v1
+      axis_kind: DIRECT_PROFILE_AXIS
+      authority_mode: FORMAL_JSON_SOURCE
+      reader_view_mode: DETERMINISTIC_GENERATED
+      verify_command: profile-m5-verify
+      json: docs/评分结算/皇帝人物画像/M5/01-M5组织驾驭与执行编排正式结算.json
+      markdown: docs/评分结算/皇帝人物画像/M5/01-M5组织驾驭与执行编排正式结算.md
+      audit_jsons: []
+      formalization_note: 正式JSON保存当前逐人裁决与过程来源；程序只校验共同投影、身份窗口、引用和阅读同值，不从清单或其他轴自动重裁。
     C1:
       name: 战略判断与风险控制
       contract: docs/分项规则/人物画像轴/C1-战略判断与风险控制.md

@@ -652,6 +652,9 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
 
 def render_profile_markdown(settlement: dict[str, Any]) -> str:
     axis = settlement["axis_code"]
+    if axis == "M5":
+        from emperor_v4.evaluation.profile_m5 import render
+        return render(settlement)
     if axis == "C4":
         from emperor_v4.evaluation.profile_c4 import render
         return render(settlement)

@@ -24,7 +24,7 @@ DERIVED = {
 }
 REVIEW = {
     "I2.A": ("profile.C3", "profile.C4", "profile.C5"),
-    "I2.B1": ("profile.C3", "profile.C5"),
+    "I2.B1": ("profile.C3", "profile.C5", "profile.M5"),
     "I2.B2": ("profile.C2", "profile.C5"),
     **{f"I2.{axis}": ("profile.M3",) for axis in ("C1", "C2", "C3", "C4")},
     "I1": ("profile.M1", "profile.C1", "profile.M4"),
@@ -33,6 +33,8 @@ REVIEW = {
     "profile.C2": ("profile.C5", "profile.M4"),
     "profile.C5": ("profile.C2", "profile.C3", "profile.M4"),
     **{f"profile.{axis}": ("profile.M4",) for axis in ("M1", "M2", "M3", "C1", "C3")},
+    "profile.C3": ("profile.M4", "profile.M5"),
+    "profile.C4": ("profile.M5",),
 }
 CHECKS = {
     "I1": "first-item-cost-verify", "I2.A": "second-item-a-verify",

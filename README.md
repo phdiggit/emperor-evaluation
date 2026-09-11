@@ -72,6 +72,13 @@ python v4.py canonical-ruler-pool
 python v4.py profile-manifest --axis C1 --write
 ```
 
+M5当前裁决维护后，生成同值阅读页并检查身份窗口、来源与共同投影：
+
+```powershell
+python v4.py profile-markdown --axis M5 --write
+python v4.py profile-m5-verify
+```
+
 综合计分输入变化时重建综合总榜：
 
 ```powershell

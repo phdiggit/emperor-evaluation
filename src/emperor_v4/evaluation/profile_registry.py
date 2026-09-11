@@ -6,6 +6,7 @@ only exposes that registry; it does not adjudicate or rewrite profile data.
 from __future__ import annotations
 
 from pathlib import Path, PurePosixPath
+import re
 from typing import Any, Iterable
 
 import yaml
@@ -198,4 +199,77 @@ def write_profile_manifest(axes: Iterable[str] | None = None) -> Path:
             existing[axis] = _axis_manifest(profile, axis)
         manifest["axes"] = [existing[axis] for axis in profile_axis_order(profile)]
     write_json(path, manifest)
+    markdown = ROOT / profile["manifest_markdown"]
+    lines = [
+        "# 皇帝人物画像已结算轴正式入口", "",
+        "> 以下为项目配置登记的正式当前轴。人物画像不进入综合总榜，不设画像总分或轴内排名。", "",
+        "| 轴 | 名称 | 人数 | 机器入口 | 阅读视图 |", "|---|---|---:|---|---|",
+    ]
+    for entry in manifest["axes"]:
+        lines.append(f"| {entry['axis_code']} | {entry['axis_name']} | {entry['record_count']} | [JSON]({entry['json']}) | [Markdown]({entry['markdown']}) |")
+    lines.extend(["", "轴序以config/project.yml为准；各轴JSON保存当前裁决及完整来源，Markdown为同值阅读视图。不适用留空，不换算为零分。", ""])
+    markdown.write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    if profile.get("summary_markdown"):
+        write_profile_summary()
+    return path
+
+
+def write_profile_summary() -> Path:
+    """Join current formal values by stable identity for chronological reading."""
+    project = load_project_config()
+    profile = project["profile_assessment"]
+    axes = profile_axis_order(profile)
+    capabilities = profile["capability_axes"]
+    independent = profile["independent_profile_axes"]
+    if set(capabilities) & set(independent) or set(capabilities + independent) != set(axes):
+        raise ValueError("画像轴分类与正式轴集合不一致")
+    people = [r for r in load_json(ROOT / project["canonical_ruler_pool"]["json"])["records"] if r["pool_status"] == "INCLUDED"]
+    values = {}
+    for axis in axes:
+        rows = load_json(ROOT / profile["settled_axes"][axis]["json"])["records"]
+        values[axis] = {r["ruler_id"]: r for r in rows}
+        if len(values[axis]) != len(rows) or set(values[axis]) != {r["ruler_id"] for r in people}:
+            raise ValueError(f"{axis}汇总人物集合不一致")
+
+    def start(person: dict[str, Any]) -> int:
+        window = person["actual_power_window"]
+        year = re.search(r"\d+", window)
+        if not year:
+            raise ValueError(f"无法识别实际权力窗口: {window}")
+        return int(year[0]) * (-1 if "前" in window[:year.start()] else 1)
+
+    people.sort(key=start)
+    lines = ["# 十轴结算汇总", "",
+        "> 机器真值以各轴正式JSON为准；本表不生成画像总分、能力总分、轴内排名或综合总榜。", "",
+        "## 汇总口径", "",
+        f"- 八个能力轴：{'、'.join(capabilities)}。",
+        f"- 两个独立画像轴：{'、'.join(independent)}；M3评价民生财政局面与任内建设，C5评价权力运用风格与克制，均不归入能力轴。",
+        f"- 当前正式人物：{len(people)}人。十轴顺序：{'、'.join(axes)}。",
+        "- 单元格为档位-档内位置（雷达值）；未完成实裁的历史显示点标为‘显示点’，数值留空；不适用亦留空。",
+        "- 按规范池实际权力窗口起始年份排序，公元前年份按负数处理，同年保持规范池顺序；时序不是排名。", "",
+        "## 正式轴入口", "", "| 轴 | 分类 | 名称 | 正式JSON |", "|---|---|---|---|"]
+    for axis in axes:
+        entry = profile["settled_axes"][axis]
+        ref = _profile_relative_path(entry["json"])
+        category = "能力轴" if axis in capabilities else "独立画像轴"
+        lines.append(f"| {axis} | {category} | {entry['name']} | [JSON]({ref}) |")
+    lines.extend(["", "## 按时代排序的人物十轴结算", "",
+        "| 时序 | 时代起点 | 人物 | 政权 | 实际权力窗口 | " + " | ".join(axes) + " |",
+        "| " + " | ".join(["---"] * (5 + len(axes))) + " |"])
+    for sequence, person in enumerate(people, 1):
+        year = start(person)
+        cells = [str(sequence), f"前{-year}年" if year < 0 else f"{year}年", person["ruler_name"], person["polity"], person["actual_power_window"]]
+        for axis in axes:
+            row = values[axis][person["ruler_id"]]
+            label = f"{row['axis_grade']}-{row['position']}"
+            if row.get("score_status") == "NOT_APPLICABLE":
+                cell = "不适用（—）"
+            elif row.get("display_point_only") or row.get("adjudication_state") in {"UNRESOLVED_EVIDENCE_GAP", "REASSESSMENT_REQUIRED"}:
+                cell = f"显示点·{label}（—）"
+            else:
+                cell = f"{label}（{row['radar_value']}）"
+            cells.append(cell)
+        lines.append("| " + " | ".join(cells) + " |")
+    path = ROOT / profile["summary_markdown"]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
     return path
