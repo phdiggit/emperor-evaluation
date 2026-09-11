@@ -362,6 +362,10 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "权重情景下的最好至最差名次，不是置信区间，也不是连续参数范围的严格界限。"
         "史料、归责、分项裁决及第一项指数均固定；证据与裁决不确定性尚未评估。",
         "",
+        "> 综合分不表示历史贡献或统治能力的倍数关系；多项优势叠加可能形成明显领先。"
+        "离群是复核线索，本身不足以证明评分正确或错误。评分是否合理，应检验分项证据、"
+        "归责去重与规则一致性，不以贴合名望或缩小分差为目标。",
+        "",
         (
             f"当前均分{payload['mean_score']:.2f}，中位数{payload['median_score']:.2f}，"
             f"范围{payload['min_score']:.2f}—{payload['max_score']:.2f}。"
