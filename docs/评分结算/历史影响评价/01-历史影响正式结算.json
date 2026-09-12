@@ -1,0 +1,307 @@
+{
+  "schema_version": "formal-json-polity-router-v1",
+  "route_key": "polity",
+  "content_schema_version": "historical-impact-formal-v2",
+  "payload_key_order": [
+    "schema_version",
+    "contract_version",
+    "canonical_status",
+    "authority_mode",
+    "system_relation",
+    "public_grade_order",
+    "dimension_grade_order",
+    "public_label_mapping",
+    "numerical_scoring_enabled",
+    "composite_ranking_write",
+    "profile_radar_write",
+    "record_order_policy",
+    "record_count",
+    "supplementary_record_count",
+    "source_adoption",
+    "records",
+    "supplementary_records"
+  ],
+  "payload_metadata": {
+    "schema_version": "historical-impact-formal-v2",
+    "contract_version": "FORMAL-V1.2",
+    "canonical_status": "FORMAL_CURRENT",
+    "authority_mode": "FORMAL_JSON_SOURCE",
+    "system_relation": "INDEPENDENT_THIRD_EVALUATION_SYSTEM",
+    "public_grade_order": [
+      "S+",
+      "S",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "dimension_grade_order": [
+      "S+",
+      "S",
+      "S-",
+      "A+",
+      "A",
+      "B",
+      "C"
+    ],
+    "public_label_mapping": {
+      "S+": "S+",
+      "S": "S",
+      "S-": "A",
+      "A+": "B",
+      "A": "C",
+      "B": "D",
+      "C": "E"
+    },
+    "numerical_scoring_enabled": false,
+    "composite_ranking_write": false,
+    "profile_radar_write": false,
+    "record_order_policy": "READING_START_YEAR_THEN_STABLE_ID_NO_RANK",
+    "record_count": 184,
+    "supplementary_record_count": 13,
+    "source_adoption": {
+      "contract_document": "历史影响评价总则与评估合同(20260912-141947).md",
+      "contract_source_version": "V0.44",
+      "adjudication_document": "历史影响裁决清单(20260912-170059).md",
+      "adjudication_source_version": "V0.56",
+      "decision_authority": "正式逐人记录依现行合同和有效主链维护；原附件只提供初始采纳材料，不反向覆盖已修订的四维、总档与证据边界。",
+      "scope_note": "补充样本为清单明确保留的既有池外对象，不进入主池覆盖与分布；不承接已撤销的扩池对象或历史H档。"
+    }
+  },
+  "collections": {
+    "records": {
+      "record_count": 184
+    },
+    "supplementary_records": {
+      "record_count": 13
+    }
+  },
+  "routes": [
+    {
+      "polity": "三国",
+      "path": "01-历史影响正式结算/三国.json",
+      "collection_counts": {
+        "records": 10,
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "东晋",
+      "path": "01-历史影响正式结算/东晋.json",
+      "collection_counts": {
+        "records": 2
+      }
+    },
+    {
+      "polity": "东汉",
+      "path": "01-历史影响正式结算/东汉.json",
+      "collection_counts": {
+        "records": 10,
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "东魏",
+      "path": "01-历史影响正式结算/东魏.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "五代十国",
+      "path": "01-历史影响正式结算/五代十国.json",
+      "collection_counts": {
+        "records": 18
+      }
+    },
+    {
+      "polity": "元",
+      "path": "01-历史影响正式结算/元.json",
+      "collection_counts": {
+        "records": 8
+      }
+    },
+    {
+      "polity": "刘宋",
+      "path": "01-历史影响正式结算/刘宋.json",
+      "collection_counts": {
+        "records": 4
+      }
+    },
+    {
+      "polity": "北周",
+      "path": "01-历史影响正式结算/北周.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "北魏",
+      "path": "01-历史影响正式结算/北魏.json",
+      "collection_counts": {
+        "records": 7,
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "北齐",
+      "path": "01-历史影响正式结算/北齐.json",
+      "collection_counts": {
+        "records": 3
+      }
+    },
+    {
+      "polity": "十六国",
+      "path": "01-历史影响正式结算/十六国.json",
+      "collection_counts": {
+        "records": 16
+      }
+    },
+    {
+      "polity": "南齐",
+      "path": "01-历史影响正式结算/南齐.json",
+      "collection_counts": {
+        "records": 2
+      }
+    },
+    {
+      "polity": "唐",
+      "path": "01-历史影响正式结算/唐.json",
+      "collection_counts": {
+        "records": 12
+      }
+    },
+    {
+      "polity": "唐末吴政权",
+      "path": "01-历史影响正式结算/唐末吴政权.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "大顺",
+      "path": "01-历史影响正式结算/大顺.json",
+      "collection_counts": {
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "大齐",
+      "path": "01-历史影响正式结算/大齐.json",
+      "collection_counts": {
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "太平天国",
+      "path": "01-历史影响正式结算/太平天国.json",
+      "collection_counts": {
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "宋",
+      "path": "01-历史影响正式结算/宋.json",
+      "collection_counts": {
+        "records": 15,
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "明",
+      "path": "01-历史影响正式结算/明.json",
+      "collection_counts": {
+        "records": 15,
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "梁",
+      "path": "01-历史影响正式结算/梁.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "清",
+      "path": "01-历史影响正式结算/清.json",
+      "collection_counts": {
+        "records": 12
+      }
+    },
+    {
+      "polity": "燕",
+      "path": "01-历史影响正式结算/燕.json",
+      "collection_counts": {
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "秦",
+      "path": "01-历史影响正式结算/秦.json",
+      "collection_counts": {
+        "records": 2
+      }
+    },
+    {
+      "polity": "西夏",
+      "path": "01-历史影响正式结算/西夏.json",
+      "collection_counts": {
+        "records": 8
+      }
+    },
+    {
+      "polity": "西晋",
+      "path": "01-历史影响正式结算/西晋.json",
+      "collection_counts": {
+        "records": 1,
+        "supplementary_records": 2
+      }
+    },
+    {
+      "polity": "西汉",
+      "path": "01-历史影响正式结算/西汉.json",
+      "collection_counts": {
+        "records": 10
+      }
+    },
+    {
+      "polity": "西魏",
+      "path": "01-历史影响正式结算/西魏.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "辽",
+      "path": "01-历史影响正式结算/辽.json",
+      "collection_counts": {
+        "records": 10,
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "金",
+      "path": "01-历史影响正式结算/金.json",
+      "collection_counts": {
+        "records": 9
+      }
+    },
+    {
+      "polity": "陈",
+      "path": "01-历史影响正式结算/陈.json",
+      "collection_counts": {
+        "records": 3,
+        "supplementary_records": 1
+      }
+    },
+    {
+      "polity": "隋",
+      "path": "01-历史影响正式结算/隋.json",
+      "collection_counts": {
+        "records": 2
+      }
+    }
+  ]
+}

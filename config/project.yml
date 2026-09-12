@@ -111,6 +111,26 @@ adjudication_sensitivity:
   command: cost-sensitivity
   confidence_interval: false
 
+historical_impact_assessment:
+  status: formally_settled
+  role: independent_third_evaluation_system
+  contract: docs/项目总纲/历史影响评价总则.md
+  contract_version: FORMAL-V1.2
+  authority_mode: FORMAL_JSON_SOURCE
+  payload_schema_version: historical-impact-formal-v2
+  canonical_pool: config/common/canonical-ruler-pool.json
+  primary_scope: INCLUDED
+  supplementary_scope: imported_existing_historical_samples_excluded_from_main_statistics
+  json: docs/评分结算/历史影响评价/01-历史影响正式结算.json
+  markdown: docs/评分结算/历史影响评价/01-历史影响正式结算.md
+  public_grade_order: [S+, S, A, B, C, D, E]
+  dimension_grade_order: [S+, S, S-, A+, A, B, C]
+  numerical_scoring_enabled: false
+  composite_ranking_write: false
+  profile_radar_write: false
+  verify_command: historical-impact-verify
+  reader_command: historical-impact-views --write
+
 profile_assessment:
   status: ten_axes_formally_settled
   role: independent_non_composite_profile
