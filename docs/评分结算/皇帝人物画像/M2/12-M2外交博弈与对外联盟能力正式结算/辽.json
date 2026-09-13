@@ -5,15 +5,15 @@
     "records": {
       "positions": [
         2,
+        32,
         33,
-        34,
-        41,
+        40,
+        66,
         67,
-        105,
-        106,
         107,
-        146,
-        181
+        108,
+        147,
+        176
       ],
       "records": [
         {
@@ -396,7 +396,7 @@
                 "docs/史料通读产物/辽/契丹国志/volume-007.source-summary.md#L46",
                 "docs/史料通读产物/北宋/续资治通鉴/volume-024.source-summary.md#L17",
                 "docs/史料通读产物/北宋/续资治通鉴/volume-024.source-summary.md#L70",
-                "docs/史料通读产物/北宋/续资治通鉴/volume-025.battle-adjudications.json#L850",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-025.battle-adjudications.json#campaign_group=XZTJ-SONG-LIAO-CHANYUAN-1004",
                 "docs/史料通读产物/北宋/续资治通鉴/volume-025.source-summary.md#L19",
                 "docs/史料通读产物/北宋/续资治通鉴/volume-025.source-summary.md#L24",
                 "docs/史料通读产物/辽/契丹国志/volume-013.source-summary.md#L31"
@@ -553,12 +553,12 @@
           "axis_name": "外交博弈与对外联盟能力",
           "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
-          "position": "LOW",
-          "score_100": 58,
-          "radar_value": 58,
-          "axis_evidence_level": "E1",
-          "output_mode": "EPISODE_TAG",
-          "confidence": "LOW",
+          "position": "MID",
+          "score_100": 65,
+          "radar_value": 65,
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-LIAO-YELU-RUAN",
           "parent_chains": [
             {
@@ -592,40 +592,59 @@
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
               "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
               "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+            },
+            {
+              "parent_id": "M2-EXTERNAL-DECISION-RULER-LIAO-YELU-RUAN",
+              "direction": "MIXED_BALANCED",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "source_support": "LOCATED_EXTERNAL_DECISION_WITH_ATTRIBUTION_LIMIT",
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M2/13-M2外交事实与归责依据.md#耶律阮"
+              ],
+              "cycle_basis": "向北汉提供政治承认并响应援助请求，同时对后周坚持礼仪优位；具备外部联盟接口，但履约未完成。 外方求册、本人派员承认及亲率南行构成真实回应；留周使显示礼仪立场僵硬，途中被弑使持续性无法验证，综合为可用而有边界。 南唐求援不等于已完成多边协同；不把内部继承联盟计入。",
+              "political_membership_at_cycle_start": "EXTERNAL_AUTONOMOUS_POLITY_OR_TRIBE",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "relationship_phase": "EXTERNAL_NEGOTIATION",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "本父链只消费外部关系；不延长至内部治理",
+              "actual_window": "951年",
+              "attribution_basis": "南唐求援不等于已完成多边协同；不把内部继承联盟计入。",
+              "bounded_adjudication": true
             }
           ],
-          "representative_parent_ids": [],
-          "typical_pattern": "能短期拼合继承联盟，但维持和退出证据不足。",
-          "counterpattern": {
-            "positive_parent_refs": [],
-            "counter_parent_refs": []
-          },
-          "grade_basis": "当前不发布新的M2实裁；旧G3-LOW仅作为整改前显示点保留。继承/军贵内部集团链已退出，当前没有闭合的独立外部M2父链。",
-          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
+          "representative_parent_ids": [
+            "M2-EXTERNAL-DECISION-RULER-LIAO-YELU-RUAN"
+          ],
+          "typical_pattern": "向北汉提供政治承认并响应援助请求，同时对后周坚持礼仪优位；具备外部联盟接口，但履约未完成。",
+          "counterpattern": "原先内部关系及未过结果／因果门的材料仍不计分。南唐求援不等于已完成多边协同；不把内部继承联盟计入。",
+          "grade_basis": "外方求册、本人派员承认及亲率南行构成真实回应；留周使显示礼仪立场僵硬，途中被弑使持续性无法验证，综合为可用而有边界。",
+          "position_basis": "承认和援助开始执行，但长期兑现不足；不按内部政变直接追加外交负分，取中位。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": [],
+            "scoring_parent_refs": [
+              "M2-EXTERNAL-DECISION-RULER-LIAO-YELU-RUAN"
+            ],
             "result_nonconversion": true
           },
           "reviews": {
-            "window": "MATERIAL_DENSITY_LIMITED",
+            "window": "COVERAGE_CLOSED",
             "relevance": "CLOSED",
-            "attribution": "CLOSED",
+            "attribution": "LIMITED_BUT_SEPARATED",
             "dedup": "CLOSED",
             "bidirectional": "NOT_TRIGGERED",
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "EVIDENCE_LIMITED：缺第二个外部对象及长期执行。",
-            "待补证：补齐947—951年后周、北汉/中原政权等外部使节、停战或联盟条件。"
+            "南唐求援不等于已完成多边协同；不把内部继承联盟计入。",
+            "本档位只外推到已证实的外交选择与机制；不以未见反例证明全生涯无反例。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
-          "display_point_only": true,
-          "display_point_reason": "继承/军贵内部集团链已退出，当前没有闭合的独立外部M2父链。",
-          "pending_reopen_condition": "补齐947—951年后周、北汉/中原政权等外部使节、停战或联盟条件。",
-          "historical_display_grade": "G3-LOW",
-          "historical_display_radar_value": 58
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false,
+          "source_refs": [
+            "docs/评分结算/皇帝人物画像/M2/13-M2外交事实与归责依据.md#耶律阮"
+          ]
         },
         {
           "sequence": 45,

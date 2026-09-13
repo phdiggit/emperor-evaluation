@@ -20,7 +20,6 @@ AXIS_ORDER = profile_axis_order()
 AXIS_LABELS = {
     "M1": "军事统帅",
     "M2": "外交博弈",
-    "M3": "民生财政",
     "M4": "联盟整合",
     "M5": "组织编排",
     "C1": "战略风控",
@@ -29,7 +28,11 @@ AXIS_LABELS = {
     "C4": "制度设计",
     "C5": "权力克制",
 }
-AXIS_COLORS = ("#2F80ED", "#27AE60", "#F2994A", "#EB5757", "#607D8B", "#9B51E0", "#56CCF2", "#F2C94C", "#168A85", "#BB6BD9")
+_AXIS_COLOR_MAP = {
+    "M1": "#2F80ED", "M2": "#27AE60", "M4": "#EB5757", "M5": "#607D8B",
+    "C1": "#9B51E0", "C2": "#56CCF2", "C3": "#F2C94C", "C4": "#168A85", "C5": "#BB6BD9",
+}
+AXIS_COLORS = tuple(_AXIS_COLOR_MAP[axis] for axis in AXIS_ORDER)
 SAMPLE_RULER_IDS = (
     "RULER-QIN-YINGZHENG",
     "RULER-HAN-LIUXIU",
@@ -70,12 +73,12 @@ def _project_profile_config() -> dict[str, Any]:
 def load_profiles() -> dict[str, Profile]:
     """Load the registered formal axes and reject any non-canonical join."""
     config = _project_profile_config()
-    if config["status"] != "ten_axes_formally_settled":
+    if config["status"] != "nine_axes_formally_settled":
         raise ValueError("人物画像尚未正式结算")
     if any(config[key] for key in ("profile_total_enabled", "profile_ranking_enabled", "composite_ranking_write")):
         raise ValueError("人物画像雷达图不得启用总分、排名或综合榜写入")
     if profile_axis_order(config) != AXIS_ORDER:
-        raise ValueError("十轴顺序必须为固定正式顺序")
+        raise ValueError("九轴顺序必须为固定正式顺序")
 
     project = yaml.safe_load(PROJECT.read_text(encoding="utf-8"))
     pool = _read_json(ROOT / project["canonical_ruler_pool"]["json"])
@@ -85,7 +88,7 @@ def load_profiles() -> dict[str, Profile]:
 
     radar_config = config["radar_samples"]
     if tuple(radar_config["axis_order"]) != AXIS_ORDER or radar_config["scale"] != [0, 100]:
-        raise ValueError("雷达图配置必须保留固定十轴顺序和0—100刻度")
+        raise ValueError("雷达图配置必须保留固定九轴顺序和0—100刻度")
     manifest = _read_json(ROOT / config["manifest_json"])
     manifest_axes = {row["axis_code"]: row for row in manifest["axes"]}
     per_axis: dict[str, dict[str, dict[str, Any]]] = {}
@@ -108,7 +111,7 @@ def load_profiles() -> dict[str, Profile]:
             raise ValueError(f"{axis_code}与正式人物池覆盖不一致")
         for ruler_id, row in rows.items():
             value = row.get("radar_value")
-            not_applicable = row.get("score_status") == "NOT_APPLICABLE"
+            not_applicable = row.get("score_status") in {"NOT_APPLICABLE", "EVIDENCE_INSUFFICIENT"}
             if (
                 row.get("task_code") != f"PROFILE-{axis_code}-{ruler_id}"
                 or value != row.get("score_100")
@@ -122,12 +125,12 @@ def load_profiles() -> dict[str, Profile]:
     for ruler_id in sorted(expected_ids):
         names = {per_axis[axis_code][ruler_id]["ruler_name"] for axis_code in AXIS_ORDER}
         if len(names) != 1:
-            raise ValueError(f"十轴人物名称不一致：{ruler_id}")
+            raise ValueError(f"九轴人物名称不一致：{ruler_id}")
         values: list[int | None] = []
         display_point_axes: list[str] = []
         for axis_code in AXIS_ORDER:
             row = per_axis[axis_code][ruler_id]
-            if row.get("display_point_only") or row.get("adjudication_state") in DISPLAY_POINT_STATES:
+            if row.get("display_point_only") or row.get("adjudication_state") in DISPLAY_POINT_STATES or row.get("radar_value") is None:
                 values.append(None)
                 display_point_axes.append(axis_code)
             else:
@@ -293,7 +296,7 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
             {
                 "ruler_id": row.ruler_id,
                 "ruler_name": row.ruler_name,
-                "reason": "UNRESOLVED_EVIDENCE_GAP_DISPLAY_POINT",
+                "reason": "UNAVAILABLE_AXIS_VALUE",
                 "display_point_axes": list(row.display_point_axes),
             }
             for row in omitted
@@ -303,19 +306,19 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
     }
     (output_dir / "00-雷达图小样索引.json").write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     rationale = "\n".join(
-        f"- `{row.ruler_id}`：{row.ruler_name}（十轴值：{' / '.join(map(str, row.values))}）"
+        f"- `{row.ruler_id}`：{row.ruler_name}（九轴值：{' / '.join(map(str, row.values))}）"
         for row in selected
     )
     omitted_note = ""
     if omitted:
         omitted_note = "\n\n## 未生成候选\n\n" + "\n".join(
-            f"- `{row.ruler_id}`：{row.ruler_name}（{','.join(row.display_point_axes)}为待补证显示点，未绘制旧雷达值）"
+            f"- `{row.ruler_id}`：{row.ruler_name}（{','.join(row.display_point_axes)}缺少当前可发布数值，不补零、不绘制历史值；具体状态见正式记录）"
             for row in omitted
         )
     (output_dir / "00-雷达图小样说明.md").write_text(
-        "# 十轴人物画像雷达图小样\n\n"
-        "固定十轴顺序为 M1、M2、M3、M4、M5、C1、C2、C3、C4、C5，刻度统一为 0—100。SVG 保留可编辑文本；PNG 以 240 DPI 输出。"
-        "八个四字轴标题向外留白，使用多色标签与淡色扇区；对比线继续以线型、标记和颜色共同区分。\n\n"
+        "# 九轴人物画像雷达图小样\n\n"
+        "固定九轴顺序为 M1、M2、M4、M5、C1、C2、C3、C4、C5，刻度统一为 0—100。SVG 保留可编辑文本；PNG 以 240 DPI 输出。"
+        "九个四字轴标题向外留白，使用多色标签与淡色扇区；对比线继续以线型、标记和颜色共同区分。\n\n"
         "## 候选人物\n\n" + rationale + "\n\n"
         "候选覆盖秦、汉、唐、元、明、清、北宋，并包含高位、低位和明显不均衡画像；选择只服务图表可读性测试，非总分或排名。"
         + omitted_note + "\n",

@@ -56,7 +56,7 @@ def verify(root: Path) -> dict:
         elif isinstance(value, list):
             for item in value:
                 check(item)
-        elif isinstance(value, str) and value.startswith(("docs/", "config/", "src/")):
+        elif isinstance(value, str) and value.startswith(("docs/", "config/", "src/", "archive/")):
             path = root / value.split("#", 1)[0]
             if not path.exists():
                 raise ValueError(f"Project entry does not exist: {value}")

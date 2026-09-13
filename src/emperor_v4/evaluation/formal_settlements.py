@@ -54,13 +54,6 @@ SETTLEMENT_SPECS = {
         "rank": "rank",
         "range": (-67.5, 67.5),
     },
-    "fifth_item": {
-        "path": "docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json",
-        "schema": "emperor-v4-fifth-item-formal-settlement-v2-evidence-truth",
-        "score": "fifth_item_score_points",
-        "rank": "rank",
-        "range": (-18, 120),
-    },
 }
 
 SECOND_ITEM_COMPONENT_PATHS = {

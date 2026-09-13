@@ -40,7 +40,7 @@ def test_profile_manifest_registers_all_eight_formal_axes() -> None:
     assert manifest["composite_ranking_write"] is False
     assert [axis["axis_code"] for axis in manifest["axes"]] == list(profile_axis_order())
     assert not any("sha256" in key.lower() or key.lower().endswith("_hash") for key in manifest)
-    assert next(axis for axis in manifest["axes"] if axis["axis_code"] == "M3")["status"] == "FORMAL_CURRENT"
+    assert all(axis["status"] == "FORMAL_CURRENT" for axis in manifest["axes"])
     for axis in manifest["axes"]:
         assert axis["record_count"] == len(_included_ids())
         assert (PROFILE_ROOT / axis["json"]).is_file()
@@ -99,7 +99,7 @@ def test_profile_axis_records_cover_the_formal_pool_and_contract_fields() -> Non
         assert len({record["task_code"] for record in records}) == len(records)
         assert all(required <= record.keys() for record in records)
         assert all(record["formal_status"] == "FORMAL_CURRENT" for record in records)
-        if name.startswith(("C1/", "M2/", "M3/", "M4/", "C2/", "C3/", "C5/")):
+        if name.startswith(("C1/", "M2/", "M4/", "C2/", "C3/", "C5/")):
             assert all("parent_chains" in record for record in records)
             assert all("representative_parent_ids" in record for record in records)
             assert all("parents" not in record and "representative_parent_contexts" not in record for record in records)
@@ -154,7 +154,7 @@ def test_c5_high_grade_density_review_is_closed() -> None:
     )
 
 
-def test_formal_contract_declares_eight_settled_axes_without_profile_total() -> None:
+def test_formal_contract_declares_configured_axes_without_profile_total() -> None:
     text = CONTRACT.read_text(encoding="utf-8")
     acceptance_text = ACCEPTANCE_CONTRACT.read_text(encoding="utf-8")
     assert "DRAFT-V0.5" not in text
@@ -162,11 +162,9 @@ def test_formal_contract_declares_eight_settled_axes_without_profile_total() -> 
     for axis in profile_axis_order():
         assert f"| {axis} |" in text
         assert axis in acceptance_text
-    assert "仍不得生成画像总分、轴内排名或写入五项综合榜" in acceptance_text
-    assert "本版启用C4治理架构与制度设计能力" in text
+    assert "仍不得生成画像总分、轴内排名或写入净收益综合榜" in acceptance_text
     assert "| C4 | 组织推动与执行韧性 |" not in text
     assert "跨轴落实深度与受阻重组证据门" in text
-    assert "| M3 | 民生财政建设 |" in text
     assert "| M4 | 内部政治联盟与集团整合 |" in text
 
 
@@ -323,7 +321,7 @@ def test_c2_c5_cross_axis_drift_is_report_only() -> None:
 
 
 def test_cross_axis_reader_views_explain_shared_source_boundaries() -> None:
-    for axis in ("M1", "M2", "C1", "C2", "C3", "C5", "M3", "M4"):
+    for axis in ("M1", "M2", "C1", "C2", "C3", "C5", "M4"):
         text = next(
             path.read_text(encoding="utf-8")
             for path in (PROFILE_ROOT / axis).glob("*.md")

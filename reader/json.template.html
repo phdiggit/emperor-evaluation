@@ -1,0 +1,44 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>正式结构化记录 · 综合阅读</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f2eb;color:#26342d;font:16px/1.8 "Microsoft YaHei",sans-serif}header{position:sticky;top:0;display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:16px;background:#f8f6f0;border-bottom:1px solid #d7ddd3}a{color:#286559}input,button{font:inherit;padding:6px 10px;max-width:100%}input{width:340px}main{max-width:1100px;margin:auto;padding:24px;overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.8 monospace;background:#fffdf8;padding:18px;border:1px solid #d7ddd3;border-radius:5px}h1{font:28px/1.5 serif}.muted{font-size:13px;color:#59645d}#status{padding:12px 0}button{cursor:pointer}section{margin:20px 0}summary{cursor:pointer}@media(max-width:600px){main{padding:15px}header{padding:12px}pre{padding:12px;font-size:13px}}
+</style></head><body><header><a id="return" href="/reader/index.html">← 综合阅读</a><input id="find" aria-label="定位人物或材料" placeholder="人物ID、材料ID或 records/序号"><button id="locate">定位记录</button><a id="raw">查看原始JSON</a></header><main><h1>正式结构化记录</h1><p class="muted">按当前正式记录定位。朝代分片入口已展开为逻辑数据；字段与值保持原样。来源引用不会反向修改裁决。</p><div id="status" role="status"></div><div id="result"></div><details id="full"><summary>展开完整逻辑数据</summary><pre id="full-data"></pre></details></main>
+<script type="application/json" id="json-data">__JSON_DATA__</script><script>
+'use strict';
+const DATA=JSON.parse(document.getElementById('json-data').textContent);
+function findRecords(data,reference){
+ if(!reference)return [];
+ const filteredPath=reference.match(/^([a-z_]+=[^/]+)\/(.+)$/s);
+ if(filteredPath)return findRecords(data,filteredPath[1]).flatMap(match=>findRecords(match.value,filteredPath[2]).map(child=>({path:match.path+'/'+child.path.replace(/^\//,''),value:child.value})));
+ const pointer=reference.replace(/^\//,'').split('/');
+ if(pointer.length>1){let value=data,valid=true,domainIndices=null;const resolved=[];
+  for(const raw of pointer){const key=raw.replace(/~1/g,'/').replace(/~0/g,'~');
+   if(Array.isArray(value)&&/^[A-Z][0-9]+$/.test(key)){domainIndices=value.map((item,i)=>({item,i})).filter(({item})=>typeof item?.domain==='string'&&item.domain.split(/\s/)[0]===key).map(({i})=>i);value=domainIndices.map(i=>value[i]);continue}
+   if(value===null||typeof value!=='object'||!Object.hasOwn(value,key)){valid=false;break}
+   resolved.push(domainIndices?String(domainIndices[Number(key)]):raw);domainIndices=null;value=value[key];
+  }if(valid)return [{path:resolved.join('/'),value}]}
+ const parameter=reference.match(/^([a-z_]+)=(.*)$/s);
+ const found=[];
+ function walk(value,path){if(!value||typeof value!=='object')return;
+  if(!Array.isArray(value)){
+   const matches=parameter?Object.hasOwn(value,parameter[1])&&String(value[parameter[1]])===parameter[2]:Object.values(value).some(v=>v===reference||Array.isArray(v)&&v.includes(reference));
+   if(matches){found.push({path:path||'/',value});return}
+  }
+  for(const [key,child] of Object.entries(value))walk(child,path+'/'+key.replace(/~/g,'~0').replace(/\//g,'~1'));
+ }
+ walk(data,'');return found;
+}
+const params=new URLSearchParams(location.search),person=params.get('person');
+document.getElementById('raw').href=location.pathname+'?raw=1';
+if(person)document.getElementById('return').href='/reader/index.html#person/'+encodeURIComponent(person);
+function show(){let reference;try{reference=decodeURIComponent(location.hash.slice(1))}catch{document.getElementById('status').textContent='地址编码无效，请重新输入定位编号';return}
+ if(!reference&&person)reference='ruler_id='+person;
+ document.getElementById('find').value=reference;
+ const matches=findRecords(DATA,reference),result=document.getElementById('result');result.replaceChildren();
+ document.getElementById('status').textContent=matches.length?`找到 ${matches.length} 条匹配记录${matches.length>1?'，请核对具体对象与路径':''}`:reference?'当前数据未找到该引用；请核对编号或展开完整数据':'请输入人物或材料编号，或展开完整数据';
+ for(const match of matches){const section=document.createElement('section'),heading=document.createElement('h2'),pre=document.createElement('pre');heading.textContent=match.value?.ruler_name||match.value?.title||match.path;pre.textContent=JSON.stringify(match.value,null,2);const path=document.createElement('p');path.className='muted';path.textContent='数据路径：'+match.path;section.append(heading,path,pre);result.append(section)}
+}
+document.getElementById('locate').onclick=()=>{const value=document.getElementById('find').value.trim(),hash='#'+encodeURIComponent(value);if(location.hash===hash)show();else location.hash=hash};
+document.getElementById('find').onkeydown=e=>{if(e.key==='Enter')document.getElementById('locate').click()};
+document.getElementById('full').ontoggle=e=>{if(e.target.open&&!document.getElementById('full-data').textContent)document.getElementById('full-data').textContent=JSON.stringify(DATA,null,2)};
+window.addEventListener('hashchange',show);show();
+</script></body></html>

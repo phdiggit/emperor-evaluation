@@ -23,10 +23,7 @@ def test_completed_c_axes_use_deterministic_reading_views() -> None:
         assert "## 阅读说明" in markdown
         assert "## 全池结算表" in markdown
         assert "## 逐人裁决依据" in markdown
-        if axis == "M3":
-            for label in ("接手局面", "建设与维持", "成本与后果", "关键行为链", "交班局面", "落档理由"):
-                assert markdown.count(f"**{label}**") == len(payload["records"])
-        elif axis == "C2":
+        if axis == "C2":
             assert markdown.count("**核心依据**") == len(payload["records"])
             assert markdown.count("**档内定位**") == len(payload["records"])
             assert "**主模式**" not in markdown

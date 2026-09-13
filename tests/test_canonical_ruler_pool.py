@@ -26,7 +26,6 @@ def test_canonical_pool_is_rebuildable_and_feasible() -> None:
         for row in included
     )
     assert all(row["evidence_feasibility"]["fourth_item_formal"] for row in included)
-    assert all(row["evidence_feasibility"]["fifth_item_formal"] for row in included)
     assert all(row["first_item_readiness"] == "NOT_APPLICABLE_EXCLUDED" for row in excluded)
     pending_second = [
         row

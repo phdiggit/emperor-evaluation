@@ -23,7 +23,6 @@ def test_all_five_formal_settlements_are_coherent() -> None:
         "second_item",
         "third_item",
         "fourth_item",
-        "fifth_item",
     }
     assert all(item["record_count"] > 0 for item in report["items"].values())
 

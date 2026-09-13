@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        115
+        45
       ],
       "records": [
         {
@@ -18,12 +18,12 @@
           "axis_name": "外交博弈与对外联盟能力",
           "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
-          "position": "LOW",
-          "score_100": 58,
-          "radar_value": 58,
-          "axis_evidence_level": "E1",
-          "output_mode": "EPISODE_TAG",
-          "confidence": "LOW",
+          "position": "HIGH",
+          "score_100": 71,
+          "radar_value": 71,
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-SHADOW-宇文邕",
           "parent_chains": [
             {
@@ -46,23 +46,43 @@
                 "causal_gate": "FAIL",
                 "basis": "婚盟虽完成，但北周持续高额给付，现有材料未闭合安全或行动自由改善。"
               }
+            },
+            {
+              "parent_id": "M2-EXTERNAL-DECISION-RULER-SHADOW-宇文邕",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "source_support": "LOCATED_EXTERNAL_DECISION_WITH_ATTRIBUTION_LIMIT",
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M2/13-M2外交事实与归责依据.md#宇文邕"
+              ],
+              "cycle_basis": "在亲政窗口派杜杲与陈交涉合纵攻齐，拒绝以本国樊邓领土作为互信代价。 能开启外部合作渠道并保持领土条件边界，显示较强局部外交选择；现场技巧主要归杜杲，执行及跨情境复验不足以形成本人稳定强长板。 只使用建德初链，不把571年使行或突厥早期婚姻归入572年后的本人独立选择。",
+              "political_membership_at_cycle_start": "EXTERNAL_AUTONOMOUS_POLITY_OR_TRIBE",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "relationship_phase": "EXTERNAL_NEGOTIATION",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "本父链只消费外部关系；不延长至内部治理",
+              "actual_window": "572—574年",
+              "attribution_basis": "只使用建德初链，不把571年使行或突厥早期婚姻归入572年后的本人独立选择。",
+              "bounded_adjudication": true
             }
           ],
-          "representative_parent_ids": [],
-          "typical_pattern": "完成高成本婚盟，但未证明安全、行动自由或对等承诺改善。",
-          "counterpattern": {
-            "positive_parent_refs": [],
-            "counter_parent_refs": []
-          },
-          "grade_basis": "当前不发布新的M2实裁；旧G3-LOW仅作为整改前显示点保留。突厥婚盟未通过结果门/因果门且发生在亲政窗口前；亲政期未闭合本人M2周期。",
-          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
+          "representative_parent_ids": [
+            "M2-EXTERNAL-DECISION-RULER-SHADOW-宇文邕"
+          ],
+          "typical_pattern": "在亲政窗口派杜杲与陈交涉合纵攻齐，拒绝以本国樊邓领土作为互信代价。",
+          "counterpattern": "原先内部关系及未过结果／因果门的材料仍不计分。只使用建德初链，不把571年使行或突厥早期婚姻归入572年后的本人独立选择。",
+          "grade_basis": "能开启外部合作渠道并保持领土条件边界，显示较强局部外交选择；现场技巧主要归杜杲，执行及跨情境复验不足以形成本人稳定强长板。",
+          "position_basis": "条件边界较清楚，授权路线可用，处合格上沿；不靠灭齐结果或亲政前婚盟推入G4。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": [],
+            "scoring_parent_refs": [
+              "M2-EXTERNAL-DECISION-RULER-SHADOW-宇文邕"
+            ],
             "result_nonconversion": true
           },
           "reviews": {
-            "window": "MATERIAL_DENSITY_LIMITED",
+            "window": "COVERAGE_CLOSED",
             "relevance": "CLOSED",
             "attribution": "LIMITED_BUT_SEPARATED",
             "dedup": "CLOSED",
@@ -70,16 +90,15 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "需补充婚盟前后突厥军事行为、北周行动自由或对等承诺执行。",
-            "待补证：补齐572—578年对突厥、北齐或陈的真实谈判/互市/停战条件。"
+            "只使用建德初链，不把571年使行或突厥早期婚姻归入572年后的本人独立选择。",
+            "本档位只外推到已证实的外交选择与机制；不以未见反例证明全生涯无反例。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
-          "display_point_only": true,
-          "display_point_reason": "突厥婚盟未通过结果门/因果门且发生在亲政窗口前；亲政期未闭合本人M2周期。",
-          "pending_reopen_condition": "补齐572—578年对突厥、北齐或陈的真实谈判/互市/停战条件。",
-          "historical_display_grade": "G3-LOW",
-          "historical_display_radar_value": 58
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false,
+          "source_refs": [
+            "docs/评分结算/皇帝人物画像/M2/13-M2外交事实与归责依据.md#宇文邕"
+          ]
         }
       ]
     }

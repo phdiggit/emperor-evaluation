@@ -5,7 +5,7 @@
     "records": {
       "positions": [
         54,
-        119
+        182
       ],
       "records": [
         {
@@ -111,13 +111,13 @@
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
           "score_status": "EVIDENCE_LIMITED",
-          "axis_grade": "G3",
-          "position": "LOW",
-          "score_100": 58,
-          "radar_value": 58,
-          "axis_evidence_level": "E2",
-          "output_mode": "BOUNDED_PROFILE",
-          "confidence": "MEDIUM",
+          "axis_grade": "G0",
+          "position": "MID",
+          "score_100": 7,
+          "radar_value": 7,
+          "axis_evidence_level": "E1",
+          "output_mode": "EPISODE_TAG",
+          "confidence": "LOW",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-SHADOW-萧鸾",
           "parent_chains": [
             {
@@ -130,7 +130,7 @@
                 "《南齐书》卷6《明帝纪》：建武年间齐魏战争及萧鸾最高军事授权。",
                 "《魏书》卷7下《高祖纪下》：太和十九年前后北魏南征及针对萧鸾政权的政治文书。"
               ],
-              "cycle_basis": "《南齐书·明帝纪》详细记录建武二年至四年北魏多路进攻、南齐调兵守御。；《魏书·高祖纪》等也保留北魏对萧鸾政权的檄谕、南征和政治指控。；这些材料证明双方是明确独立、可战可谈的外部政权，但目前可直接定位的主干材料主要闭合战争过程。；没有发现能够同时回答以下问题的段落：；因此齐魏战争不能直接生成 NEGATIVE 父链，更不能用战争结果判断其外交能力。"
+              "cycle_basis": "《南齐书·明帝纪》与《魏书·高祖纪》等记载齐魏战争、调兵守御和政治文书，证明双方为独立外部政权。但可直接定位的材料主要闭合战争过程，未提供本人外交条件设计、反馈与执行的完整过程，不能以战争结果判断外交能力。"
             },
             {
               "parent_id": "M2-REVIEW-萧鸾-02",
@@ -141,17 +141,14 @@
               "source_refs": [
                 "《魏书》卷79《成淹等传》及相关齐魏使节材料：仅作外交渠道存在的背景反查。"
               ],
-              "cycle_basis": "北魏人物列传、齐魏战争相关记录可以确认这一时期并非完全没有使节和政治信息往来。；但目前找到的零散材料不足以稳定归责为“萧鸾本人新设计的一条条件周期”，不能从“出现使者”自动升级到 M2 正证。；显式出现“使”字只形成机械候选，正符合 M2 规则本身的提醒。"
+              "cycle_basis": "北魏人物列传及齐魏战争记录可确认使节与政治信息往来，但零散材料不足以归责为萧鸾本人设计的完整条件交换过程；存在使者不自动成为外交能力正证。"
             }
           ],
           "representative_parent_ids": [],
-          "typical_pattern": "建武年间南齐与北魏存在高强度持续战争，核心史料能够确认萧鸾本人亲自进行战争部署，但没有找到足以闭合其对魏条件交换、和议授权、盟友构建或反馈纠正的直接 M2 生命周期。旧稿用国内宗室清洗把他压低是越轴；但剔除越轴材料后，也不能因为“皇帝理应有外交”就补成 FINAL。",
-          "counterpattern": {
-            "positive_parent_refs": [],
-            "counter_parent_refs": []
-          },
-          "grade_basis": "本轮确认的不是“萧鸾外交合格”，而是： - 旧 G1 式负面依据确实越轴； - 核心史料又不足以裁出新的强正或强负父链； - 对其 M2 能力做确定性升降都属于超过证据。 最终：G3-LOW / 58，E2 / EVIDENCE_LIMITED。 > 该58属于有界未决显示点，不得在后续解释中写成“萧鸾外交能力合格下沿”。",
-          "position_basis": "按正负父链厚度、本人归责与同档反例确定。",
+          "typical_pattern": "未显示外交能力：在本轮可定位材料与实际权力窗口内，直接选择和间接归责均未形成可计外交能力证据。",
+          "counterpattern": "萧赜时期使节质问不得挪入萧鸾窗口；宗室清洗及战果不换外交能力。",
+          "grade_basis": "核对齐魏使节及成淹传，明载遣使，但谈判条件内容未闭合。魏方征成淹接使只证渠道存在；成淹对魏帝进谏不归萧鸾。按M2终局证据口径发布E，表达没有可证外交能力，不将材料未见解释为已证明反复外交失能。",
+          "position_basis": "E对应G0-MID与投影7，为本终局类别的统一发布位置；不根据名望、内部失败或材料数量再分上下沿。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [],
@@ -160,17 +157,33 @@
           "reviews": {
             "window": "MATERIAL_DENSITY_LIMITED",
             "relevance": "CLOSED",
-            "attribution": "LIMITED_BUT_SEPARATED",
+            "attribution": "FINAL_REVIEW_NO_DEMONSTRATED_CAPABILITY",
             "dedup": "CLOSED",
             "bidirectional": "CLOSED",
-            "density": "COUNTEREVIDENCE_FOUND"
+            "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "已完成有界史料复查，但本人条件设计、反馈选择或执行终局仍不足以发布能力终值。"
+            "萧赜时期使节质问不得挪入萧鸾窗口；宗室清洗及战果不换外交能力。",
+            "结论只及已核材料；未声称穷尽所有史料或证明潜在能力为零。新增合格证据可按正式局部改判更新。"
           ],
           "formal_status": "FORMAL_CURRENT",
           "adjudication_state": "FORMAL_CURRENT",
-          "display_point_only": false
+          "display_point_only": false,
+          "assessment_basis": "NO_DEMONSTRATED_CAPABILITY",
+          "source_refs": [
+            "docs/评分结算/皇帝人物画像/M2/13-M2外交事实与归责依据.md#萧鸾"
+          ],
+          "final_capability_review": {
+            "actual_window": "493—498年实际掌权",
+            "direct_review": "核对齐魏使节及成淹传，明载遣使，但谈判条件内容未闭合。",
+            "indirect_review": "魏方征成淹接使只证渠道存在；成淹对魏帝进谏不归萧鸾。",
+            "exclusion_basis": "萧赜时期使节质问不得挪入萧鸾窗口；宗室清洗及战果不换外交能力。",
+            "source_refs": [
+              "docs/评分结算/皇帝人物画像/M2/13-M2外交事实与归责依据.md#萧鸾"
+            ],
+            "conclusion": "NO_DEMONSTRATED_CAPABILITY",
+            "claim_scope": "REVIEWED_EVIDENCE_ONLY"
+          }
         }
       ]
     }

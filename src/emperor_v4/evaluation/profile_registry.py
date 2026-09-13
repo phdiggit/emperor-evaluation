@@ -239,13 +239,13 @@ def write_profile_summary() -> Path:
         return int(year[0]) * (-1 if "前" in window[:year.start()] else 1)
 
     people.sort(key=start)
-    lines = ["# 十轴结算汇总", "",
+    lines = ["# 九轴结算汇总", "",
         "> 机器真值以各轴正式JSON为准；本表不生成画像总分、能力总分、轴内排名或综合总榜。", "",
         "## 汇总口径", "",
         f"- 八个能力轴：{'、'.join(capabilities)}。",
-        f"- 两个独立画像轴：{'、'.join(independent)}；M3评价民生财政局面与任内建设，C5评价权力运用风格与克制，均不归入能力轴。",
-        f"- 当前正式人物：{len(people)}人。十轴顺序：{'、'.join(axes)}。",
-        "- 单元格为档位-档内位置（雷达值）；未完成实裁的历史显示点标为‘显示点’，数值留空；不适用亦留空。",
+        f"- 一个独立画像轴：{'、'.join(independent)}；C5评价权力运用风格与克制，不归入能力轴。",
+        f"- 当前正式人物：{len(people)}人。九轴顺序：{'、'.join(axes)}。",
+        "- 单元格为档位-档内位置（雷达值）；未完成实裁的历史显示点标为‘显示点’，数值留空；证据不足的无档结案与不适用分别标明，均留空、不补零。",
         "- 按规范池实际权力窗口起始年份排序，公元前年份按负数处理，同年保持规范池顺序；时序不是排名。", "",
         "## 正式轴入口", "", "| 轴 | 分类 | 名称 | 正式JSON |", "|---|---|---|---|"]
     for axis in axes:
@@ -253,7 +253,7 @@ def write_profile_summary() -> Path:
         ref = _profile_relative_path(entry["json"])
         category = "能力轴" if axis in capabilities else "独立画像轴"
         lines.append(f"| {axis} | {category} | {entry['name']} | [JSON]({ref}) |")
-    lines.extend(["", "## 按时代排序的人物十轴结算", "",
+    lines.extend(["", "## 按时代排序的人物九轴结算", "",
         "| 时序 | 时代起点 | 人物 | 政权 | 实际权力窗口 | " + " | ".join(axes) + " |",
         "| " + " | ".join(["---"] * (5 + len(axes))) + " |"])
     for sequence, person in enumerate(people, 1):
@@ -262,7 +262,9 @@ def write_profile_summary() -> Path:
         for axis in axes:
             row = values[axis][person["ruler_id"]]
             label = f"{row['axis_grade']}-{row['position']}"
-            if row.get("score_status") == "NOT_APPLICABLE":
+            if row.get("adjudication_state") == "EVIDENCE_INSUFFICIENT_CLOSED":
+                cell = "无档结案·证据不足（—）"
+            elif row.get("score_status") == "NOT_APPLICABLE":
                 cell = "不适用（—）"
             elif row.get("display_point_only") or row.get("adjudication_state") in {"UNRESOLVED_EVIDENCE_GAP", "REASSESSMENT_REQUIRED"}:
                 cell = f"显示点·{label}（—）"

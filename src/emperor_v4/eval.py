@@ -25,7 +25,7 @@ def _parser() -> argparse.ArgumentParser:
     first_cost = commands.add_parser("first-item-cost-verify")
     first_cost.add_argument("--workspace-root", type=Path, default=Path("."))
     formal = commands.add_parser("formal-settlements-verify")
-    formal.add_argument("--item", action="append", choices=["first_item", "second_item", "third_item", "fourth_item", "fifth_item"])
+    formal.add_argument("--item", action="append", choices=["first_item", "second_item", "third_item", "fourth_item"])
     commands.add_parser("governance-state-recovery-verify")
     recovery_report = commands.add_parser("governance-state-recovery-report")
     recovery_report.add_argument("--write", action="store_true")
@@ -54,9 +54,6 @@ def _parser() -> argparse.ArgumentParser:
     commands.add_parser("profile-c3-verify")
     commands.add_parser("profile-c4-verify")
     commands.add_parser("profile-c2-c5-cross-axis-audit")
-    profile_m3 = commands.add_parser("profile-m3-settlement")
-    profile_m3.add_argument("--write", action="store_true")
-    commands.add_parser("profile-m3-verify")
     profile_m4 = commands.add_parser("profile-m4-settlement")
     profile_m4.add_argument("--write", action="store_true")
     commands.add_parser("profile-m4-verify")
@@ -141,8 +138,6 @@ def _dispatch(args: argparse.Namespace) -> int:
     )
     from emperor_v4.evaluation.profile_c3_settlement import build as build_profile_c3_settlement
     from emperor_v4.evaluation.profile_c3_verifier import verify as verify_profile_c3_settlement
-    from emperor_v4.evaluation.profile_m3_settlement import build as build_profile_m3_settlement
-    from emperor_v4.evaluation.profile_m3_verifier import verify as verify_profile_m3_settlement
     from emperor_v4.evaluation.profile_m4_settlement import build as build_profile_m4_settlement
     from emperor_v4.evaluation.profile_m4_verifier import verify as verify_profile_m4_settlement
     from emperor_v4.evaluation.profile_markdown import AXIS_FILES, write_axes as write_profile_markdown_axes
@@ -178,18 +173,10 @@ def _dispatch(args: argparse.Namespace) -> int:
                 output = io.StringIO()
                 try:
                     with contextlib.redirect_stdout(output):
-                        if command in {"profile-m3-verify", "second-item-b2-verify"} and (args.ruler_id or args.polity):
+                        if command == "second-item-b2-verify" and (args.ruler_id or args.polity):
                             from emperor_v4.evaluation.maintenance import selected_rulers
-                            from emperor_v4.evaluation.profile_m3_verifier import verify_selected, verify_payload, M3_SETTLEMENT
                             ids, polities = selected_rulers(Path(".").resolve(), args.ruler_id, args.polity)
-                            if command == "profile-m3-verify":
-                                if args.sync:
-                                    from emperor_v4.evaluation.formal_json_store import load_json
-                                    result = verify_payload(load_json(M3_SETTLEMENT, polities=polities), ruler_ids=ids, polities=polities)
-                                else:
-                                    result = verify_selected(ids, polities)
-                            else:
-                                result = verify_second_item_b2_snapshot(Path(".").resolve(), ruler_ids=ids, polities=polities)
+                            result = verify_second_item_b2_snapshot(Path(".").resolve(), ruler_ids=ids, polities=polities)
                             print(json.dumps(result, ensure_ascii=False))
                             code = 0
                         else:
@@ -312,13 +299,6 @@ def _dispatch(args: argparse.Namespace) -> int:
         return 0
     if args.command == "profile-c2-c5-cross-axis-audit":
         print(json.dumps(inspect_profile_c2_c5_cross_axis_drift(), ensure_ascii=False, indent=2))
-        return 0
-    if args.command == "profile-m3-settlement":
-        payload = build_profile_m3_settlement(write=args.write)["settlement"]
-        print(json.dumps({"record_count": payload["record_count"], "summary": payload["summary"]}, ensure_ascii=False, indent=2))
-        return 0
-    if args.command == "profile-m3-verify":
-        print(json.dumps(verify_profile_m3_settlement(), ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-m4-settlement":
         payload = build_profile_m4_settlement(write=args.write)["settlement"]

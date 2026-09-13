@@ -40,7 +40,7 @@ def _contract_scores(contract: Path) -> dict[tuple[str, str], int]:
 
 def _source_path(root: Path, ref: str) -> Path | None:
     source = re.split(r"#|:\d+(?::\d+)?$", ref, maxsplit=1)[0]
-    if not source.startswith("docs/"):
+    if not source.startswith(("docs/", "archive/")):
         return None
     return root / source
 
@@ -216,7 +216,7 @@ def verify(root: Path) -> dict[str, object]:
             for ref in parent["source_refs"] + parent["direct_process_refs"]:
                 source_path = ref.partition("#")[0]
                 source_path = re.sub(r":\d+(?::\d+)?$", "", source_path)
-                if source_path.startswith("docs/") and not (root / source_path).is_file():
+                if source_path.startswith(("docs/", "archive/")) and not (root / source_path).is_file():
                     raise ValueError(f"source path is not traceable: {parent_id}: {source_path}")
             for ref in parent["direct_process_refs"]:
                 if not _is_direct_process_ref(root, parent, ref, source_cache):

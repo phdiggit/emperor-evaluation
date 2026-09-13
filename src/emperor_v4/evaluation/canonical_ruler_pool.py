@@ -20,7 +20,6 @@ SETTLEMENT_PATHS = {
     "second_item": "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
     "third_item": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
     "fourth_item": "docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
-    "fifth_item": "docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json",
 }
 
 FIRST_ITEM_NOT_APPLICABLE_ALLOWLIST = {
@@ -181,20 +180,6 @@ def _index_by_name(payload: Mapping[str, Any], item: str) -> dict[str, Mapping[s
     return indexed
 
 
-def _fifth_evidence_counts(row: Mapping[str, Any]) -> tuple[int, int]:
-    factual = 0
-    baseline = 0
-    for axis in ("A", "B", "C"):
-        detail = (row.get("axes") or {}).get(axis)
-        if not detail:
-            continue
-        if "客观皇帝基线" in str(detail.get("grade_reason") or ""):
-            baseline += 1
-        else:
-            factual += 1
-    return factual, baseline
-
-
 def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
     paths = {key: workspace_root / relative for key, relative in SETTLEMENT_PATHS.items()}
     payloads = {key: _read_json(path) for key, path in paths.items()}
@@ -214,19 +199,19 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         == "FORMAL_SCORE_INVALIDATED_PENDING_READJUDICATION"
     }
 
-    master_records = list(payloads["fifth_item"].get("records") or ())
+    prior_pool = _read_json(workspace_root / POOL_JSON)
+    master_records = list(prior_pool.get("records") or ())
     master_ids = [str(row.get("ruler_id") or "") for row in master_records]
-    if len(master_records) != 201 or any(not value for value in master_ids) or len(set(master_ids)) != 201:
-        raise ValueError("第五项候选母池必须是201个唯一ruler_id")
+    if not master_records or any(not value for value in master_ids) or len(set(master_ids)) != len(master_ids):
+        raise ValueError("规范人物池须有非空、唯一的ruler_id")
     for item in ("third_item", "fourth_item"):
         ids = {str(row.get("ruler_id") or "") for row in payloads[item].get("records") or ()}
         if ids != set(master_ids):
-            raise ValueError(f"{item}与201人候选母池ruler_id集合不一致")
+            raise ValueError(f"{item}与规范候选母池ruler_id集合不一致")
 
     master_id_by_name = {
         str(row["ruler_name"]): str(row["ruler_id"]) for row in master_records
     }
-    prior_pool = _read_json(workspace_root / POOL_JSON)
     prior_first_ids = {
         str(row["ruler_name"]): str((row.get("source_item_ids") or {}).get("first_item") or "")
         for row in prior_pool.get("records") or ()
@@ -254,7 +239,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         )
     payloads["first_item"] = {"records": first_records}
     indexed = {key: _index_by_name(payload, key) for key, payload in payloads.items()}
-    for item in ("second_item", "third_item", "fourth_item", "fifth_item"):
+    for item in ("second_item", "third_item", "fourth_item"):
         mismatches = {
             name: (str(row.get("ruler_id") or ""), master_id_by_name.get(name))
             for name, row in indexed[item].items()
@@ -323,7 +308,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         if reason_code is None:
             missing = [
                 item
-                for item in ("third_item", "fourth_item", "fifth_item")
+                for item in ("third_item", "fourth_item")
                 if source_rows[item] is None
             ]
             if missing:
@@ -335,12 +320,9 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                 raise ValueError(f"正式池候选{name}已有第二项记录但无分")
             if source_rows["fourth_item"].get("fourth_item_signed_adjustment") is None:
                 raise ValueError(f"正式池候选{name}第四项未闭合")
-            if source_rows["fifth_item"].get("fifth_item_score_points") is None:
-                raise ValueError(f"正式池候选{name}第五项无分")
             if source_rows["second_item"] is None and name not in pending_feasibility:
                 raise ValueError(f"正式池候选{name}缺少第二项本地材料可行性裁决")
 
-        factual_axes, baseline_axes = _fifth_evidence_counts(master)
         records.append(
             {
                 "ruler_id": master["ruler_id"],
@@ -380,9 +362,6 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                     ),
                     "third_item_formal": third_item_formal,
                     "fourth_item_formal": source_rows["fourth_item"] is not None,
-                    "fifth_item_formal": master.get("fifth_item_score_points") is not None,
-                    "fifth_factual_axis_count": factual_axes,
-                    "fifth_verified_baseline_axis_count": baseline_axes,
                 },
                 "second_item_window_adjudication": window_adjudications.get(name),
                 "source_item_ids": {
@@ -488,8 +467,8 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         "selection_policy": {
             "minimum_effective_power_years": 3,
             "requires_independent_highest_decision_power": True,
-            "requires_formal_records_for_admission": ["third_item", "fifth_item"],
-            "requires_formal_scores_for_composite_readiness": ["third_item", "fifth_item"],
+            "requires_formal_records_for_admission": ["third_item"],
+            "requires_formal_scores_for_composite_readiness": ["second_item", "third_item"],
             "requires_closed_signed_adjustment": "fourth_item",
             "second_item_policy": "local evidence availability permits admission; missing or window-invalidated formal score blocks composite readiness and ranking",
             "third_item_policy": "a missing C score or pending C parent-cycle semantic audit blocks composite readiness and ranking; unknown is not converted to zero",
@@ -523,9 +502,9 @@ def render_canonical_ruler_pool_markdown(payload: Mapping[str, Any]) -> str:
         "",
         "## 准入口径",
         "",
-        "- 以第三、第四、第五项共同的201人全集为候选母池。",
+        "- 候选身份与实际权力窗口以规范人物池为准，第三、第四项按稳定人物ID核对覆盖。",
         "- 实际、独立的最高决策权窗口至少3年；无实权、仅有有限本人选择或短期名义在位者排除。",
-        "- 第三、第五项必须已有正式分，第四项必须已闭合有符号调整；第一项只决定奠基人附加分，不作为共同准入门。",
+        "- 第三项必须已有正式分，第四项必须已闭合有符号调整；第一项只决定奠基人附加分，不作为共同准入门。",
         "- 第二项无正式结算但本地通读产物和史料足以支持结算者仍纳入正式池；旧快照跨越摄政窗口且未完成逐轴重审者同样记为待结算；两类对象均不得进入综合分与总排名。",
         "",
         "## 结论",
