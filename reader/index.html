@@ -329,9 +329,19 @@ header nav button,
   font-size: 16px;
 }
 
-.c5-type {
+.c5-type,
+.c5-scale-note {
   grid-column: 1 / -1;
+}
+
+.c5-type {
   margin-top: -2px;
+}
+
+.c5-scale-note {
+  max-width: 58em;
+  margin-top: 2px;
+  line-height: 1.65;
 }
 
 .public-evidence-points {
@@ -617,7 +627,7 @@ function compare(){
  const row=(label,fn)=>{const left=fn(a),right=fn(b);if(state.differences&&left===right)return '';return `<tr><td>${label}</td><td>${left}</td><td>${right}</td></tr>`};
  const axisRow=c=>{if(state.differences&&grade(a.axes[c])===grade(b.axes[c]))return '';return `<tr><td>${esc(DATA.axis_specs[c].name)}</td>${[a,b].map((r,i)=>`<td>${r.axes[c]?axisEvidence(r,c,'-compare-'+i):'未覆盖'}</td>`).join('')}</tr>`};
  const section=label=>`<tr class="comparison-section"><th colspan="3">${label}</th></tr>`;
- screen.innerHTML=`<h1>同题对照，各读其因。</h1><p class="muted">按相同维度并排阅读双方结论和依据，同时保留各自的历史起点、实际掌权时期与材料限制。</p><div class="compare-select">${[a,b].map((r,i)=>`<button data-replace-compare="${i}">${esc(r.impact.identity_label||r.ruler_name)} · 更换</button>`).join('<span>与</span>')}<button data-swap-compare>交换左右</button></div><label class="difference-toggle"><input type="checkbox" id="differences" ${state.differences?'checked':''}>隐藏相同数值／等级</label><p class="subline">开启后只保留不同的分数、等级和对应依据。同档也可能有不同事实、判断把握和限制；关闭即可查看全部。</p><div class="table-wrap comparison-scroll"><table class="comparison"><thead><tr><th>阅读问题</th><th>${esc(a.ruler_name)}</th><th>${esc(b.ruler_name)}</th></tr></thead><tbody>${row('实际掌权时期',r=>esc(r.actual_power_window))}${section('净收益')}${row('净收益',r=>r.net?`<b>${number(r.net.total_score)}</b> · 第 ${r.net.rank} 名`:'未入榜')}${[['治国净收益','second_item_score'],['军事与边疆','third_item_score'],['奠基与统一附加','first_item_add_on'],['文明与国家整合','fourth_item_adjustment']].map(([n,k])=>row(n,r=>number(r.net?.[k]))).join('')}${row('构成与依据',r=>r.net?`<details><summary>展开构成</summary>${netGroups(r)}</details>`:'本展示未覆盖')}${section('人物画像 · 八轴能力')}${DATA.capability_axes.map(axisRow).join('')}${section('人物画像 · 权力运用风格')}${DATA.independent_axes.map(axisRow).join('')}${section('历史影响')}${row('历史影响等级',r=>`<b class="impact-grade">${esc(r.impact.public_grade)}</b> · ${esc(r.impact.impact_nature)}`)}${Object.entries(dimNames).map(([k,n])=>row(n,r=>esc(r.impact.dimensions[k]?.grade))).join('')}${row('判断把握',r=>conf(r.impact.confidence))}${row('主链与归责依据',r=>`<details><summary>展开历史影响依据</summary>${historySections(r)}</details>`)}${row('继续阅读',r=>`<button data-person="${r.ruler_id}">查看${esc(r.ruler_name)} →</button>`)}</tbody></table></div>${gradeHelp('profile')}${gradeHelp('impact')}`;
+ screen.innerHTML=`<h1>同题对照，各读其因。</h1><p class="muted">按相同维度并排阅读双方结论和依据，同时保留各自的历史起点、实际掌权时期与材料限制。</p><div class="compare-select">${[a,b].map((r,i)=>`<button data-replace-compare="${i}">${esc(r.impact.identity_label||r.ruler_name)} · 更换</button>`).join('<span>与</span>')}<button data-swap-compare>交换左右</button></div><label class="difference-toggle"><input type="checkbox" id="differences" ${state.differences?'checked':''}>只看不同项</label><p class="subline">开启后只保留不同的分数、等级和对应依据。同档也可能有不同事实、判断把握和限制；关闭即可查看全部。</p><div class="table-wrap comparison-scroll"><table class="comparison"><thead><tr><th>阅读问题</th><th>${esc(a.ruler_name)}</th><th>${esc(b.ruler_name)}</th></tr></thead><tbody>${row('实际掌权时期',r=>esc(r.actual_power_window))}${section('净收益')}${row('净收益',r=>r.net?`<b>${number(r.net.total_score)}</b> · 第 ${r.net.rank} 名`:'未入榜')}${[['治国净收益','second_item_score'],['军事与边疆','third_item_score'],['奠基与统一附加','first_item_add_on'],['文明与国家整合','fourth_item_adjustment']].map(([n,k])=>row(n,r=>number(r.net?.[k]))).join('')}${row('构成与依据',r=>r.net?`<details><summary>展开构成</summary>${netGroups(r)}</details>`:'本展示未覆盖')}${section('人物画像 · 八轴能力')}${DATA.capability_axes.map(axisRow).join('')}${section('人物画像 · 权力运用风格')}${DATA.independent_axes.map(axisRow).join('')}${section('历史影响')}${row('历史影响等级',r=>`<b class="impact-grade">${esc(r.impact.public_grade)}</b> · ${esc(r.impact.impact_nature)}`)}${Object.entries(dimNames).map(([k,n])=>row(n,r=>esc(r.impact.dimensions[k]?.grade))).join('')}${row('判断把握',r=>conf(r.impact.confidence))}${row('主链与归责依据',r=>`<details><summary>展开历史影响依据</summary>${historySections(r)}</details>`)}${row('继续阅读',r=>`<button data-person="${r.ruler_id}">查看${esc(r.ruler_name)} →</button>`)}</tbody></table></div>${gradeHelp('profile')}${gradeHelp('impact')}`;
  document.getElementById('differences').onchange=e=>{state.differences=e.target.checked;compare()};
 }
 
@@ -1115,13 +1125,19 @@ window.addEventListener('hashchange',route);route();
 
   function enhanceC5Overview(record) {
     const axis = record.axes?.C5;
-    if (!axis?.person_type) return;
+    if (!axis) return;
     const row = document.querySelector("#person-capability .style-axis .axis-row");
-    if (!row || row.querySelector(".c5-type")) return;
-    const type = document.createElement("div");
-    type.className = "c5-type subline";
-    type.textContent = axis.person_type;
-    row.append(type);
+    if (!row || row.querySelector(".c5-scale-note")) return;
+    if (axis.person_type) {
+      const type = document.createElement("div");
+      type.className = "c5-type subline";
+      type.textContent = axis.person_type;
+      row.append(type);
+    }
+    const note = document.createElement("div");
+    note.className = "c5-scale-note subline";
+    note.textContent = "C5越接近S，表示越能在压力和个人利益面前约束自身权力；越接近E，表示强制、报复或特权越容易越过合理边界。它描述权力风格，不计入八项能力雷达。";
+    row.append(note);
   }
 
   function rewriteHistoryChains(impact) {
