@@ -46,6 +46,11 @@
 }
 
 /* Person-page public reading layer. */
+.evidence-card-title {
+  margin: 0 0 12px;
+  font: 26px/1.5 "SimSun", serif;
+}
+
 .public-context-title {
   margin-bottom: 4px;
   color: var(--green);
@@ -122,6 +127,25 @@
 
 .net-ledger > details {
   margin-left: 14px;
+}
+
+.net-ledger .component {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.net-score-links {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: -3px;
+  font-size: 12px;
+}
+
+.net-score-links a {
+  font-weight: 500;
 }
 
 @media (max-width: 700px) {
@@ -266,5 +290,14 @@
 
   .net-ledger > details {
     margin-left: 8px;
+  }
+
+  .net-ledger .component {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .net-score-links {
+    gap: 10px;
+    margin-top: 2px;
   }
 }
