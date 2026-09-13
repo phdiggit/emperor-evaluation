@@ -37,7 +37,7 @@
   },
   {
     "from": "量级置信度",
-    "to": "判断置信度"
+    "to": "判断把握"
   },
   {
     "from": "不属本展示主池",
@@ -106,5 +106,41 @@
   {
     "from": "这是离线交互设计样稿。展示数据来自构建时的正式结算；更新正式记录后重新构建阅读页。",
     "to": "本站是正式结算数据的只读阅读层；正式记录更新后，页面随之重建。"
+  },
+  {
+    "from": "The three perspectives",
+    "to": "三重视角"
+  },
+  {
+    "from": "Reading guide",
+    "to": "阅读指南"
+  },
+  {
+    "from": "M2经终局核对仍无可证能力者列E，并保留范围说明。",
+    "to": ""
+  },
+  {
+    "from": "总分口径与权重敏感性",
+    "to": "这个分数怎么来的？"
+  },
+  {
+    "from": "固定现有裁决，在已声明的 ${DATA.weight_sensitivity.scenario_count} 种权重情景中，名次范围为第 ${n.weight_sensitivity.all_scenarios.best}—${n.weight_sensitivity.all_scenarios.worst} 名。",
+    "to": "<strong>换一套合理权重，名次会变化多少？</strong> 在已声明的 ${DATA.weight_sensitivity.scenario_count} 种权重情景中，名次范围为第 ${n.weight_sensitivity.all_scenarios.best}—${n.weight_sensitivity.all_scenarios.worst} 名。"
+  },
+  {
+    "from": "置信度 ${conf(h.confidence)}",
+    "to": "判断把握：${conf(h.confidence)}"
+  },
+  {
+    "from": "<span class=\"badge\">${esc(h.impact_nature)}</span> <span class=\"subline\">判断把握：${conf(h.confidence)}</span>",
+    "to": "<span class=\"badge\">${esc(h.impact_nature)}</span> <span class=\"subline\">判断把握：${conf(h.confidence)}</span><p class=\"subline confidence-note\">表示证据与归责判断的稳定程度，不表示影响大小。</p>"
+  },
+  {
+    "from": "隐藏相同数值／等级",
+    "to": "只看不同项"
+  },
+  {
+    "from": "同档仍可能有不同事实、置信度和限制。启用后会同时隐藏这些同档行的依据；取消勾选即可查看。",
+    "to": "开启后只保留不同的分数、等级和对应依据。同档也可能有不同事实、判断把握和限制；关闭即可查看全部。"
   }
 ]
