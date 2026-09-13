@@ -800,7 +800,26 @@ window.addEventListener('hashchange',route);route();
     .replace(/\bFORMAL_CURRENT\b/g, "当前正式记录")
     .replace(/\bSCORING_PARENT\b/g, "主要计分证据")
     .replace(/\bREFUSAL_OR_RECURRENCE\b/g, "拒绝更新或同类复发情境")
-    .replace(/\bTRUTH_ACQUISITION\b/g, "求真取证情境");
+    .replace(/\bTRUTH_ACQUISITION\b/g, "求真取证情境")
+    .replace(/正式快照/g, "当前正式记录")
+    .replace(/高档门/g, "高等级标准")
+    .replace(/低档门/g, "低等级标准")
+    .replace(/不转档/g, "不改变等级")
+    .replace(/消费点/g, "评价落点")
+    .replace(/消费的是/g, "评价关注的是")
+    .replace(/父链/g, "证据链")
+    .replace(/裁档/g, "定档")
+    .replace(/重裁/g, "重新评估")
+    .replace(/复验/g, "复核")
+    .replace(/重开/g, "重新评估")
+    .replace(/上沿/g, "更高等级空间")
+    .replace(/下沿/g, "较低边界")
+    .replace(/档内/g, "同档")
+    .replace(/跨轴/g, "跨维度")
+    .replace(/轴外/g, "本维度之外")
+    .replace(/路由/g, "归类")
+    .replace(/审计/g, "核对")
+    .replace(/消费/g, "采用");
 
   // Future renders use the same public translation before axis prose is created.
   readerText = publicReaderText;
