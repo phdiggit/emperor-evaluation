@@ -10,7 +10,7 @@ from emperor_v4.evaluation.profile_registry import write_profile_manifest
 
 
 ROOT = Path(__file__).resolve().parents[3]
-PROFILE_ROOT = ROOT / "docs/评分结算/皇帝人物画像"
+PROFILE_ROOT = ROOT / "docs/评分结算/人物画像"
 SETTLEMENT = PROFILE_ROOT / "C3/24-C3人才识别配置与授权正式结算.json"
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "C3/25-C3主要入口单元处置审计.json"

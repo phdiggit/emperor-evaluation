@@ -6,7 +6,7 @@ from pathlib import Path
 from emperor_v4.evaluation.third_item_b1_audit import build_b1_audit
 
 
-ROUTER = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
+ROUTER = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
 ANCHORS = Path("config/third-item/third-item-b1-region-anchors.json")
 
 

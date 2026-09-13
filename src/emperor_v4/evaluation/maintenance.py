@@ -26,13 +26,12 @@ REVIEW = {
     "I2.A": ("profile.C3", "profile.C4", "profile.C5"),
     "I2.B1": ("profile.C3", "profile.C5", "profile.M5"),
     "I2.B2": ("profile.C2", "profile.C5"),
-    **{f"I2.{axis}": ("profile.M3",) for axis in ("C1", "C2", "C3", "C4")},
     "I1": ("profile.M1", "profile.C1", "profile.M4"),
     "I3": ("profile.M1", "profile.C1"),
-    "I4": ("profile.M4",), "I5": ("profile.C5", "profile.M4"),
+    "I4": ("profile.M4",),
     "profile.C2": ("profile.C5", "profile.M4"),
     "profile.C5": ("profile.C2", "profile.C3", "profile.M4"),
-    **{f"profile.{axis}": ("profile.M4",) for axis in ("M1", "M2", "M3", "C1", "C3")},
+    **{f"profile.{axis}": ("profile.M4",) for axis in ("M1", "M2", "C1", "C3")},
     "profile.C3": ("profile.M4", "profile.M5"),
     "profile.C4": ("profile.M5",),
 }
@@ -46,7 +45,6 @@ CHECKS.update({
     "I1": "formal-settlements-verify --item first_item",
     "I2": "formal-settlements-verify --item second_item",
     "I4": "formal-settlements-verify --item fourth_item",
-    "I5": "formal-settlements-verify --item fifth_item",
     "pool": "canonical-ruler-pool-verify", "composite": "composite-ranking-verify",
 })
 for _axis in SECOND_ITEM_COMPONENT_PATHS:
@@ -60,7 +58,7 @@ def current_entries(root: Path) -> dict[str, Path]:
     project = yaml.safe_load((root / "config/project.yml").read_text(encoding="utf-8"))
     entries = {
         code: root / project["formal_settlements"][key].get("json", project["formal_settlements"][key]["markdown"])
-        for code, key in zip(("I1", "I2", "I3", "I4", "I5"), ("first_item", "second_item", "third_item", "fourth_item", "fifth_item"))
+        for code, key in zip(("I1", "I2", "I3", "I4"), ("first_item", "second_item", "third_item", "fourth_item"))
     }
     entries.update({f"I2.{axis}": root / path for axis, path in SECOND_ITEM_COMPONENT_PATHS.items()})
     entries["I3.D"] = root / project["formal_settlements"]["third_item"]["d_json"]
@@ -173,7 +171,7 @@ def inspect(root: Path, components: list[str], ruler_ids: list[str], polities: l
         "validation_commands": commands,
         "related_validation_commands": list(dict.fromkeys(CHECKS[key] for key in sorted(review) if key in CHECKS)),
         "downstream_validation_commands": list(dict.fromkeys(CHECKS[key] for key in sorted(derived) if key in CHECKS)),
-        "validation_granularity": "B2 and M3 support selected-record contracts and reading-view equality. Other existing validators check their complete component, including global ranking and coverage.",
+        "validation_granularity": "B2 supports selected-record contracts and reading-view equality. Other existing validators check their complete component, including global ranking and coverage.",
         "unmapped_component_checks": [key for key in check_components if key not in CHECKS],
         "full_acceptance_command": "formal-settlements-verify",
         "write_policy": "Patch adjudications and their source views locally; use the listed deterministic refresh commands for consumers. Semantic review never changes a grade automatically.",
@@ -191,6 +189,7 @@ def verify_profile_current(root: Path, axis: str) -> dict:
     """Common profile contracts; axis-specific semantics use their own verifiers."""
     from emperor_v4.evaluation.profile_markdown import render_profile_markdown
     from emperor_v4.evaluation.profile_m4_settlement import SCORES
+    from emperor_v4.evaluation.profile_publication import is_closed_no_grade, validate_closed_no_grade, validate_bounded_diplomatic_grade, validate_final_capability_review
     path = current_entries(root)[f"profile.{axis}"]
     payload = load_json(path)
     records = payload["records"]
@@ -199,6 +198,13 @@ def verify_profile_current(root: Path, axis: str) -> dict:
     if len(records) != len(expected) or {r["ruler_id"] for r in records} != expected:
         raise ValueError(f"Profile {axis} pool coverage mismatch")
     for row in records:
+        if axis == 'M2':
+            validate_final_capability_review(row)
+        if is_closed_no_grade(row):
+            validate_closed_no_grade(row, axis)
+            continue
+        if axis == 'M2':
+            validate_bounded_diplomatic_grade(row)
         if row["radar_value"] != row["score_100"] or row["radar_value"] != SCORES[row["axis_grade"]][row["position"]]:
             raise ValueError(f"Profile projection mismatch: {row['ruler_id']}")
         if not row["grade_basis"] or not row["position_basis"] or row["formal_status"] != "FORMAL_CURRENT":

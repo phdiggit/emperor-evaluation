@@ -10,7 +10,7 @@ from emperor_v4.evaluation.profile_registry import write_profile_manifest
 
 
 ROOT = Path(__file__).resolve().parents[3]
-PROFILE_ROOT = ROOT / "docs/评分结算/皇帝人物画像"
+PROFILE_ROOT = ROOT / "docs/评分结算/人物画像"
 POOL = ROOT / "config/common/canonical-ruler-pool.json"
 PROJECT = ROOT / "config/project.yml"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
@@ -20,6 +20,8 @@ AUDIT = PROFILE_ROOT / "M4/35-M4主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "M4/36-M4高档联盟生命周期复核.json"
 FULL_POOL_REVIEW = PROFILE_ROOT / "M4/37-M4全池两轮复审.json"
 
+# These source identifiers include retired evidence origins; they are not
+# active scoring or publication entries. Archive paths retain the source facts.
 NORMATIVE_ENTRIES = {
     "FIRST_ITEM_B", "FOURTH_ITEM_A", "FIFTH_ITEM_B", "FIFTH_ITEM_C",
     "PROFILE_M1", "PROFILE_M2", "PROFILE_M3", "PROFILE_C1", "PROFILE_C2",

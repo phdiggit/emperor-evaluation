@@ -33,15 +33,15 @@ SOURCE_ROOT = Path("docs/史料通读产物/五代十国/资治通鉴")
 REGISTRY_PATH = Path("docs/公共成果/军事/01-战役登记.json")
 REGISTRY_MARKDOWN_PATH = Path("docs/公共成果/军事/01-战役登记.md")
 ADJUDICATION_PATH = Path("config/third-item/five-dynasties-third-item-adjudications.json")
-AB_PATH = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
-C_PATH = Path("docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json")
-D_PATH = Path("docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json")
-FORMAL_PATH = Path("docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json")
+AB_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
+C_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json")
+D_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json")
+FORMAL_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json")
 QIN_TANG_BATTLE_INDEX_PATH = Path("docs/史料通读产物/唐以前编年/00-战争卡审计索引.json")
 QIN_TANG_D_DIRECTION_PATH = Path("config/third-item/qin-tang-d-cycle-direction-adjudications.json")
 FIRST_ITEM_C_WINDOWS_PATH = Path("config/first-item/first-item-c-acquisition-windows.json")
 FIRST_ITEM_C_SETTLEMENT_PATH = Path(
-    "docs/评分结算/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json"
+    "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json"
 )
 AB_HANDOFF_ADJUDICATION_PATH = Path("config/third-item/third-item-ab-handoff-adjudications.json")
 C_OUTCOME_ADJUDICATION_PATH = Path("config/third-item/third-item-c-outcome-adjudications.json")
@@ -4291,12 +4291,12 @@ def _render_formal_markdown(
     definitions = {
         "AB": {
             "title": f"# {scope_label}第三项A/B国防安全正式结算",
-            "rule": "[A/B规则与结算合同](../../../分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md)",
+            "rule": "[A/B规则与结算合同](../../../../分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md)",
             "description": "A战略安全结果120分与B边疆控制结果80分" if current_ab else "A战略安全收益80分与B边疆控制净收益80分",
         },
         "C": {
             "title": f"# {scope_label}第三项C军事体系有效性正式结算",
-            "rule": "[C规则与计分合同](../../../分项规则/第三项军事与边疆净收益/军事体系有效性/00-规则与计分合同.md)",
+            "rule": "[C规则与计分合同](../../../../分项规则/第三项军事与边疆净收益/军事体系有效性/00-规则与计分合同.md)",
             "description": "C军事体系有效性50分",
         },
     }
@@ -4473,7 +4473,7 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
     lines = [
         title,
         "",
-        "规则总入口见[`docs/分项规则/第三项军事与边疆净收益`](../../分项规则/第三项军事与边疆净收益/README.md)。本表将A战略安全收益80分、B边疆控制净收益80分、C军事体系有效性50分、D军事成本收益比40分合并为第三项250分当前正式值；机器读取入口为同名JSON。军事安全、控制和体系后果的持续性均在第三项相应结果轴内校准，不另设历史负债扣分。",
+        "规则总入口见[`docs/分项规则/第三项军事与边疆净收益`](../../../分项规则/第三项军事与边疆净收益/README.md)。本表将A战略安全收益80分、B边疆控制净收益80分、C军事体系有效性50分、D军事成本收益比40分合并为第三项250分当前正式值；机器读取入口为同名JSON。军事安全、控制和体系后果的持续性均在第三项相应结果轴内校准，不另设历史负债扣分。",
         "",
         f"{score_summary}{extension_note}表后逐人列出当前未排名原因；D的Q事实只取公共登记。",
         "",

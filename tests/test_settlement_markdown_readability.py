@@ -6,21 +6,21 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 SETTLEMENT_ROOT = ROOT / "docs/评分结算"
-SECOND_ITEM = SETTLEMENT_ROOT / "第二项治国净收益"
+DISPLAY_ROOT = ROOT / "docs/展示成果/人物画像"
+SECOND_ITEM = SETTLEMENT_ROOT / "净收益/第二项治国净收益"
 
 
 def _reader_views() -> list[Path]:
     return sorted(
         path
-        for path in SETTLEMENT_ROOT.rglob("*.md")
+        for base in (SETTLEMENT_ROOT, DISPLAY_ROOT)
+        for path in base.rglob("*.md")
         if path.name != "README.md" and "分析" not in path.name
     )
 
 
 def test_settlement_reader_views_are_utf8_without_bom() -> None:
     paths = _reader_views()
-    assert SETTLEMENT_ROOT / "皇帝人物画像/雷达图小样/00-雷达图小样说明.md" in paths
-    assert SETTLEMENT_ROOT / "皇帝人物画像/视频文字小样/00-视频人物画像文字小样.md" in paths
     for path in paths:
         raw = path.read_bytes()
         assert not raw.startswith(b"\xef\xbb\xbf"), path

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.profile_publication import is_closed_no_grade
 from emperor_v4.evaluation.profile_registry import (
     PROFILE_ROOT,
     ROOT,
@@ -34,6 +35,8 @@ def _grade(record: dict[str, Any]) -> str:
 
 
 def _m2_adjudication_label(record: dict[str, Any]) -> str:
+    if is_closed_no_grade(record):
+        return "证据不足，已无档结案"
     state = str(record.get("adjudication_state") or "FORMAL_CURRENT")
     if state == "UNRESOLVED_EVIDENCE_GAP":
         return "待补证（旧值仅显示）"
@@ -43,12 +46,14 @@ def _m2_adjudication_label(record: dict[str, Any]) -> str:
 
 
 def _m2_display_grade(record: dict[str, Any]) -> str:
+    if is_closed_no_grade(record):
+        return "无档"
     grade = _grade(record)
     return f"显示点·{grade}" if record.get("display_point_only") else grade
 
 
 def _m2_display_radar(record: dict[str, Any]) -> str | int:
-    return "—" if record.get("display_point_only") else record["radar_value"]
+    return "—" if record.get("display_point_only") or is_closed_no_grade(record) else record["radar_value"]
 
 
 def _m2_source_display_ref(value: str) -> str:
@@ -435,96 +440,18 @@ def _parent_lines(
         yield f"  - 轴内状态：{parent.get('consumption_status')}"
 
 
-def _m3_source_lines(record: dict[str, Any]) -> list[str]:
-    lines: list[str] = []
-    for item in record.get("source_evidence") or []:
-        title = str(item.get("source_title") or "").strip()
-        quote = " ".join(str(item.get("quote") or "").split())
-        if title and quote:
-            lines.append(f"  - {title}：{quote}")
-    return lines
 
 
-def _m3_reader_text(value: Any) -> str:
-    text = str(value or "")
-    replacements = (
-        (
-            "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
-            "现有材料不足以还原独立、完整的个人决策过程，不能外推为完整政策能力画像。",
-        ),
-        ("按固定审计闭合；未找到不转零", "按现有证据范围判断；没有找到材料不等于负证"),
-        ("专项补审", "专项核对"),
-        ("最新C1已明确", "C1材料表明"),
-        ("最新C2已明确", "C2材料表明"),
-        ("按最新边界", "依本轴边界"),
-        ("旧DA3撤销为DA0", "因此裁为DA0"),
-        ("旧DA", "此前DA"),
-        ("NOT_APPLICABLE", "不在该项计入"),
-        ("成本登记", "成本材料"),
-        ("父链", "行为链"),
-        ("审计", "核对"),
-        ("机器", ""),
-        ("全国同步脱困", "全国同时脱困"),
-        ("去重规则", "归属边界"),
-        ("内部去重", "项目归属"),
-        ("去重", "避免重复计入"),
-        ("消费", "计入"),
-        ("机械", "直接"),
-        ("合同", "规则"),
-        ("FULL_OR_MAJOR_REGIONAL", "完整或主要区域"),
-        ("LIMITED_REGIONAL", "有限区域"),
-        ("UNRESOLVED_NOT_HIGH_GRADE_GATE", "仅适用于非高档"),
-        ("MATERIAL", "部分归责"),
-        ("FULL", "主要归责"),
-        ("NONE", "不另归责"),
-    )
-    for old, new in replacements:
-        text = text.replace(old, new)
-    text = re.sub(r"M\d+(?:-[A-Z0-9]+)+", "材料", text)
-    text = re.sub(r"\b(?:raw|formal|terminal_quality|source_ref|material_id)\b", "", text, flags=re.I)
-    text = re.sub(r"\b[A-Z][A-Z _-]{5,}\b", "", text)
-    text = re.sub(r"\s+", " ", text).strip(" ；")
-    return text
 
 
-def _m3_vector(values: list[int]) -> str:
-    return "/".join(f"{value}档" for value in values)
 
 
-def _m3_starting_context(record: dict[str, Any]) -> str:
-    trajectory = record["ability_evidence"]["trajectory"]
-    return (
-        f"接手时民生、经济财政、社会安全分别为{_m3_vector(trajectory['start_vector'])}；"
-        f"任内主态为{_m3_vector(trajectory['main_vector'])}，交班为{_m3_vector(trajectory['end_vector'])}。"
-    )
 
 
-def _m3_construction(record: dict[str, Any]) -> str:
-    trajectory = record["ability_evidence"]["trajectory"]
-    return (
-        f"三轴最高实现为{_m3_vector(trajectory['peak_vector'])}，"
-        f"建设恢复{float(trajectory['recovery_score_27']):.1f}/27，"
-        f"稳定兑现与压力吸收{float(trajectory['stability_score_18']):.1f}/18；"
-        f"交班较主态回落{_m3_vector(trajectory['rollback_vector'])}。"
-    )
 
 
-def _m3_handoff(record: dict[str, Any]) -> str:
-    trajectory = record["ability_evidence"]["trajectory"]
-    return f"交班时民生、经济财政、社会安全分别为{_m3_vector(trajectory['end_vector'])}。"
 
 
-def _m3_limitations(record: dict[str, Any]) -> str:
-    values = []
-    for value in _limitation_values(record):
-        text = _m3_reader_text(value)
-        if (
-            text
-            and text not in {"None", "主要归责", "部分归责", "不另归责"}
-            and not re.fullmatch(r"(?:[A-Z][A-Z _-]+；?)+", text)
-        ):
-            values.append(text)
-    return "；".join(dict.fromkeys(values)) or "无"
 
 
 def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, str]) -> list[str]:
@@ -567,22 +494,6 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
         ]
         for row in records:
             cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), row["typical_pattern"]]
-            lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
-        return lines
-    if axis == "M3":
-        lines = [
-            "| 人物 | 政权 | 民生局面 | 经济财政局面 | 社会安全局面 | 任内动态 | 档位 | 雷达值 | 证据 |",
-            "|---|---|---|---|---|---|---|---:|---|",
-        ]
-        for row in records:
-            components = row["components"]
-            cells = [
-                row["ruler_name"], row["polity"],
-                row["absolute_state_meanings"]["C1"], row["absolute_state_meanings"]["C2"],
-                row["absolute_state_meanings"]["C3"], row["dynamic_label"],
-                f"{row['axis_grade']}-{row['position']}",
-                row["radar_value"], row["axis_evidence_level"],
-            ]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     if axis == "C3":
@@ -661,15 +572,9 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     if axis not in AXIS_FILES:
         raise ValueError(f"unsupported profile axis: {axis}")
     records = settlement["records"]
-    labels, shared = ({}, []) if axis in {"M3", "M4", "C3"} else _shared_limitations(records)
-    profile_note = (
-        "> 独立人物画像轴；不进入五项综合总榜，不生成画像总分或轴内排名。本文逐人展示正式裁决。"
-        if axis == "M3"
-        else "> 独立人物画像轴；不进入五项综合总榜，不生成画像总分或轴内排名。JSON是唯一机器入口；本文是同值阅读视图。"
-    )
-    if axis == "M3":
-        reading_source_note = "- 逐人条目分别说明局面、行为、后果与裁档理由；来源按书名与原文逐行列出。"
-    elif axis == "C1":
+    labels, shared = ({}, []) if axis in {"M4", "C3"} else _shared_limitations(records)
+    profile_note = "> 独立人物画像轴；不进入净收益综合总榜，不生成画像总分或轴内排名。JSON是唯一机器入口；本文是同值阅读视图。"
+    if axis == "C1":
         reading_source_note = f"- 全池表的‘典型模式’为人物类型摘要，‘限制’只显示最强计分负证档位；逐人条目展开完整主模式、裁档理由、限制和代表父链，每条父链最多列{C1_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合保留在正式JSON。"
     elif axis == "C2":
         reading_source_note = f"- 逐人条目只展开核心依据、档内定位、限制和代表父链；每条父链最多列{C2_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合与关联父链保留在正式JSON。"
@@ -743,7 +648,6 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         "C2": "- C2只消费信息取得、反证理解与认知更新；战略选择、外交条件和权力程序不因共享史料转入C2。",
         "C3": "- C3只消费人才识别、配置、授权与交付反馈；集团生命周期和外交对象关系分别留在M4/M2。",
         "C5": "- C5只消费权力边界、异议安全、惩罚程序与比例；军事、外交和人才成果不因共享史料转入C5。",
-        "M3": "- M3只消费财政民生与治理结果及其过程；上游轴事实只作已声明输入，不把上游档位重复换算。",
         "M4": "- M4只消费内部政治集团、藩镇、继承与权力整合；外部外交、军事操作和个人用人不因共享史料重复计入。",
     }.get(axis)
     if axis_boundary_note:
@@ -753,24 +657,6 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     lines.extend(_overview_table(axis, records, labels))
     lines.extend(["", "## 逐人裁决依据", ""])
     for display, row in enumerate(records, 1):
-        if axis == "M3":
-            lines.extend([
-                f"### {display}. {row['ruler_name']}",
-                "",
-                f"- **结算**：`{_grade(row)}` / 雷达值 `{row['radar_value']}` / 证据 `{row['axis_evidence_level']}`。",
-                f"- **接手局面**：{_m3_starting_context(row)}",
-                f"- **建设与维持**：{_m3_construction(row)}",
-                f"- **成本与后果**：{_m3_reader_text(row['costs_and_consequences'])}",
-                f"- **关键行为链**：{_m3_reader_text(row['behavior_chain'])}",
-                f"- **交班局面**：{_m3_handoff(row)}",
-                f"- **落档理由**：{_m3_reader_text(row['grade_basis'])}",
-                f"- **档内位置**：{_m3_reader_text(row['position_basis'])}",
-                f"- **限制**：{_m3_limitations(row)}",
-                "- **来源**：",
-                *_m3_source_lines(row),
-                "",
-            ])
-            continue
         settlement_line = (
             f"- **结算**：`{_m2_display_grade(row)}` / 当前雷达值 `{_m2_display_radar(row)}` / "
             f"{row['axis_evidence_level']} / {row['score_status']} / {_m2_adjudication_label(row)}。"
@@ -847,11 +733,6 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             "",
             "档位来自显式逐人裁决源；不读取第五项B或其他画像轴的档位、方向、MI或分值。最终治绩、名臣数量、官职数量、处罚伦理与集团成果均不得换算为C3。",
             "",
-        ])
-    if axis == "M3":
-        lines.extend([
-            "## M3 专项边界", "",
-            "M3以第二项C1、C2、C3、C4的正式裁决为事实底座，但不相加、不线性折算，也不把任一子项档位一对一转换为M3。先判断民生、经济财政与社会安全的绝对局面组合，再判断任内建设、承压、恶化及其归责，最后用行为链、阶段反转和交班下沿复核语义档位；雷达值只由最终档位与档内位置固定投影。旧M3过程材料继续用于补正行为、反馈、成本和归责，不按政策数量计功扣责。", "",
         ])
     if axis == "M4":
         lines.extend([

@@ -8,10 +8,10 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 
-AB_ROUTER_PATH = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
+AB_ROUTER_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
 ANCHOR_PATH = Path("config/third-item/third-item-b1-region-anchors.json")
-AUDIT_JSON_PATH = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/02-B1机械一致性审计.json")
-AUDIT_MD_PATH = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/02-B1机械一致性审计.md")
+AUDIT_JSON_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/02-B1机械一致性审计.json")
+AUDIT_MD_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/02-B1机械一致性审计.md")
 
 TOL = 1e-6
 

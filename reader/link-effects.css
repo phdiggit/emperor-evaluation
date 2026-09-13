@@ -1,0 +1,240 @@
+/* Link affordance for pointer users: visible but deliberately quieter than buttons. */
+#screen a {
+  border-radius: 3px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+  text-decoration-color: color-mix(in srgb, currentColor 42%, transparent);
+}
+
+/* Buttons and disclosure headings share one restrained interaction language. */
+header nav button,
+#screen button,
+#screen summary {
+  transition: color .16s ease, background-color .16s ease, border-color .16s ease,
+              box-shadow .16s ease, transform .16s ease;
+}
+
+#screen summary {
+  border-radius: 4px;
+  list-style: none;
+  padding: 3px 28px 3px 5px;
+  margin-left: -5px;
+  position: relative;
+}
+
+#screen summary::-webkit-details-marker {
+  display: none;
+}
+
+#screen summary::after {
+  content: "›";
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  transform: translateY(-50%);
+  transform-origin: 50% 50%;
+  transition: color .16s ease, transform .18s ease;
+}
+
+#screen details[open] > summary::after {
+  color: var(--red);
+  transform: translateY(-50%) rotate(90deg);
+}
+
+/* Ruler names behave like textual entry points rather than generic controls. */
+#screen td.name button {
+  position: relative;
+  border-radius: 2px;
+  transition: color .16s ease, transform .16s ease;
+}
+
+#screen td.name button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transition: right .18s ease;
+}
+
+/* Home-table cells are direct entry points into the matching person-page section. */
+#screen .home-click-row,
+#screen .home-jump-cell {
+  transition: background-color .16s ease, box-shadow .16s ease;
+}
+
+#screen .home-jump-cell {
+  cursor: pointer;
+  position: relative;
+}
+
+#screen .home-jump-cell::after {
+  content: "↗";
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  opacity: 0;
+  transform: translate(-2px, 2px);
+  transition: opacity .16s ease, transform .16s ease, color .16s ease;
+}
+
+#screen .home-jump-cell:focus-visible,
+#screen .impact-grade[data-home-grade]:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -3px;
+}
+
+#screen .inline-table-filter {
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--green);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+#screen .impact-grade[data-home-grade] {
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0 2px;
+  margin-left: -2px;
+  transition: color .16s ease, background-color .16s ease, box-shadow .16s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #screen a {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1px;
+    transition: color .16s ease, background-size .2s ease, background-color .16s ease, box-shadow .16s ease;
+  }
+
+  #screen a:hover {
+    color: var(--red);
+    background-size: 100% 1px;
+    background-color: color-mix(in srgb, var(--gold) 9%, transparent);
+    box-shadow: 0 2px 0 color-mix(in srgb, var(--gold) 22%, transparent);
+    text-decoration-color: transparent;
+  }
+
+  #screen .axis-row a:hover,
+  #screen .compact-axis a:hover,
+  #screen .person-nav a:hover {
+    text-decoration: none;
+  }
+
+  #screen .person-nav a:hover {
+    color: var(--ink);
+    background-color: color-mix(in srgb, var(--gold) 13%, transparent);
+    box-shadow: none;
+  }
+
+  header nav button:hover,
+  #screen button:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--gold) 58%, var(--line));
+    background-color: color-mix(in srgb, var(--gold) 8%, transparent);
+    box-shadow: 0 4px 10px color-mix(in srgb, var(--ink) 9%, transparent);
+  }
+
+  header nav button.active:hover,
+  #screen button.primary:hover {
+    background-color: color-mix(in srgb, var(--ink) 92%, var(--gold));
+    border-color: var(--ink);
+    color: white;
+  }
+
+  #screen .candidate-grid button:hover {
+    background-color: color-mix(in srgb, var(--gold) 11%, #fcfbf7);
+  }
+
+  #screen td.name button:hover {
+    color: var(--red);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: translateX(2px);
+  }
+
+  #screen td.name button:hover::after {
+    right: 0;
+  }
+
+  #screen summary:hover {
+    color: var(--red);
+    background-color: color-mix(in srgb, var(--gold) 8%, transparent);
+  }
+
+  #screen summary:hover::after {
+    color: var(--red);
+  }
+
+  #screen .home-click-row:hover {
+    background-color: color-mix(in srgb, var(--gold) 3%, transparent);
+  }
+
+  #screen .home-jump-cell:hover {
+    background-color: color-mix(in srgb, var(--gold) 9%, transparent);
+    box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--gold) 34%, transparent);
+  }
+
+  #screen .home-jump-cell:hover::after {
+    color: var(--red);
+    opacity: .72;
+    transform: translate(0, 0);
+  }
+
+  #screen .inline-table-filter:hover {
+    color: var(--red);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+    text-decoration: underline;
+    text-underline-offset: .18em;
+  }
+
+  #screen .impact-grade[data-home-grade]:hover {
+    color: color-mix(in srgb, var(--red) 88%, var(--ink));
+    background-color: color-mix(in srgb, var(--red) 7%, transparent);
+    box-shadow: 0 2px 0 color-mix(in srgb, var(--red) 18%, transparent);
+  }
+
+  header nav button:active,
+  #screen button:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #screen a,
+  header nav button,
+  #screen button,
+  #screen summary,
+  #screen summary::after,
+  #screen td.name button,
+  #screen td.name button::after,
+  #screen .home-click-row,
+  #screen .home-jump-cell,
+  #screen .home-jump-cell::after,
+  #screen .impact-grade[data-home-grade] {
+    transition: none;
+  }
+
+  header nav button:hover,
+  #screen button:hover,
+  #screen td.name button:hover,
+  #screen .home-jump-cell:hover::after {
+    transform: none;
+  }
+}

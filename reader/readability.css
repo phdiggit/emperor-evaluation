@@ -1,0 +1,419 @@
+/* Readability layer: mobile cards, quieter metadata, and compact comparison evidence. */
+.footer-note .home-count-summary {
+  display: block;
+}
+
+.footer-note .data-status {
+  border-top: 0;
+  padding: 0;
+  margin-top: 8px;
+}
+
+.footer-note .data-status > summary {
+  display: inline-block;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 500;
+  padding-right: 24px;
+}
+
+.footer-note .data-status p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.confidence-note {
+  margin-top: 7px;
+  max-width: 34em;
+}
+
+.comparison .axis-evidence > summary[data-compact-compare] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+}
+
+.comparison .axis-evidence > summary[data-compact-compare] .badge {
+  flex: 0 0 auto;
+  font-size: 13px;
+}
+
+.compare-evidence-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* Person-page public reading layer. */
+.evidence-card-title {
+  margin: 0 0 12px;
+  font: 26px/1.5 "SimSun", serif;
+}
+
+.public-context-title {
+  margin-bottom: 4px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.public-context .prose {
+  margin: 5px 0;
+}
+
+.public-person-type {
+  margin: 8px 0 10px;
+  font-size: 16px;
+}
+
+.c5-type,
+.c5-scale-note {
+  grid-column: 1 / -1;
+}
+
+.c5-type {
+  margin-top: -2px;
+}
+
+.c5-scale-note {
+  max-width: 58em;
+  margin-top: 2px;
+  line-height: 1.65;
+}
+
+.public-evidence-points {
+  margin-top: 8px;
+  padding-top: 10px;
+}
+
+.public-evidence-points > summary {
+  color: var(--green);
+  font-size: 13px;
+}
+
+.public-evidence-points .label {
+  margin-top: 12px;
+}
+
+.impact-summary {
+  margin: 10px 0 2px;
+  padding: 10px 12px;
+  border-left: 2px solid var(--red);
+  background: color-mix(in srgb, var(--red) 4%, transparent);
+}
+
+.impact-summary .label {
+  margin-top: 0;
+}
+
+.impact-summary .prose {
+  margin: 5px 0 0;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+/* Net-benefit audience explanation: judgment first, arithmetic second, audit last. */
+.net-reading > .reading-intro {
+  margin: 8px 0 24px;
+  padding: 11px 13px;
+  border-left: 2px solid var(--green);
+  background: color-mix(in srgb, var(--green) 4%, transparent);
+}
+
+.net-public-group {
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.net-public-group:first-of-type {
+  margin-top: 12px;
+}
+
+.net-public-group > h3 {
+  margin-bottom: 14px;
+  font: 20px/1.45 "SimSun", serif;
+}
+
+.net-public-item {
+  margin: 14px 0 20px;
+  padding: 12px 15px;
+  border-left-color: color-mix(in srgb, var(--green) 62%, var(--line));
+  background: color-mix(in srgb, #fff 58%, transparent);
+}
+
+.net-public-item > .component {
+  margin: 0 0 8px;
+  padding-bottom: 9px;
+}
+
+.net-public-item > .component strong {
+  font-size: 15px;
+}
+
+.net-public-item > .component b {
+  white-space: nowrap;
+  color: var(--green);
+  font: 20px/1.3 Georgia, serif;
+}
+
+.net-public-item > .label {
+  margin-top: 12px;
+}
+
+.net-public-item > .prose {
+  margin: 4px 0 8px;
+  max-width: 76ch;
+}
+
+.net-public-item > ul {
+  max-width: 76ch;
+  margin: 5px 0 10px;
+  padding-left: 1.25em;
+}
+
+.net-public-item > ul li {
+  margin: 5px 0;
+  line-height: 1.75;
+}
+
+.net-public-item > details {
+  margin-top: 8px;
+  padding: 9px 0 0;
+}
+
+.net-public-item > details > summary,
+.net-calculations > summary {
+  color: var(--green);
+  font-size: 13px;
+}
+
+.net-calculations {
+  margin: 12px 0 0;
+  padding: 10px 13px;
+  border: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--ink) 2%, transparent);
+}
+
+.net-calculations .component {
+  margin: 10px 0;
+}
+
+.net-calculations .component small {
+  max-width: 56em;
+  margin-top: 2px;
+  line-height: 1.6;
+}
+
+.net-ledger-note {
+  margin-top: 22px;
+}
+
+.net-ledger {
+  margin-top: 8px;
+  opacity: .84;
+}
+
+.net-ledger > summary {
+  color: var(--green);
+}
+
+.net-ledger > details {
+  margin-left: 14px;
+}
+
+.net-ledger .component {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.net-score-links {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: -3px;
+  font-size: 12px;
+}
+
+.net-score-links a {
+  font-weight: 500;
+}
+
+@media (max-width: 700px) {
+  #rows .table-wrap {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+
+  #rows table,
+  #rows tbody {
+    display: block;
+    width: 100%;
+  }
+
+  #rows thead {
+    display: none;
+  }
+
+  #rows tbody {
+    display: grid;
+    gap: 14px;
+  }
+
+  #rows tr.home-click-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    gap: 0 14px;
+    padding: 15px 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fcfbf7;
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 5%, transparent);
+  }
+
+  #rows tr.home-click-row > td {
+    display: block;
+    min-width: 0;
+    padding: 10px 0;
+    border-bottom: 0;
+    white-space: normal;
+  }
+
+  #rows tr.home-click-row > td::before {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .04em;
+  }
+
+  #rows tr.home-click-row > td:nth-child(1) {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-top: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  #rows tr.home-click-row > td:nth-child(1)::before {
+    display: none;
+  }
+
+  #rows tr.home-click-row > td:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  #rows tr.home-click-row > td:nth-child(2)::before {
+    content: "净收益";
+  }
+
+  #rows tr.home-click-row > td:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  #rows tr.home-click-row > td:nth-child(4)::before {
+    content: "历史影响";
+  }
+
+  #rows tr.home-click-row > td:nth-child(3) {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    border-top: 1px solid var(--line);
+  }
+
+  #rows tr.home-click-row > td:nth-child(3)::before {
+    content: "人物画像";
+  }
+
+  #rows tr.home-click-row > td:nth-child(5) {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    padding-bottom: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  #rows tr.home-click-row > td:nth-child(5)::before {
+    content: "对照";
+  }
+
+  #rows tr.home-click-row > td:nth-child(5) button {
+    width: 100%;
+  }
+
+  #rows .overview-axes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px 16px;
+    font-size: 12px;
+  }
+
+  #rows .overview-style {
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+
+  #rows .number {
+    font-size: 27px;
+  }
+
+  #rows .impact-grade {
+    font-size: 28px;
+  }
+
+  #rows .home-jump-cell::after {
+    display: none;
+  }
+
+  #rows td.name button {
+    font-size: 23px;
+  }
+
+  #rows td.name small {
+    margin-top: 5px;
+  }
+
+  .impact-summary {
+    padding: 9px 10px;
+  }
+
+  .net-public-group {
+    margin-top: 24px;
+    padding-top: 18px;
+  }
+
+  .net-public-item {
+    padding: 10px 11px;
+  }
+
+  .net-public-item > .component {
+    align-items: start;
+  }
+
+  .net-public-item > .component b {
+    font-size: 18px;
+  }
+
+  .net-calculations {
+    padding: 9px 10px;
+  }
+
+  .net-ledger > details {
+    margin-left: 8px;
+  }
+
+  .net-ledger .component {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .net-score-links {
+    gap: 10px;
+    margin-top: 2px;
+  }
+}

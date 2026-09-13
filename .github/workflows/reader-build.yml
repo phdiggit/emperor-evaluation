@@ -1,0 +1,129 @@
+name: Build reader
+
+on:
+  push:
+    branches:
+      - codex/single-ruler-session-control
+    paths:
+      - reader/index.template.html
+      - reader/link-effects.css
+      - reader/home-interactions.js
+      - reader/readability.css
+      - reader/readability.js
+      - reader/person-readability.js
+      - reader/lazy-details.js
+      - reader/public-copy.json
+      - reader/build.py
+      - reader/serve.py
+      - src/emperor_v4/evaluation/profile_text_quality.py
+      - src/emperor_v4/evaluation/profile_text_cleanup.py
+      - config/profile/profile-text-repairs.json
+      - tests/test_profile_text_quality.py
+      - tests/test_reader.py
+      - tests/test_reader_home_interactions.py
+      - tests/test_reader_readability.py
+      - tests/test_reader_person_readability.py
+      - tests/test_reader_lazy_details.py
+      - config/project.yml
+      - config/common/**
+      - docs/评分结算/**
+      - .github/workflows/reader-build.yml
+  workflow_dispatch:
+
+concurrency:
+  group: reader-build-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  build-reader:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: python -m pip install -e . -r reader/requirements.txt pytest
+
+      - name: Audit profile public text
+        run: python -m emperor_v4.evaluation.profile_text_quality --fail-on error --output /tmp/profile-text-quality.json
+
+      - name: Upload profile text audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: profile-text-quality
+          path: /tmp/profile-text-quality.json
+          retention-days: 7
+
+      - name: Check reader JavaScript syntax
+        run: |
+          node --check reader/home-interactions.js
+          node --check reader/readability.js
+          node --check reader/person-readability.js
+          node --check reader/lazy-details.js
+
+      - name: Build reader
+        run: python reader/build.py
+
+      - name: Test reader
+        run: python -m pytest tests/test_profile_text_quality.py tests/test_reader.py tests/test_reader_home_interactions.py tests/test_reader_readability.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py -q
+
+      - name: Check whitespace
+        run: git diff --check
+
+      - name: Commit generated reader artifacts
+        shell: bash
+        run: |
+          if [[ -z "$(git status --porcelain -- reader/index.html reader/data/people)" ]]; then
+            echo "Generated reader artifacts are already current"
+            exit 0
+          fi
+
+          git fetch origin "${GITHUB_REF_NAME}"
+          remote_head="$(git rev-parse "origin/${GITHUB_REF_NAME}")"
+          if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
+            echo "This build is superseded by ${remote_head}; skip publishing stale generated artifacts."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A reader/index.html reader/data/people
+          git commit -m "重建综合阅读层"
+          git push
+
+      - name: Request Pages build from generated branch HEAD
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          site="$(curl --fail-with-body -sS -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2026-03-10" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages")"
+          source_branch="$(printf '%s' "$site" | jq -r '.source.branch // empty')"
+          source_path="$(printf '%s' "$site" | jq -r '.source.path // empty')"
+          if [[ "$source_branch" != "$GITHUB_REF_NAME" || "$source_path" != "/" ]]; then
+            echo "Unexpected Pages source: branch=${source_branch:-<none>} path=${source_path:-<none>}" >&2
+            exit 1
+          fi
+          curl --fail-with-body -sS -L -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2026-03-10" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds"

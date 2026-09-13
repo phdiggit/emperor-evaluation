@@ -16,7 +16,7 @@ from emperor_v4.evaluation.formal_json_store import (
 
 SOURCE_PATH = Path("config/third-item/third-item-c-strategy-chain-adjudications.json")
 C_PATH = Path(
-    "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json"
+    "docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json"
 )
 
 AXIS_FIELDS = {

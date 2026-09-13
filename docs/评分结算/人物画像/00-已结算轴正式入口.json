@@ -1,0 +1,249 @@
+{
+  "schema_version": "emperor-profile-formal-axis-manifest-v1",
+  "contract_version": "FORMAL-V3.0",
+  "contract": "docs/项目总纲/皇帝人物画像评估体系合同.md",
+  "data_contract": "docs/分项规则/人物画像轴/00-共同数据与发布合同.md",
+  "canonical_status": "FORMAL_CURRENT",
+  "population_count": 184,
+  "settled_axis_count": 9,
+  "unsettled_axis_count": 0,
+  "profile_total_enabled": false,
+  "profile_ranking_enabled": false,
+  "composite_ranking_write": false,
+  "database_write": false,
+  "canonical_pool": "config/common/canonical-ruler-pool.json",
+  "axes": [
+    {
+      "axis_code": "M1",
+      "axis_name": "军事判断与统帅能力",
+      "status": "FORMAL_CURRENT",
+      "contract": "docs/分项规则/人物画像轴/M1-军事判断与统帅能力.md",
+      "axis_contract_version": "FORMAL-V1.0",
+      "payload_schema_version": "emperor-profile-m1-formal-settlement-v1",
+      "axis_kind": "DIRECT_PROFILE_AXIS",
+      "authority_mode": "FORMAL_JSON_SOURCE",
+      "reader_view_mode": "DETERMINISTIC_GENERATED",
+      "verify_command": "profile-m1-verify",
+      "record_count": 184,
+      "json": "M1/01-M1军事判断与统帅能力正式结算.json",
+      "markdown": "M1/01-M1军事判断与统帅能力正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    },
+    {
+      "axis_code": "M2",
+      "axis_name": "外交博弈与对外联盟能力",
+      "status": "FORMAL_CURRENT",
+      "contract": "docs/分项规则/人物画像轴/M2-外交博弈与对外联盟能力.md",
+      "axis_contract_version": "FORMAL-V1.3",
+      "payload_schema_version": "profile-axis-formal-settlement-v4",
+      "axis_kind": "DIRECT_PROFILE_AXIS",
+      "authority_mode": "FORMAL_JSON_SOURCE",
+      "reader_view_mode": "DETERMINISTIC_GENERATED",
+      "verify_command": "profile-current-verify --axis M2",
+      "record_count": 184,
+      "json": "M2/12-M2外交博弈与对外联盟能力正式结算.json",
+      "markdown": "M2/12-M2外交博弈与对外联盟能力正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    },
+    {
+      "axis_code": "M4",
+      "axis_name": "政治联盟与内部联盟管理",
+      "status": "FORMAL_CURRENT",
+      "contract": "docs/分项规则/人物画像轴/M4-内部政治联盟与集团整合.md",
+      "axis_contract_version": "FORMAL-V1.0",
+      "payload_schema_version": "profile-m4-formal-settlement-v2",
+      "axis_kind": "DIRECT_PROFILE_AXIS",
+      "authority_mode": "FORMAL_JSON_SOURCE",
+      "reader_view_mode": "DETERMINISTIC_GENERATED",
+      "verify_command": "profile-m4-verify",
+      "record_count": 184,
+      "json": "M4/34-M4政治联盟与内部联盟管理正式结算.json",
+      "markdown": "M4/34-M4政治联盟与内部联盟管理正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [
+        {
+          "audit_kind": "UNIT_DISPOSITION",
+          "path": "M4/35-M4主要入口单元处置审计.json"
+        },
+        {
+          "audit_kind": "HIGH_GRADE_LIFECYCLE",
+          "path": "M4/36-M4高档联盟生命周期复核.json"
+        },
+        {
+          "audit_kind": "FULL_POOL_REVIEW",
+          "path": "M4/37-M4全池两轮复审.json"
+        }
+      ],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+      "formalization_note": "M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图，人物裁决变化只通过局部patch进入正式JSON，不由程序自动改档。"
+    },
+    {
+      "axis_code": "M5",
+      "axis_name": "组织驾驭与执行编排",
+      "status": "FORMAL_CURRENT",
+      "contract": "docs/分项规则/人物画像轴/M5-组织驾驭与执行编排.md",
+      "axis_contract_version": "FORMAL-V1.0",
+      "payload_schema_version": "profile-m5-formal-settlement-v1",
+      "axis_kind": "DIRECT_PROFILE_AXIS",
+      "authority_mode": "FORMAL_JSON_SOURCE",
+      "reader_view_mode": "DETERMINISTIC_GENERATED",
+      "verify_command": "profile-m5-verify",
+      "record_count": 184,
+      "json": "M5/01-M5组织驾驭与执行编排正式结算.json",
+      "markdown": "M5/01-M5组织驾驭与执行编排正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+      "formalization_note": "正式JSON保存当前逐人裁决与过程来源；程序只校验共同投影、身份窗口、引用和阅读同值，不从清单或其他轴自动重裁。"
+    },
+    {
+      "axis_code": "C1",
+      "axis_name": "战略判断与风险控制",
+      "status": "FORMAL_CURRENT",
+      "contract": "docs/分项规则/人物画像轴/C1-战略判断与风险控制.md",
+      "axis_contract_version": "FORMAL-V1.0",
+      "payload_schema_version": "profile-c1-formal-v2",
+      "axis_kind": "DIRECT_PROFILE_AXIS",
+      "authority_mode": "FORMAL_JSON_SOURCE",
+      "reader_view_mode": "DETERMINISTIC_GENERATED",
+      "verify_command": "profile-c1-verify",
+      "record_count": 184,
+      "json": "C1/15-C1战略判断与风险控制正式结算.json",
+      "markdown": "C1/15-C1战略判断与风险控制正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [
+        {
+          "audit_kind": "UNIT_DISPOSITION",
+          "path": "C1/16-C1主要入口单元处置审计.json"
+        },
+        {
+          "audit_kind": "HIGH_GRADE_CAPABILITY",
+          "path": "C1/17-C1高档能力剖面复核.json"
+        }
+      ],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    },
+    {
+      "axis_code": "C2",
+      "axis_name": "信息处理、学习与纠错",
+      "status": "FORMAL_CURRENT",
+      "contract": "docs/分项规则/人物画像轴/C2-信息处理、学习与纠错.md",
+      "axis_contract_version": "FORMAL-V1.0",
+      "payload_schema_version": "profile-c2-settlement-v6",
+      "axis_kind": "DIRECT_PROFILE_AXIS",
+      "authority_mode": "FORMAL_JSON_SOURCE",
+      "reader_view_mode": "DETERMINISTIC_GENERATED",
+      "verify_command": "profile-c2-verify",
+      "record_count": 184,
+      "json": "C2/19-C2信息处理学习与纠错正式结算.json",
+      "markdown": "C2/19-C2信息处理学习与纠错正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [
+        {
+          "audit_kind": "UNIT_DISPOSITION",
+          "path": "C2/20-C2主要入口单元处置审计.json"
+        },
+        {
+          "audit_kind": "HIGH_GRADE_CALIBRATION",
+          "path": "C2/21-C2高档学习周期与横向校准复核.json"
+        }
+      ],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+      "formalization_note": "184人聊天版V2重裁已正式吸纳；EVIDENCE_FLOOR显式标记为有界证据下限，不按分布放宽能力门槛。"
+    },
+    {
+      "axis_code": "C3",
+      "axis_name": "人才识别、配置与授权",
+      "status": "FORMAL_CURRENT",
+      "contract": "docs/分项规则/人物画像轴/C3-人才识别、配置与授权.md",
+      "axis_contract_version": "FORMAL-V1.0",
+      "payload_schema_version": "profile-c3-formal-settlement-v2",
+      "axis_kind": "DIRECT_PROFILE_AXIS",
+      "authority_mode": "FORMAL_JSON_SOURCE",
+      "reader_view_mode": "DETERMINISTIC_GENERATED",
+      "verify_command": "profile-c3-verify",
+      "record_count": 184,
+      "json": "C3/24-C3人才识别配置与授权正式结算.json",
+      "markdown": "C3/24-C3人才识别配置与授权正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [
+        {
+          "audit_kind": "UNIT_DISPOSITION",
+          "path": "C3/25-C3主要入口单元处置审计.json"
+        },
+        {
+          "audit_kind": "HIGH_GRADE_LIFECYCLE",
+          "path": "C3/26-C3高档授权生命周期复核.json"
+        },
+        {
+          "audit_kind": "SYSTEMIC_REVIEW",
+          "path": "C3/28-C3高档门与错误清洗系统复核.json"
+        }
+      ],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+      "formalization_note": "C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图，高档门、生命周期、模板与跨轴边界由轻量语义校验器守护。"
+    },
+    {
+      "axis_code": "C4",
+      "axis_name": "治理架构与制度设计能力",
+      "status": "FORMAL_CURRENT",
+      "contract": "docs/分项规则/人物画像轴/C4-治理架构与制度设计.md",
+      "axis_contract_version": "FORMAL-V2.2",
+      "payload_schema_version": "profile-c4-formal-settlement-v1",
+      "axis_kind": "DIRECT_PROFILE_AXIS",
+      "authority_mode": "FORMAL_JSON_SOURCE",
+      "reader_view_mode": "DETERMINISTIC_GENERATED",
+      "verify_command": "profile-c4-verify",
+      "record_count": 184,
+      "json": "C4/01-C4治理架构与制度设计正式结算.json",
+      "markdown": "C4/01-C4治理架构与制度设计正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [
+        {
+          "audit_kind": "C4_ADJUDICATION_EVIDENCE",
+          "path": "C4/02-C4裁决依据.json"
+        },
+        {
+          "audit_kind": "OUTSIDE_CANONICAL_POOL",
+          "path": "C4/03-C4池外裁决保留.json"
+        }
+      ],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    },
+    {
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "status": "FORMAL_CURRENT",
+      "contract": "docs/分项规则/人物画像轴/C5-权力运用风格与克制.md",
+      "axis_contract_version": "FORMAL-V1.0",
+      "payload_schema_version": "emperor-profile-c5-formal-settlement-v4",
+      "axis_kind": "DIRECT_PROFILE_AXIS",
+      "authority_mode": "FORMAL_JSON_SOURCE",
+      "reader_view_mode": "DETERMINISTIC_GENERATED",
+      "verify_command": "profile-c5-verify",
+      "record_count": 184,
+      "json": "C5/02-C5权力运用风格与克制正式结算.json",
+      "markdown": "C5/02-C5权力运用风格与克制正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [
+        {
+          "audit_kind": "UNIT_DISPOSITION",
+          "path": "C5/04-C5主要入口单元处置审计.json"
+        },
+        {
+          "audit_kind": "DENSITY_REVIEW",
+          "path": "C5/05-C5高档材料密度复核.json"
+        },
+        {
+          "audit_kind": "STRUCTURAL_REVIEW",
+          "path": "C5/07-C5高档与证据门结构复核.json"
+        }
+      ],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    }
+  ]
+}

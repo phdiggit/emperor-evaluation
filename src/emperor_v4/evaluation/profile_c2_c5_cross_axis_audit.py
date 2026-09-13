@@ -8,7 +8,7 @@ from emperor_v4.evaluation.formal_json_store import load_json
 
 
 ROOT = Path(__file__).resolve().parents[3]
-PROFILE_ROOT = ROOT / "docs/评分结算/皇帝人物画像"
+PROFILE_ROOT = ROOT / "docs/评分结算/人物画像"
 C2 = PROFILE_ROOT / "C2/19-C2信息处理学习与纠错正式结算.json"
 C5 = PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json"
 

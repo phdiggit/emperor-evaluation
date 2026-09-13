@@ -1,0 +1,122 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西晋",
+  "collections": {
+    "scores": {
+      "positions": [
+        27
+      ],
+      "records": [
+        {
+          "adjudication_reason": "太康阶段《晋书·食货志》直称天下无事、赋税平均、人咸安业乐事，足以闭合主要统治区普遍温饱。旧理由中的官品、荫亲与佃客制度只作为结构背景，不再拿身份不平等本身直接压C1。",
+          "confidence": "中",
+          "evidence": [
+            {
+              "anchor_time": "平吴后太康阶段",
+              "described_state": "史书明确称当时赋税平均、百姓安业乐事，说明制度在太康阶段形成实际稳定结果；但官品特权、广泛荫亲与佃客额度把身份不平等制度化。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "OFFICIAL_SUMMARY",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "OFFICIAL_SUMMARY"
+              ],
+              "source_works": [
+                "正史《晋书·食货志》固定文本及通读总结"
+              ],
+              "state_roles": [
+                "阶段状态材料"
+              ],
+              "verbatim_excerpt": "是時天下無事，賦稅平均，人咸安其業而樂其事。",
+              "result_axis_owner": [
+                "NET_TAX_LABOR_BURDEN"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-4",
+          "material_limitations": [
+            "自然灾害不转化为本人负贡献，但其已实现的歉收、毁屋与广域伤麦属于绝对家庭状态。历史低谷标签只由太康六至九年的连续宏观阶段承担，不用更早灾年凑次数。"
+          ],
+          "peak_band": null,
+          "polity": "西晋",
+          "rank": 23,
+          "reign_range": [
+            265,
+            290
+          ],
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "ruler_name": "司马炎",
+          "score": 48.3,
+          "stability_class_diagnostic_only": "K1",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_main": "C1-4",
+            "S_avg": "C1-4",
+            "S_end": "C1-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": []
+          },
+          "raw_state_band": "C1-4",
+          "formal_band": "C1-4",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "material_basis": [
+            {
+              "book": "《晋书·食货志》",
+              "original_text": "是时天下无事，赋税平均，人咸安其业而乐其事。"
+            },
+            {
+              "book": "《晋书·武帝纪》",
+              "original_text": "以比岁不登，免租贷宿负……郡国四旱，十大水，坏百姓庐舍。"
+            },
+            {
+              "book": "《晋书·武帝纪》",
+              "original_text": "郡国三十二大旱，伤麦……郡国二十四螟。"
+            }
+          ],
+          "stability_basis": "人咸安业乐事支持四档；多郡国连续田庐毁坏与饥荒另证广泛持续家庭失保。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-司马炎",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "人咸安业乐事支持四档；多郡国连续田庐毁坏与饥荒另证广泛持续家庭失保。",
+              "strong_dimensions": [
+                "scope",
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "太康阶段《晋书·食货志》直称天下无事、赋税平均、人咸安业乐事，足以闭合主要统治区普遍温饱。旧理由中的官品、荫亲与佃客制度只作为结构背景，不再拿身份不平等本身直接压C1。",
+              "full_window_reviewed": true,
+              "deduplication": "人咸安业乐事支持四档；多郡国连续田庐毁坏与饥荒另证广泛持续家庭失保。",
+              "evidence_refs": [
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷081"
+              ]
+            },
+            "score": 48.3
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,24 +1,34 @@
 # 皇帝综合评价体系 V4
 
-本仓库保存五大项评分的当前规则、可审计证据、确定性结算逻辑与唯一结果入口。各项当前状态与复核边界见项目配置及对应正式入口。已退役的模型抽取、浏览器检索、source-cache、shadow、数据库服务和部署链不再保留。
+本仓库保存三套评价体系的当前规则、可审计证据、确定性结算逻辑与唯一结果入口。各项当前状态与复核边界见项目配置及对应正式入口。已退役的模型抽取、浏览器检索、source-cache、shadow、数据库服务和部署链不再保留。
 
 ## 正式结果
 
-- [皇帝统治成效综合评分榜](docs/评分结算/00-皇帝统治成效综合评分榜.md)
-- [第一项：政权奠基与统一贡献及能力](docs/评分结算/第一项政权奠基与统一贡献及能力/01-第一项政权奠基与统一贡献及能力正式结算.md)
-- [第二项：治国净收益](docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.md)
-- [第三项：军事与边疆净收益](docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.md)
-- [第四项：文明与国家整合收益](docs/评分结算/第四项文明与国家整合收益/02-第四项文明与国家整合收益正式总榜.md)
-- [第五项：统治者政治素质](docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.md)
+净收益、人物画像、历史影响是三套并列体系，不互相换分：
 
-机器读取入口与范围统一记录在 [`config/project.yml`](config/project.yml)。最高业务规则是 [`docs/项目总纲/皇帝综合评价体系评分标准.md`](docs/项目总纲/皇帝综合评价体系评分标准.md)。
+- [综合阅读层：帝王三镜](reader/index.html)（[设计与构建说明](reader/README.md)）：正式数据驱动的离线交互样稿，支持人物总览、三体系并列阅读、双人对照与依据展开；运行`python reader/build.py`更新展示。
+- [人物画像九轴结算汇总](docs/评分结算/人物画像/九轴结算汇总.md)：八个能力轴与C5行为风格轴。
+- [历史影响量级正式结算](docs/评分结算/历史影响/01-历史影响正式结算.md)（[合同](docs/项目总纲/历史影响评价总则.md)）：历史路径差异、长期足迹与个人归责。
+
+净收益体系四项正式结果：
+
+- [皇帝统治净收益综合评分榜](docs/评分结算/净收益/00-统治净收益综合评分榜.md)
+- [第一项：政权奠基与统一贡献及能力](docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项政权奠基与统一贡献及能力正式结算.md)
+- [第二项：治国净收益](docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.md)
+- [第三项：军事与边疆净收益](docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.md)
+- [第四项：文明与国家整合收益](docs/评分结算/净收益/第四项文明与国家整合收益/02-第四项文明与国家整合收益正式总榜.md)
+
+机器读取入口与范围统一记录在 [`config/project.yml`](config/project.yml)。共同上位合同是[皇帝综合评价体系合同](docs/项目总纲/皇帝综合评价体系合同.md)，净收益公式见[皇帝统治净收益评价合同](docs/项目总纲/皇帝统治净收益评价合同.md)。
 
 正式评价池按实际独立最高权力至少3年和证据可行性筛定。当前人数、待补对象及分项别名统一见[`正式评价对象范围`](docs/项目总纲/正式评价对象范围.md)及其机器入口`config/common/canonical-ruler-pool.json`，本页不另存人数副本。综合计算只读取`COMPOSITE_READY`对象；第一项不适用者取F=0。
 
 ## 保留范围
 
+- `archive/`：[完整退役组件的最后有效合同、证据与结算](archive/README.md)，不进入现行评分或发布。
+
 - `docs/项目总纲/`、`docs/分项规则/`：当前评分合同。
-- `docs/评分结算/`：五项唯一正式结果与同值阅读视图；第一项使用 Markdown 结算源。
+- `docs/评分结算/`：净收益、人物画像与历史影响的正式结果及同值阅读视图；第一项使用 Markdown 结算源。
+- `docs/展示成果/人物画像/`：雷达图、视频人物卡与文字小样的派生展示，按配置中的输出目录生成。
 - `docs/公共成果/`、`docs/治理/`、`docs/史料通读产物/`：仍被评分结果引用的证据与公共登记。
 - `config/project.yml`：项目状态、正式结果入口和保留的重建接口。
 - `config/common/`：正式评价池、分项候选名册与实体身份；其中`canonical-ruler-pool.json`是综合范围唯一机器入口。`config/third-item/`保存第三项当前裁决输入；`config/military/`保存公共军事登记与人才登记的当前输入。
@@ -28,14 +38,14 @@
 
 按 [AGENTS.md](AGENTS.md) 的改动类型选择检查，以下是按需使用的命令参考，不是每次必跑的步骤。使用当前 Python 环境；需要 UTF-8 子进程或托管能力时再加 `codex-win run --`。
 
-局部维护先按分项及稳定人物ID定位当前记录、下游同步和复核范围。分项代码为`I1`—`I5`、`I2.A`、`I2.B1`、`I2.B2`、`I2.C1`—`I2.C4`、`I3.D`及`profile.M1`等九个画像轴；也支持`pool`和`composite`。
+局部维护先按分项及稳定人物ID定位当前记录、下游同步和复核范围。分项代码为`I1`—`I4`、`I2.A`、`I2.B1`、`I2.B2`、`I2.C1`—`I2.C4`、`I3.D`及`profile.M1`等九个画像轴；也支持`pool`和`composite`。
 
 ```powershell
 python v4.py maintenance --component I2.B2 --ruler-id RULER-HAN-LIUHENG
-python v4.py maintenance --component profile.M3 --polity 西汉 --verify
+python v4.py maintenance --component profile.C2 --polity 西汉 --verify
 ```
 
-默认只读，按朝代分片定位人物；`--verify`检查当前分项，B2与M3支持选定人物的合同约束及阅读视图同值。`--related`额外执行关联轴校验。报告分别列出确定性下游、语义复核对象和刷新命令；`--sync`先校验当前源，再依次刷新列出的下游并回验，不自动重裁关联人物。源裁决和没有阅读视图生成器的源文档仍按局部patch维护。整池排名及覆盖检查读取对应完整组件，局部报告不代表全池语义验收。
+默认只读，按朝代分片定位人物；`--verify`检查当前分项，B2支持选定人物的合同约束及阅读视图同值。`--related`额外执行关联轴校验。报告分别列出确定性下游、语义复核对象和刷新命令；`--sync`先校验当前源，再依次刷新列出的下游并回验，不自动重裁关联人物。源裁决和没有阅读视图生成器的源文档仍按局部patch维护。整池排名及覆盖检查读取对应完整组件，局部报告不代表全池语义验收。
 
 ```powershell
 python v4.py maintenance --component I2.B2 --ruler-id RULER-HAN-LIUHENG --sync
@@ -54,7 +64,7 @@ python v4.py project-entries-verify
 python -m pip install -e .
 ```
 
-全链改动或全池验收时，验证五项正式结果、唯一人物 ID、分值范围和排名顺序：
+全链改动或全池验收时，验证四项正式结果、唯一人物 ID、分值范围和排名顺序：
 
 ```powershell
 python v4.py formal-settlements-verify
@@ -79,6 +89,13 @@ python v4.py profile-markdown --axis M5 --write
 python v4.py profile-m5-verify
 ```
 
+历史影响只从当前裁决生成阅读页，不由四维自动算总档：
+
+```powershell
+python v4.py historical-impact-views --write
+python v4.py historical-impact-verify
+```
+
 综合计分输入变化时重建综合总榜：
 
 ```powershell
@@ -89,7 +106,7 @@ python v4.py composite-ranking --write
 
 主态低谷与净恢复 V4 已统一启用（L有限修正，历史K不计分）；可用 `python v4.py governance-state-recovery-verify` 校验，或用 `python v4.py governance-state-recovery-report --write` 刷新逐人阅读页。启用与刷新不做跨项文件哈希同步。
 
-军损数量解释试点见[军事成本裁决敏感性](docs/评分结算/综合分析/01-军事成本裁决敏感性.md)。相关正式输入变动后运行`python v4.py cost-sensitivity --write`，只读核对省略`--write`；案例基准档位变化须先复核案例。分析不改正式评分，且不把被排除假设纳入证据允许范围。
+军损数量解释试点见[军事成本裁决敏感性](docs/评分结算/净收益/综合分析/01-军事成本裁决敏感性.md)。相关正式输入变动后运行`python v4.py cost-sensitivity --write`，只读核对省略`--write`；案例基准档位变化须先复核案例。分析不改正式评分，且不把被排除假设纳入证据允许范围。
 
 需要评分回归时运行常规测试（不含 acceptance 与 presentation；单组件改动可指定相关测试路径）：
 
