@@ -113,12 +113,107 @@
   line-height: 1.75;
 }
 
-.net-ledger-note {
+/* Net-benefit audience explanation: judgment first, arithmetic second, audit last. */
+.net-reading > .reading-intro {
+  margin: 8px 0 24px;
+  padding: 11px 13px;
+  border-left: 2px solid var(--green);
+  background: color-mix(in srgb, var(--green) 4%, transparent);
+}
+
+.net-public-group {
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.net-public-group:first-of-type {
+  margin-top: 12px;
+}
+
+.net-public-group > h3 {
+  margin-bottom: 14px;
+  font: 20px/1.45 "SimSun", serif;
+}
+
+.net-public-item {
+  margin: 14px 0 20px;
+  padding: 12px 15px;
+  border-left-color: color-mix(in srgb, var(--green) 62%, var(--line));
+  background: color-mix(in srgb, #fff 58%, transparent);
+}
+
+.net-public-item > .component {
+  margin: 0 0 8px;
+  padding-bottom: 9px;
+}
+
+.net-public-item > .component strong {
+  font-size: 15px;
+}
+
+.net-public-item > .component b {
+  white-space: nowrap;
+  color: var(--green);
+  font: 20px/1.3 Georgia, serif;
+}
+
+.net-public-item > .label {
+  margin-top: 12px;
+}
+
+.net-public-item > .prose {
+  margin: 4px 0 8px;
+  max-width: 76ch;
+}
+
+.net-public-item > ul {
+  max-width: 76ch;
+  margin: 5px 0 10px;
+  padding-left: 1.25em;
+}
+
+.net-public-item > ul li {
+  margin: 5px 0;
+  line-height: 1.75;
+}
+
+.net-public-item > details {
   margin-top: 8px;
+  padding: 9px 0 0;
+}
+
+.net-public-item > details > summary,
+.net-calculations > summary {
+  color: var(--green);
+  font-size: 13px;
+}
+
+.net-calculations {
+  margin: 12px 0 0;
+  padding: 10px 13px;
+  border: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--ink) 2%, transparent);
+}
+
+.net-calculations .component {
+  margin: 10px 0;
+}
+
+.net-calculations .component small {
+  max-width: 56em;
+  margin-top: 2px;
+  line-height: 1.6;
+}
+
+.net-ledger-note {
+  margin-top: 22px;
 }
 
 .net-ledger {
   margin-top: 8px;
+  opacity: .84;
 }
 
 .net-ledger > summary {
@@ -285,6 +380,27 @@
   }
 
   .impact-summary {
+    padding: 9px 10px;
+  }
+
+  .net-public-group {
+    margin-top: 24px;
+    padding-top: 18px;
+  }
+
+  .net-public-item {
+    padding: 10px 11px;
+  }
+
+  .net-public-item > .component {
+    align-items: start;
+  }
+
+  .net-public-item > .component b {
+    font-size: 18px;
+  }
+
+  .net-calculations {
     padding: 9px 10px;
   }
 
