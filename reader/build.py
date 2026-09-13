@@ -59,8 +59,9 @@ def apply_public_copy(template):
 
 def axis_projection(row, fields):
     result = pick(row, fields)
+    chains = parent_chains(row)
     result["source_refs"] = list(dict.fromkeys(
-        ref for owner in [row, *parent_chains(row)]
+        ref for owner in [row, *chains]
         for ref in owner.get("source_refs", []) if isinstance(ref, str)
     ))
     counter = row.get("counterpattern")
@@ -68,11 +69,25 @@ def axis_projection(row, fields):
         ids = {ref for values in counter.values() if isinstance(values, list) for ref in values if isinstance(ref, str)}
         result["context_lookup"] = {
             p["parent_id"]: pick(p, ["parent_id", "cycle_basis", "basis", "source_refs", "direction"])
-            for p in parent_chains(row) if p.get("parent_id") in ids
+            for p in chains if p.get("parent_id") in ids
         }
         missing = ids - result["context_lookup"].keys()
         if missing:
             raise ValueError(f"Unresolved context references: {sorted(missing)}")
+
+    # Reader-only projection: consume existing formal fields without creating a second adjudication source.
+    if row.get("axis_code") == "C4":
+        representative_ids = [x for x in row.get("representative_parent_ids", []) if isinstance(x, str)]
+        chain_by_id = {p.get("parent_id"): p for p in chains if p.get("parent_id")}
+        result["representative_contexts"] = [
+            pick(chain_by_id[parent_id], ["parent_id", "title", "mechanism", "cycle_basis", "basis", "attribution", "direction"])
+            for parent_id in representative_ids if parent_id in chain_by_id
+        ]
+    if row.get("axis_code") == "C5" and isinstance(row.get("public_evidence_points"), list):
+        result["public_evidence_points"] = [
+            pick(point, ["title", "details"])
+            for point in row["public_evidence_points"] if isinstance(point, dict)
+        ]
     return result
 
 
@@ -149,6 +164,7 @@ def build(*, check=False, write=True):
     readability_css = (ROOT / "reader/readability.css").read_text(encoding="utf-8").strip()
     home_interactions = (ROOT / "reader/home-interactions.js").read_text(encoding="utf-8").strip()
     readability_js = (ROOT / "reader/readability.js").read_text(encoding="utf-8").strip()
+    person_readability_js = (ROOT / "reader/person-readability.js").read_text(encoding="utf-8").strip()
     if "</style>" not in template:
         raise ValueError("Reader template must contain a style block")
     template = template.replace("</style>", f"\n{link_effects}\n{readability_css}\n</style>", 1)
@@ -156,7 +172,7 @@ def build(*, check=False, write=True):
         raise ValueError("Reader template must contain a body close tag")
     template = template.replace(
         "</body>",
-        f"<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n</body>",
+        f"<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n<script>\n{person_readability_js}\n</script>\n</body>",
         1,
     )
     output = ROOT / "reader/index.html"
