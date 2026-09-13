@@ -1,11 +1,12 @@
 """Audit reader-facing profile text fields in formal settlements without changing adjudications."""
 from __future__ import annotations
 
-from collections import Counter, defaultdict
-from dataclasses import dataclass
+from collections import Counter
+from dataclasses import asdict, dataclass
 from difflib import SequenceMatcher
 from pathlib import Path
 import argparse
+import json
 import re
 import sys
 
@@ -87,7 +88,6 @@ def audit_record(axis: str, record: dict) -> list[Issue]:
             if terms:
                 _add(issues, "warning", axis, record, field, "workflow_language", ", ".join(terms))
 
-    # Field responsibilities should remain distinct even when they discuss the same evidence.
     basis = field_text.get("grade_basis", "")
     position = field_text.get("position_basis", "")
     if basis and position:
@@ -95,7 +95,8 @@ def audit_record(axis: str, record: dict) -> list[Issue]:
         if nb and nb == np:
             _add(issues, "error", axis, record, "grade_basis/position_basis", "exact_duplicate", basis)
         elif min(len(nb), len(np)) >= 28 and SequenceMatcher(None, nb, np).ratio() >= 0.93:
-            _add(issues, "warning", axis, record, "grade_basis/position_basis", "near_duplicate", f"similarity={SequenceMatcher(None, nb, np).ratio():.2f}")
+            ratio = SequenceMatcher(None, nb, np).ratio()
+            _add(issues, "warning", axis, record, "grade_basis/position_basis", "near_duplicate", f"similarity={ratio:.2f}")
 
     limitations = _texts(record.get("limitations"))
     for i, limitation in enumerate(limitations):
@@ -121,14 +122,35 @@ def audit_all() -> list[Issue]:
     return issues
 
 
-def print_report(issues: list[Issue]) -> None:
+def report_payload(issues: list[Issue]) -> dict:
     by_kind = Counter((x.severity, x.kind) for x in issues)
     by_axis = Counter(x.axis for x in issues)
-    print(f"profile-text-quality: issues={len(issues)} errors={sum(x.severity == 'error' for x in issues)} warnings={sum(x.severity == 'warning' for x in issues)}")
-    if by_kind:
-        print("kinds: " + ", ".join(f"{severity}/{kind}={count}" for (severity, kind), count in sorted(by_kind.items())))
-    if by_axis:
-        print("axes: " + ", ".join(f"{axis}={count}" for axis, count in sorted(by_axis.items())))
+    return {
+        "summary": {
+            "issue_count": len(issues),
+            "error_count": sum(x.severity == "error" for x in issues),
+            "warning_count": sum(x.severity == "warning" for x in issues),
+            "by_kind": {
+                f"{severity}/{kind}": count
+                for (severity, kind), count in sorted(by_kind.items())
+            },
+            "by_axis": dict(sorted(by_axis.items())),
+        },
+        "issues": [asdict(issue) for issue in issues],
+    }
+
+
+def print_report(issues: list[Issue]) -> None:
+    payload = report_payload(issues)
+    summary = payload["summary"]
+    print(
+        "profile-text-quality: "
+        f"issues={summary['issue_count']} errors={summary['error_count']} warnings={summary['warning_count']}"
+    )
+    if summary["by_kind"]:
+        print("kinds: " + ", ".join(f"{key}={value}" for key, value in summary["by_kind"].items()))
+    if summary["by_axis"]:
+        print("axes: " + ", ".join(f"{key}={value}" for key, value in summary["by_axis"].items()))
     for issue in issues:
         print("QUALITY|{severity}|{axis}|{ruler_name}|{ruler_id}|{field}|{kind}|{detail}".format(**issue.__dict__))
 
@@ -136,9 +158,13 @@ def print_report(issues: list[Issue]) -> None:
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fail-on", choices=("none", "error", "warning"), default="none")
+    parser.add_argument("--output", type=Path, help="Write the structured audit report as UTF-8 JSON")
     args = parser.parse_args(argv)
     issues = audit_all()
     print_report(issues)
+    if args.output:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(json.dumps(report_payload(issues), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if args.fail_on == "warning" and issues:
         return 1
     if args.fail_on == "error" and any(x.severity == "error" for x in issues):
