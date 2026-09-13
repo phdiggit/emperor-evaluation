@@ -17,6 +17,16 @@ def module(name):
     return result
 
 
+def bootstrap_payload():
+    html = (ROOT / 'reader/index.html').read_text(encoding='utf-8')
+    encoded = html.split('<script type="application/json" id="reader-data">')[1].split('</script>')[0]
+    return html, encoded, json.loads(encoded)
+
+
+def detail_payload(summary):
+    return json.loads((ROOT / 'reader' / summary['detail_ref']).read_text(encoding='utf-8'))
+
+
 def test_projection_preserves_reasons_and_deduplicates_sources():
     row = {'position_basis': 'position reason', 'source_refs': ['docs/a.md'],
            'counterpattern': {'positive_parent_refs': ['p']},
@@ -83,6 +93,35 @@ def test_current_reader_is_complete_and_current():
         assert by_id[row['ruler_id']]['net']['weight_sensitivity'] == row['weight_sensitivity']
 
 
+def test_bootstrap_is_lightweight_and_every_record_has_a_detail_shard():
+    html, _, data = bootstrap_payload()
+    assert data['detail_schema_version'] == 'reader-person-detail-v1'
+    assert len(html.encode('utf-8')) < 1_500_000
+    assert len({r['detail_ref'] for r in data['records']}) == len(data['records'])
+
+    for summary in data['records']:
+        assert summary['detail_loaded'] is False
+        assert summary['detail_ref'].startswith('data/people/')
+        assert 'grade_basis' not in summary['impact']
+        for axis in summary['axes'].values():
+            assert 'grade_basis' not in axis
+            assert 'typical_pattern' not in axis
+            assert 'source_refs' not in axis
+        payload = detail_payload(summary)
+        assert payload['record']['ruler_id'] == summary['ruler_id']
+        assert payload['record']['ruler_name'] == summary['ruler_name']
+        assert isinstance(payload['source_availability'], dict)
+
+
+def test_lazy_detail_loader_uses_static_shards_and_cache():
+    script = (ROOT / 'reader/lazy-details.js').read_text(encoding='utf-8')
+    assert 'fetch(record.detail_ref' in script
+    assert 'pendingLoads.has(id)' in script
+    assert 'byId.set(id, full)' in script
+    assert 'Object.assign(DATA.source_availability' in script
+    assert 'Promise.all(selected.map(loadRecord))' in script
+
+
 def test_stale_check_does_not_write(monkeypatch):
     builder = module('build')
     read_bytes = Path.read_bytes
@@ -99,14 +138,20 @@ def test_reader_rendering_and_publication_boundaries(tmp_path):
     node = shutil.which('node')
     if not node:
         pytest.skip('Node is required for reader JavaScript checks')
-    html = (ROOT / 'reader/index.html').read_text(encoding='utf-8')
-    payload = html.split('<script type="application/json" id="reader-data">')[1].split('</script>')[0]
+    html, payload, data = bootstrap_payload()
     script = html.split('<script>')[1].split('</script>')[0]
-    # Exercise pure rendering in a small DOM stub, including every current record.
+    # Exercise pure rendering with full records loaded from the generated static shards.
     script = script.split("document.getElementById('home-nav').onclick")[0]
+    main_summary = next(r for r in data['records'] if not r['supplementary'])
+    other_summary = next(r for r in data['records'] if r['ruler_id'] != main_summary['ruler_id'])
+    details = {
+        main_summary['ruler_id']: detail_payload(main_summary),
+        other_summary['ruler_id']: detail_payload(other_summary),
+    }
     harness = "const assert=require('node:assert/strict');const elements=new Map();const location={hash:''};const document={getElementById(id){if(!elements.has(id))elements.set(id,{textContent:'',innerHTML:'',classList:{toggle(){}},addEventListener(){}});return elements.get(id)}};"
     harness += "const history={replaceState(a,b,hash){location.hash=hash}};"
     harness += 'document.getElementById("reader-data").textContent=' + json.dumps(payload) + ';\n' + script
+    harness += '\nconst DETAIL_PAYLOADS=' + json.dumps(details, ensure_ascii=False) + ';\n'
     harness += '''
 const graded={axis_grade:'G3',position:'MID',radar_value:50};
 assert.equal(grade(graded),'B');
@@ -120,11 +165,14 @@ assert.ok(link('https://example.com/source','source').includes('href="https://ex
 DATA.source_availability['docs/missing.md']=false;
 assert.ok(!link('docs/missing.md','source').includes('<a '));
 assert.ok(link('docs/missing.md','source').includes('当前文件不可用'));
-for(const r of DATA.records){person(r);assert.ok(screen.innerHTML.includes('历史影响等级为什么这样定'));assert.ok(!screen.innerHTML.includes('[object Object]'));}
+for(const r of DATA.records){assert.ok(r.detail_ref);assert.equal(r.detail_loaded,false);assert.ok(!screen.innerHTML.includes('[object Object]'));}
 state.compare=[];compare();assert.equal(state.compare.length,0);assert.ok(screen.innerHTML.includes('搜索对照人物'));
-const profileRecord=DATA.records.find(r=>!r.supplementary);
+const profileSummary=DATA.records.find(r=>!r.supplementary);
+const profileRecord=DETAIL_PAYLOADS[profileSummary.ruler_id].record;
+byId.set(profileRecord.ruler_id,profileRecord);Object.assign(DATA.source_availability,DETAIL_PAYLOADS[profileSummary.ruler_id].source_availability);
 state.compare=[profileRecord.ruler_id];compare();assert.equal(state.compare.length,1);
 person(profileRecord);
+assert.ok(screen.innerHTML.includes('历史影响等级为什么这样定'));
 const overview=screen.innerHTML.split('<section id="person-evidence"')[0];
 for(const c of DATA.axis_order)assert.ok(overview.includes('data-reason="'+c+'"'));
 assert.ok(!overview.includes('补充画像'));
@@ -137,9 +185,11 @@ assert.ok(evidence.indexOf('PS3 original ruling')>evidence.indexOf('裁决详情
 assert.equal(readerText('PS3 / AM4'),'可跨情境迁移的强模式 / 国家基本运行架构重构');
 assert.ok(gradeHelp('impact').includes('不是能力或功绩等级'));
 assert.ok(link('archive/source.md','source',profileRecord).includes('?person='));
-state.compare=DATA.records.slice(0,2).map(r=>r.ruler_id);compare();state.differences=true;compare();home();
-assert.ok(document.getElementById('rows').innerHTML.includes('权力运用风格'));
-state.compare=[profileRecord.ruler_id,DATA.records.find(r=>r.ruler_id!==profileRecord.ruler_id).ruler_id];state.differences=false;compare();
+home();assert.ok(document.getElementById('rows').innerHTML.includes('权力运用风格'));
+const otherSummary=DATA.records.find(r=>r.ruler_id!==profileRecord.ruler_id);
+const otherRecord=DETAIL_PAYLOADS[otherSummary.ruler_id].record;
+byId.set(otherRecord.ruler_id,otherRecord);Object.assign(DATA.source_availability,DETAIL_PAYLOADS[otherSummary.ruler_id].source_availability);
+state.compare=[profileRecord.ruler_id,otherRecord.ruler_id];state.differences=false;compare();
 assert.ok(screen.innerHTML.includes('裁决详情'));
 assert.ok(screen.innerHTML.includes('只看不同项'));
 '''
