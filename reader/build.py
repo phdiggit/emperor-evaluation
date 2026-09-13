@@ -146,13 +146,19 @@ def build(*, check=False, write=True):
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")
     template = apply_public_copy(template)
     link_effects = (ROOT / "reader/link-effects.css").read_text(encoding="utf-8").strip()
+    readability_css = (ROOT / "reader/readability.css").read_text(encoding="utf-8").strip()
     home_interactions = (ROOT / "reader/home-interactions.js").read_text(encoding="utf-8").strip()
+    readability_js = (ROOT / "reader/readability.js").read_text(encoding="utf-8").strip()
     if "</style>" not in template:
         raise ValueError("Reader template must contain a style block")
-    template = template.replace("</style>", f"\n{link_effects}\n</style>", 1)
+    template = template.replace("</style>", f"\n{link_effects}\n{readability_css}\n</style>", 1)
     if "</body>" not in template:
         raise ValueError("Reader template must contain a body close tag")
-    template = template.replace("</body>", f"<script>\n{home_interactions}\n</script>\n</body>", 1)
+    template = template.replace(
+        "</body>",
+        f"<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n</body>",
+        1,
+    )
     output = ROOT / "reader/index.html"
     if template.count("__READER_DATA__") != 1:
         raise ValueError("Reader template must contain exactly one data placeholder")
