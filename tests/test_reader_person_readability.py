@@ -126,6 +126,23 @@ def test_net_reader_separates_judgment_calculation_and_audit_sources():
     assert "评分依据 ↗" not in script
 
 
+def test_first_item_reader_explains_symbols_formulas_and_person_inputs_without_fixed_scores():
+    script = (ROOT / "reader/person-readability.js").read_text(encoding="utf-8")
+    assert "const firstItemDocs =" in script
+    assert "function firstItemBullets(markdown, rulerName)" in script
+    assert '?raw=1' in script
+    assert "A · 统一主链客观贡献" in script
+    assert "U = 有效控制信用" in script
+    assert "A = 120 × (min(1000, U) / 1000)^0.65" in script
+    assert "B1 = 起点难度分 + 对手难度分 + 完成效率分" in script
+    assert "期望完成年 = 4 + 8 × √(效率阶段有效控制信用 / 1000)" in script
+    assert "B2 = 并行执行分 + 专业覆盖／组织杠杆分 + 异质整合分" in script
+    assert "C先按正式证据判统帅档位" in script
+    assert "F = 0.20 × 637 × (S1 / 240)^1.25" in script
+    assert "嬴政" not in script
+    assert "U=740" not in script
+
+
 def test_generated_net_components_have_reader_roles_without_pinning_ruler_values():
     import json
 
