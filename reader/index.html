@@ -265,6 +265,189 @@ header nav button,
     transform: none;
   }
 }
+/* Readability layer: mobile cards, quieter metadata, and compact comparison evidence. */
+.footer-note .home-count-summary {
+  display: block;
+}
+
+.footer-note .data-status {
+  border-top: 0;
+  padding: 0;
+  margin-top: 8px;
+}
+
+.footer-note .data-status > summary {
+  display: inline-block;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 500;
+  padding-right: 24px;
+}
+
+.footer-note .data-status p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.confidence-note {
+  margin-top: 7px;
+  max-width: 34em;
+}
+
+.comparison .axis-evidence > summary[data-compact-compare] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+}
+
+.comparison .axis-evidence > summary[data-compact-compare] .badge {
+  flex: 0 0 auto;
+  font-size: 13px;
+}
+
+.compare-evidence-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+@media (max-width: 700px) {
+  #rows .table-wrap {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+
+  #rows table,
+  #rows tbody {
+    display: block;
+    width: 100%;
+  }
+
+  #rows thead {
+    display: none;
+  }
+
+  #rows tbody {
+    display: grid;
+    gap: 14px;
+  }
+
+  #rows tr.home-click-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    gap: 0 14px;
+    padding: 15px 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fcfbf7;
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 5%, transparent);
+  }
+
+  #rows tr.home-click-row > td {
+    display: block;
+    min-width: 0;
+    padding: 10px 0;
+    border-bottom: 0;
+    white-space: normal;
+  }
+
+  #rows tr.home-click-row > td::before {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .04em;
+  }
+
+  #rows tr.home-click-row > td:nth-child(1) {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-top: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  #rows tr.home-click-row > td:nth-child(1)::before {
+    display: none;
+  }
+
+  #rows tr.home-click-row > td:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  #rows tr.home-click-row > td:nth-child(2)::before {
+    content: "净收益";
+  }
+
+  #rows tr.home-click-row > td:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  #rows tr.home-click-row > td:nth-child(4)::before {
+    content: "历史影响";
+  }
+
+  #rows tr.home-click-row > td:nth-child(3) {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    border-top: 1px solid var(--line);
+  }
+
+  #rows tr.home-click-row > td:nth-child(3)::before {
+    content: "人物画像";
+  }
+
+  #rows tr.home-click-row > td:nth-child(5) {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    padding-bottom: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  #rows tr.home-click-row > td:nth-child(5)::before {
+    content: "对照";
+  }
+
+  #rows tr.home-click-row > td:nth-child(5) button {
+    width: 100%;
+  }
+
+  #rows .overview-axes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px 16px;
+    font-size: 12px;
+  }
+
+  #rows .overview-style {
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+
+  #rows .number {
+    font-size: 27px;
+  }
+
+  #rows .impact-grade {
+    font-size: 28px;
+  }
+
+  #rows .home-jump-cell::after {
+    display: none;
+  }
+
+  #rows td.name button {
+    font-size: 23px;
+  }
+
+  #rows td.name small {
+    margin-top: 5px;
+  }
+}
 </style>
 </head>
 <body><header><strong>帝王三镜</strong><span>结果 · 能力 · 后效</span><nav aria-label="主导航"><button id="home-nav">人物总览</button><button id="compare-nav">并列对照</button><button id="guide-nav">如何阅读</button></nav></header><main id="screen"></main>
@@ -315,7 +498,7 @@ function axisRows(r,codes){return codes.map(c=>`<div class="axis-row compact-axi
 
 function gradeHelp(kind){
  if(kind==='impact')return `<details class="grade-help"><summary>影响等级怎样读？</summary><p>这是历史改变的量级，不是能力或功绩等级。总档与四维分别裁定，不求平均。</p>${DATA.impact_grades.map(g=>`<p><b>${esc(g)}</b> · ${esc(impactMeaning[g])}</p>`).join('')}</details>`;
- return `<details class="grade-help"><summary>画像等级怎样读？</summary><p>各轴从E−到S+分18级，−／无符号／+分别表示档内下沿、中位、上沿。字母是本轴正式档位的展示，不与历史影响字母换算。</p><p>八个能力轴各看自己的行为证据；C5只评价权力运用风格与克制，不解释为能力高低。不适用、待补证、待重裁分别标明，不补零。M2经终局核对仍无可证能力者列E，并保留范围说明。</p></details>`;
+ return `<details class="grade-help"><summary>画像等级怎样读？</summary><p>各轴从E−到S+分18级，−／无符号／+分别表示档内下沿、中位、上沿。字母是本轴正式档位的展示，不与历史影响字母换算。</p><p>八个能力轴各看自己的行为证据；C5只评价权力运用风格与克制，不解释为能力高低。不适用、待补证、待重裁分别标明，不补零。</p></details>`;
 }
 
 function comparePicker(){
@@ -324,22 +507,22 @@ function comparePicker(){
  document.getElementById('compare-search').addEventListener('input',update);update();
 }
 
-function home(){nav('home');screen.innerHTML=`<section class="hero"><div><div class="eyebrow">The three perspectives</div><h1>成效、才具、历史回声。</h1><p class="muted">同一个人，从统治成效、做事能力与历史后效三个角度一起读。</p></div><div class="legend"><div><b>净收益</b><p>统治实际留下了多少收益与损害</p></div><div><b>人物画像</b><p>面对不同问题时，表现出的能力与权力风格</p></div><div><b>历史影响</b><p>改变了多大范围的历史路径，又持续了多久</p></div></div></section>
+function home(){nav('home');screen.innerHTML=`<section class="hero"><div><div class="eyebrow">三重视角</div><h1>成效、才具、历史回声。</h1><p class="muted">同一个人，从统治成效、做事能力与历史后效三个角度一起读。</p></div><div class="legend"><div><b>净收益</b><p>统治实际留下了多少收益与损害</p></div><div><b>人物画像</b><p>面对不同问题时，表现出的能力与权力风格</p></div><div><b>历史影响</b><p>改变了多大范围的历史路径，又持续了多久</p></div></div></section>
  <div class="toolbar"><input id="search" aria-label="搜索人物" placeholder="搜索姓名、帝号、朝代" value="${esc(state.q)}"><select id="polity" aria-label="朝代"><option value="">全部朝代</option>${[...new Set(DATA.records.map(r=>r.polity))].map(p=>`<option ${p===state.polity?'selected':''}>${esc(p)}</option>`).join('')}</select><select id="scope" aria-label="样本范围"><option value="main">正式评价对象</option><option value="supplementary">补充历史样本</option></select><select id="sort" aria-label="排序"><option value="time">历史顺序</option><option value="net">净收益分数</option><option value="impact">历史影响等级</option></select><select id="impact-filter" aria-label="历史影响等级筛选"><option value="">全部影响档位</option>${DATA.impact_grades.map(g=>`<option>${esc(g)}</option>`).join('')}</select><button id="clear-filters" class="back">清除筛选</button><span class="count" id="count" role="status"></span></div><div id="rows"></div><p class="footer-note">正式评价对象 ${DATA.main_count} 人 · 净收益入榜 ${DATA.ranked_count} 人 · 补充历史样本 ${DATA.supplementary_count} 人。${DATA.records.some(r=>Object.values(r.axes).some(pending))?`画像另有 ${DATA.records.reduce((n,r)=>n+Object.values(r.axes).filter(pending).length,0)} 个轴记录待补证或重裁。`:''}${DATA.records.some(r=>Object.values(r.axes).some(ungraded))?`另有 ${DATA.records.reduce((n,r)=>n+Object.values(r.axes).filter(ungraded).length,0)} 个轴记录无档结案。`:''}</p><p class="toast" id="selection" aria-live="polite"></p>`;
  for(const [id,key] of [['scope','scope'],['sort','sort'],['impact-filter','grade']])document.getElementById(id).value=state[key];
  for(const [id,key] of [['search','q'],['polity','polity'],['scope','scope'],['sort','sort'],['impact-filter','grade']])document.getElementById(id).addEventListener(id==='search'?'input':'change',e=>{state[key]=e.target.value;renderRows()});document.getElementById('clear-filters').onclick=()=>{Object.assign(state,{q:'',polity:'',scope:'main',grade:'',sort:'time'});home()};renderRows();}
 function renderRows(){let rows=DATA.records.filter(r=>r.supplementary===(state.scope==='supplementary')&&(!state.polity||r.polity===state.polity)&&(!state.grade||r.impact.public_grade===state.grade)&&(!state.q||(r.ruler_name+r.polity+r.impact.identity_label).includes(state.q.trim())));
  rows.sort((a,b)=>{if(state.sort==='net')return (b.net?.total_score??-Infinity)-(a.net?.total_score??-Infinity)||a.ruler_id.localeCompare(b.ruler_id);if(state.sort==='impact')return DATA.impact_grades.indexOf(a.impact.public_grade)-DATA.impact_grades.indexOf(b.impact.public_grade)||a.ruler_id.localeCompare(b.ruler_id);return (a.impact.reading_start_year??Infinity)-(b.impact.reading_start_year??Infinity)||a.ruler_id.localeCompare(b.ruler_id)});
  document.getElementById('count').textContent=`显示 ${rows.length} 人`;
- document.getElementById('rows').innerHTML=rows.length?`<div class="table-wrap"><table><thead><tr><th>人物 / 权力窗口</th><th>净收益 · 正式总分</th><th>人物画像 · 八轴能力＋权力风格</th><th>历史影响 · 等级</th><th>对照</th></tr></thead><tbody>${rows.map(r=>`<tr><td class="name"><button data-person="${r.ruler_id}">${esc(r.ruler_name)}</button><small>${esc(r.polity)} · ${esc(r.actual_power_window)}</small></td><td>${r.net?`<span class="number">${number(r.net.total_score)}</span><small>第 ${r.net.rank} 名 / ${DATA.ranked_count}</small>`:`<span class="muted">${r.supplementary?'不在本评价范围':'未入榜'}</span>`}</td><td>${r.supplementary?'—':`<div class="overview-axes">${DATA.capability_axes.map(c=>`<span title="${esc(DATA.axis_specs[c].name)}">${esc(shortNames[c])} <b>${grade(r.axes[c])}</b></span>`).join('')}</div><div class="overview-style">${DATA.independent_axes.map(c=>`<span>${esc(DATA.axis_specs[c].name)} <b>${grade(r.axes[c])}</b></span>`).join('')}</div>`}</td><td><span class="impact-grade">${esc(r.impact.public_grade)}</span> <span class="badge">${esc(r.impact.impact_nature)}</span><small>判断置信度：${conf(r.impact.confidence)}</small></td><td><button data-select="${r.ruler_id}" aria-pressed="${state.compare.includes(r.ruler_id)}">${state.compare.includes(r.ruler_id)?'已选':'加入对照'}</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">没有匹配人物。试试其他姓名、朝代或档位。</div>';
+ document.getElementById('rows').innerHTML=rows.length?`<div class="table-wrap"><table><thead><tr><th>人物 / 权力窗口</th><th>净收益 · 正式总分</th><th>人物画像 · 八轴能力＋权力风格</th><th>历史影响 · 等级</th><th>对照</th></tr></thead><tbody>${rows.map(r=>`<tr><td class="name"><button data-person="${r.ruler_id}">${esc(r.ruler_name)}</button><small>${esc(r.polity)} · ${esc(r.actual_power_window)}</small></td><td>${r.net?`<span class="number">${number(r.net.total_score)}</span><small>第 ${r.net.rank} 名 / ${DATA.ranked_count}</small>`:`<span class="muted">${r.supplementary?'不在本评价范围':'未入榜'}</span>`}</td><td>${r.supplementary?'—':`<div class="overview-axes">${DATA.capability_axes.map(c=>`<span title="${esc(DATA.axis_specs[c].name)}">${esc(shortNames[c])} <b>${grade(r.axes[c])}</b></span>`).join('')}</div><div class="overview-style">${DATA.independent_axes.map(c=>`<span>${esc(DATA.axis_specs[c].name)} <b>${grade(r.axes[c])}</b></span>`).join('')}</div>`}</td><td><span class="impact-grade">${esc(r.impact.public_grade)}</span> <span class="badge">${esc(r.impact.impact_nature)}</span><small>判断把握：${conf(r.impact.confidence)}</small></td><td><button data-select="${r.ruler_id}" aria-pressed="${state.compare.includes(r.ruler_id)}">${state.compare.includes(r.ruler_id)?'已选':'加入对照'}</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">没有匹配人物。试试其他姓名、朝代或档位。</div>';
  document.getElementById('selection').textContent=state.compare.length?`已选：${state.compare.map(id=>byId.get(id).ruler_name).join('、')}。点击“并列对照”查看；再次点击可取消。`:'';
 }
 function netPanel(r){
  const n=r.net;
- return `<section id="person-outcome" class="panel net"><div class="eyebrow">01 / 统治结果</div><h2>净收益</h2><p class="subline">看统治实际留下的收益与损害</p>${n?`<div class="big">${number(n.total_score)}</div><span class="badge">净收益第 ${n.rank} 名 / ${DATA.ranked_count}</span>${[['治国净收益',n.second_item_score],['军事与边疆',n.third_item_score],['奠基与统一附加',n.first_item_add_on],['文明与国家整合',n.fourth_item_adjustment]].map(([k,v])=>`<div class="component"><span>${k}</span><b>${number(v)}</b></div>`).join('')}<p class="subline">分差不表示历史贡献的倍数，也不是百分制。</p><details><summary>总分口径与权重敏感性</summary><p>总分由上列四项构成。它包含合同规定的结果与过程分量，不是货币收益减成本；零分也不代表每个方面都没有收益或损害。</p><p>第一项${n.first_item_status==='APPLICABLE'?`原分为 ${number(n.first_item_raw_score)}，按公式折算为附加分 ${number(n.first_item_add_on)}；原分不再重复相加`:'不适用，附加分为0；不代表能力失败'}。</p><p class="subline">${esc(DATA.formula)}</p>${n.weight_sensitivity?.all_scenarios?`<p>固定现有裁决，在已声明的 ${DATA.weight_sensitivity.scenario_count} 种权重情景中，名次范围为第 ${n.weight_sensitivity.all_scenarios.best}—${n.weight_sensitivity.all_scenarios.worst} 名。</p><p class="subline">这是有限权重情景的结果，不是置信区间，也不包含史料或裁决不确定性。正式名次仍使用基准权重。</p>`:''}${link('docs/项目总纲/皇帝统治净收益评价合同.md','计分合同与情景设定 ↗')}</details>`:`<div class="big">—</div><p>${r.supplementary?'补充历史样本，不纳入净收益正式评价范围。':'未进入净收益总榜，不能按零分理解。'}</p><p class="subline">${esc(({PENDING_SECOND_ITEM_FORMAL_SETTLEMENT:'第二项正式结算待补',PENDING_THIRD_ITEM_FORMAL_SETTLEMENT:'第三项正式结算待补',PENDING_FIRST_ITEM_FORMAL_SETTLEMENT:'第一项正式结算待补',SUPPLEMENTARY:'历史影响池外补充样本'}[r.settlement_readiness]||r.settlement_readiness))}</p>`}<p class="sources">${link(DATA.sources.net_reader,'净收益完整依据 ↗')}</p></section>`;
+ return `<section id="person-outcome" class="panel net"><div class="eyebrow">01 / 统治结果</div><h2>净收益</h2><p class="subline">看统治实际留下的收益与损害</p>${n?`<div class="big">${number(n.total_score)}</div><span class="badge">净收益第 ${n.rank} 名 / ${DATA.ranked_count}</span>${[['治国净收益',n.second_item_score],['军事与边疆',n.third_item_score],['奠基与统一附加',n.first_item_add_on],['文明与国家整合',n.fourth_item_adjustment]].map(([k,v])=>`<div class="component"><span>${k}</span><b>${number(v)}</b></div>`).join('')}<p class="subline">分差不表示历史贡献的倍数，也不是百分制。</p><details><summary>这个分数怎么来的？</summary><p>总分由上列四项构成。它包含合同规定的结果与过程分量，不是货币收益减成本；零分也不代表每个方面都没有收益或损害。</p><p>第一项${n.first_item_status==='APPLICABLE'?`原分为 ${number(n.first_item_raw_score)}，按公式折算为附加分 ${number(n.first_item_add_on)}；原分不再重复相加`:'不适用，附加分为0；不代表能力失败'}。</p><p class="subline">${esc(DATA.formula)}</p>${n.weight_sensitivity?.all_scenarios?`<p><strong>换一套合理权重，名次会变化多少？</strong> 在已声明的 ${DATA.weight_sensitivity.scenario_count} 种权重情景中，名次范围为第 ${n.weight_sensitivity.all_scenarios.best}—${n.weight_sensitivity.all_scenarios.worst} 名。</p><p class="subline">这是有限权重情景的结果，不是置信区间，也不包含史料或裁决不确定性。正式名次仍使用基准权重。</p>`:''}${link('docs/项目总纲/皇帝统治净收益评价合同.md','计分合同与情景设定 ↗')}</details>`:`<div class="big">—</div><p>${r.supplementary?'补充历史样本，不纳入净收益正式评价范围。':'未进入净收益总榜，不能按零分理解。'}</p><p class="subline">${esc(({PENDING_SECOND_ITEM_FORMAL_SETTLEMENT:'第二项正式结算待补',PENDING_THIRD_ITEM_FORMAL_SETTLEMENT:'第三项正式结算待补',PENDING_FIRST_ITEM_FORMAL_SETTLEMENT:'第一项正式结算待补',SUPPLEMENTARY:'历史影响池外补充样本'}[r.settlement_readiness]||r.settlement_readiness))}</p>`}<p class="sources">${link(DATA.sources.net_reader,'净收益完整依据 ↗')}</p></section>`;
 }
 
-function impactPanel(r){const h=r.impact;return `<section id="person-impact" class="panel impact"><div class="eyebrow">03 / 历史后效</div><h2>历史影响</h2><p class="subline">路径改变的规模、深度与归责</p><div class="big" style="color:var(--red)">${esc(h.public_grade)}</div><p>${esc(impactMeaning[h.public_grade]||'')}</p><span class="badge">${esc(h.impact_nature)}</span> <span class="subline">置信度 ${conf(h.confidence)}</span><div class="dimensions">${Object.entries(dimNames).map(([k,n])=>`<div>${n}<b>${esc(h.dimensions[k]?.grade||'—')}</b></div>`).join('')}</div>${gradeHelp('impact')}<p class="sources"><a href="#history-evidence" data-section="history-evidence">查看历史主链与归责 ↓</a></p></section>`}
+function impactPanel(r){const h=r.impact;return `<section id="person-impact" class="panel impact"><div class="eyebrow">03 / 历史后效</div><h2>历史影响</h2><p class="subline">路径改变的规模、深度与归责</p><div class="big" style="color:var(--red)">${esc(h.public_grade)}</div><p>${esc(impactMeaning[h.public_grade]||'')}</p><span class="badge">${esc(h.impact_nature)}</span> <span class="subline">判断把握：${conf(h.confidence)}</span><p class="subline confidence-note">表示证据与归责判断的稳定程度，不表示影响大小。</p><div class="dimensions">${Object.entries(dimNames).map(([k,n])=>`<div>${n}<b>${esc(h.dimensions[k]?.grade||'—')}</b></div>`).join('')}</div>${gradeHelp('impact')}<p class="sources"><a href="#history-evidence" data-section="history-evidence">查看历史主链与归责 ↓</a></p></section>`}
 
 function axisEvidence(r,c,suffix=''){
  const a=r.axes[c],spec=DATA.axis_specs[c];if(!a)return '';
@@ -357,11 +540,11 @@ function compare(){
  const row=(label,fn)=>{const left=fn(a),right=fn(b);if(state.differences&&left===right)return '';return `<tr><td>${label}</td><td>${left}</td><td>${right}</td></tr>`};
  const axisRow=c=>{if(state.differences&&grade(a.axes[c])===grade(b.axes[c]))return '';return `<tr><td>${esc(DATA.axis_specs[c].name)}</td>${[a,b].map((r,i)=>`<td>${r.axes[c]?axisEvidence(r,c,'-compare-'+i):'未覆盖'}</td>`).join('')}</tr>`};
  const section=label=>`<tr class="comparison-section"><th colspan="3">${label}</th></tr>`;
- screen.innerHTML=`<h1>同题对照，各读其因。</h1><p class="muted">按相同维度并排阅读双方结论和依据，同时保留各自的历史起点、实际掌权时期与材料限制。</p><div class="compare-select">${[a,b].map((r,i)=>`<button data-replace-compare="${i}">${esc(r.impact.identity_label||r.ruler_name)} · 更换</button>`).join('<span>与</span>')}<button data-swap-compare>交换左右</button></div><label class="difference-toggle"><input type="checkbox" id="differences" ${state.differences?'checked':''}>隐藏相同数值／等级</label><p class="subline">同档仍可能有不同事实、置信度和限制。启用后会同时隐藏这些同档行的依据；取消勾选即可查看。</p><div class="table-wrap comparison-scroll"><table class="comparison"><thead><tr><th>阅读问题</th><th>${esc(a.ruler_name)}</th><th>${esc(b.ruler_name)}</th></tr></thead><tbody>${row('实际掌权时期',r=>esc(r.actual_power_window))}${section('净收益')}${row('净收益',r=>r.net?`<b>${number(r.net.total_score)}</b> · 第 ${r.net.rank} 名`:'未入榜')}${[['治国净收益','second_item_score'],['军事与边疆','third_item_score'],['奠基与统一附加','first_item_add_on'],['文明与国家整合','fourth_item_adjustment']].map(([n,k])=>row(n,r=>number(r.net?.[k]))).join('')}${row('构成与依据',r=>r.net?`<details><summary>展开构成</summary>${netGroups(r)}</details>`:'本展示未覆盖')}${section('人物画像 · 八轴能力')}${DATA.capability_axes.map(axisRow).join('')}${section('人物画像 · 权力运用风格')}${DATA.independent_axes.map(axisRow).join('')}${section('历史影响')}${row('历史影响等级',r=>`<b class="impact-grade">${esc(r.impact.public_grade)}</b> · ${esc(r.impact.impact_nature)}`)}${Object.entries(dimNames).map(([k,n])=>row(n,r=>esc(r.impact.dimensions[k]?.grade))).join('')}${row('判断置信度',r=>conf(r.impact.confidence))}${row('主链与归责依据',r=>`<details><summary>展开历史影响依据</summary>${historySections(r)}</details>`)}${row('继续阅读',r=>`<button data-person="${r.ruler_id}">查看${esc(r.ruler_name)} →</button>`)}</tbody></table></div>${gradeHelp('profile')}${gradeHelp('impact')}`;
+ screen.innerHTML=`<h1>同题对照，各读其因。</h1><p class="muted">按相同维度并排阅读双方结论和依据，同时保留各自的历史起点、实际掌权时期与材料限制。</p><div class="compare-select">${[a,b].map((r,i)=>`<button data-replace-compare="${i}">${esc(r.impact.identity_label||r.ruler_name)} · 更换</button>`).join('<span>与</span>')}<button data-swap-compare>交换左右</button></div><label class="difference-toggle"><input type="checkbox" id="differences" ${state.differences?'checked':''}>隐藏相同数值／等级</label><p class="subline">开启后只保留不同的分数、等级和对应依据。同档也可能有不同事实、判断把握和限制；关闭即可查看全部。</p><div class="table-wrap comparison-scroll"><table class="comparison"><thead><tr><th>阅读问题</th><th>${esc(a.ruler_name)}</th><th>${esc(b.ruler_name)}</th></tr></thead><tbody>${row('实际掌权时期',r=>esc(r.actual_power_window))}${section('净收益')}${row('净收益',r=>r.net?`<b>${number(r.net.total_score)}</b> · 第 ${r.net.rank} 名`:'未入榜')}${[['治国净收益','second_item_score'],['军事与边疆','third_item_score'],['奠基与统一附加','first_item_add_on'],['文明与国家整合','fourth_item_adjustment']].map(([n,k])=>row(n,r=>number(r.net?.[k]))).join('')}${row('构成与依据',r=>r.net?`<details><summary>展开构成</summary>${netGroups(r)}</details>`:'本展示未覆盖')}${section('人物画像 · 八轴能力')}${DATA.capability_axes.map(axisRow).join('')}${section('人物画像 · 权力运用风格')}${DATA.independent_axes.map(axisRow).join('')}${section('历史影响')}${row('历史影响等级',r=>`<b class="impact-grade">${esc(r.impact.public_grade)}</b> · ${esc(r.impact.impact_nature)}`)}${Object.entries(dimNames).map(([k,n])=>row(n,r=>esc(r.impact.dimensions[k]?.grade))).join('')}${row('判断把握',r=>conf(r.impact.confidence))}${row('主链与归责依据',r=>`<details><summary>展开历史影响依据</summary>${historySections(r)}</details>`)}${row('继续阅读',r=>`<button data-person="${r.ruler_id}">查看${esc(r.ruler_name)} →</button>`)}</tbody></table></div>${gradeHelp('profile')}${gradeHelp('impact')}`;
  document.getElementById('differences').onchange=e=>{state.differences=e.target.checked;compare()};
 }
 
-function guide(){nav('guide');screen.innerHTML=`<div class="eyebrow">Reading guide</div><h1>三个问题，一份人物理解。</h1><div class="three"><section class="panel net"><h2>01 看结果</h2><p>净收益评价实际留下的收益与损害。先看总分，再看治国、军事、奠基附加与文明整合的构成。</p><p>仅有正式入榜资格的人物显示排名。未入榜、不适用与零分分别表达。</p></section><section class="panel profile"><h2>02 看人物画像</h2><p>八轴分别观察军事、外交、联盟、组织、判断、学习、用人与制度设计等能力。已完成裁决的能力从E−到S+分18级展示；证据不足、待补证、待重裁或不适用都会单独标明，不会自动按低等级处理。逐轴可查看等级、主要表现、反例与适用范围。</p><p>C5单独描述权力运用风格与克制，不当作能力高低。雷达只帮助观察八项能力的结构差异，不计算面积得分，也不生成“全能指数”。</p></section><section class="panel impact"><h2>03 看后效</h2><p>历史影响评价一个人改变历史路径的范围、深度与持续时间，以及其中有多少能够归于本人。历史影响等级直接读取正式裁决，不由其他分数换算。</p><p>正向、负向或混合性质单列。高影响可以伴随净损害。</p></section></div><section class="panel evidence"><h2>结论不一致时，读什么？</h2><p>先看净收益的损益构成，再读能力轴的行为情境，最后检查历史影响的共同主链与反事实。一次行动可能有能力表现、实际成本和长期后效；来源相同不表示三个体系评价同一命题。</p><p>本阅读层只整理已经正式裁定的结论、依据和限制，不会根据字母或分数差自动给人物贴额外标签。</p><p>正式评价对象 ${DATA.main_count} 人，净收益入榜 ${DATA.ranked_count} 人；历史影响另有 ${DATA.supplementary_count} 位补充历史样本，不计入正式评价对象统计。</p><p class="subline">本站是正式结算数据的只读阅读层；正式记录更新后，页面随之重建。</p><p class="sources">${link('docs/项目总纲/皇帝综合评价体系合同.md','三体系总合同 ↗')}${link('config/project.yml','入口配置 ↗')}${link('docs/项目总纲/历史影响评价总则.md','历史影响合同 ↗')}${link('docs/项目总纲/皇帝人物画像评估体系合同.md','画像合同 ↗')}${link('docs/项目总纲/皇帝统治净收益评价合同.md','净收益合同 ↗')}</p></section>`;}
+function guide(){nav('guide');screen.innerHTML=`<div class="eyebrow">阅读指南</div><h1>三个问题，一份人物理解。</h1><div class="three"><section class="panel net"><h2>01 看结果</h2><p>净收益评价实际留下的收益与损害。先看总分，再看治国、军事、奠基附加与文明整合的构成。</p><p>仅有正式入榜资格的人物显示排名。未入榜、不适用与零分分别表达。</p></section><section class="panel profile"><h2>02 看人物画像</h2><p>八轴分别观察军事、外交、联盟、组织、判断、学习、用人与制度设计等能力。已完成裁决的能力从E−到S+分18级展示；证据不足、待补证、待重裁或不适用都会单独标明，不会自动按低等级处理。逐轴可查看等级、主要表现、反例与适用范围。</p><p>C5单独描述权力运用风格与克制，不当作能力高低。雷达只帮助观察八项能力的结构差异，不计算面积得分，也不生成“全能指数”。</p></section><section class="panel impact"><h2>03 看后效</h2><p>历史影响评价一个人改变历史路径的范围、深度与持续时间，以及其中有多少能够归于本人。历史影响等级直接读取正式裁决，不由其他分数换算。</p><p>正向、负向或混合性质单列。高影响可以伴随净损害。</p></section></div><section class="panel evidence"><h2>结论不一致时，读什么？</h2><p>先看净收益的损益构成，再读能力轴的行为情境，最后检查历史影响的共同主链与反事实。一次行动可能有能力表现、实际成本和长期后效；来源相同不表示三个体系评价同一命题。</p><p>本阅读层只整理已经正式裁定的结论、依据和限制，不会根据字母或分数差自动给人物贴额外标签。</p><p>正式评价对象 ${DATA.main_count} 人，净收益入榜 ${DATA.ranked_count} 人；历史影响另有 ${DATA.supplementary_count} 位补充历史样本，不计入正式评价对象统计。</p><p class="subline">本站是正式结算数据的只读阅读层；正式记录更新后，页面随之重建。</p><p class="sources">${link('docs/项目总纲/皇帝综合评价体系合同.md','三体系总合同 ↗')}${link('config/project.yml','入口配置 ↗')}${link('docs/项目总纲/历史影响评价总则.md','历史影响合同 ↗')}${link('docs/项目总纲/皇帝人物画像评估体系合同.md','画像合同 ↗')}${link('docs/项目总纲/皇帝统治净收益评价合同.md','净收益合同 ↗')}</p></section>`;}
 document.getElementById('home-nav').onclick=()=>go('#overview');document.getElementById('compare-nav').onclick=()=>go('#compare');document.getElementById('guide-nav').onclick=()=>go('#guide');
 screen.addEventListener('click',e=>{const section=e.target.closest('[data-section]');if(section){e.preventDefault();document.getElementById(section.dataset.section)?.scrollIntoView({behavior:'smooth',block:'start'});return}const chain=e.target.closest('[data-chain]');if(chain){e.preventDefault();const target=document.getElementById('chain-'+chain.dataset.chain);if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});}return}const reason=e.target.closest('[data-reason]');if(reason){e.preventDefault();const target=document.getElementById('reason-'+reason.dataset.reason);if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});}return}const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-pick-compare')){const id=b.dataset.pickCompare;if(!state.compare.includes(id)){if(state.compareReplace===0)state.compare.unshift(id);else state.compare.push(id)}state.compareReplace=null;compare();return}if(b.hasAttribute('data-remove-compare')){state.compare=state.compare.filter(id=>id!==b.dataset.removeCompare);compare();return}if(b.hasAttribute('data-replace-compare')){state.compareReplace=Number(b.dataset.replaceCompare);state.compare=state.compare.filter((_,i)=>i!==state.compareReplace);history.replaceState(null,'','#compare');compare();return}if(b.hasAttribute('data-swap-compare')){state.compare.reverse();compare();return}if(b.hasAttribute('data-person'))go('#person/'+b.dataset.person);if(b.hasAttribute('data-home'))go('#overview');if(b.hasAttribute('data-person-compare')){const id=b.dataset.personCompare;state.compare=[id];state.compareReplace=null;go('#compare')}if(b.hasAttribute('data-select')){const id=b.dataset.select;if(state.compare.includes(id))state.compare=state.compare.filter(x=>x!==id);else if(state.compare.length<2)state.compare.push(id);else{document.getElementById('selection').textContent='已选两人，请先取消一人，或进入对照页替换。';return}renderRows()}});
 function route(){const h=location.hash;if(h.startsWith('#person/'))person(byId.get(personId()));else if(h==='#compare')compare();else if(h.startsWith('#compare/')){let ids;try{ids=h.slice(9).split('/').map(decodeURIComponent)}catch{ids=[]}if(ids.length===2&&ids[0]!==ids[1]&&ids.every(id=>byId.has(id))){state.compare=ids;compare()}else{nav('compare');screen.innerHTML='<p>对照地址无效，请重新选择两位人物。</p><button data-home>返回人物总览</button>'}}else if(h==='#guide')guide();else home();window.scrollTo(0,0)}
@@ -511,6 +694,80 @@ window.addEventListener('hashchange',route);route();
     event.preventDefault();
     openPersonSection(row.dataset.homePerson, cell.dataset.homeSection);
   });
+})();
+</script>
+<script>
+"use strict";
+
+(() => {
+  function foldHomeStatus() {
+    const note = document.querySelector("#screen .footer-note:not([data-readability-status])");
+    if (!note) return;
+
+    const text = note.textContent.trim();
+    const firstStop = text.indexOf("。");
+    note.dataset.readabilityStatus = "done";
+    if (firstStop < 0 || firstStop === text.length - 1) return;
+
+    const headline = text.slice(0, firstStop + 1).trim();
+    const detailText = text.slice(firstStop + 1).trim();
+    if (!detailText) return;
+
+    note.textContent = "";
+    const summary = document.createElement("span");
+    summary.className = "home-count-summary";
+    summary.textContent = headline;
+
+    const details = document.createElement("details");
+    details.className = "data-status";
+    const toggle = document.createElement("summary");
+    toggle.textContent = "数据状态";
+    const body = document.createElement("p");
+    body.textContent = detailText;
+    details.append(toggle, body);
+    note.append(summary, details);
+  }
+
+  function compactComparisonEvidence() {
+    for (const summary of document.querySelectorAll(
+      "#screen .comparison .axis-evidence > summary:not([data-compact-compare])"
+    )) {
+      const badge = summary.querySelector(".badge");
+      if (!badge) continue;
+
+      const grade = badge.textContent.trim();
+      summary.textContent = "";
+      const compactBadge = document.createElement("span");
+      compactBadge.className = "badge";
+      compactBadge.textContent = grade;
+      const label = document.createElement("span");
+      label.className = "compare-evidence-label";
+      label.textContent = "展开依据";
+      summary.append(compactBadge, label);
+      summary.dataset.compactCompare = "done";
+    }
+  }
+
+  function simplifyDifferenceToggle() {
+    const toggle = document.querySelector("#screen .difference-toggle:not([data-readable-toggle])");
+    if (!toggle) return;
+    for (const node of toggle.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        node.textContent = "只看不同项";
+        break;
+      }
+    }
+    toggle.dataset.readableToggle = "done";
+  }
+
+  function enhance() {
+    foldHomeStatus();
+    compactComparisonEvidence();
+    simplifyDifferenceToggle();
+  }
+
+  new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});
+  enhance();
 })();
 </script>
 </body></html>
