@@ -60,6 +60,8 @@ def test_person_readability_layer_is_embedded_and_uses_dynamic_fields():
     assert "function rewriteHistoryChains(impact)" in html
     assert "function enhanceImpact(record)" in html
     assert "function foldNetLedger()" in html
+    assert "function normalizeEvidenceCardHeadings()" in html
+    assert "function addNetSourceLinks(record)" in html
     assert "const impactPublicText = value =>" in html
     assert "const historyPublicText = value =>" in html
     assert "C5越接近S，表示越能在压力和个人利益面前约束自身权力" in html
@@ -71,3 +73,21 @@ def test_person_readability_layer_is_embedded_and_uses_dynamic_fields():
     assert "joint_footprint_basis" in html
     assert "representative_contexts" in html
     assert "public_evidence_points" in html
+
+
+def test_evidence_cards_share_one_heading_style_without_fixed_ruler_data():
+    script = (ROOT / "reader/person-readability.js").read_text(encoding="utf-8")
+    css = (ROOT / "reader/readability.css").read_text(encoding="utf-8")
+    assert '["净收益构成", "人物画像依据", "历史影响依据"]' in script
+    assert 'replacement = document.createElement("h2")' in script
+    assert 'replacement.className = "evidence-card-title"' in script
+    assert ".evidence-card-title" in css
+
+
+def test_net_components_link_to_existing_formal_sources_without_fixed_ruler_data():
+    script = (ROOT / "reader/person-readability.js").read_text(encoding="utf-8")
+    assert 'Object.entries(record.net?.component_details || {})' in script
+    assert 'link(item.source, "评分依据 ↗", record)' in script
+    assert 'link(item.applied_source, "采用值来源 ↗", record)' in script
+    assert 'toggle.textContent = "完整计分明细与依据"' in script
+    assert '对应的正式评分依据' in script
