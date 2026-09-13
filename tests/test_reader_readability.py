@@ -11,6 +11,7 @@ def test_readability_layer_is_embedded_in_generated_reader():
     assert "function foldHomeStatus()" in html
     assert "function compactComparisonEvidence()" in html
     assert "function simplifyDifferenceToggle()" in html
+    assert "function publicAxisMetadata()" in html
 
 
 def test_public_reader_copy_stays_reader_facing():
@@ -23,8 +24,12 @@ def test_public_reader_copy_stays_reader_facing():
     assert "M2经终局核对仍无可证能力者列E，并保留范围说明。" not in html
 
 
-def test_comparison_runtime_uses_short_public_toggle_label():
+def test_comparison_runtime_uses_public_labels_and_hides_internal_profile_projection():
     script = (ROOT / "reader/readability.js").read_text(encoding="utf-8")
     assert 'node.textContent = "只看不同项"' in script
     assert 'label.textContent = "展开依据"' in script
     assert 'toggle.textContent = "数据状态"' in script
+    assert 'summary.textContent = "专业信息与正式记录"' in script
+    assert 'status = `公开等级：${grade(axis)}`' in script
+    assert "radar_value" not in script
+    assert "axis_grade" not in script
