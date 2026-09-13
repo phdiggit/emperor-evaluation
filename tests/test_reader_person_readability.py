@@ -56,7 +56,7 @@ def test_c5_projection_keeps_existing_public_evidence_without_re_adjudication():
 def test_person_readability_layer_is_embedded_and_uses_dynamic_fields():
     html = (ROOT / "reader/index.html").read_text(encoding="utf-8")
     assert "function enhanceAxis(details, axisCode, axis)" in html
-    assert "function simplifyAxisMetadata(details, axis)" in html
+    assert "function publicAxisMetadata()" in html
     assert "function rewriteHistoryChains(impact)" in html
     assert "function enhanceImpact(record)" in html
     assert "function foldNetLedger()" in html
