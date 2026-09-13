@@ -11,6 +11,7 @@ on:
       - reader/readability.css
       - reader/readability.js
       - reader/person-readability.js
+      - reader/lazy-details.js
       - reader/public-copy.json
       - reader/build.py
       - src/emperor_v4/evaluation/profile_text_quality.py
@@ -66,6 +67,7 @@ jobs:
           node --check reader/home-interactions.js
           node --check reader/readability.js
           node --check reader/person-readability.js
+          node --check reader/lazy-details.js
 
       - name: Build reader
         run: python reader/build.py
@@ -76,16 +78,16 @@ jobs:
       - name: Check whitespace
         run: git diff --check
 
-      - name: Commit generated page
+      - name: Commit generated reader artifacts
         shell: bash
         run: |
-          if git diff --quiet -- reader/index.html; then
-            echo "reader/index.html is already current"
+          if [[ -z "$(git status --porcelain -- reader/index.html reader/data/people)" ]]; then
+            echo "Generated reader artifacts are already current"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reader/index.html
+          git add -A reader/index.html reader/data/people
           git commit -m "重建综合阅读层"
           git push
 
