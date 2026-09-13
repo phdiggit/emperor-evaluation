@@ -49,6 +49,57 @@
     .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)因此把这一链裁为/g, "相关人物画像材料将这一链认定为")
     .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)/g, "相关人物画像材料");
 
+  function evidenceSection(title) {
+    return Array.from(document.querySelectorAll("#person-evidence > section.panel")).find(section => {
+      const heading = section.querySelector(":scope > h2, :scope > h3");
+      return heading?.textContent.trim() === title;
+    }) || null;
+  }
+
+  function normalizeEvidenceCardHeadings() {
+    for (const title of ["净收益构成", "人物画像依据", "历史影响依据"]) {
+      const section = evidenceSection(title);
+      if (!section || section.dataset.publicHeading === "done") continue;
+      const heading = section.querySelector(":scope > h2, :scope > h3");
+      if (!heading) continue;
+      if (heading.tagName === "H2") {
+        heading.classList.add("evidence-card-title");
+      } else {
+        const replacement = document.createElement("h2");
+        replacement.className = "evidence-card-title";
+        replacement.textContent = title;
+        heading.replaceWith(replacement);
+      }
+      section.dataset.publicHeading = "done";
+    }
+  }
+
+  function addNetSourceLinks(record) {
+    const section = evidenceSection("净收益构成");
+    const groups = Object.entries(record.net?.component_details || {});
+    if (!section || !groups.length || section.dataset.netSources === "done") return;
+
+    const detailBoxes = Array.from(section.querySelectorAll(":scope > details:not(.net-ledger)"));
+    for (const [groupIndex, [, items]] of groups.entries()) {
+      const box = detailBoxes[groupIndex];
+      if (!box || !Array.isArray(items)) continue;
+      const rows = Array.from(box.querySelectorAll(":scope > .component"));
+      rows.forEach((row, itemIndex) => {
+        const item = items[itemIndex];
+        if (!item || (!item.source && !item.applied_source)) return;
+        const links = document.createElement("span");
+        links.className = "net-score-links";
+        if (item.source) links.append(fragment(link(item.source, "评分依据 ↗", record)));
+        if (item.applied_source && item.applied_source !== item.source) {
+          links.append(document.createTextNode(" "));
+          links.append(fragment(link(item.applied_source, "采用值来源 ↗", record)));
+        }
+        row.append(links);
+      });
+    }
+    section.dataset.netSources = "done";
+  }
+
   function replaceLead(details, labelText, html) {
     const label = directLabels(details)[0];
     if (!label || !html) return;
@@ -232,7 +283,7 @@
     rewriteHistoryChains(impact);
     const evidence = document.querySelector("#history-evidence");
     if (!evidence || evidence.dataset.personReadable === "done") return;
-    const heading = evidence.querySelector(".section-title");
+    const heading = evidence.querySelector(":scope > h2, :scope > h3.section-title");
     const firstDetails = heading?.nextElementSibling;
     if (firstDetails?.tagName === "DETAILS") {
       const summary = firstDetails.querySelector(":scope > summary");
@@ -242,22 +293,18 @@
   }
 
   function foldNetLedger() {
-    const evidence = document.querySelector("#person-evidence");
-    if (!evidence) return;
-    const section = Array.from(evidence.children).find(node =>
-      node.matches?.("section.panel") && node.querySelector(":scope > h3")?.textContent.trim() === "净收益构成"
-    );
+    const section = evidenceSection("净收益构成");
     if (!section || section.dataset.ledgerFolded === "done") return;
 
     const items = Array.from(section.children).filter(node => node.tagName === "DETAILS");
     if (!items.length) return;
     const note = document.createElement("p");
     note.className = "subline net-ledger-note";
-    note.textContent = "需要核对原始指标、折算与小计时，再展开完整计分明细。";
+    note.textContent = "展开后可核对每项分值、折算过程及对应的正式评分依据。";
     const wrapper = document.createElement("details");
     wrapper.className = "net-ledger";
     const toggle = document.createElement("summary");
-    toggle.textContent = "完整计分明细";
+    toggle.textContent = "完整计分明细与依据";
     wrapper.append(toggle, ...items);
     section.append(note, wrapper);
     section.dataset.ledgerFolded = "done";
@@ -277,6 +324,8 @@
     }
     enhanceC5Overview(record);
     enhanceImpact(record);
+    normalizeEvidenceCardHeadings();
+    addNetSourceLinks(record);
     foldNetLedger();
   }
 
