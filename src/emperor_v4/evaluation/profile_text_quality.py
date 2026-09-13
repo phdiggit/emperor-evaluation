@@ -20,7 +20,9 @@ PUBLIC_FIELDS = ("typical_pattern", "counterpattern", "grade_basis", "position_b
 RAW_CODE_RE = re.compile(
     r"(?<![A-Za-z0-9_])(?:G[0-5](?:[-_/](?:LOW|MID|HIGH))?|MI[1-4](?:_[A-Z0-9_]+)?|"
     r"PS[0-4]|DW[0-4]|E[1-4]|FULL_GRADE|BOUNDED_PROFILE|SCORING_PARENT|"
-    r"BACKGROUND_VALIDATION|AXIS_OUT_WITH_REASON|FORMAL_CURRENT|COUNTEREVIDENCE_FOUND)(?![A-Za-z0-9_])"
+    r"BACKGROUND_VALIDATION|AXIS_OUT_WITH_REASON|FORMAL_CURRENT|COUNTEREVIDENCE_FOUND|"
+    r"MIXED_NEGATIVE|MIXED_POSITIVE|NEGATIVE|POSITIVE|MIXED|REFUSAL_OR_RECURRENCE|"
+    r"TRUTH_ACQUISITION)(?![A-Za-z0-9_])"
 )
 WORKFLOW_TERMS = (
     "父链", "裁档", "重裁", "本轮", "本次", "最新重裁", "原稿", "附件", "正式快照",
