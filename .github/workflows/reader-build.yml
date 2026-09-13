@@ -42,6 +42,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: Install dependencies
         run: python -m pip install -e . -r reader/requirements.txt pytest
 
@@ -54,6 +59,12 @@ jobs:
           name: profile-text-quality
           path: /tmp/profile-text-quality.json
           retention-days: 7
+
+      - name: Check reader JavaScript syntax
+        run: |
+          node --check reader/home-interactions.js
+          node --check reader/readability.js
+          node --check reader/person-readability.js
 
       - name: Build reader
         run: python reader/build.py
