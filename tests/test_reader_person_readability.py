@@ -58,6 +58,9 @@ def test_person_readability_layer_is_embedded_and_uses_dynamic_fields():
     assert "function enhanceAxis(details, axisCode, axis)" in html
     assert "function enhanceImpact(record)" in html
     assert "function foldNetLedger()" in html
+    assert "const impactPublicText = value =>" in html
+    assert "基础影响量级" in html
+    assert "最终等级" in html
     assert "joint_footprint_basis" in html
     assert "representative_contexts" in html
     assert "public_evidence_points" in html
