@@ -759,25 +759,33 @@ window.addEventListener('hashchange',route);route();
     return id ? byId.get(id) : null;
   }
 
+  function scrollWhenReady(section, attempt = 0) {
+    if (!section) return;
+    requestAnimationFrame(() => {
+      const target = document.getElementById(section);
+      if (target) {
+        target.scrollIntoView({behavior: "smooth", block: "start"});
+        return;
+      }
+      if (attempt < 80) setTimeout(() => scrollWhenReady(section, attempt + 1), 50);
+    });
+  }
+
   function openPersonSection(id, section) {
     const hash = "#person/" + encodeURIComponent(id);
-    const scroll = () => requestAnimationFrame(() => {
-      document.getElementById(section)?.scrollIntoView({behavior: "smooth", block: "start"});
-    });
-
     if (!section) {
       go(hash);
       return;
     }
     if (location.hash === hash) {
       route();
-      scroll();
+      scrollWhenReady(section);
       return;
     }
 
     const afterRoute = () => {
       window.removeEventListener("hashchange", afterRoute);
-      scroll();
+      scrollWhenReady(section);
     };
     window.addEventListener("hashchange", afterRoute);
     location.hash = hash;
