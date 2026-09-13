@@ -1180,6 +1180,29 @@ window.addEventListener('hashchange',route);route();
     .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)因此把这一链裁为/g, "相关人物画像材料将这一链认定为")
     .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)/g, "相关人物画像材料");
 
+  const netPublicText = value => readerText(String(value ?? ""))
+    .replace(/\bC-([0-9]+)-(LOW|MID|HIGH)\b/g, (_, n, p) => `第${n}档·${({LOW:"低位",MID:"中位",HIGH:"高位"})[p]}`)
+    .replace(/\b([ABCD]\d?)-([0-9]+)\b/g, "$1第$2档")
+    .replace(/\bML([0-4])\b/g, "军事净毁损第$1级")
+    .replace(/\bCIV([0-4])\b/g, "文明影响量级$1")
+    .replace(/\bH([0-5])\b/g, "交班第$1级")
+    .replace(/\bL([0-5])\b/g, "损失修正第$1级")
+    .replace(/\bDA([0-9]+)\b/g, "破坏放大第$1级")
+    .replace(/\bHIGH\b/g, "高位")
+    .replace(/\bMID\b/g, "中位")
+    .replace(/\bLOW\b/g, "低位")
+    .replace(/\bmiddle-upper\b/g, "中上位")
+    .replace(/\bmiddle-lower\b/g, "中下位")
+    .replace(/\bupper\b/g, "上位")
+    .replace(/\bmiddle\b/g, "中位")
+    .replace(/\blower\b/g, "下位")
+    .replace(/\bPOSITIVE\b/g, "正向")
+    .replace(/\bNEGATIVE\b/g, "负向")
+    .replace(/\bBALANCED\b/g, "正负相抵")
+    .replace(/\bHYBRID\b/g, "混合归责")
+    .replace(/\bcore\b/gi, "核心链")
+    .replace(/\bsupport\b/gi, "支撑链");
+
   function evidenceSection(title) {
     return Array.from(document.querySelectorAll("#person-evidence > section.panel")).find(section => {
       const heading = section.querySelector(":scope > h2, :scope > h3");
@@ -1205,30 +1228,85 @@ window.addEventListener('hashchange',route);route();
     }
   }
 
-  function addNetSourceLinks(record) {
+  const netGroupNames = {
+    first: "第一项 · 奠基与统一",
+    method: "第二项 · 制度与行政",
+    finance: "第二项 · 财政与民生",
+    handoff: "第二项 · 政权交接",
+    strategic: "第三项 · 战略收益与国防",
+    military: "第三项 · 军事体系与成本",
+    civilization: "第四项 · 文明与国家整合",
+  };
+
+  function netValue(item) {
+    if (item.value == null) return "—";
+    const signed = item.value > 0 && item.label?.includes("文明") ? `+${item.value}` : String(item.value);
+    return `${signed}${item.unit ? ` ${item.unit}` : ""}`;
+  }
+
+  function netSourceLinks(item, record) {
+    const refs = Array.isArray(item.reader_source_refs) ? item.reader_source_refs : [];
+    if (!refs.length && !item.source && !item.applied_source) return "";
+    const ordered = [...new Set([item.source, item.applied_source, ...refs].filter(Boolean))];
+    return ordered.map((ref, index) => {
+      let labelText = index === 0 ? "正式评分记录 ↗" : `补充来源 ${index} ↗`;
+      if (ref === item.applied_source && ref !== item.source) labelText = "采用值记录 ↗";
+      return link(ref, labelText, record);
+    }).join(" ");
+  }
+
+  function netJudgment(item, record) {
+    const summary = item.reader_summary
+      ? `<div class="label">为什么这样评</div>${prose(netPublicText(item.reader_summary))}`
+      : "";
+    const highlights = Array.isArray(item.reader_highlights) && item.reader_highlights.length
+      ? `<div class="label">关键事实</div><ul>${item.reader_highlights.map(text => `<li>${esc(netPublicText(text))}</li>`).join("")}</ul>`
+      : "";
+    const boundary = item.reader_boundary
+      ? `<div class="label">限制与边界</div>${prose(netPublicText(item.reader_boundary))}`
+      : "";
+    const how = item.reader_how
+      ? `<details><summary>这个分怎么算？</summary>${prose(netPublicText(item.reader_how))}</details>`
+      : "";
+    const fullBasis = item.reader_full_basis
+      ? `<details><summary>完整裁决依据（原文）</summary>${prose(netPublicText(item.reader_full_basis))}</details>`
+      : "";
+    const sources = netSourceLinks(item, record);
+    const sourceBlock = sources
+      ? `<details><summary>正式记录与史料</summary><p class="sources">${sources}</p>${fullBasis}</details>`
+      : fullBasis;
+    return `<article class="context-story net-public-item"><div class="component"><span><strong>${esc(item.label)}</strong></span><b>${esc(netValue(item))}</b></div>${summary}${highlights}${boundary}${how}${sourceBlock}</article>`;
+  }
+
+  function netCalculation(item) {
+    const how = item.reader_how || `${item.label}为计算项，具体公式见完整计分账本。`;
+    return `<div class="component"><span><strong>${esc(item.label)}</strong><small>${esc(netPublicText(how))}</small></span><b>${esc(netValue(item))}</b></div>`;
+  }
+
+  function buildNetReading(record) {
     const section = evidenceSection("净收益构成");
     const groups = Object.entries(record.net?.component_details || {});
-    if (!section || !groups.length || section.dataset.netSources === "done") return;
+    if (!section || !groups.length || section.dataset.netReadable === "done") return;
 
-    const detailBoxes = Array.from(section.querySelectorAll(":scope > details:not(.net-ledger)"));
-    for (const [groupIndex, [, items]] of groups.entries()) {
-      const box = detailBoxes[groupIndex];
-      if (!box || !Array.isArray(items)) continue;
-      const rows = Array.from(box.querySelectorAll(":scope > .component"));
-      rows.forEach((row, itemIndex) => {
-        const item = items[itemIndex];
-        if (!item || (!item.source && !item.applied_source)) return;
-        const links = document.createElement("span");
-        links.className = "net-score-links";
-        if (item.source) links.append(fragment(link(item.source, "评分依据 ↗", record)));
-        if (item.applied_source && item.applied_source !== item.source) {
-          links.append(document.createTextNode(" "));
-          links.append(fragment(link(item.applied_source, "采用值来源 ↗", record)));
-        }
-        row.append(links);
-      });
+    const intro = document.createElement("div");
+    intro.className = "net-reading";
+    intro.innerHTML = `<p class="reading-intro">先看历史事实与判断，再看分数如何换算。小计、折算和总计属于计算过程，不再伪装成独立“评分依据”。</p>`;
+
+    for (const [key, items] of groups) {
+      if (!Array.isArray(items)) continue;
+      const judgments = items.filter(item => item.reader_kind === "judgment");
+      const calculations = items.filter(item => item.reader_kind === "calculation");
+      if (!judgments.length && !calculations.length) continue;
+
+      const group = document.createElement("section");
+      group.className = "net-public-group";
+      group.innerHTML = `<h3>${esc(netGroupNames[key] || groupNames[key] || key)}</h3>${judgments.map(item => netJudgment(item, record)).join("")}${calculations.length ? `<details class="net-calculations"><summary>这一组怎么算出来？</summary>${calculations.map(netCalculation).join("")}</details>` : ""}`;
+      intro.append(group);
     }
-    section.dataset.netSources = "done";
+
+    const heading = section.querySelector(":scope > h2, :scope > h3");
+    heading?.after(intro);
+    section.dataset.netReadable = "done";
   }
 
   function replaceLead(details, labelText, html) {
@@ -1431,11 +1509,11 @@ window.addEventListener('hashchange',route);route();
     if (!items.length) return;
     const note = document.createElement("p");
     note.className = "subline net-ledger-note";
-    note.textContent = "展开后可核对每项分值、折算过程及对应的正式评分依据。";
+    note.textContent = "下面保留原始指标、内部档位、折算与小计，供复核使用；普通阅读无需展开。";
     const wrapper = document.createElement("details");
     wrapper.className = "net-ledger";
     const toggle = document.createElement("summary");
-    toggle.textContent = "完整计分明细与依据";
+    toggle.textContent = "完整计分账本（审计视图）";
     wrapper.append(toggle, ...items);
     section.append(note, wrapper);
     section.dataset.ledgerFolded = "done";
@@ -1456,7 +1534,7 @@ window.addEventListener('hashchange',route);route();
     enhanceC5Overview(record);
     enhanceImpact(record);
     normalizeEvidenceCardHeadings();
-    addNetSourceLinks(record);
+    buildNetReading(record);
     foldNetLedger();
   }
 
