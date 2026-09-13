@@ -62,6 +62,8 @@ def test_person_readability_layer_is_embedded_and_uses_dynamic_fields():
     assert "function foldNetLedger()" in html
     assert "const impactPublicText = value =>" in html
     assert "const historyPublicText = value =>" in html
+    assert "C5越接近S，表示越能在压力和个人利益面前约束自身权力" in html
+    assert "它描述权力风格，不计入八项能力雷达" in html
     assert "公开等级：${grade(axis)}" in html
     assert "专业信息与正式记录" in html
     assert "基础影响量级" in html
