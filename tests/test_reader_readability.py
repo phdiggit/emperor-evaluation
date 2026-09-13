@@ -12,6 +12,7 @@ def test_readability_layer_is_embedded_in_generated_reader():
     assert "function compactComparisonEvidence()" in html
     assert "function simplifyDifferenceToggle()" in html
     assert "function publicAxisMetadata()" in html
+    assert "function translateResidualAxisCodes()" in html
 
 
 def test_public_reader_copy_stays_reader_facing():
@@ -33,3 +34,11 @@ def test_comparison_runtime_uses_public_labels_and_hides_internal_profile_projec
     assert 'status = `公开等级：${grade(axis)}`' in script
     assert "radar_value" not in script
     assert "axis_grade" not in script
+
+
+def test_profile_runtime_translates_internal_direction_enums_without_fixed_ruler_data():
+    script = (ROOT / "reader/readability.js").read_text(encoding="utf-8")
+    assert 'MIXED_NEGATIVE\\b/g, "正负混合、以负向为主"' in script
+    assert 'COUNTEREVIDENCE_FOUND\\b/g, "已找到明确反例"' in script
+    assert 'AXIS_OUT_WITH_REASON\\b/g, "不计入本轴（有明确理由）"' in script
+    assert "readerText = publicReaderText" in script
