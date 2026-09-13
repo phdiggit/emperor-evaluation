@@ -41,6 +41,22 @@ def source_file(ref):
     return re.sub(r":\d+(?:-\d+)?$", "", unquote(ref.split("#", 1)[0]))
 
 
+def apply_public_copy(template):
+    """Apply reader-only wording without changing any settlement payload."""
+    path = ROOT / "reader/public-copy.json"
+    replacements = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(replacements, list):
+        raise ValueError("Reader public copy must be a list")
+    for i, item in enumerate(replacements):
+        if not isinstance(item, dict) or not isinstance(item.get("from"), str) or not isinstance(item.get("to"), str):
+            raise ValueError(f"Invalid reader public copy entry: {i}")
+        old, new = item["from"], item["to"]
+        if old not in template:
+            raise ValueError(f"Reader public copy source is stale: {old}")
+        template = template.replace(old, new)
+    return template
+
+
 def axis_projection(row, fields):
     result = pick(row, fields)
     result["source_refs"] = list(dict.fromkeys(
@@ -128,6 +144,7 @@ def build(*, check=False, write=True):
     # HTML script embedding must not allow source prose to terminate its data element.
     payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")
+    template = apply_public_copy(template)
     link_effects = (ROOT / "reader/link-effects.css").read_text(encoding="utf-8").strip()
     if "</style>" not in template:
         raise ValueError("Reader template must contain a style block")
