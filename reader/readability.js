@@ -49,9 +49,22 @@
     }
   }
 
+  function simplifyDifferenceToggle() {
+    const toggle = document.querySelector("#screen .difference-toggle:not([data-readable-toggle])");
+    if (!toggle) return;
+    for (const node of toggle.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        node.textContent = "只看不同项";
+        break;
+      }
+    }
+    toggle.dataset.readableToggle = "done";
+  }
+
   function enhance() {
     foldHomeStatus();
     compactComparisonEvidence();
+    simplifyDifferenceToggle();
   }
 
   new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});
