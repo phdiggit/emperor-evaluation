@@ -89,6 +89,53 @@ header nav button,
   transition: right .18s ease;
 }
 
+/* Home-table cells are direct entry points into the matching person-page section. */
+#screen .home-click-row,
+#screen .home-jump-cell {
+  transition: background-color .16s ease, box-shadow .16s ease;
+}
+
+#screen .home-jump-cell {
+  cursor: pointer;
+  position: relative;
+}
+
+#screen .home-jump-cell::after {
+  content: "↗";
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  opacity: 0;
+  transform: translate(-2px, 2px);
+  transition: opacity .16s ease, transform .16s ease, color .16s ease;
+}
+
+#screen .home-jump-cell:focus-visible,
+#screen .impact-grade[data-home-grade]:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -3px;
+}
+
+#screen .inline-table-filter {
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--green);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+#screen .impact-grade[data-home-grade] {
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0 2px;
+  margin-left: -2px;
+  transition: color .16s ease, background-color .16s ease, box-shadow .16s ease;
+}
+
 @media (hover: hover) and (pointer: fine) {
   #screen a {
     background-image: linear-gradient(currentColor, currentColor);
@@ -158,6 +205,37 @@ header nav button,
     color: var(--red);
   }
 
+  #screen .home-click-row:hover {
+    background-color: color-mix(in srgb, var(--gold) 3%, transparent);
+  }
+
+  #screen .home-jump-cell:hover {
+    background-color: color-mix(in srgb, var(--gold) 9%, transparent);
+    box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--gold) 34%, transparent);
+  }
+
+  #screen .home-jump-cell:hover::after {
+    color: var(--red);
+    opacity: .72;
+    transform: translate(0, 0);
+  }
+
+  #screen .inline-table-filter:hover {
+    color: var(--red);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+    text-decoration: underline;
+    text-underline-offset: .18em;
+  }
+
+  #screen .impact-grade[data-home-grade]:hover {
+    color: color-mix(in srgb, var(--red) 88%, var(--ink));
+    background-color: color-mix(in srgb, var(--red) 7%, transparent);
+    box-shadow: 0 2px 0 color-mix(in srgb, var(--red) 18%, transparent);
+  }
+
   header nav button:active,
   #screen button:active {
     transform: translateY(0);
@@ -172,13 +250,18 @@ header nav button,
   #screen summary,
   #screen summary::after,
   #screen td.name button,
-  #screen td.name button::after {
+  #screen td.name button::after,
+  #screen .home-click-row,
+  #screen .home-jump-cell,
+  #screen .home-jump-cell::after,
+  #screen .impact-grade[data-home-grade] {
     transition: none;
   }
 
   header nav button:hover,
   #screen button:hover,
-  #screen td.name button:hover {
+  #screen td.name button:hover,
+  #screen .home-jump-cell:hover::after {
     transform: none;
   }
 }
@@ -283,4 +366,151 @@ document.getElementById('home-nav').onclick=()=>go('#overview');document.getElem
 screen.addEventListener('click',e=>{const section=e.target.closest('[data-section]');if(section){e.preventDefault();document.getElementById(section.dataset.section)?.scrollIntoView({behavior:'smooth',block:'start'});return}const chain=e.target.closest('[data-chain]');if(chain){e.preventDefault();const target=document.getElementById('chain-'+chain.dataset.chain);if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});}return}const reason=e.target.closest('[data-reason]');if(reason){e.preventDefault();const target=document.getElementById('reason-'+reason.dataset.reason);if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});}return}const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-pick-compare')){const id=b.dataset.pickCompare;if(!state.compare.includes(id)){if(state.compareReplace===0)state.compare.unshift(id);else state.compare.push(id)}state.compareReplace=null;compare();return}if(b.hasAttribute('data-remove-compare')){state.compare=state.compare.filter(id=>id!==b.dataset.removeCompare);compare();return}if(b.hasAttribute('data-replace-compare')){state.compareReplace=Number(b.dataset.replaceCompare);state.compare=state.compare.filter((_,i)=>i!==state.compareReplace);history.replaceState(null,'','#compare');compare();return}if(b.hasAttribute('data-swap-compare')){state.compare.reverse();compare();return}if(b.hasAttribute('data-person'))go('#person/'+b.dataset.person);if(b.hasAttribute('data-home'))go('#overview');if(b.hasAttribute('data-person-compare')){const id=b.dataset.personCompare;state.compare=[id];state.compareReplace=null;go('#compare')}if(b.hasAttribute('data-select')){const id=b.dataset.select;if(state.compare.includes(id))state.compare=state.compare.filter(x=>x!==id);else if(state.compare.length<2)state.compare.push(id);else{document.getElementById('selection').textContent='已选两人，请先取消一人，或进入对照页替换。';return}renderRows()}});
 function route(){const h=location.hash;if(h.startsWith('#person/'))person(byId.get(personId()));else if(h==='#compare')compare();else if(h.startsWith('#compare/')){let ids;try{ids=h.slice(9).split('/').map(decodeURIComponent)}catch{ids=[]}if(ids.length===2&&ids[0]!==ids[1]&&ids.every(id=>byId.has(id))){state.compare=ids;compare()}else{nav('compare');screen.innerHTML='<p>对照地址无效，请重新选择两位人物。</p><button data-home>返回人物总览</button>'}}else if(h==='#guide')guide();else home();window.scrollTo(0,0)}
 window.addEventListener('hashchange',route);route();
-</script></body></html>
+</script><script>
+"use strict";
+
+(() => {
+  const sectionByCell = {
+    1: "person-outcome",
+    2: "person-capability",
+    3: "person-impact",
+  };
+  const interactiveSelector = "button,a,input,select,textarea,summary,label,[role=button]";
+
+  function recordForRow(row) {
+    const id = row.querySelector("[data-person]")?.dataset.person;
+    return id ? byId.get(id) : null;
+  }
+
+  function openPersonSection(id, section) {
+    const hash = "#person/" + encodeURIComponent(id);
+    const scroll = () => requestAnimationFrame(() => {
+      document.getElementById(section)?.scrollIntoView({behavior: "smooth", block: "start"});
+    });
+
+    if (!section) {
+      go(hash);
+      return;
+    }
+    if (location.hash === hash) {
+      route();
+      scroll();
+      return;
+    }
+
+    const afterRoute = () => {
+      window.removeEventListener("hashchange", afterRoute);
+      scroll();
+    };
+    window.addEventListener("hashchange", afterRoute);
+    location.hash = hash;
+  }
+
+  function applyPolityFilter(polity) {
+    state.polity = polity;
+    const select = document.getElementById("polity");
+    if (select) select.value = polity;
+    renderRows();
+  }
+
+  function applyImpactFilter(grade) {
+    state.grade = grade;
+    const select = document.getElementById("impact-filter");
+    if (select) select.value = grade;
+    renderRows();
+  }
+
+  function enhanceHomeRows() {
+    const container = document.getElementById("rows");
+    if (!container) return;
+
+    for (const row of container.querySelectorAll("tbody tr")) {
+      const record = recordForRow(row);
+      if (!record) continue;
+
+      row.classList.add("home-click-row");
+      row.dataset.homePerson = record.ruler_id;
+      const cells = row.cells || row.querySelectorAll("td");
+
+      for (const [index, section] of Object.entries(sectionByCell)) {
+        const cell = cells[Number(index)];
+        if (!cell) continue;
+        cell.classList.add("home-jump-cell");
+        cell.dataset.homeSection = section;
+        cell.tabIndex = 0;
+        cell.setAttribute("role", "link");
+        const label = section === "person-outcome" ? "净收益" : section === "person-capability" ? "人物画像" : "历史影响";
+        cell.setAttribute("aria-label", `查看${record.ruler_name}的${label}`);
+      }
+
+      const identityCell = cells[0];
+      identityCell?.classList.add("home-person-cell");
+      const meta = identityCell?.querySelector("small");
+      if (meta && !meta.querySelector("[data-home-polity]")) {
+        meta.textContent = "";
+        const polity = document.createElement("button");
+        polity.type = "button";
+        polity.className = "inline-table-filter";
+        polity.dataset.homePolity = record.polity;
+        polity.textContent = record.polity;
+        polity.title = `只看${record.polity}`;
+        meta.append(polity, document.createTextNode(` · ${record.actual_power_window}`));
+      }
+
+      const grade = cells[3]?.querySelector(".impact-grade");
+      if (grade && !grade.hasAttribute("data-home-grade")) {
+        grade.dataset.homeGrade = record.impact.public_grade;
+        grade.setAttribute("role", "button");
+        grade.tabIndex = 0;
+        grade.title = `只看历史影响 ${record.impact.public_grade}`;
+      }
+    }
+  }
+
+  const rows = document.getElementById("rows");
+  if (rows) {
+    new MutationObserver(enhanceHomeRows).observe(rows, {childList: true, subtree: true});
+    enhanceHomeRows();
+  }
+
+  screen.addEventListener("click", event => {
+    const polity = event.target.closest("[data-home-polity]");
+    if (polity) {
+      event.preventDefault();
+      applyPolityFilter(polity.dataset.homePolity);
+      return;
+    }
+
+    const grade = event.target.closest("[data-home-grade]");
+    if (grade) {
+      event.preventDefault();
+      applyImpactFilter(grade.dataset.homeGrade);
+      return;
+    }
+
+    if (event.target.closest(interactiveSelector)) return;
+    const row = event.target.closest("tr[data-home-person]");
+    if (!row) return;
+    const cell = event.target.closest("td");
+    openPersonSection(row.dataset.homePerson, cell?.dataset.homeSection || "");
+  });
+
+  screen.addEventListener("keydown", event => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+
+    const grade = event.target.closest("[data-home-grade]");
+    if (grade) {
+      event.preventDefault();
+      applyImpactFilter(grade.dataset.homeGrade);
+      return;
+    }
+
+    const cell = event.target.closest("td[data-home-section]");
+    const row = cell?.closest("tr[data-home-person]");
+    if (!cell || !row) return;
+    event.preventDefault();
+    openPersonSection(row.dataset.homePerson, cell.dataset.homeSection);
+  });
+})();
+</script>
+</body></html>
