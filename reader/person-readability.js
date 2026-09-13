@@ -27,6 +27,15 @@
       .replace(/父链/g, "证据链");
   };
 
+  const impactPublicText = value => String(value ?? "")
+    .replace(/取基础([SABCDE](?:[+−-])?)/g, "，基础影响量级为$1")
+    .replace(/([SABCDE](?:[+−-])?)个人因果/g, "个人因果$1")
+    .replace(/上调至内部([SABCDE](?:[+−-])?)/g, "使最终判断上调为$1")
+    .replace(/内部([SABCDE](?:[+−-])?)/g, "综合判断$1")
+    .replace(/公众([SABCDE](?:[+−-])?)/g, "最终等级$1")
+    .replace(/不增加第二份深度/g, "不重复计入深度")
+    .replace(/抬升基础/g, "提高基础影响量级");
+
   function replaceLead(details, labelText, html) {
     const label = directLabels(details)[0];
     if (!label || !html) return;
@@ -182,7 +191,7 @@
       const dimensions = panel.querySelector(".dimensions");
       const summary = document.createElement("div");
       summary.className = "impact-summary";
-      summary.innerHTML = `<div class="label">为什么是 ${esc(impact.public_grade)}？</div>${prose(joint)}`;
+      summary.innerHTML = `<div class="label">为什么是 ${esc(impact.public_grade)}？</div>${prose(impactPublicText(joint))}`;
       (dimensions || panel).after(summary);
     }
 
