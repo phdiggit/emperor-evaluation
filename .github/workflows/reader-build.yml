@@ -15,6 +15,7 @@ on:
       - src/emperor_v4/evaluation/profile_text_quality.py
       - src/emperor_v4/evaluation/profile_text_cleanup.py
       - config/profile/profile-text-repairs.json
+      - tests/test_profile_text_quality.py
       - tests/test_reader.py
       - tests/test_reader_home_interactions.py
       - tests/test_reader_readability.py
@@ -56,7 +57,7 @@ jobs:
         run: python reader/build.py
 
       - name: Test reader
-        run: python -m pytest tests/test_reader.py tests/test_reader_home_interactions.py tests/test_reader_readability.py -q
+        run: python -m pytest tests/test_profile_text_quality.py tests/test_reader.py tests/test_reader_home_interactions.py tests/test_reader_readability.py -q
 
       - name: Check whitespace
         run: git diff --check
