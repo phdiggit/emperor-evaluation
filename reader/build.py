@@ -128,6 +128,10 @@ def build(*, check=False, write=True):
     # HTML script embedding must not allow source prose to terminate its data element.
     payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")
+    link_effects = (ROOT / "reader/link-effects.css").read_text(encoding="utf-8").strip()
+    if "</style>" not in template:
+        raise ValueError("Reader template must contain a style block")
+    template = template.replace("</style>", f"\n{link_effects}\n</style>", 1)
     output = ROOT / "reader/index.html"
     if template.count("__READER_DATA__") != 1:
         raise ValueError("Reader template must contain exactly one data placeholder")
