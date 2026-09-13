@@ -30,6 +30,10 @@ on:
       - .github/workflows/reader-build.yml
   workflow_dispatch:
 
+concurrency:
+  group: reader-build-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
   pages: write
@@ -87,6 +91,14 @@ jobs:
             echo "Generated reader artifacts are already current"
             exit 0
           fi
+
+          git fetch origin "${GITHUB_REF_NAME}"
+          remote_head="$(git rev-parse "origin/${GITHUB_REF_NAME}")"
+          if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
+            echo "This build is superseded by ${remote_head}; skip publishing stale generated artifacts."
+            exit 0
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A reader/index.html reader/data/people
