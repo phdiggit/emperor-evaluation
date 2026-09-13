@@ -120,7 +120,7 @@ assert.ok(link('https://example.com/source','source').includes('href="https://ex
 DATA.source_availability['docs/missing.md']=false;
 assert.ok(!link('docs/missing.md','source').includes('<a '));
 assert.ok(link('docs/missing.md','source').includes('当前文件不可用'));
-for(const r of DATA.records){person(r);assert.ok(screen.innerHTML.includes('公众总档为什么这样定'));assert.ok(!screen.innerHTML.includes('[object Object]'));}
+for(const r of DATA.records){person(r);assert.ok(screen.innerHTML.includes('历史影响等级为什么这样定'));assert.ok(!screen.innerHTML.includes('[object Object]'));}
 state.compare=[];compare();assert.equal(state.compare.length,0);assert.ok(screen.innerHTML.includes('搜索对照人物'));
 const profileRecord=DATA.records.find(r=>!r.supplementary);
 state.compare=[profileRecord.ruler_id];compare();assert.equal(state.compare.length,1);
