@@ -1,0 +1,183 @@
+/* Readability layer: mobile cards, quieter metadata, and compact comparison evidence. */
+.footer-note .home-count-summary {
+  display: block;
+}
+
+.footer-note .data-status {
+  border-top: 0;
+  padding: 0;
+  margin-top: 8px;
+}
+
+.footer-note .data-status > summary {
+  display: inline-block;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 500;
+  padding-right: 24px;
+}
+
+.footer-note .data-status p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.confidence-note {
+  margin-top: 7px;
+  max-width: 34em;
+}
+
+.comparison .axis-evidence > summary[data-compact-compare] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+}
+
+.comparison .axis-evidence > summary[data-compact-compare] .badge {
+  flex: 0 0 auto;
+  font-size: 13px;
+}
+
+.compare-evidence-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+@media (max-width: 700px) {
+  #rows .table-wrap {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+
+  #rows table,
+  #rows tbody {
+    display: block;
+    width: 100%;
+  }
+
+  #rows thead {
+    display: none;
+  }
+
+  #rows tbody {
+    display: grid;
+    gap: 14px;
+  }
+
+  #rows tr.home-click-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    gap: 0 14px;
+    padding: 15px 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fcfbf7;
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 5%, transparent);
+  }
+
+  #rows tr.home-click-row > td {
+    display: block;
+    min-width: 0;
+    padding: 10px 0;
+    border-bottom: 0;
+    white-space: normal;
+  }
+
+  #rows tr.home-click-row > td::before {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .04em;
+  }
+
+  #rows tr.home-click-row > td:nth-child(1) {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-top: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  #rows tr.home-click-row > td:nth-child(1)::before {
+    display: none;
+  }
+
+  #rows tr.home-click-row > td:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  #rows tr.home-click-row > td:nth-child(2)::before {
+    content: "净收益";
+  }
+
+  #rows tr.home-click-row > td:nth-child(4) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  #rows tr.home-click-row > td:nth-child(4)::before {
+    content: "历史影响";
+  }
+
+  #rows tr.home-click-row > td:nth-child(3) {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    border-top: 1px solid var(--line);
+  }
+
+  #rows tr.home-click-row > td:nth-child(3)::before {
+    content: "人物画像";
+  }
+
+  #rows tr.home-click-row > td:nth-child(5) {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    padding-bottom: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  #rows tr.home-click-row > td:nth-child(5)::before {
+    content: "对照";
+  }
+
+  #rows tr.home-click-row > td:nth-child(5) button {
+    width: 100%;
+  }
+
+  #rows .overview-axes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px 16px;
+    font-size: 12px;
+  }
+
+  #rows .overview-style {
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+
+  #rows .number {
+    font-size: 27px;
+  }
+
+  #rows .impact-grade {
+    font-size: 28px;
+  }
+
+  #rows .home-jump-cell::after {
+    display: none;
+  }
+
+  #rows td.name button {
+    font-size: 23px;
+  }
+
+  #rows td.name small {
+    margin-top: 5px;
+  }
+}
