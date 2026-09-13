@@ -141,7 +141,7 @@ state.compare=DATA.records.slice(0,2).map(r=>r.ruler_id);compare();state.differe
 assert.ok(document.getElementById('rows').innerHTML.includes('权力运用风格'));
 state.compare=[profileRecord.ruler_id,DATA.records.find(r=>r.ruler_id!==profileRecord.ruler_id).ruler_id];state.differences=false;compare();
 assert.ok(screen.innerHTML.includes('裁决详情'));
-assert.ok(screen.innerHTML.includes('隐藏相同数值／等级'));
+assert.ok(screen.innerHTML.includes('只看不同项'));
 '''
     path = tmp_path / 'reader-test.cjs'
     path.write_text(harness, encoding='utf-8')
