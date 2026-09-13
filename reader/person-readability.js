@@ -36,6 +36,19 @@
     .replace(/不增加第二份深度/g, "不重复计入深度")
     .replace(/抬升基础/g, "提高基础影响量级");
 
+  const historyPublicText = value => readerText(String(value ?? ""))
+    .replace(/\bNEGATIVE\b/g, "负向")
+    .replace(/\bPOSITIVE\b/g, "正向")
+    .replace(/\bMIXED\b/g, "正负混合")
+    .replace(/负向\s*\/\s*持续系统性情境/g, "持续系统性负向情境")
+    .replace(/正向\s*\/\s*持续系统性情境/g, "持续系统性正向情境")
+    .replace(/正负混合\s*\/\s*持续系统性情境/g, "持续系统性正负混合情境")
+    .replace(/项目正式战役群/g, "正式战役材料")
+    .replace(/项目重审明确把/g, "现有裁决将")
+    .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)明确指出/g, "相关人物画像材料指出")
+    .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)因此把这一链裁为/g, "相关人物画像材料将这一链认定为")
+    .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)/g, "相关人物画像材料");
+
   function replaceLead(details, labelText, html) {
     const label = directLabels(details)[0];
     if (!label || !html) return;
@@ -132,6 +145,24 @@
     box.innerHTML = `<summary>裁决详情</summary>${sections.join("")}`;
   }
 
+  function simplifyAxisMetadata(details, axis) {
+    const box = Array.from(details.children).find(
+      node => node.tagName === "DETAILS" && node.classList.contains("metadata") && !node.classList.contains("adjudication")
+    );
+    if (!box) return;
+    const summary = box.querySelector(":scope > summary");
+    if (summary) summary.textContent = "专业信息与正式记录";
+    const line = box.querySelector(":scope > .subline");
+    if (!line) return;
+
+    let status;
+    if (ungraded(axis)) status = "当前状态：无档结案";
+    else if (pending(axis)) status = `当前状态：${grade(axis)}`;
+    else if (axis.applicability_status === "NOT_APPLICABLE" || axis.output_mode === "NOT_APPLICABLE") status = "当前状态：不适用";
+    else status = `公开等级：${grade(axis)}`;
+    line.textContent = `展示模式：${mode(axis.output_mode)} · 判断把握：${conf(axis.confidence)} · ${status}`;
+  }
+
   function enhanceAxis(details, axisCode, axis) {
     if (!details || !axis || details.dataset.personReadable === "done") return;
 
@@ -167,6 +198,7 @@
     }
 
     rebuildAdjudication(details, axis, leadValues);
+    simplifyAxisMetadata(details, axis);
     details.dataset.personReadable = "done";
   }
 
@@ -181,13 +213,28 @@
     row.append(type);
   }
 
+  function rewriteHistoryChains(impact) {
+    for (const chain of impact.macro_chains || []) {
+      const box = document.getElementById(`chain-${chain.chain_id}`);
+      const summary = box?.querySelector(":scope > summary");
+      if (!box || !summary || box.dataset.publicNarrative === "done") continue;
+      let node = summary.nextSibling;
+      while (node) {
+        const next = node.nextSibling;
+        node.remove();
+        node = next;
+      }
+      summary.after(fragment(prose(historyPublicText(chain.narrative))));
+      box.dataset.publicNarrative = "done";
+    }
+  }
+
   function enhanceImpact(record) {
     const impact = record.impact || {};
     const joint = impact.foundation?.joint_footprint_basis;
-    if (!joint) return;
 
     const panel = document.querySelector("#person-impact");
-    if (panel && !panel.querySelector(".impact-summary")) {
+    if (joint && panel && !panel.querySelector(".impact-summary")) {
       const dimensions = panel.querySelector(".dimensions");
       const summary = document.createElement("div");
       summary.className = "impact-summary";
@@ -195,6 +242,7 @@
       (dimensions || panel).after(summary);
     }
 
+    rewriteHistoryChains(impact);
     const evidence = document.querySelector("#history-evidence");
     if (!evidence || evidence.dataset.personReadable === "done") return;
     const heading = evidence.querySelector(".section-title");
