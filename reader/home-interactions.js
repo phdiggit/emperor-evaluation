@@ -98,11 +98,11 @@
     }
   }
 
-  const rows = document.getElementById("rows");
-  if (rows) {
-    new MutationObserver(enhanceHomeRows).observe(rows, {childList: true, subtree: true});
-    enhanceHomeRows();
-  }
+  // #screen survives route changes, while #rows is destroyed and recreated whenever
+  // the user leaves and returns to the overview. Observe the stable root so every
+  // newly rendered overview table is enhanced again.
+  new MutationObserver(enhanceHomeRows).observe(screen, {childList: true, subtree: true});
+  enhanceHomeRows();
 
   screen.addEventListener("click", event => {
     const polity = event.target.closest("[data-home-polity]");
