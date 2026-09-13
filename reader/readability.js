@@ -98,6 +98,29 @@
     toggle.dataset.readableToggle = "done";
   }
 
+  function publicGradeHelp() {
+    const profile = document.querySelector("#person-capability .grade-help:not([data-public-help])");
+    if (profile) {
+      const paragraphs = profile.querySelectorAll(":scope > p");
+      if (paragraphs[0]) {
+        paragraphs[0].textContent = "各轴从E−到S+分18级；−、无符号、+分别表示同一字母等级中的较低、中间和较高位置。人物画像与历史影响使用不同尺度，字母相同也不能直接比较。";
+      }
+      if (paragraphs[1]) {
+        paragraphs[1].textContent = "八个能力轴分别依据本轴行为证据；C5只评价权力运用风格与克制，不当作能力高低，也不计入能力雷达。不适用、待补证、待重裁会单独标明，不按低分处理。";
+      }
+      profile.dataset.publicHelp = "done";
+    }
+
+    const impact = document.querySelector("#person-impact .grade-help:not([data-public-help])");
+    if (impact) {
+      const paragraph = impact.querySelector(":scope > p");
+      if (paragraph) {
+        paragraph.textContent = "这是历史改变的量级，不是能力或功绩等级。最终等级与四个维度分别判断，不做简单平均。";
+      }
+      impact.dataset.publicHelp = "done";
+    }
+  }
+
   function axisRecordForEvidence(details) {
     const id = details.id || "";
     let match = id.match(/^reason-([A-Z]\d)$/);
@@ -162,6 +185,7 @@
     foldHomeStatus();
     compactComparisonEvidence();
     simplifyDifferenceToggle();
+    publicGradeHelp();
     publicAxisMetadata();
     translateResidualAxisCodes();
   }
