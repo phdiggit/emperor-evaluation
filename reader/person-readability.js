@@ -145,24 +145,6 @@
     box.innerHTML = `<summary>裁决详情</summary>${sections.join("")}`;
   }
 
-  function simplifyAxisMetadata(details, axis) {
-    const box = Array.from(details.children).find(
-      node => node.tagName === "DETAILS" && node.classList.contains("metadata") && !node.classList.contains("adjudication")
-    );
-    if (!box) return;
-    const summary = box.querySelector(":scope > summary");
-    if (summary) summary.textContent = "专业信息与正式记录";
-    const line = box.querySelector(":scope > .subline");
-    if (!line) return;
-
-    let status;
-    if (ungraded(axis)) status = "当前状态：无档结案";
-    else if (pending(axis)) status = `当前状态：${grade(axis)}`;
-    else if (axis.applicability_status === "NOT_APPLICABLE" || axis.output_mode === "NOT_APPLICABLE") status = "当前状态：不适用";
-    else status = `公开等级：${grade(axis)}`;
-    line.textContent = `展示模式：${mode(axis.output_mode)} · 判断把握：${conf(axis.confidence)} · ${status}`;
-  }
-
   function enhanceAxis(details, axisCode, axis) {
     if (!details || !axis || details.dataset.personReadable === "done") return;
 
@@ -198,7 +180,6 @@
     }
 
     rebuildAdjudication(details, axis, leadValues);
-    simplifyAxisMetadata(details, axis);
     details.dataset.personReadable = "done";
   }
 
