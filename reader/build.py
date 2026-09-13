@@ -1,5 +1,6 @@
 """Build the static reading layer from registered settlements; never adjudicate."""
 from pathlib import Path
+from copy import deepcopy
 import json
 import sys
 import argparse
@@ -13,6 +14,13 @@ DETAILS_DIR = ROOT / "reader/data/people"
 sys.path.insert(0, str(ROOT / "src"))
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_parent_schema import parent_chains
+from emperor_v4.evaluation.composite_details import load_detail_sources, SECOND
+
+NET_READER_EXTRA_SOURCES = {
+    "D1": SECOND + "政权交接稳定/01-D1继任行政连续性方向卡.json",
+    "D3": SECOND + "政权交接稳定/02-D3政权交接稳定方向卡.json",
+    "ML": "config/third-item/third-item-military-net-loss-penalties.json",
+}
 
 
 def index(rows):
@@ -92,6 +100,425 @@ def axis_projection(row, fields):
     return result
 
 
+def _clean_text(value):
+    if not isinstance(value, str):
+        return ""
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def _first_text(*values):
+    for value in values:
+        text = _clean_text(value)
+        if text:
+            return text
+    return ""
+
+
+def _unique_texts(values, limit=4):
+    result = []
+    seen = set()
+    for value in values:
+        text = _clean_text(value)
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        result.append(text)
+        if len(result) >= limit:
+            break
+    return result
+
+
+def _state_summary(record):
+    state = record.get("state_adjudication")
+    if not isinstance(state, dict):
+        return ""
+    preferred = []
+    for key in ("main_review", "loss_review", "result_review", "recovery_review"):
+        block = state.get(key)
+        if isinstance(block, dict):
+            preferred.extend([
+                block.get("main_representativeness"),
+                block.get("summary"),
+                block.get("basis"),
+            ])
+    return _first_text(*preferred)
+
+
+def _formal_summary(record):
+    if not isinstance(record, dict):
+        return ""
+    return _first_text(
+        record.get("public_summary"),
+        record.get("adjudication_reason"),
+        _state_summary(record),
+        record.get("strategy_chain_review_basis"),
+        record.get("grade_basis"),
+        record.get("attribution_basis"),
+        record.get("basis"),
+        record.get("reason"),
+    )
+
+
+def _lead_sentences(text, limit=2):
+    text = _clean_text(text)
+    if not text:
+        return ""
+    parts = [part.strip() for part in re.split(r"(?<=[。！？；])", text) if part.strip()]
+    if not parts:
+        return text
+    return "".join(parts[:limit])
+
+
+def _formal_highlights(record):
+    if not isinstance(record, dict):
+        return []
+    values = []
+    for item in record.get("important_institutions", []):
+        if isinstance(item, dict):
+            values.append(item.get("reason") or item.get("label_zh"))
+    for item in record.get("structured_grade_basis", []):
+        if not isinstance(item, dict):
+            continue
+        role = str(item.get("role", ""))
+        if any(token in role for token in ("正向", "负向", "反例", "边界")):
+            values.append(item.get("text"))
+    for key in ("M_positive_profile", "M_negative_profile", "M_mixed_profile"):
+        for item in record.get(key, []):
+            if isinstance(item, dict):
+                values.append(item.get("mechanism"))
+    for key in (
+        "maintenance_basis", "reversal_basis", "within_band_deterioration_basis",
+        "direction_reason", "recovery_basis",
+    ):
+        values.append(record.get(key))
+    return _unique_texts(values, limit=3)
+
+
+def _formal_boundary(record):
+    if not isinstance(record, dict):
+        return ""
+    values = []
+    for key in ("material_limitations", "unresolved_gaps", "limitations"):
+        value = record.get(key)
+        if isinstance(value, list):
+            values.extend(value)
+        else:
+            values.append(value)
+    return "；".join(_unique_texts(values, limit=2))
+
+
+def _formal_source_refs(record, *extra):
+    refs = []
+    for ref in extra:
+        if isinstance(ref, str) and ref.startswith(("docs/", "config/", "archive/")):
+            refs.append(ref)
+    if isinstance(record, dict):
+        refs.extend(sorted(local_sources(record)))
+    return list(dict.fromkeys(refs))[:8]
+
+
+def _attach_reader(item, *, kind, summary="", how="", record=None, boundary="", source_refs=(), highlights=()):
+    result = dict(item)
+    result["reader_kind"] = kind
+    formal_summary = _formal_summary(record)
+    final_summary = _first_text(summary, _lead_sentences(formal_summary))
+    final_highlights = _unique_texts([*highlights, *_formal_highlights(record)], limit=3)
+    final_boundary = _first_text(boundary, _formal_boundary(record))
+    refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
+    if final_summary:
+        result["reader_summary"] = final_summary
+    if formal_summary and _clean_text(final_summary) != _clean_text(formal_summary):
+        result["reader_full_basis"] = formal_summary
+    if final_highlights:
+        result["reader_highlights"] = final_highlights
+    if final_boundary:
+        result["reader_boundary"] = final_boundary
+    if how:
+        result["reader_how"] = how
+    if refs:
+        result["reader_source_refs"] = refs
+    return result
+
+
+def load_net_reader_sources(root):
+    """Load formal subitem evidence for reader-only explanations."""
+    sources = load_detail_sources(root)
+    for key, path in NET_READER_EXTRA_SOURCES.items():
+        payload = load_json(root / path)
+        rows = payload["records"]
+        sources[key] = index(rows)
+        sources[f"{key}_path"] = path
+    return sources
+
+
+def project_net_explanations(person, row, sources):
+    """Add reader-only explanation metadata without changing any scoring value."""
+    details = deepcopy(row.get("component_details", {}))
+    if not details:
+        return details
+    ids = person["source_item_ids"]
+    name = row["ruler_name"]
+    sid, tid, fid = (ids[k] for k in ("second_item", "third_item", "fourth_item"))
+
+    first = {item["label"]: item for item in details.get("first", [])}
+    for label, item in list(first.items()):
+        if label == "A统一贡献":
+            first[label] = _attach_reader(
+                item, kind="judgment",
+                summary="只评价本人在建国、复国或统一主链中最终留下的稳定控制成果；起点、对手强弱和完成速度不在这里重复计分。",
+                how=f"{item.get('note') or '按有效控制信用U'}；按统一贡献曲线换算为 {item.get('value')} 分。",
+            )
+        elif label == "B1创业难度与效率":
+            first[label] = _attach_reader(
+                item, kind="judgment",
+                summary="评价从什么起点出发、面对多强的主要对手，以及完成创业或统一主链的效率。",
+                how=f"{item.get('grade', '')}；{item.get('note', '')}，合计 {item.get('value')} 分。",
+            )
+        elif label == "B2组织与整合":
+            first[label] = _attach_reader(
+                item, kind="judgment",
+                summary="评价创业或统一过程中同时处理多线任务、覆盖关键区域并完成组织整合的能力。",
+                how=f"{item.get('grade', '')}；{item.get('note', '')}，合计 {item.get('value')} 分。",
+            )
+        elif label == "C军事统帅与战争解题":
+            first[label] = _attach_reader(
+                item, kind="judgment",
+                summary="只评价本人在创业或统一主链中的军事统帅与战争解题能力，团队作用按正式归责路线处理。",
+                how=f"正式能力档与归责路线共同换算为 {item.get('value')} 分；{item.get('note', '')}",
+            )
+        elif label == "军事成本扣分":
+            cost = sources["first_cost"].get(name, {})
+            first[label] = _attach_reader(
+                item, kind="judgment", record=cost,
+                how=f"正式军事成本档与档内位置按成本表换算为扣 {item.get('value')} 分。",
+                boundary=cost.get("responsibility_window", ""),
+            )
+        else:
+            first[label] = _attach_reader(item, kind="calculation")
+    if first:
+        values = {label: item.get("value") for label, item in first.items()}
+        if "四轴合计" in first:
+            first["四轴合计"]["reader_how"] = (
+                f"A统一贡献 + B1创业难度与效率 + B2组织与整合 + C军事统帅与战争解题 = {values.get('四轴合计')} 分。"
+            )
+        if "第一项净分" in first:
+            first["第一项净分"]["reader_how"] = (
+                f"四轴合计 {values.get('四轴合计')} − 军事成本扣分 {values.get('军事成本扣分')}，最低按0计，得到 {values.get('第一项净分')} 分。"
+            )
+        if "附加F" in first:
+            first["附加F"]["reader_how"] = (
+                f"第一项净分再按总榜附加F曲线折算，得到 {values.get('附加F')} 分。"
+            )
+        details["first"] = [first[item["label"]] for item in details["first"]]
+
+    method_records = {"A制度建设": "A", "B1官僚治理": "B1", "B2反馈与约束": "B2"}
+    method = {item["label"]: item for item in details.get("method", [])}
+    for label, key in method_records.items():
+        if label in method:
+            item = method[label]
+            record = sources[key][sid]
+            method[label] = _attach_reader(
+                item, kind="judgment", record=record,
+                how=f"正式方向指数为 {item.get('value')}；该指数随后进入治理手段合成公式。",
+            )
+    if method:
+        values = {label: item.get("value") for label, item in method.items()}
+        for label in ("AB计分块", "B2折算", "治理手段"):
+            if label in method:
+                method[label] = _attach_reader(method[label], kind="calculation")
+        if "AB计分块" in method:
+            method["AB计分块"]["reader_how"] = (
+                f"0.8 × [max(A制度建设, B1官僚治理) + 0.5 × min(A制度建设, B1官僚治理)] = {values.get('AB计分块')} 分。"
+            )
+        if "B2折算" in method:
+            method["B2折算"]["reader_how"] = f"45 / 80 × B2反馈与约束指数 = {values.get('B2折算')} 分。"
+        if "治理手段" in method:
+            method["治理手段"]["reader_how"] = (
+                f"AB计分块 {values.get('AB计分块')} + B2折算 {values.get('B2折算')} = {values.get('治理手段')} 分。"
+            )
+        details["method"] = [method[item["label"]] for item in details["method"]]
+
+    finance_keys = {"C1民生": "C1", "C2经济财政": "C2", "C3社会安全": "C3", "C4恢复与成本": "C4"}
+    finance = {item["label"]: item for item in details.get("finance", [])}
+    for label, key in finance_keys.items():
+        if label not in finance:
+            continue
+        item = finance[label]
+        record = sources[key][sid]
+        if key == "C4" and item.get("note"):
+            how = f"正向保留 − 恶化扣分 − 破坏放大扣分 = {item.get('note')} = {item.get('value')} 分。"
+        else:
+            how = f"正式状态判断与损失修正按本轴合同换算为 {item.get('value')} 分。"
+        finance[label] = _attach_reader(item, kind="judgment", record=record, how=how)
+    if "治理结果" in finance:
+        values = {label: item.get("value") for label, item in finance.items()}
+        finance["治理结果"] = _attach_reader(
+            finance["治理结果"], kind="calculation",
+            how=(
+                f"C1民生 {values.get('C1民生')} + C2经济财政 {values.get('C2经济财政')} + "
+                f"C3社会安全 {values.get('C3社会安全')} + C4恢复与成本 {values.get('C4恢复与成本')} "
+                f"= {values.get('治理结果')} 分。"
+            ),
+        )
+    if finance:
+        details["finance"] = [finance[item["label"]] for item in details["finance"]]
+
+    handoff = {item["label"]: item for item in details.get("handoff", [])}
+    for label, key in (("D1继任行政连续性", "D1"), ("D3政权交接稳定", "D3")):
+        if label in handoff:
+            item = handoff[label]
+            record = sources[key][sid]
+            handoff[label] = _attach_reader(
+                item, kind="judgment", record=record,
+                how=f"正式交班裁决换算为 {item.get('value')} 级输入；该级本身不是独立可加分。",
+                source_refs=(sources[f"{key}_path"],),
+            )
+    if handoff:
+        values = {label: item.get("value") for label, item in handoff.items()}
+        for label in ("低侧封顶", "交接得分", "第二项合计"):
+            if label in handoff:
+                handoff[label] = _attach_reader(handoff[label], kind="calculation")
+        if "低侧封顶" in handoff:
+            handoff["低侧封顶"]["reader_how"] = (
+                f"交接短板决定本项最高可得 {values.get('低侧封顶')} 分；这是上限，不是额外得分。"
+            )
+        if "交接得分" in handoff:
+            handoff["交接得分"]["reader_how"] = (
+                f"min[2 × (D1 {values.get('D1继任行政连续性')} + D3 {values.get('D3政权交接稳定')}), "
+                f"低侧封顶 {values.get('低侧封顶')}] = {values.get('交接得分')} 分。"
+            )
+        if "第二项合计" in handoff:
+            method_score = next((x.get("value") for x in details.get("method", []) if x.get("label") == "治理手段"), None)
+            result_score = next((x.get("value") for x in details.get("finance", []) if x.get("label") == "治理结果"), None)
+            handoff["第二项合计"]["reader_how"] = (
+                f"治理手段 {method_score} + 治理结果 {result_score} + 交接得分 {values.get('交接得分')} "
+                f"= {values.get('第二项合计')} 分。"
+            )
+        details["handoff"] = [handoff[item["label"]] for item in details["handoff"]]
+
+    credit = sources["credit"][tid]
+    ab = sources["AB"][tid]
+    strategic = {item["label"]: item for item in details.get("strategic", [])}
+    for key in ("A1", "A2"):
+        if key in strategic:
+            axis = credit["axes"][key]
+            strategic[key] = _attach_reader(
+                strategic[key], kind="judgment", record=axis,
+                summary=axis.get("attribution_basis", ""),
+                how=f"起点状态、终点状态、改善或恶化及本人归责共同换算为 {strategic[key].get('value')} 分。",
+            )
+    for key in ("B1", "B2", "B4"):
+        if key in strategic:
+            axis = ab["axes"][key]
+            rate = credit["B80_adjudication"][f"adjudicated_{key}_rate"]
+            strategic[key] = _attach_reader(
+                strategic[key], kind="judgment", record=axis,
+                how=f"正式结果先得到 {strategic[key].get('value')}% 的原始得分率；边界复核后合成采用 {rate:g}%。",
+            )
+    for label in ("A120", "B80"):
+        if label in strategic:
+            strategic[label] = _attach_reader(strategic[label], kind="calculation")
+    if "A120" in strategic:
+        strategic["A120"]["reader_how"] = (
+            f"A1 {strategic.get('A1', {}).get('value')} + A2 {strategic.get('A2', {}).get('value')} = "
+            f"{strategic['A120'].get('value')} 分。"
+        )
+    if "B80" in strategic:
+        strategic["B80"]["reader_how"] = (
+            "B1控制规模与B2战略价值按55%/45%合成，再由B4交班成熟度修正，"
+            f"得到 {strategic['B80'].get('value')} 分。"
+        )
+    if strategic:
+        details["strategic"] = [strategic[item["label"]] for item in details["strategic"]]
+
+    c_record = sources["C"][tid]
+    third = sources["third"][tid]
+    military = {item["label"]: item for item in details.get("military", [])}
+    specific_reason_keys = {
+        "C1实战交付": ("combat_delivery_basis", "C1_basis"),
+        "C2持续作战": ("operational_sustainability_basis", "C2_basis"),
+        "C3体系可靠性": ("system_reliability_basis", "C3_basis"),
+    }
+    for label, keys in specific_reason_keys.items():
+        if label in military:
+            summary = _first_text(*(c_record.get(key) for key in keys), c_record.get("strategy_chain_review_basis"))
+            military[label] = _attach_reader(
+                military[label], kind="judgment", record=c_record, summary=summary,
+                how="这是军事体系能力档输入，不单独加分；三项共同决定C50。",
+            )
+    if "C50" in military:
+        military["C50"] = _attach_reader(
+            military["C50"], kind="calculation", record=c_record,
+            summary=_formal_summary(c_record),
+            how=f"C1、C2、C3共同确定军事体系总档，再按固定表换算为 {military['C50'].get('value')} 分。",
+        )
+    if "普通成本扣分" in military:
+        cost_profile = third.get("global_cost_credit_profile", {})
+        military["普通成本扣分"] = _attach_reader(
+            military["普通成本扣分"], kind="judgment", record=cost_profile,
+            summary=_formal_summary(cost_profile) or "按本人正式统治窗口内的军队、军事资产、后勤与持续再动员成本裁定全局军事成本档。",
+            how=f"全局军事成本档按固定换分表折算为扣 {military['普通成本扣分'].get('value')} 分。",
+        )
+    if "ML扣分" in military:
+        ml_record = sources["ML"].get(person["ruler_id"], {})
+        military["ML扣分"] = _attach_reader(
+            military["ML扣分"], kind="judgment", record=ml_record,
+            summary=_formal_summary(ml_record) or "未触发额外军事净毁损扣分门。",
+            how=f"军事净毁损按ML0—ML4固定表换算为扣 {military['ML扣分'].get('value')} 分。",
+            source_refs=(sources["ML_path"],),
+        )
+    for label in ("实际扣分", "第三项合计"):
+        if label in military:
+            military[label] = _attach_reader(military[label], kind="calculation")
+    if "实际扣分" in military:
+        military["实际扣分"]["reader_how"] = (
+            f"普通成本扣分 {military.get('普通成本扣分', {}).get('value')} 与ML扣分 "
+            f"{military.get('ML扣分', {}).get('value')} 取较大值 = {military['实际扣分'].get('value')} 分。"
+        )
+    if "第三项合计" in military:
+        a120 = strategic.get("A120", {}).get("value")
+        b80 = strategic.get("B80", {}).get("value")
+        c50 = military.get("C50", {}).get("value")
+        debit = military.get("实际扣分", {}).get("value")
+        military["第三项合计"]["reader_how"] = (
+            f"A120 {a120} + B80 {b80} + C50 {c50} − 实际扣分 {debit} "
+            f"= {military['第三项合计'].get('value')} 分。"
+        )
+    if military:
+        details["military"] = [military[item["label"]] for item in details["military"]]
+
+    fourth = sources["fourth"][fid]
+    fourth_axes = {axis["axis"]: axis for axis in fourth.get("axis_results", [])}
+    civilization = {item["label"]: item for item in details.get("civilization", [])}
+    label_to_axis = {"A国家共同体": "A", "B教育与人才": "B", "C文化知识": "C"}
+    civ_names = {"A": "国家共同体与社会整合", "B": "教育可及与人才流动", "C": "知识生产与文化生态"}
+    for label, key in label_to_axis.items():
+        if label not in civilization:
+            continue
+        item = civilization[label]
+        axis = fourth_axes.get(key, {})
+        if item.get("value") == 0:
+            summary = f"现有材料复核后，没有满足“{civ_names[key]}”本轴计分门槛的独立文明增量，因此本轴调整为0。"
+        else:
+            direction = {"POSITIVE": "正向", "NEGATIVE": "负向", "BALANCED": "正负相抵"}.get(axis.get("direction"), "有符号")
+            summary = f"正式结算认定本人窗口在“{civ_names[key]}”形成可归责的{direction}净变化。"
+        civilization[label] = _attach_reader(
+            item, kind="judgment", summary=summary,
+            how=f"按本轴影响量级、档内位置和方向换算为 {item.get('value')} 分调整。",
+            record=axis,
+        )
+    if "第四项调整" in civilization:
+        values = [civilization[label].get("value") for label in label_to_axis if label in civilization]
+        civilization["第四项调整"] = _attach_reader(
+            civilization["第四项调整"], kind="calculation",
+            how=f"三轴有符号调整相加：{' + '.join(str(v) for v in values)} = {civilization['第四项调整'].get('value')} 分。",
+        )
+    if civilization:
+        details["civilization"] = [civilization[item["label"]] for item in details["civilization"]]
+
+    return details
+
+
 def detail_ref(ruler_id):
     """Use stable ruler ids as deterministic static shard names."""
     if not ruler_id or any(x in ruler_id for x in ("/", "\\")) or ruler_id in {".", ".."}:
@@ -167,6 +594,7 @@ def build(*, check=False, write=True):
     ready = {r["ruler_id"] for r in main if r["settlement_readiness"] == "COMPOSITE_READY"}
     if set(net) != ready:
         raise ValueError("Composite ranking does not match current ready pool")
+    net_reader_sources = load_net_reader_sources(ROOT)
     impact_config = config["historical_impact_assessment"]
     impact = load_json(ROOT / impact_config["json"])
     history = index(impact["records"])
@@ -196,7 +624,10 @@ def build(*, check=False, write=True):
     for person in main:
         rid = person["ruler_id"]
         record = pick(person, ["ruler_id", "ruler_name", "polity", "actual_power_window", "settlement_readiness"])
-        record.update(net=pick(net[rid], net_fields) if rid in net else None,
+        projected_net = pick(net[rid], net_fields) if rid in net else None
+        if projected_net:
+            projected_net["component_details"] = project_net_explanations(person, net[rid], net_reader_sources)
+        record.update(net=projected_net,
                       impact=history[rid], axes={code: axis_projection(rows[rid], axis_fields) for code, rows in axes.items()},
                       supplementary=False)
         records.append(record)
