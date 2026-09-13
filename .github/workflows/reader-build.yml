@@ -12,6 +12,7 @@ on:
       - reader/readability.js
       - reader/public-copy.json
       - reader/build.py
+      - src/emperor_v4/evaluation/profile_text_quality.py
       - tests/test_reader.py
       - tests/test_reader_home_interactions.py
       - tests/test_reader_readability.py
@@ -38,6 +39,9 @@ jobs:
 
       - name: Install dependencies
         run: python -m pip install -e . -r reader/requirements.txt pytest
+
+      - name: Audit profile public text
+        run: python -m emperor_v4.evaluation.profile_text_quality
 
       - name: Build reader
         run: python reader/build.py
