@@ -777,6 +777,24 @@ window.addEventListener('hashchange',route);route();
 "use strict";
 
 (() => {
+  const baseReaderText = readerText;
+  const publicReaderText = value => baseReaderText(value)
+    .replace(/\bMIXED_NEGATIVE\b/g, "正负混合、以负向为主")
+    .replace(/\bMIXED_POSITIVE\b/g, "正负混合、以正向为主")
+    .replace(/\bNEGATIVE\b/g, "负向")
+    .replace(/\bPOSITIVE\b/g, "正向")
+    .replace(/\bMIXED\b/g, "正负混合")
+    .replace(/\bCOUNTEREVIDENCE_FOUND\b/g, "已找到明确反例")
+    .replace(/\bBACKGROUND_VALIDATION\b/g, "背景核验")
+    .replace(/\bAXIS_OUT_WITH_REASON\b/g, "不计入本轴（有明确理由）")
+    .replace(/\bFORMAL_CURRENT\b/g, "当前正式记录")
+    .replace(/\bSCORING_PARENT\b/g, "主要计分证据")
+    .replace(/\bREFUSAL_OR_RECURRENCE\b/g, "拒绝更新或同类复发情境")
+    .replace(/\bTRUTH_ACQUISITION\b/g, "求真取证情境");
+
+  // Future renders use the same public translation before axis prose is created.
+  readerText = publicReaderText;
+
   function foldHomeStatus() {
     const note = document.querySelector("#screen .footer-note:not([data-readability-status])");
     if (!note) return;
@@ -882,11 +900,27 @@ window.addEventListener('hashchange',route);route();
     }
   }
 
+  function translateResidualAxisCodes() {
+    for (const details of document.querySelectorAll("#screen .axis-evidence:not([data-public-terms])")) {
+      const walker = document.createTreeWalker(details, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      for (const node of nodes) {
+        const parent = node.parentElement;
+        if (!parent || parent.closest("a, code, .sources, .unavailable-source")) continue;
+        const translated = publicReaderText(node.nodeValue);
+        if (translated !== node.nodeValue) node.nodeValue = translated;
+      }
+      details.dataset.publicTerms = "done";
+    }
+  }
+
   function enhance() {
     foldHomeStatus();
     compactComparisonEvidence();
     simplifyDifferenceToggle();
     publicAxisMetadata();
+    translateResidualAxisCodes();
   }
 
   new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});
