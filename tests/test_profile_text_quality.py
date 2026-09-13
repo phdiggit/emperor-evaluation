@@ -1,4 +1,4 @@
-from emperor_v4.evaluation.profile_text_quality import audit_record
+from emperor_v4.evaluation.profile_text_quality import Issue, audit_record, print_report
 from emperor_v4.evaluation.profile_text_cleanup import prune_redundant_limitations
 
 
@@ -40,3 +40,16 @@ def test_duplicate_limitation_is_hard_error_and_cleanup_is_lossless():
     assert removed == 1
     assert record["grade_basis"] == text
     assert record["limitations"] == ["另有一条独立证据边界。"]
+
+
+def test_console_prints_all_errors_but_caps_warning_lines(capsys):
+    issues = [
+        Issue("error", "C2", "RULER-TEST", "测试人物", "grade_basis", "truncated_fragment", "硬错误"),
+        Issue("warning", "C2", "RULER-TEST", "测试人物", "grade_basis", "workflow_language", "警告一"),
+        Issue("warning", "C4", "RULER-TEST-2", "测试人物二", "position_basis", "exact_duplicate", "警告二"),
+    ]
+    print_report(issues, warning_sample=1)
+    output = capsys.readouterr().out
+    assert "|error|" in output
+    assert output.count("|warning|") == 1
+    assert "omitted 1 warning lines" in output
