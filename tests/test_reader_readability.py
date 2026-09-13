@@ -22,6 +22,8 @@ def test_public_reader_copy_stays_reader_facing():
     assert "这个分数怎么来的？" in html
     assert "换一套合理权重，名次会变化多少？" in html
     assert "表示证据与归责判断的稳定程度，不表示影响大小。" in html
+    assert "只看不同项" in html
+    assert "隐藏相同数值／等级" not in html
     assert "M2经终局核对仍无可证能力者列E，并保留范围说明。" not in html
     assert "材料级别 ${esc(a.axis_evidence_level" not in html
     assert "${pending(a)?'历史数值':'雷达投影'}" not in html
