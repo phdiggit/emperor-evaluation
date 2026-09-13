@@ -14,6 +14,7 @@ on:
       - reader/lazy-details.js
       - reader/public-copy.json
       - reader/build.py
+      - reader/serve.py
       - src/emperor_v4/evaluation/profile_text_quality.py
       - src/emperor_v4/evaluation/profile_text_cleanup.py
       - config/profile/profile-text-repairs.json
@@ -22,6 +23,7 @@ on:
       - tests/test_reader_home_interactions.py
       - tests/test_reader_readability.py
       - tests/test_reader_person_readability.py
+      - tests/test_reader_lazy_details.py
       - config/project.yml
       - config/common/**
       - docs/评分结算/**
@@ -73,7 +75,7 @@ jobs:
         run: python reader/build.py
 
       - name: Test reader
-        run: python -m pytest tests/test_profile_text_quality.py tests/test_reader.py tests/test_reader_home_interactions.py tests/test_reader_readability.py tests/test_reader_person_readability.py -q
+        run: python -m pytest tests/test_profile_text_quality.py tests/test_reader.py tests/test_reader_home_interactions.py tests/test_reader_readability.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py -q
 
       - name: Check whitespace
         run: git diff --check
