@@ -21,3 +21,9 @@ def test_home_interactions_keep_compare_control_separate():
     assert "openPersonSection(row.dataset.homePerson" in script
     assert "applyPolityFilter" in script
     assert "applyImpactFilter" in script
+
+
+def test_home_interactions_reenhance_rows_after_route_return():
+    script = (ROOT / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "new MutationObserver(enhanceHomeRows).observe(screen" in script
+    assert ".observe(rows" not in script
