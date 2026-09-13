@@ -11,6 +11,7 @@ def test_readability_layer_is_embedded_in_generated_reader():
     assert "function foldHomeStatus()" in html
     assert "function compactComparisonEvidence()" in html
     assert "function simplifyDifferenceToggle()" in html
+    assert "function publicGradeHelp()" in html
     assert "function publicAxisMetadata()" in html
     assert "function translateResidualAxisCodes()" in html
 
@@ -57,3 +58,11 @@ def test_profile_runtime_translates_workflow_terms_without_fixed_ruler_data():
     assert '复验/g, "复核"' in script
     assert '跨轴/g, "跨维度"' in script
     assert '消费点/g, "评价落点"' in script
+
+
+def test_grade_help_explains_public_scales_without_fixed_ruler_data():
+    script = (ROOT / "reader/readability.js").read_text(encoding="utf-8")
+    assert "同一字母等级中的较低、中间和较高位置" in script
+    assert "人物画像与历史影响使用不同尺度" in script
+    assert "C5只评价权力运用风格与克制，不当作能力高低" in script
+    assert "最终等级与四个维度分别判断，不做简单平均" in script
