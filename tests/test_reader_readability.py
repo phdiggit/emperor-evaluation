@@ -47,3 +47,13 @@ def test_profile_runtime_translates_internal_direction_enums_without_fixed_ruler
     assert 'COUNTEREVIDENCE_FOUND\\b/g, "已找到明确反例"' in script
     assert 'AXIS_OUT_WITH_REASON\\b/g, "不计入本轴（有明确理由）"' in script
     assert "readerText = publicReaderText" in script
+
+
+def test_profile_runtime_translates_workflow_terms_without_fixed_ruler_data():
+    script = (ROOT / "reader/readability.js").read_text(encoding="utf-8")
+    assert '父链/g, "证据链"' in script
+    assert '裁档/g, "定档"' in script
+    assert '下沿/g, "较低边界"' in script
+    assert '复验/g, "复核"' in script
+    assert '跨轴/g, "跨维度"' in script
+    assert '消费点/g, "评价落点"' in script
