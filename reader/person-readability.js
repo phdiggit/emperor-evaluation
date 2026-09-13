@@ -17,6 +17,16 @@
     node => node.classList && node.classList.contains("label")
   );
 
+  const c5PublicText = value => {
+    if (Array.isArray(value)) return value.map(c5PublicText);
+    if (typeof value !== "string") return value;
+    return value
+      .replace(/\bC5\b/g, "本轴")
+      .replace(/COUNTEREVIDENCE_FOUND/g, "已找到明确反例")
+      .replace(/高档反例审查/g, "反例检查")
+      .replace(/父链/g, "证据链");
+  };
+
   function replaceLead(details, labelText, html) {
     const label = directLabels(details)[0];
     if (!label || !html) return;
@@ -38,8 +48,10 @@
   function publicEvidencePoints(points) {
     if (!Array.isArray(points) || !points.length) return "";
     return `<details class="public-evidence-points"><summary>查看代表性证据</summary>${points.map(point => {
-      const title = point && point.title ? `<div class="label">${esc(point.title)}</div>` : "";
-      return `${title}${axisProse(point && point.details ? point.details : "")}`;
+      const publicTitle = point && point.title ? readerText(c5PublicText(point.title)) : "";
+      const title = publicTitle ? `<div class="label">${esc(publicTitle)}</div>` : "";
+      const details = point && point.details ? c5PublicText(point.details) : "";
+      return `${title}${axisProse(details)}`;
     }).join("")}</details>`;
   }
 
@@ -47,7 +59,10 @@
     const contexts = Array.isArray(axis.representative_contexts) ? axis.representative_contexts : [];
     if (!contexts.length) return axisProse(axis.grade_basis || axis.typical_pattern);
     return contexts.map(context => {
-      const title = context.title ? `<div class="public-context-title">${esc(context.title)}</div>` : "";
+      const rawTitle = String(context.title || "").trim();
+      const title = rawTitle && !/^(?:主要)?父(?:情境|链)/.test(rawTitle)
+        ? `<div class="public-context-title">${esc(rawTitle)}</div>`
+        : "";
       const body = context.mechanism || context.cycle_basis || context.basis || "";
       return `<div class="context-story public-context">${title}${axisProse(body)}</div>`;
     }).join("");
