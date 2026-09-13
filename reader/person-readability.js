@@ -185,13 +185,19 @@
 
   function enhanceC5Overview(record) {
     const axis = record.axes?.C5;
-    if (!axis?.person_type) return;
+    if (!axis) return;
     const row = document.querySelector("#person-capability .style-axis .axis-row");
-    if (!row || row.querySelector(".c5-type")) return;
-    const type = document.createElement("div");
-    type.className = "c5-type subline";
-    type.textContent = axis.person_type;
-    row.append(type);
+    if (!row || row.querySelector(".c5-scale-note")) return;
+    if (axis.person_type) {
+      const type = document.createElement("div");
+      type.className = "c5-type subline";
+      type.textContent = axis.person_type;
+      row.append(type);
+    }
+    const note = document.createElement("div");
+    note.className = "c5-scale-note subline";
+    note.textContent = "C5越接近S，表示越能在压力和个人利益面前约束自身权力；越接近E，表示强制、报复或特权越容易越过合理边界。它描述权力风格，不计入八项能力雷达。";
+    row.append(note);
   }
 
   function rewriteHistoryChains(impact) {
