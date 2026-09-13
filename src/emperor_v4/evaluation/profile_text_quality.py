@@ -93,7 +93,7 @@ def audit_record(axis: str, record: dict) -> list[Issue]:
     if basis and position:
         nb, np = _norm(basis), _norm(position)
         if nb and nb == np:
-            _add(issues, "error", axis, record, "grade_basis/position_basis", "exact_duplicate", basis)
+            _add(issues, "warning", axis, record, "grade_basis/position_basis", "exact_duplicate", basis)
         elif min(len(nb), len(np)) >= 28 and SequenceMatcher(None, nb, np).ratio() >= 0.93:
             ratio = SequenceMatcher(None, nb, np).ratio()
             _add(issues, "warning", axis, record, "grade_basis/position_basis", "near_duplicate", f"similarity={ratio:.2f}")
