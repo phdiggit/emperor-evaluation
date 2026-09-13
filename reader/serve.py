@@ -16,6 +16,7 @@ from markdown_it import MarkdownIt
 
 
 ROOT = Path(__file__).resolve().parents[1]
+DETAILS_DIR = ROOT / 'reader/data/people'
 sys.path.insert(0, str(ROOT / 'src'))
 from emperor_v4.evaluation.formal_json_store import load_json
 
@@ -86,11 +87,21 @@ def json_page(payload):
     return template.replace('__JSON_DATA__', data).encode('utf-8')
 
 
+def is_reader_detail_shard(path):
+    try:
+        path.resolve().relative_to(DETAILS_DIR.resolve())
+        return path.suffix.lower() == '.json'
+    except ValueError:
+        return False
+
+
 class ReaderHandler(SimpleHTTPRequestHandler):
     def send_head(self):
         parsed = urlsplit(self.path)
         path = Path(self.translate_path(parsed.path))
-        if path.suffix.lower() == '.json' and path.is_file() and 'raw' not in parse_qs(parsed.query):
+        # Generated reader detail shards are browser data, not source-document views.
+        # Serve them as raw JSON so the same lazy-loading path works locally and on Pages.
+        if path.suffix.lower() == '.json' and path.is_file() and not is_reader_detail_shard(path) and 'raw' not in parse_qs(parsed.query):
             data = json_page(load_json(path))
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
