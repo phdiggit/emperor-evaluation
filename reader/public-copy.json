@@ -146,5 +146,9 @@
   {
     "from": "只看不同项",
     "to": "隐藏相同数值／等级"
+  },
+  {
+    "from": "<details class=\"metadata\"><summary>材料与正式记录</summary><p class=\"subline\">${esc(mode(a.output_mode))} · 置信度 ${esc(conf(a.confidence))} · 材料级别 ${esc(a.axis_evidence_level||'未声明')} · ${c} ${ungraded(a)?'无档结案（不发布数值）':pending(a)?'历史保留值（不作当前等级）：':'正式档位：'}${esc(a.axis_grade||'')} ${esc(pos(a.position))} · ${pending(a)?'历史数值':'雷达投影'} ${a.radar_value??'无'}</p>",
+    "to": "<details class=\"metadata\"><summary>专业信息与正式记录</summary><p class=\"subline\">展示模式：${esc(mode(a.output_mode))} · 判断把握：${esc(conf(a.confidence))} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>"
   }
 ]
