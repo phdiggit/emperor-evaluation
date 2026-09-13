@@ -42,6 +42,17 @@ def test_duplicate_limitation_is_hard_error_and_cleanup_is_lossless():
     assert record["limitations"] == ["另有一条独立证据边界。"]
 
 
+def test_direction_enum_in_reader_facing_text_is_warning_only():
+    record = {
+        "ruler_id": "RULER-TEST",
+        "ruler_name": "测试人物",
+        "counterpattern": "这是一个 MIXED_NEGATIVE / MI2_LIFECYCLE 的合成测试情境。",
+    }
+    issues = audit_record("C2", record)
+    assert ("warning", "raw_internal_code") in kinds(issues)
+    assert not any(issue.severity == "error" for issue in issues)
+
+
 def test_console_prints_all_errors_but_caps_warning_lines(capsys):
     issues = [
         Issue("error", "C2", "RULER-TEST", "测试人物", "grade_basis", "truncated_fragment", "硬错误"),
