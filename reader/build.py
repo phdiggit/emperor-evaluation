@@ -1,4 +1,4 @@
-"""Build the offline reading prototype from registered settlements; never adjudicate."""
+"""Build the static reading layer from registered settlements; never adjudicate."""
 from pathlib import Path
 import json
 import sys
@@ -9,6 +9,7 @@ from urllib.parse import unquote
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
+DETAILS_DIR = ROOT / "reader/data/people"
 sys.path.insert(0, str(ROOT / "src"))
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_parent_schema import parent_chains
@@ -91,6 +92,70 @@ def axis_projection(row, fields):
     return result
 
 
+def detail_ref(ruler_id):
+    """Use stable ruler ids as deterministic static shard names."""
+    if not ruler_id or any(x in ruler_id for x in ("/", "\\")) or ruler_id in {".", ".."}:
+        raise ValueError(f"Unsafe ruler_id for reader detail shard: {ruler_id!r}")
+    return f"data/people/{ruler_id}.json"
+
+
+def axis_summary(axis):
+    """Keep only fields needed by overview grade rendering before detail fetch."""
+    return pick(axis, [
+        "axis_grade", "position", "output_mode", "applicability_status",
+        "adjudication_state", "display_point_only",
+    ])
+
+
+def record_summary(record):
+    """Project a small, self-sufficient overview row without evidence prose."""
+    net = record.get("net")
+    impact = record["impact"]
+    summary_impact = pick(impact, [
+        "identity_label", "public_grade", "impact_nature", "confidence", "reading_start_year",
+    ])
+    summary_impact["dimensions"] = {
+        key: pick(value, ["grade"])
+        for key, value in impact.get("dimensions", {}).items()
+        if isinstance(value, dict)
+    }
+    summary = pick(record, [
+        "ruler_id", "ruler_name", "polity", "actual_power_window",
+        "settlement_readiness", "supplementary",
+    ])
+    summary["net"] = pick(net, [
+        "rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
+        "second_item_score", "third_item_score", "fourth_item_adjustment",
+    ]) if net else None
+    summary["impact"] = summary_impact
+    summary["axes"] = {code: axis_summary(axis) for code, axis in record.get("axes", {}).items()}
+    summary["detail_ref"] = detail_ref(record["ruler_id"])
+    summary["detail_loaded"] = False
+    return summary
+
+
+def source_availability(value):
+    return {
+        ref: (ROOT / source_file(ref)).exists()
+        for ref in sorted(local_sources(value))
+    }
+
+
+def detail_payload(record):
+    """Full per-person data fetched only when a person or comparison is opened."""
+    return {
+        "record": record,
+        "source_availability": source_availability(record),
+    }
+
+
+def serialized_json(value, *, html_safe=False):
+    text = json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    if html_safe:
+        text = text.replace("<", "\\u003c")
+    return text
+
+
 def build(*, check=False, write=True):
     config = yaml.safe_load((ROOT / "config/project.yml").read_text(encoding="utf-8"))
     pool = load_json(ROOT / config["canonical_ruler_pool"]["json"])
@@ -142,26 +207,37 @@ def build(*, check=False, write=True):
                             actual_power_window=row.get("reference_power_window", ""),
                             settlement_readiness="SUPPLEMENTARY", net=None, axes={}, impact=row, supplementary=True))
     index(records)
-    data = dict(records=records, main_count=len(main), ranked_count=len(net),
-                weight_sensitivity=ranking.get("weight_sensitivity", {}),
-                supplementary_count=len(records)-len(main), formula=ranking["formula"],
-                capability_axes=profile["capability_axes"], independent_axes=profile["independent_profile_axes"],
-                axis_order=profile["axis_order"],
-                axis_specs={k: pick(v, ["name", "json", "markdown", "contract"]) for k,v in profile["settled_axes"].items()},
-                impact_grades=impact_config["public_grade_order"],
-                impact_labels=impact["public_label_mapping"],
-                sources=dict(net=scoring["composite_ranking_json"], impact=impact_config["json"],
-                             net_reader=scoring["composite_ranking_markdown"], impact_reader=impact_config["markdown"]))
-    data["source_availability"] = {
-        ref: (ROOT / source_file(ref)).exists()
-        for ref in sorted(local_sources(data))
-    }
-    # HTML script embedding must not allow source prose to terminate its data element.
-    payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+
+    common = dict(main_count=len(main), ranked_count=len(net),
+                  weight_sensitivity=ranking.get("weight_sensitivity", {}),
+                  supplementary_count=len(records)-len(main), formula=ranking["formula"],
+                  capability_axes=profile["capability_axes"], independent_axes=profile["independent_profile_axes"],
+                  axis_order=profile["axis_order"],
+                  axis_specs={k: pick(v, ["name", "json", "markdown", "contract"]) for k,v in profile["settled_axes"].items()},
+                  impact_grades=impact_config["public_grade_order"],
+                  impact_labels=impact["public_label_mapping"],
+                  sources=dict(net=scoring["composite_ranking_json"], impact=impact_config["json"],
+                               net_reader=scoring["composite_ranking_markdown"], impact_reader=impact_config["markdown"]))
+
+    # Full return value preserves build/test semantics. Only the browser bootstrap is slimmed.
+    data = dict(records=records, **common)
+    data["source_availability"] = source_availability(data)
+
+    index_data = dict(records=[record_summary(record) for record in records], **common)
+    index_data["detail_schema_version"] = "reader-person-detail-v1"
+    index_data["source_availability"] = source_availability(common)
+
+    detail_files = {}
+    for record in records:
+        relative = detail_ref(record["ruler_id"])
+        detail_files[Path(relative).name] = serialized_json(detail_payload(record)) + "\n"
+
+    payload = serialized_json(index_data, html_safe=True)
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")
     template = apply_public_copy(template)
     link_effects = (ROOT / "reader/link-effects.css").read_text(encoding="utf-8").strip()
     readability_css = (ROOT / "reader/readability.css").read_text(encoding="utf-8").strip()
+    lazy_details = (ROOT / "reader/lazy-details.js").read_text(encoding="utf-8").strip()
     home_interactions = (ROOT / "reader/home-interactions.js").read_text(encoding="utf-8").strip()
     readability_js = (ROOT / "reader/readability.js").read_text(encoding="utf-8").strip()
     person_readability_js = (ROOT / "reader/person-readability.js").read_text(encoding="utf-8").strip()
@@ -172,23 +248,45 @@ def build(*, check=False, write=True):
         raise ValueError("Reader template must contain a body close tag")
     template = template.replace(
         "</body>",
-        f"<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n<script>\n{person_readability_js}\n</script>\n</body>",
+        f"<script>\n{lazy_details}\n</script>\n<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n<script>\n{person_readability_js}\n</script>\n</body>",
         1,
     )
     output = ROOT / "reader/index.html"
     if template.count("__READER_DATA__") != 1:
         raise ValueError("Reader template must contain exactly one data placeholder")
     rendered = template.replace("__READER_DATA__", payload)
+
+    expected_detail_names = set(detail_files)
+    actual_detail_names = {p.name for p in DETAILS_DIR.glob("*.json")} if DETAILS_DIR.exists() else set()
     if check:
         if not output.exists() or output.read_bytes() != rendered.encode("utf-8"):
             raise ValueError("Reader is stale; run python reader/build.py")
+        if actual_detail_names != expected_detail_names:
+            missing = sorted(expected_detail_names - actual_detail_names)
+            extra = sorted(actual_detail_names - expected_detail_names)
+            raise ValueError(f"Reader detail shards are stale: missing={missing}, extra={extra}")
+        for name, content in detail_files.items():
+            if (DETAILS_DIR / name).read_bytes() != content.encode("utf-8"):
+                raise ValueError(f"Reader detail shard is stale: {name}")
     elif write:
         output.write_text(rendered, encoding="utf-8", newline="\n")
-    print(f"Reader built: main={len(main)}, ranked={len(net)}, supplementary={len(records)-len(main)}")
+        DETAILS_DIR.mkdir(parents=True, exist_ok=True)
+        for stale in DETAILS_DIR.glob("*.json"):
+            if stale.name not in expected_detail_names:
+                stale.unlink()
+        for name, content in detail_files.items():
+            (DETAILS_DIR / name).write_text(content, encoding="utf-8", newline="\n")
+
+    index_kib = len(rendered.encode("utf-8")) / 1024
+    detail_mib = sum(len(content.encode("utf-8")) for content in detail_files.values()) / (1024 * 1024)
+    print(
+        f"Reader built: main={len(main)}, ranked={len(net)}, supplementary={len(records)-len(main)}, "
+        f"index={index_kib:.0f}KiB, details={len(detail_files)} files/{detail_mib:.1f}MiB"
+    )
     return data
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--check", action="store_true", help="Check current data/template parity without writing")
+    parser.add_argument("--check", action="store_true", help="Check current data/template/detail parity without writing")
     build(check=parser.parse_args().check)
