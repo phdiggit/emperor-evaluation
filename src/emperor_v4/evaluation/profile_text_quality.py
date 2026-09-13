@@ -140,7 +140,15 @@ def report_payload(issues: list[Issue]) -> dict:
     }
 
 
-def print_report(issues: list[Issue]) -> None:
+def _print_issue(issue: Issue) -> None:
+    print("QUALITY|{severity}|{axis}|{ruler_name}|{ruler_id}|{field}|{kind}|{detail}".format(**issue.__dict__))
+
+
+def print_report(issues: list[Issue], warning_sample: int = 40) -> None:
+    """Keep CI readable: print every hard error, but only a bounded warning sample.
+
+    The structured JSON report still contains every issue and is the source for full review.
+    """
     payload = report_payload(issues)
     summary = payload["summary"]
     print(
@@ -151,17 +159,35 @@ def print_report(issues: list[Issue]) -> None:
         print("kinds: " + ", ".join(f"{key}={value}" for key, value in summary["by_kind"].items()))
     if summary["by_axis"]:
         print("axes: " + ", ".join(f"{key}={value}" for key, value in summary["by_axis"].items()))
-    for issue in issues:
-        print("QUALITY|{severity}|{axis}|{ruler_name}|{ruler_id}|{field}|{kind}|{detail}".format(**issue.__dict__))
+
+    errors = [issue for issue in issues if issue.severity == "error"]
+    warnings = [issue for issue in issues if issue.severity == "warning"]
+    for issue in errors:
+        _print_issue(issue)
+    sample = warnings[:max(0, warning_sample)]
+    for issue in sample:
+        _print_issue(issue)
+    omitted = len(warnings) - len(sample)
+    if omitted:
+        print(
+            f"profile-text-quality: omitted {omitted} warning lines from console; "
+            "full warning details are preserved in the structured JSON artifact"
+        )
 
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fail-on", choices=("none", "error", "warning"), default="none")
     parser.add_argument("--output", type=Path, help="Write the structured audit report as UTF-8 JSON")
+    parser.add_argument(
+        "--warning-sample", type=int, default=40, metavar="N",
+        help="Maximum warning lines printed to the console; the JSON report always keeps all warnings",
+    )
     args = parser.parse_args(argv)
+    if args.warning_sample < 0:
+        parser.error("--warning-sample must be >= 0")
     issues = audit_all()
-    print_report(issues)
+    print_report(issues, warning_sample=args.warning_sample)
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(report_payload(issues), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
