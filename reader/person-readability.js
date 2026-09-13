@@ -54,9 +54,13 @@
     .replace(/\b([ABCD]\d?)-([0-9]+)\b/g, "$1第$2档")
     .replace(/\bML([0-4])\b/g, "军事净毁损第$1级")
     .replace(/\bCIV([0-4])\b/g, "文明影响量级$1")
-    .replace(/\bH([0-5])\b/g, "交班第$1级")
-    .replace(/\bL([0-5])\b/g, "损失修正第$1级")
     .replace(/\bDA([0-9]+)\b/g, "破坏放大第$1级")
+    .replace(/\bM4\b/g, "跨阶段重要机制")
+    .replace(/\bM3\b/g, "重要机制")
+    .replace(/\bM2\b/g, "中等强度机制")
+    .replace(/\bM1\b/g, "局部机制")
+    .replace(/S\+/g, "高权重正向节点")
+    .replace(/S[−-]1?/g, "高权重负向节点")
     .replace(/\bHIGH\b/g, "高位")
     .replace(/\bMID\b/g, "中位")
     .replace(/\bLOW\b/g, "低位")
@@ -69,8 +73,70 @@
     .replace(/\bNEGATIVE\b/g, "负向")
     .replace(/\bBALANCED\b/g, "正负相抵")
     .replace(/\bHYBRID\b/g, "混合归责")
+    .replace(/未闭合独立计分链/g, "没有形成可独立确认的正向表现")
+    .replace(/未闭合独立正向链/g, "没有形成可独立确认的正向表现")
+    .replace(/不拆分重复扣分/g, "不重复计算")
+    .replace(/不重复消费/g, "不重复计算")
     .replace(/\bcore\b/gi, "核心链")
-    .replace(/\bsupport\b/gi, "支撑链");
+    .replace(/\bsupport\b/gi, "支撑链")
+    .replace(/正向\s*\d+(?:\.\d+)?/g, "")
+    .replace(/负向\s*\d+(?:\.\d+)?/g, "")
+    .replace(/合计\s*\d+(?:\.\d+)?/g, "")
+    .replace(/；\s*；/g, "；")
+    .replace(/，\s*；/g, "；")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const netPublicIntro = {
+    "A制度建设": "看本人是否建立了真正运行、能够延续的制度，同时把制度性副作用一起计入净效果。",
+    "B1官僚治理": "看选任、奖惩、职责问责和命令落实，是否形成稳定有效的官僚执行。",
+    "B2反馈与约束": "看真实信息能否上达、错误能否纠正，以及监察和复核能否实际约束权力。",
+    "C1民生": "看普通家庭在本人统治主要阶段的基本生计状态，并对严重低谷作独立修正。",
+    "C2经济财政": "看财政、生产、流通与国家汲取之间的净状态，而不是只看国库或单项政策。",
+    "C3社会安全": "看社会秩序、人身安全和大范围破坏的实际结果，并区分局部事件与主要阶段。",
+    "C4恢复与成本": "看危机后的恢复成果，同时扣除本人造成或放大的民力与治理成本。",
+    "D1继任行政连续性": "看权力交接后行政机器、政策执行和基本治理能否继续运转。",
+    "D3政权交接稳定": "看交接本身是否造成中枢失控、内战或严重继承危机。",
+    "A1": "看安全与控制状态相对接手时发生了什么变化，并只计本人可归责部分。",
+    "A2": "看重要战略目标最终取得、维持或丧失了多少实际安全收益。",
+    "B1": "看本人新增或稳住了多少有效控制规模，避免把继承存量重复算作成果。",
+    "B2": "看取得的控制与军事成果有多大战略价值，而不是只按面积或战役数量计分。",
+    "B4": "看这些安全成果能否稳定交班，而不是在本人离场前后迅速失效。",
+    "C1实战交付": "看军事体系在真实高压任务中能否把国家资源转化为可兑现的战场结果。",
+    "C2持续作战": "看军事体系能否跨阶段持续动员、补充和完成任务。",
+    "C3体系可靠性": "看体系在不同战区和压力下是否稳定，还是频繁出现结构性失灵。",
+    "普通成本扣分": "看本人统治窗口内战争对本方军队、军事资产、后勤和持续动员造成的实际成本。",
+    "ML扣分": "只在重大军事净毁损同时满足结果、成本和本人责任门槛时追加扣分，普通失败不会自动触发。",
+    "A国家共同体": "看本人窗口对不同区域、群体与身份之间的参与、接纳和排斥造成了什么净变化。",
+    "B教育与人才": "看教育供给、学习机会和跨地域跨身份流动是否出现可归责的真实变化。",
+    "C文化知识": "看知识生产、保存、传播和文化生态是否出现可归责的真实变化。",
+  };
+
+  function conciseNetText(value, maxChars = 220) {
+    let text = netPublicText(value)
+      .replace(/各为负向重要机制与普通高权重负向节点/g, "构成重要负向机制")
+      .replace(/合并为混负重要机制/g, "合并判断为明显负向机制")
+      .replace(/合为一个平衡中等强度机制/g, "合并判断为正负相抵的中等机制")
+      .replace(/制度净值/g, "正负相抵后的制度结果")
+      .replace(/主档/g, "主要等级")
+      .replace(/裁为/g, "判断为")
+      .replace(/定档/g, "确定等级")
+      .replace(/出票/g, "重复计分")
+      .replace(/消费/g, "计入")
+      .replace(/父任务/g, "上层任务")
+      .replace(/父链/g, "证据链")
+      .replace(/归责/g, "责任归属")
+      .replace(/净账/g, "正负净效果")
+      .replace(/独立门槛/g, "独立成立条件");
+    if (text.length <= maxChars) return text;
+    const parts = text.split(/(?<=[。！？；])/).filter(Boolean);
+    let result = "";
+    for (const part of parts) {
+      if (result && result.length + part.length > maxChars) break;
+      result += part;
+    }
+    return result || `${text.slice(0, maxChars - 1)}…`;
+  }
 
   function evidenceSection(title) {
     return Array.from(document.querySelectorAll("#person-evidence > section.panel")).find(section => {
@@ -108,7 +174,7 @@
   };
 
   function netValue(item) {
-    if (item.value == null) return "—";
+    if (item.value == null) return item.unit === "不单独计分" ? "不单独计分" : "—";
     const signed = item.value > 0 && item.label?.includes("文明") ? `+${item.value}` : String(item.value);
     return `${signed}${item.unit ? ` ${item.unit}` : ""}`;
   }
@@ -125,17 +191,25 @@
   }
 
   function netJudgment(item, record) {
-    const summary = item.reader_summary
-      ? `<div class="label">为什么这样评</div>${prose(netPublicText(item.reader_summary))}`
+    const intro = netPublicIntro[item.label] || "";
+    const decision = item.reader_summary ? conciseNetText(item.reader_summary) : "";
+    const summaryText = [intro, decision].filter(Boolean).join("\n");
+    const summary = summaryText
+      ? `<div class="label">为什么这样评</div>${prose(summaryText)}`
       : "";
-    const highlights = Array.isArray(item.reader_highlights) && item.reader_highlights.length
-      ? `<div class="label">关键事实</div><ul>${item.reader_highlights.map(text => `<li>${esc(netPublicText(text))}</li>`).join("")}</ul>`
+    const highlightTexts = (Array.isArray(item.reader_highlights) ? item.reader_highlights : [])
+      .map(text => conciseNetText(text, 150))
+      .filter((text, index, values) => text && text !== decision && values.indexOf(text) === index);
+    const highlights = highlightTexts.length
+      ? `<div class="label">关键事实</div><ul>${highlightTexts.map(text => `<li>${esc(text)}</li>`).join("")}</ul>`
       : "";
-    const boundary = item.reader_boundary
-      ? `<div class="label">限制与边界</div>${prose(netPublicText(item.reader_boundary))}`
+    const boundaryText = item.reader_boundary ? conciseNetText(item.reader_boundary, 180) : "";
+    const boundary = boundaryText
+      ? `<div class="label">限制与边界</div>${prose(boundaryText)}`
       : "";
-    const how = item.reader_how
-      ? `<details><summary>这个分怎么算？</summary>${prose(netPublicText(item.reader_how))}</details>`
+    const rawHow = String(item.reader_how || "");
+    const how = rawHow && !/\bNone\b/.test(rawHow)
+      ? `<details><summary>这个分怎么算？</summary>${prose(netPublicText(rawHow))}</details>`
       : "";
     const fullBasis = item.reader_full_basis
       ? `<details><summary>完整裁决依据（原文）</summary>${prose(netPublicText(item.reader_full_basis))}</details>`
@@ -149,6 +223,7 @@
 
   function netCalculation(item) {
     const how = item.reader_how || `${item.label}为计算项，具体公式见完整计分账本。`;
+    if (/\bNone\b/.test(String(how))) return "";
     return `<div class="component"><span><strong>${esc(item.label)}</strong><small>${esc(netPublicText(how))}</small></span><b>${esc(netValue(item))}</b></div>`;
   }
 
@@ -163,13 +238,23 @@
 
     for (const [key, items] of groups) {
       if (!Array.isArray(items)) continue;
-      const judgments = items.filter(item => item.reader_kind === "judgment");
-      const calculations = items.filter(item => item.reader_kind === "calculation");
-      if (!judgments.length && !calculations.length) continue;
-
       const group = document.createElement("section");
       group.className = "net-public-group";
-      group.innerHTML = `<h3>${esc(netGroupNames[key] || groupNames[key] || key)}</h3>${judgments.map(item => netJudgment(item, record)).join("")}${calculations.length ? `<details class="net-calculations"><summary>这一组怎么算出来？</summary>${calculations.map(netCalculation).join("")}</details>` : ""}`;
+      const title = `<h3>${esc(netGroupNames[key] || groupNames[key] || key)}</h3>`;
+
+      const firstNotApplicable = key === "first" && items.every(item =>
+        item.value == null || (item.label === "附加F" && Number(item.value) === 0)
+      );
+      if (firstNotApplicable) {
+        group.innerHTML = `${title}<p class="notice">本项只评价建国、复国或统一创业主链；该人物不适用，因此这一项不参与净收益计分。</p>`;
+        intro.append(group);
+        continue;
+      }
+
+      const judgments = items.filter(item => item.reader_kind === "judgment");
+      const calculations = items.filter(item => item.reader_kind === "calculation" && item.value != null);
+      if (!judgments.length && !calculations.length) continue;
+      group.innerHTML = `${title}${judgments.map(item => netJudgment(item, record)).join("")}${calculations.length ? `<details class="net-calculations"><summary>这一组怎么算出来？</summary>${calculations.map(netCalculation).join("")}</details>` : ""}`;
       intro.append(group);
     }
 
