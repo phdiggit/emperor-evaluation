@@ -12,7 +12,7 @@ from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 
 ROOT = Path(__file__).resolve().parents[3]
-PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
+PROFILE_ROOT = ROOT / "docs" / "评分结算" / "人物画像"
 C5 = PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json"
 C5_MD = C5.with_suffix(".md")
 C5_AUDIT = PROFILE_ROOT / "C5/04-C5主要入口单元处置审计.json"

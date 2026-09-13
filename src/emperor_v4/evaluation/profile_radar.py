@@ -13,7 +13,7 @@ from emperor_v4.evaluation.profile_registry import profile_axis_order
 
 ROOT = Path(__file__).resolve().parents[3]
 PROJECT = ROOT / "config" / "project.yml"
-PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
+PROFILE_ROOT = ROOT / "docs" / "评分结算" / "人物画像"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
 
 AXIS_ORDER = profile_axis_order()

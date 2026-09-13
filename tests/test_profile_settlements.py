@@ -7,7 +7,7 @@ from emperor_v4.evaluation.profile_registry import load_profile_config, profile_
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
+PROFILE_ROOT = ROOT / "docs" / "评分结算" / "人物画像"
 CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
 ACCEPTANCE_CONTRACT = ROOT / "docs" / "分项规则" / "人物画像轴" / "05-画像轴级正式验收合同.md"
 AXIS_CONTRACT_ROOT = ROOT / "docs" / "分项规则" / "人物画像轴"

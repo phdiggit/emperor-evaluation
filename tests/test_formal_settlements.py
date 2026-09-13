@@ -29,7 +29,7 @@ def test_all_five_formal_settlements_are_coherent() -> None:
 
 def test_second_item_a_snapshot_applies_v2_explicit_patch_and_registry() -> None:
     verify_second_item_a_snapshot(Path("."))
-    payload = load_json(Path("docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json"))
+    payload = load_json(Path("docs/评分结算/净收益/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json"))
     assert all(row["C_A"] in {0, 0.5, 1, 2} for row in payload["records"])
     assert all(
         row["S_total"] >= 1 and row["S_net"] >= 0
@@ -44,7 +44,7 @@ def test_second_item_a_snapshot_applies_v2_explicit_patch_and_registry() -> None
         for profile in row[group]
     )
     markdown = Path(
-        "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.md"
+        "docs/评分结算/净收益/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.md"
     ).read_text(encoding="utf-8")
     ruler_sections = markdown.split("\n### ")[1:]
     assert len(ruler_sections) == len(payload["records"])
@@ -69,7 +69,7 @@ def test_second_item_b1_snapshot_passes_current_verifier() -> None:
 
 
 def test_second_item_b1_v54_validator_blocks_hidden_weights_severity_cross_low_gates_and_support_core() -> None:
-    payload = load_json(Path("docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json"))
+    payload = load_json(Path("docs/评分结算/净收益/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json"))
     validate_gate_references(payload)
 
     broken = deepcopy(payload)
@@ -141,7 +141,7 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
 
 
 def test_c4_uses_one_current_destructive_amplification_verdict() -> None:
-    path = Path("docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json")
+    path = Path("docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json")
     payload = load_json(path)
     penalties = {
         "DA0": 0.0, "DA1": 4.5, "DA2": 9.0, "DA3": 13.5,
@@ -164,7 +164,7 @@ def test_c4_uses_one_current_destructive_amplification_verdict() -> None:
 
 
 def test_five_dynasties_batch_is_fully_settled() -> None:
-    root = Path("docs/评分结算/第二项治国净收益")
+    root = Path("docs/评分结算/净收益/第二项治国净收益")
     finance = root / "财政民生"
     files = {
         "C1": "01-C1正式结算.json",

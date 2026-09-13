@@ -10,7 +10,7 @@ from emperor_v4.evaluation.formal_json_store import load_json
 
 
 FORMAL_SETTLEMENT_JSON_PATH = Path(
-    "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+    "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
 )
 FORMAL_SETTLEMENT_MARKDOWN_PATH = FORMAL_SETTLEMENT_JSON_PATH.with_suffix(".md")
 
@@ -315,7 +315,7 @@ def render_third_item_d_markdown(payload: Mapping[str, Any]) -> str:
     lines = [
         "# 秦至清第三项D军事成本收益比正式结算",
         "",
-        "规则见[`D规则与结算合同`](../../../分项规则/第三项军事与边疆净收益/军事成本收益比/00-规则与结算合同.md)及[军事成本评估合同](../../../证据规则/军事成本评估合同.md)。",
+        "规则见[`D规则与结算合同`](../../../../分项规则/第三项军事与边疆净收益/军事成本收益比/00-规则与结算合同.md)及[军事成本评估合同](../../../../证据规则/军事成本评估合同.md)。",
         "",
         f"本次共结算{len(records)}位评价主体。下表及逐人依据均由同名正式JSON当前值生成；第三项总分和排名见第三项正式结算。",
         "",

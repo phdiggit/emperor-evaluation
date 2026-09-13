@@ -130,7 +130,7 @@ def _parent_chains(record: dict) -> list[dict]:
 
 
 def verify(root: Path) -> dict[str, object]:
-    profile_root = root / "docs" / "评分结算" / "皇帝人物画像"
+    profile_root = root / "docs" / "评分结算" / "人物画像"
     contract = root / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
     pool_path = root / "config" / "common" / "canonical-ruler-pool.json"
     settlement_path = profile_root / SETTLEMENT_NAME

@@ -1,0 +1,3312 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "辽",
+  "collections": {
+    "records": {
+      "positions": [
+        97,
+        98,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143
+      ],
+      "records": [
+        {
+          "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
+          "ruler_name": "萧绰",
+          "polity": "辽",
+          "reign_range": [
+            "982-1009（实际主政）"
+          ],
+          "axes": {
+            "A1": {
+              "start": "A1S3_CONTESTED_BALANCE",
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "base_trajectory_value": 58,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "reason": "主要威胁是具备大规模北伐能力的宋朝；986年反击与澶渊和议把持续主战压力压到辽方稳定占优，但宋仍是完整对等强国，故A1由3档升至4档而非5档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
+            },
+            "A2": {
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 58,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "reason": "寰、朔等州恢复后，燕云十六州至辽南京、西京南缘的门户与防御带重新连贯运作；体系仍面对宋辽南缘缺口，故A2由3档升至4档而非5档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
+            },
+            "B1": {
+              "grade": "B1-3",
+              "axis_points": 15.0,
+              "band_position": "LOW",
+              "score_rate": 60.0,
+              "reason": "规模与控制强度：旧账只见燕云0.8守成，漏辽东、女真、草原库存及阻卜治理扩张；37→60。",
+              "weighted_control_value": 1.845,
+              "raw_net_change": 0.875
+            },
+            "B2": {
+              "grade": "B2-4",
+              "axis_points": 26.7,
+              "band_position": "HIGH",
+              "score_rate": 89,
+              "reason": "在宋国家级三路攻势下保全燕云并形成长期和约，对南方主要战略方向具有关键价值。"
+            },
+            "B4": {
+              "grade": "B4-4",
+              "band_position": "HIGH",
+              "score_rate": 89,
+              "axis_points": 22.25,
+              "reason": "防线、军政控制与和约已实际承接并可移交；成熟运行不解除重大压力下保全的贡献上限，维持4档高位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "防线、军政控制与和约已实际承接并可移交；成熟运行不解除重大压力下保全的贡献上限，维持4档高位。",
+                "source_refs": [
+                  "CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO",
+                  "CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO"
+                ]
+              }
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 2.425,
+            "end": 3.3,
+            "net_change": 0.875,
+            "weighted_value": 1.845
+          },
+          "b1_region_control": {
+            "start": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            },
+            "end": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 1.75,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "LIAODONG_FRONTIER",
+              "object_name": "辽东边防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.25,
+              "end_coverage": 0.5,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.875,
+                "end": 1.75
+              },
+              "evidence_refs": [],
+              "reason": "圣宗中期对阻卜从松散羁縻转为筑边城、移民戍边和强化管理；外部草原网络从约四分之一扩大到约一半，仍不计契丹核心。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 0.5,
+              "end_coverage": 0.5,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.25,
+                "end": 0.25
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "YANYUN_DEFENSE_BELT",
+              "object_name": "燕云十六州—辽南京/西京南缘防御带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "986宋三路攻势阶段失地在窗口内恢复，1004后转入长期边界稳定。"
+            }
+          ],
+          "primary_threat_refs": [
+            "CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO",
+            "CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO"
+          ],
+          "primary_control_package_refs": [
+            "CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO",
+            "CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO"
+          ],
+          "parent_cycle_refs": [
+            "CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO",
+            "CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO"
+          ],
+          "evidence_event_refs": [
+            "LIAO-SONG-CHANYUAN-1004",
+            "LIAO-SONG-COUNTEROFFENSIVE-986-987"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
+          "rationale": "986年在宋三路北伐下恢复寰朔等州并重建燕云防线，1004年再以长期和约关闭宋辽主战压力；宋仍为完整对等强国，故安全与边界终点均为4而非5。",
+          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#LIAO-SONG-CHANYUAN-1004",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#LIAO-SONG-COUNTEROFFENSIVE-986-987",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#RULER-LIAO-YELU-LONGXU::982-1031::LIAO-SONG-CHANYUAN-1004",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#RULER-LIAO-YELU-LONGXU::982-1031::LIAO-SONG-COUNTEROFFENSIVE-986-987",
+            "docs/史料通读产物/辽/契丹国志/volume-007.battle-adjudications.json#QGZ-LIAO-SONG-CHANYUAN-1004",
+            "docs/史料通读产物/辽/契丹国志/volume-007.battle-adjudications.json#QGZ-SONG-LIAO-YONGXI-986",
+            "docs/史料通读产物/辽/契丹国志/volume-020.battle-adjudications.json#QDGZ-LIAO-SONG-TONGHE-SOUTHERN-CAMPAIGNS"
+          ],
+          "unresolved_gaps": [],
+          "control_contribution_basis": "现有贡献类型已经符合合同；补齐由类型机械派生的共同上限。",
+          "control_contribution_grade_cap": 4,
+          "A120_non_cost_anchor_points": 48.0,
+          "A120_positive_result_credit_points": 16.8,
+          "A120_score_points": 64.8,
+          "B80_score_points": 56.51,
+          "AB200_score_points": 121.31,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "萧绰 A1（主要威胁能力与战略主动）逐人裁决：主要威胁是具备大规模北伐能力的宋朝；986年反击与澶渊和议把持续主战压力压到辽方稳定占优，但宋仍是完整对等强国，故A1由3档升至4档而非5档。 萧绰是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO、CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO。",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 32.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 54.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "萧绰 A1（主要威胁能力与战略主动）逐人裁决：主要威胁是具备大规模北伐能力的宋朝；986年反击与澶渊和议把持续主战压力压到辽方稳定占优，但宋仍是完整对等强国，故A1由3档升至4档而非5档。 萧绰是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO、CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO。",
+                  "source_refs": [
+                    "CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO",
+                    "CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO"
+                  ]
+                }
+              ],
+              "attribution_source_refs": [
+                "CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO",
+                "CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 40.0,
+              "attributable_value_delta": 10.0,
+              "weighted_change_value": 14.0,
+              "unclamped_trajectory_value": 54.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 8.4,
+              "positive_value_delta": 10.0,
+              "negative_value_delta": 0.0
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "萧绰 A2（边界、门户、纵深与缓冲体系）逐人裁决：寰、朔等州恢复后，燕云十六州至辽南京、西京南缘的门户与防御带重新连贯运作；体系仍面对宋辽南缘缺口，故A2由3档升至4档而非5档。 萧绰是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO、CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO。",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 32.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 54.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "萧绰 A2（边界、门户、纵深与缓冲体系）逐人裁决：寰、朔等州恢复后，燕云十六州至辽南京、西京南缘的门户与防御带重新连贯运作；体系仍面对宋辽南缘缺口，故A2由3档升至4档而非5档。 萧绰是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO、CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO。",
+                  "source_refs": [
+                    "CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO",
+                    "CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO"
+                  ]
+                }
+              ],
+              "attribution_source_refs": [
+                "CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO",
+                "CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 40.0,
+              "attributable_value_delta": 10.0,
+              "weighted_change_value": 14.0,
+              "unclamped_trajectory_value": 54.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 8.4,
+              "positive_value_delta": 10.0,
+              "negative_value_delta": 0.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 56.51,
+            "formal_B1_rate": 60.0,
+            "formal_B2_rate": 89.0,
+            "formal_B4_rate": 89.0,
+            "adjudicated_B1_rate": 60.0,
+            "adjudicated_B2_rate": 89.0,
+            "adjudicated_B4_rate": 89.0,
+            "consistency_basis": "现有贡献类型已经符合合同；补齐由类型机械派生的共同上限。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 2,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据/辽.json",
+            "final_B1_rate": 60.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "986年宋三路北伐、辽军反击及1004年澶渊和议共同构成宋辽主方向的完整收束过程。",
+          "control_contribution_route": "REAL_REGION_LEDGER"
+        },
+        {
+          "ruler_id": "RULER-LIAO-YELU-DEGUANG",
+          "ruler_name": "耶律德光",
+          "polity": "辽",
+          "reign_range": [
+            "927-947"
+          ],
+          "axes": {
+            "A1": {
+              "start": "A1S3_CONTESTED_BALANCE",
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "base_trajectory_value": 58,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "reason": "主要对手由后唐、后晋等中原政权构成；两政权先后被压低或终结，使辽取得战略优势，但中原占领迅速崩解且新对手仍能形成，故A1由3档升至4档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
+            },
+            "A2": {
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 58,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "reason": "燕云十六州把辽南京、西京南缘门户纳入防御纵深，显著改善南部边界体系；入汴后的中原占领不能稳定移交，故A2由3档升至4档而非5档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
+            },
+            "B1": {
+              "grade": "B1-2",
+              "axis_points": 14.75,
+              "band_position": "HIGH",
+              "score_rate": 59.0,
+              "reason": "规模与控制强度：旧只记燕云0→0.8，漏掉阿保机交班草原和辽东库存；45→59。",
+              "weighted_control_value": 1.35,
+              "raw_net_change": 0.8
+            },
+            "B2": {
+              "grade": "B2-5",
+              "axis_points": 28.5,
+              "band_position": "MID",
+              "score_rate": 95,
+              "reason": "燕云十六州长期改变辽与中原王朝攻防条件，对辽核心安全与整体战略格局具有决定性价值。"
+            },
+            "B4": {
+              "grade": "B4-3",
+              "band_position": "MID",
+              "score_rate": 67,
+              "axis_points": 16.75,
+              "reason": "燕云成果虽能移交，本人任内中原进占却发生未恢复的主要方向退控，不能只选燕云正向包；依归责封顶维持3档中位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "燕云成果虽能移交，本人任内中原进占却发生未恢复的主要方向退控，不能只选燕云正向包；依归责封顶维持3档中位。",
+                "source_refs": [
+                  "CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936"
+                ]
+              }
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 1.375,
+            "end": 2.175,
+            "net_change": 0.8,
+            "weighted_value": 1.35
+          },
+          "b1_region_control": {
+            "start": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875
+            },
+            "end": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "YANYUN_DEFENSE_BELT": 0.8
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "LIAODONG_FRONTIER",
+              "object_name": "辽东边防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.25,
+              "end_coverage": 0.25,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.875,
+                "end": 0.875
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "YANYUN_DEFENSE_BELT",
+              "object_name": "燕云十六州—辽南京/西京南缘防御带",
+              "spatial_weight": 0.8,
+              "start_coverage": 0.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "936取得燕云十六州并转为辽南京/西京南缘长期防御带；947中原占领失败不等于燕云退出。"
+            }
+          ],
+          "primary_threat_refs": [
+            "CHAIN-LIAO-DINGZHOU-AID-927-928",
+            "CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936",
+            "CHAIN-LIAO-LATER-JIN-WAR-944-947"
+          ],
+          "primary_control_package_refs": [
+            "CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936"
+          ],
+          "parent_cycle_refs": [
+            "CHAIN-LIAO-DINGZHOU-AID-927-928",
+            "CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936",
+            "CHAIN-LIAO-LATER-JIN-WAR-944-947"
+          ],
+          "evidence_event_refs": [
+            "LIAO-DINGZHOU-AID-927-928",
+            "LIAO-LATERJIN-WAR-944-947",
+            "LIAO-SHIJINGTANG-INTERVENTION-936"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "CHAIN-LIAO-LATER-JIN-WAR-944-947"
+          ],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "rationale": "936年援石敬瑭促成后唐覆亡并取得燕云十六州，944—947年又终结后晋；但中原占领在本人任内迅速崩解，不能据短期入汴判定整体秩序支配。",
+          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#LIAO-DINGZHOU-AID-927-928",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#LIAO-LATERJIN-WAR-944-947",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#LIAO-SHIJINGTANG-INTERVENTION-936",
+            "docs/史料通读产物/辽/契丹国志/volume-002.battle-adjudications.json#QGZ-DINGZHOU-WANGDU-REBELLION-927-928",
+            "docs/史料通读产物/辽/契丹国志/volume-002.battle-adjudications.json#QGZ-LIAO-JIN-WAR-944-945",
+            "docs/史料通读产物/辽/契丹国志/volume-002.battle-adjudications.json#QGZ-SHIJINGTANG-LIAO-INTERVENTION-936",
+            "docs/史料通读产物/辽/契丹国志/volume-003.battle-adjudications.json#QGZ-LIAO-JIN-WAR-946-947-FINAL",
+            "docs/史料通读产物/辽/契丹国志/volume-004.battle-adjudications.json#QGZ-LIAO-CENTRALPLAINS-OCCUPATION-947",
+            "docs/史料通读产物/辽/契丹国志/volume-016.battle-adjudications.json#QGZ-SHIJINGTANG-LIAO-INTERVENTION-936"
+          ],
+          "unresolved_gaps": [],
+          "control_contribution_basis": "现有贡献类型已经符合合同；补齐由类型机械派生的共同上限。",
+          "control_contribution_grade_cap": 5,
+          "A120_non_cost_anchor_points": 48.0,
+          "A120_positive_result_credit_points": 16.8,
+          "A120_score_points": 64.8,
+          "B80_score_points": 54.2,
+          "AB200_score_points": 119.0,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "耶律德光 A1（主要威胁能力与战略主动）逐人裁决：主要对手由后唐、后晋等中原政权构成；两政权先后被压低或终结，使辽取得战略优势，但中原占领迅速崩解且新对手仍能形成，故A1由3档升至4档。 耶律德光是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-DINGZHOU-AID-927-928、CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936、CHAIN-LIAO-LATER-JIN-WAR-944-947。",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 32.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 1,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 54.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "耶律德光 A1（主要威胁能力与战略主动）逐人裁决：主要对手由后唐、后晋等中原政权构成；两政权先后被压低或终结，使辽取得战略优势，但中原占领迅速崩解且新对手仍能形成，故A1由3档升至4档。 耶律德光是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-DINGZHOU-AID-927-928、CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936、CHAIN-LIAO-LATER-JIN-WAR-944-947。",
+                  "source_refs": [
+                    "CHAIN-LIAO-DINGZHOU-AID-927-928",
+                    "CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936",
+                    "CHAIN-LIAO-LATER-JIN-WAR-944-947"
+                  ]
+                }
+              ],
+              "attribution_source_refs": [
+                "CHAIN-LIAO-DINGZHOU-AID-927-928",
+                "CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936",
+                "CHAIN-LIAO-LATER-JIN-WAR-944-947"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 40.0,
+              "attributable_value_delta": 10.0,
+              "weighted_change_value": 14.0,
+              "unclamped_trajectory_value": 54.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 8.4,
+              "positive_value_delta": 10.0,
+              "negative_value_delta": 0.0
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "耶律德光 A2（边界、门户、纵深与缓冲体系）逐人裁决：燕云十六州把辽南京、西京南缘门户纳入防御纵深，显著改善南部边界体系；入汴后的中原占领不能稳定移交，故A2由3档升至4档而非5档。 耶律德光是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-DINGZHOU-AID-927-928、CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936、CHAIN-LIAO-LATER-JIN-WAR-944-947。",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 32.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 1,
+              "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
+              "reversal_grade": "NONE_DIFFERENT_AXIS",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 54.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "耶律德光 A2（边界、门户、纵深与缓冲体系）逐人裁决：燕云十六州把辽南京、西京南缘门户纳入防御纵深，显著改善南部边界体系；入汴后的中原占领不能稳定移交，故A2由3档升至4档而非5档。 耶律德光是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-DINGZHOU-AID-927-928、CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936、CHAIN-LIAO-LATER-JIN-WAR-944-947。",
+                  "source_refs": [
+                    "CHAIN-LIAO-DINGZHOU-AID-927-928",
+                    "CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936",
+                    "CHAIN-LIAO-LATER-JIN-WAR-944-947"
+                  ]
+                }
+              ],
+              "attribution_source_refs": [
+                "CHAIN-LIAO-DINGZHOU-AID-927-928",
+                "CHAIN-LIAO-SHIJINGTANG-INTERVENTION-936",
+                "CHAIN-LIAO-LATER-JIN-WAR-944-947"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 40.0,
+              "attributable_value_delta": 10.0,
+              "weighted_change_value": 14.0,
+              "unclamped_trajectory_value": 54.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 8.4,
+              "positive_value_delta": 10.0,
+              "negative_value_delta": 0.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 54.2,
+            "formal_B1_rate": 59.0,
+            "formal_B2_rate": 95.0,
+            "formal_B4_rate": 67.0,
+            "adjudicated_B1_rate": 59.0,
+            "adjudicated_B2_rate": 95.0,
+            "adjudicated_B4_rate": 67.0,
+            "consistency_basis": "现有贡献类型已经符合合同；补齐由类型机械派生的共同上限。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 3,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据/辽.json",
+            "final_B1_rate": 59.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "936年援石敬瑭、取得燕云十六州及944—947年灭后晋共同改变辽与中原政权的关系。",
+          "control_contribution_route": "REAL_REGION_LEDGER"
+        },
+        {
+          "ruler_id": "RULER-LIAO-YELU-HONGJI",
+          "ruler_name": "耶律洪基",
+          "polity": "辽",
+          "reign_range": [
+            "1055-1101"
+          ],
+          "axes": {
+            "A1": {
+              "start": "A1S4_STABLE_ADVANTAGE",
+              "end": "A1S3_CONTESTED_BALANCE",
+              "base_trajectory_value": 26,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 26,
+              "transition": "WORSENED",
+              "reason": "内部叛乱显示主要威胁压力上升，辽朝仍能维持国家存续却不再保持稳定主动，故A1由4档降至3档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
+            },
+            "A2": {
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 48,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "reason": "燕云、辽东、草原及松外边界主干仍能运作，叛乱未造成关键门户和纵深的跨档破裂，故A2保持4档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
+            },
+            "B1": {
+              "grade": "B1-1",
+              "axis_points": 9.25,
+              "band_position": "MID",
+              "score_rate": 37.0,
+              "reason": "规模与控制强度：旧0→0把实际仍存的燕云、辽东、松外和部分草原网络全部漏掉；0→37。",
+              "weighted_control_value": 0.445,
+              "raw_net_change": -0.875
+            },
+            "B2": {
+              "grade": "B2-0",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "score_rate": 0,
+              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+            },
+            "B4": {
+              "grade": "B4-0",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "score_rate": 0,
+              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 3.3,
+            "end": 2.425,
+            "net_change": -0.875,
+            "weighted_value": 0.445
+          },
+          "b1_region_control": {
+            "start": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 1.75,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            },
+            "end": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "LIAODONG_FRONTIER",
+              "object_name": "辽东边防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.5,
+              "end_coverage": 0.25,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.75,
+                "end": 0.875
+              },
+              "evidence_refs": [],
+              "reason": "圣宗中期强化后的阻卜网络在圣宗中晚期—道宗期转为更松散的怀柔体系；反复边衅和控制收缩使交班按0.25，不归零。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 0.5,
+              "end_coverage": 0.5,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.25,
+                "end": 0.25
+              },
+              "evidence_refs": [],
+              "reason": "完颜部尚未公开反辽，辽廷仍保有册授、贡役和边贸约束，1101不提前归零。"
+            },
+            {
+              "object_id": "YANYUN_DEFENSE_BELT",
+              "object_name": "燕云十六州—辽南京/西京南缘防御带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            }
+          ],
+          "primary_threat_refs": [
+            "DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100",
+            "LIAO-XIAOJIELI-REBELLION-1096"
+          ],
+          "primary_control_package_refs": [],
+          "parent_cycle_refs": [
+            "DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100",
+            "LIAO-XIAOJIELI-REBELLION-1096"
+          ],
+          "evidence_event_refs": [
+            "DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100",
+            "LIAO-XIAOJIELI-REBELLION-1096"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "INHERITED_ONLY",
+          "rationale": "接手时辽仍保持稳定战略优势，主要边界总体安全；1092至1100年磨古斯叛乱及随后部族叛乱削弱草原方向控制，使交班外部态势降为相互制衡，但燕云、辽东等主要边界体系仍能运行。",
+          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/公共成果/军事/01-战役登记/liao-13.json#磨古斯",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#LIAO-XIAOJIELI-REBELLION-1096",
+            "docs/史料通读产物/辽/契丹国志/volume-009.battle-adjudications.json#QGZ-LIAO-XIAOJIELI-REBELLION-1096",
+            "續資治通鑑/卷084@2299561#擊敗瑪古蘇之眾並其四別部",
+            "遼史/卷25@1761380#磨古斯叛乱全链"
+          ],
+          "unresolved_gaps": [],
+          "control_contribution_route": "NO_SCORING_CONTROL_RESULT",
+          "control_contribution_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。",
+          "control_contribution_grade_cap": 0,
+          "A120_non_cost_anchor_points": 39.75,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 39.75,
+          "B80_score_points": 11.4,
+          "AB200_score_points": 51.15,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -0.75,
+              "attribution_basis": "耶律洪基 A1（主要威胁能力与战略主动）逐人裁决：内部叛乱显示主要威胁压力上升，辽朝仍能维持国家存续却不再保持稳定主动，故A1由4档降至3档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给耶律洪基；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动-1档中取-0.75档。依据链：DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100、LIAO-XIAOJIELI-REBELLION-1096。",
+              "attribution_category": "SHARED_MATERIAL",
+              "axis_points": 15.75,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 3,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": -1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 26.25,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100",
+                "LIAO-XIAOJIELI-REBELLION-1096"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为4→3，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.75档，负向责任仍由独立字段保留。",
+              "end_state_value": 30.0,
+              "attributable_value_delta": -7.5,
+              "weighted_change_value": -3.75,
+              "unclamped_trajectory_value": 26.25,
+              "non_cost_anchor_points": 15.75,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": -7.5
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 24.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 40.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "EVIDENCE_LIMITED",
+                "basis": "内部叛乱平定并未新增外部边界的门户、纵深与补给协同，既有高位网络延续不自动取得建设信用。"
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 11.4,
+            "formal_B1_rate": 37.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 37.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 2,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据/辽.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "磨古斯叛乱与萧解里叛乱构成辽朝后期的主要现实军事压力。"
+        },
+        {
+          "ruler_id": "RULER-LIAO-YELU-YANXI",
+          "ruler_name": "耶律延禧",
+          "polity": "辽",
+          "reign_range": [
+            "1101-1125"
+          ],
+          "axes": {
+            "A1": {
+              "start": "A1S3_CONTESTED_BALANCE",
+              "end": "A1S0_EXISTENTIAL_CRISIS",
+              "base_trajectory_value": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "reason": "耶律延禧 A1（主要威胁能力与战略主动）逐人裁决：承接耶律洪基交班A1-3；1114年后金朝生存战争、辽东政权分裂与怨军内乱在本人窗口内继续把状态由3档压至0档，不能把后期崩解倒灌为1101年接班2档。本人对后续恶化主要归责-2档。依据链：CHAIN-LIAO-JIN-SURVIVAL-WAR-1114-1125、CHAIN-LIAO-GAO-YONGCHANG-POST_COLLAPSE-1116、LIAO-RESENTMENT-ARMY-1117-1121、LIAO-ZHANGNU-REBELLION-1115。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "observed_trajectory_value": 0
+            },
+            "A2": {
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "end": "A2S0_CORE_EXPOSED",
+              "base_trajectory_value": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "reason": "耶律延禧 A2（边界、门户、纵深与缓冲体系）逐人裁决：承接耶律洪基交班A2-4；1114年后辽东、草原、松外与燕云防线才在本人窗口内相继失联并最终核心暴露，不能把后期破裂倒灌为1101年接班2档。本人对后续恶化主要归责-2档。依据链：CHAIN-LIAO-JIN-SURVIVAL-WAR-1114-1125、CHAIN-LIAO-GAO-YONGCHANG-POST_COLLAPSE-1116、LIAO-RESENTMENT-ARMY-1117-1121、LIAO-ZHANGNU-REBELLION-1115。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "observed_trajectory_value": 0
+            },
+            "B1": {
+              "grade": "B1-0",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "score_rate": 0.0,
+              "reason": "规模与控制强度：仍为0，但从错误0→0重建为真实2.425→0的大规模边疆退控。",
+              "weighted_control_value": -1.455,
+              "raw_net_change": -2.425
+            },
+            "B2": {
+              "grade": "B2-0",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "score_rate": 0,
+              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+            },
+            "B4": {
+              "grade": "B4-0",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "score_rate": 0,
+              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 2.425,
+            "end": 0,
+            "net_change": -2.425,
+            "weighted_value": -1.455
+          },
+          "b1_region_control": {
+            "start": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            },
+            "end": {}
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "LIAODONG_FRONTIER",
+              "object_name": "辽东边防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "女真起兵后辽东东部体系结构性退出。"
+            },
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.25,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.875,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "金兴及辽中枢崩解后原有阻卜/草原宗主网络不再可执行。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 0.5,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.25,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "1114完颜阿骨打反辽后生女真/松外羁縻网络最先退出。"
+            },
+            {
+              "object_id": "YANYUN_DEFENSE_BELT",
+              "object_name": "燕云十六州—辽南京/西京南缘防御带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "1122以后燕京等主要节点退出，至1125无可向辽中枢移交的燕云控制。"
+            }
+          ],
+          "primary_threat_refs": [
+            "CHAIN-LIAO-JIN-SURVIVAL-WAR-1114-1125",
+            "CHAIN-LIAO-GAO-YONGCHANG-POST_COLLAPSE-1116",
+            "LIAO-RESENTMENT-ARMY-1117-1121",
+            "LIAO-ZHANGNU-REBELLION-1115"
+          ],
+          "primary_control_package_refs": [],
+          "parent_cycle_refs": [
+            "CHAIN-LIAO-JIN-SURVIVAL-WAR-1114-1125",
+            "CHAIN-LIAO-GAO-YONGCHANG-POST_COLLAPSE-1116",
+            "LIAO-RESENTMENT-ARMY-1117-1121",
+            "LIAO-ZHANGNU-REBELLION-1115"
+          ],
+          "evidence_event_refs": [
+            "LIAO-GAO-YONGCHANG-1116",
+            "LIAO-JIN-COLLAPSE-1114-1125",
+            "LIAO-POST-GAO-BANDITS-1116",
+            "LIAO-RESENTMENT-ARMY-1117-1121",
+            "LIAO-ZHANGNU-REBELLION-1115"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "INHERITED_ONLY",
+          "rationale": "接手时辽已处于战略劣势，边界只余局部可守节点；1114年后女真起兵、金军推进与多地叛乱并发，南京、西京等控制相继崩解，1125年本人被俘，交班时核心与边界体系归零。",
+          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#LIAO-JIN-COLLAPSE-1114-1125",
+            "docs/史料通读产物/辽/契丹国志/volume-010.battle-adjudications.json#QDGZ-JIN-LIAO-CONQUEST-COLLAPSE",
+            "docs/史料通读产物/辽/契丹国志/volume-010.battle-adjudications.json#QDGZ-LIAO-GAO-YONGCHANG-REBELLION-1116",
+            "docs/史料通读产物/辽/契丹国志/volume-010.battle-adjudications.json#QGZ-LIAO-RESENTMENT-ARMY-REBELLION-1117",
+            "docs/史料通读产物/辽/契丹国志/volume-010.battle-adjudications.json#QGZ-LIAO-ZHANGNU-REBELLION-1115",
+            "docs/史料通读产物/辽/契丹国志/volume-010.battle-adjudications.json#QGZ-LIAODONG-POST-GAO-BANDIT-WAR-1116",
+            "docs/史料通读产物/辽/契丹国志/volume-011.battle-adjudications.json#QDGZ-JIN-LIAO-CONQUEST-COLLAPSE",
+            "docs/史料通读产物/辽/契丹国志/volume-011.battle-adjudications.json#QGZ-LIAO-RESENTMENT-ARMY-REBELLION-1117-1121",
+            "docs/史料通读产物/辽/契丹国志/volume-012.battle-adjudications.json#QDGZ-JIN-LIAO-CONQUEST-COLLAPSE",
+            "docs/史料通读产物/辽/契丹国志/volume-013.battle-adjudications.json#QDGZ-JIN-LIAO-CONQUEST-COLLAPSE"
+          ],
+          "unresolved_gaps": [],
+          "control_contribution_route": "NO_SCORING_CONTROL_RESULT",
+          "control_contribution_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。",
+          "control_contribution_grade_cap": 0,
+          "A120_non_cost_anchor_points": 0.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 0.0,
+          "B80_score_points": 0.0,
+          "AB200_score_points": 0.0,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -2.0,
+              "attribution_basis": "耶律延禧 A1（主要威胁能力与战略主动）逐人裁决：承接耶律洪基交班A1-3；1114年后金朝生存战争、辽东政权分裂与怨军内乱在本人窗口内继续把状态由3档压至0档，不能把后期崩解倒灌为1101年接班2档。本人对后续恶化主要归责-2档。依据链：CHAIN-LIAO-JIN-SURVIVAL-WAR-1114-1125、CHAIN-LIAO-GAO-YONGCHANG-POST_COLLAPSE-1116、LIAO-RESENTMENT-ARMY-1117-1121、LIAO-ZHANGNU-REBELLION-1115。",
+              "attribution_category": "SELF_INDUCED",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 0,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": -3,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0.0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 0.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0.0,
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "CHAIN-LIAO-JIN-SURVIVAL-WAR-1114-1125",
+                "CHAIN-LIAO-GAO-YONGCHANG-POST_COLLAPSE-1116",
+                "LIAO-RESENTMENT-ARMY-1117-1121",
+                "LIAO-ZHANGNU-REBELLION-1115"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为3→0，依主类型归为跨档恶化型；后金入侵、辽东分裂与怨军等后续恶化在本人窗口内闭合，主要责任保留-2档。",
+              "ceiling_progress_basis": "当前无独立封顶推进信用",
+              "end_state_value": 0.0,
+              "attributable_value_delta": -20.0,
+              "weighted_change_value": -10.0,
+              "unclamped_trajectory_value": -10.0,
+              "non_cost_anchor_points": 0.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": -20.0
+            },
+            "A2": {
+              "attributable_delta": -2.0,
+              "attribution_basis": "耶律延禧 A2（边界、门户、纵深与缓冲体系）逐人裁决：承接耶律洪基交班A2-4；1114年后辽东、草原、松外与燕云防线才在本人窗口内相继失联并最终核心暴露，不能把后期破裂倒灌为1101年接班2档。本人对后续恶化主要归责-2档。依据链：CHAIN-LIAO-JIN-SURVIVAL-WAR-1114-1125、CHAIN-LIAO-GAO-YONGCHANG-POST_COLLAPSE-1116、LIAO-RESENTMENT-ARMY-1117-1121、LIAO-ZHANGNU-REBELLION-1115。",
+              "attribution_category": "SELF_INDUCED",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 0,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": -4,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0.0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 0.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0.0,
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "CHAIN-LIAO-JIN-SURVIVAL-WAR-1114-1125",
+                "CHAIN-LIAO-GAO-YONGCHANG-POST_COLLAPSE-1116",
+                "LIAO-RESENTMENT-ARMY-1117-1121",
+                "LIAO-ZHANGNU-REBELLION-1115"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为4→0，依主类型归为跨档恶化型；后金入侵、辽东分裂与怨军等后续恶化在本人窗口内闭合，主要责任保留-2档。",
+              "ceiling_progress_basis": "当前无独立封顶推进信用",
+              "end_state_value": 0.0,
+              "attributable_value_delta": -20.0,
+              "weighted_change_value": -10.0,
+              "unclamped_trajectory_value": -10.0,
+              "non_cost_anchor_points": 0.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": -20.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 0.0,
+            "formal_B1_rate": 0.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 4,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据/辽.json",
+            "final_B1_rate": 0.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "女真兴起、辽金生存战争与多起内部叛乱共同瓦解辽朝。"
+        },
+        {
+          "ruler_id": "RULER-LIAO-SHULUPING",
+          "ruler_name": "述律平",
+          "polity": "辽（契丹）",
+          "reign_range": [
+            "926-947"
+          ],
+          "axes": {
+            "A1": {
+              "start": "A1S4_STABLE_ADVANTAGE",
+              "end": "A1S2_STRATEGIC_DISADVANTAGE",
+              "base_trajectory_value": 4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 4,
+              "transition": "WORSENED",
+              "reason": "主要威胁来自继承内战本身，现实军事对抗使原有稳定优势退为战略劣势，故A1由4档降至2档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
+            },
+            "A2": {
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 48,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "reason": "辽东、草原与燕云外部边界网络并未因内战发生可证的结构性退出，主要门户仍可运作，故A2保持4档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
+            },
+            "B1": {
+              "grade": "B1-2",
+              "axis_points": 14.75,
+              "band_position": "HIGH",
+              "score_rate": 59.0,
+              "reason": "规模与控制强度：旧0→0属于漏记整个客观窗口；按实际政治窗口补回继承库存与936燕云新增，0→59。",
+              "weighted_control_value": 1.35,
+              "raw_net_change": 0.8
+            },
+            "B2": {
+              "grade": "B2-0",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "score_rate": 0,
+              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+            },
+            "B4": {
+              "grade": "B4-0",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "score_rate": 0,
+              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 1.375,
+            "end": 2.175,
+            "net_change": 0.8,
+            "weighted_value": 1.35
+          },
+          "b1_region_control": {
+            "start": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875
+            },
+            "end": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "YANYUN_DEFENSE_BELT": 0.8
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "LIAODONG_FRONTIER",
+              "object_name": "辽东边防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.25,
+              "end_coverage": 0.25,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.875,
+                "end": 0.875
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "YANYUN_DEFENSE_BELT",
+              "object_name": "燕云十六州—辽南京/西京南缘防御带",
+              "spatial_weight": 0.8,
+              "start_coverage": 0.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "936后燕云十六州长期进入辽军政控制；中原短期占领崩解不影响燕云交班库存。"
+            }
+          ],
+          "primary_threat_refs": [
+            "SLP-SUCCESSION-CIVIL-WAR-947"
+          ],
+          "primary_control_package_refs": [],
+          "parent_cycle_refs": [
+            "SLP-SUCCESSION-CIVIL-WAR-947"
+          ],
+          "evidence_event_refs": [
+            "DINV::SHULUPING::SUCCESSION-CIVIL-WAR-947"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "INHERITED_ONLY",
+          "rationale": "接手时辽仍具稳定战略优势，既有边界体系总体安全；947年继承冲突演成内战，显著削弱对外战略地位，交班降为战略劣势，但燕云、辽东等既有主要边界并未因此整体瓦解。",
+          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/史料通读产物/辽/契丹国志/volume-013.source-summary.md",
+            "https://zh.wikisource.org/wiki/契丹國志/卷十三#太祖述律皇后（太宗崩、诸将拥兀欲、述律平发兵拒之、李彦韬倒戈、太后兵大败）"
+          ],
+          "unresolved_gaps": [],
+          "control_contribution_route": "NO_SCORING_CONTROL_RESULT",
+          "control_contribution_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。",
+          "control_contribution_grade_cap": 0,
+          "A120_non_cost_anchor_points": 28.2,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 28.2,
+          "B80_score_points": 18.17,
+          "AB200_score_points": 46.37,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -2.0,
+              "attribution_basis": "述律平 A1（主要威胁能力与战略主动）逐人裁决：主要威胁来自继承内战本身，现实军事对抗使原有稳定优势退为战略劣势，故A1由4档降至2档。 述律平是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动-2档按-2档归责。依据链：SLP-SUCCESSION-CIVIL-WAR-947。",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 4.2,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 2,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": -2,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 7.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "SLP-SUCCESSION-CIVIL-WAR-947"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为4→2，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-2档，负向责任仍由独立字段保留。",
+              "end_state_value": 18.0,
+              "attributable_value_delta": -22.0,
+              "weighted_change_value": -11.0,
+              "unclamped_trajectory_value": 7.0,
+              "non_cost_anchor_points": 4.2,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": -22.0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 24.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 40.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "EVIDENCE_LIMITED",
+                "basis": "内战后辽东、草原、燕云主要门户仍可运作，属于原有网络延续，没有独立新增的外部防御协同。"
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 18.17,
+            "formal_B1_rate": 59.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 59.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 1,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据/辽.json",
+            "final_B1_rate": 59.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "947年继承冲突与内战改变辽朝内部权力和军事稳定状态。"
+        },
+        {
+          "ruler_id": "RULER-ROSTER-2035C039E3532021",
+          "ruler_name": "耶律阿保机",
+          "polity": "辽（契丹）",
+          "reign_range": "916—926（契丹国家形成后的独立外部战争窗口）",
+          "axes": {
+            "A1": {
+              "start": "A1S3_CONTESTED_BALANCE",
+              "end": "A1S5_DOMINANT_ORDER",
+              "base_trajectory_value": 80,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 80,
+              "transition": "IMPROVED",
+              "reason": "916年建国时南向晋国、东向渤海和西部诸部仍构成多方向竞争；至926年，代北多州突破、西部连续压制并终结渤海国家机器，整体外部态势升至区域秩序主导。晋国仍存，故只判A1五档而不外推为无对手。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
+            },
+            "A2": {
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 58,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "reason": "916年已有契丹核心防务，但南、东、西三向边界仍有明显缺口；至926年形成代北支点、西部缓冲与渤海方向终局控制，升至总体安全但仍有缺口的四档。渤海新得区尚未经历长期移交，不判A2五档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
+            },
+            "B1": {
+              "grade": "B1-2",
+              "axis_points": 14.75,
+              "band_position": "HIGH",
+              "score_rate": 59.0,
+              "reason": "规模与控制强度：旧1.0临时包改为草原规范锚0.875+辽东0.5；45→59。",
+              "weighted_control_value": 1.375,
+              "raw_net_change": 1.375
+            },
+            "B2": {
+              "grade": "B2-4",
+              "axis_points": 22.5,
+              "band_position": "LOW",
+              "score_rate": 75,
+              "reason": "渤海O4国家机器终结并与代北、西部成果合并，显著改写契丹东、南、西多方向战略条件，达到关键战略作用；晋国仍存且新秩序尚未长期验证，不到决定全国格局的五档。"
+            },
+            "B4": {
+              "grade": "B4-4",
+              "band_position": "LOW",
+              "score_rate": 75,
+              "axis_points": 18.75,
+              "reason": "渤海受降、郡县安抚与忽汗城控制，结合代北、西部连续军政行动，已具移交安排；短观察不单独压3，裁B4-4低位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "代北、西部和渤海主包均有连续军政行动；渤海君主、僚属受降，郡县受诏安抚并取得忽汗城。终局临近去世、观察年限短本身不构成3档缺口；已有必要移交安排但未见全部关键功能长期运行验证，裁B4-4低位。",
+                "source_refs": [
+                  "ABA0JI-DAIBEI-JIN-916",
+                  "ABA0JI-WESTERN-TRIBES-920-925",
+                  "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926"
+                ]
+              }
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 0,
+            "end": 1.375,
+            "net_change": 1.375,
+            "weighted_value": 1.375
+          },
+          "b1_region_control": {
+            "start": {},
+            "end": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "LIAODONG_FRONTIER",
+              "object_name": "辽东边防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 0.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "926渤海国家机器终结后，东部辽东—渤海方向形成可执行军政控制；按既有辽东0.5锚整体有效。"
+            },
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.0,
+              "end_coverage": 0.25,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.875
+              },
+              "evidence_refs": [],
+              "reason": "只计契丹核心之外的代北—西部/阻卜羁縻网络。太祖阶段控制松散，按整体草原锚0.25有界推断，不计契丹本部。"
+            }
+          ],
+          "primary_threat_refs": [
+            "ABA0JI-DAIBEI-JIN-916",
+            "ABA0JI-WESTERN-TRIBES-920-925",
+            "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926"
+          ],
+          "primary_control_package_refs": [
+            "ABA0JI-DAIBEI-JIN-916",
+            "ABA0JI-WESTERN-TRIBES-920-925",
+            "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926"
+          ],
+          "parent_cycle_refs": [
+            "ABA0JI-DAIBEI-JIN-916",
+            "ABA0JI-WESTERN-TRIBES-920-925",
+            "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926"
+          ],
+          "evidence_event_refs": [
+            "WAR-FD-E42745FB5EF40640EE52",
+            "WAR-POST-2040EAC268B75AFA44E5",
+            "WAR-POST-35C5A8F01405EA410CCB",
+            "WAR-POST-D16A61849ACE49B088B0",
+            "WAR-POST-EF7D4F32F01A7649BB88"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "rationale": "以916年契丹国家形成作为第一、第三项硬端点；第三项只消费916—926代北、西部与渤海三条独立外部链。A按任期外部安全起终点，B只计交班仍可执行的控制、战略价值和成熟度。",
+          "coverage_status": "FORMAL_CURRENT",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/公共成果/军事/01-战役登记/five_dynasties-12.json#WAR-FD-E42745FB5EF40640EE52",
+            "docs/公共成果/军事/01-战役登记/liao-09.json#WAR-POST-2040EAC268B75AFA44E5",
+            "docs/公共成果/军事/01-战役登记/liao-11.json#WAR-POST-D16A61849ACE49B088B0",
+            "docs/公共成果/军事/01-战役登记/liao-13.json#WAR-POST-35C5A8F01405EA410CCB",
+            "docs/公共成果/军事/01-战役登记/liao-20.json#WAR-POST-EF7D4F32F01A7649BB88"
+          ],
+          "control_contribution_basis": "B4边界复核闭合；不改既有B2归责或主控制成果包。",
+          "control_contribution_grade_cap": 5,
+          "A120_non_cost_anchor_points": 54.0,
+          "A120_positive_result_credit_points": 25.2,
+          "A120_score_points": 79.2,
+          "B80_score_points": 48.99,
+          "AB200_score_points": 128.19,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 2.0,
+              "attribution_basis": "耶律阿保机 A1（主要威胁能力与战略主动）逐人裁决：916年建国时南向晋国、东向渤海和西部诸部仍构成多方向竞争；至926年，代北多州突破、西部连续压制并终结渤海国家机器，整体外部态势升至区域秩序主导。晋国仍存，故只判A1五档而不外推为无对手。 耶律阿保机是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：ABA0JI-DAIBEI-JIN-916、ABA0JI-WESTERN-TRIBES-920-925、CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926。",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 46.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 5,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 2,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 78.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "耶律阿保机 A1（主要威胁能力与战略主动）逐人裁决：916年建国时南向晋国、东向渤海和西部诸部仍构成多方向竞争；至926年，代北多州突破、西部连续压制并终结渤海国家机器，整体外部态势升至区域秩序主导。晋国仍存，故只判A1五档而不外推为无对手。 耶律阿保机是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：ABA0JI-DAIBEI-JIN-916、ABA0JI-WESTERN-TRIBES-920-925、CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926。",
+                  "source_refs": [
+                    "ABA0JI-DAIBEI-JIN-916",
+                    "ABA0JI-WESTERN-TRIBES-920-925",
+                    "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926"
+                  ]
+                },
+                {
+                  "from_grade": 4,
+                  "to_grade": 5,
+                  "credit": 1.0,
+                  "basis": "耶律阿保机 A1（主要威胁能力与战略主动）逐人裁决：916年建国时南向晋国、东向渤海和西部诸部仍构成多方向竞争；至926年，代北多州突破、西部连续压制并终结渤海国家机器，整体外部态势升至区域秩序主导。晋国仍存，故只判A1五档而不外推为无对手。 耶律阿保机是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：ABA0JI-DAIBEI-JIN-916、ABA0JI-WESTERN-TRIBES-920-925、CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926。",
+                  "source_refs": [
+                    "ABA0JI-DAIBEI-JIN-916",
+                    "ABA0JI-WESTERN-TRIBES-920-925",
+                    "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926"
+                  ]
+                }
+              ],
+              "attribution_source_refs": [
+                "ABA0JI-DAIBEI-JIN-916",
+                "ABA0JI-WESTERN-TRIBES-920-925",
+                "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→5，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为2档，伴随专项加减仍由独立字段保留。",
+              "ceiling_progress_basis": "代北、西部及渤海行动形成的威胁格局转变已在3→5消费，未另证独立于这些成果的封顶建设。",
+              "end_state_value": 50.0,
+              "attributable_value_delta": 20.0,
+              "weighted_change_value": 28.0,
+              "unclamped_trajectory_value": 78.0,
+              "non_cost_anchor_points": 30.0,
+              "positive_result_credit_points": 16.8,
+              "positive_value_delta": 20.0,
+              "negative_value_delta": 0.0
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "耶律阿保机 A2（边界、门户、纵深与缓冲体系）逐人裁决：916年已有契丹核心防务，但南、东、西三向边界仍有明显缺口；至926年形成代北支点、西部缓冲与渤海方向终局控制，升至总体安全但仍有缺口的四档。渤海新得区尚未经历长期移交，不判A2五档。 耶律阿保机是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：ABA0JI-DAIBEI-JIN-916、ABA0JI-WESTERN-TRIBES-920-925、CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926。",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 32.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 54.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "耶律阿保机 A2（边界、门户、纵深与缓冲体系）逐人裁决：916年已有契丹核心防务，但南、东、西三向边界仍有明显缺口；至926年形成代北支点、西部缓冲与渤海方向终局控制，升至总体安全但仍有缺口的四档。渤海新得区尚未经历长期移交，不判A2五档。 耶律阿保机是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：ABA0JI-DAIBEI-JIN-916、ABA0JI-WESTERN-TRIBES-920-925、CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926。",
+                  "source_refs": [
+                    "ABA0JI-DAIBEI-JIN-916",
+                    "ABA0JI-WESTERN-TRIBES-920-925",
+                    "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926"
+                  ]
+                }
+              ],
+              "attribution_source_refs": [
+                "ABA0JI-DAIBEI-JIN-916",
+                "ABA0JI-WESTERN-TRIBES-920-925",
+                "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 40.0,
+              "attributable_value_delta": 10.0,
+              "weighted_change_value": 14.0,
+              "unclamped_trajectory_value": 54.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 8.4,
+              "positive_value_delta": 10.0,
+              "negative_value_delta": 0.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 48.99,
+            "formal_B1_rate": 59.0,
+            "formal_B2_rate": 75.0,
+            "formal_B4_rate": 75.0,
+            "adjudicated_B1_rate": 59.0,
+            "adjudicated_B2_rate": 75.0,
+            "adjudicated_B4_rate": 75.0,
+            "consistency_basis": "B4成熟度边界复核闭合；B80按新的B4档位重算。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 3,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据/辽.json",
+            "final_B1_rate": 59.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "control_contribution_route": "B4_BOUNDARY_REAUDIT"
+        },
+        {
+          "ruler_id": "RULER-LIAO-YELU-DASHI",
+          "ruler_name": "耶律大石",
+          "polity": "西辽",
+          "reign_range": [
+            "1124-1143"
+          ],
+          "axes": {
+            "A1": {
+              "start": "A1S3_CONTESTED_BALANCE",
+              "end": "A1S5_DOMINANT_ORDER",
+              "base_trajectory_value": 80.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 80.0,
+              "transition": "IMPROVED",
+              "reason": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。 就主要威胁能力单独判断：上述阶段结束时，对手是否还能制造国家级危机以及本方是否保持战略主动，决定耶律大石从3档交班为5档；边界节点数量本身不替代这一威胁判断。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "transition_attribution": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION"
+            },
+            "A2": {
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 58.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 58.0,
+              "transition": "IMPROVED",
+              "reason": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。 就安全边界单独判断：上述阶段结束时，门户、军镇、交通纵深和缓冲区能否相互支援，决定耶律大石从3档交班为4档；对手一时败退本身不替代这一体系判断。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "transition_attribution": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION"
+            },
+            "B1": {
+              "grade": "B1-2",
+              "axis_points": 13.0,
+              "band_position": "MID",
+              "score_rate": 52.0,
+              "reason": "1124—1134年西域核心1.5由第一项消费；1137—1142年河中—花剌子模宗主网络1.125属于独立后续取得，恢复第三项加权控制值1.125，B1-2中位。",
+              "weighted_control_value": 1.125,
+              "raw_net_change": 2.625
+            },
+            "B2": {
+              "grade": "B2-4",
+              "axis_points": 24.6,
+              "band_position": "MID",
+              "score_rate": 82.0,
+              "reason": "苦盏、卡特万后河中及花剌子模进入可执行宗主关系，形成重要城市交通网络并重构中亚战略纵深，取4档中位；不以灭国名称或战胜强敌直接升5。"
+            },
+            "B4": {
+              "grade": "B4-4",
+              "band_position": "LOW",
+              "score_rate": 75,
+              "axis_points": 18.75,
+              "reason": "只取1137—1142年本人新得河中及花剌子模宗主包；地方王朝承接执行、宗主关系与岁贡安排已确立，具备间接控制的移交条件。保留地方王朝及交班距卡特万数年均不构成缺口；岁贡实际持续履行及全部主包的常态运行验证不足，定4档低位，不消费早期建国核心。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "只取1137—1142年本人新得河中及花剌子模宗主包；地方王朝承接执行、宗主关系与岁贡安排已确立，具备间接控制的移交条件。保留地方王朝及交班距卡特万数年均不构成缺口；岁贡实际持续履行及全部主包的常态运行验证不足，定4档低位，不消费早期建国核心。",
+                "source_refs": [
+                  "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#DINV::YELU_DASHI::CENTRAL_ASIA_HEGEMONY-1134-1142",
+                  "YELU-DASHI-KHUJAND-1137",
+                  "YELU-DASHI-QATWAN-1141",
+                  "YELU-DASHI-KHWARAZM-TRIBUTE-1142"
+                ]
+              }
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 0,
+            "end": 2.625,
+            "net_change": 2.625,
+            "weighted_value": 1.125
+          },
+          "b1_region_control": {
+            "start": {},
+            "end": {
+              "TRANSOXIANA_KHWARAZM": 1.125,
+              "WESTERN_REGIONS_WHOLE": 1.5
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "TRANSOXIANA_KHWARAZM",
+              "object_name": "河中—花剌子模核心城市与交通网络",
+              "spatial_weight": 1.5,
+              "start_coverage": 0.0,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 1.125
+              },
+              "evidence_refs": [],
+              "reason": "卡特万后河中主要城市政权及花剌子模进入可执行宗主关系，大部有效但仍保留地方王朝。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 0.0,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 1.5
+              },
+              "evidence_refs": [],
+              "reason": "西迁后以叶密立、虎思斡耳朵等为核心形成西域大部控制，但不把全部西域按1.00。"
+            }
+          ],
+          "primary_threat_refs": [
+            "DINV::YELU_DASHI::CENTRAL_ASIA_HEGEMONY-1134-1142",
+            "DINV::YELU_DASHI::EASTERN_EXPEDITION-1134-1137"
+          ],
+          "primary_control_package_refs": [
+            "YELU-DASHI-KHUJAND-1137",
+            "YELU-DASHI-QATWAN-1141",
+            "YELU-DASHI-KHWARAZM-TRIBUTE-1142"
+          ],
+          "parent_cycle_refs": [
+            "DINV::YELU_DASHI::CENTRAL_ASIA_HEGEMONY-1134-1142",
+            "DINV::YELU_DASHI::EASTERN_EXPEDITION-1134-1137"
+          ],
+          "evidence_event_refs": [
+            "LIAOSHI-030-YELU-DASHI-EASTERN-EXPEDITION-1134-1137",
+            "YELU-DASHI-BALASAGUN-1134",
+            "YELU-DASHI-KHUJAND-1137",
+            "YELU-DASHI-KHWARAZM-TRIBUTE-1142",
+            "YELU-DASHI-QATWAN-1141"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "rationale": "接手时辽朝残部受金军压迫，政权存续面临严重威胁且原有边界破裂；西迁后取得八剌沙衮，并经忽毡、卡特万等战役建立中亚主导性安全秩序，但东返恢复故土未成，边界体系仍留缺口。",
+          "coverage_status": "CONFIRMED",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "config/first-item/first-item-a-strategic-efficiency-inputs.json#耶律大石",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#DINV::YELU_DASHI::CENTRAL_ASIA_HEGEMONY-1134-1142",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#DINV::YELU_DASHI::EASTERN_EXPEDITION-1134-1137",
+            "https://www.iranicaonline.org/articles/ilak-khanids/",
+            "https://www.iranicaonline.org/articles/qara-ketay/",
+            "https://zh.wikisource.org/wiki/東征誓眾文",
+            "https://zh.wikisource.org/wiki/遼史/卷30"
+          ],
+          "control_contribution_route": "REAL_REGION_LEDGER",
+          "control_contribution_basis": "1124—1134年建国与西域核心接管归第一项；1137—1142年苦盏、卡特万及花剌子模贡属属于切点后的独立新增控制成果，按NEW_RECOVERED_REBUILT归责。",
+          "control_contribution_grade_cap": 5,
+          "A120_non_cost_anchor_points": 54.0,
+          "A120_positive_result_credit_points": 25.2,
+          "A120_score_points": 79.2,
+          "B80_score_points": 48.47,
+          "AB200_score_points": 127.67,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 2.0,
+              "attribution_basis": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。",
+              "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+              "axis_points": 46.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 5,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 2,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 78.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。"
+                },
+                {
+                  "from_grade": 4,
+                  "to_grade": 5,
+                  "credit": 1.0,
+                  "basis": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。"
+                }
+              ],
+              "active_window_start": 1134,
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→5，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为2档，伴随专项加减仍由独立字段保留。",
+              "ceiling_progress_basis": "苦盏、卡特万与花剌子模贡属所形成的主导秩序已由3→5消费，未另证未消费的独立封顶增量。",
+              "end_state_value": 50.0,
+              "attributable_value_delta": 20.0,
+              "weighted_change_value": 28.0,
+              "unclamped_trajectory_value": 78.0,
+              "non_cost_anchor_points": 30.0,
+              "positive_result_credit_points": 16.8,
+              "positive_value_delta": 20.0,
+              "negative_value_delta": 0.0
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。",
+              "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+              "axis_points": 32.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 54.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。"
+                }
+              ],
+              "active_window_start": 1134,
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 40.0,
+              "attributable_value_delta": 10.0,
+              "weighted_change_value": 14.0,
+              "unclamped_trajectory_value": 54.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 8.4,
+              "positive_value_delta": 10.0,
+              "negative_value_delta": 0.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 48.47,
+            "formal_B1_rate": 52.0,
+            "formal_B2_rate": 82.0,
+            "formal_B4_rate": 75.0,
+            "adjudicated_B1_rate": 52.0,
+            "adjudicated_B2_rate": 82.0,
+            "adjudicated_B4_rate": 75.0,
+            "consistency_basis": "只取1137—1142年本人新得河中及花剌子模宗主包；地方王朝承接执行、宗主关系与岁贡安排已确立，具备间接控制的移交条件。保留地方王朝及交班距卡特万数年均不构成缺口；岁贡实际持续履行及全部主包的常态运行验证不足，定4档低位，不消费早期建国核心。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 2,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FORMAL_SETTLEMENT_PATCH_SOURCE",
+            "decision_status": "CONFIRMED_CROSS_ITEM_ROUTING",
+            "source": "config/third-item/third-item-result-credit-adjudications.json#RULER-LIAO-YELU-DASHI",
+            "final_B1_rate": 52.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "b1_cross_item_excluded_weighted_value": 1.5,
+          "A_axis_common_context": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。"
+        },
+        {
+          "ruler_id": "RULER-LIAO-YELU-ZONGZHEN",
+          "ruler_name": "耶律宗真",
+          "polity": "辽",
+          "reign_range": [
+            "1031-1055"
+          ],
+          "axes": {
+            "A1": {
+              "start": "A1S4_STABLE_ADVANTAGE",
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "base_trajectory_value": 48,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "reason": "宋、西夏及内部叛乱均未发展为能改变辽朝总体主动的威胁，主要压力被控制但对手仍存，故A1保持4档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
+            },
+            "A2": {
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 48,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "reason": "燕云南缘、草原、辽东与松外边界在多向压力下仍保持协同，局部战争和叛乱未造成主要结构破口，故A2保持4档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
+            },
+            "B1": {
+              "grade": "B1-2",
+              "axis_points": 14.75,
+              "band_position": "HIGH",
+              "score_rate": 59.0,
+              "reason": "规模与控制强度：旧0→0.5局部包遗漏绝大多数继承边疆库存；37→59。",
+              "weighted_control_value": 1.32,
+              "raw_net_change": 0.0
+            },
+            "B2": {
+              "grade": "B2-3",
+              "axis_points": 20.1,
+              "band_position": "MID",
+              "score_rate": 67,
+              "reason": "按本人统治窗口4条去重战略链重建交接状态：安全结果={'E2': 1, 'E0': 1, 'E3_MAJOR_STAGE': 1, 'E3_REGIONAL_TERMINAL': 1}。A1取4→4、A2取4→4；B1-1只消费已在终点实际保留的控制，B2-3评价其战略价值，B4-3评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+            },
+            "B4": {
+              "grade": "B4-4",
+              "band_position": "LOW",
+              "score_rate": 75,
+              "axis_points": 18.75,
+              "reason": "东京渤海区域实际服属恢复并招降七万余户，形成可识别主控制包；西夏1049无控制对象不计缺口，裁B4-4低位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "1032年东京渤海叛乱的正式控制结果为区域实际服属恢复并招降七万余户，构成可识别主控制包；1049年西夏战争明确无新控制对象，不能把未取得目标当成熟度缺口。东京包有长期交班窗口，足以取B4-4低位；没有全部关键功能运行证据，不升5。",
+                "source_refs": [
+                  "YLZZ-XIXIA-WAR-1049",
+                  "YLZZ-BOHAI-REBELLION-1032"
+                ]
+              }
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 3.3,
+            "end": 3.3,
+            "net_change": 0.0,
+            "weighted_value": 1.32
+          },
+          "b1_region_control": {
+            "start": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 1.75,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            },
+            "end": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 1.75,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "LIAODONG_FRONTIER",
+              "object_name": "辽东边防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.5,
+              "end_coverage": 0.5,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.75,
+                "end": 1.75
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 0.5,
+              "end_coverage": 0.5,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.25,
+                "end": 0.25
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "YANYUN_DEFENSE_BELT",
+              "object_name": "燕云十六州—辽南京/西京南缘防御带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            }
+          ],
+          "primary_threat_refs": [
+            "YLZZ-SONG-GUANNAN-1042",
+            "YLZZ-XIXIA-WAR-1043-1044",
+            "YLZZ-XIXIA-WAR-1049",
+            "YLZZ-BOHAI-REBELLION-1032"
+          ],
+          "primary_control_package_refs": [
+            "YLZZ-XIXIA-WAR-1049",
+            "YLZZ-BOHAI-REBELLION-1032"
+          ],
+          "parent_cycle_refs": [
+            "YLZZ-SONG-GUANNAN-1042",
+            "YLZZ-XIXIA-WAR-1043-1044",
+            "YLZZ-XIXIA-WAR-1049",
+            "YLZZ-BOHAI-REBELLION-1032"
+          ],
+          "evidence_event_refs": [
+            "DINV::YELU_ZONGZHEN::LIAO-XIA-WAR-1043-1044",
+            "DINV::YELU_ZONGZHEN::LIAO-XIA-WAR-1049",
+            "LIAO-BOHAI-REBELLION-1032",
+            "LIAO-SONG-GUANNAN-1042"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "rationale": "接手时辽对宋保持稳定优势，燕云、辽东等主要边界总体安全；任内处理渤海叛乱、以关南施压宋朝并两度应对西夏战争，虽多线反复，交班仍维持原有战略优势和主要边界体系。",
+          "coverage_status": "CONFIRMED",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/史料通读产物/北宋/续资治通鉴/volume-046.battle-adjudications.json#XZTJ-LIAO-XIA-DANGXIANG-1043-1044",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-047.battle-adjudications.json#XZTJ-LIAO-XIA-DANGXIANG-1043-1044",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-050.battle-adjudications.json#XZTJ-050-LIAO-XIXIA-WAR-1049",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-051.battle-adjudications.json#XZTJ-050-LIAO-XIXIA-WAR-1049",
+            "docs/史料通读产物/辽/契丹国志/volume-015.battle-adjudications.json#QDGZ-LIAO-TOKYO-BOHAI-REBELLION",
+            "docs/史料通读产物/辽/契丹国志/volume-018.battle-adjudications.json#QGZ-LIAO-SONG-QINGLI-GUANNAN-1042"
+          ],
+          "control_contribution_basis": "B4边界复核闭合；不改既有B2归责或主控制成果包。",
+          "control_contribution_grade_cap": 5,
+          "A120_non_cost_anchor_points": 48.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 48.0,
+          "B80_score_points": 46.32,
+          "AB200_score_points": 94.32,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 24.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 40.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "EVIDENCE_LIMITED",
+                "basis": "多向用兵未另行证成主要威胁结构持续削弱或主体防线新闭合；维持辽原有高位不能自动取得建设信用。"
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 24.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 40.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "EVIDENCE_LIMITED",
+                "basis": "多向用兵未另行证成主要威胁结构持续削弱或主体防线新闭合；维持辽原有高位不能自动取得建设信用。"
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 46.32,
+            "formal_B1_rate": 59.0,
+            "formal_B2_rate": 67.0,
+            "formal_B4_rate": 75.0,
+            "adjudicated_B1_rate": 59.0,
+            "adjudicated_B2_rate": 67.0,
+            "adjudicated_B4_rate": 75.0,
+            "consistency_basis": "现有贡献类型已经符合合同；补齐由类型机械派生的共同上限。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 4,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据/辽.json",
+            "final_B1_rate": 59.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "宋辽关南交涉、西夏战争及渤海叛乱共同检验辽朝多方向安全。",
+          "control_contribution_route": "B4_BOUNDARY_REAUDIT"
+        },
+        {
+          "ruler_id": "RULER-LIAO-YELU-XIAN",
+          "ruler_name": "耶律贤",
+          "polity": "辽",
+          "reign_range": [
+            "969-982"
+          ],
+          "axes": {
+            "A1": {
+              "start": "A1S3_CONTESTED_BALANCE",
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "base_trajectory_value": 58,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "reason": "主要威胁宋朝的北进能力受到遏制，辽朝由相互制衡转为掌握稳定主动；宋仍是完整强国，故A1由3档升至4档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
+            },
+            "A2": {
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 58,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "reason": "燕云南缘防御带经定州、满城等战事检验后保持连贯，辽东和草原纵深能够支援；南缘仍有缺口，故A2由3档升至4档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
+            },
+            "B1": {
+              "grade": "B1-2",
+              "axis_points": 11.25,
+              "band_position": "LOW",
+              "score_rate": 45.0,
+              "reason": "规模与控制强度：旧0→0.5是局部结果包且未承接前朝库存；完整库存重建后37→45。",
+              "weighted_control_value": 0.97,
+              "raw_net_change": 0.0
+            },
+            "B2": {
+              "grade": "B2-4",
+              "axis_points": 24.6,
+              "band_position": "MID",
+              "score_rate": 82,
+              "reason": "按本人统治窗口2条去重战略链重建交接状态：安全结果={'E0': 1, 'E3_REGIONAL_TERMINAL': 1}。A1取3→4、A2取3→4；B1-1只消费已在终点实际保留的控制，B2-4评价其战略价值，B4-3评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+            },
+            "B4": {
+              "grade": "B4-4",
+              "band_position": "LOW",
+              "score_rate": 75,
+              "axis_points": 18.75,
+              "reason": "979年幽州—南京方向由受围转为稳定守住，BCP3且有定州、满城和援军接防，裁B4-4低位。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "979年宋北方攻势后，幽州—南京战略区由受围转为稳定守住，正式控制结果为BCP3；定州、满城和援军部署证明边界、指挥与接防功能闭合。未见交班前主包退控，长期全功能运行证据仍不足，裁B4-4低位。",
+                "source_refs": [
+                  "CHAIN-LIAO-SONG-NORTH-979"
+                ]
+              }
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 2.425,
+            "end": 2.425,
+            "net_change": 0.0,
+            "weighted_value": 0.97
+          },
+          "b1_region_control": {
+            "start": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            },
+            "end": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "LIAODONG_FRONTIER",
+              "object_name": "辽东边防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.25,
+              "end_coverage": 0.25,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.875,
+                "end": 0.875
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 0.5,
+              "end_coverage": 0.5,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.25,
+                "end": 0.25
+              },
+              "evidence_refs": [],
+              "reason": "只计部分顺服女真及松外属部的可执行羁縻网络，不把全部生女真视作直辖。"
+            },
+            {
+              "object_id": "YANYUN_DEFENSE_BELT",
+              "object_name": "燕云十六州—辽南京/西京南缘防御带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            }
+          ],
+          "primary_threat_refs": [
+            "CHAIN-LIAO-DINGZHOU-MANCHENG-971",
+            "CHAIN-LIAO-SONG-NORTH-979"
+          ],
+          "primary_control_package_refs": [
+            "CHAIN-LIAO-SONG-NORTH-979"
+          ],
+          "parent_cycle_refs": [
+            "CHAIN-LIAO-DINGZHOU-MANCHENG-971",
+            "CHAIN-LIAO-SONG-NORTH-979"
+          ],
+          "evidence_event_refs": [
+            "DINV::YELU_XIAN::DINGZHOU-MANCHENG-971",
+            "LIAO-SONG-NORTH-979"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "rationale": "接手时辽宋北线仍属相持，主要边界能够运行；971年定州、满城交战后继续守住北线，979年击退宋军北伐并保全燕云体系，交班取得稳定战略优势，边界总体安全但仍有宋辽对峙缺口。",
+          "coverage_status": "CONFIRMED",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#DINV::YELU_XIAN::DINGZHOU-MANCHENG-971",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#LIAO-SONG-NORTH-979",
+            "docs/史料通读产物/辽/契丹国志/volume-006.battle-adjudications.json#QGZ-LIAO-SONG-DINGZHOU-MANCHENG-971",
+            "docs/史料通读产物/辽/契丹国志/volume-006.battle-adjudications.json#QGZ-SONG-NORTHERNHAN-FINAL-979",
+            "docs/史料通读产物/辽/契丹国志/volume-015.battle-adjudications.json#QDGZ-LIAO-SONG-NORTHHAN-SHILINGGUAN-979"
+          ],
+          "control_contribution_basis": "B4边界复核闭合；不改既有B2归责或主控制成果包。",
+          "control_contribution_grade_cap": 5,
+          "A120_non_cost_anchor_points": 48.0,
+          "A120_positive_result_credit_points": 16.8,
+          "A120_score_points": 64.8,
+          "B80_score_points": 45.62,
+          "AB200_score_points": 110.42,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "耶律贤 A1（主要威胁能力与战略主动）逐人裁决：主要威胁宋朝的北进能力受到遏制，辽朝由相互制衡转为掌握稳定主动；宋仍是完整强国，故A1由3档升至4档。 耶律贤是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-DINGZHOU-MANCHENG-971、CHAIN-LIAO-SONG-NORTH-979。",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 32.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 54.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "耶律贤 A1（主要威胁能力与战略主动）逐人裁决：主要威胁宋朝的北进能力受到遏制，辽朝由相互制衡转为掌握稳定主动；宋仍是完整强国，故A1由3档升至4档。 耶律贤是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-DINGZHOU-MANCHENG-971、CHAIN-LIAO-SONG-NORTH-979。",
+                  "source_refs": [
+                    "CHAIN-LIAO-DINGZHOU-MANCHENG-971",
+                    "CHAIN-LIAO-SONG-NORTH-979"
+                  ]
+                }
+              ],
+              "attribution_source_refs": [
+                "CHAIN-LIAO-DINGZHOU-MANCHENG-971",
+                "CHAIN-LIAO-SONG-NORTH-979"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 40.0,
+              "attributable_value_delta": 10.0,
+              "weighted_change_value": 14.0,
+              "unclamped_trajectory_value": 54.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 8.4,
+              "positive_value_delta": 10.0,
+              "negative_value_delta": 0.0
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "耶律贤 A2（边界、门户、纵深与缓冲体系）逐人裁决：燕云南缘防御带经定州、满城等战事检验后保持连贯，辽东和草原纵深能够支援；南缘仍有缺口，故A2由3档升至4档。 耶律贤是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-DINGZHOU-MANCHENG-971、CHAIN-LIAO-SONG-NORTH-979。",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 32.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 54.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "耶律贤 A2（边界、门户、纵深与缓冲体系）逐人裁决：燕云南缘防御带经定州、满城等战事检验后保持连贯，辽东和草原纵深能够支援；南缘仍有缺口，故A2由3档升至4档。 耶律贤是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CHAIN-LIAO-DINGZHOU-MANCHENG-971、CHAIN-LIAO-SONG-NORTH-979。",
+                  "source_refs": [
+                    "CHAIN-LIAO-DINGZHOU-MANCHENG-971",
+                    "CHAIN-LIAO-SONG-NORTH-979"
+                  ]
+                }
+              ],
+              "attribution_source_refs": [
+                "CHAIN-LIAO-DINGZHOU-MANCHENG-971",
+                "CHAIN-LIAO-SONG-NORTH-979"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "end_state_value": 40.0,
+              "attributable_value_delta": 10.0,
+              "weighted_change_value": 14.0,
+              "unclamped_trajectory_value": 54.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 8.4,
+              "positive_value_delta": 10.0,
+              "negative_value_delta": 0.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 45.62,
+            "formal_B1_rate": 45.0,
+            "formal_B2_rate": 82.0,
+            "formal_B4_rate": 75.0,
+            "adjudicated_B1_rate": 45.0,
+            "adjudicated_B2_rate": 82.0,
+            "adjudicated_B4_rate": 75.0,
+            "consistency_basis": "现有贡献类型已经符合合同；补齐由类型机械派生的共同上限。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 2,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据/辽.json",
+            "final_B1_rate": 45.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "定州、满城及979年宋辽北线战争共同改变宋辽主要方向的攻守关系。",
+          "control_contribution_route": "B4_BOUNDARY_REAUDIT"
+        },
+        {
+          "ruler_id": "RULER-LIAO-YELU-RUAN",
+          "ruler_name": "耶律阮",
+          "polity": "辽",
+          "reign_range": [
+            "947-951"
+          ],
+          "axes": {
+            "A1": {
+              "start": "A1S4_STABLE_ADVANTAGE",
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "base_trajectory_value": 48,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "reason": "部族叛乱与中原方向对手未能改变辽朝总体优势，主要威胁仍受控但未消失，故A1保持4档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
+            },
+            "A2": {
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 48,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "reason": "辽东、草原与燕云主要边界仍能联动，锦州干预和内部动荡未造成关键门户退出，故A2保持4档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
+            },
+            "B1": {
+              "grade": "B1-2",
+              "axis_points": 11.25,
+              "band_position": "LOW",
+              "score_rate": 45.0,
+              "reason": "规模与控制强度：旧0→0完全漏继承库存；0→45。",
+              "weighted_control_value": 0.87,
+              "raw_net_change": 0.0
+            },
+            "B2": {
+              "grade": "B2-0",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "score_rate": 0,
+              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+            },
+            "B4": {
+              "grade": "B4-0",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "score_rate": 0,
+              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 2.175,
+            "end": 2.175,
+            "net_change": 0.0,
+            "weighted_value": 0.87
+          },
+          "b1_region_control": {
+            "start": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "YANYUN_DEFENSE_BELT": 0.8
+            },
+            "end": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "YANYUN_DEFENSE_BELT": 0.8
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "LIAODONG_FRONTIER",
+              "object_name": "辽东边防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.25,
+              "end_coverage": 0.25,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.875,
+                "end": 0.875
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "YANYUN_DEFENSE_BELT",
+              "object_name": "燕云十六州—辽南京/西京南缘防御带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            }
+          ],
+          "primary_threat_refs": [
+            "CHAIN-LIAO-JINZHOU-INTERVENTION-951",
+            "LIAO-SHIZONG-TRIBAL-REBELLIONS-947-950"
+          ],
+          "primary_control_package_refs": [],
+          "parent_cycle_refs": [
+            "CHAIN-LIAO-JINZHOU-INTERVENTION-951",
+            "LIAO-SHIZONG-TRIBAL-REBELLIONS-947-950"
+          ],
+          "evidence_event_refs": [
+            "DINV::YELU_RUAN::JINZHOU-INTERVENTION-951",
+            "LIAO-SHIZONG-TRIBAL-REBELLIONS-947-950"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "INHERITED_ONLY",
+          "rationale": "接手时辽保持稳定战略优势，燕云、辽东等主要边界总体安全；任内平定部族叛乱并介入中原晋州局势，未形成足以跨档的新秩序，也未使既有边界失效，交班维持原档。",
+          "coverage_status": "CONFIRMED",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#DINV::YELU_RUAN::JINZHOU-INTERVENTION-951",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#LIAO-SHIZONG-TRIBAL-REBELLIONS-947-950",
+            "docs/史料通读产物/辽/契丹国志/volume-004.battle-adjudications.json#QGZ-LIAO-SHIZONG-TRIBAL-REBELLIONS-947-950",
+            "docs/史料通读产物/辽/契丹国志/volume-005.battle-adjudications.json#QGZ-LIAO-NORTHERNHAN-JINZHOU-951"
+          ],
+          "control_contribution_route": "NO_SCORING_CONTROL_RESULT",
+          "control_contribution_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。",
+          "control_contribution_grade_cap": 0,
+          "A120_non_cost_anchor_points": 48.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 48.0,
+          "B80_score_points": 13.86,
+          "AB200_score_points": 61.86,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 24.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 40.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "EVIDENCE_LIMITED",
+                "basis": "内部冲突与锦州等有限事项没有闭合新的外部威胁结构变化或防御网络；不以高位短暂延续授建设分。"
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 24.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 40.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "EVIDENCE_LIMITED",
+                "basis": "内部冲突与锦州等有限事项没有闭合新的外部威胁结构变化或防御网络；不以高位短暂延续授建设分。"
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 13.86,
+            "formal_B1_rate": 45.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 45.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 2,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据/辽.json",
+            "final_B1_rate": 45.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "部族叛乱与951年锦州方向干预共同检验辽朝内外安全。"
+        },
+        {
+          "ruler_id": "RULER-LIAO-YELU-LONGXU",
+          "ruler_name": "耶律隆绪",
+          "polity": "辽",
+          "reign_range": [
+            "982-1031"
+          ],
+          "axes": {
+            "A1": {
+              "start": "A1S4_STABLE_ADVANTAGE",
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "base_trajectory_value": 48,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "reason": "主要战略对手宋朝在澶渊后压力受控，高丽战争亦未使辽朝失去总体主动；两方均未被彻底消除，故A1保持4档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
+            },
+            "A2": {
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 48,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "reason": "燕云南缘、辽东、草原与松外体系仍能支撑多方向作战，东向长期战争暴露补给和边缘缺口，故A2保持4档而非5档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
+            },
+            "B1": {
+              "grade": "B1-3",
+              "axis_points": 15.0,
+              "band_position": "LOW",
+              "score_rate": 60.0,
+              "reason": "规模与控制强度：完整客观窗口与萧绰平行读取；旧局部结果账低估继承库存和西北草原强化。最终60。",
+              "weighted_control_value": 1.845,
+              "raw_net_change": 0.875
+            },
+            "B2": {
+              "grade": "B2-3",
+              "axis_points": 20.1,
+              "band_position": "MID",
+              "score_rate": 67,
+              "reason": "按本人统治窗口1条去重战略链重建交接状态：安全结果={'E3_REGIONAL_TERMINAL': 1}。A1取4→4、A2取4→4；B1-1只消费已在终点实际保留的控制，B2-3评价其战略价值，B4-3评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+            },
+            "B4": {
+              "grade": "B4-0",
+              "band_position": "LOW",
+              "score_rate": 0,
+              "axis_points": 0.0,
+              "reason": "高丽十年战争终局仅恢复朝贡，正式BCP0且无长期实际控制对象；纯安全关系不补B4，归0档。",
+              "maturity_review": {
+                "status": "CONFIRMED",
+                "basis": "本人唯一主链的正式控制结果明确为BCP0：十年战争终局只是高丽恢复原有朝贡，未取得长期城州、寨堡或防线实际控制。朝贡恢复属于安全关系结果而非B4控制成果，纯安全无控制不补成熟度，故B4归0档。",
+                "source_refs": [
+                  "LIAO-XINLUO-TEN-YEAR-WAR"
+                ]
+              }
+            }
+          },
+          "b1_control_equivalents": {
+            "start": 2.425,
+            "end": 3.3,
+            "net_change": 0.875,
+            "weighted_value": 1.845
+          },
+          "b1_region_control": {
+            "start": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            },
+            "end": {
+              "LIAODONG_FRONTIER": 0.5,
+              "NORTH_GRASSLAND_WHOLE": 1.75,
+              "SONGWAI_JIMI_SPACE": 0.25,
+              "YANYUN_DEFENSE_BELT": 0.8
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "object_id": "LIAODONG_FRONTIER",
+              "object_name": "辽东边防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.25,
+              "end_coverage": 0.5,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.875,
+                "end": 1.75
+              },
+              "evidence_refs": [],
+              "reason": "圣宗中期阻卜治理强化形成更大可执行草原网络；萧绰去世后未出现交班前跨阶梯退控。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 0.5,
+              "end_coverage": 0.5,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.25,
+                "end": 0.25
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            },
+            {
+              "object_id": "YANYUN_DEFENSE_BELT",
+              "object_name": "燕云十六州—辽南京/西京南缘防御带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "逐区域全量重审确认。"
+            }
+          ],
+          "primary_threat_refs": [
+            "LIAO-XINLUO-TEN-YEAR-WAR"
+          ],
+          "primary_control_package_refs": [
+            "LIAO-XINLUO-TEN-YEAR-WAR"
+          ],
+          "parent_cycle_refs": [
+            "LIAO-XINLUO-TEN-YEAR-WAR"
+          ],
+          "evidence_event_refs": [
+            "QDGZ-LIAO-XINLUO-TEN-YEAR-TRIBUTE-WAR",
+            "QGZ-LIAO-GORYEO-1010"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "rationale": "接手时辽已具稳定战略优势，主要边界总体安全；任内对高丽长期用兵并形成可持续的东北方向压力与朝贡关系，但未消除全部边界缺口，交班继续维持稳定优势和总体安全体系。",
+          "coverage_status": "CONFIRMED",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json#LIAO-XINLUO-TEN-YEAR-WAR",
+            "docs/史料通读产物/辽/契丹国志/volume-007.battle-adjudications.json#QGZ-LIAO-GORYEO-1010",
+            "docs/史料通读产物/辽/契丹国志/volume-026.battle-adjudications.json#QDGZ-LIAO-XINLUO-TEN-YEAR-TRIBUTE-WAR"
+          ],
+          "control_contribution_basis": "B4边界复核闭合；不改既有B2归责或主控制成果包。",
+          "control_contribution_grade_cap": 5,
+          "A120_non_cost_anchor_points": 48.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 48.0,
+          "B80_score_points": 35.36,
+          "AB200_score_points": 83.36,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 24.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 40.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "EVIDENCE_LIMITED",
+                "basis": "对宋优势与既有防线已承接萧绰掌权窗口；亲政后的高丽长期用兵未形成超越接班的稳定威胁削弱或体系闭合。"
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 24.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0.0,
+              "end_grade": 4,
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0.0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 40.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "EVIDENCE_LIMITED",
+                "basis": "对宋优势与既有防线已承接萧绰掌权窗口；亲政后的高丽长期用兵未形成超越接班的稳定威胁削弱或体系闭合。"
+              },
+              "end_state_value": 40.0,
+              "attributable_value_delta": 0.0,
+              "weighted_change_value": 0.0,
+              "unclamped_trajectory_value": 40.0,
+              "non_cost_anchor_points": 24.0,
+              "positive_result_credit_points": 0.0,
+              "positive_value_delta": 0.0,
+              "negative_value_delta": 0.0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 35.36,
+            "formal_B1_rate": 60.0,
+            "formal_B2_rate": 67.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 60.0,
+            "adjudicated_B2_rate": 67.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "现有贡献类型已经符合合同；补齐由类型机械派生的共同上限。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 1,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据/辽.json",
+            "final_B1_rate": 60.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "东向高丽长期战争发生在宋辽主方向已稳定后的多边安全格局中。",
+          "control_contribution_route": "B4_BOUNDARY_REAUDIT"
+        }
+      ]
+    }
+  }
+}

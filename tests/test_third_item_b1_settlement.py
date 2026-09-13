@@ -7,7 +7,7 @@ from emperor_v4.evaluation.formal_json_store import load_json
 def test_formal_b1_rates_and_b80_are_synchronized() -> None:
     credit_path = Path("config/third-item/third-item-result-credit-adjudications.json")
     decisions = {row["ruler_id"]: row for row in load_json(credit_path)["records"]}
-    ab_path = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
+    ab_path = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
     rows = load_json(ab_path)["records"]
     for row in rows:
         decision = decisions[row["ruler_id"]]["B80_adjudication"]
@@ -26,7 +26,7 @@ def test_formal_b1_rates_and_b80_are_synchronized() -> None:
 
 
 def test_ab_markdown_lists_reader_facing_axis_basis() -> None:
-    path = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.md")
+    path = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.md")
     markdown = path.read_text(encoding="utf-8")
     rows = load_json(path.with_suffix(".json"))["records"]
     for label in (

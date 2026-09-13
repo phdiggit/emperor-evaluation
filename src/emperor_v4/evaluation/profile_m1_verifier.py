@@ -8,7 +8,7 @@ from pathlib import Path
 from emperor_v4.evaluation.formal_json_store import load_json
 
 ROOT = Path(__file__).resolve().parents[3]
-PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
+PROFILE_ROOT = ROOT / "docs" / "评分结算" / "人物画像"
 SETTLEMENT = PROFILE_ROOT / "M1" / "01-M1军事判断与统帅能力正式结算.json"
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 FORBIDDEN_AGGREGATES = ("第三项A+B", "D线性Q", "总排名", "第三项总分")

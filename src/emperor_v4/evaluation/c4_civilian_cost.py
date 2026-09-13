@@ -12,7 +12,7 @@ from typing import Any, Mapping
 from emperor_v4.evaluation.formal_json_store import load_json
 
 VERSION = "C4-CIVILIAN-COST-V1"
-ROOT_PATH = Path("docs/评分结算/第二项治国净收益/财政民生")
+ROOT_PATH = Path("docs/评分结算/净收益/第二项治国净收益/财政民生")
 AUDIT_PATH = ROOT_PATH / "06-主动民力成本去重审计.json"
 
 

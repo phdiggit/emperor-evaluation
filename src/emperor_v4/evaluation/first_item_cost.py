@@ -9,7 +9,7 @@ from typing import Any
 from emperor_v4.evaluation.first_item_markdown_settlement import load_first_item_markdown_settlement
 
 
-COST_PATH = 'docs/评分结算/第一项政权奠基与统一贡献及能力/06-军事成本正式裁决.json'
+COST_PATH = 'docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/06-军事成本正式裁决.json'
 MAPPING_PATH = 'config/first-item/military-cost-debits.json'
 
 

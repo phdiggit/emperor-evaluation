@@ -21,15 +21,15 @@ from emperor_v4.evaluation.formal_json_store import (
 VERSION = "GOVERNANCE-STATE-RECOVERY-V4"
 REVIEW_PATH = Path("config/second-item/governance-state-recovery-adjudications.json")
 REVIEW_MARKDOWN_PATH = Path(
-    "docs/评分结算/第二项治国净收益/财政民生/08-主态低谷与净恢复逐人裁决.md"
+    "docs/评分结算/净收益/第二项治国净收益/财政民生/08-主态低谷与净恢复逐人裁决.md"
 )
 CURRENT_REVIEW_PATH = Path("config/second-item/c4-attribution-readjudications.json")
 AXES = ("C1", "C2", "C3")
 FORMAL_PATHS = {
-    "C1": Path("docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json"),
-    "C2": Path("docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json"),
-    "C3": Path("docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json"),
-    "C4": Path("docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json"),
+    "C1": Path("docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json"),
+    "C2": Path("docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json"),
+    "C3": Path("docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json"),
+    "C4": Path("docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json"),
 }
 
 FIXED_POINTS = {
@@ -502,7 +502,7 @@ def write_component_readers(workspace_root: Path) -> None:
                     else:
                         lines.append('  - '+str(m))
             if row.get('state_adjudication'):
-                lines.append('- 完整裁决与引用：[逐人源](../../../../config/second-item/governance-state-recovery-adjudications.json)。')
+                lines.append('- 完整裁决与引用：[逐人源](../../../../../config/second-item/governance-state-recovery-adjudications.json)。')
             lines.append('')
         (root/rel.with_suffix('.md')).write_text('\n'.join(lines),encoding='utf-8')
 
@@ -561,7 +561,7 @@ def write_governance_state_recovery_markdown(workspace_root: Path) -> Path:
         for a in AXES:
             loss = r['axes'][a]['loss_review']
             lines.append(f'- {a} {loss["grade"]}：{loss["basis"]}')
-        lines += [f'- 完整三锚、主态依据、恢复归责及史源见[逐人裁决源](../../../../config/second-item/governance-state-recovery-adjudications.json)。','']
+        lines += [f'- 完整三锚、主态依据、恢复归责及史源见[逐人裁决源](../../../../../config/second-item/governance-state-recovery-adjudications.json)。','']
     path=root / REVIEW_MARKDOWN_PATH
     path.write_text('\n'.join(lines),encoding='utf-8')
     return path

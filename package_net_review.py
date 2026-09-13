@@ -36,17 +36,17 @@ SUFFIXES = {".md", ".json", ".yml", ".yaml"}
 FORBIDDEN = ("第五项", "人物画像", "profile", "tests", "test", "src", ".codex")
 GOVERNING = "docs/项目总纲/皇帝统治净收益评价合同.md"
 PROFILE_GOVERNING = "docs/项目总纲/皇帝人物画像评估体系合同.md"
-PROFILE_SETTLEMENT_ROOT = "docs/评分结算/皇帝人物画像"
+PROFILE_SETTLEMENT_ROOT = "docs/评分结算/人物画像"
 PROFILE_SETTLEMENT_MANIFEST = f"{PROFILE_SETTLEMENT_ROOT}/00-已结算轴正式入口.json"
 PROFILE_SETTLEMENT_EXCLUDED_DIRS = {"交叉轴复核", "雷达图小样", "视频人物卡小样", "视频文字小样"}
 PROFILE_SETTLEMENT_REVIEW_TOKENS = ("审计", "audit", "adjudicat", "复核", "复裁")
 
 SETTLEMENT_FIXED = (
-    "docs/评分结算/00-皇帝统治成效综合评分榜.md",
+    "docs/评分结算/净收益/00-统治净收益综合评分榜.md",
 )
 CONFIG_DIRS = ("config/first-item", "config/second-item", "config/third-item")
 PACKAGE_FIXED = {"settlements": SETTLEMENT_FIXED}
-PACKAGE_ITEM_PARENTS = {"settlements": ("docs/评分结算",)}
+PACKAGE_ITEM_PARENTS = {"settlements": ("docs/评分结算/净收益",)}
 PACKAGE_EXTRA_DIRS = {"settlements": ()}
 PACKAGE_EXCLUSIONS = {
     "contracts": (

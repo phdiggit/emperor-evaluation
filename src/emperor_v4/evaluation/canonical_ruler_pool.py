@@ -17,9 +17,9 @@ POOL_JSON = "config/common/canonical-ruler-pool.json"
 POOL_MARKDOWN = "docs/项目总纲/正式评价对象范围.md"
 ADMISSION_ADJUDICATIONS = "config/common/canonical-ruler-admission-adjudications.yml"
 SETTLEMENT_PATHS = {
-    "second_item": "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
-    "third_item": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
-    "fourth_item": "docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
+    "second_item": "docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.json",
+    "third_item": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
+    "fourth_item": "docs/评分结算/净收益/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
 }
 
 FIRST_ITEM_NOT_APPLICABLE_ALLOWLIST = {

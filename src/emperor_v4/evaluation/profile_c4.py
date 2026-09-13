@@ -7,7 +7,7 @@ from typing import Any
 from emperor_v4.evaluation.formal_json_store import load_json
 
 ROOT = Path(__file__).resolve().parents[3]
-DIRECTORY = Path('docs/评分结算/皇帝人物画像/C4')
+DIRECTORY = Path('docs/评分结算/人物画像/C4')
 JSON_PATH = DIRECTORY / '01-C4治理架构与制度设计正式结算.json'
 MARKDOWN_PATH = JSON_PATH.with_suffix('.md')
 PROJECTION = {'G0': (2, 7, 12), 'G1': (18, 25, 31), 'G2': (38, 45, 51),

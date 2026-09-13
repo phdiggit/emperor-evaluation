@@ -14,12 +14,12 @@ from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 
 ROOT = Path(__file__).resolve().parents[3]
-PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
+PROFILE_ROOT = ROOT / "docs" / "评分结算" / "人物画像"
 SETTLEMENT = PROFILE_ROOT / "C2/19-C2信息处理学习与纠错正式结算.json"
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "C2/20-C2主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "C2/21-C2高档学习周期与横向校准复核.json"
-B2 = ROOT / "docs" / "评分结算" / "第二项治国净收益" / "制度行政" / "03-B2反馈纠错与权力约束方向卡.json"
+B2 = ROOT / "docs" / "评分结算" / "净收益" / "第二项治国净收益" / "制度行政" / "03-B2反馈纠错与权力约束方向卡.json"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
 PROJECT = ROOT / "config" / "project.yml"

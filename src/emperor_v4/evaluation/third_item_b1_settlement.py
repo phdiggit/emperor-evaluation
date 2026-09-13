@@ -19,7 +19,7 @@ from emperor_v4.evaluation.third_item_current_settlement import (
 
 
 REVIEW_DIR = Path(
-    "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据"
+    "docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/B1重审数据"
 )
 FINAL_CLOSURE_NAME = "99-B1全量收口与剩余批次.json"
 ANCHOR_REGISTRY_PATH = Path("config/third-item/third-item-b1-region-anchors.json")

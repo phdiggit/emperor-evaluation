@@ -108,7 +108,7 @@ def source_links(row: Mapping[str, Any]) -> str:
             label = f"《{book}》卷{volume[1]}·" + ('通读总结' if volume[2] == 'source-summary' else '战役记录')
         elif '/03-军事行动成本和收益登记/' in path:
             label = '军事行动登记'
-        links.append(f"[{label}](../../../{quote(path[5:], safe='/')})")
+        links.append(f"[{label}](../../../../{quote(path[5:], safe='/')})")
     links.append('[完整裁决与引用](01-皇帝AB项正式结算.json)')
     return '；'.join(links)
 

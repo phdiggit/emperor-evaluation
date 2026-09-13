@@ -8,7 +8,7 @@ import yaml
 from emperor_v4.evaluation.formal_json_store import load_json
 
 CONFIG_PATH = Path("config/third-item/cost-sensitivity-cases.json")
-OUTPUT_JSON = Path("docs/评分结算/综合分析/01-军事成本裁决敏感性.json")
+OUTPUT_JSON = Path("docs/评分结算/净收益/综合分析/01-军事成本裁决敏感性.json")
 OUTPUT_MD = OUTPUT_JSON.with_suffix(".md")
 
 

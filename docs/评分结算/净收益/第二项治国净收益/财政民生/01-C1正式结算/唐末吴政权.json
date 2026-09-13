@@ -1,0 +1,115 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "唐末吴政权",
+  "collections": {
+    "scores": {
+      "positions": [
+        90
+      ],
+      "records": [
+        {
+          "adjudication_reason": "接手扬州时仓廪空虚、饥民相食；其后轻徭薄赋、招抚流移，未数年接近恢复旧日承平，足以闭合从崩溃低位到基本维持。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "883—905年淮南实际主政窗口",
+              "described_state": "接手扬州时仓廪空虚并发生极端饥荒；其后减轻徭赋、招抚流民，未数年接近恢复旧日承平。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "source_locator": "https://zh.wikisource.org/zh-hant/十國春秋_(四庫全書本)/卷001",
+              "source_works": [
+                "《新五代史》卷六十一",
+                "《十国春秋》卷一"
+              ],
+              "verbatim_excerpt": "城中倉廩空虛，饑民相殺而食；輕徭薄賦，招撫流移，未及數載，幾復承平之舊。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "NET_TAX_LABOR_BURDEN"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "第二条属于早期存亡危机，不在恢复完成后重复压低谷修正；晚年多方向战争缺普通家庭端独立闭合。"
+          ],
+          "peak_band": null,
+          "polity": "唐末吴政权",
+          "rank": 104,
+          "reign_range": "883—905年淮南实际主政",
+          "ruler_id": "RULER-SHADOW-杨行密",
+          "ruler_name": "杨行密",
+          "score": 28.2,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_main": "C1-3",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-15DB09B2073BE437",
+              "M3H-130CD0F22D581404",
+              "M3H-0038940E4B6E3C85"
+            ],
+            "applied_orphan_candidate_supplements": []
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "material_basis": [
+            {
+              "book": "《新五代史·吴世家》",
+              "original_text": "城中仓廪空虚，饥民相杀而食……轻徭薄赋，招抚流移，未及数载，几复承平之旧。"
+            },
+            {
+              "book": "《资治通鉴》卷二百五十七",
+              "original_text": "于是数万户弃资产，焚庐舍，挈老幼迁于广陵。"
+            }
+          ],
+          "stability_basis": "招抚后接近承平支持三档；早期实际相食及强迁家庭断裂另证核心严重恢复期低谷。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-杨行密",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "招抚后接近承平支持三档；早期实际相食及强迁家庭断裂另证核心严重恢复期低谷。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "接手扬州时仓廪空虚、饥民相食；其后轻徭薄赋、招抚流移，未数年接近恢复旧日承平，足以闭合从崩溃低位到基本维持。",
+              "full_window_reviewed": true,
+              "deduplication": "招抚后接近承平支持三档；早期实际相食及强迁家庭断裂另证核心严重恢复期低谷。",
+              "evidence_refs": [
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-杨行密",
+                "《新五代史》卷六十一",
+                "《十国春秋》卷一",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7257",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7259"
+              ]
+            },
+            "score": 28.2
+          }
+        }
+      ]
+    }
+  }
+}

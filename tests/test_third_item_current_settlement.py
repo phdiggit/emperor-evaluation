@@ -16,6 +16,6 @@ def test_current_third_item_formal_snapshot_is_internally_closed() -> None:
 
 def test_current_third_item_reader_view_hides_internal_factor() -> None:
     markdown = (
-        ROOT / "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.md"
+        ROOT / "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.md"
     ).read_text(encoding="utf-8")
     assert "factor" not in markdown.casefold()

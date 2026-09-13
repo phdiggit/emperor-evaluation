@@ -64,7 +64,7 @@ def load_qin_qing_first_item_roster(
     base = json.loads(
         (
             workspace_root
-            / "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json"
+            / "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json"
         ).read_text(encoding="utf-8")
     )
     base_by_name = {
@@ -1087,7 +1087,7 @@ def write_first_item_a_registry(workspace_root: Path) -> dict[str, Path]:
             include_current_pending_founders=True,
         ),
     )
-    output_dir = workspace_root / "docs/评分结算/第一项政权奠基与统一贡献及能力/战略决策能力"
+    output_dir = workspace_root / "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/战略决策能力"
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "01-第一项A战略决策能力结算.json"
     markdown_path = output_dir / "01-第一项A战略决策能力结算.md"

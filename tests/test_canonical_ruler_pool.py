@@ -94,7 +94,7 @@ def test_qing_second_item_ids_are_canonical_with_legacy_refs() -> None:
     second = json.loads(
         (
             ROOT
-            / "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json"
+            / "docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.json"
         ).read_text(encoding="utf-8")
     )
     second_by_name = {row["ruler_name"]: row for row in second["records"]}

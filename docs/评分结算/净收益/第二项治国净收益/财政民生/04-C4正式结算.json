@@ -1,0 +1,299 @@
+{
+  "schema_version": "formal-json-polity-router-v1",
+  "route_key": "polity",
+  "content_schema_version": "",
+  "payload_key_order": [
+    "database_write",
+    "formal_document",
+    "formal_score_write",
+    "formula",
+    "max_score",
+    "min_score",
+    "record_count",
+    "schema_id",
+    "scope",
+    "scores",
+    "status",
+    "task_code",
+    "m3_supplement_review",
+    "attribution_readjudication",
+    "public_basis_version",
+    "recovery_formula_version",
+    "review_progress",
+    "m3_governance_scale_adjudication_contract",
+    "construction_classification_contract",
+    "governance_activation"
+  ],
+  "payload_metadata": {
+    "database_write": false,
+    "formal_document": "财政民生/04-C4正式结算.json",
+    "formal_score_write": true,
+    "formula": "retained terminal recovery - attributable deterioration - residual DA",
+    "max_score": 27,
+    "min_score": -40,
+    "record_count": 195,
+    "schema_id": "SECOND-ITEM-C4-FORMAL-V8.0-RECOVERY-DETERIORATION-DA6",
+    "scope": "秦至清195人；含画像正式池184人",
+    "status": "FORMAL_GOVERNANCE_V4_ACTIVE",
+    "task_code": "I2-C4-SIGNED-NEGATIVE-TAIL-20260824",
+    "m3_supplement_review": {
+      "status": "FULL_184_ROUTED",
+      "new_formal_record_count": 10
+    },
+    "attribution_readjudication": {
+      "status": "FORMAL_COMPLETE",
+      "record_count": 195,
+      "grade_counts": {
+        "DA0": 95,
+        "DA1": 80,
+        "DA2": 18,
+        "DA3": 2
+      },
+      "audit_ref": "docs/评分结算/净收益/第二项治国净收益/财政民生/06-主动民力成本去重审计.json"
+    },
+    "public_basis_version": "C4-CIVILIAN-COST-V1",
+    "recovery_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+    "review_progress": {
+      "status": "FORMAL_COMPLETE",
+      "reviewed_record_count": 195,
+      "remaining_record_count": 0,
+      "contract_basis": "C4-CIVILIAN-COST-V1",
+      "ranking_note": "当前正式证据逐人核对；军事输入与剩余民力分账，纯推断采用统一保守下限。"
+    },
+    "m3_governance_scale_adjudication_contract": {
+      "schema_version": "m3-governance-scale-adjudication-v1",
+      "record_count": 195,
+      "classification_distribution": {
+        "FULL_OR_MAJOR_ACTUAL_SCALE": 19,
+        "LIMITED_ACTUAL_SCALE": 9,
+        "MATERIAL_SCOPE_LIMIT_ONLY": 6,
+        "UNRESOLVED": 161
+      },
+      "limited_gate_dimensions": [
+        "ACTUAL_GOVERNANCE_SCALE",
+        "FRAGMENTED_ACTUAL_CONTROL"
+      ],
+      "material_scope_limit_does_not_trigger_limited_gate": true,
+      "keyword_absence_does_not_imply_full_scale": true,
+      "name_or_polity_inference_forbidden": true
+    },
+    "construction_classification_contract": {
+      "allowed_types": [
+        "NEW_BUILD",
+        "MAJOR_EXPANSION",
+        "REPAIR",
+        "RENAMING",
+        "UNCLEAR"
+      ],
+      "classification_counts": {
+        "MAJOR_EXPANSION": 9,
+        "NEW_BUILD": 41,
+        "NONE": 127,
+        "REPAIR": 2,
+        "UNCLEAR": 21
+      }
+    },
+    "governance_activation": {
+      "version": "GOVERNANCE-STATE-RECOVERY-V4",
+      "review_path": "config/second-item/governance-state-recovery-adjudications.json",
+      "reviewed_record_count": 184,
+      "out_of_scope_formal_record_count": 11
+    }
+  },
+  "collections": {
+    "scores": {
+      "record_count": 195
+    }
+  },
+  "routes": [
+    {
+      "polity": "三国",
+      "path": "04-C4正式结算/三国.json",
+      "collection_counts": {
+        "scores": 11
+      }
+    },
+    {
+      "polity": "东晋",
+      "path": "04-C4正式结算/东晋.json",
+      "collection_counts": {
+        "scores": 3
+      }
+    },
+    {
+      "polity": "东汉",
+      "path": "04-C4正式结算/东汉.json",
+      "collection_counts": {
+        "scores": 11
+      }
+    },
+    {
+      "polity": "东魏",
+      "path": "04-C4正式结算/东魏.json",
+      "collection_counts": {
+        "scores": 1
+      }
+    },
+    {
+      "polity": "五代十国",
+      "path": "04-C4正式结算/五代十国.json",
+      "collection_counts": {
+        "scores": 18
+      }
+    },
+    {
+      "polity": "元",
+      "path": "04-C4正式结算/元.json",
+      "collection_counts": {
+        "scores": 8
+      }
+    },
+    {
+      "polity": "刘宋",
+      "path": "04-C4正式结算/刘宋.json",
+      "collection_counts": {
+        "scores": 4
+      }
+    },
+    {
+      "polity": "北周",
+      "path": "04-C4正式结算/北周.json",
+      "collection_counts": {
+        "scores": 1
+      }
+    },
+    {
+      "polity": "北魏",
+      "path": "04-C4正式结算/北魏.json",
+      "collection_counts": {
+        "scores": 7
+      }
+    },
+    {
+      "polity": "北齐",
+      "path": "04-C4正式结算/北齐.json",
+      "collection_counts": {
+        "scores": 3
+      }
+    },
+    {
+      "polity": "十六国",
+      "path": "04-C4正式结算/十六国.json",
+      "collection_counts": {
+        "scores": 17
+      }
+    },
+    {
+      "polity": "南齐",
+      "path": "04-C4正式结算/南齐.json",
+      "collection_counts": {
+        "scores": 2
+      }
+    },
+    {
+      "polity": "唐",
+      "path": "04-C4正式结算/唐.json",
+      "collection_counts": {
+        "scores": 13
+      }
+    },
+    {
+      "polity": "唐末吴政权",
+      "path": "04-C4正式结算/唐末吴政权.json",
+      "collection_counts": {
+        "scores": 1
+      }
+    },
+    {
+      "polity": "宋",
+      "path": "04-C4正式结算/宋.json",
+      "collection_counts": {
+        "scores": 16
+      }
+    },
+    {
+      "polity": "明",
+      "path": "04-C4正式结算/明.json",
+      "collection_counts": {
+        "scores": 17
+      }
+    },
+    {
+      "polity": "梁",
+      "path": "04-C4正式结算/梁.json",
+      "collection_counts": {
+        "scores": 2
+      }
+    },
+    {
+      "polity": "清",
+      "path": "04-C4正式结算/清.json",
+      "collection_counts": {
+        "scores": 12
+      }
+    },
+    {
+      "polity": "秦",
+      "path": "04-C4正式结算/秦.json",
+      "collection_counts": {
+        "scores": 2
+      }
+    },
+    {
+      "polity": "西夏",
+      "path": "04-C4正式结算/西夏.json",
+      "collection_counts": {
+        "scores": 8
+      }
+    },
+    {
+      "polity": "西晋",
+      "path": "04-C4正式结算/西晋.json",
+      "collection_counts": {
+        "scores": 1
+      }
+    },
+    {
+      "polity": "西汉",
+      "path": "04-C4正式结算/西汉.json",
+      "collection_counts": {
+        "scores": 11
+      }
+    },
+    {
+      "polity": "西魏",
+      "path": "04-C4正式结算/西魏.json",
+      "collection_counts": {
+        "scores": 1
+      }
+    },
+    {
+      "polity": "辽",
+      "path": "04-C4正式结算/辽.json",
+      "collection_counts": {
+        "scores": 10
+      }
+    },
+    {
+      "polity": "金",
+      "path": "04-C4正式结算/金.json",
+      "collection_counts": {
+        "scores": 9
+      }
+    },
+    {
+      "polity": "陈",
+      "path": "04-C4正式结算/陈.json",
+      "collection_counts": {
+        "scores": 4
+      }
+    },
+    {
+      "polity": "隋",
+      "path": "04-C4正式结算/隋.json",
+      "collection_counts": {
+        "scores": 2
+      }
+    }
+  ]
+}

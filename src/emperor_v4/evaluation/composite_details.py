@@ -11,9 +11,9 @@ from emperor_v4.evaluation.first_item_markdown_settlement import (
     COMPONENT_SETTLEMENTS, TOTAL_SETTLEMENT, load_first_item_markdown_settlement,
 )
 
-SECOND = "docs/评分结算/第二项治国净收益/"
-THIRD = "docs/评分结算/第三项军事与边疆净收益/"
-FOURTH = "docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json"
+SECOND = "docs/评分结算/净收益/第二项治国净收益/"
+THIRD = "docs/评分结算/净收益/第三项军事与边疆净收益/"
+FOURTH = "docs/评分结算/净收益/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json"
 SOURCES = {
     "method": SECOND + "制度行政/04-治理手段165分正式结算.json",
     "A": SECOND + "制度行政/01-A制度建设与实际运行方向卡.json",

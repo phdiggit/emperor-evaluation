@@ -12,7 +12,7 @@ import json
 
 from emperor_v4.evaluation.formal_json_store import load_json
 
-BASE = Path('docs/评分结算/第四项文明与国家整合收益')
+BASE = Path('docs/评分结算/净收益/第四项文明与国家整合收益')
 JSON_PATH = BASE / '01-第四项文明与国家整合收益正式结算.json'
 A_PATH = BASE / '国家共同体与社会整合/01-皇帝A项正式结算.md'
 TOTAL_PATH = BASE / '02-第四项文明与国家整合收益正式总榜.md'
@@ -224,7 +224,7 @@ def _render_axis(payload, axis):
     arows = [(r, next(a for a in r['axis_results'] if a['axis'] == axis)) for r in rows]
     arows.sort(key=lambda item: (-item[1]['signed_adjustment'], item[0]['ruler_id']))
     lines = [f'# 秦至清第四项{axis}轴{AXIS_NAMES[axis]}正式结算', '',
-             '规则见[第四项规则与计分合同](../../../分项规则/第四项文明与国家整合收益/00-规则与计分合同.md)。', '',
+             '规则见[第四项规则与计分合同](../../../../分项规则/第四项文明与国家整合收益/00-规则与计分合同.md)。', '',
              '本阅读版只读取正式 JSON；不以阅读视图反推人物裁决。', '', state, '',
              f'本轴结算可归责的{AXIS_NAMES[axis]}净变化；正向结果与独立负向损害分别进入P、N。', '',
              f'共{len(rows)}人；正向{sum(a["signed_adjustment"]>0 for _,a in arows)}人，负向{sum(a["signed_adjustment"]<0 for _,a in arows)}人，零值{sum(a["signed_adjustment"]==0 for _,a in arows)}人。', '',

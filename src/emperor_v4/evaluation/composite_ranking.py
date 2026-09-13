@@ -16,22 +16,22 @@ from emperor_v4.evaluation.first_item_markdown_settlement import (
 
 
 POOL_PATH = "config/common/canonical-ruler-pool.json"
-OUTPUT_JSON = "docs/评分结算/00-皇帝统治成效综合评分榜.json"
-OUTPUT_MARKDOWN = "docs/评分结算/00-皇帝统治成效综合评分榜.md"
+OUTPUT_JSON = "docs/评分结算/净收益/00-统治净收益综合评分榜.json"
+OUTPUT_MARKDOWN = "docs/评分结算/净收益/00-统治净收益综合评分榜.md"
 FIRST_ITEM_ADD_ON_COEFFICIENT = 0.20
 FIRST_ITEM_SENSITIVITY_COEFFICIENTS = (0.18, 0.20, 0.22)
 
 SETTLEMENT_SPECS = {
     "second_item": (
-        "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
+        "docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.json",
         "second_item_score",
     ),
     "third_item": (
-        "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
         "third_item_score_points",
     ),
     "fourth_item": (
-        "docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
+        "docs/评分结算/净收益/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
         "fourth_item_signed_adjustment",
     ),
 }
@@ -475,7 +475,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
             "- [第三项：军事与边疆净收益](第三项军事与边疆净收益/02-第三项正式结算.md)",
             "- [第四项：文明与国家整合收益](第四项文明与国家整合收益/02-第四项文明与国家整合收益正式总榜.md)",
             "",
-            "同值数据入口为[`00-皇帝统治成效综合评分榜.json`](00-皇帝统治成效综合评分榜.json)。"
+            "同值数据入口为[`00-统治净收益综合评分榜.json`](00-统治净收益综合评分榜.json)。"
             "本表由前四项正式结果与规范评价池确定性生成；运行"
             "`codex-win run -- python v4.py composite-ranking --write`可重建JSON和Markdown。",
             "",

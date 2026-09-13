@@ -1,0 +1,316 @@
+{
+  "schema_version": "formal-json-polity-router-v1",
+  "route_key": "polity",
+  "content_schema_version": "emperor-profile-m1-formal-settlement-v1",
+  "payload_key_order": [
+    "schema_version",
+    "contract_version",
+    "canonical_status",
+    "axis_code",
+    "axis_name",
+    "record_count",
+    "formal_profile_write",
+    "formal_rank_write",
+    "profile_total_enabled",
+    "database_write",
+    "lineage",
+    "method",
+    "summary",
+    "records",
+    "record_order_policy"
+  ],
+  "payload_metadata": {
+    "schema_version": "emperor-profile-m1-formal-settlement-v1",
+    "contract_version": "FORMAL-V1.0",
+    "canonical_status": "FORMAL_CURRENT",
+    "axis_code": "M1",
+    "axis_name": "军事判断与统帅能力",
+    "record_count": 184,
+    "formal_profile_write": true,
+    "formal_rank_write": false,
+    "profile_total_enabled": false,
+    "database_write": false,
+    "lineage": {
+      "normative_entries": [
+        "docs/公共成果/军事/01-战役登记.json",
+        "docs/公共成果/军事/02-武将人才等级.json",
+        "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项政权奠基与统一贡献及能力正式结算.json",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json"
+      ]
+    },
+    "method": {
+      "matrix_join_key": "ruler_id",
+      "grade_assigned_only_from_explicit_person_adjudication": true,
+      "ordinal_score_array_used": false,
+      "name_score_table_used": false,
+      "default_grade_used": false,
+      "event_count_equal_weighting_used": false,
+      "material_intensity_compared_before_direction": true,
+      "military_grade_direct_mapping_used": false,
+      "war_conduct_used_as_m1_direction_or_failure": false,
+      "strongest_counterevidence_cap_used": false,
+      "full_pool_person_by_person_readjudication": true,
+      "target_nonachievement_automatically_treated_as_defeat": false,
+      "failure_requires_loss_ratio_phase_result_and_attribution_review": true,
+      "resource_advantage_underperformance_gate": true,
+      "third_item_strategy_outcome_crosscheck": "A_SECURITY_TRAJECTORY;B_CONTROL_RESULT;C_SYSTEM_EFFECTIVENESS;D_COST_RETURN;NO_DIRECT_SCORE_MAPPING"
+    },
+    "summary": {
+      "pool_count": 184,
+      "applicable_count": 184,
+      "graded_count": 184,
+      "applicable_unresolved_count": 0,
+      "radar_complete_count": 184,
+      "axis_evidence_distribution": {
+        "E1": 30,
+        "E2": 75,
+        "E3": 79
+      },
+      "output_mode_distribution": {
+        "BOUNDED_PROFILE": 88,
+        "EPISODE_TAG": 30,
+        "FULL_GRADE": 66
+      },
+      "confidence_distribution": {
+        "HIGH": 66,
+        "LOW": 30,
+        "MEDIUM": 88
+      },
+      "grade_distribution": {
+        "G0": 5,
+        "G1": 25,
+        "G2": 48,
+        "G3": 71,
+        "G4": 30,
+        "G5": 5
+      },
+      "position_distribution": {
+        "HIGH": 86,
+        "LOW": 41,
+        "MID": 57
+      },
+      "talent_grade_difference_review_count": 16,
+      "positive_difference_review_count": 12,
+      "negative_difference_review_count": 4,
+      "no_profile_g4_g5_review_count": 9,
+      "grade_position_change_count": 7,
+      "war_conduct_excluded_from_m1_direction_count": 4,
+      "normative_entry_coverage_complete_count": 187,
+      "normative_entry_full_grade_gate_pass_count": 131,
+      "full_grade_withheld_by_normative_entry_gap_count": 10,
+      "required_trace_field_complete_count": 184,
+      "material_intensity_claim_consistency_complete_count": 184,
+      "structural_high_grade_review_count": 64,
+      "structural_grade_or_position_change_count": 52,
+      "military_talent_profile_connected_count": 120,
+      "military_talent_no_formal_profile_count": 64,
+      "military_talent_alias_match_count": 2,
+      "missing_anchor_strength_review_count": 64,
+      "missing_anchor_or_alias_grade_position_change_count": 20,
+      "talent_result_difficulty_combo_review_count": 120,
+      "talent_result_difficulty_combo_candidate_count": 19,
+      "talent_result_difficulty_combo_change_count": 7,
+      "military_talent_registry_projection_count": 120,
+      "full_pool_readjudication_count": 184,
+      "full_pool_readjudication_changed_count": 36,
+      "third_item_strategy_crosscheck_count": 184
+    },
+    "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+  },
+  "collections": {
+    "records": {
+      "record_count": 184
+    }
+  },
+  "routes": [
+    {
+      "polity": "三国",
+      "path": "01-M1军事判断与统帅能力正式结算/三国.json",
+      "collection_counts": {
+        "records": 10
+      }
+    },
+    {
+      "polity": "东晋",
+      "path": "01-M1军事判断与统帅能力正式结算/东晋.json",
+      "collection_counts": {
+        "records": 2
+      }
+    },
+    {
+      "polity": "东汉",
+      "path": "01-M1军事判断与统帅能力正式结算/东汉.json",
+      "collection_counts": {
+        "records": 10
+      }
+    },
+    {
+      "polity": "东魏",
+      "path": "01-M1军事判断与统帅能力正式结算/东魏.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "五代十国",
+      "path": "01-M1军事判断与统帅能力正式结算/五代十国.json",
+      "collection_counts": {
+        "records": 18
+      }
+    },
+    {
+      "polity": "元",
+      "path": "01-M1军事判断与统帅能力正式结算/元.json",
+      "collection_counts": {
+        "records": 8
+      }
+    },
+    {
+      "polity": "刘宋",
+      "path": "01-M1军事判断与统帅能力正式结算/刘宋.json",
+      "collection_counts": {
+        "records": 4
+      }
+    },
+    {
+      "polity": "北周",
+      "path": "01-M1军事判断与统帅能力正式结算/北周.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "北魏",
+      "path": "01-M1军事判断与统帅能力正式结算/北魏.json",
+      "collection_counts": {
+        "records": 7
+      }
+    },
+    {
+      "polity": "北齐",
+      "path": "01-M1军事判断与统帅能力正式结算/北齐.json",
+      "collection_counts": {
+        "records": 3
+      }
+    },
+    {
+      "polity": "十六国",
+      "path": "01-M1军事判断与统帅能力正式结算/十六国.json",
+      "collection_counts": {
+        "records": 16
+      }
+    },
+    {
+      "polity": "南齐",
+      "path": "01-M1军事判断与统帅能力正式结算/南齐.json",
+      "collection_counts": {
+        "records": 2
+      }
+    },
+    {
+      "polity": "唐",
+      "path": "01-M1军事判断与统帅能力正式结算/唐.json",
+      "collection_counts": {
+        "records": 12
+      }
+    },
+    {
+      "polity": "唐末吴政权",
+      "path": "01-M1军事判断与统帅能力正式结算/唐末吴政权.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "宋",
+      "path": "01-M1军事判断与统帅能力正式结算/宋.json",
+      "collection_counts": {
+        "records": 15
+      }
+    },
+    {
+      "polity": "明",
+      "path": "01-M1军事判断与统帅能力正式结算/明.json",
+      "collection_counts": {
+        "records": 15
+      }
+    },
+    {
+      "polity": "梁",
+      "path": "01-M1军事判断与统帅能力正式结算/梁.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "清",
+      "path": "01-M1军事判断与统帅能力正式结算/清.json",
+      "collection_counts": {
+        "records": 12
+      }
+    },
+    {
+      "polity": "秦",
+      "path": "01-M1军事判断与统帅能力正式结算/秦.json",
+      "collection_counts": {
+        "records": 2
+      }
+    },
+    {
+      "polity": "西夏",
+      "path": "01-M1军事判断与统帅能力正式结算/西夏.json",
+      "collection_counts": {
+        "records": 8
+      }
+    },
+    {
+      "polity": "西晋",
+      "path": "01-M1军事判断与统帅能力正式结算/西晋.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "西汉",
+      "path": "01-M1军事判断与统帅能力正式结算/西汉.json",
+      "collection_counts": {
+        "records": 10
+      }
+    },
+    {
+      "polity": "西魏",
+      "path": "01-M1军事判断与统帅能力正式结算/西魏.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "辽",
+      "path": "01-M1军事判断与统帅能力正式结算/辽.json",
+      "collection_counts": {
+        "records": 10
+      }
+    },
+    {
+      "polity": "金",
+      "path": "01-M1军事判断与统帅能力正式结算/金.json",
+      "collection_counts": {
+        "records": 9
+      }
+    },
+    {
+      "polity": "陈",
+      "path": "01-M1军事判断与统帅能力正式结算/陈.json",
+      "collection_counts": {
+        "records": 3
+      }
+    },
+    {
+      "polity": "隋",
+      "path": "01-M1军事判断与统帅能力正式结算/隋.json",
+      "collection_counts": {
+        "records": 2
+      }
+    }
+  ]
+}

@@ -9,7 +9,7 @@ from emperor_v4.evaluation.first_item_weights import (
 )
 
 
-SETTLEMENT_DIRECTORY = "docs/评分结算/第一项政权奠基与统一贡献及能力"
+SETTLEMENT_DIRECTORY = "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力"
 TOTAL_SETTLEMENT = f"{SETTLEMENT_DIRECTORY}/01-第一项政权奠基与统一贡献及能力正式结算.md"
 COMPONENT_SETTLEMENTS = (
     f"{SETTLEMENT_DIRECTORY}/01-第一项A统一主链客观贡献正式结算.md",

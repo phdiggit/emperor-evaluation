@@ -34,21 +34,21 @@ from emperor_v4.evaluation.third_item_d_settlement import (
 
 SETTLEMENT_SPECS = {
     "second_item": {
-        "path": "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
+        "path": "docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.json",
         "schema": "i2_total_387_signed_formal_v5_da6",
         "score": "second_item_score",
         "rank": "rank",
         "range": (-27.5, 387),
     },
     "third_item": {
-        "path": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
+        "path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
         "schema": "emperor-v4-third-item-formal-settlement-v7-fixed-cost-debit",
         "score": "third_item_score_points",
         "rank": "rank",
         "range": (-80, 250),
     },
     "fourth_item": {
-        "path": "docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
+        "path": "docs/评分结算/净收益/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
         "schema": "fourth-item-signed-addon-formal-settlement-v1",
         "score": "fourth_item_signed_adjustment",
         "rank": "rank",
@@ -57,18 +57,18 @@ SETTLEMENT_SPECS = {
 }
 
 SECOND_ITEM_COMPONENT_PATHS = {
-    "A": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
-    "B1": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-    "B2": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-    "method": "docs/评分结算/第二项治国净收益/制度行政/04-治理手段165分正式结算.json",
-    "C1": "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json",
-    "C2": "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json",
-    "C3": "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json",
-    "C4": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json",
-    "result": "docs/评分结算/第二项治国净收益/财政民生/05-治理结果正式结算.json",
-    "D1": "docs/评分结算/第二项治国净收益/政权交接稳定/01-D1继任行政连续性方向卡.json",
-    "D3": "docs/评分结算/第二项治国净收益/政权交接稳定/02-D3政权交接稳定方向卡.json",
-    "handoff": "docs/评分结算/第二项治国净收益/政权交接稳定/03-交接质量20分正式结算.json",
+    "A": "docs/评分结算/净收益/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
+    "B1": "docs/评分结算/净收益/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
+    "B2": "docs/评分结算/净收益/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
+    "method": "docs/评分结算/净收益/第二项治国净收益/制度行政/04-治理手段165分正式结算.json",
+    "C1": "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json",
+    "C2": "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json",
+    "C3": "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json",
+    "C4": "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json",
+    "result": "docs/评分结算/净收益/第二项治国净收益/财政民生/05-治理结果正式结算.json",
+    "D1": "docs/评分结算/净收益/第二项治国净收益/政权交接稳定/01-D1继任行政连续性方向卡.json",
+    "D3": "docs/评分结算/净收益/第二项治国净收益/政权交接稳定/02-D3政权交接稳定方向卡.json",
+    "handoff": "docs/评分结算/净收益/第二项治国净收益/政权交接稳定/03-交接质量20分正式结算.json",
 }
 
 IMPORTANT_INSTITUTION_REGISTRY = (

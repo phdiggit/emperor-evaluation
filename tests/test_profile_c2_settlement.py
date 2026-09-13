@@ -11,7 +11,7 @@ from emperor_v4.evaluation.profile_parent_schema import parent_chains
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = ROOT / "docs" / "评分结算" / "皇帝人物画像"
+BASE = ROOT / "docs" / "评分结算" / "人物画像"
 
 
 def load(name: str):
