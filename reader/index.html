@@ -33,6 +33,62 @@ main:has(.overview-panels){padding-top:16px}.person-head h1{font-size:30px;line-
   text-decoration-color: color-mix(in srgb, currentColor 42%, transparent);
 }
 
+/* Buttons and disclosure headings share one restrained interaction language. */
+header nav button,
+#screen button,
+#screen summary {
+  transition: color .16s ease, background-color .16s ease, border-color .16s ease,
+              box-shadow .16s ease, transform .16s ease;
+}
+
+#screen summary {
+  border-radius: 4px;
+  list-style: none;
+  padding: 3px 28px 3px 5px;
+  margin-left: -5px;
+  position: relative;
+}
+
+#screen summary::-webkit-details-marker {
+  display: none;
+}
+
+#screen summary::after {
+  content: "›";
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  transform: translateY(-50%);
+  transform-origin: 50% 50%;
+  transition: color .16s ease, transform .18s ease;
+}
+
+#screen details[open] > summary::after {
+  color: var(--red);
+  transform: translateY(-50%) rotate(90deg);
+}
+
+/* Ruler names behave like textual entry points rather than generic controls. */
+#screen td.name button {
+  position: relative;
+  border-radius: 2px;
+  transition: color .16s ease, transform .16s ease;
+}
+
+#screen td.name button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transition: right .18s ease;
+}
+
 @media (hover: hover) and (pointer: fine) {
   #screen a {
     background-image: linear-gradient(currentColor, currentColor);
@@ -61,11 +117,69 @@ main:has(.overview-panels){padding-top:16px}.person-head h1{font-size:30px;line-
     background-color: color-mix(in srgb, var(--gold) 13%, transparent);
     box-shadow: none;
   }
+
+  header nav button:hover,
+  #screen button:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--gold) 58%, var(--line));
+    background-color: color-mix(in srgb, var(--gold) 8%, transparent);
+    box-shadow: 0 4px 10px color-mix(in srgb, var(--ink) 9%, transparent);
+  }
+
+  header nav button.active:hover,
+  #screen button.primary:hover {
+    background-color: color-mix(in srgb, var(--ink) 92%, var(--gold));
+    border-color: var(--ink);
+    color: white;
+  }
+
+  #screen .candidate-grid button:hover {
+    background-color: color-mix(in srgb, var(--gold) 11%, #fcfbf7);
+  }
+
+  #screen td.name button:hover {
+    color: var(--red);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: translateX(2px);
+  }
+
+  #screen td.name button:hover::after {
+    right: 0;
+  }
+
+  #screen summary:hover {
+    color: var(--red);
+    background-color: color-mix(in srgb, var(--gold) 8%, transparent);
+  }
+
+  #screen summary:hover::after {
+    color: var(--red);
+  }
+
+  header nav button:active,
+  #screen button:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #screen a {
+  #screen a,
+  header nav button,
+  #screen button,
+  #screen summary,
+  #screen summary::after,
+  #screen td.name button,
+  #screen td.name button::after {
     transition: none;
+  }
+
+  header nav button:hover,
+  #screen button:hover,
+  #screen td.name button:hover {
+    transform: none;
   }
 }
 </style>
