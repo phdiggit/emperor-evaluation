@@ -1420,6 +1420,140 @@ window.addEventListener('hashchange',route);route();
     civilization: "第四项 · 文明与国家整合",
   };
 
+  const firstItemDocs = {
+    "A统一贡献": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项A统一主链客观贡献正式结算.md",
+    "B1创业难度与效率": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/02-第一项B1创业难度与战略效率正式结算.md",
+    "B2组织与整合": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/03-第一项B2创业组织与政治整合正式结算.md",
+    "C军事统帅与战争解题": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/04-第一项C本人军事统帅与战争解题能力正式结算.md",
+  };
+  const firstItemDocCache = new Map();
+
+  function firstItemRawUrl(ref) {
+    const path = String(ref || "").split("#", 1)[0];
+    return `../${path}?raw=1`;
+  }
+
+  async function loadFirstItemDoc(ref) {
+    if (!ref) return "";
+    if (firstItemDocCache.has(ref)) return firstItemDocCache.get(ref);
+    const pending = fetch(firstItemRawUrl(ref), {cache: "force-cache"})
+      .then(response => response.ok ? response.text() : "")
+      .catch(() => "");
+    firstItemDocCache.set(ref, pending);
+    return pending;
+  }
+
+  function firstItemBullets(markdown, rulerName) {
+    if (!markdown || !rulerName) return {};
+    const escaped = rulerName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const heading = new RegExp(`^###\\s+\\d+\\.\\s+${escaped}\\s*$`, "m");
+    const match = heading.exec(markdown);
+    if (!match) return {};
+    const tail = markdown.slice(match.index + match[0].length);
+    const next = tail.search(/^###\s+\d+\./m);
+    const section = next >= 0 ? tail.slice(0, next) : tail;
+    const result = {};
+    for (const line of section.split(/\r?\n/)) {
+      const bullet = line.match(/^-\s+\*\*(.+?)\*\*：\s*(.*)$/);
+      if (!bullet) continue;
+      result[bullet[1].trim()] = bullet[2].replace(/\*\*/g, "").replace(/`/g, "").trim();
+    }
+    return result;
+  }
+
+  function firstItemPublicText(value) {
+    return String(value ?? "")
+      .replace(/\bR([0-6])\b/g, "起点R$1级")
+      .replace(/\bO([1-6])\b/g, "对手O$1级")
+      .replace(/\bL([0-5])\b/g, "L$1级")
+      .replace(/\bHYBRID\b/g, "战略统筹与本人主帅／临阵并存")
+      .replace(/\bSTRATEGIC_COMMAND\b/g, "战略统筹路线")
+      .replace(/\bNONE\b/g, "未形成可计的本人统帅责任")
+      .replace(/\bC-([0-5])-(LOW|MID|HIGH)\b/g, (_, n, p) => `第${n}档·${({LOW:"低位",MID:"中位",HIGH:"高位"})[p]}`)
+      .replace(/\bC-0\b/g, "第0档")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function firstItemSourceBlock(item, record) {
+    const sources = netSourceLinks(item, record);
+    return sources ? `<details><summary>正式结算与来源</summary><p class="sources">${sources}</p></details>` : "";
+  }
+
+  function renderFirstA(item, bullets, record) {
+    const result = bullets["A结算"] || "";
+    const scale = bullets["取得/恢复成果"] || "";
+    const content = bullets["成果内容"] || "";
+    const calculation = bullets["计算"] || item.reader_how || "";
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>A · 统一主链客观贡献</strong><small>满分120；只看本人最终留下的稳定控制成果</small></span><b>${esc(netValue(item))}</b></div><div class="label">A是什么意思</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下了多少稳定控制成果。继承来的既有版图不算本人新增；起点强弱、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">U是什么意思</div>${prose("U = 有效控制信用。新增的稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个“全国核心统一尺度”。因此U不是人口、面积或军队人数，而是统一成果规模的标准化信用。公式：U = 新增稳定空间控制 + 50% × 恢复稳定空间控制。")}${scale || content ? `<div class="label">这个人的U怎么来</div>${prose([scale, content].filter(Boolean).join("\n"))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`A = 120 × (min(1000, U) / 1000)^0.65，最后保留1位小数。${calculation ? `\n本人的正式代入：${calculation}` : ""}${result ? `\n正式结算：${result}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+  }
+
+  function renderFirstB1(item, bullets, record) {
+    const result = bullets["B1结算"] || "";
+    const start = bullets["起点"] || "";
+    const opponent = bullets["对手"] || "";
+    const efficiency = bullets["效率"] || "";
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>B1 · 创业难度与战略效率</strong><small>满分50；起点15 + 对手15 + 完成效率20</small></span><b>${esc(netValue(item))}</b></div><div class="label">B1是什么意思</div>${prose("B1不重复奖励统一规模，而是问：本人从多强的家底起步、面对多强的实际竞争对手、用了多高效率完成核心成果。起点越弱、对手越强、完成越快，B1越高。")}<div class="label">三个变量怎么读</div><ul><li>起点R档：看本人进入主链时能直接调用的军政资源。R0最弱，得15分；R6接近统一的成熟国家机器，得0分。</li><li>对手O档：看实际竞争阶段的战争机器强度。最强对手全值，第二强只按50%计，避免堆对手数量。</li><li>效率：先算期望完成年 = 4 + 8 × √(效率阶段有效控制信用 / 1000)，再用“实际年数 ÷ 期望年数”得到速度比；速度比越小，效率分越高。</li></ul>${start ? `<div class="label">起点怎么判</div>${prose(firstItemPublicText(start))}` : ""}${opponent ? `<div class="label">对手怎么判</div>${prose(firstItemPublicText(opponent))}` : ""}${efficiency ? `<div class="label">效率怎么判</div>${prose(firstItemPublicText(efficiency))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`B1 = 起点难度分 + 对手难度分 + 完成效率分。${result ? `\n本人的正式结算：${firstItemPublicText(result)}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+  }
+
+  function renderFirstB2(item, bullets, record) {
+    const result = bullets["B2结算"] || "";
+    const parallel = bullets["并行执行"] || "";
+    const coverage = bullets["团队能力覆盖与组织杠杆"] || bullets["能力覆盖/组织杠杆"] || "";
+    const integration = bullets["异质整合"] || "";
+    const basis = bullets["裁决依据"] || "";
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>B2 · 创业组织与政治整合</strong><small>满分30；三项各10分</small></span><b>${esc(netValue(item))}</b></div><div class="label">B2是什么意思</div>${prose("B2看创业或统一机器能不能脱离本人逐项盯办而运行：能否多线并行、能否把高难任务交给专业责任中心、能否把不同地域和旧集团稳定整合进同一执行体系。")}<div class="label">L档怎么换分</div>${prose("每个维度都用L0—L5六档：L0=0分、L1=2分、L2=4分、L3=6分、L4=8分、L5=10分。三项相加就是B2。")}${parallel ? `<div class="label">并行执行</div>${prose(firstItemPublicText(parallel))}` : ""}${coverage ? `<div class="label">专业覆盖与组织杠杆</div>${prose(firstItemPublicText(coverage))}` : ""}${integration ? `<div class="label">异质整合</div>${prose(firstItemPublicText(integration))}` : ""}${basis ? `<div class="label">为什么这样判</div>${prose(firstItemPublicText(basis))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`B2 = 并行执行分 + 专业覆盖／组织杠杆分 + 异质整合分。${result ? `\n本人的正式结算：${firstItemPublicText(result)}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+  }
+
+  function renderFirstC(item, bullets, record) {
+    const result = bullets["C结算"] || "";
+    const route = bullets["责任路线"] || "";
+    const basis = bullets["结算依据"] || "";
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>C · 本人军事统帅与战争解题</strong><small>满分40；只计本人可归责的统帅能力</small></span><b>${esc(netValue(item))}</b></div><div class="label">C是什么意思</div>${prose("C不是把国家打赢的战争都算给最高统治者。它只看本人是否真正承担战略统筹、实际主帅或临阵指挥责任，以及高难成果、复验和可归责失败。将领独立完成的战果不能自动转成本人的C分。")}${route ? `<div class="label">本人走哪条责任路线</div>${prose(firstItemPublicText(route))}` : ""}${basis ? `<div class="label">为什么是这个档</div>${prose(firstItemPublicText(basis))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`C先按正式证据判统帅档位，再由档位直接映射到0—40分；不是把战役逐场相加。${result ? `\n本人的正式结算：${firstItemPublicText(result)}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+  }
+
+  function firstItemTotals(items) {
+    const byLabel = Object.fromEntries(items.map(item => [item.label, item]));
+    const a = byLabel["A统一贡献"]?.value;
+    const b1 = byLabel["B1创业难度与效率"]?.value;
+    const b2 = byLabel["B2组织与整合"]?.value;
+    const c = byLabel["C军事统帅与战争解题"]?.value;
+    const gross = byLabel["四轴合计"]?.value;
+    const cost = byLabel["军事成本扣分"]?.value;
+    const net = byLabel["第一项净分"]?.value;
+    const addOn = byLabel["附加F"]?.value;
+    if ([a, b1, b2, c, gross, net, addOn].some(value => value == null)) return "";
+    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n第一项净分 S1 = max(0, 四轴毛分 − 军事成本扣分) = max(0, ${gross} − ${cost ?? 0}) = ${net}。\n总榜不是把S1直接再加一次，而是把它折成条件附加分：F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</article>`;
+  }
+
+  async function hydrateFirstItemGroup(group, record, items) {
+    const firstNotApplicable = items.every(item =>
+      item.value == null || (item.label === "附加F" && Number(item.value) === 0)
+    );
+    if (firstNotApplicable) {
+      group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice">本项只评价建国、复国或统一创业主链；该人物不适用，因此这一项不参与净收益计分。</p>`;
+      return;
+    }
+
+    const labels = ["A统一贡献", "B1创业难度与效率", "B2组织与整合", "C军事统帅与战争解题"];
+    const bulletsByLabel = {};
+    await Promise.all(labels.map(async label => {
+      const markdown = await loadFirstItemDoc(firstItemDocs[label]);
+      bulletsByLabel[label] = firstItemBullets(markdown, record.ruler_name);
+    }));
+    if (!group.isConnected || currentRecord()?.ruler_id !== record.ruler_id) return;
+
+    const byLabel = Object.fromEntries(items.map(item => [item.label, item]));
+    const cards = [];
+    if (byLabel["A统一贡献"]) cards.push(renderFirstA(byLabel["A统一贡献"], bulletsByLabel["A统一贡献"], record));
+    if (byLabel["B1创业难度与效率"]) cards.push(renderFirstB1(byLabel["B1创业难度与效率"], bulletsByLabel["B1创业难度与效率"], record));
+    if (byLabel["B2组织与整合"]) cards.push(renderFirstB2(byLabel["B2组织与整合"], bulletsByLabel["B2组织与整合"], record));
+    if (byLabel["C军事统帅与战争解题"]) cards.push(renderFirstC(byLabel["C军事统帅与战争解题"], bulletsByLabel["C军事统帅与战争解题"], record));
+    if (byLabel["军事成本扣分"]?.value != null) cards.push(netJudgment(byLabel["军事成本扣分"], record));
+    const totals = firstItemTotals(items);
+    group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="reading-intro">第一项只适用于建国、复国或统一创业主链。下面先解释A、B1、B2、C各自在问什么，再逐步展示本人输入、公式、扣成本后的净分，以及最终进入总榜的条件附加分F。</p>${cards.join("")}${totals}`;
+  }
+
   function netValue(item) {
     if (item.value == null) return item.unit === "不单独计分" ? "不单独计分" : "—";
     const signed = item.value > 0 && item.label?.includes("文明") ? `+${item.value}` : String(item.value);
@@ -1487,6 +1621,7 @@ window.addEventListener('hashchange',route);route();
       if (!Array.isArray(items)) continue;
       const group = document.createElement("section");
       group.className = "net-public-group";
+      group.dataset.netGroup = key;
       const title = `<h3>${esc(netGroupNames[key] || groupNames[key] || key)}</h3>`;
 
       const firstNotApplicable = key === "first" && items.every(item =>
@@ -1495,6 +1630,13 @@ window.addEventListener('hashchange',route);route();
       if (firstNotApplicable) {
         group.innerHTML = `${title}<p class="notice">本项只评价建国、复国或统一创业主链；该人物不适用，因此这一项不参与净收益计分。</p>`;
         intro.append(group);
+        continue;
+      }
+
+      if (key === "first") {
+        group.innerHTML = `${title}<p class="subline">正在整理第一项的逐人计算口径…</p>`;
+        intro.append(group);
+        void hydrateFirstItemGroup(group, record, items);
         continue;
       }
 
