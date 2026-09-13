@@ -56,9 +56,14 @@ def test_c5_projection_keeps_existing_public_evidence_without_re_adjudication():
 def test_person_readability_layer_is_embedded_and_uses_dynamic_fields():
     html = (ROOT / "reader/index.html").read_text(encoding="utf-8")
     assert "function enhanceAxis(details, axisCode, axis)" in html
+    assert "function simplifyAxisMetadata(details, axis)" in html
+    assert "function rewriteHistoryChains(impact)" in html
     assert "function enhanceImpact(record)" in html
     assert "function foldNetLedger()" in html
     assert "const impactPublicText = value =>" in html
+    assert "const historyPublicText = value =>" in html
+    assert "公开等级：${grade(axis)}" in html
+    assert "专业信息与正式记录" in html
     assert "基础影响量级" in html
     assert "最终等级" in html
     assert "joint_footprint_basis" in html
