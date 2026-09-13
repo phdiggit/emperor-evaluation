@@ -8,10 +8,13 @@ on:
       - reader/index.template.html
       - reader/link-effects.css
       - reader/home-interactions.js
+      - reader/readability.css
+      - reader/readability.js
       - reader/public-copy.json
       - reader/build.py
       - tests/test_reader.py
       - tests/test_reader_home_interactions.py
+      - tests/test_reader_readability.py
       - config/project.yml
       - config/common/**
       - docs/评分结算/**
@@ -40,7 +43,7 @@ jobs:
         run: python reader/build.py
 
       - name: Test reader
-        run: python -m pytest tests/test_reader.py tests/test_reader_home_interactions.py -q
+        run: python -m pytest tests/test_reader.py tests/test_reader_home_interactions.py tests/test_reader_readability.py -q
 
       - name: Check whitespace
         run: git diff --check
