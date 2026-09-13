@@ -13,6 +13,8 @@ on:
       - reader/public-copy.json
       - reader/build.py
       - src/emperor_v4/evaluation/profile_text_quality.py
+      - src/emperor_v4/evaluation/profile_text_cleanup.py
+      - config/profile/profile-text-repairs.json
       - tests/test_reader.py
       - tests/test_reader_home_interactions.py
       - tests/test_reader_readability.py
@@ -41,7 +43,7 @@ jobs:
         run: python -m pip install -e . -r reader/requirements.txt pytest
 
       - name: Audit profile public text
-        run: python -m emperor_v4.evaluation.profile_text_quality --output /tmp/profile-text-quality.json
+        run: python -m emperor_v4.evaluation.profile_text_quality --fail-on error --output /tmp/profile-text-quality.json
 
       - name: Upload profile text audit
         uses: actions/upload-artifact@v4
