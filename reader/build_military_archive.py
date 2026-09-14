@@ -39,12 +39,23 @@ ANCHOR_PREFIXES = (
     "以及",
 )
 AGGREGATE_MARKERS = (
-    "多次", "多个", "多项", "大量", "两次", "诸战", "等方向", "等有", "等形成", "等达到",
+    "多次", "多个", "多项", "大量", "两次", "诸战", "连续亲征", "连续作战", "清剿",
+    "等方向", "等有", "等形成", "等达到", "创业竞争中", "成果中",
 )
 NONSPECIFIC_ANCHORS = {
     "多次", "多个", "多项", "大量", "旧c按", "旧登记", "旧登记为", "形成", "只有", "缺少",
     "只支持", "人物结果只有", "人物级只消费",
 }
+NARRATIVE_PREFIX_RE = re.compile(
+    r"^(?:随后|早期|公共人才表(?:最强的|虽有)|"
+    r"本人.*?后立即在|"
+    r".*?(?:本人可用前线成果主要是|前线成果主要是)(?:取得|攻取)?|"
+    r"\d{3,4}年)"
+)
+ACTION_PREFIX_RE = re.compile(r"^(?:直取|攻取|夺取|取得|攻下|拿下|平定|灭|终结)")
+VARIANT_SPLIT_RE = re.compile(
+    r"(?:方向|右军|左军|主力|亲督|长围|整军|接战|反败为胜|并|至政权|至其|后迫|后击|后破)"
+)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -92,10 +103,18 @@ def _clean_anchor_name(value: str) -> str:
     if structural:
         text = structural.group("tail")
 
+    # Remove reader/adjudication framing while retaining the historical noun phrase.
+    # These rules are intentionally generic: no ruler, battle, polity or WAR id is
+    # encoded here. Uniqueness is still enforced later after ruler/grade/difficulty.
+    previous = None
+    while text != previous:
+        previous = text
+        text = NARRATIVE_PREFIX_RE.sub("", text).strip(" ：，；。、")
+    text = ACTION_PREFIX_RE.sub("", text).strip(" ：，；。、")
     text = re.sub(r"^(?:并有|并以|又有|又以|有|以|在|由|如|但)", "", text)
     text = re.sub(r"(?:的)$", "", text)
     text = re.sub(
-        r"(?:均有|存在一项|有多个|有多次|等有多个|等有多次|等多次|等多个|等多项|"
+        r"(?:均有|均|存在一项|有多个|有多次|等有多个|等有多次|等多次|等多个|等多项|"
         r"形成多次|形成两次|持续形成|形成|相关|达到|存在|可作|仅为|为)$",
         "",
         text,
@@ -110,9 +129,14 @@ def _anchor_kind(raw_anchor: str, clean_anchor: str) -> str:
     compact = _compact_text(clean)
     if not compact or compact in NONSPECIFIC_ANCHORS or len(compact) < 2:
         return "nonspecific"
+    raw_compact = _compact_text(raw)
+    if re.search(r"旧c.*(?:闭合|支持|按)", raw_compact):
+        return "nonspecific"
+    if clean.endswith(("主链中", "窗口中", "主线中")):
+        return "nonspecific"
     if any(marker in raw for marker in AGGREGATE_MARKERS):
         return "aggregate"
-    if "及" in clean and any(token in clean for token in ("终局", "战", "侵", "方向")):
+    if "及" in clean and any(token in clean for token in ("终局", "战", "侵", "方向", "成果")):
         return "aggregate"
     return "atomic"
 
@@ -120,11 +144,24 @@ def _anchor_kind(raw_anchor: str, clean_anchor: str) -> str:
 def _anchor_variants(anchor: str) -> list[str]:
     clean = _clean_anchor_name(anchor)
     values = [clean]
-    for suffix in ("终局", "方向", "相关", "之战", "战役", "大战", "决战", "围城", "主战线"):
+    for suffix in (
+        "终局", "方向", "相关", "之战", "战役", "战争", "大战", "决战", "围城", "解围",
+        "主战线", "政权", "作战", "逆转",
+    ):
         if clean.endswith(suffix) and len(clean) > len(suffix) + 1:
             values.append(clean[: -len(suffix)])
     if "—" in clean or "－" in clean or "-" in clean:
         values.extend(re.split(r"[—－-]+", clean))
+
+    # Add the leading historical noun phrase before narrative action wording. This
+    # recovers anchors such as “某地右军先溃后的亲督逆转” → “某地” while the
+    # later resolver still requires a unique ruler + result grade + difficulty match.
+    head = VARIANT_SPLIT_RE.split(clean, maxsplit=1)[0].strip(" ：，；。、")
+    if head and head != clean:
+        values.append(head)
+    if "的" in clean:
+        values.append(clean.split("的", 1)[0])
+
     out: list[str] = []
     for value in values:
         compact = _compact_text(value)

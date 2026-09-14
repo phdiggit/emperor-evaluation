@@ -172,6 +172,40 @@ def test_first_item_c_structural_prose_is_removed_before_matching(tmp_path: Path
     assert anchor["battle_id"] == "WAR-TEST-RIVER"
 
 
+def test_first_item_c_narrative_location_variant_can_resolve_unique_battle(tmp_path: Path):
+    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
+    write_json(
+        tmp_path / module.BATTLE_DIR / "demo-00.json",
+        {"records": [{
+            "war_event_id": "WAR-TEST-HILL",
+            "dynasty": "测试朝",
+            "canonical_label": "测试君主在青丘击败敌军",
+            "campaign_tier": "A",
+            "combat_difficulty": "D3",
+            "members": [{
+                "actor_name": "测试君主",
+                "person_command_result": [{
+                    "result_ref": "PCR-TEST-HILL",
+                    "result_label": "青丘之战",
+                    "result_tier": "A",
+                    "combat_difficulty": "D3",
+                }],
+            }],
+        }]},
+    )
+    minimal_commander(tmp_path)
+    write_first_item_c(
+        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
+        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：本人继承旧政权后立即在青丘亲督逆转A/D3。\n",
+    )
+
+    battles, _ = module.build_indexes(tmp_path)
+    anchor = battles["first_item_c_anchors"][0]
+    assert anchor["anchor_kind"] == "atomic"
+    assert "青丘" in module._anchor_variants(anchor["anchor"])
+    assert anchor["battle_id"] == "WAR-TEST-HILL"
+
+
 def test_first_item_c_aggregate_anchor_remains_search_only(tmp_path: Path):
     write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
     write_json(
@@ -197,6 +231,32 @@ def test_first_item_c_aggregate_anchor_remains_search_only(tmp_path: Path):
     assert anchor["status"] == "search_only_aggregate"
     assert anchor["battle_id"] is None
     assert battles["first_item_c_anchor_stats"]["search_only_aggregate"] == 1
+
+
+def test_first_item_c_continuous_campaign_and_old_closure_are_not_forced_direct(tmp_path: Path):
+    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
+    write_json(
+        tmp_path / module.BATTLE_DIR / "demo-00.json",
+        {"records": [{
+            "war_event_id": "WAR-TEST-CAMPAIGN",
+            "dynasty": "测试朝",
+            "canonical_label": "测试君主南线战役",
+            "campaign_tier": "A",
+            "combat_difficulty": "D3",
+            "members": [{"actor_name": "测试君主"}],
+        }]},
+    )
+    minimal_commander(tmp_path)
+    write_first_item_c(
+        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
+        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：随后南线连续亲征A/D3；旧C已闭合B/D2。\n",
+    )
+
+    battles, _ = module.build_indexes(tmp_path)
+    kinds = {row["anchor_kind"] for row in battles["first_item_c_anchors"]}
+    statuses = {row["status"] for row in battles["first_item_c_anchors"]}
+    assert kinds == {"aggregate", "nonspecific"}
+    assert statuses == {"search_only_aggregate", "search_only_nonspecific"}
 
 
 def test_first_item_c_anchor_can_follow_commander_campaign_ref_to_battle(tmp_path: Path):
