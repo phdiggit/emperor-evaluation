@@ -2120,7 +2120,7 @@ window.addEventListener('hashchange',route);route();
 
   function firstItemSourceBlock(item, record) {
     const sources = netSourceLinks(item, record);
-    return sources ? `<details><summary>正式结算与来源</summary><p class="sources">${sources}</p></details>` : "";
+    return sources ? `<details><summary>裁决依据与来源</summary><p class="sources">${sources}</p></details>` : "";
   }
 
   function renderFirstA(item, bullets, record) {
@@ -2166,7 +2166,8 @@ window.addEventListener('hashchange',route);route();
     const net = byLabel["第一项净分"]?.value;
     const addOn = byLabel["附加F"]?.value;
     if ([a, b1, b2, c, gross, net, addOn].some(value => value == null)) return "";
-    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n第一项净分 S1 = max(0, 四轴毛分 − 军事成本扣分) = max(0, ${gross} − ${cost ?? 0}) = ${net}。\n总榜不是把S1直接再加一次，而是把它折成条件附加分：F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</article>`;
+    const addOnText = Number(addOn) > 0 ? `+${addOn}` : String(addOn);
+    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div><div class="component"><span><strong>第一项原始净收益</strong><small>A、B1、B2、C合计后，再扣除本人窗口内的军事代价</small></span><b>${esc(net)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>所有人物都使用同一条折算曲线，避免第一项量纲直接压过其他项目</small></span><b>${esc(addOnText)}</b></div>${prose("先算第一项原始净收益，再按全员统一曲线折算为总榜加成；因此两个数字不是同一量纲，也不应直接比较大小。") }<details><summary>查看完整公式</summary>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n第一项净分 S1 = max(0, 四轴毛分 − 军事代价扣减) = max(0, ${gross} − ${cost ?? 0}) = ${net}。\n总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></article>`;
   }
 
   async function hydrateFirstItemGroup(group, record, items) {
@@ -2174,7 +2175,7 @@ window.addEventListener('hashchange',route);route();
       item.value == null || (item.label === "附加F" && Number(item.value) === 0)
     );
     if (firstNotApplicable) {
-      group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice">本项只评价建国、复国或统一创业主链；该人物不适用，因此这一项不参与净收益计分。</p>`;
+      group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
       return;
     }
 
@@ -2194,7 +2195,11 @@ window.addEventListener('hashchange',route);route();
     if (byLabel["C军事统帅与战争解题"]) cards.push(renderFirstC(byLabel["C军事统帅与战争解题"], bulletsByLabel["C军事统帅与战争解题"], record));
     if (byLabel["军事成本扣分"]?.value != null) cards.push(netJudgment(byLabel["军事成本扣分"], record));
     const totals = firstItemTotals(items);
-    group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="reading-intro">第一项只适用于建国、复国或统一创业主链。下面先解释A、B1、B2、C各自在问什么，再逐步展示本人输入、公式、扣成本后的净分，以及最终进入总榜的条件附加分F。</p>${cards.join("")}${totals}`;
+    const netScore = Number(byLabel["第一项净分"]?.value);
+    const zeroNote = Number.isFinite(netScore) && netScore === 0
+      ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这与“不适用”不同：这里已经进入第一项结算，只是正向成果在扣除相关军事代价后没有留下正的净值。</p>`
+      : "";
+    group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="reading-intro"><strong>本项只计算本人实际承担的创业／统一成果、本人统帅贡献及其代价；先形成原始净收益，再统一折算为总榜加成。</strong>不适用不等于军事能力差。下面再按A、B1、B2、C展开具体依据。</p>${zeroNote}${cards.join("")}${totals}`;
   }
 
   function netValue(item) {
@@ -2208,8 +2213,8 @@ window.addEventListener('hashchange',route);route();
     if (!refs.length && !item.source && !item.applied_source) return "";
     const ordered = [...new Set([item.source, item.applied_source, ...refs].filter(Boolean))];
     return ordered.map((ref, index) => {
-      let labelText = index === 0 ? "正式评分记录 ↗" : `补充来源 ${index} ↗`;
-      if (ref === item.applied_source && ref !== item.source) labelText = "采用值记录 ↗";
+      let labelText = index === 0 ? "看裁决依据 ↗" : `看补充来源 ${index} ↗`;
+      if (ref === item.applied_source && ref !== item.source) labelText = "看采用值依据 ↗";
       return link(ref, labelText, record);
     }).join(" ");
   }
@@ -2242,7 +2247,8 @@ window.addEventListener('hashchange',route);route();
     const sourceBlock = sources
       ? `<details><summary>正式记录与史料</summary><p class="sources">${sources}</p>${fullBasis}</details>`
       : fullBasis;
-    return `<article class="context-story net-public-item"><div class="component"><span><strong>${esc(item.label)}</strong></span><b>${esc(netValue(item))}</b></div>${summary}${highlights}${boundary}${how}${sourceBlock}</article>`;
+    const displayLabel = item.label === "军事成本扣分" ? "军事代价扣减" : item.label;
+    return `<article class="context-story net-public-item"><div class="component"><span><strong>${esc(displayLabel)}</strong></span><b>${esc(netValue(item))}</b></div>${summary}${highlights}${boundary}${how}${sourceBlock}</article>`;
   }
 
   function netCalculation(item) {
@@ -2271,7 +2277,7 @@ window.addEventListener('hashchange',route);route();
         item.value == null || (item.label === "附加F" && Number(item.value) === 0)
       );
       if (firstNotApplicable) {
-        group.innerHTML = `${title}<p class="notice">本项只评价建国、复国或统一创业主链；该人物不适用，因此这一项不参与净收益计分。</p>`;
+        group.innerHTML = `${title}<p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
         intro.append(group);
         continue;
       }
@@ -2505,6 +2511,17 @@ window.addEventListener('hashchange',route);route();
     section.dataset.ledgerFolded = "done";
   }
 
+  function ensureMilitaryArchiveNav() {
+    const nav = document.querySelector("header nav");
+    if (!nav || nav.querySelector("[data-military-archive-nav]")) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.militaryArchiveNav = "true";
+    button.textContent = "军事档案";
+    button.addEventListener("click", () => { location.href = "military.html"; });
+    nav.append(button);
+  }
+
   function currentRecord() {
     const match = location.hash.match(/^#person\/([^/?#]+)/);
     if (!match) return null;
@@ -2512,6 +2529,7 @@ window.addEventListener('hashchange',route);route();
   }
 
   function enhance() {
+    ensureMilitaryArchiveNav();
     const record = currentRecord();
     if (!record) return;
     for (const code of DATA.axis_order) {
