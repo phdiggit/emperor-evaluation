@@ -390,6 +390,32 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
                 if member.get("contribution_scope"):
                     search_parts.append(member["contribution_scope"])
 
+            # Older chronicle shards expose adjudicated subject phases instead of the
+            # normalized `members[].person_command_result` shape. Their phase_id is a
+            # canonical public-registry reference and is also consumed by military
+            # talent profiles. Bridge that existing reference to the parent battle so
+            # commander achievements can resolve first-item-C anchors without guessing
+            # from ruler reign, dynasty, or prose similarity.
+            phase_views = record.get("subject_phase_views") or []
+            if isinstance(phase_views, dict):
+                phase_views = [phase_views]
+            if not isinstance(phase_views, list):
+                phase_views = []
+            for phase in phase_views:
+                if not isinstance(phase, dict):
+                    continue
+                phase_ref = str(phase.get("phase_id") or "").strip()
+                if phase_ref:
+                    prior = result_ref_to_battle.get(phase_ref)
+                    if prior and prior != battle_id:
+                        raise ValueError(f"subject phase ref maps to two battles: {phase_ref}: {prior}, {battle_id}")
+                    result_ref_to_battle[phase_ref] = battle_id
+                    if phase_ref not in result_refs:
+                        result_refs.append(phase_ref)
+                for key in ("evaluation_subject_phase", "actual_process", "carry_in", "carry_out", "campaign_group_ref"):
+                    if phase.get(key):
+                        search_parts.append(phase[key])
+
             result_grade = _normalize_grade(record.get("campaign_tier"))
             difficulty_grade = str(record.get("combat_difficulty") or "").strip()
             battle_rows.append({
