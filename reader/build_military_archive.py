@@ -187,13 +187,19 @@ def _resolve_first_item_c_anchors(
     match_rows: list[dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], dict[str, int]]:
     resolved: list[dict[str, Any]] = []
-    stats = {"resolved_unique": 0, "ambiguous": 0, "unresolved": 0}
+    stats = {
+        "resolved_unique": 0,
+        "resolved_registry_ref": 0,
+        "resolved_battle_text": 0,
+        "ambiguous": 0,
+        "unresolved": 0,
+    }
     for anchor in anchors:
         ruler = anchor["ruler"]
         wanted_pair = (anchor["result_grade"], anchor["difficulty_grade"])
-        scored: list[tuple[int, str]] = []
+        scored: list[tuple[int, int, str, str]] = []
         for row in match_rows:
-            member_pairs = row["member_pairs"].get(ruler, set())
+            member_pairs = row.get("member_pairs", {}).get(ruler, set())
             parent_pair = (row["result_grade"], row["difficulty_grade"])
             if wanted_pair != parent_pair and wanted_pair not in member_pairs:
                 continue
@@ -201,26 +207,52 @@ def _resolve_first_item_c_anchors(
                 continue
             score = _anchor_score(anchor["anchor"], row["search_text"])
             if score:
-                scored.append((score, row["id"]))
+                scored.append((
+                    int(row.get("priority") or 1),
+                    score,
+                    row["id"],
+                    str(row.get("resolution_mode") or "battle_text"),
+                ))
         scored.sort(reverse=True)
         battle_id = None
         status = "unresolved"
+        resolution_mode = None
         if scored:
-            top = scored[0][0]
-            top_ids = sorted({battle for score, battle in scored if score == top})
+            top_priority, top_score = scored[0][0], scored[0][1]
+            top_rows = [item for item in scored if item[0] == top_priority and item[1] == top_score]
+            top_ids = sorted({item[2] for item in top_rows})
             if len(top_ids) == 1:
                 battle_id = top_ids[0]
                 status = "resolved_unique"
+                resolution_mode = "registry_ref" if any(item[3] == "registry_ref" for item in top_rows) else "battle_text"
             else:
                 status = "ambiguous"
         stats[status] += 1
+        if status == "resolved_unique":
+            stats[f"resolved_{resolution_mode}"] += 1
         resolved.append({
             **anchor,
             "battle_id": battle_id,
             "status": status,
+            "resolution_mode": resolution_mode,
             "candidate_count": len(scored),
         })
     return resolved, stats
+
+
+def _anchor_lookup(resolved: list[dict[str, Any]]) -> dict[str, str]:
+    targets: dict[str, set[str]] = {}
+    for item in resolved:
+        if item["status"] != "resolved_unique" or not item["battle_id"]:
+            continue
+        key = _compact_text(_clean_anchor_name(item["anchor"]))
+        if key:
+            targets.setdefault(key, set()).add(item["battle_id"])
+    return {
+        key: next(iter(battle_ids))
+        for key, battle_ids in sorted(targets.items())
+        if len(battle_ids) == 1
+    }
 
 
 def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -288,6 +320,8 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
                 "members": set(member_names),
                 "member_pairs": member_pairs,
                 "search_text": " ".join(str(part) for part in search_parts if part),
+                "priority": 1,
+                "resolution_mode": "battle_text",
             })
 
     expected_battles = int(battle_manifest.get("record_count") or len(battle_rows))
@@ -296,19 +330,7 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
 
     anchors = _parse_first_item_c_anchors(root / FIRST_ITEM_C_SETTLEMENT)
     first_item_anchors, anchor_stats = _resolve_first_item_c_anchors(anchors, match_rows)
-
-    anchor_targets: dict[str, set[str]] = {}
-    for item in first_item_anchors:
-        if item["status"] != "resolved_unique" or not item["battle_id"]:
-            continue
-        key = _compact_text(_clean_anchor_name(item["anchor"]))
-        if key:
-            anchor_targets.setdefault(key, set()).add(item["battle_id"])
-    anchor_lookup = {
-        key: next(iter(targets))
-        for key, targets in sorted(anchor_targets.items())
-        if len(targets) == 1
-    }
+    anchor_lookup = _anchor_lookup(first_item_anchors)
 
     battle_rows.sort(key=lambda row: (str(row["dynasty"]), str(row["period"]), str(row["name"]), row["id"]))
     battle_index = {
@@ -326,6 +348,7 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
 
     commander_manifest = _load(root / COMMANDER_MANIFEST)
     commander_rows: list[dict[str, Any]] = []
+    achievement_match_rows: list[dict[str, Any]] = []
     seen_profiles: set[str] = set()
     for shard in sorted((root / COMMANDER_DIR).glob("*.json")):
         payload = _load(shard)
@@ -348,11 +371,54 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
                 "actor_refs": profile.get("actor_ref_aliases") or [],
                 "source": shard.relative_to(root).as_posix(),
             })
+            profile_names = {
+                str(name).strip()
+                for name in [profile.get("person"), *(profile.get("name_aliases") or [])]
+                if str(name or "").strip()
+            }
+            for achievement in profile.get("consumed_achievements") or []:
+                if not isinstance(achievement, dict):
+                    continue
+                ref = str(achievement.get("campaign_ref") or achievement.get("capability_episode_ref") or "").strip()
+                battle_id = result_ref_to_battle.get(ref)
+                if not battle_id or not profile_names:
+                    continue
+                result_grade = _normalize_grade(achievement.get("campaign_tier") or achievement.get("parent_campaign_tier"))
+                difficulty_grade = str(
+                    achievement.get("combat_difficulty")
+                    or achievement.get("parent_combat_difficulty")
+                    or ""
+                ).strip()
+                if not result_grade or not difficulty_grade:
+                    continue
+                achievement_match_rows.append({
+                    "id": battle_id,
+                    "result_grade": result_grade,
+                    "difficulty_grade": difficulty_grade,
+                    "members": profile_names,
+                    "member_pairs": {},
+                    "search_text": " ".join(
+                        str(achievement.get(key) or "")
+                        for key in ("canonical_label", "basis")
+                    ),
+                    "priority": 2,
+                    "resolution_mode": "registry_ref",
+                })
 
     payload_meta = commander_manifest.get("payload_metadata") or {}
     expected_profiles = int(commander_manifest.get("profile_count") or payload_meta.get("profile_count") or len(commander_rows))
     if len(commander_rows) != expected_profiles:
         raise ValueError(f"commander registry count mismatch: {len(commander_rows)} != {expected_profiles}")
+    first_item_anchors, anchor_stats = _resolve_first_item_c_anchors(
+        anchors,
+        [*match_rows, *achievement_match_rows],
+    )
+    anchor_lookup = _anchor_lookup(first_item_anchors)
+    battle_index["first_item_c_anchors"] = first_item_anchors
+    battle_index["first_item_c_anchor_stats"] = anchor_stats
+    battle_index["first_item_c_anchor_lookup"] = anchor_lookup
+    battle_index["first_item_c_anchor_lookup_count"] = len(anchor_lookup)
+
     commander_rows.sort(key=lambda row: (str(row["dynasty"]), str(row["name"]), row["profile_ref"]))
     commander_index = {
         "schema_version": "reader-military-commander-index-v1",
@@ -373,6 +439,7 @@ def main() -> None:
         "military archive indexes: "
         f"{battle_index['record_count']} battles, {commander_index['profile_count']} commanders; "
         f"first-item C anchors resolved={stats['resolved_unique']} "
+        f"(registry-ref={stats['resolved_registry_ref']}, battle-text={stats['resolved_battle_text']}) "
         f"ambiguous={stats['ambiguous']} unresolved={stats['unresolved']}"
     )
 

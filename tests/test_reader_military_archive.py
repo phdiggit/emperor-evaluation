@@ -136,6 +136,57 @@ def test_first_item_c_anchor_binds_only_unique_matching_battle(tmp_path: Path):
     assert battles["first_item_c_anchor_lookup"]["北门决战"] == "WAR-TEST-NORTH-GATE"
 
 
+def test_first_item_c_anchor_can_follow_commander_campaign_ref_to_battle(tmp_path: Path):
+    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
+    write_json(
+        tmp_path / module.BATTLE_DIR / "demo-00.json",
+        {"records": [{
+            "war_event_id": "WAR-TEST-REF-LINK",
+            "dynasty": "测试朝",
+            "canonical_label": "代理主帅完成北门方向战役",
+            "campaign_tier": "A",
+            "combat_difficulty": "D3",
+            "members": [{
+                "actor_name": "代理主帅",
+                "person_command_result": [{
+                    "result_ref": "PCR-TEST-REF-LINK",
+                    "result_label": "北门方向战役",
+                    "result_tier": "A",
+                    "combat_difficulty": "D3",
+                }],
+            }],
+        }]},
+    )
+    write_json(tmp_path / module.COMMANDER_MANIFEST, {"profile_count": 1})
+    write_json(
+        tmp_path / module.COMMANDER_DIR / "bucket-00.json",
+        {"profiles": [{
+            "profile_ref": "MIL-PROFILE-RULER",
+            "person": "测试君主",
+            "dynasty": "测试朝",
+            "military_grade": "elite",
+            "consumed_achievements": [{
+                "campaign_ref": "PCR-TEST-REF-LINK",
+                "canonical_label": "测试君主北门统筹终局",
+                "campaign_tier": "A",
+                "combat_difficulty": "D3",
+                "basis": "第一项窗口内形成北门统筹终局。",
+            }],
+        }]},
+    )
+    write_first_item_c(
+        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
+        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：统帅证据：已有北门统筹终局A/D3。\n",
+    )
+
+    battles, _ = module.build_indexes(tmp_path)
+
+    anchor = battles["first_item_c_anchors"][0]
+    assert anchor["status"] == "resolved_unique"
+    assert anchor["resolution_mode"] == "registry_ref"
+    assert anchor["battle_id"] == "WAR-TEST-REF-LINK"
+
+
 def test_first_item_c_anchor_keeps_ambiguous_match_out_of_direct_lookup(tmp_path: Path):
     write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 2})
     records = []
