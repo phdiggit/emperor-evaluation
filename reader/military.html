@@ -11,5 +11,41 @@
 <header><strong>帝王三镜</strong><span>公共军事成果阅读层</span><a href="index.html">返回人物总览</a></header>
 <main id="archive-app"><div class="empty">正在加载战役与武将索引…</div></main>
 <script src="military-archive.js"></script>
+<script>
+"use strict";
+(() => {
+  const compact = value => String(value || "")
+    .replace(/第一项主链内已有|第一项建国统一链内|现场与败责复验|统帅证据|核心前线峰值|最高前线峰值|前线峰值|另有|已有|包括|其中|以及/g, "")
+    .replace(/^(?:并有|并以|又有|又以|有|以|在|由|如)/, "")
+    .replace(/(?:等|一役)$/, "")
+    .replace(/[\s·，。；：、（）()《》“”"'—－\-_/]+/g, "")
+    .toLocaleLowerCase("zh-CN");
+
+  let redirecting = false;
+  async function redirectPreciseFirstItemAnchor() {
+    if (redirecting) return;
+    const match = location.hash.match(/^#search=(.+)$/);
+    if (!match) return;
+    let term;
+    try { term = decodeURIComponent(match[1]); } catch { return; }
+    const key = compact(term);
+    if (!key) return;
+    try {
+      const response = await fetch("data/military/battles-index.json", {cache: "force-cache"});
+      if (!response.ok) return;
+      const index = await response.json();
+      const battleId = index.first_item_c_anchor_lookup?.[key];
+      if (!battleId) return;
+      redirecting = true;
+      location.replace(`#battle=${encodeURIComponent(battleId)}`);
+    } catch (error) {
+      console.warn("精确战役锚解析失败，保留搜索回退", error);
+    }
+  }
+
+  window.addEventListener("hashchange", redirectPreciseFirstItemAnchor);
+  redirectPreciseFirstItemAnchor();
+})();
+</script>
 </body>
 </html>
