@@ -87,6 +87,24 @@ jobs:
       - name: Build military archive indexes
         run: python reader/build_military_archive.py
 
+      - name: Report unresolved first-item battle anchors
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("reader/data/military/battles-index.json")
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          unresolved = [row for row in payload.get("first_item_c_anchors", []) if row.get("status") != "resolved_unique"]
+          print(f"unresolved first-item C battle anchors: {len(unresolved)}")
+          for row in unresolved:
+              print(
+                  "ANCHOR|"
+                  f"{row.get('ruler','')}|{row.get('anchor','')}|"
+                  f"{row.get('result_grade','')}/{row.get('difficulty_grade','')}|"
+                  f"{row.get('status','')}|candidates={row.get('candidate_count',0)}"
+              )
+          PY
+
       - name: Build reader
         run: python reader/build.py
 
