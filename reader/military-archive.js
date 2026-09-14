@@ -189,7 +189,7 @@
   }
 
   function battleCard(row) {
-    return `<a class="card" href="#battle=${encodeURIComponent(row.id)}"><strong>${esc(row.name)}</strong><small>${esc([row.dynasty, row.period].filter(Boolean).join(" · "))}</small>${gradeChips(row.result_grade, row.difficulty_grade)}${row.members?.length ? `<small>主要责任人物：${esc(row.members.slice(0,5).join("、"))}${row.members.length > 5 ? "…" : ""}</small>` : ""}</a>`;
+    return `<a class="card" href="#battle=${encodeURIComponent(row.id)}"><strong>${esc(row.name)}</strong><small>${esc([row.dynasty, row.period].filter(Boolean).join(" · "))}</small>${gradeChips(row.result_grade, row.difficulty_grade, "整场战果", "整场难度")}${row.members?.length ? `<small>主要责任人物：${esc(row.members.slice(0,5).join("、"))}${row.members.length > 5 ? "…" : ""}</small>` : ""}</a>`;
   }
 
   function commanderCard(row) {
@@ -200,7 +200,7 @@
   function searchView(term = "") {
     const battles = term ? searchBattles(term) : [];
     const commanders = term ? searchCommanders(term) : [];
-    app.innerHTML = `<div class="eyebrow">公共军事成果 · 只读档案</div><h1>军事档案</h1><p class="notice"><strong>三个页面回答三个不同问题：</strong>皇帝第一项解释“为什么得到这些创业／军事加成”；战役档案解释“这场仗发生了什么、战果多大、问题多难”；统帅档案解释“这个人整个军事生涯达到什么层级”。三者互相引用，但不会彼此机械换算。</p><div class="panel"><form id="archive-search" class="toolbar"><input id="archive-q" value="${esc(term)}" placeholder="搜索战役、人物、朝代，例如：鄱阳湖、李世民、明"><button>搜索</button></form></div>${term ? `<section><h2>战役档案 <small>${battles.length}${battles.length === 60 ? "+" : ""}</small></h2><div class="cards">${battles.length ? battles.map(battleCard).join("") : '<div class="empty">没有找到匹配战役。</div>'}</div></section><section><h2>统帅档案 <small>${commanders.length}${commanders.length === 60 ? "+" : ""}</small></h2><div class="cards">${commanders.length ? commanders.map(commanderCard).join("") : '<div class="empty">没有找到匹配人物。</div>'}</div></section>` : `<div class="stats"><div class="stat"><b>${battleIndex.record_count}</b><div>公共战役／战役群登记</div></div><div class="stat"><b>${commanderIndex.profile_count}</b><div>统帅档案</div></div></div><section class="panel"><h2>S− / D3 到底是什么？</h2><p><strong>战果档</strong>回答“最后做成了多大的事”；<strong>难度档</strong>回答“这个军事问题本身有多难”。例如S−和D3可以同时成立，因为它们衡量的不是同一件事。</p><div class="grade-grid">${Object.entries(resultMeaning).map(([k,v]) => `<div><strong>${esc(k)}</strong><br><small>${esc(v)}</small></div>`).join("")}</div><div class="grade-grid" style="margin-top:10px">${Object.entries(difficultyMeaning).map(([k,v]) => `<div><strong>${esc(k)}</strong><br><small>${esc(v)}</small></div>`).join("")}</div></section>`}<p class="footer">档案不重新裁决任何战役或人物，只把正式登记中的结构化字段翻译为阅读页面。</p>`;
+    app.innerHTML = `<div class="eyebrow">公共军事成果 · 只读档案</div><h1>军事档案</h1><p class="notice"><strong>三个页面回答三个不同问题：</strong>皇帝第一项解释“为什么得到这些创业／军事加成”；战役档案解释“整场仗发生了什么、战果多大、问题多难”，并在责任人物块另列个人可归责部分；统帅档案解释“这个人整个军事生涯达到什么层级”。三者互相引用，但不会彼此机械换算。</p><div class="panel"><form id="archive-search" class="toolbar"><input id="archive-q" value="${esc(term)}" placeholder="搜索战役、人物、朝代，例如：鄱阳湖、李世民、明"><button>搜索</button></form></div>${term ? `<section><h2>战役档案 <small>${battles.length}${battles.length === 60 ? "+" : ""}</small></h2><div class="cards">${battles.length ? battles.map(battleCard).join("") : '<div class="empty">没有找到匹配战役。</div>'}</div></section><section><h2>统帅档案 <small>${commanders.length}${commanders.length === 60 ? "+" : ""}</small></h2><div class="cards">${commanders.length ? commanders.map(commanderCard).join("") : '<div class="empty">没有找到匹配人物。</div>'}</div></section>` : `<div class="stats"><div class="stat"><b>${battleIndex.record_count}</b><div>公共战役／战役群登记</div></div><div class="stat"><b>${commanderIndex.profile_count}</b><div>统帅档案</div></div></div><section class="panel"><h2>S− / D3 到底是什么？</h2><p><strong>战果档</strong>回答“最后做成了多大的事”；<strong>难度档</strong>回答“这个军事问题本身有多难”。例如S−和D3可以同时成立，因为它们衡量的不是同一件事。这里的战役搜索卡默认显示<strong>整场战役</strong>档位；进入详情后，责任人物块会单独标出人物级结果与任务难度。</p><div class="grade-grid">${Object.entries(resultMeaning).map(([k,v]) => `<div><strong>${esc(k)}</strong><br><small>${esc(v)}</small></div>`).join("")}</div><div class="grade-grid" style="margin-top:10px">${Object.entries(difficultyMeaning).map(([k,v]) => `<div><strong>${esc(k)}</strong><br><small>${esc(v)}</small></div>`).join("")}</div></section>`}<p class="footer">档案不重新裁决任何战役或人物，只把正式登记中的结构化字段翻译为阅读页面。</p>`;
     document.getElementById("archive-search")?.addEventListener("submit", event => {
       event.preventDefault();
       const q = document.getElementById("archive-q")?.value.trim() || "";
@@ -265,7 +265,14 @@
     const link = battleId ? `<a href="#battle=${encodeURIComponent(battleId)}">打开对应战役档案 →</a>` : "";
     const capability = publicMilitaryTerm(item.capability_mode, capabilityName, "承担方式未细分");
     const basis = publicMilitaryText(item.basis || "");
-    return `<div class="achievement"><strong>${esc(publicMilitaryText(item.canonical_label || ref || "军事能力记录"))}</strong>${gradeChips(item.campaign_tier || item.parent_campaign_tier, item.combat_difficulty || item.parent_combat_difficulty)}${item.capability_mode ? `<small>承担方式：${esc(capability)}</small>` : ""}${basis ? `<p class="prose">${esc(basis)}</p>` : ""}${link ? `<p class="sources">${link}</p>` : ""}</div>`;
+    const resultGrade = item.campaign_tier || item.parent_campaign_tier;
+    const difficultyGrade = item.combat_difficulty || item.parent_combat_difficulty;
+    const resultLabel = item.campaign_tier ? "个人战果" : "关联整场战果";
+    const difficultyLabel = item.combat_difficulty ? "个人任务难度" : "关联整场难度";
+    const fallbackNote = (!item.campaign_tier && item.parent_campaign_tier) || (!item.combat_difficulty && item.parent_combat_difficulty)
+      ? '<small>这条记录缺少对应的人物级字段，因此只展示关联整场档位；它不能自动转写为本人档位。</small>'
+      : "";
+    return `<div class="achievement"><strong>${esc(publicMilitaryText(item.canonical_label || ref || "军事能力记录"))}</strong>${gradeChips(resultGrade, difficultyGrade, resultLabel, difficultyLabel)}${item.capability_mode ? `<small>承担方式：${esc(capability)}</small>` : ""}${fallbackNote}${basis ? `<p class="prose">${esc(basis)}</p>` : ""}${link ? `<p class="sources">${link}</p>` : ""}</div>`;
   }
 
   function highestGrade(items, order, fieldNames) {
@@ -291,11 +298,17 @@
     const grade = profile.military_grade ? (militaryGrade[profile.military_grade] || publicMilitaryText(profile.military_grade)) : "未定总档";
     const achievements = profile.consumed_achievements || [];
     const domainGrades = profile.domain_grades || {};
-    const peakResult = highestGrade(achievements, resultOrder, ["campaign_tier", "parent_campaign_tier"]);
-    const peakDifficulty = highestGrade(achievements, difficultyOrder, ["combat_difficulty", "parent_combat_difficulty"]);
+    const peakPersonalResult = highestGrade(achievements, resultOrder, ["campaign_tier"]);
+    const peakLinkedResult = highestGrade(achievements, resultOrder, ["parent_campaign_tier"]);
+    const peakPersonalDifficulty = highestGrade(achievements, difficultyOrder, ["combat_difficulty"]);
+    const peakLinkedDifficulty = highestGrade(achievements, difficultyOrder, ["parent_combat_difficulty"]);
+    const peakResult = peakPersonalResult || peakLinkedResult;
+    const peakDifficulty = peakPersonalDifficulty || peakLinkedDifficulty;
+    const peakResultLabel = peakPersonalResult ? "最高个人战果" : "最高关联整场战果";
+    const peakDifficultyLabel = peakPersonalDifficulty ? "最高个人任务难度" : "最高关联整场难度";
     const evidenceState = gradeStatusName[profile.grade_status] || publicMilitaryTerm(profile.grade_status, {}, "证据状态未细分");
     const stabilityState = stabilityStatusName[profile.stability_status] || publicMilitaryTerm(profile.stability_status, {}, "稳定性状态未细分");
-    app.innerHTML = `${archiveHead(profile.person || row.name, `${profile.dynasty || row.dynasty || ""} · 统帅档案`, "全生涯军事表现") }<section class="panel"><div class="eyebrow">全生涯结论</div><h2>${esc(grade)}</h2><p><strong>最高战果：${esc(peakResult || "未形成可展示档位")}</strong>${peakDifficulty ? ` · <strong>最高难度：${esc(peakDifficulty)}</strong>` : ""}${achievements.length ? ` · 正式能力记录 ${esc(achievements.length)} 条` : ""}</p><p>这个总档综合全生涯峰值、独立复验、稳定性和重大反证。它回答“这个人的军事统帅证据整体达到什么层级”，不是把单场战役档位简单平均。</p><div class="chips"><span class="chip">证据：${esc(evidenceState)}</span><span class="chip">稳定性：${esc(stabilityState)}</span></div></section>${Object.keys(domainGrades).length ? `<section class="panel"><h2>主要能力领域</h2><div class="grade-grid">${Object.entries(domainGrades).map(([key,value]) => `<div><strong>${esc(publicMilitaryText(key))}</strong><br><small>${esc(militaryGrade[value?.grade] || publicMilitaryText(value?.grade || "—"))}</small></div>`).join("")}</div></section>` : ""}<section class="panel"><h2>代表性战果与能力记录</h2>${achievements.length ? achievements.map(achievementBlock).join("") : '<p class="muted">当前登记没有可展示的正式军事能力记录。</p>'}</section>${profile.major_adverse_episode_refs?.length ? `<details class="panel"><summary>重大反向记录</summary><ul>${profile.major_adverse_episode_refs.map(ref => `<li>${esc(publicMilitaryText(ref))}</li>`).join("")}</ul></details>` : ""}<details class="panel"><summary>这套档位和战役档、第一项有什么区别？</summary><p class="notice">统帅总档回答“全生涯军事能力证据整体达到什么层级”；单场战役的S/A/B与D0—D4回答“结果多大、问题多难”；皇帝第一项C只消费指定创业／统一窗口内、且能归责给君主本人的军事能力。三套尺度不能互换。</p></details>`;
+    app.innerHTML = `${archiveHead(profile.person || row.name, `${profile.dynasty || row.dynasty || ""} · 统帅档案`, "全生涯军事表现") }<section class="panel"><div class="eyebrow">全生涯结论</div><h2>${esc(grade)}</h2><p><strong>${esc(peakResultLabel)}：${esc(peakResult || "未形成可展示档位")}</strong>${peakDifficulty ? ` · <strong>${esc(peakDifficultyLabel)}：${esc(peakDifficulty)}</strong>` : ""}${achievements.length ? ` · 正式能力记录 ${esc(achievements.length)} 条` : ""}</p><p>这个总档综合全生涯峰值、独立复验、稳定性和重大反证。它回答“这个人的军事统帅证据整体达到什么层级”，不是把单场战役档位简单平均。上面的“个人”只取人物级字段；人物级字段缺失时才退回显示“关联整场”，且不把整场档位冒充为本人档位。</p><div class="chips"><span class="chip">证据：${esc(evidenceState)}</span><span class="chip">稳定性：${esc(stabilityState)}</span></div></section>${Object.keys(domainGrades).length ? `<section class="panel"><h2>主要能力领域</h2><div class="grade-grid">${Object.entries(domainGrades).map(([key,value]) => `<div><strong>${esc(publicMilitaryText(key))}</strong><br><small>${esc(militaryGrade[value?.grade] || publicMilitaryText(value?.grade || "—"))}</small></div>`).join("")}</div></section>` : ""}<section class="panel"><h2>代表性战果与能力记录</h2>${achievements.length ? achievements.map(achievementBlock).join("") : '<p class="muted">当前登记没有可展示的正式军事能力记录。</p>'}</section>${profile.major_adverse_episode_refs?.length ? `<details class="panel"><summary>重大反向记录</summary><ul>${profile.major_adverse_episode_refs.map(ref => `<li>${esc(publicMilitaryText(ref))}</li>`).join("")}</ul></details>` : ""}<details class="panel"><summary>这套档位和战役档、第一项有什么区别？</summary><p class="notice">统帅总档回答“全生涯军事能力证据整体达到什么层级”；战役档案主卡的S/A/B与D0—D4回答“整场结果多大、整场问题多难”，责任人物块另列人物可归责结果与任务难度；皇帝第一项C只消费指定创业／统一窗口内、且能归责给君主本人的军事能力。三套尺度与两个责任层级都不能互换。</p></details>`;
   }
 
   async function route() {
