@@ -14,6 +14,9 @@ on:
       - reader/lazy-details.js
       - reader/public-copy.json
       - reader/build.py
+      - reader/build_military_archive.py
+      - reader/military.html
+      - reader/military-archive.js
       - reader/serve.py
       - src/emperor_v4/evaluation/profile_text_quality.py
       - src/emperor_v4/evaluation/profile_text_cleanup.py
@@ -24,9 +27,14 @@ on:
       - tests/test_reader_readability.py
       - tests/test_reader_person_readability.py
       - tests/test_reader_lazy_details.py
+      - tests/test_reader_military_archive.py
       - config/project.yml
       - config/common/**
       - docs/评分结算/**
+      - docs/公共成果/军事/01-战役登记.json
+      - docs/公共成果/军事/01-战役登记/**
+      - docs/公共成果/军事/02-武将人才等级.json
+      - docs/公共成果/军事/02-武将人才等级/**
       - .github/workflows/reader-build.yml
   workflow_dispatch:
 
@@ -74,12 +82,16 @@ jobs:
           node --check reader/readability.js
           node --check reader/person-readability.js
           node --check reader/lazy-details.js
+          node --check reader/military-archive.js
+
+      - name: Build military archive indexes
+        run: python reader/build_military_archive.py
 
       - name: Build reader
         run: python reader/build.py
 
       - name: Test reader
-        run: python -m pytest tests/test_profile_text_quality.py tests/test_reader.py tests/test_reader_home_interactions.py tests/test_reader_readability.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py -q
+        run: python -m pytest tests/test_profile_text_quality.py tests/test_reader.py tests/test_reader_home_interactions.py tests/test_reader_readability.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py -q
 
       - name: Check whitespace
         run: git diff --check
@@ -87,7 +99,7 @@ jobs:
       - name: Commit generated reader artifacts
         shell: bash
         run: |
-          if [[ -z "$(git status --porcelain -- reader/index.html reader/data/people)" ]]; then
+          if [[ -z "$(git status --porcelain -- reader/index.html reader/data/people reader/data/military)" ]]; then
             echo "Generated reader artifacts are already current"
             exit 0
           fi
@@ -101,7 +113,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A reader/index.html reader/data/people
+          git add -A reader/index.html reader/data/people reader/data/military
           git commit -m "重建综合阅读层"
           git push
 

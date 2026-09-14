@@ -35,27 +35,22 @@
     .replace(/审计/g, "核对")
     .replace(/消费/g, "采用");
 
-  // Future renders use the same public translation before axis prose is created.
   readerText = publicReaderText;
 
   function foldHomeStatus() {
     const note = document.querySelector("#screen .footer-note:not([data-readability-status])");
     if (!note) return;
-
     const text = note.textContent.trim();
     const firstStop = text.indexOf("。");
     note.dataset.readabilityStatus = "done";
     if (firstStop < 0 || firstStop === text.length - 1) return;
-
     const headline = text.slice(0, firstStop + 1).trim();
     const detailText = text.slice(firstStop + 1).trim();
     if (!detailText) return;
-
     note.textContent = "";
     const summary = document.createElement("span");
     summary.className = "home-count-summary";
     summary.textContent = headline;
-
     const details = document.createElement("details");
     details.className = "data-status";
     const toggle = document.createElement("summary");
@@ -67,12 +62,9 @@
   }
 
   function compactComparisonEvidence() {
-    for (const summary of document.querySelectorAll(
-      "#screen .comparison .axis-evidence > summary:not([data-compact-compare])"
-    )) {
+    for (const summary of document.querySelectorAll("#screen .comparison .axis-evidence > summary:not([data-compact-compare])")) {
       const badge = summary.querySelector(".badge");
       if (!badge) continue;
-
       const grade = badge.textContent.trim();
       summary.textContent = "";
       const compactBadge = document.createElement("span");
@@ -102,21 +94,14 @@
     const profile = document.querySelector("#person-capability .grade-help:not([data-public-help])");
     if (profile) {
       const paragraphs = profile.querySelectorAll(":scope > p");
-      if (paragraphs[0]) {
-        paragraphs[0].textContent = "各轴从E−到S+分18级；−、无符号、+分别表示同一字母等级中的较低、中间和较高位置。人物画像与历史影响使用不同尺度，字母相同也不能直接比较。";
-      }
-      if (paragraphs[1]) {
-        paragraphs[1].textContent = "八个能力轴分别依据本轴行为证据；C5只评价权力运用风格与克制，不当作能力高低，也不计入能力雷达。不适用、待补证、待重裁会单独标明，不按低分处理。";
-      }
+      if (paragraphs[0]) paragraphs[0].textContent = "各轴从E−到S+分18级；−、无符号、+分别表示同一字母等级中的较低、中间和较高位置。人物画像与历史影响使用不同尺度，字母相同也不能直接比较。";
+      if (paragraphs[1]) paragraphs[1].textContent = "八个能力轴分别依据本轴行为证据；C5只评价权力运用风格与克制，不当作能力高低，也不计入能力雷达。不适用、待补证、待重裁会单独标明，不按低分处理。";
       profile.dataset.publicHelp = "done";
     }
-
     const impact = document.querySelector("#person-impact .grade-help:not([data-public-help])");
     if (impact) {
       const paragraph = impact.querySelector(":scope > p");
-      if (paragraph) {
-        paragraph.textContent = "这是历史改变的量级，不是能力或功绩等级。最终等级与四个维度分别判断，不做简单平均。";
-      }
+      if (paragraph) paragraph.textContent = "这是历史改变的量级，不是能力或功绩等级。最终等级与四个维度分别判断，不做简单平均。";
       impact.dataset.publicHelp = "done";
     }
   }
@@ -127,13 +112,8 @@
     if (match) {
       const person = location.hash.match(/^#person\/([^/?#]+)/);
       if (!person) return null;
-      try {
-        return byId.get(decodeURIComponent(person[1]))?.axes?.[match[1]] || null;
-      } catch {
-        return null;
-      }
+      try { return byId.get(decodeURIComponent(person[1]))?.axes?.[match[1]] || null; } catch { return null; }
     }
-
     match = id.match(/^reason-([A-Z]\d)-compare-(\d+)$/);
     if (match) {
       const rulerId = state.compare[Number(match[2])];
@@ -146,11 +126,8 @@
     for (const details of document.querySelectorAll("#screen .axis-evidence:not([data-public-metadata])")) {
       const axis = axisRecordForEvidence(details);
       if (!axis) continue;
-      const box = Array.from(details.children).find(
-        node => node.tagName === "DETAILS" && node.classList.contains("metadata") && !node.classList.contains("adjudication")
-      );
+      const box = Array.from(details.children).find(node => node.tagName === "DETAILS" && node.classList.contains("metadata") && !node.classList.contains("adjudication"));
       if (!box) continue;
-
       const summary = box.querySelector(":scope > summary");
       if (summary) summary.textContent = "专业信息与正式记录";
       const line = box.querySelector(":scope > .subline");
@@ -212,11 +189,7 @@
   function currentFirstNetRecord() {
     const match = location.hash.match(/^#net\/([^/?#]+)\/first(?:\/|$)/);
     if (!match) return null;
-    try {
-      return byId.get(decodeURIComponent(match[1])) || null;
-    } catch {
-      return null;
-    }
+    try { return byId.get(decodeURIComponent(match[1])) || null; } catch { return null; }
   }
 
   function firstNetItem(record, label) {
@@ -224,9 +197,7 @@
   }
 
   function firstCostCard() {
-    return Array.from(document.querySelectorAll("#net-major-body .net-metric-detail")).find(card =>
-      card.querySelector(":scope > summary strong")?.textContent.trim() === "军事成本扣分"
-    ) || null;
+    return Array.from(document.querySelectorAll("#net-major-body .net-metric-detail")).find(card => card.querySelector(":scope > summary strong")?.textContent.trim() === "军事成本扣分") || null;
   }
 
   function enhanceFirstItemCost() {
@@ -234,18 +205,13 @@
     const item = firstNetItem(record, "军事成本扣分");
     const card = firstCostCard();
     if (!record?.detail_loaded || !item || !card || card.dataset.costExplained === "done") return;
-
     const match = String(item.grade || "").match(/^(C[0-7])\s*\/\s*(LOW|MID|HIGH|HIGHEST)$/);
     if (!match) return;
     const [, band, position] = match;
     const body = card.querySelector(":scope > .net-metric-body");
     if (!body) return;
-
-    const oldLogicLabel = Array.from(body.querySelectorAll(":scope > .label")).find(label =>
-      label.textContent.trim() === "当前人物结算逻辑"
-    );
+    const oldLogicLabel = Array.from(body.querySelectorAll(":scope > .label")).find(label => label.textContent.trim() === "当前人物结算逻辑");
     if (oldLogicLabel) oldLogicLabel.textContent = "计分理由";
-
     const current = document.createElement("div");
     current.className = "first-cost-explainer";
     const mappedDebit = firstCostDebits[band]?.[position];
@@ -260,14 +226,40 @@
     if (!card || card.dataset.commandGuide === "done") return;
     const body = card.querySelector(":scope > .net-metric-body");
     if (!body) return;
-
     const audit = body.querySelector(":scope > .net-audit-sources");
     const guide = document.createElement("div");
     guide.className = "first-command-guide";
-    guide.innerHTML = `<details><summary>战役标记怎样读？</summary><p class="prose"><strong>S−/D3</strong>不是一个总等级，而是两个彼此独立的标签：左边 <strong>S−</strong> 是这场战役兑现了多大的战略结果，右边 <strong>D3</strong> 是战前这个军事问题本身有多难。</p><ul><li><strong>结果档</strong>：C=局部战术结果；B=重要单项目标；A=主要区域、门户、主力集团或重大阶段结果；S−=强区域终局、核心根据地或长期独立战略方向；S=决定性击败第一梯队竞争极或国家级终局；S+=多个第一梯队竞争极／统一终局等最高结果。</li><li><strong>难度档</strong>：D0=几乎未形成有效军事对抗；D1=本方明显优势；D2=有一项重大难点但总体风险可控；D3=两项以上重大约束相互强化，需要高质量一线统帅；D4=极端劣势、被围断粮、濒临崩溃或连续败退后的临阵逆转。</li></ul><p class="prose">所以“S−/D3”可以读成：在高难条件下完成了一个独立战略方向级的重大结果。结果档高不等于难度一定高，难度高也不保证结果优秀。</p><p class="sources">${link("docs/证据规则/公共成果登记与人物画像规则.md", "战役结果与难度正式规则 ↗")}</p></details><details><summary>这些战役怎样形成第一项C档？</summary><p class="prose">第一项C<strong>不是把S、A、D3、D4换成分数后求和或平均</strong>。战役登记只是证据锚，最终按下面的顺序整体裁决：</p><ol><li><strong>先过责任门</strong>：只消费本人真正承担的战略统筹、实际主帅或临阵指挥；普通任将、批准出兵、国家总成果和下属独立判断不能转给本人。</li><li><strong>再过窗口门</strong>：只看第一项建国、复国、统一或政权取得主链；主链闭合后的成熟扩张、防务不能拿来抬本项C。</li><li><strong>看正向证据结构</strong>：最高峰值、是否有独立复验、D3/D4高难成果、不同战区与战争形态的跨度，以及高层统筹和前线能力是否能反复成立。</li><li><strong>加入负向证据</strong>：本人可归责的重大失败、同类错误复发和未纠偏会压低档位或档内位置；敌强、天气、史源冲突或下属失败本身不算本人败责。</li><li><strong>最后定C档与档内位置</strong>：C-0=无可用本人军事责任证据；C-1=基础统帅；C-2=重要统帅；C-3=优秀统帅；C-4=顶级统帅；C-5=历史级统帅。低／中／高位再映射到0—40分。</li></ol><p class="prose">一个高质量闭环但没有独立复验，最高只能到C-3；C-4、C-5必须跨情境稳定成立。因此“一场S/D4”不会自动等于C-5，多场A/D3也不是简单相加。</p><p class="prose">公共军事人才登记中的“elite / top / historic”等全生涯聚合标签可以帮助复核证据厚度，但它有自己的窗口和聚合门槛，<strong>不能机械换算成第一项C</strong>。</p><p class="sources">${link("docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md#5-c本人军事统帅与战争解题能力40", "第一项C正式档位规则 ↗")}</p></details>`;
+    guide.innerHTML = `<details><summary>战役标记怎样读？</summary><p class="prose"><strong>S−/D3</strong>不是一个总等级，而是两个彼此独立的标签：左边 <strong>S−</strong> 是这场战役兑现了多大的战略结果，右边 <strong>D3</strong> 是战前这个军事问题本身有多难。</p><ul><li><strong>结果档</strong>：C=局部战术结果；B=重要单项目标；A=主要区域、门户、主力集团或重大阶段结果；S−=强区域终局、核心根据地或长期独立战略方向；S=决定性击败第一梯队竞争极或国家级终局；S+=多个第一梯队竞争极／统一终局等最高结果。</li><li><strong>难度档</strong>：D0=几乎未形成有效军事对抗；D1=本方明显优势；D2=有一项重大难点但总体风险可控；D3=两项以上重大约束相互强化，需要高质量一线统帅；D4=极端劣势、被围断粮、濒临崩溃或连续败退后的临阵逆转。</li></ul><p class="prose">所以“S−/D3”可以读成：在高难条件下完成了一个独立战略方向级的重大结果。结果档高不等于难度一定高，难度高也不保证结果优秀。</p><p class="sources">${link("docs/证据规则/公共成果登记与人物画像规则.md", "战役结果与难度正式规则 ↗")} <a href="military.html">打开战役与武将档案 →</a></p></details><details><summary>这些战役怎样形成第一项C档？</summary><p class="prose">第一项C<strong>不是把S、A、D3、D4换成分数后求和或平均</strong>。战役登记只是证据锚，最终按下面的顺序整体裁决：</p><ol><li><strong>先过责任门</strong>：只采用本人真正承担的战略统筹、实际主帅或临阵指挥；普通任将、批准出兵、国家总成果和下属独立判断不能转给本人。</li><li><strong>再过窗口门</strong>：只看第一项建国、复国、统一或政权取得主链；主链闭合后的成熟扩张、防务不能拿来抬本项C。</li><li><strong>看正向证据结构</strong>：最高峰值、是否有独立复核、D3/D4高难成果、不同战区与战争形态的跨度，以及高层统筹和前线能力是否能反复成立。</li><li><strong>加入负向证据</strong>：本人可归责的重大失败、同类错误复发和未纠偏会压低档位或档内位置；敌强、天气、史源冲突或下属失败本身不算本人败责。</li><li><strong>最后定C档与档内位置</strong>：C-0=无可用本人军事责任证据；C-1=基础统帅；C-2=重要统帅；C-3=优秀统帅；C-4=顶级统帅；C-5=历史级统帅。低／中／高位再映射到0—40分。</li></ol><p class="prose">一个高质量闭环但没有独立复核，最高只能到C-3；C-4、C-5必须跨情境稳定成立。因此“一场S/D4”不会自动等于C-5，多场A/D3也不是简单相加。</p><p class="prose">公共军事人才登记中的“elite / top / historic”等全生涯聚合标签可以帮助复核证据厚度，但它有自己的窗口和聚合门槛，<strong>不能机械换算成第一项C</strong>。</p><p class="sources">${link("docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md#5-c本人军事统帅与战争解题能力40", "第一项C正式档位规则 ↗")} ${link("docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/05-第一项C战役标记与统帅档聚合说明.md", "C战役标记与聚合说明 ↗")}</p></details>`;
     if (audit) body.insertBefore(guide, audit);
     else body.append(guide);
     card.dataset.commandGuide = "done";
+  }
+
+  function battleTerms(text) {
+    const found = [];
+    const re = /([\u3400-\u9fff]{2,8}(?:[—－-][\u3400-\u9fff]{2,8})?)(S\+|S-|S−|S|A|B|C)\/(D[0-4])/g;
+    for (const match of String(text || "").matchAll(re)) {
+      const term = match[1];
+      if (!found.includes(term)) found.push(term);
+      if (found.length >= 10) break;
+    }
+    return found;
+  }
+
+  function enhanceFirstItemBattleLinks() {
+    const card = document.getElementById("net-first-c");
+    if (!card || card.dataset.battleLinks === "done") return;
+    const labels = Array.from(card.querySelectorAll(".net-metric-body > .label"));
+    const label = labels.find(node => node.textContent.trim() === "当前人物为什么是这个档");
+    const prose = label?.nextElementSibling;
+    if (!prose?.classList.contains("prose")) return;
+    const terms = battleTerms(prose.textContent);
+    if (!terms.length) { card.dataset.battleLinks = "done"; return; }
+    const block = document.createElement("div");
+    block.className = "first-battle-links";
+    block.innerHTML = `<div class="label">相关战役档案</div><p class="sources">${terms.map(term => `<a href="military.html#search=${encodeURIComponent(term)}">${esc(term)} →</a>`).join(" ")}</p>`;
+    prose.insertAdjacentElement("afterend", block);
+    card.dataset.battleLinks = "done";
   }
 
   function enhance() {
@@ -279,6 +271,7 @@
     translateResidualAxisCodes();
     enhanceFirstItemCost();
     enhanceFirstItemCommandGuide();
+    enhanceFirstItemBattleLinks();
   }
 
   new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});
