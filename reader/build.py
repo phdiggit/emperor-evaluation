@@ -266,7 +266,7 @@ def project_net_explanations(person, row, sources):
             first[label] = _attach_reader(
                 item, kind="judgment",
                 summary="只评价本人在建国、复国或统一主链中最终留下的稳定控制成果；起点、对手强弱和完成速度不在这里重复计分。",
-                how=f"{item.get('note') or '按有效控制信用U'}；按统一贡献曲线换算为 {item.get('value')} 分。",
+                how=f"{item.get('note') or '按正式A项控制信用与项目归属'}；单人项目按统一贡献曲线计算，共同项目先生成项目A池再按正式个人信用分账，最终为 {item.get('value')} 分。",
             )
         elif label == "B1创业难度与效率":
             first[label] = _attach_reader(
