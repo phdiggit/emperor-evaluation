@@ -16,7 +16,7 @@ from markdown_it import MarkdownIt
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DETAILS_DIR = ROOT / 'reader/data/people'
+DETAILS_DIR = ROOT / 'reader/data'
 sys.path.insert(0, str(ROOT / 'src'))
 from emperor_v4.evaluation.formal_json_store import load_json
 

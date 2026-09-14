@@ -118,6 +118,7 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
     if len(c_rows) != len(rows) or len(c_by_name) != len(c_rows):
         raise ValueError("第一项C正式结算人数为空、缺失或重复")
     totals_by_name = {row["name"]: row for row in rows}
+    b2_audited = _validate_b2_text_consistency(workspace_root, totals_by_name)
     a_text = (workspace_root / COMPONENT_SETTLEMENTS[0]).read_text(encoding="utf-8-sig")
     a_rows = {}
     for line in a_text.splitlines():
@@ -148,5 +149,56 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
         "min_score": min(row["total"] for row in rows),
         "max_score": max(row["total"] for row in rows),
         "a_pool_text_audited_sections": a_pool_text_audited_sections,
+        "b2_material_sections": b2_audited,
         "component_paths": list(COMPONENT_SETTLEMENTS),
     }
+
+
+def _validate_b2_text_consistency(workspace_root: Path, totals_by_name: dict[str, Any]) -> int:
+    """Verify current B2 grades, reasons and references against the total view."""
+    component = workspace_root / COMPONENT_SETTLEMENTS[2]
+    text = component.read_text(encoding="utf-8-sig")
+    total = (workspace_root / TOTAL_SETTLEMENT).read_text(encoding="utf-8-sig")
+    def sections(value):
+        return {m[1]: dict(re.findall(r"^- \*\*(.+?)\*\*：(.+)$", m[2], re.M))
+                for m in re.finditer(r"^### \d+\. (.+)\n([\s\S]*?)(?=^### |\Z)", value, re.M)}
+    people, total_people = sections(text), sections(total)
+    if set(people) != set(totals_by_name):
+        raise ValueError("第一项B2人物集合与总表不一致")
+    table = {}
+    for line in text.splitlines():
+        cells = [cell.strip() for cell in line.split("|")[1:-1]]
+        if len(cells) == 9 and cells[0].isdigit():
+            if cells[1] in table:
+                raise ValueError("第一项B2汇总表人物重复")
+            table[cells[1]] = cells
+    if set(table) != set(people):
+        raise ValueError("第一项B2汇总表与逐人条目不一致")
+    dimensions = ("并行执行", "团队能力覆盖与组织杠杆", "异质整合")
+    for name, fields in people.items():
+        points = 0
+        for i, key in enumerate(dimensions):
+            reason = fields.get(key, "")
+            match = re.match(r"L([0-5])。(.+)", reason)
+            if not match or not match[2].strip():
+                raise ValueError(f"第一项B2缺少逐维材料理由：{name}/{key}")
+            level = int(match[1]); value = level * 2
+            points += value
+            if table[name][2 + i * 2] != f"L{level}" or float(table[name][3 + i * 2]) != value:
+                raise ValueError(f"第一项B2档位与汇总分值不一致：{name}/{key}")
+            if total_people.get(name, {}).get(key) != reason:
+                raise ValueError(f"第一项B2材料与总阅读视图不一致：{name}/{key}")
+        declared = re.match(r"\*\*([\d.]+)/30\*\*", fields.get("B2结算", ""))
+        if not declared or float(declared[1]) != points or float(table[name][-1].strip("*")) != points or totals_by_name[name]["b2"] != points:
+            raise ValueError(f"第一项B2合计与总表不一致：{name}")
+        refs = fields.get("材料来源", "")
+        links = re.findall(r"\[[^\]]+\]\(([^)]+)\)", refs)
+        if not links or total_people.get(name, {}).get("材料来源") != refs:
+            raise ValueError(f"第一项B2材料来源缺失或阅读视图不一致：{name}")
+        for ref in links:
+            if ref.startswith("https://"):
+                continue
+            target = (component.parent / ref.split("#", 1)[0]).resolve()
+            if not target.is_file():
+                raise ValueError(f"第一项B2材料来源文件缺失：{name}/{ref}")
+    return len(people)

@@ -31,7 +31,7 @@
     const key = compact(term);
     if (!key) return;
     try {
-      const response = await fetch("data/military/battles-index.json", {cache: "force-cache"});
+      const response = await fetch("data/military/battles-index.json", {cache: "no-cache"});
       if (!response.ok) return;
       const index = await response.json();
       const battleId = index.first_item_c_anchor_lookup?.[key];

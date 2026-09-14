@@ -24,7 +24,7 @@
     if (!record.detail_ref) throw new Error(`Missing detail_ref for ${id}`);
 
     const request = (async () => {
-      const response = await fetch(record.detail_ref, {cache: "force-cache"});
+      const response = await fetch(record.detail_ref, {cache: "no-cache"});
       if (!response.ok) throw new Error(`Failed to load ${record.detail_ref}: HTTP ${response.status}`);
       const payload = await response.json();
       if (!payload || !payload.record || payload.record.ruler_id !== id) {
