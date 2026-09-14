@@ -21,7 +21,7 @@ FIRST_ITEM_C_SETTLEMENT = Path("docs/评分结算/净收益/第一项政权奠�
 OUTPUT_DIR = Path("reader/data/military")
 
 ANCHOR_RE = re.compile(
-    r"(?:^|[：，；。、])(?P<anchor>[^，；。：、\s]{2,28}?)(?P<result>S\+|S-|S−|S|A|B|C)/(?P<difficulty>D[0-4])"
+    r"(?:^|[：，；。、])(?P<anchor>[^，；。：、\s]{2,32}?)(?P<result>S\+|S-|S−|S|A|B|C)/(?P<difficulty>D[0-4])"
 )
 SECTION_RE = re.compile(r"^###\s+\d+\.\s*(?P<name>.+?)\s*$")
 ANCHOR_PREFIXES = (
@@ -38,6 +38,13 @@ ANCHOR_PREFIXES = (
     "其中",
     "以及",
 )
+AGGREGATE_MARKERS = (
+    "多次", "多个", "多项", "大量", "两次", "诸战", "等方向", "等有", "等形成", "等达到",
+)
+NONSPECIFIC_ANCHORS = {
+    "多次", "多个", "多项", "大量", "旧c按", "旧登记", "旧登记为", "形成", "只有", "缺少",
+    "只支持", "人物结果只有", "人物级只消费",
+}
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -74,15 +81,46 @@ def _clean_anchor_name(value: str) -> str:
     for prefix in ANCHOR_PREFIXES:
         if prefix in text:
             text = text.rsplit(prefix, 1)[-1]
-    text = re.sub(r"^(?:并有|并以|又有|又以|有|以|在|由|如)", "", text)
+
+    # Formal settlement prose often wraps the battle name in structural wording such
+    # as “第一项创业链内有…” or “第一项窗口内可确认…”. Strip only when the left
+    # side clearly describes a window/chain rather than a historical place or battle.
+    structural = re.match(
+        r"^.*(?:链|窗口|主线|创业|统一|建国)(?:内|中)(?:已有|有|可确认|可用)?(?P<tail>.{2,})$",
+        text,
+    )
+    if structural:
+        text = structural.group("tail")
+
+    text = re.sub(r"^(?:并有|并以|又有|又以|有|以|在|由|如|但)", "", text)
+    text = re.sub(r"(?:的)$", "", text)
+    text = re.sub(
+        r"(?:均有|存在一项|有多个|有多次|等有多个|等有多次|等多次|等多个|等多项|"
+        r"形成多次|形成两次|持续形成|形成|相关|达到|存在|可作|仅为|为)$",
+        "",
+        text,
+    )
     text = re.sub(r"(?:等|一役)$", "", text)
     return text.strip(" ：，；。、")
+
+
+def _anchor_kind(raw_anchor: str, clean_anchor: str) -> str:
+    raw = str(raw_anchor or "")
+    clean = str(clean_anchor or "")
+    compact = _compact_text(clean)
+    if not compact or compact in NONSPECIFIC_ANCHORS or len(compact) < 2:
+        return "nonspecific"
+    if any(marker in raw for marker in AGGREGATE_MARKERS):
+        return "aggregate"
+    if "及" in clean and any(token in clean for token in ("终局", "战", "侵", "方向")):
+        return "aggregate"
+    return "atomic"
 
 
 def _anchor_variants(anchor: str) -> list[str]:
     clean = _clean_anchor_name(anchor)
     values = [clean]
-    for suffix in ("终局", "之战", "战役", "大战", "决战"):
+    for suffix in ("终局", "方向", "相关", "之战", "战役", "大战", "决战", "围城", "主战线"):
         if clean.endswith(suffix) and len(clean) > len(suffix) + 1:
             values.append(clean[: -len(suffix)])
     if "—" in clean or "－" in clean or "-" in clean:
@@ -129,7 +167,8 @@ def _parse_first_item_c_anchors(path: Path) -> list[dict[str, str]]:
         if not ruler or "结算依据" not in line:
             continue
         for match in ANCHOR_RE.finditer(line):
-            anchor = _clean_anchor_name(match.group("anchor"))
+            raw_anchor = match.group("anchor").strip(" ：，；。、")
+            anchor = _clean_anchor_name(raw_anchor)
             if len(_compact_text(anchor)) < 2:
                 continue
             result = _normalize_grade(match.group("result"))
@@ -141,6 +180,8 @@ def _parse_first_item_c_anchors(path: Path) -> list[dict[str, str]]:
             found.append({
                 "ruler": ruler,
                 "anchor": anchor,
+                "raw_anchor": raw_anchor,
+                "anchor_kind": _anchor_kind(raw_anchor, anchor),
                 "result_grade": result,
                 "difficulty_grade": difficulty,
             })
@@ -157,9 +198,8 @@ def _member_result_rows(member: dict[str, Any]) -> tuple[set[tuple[str, str]], l
         difficulty = str(index.get("projected_combat_difficulty") or "").strip()
         if result and difficulty:
             pairs.add((result, difficulty))
-        for key in ("basis",):
-            if index.get(key):
-                text_parts.append(str(index[key]))
+        if index.get("basis"):
+            text_parts.append(str(index["basis"]))
 
     results = member.get("person_command_result") or []
     if isinstance(results, dict):
@@ -191,10 +231,25 @@ def _resolve_first_item_c_anchors(
         "resolved_unique": 0,
         "resolved_registry_ref": 0,
         "resolved_battle_text": 0,
+        "search_only_aggregate": 0,
+        "search_only_nonspecific": 0,
         "ambiguous": 0,
-        "unresolved": 0,
+        "unresolved_atomic": 0,
     }
     for anchor in anchors:
+        kind = anchor.get("anchor_kind") or "atomic"
+        if kind != "atomic":
+            status = f"search_only_{kind}"
+            stats[status] += 1
+            resolved.append({
+                **anchor,
+                "battle_id": None,
+                "status": status,
+                "resolution_mode": None,
+                "candidate_count": 0,
+            })
+            continue
+
         ruler = anchor["ruler"]
         wanted_pair = (anchor["result_grade"], anchor["difficulty_grade"])
         scored: list[tuple[int, int, str, str]] = []
@@ -215,7 +270,7 @@ def _resolve_first_item_c_anchors(
                 ))
         scored.sort(reverse=True)
         battle_id = None
-        status = "unresolved"
+        status = "unresolved_atomic"
         resolution_mode = None
         if scored:
             top_priority, top_score = scored[0][0], scored[0][1]
@@ -245,8 +300,7 @@ def _anchor_lookup(resolved: list[dict[str, Any]]) -> dict[str, str]:
     for item in resolved:
         if item["status"] != "resolved_unique" or not item["battle_id"]:
             continue
-        key = _compact_text(_clean_anchor_name(item["anchor"]))
-        if key:
+        for key in _anchor_variants(item["anchor"]):
             targets.setdefault(key, set()).add(item["battle_id"])
     return {
         key: next(iter(battle_ids))
@@ -329,21 +383,15 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
         raise ValueError(f"battle registry count mismatch: {len(battle_rows)} != {expected_battles}")
 
     anchors = _parse_first_item_c_anchors(root / FIRST_ITEM_C_SETTLEMENT)
-    first_item_anchors, anchor_stats = _resolve_first_item_c_anchors(anchors, match_rows)
-    anchor_lookup = _anchor_lookup(first_item_anchors)
 
     battle_rows.sort(key=lambda row: (str(row["dynasty"]), str(row["period"]), str(row["name"]), row["id"]))
     battle_index = {
-        "schema_version": "reader-military-battle-index-v2",
+        "schema_version": "reader-military-battle-index-v3",
         "source_manifest": BATTLE_MANIFEST.as_posix(),
         "first_item_c_source": FIRST_ITEM_C_SETTLEMENT.as_posix(),
         "record_count": len(battle_rows),
         "records": battle_rows,
         "result_ref_to_battle": dict(sorted(result_ref_to_battle.items())),
-        "first_item_c_anchors": first_item_anchors,
-        "first_item_c_anchor_stats": anchor_stats,
-        "first_item_c_anchor_lookup": anchor_lookup,
-        "first_item_c_anchor_lookup_count": len(anchor_lookup),
     }
 
     commander_manifest = _load(root / COMMANDER_MANIFEST)
@@ -409,6 +457,7 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
     expected_profiles = int(commander_manifest.get("profile_count") or payload_meta.get("profile_count") or len(commander_rows))
     if len(commander_rows) != expected_profiles:
         raise ValueError(f"commander registry count mismatch: {len(commander_rows)} != {expected_profiles}")
+
     first_item_anchors, anchor_stats = _resolve_first_item_c_anchors(
         anchors,
         [*match_rows, *achievement_match_rows],
@@ -440,7 +489,9 @@ def main() -> None:
         f"{battle_index['record_count']} battles, {commander_index['profile_count']} commanders; "
         f"first-item C anchors resolved={stats['resolved_unique']} "
         f"(registry-ref={stats['resolved_registry_ref']}, battle-text={stats['resolved_battle_text']}) "
-        f"ambiguous={stats['ambiguous']} unresolved={stats['unresolved']}"
+        f"aggregate-search={stats['search_only_aggregate']} "
+        f"nonspecific-search={stats['search_only_nonspecific']} "
+        f"ambiguous={stats['ambiguous']} unresolved-atomic={stats['unresolved_atomic']}"
     )
 
 

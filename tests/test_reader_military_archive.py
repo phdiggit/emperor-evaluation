@@ -131,9 +131,72 @@ def test_first_item_c_anchor_binds_only_unique_matching_battle(tmp_path: Path):
 
     anchors = battles["first_item_c_anchors"]
     assert len(anchors) == 1
+    assert anchors[0]["anchor"] == "北门决战"
+    assert anchors[0]["anchor_kind"] == "atomic"
     assert anchors[0]["status"] == "resolved_unique"
     assert anchors[0]["battle_id"] == "WAR-TEST-NORTH-GATE"
     assert battles["first_item_c_anchor_lookup"]["北门决战"] == "WAR-TEST-NORTH-GATE"
+
+
+def test_first_item_c_structural_prose_is_removed_before_matching(tmp_path: Path):
+    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
+    write_json(
+        tmp_path / module.BATTLE_DIR / "demo-00.json",
+        {"records": [{
+            "war_event_id": "WAR-TEST-RIVER",
+            "dynasty": "测试朝",
+            "canonical_label": "测试君主在赤水完成决战",
+            "campaign_tier": "S",
+            "combat_difficulty": "D3",
+            "members": [{
+                "actor_name": "测试君主",
+                "person_command_result": [{
+                    "result_ref": "PCR-TEST-RIVER",
+                    "result_label": "赤水决战",
+                    "result_tier": "S",
+                    "combat_difficulty": "D3",
+                }],
+            }],
+        }]},
+    )
+    minimal_commander(tmp_path)
+    write_first_item_c(
+        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
+        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：第一项创业链内有赤水决战S/D3。\n",
+    )
+
+    battles, _ = module.build_indexes(tmp_path)
+    anchor = battles["first_item_c_anchors"][0]
+    assert anchor["raw_anchor"] == "第一项创业链内有赤水决战"
+    assert anchor["anchor"] == "赤水决战"
+    assert anchor["battle_id"] == "WAR-TEST-RIVER"
+
+
+def test_first_item_c_aggregate_anchor_remains_search_only(tmp_path: Path):
+    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
+    write_json(
+        tmp_path / module.BATTLE_DIR / "demo-00.json",
+        {"records": [{
+            "war_event_id": "WAR-TEST-AGG",
+            "dynasty": "测试朝",
+            "canonical_label": "测试君主北门作战",
+            "campaign_tier": "A",
+            "combat_difficulty": "D3",
+            "members": [{"actor_name": "测试君主"}],
+        }]},
+    )
+    minimal_commander(tmp_path)
+    write_first_item_c(
+        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
+        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：北门诸战与南门终局形成多次A/D3。\n",
+    )
+
+    battles, _ = module.build_indexes(tmp_path)
+    anchor = battles["first_item_c_anchors"][0]
+    assert anchor["anchor_kind"] == "aggregate"
+    assert anchor["status"] == "search_only_aggregate"
+    assert anchor["battle_id"] is None
+    assert battles["first_item_c_anchor_stats"]["search_only_aggregate"] == 1
 
 
 def test_first_item_c_anchor_can_follow_commander_campaign_ref_to_battle(tmp_path: Path):
