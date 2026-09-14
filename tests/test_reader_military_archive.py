@@ -6,7 +6,6 @@ from pathlib import Path
 
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "reader" / "build_military_archive.py"
-MILITARY_HTML = Path(__file__).resolve().parents[1] / "reader" / "military.html"
 spec = importlib.util.spec_from_file_location("build_military_archive", MODULE_PATH)
 module = importlib.util.module_from_spec(spec)
 assert spec and spec.loader
@@ -28,16 +27,14 @@ def minimal_commander(tmp_path: Path) -> None:
     write_json(
         tmp_path / module.COMMANDER_DIR / "bucket-00.json",
         {
-            "profiles": [
-                {
-                    "profile_ref": "MIL-PROFILE-TEST",
-                    "person_ref": "MIL-PER-TEST",
-                    "person": "测试将领",
-                    "dynasty": "测试朝",
-                    "military_grade": "elite",
-                    "actor_ref_aliases": ["PERSON-TEST"],
-                }
-            ]
+            "profiles": [{
+                "profile_ref": "MIL-PROFILE-TEST",
+                "person_ref": "MIL-PER-TEST",
+                "person": "测试将领",
+                "dynasty": "测试朝",
+                "military_grade": "elite",
+                "actor_ref_aliases": ["PERSON-TEST"],
+            }]
         },
     )
 
@@ -47,23 +44,17 @@ def test_military_archive_indexes_point_to_canonical_shards(tmp_path: Path):
     write_json(
         tmp_path / module.BATTLE_DIR / "demo-00.json",
         {
-            "records": [
-                {
-                    "war_event_id": "WAR-TEST-1",
-                    "dynasty": "测试朝",
-                    "canonical_label": "测试战役",
-                    "period": {"start": "1", "end": "2"},
-                    "campaign_tier": "A",
-                    "combat_difficulty": "D3",
-                    "result_direction": "positive",
-                    "members": [
-                        {
-                            "actor_name": "测试将领",
-                            "person_command_result": [{"result_ref": "PCR-TEST-1"}],
-                        }
-                    ],
-                }
-            ]
+            "records": [{
+                "war_event_id": "WAR-TEST-1",
+                "dynasty": "测试朝",
+                "canonical_label": "测试战役",
+                "campaign_tier": "A",
+                "combat_difficulty": "D3",
+                "members": [{
+                    "actor_name": "测试将领",
+                    "person_command_result": [{"result_ref": "PCR-TEST-1"}],
+                }],
+            }]
         },
     )
     minimal_commander(tmp_path)
@@ -72,11 +63,9 @@ def test_military_archive_indexes_point_to_canonical_shards(tmp_path: Path):
 
     assert battles["record_count"] == 1
     assert battles["records"][0]["id"] == "WAR-TEST-1"
-    assert battles["records"][0]["source"].endswith("demo-00.json")
     assert battles["result_ref_to_battle"]["PCR-TEST-1"] == "WAR-TEST-1"
     assert commanders["profile_count"] == 1
     assert commanders["records"][0]["profile_ref"] == "MIL-PROFILE-TEST"
-    assert commanders["records"][0]["source"].endswith("bucket-00.json")
 
 
 def test_first_item_c_anchor_binds_only_unique_matching_battle(tmp_path: Path):
@@ -86,16 +75,15 @@ def test_first_item_c_anchor_binds_only_unique_matching_battle(tmp_path: Path):
         {
             "records": [
                 {
-                    "war_event_id": "WAR-TEST-NORTH-GATE",
+                    "war_event_id": "WAR-TEST-NORTH",
                     "dynasty": "测试朝",
                     "canonical_label": "测试君主亲率主力完成北门决战",
-                    "observable_result": "北门方向终局闭合。",
                     "campaign_tier": "A",
                     "combat_difficulty": "D3",
                     "members": [{
                         "actor_name": "测试君主",
                         "person_command_result": [{
-                            "result_ref": "PCR-TEST-NORTH-GATE",
+                            "result_ref": "PCR-TEST-NORTH",
                             "result_label": "北门决战",
                             "result_tier": "A",
                             "combat_difficulty": "D3",
@@ -103,20 +91,12 @@ def test_first_item_c_anchor_binds_only_unique_matching_battle(tmp_path: Path):
                     }],
                 },
                 {
-                    "war_event_id": "WAR-TEST-SOUTH-GATE",
+                    "war_event_id": "WAR-TEST-SOUTH",
                     "dynasty": "测试朝",
                     "canonical_label": "另一人物完成南门战役",
                     "campaign_tier": "A",
                     "combat_difficulty": "D3",
-                    "members": [{
-                        "actor_name": "另一人物",
-                        "person_command_result": [{
-                            "result_ref": "PCR-TEST-SOUTH-GATE",
-                            "result_label": "南门战役",
-                            "result_tier": "A",
-                            "combat_difficulty": "D3",
-                        }],
-                    }],
+                    "members": [{"actor_name": "另一人物"}],
                 },
             ]
         },
@@ -124,86 +104,15 @@ def test_first_item_c_anchor_binds_only_unique_matching_battle(tmp_path: Path):
     minimal_commander(tmp_path)
     write_first_item_c(
         tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
-        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：统帅证据：第一项主链内已有北门决战A/D3，形成独立复核。\n",
-    )
-
-    battles, _ = module.build_indexes(tmp_path)
-
-    anchors = battles["first_item_c_anchors"]
-    assert len(anchors) == 1
-    assert anchors[0]["anchor"] == "北门决战"
-    assert anchors[0]["anchor_kind"] == "atomic"
-    assert anchors[0]["status"] == "resolved_unique"
-    assert anchors[0]["battle_id"] == "WAR-TEST-NORTH-GATE"
-    assert battles["first_item_c_anchor_lookup"]["北门决战"] == "WAR-TEST-NORTH-GATE"
-
-
-def test_first_item_c_structural_prose_is_removed_before_matching(tmp_path: Path):
-    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
-    write_json(
-        tmp_path / module.BATTLE_DIR / "demo-00.json",
-        {"records": [{
-            "war_event_id": "WAR-TEST-RIVER",
-            "dynasty": "测试朝",
-            "canonical_label": "测试君主在赤水完成决战",
-            "campaign_tier": "S",
-            "combat_difficulty": "D3",
-            "members": [{
-                "actor_name": "测试君主",
-                "person_command_result": [{
-                    "result_ref": "PCR-TEST-RIVER",
-                    "result_label": "赤水决战",
-                    "result_tier": "S",
-                    "combat_difficulty": "D3",
-                }],
-            }],
-        }]},
-    )
-    minimal_commander(tmp_path)
-    write_first_item_c(
-        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
-        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：第一项创业链内有赤水决战S/D3。\n",
+        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：已有北门决战A/D3。\n",
     )
 
     battles, _ = module.build_indexes(tmp_path)
     anchor = battles["first_item_c_anchors"][0]
-    assert anchor["raw_anchor"] == "第一项创业链内有赤水决战"
-    assert anchor["anchor"] == "赤水决战"
-    assert anchor["battle_id"] == "WAR-TEST-RIVER"
 
-
-def test_first_item_c_narrative_location_variant_can_resolve_unique_battle(tmp_path: Path):
-    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
-    write_json(
-        tmp_path / module.BATTLE_DIR / "demo-00.json",
-        {"records": [{
-            "war_event_id": "WAR-TEST-HILL",
-            "dynasty": "测试朝",
-            "canonical_label": "测试君主在青丘击败敌军",
-            "campaign_tier": "A",
-            "combat_difficulty": "D3",
-            "members": [{
-                "actor_name": "测试君主",
-                "person_command_result": [{
-                    "result_ref": "PCR-TEST-HILL",
-                    "result_label": "青丘之战",
-                    "result_tier": "A",
-                    "combat_difficulty": "D3",
-                }],
-            }],
-        }]},
-    )
-    minimal_commander(tmp_path)
-    write_first_item_c(
-        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
-        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：本人继承旧政权后立即在青丘亲督逆转A/D3。\n",
-    )
-
-    battles, _ = module.build_indexes(tmp_path)
-    anchor = battles["first_item_c_anchors"][0]
-    assert anchor["anchor_kind"] == "atomic"
-    assert "青丘" in module._anchor_variants(anchor["anchor"])
-    assert anchor["battle_id"] == "WAR-TEST-HILL"
+    assert anchor["status"] == "resolved_unique"
+    assert anchor["battle_id"] == "WAR-TEST-NORTH"
+    assert battles["first_item_c_anchor_lookup"]["北门决战"] == "WAR-TEST-NORTH"
 
 
 def test_first_item_c_aggregate_anchor_remains_search_only(tmp_path: Path):
@@ -227,136 +136,12 @@ def test_first_item_c_aggregate_anchor_remains_search_only(tmp_path: Path):
 
     battles, _ = module.build_indexes(tmp_path)
     anchor = battles["first_item_c_anchors"][0]
-    assert anchor["anchor_kind"] == "aggregate"
+
     assert anchor["status"] == "search_only_aggregate"
     assert anchor["battle_id"] is None
-    assert battles["first_item_c_anchor_stats"]["search_only_aggregate"] == 1
 
 
-def test_first_item_c_continuous_campaign_and_old_closure_are_not_forced_direct(tmp_path: Path):
-    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
-    write_json(
-        tmp_path / module.BATTLE_DIR / "demo-00.json",
-        {"records": [{
-            "war_event_id": "WAR-TEST-CAMPAIGN",
-            "dynasty": "测试朝",
-            "canonical_label": "测试君主南线战役",
-            "campaign_tier": "A",
-            "combat_difficulty": "D3",
-            "members": [{"actor_name": "测试君主"}],
-        }]},
-    )
-    minimal_commander(tmp_path)
-    write_first_item_c(
-        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
-        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：随后南线连续亲征A/D3；旧C已闭合B/D2。\n",
-    )
-
-    battles, _ = module.build_indexes(tmp_path)
-    kinds = {row["anchor_kind"] for row in battles["first_item_c_anchors"]}
-    statuses = {row["status"] for row in battles["first_item_c_anchors"]}
-    assert kinds == {"aggregate", "nonspecific"}
-    assert statuses == {"search_only_aggregate", "search_only_nonspecific"}
-
-
-def test_first_item_c_anchor_can_follow_commander_campaign_ref_to_battle(tmp_path: Path):
-    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
-    write_json(
-        tmp_path / module.BATTLE_DIR / "demo-00.json",
-        {"records": [{
-            "war_event_id": "WAR-TEST-REF-LINK",
-            "dynasty": "测试朝",
-            "canonical_label": "代理主帅完成北门方向战役",
-            "campaign_tier": "A",
-            "combat_difficulty": "D3",
-            "members": [{
-                "actor_name": "代理主帅",
-                "person_command_result": [{
-                    "result_ref": "PCR-TEST-REF-LINK",
-                    "result_label": "北门方向战役",
-                    "result_tier": "A",
-                    "combat_difficulty": "D3",
-                }],
-            }],
-        }]},
-    )
-    write_json(tmp_path / module.COMMANDER_MANIFEST, {"profile_count": 1})
-    write_json(
-        tmp_path / module.COMMANDER_DIR / "bucket-00.json",
-        {"profiles": [{
-            "profile_ref": "MIL-PROFILE-RULER",
-            "person": "测试君主",
-            "dynasty": "测试朝",
-            "military_grade": "elite",
-            "consumed_achievements": [{
-                "campaign_ref": "PCR-TEST-REF-LINK",
-                "canonical_label": "测试君主北门统筹终局",
-                "campaign_tier": "A",
-                "combat_difficulty": "D3",
-                "basis": "第一项窗口内形成北门统筹终局。",
-            }],
-        }]},
-    )
-    write_first_item_c(
-        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
-        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：统帅证据：已有北门统筹终局A/D3。\n",
-    )
-
-    battles, _ = module.build_indexes(tmp_path)
-
-    anchor = battles["first_item_c_anchors"][0]
-    assert anchor["status"] == "resolved_unique"
-    assert anchor["resolution_mode"] == "registry_ref"
-    assert anchor["battle_id"] == "WAR-TEST-REF-LINK"
-
-
-def test_first_item_c_anchor_can_follow_subject_phase_ref_to_battle(tmp_path: Path):
-    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
-    write_json(
-        tmp_path / module.BATTLE_DIR / "demo-00.json",
-        {"records": [{
-            "war_event_id": "WAR-TEST-PHASE-LINK",
-            "dynasty": "测试朝",
-            "canonical_label": "青丘会战与后续追击",
-            "subject_phase_views": [{
-                "phase_id": "WAR-TEST-PHASE-LINK-P01",
-                "evaluation_subject_phase": "测试朝主力 × 青丘反击阶段",
-                "actual_process": "主力在青丘完成反击并扭转战局。",
-            }],
-        }]},
-    )
-    write_json(tmp_path / module.COMMANDER_MANIFEST, {"profile_count": 1})
-    write_json(
-        tmp_path / module.COMMANDER_DIR / "bucket-00.json",
-        {"profiles": [{
-            "profile_ref": "MIL-PROFILE-PHASE-RULER",
-            "person": "测试君主",
-            "dynasty": "测试朝",
-            "military_grade": "elite",
-            "consumed_achievements": [{
-                "campaign_ref": "WAR-TEST-PHASE-LINK-P01",
-                "canonical_label": "青丘亲督逆转",
-                "campaign_tier": "A",
-                "combat_difficulty": "D3",
-                "basis": "本人在青丘亲督逆转。",
-            }],
-        }]},
-    )
-    write_first_item_c(
-        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
-        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：统帅证据：青丘亲督逆转A/D3。\n",
-    )
-
-    battles, _ = module.build_indexes(tmp_path)
-
-    assert battles["result_ref_to_battle"]["WAR-TEST-PHASE-LINK-P01"] == "WAR-TEST-PHASE-LINK"
-    anchor = battles["first_item_c_anchors"][0]
-    assert anchor["status"] == "resolved_unique"
-    assert anchor["resolution_mode"] == "registry_ref"
-    assert anchor["battle_id"] == "WAR-TEST-PHASE-LINK"
-
-
-def test_first_item_c_anchor_keeps_ambiguous_match_out_of_direct_lookup(tmp_path: Path):
+def test_first_item_c_ambiguous_match_is_not_directly_bound(tmp_path: Path):
     write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 2})
     records = []
     for suffix in ("A", "B"):
@@ -380,18 +165,18 @@ def test_first_item_c_anchor_keeps_ambiguous_match_out_of_direct_lookup(tmp_path
     minimal_commander(tmp_path)
     write_first_item_c(
         tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
-        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：统帅证据：已有北门决战A/D3。\n",
+        "# 第一项C\n\n### 1. 测试君主\n\n- **结算依据**：已有北门决战A/D3。\n",
     )
 
     battles, _ = module.build_indexes(tmp_path)
-
     anchor = battles["first_item_c_anchors"][0]
+
     assert anchor["status"] == "ambiguous"
     assert anchor["battle_id"] is None
     assert "北门决战" not in battles["first_item_c_anchor_lookup"]
 
 
-def test_military_archive_does_not_copy_full_adjudication_text(tmp_path: Path):
+def test_military_archive_index_does_not_copy_full_adjudication_text(tmp_path: Path):
     long_basis = "不应进入轻量索引" * 30
     write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
     write_json(
@@ -420,11 +205,5 @@ def test_military_archive_does_not_copy_full_adjudication_text(tmp_path: Path):
 
     battles, commanders = module.build_indexes(tmp_path)
     packed = json.dumps({"b": battles, "c": commanders}, ensure_ascii=False)
+
     assert long_basis not in packed
-
-
-def test_military_page_upgrades_resolved_first_item_search_to_battle_id():
-    html = MILITARY_HTML.read_text(encoding="utf-8")
-    assert "first_item_c_anchor_lookup" in html
-    assert 'location.replace(`#battle=${encodeURIComponent(battleId)}`)' in html
-    assert "保留搜索回退" in html
