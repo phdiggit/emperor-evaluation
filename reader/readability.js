@@ -196,6 +196,162 @@
     return record?.net?.component_details?.first?.find(item => item.label === label) || null;
   }
 
+  const firstItemASettlementPath = "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项A统一主链客观贡献正式结算.md";
+  let firstItemASettlementPromise = null;
+
+  function firstItemGroup() {
+    return document.querySelector("#net-major-body [data-net-group='first']") || document.querySelector("[data-net-group='first']");
+  }
+
+  function firstItemPublicCard(title) {
+    return Array.from(document.querySelectorAll("#net-major-body .first-item-card")).find(card =>
+      card.querySelector(":scope > .component strong")?.textContent.trim() === title
+    ) || null;
+  }
+
+  function firstItemLabel(card, text) {
+    return Array.from(card?.querySelectorAll(":scope > .label") || []).find(label => label.textContent.trim() === text) || null;
+  }
+
+  function firstItemSettlementBullets(markdown, rulerName) {
+    if (!markdown || !rulerName) return {};
+    const escaped = rulerName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const heading = new RegExp(`^###\\s+\\d+\\.\\s+${escaped}\\s*$`, "m");
+    const match = heading.exec(markdown);
+    if (!match) return {};
+    const tail = markdown.slice(match.index + match[0].length);
+    const next = tail.search(/^###\s+\d+\./m);
+    const section = next >= 0 ? tail.slice(0, next) : tail;
+    const result = {};
+    for (const line of section.split(/\r?\n/)) {
+      const bullet = line.match(/^-\s+\*\*(.+?)\*\*：\s*(.*)$/);
+      if (!bullet) continue;
+      result[bullet[1].trim()] = bullet[2].replace(/\*\*/g, "").replace(/`/g, "").trim();
+    }
+    return result;
+  }
+
+  async function loadFirstItemASettlement() {
+    if (firstItemASettlementPromise) return firstItemASettlementPromise;
+    firstItemASettlementPromise = fetch(`../${firstItemASettlementPath}?raw=1`, {cache: "force-cache"})
+      .then(response => response.ok ? response.text() : "")
+      .catch(() => "");
+    return firstItemASettlementPromise;
+  }
+
+  function sanitizeFirstItemAReaderHow() {
+    const record = currentFirstNetRecord();
+    const item = firstNetItem(record, "A统一贡献");
+    if (!record?.detail_loaded || !item?.reader_how || !/按统一贡献曲线换算/.test(item.reader_how)) return;
+    item.reader_how = `${item.note || "按正式A项成果信用"}；按第一项A正式项目结算规则得到 ${item.value} 分。共同创业或跨代项目先形成项目A池，再按个人信用分账，个人信用不重复跑0.65次方。`;
+  }
+
+  async function enhanceFirstItemAExplanation() {
+    const record = currentFirstNetRecord();
+    const card = firstItemPublicCard("A · 统一主链客观贡献");
+    if (!record?.detail_loaded || !card || card.dataset.aProjectExplained === "done" || card.dataset.aProjectExplained === "pending") return;
+    card.dataset.aProjectExplained = "pending";
+    const markdown = await loadFirstItemASettlement();
+    if (!card.isConnected || currentFirstNetRecord()?.ruler_id !== record.ruler_id) return;
+    const bullets = firstItemSettlementBullets(markdown, record.ruler_name);
+    const project = bullets["项目总成果"] || "";
+    const personal = bullets["本人取得/归属成果"] || "";
+    const scale = bullets["取得/恢复成果"] || "";
+    const content = bullets["成果内容"] || "";
+    const calculation = bullets["计算"] || "";
+    const result = bullets["结算结果"] || bullets["A结算"] || "";
+    const shared = Boolean(project || personal);
+
+    const uLabel = firstItemLabel(card, "U是什么意思");
+    const uProse = uLabel?.nextElementSibling;
+    if (uProse?.classList.contains("prose")) {
+      uProse.textContent = shared
+        ? "U = 有效控制信用。新增稳定控制按100%计，恢复旧有稳定控制按50%计。共同创业或跨代项目不能把每个人的U分别重跑非线性曲线：必须先用项目总U生成一次A池，再按个人信用零和分账。"
+        : "U = 有效控制信用。新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。单人/独立项目才直接把该项目U代入A曲线。";
+    }
+
+    const personLabel = firstItemLabel(card, "这个人的U怎么来");
+    const personProse = personLabel?.nextElementSibling;
+    const personText = shared
+      ? [project, personal, content].filter(Boolean).join("\n")
+      : [scale, content].filter(Boolean).join("\n");
+    if (personText && personProse?.classList.contains("prose")) personProse.textContent = personText;
+
+    const formula = Array.from(card.querySelectorAll(":scope > details")).find(details => details.querySelector(":scope > summary")?.textContent.trim() === "这个分怎么算？");
+    const formulaProse = formula?.querySelector(":scope > .prose");
+    if (formulaProse) {
+      formulaProse.textContent = shared
+        ? [
+            "共同创业/跨代项目：先按项目总U计算一次项目A池，再按个人有效控制信用零和分账；个人U不能再次单独跑0.65次方。",
+            project,
+            personal,
+            result ? `正式结算：${result}` : "",
+          ].filter(Boolean).join("\n")
+        : [
+            "单人/独立项目：A = 120 × (min(1000, U) / 1000)^0.65，最后保留1位小数。",
+            scale,
+            calculation ? `本人的正式代入：${calculation}` : "",
+            result ? `正式结算：${result}` : "",
+          ].filter(Boolean).join("\n");
+    }
+    card.dataset.aProjectExplained = "done";
+  }
+
+  function enforceFirstItemStatus() {
+    const record = currentFirstNetRecord();
+    const group = firstItemGroup();
+    if (!record?.detail_loaded || !group) return;
+    const status = record.net?.first_item_status;
+    const notice = group.querySelector(":scope > .notice");
+    const saysNotApplicable = notice?.textContent.includes("本项不适用") || false;
+    if (status === "APPLICABLE" && saysNotApplicable) {
+      group.innerHTML = `<h3>第一项 · 奠基与统一</h3><p class="notice"><strong>正式状态为适用，但第一项明细没有完整加载。</strong>这里不能把“适用但净分为0”改写成“不适用”；请以正式第一项结算状态为准。</p>`;
+      return;
+    }
+    if (status === "NOT_APPLICABLE" && !saysNotApplicable) {
+      group.innerHTML = `<h3>第一项 · 奠基与统一</h3><p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
+    }
+  }
+
+  function enhanceFirstItemSummary() {
+    const record = currentFirstNetRecord();
+    const group = firstItemGroup();
+    if (!record?.detail_loaded || !group || record.net?.first_item_status !== "APPLICABLE") return;
+    const intro = group.querySelector(":scope > .reading-intro");
+    if (intro && intro.dataset.firstSummary !== "done") {
+      intro.innerHTML = "<strong>本项先按A统一主链客观贡献、B1创业难度与战略效率、B2创业组织与政治整合、C本人军事统帅与战争解题形成四轴毛分，再扣本人窗口内军事成本，得到第一项净分S1。</strong>S1再按统一曲线折算为进入总榜的附加分F；不适用与S1=0是两种不同状态。";
+      intro.dataset.firstSummary = "done";
+    }
+    const total = group.querySelector(".first-item-total");
+    if (!total) return;
+    const components = total.querySelectorAll(":scope > .component");
+    const firstStrong = components[0]?.querySelector("strong");
+    const firstSmall = components[0]?.querySelector("small");
+    const secondStrong = components[1]?.querySelector("strong");
+    if (firstStrong) firstStrong.textContent = "第一项净分 S1（240分制）";
+    if (firstSmall) firstSmall.textContent = "A、B1、B2、C合计后扣除本人窗口内军事成本，最低按0分计";
+    if (secondStrong) secondStrong.textContent = "进入总榜的附加分 F";
+    const standalone = Array.from(total.children).find(node => node.classList?.contains("prose"));
+    if (standalone) standalone.textContent = "S1是第一项自身的240分制净分；F是S1经过统一曲线后的总榜附加分。两者量纲不同，不应直接比较大小。";
+    const cost = firstNetItem(record, "军事成本扣分");
+    const formula = Array.from(total.querySelectorAll(":scope > details")).find(details => details.querySelector(":scope > summary")?.textContent.trim() === "查看完整公式");
+    if (cost?.value == null && formula) {
+      formula.innerHTML = "<summary>查看完整公式</summary><p class=\"notice\"><strong>军事成本明细缺失，暂不展示汇总公式。</strong>缺失值不能按0分代入。</p>";
+    }
+  }
+
+  function enhanceFirstItemB1Guide() {
+    const card = firstItemPublicCard("B1 · 创业难度与战略效率");
+    if (!card || card.dataset.b1Exceptions === "done") return;
+    const label = firstItemLabel(card, "三个变量怎么读");
+    const list = label?.nextElementSibling;
+    if (!list || list.tagName !== "UL") return;
+    const item = document.createElement("li");
+    item.innerHTML = "<strong>多阶段／共同创业：</strong>独立目标分阶段完成时，各阶段单算效率，再按阶段A有效控制信用加权；同代共同创业若成果节点未拆清，则共用项目规模和核心闭合点，不能拿个人分账后的较小U重新缩短期望工期。";
+    list.append(item);
+    card.dataset.b1Exceptions = "done";
+  }
+
   function firstCostCard() {
     return Array.from(document.querySelectorAll("#net-major-body .net-metric-detail")).find(card => card.querySelector(":scope > summary strong")?.textContent.trim() === "军事成本扣分") || null;
   }
@@ -269,6 +425,11 @@
     publicGradeHelp();
     publicAxisMetadata();
     translateResidualAxisCodes();
+    sanitizeFirstItemAReaderHow();
+    enforceFirstItemStatus();
+    enhanceFirstItemSummary();
+    enhanceFirstItemB1Guide();
+    enhanceFirstItemAExplanation();
     enhanceFirstItemCost();
     enhanceFirstItemCommandGuide();
     enhanceFirstItemBattleLinks();
