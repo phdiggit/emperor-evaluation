@@ -31,6 +31,8 @@ def _write(path: Path, payload: dict[str, Any]) -> None:
 
 def _period(record: dict[str, Any]) -> str:
     period = record.get("period") or {}
+    if not isinstance(period, dict):
+        return str(period).strip()
     start = str(period.get("start") or "").strip()
     end = str(period.get("end") or "").strip()
     if start and end and end != start:
@@ -47,6 +49,8 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
     for shard in sorted((root / BATTLE_DIR).glob("*.json")):
         payload = _load(shard)
         for record in payload.get("records", []):
+            if not isinstance(record, dict):
+                continue
             battle_id = record.get("war_event_id")
             if not battle_id or battle_id in seen_battles:
                 raise ValueError(f"duplicate or missing battle id in {shard}: {battle_id}")
@@ -55,10 +59,19 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
             member_names: list[str] = []
             result_refs: list[str] = []
             for member in members:
+                if not isinstance(member, dict):
+                    continue
                 name = str(member.get("actor_name") or "").strip()
                 if name and name not in member_names:
                     member_names.append(name)
-                for result in member.get("person_command_result") or []:
+                results = member.get("person_command_result") or []
+                if isinstance(results, dict):
+                    results = [results]
+                if not isinstance(results, list):
+                    results = []
+                for result in results:
+                    if not isinstance(result, dict):
+                        continue
                     ref = str(result.get("result_ref") or "").strip()
                     if not ref:
                         continue
@@ -98,6 +111,8 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
     for shard in sorted((root / COMMANDER_DIR).glob("*.json")):
         payload = _load(shard)
         for profile in payload.get("profiles", []):
+            if not isinstance(profile, dict):
+                continue
             profile_ref = profile.get("profile_ref")
             if not profile_ref or profile_ref in seen_profiles:
                 raise ValueError(f"duplicate or missing commander profile ref in {shard}: {profile_ref}")
