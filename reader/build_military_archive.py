@@ -54,7 +54,10 @@ NARRATIVE_PREFIX_RE = re.compile(
 )
 ACTION_PREFIX_RE = re.compile(r"^(?:直取|攻取|夺取|取得|攻下|拿下|平定|灭|终结)")
 VARIANT_SPLIT_RE = re.compile(
-    r"(?:方向|右军|左军|主力|亲督|长围|整军|接战|反败为胜|并|至政权|至其|后迫|后击|后破)"
+    r"(?:方向|右军|左军|主力|亲督|长围|整军|接战|反败为胜|伏击|围攻|渡河|并|至政权|至其|后迫|后击|后破)"
+)
+NAMED_BATTLE_PREFIX_RE = re.compile(
+    r"^(.+?(?:之战|战役|战争|大战|决战|会战|之围|围城|攻城))"
 )
 
 
@@ -93,9 +96,6 @@ def _clean_anchor_name(value: str) -> str:
         if prefix in text:
             text = text.rsplit(prefix, 1)[-1]
 
-    # Formal settlement prose often wraps the battle name in structural wording such
-    # as “第一项创业链内有…” or “第一项窗口内可确认…”. Strip only when the left
-    # side clearly describes a window/chain rather than a historical place or battle.
     structural = re.match(
         r"^.*(?:链|窗口|主线|创业|统一|建国)(?:内|中)(?:已有|有|可确认|可用)?(?P<tail>.{2,})$",
         text,
@@ -103,9 +103,6 @@ def _clean_anchor_name(value: str) -> str:
     if structural:
         text = structural.group("tail")
 
-    # Remove reader/adjudication framing while retaining the historical noun phrase.
-    # These rules are intentionally generic: no ruler, battle, polity or WAR id is
-    # encoded here. Uniqueness is still enforced later after ruler/grade/difficulty.
     previous = None
     while text != previous:
         previous = text
@@ -129,15 +126,30 @@ def _anchor_kind(raw_anchor: str, clean_anchor: str) -> str:
     compact = _compact_text(clean)
     if not compact or compact in NONSPECIFIC_ANCHORS or len(compact) < 2:
         return "nonspecific"
+
     raw_compact = _compact_text(raw)
     if re.search(r"旧c.*(?:闭合|支持|按)", raw_compact):
         return "nonspecific"
-    if clean.endswith(("主链中", "窗口中", "主线中")):
+    if "同窗口" in clean or clean.endswith(("主链中", "窗口中", "主线中")):
         return "nonspecific"
+
     if any(marker in raw for marker in AGGREGATE_MARKERS):
         return "aggregate"
     if "及" in clean and any(token in clean for token in ("终局", "战", "侵", "方向", "成果")):
         return "aggregate"
+
+    # Direction-only, state-building and founding-war phrases describe a strategic
+    # phase rather than one addressable battle dossier. Keep them searchable instead
+    # of forcing a guessed battle_id.
+    if re.fullmatch(r".{2,20}方向", clean):
+        return "strategic"
+    if clean.startswith("建立"):
+        return "strategic"
+    if "创业战争" in clean:
+        return "strategic"
+    if re.search(r"并建立.{1,20}(?:核心|政权|基础|根基)?$", clean):
+        return "strategic"
+
     return "atomic"
 
 
@@ -145,17 +157,18 @@ def _anchor_variants(anchor: str) -> list[str]:
     clean = _clean_anchor_name(anchor)
     values = [clean]
     for suffix in (
-        "终局", "方向", "相关", "之战", "战役", "战争", "大战", "决战", "围城", "解围",
-        "主战线", "政权", "作战", "逆转",
+        "终局", "方向", "相关", "之战", "战役", "战争", "大战", "决战", "会战", "之围",
+        "围城", "解围", "主战线", "政权", "作战", "逆转",
     ):
         if clean.endswith(suffix) and len(clean) > len(suffix) + 1:
             values.append(clean[: -len(suffix)])
     if "—" in clean or "－" in clean or "-" in clean:
         values.extend(re.split(r"[—－-]+", clean))
 
-    # Add the leading historical noun phrase before narrative action wording. This
-    # recovers anchors such as “某地右军先溃后的亲督逆转” → “某地” while the
-    # later resolver still requires a unique ruler + result grade + difficulty match.
+    named_battle = NAMED_BATTLE_PREFIX_RE.match(clean)
+    if named_battle and named_battle.group(1) != clean:
+        values.append(named_battle.group(1))
+
     head = VARIANT_SPLIT_RE.split(clean, maxsplit=1)[0].strip(" ：，；。、")
     if head and head != clean:
         values.append(head)
@@ -269,6 +282,7 @@ def _resolve_first_item_c_anchors(
         "resolved_registry_ref": 0,
         "resolved_battle_text": 0,
         "search_only_aggregate": 0,
+        "search_only_strategic": 0,
         "search_only_nonspecific": 0,
         "ambiguous": 0,
         "unresolved_atomic": 0,
@@ -346,11 +360,46 @@ def _anchor_lookup(resolved: list[dict[str, Any]]) -> dict[str, str]:
     }
 
 
+def _bind_ref(mapping: dict[str, str], ref: Any, battle_id: str, label: str) -> None:
+    ref_text = str(ref or "").strip()
+    if not ref_text:
+        return
+    prior = mapping.get(ref_text)
+    if prior and prior != battle_id:
+        raise ValueError(f"{label} maps to two battles: {ref_text}: {prior}, {battle_id}")
+    mapping[ref_text] = battle_id
+
+
+def _remember_ref_candidate(candidates: dict[str, set[str]], ref: Any, battle_id: str) -> None:
+    ref_text = str(ref or "").strip()
+    if ref_text:
+        candidates.setdefault(ref_text, set()).add(battle_id)
+
+
+def _achievement_battle_id(
+    achievement: dict[str, Any],
+    registry_ref_to_battle: dict[str, str],
+) -> str | None:
+    # Prefer the most specific public reference. `or` is intentionally not used:
+    # a broad campaign_ref can coexist with an exact person/capability reference.
+    for key in ("person_command_result_ref", "capability_episode_ref", "campaign_ref"):
+        ref = str(achievement.get(key) or "").strip()
+        battle_id = registry_ref_to_battle.get(ref)
+        if battle_id:
+            return battle_id
+    return None
+
+
 def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
     battle_manifest = _load(root / BATTLE_MANIFEST)
     battle_rows: list[dict[str, Any]] = []
     match_rows: list[dict[str, Any]] = []
+    # Public payload keeps the historical name for compatibility; internally the
+    # registry map also knows canonical war_event_id and uniquely addressable
+    # campaign_group_ref values.
     result_ref_to_battle: dict[str, str] = {}
+    registry_ref_to_battle: dict[str, str] = {}
+    group_ref_candidates: dict[str, set[str]] = {}
     seen_battles: set[str] = set()
 
     for shard in sorted((root / BATTLE_DIR).glob("*.json")):
@@ -358,11 +407,18 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
         for record in payload.get("records", []):
             if not isinstance(record, dict):
                 continue
-            battle_id = record.get("war_event_id")
+            battle_id = str(record.get("war_event_id") or "").strip()
             if not battle_id or battle_id in seen_battles:
                 raise ValueError(f"duplicate or missing battle id in {shard}: {battle_id}")
             seen_battles.add(battle_id)
+            _bind_ref(registry_ref_to_battle, battle_id, battle_id, "war event ref")
+            _remember_ref_candidate(group_ref_candidates, record.get("campaign_group_ref"), battle_id)
+
             members = record.get("members") or []
+            if isinstance(members, dict):
+                members = [members]
+            if not isinstance(members, list):
+                members = []
             member_names: list[str] = []
             member_pairs: dict[str, set[tuple[str, str]]] = {}
             result_refs: list[str] = []
@@ -370,6 +426,7 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
                 record.get("canonical_label"),
                 record.get("observable_result"),
                 record.get("source_target_ref"),
+                record.get("campaign_group_ref"),
             ]
             for member in members:
                 if not isinstance(member, dict):
@@ -381,21 +438,14 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
                 if name and pairs:
                     member_pairs.setdefault(name, set()).update(pairs)
                 for ref in refs:
-                    prior = result_ref_to_battle.get(ref)
-                    if prior and prior != battle_id:
-                        raise ValueError(f"person result ref maps to two battles: {ref}: {prior}, {battle_id}")
-                    result_ref_to_battle[ref] = battle_id
-                    result_refs.append(ref)
+                    _bind_ref(result_ref_to_battle, ref, battle_id, "person result ref")
+                    _bind_ref(registry_ref_to_battle, ref, battle_id, "person result ref")
+                    if ref not in result_refs:
+                        result_refs.append(ref)
                 search_parts.extend(result_text)
                 if member.get("contribution_scope"):
                     search_parts.append(member["contribution_scope"])
 
-            # Older chronicle shards expose adjudicated subject phases instead of the
-            # normalized `members[].person_command_result` shape. Their phase_id is a
-            # canonical public-registry reference and is also consumed by military
-            # talent profiles. Bridge that existing reference to the parent battle so
-            # commander achievements can resolve first-item-C anchors without guessing
-            # from ruler reign, dynasty, or prose similarity.
             phase_views = record.get("subject_phase_views") or []
             if isinstance(phase_views, dict):
                 phase_views = [phase_views]
@@ -406,12 +456,11 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
                     continue
                 phase_ref = str(phase.get("phase_id") or "").strip()
                 if phase_ref:
-                    prior = result_ref_to_battle.get(phase_ref)
-                    if prior and prior != battle_id:
-                        raise ValueError(f"subject phase ref maps to two battles: {phase_ref}: {prior}, {battle_id}")
-                    result_ref_to_battle[phase_ref] = battle_id
+                    _bind_ref(result_ref_to_battle, phase_ref, battle_id, "subject phase ref")
+                    _bind_ref(registry_ref_to_battle, phase_ref, battle_id, "subject phase ref")
                     if phase_ref not in result_refs:
                         result_refs.append(phase_ref)
+                _remember_ref_candidate(group_ref_candidates, phase.get("campaign_group_ref"), battle_id)
                 for key in ("evaluation_subject_phase", "actual_process", "carry_in", "carry_out", "campaign_group_ref"):
                     if phase.get(key):
                         search_parts.append(phase[key])
@@ -440,6 +489,14 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
                 "priority": 1,
                 "resolution_mode": "battle_text",
             })
+
+    # A campaign-group reference is safe for exact routing only when the public
+    # registry has one parent dossier for that group. Multi-dossier groups remain
+    # deliberately unbound and therefore fall back to search.
+    for ref, battle_ids in group_ref_candidates.items():
+        if len(battle_ids) == 1:
+            battle_id = next(iter(battle_ids))
+            _bind_ref(registry_ref_to_battle, ref, battle_id, "unique campaign group ref")
 
     expected_battles = int(battle_manifest.get("record_count") or len(battle_rows))
     if len(battle_rows) != expected_battles:
@@ -490,8 +547,7 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
             for achievement in profile.get("consumed_achievements") or []:
                 if not isinstance(achievement, dict):
                     continue
-                ref = str(achievement.get("campaign_ref") or achievement.get("capability_episode_ref") or "").strip()
-                battle_id = result_ref_to_battle.get(ref)
+                battle_id = _achievement_battle_id(achievement, registry_ref_to_battle)
                 if not battle_id or not profile_names:
                     continue
                 result_grade = _normalize_grade(achievement.get("campaign_tier") or achievement.get("parent_campaign_tier"))
@@ -517,7 +573,11 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
                 })
 
     payload_meta = commander_manifest.get("payload_metadata") or {}
-    expected_profiles = int(commander_manifest.get("profile_count") or payload_meta.get("profile_count") or len(commander_rows))
+    expected_profiles = int(
+        commander_manifest.get("profile_count")
+        or payload_meta.get("profile_count")
+        or len(commander_rows)
+    )
     if len(commander_rows) != expected_profiles:
         raise ValueError(f"commander registry count mismatch: {len(commander_rows)} != {expected_profiles}")
 
@@ -553,6 +613,7 @@ def main() -> None:
         f"first-item C anchors resolved={stats['resolved_unique']} "
         f"(registry-ref={stats['resolved_registry_ref']}, battle-text={stats['resolved_battle_text']}) "
         f"aggregate-search={stats['search_only_aggregate']} "
+        f"strategic-search={stats['search_only_strategic']} "
         f"nonspecific-search={stats['search_only_nonspecific']} "
         f"ambiguous={stats['ambiguous']} unresolved-atomic={stats['unresolved_atomic']}"
     )
