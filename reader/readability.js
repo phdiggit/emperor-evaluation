@@ -181,6 +181,95 @@
     }
   }
 
+  const firstCostBandMeaning = {
+    C0: "已核实没有实质军事投入或毁损；材料缺失不能当作C0。",
+    C1: "局部、短期、常规投入，没有显著军资或兵团毁损。",
+    C2: "有限方向投入，或轻度且容易恢复的人员、军资、编组损害。",
+    C3: "明显方向级投入或可见累计负担，但还没有国家级长期高强度承载。",
+    C4: "大规模或持续显著的区域、国家行动，已有实质兵团毁损或显著战争准备、后勤工程。",
+    C5: "主要野战力量、重要兵团或军事资产严重毁损，或长期反复高强度战争形成国家尺度负担。",
+    C6: "极端人员损耗，或国家核心军事能力严重毁损。",
+    C7: "在C6级灾难之后又反复发生灾难，或持续投入走向军事耗竭。",
+  };
+  const firstCostPositionMeaning = {
+    LOW: "刚达到本档，规模或累计强化有限",
+    MID: "本档结构清楚，并有一项明显强化",
+    HIGH: "本档结构很强，多项同向强化，但仍未达到更高档门槛",
+    HIGHEST: "仅C7使用，代表实际损失、持续补充消耗和军事失能综合处于极端上沿",
+  };
+  const firstCostPositionName = {LOW: "低位", MID: "中位", HIGH: "高位", HIGHEST: "最高位"};
+  const firstCostDebits = {
+    C0: {LOW: 0, MID: 0, HIGH: 0},
+    C1: {LOW: 0.5, MID: 1, HIGH: 1.5},
+    C2: {LOW: 2, MID: 2.5, HIGH: 3},
+    C3: {LOW: 4, MID: 5, HIGH: 6},
+    C4: {LOW: 8.8, MID: 10, HIGH: 12.5},
+    C5: {LOW: 18, MID: 22.5, HIGH: 27},
+    C6: {LOW: 35, MID: 42, HIGH: 49},
+    C7: {LOW: 60, MID: 68, HIGH: 76, HIGHEST: 80},
+  };
+
+  function currentFirstNetRecord() {
+    const match = location.hash.match(/^#net\/([^/?#]+)\/first(?:\/|$)/);
+    if (!match) return null;
+    try {
+      return byId.get(decodeURIComponent(match[1])) || null;
+    } catch {
+      return null;
+    }
+  }
+
+  function firstNetItem(record, label) {
+    return record?.net?.component_details?.first?.find(item => item.label === label) || null;
+  }
+
+  function firstCostCard() {
+    return Array.from(document.querySelectorAll("#net-major-body .net-metric-detail")).find(card =>
+      card.querySelector(":scope > summary strong")?.textContent.trim() === "军事成本扣分"
+    ) || null;
+  }
+
+  function enhanceFirstItemCost() {
+    const record = currentFirstNetRecord();
+    const item = firstNetItem(record, "军事成本扣分");
+    const card = firstCostCard();
+    if (!record?.detail_loaded || !item || !card || card.dataset.costExplained === "done") return;
+
+    const match = String(item.grade || "").match(/^(C[0-7])\s*\/\s*(LOW|MID|HIGH|HIGHEST)$/);
+    if (!match) return;
+    const [, band, position] = match;
+    const body = card.querySelector(":scope > .net-metric-body");
+    if (!body) return;
+
+    const oldLogicLabel = Array.from(body.querySelectorAll(":scope > .label")).find(label =>
+      label.textContent.trim() === "当前人物结算逻辑"
+    );
+    if (oldLogicLabel) oldLogicLabel.textContent = "计分理由";
+
+    const current = document.createElement("div");
+    current.className = "first-cost-explainer";
+    const mappedDebit = firstCostDebits[band]?.[position];
+    current.innerHTML = `<div class="label">当前军事成本档</div><p class="prose"><strong>${band} · ${firstCostPositionName[position] || position}</strong>：${firstCostBandMeaning[band]}；${firstCostPositionMeaning[position] || ""}。</p><p class="notice">这里的“成本${band}”衡量的是本方军事投入与毁损，不是第一项C“本人军事统帅能力”的C-${band.slice(1)}档；两套C完全独立。</p><details><summary>C0—C7大致怎么读？</summary><ul>${Object.entries(firstCostBandMeaning).map(([key, text]) => `<li><strong>${key}</strong>：${esc(text)}</li>`).join("")}</ul></details><details><summary>档位怎样换成扣分？</summary><p class="prose">先定成本档，再比较同档中的规模、核心角色、动员后勤、时长、战区与重建情况确定低／中／高位置；最后查第一项固定扣分表。当前为 <strong>${band} · ${firstCostPositionName[position] || position}</strong>${mappedDebit == null ? "" : `，对应扣 ${mappedDebit} 分`}。页面正式扣分为 ${esc(String(item.value))} 分。</p></details>`;
+    body.prepend(current);
+    card.dataset.costExplained = "done";
+  }
+
+  function enhanceFirstItemCommandGuide() {
+    if (!currentFirstNetRecord()?.detail_loaded) return;
+    const card = document.getElementById("net-first-c");
+    if (!card || card.dataset.commandGuide === "done") return;
+    const body = card.querySelector(":scope > .net-metric-body");
+    if (!body) return;
+
+    const audit = body.querySelector(":scope > .net-audit-sources");
+    const guide = document.createElement("div");
+    guide.className = "first-command-guide";
+    guide.innerHTML = `<details><summary>战役标记怎样读？</summary><p class="prose"><strong>S−/D3</strong>不是一个总等级，而是两个彼此独立的标签：左边 <strong>S−</strong> 是这场战役兑现了多大的战略结果，右边 <strong>D3</strong> 是战前这个军事问题本身有多难。</p><ul><li><strong>结果档</strong>：C=局部战术结果；B=重要单项目标；A=主要区域、门户、主力集团或重大阶段结果；S−=强区域终局、核心根据地或长期独立战略方向；S=决定性击败第一梯队竞争极或国家级终局；S+=多个第一梯队竞争极／统一终局等最高结果。</li><li><strong>难度档</strong>：D0=几乎未形成有效军事对抗；D1=本方明显优势；D2=有一项重大难点但总体风险可控；D3=两项以上重大约束相互强化，需要高质量一线统帅；D4=极端劣势、被围断粮、濒临崩溃或连续败退后的临阵逆转。</li></ul><p class="prose">所以“S−/D3”可以读成：在高难条件下完成了一个独立战略方向级的重大结果。结果档高不等于难度一定高，难度高也不保证结果优秀。</p><p class="sources">${link("docs/证据规则/公共成果登记与人物画像规则.md", "战役结果与难度正式规则 ↗")}</p></details><details><summary>这些战役怎样形成第一项C档？</summary><p class="prose">第一项C<strong>不是把S、A、D3、D4换成分数后求和或平均</strong>。战役登记只是证据锚，最终按下面的顺序整体裁决：</p><ol><li><strong>先过责任门</strong>：只消费本人真正承担的战略统筹、实际主帅或临阵指挥；普通任将、批准出兵、国家总成果和下属独立判断不能转给本人。</li><li><strong>再过窗口门</strong>：只看第一项建国、复国、统一或政权取得主链；主链闭合后的成熟扩张、防务不能拿来抬本项C。</li><li><strong>看正向证据结构</strong>：最高峰值、是否有独立复验、D3/D4高难成果、不同战区与战争形态的跨度，以及高层统筹和前线能力是否能反复成立。</li><li><strong>加入负向证据</strong>：本人可归责的重大失败、同类错误复发和未纠偏会压低档位或档内位置；敌强、天气、史源冲突或下属失败本身不算本人败责。</li><li><strong>最后定C档与档内位置</strong>：C-0=无可用本人军事责任证据；C-1=基础统帅；C-2=重要统帅；C-3=优秀统帅；C-4=顶级统帅；C-5=历史级统帅。低／中／高位再映射到0—40分。</li></ol><p class="prose">一个高质量闭环但没有独立复验，最高只能到C-3；C-4、C-5必须跨情境稳定成立。因此“一场S/D4”不会自动等于C-5，多场A/D3也不是简单相加。</p><p class="prose">公共军事人才登记中的“elite / top / historic”等全生涯聚合标签可以帮助复核证据厚度，但它有自己的窗口和聚合门槛，<strong>不能机械换算成第一项C</strong>。</p><p class="sources">${link("docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md#5-c本人军事统帅与战争解题能力40", "第一项C正式档位规则 ↗")}</p></details>`;
+    if (audit) body.insertBefore(guide, audit);
+    else body.append(guide);
+    card.dataset.commandGuide = "done";
+  }
+
   function enhance() {
     foldHomeStatus();
     compactComparisonEvidence();
@@ -188,6 +277,8 @@
     publicGradeHelp();
     publicAxisMetadata();
     translateResidualAxisCodes();
+    enhanceFirstItemCost();
+    enhanceFirstItemCommandGuide();
   }
 
   new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});
