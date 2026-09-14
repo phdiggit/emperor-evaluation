@@ -29,6 +29,7 @@ on:
       - tests/test_reader_lazy_details.py
       - tests/test_reader_military_archive.py
       - tests/test_reader_military_archive_ref_policy.py
+      - tests/test_reader_military_archive_lineage.py
       - config/project.yml
       - config/common/**
       - docs/评分结算/**
@@ -110,7 +111,7 @@ jobs:
         run: python reader/build.py
 
       - name: Test reader
-        run: python -m pytest tests/test_profile_text_quality.py tests/test_reader.py tests/test_reader_home_interactions.py tests/test_reader_readability.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py -q
+        run: python -m pytest tests/test_profile_text_quality.py tests/test_reader.py tests/test_reader_home_interactions.py tests/test_reader_readability.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
 
       - name: Check whitespace
         run: git diff --check
