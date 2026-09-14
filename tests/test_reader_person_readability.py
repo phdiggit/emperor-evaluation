@@ -119,8 +119,8 @@ def test_net_reader_separates_judgment_calculation_and_audit_sources():
     assert "这一组怎么算出来？" in script
     assert "这个分怎么算？" in script
     assert "正式记录与史料" in script
-    assert "正式评分记录 ↗" in script
-    assert "采用值记录 ↗" in script
+    assert "看裁决依据 ↗" in script
+    assert "看采用值依据 ↗" in script
     assert "完整计分账本（审计视图）" in script
     assert "小计、折算和总计属于计算过程" in script
     assert "评分依据 ↗" not in script
@@ -139,6 +139,9 @@ def test_first_item_reader_explains_symbols_formulas_and_person_inputs_without_f
     assert "B2 = 并行执行分 + 专业覆盖／组织杠杆分 + 异质整合分" in script
     assert "C先按正式证据判统帅档位" in script
     assert "F = 0.20 × 637 × (S1 / 240)^1.25" in script
+    assert "进入总榜的加成" in script
+    assert "不代表军事能力差" in script
+    assert "本项适用，但没有形成正向净收益" in script
     assert "嬴政" not in script
     assert "U=740" not in script
 
