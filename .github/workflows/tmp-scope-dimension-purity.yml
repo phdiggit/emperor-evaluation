@@ -1,0 +1,60 @@
+name: Temporary scope dimension purity
+
+on:
+  push:
+    branches:
+      - codex/single-ruler-session-control
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.event.head_commit.message == '运行历史影响范围维度隔离修复'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/single-ruler-session-control
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -e . -r reader/requirements.txt pytest
+      - name: Apply patch
+        run: python .github/tmp-scope-dimension-purity.py
+      - name: Validate reader
+        shell: bash
+        run: |
+          python reader/build.py
+          python reader/build.py --check
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('reader/index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script([^>]*)>(.*?)</script>', html, flags=re.S)
+          executable = [body for attrs, body in scripts if 'application/json' not in attrs]
+          if not executable:
+              raise SystemExit('no executable browser scripts found')
+          out = Path('.tmp/reader-js-check')
+          out.mkdir(parents=True, exist_ok=True)
+          for i, body in enumerate(executable):
+              (out / f'{i}.js').write_text(body, encoding='utf-8')
+          PY
+          for file in .tmp/reader-js-check/*.js; do node --check "$file"; done
+          rm -rf .tmp/reader-js-check
+          python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py -q
+          git diff --check
+      - name: Commit reader fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          git restore .github/workflows/tmp-scope-dimension-purity.yml
+          git rm -f .github/tmp-scope-dimension-purity.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reader/index.template.html reader/index.html tests/test_reader_person_readability.py
+          git diff --cached --check
+          git commit -m '隔离历史影响范围与个人因果叙述'
+          git push origin HEAD:codex/single-ruler-session-control
