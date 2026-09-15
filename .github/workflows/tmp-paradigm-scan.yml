@@ -1,4 +1,4 @@
-name: Temporary paradigm scan
+name: Temporary paradigm remediation
 
 on:
   push:
@@ -6,28 +6,571 @@ on:
       - codex/single-ruler-session-control
 
 permissions:
-  contents: read
+  contents: write
+  pages: write
 
 jobs:
-  scan:
-    if: github.event.head_commit.message == '临时：核对高档范式联动'
+  remediate:
+    if: github.event.head_commit.message == '整改人物范式并系统补证'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: codex/single-ruler-session-control
-      - name: Print high-candidate foundations
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python -m pip install -e . -r reader/requirements.txt pytest
+
+      - name: Apply paradigm remediation and Liu Che depth review
         run: |
           python - <<'PY'
-          import json, pathlib
-          selected=set('''嬴政 刘秀 刘彻 刘询 萧衍 杨广 赵祯 赵顼 朱元璋 铁木真 玄烨 胤禛 弘历'''.split())
-          root=pathlib.Path('docs/评分结算/历史影响/01-历史影响正式结算')
-          for p in sorted(root.glob('*.json')):
-              data=json.loads(p.read_text(encoding='utf-8'))
-              for r in data.get('collections',{}).get('records',{}).get('records',[]):
-                  if r.get('ruler_name') not in selected: continue
-                  print('\n###', r['polity'], r['ruler_name'])
-                  print('public/internal',r.get('public_grade'),r.get('internal_band'))
-                  print('dimensions',json.dumps(r.get('dimensions',{}),ensure_ascii=False))
-                  print('foundation',json.dumps(r.get('foundation',{}),ensure_ascii=False))
+          from __future__ import annotations
+          import json
+          from pathlib import Path
+
+          ROOT = Path('docs/评分结算/历史影响/01-历史影响正式结算')
+          CONTRACT = Path('docs/项目总纲/历史影响评价总则.md')
+          NOTE = '2026-09-15全池人物范式系统扩搜：按人物化接收新门槛反查帝王教育、治道选编与最高层实际援引；制度/法统模板沿用退回深度；S+按跨朝跨环境、多领域、反复实际使用硬门复核。'
+
+          # 1) Contract: FORMAL-V1.4 and strict person/reign-centered paradigm boundary.
+          text = CONTRACT.read_text(encoding='utf-8')
+          if '`FORMAL-V1.3`' not in text:
+              raise SystemExit('expected FORMAL-V1.3')
+          text = text.replace('`FORMAL-V1.3`', '`FORMAL-V1.4`', 1)
+          old_splus = '| S+ | 主体核心与多个主要外围政治空间共同发生极大规模重组，代表本评价对象中可由史实证明的最高覆盖量级 | 多域国家/文明底层结构跨多轮改朝换代持续锁定 | 删除本人，核心足迹大部消失或根本换轨，现实替代者难在相近窗口复制 | 系统政治模板跨朝、跨环境，被多代最高权力反复实际使用 |'
+          new_splus = '| S+ | 主体核心与多个主要外围政治空间共同发生极大规模重组，代表本评价对象中可由史实证明的最高覆盖量级 | 多域国家/文明底层结构跨多轮改朝换代持续锁定 | 删除本人，核心足迹大部消失或根本换轨，现实替代者难在相近窗口复制 | 系统性人物/治道范型跨朝、跨环境、跨多类政治问题，被多代独立最高权力反复实际使用，并有稳定专门载体或同等强度传播结构 |'
+          if old_splus not in text:
+              raise SystemExit('S+ row not found')
+          text = text.replace(old_splus, new_splus, 1)
+          start = text.index('**范式**须闭合')
+          end = text.index('## 4. 总档裁判与公众标签')
+          paradigm_contract = '''**范式**须闭合“可识别的人物/治道内容→稳定载体→后世最高权力实际接收”。核心对象是**这个人或其统治实践本身被当成政治参照**，而不是其留下的制度、名号、礼仪或程序后来仍在运转。后世最高权力或决策中枢须能识别地把前代人物、其治世/失政或具体统治经验当作榜样、反例、标准、鉴戒或现实政治论据，并进入帝王教育、君臣论政或实际选择。
+
+采用“**去名测试**”切分深度与范式：若删去前代人物姓名，后世行为仍可由既存制度、礼仪、法统、行政流程或政治结构完整解释，默认只计深度；若删去人物/治世指称后，后世的政治论证、教育内容或选择约束本身失去关键依据，才进入范式。皇帝名号、封禅、即位告天、郡县结构、官制、法律谱系、合法性程序等即使可追溯至某人，只凭后世沿用也不得转写为范式；高质量研究建立的制度谱系用于深度，不得替代行为者层面的“人物化接收”。
+
+有效范式证据主要包括：①后世最高权力或其决策中枢明确点名人物/治世/事例，并据以论证、调整或约束现实选择；②具有明确最高权力受众、选编者或讲习场景的帝王教育与治道文本，其中人物案例实际进入教育/治道标准；③进入重大决策、经筵、实录或最高层君臣论政的反复正反面鉴戒，并能说明其现实用途。研究者事后类比、文学形象、一般名望、同名制度延续、仅称“祖宗之法”而无法分离到具体人物内容者均不足。
+
+同一帝王教材、同一治道选编、同一最高权力窗口中的多个故事只算**一个接收窗口**，不得按篇数或引文数堆叠；同一接收者多次引用也不拆成多个独立接收者。祖宗之法只有在明确以具体先帝/治世作为选择约束时才计人物范式，普通制度承接仍归深度。同一史实不得因“后世继续使用”同时给深度和范式重复加码；只有另有独立的人物化接收证据时，二者才能分别入账。
+
+A须有一个可信的最高权力实际使用或帝王教育窗口；A+须有一个高质量闭环并有重复使用、第二独立教育/治道窗口或同等辅助接收。S-以上须多次独立最高权力接收，且不能主要靠同一教材内部堆故事。S要求多个独立最高权力反复把人物/治世用于现实政治论证或行为，单纯跨朝收录教材不足以独撑。**S+使用硬门：**必须同时具备（1）系统性而非单一德目/单一警戒主题；（2）稳定专门载体、专门治道语汇或同等强度传播结构；（3）跨朝且跨政治环境的多代独立最高权力接收，同一王朝父子祖孙连续继承本身绝不够；（4）至少跨多个治理问题实际使用；（5）存在多次可定位的政治教育、论证或行为闭环，而非只靠后世评价或选本收录。未同时满足者不得以名望、材料数量或王朝寿命补到S+。
+
+区分`LOCATED_RECEPTION`、`IMAGE_ONLY`与`NOT_LOCATED`。高档须列接收者、载体、实际用途及独立性边界；未定位不等于历史上不存在。正面示范与反面鉴戒同权，但都必须经过上述人物化接收门。范式是独立修正维度，不回填范围、深度或个人因果，也不得突破总档主维度和归责硬门。
+
+'''
+          text = text[:start] + paradigm_contract + text[end:]
+          CONTRACT.write_text(text, encoding='utf-8')
+
+          # 2) Load all shards and index records by name.
+          files = {}
+          by_name = {}
+          for path in sorted(ROOT.glob('*.json')):
+              data = json.loads(path.read_text(encoding='utf-8'))
+              files[path] = data
+              for rec in data.get('collections', {}).get('records', {}).get('records', []):
+                  by_name.setdefault(rec.get('ruler_name'), []).append((path, rec))
+
+          dirty = set()
+          changed = {}
+
+          def rec(name: str):
+              xs = by_name.get(name, [])
+              if len(xs) != 1:
+                  raise KeyError(f'{name}: expected exactly one record, got {len(xs)}')
+              path, r = xs[0]
+              dirty.add(path)
+              return r
+
+          def add_source(r, source):
+              refs = r.setdefault('source_refs', [])
+              url = source.get('url')
+              for i, s in enumerate(refs):
+                  if url and s.get('url') == url:
+                      return i
+                  if not url and s.get('title') == source.get('title'):
+                      return i
+              refs.append(source)
+              return len(refs) - 1
+
+          def add_note(r, note=NOTE):
+              notes = r.setdefault('historical_source_notes', [])
+              if note not in notes:
+                  notes.append(note)
+
+          def set_foundation(r, grade, custom=None):
+              f = r.setdefault('foundation', {})
+              if custom is not None:
+                  f['paradigm_adjustment'] = custom
+                  return
+              if grade == 'A':
+                  f['paradigm_adjustment'] = '范式A已闭合一个可信的最高权力教育/治道接收窗口；按合同A不抬总档，仅修正范式维度。'
+              elif grade == 'A+':
+                  f['paradigm_adjustment'] = '范式A+由高质量接收并有重复/第二独立教育或治道窗口成立；A+不独立突破主维度或既有总档硬门。'
+              elif grade == 'S-':
+                  f['paradigm_adjustment'] = '范式S-由多次独立人物化接收成立；只按合同确认范式边界，不重复越过主维度、个人因果或既有总档上限。'
+              elif grade == 'S':
+                  f['paradigm_adjustment'] = '范式S由多个独立最高权力对人物/治道的反复实际接收成立；仍受主维度、个人因果和禁止双重抬档规则约束。'
+              elif grade == 'S+':
+                  f['paradigm_adjustment'] = '范式S+通过系统性、跨朝跨环境、多领域、反复实际使用硬门；仍不得替代范围、深度或个人因果。'
+              else:
+                  f['paradigm_adjustment'] = f'范式{grade}按人物化接收证据处理，不反写范围、深度或个人因果。'
+
+          def set_paradigm(name, grade, analysis, receptions, indices, limitation, depth_sep, foundation=None):
+              r = rec(name)
+              old = r.get('dimensions', {}).get('paradigm', {}).get('grade')
+              r.setdefault('dimensions', {}).setdefault('paradigm', {})['grade'] = grade
+              r['paradigm_analysis'] = analysis
+              r['paradigm_review'] = {
+                  'evidence_status': 'LOCATED_RECEPTION',
+                  'receptions': receptions,
+                  'limitation': limitation,
+                  'depth_separation': depth_sep,
+                  'source_ref_indices': sorted(set(indices)),
+              }
+              set_foundation(r, grade, foundation)
+              add_note(r)
+              changed[name] = (old, grade)
+              return r
+
+          DIJI_INTRO = {
+              'kind': 'HISTORICAL_WEB_SOURCE',
+              'title': '故宫博物院：《帝鉴图说》的编纂与帝王教育',
+              'url': 'https://www.dpm.org.cn/journal_detail/114972.html',
+              'evidence_note': '用于确认张居正等为年少明神宗编纂《帝鉴图说》，以历代帝王善政与失政案例实施最高权力教育；同一书内多个故事只计一个万历接收窗口。',
+              'verification_mode': 'IMPERIAL_EDUCATION_PROGRAM_SCOPED_REVIEW',
+          }
+          DIJI_TEXT = {
+              'kind': 'HISTORICAL_WEB_SOURCE',
+              'title': '《帝鉴图说》全文（中国哲学书电子化计划）',
+              'url': 'https://ctext.org/wiki.pl?chapter=560960&if=gb&remap=gb',
+              'evidence_note': '用于定向核对入选人物及其善政/鉴戒案例；与故宫对编纂目的的说明共同使用，不按篇数拆分接收窗口。',
+              'verification_mode': 'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW',
+          }
+          ZHIZHONG = {
+              'kind': 'HISTORICAL_WEB_SOURCE',
+              'title': '《钦定执中成宪》四库全书本',
+              'url': 'https://zh.wikisource.org/zh-hans/%E6%AC%BD%E5%AE%9A%E5%9F%B7%E4%B8%AD%E6%88%90%E6%86%B2_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29/%E5%85%A8%E8%A6%BD',
+              'evidence_note': '乾隆序追述雍正命采历代帝王嘉言善政并“亲为删定”，作为启迪后人、昭垂标准的治道选编；同一选编内多条材料只计一个雍正最高权力接收窗口。',
+              'verification_mode': 'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW',
+          }
+
+          diji_cases = {
+              '刘邦':'入关约法、任用三杰等创业与治道案例', '刘恒':'露台惜费等俭政案例', '刘彻':'蒲轮征贤与女巫出入的正反案例',
+              '刘询':'诏儒讲经', '刘秀':'宾礼故人、夜分讲经等治道案例', '刘庄':'临雍拜老、爱惜郎官', '刘备':'君臣鱼水',
+              '司马炎':'焚裘示俭与羊车游宴的正反案例', '刘裕':'留衲戒奢', '李世民':'纳谏、任贤、节用等贞观案例',
+              '李隆基':'委任贤相、听谏与宠幸番将、侈费的正反案例', '李亨':'烧梨联句', '李纯':'不受贡献、延英忘倦、淮蔡成功等案例',
+              '李忱':'屏书政要、焚香读疏', '赵匡胤':'敬受母教、碎七宝器、受言书屏等案例', '赵光义':'竟日观书、引衣容直',
+              '赵祯':'仁厚、纳谏与恤民等仁宗案例', '赵顼':'轸念流民', '赵煦':'烛送词臣',
+              '嬴政':'遣使求仙、焚书坑儒、大营宫室', '刘骜':'五侯擅权、市里微行、宠昵飞燕', '刘欣':'嬖佞戮贤',
+              '刘志':'十侍乱政', '刘宏':'西邸鬻爵、列肆后宫', '曹叡':'芳林营建', '刘骏':'笑祖俭德', '萧衍':'舍身佛寺',
+              '高洋':'纵酒妄杀', '高纬':'华林纵逸', '陈叔宝':'玉树新声', '杨广':'剪彩为花、游幸江都', '李显':'斜封除官、观灯市里',
+              '李存勖':'宠幸伶人', '赵佶':'上清道会、应奉花石、任用六贼',
+          }
+          zhizhong_names = set('''刘邦 刘恒 刘启 刘彻 刘询 刘秀 刘庄 刘炟 刘肇 司马炎 萧赜 萧衍 拓跋嗣 拓跋宏 元恪 李渊 李世民 李适 李纯 李昂 李忱 柴荣 赵匡胤 赵光义 赵恒 赵祯 赵顼 赵构 赵昚 赵昀 完颜雍 完颜璟 铁木真 蒙哥 忽必烈 爱育黎拔力八达 朱元璋 朱棣 朱高炽 朱瞻基 朱见深 朱祐樘'''.split())
+
+          def diji_window(name):
+              r = rec(name)
+              i1 = add_source(r, DIJI_INTRO); i2 = add_source(r, DIJI_TEXT)
+              return {
+                  'receiver':'明神宗（万历帝）帝王教育', 'carrier':'《帝鉴图说》',
+                  'actual_use':f'将{name}的{diji_cases[name]}编入面向最高权力的善政/鉴戒教材',
+                  'source_basis':'IMPERIAL_EDUCATION_PROGRAM_SCOPED_REVIEW'
+              }, [i1, i2]
+
+          def zhizhong_window(name):
+              r = rec(name)
+              i = add_source(r, ZHIZHONG)
+              return {
+                  'receiver':'清世宗雍正帝治道选编', 'carrier':'《钦定执中成宪》',
+                  'actual_use':f'雍正亲自删定历代帝王治道材料时收入{name}嘉言善政，作为后世治道法鉴的一部分',
+                  'source_basis':'IMPERIAL_GOVERNANCE_COMPENDIUM_SCOPED_REVIEW'
+              }, [i]
+
+          # 3) Mass one-window omissions -> A.
+          diji_only_A = ['刘备','刘骜','刘欣','刘志','刘宏','曹叡','刘骏','高洋','高纬','陈叔宝','李显','李隆基','李亨','李存勖','赵煦','赵佶']
+          for name in diji_only_A:
+              win, idx = diji_window(name)
+              set_paradigm(
+                  name, 'A',
+                  f'范式A。{name}不因后世名望加档；本轮反查《帝鉴图说》确认其具体统治行为已被编入面向明神宗的帝王教育，形成一个可信最高权力接收窗口。',
+                  [win], idx,
+                  '当前只闭合一个万历帝王教育窗口；同书多条故事合并计一次，不据文化知名度继续上调。',
+                  '人物案例进入帝王教育计范式；其制度、事件或王朝后效仍只在深度维度处理。'
+              )
+
+          zhizhong_only_A = ['刘启','刘炟','刘肇','萧赜','拓跋嗣','拓跋宏','元恪','李渊','李适','李昂','柴荣','赵恒','赵构','赵昚','赵昀','完颜雍','完颜璟','蒙哥','忽必烈','爱育黎拔力八达','朱棣','朱高炽','朱瞻基','朱见深','朱祐樘']
+          for name in zhizhong_only_A:
+              win, idx = zhizhong_window(name)
+              set_paradigm(
+                  name, 'A',
+                  f'范式A。雍正亲自删定《执中成宪》时把{name}的嘉言善政收入历代帝王治道法鉴，证明其人物/治世经验进入后世最高权力主动选择的政治教材；不把同名制度或王朝承接计入。',
+                  [win], idx,
+                  '目前只定位到一个雍正治道选编窗口；选入本身足以越过纯形象B，但不足证明多名独立最高权力反复实际使用。',
+                  '治道选编中的人物化接收计范式；制度谱系与结构存续归深度。'
+              )
+
+          # 4) Two independent education/governance windows -> A+.
+          two_window_Ap = ['刘庄','司马炎','萧衍','李纯','李忱','赵匡胤','赵光义']
+          for name in two_window_Ap:
+              dwin, didx = diji_window(name)
+              zwin, zidx = zhizhong_window(name)
+              set_paradigm(
+                  name, 'A+',
+                  f'范式A+。{name}的统治经验至少进入两个彼此独立的最高权力教育/治道窗口：明代《帝鉴图说》与清代雍正亲自删定的《执中成宪》。这证明传播已越过单一朝廷与单一选本，但现有硬证据仍以教育、选编为主。',
+                  [dwin, zwin], didx+zidx,
+                  '两个独立窗口足以达到A+；但不能仅靠两部帝王教材直接推到S-以上，须另见多次最高权力现实论政或行为使用。',
+                  '只计人物/治世被主动选作教材；制度、礼仪、官制的延续不重复计范式。'
+              )
+
+          # 5) Liu Xiu: remove legitimacy-procedure reuse from paradigm; replace with person-centered Gaozong model, plus Ming/Qing education.
+          r = rec('刘秀')
+          gao_idx = add_source(r, {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'何玉红：中兴形象的构建——光武故事与宋高宗政治',
+              'url':'https://www.nwnu.edu.cn/_t587/2018/0711/c3340a64919/page.htm',
+              'evidence_note':'研究宋高宗从即位开始持续把汉光武作为中兴政治偶像，阅读/抄写《汉光武纪》，并在用兵、君臣、天命和政治自我定位中反复调用光武故事。',
+              'verification_mode':'DOMESTIC_RESEARCH_SCOPED_REVIEW'
+          })
+          dwin, didx = diji_window('刘秀'); zwin, zidx = zhizhong_window('刘秀')
+          set_paradigm(
+              '刘秀','S',
+              '范式S。原先把后世创业君主复用“即位—告天”受命程序算作刘秀范式，按V1.4撤回：那是合法性程序谱系，属于深度。真正的人物化高档证据来自宋高宗。何玉红研究显示，赵构从建炎创业开始明确把光武视作“可以为法”的中兴君主，亲自阅读、抄写《汉光武纪》，并在中兴自我定位、用兵、君臣关系等现实政治语境中反复调用光武故事。明代《帝鉴图说》和清代《执中成宪》又构成后续独立教育/治道接收。由此达到跨朝、多最高权力的人物化接收S，但不达S+。',
+              [
+                  {'receiver':'宋高宗赵构','carrier':'光武中兴故事与《汉光武纪》','actual_use':'把刘秀本人作为中兴政治范型，反复用于自身中兴定位、用兵与君臣政治判断','source_basis':'DOMESTIC_RESEARCH_SCOPED_REVIEW'},
+                  dwin,zwin
+              ], [gao_idx]+didx+zidx,
+              '宋高宗是一条高强、反复且跨多个现实政治问题的接收链；明清又有独立教育/治道窗口。但仍缺少类似《贞观政要》那种跨朝长期专门承载、被多个政治环境反复实际使用的系统治道文本，故守S。',
+              '刘秀的东汉制度后效及后世“皇帝即位—告天受命”程序复用均归深度；只有后世把“光武本人/光武中兴”当作政治样本的部分计范式。',
+              '范式S已改由宋高宗等人物化接收闭合；基础S-已由个人因果S+上调至内部S，按合同不得再次双重抬升，公众总档仍S。'
+          )
+          # Move the old legitimacy-procedure source to depth review if present.
+          old_idx = next((i for i,s in enumerate(r.get('source_refs',[])) if s.get('url') == 'https://bnuhh.bnu.edu.cn/lsyj/0a60e8b10b1b4659b094b0abc899f4ab.html'), None)
+          dr = r.setdefault('depth_review', {})
+          if old_idx is not None:
+              dr['source_ref_indices'] = sorted(set(dr.get('source_ref_indices', []) + [old_idx]))
+          dr['limits'] = (dr.get('limits','').rstrip() + '\n\nV1.4分维修正：刘秀“皇帝即位—南郊告天”的受命程序及后世复用属于合法性结构的持续/再采用，只作深度证据；不得再作为人物范式接收。').strip()
+
+          # 6) Qin Shi Huang -> S: direct Tang Taizong + Nurhaci warning + Wanli education; emperor title/fengshan excluded.
+          r = rec('嬴政')
+          qin_tang = add_source(r, {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'《贞观政要》卷六',
+              'url':'https://zh.wikisource.org/zh-hans/%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29/%E5%8D%B706',
+              'evidence_note':'唐太宗谈到营建新殿材料已具，因“远想秦皇之事，遂不复作也”，用于确认秦始皇反面案例直接改变后世皇帝现实营建选择。',
+              'verification_mode':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_READ'
+          })
+          nur_source = {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'《清太祖高皇帝圣训》所载历代亡国鉴戒',
+              'url':'https://www.shidianguji.com/mid-page/7352264431176269862',
+              'evidence_note':'努尔哈赤点名夏桀、商纣、秦始皇、隋炀帝、金完颜亮等，告诫子孙若效其所为则覆辙不远；用于人物化反面政治鉴戒。',
+              'verification_mode':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW'
+          }
+          nur_idx = add_source(r, nur_source)
+          dwin, didx = diji_window('嬴政')
+          set_paradigm(
+              '嬴政','S',
+              '范式S。嬴政的“皇帝”名号、封禅与秦制被后世沿用本身全部退回深度，不再给范式加码。人物范式只取后世明确以“秦始皇/秦皇”作为政治鉴戒的行为链：唐太宗因远想秦皇之事而停止营建；努尔哈赤把秦始皇列为子孙不可效法的亡国覆辙；《帝鉴图说》又把求仙、焚书坑儒、大营宫室编入万历帝教育。跨朝、多个独立最高权力实际使用已经达到S。',
+              [
+                  {'receiver':'唐太宗李世民','carrier':'《贞观政要》卷六','actual_use':'因“远想秦皇之事”停止已经备料的宫殿营建','source_basis':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_READ'},
+                  {'receiver':'努尔哈赤及其子孙训诫场景','carrier':'《清太祖高皇帝圣训》','actual_use':'点名秦始皇为贪侈失政覆辙，要求子孙不得效法','source_basis':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW'},
+                  dwin
+              ], [qin_tang,nur_idx]+didx,
+              '高强证据集中于反面鉴戒，虽跨朝反复实际使用，但尚不是跨多个治理领域、具有专门系统治道载体的全面帝王范型，故不进S+。',
+              '皇帝称号、郡县国家、封禅及合法性礼仪的后世沿用一律归深度；只有点名秦始皇并用于现实选择/帝王教育的部分计范式。'
+          )
+
+          # 7) Sui Yangdi -> S via Tang Taizong repeated actual use, Nurhaci, Wanli education.
+          r = rec('杨广')
+          nidx = add_source(r, nur_source)
+          dwin, didx = diji_window('杨广')
+          old_review = r.get('paradigm_review', {})
+          old_recs = old_review.get('receptions', [])
+          old_idxs = old_review.get('source_ref_indices', [])
+          set_paradigm(
+              '杨广','S',
+              '范式S。隋炀帝不只是亡国暴君形象：既有材料已定位唐太宗反复以炀帝钳口、滥刑等失败机制要求本朝纳谏匡救；本轮又补到努尔哈赤把隋炀帝列为子孙不可效法的覆辙，以及《帝鉴图说》以剪彩为花、游幸江都教育万历帝。人物化反面鉴戒跨朝、跨最高权力中心反复进入现实政治，达到S。',
+              old_recs + [
+                  {'receiver':'努尔哈赤及其子孙训诫场景','carrier':'《清太祖高皇帝圣训》','actual_use':'点名隋炀帝为贪侈失政覆辙，要求子孙不得效法','source_basis':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW'},
+                  dwin
+              ], old_idxs+[nidx]+didx,
+              '虽有多朝反复实际鉴戒，但内容主要围绕亡国、拒谏、滥刑、奢侈与过度动员等反面主题，缺少跨多类治理问题的系统性专门治道载体，不达S+。',
+              '运河、行政和国家工程的后世存续仍归深度；只计后世点名“隋炀帝”并据此约束政治行为的部分。',
+              '范式S由唐太宗反复鉴戒、努尔哈赤训诫与万历帝王教育闭合；但深度B构成总档硬上限，基础A经个人因果S+上调至内部A+后不得再靠范式越过，公众B不变。'
+          )
+
+          # 8) Han Wudi -> S-: Ming Taizu direct warning + Wanli + Yongzheng; separate from depth.
+          r = rec('刘彻')
+          ming_idx = add_source(r, {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'《钦定执中成宪》卷四所录明太祖论秦皇汉武',
+              'url':'https://zh.wikisource.org/zh-hans/%E6%AC%BD%E5%AE%9A%E5%9F%B7%E4%B8%AD%E6%88%90%E6%86%B2_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29/%E5%8D%B74',
+              'evidence_note':'明太祖点名秦始皇、汉武帝求神仙之失，以清心寡欲、勤于政事自我约束；同卷另载其读《汉武帝纪》并讨论财政治道。用于后世最高权力对汉武帝的直接人物化接收。',
+              'verification_mode':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW'
+          })
+          dwin, didx = diji_window('刘彻'); zwin, zidx = zhizhong_window('刘彻')
+          set_paradigm(
+              '刘彻','S-',
+              '范式S-。汉武帝既进入《帝鉴图说》的“蒲轮征贤/女巫出入”正反教育，也被雍正亲自删定的《执中成宪》收入治道法鉴；更关键的是明太祖直接以秦皇、汉武求仙之失反观自身，强调清心寡欲、勤政，并读《汉武帝纪》讨论财政治道。已有跨朝独立最高权力的人物化接收，但用途仍以若干具体德目和警戒为主。',
+              [
+                  {'receiver':'明太祖朱元璋','carrier':'明太祖治道言论及《汉武帝纪》阅读','actual_use':'点名汉武求仙之失自我约束，并借汉武史事讨论君主财政治道','source_basis':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW'},
+                  dwin,zwin
+              ], [ming_idx]+didx+zidx,
+              '跨朝、多窗口已达到S-；但现有直接使用仍集中于求贤、方术警戒、财政等若干主题，尚不足证明系统性“汉武治道”被多名后世最高权力反复作为全面治理模板，故不升S。',
+              '经学国家化、学官—教育—选官结构、监察组织和边疆国家空间的长期后效全部归深度；这里只计后世点名汉武帝/汉武政治作为人物化参照。',
+              '范式S-只确认刘彻存在多次跨朝人物化接收；其范围S、深度S+已经构成内部S+基础，范式不重复加码，公众仍S+。'
+          )
+
+          # 9) Han Xuandi -> S-: Guangwu direct political reference + Ming/Qing education.
+          r = rec('刘询')
+          dwin, didx = diji_window('刘询'); zwin, zidx = zhizhong_window('刘询')
+          old_review = r.get('paradigm_review', {})
+          set_paradigm(
+              '刘询','S-',
+              '范式S-。东汉初政治文化重建时，光武朝把孝宣政治作为“霸王道杂之”传统的重要现实参照并主动恢复宣帝庙号；本轮又补到《帝鉴图说》的“诏儒讲经”和雍正《执中成宪》的治道选编。由一个高质量现实政治接收扩展为跨朝多个独立最高权力窗口，达到主题较窄但清楚的S-。',
+              old_review.get('receptions', []) + [dwin,zwin],
+              old_review.get('source_ref_indices', []) + didx+zidx,
+              '高强现实政治闭环仍以光武朝为主，明清材料主要是帝王教育/治道选编；不足证明多名后世君主把“孝宣政治”系统用于多类现实政治选择，故止S-。',
+              '宣帝时期制度、边疆与官僚治理的后继承接归深度；只有后世明确把“孝宣政治/宣帝本人”当参照的部分计范式。',
+              '范式S-补强人物化接收，但基础A+、个人因果A+不满足由范式越过现有总档硬门的条件，内部A+、公众B不变。'
+          )
+
+          # 10) Song Renzong -> S; Song Shenzong stays S- with cleaner cross-dynasty auxiliary evidence.
+          r = rec('赵祯')
+          dwin, didx = diji_window('赵祯'); zwin, zidx = zhizhong_window('赵祯')
+          old = r.get('paradigm_review', {})
+          set_paradigm(
+              '赵祯','S',
+              '范式S。既有材料已定位元祐朝廷直接把“仁宗政事”作为现实治理模板，辽朝最高权力也据南朝遵行仁宗政事调整边境约束；本轮再补明代《帝鉴图说》和清代《执中成宪》两个独立帝王教育/治道窗口。仁宗政治由本朝政治标准扩展到邻国判断与跨朝帝王教育，人物/治世接收已达到S。',
+              old.get('receptions', []) + [dwin,zwin], old.get('source_ref_indices', [])+didx+zidx,
+              '已跨不同政治主体和朝代；但现有专门传播结构与多领域反复实际使用仍弱于贞观范型，不达S+。',
+              '仁宗朝制度和士大夫政治结构的历史后效归深度；这里只计后世明确以“仁宗政事”或仁宗人物案例组织现实政治与帝王教育。',
+              '范式S成立，但本条基础A+且个人因果仅A；内部S-及以上另有归责硬门，不能用范式替代个人因果，故内部A+、公众B保持不变。'
+          )
+          r = rec('赵顼')
+          dwin, didx = diji_window('赵顼'); zwin, zidx = zhizhong_window('赵顼')
+          old = r.get('paradigm_review', {})
+          set_paradigm(
+              '赵顼','S-',
+              '范式S-。哲宗“绍圣—绍述”和徽宗“绍述神宗法度”明确以神宗本人/神宗朝政治作为恢复改革的最高政治纲领，属于人物/治世指称对现实制度与人事选择的直接约束，不是普通制度惯性。本轮补入《帝鉴图说》和《执中成宪》两个跨朝教育/治道窗口，但现实政治接收仍主要集中在北宋后半段的新法主题，因此维持S-。',
+              old.get('receptions', []) + [dwin,zwin], old.get('source_ref_indices', [])+didx+zidx,
+              '哲宗、徽宗虽为两个独立最高权力，但处于同朝连续党争/新法语境；明清跨朝材料主要是教育选编，因此不足升S。',
+              '新法的实际恢复、撤回和制度承接归深度；范式只取以“神宗/神宗法度”为名直接正当化和约束选择的部分。',
+              '范式S-继续只确认高于A基础的范式边界，不独立把基础A+上调；内部A+、公众B不变。'
+          )
+
+          # 11) Ming Taizu -> S- under named-person/reign constraint, not generic ancestor-law continuity.
+          r = rec('朱元璋')
+          zwin, zidx = zhizhong_window('朱元璋')
+          old = r.get('paradigm_review', {})
+          keep_recs = []
+          for x in old.get('receptions', []):
+              # Keep only explicit named Taizu/reign uses; current two entries satisfy after clarification.
+              keep_recs.append(x)
+          set_paradigm(
+              '朱元璋','S-',
+              '范式S-。V1.4不再把“祖宗之法”四字或明制惯性整体算给朱元璋；只保留能明确指向太祖本人/洪武治世的政治接收。建文—永乐围绕《皇明祖训》与是否变乱太祖祖制展开最高权力论争，嘉靖朝又以恢复“太祖之旧”论证现实整顿；清雍正亲自删定《执中成宪》时再把明太祖嘉言善政收入治道法鉴。人物化接收跨代、跨朝成立，但主题仍高度围绕开国祖制。',
+              keep_recs + [zwin], old.get('source_ref_indices', [])+zidx,
+              '明内接收与本朝祖制合法性高度耦合；跨朝清代证据主要是治道选编。按去名测试剔除纯制度惯性后，取主题较窄的S-而非S。',
+              '洪武制度、法律、军户/行政结构的后世承接只计深度；范式仅保留后继明确以“太祖/洪武”作为政治标准、教材或论证资源的部分。',
+              '范式S-成立但不重复加码；基础S-已由个人因果S+上调到内部S，公众仍S。'
+          )
+
+          # 12) Genghis Khan: remove Chinggisid legal-order continuity from paradigm; keep Yongzheng person-centered selection -> A.
+          r = rec('铁木真')
+          zwin, zidx = zhizhong_window('铁木真')
+          set_paradigm(
+              '铁木真','A',
+              '范式A。旧A+把帖木儿利用成吉思汗系名义汗权的合法性结构计入人物范式；按V1.4这属于汗权资格/法统结构的持续，应退回深度与政治秩序后效。当前干净的人物化接收是雍正亲自删定《执中成宪》时把元太祖嘉言善政收入后世治道法鉴，因此保留一个可信最高权力接收窗口，取A。',
+              [zwin], zidx,
+              '目前只定位一个明确人物化治道接收窗口；帖木儿等对成吉思汗系汗权资格的使用不再充当第二个范式接收者。',
+              '成吉思汗系汗权、名义汗与政治合法性结构的长期使用属于深度/政治秩序后效；只有后世最高权力把铁木真本人治道作为教材或参照才计范式。',
+              '范式由A+收回A，仅修正分维；本条内部S+由范围S+、深度S和个人因果S+独立成立，总档不变。'
+          )
+
+          # 13) Nurhaci direct warning makes Wanyan Liang A.
+          r = rec('完颜亮')
+          nidx = add_source(r, nur_source)
+          set_paradigm(
+              '完颜亮','A',
+              '范式A。努尔哈赤在训诫子孙时明确点名金完颜亮，与秦始皇、隋炀帝等并列为贪侈失政、不可效法的覆辙。这是后世最高权力直接把完颜亮本人作为政治警戒，而不只是海陵王恶名流传，足以建立一个可信接收窗口。',
+              [{'receiver':'努尔哈赤及其子孙训诫场景','carrier':'《清太祖高皇帝圣训》','actual_use':'点名金完颜亮为不可效法的贪侈失政覆辙','source_basis':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW'}],
+              [nidx],
+              '当前只闭合一个最高权力鉴戒窗口，故取A，不因反面名声继续上调。',
+              '金朝制度或南迁等历史后效归深度；这里只计后世点名完颜亮进行政治训诫。'
+          )
+
+          # 14) Qing succession: Kangxi S, Yongzheng A+, Qianlong A+. Same-dynasty succession fails S+ hard gate.
+          r = rec('玄烨')
+          ting_idx = add_source(r, {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'《庭训格言》',
+              'url':'https://ctext.org/wiki.pl?chapter=695452&if=gb&remap=gb',
+              'evidence_note':'雍正自述四十年来对康熙训言“祗聆默识，夙夜凛遵”，并命兄弟编成《庭训格言》，内容覆盖修身、治国等多类政治问题，要求后嗣遵守。',
+              'verification_mode':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_READ'
+          })
+          qian_idx = add_source(r, {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'乾隆奉行康熙军政训言的实录材料',
+              'url':'https://www.shidianguji.com/book/CADAL01035462/chapter/1l4abhsqhdwqo',
+              'evidence_note':'乾隆援引康熙关于行围、武备等训言，称永当效法并以“岂敢一日忘之”自我约束，用于现实军政训练选择。',
+              'verification_mode':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW'
+          })
+          set_paradigm(
+              '玄烨','S',
+              '范式S。康熙不再停在“圣祖崇奉”这种泛化名望层。雍正明确自述四十年来对康熙训言“祗聆默识，夙夜凛遵”，并把跨修身、治国、用人等多类内容编成《庭训格言》留给后嗣；乾隆又在军政与行围武备问题上直接援引康熙训言，称永当效法、岂敢一日忘之。这里已有两个独立最高权力对“康熙本人治道”的反复实际接收，内容系统而非单一德目，取S。',
+              [
+                  {'receiver':'雍正帝胤禛','carrier':'《庭训格言》及雍正序言','actual_use':'长期把康熙训言作为自身治国与修身准则，并编定留给后嗣','source_basis':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_READ'},
+                  {'receiver':'乾隆帝弘历','carrier':'康熙军政训言及实录讨论','actual_use':'援引康熙武备/行围原则为现实军政训练辩护并自我约束','source_basis':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW'}
+              ], [ting_idx,qian_idx],
+              '虽具系统内容、专门载体与多代实际使用，但接收高度集中于同一清朝父子—祖孙继承环境；V1.4明确规定单一王朝连续继承不能单独达到S+，故守S。',
+              '清代制度继续运行属于深度；这里只有后世皇帝把“圣祖训言/康熙治道”明确作为自身政治准则的部分计范式。',
+              '范式S成立但本条内部S基础已由范围S、深度S-独立成立；个人因果S-维持，范式不再上调，公众S不变。'
+          )
+
+          r = rec('胤禛')
+          yong_idx = add_source(r, {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'《世宗宪皇帝圣训》四库全书本',
+              'url':'https://zh.wikisource.org/zh-hans/%E4%B8%96%E5%AE%97%E6%86%B2%E7%9A%87%E5%B8%9D%E8%81%96%E8%A8%93_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29/%E5%85%A8%E8%A6%BD1',
+              'evidence_note':'乾隆命编雍正圣训，广泛分类整理其治国言论，用于确认后继最高权力对雍正治道的系统承接与教育化。',
+              'verification_mode':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW'
+          })
+          zidx = add_source(r, ZHIZHONG)
+          set_paradigm(
+              '胤禛','A+',
+              '范式A+。乾隆即位后命编《世宗宪皇帝圣训》，系统整理雍正跨多个治国领域的训言；同时《执中成宪》本身又是雍正亲自删定、乾隆明确奉为治道标准的政治遗产。这里形成一个后继最高权力对雍正治道的高质量、重复接收闭环，超过普通祖宗崇奉。',
+              [{'receiver':'乾隆帝弘历','carrier':'《世宗宪皇帝圣训》与《执中成宪》','actual_use':'系统编纂、奉行并传布雍正治道与其亲定政治法鉴','source_basis':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW'}],
+              [yong_idx,zidx],
+              '高强证据仍主要集中于乾隆一个最高权力窗口；多文本、重复使用不能拆成多个独立接收者，因此取A+而不进S-。',
+              '雍正财政、中枢和继承制度被乾隆继续使用属于深度；这里只计乾隆主动编纂、奉行“雍正治道”的人物化接收。'
+          )
+
+          r = rec('弘历')
+          qsheng_idx = add_source(r, {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'故宫博物院藏《大清高宗纯皇帝圣训》',
+              'url':'https://www.dpm.org.cn/ancient/hall/161161.html',
+              'evidence_note':'嘉庆敕编乾隆圣训三百卷、分四十门，确认后继最高权力把乾隆治道系统整理为政治训典。',
+              'verification_mode':'IMPERIAL_COLLECTION_SCOPED_REVIEW'
+          })
+          jiaq_idx = add_source(r, {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'《仁宗睿皇帝实录》卷174',
+              'url':'https://zh.wikisource.org/wiki/%E4%BB%81%E5%AE%97%E7%9D%BF%E7%9A%87%E5%B8%9D%E5%AF%A6%E9%8C%84/%E5%8D%B7174',
+              'evidence_note':'嘉庆恭读乾隆圣训后，把其中原则用于后妃选择、书吏选取等现实制度要求，证明不只是例行编书而有具体政治使用。',
+              'verification_mode':'PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_READ'
+          })
+          set_paradigm(
+              '弘历','A+',
+              '范式A+。嘉庆不只是例行尊崇先帝：他敕编三百卷、四十门的《大清高宗纯皇帝圣训》，并在实录中明确“恭读”乾隆圣训，把其中原则用于后妃选择、书吏选取等现实制度要求。一个最高权力窗口内既有系统编纂又有可定位的现实使用，形成高质量重复接收。',
+              [{'receiver':'嘉庆帝颙琰','carrier':'《大清高宗纯皇帝圣训》及嘉庆实录','actual_use':'系统编纂乾隆治道并在后妃、书吏等现实政治问题上援引遵行','source_basis':'PRIMARY_TEXT_AND_IMPERIAL_COLLECTION_SCOPED_REVIEW'}],
+              [qsheng_idx,jiaq_idx],
+              '目前高强证据集中于嘉庆一个最高权力窗口；系统编纂和多次实际使用不拆成多个接收者，因此取A+而非S-。',
+              '乾隆时期形成的新疆、知识审查等结构后效归深度；这里只计嘉庆明确把乾隆圣训作为人物/治道标准使用。'
+          )
+
+          # 15) Augment existing clean high grades: Liu Bang S, Liu Heng S, Li Shimin S+.
+          for name in ['刘邦','刘恒','李世民']:
+              r = rec(name)
+              dwin, didx = diji_window(name)
+              zwin, zidx = zhizhong_window(name)
+              review = r.setdefault('paradigm_review', {})
+              review['receptions'] = review.get('receptions', []) + [dwin,zwin]
+              review['source_ref_indices'] = sorted(set(review.get('source_ref_indices', []) + didx+zidx))
+              add_note(r)
+          # Liu Bang: explicitly stop using dynastic legality as decisive S evidence.
+          r = rec('刘邦')
+          r['paradigm_analysis'] += '\n\nV1.4补证与边界：东汉“同符高祖/立高祖之业”若仅承担汉家受命合法性，不单独作为高档增量；S档仍可由朱元璋明确“法其所为”的现实创业治道接收，加上明神宗《帝鉴图说》、清雍正《执中成宪》两个独立帝王教育/治道窗口支撑。'
+          r['paradigm_review']['limitation'] = '高祖作为汉家法统来源本身不计人物范式；只计后世明确把刘邦本人创业、用人、少杀等治道作为现实参照或帝王教材。现有明初直接效法加明清独立教育/治道窗口足以守S，但未达系统多领域S+硬门。'
+          # Liu Heng remains S; direct Tang/Ming uses already clean.
+          r = rec('刘恒')
+          r['paradigm_review']['limitation'] = '唐太宗、唐宪宗朝廷、朱元璋等对文帝惜费/俭政的直接政治使用，加明清独立帝王教育/治道窗口，足以守S；主题仍集中于俭政、慎刑等德目，不达系统多领域S+。'
+          # Li Shimin remains sole S+ benchmark after explicit hard-gate review.
+          r = rec('李世民')
+          r['paradigm_review']['limitation'] = 'V1.4硬门复核通过：贞观治道不是单一德目，而有《帝范》《贞观政要》等专门稳定载体，覆盖君道、纳谏、用贤、法治等多类政治问题；金、明、清等不同政治环境的最高权力存在翻译、讲读、重刊、亲阅和现实论政等多次独立使用。教材收录只作辅助，不靠材料数量冲顶。'
+          set_foundation(r, 'S+', '范式S+在V1.4硬门下维持：系统性、专门载体、跨朝跨环境、多领域、多次最高权力实际使用均可定位；总档同时仍受范围、深度与个人因果独立门槛约束。')
+          changed['李世民'] = ('S+','S+')
+
+          # 16) Liu Che depth S+: make political knowledge/ideology institutionalization a main chain, not auxiliary.
+          r = rec('刘彻')
+          nju_idx = add_source(r, {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'徐兴无：中国经学的制度特征及表达逻辑',
+              'url':'https://www.nju.edu.cn/info/1056/325561.htm',
+              'evidence_note':'用于汉武帝深度复核：五经博士把经典制度化为统一国家的政教宪章，经学与官学教育、人才选拔和政治合法性形成长期联结；后世载体虽变，国家化经典—教育—选官结构长期延展。',
+              'verification_mode':'DOMESTIC_RESEARCH_SCOPED_REVIEW'
+          })
+          sdu_idx = add_source(r, {
+              'kind':'HISTORICAL_WEB_SOURCE','title':'杨勇：“罢黜百家，独尊儒术”的历史考察——兼论“儒学国教化”这一概念的失当',
+              'url':'https://lhpqk.sdu.edu.cn/CN/Y2019/V0/I6/79',
+              'evidence_note':'《文史哲》2019年第6期。指出武帝前期儒家化察举与五经博士学官构成国家“尊儒”的两大制度骨干，同时强调不是一纸诏令完成、武帝时代仍存在多元与后续整合，作为归责与反夸大边界。',
+              'verification_mode':'DOMESTIC_JOURNAL_SCOPED_REVIEW'
+          })
+          chains = r.setdefault('macro_chains', [])
+          ideol_id = 'HI-RULER-HAN-LIUCHE-03'
+          ideol = {
+              'chain_id': ideol_id,
+              'title': '经典—学官—选官联结推动国家政治知识与意识形态制度化',
+              'narrative': '刘彻深度S+不能只靠刺史、河西和南疆等容易观察的制度/空间连续性。国内研究显示，武帝时期五经博士学官与儒家化察举成为国家“尊儒”的两大制度骨干；经典由学术资源进一步进入统一帝国的政教宪章、官方教育和人才入口。此后博士、太学、国子监、科举等具体载体持续变化，不能写成“汉武一纸独尊儒术、两千年不变”，但“国家确认经典—官方教育—人才选拔—政治论证/合法性”这一联结长期构成帝制政治知识结构的重要底层接口。归责同时保留文景前驱、董仲舒等专业思想资源、昭宣以后整合以及后世独立改造，不把整条儒学史寿命独占给刘彻。',
+              'source_ref_indices':[nju_idx,sdu_idx],
+              'chain_kind':'MACRO_TRANSFORMATION'
+          }
+          found = False
+          for i,c in enumerate(chains):
+              if c.get('chain_id') == ideol_id:
+                  chains[i] = ideol; found = True
+          if not found:
+              chains.append(ideol)
+          f = r.setdefault('foundation', {})
+          ids = f.setdefault('chain_ids', [])
+          if ideol_id not in ids:
+              ids.append(ideol_id)
+          f['joint_footprint_basis'] = '刘彻的S+深度由三类相互独立、又共同服务于帝国国家化的长期结构支撑：一是经典—学官—选官—政治知识/合法性的制度化联结；二是司隶、十三州刺史等中央—区域组织接口；三是河西及南部/西南治理空间的行政嵌入。范围S、深度S+在同一全国国家组织与空间重构足迹上共现，取内部S+基础；个人因果S-继续保留文景前驱、臣僚专业设计和后继独立改造分账。'
+          r['grade_basis'] = '深度S+不再主要靠单一制度寿命。第一条主链是武帝朝把五经博士、官学与儒家化人才入口制度性结合，使经典知识进入国家政教、教育和选官方式；后世博士、太学、国子监、科举等载体不断改造，但“经典—官方教育—人才选拔—政治论证/合法性”的国家化接口长期延续。第二条是中央—区域组织层：司隶、十三州刺史开出跨郡监察/区域组织接口，东汉以后州的功能继续演变，计功能谱系而非同名机构不变。第三条是国家空间：河西四郡与驿传治理、西南和交趾等南部郡县嵌入形成跨代、部分跨西东汉的长期治理骨架。三条主链跨政治知识、国家组织、战略地理与边疆行政多个底层领域，共同满足S+深度；但文景前驱、董仲舒/主父偃/桑弘羊等专业责任、昭宣以后成熟和后世重构均明确分账。'
+          dr = r.setdefault('depth_review', {})
+          dr['basis'] = 'S+由三组独立长链共同闭合：①五经博士—官学—人才入口把经典知识制度化进国家政教，后世以不同载体长期延续“经典—教育—选官—政治合法性”接口；②司隶/十三州刺史开启中央—区域组织接口并在后世发生功能转型；③河西四郡及驿传、南部/西南郡县治理把新增战略空间嵌入持续国家治理。不是由一所太学、一个刺史机构或一块疆域单独冲顶。'
+          dr['limits'] = '意识形态链不采用“汉武帝一纸罢黜百家、独尊儒术并原样延续两千年”的旧叙事：文景已有前驱，武帝朝仍存在多元政治知识，昭宣及东汉继续整合，后世学官与科举均属独立改造。组织链同样不把后世州制视为武帝刺史制原样延续；空间链保留秦制基线、西域都护等后继新建以及反复失控/重建截断。旧太学与晋书、通典材料只作辅助，S+由多域结构组合而非同名制度寿命推出。'
+          dr['source_ref_indices'] = sorted(set(dr.get('source_ref_indices', []) + [nju_idx,sdu_idx]))
+          add_note(r, '2026-09-15刘彻深度再审：将国家政治知识/意识形态制度化提升为S+主证据之一，以五经博士—官学—人才入口及其长期后继结构为核心，同时明确文景前驱、后世改造与“独尊儒术”简化叙事的边界。')
+
+          # 17) Save shards.
+          for path in sorted(dirty):
+              files[path] and path.write_text(json.dumps(files[path], ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          print('CHANGED PARADIGM GRADES')
+          for name,(a,b) in sorted(changed.items()):
+              print(f'{name}: {a} -> {b}')
+          from collections import Counter
+          dist = Counter()
+          for data in files.values():
+              for rr in data.get('collections',{}).get('records',{}).get('records',[]):
+                  dist[rr.get('dimensions',{}).get('paradigm',{}).get('grade','')] += 1
+          print('POST DISTRIBUTION', dict(dist))
           PY
+
+      - name: Regenerate and verify historical-impact views
+        run: |
+          python v4.py historical-impact-views --write
+          python v4.py historical-impact-verify
+
+      - name: Build and test reader
+        run: |
+          python reader/build_military_archive.py
+          python reader/build.py
+          python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
+
+      - name: Remove temporary workflow and validate diff
+        run: |
+          git rm .github/workflows/tmp-paradigm-scan.yml
+          git diff --check
+          git status --short
+
+      - name: Commit final remediation
+        run: |
+          set -euo pipefail
+          git fetch origin codex/single-ruler-session-control
+          remote_head="$(git rev-parse origin/codex/single-ruler-session-control)"
+          if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
+            echo "Branch moved from $GITHUB_SHA to $remote_head; refusing stale push." >&2
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '收紧人物范式并完成系统补证'
+          git push origin HEAD:codex/single-ruler-session-control
