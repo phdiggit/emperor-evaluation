@@ -98,6 +98,17 @@
     return baseGuide();
   };
 
+  // Keep first-item newcomer guidance outside the base template and load it as a
+  // small progressive enhancement. The base reader still works if this file is
+  // unavailable, while generated index.html does not need another large inline block.
+  if (!document.querySelector('script[data-first-item-reading]')) {
+    const script = document.createElement("script");
+    script.src = "first-item-reading.js";
+    script.async = false;
+    script.dataset.firstItemReading = "true";
+    document.head.append(script);
+  }
+
   // The template performs one synchronous first render before this enhancement is
   // injected. Re-route once so direct person/compare URLs immediately switch to
   // the lazy detail path while the overview remains unchanged.
