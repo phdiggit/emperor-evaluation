@@ -918,10 +918,13 @@ function scopeChainFacts(chains){
  const titles=chains.map(c=>c.title).filter(Boolean);
  return titles.length?`正式主链涉及：${titles.join('；')}。`:'';
 }
+function scopeRelevantChains(chains){
+ return chains.filter(c=>scopeFactClauses(c.narrative).length);
+}
 function scopeGradeReason(h,chains){
  const grade=h.dimensions?.scope?.grade||'—';
- const titles=chains.map(c=>c.title).filter(Boolean);
- const footprint=titles.length?`正式主链包括：${titles.join('；')}。`:'';
+ const titles=scopeRelevantChains(chains).map(c=>c.title).filter(Boolean);
+ const footprint=titles.length?`与范围直接相关的正式主链：${titles.join('；')}。`:'';
  const meaning=scopeGradeMeaning[grade]||'';
  return `${footprint}${grade}档的范围门槛是：${meaning}`;
 }
@@ -989,7 +992,8 @@ function impactSourceList(r,indices,labelText='本节依据'){
 function historySections(r,idSuffix='',compact=false){
  const h=r.impact,chains=h.macro_chains||[];
  const scopeReview=h.scope_assessment||h.scope_review||{},depthReview=h.depth_review||{},causalReview=h.causal_review||{},paradigmReview=h.paradigm_review||{};
- const scopeIndices=[...(scopeReview.source_ref_indices||[]),...chains.flatMap(c=>c.source_ref_indices||[])];
+ const scopeChains=scopeRelevantChains(chains);
+ const scopeIndices=[...(scopeReview.source_ref_indices||[]),...scopeChains.flatMap(c=>c.source_ref_indices||[])];
  const depthIndices=depthReview.source_ref_indices||[];
  const causalIndices=causalReview.source_ref_indices||[];
  const paradigmIndices=paradigmReview.source_ref_indices||[];

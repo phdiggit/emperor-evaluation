@@ -105,6 +105,8 @@ def test_history_impact_reader_uses_formal_dimension_fields_without_audit_copy()
     assert "scopeChainFacts" in template
     assert "scopeFactClauses" in template
     assert "scopeCausalTerms" in template
+    assert "scopeRelevantChains" in template
+    assert "scopeChains.flatMap(c=>c.source_ref_indices||[])" in template
     assert "不可替代|可替代|拍板|臣僚|团队|前制" in template
     assert "scopeReview.actual_changes||scopeChainFacts(chains)" in template
     assert "为什么是 ${esc(scopeGrade)}" in template
