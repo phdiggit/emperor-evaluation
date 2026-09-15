@@ -109,6 +109,16 @@
     document.head.append(script);
   }
 
+  // Boundary notes only appear for first-item cases that are easy to misread:
+  // zero personal command attribution, partial attribution scores, or zero outcome.
+  if (!document.querySelector('script[data-first-item-boundary-notes]')) {
+    const script = document.createElement("script");
+    script.src = "first-item-boundary-notes.js";
+    script.async = false;
+    script.dataset.firstItemBoundaryNotes = "true";
+    document.head.append(script);
+  }
+
   // The template performs one synchronous first render before this enhancement is
   // injected. Re-route once so direct person/compare URLs immediately switch to
   // the lazy detail path while the overview remains unchanged.
