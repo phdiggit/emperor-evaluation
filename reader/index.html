@@ -884,6 +884,13 @@ const scopeUpperMeaning={
  B:'再上到A，需要达到大型王朝关键中枢、主要区域国家或多个重要区域的实质变化。',
  C:'再上到B，需要影响至少扩展到重要区域、制度领域或精英政治圈层。'
 };
+function scopeChainFacts(chains){
+ return chains.map(c=>{
+   const first=String(c.narrative||'').split(/\n\s*\n/)[0].trim();
+   if(!first)return c.title||'';
+   return c.title?`${c.title}：${first}`:first;
+ }).filter(Boolean).join('\n\n');
+}
 function scopeGradeReason(h,chains){
  const grade=h.dimensions?.scope?.grade||'—';
  const titles=chains.map(c=>c.title).filter(Boolean);
@@ -960,7 +967,7 @@ function historySections(r,idSuffix='',compact=false){
  const causalIndices=causalReview.source_ref_indices||[];
  const paradigmIndices=paradigmReview.source_ref_indices||[];
  const scopeGrade=h.dimensions?.scope?.grade||'—';
- const scopeActual=scopeReview.actual_changes||chains.map(c=>c.title).filter(Boolean).join('；')||h.foundation?.joint_footprint_basis||h.grade_basis||'';
+ const scopeActual=scopeReview.actual_changes||scopeChainFacts(chains)||h.foundation?.joint_footprint_basis||h.grade_basis||'';
  const scopeWhy=scopeReview.overall_grade_reasoning||scopeReview.basis||scopeGradeReason(h,chains);
  const scopeCeiling=[scopeReview.baseline_and_exclusions,scopeReview.limits,scopeReview.limit,h.dimensions?.scope?.boundary_note,scopeUpperMeaning[scopeGrade]].filter(Boolean).join('\
 \

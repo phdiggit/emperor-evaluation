@@ -102,6 +102,8 @@ def test_history_impact_reader_uses_formal_dimension_fields_without_audit_copy()
     assert "historyReaderText(value)" in public_js
     assert "scopeGradeMeaning" in template
     assert "scopeUpperMeaning" in template
+    assert "scopeChainFacts" in template
+    assert "scopeReview.actual_changes||scopeChainFacts(chains)" in template
     assert "为什么是 ${esc(scopeGrade)}" in template
     assert "为什么没有更高" in template
     assert "补证与边界|补证|复核|重审|修订|更新" in template
