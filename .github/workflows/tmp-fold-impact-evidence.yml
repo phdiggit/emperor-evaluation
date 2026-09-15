@@ -1,0 +1,180 @@
+name: Temporary fold impact evidence
+
+on:
+  push:
+    branches:
+      - codex/single-ruler-session-control
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.event.head_commit.message == '临时：统一历史影响依据折叠状态'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/single-ruler-session-control
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python -m pip install -e . -r reader/requirements.txt pytest
+
+      - name: Fold historical-impact evidence
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          js_path = Path('reader/person-readability.js')
+          css_path = Path('reader/readability.css')
+          js = js_path.read_text(encoding='utf-8')
+          css = css_path.read_text(encoding='utf-8')
+
+          anchor = '''  function foldNetLedger() {'''
+          block = r'''  function foldHistoricalImpact() {
+    const evidence = document.querySelector("#history-evidence");
+    if (!evidence || evidence.dataset.impactFolded === "done") return;
+
+    const foldSection = (section, label, badgeText = "") => {
+      if (!section || section.tagName === "DETAILS") return section;
+      const wrapper = document.createElement("details");
+      wrapper.id = section.id;
+      wrapper.className = `${section.className} impact-evidence-fold`.trim();
+      const summary = document.createElement("summary");
+      summary.innerHTML = `<span>${esc(label)}</span>${badgeText ? `<span class="badge">${esc(badgeText)}</span>` : ""}`;
+      wrapper.append(summary);
+
+      const heading = section.querySelector(":scope > h3, :scope > .impact-dimension-head");
+      if (heading) heading.remove();
+      wrapper.append(...Array.from(section.childNodes));
+      section.replaceWith(wrapper);
+      return wrapper;
+    };
+
+    const core = evidence.querySelector(":scope > .impact-core-chains");
+    foldSection(core, "核心历史主链");
+
+    for (const [id, label] of [
+      ["history-dimension-scope", "影响范围"],
+      ["history-dimension-depth_duration", "深度与持续"],
+      ["history-dimension-personal_causality", "个人因果"],
+      ["history-dimension-paradigm", "政治范式"],
+      ["history-judgment-boundary", "判断边界"],
+    ]) {
+      const section = document.getElementById(id);
+      const badge = section?.querySelector(":scope > .impact-dimension-head .badge")?.textContent.trim() || "";
+      foldSection(section, label, badge);
+    }
+
+    evidence.dataset.impactFolded = "done";
+  }
+
+  function openHistoricalImpactTarget(event) {
+    const link = event.target.closest('[data-section^="history-dimension-"], [data-section="history-judgment-boundary"]');
+    if (!link) return;
+    const target = document.getElementById(link.dataset.section);
+    if (target?.tagName === "DETAILS") target.open = true;
+  }
+
+'''
+          if block.strip() not in js:
+              if anchor not in js:
+                  raise SystemExit('foldNetLedger anchor not found')
+              js = js.replace(anchor, block + anchor, 1)
+
+          old = '''    enhanceImpact(record);\n    normalizeEvidenceCardHeadings();'''
+          new = '''    enhanceImpact(record);\n    foldHistoricalImpact();\n    normalizeEvidenceCardHeadings();'''
+          if new not in js:
+              if old not in js:
+                  raise SystemExit('enhance call anchor not found')
+              js = js.replace(old, new, 1)
+
+          listener_anchor = '''  new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});'''
+          listener = '''  screen.addEventListener("click", openHistoricalImpactTarget, true);\n'''
+          if listener not in js:
+              if listener_anchor not in js:
+                  raise SystemExit('observer anchor not found')
+              js = js.replace(listener_anchor, listener + listener_anchor, 1)
+
+          css_block = r'''
+
+/* Keep all three evidence families collapsed by default. */
+#history-evidence > .impact-evidence-fold {
+  margin-top: 0;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+#history-evidence > .impact-evidence-fold > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+#history-evidence > .impact-evidence-fold > summary .badge {
+  margin-right: 18px;
+  color: var(--red);
+  font: 17px/1.35 Georgia, serif;
+}
+
+#history-evidence > .impact-evidence-fold[open] > summary {
+  margin-bottom: 8px;
+}
+
+#history-evidence > .impact-evidence-fold > .subline:first-of-type {
+  margin-top: 4px;
+}
+'''
+          marker = '/* Keep all three evidence families collapsed by default. */'
+          if marker not in css:
+              css += css_block
+
+          js_path.write_text(js, encoding='utf-8', newline='\n')
+          css_path.write_text(css, encoding='utf-8', newline='\n')
+          PY
+
+      - name: Rebuild and validate reader
+        run: |
+          python reader/build.py
+          python reader/build.py --check
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('reader/index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', html, flags=re.S)
+          js_scripts = [s for s in scripts if not s.lstrip().startswith('{')]
+          out = Path('.tmp/reader-js-check')
+          out.mkdir(parents=True, exist_ok=True)
+          for i, script in enumerate(js_scripts):
+              (out / f'{i}.js').write_text(script, encoding='utf-8')
+          print('executable scripts:', len(js_scripts))
+          PY
+          for f in .tmp/reader-js-check/*.js; do node --check "$f"; done
+          python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
+          rm -rf .tmp/reader-js-check
+          git diff --check
+
+      - name: Commit fix
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/tmp-fold-impact-evidence.yml
+          git fetch origin codex/single-ruler-session-control
+          remote_head="$(git rev-parse origin/codex/single-ruler-session-control)"
+          if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
+            echo "Branch moved from $GITHUB_SHA to $remote_head; refusing stale push." >&2
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --check
+          git commit -m '统一历史影响依据默认折叠'
+          git push origin HEAD:codex/single-ruler-session-control
