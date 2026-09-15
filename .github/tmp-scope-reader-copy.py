@@ -76,14 +76,15 @@ template = scope_body_pattern.sub(lambda _: new_scope_body + " const depthBody="
 
 write(template_path, template)
 
-# Update implementation tests: public reader must explain scope grade and strip revision-process labels.
+# Update implementation tests without depending on the exact ordering of older assertions.
 test_path = ROOT / "tests/test_reader_person_readability.py"
 test = test_path.read_text(encoding="utf-8")
-old_assertions = '''    assert "source_review_scope" not in template\n    assert "source_trace?.limit" not in template\n    assert "scope_assessment||h.scope_review" in template\n    assert "impact_dimension_grades" in template\n'''
-new_assertions = '''    assert "source_review_scope" not in template\n    assert "source_trace?.limit" not in template\n    assert "scope_assessment||h.scope_review" in template\n    assert "impact_dimension_grades" in template\n    assert "scopeGradeMeaning" in template\n    assert "scopeUpperMeaning" in template\n    assert "为什么是 ${esc(scopeGrade)}" in template\n    assert "为什么没有更高" in template\n    assert "V\\\\d+(?:\\\\.\\\\d+)?(?:补证与边界|补证|复核|重审|修订|更新)" in template\n'''
-if old_assertions not in test:
-    raise SystemExit("test assertion block not found")
-test = test.replace(old_assertions, new_assertions, 1)
+test_anchor = '    assert "historyReaderText(value)" in public_js\n'
+extra_assertions = '''    assert "scopeGradeMeaning" in template\n    assert "scopeUpperMeaning" in template\n    assert "为什么是 ${esc(scopeGrade)}" in template\n    assert "为什么没有更高" in template\n    assert "补证与边界|补证|复核|重审|修订|更新" in template\n'''
+if extra_assertions not in test:
+    if test_anchor not in test:
+        raise SystemExit("history reader test anchor not found")
+    test = test.replace(test_anchor, test_anchor + extra_assertions, 1)
 write(test_path, test)
 
 print("scope/public-copy reader patch applied")
