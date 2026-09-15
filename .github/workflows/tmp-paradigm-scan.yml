@@ -10,25 +10,27 @@ permissions:
 
 jobs:
   scan:
-    if: github.event.head_commit.message == '临时：复核范式高档与候选'
+    if: github.event.head_commit.message == '临时：审计教材命中人物基础档'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: codex/single-ruler-session-control
-      - name: Print selected paradigm records
+      - name: Print candidate foundations
         run: |
           python - <<'PY'
           import json, pathlib
-          selected=set('''嬴政 刘邦 刘恒 刘彻 刘询 刘秀 曹操 刘备 孙权 王莽 司马炎 刘裕 萧衍 陈叔宝 杨坚 杨广 李世民 武则天 李隆基 赵匡胤 赵祯 赵顼 赵构 赵佶 朱元璋 朱棣 朱由检 铁木真 忽必烈 玄烨 胤禛 弘历 柴荣 石勒 苻坚 宇文邕 拓跋宏 完颜雍'''.split())
+          selected=set('''嬴政 刘邦 刘恒 刘启 刘彻 刘询 刘秀 刘庄 刘炟 刘肇 刘备 刘骜 刘欣 刘志 刘宏 曹叡 司马炎 刘裕 刘骏 萧衍 高洋 高纬 陈叔宝 杨广 李渊 李世民 李显 李隆基 李亨 李适 李纯 李忱 李存勖 柴荣 赵匡胤 赵光义 赵恒 赵祯 赵顼 赵煦 赵佶 赵构 赵昚 赵昀 完颜亮 完颜雍 完颜璟 铁木真 蒙哥 忽必烈 爱育黎拔力八达 拓跋嗣 拓跋宏 元恪 朱元璋 朱棣 朱瞻基 朱见深 朱祐樘'''.split())
           root=pathlib.Path('docs/评分结算/历史影响/01-历史影响正式结算')
           for p in sorted(root.glob('*.json')):
               data=json.loads(p.read_text(encoding='utf-8'))
               for r in data.get('collections',{}).get('records',{}).get('records',[]):
-                  if r.get('ruler_name') not in selected and r.get('dimensions',{}).get('paradigm',{}).get('grade') not in {'S+','S','S-','A+','A'}:
-                      continue
-                  print('\n###', r.get('polity'), r.get('ruler_name'), 'PARADIGM', r.get('dimensions',{}).get('paradigm',{}).get('grade'))
-                  print('ANALYSIS:', (r.get('paradigm_analysis') or '').replace('\n',' '))
-                  print('REVIEW:', json.dumps(r.get('paradigm_review',{}), ensure_ascii=False))
-                  print('SOURCES:', ' | '.join((s.get('title') or s.get('document') or s.get('path') or '') for s in r.get('source_refs',[])))
+                  if r.get('ruler_name') not in selected: continue
+                  dims=r.get('dimensions',{})
+                  f=r.get('foundation',{}) or {}
+                  print('\t'.join([
+                      r.get('polity',''),r.get('ruler_name',''),r.get('public_grade',''),r.get('internal_band',''),
+                      dims.get('scope',{}).get('grade',''),dims.get('depth',{}).get('grade',''),dims.get('personal_causality',{}).get('grade',''),dims.get('paradigm',{}).get('grade',''),
+                      str(f.get('base_band','')),str(f.get('causality_adjustment','')).replace('\n',' '),str(f.get('paradigm_adjustment','')).replace('\n',' ')
+                  ]))
           PY
