@@ -80,24 +80,35 @@ def test_net_explanation_projection_uses_formal_text():
 
 
 
-def test_history_impact_reader_uses_dimension_navigation_without_audit_panel():
+def test_history_impact_reader_uses_formal_dimension_fields_without_audit_copy():
     root = __import__("pathlib").Path(__file__).resolve().parents[1]
     template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
     public_js = (root / "reader" / "person-readability.js").read_text(encoding="utf-8")
+    build = (root / "reader" / "build.py").read_text(encoding="utf-8")
 
-    for target in (
-        "history-dimension-scope",
-        "history-dimension-depth_duration",
-        "history-dimension-personal_causality",
-        "history-dimension-paradigm",
-    ):
-        assert target in template
-
-    assert 'data-section="history-dimension-${k}"' in template
-    assert "历史影响 · 来源与核对范围" not in template
+    assert "h.scope_assessment||h.scope_review" in template
+    assert "scopeReview.actual_changes" in template
+    assert "scopeReview.baseline_and_exclusions" in template
+    assert "source_review_scope" not in template
+    assert "source_trace?.limit" not in template
     assert "${prose(r.impact.historical_source_notes)}" not in template
-    assert "source_review_scope" in template
-    assert "source_trace?.limit" in template
-    assert "impact-source-list" in template
-    assert "IMPORTED_ADJUDICATION" in template
-    assert 'node !== summary && node !== sourceBox' in public_js
+    assert "s.evidence_note" not in template
+    assert "impact_dimension_grades" in template
+    assert "impact_dimension_grades=impact_config" in build
+    assert "historySections(r,idSuffix='',compact=false)" in template
+    assert "historySections(r,`-compare-${i}`,true)" in template
+    assert "impact-evidence-fold" in template
+    assert "foldHistoricalImpact" not in public_js
+    assert "historyReaderText(value)" in public_js
+
+
+def test_historical_impact_contract_version_metadata_matches_current_contract():
+    import json
+    import yaml
+
+    root = __import__("pathlib").Path(__file__).resolve().parents[1]
+    project = yaml.safe_load((root / "config" / "project.yml").read_text(encoding="utf-8"))
+    router = json.loads((root / "docs" / "评分结算" / "历史影响" / "01-历史影响正式结算.json").read_text(encoding="utf-8"))
+
+    assert project["historical_impact_assessment"]["contract_version"] == "FORMAL-V1.4"
+    assert router["payload_metadata"]["contract_version"] == "FORMAL-V1.4"

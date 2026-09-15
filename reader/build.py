@@ -646,6 +646,7 @@ def build(*, check=False, write=True):
                   axis_order=profile["axis_order"],
                   axis_specs={k: pick(v, ["name", "json", "markdown", "contract"]) for k,v in profile["settled_axes"].items()},
                   impact_grades=impact_config["public_grade_order"],
+                  impact_dimension_grades=impact_config["dimension_grade_order"],
                   impact_labels=impact["public_label_mapping"],
                   sources=dict(net=scoring["composite_ranking_json"], impact=impact_config["json"],
                                net_reader=scoring["composite_ranking_markdown"], impact_reader=impact_config["markdown"]))

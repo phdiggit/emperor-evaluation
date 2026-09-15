@@ -36,18 +36,7 @@
     .replace(/不增加第二份深度/g, "不重复计入深度")
     .replace(/抬升基础/g, "提高基础影响量级");
 
-  const historyPublicText = value => readerText(String(value ?? ""))
-    .replace(/\bNEGATIVE\b/g, "负向")
-    .replace(/\bPOSITIVE\b/g, "正向")
-    .replace(/\bMIXED\b/g, "正负混合")
-    .replace(/负向\s*\/\s*持续系统性情境/g, "持续系统性负向情境")
-    .replace(/正向\s*\/\s*持续系统性情境/g, "持续系统性正向情境")
-    .replace(/正负混合\s*\/\s*持续系统性情境/g, "持续系统性正负混合情境")
-    .replace(/项目正式战役群/g, "正式战役材料")
-    .replace(/项目重审明确把/g, "现有裁决将")
-    .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)明确指出/g, "相关人物画像材料指出")
-    .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)因此把这一链裁为/g, "相关人物画像材料将这一链认定为")
-    .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)/g, "相关人物画像材料");
+  const historyPublicText = value => historyReaderText(value);
 
   const netPublicText = value => readerText(String(value ?? ""))
     .replace(/\bC-([0-9]+)-(LOW|MID|HIGH)\b/g, (_, n, p) => `第${n}档·${({LOW:"低位",MID:"中位",HIGH:"高位"})[p]}`)
@@ -603,44 +592,6 @@
     evidence.dataset.personReadable = "done";
   }
 
-  function foldHistoricalImpact() {
-    const evidence = document.querySelector("#history-evidence");
-    if (!evidence || evidence.dataset.impactFolded === "done") return;
-
-    const foldSection = (section, label, badgeText = "") => {
-      if (!section || section.tagName === "DETAILS") return section;
-      const wrapper = document.createElement("details");
-      wrapper.id = section.id;
-      wrapper.className = `${section.className} impact-evidence-fold`.trim();
-      const summary = document.createElement("summary");
-      summary.innerHTML = `<span>${esc(label)}</span>${badgeText ? `<span class="badge">${esc(badgeText)}</span>` : ""}`;
-      wrapper.append(summary);
-
-      const heading = section.querySelector(":scope > h3, :scope > .impact-dimension-head");
-      if (heading) heading.remove();
-      wrapper.append(...Array.from(section.childNodes));
-      section.replaceWith(wrapper);
-      return wrapper;
-    };
-
-    const core = evidence.querySelector(":scope > .impact-core-chains");
-    foldSection(core, "核心历史主链");
-
-    for (const [id, label] of [
-      ["history-dimension-scope", "影响范围"],
-      ["history-dimension-depth_duration", "深度与持续"],
-      ["history-dimension-personal_causality", "个人因果"],
-      ["history-dimension-paradigm", "政治范式"],
-      ["history-judgment-boundary", "判断边界"],
-    ]) {
-      const section = document.getElementById(id);
-      const badge = section?.querySelector(":scope > .impact-dimension-head .badge")?.textContent.trim() || "";
-      foldSection(section, label, badge);
-    }
-
-    evidence.dataset.impactFolded = "done";
-  }
-
   function openHistoricalImpactTarget(event) {
     const link = event.target.closest('[data-section^="history-dimension-"], [data-section="history-judgment-boundary"]');
     if (!link) return;
@@ -692,7 +643,6 @@
     }
     enhanceC5Overview(record);
     enhanceImpact(record);
-    foldHistoricalImpact();
     normalizeEvidenceCardHeadings();
     buildNetReading(record);
     foldNetLedger();
