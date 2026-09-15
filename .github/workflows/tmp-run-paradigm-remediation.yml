@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   remediate:
-    if: github.event.head_commit.message == '运行人物范式整改'
+    if: github.event.head_commit.message == '修正范式整改执行壳'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,23 +33,22 @@ jobs:
           p = Path('.github/workflows/tmp-paradigm-scan.yml')
           lines = p.read_text(encoding='utf-8').splitlines()
           marker = '      - name: Apply paradigm remediation and Liu Che depth review'
-          i = lines.index(marker)
-          i += 1
-          if lines[i].strip() != 'run: |':
-              raise SystemExit('run block not found')
-          i += 1
+          i = lines.index(marker) + 2
           out = []
           while i < len(lines):
               line = lines[i]
-              if line.startswith('      - name:'):
+              if line == '          PY':
+                  out.append('PY')
                   break
               if line.startswith('          '):
                   out.append(line[10:])
-              elif not line.strip():
-                  out.append('')
               else:
-                  raise SystemExit(f'unexpected indentation: {line!r}')
+                  # The invalid large workflow contains literal lines from a Python triple-quoted
+                  # string at column zero. They belong to the embedded Python source verbatim.
+                  out.append(line)
               i += 1
+          else:
+              raise SystemExit('closing heredoc marker not found')
           Path('/tmp/remediate.sh').write_text('\n'.join(out) + '\n', encoding='utf-8')
           print('extracted lines', len(out))
           PY
