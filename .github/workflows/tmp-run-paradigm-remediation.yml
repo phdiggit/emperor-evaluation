@@ -1,0 +1,88 @@
+name: Run paradigm remediation
+
+on:
+  push:
+    branches:
+      - codex/single-ruler-session-control
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  remediate:
+    if: github.event.head_commit.message == '运行人物范式整改'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/single-ruler-session-control
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python -m pip install -e . -r reader/requirements.txt pytest
+
+      - name: Extract and run remediation script
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('.github/workflows/tmp-paradigm-scan.yml')
+          lines = p.read_text(encoding='utf-8').splitlines()
+          marker = '      - name: Apply paradigm remediation and Liu Che depth review'
+          i = lines.index(marker)
+          i += 1
+          if lines[i].strip() != 'run: |':
+              raise SystemExit('run block not found')
+          i += 1
+          out = []
+          while i < len(lines):
+              line = lines[i]
+              if line.startswith('      - name:'):
+                  break
+              if line.startswith('          '):
+                  out.append(line[10:])
+              elif not line.strip():
+                  out.append('')
+              else:
+                  raise SystemExit(f'unexpected indentation: {line!r}')
+              i += 1
+          Path('/tmp/remediate.sh').write_text('\n'.join(out) + '\n', encoding='utf-8')
+          print('extracted lines', len(out))
+          PY
+          bash /tmp/remediate.sh
+
+      - name: Regenerate and verify historical-impact views
+        run: |
+          python v4.py historical-impact-views --write
+          python v4.py historical-impact-verify
+
+      - name: Build and test reader
+        run: |
+          python reader/build_military_archive.py
+          python reader/build.py
+          python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
+
+      - name: Remove temporary workflows and validate diff
+        run: |
+          git rm .github/workflows/tmp-paradigm-scan.yml .github/workflows/tmp-run-paradigm-remediation.yml
+          git diff --check
+          git status --short
+
+      - name: Commit final remediation
+        run: |
+          set -euo pipefail
+          git fetch origin codex/single-ruler-session-control
+          remote_head="$(git rev-parse origin/codex/single-ruler-session-control)"
+          if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
+            echo "Branch moved from $GITHUB_SHA to $remote_head; refusing stale push." >&2
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '收紧人物范式并完成系统补证'
+          git push origin HEAD:codex/single-ruler-session-control
