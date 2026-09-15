@@ -34,7 +34,7 @@ canonical_ruler_pool:
   status: current
   candidate_count: 201
   included_count: 184
-  composite_ready_count: 173
+  composite_ready_count: 174
   pending_second_item_count: 10
   pending_first_item_scope_count: 0
   pending_first_item_formal_settlement_count: 0
@@ -122,7 +122,7 @@ historical_impact_assessment:
   status: formally_settled
   role: independent_third_evaluation_system
   contract: docs/项目总纲/历史影响评价总则.md
-  contract_version: FORMAL-V1.2
+  contract_version: FORMAL-V1.4
   authority_mode: FORMAL_JSON_SOURCE
   payload_schema_version: historical-impact-formal-v2
   canonical_pool: config/common/canonical-ruler-pool.json
@@ -137,7 +137,6 @@ historical_impact_assessment:
   profile_radar_write: false
   verify_command: historical-impact-verify
   reader_command: historical-impact-views --write
-
 profile_assessment:
   status: nine_axes_formally_settled
   role: independent_non_composite_profile

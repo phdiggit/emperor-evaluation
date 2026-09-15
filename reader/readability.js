@@ -402,18 +402,46 @@
     return found;
   }
 
-  function enhanceFirstItemBattleLinks() {
+  let firstBattleIndexPromise;
+  async function enhanceFirstItemBattleLinks() {
     const card = document.getElementById("net-first-c");
-    if (!card || card.dataset.battleLinks === "done") return;
+    if (!card || card.dataset.battleLinks) return;
     const labels = Array.from(card.querySelectorAll(".net-metric-body > .label"));
     const label = labels.find(node => node.textContent.trim() === "当前人物为什么是这个档");
     const prose = label?.nextElementSibling;
     if (!prose?.classList.contains("prose")) return;
-    const terms = battleTerms(prose.textContent);
-    if (!terms.length) { card.dataset.battleLinks = "done"; return; }
+    card.dataset.battleLinks = "loading";
+    let index;
+    try {
+      firstBattleIndexPromise ||= fetch("data/military/battles-index.json").then(response => {
+        if (!response.ok) throw new Error("战役索引暂不可用");
+        return response.json();
+      });
+      index = await firstBattleIndexPromise;
+    } catch {
+      firstBattleIndexPromise = null;
+      card.dataset.battleLinks = "unavailable";
+      const notice = document.createElement("p");
+      notice.textContent = "战役索引暂未加载，可进入军事档案按事件名查找。";
+      prose.insertAdjacentElement("afterend", notice);
+      return;
+    }
+    if (!card.isConnected) return;
+    const ruler = card.dataset.ruler;
+    const rows = (index.first_item_c_anchors || []).filter(row => row.ruler === ruler);
+    const seen = new Set();
+    const links = rows.flatMap(row => {
+      const resolved = row.status === "resolved_unique" && row.battle_id;
+      const key = resolved || "related-person-records";
+      if (!key || seen.has(key)) return [];
+      seen.add(key);
+      const title = resolved ? index.records.find(record => record.id === resolved)?.name || row.anchor : `${ruler}的相关军事记录（含概括性引文）`;
+      return [`<a href="military.html#${resolved ? "battle=" + encodeURIComponent(resolved) : "evidence=" + encodeURIComponent(ruler)}">${esc(title)} →</a>`];
+    });
+    if (!links.length) { card.dataset.battleLinks = "done"; return; }
     const block = document.createElement("div");
     block.className = "first-battle-links";
-    block.innerHTML = `<div class="label">相关战役档案</div><p class="sources">${terms.map(term => `<a href="military.html#search=${encodeURIComponent(term)}">${esc(term)} →</a>`).join(" ")}</p>`;
+    block.innerHTML = `<div class="label">相关战役档案</div><p class="sources">${links.join(" ")}</p>`;
     prose.insertAdjacentElement("afterend", block);
     card.dataset.battleLinks = "done";
   }

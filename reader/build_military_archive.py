@@ -459,17 +459,172 @@ def _reconcile_first_item_c(root: Path, battle_index: dict[str, Any]) -> None:
     battle_index["first_item_c_anchor_lookup_count"] = len(lookup)
 
 
-def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
+def _reader_evidence(root: Path, battle_index: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Project existing source cards and personal results; never infer grades."""
+    by_id = {row["id"]: row for row in battle_index["records"]}
+    routes = battle_index["result_ref_to_battle"]
+    outputs: dict[str, dict[str, Any]] = {}
+    details: dict[str, dict[str, Any]] = {}
+    sources: dict[str, Any] = {}
+    for shard in sorted((root / _CORE.BATTLE_DIR).glob("*.json")):
+        for record in _CORE._load(shard).get("records", []):
+            row = by_id[record["war_event_id"]]
+            phases = record.get("subject_phase_views") or []
+            parts = []
+            for phase in phases:
+                parts.extend(str(phase.get(key) or "") for key in ("evaluation_subject_phase", "actual_process", "carry_in", "carry_out"))
+                parts.append(str((phase.get("ruler_binding") or {}).get("ruler_name") or ""))
+            row["search_text"] = " ".join(parts)
+            if not phases:
+                continue
+            filename = "evidence/" + shard.name
+            row["evidence_source"] = "data/military/" + filename
+            detail = {"source_cards": [], "personal_results": []}
+            details[row["id"]] = detail
+            outputs.setdefault(filename, {})[row["id"]] = detail
+            phase_groups = {str(phase.get("campaign_group_ref") or "") for phase in phases}
+            phase_refs = {str(ref) for phase in phases for ref in phase.get("source_anchor_refs") or []}
+            for ref in row.get("source_files", []):
+                if not ref.endswith(".json"):
+                    continue
+                if ref not in sources:
+                    sources[ref] = _CORE._load(root / ref)
+                source = sources[ref]
+                for card in source.get("cards", source.get("battles", [])):
+                    anchors = list(dict.fromkeys(card.get("source_anchor_refs") or card.get("source_refs") or []))
+                    if card.get("campaign_group") not in phase_groups and not phase_refs.intersection(anchors):
+                        continue
+                    identity = source.get("source_identity") or {}
+                    detail["source_cards"].append({
+                        "title": card.get("battle_label"),
+                        "source_volume": source.get("source_volume") or (str(source.get("chronicle") or "") + "/卷" + str(source.get("volume") or "")),
+                        "source_url": identity.get("source_url") or source.get("source_url"),
+                        "revision": identity.get("revision_ref") or source.get("revision_ref"),
+                        "source": ref,
+                        "group": card.get("campaign_group"),
+                        "refs": anchors,
+                        "quotes": [quote for quote in card.get("source_quotes") or [] if isinstance(quote, str)],
+                    })
+            if not detail["source_cards"] and record.get("source_quotes"):
+                identity = (record.get("source_lineage") or {}).get("source_identity") or {}
+                refs = list(dict.fromkeys([*(record.get("source_refs") or []), *sorted(phase_refs)]))
+                book_ref = next((ref.split("@", 1)[0] for ref in refs if "/" in ref and "@" in ref), "")
+                detail["source_cards"].append({
+                    "title": record.get("canonical_label"), "source_volume": book_ref or identity.get("work_title"),
+                    "source_url": identity.get("source_url"), "revision": identity.get("revision_ref"),
+                    "source": row["source"], "group": "", "refs": refs,
+                    "quotes": [quote for quote in record["source_quotes"] if isinstance(quote, str)],
+                })
+    seen = set()
+    lineage_anchors = [anchor for anchor in battle_index.get("first_item_c_anchors", []) if anchor.get("status") == "resolved_unique" and anchor.get("resolution_mode") == "registry_lineage"]
+    public_rows = _public_battle_rows(root) if lineage_anchors else []
+    for shard in sorted((root / _CORE.COMMANDER_DIR).glob("*.json")):
+        for profile in _CORE._load(shard).get("profiles", []):
+            for collection in ("consumed_achievements", "negative_or_mixed_command_records", "failure_accountability"):
+                for item in profile.get(collection) or []:
+                    battle_id = _achievement_battle_id_from_routes(item, routes)
+                    if not battle_id and lineage_anchors:
+                        keys, fragments = _source_lineage_from_refs(item.get("source_refs"))
+                        evidence_row = {"source_keys": keys, "source_fragments": fragments, "dynasties": {profile.get("dynasty"), *(profile.get("dynasty_aliases") or [])}}
+                        names = {profile.get("person"), *(profile.get("name_aliases") or [])}
+                        linked = set()
+                        for anchor in lineage_anchors:
+                            if anchor.get("ruler") not in names or (item.get("campaign_tier"), item.get("combat_difficulty")) != (anchor.get("result_grade"), anchor.get("difficulty_grade")):
+                                continue
+                            if not _CORE._anchor_score(anchor["anchor"], str(item.get("canonical_label") or "") + " " + str(item.get("basis") or "")):
+                                continue
+                            candidate = _lineage_parent_battle(anchor, evidence_row, public_rows)
+                            if candidate == anchor.get("battle_id"):
+                                linked.add(candidate)
+                        if len(linked) == 1:
+                            battle_id = next(iter(linked))
+                            for key in ("person_command_result_ref", "capability_episode_ref", "campaign_ref"):
+                                if item.get(key):
+                                    routes[item[key]] = battle_id
+                    if battle_id not in details:
+                        continue
+                    ref = item.get("person_command_result_ref") or item.get("capability_episode_ref") or item.get("campaign_ref")
+                    signature = (battle_id, profile.get("profile_ref"), ref, item.get("result_direction"))
+                    if signature in seen:
+                        continue
+                    seen.add(signature)
+                    details[battle_id]["personal_results"].append({
+                        "person": profile.get("person"), "profile_ref": profile.get("profile_ref"),
+                        "source": shard.relative_to(root).as_posix(), "record": item,
+                    })
+                    names = [profile.get("person"), *(profile.get("name_aliases") or [])]
+                    by_id[battle_id]["search_text"] += " " + " ".join(str(name) for name in names if name)
+    return outputs
+
+
+def _build_outputs(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     battle_index, commander_index = _CORE.build_indexes(root)
     _reconcile_first_item_c(root, battle_index)
+    # All published reference types must work for dossier links, including a
+    # direct war_event_id rather than only a personal result reference.
+    routes, _ = _collect_registry_routes(root)
+    battle_index["result_ref_to_battle"].update(routes)
+    contexts: dict[str, dict[str, Any]] = {}
+    context_path = root / "config/military/unification-campaign-tier-adjudications.json"
+    adjudications = _CORE._load(context_path) if context_path.is_file() else {}
+    for portfolio in adjudications.get("adjudications", []):
+        for group in portfolio.get("campaign_groups", []):
+            payload = group.get("payload") or {}
+            contexts[group["campaign_group_id"]] = {
+                "prewar": payload.get("prewar_context", ""),
+                "objective": payload.get("strategic_objective", ""),
+                "actions": [
+                    {"person": member.get("actor_name", ""), "text": member["military_capability_contribution"]["basis"]}
+                    for member in group.get("members", [])
+                    if isinstance(member.get("military_capability_contribution"), dict)
+                    and member["military_capability_contribution"].get("basis")
+                ],
+                "sources": ["config/military/unification-campaign-tier-adjudications.json", *group.get("source_refs", [])],
+            }
+    notes_path = root / "reader/military-reading-notes.json"
+    notes = _CORE._load(notes_path).get("records", {}) if notes_path.is_file() else {}
+    by_id = {row["id"]: row for row in battle_index["records"]}
+    for row in battle_index["records"]:
+        context = dict(contexts.get(row["id"], {}))
+        note = notes.get(row["id"], {})
+        for source in note.get("sources", []):
+            if source.startswith(("docs/", "config/")) and not (root / source.split("#", 1)[0]).is_file():
+                raise ValueError(f"missing reading-note source: {source}")
+        context.update(note)
+        if context:
+            row["reading_context"] = context
+        row["context"] = context.get("prewar", "")
+        row["aliases"] = []
+    for anchor in battle_index.get("first_item_c_anchors", []):
+        row = by_id.get(anchor.get("battle_id"))
+        if row is not None and anchor.get("status") == "resolved_unique":
+            alias = anchor.get("anchor")
+            if alias and alias not in row["aliases"]:
+                row["aliases"].append(alias)
+    for shard in sorted((root / _CORE.BATTLE_DIR).glob("*.json")):
+        for record in _CORE._load(shard).get("records", []):
+            row = by_id.get(record.get("war_event_id"))
+            if row is not None:
+                row["disposition"] = record.get("disposition")
+                row["public_outcome_registered"] = record.get("public_outcome_registered")
+                row["phase_count"] = len(record.get("subject_phase_views") or [])
+                row["source_files"] = [ref for ref in record.get("source_lineage", {}).get("source_files", []) if (root / ref.split("#", 1)[0]).is_file()]
+    evidence = _reader_evidence(root, battle_index)
+    return battle_index, commander_index, evidence
+
+
+def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
+    battle_index, commander_index, _ = _build_outputs(root)
     return battle_index, commander_index
 
 
 def main() -> None:
-    battle_index, commander_index = build_indexes(ROOT)
+    battle_index, commander_index, evidence = _build_outputs(ROOT)
     out = ROOT / OUTPUT_DIR
     _CORE._write(out / "battles-index.json", battle_index)
     _CORE._write(out / "commanders-index.json", commander_index)
+    for filename, payload in evidence.items():
+        _CORE._write(out / filename, payload)
     stats = battle_index["first_item_c_anchor_stats"]
     print(
         "military archive indexes: "

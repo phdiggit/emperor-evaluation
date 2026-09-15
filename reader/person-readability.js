@@ -36,18 +36,7 @@
     .replace(/不增加第二份深度/g, "不重复计入深度")
     .replace(/抬升基础/g, "提高基础影响量级");
 
-  const historyPublicText = value => readerText(String(value ?? ""))
-    .replace(/\bNEGATIVE\b/g, "负向")
-    .replace(/\bPOSITIVE\b/g, "正向")
-    .replace(/\bMIXED\b/g, "正负混合")
-    .replace(/负向\s*\/\s*持续系统性情境/g, "持续系统性负向情境")
-    .replace(/正向\s*\/\s*持续系统性情境/g, "持续系统性正向情境")
-    .replace(/正负混合\s*\/\s*持续系统性情境/g, "持续系统性正负混合情境")
-    .replace(/项目正式战役群/g, "正式战役材料")
-    .replace(/项目重审明确把/g, "现有裁决将")
-    .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)明确指出/g, "相关人物画像材料指出")
-    .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)因此把这一链裁为/g, "相关人物画像材料将这一链认定为")
-    .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)/g, "相关人物画像材料");
+  const historyPublicText = value => historyReaderText(value);
 
   const netPublicText = value => readerText(String(value ?? ""))
     .replace(/\bC-([0-9]+)-(LOW|MID|HIGH)\b/g, (_, n, p) => `第${n}档·${({LOW:"低位",MID:"中位",HIGH:"高位"})[p]}`)
@@ -567,11 +556,11 @@
       const box = document.getElementById(`chain-${chain.chain_id}`);
       const summary = box?.querySelector(":scope > summary");
       if (!box || !summary || box.dataset.publicNarrative === "done") continue;
-      let node = summary.nextSibling;
-      while (node) {
-        const next = node.nextSibling;
-        node.remove();
-        node = next;
+      const sourceBox = Array.from(box.children).find(
+        node => node.tagName === "DETAILS" && node.classList.contains("impact-source-list")
+      );
+      for (const node of Array.from(box.children)) {
+        if (node !== summary && node !== sourceBox) node.remove();
       }
       summary.after(fragment(prose(historyPublicText(chain.narrative))));
       box.dataset.publicNarrative = "done";
@@ -601,6 +590,13 @@
       if (summary) summary.textContent = "完整定档依据";
     }
     evidence.dataset.personReadable = "done";
+  }
+
+  function openHistoricalImpactTarget(event) {
+    const link = event.target.closest('[data-section^="history-dimension-"], [data-section="history-judgment-boundary"]');
+    if (!link) return;
+    const target = document.getElementById(link.dataset.section);
+    if (target?.tagName === "DETAILS") target.open = true;
   }
 
   function foldNetLedger() {
@@ -652,6 +648,7 @@
     foldNetLedger();
   }
 
+  screen.addEventListener("click", openHistoricalImpactTarget, true);
   new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});
   window.addEventListener("hashchange", enhance);
   enhance();

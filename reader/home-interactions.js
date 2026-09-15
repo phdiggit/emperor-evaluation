@@ -408,7 +408,7 @@
   async function loadFirstItemDoc(ref) {
     if (!ref) return "";
     if (firstItemDocCache.has(ref)) return firstItemDocCache.get(ref);
-    const pending = fetch(firstItemRawUrl(ref), {cache: "force-cache"})
+    const pending = fetch(firstItemRawUrl(ref), {cache: "no-cache"})
       .then(response => response.ok ? response.text() : "")
       .catch(() => "");
     firstItemDocCache.set(ref, pending);
@@ -448,15 +448,32 @@
   }
 
   function firstMetricDetail(id, title, subtitle, score, body, item, record) {
-    return `<details id="${id}" class="net-metric-detail"><summary><span><strong>${title}</strong><small>${subtitle}</small></span><b>${esc(netValue(item))}</b></summary><div class="net-metric-body">${body}${auditSourceBlock(item, record)}</div></details>`;
+    return `<details id="${id}" data-ruler="${esc(record.ruler_name)}" class="net-metric-detail"><summary><span><strong>${title}</strong><small>${subtitle}</small></span><b>${esc(netValue(item))}</b></summary><div class="net-metric-body">${body}${auditSourceBlock(item, record)}</div></details>`;
+  }
+
+  function firstEvidenceMarkup(value, component) {
+    const text = String(value || "");
+    const base = new URL(`../${firstItemDocs[component]}`, location.href);
+    let output = "", cursor = 0;
+    for (const match of text.matchAll(/\[([^\]]+)\]\(([^)]+)\)/g)) {
+      output += esc(text.slice(cursor, match.index));
+      const href = new URL(match[2], base);
+      output += ["http:", "https:"].includes(href.protocol)
+        ? `<a href="${esc(href.href)}" target="_blank" rel="noopener">${esc(match[1])} ↗</a>` : esc(match[1]);
+      cursor = match.index + match[0].length;
+    }
+    return output + esc(text.slice(cursor));
   }
 
   function renderFirstA(item, bullets, record) {
-    const result = bullets["A结算"] || "";
-    const scale = bullets["取得/恢复成果"] || "";
+    const result = bullets["结算结果"] || bullets["A结算"] || "";
+    const scale = bullets["本人取得/归属成果"] || bullets["取得/恢复成果"] || "";
+    const project = bullets["项目总成果"] || "";
     const content = bullets["成果内容"] || "";
     const calculation = bullets["计算"] || item.reader_how || "";
-    const body = `<div class="label">A是什么意思</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下了多少稳定控制成果。继承来的既有版图不算本人新增；起点强弱、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">U是什么意思</div>${prose("U = 有效控制信用。新增的稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个“全国核心统一尺度”。U不是人口、面积或军队人数，而是统一成果规模的标准化信用。公式：U = 新增稳定空间控制 + 50% × 恢复稳定空间控制。")}${scale || content ? `<div class="label">当前人物的U怎么来</div>${prose([scale, content].filter(Boolean).join("\n"))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`A = 120 × (min(1000, U) / 1000)^0.65，最后保留1位小数。${calculation ? `\n当前人物正式代入：${calculation}` : ""}${result ? `\n正式结算：${result}` : ""}`)}</details>`;
+    const boundary = bullets["分账边界"] || "";
+    const allocation = project ? `<div class="label">共同成果为什么这样分</div><p class="prose">${firstEvidenceMarkup(boundary || "当前正式条目未单列分账理由。", "A统一贡献")}</p>${/暂按/.test(boundary || content) ? '<p class="notice">这里保留的是正式记录的整体信用分配。当前条目未展开逐地区、逐成果节点的份额证明；下方公式说明如何换分，不代表已经证明分配比例。</p>' : ""}` : "";
+    const body = `<div class="label">A是什么意思</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下了多少稳定控制成果。继承来的既有版图不算本人新增；起点强弱、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">U是什么意思</div>${prose("U = 有效控制信用。新增的稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个“全国核心统一尺度”。U不是人口、面积或军队人数，而是统一成果规模的标准化信用。公式：U = 新增稳定空间控制 + 50% × 恢复稳定空间控制。")}${scale || content ? `<div class="label">当前人物的U怎么来</div>${prose([project, scale, content, bullets["分账说明"]].filter(Boolean).join("\n"))}` : ""}${allocation}<details><summary>这个分怎么算？</summary>${prose(`单人项目：A = 120 × (min(1000, U) / 1000)^0.65；共同项目先算项目A池，再按本人控制信用占项目总信用的比例分配，不把个人信用再次代入曲线。最后保留1位小数。${calculation ? `\n当前人物正式代入：${calculation}` : ""}${result ? `\n正式结算：${result}` : ""}`)}</details>`;
     return firstMetricDetail("net-first-a", "A · 统一主链客观贡献", "满分120；只看本人最终留下的稳定控制成果", item.value, body, item, record);
   }
 
@@ -469,13 +486,20 @@
     return firstMetricDetail("net-first-b1", "B1 · 创业难度与战略效率", "满分50；起点15 + 对手15 + 完成效率20", item.value, body, item, record);
   }
 
-  function renderFirstB2(item, bullets, record) {
+  function renderFirstB2(item, bullets, record, contract) {
     const result = bullets["B2结算"] || "";
-    const parallel = bullets["并行执行"] || "";
-    const coverage = bullets["团队能力覆盖与组织杠杆"] || bullets["能力覆盖/组织杠杆"] || "";
-    const integration = bullets["异质整合"] || "";
+    const explainLevel = (value, section) => {
+      const level = String(value || "").match(/L[0-5]/)?.[0];
+      const part = contract.split(`### ${section}`)[1]?.split(/\n###? /)[0] || "";
+      const row = part.split("\n").find(line => level && line.startsWith(`| ${level} |`));
+      const meaning = row?.split("|")[3]?.trim();
+      return [firstItemPublicText(value), meaning ? `本档要求：${meaning}。` : ""].filter(Boolean).join(" ");
+    };
+    const parallel = explainLevel(bullets["并行执行"], "4.1");
+    const coverage = explainLevel(bullets["团队能力覆盖与组织杠杆"] || bullets["能力覆盖/组织杠杆"], "4.2");
+    const integration = explainLevel(bullets["异质整合"], "4.3");
     const basis = bullets["裁决依据"] || "";
-    const body = `<div class="label">B2是什么意思</div>${prose("B2看创业或统一机器能不能脱离本人逐项盯办而运行：能否多线并行、能否把高难任务交给专业责任中心、能否把不同地域和旧集团稳定整合进同一执行体系。")}<div class="label">L档怎么换分</div>${prose("每个维度都用L0—L5六档：L0=0分、L1=2分、L2=4分、L3=6分、L4=8分、L5=10分。三项相加就是B2。")}${parallel ? `<div class="label">并行执行</div>${prose(firstItemPublicText(parallel))}` : ""}${coverage ? `<div class="label">专业覆盖与组织杠杆</div>${prose(firstItemPublicText(coverage))}` : ""}${integration ? `<div class="label">异质整合</div>${prose(firstItemPublicText(integration))}` : ""}${basis ? `<div class="label">当前人物为什么这样判</div>${prose(firstItemPublicText(basis))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`B2 = 并行执行分 + 专业覆盖／组织杠杆分 + 异质整合分。${result ? `\n当前人物正式结算：${firstItemPublicText(result)}` : ""}`)}</details>`;
+    const body = `<div class="label">B2是什么意思</div>${prose("B2看创业或统一机器能不能脱离本人逐项盯办而运行：能否多线并行、能否把高难任务交给专业责任中心、能否把不同地域和旧集团稳定整合进同一执行体系。")}<div class="label">L档怎么换分</div>${prose("每个维度都用L0—L5六档：L0=0分、L1=2分、L2=4分、L3=6分、L4=8分、L5=10分。三项相加就是B2。")}${parallel ? `<div class="label">并行执行</div>${prose(parallel)}` : ""}${coverage ? `<div class="label">专业覆盖与组织杠杆</div>${prose(coverage)}` : ""}${integration ? `<div class="label">异质整合</div>${prose(integration)}` : ""}${basis ? `<div class="label">本人组织表现与限制</div>${prose(firstItemPublicText(basis))}` : ""}${bullets["材料来源"] ? `<div class="label">史料与归责来源</div><p class="sources">${firstEvidenceMarkup(bullets["材料来源"], "B2组织与整合")}</p>` : ""}<details><summary>这个分怎么算？</summary>${prose(`B2 = 并行执行分 + 专业覆盖／组织杠杆分 + 异质整合分。${result ? `\n当前人物正式结算：${firstItemPublicText(result)}` : ""}`)}</details>`;
     return firstMetricDetail("net-first-b2", "B2 · 创业组织与政治整合", "满分30；三项各10分", item.value, body, item, record);
   }
 
@@ -520,15 +544,30 @@
     }));
     if (!location.hash.startsWith(`#net/${encodeURIComponent(record.ruler_id)}/first`)) return;
 
+    const contract = await loadFirstItemDoc("docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md");
+    const mainWindow = contract.split("## 7. ")[1]?.split("## 8.")[0]?.split("\n").find(line => line.startsWith("| ") && line.split("|")[1]?.trim() === record.ruler_name)?.split("|")[2]?.trim();
     const byLabel = Object.fromEntries(items.map(item => [item.label, item]));
+    const windowText = bulletsByLabel["B1创业难度与效率"]["效率"] || "";
+    const ownA = bulletsByLabel["A统一贡献"];
+    if (ownA["项目总成果"]) {
+      const aDoc = await loadFirstItemDoc(firstItemDocs["A统一贡献"]);
+      const people = [...aDoc.matchAll(/^###\s+\d+\.\s+(.+)$/gm)].map(match => match[1].trim());
+      const partners = people.map(name => ({name, fields:firstItemBullets(aDoc,name)})).filter(person => person.fields["项目总成果"] === ownA["项目总成果"]);
+      ownA["分账说明"] = `分账对象与分数：${partners.map(person => {
+        const credit = (person.fields["本人取得/归属成果"] || "").split("；")[0].replace(/[。；]+$/, "");
+        const score = (person.fields["结算结果"] || "").replace(/[。；]+$/, "");
+        return `${person.name}：${credit}，${score}`;
+      }).join("；")}。`;
+    }
+    if (!container.isConnected) return;
     const cards = [];
     if (byLabel["A统一贡献"]) cards.push(renderFirstA(byLabel["A统一贡献"], bulletsByLabel["A统一贡献"], record));
     if (byLabel["B1创业难度与效率"]) cards.push(renderFirstB1(byLabel["B1创业难度与效率"], bulletsByLabel["B1创业难度与效率"], record));
-    if (byLabel["B2组织与整合"]) cards.push(renderFirstB2(byLabel["B2组织与整合"], bulletsByLabel["B2组织与整合"], record));
+    if (byLabel["B2组织与整合"]) cards.push(renderFirstB2(byLabel["B2组织与整合"], bulletsByLabel["B2组织与整合"], record, contract));
     if (byLabel["C军事统帅与战争解题"]) cards.push(renderFirstC(byLabel["C军事统帅与战争解题"], bulletsByLabel["C军事统帅与战争解题"], record));
     if (byLabel["军事成本扣分"]?.value != null) cards.push(metricDetail(byLabel["军事成本扣分"], record));
 
-    container.innerHTML = `<section class="panel net-detail-group"><h2>${esc(netMajorSpecs.first.title)}</h2><p class="reading-intro">这里展示当前人物自己的A、B1、B2、C判断与公式。原始整份正式结算文档只放在每个指标最底部的审计入口。</p>${cards.join("")}${firstTotals(items)}</section>`;
+    container.innerHTML = `<section class="panel net-detail-group"><div class="notice"><strong>这页采用哪些时间与责任范围？</strong><p>本项评价建国、复国或统一主链，可以包含即位前的本人责任。B1完成效率的计时点，不自动截断A、B2、C及军事成本范围。</p><dl><dt>创业／统一主链</dt><dd>${esc(mainWindow || ownA["成果内容"] || "按逐人正式条目确定主链，未单列统一起止年份。")}</dd>${windowText ? `<dt>B1完成效率计时</dt><dd>${esc(firstItemPublicText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources"><a href="../docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md" target="_blank" rel="noopener">主链与分项边界 ↗</a></p></div>${cards.join("")}${firstTotals(items)}</section>`;
     if (focus) requestAnimationFrame(() => document.getElementById(`net-first-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));
   }
 
@@ -560,7 +599,7 @@
 
   function renderNetShell(record, active, body) {
     nav("");
-    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(record.ruler_name)}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 净收益计分</div><h1>${esc(record.ruler_name)} · ${esc(netMajorSpecs[active]?.title || "净收益")}</h1><p class="muted">实际权力窗口：${esc(record.actual_power_window)} · 总榜净收益 ${number(record.net?.total_score)}</p></div></div>${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
+    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(record.ruler_name)}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 净收益计分</div><h1>${esc(record.ruler_name)} · ${esc(netMajorSpecs[active]?.title || "净收益")}</h1><p class="muted">${active === "first" ? "人物在位／掌权时期（不是本项采用窗口）" : "实际权力窗口"}：${esc(record.actual_power_window)} · 总榜净收益 ${number(record.net?.total_score)}</p></div></div>${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
   }
 
   function renderNetLanding(record) {
@@ -577,7 +616,7 @@
     const scoreNote = major === "first" && record.net?.first_item_status === "APPLICABLE"
       ? `进入总榜的附加分：${number(value)}；第一项扣军事成本后的原始净分 S1：${number(record.net.first_item_raw_score)}。`
       : major === "first" ? "该人物第一项不适用。" : `本项进入总榜的分值：${value == null ? "—" : number(value)}。`;
-    renderNetShell(record, major, `<section class="panel"><h2>${esc(spec.title)}</h2><p>${esc(spec.description)}</p><p class="subline">${esc(scoreNote)}</p></section><div id="net-major-body"><div class="empty">正在整理当前人物的逐项结算逻辑…</div></div>`);
+    renderNetShell(record, major, `<section class="panel">${major === "first" ? "" : `<h2>${esc(spec.title)}</h2>`}<p>${esc(spec.description)}</p><p class="subline">${esc(scoreNote)}</p></section><div id="net-major-body"><div class="empty">正在整理当前人物的逐项结算逻辑…</div></div>`);
     if (major === "first") void renderFirstMajor(record, focus);
     else renderGenericMajor(record, major, focus);
   }
@@ -602,7 +641,7 @@
     if (pendingNetRecords.has(id)) return pendingNetRecords.get(id);
     if (!record.detail_ref) throw new Error(`Missing detail_ref for ${id}`);
     const pending = (async () => {
-      const response = await fetch(record.detail_ref, {cache: "force-cache"});
+      const response = await fetch(record.detail_ref, {cache: "no-cache"});
       if (!response.ok) throw new Error(`Failed to load ${record.detail_ref}: HTTP ${response.status}`);
       const payload = await response.json();
       if (!payload?.record || payload.record.ruler_id !== id) throw new Error(`Detail payload ruler_id mismatch for ${id}`);

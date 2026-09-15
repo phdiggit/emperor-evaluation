@@ -24,7 +24,7 @@
     if (!record.detail_ref) throw new Error(`Missing detail_ref for ${id}`);
 
     const request = (async () => {
-      const response = await fetch(record.detail_ref, {cache: "force-cache"});
+      const response = await fetch(record.detail_ref, {cache: "no-cache"});
       if (!response.ok) throw new Error(`Failed to load ${record.detail_ref}: HTTP ${response.status}`);
       const payload = await response.json();
       if (!payload || !payload.record || payload.record.ruler_id !== id) {
@@ -97,6 +97,37 @@
     renderGeneration += 1;
     return baseGuide();
   };
+
+  // Keep first-item newcomer guidance outside the base template and load it as a
+  // small progressive enhancement. The base reader still works if this file is
+  // unavailable, while generated index.html does not need another large inline block.
+  if (!document.querySelector('script[data-first-item-reading]')) {
+    const script = document.createElement("script");
+    script.src = "first-item-reading.js";
+    script.async = false;
+    script.dataset.firstItemReading = "true";
+    document.head.append(script);
+  }
+
+  // Boundary notes only appear for first-item cases that are easy to misread:
+  // zero personal command attribution, partial attribution scores, or zero outcome.
+  if (!document.querySelector('script[data-first-item-boundary-notes]')) {
+    const script = document.createElement("script");
+    script.src = "first-item-boundary-notes.js";
+    script.async = false;
+    script.dataset.firstItemBoundaryNotes = "true";
+    document.head.append(script);
+  }
+
+  // Second-item reading guidance makes the three real score blocks explicit before
+  // readers enter the lower-level method, outcome and handoff indicators.
+  if (!document.querySelector('script[data-second-item-reading]')) {
+    const script = document.createElement("script");
+    script.src = "second-item-reading.js";
+    script.async = false;
+    script.dataset.secondItemReading = "true";
+    document.head.append(script);
+  }
 
   // The template performs one synchronous first render before this enhancement is
   // injected. Re-route once so direct person/compare URLs immediately switch to
