@@ -28,6 +28,10 @@
     return number == null ? "—" : number.toFixed(digits);
   }
 
+  function setNodeText(node, text) {
+    if (node && node.textContent !== text) node.textContent = text;
+  }
+
   function signedFmt(value, digits = 1) {
     const number = finite(value);
     if (number == null) return "—";
@@ -195,8 +199,8 @@
     const strong = summary?.querySelector("strong");
     const value = summary?.querySelector(":scope > b");
     const span = summary?.querySelector(":scope > span");
-    if (titleText && strong) strong.textContent = titleText;
-    if (value) value.textContent = valueText;
+    if (titleText) setNodeText(strong, titleText);
+    setNodeText(value, valueText);
     if (span) {
       let note = span.querySelector(":scope > .second-item-scale-note");
       if (!note) {
@@ -204,7 +208,7 @@
         note.className = "second-item-scale-note";
         span.append(note);
       }
-      note.textContent = noteText;
+      setNodeText(note, noteText);
     }
   }
 
@@ -223,7 +227,7 @@
     const section = document.getElementById("net-group-method");
     if (!section) return;
     const heading = section.querySelector(":scope > h2");
-    if (heading) heading.textContent = "治理手段 · 制度与行政";
+    setNodeText(heading, "治理手段 · 制度与行政");
     addGroupIntro(section, "method", `这一组看国家机器怎么运转。A、B1、B2右侧显示的是方向指数，不是可直接相加的分数；它们按正式公式折算后，当前人物的治理手段小计为 ${fmt(totals.methodScore)} / 165。`);
     addScaleNotes(section, "方向指数｜折算后计入");
   }
@@ -249,7 +253,7 @@
     const section = document.getElementById("net-group-finance");
     if (!section) return;
     const heading = section.querySelector(":scope > h2");
-    if (heading) heading.textContent = "治理结果 · 财政与民生";
+    setNodeText(heading, "治理结果 · 财政与民生");
     addGroupIntro(section, "finance", `C1—C3是三种不同满分的状态分：民生80、经济财政35、社会安全60；不能直接拿绝对数字比高低。C4不是第四个状态分，而是“恢复增量与额外成本”调整项。四项合计为 ${fmt(totals.resultScore)} / 202。`);
 
     setMetricDisplay(metricDetail(section, "C1民生"), `${fmt(totals.c1)} / 80 分`, "状态分｜满分80");
@@ -264,7 +268,7 @@
     const section = document.getElementById("net-group-handoff");
     if (!section) return;
     const heading = section.querySelector(":scope > h2");
-    if (heading) heading.textContent = "交接质量 · 政权交接";
+    setNodeText(heading, "交接质量 · 政权交接");
     const d1 = finite(totals.handoff.get("D1继任行政连续性")?.value);
     const d3 = finite(totals.handoff.get("D3政权交接稳定")?.value);
     const cap = finite(totals.handoff.get("低侧封顶")?.value);
@@ -279,10 +283,11 @@
     setMetricDisplay(metricDetail(section, "D3政权交接稳定"), d3 == null ? "—" : `${fmt(d3, 0)} / 5 级`, "等级输入｜继承过程稳定");
 
     for (const strong of section.querySelectorAll(".net-calculations .component strong")) {
-      if (strong.textContent.trim() === "低侧封顶") strong.textContent = "交接短板上限";
+      if (strong.textContent.trim() === "低侧封顶") setNodeText(strong, "交接短板上限");
     }
     for (const small of section.querySelectorAll(".net-calculations .component small")) {
-      small.textContent = small.textContent.replace(/低侧封顶/g, "交接短板上限");
+      const next = small.textContent.replace(/低侧封顶/g, "交接短板上限");
+      setNodeText(small, next);
     }
   }
 
