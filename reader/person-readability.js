@@ -603,6 +603,51 @@
     evidence.dataset.personReadable = "done";
   }
 
+  function foldHistoricalImpact() {
+    const evidence = document.querySelector("#history-evidence");
+    if (!evidence || evidence.dataset.impactFolded === "done") return;
+
+    const foldSection = (section, label, badgeText = "") => {
+      if (!section || section.tagName === "DETAILS") return section;
+      const wrapper = document.createElement("details");
+      wrapper.id = section.id;
+      wrapper.className = `${section.className} impact-evidence-fold`.trim();
+      const summary = document.createElement("summary");
+      summary.innerHTML = `<span>${esc(label)}</span>${badgeText ? `<span class="badge">${esc(badgeText)}</span>` : ""}`;
+      wrapper.append(summary);
+
+      const heading = section.querySelector(":scope > h3, :scope > .impact-dimension-head");
+      if (heading) heading.remove();
+      wrapper.append(...Array.from(section.childNodes));
+      section.replaceWith(wrapper);
+      return wrapper;
+    };
+
+    const core = evidence.querySelector(":scope > .impact-core-chains");
+    foldSection(core, "核心历史主链");
+
+    for (const [id, label] of [
+      ["history-dimension-scope", "影响范围"],
+      ["history-dimension-depth_duration", "深度与持续"],
+      ["history-dimension-personal_causality", "个人因果"],
+      ["history-dimension-paradigm", "政治范式"],
+      ["history-judgment-boundary", "判断边界"],
+    ]) {
+      const section = document.getElementById(id);
+      const badge = section?.querySelector(":scope > .impact-dimension-head .badge")?.textContent.trim() || "";
+      foldSection(section, label, badge);
+    }
+
+    evidence.dataset.impactFolded = "done";
+  }
+
+  function openHistoricalImpactTarget(event) {
+    const link = event.target.closest('[data-section^="history-dimension-"], [data-section="history-judgment-boundary"]');
+    if (!link) return;
+    const target = document.getElementById(link.dataset.section);
+    if (target?.tagName === "DETAILS") target.open = true;
+  }
+
   function foldNetLedger() {
     const section = evidenceSection("净收益构成");
     if (!section || section.dataset.ledgerFolded === "done") return;
@@ -647,11 +692,13 @@
     }
     enhanceC5Overview(record);
     enhanceImpact(record);
+    foldHistoricalImpact();
     normalizeEvidenceCardHeadings();
     buildNetReading(record);
     foldNetLedger();
   }
 
+  screen.addEventListener("click", openHistoricalImpactTarget, true);
   new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});
   window.addEventListener("hashchange", enhance);
   enhance();

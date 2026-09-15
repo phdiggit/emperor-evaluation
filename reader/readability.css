@@ -541,3 +541,34 @@
     font-size: 19px;
   }
 }
+
+
+/* Keep all three evidence families collapsed by default. */
+#history-evidence > .impact-evidence-fold {
+  margin-top: 0;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+#history-evidence > .impact-evidence-fold > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+#history-evidence > .impact-evidence-fold > summary .badge {
+  margin-right: 18px;
+  color: var(--red);
+  font: 17px/1.35 Georgia, serif;
+}
+
+#history-evidence > .impact-evidence-fold[open] > summary {
+  margin-bottom: 8px;
+}
+
+#history-evidence > .impact-evidence-fold > .subline:first-of-type {
+  margin-top: 4px;
+}
