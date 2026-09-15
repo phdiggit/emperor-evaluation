@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   remediate:
-    if: github.event.head_commit.message == '运行历史影响阅读链整改'
+    if: github.event.head_commit.message == '修正历史影响阅读链定位'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,7 +26,20 @@ jobs:
         run: python -m pip install -e . -r reader/requirements.txt pytest
 
       - name: Apply reader patch
-        run: python .github/scripts/tmp-impact-reader-ux.py
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('.github/scripts/tmp-impact-reader-ux.py')
+          lines = p.read_text(encoding='utf-8').splitlines()
+          for i, line in enumerate(lines):
+              if line.startswith('audit_panel_re = re.compile('):
+                  lines[i] = '''audit_panel_re = re.compile(r'(<section id="history-evidence" class="panel evidence">)\\$\\{historySections\\(r\\)\\}<details><summary>历史影响 · 来源与核对范围</summary>.*?</details></section>', re.S)'''
+                  break
+          else:
+              raise SystemExit('audit panel regex line not found')
+          p.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          PY
+          python .github/scripts/tmp-impact-reader-ux.py
 
       - name: Rebuild and test reader
         run: |
