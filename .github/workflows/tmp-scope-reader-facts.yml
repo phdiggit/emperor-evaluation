@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   fix:
-    if: github.event.head_commit.message == '运行范围事实说明增强'
+    if: github.event.head_commit.message == '重跑范围事实说明增强'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
           git rm -f .github/tmp-scope-reader-facts.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reader/index.template.html reader/index.html tests/test_reader_person_readability.py .github/tmp-scope-reader-facts.py
+          git add reader/index.template.html reader/index.html tests/test_reader_person_readability.py
           git diff --cached --check
           git commit -m '补强历史影响范围事实依据'
           git push origin HEAD:codex/single-ruler-session-control
