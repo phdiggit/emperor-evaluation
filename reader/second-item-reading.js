@@ -3,7 +3,20 @@
 (() => {
   const screenEl = document.getElementById("screen");
   if (!screenEl) return;
+
+  const SECOND_ITEM_FORMAL_URL = "../docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.json?raw=1";
+  const METHOD_BAND_LABELS = {
+    G0: "最低档",
+    G1: "较低档",
+    G2: "中低档",
+    G3: "中档",
+    G4: "较高档",
+    G5: "最高档",
+  };
+
   let scheduled = false;
+  let secondPoolPromise = null;
+  let officialSecondPool = null;
 
   function currentRecord() {
     if (typeof byId === "undefined") return null;
@@ -28,28 +41,50 @@
     return number == null ? "—" : number.toFixed(digits);
   }
 
-  function setNodeText(node, text) {
-    if (node && node.textContent !== text) node.textContent = text;
-  }
-
   function signedFmt(value, digits = 1) {
     const number = finite(value);
     if (number == null) return "—";
     return `${number > 0 ? "+" : ""}${number.toFixed(digits)}`;
   }
 
+  function setNodeText(node, text) {
+    if (node && node.textContent !== text) node.textContent = text;
+  }
+
+  function requestOfficialSecondPool() {
+    if (officialSecondPool || secondPoolPromise) return;
+    secondPoolPromise = fetch(SECOND_ITEM_FORMAL_URL, {cache: "no-store"})
+      .then(response => {
+        if (!response.ok) throw new Error(`second item settlement HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(payload => {
+        const rows = Array.isArray(payload?.records) ? payload.records : [];
+        const total = finite(payload?.record_count) ?? rows.length;
+        const positions = new Map();
+        for (const row of rows) {
+          const rank = finite(row?.rank);
+          const id = String(row?.ruler_id || "");
+          if (id && rank != null) positions.set(id, {rank, total});
+        }
+        officialSecondPool = {positions, total};
+      })
+      .catch(() => {
+        // Never fall back to the 184-person comprehensive reader pool: it is
+        // not the same population as the formal 185-person second-item pool.
+        officialSecondPool = {positions: new Map(), total: null};
+      })
+      .finally(() => {
+        secondPoolPromise = null;
+        schedule();
+      });
+  }
+
   function secondPoolPosition(record) {
-    if (typeof byId === "undefined") return null;
-    const score = finite(record?.net?.second_item_score);
-    if (score == null) return null;
-    const eligible = Array.from(byId.values())
-      .map(item => ({id: String(item?.ruler_id || ""), score: finite(item?.net?.second_item_score)}))
-      .filter(item => item.score != null);
-    if (!eligible.length) return null;
-    return {
-      rank: 1 + eligible.filter(item => item.score > score).length,
-      total: eligible.length,
-    };
+    const id = String(record?.ruler_id || "");
+    const position = officialSecondPool?.positions?.get(id) || null;
+    if (!officialSecondPool) requestOfficialSecondPool();
+    return position;
   }
 
   function secondTotals(record) {
@@ -72,34 +107,16 @@
     };
   }
 
-  function scorePhrase(score, max, phrases) {
-    const value = finite(score);
-    if (value == null) return phrases[2];
-    const ratio = value / max;
-    if (ratio >= 0.75) return phrases[4];
-    if (ratio >= 0.55) return phrases[3];
-    if (ratio >= 0.35) return phrases[2];
-    if (ratio >= 0.18) return phrases[1];
-    return phrases[0];
+  function formalMethodBand(item) {
+    const match = String(item?.grade || "").match(/\bG([0-5])\b/);
+    return match ? METHOD_BAND_LABELS[`G${match[1]}`] : "未标明正式档";
   }
 
   function personConclusion(totals) {
-    const method = scorePhrase(totals.methodScore, 165, ["运转很弱", "运转偏弱", "表现中等", "运转较强", "运转很强"]);
-    const result = scorePhrase(totals.resultScore, 202, ["很差", "偏弱", "中等", "较好", "很好"]);
-    const handoffRatio = totals.handoffScore == null ? null : totals.handoffScore / 20;
-    const handoff = handoffRatio == null
-      ? "交接情况暂无法概括"
-      : handoffRatio >= 0.8
-        ? "离场交接稳"
-        : handoffRatio >= 0.5
-          ? "交接总体尚可"
-          : handoffRatio > 0
-            ? "交接存在明显短板"
-            : "基本未完成有效交接";
-    let c4 = "";
-    if (totals.c4 != null && totals.c4 >= 8) c4 = `；另有明显恢复增量（${signedFmt(totals.c4)}）`;
-    else if (totals.c4 != null && totals.c4 <= -4) c4 = `；额外治理或民力成本又拖累 ${fmt(Math.abs(totals.c4))} 分`;
-    return `国家机器${method}，治理后的社会状态${result}；${handoff}${c4}。`;
+    const a = formalMethodBand(totals.method.get("A制度建设"));
+    const b1 = formalMethodBand(totals.method.get("B1官僚治理"));
+    const b2 = formalMethodBand(totals.method.get("B2反馈与约束"));
+    return `三块总账：治理手段 ${fmt(totals.methodScore)} / 165，治理结果 ${fmt(totals.resultScore)} / 202，交接质量 ${fmt(totals.handoffScore)} / 20。制度行政正式档：制度建设${a}、官僚治理${b1}、反馈约束${b2}；C1—C3首先记录统治窗口内的实际状态，C4净调整 ${signedFmt(totals.c4)}。`;
   }
 
   function ensureStyles() {
@@ -127,7 +144,7 @@
   }
 
   function rankText(totals) {
-    return totals.pool ? `正式池第 ${totals.pool.rank} / ${totals.pool.total}` : "";
+    return totals.pool ? `第二项正式结算第 ${fmt(totals.pool.rank, 0)} / ${fmt(totals.pool.total, 0)}` : "";
   }
 
   function ensureLandingCard(record, totals) {
@@ -135,61 +152,85 @@
     const card = Array.from(document.querySelectorAll(".net-major-card")).find(item =>
       item.getAttribute("href")?.includes("/second")
     );
-    if (!card || card.dataset.secondItemReader === "done") return;
+    if (!card) return;
+
     card.classList.add("second-item-card");
-    const big = card.querySelector(".big");
-    if (big && totals.totalScore != null) big.textContent = `${fmt(totals.totalScore)} / 387`;
+    setNodeText(card.querySelector(".big"), totals.totalScore == null ? "—" : `${fmt(totals.totalScore)} / 387`);
+
     const description = Array.from(card.querySelectorAll(":scope > p")).find(p =>
       !p.classList.contains("sources") && !p.classList.contains("second-item-card-breakdown")
     );
-    if (description) description.textContent = "先看治理机器怎么运转、治理后社会处于什么状态，再看离场时是否把国家稳稳交出去。";
-    if ([totals.methodScore, totals.resultScore, totals.handoffScore].every(value => value != null)) {
-      const breakdown = document.createElement("p");
+    setNodeText(description, "先看治理机器怎么运转、本人统治窗口内社会处于什么状态，再看离场时如何完成终局交班。");
+
+    if ([totals.methodScore, totals.resultScore, totals.handoffScore].some(value => value == null)) return;
+    let breakdown = card.querySelector(":scope > .second-item-card-breakdown");
+    if (!breakdown) {
+      breakdown = document.createElement("p");
       breakdown.className = "second-item-card-breakdown";
-      const rank = rankText(totals);
-      breakdown.textContent = `${rank ? `${rank} · ` : ""}治理手段 ${fmt(totals.methodScore)}/165 · 治理结果 ${fmt(totals.resultScore)}/202 · 交接质量 ${fmt(totals.handoffScore)}/20`;
       const sources = card.querySelector(":scope > p.sources");
       card.insertBefore(breakdown, sources || null);
     }
-    card.dataset.secondItemReader = "done";
+    const rank = rankText(totals);
+    setNodeText(
+      breakdown,
+      `${rank ? `${rank} · ` : ""}治理手段 ${fmt(totals.methodScore)}/165 · 治理结果 ${fmt(totals.resultScore)}/202 · 交接质量 ${fmt(totals.handoffScore)}/20`
+    );
   }
 
   function ensureSecondSummary(record, totals) {
     if (!location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
     const container = document.getElementById("net-major-body");
-    if (!container || container.querySelector(":scope > .second-item-reader-summary")) return;
+    if (!container) return;
     if ([totals.methodScore, totals.resultScore, totals.handoffScore, totals.totalScore].some(value => value == null)) return;
 
     const rank = rankText(totals);
-    const summary = document.createElement("section");
-    summary.className = "second-item-reader-summary";
-    summary.innerHTML = `<h2>先看这个人的治国结论</h2><p class="second-item-person-conclusion">${personConclusion(totals)}</p>${rank ? `<span class="second-item-rank">${rank}</span>` : ""}<div class="second-item-total-grid"><div>治理手段<b>${fmt(totals.methodScore)} / 165</b><small>制度建设、官僚执行、反馈纠错</small></div><div>治理结果<b>${fmt(totals.resultScore)} / 202</b><small>民生、经济财政、社会安全、恢复与额外成本</small></div><div>交接质量<b>${fmt(totals.handoffScore)} / 20</b><small>行政连续性与交接稳定共同决定</small></div></div><div class="second-item-equation">${fmt(totals.methodScore)} + ${fmt(totals.resultScore)} + ${fmt(totals.handoffScore)} = <strong>第二项 ${fmt(totals.totalScore)} / 387</strong></div><p class="subline">本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”；优先结合正式池名次理解高低，再下钻到各指标。</p>`;
-    container.insertBefore(summary, container.firstChild);
+    let summary = container.querySelector(":scope > .second-item-reader-summary");
+    if (!summary) {
+      summary = document.createElement("section");
+      summary.className = "second-item-reader-summary";
+      container.insertBefore(summary, container.firstChild);
+    }
+
+    const renderKey = [
+      totals.methodScore, totals.resultScore, totals.handoffScore, totals.totalScore, totals.c4,
+      rank,
+      formalMethodBand(totals.method.get("A制度建设")),
+      formalMethodBand(totals.method.get("B1官僚治理")),
+      formalMethodBand(totals.method.get("B2反馈与约束")),
+    ].join("|");
+    if (summary.dataset.secondRenderKey !== renderKey) {
+      summary.innerHTML = `<h2>先看这个人的治国结论</h2><p class="second-item-person-conclusion">${personConclusion(totals)}</p>${rank ? `<span class="second-item-rank">${rank}</span>` : ""}<div class="second-item-total-grid"><div>治理手段<b>${fmt(totals.methodScore)} / 165</b><small>制度建设、官僚执行、反馈纠错</small></div><div>治理结果<b>${fmt(totals.resultScore)} / 202</b><small>C1—C3状态账 + C4恢复、恶化与额外成本净调整</small></div><div>交接质量<b>${fmt(totals.handoffScore)} / 20</b><small>离场前后的行政承接与继承稳定</small></div></div><div class="second-item-equation">${fmt(totals.methodScore)} + ${fmt(totals.resultScore)} + ${fmt(totals.handoffScore)} = <strong>第二项 ${fmt(totals.totalScore)} / 387</strong></div><p class="subline">本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”；名次直接读取第二项185人正式结算，不用综合阅读主池重新推算。</p>`;
+      summary.dataset.secondRenderKey = renderKey;
+    }
 
     const page = document.querySelector(".net-detail-page");
     const intro = page?.querySelector(":scope > .panel");
     if (intro) {
       const main = Array.from(intro.querySelectorAll(":scope > p")).find(p => !p.classList.contains("subline"));
       const score = intro.querySelector(":scope > p.subline");
-      if (main) main.textContent = "治国净收益分三层看：治理机器是否有效、治理后社会实际变成什么样、本人离场时能否把这套国家机器稳定交出去。";
-      if (score) score.textContent = `第二项总分：${fmt(totals.totalScore)} / 387${rank ? `；${rank}` : ""}。下面先看人物结论，再展开到各指标。`;
+      setNodeText(main, "治国净收益分三层看：治理机器如何运转、本人统治窗口内社会实际处于什么状态、本人离场前后是否完成稳定交班。状态本身不等于全部由本人造成。");
+      setNodeText(score, `第二项总分：${fmt(totals.totalScore)} / 387${rank ? `；${rank}` : ""}。下面先看正式结论，再展开到各指标。`);
     }
   }
 
   function addGroupIntro(section, key, text) {
-    if (!section || section.querySelector(`:scope > [data-second-intro="${key}"]`)) return;
-    const intro = document.createElement("p");
-    intro.className = "second-item-group-intro";
-    intro.dataset.secondIntro = key;
-    intro.textContent = text;
-    const heading = section.querySelector(":scope > h2");
-    if (heading?.nextSibling) section.insertBefore(intro, heading.nextSibling);
-    else section.append(intro);
+    if (!section) return;
+    let intro = section.querySelector(`:scope > [data-second-intro="${key}"]`);
+    if (!intro) {
+      intro = document.createElement("p");
+      intro.className = "second-item-group-intro";
+      intro.dataset.secondIntro = key;
+      const heading = section.querySelector(":scope > h2");
+      if (heading?.nextSibling) section.insertBefore(intro, heading.nextSibling);
+      else section.append(intro);
+    }
+    setNodeText(intro, text);
   }
 
-  function metricDetail(section, label) {
+  function metricDetail(section, labels) {
+    const wanted = new Set(Array.isArray(labels) ? labels : [labels]);
     return Array.from(section?.querySelectorAll(":scope > .net-metric-detail") || []).find(detail =>
-      detail.querySelector(":scope > summary strong")?.textContent.trim() === label
+      wanted.has(detail.querySelector(":scope > summary strong")?.textContent.trim())
     ) || null;
   }
 
@@ -201,98 +242,105 @@
     const span = summary?.querySelector(":scope > span");
     if (titleText) setNodeText(strong, titleText);
     setNodeText(value, valueText);
-    if (span) {
+    if (!span) return;
+    let note = span.querySelector(":scope > .second-item-scale-note");
+    if (!note) {
+      note = document.createElement("small");
+      note.className = "second-item-scale-note";
+      span.append(note);
+    }
+    setNodeText(note, noteText);
+  }
+
+  function addScaleNotes(section, text) {
+    for (const detail of section?.querySelectorAll(":scope > .net-metric-detail") || []) {
+      const span = detail.querySelector(":scope > summary > span");
+      if (!span) continue;
       let note = span.querySelector(":scope > .second-item-scale-note");
       if (!note) {
         note = document.createElement("small");
         note.className = "second-item-scale-note";
         span.append(note);
       }
-      setNodeText(note, noteText);
-    }
-  }
-
-  function addScaleNotes(section, text) {
-    for (const detail of section?.querySelectorAll(":scope > .net-metric-detail") || []) {
-      const span = detail.querySelector(":scope > summary > span");
-      if (!span || span.querySelector(":scope > .second-item-scale-note")) continue;
-      const note = document.createElement("small");
-      note.className = "second-item-scale-note";
-      note.textContent = text;
-      span.append(note);
+      setNodeText(note, text);
     }
   }
 
   function ensureMethodGroup(totals) {
     const section = document.getElementById("net-group-method");
     if (!section) return;
-    const heading = section.querySelector(":scope > h2");
-    setNodeText(heading, "治理手段 · 制度与行政");
-    addGroupIntro(section, "method", `这一组看国家机器怎么运转。A、B1、B2右侧显示的是方向指数，不是可直接相加的分数；它们按正式公式折算后，当前人物的治理手段小计为 ${fmt(totals.methodScore)} / 165。`);
-    addScaleNotes(section, "方向指数｜折算后计入");
+    setNodeText(section.querySelector(":scope > h2"), "治理手段 · 制度与行政");
+    addGroupIntro(section, "method", `这一组看国家机器怎么运转。A、B1、B2右侧显示的是正式方向指数，不是可直接相加的分数；它们按正式公式折算后，当前人物的治理手段小计为 ${fmt(totals.methodScore)} / 165。公开结论只翻译正式G档，不再按总分比例另造“强弱档”。`);
+    addScaleNotes(section, "方向指数｜按正式档与公式折算后计入");
   }
 
   function ensureC4Note(detail, value) {
     const body = detail?.querySelector(":scope > .net-metric-body");
-    if (!body || body.querySelector(":scope > .second-item-c4-note")) return;
-    const note = document.createElement("p");
-    note.className = "second-item-c4-note";
-    if (value == null) {
-      note.textContent = "这是调整项，不与C1—C3使用同一满分尺度。";
-    } else if (value > 0) {
-      note.textContent = "这是调整项。正数表示相对接手基线保留了恢复增量；仍要结合C1—C3判断治理后的最终状态。";
-    } else if (value < 0) {
-      note.textContent = "这是调整项。负数表示本人可归责的恶化或额外民力、治理成本在这里继续扣分；不代表C1—C3状态分本身为负。";
-    } else {
-      note.textContent = "本项为0只表示这里没有新增净加分或新增净扣分；已经在C1—C3消费的恶化不会重复扣，因此0不等于“没有问题”。";
+    if (!body) return;
+    let note = body.querySelector(":scope > .second-item-c4-note");
+    if (!note) {
+      note = document.createElement("p");
+      note.className = "second-item-c4-note";
+      body.insertBefore(note, body.firstChild);
     }
-    body.insertBefore(note, body.firstChild);
+    if (value == null) {
+      setNodeText(note, "这是净调整项，不与C1—C3使用同一满分尺度；具体正负构成以下方正式裁决为准。");
+    } else if (value > 0) {
+      setNodeText(note, "这是净调整项。正数表示恢复增量在扣除本人可归责恶化与额外民力、治理成本后仍有净加分；最终社会状态仍看C1—C3。");
+    } else if (value < 0) {
+      setNodeText(note, "这是净调整项。负数表示本人可归责恶化和/或额外民力、治理成本超过恢复增量，形成净扣分；具体是哪一部分造成负值，以下方正式裁决为准。");
+    } else {
+      setNodeText(note, "本调整项为0只表示这里的净调整为0：可能没有新增可计变化，也可能相关恶化已经在C1—C3消费而不再重复扣。0不等于“没有问题”。");
+    }
   }
 
   function ensureFinanceGroup(totals) {
     const section = document.getElementById("net-group-finance");
     if (!section) return;
-    const heading = section.querySelector(":scope > h2");
-    setNodeText(heading, "治理结果 · 财政与民生");
-    addGroupIntro(section, "finance", `C1—C3是三种不同满分的状态分：民生80、经济财政35、社会安全60；不能直接拿绝对数字比高低。C4不是第四个状态分，而是“恢复增量与额外成本”调整项。四项合计为 ${fmt(totals.resultScore)} / 202。`);
+    setNodeText(section.querySelector(":scope > h2"), "治理结果 · 财政与民生");
+    addGroupIntro(section, "finance", `C1—C3首先记录本人统治窗口内观察到的实际状态，不等于把全部好坏归给本人；接手基线、外生冲击以及本人造成或放大的变化，由正式裁决另行分账。三项满分分别为民生80、经济财政35、社会安全60，不能直接拿绝对数字比高低。C4另记恢复增量、本人可归责恶化与额外民力/治理成本的净调整。四项合计为 ${fmt(totals.resultScore)} / 202。`);
 
-    setMetricDisplay(metricDetail(section, "C1民生"), `${fmt(totals.c1)} / 80 分`, "状态分｜满分80");
-    setMetricDisplay(metricDetail(section, "C2经济财政"), `${fmt(totals.c2)} / 35 分`, "状态分｜满分35");
-    setMetricDisplay(metricDetail(section, "C3社会安全"), `${fmt(totals.c3)} / 60 分`, "状态分｜满分60");
-    const c4Detail = metricDetail(section, "C4恢复与成本");
-    setMetricDisplay(c4Detail, `${signedFmt(totals.c4)} 分`, "调整项｜正数加分，负数扣分，0不代表无问题", "C4恢复增量与额外成本调整");
+    setMetricDisplay(metricDetail(section, "C1民生"), `${fmt(totals.c1)} / 80 分`, "状态分｜满分80｜状态不等于本人全责");
+    setMetricDisplay(metricDetail(section, "C2经济财政"), `${fmt(totals.c2)} / 35 分`, "状态分｜满分35｜状态不等于本人全责");
+    setMetricDisplay(metricDetail(section, "C3社会安全"), `${fmt(totals.c3)} / 60 分`, "状态分｜满分60｜状态不等于本人全责");
+
+    const c4Detail = metricDetail(section, ["C4恢复与成本", "C4恢复、恶化与额外成本调整"]);
+    setMetricDisplay(c4Detail, `${signedFmt(totals.c4)} 分`, "净调整项｜恢复 − 可归责恶化 − 额外成本", "C4恢复、恶化与额外成本调整");
     ensureC4Note(c4Detail, totals.c4);
   }
 
   function ensureHandoffGroup(totals) {
     const section = document.getElementById("net-group-handoff");
     if (!section) return;
-    const heading = section.querySelector(":scope > h2");
-    setNodeText(heading, "交接质量 · 政权交接");
+    setNodeText(section.querySelector(":scope > h2"), "交接质量 · 政权交接");
+
     const d1 = finite(totals.handoff.get("D1继任行政连续性")?.value);
     const d3 = finite(totals.handoff.get("D3政权交接稳定")?.value);
     const cap = finite(totals.handoff.get("低侧封顶")?.value);
     const score = totals.handoffScore;
-    let explanation = "行政连续性评价旧国家机器还有多少被接住；交接稳定评价本人是否完成稳定继承。前者即使留有残余分，也不代表交班成功。两项都是0—5级输入，最终共同合成20分交接质量。";
+
+    let explanation = "D1、D3主要评价本人离场前后的终局交班：D1看旧国家机器有多少被接住，D3看继承过程是否稳定。任内更早发生过继承危机，不会自动把终局交接判低；关键看离场前是否真正修复并完成可运行的承接。";
     if ([d1, d3, cap, score].every(value => value != null)) {
-      explanation = `行政连续性为 ${fmt(d1, 0)} / 5级，交接稳定为 ${fmt(d3, 0)} / 5级。行政连续性看旧国家机器还有多少被接住，交接稳定看本人是否完成稳定继承；前者有残余分不等于交班成功。较弱一侧把本项最高分限制在 ${fmt(cap)}，最终交接得分 ${fmt(score)} / 20。`;
+      explanation = `行政连续性为 ${fmt(d1, 0)} / 5级，交接稳定为 ${fmt(d3, 0)} / 5级。两项主要评价本人离场前后的终局交班：D1看旧国家机器有多少被接住，D3看继承过程是否稳定；任内更早的继承危机若在离场前被真正修复，不会自动把终局交接判低。较弱一侧把本项最高分限制在 ${fmt(cap)}，最终交接得分 ${fmt(score)} / 20。`;
     }
     addGroupIntro(section, "handoff", explanation);
 
-    setMetricDisplay(metricDetail(section, "D1继任行政连续性"), d1 == null ? "—" : `${fmt(d1, 0)} / 5 级`, "等级输入｜行政机器承接");
-    setMetricDisplay(metricDetail(section, "D3政权交接稳定"), d3 == null ? "—" : `${fmt(d3, 0)} / 5 级`, "等级输入｜继承过程稳定");
+    setMetricDisplay(metricDetail(section, "D1继任行政连续性"), d1 == null ? "—" : `${fmt(d1, 0)} / 5 级`, "等级输入｜离场前后的行政承接");
+    setMetricDisplay(metricDetail(section, "D3政权交接稳定"), d3 == null ? "—" : `${fmt(d3, 0)} / 5 级`, "等级输入｜离场前后的终局继承");
 
     for (const strong of section.querySelectorAll(".net-calculations .component strong")) {
       if (strong.textContent.trim() === "低侧封顶") setNodeText(strong, "交接短板上限");
     }
     for (const small of section.querySelectorAll(".net-calculations .component small")) {
-      const next = small.textContent.replace(/低侧封顶/g, "交接短板上限");
-      setNodeText(small, next);
+      setNodeText(small, small.textContent.replace(/低侧封顶/g, "交接短板上限"));
     }
   }
 
   function humanizeText(text) {
     return text
+      .replace(/B1-distributed\/personnel M3/gi, "多责任官的人事配置强机制链")
+      .replace(/distributed\/personnel M3/gi, "多责任官的人事配置强机制链")
+      .replace(/central M2/gi, "中央有限机制链")
       .replace(/混负M3/g, "较强、持续的混合偏负机制链")
       .replace(/混合偏负M3/g, "较强、持续的混合偏负机制链")
       .replace(/核心M3链/g, "较强、持续或跨阶段的核心机制链")
@@ -311,6 +359,9 @@
       .replace(/\bM2\b/g, "有限机制链")
       .replace(/\bS_end\b/g, "终点状态")
       .replace(/\bS0\b/g, "接手状态")
+      .replace(/\bC1-([0-5])\b/g, (_, level) => `民生第${level}档`)
+      .replace(/\bC2-([0-5])\b/g, (_, level) => `经济财政第${level}档`)
+      .replace(/\bC3-([0-5])\b/g, (_, level) => `社会安全第${level}档`)
       .replace(/\bG0\b/g, "最低档")
       .replace(/\bG1\b/g, "较低档")
       .replace(/\bG2\b/g, "中低档")
