@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -54,13 +55,6 @@ if old_process not in template:
 template = template.replace(old_process, new_process, 1)
 
 # Rebuild the scope subsection as: actual changes -> why this grade -> why not higher -> observation window.
-old_scope_calc = r""" const scopeBasis=scopeReview.actual_changes||scopeReview.basis||scopeReview.overall_grade_reasoning||h.foundation?.joint_footprint_basis||h.grade_basis||chains.map(c=>c.narrative).join('\
-\
-');
- const scopeLimit=[scopeReview.baseline_and_exclusions,scopeReview.observation_window?`观察范围：${scopeReview.observation_window}`:'',scopeReview.limits,scopeReview.limit,h.dimensions?.scope?.boundary_note].filter(Boolean).join('\
-\
-');
-"""
 new_scope_calc = r""" const scopeGrade=h.dimensions?.scope?.grade||'—';
  const scopeActual=scopeReview.actual_changes||chains.map(c=>c.title).filter(Boolean).join('；')||h.foundation?.joint_footprint_basis||h.grade_basis||'';
  const scopeWhy=scopeReview.overall_grade_reasoning||scopeReview.basis||scopeGradeReason(h,chains);
@@ -69,15 +63,16 @@ new_scope_calc = r""" const scopeGrade=h.dimensions?.scope?.grade||'—';
 ');
  const scopeWindow=scopeReview.observation_window||'';
 """
-if old_scope_calc not in template:
-    raise SystemExit("scope calculation block not found")
-template = template.replace(old_scope_calc, new_scope_calc, 1)
+scope_calc_pattern = re.compile(r" const scopeBasis=.*? const depthBasis=", re.S)
+if len(scope_calc_pattern.findall(template)) != 1:
+    raise SystemExit("scope calculation block not found uniquely")
+template = scope_calc_pattern.sub(new_scope_calc + " const depthBasis=", template, count=1)
 
-old_scope_body = " const scopeBody=`${historyProse(scopeBasis)}${scopeLimit?`<div class=\\\"label\\\">范围边界</div>${historyProse(scopeLimit)}`:''}${impactSourceList(r,scopeIndices,'范围与主链依据')}`;\n"
 new_scope_body = " const scopeBody=`<div class=\\\"label\\\">实际改变了什么</div>${historyProse(scopeActual)}<div class=\\\"label\\\">为什么是 ${esc(scopeGrade)}</div>${historyProse(scopeWhy)}${scopeCeiling?`<div class=\\\"label\\\">为什么没有更高</div>${historyProse(scopeCeiling)}`:''}${scopeWindow?`<div class=\\\"label\\\">判断采用的时间窗口</div>${historyProse(scopeWindow)}`:''}${impactSourceList(r,scopeIndices,'范围依据')}`;\n"
-if old_scope_body not in template:
-    raise SystemExit("scope body line not found")
-template = template.replace(old_scope_body, new_scope_body, 1)
+scope_body_pattern = re.compile(r" const scopeBody=`.*?`;\n const depthBody=", re.S)
+if len(scope_body_pattern.findall(template)) != 1:
+    raise SystemExit("scope body block not found uniquely")
+template = scope_body_pattern.sub(lambda _: new_scope_body + " const depthBody=", template, count=1)
 
 write(template_path, template)
 
