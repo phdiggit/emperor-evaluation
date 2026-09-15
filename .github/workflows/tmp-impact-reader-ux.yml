@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   remediate:
-    if: github.event.head_commit.message == '修正历史影响阅读链定位'
+    if: github.event.head_commit.message == '完成历史影响阅读链提交'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +52,7 @@ jobs:
       - name: Commit reader remediation
         run: |
           set -euo pipefail
-          git rm .github/workflows/tmp-impact-reader-ux.yml .github/scripts/tmp-impact-reader-ux.py
+          git rm -f .github/workflows/tmp-impact-reader-ux.yml .github/scripts/tmp-impact-reader-ux.py
           git fetch origin codex/single-ruler-session-control
           remote_head="$(git rev-parse origin/codex/single-ruler-session-control)"
           if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
