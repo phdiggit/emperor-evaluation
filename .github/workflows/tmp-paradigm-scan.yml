@@ -1,0 +1,56 @@
+name: Temporary paradigm scan
+
+on:
+  push:
+    branches:
+      - codex/single-ruler-session-control
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    if: github.event.head_commit.message == '临时：生成范式扫描清单'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/single-ruler-session-control
+      - name: Build paradigm scan report
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          root = pathlib.Path('docs/评分结算/历史影响/01-历史影响正式结算')
+          rows=[]
+          for p in sorted(root.glob('*.json')):
+              data=json.loads(p.read_text(encoding='utf-8'))
+              records=data.get('collections',{}).get('records',{}).get('records',[])
+              for r in records:
+                  par=r.get('dimensions',{}).get('paradigm',{}).get('grade','')
+                  pr=r.get('paradigm_review',{}) or {}
+                  rows.append({
+                      'polity': r.get('polity',''),
+                      'ruler_id': r.get('ruler_id',''),
+                      'ruler_name': r.get('ruler_name',''),
+                      'public_grade': r.get('public_grade',''),
+                      'internal_band': r.get('internal_band',''),
+                      'paradigm': par,
+                      'evidence_status': pr.get('evidence_status',''),
+                      'receptions': pr.get('receptions',[]),
+                      'analysis': r.get('paradigm_analysis',''),
+                      'source_titles': [s.get('title') or s.get('document') or s.get('path') or '' for s in r.get('source_refs',[])],
+                  })
+          out=pathlib.Path('.tmp/paradigm_scan.json')
+          out.parent.mkdir(exist_ok=True)
+          out.write_text(json.dumps(rows, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          print('records',len(rows))
+          from collections import Counter
+          print(Counter(x['paradigm'] for x in rows))
+          PY
+      - name: Commit report
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add .tmp/paradigm_scan.json
+          git commit -m '临时：输出范式扫描清单'
+          git push
