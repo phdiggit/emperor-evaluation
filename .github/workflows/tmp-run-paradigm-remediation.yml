@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   remediate:
-    if: github.event.head_commit.message == '修正范式整改执行壳'
+    if: github.event.head_commit.message == '跳过主池外范式候选'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -43,13 +43,15 @@ jobs:
               if line.startswith('          '):
                   out.append(line[10:])
               else:
-                  # The invalid large workflow contains literal lines from a Python triple-quoted
-                  # string at column zero. They belong to the embedded Python source verbatim.
                   out.append(line)
               i += 1
           else:
               raise SystemExit('closing heredoc marker not found')
-          Path('/tmp/remediate.sh').write_text('\n'.join(out) + '\n', encoding='utf-8')
+          script = '\n'.join(out) + '\n'
+          script = script.replace('for name in diji_only_A:', 'for name in [n for n in diji_only_A if n in by_name]:')
+          script = script.replace('for name in zhizhong_only_A:', 'for name in [n for n in zhizhong_only_A if n in by_name]:')
+          script = script.replace('for name in two_window_Ap:', 'for name in [n for n in two_window_Ap if n in by_name]:')
+          Path('/tmp/remediate.sh').write_text(script, encoding='utf-8')
           print('extracted lines', len(out))
           PY
           bash /tmp/remediate.sh
