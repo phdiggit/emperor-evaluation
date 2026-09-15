@@ -28,11 +28,20 @@
   };
 
   const impactPublicText = value => String(value ?? "")
+    .replace(/\s*以这些实际相接的核心足迹裁基础，未取独立工程、范式传播或后继另建国家补足。$/g, "")
+    .replace(/([，；])取内部([SABCDE](?:[+−-])?)基础/g, "$1基础影响量级为$2")
+    .replace(/取内部([SABCDE](?:[+−-])?)基础/g, "，基础影响量级为$1")
+    .replace(/内部基础([SABCDE](?:[+−-])?)/g, "基础影响量级为$1")
+    .replace(/([，；])取基础([SABCDE](?:[+−-])?)/g, "$1基础影响量级为$2")
     .replace(/取基础([SABCDE](?:[+−-])?)/g, "，基础影响量级为$1")
     .replace(/([SABCDE](?:[+−-])?)个人因果/g, "个人因果$1")
     .replace(/上调至内部([SABCDE](?:[+−-])?)/g, "使最终判断上调为$1")
     .replace(/内部([SABCDE](?:[+−-])?)/g, "综合判断$1")
+    .replace(/公众总档([SABCDE](?:[+−-])?)/g, "最终等级$1")
     .replace(/公众([SABCDE](?:[+−-])?)/g, "最终等级$1")
+    .replace(/回填/g, "归入本人")
+    .replace(/分账/g, "区分责任")
+    .replace(/消费/g, "计入")
     .replace(/不增加第二份深度/g, "不重复计入深度")
     .replace(/抬升基础/g, "提高基础影响量级");
 
@@ -135,7 +144,7 @@
   }
 
   function normalizeEvidenceCardHeadings() {
-    for (const title of ["净收益构成", "人物画像依据", "历史影响依据"]) {
+    for (const title of ["统治绩效构成", "人物画像依据", "历史影响依据"]) {
       const section = evidenceSection(title);
       if (!section || section.dataset.publicHeading === "done") continue;
       const heading = section.querySelector(":scope > h2, :scope > h3");
@@ -357,7 +366,7 @@
   }
 
   function buildNetReading(record) {
-    const section = evidenceSection("净收益构成");
+    const section = evidenceSection("统治绩效构成");
     const groups = Object.entries(record.net?.component_details || {});
     if (!section || !groups.length || section.dataset.netReadable === "done") return;
 
@@ -600,7 +609,7 @@
   }
 
   function foldNetLedger() {
-    const section = evidenceSection("净收益构成");
+    const section = evidenceSection("统治绩效构成");
     if (!section || section.dataset.ledgerFolded === "done") return;
 
     const items = Array.from(section.children).filter(node => node.tagName === "DETAILS");

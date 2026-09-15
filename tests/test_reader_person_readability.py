@@ -114,6 +114,19 @@ def test_history_impact_reader_uses_formal_dimension_fields_without_audit_copy()
     assert "补证与边界|补证|复核|重审|修订|更新" in template
 
 
+def test_history_impact_public_copy_explains_mapping_without_duplicate_prefix():
+    root = __import__("pathlib").Path(__file__).resolve().parents[1]
+    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
+    public_js = (root / "reader" / "person-readability.js").read_text(encoding="utf-8")
+    readme = (root / "reader" / "README.md").read_text(encoding="utf-8")
+
+    assert ".replace(/取基础([SABCDE](?:[+−-])?)/g,'，基础影响量级为$1')" in template
+    assert ".replace(/\\s*以这些实际相接的核心足迹裁基础，未取独立工程、范式传播或后继另建国家补足。$/g, \"\")" in public_js
+    assert "最终内部裁判带 → 公众等级" in template
+    assert "S+→S+ · S→S · S−→A · A+→B · A→C · B→D · C→E" in template
+    assert "最终内部裁判带不是四维中的某一个字母" in readme
+
+
 def test_historical_impact_contract_version_metadata_matches_current_contract():
     import json
     import yaml
