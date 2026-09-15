@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   harden:
-    if: github.event.head_commit.message == '重跑历史影响阅读层系统修复'
+    if: github.event.head_commit.message == '提交历史影响阅读层系统修复'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -59,11 +59,11 @@ jobs:
           python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
           git diff --check
 
-      - name: Commit remediation
+      - name: Commit remediation without workflow files
         shell: bash
         run: |
           set -euo pipefail
-          git rm -f .github/workflows/tmp-history-reader-hardening.yml .github/tmp-history-reader-hardening.py
+          git restore .github/workflows/reader-build.yml .github/workflows/tmp-history-reader-hardening.yml .github/tmp-history-reader-hardening.py
           git fetch origin codex/single-ruler-session-control
           remote_head="$(git rev-parse origin/codex/single-ruler-session-control)"
           if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
@@ -72,7 +72,7 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
+          git add -A reader tests/test_reader_person_readability.py config/project.yml docs/评分结算/历史影响/01-历史影响正式结算.json
           git diff --cached --check
           git commit -m '修复历史影响阅读层取数与展示'
           git push origin HEAD:codex/single-ruler-session-control
