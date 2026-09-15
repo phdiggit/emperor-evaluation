@@ -10,27 +10,25 @@ permissions:
 
 jobs:
   scan:
-    if: github.event.head_commit.message == '临时：输出全池范式档位'
+    if: github.event.head_commit.message == '临时：复核范式高档与候选'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: codex/single-ruler-session-control
-      - name: Print paradigm scan
+      - name: Print selected paradigm records
         run: |
           python - <<'PY'
           import json, pathlib
-          from collections import Counter
-          root = pathlib.Path('docs/评分结算/历史影响/01-历史影响正式结算')
-          rows=[]
+          selected=set('''嬴政 刘邦 刘恒 刘彻 刘询 刘秀 曹操 刘备 孙权 王莽 司马炎 刘裕 萧衍 陈叔宝 杨坚 杨广 李世民 武则天 李隆基 赵匡胤 赵祯 赵顼 赵构 赵佶 朱元璋 朱棣 朱由检 铁木真 忽必烈 玄烨 胤禛 弘历 柴荣 石勒 苻坚 宇文邕 拓跋宏 完颜雍'''.split())
+          root=pathlib.Path('docs/评分结算/历史影响/01-历史影响正式结算')
           for p in sorted(root.glob('*.json')):
               data=json.loads(p.read_text(encoding='utf-8'))
               for r in data.get('collections',{}).get('records',{}).get('records',[]):
-                  pr=r.get('paradigm_review',{}) or {}
-                  rows.append((r.get('polity',''), r.get('ruler_id',''), r.get('ruler_name',''), r.get('dimensions',{}).get('paradigm',{}).get('grade',''), pr.get('evidence_status','')))
-          print('records', len(rows))
-          print('distribution', dict(Counter(x[3] for x in rows)))
-          print('POLITY\tRULER_ID\tNAME\tPARADIGM\tSTATUS')
-          for row in rows:
-              print('\t'.join(row))
+                  if r.get('ruler_name') not in selected and r.get('dimensions',{}).get('paradigm',{}).get('grade') not in {'S+','S','S-','A+','A'}:
+                      continue
+                  print('\n###', r.get('polity'), r.get('ruler_name'), 'PARADIGM', r.get('dimensions',{}).get('paradigm',{}).get('grade'))
+                  print('ANALYSIS:', (r.get('paradigm_analysis') or '').replace('\n',' '))
+                  print('REVIEW:', json.dumps(r.get('paradigm_review',{}), ensure_ascii=False))
+                  print('SOURCES:', ' | '.join((s.get('title') or s.get('document') or s.get('path') or '') for s in r.get('source_refs',[])))
           PY
