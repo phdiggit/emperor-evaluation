@@ -907,6 +907,16 @@ window.addEventListener('hashchange',route);route();
     document.head.append(script);
   }
 
+  // Second-item reading guidance makes the three real score blocks explicit before
+  // readers enter the lower-level method, outcome and handoff indicators.
+  if (!document.querySelector('script[data-second-item-reading]')) {
+    const script = document.createElement("script");
+    script.src = "second-item-reading.js";
+    script.async = false;
+    script.dataset.secondItemReading = "true";
+    document.head.append(script);
+  }
+
   // The template performs one synchronous first render before this enhancement is
   // injected. Re-route once so direct person/compare URLs immediately switch to
   // the lazy detail path while the overview remains unchanged.
