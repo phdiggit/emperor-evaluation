@@ -12,11 +12,18 @@
     G4: "较高档",
     G5: "最高档",
   };
+  const METHOD_MAX = {
+    "A制度建设": 100,
+    "B1官僚治理": 100,
+    "B2反馈与约束": 80,
+  };
   const FINANCE_MAX = {
     "C1民生": 80,
     "C2经济财政": 35,
     "C3社会安全": 60,
   };
+  const HISTORICAL_SECOND_POOL = 185;
+  const HISTORICAL_OUT_OF_CURRENT_POOL = 11;
 
   let scheduled = false;
 
@@ -50,12 +57,20 @@
       .trim();
   }
 
+  function parsedNetRoute() {
+    const match = location.hash.match(/^#net\/([^/?#]+)\/(all|first|second|third|fourth)(?:\/|$)/);
+    if (!match) return null;
+    try {
+      return {id: decodeURIComponent(match[1]), major: match[2]};
+    } catch {
+      return null;
+    }
+  }
+
   function recordForNetRoute() {
     if (typeof byId === "undefined") return null;
-    const match = location.hash.match(/^#net\/([^/?#]+)\/(?:all|second)(?:\/|$)/);
-    if (!match) return null;
-    try { return byId.get(decodeURIComponent(match[1])) || null; }
-    catch { return null; }
+    const route = parsedNetRoute();
+    return route ? byId.get(route.id) || null : null;
   }
 
   function recordForPersonRoute() {
@@ -133,13 +148,11 @@
     return `主要状态第${match[1]}档｜${low === 0 ? "无额外低谷修正" : `低谷修正${low}级`}`;
   }
 
-  function boundaryHint(item) {
+  function boundaryExcerpt(item) {
     const text = String(item?.reader_boundary || "").trim();
     if (!text) return "";
-    const tags = [];
-    if (/短任|短窗口|任期极短|窗口较短|最高权力窗口较短/.test(text)) tags.push("短窗口");
-    if (/缺少|缺人口|材料.{0,8}(?:不足|稀疏|有限)|证据.{0,8}(?:不足|稀疏|有限|敏感)|对新增.{0,8}敏感|未闭合.{0,10}(?:证据|强锚)|不足以/.test(text)) tags.push("证据限制");
-    return tags.length ? `正式边界：${[...new Set(tags)].join(" / ")}` : "";
+    const first = text.match(/^.*?[。！？；;]/)?.[0] || text;
+    return `边界：${first.trim()}`;
   }
 
   function rankText(totals) {
@@ -174,8 +187,9 @@
       .second-item-c4-note{margin:0 0 12px;padding:9px 11px;border-left:3px solid var(--green);background:#f1eee6;font-size:13px;line-height:1.75}
       .second-item-card-breakdown,.second-item-inline-rank{font-size:12px;color:var(--muted);line-height:1.65}
       .second-item-inline-rank{display:block;margin-top:3px;color:var(--green)}
-      .second-item-formal-basis{margin-top:12px;border-top:1px solid var(--line)}
-      .second-item-formal-basis>.second-item-formal-basis-content{padding-top:8px}
+      .net-formal-basis-raw{margin-top:12px;border-top:1px solid var(--line)}
+      .net-formal-basis-raw>.net-formal-basis-content{padding-top:8px}
+      .second-item-pool-note{margin-top:8px;font-size:12px;line-height:1.65;color:var(--muted)}
       .net-major-card.second-item-card .big{font-size:30px}
       @media(max-width:700px){.second-item-total-grid{grid-template-columns:1fr}}
     `;
@@ -278,7 +292,7 @@
       methodBand(totals.method.get("B2反馈与约束")),
     ].join("|");
     if (summary.dataset.secondRenderKey !== renderKey) {
-      summary.innerHTML = `<h2>先看这个人的治国结论</h2><p class="second-item-person-conclusion">${personConclusion(totals)}</p>${rank ? `<span class="second-item-rank">${rank}</span>` : ""}<div class="second-item-total-grid"><div>治理手段<b>${fmt(totals.methodScore)} / 165</b><small>制度建设、官僚执行、反馈纠错</small></div><div>治理结果<b>${fmt(totals.resultScore)} / 202</b><small>C1—C3状态账 + C4恢复、恶化与额外成本净调整</small></div><div>交接质量<b>${fmt(totals.handoffScore)} / 20</b><small>离场前后的行政承接与继承稳定</small></div></div><div class="second-item-equation">${fmt(totals.methodScore)} + ${fmt(totals.resultScore)} + ${fmt(totals.handoffScore)} = <strong>第二项 ${fmt(totals.totalScore)} / 387</strong></div><p class="subline">本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”；公开名次只在当前主池中已完成第二项结算的人物之间比较。</p>`;
+      summary.innerHTML = `<h2>先看这个人的治国结论</h2><p class="second-item-person-conclusion">${personConclusion(totals)}</p>${rank ? `<span class="second-item-rank">${rank}</span>` : ""}<div class="second-item-total-grid"><div>治理手段<b>${fmt(totals.methodScore)} / 165</b><small>A/B1先形成120分块，B2再折算45分</small></div><div>治理结果<b>${fmt(totals.resultScore)} / 202</b><small>C1—C3状态账 + C4恢复、恶化与额外成本净调整</small></div><div>交接质量<b>${fmt(totals.handoffScore)} / 20</b><small>离场前后的行政承接与继承稳定</small></div></div><div class="second-item-equation">${fmt(totals.methodScore)} + ${fmt(totals.resultScore)} + ${fmt(totals.handoffScore)} = <strong>第二项 ${fmt(totals.totalScore)} / 387</strong></div><p class="subline">本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”；公开名次只在当前主池中已完成第二项结算的人物之间比较。</p>`;
       summary.dataset.secondRenderKey = renderKey;
     }
 
@@ -296,7 +310,7 @@
     const section = document.getElementById("net-group-method");
     if (!section) return;
     setNodeText(section.querySelector(":scope > h2"), "治理手段 · 制度与行政");
-    addGroupIntro(section, "method", `这一组看国家机器怎么运转。A、B1、B2右侧显示的是正式方向指数，不是可直接相加的分数；它们按正式公式折算后，当前人物的治理手段小计为 ${fmt(totals.methodScore)} / 165。公开层只翻译正式方向档，不按总分比例另造强弱档。`);
+    addGroupIntro(section, "method", `这一组看国家机器怎么运转。A制度建设与B1官僚治理各用0—100方向指数，先共同形成最高120分的AB计分块；B2反馈与约束用0—80方向指数，再折算为最高45分。三者不是同一满分，也不能直接相加；当前人物治理手段小计为 ${fmt(totals.methodScore)} / 165。`);
 
     for (const label of ["A制度建设", "B1官僚治理", "B2反馈与约束"]) {
       const item = totals.method.get(label);
@@ -305,8 +319,8 @@
       if (!item || !detail) continue;
       setMetricDisplay(
         detail,
-        `${fmt(item.value)} 指数`,
-        joinNote(`正式方向档：${methodBand(item)}`, boundaryHint(item))
+        `${fmt(item.value)} / ${METHOD_MAX[label]} 指数`,
+        joinNote(`正式方向档：${methodBand(item)}`, boundaryExcerpt(item))
       );
     }
   }
@@ -345,7 +359,7 @@
       setMetricDisplay(
         detail,
         `${fmt(item.value)} / ${FINANCE_MAX[label]} 分`,
-        joinNote(`状态分·满分${FINANCE_MAX[label]}`, stateMeta(item), "状态不等于本人全责", boundaryHint(item))
+        joinNote(`状态分·满分${FINANCE_MAX[label]}`, stateMeta(item), "状态不等于本人全责", boundaryExcerpt(item))
       );
     }
 
@@ -356,7 +370,7 @@
       setMetricDisplay(
         c4Detail,
         `${signedFmt(c4Item.value)} 分`,
-        joinNote("净调整项", "恢复 − 可归责恶化 − 额外成本", boundaryHint(c4Item)),
+        joinNote("净调整项", "恢复 − 可归责恶化 − 额外成本", boundaryExcerpt(c4Item)),
         "C4恢复、恶化与额外成本调整"
       );
       ensureC4Note(c4Detail, c4Item.value);
@@ -385,8 +399,8 @@
     const d3Detail = metricDetail(section, "D3政权交接稳定");
     markSourceLabel(d1Detail, "D1继任行政连续性");
     markSourceLabel(d3Detail, "D3政权交接稳定");
-    setMetricDisplay(d1Detail, d1 == null ? "—" : `${fmt(d1, 0)} / 5 级`, joinNote("等级输入·行政承接", boundaryHint(d1Item)));
-    setMetricDisplay(d3Detail, d3 == null ? "—" : `${fmt(d3, 0)} / 5 级`, joinNote("等级输入·终局继承", boundaryHint(d3Item)));
+    setMetricDisplay(d1Detail, d1 == null ? "—" : `${fmt(d1, 0)} / 5 级`, joinNote("等级输入·行政承接", boundaryExcerpt(d1Item)));
+    setMetricDisplay(d3Detail, d3 == null ? "—" : `${fmt(d3, 0)} / 5 级`, joinNote("等级输入·终局继承", boundaryExcerpt(d3Item)));
 
     for (const strong of section.querySelectorAll(".net-calculations .component strong")) {
       if (strong.textContent.trim() === "低侧封顶") setNodeText(strong, "交接短板上限");
@@ -399,7 +413,7 @@
   function formalBasisDetails(detail) {
     return Array.from(detail?.querySelectorAll(":scope > .net-metric-body > details") || []).find(block => {
       const text = block.querySelector(":scope > summary")?.textContent.trim() || "";
-      return block.classList.contains("second-item-formal-basis") || text === "当前人物的完整裁决原文" || text === "正式裁决原文（未改写）";
+      return block.classList.contains("net-formal-basis-raw") || text === "当前人物的完整裁决原文" || text === "正式裁决原文（未改写）";
     }) || null;
   }
 
@@ -407,30 +421,66 @@
     if (!section) return;
     for (const [label, item] of itemMap.entries()) {
       const raw = String(item?.reader_full_basis || "").trim();
-      if (!raw) continue;
-      const detail = metricDetail(section, [label, label === "C4恢复与成本" ? "C4恢复、恶化与额外成本调整" : label]);
+      const summaryRaw = String(item?.reader_summary || "").trim();
+      if (!raw || raw === summaryRaw) continue;
+      const displayLabel = label === "C4恢复与成本" ? "C4恢复、恶化与额外成本调整" : label;
+      const detail = metricDetail(section, [label, displayLabel]);
       if (!detail) continue;
       markSourceLabel(detail, label);
-      const block = formalBasisDetails(detail);
-      if (!block) continue;
-      block.classList.add("second-item-formal-basis");
+      const body = detail.querySelector(":scope > .net-metric-body");
+      if (!body) continue;
+      let block = formalBasisDetails(detail);
+      if (!block) {
+        block = document.createElement("details");
+        const audit = body.querySelector(":scope > .net-audit-sources");
+        body.insertBefore(block, audit || null);
+        block.append(document.createElement("summary"));
+      }
+      block.classList.add("net-formal-basis-raw");
       const summary = block.querySelector(":scope > summary");
       setNodeText(summary, "正式裁决原文（未改写）");
-      let content = block.querySelector(":scope > .second-item-formal-basis-content");
+      let content = block.querySelector(":scope > .net-formal-basis-content");
       if (!content) {
         for (const child of Array.from(block.children)) {
           if (child !== summary) child.remove();
         }
         content = document.createElement("div");
-        content.className = "second-item-formal-basis-content";
+        content.className = "net-formal-basis-content";
         block.append(content);
       }
-      const rawKey = raw;
-      if (content.dataset.rawKey !== rawKey) {
+      if (content.dataset.rawKey !== raw) {
         content.innerHTML = typeof prose === "function" ? prose(raw) : `<p class="prose"></p>`;
         if (typeof prose !== "function") setNodeText(content.querySelector("p"), raw);
-        content.dataset.rawKey = rawKey;
+        content.dataset.rawKey = raw;
       }
+    }
+  }
+
+  function restoreFormalBasisForRoute(record) {
+    const route = parsedNetRoute();
+    if (!route || !record?.net?.component_details) return;
+    const groups = route.major === "second"
+      ? ["method", "finance", "handoff"]
+      : route.major === "third"
+        ? ["strategic", "military"]
+        : route.major === "fourth" ? ["civilization"] : [];
+    for (const key of groups) {
+      restoreFormalBasis(document.getElementById(`net-group-${key}`), itemsFor(record, key));
+    }
+  }
+
+  function ensureAuditPoolNotes(totals) {
+    if (!location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
+    const current = totals.pool?.total;
+    for (const audit of document.querySelectorAll("#net-major-body .net-audit-sources")) {
+      let note = audit.querySelector(":scope > .second-item-pool-note");
+      if (!note) {
+        note = document.createElement("p");
+        note.className = "second-item-pool-note";
+        const sources = audit.querySelector(":scope > .sources");
+        audit.insertBefore(note, sources || null);
+      }
+      setNodeText(note, `排名口径：当前公开名次只比较当前主池中已完成第二项结算的${current ?? "现有"}人。原第二项总表仍保留${HISTORICAL_SECOND_POOL}人历史快照，其中含${HISTORICAL_OUT_OF_CURRENT_POOL}条现已不在当前184人主池的旧记录，因此原文件内旧rank不等于当前公开名次。`);
     }
   }
 
@@ -486,7 +536,7 @@
       while (walker.nextNode()) nodes.push(walker.currentNode);
       for (const node of nodes) {
         const parent = node.parentElement;
-        if (!parent || parent.closest(".second-item-formal-basis") || parent.closest(".net-audit-sources") || parent.closest(".sources") || parent.closest("a")) continue;
+        if (!parent || parent.closest(".net-formal-basis-raw") || parent.closest(".net-audit-sources") || parent.closest(".sources") || parent.closest("a")) continue;
         const next = humanizeText(node.nodeValue || "");
         if (next !== node.nodeValue) node.nodeValue = next;
       }
@@ -501,15 +551,13 @@
     return "";
   }
 
-  function ensureRowSmall(span, text) {
+  function replaceCompactNote(span, text) {
     if (!span || !text) return;
-    let note = span.querySelector(":scope > small.second-item-scale-note");
-    if (!note) {
-      note = document.createElement("small");
-      note.className = "second-item-scale-note";
-      span.append(note);
-    }
-    setNodeText(note, text);
+    for (const small of Array.from(span.querySelectorAll(":scope > small"))) small.remove();
+    const note = document.createElement("small");
+    note.className = "second-item-scale-note";
+    note.textContent = text;
+    span.append(note);
   }
 
   function setRowLabel(span, label) {
@@ -529,28 +577,31 @@
       const label = directText(span) || span.querySelector("strong")?.textContent.trim() || "";
       const item = map.get(label);
 
-      if (kind === "method" && item && ["A制度建设", "B1官僚治理", "B2反馈与约束"].includes(label)) {
-        setNodeText(value, `${fmt(item.value)} 指数`);
-        ensureRowSmall(span, joinNote(`正式方向档：${methodBand(item)}`, boundaryHint(item)));
+      if (kind === "method" && item && METHOD_MAX[label]) {
+        setNodeText(value, `${fmt(item.value)} / ${METHOD_MAX[label]} 指数`);
+        replaceCompactNote(span, joinNote(`正式方向档：${methodBand(item)}`, boundaryExcerpt(item)));
       } else if (kind === "finance" && item && FINANCE_MAX[label]) {
         setNodeText(value, `${fmt(item.value)} / ${FINANCE_MAX[label]} 分`);
-        ensureRowSmall(span, joinNote(stateMeta(item), "状态不等于本人全责", boundaryHint(item)));
+        replaceCompactNote(span, joinNote(stateMeta(item), "状态不等于本人全责", boundaryExcerpt(item)));
       } else if (kind === "finance" && item && label === "C4恢复与成本") {
         setRowLabel(span, "C4恢复、恶化与额外成本调整");
         setNodeText(value, `${signedFmt(item.value)} 分`);
-        ensureRowSmall(span, joinNote("净调整项", "恢复 − 可归责恶化 − 额外成本", boundaryHint(item)));
+        replaceCompactNote(span, joinNote("净调整项", "恢复 − 可归责恶化 − 额外成本", boundaryExcerpt(item)));
       } else if (kind === "handoff" && item && label === "D1继任行政连续性") {
         setNodeText(value, `${fmt(item.value, 0)} / 5 级`);
-        ensureRowSmall(span, joinNote("离场前后的行政承接", boundaryHint(item)));
+        replaceCompactNote(span, joinNote("离场前后的行政承接", boundaryExcerpt(item)));
       } else if (kind === "handoff" && item && label === "D3政权交接稳定") {
         setNodeText(value, `${fmt(item.value, 0)} / 5 级`);
-        ensureRowSmall(span, joinNote("离场前后的终局继承", boundaryHint(item)));
+        replaceCompactNote(span, joinNote("离场前后的终局继承", boundaryExcerpt(item)));
       } else if (kind === "handoff" && label === "低侧封顶") {
         setRowLabel(span, "交接短板上限");
+        replaceCompactNote(span, "交接短板决定本项最高可得分");
       } else if (kind === "handoff" && label === "交接得分") {
         setNodeText(value, `${fmt(item?.value)} / 20 分`);
+        replaceCompactNote(span, "D1与D3合成后的交接质量");
       } else if (kind === "handoff" && label === "第二项合计") {
         setNodeText(value, `${fmt(item?.value)} / 387 分`);
+        replaceCompactNote(span, "治理手段 + 治理结果 + 交接质量");
       }
     }
   }
@@ -584,6 +635,12 @@
     enhanceCompactGroups(record);
   }
 
+  function pendingSecondLabel(record) {
+    return record?.settlement_readiness === "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"
+      ? "待正式结算"
+      : "未入榜";
+  }
+
   function enhanceCompare(records) {
     if (records.length < 2 || records.some(record => !record?.detail_loaded)) return;
     const rows = Array.from(screenEl.querySelectorAll(".comparison tbody tr"));
@@ -591,7 +648,11 @@
     if (secondRow) {
       records.forEach((record, index) => {
         const cell = secondRow.cells[index + 1];
-        if (!cell || !record?.net) return;
+        if (!cell) return;
+        if (!record?.net) {
+          setNodeText(cell, pendingSecondLabel(record));
+          return;
+        }
         const totals = secondTotals(record);
         const key = `${totals.totalScore}|${rankText(totals)}`;
         if (cell.dataset.secondItemKey === key) return;
@@ -604,7 +665,13 @@
     if (structureRow) {
       records.forEach((record, index) => {
         const cell = structureRow.cells[index + 1];
-        if (!cell || !record?.net) return;
+        if (!cell) return;
+        if (!record?.net) {
+          if (record?.settlement_readiness === "PENDING_SECOND_ITEM_FORMAL_SETTLEMENT") {
+            setNodeText(cell, "第二项正式结算待补；当前不进入净收益总榜。 ");
+          }
+          return;
+        }
         for (const details of cell.querySelectorAll("details")) {
           const kind = groupKindFromSummary(details.querySelector(":scope > summary"));
           if (kind) formatCompactGroup(details, record, kind);
@@ -613,25 +680,27 @@
     }
   }
 
-  function enhanceNetSecond(record) {
+  function enhanceNetRoute(record) {
     if (!record?.net) return;
+    restoreFormalBasisForRoute(record);
+    const route = parsedNetRoute();
+    if (!route) return;
+    if (route.major !== "second") return;
     const totals = secondTotals(record);
     ensureLandingCard(record, totals);
     if (!location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
     ensureSecondSummary(record, totals);
-    restoreFormalBasis(document.getElementById("net-group-method"), totals.method);
-    restoreFormalBasis(document.getElementById("net-group-finance"), totals.finance);
-    restoreFormalBasis(document.getElementById("net-group-handoff"), totals.handoff);
     ensureMethodGroup(totals);
     ensureFinanceGroup(totals);
     ensureHandoffGroup(totals);
+    ensureAuditPoolNotes(totals);
     humanizeInternalLanguage();
   }
 
   function enhance() {
     ensureStyles();
     const netRecord = recordForNetRoute();
-    if (netRecord) enhanceNetSecond(netRecord);
+    if (netRecord) enhanceNetRoute(netRecord);
 
     const personRecord = recordForPersonRoute();
     if (personRecord) enhancePersonOverview(personRecord);
