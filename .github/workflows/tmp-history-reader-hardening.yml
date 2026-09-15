@@ -1,0 +1,76 @@
+name: Temporary historical impact reader hardening
+
+on:
+  push:
+    branches:
+      - codex/single-ruler-session-control
+
+permissions:
+  contents: write
+
+jobs:
+  harden:
+    if: github.event.head_commit.message == '运行历史影响阅读层系统修复'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/single-ruler-session-control
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python -m pip install -e . -r reader/requirements.txt pytest
+
+      - name: Apply historical impact reader patch
+        run: python .github/tmp-history-reader-hardening.py
+
+      - name: Verify formal historical impact and project entries
+        run: |
+          python v4.py historical-impact-verify
+          python v4.py project-entries-verify
+
+      - name: Rebuild and validate reader
+        shell: bash
+        run: |
+          python reader/build.py
+          python reader/build.py --check
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('reader/index.html').read_text(encoding='utf-8')
+          scripts = re.findall(r'<script([^>]*)>(.*?)</script>', html, flags=re.S)
+          executable = [body for attrs, body in scripts if 'application/json' not in attrs]
+          if not executable:
+              raise SystemExit('no executable browser scripts found')
+          out = Path('.tmp/reader-js-check')
+          out.mkdir(parents=True, exist_ok=True)
+          for i, body in enumerate(executable):
+              (out / f'{i}.js').write_text(body, encoding='utf-8')
+          print('executable scripts:', len(executable))
+          PY
+          for file in .tmp/reader-js-check/*.js; do node --check "$file"; done
+          rm -rf .tmp/reader-js-check
+          python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
+          git diff --check
+
+      - name: Commit remediation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/tmp-history-reader-hardening.yml .github/tmp-history-reader-hardening.py
+          git fetch origin codex/single-ruler-session-control
+          remote_head="$(git rev-parse origin/codex/single-ruler-session-control)"
+          if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
+            echo "Branch moved from $GITHUB_SHA to $remote_head; refusing stale push." >&2
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --check
+          git commit -m '修复历史影响阅读层取数与展示'
+          git push origin HEAD:codex/single-ruler-session-control
