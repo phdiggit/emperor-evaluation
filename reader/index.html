@@ -867,24 +867,14 @@ function historySections(r){
  const causalIndices=causalReview.source_ref_indices||[];
  const paradigmIndices=paradigmReview.source_ref_indices||[];
  const scopeBasis=scopeReview.basis||h.foundation?.joint_footprint_basis||h.grade_basis;
- const scopeLimit=[scopeReview.limits,scopeReview.limit,h.dimensions?.scope?.boundary_note].filter(Boolean).join('
-
-');
+ const scopeLimit=[scopeReview.limits,scopeReview.limit,h.dimensions?.scope?.boundary_note].filter(Boolean).join('\\n\\n');
  const depthBasis=depthReview.basis||h.dimensions?.depth_duration?.boundary_note||'';
- const depthLimit=[depthReview.limits,depthReview.limit,h.dimensions?.depth_duration?.boundary_note].filter(Boolean).join('
-
-');
+ const depthLimit=[depthReview.limits,depthReview.limit,h.dimensions?.depth_duration?.boundary_note].filter(Boolean).join('\\n\\n');
  const causalBasis=causalReview.basis||causalReview.decision||'';
  const counterfactual=h.nearest_feasible_counterfactual||h.counterfactual_entry?.functional_alternative||causalReview.strongest_alternative||'';
- const causalLimit=[causalReview.limit,h.dimensions?.personal_causality?.boundary_note].filter(Boolean).join('
-
-');
- const paradigmLimit=[paradigmReview.limitation,paradigmReview.depth_separation,h.dimensions?.paradigm?.boundary_note].filter(Boolean).join('
-
-');
- const evidenceBoundary=[h.confidence_basis,h.source_review_scope,h.source_trace?.limit].filter(Boolean).join('
-
-');
+ const causalLimit=[causalReview.limit,h.dimensions?.personal_causality?.boundary_note].filter(Boolean).join('\\n\\n');
+ const paradigmLimit=[paradigmReview.limitation,paradigmReview.depth_separation,h.dimensions?.paradigm?.boundary_note].filter(Boolean).join('\\n\\n');
+ const evidenceBoundary=[h.confidence_basis,h.source_review_scope,h.source_trace?.limit].filter(Boolean).join('\\n\\n');
  return `<h2 class="evidence-card-title">历史影响依据</h2><details><summary>历史影响等级为什么这样定？</summary>${prose(h.grade_basis)}</details><section class="impact-core-chains"><h3>核心历史主链</h3><p class="subline">先看真正改变了什么，再分别判断覆盖范围、持续深度、个人归责和后世范式。</p>${chains.map(c=>`<details id="chain-${c.chain_id}"><summary>${esc(c.title)}</summary>${prose(c.narrative)}${impactSourceList(r,c.source_ref_indices,'本链依据')}</details>`).join('')}</section><section id="history-dimension-scope" class="impact-dimension-section">${impactDimensionHead(h,'scope','影响范围','回答“实际改变覆盖到多大政治空间，哪些部分不能继续外推”。')}${prose(scopeBasis)}${scopeLimit?`<div class="label">范围边界</div>${prose(scopeLimit)}`:''}${impactSourceList(r,scopeIndices,'范围与主链依据')}</section><section id="history-dimension-depth_duration" class="impact-dimension-section">${impactDimensionHead(h,'depth_duration','深度与持续','回答“本人退出后，哪些结构仍继续约束后继，延续到哪里为止”。')}${prose(depthBasis)}${depthLimit?`<div class="label">持续边界与截断点</div>${prose(depthLimit)}`:''}${impactSourceList(r,depthIndices,'深度依据')}</section><section id="history-dimension-personal_causality" class="impact-dimension-section">${impactDimensionHead(h,'personal_causality','个人因果','回答“这些变化有多少真正依赖本人，而不是前制、臣下、时代趋势或后继者”。')}${causalBasis?`<div class="label">因果判断</div>${prose(causalBasis)}`:''}${counterfactual?`<div class="label">如果没有这个人</div>${prose(counterfactual)}`:''}${h.personal_causal_boundary?`<div class="label">本人、团队与时代如何分账</div>${prose(h.personal_causal_boundary)}`:''}${causalLimit?`<div class="label">因果边界</div>${prose(causalLimit)}`:''}${impactSourceList(r,causalIndices,'因果依据')}</section><section id="history-dimension-paradigm" class="impact-dimension-section">${impactDimensionHead(h,'paradigm','政治范式','回答“后世最高权力是否真的把这个人或其治道当作榜样、反例或现实政治参照”。')}${prose(h.paradigm_analysis)}${paradigmLimit?`<div class="label">范式边界</div>${prose(paradigmLimit)}`:''}${impactSourceList(r,paradigmIndices,'范式依据')}</section><section id="history-judgment-boundary" class="impact-dimension-section impact-boundary"><div class="impact-dimension-head"><h3>判断边界</h3><span class="subline">判断把握：${conf(h.confidence)}</span></div>${evidenceBoundary?prose(evidenceBoundary):'<p class="subline">当前正式记录未另列补充边界。</p>'}</section><p class="sources impact-reading-links">${link(DATA.sources.impact_reader,'历史影响完整阅读页 ↗')}${link(DATA.sources.impact,'正式记录入口 ↗')}</p>`;
 }
 
