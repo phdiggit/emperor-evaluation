@@ -567,11 +567,11 @@
       const box = document.getElementById(`chain-${chain.chain_id}`);
       const summary = box?.querySelector(":scope > summary");
       if (!box || !summary || box.dataset.publicNarrative === "done") continue;
-      let node = summary.nextSibling;
-      while (node) {
-        const next = node.nextSibling;
-        node.remove();
-        node = next;
+      const sourceBox = Array.from(box.children).find(
+        node => node.tagName === "DETAILS" && node.classList.contains("impact-source-list")
+      );
+      for (const node of Array.from(box.children)) {
+        if (node !== summary && node !== sourceBox) node.remove();
       }
       summary.after(fragment(prose(historyPublicText(chain.narrative))));
       box.dataset.publicNarrative = "done";

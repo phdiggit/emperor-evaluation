@@ -77,3 +77,27 @@ def test_net_explanation_projection_uses_formal_text():
         "docs/评分结算/测试.json",
         "docs/史料通读产物/测试.md#L10",
     ]
+
+
+
+def test_history_impact_reader_uses_dimension_navigation_without_audit_panel():
+    root = __import__("pathlib").Path(__file__).resolve().parents[1]
+    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
+    public_js = (root / "reader" / "person-readability.js").read_text(encoding="utf-8")
+
+    for target in (
+        "history-dimension-scope",
+        "history-dimension-depth_duration",
+        "history-dimension-personal_causality",
+        "history-dimension-paradigm",
+    ):
+        assert target in template
+
+    assert 'data-section="history-dimension-${k}"' in template
+    assert "历史影响 · 来源与核对范围" not in template
+    assert "${prose(r.impact.historical_source_notes)}" not in template
+    assert "source_review_scope" in template
+    assert "source_trace?.limit" in template
+    assert "impact-source-list" in template
+    assert "IMPORTED_ADJUDICATION" in template
+    assert 'node !== summary && node !== sourceBox' in public_js
