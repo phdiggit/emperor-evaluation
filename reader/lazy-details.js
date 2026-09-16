@@ -20,7 +20,7 @@
   const firstItemSourceLoads = new Map();
 
   function firstItemRouteId() {
-    const match = location.hash.match(/^#net\/([^/?#]+)\/first(?:\/|$)/);
+    const match = location.hash.match(/^#(?:person|net)\/([^/?#]+)(?:\/first)?(?:\/|$)/);
     if (!match) return "";
     try { return decodeURIComponent(match[1]); }
     catch { return ""; }
@@ -165,6 +165,14 @@
     renderGeneration += 1;
     return baseGuide();
   };
+
+  if (!document.querySelector('script[data-first-item-reading]')) {
+    const script = document.createElement("script");
+    script.src = "first-item-reading.js";
+    script.async = false;
+    script.dataset.firstItemReading = "true";
+    document.head.append(script);
+  }
 
   // Second-item guidance is still a separate lazy-loaded view helper.
   if (!document.querySelector('script[data-second-item-reading]')) {
