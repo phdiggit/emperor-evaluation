@@ -292,9 +292,18 @@
     return `<article class="context-story net-public-item first-item-total"><div class="component"><span><strong>第一项结算</strong><small>${esc(publicEquation)}</small></span><b>${esc(`${net}分`)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>统一使用同一条折算曲线</small></span><b>${esc(addOnText)}</b></div>${ruleDetails([`内部四项：A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。`, `第一项净分 S1 = max(0, ${gross} − ${cost}) = ${net}。`, `总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`])}</article>`;
   }
 
+  function firstItemTarget() {
+    if (/^#net\/[^/?#]+\/first(?:\/|$)/.test(location.hash)) {
+      return document.getElementById("net-major-body");
+    }
+    return document.querySelector('.net-public-group[data-net-group="first"]');
+  }
+
   async function build(group, record, items) {
+    const dedicated = /^#net\/[^/?#]+\/first(?:\/|$)/.test(location.hash);
+    const heading = dedicated ? "" : `<h3>第一项 · 奠基与统一</h3>`;
     if (record.net?.first_item_status !== "APPLICABLE") {
-      group.innerHTML = `<div class="first-item-public-v2"><h3>第一项 · 奠基与统一</h3><p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入建国、复国或统一创业主链的本项加分口径。</p></div>`;
+      group.innerHTML = `<div class="first-item-public-v2">${heading}<p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入建国、复国或统一创业主链的本项加分口径。</p></div>`;
       return;
     }
     const formalName = FORMAL_NAME_ALIASES[record.ruler_name] || record.ruler_name;
@@ -312,13 +321,16 @@
     const zeroNote = Number.isFinite(netScore) && netScore === 0
       ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这里已经进入第一项结算，只是成果在扣除相关战争代价后没有留下正的净值。</p>`
       : "";
-    group.innerHTML = `<div class="first-item-public-v2"><h3>第一项 · 奠基与统一</h3><p class="reading-intro"><strong>默认层只讲这个人实际做了什么。</strong>内部指标代号、变量定义和公式统一收进“规则与计算”；公众等级只用来辅助读事实。</p>${zeroNote}${cards.join("")}${renderTotals(items)}</div>`;
+    const intro = dedicated
+      ? `<p class="reading-intro"><strong>先看${esc(record.ruler_name)}在这条主链里实际做了什么。</strong>内部指标代号、变量定义和公式全部收进“规则与计算”。</p>`
+      : `<p class="reading-intro"><strong>默认层只讲这个人实际做了什么。</strong>内部指标代号、变量定义和公式统一收进“规则与计算”；公众等级只用来辅助读事实。</p>`;
+    group.innerHTML = `<div class="first-item-public-v2">${heading}${intro}${zeroNote}${cards.join("")}${renderTotals(items)}</div>`;
   }
 
   async function enhance() {
     const record = currentRecord();
     if (!record?.net) return;
-    const group = document.querySelector('.net-public-group[data-net-group="first"]');
+    const group = firstItemTarget();
     if (!group || group.querySelector(":scope > .first-item-public-v2") || pending.has(record.ruler_id)) return;
     const items = record.net.component_details?.first;
     if (!Array.isArray(items)) return;
