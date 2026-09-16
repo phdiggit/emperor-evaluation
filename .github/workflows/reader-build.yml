@@ -13,6 +13,7 @@ on:
       - reader/person-readability.js
       - reader/first-item-reading.js
       - reader/second-item-reading.js
+      - reader/second-item-public-alias.js
       - reader/historical-impact-reading.js
       - reader/validate_first_item_docs.py
       - reader/build_first_item_reader_cache.py
@@ -96,6 +97,7 @@ jobs:
           for file in .tmp/reader-js-check/*.js; do node --check "$file"; done
           node --check reader/first-item-reading.js
           node --check reader/second-item-reading.js
+          node --check reader/second-item-public-alias.js
           node --check reader/historical-impact-reading.js
           rm -rf .tmp/reader-js-check
 
