@@ -23,7 +23,11 @@ OUTPUT_DIR = Path("reader/data/military")
 ANCHOR_RE = re.compile(
     r"(?:^|[：，；。、])(?P<anchor>[^，；。：、\s]{2,32}?)(?P<result>S\+|S-|S−|S|A|B|C)/(?P<difficulty>D[0-4])"
 )
-SECTION_RE = re.compile(r"^###\s+\d+\.\s*(?P<name>.+?)\s*$")
+STRUCTURED_C_BATTLE_RE = re.compile(
+    r"^\s*(?P<anchor>.+?)\s*[｜|]\s*(?P<role>前线作战|战略统筹)\s*[｜|]\s*"
+    r"(?P<result>S\+|S-|S−|S|A|B|C)\s*[｜|]\s*(?P<difficulty>D[0-4]|[—-])\s*$"
+)
+SECTION_RE = re.compile(r"^###\s+\d+\.\s*(?P<name>.+?)\s*$", re.MULTILINE)
 ANCHOR_PREFIXES = (
     "第一项主链内已有",
     "第一项建国统一链内",
@@ -206,35 +210,72 @@ def _anchor_score(anchor: str, search_text: str) -> int:
 def _parse_first_item_c_anchors(path: Path) -> list[dict[str, str]]:
     if not path.exists():
         return []
-    ruler = ""
     found: list[dict[str, str]] = []
     seen: set[tuple[str, str, str, str]] = set()
-    for line in path.read_text(encoding="utf-8-sig").splitlines():
-        heading = SECTION_RE.match(line)
-        if heading:
-            ruler = heading.group("name").strip()
+    text = path.read_text(encoding="utf-8-sig")
+    sections = list(SECTION_RE.finditer(text))
+
+    def add_anchor(
+        ruler: str,
+        raw_anchor: str,
+        result: str,
+        difficulty: str,
+        role: str | None = None,
+        preserve_name: bool = False,
+    ) -> None:
+        raw_anchor = raw_anchor.strip(" ：，；。、")
+        anchor = raw_anchor if preserve_name else _clean_anchor_name(raw_anchor)
+        if len(_compact_text(anchor)) < 2:
+            return
+        key = (ruler, anchor, result, difficulty)
+        if key in seen:
+            return
+        seen.add(key)
+        found.append({
+            "ruler": ruler,
+            "anchor": anchor,
+            "raw_anchor": raw_anchor,
+            "anchor_kind": "strategic" if role == "战略统筹" else _anchor_kind(raw_anchor, anchor),
+            "role": role or ("战略统筹" if "统筹" in raw_anchor else "前线作战"),
+            "result_grade": result,
+            "difficulty_grade": difficulty,
+        })
+
+    for index, heading in enumerate(sections):
+        ruler = heading.group("name").strip()
+        end = sections[index + 1].start() if index + 1 < len(sections) else len(text)
+        block = text[heading.end():end]
+        structured_lines = [line for line in block.splitlines() if "统一链战役清单" in line]
+        if structured_lines:
+            for line in structured_lines:
+                value = line.split("统一链战役清单**：", 1)[-1].rstrip("。")
+                for raw_item in value.split("；"):
+                    structured = STRUCTURED_C_BATTLE_RE.match(raw_item)
+                    if not structured:
+                        continue
+                    difficulty = structured.group("difficulty")
+                    if difficulty == "-":
+                        difficulty = "—"
+                    add_anchor(
+                        ruler,
+                        structured.group("anchor"),
+                        _normalize_grade(structured.group("result")),
+                        difficulty,
+                        structured.group("role"),
+                        True,
+                    )
             continue
-        if not ruler or "结算依据" not in line:
-            continue
-        for match in ANCHOR_RE.finditer(line):
-            raw_anchor = match.group("anchor").strip(" ：，；。、")
-            anchor = _clean_anchor_name(raw_anchor)
-            if len(_compact_text(anchor)) < 2:
+
+        for line in block.splitlines():
+            if "结算依据" not in line:
                 continue
-            result = _normalize_grade(match.group("result"))
-            difficulty = match.group("difficulty")
-            key = (ruler, anchor, result, difficulty)
-            if key in seen:
-                continue
-            seen.add(key)
-            found.append({
-                "ruler": ruler,
-                "anchor": anchor,
-                "raw_anchor": raw_anchor,
-                "anchor_kind": _anchor_kind(raw_anchor, anchor),
-                "result_grade": result,
-                "difficulty_grade": difficulty,
-            })
+            for match in ANCHOR_RE.finditer(line):
+                add_anchor(
+                    ruler,
+                    match.group("anchor"),
+                    _normalize_grade(match.group("result")),
+                    match.group("difficulty"),
+                )
     return found
 
 

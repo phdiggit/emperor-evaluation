@@ -115,6 +115,45 @@ def test_first_item_c_anchor_binds_only_unique_matching_battle(tmp_path: Path):
     assert battles["first_item_c_anchor_lookup"]["北门决战"] == "WAR-TEST-NORTH"
 
 
+def test_first_item_c_structured_battle_list_preserves_roles(tmp_path: Path):
+    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
+    write_json(
+        tmp_path / module.BATTLE_DIR / "demo-00.json",
+        {
+            "records": [{
+                "war_event_id": "WAR-TEST-STRUCTURED",
+                "dynasty": "测试朝",
+                "canonical_label": "测试君主完成北门决战",
+                "campaign_tier": "A",
+                "combat_difficulty": "D3",
+                "members": [{
+                    "actor_name": "测试君主",
+                    "person_command_result": [{
+                        "result_ref": "PCR-TEST-STRUCTURED",
+                        "result_tier": "A",
+                        "combat_difficulty": "D3",
+                    }],
+                }],
+            }],
+        },
+    )
+    minimal_commander(tmp_path)
+    write_first_item_c(
+        tmp_path / module.FIRST_ITEM_C_SETTLEMENT,
+        "# 第一项C\n\n### 1. 测试君主\n\n"
+        "- **统一链战役清单**：北门决战｜前线作战｜A｜D3；全局方案｜战略统筹｜S｜—。\n",
+    )
+
+    battles, _ = module.build_indexes(tmp_path)
+    by_anchor = {row["anchor"]: row for row in battles["first_item_c_anchors"]}
+
+    assert by_anchor["北门决战"]["role"] == "前线作战"
+    assert by_anchor["北门决战"]["status"] == "resolved_unique"
+    assert by_anchor["全局方案"]["role"] == "战略统筹"
+    assert by_anchor["全局方案"]["anchor_kind"] == "strategic"
+    assert by_anchor["全局方案"]["status"] == "search_only_strategic"
+
+
 def test_first_item_c_aggregate_anchor_remains_search_only(tmp_path: Path):
     write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
     write_json(

@@ -16,6 +16,17 @@ DOCS = {
 
 PERSON_HEADING = re.compile(r"^###\s+\d+\.\s+(.+?)\s*$", re.MULTILINE)
 BULLET = re.compile(r"^-\s+\*\*(.+?)\*\*[：:]\s*(.*)$")
+BATTLE_LIST_FIELD = "统一链战役清单"
+BATTLE_LIST_ITEM = re.compile(
+    r"^(.+?)\s*[｜|]\s*(前线作战|战略统筹)\s*[｜|]\s*([SABCD][+−-]?)\s*[｜|]\s*(D[0-4]|[—-])$"
+)
+RESULT_ORDER = {
+    "S+": 12, "S": 11, "S-": 10, "S−": 10,
+    "A+": 9, "A": 8, "A-": 7, "A−": 7,
+    "B+": 6, "B": 5, "B-": 4, "B−": 4,
+    "C+": 3, "C": 2, "C-": 1, "C−": 1,
+    "D": 0,
+}
 
 
 def parse_people(path: Path) -> dict[str, dict[str, str]]:
@@ -44,6 +55,26 @@ def require(fields: dict[str, str], names: tuple[str, ...], *, doc: str, person:
     missing = [name for name in names if not fields.get(name)]
     if missing:
         raise ValueError(f"{doc}: {person}: missing fields: {', '.join(missing)}")
+
+
+def validate_battle_list(value: str, *, person: str) -> None:
+    entries = []
+    for raw in value.split("；"):
+        item = raw.strip().rstrip("。")
+        if not item:
+            continue
+        match = BATTLE_LIST_ITEM.match(item)
+        if not match:
+            raise ValueError(f"C: {person}: invalid {BATTLE_LIST_FIELD} item: {item}")
+        entries.append(match.groups())
+    if not entries:
+        raise ValueError(f"C: {person}: empty {BATTLE_LIST_FIELD}")
+    names = [name for name, *_ in entries]
+    if len(names) != len(set(names)):
+        raise ValueError(f"C: {person}: duplicate {BATTLE_LIST_FIELD} battle")
+    ranks = [RESULT_ORDER[grade.replace("−", "-")] for _, _, grade, _ in entries]
+    if ranks != sorted(ranks, reverse=True):
+        raise ValueError(f"C: {person}: {BATTLE_LIST_FIELD} must be sorted by result grade descending")
 
 
 def validate() -> None:
@@ -84,6 +115,8 @@ def validate() -> None:
 
     for person, fields in parsed["C"].items():
         require(fields, ("C结算", "责任路线", "结算依据"), doc="C", person=person)
+        if fields.get(BATTLE_LIST_FIELD):
+            validate_battle_list(fields[BATTLE_LIST_FIELD], person=person)
 
     shared_people = sum(len(people) for people in shared_projects.values())
     print(

@@ -22,7 +22,9 @@ on:
       - reader/military.html
       - reader/military-archive.js
       - reader/serve.py
+      - reader/_build_military_archive_core.py
       - tests/test_reader.py
+      - tests/test_reader_first_item_reading.py
       - tests/test_reader_person_readability.py
       - tests/test_reader_lazy_details.py
       - tests/test_reader_military_archive.py
@@ -96,7 +98,7 @@ jobs:
           rm -rf .tmp/reader-js-check
 
       - name: Run behavior tests
-        run: python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
+        run: python -m pytest tests/test_reader.py tests/test_reader_first_item_reading.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
 
       - name: Commit generated reader artifacts
         shell: bash
