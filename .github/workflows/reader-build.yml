@@ -11,6 +11,7 @@ on:
       - reader/readability.css
       - reader/readability.js
       - reader/person-readability.js
+      - reader/first-item-reading.js
       - reader/historical-impact-reading.js
       - reader/validate_first_item_docs.py
       - reader/build_first_item_reader_cache.py
@@ -90,6 +91,7 @@ jobs:
           print('inline executable scripts:', len(executable))
           PY
           for file in .tmp/reader-js-check/*.js; do node --check "$file"; done
+          node --check reader/first-item-reading.js
           node --check reader/historical-impact-reading.js
           rm -rf .tmp/reader-js-check
 
@@ -112,7 +114,7 @@ jobs:
           fi
 
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "4189822+github-actions[bot]@users.noreply.github.com"
           git add -A reader/index.html reader/data/people reader/data/military reader/data/first-item
           git commit -m "重建综合阅读层"
           git push
