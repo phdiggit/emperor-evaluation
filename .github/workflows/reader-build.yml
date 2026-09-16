@@ -11,6 +11,9 @@ on:
       - reader/readability.css
       - reader/readability.js
       - reader/person-readability.js
+      - reader/first-item-reading.js
+      - reader/first-item-boundary-notes.js
+      - reader/historical-impact-reading.js
       - reader/lazy-details.js
       - reader/public-copy.json
       - reader/build.py
@@ -71,16 +74,17 @@ jobs:
           import re
           html = Path('reader/index.html').read_text(encoding='utf-8')
           scripts = re.findall(r'<script([^>]*)>(.*?)</script>', html, flags=re.S)
-          executable = [body for attrs, body in scripts if 'application/json' not in attrs]
+          executable = [body for attrs, body in scripts if 'application/json' not in attrs and not re.search(r'\bsrc\s*=', attrs)]
           if not executable:
               raise SystemExit('no executable browser scripts found')
           out = Path('.tmp/reader-js-check')
           out.mkdir(parents=True, exist_ok=True)
           for i, body in enumerate(executable):
               (out / f'{i}.js').write_text(body, encoding='utf-8')
-          print('executable scripts:', len(executable))
+          print('inline executable scripts:', len(executable))
           PY
           for file in .tmp/reader-js-check/*.js; do node --check "$file"; done
+          for file in reader/first-item-reading.js reader/first-item-boundary-notes.js reader/historical-impact-reading.js; do node --check "$file"; done
           rm -rf .tmp/reader-js-check
 
       - name: Run behavior tests
