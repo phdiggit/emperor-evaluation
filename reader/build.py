@@ -11,6 +11,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DETAILS_DIR = ROOT / "reader/data/people"
+SECOND_ITEM_READER_SUMMARIES = "reader/second-item-summaries.json"
 sys.path.insert(0, str(ROOT / "src"))
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_parent_schema import parent_chains
@@ -249,6 +250,53 @@ def load_net_reader_sources(root):
         sources[key] = index(rows)
         sources[f"{key}_path"] = path
     return sources
+
+
+def load_second_item_reader_summaries(root, eligible_ids):
+    """Load persisted reader-only conclusions for the currently ranked pool."""
+    path = root / SECOND_ITEM_READER_SUMMARIES
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError as exc:
+        raise ValueError(f"Missing reader-only Second Item summaries: {path}") from exc
+    if not isinstance(payload, dict) or payload.get("schema_id") != "reader-second-item-conclusion-v1":
+        raise ValueError("Invalid reader-only Second Item summary schema")
+    summaries = payload.get("summaries")
+    if not isinstance(summaries, dict):
+        raise ValueError("Reader-only Second Item summaries must be an object")
+    eligible = set(eligible_ids)
+    outside = sorted(set(summaries) - eligible)
+    if outside:
+        raise ValueError(f"Reader-only Second Item summaries reference unranked rulers: {outside}")
+    result = {}
+    for ruler_id, summary in summaries.items():
+        if not isinstance(ruler_id, str) or not ruler_id:
+            raise ValueError("Reader-only Second Item summary has an invalid ruler_id")
+        if not isinstance(summary, str):
+            raise ValueError(f"Reader-only Second Item summary is not text: {ruler_id}")
+        summary = _clean_text(summary)
+        if not 35 <= len(summary) <= 120:
+            raise ValueError(f"Reader-only Second Item summary length is outside 35-120: {ruler_id}")
+        if any(mark in summary for mark in ("<", ">")):
+            raise ValueError(f"Reader-only Second Item summary must be plain text: {ruler_id}")
+        result[ruler_id] = summary
+    skipped = payload.get("skipped", [])
+    if not isinstance(skipped, list):
+        raise ValueError("Reader-only Second Item skipped must be a list")
+    skipped_ids = set()
+    for item in skipped:
+        if not isinstance(item, dict) or not isinstance(item.get("ruler_id"), str) or not isinstance(item.get("reason"), str):
+            raise ValueError("Reader-only Second Item skipped entries need ruler_id and reason")
+        if not item["reason"].strip():
+            raise ValueError(f"Reader-only Second Item skipped entry has an empty reason: {item['ruler_id']}")
+        if item["ruler_id"] in result:
+            raise ValueError(f"Reader-only Second Item ruler is both summarized and skipped: {item['ruler_id']}")
+        if item["ruler_id"] in eligible:
+            raise ValueError(f"Reader-only Second Item eligible ruler is skipped: {item['ruler_id']}")
+        if item["ruler_id"] in skipped_ids:
+            raise ValueError(f"Reader-only Second Item ruler is skipped more than once: {item['ruler_id']}")
+        skipped_ids.add(item["ruler_id"])
+    return result
 
 
 def project_net_explanations(person, row, sources):
@@ -594,6 +642,7 @@ def build(*, check=False, write=True):
     ready = {r["ruler_id"] for r in main if r["settlement_readiness"] == "COMPOSITE_READY"}
     if set(net) != ready:
         raise ValueError("Composite ranking does not match current ready pool")
+    second_item_reader_summaries = load_second_item_reader_summaries(ROOT, ready)
     net_reader_sources = load_net_reader_sources(ROOT)
     impact_config = config["historical_impact_assessment"]
     impact = load_json(ROOT / impact_config["json"])
@@ -627,6 +676,9 @@ def build(*, check=False, write=True):
         projected_net = pick(net[rid], net_fields) if rid in net else None
         if projected_net:
             projected_net["component_details"] = project_net_explanations(person, net[rid], net_reader_sources)
+            reader_summary = second_item_reader_summaries.get(rid)
+            if reader_summary:
+                projected_net["reader_governance_summary"] = reader_summary
         record.update(net=projected_net,
                       impact=history[rid], axes={code: axis_projection(rows[rid], axis_fields) for code, rows in axes.items()},
                       supplementary=False)

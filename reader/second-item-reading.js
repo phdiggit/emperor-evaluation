@@ -17,6 +17,7 @@
   function fmt(value,digits=1){const n=finite(value);return n==null?"—":n.toFixed(digits);}
   function signedFmt(value,digits=1){const n=finite(value);return n==null?"—":`${n>0?"+":""}${n.toFixed(digits)}`;}
   function setNodeText(node,text){if(node&&node.textContent!==text)node.textContent=text;}
+  function safeText(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
   function directText(node){if(!node)return"";return Array.from(node.childNodes).filter(c=>c.nodeType===Node.TEXT_NODE).map(c=>c.nodeValue||"").join("").trim();}
 
   function parsedNetRoute(){
@@ -67,6 +68,10 @@
     if(Math.abs(best.ratio-weak.ratio)<0.08)return"三块得分相对接近，没有明显由单一分项主导。";
     return`从三块得分看，${best.label}是相对最强的一项，${weak.label}相对最弱。`;
   }
+  function personConclusion(t,record){
+    const readerSummary=String(record?.net?.reader_governance_summary||"").trim();
+    return readerSummary||componentTakeaway(t);
+  }
 
   function ensureStyles(){
     if(document.getElementById("second-item-reading-style"))return;
@@ -104,9 +109,9 @@
   }
   function ensureSecondSummary(record,t){
     if(!location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/))return;const container=document.getElementById("net-major-body");if(!container||[t.methodScore,t.resultScore,t.handoffScore,t.totalScore].some(v=>v==null))return;
-    const rank=rankText(t),takeaway=componentTakeaway(t);let summary=container.querySelector(":scope > .second-item-reader-summary");if(!summary){summary=document.createElement("section");summary.className="second-item-reader-summary";container.insertBefore(summary,container.firstChild);}
+    const rank=rankText(t),takeaway=personConclusion(t,record);let summary=container.querySelector(":scope > .second-item-reader-summary");if(!summary){summary=document.createElement("section");summary.className="second-item-reader-summary";container.insertBefore(summary,container.firstChild);}
     const key=[t.methodScore,t.resultScore,t.handoffScore,t.totalScore,t.c4,rank,takeaway].join("|");
-    if(summary.dataset.secondRenderKey!==key){summary.innerHTML=`<h2>先看治国结论</h2><p class="second-item-person-conclusion">${takeaway}</p>${rank?`<span class="second-item-rank">${rank}</span>`:""}<div class="second-item-total-grid"><div>制度与行政<b>${fmt(t.methodScore)} / 165</b><small>制度建设、官僚治理与反馈约束</small></div><div>民生与社会<b>${fmt(t.resultScore)} / 202</b><small>民生、经济财政、社会安全与恢复成本</small></div><div>政权交接<b>${fmt(t.handoffScore)} / 20</b><small>行政承接与继承稳定</small></div></div><details class="second-item-formula"><summary>这个分数怎么算？</summary><div class="second-item-equation">${fmt(t.methodScore)} + ${fmt(t.resultScore)} + ${fmt(t.handoffScore)} = <strong>治国成效 ${fmt(t.totalScore)} / 387</strong></div><p class="subline">本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”。小数位来自统一计分公式，不表示历史判断本身具有同等测量精度。</p></details>`;summary.dataset.secondRenderKey=key;}
+    if(summary.dataset.secondRenderKey!==key){summary.innerHTML=`<h2>先看治国结论</h2><p class="second-item-person-conclusion">${safeText(takeaway)}</p>${rank?`<span class="second-item-rank">${rank}</span>`:""}<div class="second-item-total-grid"><div>制度与行政<b>${fmt(t.methodScore)} / 165</b><small>制度建设、官僚治理与反馈约束</small></div><div>民生与社会<b>${fmt(t.resultScore)} / 202</b><small>民生、经济财政、社会安全与恢复成本</small></div><div>政权交接<b>${fmt(t.handoffScore)} / 20</b><small>行政承接与继承稳定</small></div></div><details class="second-item-formula"><summary>这个分数怎么算？</summary><div class="second-item-equation">${fmt(t.methodScore)} + ${fmt(t.resultScore)} + ${fmt(t.handoffScore)} = <strong>治国成效 ${fmt(t.totalScore)} / 387</strong></div><p class="subline">本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”。小数位来自统一计分公式，不表示历史判断本身具有同等测量精度。</p></details>`;summary.dataset.secondRenderKey=key;}
     const page=document.querySelector(".net-detail-page"),intro=page?.querySelector(":scope > .panel");
     if(intro){const main=Array.from(intro.querySelectorAll(":scope > p")).find(p=>!p.classList.contains("subline")),score=intro.querySelector(":scope > p.subline");setNodeText(main,"治国成效看三件事：国家机器如何运转、统治时期民生与社会表现如何、离场时能否留下稳定可运行的交接。军事、边疆与统一功业另在其他板块评价。");setNodeText(score,`治国成效总分：${fmt(t.totalScore)} / 387${rank?`；${rank}`:""}。先看结论，再展开到各项依据。`);}
   }
