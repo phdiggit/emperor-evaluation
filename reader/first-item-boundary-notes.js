@@ -107,6 +107,38 @@
     );
   }
 
+  function directLabels(card) {
+    return new Set(Array.from(card?.querySelectorAll(".net-metric-body > .label") || [])
+      .map(label => label.textContent.trim()));
+  }
+
+  function clarifyMissingPersonDetails() {
+    const summary = document.querySelector(".first-item-reader-summary");
+    if (!summary) return;
+    const checks = [
+      ["统一成果", "net-first-a", ["当前人物实际留下了什么"]],
+      ["创业难度与效率", "net-first-b1", ["当前人物的起点", "当前人物面对的对手", "完成效率"]],
+      ["组织整合", "net-first-b2", ["并行执行", "专业覆盖与组织杠杆", "异质整合"]],
+      ["本人统帅", "net-first-c", ["本人走哪条责任路线", "当前人物为什么是这个档"]],
+    ];
+    const missing = [];
+    for (const [name, id, required] of checks) {
+      const card = document.getElementById(id);
+      if (!card) {
+        missing.push(name);
+        continue;
+      }
+      const labels = directLabels(card);
+      if (required.some(label => !labels.has(label))) missing.push(name);
+    }
+    if (!missing.length) return;
+    addSummaryNote(
+      summary,
+      "formal-detail-load",
+      `“${missing.join("、")}”的人物化正式条目没有完整加载。本页分值仍读取正式结算；具体依据请以各卡片下方“原始正式文档”为准。刷新后仍出现此提示时，应检查正式文档标题或字段格式。`
+    );
+  }
+
   function enhance() {
     const record = currentRecord();
     if (!record?.net) return;
@@ -116,6 +148,7 @@
     clarifyZeroCommander(items);
     clarifyAttributionScore(items);
     clarifyZeroOutcome(items);
+    clarifyMissingPersonDetails();
   }
 
   function schedule() {
