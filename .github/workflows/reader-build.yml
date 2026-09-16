@@ -27,6 +27,7 @@ on:
       - tests/test_reader_person_readability.py
       - tests/test_reader_lazy_details.py
       - tests/test_reader_first_item_cache.py
+      - tests/test_reader_first_item_observer_safety.py
       - tests/test_reader_military_archive.py
       - tests/test_reader_military_archive_ref_policy.py
       - tests/test_reader_military_archive_lineage.py
@@ -97,7 +98,7 @@ jobs:
           rm -rf .tmp/reader-js-check
 
       - name: Run behavior tests
-        run: python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_first_item_cache.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
+        run: python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_first_item_cache.py tests/test_reader_first_item_observer_safety.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
 
       - name: Commit generated reader artifacts
         shell: bash
