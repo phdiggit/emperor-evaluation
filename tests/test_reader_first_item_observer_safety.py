@@ -27,3 +27,20 @@ def test_first_item_observer_scripts_are_not_mounted_on_public_reader():
     assert public_copy.count("first-item-boundary-notes.js") == 0
     assert 'script.src = "first-item-reading.js"' not in lazy
     assert 'script.src = "first-item-boundary-notes.js"' not in lazy
+
+
+def test_global_readability_observer_does_not_postprocess_first_item_route():
+    readability = (ROOT / "reader" / "readability.js").read_text(encoding="utf-8")
+    forbidden = [
+        "sanitizeFirstItemAReaderHow",
+        "enforceFirstItemStatus",
+        "enhanceFirstItemSummary",
+        "enhanceFirstItemB1Guide",
+        "enhanceFirstItemAExplanation",
+        "enhanceFirstItemCost",
+        "enhanceFirstItemCommandGuide",
+        "enhanceFirstItemBattleLinks",
+    ]
+    for name in forbidden:
+        assert name not in readability
+    assert "new MutationObserver(enhance).observe(screen, {childList: true, subtree: true})" in readability
