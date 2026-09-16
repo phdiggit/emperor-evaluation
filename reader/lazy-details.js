@@ -8,10 +8,8 @@
   const pendingLoads = new Map();
   let renderGeneration = 0;
 
-  // The first-item detail page historically downloaded four full settlement
-  // Markdown files and re-parsed them in the browser. Serve the same renderer
-  // from compact build-time person caches instead; any cache failure falls back
-  // to the original formal document so the reader remains auditable.
+  // First-item detail pages read compact build-time per-person source slices.
+  // Cache failures fall back to the formal Markdown source so auditability remains.
   const browserFetch = window.fetch.bind(window);
   const firstItemSourceMarkers = new Map([
     ["01-第一项A统一主链客观贡献正式结算.md", "A统一贡献"],
@@ -20,7 +18,6 @@
     ["04-第一项C本人军事统帅与战争解题能力正式结算.md", "C军事统帅与战争解题"],
   ]);
   const firstItemSourceLoads = new Map();
-  let firstItemContractLoad = null;
 
   function firstItemRouteId() {
     const match = location.hash.match(/^#net\/([^/?#]+)\/first(?:\/|$)/);
@@ -59,33 +56,8 @@
     return firstItemSourceLoads.get(rulerId);
   }
 
-  function loadFirstItemContract() {
-    if (!firstItemContractLoad) {
-      firstItemContractLoad = browserFetch("data/first-item/contract.md", {cache: "no-cache"})
-        .then(response => {
-          if (!response.ok) throw new Error(`First-item contract cache HTTP ${response.status}`);
-          return response.text();
-        })
-        .catch(error => {
-          firstItemContractLoad = null;
-          throw error;
-        });
-    }
-    return firstItemContractLoad;
-  }
-
   window.fetch = async function(input, options) {
     const text = requestText(input);
-    if (text.includes("00-规则与计分合同.md")) {
-      try {
-        const contract = await loadFirstItemContract();
-        return new Response(contract, {status: 200, headers: {"Content-Type": "text/markdown; charset=utf-8"}});
-      } catch (error) {
-        console.warn("First-item contract cache unavailable; falling back to formal source.", error);
-        return browserFetch(input, options);
-      }
-    }
-
     const match = [...firstItemSourceMarkers.entries()].find(([marker]) => text.includes(marker));
     if (match) {
       const rulerId = firstItemRouteId();
@@ -194,12 +166,7 @@
     return baseGuide();
   };
 
-  // First-item newcomer and boundary scripts are statically referenced by the
-  // generated page. Do not inject them again here: duplicate IIFEs create duplicate
-  // observers even when their DOM changes are idempotent.
-
-  // Second-item reading guidance makes the three real score blocks explicit before
-  // readers enter the lower-level method, outcome and handoff indicators.
+  // Second-item guidance is still a separate lazy-loaded view helper.
   if (!document.querySelector('script[data-second-item-reading]')) {
     const script = document.createElement("script");
     script.src = "second-item-reading.js";

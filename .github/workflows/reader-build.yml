@@ -11,8 +11,6 @@ on:
       - reader/readability.css
       - reader/readability.js
       - reader/person-readability.js
-      - reader/first-item-reading.js
-      - reader/first-item-boundary-notes.js
       - reader/historical-impact-reading.js
       - reader/validate_first_item_docs.py
       - reader/build_first_item_reader_cache.py
@@ -26,8 +24,6 @@ on:
       - tests/test_reader.py
       - tests/test_reader_person_readability.py
       - tests/test_reader_lazy_details.py
-      - tests/test_reader_first_item_cache.py
-      - tests/test_reader_first_item_observer_safety.py
       - tests/test_reader_military_archive.py
       - tests/test_reader_military_archive_ref_policy.py
       - tests/test_reader_military_archive_lineage.py
@@ -94,11 +90,11 @@ jobs:
           print('inline executable scripts:', len(executable))
           PY
           for file in .tmp/reader-js-check/*.js; do node --check "$file"; done
-          for file in reader/first-item-reading.js reader/first-item-boundary-notes.js reader/historical-impact-reading.js; do node --check "$file"; done
+          node --check reader/historical-impact-reading.js
           rm -rf .tmp/reader-js-check
 
       - name: Run behavior tests
-        run: python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_first_item_cache.py tests/test_reader_first_item_observer_safety.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
+        run: python -m pytest tests/test_reader.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
 
       - name: Commit generated reader artifacts
         shell: bash
