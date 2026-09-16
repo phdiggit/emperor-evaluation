@@ -11,15 +11,16 @@ def bootstrap_data():
     return json.loads(encoded)
 
 
-def test_first_item_reader_uses_build_time_source_cache_once():
+def test_first_item_reader_uses_build_time_source_cache_without_optional_observers():
     lazy = (ROOT / "reader/lazy-details.js").read_text(encoding="utf-8")
     public_copy = (ROOT / "reader/public-copy.json").read_text(encoding="utf-8")
     assert "data/first-item/" in lazy
     assert "First-item source cache unavailable" in lazy
     assert 'script.src = "first-item-reading.js"' not in lazy
     assert 'script.src = "first-item-boundary-notes.js"' not in lazy
-    assert public_copy.count('first-item-reading.js') == 1
-    assert public_copy.count('first-item-boundary-notes.js') == 1
+    assert public_copy.count('first-item-reading.js') == 0
+    assert public_copy.count('first-item-boundary-notes.js') == 0
+    assert public_copy.count('historical-impact-reading.js') == 1
 
 
 def test_first_item_reader_cache_matches_current_applicable_pool():

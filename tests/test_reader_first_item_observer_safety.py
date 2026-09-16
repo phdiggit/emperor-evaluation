@@ -20,10 +20,10 @@ def test_first_item_observers_only_write_when_dom_text_changes():
     assert "if (next !== text) small.textContent = next" in boundary
 
 
-def test_first_item_observer_scripts_are_loaded_once():
+def test_first_item_observer_scripts_are_not_mounted_on_public_reader():
     public_copy = (ROOT / "reader" / "public-copy.json").read_text(encoding="utf-8")
     lazy = (ROOT / "reader" / "lazy-details.js").read_text(encoding="utf-8")
-    assert public_copy.count("first-item-reading.js") == 1
-    assert public_copy.count("first-item-boundary-notes.js") == 1
+    assert public_copy.count("first-item-reading.js") == 0
+    assert public_copy.count("first-item-boundary-notes.js") == 0
     assert 'script.src = "first-item-reading.js"' not in lazy
     assert 'script.src = "first-item-boundary-notes.js"' not in lazy
