@@ -5,6 +5,23 @@
   if (!screen) return;
 
   const PUBLIC_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
+  const ROLE_LABELS = {
+    FOUNDATIONAL_CREATION:"创设",
+    MAJOR_RESTRUCTURE:"重构",
+    MAJOR_RECONSTRUCTION:"重建",
+    CANONICALIZATION:"定型",
+    MAJOR_CIVILIZATIONAL_CORRECTION:"重大纠偏",
+    MAJOR_NEGATIVE_RESTRUCTURE:"负向重构",
+    MAJOR_NEGATIVE_CREATION:"负向创设",
+    SEVERE_CIVILIZATIONAL_REVERSAL:"严重倒退",
+    STRUCTURAL_NON_DURABLE:"核心结构",
+    DURABILITY_EVIDENCE_PENDING:"核心结构",
+  };
+  const GROUP_TITLES = {
+    positive:"正向制度建设",
+    negative:"负向制度设计与制度性损害",
+    mixed:"正负并存的制度",
+  };
   const cache = new Map();
   let scheduled = false;
 
@@ -55,7 +72,7 @@
       }
       return records.find(row => row?.ruler_id === record.ruler_id) || null;
     })().catch(error => {
-      console.error("Failed to load public institution cleanup data", error);
+      console.error("Failed to load public institution data", error);
       return null;
     });
     cache.set(key, pending);
@@ -66,26 +83,55 @@
     return node?.institution_node_id || `${node?.label_zh || node?.mechanism || ""}\u0000${node?.direction || node?.normative_direction || ""}`;
   }
 
-  function formalNodes(formal) {
+  function nonEmpty(...values) {
+    for (const value of values) {
+      if (typeof value === "string" && value.trim()) return value.trim();
+    }
+    return "";
+  }
+
+  function mergeNode(important, profile) {
+    const merged = {...(important || {}), ...(profile || {})};
+    for (const key of ["label_zh", "mechanism", "institution_domain", "institution_lineage", "major_node_role", "reason"]) {
+      if (!nonEmpty(merged[key]) && important && nonEmpty(important[key])) merged[key] = important[key];
+    }
+    merged._majorRecord = important || null;
+    merged._direction = merged.direction || merged.normative_direction || "mixed";
+    return merged;
+  }
+
+  function groupKey(direction) {
+    if (direction === "positive") return "positive";
+    if (direction === "negative") return "negative";
+    return "mixed";
+  }
+
+  function formalGroups(formal) {
+    const groups = {positive:[], negative:[], mixed:[]};
     const important = new Map();
     for (const node of formal?.important_institutions || []) {
       if (node && typeof node === "object") important.set(nodeKey(node), node);
     }
-    const result = [];
     const seen = new Set();
-    const add = profile => {
+    const add = (profile, fallbackDirection) => {
       if (!profile || typeof profile !== "object") return;
       const key = nodeKey(profile);
       if (seen.has(key)) return;
       seen.add(key);
-      const major = important.get(key) || null;
-      result.push({...major, ...profile});
+      const node = mergeNode(important.get(key) || null, profile);
+      if (!node._direction || node._direction === "mixed") node._direction = fallbackDirection || node._direction || "mixed";
+      groups[groupKey(node._direction)].push(node);
     };
-    for (const node of formal?.M_positive_profile || []) add(node);
-    for (const node of formal?.M_negative_profile || []) add(node);
-    for (const node of formal?.M_mixed_profile || []) add(node);
-    for (const node of important.values()) if (!seen.has(nodeKey(node))) add(node);
-    return result;
+    for (const node of formal?.M_positive_profile || []) add(node, "positive");
+    for (const node of formal?.M_negative_profile || []) add(node, "negative");
+    for (const node of formal?.M_mixed_profile || []) add(node, node?.direction || "mixed");
+    for (const node of important.values()) {
+      if (seen.has(nodeKey(node))) continue;
+      const merged = mergeNode(node, null);
+      merged._direction = merged.normative_direction || merged.direction || "mixed";
+      groups[groupKey(merged._direction)].push(merged);
+    }
+    return groups;
   }
 
   function publicGrade(item) {
@@ -96,6 +142,7 @@
   }
 
   function numberValue(value) {
+    if (value == null || value === "") return null;
     const number = Number(value);
     return Number.isFinite(number) ? number : null;
   }
@@ -112,35 +159,74 @@
     return `${number > 0 ? "+" : ""}${fmt(number)}`;
   }
 
-  function weightValue(node) {
-    const value = Number(node?.signed_weight);
-    return Number.isFinite(value) ? value : 0;
-  }
-
-  function influenceLabel(node) {
-    const weight = Math.abs(weightValue(node));
-    if (weight >= 4) return "最高影响";
-    if (weight >= 3) return "高影响";
-    if (weight >= 2) return "中等影响";
-    if (weight >= 1) return "基础影响";
-    if (weight > 0) return "有限影响";
-    return "不单独加权";
-  }
-
   function officialTotals(formal) {
     const positive = numberValue(formal?.P_gross);
     const negative = numberValue(formal?.N_gross);
     const net = numberValue(formal?.A_net_units);
-    return {
-      available: positive != null && negative != null && net != null,
-      positive,
-      negative,
-      net,
-    };
+    return {available:positive != null && negative != null && net != null, positive, negative, net};
   }
 
-  function rawLabel(node) {
-    return String(node?.label_zh || node?.mechanism || "").trim();
+  function displayName(node) {
+    const explicit = nonEmpty(node?.label_zh, node?.mechanism, node?.institution_name, node?.title);
+    if (explicit) return explicit;
+    const lineage = nonEmpty(node?.institution_lineage).replace(/谱系$/, "").trim();
+    if (lineage) return lineage;
+    const domain = nonEmpty(node?.institution_domain);
+    return domain ? `${domain}制度调整` : "制度调整";
+  }
+
+  function directionLabel(direction) {
+    return ({
+      positive:"正向",
+      negative:"负向",
+      mixed_positive:"正向主导",
+      mixed_negative:"负向主导",
+      mixed:"正负并存",
+      balanced:"正负并存",
+      neutral:"正负并存",
+    })[direction] || "正负并存";
+  }
+
+  function isMajor(node) {
+    if (node?.decision) return node.decision === "MAJOR_NODE";
+    return /^(?:FOUNDATIONAL_CREATION|MAJOR_|CANONICALIZATION|SEVERE_CIVILIZATIONAL_REVERSAL|STRUCTURAL_NON_DURABLE|DURABILITY_EVIDENCE_PENDING)/.test(String(node?.major_node_role || ""));
+  }
+
+  function roleLabel(node) {
+    return ROLE_LABELS[node?.major_node_role] || "";
+  }
+
+  function influenceLabel(node) {
+    const weight = numberValue(node?.signed_weight);
+    if (weight == null) return "结构性依据";
+    const abs = Math.abs(weight);
+    if (abs >= 4) return "最高影响";
+    if (abs >= 3) return "高影响";
+    if (abs >= 2) return "中等影响";
+    if (abs >= 1) return "基础影响";
+    if (abs > 0) return "有限影响";
+    return "不增加净值";
+  }
+
+  function receptionClass(node) {
+    const effect = String(node?.S_effect || "").toUpperCase();
+    const gate = String(node?.durability_gate || "").toUpperCase();
+    const scope = String(node?.reception_scope || "").toUpperCase();
+    if (effect === "S++" || gate.includes("PLUSPLUS") || scope === "R4") return "cross-dynasty";
+    if (effect === "S+" || gate.includes("PASS_COUNTS_TOWARD_S") || scope === "R3") return "multi-reign";
+    if (effect.startsWith("S-") || gate.includes("NEGATIVE_R4") || gate.includes("NEGATIVE_R3")) return "negative-durable";
+    if (gate.includes("PENDING") || gate.includes("FAIL_R")) return "pending";
+    return "none";
+  }
+
+  function receptionText(node) {
+    switch (receptionClass(node)) {
+      case "cross-dynasty": return "后世接收：跨朝代长期沿用。";
+      case "multi-reign": return "后世接收：多个后继统治阶段持续采用。";
+      case "negative-durable": return "后世接收：负向机制长期延续，因此形成耐久扣减。";
+      case "pending": return "后世接收：现有证据尚不足以证明长期持续沿用。";
+      default: return "";
+    }
   }
 
   function labelBigrams(value) {
@@ -156,7 +242,7 @@
     if (!source) return "";
     const clauses = source.split(/(?<=[。；])/).map(part => part.trim()).filter(Boolean);
     if (clauses.length <= 1) return source;
-    const bigrams = labelBigrams(rawLabel(node));
+    const bigrams = labelBigrams(displayName(node));
     if (!bigrams.length) return source;
     const scored = clauses.map((clause, index) => ({
       clause,
@@ -165,12 +251,12 @@
     }));
     const max = Math.max(...scored.map(item => item.score));
     if (!max) return source;
-    const kept = scored
+    return scored
       .filter(item => item.score >= Math.max(1, Math.ceil(max * 0.45)))
       .slice(0, 2)
       .sort((a, b) => a.index - b.index)
-      .map(item => item.clause);
-    return kept.length ? kept.join("") : source;
+      .map(item => item.clause)
+      .join("") || source;
   }
 
   function auditClause(value) {
@@ -252,8 +338,9 @@
   function cleanBasis(value) {
     const raw = String(value || "").replace(/`/g, "").replace(/\s+/g, " ").trim();
     if (!raw) return "";
-    const clauses = raw.split(/(?<=[。；])/).map(part => part.trim()).filter(Boolean);
-    return clauses
+    return raw.split(/(?<=[。！？；])/)
+      .map(part => part.trim())
+      .filter(Boolean)
       .filter(clause => !auditClause(clause))
       .map(cleanClause)
       .filter(Boolean)
@@ -265,48 +352,67 @@
       .trim();
   }
 
-  function matchingCards(reading, label) {
-    return Array.from(reading.querySelectorAll(".second-item-institution-list > li")).filter(card =>
-      card.querySelector(".second-item-institution-head strong")?.textContent.trim() === label
-    );
+  function make(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text != null) node.textContent = text;
+    return node;
   }
 
-  function cardForNode(reading, node, nodes, index) {
-    const label = rawLabel(node);
-    if (!label) return null;
-    const occurrence = nodes.slice(0, index).filter(other => rawLabel(other) === label).length;
-    return matchingCards(reading, label)[occurrence] || null;
+  function institutionCard(node) {
+    const li = make("li", "");
+    if (node?.institution_node_id) li.dataset.institutionNodeId = node.institution_node_id;
+    li.dataset.institutionKey = nodeKey(node);
+
+    const head = make("div", "second-item-institution-head");
+    if (isMajor(node)) {
+      const role = roleLabel(node);
+      head.append(make("span", "second-item-institution-badge", role ? `重大制度 · ${role}` : "重大制度"));
+    }
+    head.append(make("strong", "", displayName(node)));
+    head.append(make("span", "second-item-institution-direction", directionLabel(node._direction)));
+    head.append(make("span", "second-item-institution-impact", `对最终等级：${influenceLabel(node)}`));
+    li.append(head);
+
+    const meta = [];
+    if (node?.institution_domain) meta.push(node.institution_domain);
+    if (meta.length) li.append(make("div", "second-item-institution-meta", meta.join(" · ")));
+
+    const note = cleanBasis(relevantSource(node));
+    if (note) li.append(make("p", "second-item-institution-note", note));
+
+    const reception = receptionText(node);
+    if (reception) li.append(make("small", "second-item-institution-reception", reception));
+    return li;
   }
 
-  function patchCard(reading, node, nodes, index) {
-    const card = cardForNode(reading, node, nodes, index);
-    if (!card) return;
+  function sectionFor(reading, key) {
+    const title = GROUP_TITLES[key];
+    return Array.from(reading.querySelectorAll(".second-item-institution-group")).find(section =>
+      section.querySelector(":scope > h4")?.textContent.trim().startsWith(title)
+    ) || null;
+  }
 
-    let impact = card.querySelector(".second-item-institution-impact");
-    if (!impact) {
-      const head = card.querySelector(".second-item-institution-head");
-      if (head) {
-        impact = document.createElement("span");
-        impact.className = "second-item-institution-impact";
-        head.append(impact);
+  function rebuildGroups(reading, groups) {
+    for (const key of ["positive", "negative", "mixed"]) {
+      const section = sectionFor(reading, key);
+      if (!section) continue;
+      const heading = section.querySelector(":scope > h4");
+      if (heading) heading.textContent = GROUP_TITLES[key];
+      let list = section.querySelector(":scope > .second-item-institution-list");
+      const empty = section.querySelector(":scope > .second-item-institution-empty");
+      empty?.remove();
+      if (!groups[key].length) {
+        list?.remove();
+        section.append(make("p", "second-item-institution-empty", "没有独立制度节点。"));
+        continue;
       }
+      if (!list) {
+        list = make("ul", "second-item-institution-list");
+        section.append(list);
+      }
+      list.replaceChildren(...groups[key].map(institutionCard));
     }
-    if (impact) impact.textContent = `对最终等级：${influenceLabel(node)}`;
-
-    const cleaned = cleanBasis(relevantSource(node));
-    let note = card.querySelector(".second-item-institution-note");
-    if (!cleaned) {
-      note?.remove();
-      return;
-    }
-    if (!note) {
-      note = document.createElement("p");
-      note.className = "second-item-institution-note";
-      const reception = card.querySelector(".second-item-institution-reception");
-      if (reception) reception.before(note);
-      else card.append(note);
-    }
-    note.textContent = cleaned;
   }
 
   function balancePhrase(positive, negative) {
@@ -341,7 +447,7 @@
       if (durable) parts.push(durable);
       parts.push(`${balancePhrase(totals.positive, totals.negative)}${grade ? `，最终制度建设为 ${grade}` : ""}。`);
     } else {
-      parts.push("本项不按制度条数相减；制度作用强度、实际运行和后世接收共同决定等级，页面不自行把列表节点等权相加。");
+      parts.push("本项不按制度条数相减；制度作用强度、实际运行和后世接收共同决定等级。现有正式记录没有发布可直接展示的正负汇总值，页面不自行把节点等权相加。");
       const durable = durabilityText(formal);
       if (durable) parts.push(durable);
       if (grade) parts.push(`最终制度建设按正式结论为 ${grade}。`);
@@ -362,9 +468,12 @@
 
     const formal = await formalA(record, item);
     if (!formal || !reading.isConnected || currentRecord()?.ruler_id !== record.ruler_id) return;
-    const nodes = formalNodes(formal);
+    const groups = formalGroups(formal);
 
-    nodes.forEach((node, index) => patchCard(reading, node, nodes, index));
+    const intro = reading.querySelector(".second-item-institution-intro");
+    if (intro) intro.textContent = "按正向、负向和正负并存分类阅读。每项制度都标明对最终等级的作用；重大制度另标类型和后世接收。";
+
+    rebuildGroups(reading, groups);
 
     const text = summaryText(formal, item);
     const balance = reading.querySelector(".second-item-institution-balance");
@@ -376,8 +485,7 @@
     if (gradeDetails) {
       let prose = gradeDetails.querySelector(":scope > .prose, :scope > p");
       if (!prose) {
-        prose = document.createElement("p");
-        prose.className = "prose";
+        prose = make("p", "prose");
         gradeDetails.append(prose);
       }
       prose.textContent = text;
