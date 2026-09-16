@@ -74,21 +74,52 @@
     const card = document.getElementById("net-first-a");
     const summary = card?.querySelector(":scope > summary");
     for (const small of summary?.querySelectorAll("small") || []) {
-      if (/成果信用U\s*=/.test(small.textContent)) small.textContent = "本人归责后的统一成果分";
+      if (/成果信用U\s*=/.test(small.textContent)) small.textContent = "稳定控制成果换算分";
     }
     addCardNote(
       card,
       "attribution-score",
-      `这里的 ${value.toFixed(1)} / 120 是本人归责后的统一成果分，不是“只完成了 ${Math.round(value / 1.2)}% 的统一”。共同完成的成果会按正式责任分账。`
+      `这里的 ${value.toFixed(1)} / 120 是由稳定控制成果规模和本人归责共同换算出的 A 分，不是“统一完成度”。区域项目即使把本区域做完整，A也会低于全国尺度；共同项目还要再按个人责任分账。`
     );
     const scoreBox = document.querySelector(".first-item-reader-summary .first-item-score-grid div:first-child");
     if (scoreBox && !scoreBox.querySelector('[data-first-boundary="attribution-score-mini"]')) {
       const mini = document.createElement("small");
       mini.className = "first-item-boundary-mini";
       mini.dataset.firstBoundary = "attribution-score-mini";
-      mini.textContent = "本人归责分，不是统一完成度";
+      mini.textContent = "成果规模／归责换分，不是统一完成度";
       scoreBox.append(mini);
     }
+  }
+
+  function clarifySharedOutcome() {
+    const summary = document.querySelector(".first-item-reader-summary .first-item-outcome");
+    if (!summary || summary.dataset.sharedOutcome === "done") return;
+    const body = document.querySelector("#net-first-a .net-metric-body");
+    if (!body) return;
+    const label = Array.from(body.querySelectorAll(":scope > .label")).find(node =>
+      node.textContent.trim() === "当前人物实际留下了什么"
+    );
+    if (!label) return;
+    const chunks = [];
+    let node = label.nextElementSibling;
+    while (node && !node.classList.contains("label") && node.tagName !== "DETAILS") {
+      const text = node.textContent.replace(/\s+/g, " ").trim();
+      if (text) chunks.push(text);
+      node = node.nextElementSibling;
+    }
+    const text = chunks.join(" ");
+    const personal = text.match(/个人分得[^。]+。?/);
+    if (!personal) return;
+    const project = text.slice(0, personal.index).trim();
+    const afterPersonal = text.slice(personal.index + personal[0].length).trim();
+    const content = afterPersonal.split("分账对象与分数")[0].trim();
+    const ordered = [
+      personal[0].trim(),
+      content,
+      project ? `共同项目总成果：${project}` : "",
+    ].filter(Boolean).join(" ");
+    summary.textContent = ordered.length > 240 ? `${ordered.slice(0, 238)}…` : ordered;
+    summary.dataset.sharedOutcome = "done";
   }
 
   function clarifyZeroOutcome(items) {
@@ -107,38 +138,6 @@
     );
   }
 
-  function directLabels(card) {
-    return new Set(Array.from(card?.querySelectorAll(".net-metric-body > .label") || [])
-      .map(label => label.textContent.trim()));
-  }
-
-  function clarifyMissingPersonDetails() {
-    const summary = document.querySelector(".first-item-reader-summary");
-    if (!summary) return;
-    const checks = [
-      ["统一成果", "net-first-a", ["当前人物实际留下了什么"]],
-      ["创业难度与效率", "net-first-b1", ["当前人物的起点", "当前人物面对的对手", "完成效率"]],
-      ["组织整合", "net-first-b2", ["并行执行", "专业覆盖与组织杠杆", "异质整合"]],
-      ["本人统帅", "net-first-c", ["本人走哪条责任路线", "当前人物为什么是这个档"]],
-    ];
-    const missing = [];
-    for (const [name, id, required] of checks) {
-      const card = document.getElementById(id);
-      if (!card) {
-        missing.push(name);
-        continue;
-      }
-      const labels = directLabels(card);
-      if (required.some(label => !labels.has(label))) missing.push(name);
-    }
-    if (!missing.length) return;
-    addSummaryNote(
-      summary,
-      "formal-detail-load",
-      `“${missing.join("、")}”的人物化正式条目没有完整加载。本页分值仍读取正式结算；具体依据请以各卡片下方“原始正式文档”为准。刷新后仍出现此提示时，应检查正式文档标题或字段格式。`
-    );
-  }
-
   function enhance() {
     const record = currentRecord();
     if (!record?.net) return;
@@ -147,8 +146,8 @@
     ensureStyles();
     clarifyZeroCommander(items);
     clarifyAttributionScore(items);
+    clarifySharedOutcome();
     clarifyZeroOutcome(items);
-    clarifyMissingPersonDetails();
   }
 
   function schedule() {

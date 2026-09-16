@@ -88,7 +88,7 @@
     if (kind === "causal") {
       text = text.replace(/^[SABCDE](?:[+−-])?个人因果(?:仅作用于这些核心足迹)?[，；:]?\s*/, "");
     } else if (kind === "paradigm") {
-      text = text.replace(/^范式[SABCDE](?:[+−-])?[，；:]?\s*/, "");
+      text = text.replace(/^范式[SABCDE](?:[+−-])?/, "").replace(/^[，；:：]?\s*/, "");
     }
     return text.replace(/[。；]+$/, "");
   }
@@ -116,7 +116,7 @@
     parts.push(paradigmRule
       ? `政治范式${paradigm}：${paradigmRule}`
       : `政治范式${paradigm}只作有限补充，不替代主链`);
-    parts.push(`最终内部判断为${internal}，按发布映射得到公众等级${published}`);
+    parts.push(`规则细分档位为${internal}，公开显示为${published}`);
     return `${parts.join("；")}。`;
   }
 

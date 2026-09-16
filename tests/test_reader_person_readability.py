@@ -79,7 +79,6 @@ def test_net_explanation_projection_uses_formal_text():
     ]
 
 
-
 def test_history_impact_reader_uses_formal_dimension_fields_without_audit_copy():
     root = __import__("pathlib").Path(__file__).resolve().parents[1]
     template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
@@ -125,6 +124,22 @@ def test_history_impact_public_copy_explains_mapping_without_duplicate_prefix():
     assert "最终内部裁判带 → 公众等级" in template
     assert "S+→S+ · S→S · S−→A · A+→B · A→C · B→D · C→E" in template
     assert "最终内部裁判带不是四维中的某一个字母" in readme
+
+
+def test_newcomer_copy_distinguishes_a_scale_and_public_impact_grade():
+    root = __import__("pathlib").Path(__file__).resolve().parents[1]
+    first_js = (root / "reader" / "first-item-boundary-notes.js").read_text(encoding="utf-8")
+    impact_js = (root / "reader" / "historical-impact-reading.js").read_text(encoding="utf-8")
+
+    assert "稳定控制成果规模和本人归责共同换算出的 A 分" in first_js
+    assert "区域项目即使把本区域做完整，A也会低于全国尺度" in first_js
+    assert "共同项目总成果：" in first_js
+    assert "个人分得[^。]+。?" in first_js
+    assert "成果规模／归责换分，不是统一完成度" in first_js
+
+    assert '.replace(/^范式[SABCDE](?:[+−-])?/, "")' in impact_js
+    assert "规则细分档位为${internal}，公开显示为${published}" in impact_js
+    assert "最终内部判断为${internal}" not in impact_js
 
 
 def test_historical_impact_contract_version_metadata_matches_current_contract():
