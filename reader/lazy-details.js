@@ -18,6 +18,7 @@
     ["04-第一项C本人军事统帅与战争解题能力正式结算.md", "C军事统帅与战争解题"],
   ]);
   const firstItemSourceLoads = new Map();
+  const FIRST_ITEM_TOTAL_DOC = "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项政权奠基与统一贡献及能力正式结算.md";
 
   function firstItemRouteId() {
     const match = location.hash.match(/^#(?:person|net)\/([^/?#]+)(?:\/first)?(?:\/|$)/);
@@ -83,6 +84,26 @@
   function loadFailure(error) {
     console.error(error);
     screen.innerHTML = `<div class="empty"><p>完整资料加载失败。</p><p class="subline">请检查网络后重试；人物总览仍可正常使用。</p><button data-home>返回人物总览</button></div>`;
+  }
+
+  function simplifyFirstItemSourceLinks() {
+    const root = document.querySelector(".first-item-public-v2");
+    if (!root) return;
+
+    for (const details of root.querySelectorAll(".first-item-card > details")) {
+      const summary = details.querySelector(":scope > summary");
+      if (summary?.textContent.trim() === "裁决依据与来源") details.remove();
+    }
+
+    if (root.querySelector(":scope > .first-item-total-source")) return;
+    const rulerId = firstItemRouteId();
+    const record = rulerId ? byId.get(rulerId) : null;
+    const paragraph = document.createElement("p");
+    paragraph.className = "sources first-item-total-source";
+    paragraph.innerHTML = link(FIRST_ITEM_TOTAL_DOC, "查看第一项总榜 ↗", record);
+    const total = root.querySelector(":scope .first-item-total");
+    if (total) total.after(paragraph);
+    else root.append(paragraph);
   }
 
   async function loadRecord(record) {
@@ -182,6 +203,9 @@
     script.dataset.secondItemReading = "true";
     document.head.append(script);
   }
+
+  new MutationObserver(simplifyFirstItemSourceLinks).observe(screen, {childList: true, subtree: true});
+  window.addEventListener("hashchange", simplifyFirstItemSourceLinks);
 
   // The template performs one synchronous first render before this enhancement is
   // injected. Re-route once so direct person/compare URLs immediately switch to
