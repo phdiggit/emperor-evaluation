@@ -6,7 +6,6 @@
 
   const PUBLIC_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
   const POSITION_SUFFIX = {lower:"-",low:"-",middle:"",mid:"",upper:"+",high:"+"};
-  const BAND_TEXT_GRADE = {"最低档":"E","较低档":"D","中低档":"C","中档":"B","较高档":"A","最高档":"S"};
   const STATE_GRADE = {1:"E",2:"D",3:"C",4:"B",5:"A",6:"S"};
   const HANDOFF_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
   const LOSS_TEXT = {
@@ -133,23 +132,50 @@
     style.textContent = `
       .second-item-public-grade-ready > .second-item-scale-note{display:none!important}
       .second-item-public-grade-ready::after{content:attr(data-public-grade-note);display:block;margin-top:4px;font-size:11px;line-height:1.55;color:var(--green);font-weight:600}
+      .second-item-public-value{font-size:0!important}
+      .net-metric-detail>summary b.second-item-public-value::after{content:attr(data-public-value);font:20px Georgia,serif;color:var(--green)}
+      .component>b.second-item-public-value::after{content:attr(data-public-value);font-size:13px;color:var(--green)}
+      .second-item-public-copy{font-size:0!important}
+      .second-item-public-copy::after{content:attr(data-public-copy);display:block;font-size:13px;line-height:1.7;color:inherit}
+      small.second-item-public-copy::after{font-size:11px;color:var(--muted);line-height:1.55}
+      .second-item-public-score{font-size:0!important}
+      .second-item-public-score::after{content:attr(data-public-score);font:inherit;color:inherit}
+      .net-major-card .big.second-item-public-score::after{font:30px Georgia,serif;color:var(--green)}
+      .second-item-total-grid b.second-item-public-score::after{font:21px Georgia,serif;color:var(--green)}
+      #person-outcome b.second-item-public-score::after,.comparison b.second-item-public-score::after{font:inherit;color:inherit}
       .second-item-public-reading{margin:2px 0 4px}
       .second-item-public-reading .label{margin-top:8px}
       .second-item-public-reading ul{margin:8px 0 12px;padding-left:20px}
       .second-item-public-reading li{margin:5px 0;line-height:1.8}
       .second-item-public-reading .prose{margin:8px 0 12px}
+      .second-item-pool-note{display:none!important}
       .second-item-page-note{margin-top:18px;padding-top:12px}
       .second-item-page-note>summary{font-size:13px;color:var(--muted)}
     `;
     document.head.append(style);
   }
 
+  function overlayCopy(node, text) {
+    if (!node || !text) return;
+    node.classList.add("second-item-public-copy");
+    if (node.dataset.publicCopy !== text) node.dataset.publicCopy = text;
+  }
+
+  function overlayScore(node, text) {
+    if (!node || !text) return;
+    node.classList.add("second-item-public-score");
+    if (node.dataset.publicScore !== text) node.dataset.publicScore = text;
+  }
+
   function setPublicGrade(span, valueNode, grade, noteParts) {
     if (!span || !grade) return;
-    if (valueNode && valueNode.textContent !== grade) valueNode.textContent = grade;
     const note = noteParts.filter(Boolean).join("｜");
     span.classList.add("second-item-public-grade-ready");
     if (span.dataset.publicGradeNote !== note) span.dataset.publicGradeNote = note;
+    if (valueNode) {
+      valueNode.classList.add("second-item-public-value");
+      if (valueNode.dataset.publicValue !== grade) valueNode.dataset.publicValue = grade;
+    }
   }
 
   function patchMethodGrades(root, record) {
@@ -257,43 +283,27 @@
     patchHandoffGrades(root, record);
   }
 
-  function publicizeBandText(root) {
-    if (!root) return;
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    for (const node of nodes) {
-      const parent = node.parentElement;
-      if (!parent || parent.closest(".net-formal-basis-raw") || parent.closest(".net-audit-sources") || parent.closest(".sources") || parent.closest("a")) continue;
-      const before = node.nodeValue || "";
-      const after = before
-        .replace(/(最低档|较低档|中低档|中档|较高档|最高档)(?:\s*[-/]\s*(lower|middle|upper|low|mid|high))?/gi, (_, label, pos) => {
-          const base = BAND_TEXT_GRADE[label] || label;
-          const suffix = pos ? POSITION_SUFFIX[String(pos).toLowerCase()] ?? "" : "";
-          return `${base}${suffix}`;
-        })
-        .replace(/\bC[123]-([1-6])\b/g, (_, level) => `${STATE_GRADE[Number(level)] || level}档`)
-        .replace(/\bD3-([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
-        .replace(/\bH([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
-        .replace(/\bL([0-3])\b/g, (_, level) => LOSS_TEXT[Number(level)] || "");
-      if (after !== before) node.nodeValue = after;
-    }
-  }
-
-  function cleanHistoricalText(value) {
-    let text = String(value || "").replace(/`/g, "").trim();
-    if (!text) return "";
-
-    text = text
-      .replace(/\bC[123]-([1-6])\b/g, (_, level) => `${STATE_GRADE[Number(level)] || level}档`)
+  function publicTechnicalText(value) {
+    return String(value || "")
+      .replace(/\bG([0-5])\s*[-/]\s*(lower|middle|upper|low|mid|high)\b/gi, (_, band, position) => `${PUBLIC_GRADE[`G${band}`] || ""}${POSITION_SUFFIX[String(position).toLowerCase()] ?? ""}`)
+      .replace(/\bG([0-5])\b/g, (_, band) => PUBLIC_GRADE[`G${band}`] || band)
+      .replace(/\bC[123]-([1-6])\s*\/\s*L([0-3])\b/g, (_, band, loss) => `${STATE_GRADE[Number(band)] || band}档；${LOSS_TEXT[Number(loss)] || ""}`)
+      .replace(/\bC[123]-([1-6])\b/g, (_, band) => `${STATE_GRADE[Number(band)] || band}档`)
       .replace(/\bD3-([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
       .replace(/\bH([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
       .replace(/\bL([0-3])\b/g, (_, level) => LOSS_TEXT[Number(level)] || "")
+      .trim();
+  }
+
+  function cleanHistoricalText(value) {
+    let text = publicTechnicalText(String(value || "").replace(/`/g, "").trim());
+    if (!text) return "";
+
+    text = text
       .replace(/\b(?:B1-)?distributed\/personnel\s*M[0-3]\b/gi, "")
       .replace(/\b(?:MAJOR_RESTRUCTURE|mixed_positive|mixed_negative|external_constraint|canonical|support|core|central|distributed)\b/gi, "")
       .replace(/(?:正向|负向|混合偏正|混合偏负)?\s*M[0-3]\b/gi, "")
-      .replace(/\bG[0-5](?:\s*[-/]\s*(?:lower|middle|upper|low|mid|high))?\b/gi, "")
-      .replace(/\bS[+−-]?\b/g, "")
+      .replace(/\bS(?:[+−-])?(?=[^\w]|$)/g, "")
       .replace(/\bS_(?:end|main|avg|0)\b/gi, "")
       .replace(/\bP面\b/g, "生产方面")
       .replace(/\bM侧\b/g, "市场与货币方面")
@@ -369,14 +379,10 @@
       if (!body) continue;
 
       const key = [item.reader_summary || "", ...(item.reader_highlights || []), item.reader_boundary || "", item.reader_how || "", item.reader_full_basis || ""].join("|");
-      if (body.dataset.secondPublicBodyKey === key && body.querySelector(":scope > .second-item-public-reading")) {
-        for (const note of body.querySelectorAll(".second-item-pool-note")) note.remove();
-        continue;
-      }
+      if (body.dataset.secondPublicBodyKey === key && body.querySelector(":scope > .second-item-public-reading")) continue;
 
       const audit = body.querySelector(":scope > .net-audit-sources");
       if (audit) audit.remove();
-      for (const note of audit?.querySelectorAll(".second-item-pool-note") || []) note.remove();
 
       let formal = body.querySelector(":scope > .net-formal-basis-raw");
       if (formal) formal.remove();
@@ -401,11 +407,10 @@
       }
       body.append(reading);
 
-      const boundary = cleanHistoricalText(item.reader_boundary || "");
-      const boundaryDetails = makeDetails("范围与边界", boundary);
+      const boundaryDetails = makeDetails("范围与边界", cleanHistoricalText(item.reader_boundary || ""));
       if (boundaryDetails) body.append(boundaryDetails);
 
-      const howDetails = makeDetails("这个分数怎么算？", String(item.reader_how || "").trim());
+      const howDetails = makeDetails("这个分数怎么算？", publicTechnicalText(item.reader_how || ""));
       if (howDetails) body.append(howDetails);
       if (formal) body.append(formal);
       if (audit) body.append(audit);
@@ -415,18 +420,19 @@
 
   function patchGroupIntros(record) {
     if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
-    const method = document.querySelector('[data-second-intro="method"]');
-    const finance = document.querySelector('[data-second-intro="finance"]');
-    const handoff = document.querySelector('[data-second-intro="handoff"]');
     const values = secondTotals(record);
-
-    const methodText = `这一组看国家机器如何建立规则、配置官僚并形成反馈约束。当前合计 ${fmt(values.method)} 分；公开层先看等级和历史依据，具体指数与折算放在展开内容里。`;
-    const financeText = `这一组看统治时期普通家庭、经济财政和社会安全的主要状态，再结合任内低谷、恢复与额外代价形成结果判断。当前合计 ${fmt(values.finance)} 分。`;
-    const handoffText = `统治如何收尾，会直接影响国家机器和继承秩序能否平稳延续。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否顺利；两项均以 S—E 六档显示。`;
-
-    if (method && method.textContent !== methodText) method.textContent = methodText;
-    if (finance && finance.textContent !== financeText) finance.textContent = financeText;
-    if (handoff && handoff.textContent !== handoffText) handoff.textContent = handoffText;
+    overlayCopy(
+      document.querySelector('[data-second-intro="method"]'),
+      `这一组看国家机器如何建立规则、配置官僚并形成反馈约束。当前合计 ${fmt(values.method)} 分；公开层先看等级和历史依据，具体指数与折算放在展开内容里。`,
+    );
+    overlayCopy(
+      document.querySelector('[data-second-intro="finance"]'),
+      `这一组看统治时期普通家庭、经济财政和社会安全的主要状态，再结合任内低谷、恢复与额外代价形成结果判断。当前合计 ${fmt(values.finance)} 分。`,
+    );
+    overlayCopy(
+      document.querySelector('[data-second-intro="handoff"]'),
+      "统治如何收尾，会直接影响国家机器和继承秩序能否平稳延续。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否顺利；两项均以 S—E 六档显示。",
+    );
   }
 
   function patchScorePresentation(record) {
@@ -437,11 +443,12 @@
     if (location.hash.match(/^#net\/[^/?#]+\/(?:all)?$/)) {
       const card = Array.from(document.querySelectorAll(".net-major-card")).find(node => /\/second(?:\/|$)/.test(node.getAttribute("href") || ""));
       if (card) {
-        const big = card.querySelector(".big");
-        if (big && totals.total != null) big.textContent = `${fmt(totals.total)} 分`;
-        const breakdown = card.querySelector(":scope > .second-item-card-breakdown");
-        if (breakdown && [totals.method, totals.finance, totals.handoff].every(value => value != null)) {
-          breakdown.textContent = `${rank ? `${rank} · ` : ""}制度与行政 ${fmt(totals.method)} · 民生与社会 ${fmt(totals.finance)} · 政权交接 ${fmt(totals.handoff)}`;
+        if (totals.total != null) overlayScore(card.querySelector(".big"), `${fmt(totals.total)} 分`);
+        if ([totals.method, totals.finance, totals.handoff].every(value => value != null)) {
+          overlayCopy(
+            card.querySelector(":scope > .second-item-card-breakdown"),
+            `${rank ? `${rank} · ` : ""}制度与行政 ${fmt(totals.method)} · 民生与社会 ${fmt(totals.finance)} · 政权交接 ${fmt(totals.handoff)}`,
+          );
         }
       }
     }
@@ -452,17 +459,15 @@
       if (cards?.length >= 3) {
         const values = [totals.method, totals.finance, totals.handoff];
         cards.forEach((card, index) => {
-          const value = card.querySelector("b");
-          if (value && values[index] != null) value.textContent = `${fmt(values[index])} 分`;
+          if (values[index] != null) overlayScore(card.querySelector("b"), `${fmt(values[index])} 分`);
         });
-        const financeSmall = cards[1]?.querySelector("small");
-        if (financeSmall) financeSmall.textContent = "民生、经济财政、社会安全、恢复与额外代价";
+        overlayCopy(cards[1]?.querySelector("small"), "民生、经济财政、社会安全、恢复与额外代价");
       }
 
       const intro = document.querySelector(".net-detail-page > .panel");
       const scoreLine = intro?.querySelector(":scope > p.subline");
-      if (scoreLine && totals.total != null) {
-        scoreLine.textContent = `治国成效：${fmt(totals.total)} 分${rank ? `；${rank}` : ""}。先看结论，再展开到各项依据。`;
+      if (totals.total != null) {
+        overlayCopy(scoreLine, `治国成效：${fmt(totals.total)} 分${rank ? `；${rank}` : ""}。先看结论，再展开到各项依据。`);
       }
     }
 
@@ -471,8 +476,7 @@
       for (const row of panel?.querySelectorAll(":scope > .component") || []) {
         const span = row.querySelector("span");
         if (!span || !span.textContent.trim().startsWith("治国成效")) continue;
-        const value = row.querySelector("b");
-        if (value && totals.total != null) value.textContent = `${fmt(totals.total)} 分`;
+        if (totals.total != null) overlayScore(row.querySelector("b"), `${fmt(totals.total)} 分`);
       }
     }
   }
@@ -485,37 +489,15 @@
       const score = finite(record?.net?.second_item_score);
       const cell = row.cells?.[index + 1];
       if (!cell || score == null) return;
-      const value = cell.querySelector("b");
-      if (value) value.textContent = `${fmt(score)} 分`;
+      overlayScore(cell.querySelector("b"), `${fmt(score)} 分`);
     });
   }
 
-  function replacePublicText(root) {
-    if (!root) return;
-    const replacements = [
-      ["净收益计分总览", "统治绩效构成"],
-      ["完整净收益计分页", "完整统治绩效详情"],
-      ["独立净收益计分页", "独立统治绩效详情页"],
-      ["净收益计分页", "统治绩效详情"],
-      ["净收益计分详情加载失败", "统治绩效详情加载失败"],
-      ["净收益详情地址无效", "统治绩效详情地址无效"],
-      ["净收益正式结算", "统治绩效正式结算"],
-      ["总榜净收益", "统治绩效总分"],
-      ["净收益计分", "统治绩效"],
-      ["本项不参与净收益计分", "本项不参与统治绩效计分"],
-      ["恢复与额外成本", "恢复与额外代价"],
-      ["社会安全与恢复成本", "社会安全、恢复与额外代价"],
-    ];
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    for (const node of nodes) {
-      const parent = node.parentElement;
-      if (!parent || parent.closest(".net-formal-basis-raw") || parent.closest(".net-audit-sources")) continue;
-      let next = node.nodeValue || "";
-      for (const [from, to] of replacements) next = next.replaceAll(from, to);
-      if (next !== node.nodeValue) node.nodeValue = next;
-    }
+  function replaceText(node, replacements) {
+    if (!node) return;
+    let next = node.textContent;
+    for (const [from, to] of replacements) next = next.replaceAll(from, to);
+    if (next !== node.textContent) node.textContent = next;
   }
 
   function patchPersonOutcomeLink() {
@@ -537,16 +519,18 @@
   }
 
   function patchShellLanguage() {
-    replacePublicText(screenEl);
+    const head = document.querySelector(".net-detail-head");
+    replaceText(head?.querySelector(".eyebrow"), [["净收益计分", "统治绩效"]]);
+    replaceText(head?.querySelector("h1"), [["净收益计分总览", "统治绩效构成"], ["治国净收益", "治国成效"]]);
+    replaceText(head?.querySelector(".muted"), [["总榜净收益", "统治绩效总分"]]);
 
     const nav = document.querySelector(".net-major-nav");
     if (nav) nav.setAttribute("aria-label", "统治绩效详情");
-
-    const secondNav = Array.from(document.querySelectorAll(".net-major-nav a")).find(a => /\/second(?:\/|$)/.test(a.getAttribute("href") || ""));
+    const secondNav = Array.from(nav?.querySelectorAll("a") || []).find(a => /\/second(?:\/|$)/.test(a.getAttribute("href") || ""));
     if (secondNav && secondNav.textContent !== "治国成效") secondNav.textContent = "治国成效";
 
-    for (const heading of document.querySelectorAll(".net-detail-head h1, .net-major-card h2")) {
-      if (heading.textContent.includes("治国净收益")) heading.textContent = heading.textContent.replace(/治国净收益/g, "治国成效");
+    for (const cardTitle of document.querySelectorAll(".net-major-card h2")) {
+      replaceText(cardTitle, [["治国净收益", "治国成效"], ["净收益计分总览", "统治绩效构成"]]);
     }
 
     const reading = document.querySelector("#person-evidence .net-reading[data-net-compact='done']");
@@ -554,6 +538,21 @@
       const section = reading.closest("section.panel");
       const heading = section?.querySelector(":scope > h2, :scope > h3");
       if (heading?.textContent.trim() === "净收益构成") heading.textContent = "统治绩效构成";
+      for (const link of reading.querySelectorAll("a")) {
+        replaceText(link, [["净收益计分页", "统治绩效详情"], ["净收益计分", "统治绩效"]]);
+      }
+      for (const intro of reading.querySelectorAll("p.reading-intro")) {
+        replaceText(intro, [["独立净收益计分页", "独立统治绩效详情页"]]);
+      }
+    }
+
+    for (const message of screenEl.querySelectorAll(".empty p, .empty[role='status']")) {
+      replaceText(message, [
+        ["净收益计分详情加载失败", "统治绩效详情加载失败"],
+        ["净收益详情地址无效", "统治绩效详情地址无效"],
+        ["净收益正式结算", "统治绩效正式结算"],
+        ["净收益计分逻辑", "统治绩效详情"],
+      ]);
     }
   }
 
@@ -561,7 +560,6 @@
     if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
     const root = document.getElementById("net-major-body");
     if (!root) return;
-    for (const note of root.querySelectorAll(".second-item-pool-note")) note.remove();
 
     let details = root.querySelector(":scope > .second-item-page-note");
     if (!details) {
@@ -583,7 +581,6 @@
     if (net && location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) {
       const root = document.getElementById("net-major-body");
       patchGradeGroups(root, net);
-      publicizeBandText(root);
       patchMetricBodies(net);
       patchGroupIntros(net);
       patchPoolNote(net);
