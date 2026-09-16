@@ -564,7 +564,7 @@
     const reading = document.createElement("div");
     reading.className = "second-item-institution-reading";
     reading.append(makeTextBlock("div", "label", "制度建设清单"));
-    reading.append(makeTextBlock("p", "second-item-institution-intro", "按正式制度节点完整展示，不再只摘前三条；正向、负向和正负并存分别列出。重大制度按正式节点标记，并用中文说明其类型与后世接收情况。"));
+    reading.append(makeTextBlock("p", "second-item-institution-intro", "按正向、负向和正负并存分类列出制度建设；重大制度另标类型和后世接收。"));
     const groups = collectInstitutions(formal);
     reading.append(institutionGroup("正向制度建设", groups.positive));
     reading.append(institutionGroup("负向制度设计与制度性损害", groups.negative));
