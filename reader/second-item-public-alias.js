@@ -3,10 +3,24 @@
 (() => {
   const screenEl = document.getElementById("screen");
   if (!screenEl) return;
+
   const PUBLIC_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
   const POSITION_SUFFIX = {lower:"-",low:"-",middle:"",mid:"",upper:"+",high:"+"};
   const BAND_TEXT_GRADE = {"最低档":"E","较低档":"D","中低档":"C","中档":"B","较高档":"A","最高档":"S"};
+  const STATE_GRADE = {1:"E",2:"D",3:"C",4:"B",5:"A",6:"S"};
+  const HANDOFF_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
+  const LOSS_TEXT = {
+    0:"未见独立有效低谷",
+    1:"有局部或短时损害",
+    2:"出现明显低谷",
+    3:"出现严重低谷",
+  };
   const METHOD_MAX = {"A制度建设":100,"B1官僚治理":100,"B2反馈与约束":80};
+  const FINANCE_MAX = {"C1民生":80,"C2经济财政":35,"C3社会安全":60};
+  const HANDOFF_LABELS = {
+    "D1继任行政连续性":"行政承接",
+    "D3政权交接稳定":"终局继承",
+  };
   let scheduled = false;
 
   function personRecord() {
@@ -30,7 +44,11 @@
     }).filter(Boolean);
   }
 
-  function publicGrade(item) {
+  function itemMap(record, key) {
+    return new Map((record?.net?.component_details?.[key] || []).map(item => [item.label, item]));
+  }
+
+  function publicMethodGrade(item) {
     const text = String(item?.grade || "");
     const band = text.match(/\bG([0-5])\b/i);
     if (!band) return "";
@@ -39,15 +57,24 @@
     return `${base}${position ? POSITION_SUFFIX[position] ?? "" : ""}`;
   }
 
+  function stateGradeMeta(item) {
+    const match = String(item?.grade || "").match(/\bC[123]-(\d)\s*\/\s*L([0-3])\b/i);
+    if (!match) return null;
+    const band = Number(match[1]);
+    const loss = Number(match[2]);
+    return {grade:STATE_GRADE[band] || "",lossText:LOSS_TEXT[loss] || ""};
+  }
+
+  function publicHandoffGrade(item) {
+    const level = Number(item?.value);
+    return Number.isInteger(level) ? HANDOFF_GRADE[level] || "" : "";
+  }
+
   function boundaryExcerpt(item) {
     const text = String(item?.reader_boundary || "").trim();
     if (!text) return "";
     const first = text.match(/^.*?[。！？；;]/)?.[0] || text;
     return `边界：${first.trim()}`;
-  }
-
-  function methodItems(record) {
-    return new Map((record?.net?.component_details?.method || []).map(item => [item.label, item]));
   }
 
   function ensureGradeStyles() {
@@ -61,38 +88,119 @@
     document.head.append(style);
   }
 
-  function applyGradeNote(span, item, sourceLabel) {
-    if (!span || !item) return;
-    const grade = publicGrade(item);
-    if (!grade) return;
-    const max = METHOD_MAX[sourceLabel];
-    const parts = [`公开档位：${grade}`];
-    if (item.value != null && max) parts.push(`原始方向指数 ${Number(item.value).toFixed(1)} / ${max}`);
-    const boundary = boundaryExcerpt(item);
-    if (boundary) parts.push(boundary);
-    const note = parts.join("｜");
+  function setPublicGrade(span, valueNode, grade, noteParts) {
+    if (!span || !grade) return;
+    if (valueNode && valueNode.textContent !== grade) valueNode.textContent = grade;
+    const note = noteParts.filter(Boolean).join("｜");
     span.classList.add("second-item-public-grade-ready");
     if (span.dataset.publicGradeNote !== note) span.dataset.publicGradeNote = note;
   }
 
   function patchMethodGrades(root, record) {
     if (!root || !record?.net) return;
-    const items = methodItems(record);
+    const items = itemMap(record, "method");
     if (!items.size) return;
 
     for (const detail of root.querySelectorAll(".net-metric-detail[data-second-source-label]")) {
       const sourceLabel = detail.dataset.secondSourceLabel || "";
       const item = items.get(sourceLabel);
-      if (!item) continue;
-      applyGradeNote(detail.querySelector(":scope > summary > span"), item, sourceLabel);
+      const grade = publicMethodGrade(item);
+      if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
+      const summary = detail.querySelector(":scope > summary");
+      setPublicGrade(
+        summary?.querySelector(":scope > span"),
+        summary?.querySelector(":scope > b"),
+        grade,
+        [`原始方向指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}`,boundaryExcerpt(item)],
+      );
     }
 
     for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
       const sourceLabel = span.dataset.secondSourceLabel || "";
       const item = items.get(sourceLabel);
-      if (!item) continue;
-      applyGradeNote(span, item, sourceLabel);
+      const grade = publicMethodGrade(item);
+      if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
+      setPublicGrade(
+        span,
+        span.parentElement?.querySelector(":scope > b"),
+        grade,
+        [`原始方向指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}`,boundaryExcerpt(item)],
+      );
     }
+  }
+
+  function patchFinanceGrades(root, record) {
+    if (!root || !record?.net) return;
+    const items = itemMap(record, "finance");
+    if (!items.size) return;
+
+    for (const detail of root.querySelectorAll(".net-metric-detail[data-second-source-label]")) {
+      const sourceLabel = detail.dataset.secondSourceLabel || "";
+      const item = items.get(sourceLabel);
+      const meta = stateGradeMeta(item);
+      const max = FINANCE_MAX[sourceLabel];
+      if (!item || !meta?.grade || !max) continue;
+      const summary = detail.querySelector(":scope > summary");
+      setPublicGrade(
+        summary?.querySelector(":scope > span"),
+        summary?.querySelector(":scope > b"),
+        meta.grade,
+        [`结算 ${Number(item.value).toFixed(1)} / ${max} 分`,meta.lossText,boundaryExcerpt(item)],
+      );
+    }
+
+    for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
+      const sourceLabel = span.dataset.secondSourceLabel || "";
+      const item = items.get(sourceLabel);
+      const meta = stateGradeMeta(item);
+      const max = FINANCE_MAX[sourceLabel];
+      if (!item || !meta?.grade || !max) continue;
+      setPublicGrade(
+        span,
+        span.parentElement?.querySelector(":scope > b"),
+        meta.grade,
+        [`结算 ${Number(item.value).toFixed(1)} / ${max} 分`,meta.lossText,boundaryExcerpt(item)],
+      );
+    }
+  }
+
+  function patchHandoffGrades(root, record) {
+    if (!root || !record?.net) return;
+    const items = itemMap(record, "handoff");
+    if (!items.size) return;
+
+    for (const detail of root.querySelectorAll(".net-metric-detail[data-second-source-label]")) {
+      const sourceLabel = detail.dataset.secondSourceLabel || "";
+      const item = items.get(sourceLabel);
+      const grade = publicHandoffGrade(item);
+      if (!item || !grade || !HANDOFF_LABELS[sourceLabel]) continue;
+      const summary = detail.querySelector(":scope > summary");
+      setPublicGrade(
+        summary?.querySelector(":scope > span"),
+        summary?.querySelector(":scope > b"),
+        grade,
+        [HANDOFF_LABELS[sourceLabel],boundaryExcerpt(item)],
+      );
+    }
+
+    for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
+      const sourceLabel = span.dataset.secondSourceLabel || "";
+      const item = items.get(sourceLabel);
+      const grade = publicHandoffGrade(item);
+      if (!item || !grade || !HANDOFF_LABELS[sourceLabel]) continue;
+      setPublicGrade(
+        span,
+        span.parentElement?.querySelector(":scope > b"),
+        grade,
+        [HANDOFF_LABELS[sourceLabel],boundaryExcerpt(item)],
+      );
+    }
+  }
+
+  function patchGradeGroups(root, record) {
+    patchMethodGrades(root, record);
+    patchFinanceGrades(root, record);
+    patchHandoffGrades(root, record);
   }
 
   function publicizeBandText(root) {
@@ -104,11 +212,16 @@
       const parent = node.parentElement;
       if (!parent || parent.closest(".net-formal-basis-raw") || parent.closest(".net-audit-sources") || parent.closest(".sources") || parent.closest("a")) continue;
       const before = node.nodeValue || "";
-      const after = before.replace(/(最低档|较低档|中低档|中档|较高档|最高档)(?:\s*[-/]\s*(lower|middle|upper|low|mid|high))?/gi, (_, label, pos) => {
-        const base = BAND_TEXT_GRADE[label] || label;
-        const suffix = pos ? POSITION_SUFFIX[String(pos).toLowerCase()] ?? "" : "";
-        return `${base}${suffix}`;
-      });
+      const after = before
+        .replace(/(最低档|较低档|中低档|中档|较高档|最高档)(?:\s*[-/]\s*(lower|middle|upper|low|mid|high))?/gi, (_, label, pos) => {
+          const base = BAND_TEXT_GRADE[label] || label;
+          const suffix = pos ? POSITION_SUFFIX[String(pos).toLowerCase()] ?? "" : "";
+          return `${base}${suffix}`;
+        })
+        .replace(/\bC[123]-([1-6])\b/g, (_, level) => `${STATE_GRADE[Number(level)] || level}档`)
+        .replace(/\bD3-([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
+        .replace(/\bH([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
+        .replace(/\bL([0-3])\b/g, (_, level) => LOSS_TEXT[Number(level)] || "");
       if (after !== before) node.nodeValue = after;
     }
   }
@@ -150,18 +263,18 @@
     const net = netRecord();
     if (net && location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) {
       const root = document.getElementById("net-major-body");
-      patchMethodGrades(root, net);
+      patchGradeGroups(root, net);
       publicizeBandText(root);
     }
 
     const person = personRecord();
-    if (person) patchMethodGrades(screenEl, person);
+    if (person) patchGradeGroups(screenEl, person);
 
     const records = compareRecords();
     if (records.length) {
       const rows = Array.from(screenEl.querySelectorAll(".comparison tbody tr"));
       const structureRow = rows.find(row => row.cells?.[0]?.textContent.trim() === "构成与依据");
-      if (structureRow) records.forEach((record, index) => patchMethodGrades(structureRow.cells[index + 1], record));
+      if (structureRow) records.forEach((record, index) => patchGradeGroups(structureRow.cells[index + 1], record));
     }
   }
 
