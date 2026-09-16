@@ -25,8 +25,8 @@ PACKAGE_LABELS = {
     "profile-settlements": "人物画像结算审查包",
 }
 PACKAGE_OUTPUT_NAMES = {
-    "contracts": "净收益体系合同精简版.md",
-    "settlements": "净收益体系-结算审查包.zip",
+    "contracts": "统治绩效体系合同精简版.md",
+    "settlements": "统治绩效体系-结算审查包.zip",
     "profile-contract": "人物画像评估合同.md",
     "profile-settlements": "人物画像结算审查包.zip",
 }
@@ -34,7 +34,7 @@ NET_BENEFIT_ITEMS = ("第一项", "第二项", "第三项", "第四项")
 PROFILE_AXIS_CODES = ("M1", "M2", "M4", "M5", "C1", "C2", "C3", "C4", "C5")
 SUFFIXES = {".md", ".json", ".yml", ".yaml"}
 FORBIDDEN = ("第五项", "人物画像", "profile", "tests", "test", "src", ".codex")
-GOVERNING = "docs/项目总纲/皇帝统治净收益评价合同.md"
+GOVERNING = "docs/项目总纲/皇帝统治绩效评价合同.md"
 PROFILE_GOVERNING = "docs/项目总纲/皇帝人物画像评估体系合同.md"
 PROFILE_SETTLEMENT_ROOT = "docs/评分结算/人物画像"
 PROFILE_SETTLEMENT_MANIFEST = f"{PROFILE_SETTLEMENT_ROOT}/00-已结算轴正式入口.json"
@@ -42,7 +42,7 @@ PROFILE_SETTLEMENT_EXCLUDED_DIRS = {"交叉轴复核", "雷达图小样", "视�
 PROFILE_SETTLEMENT_REVIEW_TOKENS = ("审计", "audit", "adjudicat", "复核", "复裁")
 
 SETTLEMENT_FIXED = (
-    "docs/评分结算/净收益/00-统治净收益综合评分榜.md",
+    "docs/评分结算/净收益/00-统治绩效综合评分榜.md",
 )
 CONFIG_DIRS = ("config/first-item", "config/second-item", "config/third-item")
 PACKAGE_FIXED = {"settlements": SETTLEMENT_FIXED}
@@ -909,7 +909,7 @@ def _compose_chat_document(root: Path, archive_name: str,
 
 def _chat_review_note() -> bytes:
     text = (
-        "# 净收益体系合同精简版（GPT聊天阅读版）\n\n"
+        "# 统治绩效体系合同精简版（GPT聊天阅读版）\n\n"
         "本包用于对用户指定的一部分人物进行前四项综合评分的快速历史估计，不要求全池覆盖，"
         "不读取正式结算JSON、当前排名、人物池就绪状态或画像数据。\n\n"
         "## 读取顺序\n\n"
@@ -1029,7 +1029,7 @@ def _profile_contract_review_note() -> bytes:
     text = (
         "# 人物画像评估合同（导出说明）\n\n"
         "正文是从当前列入白名单的人物画像合同源提炼的语义精简版，完整源合同与源哈希仍由打包脚本校验。"
-        "本文件不含正式逐人结算；画像独立于净收益评价，不生成画像总分、轴内排名或综合榜。\n"
+        "本文件不含正式逐人结算；画像独立于统治绩效评价，不生成画像总分、轴内排名或综合榜。\n"
     )
     return text.encode("utf-8")
 
@@ -1041,7 +1041,7 @@ def _build_profile_contract_document(root: Path) -> bytes:
         # 人物画像评估合同
 
         > `FORMAL-V2.2 / NINE-AXES-FORMALLY-SETTLED`。这是当前源合同的语义精简阅读版，不替代完整合同、正式JSON或同名Markdown。
-        > 人物画像只描述本人在真实情境中的能力结构、行为倾向和稳定短板；独立于净收益评价，不设画像总分、轴内排名或综合榜。
+        > 人物画像只描述本人在真实情境中的能力结构、行为倾向和稳定短板；独立于统治绩效评价，不设画像总分、轴内排名或综合榜。
         > 固定发布顺序为`M1、M2、M4、M5、C1、C2、C3、C4、C5`；各轴独立裁决，不因一个轴的变化强制改写其他轴。
 
         ## 1. 对象与总边界
@@ -1065,7 +1065,7 @@ def _build_profile_contract_document(root: Path) -> bytes:
         - 共同实际权力窗口使用规范池真源；创业从属、最高责任中心、巩固期、成熟统治和晚期交接的权限差异写入阶段与归责，不用缩短窗口偷换结论。
         - 正负证使用同一构念门。单次高光、单次极端失败、名望或“未发现负面”都不自动构成历史级档位；早善晚退须有具体反馈后复发、扩大或反转证据。
         - 一个事件先定一个主路由：战略优先级归C1，认知更新归C2，个人选人配置归C3，集团利益信用归M4，战争解题归M1，外交交换归M2，权力比例与强制边界归C5，组织编排归M5，民生财政结果归净收益第二项。辅助投影必须另证构念并写明理由，不复制档位或分值。
-        - 同一结果、损害、战争成本、恢复或名臣成果不得因多来源、多标签或多轴展示重复消费。画像不反写净收益分数，不把净收益分数一对一转成画像档位。
+        - 同一结果、损害、战争成本、恢复或名臣成果不得因多来源、多标签或多轴展示重复消费。画像不反写统治绩效分数，不把统治绩效分数一对一转成画像档位。
 
         ## 3. 证据厚度、置信度与材料密度
 
@@ -1171,7 +1171,7 @@ def review_note(package: str) -> bytes:
         )
         return text.encode("utf-8")
     text = (
-        "# 净收益体系结算摘要包（聊天版）\n\n"
+        "# 统治绩效体系结算摘要包（聊天版）\n\n"
         "本包保留`docs/评分结算/`下按朝代/分项组织的正式JSON分片和结算Markdown；排除画像、配置输入及审计文件。\n\n"
         "## 使用边界\n\n"
         "被排除的adjudications和审计文件仍留在正式仓库，不代表正式结果不存在。"
@@ -1317,13 +1317,13 @@ def build(root: Path, output: Path, package: str) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="生成净收益体系和人物画像的合同阅读版与结算审查包"
+        description="生成统治绩效体系和人物画像的合同阅读版与结算审查包"
     )
     parser.add_argument(
         "--package",
         choices=("all",) + PACKAGE_KINDS,
         default="all",
-        help="生成的包；默认同时生成净收益体系与人物画像的合同、结算四个包",
+        help="生成的包；默认同时生成统治绩效体系与人物画像的合同、结算四个包",
     )
     parser.add_argument(
         "--output-dir",

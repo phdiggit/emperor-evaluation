@@ -16,8 +16,8 @@ from emperor_v4.evaluation.first_item_markdown_settlement import (
 
 
 POOL_PATH = "config/common/canonical-ruler-pool.json"
-OUTPUT_JSON = "docs/评分结算/净收益/00-统治净收益综合评分榜.json"
-OUTPUT_MARKDOWN = "docs/评分结算/净收益/00-统治净收益综合评分榜.md"
+OUTPUT_JSON = "docs/评分结算/净收益/00-统治绩效综合评分榜.json"
+OUTPUT_MARKDOWN = "docs/评分结算/净收益/00-统治绩效综合评分榜.md"
 FIRST_ITEM_ADD_ON_COEFFICIENT = 0.20
 FIRST_ITEM_SENSITIVITY_COEFFICIENTS = (0.18, 0.20, 0.22)
 
@@ -326,13 +326,15 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
     )
 
     lines = [
-        "# 皇帝统治净收益综合评分榜",
+        "# 皇帝统治绩效综合评分榜",
         "",
         "> 本榜由第一项条件附加分、第二项治国净收益、第三项军事与边疆净收益及第四项文明调整合成；"
         "人物画像与历史影响独立评价，不参与本榜。",
         "",
+        "> 这里的统治绩效是带成本与损害修正的综合评价：包含政权奠基贡献、治理与军事手段及体系有效性、治理/安全/文明结果和可归责成本；不等同于人物画像的能力总评或历史影响。",
+        "",
         "> 口径提示：第二项治理结果不按政权规模折扣，第三项仅部分计入控制规模。"
-        "本榜衡量现行规则下的统治成效，不衡量收益总量、人均或年均收益，"
+        "本榜衡量现行规则下的统治绩效，不衡量收益总量、人均或年均收益，"
         "也不等同于王朝体量、历史功业总量或综合历史地位排名。",
         "",
         (
@@ -475,7 +477,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
             "- [第三项：军事与边疆净收益](第三项军事与边疆净收益/02-第三项正式结算.md)",
             "- [第四项：文明与国家整合收益](第四项文明与国家整合收益/02-第四项文明与国家整合收益正式总榜.md)",
             "",
-            "同值数据入口为[`00-统治净收益综合评分榜.json`](00-统治净收益综合评分榜.json)。"
+            "同值数据入口为[`00-统治绩效综合评分榜.json`](00-统治绩效综合评分榜.json)。"
             "本表由前四项正式结果与规范评价池确定性生成；运行"
             "`codex-win run -- python v4.py composite-ranking --write`可重建JSON和Markdown。",
             "",
