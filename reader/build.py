@@ -279,6 +279,14 @@ def load_second_item_reader_summaries(root, eligible_ids):
             raise ValueError(f"Reader-only Second Item summary length is outside 35-120: {ruler_id}")
         if any(mark in summary for mark in ("<", ">")):
             raise ValueError(f"Reader-only Second Item summary must be plain text: {ruler_id}")
+        if re.search(r"\d|\b(?:A|B1|B2|C[1-4]|D[13]|G[0-5]|DA[0-4])\b", summary):
+            raise ValueError(f"Reader-only Second Item summary exposes internal scoring language: {ruler_id}")
+        if re.search(r"推动|带来|因而|使(?:生产|财政|民生|社会|家庭|普通|秩序|行政)|让(?:生产|财政|民生|社会|家庭|普通|秩序|行政)|令(?:生产|财政|民生|社会|家庭|普通|秩序|行政)", summary):
+            raise ValueError(f"Reader-only Second Item summary asserts an unqualified method-result causality: {ruler_id}")
+        if re.search(r"缺少高风险检验|压力检验不足|风险检验不足|没有经历.*风险|缺乏高风险|评分门槛|相对最强|相对最弱|最强|最弱", summary):
+            raise ValueError(f"Reader-only Second Item summary contains a forbidden reader conclusion: {ruler_id}")
+        if re.search(r"军事|边疆|边防|统一功业|北伐|远征|军队|军费|军粮|兵变|战争|战乱|战后", summary):
+            raise ValueError(f"Reader-only Second Item summary crosses into the military/unification item: {ruler_id}")
         result[ruler_id] = summary
     skipped = payload.get("skipped", [])
     if not isinstance(skipped, list):
