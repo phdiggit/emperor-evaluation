@@ -18,6 +18,12 @@ LABELS = {
     "C": "C军事统帅与战争解题",
 }
 
+# Reader identity names and legacy/formal first-item headings are mostly identical.
+# Keep the rare public-name alias explicit instead of weakening heading matching.
+FORMAL_NAME_ALIASES = {
+    "完颜晟": "完颜吴乞买",
+}
+
 
 def section_text(name: str, fields: dict[str, str], number: int = 1) -> str:
     lines = [f"### {number}. {name}", ""]
@@ -58,15 +64,23 @@ def applicable_people() -> dict[str, tuple[str, str]]:
 
 
 def build_payloads() -> tuple[dict[str, str], str]:
+    # This validates the full 84-person formal source set. The current composite
+    # ranking intentionally uses only the subset whose first item is APPLICABLE.
     validate()
     parsed = {code: parse_people(path) for code, path in DOCS.items()}
     people = applicable_people()
-    expected = set(parsed["A"])
-    if set(people) != expected:
-        raise ValueError(
-            "Applicable first-item pool differs from formal reader sources: "
-            f"missing={sorted(expected - set(people))}, extra={sorted(set(people) - expected)}"
-        )
+
+    formal_names = set(parsed["A"])
+    resolved: dict[str, str] = {}
+    unresolved: list[str] = []
+    for reader_name in people:
+        formal_name = FORMAL_NAME_ALIASES.get(reader_name, reader_name)
+        if formal_name not in formal_names:
+            unresolved.append(reader_name)
+        else:
+            resolved[reader_name] = formal_name
+    if unresolved:
+        raise ValueError(f"Applicable first-item people missing formal source headings: {sorted(unresolved)}")
 
     project_groups: dict[str, list[str]] = {}
     for name, fields in parsed["A"].items():
@@ -75,10 +89,11 @@ def build_payloads() -> tuple[dict[str, str], str]:
             project_groups.setdefault(project, []).append(name)
 
     outputs: dict[str, str] = {}
-    for name, (ruler_id, _) in people.items():
+    for reader_name, (ruler_id, _) in people.items():
+        formal_name = resolved[reader_name]
         documents: dict[str, str] = {}
-        a_fields = parsed["A"][name]
-        a_sections = [(name, a_fields)]
+        a_fields = parsed["A"][formal_name]
+        a_sections = [(formal_name, a_fields)]
         project = a_fields.get("项目总成果")
         if project:
             a_sections = [(partner, parsed["A"][partner]) for partner in project_groups[project]]
@@ -87,11 +102,12 @@ def build_payloads() -> tuple[dict[str, str], str]:
             for index, (person, fields) in enumerate(a_sections, 1)
         )
         for code in ("B1", "B2", "C"):
-            documents[LABELS[code]] = section_text(name, parsed[code][name])
+            documents[LABELS[code]] = section_text(formal_name, parsed[code][formal_name])
         payload = {
             "schema_version": "reader-first-item-source-v1",
             "ruler_id": ruler_id,
-            "ruler_name": name,
+            "ruler_name": reader_name,
+            "formal_name": formal_name,
             "documents": documents,
         }
         outputs[f"{ruler_id}.json"] = json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n"
