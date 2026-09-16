@@ -27,6 +27,10 @@
     return typeof value === "number" && Number.isFinite(value) ? value.toFixed(2) : "—";
   }
 
+  function setText(node, value) {
+    if (node && node.textContent !== value) node.textContent = value;
+  }
+
   function currentRecord() {
     if (typeof byId === "undefined") return null;
     const match = location.hash.match(/^#(?:person|net)\/([^/?#]+)/);
@@ -81,10 +85,10 @@
     const score = anchor.querySelector("b");
     if (record.net.first_item_status === "APPLICABLE") {
       if (label) label.innerHTML = `奠基与统一<small>第一项净分 S1：${formatNumber(record.net.first_item_raw_score)} / 240 → 总榜附加：+${formatNumber(record.net.first_item_add_on)}</small><small>查看计分逻辑 →</small>`;
-      if (score) score.textContent = `+${formatNumber(record.net.first_item_add_on)}`;
+      setText(score, `+${formatNumber(record.net.first_item_add_on)}`);
     } else {
       if (label) label.innerHTML = `奠基与统一<small>本项不适用；总榜附加为 0，不代表能力失败</small><small>查看适用边界 →</small>`;
-      if (score) score.textContent = "0.00";
+      setText(score, "0.00");
     }
     row.dataset.firstItemReader = "done";
   }
@@ -101,13 +105,13 @@
     const paragraphs = Array.from(card.querySelectorAll("p"));
     const description = paragraphs.find(p => !p.classList.contains("subline") && !p.classList.contains("sources"));
     if (record.net.first_item_status === "APPLICABLE") {
-      if (big) big.textContent = `S1 ${formatNumber(record.net.first_item_raw_score)} / 240`;
-      if (subline) subline.textContent = `总榜附加：+${formatNumber(record.net.first_item_add_on)}`;
+      setText(big, `S1 ${formatNumber(record.net.first_item_raw_score)} / 240`);
+      setText(subline, `总榜附加：+${formatNumber(record.net.first_item_add_on)}`);
     } else {
-      if (big) big.textContent = "不适用";
-      if (subline) subline.textContent = "本项不参与总榜附加；不代表能力失败。";
+      setText(big, "不适用");
+      setText(subline, "本项不参与总榜附加；不代表能力失败。");
     }
-    if (description) description.textContent = firstDescriptions.landing;
+    setText(description, firstDescriptions.landing);
     card.dataset.firstItemReader = "done";
   }
 
@@ -156,7 +160,7 @@
 
   function renameDirectLabel(body, from, to) {
     const label = Array.from(body.querySelectorAll(":scope > .label")).find(item => item.textContent.trim() === from);
-    if (label) label.textContent = to;
+    if (label) setText(label, to);
   }
 
   function moveRuleBlocks(card, labels) {
@@ -201,7 +205,7 @@
     for (const [card, title] of titles) {
       const strong = card?.querySelector(":scope > summary strong");
       if (strong && !strong.dataset.readerTitle) {
-        strong.textContent = title;
+        setText(strong, title);
         strong.dataset.readerTitle = "done";
       }
     }
@@ -252,7 +256,7 @@
     resolveCommanderHref(record.ruler_name).then(href => {
       if (!href || !direct.isConnected) return;
       direct.href = href;
-      direct.textContent = "直接打开统帅档案 →";
+      setText(direct, "直接打开统帅档案 →");
     });
   }
 
@@ -263,19 +267,18 @@
     if (intro) {
       const main = Array.from(intro.querySelectorAll(":scope > p")).find(p => !p.classList.contains("subline"));
       const score = intro.querySelector(":scope > p.subline");
-      if (main) main.textContent = firstDescriptions.detail;
-      if (score) {
-        score.textContent = record.net.first_item_status === "APPLICABLE"
-          ? `第一项净分 S1：${formatNumber(record.net.first_item_raw_score)} / 240 → 总榜附加：+${formatNumber(record.net.first_item_add_on)}。`
-          : "该人物第一项不适用，不参与总榜附加；不代表能力失败。";
-      }
+      setText(main, firstDescriptions.detail);
+      const scoreText = record.net.first_item_status === "APPLICABLE"
+        ? `第一项净分 S1：${formatNumber(record.net.first_item_raw_score)} / 240 → 总榜附加：+${formatNumber(record.net.first_item_add_on)}。`
+        : "该人物第一项不适用，不参与总榜附加；不代表能力失败。";
+      setText(score, scoreText);
     }
     const scope = document.querySelector("#net-major-body .notice");
     if (scope?.querySelector("strong")?.textContent.includes("时间与责任范围")) {
       const p = scope.querySelector(":scope > p");
-      if (p) p.textContent = "本项可以追溯到即位前的创业／统一责任。完成效率的计时点，只服务于效率判断，不会自动截断统一成果、组织整合、本人统帅或战争成本的责任范围。";
+      setText(p, "本项可以追溯到即位前的创业／统一责任。完成效率的计时点，只服务于效率判断，不会自动截断统一成果、组织整合、本人统帅或战争成本的责任范围。");
       for (const dt of scope.querySelectorAll("dt")) {
-        if (dt.textContent.trim() === "B1完成效率计时") dt.textContent = "完成效率计时";
+        if (dt.textContent.trim() === "B1完成效率计时") setText(dt, "完成效率计时");
       }
     }
   }

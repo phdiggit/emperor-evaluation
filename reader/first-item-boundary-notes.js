@@ -53,18 +53,21 @@
     const item = items.get("C军事统帅与战争解题");
     if (!item || Number(item.value) !== 0 || !/NONE/i.test(`${item.grade || ""} ${item.note || ""}`)) return;
     const card = document.getElementById("net-first-c");
-    const summary = card?.querySelector(":scope > summary");
+    if (!card || card.dataset.commanderZeroReader === "done") return;
+    const summary = card.querySelector(":scope > summary");
     for (const small of summary?.querySelectorAll("small") || []) {
-      let text = small.textContent;
-      text = text.replace(/C-0/g, "本项未计本人统帅分");
-      text = text.replace(/责任路线\s*=\s*NONE/gi, "主链无本人可归责统帅责任");
-      small.textContent = text;
+      const text = small.textContent;
+      const next = text
+        .replace(/C-0/g, "本项未计本人统帅分")
+        .replace(/责任路线\s*=\s*NONE/gi, "主链无本人可归责统帅责任");
+      if (next !== text) small.textContent = next;
     }
     addCardNote(
       card,
       "commander-zero",
       "这里的0分只表示创业／统一主链没有计入可归责给本人的实际统帅分，不等于人物画像中的军事判断与统帅能力为0。"
     );
+    card.dataset.commanderZeroReader = "done";
   }
 
   function clarifyAttributionScore(items) {
@@ -118,7 +121,8 @@
       content,
       project ? `共同项目总成果：${project}` : "",
     ].filter(Boolean).join(" ");
-    summary.textContent = ordered.length > 240 ? `${ordered.slice(0, 238)}…` : ordered;
+    const next = ordered.length > 240 ? `${ordered.slice(0, 238)}…` : ordered;
+    if (summary.textContent !== next) summary.textContent = next;
     summary.dataset.sharedOutcome = "done";
   }
 
