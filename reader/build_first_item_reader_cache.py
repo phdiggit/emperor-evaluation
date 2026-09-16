@@ -5,12 +5,11 @@ import argparse
 import json
 from pathlib import Path
 
-from validate_first_item_docs import DOCS, parse_people, validate
+from validate_first_item_docs import DOCS, parse_people
 
 ROOT = Path(__file__).resolve().parents[1]
 PEOPLE_DIR = ROOT / "reader/data/people"
 OUTPUT_DIR = ROOT / "reader/data/first-item"
-CONTRACT = ROOT / "docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md"
 LABELS = {
     "A": "A统一贡献",
     "B1": "B1创业难度与效率",
@@ -18,7 +17,7 @@ LABELS = {
     "C": "C军事统帅与战争解题",
 }
 
-# Reader identity names and legacy/formal first-item headings are mostly identical.
+# Reader identity names and formal first-item headings are mostly identical.
 # Keep the rare public-name alias explicit instead of weakening heading matching.
 FORMAL_NAME_ALIASES = {
     "完颜晟": "完颜吴乞买",
@@ -29,20 +28,6 @@ def section_text(name: str, fields: dict[str, str], number: int = 1) -> str:
     lines = [f"### {number}. {name}", ""]
     lines.extend(f"- **{key}**：{value}" for key, value in fields.items())
     return "\n".join(lines).rstrip() + "\n"
-
-
-def contract_excerpt() -> str:
-    text = CONTRACT.read_text(encoding="utf-8")
-    b2_start = text.index("### 4.1 ")
-    b2_end = text.index("### 4.4 ", b2_start)
-    window_start = text.index("## 7. ")
-    window_end = text.index("## 8. ", window_start)
-    return (
-        text[b2_start:b2_end].rstrip()
-        + "\n\n"
-        + text[window_start:window_end].rstrip()
-        + "\n\n## 8. 执行与审计\n"
-    )
 
 
 def applicable_people() -> dict[str, tuple[str, str]]:
@@ -63,10 +48,9 @@ def applicable_people() -> dict[str, tuple[str, str]]:
     return result
 
 
-def build_payloads() -> tuple[dict[str, str], str]:
-    # This validates the full 84-person formal source set. The current composite
-    # ranking intentionally uses only the subset whose first item is APPLICABLE.
-    validate()
+def build_payloads() -> dict[str, str]:
+    # Full formal-source validation is a separate CI step. This builder only
+    # projects the already-validated sources into the current Reader subset.
     parsed = {code: parse_people(path) for code, path in DOCS.items()}
     people = applicable_people()
 
@@ -98,11 +82,11 @@ def build_payloads() -> tuple[dict[str, str], str]:
         if project:
             a_sections = [(partner, parsed["A"][partner]) for partner in project_groups[project]]
         documents[LABELS["A"]] = "\n".join(
-            section_text(person, fields, index)
+            section_text(reader_name if person == formal_name else person, fields, index)
             for index, (person, fields) in enumerate(a_sections, 1)
         )
         for code in ("B1", "B2", "C"):
-            documents[LABELS[code]] = section_text(formal_name, parsed[code][formal_name])
+            documents[LABELS[code]] = section_text(reader_name, parsed[code][formal_name])
         payload = {
             "schema_version": "reader-first-item-source-v1",
             "ruler_id": ruler_id,
@@ -111,12 +95,12 @@ def build_payloads() -> tuple[dict[str, str], str]:
             "documents": documents,
         }
         outputs[f"{ruler_id}.json"] = json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n"
-    return outputs, contract_excerpt()
+    return outputs
 
 
 def build(*, check: bool = False) -> None:
-    outputs, contract = build_payloads()
-    expected = set(outputs) | {"contract.md"}
+    outputs = build_payloads()
+    expected = set(outputs)
     actual = {path.name for path in OUTPUT_DIR.iterdir()} if OUTPUT_DIR.exists() else set()
     if check:
         if actual != expected:
@@ -126,8 +110,6 @@ def build(*, check: bool = False) -> None:
         for name, content in outputs.items():
             if (OUTPUT_DIR / name).read_text(encoding="utf-8") != content:
                 raise ValueError(f"First-item reader cache is stale: {name}")
-        if (OUTPUT_DIR / "contract.md").read_text(encoding="utf-8") != contract:
-            raise ValueError("First-item reader cache contract excerpt is stale")
         print(f"First-item reader cache current: people={len(outputs)}")
         return
 
@@ -137,7 +119,6 @@ def build(*, check: bool = False) -> None:
             stale.unlink()
     for name, content in outputs.items():
         (OUTPUT_DIR / name).write_text(content, encoding="utf-8", newline="\n")
-    (OUTPUT_DIR / "contract.md").write_text(contract, encoding="utf-8", newline="\n")
     print(f"First-item reader cache built: people={len(outputs)}")
 
 
