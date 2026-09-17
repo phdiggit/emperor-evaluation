@@ -49,6 +49,7 @@ STATUS_TAGS = {
 }
 MACHINE_TERM_RE = re.compile(
     r"(?:B[12](?:[-_/][A-Za-z_]+)?|M[0-3]|N3-(?:domain|cross|terminal)|"
+    r"(?<![A-Za-z])(?:A|C[1-4]|D[13]|H[0-5]|R[0-4])(?![A-Za-z])|"
     r"\b(?:core|support|central|distributed|context|mixed_positive|mixed_negative|position|terminal|cross)\b|G[0-5])",
     flags=re.I,
 )
@@ -68,9 +69,20 @@ def _public_text(value: object) -> str:
         (r"N3-terminal", "广域整体失效"),
         (r"N3-cross", "跨功能失灵"),
         (r"N3-domain", "单功能系统失灵"),
-        (r"B1[-_/]?(?:core|central|support|distributed|personnel)", "官僚治理"),
+        (r"B1-central", "中枢行政链"),
+        (r"B1-core", "核心行政链"),
+        (r"B1-support", "支撑行政链"),
+        (r"B1-(?:distributed|personnel)", "多责任官行政链"),
         (r"B1", "官僚治理"),
         (r"B2", "反馈与约束"),
+        (r"C1", "民生"),
+        (r"C2", "经济财政"),
+        (r"C3", "社会安全"),
+        (r"C4", "恢复与额外代价"),
+        (r"D1", "行政连续性"),
+        (r"D3", "交接稳定"),
+        (r"H[0-5]", "交接层级"),
+        (r"R[0-4]", "接收范围"),
         (r"mixed_positive", "正向主导"),
         (r"mixed_negative", "负向主导"),
         (r"mixed", "正负并存"),
@@ -90,7 +102,7 @@ def _public_text(value: object) -> str:
         text = re.sub(pattern, replacement, text, flags=re.I)
     text = text.replace("归A", "归制度建设")
     text = text.replace("A项", "制度建设")
-    text = re.sub(r"(?<![A-Za-z])A计(?:权|分)?", "制度建设计分", text)
+    text = re.sub(r"(?<![A-Za-z])A(?![A-Za-z])", "制度建设", text)
     text = text.replace("闭合", "已有充分证据支持")
     text = text.replace("消费", "计入")
     text = text.replace("不重复计数", "不重复计算")
