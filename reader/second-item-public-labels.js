@@ -28,6 +28,42 @@
     node.dataset.publicTitle = label;
   }
 
+  function currentPersonId() {
+    const match = location.hash.match(/^#person\/([^/?#]+)/);
+    if (!match) return "";
+    try { return decodeURIComponent(match[1]); } catch { return ""; }
+  }
+
+  function patchPersonNetEvidence() {
+    const rulerId = currentPersonId();
+    if (!rulerId) return;
+    const evidence = document.getElementById("person-evidence");
+    if (!evidence) return;
+    const panel = Array.from(evidence.querySelectorAll(":scope > section.panel")).find(section =>
+      section.querySelector(":scope > h3")?.textContent.trim() === "统治绩效构成"
+    );
+    if (!panel || panel.dataset.canonicalNetEntry === "done") return;
+
+    const encoded = encodeURIComponent(rulerId);
+    panel.dataset.canonicalNetEntry = "done";
+    panel.innerHTML = `
+      <h3>统治绩效依据</h3>
+      <p class="reading-intro">人物页保留结果概览；详细构成统一在统治绩效详情中展开。</p>
+      <div class="person-net-canonical-grid">
+        <a class="person-net-canonical-card" href="#net/${encoded}/all">
+          <strong>完整统治绩效构成</strong>
+          <small>治国、军事、统一与文明整合</small>
+          <span>查看完整依据 →</span>
+        </a>
+        <a class="person-net-canonical-card" href="#net/${encoded}/second">
+          <strong>治国成效</strong>
+          <small>制度与行政、民生与社会、政权交接</small>
+          <span>查看治国成效 →</span>
+        </a>
+      </div>
+    `;
+  }
+
   function ensureStyles() {
     if (document.getElementById("second-item-public-title-style")) return;
     const style = document.createElement("style");
@@ -36,12 +72,20 @@
       .second-item-public-title{font-size:0!important}
       .second-item-public-title::before{content:attr(data-public-title);font-size:13px;line-height:inherit;color:inherit;font-weight:inherit}
       .net-metric-detail>summary .second-item-public-title::before{font-size:14px}
+      .person-net-canonical-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+      .person-net-canonical-card{display:flex;min-width:0;min-height:118px;flex-direction:column;gap:5px;padding:16px 18px;border:1px solid var(--line);border-radius:6px;background:#fff;text-decoration:none!important}
+      .person-net-canonical-card:hover{border-color:var(--green);background:#f6f7f1}
+      .person-net-canonical-card strong{font-size:16px;color:var(--ink)}
+      .person-net-canonical-card small{display:block;line-height:1.65;color:var(--muted)}
+      .person-net-canonical-card span{margin-top:auto;font-size:13px;color:var(--green);font-weight:600}
+      @media(max-width:700px){.person-net-canonical-grid{grid-template-columns:1fr}.person-net-canonical-card{min-height:0}}
     `;
     document.head.append(style);
   }
 
   function patch() {
     ensureStyles();
+    patchPersonNetEvidence();
 
     for (const span of screen.querySelectorAll("span[data-second-source-label]")) {
       const label = publicLabel(span.dataset.secondSourceLabel);
@@ -65,7 +109,7 @@
     });
   }
 
-  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true, characterData:true});
+  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true,characterData:true});
   window.addEventListener("hashchange", schedule);
   schedule();
 })();
