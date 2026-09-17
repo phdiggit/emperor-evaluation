@@ -51,120 +51,12 @@ const grade=a=>!a?'未覆盖':ungraded(a)?'无档结案':pending(a)?(a.adjudicat
 
 const groupNames={first:'奠基与统一：原分及折算',method:'治国：制度与行政',finance:'治国：财政与民生',handoff:'治国：交接质量',strategic:'军事：战略收益与国防',military:'军事：体系与成本',civilization:'文明与国家整合'};
 const impactMeaning={'S+':'文明／国家主路径重塑',S:'超重大历史影响',A:'重大长期历史影响',B:'重大历史影响',C:'显著历史影响',D:'有限但真实影响',E:'弱历史影响'};
-const scopeGradeMeaning={
- 'S+':'主体核心与多个主要外围政治空间共同发生极大规模重组，属于本体系可以由史实证明的最高覆盖量级。',
- S:'全国国家整体转型并伴随重要外部空间变化，或多个大型政治空间发生广泛重组。',
- 'S-':'中国核心政治空间或同量级政治空间的大部发生实质变化；已经明显超过单一政策、单一集团或局部区域。',
- 'A+':'多个大区域或全国重要领域出现实质变化，但尚未达到核心政治空间大部重组的量级。',
- A:'大型王朝关键中枢、重要部分或多个重要区域发生实质变化。',
- B:'重要区域、制度领域或精英政治圈层发生真实变化，但覆盖仍有限。',
- C:'变化主要局限于局部地区、单一集团或短窄领域。'
-};
-const scopeUpperMeaning={
- 'S+':'S+已经是范围最高档。仍然只计算本人窗口内实际改变的政治空间，不把后世继续沿用、制度寿命或未被改变的外围空间追加进来。',
- S:'再上到S+，需要主体核心与多个主要外围政治空间共同发生极大规模重组；仅有全国整体转型或若干外围变化还不够。',
- 'S-':'再上到S，必须证明全国整体转型还伴随重要外部空间变化，或多个大型政治空间发生广泛重组。后世沿用多久属于“深度”，不能拿来抬高“范围”。',
- 'A+':'再上到S-，必须达到核心政治空间大部实质变化，或跨多个大型区域国家达到同量级重组；全国实施一个重要领域本身不够。',
- A:'再上到A+，必须证明变化实际扩展到多个大区域或全国重要领域；仅因身处最高中枢、涉及帝位或最高官员并不自动升级。',
- B:'再上到A，需要达到大型王朝关键中枢、主要区域国家或多个重要区域的实质变化。',
- C:'再上到B，需要影响至少扩展到重要区域、制度领域或精英政治圈层。'
-};
-const scopeFactTerms=/政治空间|全国|全国化|跨地域|区域|疆域|边疆|郡县|封国|政权|统一国家|国家结构|国家整体|政治主体|中央官僚|皇帝主权|标准化|控制关系|服从关系|对外秩序|合并|割据|重组|覆灭|新征服地区/;
-const scopeCausalTerms=/归给|归责|不可替代|可替代|拍板|臣僚|团队|前制|功劳|信用|本人|个人因果|删除|反事实|替代者|共享归责|倒灌|最高权力|由谁|谁来/;
-const scopeNonActualTerms=/是否|争论|方案|模板|概率|可能|未必|不足以|趋势|之前存在|既有|基础量级|门槛|档位/;
-function scopeFactClauses(value){
- const sentences=String(value||'').match(/[^。！？]+[。！？]?/g)||[];
- const kept=[];
- for(const sentence of sentences){
-   const clauses=sentence.replace(/[。！？]+$/,'').split(/[，；]/);
-   for(let clause of clauses){
-     clause=clause.trim()
-       .replace(/^真正高不可替代性的部分，是/,'')
-       .replace(/^真正[^，；。]{0,24}的部分，是/,'')
-       .replace(/^(?:而)?[^，；。]{1,16}在[^，；。]{0,20}把/,'')
-       .replace(/^(?:而)?[^，；。]{1,16}把/,'')
-       .replace(/^(?:但|而|因此|所以)/,'')
-       .trim();
-     if(!clause||!scopeFactTerms.test(clause))continue;
-     if(scopeCausalTerms.test(clause)||scopeNonActualTerms.test(clause))continue;
-     kept.push(clause);
-   }
- }
- return [...new Set(kept)];
-}
-function scopeChainFacts(chains){
- const rows=[];
- for(const c of chains){
-   const facts=scopeFactClauses(c.narrative);
-   if(!facts.length)continue;
-   rows.push(c.title?`${c.title}：${facts.join('；')}。`:`${facts.join('；')}。`);
- }
- if(rows.length)return rows.join('\n\n');
- const titles=chains.map(c=>c.title).filter(Boolean);
- return titles.length?`正式主链涉及：${titles.join('；')}。`:'';
-}
-function scopeRelevantChains(chains){
- return chains.filter(c=>scopeFactClauses(c.narrative).length);
-}
-function scopeGradeReason(h,chains){
- const grade=h.dimensions?.scope?.grade||'—';
- const titles=scopeRelevantChains(chains).map(c=>c.title).filter(Boolean);
- const footprint=titles.length?`与范围直接相关的正式主链：${titles.join('；')}。`:'';
- const meaning=scopeGradeMeaning[grade]||'';
- return `${footprint}${grade}档的范围门槛是：${meaning}`;
-}
 const readingTerms={PS0:'仅有结果或资源背景',PS1:'局部正确选择',PS2:'完整独立决策周期',PS3:'可跨情境迁移的强模式',PS4:'不同约束下反复兑现的罕见模式',DW0:'未能归责本人的负面结果',DW1:'已纠正且未复发的局部误判',DW2:'造成显著损失但已恢复或未同类复发的错误',DW3:'同类机制重复失败、反馈后加码或优势下崩盘',DW4:'跨机制与阶段的稳定失能',AM1:'局部制度接口',AM2:'全国重要子系统',AM3:'国家核心系统',AM4:'国家基本运行架构重构'};
 function readerText(t){return String(t??'').replace(/\b(?:PS[0-4]|DW[0-4]|AM[1-4])\b/g,k=>readingTerms[k]).replace(/G([0-5])[- /]*(LOW|MID|HIGH)/g,(_,g,p)=>grade({axis_grade:'G'+g,position:p})).replace(/G([0-5])/g,(_,g)=>letters['G'+g]+'档').replace(/EPISODE_TAG/g,'局部情境证据').replace(/BOUNDED_PROFILE/g,'有明确适用边界的画像').replace(/FULL_GRADE/g,'完整定档').replace(/MI4(?:_CROSS_PHASE_SYSTEMIC)?/g,'跨阶段系统性情境').replace(/MI3(?:_SUSTAINED_SYSTEMIC)?/g,'持续系统性情境').replace(/MI2(?:_LIFECYCLE)?/g,'完整生命周期情境').replace(/MI1(?:_CASE)?/g,'单一情境').replace(/\bE1\b/g,'少量情境材料').replace(/\bE2\b/g,'多个独立情境材料').replace(/\bE3\b/g,'主要命题已有代表性材料')}
-function historyReaderText(value){
- return readerText(String(value??''))
-   .replace(/\bNEGATIVE\b/g,'负向')
-   .replace(/\bPOSITIVE\b/g,'正向')
-   .replace(/\bMIXED\b/g,'正负混合')
-   .replace(/\bHIGH\b/g,'高')
-   .replace(/\bMEDIUM\b/g,'中')
-   .replace(/\bLOW\b/g,'低')
-   .replace(/V\d+(?:\.\d+)?(?:补证与边界|补证|复核|重审|修订|更新)[：:]\s*/g,'')
-   .replace(/(?:^|[。\n])\s*(?:本轮|本次)(?:扩搜|复核|重审|修订)[^。]*。?/g,'$1')
-   .replace(/项目重审明确把/g,'')
-   .replace(/当前第三项控制账/g,'现有正式控制记录')
-   .replace(/项目底账/g,'现有正式材料')
-   .replace(/项目正式战役群/g,'正式战役材料')
-   .replace(/项目重审明确把/g,'现有裁决将')
-   .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)明确指出/g,'相关人物画像材料指出')
-   .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)因此把这一链裁为/g,'相关人物画像材料将这一链认定为')
-   .replace(/项目(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)/g,'相关人物画像材料')
-   .replace(/未闭合/g,'尚未充分证明')
-   .replace(/闭合/g,'已有充分证据支持')
-   .replace(/不重复消费/g,'不重复计算')
-   .replace(/消费/g,'计入')
-   .replace(/回填/g,'归入本人')
-   .replace(/分账/g,'区分责任')
-   .replace(/主证/g,'主要依据')
-   .replace(/不加档/g,'不额外上调')
-   .replace(/抬档/g,'上调等级')
-   .replace(/冲顶/g,'达到最高档')
-   .replace(/([，；])取内部([SABCDE](?:[+−-])?)基础/g,'$1基础影响量级为$2')
-   .replace(/取内部([SABCDE](?:[+−-])?)基础/g,'，基础影响量级为$1')
-   .replace(/内部基础([SABCDE](?:[+−-])?)/g,'基础影响量级为$1')
-   .replace(/([，；])取基础([SABCDE](?:[+−-])?)/g,'$1基础影响量级为$2')
-   .replace(/取基础([SABCDE](?:[+−-])?)/g,'，基础影响量级为$1')
-   .replace(/上调至内部([SABCDE](?:[+−-])?)/g,'使综合判断上调为$1')
-   .replace(/内部([SABCDE](?:[+−-])?)/g,'综合判断$1')
-   .replace(/公众总档([SABCDE](?:[+−-])?)/g,'最终等级$1')
-   .replace(/公众([SABCDE](?:[+−-])?)/g,'最终等级$1')
-   .replace(/不增加第二份深度/g,'不重复计入深度')
-   .replace(/抬升基础/g,'提高基础影响量级');
-}
-function historyProse(value){return prose(historyReaderText(value))}
-function paradigmProse(value){return prose(historyReaderText(value).replace(/^\s*范式[SABCDE](?:[+−-])?。/,'').trim())}
 function paradigmReceptionProse(review){
  const receptions=Array.isArray(review?.receptions)?review.receptions.filter(r=>r&&typeof r==='object'):[];
  if(!receptions.length)return '';
- return `<div class="label">实际接收窗口</div>${receptions.map(r=>`<div class="context-story impact-reception"><div class="label">接收者</div><p class="prose">${esc(r.receiver||'未注明')}</p><div class="label">载体</div><p class="prose">${esc(r.carrier||'未注明')}</p><div class="label">实际用途</div>${historyProse(r.actual_use||'未另列说明')}</div>`).join('')}`;
-}
-function sameHistoryText(a,b){
- const norm=value=>historyReaderText(value).replace(/\s+/g,' ').trim();
- return Boolean(a&&b&&norm(a)===norm(b));
+ return `<div class="label">实际接收窗口</div>${receptions.map(r=>`<div class="context-story impact-reception"><div class="label">接收者</div><p class="prose">${esc(r.receiver||'未注明')}</p><div class="label">载体</div><p class="prose">${esc(r.carrier||'未注明')}</p><div class="label">实际用途</div>${prose(r.actual_use||'未另列说明')}</div>`).join('')}`;
 }
 function axisProse(t){if(typeof t==='string')return prose(readerText(t));if(Array.isArray(t))return t.length?t.map(axisProse).join(''):prose('未另列说明');if(t&&typeof t==='object'){const labels={positive_parent_refs:'正向情境引用',counter_parent_refs:'反例情境引用'};return `<details><summary>查看结构化情境引用</summary>${Object.entries(t).map(([k,v])=>`<div class="label">${esc(labels[k]||k)}</div>${axisProse(v)}`).join('')}</details>`}return prose('未另列说明')}
 function excerpt(t){return `<div class="excerpt">${format(Array.isArray(t)?t.join('；'):t||'尚无独立说明')}</div>`}
@@ -191,34 +83,21 @@ function impactSourceList(r,indices,labelText='本节依据'){
 function historySections(r,idSuffix='',compact=false){
  const h=r.impact,chains=h.macro_chains||[];
  const scopeReview=h.scope_assessment||h.scope_review||{},depthReview=h.depth_review||{},causalReview=h.causal_review||{},paradigmReview=h.paradigm_review||{};
- const scopeChains=scopeRelevantChains(chains);
- const scopeIndices=[...(scopeReview.source_ref_indices||[]),...scopeChains.flatMap(c=>c.source_ref_indices||[])];
+ const scopeIndices=scopeReview.source_ref_indices||[];
  const depthIndices=depthReview.source_ref_indices||[];
  const causalIndices=causalReview.source_ref_indices||[];
  const paradigmIndices=paradigmReview.source_ref_indices||[];
- const scopeGrade=h.dimensions?.scope?.grade||'—';
- const scopeActual=scopeReview.actual_changes||scopeChainFacts(chains)||h.foundation?.joint_footprint_basis||h.grade_basis||'';
- const scopeWhy=scopeReview.overall_grade_reasoning||scopeReview.basis||scopeGradeReason(h,chains);
- const scopeCeiling=[scopeReview.baseline_and_exclusions,scopeReview.limits,scopeReview.limit,h.dimensions?.scope?.boundary_note,scopeUpperMeaning[scopeGrade]].filter(Boolean).join('\
-\
-');
- const scopeWindow=scopeReview.observation_window||'';
- const depthBasis=depthReview.basis||h.grade_basis||h.foundation?.joint_footprint_basis||chains.map(c=>c.narrative).join('\n\n');
- const depthLimit=[depthReview.limits,depthReview.limit,h.dimensions?.depth_duration?.boundary_note].filter(Boolean).join('\n\n');
- const causalBasis=causalReview.basis||causalReview.decision||h.foundation?.causal_application||h.personal_causal_boundary||'';
  const counterfactual=h.nearest_feasible_counterfactual||h.counterfactual_entry?.functional_alternative||causalReview.strongest_alternative||'';
- const showCausalBasis=causalBasis&&!sameHistoryText(causalBasis,counterfactual)?causalBasis:'';
- const personalBoundary=h.personal_causal_boundary&&!sameHistoryText(h.personal_causal_boundary,counterfactual)&&!sameHistoryText(h.personal_causal_boundary,showCausalBasis)?h.personal_causal_boundary:'';
- const causalLimit=[causalReview.limit,h.dimensions?.personal_causality?.boundary_note].filter(Boolean).join('\n\n');
- const paradigmLimit=[paradigmReview.limitation,paradigmReview.depth_separation,h.dimensions?.paradigm?.boundary_note].filter(Boolean).join('\n\n');
- const evidenceBoundary=h.confidence_basis||'';
+ const personalBoundary=h.personal_causal_boundary||'';
+ const evidenceBoundary=h.public_boundary||h.confidence_basis||'';
+ const publicBasis=key=>h.dimensions?.[key]?.public_basis||'当前正式记录未另列公开说明。';
  const hid=base=>`${base}${idSuffix}`;
  const dimension=(key,title,question,body)=>`<details id="${hid(`history-dimension-${key}`)}" class="impact-dimension-section impact-evidence-fold"><summary><span>${esc(title)}</span><span class="badge">${esc(h.dimensions?.[key]?.grade||'—')}</span></summary><p class="subline">${esc(question)}</p>${body}</details>`;
- const scopeBody=`<div class=\"label\">实际改变了什么</div>${historyProse(scopeActual)}<div class=\"label\">为什么是 ${esc(scopeGrade)}</div>${historyProse(scopeWhy)}${scopeCeiling?`<div class=\"label\">为什么没有更高</div>${historyProse(scopeCeiling)}`:''}${scopeWindow?`<div class=\"label\">判断采用的时间窗口</div>${historyProse(scopeWindow)}`:''}${impactSourceList(r,scopeIndices,'范围依据')}`;
- const depthBody=`${historyProse(depthBasis)}${depthLimit?`<div class="label">持续边界与截断点</div>${historyProse(depthLimit)}`:''}${impactSourceList(r,depthIndices,'深度依据')}`;
- const causalBody=`${showCausalBasis?`<div class="label">因果判断</div>${historyProse(showCausalBasis)}`:''}${counterfactual?`<div class="label">如果没有这个人</div>${historyProse(counterfactual)}`:''}${personalBoundary?`<div class="label">本人、团队与时代如何分工</div>${historyProse(personalBoundary)}`:''}${causalLimit?`<div class="label">因果边界</div>${historyProse(causalLimit)}`:''}${impactSourceList(r,causalIndices,'因果依据')}`;
- const paradigmBody=`${paradigmReceptionProse(paradigmReview)}${paradigmProse(h.paradigm_analysis)}${paradigmLimit?`<div class="label">范式边界</div>${historyProse(paradigmLimit)}`:''}${impactSourceList(r,paradigmIndices,'范式依据')}`;
- return `${compact?'':'<h2 class="evidence-card-title">历史影响依据</h2>'}<details><summary>公众总档为什么这样定？</summary>${historyProse(h.grade_basis)}</details><details class="impact-core-chains impact-evidence-fold"><summary>核心历史主链</summary><p class="subline">先看真正改变了什么，再分别判断覆盖范围、持续深度、个人归责和后世范式。</p>${chains.map(c=>`<details id="${hid(`chain-${c.chain_id}`)}"><summary>${esc(c.title)}</summary>${historyProse(c.narrative)}${impactSourceList(r,c.source_ref_indices,'本链依据')}</details>`).join('')}</details>${dimension('scope','影响范围','回答“实际改变覆盖到多大政治空间，哪些部分不能继续外推”。',scopeBody)}${dimension('depth_duration','深度与持续','回答“本人退出后，哪些结构仍继续约束后继，延续到哪里为止”。',depthBody)}${dimension('personal_causality','个人因果','回答“这些变化有多少真正依赖本人，而不是前制、臣下、时代趋势或后继者”。',causalBody)}${dimension('paradigm','政治范式','回答“后世最高权力是否真的把这个人或其治道当作榜样、反例或现实政治参照”。',paradigmBody)}<details id="${hid('history-judgment-boundary')}" class="impact-dimension-section impact-boundary impact-evidence-fold"><summary><span>判断边界</span><span class="subline">置信度 ${conf(h.confidence)}</span></summary>${evidenceBoundary?historyProse(evidenceBoundary):'<p class="subline">当前正式记录未另列补充边界。</p>'}</details><p class="sources impact-reading-links">${link(DATA.sources.impact_reader,'历史影响完整阅读页 ↗')}${link(DATA.sources.impact,'正式记录入口 ↗')}</p>`;
+ const scopeBody=`${prose(publicBasis('scope'))}${impactSourceList(r,scopeIndices,'范围依据')}`;
+ const depthBody=`${prose(publicBasis('depth_duration'))}${impactSourceList(r,depthIndices,'深度依据')}`;
+ const causalBody=`${prose(publicBasis('personal_causality'))}${counterfactual?`<div class="label">如果没有这个人</div>${prose(counterfactual)}`:''}${personalBoundary?`<div class="label">详细归责边界</div>${prose(personalBoundary)}`:''}${impactSourceList(r,causalIndices,'因果依据')}`;
+ const paradigmBody=`${paradigmReceptionProse(paradigmReview)}${prose(publicBasis('paradigm'))}${impactSourceList(r,paradigmIndices,'范式依据')}`;
+ return `${compact?'':'<h2 class="evidence-card-title">历史影响依据</h2>'}<details><summary>历史影响等级为什么这样定？</summary>${prose(h.public_total_basis)}</details><details class="impact-core-chains impact-evidence-fold"><summary>核心历史主链</summary><p class="subline">事实主链用于追溯实际变化；四维和总档说明直接读取正式公开裁决。</p>${chains.map(c=>`<details id="${hid(`chain-${c.chain_id}`)}"><summary>${esc(c.title)}</summary>${prose(c.narrative)}${impactSourceList(r,c.source_ref_indices,'本链依据')}</details>`).join('')}</details>${dimension('scope','影响范围','实际改变覆盖到多大政治空间。',scopeBody)}${dimension('depth_duration','深度与持续','本人退出后哪些结构继续约束后继。',depthBody)}${dimension('personal_causality','个人因果','这些变化有多少真正依赖本人。',causalBody)}${dimension('paradigm','政治范式','后世最高权力是否实际使用这个人或其治道。',paradigmBody)}<details id="${hid('history-judgment-boundary')}" class="impact-dimension-section impact-boundary impact-evidence-fold"><summary><span>判断边界</span><span class="subline">置信度 ${conf(h.confidence)}</span></summary>${evidenceBoundary?prose(evidenceBoundary):'<p class="subline">当前正式记录未另列补充边界。</p>'}</details><p class="sources impact-reading-links">${link(DATA.sources.impact_reader,'历史影响完整阅读页 ↗')}${link(DATA.sources.impact,'正式记录入口 ↗')}</p>`;
 }
 
 const format=t=>esc(t).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');

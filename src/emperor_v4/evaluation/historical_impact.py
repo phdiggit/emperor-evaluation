@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from collections import Counter
 from pathlib import Path
+import re
 from typing import Any
 
 import yaml
@@ -14,6 +15,14 @@ DIMENSION_GRADES = ("S+", "S", "S-", "A+", "A", "B", "C")
 LABEL_MAPPING = dict(zip(DIMENSION_GRADES, PUBLIC_GRADES))
 DIMENSIONS = {"scope": "范围", "depth_duration": "深度/持续", "personal_causality": "个人因果", "paradigm": "范式"}
 PUBLIC_MEANINGS = dict(zip(PUBLIC_GRADES, ("文明／国家主路径重塑", "超重大历史影响", "重大长期历史影响", "重大历史影响", "显著历史影响", "有限但真实影响", "弱历史影响")))
+PUBLIC_FIELD_SCHEMA_VERSION = "historical-impact-public-v1"
+PUBLIC_INTERNAL_PATTERNS = (
+    r"项目(?:底账|重审|第三项|第一项A|B2|D|M[1-5]|C[1-5])",
+    r"(?:项目底账|项目正式战役群|当前第三项控制账)",
+    r"回填|分账|消费|公众总档",
+    r"内部(?:基础|裁判|[SABCDE](?:[+−-])?)",
+    r"(?<![A-Za-z])O[1-6](?![A-Za-z0-9])",
+)
 
 
 def _source_label(source: dict) -> str:
@@ -33,6 +42,14 @@ def _entry(root: Path) -> dict[str, Any]:
 def _dimension(row: dict, key: str) -> str:
     value = row["dimensions"][key]
     return value["grade"] + (f"（{value['boundary_note']}）" if value["boundary_note"] else "")
+
+
+def _validate_public_text(value: Any, label: str, ruler_id: str) -> None:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"历史影响公开字段缺失: {ruler_id}/{label}")
+    for pattern in PUBLIC_INTERNAL_PATTERNS:
+        if re.search(pattern, value):
+            raise ValueError(f"历史影响公开字段含内部话术: {ruler_id}/{label}")
 
 
 def render(payload: dict[str, Any]) -> str:
@@ -59,6 +76,10 @@ def render(payload: dict[str, Any]) -> str:
             lines.extend([f'<a id="person-{row["ruler_id"].lower()}"></a>', "", f"### {row['identity_label']}", "",
                 f"**总档：{row['public_grade']}·{PUBLIC_MEANINGS[row['public_grade']]}｜{row['impact_nature']}｜置信度：{confidence}**", "",
                 "；".join(f"{label}：{_dimension(row, d)}" for d, label in DIMENSIONS.items()) + "。", ""])
+            lines.extend(["**公开总档依据：**" + row["public_total_basis"], "",
+                "**公开维度说明：**", "",
+                *[f"{label}：{row['dimensions'][d]['public_basis']}" for d, label in DIMENSIONS.items()], "",
+                "**公开边界：**" + row["public_boundary"], ""])
             lines.extend(["**核心足迹：**" + "；".join(c["title"] for c in row["macro_chains"]), ""])
             scope = row.get("scope_assessment")
             if scope:
@@ -138,6 +159,9 @@ def write_views(root: Path) -> dict[str, Any]:
 def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
     entry = _entry(root)
     payload = load_json(root / entry["json"])
+    public_fields = entry.get("public_fields") or {}
+    if public_fields.get("schema_version", PUBLIC_FIELD_SCHEMA_VERSION) != PUBLIC_FIELD_SCHEMA_VERSION:
+        raise ValueError("历史影响公开字段版本与注册不一致")
     if payload["schema_version"] != entry["payload_schema_version"] or payload["contract_version"] != entry["contract_version"]:
         raise ValueError("历史影响版本与注册不一致")
     if payload["public_label_mapping"] != LABEL_MAPPING:
@@ -168,6 +192,10 @@ def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
                 raise ValueError(f"历史影响公众标签错误: {rid}")
             if set(row["dimensions"]) != set(DIMENSIONS) or any(v["grade"] not in DIMENSION_GRADES for v in row["dimensions"].values()):
                 raise ValueError(f"历史影响四维不完整: {rid}")
+            _validate_public_text(row.get("public_total_basis"), "public_total_basis", rid)
+            _validate_public_text(row.get("public_boundary"), "public_boundary", rid)
+            for dimension_key in DIMENSIONS:
+                _validate_public_text(row["dimensions"][dimension_key].get("public_basis"), f"dimensions.{dimension_key}.public_basis", rid)
             if row["dimensions"]["scope"]["boundary_note"]:
                 raise ValueError(f"范围只发布主档，边界须写为事实说明: {rid}")
             if "scope_assessment" in row and not all(row["scope_assessment"].get(k) for k in ("actual_changes", "baseline_and_exclusions", "overall_grade_reasoning", "method")):

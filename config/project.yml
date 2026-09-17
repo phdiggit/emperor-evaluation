@@ -134,9 +134,14 @@ historical_impact_assessment:
   status: formally_settled
   role: independent_third_evaluation_system
   contract: docs/项目总纲/历史影响评价总则.md
-  contract_version: FORMAL-V1.5
+  contract_version: FORMAL-V1.6
   authority_mode: FORMAL_JSON_SOURCE
   payload_schema_version: historical-impact-formal-v2
+  public_fields:
+    schema_version: historical-impact-public-v1
+    total_basis: public_total_basis
+    dimension_basis: dimensions.<dimension>.public_basis
+    boundary: public_boundary
   canonical_pool: config/common/canonical-ruler-pool.json
   primary_scope: INCLUDED
   supplementary_scope: imported_existing_historical_samples_excluded_from_main_statistics

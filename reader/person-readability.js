@@ -27,26 +27,6 @@
       .replace(/父链/g, "证据链");
   };
 
-  const impactPublicText = value => String(value ?? "")
-    .replace(/\s*以这些实际相接的核心足迹裁基础，未取独立工程、范式传播或后继另建国家补足。$/g, "")
-    .replace(/([，；])取内部([SABCDE](?:[+−-])?)基础/g, "$1基础影响量级为$2")
-    .replace(/取内部([SABCDE](?:[+−-])?)基础/g, "，基础影响量级为$1")
-    .replace(/内部基础([SABCDE](?:[+−-])?)/g, "基础影响量级为$1")
-    .replace(/([，；])取基础([SABCDE](?:[+−-])?)/g, "$1基础影响量级为$2")
-    .replace(/取基础([SABCDE](?:[+−-])?)/g, "，基础影响量级为$1")
-    .replace(/([SABCDE](?:[+−-])?)个人因果/g, "个人因果$1")
-    .replace(/上调至内部([SABCDE](?:[+−-])?)/g, "使最终判断上调为$1")
-    .replace(/内部([SABCDE](?:[+−-])?)/g, "综合判断$1")
-    .replace(/公众总档([SABCDE](?:[+−-])?)/g, "最终等级$1")
-    .replace(/公众([SABCDE](?:[+−-])?)/g, "最终等级$1")
-    .replace(/回填/g, "归入本人")
-    .replace(/分账/g, "区分责任")
-    .replace(/消费/g, "计入")
-    .replace(/不增加第二份深度/g, "不重复计入深度")
-    .replace(/抬升基础/g, "提高基础影响量级");
-
-  const historyPublicText = value => historyReaderText(value);
-
   const netPublicText = value => readerText(String(value ?? ""))
     .replace(/\bC-([0-9]+)-(LOW|MID|HIGH)\b/g, (_, n, p) => `第${n}档·${({LOW:"低位",MID:"中位",HIGH:"高位"})[p]}`)
     .replace(/\b([ABCD]\d?)-([0-9]+)\b/g, "$1第$2档")
@@ -683,36 +663,7 @@
     row.append(note);
   }
 
-  function rewriteHistoryChains(impact) {
-    for (const chain of impact.macro_chains || []) {
-      const box = document.getElementById(`chain-${chain.chain_id}`);
-      const summary = box?.querySelector(":scope > summary");
-      if (!box || !summary || box.dataset.publicNarrative === "done") continue;
-      const sourceBox = Array.from(box.children).find(
-        node => node.tagName === "DETAILS" && node.classList.contains("impact-source-list")
-      );
-      for (const node of Array.from(box.children)) {
-        if (node !== summary && node !== sourceBox) node.remove();
-      }
-      summary.after(fragment(prose(historyPublicText(chain.narrative))));
-      box.dataset.publicNarrative = "done";
-    }
-  }
-
   function enhanceImpact(record) {
-    const impact = record.impact || {};
-    const joint = impact.foundation?.joint_footprint_basis;
-
-    const panel = document.querySelector("#person-impact");
-    if (joint && panel && !panel.querySelector(".impact-summary")) {
-      const dimensions = panel.querySelector(".dimensions");
-      const summary = document.createElement("div");
-      summary.className = "impact-summary";
-      summary.innerHTML = `<div class="label">为什么是 ${esc(impact.public_grade)}？</div>${prose(impactPublicText(joint))}`;
-      (dimensions || panel).after(summary);
-    }
-
-    rewriteHistoryChains(impact);
     const evidence = document.querySelector("#history-evidence");
     if (!evidence || evidence.dataset.personReadable === "done") return;
     const heading = evidence.querySelector(":scope > h2, :scope > h3.section-title");
