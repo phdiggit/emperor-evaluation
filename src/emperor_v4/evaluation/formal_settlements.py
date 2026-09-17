@@ -569,59 +569,17 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
             raise ValueError(f"第二项B1缺少逐人结构化结算依据：{name}")
         if structured_basis != _structured_basis(row):
             raise ValueError(f"第二项B1统一裁决说明与正式值不一致：{name}")
-        evidence_roles = [str(point["role"]) for point in structured_basis[2:]]
-        if not evidence_roles or any(
-            not re.fullmatch(r"(?:正向|负向)依据（(?:M[023](?:，(?:cross|terminal))?|无可计M档)）", role)
-            for role in evidence_roles
+        if [str(point["role"]) for point in structured_basis] != ["公开总括", "档内位置"]:
+            raise ValueError(f"第二项B1结构化依据必须只引用公开总括与档内位置：{name}")
+        if any(
+            re.search(
+                r"(?<![A-Za-z])(?:distributed|central|support|core|personnel|externalized_power|position|N3-)",
+                str(point["text"]),
+                flags=re.I,
+            )
+            for point in structured_basis
         ):
-            raise ValueError(f"第二项B1结算依据未统一为正向与负向M档罗列：{name}")
-        if not any(role.startswith("正向依据") for role in evidence_roles) or not any(
-            role.startswith("负向依据") for role in evidence_roles
-        ):
-            raise ValueError(f"第二项B1结算依据缺少正向或负向栏目：{name}")
-        expected_basis_levels: dict[str, set[str]] = {"正向": set(), "负向": set()}
-        for profile in active_groups(row):
-            direction_label = "正向" if float(profile.get("signed_weight") or 0.0) > 0 else "负向"
-            expected_basis_levels[direction_label].add(str(profile["M"]))
-        actual_basis_levels: dict[str, set[str]] = {"正向": set(), "负向": set()}
-        no_count_directions: set[str] = set()
-        for evidence_role in evidence_roles:
-            direction_label = evidence_role[:2]
-            level_match = re.search(r"（(M[023])", evidence_role)
-            if level_match:
-                actual_basis_levels[direction_label].add(level_match.group(1))
-            elif "无可计M档" in evidence_role:
-                no_count_directions.add(direction_label)
-        if actual_basis_levels != expected_basis_levels or any(
-            bool(expected_basis_levels[direction]) == (direction in no_count_directions)
-            for direction in ("正向", "负向")
-        ):
-            raise ValueError(f"第二项B1结算依据方向或M档与正式profile不一致：{name}")
-        expected_subtypes: set[str] = set()
-        for profile in row.get("M_negative_profile") or []:
-            if profile.get("position_weight_override") == 0 or profile.get("position_count_mode") == "absorbed_same_lifecycle":
-                continue
-            raw_severity = str(profile.get("severity") or "") + " " + str(profile.get("mechanism") or "")
-            for subtype in ("cross", "terminal"):
-                if subtype in raw_severity:
-                    expected_subtypes.add(subtype)
-                    if profile.get("M") != "M3" or not str(profile.get("severity_basis") or "").strip():
-                        raise ValueError(f"第二项B1负向M3缺少{subtype}严重度数据：{name}")
-                    if f"负向依据（M3，{subtype}）" not in evidence_roles:
-                        raise ValueError(f"第二项B1负向M3未注明{subtype}：{name}")
-        role_subtypes = {
-            subtype
-            for subtype in ("cross", "terminal")
-            if any(subtype in role for role in evidence_roles)
-        }
-        if role_subtypes != expected_subtypes:
-            raise ValueError(f"第二项B1负向M3严重度标签与profile不一致：{name}")
-        reader_basis_text = " ".join(str(point["text"]) for point in structured_basis[1:])
-        if re.search(
-            r"(?<![A-Za-z])(?:distributed|central|support|core|personnel|externalized_power|position|N3-)",
-            reader_basis_text,
-        ):
-            raise ValueError(f"第二项B1阅读版结算依据仍含机器裁决术语：{name}")
+            raise ValueError(f"第二项B1结构化公开依据仍含机器裁决术语：{name}")
         direct_count += len(direct)
         verification_count += len(verification)
 

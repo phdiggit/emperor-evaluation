@@ -30,12 +30,9 @@
                 "独立计入",
                 "持续或系统运行"
               ],
-              "adjudication_basis": "六条诏书与三十六条形成持续行政章程并见民受益；新制总为五卷颁行天下，并据此搜简贤才、任命牧守令长；制度按地方官选任接口持续运行，数年后史载百姓便之",
+              "adjudication_basis": "六条诏书与三十六条形成持续行政章程并见民受益；新制总为五卷颁行天下，并据此搜简贤才、任命牧守令长；制度按地方官选任接口持续运行，数年后史载百姓便之；该材料形成独立行政运行链，计入本项",
               "adjudication_boundary": "只按一条章程—选任—地方运行链计数，不与制度建设创设重复拆链",
-              "adjudication_basis_source": [
-                "material_registry",
-                "material_boundary"
-              ]
+              "public_label": "苏绰六条选任与广域交付多责任官→核心"
             },
             {
               "M": "M3",
@@ -61,13 +58,10 @@
                 "并入同一运行链",
                 "持续或系统运行"
               ],
-              "adjudication_basis": "与主核心行政链使用同一material_id且属于同一新制选任—地方责任官结果链；结算grade_basis自身亦明确“不把六条、新制、计帐再拆成多个”；六条诏书与三十六条形成持续行政章程并见民受益；新制总为五卷颁行天下，并据此搜简贤才、任命牧守令长；制度按地方官选任接口持续运行，数年后史载百姓便之",
-              "adjudication_boundary": "只按一条章程—选任—地方运行链计数，不与制度建设创设重复拆链；与主核心行政链使用同一material_id且属于同一新制选任—地方责任官结果链；结算grade_basis自身亦明确“不把六条、新制、计帐再拆成多个”",
-              "adjudication_basis_source": [
-                "position_exclusion_reason",
-                "material_registry",
-                "material_boundary"
-              ]
+              "adjudication_basis": "与主核心行政链使用同一材料编号且属于同一新制选任—地方责任官结果链；该材料明确“不把六条、新制、计帐再拆成多个”；六条诏书与三十六条形成持续行政章程并见民受益；新制总为五卷颁行天下，并据此搜简贤才、任命牧守令长；制度按地方官选任接口持续运行，数年后史载百姓便之；该材料与“苏绰六条选任与广域交付多责任官→核心”属于同一行政运行过程，故并入该运行链，不另行计入本项",
+              "adjudication_boundary": "只按一条章程—选任—地方运行链计数，不与制度建设创设重复拆链；与主核心行政链使用同一材料编号且属于同一新制选任—地方责任官结果链；该材料明确“不把六条、新制、计帐再拆成多个”",
+              "public_label": "多地区责任官治绩识别与奖升属于同一“六条/新制—搜简牧守令长—广域交付”材料簇，不再拆作独立",
+              "absorbed_into_profile_id": "B1-PROFILE-EBC6E45B1E1E27F4"
             },
             {
               "M": "M2",
@@ -89,13 +83,9 @@
                 "独立计入",
                 "已有实际运行"
               ],
-              "adjudication_basis": "当前正式v50 grade_basis已列明《资治通鉴》卷158、《周书·苏绰传》及“预署空纸—随事施行—回朝启报”链；苏绰参典机密；宇文泰外出预署空纸授权随事施行、回朝再启报，并以行台官属白日治务形成独立中枢代理接口；已有实际运行",
+              "adjudication_basis": "当前正式既有材料 正式裁决已列明《资治通鉴》卷158、《周书·苏绰传》及“预署空纸—随事施行—回朝启报”链；苏绰参典机密；宇文泰外出预署空纸授权随事施行、回朝再启报，并以行台官属白日治务形成独立中枢代理接口；已有实际运行；该材料形成独立行政运行链，计入本项",
               "adjudication_boundary": "仅服务 官僚治理结算，不扩张至其他项目",
-              "adjudication_basis_source": [
-                "source_basis",
-                "material_registry",
-                "material_boundary"
-              ]
+              "public_label": "苏绰参典机密；宇文泰外出预署空纸授权随事施行、回朝再启报，并以行台官属白日治务形成独立中枢代理接口"
             }
           ],
           "coverage_audit_ids": [],
@@ -132,24 +122,12 @@
           "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
           "structured_grade_basis": [
             {
-              "role": "主档依据",
-              "text": "主链仍是苏绰新制：搜简贤才为牧守令长、依新制而遣并有“百姓便之”的广域结果，足核心行政机制 M3。现JSON却把同一material_id再切出“多地区责任官治绩识别与奖升”作为第二个核心行政机制 M3，违反同生命周期/同材料去重，而且与本record自己的v50 grade_basis“不把六条、新制、计帐再拆成多个M3”直接冲突。去重后改用苏绰预署空纸—随事施行—回朝启报的独立中枢运行 M2作第二验证。档内位置按当前有效生命周期权重与净余量确定。"
+              "role": "公开总括",
+              "text": "正式结算按独立行政运行链判断：正向 2 条、负向 0 条、正负并存 0 条；1 条补充材料并入同一运行链；各条权重并不相同，不能按条数直接相减。"
             },
             {
-              "role": "档内位置依据",
-              "text": "主档已定为G4；有效生命周期权重合计扣除该档门槛占用3后，净余量为0，仅据此确定档内中位（77.5）。净余量不用于跨档比较"
-            },
-            {
-              "role": "正向依据（M3）",
-              "text": "苏绰六条选任与广域交付多责任官样本转为核心行政机制"
-            },
-            {
-              "role": "正向依据（M2）",
-              "text": "苏绰参典机密；宇文泰外出预署空纸授权随事施行、回朝再启报，并以行台官属白日治务形成独立中枢代理接口"
-            },
-            {
-              "role": "负向依据（无可计M档）",
-              "text": "未闭合可计的负向运行链"
+              "role": "档内位置",
+              "text": "档位G4内的公开位置按有效行政运行链的合计依据机械确定为中位，公开指数为77.5/100；该位置只用于同档展示，不用于跨档比较。"
             }
           ],
           "review_material_absorption_status": "TARGETED_REVIEW_SUPERSEDES_SOURCE_RECORD_FOR_SAME_MATERIAL_DEDUP",
@@ -164,7 +142,7 @@
           "grade_threshold_consumed": 3.0,
           "review_material_basis": [],
           "public_adjudication_summary": "正式结算按独立行政运行链判断：正向 2 条、负向 0 条、正负并存 0 条；1 条补充材料并入同一运行链；各条权重并不相同，不能按条数直接相减。",
-          "profile_adjudication_style": "B1-PROFILE-ADJUDICATION-V1"
+          "profile_adjudication_style": "B1-PROFILE-ADJUDICATION-V2"
         }
       ]
     }

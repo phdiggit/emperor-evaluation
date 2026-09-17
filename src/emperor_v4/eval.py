@@ -428,3 +428,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         ))
         return 0
     raise AssertionError(f"未处理命令：{args.command}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

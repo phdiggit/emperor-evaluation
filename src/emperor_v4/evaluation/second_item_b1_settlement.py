@@ -48,6 +48,266 @@ GATE_CODES = {
 ALLOWED_B1_ROLES = {"core", "central", "distributed", "support", "context"}
 ALLOWED_SEVERITIES = {"N3-domain", "N3-cross", "N3-terminal"}
 ALLOWED_SEVERITY_SCOPES = {"localized", "major-stage", "broad"}
+PROFILE_KEYS = ("M_positive_profile", "M_mixed_profile", "M_negative_profile")
+ADJUDICATION_STATUSES = {
+    "COUNTED_INDEPENDENT",
+    "ABSORBED_SAME_LIFECYCLE",
+    "BOUNDARY_CONTEXT",
+    "ZERO_NET",
+}
+PUBLIC_STATUS_LABELS = {
+    "COUNTED_INDEPENDENT": "独立计入",
+    "ABSORBED_SAME_LIFECYCLE": "并入同一运行链",
+    "BOUNDARY_CONTEXT": "不单独计入",
+    "ZERO_NET": "不增加净值",
+}
+PUBLIC_DIRECTION_LABELS = {
+    "positive": "正向",
+    "positive_correction": "正向",
+    "negative": "负向",
+    "mixed_positive": "正向主导",
+    "mixed_negative": "负向主导",
+    "mixed": "正负并存",
+    "balanced": "正负并存",
+    "neutral": "正负并存",
+    "context": "边界材料",
+}
+PUBLIC_ROLE_LABELS = {
+    "core": "核心行政链",
+    "central": "中枢行政链",
+    "distributed": "多责任官行政链",
+    "support": "支撑行政链",
+    "context": "边界材料",
+}
+PUBLIC_CLOSURE_LABELS = {
+    "sustained_or_systemic": "持续或系统运行",
+    "observed_or_repeated": "已有实际运行",
+    "observed": "已有实际运行",
+    "not_restored": "未恢复",
+    "reversed": "后续逆转",
+    "not_closed": "运行证据尚未完整",
+}
+PUBLIC_FORBIDDEN_RE = re.compile(
+    r"(?:本轮|重审|恢复原|旧裁决|\bv20\b|\bv50\b|按合同|门禁|主档|消费|闭合|净余量|"
+    r"(?<![A-Za-z])position(?![A-Za-z])|(?<![A-Za-z])fallback(?![A-Za-z])|"
+    r"\bB[12]\b|\bM[0-3]\b|N3-(?:domain|cross|terminal)|"
+    r"(?<![A-Za-z])(?:core|support|central|distributed|context|mixed_positive|mixed_negative|"
+    r"observed_or_repeated|sustained_or_systemic|lifecycle|profile|balanced|personnel)(?![A-Za-z])|"
+    r"(?<![A-Za-z])(?:record_adjudication|profile_fallback)(?![A-Za-z]))",
+    flags=re.I,
+)
+
+# These four profiles were the only records whose previous compatibility pass
+# obtained prose from a ruler-level basis or from a generic profile fallback.
+# Keep their facts attached to the profile itself before the compatibility
+# module is removed from the repository.
+LEGACY_PROFILE_BASIS = {
+    "B1-PROFILE-CED7C6A0472A53CD": (
+        "王公、妃主和豪强侵扰民众受到官僚问责约束，官吏在问责后保持清谨；"
+        "由此形成特权干预受限、官僚能够独立执行的行政运行。"
+    ),
+    "B1-PROFILE-4E9F2CBCC8A6912B": (
+        "官吏受赃问责并形成清谨结果；该材料与特权干预受限属于同一行政运行过程，"
+        "故并入“特权势力干预约束与官僚独立执行”，不另行计入本项。"
+    ),
+    "B1-PROFILE-5B138E7D76DA61AC": (
+        "郑弘开通零陵、桂阳道路，使交趾七郡贡运此后成为常路；"
+        "该跨区域行政传导形成实际交付，作为独立行政运行链计入本项。"
+    ),
+    "B1-PROFILE-66B0DC7313747BA0": (
+        "强臣退出后，正式责任中心重新配置，军政责任由中枢与地方责任官承接；"
+        "相关任命、执行与后续岗位接续形成独立行政运行链。"
+    ),
+}
+
+
+def _iter_profiles(row: dict[str, Any]):
+    for key in PROFILE_KEYS:
+        for profile in row.get(key) or []:
+            if isinstance(profile, dict):
+                yield profile
+
+
+def _publicize_text(value: object) -> str:
+    """Remove legacy process markers from already-adjudicated profile prose.
+
+    This is an upstream migration of stored profile text, not reader-side
+    semantic selection. It never consults grade_basis or any other ruler-level
+    explanation.
+    """
+
+    text = re.sub(r"\s+", " ", str(value or "")).replace("`", "").strip()
+    if not text:
+        return ""
+    replacements = (
+        (r"N3-terminal", "广域整体失效"),
+        (r"N3-cross", "跨功能失灵"),
+        (r"N3-domain", "单功能系统失灵"),
+        (r"B1-central", "中枢行政链"),
+        (r"B1-core", "核心行政链"),
+        (r"B1-support", "支撑行政链"),
+        (r"B1-(?:distributed|personnel)", "多责任官行政链"),
+        (r"B1", "官僚治理"),
+        (r"B2", "反馈与约束"),
+        (r"M[0-3]", ""),
+        (r"(?<![A-Za-z])N3(?![-A-Za-z])", "系统失灵"),
+        (r"(?<![A-Za-z])M(?![A-Za-z])", ""),
+        (r"G[0-5]", ""),
+        (r"(?<![A-Za-z])core(?![A-Za-z])", "核心"),
+        (r"(?<![A-Za-z])support(?![A-Za-z])", "支撑"),
+        (r"(?<![A-Za-z])central(?![A-Za-z])", "中枢"),
+        (r"(?<![A-Za-z])distributed(?![A-Za-z])", "多责任官"),
+        (r"(?<![A-Za-z])context(?![A-Za-z])", "边界"),
+        (r"(?<![A-Za-z])personnel(?![A-Za-z])", "人员"),
+        (r"(?<![A-Za-z])accountability(?![A-Za-z])", "问责"),
+        (r"(?<![A-Za-z])capture(?![A-Za-z])", "俘获"),
+        (r"(?<![A-Za-z])mixed_positive(?![A-Za-z])", "正向主导"),
+        (r"(?<![A-Za-z])mixed_negative(?![A-Za-z])", "负向主导"),
+        (r"(?<![A-Za-z])mixed(?![A-Za-z])", "正负并存"),
+        (r"(?<![A-Za-z])balanced(?![A-Za-z])", "正负并存"),
+        (r"(?<![A-Za-z])observed_or_repeated(?![A-Za-z])", "已有实际运行"),
+        (r"(?<![A-Za-z])sustained_or_systemic(?![A-Za-z])", "持续或系统运行"),
+        (r"(?<![A-Za-z])not_restored(?![A-Za-z])", "未恢复"),
+        (r"(?<![A-Za-z])not_closed(?![A-Za-z])", "运行证据尚未完整"),
+        (r"(?<![A-Za-z])lifecycle(?![A-Za-z])", "运行过程"),
+        (r"(?<![A-Za-z])profile(?![A-Za-z])", "材料"),
+        (r"(?<![A-Za-z])v20(?![A-Za-z])", "既有材料"),
+        (r"(?<![A-Za-z])v50(?![A-Za-z])", "既有材料"),
+        (r"(?<![A-Za-z])position(?![A-Za-z])", "档内位置"),
+        (r"(?<![A-Za-z])localized(?![A-Za-z])", "局部范围"),
+        (r"(?<![A-Za-z])major-stage(?![A-Za-z])", "主要阶段"),
+        (r"(?<![A-Za-z])broad(?![A-Za-z])", "广泛范围"),
+        (r"(?<![A-Za-z])late-stage(?![A-Za-z])", "后期"),
+        (r"(?<![A-Za-z])material_id(?![A-Za-z])", "材料编号"),
+        (r"(?<![A-Za-z])JSON(?![A-Za-z])", "相关材料"),
+        (r"(?<![A-Za-z])battle-adjudications(?![A-Za-z])", "战事材料"),
+        (r"volume-\d+\.battle-adjudications\.json", "战事材料"),
+        (r"volume-\d+\.战事材料\.(?:json|相关材料)", "相关战事材料"),
+    )
+    for pattern, replacement in replacements:
+        text = re.sub(pattern, replacement, text, flags=re.I)
+    for old, new in (
+        ("按v20/v50材料并集复核", "根据既有材料"),
+        ("按既有材料/既有材料材料并集复核", "根据既有材料"),
+        ("既有材料材料并集复核", "既有材料复核"),
+        ("grade_basis", "正式裁决"),
+        ("旧profile与正式裁决不同步", ""),
+        ("旧材料与正式裁决不同步", ""),
+        ("结算正式裁决自身亦明确", "该材料明确"),
+        ("口径：只收非战役事实；", ""),
+        ("分流说明：本文件只写非战役事实。", ""),
+        ("本轮", ""),
+        ("重审", "复核"),
+        ("恢复原", "恢复"),
+        ("旧裁决", "既有裁决"),
+        ("按合同", "按本项规则"),
+        ("门禁", "等级判断"),
+        ("主档", "主要记录"),
+        ("消费", "计入"),
+        ("闭合", "形成"),
+        ("净余量", "剩余依据"),
+        ("同一同一", "同一"),
+        ("官僚治理 官僚治理", "官僚治理"),
+    ):
+        text = text.replace(old, new)
+    text = re.sub(
+        r"按该负同一运行过程实际击中的官僚治理组织功能面与责任窗口裁为[^；]+；",
+        "",
+        text,
+    )
+    text = re.sub(
+        r"\|\s*P\d+·L\d+·READY\s*\|.*?\|\s*（[^|]*）\s*\|",
+        "；",
+        text,
+    )
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"[；，]\s*[；，]+", "；", text)
+    return text.strip(" ；，。")
+
+
+def _public_label(profile: dict[str, Any]) -> str:
+    label = _publicize_text(profile.get("mechanism"))
+    label = re.sub(r"^[：:、，；\s]+|[：:、，；\s]+$", "", label)
+    return label or "行政运行机制"
+
+
+def _derived_status(profile: dict[str, Any]) -> str:
+    mode = str(profile.get("position_count_mode") or "")
+    if mode == "absorbed_same_lifecycle" or (
+        profile.get("position_weight_override") == 0 and profile.get("absorbed_into_lifecycle_key")
+    ):
+        return "ABSORBED_SAME_LIFECYCLE"
+    if mode in {"context_only", "context_only_no_effective_mechanism"} or profile.get("direction") == "context":
+        return "BOUNDARY_CONTEXT"
+    if mode == "balanced_mixed_lifecycle" or float(profile.get("signed_weight") or 0.0) == 0.0:
+        return "ZERO_NET"
+    return "COUNTED_INDEPENDENT"
+
+
+def _public_tags(profile: dict[str, Any], status: str) -> list[str]:
+    role = "补充材料" if status == "ABSORBED_SAME_LIFECYCLE" else (
+        "边界材料" if status == "BOUNDARY_CONTEXT" else PUBLIC_ROLE_LABELS.get(
+            str(profile.get("b1_role") or ""), "行政运行链"
+        )
+    )
+    values = [
+        PUBLIC_DIRECTION_LABELS.get(str(profile.get("direction") or ""), "正负并存"),
+        role,
+        PUBLIC_STATUS_LABELS[status],
+    ]
+    closure = PUBLIC_CLOSURE_LABELS.get(str(profile.get("result_closure") or "").lower())
+    if closure:
+        values.append(closure)
+    return list(dict.fromkeys(value for value in values if value))
+
+
+def _profile_key_options(profile: dict[str, Any]) -> set[str]:
+    return {
+        str(profile.get(field))
+        for field in ("grade_independence_lifecycle_key", "lifecycle_group_key", "lifecycle_key")
+        if profile.get(field)
+    }
+
+
+def _weight_text(value: object) -> str:
+    number = float(value or 0.0)
+    if number.is_integer():
+        return f"{number:+.0f}"
+    return f"{number:+.1f}"
+
+
+def _status_clause(profile: dict[str, Any], status: str, target_label: str = "") -> str:
+    if status == "ABSORBED_SAME_LIFECYCLE":
+        target = f"“{target_label}”" if target_label else "目标运行链"
+        return f"该材料与{target}属于同一行政运行过程，故并入该运行链，不另行计入本项"
+    if status == "BOUNDARY_CONTEXT":
+        return "该材料仅用于说明行政边界或责任范围，不单独计入本项"
+    if status == "ZERO_NET":
+        return "正负作用发生在同一行政运行过程中，故不增加本项净值"
+    return "该材料形成独立行政运行链，计入本项"
+
+
+def _public_summary(row: dict[str, Any]) -> str:
+    independent = [
+        profile for profile in _iter_profiles(row)
+        if profile.get("adjudication_status") == "COUNTED_INDEPENDENT"
+    ]
+    positive = sum(1 for profile in independent if profile.get("direction") in {"positive", "positive_correction"})
+    negative = sum(1 for profile in independent if profile.get("direction") == "negative")
+    mixed = sum(
+        1 for profile in independent
+        if profile.get("direction") not in {"positive", "positive_correction", "negative"}
+    )
+    mixed += sum(1 for profile in _iter_profiles(row) if profile.get("adjudication_status") == "ZERO_NET")
+    absorbed = sum(1 for profile in _iter_profiles(row) if profile.get("adjudication_status") == "ABSORBED_SAME_LIFECYCLE")
+    context = sum(1 for profile in _iter_profiles(row) if profile.get("adjudication_status") == "BOUNDARY_CONTEXT")
+    parts = [f"正式结算按独立行政运行链判断：正向 {positive} 条、负向 {negative} 条、正负并存 {mixed} 条"]
+    if absorbed:
+        parts.append(f"{absorbed} 条补充材料并入同一运行链")
+    if context:
+        parts.append(f"{context} 条边界材料不单独计入")
+    parts.append("各条权重并不相同，不能按条数直接相减")
+    return "；".join(parts) + "。"
 
 
 def _group_key(profile: dict[str, Any]) -> str:
@@ -164,7 +424,7 @@ def _reader_text(text: str) -> str:
     return text
 
 
-def _structured_basis(row: dict[str, Any]) -> list[dict[str, str]]:
+def _public_position_basis(row: dict[str, Any]) -> str:
     position_cn = {
         "lower": "下位",
         "lower-middle": "中下位",
@@ -172,50 +432,163 @@ def _structured_basis(row: dict[str, Any]) -> list[dict[str, str]]:
         "middle-upper": "中上位",
         "upper": "上位",
     }
-    result = [{
-        "role": "主档依据",
-        "text": _reader_text(str(row["grade_basis"])),
-    }, {
-        "role": "档内位置依据",
-        "text": (
-            f"主档已定为{row['grade']}；有效生命周期权重合计扣除该档门槛占用"
-            f"{THRESHOLDS[str(row['grade'])]:g}后，净余量为{float(row['position_residual']):g}，"
-            f"仅据此确定档内{position_cn[row['position']]}（{float(row['direction_index']):.1f}）。"
-            "净余量不用于跨档比较"
-        ),
-    }]
-    directions: dict[str, list[dict[str, Any]]] = {"正向": [], "负向": []}
-    for profile in active_groups(row):
-        weight = float(profile.get("signed_weight") or 0.0)
-        directions["正向" if weight > 0 else "负向"].append(profile)
-    for label in ("正向", "负向"):
-        if not directions[label]:
-            result.append({"role": f"{label}依据（无可计M档）", "text": f"未闭合可计的{label}运行链"})
-            continue
-        for profile in directions[label]:
-            suffix = ""
-            severity = str(profile.get("severity") or "")
-            if profile.get("M") == "M3" and "terminal" in severity:
-                suffix = "，terminal"
-            elif profile.get("M") == "M3" and "cross" in severity:
-                suffix = "，cross"
-            result.append({
-                "role": f"{label}依据（{profile['M']}{suffix}）",
-                "text": _reader_text(str(profile.get("mechanism") or profile["material_id"])),
+    return (
+        f"档位{row['grade']}内的公开位置按有效行政运行链的合计依据机械确定为"
+        f"{position_cn[row['position']]}，公开指数为{float(row['direction_index']):.1f}/100；"
+        "该位置只用于同档展示，不用于跨档比较。"
+    )
+
+
+def _structured_basis(row: dict[str, Any]) -> list[dict[str, str]]:
+    return [
+        {
+            "role": "公开总括",
+            "text": str(row["public_adjudication_summary"]),
+        },
+        {
+            "role": "档内位置",
+            "text": _public_position_basis(row),
+        },
+    ]
+
+
+def _scoring_signature(payload: dict[str, Any]) -> str:
+    snapshot = []
+    for row in sorted(payload.get("records") or [], key=lambda item: str(item.get("ruler_id"))):
+        profiles = []
+        for profile in _iter_profiles(row):
+            profiles.append({
+                key: profile.get(key)
+                for key in (
+                    "material_id", "evidence_slice", "M", "direction", "direction_factor",
+                    "signed_weight", "lifecycle_key", "lifecycle_group_key",
+                    "grade_independence_lifecycle_key", "position_count_mode",
+                    "position_weight_override", "absorbed_into_lifecycle_key", "b1_role",
+                    "severity", "severity_scope",
+                )
             })
-    return result
+        snapshot.append({
+            "ruler_id": row.get("ruler_id"),
+            "grade": row.get("grade"),
+            "position": row.get("position"),
+            "position_residual": row.get("position_residual"),
+            "grade_threshold_consumed": row.get("grade_threshold_consumed"),
+            "position_q": row.get("position_q"),
+            "direction_index": row.get("direction_index"),
+            "rank": row.get("rank"),
+            "profiles": profiles,
+        })
+    return json.dumps(snapshot, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def _prepare_profile_adjudication(payload: dict[str, Any]) -> tuple[int, Counter[str]]:
+    profile_count = 0
+    status_counts: Counter[str] = Counter()
+    for row in payload["records"]:
+        profiles = list(_iter_profiles(row))
+        for profile in profiles:
+            profile_count += 1
+            derived_status = _derived_status(profile)
+            stored_status = str(profile.get("adjudication_status") or "")
+            if stored_status and stored_status != derived_status and not (
+                stored_status == "BOUNDARY_CONTEXT"
+                and derived_status == "ABSORBED_SAME_LIFECYCLE"
+                and profile.get("absorbed_into_lifecycle_key") in _profile_key_options(profile)
+            ):
+                raise ValueError(f"B1 profile公开状态与计入字段不一致：{row['ruler_name']} / {profile.get('material_id')}")
+            status = stored_status or derived_status
+            if status not in ADJUDICATION_STATUSES:
+                raise ValueError(f"B1 profile的公开裁决状态非法：{row['ruler_name']} / {profile.get('material_id')}")
+            profile["adjudication_status"] = status
+            profile["public_label"] = _publicize_text(profile.get("public_label")) or _public_label(profile)
+
+            basis = LEGACY_PROFILE_BASIS.get(str(profile.get("profile_id"))) or profile.get("adjudication_basis")
+            if not str(basis or "").strip():
+                raise ValueError(f"B1 profile缺少逐材料正式裁决：{row['ruler_name']} / {profile.get('material_id')}")
+            profile["adjudication_basis"] = _publicize_text(basis)
+            if not profile["adjudication_basis"]:
+                raise ValueError(f"B1 profile逐材料正式裁决为空：{row['ruler_name']} / {profile.get('material_id')}")
+            boundary = _publicize_text(profile.get("adjudication_boundary"))
+            if boundary:
+                profile["adjudication_boundary"] = boundary
+            else:
+                profile.pop("adjudication_boundary", None)
+            profile["adjudication_tags"] = _public_tags(profile, status)
+            # The old compatibility source trail is deliberately not a formal
+            # field: profile prose is now the source, and the settlement gate
+            # rejects any fallback marker that survives the migration.
+            profile.pop("adjudication_basis_source", None)
+
+        by_id = {str(profile["profile_id"]): profile for profile in profiles}
+        for profile in profiles:
+            status = str(profile["adjudication_status"])
+            target_label = ""
+            if status == "ABSORBED_SAME_LIFECYCLE":
+                target_key = str(profile.get("absorbed_into_lifecycle_key") or "")
+                candidates = [
+                    candidate
+                    for candidate in profiles
+                    if candidate is not profile
+                    and target_key
+                    and target_key in _profile_key_options(candidate)
+                    and candidate.get("adjudication_status") in {"COUNTED_INDEPENDENT", "ZERO_NET"}
+                ]
+                if len(candidates) != 1:
+                    # One legacy record points to itself despite being marked
+                    # absorbed. It carries boundary evidence, not an
+                    # independent score; make that public state explicit.
+                    if not candidates and profile.get("absorbed_into_lifecycle_key") in _profile_key_options(profile):
+                        status = "BOUNDARY_CONTEXT"
+                        profile["adjudication_status"] = status
+                        profile.pop("absorbed_into_profile_id", None)
+                        profile["adjudication_tags"] = _public_tags(profile, status)
+                    else:
+                        raise ValueError(
+                            f"B1 absorbed profile无法唯一定位目标：{row['ruler_name']} / {profile.get('material_id')}"
+                        )
+                else:
+                    target = candidates[0]
+                    target_id = str(target["profile_id"])
+                    if target_id == str(profile["profile_id"]) or target_id not in by_id:
+                        raise ValueError(f"B1 absorbed profile目标无效：{row['ruler_name']} / {profile.get('material_id')}")
+                    profile["absorbed_into_profile_id"] = target_id
+                    target_label = str(target.get("public_label") or "行政运行机制")
+            elif profile.get("absorbed_into_profile_id"):
+                raise ValueError(f"非并入profile不得保留absorbed_into_profile_id：{row['ruler_name']} / {profile.get('material_id')}")
+
+            clause = _status_clause(profile, status, target_label)
+            basis = str(profile["adjudication_basis"]).rstrip("。")
+            if clause not in basis and not (
+                status == "ABSORBED_SAME_LIFECYCLE" and "并入" in basis and "不另行计入" in basis
+            ):
+                profile["adjudication_basis"] = f"{basis}；{clause}。"
+            status_counts[status] += 1
+
+        row["public_adjudication_summary"] = _public_summary(row)
+        row["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
+
+    payload["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
+    payload["profile_adjudication_record_count"] = len(payload.get("records") or [])
+    payload["profile_adjudication_profile_count"] = profile_count
+    payload["profile_adjudication_status_counts"] = dict(sorted(status_counts.items()))
+    payload.pop("profile_adjudication_basis_source_counts", None)
+    payload.pop("profile_adjudication_polish_count", None)
+    return profile_count, status_counts
 
 
 def refresh_b1_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    before = _scoring_signature(payload)
     records = payload["records"]
     for row in records:
         ruler_id = str(row["ruler_id"])
-        for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
+        for key in PROFILE_KEYS:
             for profile in row.get(key) or []:
                 profile.pop("position_depth_bonus", None)
                 if profile.get("position_count_mode") == "representative_delivery_depth":
                     profile.pop("position_count_mode", None)
                 profile["profile_id"] = profile_id(ruler_id, profile)
+    _prepare_profile_adjudication(payload)
+    for row in records:
         residual = position_residual(row)
         active = active_groups(row)
         if row["grade"] == "G0" and not active:
@@ -260,6 +633,8 @@ def refresh_b1_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "structured_basis_review_covered_count",
     ):
         payload.pop(key, None)
+    if _scoring_signature(payload) != before:
+        raise ValueError("B1逐材料公开字段迁移意外改变了正式评分字段")
     contract = CONTRACT_PATH.read_bytes()
     for source in payload.get("source_documents") or []:
         if source.get("path") == CONTRACT_PATH.as_posix():
@@ -269,6 +644,7 @@ def refresh_b1_payload(payload: dict[str, Any]) -> dict[str, Any]:
 
 def validate_gate_references(payload: dict[str, Any]) -> None:
     validate_profile_contract(payload)
+    validate_public_profile_contract(payload)
     for row in payload["records"]:
         active = {_group_key(profile): profile for profile in active_groups(row)}
         by_id = {str(profile["profile_id"]): profile for profile in active.values()}
@@ -417,20 +793,59 @@ def validate_profile_contract(payload: dict[str, Any]) -> None:
                     raise ValueError(f"B1非负M3残留Severity字段：{row['ruler_name']} / {profile.get('material_id')}")
 
 
+def validate_public_profile_contract(payload: dict[str, Any]) -> None:
+    if payload.get("profile_adjudication_style") != "B1-PROFILE-ADJUDICATION-V2":
+        raise ValueError("B1缺少正式逐材料公开裁决合同标记")
+    expected_profile_count = 0
+    status_counts: Counter[str] = Counter()
+    for row in payload["records"]:
+        profiles = list(_iter_profiles(row))
+        by_id = {str(profile.get("profile_id")): profile for profile in profiles}
+        for profile in profiles:
+            expected_profile_count += 1
+            status = str(profile.get("adjudication_status") or "")
+            if status not in ADJUDICATION_STATUSES:
+                raise ValueError(f"B1逐材料公开裁决状态缺失：{row['ruler_name']} / {profile.get('material_id')}")
+            status_counts[status] += 1
+            label = str(profile.get("public_label") or "").strip()
+            basis = str(profile.get("adjudication_basis") or "").strip()
+            if not label or not basis:
+                raise ValueError(f"B1逐材料公开名称或裁决缺失：{row['ruler_name']} / {profile.get('material_id')}")
+            if PUBLIC_FORBIDDEN_RE.search(" ".join((label, basis, str(profile.get("adjudication_boundary") or "")))):
+                raise ValueError(f"B1逐材料公开裁决仍含内部术语：{row['ruler_name']} / {profile.get('material_id')}")
+            if profile.get("adjudication_tags") != _public_tags(profile, status):
+                raise ValueError(f"B1逐材料公开标签与正式状态不一致：{row['ruler_name']} / {profile.get('material_id')}")
+            target_id = str(profile.get("absorbed_into_profile_id") or "")
+            if status == "ABSORBED_SAME_LIFECYCLE":
+                target = by_id.get(target_id)
+                if target is None or target is profile or target.get("adjudication_status") not in {
+                    "COUNTED_INDEPENDENT", "ZERO_NET"
+                }:
+                    raise ValueError(f"B1并入材料缺少唯一主profile：{row['ruler_name']} / {profile.get('material_id')}")
+            elif target_id:
+                raise ValueError(f"B1非并入材料错误保留主profile引用：{row['ruler_name']} / {profile.get('material_id')}")
+        if row.get("public_adjudication_summary") != _public_summary(row):
+            raise ValueError(f"B1人物级公开总括不是当前profile的机械汇总：{row['ruler_name']}")
+
+    if payload.get("profile_adjudication_profile_count") != expected_profile_count:
+        raise ValueError("B1逐材料公开裁决计数元数据不一致")
+    if payload.get("profile_adjudication_status_counts") != dict(sorted(status_counts.items())):
+        raise ValueError("B1逐材料公开裁决状态分布元数据不一致")
+
+
 def _summary(row: dict[str, Any]) -> str:
-    parts = []
-    for label, predicate in (
-        ("正", lambda weight: weight > 0),
-        ("负", lambda weight: weight < 0),
-    ):
-        items = [
-            f"{_reader_text(str(profile.get('mechanism') or profile['material_id']))}〔{label}M{profile['M'][1:]}〕"
-            for profile in active_groups(row)
-            if predicate(float(profile.get("signed_weight") or 0.0))
-        ]
-        if items:
-            parts.append(f"{label}：" + "；".join(items))
-    return "<br>".join(parts) or "无可计M档运行链"
+    return str(row.get("public_adjudication_summary") or "未形成公开逐材料总括。")
+
+
+def _profile_contribution(profile: dict[str, Any]) -> str:
+    status = str(profile.get("adjudication_status") or "")
+    if status == "ABSORBED_SAME_LIFECYCLE":
+        return "并入同一运行链"
+    if status == "BOUNDARY_CONTEXT":
+        return "不单独计入"
+    if status == "ZERO_NET":
+        return "0（不增加净值）"
+    return _weight_text(profile.get("signed_weight"))
 
 
 def _source_label(source_title: str) -> str:
@@ -465,27 +880,38 @@ def _material_basis(workspace_root: Path, payload: dict[str, Any]) -> dict[str, 
             material = materials.get(material_id)
             if material is None:
                 profile = profiles_by_material.get(str(material_id), {})
-                source_basis = profile.get("source_basis") or profile.get("source_refs")
-                source_lines = source_basis if isinstance(source_basis, list) else [source_basis]
-                for source_line in source_lines:
-                    source_line = str(source_line or "").strip()
-                    if not source_line or source_line in seen:
-                        continue
+                label = str(profile.get("public_label") or "行政运行机制")
+                basis = str(profile.get("adjudication_basis") or "正式记录未另列史料摘录")
+                source_line = f"《补充裁决材料》：{label}：{basis}"
+                if source_line not in seen:
                     seen.add(source_line)
-                    lines.append(f"  - {source_line if source_line.startswith('《') else '《补充裁决材料》：' + source_line}")
-                if not source_lines or not any(str(line or "").strip() for line in source_lines):
-                    mechanism = str(profile.get("mechanism") or "补充裁决材料待登记")
-                    if mechanism not in seen:
-                        seen.add(mechanism)
-                        lines.append(f"  - 《补充裁决材料》：{mechanism}")
+                    lines.append(f"  - {source_line}")
                 continue
+            material_line_count = len(lines)
             for evidence in material.get("evidence") or []:
                 quote = _reader_text(str(evidence.get("exact_quote") or "").strip())
                 if not quote or quote in seen:
                     continue
-                seen.add(quote)
                 source = str(evidence.get("source_title") or evidence.get("source_document_ref") or "史料")
+                if (
+                    "02-B1官僚治理与行政执行方向卡" in source
+                    or re.search(
+                        r"grade_basis|v20|v50|battle-adjudications|P\d+·L\d+·READY|分流说明：|口径：只收非战役事实",
+                        quote,
+                        flags=re.I,
+                    )
+                ):
+                    continue
+                seen.add(quote)
                 lines.append(f"  - {_source_label(source)}：{quote}")
+            if len(lines) == material_line_count:
+                profile = profiles_by_material.get(str(material_id), {})
+                label = str(profile.get("public_label") or "行政运行机制")
+                basis = str(profile.get("adjudication_basis") or "正式记录未另列史料摘录")
+                source_line = f"《补充裁决材料》：{label}：{basis}"
+                if source_line not in seen:
+                    seen.add(source_line)
+                    lines.append(f"  - {source_line}")
         if not lines:
             raise ValueError(f"B1直接材料没有可展示原文：{row['ruler_name']}")
         result[row["ruler_name"]] = "- 材料依据：\n" + "\n".join(lines)
@@ -537,6 +963,23 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
             f"  - **{point['role']}**：{str(point['text']).rstrip('。')}。"
             for point in _structured_basis(row)
         )
+        lines.append("- 逐材料裁决：")
+        target_labels = {
+            str(profile.get("profile_id")): str(profile.get("public_label") or "行政运行机制")
+            for profile in _iter_profiles(row)
+        }
+        for profile in _iter_profiles(row):
+            tags = "、".join(str(tag) for tag in profile.get("adjudication_tags") or [])
+            lines.append(
+                f"  - **{profile['public_label']}**（{tags}；本项计入：{_profile_contribution(profile)}）"
+            )
+            lines.append(f"    - 裁决：{str(profile['adjudication_basis']).rstrip('。')}。")
+            boundary = str(profile.get("adjudication_boundary") or "").strip()
+            if boundary:
+                lines.append(f"    - 边界：{boundary.rstrip('。')}。")
+            target_id = str(profile.get("absorbed_into_profile_id") or "")
+            if target_id:
+                lines.append(f"    - 并入：{target_labels.get(target_id, '对应主运行链')}。")
         lines.extend([material_by_name[row["ruler_name"]], ""])
     return "\n".join(lines).rstrip() + "\n"
 
