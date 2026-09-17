@@ -21,7 +21,7 @@
   ],
   "payload_metadata": {
     "schema_version": "emperor-profile-m1-formal-settlement-v1",
-    "contract_version": "FORMAL-V1.0",
+    "contract_version": "FORMAL-V1.1",
     "canonical_status": "FORMAL_CURRENT",
     "axis_code": "M1",
     "axis_name": "军事判断与统帅能力",
@@ -53,7 +53,13 @@
       "target_nonachievement_automatically_treated_as_defeat": false,
       "failure_requires_loss_ratio_phase_result_and_attribution_review": true,
       "resource_advantage_underperformance_gate": true,
-      "third_item_strategy_outcome_crosscheck": "A_SECURITY_TRAJECTORY;B_CONTROL_RESULT;C_SYSTEM_EFFECTIVENESS;D_COST_RETURN;NO_DIRECT_SCORE_MAPPING"
+      "third_item_strategy_outcome_crosscheck": "A_SECURITY_TRAJECTORY;B_CONTROL_RESULT;C_SYSTEM_EFFECTIVENESS;D_COST_RETURN;NO_DIRECT_SCORE_MAPPING",
+      "role_projection_required": true,
+      "role_difficulty_transfer_without_projection": false,
+      "role_distribution_numeric_weighting_used": false,
+      "g4_g5_role_combination_gate": true,
+      "direct_command_required_for_g5": true,
+      "single_lifecycle_component_count_as_independent_cycles": false
     },
     "summary": {
       "pool_count": 184,
@@ -79,9 +85,9 @@
       "grade_distribution": {
         "G0": 5,
         "G1": 25,
-        "G2": 48,
-        "G3": 71,
-        "G4": 30,
+        "G2": 47,
+        "G3": 73,
+        "G4": 29,
         "G5": 5
       },
       "position_distribution": {
@@ -92,7 +98,7 @@
       "talent_grade_difference_review_count": 16,
       "positive_difference_review_count": 12,
       "negative_difference_review_count": 4,
-      "no_profile_g4_g5_review_count": 9,
+      "no_profile_g4_g5_review_count": 0,
       "grade_position_change_count": 7,
       "war_conduct_excluded_from_m1_direction_count": 4,
       "normative_entry_coverage_complete_count": 187,
@@ -113,7 +119,15 @@
       "military_talent_registry_projection_count": 120,
       "full_pool_readjudication_count": 184,
       "full_pool_readjudication_changed_count": 36,
-      "third_item_strategy_crosscheck_count": 184
+      "third_item_strategy_crosscheck_count": 184,
+      "role_projection_complete_count": 184,
+      "formal_profile_role_projection_count": 120,
+      "fallback_role_projection_count": 64,
+      "source_role_conflict_record_count": 3,
+      "source_role_conflict_item_count": 5,
+      "g4_g5_role_gate_review_count": 35,
+      "g4_g5_role_gate_change_count": 1,
+      "m1_v11_rationale_repair_count": 6
     },
     "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
   },

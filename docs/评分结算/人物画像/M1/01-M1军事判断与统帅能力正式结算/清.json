@@ -298,6 +298,143 @@
             "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-43C47AF8E1E1C688",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "PCR-85D42DE18E6E74C2F369",
+                "canonical_label": "亲征并统合汉城、南汉山城及各道援军方向，持续至李倧三田渡出降。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "S-",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-D9C37059E15A57FB128E",
+                "canonical_label": "亲临松山设伏击溃明十三万援军，继而攻克松山、锦州、塔山和杏山。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "S",
+                "combat_difficulty": "D3",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "WAR-POST-A03ED61DBC3A22B56667",
+                "canonical_label": "皇太极亲率清军围攻松山、锦州，以火炮破台、地道攻城并击败明援军，但未克松山而解围还师。",
+                "direction": "NEGATIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "B",
+                "combat_difficulty": "D1",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_LEGACY_ROW",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 3,
+              "episode_refs": [
+                "PCR-85D42DE18E6E74C2F369",
+                "PCR-D9C37059E15A57FB128E",
+                "WAR-POST-A03ED61DBC3A22B56667"
+              ],
+              "positive_episode_refs": [
+                "PCR-85D42DE18E6E74C2F369",
+                "PCR-D9C37059E15A57FB128E"
+              ],
+              "negative_episode_refs": [
+                "WAR-POST-A03ED61DBC3A22B56667"
+              ],
+              "high_pressure_refs": [
+                "PCR-85D42DE18E6E74C2F369",
+                "PCR-D9C37059E15A57FB128E"
+              ],
+              "d3_d4_refs": [
+                "PCR-D9C37059E15A57FB128E"
+              ]
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G4",
+            "position_before_role_gate_review": "MID",
+            "positive_strong_episode_refs": [
+              "PCR-85D42DE18E6E74C2F369",
+              "PCR-D9C37059E15A57FB128E"
+            ],
+            "direct_strong_episode_refs": [
+              "PCR-85D42DE18E6E74C2F369",
+              "PCR-D9C37059E15A57FB128E"
+            ],
+            "historical_direct_candidate_refs": [
+              "PCR-D9C37059E15A57FB128E"
+            ],
+            "status": "PASS_G4_DIRECT_ROUTE",
+            "route": "DIRECT_COMMAND_ROUTE",
+            "decision": "G4-MID_RETAINED",
+            "basis": "At least two independent strong positive military cycles are closed and at least one is DIRECT_COMMAND; difficulty counts are not treated as equal-weight samples."
           }
         },
         {
@@ -524,6 +661,145 @@
             "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-44F70D5754CFAD29",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "PCR-82881E2521AEFCAA84C0",
+                "canonical_label": "攻克哈达、俘孟格布禄并最终收其部众。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "A",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-C7BDD0A35E733EF13874",
+                "canonical_label": "集中主力四日破明三路，继亲率攻克开原并终结叶赫。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "S",
+                "combat_difficulty": "D4",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-CE53B9D9ADDE518844B0",
+                "canonical_label": "连续攻乌拉六城、破三万军灭乌拉，继攻叶赫十九寨。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "A",
+                "combat_difficulty": "D3",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 3,
+              "episode_refs": [
+                "PCR-82881E2521AEFCAA84C0",
+                "PCR-C7BDD0A35E733EF13874",
+                "PCR-CE53B9D9ADDE518844B0"
+              ],
+              "positive_episode_refs": [
+                "PCR-82881E2521AEFCAA84C0",
+                "PCR-C7BDD0A35E733EF13874",
+                "PCR-CE53B9D9ADDE518844B0"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "PCR-C7BDD0A35E733EF13874",
+                "PCR-CE53B9D9ADDE518844B0"
+              ],
+              "d3_d4_refs": [
+                "PCR-C7BDD0A35E733EF13874",
+                "PCR-CE53B9D9ADDE518844B0"
+              ]
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G4",
+            "position_before_role_gate_review": "MID",
+            "positive_strong_episode_refs": [
+              "PCR-82881E2521AEFCAA84C0",
+              "PCR-C7BDD0A35E733EF13874",
+              "PCR-CE53B9D9ADDE518844B0"
+            ],
+            "direct_strong_episode_refs": [
+              "PCR-82881E2521AEFCAA84C0",
+              "PCR-C7BDD0A35E733EF13874",
+              "PCR-CE53B9D9ADDE518844B0"
+            ],
+            "historical_direct_candidate_refs": [
+              "PCR-C7BDD0A35E733EF13874"
+            ],
+            "status": "PASS_G4_DIRECT_ROUTE",
+            "route": "DIRECT_COMMAND_ROUTE",
+            "decision": "G4-MID_RETAINED",
+            "basis": "At least two independent strong positive military cycles are closed and at least one is DIRECT_COMMAND; difficulty counts are not treated as equal-weight samples."
           }
         },
         {
@@ -737,6 +1013,120 @@
             "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-CD467707B8ACAE73",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "PCR-0512C0A023BE5115E40B",
+                "canonical_label": "统率清军入关，与吴军合击李自成二十余万主力并推进至北京。",
+                "direction": "POSITIVE",
+                "source_role_code": "principal_commander",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "independent_direction",
+                "campaign_tier": "S-",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-2037DEF89395F44E7C82",
+                "canonical_label": "江华岛分兵方向，攻取王室避难地并控制李倧妻子。",
+                "direction": "POSITIVE",
+                "source_role_code": "principal_commander",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "tactical_execution",
+                "campaign_tier": "A",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 2,
+            "DIRECT_COMMAND": {
+              "episode_count": 2,
+              "episode_refs": [
+                "PCR-0512C0A023BE5115E40B",
+                "PCR-2037DEF89395F44E7C82"
+              ],
+              "positive_episode_refs": [
+                "PCR-0512C0A023BE5115E40B",
+                "PCR-2037DEF89395F44E7C82"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "PCR-0512C0A023BE5115E40B"
+              ],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G4",
+            "position_before_role_gate_review": "LOW",
+            "positive_strong_episode_refs": [
+              "PCR-0512C0A023BE5115E40B",
+              "PCR-2037DEF89395F44E7C82"
+            ],
+            "direct_strong_episode_refs": [
+              "PCR-0512C0A023BE5115E40B",
+              "PCR-2037DEF89395F44E7C82"
+            ],
+            "historical_direct_candidate_refs": [],
+            "status": "PASS_G4_DIRECT_ROUTE",
+            "route": "DIRECT_COMMAND_ROUTE",
+            "decision": "G4-LOW_RETAINED",
+            "basis": "At least two independent strong positive military cycles are closed and at least one is DIRECT_COMMAND; difficulty counts are not treated as equal-weight samples."
           }
         },
         {
@@ -952,6 +1342,119 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-C9A5C414824D3438",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "PCR-61052B69C11189748566",
+                "canonical_label": "持续建设黑龙江战备并控制两阶段攻围时机与处置路线",
+                "direction": "POSITIVE",
+                "source_role_code": "not_in_command_chain",
+                "source_consumption_mode": "operational_result",
+                "source_capability_mode": "operational_design",
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "OPERATIONAL_RESULT_OR_MODE",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-EA17E270FFDAADCE1467",
+                "canonical_label": "组织三路进剿、亲统中路逼退追击并持续封锁至噶尔丹政权瓦解",
+                "direction": "POSITIVE",
+                "source_role_code": "not_in_command_chain",
+                "source_consumption_mode": "operational_result",
+                "source_capability_mode": "operational_design",
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": true,
+                "local_direct_phase_present": true,
+                "projection_rule": "OPERATIONAL_RESULT_OR_MODE",
+                "projection_note": "Local direct-command wording exists inside an operationally consumed episode; whole episode remains OPERATIONAL_COORDINATION."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 2,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 2,
+              "episode_refs": [
+                "PCR-61052B69C11189748566",
+                "PCR-EA17E270FFDAADCE1467"
+              ],
+              "positive_episode_refs": [
+                "PCR-61052B69C11189748566",
+                "PCR-EA17E270FFDAADCE1467"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [
+              "PCR-EA17E270FFDAADCE1467"
+            ],
+            "local_direct_phase_refs": [
+              "PCR-EA17E270FFDAADCE1467"
+            ],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [
+              "PCR-61052B69C11189748566",
+              "PCR-EA17E270FFDAADCE1467"
+            ],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-HIGH",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -1212,6 +1715,218 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "HL-AMURSANA-ILI-1755-1757",
+                "canonical_label": null,
+                "direction": "POSITIVE",
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": null,
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "HL-ANNAM",
+                "canonical_label": null,
+                "direction": "NEGATIVE",
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": null,
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "HL-BURMA",
+                "canonical_label": null,
+                "direction": "NEGATIVE",
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": null,
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "QSG-QL-ANNAM-WAR-1788-1789",
+                "canonical_label": null,
+                "direction": "NEGATIVE",
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": null,
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "HL-DZUNGAR-REORGANIZATION-1757",
+                "canonical_label": null,
+                "direction": "POSITIVE",
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": null,
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "HL-SECOND-JINCHUAN-1771-1776",
+                "canonical_label": null,
+                "direction": "POSITIVE",
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": null,
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "HL-LINSHUANGWEN-1786-1788",
+                "canonical_label": null,
+                "direction": "POSITIVE",
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": null,
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "HL-GURKHA-1792",
+                "canonical_label": null,
+                "direction": "POSITIVE",
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": null,
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 8,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 5,
+              "episode_refs": [
+                "HL-AMURSANA-ILI-1755-1757",
+                "HL-DZUNGAR-REORGANIZATION-1757",
+                "HL-GURKHA-1792",
+                "HL-LINSHUANGWEN-1786-1788",
+                "HL-SECOND-JINCHUAN-1771-1776"
+              ],
+              "positive_episode_refs": [
+                "HL-AMURSANA-ILI-1755-1757",
+                "HL-DZUNGAR-REORGANIZATION-1757",
+                "HL-GURKHA-1792",
+                "HL-LINSHUANGWEN-1786-1788",
+                "HL-SECOND-JINCHUAN-1771-1776"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 2,
+              "episode_refs": [
+                "HL-BURMA",
+                "QSG-QL-ANNAM-WAR-1788-1789"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [
+                "HL-BURMA",
+                "QSG-QL-ANNAM-WAR-1788-1789"
+              ],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 1,
+              "episode_refs": [
+                "HL-ANNAM"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [
+                "HL-ANNAM"
+              ],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "LOW",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-LOW",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -1403,6 +2118,127 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "CHAIN-QING-CAIQIAN-MARITIME-WAR-1804-1809",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "CHAIN-QING-MIAO-TERMINALS-1796-1797",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "QSG-JQ-CAIQIAN-PIRACY-1804-1809",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 3,
+              "episode_refs": [
+                "CHAIN-QING-CAIQIAN-MARITIME-WAR-1804-1809",
+                "CHAIN-QING-MIAO-TERMINALS-1796-1797",
+                "QSG-JQ-CAIQIAN-PIRACY-1804-1809"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "QSG-JQ-CAIQIAN-PIRACY-1804-1809"
+              ],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "LOW",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-LOW",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -1586,6 +2422,128 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "FL-AMUR-RUSSIA-1654-1660",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "FL-ORDOS-DORJI-1652",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S-",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "QSG-SZ-AMUR-RUSSIA-1654-1660",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 3,
+              "episode_refs": [
+                "FL-AMUR-RUSSIA-1654-1660",
+                "FL-ORDOS-DORJI-1652",
+                "QSG-SZ-AMUR-RUSSIA-1654-1660"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "FL-ORDOS-DORJI-1652",
+                "QSG-SZ-AMUR-RUSSIA-1654-1660"
+              ],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "LOW",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-LOW",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -1787,6 +2745,144 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "RULER-PUBLIC-4EB7AC987FECC59F::1722—1735::QSG-009-010-QING-GUZHOU-MIAO-1735-1736",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "B",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "RULER-PUBLIC-4EB7AC987FECC59F::1722—1735::QSG-009-QING-QINGHAI-LOBZANGDANJIN-1723-1724",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "B",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "RULER-PUBLIC-4EB7AC987FECC59F::1722—1735::QSG-009-QING-TIBET-ALBUBA-1728",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "B",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "QSG-009-QING-DZUNGAR-WAR-1731-1732",
+                "canonical_label": null,
+                "direction": "NEGATIVE",
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_EXPLICIT_DIRECT_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 4,
+            "DIRECT_COMMAND": {
+              "episode_count": 1,
+              "episode_refs": [
+                "QSG-009-QING-DZUNGAR-WAR-1731-1732"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [
+                "QSG-009-QING-DZUNGAR-WAR-1731-1732"
+              ],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 3,
+              "episode_refs": [
+                "RULER-PUBLIC-4EB7AC987FECC59F::1722—1735::QSG-009-010-QING-GUZHOU-MIAO-1735-1736",
+                "RULER-PUBLIC-4EB7AC987FECC59F::1722—1735::QSG-009-QING-QINGHAI-LOBZANGDANJIN-1723-1724",
+                "RULER-PUBLIC-4EB7AC987FECC59F::1722—1735::QSG-009-QING-TIBET-ALBUBA-1728"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G2",
+            "position_before_role_gate_review": "MID",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G2-MID",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -2000,6 +3096,129 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "QSG-XF-FUJIAN-REBELLION-1853",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "QSG-XF-GUANGDONG-REBELLIONS-1854-1856",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "QSG-XF-GUANGXI-TAIPINGFU-1857",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 3,
+              "episode_refs": [
+                "QSG-XF-FUJIAN-REBELLION-1853",
+                "QSG-XF-GUANGDONG-REBELLIONS-1854-1856",
+                "QSG-XF-GUANGXI-TAIPINGFU-1857"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "QSG-XF-FUJIAN-REBELLION-1853",
+                "QSG-XF-GUANGDONG-REBELLIONS-1854-1856",
+                "QSG-XF-GUANGXI-TAIPINGFU-1857"
+              ],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G1",
+            "position_before_role_gate_review": "MID",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G1-MID",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -2185,6 +3404,127 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "CHAIN-QING-FIRST-SINO-JAPANESE-WAR-1894-1895",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "CHAIN-QING-GERMAN-JIAOZHOU-SEIZURE-1897-1898",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "QSG-GX-FIRST-SINO-JAPANESE-1894-1895",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 3,
+              "episode_refs": [
+                "CHAIN-QING-FIRST-SINO-JAPANESE-WAR-1894-1895",
+                "CHAIN-QING-GERMAN-JIAOZHOU-SEIZURE-1897-1898",
+                "QSG-GX-FIRST-SINO-JAPANESE-1894-1895"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "QSG-GX-FIRST-SINO-JAPANESE-1894-1895"
+              ],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G1",
+            "position_before_role_gate_review": "MID",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G1-MID",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -2436,6 +3776,125 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "CX-BOXER-EIGHT-NATIONS-1900-1901",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "CX-GUANGXI-1903-1905",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "CX-GUIZHOU-1861-1872",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 3,
+              "episode_refs": [
+                "CX-BOXER-EIGHT-NATIONS-1900-1901",
+                "CX-GUANGXI-1903-1905",
+                "CX-GUIZHOU-1861-1872"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G1",
+            "position_before_role_gate_review": "MID",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G1-MID",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -2619,6 +4078,125 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "BLIND-MN-FIRST-OPIUM-WAR-1839-1842",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "B",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "BLIND-MN-JHANGIR-1820-1828",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "B",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "BLIND-MN-KASHGAR-1846-1847",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "B",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_OPERATIONAL_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 3,
+              "episode_refs": [
+                "BLIND-MN-FIRST-OPIUM-WAR-1839-1842",
+                "BLIND-MN-JHANGIR-1820-1828",
+                "BLIND-MN-KASHGAR-1846-1847"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G1",
+            "position_before_role_gate_review": "LOW",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G1-LOW",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         }
       ]
