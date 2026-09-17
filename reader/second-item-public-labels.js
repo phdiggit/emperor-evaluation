@@ -101,6 +101,10 @@
       const span = detail.querySelector(":scope > summary > span");
       patchLabelNode(span, label);
     }
+
+    for (const label of screen.querySelectorAll(".compare-evidence-label")) {
+      if (label.textContent.trim() === "展开依据") label.textContent = "详情";
+    }
   }
 
   function schedule() {
