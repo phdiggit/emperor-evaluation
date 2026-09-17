@@ -87,5 +87,5 @@ def test_historical_impact_contract_version_metadata_matches_current_contract():
     project = yaml.safe_load((root / "config" / "project.yml").read_text(encoding="utf-8"))
     router = json.loads((root / "docs" / "评分结算" / "历史影响" / "01-历史影响正式结算.json").read_text(encoding="utf-8"))
 
-    assert project["historical_impact_assessment"]["contract_version"] == "FORMAL-V1.6"
-    assert router["payload_metadata"]["contract_version"] == "FORMAL-V1.6"
+    assert project["historical_impact_assessment"]["contract_version"] == "FORMAL-V1.7"
+    assert router["payload_metadata"]["contract_version"] == "FORMAL-V1.7"
