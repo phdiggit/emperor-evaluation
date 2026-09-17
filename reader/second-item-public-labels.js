@@ -41,7 +41,7 @@
     if (!evidence) return;
     const panel = Array.from(evidence.querySelectorAll(":scope > section.panel")).find(section => {
       const heading = section.querySelector(":scope > h2, :scope > h3");
-      return heading?.textContent.trim() === "统治绩效构成";
+      return ["统治绩效构成", "统治绩效详情"].includes(heading?.textContent.trim());
     });
     if (!panel || panel.dataset.canonicalNetEntry === "done") return;
 
@@ -50,18 +50,18 @@
     panel.dataset.netReadable = "done";
     panel.dataset.ledgerFolded = "done";
     panel.innerHTML = `
-      <h2>统治绩效依据</h2>
-      <p class="reading-intro">人物页只保留结果概览；详细构成统一进入统治绩效详情页，避免同一套内容维护两份。</p>
+      <h2>统治绩效详情</h2>
+      <p class="reading-intro">查看完整构成，或直接进入治国成效。</p>
       <div class="person-net-canonical-grid">
         <a class="person-net-canonical-card" href="#net/${encoded}/all">
           <strong>完整统治绩效构成</strong>
           <small>治国、军事、统一与文明整合</small>
-          <span>查看完整依据 →</span>
+          <span>查看详情 →</span>
         </a>
         <a class="person-net-canonical-card" href="#net/${encoded}/second">
           <strong>治国成效</strong>
           <small>制度与行政、民生与社会、政权交接</small>
-          <span>查看治国成效 →</span>
+          <span>查看详情 →</span>
         </a>
       </div>
     `;
