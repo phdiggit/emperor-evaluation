@@ -39,16 +39,19 @@
     if (!rulerId) return;
     const evidence = document.getElementById("person-evidence");
     if (!evidence) return;
-    const panel = Array.from(evidence.querySelectorAll(":scope > section.panel")).find(section =>
-      section.querySelector(":scope > h3")?.textContent.trim() === "统治绩效构成"
-    );
+    const panel = Array.from(evidence.querySelectorAll(":scope > section.panel")).find(section => {
+      const heading = section.querySelector(":scope > h2, :scope > h3");
+      return heading?.textContent.trim() === "统治绩效构成";
+    });
     if (!panel || panel.dataset.canonicalNetEntry === "done") return;
 
     const encoded = encodeURIComponent(rulerId);
     panel.dataset.canonicalNetEntry = "done";
+    panel.dataset.netReadable = "done";
+    panel.dataset.ledgerFolded = "done";
     panel.innerHTML = `
-      <h3>统治绩效依据</h3>
-      <p class="reading-intro">人物页保留结果概览；详细构成统一在统治绩效详情中展开。</p>
+      <h2>统治绩效依据</h2>
+      <p class="reading-intro">人物页只保留结果概览；详细构成统一进入统治绩效详情页，避免同一套内容维护两份。</p>
       <div class="person-net-canonical-grid">
         <a class="person-net-canonical-card" href="#net/${encoded}/all">
           <strong>完整统治绩效构成</strong>
@@ -109,7 +112,7 @@
     });
   }
 
-  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true,characterData:true});
+  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true, characterData:true});
   window.addEventListener("hashchange", schedule);
   schedule();
 })();
