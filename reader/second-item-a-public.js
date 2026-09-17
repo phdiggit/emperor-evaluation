@@ -1,5 +1,6 @@
 "use strict";
 
+// #403: 仅消费正式 public_institution_nodes / public_adjudication_summary。
 (() => {
   const screen = document.getElementById("screen");
   if (!screen) return;
