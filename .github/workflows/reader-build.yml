@@ -14,9 +14,7 @@ on:
       - reader/first-item-reading.js
       - reader/second-item-reading.js
       - reader/second-item-public-alias.js
-      - reader/second-item-institution-weight-polish.js
-      - reader/second-item-institution-public-cleanup.js
-      - reader/second-item-institution-scope-reading.js
+      - reader/second-item-a-public.js
       - reader/second-item-b1-public.js
       - reader/second-item-public-labels.js
       - reader/historical-impact-reading.js
@@ -117,9 +115,7 @@ jobs:
           node --check reader/first-item-reading.js
           node --check reader/second-item-reading.js
           node --check reader/second-item-public-alias.js
-          node --check reader/second-item-institution-weight-polish.js
-          node --check reader/second-item-institution-public-cleanup.js
-          node --check reader/second-item-institution-scope-reading.js
+          node --check reader/second-item-a-public.js
           node --check reader/second-item-b1-public.js
           node --check reader/second-item-public-labels.js
           node --check reader/historical-impact-reading.js
