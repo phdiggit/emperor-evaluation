@@ -20,7 +20,7 @@ def _parser() -> argparse.ArgumentParser:
     maintenance.add_argument("--verify", action="store_true")
     maintenance.add_argument("--related", action="store_true", help="同时执行关联轴的组件校验")
     maintenance.add_argument("--sync", action="store_true", help="校验源后刷新报告列出的确定性下游")
-    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "second-item-b1-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
+    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "first-item-a-public-verify", "second-item-b1-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
         commands.add_parser(name)
     first_cost = commands.add_parser("first-item-cost-verify")
     first_cost.add_argument("--workspace-root", type=Path, default=Path("."))
@@ -236,6 +236,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         "profile-m5-verify": ("profile_m5", "verify", True),
         "canonical-ruler-pool-verify": ("canonical_ruler_pool", "verify_canonical_ruler_pool", True),
         "composite-ranking-verify": ("composite_ranking", "verify_composite_ranking", True),
+        "first-item-a-public-verify": ("first_item_public_outcomes", "verify_first_item_public_outcomes", True),
         "project-entries-verify": ("project_entries", "verify", True),
         "second-item-b1-verify": ("formal_settlements", "verify_second_item_b1_snapshot", True),
         "profile-m1-verify": ("profile_m1_verifier", "verify", False),

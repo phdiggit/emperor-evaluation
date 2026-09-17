@@ -4,8 +4,13 @@ from __future__ import annotations
 from collections import defaultdict
 from pathlib import Path
 import re
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from emperor_v4.evaluation.first_item_public_outcomes import (  # noqa: E402
+    verify_first_item_public_outcomes,
+)
 BASE = ROOT / "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力"
 DOCS = {
     "A": BASE / "01-第一项A统一主链客观贡献正式结算.md",
@@ -118,10 +123,15 @@ def validate() -> None:
         if fields.get(BATTLE_LIST_FIELD):
             validate_battle_list(fields[BATTLE_LIST_FIELD], person=person)
 
+    public_report = verify_first_item_public_outcomes(ROOT)
+    if public_report["record_count"] != len(expected):
+        raise ValueError("第一项A公开成果字段覆盖人数与正式A来源不一致")
+
     shared_people = sum(len(people) for people in shared_projects.values())
     print(
         f"First-item reader sources validated: people={len(expected)}, "
-        f"shared_projects={len(shared_projects)}, shared_people={shared_people}"
+        f"shared_projects={len(shared_projects)}, shared_people={shared_people}, "
+        f"public_outcomes={public_report['record_count']}"
     )
 
 

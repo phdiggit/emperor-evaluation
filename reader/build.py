@@ -14,6 +14,10 @@ DETAILS_DIR = ROOT / "reader/data/people"
 SECOND_ITEM_READER_SUMMARIES = "reader/second-item-summaries.json"
 sys.path.insert(0, str(ROOT / "src"))
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.first_item_public_outcomes import (
+    load_first_item_public_outcomes,
+    public_outcome_for_name,
+)
 from emperor_v4.evaluation.profile_parent_schema import parent_chains
 from emperor_v4.evaluation.composite_details import load_detail_sources, SECOND
 
@@ -307,7 +311,7 @@ def load_second_item_reader_summaries(root, eligible_ids):
     return result
 
 
-def project_net_explanations(person, row, sources):
+def project_net_explanations(person, row, sources, first_item_public_outcomes=None):
     """Add reader-only explanation metadata without changing any scoring value."""
     details = deepcopy(row.get("component_details", {}))
     if not details:
@@ -324,6 +328,12 @@ def project_net_explanations(person, row, sources):
                 summary="只评价本人在建国、复国或统一主链中最终留下的稳定控制成果；起点、对手强弱和完成速度不在这里重复计分。",
                 how=f"{item.get('note') or '按正式A项控制信用与项目归属'}；单人项目按统一贡献曲线计算，共同项目先生成项目A池再按正式个人信用分账，最终为 {item.get('value')} 分。",
             )
+            if item.get("value") is not None:
+                if first_item_public_outcomes is None:
+                    raise ValueError("第一项A缺少正式公开成果投影")
+                first[label]["reader_public_outcome"] = public_outcome_for_name(
+                    first_item_public_outcomes, name
+                )
         elif label == "B1创业难度与效率":
             first[label] = _attach_reader(
                 item, kind="judgment",
@@ -652,6 +662,7 @@ def build(*, check=False, write=True):
         raise ValueError("Composite ranking does not match current ready pool")
     second_item_reader_summaries = load_second_item_reader_summaries(ROOT, ready)
     net_reader_sources = load_net_reader_sources(ROOT)
+    first_item_public_outcomes = load_first_item_public_outcomes(ROOT)
     impact_config = config["historical_impact_assessment"]
     impact = load_json(ROOT / impact_config["json"])
     history = index(impact["records"])
@@ -683,7 +694,12 @@ def build(*, check=False, write=True):
         record = pick(person, ["ruler_id", "ruler_name", "polity", "actual_power_window", "settlement_readiness"])
         projected_net = pick(net[rid], net_fields) if rid in net else None
         if projected_net:
-            projected_net["component_details"] = project_net_explanations(person, net[rid], net_reader_sources)
+            projected_net["component_details"] = project_net_explanations(
+                person,
+                net[rid],
+                net_reader_sources,
+                first_item_public_outcomes,
+            )
             reader_summary = second_item_reader_summaries.get(rid)
             if reader_summary:
                 projected_net["reader_governance_summary"] = reader_summary

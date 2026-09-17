@@ -43,7 +43,7 @@
           return response.json();
         })
         .then(payload => {
-          if (!payload || payload.ruler_id !== rulerId || !payload.documents) {
+          if (!payload || payload.ruler_id !== rulerId || !payload.documents || !payload.public_outcome) {
             throw new Error(`First-item source cache mismatch for ${rulerId}`);
           }
           return payload;

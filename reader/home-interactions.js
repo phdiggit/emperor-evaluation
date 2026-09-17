@@ -476,31 +476,23 @@
       .trim();
   }
 
-  function firstOutcomeText(value) {
-    return firstFactText(value)
-      .replace(/(?:有效控制信用|个人分得|本人六国统一净新增)\s*(?:为|是|约)?\s*\d+(?:\.\d+)?/g, "")
-      .replace(/约?\d+(?:\.\d+)?\s*单位/g, "")
-      .replace(/按(?:完整)?\s*\d+(?:\.\d+)?\s*池/g, "")
-      .replace(/约?\d+(?:\.\d+)?\s*(?:空间)?恢复(?:控制)?(?:按\s*50%\s*折成\s*\d+(?:\.\d+)?\s*有效信用|[×x*]\s*50%\s*=?\s*\d+(?:\.\d+)?)/g, "")
-      .replace(/\s*×\s*50%\s*折成\s*\d+(?:\.\d+)?\s*有效信用/g, "")
-      .replace(/约占\s*\d+(?:\.\d+)?%/g, "")
-      .replace(/约\d+(?:\.\d+)?(?:\s*=\s*\d+(?:\.\d+)?)?(?=[。；，])/g, "")
-      .replace(/控制信用/g, "")
-      .replace(/；\s*；/g, "；")
-      .replace(/；\s*。/g, "。")
-      .replace(/，\s*。/g, "。")
-      .replace(/\s+/g, " ")
-      .trim();
+  function firstPublicOutcomeText(value) {
+    return String(value ?? "").replace(/\s+/g, " ").trim();
   }
 
-  function firstOutcomePercent(...values) {
-    for (const value of values) {
-      const percent = String(value || "").match(/约相当于全国核心统一尺度的\s*(\d+(?:\.\d+)?)%/);
-      if (percent) return Number(percent[1]).toFixed(1);
-    }
-    const raw = values.map(value => String(value || "")).join("；");
-    const credit = raw.match(/(?:有效控制信用|个人分得)\s*(?:为|是)?\s*(\d+(?:\.\d+)?)/);
-    return credit ? (Number(credit[1]) / 10).toFixed(1) : "";
+  function firstPublicOutcomeParts(outcome) {
+    if (!outcome || typeof outcome !== "object") return [];
+    return [
+      ["起点与继承背景", outcome.public_outcome_basis],
+      ["本人实际成果范围", outcome.public_scope],
+      ["公开边界", outcome.public_boundary],
+    ].filter(([, value]) => firstPublicOutcomeText(value));
+  }
+
+  function firstPublicSharePercent(outcome) {
+    const value = Number(outcome?.public_share_percent);
+    if (!Number.isFinite(value)) return "";
+    return Number.isInteger(value) ? String(value) : value.toFixed(1);
   }
 
   function publicCommanderText(value) {
@@ -621,15 +613,16 @@
   }
 
   function renderFirstA(item, bullets, record) {
-    const result = bullets["结算结果"] || bullets["A结算"] || "";
-    const scale = bullets["本人取得/归属成果"] || bullets["取得/恢复成果"] || "";
-    const project = bullets["项目总成果"] || "";
-    const content = bullets["成果内容"] || "";
-    const calculation = bullets["计算"] || item.reader_how || "";
-    const percent = firstOutcomePercent(scale, project);
-    const facts = `${content ? `<div class="label">从哪里起步、取得了什么</div>${prose(firstOutcomeText(content))}` : ""}${percent ? `<div class="label">成果占比</div>${prose(`约${percent}%`)}` : ""}`;
-    const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary><div class="label">A看什么</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">有效控制信用U</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。U不是人口、面积或军队人数。")}${prose(`单人项目按统一贡献曲线换分；共同项目先算项目A池，再按本人控制信用占项目总信用的比例分配。${calculation ? `\n当前人物正式代入：${calculation}` : ""}${result ? `\n正式结算：${result}` : ""}`)}</details>`;
-    return firstMetricDetail("net-first-a", "A · 实际取得的统一成果", "先看本人真正留下了什么", item, `${facts}${rules}`, record);
+    const publicOutcome = item.reader_public_outcome || {};
+    const calculation = item.reader_how || "";
+    const percent = firstPublicSharePercent(publicOutcome);
+    const project = publicOutcome.public_project ? `<div class="label">共同项目</div>${prose(firstPublicOutcomeText(publicOutcome.public_project))}` : "";
+    const facts = firstPublicOutcomeParts(publicOutcome)
+      .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
+      .join("");
+    const share = percent ? `<div class="label">成果占比</div>${prose(`约${percent}%`)}` : "";
+    const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary><div class="label">A看什么</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">有效控制信用U</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。U不是人口、面积或军队人数。")}${prose(`单人项目按统一贡献曲线换分；共同项目先算项目A池，再按本人控制信用占项目总信用的比例分配。${calculation ? `\n当前人物正式代入：${calculation}` : ""}`)}</details>`;
+    return firstMetricDetail("net-first-a", "A · 实际取得的统一成果", "先看本人真正留下了什么", item, `${project}${facts}${share}${rules}`, record);
   }
 
   function renderFirstB1(item, bullets, record) {
@@ -688,13 +681,17 @@
   }
 
   function firstItemOverview(record, bulletsByLabel, byLabel) {
-    const a = bulletsByLabel["A统一贡献"] || {};
+    const a = byLabel["A统一贡献"]?.reader_public_outcome || {};
     const b1 = bulletsByLabel["B1创业难度与效率"] || {};
     const b2 = bulletsByLabel["B2组织与整合"] || {};
     const c = bulletsByLabel["C军事统帅与战争解题"] || {};
     const cost = byLabel["军事成本扣分"];
-    const aPercent = firstOutcomePercent(a["本人取得/归属成果"] || a["取得/恢复成果"], a["项目总成果"]);
-    const aText = [firstOutcomeText(a["成果内容"]), aPercent ? `成果占比：约${aPercent}%` : ""].filter(Boolean).map(firstDigestText).join(" ");
+    const aPercent = firstPublicSharePercent(a);
+    const aText = [
+      a.public_project ? `共同项目：${a.public_project}` : "",
+      ...firstPublicOutcomeParts(a).map(([, value]) => firstPublicOutcomeText(value)),
+      aPercent ? `成果占比：约${aPercent}%` : "",
+    ].filter(Boolean).map(firstDigestText).join(" ");
     const b1Parts = [
       ["起点", b1["起点"]],
       ["对手", b1["对手"]],
@@ -725,7 +722,7 @@
       return;
     }
 
-    const labels = ["A统一贡献", "B1创业难度与效率", "B2组织与整合", "C军事统帅与战争解题"];
+    const labels = ["B1创业难度与效率", "B2组织与整合", "C军事统帅与战争解题"];
     const bulletsByLabel = {};
     const names = [record.ruler_name, firstItemFormalNames[record.ruler_name]];
     await Promise.all(labels.map(async label => {
@@ -734,17 +731,7 @@
     if (!location.hash.startsWith(`#net/${encodeURIComponent(record.ruler_id)}/first`)) return;
 
     const byLabel = Object.fromEntries(items.map(item => [item.label, item]));
-    const ownA = bulletsByLabel["A统一贡献"];
-    if (ownA["项目总成果"]) {
-      const aDoc = await loadFirstItemDoc(firstItemDocs["A统一贡献"], record);
-      const people = [...aDoc.matchAll(/^###\s+\d+\.\s+(.+)$/gm)].map(match => match[1].trim());
-      const partners = people.map(name => ({name, fields:firstItemBullets(aDoc, name)})).filter(person => person.fields["项目总成果"] === ownA["项目总成果"]);
-      ownA["分账说明"] = `分账对象与分数：${partners.map(person => {
-        const credit = (person.fields["本人取得/归属成果"] || "").split("；")[0].replace(/[。；]+$/, "");
-        const score = (person.fields["结算结果"] || "").replace(/[。；]+$/, "");
-        return `${person.name}：${credit}，${score}`;
-      }).join("；")}。`;
-    }
+    const ownA = byLabel["A统一贡献"]?.reader_public_outcome || {};
     if (!container.isConnected) return;
 
     const cards = [];
@@ -755,7 +742,7 @@
     if (byLabel["军事成本扣分"]?.value != null) cards.push(renderFirstCost(byLabel["军事成本扣分"], record));
 
     const windowText = bulletsByLabel["B1创业难度与效率"]["效率"] || "";
-    const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl><dt>创业／统一主链</dt><dd>${esc(firstFactText(ownA["成果内容"] || "按逐人正式条目确定主链。"))}</dd>${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources"><a href="../docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md" target="_blank" rel="noopener">查看完整规则合同 ↗</a></p></details>`;
+    const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl>${ownA.public_project ? `<dt>共同项目</dt><dd>${esc(firstPublicOutcomeText(ownA.public_project))}</dd>` : ""}${firstPublicOutcomeParts(ownA).map(([label, value]) => `<dt>${esc(label)}</dt><dd>${esc(firstPublicOutcomeText(value))}</dd>`).join("")}${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources"><a href="../docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md" target="_blank" rel="noopener">查看完整规则合同 ↗</a></p></details>`;
 
     container.innerHTML = `<section class="panel net-detail-group">${firstItemOverview(record, bulletsByLabel, byLabel)}${scope}${cards.join("")}${firstTotals(items)}</section>`;
     if (focus) requestAnimationFrame(() => document.getElementById(`net-first-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));

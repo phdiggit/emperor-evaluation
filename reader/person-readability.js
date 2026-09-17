@@ -238,31 +238,23 @@
       .trim();
   }
 
-  function firstOutcomeText(value) {
-    return firstItemPublicText(value)
-      .replace(/(?:有效控制信用|个人分得|本人六国统一净新增)\s*(?:为|是|约)?\s*\d+(?:\.\d+)?/g, "")
-      .replace(/约?\d+(?:\.\d+)?\s*单位/g, "")
-      .replace(/按(?:完整)?\s*\d+(?:\.\d+)?\s*池/g, "")
-      .replace(/约?\d+(?:\.\d+)?\s*(?:空间)?恢复(?:控制)?(?:按\s*50%\s*折成\s*\d+(?:\.\d+)?\s*有效信用|[×x*]\s*50%\s*=?\s*\d+(?:\.\d+)?)/g, "")
-      .replace(/\s*×\s*50%\s*折成\s*\d+(?:\.\d+)?\s*有效信用/g, "")
-      .replace(/约占\s*\d+(?:\.\d+)?%/g, "")
-      .replace(/约\d+(?:\.\d+)?(?:\s*=\s*\d+(?:\.\d+)?)?(?=[。；，])/g, "")
-      .replace(/控制信用/g, "")
-      .replace(/；\s*；/g, "；")
-      .replace(/；\s*。/g, "。")
-      .replace(/，\s*。/g, "。")
-      .replace(/\s+/g, " ")
-      .trim();
+  function firstPublicOutcomeText(value) {
+    return String(value ?? "").replace(/\s+/g, " ").trim();
   }
 
-  function firstOutcomePercent(...values) {
-    for (const value of values) {
-      const percent = String(value || "").match(/约相当于全国核心统一尺度的\s*(\d+(?:\.\d+)?)%/);
-      if (percent) return Number(percent[1]).toFixed(1);
-    }
-    const raw = values.map(value => String(value || "")).join("；");
-    const credit = raw.match(/(?:有效控制信用|个人分得)\s*(?:为|是)?\s*(\d+(?:\.\d+)?)/);
-    return credit ? (Number(credit[1]) / 10).toFixed(1) : "";
+  function firstPublicOutcomeParts(outcome) {
+    if (!outcome || typeof outcome !== "object") return [];
+    return [
+      ["起点与继承背景", outcome.public_outcome_basis],
+      ["本人实际成果范围", outcome.public_scope],
+      ["公开边界", outcome.public_boundary],
+    ].filter(([, value]) => firstPublicOutcomeText(value));
+  }
+
+  function firstPublicSharePercent(outcome) {
+    const value = Number(outcome?.public_share_percent);
+    if (!Number.isFinite(value)) return "";
+    return Number.isInteger(value) ? String(value) : value.toFixed(1);
   }
 
   function publicCommanderText(value) {
@@ -357,15 +349,15 @@
   }
 
   function renderFirstA(item, bullets, record) {
-    const result = bullets["A结算"] || "";
-    const scale = bullets["本人取得/归属成果"] || bullets["取得/恢复成果"] || "";
-    const project = bullets["项目总成果"] || "";
-    const content = bullets["成果内容"] || "";
-    const calculation = bullets["计算"] || item.reader_how || "";
-    const percent = firstOutcomePercent(scale, project);
-    const publicContent = firstOutcomeText(content);
-    const facts = `${publicContent ? `<div class="label">从哪里起步、取得了什么</div>${prose(publicContent)}` : ""}${percent ? `<div class="label">成果占比</div>${prose(`约${percent}%`)}` : ""}`;
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>A · 统一主链客观贡献</strong><small>满分120；只看本人最终留下的稳定控制成果</small></span><b>${esc(netValue(item))}</b></div>${facts}<details><summary>这个分怎么算？</summary>${prose(`A = 120 × (min(1000, U) / 1000)^0.65，最后保留1位小数。${calculation ? `\n本人的正式代入：${calculation}` : ""}${result ? `\n正式结算：${result}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+    const publicOutcome = item.reader_public_outcome || {};
+    const calculation = item.reader_how || "";
+    const percent = firstPublicSharePercent(publicOutcome);
+    const project = publicOutcome.public_project ? `<div class="label">共同项目</div>${prose(firstPublicOutcomeText(publicOutcome.public_project))}` : "";
+    const facts = firstPublicOutcomeParts(publicOutcome)
+      .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
+      .join("");
+    const share = percent ? `<div class="label">成果占比</div>${prose(`约${percent}%`)}` : "";
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>A · 统一主链客观贡献</strong><small>满分120；只看本人最终留下的稳定控制成果</small></span><b>${esc(netValue(item))}</b></div>${project}${facts}${share}<details><summary>这个分怎么算？</summary>${prose(`A = 120 × (min(1000, U) / 1000)^0.65，最后保留1位小数。${calculation ? `\n当前人物的正式代入：${calculation}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
   function renderFirstB1(item, bullets, record) {
@@ -417,7 +409,7 @@
       return;
     }
 
-    const labels = ["A统一贡献", "B1创业难度与效率", "B2组织与整合", "C军事统帅与战争解题"];
+    const labels = ["B1创业难度与效率", "B2组织与整合", "C军事统帅与战争解题"];
     const bulletsByLabel = {};
     const names = [record.ruler_name, firstItemFormalNames[record.ruler_name]];
     await Promise.all(labels.map(async label => {
@@ -428,7 +420,7 @@
 
     const byLabel = Object.fromEntries(items.map(item => [item.label, item]));
     const cards = [];
-    if (byLabel["A统一贡献"]) cards.push(renderFirstA(byLabel["A统一贡献"], bulletsByLabel["A统一贡献"], record));
+    if (byLabel["A统一贡献"]) cards.push(renderFirstA(byLabel["A统一贡献"], {}, record));
     if (byLabel["B1创业难度与效率"]) cards.push(renderFirstB1(byLabel["B1创业难度与效率"], bulletsByLabel["B1创业难度与效率"], record));
     if (byLabel["B2组织与整合"]) cards.push(renderFirstB2(byLabel["B2组织与整合"], bulletsByLabel["B2组织与整合"], record));
     if (byLabel["C军事统帅与战争解题"]) cards.push(renderFirstC(byLabel["C军事统帅与战争解题"], bulletsByLabel["C军事统帅与战争解题"], record));

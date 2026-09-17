@@ -85,6 +85,7 @@ python reader/serve.py
 - `public-copy.json`：公众层固定文案替换。
 - `home-interactions.js`、`readability.js`、`person-readability.js`：通用阅读与交互增强。
 - `first-item-reading.js`：第一项公众展示试点；把内部计分语言翻译为事实优先的默认阅读层。
+- `docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项A统一主链客观贡献正式公开成果.json`：第一项A逐人的正式公开成果字段；`reader/build.py`直接投影，不在浏览器运行时改写人物叙述。
 - `second-item-summaries.json`：已完成第二项人物的 reader-only 治国结论摘要；只从现有正式结算的阅读字段整理，不参与评分。
 - `lazy-details.js`：逐人物详情懒加载、第一项逐人来源缓存路由和内存缓存。
 - `build.py`：正式数据投影、轻量摘要、详情分片及确定性构建。
