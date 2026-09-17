@@ -49,7 +49,7 @@ STATUS_TAGS = {
 }
 MACHINE_TERM_RE = re.compile(
     r"(?:B[12](?:[-_/][A-Za-z_]+)?|M[0-3]|N3-(?:domain|cross|terminal)|"
-    r"\b(?:core|support|central|distributed|context|mixed_positive|mixed_negative|position)\b|G[0-5])",
+    r"\b(?:core|support|central|distributed|context|mixed_positive|mixed_negative|position|terminal|cross)\b|G[0-5])",
     flags=re.I,
 )
 
@@ -62,6 +62,8 @@ def _public_text(value: object) -> str:
     text = _text(value).replace("`", "")
     if not text:
         return ""
+    text = re.sub(r"(?:尚)?未闭合到", "现有证据尚不足以形成", text)
+    text = re.sub(r"(?:尚)?未闭合", "现有证据尚不足以证明", text)
     replacements = (
         (r"N3-terminal", "广域整体失效"),
         (r"N3-cross", "跨功能失灵"),
@@ -77,12 +79,18 @@ def _public_text(value: object) -> str:
         (r"support", "支撑行政链"),
         (r"core", "核心行政链"),
         (r"context", "边界材料"),
+        (r"terminal", "广域整体失效"),
+        (r"cross", "跨功能失灵"),
+        (r"major-stage", "主要阶段"),
         (r"M[0-3]", ""),
         (r"G[0-5]", "当前等级"),
         (r"position", "档内位置"),
     )
     for pattern, replacement in replacements:
         text = re.sub(pattern, replacement, text, flags=re.I)
+    text = text.replace("归A", "归制度建设")
+    text = text.replace("A项", "制度建设")
+    text = re.sub(r"(?<![A-Za-z])A计(?:权|分)?", "制度建设计分", text)
     text = text.replace("闭合", "已有充分证据支持")
     text = text.replace("消费", "计入")
     text = text.replace("不重复计数", "不重复计算")
@@ -176,13 +184,8 @@ def _bigrams(value: object) -> set[str]:
     return {chars[index : index + 2] for index in range(max(0, len(chars) - 1))}
 
 
-def _relevant_record_basis(row: dict[str, Any], profile: dict[str, Any]) -> str:
-    tokens = _bigrams(profile.get("mechanism") or profile.get("material_id"))
-    if not tokens:
-        return ""
-    candidates: list[tuple[int, str]] = []
-    sources = [row.get("grade_basis"), row.get("grade_gate_basis")]
-    sources.extend(item.get("basis") for item in row.get("review_material_basis") or [] if isinstance(item, dict))
+def _best_relevant_clause(sources: list[object], tokens: set[str]) -> str:
+    scored: dict[str, int] = {}
     for source in sources:
         raw = _text(source)
         if not raw:
@@ -193,13 +196,25 @@ def _relevant_record_basis(row: dict[str, Any], profile: dict[str, Any]) -> str:
                 continue
             score = sum(1 for token in tokens if token in clause)
             if score:
-                candidates.append((score, clause))
-    if not candidates:
+                scored[clause] = max(score, scored.get(clause, 0))
+    if not scored:
         return ""
-    candidates.sort(key=lambda item: (-item[0], -len(item[1])))
-    best = candidates[0][0]
-    selected = [clause for score, clause in candidates if score >= max(1, best // 2)][:2]
-    return "".join(selected)
+    return max(scored, key=lambda clause: (scored[clause], len(clause)))
+
+
+def _relevant_record_basis(row: dict[str, Any], profile: dict[str, Any]) -> str:
+    tokens = _bigrams(profile.get("mechanism") or profile.get("material_id"))
+    if not tokens:
+        return ""
+    current = _best_relevant_clause([row.get("grade_basis"), row.get("grade_gate_basis")], tokens)
+    if current:
+        return current
+    historical = [
+        item.get("basis")
+        for item in row.get("review_material_basis") or []
+        if isinstance(item, dict)
+    ]
+    return _best_relevant_clause(historical, tokens)
 
 
 def _basis_and_boundary(
@@ -252,8 +267,8 @@ def _basis_and_boundary(
     if not basis:
         fallback = _public_text(profile.get("mechanism") or profile.get("material_id"))
         if fallback:
-            basis = [fallback]
-            sources.append("mechanism_fallback")
+            basis = [f"{fallback}。正式记录未另拆独立逐材料说明，按当前材料角色与既定权重处理"]
+            sources.append("profile_fallback")
 
     return "；".join(basis), "；".join(boundary), list(dict.fromkeys(sources))
 
