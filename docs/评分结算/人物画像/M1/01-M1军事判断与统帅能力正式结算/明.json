@@ -703,9 +703,9 @@
           "score_100": 87,
           "radar_value": 87,
           "applicability_basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。",
-          "whole_distribution_grade_basis": "从靖难到在位亲征均能持续控制主战方向，典型表现是主动转师、集中主力与临阵追击。",
-          "role_attribution": "靖难及在位亲征中的本人直接作战指挥与最高战争方向分开消费；下属将领独立临阵成果不转授。多次直接指挥足以通过G4角色门，G5边界主要来自负向高压周期和全生涯稳定性。",
-          "phase_profile": "覆盖创业主导、巩固、成熟与晚期，内战、边防和远征均有直接统帅记录；高变异下沿使其止于G4高位。",
+          "whole_distribution_grade_basis": "靖难与在位亲征形成大量独立DIRECT_COMMAND周期，但最高组合主要是S/D2或A/D3：前者成果高而压力未到D3/D4，后者压力高但成果仍为A，尚未闭合一个足够硬的历史级直接统帅锚；同时存在济南—东昌、齐眉山和第五次亲征等负向周期。故保留G4-HIGH。",
+          "role_attribution": "靖难与在位亲征中的本人直接作战指挥单独消费；下属独立临阵成果不转授。样本厚度很高，但不能用样本数量替代G5历史级锚。",
+          "phase_profile": "跨创业、巩固、成熟和晚期有大量直接指挥复验；高峰多为A/D3或S/D2，同时存在多组负向高压周期。",
           "failure_and_recovery": "靖难期败后仍能恢复南下并完成灵璧和南京终局；晚年撤军属于风险到达后的止损，但没有再形成更强恢复闭环。",
           "limitations": [],
           "diagnostic_context_refs": [
@@ -714,7 +714,7 @@
             "PCR-B3C049E2FAC788E7A9C6"
           ],
           "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
-          "decision_origin": "M1_V11_ROLE_GATE_READJUDICATION",
+          "decision_origin": "M1_V11_G5_REVERSE_REVIEW_RETAINED",
           "adjudication_ref": "M1-V05-ADJ-RULER-MING-ZHU-DI",
           "representative_parent_contexts": [
             {
@@ -736,10 +736,10 @@
               "direction": "NEGATIVE"
             }
           ],
-          "typical_pattern": "从靖难到在位亲征均能持续控制主战方向，典型表现是主动转师、集中主力与临阵追击。",
+          "typical_pattern": "长期直接统军、方向控制和败后恢复能力很强，但历史级直接锚与全生涯稳定性均未达到G5门。",
           "counterpattern": "靖难期败后仍能恢复南下并完成灵璧和南京终局；晚年撤军属于风险到达后的止损，但没有再形成更强恢复闭环。",
-          "grade_basis": "从靖难到在位亲征均能持续控制主战方向，典型表现是主动转师、集中主力与临阵追击。",
-          "position_basis": "档内高位：覆盖创业主导、巩固、成熟与晚期，内战、边防和远征均有直接统帅记录；高变异下沿使其止于G4高位。；靖难期败后仍能恢复南下并完成灵璧和南京终局；晚年撤军属于风险到达后的止损，但没有再形成更强恢复闭环。",
+          "grade_basis": "靖难与在位亲征形成大量独立DIRECT_COMMAND周期，但最高组合主要是S/D2或A/D3：前者成果高而压力未到D3/D4，后者压力高但成果仍为A，尚未闭合一个足够硬的历史级直接统帅锚；同时存在济南—东昌、齐眉山和第五次亲征等负向周期。故保留G4-HIGH。",
+          "position_basis": "档内高位：直接指挥厚度极高、跨阶段迁移充分；但缺足够硬的历史级DIRECT_COMMAND锚，且重大负向周期不止一组。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
@@ -1467,6 +1467,16 @@
             "route": "DIRECT_COMMAND_ROUTE",
             "decision": "G4-HIGH_RETAINED",
             "basis": "Multiple independent direct-command cycles close the role gate; negative high-pressure cycles and stability variance remain the G5 boundary."
+          },
+          "m1_g5_reverse_review": {
+            "schema_version": "m1-g5-reverse-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "status": "RETAIN_G4_HIGH",
+            "direct_anchor": "未闭合：现有最高组合为S/D2或A/D3",
+            "second_anchor": "多组A/D3直接复验",
+            "stability": "存在A/D2、B/D2等多组可归责负向周期，虽有恢复但提高G5稳定性门槛",
+            "decision": "G4-HIGH_RETAINED",
+            "basis": "靖难与在位亲征形成大量独立DIRECT_COMMAND周期，但最高组合主要是S/D2或A/D3：前者成果高而压力未到D3/D4，后者压力高但成果仍为A，尚未闭合一个足够硬的历史级直接统帅锚；同时存在济南—东昌、齐眉山和第五次亲征等负向周期。故保留G4-HIGH。"
           }
         },
         {
