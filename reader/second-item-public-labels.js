@@ -39,26 +39,29 @@
     if (!rulerId) return;
     const evidence = document.getElementById("person-evidence");
     if (!evidence) return;
-    const panel = Array.from(evidence.querySelectorAll(":scope > section.panel")).find(section =>
-      section.querySelector(":scope > h3")?.textContent.trim() === "统治绩效构成"
-    );
+    const panel = Array.from(evidence.querySelectorAll(":scope > section.panel")).find(section => {
+      const heading = section.querySelector(":scope > h2, :scope > h3");
+      return ["统治绩效构成", "统治绩效详情"].includes(heading?.textContent.trim());
+    });
     if (!panel || panel.dataset.canonicalNetEntry === "done") return;
 
     const encoded = encodeURIComponent(rulerId);
     panel.dataset.canonicalNetEntry = "done";
+    panel.dataset.netReadable = "done";
+    panel.dataset.ledgerFolded = "done";
     panel.innerHTML = `
-      <h3>统治绩效依据</h3>
-      <p class="reading-intro">人物页保留结果概览；详细构成统一在统治绩效详情中展开。</p>
+      <h2>统治绩效详情</h2>
+      <p class="reading-intro">查看完整构成，或直接进入治国成效。</p>
       <div class="person-net-canonical-grid">
         <a class="person-net-canonical-card" href="#net/${encoded}/all">
           <strong>完整统治绩效构成</strong>
           <small>治国、军事、统一与文明整合</small>
-          <span>查看完整依据 →</span>
+          <span>查看详情 →</span>
         </a>
         <a class="person-net-canonical-card" href="#net/${encoded}/second">
           <strong>治国成效</strong>
           <small>制度与行政、民生与社会、政权交接</small>
-          <span>查看治国成效 →</span>
+          <span>查看详情 →</span>
         </a>
       </div>
     `;
@@ -98,6 +101,10 @@
       const span = detail.querySelector(":scope > summary > span");
       patchLabelNode(span, label);
     }
+
+    for (const label of screen.querySelectorAll(".compare-evidence-label")) {
+      if (label.textContent.trim() === "展开依据") label.textContent = "详情";
+    }
   }
 
   function schedule() {
@@ -109,7 +116,7 @@
     });
   }
 
-  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true,characterData:true});
+  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true, characterData:true});
   window.addEventListener("hashchange", schedule);
   schedule();
 })();
