@@ -16,6 +16,7 @@ on:
       - reader/second-item-public-alias.js
       - reader/second-item-institution-weight-polish.js
       - reader/second-item-institution-public-cleanup.js
+      - reader/second-item-institution-scope-reading.js
       - reader/second-item-b1-public.js
       - reader/historical-impact-reading.js
       - reader/validate_first_item_docs.py
@@ -104,6 +105,7 @@ jobs:
           node --check reader/second-item-public-alias.js
           node --check reader/second-item-institution-weight-polish.js
           node --check reader/second-item-institution-public-cleanup.js
+          node --check reader/second-item-institution-scope-reading.js
           node --check reader/second-item-b1-public.js
           node --check reader/historical-impact-reading.js
           rm -rf .tmp/reader-js-check
