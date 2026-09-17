@@ -39,7 +39,7 @@ CLOSURE_TAGS = {
     "observed": "已有实际运行",
     "not_restored": "未恢复",
     "reversed": "后续逆转",
-    "not_closed": "运行证据未完整闭合",
+    "not_closed": "运行证据尚未完整",
 }
 STATUS_TAGS = {
     "COUNTED_INDEPENDENT": "独立计入",
@@ -47,6 +47,11 @@ STATUS_TAGS = {
     "BOUNDARY_CONTEXT": "不单独计入",
     "ZERO_NET": "不增加净值",
 }
+MACHINE_TERM_RE = re.compile(
+    r"(?:B[12](?:[-_/][A-Za-z_]+)?|M[0-3]|N3-(?:domain|cross|terminal)|"
+    r"\b(?:core|support|central|distributed|context|mixed_positive|mixed_negative|position)\b|G[0-5])",
+    flags=re.I,
+)
 
 
 def _text(value: object) -> str:
@@ -58,22 +63,23 @@ def _public_text(value: object) -> str:
     if not text:
         return ""
     replacements = (
-        (r"\bN3-terminal\b", "广域整体失效"),
-        (r"\bN3-cross\b", "跨功能失灵"),
-        (r"\bN3-domain\b", "单功能系统失灵"),
-        (r"\bB1-(?:core|central|support|distributed|personnel)\b", "官僚治理"),
-        (r"\bB1\b", "官僚治理"),
-        (r"\bB2\b", "反馈与约束"),
-        (r"\bcore\b", "核心行政链"),
-        (r"\bcentral\b", "中枢行政链"),
-        (r"\bdistributed\b", "多责任官行政链"),
-        (r"\bsupport\b", "支撑行政链"),
-        (r"\bcontext\b", "边界材料"),
-        (r"\bM[0-3]\b", ""),
-        (r"\bmixed_positive\b", "正向主导"),
-        (r"\bmixed_negative\b", "负向主导"),
-        (r"\bmixed\b", "正负并存"),
-        (r"\bposition\b", "档内位置"),
+        (r"N3-terminal", "广域整体失效"),
+        (r"N3-cross", "跨功能失灵"),
+        (r"N3-domain", "单功能系统失灵"),
+        (r"B1[-_/]?(?:core|central|support|distributed|personnel)", "官僚治理"),
+        (r"B1", "官僚治理"),
+        (r"B2", "反馈与约束"),
+        (r"mixed_positive", "正向主导"),
+        (r"mixed_negative", "负向主导"),
+        (r"mixed", "正负并存"),
+        (r"distributed", "多责任官行政链"),
+        (r"central", "中枢行政链"),
+        (r"support", "支撑行政链"),
+        (r"core", "核心行政链"),
+        (r"context", "边界材料"),
+        (r"M[0-3]", ""),
+        (r"G[0-5]", "当前等级"),
+        (r"position", "档内位置"),
     )
     for pattern, replacement in replacements:
         text = re.sub(pattern, replacement, text, flags=re.I)
@@ -81,6 +87,9 @@ def _public_text(value: object) -> str:
     text = text.replace("消费", "计入")
     text = text.replace("不重复计数", "不重复计算")
     text = text.replace("重复消费", "重复计算")
+    text = text.replace("门槛占用", "等级要求")
+    text = text.replace("净余量", "剩余有效依据")
+    text = re.sub(r"当前等级(?:当前等级)+", "当前等级", text)
     text = re.sub(r"\s+", " ", text)
     text = re.sub(r"[；，]\s*[；，]+", "；", text)
     return text.strip(" ；，。")
@@ -107,9 +116,15 @@ def _status(profile: dict[str, Any]) -> str:
 
 
 def _tags(profile: dict[str, Any], status: str) -> list[str]:
+    if status == "ABSORBED_SAME_LIFECYCLE":
+        role = "补充材料"
+    elif status == "BOUNDARY_CONTEXT":
+        role = "边界材料"
+    else:
+        role = ROLE_TAGS.get(str(profile.get("b1_role") or ""), "行政运行链")
     values = [
         DIRECTION_TAGS.get(str(profile.get("direction") or ""), "正负并存"),
-        ROLE_TAGS.get(str(profile.get("b1_role") or ""), "行政运行链"),
+        role,
         STATUS_TAGS[status],
     ]
     closure = CLOSURE_TAGS.get(str(profile.get("result_closure") or "").lower())
@@ -133,6 +148,8 @@ def _prose_source(value: object) -> list[str]:
     values = value if isinstance(value, list) else [value]
     result = []
     for item in values:
+        if not isinstance(item, str):
+            continue
         text = _text(item)
         if not text or text.startswith(("docs/", "config/", "archive/", "http://", "https://")):
             continue
@@ -154,8 +171,39 @@ def _unique(values: list[str], limit: int = 4) -> list[str]:
     return result
 
 
+def _bigrams(value: object) -> set[str]:
+    chars = "".join(re.findall(r"[\u3400-\u9fff]", _public_text(value)))
+    return {chars[index : index + 2] for index in range(max(0, len(chars) - 1))}
+
+
+def _relevant_record_basis(row: dict[str, Any], profile: dict[str, Any]) -> str:
+    tokens = _bigrams(profile.get("mechanism") or profile.get("material_id"))
+    if not tokens:
+        return ""
+    candidates: list[tuple[int, str]] = []
+    sources = [row.get("grade_basis"), row.get("grade_gate_basis")]
+    sources.extend(item.get("basis") for item in row.get("review_material_basis") or [] if isinstance(item, dict))
+    for source in sources:
+        raw = _text(source)
+        if not raw:
+            continue
+        for clause in re.split(r"(?<=[。；])", raw):
+            clause = clause.strip()
+            if not clause:
+                continue
+            score = sum(1 for token in tokens if token in clause)
+            if score:
+                candidates.append((score, clause))
+    if not candidates:
+        return ""
+    candidates.sort(key=lambda item: (-item[0], -len(item[1])))
+    best = candidates[0][0]
+    selected = [clause for score, clause in candidates if score >= max(1, best // 2)][:2]
+    return "".join(selected)
+
+
 def _basis_and_boundary(
-    profile: dict[str, Any], material: dict[str, Any] | None, status: str
+    row: dict[str, Any], profile: dict[str, Any], material: dict[str, Any] | None, status: str
 ) -> tuple[str, str, list[str]]:
     basis_values: list[str] = []
     boundary_values: list[str] = []
@@ -188,6 +236,12 @@ def _basis_and_boundary(
         if boundary:
             boundary_values.append(boundary)
             sources.append("material_boundary")
+
+    if not basis_values or material is None:
+        record_basis = _relevant_record_basis(row, profile)
+        if record_basis:
+            basis_values.append(record_basis)
+            sources.append("record_adjudication")
 
     exclusion = _text(profile.get("position_exclusion_reason"))
     if exclusion:
@@ -229,6 +283,15 @@ def _score_signature(payload: dict[str, Any]) -> str:
     return json.dumps(snapshot, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
 
+def _validate_public_profile(row: dict[str, Any], profile: dict[str, Any]) -> None:
+    for field in ("adjudication_basis", "adjudication_boundary"):
+        value = _text(profile.get(field))
+        if value and MACHINE_TERM_RE.search(value):
+            raise ValueError(
+                f"B1逐材料公开裁决仍含机器术语：{row.get('ruler_name')} / {profile.get('material_id')} / {field}"
+            )
+
+
 def normalize_payload(payload: dict[str, Any], workspace_root: Path) -> dict[str, Any]:
     before = _score_signature(payload)
     materials = _material_index(workspace_root)
@@ -244,7 +307,7 @@ def normalize_payload(payload: dict[str, Any], workspace_root: Path) -> dict[str
             row_status[status] += 1
             status_counts[status] += 1
             material = materials.get(_text(profile.get("material_id")))
-            basis, boundary, sources = _basis_and_boundary(profile, material, status)
+            basis, boundary, sources = _basis_and_boundary(row, profile, material, status)
             profile["adjudication_status"] = status
             profile["adjudication_tags"] = _tags(profile, status)
             profile["adjudication_basis"] = basis
@@ -253,26 +316,21 @@ def normalize_payload(payload: dict[str, Any], workspace_root: Path) -> dict[str
             else:
                 profile.pop("adjudication_boundary", None)
             profile["adjudication_basis_source"] = sources
+            _validate_public_profile(row, profile)
             for source in sources:
                 source_counts[source] += 1
 
-        positive = sum(
-            1 for profile in _iter_profiles(row)
-            if profile.get("adjudication_status") == "COUNTED_INDEPENDENT" and float(profile.get("signed_weight") or 0) > 0
-        )
-        negative = sum(
-            1 for profile in _iter_profiles(row)
-            if profile.get("adjudication_status") == "COUNTED_INDEPENDENT" and float(profile.get("signed_weight") or 0) < 0
-        )
-        mixed = sum(
-            1 for profile in _iter_profiles(row)
-            if profile.get("adjudication_status") == "ZERO_NET"
-        )
+        independent = [
+            profile for profile in _iter_profiles(row)
+            if profile.get("adjudication_status") == "COUNTED_INDEPENDENT"
+        ]
+        positive = sum(1 for profile in independent if profile.get("direction") in {"positive", "positive_correction"})
+        negative = sum(1 for profile in independent if profile.get("direction") == "negative")
+        mixed = sum(1 for profile in independent if profile.get("direction") not in {"positive", "positive_correction", "negative"})
+        mixed += row_status["ZERO_NET"]
         absorbed = row_status["ABSORBED_SAME_LIFECYCLE"]
         context = row_status["BOUNDARY_CONTEXT"]
-        parts = [f"正式结算按独立行政运行链判断：正向 {positive} 条、负向 {negative} 条"]
-        if mixed:
-            parts.append(f"另有 {mixed} 条正负作用相抵的运行链")
+        parts = [f"正式结算按独立行政运行链判断：正向 {positive} 条、负向 {negative} 条、正负并存 {mixed} 条"]
         if absorbed:
             parts.append(f"{absorbed} 条补充材料并入同一运行链")
         if context:
