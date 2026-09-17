@@ -20,6 +20,16 @@
     return (record?.net?.component_details?.method || []).find(item => item.label === "B1官僚治理") || null;
   }
 
+  function genericBodyKey(item) {
+    return [
+      item?.reader_summary || "",
+      ...(Array.isArray(item?.reader_highlights) ? item.reader_highlights : []),
+      item?.reader_boundary || "",
+      item?.reader_how || "",
+      item?.reader_full_basis || "",
+    ].join("|");
+  }
+
   function sourcePath(ref) {
     return decodeURIComponent(String(ref || "").split("#", 1)[0]).replace(/:\d+(?:-\d+)?$/, "");
   }
@@ -239,12 +249,18 @@
     const detail = Array.from(document.querySelectorAll(".net-metric-detail[data-second-source-label]"))
       .find(node => node.dataset.secondSourceLabel === "B1官僚治理");
     const body = detail?.querySelector(":scope > .net-metric-body");
-    if (!item || !body || body.dataset.b1Public === "done") return;
-    if (!body.querySelector(":scope > .second-item-public-reading")) return;
+    if (!item || !body || body.dataset.b1Public === "done" || body.dataset.b1Public === "loading") return;
 
+    body.dataset.b1Public = "loading";
     const formal = await formalB1(record, item);
-    if (!formal || !body.isConnected || currentRecord()?.ruler_id !== record.ruler_id) return;
-    if (formal.profile_adjudication_style !== "B1-PROFILE-ADJUDICATION-V2") return;
+    if (!formal || !body.isConnected || currentRecord()?.ruler_id !== record.ruler_id) {
+      if (body.isConnected) delete body.dataset.b1Public;
+      return;
+    }
+    if (formal.profile_adjudication_style !== "B1-PROFILE-ADJUDICATION-V2") {
+      delete body.dataset.b1Public;
+      return;
+    }
     const {groups, supplements} = groupedProfiles(formal);
 
     const boundary = Array.from(body.querySelectorAll(":scope > details")).find(node =>
@@ -259,7 +275,7 @@
     how?.remove();
 
     body.innerHTML = "";
-    const reading = make("div", "second-item-b1-reading");
+    const reading = make("div", "second-item-public-reading second-item-b1-reading");
     reading.append(make("div", "label", "官僚治理运行链"));
     reading.append(make("p", "second-item-b1-intro", "每条材料直接读取正式名称、公开标签、本项计入方式与对应裁决；并入材料嵌套在明确的主运行链下。"));
     reading.append(make("div", "second-item-b1-summary", summaryText(formal, item)));
@@ -276,6 +292,10 @@
     body.append(gradeDetails);
     if (boundary) body.append(boundary);
     if (how) body.append(how);
+
+    // Mark the dedicated renderer as satisfying the generic reader contract.
+    // This prevents the generic MutationObserver from repainting the old B1 body.
+    body.dataset.secondPublicBodyKey = genericBodyKey(item);
     body.dataset.b1Public = "done";
   }
 
