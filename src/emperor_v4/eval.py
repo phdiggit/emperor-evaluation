@@ -44,6 +44,9 @@ def _parser() -> argparse.ArgumentParser:
     fourth_a_views.add_argument("--write", action="store_true")
     second_item_a = commands.add_parser("second-item-a-verify")
     second_item_a.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_a_public = commands.add_parser("second-item-a-public")
+    second_item_a_public.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_a_public.add_argument("--write", action="store_true")
     second_item_b2 = commands.add_parser("second-item-b2-verify")
     second_item_b2.add_argument("--workspace-root", type=Path, default=Path("."))
     second_item_b1 = commands.add_parser("second-item-b1-settlement")
@@ -276,6 +279,12 @@ def _dispatch(args: argparse.Namespace) -> int:
         return 0
     if args.command == "second-item-a-verify":
         report = verify_second_item_a_snapshot(args.workspace_root.resolve())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "second-item-a-public":
+        from emperor_v4.evaluation.second_item_a_public import run
+
+        report = run(args.workspace_root.resolve(), write=args.write)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "second-item-b2-verify":

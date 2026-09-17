@@ -267,6 +267,9 @@ def verify_second_item_a_reader_material_binding(
 
 def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
     a_payload = load_json(workspace_root / SECOND_ITEM_COMPONENT_PATHS["A"])
+    from emperor_v4.evaluation.second_item_a_public import verify_public_projection
+
+    public_projection_report = verify_public_projection(workspace_root, a_payload)
     registry = load_json(workspace_root / IMPORTANT_INSTITUTION_REGISTRY)
     nodes = registry.get("nodes") or []
     active_node_ids = {
@@ -442,6 +445,7 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
             "reference_node_count": len(nodes) - len(active_node_ids),
             "explicit_patch_count": explicit_patch_count,
             "extreme_delta_reopen_count": reopen_count,
+            "public_projection": public_projection_report,
             **material_binding,
         }
 
