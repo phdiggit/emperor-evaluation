@@ -80,6 +80,7 @@
       const empty = Array.isArray(current) ? !current.length : !nonEmpty(current);
       if (empty && important?.[key]) merged[key] = important[key];
     }
+    merged._major = Boolean(important || merged.decision === "MAJOR_NODE");
     return merged;
   }
 
@@ -197,6 +198,16 @@
     else card.append(box);
   }
 
+  function appendReceptionBoundary(card, node) {
+    if (!card || card.querySelector(":scope > .second-item-institution-reception")) return;
+    const effect = String(node?.S_effect || "").toUpperCase();
+    if (!node?._major || node?.counts_toward_S !== false || effect !== "NON_S") return;
+    const small = document.createElement("small");
+    small.className = "second-item-institution-reception";
+    small.textContent = "后世接收：未计入长期接收加权。";
+    card.append(small);
+  }
+
   function ensureStyles() {
     if (document.getElementById("second-item-institution-scope-style")) return;
     const style = document.createElement("style");
@@ -235,6 +246,7 @@
         const material = await materialForNode(node);
         appendScope(card, material);
       }
+      appendReceptionBoundary(card, node);
     }
 
     const intro = reading.querySelector(".second-item-institution-intro");
