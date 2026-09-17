@@ -18,6 +18,7 @@ on:
       - reader/second-item-institution-public-cleanup.js
       - reader/second-item-institution-scope-reading.js
       - reader/second-item-b1-public.js
+      - reader/second-item-public-labels.js
       - reader/historical-impact-reading.js
       - reader/validate_first_item_docs.py
       - reader/build_first_item_reader_cache.py
@@ -92,7 +93,7 @@ jobs:
           scripts = re.findall(r'<script([^>]*)>(.*?)</script>', html, flags=re.S)
           executable = [body for attrs, body in scripts if 'application/json' not in attrs and not re.search(r'\bsrc\s*=', attrs)]
           if not executable:
-              raise SystemExit('no executable browser scripts found')
+            raise SystemExit('no executable browser scripts found')
           out = Path('.tmp/reader-js-check')
           out.mkdir(parents=True, exist_ok=True)
           for i, body in enumerate(executable):
@@ -107,6 +108,7 @@ jobs:
           node --check reader/second-item-institution-public-cleanup.js
           node --check reader/second-item-institution-scope-reading.js
           node --check reader/second-item-b1-public.js
+          node --check reader/second-item-public-labels.js
           node --check reader/historical-impact-reading.js
           rm -rf .tmp/reader-js-check
 
