@@ -33,6 +33,7 @@ on:
       - reader/serve.py
       - reader/_build_military_archive_core.py
       - src/emperor_v4/evaluation/second_item_b1_adjudication.py
+      - src/emperor_v4/evaluation/second_item_b1_adjudication_polish.py
       - tests/test_reader.py
       - tests/test_reader_first_item_reading.py
       - tests/test_reader_person_readability.py
@@ -75,6 +76,9 @@ jobs:
 
       - name: Normalize B1 material adjudication
         run: python -m emperor_v4.evaluation.second_item_b1_adjudication --write
+
+      - name: Polish B1 public adjudication wording
+        run: python -m emperor_v4.evaluation.second_item_b1_adjudication_polish --write
 
       - name: Verify B1 formal settlement
         run: python -m emperor_v4.eval second-item-b1-verify
