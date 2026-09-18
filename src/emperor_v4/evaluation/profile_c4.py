@@ -119,6 +119,7 @@ def verify(root: Path = ROOT) -> dict[str, Any]:
         ])
         forbidden_window_gates = (
             '材料外推受所引父链及实际权力窗口限制',
+            '规范实际权力窗口内具有所引结构选择机会',
             '限定于实际权力窗口',
             '仅限实际权力窗口',
             '窗口外不计',
@@ -148,4 +149,4 @@ def verify(root: Path = ROOT) -> dict[str, Any]:
         raise ValueError('C4池外裁决混入正式池')
     if (root / MARKDOWN_PATH).read_text(encoding='utf-8') != render(payload):
         raise ValueError('C4 JSON与阅读视图不同值')
-    return {'status': 'PASS', 'record_count': len(records), 'applicable_count': sum(r['axis_grade'] is not None for r in records), 'outside_pool_preserved': len(outside), 'scope': '身份、规范窗口、固定投影、父链来源和阅读同值；不以结构检查替代用户裁决的历史语义判断。'}
+    return {'status': 'PASS', 'record_count': len(records), 'applicable_count': sum(r['axis_grade'] is not None for r in records), 'outside_pool_preserved': len(outside), 'scope': '身份、窗口背景字段、固定投影、父链来源和阅读同值；actual_power_window不作为C4证据准入或适用性边界。'}
