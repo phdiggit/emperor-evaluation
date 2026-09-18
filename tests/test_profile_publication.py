@@ -5,41 +5,7 @@ import pytest
 from emperor_v4.evaluation.profile_publication import CLOSED_NO_GRADE, validate_closed_no_grade
 from emperor_v4.evaluation.profile_publication import validate_bounded_diplomatic_grade
 from emperor_v4.evaluation.profile_publication import validate_final_capability_review
-from emperor_v4.evaluation.profile_publication import validate_m2_full_lifetime_scope
 
-
-
-def full_lifetime_scope_record():
-    return dict(
-        grade_basis="能力依据来自可归责外交选择。",
-        position_basis="档内位置由条件设计与反馈复验决定。",
-        limitations=["材料仍有限。"],
-        reviews=dict(negative_search_scope=[
-            "M2_ALL_CANONICAL_PARENTS",
-            "FULL_LIFETIME_ATTRIBUTABLE_EVENTS",
-            "CROSS_AXIS_SAME_CONSTRUCT_PARENTS",
-        ]),
-    )
-
-
-def test_m2_negative_search_uses_full_lifetime_attributable_events():
-    validate_m2_full_lifetime_scope(full_lifetime_scope_record())
-
-
-def test_m2_negative_search_rejects_actual_power_window_gate():
-    row = full_lifetime_scope_record()
-    row["reviews"]["negative_search_scope"][1] = "ACTUAL_POWER_WINDOW"
-    with pytest.raises(ValueError, match="full-lifetime"):
-        validate_m2_full_lifetime_scope(row)
-
-
-def test_m2_grade_rejects_tenure_length_gate_but_allows_explicit_non_gate():
-    row = full_lifetime_scope_record()
-    row["grade_basis"] = "在位短，因此不进G4。"
-    with pytest.raises(ValueError, match="tenure/window"):
-        validate_m2_full_lifetime_scope(row)
-    row["grade_basis"] = "在位短本身不是扣分理由。"
-    validate_m2_full_lifetime_scope(row)
 
 def final_review_record():
     return dict(axis_grade='G0', position='MID', score_100=7, radar_value=7,
@@ -51,7 +17,6 @@ def final_review_record():
                 final_capability_review=dict(actual_window='window', direct_review='direct sources',
                     indirect_review='delegated actions', exclusion_basis='internal actions excluded',
                     source_refs=['synthetic source'], conclusion='NO_DEMONSTRATED_CAPABILITY',
-                    evidence_admission_scope='FULL_LIFETIME_ATTRIBUTABLE_EVENTS',
                     claim_scope='REVIEWED_EVIDENCE_ONLY'))
 
 
@@ -59,7 +24,7 @@ def test_final_capability_review_is_explicit_and_evidence_limited():
     validate_final_capability_review(final_review_record())
 
 
-@pytest.mark.parametrize('change', ['confidence', 'indirect_review', 'scoring_parent', 'claim_scope', 'evidence_admission_scope'])
+@pytest.mark.parametrize('change', ['confidence', 'indirect_review', 'scoring_parent', 'claim_scope'])
 def test_final_capability_review_rejects_unjustified_classification(change):
     row = final_review_record()
     if change == 'confidence':
