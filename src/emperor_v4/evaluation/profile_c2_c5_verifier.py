@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 import yaml
@@ -86,6 +87,21 @@ def verify() -> dict[str, object]:
             assert political_review.get("final_c5_after_audit")
         else:
             assert political_review["audit_review_status"] == "NONSEED_SCREENED_NO_TRIGGER"
+        grading_text = "\n".join([
+            str(row.get("typical_pattern") or ""),
+            str(row.get("grade_basis") or ""),
+            str(row.get("position_basis") or ""),
+            *[str(value) for value in row.get("limitations") or []],
+        ])
+        forbidden_window_gate_patterns = (
+            r"窗口.{0,8}(?:短|很短|极短)",
+            r"(?:短|很短|极短).{0,8}窗口",
+            r"实际权力窗口.{0,8}(?:短|限制|内|外)",
+            r"在位.{0,8}(?:短|仅)",
+        )
+        assert not any(re.search(pattern, grading_text) for pattern in forbidden_window_gate_patterns), (
+            f"actual_power_window duration cannot gate C5 grade: {row['ruler_name']}"
+        )
         parent_rows = parent_chains(row)
         assert row["grade_numeric"] == int(row["axis_grade"][1])
         assert row["radar_value"] == row["score_100"] == GRADE_POINTS[row["axis_grade"]][row["position"]]
