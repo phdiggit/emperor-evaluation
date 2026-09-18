@@ -489,20 +489,20 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
         return lines
     if axis == "M4":
         lines = [
-            "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 |",
-            "|---:|---|---|---|---|---|---:|---|---|---|---:|---|",
+            "| 序 | 人物 | 政权 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 |",
+            "|---:|---|---|---|---|---:|---|---|---|---:|---|",
         ]
         for row in records:
-            cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), row["typical_pattern"]]
+            cells = [row["sequence"], row["ruler_name"], row["polity"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), row["typical_pattern"]]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     if axis == "C3":
         lines = [
-            "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 | 限制 |",
-            "|---:|---|---|---|---|---|---:|---|---|---|---:|---|---|",
+            "| 序 | 人物 | 政权 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 | 限制 |",
+            "|---:|---|---|---|---|---:|---|---|---|---:|---|---|",
         ]
         for row in records:
-            cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), _c3_person_type(row), _c3_limitation(row)]
+            cells = [row["sequence"], row["ruler_name"], row["polity"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), _c3_person_type(row), _c3_limitation(row)]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     if axis == "C5":
