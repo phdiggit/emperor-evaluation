@@ -208,6 +208,8 @@ def verify(root: Path) -> dict[str, object]:
             r"在位.{0,8}(?:短|仅)",
             r"任期.{0,8}太短",
             r"统治.{0,8}(?:短|仅)",
+            r"(?:[三四五六七八九十]|[0-9]{1,2})年.{0,8}(?:窗口|实际权力|亲政|统治|在位)",
+            r"(?:窗口|实际权力|亲政|统治|在位).{0,8}(?:只有|仅有|仅|[三四五六七八九十]|[0-9]{1,2})年",
         )
         if any(re.search(pattern, grading_text) for pattern in forbidden_window_gate_patterns):
             raise ValueError(f"actual_power_window duration cannot gate C1 grade: {record['ruler_name']}")
