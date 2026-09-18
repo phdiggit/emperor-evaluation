@@ -193,6 +193,24 @@ def verify(root: Path) -> dict[str, object]:
             raise ValueError(f"non-formal record: {record['ruler_id']}")
         if not record["limitations"] and record["score_status"] == "EVIDENCE_LIMITED":
             raise ValueError(f"evidence-limited record lacks limitation: {record['ruler_id']}")
+        grading_text = "\n".join([
+            str(record.get("typical_pattern") or ""),
+            str(record.get("grade_basis") or ""),
+            str(record.get("position_basis") or ""),
+            *[str(value) for value in record.get("limitations") or []],
+        ])
+        forbidden_window_gate_patterns = (
+            r"窗口.{0,8}(?:短|很短|极短)",
+            r"(?:短|很短|极短).{0,8}窗口",
+            r"实际权力窗口.{0,8}(?:短|限制)",
+            r"最高权力窗口.{0,8}(?:短|仅)",
+            r"亲政.{0,8}(?:短|仅)",
+            r"在位.{0,8}(?:短|仅)",
+            r"任期.{0,8}太短",
+            r"统治.{0,8}(?:短|仅)",
+        )
+        if any(re.search(pattern, grading_text) for pattern in forbidden_window_gate_patterns):
+            raise ValueError(f"actual_power_window duration cannot gate C1 grade: {record['ruler_name']}")
         if record["axis_grade"] in {"G4", "G5"}:
             high_ids.add(record["ruler_id"])
         if record["axis_grade"] in {"G0", "G1"}:
@@ -289,7 +307,7 @@ def verify(root: Path) -> dict[str, object]:
             raise ValueError(f"capability profile does not match formal grade: {ruler_id}")
         if profile.get("counterexample_review") not in {"COUNTEREVIDENCE_FOUND", "COVERAGE_CLOSED"}:
             raise ValueError(f"high-grade counterexample review failed: {ruler_id}")
-        if profile.get("late_degradation_review") not in {"LATE_COUNTER_FOUND", "NO_PATTERN_BREAK", "SHORT_WINDOW_LIMITED"}:
+        if profile.get("late_degradation_review") not in {"LATE_COUNTER_FOUND", "NO_PATTERN_BREAK", "COVERAGE_LIMITED_NO_PATTERN_BREAK"}:
             raise ValueError(f"high-grade late-degradation review failed: {ruler_id}")
         if record["axis_grade"] == "G5" and record["position"] == "LOW" and not profile.get("g5_low_justification"):
             raise ValueError(f"G5-LOW lacks specific non-routine justification: {ruler_id}")
@@ -320,8 +338,8 @@ def verify(root: Path) -> dict[str, object]:
                     "FIFTH_A2", "M1_PARENT_PROJECTION", "M2_PARENT_PROJECTION",
                 }:
                     raise ValueError(f"G5 zero-counter major-entry review incomplete: {ruler_id}")
-                if not bounded.get("power_window") or not bounded.get("same_construct_refs"):
-                    raise ValueError(f"G5 zero-counter window/construct review incomplete: {ruler_id}")
+                if bounded.get("evidence_admission_scope") != "FULL_LIFETIME_ATTRIBUTABLE_EVENTS" or not bounded.get("same_construct_refs"):
+                    raise ValueError(f"G5 zero-counter full-lifetime/construct review incomplete: {ruler_id}")
                 if not bounded.get("chronicle_or_official_history_refs") or not bounded.get("conclusion"):
                     raise ValueError(f"G5 zero-counter historical counter-search incomplete: {ruler_id}")
                 for ref in bounded["same_construct_refs"] + bounded["chronicle_or_official_history_refs"]:
