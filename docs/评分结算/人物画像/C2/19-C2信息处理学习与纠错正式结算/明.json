@@ -276,7 +276,7 @@
           "ruler_id": "RULER-MING-ZHU-YUANZHANG",
           "ruler_name": "朱元璋",
           "polity": "明",
-          "actual_power_window": "1368—1398年",
+          "actual_power_window": "1355—1398年",
           "axis_code": "C2",
           "axis_name": "信息处理、学习与纠错",
           "axis_grade": "G3",
@@ -290,13 +290,14 @@
           "score_status": "EVIDENCE_LIMITED",
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C2-CHAT-REVIEW-V2-ROUND2#RULER-RULER-MING-ZHU-YUANZHANG",
-          "typical_pattern": "正负混合、具备迁移能力型：已有真实纠错，也保留信源误判或复发窗口。",
+          "typical_pattern": "创业至守成均可见真实反馈后的纠偏，说明认知更新并非称帝后才出现；但正负混合，且系统性求真/辨别与全生涯覆盖仍不足。",
           "counterpattern": "律条与后来条例/实际重典之间的冲突反馈持续存在，朱元璋以“定律不可改”等理由拒绝系统更定，同时法外处置和重典继续扩张。若具体冲突信息确已到达本人而主机制长期不改，可保 REFUSAL_OR_RECURRENCE / NEGATIVE / MI3。；叶伯巨、李仕鲁、王朴等因进言或抗辩遭死亡惩罚，是B2/C5极强负证，足以使B2只有G1；C2不再因这些人的遭遇额外叠负，除非能闭合具体认知曲解。",
-          "grade_basis": "朱元璋：它把滞狱、灾役、不急工程、贡品扰民、关中转输等不同问题压在一个父链里，导致真实的跨事项纠错厚度没有被展示；- 刑狱积滞/冤滞信息上达后释放或重新处理；灾荒、徭役和不急工程造成民困后停止或收缩工程；地方贡品造成扰民后减贡、停贡；关中等区域转输/赋役承载出现反证后蠲免或调整。 这些均 纠错链，共同说明朱元璋对具体可观察治理后果并非完全刚性",
-          "position_basis": "朱元璋：G3-LOW档内定位：已有可复核的个人求真或纠错生命周期；档内位置主要受跨阶段迁移和上沿稳定性限制；主要正证来自反馈后的纠错；保留真实负向下沿；仍受当前阶段覆盖和史料密度边界限制。",
+          "grade_basis": "朱元璋在创业期和州已闭合一次真实反馈纠偏；建国后又在滞狱、灾役、不急工程、贡品扰民、关中转输等多类后果上反复出现政策收缩，形成跨阶段正向纠错证据；同时法律冲突反馈长期未促成主机制更定，保留明确负向下沿。现有材料仍不足G4所要求的多组高质量求真/辨别生命周期与完整后续复验。",
+          "position_basis": "朱元璋：G3-LOW。1355创业期纠偏补齐了早期正证，但尚未改变全生涯材料密度限制；正向纠错与法律机制拒绝更新并存，且缺足够独立求真/辨别周期支撑G4，故档位、档内位置与E2有界状态均保留。",
           "axis_relevance_check": {
             "status": "C2_RELEVANT",
             "scoring_parent_refs": [
+              "C2-P059-FOUNDING-OCCUPATION-CORRECTION",
               "C2-P059-RELIEF-RETRACTION",
               "C2-P059-LAW-CONFLICT",
               "C2-R2-ED0A0CC55A77",
@@ -304,10 +305,11 @@
             ]
           },
           "limitations": [
-            "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+            "已补1355—1367创业期直接材料；1355—1398全窗口仍缺连续、均匀的跨领域正文覆盖，维持E2/EVIDENCE_LIMITED。新增材料可能改变档内位置，但当前不足跨入G4。"
           ],
           "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
           "representative_parent_ids": [
+            "C2-P059-FOUNDING-OCCUPATION-CORRECTION",
             "C2-P059-RELIEF-RETRACTION",
             "C2-P059-LAW-CONFLICT",
             "C2-R2-ED0A0CC55A77",
@@ -401,6 +403,23 @@
                 "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
                 "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
               }
+            },
+            {
+              "parent_id": "C2-P059-FOUNDING-OCCUPATION-CORRECTION",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "1355年和州接管后军队发生掳掠，范常以占城而害民将妨害创业大局直谏；朱元璋接受反馈，责诸将并搜还被掳妇女，完成“问题—反馈—理解—纠偏执行”的创业期闭合周期。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/明/明通鉴/volume-001.source-summary.md"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2 ERROR_CORRECTION生命周期核对：和州接管后的军队掳掠构成可归责问题，范常明确指出其对长期创业目标的损害，反馈到达后朱元璋责诸将并搜还被掳妇女。只消费本人接受反馈并改变处置，不把军纪伦理或处罚强度重复计入C2。",
+              "secondary_projection_reason": "C2只消费反馈到达后的认知更新与处置变化；军纪处罚、异议安全与权力伦理留C5，不重复消费。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
             }
           ],
           "source_unit_ids": [
@@ -409,6 +428,7 @@
             "MING-YZ-STATE-001"
           ],
           "source_refs": [
+            "docs/史料通读产物/明/明通鉴/volume-001.source-summary.md",
             "docs/史料通读产物/明/明通鉴/volume-004.source-summary.md",
             "docs/史料通读产物/明/明通鉴/volume-009.source-summary.md",
             "docs/史料通读产物/明/明通鉴/volume-010.source-summary.md",
@@ -416,9 +436,10 @@
           ],
           "coverage_review": {
             "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
-            "actual_power_window": "1368—1398年",
+            "actual_power_window": "1355—1398年",
             "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
             "direct_chronological_or_primary_refs": [
+              "docs/史料通读产物/明/明通鉴/volume-001.source-summary.md",
               "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
               "docs/史料通读产物/明/明通鉴/volume-004.source-summary.md",
               "docs/史料通读产物/明/明通鉴/volume-009.source-summary.md",
@@ -428,7 +449,7 @@
             "negative_window_status": "CLOSED_PARENT_PRESENT",
             "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
             "unresolved_phase_domain_windows": [
-              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+              "已补1355—1367创业早期的直接纠错窗口，但1355—1398完整实际权力期仍缺连续、均匀的跨领域正文覆盖；维持E2有界发布。"
             ],
             "publication_mode": "BOUNDED_PROFILE",
             "negative_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE"
