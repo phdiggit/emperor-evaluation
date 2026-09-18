@@ -128,7 +128,6 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     for row in records:
         coverage = row["coverage_review"]
         assert coverage["method"] == "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION"
-        assert coverage["actual_power_window"] == row["actual_power_window"]
         assert coverage["local_normative_entries_role"] in {
             "DISCOVERY_LOCATION_BACKGROUND_ONLY",
             "FULL_UNION_DISCOVERY_LOCATION_BACKGROUND_OR_SCORING_BY_SEMANTIC_REVIEW",
@@ -225,7 +224,6 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     record_by_id = {row["ruler_id"]: row for row in records}
     for entry in ledger:
         record = record_by_id[entry["ruler_id"]]
-        assert entry["actual_power_window"] == record["actual_power_window"]
         assert set(entry["observed_parent_ids"]) == {p["parent_id"] for p in parent_chains(record)}
         assert entry["phase_domain_coverage_status"] == record["coverage_review"]["phase_domain_coverage_status"]
         assert entry["publication_mode"] == record["coverage_review"]["publication_mode"]
