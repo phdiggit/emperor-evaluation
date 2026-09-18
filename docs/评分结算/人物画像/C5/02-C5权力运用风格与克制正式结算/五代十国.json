@@ -2473,16 +2473,16 @@
           "sequence": 11,
           "ruler_id": "RULER-FD-ZHU-WEN",
           "ruler_name": "朱温",
-          "axis_grade": "G2",
-          "position": "MID",
-          "confidence": "MEDIUM",
-          "output_mode": "BOUNDED_PROFILE",
-          "score_status": "EVIDENCE_LIMITED",
-          "typical_pattern": "能接受个案法律约束，但猜疑与贡奉触发的扩大惩罚形成明显短板。",
-          "grade_basis": "限定907—912年。白马驿及904—905年唐廷清洗退出计分；王重师因贡奉与谗言被诛并夷族仍是严重不可逆负面，但不足证明整个任内跨阶段反复失效。崔沂追责寇彦卿获采且得到保护，是独立正向制约。两条有限正反生命周期并存，负面限制显著，裁G2-MID；敬翔三十余年幕府概述和崇政院设置不独立证明本窗口持续逆风自限，证据限E2。",
-          "position_basis": "正向履职保护与极重族诛反例并存；不把越窗清洗拼成长时段失效，取G2中位。",
+          "axis_grade": "G1",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "在改朝换代前后反复把已受控皇室、旧臣与宗族纳入不可逆清算；同时在个别司法、军纪反馈下能够纠偏，形成“跨阶段政治清洗主导、局部收束并存”的强短板模式。",
+          "grade_basis": "全生涯可归责事件显示，904—908年间朱温对已受控的唐皇室与旧臣连续实施政治清算：昭宗在严密控制下被弑，九名皇子被杀，白马驿三十余名朝士被集中杀害，何太后及宫人被杀，退位后的唐哀帝又被鸩杀；这已形成跨皇室与官僚集团、跨阶段复发的NEGATIVE/MI4主负链。908—909年又有王师范宗族约二百人被族诛、王重师因贡奉与谗言被赐死并夷族，形成独立的R3广域族诛复验。另一方面，崔沂依法追责寇彦卿获采并受保护、严酷逃兵政策后来被赦免纠正，说明并非所有权力使用都失去收束。综合为G1-HIGH：主要阶段反复出现广域不可逆政治清洗，但仍存在真实纠偏，不达到G0式多机制、广泛社会对象的历史级系统失控。",
+          "position_basis": "R3广域清算跨多个阶段复发，强于G2的局部短板；但主要负证仍集中于皇室、旧臣与政治宗族清洗，没有闭合面向普通人口的R4系统恐怖，且存在独立纠偏正证，因此置G1-HIGH。",
           "limitations": [
-            "只评价907—912实际窗口；两条有限父链不足以证明跨阶段系统模式，保留有界画像。"
+            "战争中的必要战斗、制伏和直接参战者伤亡不倒灌C5；本裁决只消费已受控/威胁终止后的政治处分、家属宗族扩大及法外清洗。"
           ],
           "parent_chains": [
             {
@@ -2494,8 +2494,14 @@
             {
               "parent_id": "C5-P011-CLAN-KILLING",
               "direction": "NEGATIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "因贡奉与谗言诛长期镇臣并夷族；对象外扩严重，但仍是一条政治处置生命周期。"
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "后梁建立后，王师范战争结束并已失去现实威胁后仍因私人报复被族诛约二百人；次年王重师又因贡奉与谗言被赐死并夷族。两次独立宗族扩大跨案复发，构成R3广域政治清算复验。"
+            },
+            {
+              "parent_id": "C5-P011-DYNASTIC-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "904—908年禅代前后，对已受控唐皇室与旧臣连续清洗：昭宗被弑、九名皇子被杀、白马驿三十余朝士被集中杀害、何太后被杀，退位后的唐哀帝又被鸩杀；对象跨皇室与官僚集团，且在威胁解除后反复发生。"
             }
           ],
           "unit_groups": [
@@ -2541,21 +2547,22 @@
           "task_code": "PROFILE-C5-RULER-FD-ZHU-WEN",
           "axis_code": "C5",
           "axis_name": "权力运用风格与克制",
-          "radar_value": 45,
-          "score_100": 45,
+          "radar_value": 31,
+          "score_100": 31,
           "current_entry_unit_count": 8,
           "current_entry_disposition_counts": {
             "AXIS_OUT_WITH_REASON": 1,
             "BACKGROUND_VALIDATION": 4,
             "SCORING_PARENT": 3
           },
-          "axis_evidence_level": "E2",
-          "grade_numeric": 2,
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "docs/评分结算/净收益/第二项治国净收益/制度行政/06-构念边界复核.md#主档门禁扩搜裁决",
           "actual_power_window": "907-912",
           "representative_parent_ids": [
             "C5-P011-ACCOUNTABILITY",
+            "C5-P011-DYNASTIC-PURGE",
             "C5-P011-CLAN-KILLING"
           ],
           "counterpattern": {
@@ -2563,6 +2570,7 @@
               "C5-P011-ACCOUNTABILITY"
             ],
             "negative_parent_refs": [
+              "C5-P011-DYNASTIC-PURGE",
               "C5-P011-CLAN-KILLING"
             ],
             "mixed_parent_refs": []
@@ -2575,43 +2583,57 @@
             "status": "C5_RELEVANT",
             "scoring_parent_refs": [
               "C5-P011-ACCOUNTABILITY",
-              "C5-P011-CLAN-KILLING"
+              "C5-P011-CLAN-KILLING",
+              "C5-P011-DYNASTIC-PURGE"
             ]
           },
           "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
           "source_refs": [
             "https://zh.wikisource.org/wiki/資治通鑑/卷267",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-267.source-summary.md",
             "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#I2-FD-MAT-C1CF9F52481AB6E8",
             "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#I2-FD-MAT-DDECD148556E1C4A"
           ],
           "public_evidence_points": [
             {
-              "title": "任内正向：崔沂追责与履职保护",
+              "title": "A. 禅代前后：皇室与旧臣清洗跨阶段复发",
               "details": [
-                "909年寇彦卿将不避道的平民投下桥栏致死；崔沂坚持依法处置，朱温改变原以钱赔偿的意见并降责寇彦卿。",
-                "寇彦卿威胁报复御史后，朱温禁止其加害崔沂。该往复处置保留有限正向父链。"
+                "昭宗迁洛后已被严密控制，朱温为便于禅代而推动弑帝；其后九名皇子被集中杀害。",
+                "白马驿三十余名被贬朝士被一夜杀尽并投尸黄河，清洗已从皇室扩展到官僚集团。",
+                "何太后及宫人随后被杀；后梁建立后，已经退位且失去现实权力的唐哀帝又被鸩杀。",
+                "这些处分发生在对象被控制或威胁已经终止之后，属于C5直接审查范围，合并为MI4跨阶段主负链。"
               ]
             },
             {
-              "title": "任内负向：王重师族诛",
+              "title": "B. 后梁任内：宗族扩大再次出现",
               "details": [
-                "909年王重师因贡奉不时及刘捍谗言被贬、赐死并夷族。",
-                "即使本人涉及政治疑虑，家属也不继承现实威胁豁免；缺乏逐人威胁证据的夷族构成严重越界。",
-                "该案形成深下沿，但不能据一条有限生命周期宣称全任内多机制、跨阶段反复政治恐怖。"
+                "王师范战争结束后已无现实军事威胁，朱温因旧怨下令族诛，其宗族约二百人被杀。",
+                "909年王重师又因贡奉不时与谗言被贬、赐死并夷族。",
+                "两案均越过首要对象本人，按统一半径尺度属于R3广域宗族清算，并形成跨案复验。"
               ]
             },
             {
-              "title": "排除与外推限制",
+              "title": "C. 局部纠偏真实存在",
               "details": [
-                "904—905年的唐廷清洗、白马驿及昭宗被弑早于当前907—912窗口，不参与本卡。",
-                "敬翔三十余年幕府概述不当作本窗口年数；崇政院存在也不自动等于持续逆风自缚。",
-                "由两条独立有限父链裁G2-MID/E2，不另补未知高阶模式。"
+                "寇彦卿致平民死亡后，御史崔沂坚持依法追责，朱温最终改变以钱赔偿的原意并降责寇彦卿。",
+                "寇彦卿威胁报复御史后，朱温又明确禁止其加害崔沂。",
+                "其早年严酷逃兵政策造成聚盗后，开平元年赦免文面逃兵，史料记盗贼明显减少。"
+              ]
+            },
+            {
+              "title": "D. 横向定位",
+              "details": [
+                "李世民、朱瞻基的单一继承案件家属整组处置属于R2；司马师、刘邦等夷三族属于R3。",
+                "朱温不仅有夷族，还在多个阶段重复清洗皇室、官僚与宗族，因此不能继续停在G2。",
+                "但现有材料尚未闭合朱元璋、朱棣、武则天式面向更广社会对象或制度化复制的R4系统恐怖，保留在G1-HIGH。"
               ]
             }
           ],
           "source_quality": {
             "named_source_count": 1,
-            "locator_count": 2,
+            "locator_count": 6,
             "linked_source_count": 1,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
@@ -2619,18 +2641,16 @@
           "political_conflict_scope_status": "CONFLICTS_REVIEWED",
           "political_conflict_review": {
             "audit_sequence": 80,
-            "audit_review_status": "BOUNDARY_CORRECTION_GRADE_CHANGE",
+            "audit_review_status": "HORIZONTAL_RECALIBRATION_GRADE_CHANGE",
             "decision": "READJUDICATED",
-            "current_c5_before_audit": "G1-HIGH",
-            "final_c5_after_audit": "G2-MID",
-            "expansion_radius_code": "WINDOW_AND_FAMILY_PROPORTIONALITY",
-            "expansion_radius_level": 1,
-            "semantic_adjudication": "限定907—912年。白马驿及904—905年唐廷清洗退出计分；王重师因贡奉与谗言被诛并夷族仍是严重不可逆负面，但不足证明整个任内跨阶段反复失效。崔沂追责寇彦卿获采且得到保护，是独立正向制约。两条有限正反生命周期并存，负面限制显著，裁G2-MID；敬翔三十余年幕府概述和崇政院设置不独立证明本窗口持续逆风自限，证据限E2。",
-            "excluded_pre_window_sources": [
-              "資治通鑑卷265：904—905唐廷及白马驿清洗"
-            ]
+            "current_c5_before_audit": "G2-MID",
+            "final_c5_after_audit": "G1-HIGH",
+            "expansion_radius_code": "R3_BROAD",
+            "expansion_radius_level": 3,
+            "semantic_adjudication": "取消907—912窗口硬切后，904—908皇室与旧臣清洗必须回到C5：昭宗、九王、白马驿朝士、何太后及退位唐帝构成跨阶段广域政治清算；908—909王师范宗族与王重师夷族又提供独立R3复验。局部司法与军纪纠偏真实存在，因此由G2-MID重裁为G1-HIGH，而非G0。",
+            "dedup_instruction": "904—908禅代清洗合并为C5-P011-DYNASTIC-PURGE一条MI4父链；王师范与王重师两次族诛合并为C5-P011-CLAN-KILLING一条MI3父链；不得逐人拆分重复扣分。"
           },
-          "person_type": "克制与越界并存型"
+          "person_type": "跨阶段政治清洗与局部收束并存型"
         },
         {
           "sequence": 4,
