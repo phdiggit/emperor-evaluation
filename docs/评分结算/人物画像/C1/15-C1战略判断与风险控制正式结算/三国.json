@@ -441,9 +441,33 @@
           "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-WEI-SIMAZHAO",
           "parent_chains": [
             {
-              "parent_id": "C1-P164-SEQUENCE-INTEGRATION",
+              "parent_id": "C1-P164-SHOUCHUN-RISK-CONTROL",
               "direction": "POSITIVE",
-              "intensity": "MI3",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算/三国.json#ruler_id=RULER-WEI-SIMAZHAO",
+                "docs/史料通读产物/唐以前编年/三国/卷077-通读总结.md#WAR-LEAD-SG-SHOUCHUN-257"
+              ],
+              "direct_process_refs": [
+                "WAR-LEAD-SG-SHOUCHUN-257",
+                "docs/史料通读产物/唐以前编年/三国/卷077-通读总结.md#L73",
+                "docs/史料通读产物/唐以前编年/三国/卷077-通读总结.md#L79",
+                "docs/史料通读产物/唐以前编年/三国/卷077-通读总结.md#L96"
+              ],
+              "cycle_basis": "诸葛诞据寿春并引吴援后，司马昭承担国家级围援与资源配置；围军部署争议中接受王基坚壁方案，破城后又接受劝止，不乘胜以轻军深入吴境。该周期闭合高压主次、资源配置与退出控制，构成独立PS2。",
+              "diagnostic_role": "PS2"
+            },
+            {
+              "parent_id": "C1-P164-WEISHU-SEQUENCING",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
               "mechanisms": [
                 "PROBLEM_PRIORITY",
@@ -451,42 +475,38 @@
                 "RISK_OPTIONALITY"
               ],
               "source_refs": [
-                "docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-WEI-SIMAZHAO",
-                "docs/评分结算/人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P164-POSITIVE"
+                "docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算/三国.json#ruler_id=RULER-WEI-SIMAZHAO",
+                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md#WAR-LEAD-SG-WEISHU-263"
               ],
               "direct_process_refs": [
-                "WAR-LEAD-SG-SHOUCHUN-257",
                 "WAR-LEAD-SG-WEISHU-263",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json#records/57",
-                "docs/公共成果/军事/03-军事行动成本和收益登记.json#RULER-WEI-SIMAZHAO",
-                "docs/公共成果/军事/01-战役登记.json#資治通鑑/卷078@2074603",
-                "docs/公共成果/军事/01-战役登记.json#WAR-LEAD-SG-ZHONGHUI-264",
-                "docs/公共成果/军事/02-武将人才等级/bucket-08.json#資治通鑑/卷077@803131",
-                "docs/公共成果/军事/02-武将人才等级/bucket-11.json#資治通鑑/卷076@1554069",
-                "docs/公共成果/军事/01-战役登记.json#資治通鑑/卷080@2074599#六路二十余万出师",
-                "docs/公共成果/军事/01-战役登记.json#資治通鑑/卷081@2080689#上游突破至建业受降",
-                "docs/史料通读产物/北宋/续资治通鉴/volume-085.source-summary.md#L37"
+                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md#L55",
+                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md#L58",
+                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md#L108"
               ],
-              "cycle_basis": "寿春收束后选择先蜀后吴，并在灭蜀后通过赦降和善待刘禅降低整合成本，形成一个阶段排序周期。弑君与政变高压主路由C5/M2，不作C1反证。",
+              "cycle_basis": "寿春平定后，司马昭判断吴地广大下湿、先攻成本更高，选择先蜀后吴；又按蜀军可机动规模配置邓艾、诸葛绪、钟会三路任务。本人只消费战略次序与国家资源配置，不继承钟会、邓艾的现场解题，构成第二条独立PS2。",
               "diagnostic_role": "PS2"
             }
           ],
           "representative_parent_ids": [
-            "C1-P164-SEQUENCE-INTEGRATION"
+            "C1-P164-SHOUCHUN-RISK-CONTROL",
+            "C1-P164-WEISHU-SEQUENCING"
           ],
-          "typical_pattern": "寿春收束与先蜀后吴显示阶段排序，灭蜀后整合提供结果验证；现有材料不足证明跨领域PS3。",
+          "typical_pattern": "寿春围援与灭蜀定策形成两个不同阶段的高压C1周期：前者闭合危机收束、资源配置和战后退出，后者闭合先蜀后吴的主次排序与三路资源配置；两条独立PS2合成弱PS3。",
           "counterpattern": {
             "positive_parent_refs": [
-              "C1-P164-SEQUENCE-INTEGRATION"
+              "C1-P164-SHOUCHUN-RISK-CONTROL",
+              "C1-P164-WEISHU-SEQUENCING"
             ],
             "counter_parent_refs": []
           },
-          "grade_basis": "两条独立重大周期已形成PS3；两个深下沿又阻止G4中高位。 由`G3-HIGH / 71`上调为**`G4-LOW / 77`**。",
-          "position_basis": "弑君与高压首先属于C5/C2；不能用跨轴负证封档，也不能用统一结果把单一战略次序抬入G4。",
+          "grade_basis": "寿春围援与灭蜀定策是两条独立高压PS2，跨阶段形成弱PS3，满足G4准入；但两周期仍集中于军事—统一主线，跨领域迁移与更厚反例复验不足，因此维持G4-LOW / 77。",
+          "position_basis": "两条独立周期足以过G4最低门，但跨领域迁移不足；不以C5/C2跨轴负证压档。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P164-SEQUENCE-INTEGRATION"
+              "C1-P164-SHOUCHUN-RISK-CONTROL",
+              "C1-P164-WEISHU-SEQUENCING"
             ],
             "result_nonconversion": true
           },
@@ -688,6 +708,29 @@
               "diagnostic_role": "PS2"
             },
             {
+              "parent_id": "C1-P167-SUNLIN-POWER-RECOVERY",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/三国/卷077-通读总结.md#SEC-LEAD-SG-WU-SUNLIN-258",
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/三国.json#parent_id=M4P-RULER-WU-SUNXIU-SXI-P1-REMOVE-SUN-CHEN"
+              ],
+              "direct_process_refs": [
+                "SEC-LEAD-SG-WU-SUNLIN-258",
+                "docs/史料通读产物/唐以前编年/三国/卷077-通读总结.md#L121",
+                "docs/史料通读产物/唐以前编年/三国/卷077-通读总结.md#L123",
+                "docs/史料通读产物/唐以前编年/三国/卷077-通读总结.md#L124"
+              ],
+              "cycle_basis": "孙綝掌握禁军与废立资源时，孙休先表面维持其高位并允许屯武昌；收到将变预警后询问张布，接受丁奉关于“党众盛、不可骤制”的风险判断，利用腊会既有陛兵完成一次性收权。该链闭合最高风险对象识别、强制资源配置与风险隔离，构成独立PS2。",
+              "diagnostic_role": "PS2"
+            },
+            {
               "parent_id": "C1-P167-JIAOZHI-SHARED-COUNTER",
               "direction": "NEGATIVE",
               "intensity": "MI2",
@@ -723,13 +766,15 @@
           ],
           "representative_parent_ids": [
             "C1-P167-SHU-BADONG-OPTIONALITY",
+            "C1-P167-SUNLIN-POWER-RECOVERY",
             "C1-P167-JIAOZHI-SHARED-COUNTER",
             "C1-P167-PULITANG-OUT"
           ],
           "typical_pattern": "孙休存在两个约束完全不同、且本人选择非常直接的高压C1周期：一个是蜀亡—巴东外部安全边界，另一个是即位初如何从拥有废立和禁军资源的孙綝手中取得真实最高权力。",
           "counterpattern": {
             "positive_parent_refs": [
-              "C1-P167-SHU-BADONG-OPTIONALITY"
+              "C1-P167-SHU-BADONG-OPTIONALITY",
+              "C1-P167-SUNLIN-POWER-RECOVERY"
             ],
             "counter_parent_refs": [
               "C1-P167-JIAOZHI-SHARED-COUNTER"
@@ -741,6 +786,7 @@
             "status": "CLOSED",
             "scoring_parent_refs": [
               "C1-P167-SHU-BADONG-OPTIONALITY",
+              "C1-P167-SUNLIN-POWER-RECOVERY",
               "C1-P167-JIAOZHI-SHARED-COUNTER"
             ],
             "result_nonconversion": true
