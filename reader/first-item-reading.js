@@ -126,29 +126,23 @@
       .replace(/；\s*；/g, "；")
       .replace(/；\s*。/g, "。")
       .replace(/，\s*。/g, "。")
-      .replace(/从女真整合到1683核心统一一次结算；玄烨的。?/g, "从女真各部整合与东北根据地起步，先后取得辽东、华北及全国核心区域；不同阶段按人物分别归属。")
-      .replace(/郭威取得中原核心、柴荣续接淮南及北方阶段成果；同一后周统一主链只生成一次池。?/g, "从后周中原核心起步，郭威取得中原核心，柴荣续取淮南及北方部分区域；不同阶段按人物分别归属。")
-      .replace(/李克用前置基盘、李存勖灭梁主体、李嗣源独立方面贡献合并一次结算。?/g, "从李克用建立的河东基盘起步，李存勖灭梁并取得中原主体，李嗣源完成后续独立方面的区域取得；不同阶段按人物分别归属。")
-      .replace(/石勒建基与后赵扩展合并一次结算；石虎按现有重大独立方向。?/g, "从河北据点起步，石勒建立后赵并扩展至中原，石虎取得部分北方独立区域；不同阶段按人物分别归属。")
-      .replace(/姚苌建基与姚兴接续扩展合并；姚兴本人去世前已大量退失，不按峰值锁分。?/g, "从后秦关中核心起步，姚苌建立政权，姚兴一度扩展至秦陇、河东等区域；退出前部分区域已退失。")
-      .replace(/总池封顶100；仅计元统一主链直接继承成果，花剌子模及中西亚扩张排除。?/g, "从蒙古帝国既有草原与北方核心起步，推进华北、四川、大理和江南等元统一主链区域；花剌子模与中西亚扩张不计入本项。")
-      .replace(/只计司马昭灭蜀与司马炎灭吴的空间增量；司马懿、司马师的中枢夺权不生成A空间信用。?/g, "从曹魏既有中原核心起步，司马昭完成蜀地统一，司马炎完成吴地统一；中枢权力更替不计为区域成果。")
-      .replace(/赵匡胤南方统一主体；赵光义只计北汉河东终局，燕云失败不生成。?/g, "从后周中原核心起步，赵匡胤完成南方大部统一，赵光义完成北汉、河东终局；燕云未能取得。")
-      .replace(/南宋重建按恢复型处理；江南、荆襄、巴蜀、岭南等。?/g, "从江南立足，恢复江南、荆襄、巴蜀、岭南等主要区域，形成南宋核心。")
-      .replace(/东晋属恢复型；南方。?/g, "从江南既有政权基础起步，恢复东晋南方主要区域。")
-      .replace(/190—220整条创业链重建；汉中219已失不计，保守取北方主体。?/g, "从东汉末年地方军政集团起步，逐步取得兖州、豫州、河北、关中等北方主要区域；汉中后来失守，最终保留北方主体。")
-      .replace(/极小创业基盘到明初全国核心统一。?/g, "从很小的创业基盘起步，取得江南、中原和北方核心区域，完成明初全国统一。")
-      .replace(/受命西川为基线，只计兼并东川约半个巴蜀宏区=50。?/g, "从西川据点起步，兼并东川，形成巴蜀主要区域。")
-      .replace(/域外等价值块：1124西迁至1134巴拉沙衮建都闭合，轻量折算120；1141怛罗斯\/卡特万后续扩张不进A。?/g, "从辽朝残部与西迁部众起步，迁至中亚并在巴拉沙衮建立西辽；后续中亚扩张不计入本项。")
-      .replace(/后燕复国至394灭西燕的稳定终点，取。?/g, "从后燕复国据点起步，收复河北、山东等区域，至灭西燕形成后燕稳定核心。")
-      .replace(/建立南燕青齐主体，约山东0\.75=75。?/g, "从后燕残部起步，南迁并取得青齐，建立南燕核心。")
-      .replace(/从零起兵到控制河西主体，按一个major region 60。?/g, "从河西小型集团起步，取得凉州、张掖、酒泉等河西主体区域。")
-      .replace(/后凉初建控制河西。?/g, "从凉州远征军起步，建立并控制河西的后凉核心。")
-      .replace(/杭州为基线，到两浙吴越核心，按宽口径江南宏区约新增30。?/g, "从杭州据点起步，扩展到两浙吴越核心区域。")
-      .replace(/继承刘隐岭南主体，仅计容管、高州等少量新增。?/g, "从刘隐留下的岭南主体起步，取得容管、高州等少量新增区域。")
-      .replace(/只结算901—916契丹国家创建；916年后的成熟国家扩张不进入第一项。?/g, "从契丹部落联盟起步，建立契丹国家并形成初始核心；916年后成熟扩张不计入本项。")
       .replace(/\s+/g, " ")
       .trim();
+  }
+
+  function publicOutcomeParts(outcome) {
+    if (!outcome || typeof outcome !== "object") return [];
+    return [
+      ["起点与继承背景", outcome.public_outcome_basis],
+      ["本人实际成果范围", outcome.public_scope],
+      ["公开边界", outcome.public_boundary],
+    ].filter(([, value]) => publicOutcomeText(value));
+  }
+
+  function publicSharePercent(outcome) {
+    const value = Number(outcome?.public_share_percent);
+    if (!Number.isFinite(value)) return "";
+    return Number.isInteger(value) ? String(value) : value.toFixed(1);
   }
 
   function publicCommanderText(value) {
@@ -316,14 +310,15 @@
   }
 
   function renderA(item, data, record) {
-    const result = data["A结算"] || data["结算结果"] || "";
-    const project = data["项目总成果"] || "";
-    const scale = data["本人取得/归属成果"] || data["取得/恢复成果"] || data["成果规模"] || "";
-    const content = publicOutcomeText(data["成果内容"] || "");
-    const calculation = data["计算"] || item.reader_how || "";
-    const percent = outcomePercent(scale, project);
+    const publicOutcome = item.reader_public_outcome || {};
+    const calculation = item.reader_how || "";
+    const percent = publicSharePercent(publicOutcome);
     const scaleText = percent ? `成果占比：约${percent}%` : "";
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>先看本人实际完成并留下的统一成果</small></span><b>${esc(score(item))}</b></div>${content ? prose(content) : ""}${scaleText ? prose(scaleText) : ""}${ruleDetails(["内部指标：A。", project, scale, calculation, result])}${sourceBlock(item, record)}</article>`;
+    const project = publicOutcome.public_project ? `<div class="label">共同项目</div>${prose(publicOutcomeText(publicOutcome.public_project))}` : "";
+    const facts = publicOutcomeParts(publicOutcome)
+      .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(publicOutcomeText(value))}`)
+      .join("");
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>先看本人实际完成并留下的统一成果</small></span><b>${esc(score(item))}</b></div>${project}${facts}${scaleText ? prose(scaleText) : ""}${ruleDetails(["内部指标：A。", calculation])}${sourceBlock(item, record)}</article>`;
   }
 
   function renderB1(item, data, record) {
@@ -431,7 +426,9 @@
     }
     const formalName = FORMAL_NAME_ALIASES[record.ruler_name] || record.ruler_name;
     const names = [record.ruler_name, formalName];
-    const entries = await Promise.all(Object.entries(DOCS).map(async ([label, ref]) => [label, bullets(await loadDoc(ref, record), names)]));
+    const entries = await Promise.all(Object.entries(DOCS)
+      .filter(([label]) => label !== "A统一贡献")
+      .map(async ([label, ref]) => [label, bullets(await loadDoc(ref, record), names)]));
     if (!group.isConnected || currentRecord()?.ruler_id !== record.ruler_id) return;
     const data = Object.fromEntries(entries);
     const byLabel = itemMap(items);

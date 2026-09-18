@@ -21,6 +21,15 @@ def _workspace(root: Path) -> tuple[dict, Path]:
     row.pop("counterfactual_window_policy")
     row["macro_chains"][0]["chain_kind"] = "MACRO_TRANSFORMATION"
     row["source_refs"][0].update(subsection="结构变化", adopted_excerpt="方案在区域实行并在继任期延续。", evidence_role="SYNTHETIC_ADOPTED_PASSAGE")
+    row["public_total_basis"] = "影响范围为A，深度与持续为A，两者共同形成基础影响量级A；个人因果为A，按本人实际选择与替代路径比较作有限修正；政治范式为A，只作有限补充；最终量级为A，对应公开等级C。"
+    row["public_boundary"] = "范围边界：既有平台不重复计入。深度边界：后续独立重建不归入本人。个人因果边界：团队与前制责任另行区分。范式边界：仅计实际政治使用，不以一般声望替代。"
+    for dimension, label in {
+        "scope": "范围",
+        "depth_duration": "深度与持续",
+        "personal_causality": "个人因果",
+        "paradigm": "范式",
+    }.items():
+        row["dimensions"][dimension]["public_basis"] = f"{label}为A；现有事实支持该维度的合成判断。"
     row.update(
         counterfactual_entry={"anchor": "独立构造的选择节点", "retained_conditions": "既有平台", "functional_alternative": "另一人改变执行方式", "identity_exclusion": "不要求相同姓名"},
         confidence_basis="替代执行方式存在分支。",
@@ -76,6 +85,42 @@ def test_reader_deduplicates_basis_without_losing_extra_reason(tmp_path: Path) -
     assert extra in result
     assert row["depth_review"]["basis"] in result
     assert row["depth_review"]["limits"] in result
+
+
+def test_reader_uses_formal_public_fields_before_expandable_evidence(tmp_path: Path) -> None:
+    from emperor_v4.evaluation.historical_impact import render
+    payload, _ = _workspace(tmp_path)
+    row = payload["records"][0]
+    result = render(payload)
+    card = result.split(f'<a id="person-{row["ruler_id"].lower()}"></a>', 1)[1]
+    summary, evidence = card.split("<details>", 1)
+    assert row["public_total_basis"] in summary
+    assert row["public_boundary"] in summary
+    assert all(row["dimensions"][key]["public_basis"] in summary for key in row["dimensions"])
+    assert row["nearest_feasible_counterfactual"] in evidence
+
+
+def test_public_fields_are_required_and_cannot_contain_internal_wording(tmp_path: Path) -> None:
+    payload, path = _workspace(tmp_path)
+    payload["records"][0]["public_total_basis"] = "项目底账重新拼装总档。"
+    write_polity_routed_json(path, payload, ruler_polities={})
+    with pytest.raises(ValueError, match="公开字段"):
+        verify(tmp_path, check_reader=False)
+
+
+def test_historical_reader_consumes_formal_public_text_without_semantic_rewrite() -> None:
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
+    readability = (root / "reader" / "person-readability.js").read_text(encoding="utf-8")
+    public_copy = (root / "reader" / "public-copy.json").read_text(encoding="utf-8")
+    assert "public_total_basis" in template
+    assert "public_boundary" in template
+    assert "public_basis" in template
+    assert "historyReaderText" not in template
+    assert "historyReaderText" not in readability
+    assert "publicTotalReason" not in readability
+    assert "internalWording" not in public_copy
+    assert "historical-impact-reading.js" not in public_copy
 
 
 def test_repeated_receiver_does_not_become_independent_receptions(tmp_path: Path) -> None:

@@ -178,11 +178,11 @@ def _c3_position_reason(record: dict[str, Any]) -> str:
         "G4": {
             "HIGH": "跨任务复验与反馈闭环最强，但全域迁移仍不及G5。",
             "MID": "跨任务强链成立，但稳定性仍有明确下沿。",
-            "LOW": "达到G4门槛，但长期窗口或第二稳定器不足。",
+            "LOW": "达到G4门槛，但第二稳定器、长期反馈或跨任务复验仍不足。",
         },
         "G3": {
             "HIGH": "至少一条强链成立，但跨任务稳定性不足以进G4。",
-            "MID": "多类责任中心可见，但强度或观察窗口仍居中。",
+            "MID": "多类责任中心可见，但强度或反馈复验仍居中。",
             "LOW": "局部强链存在，但主要任务或反馈覆盖有限。",
         },
         "G2": {
@@ -191,7 +191,7 @@ def _c3_position_reason(record: dict[str, Any]) -> str:
             "LOW": "仅见局部配置，持续授权与纠偏证据有限。",
         },
         "G1": {
-            "HIGH": "已见明确责任中心，但闭环不稳或材料窗口偏窄。",
+            "HIGH": "已见明确责任中心，但闭环不稳或材料覆盖偏窄。",
             "MID": "局部识别可见，岗位与反馈闭环偏弱。",
             "LOW": "责任中心与后续响应均较薄。",
         },
@@ -489,20 +489,20 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
         return lines
     if axis == "M4":
         lines = [
-            "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 |",
-            "|---:|---|---|---|---|---|---:|---|---|---|---:|---|",
+            "| 序 | 人物 | 政权 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 |",
+            "|---:|---|---|---|---|---:|---|---|---|---:|---|",
         ]
         for row in records:
-            cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), row["typical_pattern"]]
+            cells = [row["sequence"], row["ruler_name"], row["polity"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), row["typical_pattern"]]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     if axis == "C3":
         lines = [
-            "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 | 限制 |",
-            "|---:|---|---|---|---|---|---:|---|---|---|---:|---|---|",
+            "| 序 | 人物 | 政权 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 | 限制 |",
+            "|---:|---|---|---|---|---:|---|---|---|---:|---|---|",
         ]
         for row in records:
-            cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), _c3_person_type(row), _c3_limitation(row)]
+            cells = [row["sequence"], row["ruler_name"], row["polity"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), _c3_person_type(row), _c3_limitation(row)]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     if axis == "C5":
@@ -623,6 +623,8 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             "- 逐人正式值、关键事实和材料依据以当前 JSON 及同值阅读视图为准。",
             "- 每人均单列关键事实、裁档理由与史料定位；链接只作阅读入口，不能替代具名史源与卷次。",
             "- 个案烈度与MI覆盖分离；一般政治斗争、轴外成败和他人独立行为不得倒灌C5。",
+            "- 政治斗争中，ACTIVE现实威胁阶段的必要战斗、制伏和拘捕不因敌对身份计负；这不是按actual_power_window或即位时间排除。威胁解除后继续处死、报复或向家属、宗族、党附扩大，重新进入C5比例审查。",
+            "- R0—R4只表示清算扩大半径：R2为单一家庭/直系子嗣等有界扩大，R3为宗族、多支皇族、较广党附或明确政治群体，R4为一般民众、多个无关群体或制度化可复制的系统扩张；半径不直接等于MI强度或G档。",
             "- 逐人依据先展示当前裁决事实，再展示与主要入口绑定的结构化代表父链；两者共同限定结论，不按材料条数加减档位。",
             "",
         ])

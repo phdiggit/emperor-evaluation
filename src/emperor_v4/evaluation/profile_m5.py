@@ -24,7 +24,6 @@ def render(payload: dict[str, Any]) -> str:
         lines.extend([
             f"### {row['ruler_name']}（{row['ruler_id']}）", "",
             f"- **结算**：{row['axis_grade']}-{row['position']} / {row['radar_value']}；{row['axis_evidence_level']} / {row['confidence']} / {row['output_mode']} / {row['score_status']}。",
-            f"- **实际权力窗口**：{row['actual_power_window']}。",
             f"- **主模式**：{row['typical_pattern']}",
             "- **裁档理由**：", "",
             row["grade_basis"], "",
@@ -69,9 +68,9 @@ def verify(root: Path) -> dict[str, Any]:
     for row in records:
         rid = row["ruler_id"]
         person = pool[rid]
-        for key in ("ruler_name", "polity", "actual_power_window"):
+        for key in ("ruler_name", "polity"):
             if row[key] != person[key]:
-                raise ValueError(f"M5身份/窗口不一致: {rid}/{key}")
+                raise ValueError(f"M5身份不一致: {rid}/{key}")
         if row["task_code"] != f"PROFILE-M5-{rid}" or row["axis_code"] != "M5":
             raise ValueError(f"M5任务ID不一致: {rid}")
         if row["axis_evidence_level"] not in {"E1", "E2", "E3"} or row["score_status"] not in {"FINAL", "EVIDENCE_LIMITED"}:

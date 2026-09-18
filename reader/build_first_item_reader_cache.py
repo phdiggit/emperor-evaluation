@@ -5,7 +5,15 @@ import argparse
 import json
 from pathlib import Path
 
+import sys
+
 from validate_first_item_docs import DOCS, parse_people
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from emperor_v4.evaluation.first_item_public_outcomes import (  # noqa: E402
+    load_first_item_public_outcomes,
+    public_outcome_for_name,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 PEOPLE_DIR = ROOT / "reader/data/people"
@@ -53,6 +61,7 @@ def build_payloads() -> dict[str, str]:
     # projects the already-validated sources into the current Reader subset.
     parsed = {code: parse_people(path) for code, path in DOCS.items()}
     people = applicable_people()
+    public_outcomes = load_first_item_public_outcomes(ROOT)
 
     formal_names = set(parsed["A"])
     resolved: dict[str, str] = {}
@@ -88,10 +97,11 @@ def build_payloads() -> dict[str, str]:
         for code in ("B1", "B2", "C"):
             documents[LABELS[code]] = section_text(reader_name, parsed[code][formal_name])
         payload = {
-            "schema_version": "reader-first-item-source-v1",
+            "schema_version": "reader-first-item-source-v2",
             "ruler_id": ruler_id,
             "ruler_name": reader_name,
             "formal_name": formal_name,
+            "public_outcome": public_outcome_for_name(public_outcomes, formal_name),
             "documents": documents,
         }
         outputs[f"{ruler_id}.json"] = json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n"

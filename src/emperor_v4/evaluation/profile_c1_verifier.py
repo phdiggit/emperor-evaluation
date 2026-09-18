@@ -289,7 +289,7 @@ def verify(root: Path) -> dict[str, object]:
             raise ValueError(f"capability profile does not match formal grade: {ruler_id}")
         if profile.get("counterexample_review") not in {"COUNTEREVIDENCE_FOUND", "COVERAGE_CLOSED"}:
             raise ValueError(f"high-grade counterexample review failed: {ruler_id}")
-        if profile.get("late_degradation_review") not in {"LATE_COUNTER_FOUND", "NO_PATTERN_BREAK", "SHORT_WINDOW_LIMITED"}:
+        if profile.get("late_degradation_review") not in {"LATE_COUNTER_FOUND", "NO_PATTERN_BREAK", "COVERAGE_LIMITED_NO_PATTERN_BREAK"}:
             raise ValueError(f"high-grade late-degradation review failed: {ruler_id}")
         if record["axis_grade"] == "G5" and record["position"] == "LOW" and not profile.get("g5_low_justification"):
             raise ValueError(f"G5-LOW lacks specific non-routine justification: {ruler_id}")
@@ -320,8 +320,8 @@ def verify(root: Path) -> dict[str, object]:
                     "FIFTH_A2", "M1_PARENT_PROJECTION", "M2_PARENT_PROJECTION",
                 }:
                     raise ValueError(f"G5 zero-counter major-entry review incomplete: {ruler_id}")
-                if not bounded.get("power_window") or not bounded.get("same_construct_refs"):
-                    raise ValueError(f"G5 zero-counter window/construct review incomplete: {ruler_id}")
+                if not bounded.get("same_construct_refs"):
+                    raise ValueError(f"G5 zero-counter construct review incomplete: {ruler_id}")
                 if not bounded.get("chronicle_or_official_history_refs") or not bounded.get("conclusion"):
                     raise ValueError(f"G5 zero-counter historical counter-search incomplete: {ruler_id}")
                 for ref in bounded["same_construct_refs"] + bounded["chronicle_or_official_history_refs"]:

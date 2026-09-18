@@ -49,7 +49,7 @@
               "direction": "POSITIVE"
             }
           ],
-          "typical_pattern": "定点补查陈书相关战争确认王琳、留异、周迪、陈宝应等多个独立方向，覆盖其短在位主要军事组织机会。",
+          "typical_pattern": "定点补查陈书相关战争确认王琳、留异、周迪、陈宝应等多个独立方向，覆盖现有可归责的主要军事组织机会。",
           "counterpattern": "平叛与对外防御显示稳定判断，但本人统帅成果的难度、厚度和跨阶段复验不足以闭合G4，取G3高位。",
           "grade_basis": "武将锚为capable且记录为单一情境；不发布G4。",
           "position_basis": "陈蒨：以已发布的G3-HIGH为唯一档内结论；具体长短项、反例和证据边界见裁档理由、代表父链与限制。",
@@ -212,6 +212,97 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-E71AE8A96C8CFD28",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "WAR-PARENT-169-CHENBAOYING-562-564",
+                "canonical_label": "陈平陈宝应东南水陆战争",
+                "direction": "POSITIVE",
+                "source_role_code": "not_in_command_chain",
+                "source_consumption_mode": "operational_result",
+                "source_capability_mode": "operational_design",
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "OPERATIONAL_RESULT_OR_MODE",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 1,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 1,
+              "episode_refs": [
+                "WAR-PARENT-169-CHENBAOYING-562-564"
+              ],
+              "positive_episode_refs": [
+                "WAR-PARENT-169-CHENBAOYING-562-564"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [
+              "WAR-PARENT-169-CHENBAOYING-562-564"
+            ],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-HIGH",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -417,6 +508,97 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-E21520D498D2FB72",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "PCR-AUDIT-WAR-PARENT-170-HUAJIAO-567-陈顼",
+                "canonical_label": "陈顼识破华皎求广州，改任吴明彻接湘州，组织三万、五万舟师与多路步军夹进，并曲赦湘、巴以分化上游部众；实际形成水陆多向进讨和后方瓦解的A级战役设计。未持续节制沌口具体攻防，因此消费A但无前线难度。",
+                "direction": "POSITIVE",
+                "source_role_code": "not_in_command_chain",
+                "source_consumption_mode": "operational_result",
+                "source_capability_mode": "operational_design",
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "OPERATIONAL_RESULT_OR_MODE",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 1,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 1,
+              "episode_refs": [
+                "PCR-AUDIT-WAR-PARENT-170-HUAJIAO-567-陈顼"
+              ],
+              "positive_episode_refs": [
+                "PCR-AUDIT-WAR-PARENT-170-HUAJIAO-567-陈顼"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G2",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [
+              "PCR-AUDIT-WAR-PARENT-170-HUAJIAO-567-陈顼"
+            ],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G2-HIGH",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -442,7 +624,7 @@
           "applicability_basis": "隋军南征时拥有最高防御和统帅授权。",
           "whole_distribution_grade_basis": "预警、部署、用将和危机响应在同一亡国生命周期连续失效，构成历史级负面。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
-          "phase_profile": "限定于实际权力窗口 582—589年 内已登记的军事机会。",
+          "phase_profile": "规范池实际权力窗口为582—589年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
           "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "limitations": [
             "单一极端事件故置信度低。"
@@ -464,23 +646,23 @@
             {
               "parent_ref": "CHAIN-SUI-DESTROY-CHEN-587-589-CHENSHUBAO",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链CHAIN-SUI-DESTROY-CHEN-587-589-CHENSHUBAO已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“预警、部署、用将和危机响应在同一亡国生命周期连续失效，构成历史级负面。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链CHAIN-SUI-DESTROY-CHEN-587-589-CHENSHUBAO已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“预警、部署、用将和危机响应在同一亡国生命周期连续失效，构成历史级负面。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "SUI-UNIFICATION-587-589-CHENSHUBAO-SIDE",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链SUI-UNIFICATION-587-589-CHENSHUBAO-SIDE已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“预警、部署、用将和危机响应在同一亡国生命周期连续失效，构成历史级负面。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链SUI-UNIFICATION-587-589-CHENSHUBAO-SIDE已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“预警、部署、用将和危机响应在同一亡国生命周期连续失效，构成历史级负面。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "V175-LEAD-CHEN-SHULING-582",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链V175-LEAD-CHEN-SHULING-582已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“预警、部署、用将和危机响应在同一亡国生命周期连续失效，构成历史级负面。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链V175-LEAD-CHEN-SHULING-582已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“预警、部署、用将和危机响应在同一亡国生命周期连续失效，构成历史级负面。”限定，不按父链条数等权抬档。"
             }
           ],
           "typical_pattern": "预警、部署、用将和危机响应在同一亡国生命周期连续失效，构成历史级负面。",
           "counterpattern": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "grade_basis": "预警、部署、用将和危机响应在同一亡国生命周期连续失效，构成历史级负面。",
-          "position_basis": "档内高位：限定于实际权力窗口 582—589年 内已登记的军事机会。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：单一极端事件故置信度低。",
+          "position_basis": "档内高位：规范池实际权力窗口为582—589年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：单一极端事件故置信度低。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "隋军南征时拥有最高防御和统帅授权。"
@@ -604,6 +786,127 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "CHAIN-SUI-DESTROY-CHEN-587-589-CHENSHUBAO",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "SUI-UNIFICATION-587-589-CHENSHUBAO-SIDE",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "V175-LEAD-CHEN-SHULING-582",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 3,
+              "episode_refs": [
+                "CHAIN-SUI-DESTROY-CHEN-587-589-CHENSHUBAO",
+                "SUI-UNIFICATION-587-589-CHENSHUBAO-SIDE",
+                "V175-LEAD-CHEN-SHULING-582"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "SUI-UNIFICATION-587-589-CHENSHUBAO-SIDE"
+              ],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G0",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G0-HIGH",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         }
       ]

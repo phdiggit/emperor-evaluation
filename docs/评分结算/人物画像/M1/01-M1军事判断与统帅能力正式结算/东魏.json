@@ -270,6 +270,199 @@
             "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-24414ABC5CEF8081",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "PCR-AUDIT-WAR-LEAD-155-05-高欢",
+                "canonical_label": "当前只读终局卡表面动作而漏掉父群明确absorbed的三阶段：高欢取得信都整军起兵、反间破广阿、地道取邺，并在韩陵以不足三万步兵和二千马背水结阵击溃号二十万联军。此人正是父级S的主要创造者，应完整消费S/D4。",
+                "direction": "POSITIVE",
+                "source_role_code": "principal_commander",
+                "source_consumption_mode": "full_parent",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "S",
+                "combat_difficulty": "D4",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-LOW-9157A5AB870BE8E6",
+                "canonical_label": "高欢：参与石鼓山合击并统领六镇降户。",
+                "direction": "POSITIVE",
+                "source_role_code": "principal_commander",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "independent_direction",
+                "campaign_tier": "B",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "WAR-LEAD-157-02",
+                "canonical_label": "高欢灭刘蠡升云阳谷部",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "full_parent",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "B",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "WAR-LEAD-157-04",
+                "canonical_label": "高欢袭夏州并解灵州",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "full_parent",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "A",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "WAR-LEAD-158-07",
+                "canonical_label": "虎牢叛附与第二次邙山战",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "A",
+                "combat_difficulty": "D3",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "CAMPAIGN-NC-SHAYUAN-537",
+                "canonical_label": "恒农攻防与沙苑决战",
+                "direction": "NEGATIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S",
+                "combat_difficulty": "D4",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_LEGACY_ROW",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 6,
+            "DIRECT_COMMAND": {
+              "episode_count": 6,
+              "episode_refs": [
+                "CAMPAIGN-NC-SHAYUAN-537",
+                "PCR-AUDIT-WAR-LEAD-155-05-高欢",
+                "PCR-LOW-9157A5AB870BE8E6",
+                "WAR-LEAD-157-02",
+                "WAR-LEAD-157-04",
+                "WAR-LEAD-158-07"
+              ],
+              "positive_episode_refs": [
+                "PCR-AUDIT-WAR-LEAD-155-05-高欢",
+                "PCR-LOW-9157A5AB870BE8E6",
+                "WAR-LEAD-157-02",
+                "WAR-LEAD-157-04",
+                "WAR-LEAD-158-07"
+              ],
+              "negative_episode_refs": [
+                "CAMPAIGN-NC-SHAYUAN-537"
+              ],
+              "high_pressure_refs": [
+                "CAMPAIGN-NC-SHAYUAN-537",
+                "PCR-AUDIT-WAR-LEAD-155-05-高欢",
+                "WAR-LEAD-158-07"
+              ],
+              "d3_d4_refs": [
+                "CAMPAIGN-NC-SHAYUAN-537",
+                "PCR-AUDIT-WAR-LEAD-155-05-高欢",
+                "WAR-LEAD-158-07"
+              ]
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G4",
+            "position_before_role_gate_review": "LOW",
+            "positive_strong_episode_refs": [
+              "PCR-AUDIT-WAR-LEAD-155-05-高欢",
+              "WAR-LEAD-157-04",
+              "WAR-LEAD-158-07"
+            ],
+            "direct_strong_episode_refs": [
+              "PCR-AUDIT-WAR-LEAD-155-05-高欢",
+              "WAR-LEAD-157-04",
+              "WAR-LEAD-158-07"
+            ],
+            "historical_direct_candidate_refs": [
+              "PCR-AUDIT-WAR-LEAD-155-05-高欢"
+            ],
+            "status": "PASS_G4_DIRECT_ROUTE",
+            "route": "DIRECT_COMMAND_ROUTE",
+            "decision": "G4-LOW_RETAINED",
+            "basis": "At least two independent strong positive military cycles are closed and at least one is DIRECT_COMMAND; difficulty counts are not treated as equal-weight samples."
           }
         }
       ]

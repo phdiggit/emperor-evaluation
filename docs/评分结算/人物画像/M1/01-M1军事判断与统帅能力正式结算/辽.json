@@ -37,9 +37,9 @@
           "score_100": 87,
           "radar_value": 87,
           "applicability_basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。",
-          "whole_distribution_grade_basis": "多战役中持续亲统，能在草原、代北、西征与渤海攻城等不同对象上完成战略推进和临阵执行。",
-          "role_attribution": "仅消费本人亲征、设伏、分兵和连续统合，皇太子或其他将领的后续方向不复制。",
-          "phase_profile": "已解析创业主导、成熟和晚期三个主要窗口，另有两条年代未决；草原、代北、西征和渤海攻城间的迁移明确，未决项不改变主体覆盖。",
+          "whole_distribution_grade_basis": "渤海S-/D4构成明确历史级DIRECT_COMMAND锚；其余独立直接周期最高主要为B/D3或A/D2，能够证明跨对象稳定，却未形成第二个历史级或近历史级复验锚。没有可归责重大败绩只能说明稳定性良好，不能替代第二锚，故保留G4-HIGH。",
+          "role_attribution": "渤海终局及其他亲征均按本人DIRECT_COMMAND消费；国家扩张规模和部将成果不替代第二G5锚。",
+          "phase_profile": "草原、代北、西征、渤海等多对象均有直接指挥，渤海形成历史级单锚，其余周期主要提供G4级跨对象复验。",
           "failure_and_recovery": "当前登记无可归责失败链，故不虚构M1.4恢复；以高难样本和多战区稳定性支持G4高位。",
           "limitations": [],
           "diagnostic_context_refs": [
@@ -48,7 +48,7 @@
             "PCR-94DA33E8F11789F35E61"
           ],
           "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
-          "decision_origin": "V03_EXPLICIT_WHOLE_DISTRIBUTION_ADJUDICATION_REUSED",
+          "decision_origin": "M1_V11_G5_REVERSE_REVIEW_RETAINED",
           "adjudication_ref": "M1-V05-ADJ-RULER-ROSTER-2035C039E3532021",
           "representative_parent_contexts": [
             {
@@ -70,10 +70,10 @@
               "direction": "POSITIVE"
             }
           ],
-          "typical_pattern": "多战役中持续亲统，能在草原、代北、西征与渤海攻城等不同对象上完成战略推进和临阵执行。",
+          "typical_pattern": "多战区持续亲统且稳定性好；一个历史级直接锚成立，但第二历史级/近历史级独立复验不足。",
           "counterpattern": "当前登记无可归责失败链，故不虚构M1.4恢复；以高难样本和多战区稳定性支持G4高位。",
-          "grade_basis": "多战役中持续亲统，能在草原、代北、西征与渤海攻城等不同对象上完成战略推进和临阵执行。",
-          "position_basis": "档内高位：已解析创业主导、成熟和晚期三个主要窗口，另有两条年代未决；草原、代北、西征和渤海攻城间的迁移明确，未决项不改变主体覆盖。；当前登记无可归责失败链，故不虚构M1.4恢复；以高难样本和多战区稳定性支持G4高位。",
+          "grade_basis": "渤海S-/D4构成明确历史级DIRECT_COMMAND锚；其余独立直接周期最高主要为B/D3或A/D2，能够证明跨对象稳定，却未形成第二个历史级或近历史级复验锚。没有可归责重大败绩只能说明稳定性良好，不能替代第二锚，故保留G4-HIGH。",
+          "position_basis": "档内高位：渤海S-/D4历史级直接锚明确，跨对象样本厚；第二G5锚不足，因此不因无重大败绩升G5。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
@@ -279,6 +279,274 @@
             "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-7BA712AA6CCB1A1B",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "PCR-08D53EA4087EA579B7B1",
+                "canonical_label": "卢文进引契丹急攻新州，安金全弃城；晋周德威攻新州未克，又被阿保机三十万援军大败。；契丹阵营取得新州，晋军退回。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "B",
+                "combat_difficulty": "D1",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-0E9913A73A2FFB2553D5",
+                "canonical_label": "大举西征吐浑、党项、阻卜等部并连续攻取西鄙。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "B",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-1FA1CCDDC4EC0EC8F5ED",
+                "canonical_label": "契丹阿保机率诸部三十万攻陷蔚州、俘李嗣本，继攻云州被李存璋抵御。；蔚州失守，云州暂未陷；李存勖救援至代州时契丹撤走。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "C",
+                "combat_difficulty": "D1",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-26A741CF656D29A62D82",
+                "canonical_label": "亲自追击并合围诸弟叛军，最终擒获首领。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "B",
+                "combat_difficulty": "D3",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-650025547535C637EF78",
+                "canonical_label": "阿保机取得专征权后连续攻击室韦、于厥、奚及河东代北诸地，俘获大量人口牲畜，并在龙化州建立据点。；其军事权威与人口、牲畜控制显著扩张，为随后总知军国事和即位奠定基础。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "B",
+                "combat_difficulty": "D1",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-94DA33E8F11789F35E61",
+                "canonical_label": "亲征渤海，连续控制围扶余府、拔扶余城、围忽汗城、受降及复叛后再破城的全链。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "S-",
+                "combat_difficulty": "D4",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-9C528A64F1F610E325A0",
+                "canonical_label": "阿保机亲征叛乱党项诸部",
+                "direction": "POSITIVE",
+                "source_role_code": "principal_commander",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "tactical_execution",
+                "campaign_tier": "B",
+                "combat_difficulty": "D1",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-D22D19874F857D85F2A8",
+                "canonical_label": "阿保机亲征西方诸部，继而攻取朔、蔚、新、武、妫、儒等州并收山北八军。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "A",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-DBE3C4ACB97AEC397C76",
+                "canonical_label": "在桃山设伏诈约赵霸入平原，合围擒敌并乘胜破室韦。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "B",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "PCR-EA3FFDE11F15720A75BE",
+                "canonical_label": "亲征西部奚并分兵平东部奚，使五部入版籍。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "B",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 10,
+            "DIRECT_COMMAND": {
+              "episode_count": 10,
+              "episode_refs": [
+                "PCR-08D53EA4087EA579B7B1",
+                "PCR-0E9913A73A2FFB2553D5",
+                "PCR-1FA1CCDDC4EC0EC8F5ED",
+                "PCR-26A741CF656D29A62D82",
+                "PCR-650025547535C637EF78",
+                "PCR-94DA33E8F11789F35E61",
+                "PCR-9C528A64F1F610E325A0",
+                "PCR-D22D19874F857D85F2A8",
+                "PCR-DBE3C4ACB97AEC397C76",
+                "PCR-EA3FFDE11F15720A75BE"
+              ],
+              "positive_episode_refs": [
+                "PCR-08D53EA4087EA579B7B1",
+                "PCR-0E9913A73A2FFB2553D5",
+                "PCR-1FA1CCDDC4EC0EC8F5ED",
+                "PCR-26A741CF656D29A62D82",
+                "PCR-650025547535C637EF78",
+                "PCR-94DA33E8F11789F35E61",
+                "PCR-9C528A64F1F610E325A0",
+                "PCR-D22D19874F857D85F2A8",
+                "PCR-DBE3C4ACB97AEC397C76",
+                "PCR-EA3FFDE11F15720A75BE"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "PCR-26A741CF656D29A62D82",
+                "PCR-94DA33E8F11789F35E61"
+              ],
+              "d3_d4_refs": [
+                "PCR-26A741CF656D29A62D82",
+                "PCR-94DA33E8F11789F35E61"
+              ]
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G4",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [
+              "PCR-26A741CF656D29A62D82",
+              "PCR-94DA33E8F11789F35E61",
+              "PCR-D22D19874F857D85F2A8"
+            ],
+            "direct_strong_episode_refs": [
+              "PCR-26A741CF656D29A62D82",
+              "PCR-94DA33E8F11789F35E61",
+              "PCR-D22D19874F857D85F2A8"
+            ],
+            "historical_direct_candidate_refs": [
+              "PCR-94DA33E8F11789F35E61"
+            ],
+            "status": "PASS_G4_DIRECT_ROUTE",
+            "route": "DIRECT_COMMAND_ROUTE",
+            "decision": "G4-HIGH_RETAINED",
+            "basis": "At least two independent strong positive military cycles are closed and at least one is DIRECT_COMMAND; difficulty counts are not treated as equal-weight samples."
+          },
+          "m1_g5_reverse_review": {
+            "schema_version": "m1-g5-reverse-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "status": "RETAIN_G4_HIGH",
+            "direct_anchor": "亲征渤海 S-/D4 / DIRECT_COMMAND",
+            "second_anchor": "诸弟叛乱 B/D3及多组A/D2：强复验但不足G5第二锚",
+            "stability": "当前无可归责重大失败链；不以无败绩自动补足第二锚",
+            "decision": "G4-HIGH_RETAINED",
+            "basis": "渤海S-/D4构成明确历史级DIRECT_COMMAND锚；其余独立直接周期最高主要为B/D3或A/D2，能够证明跨对象稳定，却未形成第二个历史级或近历史级复验锚。没有可归责重大败绩只能说明稳定性良好，不能替代第二锚，故保留G4-HIGH。"
           }
         },
         {
@@ -304,7 +572,7 @@
           "applicability_basis": "西迁建国过程亲自决定方向并统合远距离战区。",
           "whole_distribution_grade_basis": "统一期已闭合三百骑脱离、七州十八部集兵、塔什干破联军与西辽建国的S/D3本人结果；统一后另计八剌沙衮—卡特万—花剌子模S级统筹终局，并以七万骑东征三年万里无所得的A/D3失败形成下沿，正反全生涯厚度支持G4中位。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
-          "phase_profile": "限定于实际权力窗口 1124—1143年 内已登记的军事机会。",
+          "phase_profile": "规范池实际权力窗口为1124—1143年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
           "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "limitations": [
             "PUBLIC_MILITARY_TALENT_PROFILE_IS_EVIDENCE_LOWER_BOUND",
@@ -329,19 +597,19 @@
               "parent_ref": "DINV::YELU_DASHI::CENTRAL_ASIA_HEGEMONY-1134-1142",
               "material_intensity": "MI4_CROSS_PHASE_SYSTEMIC",
               "direction": "POSITIVE",
-              "intensity_and_role_basis": "稳定父链DINV::YELU_DASHI::CENTRAL_ASIA_HEGEMONY-1134-1142已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“统一期已闭合三百骑脱离、七州十八部集兵、塔什干破联军与西辽建国的S/D3本人结果；统一后另计八剌沙衮—卡特万—花剌子模S级统筹终局，并以七万骑东征三年万里无所得的A/D3失败形成下沿，正反全生涯厚度支持G4中位。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链DINV::YELU_DASHI::CENTRAL_ASIA_HEGEMONY-1134-1142已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“统一期已闭合三百骑脱离、七州十八部集兵、塔什干破联军与西辽建国的S/D3本人结果；统一后另计八剌沙衮—卡特万—花剌子模S级统筹终局，并以七万骑东征三年万里无所得的A/D3失败形成下沿，正反全生涯厚度支持G4中位。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "DINV::YELU_DASHI::EASTERN_EXPEDITION-1134-1137",
               "material_intensity": "MI2_LIFECYCLE",
               "direction": "NEGATIVE",
-              "intensity_and_role_basis": "稳定父链DINV::YELU_DASHI::EASTERN_EXPEDITION-1134-1137已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“统一期已闭合三百骑脱离、七州十八部集兵、塔什干破联军与西辽建国的S/D3本人结果；统一后另计八剌沙衮—卡特万—花剌子模S级统筹终局，并以七万骑东征三年万里无所得的A/D3失败形成下沿，正反全生涯厚度支持G4中位。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链DINV::YELU_DASHI::EASTERN_EXPEDITION-1134-1137已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“统一期已闭合三百骑脱离、七州十八部集兵、塔什干破联军与西辽建国的S/D3本人结果；统一后另计八剌沙衮—卡特万—花剌子模S级统筹终局，并以七万骑东征三年万里无所得的A/D3失败形成下沿，正反全生涯厚度支持G4中位。”限定，不按父链条数等权抬档。"
             }
           ],
           "typical_pattern": "在原政权崩解后跨区域重建军力并形成中亚霸权，MI4历史级序列闭合。",
           "counterpattern": "东方远征失败限制稳定性和位置。",
           "grade_basis": "统一期已闭合三百骑脱离、七州十八部集兵、塔什干破联军与西辽建国的S/D3本人结果；统一后另计八剌沙衮—卡特万—花剌子模S级统筹终局，并以七万骑东征三年万里无所得的A/D3失败形成下沿，正反全生涯厚度支持G4中位。",
-          "position_basis": "档内中位：限定于实际权力窗口 1124—1143年 内已登记的军事机会。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：PUBLIC_MILITARY_TALENT_PROFILE_IS_EVIDENCE_LOWER_BOUND、CENTRAL_ASIA_HEGEMONY_CONSUMES_OPERATIONAL_RESULT_WITHOUT_INHERITED_FRONTLINE_DIFFICULTY、EASTERN_EXPEDITION_FAILURE_INCLUDED",
+          "position_basis": "档内中位：规范池实际权力窗口为1124—1143年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：PUBLIC_MILITARY_TALENT_PROFILE_IS_EVIDENCE_LOWER_BOUND、CENTRAL_ASIA_HEGEMONY_CONSUMES_OPERATIONAL_RESULT_WITHOUT_INHERITED_FRONTLINE_DIFFICULTY、EASTERN_EXPEDITION_FAILURE_INCLUDED",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "本人统兵、战争方向、战区统筹或可归责军事授权至少一项闭合；国家结果与将领临阵成果未直接换算。"
@@ -451,8 +719,8 @@
           "pre_structural_review_grade_basis": "与G5-LOW实战锚刘秀同为跨阶段重建、多个强敌和失败后转轴，成果与压力等强。",
           "structural_review": {
             "status": "REVISED",
-            "basis_code": "G5_DUAL_GATE_NO_FORMAL_PROFILE",
-            "basis": "无正式武将人才汇总且仅E2有界画像；跨区域重建是强战略长板，但现场统帅历史级锚未闭合。"
+            "basis_code": "G4_POSITION_EVIDENCE_LOWER_BOUND",
+            "basis": "正式武将人才档案已连接为elite证据下限，但当前仅E2有界画像，现场统帅历史级锚仍未闭合；跨区域重建是强战略长板，保留G4中位。"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -503,6 +771,146 @@
             "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-A21AFF19EDE5BB2F",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "MIL-EPISODE-YELUDASHI-LANGOU-1122",
+                "canonical_label": "兰沟甸掩击宋前锋并守住燕山战线",
+                "direction": "POSITIVE",
+                "source_role_code": "principal_commander",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "A",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "MIL-EPISODE-YELUDASHI-FOUNDING-1124-1132",
+                "canonical_label": "七州十八部集兵、塔什干破联军并建立西辽",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "S",
+                "combat_difficulty": "D3",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "MIL-EPISODE-YELUDASHI-CENTRAL-ASIA-1134-1142",
+                "canonical_label": "八剌沙衮—卡特万—花剌子模中亚霸权链",
+                "direction": "POSITIVE",
+                "source_role_code": "not_in_command_chain",
+                "source_consumption_mode": "operational_result",
+                "source_capability_mode": "operational_design",
+                "campaign_tier": "S",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "OPERATIONAL_RESULT_OR_MODE",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 2,
+              "episode_refs": [
+                "MIL-EPISODE-YELUDASHI-FOUNDING-1124-1132",
+                "MIL-EPISODE-YELUDASHI-LANGOU-1122"
+              ],
+              "positive_episode_refs": [
+                "MIL-EPISODE-YELUDASHI-FOUNDING-1124-1132",
+                "MIL-EPISODE-YELUDASHI-LANGOU-1122"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "MIL-EPISODE-YELUDASHI-FOUNDING-1124-1132"
+              ],
+              "d3_d4_refs": [
+                "MIL-EPISODE-YELUDASHI-FOUNDING-1124-1132"
+              ]
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 1,
+              "episode_refs": [
+                "MIL-EPISODE-YELUDASHI-CENTRAL-ASIA-1134-1142"
+              ],
+              "positive_episode_refs": [
+                "MIL-EPISODE-YELUDASHI-CENTRAL-ASIA-1134-1142"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "MIL-EPISODE-YELUDASHI-CENTRAL-ASIA-1134-1142"
+              ],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G4",
+            "position_before_role_gate_review": "MID",
+            "positive_strong_episode_refs": [
+              "MIL-EPISODE-YELUDASHI-CENTRAL-ASIA-1134-1142",
+              "MIL-EPISODE-YELUDASHI-FOUNDING-1124-1132",
+              "MIL-EPISODE-YELUDASHI-LANGOU-1122"
+            ],
+            "direct_strong_episode_refs": [
+              "MIL-EPISODE-YELUDASHI-FOUNDING-1124-1132",
+              "MIL-EPISODE-YELUDASHI-LANGOU-1122"
+            ],
+            "historical_direct_candidate_refs": [
+              "MIL-EPISODE-YELUDASHI-FOUNDING-1124-1132"
+            ],
+            "status": "PASS_G4_DIRECT_ROUTE",
+            "route": "DIRECT_COMMAND_ROUTE",
+            "decision": "G4-MID_RETAINED",
+            "basis": "At least two independent strong positive military cycles are closed and at least one is DIRECT_COMMAND; difficulty counts are not treated as equal-weight samples."
           }
         },
         {
@@ -542,13 +950,13 @@
               "parent_ref": "YELU-DEGUANG-AID-JIN-936",
               "material_intensity": "MI2_LIFECYCLE",
               "direction": "POSITIVE",
-              "intensity_and_role_basis": "稳定父链YELU-DEGUANG-AID-JIN-936已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“正式记录仍标SINGLE_CONTEXT_ONLY，且武将锚仅usable；单一强生命周期不足以形成全生涯G4。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链YELU-DEGUANG-AID-JIN-936已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“正式记录仍标SINGLE_CONTEXT_ONLY，且武将锚仅usable；单一强生命周期不足以形成全生涯G4。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "YELU-DEGUANG-LATER-JIN-END-946",
               "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
               "direction": "POSITIVE",
-              "intensity_and_role_basis": "稳定父链YELU-DEGUANG-LATER-JIN-END-946已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“正式记录仍标SINGLE_CONTEXT_ONLY，且武将锚仅usable；单一强生命周期不足以形成全生涯G4。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链YELU-DEGUANG-LATER-JIN-END-946已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“正式记录仍标SINGLE_CONTEXT_ONLY，且武将锚仅usable；单一强生命周期不足以形成全生涯G4。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "PCR-9912589556035244B626",
@@ -716,6 +1124,95 @@
             "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-C2197793CFE5832E",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "PCR-9912589556035244B626",
+                "canonical_label": "与皇太子倍等夜围忽汗城并迫成首次投降；个人分立战术范围未载。",
+                "direction": "POSITIVE",
+                "source_role_code": "principal_commander",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "tactical_execution",
+                "campaign_tier": "B",
+                "combat_difficulty": "D1",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 1,
+            "DIRECT_COMMAND": {
+              "episode_count": 1,
+              "episode_refs": [
+                "PCR-9912589556035244B626"
+              ],
+              "positive_episode_refs": [
+                "PCR-9912589556035244B626"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-HIGH",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -761,13 +1258,13 @@
               "parent_ref": "LIAO-SONG-CHANYUAN-1004",
               "material_intensity": "MI2_LIFECYCLE",
               "direction": "POSITIVE",
-              "intensity_and_role_basis": "稳定父链LIAO-SONG-CHANYUAN-1004已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“武将锚仅usable且记录为单一情境；持续国家结果不能替代本人统帅强长板。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链LIAO-SONG-CHANYUAN-1004已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“武将锚仅usable且记录为单一情境；持续国家结果不能替代本人统帅强长板。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "YELU-LONGXU-GORYEO-WARS",
               "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
               "direction": "MIXED",
-              "intensity_and_role_basis": "稳定父链YELU-LONGXU-GORYEO-WARS已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“武将锚仅usable且记录为单一情境；持续国家结果不能替代本人统帅强长板。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链YELU-LONGXU-GORYEO-WARS已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“武将锚仅usable且记录为单一情境；持续国家结果不能替代本人统帅强长板。”限定，不按父链条数等权抬档。"
             }
           ],
           "typical_pattern": "对宋、高丽和西北存在多次独立配置及亲征，形成MI3多方向模式。",
@@ -926,6 +1423,95 @@
             "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-8F077CD540CABCE3",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "PCR-9245DBDE8520F5BBE45D",
+                "canonical_label": "亲率大军在莫州击败刘廷让、李敬源，并延续进攻。",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "B",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 1,
+            "DIRECT_COMMAND": {
+              "episode_count": 1,
+              "episode_refs": [
+                "PCR-9245DBDE8520F5BBE45D"
+              ],
+              "positive_episode_refs": [
+                "PCR-9245DBDE8520F5BBE45D"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-HIGH",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -951,7 +1537,7 @@
           "applicability_basis": "对宋战争中与萧绰共同承担最高方向和授权。",
           "whole_distribution_grade_basis": "战争方向与后方统合总体可用，现场胜绩主要归耶律休哥等将领，故取合格高位。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
-          "phase_profile": "限定于实际权力窗口 969—982年 内已登记的军事机会。",
+          "phase_profile": "规范池实际权力窗口为969—982年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
           "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "limitations": [
             "共同归责限制个人统帅上推。"
@@ -970,23 +1556,23 @@
             {
               "parent_ref": "CHAIN-LIAO-DINGZHOU-MANCHENG-971",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链CHAIN-LIAO-DINGZHOU-MANCHENG-971已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“战争方向与后方统合总体可用，现场胜绩主要归耶律休哥等将领，故取合格高位。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链CHAIN-LIAO-DINGZHOU-MANCHENG-971已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“战争方向与后方统合总体可用，现场胜绩主要归耶律休哥等将领，故取合格高位。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "CHAIN-LIAO-SONG-NORTH-979",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链CHAIN-LIAO-SONG-NORTH-979已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“战争方向与后方统合总体可用，现场胜绩主要归耶律休哥等将领，故取合格高位。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链CHAIN-LIAO-SONG-NORTH-979已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“战争方向与后方统合总体可用，现场胜绩主要归耶律休哥等将领，故取合格高位。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "DINV::YELU_XIAN::DINGZHOU-MANCHENG-971",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链DINV::YELU_XIAN::DINGZHOU-MANCHENG-971已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“战争方向与后方统合总体可用，现场胜绩主要归耶律休哥等将领，故取合格高位。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链DINV::YELU_XIAN::DINGZHOU-MANCHENG-971已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“战争方向与后方统合总体可用，现场胜绩主要归耶律休哥等将领，故取合格高位。”限定，不按父链条数等权抬档。"
             }
           ],
           "typical_pattern": "战争方向与后方统合总体可用，现场胜绩主要归耶律休哥等将领，故取合格高位。",
           "counterpattern": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "grade_basis": "战争方向与后方统合总体可用，现场胜绩主要归耶律休哥等将领，故取合格高位。",
-          "position_basis": "档内高位：限定于实际权力窗口 969—982年 内已登记的军事机会。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：共同归责限制个人统帅上推。",
+          "position_basis": "档内高位：规范池实际权力窗口为969—982年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：共同归责限制个人统帅上推。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "对宋战争中与萧绰共同承担最高方向和授权。"
@@ -1109,6 +1695,125 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "CHAIN-LIAO-DINGZHOU-MANCHENG-971",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "CHAIN-LIAO-SONG-NORTH-979",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "DINV::YELU_XIAN::DINGZHOU-MANCHENG-971",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 3,
+              "episode_refs": [
+                "CHAIN-LIAO-DINGZHOU-MANCHENG-971",
+                "CHAIN-LIAO-SONG-NORTH-979",
+                "DINV::YELU_XIAN::DINGZHOU-MANCHENG-971"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-HIGH",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -1132,9 +1837,9 @@
           "score_100": 71,
           "radar_value": 71,
           "applicability_basis": "摄政及实际主政期亲自参与对宋战争方向与战区统筹。",
-          "whole_distribution_grade_basis": "E2且无正式武将人才汇总，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。",
+          "whole_distribution_grade_basis": "E2且正式武将人才档案已连接为capable证据下限，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
-          "phase_profile": "限定于实际权力窗口 982—1009年 内已登记的军事机会。",
+          "phase_profile": "规范池实际权力窗口为982—1009年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
           "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "limitations": [
             "部分战术执行仍归耶律休哥等。"
@@ -1154,19 +1859,19 @@
               "parent_ref": "CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO",
               "material_intensity": "MI2_LIFECYCLE",
               "direction": "POSITIVE",
-              "intensity_and_role_basis": "稳定父链CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“E2且无正式武将人才汇总，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链CHAIN-LIAO-SONG-COUNTEROFFENSIVE-986-987-XIAOCHUO已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“E2且正式武将人才档案已连接为capable证据下限，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO",
               "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
               "direction": "POSITIVE",
-              "intensity_and_role_basis": "稳定父链CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“E2且无正式武将人才汇总，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链CHAIN-LIAO-SONG-CHANYUAN-1004-XIAOCHUO已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“E2且正式武将人才档案已连接为capable证据下限，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。”限定，不按父链条数等权抬档。"
             }
           ],
           "typical_pattern": "两个国家级高压战争阶段均闭合共同亲征和最高方向，形成MI3长板。",
           "counterpattern": "现场战术执行与耶律休哥等共享。",
-          "grade_basis": "E2且无正式武将人才汇总，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。",
-          "position_basis": "档内高位：限定于实际权力窗口 982—1009年 内已登记的军事机会。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：部分战术执行仍归耶律休哥等。",
+          "grade_basis": "E2且正式武将人才档案已连接为capable证据下限，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。",
+          "position_basis": "档内高位：规范池实际权力窗口为982—1009年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：部分战术执行仍归耶律休哥等。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "本人统兵、战争方向、战区统筹或可归责军事授权至少一项闭合；国家结果与将领临阵成果未直接换算。"
@@ -1274,7 +1979,7 @@
           "structural_review": {
             "status": "REVISED",
             "basis_code": "G4_FIELD_COMMAND_BOUNDARY",
-            "basis": "E2且无正式武将人才汇总，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。"
+            "basis": "E2且正式武将人才档案已连接为capable证据下限，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -1309,13 +2014,110 @@
             },
             "result_difficulty_role_reviewed": true,
             "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "E2且无正式武将人才汇总，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。"
+            "basis": "E2且正式武将人才档案已连接为capable证据下限，部分战术执行明确归属将领；保留强战略判断，不发布综合G4。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-74F5B68307C9B55C",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "MIL-EPISODE-XIAOCHUO-CHANYUAN-1004",
+                "canonical_label": "萧太后亲征至澶渊和议",
+                "direction": "POSITIVE",
+                "source_role_code": "not_in_command_chain",
+                "source_consumption_mode": "operational_result",
+                "source_capability_mode": "operational_design",
+                "campaign_tier": "S-",
+                "combat_difficulty": null,
+                "m1_role_class": "OPERATIONAL_COORDINATION",
+                "source_role_conflict": true,
+                "local_direct_phase_present": true,
+                "projection_rule": "OPERATIONAL_RESULT_OR_MODE",
+                "projection_note": "Local direct-command wording exists inside an operationally consumed episode; whole episode remains OPERATIONAL_COORDINATION."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 1,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 1,
+              "episode_refs": [
+                "MIL-EPISODE-XIAOCHUO-CHANYUAN-1004"
+              ],
+              "positive_episode_refs": [
+                "MIL-EPISODE-XIAOCHUO-CHANYUAN-1004"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "MIL-EPISODE-XIAOCHUO-CHANYUAN-1004"
+              ],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [
+              "MIL-EPISODE-XIAOCHUO-CHANYUAN-1004"
+            ],
+            "local_direct_phase_refs": [
+              "MIL-EPISODE-XIAOCHUO-CHANYUAN-1004"
+            ],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [
+              "MIL-EPISODE-XIAOCHUO-CHANYUAN-1004"
+            ],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-HIGH",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -1341,10 +2143,10 @@
           "applicability_basis": "短在位期掌握内部军事整合和边防方向。",
           "whole_distribution_grade_basis": "有限情境显示基本可用的夺位后控制，但未形成跨对象稳定模式。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
-          "phase_profile": "限定于实际权力窗口 947—951年 内已登记的军事机会。",
+          "phase_profile": "规范池实际权力窗口为947—951年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
           "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "limitations": [
-            "窗口短且死于政变。"
+            "死于政变，可归责军事情境与跨对象复验有限。"
           ],
           "diagnostic_context_refs": [
             "CHAIN-LIAO-JINZHOU-INTERVENTION-951",
@@ -1359,23 +2161,23 @@
             {
               "parent_ref": "CHAIN-LIAO-JINZHOU-INTERVENTION-951",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链CHAIN-LIAO-JINZHOU-INTERVENTION-951已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“有限情境显示基本可用的夺位后控制，但未形成跨对象稳定模式。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链CHAIN-LIAO-JINZHOU-INTERVENTION-951已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“有限情境显示基本可用的夺位后控制，但未形成跨对象稳定模式。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "DINV::YELU_RUAN::JINZHOU-INTERVENTION-951",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链DINV::YELU_RUAN::JINZHOU-INTERVENTION-951已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“有限情境显示基本可用的夺位后控制，但未形成跨对象稳定模式。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链DINV::YELU_RUAN::JINZHOU-INTERVENTION-951已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“有限情境显示基本可用的夺位后控制，但未形成跨对象稳定模式。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "LIAO-SHIZONG-TRIBAL-REBELLIONS-947-950",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链LIAO-SHIZONG-TRIBAL-REBELLIONS-947-950已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“有限情境显示基本可用的夺位后控制，但未形成跨对象稳定模式。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链LIAO-SHIZONG-TRIBAL-REBELLIONS-947-950已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“有限情境显示基本可用的夺位后控制，但未形成跨对象稳定模式。”限定，不按父链条数等权抬档。"
             }
           ],
           "typical_pattern": "有限情境显示基本可用的夺位后控制，但未形成跨对象稳定模式。",
           "counterpattern": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "grade_basis": "有限情境显示基本可用的夺位后控制，但未形成跨对象稳定模式。",
-          "position_basis": "档内中位：限定于实际权力窗口 947—951年 内已登记的军事机会。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：窗口短且死于政变。",
+          "position_basis": "档内中位：规范池实际权力窗口为947—951年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：死于政变，可归责军事情境与跨对象复验有限。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "短在位期掌握内部军事整合和边防方向。"
@@ -1518,6 +2320,95 @@
             "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-5CDD258A1834EEAA",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "MIL-EPISODE-YELURUAN-SHIQIAO-947",
+                "canonical_label": "石桥击败述律太后军并收束继承内战",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "person_result",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "B",
+                "combat_difficulty": "D1",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 1,
+            "DIRECT_COMMAND": {
+              "episode_count": 1,
+              "episode_refs": [
+                "MIL-EPISODE-YELURUAN-SHIQIAO-947"
+              ],
+              "positive_episode_refs": [
+                "MIL-EPISODE-YELURUAN-SHIQIAO-947"
+              ],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "MID",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-MID",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -1543,7 +2434,7 @@
           "applicability_basis": "长期在位中掌握叛乱处置和边防授权。",
           "whole_distribution_grade_basis": "能平定内部挑战但方向多被动、军政松弛，局部成功不足形成强长板。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
-          "phase_profile": "限定于实际权力窗口 1055—1101年 内已登记的军事机会。",
+          "phase_profile": "规范池实际权力窗口为1055—1101年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
           "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "limitations": [
             "前线功绩主要归属臣将。"
@@ -1560,18 +2451,18 @@
             {
               "parent_ref": "DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“能平定内部挑战但方向多被动、军政松弛，局部成功不足形成强长板。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“能平定内部挑战但方向多被动、军政松弛，局部成功不足形成强长板。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "LIAO-XIAOJIELI-REBELLION-1096",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链LIAO-XIAOJIELI-REBELLION-1096已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“能平定内部挑战但方向多被动、军政松弛，局部成功不足形成强长板。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链LIAO-XIAOJIELI-REBELLION-1096已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“能平定内部挑战但方向多被动、军政松弛，局部成功不足形成强长板。”限定，不按父链条数等权抬档。"
             }
           ],
           "typical_pattern": "能平定内部挑战但方向多被动、军政松弛，局部成功不足形成强长板。",
           "counterpattern": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "grade_basis": "能平定内部挑战但方向多被动、军政松弛，局部成功不足形成强长板。",
-          "position_basis": "档内高位：限定于实际权力窗口 1055—1101年 内已登记的军事机会。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：前线功绩主要归属臣将。",
+          "position_basis": "档内高位：规范池实际权力窗口为1055—1101年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：前线功绩主要归属臣将。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "长期在位中掌握叛乱处置和边防授权。"
@@ -1692,6 +2583,111 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S-",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "LIAO-XIAOJIELI-REBELLION-1096",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_STRATEGIC_TEXT",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 2,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 2,
+              "episode_refs": [
+                "DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100",
+                "LIAO-XIAOJIELI-REBELLION-1096"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [
+                "DINV::YELU_HONGJI::MOGUS-REBELLION-1092-1100"
+              ],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G2",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G2-HIGH",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -1892,6 +2888,99 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-5141D6E82416ACF0",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "WAR-POST-0D9DA2F11222A0450863",
+                "canonical_label": "辽主原拟接受元昊谢罪退军，受萧惠劝说后数路掩袭；辽军初败夏阵，继而遭夏军反击和大风扰乱。",
+                "direction": "NEGATIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "S-",
+                "combat_difficulty": "D3",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_LEGACY_ROW",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 1,
+            "DIRECT_COMMAND": {
+              "episode_count": 1,
+              "episode_refs": [
+                "WAR-POST-0D9DA2F11222A0450863"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [
+                "WAR-POST-0D9DA2F11222A0450863"
+              ],
+              "high_pressure_refs": [
+                "WAR-POST-0D9DA2F11222A0450863"
+              ],
+              "d3_d4_refs": [
+                "WAR-POST-0D9DA2F11222A0450863"
+              ]
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G2",
+            "position_before_role_gate_review": "LOW",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G2-LOW",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -2086,6 +3175,75 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-E1F3E1EBECEBD80D",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": []
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 0,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G1",
+            "position_before_role_gate_review": "LOW",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G1-LOW",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         }
       ]

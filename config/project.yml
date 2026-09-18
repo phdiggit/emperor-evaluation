@@ -74,6 +74,13 @@ formal_settlements:
       - docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/02-第一项B1创业难度与战略效率正式结算.md
       - docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/03-第一项B2创业组织与政治整合正式结算.md
       - docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/04-第一项C本人军事统帅与战争解题能力正式结算.md
+    a_public_outcome:
+      schema_version: first-item-a-public-outcome-v1
+      path: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项A统一主链客观贡献正式公开成果.json
+      source: component_markdown
+      verify_command: first-item-a-public-verify
+      fields: [public_outcome_basis, public_scope, public_boundary, public_project]
+      migration_note: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项A统一主链客观贡献公开字段迁移说明.md
   second_item:
     range: [-27.5, 387]
     adopted_next_result_mechanism:
@@ -85,6 +92,11 @@ formal_settlements:
     role: common_governance
     json: docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.json
     markdown: docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.md
+    a_public_projection:
+      schema_version: second-item-a-public-projection-v1
+      command: second-item-a-public --write
+      verify_command: second-item-a-verify
+      source: formal_a_nodes_plus_material_registry
     c4_attribution_readjudications_json: config/second-item/c4-attribution-readjudications.json
     c4_civilian_cost_audit_json: docs/评分结算/净收益/第二项治国净收益/财政民生/06-主动民力成本去重审计.json
     c4_civilian_cost_audit_markdown: docs/评分结算/净收益/第二项治国净收益/财政民生/06-主动民力成本去重审计.md
@@ -122,9 +134,15 @@ historical_impact_assessment:
   status: formally_settled
   role: independent_third_evaluation_system
   contract: docs/项目总纲/历史影响评价总则.md
-  contract_version: FORMAL-V1.5
+  calibration_document: docs/分项规则/历史影响/01-历史影响校准与回归锚点.md
+  contract_version: FORMAL-V1.9
   authority_mode: FORMAL_JSON_SOURCE
   payload_schema_version: historical-impact-formal-v2
+  public_fields:
+    schema_version: historical-impact-public-v1
+    total_basis: public_total_basis
+    dimension_basis: dimensions.<dimension>.public_basis
+    boundary: public_boundary
   canonical_pool: config/common/canonical-ruler-pool.json
   primary_scope: INCLUDED
   supplementary_scope: imported_existing_historical_samples_excluded_from_main_statistics
@@ -239,7 +257,7 @@ profile_assessment:
       json: docs/评分结算/人物画像/M5/01-M5组织驾驭与执行编排正式结算.json
       markdown: docs/评分结算/人物画像/M5/01-M5组织驾驭与执行编排正式结算.md
       audit_jsons: []
-      formalization_note: 正式JSON保存当前逐人裁决与过程来源；程序只校验共同投影、身份窗口、引用和阅读同值，不从清单或其他轴自动重裁。
+      formalization_note: 正式JSON保存当前逐人裁决与过程来源；程序只校验共同投影、身份与阶段字段、引用和阅读同值，不从清单或其他轴自动重裁。
     C1:
       name: 战略判断与风险控制
       contract: docs/分项规则/人物画像轴/C1-战略判断与风险控制.md
@@ -295,7 +313,7 @@ profile_assessment:
     C4:
       name: 治理架构与制度设计能力
       contract: docs/分项规则/人物画像轴/C4-治理架构与制度设计.md
-      axis_contract_version: FORMAL-V2.2
+      axis_contract_version: FORMAL-V2.3
       payload_schema_version: profile-c4-formal-settlement-v1
       axis_kind: DIRECT_PROFILE_AXIS
       authority_mode: FORMAL_JSON_SOURCE

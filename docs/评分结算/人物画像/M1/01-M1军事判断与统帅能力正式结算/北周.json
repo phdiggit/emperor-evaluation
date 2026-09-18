@@ -29,7 +29,7 @@
           "radar_value": 77,
           "applicability_basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。",
           "whole_distribution_grade_basis": "575年河阴A/D2混合未克与577年灭北齐S/D3是两次独立战争，构成明确的失败反馈—改攻晋州—亲统逆转—国家终局链；原“单一情境/厚度不足”判断遗漏了负向情境本身也是跨阶段复验，调至G4低位。",
-          "role_attribution": "三条足以构成跨阶段完整生命周期，不以数量四条作硬门。",
+          "role_attribution": "575年伐齐A/D2受挫与577年灭齐S/D3均按本人直接作战指挥生命周期消费；前一负向周期不是“无样本”，而是M1.4失败识别—调整—再解题复验的一半。",
           "phase_profile": "三条足以构成跨阶段完整生命周期，不以数量四条作硬门。",
           "failure_and_recovery": "前次受挫不是机械封顶，而是后续重组的诊断性下沿；恢复后完成不同压力阶段复验。",
           "limitations": [
@@ -37,7 +37,7 @@
           ],
           "diagnostic_context_refs": [],
           "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
-          "decision_origin": "V03_EXPLICIT_WHOLE_DISTRIBUTION_ADJUDICATION_REUSED",
+          "decision_origin": "M1_V11_ROLE_GATE_READJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-SHADOW-宇文邕",
           "representative_parent_contexts": [
             {
@@ -241,6 +241,123 @@
             "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-FA9BCE1715D7D956",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "WAR-LEAD-NC-ZHOU-DESTROY-QI-577",
+                "canonical_label": "北周灭齐之战",
+                "direction": "POSITIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": "full_parent",
+                "source_capability_mode": "integrated_command",
+                "campaign_tier": "S",
+                "combat_difficulty": "D3",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_WITH_PERSON_RESULT",
+                "projection_note": null
+              },
+              {
+                "capability_episode_ref": "WAR-PARENT-172-ZHOU-QI-HEYIN-575",
+                "canonical_label": "北周河阴—洛阳攻势",
+                "direction": "NEGATIVE",
+                "source_role_code": "commander_in_chief",
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "B",
+                "combat_difficulty": "D2",
+                "m1_role_class": "DIRECT_COMMAND",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "COMMAND_ROLE_LEGACY_ROW",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 2,
+            "DIRECT_COMMAND": {
+              "episode_count": 2,
+              "episode_refs": [
+                "WAR-LEAD-NC-ZHOU-DESTROY-QI-577",
+                "WAR-PARENT-172-ZHOU-QI-HEYIN-575"
+              ],
+              "positive_episode_refs": [
+                "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+              ],
+              "negative_episode_refs": [
+                "WAR-PARENT-172-ZHOU-QI-HEYIN-575"
+              ],
+              "high_pressure_refs": [
+                "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+              ],
+              "d3_d4_refs": [
+                "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+              ]
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G4",
+            "position_before_role_gate_review": "LOW",
+            "positive_strong_episode_refs": [
+              "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+            ],
+            "direct_strong_episode_refs": [
+              "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+            ],
+            "historical_direct_candidate_refs": [
+              "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+            ],
+            "status": "PASS_G4_DIRECT_RECOVERY_ROUTE",
+            "route": "DIRECT_COMMAND_ROUTE_WITH_NEGATIVE_TO_POSITIVE_RETEST",
+            "decision": "G4-LOW_RETAINED",
+            "basis": "The 575 A/D2 direct failed campaign and the independent 577 S/D3 direct command form a failure-feedback-replanning-victory retest; the negative cycle is valid M1.4 evidence and is not erased merely because it was not a positive achievement row."
           }
         }
       ]

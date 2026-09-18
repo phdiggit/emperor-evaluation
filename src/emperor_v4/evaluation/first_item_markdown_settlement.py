@@ -7,6 +7,9 @@ from emperor_v4.evaluation.first_item_weights import (
     A_MAX, B1_MAX, B2_MAX, C_MAX, C_POINTS as _C_POINTS,
     unification_pool,
 )
+from emperor_v4.evaluation.first_item_public_outcomes import (
+    verify_first_item_public_outcomes,
+)
 
 
 SETTLEMENT_DIRECTORY = "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力"
@@ -106,6 +109,7 @@ def load_first_item_markdown_settlement(workspace_root: Path, *, validate_cost: 
 def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any]:
     rows = load_first_item_markdown_settlement(workspace_root)
     a_pool_text_audited_sections = _validate_a_pool_text_consistency(workspace_root)
+    public_outcomes = verify_first_item_public_outcomes(workspace_root)
     missing = [
         relative for relative in COMPONENT_SETTLEMENTS
         if not (workspace_root / relative).is_file()
@@ -149,6 +153,7 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
         "min_score": min(row["total"] for row in rows),
         "max_score": max(row["total"] for row in rows),
         "a_pool_text_audited_sections": a_pool_text_audited_sections,
+        "public_outcomes": public_outcomes,
         "b2_material_sections": b2_audited,
         "component_paths": list(COMPONENT_SETTLEMENTS),
     }

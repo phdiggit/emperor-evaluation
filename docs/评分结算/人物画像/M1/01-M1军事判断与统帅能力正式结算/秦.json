@@ -31,7 +31,7 @@
           "applicability_basis": "统一战争中持续决定战争方向并作最高军事授权。",
           "whole_distribution_grade_basis": "仅E1/EPISODE_TAG且本人临阵、失败反馈不足；统一战略保留为强战略片段，不发布G4。",
           "role_attribution": "只消费本人明确的最高方向、授权或亲征行为；将领独立成果不归本人。",
-          "phase_profile": "按现有实际权力窗口内可观察机会裁有限外推档。",
+          "phase_profile": "规范池实际权力窗口为前238—前210年亲政，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
           "failure_and_recovery": "仅继承登记中明确到达本人的失败反馈；未登记部分不作中性填充。",
           "limitations": [
             "本人临阵、失败反馈和跨阶段材料不足。"
@@ -47,7 +47,7 @@
               "parent_ref": "WAR-LEAD-QIN-UNIFICATION",
               "material_intensity": "MI4_CROSS_PHASE_SYSTEMIC",
               "direction": "POSITIVE",
-              "intensity_and_role_basis": "稳定父链WAR-LEAD-QIN-UNIFICATION已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“仅E1/EPISODE_TAG且本人临阵、失败反馈不足；统一战略保留为强战略片段，不发布G4。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链WAR-LEAD-QIN-UNIFICATION已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“仅E1/EPISODE_TAG且本人临阵、失败反馈不足；统一战略保留为强战略片段，不发布G4。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "OUTCOME-QIN-CHU",
@@ -59,7 +59,7 @@
           "typical_pattern": "跨对象、跨阶段的统一战略序列形成MI4国家级长板。",
           "counterpattern": "李信伐楚首败是同一巨型序列内部下沿；王翦等将领临阵能力不归本人。",
           "grade_basis": "仅E1/EPISODE_TAG且本人临阵、失败反馈不足；统一战略保留为强战略片段，不发布G4。",
-          "position_basis": "档内高位：按现有实际权力窗口内可观察机会裁有限外推档。；仅继承登记中明确到达本人的失败反馈；未登记部分不作中性填充。；限制：本人临阵、失败反馈和跨阶段材料不足。",
+          "position_basis": "档内高位：规范池实际权力窗口为前238—前210年亲政，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；仅继承登记中明确到达本人的失败反馈；未登记部分不作中性填充。；限制：本人临阵、失败反馈和跨阶段材料不足。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "本人统兵、战争方向、战区统筹或可归责军事授权至少一项闭合；国家结果与将领临阵成果未直接换算。"
@@ -217,6 +217,99 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "profile_ref": "MIL-PROFILE-E18CD88816A4CD13",
+            "projection_basis": "military_talent_registry_consumed_achievements_and_attributable_failures",
+            "items": [
+              {
+                "capability_episode_ref": "OUTCOME-QIN-CHU",
+                "canonical_label": "秦灭楚之战",
+                "direction": "NEGATIVE",
+                "source_role_code": "not_in_command_chain",
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "A",
+                "combat_difficulty": "D3",
+                "m1_role_class": "NOMINAL_AUTHORIZATION",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "NOT_IN_COMMAND_CHAIN_WITHOUT_OPERATIONAL_PROOF",
+                "projection_note": null
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 1,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 1,
+              "episode_refs": [
+                "OUTCOME-QIN-CHU"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [
+                "OUTCOME-QIN-CHU"
+              ],
+              "high_pressure_refs": [
+                "OUTCOME-QIN-CHU"
+              ],
+              "d3_d4_refs": [
+                "OUTCOME-QIN-CHU"
+              ]
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G3",
+            "position_before_role_gate_review": "HIGH",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G3-HIGH",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         },
         {
@@ -242,7 +335,7 @@
           "applicability_basis": "大泽乡后全国战争中名义及实际拥有最高军事授权。",
           "whole_distribution_grade_basis": "对危机识别、用将和中央动员连续失效，且缺可观察恢复，形成历史级负面模式。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
-          "phase_profile": "限定于实际权力窗口 前210—前207年 内已登记的军事机会。",
+          "phase_profile": "规范池实际权力窗口为前210—前207年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
           "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "limitations": [
             "赵高控制构成共同归责，故置信度低。"
@@ -260,23 +353,23 @@
             {
               "parent_ref": "QIN-CIVIL-WAR",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链QIN-CIVIL-WAR已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“对危机识别、用将和中央动员连续失效，且缺可观察恢复，形成历史级负面模式。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链QIN-CIVIL-WAR已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“对危机识别、用将和中央动员连续失效，且缺可观察恢复，形成历史级负面模式。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "WAR-LEAD-QIN-CIVIL-WAR",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链WAR-LEAD-QIN-CIVIL-WAR已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“对危机识别、用将和中央动员连续失效，且缺可观察恢复，形成历史级负面模式。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链WAR-LEAD-QIN-CIVIL-WAR已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“对危机识别、用将和中央动员连续失效，且缺可观察恢复，形成历史级负面模式。”限定，不按父链条数等权抬档。"
             },
             {
               "parent_ref": "WAR-LEAD-QIN-ZHANGHAN",
               "material_intensity": "MI1_CASE",
-              "intensity_and_role_basis": "稳定父链WAR-LEAD-QIN-ZHANGHAN已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“对危机识别、用将和中央动员连续失效，且缺可观察恢复，形成历史级负面模式。”限定，不按父链条数等权抬档。"
+              "intensity_and_role_basis": "稳定父链WAR-LEAD-QIN-ZHANGHAN已在本轮结合本人角色与全生涯分布复核；其人物级作用由本轮结论“对危机识别、用将和中央动员连续失效，且缺可观察恢复，形成历史级负面模式。”限定，不按父链条数等权抬档。"
             }
           ],
           "typical_pattern": "对危机识别、用将和中央动员连续失效，且缺可观察恢复，形成历史级负面模式。",
           "counterpattern": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
           "grade_basis": "对危机识别、用将和中央动员连续失效，且缺可观察恢复，形成历史级负面模式。",
-          "position_basis": "档内中位：限定于实际权力窗口 前210—前207年 内已登记的军事机会。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：赵高控制构成共同归责，故置信度低。",
+          "position_basis": "档内中位：规范池实际权力窗口为前210—前207年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：赵高控制构成共同归责，故置信度低。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "大泽乡后全国战争中名义及实际拥有最高军事授权。"
@@ -397,6 +490,125 @@
             "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
             "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json",
             "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          },
+          "m1_role_projection": {
+            "schema_version": "m1-role-projection-v1",
+            "status": "FALLBACK_REPRESENTATIVE_CONTEXTS",
+            "profile_ref": null,
+            "projection_basis": "formal_m1_representative_parent_contexts_only",
+            "items": [
+              {
+                "capability_episode_ref": "QIN-CIVIL-WAR",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "C",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "WAR-LEAD-QIN-CIVIL-WAR",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              },
+              {
+                "capability_episode_ref": "WAR-LEAD-QIN-ZHANGHAN",
+                "canonical_label": null,
+                "direction": null,
+                "source_role_code": null,
+                "source_consumption_mode": null,
+                "source_capability_mode": null,
+                "campaign_tier": "A",
+                "combat_difficulty": null,
+                "m1_role_class": "ROLE_UNRESOLVED",
+                "source_role_conflict": false,
+                "local_direct_phase_present": false,
+                "projection_rule": "FALLBACK_INSUFFICIENT_ROLE_DETAIL",
+                "projection_note": "Bounded fallback from representative_parent_contexts; no military-talent profile was available."
+              }
+            ]
+          },
+          "m1_role_distribution": {
+            "schema_version": "m1-role-distribution-v1",
+            "deduplication_unit": "capability_episode_ref",
+            "numeric_role_weighting_used": false,
+            "unique_episode_count": 3,
+            "DIRECT_COMMAND": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "OPERATIONAL_COORDINATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "STRATEGIC_DIRECTION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "ROLE_UNRESOLVED": {
+              "episode_count": 3,
+              "episode_refs": [
+                "QIN-CIVIL-WAR",
+                "WAR-LEAD-QIN-CIVIL-WAR",
+                "WAR-LEAD-QIN-ZHANGHAN"
+              ],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "source_role_conflict_refs": [],
+            "local_direct_phase_refs": [],
+            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+          },
+          "m1_role_gate_review": {
+            "schema_version": "m1-role-gate-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.1",
+            "grade_before_role_gate_review": "G0",
+            "position_before_role_gate_review": "MID",
+            "positive_strong_episode_refs": [],
+            "direct_strong_episode_refs": [],
+            "historical_direct_candidate_refs": [],
+            "status": "NOT_APPLICABLE_BELOW_G4",
+            "route": null,
+            "decision": "G0-MID",
+            "basis": "G4/G5 role-combination gate does not apply to the current grade."
           }
         }
       ]

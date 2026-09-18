@@ -20,7 +20,7 @@ def _parser() -> argparse.ArgumentParser:
     maintenance.add_argument("--verify", action="store_true")
     maintenance.add_argument("--related", action="store_true", help="同时执行关联轴的组件校验")
     maintenance.add_argument("--sync", action="store_true", help="校验源后刷新报告列出的确定性下游")
-    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "second-item-b1-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
+    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "first-item-a-public-verify", "second-item-b1-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
         commands.add_parser(name)
     first_cost = commands.add_parser("first-item-cost-verify")
     first_cost.add_argument("--workspace-root", type=Path, default=Path("."))
@@ -44,6 +44,9 @@ def _parser() -> argparse.ArgumentParser:
     fourth_a_views.add_argument("--write", action="store_true")
     second_item_a = commands.add_parser("second-item-a-verify")
     second_item_a.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_a_public = commands.add_parser("second-item-a-public")
+    second_item_a_public.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_a_public.add_argument("--write", action="store_true")
     second_item_b2 = commands.add_parser("second-item-b2-verify")
     second_item_b2.add_argument("--workspace-root", type=Path, default=Path("."))
     second_item_b1 = commands.add_parser("second-item-b1-settlement")
@@ -233,6 +236,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         "profile-m5-verify": ("profile_m5", "verify", True),
         "canonical-ruler-pool-verify": ("canonical_ruler_pool", "verify_canonical_ruler_pool", True),
         "composite-ranking-verify": ("composite_ranking", "verify_composite_ranking", True),
+        "first-item-a-public-verify": ("first_item_public_outcomes", "verify_first_item_public_outcomes", True),
         "project-entries-verify": ("project_entries", "verify", True),
         "second-item-b1-verify": ("formal_settlements", "verify_second_item_b1_snapshot", True),
         "profile-m1-verify": ("profile_m1_verifier", "verify", False),
@@ -276,6 +280,12 @@ def _dispatch(args: argparse.Namespace) -> int:
         return 0
     if args.command == "second-item-a-verify":
         report = verify_second_item_a_snapshot(args.workspace_root.resolve())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "second-item-a-public":
+        from emperor_v4.evaluation.second_item_a_public import run
+
+        report = run(args.workspace_root.resolve(), write=args.write)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "second-item-b2-verify":
@@ -428,3 +438,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         ))
         return 0
     raise AssertionError(f"未处理命令：{args.command}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

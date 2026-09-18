@@ -5,7 +5,6 @@
     "records": {
       "positions": [
         50,
-        101,
         52,
         53,
         55,
@@ -16,6 +15,7 @@
         87,
         88,
         91,
+        101,
         134,
         152,
         154,
@@ -174,117 +174,41 @@
           "ruler_id": "RULER-SHADOW-冯跋",
           "ruler_name": "冯跋",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
-        },
-        {
-          "A_C_A_support_mechanism": "中央组织与军政身份",
-          "A_position_formula_code": "A_NET_DURABILITY_V2",
-          "C_A": 2.0,
-          "M_mixed_profile": [],
-          "M_negative_profile": [],
-          "M_positive_profile": [
-            {
-              "M": "M2",
-              "S_depth_weight": 0,
-              "S_effect": "NON_S",
-              "counts_toward_S": false,
-              "direction": "positive",
-              "direction_factor": 1,
-              "institution_domain": "中央组织",
-              "institution_node_id": "AB12-NEG-012-1",
-              "label_zh": "重定七公、中央与军政官制",
-              "major_node_role": "MAJOR_RESTRUCTURE",
-              "material_ids": [
-                "I2-HZHAO-LIUCONG-CENTRAL-MILITARY-OFFICES-001"
-              ],
-              "mechanism": "重定七公、中央与军政官制",
-              "result_closure": "institution_lifecycle_adjudicated",
-              "signed_weight": 1,
-              "base_signed": 1,
-              "durability_bonus": 0,
-              "direction_reason": "七公中央军政编制的具体设置保留为M2建设；诸子领军的个别任用不得自动升级为持久正向S，也不以政权灭亡倒灌负值。"
-            }
-          ],
-          "S_depth_units": 0,
-          "S_minus": 0,
-          "S_minus_node_ids": [],
-          "S_net": 0,
-          "S_plus_plus": 0,
-          "S_plus_regular": 0,
-          "S_total": 0,
-          "coverage_audit_ids": [
-            "AB12-NEG-012"
-          ],
-          "database_write": false,
-          "direct_material_ids": [
-            "I2-HZHAO-LIUCONG-CENTRAL-MILITARY-OFFICES-001"
-          ],
-          "direct_material_roles": {
-            "I2-HZHAO-LIUCONG-CENTRAL-MILITARY-OFFICES-001": [
-              "NON_S_MAJOR_CONSTRUCTION"
-            ]
-          },
-          "direction_card_write": true,
-          "direction_index": 41.5,
-          "evidence_sufficiency_gate": "PASS_MINIMUM_SUFFICIENT_EVIDENCE",
-          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
-          "formal_evidence_state": "FORMAL_SCORED",
-          "grade": "G2",
-          "grade_basis": "七公中央军政编制的具体设置保留为M2建设；诸子领军的个别任用不得自动升级为持久正向S，也不以政权灭亡倒灌负值。正向1、负向0，制度净值1，依净账与独立门槛结算G2。",
-          "important_institutions": [
-            {
-              "S_depth_weight": 0,
-              "S_effect": null,
-              "S_minus_weight": null,
-              "construction_operation_material_ids": [
-                "I2-HZHAO-LIUCONG-CENTRAL-MILITARY-OFFICES-001"
-              ],
-              "counts_toward_S": false,
-              "decision": "DURABILITY_EVIDENCE_PENDING",
-              "durability_gate": "PENDING_R3_CORE_RECEPTION",
-              "durability_material_ids": [],
-              "institution_domain": "中央组织",
-              "institution_lineage": "中央组织与军政身份",
-              "institution_node_id": "AB12-NEG-012-1",
-              "label_zh": "重定七公、中央与军政官制",
-              "major_node_role": "MAJOR_RESTRUCTURE",
-              "material_ids": [
-                "I2-HZHAO-LIUCONG-CENTRAL-MILITARY-OFFICES-001"
-              ],
-              "normative_direction": "positive",
-              "reason": "七公中央军政编制的具体设置保留为M2建设；诸子领军的个别任用不得自动升级为持久正向S，也不以政权灭亡倒灌负值。",
-              "source_artifact_refs": [
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json"
-              ],
-              "source_kind": "NON_S_MAJOR_NODE"
-            }
-          ],
-          "index_interval": [
-            40,
-            54.9
-          ],
-          "polity": "汉赵",
-          "position": "lower",
-          "position_basis": "制度净值1，按G2净值锚点及独立接口质量定lower；正负规模不托底档位或内部指数。",
-          "position_q": 0.1,
-          "rank": 96,
-          "reign_range": [
-            310,
-            318
-          ],
-          "ruler_id": "RULER-SHADOW-刘聪",
-          "ruler_name": "刘聪",
-          "verification_material_ids": [],
           "extreme_delta_reopen": false,
-          "A_net_units": 1,
-          "P_gross": 1,
+          "P_gross": 3,
           "N_gross": 0,
-          "v2_explicit_patch": true,
-          "extreme_delta_review": "COMPLETED_CURRENT_NODE_AND_CROSS_ITEM_REVIEW",
-          "netting_boundary_basis": "七公中央军政编制的具体设置保留为M2建设；诸子领军的个别任用不得自动升级为持久正向S，也不以政权灭亡倒灌负值。",
-          "a_grade_gate_profile_ids": [
-            "AB12-NEG-012-1"
-          ]
+          "A_net_units": 3,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "AB12-NEG-002-1",
+              "public_label": "农桑、赋役与守宰问政形成条制和运行结果",
+              "public_direction": "正向",
+              "public_tags": [
+                "重大制度",
+                "重构"
+              ],
+              "signed_weight": 2,
+              "public_adjudication_basis": "该节点被判断为重构，设立、运行与后续变化已有材料支持；具体范围是农桑、赋役与守宰问政形成条制和运行结果；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵；运行结果是经两层独立固定史源和五长期接收条件复裁计入制度建设；不自动取得长期接收权重或多个后继统治阶段持续采用",
+              "public_scope": "农桑、赋役与守宰问政形成条制和运行结果；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵",
+              "public_boundary": "未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "现有证据不足以证明长期持续沿用，因此未计入长期接收加权。"
+            },
+            {
+              "institution_node_id": "AB12-NEG-002-2",
+              "public_label": "营建太学、设置博士并选官员子弟受教",
+              "public_direction": "正向",
+              "public_tags": [
+                "重大制度",
+                "重构"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "该节点被判断为重构，设立、运行与后续变化已有材料支持；具体范围是营建太学、设置博士并选官员子弟受教；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵；运行结果是经两层独立固定史源和五长期接收条件复裁计入制度建设；不自动取得长期接收权重或多个后继统治阶段持续采用",
+              "public_scope": "营建太学、设置博士并选官员子弟受教；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵",
+              "public_boundary": "未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "现有证据不足以证明长期持续沿用，因此未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为3，负向影响权重为0，制度净值为+3；后世接收概况：现有证据不足以证明长期持续沿用2项；公开等级为B级（中位）。"
         },
         {
           "A_C_A_support_mechanism": "选官、人事与官僚专业化",
@@ -305,7 +229,8 @@
               "material_id": "I2-SK-YAOXING-EDUCATION-GOVERNANCE-001",
               "mechanism": "长安远来诸生达万数千，学者受到持续激励，儒风形成。",
               "result_closure": "sustained_or_systemic",
-              "signed_weight": 2.0
+              "signed_weight": 2.0,
+              "institution_node_id": "A-PUBLIC-NODE-B5321B384F8FF580"
             },
             {
               "M": "M3",
@@ -398,7 +323,41 @@
           "ruler_id": "RULER-SHADOW-姚兴",
           "ruler_name": "姚兴",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 4,
+          "N_gross": 0,
+          "A_net_units": 4,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "A-PUBLIC-NODE-B5321B384F8FF580",
+              "public_label": "长安远来诸生达万数千，学者受到持续激励，儒风形成",
+              "public_direction": "正向",
+              "public_tags": [
+                "正向建设",
+                "持续运行"
+              ],
+              "signed_weight": 2,
+              "public_adjudication_basis": "该节点被判断为正向制度作用，形成持续或系统运行；具体范围是延揽时政人才并形成大规模教育运行；对陈述时事者授官，延揽经学者讲授，并放宽诸生通关限制；运行结果是长安远来诸生达万数千，学者受到持续激励，儒风形成",
+              "public_scope": "延揽时政人才并形成大规模教育运行；对陈述时事者授官，延揽经学者讲授，并放宽诸生通关限制",
+              "public_boundary": "教育繁荣不能单独证明官僚廉洁与地方交付；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "已有任内实际运行证据，未计入长期接收加权。"
+            },
+            {
+              "institution_node_id": "IDN-FC85069E1332",
+              "public_label": "律学—地方裁判—廷尉复核链",
+              "public_direction": "正向",
+              "public_tags": [
+                "重大制度",
+                "重构"
+              ],
+              "signed_weight": 2,
+              "public_adjudication_basis": "该节点被判断为重构，设立、运行与后续变化已有材料支持；具体范围是简化军令、设律学并建立疑狱上达链；采纳简化军令建议，设律学训练郡县吏；疑狱由郡县上讞廷尉并亲听；运行结果是形成训练、地方裁判、中央复核链，史称当时无冤滞",
+              "public_scope": "简化军令、设律学并建立疑狱上达链；采纳简化军令建议，设律学训练郡县吏；疑狱由郡县上讞廷尉并亲听",
+              "public_boundary": "结果是司法行政维度，不能扩张为全部吏治；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为4，负向影响权重为0，制度净值为+4；后世接收概况：已有任内或阶段性实际运行1项；未计入长期接收加权1项；公开等级为B级（中位）。"
         },
         {
           "A_C_A_support_mechanism": "法律司法与地方官考核",
@@ -551,7 +510,41 @@
           "ruler_id": "RULER-SHADOW-慕容德",
           "ruler_name": "慕容德",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 3,
+          "N_gross": 0,
+          "A_net_units": 3,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "AB12-NEG-023-1",
+              "public_label": "简省法令、清察狱讼并建立守令奖惩",
+              "public_direction": "正向",
+              "public_tags": [
+                "重大制度",
+                "重构"
+              ],
+              "signed_weight": 2,
+              "public_adjudication_basis": "该节点被判断为重构，设立、运行与后续变化已有材料支持；具体范围是简省法令、清察狱讼并建立守令奖惩；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵；运行结果是经两层独立固定史源和五长期接收条件复裁计入制度建设；不自动取得长期接收权重或多个后继统治阶段持续采用",
+              "public_scope": "简省法令、清察狱讼并建立守令奖惩；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵",
+              "public_boundary": "未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "现有证据不足以证明长期持续沿用，因此未计入长期接收加权。"
+            },
+            {
+              "institution_node_id": "AB12-NEG-023-2",
+              "public_label": "建立学官并选二百人充太学生",
+              "public_direction": "正向",
+              "public_tags": [
+                "重大制度",
+                "重构"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "该节点被判断为重构，设立、运行与后续变化已有材料支持；具体范围是建立学官并选二百人充太学生；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵；运行结果是经两层独立固定史源和五长期接收条件复裁计入制度建设；不自动取得长期接收权重或多个后继统治阶段持续采用",
+              "public_scope": "建立学官并选二百人充太学生；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵",
+              "public_boundary": "未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "现有证据不足以证明长期持续沿用，因此未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为3，负向影响权重为0，制度净值为+3；后世接收概况：现有证据不足以证明长期持续沿用2项；公开等级为B级（中位）。"
         },
         {
           "A_C_A_support_mechanism": "选官与官僚人事",
@@ -572,7 +565,8 @@
               "material_id": "I2-SK-SHILE-XINHAI-CODE-001",
               "mechanism": "辛亥制度编定并施行十余年，法律净改善结果未闭合",
               "result_closure": "observed",
-              "signed_weight": 1.0
+              "signed_weight": 1.0,
+              "institution_node_id": "A-PUBLIC-NODE-FD62DFC25DE7E350"
             },
             {
               "M": "M3",
@@ -666,7 +660,41 @@
           "ruler_id": "RULER-SHADOW-石勒",
           "ruler_name": "石勒",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 3,
+          "N_gross": 0,
+          "A_net_units": 3,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "A-PUBLIC-NODE-FD62DFC25DE7E350",
+              "public_label": "辛亥制度编定并施行十余年，法律净改善结果未证明链条成立",
+              "public_direction": "正向",
+              "public_tags": [
+                "正向建设",
+                "已有实际运行"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "该节点被判断为正向制度作用，已观察到实际运行；具体范围是删定律令并长期施行辛亥制度；令法曹令史贯志删定律令，形成五千文的辛亥制度；运行结果是原文证明链条成立编定与持续使用；施行年限本身不证明裁判改善或系统有效",
+              "public_scope": "删定律令并长期施行辛亥制度；令法曹令史贯志删定律令，形成五千文的辛亥制度",
+              "public_boundary": "未核司法适用质量及后世继承，不能投A3或高档其他治理评价；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "已有任内实际运行证据，未计入长期接收加权。"
+            },
+            {
+              "institution_node_id": "LZ_SHILE_SELECTION",
+              "public_label": "教育—荐举—考核—任官体系",
+              "public_direction": "正向",
+              "public_tags": [
+                "重大制度",
+                "重建"
+              ],
+              "signed_weight": 2,
+              "public_adjudication_basis": "教育、荐举、考试和实授证明链条成立，但主要是在新政权内重建既有官学选官接口；后续若拆出独立教育节点须另审；具体范围是分级选官、年度荐举与学官升迁形成官僚供给链；设五品、九品选官和典定士族机构，公卿岁举多类人才；郡国置学官并以三考升台府；运行结果是制度跨荐举、教育、考核和升迁环节运行，且有太学生实际擢任佐著作郎",
+              "public_scope": "分级选官、年度荐举与学官升迁形成官僚供给链；设五品、九品选官和典定士族机构，公卿岁举多类人才；郡国置学官并以三考升台府",
+              "public_boundary": "品第制的公平性与门第捕获成本尚未证明链条成立，不能因官名数量加分；后续若拆出独立教育节点须另审；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为3，负向影响权重为0，制度净值为+3；后世接收概况：已有任内或阶段性实际运行1项；未计入长期接收加权1项；公开等级为B级（中位）。"
         },
         {
           "A_C_A_support_mechanism": "选官与官僚人事",
@@ -687,7 +715,8 @@
               "material_id": "I2-SK-FUJIAN-EDUCATION-PROFESSIONALIZATION-001",
               "mechanism": "有持续频率和覆盖扩展，但未见学员任官质量的独立结果统计。",
               "result_closure": "sustained_or_systemic",
-              "signed_weight": 1.0
+              "signed_weight": 1.0,
+              "institution_node_id": "A-PUBLIC-NODE-F137E41F3A39D0EB"
             },
             {
               "M": "M3",
@@ -781,7 +810,41 @@
           "ruler_id": "RULER-SHADOW-苻坚",
           "ruler_name": "苻坚",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 3,
+          "N_gross": 0,
+          "A_net_units": 3,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "A-PUBLIC-NODE-F137E41F3A39D0EB",
+              "public_label": "有持续频率和覆盖扩展，但未见学员任官质量的独立结果统计",
+              "public_direction": "正向",
+              "public_tags": [
+                "正向建设",
+                "持续运行"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "该节点被判断为正向制度作用，形成持续或系统运行；具体范围是太学月考与经学教育扩展；皇帝亲临太学考经义并形成每月一次制度，后扩大太学及军队、后宫经学教育；运行结果是有持续频率和覆盖扩展，但未见学员任官质量的独立结果统计",
+              "public_scope": "太学月考与经学教育扩展；皇帝亲临太学考经义并形成每月一次制度，后扩大太学及军队、后宫经学教育",
+              "public_boundary": "经学教育不等于官僚全部专业能力；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "已有任内实际运行证据，未计入长期接收加权。"
+            },
+            {
+              "institution_node_id": "LZ_FUJIAN_SELECTION",
+              "public_label": "荐举问责与统一铨衡",
+              "public_direction": "正向",
+              "public_tags": [
+                "重大制度",
+                "重建"
+              ],
+              "signed_weight": 2,
+              "public_adjudication_basis": "覆盖和运行较强，但未证明重定既有选官基本接口；具体范围是荐举问责、专才考核与统一铨衡形成持续选任结果",
+              "public_scope": "荐举问责、专才考核与统一铨衡形成持续选任结果",
+              "public_boundary": "覆盖和运行较强，但未证明重定既有选官基本接口；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为3，负向影响权重为0，制度净值为+3；后世接收概况：已有任内或阶段性实际运行1项；未计入长期接收加权1项；公开等级为B级（中位）。"
         },
         {
           "A_C_A_support_mechanism": "清定九流并按才授任",
@@ -881,7 +944,26 @@
           "ruler_id": "RULER-SHADOW-冉闵",
           "ruler_name": "冉闵",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 1,
+          "N_gross": 0,
+          "A_net_units": 1,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "INST-RANWEI-RANMIN-NINE-RANK-SELECTION-RESET",
+              "public_label": "清定九流并按才授任",
+              "public_direction": "正向",
+              "public_tags": [
+                "局部建设"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "战后清定九流、按才授任并进用儒学后门，出现短期运行评价；持续性有限，计局部建设；具体范围是战后清定九流并按才授任；苍亭获胜后清定九流、准才授任并进用儒学后门；运行结果是出现短期翕然评价，但未跨越持续战争形成稳定运行",
+              "public_scope": "战后清定九流并按才授任；苍亭获胜后清定九流、准才授任并进用儒学后门",
+              "public_boundary": "持续期短且随后官僚大量死亡；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为1，负向影响权重为0，制度净值为+1；后世接收概况：未计入长期接收加权1项；公开等级为C级（中位）。"
         },
         {
           "A_C_A_support_mechanism": "中央组织",
@@ -984,7 +1066,26 @@
           "ruler_id": "RULER-SHADOW-刘渊",
           "ruler_name": "刘渊",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 1,
+          "N_gross": 0,
+          "A_net_units": 1,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "AB12-NEG-008-1",
+              "public_label": "设置百官并实授丞相、御史大夫和太尉",
+              "public_direction": "正向",
+              "public_tags": [
+                "局部建设"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "固定材料证明链条成立了真实颁行或接口，但只到局部对象、单一层级或次级功能；不改变国家核心制度基线，单项仅支持有限建设与=1；具体范围是设置百官并实授丞相、御史大夫和太尉；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵；运行结果是经两层独立固定史源和五长期接收条件复裁计入制度建设；不自动取得长期接收权重或多个后继统治阶段持续采用",
+              "public_scope": "设置百官并实授丞相、御史大夫和太尉；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵",
+              "public_boundary": "固定材料证明链条成立了真实颁行或接口，但只到局部对象、单一层级或次级功能；不改变国家核心制度基线，单项仅支持有限建设与=1；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "现有证据不足以证明长期持续沿用，因此未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为1，负向影响权重为0，制度净值为+1；后世接收概况：现有证据不足以证明长期持续沿用1项；公开等级为C级（中位）。"
         },
         {
           "A_C_A_support_mechanism": "中央组织",
@@ -1087,7 +1188,26 @@
           "ruler_id": "RULER-SHADOW-慕容垂",
           "ruler_name": "慕容垂",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 1,
+          "N_gross": 0,
+          "A_net_units": 1,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "AB12-NEG-022-1",
+              "public_label": "设置百官并实授吏部、司隶与中外军政职位",
+              "public_direction": "正向",
+              "public_tags": [
+                "局部建设"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "固定材料证明链条成立了真实颁行或接口，但只到局部对象、单一层级或次级功能；不改变国家核心制度基线，单项仅支持有限建设与=1；具体范围是设置百官并实授吏部、司隶与中外军政职位；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵；运行结果是经两层独立固定史源和五长期接收条件复裁计入制度建设；不自动取得长期接收权重或多个后继统治阶段持续采用",
+              "public_scope": "设置百官并实授吏部、司隶与中外军政职位；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵",
+              "public_boundary": "固定材料证明链条成立了真实颁行或接口，但只到局部对象、单一层级或次级功能；不改变国家核心制度基线，单项仅支持有限建设与=1；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "现有证据不足以证明长期持续沿用，因此未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为1，负向影响权重为0，制度净值为+1；后世接收概况：现有证据不足以证明长期持续沿用1项；公开等级为C级（中位）。"
         },
         {
           "A_C_A_support_mechanism": "草创官制班序以止诸将争班",
@@ -1187,7 +1307,26 @@
           "ruler_id": "RULER-SHADOW-李雄",
           "ruler_name": "李雄",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 1,
+          "N_gross": 0,
+          "A_net_units": 1,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "INST-CHENGHAN-LIXIONG-OFFICIAL-RANK-ORDER",
+              "public_label": "草创官制班序以止诸将争班",
+              "public_direction": "正向",
+              "public_tags": [
+                "局部建设"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "采纳建立制度楷式以结束诸将争班，形成初步官制班序；后续禄秩与班序仍不完备，故只计局部建设；具体范围是草创期采纳建议建立官制班序；阎式指出诸将争班与官制无式，李雄采纳建立制度；运行结果是结束完全无制度状态，但后期仍存在官无禄秩、班序不别",
+              "public_scope": "草创期采纳建议建立官制班序；阎式指出诸将争班与官制无式，李雄采纳建立制度",
+              "public_boundary": "只证明链条成立创制动作，运行成熟度有限；后续禄秩与班序仍不完备，故只计局部建设；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为1，负向影响权重为0，制度净值为+1；后世接收概况：未计入长期接收加权1项；公开等级为C级（中位）。"
         },
         {
           "A_C_A_support_mechanism": "中央—地方层级与商贸资源行政",
@@ -1291,7 +1430,26 @@
           "ruler_id": "RULER-SHADOW-苻健",
           "ruler_name": "苻健",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 1,
+          "N_gross": 0,
+          "A_net_units": 1,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "AB12-NEG-036-1",
+              "public_label": "丰阳设置荆州并建立关市远商接口",
+              "public_direction": "正向",
+              "public_tags": [
+                "局部建设"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "固定材料证明链条成立了真实颁行或接口，但只到局部对象、单一层级或次级功能；不改变国家核心制度基线，单项仅支持有限建设与=1；具体范围是丰阳设置荆州并建立关市远商接口；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵；运行结果是经两层独立固定史源和五长期接收条件复裁计入制度建设；不自动取得长期接收权重或多个后继统治阶段持续采用",
+              "public_scope": "丰阳设置荆州并建立关市远商接口；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵",
+              "public_boundary": "固定材料证明链条成立了真实颁行或接口，但只到局部对象、单一层级或次级功能；不改变国家核心制度基线，单项仅支持有限建设与=1；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "现有证据不足以证明长期持续沿用，因此未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为1，负向影响权重为0，制度净值为+1；后世接收概况：现有证据不足以证明长期持续沿用1项；公开等级为C级（中位）。"
         },
         {
           "A_C_A_support_mechanism": "中央—地方层级",
@@ -1394,7 +1552,153 @@
           "ruler_id": "RULER-SHADOW-赫连勃勃",
           "ruler_name": "赫连勃勃",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 1,
+          "N_gross": 0,
+          "A_net_units": 1,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "AB12-NEG-038-1",
+              "public_label": "长安设置南台并建立录尚书事行政接口",
+              "public_direction": "正向",
+              "public_tags": [
+                "局部建设"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "固定材料证明链条成立了真实颁行或接口，但只到局部对象、单一层级或次级功能；不改变国家核心制度基线，单项仅支持有限建设与=1；具体范围是长安设置南台并建立录尚书事行政接口；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵；运行结果是经两层独立固定史源和五长期接收条件复裁计入制度建设；不自动取得长期接收权重或多个后继统治阶段持续采用",
+              "public_scope": "长安设置南台并建立录尚书事行政接口；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵",
+              "public_boundary": "固定材料证明链条成立了真实颁行或接口，但只到局部对象、单一层级或次级功能；不改变国家核心制度基线，单项仅支持有限建设与=1；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "现有证据不足以证明长期持续沿用，因此未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为1，负向影响权重为0，制度净值为+1；后世接收概况：现有证据不足以证明长期持续沿用1项；公开等级为C级（中位）。"
+        },
+        {
+          "A_C_A_support_mechanism": "中央组织与军政身份",
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "C_A": 2.0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1,
+              "institution_domain": "中央组织",
+              "institution_node_id": "AB12-NEG-012-1",
+              "label_zh": "重定七公、中央与军政官制",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "I2-HZHAO-LIUCONG-CENTRAL-MILITARY-OFFICES-001"
+              ],
+              "mechanism": "重定七公、中央与军政官制",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1,
+              "base_signed": 1,
+              "durability_bonus": 0,
+              "direction_reason": "七公中央军政编制的具体设置保留为M2建设；诸子领军的个别任用不得自动升级为持久正向S，也不以政权灭亡倒灌负值。"
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "AB12-NEG-012"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-HZHAO-LIUCONG-CENTRAL-MILITARY-OFFICES-001"
+          ],
+          "direct_material_roles": {
+            "I2-HZHAO-LIUCONG-CENTRAL-MILITARY-OFFICES-001": [
+              "NON_S_MAJOR_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 41.5,
+          "evidence_sufficiency_gate": "PASS_MINIMUM_SUFFICIENT_EVIDENCE",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "七公中央军政编制的具体设置保留为M2建设；诸子领军的个别任用不得自动升级为持久正向S，也不以政权灭亡倒灌负值。正向1、负向0，制度净值1，依净账与独立门槛结算G2。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": null,
+              "S_minus_weight": null,
+              "construction_operation_material_ids": [
+                "I2-HZHAO-LIUCONG-CENTRAL-MILITARY-OFFICES-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "DURABILITY_EVIDENCE_PENDING",
+              "durability_gate": "PENDING_R3_CORE_RECEPTION",
+              "durability_material_ids": [],
+              "institution_domain": "中央组织",
+              "institution_lineage": "中央组织与军政身份",
+              "institution_node_id": "AB12-NEG-012-1",
+              "label_zh": "重定七公、中央与军政官制",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "I2-HZHAO-LIUCONG-CENTRAL-MILITARY-OFFICES-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "七公中央军政编制的具体设置保留为M2建设；诸子领军的个别任用不得自动升级为持久正向S，也不以政权灭亡倒灌负值。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            40,
+            54.9
+          ],
+          "polity": "汉赵",
+          "position": "lower",
+          "position_basis": "制度净值1，按G2净值锚点及独立接口质量定lower；正负规模不托底档位或内部指数。",
+          "position_q": 0.1,
+          "rank": 96,
+          "reign_range": [
+            310,
+            318
+          ],
+          "ruler_id": "RULER-SHADOW-刘聪",
+          "ruler_name": "刘聪",
+          "verification_material_ids": [],
+          "extreme_delta_reopen": false,
+          "A_net_units": 1,
+          "P_gross": 1,
+          "N_gross": 0,
+          "v2_explicit_patch": true,
+          "extreme_delta_review": "COMPLETED_CURRENT_NODE_AND_CROSS_ITEM_REVIEW",
+          "netting_boundary_basis": "七公中央军政编制的具体设置保留为M2建设；诸子领军的个别任用不得自动升级为持久正向S，也不以政权灭亡倒灌负值。",
+          "a_grade_gate_profile_ids": [
+            "AB12-NEG-012-1"
+          ],
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "AB12-NEG-012-1",
+              "public_label": "重定七公、中央与军政官制",
+              "public_direction": "正向",
+              "public_tags": [
+                "重大制度",
+                "重构"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "该节点被判断为重构，设立、运行与后续变化已有材料支持；具体范围是重定七公、中央与军政官制；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵；运行结果是经两层独立固定史源和五长期接收条件复裁计入制度建设；不自动取得长期接收权重或多个后继统治阶段持续采用",
+              "public_scope": "重定七公、中央与军政官制；只计算逐字引文证明链条成立的制度接口、本人责任归属和实际运行或失灵",
+              "public_boundary": "未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "现有证据不足以证明长期持续沿用，因此未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为1，负向影响权重为0，制度净值为+1；后世接收概况：现有证据不足以证明长期持续沿用1项；公开等级为C级（下位）。"
         },
         {
           "A_C_A_support_mechanism": null,
@@ -1505,7 +1809,24 @@
           "N_gross": 0.0,
           "polarization_ratio": null,
           "extreme_delta_review": "NOT_REQUIRED",
-          "v2_explicit_patch": true
+          "v2_explicit_patch": true,
+          "public_institution_nodes": [
+            {
+              "institution_node_id": "AB12-NEG-019-1",
+              "public_label": "诸镇设置学官并以考试结果擢叙",
+              "public_direction": "正向",
+              "public_tags": [
+                "未完成尝试",
+                "已有实际运行"
+              ],
+              "signed_weight": 0,
+              "public_adjudication_basis": "固定材料只证明链条成立诏令或设置方案，未见机构、人员、程序或结果实际运行；仅支持有限建设与=0.5；具体范围是诸镇设置学官并以考试结果擢叙；下令留台诸镇设置学官，并设计考试后随才擢叙的接口；运行结果是固定引文只证明链条成立制度命令，未见学官到位、招生课试或依考试实际选补",
+              "public_scope": "诸镇设置学官并以考试结果擢叙；下令留台诸镇设置学官，并设计考试后随才擢叙的接口",
+              "public_boundary": "固定材料只证明链条成立诏令或设置方案，未见机构、人员、程序或结果实际运行；仅支持有限建设与=0.5；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "现有证据不足以证明长期持续沿用，因此未计入长期接收加权。"
+            }
+          ],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为0，负向影响权重为0，制度净值为0；后世接收概况：现有证据不足以证明长期持续沿用1项；公开等级为E级（上位）。"
         },
         {
           "A_C_A_support_mechanism": null,
@@ -1556,7 +1877,12 @@
           "ruler_id": "RULER-SHADOW-吕光",
           "ruler_name": "吕光",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 0,
+          "N_gross": 0,
+          "A_net_units": 0,
+          "public_institution_nodes": [],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为0，负向影响权重为0，制度净值为0；后世接收概况：当前正式记录没有可单列的制度节点，未形成后世接收加权；公开等级为E级（中位）。"
         },
         {
           "A_C_A_support_mechanism": null,
@@ -1607,7 +1933,12 @@
           "ruler_id": "RULER-SHADOW-李暠",
           "ruler_name": "李暠",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 0,
+          "N_gross": 0,
+          "A_net_units": 0,
+          "public_institution_nodes": [],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为0，负向影响权重为0，制度净值为0；后世接收概况：当前正式记录没有可单列的制度节点，未形成后世接收加权；公开等级为E级（中位）。"
         },
         {
           "A_C_A_support_mechanism": null,
@@ -1658,7 +1989,12 @@
           "ruler_id": "RULER-SHADOW-沮渠蒙逊",
           "ruler_name": "沮渠蒙逊",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 0,
+          "N_gross": 0,
+          "A_net_units": 0,
+          "public_institution_nodes": [],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为0，负向影响权重为0，制度净值为0；后世接收概况：当前正式记录没有可单列的制度节点，未形成后世接收加权；公开等级为E级（中位）。"
         },
         {
           "A_C_A_support_mechanism": null,
@@ -1709,7 +2045,12 @@
           "ruler_id": "RULER-SHADOW-石虎",
           "ruler_name": "石虎",
           "verification_material_ids": [],
-          "extreme_delta_reopen": false
+          "extreme_delta_reopen": false,
+          "P_gross": 0,
+          "N_gross": 0,
+          "A_net_units": 0,
+          "public_institution_nodes": [],
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为0，负向影响权重为0，制度净值为0；后世接收概况：当前正式记录没有可单列的制度节点，未形成后世接收加权；公开等级为E级（中位）。"
         }
       ]
     }
