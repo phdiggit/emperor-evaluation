@@ -124,6 +124,9 @@ def verify(root: Path = ROOT) -> dict[str, Any]:
             '仅限实际权力窗口',
             '窗口外不计',
             '窗口外排除',
+            '窗口短',
+            '亲政窗口短',
+            '正式皇帝窗口仅',
         )
         if any(token in grading_text for token in forbidden_window_gates):
             raise ValueError(f'C4不得以actual_power_window作为证据准入边界: {row["ruler_id"]}')
