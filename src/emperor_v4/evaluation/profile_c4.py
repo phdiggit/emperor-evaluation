@@ -51,7 +51,6 @@ def render(payload: dict[str, Any]) -> str:
     for row in payload['records']:
         lines.extend(['', f"### {row['ruler_name']}（{row['ruler_id']}）", '',
                       f"- 结算：**{_grade(row)}**；雷达值：{row['radar_value'] if row['radar_value'] is not None else '不适用'}；{row['axis_evidence_level']} / {row['confidence']}。",
-                      f"- 实际权力窗口：{row['actual_power_window']}。",
                       f"- **主模式**：{row['typical_pattern']}",
                       f"- **裁档理由**：{row['grade_basis']}",
                       f"- 档内定位：{row['position_basis']}",
@@ -100,9 +99,9 @@ def verify(root: Path = ROOT) -> dict[str, Any]:
     for row in records:
         validate_decision(row)
         person = pool[row['ruler_id']]
-        for key in ('ruler_name', 'polity', 'actual_power_window'):
+        for key in ('ruler_name', 'polity'):
             if row[key] != person[key]:
-                raise ValueError(f'C4规范身份或窗口不同值: {row["ruler_id"]}/{key}')
+                raise ValueError(f'C4规范身份不同值: {row["ruler_id"]}/{key}')
         if row['task_code'] != 'PROFILE-C4-' + row['ruler_id']:
             raise ValueError('C4任务ID不稳定')
         parents = row['parent_chains']
@@ -133,4 +132,4 @@ def verify(root: Path = ROOT) -> dict[str, Any]:
         raise ValueError('C4池外裁决混入正式池')
     if (root / MARKDOWN_PATH).read_text(encoding='utf-8') != render(payload):
         raise ValueError('C4 JSON与阅读视图不同值')
-    return {'status': 'PASS', 'record_count': len(records), 'applicable_count': sum(r['axis_grade'] is not None for r in records), 'outside_pool_preserved': len(outside), 'scope': '身份、窗口背景字段、固定投影、父链来源和阅读同值；actual_power_window不作为C4证据准入或适用性边界。'}
+    return {'status': 'PASS', 'record_count': len(records), 'applicable_count': sum(r['axis_grade'] is not None for r in records), 'outside_pool_preserved': len(outside), 'scope': '身份、固定投影、父链来源和阅读同值。'}
