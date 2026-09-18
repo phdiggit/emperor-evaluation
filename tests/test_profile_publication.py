@@ -17,6 +17,7 @@ def final_review_record():
                 final_capability_review=dict(actual_window='window', direct_review='direct sources',
                     indirect_review='delegated actions', exclusion_basis='internal actions excluded',
                     source_refs=['synthetic source'], conclusion='NO_DEMONSTRATED_CAPABILITY',
+                    evidence_admission_scope='FULL_LIFETIME_ATTRIBUTABLE_EVENTS',
                     claim_scope='REVIEWED_EVIDENCE_ONLY'))
 
 
@@ -24,7 +25,7 @@ def test_final_capability_review_is_explicit_and_evidence_limited():
     validate_final_capability_review(final_review_record())
 
 
-@pytest.mark.parametrize('change', ['confidence', 'indirect_review', 'scoring_parent', 'claim_scope'])
+@pytest.mark.parametrize('change', ['confidence', 'indirect_review', 'scoring_parent', 'claim_scope', 'evidence_admission_scope'])
 def test_final_capability_review_rejects_unjustified_classification(change):
     row = final_review_record()
     if change == 'confidence':
