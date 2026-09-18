@@ -106,6 +106,9 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
         r"亲政.{0,8}(?:短|仅)",
         r"最高权力.{0,10}(?:短|仅)",
         r"实际掌权.{0,10}(?:短|仅)",
+        r"任期.{0,6}太短",
+        r"统治.{0,6}(?:仅|太短)",
+        r"在位.{0,8}(?:短|仅)",
         r"三年统治太短",
     )
     for row in records:
