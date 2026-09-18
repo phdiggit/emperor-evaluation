@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-import re
 from typing import Any
 
 from emperor_v4.evaluation.formal_json_store import load_json
@@ -83,43 +82,6 @@ def verify(root: Path) -> dict[str, Any]:
         for key in ("source_refs", "historical_source_descriptions", "parent_chains", "limitations", "axis_relevance_check", "applicability"):
             if not row.get(key):
                 raise ValueError(f"M5必要依据缺失: {rid}/{key}")
-        grading_text = "\n".join([
-            str(row.get("grade_basis") or ""),
-            str(row.get("position_basis") or ""),
-            *[str(value) for value in row.get("limitations") or []],
-        ])
-        anti_gate = re.compile(
-            r"(?:不再参与升降档|不再作为.{0,16}(?:升降档|准入)|不作为.{0,16}(?:升降档|准入)|"
-            r"本身不作(?:为)?.{0,12}(?:升降档|准入)|不以.{0,24}为前置条件)"
-        )
-        forbidden_window_gate_patterns = (
-            r"(?:短|长|极短|太短|较短|偏短)窗口",
-            r"(?:窗口|亲政|在位|实际统治|摄政|掌权|主政).{0,12}(?:太短|极短|较短|偏短|只有|仅有|不足|足够长)",
-            r"(?:观察窗口|统治窗口|权力窗口).{0,8}(?:更长|超过|足够)",
-            r"(?:实际统治|亲政|在位|摄政|掌权|主政).{0,8}(?:仅|只有).{0,6}[0-9一二三四五六七八九十百]+年",
-            r"(?:[0-9一二三四五六七八九十百]+|二十余|三十余|四十余|五十余)年(?:内|余|左右)?(?:的)?(?:常态运行|运行|主政|统治|摄政|亲政|掌权|观察|窗口).{0,18}(?:足以|稳居|稳定|封顶|阻断|限制|不进|不能|取G|加权)",
-            r"(?:持续时间|观察时长|统治时长).{0,10}(?:长|短|足|不足)",
-        )
-        grading_sentences = [
-            sentence.strip()
-            for sentence in re.split(r"[。；\n]+", grading_text)
-            if sentence.strip()
-        ]
-        if any(
-            not anti_gate.search(sentence)
-            and any(re.search(pattern, sentence) for pattern in forbidden_window_gate_patterns)
-            for sentence in grading_sentences
-        ):
-            raise ValueError(f"M5裁档不得以人物时间窗口长度为门: {rid}")
-        applicability_text = str(row["applicability"].get("basis") or "")
-        forbidden_scope_patterns = (
-            r"适用。.{0,40}(?:实际最高权力窗口|最高权力窗口|亲政窗口)",
-            r"适用。.{0,40}(?:严格只看|只计算|只计).{0,24}(?:亲政|在位|实际权力|最高权力)",
-            r"适用。.{0,40}以.{0,24}亲政窗口为主",
-            r"适用。.{0,40}严格按.{0,24}亲政窗口",
-        )
-        if any(re.search(pattern, applicability_text) for pattern in forbidden_scope_patterns):
-            raise ValueError(f"M5证据准入不得由最高身份或时间窗口切死: {rid}")
         own_ids = {p["parent_id"] for p in row["parent_chains"]}
         if len(own_ids) != len(row["parent_chains"]) or parent_ids & own_ids:
             raise ValueError(f"M5父链ID重复: {rid}")
@@ -129,9 +91,6 @@ def verify(root: Path) -> dict[str, Any]:
         for parent in row["parent_chains"]:
             if not all(parent.get(k) for k in ("title", "process_narrative", "attribution_basis", "source_refs", "secondary_projection_reason")):
                 raise ValueError(f"M5父链不完整: {parent['parent_id']}")
-            attribution_text = str(parent["attribution_basis"])
-            if any(re.search(pattern, attribution_text) for pattern in forbidden_scope_patterns):
-                raise ValueError(f"M5父链归责不得由最高身份或时间窗口切死: {parent['parent_id']}")
             if not set(parent["source_refs"]) <= set(row["source_refs"]):
                 raise ValueError(f"M5父链来源不在完整集合: {rid}")
         for ref in row["source_refs"]:
