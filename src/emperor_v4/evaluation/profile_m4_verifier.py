@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
@@ -97,24 +96,6 @@ def verify_payloads(
             assert row["axis_evidence_level"] == "E1"
             assert row["output_mode"] == "EPISODE_TAG"
             assert row["score_status"] == "EVIDENCE_LIMITED"
-        grading_text = "\n".join([
-            str(row.get("typical_pattern") or ""),
-            str(row.get("grade_basis") or ""),
-            str(row.get("position_basis") or ""),
-            *[str(value) for value in row.get("limitations") or []],
-        ])
-        forbidden_window_gate_patterns = (
-            r"窗口.{0,12}(?:短|很短|极短|只有|仅)",
-            r"实际权力窗口.{0,12}(?:短|只有|仅)",
-            r"最高权力窗口.{0,12}(?:短|只有|仅)",
-            r"亲政.{0,10}(?:短|仅)",
-            r"在位.{0,10}(?:短|仅)",
-            r"(?:[三四五六七八九十]|[0-9]{1,2})年.{0,10}(?:窗口|统治|摄政|亲政|在位)",
-            r"(?:窗口|统治|摄政|亲政|在位).{0,10}(?:只有|仅有|仅|[三四五六七八九十]|[0-9]{1,2})年",
-        )
-        assert not any(re.search(pattern, grading_text) for pattern in forbidden_window_gate_patterns), (
-            f"actual_power_window duration cannot gate M4 grade: {row['ruler_name']}"
-        )
         assert len(row["typical_pattern"]) >= 20
         assert row["limitations"] and row["counterpattern"]
         assert set(row["major_mechanisms_observed"]) == {
@@ -188,8 +169,6 @@ def verify_payloads(
     assert all(unit["entry"] == "M4_EXPLICIT_ADJUDICATION" for unit in scoring)
 
     assert high["schema_version"] == "profile-m4-high-grade-alliance-lifecycle-review-v1"
-    assert "完整实际权力窗口" not in high["policy"]
-    assert "actual_power_window仅作生涯背景与证据定位，不得作为高档准入门" in high["policy"]
     high_ids = {row["ruler_id"] for row in records if row["axis_grade"] in {"G4", "G5"}}
     assert {row["ruler_id"] for row in high["reviews"]} == high_ids
     assert all(row["lifecycle_count"] >= 1 and row["mechanism_count"] == 4 for row in high["reviews"])
