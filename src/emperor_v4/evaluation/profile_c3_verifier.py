@@ -99,6 +99,28 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     assert settlement["profile_ranking_enabled"] is False and settlement["database_write"] is False
     _assert_no_mechanical_adjudicator(settlement, audit, high)
 
+    forbidden_window_gate_patterns = (
+        r"窗口.{0,8}(?:短|很短|极短)",
+        r"(?:短|很短|极短).{0,8}窗口",
+        r"帝位.{0,8}(?:短|仅)",
+        r"亲政.{0,8}(?:短|仅)",
+        r"最高权力.{0,10}(?:短|仅)",
+        r"实际掌权.{0,10}(?:短|仅)",
+        r"三年统治太短",
+    )
+    for row in records:
+        grading_text = "\n".join(
+            [
+                str(row.get("typical_pattern") or ""),
+                str(row.get("grade_basis") or ""),
+                str(row.get("position_basis") or ""),
+                *[str(value) for value in row.get("limitations") or []],
+            ]
+        )
+        assert not any(re.search(pattern, grading_text) for pattern in forbidden_window_gate_patterns), (
+            f"actual_power_window duration cannot gate C3 grade: {row['ruler_name']}"
+        )
+
     required = {
         "task_code", "ruler_id", "axis_grade", "position", "radar_value", "axis_evidence_level",
         "output_mode", "confidence", "score_status", "parent_chains", "representative_parent_ids", "typical_pattern", "grade_basis",
