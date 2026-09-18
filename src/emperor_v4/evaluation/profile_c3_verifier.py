@@ -110,6 +110,8 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
         r"统治.{0,6}(?:仅|太短)",
         r"在位.{0,8}(?:短|仅)",
         r"三年统治太短",
+        r"(?:[三四五六七八九十]|[0-9]{1,2})年.{0,8}(?:窗口|实际权力|亲政|统治|在位|摄政)",
+        r"(?:窗口|实际权力|亲政|统治|在位|摄政).{0,8}(?:只有|仅有|仅|[三四五六七八九十]|[0-9]{1,2})年",
     )
     for row in records:
         grading_text = "\n".join(
