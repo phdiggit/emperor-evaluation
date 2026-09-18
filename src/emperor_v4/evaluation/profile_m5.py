@@ -94,19 +94,29 @@ def verify(root: Path) -> dict[str, Any]:
         )
         forbidden_window_gate_patterns = (
             r"(?:短|长|极短|太短|较短|偏短)窗口",
-            r"(?:窗口|亲政|在位|实际统治).{0,12}(?:太短|极短|较短|偏短|只有|仅有|不足|足够长)",
-            r"(?:观察窗口|统治窗口).{0,8}(?:更长|超过)",
-            r"(?:实际统治|亲政|在位).{0,8}(?:仅|只有).{0,6}[0-9一二三四五六七八九十]+年",
+            r"(?:窗口|亲政|在位|实际统治|摄政|掌权|主政).{0,12}(?:太短|极短|较短|偏短|只有|仅有|不足|足够长)",
+            r"(?:观察窗口|统治窗口|权力窗口).{0,8}(?:更长|超过|足够)",
+            r"(?:实际统治|亲政|在位|摄政|掌权|主政).{0,8}(?:仅|只有).{0,6}[0-9一二三四五六七八九十百]+年",
+            r"(?:[0-9一二三四五六七八九十百]+|二十余|三十余|四十余|五十余)年.{0,18}(?:足以|稳居|稳定|封顶|阻断|限制|不进|不能|取G|加权)",
+            r"(?:持续时间|观察时长|统治时长).{0,10}(?:长|短|足|不足)",
         )
-        if not anti_gate.search(grading_text) and any(
-            re.search(pattern, grading_text) for pattern in forbidden_window_gate_patterns
+        grading_sentences = [
+            sentence.strip()
+            for sentence in re.split(r"[。；\n]+", grading_text)
+            if sentence.strip()
+        ]
+        if any(
+            not anti_gate.search(sentence)
+            and any(re.search(pattern, sentence) for pattern in forbidden_window_gate_patterns)
+            for sentence in grading_sentences
         ):
             raise ValueError(f"M5裁档不得以人物时间窗口长度为门: {rid}")
         applicability_text = str(row["applicability"].get("basis") or "")
         forbidden_scope_patterns = (
-            r"适用。.{0,32}(?:实际最高权力窗口|最高权力窗口)",
-            r"适用。.{0,32}只计算.{0,20}(?:亲政|在位|实际权力)",
-            r"适用。.{0,32}亲政窗口以",
+            r"适用。.{0,40}(?:实际最高权力窗口|最高权力窗口|亲政窗口)",
+            r"适用。.{0,40}(?:严格只看|只计算|只计).{0,24}(?:亲政|在位|实际权力|最高权力)",
+            r"适用。.{0,40}以.{0,24}亲政窗口为主",
+            r"适用。.{0,40}严格按.{0,24}亲政窗口",
         )
         if any(re.search(pattern, applicability_text) for pattern in forbidden_scope_patterns):
             raise ValueError(f"M5证据准入不得由最高身份或时间窗口切死: {rid}")
