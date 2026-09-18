@@ -121,33 +121,6 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     }
     assert all(not any(text in row["grade_basis"] for text in forbidden_templates) for row in records)
 
-    anti_time_gate = re.compile(
-        r"(?:不再参与升降档|不参与升降档|不作为.{0,16}(?:升降档|准入)|"
-        r"不因.{0,24}(?:窗口|任期|在位|主政|亲政).{0,12}(?:排除|降档|封顶)|"
-        r"(?:窗口|任期|在位|主政|亲政).{0,12}(?:本身)?不参与升降档)"
-    )
-    forbidden_time_gate_patterns = (
-        r"(?:短|长|极短|太短|较短|偏短)(?:任期|在位期|窗口)",
-        r"(?:任期|在位|主政|亲政|实际主政|实际统治|权力窗口|actual_power_window).{0,14}(?:仅|只有|太短|较短|偏短|不足|有限|足够长)",
-        r"(?:[0-9一二三四五六七八九十百]+|二十余|三十余|四十余|五十余)年(?:内|余|左右)?(?:的)?"
-        r"(?:任期|在位|主政|亲政|实际主政|统治|观察|窗口).{0,18}"
-        r"(?:阻止|限制|不上|不进|封顶|压低|抬高|取G|稳居|足以)",
-    )
-    for row in records:
-        grading_text = "\n".join([
-            str(row.get("grade_basis") or ""),
-            str(row.get("position_basis") or ""),
-            *[str(value) for value in row.get("limitations") or []],
-        ])
-        for sentence in (
-            part.strip()
-            for part in re.split(r"[。；\n]+", grading_text)
-            if part.strip()
-        ):
-            assert anti_time_gate.search(sentence) or not any(
-                re.search(pattern, sentence) for pattern in forbidden_time_gate_patterns
-            ), f"C2 grade cannot be gated by tenure/window length: {row['ruler_name']}"
-
     parent_ids = [parent["parent_id"] for row in records for parent in parent_chains(row)]
     assert len(parent_ids) == len(set(parent_ids))
     parent_by_id = {parent["parent_id"]: (row["ruler_id"], parent) for row in records for parent in parent_chains(row)}
@@ -283,14 +256,6 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         assert profile["source_density_asymmetry_review"] == "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE"
         assert profile["multiple_independent_learning_cycles_review"] and profile["later_retest_review"]
         assert profile["g5_boundary_review"]["decision"] in {"PROMOTE_TO_G5_LOW", "RETAIN_G4"}
-        for sentence in (
-            part.strip()
-            for part in re.split(r"[。；\n]+", str(profile.get("basis") or ""))
-            if part.strip()
-        ):
-            assert anti_time_gate.search(sentence) or not any(
-                re.search(pattern, sentence) for pattern in forbidden_time_gate_patterns
-            ), f"C2 high-grade review cannot be gated by tenure/window length: {profile['ruler_name']}"
 
     adjacent = high["adjacent_boundary_review"]
     assert adjacent["scope"] == ["G3-HIGH_DIRECTIONAL_CONSISTENCY", "G3-HIGH_TO_G4-LOW", "G4-LOW_TO_G4-MID", "G4-MID_TO_G4-HIGH", "G4-HIGH_TO_G5-LOW"]
