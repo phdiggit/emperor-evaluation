@@ -188,6 +188,8 @@ def verify_payloads(
     assert all(unit["entry"] == "M4_EXPLICIT_ADJUDICATION" for unit in scoring)
 
     assert high["schema_version"] == "profile-m4-high-grade-alliance-lifecycle-review-v1"
+    assert "完整实际权力窗口" not in high["policy"]
+    assert "actual_power_window仅作生涯背景与证据定位，不得作为高档准入门" in high["policy"]
     high_ids = {row["ruler_id"] for row in records if row["axis_grade"] in {"G4", "G5"}}
     assert {row["ruler_id"] for row in high["reviews"]} == high_ids
     assert all(row["lifecycle_count"] >= 1 and row["mechanism_count"] == 4 for row in high["reviews"])
