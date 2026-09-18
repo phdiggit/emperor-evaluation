@@ -190,7 +190,7 @@ def verify_profile_current(root: Path, axis: str) -> dict:
     """Common profile contracts; axis-specific semantics use their own verifiers."""
     from emperor_v4.evaluation.profile_markdown import render_profile_markdown
     from emperor_v4.evaluation.profile_m4_settlement import SCORES
-    from emperor_v4.evaluation.profile_publication import is_closed_no_grade, validate_closed_no_grade, validate_bounded_diplomatic_grade, validate_final_capability_review
+    from emperor_v4.evaluation.profile_publication import is_closed_no_grade, validate_closed_no_grade, validate_bounded_diplomatic_grade, validate_final_capability_review, validate_m2_full_lifetime_scope
     path = current_entries(root)[f"profile.{axis}"]
     payload = load_json(path)
     records = payload["records"]
@@ -200,6 +200,7 @@ def verify_profile_current(root: Path, axis: str) -> dict:
         raise ValueError(f"Profile {axis} pool coverage mismatch")
     for row in records:
         if axis == 'M2':
+            validate_m2_full_lifetime_scope(row)
             validate_final_capability_review(row)
         if is_closed_no_grade(row):
             validate_closed_no_grade(row, axis)
