@@ -335,6 +335,48 @@
           "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-WEI-CAORUI",
           "parent_chains": [
             {
+              "parent_id": "C1-P162-EARLY-MULTI-FRONT",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算/三国.json#ruler_id=RULER-WEI-CAORUI"
+              ],
+              "direct_process_refs": [
+                "CAMPAIGN-WEI-MENGDA-227-228",
+                "CAMPAIGN-V071-SG-WEI-WU-SHITING-228",
+                "CAMPAIGN-V071-SG-WEI-HANZHONG-230"
+              ],
+              "cycle_basis": "即位初在孟达、吴、蜀多方向连续面对高压任务，本人持续作国家级优先级判断与统帅授权；现场战术和将领成果不归本人，C1只消费最高目标排序、资源配置与授权边界。多对象连续复验构成独立PS2。",
+              "diagnostic_role": "PS2"
+            },
+            {
+              "parent_id": "C1-P162-LIAODONG-SEQUENCE",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算/三国.json#ruler_id=RULER-WEI-CAORUI"
+              ],
+              "direct_process_refs": [
+                "CAMPAIGN-WEI-LIAODONG-232-238"
+              ],
+              "cycle_basis": "辽东问题跨年升级后，本人再次确定终局目标并改以司马懿承担独立战区责任，形成与早期吴蜀多线不同阶段的目标—授权—资源配置周期；具体前线解题不回填C1，构成第二条PS2。",
+              "diagnostic_role": "PS2"
+            },
+            {
               "parent_id": "C1-P162-RESOURCE-STRAIN",
               "direction": "MIXED_NEGATIVE",
               "intensity": "MI3",
@@ -355,49 +397,32 @@
               ],
               "cycle_basis": "关东灾后可减工程恢复，本人仍维持三四万役工与军费；陈群意见曾促班师，但宫室园林在农业失业反馈下延续至死。",
               "diagnostic_role": "DW2"
-            },
-            {
-              "ruler_name": "曹叡",
-              "parent_id": "C1-P162-MULTI-FRONT-STRATEGY",
-              "direction": "POSITIVE",
-              "intensity": "MI2",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-WEI-CAORUI-CR-P1",
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-WEI-CAORUI"
-              ],
-              "direct_process_refs": [
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-WEI-CAORUI-CR-P1",
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-WEI-CAORUI"
-              ],
-              "cycle_basis": "在吴、蜀、辽东多方向压力下持续进行国家级目标排序与最高授权，至少形成两条独立战略周期；晚年资源承载下沿另行保留。",
-              "diagnostic_role": "PS2"
             }
           ],
           "representative_parent_ids": [
-            "C1-P162-RESOURCE-STRAIN",
-            "C1-P162-MULTI-FRONT-STRATEGY"
+            "C1-P162-EARLY-MULTI-FRONT",
+            "C1-P162-LIAODONG-SEQUENCE",
+            "C1-P162-RESOURCE-STRAIN"
           ],
-          "typical_pattern": "多线防务授权尚可且一次采纳班师止损，但灾后仍叠加用兵宫室，工程主线至遗诏才停。",
+          "typical_pattern": "即位初吴蜀等多线目标排序与后期辽东终局处置形成两个独立高压周期；晚年灾后仍叠加宫室与军费，资源承载和反馈收束存在明确下沿。",
           "counterpattern": {
             "positive_parent_refs": [
-              "C1-P162-MULTI-FRONT-STRATEGY"
+              "C1-P162-EARLY-MULTI-FRONT",
+              "C1-P162-LIAODONG-SEQUENCE"
             ],
             "counter_parent_refs": [
               "C1-P162-RESOURCE-STRAIN"
             ]
           },
-          "grade_basis": "曹叡至少有两条独立重大军事战略周期，并在吴、蜀、辽东多对象下达到PS3；原G2显著偏低。与此同时，晚年资源承载和托孤信息结构均有真实DW2级下沿。 达到G4门，但负证足以限制到低位。 由`G2-MID / 45`上调为**`G4-LOW / 77`**。",
-          "position_basis": "防务现场归司马懿等，不抬档。",
+          "grade_basis": "早期吴蜀等多线战略授权与后期辽东终局处置形成两条独立PS2，跨阶段达到PS3；晚年资源承载与反馈失配为DW2，故进入G4但只取LOW。由`G2-MID / 45`上调为**`G4-LOW / 77`**。",
+          "position_basis": "两个独立高压周期过G4门；现场军功不归本人，资源承载DW2压住上沿。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": "C1-P162-RESOURCE-STRAIN C1-P162-MULTI-FRONT-STRATEGY",
+            "scoring_parent_refs": [
+              "C1-P162-EARLY-MULTI-FRONT",
+              "C1-P162-LIAODONG-SEQUENCE",
+              "C1-P162-RESOURCE-STRAIN"
+            ],
             "result_nonconversion": true
           },
           "reviews": {

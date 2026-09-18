@@ -230,16 +230,39 @@
               ],
               "cycle_basis": "附件终审逐人材料吸纳：原父链保留： - 前线出现可继续推进窗口； - 召回诸军、集中军权； - 岳飞等强军事资源被移除； - 战略退出成本和军政信用明显提高。 不评价岳飞伦理/冤案，只评价： > **为了锁定和议路线而过度压缩战略备选与专业强制资源。** **诊断：`DW3`下沿。**",
               "diagnostic_role": "DW3"
+            },
+            {
+              "parent_id": "C1-P144-LATE-REOPEN-SUCCESSION",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/宋.json#parent_id=M4P-RULER-SS-ZHAO-GOU-ZG-P3",
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/宋.json#ruler_id=RULER-SS-ZHAO-GOU"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/宋.json#parent_id=M4P-RULER-SS-ZHAO-GOU-ZG-P3"
+              ],
+              "cycle_basis": "秦桧死后不再维持单一中枢网络，旧臣与外廷接口逐步恢复；继承上由长期观察赵昚、赵璩转为明确赵昚并在1162年主动禅位。C1只消费中枢再开放、继承风险配置与最高权力退出，不以孝宗后续治绩加分，构成第二条PS2。",
+              "diagnostic_role": "PS2"
             }
           ],
           "representative_parent_ids": [
             "C1-P144-SURVIVAL-EXIT",
+            "C1-P144-LATE-REOPEN-SUCCESSION",
             "C1-RR-170-NEGATIVE-MATERIALS"
           ],
-          "typical_pattern": "靖康坏牌下南迁建基并以和议换生存有效；召军收权与杀岳损害更高收益和信用。",
+          "typical_pattern": "靖康坏牌下南迁建基—议和退出形成生存安全周期；秦桧死后中枢再开放—明确赵昚—主动禅位形成另一条最高权力转移周期。1140收军与秦桧单点化则构成深下沿。",
           "counterpattern": {
             "positive_parent_refs": [
-              "C1-P144-SURVIVAL-EXIT"
+              "C1-P144-SURVIVAL-EXIT",
+              "C1-P144-LATE-REOPEN-SUCCESSION"
             ],
             "counter_parent_refs": [
               "C1-RR-170-NEGATIVE-MATERIALS"
@@ -251,6 +274,7 @@
             "status": "CLOSED",
             "scoring_parent_refs": [
               "C1-P144-SURVIVAL-EXIT",
+              "C1-P144-LATE-REOPEN-SUCCESSION",
               "C1-RR-170-NEGATIVE-MATERIALS"
             ],
             "result_nonconversion": true

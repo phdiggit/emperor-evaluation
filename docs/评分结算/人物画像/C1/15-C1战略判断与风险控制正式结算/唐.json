@@ -349,18 +349,23 @@
             },
             {
               "parent_id": "C1-P156-EUNUCH-OUT",
-              "direction": "LIMITATION",
+              "direction": "POSITIVE",
               "intensity": "MI2",
-              "consumption_status": "BACKGROUND_VALIDATION",
-              "mechanisms": [],
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
               "source_refs": [
-                "新唐书/卷207#程元振鱼朝恩权力问题"
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/唐.json#parent_id=M4P-RULER-TANG-LIYU-LY-P2",
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/唐.json#ruler_id=RULER-TANG-LIYU"
               ],
               "direct_process_refs": [
-                "新唐书/卷207#程元振鱼朝恩权力问题"
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/唐.json#parent_id=M4P-RULER-TANG-LIYU-LY-P2"
               ],
-              "cycle_basis": "近侍替代近侍主路由C2/C5，不重复计分。",
-              "diagnostic_role": "DW0"
+              "cycle_basis": "鱼朝恩长期掌握北军与宫廷强制资源后，代宗联合中枢定点收权，随即慰抚北军、保留普通将士职任并提升相关责任人，把强制资源从私人首领网络重新纳入朝廷；此前容忍其坐大及后续元载再集中作为上限，不否定本次独立PS2。",
+              "diagnostic_role": "PS2"
             }
           ],
           "representative_parent_ids": [
@@ -368,10 +373,11 @@
             "C1-P156-CHANGAN-763-SHARED",
             "C1-P156-EUNUCH-OUT"
           ],
-          "typical_pattern": "李豫现正式C1只确认763年长安失守后的防务重建，因此停在G3-MID。跨轴后，对鱼朝恩—北军强制资源的定点拆解提供了第二条真正独立的国家级C1周期。",
+          "typical_pattern": "763年长安失守后的首都防务重建，与鱼朝恩—北军强制资源的定点拆解，形成两个约束不同的国家级C1周期；前后仍可见权力再集中风险。",
           "counterpattern": {
             "positive_parent_refs": [
-              "C1-P156-CAPITAL-DEFENSE-REBUILD"
+              "C1-P156-CAPITAL-DEFENSE-REBUILD",
+              "C1-P156-EUNUCH-OUT"
             ],
             "counter_parent_refs": [
               "C1-P156-CHANGAN-763-SHARED"
@@ -383,7 +389,8 @@
             "status": "CLOSED",
             "scoring_parent_refs": [
               "C1-P156-CAPITAL-DEFENSE-REBUILD",
-              "C1-P156-CHANGAN-763-SHARED"
+              "C1-P156-CHANGAN-763-SHARED",
+              "C1-P156-EUNUCH-OUT"
             ],
             "result_nonconversion": true
           },

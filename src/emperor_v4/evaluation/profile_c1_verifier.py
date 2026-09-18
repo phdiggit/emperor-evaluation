@@ -200,6 +200,24 @@ def verify(root: Path) -> dict[str, object]:
             if record["reviews"]["low_grade_gate"]["status"] != "CLOSED":
                 raise ValueError(f"low-grade bidirectional gate failed: {record['ruler_id']}")
         parents = _parent_chains(record)
+        scoring_refs = record.get("axis_relevance_check", {}).get("scoring_parent_refs")
+        expected_scoring_refs = [
+            parent["parent_id"] for parent in parents
+            if parent.get("consumption_status") == "SCORING_PARENT"
+        ]
+        if not isinstance(scoring_refs, list):
+            raise ValueError(f"C1 scoring_parent_refs must be a list: {record['ruler_id']}")
+        if len(scoring_refs) != len(set(scoring_refs)) or set(scoring_refs) != set(expected_scoring_refs):
+            raise ValueError(f"C1 scoring_parent_refs mismatch: {record['ruler_id']}")
+        counterpattern = record.get("counterpattern") or {}
+        for key in ("positive_parent_refs", "counter_parent_refs"):
+            refs = counterpattern.get(key) or []
+            if not isinstance(refs, list) or not set(refs) <= set(expected_scoring_refs):
+                raise ValueError(f"C1 counterpattern parent refs mismatch: {record['ruler_id']}: {key}")
+        for limitation in record.get("limitations") or []:
+            stale = re.search(r"取G([0-5])(?:低|中|高)?位", str(limitation))
+            if stale and f"G{stale.group(1)}" != record["axis_grade"]:
+                raise ValueError(f"C1 stale limitation grade: {record['ruler_id']}: {limitation}")
         for parent in parents:
             parent_id = parent["parent_id"]
             if parent_id in parent_ids:

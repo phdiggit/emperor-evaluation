@@ -269,6 +269,46 @@
           "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-YUAN-KUBLAI",
           "parent_chains": [
             {
+              "parent_id": "C1-P178-SONG-CONQUEST-ARCHITECTURE",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算/元.json#ruler_id=RULER-YUAN-KUBLAI"
+              ],
+              "direct_process_refs": [
+                "PCR-034C510177FEE943F9E3"
+              ],
+              "cycle_basis": "灭宋阶段本人选择两路行枢密架构、任伯颜统军并配置大规模军兵与舟师，形成可追踪的全局目标与资源设计；只消费战略统筹，不继承伯颜前线D3，构成独立PS2。",
+              "diagnostic_role": "PS2"
+            },
+            {
+              "parent_id": "C1-P178-NAYAN-CRISIS",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算/元.json#ruler_id=RULER-YUAN-KUBLAI"
+              ],
+              "direct_process_refs": [
+                "PCR-37B58873BD398181B35F"
+              ],
+              "cycle_basis": "乃颜叛乱形成宗王级内部安全危机时，本人重新集中目标与强制资源并完成危机收束；具体战术归M1，C1只取最高层优先级、资源与退出控制，构成第二条PS2。",
+              "diagnostic_role": "PS2"
+            },
+            {
               "parent_id": "C1-P178-EXPANSION-OVERREACH",
               "direction": "MIXED_NEGATIVE",
               "intensity": "MI4",
@@ -313,50 +353,33 @@
                 "PCR-37B58873BD398181B35F"
               ],
               "cycle_basis": "蒙哥死后应先争位却继续鄂州，逼近才撤；灭宋后可巩固或海外远征，本人跨日本安南占城爪哇重复高投入，失败反馈未止同类投送。",
-              "diagnostic_role": "DW2"
-            },
-            {
-              "ruler_name": "忽必烈",
-              "parent_id": "C1-P178-FOUNDING-AND-CONQUEST-PORTFOLIO",
-              "direction": "POSITIVE",
-              "intensity": "MI2",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-YUAN-KUBLAI-KB-P1",
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-YUAN-KUBLAI"
-              ],
-              "direct_process_refs": [
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-YUAN-KUBLAI-KB-P1",
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-YUAN-KUBLAI"
-              ],
-              "cycle_basis": "争位、灭宋总体架构与多族资源接入形成独立正向战略厚度；海外远征失败反馈另保留为晚期下沿。",
-              "diagnostic_role": "PS2"
+              "diagnostic_role": "DW3"
             }
           ],
           "representative_parent_ids": [
-            "C1-P178-EXPANSION-OVERREACH",
-            "C1-P178-FOUNDING-AND-CONQUEST-PORTFOLIO"
+            "C1-P178-SONG-CONQUEST-ARCHITECTURE",
+            "C1-P178-NAYAN-CRISIS",
+            "C1-P178-EXPANSION-OVERREACH"
           ],
-          "typical_pattern": "争位与灭宋阶段资源组织强，统一后日本安南占城爪哇多次投送失常，好牌低产和反馈加码显著。",
+          "typical_pattern": "灭宋总体架构与乃颜危机收束形成两条独立国家级正周期；统一后日本、安南、占城、爪哇等跨对象投送在失败反馈后仍反复加码，晚期目标扩张失控明显。",
           "counterpattern": {
             "positive_parent_refs": [
-              "C1-P178-FOUNDING-AND-CONQUEST-PORTFOLIO"
+              "C1-P178-SONG-CONQUEST-ARCHITECTURE",
+              "C1-P178-NAYAN-CRISIS"
             ],
             "counter_parent_refs": [
               "C1-P178-EXPANSION-OVERREACH"
             ]
           },
-          "grade_basis": "忽必烈至少有争位、灭宋总体架构、乃颜三条国家级独立正周期，主体稳定达到PS3；统一后远征又形成很重的跨对象DW3。 这种结构不是G2，而是典型“强战略能力 + 晚期目标扩张失控”。 由`G2-MID / 45`上调为**`G4-MID / 82`**。",
-          "position_basis": "早期联盟招降和灭宋统筹强正证保留，不因帝国版图抬档。",
+          "grade_basis": "灭宋总体架构与乃颜危机两条独立PS2形成PS3；统一后多轮海外投送在失败反馈后继续，构成跨对象DW3。整体属于强战略能力伴随晚期目标扩张失控，维持`G4-MID / 82`。",
+          "position_basis": "两条独立强正周期支撑MID；海外远征DW3阻止HIGH，版图与战果本身不换分。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": "C1-P178-EXPANSION-OVERREACH C1-P178-FOUNDING-AND-CONQUEST-PORTFOLIO",
+            "scoring_parent_refs": [
+              "C1-P178-SONG-CONQUEST-ARCHITECTURE",
+              "C1-P178-NAYAN-CRISIS",
+              "C1-P178-EXPANSION-OVERREACH"
+            ],
             "result_nonconversion": true
           },
           "reviews": {
