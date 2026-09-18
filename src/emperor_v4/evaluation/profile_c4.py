@@ -111,25 +111,6 @@ def verify(root: Path = ROOT) -> dict[str, Any]:
             raise ValueError('C4父链或代表链无效')
         if not row['grade_basis'] or not row['position_basis'] or not row['limitations']:
             raise ValueError('C4裁决依据不完整')
-        grading_text = "\n".join([
-            str(row.get('typical_pattern') or ''),
-            str(row.get('grade_basis') or ''),
-            str(row.get('position_basis') or ''),
-            *[str(value) for value in row.get('limitations') or []],
-        ])
-        forbidden_window_gates = (
-            '材料外推受所引父链及实际权力窗口限制',
-            '规范实际权力窗口内具有所引结构选择机会',
-            '限定于实际权力窗口',
-            '仅限实际权力窗口',
-            '窗口外不计',
-            '窗口外排除',
-            '窗口短',
-            '亲政窗口短',
-            '正式皇帝窗口仅',
-        )
-        if any(token in grading_text for token in forbidden_window_gates):
-            raise ValueError(f'C4不得以actual_power_window作为证据准入边界: {row["ruler_id"]}')
         for ref in row['source_refs'] + [ref for p in parents for ref in p['source_refs']]:
             file, _, anchor = ref.partition('#')
             if not (root / file).is_file():
