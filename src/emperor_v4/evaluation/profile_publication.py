@@ -1,7 +1,47 @@
 """Explicit terminal publication states, distinct from pending work and inapplicability."""
 
+import re
+
 CLOSED_NO_GRADE = "EVIDENCE_INSUFFICIENT_CLOSED"
 FULL_LIFETIME_ATTRIBUTABLE_EVENTS = "FULL_LIFETIME_ATTRIBUTABLE_EVENTS"
+
+
+def validate_m2_full_lifetime_scope(row: dict) -> None:
+    """M2 evidence admission is causal and full-lifetime; actual_power_window is background only."""
+    reviews = row.get("reviews") or {}
+    negative_scope = reviews.get("negative_search_scope")
+    if negative_scope is not None:
+        if (FULL_LIFETIME_ATTRIBUTABLE_EVENTS not in negative_scope
+                or "ACTUAL_POWER_WINDOW" in negative_scope):
+            raise ValueError("M2 negative search must cover full-lifetime attributable events")
+
+    anti_time_gate = re.compile(
+        r"(?:不再参与升降档|不参与升降档|不作负证|不是扣分理由|"
+        r"不以.{0,20}(?:窗口|任期|在位|亲政|主政).{0,12}(?:扣分|换算|降档|封顶)|"
+        r"不得把actual_power_window当作证据截止线|不因.{0,20}actual_power_window.{0,12}排除)"
+    )
+    forbidden_time_gate_patterns = (
+        r"(?:短|长|极短|太短|较短|偏短)(?:任期|在位期|窗口)",
+        r"(?:任期|在位|亲政|主政|实际主政|实际统治|权力窗口).{0,14}"
+        r"(?:仅|只有|太短|较短|偏短|不足|有限|足够长)",
+        r"(?:[0-9一二三四五六七八九十百]+|二十余|三十余|四十余|五十余)年"
+        r"(?:内|余|左右)?(?:的)?(?:任期|在位|亲政|主政|统治|窗口).{0,18}"
+        r"(?:阻止|限制|不上|不进|封顶|压低|抬高|取G|稳居|足以)",
+    )
+    grading_text = "\n".join([
+        str(row.get("grade_basis") or ""),
+        str(row.get("position_basis") or ""),
+        *[str(value) for value in row.get("limitations") or []],
+    ])
+    for sentence in (
+        part.strip()
+        for part in re.split(r"[。；\n]+", grading_text)
+        if part.strip()
+    ):
+        if not anti_time_gate.search(sentence) and any(
+            re.search(pattern, sentence) for pattern in forbidden_time_gate_patterns
+        ):
+            raise ValueError("M2 grade cannot be gated by tenure/window length")
 
 
 def validate_final_capability_review(row: dict) -> None:
