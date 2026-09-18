@@ -1,6 +1,7 @@
 """Explicit terminal publication states, distinct from pending work and inapplicability."""
 
 CLOSED_NO_GRADE = "EVIDENCE_INSUFFICIENT_CLOSED"
+FULL_LIFETIME_ATTRIBUTABLE_EVENTS = "FULL_LIFETIME_ATTRIBUTABLE_EVENTS"
 
 
 def validate_final_capability_review(row: dict) -> None:
@@ -21,9 +22,10 @@ def validate_final_capability_review(row: dict) -> None:
     if (any(row.get(k) != v for k, v in expected.items()) or
             not all(review.get(k) for k in ('actual_window', 'direct_review', 'indirect_review',
                                            'exclusion_basis', 'source_refs', 'conclusion')) or
+            review.get('evidence_admission_scope') != FULL_LIFETIME_ATTRIBUTABLE_EVENTS or
             review.get('claim_scope') != 'REVIEWED_EVIDENCE_ONLY' or
             not row.get('limitations') or '未显示外交能力' not in row.get('typical_pattern', '')):
-        raise ValueError('Final capability review requires its evidence scope and limited publication')
+        raise ValueError('Final capability review requires full-lifetime attributable-event scope and limited publication')
 
 
 def validate_bounded_diplomatic_grade(row: dict) -> None:
