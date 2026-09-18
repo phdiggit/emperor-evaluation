@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        86,
+        19,
         87,
         88,
         99,
@@ -24,23 +24,24 @@
           "actual_power_window": "196—220年实际控制汉廷",
           "axis_code": "C4",
           "axis_name": "治理架构与制度设计能力",
-          "axis_grade": "G3",
+          "axis_grade": "G4",
           "position": "HIGH",
           "axis_evidence_level": "E3",
           "confidence": "HIGH",
           "output_mode": "FULL_GRADE",
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "屯田高难重构+监察旁路",
-          "counterpattern": "反证与归责边界见裁决依据；未由制度名望、国家成败或其他轴档位换分。",
-          "grade_basis": "历史级屯田父链；第二独立正链不足G4",
-          "position_basis": "历史级屯田父链；第二独立正链不足G4",
+          "typical_pattern": "屯田资源行政+田租户调税基接口+校事旁路",
+          "counterpattern": "校事旁路构成强同轴反证；两条正向主链均集中于资源—财政治理，不能据此外推为AM4或国家基本运行架构重写。",
+          "grade_basis": "屯田资源行政与建安田租—户调分别闭合特殊人口/土地/粮储组织和一般编户税基/征收责任两条独立强父链；校事旁路构成明确下沿，取G4-HIGH。",
+          "position_basis": "屯田解决特殊人口—土地—粮储的专官资源行政；田租—户调解决一般编户的亩税、户调、额外征发边界与郡国守相检查责任，两者不是同一制度的阶段拆票。两条均体现本人实质结构选择并形成运行规则，满足G4-HIGH；监察司法旁路阻断更高。",
           "limitations": [
-            "材料外推受所引父链及实际权力窗口限制。"
+            "田租—户调只消费税基、征收责任和额外征收约束这一治理接口，不把制度长期影响或第二项A的S++直接换成C4量级。",
+            "校事干预百司狱讼构成同轴强反证；两条正向强链仍不足闭合AM4及G5硬门。"
           ],
           "axis_relevance_check": {
             "status": "C4_RELEVANT",
-            "boundary": "只消费长期组织、权责、信息与责任接口；制度净收益、认知更新、用人和执行另属原轴。"
+            "boundary": "只消费长期组织、权责、信息、核算、监督与责任接口；第二项A的M级、S/S++只提供候选事实，不映射C4的AM级或档位。"
           },
           "parent_chains": [
             {
@@ -48,7 +49,7 @@
               "title": "主要父情境1",
               "direction": "MIXED",
               "mechanism": "1. 许下屯田由典农专官组织，随后郡国列置田官，数年形成仓廪积粟；后续曹魏正始年间仍明确援引、扩展太祖屯田逻辑。该链属于战争财政—人口—土地资源接口的高难结构设计，直接本人归责强。",
-              "attribution": "屯田强；典选中等且跨C3；校事负向强。",
+              "attribution": "屯田与田租—户调的最高结构选择归责强；典选中等且跨C3；校事负向强。",
               "source_refs": [
                 "docs/评分结算/人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-WEI-CAOCAO",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#material_id=I2-HAN-CAOCAO-SELECTION-ADMIN-001",
@@ -68,7 +69,7 @@
               "title": "主要父情境2",
               "direction": "MIXED",
               "mechanism": "毛玠、崔琰长期典选形成廉洁激励和专业选任效果，但材料更偏“授权专业责任中心+用人结果”，C4只作辅助，不与C3重复抬档。",
-              "attribution": "屯田强；典选中等且跨C3；校事负向强。",
+              "attribution": "屯田与田租—户调的最高结构选择归责强；典选中等且跨C3；校事负向强。",
               "source_refs": [
                 "docs/评分结算/人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-WEI-CAOCAO",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#material_id=I2-HAN-CAOCAO-SELECTION-ADMIN-001",
@@ -88,7 +89,7 @@
               "title": "主要父情境3",
               "direction": "MIXED",
               "mechanism": "创设校事并使其干预百司狱讼，属于监察/司法平行接口的负向结构；孔融案等说明最高权力对异议和正式程序存在侵蚀。",
-              "attribution": "屯田强；典选中等且跨C3；校事负向强。",
+              "attribution": "屯田与田租—户调的最高结构选择归责强；典选中等且跨C3；校事负向强。",
               "source_refs": [
                 "docs/评分结算/人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-WEI-CAOCAO",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#material_id=I2-HAN-CAOCAO-SELECTION-ADMIN-001",
@@ -102,22 +103,40 @@
               "direct_process_refs": [
                 "docs/评分结算/人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-WEI-CAOCAO"
               ]
+            },
+            {
+              "parent_id": "C4P-RULER-WEI-CAOCAO-04",
+              "title": "独立父链【建安田租—户调税基接口】",
+              "direction": "POSITIVE",
+              "mechanism": "建安九年在河北重建常规赋税接口：田租按亩征粟、户调按户征绢绵，同时禁止额外擅自兴发，并把防止豪强隐匿、弱户兼赋的检查责任明确给郡国守相。C4只消费“税基—征收对象—地方检查—额外征发边界”的治理架构，不以税额、财政收益或后世影响换档。",
+              "attribution": "强。政令以曹操名义明确规定税基、户调、禁止额外征发及地方检查责任；不要求税制思想或技术细节全部由本人原创。",
+              "source_refs": [
+                "docs/评分结算/人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-WEI-CAOCAO",
+                "docs/公共成果/制度行政/03-重要制度发展节点链.json#institution_node_id=A-LHAN-CAOCAO-LAND-HOUSEHOLD-TAX"
+              ],
+              "historical_source_descriptions": [
+                "制度节点`A-LHAN-CAOCAO-LAND-HOUSEHOLD-TAX`；《三国志·武帝纪》裴注引《魏书》建安九年令所载亩税、户调、禁止擅兴发及郡国守相检查责任。"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-WEI-CAOCAO"
+              ]
             }
           ],
           "representative_parent_ids": [
             "C4P-RULER-WEI-CAOCAO-01",
-            "C4P-RULER-WEI-CAOCAO-02"
+            "C4P-RULER-WEI-CAOCAO-04"
           ],
           "source_refs": [
             "docs/评分结算/人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-WEI-CAOCAO",
             "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#material_id=I2-HAN-CAOCAO-SELECTION-ADMIN-001",
             "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#material_id=I2-HAN-CAOCAO-SELECTION-PURGE-001",
             "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#material_id=I2-HAN-CAOCAO-TUNTIAN-OPERATION-M3-AUDIT",
-            "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#material_id=I2-HAN-CAOCAO-TUNTIAN-RECEPTION-R3"
+            "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#material_id=I2-HAN-CAOCAO-TUNTIAN-RECEPTION-R3",
+            "docs/公共成果/制度行政/03-重要制度发展节点链.json#institution_node_id=A-LHAN-CAOCAO-LAND-HOUSEHOLD-TAX"
           ],
           "adjudication_origin": {
-            "kind": "USER_SUPPLIED_ADJUDICATION",
-            "contract_version": "FORMAL-V2.2",
+            "kind": "FORMAL_LOCAL_READJUDICATION",
+            "contract_version": "FORMAL-V2.3",
             "sheet_file": "C4裁决清单.md",
             "sheet_line": 63
           },
@@ -125,8 +144,8 @@
             "status": "APPLICABLE",
             "basis": "适用。长期掌握汉末最高军政实权，拥有持续制度设计机会。"
           },
-          "score_100": 71,
-          "radar_value": 71,
+          "score_100": 87,
+          "radar_value": 87,
           "sequence": 87
         },
         {
