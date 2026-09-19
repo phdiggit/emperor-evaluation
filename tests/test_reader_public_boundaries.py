@@ -41,7 +41,10 @@ assert.ok(!alias.includes('patchInstitutionDetail'));
 
 const overview=home.slice(home.indexOf('  function firstItemOverview'),home.indexOf('  async function renderFirstMajor'));
 const long='已有成果。'.repeat(100)+'末尾仍有不能归给本人的部分。';
-const render=new Function('esc','firstPublicSharePercent','firstPublicOutcomeParts','firstPublicOutcomeText','firstFactText',overview+'return firstItemOverview;')(esc,()=>'',a=>[['成果',a.public_outcome_basis]],String,String);
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const identitySource=template.slice(template.indexOf('function personLabel('),template.indexOf('const powerContextNote='));
+const personLabel=new Function(identitySource+'return personLabel;')();
+const render=new Function('esc','firstPublicSharePercent','firstPublicOutcomeParts','firstPublicOutcomeText','firstFactText','personLabel',overview+'return firstItemOverview;')(esc,()=>'',a=>[['成果',a.public_outcome_basis]],String,String,personLabel);
 const html=render({ruler_name:'合成对象'}, {'B2组织与整合':{'并行执行':long}}, {'A统一贡献':{reader_public_outcome:{public_outcome_basis:long}}});
 assert.equal(html.split(long).length-1,2);
 // Exercise current public data, without storing any adjudication snapshot.
@@ -126,6 +129,107 @@ state.differences=true;vm.runInContext('compare()',context);
 assert.equal((html.match(/<tr/g)||[]).length,rowCount);
 for(const id of ['left','right'])for(const c of codes)assert.ok(html.includes(`${id}-${c}-独立依据`));
 assert.equal(JSON.stringify([left,right]),before,'rendering must not change formal inputs');
+''', encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
+                            text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
+
+
+def test_home_filters_preserve_context_and_use_formal_identity(tmp_path):
+    """Exercise the public control handlers without fixed real-world assessments."""
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node.js required for browser behavior')
+    script = tmp_path / 'reader-home-context.cjs'
+    script.write_text(r'''
+const fs=require('node:fs'),assert=require('node:assert/strict'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8');
+function section(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert.ok(a>=0&&b>a);return source.slice(a,b);}
+const nodes=Object.fromEntries(['search','polity','scope','sort','impact-filter','toggle-filters','advanced-filters','filter-state','clear-filters','count','rows','selection'].map(id=>[id,{id,value:'',hidden:false,textContent:'',innerHTML:'',handlers:{},attributes:{},focus(){this.focused=true;},setAttribute(k,v){this.attributes[k]=v;},addEventListener(k,v){this.handlers[k]=v;}}]));
+let writes=0,html='';
+const screen={set innerHTML(v){writes++;html=v;},get innerHTML(){return html;}};
+function record(id,extra={}){return {ruler_id:id,ruler_name:id,polity:'合成朝代',supplementary:false,axes:{},net:null,impact:{identity_label:id+'（合成称号）',reading_start_year:1,public_grade:'B',impact_nature:'合成性质',confidence:'MEDIUM'},...extra};}
+const records=[record('left'),record('right'),record('supplement',{supplementary:true})];
+records[0].impact.identity_label='left（<不作为HTML>）';
+const original=JSON.stringify(records);
+const state={q:'',polity:'',scope:'main',sort:'time',compare:['left'],grade:'',differences:false,filtersOpen:false};
+const context={DATA:{records,impact_grades:['B'],main_count:2,ranked_count:0,supplementary_count:1,capability_axes:[],independent_axes:[],axis_specs:{}},state,screen,byId:new Map(records.map(r=>[r.ruler_id,r])),document:{getElementById:id=>nodes[id]},nav(){},number:String,conf:String};
+vm.createContext(context);
+vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function home(){','function netPanel('),context);
+vm.runInContext('home()',context);
+assert.equal(nodes['advanced-filters'].hidden,true);
+assert.equal(nodes['toggle-filters'].attributes['aria-expanded'],'false');
+assert.ok(nodes['filter-state'].textContent.includes('正式评价对象'));
+assert.ok(nodes['rows'].innerHTML.includes('left（&lt;不作为HTML&gt;）'));
+assert.ok(!nodes['rows'].innerHTML.includes('<不作为HTML>'));
+assert.ok(!nodes['rows'].innerHTML.includes('undefined'));
+assert.ok(nodes['rows'].innerHTML.includes('掌权背景：未列'));
+const firstWrites=writes;
+nodes['toggle-filters'].onclick();
+assert.equal(writes,firstWrites,'opening filters must not rebuild the page or lose focus');
+assert.equal(nodes['advanced-filters'].hidden,false);
+assert.equal(nodes['toggle-filters'].attributes['aria-expanded'],'true');
+function change(id,value){nodes[id].value=value;nodes[id].handlers[id==='search'?'input':'change']({target:{value}});}
+change('search','合成称号');assert.ok(!nodes['rows'].innerHTML.includes('data-person="left"'));assert.ok(nodes['rows'].innerHTML.includes('data-person="right"'));
+change('search','');change('scope','supplementary');change('impact-filter','B');change('sort','impact');
+assert.ok(nodes['rows'].innerHTML.includes('data-person="supplement"'));
+assert.ok(!nodes['rows'].innerHTML.includes('data-person="right"'));
+nodes['toggle-filters'].onclick();
+assert.equal(nodes['advanced-filters'].hidden,true);
+assert.ok(nodes['filter-state'].textContent.includes('补充历史样本'));
+assert.ok(nodes['filter-state'].textContent.includes('影响等级 B'));
+assert.ok(nodes['filter-state'].textContent.includes('历史影响等级排序'));
+assert.ok(nodes['toggle-filters'].textContent.includes('3'));
+vm.runInContext('home()',context); // Returning to the overview must preserve the query.
+assert.equal(nodes.scope.value,'supplementary');assert.equal(nodes.sort.value,'impact');assert.equal(nodes['impact-filter'].value,'B');
+assert.equal(nodes['advanced-filters'].hidden,true);
+change('search','没有这个称号');assert.ok(nodes['rows'].innerHTML.includes('没有匹配人物'));
+nodes['toggle-filters'].onclick();
+const beforeReset=writes;
+nodes['clear-filters'].onclick();
+assert.equal(writes,beforeReset,'reset must preserve the same controls and keyboard focus');
+assert.equal(nodes['advanced-filters'].hidden,false,'clearing filters does not reset disclosure state');
+assert.equal(nodes.scope.value,'main');assert.equal(nodes.sort.value,'time');assert.equal(nodes.search.value,'');
+assert.deepEqual(state.compare,['left'],'filter reset must not erase compare selection');
+assert.ok(nodes['rows'].innerHTML.includes('data-person="left"'));
+assert.equal(nodes['clear-filters'].disabled,true);assert.equal(nodes.search.focused,true);
+assert.equal(JSON.stringify(records),original,'filtering must not mutate formal records');
+assert.equal(vm.runInContext('personLabel({ruler_name:"只有本名"})',context),'只有本名');
+''', encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
+                            text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
+
+
+def test_public_time_context_and_impact_scales_do_not_gate_records(tmp_path):
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node.js required for browser behavior')
+    script = tmp_path / 'reader-scale-context.cjs'
+    script.write_text(r'''
+const fs=require('node:fs'),assert=require('node:assert/strict'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8');
+function section(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert.ok(a>=0&&b>a);return source.slice(a,b);}
+const dimNames={scope:'影响范围',depth_duration:'深度与持续',personal_causality:'个人因果',paradigm:'政治范式'};
+const record={ruler_id:'synthetic',ruler_name:'本名',polity:'合成时期',axes:{},impact:{identity_label:'本名（正式称呼）',public_grade:'B',impact_nature:'合成性质',confidence:'MEDIUM',dimensions:Object.fromEntries(Object.keys(dimNames).map(k=>[k,{grade:'A',public_basis:'应完整保留的分项说明。'}]))}};
+// No actual_power_window: lack of background metadata cannot block profile rendering.
+const original=JSON.stringify(record);
+const screen={innerHTML:''};
+const context={record,screen,DATA:{capability_axes:[],independent_axes:[],axis_order:[]},nav(){},dimNames,impactMeaning:{},conf:String,gradeHelp:()=>'',axisRows:()=>'',radar:()=>'',historySections:()=>'',netPanel:()=>'<section>合成结果</section>'};
+vm.createContext(context);
+vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function impactPanel(','function axisEvidence(')+section('function person(r){','function compare(){'),context);
+vm.runInContext('person(record)',context);
+assert.ok(screen.innerHTML.includes('本名（正式称呼）'));
+assert.ok(screen.innerHTML.includes('掌权背景：未列'));
+assert.ok(screen.innerHTML.includes('不是统一取证边界'));
+assert.ok(screen.innerHTML.includes('各时期'));
+assert.ok(screen.innerHTML.includes('id="person-capability"'),'profile must remain visible without a power-period field');
+assert.ok(screen.innerHTML.includes('四维分项与总等级使用不同刻度'));
+assert.ok(screen.innerHTML.indexOf('impact-scale-note')<screen.innerHTML.indexOf('class="dimensions"'));
+for(const key of Object.keys(dimNames))assert.ok(screen.innerHTML.includes('data-section="history-dimension-'+key+'"'));
+const technical=vm.runInContext('impactTechnicalHelp()',context);
+assert.ok(technical.startsWith('<details '));assert.ok(!technical.includes(' open'));
+assert.equal(JSON.stringify(record),original,'renderers must not invent or attach an evidence window');
 ''', encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
                             text=True, encoding='utf-8')

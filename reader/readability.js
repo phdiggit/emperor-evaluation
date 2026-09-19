@@ -70,7 +70,7 @@
     const impact = document.querySelector("#person-impact .grade-help:not([data-public-help])");
     if (impact) {
       const paragraph = impact.querySelector(":scope > p");
-      if (paragraph) paragraph.textContent = "这是历史改变的量级，不是能力或功绩等级。最终等级与四个维度分别判断，不做简单平均。";
+      if (paragraph) paragraph.textContent = "这是历史改变的量级，不是能力或功绩等级。总等级与四维使用不同刻度；相同字母不能直接对照，四维也不做平均。";
       impact.dataset.publicHelp = "done";
     }
   }

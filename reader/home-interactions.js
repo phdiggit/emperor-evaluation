@@ -214,7 +214,7 @@ function firstCommanderMarkup(item) {
         cell.tabIndex = 0;
         cell.setAttribute("role", "link");
         const label = section === "person-outcome" ? "净收益" : section === "person-capability" ? "人物画像" : "历史影响";
-        cell.setAttribute("aria-label", `查看${record.ruler_name}的${label}`);
+        cell.setAttribute("aria-label", `查看${personLabel(record)}的${label}`);
       }
 
       const identityCell = cells[0];
@@ -228,7 +228,7 @@ function firstCommanderMarkup(item) {
         polity.dataset.homePolity = record.polity;
         polity.textContent = record.polity;
         polity.title = `只看${record.polity}`;
-        meta.append(polity, document.createTextNode(` · ${record.actual_power_window}`));
+        meta.append(polity, document.createTextNode(` · 掌权背景：${record.actual_power_window || "未列"}`));
       }
 
       const grade = cells[3]?.querySelector(".impact-grade");
@@ -526,7 +526,7 @@ function firstCommanderMarkup(item) {
 
   function firstMetricDetail(id, title, subtitle, item, body, record, valueText = "") {
     const shown = valueText || netValue(item);
-    return `<details id="${id}" data-ruler="${esc(record.ruler_name)}" class="net-metric-detail"><summary><span><strong>${title}</strong><small>${subtitle}</small></span><b>${esc(shown)}</b></summary><div class="net-metric-body">${body}${auditSourceBlock(item, record)}</div></details>`;
+    return `<details id="${id}" data-ruler="${esc(personLabel(record))}" class="net-metric-detail"><summary><span><strong>${title}</strong><small>${subtitle}</small></span><b>${esc(shown)}</b></summary><div class="net-metric-body">${body}${auditSourceBlock(item, record)}</div></details>`;
   }
 
   function firstEvidenceMarkup(value, component) {
@@ -625,7 +625,7 @@ function firstCommanderMarkup(item) {
     const items = record.net?.component_details?.first || [];
     const parts = Object.fromEntries(items.map(item => [item.label, item.value]));
     const score = [parts["A统一贡献"], parts["B1创业难度与效率"], parts["B2组织与整合"], parts["C军事统帅与战争解题"], parts["第一项净分"], parts["附加F"]];
-    return `<section class="first-item-overview"><h2>先看${esc(record.ruler_name)}在这条主链里实际做了什么</h2><p class="subline">下面默认只放当前人物的成果、难题、组织、统帅和代价；指标定义与公式都收进折叠项。</p><div class="first-item-story-grid">${aText ? `<div class="first-item-story-card"><b>统一成果</b><p>${esc(aText)}</p></div>` : ""}${b1Parts.length ? `<div class="first-item-story-card"><b>起点、强敌与速度</b><ul>${b1Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(value)}</li>`).join("")}</ul></div>` : ""}${b2Parts.length ? `<div class="first-item-story-card"><b>组织与整合</b><ul>${b2Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstFactText(value))}</li>`).join("")}</ul></div>` : ""}${cText ? `<div class="first-item-story-card"><b>本人统帅</b><p>${esc(cText)}</p></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">A ${score[0]} + B1 ${score[1]} + B2 ${score[2]} + C ${score[3]} − 成本 ${parts["军事成本扣分"] ?? 0} = <strong>S1 ${score[4]}</strong> → 总榜附加 <strong>+${score[5]}</strong></div>` : ""}</section>`;
+    return `<section class="first-item-overview"><h2>先看${esc(personLabel(record))}在这条主链里实际做了什么</h2><p class="subline">下面默认只放当前人物的成果、难题、组织、统帅和代价；指标定义与公式都收进折叠项。</p><div class="first-item-story-grid">${aText ? `<div class="first-item-story-card"><b>统一成果</b><p>${esc(aText)}</p></div>` : ""}${b1Parts.length ? `<div class="first-item-story-card"><b>起点、强敌与速度</b><ul>${b1Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(value)}</li>`).join("")}</ul></div>` : ""}${b2Parts.length ? `<div class="first-item-story-card"><b>组织与整合</b><ul>${b2Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstFactText(value))}</li>`).join("")}</ul></div>` : ""}${cText ? `<div class="first-item-story-card"><b>本人统帅</b><p>${esc(cText)}</p></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">A ${score[0]} + B1 ${score[1]} + B2 ${score[2]} + C ${score[3]} − 成本 ${parts["军事成本扣分"] ?? 0} = <strong>S1 ${score[4]}</strong> → 总榜附加 <strong>+${score[5]}</strong></div>` : ""}</section>`;
   }
 
   async function renderFirstMajor(record, focus = "") {
@@ -694,7 +694,7 @@ function firstCommanderMarkup(item) {
 
   function renderNetShell(record, active, body) {
     nav("");
-    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(record.ruler_name)}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 净收益计分</div><h1>${esc(record.ruler_name)} · ${esc(netMajorSpecs[active]?.title || "净收益")}</h1><p class="muted">${active === "first" ? "人物在位／掌权时期（不是本项采用窗口）" : "实际权力窗口"}：${esc(record.actual_power_window)} · 总榜净收益 ${number(record.net?.total_score)}</p></div></div>${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
+    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(personLabel(record))}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 净收益计分</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "净收益")}</h1><p class="muted">掌权背景：${esc(record.actual_power_window || "未列")} · 总榜净收益 ${number(record.net?.total_score)}</p></div></div><p class="subline net-power-context-note">本项采用的时间与责任范围见各条依据；不能仅凭上述背景时期判断事件是否计入。</p>${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
   }
 
   function renderNetLanding(record) {
@@ -766,7 +766,7 @@ function firstCommanderMarkup(item) {
       const record = await loadNetRecord(summary);
       if (generation !== netRenderGeneration || !location.hash.startsWith("#net/")) return true;
       if (!record.net) {
-        screen.innerHTML = `<div class="empty"><p>${esc(record.ruler_name)}没有可展示的净收益正式结算。</p><a href="#person/${encodeURIComponent(record.ruler_id)}">返回人物页</a></div>`;
+        screen.innerHTML = `<div class="empty"><p>${esc(personLabel(record))}没有可展示的净收益正式结算。</p><a href="#person/${encodeURIComponent(record.ruler_id)}">返回人物页</a></div>`;
         return true;
       }
       renderNetMajor(record, parsed.major, parsed.focus);
