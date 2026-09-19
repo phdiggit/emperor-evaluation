@@ -59,18 +59,6 @@
     }
   }
 
-  function simplifyDifferenceToggle() {
-    const toggle = document.querySelector("#screen .difference-toggle:not([data-readable-toggle])");
-    if (!toggle) return;
-    for (const node of toggle.childNodes) {
-      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-        node.textContent = "只看不同项";
-        break;
-      }
-    }
-    toggle.dataset.readableToggle = "done";
-  }
-
   function publicGradeHelp() {
     const profile = document.querySelector("#person-capability .grade-help:not([data-public-help])");
     if (profile) {
@@ -142,7 +130,6 @@
   function enhance() {
     foldHomeStatus();
     compactComparisonEvidence();
-    simplifyDifferenceToggle();
     publicGradeHelp();
     publicAxisMetadata();
     translateResidualAxisCodes();

@@ -16,7 +16,12 @@
   function finite(value){if(value==null||value==="")return null;const n=Number(value);return Number.isFinite(n)?n:null;}
   function fmt(value,digits=1){const n=finite(value);return n==null?"—":n.toFixed(digits);}
   function signedFmt(value,digits=1){const n=finite(value);return n==null?"—":`${n>0?"+":""}${n.toFixed(digits)}`;}
-  function setNodeText(node,text){if(node&&node.textContent!==text)node.textContent=text;}
+  // Once a public renderer owns a leaf, do not replace its text with the
+  // intermediate numerical/technical presentation on the next observer pass.
+  function setNodeText(node,text){
+    if(!node||["publicCopy","publicScore","publicValue","publicTitle"].some(key=>key in node.dataset))return;
+    if(node.textContent!==text)node.textContent=text;
+  }
   function safeText(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
   function directText(node){if(!node)return"";return Array.from(node.childNodes).filter(c=>c.nodeType===Node.TEXT_NODE).map(c=>c.nodeValue||"").join("").trim();}
 
@@ -92,7 +97,7 @@
   function addGroupIntro(section,key,text){if(!section)return;let p=section.querySelector(`:scope > [data-second-intro="${key}"]`);if(!p){p=document.createElement("p");p.className="second-item-group-intro";p.dataset.secondIntro=key;const h=section.querySelector(":scope > h2");if(h?.nextSibling)section.insertBefore(p,h.nextSibling);else section.append(p);}setNodeText(p,text);}
   function metricDetail(section,labels){const wanted=new Set(Array.isArray(labels)?labels:[labels]);return Array.from(section?.querySelectorAll(":scope > .net-metric-detail")||[]).find(d=>wanted.has(d.dataset.secondSourceLabel||d.querySelector(":scope > summary strong")?.textContent.trim()))||null;}
   function markSourceLabel(detail,label){if(detail&&!detail.dataset.secondSourceLabel)detail.dataset.secondSourceLabel=label;}
-  function setMetricDisplay(detail,valueText,noteText,titleText=""){if(!detail)return;const s=detail.querySelector(":scope > summary"),strong=s?.querySelector("strong"),value=s?.querySelector(":scope > b"),span=s?.querySelector(":scope > span");if(titleText)setNodeText(strong,titleText);setNodeText(value,valueText);if(!span)return;let note=span.querySelector(":scope > .second-item-scale-note");if(!note){note=document.createElement("small");note.className="second-item-scale-note";span.append(note);}setNodeText(note,noteText);}
+  function setMetricDisplay(detail,valueText,noteText,titleText=""){if(!detail)return;const s=detail.querySelector(":scope > summary"),strong=s?.querySelector("strong"),value=s?.querySelector(":scope > b"),span=s?.querySelector(":scope > span");if(titleText)setNodeText(strong,titleText);setNodeText(value,valueText);if(!span||"publicGradeNote" in span.dataset)return;let note=span.querySelector(":scope > .second-item-scale-note");if(!note){note=document.createElement("small");note.className="second-item-scale-note";span.append(note);}setNodeText(note,noteText);}
   function joinNote(...parts){return parts.filter(Boolean).join("｜");}
 
   function ensureLandingCard(record,t){
@@ -169,8 +174,19 @@
 
   function groupKindFromSummary(summary){const text=summary?.textContent.trim()||"";if(text.includes("制度与行政"))return"method";if(text.includes("财政与民生")||text.includes("民生与社会"))return"finance";if(text.includes("政权交接")||text.includes("交接质量"))return"handoff";return"";}
   function publicGroupTitle(kind){return{method:"制度与行政",finance:"民生与社会",handoff:"政权交接"}[kind]||"";}
-  function replaceCompactNote(span,text){if(!span||!text)return;for(const small of Array.from(span.querySelectorAll(":scope > small")))small.remove();const note=document.createElement("small");note.className="second-item-scale-note";note.textContent=text;span.append(note);}
-  function setRowLabel(span,label){if(!span)return;const textNode=Array.from(span.childNodes).find(c=>c.nodeType===Node.TEXT_NODE);if(textNode)textNode.nodeValue=`${label} `;else span.insertBefore(document.createTextNode(`${label} `),span.firstChild);}
+  function replaceCompactNote(span,text){
+    if(!span||!text||"publicGradeNote" in span.dataset)return;
+    let note=span.querySelector(":scope > .second-item-scale-note");
+    for(const small of Array.from(span.querySelectorAll(":scope > small")))if(small!==note)small.remove();
+    if(!note){note=document.createElement("small");note.className="second-item-scale-note";span.append(note);}
+    setNodeText(note,text);
+  }
+  function setRowLabel(span,label){
+    if(!span||"publicTitle" in span.dataset)return;
+    const textNode=Array.from(span.childNodes).find(c=>c.nodeType===Node.TEXT_NODE);
+    if(textNode){if(textNode.nodeValue!==`${label} `)textNode.nodeValue=`${label} `;}
+    else span.insertBefore(document.createTextNode(`${label} `),span.firstChild);
+  }
   function formatCompactGroup(root,record,kind){
     if(!root||!record?.net||!kind)return;const map=itemsFor(record,kind);
     for(const row of root.querySelectorAll(":scope .component")){

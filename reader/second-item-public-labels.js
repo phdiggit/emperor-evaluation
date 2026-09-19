@@ -25,7 +25,20 @@
   function patchLabelNode(node, label) {
     if (!node || !label) return;
     node.classList.add("second-item-public-title");
-    node.dataset.publicTitle = label;
+    if (node.dataset.publicTitle !== label) node.dataset.publicTitle = label;
+    const strong = node.querySelector(":scope > strong");
+    if (strong) {
+      if (strong.dataset.publicTitle !== label) strong.dataset.publicTitle = label;
+      if (strong.textContent !== label) strong.textContent = label;
+      return;
+    }
+    // Compact rows keep notes, links and other child elements intact.
+    const texts = Array.from(node.childNodes).filter(child => child.nodeType === Node.TEXT_NODE);
+    if (!texts.length) node.insertBefore(document.createTextNode(label + " "), node.firstChild);
+    else {
+      if (texts[0].nodeValue !== label + " ") texts[0].nodeValue = label + " ";
+      for (const text of texts.slice(1)) if (text.nodeValue) text.nodeValue = "";
+    }
   }
 
   function currentPersonId() {
@@ -72,9 +85,8 @@
     const style = document.createElement("style");
     style.id = "second-item-public-title-style";
     style.textContent = `
-      .second-item-public-title{font-size:0!important}
-      .second-item-public-title::before{content:attr(data-public-title);font-size:13px;line-height:inherit;color:inherit;font-weight:inherit}
-      .net-metric-detail>summary .second-item-public-title::before{font-size:14px}
+      .second-item-public-title{font-size:13px}
+      .net-metric-detail>summary .second-item-public-title{font-size:14px}
       .person-net-canonical-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
       .person-net-canonical-card{display:flex;min-width:0;min-height:118px;flex-direction:column;gap:5px;padding:16px 18px;border:1px solid var(--line);border-radius:6px;background:#fff;text-decoration:none!important}
       .person-net-canonical-card:hover{border-color:var(--green);background:#f6f7f1}

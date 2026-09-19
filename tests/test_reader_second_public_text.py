@@ -81,3 +81,73 @@ assert.match(source, /if \(label === "A制度建设" \|\| label === "B1官僚治
 console.log('verified public components:', checked);
 ''', encoding='utf-8')
     subprocess.run([node, str(script), str(ROOT)], check=True, capture_output=True, text=True, encoding='utf-8')
+
+
+def test_public_values_are_real_text_and_structural_updates_respect_ownership(tmp_path):
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node.js required for reader behavior')
+    script = tmp_path / 'public-dom-text.cjs'
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const alias=fs.readFileSync('reader/second-item-public-alias.js','utf8');
+const labels=fs.readFileSync('reader/second-item-public-labels.js','utf8');
+const structural=fs.readFileSync('reader/second-item-reading.js','utf8');
+function section(source,start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert.ok(a>=0&&b>a);return source.slice(a,b);}
+let mutations=0;
+class Text {
+ constructor(value){this.nodeType=3;this.value=value;}
+ get nodeValue(){return this.value;}set nodeValue(value){this.value=value;mutations++;}
+ get textContent(){return this.value;}
+}
+class Element {
+ constructor(tag){this.nodeType=1;this.tag=tag;this.childNodes=[];this.dataset={};this.className='';this.classList={add(){}};}
+ get textContent(){return this.childNodes.map(n=>n.textContent).join('');}
+ set textContent(value){mutations++;this.childNodes=value?[new Text(value)]:[];}
+ append(...nodes){mutations++;for(const n of nodes){this.childNodes.push(n);n.parent=this;}}
+ insertBefore(node,before){mutations++;const i=this.childNodes.indexOf(before);this.childNodes.splice(i<0?this.childNodes.length:i,0,node);node.parent=this;}
+ get firstChild(){return this.childNodes[0]||null;}
+ querySelector(selector){return this.querySelectorAll(selector)[0]||null;}
+ querySelectorAll(selector){const name=selector.replace(':scope > ','');return this.childNodes.filter(n=>n.nodeType===1&&(name.startsWith('.')?n.className.split(' ').includes(name.slice(1)):n.tag===name));}
+ remove(){mutations++;this.parent.childNodes.splice(this.parent.childNodes.indexOf(this),1);}
+}
+const context={Node:{TEXT_NODE:3},document:{createElement:tag=>new Element(tag),createTextNode:value=>new Text(value)}};
+vm.createContext(context);
+vm.runInContext(section(alias,'  function setPublicText(','  function patchMethodGrades(')
+ +section(labels,'  function patchLabelNode(','  function currentPersonId(')
+ +section(structural,'  function setNodeText(','  function safeText(')
+ +section(structural,'  function replaceCompactNote(','  function formatCompactGroup('),context);
+const value=new Element('b'),span=new Element('span'),strong=new Element('strong'),note=new Element('small'),link=new Element('a');
+strong.textContent='内部标题（A）';note.className='second-item-scale-note';note.textContent='旧注释';link.textContent='来源';span.append(strong,note,link);
+context.setPublicGrade(span,value,'B',['公开注释','限制不能删除']);
+context.patchLabelNode(span,'公开标题');
+assert.equal(value.textContent,'B');assert.equal(strong.textContent,'公开标题');
+assert.equal(note.textContent,'公开注释｜限制不能删除');assert.ok(span.childNodes.includes(link));
+context.setNodeText(value,'旧指数');context.setNodeText(strong,'内部标题（A）');
+context.replaceCompactNote(span,'旧注释');
+assert.equal(value.textContent,'B');assert.equal(strong.textContent,'公开标题');assert.equal(note.textContent,'公开注释｜限制不能删除');
+const compact=new Element('span');compact.append(new Text('原始代号 '),note,link);
+context.patchLabelNode(compact,'公开名称');context.setRowLabel(compact,'原始代号');
+assert.equal(compact.childNodes[0].textContent,'公开名称 ');assert.ok(compact.childNodes.includes(note));assert.ok(compact.childNodes.includes(link));
+const score=new Element('b'),copy=new Element('p');
+context.writePublicScore(score,'0.0 分');context.writePublicCopy(copy,'公开说明，不能省略限制。');
+context.setNodeText(score,'旧值');context.setNodeText(copy,'旧文案');
+assert.equal(score.textContent,'0.0 分');assert.equal(copy.textContent,'公开说明，不能省略限制。');
+// Public ownership does not freeze future public updates.
+context.writePublicScore(score,'12.3 分');assert.equal(score.textContent,'12.3 分');
+const idle=mutations;
+for(let i=0;i<10;i++){
+ context.setPublicGrade(span,value,'B',['公开注释','限制不能删除']);context.patchLabelNode(span,'公开标题');
+ context.patchLabelNode(compact,'公开名称');context.setRowLabel(compact,'原始代号');
+ context.writePublicScore(score,'12.3 分');context.setNodeText(score,'旧值');
+ context.writePublicCopy(copy,'公开说明，不能省略限制。');context.setNodeText(copy,'旧文案');
+}
+assert.equal(mutations,idle,'repeated observer passes must settle without text churn');
+for(const source of [alias,labels]){
+ assert.doesNotMatch(source,/font-size\s*:\s*0(?:\D|$)/);
+ assert.doesNotMatch(source,/content\s*:\s*attr\(data-public-/);
+}
+''', encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
+                            text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr

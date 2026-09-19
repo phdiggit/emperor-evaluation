@@ -133,19 +133,13 @@
     const style = document.createElement("style");
     style.id = "second-item-public-polish-style";
     style.textContent = `
-      .second-item-public-grade-ready > .second-item-scale-note{display:none!important}
-      .second-item-public-grade-ready::after{content:attr(data-public-grade-note);display:block;margin-top:4px;font-size:11px;line-height:1.55;color:var(--green);font-weight:600}
-      .second-item-public-value{font-size:0!important}
-      .net-metric-detail>summary b.second-item-public-value::after{content:attr(data-public-value);font:20px Georgia,serif;color:var(--green)}
-      .component>b.second-item-public-value::after{content:attr(data-public-value);font-size:13px;color:var(--green)}
-      .second-item-public-copy{font-size:0!important}
-      .second-item-public-copy::after{content:attr(data-public-copy);display:block;font-size:13px;line-height:1.7;color:inherit}
-      small.second-item-public-copy::after{font-size:11px;color:var(--muted);line-height:1.55}
-      .second-item-public-score{font-size:0!important}
-      .second-item-public-score::after{content:attr(data-public-score);font:inherit;color:inherit}
-      .net-major-card .big.second-item-public-score::after{font:30px Georgia,serif;color:var(--green)}
-      .second-item-total-grid b.second-item-public-score::after{font:21px Georgia,serif;color:var(--green)}
-      #person-outcome b.second-item-public-score::after,.comparison b.second-item-public-score::after{font:inherit;color:inherit}
+      .second-item-public-grade-ready > .second-item-scale-note{display:block;margin-top:4px;font-size:11px;line-height:1.55;color:var(--green);font-weight:600}
+      .net-metric-detail>summary b.second-item-public-value{font:20px Georgia,serif;color:var(--green)}
+      .component>b.second-item-public-value{font-size:13px;color:var(--green)}
+      .second-item-public-copy{font-size:13px;line-height:1.7}
+      small.second-item-public-copy{font-size:11px;color:var(--muted);line-height:1.55}
+      .net-major-card .big.second-item-public-score{font:30px Georgia,serif;color:var(--green)}
+      .second-item-total-grid b.second-item-public-score{font:21px Georgia,serif;color:var(--green)}
       .second-item-public-reading{margin:2px 0 4px}
       .second-item-public-reading .label{margin-top:8px}
       .second-item-public-reading ul{margin:8px 0 12px;padding-left:20px}
@@ -158,16 +152,22 @@
     document.head.append(style);
   }
 
-  function overlayCopy(node, text) {
+  // The public layer owns these text nodes. The structural renderer respects
+  // the data-public-* markers instead of restoring its intermediate copy.
+  // Write real text: CSS generated content is not a replacement for readable DOM.
+  function setPublicText(node, text, key, className) {
     if (!node || !text) return;
-    node.classList.add("second-item-public-copy");
-    if (node.dataset.publicCopy !== text) node.dataset.publicCopy = text;
+    node.classList.add(className);
+    if (node.dataset[key] !== text) node.dataset[key] = text;
+    if (node.textContent !== text) node.textContent = text;
   }
 
-  function overlayScore(node, text) {
-    if (!node || !text) return;
-    node.classList.add("second-item-public-score");
-    if (node.dataset.publicScore !== text) node.dataset.publicScore = text;
+  function writePublicCopy(node, text) {
+    setPublicText(node, text, "publicCopy", "second-item-public-copy");
+  }
+
+  function writePublicScore(node, text) {
+    setPublicText(node, text, "publicScore", "second-item-public-score");
   }
 
   function setPublicGrade(span, valueNode, grade, noteParts) {
@@ -175,10 +175,14 @@
     const note = noteParts.filter(Boolean).join("｜");
     span.classList.add("second-item-public-grade-ready");
     if (span.dataset.publicGradeNote !== note) span.dataset.publicGradeNote = note;
-    if (valueNode) {
-      valueNode.classList.add("second-item-public-value");
-      if (valueNode.dataset.publicValue !== grade) valueNode.dataset.publicValue = grade;
+    let noteNode = span.querySelector(":scope > .second-item-scale-note");
+    if (!noteNode) {
+      noteNode = document.createElement("small");
+      noteNode.className = "second-item-scale-note";
+      span.append(noteNode);
     }
+    if (noteNode.textContent !== note) noteNode.textContent = note;
+    setPublicText(valueNode, grade, "publicValue", "second-item-public-value");
   }
 
   function patchMethodGrades(root, record) {
@@ -383,11 +387,11 @@
   function patchGroupIntros(record) {
     if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
     const values = secondTotals(record);
-    overlayCopy(document.querySelector('[data-second-intro="method"]'),
+    writePublicCopy(document.querySelector('[data-second-intro="method"]'),
       `这一组看国家机器如何建立规则、配置官僚并形成反馈约束。当前合计 ${fmt(values.method)} 分；公开层先看等级和历史依据，具体指数与折算放在展开内容里。`);
-    overlayCopy(document.querySelector('[data-second-intro="finance"]'),
+    writePublicCopy(document.querySelector('[data-second-intro="finance"]'),
       `这一组看统治时期普通家庭、经济财政和社会安全的主要状态，再结合任内低谷、恢复与额外代价形成结果判断。当前合计 ${fmt(values.finance)} 分。`);
-    overlayCopy(document.querySelector('[data-second-intro="handoff"]'),
+    writePublicCopy(document.querySelector('[data-second-intro="handoff"]'),
       "统治如何收尾，会直接影响国家机器和继承秩序能否平稳延续。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否顺利；两项均以 S—E 六档显示。");
   }
 
@@ -398,9 +402,9 @@
     if (location.hash.match(/^#net\/[^/?#]+\/(?:all)?$/)) {
       const card = Array.from(document.querySelectorAll(".net-major-card")).find(node => /\/second(?:\/|$)/.test(node.getAttribute("href") || ""));
       if (card) {
-        if (totals.total != null) overlayScore(card.querySelector(".big"), `${fmt(totals.total)} 分`);
+        if (totals.total != null) writePublicScore(card.querySelector(".big"), `${fmt(totals.total)} 分`);
         if ([totals.method, totals.finance, totals.handoff].every(value => value != null)) {
-          overlayCopy(card.querySelector(":scope > .second-item-card-breakdown"),
+          writePublicCopy(card.querySelector(":scope > .second-item-card-breakdown"),
             `${rank ? `${rank} · ` : ""}制度与行政 ${fmt(totals.method)} · 民生与社会 ${fmt(totals.finance)} · 政权交接 ${fmt(totals.handoff)}`);
         }
       }
@@ -410,19 +414,19 @@
       const cards = summary?.querySelectorAll(".second-item-total-grid > div");
       if (cards?.length >= 3) {
         const values = [totals.method, totals.finance, totals.handoff];
-        cards.forEach((card, index) => { if (values[index] != null) overlayScore(card.querySelector("b"), `${fmt(values[index])} 分`); });
-        overlayCopy(cards[1]?.querySelector("small"), "民生、经济财政、社会安全、恢复与额外代价");
+        cards.forEach((card, index) => { if (values[index] != null) writePublicScore(card.querySelector("b"), `${fmt(values[index])} 分`); });
+        writePublicCopy(cards[1]?.querySelector("small"), "民生、经济财政、社会安全、恢复与额外代价");
       }
       const intro = document.querySelector(".net-detail-page > .panel");
       const scoreLine = intro?.querySelector(":scope > p.subline");
-      if (totals.total != null) overlayCopy(scoreLine, `治国成效：${fmt(totals.total)} 分${rank ? `；${rank}` : ""}。先看结论，再展开到各项依据。`);
+      if (totals.total != null) writePublicCopy(scoreLine, `治国成效：${fmt(totals.total)} 分${rank ? `；${rank}` : ""}。先看结论，再展开到各项依据。`);
     }
     if (location.hash.startsWith("#person/")) {
       const panel = document.getElementById("person-outcome");
       for (const row of panel?.querySelectorAll(":scope > .component") || []) {
         const span = row.querySelector("span");
         if (!span || !span.textContent.trim().startsWith("治国成效")) continue;
-        if (totals.total != null) overlayScore(row.querySelector("b"), `${fmt(totals.total)} 分`);
+        if (totals.total != null) writePublicScore(row.querySelector("b"), `${fmt(totals.total)} 分`);
       }
     }
   }
@@ -435,7 +439,7 @@
       const score = finite(record?.net?.second_item_score);
       const cell = row.cells?.[index + 1];
       if (!cell || score == null) return;
-      overlayScore(cell.querySelector("b"), `${fmt(score)} 分`);
+      writePublicScore(cell.querySelector("b"), `${fmt(score)} 分`);
     });
   }
 
