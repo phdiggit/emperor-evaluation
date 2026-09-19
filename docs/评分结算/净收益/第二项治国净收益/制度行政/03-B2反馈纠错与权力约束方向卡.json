@@ -19,7 +19,15 @@
     "schema_id",
     "scope",
     "source_documents",
-    "review_remediation"
+    "review_remediation",
+    "public_projection_schema_version",
+    "public_projection_status",
+    "public_projection_record_count",
+    "public_projection_profile_count",
+    "public_projection_evidence_item_count",
+    "public_projection_merged_group_count",
+    "public_projection_zero_weight_profile_count",
+    "public_projection_source"
   ],
   "payload_metadata": {
     "canonical_status": "FORMAL_CURRENT",
@@ -67,6 +75,18 @@
       "latest_decision_rule": "人物整改最终裁决总表覆盖后文早期审查记录",
       "adjudicated_ruler_count": 142,
       "formal_record_count": 185
+    },
+    "public_projection_schema_version": "second-item-b2-public-projection-v1",
+    "public_projection_status": "FORMAL_UPSTREAM_SOURCE",
+    "public_projection_record_count": 185,
+    "public_projection_profile_count": 407,
+    "public_projection_evidence_item_count": 394,
+    "public_projection_merged_group_count": 12,
+    "public_projection_zero_weight_profile_count": 50,
+    "public_projection_source": {
+      "formal_contract": "docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md",
+      "identity": "人物ID加lifecycle_key、absorbed_into_lifecycle_key或材料ID生成稳定公开条目ID",
+      "reader_policy": "reader只消费public_adjudication_summary和public_evidence_items"
     }
   },
   "collections": {

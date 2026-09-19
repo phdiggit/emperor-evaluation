@@ -355,8 +355,23 @@
   }
 
   function publicFacts(item) {
+    const evidence = Array.isArray(item?.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
+    if (evidence.length) {
+      return evidence.map(entry => {
+        if (!entry || typeof entry !== "object") return "";
+        const label = String(entry.public_label || "").trim();
+        const direction = String(entry.public_direction || "").trim();
+        const basis = cleanHistoricalText(entry.public_basis || "");
+        const boundary = cleanHistoricalText(entry.public_boundary || "");
+        return [
+          [label, direction].filter(Boolean).join(" · "),
+          basis,
+          boundary ? `边界：${boundary}` : "",
+        ].filter(Boolean).join("；");
+      }).map(cleanHistoricalText).filter(Boolean);
+    }
     const highlights = (Array.isArray(item?.reader_highlights) ? item.reader_highlights : [])
-      .map(cleanHistoricalText).filter(Boolean).slice(0, 3);
+      .map(cleanHistoricalText).filter(Boolean);
     if (highlights.length) return highlights;
     const summary = cleanHistoricalText(item?.reader_summary || "");
     return summary ? [summary] : [];
@@ -592,7 +607,7 @@
       if (!item || item.reader_kind !== "judgment") continue;
       const body = detail.querySelector(":scope > .net-metric-body");
       if (!body) continue;
-      const key = [item.reader_summary || "", ...(item.reader_highlights || []), item.reader_boundary || "", item.reader_how || "", item.reader_full_basis || ""].join("|");
+      const key = [item.reader_summary || "", JSON.stringify(item.reader_public_evidence_items || []), ...(item.reader_highlights || []), item.reader_boundary || "", item.reader_how || "", item.reader_full_basis || ""].join("|");
       if (body.dataset.secondPublicBodyKey === key && body.querySelector(":scope > .second-item-public-reading")) continue;
       const audit = body.querySelector(":scope > .net-audit-sources");
       if (audit) audit.remove();

@@ -128,7 +128,7 @@ def _unique_texts(values, limit=4):
             continue
         seen.add(text)
         result.append(text)
-        if len(result) >= limit:
+        if limit is not None and len(result) >= limit:
             break
     return result
 
@@ -240,6 +240,44 @@ def _attach_reader(item, *, kind, summary="", how="", record=None, boundary="", 
         result["reader_boundary"] = final_boundary
     if how:
         result["reader_how"] = how
+    if refs:
+        result["reader_source_refs"] = refs
+    return result
+
+
+def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
+    """Project B2's explicit public fields without semantic fallback guessing."""
+
+    if not isinstance(record, dict):
+        raise ValueError("B2 reader projection requires a formal record")
+    summary = record.get("public_adjudication_summary")
+    evidence = record.get("public_evidence_items")
+    if not isinstance(summary, str) or not summary.strip():
+        raise ValueError(f"B2 formal public summary is missing: {record.get('ruler_name')}")
+    if not isinstance(evidence, list) or not evidence:
+        raise ValueError(f"B2 formal public evidence is missing: {record.get('ruler_name')}")
+    result = dict(item)
+    result["reader_kind"] = "judgment"
+    result["reader_summary"] = summary
+    result["public_adjudication_summary"] = summary
+    result["public_evidence_items"] = deepcopy(evidence)
+    result["reader_public_evidence_items"] = deepcopy(evidence)
+    result["reader_highlights"] = _unique_texts(
+        [
+            f"{entry.get('public_label')}：{entry.get('public_basis')}"
+            for entry in evidence
+            if isinstance(entry, dict)
+        ],
+        limit=None,
+    )
+    boundaries = _unique_texts(
+        [entry.get("public_boundary") for entry in evidence if isinstance(entry, dict)]
+    )
+    if boundaries:
+        result["reader_boundary"] = "；".join(boundaries)
+    if how:
+        result["reader_how"] = how
+    refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
     if refs:
         result["reader_source_refs"] = refs
     return result
@@ -383,10 +421,11 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
         if label in method:
             item = method[label]
             record = sources[key][sid]
-            method[label] = _attach_reader(
-                item, kind="judgment", record=record,
-                how=f"正式方向指数为 {item.get('value')}；该指数随后进入治理手段合成公式。",
-            )
+            how = f"正式方向指数为 {item.get('value')}；该指数随后进入治理手段合成公式。"
+            if key == "B2":
+                method[label] = _attach_b2_public_reader(item, record=record, how=how)
+            else:
+                method[label] = _attach_reader(item, kind="judgment", record=record, how=how)
     if method:
         values = {label: item.get("value") for label, item in method.items()}
         for label in ("AB计分块", "B2折算", "治理手段"):

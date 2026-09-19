@@ -177,6 +177,7 @@ def inspect(root: Path, components: list[str], ruler_ids: list[str], polities: l
         "write_policy": "Patch adjudications and their source views locally; use the listed deterministic refresh commands for consumers. Semantic review never changes a grade automatically.",
         "refresh_commands": list(dict.fromkeys(
             (["second-item-a-public --write"] if "I2.A" in affected else [])
+            + (["second-item-b2-public --write"] if "I2.B2" in affected else [])
             + (["second-item-totals --write"] if "I2" in derived else [])
             + (["third-item-current-settlement --write"] if "I3" in derived else [])
             + (["canonical-ruler-pool --write"] if "pool" in derived else [])

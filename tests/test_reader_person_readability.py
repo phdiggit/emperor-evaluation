@@ -1,4 +1,4 @@
-from reader.build import _attach_reader, axis_projection
+from reader.build import _attach_b2_public_reader, _attach_reader, axis_projection
 
 
 def test_c4_projection_uses_declared_representative_contexts():
@@ -77,6 +77,33 @@ def test_net_explanation_projection_uses_formal_text():
         "docs/评分结算/测试.json",
         "docs/史料通读产物/测试.md#L10",
     ]
+
+
+def test_b2_reader_projection_consumes_all_explicit_public_evidence():
+    evidence = [
+        {
+            "id": f"B2-PUBLIC-{index}",
+            "public_label": f"机制{index}",
+            "public_direction": "正向",
+            "public_tags": ["反馈与纠错"],
+            "public_basis": f"机制{index}形成实际结果。",
+            "public_boundary": "同一机制只作一次判断。",
+        }
+        for index in range(4)
+    ]
+    projected = _attach_b2_public_reader(
+        {"label": "B2反馈与约束", "value": 38.0, "source": "docs/评分结算/测试.json"},
+        record={
+            "ruler_name": "合成甲",
+            "public_adjudication_summary": "主要反馈机制能够改变决策，整体判断为中档（中位）。",
+            "public_evidence_items": evidence,
+        },
+    )
+
+    assert projected["reader_summary"].startswith("主要反馈机制")
+    assert projected["reader_public_evidence_items"] == evidence
+    assert len(projected["reader_highlights"]) == 4
+    assert "reader_full_basis" not in projected
 
 
 def test_historical_impact_contract_version_metadata_matches_current_contract():

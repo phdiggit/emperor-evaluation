@@ -691,6 +691,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
 
 def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] | None = None, polities: set[str] | None = None) -> dict[str, Any]:
     from emperor_v4.evaluation.second_item_b1_settlement import active_groups, position_from_residual
+    from emperor_v4.evaluation.second_item_b2_public import verify_public_projection
 
     path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B2"]
     payload = load_json(path, polities=polities)
@@ -832,7 +833,7 @@ def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] 
         for block in material_blocks
     ):
         raise ValueError("第二项B2材料依据仍含引用或机器审计字段")
-    return {
+    result = {
         "status": "PASS",
         "record_count": len(records),
         "validation_scope": "SELECTED_RECORD_CONTRACTS" if scoped else "FULL_COMPONENT_CONTRACTS",
@@ -842,6 +843,9 @@ def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] 
         "invalid_M1_count": 0,
         "duplicate_markdown_ruler_count": 0,
     }
+    if not scoped:
+        result["public_projection"] = verify_public_projection(workspace_root, payload=payload)
+    return result
 
 
 def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
