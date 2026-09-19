@@ -25,7 +25,11 @@
     "score_distribution",
     "quarantined_extension_count",
     "accepted_extension_count",
-    "score_contract"
+    "score_contract",
+    "public_projection_schema_version",
+    "public_projection_status",
+    "public_projection_source",
+    "public_projection_record_count"
   ],
   "payload_metadata": {
     "canonical_status": "FORMAL_CURRENT",
@@ -228,7 +232,14 @@
         "deterioration": 0.5
       },
       "B80_formula": "80*(0.55*B1_rate+0.45*B2_rate)*(0.70+0.30*B4_rate)"
-    }
+    },
+    "public_projection_schema_version": "third-fourth-item-public-projection-v1",
+    "public_projection_status": "FORMAL_UPSTREAM_SOURCE",
+    "public_projection_source": {
+      "formal_contract": "docs/分项规则/第三项军事与边疆净收益/00-规则与计分合同.md",
+      "reader_policy": "reader只显示public_adjudication_summary、public_evidence_items和public_boundary"
+    },
+    "public_projection_record_count": 201
   },
   "collections": {
     "records": {

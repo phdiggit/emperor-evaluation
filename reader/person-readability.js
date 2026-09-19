@@ -27,43 +27,7 @@
       .replace(/父链/g, "证据链");
   };
 
-  const netPublicText = value => readerText(String(value ?? ""))
-    .replace(/\bC-([0-9]+)-(LOW|MID|HIGH)\b/g, (_, n, p) => `第${n}档·${({LOW:"低位",MID:"中位",HIGH:"高位"})[p]}`)
-    .replace(/\b([ABCD]\d?)-([0-9]+)\b/g, "$1第$2档")
-    .replace(/\bML([0-4])\b/g, "军事净毁损第$1级")
-    .replace(/\bCIV([0-4])\b/g, "文明影响量级$1")
-    .replace(/\bDA([0-9]+)\b/g, "破坏放大第$1级")
-    .replace(/\bM4\b/g, "跨阶段重要机制")
-    .replace(/\bM3\b/g, "重要机制")
-    .replace(/\bM2\b/g, "中等强度机制")
-    .replace(/\bM1\b/g, "局部机制")
-    .replace(/S\+/g, "高权重正向节点")
-    .replace(/S[−-]1?/g, "高权重负向节点")
-    .replace(/\bHIGH\b/g, "高位")
-    .replace(/\bMID\b/g, "中位")
-    .replace(/\bLOW\b/g, "低位")
-    .replace(/\bmiddle-upper\b/g, "中上位")
-    .replace(/\bmiddle-lower\b/g, "中下位")
-    .replace(/\bupper\b/g, "上位")
-    .replace(/\bmiddle\b/g, "中位")
-    .replace(/\blower\b/g, "下位")
-    .replace(/\bPOSITIVE\b/g, "正向")
-    .replace(/\bNEGATIVE\b/g, "负向")
-    .replace(/\bBALANCED\b/g, "正负相抵")
-    .replace(/\bHYBRID\b/g, "混合归责")
-    .replace(/未闭合独立计分链/g, "没有形成可独立确认的正向表现")
-    .replace(/未闭合独立正向链/g, "没有形成可独立确认的正向表现")
-    .replace(/不拆分重复扣分/g, "不重复计算")
-    .replace(/不重复消费/g, "不重复计算")
-    .replace(/\bcore\b/gi, "核心链")
-    .replace(/\bsupport\b/gi, "支撑链")
-    .replace(/正向\s*\d+(?:\.\d+)?/g, "")
-    .replace(/负向\s*\d+(?:\.\d+)?/g, "")
-    .replace(/合计\s*\d+(?:\.\d+)?/g, "")
-    .replace(/；\s*；/g, "；")
-    .replace(/，\s*；/g, "；")
-    .replace(/\s+/g, " ")
-    .trim();
+  const netPublicText = value => readerText(String(value ?? ""));
 
   const netPublicIntro = {
     "A制度建设": "看本人是否建立了真正运行、能够延续的制度，同时把制度性副作用一起计入净效果。",
@@ -75,45 +39,23 @@
     "C4恢复与成本": "看危机后的恢复成果，同时扣除本人造成或放大的民力与治理成本。",
     "D1继任行政连续性": "看权力交接后行政机器、政策执行和基本治理能否继续运转。",
     "D3政权交接稳定": "看交接本身是否造成中枢失控、内战或严重继承危机。",
-    "A1": "看安全与控制状态相对接手时发生了什么变化，并只计本人可归责部分。",
-    "A2": "看重要战略目标最终取得、维持或丧失了多少实际安全收益。",
-    "B1": "看本人新增或稳住了多少有效控制规模，避免把继承存量重复算作成果。",
-    "B2": "看取得的控制与军事成果有多大战略价值，而不是只按面积或战役数量计分。",
-    "B4": "看这些安全成果能否稳定交班，而不是在本人离场前后迅速失效。",
-    "C1实战交付": "看军事体系在真实高压任务中能否把国家资源转化为可兑现的战场结果。",
-    "C2持续作战": "看军事体系能否跨阶段持续动员、补充和完成任务。",
-    "C3体系可靠性": "看体系在不同战区和压力下是否稳定，还是频繁出现结构性失灵。",
-    "普通成本扣分": "看本人统治窗口内战争对本方军队、军事资产、后勤和持续动员造成的实际成本。",
-    "ML扣分": "只在重大军事净毁损同时满足结果、成本和本人责任门槛时追加扣分，普通失败不会自动触发。",
-    "A国家共同体": "看本人窗口对不同区域、群体与身份之间的参与、接纳和排斥造成了什么净变化。",
-    "B教育与人才": "看教育供给、学习机会和跨地域跨身份流动是否出现可归责的真实变化。",
-    "C文化知识": "看知识生产、保存、传播和文化生态是否出现可归责的真实变化。",
+    "主要安全威胁与战略主动": "看安全与控制状态相对接手时发生了什么变化，并只计本人责任范围内的部分。",
+    "防线协同与战略纵深": "看重要方向的防线和战略纵深最终取得、维持或丧失了多少实际安全收益。",
+    "实际控制范围": "看本人新增或稳住了多少有效控制范围，避免把继承存量重复算作成果。",
+    "战略成果价值": "看取得的控制与军事成果有多大战略价值，而不是只按面积或战役数量计分。",
+    "控制成果稳定性": "看这些安全成果能否稳定交付，而不是在本人离场前后迅速失效。",
+    "实战任务交付": "看军事体系在真实高压任务中能否把国家资源转化为可兑现的战场结果。",
+    "持续作战与任务承载": "看军事体系能否跨阶段持续动员、补充和完成任务。",
+    "军事体系可靠性": "看体系在不同战区和压力下是否稳定，还是频繁出现结构性失灵。",
+    "普通军事代价": "看本人统治窗口内战争对本方军队、军事资产、后勤和持续动员造成的实际成本。",
+    "重大军事净毁损": "看是否同时出现重大结果、较高本方代价和足够本人责任，从而需要追加扣减。",
+    "国家共同体与社会整合": "看本人窗口对不同区域、群体与身份之间的参与、接纳和排斥造成了什么净变化。",
+    "教育可及与人才流动": "看教育供给、学习机会和跨地域跨身份流动是否出现可归责的真实变化。",
+    "知识生产、传播与文化生态": "看知识生产、保存、传播和文化生态是否出现可归责的真实变化。",
   };
 
-  function conciseNetText(value, maxChars = 220) {
-    let text = netPublicText(value)
-      .replace(/各为负向重要机制与普通高权重负向节点/g, "构成重要负向机制")
-      .replace(/合并为混负重要机制/g, "合并判断为明显负向机制")
-      .replace(/合为一个平衡中等强度机制/g, "合并判断为正负相抵的中等机制")
-      .replace(/制度净值/g, "正负相抵后的制度结果")
-      .replace(/主档/g, "主要等级")
-      .replace(/裁为/g, "判断为")
-      .replace(/定档/g, "确定等级")
-      .replace(/出票/g, "重复计分")
-      .replace(/消费/g, "计入")
-      .replace(/父任务/g, "上层任务")
-      .replace(/父链/g, "证据链")
-      .replace(/归责/g, "责任归属")
-      .replace(/净账/g, "正负净效果")
-      .replace(/独立门槛/g, "独立成立条件");
-    if (text.length <= maxChars) return text;
-    const parts = text.split(/(?<=[。！？；])/).filter(Boolean);
-    let result = "";
-    for (const part of parts) {
-      if (result && result.length + part.length > maxChars) break;
-      result += part;
-    }
-    return result || `${text.slice(0, maxChars - 1)}…`;
+  function conciseNetText(value) {
+    return netPublicText(value);
   }
 
   function evidenceSection(title) {
@@ -431,19 +373,23 @@
   }
 
   function netJudgment(item, record) {
-    const intro = netPublicIntro[item.label] || "";
+    const displayLabel = item.public_component_label || (item.label === "军事成本扣分" ? "军事代价扣减" : item.label);
+    const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
     const decision = item.reader_summary ? conciseNetText(item.reader_summary) : "";
     const summaryText = [intro, decision].filter(Boolean).join("\n");
     const summary = summaryText
       ? `<div class="label">为什么这样评</div>${prose(summaryText)}`
       : "";
-    const highlightTexts = (Array.isArray(item.reader_highlights) ? item.reader_highlights : [])
-      .map(text => conciseNetText(text, 150))
+    const publicEvidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
+    const highlightTexts = (publicEvidence.length
+      ? publicEvidence.map(entry => `${entry?.public_label || entry?.public_role || "公开依据"}：${entry?.public_basis || ""}`)
+      : (Array.isArray(item.reader_highlights) ? item.reader_highlights : []))
+      .map(text => conciseNetText(text))
       .filter((text, index, values) => text && text !== decision && values.indexOf(text) === index);
     const highlights = highlightTexts.length
       ? `<div class="label">关键事实</div><ul>${highlightTexts.map(text => `<li>${esc(text)}</li>`).join("")}</ul>`
       : "";
-    const boundaryText = item.reader_boundary ? conciseNetText(item.reader_boundary, 180) : "";
+    const boundaryText = item.reader_boundary ? conciseNetText(item.reader_boundary) : "";
     const boundary = boundaryText
       ? `<div class="label">限制与边界</div>${prose(boundaryText)}`
       : "";
@@ -458,14 +404,13 @@
     const sourceBlock = sources
       ? `<details><summary>正式记录与史料</summary><p class="sources">${sources}</p>${fullBasis}</details>`
       : fullBasis;
-    const displayLabel = item.label === "军事成本扣分" ? "军事代价扣减" : item.label;
     return `<article class="context-story net-public-item"><div class="component"><span><strong>${esc(displayLabel)}</strong></span><b>${esc(netValue(item))}</b></div>${summary}${highlights}${boundary}${how}${sourceBlock}</article>`;
   }
 
   function netCalculation(item) {
     const how = item.reader_how || `${item.label}为计算项，具体公式见完整计分账本。`;
     if (/\bNone\b/.test(String(how))) return "";
-    return `<div class="component"><span><strong>${esc(item.label)}</strong><small>${esc(netPublicText(how))}</small></span><b>${esc(netValue(item))}</b></div>`;
+    return `<div class="component"><span><strong>${esc(item.public_component_label || item.label)}</strong><small>${esc(netPublicText(how))}</small></span><b>${esc(netValue(item))}</b></div>`;
   }
 
   function buildNetReading(record) {

@@ -60,7 +60,7 @@ function paradigmReceptionProse(review){
 }
 function axisProse(t){if(typeof t==='string')return prose(readerText(t));if(Array.isArray(t))return t.length?t.map(axisProse).join(''):prose('未另列说明');if(t&&typeof t==='object'){const labels={positive_parent_refs:'正向情境引用',counter_parent_refs:'反例情境引用'};return `<details><summary>查看结构化情境引用</summary>${Object.entries(t).map(([k,v])=>`<div class="label">${esc(labels[k]||k)}</div>${axisProse(v)}`).join('')}</details>`}return prose('未另列说明')}
 function excerpt(t){return `<div class="excerpt">${format(Array.isArray(t)?t.join('；'):t||'尚无独立说明')}</div>`}
-function netGroups(r){return Object.entries(r.net.component_details||{}).map(([key,items])=>`<details><summary>${esc(groupNames[key]||key)}</summary><p class="subline">以下包含原始指标、折算与小计，不逐行相加。</p>${items.map(x=>`<div class="component"><span>${esc(x.label)} <small>${esc(x.grade)} ${esc(x.note)}</small></span><b>${x.value==null?'—':esc(x.value)} ${esc(x.unit)}</b></div>`).join('')}</details>`).join('')}
+function netGroups(r){return Object.entries(r.net.component_details||{}).map(([key,items])=>`<details><summary>${esc(groupNames[key]||key)}</summary><p class="subline">以下包含原始指标、折算与小计，不逐行相加。</p>${items.map(x=>`<div class="component"><span>${esc(x.public_component_label||x.label)} <small>${esc(x.public_level_label||x.grade)} ${esc(x.note)}</small></span><b>${x.value==null?'—':esc(x.value)} ${esc(x.unit)}</b></div>`).join('')}</details>`).join('')}
 const impactAuditSource=s=>{
  const name=[s?.document,s?.path,s?.title,s?.kind].filter(Boolean).join(' ');
  return s?.kind==='IMPORTED_ADJUDICATION'||/裁决清单|历史审计|重审持续记录|阶段复裁|整改报告/.test(name);

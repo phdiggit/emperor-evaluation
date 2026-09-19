@@ -34,7 +34,11 @@
     "strategy_chain_scoring_unit",
     "strategy_chain_parent_cycle_role",
     "strategy_chain_review_summary",
-    "unpressured_system_review_source"
+    "unpressured_system_review_source",
+    "public_projection_schema_version",
+    "public_projection_status",
+    "public_projection_source",
+    "public_projection_record_count"
   ],
   "payload_metadata": {
     "canonical_status": "FORMAL_CURRENT",
@@ -606,7 +610,14 @@
         "刘盈"
       ]
     },
-    "unpressured_system_review_source": "config/third-item/third-item-c-strategy-chain-adjudications.json"
+    "unpressured_system_review_source": "config/third-item/third-item-c-strategy-chain-adjudications.json",
+    "public_projection_schema_version": "third-fourth-item-public-projection-v1",
+    "public_projection_status": "FORMAL_UPSTREAM_SOURCE",
+    "public_projection_source": {
+      "formal_contract": "docs/分项规则/第三项军事与边疆净收益/00-规则与计分合同.md",
+      "reader_policy": "reader只显示public_adjudication_summary、public_evidence_items和public_boundary"
+    },
+    "public_projection_record_count": 201
   },
   "collections": {
     "records": {

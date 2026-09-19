@@ -102,7 +102,7 @@ python v4.py historical-impact-verify
 python v4.py composite-ranking --write
 ```
 
-第二项组件变动后，`python v4.py second-item-totals --write`同步汇总与四张阅读页；A制度建设的公开逐节点正式投影使用`python v4.py second-item-a-public --write`，B2反馈与约束的公开裁决投影使用`python v4.py second-item-b2-public --write`。第二项正式校验同时核对组件抄录、竞争排名、公开字段及阅读同值。
+第二项组件变动后，`python v4.py second-item-totals --write`同步汇总与四张阅读页；A制度建设的公开逐节点正式投影使用`python v4.py second-item-a-public --write`，B2反馈与约束的公开裁决投影使用`python v4.py second-item-b2-public --write`，C1—C4财政民生结果的公开裁决投影使用`python v4.py second-item-c-public --write`。第三、第四项公开裁决投影使用`python v4.py third-fourth-item-public --write`，可用`python v4.py third-fourth-item-public-verify`单独校验。第二项正式校验同时核对组件抄录、竞争排名、公开字段及阅读同值。
 
 主态低谷与净恢复 V4 已统一启用（L有限修正，历史K不计分）；可用 `python v4.py governance-state-recovery-verify` 校验，或用 `python v4.py governance-state-recovery-report --write` 刷新逐人阅读页。启用与刷新不做跨项文件哈希同步。
 

@@ -19,7 +19,11 @@
     "third_item_total_and_ranking_written",
     "records",
     "score_mapping",
-    "score_distribution"
+    "score_distribution",
+    "public_projection_schema_version",
+    "public_projection_status",
+    "public_projection_source",
+    "public_projection_record_count"
   ],
   "payload_metadata": {
     "schema_id": "emperor-v4-d-strategy-chain-formal-settlement-batch-v2",
@@ -124,7 +128,14 @@
       "32.0": 4,
       "34.0": 7,
       "40.0": 1
-    }
+    },
+    "public_projection_schema_version": "third-fourth-item-public-projection-v1",
+    "public_projection_status": "FORMAL_UPSTREAM_SOURCE",
+    "public_projection_source": {
+      "formal_contract": "docs/分项规则/第三项军事与边疆净收益/00-规则与计分合同.md",
+      "reader_policy": "reader只显示public_adjudication_summary、public_evidence_items和public_boundary"
+    },
+    "public_projection_record_count": 201
   },
   "collections": {
     "records": {

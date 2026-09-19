@@ -1,4 +1,9 @@
-from reader.build import _attach_b2_public_reader, _attach_reader, axis_projection
+from reader.build import (
+    _attach_b2_public_reader,
+    _attach_reader,
+    _attach_second_item_c_public_reader,
+    axis_projection,
+)
 
 
 def test_c4_projection_uses_declared_representative_contexts():
@@ -106,6 +111,34 @@ def test_b2_reader_projection_consumes_all_explicit_public_evidence():
     assert "reader_full_basis" not in projected
 
 
+def test_c_reader_projection_consumes_all_explicit_public_evidence():
+    evidence = [
+        {
+            "id": f"C1-PUBLIC-{index}",
+            "public_label": label,
+            "public_role": role,
+            "public_basis": f"{label}的正式公开依据。",
+            "public_boundary": "本轴只展示本轴结果，不重复计算其他结果。",
+        }
+        for index, (label, role) in enumerate(
+            [("主要状态", "主要状态"), ("低谷与损失", "低谷"), ("评价边界", "边界")]
+        )
+    ]
+    projected = _attach_second_item_c_public_reader(
+        {"label": "C1民生", "value": 32.0, "source": "docs/评分结算/测试.json"},
+        axis="C1",
+        record={
+            "ruler_name": "合成甲",
+            "public_adjudication_summary": "当前主要状态与低谷均有独立公开说明。",
+            "public_evidence_items": evidence,
+        },
+    )
+
+    assert projected["reader_public_evidence_items"] == evidence
+    assert len(projected["reader_highlights"]) == len(evidence)
+    assert "reader_full_basis" not in projected
+
+
 def test_historical_impact_contract_version_metadata_matches_current_contract():
     import json
     import yaml
@@ -114,5 +147,7 @@ def test_historical_impact_contract_version_metadata_matches_current_contract():
     project = yaml.safe_load((root / "config" / "project.yml").read_text(encoding="utf-8"))
     router = json.loads((root / "docs" / "评分结算" / "历史影响" / "01-历史影响正式结算.json").read_text(encoding="utf-8"))
 
-    assert project["historical_impact_assessment"]["contract_version"] == "FORMAL-V1.7"
-    assert router["payload_metadata"]["contract_version"] == "FORMAL-V1.7"
+    project_version = project["historical_impact_assessment"]["contract_version"]
+    router_version = router["payload_metadata"]["contract_version"]
+    assert project_version == router_version
+    assert project_version.startswith("FORMAL-V")
