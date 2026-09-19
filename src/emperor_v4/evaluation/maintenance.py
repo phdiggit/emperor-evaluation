@@ -181,6 +181,10 @@ def inspect(root: Path, components: list[str], ruler_ids: list[str], polities: l
             + (["second-item-c-public --write"] if any(f"I2.{axis}" in affected for axis in ("C1", "C2", "C3", "C4")) else [])
             + (["second-item-totals --write"] if "I2" in derived else [])
             + (["third-item-current-settlement --write"] if "I3" in derived else [])
+            + (["third-fourth-item-public --write"] if any(
+                key == "I3" or key.startswith("I3.") or key == "I4" or key.startswith("I4.")
+                for key in affected | derived
+            ) else [])
             + (["canonical-ruler-pool --write"] if "pool" in derived else [])
             + (["composite-ranking --write"] if "composite" in derived else [])
             + [f"profile-markdown --axis {key.split('.')[1]} --write" for key in components if key.startswith("profile.")]

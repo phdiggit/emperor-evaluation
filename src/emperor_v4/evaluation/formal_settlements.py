@@ -909,10 +909,9 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
     verify_second_item_b1_snapshot(workspace_root)
     b2_report = verify_second_item_b2_snapshot(workspace_root)
     from emperor_v4.evaluation.second_item_c_public import verify_public_projection as verify_c_public_projection
-
-    c_public_report = verify_c_public_projection(workspace_root)
     from emperor_v4.evaluation.second_item_d1_d3_public import verify_public_projection as verify_d1_d3_public_projection
 
+    c_public_report = verify_c_public_projection(workspace_root)
     d1_d3_public_report = verify_d1_d3_public_projection(
         workspace_root,
         payloads={"D1": payloads["D1"], "D3": payloads["D3"]},
@@ -1097,12 +1096,20 @@ def verify_formal_settlements(workspace_root: Path, *, items: set[str] | None = 
         if "second_item" in items:
             result["second_item_components"] = _verify_second_item_components(workspace_root)
         if "third_item" in items:
+            from emperor_v4.evaluation.third_fourth_item_public import verify_public_projection
+
             result["third_item_components"] = {
                 "C": verify_third_item_c_strategy_chain_settlement(workspace_root),
                 "combined": verify_current_third_item_settlement(workspace_root),
+                "public_projection": verify_public_projection(workspace_root),
             }
+        if "fourth_item" in items:
+            from emperor_v4.evaluation.third_fourth_item_public import verify_public_projection
+
+            result["fourth_item_public_projection"] = verify_public_projection(workspace_root)
         return result
     from emperor_v4.evaluation.project_entries import verify as verify_project_entries
+    from emperor_v4.evaluation.third_fourth_item_public import verify_public_projection
     return {
         "status": "PASS",
         "validation_scope": "SNAPSHOT_COHERENCE_NOT_FULL_SEMANTIC_ACCEPTANCE",
@@ -1115,5 +1122,6 @@ def verify_formal_settlements(workspace_root: Path, *, items: set[str] | None = 
             "D": verify_third_item_d_formal_settlement(workspace_root),
             "combined": verify_current_third_item_settlement(workspace_root),
         },
+        "third_fourth_public_projection": verify_public_projection(workspace_root),
         "items": reports,
     }

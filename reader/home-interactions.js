@@ -74,19 +74,19 @@
     "C4恢复与成本": "看危机后的恢复成果，同时扣除本人造成或放大的民力与治理成本。",
     "D1继任行政连续性": "看权力交接后行政机器、政策执行和基本治理能否继续运转。",
     "D3政权交接稳定": "看交接本身是否造成中枢失控、内战或严重继承危机。",
-    "A1": "看安全与控制状态相对接手时发生了什么变化，并只计本人可归责部分。",
-    "A2": "看重要战略目标最终取得、维持或丧失了多少实际安全收益。",
-    "B1": "看本人新增或稳住了多少有效控制规模，避免把继承存量重复算作成果。",
-    "B2": "看取得的控制与军事成果有多大战略价值，而不是只按面积或战役数量计分。",
-    "B4": "看这些安全成果能否稳定交班，而不是在本人离场前后迅速失效。",
-    "C1实战交付": "看军事体系在真实高压任务中能否把国家资源转化为可兑现的战场结果。",
-    "C2持续作战": "看军事体系能否跨阶段持续动员、补充和完成任务。",
-    "C3体系可靠性": "看体系在不同战区和压力下是否稳定，还是频繁出现结构性失灵。",
-    "普通成本扣分": "看本人统治窗口内战争对本方军队、军事资产、后勤和持续动员造成的实际成本。",
-    "ML扣分": "只在重大军事净毁损同时满足结果、成本和本人责任门槛时追加扣分，普通失败不会自动触发。",
-    "A国家共同体": "看本人窗口对不同区域、群体与身份之间的参与、接纳和排斥造成了什么净变化。",
-    "B教育与人才": "看教育供给、学习机会和跨地域跨身份流动是否出现可归责的真实变化。",
-    "C文化知识": "看知识生产、保存、传播和文化生态是否出现可归责的真实变化。",
+    "主要安全威胁与战略主动": "看安全与控制状态相对接手时发生了什么变化，并只计本人责任范围内的部分。",
+    "防线协同与战略纵深": "看重要方向的防线和战略纵深最终取得、维持或丧失了多少实际安全收益。",
+    "实际控制范围": "看本人新增或稳住了多少有效控制范围，避免把继承存量重复算作成果。",
+    "战略成果价值": "看取得的控制与军事成果有多大战略价值，而不是只按面积或战役数量计分。",
+    "控制成果稳定性": "看这些安全成果能否稳定交付，而不是在本人离场前后迅速失效。",
+    "实战任务交付": "看军事体系在真实高压任务中能否把国家资源转化为可兑现的战场结果。",
+    "持续作战与任务承载": "看军事体系能否跨阶段持续动员、补充和完成任务。",
+    "军事体系可靠性": "看体系在不同战区和压力下是否稳定，还是频繁出现结构性失灵。",
+    "普通军事代价": "看本人统治窗口内战争对本方军队、军事资产、后勤和持续动员造成的实际成本。",
+    "重大军事净毁损": "看是否同时出现重大结果、较高本方代价和足够本人责任，从而需要追加扣减。",
+    "国家共同体与社会整合": "看本人窗口对不同区域、群体与身份之间的参与、接纳和排斥造成了什么净变化。",
+    "教育可及与人才流动": "看教育供给、学习机会和跨地域跨身份流动是否出现可归责的真实变化。",
+    "知识生产、传播与文化生态": "看知识生产、保存、传播和文化生态是否出现可归责的真实变化。",
   };
 
   const firstItemDocs = {
@@ -324,7 +324,7 @@
       );
       const preview = firstNotApplicable
         ? `<p class="notice">该人物不适用第一项，本项不参与净收益计分。</p>`
-        : judgments.map(item => `<div class="component"><span>${esc(item.label)}</span><b>${esc(netValue(item))}</b></div>`).join("");
+        : judgments.map(item => `<div class="component"><span>${esc(item.public_component_label || item.label)}</span><b>${esc(netValue(item))}</b></div>`).join("");
       details.innerHTML = `<summary>${esc(netGroupNames[key] || key)}</summary>${preview}<p class="sources"><a href="${netHref(record, major, key)}">查看这组完整计分逻辑 →</a></p>`;
       reading.append(details);
     }
@@ -339,28 +339,7 @@
   }
 
   function cleanNetText(value) {
-    return String(value ?? "")
-      .replace(/\bC-([0-9]+)-(LOW|MID|HIGH)\b/g, (_, n, p) => `第${n}档·${({LOW:"低位",MID:"中位",HIGH:"高位"})[p]}`)
-      .replace(/\bC-0\b/g, "第0档")
-      .replace(/\bML([0-4])\b/g, "军事净毁损第$1级")
-      .replace(/\bCIV([0-4])\b/g, "文明影响量级$1")
-      .replace(/\bDA([0-9]+)\b/g, "破坏放大第$1级")
-      .replace(/\bHYBRID\b/g, "战略统筹与本人主帅／临阵并存")
-      .replace(/\bSTRATEGIC_COMMAND\b/g, "战略统筹路线")
-      .replace(/\bNONE\b/g, "未形成可计的本人统帅责任")
-      .replace(/\bHIGH\b/g, "高位")
-      .replace(/\bMID\b/g, "中位")
-      .replace(/\bLOW\b/g, "低位")
-      .replace(/\bmiddle-upper\b/g, "中上位")
-      .replace(/\bmiddle-lower\b/g, "中下位")
-      .replace(/\bupper\b/g, "上位")
-      .replace(/\bmiddle\b/g, "中位")
-      .replace(/\blower\b/g, "下位")
-      .replace(/\bPOSITIVE\b/g, "正向")
-      .replace(/\bNEGATIVE\b/g, "负向")
-      .replace(/\bBALANCED\b/g, "正负相抵")
-      .replace(/\s+/g, " ")
-      .trim();
+    return String(value ?? "").replace(/\s+/g, " ").trim();
   }
 
   function uniqueSourceRefs(item) {
@@ -377,15 +356,23 @@
         : index === 0 ? "原始正式文档 ↗" : `补充史料／记录 ${index} ↗`;
       return link(ref, label, record);
     }).join(" ");
-    return `<details class="net-audit-sources"><summary>原始正式文档与史料（审计）</summary><p class="subline">这些链接指向整份正式文件，供核对使用；上面的当前人物事实才是面向读者的正文。</p><p class="sources">${links}</p></details>`;
+    return `<details class="net-audit-sources"><summary>正式文档与史料</summary><p class="subline">这些链接指向整份正式文件，供读者核对；上面的当前人物事实才是正文。</p><p class="sources">${links}</p></details>`;
   }
 
   function metricDetail(item, record) {
-    const intro = netPublicIntro[item.label] || "";
+    const displayLabel = item.public_component_label || item.label;
+    const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
     const summary = cleanNetText(item.reader_summary || "");
     const fullBasis = cleanNetText(item.reader_full_basis || "");
-    const highlights = (Array.isArray(item.reader_highlights) ? item.reader_highlights : [])
-      .map(cleanNetText).filter(Boolean);
+    const publicEvidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
+    const highlights = publicEvidence.length
+      ? publicEvidence.map(entry => {
+        const label = entry?.public_label || entry?.public_role || "公开依据";
+        const basis = cleanNetText(entry?.public_basis || "");
+        return basis ? `${label}：${basis}` : "";
+      }).filter(Boolean)
+      : (Array.isArray(item.reader_highlights) ? item.reader_highlights : [])
+        .map(cleanNetText).filter(Boolean);
     const boundary = cleanNetText(item.reader_boundary || "");
     const how = cleanNetText(item.reader_how || "");
     const logic = [intro, summary].filter(Boolean).join("\n");
@@ -397,13 +384,13 @@
       : "";
     const limit = boundary ? `<div class="label">限制与边界</div>${prose(boundary)}` : "";
     const formula = how ? `<details><summary>这个分怎么算？</summary>${prose(how)}</details>` : "";
-    return `<details class="net-metric-detail"><summary><span><strong>${esc(item.label)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}</span><b>${esc(netValue(item))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
+    return `<details class="net-metric-detail"><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}</span><b>${esc(netValue(item))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
   }
 
   function calculationBlock(items) {
     const calculations = items.filter(item => item.reader_kind === "calculation" && item.value != null);
     if (!calculations.length) return "";
-    return `<details class="net-calculations"><summary>计算过程与小计</summary>${calculations.map(item => `<div class="component"><span><strong>${esc(item.label)}</strong><small>${esc(cleanNetText(item.reader_how || "按正式公式换算。"))}</small></span><b>${esc(netValue(item))}</b></div>`).join("")}</details>`;
+      return `<details class="net-calculations"><summary>计算过程与小计</summary>${calculations.map(item => `<div class="component"><span><strong>${esc(item.public_component_label || item.label)}</strong><small>${esc(cleanNetText(item.reader_how || "按正式公式换算。"))}</small></span><b>${esc(netValue(item))}</b></div>`).join("")}</details>`;
   }
 
   function genericNetGroup(record, key, items) {

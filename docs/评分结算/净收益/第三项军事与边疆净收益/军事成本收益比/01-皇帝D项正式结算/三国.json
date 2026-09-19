@@ -86,7 +86,20 @@
             "cost_band": "C0",
             "status": "CONFIRMED",
             "position": "LOW",
-            "basis": "C0仅表示D项无独立成本链；夷陵M4、连营资产损失和刘备责任随第三项C失败任务整链消费，不代表战争成本低。"
+            "basis": "C0仅表示D项无独立成本链；夷陵M4、连营资产损失和刘备责任随第三项C失败任务整链消费，不代表战争成本低。",
+            "public_adjudication_summary": "普通军事代价为第0级、低位。仅表示项无独立成本链；夷陵、连营资产损失和刘备责任随第三项失败任务整链计入，不代表战争成本低",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-A8D2950537A0835B",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为第0级、低位。仅表示项无独立成本链；夷陵、连营资产损失和刘备责任随第三项失败任务整链计入，不代表战争成本低",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为第0级、低位",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "唯一固定链被第三项C整链消费，本项不重复败局或成本，保留D1中位。",
           "coverage_status": "CONFIRMED",
@@ -94,7 +107,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由0条外部结果链和0条内部军事链共同构成。唯一固定链被第三项整链计入，本项不重复败局或成本，保留中位",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-F96611D74FEDC3FC",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出0条外部战略结果链和0条内部军事链。唯一固定链被第三项整链计入，本项不重复败局或成本，保留中位",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-A8D2950537A0835B",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为第0级、低位。仅表示项无独立成本链；夷陵、连营资产损失和刘备责任随第三项失败任务整链计入，不代表战争成本低",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-F1D6554A5AB93F41",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为第1级",
+          "public_component_label": "战略结果与军事代价"
         },
         {
           "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -373,7 +413,20 @@
             "basis": "核心组织路径：263阳安关与绵竹阻击失败后，刘禅向姜维及各郡县下罢兵敕；姜维主力实际放下兵器，交节传并与廖化张翼董厥投降，原蜀汉可独立调用的主要军队和中枢军令体系终止。依据是实际军事组织停止运作，不是亡国标签；投降簿甲士十万二千不当参战分母或死亡数。人员物理毁损总数不足，且主要军队被接收而非全歼，C6-LOW。 C7两路径复核：263主要军队奉敕罢兵是一轮组织终止，未有本人窗口灾后重大补充再损。",
             "source_refs": [
               "docs/史料通读产物/唐以前编年/三国/卷071-通读总结.md#WAR-LEAD-SG-SHU-NORTH-228"
-            ]
+            ],
+            "public_adjudication_summary": "普通军事代价为第6级、低位。核心组织路径：263阳安关与绵竹阻击失败后，刘禅向姜维及各郡县下罢兵敕；姜维主力实际放下兵器，交节传并与廖化张翼董厥投降，原蜀汉可独立调用的主要军队和中枢军令体系终止。依据是实际军事组织停止运作，不是亡国标签；投降簿甲士十万二千不当参战分母或死亡数。人员物理毁损总数不足，且主要军队被接收而非全歼，-低位。 两路径复核：263主要军队奉敕罢兵是一轮组织终止，未有本人窗口灾后重大补充再损",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-E2D7F20CC0C89EE0",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为第6级、低位。核心组织路径：263阳安关与绵竹阻击失败后，刘禅向姜维及各郡县下罢兵敕；姜维主力实际放下兵器，交节传并与廖化张翼董厥投降，原蜀汉可独立调用的主要军队和中枢军令体系终止。依据是实际军事组织停止运作，不是亡国标签；投降簿甲士十万二千不当参战分母或死亡数。人员物理毁损总数不足，且主要军队被接收而非全歼，-低位。 两路径复核：263主要军队奉敕罢兵是一轮组织终止，未有本人窗口灾后重大补充再损",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为第6级、低位",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "早期北伐E2、汉中防御E3和后期北伐E0均被263亡国EN3终局强支配，成本前已为D0；刘禅对关隘预警搁置和最终投降负决定性责任，位置为LOW。 当前成本C6-LOW已重新核对；D档仍为D0，由负向安全组合支配，不因成本标签降低自动恢复成果。 军事成本按独立合同裁为C6（LOW，CONFIRMED）；具体结构见成本依据。",
           "coverage_status": "CONFIRMED",
@@ -381,7 +434,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由4条外部结果链和2条内部军事链共同构成。早期北伐、汉中防御和后期北伐均被263亡国终局强支配，成本前已为；刘禅对关隘预警搁置和最终投降负决定性责任，位置为。 当前成本已重新核对；档仍为，由负向安全组合支配，不因成本标签降低自动恢复成果。 军事成本按独立规定判断为（低位）；具体结构见成本依据",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-A6574F773CE89D16",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出4条外部战略结果链和2条内部军事链。早期北伐、汉中防御和后期北伐均被263亡国终局强支配，成本前已为；刘禅对关隘预警搁置和最终投降负决定性责任，位置为。 当前成本已重新核对；档仍为，由负向安全组合支配，不因成本标签降低自动恢复成果。 军事成本按独立规定判断为（低位）；具体结构见成本依据",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-E2D7F20CC0C89EE0",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为第6级、低位。核心组织路径：263阳安关与绵竹阻击失败后，刘禅向姜维及各郡县下罢兵敕；姜维主力实际放下兵器，交节传并与廖化张翼董厥投降，原蜀汉可独立调用的主要军队和中枢军令体系终止。依据是实际军事组织停止运作，不是亡国标签；投降簿甲士十万二千不当参战分母或死亡数。人员物理毁损总数不足，且主要军队被接收而非全歼，-低位。 两路径复核：263主要军队奉敕罢兵是一轮组织终止，未有本人窗口灾后重大补充再损",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-FCDB081F87887EF6",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为第0级",
+          "public_component_label": "战略结果与军事代价"
         },
         {
           "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -565,7 +645,20 @@
             "basis": "252东兴七万主攻军惊乱争渡、浮桥断裂，死者数万并丧车畜军资，是主要兵团严重损耗，C5-HIGH。七万为出征分母，连全数死亡也不足十万人员门；原文又非全数死亡。未证该一路主攻军代表魏全国不可替代核心功能，255仍能组织淮南战争；现有材料未显示核心中断或重大替代后才恢复。故不凭“大军团灾难”直接取C6，也不以三路进攻数量补门。",
             "source_refs": [
               "docs/史料通读产物/唐以前编年/三国/卷075-通读总结.md#WAR-LEAD-SG-WEI-WU-DONGXING-252"
-            ]
+            ],
+            "public_adjudication_summary": "普通军事代价为第5级、高位。252东兴七万主攻军惊乱争渡、浮桥断裂，死者数万并丧车畜军资，是主要兵团严重损耗，-高位。七万为出征分母，连全数死亡也不足十万人员门；原文又非全数死亡。未证该一路主攻军代表魏全国不可替代核心功能，255仍能组织淮南战争；现有材料未显示核心中断或重大替代后才恢复。故不凭“大军团灾难”直接取，也不以三路进攻数量补门",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-9D94435ED3B6E2EA",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为第5级、高位。252东兴七万主攻军惊乱争渡、浮桥断裂，死者数万并丧车畜军资，是主要兵团严重损耗，-高位。七万为出征分母，连全数死亡也不足十万人员门；原文又非全数死亡。未证该一路主攻军代表魏全国不可替代核心功能，255仍能组织淮南战争；现有材料未显示核心中断或重大替代后才恢复。故不凭“大军团灾难”直接取，也不以三路进攻数量补门",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为第5级、高位",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "合肥E3、淮南E3与陇西EN1同权；东兴E0无净改善，成本前D3。淮南成功不额外压位置，同链成本只在成本门读取。 当前成本C5-HIGH已重新核对；D档仍为D2，既有区域成果仍未显著支配已证严重成本，不作机械档位回补。 军事成本按独立合同裁为C5（HIGH，CONFIRMED）；具体结构见成本依据。",
           "coverage_status": "CONFIRMED",
@@ -573,7 +666,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由3条外部结果链和1条内部军事链共同构成。合肥、淮南与陇西同权；东兴无净改善，成本前。淮南成功不额外压位置，同链成本只在成本门读取。 当前成本已重新核对；档仍为，既有区域成果仍未显著支配已证严重成本，不作机械档位回补。 军事成本按独立规定判断为（高位）；具体结构见成本依据",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-3D21F5038C7F63C2",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出3条外部战略结果链和1条内部军事链。合肥、淮南与陇西同权；东兴无净改善，成本前。淮南成功不额外压位置，同链成本只在成本门读取。 当前成本已重新核对；档仍为，既有区域成果仍未显著支配已证严重成本，不作机械档位回补。 军事成本按独立规定判断为（高位）；具体结构见成本依据",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-9D94435ED3B6E2EA",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为第5级、高位。252东兴七万主攻军惊乱争渡、浮桥断裂，死者数万并丧车畜军资，是主要兵团严重损耗，-高位。七万为出征分母，连全数死亡也不足十万人员门；原文又非全数死亡。未证该一路主攻军代表魏全国不可替代核心功能，255仍能组织淮南战争；现有材料未显示核心中断或重大替代后才恢复。故不凭“大军团灾难”直接取，也不以三路进攻数量补门",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-DF8919D11029053C",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为第2级",
+          "public_component_label": "战略结果与军事代价"
         },
         {
           "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -645,7 +765,20 @@
             "cost_band": "C2",
             "status": "CONFIRMED",
             "position": "LOW",
-            "basis": "251王凌链中只有一次中军水道急进和军事压迫，实际未发生交战。 王凌自杀及后续政治清算不属于军事人员/兵团损毁。 因此仅存在有限军队调动，C2-LOW已经足够。"
+            "basis": "251王凌链中只有一次中军水道急进和军事压迫，实际未发生交战。 王凌自杀及后续政治清算不属于军事人员/兵团损毁。 因此仅存在有限军队调动，C2-LOW已经足够。",
+            "public_adjudication_summary": "普通军事代价为第2级、低位。251王凌链中只有一次中军水道急进和军事压迫，实际未发生交战。 王凌自杀及后续政治清算不属于军事人员/兵团损毁。 因此仅存在有限军队调动，-已经足够",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-2D041E2C8087BA91",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为第2级、低位。251王凌链中只有一次中军水道急进和军事压迫，实际未发生交战。 王凌自杀及后续政治清算不属于军事人员/兵团损毁。 因此仅存在有限军队调动，-已经足够",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为第2级、低位",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "王凌所掌淮南重兵与改立中枢企图经中军急进被压服，E2同权进入组合；未发生实际中央军事分裂，不上E3。 军事成本按独立合同裁为C2（LOW，CONFIRMED）；具体结构见成本依据。",
           "coverage_status": "CONFIRMED",
@@ -653,7 +786,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由0条外部结果链和1条内部军事链共同构成。王凌所掌淮南重兵与改立中枢企图经中军急进被压服，同权进入组合；未发生实际中央军事分裂，不上。 军事成本按独立规定判断为（低位）；具体结构见成本依据",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-08A23936566BD318",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出0条外部战略结果链和1条内部军事链。王凌所掌淮南重兵与改立中枢企图经中军急进被压服，同权进入组合；未发生实际中央军事分裂，不上。 军事成本按独立规定判断为（低位）；具体结构见成本依据",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-2D041E2C8087BA91",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为第2级、低位。251王凌链中只有一次中军水道急进和军事压迫，实际未发生交战。 王凌自杀及后续政治清算不属于军事人员/兵团损毁。 因此仅存在有限军队调动，-已经足够",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-972A4D30F57D90C1",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为第2级",
+          "public_component_label": "战略结果与军事代价"
         },
         {
           "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -811,7 +971,20 @@
             "basis": "洮西死者万计、退入狄道万余及多年陇右补防为C5-HIGH；寿春二十六万围军是投入，非死亡。原有国家军队仍能继续作战，普通补防不构成核心功能替代。",
             "source_refs": [
               "docs/史料通读产物/唐以前编年/三国/卷076-通读总结.md#WAR-LEAD-SG-SHU-DIDAO-255"
-            ]
+            ],
+            "public_adjudication_summary": "普通军事代价为第5级、高位。洮西死者万计、退入狄道万余及多年陇右补防为高位；寿春二十六万围军是投入，非死亡。原有国家军队仍能继续作战，普通补防不构成核心功能替代",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-2F5D26ADC98EEE5E",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为第5级、高位。洮西死者万计、退入狄道万余及多年陇右补防为高位；寿春二十六万围军是投入，非死亡。原有国家军队仍能继续作战，普通补防不构成核心功能替代",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为第5级、高位",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "去除灭蜀统一成果后，对蜀西线仍从洮西灾难恢复为连续遏止并压回沓中，组合为D3； 军事成本按独立合同裁为C5（HIGH，CONFIRMED）；具体结构见成本依据。",
           "coverage_status": "CONFIRMED",
@@ -819,7 +992,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由1条外部结果链和2条内部军事链共同构成。去除灭蜀统一成果后，对蜀西线仍从洮西灾难恢复为连续遏止并压回沓中，组合为； 军事成本按独立规定判断为（高位）；具体结构见成本依据",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-A2388777DB313335",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出1条外部战略结果链和2条内部军事链。去除灭蜀统一成果后，对蜀西线仍从洮西灾难恢复为连续遏止并压回沓中，组合为； 军事成本按独立规定判断为（高位）；具体结构见成本依据",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-2F5D26ADC98EEE5E",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为第5级、高位。洮西死者万计、退入狄道万余及多年陇右补防为高位；寿春二十六万围军是投入，非死亡。原有国家军队仍能继续作战，普通补防不构成核心功能替代",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-90A7F7C7A4A8B5BD",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为第2级",
+          "public_component_label": "战略结果与军事代价"
         },
         {
           "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -891,7 +1091,20 @@
             "source_refs": [
               "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md#WAR-LEAD-SG-JIAOZHI-263",
               "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#DINV::RULER-WU-SUNXIU::CAMPAIGN-V078-SG-JIAOZHI-263"
-            ]
+            ],
+            "public_adjudication_summary": "普通军事代价为第2级、高位。263交州切片只形成完整证据两名本方军政人员死亡及最低限度地方武装负担。 三郡行政失控属于结果，不倒灌成本；264后续援军也不前灌。 因而属于有限、局地但明确的军事损害，-合理",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-59DA8E43B6D46F02",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为第2级、高位。263交州切片只形成完整证据两名本方军政人员死亡及最低限度地方武装负担。 三郡行政失控属于结果，不倒灌成本；264后续援军也不前灌。 因而属于有限、局地但明确的军事损害，-合理",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为第2级、高位",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "交趾九真日南控制成片崩解，内部EN2直接形成负向安全组合D0； 军事成本按独立合同裁为C2（HIGH，CONFIRMED）；具体结构见成本依据。",
           "coverage_status": "CONFIRMED",
@@ -899,7 +1112,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由0条外部结果链和1条内部军事链共同构成。交趾九真日南控制成片崩解，内部直接形成负向安全组合； 军事成本按独立规定判断为（高位）；具体结构见成本依据",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-3EDC73F48469AAC3",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出0条外部战略结果链和1条内部军事链。交趾九真日南控制成片崩解，内部直接形成负向安全组合； 军事成本按独立规定判断为（高位）；具体结构见成本依据",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-59DA8E43B6D46F02",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为第2级、高位。263交州切片只形成完整证据两名本方军政人员死亡及最低限度地方武装负担。 三郡行政失控属于结果，不倒灌成本；264后续援军也不前灌。 因而属于有限、局地但明确的军事损害，-合理",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-C263B426E637409C",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为第0级",
+          "public_component_label": "战略结果与军事代价"
         },
         {
           "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -1312,7 +1552,20 @@
             "status": "CONFIRMED",
             "position": "HIGH",
             "admission_fact": "夷洲与辽东各万人级编组重损，但互为独立周期，人员下界远未至十万。孙吴核心主力仍可持续作战，C5-HIGH，不按两军数量升档。",
-            "basis": "夷洲与辽东各万人级编组重损，但互为独立周期，人员下界远未至十万。孙吴核心主力仍可持续作战，C5-HIGH，不按两军数量升档。"
+            "basis": "夷洲与辽东各万人级编组重损，但互为独立周期，人员下界远未至十万。孙吴核心主力仍可持续作战，C5-HIGH，不按两军数量升档。",
+            "public_adjudication_summary": "普通军事代价为第5级、高位。夷洲与辽东各万人级编组重损，但互为独立周期，人员下界远未至十万。孙吴核心主力仍可持续作战，-高位，不按两军数量升档",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-D314D3E063F61F57",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为第5级、高位。夷洲与辽东各万人级编组重损，但互为独立周期，人员下界远未至十万。孙吴核心主力仍可持续作战，-高位，不按两军数量升档",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为第5级、高位",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "夷洲、辽东重损仍明显压制有限安全改善，但国家军事组织保持连续；以C5高位修正D2为D1，不再沿用C6的两档压制。 军事成本按独立合同裁为C5（HIGH，CONFIRMED）；具体结构见成本依据。",
           "coverage_status": "CONFIRMED",
@@ -1320,7 +1573,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由4条外部结果链和6条内部军事链共同构成。夷洲、辽东重损仍明显压制有限安全改善，但国家军事组织保持连续；以高位修正为，不再沿用的两档压制。 军事成本按独立规定判断为（高位）；具体结构见成本依据",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-1CBFEA4E35AB30BF",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出4条外部战略结果链和6条内部军事链。夷洲、辽东重损仍明显压制有限安全改善，但国家军事组织保持连续；以高位修正为，不再沿用的两档压制。 军事成本按独立规定判断为（高位）；具体结构见成本依据",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-D314D3E063F61F57",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为第5级、高位。夷洲与辽东各万人级编组重损，但互为独立周期，人员下界远未至十万。孙吴核心主力仍可持续作战，-高位，不按两军数量升档",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-4FD066B5B854D40F",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为第1级",
+          "public_component_label": "战略结果与军事代价"
         },
         {
           "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -1521,7 +1801,20 @@
             "basis": "核心路径：吴最后三万野战主军、万级水军和后续守御组织连续失效，原全国军事功能无法继续，C6-MID。未声称十万死亡； C7两路径复核：水陆主军和中枢在一次灭吴战争中连续终止，未单独闭合首灾后的重大补充及新损耗。",
             "source_refs": [
               "docs/史料通读产物/唐以前编年/两晋/卷080-通读总结.md#WAR-LEAD-JIN-CONQUEST-WU-279"
-            ]
+            ],
+            "public_adjudication_summary": "普通军事代价为第6级、中位。核心路径：吴最后三万野战主军、万级水军和后续守御组织连续失效，原全国军事功能无法继续，-中位。未声称十万死亡； 两路径复核：水陆主军和中枢在一次灭吴战争中连续终止，未单独形成完整证据首灾后的重大补充及新损耗",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-9B9BC7AD25955FD9",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为第6级、中位。核心路径：吴最后三万野战主军、万级水军和后续守御组织连续失效，原全国军事功能无法继续，-中位。未声称十万死亡； 两路径复核：水陆主军和中枢在一次灭吴战争中连续终止，未单独形成完整证据首灾后的重大补充及新损耗",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为第6级、中位",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "交趾和西陵两条E3不能抵消终局全国防务崩溃与亡国EN3，成本前D0；成果与成本严格分轴，亡国只决定安全负结果上限。 军事成本按独立合同裁为C6（MID，CONFIRMED）；具体结构见成本依据。",
           "coverage_status": "CONFIRMED",
@@ -1529,7 +1822,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由4条外部结果链和0条内部军事链共同构成。交趾和西陵两条不能抵消终局全国防务崩溃与亡国，成本前；成果与成本严格分轴，亡国只决定安全负结果上限。 军事成本按独立规定判断为（中位）；具体结构见成本依据",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-2B247B61EE2C855A",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出4条外部战略结果链和0条内部军事链。交趾和西陵两条不能抵消终局全国防务崩溃与亡国，成本前；成果与成本严格分轴，亡国只决定安全负结果上限。 军事成本按独立规定判断为（中位）；具体结构见成本依据",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-9B9BC7AD25955FD9",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为第6级、中位。核心路径：吴最后三万野战主军、万级水军和后续守御组织连续失效，原全国军事功能无法继续，-中位。未声称十万死亡； 两路径复核：水陆主军和中枢在一次灭吴战争中连续终止，未单独形成完整证据首灾后的重大补充及新损耗",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-F25AE00CF75ACF86",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为第0级",
+          "public_component_label": "战略结果与军事代价"
         },
         {
           "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -1715,7 +2035,20 @@
             "position": "HIGH",
             "admission_fact": "三轮攻吴、十余万戎卒和数千战船是长期高投入，C5-HIGH。已知千余损失与军疫不能推十万死亡，船队数量不代替核心功能失能证据。",
             "basis": "三轮攻吴、十余万戎卒和数千战船是长期高投入，C5-HIGH。已知千余损失与军疫不能推十万死亡，船队数量不代替核心功能失能证据。",
-            "source_refs": []
+            "source_refs": [],
+            "public_adjudication_summary": "普通军事代价为第5级、高位。三轮攻吴、十余万戎卒和数千战船是长期高投入，-高位。已知千余损失与军疫不能推十万死亡，船队数量不代替核心功能失能证据",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-30E009F164967BF8",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为第5级、高位。三轮攻吴、十余万戎卒和数千战船是长期高投入，-高位。已知千余损失与军疫不能推十万死亡，船队数量不代替核心功能失能证据",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为第5级、高位",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "国家级对吴主链最终只保住既有边线为E1，北边E2不足形成更高组合，成本前D1； 军事成本按独立合同裁为C5（HIGH，CONFIRMED）；具体结构见成本依据。",
           "coverage_status": "CONFIRMED",
@@ -1723,7 +2056,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由2条外部结果链和2条内部军事链共同构成。国家级对吴主链最终只保住既有边线为，北边不足形成更高组合，成本前； 军事成本按独立规定判断为（高位）；具体结构见成本依据",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-08802518407D0D1A",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出2条外部战略结果链和2条内部军事链。国家级对吴主链最终只保住既有边线为，北边不足形成更高组合，成本前； 军事成本按独立规定判断为（高位）；具体结构见成本依据",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-30E009F164967BF8",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为第5级、高位。三轮攻吴、十余万戎卒和数千战船是长期高投入，-高位。已知千余损失与军疫不能推十万死亡，船队数量不代替核心功能失能证据",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-7E9C3D91EEF2B0B0",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为第0级",
+          "public_component_label": "战略结果与军事代价"
         },
         {
           "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -1975,7 +2335,20 @@
             "status": "CONFIRMED",
             "position": "MID",
             "admission_fact": "石亭一役曹休十万级方面军发生有组织大败，并陷夹石退路危机；万辆畜车及大量军资器械丧失，主要方面军组织与资产连续性同时遭到重大破坏。 该单一事实已经闭合C5“主要野战力量重大毁损”门，不需要拿汉中、辽东等其他链拼档。 魏国整体国家主力与核心军事组织仍可继续运转，没有国家核心军事连续性断裂，故不进C6。",
-            "basis": "石亭一役曹休十万级方面军发生有组织大败，并陷夹石退路危机；万辆畜车及大量军资器械丧失，主要方面军组织与资产连续性同时遭到重大破坏。 该单一事实已经闭合C5“主要野战力量重大毁损”门，不需要拿汉中、辽东等其他链拼档。 魏国整体国家主力与核心军事组织仍可继续运转，没有国家核心军事连续性断裂，故不进C6。"
+            "basis": "石亭一役曹休十万级方面军发生有组织大败，并陷夹石退路危机；万辆畜车及大量军资器械丧失，主要方面军组织与资产连续性同时遭到重大破坏。 该单一事实已经闭合C5“主要野战力量重大毁损”门，不需要拿汉中、辽东等其他链拼档。 魏国整体国家主力与核心军事组织仍可继续运转，没有国家核心军事连续性断裂，故不进C6。",
+            "public_adjudication_summary": "普通军事代价为第5级、中位。石亭一役曹休十万级方面军发生有组织大败，并陷夹石退路危机；万辆畜车及大量军资器械丧失，主要方面军组织与资产连续性同时遭到重大破坏。 该单一事实已经形成完整证据“主要野战力量重大毁损”门，不需要拿汉中、辽东等其他链拼档。 魏国整体国家主力与核心军事组织仍可继续运转，没有国家核心军事连续性断裂，故不进",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-7B61F1E10BD39A69",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为第5级、中位。石亭一役曹休十万级方面军发生有组织大败，并陷夹石退路危机；万辆畜车及大量军资器械丧失，主要方面军组织与资产连续性同时遭到重大破坏。 该单一事实已经形成完整证据“主要野战力量重大毁损”门，不需要拿汉中、辽东等其他链拼档。 魏国整体国家主力与核心军事组织仍可继续运转，没有国家核心军事连续性断裂，故不进",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为第5级、中位",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "辽东E4与首次北伐E3阶段改善，对冲石亭EN2和汉中E0主动失败后，仍保留主要方向净改善，成本前为D3；石亭F3且皇帝对主动多路大战略负主要责任。孟达内部链不重复抬档。 军事成本按独立合同裁为C5（MID，CONFIRMED）；具体结构见成本依据。",
           "coverage_status": "CONFIRMED",
@@ -1983,7 +2356,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由4条外部结果链和1条内部军事链共同构成。辽东与首次北伐阶段改善，对冲石亭和汉中主动失败后，仍保留主要方向净改善，成本前为；石亭且皇帝对主动多路大战略负主要责任。孟达内部链不重复抬档。 军事成本按独立规定判断为（中位）；具体结构见成本依据",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-97D6C9ECF3E1F6CB",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出4条外部战略结果链和1条内部军事链。辽东与首次北伐阶段改善，对冲石亭和汉中主动失败后，仍保留主要方向净改善，成本前为；石亭且皇帝对主动多路大战略负主要责任。孟达内部链不重复抬档。 军事成本按独立规定判断为（中位）；具体结构见成本依据",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-7B61F1E10BD39A69",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为第5级、中位。石亭一役曹休十万级方面军发生有组织大败，并陷夹石退路危机；万辆畜车及大量军资器械丧失，主要方面军组织与资产连续性同时遭到重大破坏。 该单一事实已经形成完整证据“主要野战力量重大毁损”门，不需要拿汉中、辽东等其他链拼档。 魏国整体国家主力与核心军事组织仍可继续运转，没有国家核心军事连续性断裂，故不进",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-526F1F12996176BC",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为第2级",
+          "public_component_label": "战略结果与军事代价"
         },
         {
           "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -2223,7 +2623,20 @@
             "cost_band": "NOT_APPLICABLE",
             "status": "NOT_APPLICABLE",
             "position": "NOT_APPLICABLE",
-            "basis": "190—220创业统一竞争链由第一项全窗消费；濡须、汉中、樊城等同链A/B/D退出，仅留C capability-only。"
+            "basis": "190—220创业统一竞争链由第一项全窗消费；濡须、汉中、樊城等同链A/B/D退出，仅留C capability-only。",
+            "public_adjudication_summary": "普通军事代价为未单列等级。190—220创业统一竞争链由第一项全窗计入；濡须、汉中、樊城等同链退出，仅留",
+            "public_evidence_items": [
+              {
+                "id": "THIRD-D-COST-PUBLIC-DFBE05E794F5A1A8",
+                "public_label": "普通军事代价",
+                "public_role": "本方军事承载",
+                "public_basis": "普通军事代价为未单列等级。190—220创业统一竞争链由第一项全窗计入；濡须、汉中、樊城等同链退出，仅留",
+                "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+              }
+            ],
+            "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入",
+            "public_level_label": "普通军事代价为未单列等级",
+            "public_component_label": "普通军事代价"
           },
           "adjudication_basis": "190—220创业统一竞争链由第一项全窗消费；濡须、汉中、樊城等同链A/B/D退出，仅留C capability-only。 第三项无独立安全与成本链，D为不适用。",
           "coverage_status": "CONFIRMED",
@@ -2231,7 +2644,34 @@
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
-          "database_write": false
+          "database_write": false,
+          "public_adjudication_summary": "战略结果由0条外部结果链和0条内部军事链共同构成。190—220创业统一竞争链由第一项全窗计入；濡须、汉中、樊城等同链退出，仅留 。 第三项无独立安全与成本链，为不适用",
+          "public_evidence_items": [
+            {
+              "id": "THIRD-D-PUBLIC-382AC32B7CB100A1",
+              "public_label": "战略结果组合",
+              "public_role": "战略结果",
+              "public_basis": "现有材料列出0条外部战略结果链和0条内部军事链。190—220创业统一竞争链由第一项全窗计入；濡须、汉中、樊城等同链退出，仅留 。 第三项无独立安全与成本链，为不适用",
+              "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算"
+            },
+            {
+              "id": "THIRD-D-COST-PUBLIC-DFBE05E794F5A1A8",
+              "public_label": "普通军事代价",
+              "public_role": "本方军事承载",
+              "public_basis": "普通军事代价为未单列等级。190—220创业统一竞争链由第一项全窗计入；濡须、汉中、樊城等同链退出，仅留",
+              "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入"
+            },
+            {
+              "id": "THIRD-D-PUBLIC-C60668D4C3F088D8",
+              "public_label": "责任与重复计算边界",
+              "public_role": "责任边界",
+              "public_basis": "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断",
+              "public_boundary": "项结果不把普通军事代价和重大净毁损重复写成两次损失"
+            }
+          ],
+          "public_boundary": "战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算",
+          "public_level_label": "战略结果为未单列等级",
+          "public_component_label": "战略结果与军事代价"
         }
       ]
     }
