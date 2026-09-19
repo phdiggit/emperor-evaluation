@@ -154,3 +154,87 @@ def test_historical_impact_contract_version_metadata_matches_current_contract():
     router_version = router["payload_metadata"]["contract_version"]
     assert project_version == router_version
     assert project_version.startswith("FORMAL-V")
+
+
+def _run_reading_notes_node(tmp_path, body):
+    import shutil
+    import subprocess
+    from pathlib import Path
+    import pytest
+
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node.js required for reader behavior')
+    root = Path(__file__).resolve().parents[1]
+    script = tmp_path / 'person-notes.cjs'
+    script.write_text("const assert=require('node:assert/strict');\n"
+                      "const api=require(process.cwd()+'/reader/person-reading-notes.js');\n" + body,
+                      encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=root, capture_output=True,
+                            text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
+
+
+def test_person_note_locators_are_local_and_never_pin_scores(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const record={axes:{C5:{typical_pattern:'合成事项：复核改变了一项决定。',axis_grade:'G3'}},net:{total_score:10}};
+const block={text:'一段根据明确事件撰写的提要。',evidence:[{path:['axes','C5','typical_pattern'],quote:'复核改变了一项决定'}]};
+api.validateBlock(block);
+const before=JSON.stringify(record);
+assert.equal(api.assessBlock(block,record).status,'current');
+assert.equal(JSON.stringify(record),before);
+record.axes.C5.axis_grade='G4';record.net.total_score=20;
+assert.equal(api.assessBlock(block,record).status,'current','a lawful regrade must not freeze a factual note');
+record.axes.C5.typical_pattern='这项材料已撤回。';
+record.axes.C1={typical_pattern:'复核改变了一项决定'};
+assert.equal(api.assessBlock(block,record).status,'needs_review','same words on another axis are not a valid source');
+assert.equal(api.assessBlock(block,{}).status,'needs_review');
+for(const path of [['axes','C5','axis_grade'],['net','total_score'],['__proto__','anything'],
+ ['impact','constructor','name'],['axes','C5'],['net','reader_governance_summary']])assert.equal(api.validPath(path),false);
+assert.equal(api.resolve({},['constructor']),undefined);
+''')
+
+
+def test_person_notes_require_complete_sections_and_plain_prose(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const b=()=>({text:'合成的事实与边界。',evidence:[{path:['impact','public_boundary'],quote:'合成来源'}]});
+const payload={schema_id:'reader-person-reading-notes-v1',records:{'RULER-SYNTHETIC':{
+ overview:{outcome:b(),profile:b(),impact:b()},axes:{C5:{observations:b(),counterevidence:b(),scope:b(),limits:b()}}}}};
+api.validateNotes(payload);
+const copy=JSON.parse(JSON.stringify(payload));delete copy.records['RULER-SYNTHETIC'].axes.C5.counterevidence;
+assert.throws(()=>api.validateNotes(copy),/counterevidence/);
+assert.throws(()=>api.validateBlock({...b(),evidence:[]}),/needs evidence/);
+assert.throws(()=>api.validateBlock({...b(),text:'<img src=x>'}),/prose/);
+assert.throws(()=>api.validateBlock({...b(),text:'使用MI3替代事实。'}),/prose/);
+assert.throws(()=>api.validateNotes({...payload,schema_id:'unknown'}),/schema/);
+''')
+
+
+def test_person_notes_use_current_sources_without_snapshot_expectations(tmp_path):
+    """Check typed sources/identity. A withdrawn anchor marks only its prose stale."""
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs');
+const payload=api.validateNotes(JSON.parse(fs.readFileSync('reader/person-reading-notes.json','utf8')));
+let current=0,needsReview=0;
+for(const [id,notes] of Object.entries(payload.records)){
+ const record=JSON.parse(fs.readFileSync('reader/data/people/'+id+'.json','utf8')).record;
+ assert.equal(record.ruler_id,id);
+ const before=JSON.stringify(record);
+ for(const block of [...Object.values(notes.overview),...Object.values(notes.axes.C5||{})]){
+  const result=api.assessBlock(block,record);
+  assert.ok(['current','needs_review'].includes(result.status));
+  if(result.status==='current')current++;else needsReview++;
+  for(const ref of block.evidence){
+   if(ref.path[0]==='net'){
+    const item=record.net?.component_details?.[ref.path[2]]?.[ref.path[3]];
+    if(item)assert.ok(typeof item.source==='string' && item.source.startsWith('docs/'));
+   }
+  }
+ }
+ assert.equal(JSON.stringify(record),before);
+}
+// Counts are reported, not fixed against a historical editorial batch.
+console.log(JSON.stringify({current,needsReview}));
+const copy=JSON.parse(fs.readFileSync('reader/public-copy.json','utf8'));
+assert.ok(copy.some(row=>row.to.includes('src="person-reading-notes.js"')));
+''')

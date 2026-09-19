@@ -11,6 +11,8 @@ on:
       - reader/readability.css
       - reader/readability.js
       - reader/person-readability.js
+      - reader/person-reading-notes.js
+      - reader/person-reading-notes.json
       - reader/first-item-reading.js
       - reader/second-item-reading.js
       - reader/second-item-public-alias.js
@@ -134,6 +136,7 @@ jobs:
           node --check reader/second-item-a-public.js
           node --check reader/second-item-b1-public.js
           node --check reader/second-item-public-labels.js
+          node --check reader/person-reading-notes.js
           rm -rf .tmp/reader-js-check
 
       - name: Run behavior tests
