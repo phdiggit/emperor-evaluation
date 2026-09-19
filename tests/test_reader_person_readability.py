@@ -198,11 +198,17 @@ assert.equal(api.resolve({},['constructor']),undefined);
 def test_person_notes_require_complete_sections_and_plain_prose(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const b=()=>({text:'合成的事实与边界。',evidence:[{path:['impact','public_boundary'],quote:'合成来源'}]});
-const payload={schema_id:'reader-person-reading-notes-v1',records:{'RULER-SYNTHETIC':{
- overview:{outcome:b(),profile:b(),impact:b()},axes:{C5:{observations:b(),counterevidence:b(),scope:b(),limits:b()}}}}};
+const payload={schema_id:'reader-person-overviews-v2',records:{'RULER-SYNTHETIC':{
+ overview:{outcome:b(),profile:b(),impact:b()}}}};
 api.validateNotes(payload);
-const copy=JSON.parse(JSON.stringify(payload));delete copy.records['RULER-SYNTHETIC'].axes.C5.counterevidence;
-assert.throws(()=>api.validateNotes(copy),/counterevidence/);
+const copy=JSON.parse(JSON.stringify(payload));delete copy.records['RULER-SYNTHETIC'].overview.impact;
+assert.throws(()=>api.validateNotes(copy),/three overview/);
+for(const extra of ['axes','strength','weight','role','limits']){
+ const invalid=JSON.parse(JSON.stringify(payload));invalid.records['RULER-SYNTHETIC'][extra]={};
+ assert.throws(()=>api.validateNotes(invalid),/Only overview/);
+ assert.throws(()=>api.validateBlock({...b(),[extra]:'自行分类'}),/prose/);
+}
+assert.throws(()=>api.validateBlock({...b(),evidence:[{...b().evidence[0],strength:'强'}]}),/locator/);
 assert.throws(()=>api.validateBlock({...b(),evidence:[]}),/needs evidence/);
 assert.throws(()=>api.validateBlock({...b(),text:'<img src=x>'}),/prose/);
 assert.throws(()=>api.validateBlock({...b(),text:'使用MI3替代事实。'}),/prose/);
@@ -223,7 +229,7 @@ for(const [id,notes] of Object.entries(payload.records)){
  const record=JSON.parse(fs.readFileSync('reader/data/people/'+id+'.json','utf8')).record;
  assert.equal(record.ruler_id,id);
  const before=JSON.stringify(record);
- for(const block of [...Object.values(notes.overview),...Object.values(notes.axes.C5||{})]){
+ for(const block of Object.values(notes.overview)){
   const result=api.assessBlock(block,record);
   assert.ok(['current','needs_review'].includes(result.status));
   if(result.status==='current')current++;else needsReview++;
@@ -241,3 +247,45 @@ console.log(JSON.stringify({current,needsReview}));
 const copy=JSON.parse(fs.readFileSync('reader/public-copy.json','utf8'));
 assert.ok(copy.some(row=>row.to.includes('src="person-reading-notes.js"')));
 ''')
+
+
+def test_c5_projection_passes_formal_strength_without_filling_missing_values():
+    from copy import deepcopy
+    row = {
+        "axis_code": "C5", "source_refs": [],
+        "counterpattern": {"negative_parent_refs": ["P1", "P2", "P3"]},
+        "parent_chains": [
+            {"parent_id": "P1", "intensity": "MI2_LIFECYCLE", "direction": "NEGATIVE", "basis": "合成记录甲。"},
+            {"parent_id": "P2", "material_intensity": "FUTURE_CODE", "basis": "合成记录乙。"},
+            {"parent_id": "P3", "basis": "叙述包含多年、跨阶段甚至MI4，但未裁定强度。"},
+        ],
+    }
+    before = deepcopy(row)
+    lookup = axis_projection(row, [])['context_lookup']
+    for source in row['parent_chains']:
+        projected = lookup[source['parent_id']]
+        for key in ('intensity', 'material_intensity', 'direction', 'basis'):
+            assert (key in projected) == (key in source)
+            if key in source:
+                assert projected[key] == source[key]
+    assert row == before
+
+
+def test_c5_current_contexts_match_formal_strength_and_prose():
+    """Source equality, not any frozen value or distribution of real rulers."""
+    from pathlib import Path
+    from emperor_v4.evaluation.formal_json_store import load_json
+    from emperor_v4.evaluation.profile_parent_schema import parent_chains
+    import yaml
+    root = Path(__file__).resolve().parents[1]
+    config = yaml.safe_load((root / 'config/project.yml').read_text(encoding='utf-8'))
+    source = root / config['profile_assessment']['settled_axes']['C5']['json']
+    for row in load_json(source)['records']:
+        lookup = axis_projection(row, []).get('context_lookup', {})
+        originals = {p['parent_id']: p for p in parent_chains(row)}
+        for parent_id, projected in lookup.items():
+            original = originals[parent_id]
+            for key in ('intensity', 'material_intensity', 'direction', 'basis', 'cycle_basis'):
+                assert (key in projected) == (key in original)
+                if key in original:
+                    assert projected[key] == original[key]

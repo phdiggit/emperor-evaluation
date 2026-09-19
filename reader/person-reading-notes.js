@@ -1,13 +1,10 @@
 "use strict";
 
 (() => {
-  const schema = "reader-person-reading-notes-v1";
+  const schema = "reader-person-overviews-v2";
   const overviewKeys = ["outcome", "profile", "impact"];
-  const sectionKeys = ["observations", "counterevidence", "scope", "limits"];
   const labels = {
-    outcome: "事实提要", profile: "取证线索", impact: "历史变化提要",
-    observations: "相关事实", counterevidence: "不能略去的反证",
-    scope: "怎样区分这些材料", limits: "证据和解释边界",
+    outcome: "统治记录摘要", profile: "人物经历摘要", impact: "历史变化摘要",
   };
   const own = (object, key) => object != null && Object.prototype.hasOwnProperty.call(object, key);
   const plain = value => value && typeof value === "object" && !Array.isArray(value);
@@ -35,27 +32,25 @@
       (path[0] === "net" && path[1] === "component_details" && path.length >= 5);
   }
 
+  const exactKeys = (value, keys) => plain(value) && Object.keys(value).length === keys.length && keys.every(key => own(value, key));
+
   function validateBlock(block) {
-    if (!plain(block) || !text(block.text) || forbidden.test(block.text)) throw Error("Invalid reading-note prose");
+    if (!exactKeys(block, ["text", "evidence"]) || !text(block.text) || forbidden.test(block.text)) throw Error("Invalid reading-note prose");
     if (!Array.isArray(block.evidence) || !block.evidence.length) throw Error("Reading note needs evidence");
     for (const ref of block.evidence) {
-      if (!plain(ref) || !validPath(ref.path) || !text(ref.quote)) throw Error("Invalid reading-note locator");
+      if (!exactKeys(ref, ["path", "quote"]) || !validPath(ref.path) || !text(ref.quote)) throw Error("Invalid reading-note locator");
     }
   }
 
   function validateNotes(payload) {
-    if (!plain(payload) || payload.schema_id !== schema || !plain(payload.records)) throw Error("Invalid reading-note schema");
+    if (!exactKeys(payload, ["schema_id", "records"]) || payload.schema_id !== schema || !plain(payload.records)) throw Error("Invalid reading-note schema");
     for (const [id, notes] of Object.entries(payload.records)) {
       if (!id.startsWith("RULER-") || /[\/\\]/.test(id) || !plain(notes)) throw Error("Invalid reading-note identity");
-      if (!plain(notes.overview) || Object.keys(notes.overview).length !== overviewKeys.length ||
-          !overviewKeys.every(key => own(notes.overview, key))) throw Error("Reading note needs three overview sections");
+      // Editorial freedom is limited to the three overview summaries. Decisions,
+      // strength, counterevidence and boundaries belong to the formal records.
+      if (!exactKeys(notes, ["overview"])) throw Error("Only overview summaries are allowed");
+      if (!exactKeys(notes.overview, overviewKeys)) throw Error("Reading note needs three overview sections");
       for (const block of Object.values(notes.overview)) validateBlock(block);
-      if (!plain(notes.axes) || Object.keys(notes.axes).some(key => key !== "C5")) throw Error("Unsupported reading-note axis");
-      if (notes.axes.C5) {
-        if (!plain(notes.axes.C5) || Object.keys(notes.axes.C5).length !== sectionKeys.length ||
-            !sectionKeys.every(key => own(notes.axes.C5, key))) throw Error("Axis note needs facts, counterevidence, scope and limits");
-        for (const block of Object.values(notes.axes.C5)) validateBlock(block);
-      }
     }
     return payload;
   }
@@ -90,15 +85,13 @@
     style.id = "person-reading-notes-style";
     style.textContent = `
       .person-reading-note{margin:12px 0 16px;padding:10px 12px;border-left:2px solid var(--line);background:var(--paper)}
-      .person-reading-note h3,.axis-reading-notes h3{font-size:14px;margin:0 0 6px}
-      .person-reading-note p,.axis-reading-notes p{font-size:14px;line-height:1.85;margin:6px 0;overflow-wrap:anywhere}
+      .person-reading-note h3{font-size:14px;margin:0 0 6px}
+      .person-reading-note p{font-size:14px;line-height:1.85;margin:6px 0;overflow-wrap:anywhere}
       .note-evidence{font-size:12px;padding:5px 0;margin-top:8px}
       .note-evidence summary{font-size:12px;color:var(--muted)}
       .note-evidence li{white-space:normal;overflow-wrap:anywhere;margin:8px 0}
       .note-evidence q{display:block;margin-top:4px;color:var(--muted)}
-      .axis-reading-notes>section{margin:16px 0}.axis-reading-notes .note-provenance{color:var(--muted);font-size:12px}
-      .reading-original-record{margin-top:18px}.reading-note-pending{color:var(--muted);font-size:13px}
-      .comparison .axis-reading-notes{min-width:0}
+      .note-provenance,.reading-note-pending{color:var(--muted);font-size:13px}
     `;
     document.head.append(style);
   }
@@ -153,43 +146,17 @@
     }
   }
 
-  function applyAxis(record, notes, suffix = "") {
-    const detail = document.getElementById("reason-C5" + suffix), blocks = notes.axes.C5;
-    if (!detail || !blocks || detail.dataset.readingNotes === "done") return;
-    detail.dataset.readingNotes = "done";
-    if (sectionKeys.some(key => assessBlock(blocks[key], record).status !== "current")) {
-      detail.querySelector(":scope > summary")?.after(pendingNote());
-      return; // Never leave a selective half-story when one evidence group becomes stale.
-    }
-    const body = el("div", "axis-reading-notes");
-    body.append(el("p", "note-provenance", "据项目现有记录整理；事实、反证与解释边界分别呈现。"));
-    for (const key of sectionKeys) body.append(renderBlock(key, blocks[key], record, "axis-note-section"));
-    const original = el("details", "reading-original-record");
-    original.append(el("summary", "", "原始裁决与完整材料"));
-    const heading = detail.querySelector(":scope > summary");
-    for (const node of Array.from(detail.childNodes)) if (node !== heading) original.append(node);
-    // Existing enhancers may have already run. Preserve their body and state rather than rebuilding it.
-    detail.dataset.personReadable = "done";
-    detail.append(body, original);
-  }
-
   function subjects() {
-    const hash = location.hash;
-    if (hash.startsWith("#person/")) {
-      const record = byId.get(personId());
-      return record && record.detail_loaded ? [{record, suffix: "", overview: true}] : [];
-    }
-    if (hash.startsWith("#compare/") && state.compare.length === 2) {
-      return state.compare.map((id, i) => ({record: byId.get(id), suffix: "-compare-" + i, overview: false}))
-        .filter(subject => subject.record?.detail_loaded);
-    }
-    return [];
+    // Comparisons use the formal evidence directly; they need no editorial file.
+    if (!location.hash.startsWith("#person/")) return [];
+    const record = byId.get(personId());
+    return record && record.detail_loaded ? [record] : [];
   }
 
   function enhance() {
     queued = false;
     const active = subjects();
-    if (!active.length) return; // Home and the comparison picker do not fetch narrative content.
+    if (!active.length) return; // Home and comparison views do not fetch overview summaries.
     if (!payload) {
       if (failed) {
         if (!root.querySelector(".notes-load-notice")) root.prepend(el("p", "notes-load-notice reading-note-pending", "阅读提要暂未加载，现有正式记录仍可阅读。刷新页面可重试。"));
@@ -203,11 +170,10 @@
       return;
     }
     addStyles();
-    for (const subject of active) {
-      const notes = payload.records[subject.record.ruler_id];
+    for (const record of active) {
+      const notes = payload.records[record.ruler_id];
       if (!notes) continue; // No invented fallback paragraph for people not yet editorially reviewed.
-      if (subject.overview) applyOverview(subject.record, notes);
-      applyAxis(subject.record, notes, subject.suffix);
+      applyOverview(record, notes);
     }
   }
 

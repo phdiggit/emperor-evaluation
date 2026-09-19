@@ -88,8 +88,13 @@ def axis_projection(row, fields):
     counter = row.get("counterpattern")
     if isinstance(counter, dict):
         ids = {ref for values in counter.values() if isinstance(values, list) for ref in values if isinstance(ref, str)}
+        context_fields = ["parent_id", "cycle_basis", "basis", "source_refs", "direction"]
+        if row.get("axis_code") == "C5":
+            # Pass through the exact formal fields. Do not infer strength from
+            # the prose, final grade, source count, or an editorial summary.
+            context_fields += ["intensity", "material_intensity"]
         result["context_lookup"] = {
-            p["parent_id"]: pick(p, ["parent_id", "cycle_basis", "basis", "source_refs", "direction"])
+            p["parent_id"]: pick(p, context_fields)
             for p in chains if p.get("parent_id") in ids
         }
         missing = ids - result["context_lookup"].keys()
