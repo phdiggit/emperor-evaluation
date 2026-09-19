@@ -908,6 +908,9 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
     a_report = verify_second_item_a_snapshot(workspace_root)
     verify_second_item_b1_snapshot(workspace_root)
     b2_report = verify_second_item_b2_snapshot(workspace_root)
+    from emperor_v4.evaluation.second_item_c_public import verify_public_projection as verify_c_public_projection
+
+    c_public_report = verify_c_public_projection(workspace_root)
     id_sets = {key: set(rows) for key, rows in indexed.items()}
     complete_ids = id_sets["method"]
     complete_keys = {"A", "B1", "B2", "method", "D1", "D3", "handoff"}
@@ -1004,6 +1007,7 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         "A_scoring_node_count": a_report["scoring_node_count"],
         "B2_basis_verified_count": b2_report["basis_verified_count"],
         "B2_duplicate_markdown_ruler_count": b2_report["duplicate_markdown_ruler_count"],
+        "C_public_projection": c_public_report,
         "D3_formal_record_count": len(d3_records),
         "handoff_formula_record_count": len(handoff_records),
     }

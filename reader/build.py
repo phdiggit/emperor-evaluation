@@ -283,6 +283,45 @@ def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
     return result
 
 
+def _attach_second_item_c_public_reader(item, *, axis, record, how="", source_refs=()):
+    """Project C1-C4 explicit public fields without reader-side adjudication."""
+
+    if not isinstance(record, dict):
+        raise ValueError(f"{axis} reader projection requires a formal record")
+    summary = record.get("public_adjudication_summary")
+    evidence = record.get("public_evidence_items")
+    if not isinstance(summary, str) or not summary.strip():
+        raise ValueError(f"{axis} formal public summary is missing: {record.get('ruler_name')}")
+    if not isinstance(evidence, list) or not evidence:
+        raise ValueError(f"{axis} formal public evidence is missing: {record.get('ruler_name')}")
+    result = dict(item)
+    result["reader_kind"] = "judgment"
+    result["reader_summary"] = summary
+    result["public_adjudication_summary"] = summary
+    result["public_evidence_items"] = deepcopy(evidence)
+    result["reader_public_evidence_items"] = deepcopy(evidence)
+    result["reader_highlights"] = _unique_texts(
+        [
+            f"{entry.get('public_label')}：{entry.get('public_basis')}"
+            for entry in evidence
+            if isinstance(entry, dict)
+        ],
+        limit=None,
+    )
+    boundaries = _unique_texts(
+        [entry.get("public_boundary") for entry in evidence if isinstance(entry, dict)],
+        limit=None,
+    )
+    if boundaries:
+        result["reader_boundary"] = "；".join(boundaries)
+    if how:
+        result["reader_how"] = how
+    refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
+    if refs:
+        result["reader_source_refs"] = refs
+    return result
+
+
 def load_net_reader_sources(root):
     """Load formal subitem evidence for reader-only explanations."""
     sources = load_detail_sources(root)
@@ -454,7 +493,12 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             how = f"正向保留 − 恶化扣分 − 破坏放大扣分 = {item.get('note')} = {item.get('value')} 分。"
         else:
             how = f"正式状态判断与损失修正按本轴合同换算为 {item.get('value')} 分。"
-        finance[label] = _attach_reader(item, kind="judgment", record=record, how=how)
+        if key in {"C1", "C2", "C3", "C4"}:
+            finance[label] = _attach_second_item_c_public_reader(
+                item, axis=key, record=record, how=how
+            )
+        else:
+            finance[label] = _attach_reader(item, kind="judgment", record=record, how=how)
     if "治理结果" in finance:
         values = {label: item.get("value") for label, item in finance.items()}
         finance["治理结果"] = _attach_reader(
