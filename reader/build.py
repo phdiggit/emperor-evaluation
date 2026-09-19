@@ -283,6 +283,45 @@ def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
     return result
 
 
+def _attach_d1_d3_public_reader(item, *, record, axis, how="", source_refs=()):
+    """Project D1/D3's explicit public fields without generic fallback guessing."""
+
+    if not isinstance(record, dict):
+        raise ValueError(f"{axis} reader projection requires a formal record")
+    summary = record.get("public_adjudication_summary")
+    evidence = record.get("public_evidence_items")
+    if not isinstance(summary, str) or not summary.strip():
+        raise ValueError(f"{axis} formal public summary is missing: {record.get('ruler_name')}")
+    if not isinstance(evidence, list) or not evidence:
+        raise ValueError(f"{axis} formal public evidence is missing: {record.get('ruler_name')}")
+    result = dict(item)
+    result["reader_kind"] = "judgment"
+    result["reader_summary"] = summary
+    result["public_adjudication_summary"] = summary
+    result["public_evidence_items"] = deepcopy(evidence)
+    result["reader_public_evidence_items"] = deepcopy(evidence)
+    result["reader_highlights"] = _unique_texts(
+        [
+            f"{entry.get('public_role')}：{entry.get('public_basis')}"
+            for entry in evidence
+            if isinstance(entry, dict)
+        ],
+        limit=None,
+    )
+    boundaries = _unique_texts(
+        [entry.get("public_boundary") for entry in evidence if isinstance(entry, dict)],
+        limit=None,
+    )
+    if boundaries:
+        result["reader_boundary"] = "；".join(boundaries)
+    if how:
+        result["reader_how"] = how
+    refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
+    if refs:
+        result["reader_source_refs"] = refs
+    return result
+
+
 def load_net_reader_sources(root):
     """Load formal subitem evidence for reader-only explanations."""
     sources = load_detail_sources(root)
@@ -473,8 +512,8 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
         if label in handoff:
             item = handoff[label]
             record = sources[key][sid]
-            handoff[label] = _attach_reader(
-                item, kind="judgment", record=record,
+            handoff[label] = _attach_d1_d3_public_reader(
+                item, record=record, axis=key,
                 how=f"正式交班裁决换算为 {item.get('value')} 级输入；该级本身不是独立可加分。",
                 source_refs=(sources[f"{key}_path"],),
             )
