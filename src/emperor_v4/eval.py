@@ -57,6 +57,9 @@ def _parser() -> argparse.ArgumentParser:
     second_item_c_public = commands.add_parser("second-item-c-public")
     second_item_c_public.add_argument("--workspace-root", type=Path, default=Path("."))
     second_item_c_public.add_argument("--write", action="store_true")
+    second_item_d1_d3_public = commands.add_parser("second-item-d1-d3-public")
+    second_item_d1_d3_public.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_d1_d3_public.add_argument("--write", action="store_true")
     second_item_b1 = commands.add_parser("second-item-b1-settlement")
     second_item_b1.add_argument("--workspace-root", type=Path, default=Path("."))
     second_item_b1.add_argument("--write", action="store_true")
@@ -314,6 +317,8 @@ def _dispatch(args: argparse.Namespace) -> int:
         return 0
     if args.command == "second-item-c-public":
         from emperor_v4.evaluation.second_item_c_public import run
+    if args.command == "second-item-d1-d3-public":
+        from emperor_v4.evaluation.second_item_d1_d3_public import run
 
         report = run(args.workspace_root.resolve(), write=args.write)
         print(json.dumps(report, ensure_ascii=False, indent=2))

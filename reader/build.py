@@ -322,6 +322,28 @@ def _attach_second_item_c_public_reader(item, *, axis, record, how="", source_re
     return result
 
 
+def _attach_d1_d3_public_reader(item, *, record, axis, how="", source_refs=()):
+    """Project D1/D3 explicit public fields without generic fallback guessing."""
+
+    result = _attach_second_item_c_public_reader(
+        item,
+        axis=axis,
+        record=record,
+        how=how,
+        source_refs=source_refs,
+    )
+    evidence = result.get("reader_public_evidence_items", [])
+    result["reader_highlights"] = _unique_texts(
+        [
+            f"{entry.get('public_role')}：{entry.get('public_basis')}"
+            for entry in evidence
+            if isinstance(entry, dict)
+        ],
+        limit=None,
+    )
+    return result
+
+
 def load_net_reader_sources(root):
     """Load formal subitem evidence for reader-only explanations."""
     sources = load_detail_sources(root)
@@ -517,8 +539,8 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
         if label in handoff:
             item = handoff[label]
             record = sources[key][sid]
-            handoff[label] = _attach_reader(
-                item, kind="judgment", record=record,
+            handoff[label] = _attach_d1_d3_public_reader(
+                item, record=record, axis=key,
                 how=f"正式交班裁决换算为 {item.get('value')} 级输入；该级本身不是独立可加分。",
                 source_refs=(sources[f"{key}_path"],),
             )

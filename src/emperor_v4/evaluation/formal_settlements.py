@@ -911,6 +911,12 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
     from emperor_v4.evaluation.second_item_c_public import verify_public_projection as verify_c_public_projection
 
     c_public_report = verify_c_public_projection(workspace_root)
+    from emperor_v4.evaluation.second_item_d1_d3_public import verify_public_projection as verify_d1_d3_public_projection
+
+    d1_d3_public_report = verify_d1_d3_public_projection(
+        workspace_root,
+        payloads={"D1": payloads["D1"], "D3": payloads["D3"]},
+    )
     id_sets = {key: set(rows) for key, rows in indexed.items()}
     complete_ids = id_sets["method"]
     complete_keys = {"A", "B1", "B2", "method", "D1", "D3", "handoff"}
@@ -1008,6 +1014,7 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         "B2_basis_verified_count": b2_report["basis_verified_count"],
         "B2_duplicate_markdown_ruler_count": b2_report["duplicate_markdown_ruler_count"],
         "C_public_projection": c_public_report,
+        "D1_D3_public_projection": d1_d3_public_report,
         "D3_formal_record_count": len(d3_records),
         "handoff_formula_record_count": len(handoff_records),
     }
