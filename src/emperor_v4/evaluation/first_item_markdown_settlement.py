@@ -107,9 +107,14 @@ def load_first_item_markdown_settlement(workspace_root: Path, *, validate_cost: 
 
 
 def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any]:
+    from emperor_v4.evaluation.first_item_c_public import verify_first_item_c_public
+    from emperor_v4.evaluation.first_item_b1_cost_public import verify_first_item_b1_cost_public
+
     rows = load_first_item_markdown_settlement(workspace_root)
     a_pool_text_audited_sections = _validate_a_pool_text_consistency(workspace_root)
     public_outcomes = verify_first_item_public_outcomes(workspace_root)
+    public_commander = verify_first_item_c_public(workspace_root)
+    public_b1_cost = verify_first_item_b1_cost_public(workspace_root)
     missing = [
         relative for relative in COMPONENT_SETTLEMENTS
         if not (workspace_root / relative).is_file()
@@ -154,6 +159,8 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
         "max_score": max(row["total"] for row in rows),
         "a_pool_text_audited_sections": a_pool_text_audited_sections,
         "public_outcomes": public_outcomes,
+        "public_commander": public_commander,
+        "public_b1_cost": public_b1_cost,
         "b2_material_sections": b2_audited,
         "component_paths": list(COMPONENT_SETTLEMENTS),
     }

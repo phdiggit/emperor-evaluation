@@ -51,7 +51,7 @@
   }
   function methodBand(item){const m=String(item?.grade||"").match(/\bG([0-5])\b/);return m?METHOD_BAND_LABELS[`G${m[1]}`]:"正式档未标明";}
   function stateMeta(item){const m=String(item?.grade||"").match(/\bC[123]-(\d+)\s*\/\s*L(\d+)\b/);if(!m)return"";const low=Number(m[2]);return`主要状态第${m[1]}档｜${low===0?"无额外低谷修正":`低谷修正${low}级`}`;}
-  function boundaryExcerpt(item){const t=String(item?.reader_boundary||"").trim();if(!t)return"";const first=t.match(/^.*?[。！？；;]/)?.[0]||t;return`边界：${first.trim()}`;}
+  function boundaryExcerpt(item){return String(item?.reader_boundary||"").trim()?"适用范围与限制见展开说明":"";}
   function rankText(t){
     if(!t.pool)return"";
     const pct=Math.max(1,Math.min(100,Math.ceil(t.pool.rank/t.pool.total*100)));
@@ -167,9 +167,6 @@
     for(const audit of document.querySelectorAll("#net-major-body .net-audit-sources")){let note=audit.querySelector(":scope > .second-item-pool-note");if(!note){note=document.createElement("p");note.className="second-item-pool-note";const sources=audit.querySelector(":scope > .sources");audit.insertBefore(note,sources||null);}setNodeText(note,`排名口径：当前公开名次只比较已完成治国成效结算的${current??"现有"}人。原第二项总表仍保留${HISTORICAL_SECOND_POOL}人历史快照，其中含${HISTORICAL_OUT_OF_CURRENT_POOL}条现已不在当前正式评价对象中的旧记录，因此原文件内旧rank不等于当前公开名次。`);}
   }
 
-  function humanizeText(text){return text.replace(/B1-distributed\/personnel M3/gi,"多责任官的人事配置强机制链").replace(/distributed\/personnel M3/gi,"多责任官的人事配置强机制链").replace(/central M2/gi,"中央有限机制链").replace(/混负M3/g,"较强、持续的混合偏负机制链").replace(/混合偏负M3/g,"较强、持续的混合偏负机制链").replace(/核心M3链/g,"较强、持续或跨阶段的核心机制链").replace(/正向M3/g,"较强、持续或跨阶段的正向机制链").replace(/正M3/g,"较强、持续或跨阶段的正向机制链").replace(/负向M3/g,"较强、持续或跨阶段的负向机制链").replace(/负M3/g,"较强、持续或跨阶段的负向机制链").replace(/M3链/g,"较强、持续或跨阶段的机制链").replace(/\bM3\b/g,"较强机制链").replace(/平衡M2/g,"影响大致相抵的有限机制链").replace(/正向M2/g,"明确但有限的正向机制链").replace(/正M2/g,"明确但有限的正向机制链").replace(/负向M2/g,"明确但有限的负向机制链").replace(/负M2/g,"明确但有限的负向机制链").replace(/M2链/g,"有限机制链").replace(/\bM2\b/g,"有限机制链").replace(/\bS_end\b/g,"终点状态").replace(/\bS0\b/g,"接手状态").replace(/\bG0\b/g,"最低档").replace(/\bG1\b/g,"较低档").replace(/\bG2\b/g,"中低档").replace(/\bG3\b/g,"中档").replace(/\bG4\b/g,"较高档").replace(/\bG5\b/g,"最高档").replace(/\bL([0-3])\b/g,(_,level)=>`低谷修正${level}级`).replace(/\bH([0-5])\b/g,(_,level)=>`交接第${level}级`).replace(/\bDA([0-3])\b/g,(_,level)=>`额外成本第${level}级`).replace(/\bexternal_constraint\b/gi,"外部反馈约束").replace(/\bmixed_positive\b/gi,"混合偏正").replace(/\bcentral\b/gi,"中央").replace(/\bdistributed\b/gi,"地方分布式").replace(/\bcanonical\b/gi,"规范").replace(/\bcore\b/gi,"核心").replace(/\bsupport\b/gi,"辅助").replace(/V2净值/g,"复核净值").replace(/责任路线=NONE/g,"未进入本人军事归责路线");}
-  function humanizeInternalLanguage(){const root=document.getElementById("net-major-body");if(!root)return;for(const body of root.querySelectorAll(".net-metric-body")){const walker=document.createTreeWalker(body,NodeFilter.SHOW_TEXT),nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);for(const node of nodes){const parent=node.parentElement;if(!parent||parent.closest(".net-formal-basis-raw")||parent.closest(".net-audit-sources")||parent.closest(".sources")||parent.closest("a"))continue;const next=humanizeText(node.nodeValue||"");if(next!==node.nodeValue)node.nodeValue=next;}}}
-
   function groupKindFromSummary(summary){const text=summary?.textContent.trim()||"";if(text.includes("制度与行政"))return"method";if(text.includes("财政与民生")||text.includes("民生与社会"))return"finance";if(text.includes("政权交接")||text.includes("交接质量"))return"handoff";return"";}
   function publicGroupTitle(kind){return{method:"制度与行政",finance:"民生与社会",handoff:"政权交接"}[kind]||"";}
   function replaceCompactNote(span,text){if(!span||!text)return;for(const small of Array.from(span.querySelectorAll(":scope > small")))small.remove();const note=document.createElement("small");note.className="second-item-scale-note";note.textContent=text;span.append(note);}
@@ -211,7 +208,7 @@
     if(!record?.net)return;restoreFormalBasisForRoute(record);const route=parsedNetRoute();if(!route)return;const t=secondTotals(record);
     if(route.major==="all"){ensureLandingCard(record,t);return;}
     if(route.major!=="second")return;
-    ensureSecondSummary(record,t);ensureMethodGroup(t);ensureFinanceGroup(t);ensureHandoffGroup(t);ensureAuditPoolNotes(t);humanizeInternalLanguage();
+    ensureSecondSummary(record,t);ensureMethodGroup(t);ensureFinanceGroup(t);ensureHandoffGroup(t);ensureAuditPoolNotes(t);
   }
   function enhance(){ensureStyles();const netRecord=recordForNetRoute();if(netRecord)enhanceNetRoute(netRecord);const personRecord=recordForPersonRoute();if(personRecord)enhancePersonOverview(personRecord);const compareRecords=recordsForCompareRoute();if(compareRecords.length)enhanceCompare(compareRecords);}
   function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;enhance();});}

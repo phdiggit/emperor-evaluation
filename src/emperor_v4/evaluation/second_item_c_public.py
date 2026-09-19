@@ -117,87 +117,13 @@ PUBLIC_FORBIDDEN_RE = re.compile(
 
 
 def _clean(value: object) -> str:
-    """Turn formal shorthand into ordinary Chinese before it reaches readers."""
+    """Use explicit upstream wording without deleting facts or conditions."""
+    from emperor_v4.evaluation.second_item_c_public_language import translate
 
-    text = str(value or "").replace("`", "").replace("\r", " ").replace("\n", " ")
-    text = re.sub(r"\{\{.*?\}\}", "", text)
-    text = re.sub(r"\s+", " ", text).strip()
-
-    text = re.sub(r"C4T-[1-6]", "任期末综合状态", text, flags=re.IGNORECASE)
-
-    def state_code(match: re.Match[str]) -> str:
-        axis, band = f"C{match.group(1).upper()}", int(match.group(2))
-        return f"{AXIS_NAMES[axis]}{STATE_LABELS[axis].get(band, '当前状态')}"
-
-    text = re.sub(r"(?<![A-Za-z0-9])C([123])[-/]([1-6])(?![A-Za-z0-9])", state_code, text)
-    text = re.sub(r"(?<![A-Za-z0-9])C1\s*[/、]\s*C2\s*[/、]\s*C3(?![A-Za-z0-9])", "民生、经济财政与社会安全", text)
-    text = re.sub(r"(?<![A-Za-z0-9])C1\s*[/、]\s*C2(?![A-Za-z0-9])", "民生与经济财政", text)
-    text = re.sub(r"(?<![A-Za-z0-9])C([1234])(?![A-Za-z0-9])", lambda m: {
-        "1": "民生",
-        "2": "经济财政",
-        "3": "社会安全",
-        "4": "恢复与成本结果",
-    }[m.group(1)], text)
-
-    for code, label in LOSS_LABELS.items():
-        text = re.sub(rf"(?<![A-Za-z0-9]){code}(?![A-Za-z0-9])", label, text)
-    for code, label in DA_LABELS.items():
-        text = re.sub(rf"(?<![A-Za-z0-9]){code}(?![A-Za-z0-9])", label, text)
-
-    replacements = (
-        (r"S_(?:0|s0)", "接手状态"),
-        (r"S_(?:main|avg)", "主要阶段状态"),
-        (r"S_end", "任期结束状态"),
-        (r"FULL", "本人独立或主导"),
-        (r"SHARED", "本人和其他掌权者共同承担"),
-        (r"NONE", "本人责任不足"),
-        (r"主档", "主要状态"),
-        (r"主态", "主要状态"),
-        (r"低谷修正", "低谷损害"),
-        (r"去重", "避免重复计算"),
-        (r"消费", "已计入"),
-        (r"净恢复", "保留的恢复"),
-        (r"净账|净分", "结果"),
-        (r"闭合", "证明"),
-        (r"门槛", "条件"),
-        (r"归责", "本人责任"),
-        (r"父链", "相关依据"),
-        (r"(?<![A-Za-z0-9])raw(?![A-Za-z0-9])", "已有"),
-        (r"旧已有", "旧判断"),
-        (r"(?<![A-Za-z0-9])V[0-9]+(?:消费|已计入)?核对：?[^。；]*[。；]?", ""),
-        (r"(?<![A-Za-z0-9])V[0-9]+(?![A-Za-z0-9])", ""),
-        (r"本轮", "当前判断"),
-        (r"恢复原", "恢复既有"),
-        (r"raw锚点", "接手状态"),
-        (r"C4净分", "恢复与成本结果"),
-        (r"正向保留\s*[-+]?\d+(?:\.\d+)?分", "保留恢复"),
-        (r"可归责恶化另扣\s*[-+]?\d+(?:\.\d+)?分", "本人责任期状态下降另行评估"),
-        (r"最终(?:DA[0-6]|额外民力成本)[^。；]*", "额外成本判断"),
-        (r"恢复原值\s*[-+]?\d+(?:\.\d+)?", "保留恢复"),
-        (r"交班", "任期结束"),
-        (r"本人窗口", "本人责任期"),
-        (r"本人实际窗口", "本人责任期"),
-        (r"C1—C3", "三个绝对状态轴"),
-        (r"C1/C2/C3", "三个绝对状态轴"),
-        (r"C1/C2", "民生与经济财政"),
-        (r"P/R", "生产与储备"),
-        (r"P面", "生产方面"),
-        (r"M侧", "市场与货币方面"),
-        (r"F/R面", "财政与储备方面"),
-        (r"(?:GOVERNANCE|CIVILIAN|RECOVERY|FORMAL)[-_A-Z0-9]*", ""),
-        (r"\b(?:REVIEWED|FORMAL_SYNCED|STRUCTURED|DIRECT|INFERRED|ACTIVE|CURRENT|UNKNOWN)\b", ""),
-    )
-    for pattern, replacement in replacements:
-        text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
-
-    # Process-history clauses are not public evidence. Keep the surrounding
-    # historical result instead of exposing an implementation review narrative.
-    text = re.sub(r"[^。；]*?(?:版本史|字段|审计|重审|重裁)[^。；]*[。；]", "", text)
-    text = re.sub(r"[；，、]\s*[；，、]+", "；", text)
-    text = re.sub(r"。\s*。+", "。", text)
-    text = re.sub(r"；\s*。", "。", text)
-    text = re.sub(r"\s+", " ", text)
-    return text.strip(" ；，、：")
+    text = str(value or "").replace("`", "").replace("\r\n", "\n").replace("\r", "\n")
+    text = translate(text, states=STATE_LABELS, losses=LOSS_LABELS, costs=DA_LABELS)
+    text = text.replace("。；", "。\n\n").replace("。。", "。")
+    return re.sub(r"[ \t]+", " ", text).strip()
 
 
 def _first_text(*values: object) -> str:
@@ -241,6 +167,15 @@ def _state_phrase(axis: str, value: object) -> str:
         return f"{AXIS_NAMES[axis]}的当前状态"
     band = int(match.group(2))
     return f"{AXIS_NAMES[axis]}的{STATE_LABELS[axis][band]}状态"
+
+
+def _state_label(axis: str, value: object) -> str:
+    match = re.fullmatch(rf"{axis}[-/]([1-6])", str(value or "").strip())
+    return STATE_LABELS[axis][int(match[1])] if match else "当前状态"
+
+
+def _paragraphs(values: list[str]) -> str:
+    return "\n\n".join(_unique(values))
 
 
 def _stable_id(axis: str, row: dict[str, Any], key: str) -> str:
@@ -288,15 +223,15 @@ def _state_items(axis: str, row: dict[str, Any]) -> list[dict[str, str]]:
     limitations = row.get("material_limitations") or []
     if not isinstance(limitations, list):
         limitations = [limitations]
-    limitation_text = "；".join(_unique([_clean(value) for value in limitations]))
+    limitation_text = _paragraphs([_clean(value) for value in limitations])
     boundary_basis = (
-        f"当前人物的材料边界：{limitation_text}"
+        limitation_text
         if limitation_text
-        else "当前人物没有另列材料边界；公开层仍遵守本轴对象范围。"
+        else "没有另列个人材料限制，评价范围仍以下述边界为准。"
     )
-    state_label = _state_phrase(axis, row.get("main_band"))
+    state_label = _state_label(axis, row.get("main_band"))
     return [
-        _item(axis, row, "state", "主要状态", "主要状态", f"当前主要状态为{state_label}。{main}", AXIS_BOUNDARIES[axis]),
+        _item(axis, row, "state", f"主要状态：{state_label}", "主要状态", main, AXIS_BOUNDARIES[axis]),
         _item(axis, row, "low", "低谷与损失", "低谷", low, AXIS_BOUNDARIES[axis]),
         _item(axis, row, "boundary", "评价边界", "边界", boundary_basis, AXIS_BOUNDARIES[axis]),
     ]
@@ -315,12 +250,12 @@ def _recovery_basis(row: dict[str, Any]) -> tuple[str, set[str]]:
             if not retained:
                 continue
             recovered.add(axis)
-            start = _state_phrase(axis, detail.get("start_band"))
-            end = _state_phrase(axis, detail.get("highest_achieved_band"))
-            parts.append(f"{start}恢复至{end}")
+            start = _state_label(axis, detail.get("start_band"))
+            end = _state_label(axis, detail.get("highest_achieved_band"))
+            parts.append(f"{AXIS_NAMES[axis]}从“{start}”恢复至“{end}”。")
     if not parts:
         return "未形成明确的本人责任期恢复；短暂峰值或单纯止损不作为恢复结果。", recovered
-    return "；".join(parts) + "；只有任期结束时仍保留的改善进入恢复结果。", recovered
+    return _paragraphs(parts), recovered
 
 
 def _responsibility_basis(row: dict[str, Any], recovered: set[str]) -> str:
@@ -332,19 +267,19 @@ def _responsibility_basis(row: dict[str, Any], recovered: set[str]) -> str:
                 continue
             detail = chains[axis]
             grade = str(detail.get("grade") or "")
-            labels = {"FULL": "本人独立或主导", "SHARED": "本人和其他掌权者共同承担", "NONE": "本人责任不足"}
+            labels = {"FULL": "本人独立决策或主导，承担主要责任", "SHARED": "本人和其他掌权者共同承担", "NONE": "尚未确认足够的本人责任"}
             label = labels.get(grade, "责任范围按正式记录保留")
             basis = _clean(detail.get("basis"))
-            parts.append(f"{AXIS_NAMES[axis]}恢复属于{label}{f'：{basis}' if basis else ''}")
+            parts.append(f"{AXIS_NAMES[axis]}恢复的责任：{label}。" + (f"\n{basis}" if basis else ""))
     if parts:
-        return "；".join(parts) + "。"
+        return _paragraphs(parts)
     attribution = row.get("recovery_attribution")
     if isinstance(attribution, dict) and recovered:
         grade = str(attribution.get("grade") or "")
-        labels = {"FULL": "本人独立或主导", "SHARED": "本人和其他掌权者共同承担", "NONE": "本人责任不足"}
+        labels = {"FULL": "本人独立决策或主导，承担主要责任", "SHARED": "本人和其他掌权者共同承担", "NONE": "尚未确认足够的本人责任"}
         label = labels.get(grade, "责任范围按正式记录保留")
         basis = _clean(attribution.get("basis"))
-        return f"保留恢复的责任范围为{label}{f'：{basis}' if basis else ''}。"
+        return _paragraphs([f"恢复成果的责任判断：{label}。", basis])
     return "没有可归入本人责任期的恢复，因此不另行扩大恢复责任。"
 
 
@@ -395,7 +330,7 @@ def _c4_items(row: dict[str, Any]) -> list[dict[str, str]]:
         review.get("absorbed_and_excluded_basis"),
         row.get("behavior_and_attribution"),
     )
-    boundary = f"{absorbed}；{C4_BOUNDARY}" if absorbed else C4_BOUNDARY
+    boundary = absorbed or "未另列个人排除事项，仍须遵守下述重复计算边界。"
     return [
         _item("C4", row, "recovery", "恢复对象与程度", "恢复", recovery, RECOVERY_BOUNDARY),
         _item("C4", row, "responsibility", "恢复责任范围", "责任范围", responsibility, RESPONSIBILITY_BOUNDARY),
@@ -412,19 +347,15 @@ def _public_items(axis: str, row: dict[str, Any]) -> list[dict[str, str]]:
 def _public_summary(axis: str, row: dict[str, Any], items: list[dict[str, str]] | None = None) -> str:
     items = items or _public_items(axis, row)
     if axis in STATE_AXES:
-        return "".join(
-            [
-                items[0]["public_basis"],
-                " ",
-                items[1]["public_basis"],
-                " 评价范围：",
-                AXIS_BOUNDARIES[axis],
-            ]
-        ).strip()
-    return "；".join(
-        f"{item['public_label']}：{item['public_basis']}"
-        for item in items[:4]
-    ) + " 结果边界：" + C4_BOUNDARY
+        return _paragraphs([
+            f"{items[0]['public_label']}。{items[0]['public_basis']}",
+            items[1]["public_basis"],
+            "评价范围：" + AXIS_BOUNDARIES[axis],
+        ])
+    return _paragraphs([
+        *[f"{item['public_label']}：\n{item['public_basis']}" for item in items[:4]],
+        "结果边界：" + C4_BOUNDARY,
+    ])
 
 
 def _projection_keys() -> set[str]:
@@ -557,6 +488,8 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
         axis: _refresh_payload(axis, copy.deepcopy(payload))
         for axis, payload in current.items()
     }
+    for axis, payload in projected.items():
+        _verify_payload(axis, payload)
     if write:
         polities = load_ruler_polities(root)
         for axis, path in FORMAL_PATHS.items():

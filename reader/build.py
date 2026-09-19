@@ -19,6 +19,13 @@ from emperor_v4.evaluation.first_item_public_outcomes import (
     public_outcome_for_name,
 )
 from emperor_v4.evaluation.profile_parent_schema import parent_chains
+from emperor_v4.evaluation.first_item_c_public import (
+    load_first_item_c_public, public_commander_for_name,
+    SOURCE_MARKDOWN_PATH as FIRST_C_SOURCE,
+)
+from emperor_v4.evaluation.first_item_b1_cost_public import (
+    load_first_item_b1_cost_public, B1_SOURCE as FIRST_B1_SOURCE, COST_SOURCE as FIRST_COST_SOURCE,
+)
 from emperor_v4.evaluation.composite_details import load_detail_sources, SECOND
 
 NET_READER_EXTRA_SOURCES = {
@@ -133,85 +140,6 @@ def _unique_texts(values, limit=4):
     return result
 
 
-def _state_summary(record):
-    state = record.get("state_adjudication")
-    if not isinstance(state, dict):
-        return ""
-    preferred = []
-    for key in ("main_review", "loss_review", "result_review", "recovery_review"):
-        block = state.get(key)
-        if isinstance(block, dict):
-            preferred.extend([
-                block.get("main_representativeness"),
-                block.get("summary"),
-                block.get("basis"),
-            ])
-    return _first_text(*preferred)
-
-
-def _formal_summary(record):
-    if not isinstance(record, dict):
-        return ""
-    return _first_text(
-        record.get("public_summary"),
-        record.get("adjudication_reason"),
-        _state_summary(record),
-        record.get("strategy_chain_review_basis"),
-        record.get("grade_basis"),
-        record.get("attribution_basis"),
-        record.get("basis"),
-        record.get("reason"),
-    )
-
-
-def _lead_sentences(text, limit=2):
-    text = _clean_text(text)
-    if not text:
-        return ""
-    parts = [part.strip() for part in re.split(r"(?<=[。！？；])", text) if part.strip()]
-    if not parts:
-        return text
-    return "".join(parts[:limit])
-
-
-def _formal_highlights(record):
-    if not isinstance(record, dict):
-        return []
-    values = []
-    for item in record.get("important_institutions", []):
-        if isinstance(item, dict):
-            values.append(item.get("reason") or item.get("label_zh"))
-    for item in record.get("structured_grade_basis", []):
-        if not isinstance(item, dict):
-            continue
-        role = str(item.get("role", ""))
-        if any(token in role for token in ("正向", "负向", "反例", "边界")):
-            values.append(item.get("text"))
-    for key in ("M_positive_profile", "M_negative_profile", "M_mixed_profile"):
-        for item in record.get(key, []):
-            if isinstance(item, dict):
-                values.append(item.get("mechanism"))
-    for key in (
-        "maintenance_basis", "reversal_basis", "within_band_deterioration_basis",
-        "direction_reason", "recovery_basis",
-    ):
-        values.append(record.get(key))
-    return _unique_texts(values, limit=3)
-
-
-def _formal_boundary(record):
-    if not isinstance(record, dict):
-        return ""
-    values = []
-    for key in ("material_limitations", "unresolved_gaps", "limitations"):
-        value = record.get(key)
-        if isinstance(value, list):
-            values.extend(value)
-        else:
-            values.append(value)
-    return "；".join(_unique_texts(values, limit=2))
-
-
 def _formal_source_refs(record, *extra):
     refs = []
     for ref in extra:
@@ -222,24 +150,16 @@ def _formal_source_refs(record, *extra):
     return list(dict.fromkeys(refs))[:8]
 
 
-def _attach_reader(item, *, kind, summary="", how="", record=None, boundary="", source_refs=(), highlights=()):
+def _attach_reader(item, *, kind, summary="", how="", boundary="", source_refs=(), highlights=()):
+    """Attach explicitly supplied display fields; never infer prose from records."""
     result = dict(item)
     result["reader_kind"] = kind
-    formal_summary = _formal_summary(record)
-    final_summary = _first_text(summary, _lead_sentences(formal_summary))
-    final_highlights = _unique_texts([*highlights, *_formal_highlights(record)], limit=3)
-    final_boundary = _first_text(boundary, _formal_boundary(record))
-    refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
-    if final_summary:
-        result["reader_summary"] = final_summary
-    if formal_summary and _clean_text(final_summary) != _clean_text(formal_summary):
-        result["reader_full_basis"] = formal_summary
-    if final_highlights:
-        result["reader_highlights"] = final_highlights
-    if final_boundary:
-        result["reader_boundary"] = final_boundary
-    if how:
-        result["reader_how"] = how
+    for key, value in (("reader_summary", summary), ("reader_boundary", boundary), ("reader_how", how)):
+        if value:
+            result[key] = value
+    if highlights:
+        result["reader_highlights"] = _unique_texts(highlights, limit=None)
+    refs = _formal_source_refs(None, item.get("source"), item.get("applied_source"), *source_refs)
     if refs:
         result["reader_source_refs"] = refs
     return result
@@ -271,7 +191,8 @@ def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
         limit=None,
     )
     boundaries = _unique_texts(
-        [entry.get("public_boundary") for entry in evidence if isinstance(entry, dict)]
+        [entry.get("public_boundary") for entry in evidence if isinstance(entry, dict)],
+        limit=None,
     )
     if boundaries:
         result["reader_boundary"] = "；".join(boundaries)
@@ -280,6 +201,38 @@ def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
     refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
     if refs:
         result["reader_source_refs"] = refs
+    return result
+
+
+def _attach_method_public_reader(item, *, axis, record, how=""):
+    """A/B1 overviews consume the same declared public prose as detail cards."""
+    summary = record.get("public_adjudication_summary")
+    if not isinstance(summary, str) or not summary.strip():
+        raise ValueError(f"{axis} formal public summary is missing: {record.get('ruler_name')}")
+    if axis == "A":
+        nodes = record.get("public_institution_nodes")
+        if not isinstance(nodes, list):
+            raise ValueError("A formal public nodes are missing")
+        evidence = [dict(
+            public_label=node["public_label"], public_direction=node.get("public_direction", ""),
+            public_basis="\n\n".join(node[key] for key in ("public_adjudication_basis", "public_scope", "public_reception") if node.get(key)),
+            public_boundary=node.get("public_boundary", ""),
+        ) for node in nodes]
+    elif axis == "B1":
+        evidence = [dict(
+            public_label=node["public_label"],
+            public_basis=node["adjudication_basis"],
+            public_boundary=node.get("adjudication_boundary", ""),
+        ) for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile") for node in record.get(key, [])]
+    else:
+        raise ValueError(f"Unsupported method axis: {axis}")
+    result = dict(item)
+    result.update(reader_kind="judgment", reader_summary=summary,
+                  public_adjudication_summary=summary, reader_public_evidence_items=evidence,
+                  reader_how=how, reader_source_refs=_formal_source_refs(record, item.get("source"), item.get("applied_source")))
+    boundaries = _unique_texts([node["public_boundary"] for node in evidence], limit=None)
+    if boundaries:
+        result["reader_boundary"] = "\n\n".join(boundaries)
     return result
 
 
@@ -412,6 +365,8 @@ def _attach_formal_public_reader(item, *, record, axis="", how="", source_refs=(
 def load_net_reader_sources(root):
     """Load formal subitem evidence for reader-only explanations."""
     sources = load_detail_sources(root)
+    sources['first_c_public'] = load_first_item_c_public(root)
+    sources['first_b1_public'], sources['first_cost_public'] = load_first_item_b1_cost_public(root)
     for key, path in NET_READER_EXTRA_SOURCES.items():
         payload = load_json(root / path)
         rows = payload["records"]
@@ -499,11 +454,17 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
                     first_item_public_outcomes, name
                 )
         elif label == "B1创业难度与效率":
+            if item.get('value') is None:
+                first[label] = _attach_reader(item, kind='judgment')
+                continue
+            public = public_commander_for_name(sources['first_b1_public'], name)
             first[label] = _attach_reader(
                 item, kind="judgment",
-                summary="评价从什么起点出发、面对多强的主要对手，以及完成创业或统一主链的效率。",
-                how=f"{item.get('grade', '')}；{item.get('note', '')}，合计 {item.get('value')} 分。",
+                summary='\n\n'.join(public[key] for key in ('public_start_basis','public_opponent_basis','public_efficiency_basis')),
+                how=public['public_calculation'],
+                source_refs=(FIRST_B1_SOURCE.as_posix(),),
             )
+            first[label]['reader_public_b1'] = deepcopy(public)
         elif label == "B2组织与整合":
             first[label] = _attach_reader(
                 item, kind="judgment",
@@ -511,18 +472,31 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
                 how=f"{item.get('grade', '')}；{item.get('note', '')}，合计 {item.get('value')} 分。",
             )
         elif label == "C军事统帅与战争解题":
+            if item.get('value') is None:
+                first[label] = _attach_reader(item, kind='judgment')
+                continue
+            commander = public_commander_for_name(sources['first_c_public'], name)
             first[label] = _attach_reader(
                 item, kind="judgment",
-                summary="只评价本人在创业或统一主链中的军事统帅与战争解题能力，团队作用按正式归责路线处理。",
+                summary=commander['public_basis'],
+                boundary=commander['public_boundary'],
+                source_refs=(FIRST_C_SOURCE.as_posix(),),
                 how=f"正式能力档与归责路线共同换算为 {item.get('value')} 分；{item.get('note', '')}",
             )
+            first[label]['reader_public_commander'] = deepcopy(commander)
         elif label == "军事成本扣分":
+            if item.get('value') is None:
+                first[label] = _attach_reader(item, kind='judgment')
+                continue
             cost = sources["first_cost"].get(name, {})
+            public = public_commander_for_name(sources['first_cost_public'], name)
             first[label] = _attach_reader(
-                item, kind="judgment", record=cost,
+                item, kind="judgment", summary=public['public_basis'],
                 how=f"正式军事成本档与档内位置按成本表换算为扣 {item.get('value')} 分。",
-                boundary=cost.get("responsibility_window", ""),
+                boundary=public['public_responsibility_window'],
+                source_refs=(FIRST_COST_SOURCE.as_posix(), *cost.get('source_refs',[])),
             )
+            first[label]['reader_public_cost'] = deepcopy(public)
         else:
             first[label] = _attach_reader(item, kind="calculation")
     if first:
@@ -551,7 +525,7 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             if key == "B2":
                 method[label] = _attach_b2_public_reader(item, record=record, how=how)
             else:
-                method[label] = _attach_reader(item, kind="judgment", record=record, how=how)
+                method[label] = _attach_method_public_reader(item, axis=key, record=record, how=how)
     if method:
         values = {label: item.get("value") for label, item in method.items()}
         for label in ("AB计分块", "B2折算", "治理手段"):
@@ -580,12 +554,9 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             how = f"正向保留 − 恶化扣分 − 破坏放大扣分 = {item.get('note')} = {item.get('value')} 分。"
         else:
             how = f"正式状态判断与损失修正按本轴合同换算为 {item.get('value')} 分。"
-        if key in {"C1", "C2", "C3", "C4"}:
-            finance[label] = _attach_second_item_c_public_reader(
-                item, axis=key, record=record, how=how
-            )
-        else:
-            finance[label] = _attach_reader(item, kind="judgment", record=record, how=how)
+        finance[label] = _attach_second_item_c_public_reader(
+            item, axis=key, record=record, how=how
+        )
     if "治理结果" in finance:
         values = {label: item.get("value") for label, item in finance.items()}
         finance["治理结果"] = _attach_reader(

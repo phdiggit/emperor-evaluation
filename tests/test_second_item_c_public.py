@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from pathlib import Path
+import pytest
 
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.second_item_c_public import (
@@ -10,6 +11,8 @@ from emperor_v4.evaluation.second_item_c_public import (
     _refresh_payload,
     _scoring_signature,
     verify_public_projection,
+    _clean,
+    _public_items,
 )
 
 
@@ -86,3 +89,26 @@ def test_current_c_public_projection_covers_the_same_formal_people():
         load_json(root / FORMAL_PATHS["C1"])["scores"]
     )
     assert set(report["axis_reports"]) == set(FORMAL_PATHS)
+
+
+def test_upstream_language_keeps_negation_numbers_and_unresolved_evidence():
+    source = '不把自然灾害归责本人。L2另扣4.5分；仍未闭合F3。'
+    text = _clean(source)
+    assert '不把自然灾害认定为本人造成' in text
+    assert '4.5分' in text
+    assert '仍未证实主要兵团组织严重毁损' in text
+    with pytest.raises(ValueError, match='未明确转述'):
+        _clean('未确认NEW_UNKNOWN_CODE，不能下结论。')
+    with pytest.raises(ValueError, match='按原句明确转述'):
+        _clean('字段重裁中仍有实质证据，不能直接删掉。')
+
+
+def test_c4_separates_recovery_responsibility_and_general_boundary():
+    row = _c4_row()
+    row['active_civilian_cost_review']['absorbed_and_excluded_basis'] = '这笔负担已在民生中计入，不再重复。'
+    items = _public_items('C4', row)
+    by_role = {item['public_role']: item for item in items}
+    assert by_role['恢复']['public_basis'] == '民生从“广泛困顿”恢复至“基本维持”。'
+    assert '共同承担' in by_role['责任范围']['public_basis']
+    assert by_role['边界']['public_basis'] == row['active_civilian_cost_review']['absorbed_and_excluded_basis']
+    assert by_role['边界']['public_boundary'] not in by_role['边界']['public_basis']

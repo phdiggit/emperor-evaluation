@@ -17,10 +17,13 @@ on:
       - reader/second-item-a-public.js
       - reader/second-item-b1-public.js
       - reader/second-item-public-labels.js
-      - reader/historical-impact-reading.js
       - reader/validate_first_item_docs.py
       - reader/build_first_item_reader_cache.py
       - src/emperor_v4/evaluation/first_item_public_outcomes.py
+      - src/emperor_v4/evaluation/first_item_c_public.py
+      - src/emperor_v4/evaluation/first_item_b1_cost_public.py
+      - tests/test_first_item_b1_cost_public.py
+      - tests/test_first_item_c_public.py
       - reader/lazy-details.js
       - reader/public-copy.json
       - reader/second-item-summaries.json
@@ -31,11 +34,17 @@ on:
       - reader/serve.py
       - reader/_build_military_archive_core.py
       - src/emperor_v4/evaluation/second_item_a_public.py
+      - src/emperor_v4/evaluation/third_fourth*
+      - src/emperor_v4/evaluation/second_item_c_public*
+      - tests/test_second_item_c_public.py
+      - tests/test_third_fourth_item_public.py
       - src/emperor_v4/evaluation/second_item_b1_settlement.py
       - tests/test_reader.py
+      - tests/test_reader_public_boundaries.py
       - tests/test_reader_first_item_reading.py
       - tests/test_first_item_public_outcomes.py
       - tests/test_reader_person_readability.py
+      - tests/test_reader_second_public_text.py
       - tests/test_reader_lazy_details.py
       - tests/test_reader_military_archive.py
       - tests/test_reader_military_archive_ref_policy.py
@@ -90,6 +99,11 @@ jobs:
       - name: Build military archive indexes
         run: python reader/build_military_archive.py
 
+      - name: Verify public projections
+        run: |
+          python -m emperor_v4.eval second-item-c-public
+          python -m emperor_v4.eval third-fourth-item-public-verify
+
       - name: Build reader
         run: python reader/build.py
 
@@ -120,11 +134,10 @@ jobs:
           node --check reader/second-item-a-public.js
           node --check reader/second-item-b1-public.js
           node --check reader/second-item-public-labels.js
-          node --check reader/historical-impact-reading.js
           rm -rf .tmp/reader-js-check
 
       - name: Run behavior tests
-        run: python -m pytest tests/test_reader.py tests/test_reader_first_item_reading.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
+        run: python -m pytest tests/test_reader.py tests/test_reader_public_boundaries.py tests/test_reader_first_item_reading.py tests/test_first_item_c_public.py tests/test_first_item_b1_cost_public.py tests/test_reader_person_readability.py tests/test_reader_second_public_text.py tests/test_second_item_c_public.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py tests/test_third_fourth_item_public.py -q
 
       - name: Commit generated reader artifacts
         shell: bash

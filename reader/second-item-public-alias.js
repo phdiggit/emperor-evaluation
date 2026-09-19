@@ -20,22 +20,6 @@
     "D3政权交接稳定":"终局继承",
   };
   const SECOND_GROUPS = ["method", "finance", "handoff"];
-  const MAJOR_ROLE_LABELS = {
-    FOUNDATIONAL_CREATION:"创设",
-    MAJOR_RESTRUCTURE:"重构",
-    MAJOR_RECONSTRUCTION:"重建",
-    CANONICALIZATION:"定型",
-    MAJOR_CIVILIZATIONAL_CORRECTION:"重大纠偏",
-    STRUCTURAL_NON_DURABLE:"核心结构",
-    DURABILITY_EVIDENCE_PENDING:"核心结构",
-  };
-  const CLOSURE_LABELS = {
-    OBSERVED:"已有实际运行",
-    SUSTAINED_OR_SYSTEMIC:"形成持续或系统运行",
-    REVERSED:"后续被逆转",
-    NOT_CLOSED:"尚未形成完整运行证据",
-  };
-  const formalACache = new Map();
   let scheduled = false;
 
   function finite(value) {
@@ -141,8 +125,7 @@
   function boundaryExcerpt(item) {
     const text = String(item?.reader_boundary || "").trim();
     if (!text) return "";
-    const first = text.match(/^.*?[。！？；;]/)?.[0] || text;
-    return `边界：${first.trim()}`;
+    return "适用范围与限制见展开说明";
   }
 
   function ensureStyles() {
@@ -171,20 +154,6 @@
       .second-item-pool-note{display:none!important}
       .second-item-page-note{margin-top:18px;padding-top:12px}
       .second-item-page-note>summary{font-size:13px;color:var(--muted)}
-      .second-item-institution-reading{margin:4px 0 8px}
-      .second-item-institution-intro{margin:4px 0 14px;line-height:1.75}
-      .second-item-institution-group{margin:14px 0 18px;padding-top:2px}
-      .second-item-institution-group>h4{margin:0 0 8px;font-size:15px}
-      .second-item-institution-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-      .second-item-institution-list>li{margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:#fff}
-      .second-item-institution-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:4px}
-      .second-item-institution-head strong{font-size:14px}
-      .second-item-institution-badge{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:999px;font-size:10px;line-height:1.6;color:var(--green);font-weight:700;background:#f4f5ef}
-      .second-item-institution-direction{font-size:10px;color:var(--muted);font-weight:700}
-      .second-item-institution-meta{margin:2px 0;font-size:11px;color:var(--muted);line-height:1.6}
-      .second-item-institution-note{margin:4px 0 0;font-size:12px;line-height:1.72}
-      .second-item-institution-reception{display:block;margin-top:5px;font-size:11px;line-height:1.65;color:var(--green)}
-      .second-item-institution-empty{margin:4px 0;color:var(--muted);font-size:12px}
     `;
     document.head.append(style);
   }
@@ -287,22 +256,8 @@
     patchHandoffGrades(root, record);
   }
 
-  function translateReceptionCodes(value) {
-    return String(value || "")
-      .replace(/(?:现有材料|现材料|现有证据)?\s*未(?:独立)?闭合\s*R4/gi, "现有证据尚未证明跨朝代长期接收")
-      .replace(/(?:现有材料|现材料|现有证据)?\s*未(?:独立)?闭合\s*R3/gi, "现有证据尚未证明被多个后继统治阶段持续采用")
-      .replace(/闭合\s*R4/gi, "已证明跨朝代长期接收")
-      .replace(/闭合\s*R3/gi, "已证明被多个后继统治阶段持续采用")
-      .replace(/R3\s*\/\s*R4/gi, "长期接收")
-      .replace(/R3\s*门(?:槛)?/gi, "长期接收门槛")
-      .replace(/\bR4\b/gi, "跨朝代长期接收")
-      .replace(/\bR3\b/gi, "被多个后继统治阶段持续采用")
-      .replace(/\bR[12]\b/gi, "后世接收范围有限")
-      .replace(/\bR0\b/gi, "本人任内运行证据");
-  }
-
   function publicTechnicalText(value) {
-    return translateReceptionCodes(String(value || ""))
+    return String(value ?? "")
       .replace(/\bG([0-5])\s*[-/]\s*([A-Za-z-]+)\b/gi, (_, band, position) => `${PUBLIC_GRADE[`G${band}`] || ""}${positionSuffix(position)}`)
       .replace(/\bG([0-5])\b/g, (_, band) => PUBLIC_GRADE[`G${band}`] || band)
       .replace(/\bC[123]-([1-6])\s*\/\s*L([0-3])\b/g, (_, band, loss) => `${STATE_GRADE[Number(band)] || band}档；${LOSS_TEXT[Number(loss)] || ""}`)
@@ -313,45 +268,10 @@
       .trim();
   }
 
-  function cleanHistoricalText(value) {
-    let text = publicTechnicalText(String(value || "").replace(/`/g, "").trim());
-    if (!text) return "";
-    text = text
-      .replace(/\b(?:B1-)?distributed\/personnel\s*M[0-3]\b/gi, "")
-      .replace(/\b(?:MAJOR_RESTRUCTURE|MAJOR_RECONSTRUCTION|FOUNDATIONAL_CREATION|CANONICALIZATION|MAJOR_CIVILIZATIONAL_CORRECTION|STRUCTURAL_NON_DURABLE|DURABILITY_EVIDENCE_PENDING|mixed_positive|mixed_negative|external_constraint|canonical|support|core|central|distributed)\b/gi, "")
-      .replace(/(?:正向|负向|混合偏正|混合偏负)?\s*M[0-3]\b/gi, "")
-      .replace(/\bS(?:\+\+|[+−-])?(?=[^\w]|$)/g, "")
-      .replace(/\bS_(?:end|main|avg|0)\b/gi, "")
-      .replace(/\bP面\b/g, "生产方面")
-      .replace(/\bM侧\b/g, "市场与货币方面")
-      .replace(/\bF\/R面\b/g, "财政与储备方面")
-      .replace(/^正向保留\s*\d+(?:\.\d+)?分[；，。]?\s*/, "")
-      .replace(/(?:正向|负向)\s*\d+(?:\.\d+)?[；，。]?/g, "")
-      .replace(/(?:制度净值|净值|合计)\s*\d+(?:\.\d+)?[；，。]?/g, "")
-      .replace(/主阶段负态主导定\s*[。；]?/g, "主要阶段负面表现占主导。")
-      .replace(/角色改为\s*[。；]?/g, "")
-      .replace(/保留正向\s*[、，。；]?/g, "")
-      .replace(/保留负向\s*[、，。；]?/g, "")
-      .replace(/结算\s*[，,]?\s*/g, "")
-      .replace(/不能从政治清洗或同一问责损害另造[^。；]*[。；]?/g, "")
-      .replace(/不因正负规模或建设名望抬档[。；]?/g, "")
-      .replace(/未过[^。；]*档门[。；]?/g, "")
-      .replace(/阻断[^。；]*档[。；]?/g, "")
-      .replace(/闭合/g, "确认")
-      .replace(/去重/g, "避免重复计算")
-      .replace(/[；，、]\s*[；，、]+/g, "；")
-      .replace(/。\s*。+/g, "。")
-      .replace(/；\s*。/g, "。")
-      .replace(/，\s*。/g, "。")
-      .replace(/\s+/g, " ")
-      .trim();
-    return text
-      .split(/(?<=[。！？])/)
-      .map(part => part.trim())
-      .filter(part => part.length >= 6 && !/^(保留|角色|正式方向|旧结算|改档)/.test(part))
-      .join("")
-      .replace(/^[；，、：\s]+|[；，、：\s]+$/g, "")
-      .trim();
+  // Public prose is already adjudicated upstream. Keep short sentences,
+  // negation, quotations and boundaries verbatim; format only outer whitespace.
+  function publicText(value) {
+    return String(value ?? "").trim();
   }
 
   function publicFacts(item) {
@@ -361,19 +281,19 @@
         if (!entry || typeof entry !== "object") return "";
         const label = String(entry.public_label || "").trim();
         const direction = String(entry.public_direction || "").trim();
-        const basis = cleanHistoricalText(entry.public_basis || "");
-        const boundary = cleanHistoricalText(entry.public_boundary || "");
+        const basis = publicText(entry.public_basis || "");
+        const boundary = publicText(entry.public_boundary || "");
         return [
           [label, direction].filter(Boolean).join(" · "),
           basis,
           boundary ? `边界：${boundary}` : "",
         ].filter(Boolean).join("；");
-      }).map(cleanHistoricalText).filter(Boolean);
+      }).map(publicText).filter(Boolean);
     }
     const highlights = (Array.isArray(item?.reader_highlights) ? item.reader_highlights : [])
-      .map(cleanHistoricalText).filter(Boolean);
+      .map(publicText).filter(Boolean);
     if (highlights.length) return highlights;
-    const summary = cleanHistoricalText(item?.reader_summary || "");
+    const summary = publicText(item?.reader_summary || "");
     return summary ? [summary] : [];
   }
 
@@ -394,205 +314,18 @@
     return details;
   }
 
-  function sourcePath(ref) {
-    return decodeURIComponent(String(ref || "").split("#", 1)[0]).replace(/:\d+(?:-\d+)?$/, "");
-  }
-
-  function dirname(path) {
-    const at = path.lastIndexOf("/");
-    return at < 0 ? "" : path.slice(0, at);
-  }
-
-  async function fetchRepoJson(path) {
-    const response = await fetch(`../${path}?raw=1`, {cache:"no-cache"});
-    if (!response.ok) throw new Error(`Failed to load ${path}: HTTP ${response.status}`);
-    return response.json();
-  }
-
-  function formalRows(payload) {
-    if (Array.isArray(payload?.records)) return payload.records;
-    if (Array.isArray(payload?.collections?.records?.records)) return payload.collections.records.records;
-    return [];
-  }
-
-  async function loadFormalARecord(record, item) {
-    const path = sourcePath(item?.source);
-    if (!path) return null;
-    const key = `${record.ruler_id}\u0000${path}`;
-    if (formalACache.has(key)) return formalACache.get(key);
-    const pending = (async () => {
-      const payload = await fetchRepoJson(path);
-      let rows = formalRows(payload);
-      if (!rows.length && Array.isArray(payload?.routes)) {
-        const route = payload.routes.find(entry => entry?.polity === record.polity);
-        if (!route?.path) return null;
-        const shardPath = `${dirname(path)}/${route.path}`;
-        rows = formalRows(await fetchRepoJson(shardPath));
-      }
-      return rows.find(row => row?.ruler_id === record.ruler_id) || null;
-    })().catch(error => {
-      console.error("Failed to load formal A institution record", error);
-      return null;
-    });
-    formalACache.set(key, pending);
-    return pending;
-  }
-
-  function directionGroup(direction) {
-    if (direction === "positive") return "positive";
-    if (direction === "negative") return "negative";
-    return "mixed";
-  }
-
-  function directionLabel(direction) {
-    return ({
-      positive:"正向",
-      negative:"负向",
-      mixed_positive:"正向主导",
-      mixed_negative:"负向主导",
-      mixed:"正负并存",
-      neutral:"正负并存",
-    })[direction] || "正负并存";
-  }
-
-  function majorRoleLabel(role) {
-    return MAJOR_ROLE_LABELS[role] || "";
-  }
-
-  function institutionKey(item) {
-    return item?.institution_node_id || `${item?.label_zh || item?.mechanism || ""}\u0000${item?.direction || item?.normative_direction || ""}`;
-  }
-
-  function collectInstitutions(formal) {
-    const groups = {positive:[], negative:[], mixed:[]};
-    if (!formal) return groups;
-    const important = new Map();
-    for (const node of formal.important_institutions || []) {
-      if (node && typeof node === "object") important.set(institutionKey(node), node);
+  function publicEvidenceList(evidence) {
+    const list = makeTextBlock("ul", "second-item-public-evidence", "");
+    for (const entry of evidence) {
+      const card = makeTextBlock("li", "second-item-public-evidence-card", "");
+      const title = [publicText(entry.public_label || entry.public_role), publicText(entry.public_direction)].filter(Boolean).join(" · ");
+      if (title) card.append(makeTextBlock("strong", "", title));
+      card.append(makeTextBlock("p", "prose", publicText(entry.public_basis)));
+      const boundary = makeDetails("适用范围与限制", publicText(entry.public_boundary));
+      if (boundary) card.append(boundary);
+      list.append(card);
     }
-    const seen = new Set();
-    const append = (profile, fallbackDirection) => {
-      if (!profile || typeof profile !== "object") return;
-      const key = institutionKey(profile);
-      if (seen.has(key)) return;
-      seen.add(key);
-      const importantNode = important.get(key) || null;
-      const node = {...(importantNode || {}), ...profile};
-      node._important = Boolean(importantNode || node.decision === "MAJOR_NODE");
-      node._direction = node.direction || node.normative_direction || fallbackDirection || "mixed";
-      groups[directionGroup(node._direction)].push(node);
-    };
-    for (const node of formal.M_positive_profile || []) append(node, "positive");
-    for (const node of formal.M_negative_profile || []) append(node, "negative");
-    for (const node of formal.M_mixed_profile || []) append(node, node?.direction || "mixed");
-    for (const node of important.values()) {
-      const key = institutionKey(node);
-      if (!seen.has(key)) append(node, node.normative_direction || "mixed");
-    }
-    return groups;
-  }
-
-  function receptionText(node) {
-    if (!node?._important) return "";
-    const effect = String(node.S_effect || "").toUpperCase();
-    const gate = String(node.durability_gate || "").toUpperCase();
-    if (effect === "S++") return "后世接收：核心规则跨朝代、经历制度断裂后仍被长期接收。";
-    if (gate.includes("PASS") || effect === "S+" || effect.startsWith("S-")) {
-      return "后世接收：核心规则在多个后继统治阶段仍被实际采用或持续运行。";
-    }
-    if (gate.includes("PENDING") || gate.includes("FAIL_R")) {
-      return "后世接收：现有证据尚不足以证明长期持续沿用。";
-    }
-    return "";
-  }
-
-  function institutionNote(node) {
-    const reason = cleanHistoricalText(node?.reason || "");
-    if (reason) return reason;
-    const closure = CLOSURE_LABELS[String(node?.result_closure || "").toUpperCase()] || "";
-    const mechanism = cleanHistoricalText(node?.mechanism || "");
-    const label = cleanHistoricalText(node?.label_zh || "");
-    if (mechanism && mechanism !== label) return `${mechanism}${closure ? `；${closure}` : ""}`;
-    return closure;
-  }
-
-  function institutionListItem(node) {
-    const li = document.createElement("li");
-    const head = document.createElement("div");
-    head.className = "second-item-institution-head";
-    if (node._important) {
-      const role = majorRoleLabel(node.major_node_role);
-      const badge = makeTextBlock("span", "second-item-institution-badge", role ? `重大制度 · ${role}` : "重大制度");
-      head.append(badge);
-    }
-    head.append(makeTextBlock("strong", "", cleanHistoricalText(node.label_zh || node.mechanism || "未命名制度节点") || "未命名制度节点"));
-    head.append(makeTextBlock("span", "second-item-institution-direction", directionLabel(node._direction)));
-    li.append(head);
-    const metaParts = [];
-    if (node.institution_domain) metaParts.push(node.institution_domain);
-    const closure = CLOSURE_LABELS[String(node.result_closure || "").toUpperCase()] || "";
-    if (closure) metaParts.push(closure);
-    if (metaParts.length) li.append(makeTextBlock("div", "second-item-institution-meta", metaParts.join(" · ")));
-    const note = institutionNote(node);
-    if (note) li.append(makeTextBlock("p", "second-item-institution-note", note));
-    const reception = receptionText(node);
-    if (reception) li.append(makeTextBlock("small", "second-item-institution-reception", reception));
-    return li;
-  }
-
-  function institutionGroup(title, nodes) {
-    const section = document.createElement("section");
-    section.className = "second-item-institution-group";
-    section.append(makeTextBlock("h4", "", `${title} · ${nodes.length}项`));
-    if (!nodes.length) {
-      section.append(makeTextBlock("p", "second-item-institution-empty", "当前正式结算没有独立制度节点。"));
-      return section;
-    }
-    const list = document.createElement("ul");
-    list.className = "second-item-institution-list";
-    for (const node of nodes) list.append(institutionListItem(node));
-    section.append(list);
-    return section;
-  }
-
-  async function patchInstitutionDetail(record) {
-    if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
-    const item = itemMap(record, "method").get("A制度建设");
-    const detail = Array.from(document.querySelectorAll(".net-metric-detail[data-second-source-label]"))
-      .find(node => node.dataset.secondSourceLabel === "A制度建设");
-    const body = detail?.querySelector(":scope > .net-metric-body");
-    if (!item || !body) return;
-    const formal = await loadFormalARecord(record, item);
-    if (!formal || !body.isConnected || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
-    const key = `${record.ruler_id}|${formal.direction_index}|${(formal.M_positive_profile || []).length}|${(formal.M_negative_profile || []).length}|${(formal.M_mixed_profile || []).length}|${(formal.important_institutions || []).length}`;
-    if (body.dataset.secondInstitutionKey === key) return;
-
-    const audit = body.querySelector(":scope > .net-audit-sources");
-    if (audit) audit.remove();
-    let rawFormal = body.querySelector(":scope > .net-formal-basis-raw");
-    if (rawFormal) rawFormal.remove();
-    if (!rawFormal && item.reader_full_basis && item.reader_full_basis !== item.reader_summary) {
-      rawFormal = makeDetails("正式裁决原文（未改写）", item.reader_full_basis, "net-formal-basis-raw");
-    }
-
-    body.innerHTML = "";
-    const reading = document.createElement("div");
-    reading.className = "second-item-institution-reading";
-    reading.append(makeTextBlock("div", "label", "制度建设清单"));
-    reading.append(makeTextBlock("p", "second-item-institution-intro", "按正向、负向和正负并存分类列出制度建设；重大制度另标类型和后世接收。"));
-    const groups = collectInstitutions(formal);
-    reading.append(institutionGroup("正向制度建设", groups.positive));
-    reading.append(institutionGroup("负向制度设计与制度性损害", groups.negative));
-    reading.append(institutionGroup("正负并存的制度", groups.mixed));
-    body.append(reading);
-
-    const summary = cleanHistoricalText(item.reader_summary || "");
-    if (summary) body.append(makeDetails("为什么最终是这个等级？", summary));
-    const how = publicTechnicalText(item.reader_how || "");
-    if (how) body.append(makeDetails("这个分数怎么算？", how));
-    if (rawFormal) body.append(rawFormal);
-    if (audit) body.append(audit);
-    body.dataset.secondInstitutionKey = key;
+    return list;
   }
 
   function patchMetricBodies(record) {
@@ -602,7 +335,9 @@
     if (!root) return;
     for (const detail of root.querySelectorAll(".net-metric-detail[data-second-source-label]")) {
       const label = detail.dataset.secondSourceLabel || "";
-      if (label === "A制度建设") continue;
+      // Dedicated A/B1 renderers own these bodies. Do not overwrite them when
+      // their asynchronous formal data load triggers the shared observer.
+      if (label === "A制度建设" || label === "B1官僚治理") continue;
       const item = items.get(label);
       if (!item || item.reader_kind !== "judgment") continue;
       const body = detail.querySelector(":scope > .net-metric-body");
@@ -621,18 +356,21 @@
       const reading = document.createElement("div");
       reading.className = "second-item-public-reading";
       reading.append(makeTextBlock("div", "label", "为什么这样判断"));
+      const evidence = item.reader_public_evidence_items;
       const facts = publicFacts(item);
-      if (facts.length > 1) {
+      if (Array.isArray(evidence) && evidence.length) {
+        reading.append(publicEvidenceList(evidence));
+      } else if (facts.length > 1) {
         const list = document.createElement("ul");
         for (const fact of facts) list.append(makeTextBlock("li", "", fact));
         reading.append(list);
       } else if (facts.length === 1) {
         reading.append(makeTextBlock("p", "prose", facts[0]));
       } else {
-        reading.append(makeTextBlock("p", "prose", "当前公开层没有可进一步压缩的独立事实摘要，可展开正式裁决原文核对。"));
+        reading.append(makeTextBlock("p", "prose", "当前尚未提供公开说明，请查看正式记录。"));
       }
       body.append(reading);
-      const boundaryDetails = makeDetails("范围与边界", cleanHistoricalText(item.reader_boundary || ""));
+      const boundaryDetails = makeDetails("范围与边界", publicText(item.reader_boundary || ""));
       if (boundaryDetails) body.append(boundaryDetails);
       const howDetails = makeDetails("这个分数怎么算？", publicTechnicalText(item.reader_how || ""));
       if (howDetails) body.append(howDetails);
@@ -782,7 +520,6 @@
       patchMetricBodies(net);
       patchGroupIntros(net);
       patchPoolNote(net);
-      void patchInstitutionDetail(net);
     }
     const person = personRecord();
     if (person) patchGradeGroups(screenEl, person);

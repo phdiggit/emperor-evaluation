@@ -84,10 +84,10 @@ const specs = [
 
   const publicSource = fs.readFileSync(specs[0].path, "utf8");
   const publicStart = publicSource.indexOf("  function publicFact");
-  const publicEnd = publicSource.indexOf("\n  function outcomePercent", publicStart);
+  const publicEnd = publicSource.indexOf("\n  function lDimension", publicStart);
   assert.ok(publicStart >= 0 && publicEnd > publicStart, "public reader helpers not found");
   const publicHelpers = new Function(
-    `${publicSource.slice(publicStart, publicEnd)};return {publicOutcomeText,publicCommanderText};`,
+    `${publicSource.slice(publicStart, publicEnd)};return {publicOutcomeText};`,
   )();
   const outcome = publicHelpers.publicOutcomeText(
     "从秦国在关中、巴蜀、汉中等既有核心区域起步，先后取得韩、赵、魏、楚、燕、齐，完成六国统一。",
@@ -95,34 +95,8 @@ const specs = [
   assert.equal(outcome, "从秦国在关中、巴蜀、汉中等既有核心区域起步，先后取得韩、赵、魏、楚、燕、齐，完成六国统一。");
   assert.doesNotMatch(outcome, /单位|控制信用|有效控制信用/);
   const technicalOutcome = publicHelpers.publicOutcomeText("从甲地起步，取得乙地；个人分得123控制信用。");
-  assert.doesNotMatch(technicalOutcome, /单位|控制信用|有效控制信用/);
+  assert.equal(technicalOutcome, "从甲地起步，取得乙地；个人分得123控制信用。");
 
-  const commander = publicHelpers.publicCommanderText(
-    "统帅证据：甲君的具体军事统帅信用已闭合到将领甲、将领乙等责任中心；甲君的最高层决策与将帅选择由B2等轴承接，现有登记不足以证明其本人承担具体战争统帅责任，因此C为0。",
-  );
-  assert.match(commander, /亲自统领具体战役/);
-  assert.doesNotMatch(commander, /统帅证据|责任中心|B2|C为0|\/D[0-4]/);
-
-  const battleStart = publicSource.indexOf("  function normalizeResultGrade");
-  const battleEnd = publicSource.indexOf("\n  function renderBattles", battleStart);
-  assert.ok(battleStart >= 0 && battleEnd > battleStart, "battle-list helpers not found");
-  const parseBattles = new Function(
-    "D_GRADES",
-    `${publicSource.slice(battleStart, battleEnd)};return structuredBattleAnchors;`,
-  )(["D", "C", "B", "A", "S"]);
-  assert.deepEqual(
-    parseBattles("甲战｜前线作战｜A｜D3；乙战｜战略统筹｜S｜—；丙战｜前线作战｜A｜D2").map(item => ({
-      name: item.name,
-      role: item.role,
-      result: item.result,
-      difficulty: item.difficulty,
-    })),
-    [
-      {name: "乙战", role: "战略统筹", result: "S", difficulty: ""},
-      {name: "甲战", role: "前线作战", result: "A", difficulty: "A"},
-      {name: "丙战", role: "前线作战", result: "A", difficulty: "B"},
-    ],
-  );
 })().catch(error => {
   console.error(error);
   process.exitCode = 1;

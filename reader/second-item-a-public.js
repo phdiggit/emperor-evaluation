@@ -166,16 +166,6 @@
     document.head.append(style);
   }
 
-  function legacyOwnershipKey(record, formal) {
-    return `${record.ruler_id}|${formal.direction_index}|${(formal.M_positive_profile || []).length}|${(formal.M_negative_profile || []).length}|${(formal.M_mixed_profile || []).length}|${(formal.important_institutions || []).length}`;
-  }
-
-  function existingHow(body) {
-    return Array.from(body.querySelectorAll(":scope > details")).find(node =>
-      node.querySelector(":scope > summary")?.textContent.trim() === "这个分数怎么算？"
-    ) || null;
-  }
-
   async function patch() {
     ensureStyles();
     const record = currentRecord();
@@ -189,8 +179,6 @@
     const formal = await formalA(record, item);
     if (!formal || !body.isConnected || currentRecord()?.ruler_id !== record.ruler_id) return;
 
-    const ownershipKey = legacyOwnershipKey(record, formal);
-    body.dataset.secondInstitutionKey = ownershipKey;
 
     const publicNodes = formal.public_institution_nodes;
     const summary = String(formal.public_adjudication_summary || "").trim();
@@ -205,8 +193,6 @@
     const publicKey = `${formal.public_projection_schema_version || ""}|${record.ruler_id}|${publicNodes.length}|${summary}`;
     if (body.dataset.aPublicKey === publicKey && body.querySelector(":scope > .second-item-a-reading")) return;
 
-    const how = existingHow(body);
-    how?.remove();
 
     body.innerHTML = "";
     const reading = make("div", "second-item-a-reading");
@@ -224,11 +210,10 @@
     gradeDetails.append(make("summary", "", "为什么最终是这个等级？"));
     gradeDetails.append(make("p", "prose", summary));
     body.append(gradeDetails);
-    if (how) body.append(how);
+    body.insertAdjacentHTML("beforeend", secondMethodDetailsMarkup(item, record));
 
     body.dataset.aPublic = "done";
     body.dataset.aPublicKey = publicKey;
-    body.dataset.secondInstitutionKey = ownershipKey;
   }
 
   function schedule() {

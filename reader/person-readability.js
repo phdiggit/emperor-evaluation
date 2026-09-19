@@ -22,12 +22,10 @@
     if (typeof value !== "string") return value;
     return value
       .replace(/\bC5\b/g, "本轴")
-      .replace(/COUNTEREVIDENCE_FOUND/g, "已找到明确反例")
-      .replace(/高档反例审查/g, "反例检查")
-      .replace(/父链/g, "证据链");
+      .replace(/COUNTEREVIDENCE_FOUND/g, "已找到明确反例");
   };
 
-  const netPublicText = value => readerText(String(value ?? ""));
+  const netPublicText = value => String(value ?? "").trim();
 
   const netPublicIntro = {
     "A制度建设": "看本人是否建立了真正运行、能够延续的制度，同时把制度性副作用一起计入净效果。",
@@ -179,92 +177,6 @@
     return Number.isInteger(value) ? String(value) : value.toFixed(1);
   }
 
-  function publicCommanderText(value) {
-    return firstItemPublicText(value)
-      .replace(/\b[SABCD][+−-]?\/D[0-4]\b/g, "")
-      .replace(/\b[SABCD][+−-]?(?:至|到)[SABCD][+−-]?\/D[0-4]\b/g, "")
-      .replace(/[SABCD][+−-]?档/g, "")
-      .replace(/统帅证据[:：]?/g, "")
-      .replace(/现场与败责复验[:：]?/g, "")
-      .replace(/第一项(?:主链|建国统一链)内已有/g, "本项主链中已有")
-      .replace(/(?:高难|高质量)统帅锚/g, "高难度战役")
-      .replace(/统帅锚/g, "战役案例")
-      .replace(/峰值/g, "最高表现")
-      .replace(/复验/g, "其他案例")
-      .replace(/场景跨度/g, "不同战场和时期")
-      .replace(/责任中心/g, "将领")
-      .replace(/具体军事统帅信用/g, "具体战役指挥责任")
-      .replace(/已闭合到/g, "主要由")
-      .replace(/(主要由[^；。]+?将领)(?=；|。)/g, "$1承担")
-      .replace(/([^；。]+?)由B2等轴承接/g, "$1另行评价")
-      .replace(/现有(?:登记|材料)不足以证明([^；。]+?)承担具体战争统帅责任/g, "现有材料没有确认$1亲自统领具体战役")
-      .replace(/因此C为0/g, "因此不计入本人统帅表现")
-      .replace(/\bC为0\b/g, "不计入本人统帅表现")
-      .replace(/\s*；\s*；/g, "；")
-      .replace(/\s*，\s*。/g, "。")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  function structuredBattleAnchors(value) {
-    const result = [];
-    for (const part of String(value || "").split(/[；;]/)) {
-      const fields = part.split(/[｜|]/).map(field => field.trim());
-      if (fields.length < 4) continue;
-      const name = fields[0];
-      const role = fields[1];
-      const resultGrade = fields[2].replace(/成果/g, "").replace(/-/g, "−").trim();
-      const difficultyCode = fields[3].match(/\bD([0-4])\b/)?.[1];
-      if (!name || !["前线作战", "战略统筹"].includes(role) || !/^(?:S[+−]?|A[+−]?|B[+−]?|C[+−]?|D[+−]?|E)$/.test(resultGrade)) continue;
-      const entry = {name, role, result: resultGrade, difficulty: difficultyCode == null ? "" : ["D", "C", "B", "A", "S"][Number(difficultyCode)] || ""};
-      if (!result.some(existing => existing.name === entry.name)) result.push(entry);
-    }
-    const resultRank = {"S+": 12, "S": 11, "S−": 10, "A+": 9, "A": 8, "A−": 7, "B+": 6, "B": 5, "B−": 4, "C+": 3, "C": 2, "C−": 1};
-    const difficultyRank = {S: 5, A: 4, B: 3, C: 2, D: 1};
-    return result.sort((a, b) => (resultRank[b.result] || 0) - (resultRank[a.result] || 0) || (difficultyRank[b.difficulty] || 0) - (difficultyRank[a.difficulty] || 0));
-  }
-
-  function fallbackBattleAnchors(value) {
-    const primary = String(value || "").split(/；?现场与败责复验[:：]/)[0];
-    const result = [];
-    const add = (rawName, role, resultGrade, difficultyCode = "") => {
-      const name = String(rawName || "").trim()
-        .replace(/^(?:(?:统帅证据|现场与败责复验)[:：]|第一项(?:主链|建国统一链)内已有|已有|另有|并有|并以|又有|又以|其中|包括|以及|有|以)+/, "")
-        .replace(/^[、，；：\s]+/, "")
-        .replace(/^(?:多个|多次)/, "")
-        .replace(/(?:等|一役)$/g, "")
-        .trim();
-      if (!name || name.length > 24 || /(?:存在|可进入|高层|大量|多项|多次|形成|成果中|等)/.test(name)) return;
-      const entry = {
-        name,
-        role,
-        result: String(resultGrade || "").replace(/-/g, "−"),
-        difficulty: difficultyCode ? ["D", "C", "B", "A", "S"][Number(difficultyCode)] || "" : "",
-      };
-      if (!result.some(existing => existing.name === entry.name)) result.push(entry);
-    };
-    const battlePattern = /([^，；。]{1,36}?)(S\+|S[−-]|S|A[+−-]?|B[+−-]?|C[+−-]?|D[+−-]?|E[+−-]?)\/D([0-4])/g;
-    let match;
-    while ((match = battlePattern.exec(primary)) !== null) {
-      const role = /统筹|统总|战略|方案|部署/.test(match[1]) ? "战略统筹" : "前线作战";
-      add(match[1], role, match[2], match[3]);
-    }
-    const strategyPattern = /([^，；。]{1,36}?)(S\+|S[−-]|S|A[+−-]?|B[+−-]?|C[+−-]?|D[+−-]?|E)(?:级)?[^，；。]{0,12}(?:战争|战略)?统筹/g;
-    while ((match = strategyPattern.exec(primary)) !== null) {
-      add(match[1], "战略统筹", match[2]);
-    }
-    const resultRank = {"S+": 12, "S": 11, "S−": 10, "A+": 9, "A": 8, "A−": 7, "B+": 6, "B": 5, "B−": 4, "C+": 3, "C": 2, "C−": 1};
-    const difficultyRank = {S: 5, A: 4, B: 3, C: 2, D: 1};
-    return result.sort((a, b) => (resultRank[b.result] || 0) - (resultRank[a.result] || 0) || (difficultyRank[b.difficulty] || 0) - (difficultyRank[a.difficulty] || 0));
-  }
-
-  function structuredBattleList(value, basis = "") {
-    const anchors = structuredBattleAnchors(value);
-    const displayAnchors = anchors.length ? anchors : fallbackBattleAnchors(basis);
-    if (!displayAnchors.length) return "";
-    return `<ul class="first-item-battles">${displayAnchors.map(anchor => `<li><strong>${esc(anchor.name)}</strong> · ${esc(anchor.role)} · ${esc(anchor.result)}成果 · ${esc(anchor.difficulty ? `${anchor.difficulty}难度` : "难度不单列")}　<a href="military.html#search=${encodeURIComponent(anchor.name)}">查看战役档案 ↗</a></li>`).join("")}</ul>`;
-  }
-
   function firstItemSourceBlock(item, record) {
     const sources = netSourceLinks(item, record);
     return sources ? `<details><summary>裁决依据与来源</summary><p class="sources">${sources}</p></details>` : "";
@@ -283,12 +195,9 @@
   }
 
   function renderFirstB1(item, bullets, record) {
-    const result = bullets["B1结算"] || "";
-    const start = bullets["起点"] || "";
-    const opponent = bullets["对手"] || "";
-    const efficiency = bullets["效率"] || "";
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>B1 · 创业难度与战略效率</strong><small>满分50；起点15 + 对手15 + 完成效率20</small></span><b>${esc(netValue(item))}</b></div><div class="label">B1是什么意思</div>${prose("B1不重复奖励统一规模，而是问：本人从多强的家底起步、面对多强的实际竞争对手、用了多高效率完成核心成果。起点越弱、对手越强、完成越快，B1越高。")}<div class="label">三个变量怎么读</div><ul><li>起点R档：看本人进入主链时能直接调用的军政资源。R0最弱，得15分；R6接近统一的成熟国家机器，得0分。</li><li>对手O档：看实际竞争阶段的战争机器强度。最强对手全值，第二强只按50%计，避免堆对手数量。</li><li>效率：先算期望完成年 = 4 + 8 × √(效率阶段有效控制信用 / 1000)，再用“实际年数 ÷ 期望年数”得到速度比；速度比越小，效率分越高。</li></ul>${start ? `<div class="label">起点怎么判</div>${prose(firstItemPublicText(start))}` : ""}${opponent ? `<div class="label">对手怎么判</div>${prose(firstItemPublicText(opponent))}` : ""}${efficiency ? `<div class="label">效率怎么判</div>${prose(firstItemPublicText(efficiency))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`B1 = 起点难度分 + 对手难度分 + 完成效率分。${result ? `\n本人的正式结算：${firstItemPublicText(result)}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><strong>起点、强敌与速度</strong><b>${esc(netValue(item))}</b></div>${firstB1Markup(item)}<details><summary>这个分怎么算？</summary>${prose(item.reader_public_b1?.public_calculation || "")}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
+
 
   function renderFirstB2(item, bullets, record) {
     const result = bullets["B2结算"] || "";
@@ -300,10 +209,7 @@
   }
 
   function renderFirstC(item, bullets, record) {
-    const basis = bullets["结算依据"] || "";
-    const battleList = structuredBattleList(bullets["统一链战役清单"], basis);
-    const publicBasis = publicCommanderText(basis);
-    const facts = battleList || (publicBasis ? `<div class="label">关键军事事实</div>${prose(publicBasis)}` : "");
+    const facts = firstCommanderMarkup(item);
     return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>满分40；只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(netValue(item))}</b></div>${facts}<details><summary>这个分怎么算？</summary>${prose("这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。具体分数保留在正式记录中。")}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
@@ -331,7 +237,7 @@
       return;
     }
 
-    const labels = ["B1创业难度与效率", "B2组织与整合", "C军事统帅与战争解题"];
+    const labels = ["B1创业难度与效率", "B2组织与整合"];
     const bulletsByLabel = {};
     const names = [record.ruler_name, firstItemFormalNames[record.ruler_name]];
     await Promise.all(labels.map(async label => {
@@ -346,7 +252,7 @@
     if (byLabel["B1创业难度与效率"]) cards.push(renderFirstB1(byLabel["B1创业难度与效率"], bulletsByLabel["B1创业难度与效率"], record));
     if (byLabel["B2组织与整合"]) cards.push(renderFirstB2(byLabel["B2组织与整合"], bulletsByLabel["B2组织与整合"], record));
     if (byLabel["C军事统帅与战争解题"]) cards.push(renderFirstC(byLabel["C军事统帅与战争解题"], bulletsByLabel["C军事统帅与战争解题"], record));
-    if (byLabel["军事成本扣分"]?.value != null) cards.push(netJudgment(byLabel["军事成本扣分"], record));
+    if (byLabel["军事成本扣分"]?.value != null) cards.push(`<article class="context-story net-public-item first-item-card"><div class="component"><strong>战争代价</strong><b>${esc(netValue(byLabel["军事成本扣分"]))}</b></div>${firstCostMarkup(byLabel["军事成本扣分"])}<details><summary>扣分怎样换算</summary>${prose(byLabel["军事成本扣分"].reader_how || "")}</details>${firstItemSourceBlock(byLabel["军事成本扣分"], record)}</article>`);
     const totals = firstItemTotals(items);
     const netScore = Number(byLabel["第一项净分"]?.value);
     const zeroNote = Number.isFinite(netScore) && netScore === 0

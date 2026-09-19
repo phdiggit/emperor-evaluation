@@ -1,5 +1,47 @@
 "use strict";
 
+// Formal public fields are shared by the overview and both detail renderers.
+// No battle inference, narrative filtering, sorting or truncation belongs here.
+function secondMethodDetailsMarkup(item, record) {
+  const block = (title, text, className = "") => text
+    ? `<details class="${className}"><summary>${esc(title)}</summary>${prose(text)}</details>` : "";
+  const refs = [...new Set([item.source, item.applied_source, ...(item.reader_source_refs || [])].filter(Boolean))];
+  const sources = refs.map(ref => link(ref, "正式记录与史料 ↗", record)).join(" ");
+  return block("范围与边界", item.reader_boundary)
+    + block("这个分数怎么算？", item.reader_how)
+    + block("正式裁决原文（未改写）", item.reader_full_basis, "net-formal-basis-raw")
+    + (sources ? `<details class="net-audit-sources"><summary>正式记录与史料</summary><p class="sources">${sources}</p></details>` : "");
+}
+
+function firstB1Markup(item) {
+  const data = item?.reader_public_b1 || {};
+  return [["起点", data.public_start_basis], ["主要对手", data.public_opponent_basis], ["完成速度", data.public_efficiency_basis]]
+    .filter(([, value]) => value)
+    .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(value)}`).join("");
+}
+
+function firstCostMarkup(item) {
+  const data = item?.reader_public_cost || {};
+  const fields = [["成本程度", data.public_level_label], ["证据状态", data.public_status_label], ["责任时期", data.public_responsibility_window], ["完整成本说明", data.public_basis]];
+  const facts = fields.filter(([, value]) => value).map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(value)}`).join("");
+  const gaps = (data.public_unresolved_gaps || []).map(value => `<li>${esc(value)}</li>`).join("");
+  const sources = (data.public_source_links || []).filter(source => /^https?:\/\//.test(source.url))
+    .map(source => `<a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.label)} ↗</a>`).join(" ");
+  return `${facts}${gaps ? `<div class="label">证据缺口</div><ul>${gaps}</ul>` : ""}${sources ? `<p class="sources">${sources}</p>` : ""}`;
+}
+
+function firstCommanderMarkup(item) {
+  const source = item?.reader_public_commander;
+  if (!source?.public_basis || !source?.public_boundary || !Array.isArray(source.public_battles)) {
+    return '<p class="notice">本人统帅的公开说明尚未同步。</p>';
+  }
+  const battles = source.public_battles.length
+    ? `<details class="first-item-battle-evidence"><summary>查看已明确记载的战役与统筹成果</summary><ul class="first-item-battles">${source.public_battles.map(battle => `<li><strong>${esc(battle.name)}</strong> · ${esc(battle.role)} · ${esc(battle.result)}成果 · ${esc(battle.difficulty ? `${battle.difficulty}难度` : '难度未单列')} <a href="military.html#search=${encodeURIComponent(battle.name)}">查看战役档案 ↗</a></li>`).join('')}</ul></details>`
+    : '';
+  return `<div class="first-item-commander-public"><div class="label">为什么这样评</div>${prose(source.public_basis)}<div class="label">责任与限制</div>${prose(source.public_boundary)}${battles}</div>`;
+}
+
+
 (() => {
   const sectionByCell = {
     1: "person-outcome",
@@ -482,104 +524,6 @@
     return Number.isInteger(value) ? String(value) : value.toFixed(1);
   }
 
-  function publicCommanderText(value) {
-    return firstFactText(value)
-      .replace(/\b[SABCD][+−-]?\/D[0-4]\b/g, "")
-      .replace(/\b[SABCD][+−-]?(?:至|到)[SABCD][+−-]?\/D[0-4]\b/g, "")
-      .replace(/[SABCD][+−-]?档/g, "")
-      .replace(/统帅证据[:：]?/g, "")
-      .replace(/现场与败责复验[:：]?/g, "")
-      .replace(/第一项(?:主链|建国统一链)内已有/g, "本项主链中已有")
-      .replace(/(?:高难|高质量)统帅锚/g, "高难度战役")
-      .replace(/统帅锚/g, "战役案例")
-      .replace(/峰值/g, "最高表现")
-      .replace(/复验/g, "其他案例")
-      .replace(/场景跨度/g, "不同战场和时期")
-      .replace(/责任中心/g, "将领")
-      .replace(/具体军事统帅信用/g, "具体战役指挥责任")
-      .replace(/已闭合到/g, "主要由")
-      .replace(/(主要由[^；。]+?将领)(?=；|。)/g, "$1承担")
-      .replace(/([^；。]+?)由B2等轴承接/g, "$1另行评价")
-      .replace(/现有(?:登记|材料)不足以证明([^；。]+?)承担具体战争统帅责任/g, "现有材料没有确认$1亲自统领具体战役")
-      .replace(/因此C为0/g, "因此不计入本人统帅表现")
-      .replace(/\bC为0\b/g, "不计入本人统帅表现")
-      .replace(/\s*；\s*；/g, "；")
-      .replace(/\s*，\s*。/g, "。")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  function structuredBattleAnchors(value) {
-    const result = [];
-    for (const part of String(value || "").split(/[；;]/)) {
-      const fields = part.split(/[｜|]/).map(field => field.trim());
-      if (fields.length < 4) continue;
-      const name = fields[0];
-      const role = fields[1];
-      const resultGrade = fields[2].replace(/成果/g, "").replace(/-/g, "−").trim();
-      const difficultyCode = fields[3].match(/\bD([0-4])\b/)?.[1];
-      if (!name || !["前线作战", "战略统筹"].includes(role) || !/^(?:S[+−]?|A[+−]?|B[+−]?|C[+−]?|D[+−]?|E)$/.test(resultGrade)) continue;
-      const entry = {name, role, result: resultGrade, difficulty: difficultyCode == null ? "" : ["D", "C", "B", "A", "S"][Number(difficultyCode)] || ""};
-      if (!result.some(existing => existing.name === entry.name)) result.push(entry);
-    }
-    const resultRank = {"S+": 12, "S": 11, "S−": 10, "A+": 9, "A": 8, "A−": 7, "B+": 6, "B": 5, "B−": 4, "C+": 3, "C": 2, "C−": 1};
-    const difficultyRank = {S: 5, A: 4, B: 3, C: 2, D: 1};
-    return result.sort((a, b) => (resultRank[b.result] || 0) - (resultRank[a.result] || 0) || (difficultyRank[b.difficulty] || 0) - (difficultyRank[a.difficulty] || 0));
-  }
-
-  function fallbackBattleAnchors(value) {
-    const primary = String(value || "").split(/；?现场与败责复验[:：]/)[0];
-    const result = [];
-    const add = (rawName, role, resultGrade, difficultyCode = "") => {
-      const name = String(rawName || "").trim()
-        .replace(/^(?:(?:统帅证据|现场与败责复验)[:：]|第一项(?:主链|建国统一链)内已有|已有|另有|并有|并以|又有|又以|其中|包括|以及|有|以)+/, "")
-        .replace(/^[、，；：\s]+/, "")
-        .replace(/^(?:多个|多次)/, "")
-        .replace(/(?:等|一役)$/g, "")
-        .trim();
-      if (!name || name.length > 24 || /(?:存在|可进入|高层|大量|多项|多次|形成|成果中|等)/.test(name)) return;
-      const entry = {
-        name,
-        role,
-        result: String(resultGrade || "").replace(/-/g, "−"),
-        difficulty: difficultyCode ? ["D", "C", "B", "A", "S"][Number(difficultyCode)] || "" : "",
-      };
-      if (!result.some(existing => existing.name === entry.name)) result.push(entry);
-    };
-    const battlePattern = /([^，；。]{1,36}?)(S\+|S[−-]|S|A[+−-]?|B[+−-]?|C[+−-]?|D[+−-]?|E[+−-]?)\/D([0-4])/g;
-    let match;
-    while ((match = battlePattern.exec(primary)) !== null) {
-      const role = /统筹|统总|战略|方案|部署/.test(match[1]) ? "战略统筹" : "前线作战";
-      add(match[1], role, match[2], match[3]);
-    }
-    const strategyPattern = /([^，；。]{1,36}?)(S\+|S[−-]|S|A[+−-]?|B[+−-]?|C[+−-]?|D[+−-]?|E)(?:级)?[^，；。]{0,12}(?:战争|战略)?统筹/g;
-    while ((match = strategyPattern.exec(primary)) !== null) {
-      add(match[1], "战略统筹", match[2]);
-    }
-    const resultRank = {"S+": 12, "S": 11, "S−": 10, "A+": 9, "A": 8, "A−": 7, "B+": 6, "B": 5, "B−": 4, "C+": 3, "C": 2, "C−": 1};
-    const difficultyRank = {S: 5, A: 4, B: 3, C: 2, D: 1};
-    return result.sort((a, b) => (resultRank[b.result] || 0) - (resultRank[a.result] || 0) || (difficultyRank[b.difficulty] || 0) - (difficultyRank[a.difficulty] || 0));
-  }
-
-  function structuredBattleList(value, basis = "") {
-    const anchors = structuredBattleAnchors(value);
-    const displayAnchors = anchors.length ? anchors : fallbackBattleAnchors(basis);
-    if (!displayAnchors.length) return "";
-    return `<ul class="first-item-battles">${displayAnchors.map(anchor => `<li><strong>${esc(anchor.name)}</strong> · ${esc(anchor.role)} · ${esc(anchor.result)}成果 · ${esc(anchor.difficulty ? `${anchor.difficulty}难度` : "难度不单列")}　<a href="military.html#search=${encodeURIComponent(anchor.name)}">查看战役档案 ↗</a></li>`).join("")}</ul>`;
-  }
-
-  function firstDigestText(value, max = 280) {
-    const text = firstFactText(value);
-    if (text.length <= max) return text;
-    const parts = text.split(/(?<=[。！？；])/).filter(Boolean);
-    let out = "";
-    for (const part of parts) {
-      if (out && out.length + part.length > max) break;
-      out += part;
-    }
-    return out || `${text.slice(0, max - 1)}…`;
-  }
-
   function firstMetricDetail(id, title, subtitle, item, body, record, valueText = "") {
     const shown = valueText || netValue(item);
     return `<details id="${id}" data-ruler="${esc(record.ruler_name)}" class="net-metric-detail"><summary><span><strong>${title}</strong><small>${subtitle}</small></span><b>${esc(shown)}</b></summary><div class="net-metric-body">${body}${auditSourceBlock(item, record)}</div></details>`;
@@ -613,14 +557,10 @@
   }
 
   function renderFirstB1(item, bullets, record) {
-    const result = bullets["B1结算"] || "";
-    const start = bullets["起点"] || "";
-    const opponent = bullets["对手"] || "";
-    const efficiency = bullets["效率"] || "";
-    const facts = `${start ? `<div class="label">起步时手里有什么</div>${prose(firstFactText(start))}` : ""}${opponent ? `<div class="label">真正面对的强敌</div>${prose(firstFactText(opponent))}` : ""}${efficiency ? `<div class="label">核心成果完成得多快</div>${prose(firstFactText(efficiency))}` : ""}`;
-    const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary>${prose("B1不重复奖励统一规模，而是把起点条件、主要对手强度和完成效率分开结算。起点越弱、对手越强、完成越快，B1越高。")}<ul><li>起点R档：看进入主链时能直接调用的军政资源。</li><li>对手O档：最强实际竞争对手全值，第二强按50%计。</li><li>效率：把实际完成年数与按项目规模计算的期望年数比较。</li></ul>${result ? prose(`当前人物正式结算：${firstFactText(result)}`) : ""}</details>`;
-    return firstMetricDetail("net-first-b1", "B1 · 难度与完成速度", "起点、强敌和完成效率", item, `${facts}${rules}`, record);
+    const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary>${prose(item.reader_public_b1?.public_calculation || "")}</details>`;
+    return firstMetricDetail("net-first-b1", "起点、强敌与速度", "起点、主要对手和完成效率", item, `${firstB1Markup(item)}${rules}`, record);
   }
+
 
   function renderFirstB2(item, bullets, record) {
     const result = bullets["B2结算"] || "";
@@ -634,24 +574,16 @@
   }
 
   function renderFirstC(item, bullets, record) {
-    const basis = bullets["结算依据"] || "";
-    const battleList = structuredBattleList(bullets["统一链战役清单"], basis);
-    const publicBasis = publicCommanderText(basis);
-    const facts = battleList || (publicBasis ? `<div class="label">关键军事事实</div>${prose(publicBasis)}` : "");
+    const facts = firstCommanderMarkup(item);
     const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary>${prose("这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。具体分数保留在正式记录中。")}</details>`;
     return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${rules}`, record);
   }
 
   function renderFirstCost(item, record) {
-    const summary = cleanNetText(item.reader_summary || "");
-    const full = cleanNetText(item.reader_full_basis || "");
-    const boundary = cleanNetText(item.reader_boundary || "");
-    const how = cleanNetText(item.reader_how || "");
-    const facts = `${summary ? `<div class="label">最主要的战争代价</div>${prose(summary)}` : ""}`;
-    const detail = full && full !== summary ? `<details><summary>完整成本裁决</summary>${prose(full)}${boundary ? `<div class="label">责任范围</div>${prose(boundary)}` : ""}</details>` : boundary ? `<details><summary>责任范围</summary>${prose(boundary)}</details>` : "";
-    const rule = how ? `<details class="first-item-rule-box"><summary>扣分怎样换算</summary>${prose(how)}</details>` : "";
-    return firstMetricDetail("net-first-cost", "军事成本 · 战争代价", "从A/B1/B2/C毛分中扣除", item, `${facts}${detail}${rule}`, record, `扣 ${item.value} 分`);
+    const rule = `<details class="first-item-rule-box"><summary>扣分怎样换算</summary>${prose(item.reader_how || "")}</details>`;
+    return firstMetricDetail("net-first-cost", "军事成本 · 战争代价", "从四轴毛分中扣除", item, `${firstCostMarkup(item)}${rule}`, record, `扣 ${item.value} 分`);
   }
+
 
   function firstTotals(items) {
     const byLabel = Object.fromEntries(items.map(item => [item.label, item]));
@@ -669,32 +601,31 @@
 
   function firstItemOverview(record, bulletsByLabel, byLabel) {
     const a = byLabel["A统一贡献"]?.reader_public_outcome || {};
-    const b1 = bulletsByLabel["B1创业难度与效率"] || {};
+    const b1 = byLabel["B1创业难度与效率"]?.reader_public_b1 || {};
     const b2 = bulletsByLabel["B2组织与整合"] || {};
-    const c = bulletsByLabel["C军事统帅与战争解题"] || {};
     const cost = byLabel["军事成本扣分"];
     const aPercent = firstPublicSharePercent(a);
     const aText = [
       a.public_project ? `共同项目：${a.public_project}` : "",
       ...firstPublicOutcomeParts(a).map(([, value]) => firstPublicOutcomeText(value)),
       aPercent ? `成果占比：约${aPercent}%` : "",
-    ].filter(Boolean).map(firstDigestText).join(" ");
+    ].filter(Boolean).join(" ");
     const b1Parts = [
-      ["起点", b1["起点"]],
-      ["对手", b1["对手"]],
-      ["速度", b1["效率"]],
+      ["起点", b1.public_start_basis],
+      ["对手", b1.public_opponent_basis],
+      ["速度", b1.public_efficiency_basis],
     ].filter(([, value]) => value);
     const b2Parts = [
       ["并行", b2["并行执行"]],
       ["分工", b2["团队能力覆盖与组织杠杆"] || b2["能力覆盖/组织杠杆"]],
       ["整合", b2["异质整合"]],
     ].filter(([, value]) => value);
-    const cText = firstDigestText(publicCommanderText(c["结算依据"] || ""), 360);
-    const costText = firstDigestText(cost?.reader_summary || "", 300);
+    const cText = byLabel["C军事统帅与战争解题"]?.reader_public_commander?.public_basis || "";
+    const costText = cost?.reader_public_cost?.public_basis || "";
     const items = record.net?.component_details?.first || [];
     const parts = Object.fromEntries(items.map(item => [item.label, item.value]));
     const score = [parts["A统一贡献"], parts["B1创业难度与效率"], parts["B2组织与整合"], parts["C军事统帅与战争解题"], parts["第一项净分"], parts["附加F"]];
-    return `<section class="first-item-overview"><h2>先看${esc(record.ruler_name)}在这条主链里实际做了什么</h2><p class="subline">下面默认只放当前人物的成果、难题、组织、统帅和代价；指标定义与公式都收进折叠项。</p><div class="first-item-story-grid">${aText ? `<div class="first-item-story-card"><b>统一成果</b><p>${esc(aText)}</p></div>` : ""}${b1Parts.length ? `<div class="first-item-story-card"><b>起点、强敌与速度</b><ul>${b1Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstDigestText(value, 180))}</li>`).join("")}</ul></div>` : ""}${b2Parts.length ? `<div class="first-item-story-card"><b>组织与整合</b><ul>${b2Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstDigestText(value, 190))}</li>`).join("")}</ul></div>` : ""}${cText ? `<div class="first-item-story-card"><b>本人统帅</b><p>${esc(cText)}</p></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">A ${score[0]} + B1 ${score[1]} + B2 ${score[2]} + C ${score[3]} − 成本 ${parts["军事成本扣分"] ?? 0} = <strong>S1 ${score[4]}</strong> → 总榜附加 <strong>+${score[5]}</strong></div>` : ""}</section>`;
+    return `<section class="first-item-overview"><h2>先看${esc(record.ruler_name)}在这条主链里实际做了什么</h2><p class="subline">下面默认只放当前人物的成果、难题、组织、统帅和代价；指标定义与公式都收进折叠项。</p><div class="first-item-story-grid">${aText ? `<div class="first-item-story-card"><b>统一成果</b><p>${esc(aText)}</p></div>` : ""}${b1Parts.length ? `<div class="first-item-story-card"><b>起点、强敌与速度</b><ul>${b1Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(value)}</li>`).join("")}</ul></div>` : ""}${b2Parts.length ? `<div class="first-item-story-card"><b>组织与整合</b><ul>${b2Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstFactText(value))}</li>`).join("")}</ul></div>` : ""}${cText ? `<div class="first-item-story-card"><b>本人统帅</b><p>${esc(cText)}</p></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">A ${score[0]} + B1 ${score[1]} + B2 ${score[2]} + C ${score[3]} − 成本 ${parts["军事成本扣分"] ?? 0} = <strong>S1 ${score[4]}</strong> → 总榜附加 <strong>+${score[5]}</strong></div>` : ""}</section>`;
   }
 
   async function renderFirstMajor(record, focus = "") {
@@ -709,7 +640,7 @@
       return;
     }
 
-    const labels = ["B1创业难度与效率", "B2组织与整合", "C军事统帅与战争解题"];
+    const labels = ["B1创业难度与效率", "B2组织与整合"];
     const bulletsByLabel = {};
     const names = [record.ruler_name, firstItemFormalNames[record.ruler_name]];
     await Promise.all(labels.map(async label => {

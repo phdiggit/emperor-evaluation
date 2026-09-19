@@ -12,6 +12,7 @@ import json
 import re
 from pathlib import Path
 from typing import Any
+from emperor_v4.evaluation.third_fourth_public_language import language_domain
 
 from emperor_v4.evaluation.formal_json_store import (
     load_json,
@@ -184,7 +185,7 @@ def _unique(values: list[str]) -> list[str]:
 
 
 def _clean_public_text(value: object) -> str:
-    """Keep factual Chinese prose while removing machine and audit notation."""
+    """Translate explicitly; unknown notation must never be silently removed."""
 
     if isinstance(value, (list, tuple)):
         return "；".join(_unique([_clean_public_text(item) for item in value]))
@@ -199,19 +200,13 @@ def _clean_public_text(value: object) -> str:
     if value is None:
         return ""
     text = str(value).replace("`", "").replace("\r", " ").replace("\n", " ")
-    text = re.sub(r"https?://\S+", "", text)
-    text = re.sub(r"\bHIGH降MID\b", "由高位降至中位", text)
-    text = re.sub(r"\bR3只取LOW\b", "仅取有限水平", text)
-    text = re.sub(r"保R3", "已保留当前水平", text)
-    text = re.sub(r"\bHIGH\b", "高位", text)
-    text = re.sub(r"\bMID\b", "中位", text)
-    text = re.sub(r"\bLOW\b", "低位", text)
-    text = re.sub(r"\bHIGHEST\b", "最高水平", text)
-    text = re.sub(r"\b[A-Z]{1,5}[0-9]+(?:-[A-Z0-9_]+)*\b", "", text)
-    text = re.sub(r"[A-Za-z][A-Za-z0-9_:+./-]*", "", text)
+    from emperor_v4.evaluation.third_fourth_public_language import translate
+    text = translate(text)
     replacements = (
-        ("未闭合", "未形成完整证据"),
-        ("闭合", "形成完整证据"),
+        ("闭合点", "完成时点"),
+        ("未闭合", "未证实"),
+        ("闭合为", "证据支持评为"),
+        ("闭合", "证实"),
         ("门禁", "条件"),
         ("消费", "计入"),
         ("归责", "本人责任"),
@@ -243,22 +238,7 @@ def _clean_public_text(value: object) -> str:
     )
     for old, new in replacements:
         text = text.replace(old, new)
-    text = re.sub(r"[（(]\s*[）)]", "", text)
-    text = re.sub(r"依据\s*[:：]\s*；?[^。；]*[。；]?", "", text)
-    text = re.sub(r"([0-6])档", r"第\1级", text)
-    text = re.sub(r"三轴[0-9/]+、整体水平", "三个方面的整体水平", text)
-    text = re.sub(r"（([^（）]*)[，,；、]\s*）", r"（\1）", text)
-    text = text.replace("不足或", "证据不足，")
-    text = text.replace("保；", "已保留；")
-    text = text.replace("由降", "由较高水平降至中位")
-    text = re.sub(r"[；，、,]\s*[；，、,。]+", "；", text)
-    text = re.sub(r"；\s*。", "。", text)
-    text = re.sub(r"。\s*。+", "。", text)
-    text = re.sub(r"\s+", " ", text)
-    text = text.strip(" ；，、,。:：")
-    if not re.search(r"[\u4e00-\u9fff0-9]", text):
-        return ""
-    return text
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def _first_text(*values: object) -> str:
@@ -270,9 +250,7 @@ def _first_text(*values: object) -> str:
 
 
 def _strip_internal_tail(value: object) -> str:
-    text = _clean_public_text(value)
-    text = re.sub(r"(?:三轴|三个方面)的整体水平.*$", "", text)
-    return text.strip(" ；，、,。:：")
+    return _clean_public_text(value)
 
 
 def _number(value: object) -> float:
@@ -660,6 +638,7 @@ def _c_axis_projection(axis: str, row: dict[str, Any], ruler_id: str) -> dict[st
     )
 
 
+@language_domain('capability')
 def _c_projection(row: dict[str, Any]) -> dict[str, Any]:
     ruler_id = str(row.get("ruler_id") or "")
     projections: dict[str, dict[str, Any]] = {}
@@ -692,7 +671,8 @@ def _c_projection(row: dict[str, Any]) -> dict[str, Any]:
 
 
 def _cost_projection(profile: dict[str, Any], ruler_id: str, *, prefix: str = "THIRD-COST") -> dict[str, Any]:
-    band = _level_label(profile.get("cost_band"))
+    cost_band = str(profile.get("cost_band") or "")
+    band = f"第{cost_band[1:]}级" if re.fullmatch(r"C[0-7]", cost_band) else "不适用或尚未定级"
     position = _band_label(profile.get("position"))
     basis = _first_text(profile.get("basis")) or "正式记录没有保留可直述的普通军事代价事实。"
     summary = f"普通军事代价为{band}{f'、{position}' if position else ''}。{basis}"
@@ -986,6 +966,7 @@ def _fourth_projection(row: dict[str, Any], packages: dict[str, dict[str, Any]])
     )
 
 
+@language_domain('civilization')
 def _refresh_fourth(payload: dict[str, Any]) -> dict[str, Any]:
     rows = _records(payload)
     package_rows = _records(payload, "accepted_packages")
@@ -1027,6 +1008,8 @@ def _verify_third(payloads: dict[str, dict[str, Any]]) -> dict[str, Any]:
             raise ValueError(f"第三项公开字段改变了正式评分字段：{key}")
         if _signature(payload) != _signature(expected[key]):
             raise ValueError(f"第三项公开字段不是当前正式记录的确定性投影：{key}")
+        if payload != expected[key]:
+            raise ValueError(f"第三项公开文案与当前来源转述不一致：{key}")
         _validate_public_strings(payload)
     total_rows = _index(_records(payloads["total"]))
     for key in ("AB", "C", "D", "credit"):
@@ -1057,6 +1040,8 @@ def _verify_fourth(payload: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("第四项公开校验内部签名异常")
     if _signature(payload) != _signature(expected):
         raise ValueError("第四项公开字段不是当前正式记录的确定性投影")
+    if payload != expected:
+        raise ValueError("第四项公开文案与当前来源转述不一致")
     _validate_public_strings(payload)
     rows = _records(payload)
     packages = _records(payload, "accepted_packages")
@@ -1098,6 +1083,14 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
     third_current = {key: value for key, value in current.items() if key != "fourth"}
     projected_third = _refresh_third(copy.deepcopy(third_current))
     projected_fourth = _refresh_fourth(copy.deepcopy(current["fourth"]))
+    for key, payload in projected_third.items():
+        if _signature(payload) != _signature(current[key]):
+            raise ValueError(f"公开投影禁止改变评分来源：{key}")
+    if _signature(projected_fourth) != _signature(current['fourth']):
+        raise ValueError("公开投影禁止改变第四项评分来源")
+    # Validate the complete batch before any file is written.
+    _verify_third(projected_third)
+    _verify_fourth(projected_fourth)
     if write:
         polities = load_ruler_polities(root)
         for key, path in THIRD_ROUTED_PATHS.items():

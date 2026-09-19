@@ -90,11 +90,6 @@
     const root = document.querySelector(".first-item-public-v2");
     if (!root) return;
 
-    for (const details of root.querySelectorAll(".first-item-card > details")) {
-      const summary = details.querySelector(":scope > summary");
-      if (summary?.textContent.trim() === "裁决依据与来源") details.remove();
-    }
-
     if (root.querySelector(":scope > .first-item-total-source")) return;
     const rulerId = firstItemRouteId();
     const record = rulerId ? byId.get(rulerId) : null;

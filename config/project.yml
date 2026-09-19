@@ -81,6 +81,16 @@ formal_settlements:
       verify_command: first-item-a-public-verify
       fields: [public_outcome_basis, public_scope, public_boundary, public_project]
       migration_note: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项A统一主链客观贡献公开字段迁移说明.md
+    c_public_projection:
+      schema_version: first-item-c-public-v1
+      source_markdown: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/04-第一项C本人军事统帅与战争解题能力正式结算.md
+      verify_command: first-item-c-public-verify
+      fields: [公开裁决依据, 公开责任边界, 统一链战役清单]
+    b1_cost_public_projection:
+      schema_version: first-item-b1-cost-public-v1
+      b1_source: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/02-第一项B1创业难度与战略效率正式结算.md
+      cost_source: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/06-军事成本正式裁决.json
+      verify_command: first-item-b1-cost-public-verify
   second_item:
     range: [-27.5, 387]
     adopted_next_result_mechanism:

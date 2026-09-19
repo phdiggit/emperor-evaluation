@@ -20,16 +20,6 @@
     return (record?.net?.component_details?.method || []).find(item => item.label === "B1官僚治理") || null;
   }
 
-  function genericBodyKey(item) {
-    return [
-      item?.reader_summary || "",
-      ...(Array.isArray(item?.reader_highlights) ? item.reader_highlights : []),
-      item?.reader_boundary || "",
-      item?.reader_how || "",
-      item?.reader_full_basis || "",
-    ].join("|");
-  }
-
   function sourcePath(ref) {
     return decodeURIComponent(String(ref || "").split("#", 1)[0]).replace(/:\d+(?:-\d+)?$/, "");
   }
@@ -263,17 +253,6 @@
     }
     const {groups, supplements} = groupedProfiles(formal);
 
-    const boundary = Array.from(body.querySelectorAll(":scope > details")).find(node =>
-      node.querySelector(":scope > summary")?.textContent.trim() === "范围与边界"
-    );
-    const how = Array.from(body.querySelectorAll(":scope > details")).find(node =>
-      node.querySelector(":scope > summary")?.textContent.trim() === "这个分数怎么算？"
-    );
-    body.querySelector(":scope > .net-audit-sources")?.remove();
-    body.querySelector(":scope > .net-formal-basis-raw")?.remove();
-    boundary?.remove();
-    how?.remove();
-
     body.innerHTML = "";
     const reading = make("div", "second-item-public-reading second-item-b1-reading");
     reading.append(make("div", "label", "官僚治理运行链"));
@@ -290,12 +269,8 @@
     gradeDetails.append(make("summary", "", "为什么最终是这个等级？"));
     gradeDetails.append(make("p", "prose", summaryText(formal, item)));
     body.append(gradeDetails);
-    if (boundary) body.append(boundary);
-    if (how) body.append(how);
+    body.insertAdjacentHTML("beforeend", secondMethodDetailsMarkup(item, record));
 
-    // Mark the dedicated renderer as satisfying the generic reader contract.
-    // This prevents the generic MutationObserver from repainting the old B1 body.
-    body.dataset.secondPublicBodyKey = genericBodyKey(item);
     body.dataset.b1Public = "done";
   }
 

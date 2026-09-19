@@ -69,12 +69,15 @@ def test_net_explanation_projection_uses_formal_text():
     projected = _attach_reader(
         item,
         kind="judgment",
-        record=formal,
+        summary=formal["grade_basis"],
+        highlights=[node["mechanism"] for node in formal["M_positive_profile"]],
+        boundary="\n\n".join(formal["material_limitations"]),
+        source_refs=formal["source_refs"],
         how="固定公式换算为12.5分。",
     )
     assert projected["reader_kind"] == "judgment"
-    assert projected["reader_summary"] == "第一句正式裁决。第二句继续说明。"
-    assert projected["reader_full_basis"] == formal["grade_basis"]
+    assert projected["reader_summary"] == formal["grade_basis"]
+    assert "reader_full_basis" not in projected
     assert projected["reader_highlights"] == ["已闭合的正向机制"]
     assert projected["reader_boundary"] == "现有材料仍有明确边界"
     assert projected["reader_how"] == "固定公式换算为12.5分。"

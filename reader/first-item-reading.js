@@ -80,7 +80,7 @@
     const refs = [...new Set([item.source, item.applied_source, ...(item.reader_source_refs || [])].filter(Boolean))];
     const links = refs.map((ref, index) => link(ref, index ? `补充来源 ${index} ↗` : "裁决依据 ↗", record)).join(" ");
     const basis = includeBasis && item.reader_full_basis ? prose(item.reader_full_basis) : "";
-    return links || basis ? `<details><summary>裁决依据与来源</summary>${links ? `<p class="sources">${links}</p>` : ""}${basis}</details>` : "";
+    return links || basis ? `<details${item.reader_public_commander || item.reader_public_b1 || item.reader_public_cost ? ' data-formal-public-source' : ''}><summary>裁决依据与来源</summary>${links ? `<p class="sources">${links}</p>` : ""}${basis}</details>` : "";
   }
 
   function ruleDetails(lines) {
@@ -108,26 +108,12 @@
       .replace(/\bHYBRID\b/g, "战略统筹与本人主帅／临阵并存")
       .replace(/\bSTRATEGIC_COMMAND\b/g, "战略统筹路线")
       .replace(/\bNONE\b/g, "未形成可计的本人统帅责任")
-      .replace(/\bC-[0-5](?:-(?:LOW|MID|HIGH))?\b/g, "")
       .replace(/\s+/g, " ")
       .trim();
   }
 
   function publicOutcomeText(value) {
-    return publicFact(value)
-      .replace(/(?:有效控制信用|个人分得|本人六国统一净新增)\s*(?:为|是|约)?\s*\d+(?:\.\d+)?/g, "")
-      .replace(/约?\d+(?:\.\d+)?\s*单位/g, "")
-      .replace(/按(?:完整)?\s*\d+(?:\.\d+)?\s*池/g, "")
-      .replace(/约?\d+(?:\.\d+)?\s*(?:空间)?恢复(?:控制)?(?:按\s*50%\s*折成\s*\d+(?:\.\d+)?\s*有效信用|[×x*]\s*50%\s*=?\s*\d+(?:\.\d+)?)/g, "")
-      .replace(/\s*×\s*50%\s*折成\s*\d+(?:\.\d+)?\s*有效信用/g, "")
-      .replace(/约占\s*\d+(?:\.\d+)?%/g, "")
-      .replace(/约\d+(?:\.\d+)?(?:\s*=\s*\d+(?:\.\d+)?)?(?=[。；，])/g, "")
-      .replace(/控制信用/g, "")
-      .replace(/；\s*；/g, "；")
-      .replace(/；\s*。/g, "。")
-      .replace(/，\s*。/g, "。")
-      .replace(/\s+/g, " ")
-      .trim();
+    return String(value ?? "").trim();
   }
 
   function publicOutcomeParts(outcome) {
@@ -145,168 +131,12 @@
     return Number.isInteger(value) ? String(value) : value.toFixed(1);
   }
 
-  function publicCommanderText(value) {
-    return publicFact(value)
-      .replace(/\b[SABCD][+−-]?\/D[0-4]\b/g, "")
-      .replace(/\b[SABCD][+−-]?(?:至|到)[SABCD][+−-]?\/D[0-4]\b/g, "")
-      .replace(/[SABCD][+−-]?档/g, "")
-      .replace(/统帅证据[:：]?/g, "")
-      .replace(/现场与败责复验[:：]?/g, "")
-      .replace(/第一项(?:主链|建国统一链)内已有/g, "本项主链中已有")
-      .replace(/(?:高难|高质量)统帅锚/g, "高难度战役")
-      .replace(/统帅锚/g, "战役案例")
-      .replace(/峰值/g, "最高表现")
-      .replace(/复验/g, "其他案例")
-      .replace(/场景跨度/g, "不同战场和时期")
-      .replace(/责任中心/g, "将领")
-      .replace(/具体军事统帅信用/g, "具体战役指挥责任")
-      .replace(/已闭合到/g, "主要由")
-      .replace(/(主要由[^；。]+?将领)(?=；|。)/g, "$1承担")
-      .replace(/([^；。]+?)由B2等轴承接/g, "$1另行评价")
-      .replace(/现有(?:登记|材料)不足以证明([^；。]+?)承担具体战争统帅责任/g, "现有材料没有确认$1亲自统领具体战役")
-      .replace(/因此C为0/g, "因此不计入本人统帅表现")
-      .replace(/\bC为0\b/g, "不计入本人统帅表现")
-      .replace(/\s*；\s*；/g, "；")
-      .replace(/\s*，\s*。/g, "。")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  function outcomePercent(...values) {
-    for (const value of values) {
-      const match = String(value || "").match(/约相当于全国核心统一尺度的\s*(\d+(?:\.\d+)?)%/);
-      if (match) {
-        const numeric = Number(match[1]);
-        return Number.isInteger(numeric) ? String(numeric) : numeric.toFixed(1);
-      }
-    }
-    const raw = values.map(value => String(value || "")).join("；");
-    const credit = raw.match(/(?:有效控制信用|个人分得)\s*(?:为|是)?\s*(\d+(?:\.\d+)?)/);
-    if (credit) return (Number(credit[1]) / 10).toFixed(1);
-    return "";
-  }
-
-  function cleanStart(value) {
-    return String(value || "")
-      .replace(/^R[0-6](?:（[^）]*分）)?[。；]?\s*/, "")
-      .replace(/\bR([0-6])\b/g, (_, n) => R_GRADES[Number(n)] || "")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  function cleanOpponent(value) {
-    return String(value || "")
-      .replace(/^O[1-6](?:\s*\+\s*O[1-6])?(?:（第二强半值）)?，?共\s*\d+(?:\.\d+)?分[。；]?\s*/, "")
-      .replace(/\bO([1-6])\b/g, (_, n) => O_GRADES[Number(n)] || "")
-      .replace(/是典型(?=[EDCBAS])/g, "为")
-      .replace(/取最强同级竞争极(?=[EDCBAS])/g, "为")
-      .replace(/取第二强(?=[EDCBAS])/g, "为")
-      .replace(/（第二强半值）/g, "")
-      .replace(/共\s*\d+(?:\.\d+)?分/g, "")
-      .replace(/；\s*；/g, "；")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  function efficiencyYears(value) {
-    return String(value || "").match(/实际\s*(\d+(?:\.\d+)?)年/)?.[1] || "";
-  }
-
-  function efficiencyNarrative(value) {
-    const text = String(value || "");
-    const firstStop = text.indexOf("。");
-    if (firstStop < 0) return "";
-    return publicFact(text.slice(firstStop + 1))
-      .replace(/效率U\s*=\s*\d+(?:\.\d+)?[，,]?/g, "")
-      .replace(/期望\s*\d+(?:\.\d+)?年[，,]?/g, "")
-      .replace(/速度比\s*\d+(?:\.\d+)?[，,]?/g, "")
-      .replace(/得\s*\d+(?:\.\d+)?分[。；]?/g, "")
-      .trim();
-  }
-
   function lDimension(value) {
     const code = String(value || "").match(/\bL[0-5]\b/)?.[0] || "";
     return {
       grade: code ? grade(code, "L") : "",
       fact: String(value || "").replace(/^L[0-5][。；]?\s*/, "").trim(),
     };
-  }
-
-  function normalizeResultGrade(value) {
-    return String(value || "").replace(/-/g, "−");
-  }
-
-  function sortBattleAnchors(anchors) {
-    const resultRank = {"S+": 12, "S": 11, "S−": 10, "A+": 9, "A": 8, "A−": 7, "B+": 6, "B": 5, "B−": 4, "C+": 3, "C": 2, "C−": 1};
-    const difficultyRank = {S: 5, A: 4, B: 3, C: 2, D: 1};
-    return anchors.sort((a, b) => (resultRank[b.result] || 0) - (resultRank[a.result] || 0) || (difficultyRank[b.difficulty] || 0) - (difficultyRank[a.difficulty] || 0));
-  }
-
-  function structuredBattleAnchors(value) {
-    const result = [];
-    for (const part of String(value || "").split(/[；;]/)) {
-      const fields = part.split(/[｜|]/).map(field => field.trim());
-      if (fields.length < 4) continue;
-      const name = fields[0];
-      const role = fields[1];
-      const resultGrade = normalizeResultGrade(fields[2].replace(/成果/g, "").trim());
-      const difficultyCode = fields[3].match(/\bD([0-4])\b/)?.[1];
-      if (!name || !["前线作战", "战略统筹"].includes(role) || !/^(?:S[+−]?|A[+−]?|B[+−]?|C[+−]?|D[+−]?|E)$/.test(resultGrade)) continue;
-      const entry = {
-        name,
-        role,
-        result: resultGrade,
-        difficulty: difficultyCode == null ? "" : D_GRADES[Number(difficultyCode)] || "",
-      };
-      if (!result.some(existing => existing.name === entry.name)) result.push(entry);
-    }
-    return sortBattleAnchors(result);
-  }
-
-  function fallbackBattleAnchors(value) {
-    const primary = String(value || "").split(/；?现场与败责复验[:：]/)[0];
-    const result = [];
-    const add = (rawName, role, resultGrade, difficultyCode = "") => {
-      let name = String(rawName || "").trim()
-        .replace(/^(?:(?:统帅证据|现场与败责复验)[:：]|第一项(?:主链|建国统一链)内已有|已有|另有|并有|并以|又有|又以|其中|包括|以及|有|以)+/, "")
-        .replace(/^[、，；：\s]+/, "")
-        .replace(/^(?:多个|多次)/, "")
-        .replace(/(?:等|一役)$/g, "")
-        .trim();
-      if (!name || name.length > 24 || /(?:存在|可进入|高层|大量|多项|多次|形成|成果中|等)/.test(name)) return;
-      const entry = {
-        name,
-        role,
-        result: normalizeResultGrade(resultGrade),
-        difficulty: difficultyCode ? D_GRADES[Number(difficultyCode)] || "" : "",
-      };
-      if (!result.some(existing => existing.name === entry.name)) result.push(entry);
-    };
-
-    const battlePattern = /([^，；。]{1,36}?)(S\+|S[−-]|S|A[+−-]?|B[+−-]?|C[+−-]?|D[+−-]?|E[+−-]?)\/D([0-4])/g;
-    let match;
-    while ((match = battlePattern.exec(primary)) !== null) {
-      const role = /统筹|统总|战略|方案|部署/.test(match[1]) ? "战略统筹" : "前线作战";
-      add(match[1], role, match[2], match[3]);
-    }
-
-    const strategyPattern = /([^，；。]{1,36}?)(S\+|S[−-]|S|A[+−-]?|B[+−-]?|C[+−-]?|D[+−-]?|E)(?:级)?[^，；。]{0,12}(?:战争|战略)?统筹/g;
-    while ((match = strategyPattern.exec(primary)) !== null) {
-      add(match[1], "战略统筹", match[2]);
-    }
-    return sortBattleAnchors(result);
-  }
-
-  function battleAnchors(value, structured = "") {
-    const explicit = structuredBattleAnchors(structured);
-    if (explicit.length) return explicit;
-    return fallbackBattleAnchors(value);
-  }
-
-  function renderBattles(basis, structured = "") {
-    const anchors = battleAnchors(basis, structured);
-    if (!anchors.length) return "";
-    return `<ul class="first-item-battles">${anchors.map(anchor => `<li><strong>${esc(anchor.name)}</strong> · ${esc(anchor.role)} · ${esc(anchor.result)}成果 · ${esc(anchor.difficulty ? `${anchor.difficulty}难度` : "难度不单列")}　<a href="military.html#search=${encodeURIComponent(anchor.name)}">查看战役档案 ↗</a></li>`).join("")}</ul>`;
   }
 
   function renderA(item, data, record) {
@@ -322,24 +152,9 @@
   }
 
   function renderB1(item, data, record) {
-    const result = data["B1结算"] || "";
-    const start = data["起点"] || "";
-    const opponent = data["对手"] || "";
-    const efficiency = data["效率"] || "";
-    const startCode = start.match(/\bR[0-6]\b/)?.[0] || "";
-    const opponentCodes = [...opponent.matchAll(/\bO[1-6]\b/g)].map(match => match[0]).filter((code, index, values) => values.indexOf(code) === index).slice(0, 2);
-    const years = efficiencyYears(efficiency);
-    const metrics = [
-      startCode ? `起点实力 <strong>${grade(startCode, "R")}</strong>` : "",
-      opponentCodes[0] ? `最强对手 <strong>${grade(opponentCodes[0], "O")}</strong>` : "",
-      opponentCodes[1] ? `次强对手 <strong>${grade(opponentCodes[1], "O")}</strong>` : "",
-      years ? `<strong>${esc(years)}年</strong>完成核心成果` : "",
-    ].filter(Boolean).join(" · ");
-    const startFact = cleanStart(start);
-    const opponentFact = cleanOpponent(opponent);
-    const efficiencyFact = efficiencyNarrative(efficiency);
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>起点、强敌与速度</strong><small>起点实力越强，不等于创业难度越高</small></span><b>${esc(score(item))}</b></div>${metrics ? `<p class="prose">${metrics}</p>` : ""}${startFact ? `<div class="label">起点</div>${prose(startFact)}` : ""}${opponentFact ? `<div class="label">主要对手</div>${prose(opponentFact)}` : ""}${efficiencyFact ? `<div class="label">完成速度</div>${prose(efficiencyFact)}` : ""}${ruleDetails(["内部指标：B1。", start, opponent, efficiency, result])}${sourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>起点、强敌与速度</strong><small>起点实力越强，不等于创业难度越高</small></span><b>${esc(score(item))}</b></div>${firstB1Markup(item)}${ruleDetails(["内部指标：B1。", item.reader_public_b1?.public_calculation || ""])}${sourceBlock(item, record)}</article>`;
   }
+
 
   function renderB2(item, data, record) {
     const result = data["B2结算"] || "";
@@ -358,40 +173,12 @@
   }
 
   function renderC(item, data, record) {
-    const basis = data["结算依据"] || "";
-    const battles = renderBattles(basis, data["统一链战役清单"] || "");
-    const fallback = battles ? "" : publicCommanderText(basis);
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(score(item))}</b></div>${battles || (fallback ? prose(fallback) : "")}${ruleDetails(["这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。"])}${sourceBlock(item, record)}</article>`;
-  }
-
-  function costGrade(item) {
-    const raw = `${item?.grade || ""} ${item?.note || ""}`;
-    const level = raw.match(/\bC-?([0-7])\b/)?.[1];
-    const position = raw.match(/\b(LOW|MID|HIGH)\b/)?.[1];
-    return {
-      severity: level != null ? COST_SEVERITY[Number(level)] || "" : "",
-      position: position ? POSITION[position] : "",
-    };
-  }
-
-  function costPublicText(value) {
-    return String(value || "")
-      .replace(/\bC-?([0-7])\s*门/g, "更高严重度门槛")
-      .replace(/\bC-?([0-7])\b/g, (_, n) => COST_SEVERITY[Number(n)] || "")
-      .replace(/\bLOW\b/g, "低位")
-      .replace(/\bMID\b/g, "中位")
-      .replace(/\bHIGH\b/g, "高位")
-      .replace(/归责/g, "责任归属")
-      .replace(/分账/g, "区分责任")
-      .replace(/\s+/g, " ")
-      .trim();
+    const facts = firstCommanderMarkup(item);
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(score(item))}</b></div>${facts}${ruleDetails(["这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。"])}${sourceBlock(item, record)}</article>`;
   }
 
   function renderCost(item, record) {
-    const publicGrade = costGrade(item);
-    const gradeText = [publicGrade.severity, publicGrade.position].filter(Boolean).join(" · ");
-    const summary = costPublicText(item.reader_summary);
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>战争代价${gradeText ? `：${esc(gradeText)}` : ""}</strong><small>严重度越高，代表本人创业／统一窗口内本方军事损失越重</small></span><b>${esc(score(item, "扣"))}</b></div>${summary ? prose(summary) : ""}${ruleDetails([`内部成本档：${item.grade || "未标明"}。`, item.reader_how || ""])}${sourceBlock(item, record, true)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>战争代价</strong><small>本人创业／统一窗口内本方军事损失</small></span><b>${esc(score(item, "扣"))}</b></div>${firstCostMarkup(item)}${ruleDetails([item.reader_how || ""])}${sourceBlock(item, record)}</article>`;
   }
 
   function renderTotals(items) {
@@ -426,8 +213,8 @@
     }
     const formalName = FORMAL_NAME_ALIASES[record.ruler_name] || record.ruler_name;
     const names = [record.ruler_name, formalName];
-    const entries = await Promise.all(Object.entries(DOCS)
-      .filter(([label]) => label !== "A统一贡献")
+    const entries = await Promise.all(Object.entries(DOCS).filter(([label]) => label !== "C军事统帅与战争解题")
+      .filter(([label]) => label !== "A统一贡献" && label !== "B1创业难度与效率")
       .map(async ([label, ref]) => [label, bullets(await loadDoc(ref, record), names)]));
     if (!group.isConnected || currentRecord()?.ruler_id !== record.ruler_id) return;
     const data = Object.fromEntries(entries);

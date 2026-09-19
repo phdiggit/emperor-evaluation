@@ -104,7 +104,15 @@ python v4.py composite-ranking --write
 
 第二项组件变动后，`python v4.py second-item-totals --write`同步汇总与四张阅读页；A制度建设的公开逐节点正式投影使用`python v4.py second-item-a-public --write`，B2反馈与约束的公开裁决投影使用`python v4.py second-item-b2-public --write`，C1—C4财政民生结果的公开裁决投影使用`python v4.py second-item-c-public --write`。第三、第四项公开裁决投影使用`python v4.py third-fourth-item-public --write`，可用`python v4.py third-fourth-item-public-verify`单独校验。第二项正式校验同时核对组件抄录、竞争排名、公开字段及阅读同值。
 
+第三、第四项公开文案使用明确的中文术语及绑定原句的完整转述，未知代码或英文必须补充转述后才能生成，不得删除字母或拼接残句。校验同时比较完整公开投影与非公开评分来源；结构校验不代替文意复核。修改转述后重建公开字段，再运行`python reader/build.py`及`python reader/build.py --check`。合并时先解决合同、源记录与生成器冲突，再重建公开投影和`reader/data/people/`，不要手工拼接生成文案。Pages成功不代表Build reader成功，发布验收须确认对应提交的构建与行为检查均通过。
+
 主态低谷与净恢复 V4 已统一启用（L有限修正，历史K不计分）；可用 `python v4.py governance-state-recovery-verify` 校验，或用 `python v4.py governance-state-recovery-report --write` 刷新逐人阅读页。启用与刷新不做跨项文件哈希同步。
+
+第一项本人统帅的公开说明直接维护在 C 正式 Markdown 的“公开裁决依据”“公开责任边界”中，战役列表只读取“统一链战役清单”。修改后运行`python v4.py first-item-c-public-verify`，再重建`reader/build.py`与`reader/build_first_item_reader_cache.py`；阅读层不猜测角色、不生成战役条目，也不因展示列表而省略责任与限制。
+
+第一项 B1 的“公开起点说明”“公开对手说明”“公开效率说明”维护在 B1 正式 Markdown；军事成本的公开依据、责任时期、证据缺口与补充链接维护在成本正式 JSON。运行`python v4.py first-item-b1-cost-public-verify`核对覆盖与字段，再重建阅读数据及第一项缓存。页面直接展示公开字段，分阶段效率不合并成单一年数，成本依据与缺口不截断；原始计分记录保留在规则折叠项和来源入口。
+
+阅读概览与详情均保留完整公开文字，不按字数或前几句生成摘要。第二项 A/B1 的概览和专用正文读取同一正式公开裁决，专用正文独立展示范围、计算与来源，不依赖旧渲染器中转。画像正文仅映射明确的代码和档位，不全局改写中文词语；公开净收益正文不经过画像术语映射。
 
 军损数量解释试点见[军事成本裁决敏感性](docs/评分结算/净收益/综合分析/01-军事成本裁决敏感性.md)。相关正式输入变动后运行`python v4.py cost-sensitivity --write`，只读核对省略`--write`；案例基准档位变化须先复核案例。分析不改正式评分，且不把被排除假设纳入证据允许范围。
 
