@@ -234,3 +234,42 @@ assert.equal(JSON.stringify(record),original,'renderers must not invent or attac
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
                             text=True, encoding='utf-8')
     assert result.returncode == 0, result.stderr
+
+
+def test_profile_public_names_do_not_leak_codes_or_rewrite_other_identifiers(tmp_path):
+    """Names are context-specific; source records and fiscal prose stay untouched."""
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node.js required for browser behavior')
+    script = tmp_path / 'public-axis-names.cjs'
+    script.write_text(r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const source=fs.readFileSync('reader/readability.js','utf8');
+const start=source.indexOf('  const baseReaderText'),end=source.indexOf('\n  function foldHomeStatus',start);
+const api=new Function('readerText',source.slice(start,end)+';return {map:readerText,names:profileCodeNames,scope:conflictScopeText};')(String);
+for(const [code,name] of Object.entries({M1:'军事统帅',M2:'外交博弈',M4:'内部联盟',M5:'组织执行',C1:'战略判断',C2:'学习纠错',C3:'用人授权',C4:'制度设计',C5:'权力运用与克制'})) {
+ assert.equal(api.names(code),name);
+ assert.equal(api.names('这里的'+code+'依据。'),'这里的'+name+'依据。');
+}
+assert.equal(api.names('C5权力运用风格与克制'),'权力运用与克制');
+assert.equal(api.names('M1.4反馈'),'失败识别、止损与重组反馈');
+assert.equal(api.names('C2-SYNTHETIC-CASE'),'学习纠错情境记录');
+for(const s of ['MODEL-C5','C5.md','C2.9','C50','aC5','MAC5','未知CODE'])assert.equal(api.names(s),s);
+assert.equal(api.scope('R2_BOUNDED'),'扩大到单一家庭或窄亲属群');
+// Public names only act in the profile renderer, never by mutating stored data.
+const original={axis:'C5',source:'docs/C5/source.json',prose:'C5具体行为'};
+const before=JSON.stringify(original);api.map(original.prose);assert.equal(JSON.stringify(original),before);
+const person=fs.readFileSync('reader/person-readability.js','utf8');
+const direct=person.match(/const netPublicText = [^;]+;/)[0];
+const net=new Function(direct+'return netPublicText;')();
+assert.equal(net('C1民生原公开文字'),'C1民生原公开文字');
+assert.ok(!person.includes('"C5越接近'));
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const copy=JSON.parse(fs.readFileSync('reader/public-copy.json','utf8'));
+assert.ok(!copy.some(x=>/C5单独|C5越接近/.test(x.to)));
+assert.ok(template.includes('权力运用与克制不并入能力图'));
+assert.ok(source.includes('.reading-original-record, .note-evidence'),'original quotations stay verbatim');
+''', encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
+                            text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr

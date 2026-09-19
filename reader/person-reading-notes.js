@@ -12,7 +12,7 @@
   const own = (object, key) => object != null && Object.prototype.hasOwnProperty.call(object, key);
   const plain = value => value && typeof value === "object" && !Array.isArray(value);
   const text = value => typeof value === "string" && value.trim().length > 0;
-  const forbidden = /\b(?:G[0-5]|MI[0-4]|PS[0-4]|DW[0-4]|AM[1-4])(?:[_-][A-Z_]+)?\b|<|>/;
+  const forbidden = /\b(?:M[1245]|C[1-5]|G[0-5]|MI[0-4]|PS[0-4]|DW[0-4]|AM[1-4])(?:[_-][A-Z_]+)?\b|<|>/;
   const unsafeKeys = new Set(["__proto__", "prototype", "constructor"]);
 
   function resolve(record, path) {
@@ -115,7 +115,7 @@
 
   function evidenceList(block, record) {
     const fold = el("details", "note-evidence");
-    fold.append(el("summary", "", "这段提要依据什么？"));
+    fold.append(el("summary", "", "原始记录：这段提要依据什么？"));
     fold.append(el("p", "note-provenance", "以下是项目现有记录中的定位语句；史料出处和完整说明见相应记录。"));
     const list = el("ul");
     for (const ref of block.evidence) {

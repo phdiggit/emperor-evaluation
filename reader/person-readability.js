@@ -21,7 +21,7 @@
     if (Array.isArray(value)) return value.map(c5PublicText);
     if (typeof value !== "string") return value;
     return value
-      .replace(/\bC5\b/g, "本轴")
+      .replace(/\bC5\b/g, "权力运用与克制")
       .replace(/COUNTEREVIDENCE_FOUND/g, "已找到明确反例");
   };
 
@@ -510,7 +510,7 @@
     }
     const note = document.createElement("div");
     note.className = "c5-scale-note subline";
-    note.textContent = "C5越接近S，表示越能在压力和个人利益面前约束自身权力；越接近E，表示强制、报复或特权越容易越过合理边界。它描述权力风格，不计入八项能力雷达。";
+    note.textContent = "权力运用与克制关注掌权者在压力、异议和个人利益面前，如何使用和约束权力。等级越接近S，表示越能约束自身权力；越接近E，表示越容易出现报复、滥用强制手段或突破规则的特权行为。这项评价描述权力使用方式，不属于能力评价，也不纳入能力雷达图。";
     row.append(note);
   }
 

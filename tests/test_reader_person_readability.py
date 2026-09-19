@@ -206,6 +206,9 @@ assert.throws(()=>api.validateNotes(copy),/counterevidence/);
 assert.throws(()=>api.validateBlock({...b(),evidence:[]}),/needs evidence/);
 assert.throws(()=>api.validateBlock({...b(),text:'<img src=x>'}),/prose/);
 assert.throws(()=>api.validateBlock({...b(),text:'使用MI3替代事实。'}),/prose/);
+for(const code of ['C5','C1','M1','M2','M4','M5'])assert.throws(()=>api.validateBlock({...b(),text:code+'是内部编号。'}),/prose/);
+// Locator quotations remain the unmodified source wording, including internal codes.
+api.validateBlock({text:'使用中文名称。',evidence:[{path:['axes','C5','typical_pattern'],quote:'C5原始记录'}]});
 assert.throws(()=>api.validateNotes({...payload,schema_id:'unknown'}),/schema/);
 ''')
 
