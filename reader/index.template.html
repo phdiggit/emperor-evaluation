@@ -144,9 +144,18 @@ function contextIntensity(c){
   ? materialIntensityNames[raw]
   : '未设中文展示，请查原始记录';
 }
+function formalMetaChip(label,value,extraClass=''){
+ if(!nonEmptyFormal(value))return '';
+ return `<span class="formal-context-chip ${extraClass}"><strong>${esc(label)}</strong><span>${esc(String(value))}</span></span>`;
+}
 function formalMetaField(label,value,extraClass=''){
  if(!nonEmptyFormal(value))return '';
  return `<div class="formal-context-meta-row ${extraClass}"><strong>${esc(label)}</strong>${axisProse(value)}</div>`;
+}
+function formalContextRawIntensity(c){
+ const entries=contextIntensityEntries(c);
+ if(!entries.length)return '';
+ return entries.map(([k,v])=>`${k}=${typeof v==='string'?v:JSON.stringify(v)}`).join('；');
 }
 function formalContextMetadata(c,{showIntensity=true}={}){
  const direction=contextDirection(c);
@@ -157,16 +166,14 @@ function formalContextMetadata(c,{showIntensity=true}={}){
  const limits=['limitations','limitation']
   .filter(k=>Object.prototype.hasOwnProperty.call(c||{},k)&&nonEmptyFormal(c[k]))
   .map(k=>c[k]);
- const parts=[];
- if(direction)parts.push(formalMetaField('正式方向',direction));
- if(showIntensity&&intensityEntries.length){
-  parts.push(formalMetaField('材料强度',contextIntensity(c),'context-intensity'));
-  const raw=intensityEntries.map(([k,v])=>`${k}=${typeof v==='string'?v:JSON.stringify(v)}`).join('；');
-  parts.push(`<p class="subline formal-context-raw">正式字段：${esc(raw)}</p>`);
- }
- for(const value of attrs)parts.push(formalMetaField('归责',value));
- for(const value of limits)parts.push(formalMetaField('限制',value));
- return parts.length?`<div class="formal-context-meta">${parts.join('')}</div>`:'';
+ const chips=[];
+ const details=[];
+ if(direction)chips.push(formalMetaChip('方向',direction,'context-direction'));
+ if(showIntensity&&intensityEntries.length)chips.push(formalMetaChip('材料强度',contextIntensity(c),'context-intensity'));
+ for(const value of attrs)details.push(formalMetaField('归责',value));
+ for(const value of limits)details.push(formalMetaField('限制',value));
+ if(!chips.length&&!details.length)return '';
+ return `<div class="formal-context-meta">${chips.length?`<div class="formal-context-chips">${chips.join('')}</div>`:''}${details.length?`<div class="formal-context-meta-details">${details.join('')}</div>`:''}</div>`;
 }
 function formalContextSources(c){
  const refs=[...(c?.source_refs||[]),...(c?.cycle_anchor_refs||[]),...(c?.direct_process_refs||[])].filter(ref=>typeof ref==='string'&&ref);
@@ -178,9 +185,11 @@ function formalContextStory(c,id='',options={}){
  const title=rawTitle?`<div class="public-context-title">${esc(rawTitle)}</div>`:'';
  const body=c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
  const refs=formalContextSources(c);
- const sources=(id||refs.length)?`<details class="metadata"><summary>该情境的来源与原始标注</summary>${id?`<p class="subline">${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'来源原文 ↗'):prose(ref)).join('')}</details>`:'';
+ const rawIntensity=options.showIntensity===false?'':formalContextRawIntensity(c);
+ const sources=(id||refs.length||rawIntensity)?`<details class="metadata"><summary>该情境的来源与原始标注</summary>${id?`<p class="subline">${esc(id)}</p>`:''}${rawIntensity?`<p class="subline">材料强度原始字段：${esc(rawIntensity)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'来源原文 ↗'):prose(ref)).join('')}</details>`:'';
  return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c,options)}${body?axisProse(body):''}${sources}</div>`;
 }
+
 function contexts(a,showIntensity=true){
  const labels={positive_parent_refs:'正向表现',counter_parent_refs:'反例与下沿',negative_parent_refs:'负向表现',mixed_parent_refs:'正负混合表现'};
  return Object.entries(a.counterpattern).map(([key,refs])=>`<div class="label">${esc(labels[key]||key)}</div>${Array.isArray(refs)&&refs.length?refs.map(id=>formalContextStory(a.context_lookup?.[id],id,{showIntensity})).join(''):'<p class="subline">当前未列独立情境。</p>'}`).join('');

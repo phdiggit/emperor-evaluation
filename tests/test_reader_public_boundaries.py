@@ -312,6 +312,10 @@ const record={counterpattern:{negative_parent_refs:['P']},context_lookup:{P:{int
 const before=JSON.stringify(record),html=api.contexts(record,true);
 assert.ok(html.includes('context-intensity'));
 assert.ok(html.includes('完整生命周期情境'));
+assert.ok(html.includes('formal-context-chip context-intensity'));
+const auditIndex=html.indexOf('<details class="metadata">');
+const rawIndex=html.indexOf('MI2_LIFECYCLE');
+assert.ok(auditIndex>=0&&rawIndex>auditIndex,'raw intensity code must stay inside collapsed audit details');
 assert.ok(html.includes(record.context_lookup.P.basis));
 assert.equal(JSON.stringify(record),before);
 assert.ok(!api.contexts(record,false).includes('context-intensity'),'do not add this presentation to unrelated axes');
@@ -427,4 +431,19 @@ def test_third_fourth_detail_material_cards_use_formal_public_fields_only():
         assert forbidden not in block
     assert "metricDetail(item, record, key)" in source
     assert '正式层级：' in source
+
+def test_profile_material_strength_is_public_first_and_raw_code_is_audit_only():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    css = (root / "reader/readability.css").read_text(encoding="utf-8")
+    assert "formal-context-chip" in template
+    assert "材料强度原始字段" in template
+    metadata_start = template.index("function formalContextMetadata")
+    story_start = template.index("function formalContextStory", metadata_start)
+    metadata_block = template[metadata_start:story_start]
+    assert "formal-context-raw" not in metadata_block
+    assert "正式字段：" not in metadata_block
+    assert ".formal-context-story" in css
+    assert ".formal-context-chip.context-intensity" in css
 

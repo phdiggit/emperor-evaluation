@@ -62,6 +62,76 @@
   margin: 5px 0;
 }
 
+.formal-context-story {
+  margin: 10px 0 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: 6px;
+  background: #fcfbf7;
+}
+
+.formal-context-story .public-context-title {
+  margin-bottom: 7px;
+  font-size: 13px;
+}
+
+.formal-context-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2px 0 8px;
+}
+
+.formal-context-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #f4f5ef;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.formal-context-chip strong {
+  color: var(--ink);
+  font-size: inherit;
+}
+
+.formal-context-chip.context-intensity {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.formal-context-meta-details {
+  margin: 6px 0 8px;
+}
+
+.formal-context-meta-row {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid color-mix(in srgb,var(--line) 70%,transparent);
+}
+
+.formal-context-meta-row > strong {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.formal-context-meta-row .prose {
+  margin: 3px 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.formal-context-story > .metadata {
+  margin-top: 9px;
+}
+
 .public-person-type {
   margin: 8px 0 10px;
   font-size: 16px;
