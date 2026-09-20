@@ -917,12 +917,12 @@ def test_second_item_method_index_is_explicitly_an_input_not_a_direct_score():
 def test_third_item_public_aliases_replace_compound_internal_labels_before_bare_codes():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
-    assert 'replace(/\\bB1控制规模\\b/g, "控制范围")' in source
-    assert 'replace(/\\bB2战略价值\\b/g, "战略价值")' in source
-    assert 'replace(/\\bB4交班成熟度\\b/g, "成果稳定性")' in source
-    assert source.index('replace(/\\bB1控制规模\\b/g') < source.index('replace(/\\bB1\\b/g')
-    assert source.index('replace(/\\bB2战略价值\\b/g') < source.index('replace(/\\bB2\\b/g')
-    assert source.index('replace(/\\bB4交班成熟度\\b/g') < source.index('replace(/\\bB4\\b/g')
+    assert 'replace(/\\bB1控制规模/g, "控制范围")' in source
+    assert 'replace(/\\bB2战略价值/g, "战略价值")' in source
+    assert 'replace(/\\bB4交班成熟度/g, "成果稳定性")' in source
+    assert source.index('replace(/\\bB1控制规模/g') < source.index('replace(/\\bB1\\b/g')
+    assert source.index('replace(/\\bB2战略价值/g') < source.index('replace(/\\bB2\\b/g')
+    assert source.index('replace(/\\bB4交班成熟度/g') < source.index('replace(/\\bB4\\b/g')
 
 
 def test_third_item_strategic_axis_explains_trajectory_as_exact_intermediate_formula():
