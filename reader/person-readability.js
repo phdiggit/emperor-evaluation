@@ -142,6 +142,12 @@
       .trim();
   }
 
+  function firstCommanderScoreText(item) {
+    const grade = firstItemPublicText(item?.grade || "");
+    const table = "固定换算：E档=0分；D档（基础统帅）低/中/高位=4/7/10分；C档（重要统帅）=12/15/18分；B档（优秀统帅）=20/23/26分；A档（顶级统帅）=28/31/34分；S档（历史级统帅）=36/38/40分。";
+    return `${table}${grade ? ` 当前为${grade}，对应${item.value}分。` : ""}`;
+  }
+
   function firstFactText(value) {
     return firstItemPublicText(value)
       .replace(/^(?:S\+?|A|B|C|D|E)档[。；：]?\s*/, "")
@@ -201,7 +207,7 @@
 
   function renderFirstC(item, bullets, record) {
     const facts = firstCommanderMarkup(item);
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>满分40；只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(netValue(item))}</b></div>${facts}<details><summary>这个分怎么算？</summary>${prose("这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。具体分数保留在正式记录中。")}</details>${firstItemSourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>满分40；只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(netValue(item))}</b></div>${facts}<details><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
   function firstItemTotals(items) {

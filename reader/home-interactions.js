@@ -800,6 +800,12 @@ function firstCommanderMarkup(item) {
       .trim();
   }
 
+  function firstCommanderScoreText(item) {
+    const grade = firstItemPublicText(item?.grade || "");
+    const table = "固定换算：E档=0分；D档（基础统帅）低/中/高位=4/7/10分；C档（重要统帅）=12/15/18分；B档（优秀统帅）=20/23/26分；A档（顶级统帅）=28/31/34分；S档（历史级统帅）=36/38/40分。";
+    return `${table}${grade ? ` 当前为${grade}，对应${item.value}分。` : ""}`;
+  }
+
   function firstFactText(value) {
     return firstItemPublicText(value)
       .replace(/^(?:S\+?|A|B|C|D|E)档[。；：]?\s*/, "")
@@ -879,7 +885,7 @@ function firstCommanderMarkup(item) {
     const facts = firstCommanderMarkup(item);
     const grade = firstItemPublicText(item.grade || "");
     const how = firstItemPublicText(item.reader_how || "");
-    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n当前能力裁决：${grade || "按正式能力档裁决"}。\\n当前换算：${how || "按正式能力档与责任路线换算。"}\\n当前结果：${item.value} 分。`)}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}\\n当前能力裁决：${grade || "按正式能力档裁决"}。\\n正式记录：${how || "按正式能力档与责任路线换算。"}`)}</details>`;
     return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${rules}`, record);
   }
 

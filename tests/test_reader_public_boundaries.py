@@ -659,6 +659,21 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "两个战略安全轴最后直接相加" in source
 
 
+def test_first_item_commander_grade_has_public_fixed_score_table():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    for source in (home, person):
+        assert "function firstCommanderScoreText(item)" in source
+        assert "D档（基础统帅）低/中/高位=4/7/10分" in source
+        assert "C档（重要统帅）=12/15/18分" in source
+        assert "B档（优秀统帅）=20/23/26分" in source
+        assert "A档（顶级统帅）=28/31/34分" in source
+        assert "S档（历史级统帅）=36/38/40分" in source
+        assert "对应${item.value}分" in source
+
+
 def test_second_item_method_index_is_explicitly_an_input_not_a_direct_score():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
