@@ -447,3 +447,13 @@ def test_profile_material_strength_is_public_first_and_raw_code_is_audit_only():
     assert ".formal-context-story" in css
     assert ".formal-context-chip.context-intensity" in css
 
+def test_second_item_detail_renderer_keeps_public_takeover_hook():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'const SECOND_PUBLIC_GROUPS = new Set(["method", "finance", "handoff"]);' in source
+    assert 'data-second-source-label="' in source
+    assert 'SECOND_PUBLIC_GROUPS.has(groupKey)' in source
+    # A/B1 and the shared B2/C/D public renderers all locate detail nodes through this hook.
+    for label in ("A制度建设", "B1官僚治理", "B2反馈与约束"):
+        assert label in source
+

@@ -413,6 +413,7 @@ function firstCommanderMarkup(item) {
   }
 
   const MATERIAL_CARD_GROUPS = new Set(["strategic", "military", "civilization"]);
+  const SECOND_PUBLIC_GROUPS = new Set(["method", "finance", "handoff"]);
 
   function metricMaterialCards(item, groupKey) {
     if (!MATERIAL_CARD_GROUPS.has(groupKey)) return "";
@@ -459,7 +460,8 @@ function firstCommanderMarkup(item) {
       : "");
     const limit = boundary ? `<div class="label">${materialCards ? "总体范围与边界" : "限制与边界"}</div>${prose(boundary)}` : "";
     const formula = how ? `<details><summary>这个分怎么算？</summary>${prose(how)}</details>` : "";
-    return `<details class="net-metric-detail"><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">正式层级：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
+    const secondSource = SECOND_PUBLIC_GROUPS.has(groupKey) ? ` data-second-source-label="${esc(item.label)}"` : "";
+    return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">正式层级：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
   }
 
   function calculationBlock(items) {
