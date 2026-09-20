@@ -265,6 +265,17 @@ function firstCommanderMarkup(item) {
       .net-metric-detail>summary small{display:block;margin-top:3px;font-weight:400}
       .net-metric-detail>summary b{font:20px Georgia,serif;color:var(--green)}
       .net-metric-body{padding:0 16px 16px}
+      .net-formal-level{color:var(--green)!important;font-weight:600!important}
+      .net-material-list{list-style:none;margin:8px 0 12px;padding:0;display:grid;gap:8px}
+      .net-material-card{margin:0;padding:11px 12px;border:1px solid var(--line);border-radius:5px;background:#fff}
+      .net-material-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap}
+      .net-material-head>strong{font-size:14px;line-height:1.55}
+      .net-material-meta{display:flex;align-items:center;justify-content:flex-end;gap:5px;flex-wrap:wrap}
+      .net-material-chip{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:999px;font-size:10px;line-height:1.6;color:var(--muted);font-weight:700;background:#f4f5ef}
+      .net-material-body{margin:7px 0 0!important;font-size:12px!important;line-height:1.78!important}
+      .net-material-boundary{margin-top:7px!important;padding-top:6px!important}
+      .net-material-boundary>summary{font-size:11px!important;color:var(--muted)}
+      .net-material-boundary>p{margin:5px 0 0;font-size:11px;line-height:1.7}
       .net-audit-sources{margin-top:14px}
       .net-audit-sources>.subline{margin-top:6px}
       .net-detail-group{margin:0 0 20px}.net-detail-group>h2{margin-top:0}
@@ -401,7 +412,27 @@ function firstCommanderMarkup(item) {
     return `<details class="net-audit-sources"><summary>正式文档与史料</summary><p class="subline">这些链接指向整份正式文件，供读者核对；上面的当前人物事实才是正文。</p><p class="sources">${links}</p></details>`;
   }
 
-  function metricDetail(item, record) {
+  const MATERIAL_CARD_GROUPS = new Set(["strategic", "military", "civilization"]);
+
+  function metricMaterialCards(item, groupKey) {
+    if (!MATERIAL_CARD_GROUPS.has(groupKey)) return "";
+    const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
+    if (!evidence.length) return "";
+    const cards = evidence.map(entry => {
+      const title = cleanNetText(entry?.public_label || entry?.public_role || "正式裁决材料");
+      const role = cleanNetText(entry?.public_role || "");
+      const direction = cleanNetText(entry?.public_direction || "");
+      const tags = Array.isArray(entry?.public_tags) ? entry.public_tags.map(cleanNetText).filter(Boolean) : [];
+      const chips = [...new Set([role, direction, ...tags].filter(Boolean))]
+        .map(value => `<span class="net-material-chip">${esc(value)}</span>`).join("");
+      const basis = cleanNetText(entry?.public_basis || "");
+      const boundary = cleanNetText(entry?.public_boundary || "");
+      return `<li class="net-material-card"><div class="net-material-head"><strong>${esc(title)}</strong>${chips ? `<span class="net-material-meta">${chips}</span>` : ""}</div>${basis ? `<p class="net-material-body">${esc(basis)}</p>` : ""}${boundary ? `<details class="net-material-boundary"><summary>该材料的范围与边界</summary><p>${esc(boundary)}</p></details>` : ""}</li>`;
+    }).join("");
+    return cards ? `<div class="label">正式裁决材料</div><ul class="net-material-list">${cards}</ul>` : "";
+  }
+
+  function metricDetail(item, record, groupKey = "") {
     const displayLabel = item.public_component_label || item.label;
     const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
     const summary = cleanNetText(item.reader_summary || "");
@@ -418,15 +449,17 @@ function firstCommanderMarkup(item) {
     const boundary = cleanNetText(item.reader_boundary || "");
     const how = cleanNetText(item.reader_how || "");
     const logic = [intro, summary].filter(Boolean).join("\n");
+    const formalLevel = MATERIAL_CARD_GROUPS.has(groupKey) ? cleanNetText(item.public_level_label || "") : "";
     const full = fullBasis && fullBasis !== summary
       ? `<details><summary>当前人物的完整裁决原文</summary>${prose(fullBasis)}</details>`
       : "";
-    const facts = highlights.length
+    const materialCards = metricMaterialCards(item, groupKey);
+    const facts = materialCards || (highlights.length
       ? `<div class="label">关键事实</div><ul>${highlights.map(text => `<li>${esc(text)}</li>`).join("")}</ul>`
-      : "";
-    const limit = boundary ? `<div class="label">限制与边界</div>${prose(boundary)}` : "";
+      : "");
+    const limit = boundary ? `<div class="label">${materialCards ? "总体范围与边界" : "限制与边界"}</div>${prose(boundary)}` : "";
     const formula = how ? `<details><summary>这个分怎么算？</summary>${prose(how)}</details>` : "";
-    return `<details class="net-metric-detail"><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}</span><b>${esc(netValue(item))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
+    return `<details class="net-metric-detail"><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">正式层级：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
   }
 
   function calculationBlock(items) {
@@ -437,7 +470,7 @@ function firstCommanderMarkup(item) {
 
   function genericNetGroup(record, key, items) {
     const judgments = items.filter(item => item.reader_kind === "judgment" && item.value != null);
-    return `<section id="net-group-${esc(key)}" class="panel net-detail-group"><h2>${esc(netGroupNames[key] || key)}</h2>${judgments.map(item => metricDetail(item, record)).join("")}${calculationBlock(items)}</section>`;
+    return `<section id="net-group-${esc(key)}" class="panel net-detail-group"><h2>${esc(netGroupNames[key] || key)}</h2>${judgments.map(item => metricDetail(item, record, key)).join("")}${calculationBlock(items)}</section>`;
   }
 
   function firstItemRawUrl(ref) {

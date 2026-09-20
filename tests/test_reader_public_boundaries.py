@@ -398,3 +398,33 @@ def test_second_item_material_card_phase_two_scope():
     assert "renderHandoffMaterialGroups(label, evidence)" in alias
     assert "D1继任行政连续性" in alias
     assert "D3政权交接稳定" in alias
+
+def test_third_fourth_detail_material_cards_use_formal_public_fields_only():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'const MATERIAL_CARD_GROUPS = new Set(["strategic", "military", "civilization"]);' in source
+    start = source.index("function metricMaterialCards(item, groupKey)")
+    end = source.index("function metricDetail(item, record, groupKey", start)
+    block = source[start:end]
+    for field in (
+        "reader_public_evidence_items",
+        "public_label",
+        "public_role",
+        "public_direction",
+        "public_tags",
+        "public_basis",
+        "public_boundary",
+    ):
+        assert field in block
+    for forbidden in (
+        "reader_summary",
+        "reader_full_basis",
+        "grade_basis",
+        "position_basis",
+        "material_strength",
+        "strengthFrom",
+    ):
+        assert forbidden not in block
+    assert "metricDetail(item, record, key)" in source
+    assert '正式层级：' in source
+
