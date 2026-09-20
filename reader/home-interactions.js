@@ -344,8 +344,10 @@ function firstCommanderMarkup(item) {
     if (!panel || !record?.net || panel.dataset.netLinks === "done") return;
 
     for (const row of panel.querySelectorAll(":scope > .component")) {
-      const label = row.querySelector("span")?.textContent.trim();
-      const major = overviewMajorByLabel[label];
+      const span = row.querySelector("span");
+      const label = span?.textContent.trim() || "";
+      const major = Object.entries(overviewMajorByLabel)
+        .find(([publicLabel]) => label === publicLabel || label.startsWith(publicLabel + " "))?.[1];
       if (!major) continue;
       const anchor = document.createElement("a");
       anchor.className = "net-overview-jump";

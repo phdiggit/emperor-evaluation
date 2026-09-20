@@ -521,3 +521,8 @@ def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustme
     assert 'groupKey === "civilization"' in home
     assert "本项适用，但没有形成正向净收益" in home
     assert 'major === "fourth" && Number(value) > 0' in home
+def test_overview_major_link_matching_tolerates_public_state_notes():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'label.startsWith(publicLabel + " ")' in source
+    assert "Object.entries(overviewMajorByLabel)" in source
