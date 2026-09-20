@@ -394,7 +394,7 @@ function firstCommanderMarkup(item) {
       const details = document.createElement("details");
       details.className = "net-summary-group";
       const major = netGroupMajor[key] || "all";
-      const judgments = items.filter(item => item.reader_kind === "judgment" && item.value != null);
+      const judgments = items.filter(item => item.reader_kind === "judgment" && (item.value != null || item.unit === "不单独计分" || item.public_level_label));
       const firstNotApplicable = key === "first" && items.every(item =>
         item.value == null || (item.label === "附加F" && Number(item.value) === 0)
       );
@@ -552,15 +552,35 @@ function firstCommanderMarkup(item) {
     return `当前为${thirdCostText(level)}、${CIV_PUBLIC_POSITION[position] || position}；固定成本系数为${factor}，扣分 = 80 × (1 − ${factor}) = ${shown}分。`;
   }
 
-  function detailedHowText(item, groupKey, how) {
+  function detailedHowText(item, groupKey, how, record) {
+    const groupItems = new Map((record?.net?.component_details?.[groupKey] || []).map(entry => [entry.label, entry]));
     if (groupKey === "strategic" && ["A1","A2"].includes(item.label)) {
-      return `每轴分数 = 0.6 × 轨迹值；轨迹值由终点状态价值、本人改善、本人回吐、专项信用和负向调整共同形成。当前人物：${how}`;
+      const a1 = groupItems.get("A1");
+      const a2 = groupItems.get("A2");
+      const total = groupItems.get("A120");
+      const subtotal = [a1?.value, a2?.value, total?.value].every(value => value != null)
+        ? `两个战略安全轴随后直接相加：${a1.value} + ${a2.value} = ${total.value}分。`
+        : "";
+      return `本轴分数 = 0.6 × 轨迹值；轨迹值由终点状态价值、本人改善、本人回吐、专项信用和负向调整共同形成。当前本轴：${how}${subtotal ? " " + subtotal : ""}`;
     }
     if (groupKey === "strategic" && ["B1","B2","B4"].includes(item.label)) {
-      return `当前档位先形成该方面得分率；控制范围与战略价值按55%/45%合成，再由成果稳定性修正。当前人物：${how}`;
+      const b1 = groupItems.get("B1");
+      const b2 = groupItems.get("B2");
+      const b4 = groupItems.get("B4");
+      const total = groupItems.get("B80");
+      const current = [b1?.value, b2?.value, b4?.value, total?.value].every(value => value != null)
+        ? `当前三项得分率为控制范围 ${b1.value}%、战略价值 ${b2.value}%、成果稳定性 ${b4.value}%；正式合成结果为 ${total.value}分。`
+        : "";
+      return `三项先各自形成得分率；控制范围与战略价值按55%/45%合成，再由成果稳定性修正。${current ? " " + current : ""} 当前本项：${how}`;
     }
     if (groupKey === "military" && ["C1实战交付","C2持续作战","C3体系可靠性"].includes(item.label)) {
-      return `三方面分别定档但不单独加分；共同确定军事体系整体档位。整体档位对应50分项得分率：E档0%—29%、D档30%—44%、C档45%—59%、B档60%—74%、A档75%—89%、S档90%—100%。当前人物：${how}`;
+      const axes = ["C1实战交付","C2持续作战","C3体系可靠性"].map(label => groupItems.get(label)).filter(Boolean);
+      const total = groupItems.get("C50");
+      const statuses = axes.map(entry => thirdPublicText(entry.public_level_label || entry.reader_summary || "", entry.label)).filter(Boolean);
+      const current = statuses.length && total
+        ? `当前三方面：${statuses.join("；")}；${thirdPublicText(total.public_level_label || "", total.label)}，军事体系结果为 ${total.value}分。`
+        : "";
+      return `三方面分别定档但不单独加分，共同确定军事体系整体档位。整体档位对应50分项得分率：E档0%—29%、D档30%—44%、C档45%—59%、B档60%—74%、A档75%—89%、S档90%—100%。${current ? " " + current : ""} 当前本项：${how}`;
     }
     if (groupKey === "military" && item.label === "普通成本扣分") return thirdCostExactHow(item, how);
     if (groupKey === "military" && item.label === "ML扣分") {
@@ -570,11 +590,11 @@ function firstCommanderMarkup(item) {
     return how;
   }
 
-  function scoreHowDetails(item, groupKey, how, formalLevel) {
+  function scoreHowDetails(item, groupKey, how, formalLevel, record) {
     if (!how && !formalLevel) return "";
     const status = groupKey === "civilization" ? civilizationPublicStatus(item, formalLevel) : formalLevel;
     const result = netValue(item, groupKey);
-    const detailed = detailedHowText(item, groupKey, how);
+    const detailed = detailedHowText(item, groupKey, how, record);
     const rows = [
       status ? ["当前裁决", status] : null,
       detailed ? ["换算规则", detailed] : null,
@@ -636,7 +656,7 @@ function firstCommanderMarkup(item) {
       ? `<div class="label">关键事实</div><ul>${highlights.map(text => `<li>${esc(text)}</li>`).join("")}</ul>`
       : "");
     const limit = boundary ? `<div class="label">${materialCards ? "总体范围与边界" : "限制与边界"}</div>${prose(boundary)}` : "";
-    const formula = scoreHowDetails(item, groupKey, how, formalLevel);
+    const formula = scoreHowDetails(item, groupKey, how, formalLevel, record);
     const secondSource = SECOND_PUBLIC_GROUPS.has(groupKey) ? ` data-second-source-label="${esc(item.label)}"` : "";
     return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">正式层级：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${summaryFold}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
   }

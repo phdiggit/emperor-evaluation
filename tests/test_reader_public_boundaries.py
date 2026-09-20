@@ -617,6 +617,29 @@ def test_score_explanations_live_inside_subitems_not_repeated_in_top_bridge():
     assert 'SecondItemScoreHowDetails?.(item, "B1官僚治理")' in b1
 
 
+def test_second_item_subitem_how_blocks_include_actual_group_formula():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert "function secondMethodExpandedHow(label)" in source
+    assert "制度建设与官僚治理不各自直接加分" in source
+    assert "0.8 × [较高指数" in source
+    assert "反馈与约束单独占45分" in source
+    assert "function secondHandoffExpandedHow()" in source
+    assert 'handoff.get("交接得分")' in source
+
+
+def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composite():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'item.unit === "不单独计分"' in source
+    assert 'detailedHowText(item, groupKey, how, record)' in source
+    assert 'groupItems.get("C50")' in source
+    assert "当前三方面：" in source
+    assert "军事体系结果为" in source
+    assert "当前三项得分率为控制范围" in source
+    assert "两个战略安全轴随后直接相加" in source
+
+
 def test_third_item_long_public_basis_is_losslessly_split_for_readability():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")

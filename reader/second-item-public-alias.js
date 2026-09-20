@@ -361,6 +361,35 @@
   };
   const FINANCE_LOSS_RATE = {0:0,1:0.03,2:0.07,3:0.12};
 
+  function secondMethodExpandedHow(label) {
+    const record = netRecord() || personRecord();
+    const method = itemMap(record, "method");
+    if (!method.size) return "";
+    if (label === "A制度建设" || label === "B1官僚治理") {
+      const a = finite(method.get("A制度建设")?.value);
+      const b1 = finite(method.get("B1官僚治理")?.value);
+      const ab = finite(method.get("AB计分块")?.value);
+      if (a == null || b1 == null || ab == null) return "";
+      const high = Math.max(a, b1);
+      const low = Math.min(a, b1);
+      return `制度建设与官僚治理不各自直接加分，而是组成同一主块：0.8 × [较高指数 ${fmt(high)} + 0.5 × 较低指数 ${fmt(low)}] = ${fmt(ab)} 分。`;
+    }
+    if (label === "B2反馈与约束") {
+      const b2 = finite(method.get("B2反馈与约束")?.value);
+      const converted = finite(method.get("B2折算")?.value);
+      if (b2 == null || converted == null) return "";
+      return `反馈与约束单独占45分：45 / 80 × 当前指数 ${fmt(b2)} = ${fmt(converted)} 分。`;
+    }
+    return "";
+  }
+
+  function secondHandoffExpandedHow() {
+    const record = netRecord() || personRecord();
+    const handoff = itemMap(record, "handoff");
+    const total = handoff.get("交接得分");
+    return total ? publicTechnicalText(total.reader_how || "") : "";
+  }
+
   function secondScoreHowDetails(item, label) {
     const details = document.createElement("details");
     details.className = "second-item-score-how";
@@ -371,8 +400,10 @@
     if (METHOD_MAX[label]) {
       const grade = publicMethodGrade(item);
       add("当前裁决", [grade ? `公开等级 ${grade}` : "", `方向指数 ${fmt(item.value)} / ${METHOD_MAX[label]}`].filter(Boolean).join(" · "));
-      add("换算规则", publicTechnicalText(item.reader_how || "该方向指数进入制度与行政合成。"));
-      add("当前结果", grade || fmt(item.value));
+      const formal = publicTechnicalText(item.reader_how || "该方向指数进入制度与行政合成。");
+      const expanded = secondMethodExpandedHow(label);
+      add("换算规则", [formal, expanded].filter(Boolean).join(" "));
+      add("当前结果", [grade ? `${grade}档` : "", `方向指数 ${fmt(item.value)}`].filter(Boolean).join(" · "));
     } else if (["C1民生","C2经济财政","C3社会安全"].includes(label)) {
       const meta = stateGradeMeta(item);
       const band = String(item?.grade || "").match(/\bC[123]-(\d)\s*\/\s*L([0-3])\b/i);
@@ -389,7 +420,9 @@
     } else if (HANDOFF_LABELS[label]) {
       const grade = publicHandoffGrade(item);
       add("当前裁决", grade ? `${grade}档` : "");
-      add("换算规则", publicTechnicalText(item.reader_how || ""));
+      const formal = publicTechnicalText(item.reader_how || "");
+      const expanded = secondHandoffExpandedHow();
+      add("换算规则", [formal, expanded].filter(Boolean).join(" "));
       add("当前结果", grade ? `${grade}档` : "");
     } else {
       add("换算规则", publicTechnicalText(item.reader_how || ""));
