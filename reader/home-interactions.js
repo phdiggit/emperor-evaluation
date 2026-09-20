@@ -1090,7 +1090,13 @@ function firstCommanderMarkup(item) {
       ? Number(record.net.first_item_raw_score) === 0
         ? '<p class="subline">本项适用，但原始净收益为0；总榜附加为0。</p>'
         : `<p class="subline">第一项原始净收益：${number(record.net.first_item_raw_score)}；此处显示进入总榜的附加分。</p>`
-      : major === "first" ? `<p class="subline">该人物第一项不适用。</p>` : "";
+      : major === "first"
+        ? `<p class="subline">该人物第一项不适用。</p>`
+        : major === "third"
+          ? '<p class="subline">250分制净分；战略、控制与军事体系收益合计后，再扣实际军事代价。</p>'
+          : major === "fourth"
+            ? '<p class="subline">有符号调整，三轴合计范围为 -67.5～+67.5；正负值直接进入总榜。</p>'
+            : "";
     const shownValue = value == null ? "—" : major === "fourth" && Number(value) > 0 ? `+${number(value)}` : number(value);
     return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(spec.title)}</h2><div class="big">${shownValue}</div>${extra}<p>${esc(spec.description)}</p><p class="sources">查看完整计分逻辑 →</p></a>`;
   }
@@ -1117,7 +1123,11 @@ function firstCommanderMarkup(item) {
       return;
     }
     const shownValue = value == null ? "—" : major === "fourth" && Number(value) > 0 ? `+${number(value)}` : number(value);
-    const scoreNote = `本项进入总榜的分值：${shownValue}。`;
+    const scoreNote = major === "third"
+      ? `本项进入总榜的净分：${shownValue} / 250；已扣实际军事代价。`
+      : major === "fourth"
+        ? `本项进入总榜的有符号调整：${shownValue}；理论范围 -67.5～+67.5。`
+        : `本项进入总榜的分值：${shownValue}。`;
     renderNetShell(record, major, `<section class="panel"><h2>${esc(spec.title)}</h2><p>${esc(spec.description)}</p><p class="subline">${esc(scoreNote)}</p></section><div id="net-major-body"><div class="empty">正在整理当前人物的逐项结算逻辑…</div></div>`);
     renderGenericMajor(record, major, focus);
   }
