@@ -998,7 +998,8 @@ function firstCommanderMarkup(item) {
     const aPercent = firstPublicSharePercent(a);
     const aText = [
       a.public_project ? `共同项目：${a.public_project}` : "",
-      ...firstPublicOutcomeParts(a).map(([, value]) => firstPublicOutcomeText(value)),
+      a.public_outcome_basis ? `起点背景：${firstPublicOutcomeText(a.public_outcome_basis)}` : "",
+      a.public_scope ? `实际成果：${firstPublicOutcomeText(a.public_scope)}` : "",
       aPercent ? `成果占比：约${aPercent}%` : "",
     ].filter(Boolean).join(" ");
     const b1Parts = [
