@@ -280,16 +280,6 @@ function firstCommanderMarkup(item) {
       .net-audit-sources>.subline{margin-top:6px}
       .net-detail-group{margin:0 0 20px}.net-detail-group>h2{margin-top:0}
       .net-detail-total{border-left:3px solid var(--green);padding:12px 16px;background:#eef1ea;margin-top:18px}
-      .net-score-bridge{border-left:4px solid var(--green);background:#f6f7f1}
-      .net-score-bridge h2{margin:0 0 4px;font-size:22px}
-      .net-score-bridge>.subline{margin-bottom:12px}
-      .net-score-bridge-list{display:grid;gap:8px}
-      .net-score-bridge-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start;padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:#fcfbf7}
-      .net-score-bridge-row b{display:block;font-size:14px}
-      .net-score-bridge-row small{display:block;margin-top:3px;color:var(--muted);font-size:11px;line-height:1.65}
-      .net-score-bridge-row>strong{font:18px Georgia,serif;color:var(--green);white-space:nowrap}
-      .net-score-bridge-total{margin-top:10px;padding:10px 12px;border-top:1px solid var(--line);font-size:14px;line-height:1.7}
-      .net-score-bridge-total strong{color:var(--green)}
       .first-item-overview{border:1px solid var(--line);border-left:4px solid var(--green);border-radius:7px;padding:18px;margin-bottom:16px;background:#f6f7f1}
       .first-item-overview h2{font-size:22px;margin:0 0 6px}.first-item-overview>.subline{margin-bottom:12px}
       .first-item-story-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -300,6 +290,13 @@ function firstCommanderMarkup(item) {
       .first-item-scope{margin:12px 0 16px;padding:10px 0}.first-item-rule-box{margin-top:14px}
       .first-item-rule-box>summary{font-size:13px;color:var(--muted)}
       .net-material-card,.net-material-head>strong,.net-material-body,.net-material-boundary>p{overflow-wrap:anywhere}
+      .net-third-basis-list{margin:8px 0 0;padding-left:18px;font-size:12px;line-height:1.75}
+      .net-third-basis-list li{margin:4px 0}
+      .net-score-how{margin-top:12px}
+      .net-score-how>summary{font-size:12px;color:var(--muted)}
+      .net-score-how dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:5px 10px;margin:8px 0 0;font-size:12px;line-height:1.7}
+      .net-score-how dt{color:var(--muted);font-weight:700}
+      .net-score-how dd{margin:0}
       @media(max-width:700px){
         .net-major-grid{grid-template-columns:1fr}
         .net-major-nav{gap:5px}
@@ -309,8 +306,6 @@ function firstCommanderMarkup(item) {
         .net-material-head{display:block}
         .net-material-meta{justify-content:flex-start;margin-top:6px}
         .net-material-chip{white-space:normal;overflow-wrap:anywhere}
-        .net-score-bridge-row{grid-template-columns:1fr;gap:5px}
-        .net-score-bridge-row>strong{justify-self:start}
         .first-item-story-grid{grid-template-columns:1fr}
         .first-item-story-card.wide{grid-column:auto}
       }
@@ -493,136 +488,97 @@ function firstCommanderMarkup(item) {
     return text;
   }
   const SECOND_PUBLIC_GROUPS = new Set(["method", "finance", "handoff"]);
-  const BRIDGE_METHOD_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
-  const BRIDGE_FINANCE_GRADE = {1:"E",2:"D",3:"C",4:"B",5:"A",6:"S"};
-  const BRIDGE_LOSS = {0:"未见独立有效低谷",1:"局部或短时损害",2:"明显低谷",3:"严重低谷"};
-  const BRIDGE_CIV_DIRECTION = {POSITIVE:"正向",NEGATIVE:"负向",BALANCED:"正负相抵"};
-  const BRIDGE_POSITION = {HIGH:"高位",MID:"中位",LOW:"低位",HIGHEST:"极端上沿"};
+  const CIV_PUBLIC_DIRECTION = {POSITIVE:"正向",NEGATIVE:"负向",BALANCED:"正负相抵"};
+  const CIV_PUBLIC_POSITION = {HIGH:"高位",MID:"中位",LOW:"低位",HIGHEST:"极端上沿"};
+  const CIV_PUBLIC_POINTS = {
+    1:{LOW:3.0,MID:4.5,HIGH:6.0},
+    2:{LOW:7.5,MID:9.5,HIGH:11.5},
+    3:{LOW:13.5,MID:16.0,HIGH:18.0},
+    4:{LOW:19.0,MID:21.0,HIGH:22.5},
+  };
+  const THIRD_COST_FACTOR = {
+    0:{LOW:1.0,MID:1.0,HIGH:1.0},
+    1:{LOW:1.0,MID:0.995,HIGH:0.99},
+    2:{LOW:0.985,MID:0.98,HIGH:0.975},
+    3:{LOW:0.965,MID:0.95,HIGH:0.935},
+    4:{LOW:0.90625,MID:0.875,HIGH:0.84375},
+    5:{LOW:0.7975,MID:0.745,HIGH:0.6925},
+    6:{LOW:0.62375,MID:0.545,HIGH:0.44875},
+    7:{LOW:0.35,MID:0.24,HIGH:0.12,HIGHEST:0.0},
+  };
 
-  function bridgeMap(items) {
-    return new Map((Array.isArray(items) ? items : []).map(item => [item.label, item]));
+  function thirdBasisParts(value, itemLabel = "") {
+    const text = thirdPublicText(value, itemLabel);
+    if (!text) return [];
+    return (text.match(/[^。！？；]+[。！？；]?/g) || [text]).map(part => part.trim()).filter(Boolean);
   }
 
-  function bridgeMethodGrade(item) {
-    const text = String(item?.grade || "");
-    const match = text.match(/\bG([0-5])\b/i);
-    if (!match) return "";
-    const base = BRIDGE_METHOD_GRADE[`G${match[1]}`] || "";
-    const lower = text.toLowerCase();
-    const suffix = /upper|high/.test(lower) ? "+" : /lower|low/.test(lower) ? "-" : "";
-    return base ? base + suffix : "";
+  function thirdBasisMarkup(value, itemLabel = "") {
+    const parts = thirdBasisParts(value, itemLabel);
+    if (!parts.length) return "";
+    if (parts.length === 1) return \`<p class="net-material-body">\${esc(parts[0])}</p>\`;
+    return \`<div class="label">裁决说明</div><ul class="net-third-basis-list">\${parts.map(part => \`<li>\${esc(part)}</li>\`).join("")}</ul>\`;
   }
 
-  function bridgeFinanceStatus(item) {
-    const match = String(item?.grade || "").match(/\bC[123]-([1-6])\s*\/\s*L([0-3])\b/i);
-    if (!match) return "";
-    const grade = BRIDGE_FINANCE_GRADE[Number(match[1])] || "";
-    const loss = BRIDGE_LOSS[Number(match[2])] || "";
-    return [grade ? grade + "档" : "", loss].filter(Boolean).join(" · ");
-  }
-
-  function bridgeHandoffGrade(item) {
-    const n = Number(item?.value);
-    return Number.isInteger(n) && THIRD_PUBLIC_GRADE[n] ? `${THIRD_PUBLIC_GRADE[n]}档` : "";
-  }
-
-  function bridgeFirstCost(item) {
-    const label = String(item?.reader_public_cost?.public_level_label || "");
-    const match = label.match(/第([0-7一二三四五六七])级/);
-    return match ? label.replace(match[0], thirdCostText(match[1])) : label;
-  }
-
-  function bridgeCivilizationStatus(item) {
+  function civilizationPublicStatus(item, formalLevel = "") {
     const parts = String(item?.grade || "").split("/").map(value => value.trim());
-    const direction = BRIDGE_CIV_DIRECTION[parts[0]] || "";
-    const level = cleanNetText(item?.public_level_label || "").replace(/^第([一二三四])级影响幅度$/, "$1级影响");
-    const position = BRIDGE_POSITION[parts[2]] || "";
-    return [direction, level, position].filter(Boolean).join(" · ");
+    const direction = CIV_PUBLIC_DIRECTION[parts[0]] || "";
+    const position = CIV_PUBLIC_POSITION[parts[2]] || "";
+    return [direction, formalLevel, position].filter(Boolean).join(" · ");
   }
 
-  function bridgeRow(title, status, conversion, result) {
-    const detail = [status, conversion].filter(Boolean).join("；");
-    return `<div class="net-score-bridge-row"><div><b>${esc(title)}</b>${detail ? `<small>${esc(detail)}</small>` : ""}</div><strong>${esc(result)}</strong></div>`;
+  function civilizationExactHow(item, fallback) {
+    const parts = String(item?.grade || "").split("/").map(value => value.trim());
+    const magnitude = parts[1]?.match(/^CIV([1-4])$/);
+    const position = parts[2];
+    const points = magnitude ? CIV_PUBLIC_POINTS[Number(magnitude[1])]?.[position] : null;
+    const direction = CIV_PUBLIC_DIRECTION[parts[0]] || "";
+    if (points == null || !direction) return fallback;
+    const signed = parts[0] === "NEGATIVE" ? -points : parts[0] === "BALANCED" ? 0 : points;
+    return \`第\${magnitude[1]}级影响的\${CIV_PUBLIC_POSITION[position] || position}固定对应\${points}分；方向为\${direction}，所以当前调整为\${signed > 0 ? "+" : ""}\${signed}分。\`;
   }
 
-  function firstScoreBridge(record) {
-    const items = bridgeMap(record.net?.component_details?.first);
-    const a = items.get("A统一贡献"), b1 = items.get("B1创业难度与效率"), b2 = items.get("B2组织与整合"), c = items.get("C军事统帅与战争解题");
-    const gross = items.get("四轴合计"), cost = items.get("军事成本扣分"), net = items.get("第一项净分"), add = items.get("附加F");
-    if (![a,b1,b2,c,gross,net,add].every(Boolean)) return "";
-    const positive = `统一成果 ${number(a.value)} + 创业难度与效率 ${number(b1.value)} + 创业组织 ${number(b2.value)} + 本人统帅 ${number(c.value)}`;
+  function thirdCostExactHow(item, fallback) {
+    const match = String(item?.grade || "").match(/\bC([0-7])\s*\/\s*(LOW|MID|HIGH|HIGHEST)\b/i);
+    if (!match) return fallback;
+    const level = Number(match[1]);
+    const position = match[2].toUpperCase();
+    const factor = THIRD_COST_FACTOR[level]?.[position];
+    if (factor == null) return fallback;
+    const debit = 80 * (1 - factor);
+    const shown = Number(debit.toFixed(1));
+    return \`当前为\${thirdCostText(level)}、\${CIV_PUBLIC_POSITION[position] || position}；固定成本系数为\${factor}，扣分 = 80 × (1 − \${factor}) = \${shown}分。\`;
+  }
+
+  function detailedHowText(item, groupKey, how) {
+    if (groupKey === "strategic" && ["A1","A2"].includes(item.label)) {
+      return \`每轴分数 = 0.6 × 轨迹值；轨迹值由终点状态价值、本人改善、本人回吐、专项信用和负向调整共同形成。当前人物：\${how}\`;
+    }
+    if (groupKey === "strategic" && ["B1","B2","B4"].includes(item.label)) {
+      return \`当前档位先形成该方面得分率；控制范围与战略价值按55%/45%合成，再由成果稳定性修正。当前人物：\${how}\`;
+    }
+    if (groupKey === "military" && ["C1实战交付","C2持续作战","C3体系可靠性"].includes(item.label)) {
+      return \`三方面分别定档但不单独加分；共同确定军事体系整体档位。整体档位对应50分项得分率：E档0%—29%、D档30%—44%、C档45%—59%、B档60%—74%、A档75%—89%、S档90%—100%。当前人物：\${how}\`;
+    }
+    if (groupKey === "military" && item.label === "普通成本扣分") return thirdCostExactHow(item, how);
+    if (groupKey === "military" && item.label === "ML扣分") {
+      return \`重大军事净毁损只有在重大结果、较高本方代价和本人责任同时成立时才追加扣减；与普通军事代价取较高扣减，不重复相加。当前人物：\${how}\`;
+    }
+    if (groupKey === "civilization") return civilizationExactHow(item, how);
+    return how;
+  }
+
+  function scoreHowDetails(item, groupKey, how, formalLevel) {
+    if (!how && !formalLevel) return "";
+    const status = groupKey === "civilization" ? civilizationPublicStatus(item, formalLevel) : formalLevel;
+    const result = netValue(item, groupKey);
+    const detailed = detailedHowText(item, groupKey, how);
     const rows = [
-      bridgeRow("四项正向裁决", positive, `四项相加 = ${number(gross.value)}`, `${number(gross.value)} 分`),
-      bridgeRow("战争代价", bridgeFirstCost(cost), "按正式成本表换算", `−${number(cost?.value || 0)} 分`),
-      bridgeRow("原始净收益", "", `${number(gross.value)} − ${number(cost?.value || 0)} = ${number(net.value)}`, `${number(net.value)} / 240`),
-    ].join("");
-    return `<section class="panel net-score-bridge"><div class="eyebrow">从裁决到分数</div><h2>这项怎么算到总榜附加 +${number(add.value)}</h2><p class="subline">这里只串联已经裁定的当前值；下面各卡片解释这些值为什么成立。</p><div class="net-score-bridge-list">${rows}</div><div class="net-score-bridge-total">原始净收益按总榜附加曲线折算 <strong>→ +${number(add.value)}</strong></div></section>`;
-  }
-
-  function secondScoreBridge(record) {
-    const method = bridgeMap(record.net?.component_details?.method);
-    const finance = bridgeMap(record.net?.component_details?.finance);
-    const handoff = bridgeMap(record.net?.component_details?.handoff);
-    const a = method.get("A制度建设"), b1 = method.get("B1官僚治理"), b2 = method.get("B2反馈与约束");
-    const ab = method.get("AB计分块"), feedback = method.get("B2折算"), methodTotal = method.get("治理手段");
-    const c1 = finance.get("C1民生"), c2 = finance.get("C2经济财政"), c3 = finance.get("C3社会安全"), c4 = finance.get("C4恢复与成本"), resultTotal = finance.get("治理结果");
-    const d1 = handoff.get("D1继任行政连续性"), d3 = handoff.get("D3政权交接稳定"), handoffTotal = handoff.get("交接得分"), total = handoff.get("第二项合计");
-    if (![a,b1,b2,ab,feedback,methodTotal,c1,c2,c3,c4,resultTotal,d1,d3,handoffTotal,total].every(Boolean)) return "";
-    const methodStatus = `制度建设 ${bridgeMethodGrade(a)}（指数${number(a.value)}） · 官僚治理 ${bridgeMethodGrade(b1)}（指数${number(b1.value)}） · 反馈约束 ${bridgeMethodGrade(b2)}（指数${number(b2.value)}）`;
-    const methodCalc = `制度建设与官僚治理合成 ${number(ab.value)} + 反馈约束折算 ${number(feedback.value)} = ${number(methodTotal.value)}`;
-    const financeStatus = `民生 ${bridgeFinanceStatus(c1)} → ${number(c1.value)}；经济财政 ${bridgeFinanceStatus(c2)} → ${number(c2.value)}；社会安全 ${bridgeFinanceStatus(c3)} → ${number(c3.value)}；恢复与额外代价 ${Number(c4.value) > 0 ? "+" : ""}${number(c4.value)}`;
-    const financeCalc = `民生 ${number(c1.value)} + 经济财政 ${number(c2.value)} + 社会安全 ${number(c3.value)} + 恢复与额外代价 ${number(c4.value)} = ${number(resultTotal.value)}`;
-    const handoffStatus = `行政连续性 ${bridgeHandoffGrade(d1)} · 交接稳定 ${bridgeHandoffGrade(d3)}`;
-    const rows = [
-      bridgeRow("制度与行政", methodStatus, methodCalc, `${number(methodTotal.value)} 分`),
-      bridgeRow("民生与社会", financeStatus, financeCalc, `${number(resultTotal.value)} 分`),
-      bridgeRow("政权交接", handoffStatus, cleanNetText(handoffTotal.reader_how || ""), `${number(handoffTotal.value)} 分`),
-    ].join("");
-    return `<section class="panel net-score-bridge"><div class="eyebrow">从裁决到分数</div><h2>这项怎么算到 ${number(total.value)} 分</h2><p class="subline">先看公开档位和当前换算，再看三个小计怎样相加。</p><div class="net-score-bridge-list">${rows}</div><div class="net-score-bridge-total">制度与行政 ${number(methodTotal.value)} + 民生与社会 ${number(resultTotal.value)} + 政权交接 ${number(handoffTotal.value)} <strong>→ ${number(total.value)} 分</strong></div></section>`;
-  }
-
-  function thirdScoreBridge(record) {
-    const strategic = bridgeMap(record.net?.component_details?.strategic);
-    const military = bridgeMap(record.net?.component_details?.military);
-    const a1 = strategic.get("A1"), a2 = strategic.get("A2"), aTotal = strategic.get("A120");
-    const b1 = strategic.get("B1"), b2 = strategic.get("B2"), b4 = strategic.get("B4"), bTotal = strategic.get("B80");
-    const c1 = military.get("C1实战交付"), c2 = military.get("C2持续作战"), c3 = military.get("C3体系可靠性"), cTotal = military.get("C50");
-    const cost = military.get("普通成本扣分"), ml = military.get("ML扣分"), debit = military.get("实际扣分"), total = military.get("第三项合计");
-    if (![a1,a2,aTotal,b1,b2,b4,bTotal,c1,c2,c3,cTotal,cost,ml,debit,total].every(Boolean)) return "";
-    const strategicStatus = `${thirdPublicText(a1.public_level_label || a1.reader_summary || "", a1.label)} · ${thirdPublicText(a2.public_level_label || a2.reader_summary || "", a2.label)}`;
-    const controlStatus = `${thirdPublicText(b1.public_level_label || "", b1.label)} · ${thirdPublicText(b2.public_level_label || "", b2.label)} · ${thirdPublicText(b4.public_level_label || "", b4.label)}`;
-    const systemStatus = `${thirdPublicText(c1.public_level_label || "", c1.label)} · ${thirdPublicText(c2.public_level_label || "", c2.label)} · ${thirdPublicText(c3.public_level_label || "", c3.label)}`;
-    const costStatus = `${thirdPublicText(cost.public_level_label || cost.reader_summary || "", cost.label)}；重大净毁损：${thirdPublicText(ml.public_level_label || ml.reader_summary || "", ml.label)}`;
-    const controlCalc = `控制范围与战略价值按55%/45%合成，再由成果稳定性修正 = ${number(bTotal.value)}`;
-    const rows = [
-      bridgeRow("战略安全成果", strategicStatus, `${number(a1.value)} + ${number(a2.value)} = ${number(aTotal.value)}`, `${number(aTotal.value)} 分`),
-      bridgeRow("控制成果", controlStatus, controlCalc, `${number(bTotal.value)} 分`),
-      bridgeRow("军事体系", systemStatus, thirdPublicText(cTotal.reader_how || "", cTotal.label), `${number(cTotal.value)} 分`),
-      bridgeRow("实际军事代价", costStatus, thirdPublicText(debit.reader_how || "", debit.label), `−${number(debit.value)} 分`),
-    ].join("");
-    return `<section class="panel net-score-bridge"><div class="eyebrow">从裁决到分数</div><h2>这项怎么算到 ${number(total.value)} 分</h2><p class="subline">战略、控制、军事体系分别形成正向小计，再扣除实际军事代价。</p><div class="net-score-bridge-list">${rows}</div><div class="net-score-bridge-total">${esc(thirdPublicText(total.reader_how || "", total.label))} <strong>→ ${number(total.value)} 分</strong></div></section>`;
-  }
-
-  function fourthScoreBridge(record) {
-    const items = bridgeMap(record.net?.component_details?.civilization);
-    const judgments = [...items.values()].filter(item => item.reader_kind === "judgment" && item.value != null);
-    const total = items.get("第四项调整");
-    if (!judgments.length || !total) return "";
-    const rows = judgments.map(item => {
-      const label = item.public_component_label || item.label;
-      const signed = Number(item.value) > 0 ? `+${number(item.value)}` : number(item.value);
-      return bridgeRow(label, bridgeCivilizationStatus(item), cleanNetText(item.reader_how || ""), `${signed} 分`);
-    }).join("");
-    const totalShown = Number(total.value) > 0 ? `+${number(total.value)}` : number(total.value);
-    return `<section class="panel net-score-bridge"><div class="eyebrow">从裁决到分数</div><h2>这项怎么算到 ${totalShown} 分</h2><p class="subline">每个文明维度先确定方向、影响幅度和位置，再形成有符号调整，最后直接相加。</p><div class="net-score-bridge-list">${rows}</div><div class="net-score-bridge-total">${esc(cleanNetText(total.reader_how || ""))} <strong>→ ${totalShown} 分</strong></div></section>`;
-  }
-
-  function majorScoreBridge(record, major) {
-    if (major === "first") return firstScoreBridge(record);
-    if (major === "second") return secondScoreBridge(record);
-    if (major === "third") return thirdScoreBridge(record);
-    if (major === "fourth") return fourthScoreBridge(record);
-    return "";
+      status ? ["当前裁决", status] : null,
+      detailed ? ["换算规则", detailed] : null,
+      result ? ["当前结果", result] : null,
+    ].filter(Boolean);
+    return \`<details class="net-score-how"><summary>这个分怎么算？</summary><dl>\${rows.map(([label,value]) => \`<dt>\${esc(label)}</dt><dd>\${esc(value)}</dd>\`).join("")}</dl></details>\`;
   }
 
   function metricMaterialCards(item, groupKey) {
@@ -640,7 +596,8 @@ function firstCommanderMarkup(item) {
         .map(value => `<span class="net-material-chip">${esc(value)}</span>`).join("");
       const basis = format(entry?.public_basis || "");
       const boundary = format(entry?.public_boundary || "");
-      return `<li class="net-material-card"><div class="net-material-head"><strong>${esc(title)}</strong>${chips ? `<span class="net-material-meta">${chips}</span>` : ""}</div>${basis ? `<p class="net-material-body">${esc(basis)}</p>` : ""}${boundary ? `<details class="net-material-boundary"><summary>该材料的范围与边界</summary><p>${esc(boundary)}</p></details>` : ""}</li>`;
+      const basisMarkup = thirdItem ? thirdBasisMarkup(entry?.public_basis || "", item.label) : (basis ? `<p class="net-material-body">${esc(basis)}</p>` : "");
+      return `<li class="net-material-card"><div class="net-material-head"><strong>${esc(title)}</strong>${chips ? `<span class="net-material-meta">${chips}</span>` : ""}</div>${basisMarkup}${boundary ? `<details class="net-material-boundary"><summary>该材料的范围与边界</summary><p>${esc(boundary)}</p></details>` : ""}</li>`;
     }).join("");
     return cards ? `<div class="label">正式裁决材料</div><ul class="net-material-list">${cards}</ul>` : "";
   }
@@ -677,7 +634,7 @@ function firstCommanderMarkup(item) {
       ? `<div class="label">关键事实</div><ul>${highlights.map(text => `<li>${esc(text)}</li>`).join("")}</ul>`
       : "");
     const limit = boundary ? `<div class="label">${materialCards ? "总体范围与边界" : "限制与边界"}</div>${prose(boundary)}` : "";
-    const formula = how ? `<details><summary>这个分怎么算？</summary>${prose(how)}</details>` : "";
+    const formula = scoreHowDetails(item, groupKey, how, formalLevel);
     const secondSource = SECOND_PUBLIC_GROUPS.has(groupKey) ? ` data-second-source-label="${esc(item.label)}"` : "";
     return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">正式层级：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${summaryFold}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
   }
@@ -809,12 +766,12 @@ function firstCommanderMarkup(item) {
       .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
       .join("");
     const share = percent ? `<div class="label">成果占比</div>${prose(`约${percent}%`)}` : "";
-    const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary><div class="label">A看什么</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">有效控制信用U</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。U不是人口、面积或军队人数。")}${prose(`单人项目按统一贡献曲线换分；共同项目先算项目A池，再按本人控制信用占项目总信用的比例分配。${calculation ? `\n当前人物正式代入：${calculation}` : ""}`)}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary><div class="label">A看什么</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">有效控制信用U</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。U不是人口、面积或军队人数。")}${prose(`单人项目按统一贡献曲线换分；共同项目先算项目A池，再按本人控制信用占项目总信用的比例分配。${calculation ? `\n当前人物正式代入：${calculation}` : ""}`)}</details>`;
     return firstMetricDetail("net-first-a", "统一成果", "先看本人真正留下了什么", item, `${project}${facts}${share}${rules}`, record);
   }
 
   function renderFirstB1(item, bullets, record) {
-    const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary>${prose(item.reader_public_b1?.public_calculation || "")}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(item.reader_public_b1?.public_calculation || "")}</details>`;
     return firstMetricDetail("net-first-b1", "起点、强敌与速度", "起点、主要对手和完成效率", item, `${firstB1Markup(item)}${rules}`, record);
   }
 
@@ -826,19 +783,21 @@ function firstCommanderMarkup(item) {
     const integration = bullets["异质整合"] || "";
     const basis = bullets["裁决依据"] || "";
     const facts = `${parallel ? `<div class="label">多线任务怎样同时推进</div>${prose(firstFactText(parallel))}` : ""}${coverage ? `<div class="label">团队怎样分工</div>${prose(firstFactText(coverage))}` : ""}${integration ? `<div class="label">旧部、降附者与异质集团怎样整合</div>${prose(firstFactText(integration))}` : ""}${basis ? `<div class="label">本人组织表现与限制</div>${prose(firstFactText(basis))}` : ""}${bullets["材料来源"] ? `<details><summary>史料与归责来源</summary><p class="sources">${firstEvidenceMarkup(bullets["材料来源"], "B2组织与整合")}</p></details>` : ""}`;
-    const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary>${prose("B2看创业或统一机器能否多线并行、把高难任务交给专业责任中心，并把不同地域和旧集团稳定接入同一执行体系。三个维度各用L0—L5六档，分别映射0、2、4、6、8、10分，三项相加。")}${result ? prose(`当前人物正式结算：${firstFactText(result)}`) : ""}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose("B2看创业或统一机器能否多线并行、把高难任务交给专业责任中心，并把不同地域和旧集团稳定接入同一执行体系。三个维度各用L0—L5六档，分别映射0、2、4、6、8、10分，三项相加。")}${result ? prose(`当前人物正式结算：${firstFactText(result)}`) : ""}</details>`;
     return firstMetricDetail("net-first-b2", "创业组织与政治整合", "多线并行、专业分工与异质整合", item, `${facts}${rules}`, record);
   }
 
   function renderFirstC(item, bullets, record) {
     const facts = firstCommanderMarkup(item);
-    const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary>${prose("这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。具体分数保留在正式记录中。")}</details>`;
-    return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${rules}`, record);
+    const how = firstItemPublicText(item.reader_how || "");
+    const rules = \`<details class="first-item-rule-box"><summary>这个分怎么算？</summary>\${prose(\`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n当前换算：\${how || "按正式能力档与责任路线换算。"}\\n当前结果：\${item.value} 分。\`)}</details>\`;
+    return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, \`\${facts}\${rules}\`, record);
   }
 
   function renderFirstCost(item, record) {
-    const rule = `<details class="first-item-rule-box"><summary>扣分怎样换算</summary>${prose(item.reader_how || "")}</details>`;
-    return firstMetricDetail("net-first-cost", "军事成本 · 战争代价", "从四轴毛分中扣除", item, `${firstCostMarkup(item)}${rule}`, record, `扣 ${item.value} 分`);
+    const level = String(item.reader_public_cost?.public_level_label || "").replace(/第([0-7一二三四五六七])级/, (_, n) => thirdCostText(n));
+    const rule = \`<details class="first-item-rule-box"><summary>这个分怎么算？</summary>\${prose(\`当前成本裁决：\${level || "按正式成本严重度裁决"}。\\n换算规则：按正式成本严重度与同级位置查固定扣分表。\\n当前换算：\${item.reader_how || ""}\\n当前扣减：\${item.value} 分。\`)}</details>\`;
+    return firstMetricDetail("net-first-cost", "军事成本 · 战争代价", "从四轴毛分中扣除", item, \`\${firstCostMarkup(item)}\${rule}\`, record, \`扣 \${item.value} 分\`);
   }
 
 
@@ -922,7 +881,7 @@ function firstCommanderMarkup(item) {
       : "";
     const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl>${ownA.public_project ? `<dt>共同项目</dt><dd>${esc(firstPublicOutcomeText(ownA.public_project))}</dd>` : ""}${firstPublicOutcomeParts(ownA).map(([label, value]) => `<dt>${esc(label)}</dt><dd>${esc(firstPublicOutcomeText(value))}</dd>`).join("")}${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources">${link('docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md','查看完整规则合同 ↗',record)}</p></details>`;
 
-    container.innerHTML = `${majorScoreBridge(record, "first")}<section class="panel net-detail-group">${firstItemOverview(record, bulletsByLabel, byLabel)}${zeroNote}${scope}${cards.join("")}${firstTotals(items)}</section>`;
+    container.innerHTML = `<section class="panel net-detail-group">${firstItemOverview(record, bulletsByLabel, byLabel)}${zeroNote}${scope}${cards.join("")}${firstTotals(items)}</section>`;
     if (focus) requestAnimationFrame(() => document.getElementById(`net-first-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));
   }
 
@@ -930,9 +889,8 @@ function firstCommanderMarkup(item) {
     const spec = netMajorSpecs[major];
     const details = record.net?.component_details || {};
     const content = spec.groups.map(key => genericNetGroup(record, key, details[key] || [])).join("");
-    const bridge = majorScoreBridge(record, major);
     const container = document.getElementById("net-major-body");
-    if (container) container.innerHTML = bridge + (content || `<section class="panel"><p class="notice">这一项暂未形成可展示的完整分项记录。</p></section>`);
+    if (container) container.innerHTML = content || `<section class="panel"><p class="notice">这一项暂未形成可展示的完整分项记录。</p></section>`;
     if (focus) requestAnimationFrame(() => document.getElementById(`net-group-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));
   }
 

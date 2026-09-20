@@ -354,6 +354,60 @@
     return publicEnumText(value);
   }
 
+  const FINANCE_BASE_SCORES = {
+    "C1民生": {1:5.7,2:17.1,3:32.0,4:54.9,5:74.3,6:80.0},
+    "C2经济财政": {1:1.8,2:7.0,3:14.9,4:23.6,5:29.8,6:35.0},
+    "C3社会安全": {1:5.0,2:16.0,3:28.0,4:40.0,5:52.0,6:60.0},
+  };
+  const FINANCE_LOSS_RATE = {0:0,1:0.03,2:0.07,3:0.12};
+
+  function secondScoreHowDetails(item, label) {
+    const details = document.createElement("details");
+    details.className = "second-item-score-how";
+    details.append(makeTextBlock("summary", "", "这个分怎么算？"));
+    const rows = [];
+    const add = (name, value) => { if (value) rows.push([name, value]); };
+
+    if (METHOD_MAX[label]) {
+      const grade = publicMethodGrade(item);
+      add("当前裁决", [grade ? \`公开等级 \${grade}\` : "", \`方向指数 \${fmt(item.value)} / \${METHOD_MAX[label]}\`].filter(Boolean).join(" · "));
+      add("换算规则", publicTechnicalText(item.reader_how || "该方向指数进入制度与行政合成。"));
+      add("当前结果", grade || fmt(item.value));
+    } else if (["C1民生","C2经济财政","C3社会安全"].includes(label)) {
+      const meta = stateGradeMeta(item);
+      const band = String(item?.grade || "").match(/\bC[123]-(\d)\s*\/\s*L([0-3])\b/i);
+      const base = band ? FINANCE_BASE_SCORES[label]?.[Number(band[1])] : null;
+      const rate = band ? FINANCE_LOSS_RATE[Number(band[2])] : null;
+      add("当前裁决", [meta?.grade ? \`\${meta.grade}档\` : "", meta?.lossText || ""].filter(Boolean).join(" · "));
+      if (base != null && rate != null) add("换算规则", \`主态基础分 \${base} × (1 − \${Math.round(rate * 100)}%低谷修正)，最终保留1位小数。\`);
+      else add("换算规则", publicFinanceText(item.reader_how || ""));
+      add("当前结果", \`\${fmt(item.value)} 分\`);
+    } else if (label === "C4恢复与成本") {
+      add("当前裁决", "恢复、本人可归责恶化与额外民力成本合并结算");
+      add("换算规则", publicFinanceText(item.reader_how || ""));
+      add("当前结果", \`\${Number(item.value) > 0 ? "+" : ""}\${fmt(item.value)} 分\`);
+    } else if (HANDOFF_LABELS[label]) {
+      const grade = publicHandoffGrade(item);
+      add("当前裁决", grade ? \`\${grade}档\` : "");
+      add("换算规则", publicTechnicalText(item.reader_how || ""));
+      add("当前结果", grade ? \`\${grade}档\` : "");
+    } else {
+      add("换算规则", publicTechnicalText(item.reader_how || ""));
+      add("当前结果", item.value == null ? "—" : \`\${fmt(item.value)}\${item.unit ? " " + item.unit : ""}\`);
+    }
+
+    if (!rows.length) return null;
+    for (const [name,value] of rows) {
+      const p = makeTextBlock("p", "prose", "");
+      const strong = makeTextBlock("strong", "", name + "：");
+      p.append(strong, document.createTextNode(value));
+      details.append(p);
+    }
+    return details;
+  }
+
+  globalThis.SecondItemScoreHowDetails = secondScoreHowDetails;
+
   function materialStrengthFromTags(tags) {
     const values = Array.isArray(tags) ? tags : [];
     for (const [tag, label] of MATERIAL_STRENGTH_TAGS) if (values.includes(tag)) return label;
@@ -647,7 +701,7 @@
       const financeItem = ["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label);
       const boundaryDetails = makeDetails("范围与边界", financeItem ? publicFinanceText(item.reader_boundary || "") : publicText(item.reader_boundary || ""));
       if (boundaryDetails) body.append(boundaryDetails);
-      const howDetails = makeDetails("这个分数怎么算？", financeItem ? publicFinanceText(item.reader_how || "") : publicTechnicalText(item.reader_how || ""));
+      const howDetails = secondScoreHowDetails(item, label);
       if (howDetails) body.append(howDetails);
       if (formal) body.append(formal);
       if (audit) body.append(audit);

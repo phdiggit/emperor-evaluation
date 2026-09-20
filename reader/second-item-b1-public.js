@@ -297,6 +297,8 @@
     gradeDetails.append(make("summary", "", "为什么最终是这个等级？"));
     gradeDetails.append(make("p", "prose", summaryText(formal, item)));
     body.append(gradeDetails);
+    const scoreHow = globalThis.SecondItemScoreHowDetails?.(item, "B1官僚治理");
+    if (scoreHow) body.append(scoreHow);
     appendDedicatedAudit(body, item, record);
 
     body.dataset.secondPublicBodyKey = genericBodyKey(item);

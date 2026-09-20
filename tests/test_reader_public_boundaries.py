@@ -577,22 +577,37 @@ def test_third_item_public_layer_translates_numeric_grades_without_reversing_cos
     assert "客观状态变化按已裁本人责任计入" in source
     assert 'groupKey === "strategic" || groupKey === "military"' in source
     assert "thirdPublicText(item.reader_how" in source
-def test_major_score_bridges_explain_current_conversion_before_detail_cards():
+
+def test_score_explanations_live_inside_subitems_not_repeated_in_top_bridge():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    a = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
+    b1 = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
+
+    assert "net-score-bridge" not in home
+    assert "majorScoreBridge" not in home
+    assert "function scoreHowDetails(item, groupKey, how, formalLevel)" in home
+    assert "当前裁决" in home
+    assert "换算规则" in home
+    assert "当前结果" in home
+    assert "FINANCE_BASE_SCORES" in alias
+    assert "FINANCE_LOSS_RATE" in alias
+    assert "SecondItemScoreHowDetails" in alias
+    assert 'SecondItemScoreHowDetails?.(item, "A制度建设")' in a
+    assert 'SecondItemScoreHowDetails?.(item, "B1官僚治理")' in b1
+
+
+def test_third_item_long_public_basis_is_losslessly_split_for_readability():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
-    for fn in ("firstScoreBridge", "secondScoreBridge", "thirdScoreBridge", "fourthScoreBridge", "majorScoreBridge"):
-        assert f"function {fn}(" in source
-    assert "从裁决到分数" in source
-    assert "这项怎么算到" in source
-    assert "制度建设 ${bridgeMethodGrade(a)}" in source
-    assert "民生 ${bridgeFinanceStatus(c1)}" in source
-    assert "行政连续性 ${bridgeHandoffGrade(d1)}" in source
-    assert "制度建设与官僚治理合成" in source
-    assert "战略安全成果" in source
-    assert "控制范围与战略价值按55%/45%合成" in source
-    assert "实际军事代价" in source
-    assert "bridgeCivilizationStatus(item)" in source
-    assert 'majorScoreBridge(record, "first")' in source
-    assert "const bridge = majorScoreBridge(record, major);" in source
-    assert ".net-score-bridge-row" in source
-    assert '.replace(/\\bB1\\b/g, "控制范围")' in source
+    assert 'function thirdBasisParts(value, itemLabel = "")' in source
+    assert 'function thirdBasisMarkup(value, itemLabel = "")' in source
+    assert "net-third-basis-list" in source
+    assert "裁决说明" in source
+    assert "match(/[^。！？；]+[。！？；]?/g)" in source
+    assert "三方面分别定档但不单独加分" in source
+    assert "固定成本系数" in source
+    assert "CIV_PUBLIC_POINTS" in source
+

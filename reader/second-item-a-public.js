@@ -224,6 +224,8 @@
     gradeDetails.append(make("summary", "", "为什么最终是这个等级？"));
     gradeDetails.append(make("p", "prose", summary));
     body.append(gradeDetails);
+    const scoreHow = globalThis.SecondItemScoreHowDetails?.(item, "A制度建设");
+    if (scoreHow) body.append(scoreHow);
     appendDedicatedAudit(body, item, record);
 
     body.dataset.aPublic = "done";
