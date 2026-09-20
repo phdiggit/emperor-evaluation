@@ -627,6 +627,7 @@ vm.runInContext(
   section(home,'  const MATERIAL_CARD_GROUPS','  const SECOND_PUBLIC_GROUPS')
   +'\nthis.thirdPublicText=thirdPublicText;', thirdCtx);
 assert.equal(thirdCtx.thirdPublicText('结束时第5级安全水平','A1'),'结束时S档安全水平');
+assert.equal(thirdCtx.thirdPublicText('1→5档','A1'),'D档→S档');
 assert.equal(
   thirdCtx.thirdPublicText('B1控制规模与B2战略价值按55%/45%合成，再由B4交班成熟度修正','B80'),
   '控制范围与战略价值按55%/45%合成，再由成果稳定性修正'
