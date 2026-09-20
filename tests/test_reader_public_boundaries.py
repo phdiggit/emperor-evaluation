@@ -395,3 +395,6 @@ def test_second_item_material_card_phase_two_scope():
     assert '"责任范围"' in alias
     assert '"状态恶化"' in alias
     assert '"额外代价"' in alias
+    assert "renderHandoffMaterialGroups(label, evidence)" in alias
+    assert "D1继任行政连续性" in alias
+    assert "D3政权交接稳定" in alias

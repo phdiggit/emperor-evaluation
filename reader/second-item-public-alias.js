@@ -487,6 +487,37 @@
   }
 
 
+  function renderHandoffMaterialGroups(label, evidence) {
+    const groups = {preparation:[], result:[], continuity:[], other:[]};
+    for (const entry of evidence || []) {
+      const role = String(entry?.public_role || "").trim();
+      const key = role === "事前安排" ? "preparation"
+        : (role === "交接结果" || role === "终局事实") ? "result"
+        : role === "前任行政资产承接" ? "continuity"
+        : "other";
+      groups[key].push(materialCard({
+        title: entry?.public_label || role || "交接裁决材料",
+        tags: role ? [role] : [],
+        body: entry?.public_basis,
+        boundary: entry?.public_boundary,
+        dataset: {publicEvidenceId: entry?.id || ""},
+      }));
+    }
+    const wrapper = document.createElement("div");
+    wrapper.className = "adjudication-material-groups handoff-material-groups";
+    if (label === "D1继任行政连续性") {
+      wrapper.append(materialGroup("行政承接与连续性", groups.continuity));
+    } else {
+      wrapper.append(
+        materialGroup("事前安排", groups.preparation),
+        materialGroup("实际交接与终局事实", groups.result),
+      );
+    }
+    if (groups.other.length) wrapper.append(materialGroup("其他正式材料", groups.other));
+    return wrapper;
+  }
+
+
   globalThis.SecondItemMaterialCards = Object.freeze({
     card: materialCard,
     group: materialGroup,
@@ -582,6 +613,8 @@
         reading.append(renderB2MaterialGroups(evidence));
       } else if (["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label) && Array.isArray(evidence) && evidence.length) {
         reading.append(renderFinanceMaterialGroups(label, evidence));
+      } else if (["D1继任行政连续性","D3政权交接稳定"].includes(label) && Array.isArray(evidence) && evidence.length) {
+        reading.append(renderHandoffMaterialGroups(label, evidence));
       } else if (Array.isArray(evidence) && evidence.length) {
         reading.append(publicEvidenceList(evidence));
       } else if (facts.length > 1) {

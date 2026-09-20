@@ -186,3 +186,13 @@ def test_finance_public_cards_group_only_by_formal_public_role():
     assert 'value === "恢复" || value === "责任范围"' in alias
     assert 'value === "状态恶化" || value === "额外代价"' in alias
     assert "materialStrengthFromTags(entry" not in alias
+
+
+def test_handoff_public_cards_group_only_by_formal_public_role():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert "function renderHandoffMaterialGroups(label, evidence)" in alias
+    assert 'role === "事前安排"' in alias
+    assert 'role === "交接结果" || role === "终局事实"' in alias
+    assert 'role === "前任行政资产承接"' in alias
