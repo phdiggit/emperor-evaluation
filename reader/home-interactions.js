@@ -639,7 +639,7 @@ function firstCommanderMarkup(item) {
     const subtotal = [a1?.value, a2?.value, total?.value].every(value => value != null)
       ? `两个战略安全轴最后直接相加：${a1.value} + ${a2.value} = ${total.value}分。`
       : "";
-    return `“轨迹值”只是计分中间值，不是另一项评价。计算时 E=0、D=1、C=2、B=3、A=4、S=5；轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整，并限制在0—100；本轴分数 = 0.6 × 轨迹值。专项信用与负向调整均直接读取正式裁决，不由阅读层重算。${current ? " " + current + "；" : " "}${result ? result + "。" : ""}${subtotal ? " " + subtotal : ""}`;
+    return `“轨迹值”只是计分中间值，不是另一项评价。计算时 E=0、D=1、C=2、B=3、A=4、S=5；0—5只是在公式中的档位权重，公开裁决仍使用 E—S，并不是另一套数字档位。轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整，并限制在0—100；本轴分数 = 0.6 × 轨迹值。专项信用与负向调整均直接读取正式裁决，不由阅读层重算。${current ? " " + current + "；" : " "}${result ? result + "。" : ""}${subtotal ? " " + subtotal : ""}`;
   }
 
   function detailedHowText(item, groupKey, how, record) {
