@@ -496,6 +496,7 @@ function firstCommanderMarkup(item) {
     }
     text = text
       .replace(/由([0-5])档升至([0-5])档/g, (_, from, to) => `由${thirdGradeText(from)}升至${thirdGradeText(to)}`)
+      .replace(/([0-5])→([0-5])档/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
       .replace(/([0-5])→([0-5])/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
       .replace(/三轴(?:维持)?([0-5])\/\1\/\1/g, (_, level) => `三方面均为${thirdGradeText(level)}`)
       .replace(/(支持|阻断|维持|压至|达到)([0-5])档/g, (_, verb, level) => `${verb}${thirdGradeText(level)}`)
