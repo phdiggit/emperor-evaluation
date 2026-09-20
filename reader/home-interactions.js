@@ -275,7 +275,7 @@ function firstCommanderMarkup(item) {
       .net-material-body{margin:7px 0 0!important;font-size:12px!important;line-height:1.78!important}
       .net-material-boundary{margin-top:7px!important;padding-top:6px!important}
       .net-material-boundary>summary{font-size:11px!important;color:var(--muted)}
-      .net-material-boundary>p{margin:5px 0 0;font-size:11px;line-height:1.7}
+      .net-material-boundary>p{margin:5px 0 0;font-size:11px;line-height:1.7}\n      .net-material-summary{margin:10px 0 0}\n      .net-material-summary>summary{font-size:12px;color:var(--muted)}
       .net-audit-sources{margin-top:14px}
       .net-audit-sources>.subline{margin-top:6px}
       .net-detail-group{margin:0 0 20px}.net-detail-group>h2{margin-top:0}
@@ -461,19 +461,23 @@ function firstCommanderMarkup(item) {
         .map(cleanNetText).filter(Boolean);
     const boundary = cleanNetText(item.reader_boundary || "");
     const how = cleanNetText(item.reader_how || "");
-    const logic = [intro, summary].filter(Boolean).join("\n");
+    const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;
+    const logic = (structuredMaterials ? [intro] : [intro, summary]).filter(Boolean).join("\n");
     const formalLevel = MATERIAL_CARD_GROUPS.has(groupKey) ? cleanNetText(item.public_level_label || "") : "";
     const full = fullBasis && fullBasis !== summary
       ? `<details><summary>当前人物的完整裁决原文</summary>${prose(fullBasis)}</details>`
       : "";
     const materialCards = metricMaterialCards(item, groupKey);
+    const summaryFold = structuredMaterials && summary
+      ? `<details class="net-material-summary"><summary>总体裁决摘要</summary>${prose(summary)}</details>`
+      : "";
     const facts = materialCards || (highlights.length
       ? `<div class="label">关键事实</div><ul>${highlights.map(text => `<li>${esc(text)}</li>`).join("")}</ul>`
       : "");
     const limit = boundary ? `<div class="label">${materialCards ? "总体范围与边界" : "限制与边界"}</div>${prose(boundary)}` : "";
     const formula = how ? `<details><summary>这个分怎么算？</summary>${prose(how)}</details>` : "";
     const secondSource = SECOND_PUBLIC_GROUPS.has(groupKey) ? ` data-second-source-label="${esc(item.label)}"` : "";
-    return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">正式层级：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
+    return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">正式层级：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${summaryFold}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
   }
 
   function calculationBlock(items) {

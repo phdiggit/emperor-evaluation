@@ -186,7 +186,7 @@
       .adjudication-material-chip.strength{color:var(--red);border-color:color-mix(in srgb,var(--red) 28%,var(--line))}
       .adjudication-material-chip.contribution{color:var(--ink);background:#ecefe6}
       .adjudication-material-basis{margin:7px 0 0!important;font-size:12px!important;line-height:1.78!important;white-space:pre-line}
-      .adjudication-material-scope{margin-top:8px;padding:7px 9px;background:rgba(0,0,0,.025);font-size:11px;line-height:1.65}
+      .adjudication-material-scope{margin-top:7px;padding:7px 9px;background:rgba(0,0,0,.025);font-size:11px;line-height:1.65}
       .adjudication-material-scope strong{color:var(--muted)}
       .adjudication-material-scope p{margin:2px 0 0}
       .adjudication-material-boundary{margin-top:7px!important;padding:6px 0 0!important}
@@ -393,17 +393,21 @@
     if (body) card.append(makeTextBlock("p", "adjudication-material-basis", body));
 
     const scope = publicText(data.scope);
-    if (scope) {
-      const box = makeTextBlock("div", "adjudication-material-scope", "");
-      box.append(makeTextBlock("strong", "", "具体范围"), makeTextBlock("p", "", scope));
-      card.append(box);
-    }
-
     const boundary = publicText(data.boundary);
-    if (boundary) {
+    if (scope || boundary) {
       const details = document.createElement("details");
       details.className = "adjudication-material-boundary";
-      details.append(makeTextBlock("summary", "", "范围与边界"), makeTextBlock("p", "", boundary));
+      details.append(makeTextBlock("summary", "", "范围与边界"));
+      if (scope) {
+        const box = makeTextBlock("div", "adjudication-material-scope", "");
+        box.append(makeTextBlock("strong", "", "具体范围"), makeTextBlock("p", "", scope));
+        details.append(box);
+      }
+      if (boundary) {
+        const box = makeTextBlock("div", "adjudication-material-scope", "");
+        box.append(makeTextBlock("strong", "", "判断边界"), makeTextBlock("p", "", boundary));
+        details.append(box);
+      }
       card.append(details);
     }
 

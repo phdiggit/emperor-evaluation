@@ -494,3 +494,15 @@ def test_mobile_material_cards_stack_labels_and_scores():
     assert "overflow-wrap:anywhere" in home
     assert ".formal-context-chip" in css
     assert "white-space: normal" in css
+def test_structured_material_pages_avoid_default_summary_and_scope_duplication():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+
+    assert 'if (scope || boundary)' in alias
+    assert 'details.append(makeTextBlock("summary", "", "范围与边界"))' in alias
+    assert 'card.append(box);' not in alias[alias.index('const scope = publicText(data.scope)'):alias.index('const footer = publicText(data.footer)')]
+    assert 'const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;' in home
+    assert '总体裁决摘要' in home
+    assert 'const logic = (structuredMaterials ? [intro] : [intro, summary])' in home
