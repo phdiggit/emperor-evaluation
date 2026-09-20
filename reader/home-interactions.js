@@ -588,7 +588,7 @@ function firstCommanderMarkup(item) {
       .join("");
     const share = percent ? `<div class="label">成果占比</div>${prose(`约${percent}%`)}` : "";
     const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary><div class="label">A看什么</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">有效控制信用U</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。U不是人口、面积或军队人数。")}${prose(`单人项目按统一贡献曲线换分；共同项目先算项目A池，再按本人控制信用占项目总信用的比例分配。${calculation ? `\n当前人物正式代入：${calculation}` : ""}`)}</details>`;
-    return firstMetricDetail("net-first-a", "A · 实际取得的统一成果", "先看本人真正留下了什么", item, `${project}${facts}${share}${rules}`, record);
+    return firstMetricDetail("net-first-a", "统一成果", "先看本人真正留下了什么", item, `${project}${facts}${share}${rules}`, record);
   }
 
   function renderFirstB1(item, bullets, record) {
@@ -605,7 +605,7 @@ function firstCommanderMarkup(item) {
     const basis = bullets["裁决依据"] || "";
     const facts = `${parallel ? `<div class="label">多线任务怎样同时推进</div>${prose(firstFactText(parallel))}` : ""}${coverage ? `<div class="label">团队怎样分工</div>${prose(firstFactText(coverage))}` : ""}${integration ? `<div class="label">旧部、降附者与异质集团怎样整合</div>${prose(firstFactText(integration))}` : ""}${basis ? `<div class="label">本人组织表现与限制</div>${prose(firstFactText(basis))}` : ""}${bullets["材料来源"] ? `<details><summary>史料与归责来源</summary><p class="sources">${firstEvidenceMarkup(bullets["材料来源"], "B2组织与整合")}</p></details>` : ""}`;
     const rules = `<details class="first-item-rule-box"><summary>规则口径与计算</summary>${prose("B2看创业或统一机器能否多线并行、把高难任务交给专业责任中心，并把不同地域和旧集团稳定接入同一执行体系。三个维度各用L0—L5六档，分别映射0、2、4、6、8、10分，三项相加。")}${result ? prose(`当前人物正式结算：${firstFactText(result)}`) : ""}</details>`;
-    return firstMetricDetail("net-first-b2", "B2 · 创业组织能力", "多线并行、专业分工与异质整合", item, `${facts}${rules}`, record);
+    return firstMetricDetail("net-first-b2", "创业组织与政治整合", "多线并行、专业分工与异质整合", item, `${facts}${rules}`, record);
   }
 
   function renderFirstC(item, bullets, record) {
@@ -631,7 +631,7 @@ function firstCommanderMarkup(item) {
     const net = byLabel["第一项净分"]?.value;
     const addOn = byLabel["附加F"]?.value;
     if ([a, b1, b2, c, gross, net, addOn].some(value => value == null)) return "";
-    return `<div class="net-detail-total"><div class="label">第一项结算</div><p class="first-item-scoreline">A ${a} + B1 ${b1} + B2 ${b2} + C ${c} − 战争代价 ${cost ?? 0} = <strong>S1 ${net} / 240</strong> → 总榜附加 <strong>+${addOn}</strong></p><details><summary>查看完整折算公式</summary>${prose(`四轴毛分 = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\nS1 = max(0, ${gross} − ${cost ?? 0}) = ${net}。\n总榜附加 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></div>`;
+    return `<div class="net-detail-total"><div class="label">第一项结算</div><p class="first-item-scoreline">统一成果 ${a} + 创业难度与效率 ${b1} + 创业组织 ${b2} + 本人统帅 ${c} − 战争代价 ${cost ?? 0} = <strong>原始净收益 ${net} / 240</strong> → 总榜附加 <strong>+${addOn}</strong></p><details><summary>查看完整折算公式</summary>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\nS1 = max(0, ${gross} − ${cost ?? 0}) = ${net}。\n总榜附加 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></div>`;
   }
 
   function firstItemOverview(record, bulletsByLabel, byLabel) {
@@ -660,7 +660,7 @@ function firstCommanderMarkup(item) {
     const items = record.net?.component_details?.first || [];
     const parts = Object.fromEntries(items.map(item => [item.label, item.value]));
     const score = [parts["A统一贡献"], parts["B1创业难度与效率"], parts["B2组织与整合"], parts["C军事统帅与战争解题"], parts["第一项净分"], parts["附加F"]];
-    return `<section class="first-item-overview"><h2>先看${esc(personLabel(record))}在这条主链里实际做了什么</h2><p class="subline">下面默认只放当前人物的成果、难题、组织、统帅和代价；指标定义与公式都收进折叠项。</p><div class="first-item-story-grid">${aText ? `<div class="first-item-story-card"><b>统一成果</b><p>${esc(aText)}</p></div>` : ""}${b1Parts.length ? `<div class="first-item-story-card"><b>起点、强敌与速度</b><ul>${b1Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(value)}</li>`).join("")}</ul></div>` : ""}${b2Parts.length ? `<div class="first-item-story-card"><b>组织与整合</b><ul>${b2Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstFactText(value))}</li>`).join("")}</ul></div>` : ""}${cText ? `<div class="first-item-story-card"><b>本人统帅</b><p>${esc(cText)}</p></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">A ${score[0]} + B1 ${score[1]} + B2 ${score[2]} + C ${score[3]} − 成本 ${parts["军事成本扣分"] ?? 0} = <strong>S1 ${score[4]}</strong> → 总榜附加 <strong>+${score[5]}</strong></div>` : ""}</section>`;
+    return `<section class="first-item-overview"><h2>先看${esc(personLabel(record))}在这条主链里实际做了什么</h2><p class="subline">下面默认只放当前人物的成果、难题、组织、统帅和代价；指标定义与公式都收进折叠项。</p><div class="first-item-story-grid">${aText ? `<div class="first-item-story-card"><b>统一成果</b><p>${esc(aText)}</p></div>` : ""}${b1Parts.length ? `<div class="first-item-story-card"><b>起点、强敌与速度</b><ul>${b1Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(value)}</li>`).join("")}</ul></div>` : ""}${b2Parts.length ? `<div class="first-item-story-card"><b>组织与整合</b><ul>${b2Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstFactText(value))}</li>`).join("")}</ul></div>` : ""}${cText ? `<div class="first-item-story-card"><b>本人统帅</b><p>${esc(cText)}</p></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]} − 战争代价 ${parts["军事成本扣分"] ?? 0} = <strong>原始净收益 ${score[4]}</strong> → 总榜附加 <strong>+${score[5]}</strong></div>` : ""}</section>`;
   }
 
   async function renderFirstMajor(record, focus = "") {
@@ -722,7 +722,7 @@ function firstCommanderMarkup(item) {
     const value = majorValue(record, major);
     const spec = netMajorSpecs[major];
     const extra = major === "first" && record.net?.first_item_status === "APPLICABLE"
-      ? `<p class="subline">第一项原始净分 S1：${number(record.net.first_item_raw_score)}；此处显示进入总榜的附加分。</p>`
+      ? `<p class="subline">第一项原始净收益：${number(record.net.first_item_raw_score)}；此处显示进入总榜的附加分。</p>`
       : major === "first" ? `<p class="subline">该人物第一项不适用。</p>` : "";
     return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(spec.title)}</h2><div class="big">${value == null ? "—" : number(value)}</div>${extra}<p>${esc(spec.description)}</p><p class="sources">查看完整计分逻辑 →</p></a>`;
   }

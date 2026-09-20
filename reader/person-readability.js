@@ -134,6 +134,13 @@
       .trim();
   }
 
+  function firstFactText(value) {
+    return firstItemPublicText(value)
+      .replace(/^L[0-5]级[。；：]?\s*/, "")
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+      .trim();
+  }
+
   function firstPublicOutcomeText(value) {
     return String(value ?? "").replace(/\s+/g, " ").trim();
   }
@@ -167,7 +174,7 @@
       .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
       .join("");
     const share = percent ? `<div class="label">成果占比</div>${prose(`约${percent}%`)}` : "";
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>A · 统一主链客观贡献</strong><small>满分120；只看本人最终留下的稳定控制成果</small></span><b>${esc(netValue(item))}</b></div>${project}${facts}${share}<details><summary>这个分怎么算？</summary>${prose(`A = 120 × (min(1000, U) / 1000)^0.65，最后保留1位小数。${calculation ? `\n当前人物的正式代入：${calculation}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>满分120；只看本人最终留下的稳定控制成果</small></span><b>${esc(netValue(item))}</b></div>${project}${facts}${share}<details><summary>这个分怎么算？</summary>${prose(`A = 120 × (min(1000, U) / 1000)^0.65，最后保留1位小数。${calculation ? `\n当前人物的正式代入：${calculation}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
   function renderFirstB1(item, bullets, record) {
@@ -181,7 +188,7 @@
     const coverage = bullets["团队能力覆盖与组织杠杆"] || bullets["能力覆盖/组织杠杆"] || "";
     const integration = bullets["异质整合"] || "";
     const basis = bullets["裁决依据"] || "";
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>B2 · 创业组织与政治整合</strong><small>满分30；三项各10分</small></span><b>${esc(netValue(item))}</b></div><div class="label">B2是什么意思</div>${prose("B2看创业或统一机器能不能脱离本人逐项盯办而运行：能否多线并行、能否把高难任务交给专业责任中心、能否把不同地域和旧集团稳定整合进同一执行体系。")}<div class="label">L档怎么换分</div>${prose("每个维度都用L0—L5六档：L0=0分、L1=2分、L2=4分、L3=6分、L4=8分、L5=10分。三项相加就是B2。")}${parallel ? `<div class="label">并行执行</div>${prose(firstItemPublicText(parallel))}` : ""}${coverage ? `<div class="label">专业覆盖与组织杠杆</div>${prose(firstItemPublicText(coverage))}` : ""}${integration ? `<div class="label">异质整合</div>${prose(firstItemPublicText(integration))}` : ""}${basis ? `<div class="label">为什么这样判</div>${prose(firstItemPublicText(basis))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`B2 = 并行执行分 + 专业覆盖／组织杠杆分 + 异质整合分。${result ? `\n本人的正式结算：${firstItemPublicText(result)}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>创业组织与政治整合</strong><small>满分30；看多线并行、专业分工与异质整合</small></span><b>${esc(netValue(item))}</b></div><div class="label">这项看什么</div>${prose("看创业或统一机器能不能脱离本人逐项盯办而运行：能否多线并行、能否把高难任务交给专业责任中心、能否把不同地域和旧集团稳定整合进同一执行体系。")}${parallel ? `<div class="label">并行执行</div>${prose(firstFactText(parallel))}` : ""}${coverage ? `<div class="label">专业覆盖与组织杠杆</div>${prose(firstFactText(coverage))}` : ""}${integration ? `<div class="label">异质整合</div>${prose(firstFactText(integration))}` : ""}${basis ? `<div class="label">为什么这样判</div>${prose(firstFactText(basis))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`内部结算把三个维度分别按L0—L5映射为0、2、4、6、8、10分；B2 = 并行执行分 + 专业覆盖／组织杠杆分 + 异质整合分。${result ? `\n本人的正式结算：${firstItemPublicText(result)}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
   function renderFirstC(item, bullets, record) {
@@ -201,7 +208,7 @@
     const addOn = byLabel["附加F"]?.value;
     if ([a, b1, b2, c, gross, net, addOn].some(value => value == null)) return "";
     const addOnText = Number(addOn) > 0 ? `+${addOn}` : String(addOn);
-    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div><div class="component"><span><strong>第一项原始净收益</strong><small>A、B1、B2、C合计后，再扣除本人窗口内的军事代价</small></span><b>${esc(net)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>所有人物都使用同一条折算曲线，避免第一项量纲直接压过其他项目</small></span><b>${esc(addOnText)}</b></div>${prose("先算第一项原始净收益，再按全员统一曲线折算为总榜加成；因此两个数字不是同一量纲，也不应直接比较大小。") }<details><summary>查看完整公式</summary>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n第一项净分 S1 = max(0, 四轴毛分 − 军事代价扣减) = max(0, ${gross} − ${cost ?? 0}) = ${net}。\n总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></article>`;
+    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div><div class="component"><span><strong>第一项原始净收益</strong><small>统一成果、创业难度与效率、创业组织、本人统帅合计后，再扣除本人窗口内的军事代价</small></span><b>${esc(net)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>所有人物都使用同一条折算曲线，避免第一项量纲直接压过其他项目</small></span><b>${esc(addOnText)}</b></div>${prose("先算第一项原始净收益，再按全员统一曲线折算为总榜加成；因此两个数字不是同一量纲，也不应直接比较大小。") }<details><summary>查看完整公式</summary>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n第一项净分 S1 = max(0, 四轴毛分 − 军事代价扣减) = max(0, ${gross} − ${cost ?? 0}) = ${net}。\n总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></article>`;
   }
 
   async function hydrateFirstItemGroup(group, record, items) {
@@ -234,7 +241,7 @@
     const zeroNote = Number.isFinite(netScore) && netScore === 0
       ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这与“不适用”不同：这里已经进入第一项结算，只是正向成果在扣除相关军事代价后没有留下正的净值。</p>`
       : "";
-    group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="reading-intro"><strong>本项只计算本人实际承担的创业／统一成果、本人统帅贡献及其代价；先形成原始净收益，再统一折算为总榜加成。</strong>不适用不等于军事能力差。下面再按A、B1、B2、C展开具体依据。</p>${zeroNote}${cards.join("")}${totals}`;
+    group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="reading-intro"><strong>本项只计算本人实际承担的创业／统一成果、本人统帅贡献及其代价；先形成原始净收益，再统一折算为总榜加成。</strong>不适用不等于军事能力差。下面再按统一成果、创业难度与效率、创业组织与政治整合、本人统帅展开具体依据。</p>${zeroNote}${cards.join("")}${totals}`;
   }
 
   function netValue(item) {

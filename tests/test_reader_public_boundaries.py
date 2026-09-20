@@ -456,4 +456,24 @@ def test_second_item_detail_renderer_keeps_public_takeover_hook():
     # A/B1 and the shared B2/C/D public renderers all locate detail nodes through this hook.
     for label in ("A制度建设", "B1官僚治理", "B2反馈与约束"):
         assert label in source
+def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
 
+    for source in (home, person):
+        assert "A · 统一主链客观贡献" not in source
+        assert "B2 · 创业组织" not in source
+        assert "下面再按A、B1、B2、C" not in source
+        assert "第一项原始净分 S1" not in source
+
+    assert '"统一成果", "先看本人真正留下了什么"' in home
+    assert '"创业组织与政治整合", "多线并行、专业分工与异质整合"' in home
+    assert "统一成果 ${a} + 创业难度与效率 ${b1} + 创业组织 ${b2} + 本人统帅 ${c}" in home
+    assert "<strong>统一成果</strong>" in person
+    assert "<strong>创业组织与政治整合</strong>" in person
+    assert "L档怎么换分" not in person
+    # Internal formulas remain available inside collapsed calculation details.
+    assert "四轴毛分 = A + B1 + B2 + C" in home
+    assert "B2 = 并行执行分" in person
