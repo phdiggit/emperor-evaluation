@@ -142,6 +142,14 @@
       .trim();
   }
 
+  function firstB1ScoreText(item) {
+    const current = firstItemPublicText(item?.reader_public_b1?.public_calculation || item?.reader_how || "");
+    const start = "起点资源档表示入链时可调用的军政资源强弱，不是好坏评分；资源越弱，创业难度分越高：E档15、D档13、C档11、B档8、A档5、S档2、S+档0。";
+    const opponent = "对手压力按最强两个独立战争机器计：E档1、D档2、C档4、B档6、A档8、S档10；最强全值，第二强取50%，合计最多15分。";
+    const efficiency = "完成效率最多20分：期望完成年 = 4 + 8 × √(本阶段有效控制信用 / 1000)；速度比 = 实际阶段年数 / 期望完成年。速度比≤0.75、1.00、1.25、1.50、2.00、2.50、3.00、4.00时，依次得20、18、16、14、11、8、5、2分；超过4.00得0分。";
+    return `B1满分50 = 起点难度15 + 对手难度15 + 完成效率20。\n${start}\n${opponent}\n${efficiency}${current ? `\n当前人物：${current}` : ""}`;
+  }
+
   function firstCommanderScoreText(item) {
     const grade = firstItemPublicText(item?.grade || "");
     const table = "固定换算：E档=0分；D档（基础统帅）低/中/高位=4/7/10分；C档（重要统帅）=12/15/18分；B档（优秀统帅）=20/23/26分；A档（顶级统帅）=28/31/34分；S档（历史级统帅）=36/38/40分。";
@@ -192,7 +200,7 @@
   }
 
   function renderFirstB1(item, bullets, record) {
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><strong>起点、强敌与速度</strong><b>${esc(netValue(item))}</b></div>${firstB1Markup(item)}<details><summary>这个分怎么算？</summary>${prose(item.reader_public_b1?.public_calculation || "")}</details>${firstItemSourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><strong>起点、强敌与速度</strong><b>${esc(netValue(item))}</b></div>${firstB1Markup(item)}<details><summary>这个分怎么算？</summary>${prose(firstB1ScoreText(item))}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
 

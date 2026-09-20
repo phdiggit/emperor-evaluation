@@ -662,6 +662,21 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "两个战略安全轴最后直接相加" in source
 
 
+def test_first_item_b1_explains_start_opponent_and_efficiency_subscores():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    for source in (home, person):
+        assert "function firstB1ScoreText(item)" in source
+        assert "B1满分50 = 起点难度15 + 对手难度15 + 完成效率20" in source
+        assert "资源越弱，创业难度分越高" in source
+        assert "E档15、D档13、C档11、B档8、A档5、S档2、S+档0" in source
+        assert "最强全值，第二强取50%" in source
+        assert "期望完成年 = 4 + 8 × √(本阶段有效控制信用 / 1000)" in source
+        assert "速度比≤0.75、1.00、1.25、1.50、2.00、2.50、3.00、4.00" in source
+
+
 def test_person_page_builds_compact_net_summary_without_transient_full_detail_tree():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
