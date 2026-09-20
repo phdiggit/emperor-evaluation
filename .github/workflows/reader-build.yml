@@ -73,10 +73,14 @@ concurrency:
 permissions:
   contents: write
   pages: write
+  id-token: write
 
 jobs:
   build-reader:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -107,10 +111,9 @@ jobs:
           python -m emperor_v4.eval third-fourth-item-public-verify
           python -m emperor_v4.eval historical-impact-verify
 
-      - name: One-time sync M1 deterministic reading view
+      - name: Verify profile M1 formal settlement
         run: |
           python -m emperor_v4.eval profile-m1-verify
-          python -m emperor_v4.eval profile-markdown --write --axis M1
           python -m emperor_v4.eval profile-current-verify --axis M1
 
       - name: Build reader
@@ -149,46 +152,79 @@ jobs:
       - name: Run behavior tests
         run: python -m pytest tests/test_reader.py tests/test_reader_public_boundaries.py tests/test_reader_first_item_reading.py tests/test_first_item_c_public.py tests/test_first_item_b1_cost_public.py tests/test_reader_person_readability.py tests/test_reader_second_public_text.py tests/test_second_item_c_public.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py tests/test_third_fourth_item_public.py tests/test_historical_impact.py tests/test_historical_impact_source_collections.py -q
 
-      - name: Commit generated reader artifacts
+      - name: Commit validated generated reader artifacts
+        id: validated
         shell: bash
         run: |
-          if [[ -z "$(git status --porcelain -- reader/index.html reader/military.html reader/data/people reader/data/military reader/data/first-item 'docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算.md')" ]]; then
-            echo "Generated reader artifacts are already current"
-            exit 0
-          fi
-
+          set -euo pipefail
           git fetch origin "${GITHUB_REF_NAME}"
           remote_head="$(git rev-parse "origin/${GITHUB_REF_NAME}")"
           if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
-            echo "This build is superseded by ${remote_head}; skip publishing stale generated artifacts."
+            echo "Validated source was superseded by ${remote_head}; do not publish it."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A reader/index.html reader/military.html reader/data/people reader/data/military reader/data/first-item 'docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算.md'
-          git commit -m "刷新阅读层"
-          git push
+          if [[ -n "$(git status --porcelain -- reader/index.html reader/military.html reader/data/people reader/data/military reader/data/first-item)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A reader/index.html reader/military.html reader/data/people reader/data/military reader/data/first-item
+            git commit -m "刷新阅读层"
+            git push
+          else
+            echo "Generated reader artifacts are already current"
+          fi
 
-      - name: Request Pages build from generated branch HEAD
+          validated_head="$(git rev-parse HEAD)"
+          git fetch origin "${GITHUB_REF_NAME}"
+          remote_head="$(git rev-parse "origin/${GITHUB_REF_NAME}")"
+          if [[ "$remote_head" != "$validated_head" ]]; then
+            echo "Branch moved to ${remote_head} after validation; skip deployment."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "publish=true" >> "$GITHUB_OUTPUT"
+          echo "validated_head=${validated_head}" >> "$GITHUB_OUTPUT"
+
+      - name: Stage validated Pages site
+        if: steps.validated.outputs.publish == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .tmp/pages-site
+          mkdir -p .tmp/pages-site/reader
+          cp index.html .tmp/pages-site/
+          cp reader/index.html reader/military.html .tmp/pages-site/reader/
+          cp -a reader/data .tmp/pages-site/reader/
+          cp -a docs config .tmp/pages-site/
+          if [[ -d archive ]]; then cp -a archive .tmp/pages-site/; fi
+          touch .tmp/pages-site/.nojekyll
+
+      - name: Switch Pages to workflow publishing
+        if: steps.validated.outputs.publish == 'true'
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          site="$(curl --fail-with-body -sS -L \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "X-GitHub-Api-Version: 2026-03-10" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages")"
-          source_branch="$(printf '%s' "$site" | jq -r '.source.branch // empty')"
-          source_path="$(printf '%s' "$site" | jq -r '.source.path // empty')"
-          if [[ "$source_branch" != "$GITHUB_REF_NAME" || "$source_path" != "/" ]]; then
-            echo "Unexpected Pages source: branch=${source_branch:-<none>} path=${source_path:-<none>}" >&2
-            exit 1
+          site="$(curl --fail-with-body -sS -L             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer ${GH_TOKEN}"             -H "X-GitHub-Api-Version: 2026-03-10"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages")"
+          build_type="$(printf '%s' "$site" | jq -r '.build_type // "legacy"')"
+          if [[ "$build_type" != "workflow" ]]; then
+            curl --fail-with-body -sS -L -X PUT               -H "Accept: application/vnd.github+json"               -H "Authorization: Bearer ${GH_TOKEN}"               -H "X-GitHub-Api-Version: 2026-03-10"               -H "Content-Type: application/json"               "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"               -d '{"build_type":"workflow"}'
           fi
-          curl --fail-with-body -sS -L -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "X-GitHub-Api-Version: 2026-03-10" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds"
+
+      - name: Configure Pages
+        if: steps.validated.outputs.publish == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Upload validated Pages artifact
+        if: steps.validated.outputs.publish == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .tmp/pages-site
+
+      - name: Deploy validated Pages artifact
+        if: steps.validated.outputs.publish == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
