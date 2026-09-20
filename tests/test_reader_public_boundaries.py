@@ -577,4 +577,22 @@ def test_third_item_public_layer_translates_numeric_grades_without_reversing_cos
     assert "客观状态变化按已裁本人责任计入" in source
     assert 'groupKey === "strategic" || groupKey === "military"' in source
     assert "thirdPublicText(item.reader_how" in source
-
+def test_major_score_bridges_explain_current_conversion_before_detail_cards():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    for fn in ("firstScoreBridge", "secondScoreBridge", "thirdScoreBridge", "fourthScoreBridge", "majorScoreBridge"):
+        assert f"function {fn}(" in source
+    assert "从裁决到分数" in source
+    assert "这项怎么算到" in source
+    assert "制度建设 ${bridgeMethodGrade(a)}" in source
+    assert "民生 ${bridgeFinanceStatus(c1)}" in source
+    assert "行政连续性 ${bridgeHandoffGrade(d1)}" in source
+    assert "制度建设与官僚治理合成" in source
+    assert "战略安全成果" in source
+    assert "控制范围与战略价值按55%/45%合成" in source
+    assert "实际军事代价" in source
+    assert "bridgeCivilizationStatus(item)" in source
+    assert 'majorScoreBridge(record, "first")' in source
+    assert "const bridge = majorScoreBridge(record, major);" in source
+    assert ".net-score-bridge-row" in source
+    assert '.replace(/\\bB1\\b/g, "控制范围")' in source
