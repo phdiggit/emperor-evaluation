@@ -526,3 +526,8 @@ def test_overview_major_link_matching_tolerates_public_state_notes():
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert 'label.startsWith(publicLabel + " ")' in source
     assert "Object.entries(overviewMajorByLabel)" in source
+def test_supplementary_simple_card_does_not_offer_unavailable_profile():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "不在人物画像主池" in template
+    assert "r.supplementary?'<span class=\"muted\">不在人物画像主池</span>'" in template
