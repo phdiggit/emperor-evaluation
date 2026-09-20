@@ -659,6 +659,22 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "两个战略安全轴最后直接相加" in source
 
 
+def test_first_item_overview_cost_uses_public_severity_text():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'const costText = firstCostPublicText(cost?.reader_public_cost?.public_basis || "");' in source
+
+
+def test_fourth_item_material_cards_split_long_basis_after_public_translation():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "function civilizationBasisMarkup(value)" in source
+    assert "civilizationPublicText(value)" in source
+    assert "fourthItem" in source
+    assert "civilizationBasisMarkup(entry?.public_basis || \"\")" in source
+    assert "裁决说明" in source
+
+
 def test_first_item_commander_grade_has_public_fixed_score_table():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]

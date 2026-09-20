@@ -558,6 +558,14 @@ function firstCommanderMarkup(item) {
       .replace(/相对变化第([1-4一二三四])级/g, (_, level) => magnitude(level));
   }
 
+  function civilizationBasisMarkup(value) {
+    const text = civilizationPublicText(value);
+    if (!text) return "";
+    const parts = (text.match(/[^。！？；]+[。！？；]?/g) || [text]).map(part => part.trim()).filter(Boolean);
+    if (parts.length === 1) return `<p class="net-material-body">${esc(parts[0])}</p>`;
+    return `<div class="label">裁决说明</div><ul class="net-third-basis-list">${parts.map(part => `<li>${esc(part)}</li>`).join("")}</ul>`;
+  }
+
   function civilizationPublicStatus(item, formalLevel = "") {
     const parts = String(item?.grade || "").split("/").map(value => value.trim());
     const direction = CIV_PUBLIC_DIRECTION[parts[0]] || "";
@@ -675,7 +683,11 @@ function firstCommanderMarkup(item) {
         .map(value => `<span class="net-material-chip">${esc(value)}</span>`).join("");
       const basis = format(entry?.public_basis || "");
       const boundary = format(entry?.public_boundary || "");
-      const basisMarkup = thirdItem ? thirdBasisMarkup(entry?.public_basis || "", item.label) : (basis ? `<p class="net-material-body">${esc(basis)}</p>` : "");
+      const basisMarkup = thirdItem
+        ? thirdBasisMarkup(entry?.public_basis || "", item.label)
+        : fourthItem
+          ? civilizationBasisMarkup(entry?.public_basis || "")
+          : (basis ? `<p class="net-material-body">${esc(basis)}</p>` : "");
       return `<li class="net-material-card"><div class="net-material-head"><strong>${esc(title)}</strong>${chips ? `<span class="net-material-meta">${chips}</span>` : ""}</div>${basisMarkup}${boundary ? `<details class="net-material-boundary"><summary>该材料的范围与边界</summary><p>${esc(boundary)}</p></details>` : ""}</li>`;
     }).join("");
     return cards ? `<div class="label">正式裁决材料</div><ul class="net-material-list">${cards}</ul>` : "";
@@ -932,7 +944,7 @@ function firstCommanderMarkup(item) {
       ["整合", b2["异质整合"]],
     ].filter(([, value]) => value);
     const cText = byLabel["C军事统帅与战争解题"]?.reader_public_commander?.public_basis || "";
-    const costText = cost?.reader_public_cost?.public_basis || "";
+    const costText = firstCostPublicText(cost?.reader_public_cost?.public_basis || "");
     const items = record.net?.component_details?.first || [];
     const parts = Object.fromEntries(items.map(item => [item.label, item.value]));
     const score = [parts["A统一贡献"], parts["B1创业难度与效率"], parts["B2组织与整合"], parts["C军事统帅与战争解题"], parts["第一项净分"], parts["附加F"]];
