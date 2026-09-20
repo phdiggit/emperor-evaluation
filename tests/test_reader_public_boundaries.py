@@ -650,6 +650,34 @@ def test_second_item_subitem_how_blocks_include_actual_group_formula():
     assert 'handoff.get("交接得分")' in source
 
 
+def test_calculation_blocks_keep_only_public_subtotals_not_repeated_intermediate_steps():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert 'method:new Set(["治理手段"])' in home
+    assert 'finance:new Set(["治理结果"])' in home
+    assert 'handoff:new Set(["交接得分"])' in home
+    assert 'strategic:new Set(["A120","B80"])' in home
+    assert 'military:new Set(["第三项合计"])' in home
+    assert 'civilization:new Set(["第四项调整"])' in home
+    assert "<summary>本组小计怎么形成？</summary>" in home
+    assert 'method:new Set(["治理手段"])' in alias
+    assert 'finance:new Set(["治理结果"])' in alias
+    assert 'handoff:new Set(["交接得分"])' in alias
+
+
+def test_generic_net_group_keeps_non_scoring_military_judgment_axes_visible():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    start = source.index("function genericNetGroup")
+    end = source.index("function firstItemRawUrl", start)
+    block = source[start:end]
+    assert 'item.unit === "不单独计分"' in block
+    assert "item.public_level_label" in block
+    assert 'item.value != null || item.unit === "不单独计分" || item.public_level_label' in block
+
+
 def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composite():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")

@@ -751,18 +751,35 @@ function firstCommanderMarkup(item) {
     return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">正式层级：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${summaryFold}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
   }
 
+  const PUBLIC_CALCULATION_KEEP = {
+    method:new Set(["治理手段"]),
+    finance:new Set(["治理结果"]),
+    handoff:new Set(["交接得分"]),
+    strategic:new Set(["A120","B80"]),
+    military:new Set(["第三项合计"]),
+    civilization:new Set(["第四项调整"]),
+  };
+
   function calculationBlock(items, groupKey = "") {
-    const calculations = items.filter(item => item.reader_kind === "calculation" && item.value != null);
+    const keep = PUBLIC_CALCULATION_KEEP[groupKey];
+    const calculations = items.filter(item =>
+      item.reader_kind === "calculation"
+      && item.value != null
+      && (!keep || keep.has(item.label))
+    );
     if (!calculations.length) return "";
     const thirdItem = groupKey === "strategic" || groupKey === "military";
-    return `<details class="net-calculations"><summary>计算过程与小计</summary>${calculations.map(item => {
+    return `<details class="net-calculations"><summary>本组小计怎么形成？</summary>${calculations.map(item => {
       const how = thirdItem ? thirdPublicText(item.reader_how || "按正式公式换算。", item.label) : cleanNetText(item.reader_how || "按正式公式换算。");
       return `<div class="component"><span><strong>${esc(item.public_component_label || item.label)}</strong><small>${esc(how)}</small></span><b>${esc(netValue(item, groupKey))}</b></div>`;
     }).join("")}</details>`;
   }
 
   function genericNetGroup(record, key, items) {
-    const judgments = items.filter(item => item.reader_kind === "judgment" && item.value != null);
+    const judgments = items.filter(item =>
+      item.reader_kind === "judgment"
+      && (item.value != null || item.unit === "不单独计分" || item.public_level_label)
+    );
     return `<section id="net-group-${esc(key)}" class="panel net-detail-group"><h2>${esc(netGroupNames[key] || key)}</h2>${judgments.map(item => metricDetail(item, record, key)).join("")}${calculationBlock(items, key)}</section>`;
   }
 

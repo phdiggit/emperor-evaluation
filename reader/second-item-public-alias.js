@@ -21,6 +21,11 @@
     "D3政权交接稳定":"终局继承",
   };
   const SECOND_GROUPS = ["method", "finance", "handoff"];
+  const SECOND_CALC_VISIBLE = {
+    method:new Set(["治理手段"]),
+    finance:new Set(["治理结果"]),
+    handoff:new Set(["交接得分"]),
+  };
   const SECOND_CALC_LABELS = {
     "AB计分块":"制度建设与官僚治理合成",
     "B2折算":"反馈与约束折算",
@@ -763,8 +768,9 @@
       const details = panel?.querySelector(":scope > .net-calculations");
       if (!details) continue;
       const rows = Array.from(details.querySelectorAll(":scope > .component"));
+      const visible = SECOND_CALC_VISIBLE[key];
       const calculations = (record.net.component_details?.[key] || [])
-        .filter(item => item.reader_kind === "calculation" && item.value != null);
+        .filter(item => item.reader_kind === "calculation" && item.value != null && (!visible || visible.has(item.label)));
       const summary = details.querySelector(":scope > summary");
       if (summary) summary.textContent = "本组小计怎么形成？";
       rows.forEach((row, index) => {
