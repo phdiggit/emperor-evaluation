@@ -92,9 +92,6 @@ jobs:
       - name: Verify A public settlement
         run: python -m emperor_v4.eval second-item-a-verify
 
-      - name: Write B1 formal settlement
-        run: python -m emperor_v4.eval second-item-b1-settlement --write
-
       - name: Verify B1 formal settlement
         run: python -m emperor_v4.eval second-item-b1-verify
 
@@ -149,10 +146,8 @@ jobs:
       - name: Commit generated reader artifacts
         shell: bash
         run: |
-          b1_router='docs/评分结算/净收益/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json'
-          b1_shards='docs/评分结算/净收益/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡'
-          if [[ -z "$(git status --porcelain -- reader/index.html reader/data/people reader/data/military reader/data/first-item "$b1_router" "$b1_shards")" ]]; then
-            echo "Generated reader and B1 adjudication artifacts are already current"
+          if [[ -z "$(git status --porcelain -- reader/index.html reader/data/people reader/data/military reader/data/first-item)" ]]; then
+            echo "Generated reader artifacts are already current"
             exit 0
           fi
 
@@ -165,8 +160,8 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A reader/index.html reader/data/people reader/data/military reader/data/first-item "$b1_router" "$b1_shards"
-          git commit -m "刷新B1逐材料裁决与阅读层"
+          git add -A reader/index.html reader/data/people reader/data/military reader/data/first-item
+          git commit -m "刷新阅读层"
           git push
 
       - name: Request Pages build from generated branch HEAD
