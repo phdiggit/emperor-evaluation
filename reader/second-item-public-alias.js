@@ -250,7 +250,7 @@
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       const summary = detail.querySelector(":scope > summary");
       setPublicGrade(summary?.querySelector(":scope > span"), summary?.querySelector(":scope > b"), grade,
-        [`原始方向指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}`, boundaryExcerpt(item)]);
+        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（合成输入，不单独加分）`, boundaryExcerpt(item)]);
     }
     for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
       const sourceLabel = span.dataset.secondSourceLabel || "";
@@ -258,7 +258,7 @@
       const grade = publicMethodGrade(item);
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       setPublicGrade(span, span.parentElement?.querySelector(":scope > b"), grade,
-        [`原始方向指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}`, boundaryExcerpt(item)]);
+        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（合成输入，不单独加分）`, boundaryExcerpt(item)]);
     }
   }
 
@@ -340,7 +340,9 @@
   }
 
   function publicTechnicalText(value) {
-    return publicEnumText(value);
+    return publicEnumText(value)
+      .replace(/正式方向指数/g, "原始表现指数")
+      .replace(/方向指数/g, "原始表现指数");
   }
 
   function publicFinanceText(value) {
@@ -372,13 +374,13 @@
       if (a == null || b1 == null || ab == null) return "";
       const high = Math.max(a, b1);
       const low = Math.min(a, b1);
-      return `制度建设与官僚治理不各自直接加分，而是组成同一主块：0.8 × [较高指数 ${fmt(high)} + 0.5 × 较低指数 ${fmt(low)}] = ${fmt(ab)} 分。`;
+      return `制度建设与官僚治理不各自直接加分，而是组成同一主块：0.8 × [较高表现指数 ${fmt(high)} + 0.5 × 较低表现指数 ${fmt(low)}] = ${fmt(ab)} 分。`;
     }
     if (label === "B2反馈与约束") {
       const b2 = finite(method.get("B2反馈与约束")?.value);
       const converted = finite(method.get("B2折算")?.value);
       if (b2 == null || converted == null) return "";
-      return `反馈与约束单独占45分：45 / 80 × 当前指数 ${fmt(b2)} = ${fmt(converted)} 分。`;
+      return `反馈与约束单独占45分：45 / 80 × 当前表现指数 ${fmt(b2)} = ${fmt(converted)} 分。`;
     }
     return "";
   }
@@ -399,11 +401,11 @@
 
     if (METHOD_MAX[label]) {
       const grade = publicMethodGrade(item);
-      add("当前裁决", [grade ? `公开等级 ${grade}` : "", `方向指数 ${fmt(item.value)} / ${METHOD_MAX[label]}`].filter(Boolean).join(" · "));
-      const formal = publicTechnicalText(item.reader_how || "该方向指数进入制度与行政合成。");
+      add("当前裁决", [grade ? `${grade}档` : "", `原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}`].filter(Boolean).join(" · "));
+      const formal = publicTechnicalText(item.reader_how || "该原始表现指数进入制度与行政合成，不作为本轴直接得分。");
       const expanded = secondMethodExpandedHow(label);
       add("换算规则", [formal, expanded].filter(Boolean).join(" "));
-      add("当前结果", [grade ? `${grade}档` : "", `方向指数 ${fmt(item.value)}`].filter(Boolean).join(" · "));
+      add("当前结果", "作为制度与行政合成输入，不单独加分");
     } else if (["C1民生","C2经济财政","C3社会安全"].includes(label)) {
       const meta = stateGradeMeta(item);
       const band = String(item?.grade || "").match(/\bC[123]-(\d)\s*\/\s*L([0-3])\b/i);

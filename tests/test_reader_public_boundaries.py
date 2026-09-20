@@ -659,6 +659,17 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "两个战略安全轴最后直接相加" in source
 
 
+def test_second_item_method_index_is_explicitly_an_input_not_a_direct_score():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert "原始方向指数" not in source
+    assert "原始表现指数" in source
+    assert "合成输入，不单独加分" in source
+    assert "作为制度与行政合成输入，不单独加分" in source
+    assert "较高表现指数" in source
+    assert "当前表现指数" in source
+
+
 def test_third_item_strategic_axis_explains_trajectory_as_exact_intermediate_formula():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
