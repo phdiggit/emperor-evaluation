@@ -35,7 +35,8 @@
   }
 
   async function repoJson(path) {
-    const response = await fetch(validatedRawUrl(path), {cache:"no-cache"});
+    const url = typeof validatedRawUrl === "function" ? validatedRawUrl(path) : `../${path}?raw=1`;
+    const response = await fetch(url, {cache:"no-cache"});
     if (!response.ok) throw new Error(`HTTP ${response.status}: ${path}`);
     return response.json();
   }

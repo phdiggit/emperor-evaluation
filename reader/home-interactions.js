@@ -441,7 +441,8 @@ function firstCommanderMarkup(item) {
   }
 
   function firstItemRawUrl(ref) {
-    return validatedRawUrl(String(ref || "").split("#", 1)[0]);
+    const path = String(ref || "").split("#", 1)[0];
+    return typeof validatedRawUrl === "function" ? validatedRawUrl(path) : `../${path}?raw=1`;
   }
 
   async function loadFirstItemDoc(ref, record) {
