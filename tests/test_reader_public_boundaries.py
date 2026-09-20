@@ -477,3 +477,20 @@ def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
     # Internal formulas remain available inside collapsed calculation details.
     assert "四轴毛分 = A + B1 + B2 + C" in home
     assert "B2 = 并行执行分" in person
+def test_mobile_material_cards_stack_labels_and_scores():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    css = (root / "reader/readability.css").read_text(encoding="utf-8")
+
+    assert "@media(max-width:700px)" in alias
+    assert ".adjudication-material-head{display:block}" in alias
+    assert ".adjudication-material-meta{justify-content:flex-start;margin-top:6px}" in alias
+    assert ".net-metric-detail>summary{grid-template-columns:minmax(0,1fr);gap:5px}" in home
+    assert ".net-material-head{display:block}" in home
+    assert ".net-material-meta{justify-content:flex-start;margin-top:6px}" in home
+    assert "overflow-wrap:anywhere" in alias
+    assert "overflow-wrap:anywhere" in home
+    assert ".formal-context-chip" in css
+    assert "white-space: normal" in css

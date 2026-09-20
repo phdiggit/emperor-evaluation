@@ -132,6 +132,25 @@
   margin-top: 9px;
 }
 
+.formal-context-chip {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  .formal-context-story {
+    padding: 10px 11px;
+  }
+
+  .formal-context-chips {
+    align-items: flex-start;
+  }
+
+  .formal-context-chip {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
+
 .public-person-type {
   margin: 8px 0 10px;
   font-size: 16px;

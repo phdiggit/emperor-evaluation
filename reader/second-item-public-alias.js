@@ -194,6 +194,13 @@
       .adjudication-material-boundary>p{margin:5px 0 0;font-size:11px;line-height:1.7}
       .adjudication-material-footer{display:block;margin-top:7px;color:var(--green);font-size:11px;line-height:1.65;font-weight:600}
       .adjudication-material-empty{margin:4px 0;color:var(--muted);font-size:12px}
+      .adjudication-material-card,.adjudication-material-head>strong,.adjudication-material-basis,.adjudication-material-scope,.adjudication-material-boundary>p{overflow-wrap:anywhere}
+      @media(max-width:700px){
+        .adjudication-material-card{padding:10px}
+        .adjudication-material-head{display:block}
+        .adjudication-material-meta{justify-content:flex-start;margin-top:6px}
+        .adjudication-material-chip{white-space:normal;overflow-wrap:anywhere}
+      }
     `;
     document.head.append(style);
   }
