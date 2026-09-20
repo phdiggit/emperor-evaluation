@@ -618,6 +618,20 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
     return battle_index, commander_index
 
 
+def _build_military_page(root: Path = ROOT) -> None:
+    """Build the served military page from a source template and freeze its JS."""
+    template_path = root / "reader/military.template.html"
+    output_path = root / "reader/military.html"
+    script_path = root / "reader/military-archive.js"
+    template = template_path.read_text(encoding="utf-8")
+    marker = '<script src="military-archive.js"></script>'
+    if template.count(marker) != 1:
+        raise ValueError("military template must contain exactly one runtime script marker")
+    script = script_path.read_text(encoding="utf-8").replace("</script>", r"<\/script>")
+    rendered = template.replace(marker, f"<script>\n{script}\n</script>", 1)
+    output_path.write_text(rendered, encoding="utf-8", newline="\n")
+
+
 def main() -> None:
     battle_index, commander_index, evidence = _build_outputs(ROOT)
     out = ROOT / OUTPUT_DIR
@@ -625,6 +639,7 @@ def main() -> None:
     _CORE._write(out / "commanders-index.json", commander_index)
     for filename, payload in evidence.items():
         _CORE._write(out / filename, payload)
+    _build_military_page(ROOT)
     stats = battle_index["first_item_c_anchor_stats"]
     print(
         "military archive indexes: "

@@ -312,3 +312,19 @@ assert.ok(unsafe.includes('&lt;img'));
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
                             text=True, encoding='utf-8')
     assert result.returncode == 0, result.stderr
+
+
+def test_generated_reader_runtime_is_self_contained_after_build():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    index = (root / "reader/index.html").read_text(encoding="utf-8")
+    military = (root / "reader/military.html").read_text(encoding="utf-8")
+    for filename in (
+        "second-item-public-alias.js",
+        "second-item-a-public.js",
+        "second-item-b1-public.js",
+        "second-item-public-labels.js",
+        "person-reading-notes.js",
+    ):
+        assert f'src="{filename}"' not in index
+    assert 'src="military-archive.js"' not in military

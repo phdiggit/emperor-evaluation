@@ -12,6 +12,13 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 DETAILS_DIR = ROOT / "reader/data/people"
 SECOND_ITEM_READER_SUMMARIES = "reader/second-item-summaries.json"
+READER_RUNTIME_SCRIPTS = (
+    "second-item-public-alias.js",
+    "second-item-a-public.js",
+    "second-item-b1-public.js",
+    "second-item-public-labels.js",
+    "person-reading-notes.js",
+)
 sys.path.insert(0, str(ROOT / "src"))
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.first_item_public_outcomes import (
@@ -99,6 +106,23 @@ FORMAL_CONTEXT_FIELDS = [
     "limitation",
     "intensity_and_role_basis",
 ]
+
+
+def inline_runtime_scripts(template):
+    """Freeze runtime JS into the generated page after all validations pass.
+
+    GitHub Pages currently publishes this branch directly. Keeping the browser
+    runtime inside the generated artifact means an unvalidated source commit can
+    only republish the last validated reader/index.html, not new source JS.
+    """
+    for filename in READER_RUNTIME_SCRIPTS:
+        marker = f'<script defer src="{filename}"></script>'
+        if template.count(marker) != 1:
+            raise ValueError(f"Reader runtime script marker missing or duplicated: {filename}")
+        source = (ROOT / "reader" / filename).read_text(encoding="utf-8")
+        source = source.replace("</script>", r"<\/script>")
+        template = template.replace(marker, f"<script>\n{source}\n</script>", 1)
+    return template
 
 
 def _formal_context_projection(context):
@@ -916,6 +940,7 @@ def build(*, check=False, write=True):
     payload = serialized_json(index_data, html_safe=True)
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")
     template = apply_public_copy(template)
+    template = inline_runtime_scripts(template)
     link_effects = (ROOT / "reader/link-effects.css").read_text(encoding="utf-8").strip()
     readability_css = (ROOT / "reader/readability.css").read_text(encoding="utf-8").strip()
     lazy_details = (ROOT / "reader/lazy-details.js").read_text(encoding="utf-8").strip()
