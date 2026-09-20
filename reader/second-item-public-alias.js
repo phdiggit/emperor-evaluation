@@ -7,6 +7,7 @@
   const PUBLIC_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
   const STATE_GRADE = {1:"E",2:"D",3:"C",4:"B",5:"A",6:"S"};
   const HANDOFF_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
+  const FINANCE_ORDINAL_GRADE = {"一":"E","二":"D","三":"C","四":"B","五":"A","六":"S","1":"E","2":"D","3":"C","4":"B","5":"A","6":"S"};
   const LOSS_TEXT = {
     0:"未见独立有效低谷",
     1:"有局部或短时损害",
@@ -342,6 +343,11 @@
     return publicEnumText(value);
   }
 
+  function publicFinanceText(value) {
+    return publicEnumText(value)
+      .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`);
+  }
+
   // Only contract-defined enum labels are translated. Sentences, negation,
   // responsibility and boundaries are otherwise preserved verbatim.
   function publicText(value) {
@@ -471,10 +477,10 @@
       const role = String(entry?.public_role || "").trim();
       const key = financeRoleKey(role);
       groups[key].push(materialCard({
-        title: entry?.public_label || role || "正式裁决材料",
+        title: publicFinanceText(entry?.public_label || role || "正式裁决材料"),
         tags: role ? [role] : [],
-        body: entry?.public_basis,
-        boundary: entry?.public_boundary,
+        body: publicFinanceText(entry?.public_basis),
+        boundary: publicFinanceText(entry?.public_boundary),
         dataset: {publicEvidenceId: entry?.id || ""},
       }));
     }
@@ -638,9 +644,10 @@
         reading.append(makeTextBlock("p", "prose", "当前尚未提供公开说明，请查看正式记录。"));
       }
       body.append(reading);
-      const boundaryDetails = makeDetails("范围与边界", publicText(item.reader_boundary || ""));
+      const financeItem = ["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label);
+      const boundaryDetails = makeDetails("范围与边界", financeItem ? publicFinanceText(item.reader_boundary || "") : publicText(item.reader_boundary || ""));
       if (boundaryDetails) body.append(boundaryDetails);
-      const howDetails = makeDetails("这个分数怎么算？", publicTechnicalText(item.reader_how || ""));
+      const howDetails = makeDetails("这个分数怎么算？", financeItem ? publicFinanceText(item.reader_how || "") : publicTechnicalText(item.reader_how || ""));
       if (howDetails) body.append(howDetails);
       if (formal) body.append(formal);
       if (audit) body.append(audit);
