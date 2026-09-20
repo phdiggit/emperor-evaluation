@@ -409,7 +409,9 @@
     const record = netRecord() || personRecord();
     const handoff = itemMap(record, "handoff");
     const total = handoff.get("交接得分");
-    return total ? publicTechnicalText(total.reader_how || "") : "";
+    if (!total) return "";
+    const how = publicTechnicalText(total.reader_how || "");
+    return how ? `${how} 其中0—5只作为 E—S 档在合成公式中的权重，公开裁决仍使用 E—S，并不是另一套数字档位。` : "";
   }
 
   function secondScoreHowDetails(item, label) {
