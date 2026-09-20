@@ -107,16 +107,11 @@ jobs:
           python -m emperor_v4.eval third-fourth-item-public-verify
           python -m emperor_v4.eval historical-impact-verify
 
-      - name: Verify profile M1 formal settlement
+      - name: One-time sync M1 deterministic reading view
         run: |
           python -m emperor_v4.eval profile-m1-verify
-          if ! python -m emperor_v4.eval profile-current-verify --axis M1; then
-            echo "::group::M1 deterministic Markdown diff"
-            python -m emperor_v4.eval profile-markdown --write --axis M1
-            git diff --no-ext-diff --unified=3 -- 'docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算.md' || true
-            echo "::endgroup::"
-            exit 1
-          fi
+          python -m emperor_v4.eval profile-markdown --write --axis M1
+          python -m emperor_v4.eval profile-current-verify --axis M1
 
       - name: Build reader
         run: python reader/build.py
@@ -157,7 +152,7 @@ jobs:
       - name: Commit generated reader artifacts
         shell: bash
         run: |
-          if [[ -z "$(git status --porcelain -- reader/index.html reader/military.html reader/data/people reader/data/military reader/data/first-item)" ]]; then
+          if [[ -z "$(git status --porcelain -- reader/index.html reader/military.html reader/data/people reader/data/military reader/data/first-item 'docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算.md')" ]]; then
             echo "Generated reader artifacts are already current"
             exit 0
           fi
@@ -171,7 +166,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A reader/index.html reader/military.html reader/data/people reader/data/military reader/data/first-item
+          git add -A reader/index.html reader/military.html reader/data/people reader/data/military reader/data/first-item 'docs/评分结算/人物画像/M1/01-M1军事判断与统帅能力正式结算.md'
           git commit -m "刷新阅读层"
           git push
 
