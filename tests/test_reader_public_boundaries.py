@@ -730,6 +730,18 @@ def test_person_page_builds_compact_net_summary_without_transient_full_detail_tr
     assert "independent #net page" in source
 
 
+
+def test_first_item_overview_keeps_outcome_boundary_in_detail_only():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    start = source.index("function firstItemOverview")
+    end = source.index("async function renderFirstMajor", start)
+    block = source[start:end]
+    assert "起点背景：" in block
+    assert "实际成果：" in block
+    assert "a.public_scope" in block
+    assert "a.public_boundary" not in block
+
 def test_first_item_overview_cost_is_compact_and_does_not_repeat_full_basis():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
