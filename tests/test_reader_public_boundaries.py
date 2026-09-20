@@ -605,6 +605,85 @@ def test_handoff_public_layer_uses_letter_grades_not_numeric_level_inputs():
     assert 'setRowLabel(span,"行政连续性")' in reading
     assert 'setRowLabel(span,"交接稳定")' in reading
 
+
+def test_public_runtime_formatters_and_non_scoring_axes_behave_as_rendered(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for reader behavior")
+    script = tmp_path / "public-runtime-formatters.cjs"
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const home=fs.readFileSync('reader/home-interactions.js','utf8');
+const second=fs.readFileSync('reader/second-item-reading.js','utf8');
+function section(source,start,end){
+  const a=source.indexOf(start),b=source.indexOf(end,a);
+  assert.ok(a>=0&&b>a, start);
+  return source.slice(a,b);
+}
+
+const thirdCtx={cleanNetText:v=>String(v??'').replace(/\s+/g,' ').trim()};
+vm.createContext(thirdCtx);
+vm.runInContext(
+  section(home,'  const MATERIAL_CARD_GROUPS','  const SECOND_PUBLIC_GROUPS')
+  +'\nthis.thirdPublicText=thirdPublicText;', thirdCtx);
+assert.equal(thirdCtx.thirdPublicText('结束时第5级安全水平','A1'),'结束时S档安全水平');
+assert.equal(
+  thirdCtx.thirdPublicText('B1控制规模与B2战略价值按55%/45%合成，再由B4交班成熟度修正','B80'),
+  '控制范围与战略价值按55%/45%合成，再由成果稳定性修正'
+);
+assert.equal(thirdCtx.thirdPublicText('普通军事代价为第5级、中位','普通成本扣分'),'普通军事代价为严重军事成本、中位');
+
+const civCtx={
+  cleanNetText:v=>String(v??'').replace(/\s+/g,' ').trim(),
+  THIRD_CN_LEVEL:{'零':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7},
+  esc:String
+};
+vm.createContext(civCtx);
+vm.runInContext(
+  section(home,'  const CIV_PUBLIC_DIRECTION','  function civilizationPublicStatus')
+  +'\nthis.civilizationPublicText=civilizationPublicText;', civCtx);
+assert.equal(civCtx.civilizationPublicText('正向变化第3级'),'正向变化达到主要领域的稳定改变');
+assert.equal(civCtx.civilizationPublicText('负向变化第4级'),'负向变化达到系统性破坏');
+assert.equal(civCtx.civilizationPublicText('净文明影响幅度第1级'),'净影响为局部、短期或低强度变化');
+assert.equal(civCtx.civilizationPublicText('第三级影响幅度'),'主要领域的稳定改变');
+
+const genericCtx={
+  esc:String,
+  netGroupNames:{military:'第三项 · 军事体系与成本'},
+  metricDetail:item=>'<metric>'+item.label+'</metric>',
+  calculationBlock:()=>''
+};
+vm.createContext(genericCtx);
+vm.runInContext(
+  section(home,'  function genericNetGroup','  function firstItemRawUrl')
+  +'\nthis.genericNetGroup=genericNetGroup;', genericCtx);
+const rendered=genericCtx.genericNetGroup({},'military',[
+  {label:'C1实战交付',reader_kind:'judgment',value:null,unit:'不单独计分'},
+  {label:'C2持续作战',reader_kind:'judgment',value:null,public_level_label:'持续作战为S档'},
+  {label:'隐藏空项',reader_kind:'judgment',value:null}
+]);
+assert.match(rendered,/C1实战交付/);
+assert.match(rendered,/C2持续作战/);
+assert.doesNotMatch(rendered,/隐藏空项/);
+
+const fallbackCtx={
+  finite:v=>{if(v==null||v==='')return null;const n=Number(v);return Number.isFinite(n)?n:null;},
+  fmt:v=>Number(v).toFixed(1)
+};
+vm.createContext(fallbackCtx);
+vm.runInContext(
+  section(second,'  function componentFallbackSummary','  function ensureStyles')
+  +'\nthis.componentFallbackSummary=componentFallbackSummary;', fallbackCtx);
+const fallback=fallbackCtx.componentFallbackSummary({methodScore:88.5,resultScore:83.7,handoffScore:14});
+assert.match(fallback,/制度与行政 88.5 \/ 165/);
+assert.match(fallback,/民生与社会 83.7 \/ 202/);
+assert.match(fallback,/政权交接 14.0 \/ 20/);
+assert.doesNotMatch(fallback,/最强|最弱|主导/);
+''', encoding="utf-8")
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding="utf-8")
+    assert result.returncode == 0, result.stderr
+
+
 def test_third_item_public_layer_translates_numeric_grades_without_reversing_cost_meaning():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
