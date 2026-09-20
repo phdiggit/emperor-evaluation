@@ -4,11 +4,11 @@
   const screenEl = document.getElementById("screen");
   if (!screenEl) return;
 
-  const METHOD_BAND_LABELS = {G0:"最低档",G1:"较低档",G2:"中低档",G3:"中档",G4:"较高档",G5:"最高档"};
+  const METHOD_BAND_LABELS = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
   const METHOD_MAX = {"A制度建设":100,"B1官僚治理":100,"B2反馈与约束":80};
-  const METHOD_PUBLIC = {"A制度建设":"制度建设（A）","B1官僚治理":"官僚治理（B1）","B2反馈与约束":"反馈与约束（B2）"};
+  const METHOD_PUBLIC = {"A制度建设":"制度建设","B1官僚治理":"官僚治理","B2反馈与约束":"反馈与约束"};
   const FINANCE_MAX = {"C1民生":80,"C2经济财政":35,"C3社会安全":60};
-  const FINANCE_PUBLIC = {"C1民生":"民生（C1）","C2经济财政":"经济财政（C2）","C3社会安全":"社会安全（C3）"};
+  const FINANCE_PUBLIC = {"C1民生":"民生","C2经济财政":"经济财政","C3社会安全":"社会安全"};\n  const STATE_PUBLIC_GRADE = {1:"E",2:"D",3:"C",4:"B",5:"A",6:"S"};\n  const LOSS_PUBLIC_TEXT = {0:"未见独立有效低谷",1:"有局部或短时损害",2:"出现明显低谷",3:"出现严重低谷"};
   const HANDOFF_PUBLIC_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
   function handoffGrade(value){const n=finite(value);return n!=null&&Number.isInteger(n)?HANDOFF_PUBLIC_GRADE[n]||"—":"—";}
   const HISTORICAL_SECOND_POOL = 185;
