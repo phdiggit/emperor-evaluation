@@ -142,6 +142,29 @@
       .trim();
   }
 
+  const FIRST_COST_DEBIT = {
+    0:{LOW:0,MID:0,HIGH:0},
+    1:{LOW:0.5,MID:1,HIGH:1.5},
+    2:{LOW:2,MID:2.5,HIGH:3},
+    3:{LOW:4,MID:5,HIGH:6},
+    4:{LOW:8.8,MID:10,HIGH:12.5},
+    5:{LOW:18,MID:22.5,HIGH:27},
+    6:{LOW:35,MID:42,HIGH:49},
+    7:{LOW:60,MID:68,HIGH:76,HIGHEST:80},
+  };
+  const FIRST_COST_POSITION = {LOW:"低位",MID:"中位",HIGH:"高位",HIGHEST:"极端上沿"};
+
+  function firstCostExactHow(item) {
+    const match = String(item?.grade || "").match(/\bC([0-7])\s*\/\s*(LOW|MID|HIGH|HIGHEST)\b/i);
+    if (!match) return firstCostPublicText(item?.reader_how || "");
+    const level = Number(match[1]);
+    const position = match[2].toUpperCase();
+    const debit = FIRST_COST_DEBIT[level]?.[position];
+    if (debit == null) return firstCostPublicText(item?.reader_how || "");
+    const severity = firstCostPublicText(`第${level}级成本`);
+    return `当前裁决为${severity}、${FIRST_COST_POSITION[position] || position}；固定扣分表直接对应${debit}分，所以本项扣${debit}分。`;
+  }
+
   function firstB1ScoreText(item) {
     const current = firstItemPublicText(item?.reader_public_b1?.public_calculation || item?.reader_how || "");
     const start = "起点资源档表示入链时可调用的军政资源强弱，不是好坏评分；资源越弱，创业难度分越高：E档15、D档13、C档11、B档8、A档5、S档2、S+档0。";
@@ -257,7 +280,7 @@
     if (byLabel["B1创业难度与效率"]) cards.push(renderFirstB1(byLabel["B1创业难度与效率"], bulletsByLabel["B1创业难度与效率"], record));
     if (byLabel["B2组织与整合"]) cards.push(renderFirstB2(byLabel["B2组织与整合"], bulletsByLabel["B2组织与整合"], record));
     if (byLabel["C军事统帅与战争解题"]) cards.push(renderFirstC(byLabel["C军事统帅与战争解题"], bulletsByLabel["C军事统帅与战争解题"], record));
-    if (byLabel["军事成本扣分"]?.value != null) cards.push(`<article class="context-story net-public-item first-item-card"><div class="component"><strong>战争代价</strong><b>${esc(netValue(byLabel["军事成本扣分"]))}</b></div>${firstCostMarkup(byLabel["军事成本扣分"])}<details><summary>扣分怎样换算</summary>${prose(byLabel["军事成本扣分"].reader_how || "")}</details>${firstItemSourceBlock(byLabel["军事成本扣分"], record)}</article>`);
+    if (byLabel["军事成本扣分"]?.value != null) cards.push(`<article class="context-story net-public-item first-item-card"><div class="component"><strong>战争代价</strong><b>${esc(netValue(byLabel["军事成本扣分"]))}</b></div>${firstCostMarkup(byLabel["军事成本扣分"])}<details><summary>扣分怎样换算</summary>${prose(firstCostExactHow(byLabel["军事成本扣分"]))}</details>${firstItemSourceBlock(byLabel["军事成本扣分"], record)}</article>`);
     const totals = firstItemTotals(items);
     const netScore = Number(byLabel["第一项净分"]?.value);
     const zeroNote = Number.isFinite(netScore) && netScore === 0

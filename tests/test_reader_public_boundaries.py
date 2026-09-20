@@ -662,6 +662,20 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "两个战略安全轴最后直接相加" in source
 
 
+def test_first_item_cost_explains_current_fixed_debit_lookup():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    for source in (home, person):
+        assert "const FIRST_COST_DEBIT" in source
+        assert "5:{LOW:18,MID:22.5,HIGH:27}" in source
+        assert "7:{LOW:60,MID:68,HIGH:76,HIGHEST:80}" in source
+        assert "function firstCostExactHow(item)" in source
+        assert "固定扣分表直接对应" in source
+        assert "所以本项扣" in source
+
+
 def test_first_item_b1_explains_start_opponent_and_efficiency_subscores():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
