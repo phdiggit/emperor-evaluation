@@ -495,6 +495,13 @@ def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_se
     assert '["成本程度", publicLevel]' in home
 
 
+def test_first_item_a_how_block_shows_exact_public_curve():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "项目A池 = 120 × (min(1000, U) / 1000)^0.65" in source
+    assert "共同项目再按本人控制信用占项目总信用的比例分配" in source
+
+
 def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
