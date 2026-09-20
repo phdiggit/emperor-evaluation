@@ -337,7 +337,7 @@ def test_generated_reader_release_pins_dynamic_sources():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     html = (root / "reader/index.html").read_text(encoding="utf-8")
-    match = re.search(r'<script[^>]*\\bid="reader-data"[^>]*>(.*?)</script>', html, flags=re.S)
+    match = re.search(r'<script[^>]*\bid="reader-data"[^>]*>(.*?)</script>', html, flags=re.S)
     assert match
     payload = json.loads(match.group(1))
     expected = os.environ.get("GITHUB_SHA", "").lower()
