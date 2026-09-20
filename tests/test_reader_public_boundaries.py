@@ -491,7 +491,7 @@ def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_se
         assert "L0—L5" not in source
         assert "E、D、C、B、A、S 六档" in source
 
-    assert 'const severity = ["无显著代价","很低","较低","中等","较高","高","极高","灾难级"];' in home
+    assert 'const severity = ["无显著代价","很低成本","较低成本","中等成本","较高成本","高成本","极高成本","灾难级成本"];' in home
     assert '["成本程度", publicLevel]' in home
 
 
