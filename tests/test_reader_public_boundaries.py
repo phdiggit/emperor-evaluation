@@ -477,6 +477,24 @@ def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
     # Internal formulas remain available inside collapsed calculation details.
     assert "四轴毛分 = A + B1 + B2 + C" in home
     assert "B2 = 并行执行分" in person
+def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_severity():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+
+    for source in (home, person):
+        assert 'const FIRST_PUBLIC_C_GRADES = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};' in source
+        assert '"起点R$1级"' not in source
+        assert '"L$1级"' not in source
+        assert '第${n}档' not in source
+        assert "L0—L5" not in source
+        assert "E、D、C、B、A、S 六档" in source
+
+    assert 'const severity = ["无显著代价","很低","较低","中等","较高","高","极高","灾难级"];' in home
+    assert '["成本程度", publicLevel]' in home
+
+
 def test_mobile_material_cards_stack_labels_and_scores():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]

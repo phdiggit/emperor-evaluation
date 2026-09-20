@@ -120,23 +120,31 @@
     return {};
   }
 
+  const FIRST_PUBLIC_R_GRADES = ["E","D","C","B","A","S","S+"];
+  const FIRST_PUBLIC_O_GRADES = [null,"E","D","C","B","A","S"];
+  const FIRST_PUBLIC_L_GRADES = ["E","D","C","B","A","S"];
+  const FIRST_PUBLIC_D_GRADES = ["D","C","B","A","S"];
+  const FIRST_PUBLIC_C_GRADES = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
+  const FIRST_PUBLIC_POSITION = {LOW:"低位",MID:"中位",HIGH:"高位"};
+
   function firstItemPublicText(value) {
     return String(value ?? "")
-      .replace(/\bR([0-6])\b/g, "起点R$1级")
-      .replace(/\bO([1-6])\b/g, "对手O$1级")
-      .replace(/\bL([0-5])\b/g, "L$1级")
+      .replace(/\bR([0-6])\b/g, (_, n) => `起点${FIRST_PUBLIC_R_GRADES[Number(n)] || n}档`)
+      .replace(/\bO([1-6])\b/g, (_, n) => `对手${FIRST_PUBLIC_O_GRADES[Number(n)] || n}档`)
+      .replace(/\bL([0-5])\b/g, (_, n) => `${FIRST_PUBLIC_L_GRADES[Number(n)] || n}档`)
+      .replace(/\bD([0-4])\b/g, (_, n) => `${FIRST_PUBLIC_D_GRADES[Number(n)] || n}档难度`)
       .replace(/\bHYBRID\b/g, "战略统筹与本人主帅／临阵并存")
       .replace(/\bSTRATEGIC_COMMAND\b/g, "战略统筹路线")
       .replace(/\bNONE\b/g, "未形成可计的本人统帅责任")
-      .replace(/\bC-([0-5])-(LOW|MID|HIGH)\b/g, (_, n, p) => `第${n}档·${({LOW:"低位",MID:"中位",HIGH:"高位"})[p]}`)
-      .replace(/\bC-0\b/g, "第0档")
+      .replace(/\bC-([0-5])-(LOW|MID|HIGH)\b/g, (_, n, p) => `${FIRST_PUBLIC_C_GRADES[Number(n)] || n}档·${FIRST_PUBLIC_POSITION[p] || p}`)
+      .replace(/\bC-0\b/g, `${FIRST_PUBLIC_C_GRADES[0]}档`)
       .replace(/\s+/g, " ")
       .trim();
   }
 
   function firstFactText(value) {
     return firstItemPublicText(value)
-      .replace(/^L[0-5]级[。；：]?\s*/, "")
+      .replace(/^(?:S\+?|A|B|C|D|E)档[。；：]?\s*/, "")
       .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
       .trim();
   }
@@ -188,7 +196,7 @@
     const coverage = bullets["团队能力覆盖与组织杠杆"] || bullets["能力覆盖/组织杠杆"] || "";
     const integration = bullets["异质整合"] || "";
     const basis = bullets["裁决依据"] || "";
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>创业组织与政治整合</strong><small>满分30；看多线并行、专业分工与异质整合</small></span><b>${esc(netValue(item))}</b></div><div class="label">这项看什么</div>${prose("看创业或统一机器能不能脱离本人逐项盯办而运行：能否多线并行、能否把高难任务交给专业责任中心、能否把不同地域和旧集团稳定整合进同一执行体系。")}${parallel ? `<div class="label">并行执行</div>${prose(firstFactText(parallel))}` : ""}${coverage ? `<div class="label">专业覆盖与组织杠杆</div>${prose(firstFactText(coverage))}` : ""}${integration ? `<div class="label">异质整合</div>${prose(firstFactText(integration))}` : ""}${basis ? `<div class="label">为什么这样判</div>${prose(firstFactText(basis))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`内部结算把三个维度分别按L0—L5映射为0、2、4、6、8、10分；B2 = 并行执行分 + 专业覆盖／组织杠杆分 + 异质整合分。${result ? `\n本人的正式结算：${firstItemPublicText(result)}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>创业组织与政治整合</strong><small>满分30；看多线并行、专业分工与异质整合</small></span><b>${esc(netValue(item))}</b></div><div class="label">这项看什么</div>${prose("看创业或统一机器能不能脱离本人逐项盯办而运行：能否多线并行、能否把高难任务交给专业责任中心、能否把不同地域和旧集团稳定整合进同一执行体系。")}${parallel ? `<div class="label">并行执行</div>${prose(firstFactText(parallel))}` : ""}${coverage ? `<div class="label">专业覆盖与组织杠杆</div>${prose(firstFactText(coverage))}` : ""}${integration ? `<div class="label">异质整合</div>${prose(firstFactText(integration))}` : ""}${basis ? `<div class="label">为什么这样判</div>${prose(firstFactText(basis))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`三个维度均分为 E、D、C、B、A、S 六档，依次对应0、2、4、6、8、10分；B2 = 并行执行分 + 专业覆盖／组织杠杆分 + 异质整合分。${result ? `\n本人的正式结算：${firstItemPublicText(result)}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
   function renderFirstC(item, bullets, record) {

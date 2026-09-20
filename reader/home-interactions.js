@@ -22,7 +22,9 @@ function firstB1Markup(item) {
 
 function firstCostMarkup(item) {
   const data = item?.reader_public_cost || {};
-  const fields = [["成本程度", data.public_level_label], ["证据状态", data.public_status_label], ["责任时期", data.public_responsibility_window], ["完整成本说明", data.public_basis]];
+  const severity = ["无显著代价","很低","较低","中等","较高","高","极高","灾难级"];
+  const publicLevel = String(data.public_level_label || "").replace(/第([0-7])级/g, (_, n) => severity[Number(n)] || n);
+  const fields = [["成本程度", publicLevel], ["证据状态", data.public_status_label], ["责任时期", data.public_responsibility_window], ["完整成本说明", data.public_basis]];
   const facts = fields.filter(([, value]) => value).map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(value)}`).join("");
   const gaps = (data.public_unresolved_gaps || []).map(value => `<li>${esc(value)}</li>`).join("");
   const sources = (data.public_source_links || []).filter(source => /^https?:\/\//.test(source.url))
@@ -698,23 +700,31 @@ function firstCommanderMarkup(item) {
     return {};
   }
 
+  const FIRST_PUBLIC_R_GRADES = ["E","D","C","B","A","S","S+"];
+  const FIRST_PUBLIC_O_GRADES = [null,"E","D","C","B","A","S"];
+  const FIRST_PUBLIC_L_GRADES = ["E","D","C","B","A","S"];
+  const FIRST_PUBLIC_D_GRADES = ["D","C","B","A","S"];
+  const FIRST_PUBLIC_C_GRADES = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
+  const FIRST_PUBLIC_POSITION = {LOW:"低位",MID:"中位",HIGH:"高位"};
+
   function firstItemPublicText(value) {
     return String(value ?? "")
-      .replace(/\bR([0-6])\b/g, "起点R$1级")
-      .replace(/\bO([1-6])\b/g, "对手O$1级")
-      .replace(/\bL([0-5])\b/g, "L$1级")
+      .replace(/\bR([0-6])\b/g, (_, n) => `起点${FIRST_PUBLIC_R_GRADES[Number(n)] || n}档`)
+      .replace(/\bO([1-6])\b/g, (_, n) => `对手${FIRST_PUBLIC_O_GRADES[Number(n)] || n}档`)
+      .replace(/\bL([0-5])\b/g, (_, n) => `${FIRST_PUBLIC_L_GRADES[Number(n)] || n}档`)
+      .replace(/\bD([0-4])\b/g, (_, n) => `${FIRST_PUBLIC_D_GRADES[Number(n)] || n}档难度`)
       .replace(/\bHYBRID\b/g, "战略统筹与本人主帅／临阵并存")
       .replace(/\bSTRATEGIC_COMMAND\b/g, "战略统筹路线")
       .replace(/\bNONE\b/g, "未形成可计的本人统帅责任")
-      .replace(/\bC-([0-5])-(LOW|MID|HIGH)\b/g, (_, n, p) => `第${n}档·${({LOW:"低位",MID:"中位",HIGH:"高位"})[p]}`)
-      .replace(/\bC-0\b/g, "第0档")
+      .replace(/\bC-([0-5])-(LOW|MID|HIGH)\b/g, (_, n, p) => `${FIRST_PUBLIC_C_GRADES[Number(n)] || n}档·${FIRST_PUBLIC_POSITION[p] || p}`)
+      .replace(/\bC-0\b/g, `${FIRST_PUBLIC_C_GRADES[0]}档`)
       .replace(/\s+/g, " ")
       .trim();
   }
 
   function firstFactText(value) {
     return firstItemPublicText(value)
-      .replace(/^L[0-5]级[。；：]?\s*/, "")
+      .replace(/^(?:S\+?|A|B|C|D|E)档[。；：]?\s*/, "")
       .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
       .trim();
   }
@@ -783,7 +793,7 @@ function firstCommanderMarkup(item) {
     const integration = bullets["异质整合"] || "";
     const basis = bullets["裁决依据"] || "";
     const facts = `${parallel ? `<div class="label">多线任务怎样同时推进</div>${prose(firstFactText(parallel))}` : ""}${coverage ? `<div class="label">团队怎样分工</div>${prose(firstFactText(coverage))}` : ""}${integration ? `<div class="label">旧部、降附者与异质集团怎样整合</div>${prose(firstFactText(integration))}` : ""}${basis ? `<div class="label">本人组织表现与限制</div>${prose(firstFactText(basis))}` : ""}${bullets["材料来源"] ? `<details><summary>史料与归责来源</summary><p class="sources">${firstEvidenceMarkup(bullets["材料来源"], "B2组织与整合")}</p></details>` : ""}`;
-    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose("B2看创业或统一机器能否多线并行、把高难任务交给专业责任中心，并把不同地域和旧集团稳定接入同一执行体系。三个维度各用L0—L5六档，分别映射0、2、4、6、8、10分，三项相加。")}${result ? prose(`当前人物正式结算：${firstFactText(result)}`) : ""}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose("B2看创业或统一机器能否多线并行、把高难任务交给专业责任中心，并把不同地域和旧集团稳定接入同一执行体系。三个维度均分为 E、D、C、B、A、S 六档，依次对应0、2、4、6、8、10分，三项相加。")}${result ? prose(`当前人物正式结算：${firstFactText(result)}`) : ""}</details>`;
     return firstMetricDetail("net-first-b2", "创业组织与政治整合", "多线并行、专业分工与异质整合", item, `${facts}${rules}`, record);
   }
 
