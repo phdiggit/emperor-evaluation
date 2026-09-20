@@ -82,7 +82,10 @@ for (const name of fs.readdirSync(path.join(root,'reader/data/people'))) {
 }
 assert.ok(checked > 0);
 // Both the displayed evidence and the outer boundary must use the same lossless formatter.
-assert.match(source, /makeDetails\("范围与边界", publicText\(item\.reader_boundary/);
+assert.match(source, /const financeItem = \["C1民生","C2经济财政","C3社会安全","C4恢复与成本"\]\.includes\(label\)/);
+assert.match(source, /makeDetails\("范围与边界", financeItem \? publicFinanceText\(item\.reader_boundary/);
+assert.match(source, /: publicText\(item\.reader_boundary/);
+assert.match(source, /body: publicFinanceText\(entry\?\.public_basis\)/);
 assert.match(source, /label === "B2反馈与约束"/);
 assert.match(source, /renderB2MaterialGroups\(evidence\)/);
 assert.match(source, /if \(label === "A制度建设" \|\| label === "B1官僚治理"\) continue/);
