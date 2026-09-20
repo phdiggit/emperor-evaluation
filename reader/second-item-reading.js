@@ -13,8 +13,6 @@
   const LOSS_PUBLIC_TEXT = {0:"未见独立有效低谷",1:"有局部或短时损害",2:"出现明显低谷",3:"出现严重低谷"};
   const HANDOFF_PUBLIC_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
   function handoffGrade(value){const n=finite(value);return n!=null&&Number.isInteger(n)?HANDOFF_PUBLIC_GRADE[n]||"—":"—";}
-  const HISTORICAL_SECOND_POOL = 185;
-  const HISTORICAL_OUT_OF_CURRENT_POOL = 11;
   let scheduled = false;
 
   function finite(value){if(value==null||value==="")return null;const n=Number(value);return Number.isFinite(n)?n:null;}
@@ -42,30 +40,16 @@
   }
   function itemsFor(record,key){return new Map((record?.net?.component_details?.[key]||[]).map(item=>[item.label,item]));}
 
-  function currentSecondPool(){
-    if(typeof byId==="undefined")return[];
-    return Array.from(byId.values()).filter(r=>!r?.supplementary&&finite(r?.net?.second_item_score)!=null).map(r=>({id:String(r.ruler_id||""),score:finite(r.net.second_item_score)}));
-  }
-  function secondPoolPosition(record){
-    const score=finite(record?.net?.second_item_score);if(score==null)return null;
-    const eligible=currentSecondPool();if(!eligible.length)return null;
-    return{rank:1+eligible.filter(x=>x.score>score).length,total:eligible.length};
-  }
   function secondTotals(record){
     const method=itemsFor(record,"method"),finance=itemsFor(record,"finance"),handoff=itemsFor(record,"handoff");
     return{method,finance,handoff,
       methodScore:finite(method.get("治理手段")?.value),resultScore:finite(finance.get("治理结果")?.value),handoffScore:finite(handoff.get("交接得分")?.value),
       c1:finite(finance.get("C1民生")?.value),c2:finite(finance.get("C2经济财政")?.value),c3:finite(finance.get("C3社会安全")?.value),c4:finite(finance.get("C4恢复与成本")?.value),
-      totalScore:finite(record?.net?.second_item_score??handoff.get("第二项合计")?.value),pool:secondPoolPosition(record)};
+      totalScore:finite(record?.net?.second_item_score??handoff.get("第二项合计")?.value)};
   }
   function methodBand(item){const m=String(item?.grade||"").match(/\bG([0-5])\b/);return m?METHOD_BAND_LABELS[`G${m[1]}`]:"正式档未标明";}
   function stateMeta(item){const m=String(item?.grade||"").match(/\bC[123]-(\d+)\s*\/\s*L(\d+)\b/);if(!m)return"";const grade=STATE_PUBLIC_GRADE[Number(m[1])]||"";const loss=LOSS_PUBLIC_TEXT[Number(m[2])]||"";return[grade?`${grade}档`:"",loss].filter(Boolean).join("｜");}
   function boundaryExcerpt(item){return String(item?.reader_boundary||"").trim()?"适用范围与限制见展开说明":"";}
-  function rankText(t){
-    if(!t.pool)return"";
-    const pct=Math.max(1,Math.min(100,Math.ceil(t.pool.rank/t.pool.total*100)));
-    return`当前已结算人物：第 ${fmt(t.pool.rank,0)} / ${fmt(t.pool.total,0)}（约前 ${pct}%）`;
-  }
   function componentFallbackSummary(t){
     const parts=[
       ["制度与行政",finite(t.methodScore),165],
@@ -86,13 +70,12 @@
     style.textContent=`
       .second-item-reader-summary{border:1px solid var(--line);border-left:4px solid var(--green);border-radius:6px;padding:16px 18px;margin:0 0 18px;background:#f6f7f1}
       .second-item-reader-summary h2{font-size:21px;margin:0 0 8px}.second-item-person-conclusion{font-size:15px;line-height:1.8;margin:8px 0 10px}
-      .second-item-rank{display:inline-block;margin:2px 0 8px;padding:4px 9px;border-radius:4px;background:#e8ece4;color:var(--green);font-size:12px;font-weight:600}
       .second-item-total-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}.second-item-total-grid div{border:1px solid var(--line);border-radius:5px;padding:10px 12px;background:#fcfbf7;font-size:12px}.second-item-total-grid b{display:block;font:21px Georgia,serif;color:var(--green);margin-top:3px}
       .second-item-equation{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-size:14px}.second-item-equation strong{color:var(--green)}
       .second-item-formula{margin-top:12px;border-top:1px solid var(--line);padding:10px 0 0}.second-item-formula>summary{font-size:13px;color:var(--muted)}.second-item-formula .second-item-equation{margin-top:8px;padding-top:0;border-top:0}
       .second-item-scale-note{display:block;margin-top:4px;font-size:11px;color:var(--green);font-weight:600}.second-item-group-intro{margin:0 0 14px;padding:11px 13px;border-left:3px solid var(--gold);background:#f1eee6;font-size:13px;line-height:1.75}.second-item-c4-note{margin:0 0 12px;padding:9px 11px;border-left:3px solid var(--green);background:#f1eee6;font-size:13px;line-height:1.75}
-      .second-item-card-breakdown,.second-item-inline-rank{font-size:12px;color:var(--muted);line-height:1.65}.second-item-inline-rank{display:block;margin-top:3px;color:var(--green)}
-      .net-formal-basis-raw{margin-top:12px;border-top:1px solid var(--line)}.net-formal-basis-raw>.net-formal-basis-content{padding-top:8px}.second-item-pool-note{margin-top:8px;font-size:12px;line-height:1.65;color:var(--muted)}
+      .second-item-card-breakdown{font-size:12px;color:var(--muted);line-height:1.65}
+      .net-formal-basis-raw{margin-top:12px;border-top:1px solid var(--line)}.net-formal-basis-raw>.net-formal-basis-content{padding-top:8px}
       .net-major-card.second-item-card .big{font-size:30px}@media(max-width:700px){.second-item-total-grid{grid-template-columns:1fr}}
     `;document.head.append(style);
   }
@@ -111,16 +94,16 @@
     const desc=Array.from(card.querySelectorAll(":scope > p")).find(p=>!p.classList.contains("sources")&&!p.classList.contains("second-item-card-breakdown"));
     setNodeText(desc,"评价实际掌权期间的制度行政、民生社会与最终交接；军事、边疆与统一功业在其他板块单独评价。");
     if([t.methodScore,t.resultScore,t.handoffScore].some(v=>v==null))return;
-    let p=card.querySelector(":scope > .second-item-card-breakdown");if(!p){p=document.createElement("p");p.className="second-item-card-breakdown";const sources=card.querySelector(":scope > p.sources");card.insertBefore(p,sources||null);}const rank=rankText(t);
-    setNodeText(p,`${rank?`${rank} · `:""}制度与行政 ${fmt(t.methodScore)}/165 · 民生与社会 ${fmt(t.resultScore)}/202 · 政权交接 ${fmt(t.handoffScore)}/20`);
+    let p=card.querySelector(":scope > .second-item-card-breakdown");if(!p){p=document.createElement("p");p.className="second-item-card-breakdown";const sources=card.querySelector(":scope > p.sources");card.insertBefore(p,sources||null);}
+    setNodeText(p,`制度与行政 ${fmt(t.methodScore)}/165 · 民生与社会 ${fmt(t.resultScore)}/202 · 政权交接 ${fmt(t.handoffScore)}/20`);
   }
   function ensureSecondSummary(record,t){
     if(!location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/))return;const container=document.getElementById("net-major-body");if(!container||[t.methodScore,t.resultScore,t.handoffScore,t.totalScore].some(v=>v==null))return;
-    const rank=rankText(t),takeaway=personConclusion(t,record);let summary=container.querySelector(":scope > .second-item-reader-summary");if(!summary){summary=document.createElement("section");summary.className="second-item-reader-summary";container.insertBefore(summary,container.firstChild);}
-    const key=[t.methodScore,t.resultScore,t.handoffScore,t.totalScore,t.c4,rank,takeaway].join("|");
-    if(summary.dataset.secondRenderKey!==key){summary.innerHTML=`<h2>先看治国结论</h2><p class="second-item-person-conclusion">${safeText(takeaway)}</p>${rank?`<span class="second-item-rank">${rank}</span>`:""}<div class="second-item-total-grid"><div>制度与行政<b>${fmt(t.methodScore)} / 165</b><small>制度建设、官僚治理与反馈约束</small></div><div>民生与社会<b>${fmt(t.resultScore)} / 202</b><small>民生、经济财政、社会安全与恢复成本</small></div><div>政权交接<b>${fmt(t.handoffScore)} / 20</b><small>行政承接与继承稳定</small></div></div><details class="second-item-formula"><summary>这个分数怎么算？</summary><div class="second-item-equation">${fmt(t.methodScore)} + ${fmt(t.resultScore)} + ${fmt(t.handoffScore)} = <strong>治国成效 ${fmt(t.totalScore)} / 387</strong></div><p class="subline">本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”。小数位来自统一计分公式，不表示历史判断本身具有同等测量精度。</p></details>`;summary.dataset.secondRenderKey=key;}
+    const takeaway=personConclusion(t,record);let summary=container.querySelector(":scope > .second-item-reader-summary");if(!summary){summary=document.createElement("section");summary.className="second-item-reader-summary";container.insertBefore(summary,container.firstChild);}
+    const key=[t.methodScore,t.resultScore,t.handoffScore,t.totalScore,t.c4,takeaway].join("|");
+    if(summary.dataset.secondRenderKey!==key){summary.innerHTML=`<h2>先看治国结论</h2><p class="second-item-person-conclusion">${safeText(takeaway)}</p><div class="second-item-total-grid"><div>制度与行政<b>${fmt(t.methodScore)} / 165</b><small>制度建设、官僚治理与反馈约束</small></div><div>民生与社会<b>${fmt(t.resultScore)} / 202</b><small>民生、经济财政、社会安全与恢复成本</small></div><div>政权交接<b>${fmt(t.handoffScore)} / 20</b><small>行政承接与继承稳定</small></div></div><details class="second-item-formula"><summary>这个分数怎么算？</summary><div class="second-item-equation">${fmt(t.methodScore)} + ${fmt(t.resultScore)} + ${fmt(t.handoffScore)} = <strong>治国成效 ${fmt(t.totalScore)} / 387</strong></div><p class="subline">本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”。小数位来自统一计分公式，不表示历史判断本身具有同等测量精度。</p></details>`;summary.dataset.secondRenderKey=key;}
     const page=document.querySelector(".net-detail-page"),intro=page?.querySelector(":scope > .panel");
-    if(intro){const main=Array.from(intro.querySelectorAll(":scope > p")).find(p=>!p.classList.contains("subline")),score=intro.querySelector(":scope > p.subline");setNodeText(main,"治国成效看三件事：国家机器如何运转、统治时期民生与社会表现如何、离场时能否留下稳定可运行的交接。军事、边疆与统一功业另在其他板块评价。");setNodeText(score,`治国成效总分：${fmt(t.totalScore)} / 387${rank?`；${rank}`:""}。先看结论，再展开到各项依据。`);}
+    if(intro){const main=Array.from(intro.querySelectorAll(":scope > p")).find(p=>!p.classList.contains("subline")),score=intro.querySelector(":scope > p.subline");setNodeText(main,"治国成效看三件事：国家机器如何运转、统治时期民生与社会表现如何、离场时能否留下稳定可运行的交接。军事、边疆与统一功业另在其他板块评价。");setNodeText(score,`治国成效总分：${fmt(t.totalScore)} / 387。先看结论，再展开到各项依据。`);}
   }
 
   function ensureMethodGroup(t){
@@ -169,11 +152,6 @@
     }
   }
   function restoreFormalBasisForRoute(record){const route=parsedNetRoute();if(!route||!record?.net?.component_details)return;const groups=route.major==="second"?["method","finance","handoff"]:route.major==="third"?["strategic","military"]:route.major==="fourth"?["civilization"]:[];for(const key of groups)restoreFormalBasis(document.getElementById(`net-group-${key}`),itemsFor(record,key));}
-  function ensureAuditPoolNotes(t){
-    if(!location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/))return;const current=t.pool?.total;
-    for(const audit of document.querySelectorAll("#net-major-body .net-audit-sources")){let note=audit.querySelector(":scope > .second-item-pool-note");if(!note){note=document.createElement("p");note.className="second-item-pool-note";const sources=audit.querySelector(":scope > .sources");audit.insertBefore(note,sources||null);}setNodeText(note,`排名口径：当前公开名次只比较已完成治国成效结算的${current??"现有"}人。原第二项总表仍保留${HISTORICAL_SECOND_POOL}人历史快照，其中含${HISTORICAL_OUT_OF_CURRENT_POOL}条现已不在当前正式评价对象中的旧记录，因此原文件内旧rank不等于当前公开名次。`);}
-  }
-
   function groupKindFromSummary(summary){const text=summary?.textContent.trim()||"";if(text.includes("制度与行政"))return"method";if(text.includes("财政与民生")||text.includes("民生与社会"))return"finance";if(text.includes("政权交接")||text.includes("交接质量"))return"handoff";return"";}
   function publicGroupTitle(kind){return{method:"制度与行政",finance:"民生与社会",handoff:"政权交接"}[kind]||"";}
   function replaceCompactNote(span,text){
@@ -211,22 +189,22 @@
   }
   function enhancePersonOverview(record){
     if(!record?.detail_loaded||!record?.net||!location.hash.startsWith("#person/"))return;const panel=document.getElementById("person-outcome");if(!panel)return;const t=secondTotals(record);
-    for(const row of panel.querySelectorAll(":scope > .component")){const span=row.querySelector("span");if(!span||!["治国净收益","治国成效"].some(label=>directText(span).startsWith(label)))continue;setRowLabel(span,"治国成效");setNodeText(row.querySelector("b"),`${fmt(t.totalScore)} / 387`);let rank=span.querySelector(":scope > .second-item-inline-rank");if(!rank){rank=document.createElement("small");rank.className="second-item-inline-rank";span.append(rank);}setNodeText(rank,rankText(t));}
+    for(const row of panel.querySelectorAll(":scope > .component")){const span=row.querySelector("span");if(!span||!["治国净收益","治国成效"].some(label=>directText(span).startsWith(label)))continue;setRowLabel(span,"治国成效");setNodeText(row.querySelector("b"),`${fmt(t.totalScore)} / 387`);}
     enhanceCompactGroups(record);
   }
-  function pendingSecondLabel(record){return record?.settlement_readiness==="PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"?"待正式结算":"未入榜";}
+  function pendingSecondLabel(record){return record?.settlement_readiness==="PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"?"待正式结算":"未结算";}
   function enhanceCompare(records){
     if(records.length<2||records.some(r=>!r?.detail_loaded))return;const rows=Array.from(screenEl.querySelectorAll(".comparison tbody tr")),secondRow=rows.find(r=>["治国净收益","治国成效"].includes(r.cells?.[0]?.textContent.trim()));
-    if(secondRow){setNodeText(secondRow.cells?.[0],"治国成效");records.forEach((record,index)=>{const cell=secondRow.cells[index+1];if(!cell)return;if(!record?.net){setNodeText(cell,pendingSecondLabel(record));return;}const t=secondTotals(record),key=`${t.totalScore}|${rankText(t)}`;if(cell.dataset.secondItemKey===key)return;cell.innerHTML=`<b>${fmt(t.totalScore)} / 387</b>${rankText(t)?`<small class="second-item-inline-rank">${rankText(t)}</small>`:""}`;cell.dataset.secondItemKey=key;});}
+    if(secondRow){setNodeText(secondRow.cells?.[0],"治国成效");records.forEach((record,index)=>{const cell=secondRow.cells[index+1];if(!cell)return;if(!record?.net){setNodeText(cell,pendingSecondLabel(record));return;}const t=secondTotals(record),key=String(t.totalScore);if(cell.dataset.secondItemKey===key)return;cell.innerHTML=`<b>${fmt(t.totalScore)} / 387</b>`;cell.dataset.secondItemKey=key;});}
     const structureRow=rows.find(r=>r.cells?.[0]?.textContent.trim()==="构成与依据");
-    if(structureRow){records.forEach((record,index)=>{const cell=structureRow.cells[index+1];if(!cell)return;if(!record?.net){if(record?.settlement_readiness==="PENDING_SECOND_ITEM_FORMAL_SETTLEMENT")setNodeText(cell,"治国成效正式结算待补；当前不进入治国成效排名。");return;}for(const details of cell.querySelectorAll("details")){const summary=details.querySelector(":scope > summary"),kind=groupKindFromSummary(summary);if(kind){setNodeText(summary,publicGroupTitle(kind));formatCompactGroup(details,record,kind);}}});}
+    if(structureRow){records.forEach((record,index)=>{const cell=structureRow.cells[index+1];if(!cell)return;if(!record?.net){if(record?.settlement_readiness==="PENDING_SECOND_ITEM_FORMAL_SETTLEMENT")setNodeText(cell,"治国成效正式结算待补；当前没有本项正式结果。");return;}for(const details of cell.querySelectorAll("details")){const summary=details.querySelector(":scope > summary"),kind=groupKindFromSummary(summary);if(kind){setNodeText(summary,publicGroupTitle(kind));formatCompactGroup(details,record,kind);}}});}
   }
 
   function enhanceNetRoute(record){
     if(!record?.net)return;restoreFormalBasisForRoute(record);const route=parsedNetRoute();if(!route)return;const t=secondTotals(record);
     if(route.major==="all"){ensureLandingCard(record,t);return;}
     if(route.major!=="second")return;
-    ensureSecondSummary(record,t);ensureMethodGroup(t);ensureFinanceGroup(t);ensureHandoffGroup(t);ensureAuditPoolNotes(t);
+    ensureSecondSummary(record,t);ensureMethodGroup(t);ensureFinanceGroup(t);ensureHandoffGroup(t);
   }
   function enhance(){ensureStyles();const netRecord=recordForNetRoute();if(netRecord)enhanceNetRoute(netRecord);const personRecord=recordForPersonRoute();if(personRecord)enhancePersonOverview(personRecord);const compareRecords=recordsForCompareRoute();if(compareRecords.length)enhanceCompare(compareRecords);}
   function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;enhance();});}
