@@ -730,10 +730,17 @@ def test_person_page_builds_compact_net_summary_without_transient_full_detail_tr
     assert "independent #net page" in source
 
 
-def test_first_item_overview_cost_uses_public_severity_text():
+def test_first_item_overview_cost_is_compact_and_does_not_repeat_full_basis():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
-    assert 'const costText = firstCostPublicText(cost?.reader_public_cost?.public_basis || "");' in source
+    start = source.index("function firstItemOverview")
+    end = source.index("async function renderFirstMajor", start)
+    block = source[start:end]
+    assert 'const costData = cost?.reader_public_cost || {};' in block
+    assert 'firstCostPublicText(costData.public_level_label || "")' in block
+    assert "costData.public_status_label" in block
+    assert "costData.public_responsibility_window" in block
+    assert "costData.public_basis" not in block
 
 
 def test_fourth_item_material_cards_split_long_basis_after_public_translation():
