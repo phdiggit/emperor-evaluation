@@ -495,6 +495,18 @@ def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_se
     assert '["成本程度", publicLevel]' in home
 
 
+def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "function firstCostPublicText(value)" in source
+    assert "很低成本" in source
+    assert "极高成本" in source
+    assert "灾难级成本" in source
+    assert 'firstCostPublicText(data.public_basis)' in source
+    assert "当前能力裁决：" in source
+    assert 'firstItemPublicText(item.grade || "")' in source
+
+
 def test_mobile_material_cards_stack_labels_and_scores():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]

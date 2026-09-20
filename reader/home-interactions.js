@@ -20,13 +20,22 @@ function firstB1Markup(item) {
     .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(value)}`).join("");
 }
 
+function firstCostPublicText(value) {
+  const severity = ["无显著代价","很低成本","较低成本","中等成本","较高成本","高成本","极高成本","灾难级成本"];
+  const chinese = {"零":0,"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7};
+  return String(value || "")
+    .replace(/第([0-7一二三四五六七])级(?:成本)?/g, (_, level) => {
+      const index = chinese[level] != null ? chinese[level] : Number(level);
+      return severity[index] || level;
+    });
+}
+
 function firstCostMarkup(item) {
   const data = item?.reader_public_cost || {};
-  const severity = ["无显著代价","很低","较低","中等","较高","高","极高","灾难级"];
-  const publicLevel = String(data.public_level_label || "").replace(/第([0-7])级/g, (_, n) => severity[Number(n)] || n);
-  const fields = [["成本程度", publicLevel], ["证据状态", data.public_status_label], ["责任时期", data.public_responsibility_window], ["完整成本说明", data.public_basis]];
+  const publicLevel = firstCostPublicText(data.public_level_label);
+  const fields = [["成本程度", publicLevel], ["证据状态", data.public_status_label], ["责任时期", data.public_responsibility_window], ["完整成本说明", firstCostPublicText(data.public_basis)]];
   const facts = fields.filter(([, value]) => value).map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(value)}`).join("");
-  const gaps = (data.public_unresolved_gaps || []).map(value => `<li>${esc(value)}</li>`).join("");
+  const gaps = (data.public_unresolved_gaps || []).map(value => `<li>${esc(firstCostPublicText(value))}</li>`).join("");
   const sources = (data.public_source_links || []).filter(source => /^https?:\/\//.test(source.url))
     .map(source => `<a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.label)} ↗</a>`).join(" ");
   return `${facts}${gaps ? `<div class="label">证据缺口</div><ul>${gaps}</ul>` : ""}${sources ? `<p class="sources">${sources}</p>` : ""}`;
@@ -819,14 +828,15 @@ function firstCommanderMarkup(item) {
 
   function renderFirstC(item, bullets, record) {
     const facts = firstCommanderMarkup(item);
+    const grade = firstItemPublicText(item.grade || "");
     const how = firstItemPublicText(item.reader_how || "");
-    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n当前换算：${how || "按正式能力档与责任路线换算。"}\\n当前结果：${item.value} 分。`)}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n当前能力裁决：${grade || "按正式能力档裁决"}。\\n当前换算：${how || "按正式能力档与责任路线换算。"}\\n当前结果：${item.value} 分。`)}</details>`;
     return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${rules}`, record);
   }
 
   function renderFirstCost(item, record) {
-    const level = String(item.reader_public_cost?.public_level_label || "").replace(/第([0-7一二三四五六七])级/, (_, n) => thirdCostText(n));
-    const rule = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`当前成本裁决：${level || "按正式成本严重度裁决"}。\\n换算规则：按正式成本严重度与同级位置查固定扣分表。\\n当前换算：${item.reader_how || ""}\\n当前扣减：${item.value} 分。`)}</details>`;
+    const level = firstCostPublicText(item.reader_public_cost?.public_level_label || "");
+    const rule = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`当前成本裁决：${level || "按正式成本严重度裁决"}。\\n换算规则：按正式成本严重度与同级位置查固定扣分表。\\n当前换算：${firstCostPublicText(item.reader_how || "")}\\n当前扣减：${item.value} 分。`)}</details>`;
     return firstMetricDetail("net-first-cost", "军事成本 · 战争代价", "从四轴毛分中扣除", item, `${firstCostMarkup(item)}${rule}`, record, `扣 ${item.value} 分`);
   }
 
