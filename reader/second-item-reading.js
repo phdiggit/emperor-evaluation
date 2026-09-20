@@ -59,7 +59,7 @@
       totalScore:finite(record?.net?.second_item_score??handoff.get("第二项合计")?.value),pool:secondPoolPosition(record)};
   }
   function methodBand(item){const m=String(item?.grade||"").match(/\bG([0-5])\b/);return m?METHOD_BAND_LABELS[`G${m[1]}`]:"正式档未标明";}
-  function stateMeta(item){const m=String(item?.grade||"").match(/\bC[123]-(\d+)\s*\/\s*L(\d+)\b/);if(!m)return"";const low=Number(m[2]);return`主要状态第${m[1]}档｜${low===0?"无额外低谷修正":`低谷修正${low}级`}`;}
+  function stateMeta(item){const m=String(item?.grade||"").match(/\bC[123]-(\d+)\s*\/\s*L(\d+)\b/);if(!m)return"";const grade=STATE_PUBLIC_GRADE[Number(m[1])]||"";const loss=LOSS_PUBLIC_TEXT[Number(m[2])]||"";return[grade?`${grade}档`:"",loss].filter(Boolean).join("｜");}
   function boundaryExcerpt(item){return String(item?.reader_boundary||"").trim()?"适用范围与限制见展开说明":"";}
   function rankText(t){
     if(!t.pool)return"";
@@ -128,7 +128,7 @@
   function ensureMethodGroup(t){
     const section=document.getElementById("net-group-method");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"制度与行政");
     addGroupIntro(section,"method",`这一组看国家机器如何建立规则、配置官僚并形成反馈约束。三项使用不同原始量表，统一折算后本组最高165分；当前得分为 ${fmt(t.methodScore)} / 165。具体折算方法放在各项展开内容中。`);
-    for(const label of ["A制度建设","B1官僚治理","B2反馈与约束"]){const item=t.method.get(label),detail=metricDetail(section,[label,METHOD_PUBLIC[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;setMetricDisplay(detail,`${fmt(item.value)} / ${METHOD_MAX[label]} 指数`,joinNote(`正式方向档：${methodBand(item)}`,boundaryExcerpt(item)),METHOD_PUBLIC[label]);}
+    for(const label of ["A制度建设","B1官僚治理","B2反馈与约束"]){const item=t.method.get(label),detail=metricDetail(section,[label,METHOD_PUBLIC[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;setMetricDisplay(detail,`${methodBand(item)}档`,joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}（合成输入，不单独加分）`,boundaryExcerpt(item)),METHOD_PUBLIC[label]);}
   }
   function ensureC4Note(detail,value){
     const body=detail?.querySelector(":scope > .net-metric-body");if(!body)return;let note=body.querySelector(":scope > .second-item-c4-note");if(!note){note=document.createElement("p");note.className="second-item-c4-note";body.insertBefore(note,body.firstChild);}
@@ -142,7 +142,7 @@
     addGroupIntro(section,"finance",`这一组看统治时期的民生、经济财政、社会安全，以及恢复与额外成本。前三项满分分别为80、35、60，C4另记恢复增量、本人可归责恶化与额外民力/治理成本的净调整；四项合计为 ${fmt(t.resultScore)} / 202。`);
     for(const label of ["C1民生","C2经济财政","C3社会安全"]){const item=t.finance.get(label),detail=metricDetail(section,[label,FINANCE_PUBLIC[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;setMetricDisplay(detail,`${fmt(item.value)} / ${FINANCE_MAX[label]} 分`,joinNote(`状态分·满分${FINANCE_MAX[label]}`,stateMeta(item),boundaryExcerpt(item)),FINANCE_PUBLIC[label]);}
     const item=t.finance.get("C4恢复与成本"),detail=metricDetail(section,["C4恢复与成本","恢复与额外成本（C4）","C4恢复、恶化与额外成本调整"]);markSourceLabel(detail,"C4恢复与成本");
-    if(item&&detail){setMetricDisplay(detail,`${signedFmt(item.value)} 分`,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)),"恢复与额外成本（C4）");ensureC4Note(detail,item.value);}
+    if(item&&detail){setMetricDisplay(detail,`${signedFmt(item.value)} 分`,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)),"恢复与额外成本");ensureC4Note(detail,item.value);}
   }
   function ensureHandoffGroup(t){
     const section=document.getElementById("net-group-handoff");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"政权交接");
@@ -197,9 +197,9 @@
       const span=row.querySelector(":scope > span"),value=row.querySelector(":scope > b");if(!span||!value)continue;const label=span.dataset.secondSourceLabel||directText(span)||span.querySelector("strong")?.textContent.trim()||"";let sourceLabel=label;
       if(!map.has(sourceLabel)){sourceLabel=Object.keys(METHOD_PUBLIC).find(k=>METHOD_PUBLIC[k]===label)||Object.keys(FINANCE_PUBLIC).find(k=>FINANCE_PUBLIC[k]===label)||({"恢复与额外成本（C4）":"C4恢复与成本","行政连续性（D1）":"D1继任行政连续性","交接稳定（D3）":"D3政权交接稳定","行政连续性":"D1继任行政连续性","交接稳定":"D3政权交接稳定","交接短板上限":"低侧封顶","政权交接得分":"交接得分","治国成效合计":"第二项合计"}[label]||label);}
       span.dataset.secondSourceLabel=sourceLabel;const item=map.get(sourceLabel);
-      if(kind==="method"&&item&&METHOD_MAX[sourceLabel]){setRowLabel(span,METHOD_PUBLIC[sourceLabel]);setNodeText(value,`${fmt(item.value)} / ${METHOD_MAX[sourceLabel]} 指数`);replaceCompactNote(span,joinNote(`正式方向档：${methodBand(item)}`,boundaryExcerpt(item)));}
+      if(kind==="method"&&item&&METHOD_MAX[sourceLabel]){setRowLabel(span,METHOD_PUBLIC[sourceLabel]);setNodeText(value,`${methodBand(item)}档`);replaceCompactNote(span,joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[sourceLabel]}（合成输入，不单独加分）`,boundaryExcerpt(item)));}
       else if(kind==="finance"&&item&&FINANCE_MAX[sourceLabel]){setRowLabel(span,FINANCE_PUBLIC[sourceLabel]);setNodeText(value,`${fmt(item.value)} / ${FINANCE_MAX[sourceLabel]} 分`);replaceCompactNote(span,joinNote(stateMeta(item),boundaryExcerpt(item)));}
-      else if(kind==="finance"&&item&&sourceLabel==="C4恢复与成本"){setRowLabel(span,"恢复与额外成本（C4）");setNodeText(value,`${signedFmt(item.value)} 分`);replaceCompactNote(span,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)));}
+      else if(kind==="finance"&&item&&sourceLabel==="C4恢复与成本"){setRowLabel(span,"恢复与额外成本");setNodeText(value,`${signedFmt(item.value)} 分`);replaceCompactNote(span,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)));}
       else if(kind==="handoff"&&item&&sourceLabel==="D1继任行政连续性"){setRowLabel(span,"行政连续性");setNodeText(value,`${handoffGrade(item.value)}档`);replaceCompactNote(span,joinNote("行政承接",boundaryExcerpt(item)));}
       else if(kind==="handoff"&&item&&sourceLabel==="D3政权交接稳定"){setRowLabel(span,"交接稳定");setNodeText(value,`${handoffGrade(item.value)}档`);replaceCompactNote(span,joinNote("终局继承",boundaryExcerpt(item)));}
       else if(kind==="handoff"&&sourceLabel==="低侧封顶"){setRowLabel(span,"交接短板上限");replaceCompactNote(span,"交接短板决定本项最高可得分");}
