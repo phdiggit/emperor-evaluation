@@ -289,3 +289,50 @@ def test_c5_current_contexts_match_formal_strength_and_prose():
                 assert (key in projected) == (key in original)
                 if key in original:
                     assert projected[key] == original[key]
+
+def test_representative_projection_passes_existing_formal_fields_without_inference():
+    from copy import deepcopy
+    row = {
+        "axis_code": "C2",
+        "source_refs": [],
+        "representative_parent_ids": ["P1"],
+        "parent_chains": [
+            {
+                "parent_id": "P1",
+                "direction": "MIXED_POSITIVE",
+                "intensity": "MI2_LIFECYCLE",
+                "attribution": "共享归责，以正式记录为准。",
+                "limitations": ["不外推未观察阶段。"],
+                "cycle_anchor_refs": ["docs/example.md#L1"],
+                "basis": "合成代表情境。",
+            }
+        ],
+    }
+    before = deepcopy(row)
+    projected = axis_projection(row, [])["representative_contexts"][0]
+    source = row["parent_chains"][0]
+    for key in ("direction", "intensity", "attribution", "limitations", "cycle_anchor_refs", "basis"):
+        assert projected[key] == source[key]
+    assert "material_intensity" not in projected
+    assert row == before
+
+
+def test_person_and_compare_share_the_same_axis_evidence_renderer():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    person_js = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    assert "DATA.axis_order.map(c=>axisEvidence(r,c)).join('')" in template
+    assert "axisEvidence(r,c,'-compare-'+i)" in template
+    assert "function enhanceAxis" not in person_js
+    assert "replaceLead(" not in person_js
+
+
+def test_material_intensity_names_are_mapped_only_from_structured_fields():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "const materialIntensityNames=" in template
+    assert ".replace(/MI4" not in template
+    assert "MIXED_POSITIVE:'混合偏正'" in template
+    assert "MIXED_NEGATIVE:'混合偏负'" in template
+

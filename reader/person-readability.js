@@ -1,30 +1,6 @@
 "use strict";
 
 (() => {
-  const normalized = value => {
-    if (Array.isArray(value)) return value.map(normalized).filter(Boolean).join("\n");
-    if (value && typeof value === "object") return JSON.stringify(value);
-    return String(value ?? "").replace(/\s+/g, " ").trim();
-  };
-
-  const fragment = html => {
-    const template = document.createElement("template");
-    template.innerHTML = html;
-    return template.content;
-  };
-
-  const directLabels = details => Array.from(details.children).filter(
-    node => node.classList && node.classList.contains("label")
-  );
-
-  const c5PublicText = value => {
-    if (Array.isArray(value)) return value.map(c5PublicText);
-    if (typeof value !== "string") return value;
-    return value
-      .replace(/\bC5\b/g, "权力运用与克制")
-      .replace(/COUNTEREVIDENCE_FOUND/g, "已找到明确反例");
-  };
-
   const netPublicText = value => String(value ?? "").trim();
 
   const netPublicIntro = {
@@ -363,140 +339,6 @@
     section.dataset.netReadable = "done";
   }
 
-  function replaceLead(details, labelText, html) {
-    const label = directLabels(details)[0];
-    if (!label || !html) return;
-
-    label.textContent = labelText;
-    let node = label.nextSibling;
-    while (node) {
-      const next = node.nextSibling;
-      if (
-        node.nodeType === Node.ELEMENT_NODE &&
-        (node.classList.contains("label") || node.tagName === "DETAILS")
-      ) break;
-      node.remove();
-      node = next;
-    }
-    label.after(fragment(html));
-  }
-
-  function publicEvidencePoints(points) {
-    if (!Array.isArray(points) || !points.length) return "";
-    return `<details class="public-evidence-points"><summary>查看代表性证据</summary>${points.map(point => {
-      const publicTitle = point && point.title ? readerText(c5PublicText(point.title)) : "";
-      const title = publicTitle ? `<div class="label">${esc(publicTitle)}</div>` : "";
-      const details = point && point.details ? c5PublicText(point.details) : "";
-      return `${title}${axisProse(details)}`;
-    }).join("")}</details>`;
-  }
-
-  function c4Lead(axis) {
-    const contexts = Array.isArray(axis.representative_contexts) ? axis.representative_contexts : [];
-    if (!contexts.length) return axisProse(axis.grade_basis || axis.typical_pattern);
-    return contexts.map(context => {
-      const rawTitle = String(context.title || "").trim();
-      const title = rawTitle && !/^(?:主要)?父(?:情境|链)/.test(rawTitle)
-        ? `<div class="public-context-title">${esc(rawTitle)}</div>`
-        : "";
-      const body = context.mechanism || context.cycle_basis || context.basis || "";
-      return `<div class="context-story public-context">${title}${axisProse(body)}</div>`;
-    }).join("");
-  }
-
-  function uniqueValue(value, seen) {
-    if (Array.isArray(value)) {
-      const kept = value.filter(item => {
-        const key = normalized(item);
-        if (!key || seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      });
-      return kept;
-    }
-    const key = normalized(value);
-    if (!key || seen.has(key)) return "";
-    seen.add(key);
-    return value;
-  }
-
-  function rebuildAdjudication(details, axis, leadValues) {
-    const box = Array.from(details.children).find(
-      node => node.tagName === "DETAILS" && node.classList.contains("adjudication")
-    );
-    if (!box) return;
-
-    const seen = new Set((leadValues || []).map(normalized).filter(Boolean));
-    const fields = [
-      ["定档依据", axis.grade_basis],
-      ["档内定位", axis.position_basis],
-      ["限制与证据边界", axis.limitations],
-      ["证据评估", axis.evidence_assessment_basis],
-    ];
-    const sections = [];
-    for (const [label, value] of fields) {
-      const unique = uniqueValue(value, seen);
-      if (!normalized(unique)) continue;
-      sections.push(`<div class="label">${label}</div>${axisProse(unique)}`);
-    }
-
-    const closure = axis.no_grade_closure;
-    if (closure) {
-      for (const [label, value] of [
-        ["复查范围", closure.review_scope],
-        ["证据缺口", closure.evidence_gap],
-        ["重开条件", closure.reopen_condition],
-      ]) {
-        const unique = uniqueValue(value, seen);
-        if (normalized(unique)) sections.push(`<div class="label">${label}</div>${axisProse(unique)}`);
-      }
-    }
-
-    if (!sections.length) {
-      box.remove();
-      return;
-    }
-    box.innerHTML = `<summary>裁决详情</summary>${sections.join("")}`;
-  }
-
-  function enhanceAxis(details, axisCode, axis) {
-    if (!details || !axis || details.dataset.personReadable === "done") return;
-
-    let leadValues = [axis.typical_pattern];
-    if (axisCode === "C2") {
-      const lead = axis.grade_basis || axis.typical_pattern;
-      replaceLead(details, "最能说明这个判断的表现", axisProse(lead));
-      leadValues = [lead];
-    } else if (axisCode === "C4") {
-      replaceLead(details, "最能说明这个判断的制度设计", c4Lead(axis));
-      leadValues = axis.representative_contexts?.length
-        ? axis.representative_contexts.map(context => context.mechanism || context.cycle_basis || context.basis)
-        : [axis.grade_basis || axis.typical_pattern];
-    } else if (axisCode === "C5") {
-      const type = axis.person_type
-        ? `<p class="prose public-person-type"><strong>${esc(axis.person_type)}</strong></p>`
-        : axisProse(axis.typical_pattern);
-      replaceLead(
-        details,
-        "权力运用风格概括",
-        `${type}${publicEvidencePoints(axis.public_evidence_points)}`
-      );
-      leadValues = [axis.person_type || axis.typical_pattern];
-    }
-
-    if (typeof axis.counterpattern === "string" && axis.counterpattern.trim()) {
-      for (const label of directLabels(details)) {
-        if (label.textContent.trim() === "反例与限制") {
-          label.textContent = "补充证据与边界";
-          break;
-        }
-      }
-    }
-
-    rebuildAdjudication(details, axis, leadValues);
-    details.dataset.personReadable = "done";
-  }
-
   function enhanceC5Overview(record) {
     const axis = record.axes?.C5;
     if (!axis) return;
@@ -572,9 +414,6 @@
     ensureMilitaryArchiveNav();
     const record = currentRecord();
     if (!record) return;
-    for (const code of DATA.axis_order) {
-      enhanceAxis(document.getElementById(`reason-${code}`), code, record.axes?.[code]);
-    }
     enhanceC5Overview(record);
     enhanceImpact(record);
     normalizeEvidenceCardHeadings();

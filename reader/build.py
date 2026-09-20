@@ -18,7 +18,7 @@ from emperor_v4.evaluation.first_item_public_outcomes import (
     load_first_item_public_outcomes,
     public_outcome_for_name,
 )
-from emperor_v4.evaluation.profile_parent_schema import parent_chains
+from emperor_v4.evaluation.profile_parent_schema import parent_chains, representative_parent_chains
 from emperor_v4.evaluation.first_item_c_public import (
     load_first_item_c_public, public_commander_for_name,
     SOURCE_MARKDOWN_PATH as FIRST_C_SOURCE,
@@ -78,6 +78,35 @@ def apply_public_copy(template):
     return template
 
 
+FORMAL_CONTEXT_FIELDS = [
+    "parent_id",
+    "parent_ref",
+    "title",
+    "mechanism",
+    "mechanisms",
+    "cycle_basis",
+    "basis",
+    "source_refs",
+    "cycle_anchor_refs",
+    "direct_process_refs",
+    "direction",
+    "intensity",
+    "material_intensity",
+    "attribution",
+    "attribution_basis",
+    "role_attribution",
+    "limitations",
+    "limitation",
+    "intensity_and_role_basis",
+]
+
+
+def _formal_context_projection(context):
+    # Public reading may only expose fields that already exist in the formal
+    # record. Never synthesize direction, strength, attribution or limits here.
+    return pick(context, FORMAL_CONTEXT_FIELDS)
+
+
 def axis_projection(row, fields):
     result = pick(row, fields)
     chains = parent_chains(row)
@@ -88,34 +117,34 @@ def axis_projection(row, fields):
     counter = row.get("counterpattern")
     if isinstance(counter, dict):
         ids = {ref for values in counter.values() if isinstance(values, list) for ref in values if isinstance(ref, str)}
-        context_fields = ["parent_id", "cycle_basis", "basis", "source_refs", "direction"]
-        if row.get("axis_code") == "C5":
-            # Pass through the exact formal fields. Do not infer strength from
-            # the prose, final grade, source count, or an editorial summary.
-            context_fields += ["intensity", "material_intensity"]
         result["context_lookup"] = {
-            p["parent_id"]: pick(p, context_fields)
+            p["parent_id"]: _formal_context_projection(p)
             for p in chains if p.get("parent_id") in ids
         }
         missing = ids - result["context_lookup"].keys()
         if missing:
             raise ValueError(f"Unresolved context references: {sorted(missing)}")
 
-    # Reader-only projection: consume existing formal fields without creating a second adjudication source.
-    if row.get("axis_code") == "C4":
-        representative_ids = [x for x in row.get("representative_parent_ids", []) if isinstance(x, str)]
-        chain_by_id = {p.get("parent_id"): p for p in chains if p.get("parent_id")}
+    # Only project explicitly declared representative material. The helper can
+    # fall back to all parent chains for legacy callers, so do not call it when
+    # the formal record has not declared representatives.
+    declared_representatives = (
+        row.get("representative_parent_ids") is not None
+        or isinstance(row.get("representative_parent_contexts"), list)
+    )
+    if declared_representatives:
         result["representative_contexts"] = [
-            pick(chain_by_id[parent_id], ["parent_id", "title", "mechanism", "cycle_basis", "basis", "attribution", "direction"])
-            for parent_id in representative_ids if parent_id in chain_by_id
+            _formal_context_projection(context)
+            for context in representative_parent_chains(row)
+            if isinstance(context, dict)
         ]
+
     if row.get("axis_code") == "C5" and isinstance(row.get("public_evidence_points"), list):
         result["public_evidence_points"] = [
             pick(point, ["title", "details"])
             for point in row["public_evidence_points"] if isinstance(point, dict)
         ]
     return result
-
 
 def _clean_text(value):
     if not isinstance(value, str):
