@@ -776,6 +776,22 @@ def test_second_item_calculation_rows_use_public_labels_and_readable_summary():
     assert "patchCalculationRows(root, net);" in source
 
 
+
+def test_legacy_second_item_renderer_uses_same_public_grade_language():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/second-item-reading.js").read_text(encoding="utf-8")
+    assert 'const METHOD_BAND_LABELS = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};' in source
+    assert "最低档" not in source
+    assert "最高档" not in source
+    assert "主要状态第" not in source
+    assert "低谷修正${low}级" not in source
+    assert "原始表现指数" in source
+    assert "合成输入，不单独加分" in source
+    assert '"A制度建设":"制度建设"' in source
+    assert '"C1民生":"民生"' in source
+    assert 'setNodeText(value,`${methodBand(item)}档`)' in source
+    assert ',"恢复与额外成本");' in source
+
 def test_second_item_method_index_is_explicitly_an_input_not_a_direct_score():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
