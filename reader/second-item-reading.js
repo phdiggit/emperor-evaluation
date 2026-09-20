@@ -9,6 +9,8 @@
   const METHOD_PUBLIC = {"A制度建设":"制度建设（A）","B1官僚治理":"官僚治理（B1）","B2反馈与约束":"反馈与约束（B2）"};
   const FINANCE_MAX = {"C1民生":80,"C2经济财政":35,"C3社会安全":60};
   const FINANCE_PUBLIC = {"C1民生":"民生（C1）","C2经济财政":"经济财政（C2）","C3社会安全":"社会安全（C3）"};
+  const HANDOFF_PUBLIC_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
+  function handoffGrade(value){const n=finite(value);return n!=null&&Number.isInteger(n)?HANDOFF_PUBLIC_GRADE[n]||"—":"—";}
   const HISTORICAL_SECOND_POOL = 185;
   const HISTORICAL_OUT_OF_CURRENT_POOL = 11;
   let scheduled = false;
@@ -143,12 +145,12 @@
   function ensureHandoffGroup(t){
     const section=document.getElementById("net-group-handoff");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"政权交接");
     const d1i=t.handoff.get("D1继任行政连续性"),d3i=t.handoff.get("D3政权交接稳定"),d1=finite(d1i?.value),d3=finite(d3i?.value),cap=finite(t.handoff.get("低侧封顶")?.value),score=t.handoffScore;
-    let exp="统治如何收尾，会直接决定国家机器和继承秩序能否平稳延续，因此交接结果计入治国成效。行政连续性（D1）看旧国家机器有多少被接住，交接稳定（D3）看继承过程是否稳定。";
-    if([d1,d3,cap,score].every(v=>v!=null))exp=`统治如何收尾，会直接决定国家机器和继承秩序能否平稳延续，因此交接结果计入治国成效。行政连续性为 ${fmt(d1,0)} / 5级，交接稳定为 ${fmt(d3,0)} / 5级；较弱一侧把本项最高分限制在 ${fmt(cap)}，最终得分 ${fmt(score)} / 20。`;
+    let exp="统治如何收尾，会直接决定国家机器和继承秩序能否平稳延续，因此交接结果计入治国成效。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否稳定。";
+    if([d1,d3,cap,score].every(v=>v!=null))exp=`统治如何收尾，会直接决定国家机器和继承秩序能否平稳延续，因此交接结果计入治国成效。行政连续性为 ${handoffGrade(d1)}档，交接稳定为 ${handoffGrade(d3)}档；较弱一侧把本项最高分限制在 ${fmt(cap)}，最终得分 ${fmt(score)} / 20。`;
     addGroupIntro(section,"handoff",exp);
-    const d1d=metricDetail(section,["D1继任行政连续性","行政连续性（D1）"]),d3d=metricDetail(section,["D3政权交接稳定","交接稳定（D3）"]);markSourceLabel(d1d,"D1继任行政连续性");markSourceLabel(d3d,"D3政权交接稳定");
-    setMetricDisplay(d1d,d1==null?"—":`${fmt(d1,0)} / 5 级`,joinNote("等级输入·行政承接",boundaryExcerpt(d1i)),"行政连续性（D1）");
-    setMetricDisplay(d3d,d3==null?"—":`${fmt(d3,0)} / 5 级`,joinNote("等级输入·终局继承",boundaryExcerpt(d3i)),"交接稳定（D3）");
+    const d1d=metricDetail(section,["D1继任行政连续性","行政连续性（D1）","行政连续性"]),d3d=metricDetail(section,["D3政权交接稳定","交接稳定（D3）","交接稳定"]);markSourceLabel(d1d,"D1继任行政连续性");markSourceLabel(d3d,"D3政权交接稳定");
+    setMetricDisplay(d1d,d1==null?"—":`${handoffGrade(d1)}档`,joinNote("行政承接",boundaryExcerpt(d1i)),"行政连续性");
+    setMetricDisplay(d3d,d3==null?"—":`${handoffGrade(d3)}档`,joinNote("终局继承",boundaryExcerpt(d3i)),"交接稳定");
     for(const strong of section.querySelectorAll(".net-calculations .component strong"))if(strong.textContent.trim()==="低侧封顶")setNodeText(strong,"交接短板上限");
     for(const small of section.querySelectorAll(".net-calculations .component small"))setNodeText(small,small.textContent.replace(/低侧封顶/g,"交接短板上限"));
   }
@@ -191,13 +193,13 @@
     if(!root||!record?.net||!kind)return;const map=itemsFor(record,kind);
     for(const row of root.querySelectorAll(":scope .component")){
       const span=row.querySelector(":scope > span"),value=row.querySelector(":scope > b");if(!span||!value)continue;const label=span.dataset.secondSourceLabel||directText(span)||span.querySelector("strong")?.textContent.trim()||"";let sourceLabel=label;
-      if(!map.has(sourceLabel)){sourceLabel=Object.keys(METHOD_PUBLIC).find(k=>METHOD_PUBLIC[k]===label)||Object.keys(FINANCE_PUBLIC).find(k=>FINANCE_PUBLIC[k]===label)||({"恢复与额外成本（C4）":"C4恢复与成本","行政连续性（D1）":"D1继任行政连续性","交接稳定（D3）":"D3政权交接稳定","交接短板上限":"低侧封顶","政权交接得分":"交接得分","治国成效合计":"第二项合计"}[label]||label);}
+      if(!map.has(sourceLabel)){sourceLabel=Object.keys(METHOD_PUBLIC).find(k=>METHOD_PUBLIC[k]===label)||Object.keys(FINANCE_PUBLIC).find(k=>FINANCE_PUBLIC[k]===label)||({"恢复与额外成本（C4）":"C4恢复与成本","行政连续性（D1）":"D1继任行政连续性","交接稳定（D3）":"D3政权交接稳定","行政连续性":"D1继任行政连续性","交接稳定":"D3政权交接稳定","交接短板上限":"低侧封顶","政权交接得分":"交接得分","治国成效合计":"第二项合计"}[label]||label);}
       span.dataset.secondSourceLabel=sourceLabel;const item=map.get(sourceLabel);
       if(kind==="method"&&item&&METHOD_MAX[sourceLabel]){setRowLabel(span,METHOD_PUBLIC[sourceLabel]);setNodeText(value,`${fmt(item.value)} / ${METHOD_MAX[sourceLabel]} 指数`);replaceCompactNote(span,joinNote(`正式方向档：${methodBand(item)}`,boundaryExcerpt(item)));}
       else if(kind==="finance"&&item&&FINANCE_MAX[sourceLabel]){setRowLabel(span,FINANCE_PUBLIC[sourceLabel]);setNodeText(value,`${fmt(item.value)} / ${FINANCE_MAX[sourceLabel]} 分`);replaceCompactNote(span,joinNote(stateMeta(item),boundaryExcerpt(item)));}
       else if(kind==="finance"&&item&&sourceLabel==="C4恢复与成本"){setRowLabel(span,"恢复与额外成本（C4）");setNodeText(value,`${signedFmt(item.value)} 分`);replaceCompactNote(span,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)));}
-      else if(kind==="handoff"&&item&&sourceLabel==="D1继任行政连续性"){setRowLabel(span,"行政连续性（D1）");setNodeText(value,`${fmt(item.value,0)} / 5 级`);replaceCompactNote(span,joinNote("行政承接",boundaryExcerpt(item)));}
-      else if(kind==="handoff"&&item&&sourceLabel==="D3政权交接稳定"){setRowLabel(span,"交接稳定（D3）");setNodeText(value,`${fmt(item.value,0)} / 5 级`);replaceCompactNote(span,joinNote("终局继承",boundaryExcerpt(item)));}
+      else if(kind==="handoff"&&item&&sourceLabel==="D1继任行政连续性"){setRowLabel(span,"行政连续性");setNodeText(value,`${handoffGrade(item.value)}档`);replaceCompactNote(span,joinNote("行政承接",boundaryExcerpt(item)));}
+      else if(kind==="handoff"&&item&&sourceLabel==="D3政权交接稳定"){setRowLabel(span,"交接稳定");setNodeText(value,`${handoffGrade(item.value)}档`);replaceCompactNote(span,joinNote("终局继承",boundaryExcerpt(item)));}
       else if(kind==="handoff"&&sourceLabel==="低侧封顶"){setRowLabel(span,"交接短板上限");replaceCompactNote(span,"交接短板决定本项最高可得分");}
       else if(kind==="handoff"&&sourceLabel==="交接得分"){setRowLabel(span,"政权交接得分");setNodeText(value,`${fmt(item?.value)} / 20 分`);replaceCompactNote(span,"行政连续性与交接稳定合成");}
       else if(kind==="handoff"&&sourceLabel==="第二项合计"){setRowLabel(span,"治国成效合计");setNodeText(value,`${fmt(item?.value)} / 387 分`);replaceCompactNote(span,"制度与行政 + 民生与社会 + 政权交接");}

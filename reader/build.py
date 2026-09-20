@@ -44,6 +44,17 @@ NET_READER_EXTRA_SOURCES = {
     "D3": SECOND + "政权交接稳定/02-D3政权交接稳定方向卡.json",
     "ML": "config/third-item/third-item-military-net-loss-penalties.json",
 }
+HANDOFF_PUBLIC_GRADE = {0: "E", 1: "D", 2: "C", 3: "B", 4: "A", 5: "S"}
+
+
+def handoff_public_grade(value):
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return "未定"
+    if not number.is_integer():
+        return "未定"
+    return HANDOFF_PUBLIC_GRADE.get(int(number), "未定")
 
 
 def reader_source_identity(*, write=False):
@@ -676,7 +687,7 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             record = sources[key][sid]
             handoff[label] = _attach_d1_d3_public_reader(
                 item, record=record, axis=key,
-                how=f"正式交班裁决换算为 {item.get('value')} 级输入；该级本身不是独立可加分。",
+                how=f"公开档位为 {handoff_public_grade(item.get('value'))}档；该档位参与政权交接得分计算，本项不会重复单独加分。",
                 source_refs=(sources[f"{key}_path"],),
             )
     if handoff:
@@ -690,8 +701,10 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             )
         if "交接得分" in handoff:
             handoff["交接得分"]["reader_how"] = (
-                f"min[2 × (D1 {values.get('D1继任行政连续性')} + D3 {values.get('D3政权交接稳定')}), "
-                f"低侧封顶 {values.get('低侧封顶')}] = {values.get('交接得分')} 分。"
+                f"行政连续性 {handoff_public_grade(values.get('D1继任行政连续性'))}档，"
+                f"交接稳定 {handoff_public_grade(values.get('D3政权交接稳定'))}档；"
+                f"两项按 E=0、D=1、C=2、B=3、A=4、S=5 换算后合计并乘2，"
+                f"同时受交接短板上限 {values.get('低侧封顶')} 分约束，最终为 {values.get('交接得分')} 分。"
             )
         if "第二项合计" in handoff:
             method_score = next((x.get("value") for x in details.get("method", []) if x.get("label") == "治理手段"), None)

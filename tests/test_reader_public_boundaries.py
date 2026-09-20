@@ -542,3 +542,26 @@ def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_n
     assert "const signedAdjustment=value=>" in block
     assert "该对象只作为历史影响补充样本，不进入本展示的人物画像主池。" in template
     assert "r.supplementary?'<p>该对象只作为历史影响补充样本" in template
+
+def test_handoff_public_layer_uses_letter_grades_not_numeric_level_inputs():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    build = (root / "reader/build.py").read_text(encoding="utf-8")
+    reading = (root / "reader/second-item-reading.js").read_text(encoding="utf-8")
+
+    assert 'HANDOFF_PUBLIC_GRADE = {0: "E", 1: "D", 2: "C", 3: "B", 4: "A", 5: "S"}' in build
+    assert "正式交班裁决换算为" not in build
+    assert "级输入" not in build
+    assert "D1 {values.get" not in build
+    assert "D3 {values.get" not in build
+    assert "公开档位为 {handoff_public_grade" in build
+    assert "行政连续性 {handoff_public_grade" in build
+    assert "交接稳定 {handoff_public_grade" in build
+
+    assert 'const HANDOFF_PUBLIC_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};' in reading
+    assert "/ 5 级" not in reading
+    assert "/ 5级" not in reading
+    assert "等级输入·" not in reading
+    assert 'setRowLabel(span,"行政连续性")' in reading
+    assert 'setRowLabel(span,"交接稳定")' in reading
+
