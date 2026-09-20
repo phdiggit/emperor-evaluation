@@ -516,8 +516,8 @@ function firstCommanderMarkup(item) {
   function thirdBasisMarkup(value, itemLabel = "") {
     const parts = thirdBasisParts(value, itemLabel);
     if (!parts.length) return "";
-    if (parts.length === 1) return \`<p class="net-material-body">\${esc(parts[0])}</p>\`;
-    return \`<div class="label">裁决说明</div><ul class="net-third-basis-list">\${parts.map(part => \`<li>\${esc(part)}</li>\`).join("")}</ul>\`;
+    if (parts.length === 1) return `<p class="net-material-body">${esc(parts[0])}</p>`;
+    return `<div class="label">裁决说明</div><ul class="net-third-basis-list">${parts.map(part => `<li>${esc(part)}</li>`).join("")}</ul>`;
   }
 
   function civilizationPublicStatus(item, formalLevel = "") {
@@ -535,7 +535,7 @@ function firstCommanderMarkup(item) {
     const direction = CIV_PUBLIC_DIRECTION[parts[0]] || "";
     if (points == null || !direction) return fallback;
     const signed = parts[0] === "NEGATIVE" ? -points : parts[0] === "BALANCED" ? 0 : points;
-    return \`第\${magnitude[1]}级影响的\${CIV_PUBLIC_POSITION[position] || position}固定对应\${points}分；方向为\${direction}，所以当前调整为\${signed > 0 ? "+" : ""}\${signed}分。\`;
+    return `第${magnitude[1]}级影响的${CIV_PUBLIC_POSITION[position] || position}固定对应${points}分；方向为${direction}，所以当前调整为${signed > 0 ? "+" : ""}${signed}分。`;
   }
 
   function thirdCostExactHow(item, fallback) {
@@ -547,22 +547,22 @@ function firstCommanderMarkup(item) {
     if (factor == null) return fallback;
     const debit = 80 * (1 - factor);
     const shown = Number(debit.toFixed(1));
-    return \`当前为\${thirdCostText(level)}、\${CIV_PUBLIC_POSITION[position] || position}；固定成本系数为\${factor}，扣分 = 80 × (1 − \${factor}) = \${shown}分。\`;
+    return `当前为${thirdCostText(level)}、${CIV_PUBLIC_POSITION[position] || position}；固定成本系数为${factor}，扣分 = 80 × (1 − ${factor}) = ${shown}分。`;
   }
 
   function detailedHowText(item, groupKey, how) {
     if (groupKey === "strategic" && ["A1","A2"].includes(item.label)) {
-      return \`每轴分数 = 0.6 × 轨迹值；轨迹值由终点状态价值、本人改善、本人回吐、专项信用和负向调整共同形成。当前人物：\${how}\`;
+      return `每轴分数 = 0.6 × 轨迹值；轨迹值由终点状态价值、本人改善、本人回吐、专项信用和负向调整共同形成。当前人物：${how}`;
     }
     if (groupKey === "strategic" && ["B1","B2","B4"].includes(item.label)) {
-      return \`当前档位先形成该方面得分率；控制范围与战略价值按55%/45%合成，再由成果稳定性修正。当前人物：\${how}\`;
+      return `当前档位先形成该方面得分率；控制范围与战略价值按55%/45%合成，再由成果稳定性修正。当前人物：${how}`;
     }
     if (groupKey === "military" && ["C1实战交付","C2持续作战","C3体系可靠性"].includes(item.label)) {
-      return \`三方面分别定档但不单独加分；共同确定军事体系整体档位。整体档位对应50分项得分率：E档0%—29%、D档30%—44%、C档45%—59%、B档60%—74%、A档75%—89%、S档90%—100%。当前人物：\${how}\`;
+      return `三方面分别定档但不单独加分；共同确定军事体系整体档位。整体档位对应50分项得分率：E档0%—29%、D档30%—44%、C档45%—59%、B档60%—74%、A档75%—89%、S档90%—100%。当前人物：${how}`;
     }
     if (groupKey === "military" && item.label === "普通成本扣分") return thirdCostExactHow(item, how);
     if (groupKey === "military" && item.label === "ML扣分") {
-      return \`重大军事净毁损只有在重大结果、较高本方代价和本人责任同时成立时才追加扣减；与普通军事代价取较高扣减，不重复相加。当前人物：\${how}\`;
+      return `重大军事净毁损只有在重大结果、较高本方代价和本人责任同时成立时才追加扣减；与普通军事代价取较高扣减，不重复相加。当前人物：${how}`;
     }
     if (groupKey === "civilization") return civilizationExactHow(item, how);
     return how;
@@ -578,7 +578,7 @@ function firstCommanderMarkup(item) {
       detailed ? ["换算规则", detailed] : null,
       result ? ["当前结果", result] : null,
     ].filter(Boolean);
-    return \`<details class="net-score-how"><summary>这个分怎么算？</summary><dl>\${rows.map(([label,value]) => \`<dt>\${esc(label)}</dt><dd>\${esc(value)}</dd>\`).join("")}</dl></details>\`;
+    return `<details class="net-score-how"><summary>这个分怎么算？</summary><dl>${rows.map(([label,value]) => `<dt>${esc(label)}</dt><dd>${esc(value)}</dd>`).join("")}</dl></details>`;
   }
 
   function metricMaterialCards(item, groupKey) {
@@ -790,14 +790,14 @@ function firstCommanderMarkup(item) {
   function renderFirstC(item, bullets, record) {
     const facts = firstCommanderMarkup(item);
     const how = firstItemPublicText(item.reader_how || "");
-    const rules = \`<details class="first-item-rule-box"><summary>这个分怎么算？</summary>\${prose(\`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n当前换算：\${how || "按正式能力档与责任路线换算。"}\\n当前结果：\${item.value} 分。\`)}</details>\`;
-    return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, \`\${facts}\${rules}\`, record);
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n当前换算：${how || "按正式能力档与责任路线换算。"}\\n当前结果：${item.value} 分。`)}</details>`;
+    return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${rules}`, record);
   }
 
   function renderFirstCost(item, record) {
     const level = String(item.reader_public_cost?.public_level_label || "").replace(/第([0-7一二三四五六七])级/, (_, n) => thirdCostText(n));
-    const rule = \`<details class="first-item-rule-box"><summary>这个分怎么算？</summary>\${prose(\`当前成本裁决：\${level || "按正式成本严重度裁决"}。\\n换算规则：按正式成本严重度与同级位置查固定扣分表。\\n当前换算：\${item.reader_how || ""}\\n当前扣减：\${item.value} 分。\`)}</details>\`;
-    return firstMetricDetail("net-first-cost", "军事成本 · 战争代价", "从四轴毛分中扣除", item, \`\${firstCostMarkup(item)}\${rule}\`, record, \`扣 \${item.value} 分\`);
+    const rule = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`当前成本裁决：${level || "按正式成本严重度裁决"}。\\n换算规则：按正式成本严重度与同级位置查固定扣分表。\\n当前换算：${item.reader_how || ""}\\n当前扣减：${item.value} 分。`)}</details>`;
+    return firstMetricDetail("net-first-cost", "军事成本 · 战争代价", "从四轴毛分中扣除", item, `${firstCostMarkup(item)}${rule}`, record, `扣 ${item.value} 分`);
   }
 
 
