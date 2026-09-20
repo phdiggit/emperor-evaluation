@@ -470,7 +470,8 @@ function firstCommanderMarkup(item) {
       .replace(/三轴([0-5])\/\1\/\1/g, (_, level) => `三方面均为${thirdGradeText(level)}`)
       .replace(/(支持|阻断|维持|压至|达到)([0-5])档/g, (_, verb, level) => `${verb}${thirdGradeText(level)}`)
       .replace(/([0-5])档(高位|中位|低位)/g, (_, level, position) => `${thirdGradeText(level)}${position}`)
-      .replace(/([一二三四五六七])档本人改善/g, (_, count) => `${count}个等级的本人改善`)\n      .replace(/客观变动[+-]?\\d+档按[+-]?\\d+档本人责任/g, "客观状态变化按已裁本人责任计入");
+      .replace(/([一二三四五六七])档本人改善/g, (_, count) => `${count}个等级的本人改善`)
+      .replace(/客观变动[+-]?\d+档按[+-]?\d+档本人责任/g, "客观状态变化按已裁本人责任计入");
     return text;
   }
   const SECOND_PUBLIC_GROUPS = new Set(["method", "finance", "handoff"]);
