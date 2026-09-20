@@ -641,7 +641,7 @@ def test_second_item_subitem_how_blocks_include_actual_group_formula():
     source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
     assert "function secondMethodExpandedHow(label)" in source
     assert "制度建设与官僚治理不各自直接加分" in source
-    assert "0.8 × [较高指数" in source
+    assert "0.8 × [较高表现指数" in source
     assert "反馈与约束单独占45分" in source
     assert "function secondHandoffExpandedHow()" in source
     assert 'handoff.get("交接得分")' in source
