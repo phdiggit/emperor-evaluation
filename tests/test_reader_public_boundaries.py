@@ -35,9 +35,15 @@ const helper=home.slice(home.indexOf('function secondMethodDetailsMarkup'),home.
 const supplements=new Function('esc','prose','link',helper+'return secondMethodDetailsMarkup;')(esc,prose,(ref)=>'<a>'+esc(ref)+'</a>');
 const detail=supplements({reader_boundary:text,reader_how:'原计算口径。',reader_full_basis:'完整原始裁决。',source:'docs/a.json',reader_source_refs:['docs/b.json']},{});
 for(const s of [text,'原计算口径。','完整原始裁决。','docs/a.json','docs/b.json'])assert.ok(detail.includes(s));
-for(const file of ['reader/second-item-a-public.js','reader/second-item-b1-public.js'])assert.ok(fs.readFileSync(file,'utf8').includes('secondMethodDetailsMarkup(item, record)'));
+for(const file of ['reader/second-item-a-public.js','reader/second-item-b1-public.js']){
+ const dedicated=fs.readFileSync(file,'utf8');
+ assert.ok(!dedicated.includes('secondMethodDetailsMarkup(item, record)'));
+ assert.ok(dedicated.includes('appendDedicatedAudit'));
+ assert.ok(dedicated.includes('SecondItemMaterialCards'));
+}
 const alias=fs.readFileSync('reader/second-item-public-alias.js','utf8');
 assert.ok(!alias.includes('patchInstitutionDetail'));
+assert.ok(alias.includes('renderB2MaterialGroups(evidence)'));
 
 const overview=home.slice(home.indexOf('  function firstItemOverview'),home.indexOf('  async function renderFirstMajor'));
 const long='已有成果。'.repeat(100)+'末尾仍有不能归给本人的部分。';
