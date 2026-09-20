@@ -531,3 +531,14 @@ def test_supplementary_simple_card_does_not_offer_unavailable_profile():
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "不在人物画像主池" in template
     assert "r.supplementary?'<span class=\"muted\">不在人物画像主池</span>'" in template
+def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_no_dead_help():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    compare_start = template.index("function compare(){")
+    compare_end = template.index("function guide()", compare_start)
+    block = template[compare_start:compare_end]
+    assert "const missingNetLabel=r=>" in block
+    assert "const compareFirstAddOn=r=>" in block
+    assert "const signedAdjustment=value=>" in block
+    assert "该对象只作为历史影响补充样本，不进入本展示的人物画像主池。" in template
+    assert "r.supplementary?'<p>该对象只作为历史影响补充样本" in template
