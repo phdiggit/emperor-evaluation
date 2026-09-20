@@ -656,7 +656,7 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "当前三方面：" in source
     assert "军事体系结果为" in source
     assert "当前三项得分率为控制范围" in source
-    assert "两个战略安全轴随后直接相加" in source
+    assert "两个战略安全轴最后直接相加" in source
 
 
 def test_third_item_strategic_axis_explains_trajectory_as_exact_intermediate_formula():
