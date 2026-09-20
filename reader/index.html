@@ -930,7 +930,7 @@ function impactTechnicalHelp(){return '<details class="impact-technical"><summar
 const groupNames={first:'奠基与统一：原分及折算',method:'治国：制度与行政',finance:'治国：财政与民生',handoff:'治国：交接质量',strategic:'军事：战略收益与国防',military:'军事：体系与成本',civilization:'文明与国家整合'};
 const impactMeaning={'S+':'文明／国家主路径重塑',S:'超重大历史影响',A:'重大长期历史影响',B:'重大历史影响',C:'显著历史影响',D:'有限但真实影响',E:'弱历史影响'};
 const readingTerms={PS0:'仅有结果或资源背景',PS1:'局部正确选择',PS2:'完整独立决策周期',PS3:'可跨情境迁移的强模式',PS4:'不同约束下反复兑现的罕见模式',DW0:'未能归责本人的负面结果',DW1:'已纠正且未复发的局部误判',DW2:'造成显著损失但已恢复或未同类复发的错误',DW3:'同类机制重复失败、反馈后加码或优势下崩盘',DW4:'跨机制与阶段的稳定失能',AM1:'局部制度接口',AM2:'全国重要子系统',AM3:'国家核心系统',AM4:'国家基本运行架构重构'};
-function readerText(t){return String(t??'').replace(/\b(?:PS[0-4]|DW[0-4]|AM[1-4])\b/g,k=>readingTerms[k]).replace(/G([0-5])[- /]*(LOW|MID|HIGH)/g,(_,g,p)=>grade({axis_grade:'G'+g,position:p})).replace(/G([0-5])/g,(_,g)=>letters['G'+g]+'档').replace(/EPISODE_TAG/g,'局部情境证据').replace(/BOUNDED_PROFILE/g,'有明确适用边界的画像').replace(/FULL_GRADE/g,'完整定档').replace(/MI4(?:_CROSS_PHASE_SYSTEMIC)?/g,'跨阶段系统性情境').replace(/MI3(?:_SUSTAINED_SYSTEMIC)?/g,'持续系统性情境').replace(/MI2(?:_LIFECYCLE)?/g,'完整生命周期情境').replace(/MI1(?:_CASE)?/g,'单一情境').replace(/\bE1\b/g,'少量情境材料').replace(/\bE2\b/g,'多个独立情境材料').replace(/\bE3\b/g,'主要命题已有代表性材料')}
+function readerText(t){return String(t??'').replace(/\b(?:PS[0-4]|DW[0-4]|AM[1-4])\b/g,k=>readingTerms[k]).replace(/G([0-5])[- /]*(LOW|MID|HIGH)/g,(_,g,p)=>grade({axis_grade:'G'+g,position:p})).replace(/G([0-5])/g,(_,g)=>letters['G'+g]+'档').replace(/EPISODE_TAG/g,'局部情境证据').replace(/BOUNDED_PROFILE/g,'有明确适用边界的画像').replace(/FULL_GRADE/g,'完整定档').replace(/\bE1\b/g,'少量情境材料').replace(/\bE2\b/g,'多个独立情境材料').replace(/\bE3\b/g,'主要命题已有代表性材料').replace(/\bC5\b/g,'权力运用与克制').replace(/COUNTEREVIDENCE_FOUND/g,'已找到明确反例')}
 function paradigmReceptionProse(review){
  const receptions=Array.isArray(review?.receptions)?review.receptions.filter(r=>r&&typeof r==='object'):[];
  if(!receptions.length)return '';
@@ -982,22 +982,82 @@ const format=t=>esc(t).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*
 function prose(t){if(Array.isArray(t))return t.length?t.map(prose).join(''):'';if(t&&typeof t==='object')return Object.entries(t).map(([k,v])=>`<div class="label">${esc(k)}</div>${prose(v)}`).join('');if(!t)return '';return String(t).split(/\n\s*\n/).map(block=>`<p class="prose">${format(block)}</p>`).join('')}
 // Display names follow the profile contract, section 2.3. No prose-based classification.
 const materialIntensityNames={MI1_CASE:'单一情境',MI2_LIFECYCLE:'完整生命周期情境',MI3_SUSTAINED_SYSTEMIC:'持续系统性情境',MI4_CROSS_PHASE_SYSTEMIC:'跨阶段系统性情境'};
-function contextIntensity(c){
- const values=['intensity','material_intensity'].filter(k=>Object.prototype.hasOwnProperty.call(c,k)).map(k=>c[k]);
- if(!values.length||values.every(v=>v==null||v===''))return '未列';
- if(values.length>1&&values.some(v=>v!==values[0]))return '上游字段不一致，请查原始记录';
- return typeof values[0]==='string'&&Object.prototype.hasOwnProperty.call(materialIntensityNames,values[0])?materialIntensityNames[values[0]]:'未设中文展示，请查原始记录';
+const formalDirectionNames={POSITIVE:'正向',NEGATIVE:'负向',MIXED_POSITIVE:'混合偏正',MIXED_NEGATIVE:'混合偏负',MIXED:'正负混合',LIMITATION:'限制／边界'};
+function nonEmptyFormal(value){
+ if(Array.isArray(value))return value.length>0;
+ if(value&&typeof value==='object')return Object.keys(value).length>0;
+ return value!==null&&value!==undefined&&String(value).trim()!=='';
 }
-function contexts(a,showIntensity=false){
+function contextDirection(c){
+ if(!nonEmptyFormal(c?.direction))return '';
+ const raw=String(c.direction);
+ return Object.prototype.hasOwnProperty.call(formalDirectionNames,raw)?formalDirectionNames[raw]:raw;
+}
+function contextIntensityEntries(c){
+ return ['intensity','material_intensity']
+  .filter(k=>Object.prototype.hasOwnProperty.call(c||{},k)&&nonEmptyFormal(c[k]))
+  .map(k=>[k,c[k]]);
+}
+function contextIntensity(c){
+ const entries=contextIntensityEntries(c);
+ if(!entries.length)return '未列';
+ const rawValues=entries.map(([,v])=>String(v));
+ if(rawValues.length>1&&rawValues.some(v=>v!==rawValues[0]))return '上游字段不一致，请查原始记录';
+ const raw=rawValues[0];
+ return Object.prototype.hasOwnProperty.call(materialIntensityNames,raw)
+  ? materialIntensityNames[raw]
+  : '未设中文展示，请查原始记录';
+}
+function formalMetaField(label,value,extraClass=''){
+ if(!nonEmptyFormal(value))return '';
+ return `<div class="formal-context-meta-row ${extraClass}"><strong>${esc(label)}</strong>${axisProse(value)}</div>`;
+}
+function formalContextMetadata(c,{showIntensity=true}={}){
+ const direction=contextDirection(c);
+ const intensityEntries=contextIntensityEntries(c);
+ const attrs=['attribution','attribution_basis','role_attribution']
+  .filter(k=>Object.prototype.hasOwnProperty.call(c||{},k)&&nonEmptyFormal(c[k]))
+  .map(k=>c[k]);
+ const limits=['limitations','limitation']
+  .filter(k=>Object.prototype.hasOwnProperty.call(c||{},k)&&nonEmptyFormal(c[k]))
+  .map(k=>c[k]);
+ const parts=[];
+ if(direction)parts.push(formalMetaField('正式方向',direction));
+ if(showIntensity&&intensityEntries.length){
+  parts.push(formalMetaField('材料强度',contextIntensity(c),'context-intensity'));
+  const raw=intensityEntries.map(([k,v])=>`${k}=${typeof v==='string'?v:JSON.stringify(v)}`).join('；');
+  parts.push(`<p class="subline formal-context-raw">正式字段：${esc(raw)}</p>`);
+ }
+ for(const value of attrs)parts.push(formalMetaField('归责',value));
+ for(const value of limits)parts.push(formalMetaField('限制',value));
+ return parts.length?`<div class="formal-context-meta">${parts.join('')}</div>`:'';
+}
+function formalContextSources(c){
+ const refs=[...(c?.source_refs||[]),...(c?.cycle_anchor_refs||[]),...(c?.direct_process_refs||[])].filter(ref=>typeof ref==='string'&&ref);
+ return [...new Set(refs)];
+}
+function formalContextStory(c,id='',options={}){
+ if(!c)return prose(id?'情境引用：'+id:'正式记录未列情境正文');
+ const rawTitle=String(c.title||'').trim();
+ const title=rawTitle?`<div class="public-context-title">${esc(rawTitle)}</div>`:'';
+ const body=c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
+ const refs=formalContextSources(c);
+ const sources=(id||refs.length)?`<details class="metadata"><summary>该情境的来源与原始标注</summary>${id?`<p class="subline">${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'来源原文 ↗'):prose(ref)).join('')}</details>`:'';
+ return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c,options)}${body?axisProse(body):''}${sources}</div>`;
+}
+function contexts(a,showIntensity=true){
  const labels={positive_parent_refs:'正向表现',counter_parent_refs:'反例与下沿',negative_parent_refs:'负向表现',mixed_parent_refs:'正负混合表现'};
- const note=showIntensity?`<p class="subline formal-intensity-help">材料强度按正式裁决显示，描述持续性、作用范围和机制化程度，不等于得分或伤害严重性。${link('docs/项目总纲/皇帝人物画像评估体系合同.md','查看定义 ↗')}</p>`:'';
- return note+Object.entries(a.counterpattern).map(([key,refs])=>`<div class="label">${esc(labels[key]||key)}</div>${Array.isArray(refs)&&refs.length?refs.map(id=>{
-  const c=a.context_lookup?.[id];
-  if(!c)return prose('情境引用：'+id);
-  const strength=showIntensity?`<p class="subline context-intensity">裁决材料强度：<strong>${esc(contextIntensity(c))}</strong></p>`:'';
-  const raw=showIntensity?['intensity','material_intensity'].filter(k=>Object.prototype.hasOwnProperty.call(c,k)).map(k=>`<p class="subline">${esc(k)}：${esc(JSON.stringify(c[k]))}</p>`).join(''):'';
-  return `<div class="context-story">${strength}${axisProse(c.cycle_basis||c.basis)}<details class="metadata"><summary>该情境的来源与原始标注</summary><p class="subline">${esc(id)}</p>${raw}${(c.source_refs||[]).map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'来源原文 ↗'):prose(ref)).join('')}</details></div>`;
- }).join(''):'<p class="subline">当前未列独立情境。</p>'}`).join('');
+ return Object.entries(a.counterpattern).map(([key,refs])=>`<div class="label">${esc(labels[key]||key)}</div>${Array.isArray(refs)&&refs.length?refs.map(id=>formalContextStory(a.context_lookup?.[id],id,{showIntensity})).join(''):'<p class="subline">当前未列独立情境。</p>'}`).join('');
+}
+function representativeContexts(a){
+ const items=Array.isArray(a.representative_contexts)?a.representative_contexts:[];
+ if(!items.length)return '';
+ return `<div class="label">正式代表情境</div>${items.map((c,index)=>formalContextStory(c,c.parent_id||c.parent_ref||`代表情境${index+1}`)).join('')}`;
+}
+function publicEvidencePoints(a){
+ const points=Array.isArray(a.public_evidence_points)?a.public_evidence_points:[];
+ if(!points.length)return '';
+ return `<details class="public-evidence-points"><summary>查看代表性证据</summary>${points.map(point=>{const title=point?.title?`<div class="label">${esc(readerText(point.title))}</div>`:'';return `${title}${axisProse(point?.details||'')}`;}).join('')}</details>`;
 }
 
 function nav(name){for(const n of ['home','compare','guide'])document.getElementById(n+'-nav').classList.toggle('active',n===name)}
@@ -1058,7 +1118,10 @@ function impactPanel(r){const h=r.impact;return `<section id="person-impact" cla
 
 function axisEvidence(r,c,suffix=''){
  const a=r.axes[c],spec=DATA.axis_specs[c];if(!a)return '';
- return `<details id="reason-${c}${suffix}" class="axis-evidence"><summary>${esc(spec.name)} <span class="badge">${grade(a)}</span></summary>${ungraded(a)?'<p class="notice">证据审查已结案，本轴不发布等级或分数；不表示能力低下。</p>':''}${pending(a)?'<p class="notice">本轴当前尚未完成裁决；历史保留值不作为现行等级或雷达值。</p>':''}<div class="label">这个判断主要依据什么表现？</div>${axisProse(a.typical_pattern||a.not_applicable_reason||'本轴未另列人物表现，请展开裁决详情。')}${a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY'?'<p class="notice">本轴E为终局证据认定：现有材料未显示外交能力。它与已证实外交失能的裁决分开，不表示史料已证明潜在能力为零。</p>':''}${a.applicability_basis?'<div class="label">适用范围</div>'+axisProse(a.applicability_basis):''}${a.counterpattern&&typeof a.counterpattern==='object'&&!Array.isArray(a.counterpattern)?contexts(a,c==='C5'):a.counterpattern?'<div class="label">反例与限制</div>'+axisProse(a.counterpattern):''}<details class="metadata adjudication"><summary>裁决详情：定档、档内定位与限制</summary><div class="label">定档依据（原文）</div>${prose(a.grade_basis)}<div class="label">档内定位（原文）</div>${prose(a.position_basis)}<div class="label">限制与证据边界（原文）</div>${prose(a.limitations)}${prose(a.evidence_assessment_basis)}${a.no_grade_closure?`<div class="label">复查范围</div>${prose(a.no_grade_closure.review_scope)}<div class="label">证据缺口</div>${prose(a.no_grade_closure.evidence_gap)}<div class="label">重开条件</div>${prose(a.no_grade_closure.reopen_condition)}`:''}</details><details class="metadata"><summary>专业信息与正式记录</summary><p class="subline">展示模式：${esc(mode(a.output_mode))} · 判断把握：${esc(conf(a.confidence))} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>${(a.source_refs||[]).map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?'<p class="sources">'+link(ref,ref)+'</p>':prose(ref)).join('')}<p class="sources">${link(spec.markdown,'本轴完整阅读页 ↗',r)}${link(spec.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗')}</p></details></details>`;
+ const structuredCounter=a.counterpattern&&typeof a.counterpattern==='object'&&!Array.isArray(a.counterpattern);
+ const formalMaterials=structuredCounter?contexts(a):representativeContexts(a);
+ const counterText=!structuredCounter&&a.counterpattern?'<div class="label">反例与限制</div>'+axisProse(a.counterpattern):'';
+ return `<details id="reason-${c}${suffix}" class="axis-evidence"><summary>${esc(spec.name)} <span class="badge">${grade(a)}</span></summary>${ungraded(a)?'<p class="notice">证据审查已结案，本轴不发布等级或分数；不表示能力低下。</p>':''}${pending(a)?'<p class="notice">本轴当前尚未完成裁决；历史保留值不作为现行等级或雷达值。</p>':''}<div class="label">这个判断主要依据什么表现？</div>${axisProse(a.typical_pattern||a.not_applicable_reason||'本轴未另列人物表现，请展开裁决详情。')}${a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY'?'<p class="notice">本轴E为终局证据认定：现有材料未显示外交能力。它与已证实外交失能的裁决分开，不表示史料已证明潜在能力为零。</p>':''}${a.applicability_basis?'<div class="label">适用范围</div>'+axisProse(a.applicability_basis):''}${formalMaterials}${publicEvidencePoints(a)}${counterText}<details class="metadata adjudication"><summary>裁决详情：定档、档内定位与限制</summary><div class="label">定档依据（原文）</div>${axisProse(a.grade_basis)}<div class="label">档内定位（原文）</div>${axisProse(a.position_basis)}<div class="label">限制与证据边界（原文）</div>${axisProse(a.limitations)}${axisProse(a.evidence_assessment_basis)}${a.no_grade_closure?`<div class="label">复查范围</div>${axisProse(a.no_grade_closure.review_scope)}<div class="label">证据缺口</div>${axisProse(a.no_grade_closure.evidence_gap)}<div class="label">重开条件</div>${axisProse(a.no_grade_closure.reopen_condition)}`:''}</details><details class="metadata"><summary>专业信息与正式记录</summary><p class="subline">展示模式：${esc(mode(a.output_mode))} · 判断把握：${esc(conf(a.confidence))} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>${(a.source_refs||[]).map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?'<p class="sources">'+link(ref,ref)+'</p>':prose(ref)).join('')}<p class="sources">${link(spec.markdown,'本轴完整阅读页 ↗',r)}${link(spec.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗')}</p></details></details>`;
 }
 
 function person(r){
@@ -2325,30 +2388,6 @@ function firstCommanderMarkup(item) {
 "use strict";
 
 (() => {
-  const normalized = value => {
-    if (Array.isArray(value)) return value.map(normalized).filter(Boolean).join("\n");
-    if (value && typeof value === "object") return JSON.stringify(value);
-    return String(value ?? "").replace(/\s+/g, " ").trim();
-  };
-
-  const fragment = html => {
-    const template = document.createElement("template");
-    template.innerHTML = html;
-    return template.content;
-  };
-
-  const directLabels = details => Array.from(details.children).filter(
-    node => node.classList && node.classList.contains("label")
-  );
-
-  const c5PublicText = value => {
-    if (Array.isArray(value)) return value.map(c5PublicText);
-    if (typeof value !== "string") return value;
-    return value
-      .replace(/\bC5\b/g, "权力运用与克制")
-      .replace(/COUNTEREVIDENCE_FOUND/g, "已找到明确反例");
-  };
-
   const netPublicText = value => String(value ?? "").trim();
 
   const netPublicIntro = {
@@ -2687,140 +2726,6 @@ function firstCommanderMarkup(item) {
     section.dataset.netReadable = "done";
   }
 
-  function replaceLead(details, labelText, html) {
-    const label = directLabels(details)[0];
-    if (!label || !html) return;
-
-    label.textContent = labelText;
-    let node = label.nextSibling;
-    while (node) {
-      const next = node.nextSibling;
-      if (
-        node.nodeType === Node.ELEMENT_NODE &&
-        (node.classList.contains("label") || node.tagName === "DETAILS")
-      ) break;
-      node.remove();
-      node = next;
-    }
-    label.after(fragment(html));
-  }
-
-  function publicEvidencePoints(points) {
-    if (!Array.isArray(points) || !points.length) return "";
-    return `<details class="public-evidence-points"><summary>查看代表性证据</summary>${points.map(point => {
-      const publicTitle = point && point.title ? readerText(c5PublicText(point.title)) : "";
-      const title = publicTitle ? `<div class="label">${esc(publicTitle)}</div>` : "";
-      const details = point && point.details ? c5PublicText(point.details) : "";
-      return `${title}${axisProse(details)}`;
-    }).join("")}</details>`;
-  }
-
-  function c4Lead(axis) {
-    const contexts = Array.isArray(axis.representative_contexts) ? axis.representative_contexts : [];
-    if (!contexts.length) return axisProse(axis.grade_basis || axis.typical_pattern);
-    return contexts.map(context => {
-      const rawTitle = String(context.title || "").trim();
-      const title = rawTitle && !/^(?:主要)?父(?:情境|链)/.test(rawTitle)
-        ? `<div class="public-context-title">${esc(rawTitle)}</div>`
-        : "";
-      const body = context.mechanism || context.cycle_basis || context.basis || "";
-      return `<div class="context-story public-context">${title}${axisProse(body)}</div>`;
-    }).join("");
-  }
-
-  function uniqueValue(value, seen) {
-    if (Array.isArray(value)) {
-      const kept = value.filter(item => {
-        const key = normalized(item);
-        if (!key || seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      });
-      return kept;
-    }
-    const key = normalized(value);
-    if (!key || seen.has(key)) return "";
-    seen.add(key);
-    return value;
-  }
-
-  function rebuildAdjudication(details, axis, leadValues) {
-    const box = Array.from(details.children).find(
-      node => node.tagName === "DETAILS" && node.classList.contains("adjudication")
-    );
-    if (!box) return;
-
-    const seen = new Set((leadValues || []).map(normalized).filter(Boolean));
-    const fields = [
-      ["定档依据", axis.grade_basis],
-      ["档内定位", axis.position_basis],
-      ["限制与证据边界", axis.limitations],
-      ["证据评估", axis.evidence_assessment_basis],
-    ];
-    const sections = [];
-    for (const [label, value] of fields) {
-      const unique = uniqueValue(value, seen);
-      if (!normalized(unique)) continue;
-      sections.push(`<div class="label">${label}</div>${axisProse(unique)}`);
-    }
-
-    const closure = axis.no_grade_closure;
-    if (closure) {
-      for (const [label, value] of [
-        ["复查范围", closure.review_scope],
-        ["证据缺口", closure.evidence_gap],
-        ["重开条件", closure.reopen_condition],
-      ]) {
-        const unique = uniqueValue(value, seen);
-        if (normalized(unique)) sections.push(`<div class="label">${label}</div>${axisProse(unique)}`);
-      }
-    }
-
-    if (!sections.length) {
-      box.remove();
-      return;
-    }
-    box.innerHTML = `<summary>裁决详情</summary>${sections.join("")}`;
-  }
-
-  function enhanceAxis(details, axisCode, axis) {
-    if (!details || !axis || details.dataset.personReadable === "done") return;
-
-    let leadValues = [axis.typical_pattern];
-    if (axisCode === "C2") {
-      const lead = axis.grade_basis || axis.typical_pattern;
-      replaceLead(details, "最能说明这个判断的表现", axisProse(lead));
-      leadValues = [lead];
-    } else if (axisCode === "C4") {
-      replaceLead(details, "最能说明这个判断的制度设计", c4Lead(axis));
-      leadValues = axis.representative_contexts?.length
-        ? axis.representative_contexts.map(context => context.mechanism || context.cycle_basis || context.basis)
-        : [axis.grade_basis || axis.typical_pattern];
-    } else if (axisCode === "C5") {
-      const type = axis.person_type
-        ? `<p class="prose public-person-type"><strong>${esc(axis.person_type)}</strong></p>`
-        : axisProse(axis.typical_pattern);
-      replaceLead(
-        details,
-        "权力运用风格概括",
-        `${type}${publicEvidencePoints(axis.public_evidence_points)}`
-      );
-      leadValues = [axis.person_type || axis.typical_pattern];
-    }
-
-    if (typeof axis.counterpattern === "string" && axis.counterpattern.trim()) {
-      for (const label of directLabels(details)) {
-        if (label.textContent.trim() === "反例与限制") {
-          label.textContent = "补充证据与边界";
-          break;
-        }
-      }
-    }
-
-    rebuildAdjudication(details, axis, leadValues);
-    details.dataset.personReadable = "done";
-  }
-
   function enhanceC5Overview(record) {
     const axis = record.axes?.C5;
     if (!axis) return;
@@ -2896,9 +2801,6 @@ function firstCommanderMarkup(item) {
     ensureMilitaryArchiveNav();
     const record = currentRecord();
     if (!record) return;
-    for (const code of DATA.axis_order) {
-      enhanceAxis(document.getElementById(`reason-${code}`), code, record.axes?.[code]);
-    }
     enhanceC5Overview(record);
     enhanceImpact(record);
     normalizeEvidenceCardHeadings();
