@@ -77,8 +77,7 @@
   const firstItemDocCache = new Map();
 
   function firstItemRawUrl(ref) {
-    const path = String(ref || "").split("#", 1)[0];
-    return `../${path}?raw=1`;
+    return validatedRawUrl(String(ref || "").split("#", 1)[0]);
   }
 
   async function loadFirstItemDoc(ref, record) {

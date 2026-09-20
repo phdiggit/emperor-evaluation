@@ -2,6 +2,7 @@
 from pathlib import Path
 from copy import deepcopy
 import json
+import os
 import sys
 import argparse
 import re
@@ -12,6 +13,9 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 DETAILS_DIR = ROOT / "reader/data/people"
 SECOND_ITEM_READER_SUMMARIES = "reader/second-item-summaries.json"
+SOURCE_IDENTITY_PATH = ROOT / "reader/source-revision.json"
+PERSON_NOTES_SOURCE = ROOT / "reader/person-reading-notes.json"
+PERSON_NOTES_SNAPSHOT = ROOT / "reader/data/person-reading-notes.json"
 READER_RUNTIME_SCRIPTS = (
     "second-item-public-alias.js",
     "second-item-a-public.js",
@@ -40,6 +44,43 @@ NET_READER_EXTRA_SOURCES = {
     "D3": SECOND + "政权交接稳定/02-D3政权交接稳定方向卡.json",
     "ML": "config/third-item/third-item-military-net-loss-penalties.json",
 }
+
+
+def reader_source_identity(*, write=False):
+    """Pin reader source links to the source commit that passed validation."""
+    repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
+    revision = os.environ.get("GITHUB_SHA", "").strip().lower()
+    if repository and revision:
+        if not re.fullmatch(r"[^/\\s]+/[^/\\s]+", repository):
+            raise ValueError("Invalid GITHUB_REPOSITORY for reader source identity")
+        if not re.fullmatch(r"[0-9a-f]{40,64}", revision):
+            raise ValueError("Invalid GITHUB_SHA for reader source identity")
+        identity = {"repository": repository, "revision": revision}
+        if write:
+            SOURCE_IDENTITY_PATH.write_text(
+                json.dumps(identity, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+        return identity
+    if SOURCE_IDENTITY_PATH.exists():
+        identity = json.loads(SOURCE_IDENTITY_PATH.read_text(encoding="utf-8"))
+        repository = str(identity.get("repository") or "").strip()
+        revision = str(identity.get("revision") or "").strip().lower()
+        if repository and revision:
+            return {"repository": repository, "revision": revision}
+    return {"repository": "", "revision": ""}
+
+
+def person_notes_snapshot(*, check=False, write=True):
+    content = PERSON_NOTES_SOURCE.read_text(encoding="utf-8")
+    expected = content if content.endswith("\n") else content + "\n"
+    if check:
+        if not PERSON_NOTES_SNAPSHOT.exists() or PERSON_NOTES_SNAPSHOT.read_text(encoding="utf-8") != expected:
+            raise ValueError("Reader person-reading-notes snapshot is stale")
+    elif write:
+        PERSON_NOTES_SNAPSHOT.parent.mkdir(parents=True, exist_ok=True)
+        PERSON_NOTES_SNAPSHOT.write_text(expected, encoding="utf-8", newline="\n")
 
 
 def index(rows):
@@ -912,7 +953,11 @@ def build(*, check=False, write=True):
                             settlement_readiness="SUPPLEMENTARY", net=None, axes={}, impact=row, supplementary=True))
     index(records)
 
+    source_identity = reader_source_identity(write=write and not check)
+    person_notes_snapshot(check=check, write=write)
     common = dict(main_count=len(main), ranked_count=len(net),
+                  source_repository=source_identity["repository"],
+                  source_revision=source_identity["revision"],
                   weight_sensitivity=ranking.get("weight_sensitivity", {}),
                   supplementary_count=len(records)-len(main), formula=ranking["formula"],
                   capability_axes=profile["capability_axes"], independent_axes=profile["independent_profile_axes"],

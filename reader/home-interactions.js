@@ -441,8 +441,7 @@ function firstCommanderMarkup(item) {
   }
 
   function firstItemRawUrl(ref) {
-    const path = String(ref || "").split("#", 1)[0];
-    return `../${path}?raw=1`;
+    return validatedRawUrl(String(ref || "").split("#", 1)[0]);
   }
 
   async function loadFirstItemDoc(ref, record) {
@@ -660,7 +659,7 @@ function firstCommanderMarkup(item) {
     if (byLabel["军事成本扣分"]?.value != null) cards.push(renderFirstCost(byLabel["军事成本扣分"], record));
 
     const windowText = bulletsByLabel["B1创业难度与效率"]["效率"] || "";
-    const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl>${ownA.public_project ? `<dt>共同项目</dt><dd>${esc(firstPublicOutcomeText(ownA.public_project))}</dd>` : ""}${firstPublicOutcomeParts(ownA).map(([label, value]) => `<dt>${esc(label)}</dt><dd>${esc(firstPublicOutcomeText(value))}</dd>`).join("")}${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources"><a href="../docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md" target="_blank" rel="noopener">查看完整规则合同 ↗</a></p></details>`;
+    const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl>${ownA.public_project ? `<dt>共同项目</dt><dd>${esc(firstPublicOutcomeText(ownA.public_project))}</dd>` : ""}${firstPublicOutcomeParts(ownA).map(([label, value]) => `<dt>${esc(label)}</dt><dd>${esc(firstPublicOutcomeText(value))}</dd>`).join("")}${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources">${link('docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md','查看完整规则合同 ↗',record)}</p></details>`;
 
     container.innerHTML = `<section class="panel net-detail-group">${firstItemOverview(record, bulletsByLabel, byLabel)}${scope}${cards.join("")}${firstTotals(items)}</section>`;
     if (focus) requestAnimationFrame(() => document.getElementById(`net-first-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));

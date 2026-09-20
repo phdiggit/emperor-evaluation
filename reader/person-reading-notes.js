@@ -161,7 +161,7 @@
       if (failed) {
         if (!root.querySelector(".notes-load-notice")) root.prepend(el("p", "notes-load-notice reading-note-pending", "阅读提要暂未加载，现有正式记录仍可阅读。刷新页面可重试。"));
       } else if (!loading) {
-        loading = fetch("person-reading-notes.json?raw=1", {cache: "no-cache"})
+        loading = fetch("data/person-reading-notes.json", {cache: "no-cache"})
           .then(response => { if (!response.ok) throw Error("Reading notes unavailable"); return response.json(); })
           .then(validateNotes)
           .then(value => { payload = value; schedule(); })
