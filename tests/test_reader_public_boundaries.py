@@ -647,6 +647,8 @@ def test_second_item_subitem_how_blocks_include_actual_group_formula():
     assert "0.8 × [较高表现指数" in source
     assert "反馈与约束单独占45分" in source
     assert "function secondHandoffExpandedHow()" in source
+    assert "其中0—5只作为 E—S 档在合成公式中的权重" in source
+    assert "并不是另一套数字档位" in source
     assert 'handoff.get("交接得分")' in source
 
 
@@ -851,6 +853,8 @@ def test_third_item_strategic_axis_explains_trajectory_as_exact_intermediate_for
     assert "“轨迹值”只是计分中间值，不是另一项评价" in source
     assert "轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整" in source
     assert "E=0、D=1、C=2、B=3、A=4、S=5" in source
+    assert "0—5只是在公式中的档位权重" in source
+    assert "公开裁决仍使用 E—S" in source
     assert "正式轨迹值为" in source
     assert "专项信用与负向调整均直接读取正式裁决，不由阅读层重算" in source
 
