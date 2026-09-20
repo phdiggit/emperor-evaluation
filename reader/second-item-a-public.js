@@ -103,40 +103,53 @@
   }
 
   function card(node) {
+    const api = globalThis.SecondItemMaterialCards;
+    if (api?.card) return api.card({
+      title: node?.public_label || "制度节点",
+      direction: node?.public_direction,
+      tags: node?.public_tags || [],
+      contribution: `本项计入：${fmtWeight(node?.signed_weight)}`,
+      body: node?.public_adjudication_basis,
+      scope: node?.public_scope,
+      boundary: node?.public_boundary,
+      footer: node?.public_reception,
+      dataset: {institutionNodeId: node?.institution_node_id || ""},
+    });
+
     const li = make("li", "second-item-a-card");
-    if (node?.institution_node_id) li.dataset.institutionNodeId = node.institution_node_id;
-
-    const head = make("div", "second-item-a-head");
-    head.append(make("strong", "", node?.public_label || "制度节点"));
-    head.append(tagRow(node?.public_tags || []));
-    head.append(make("span", "second-item-a-direction", node?.public_direction || ""));
-    head.append(make("span", "second-item-a-impact", `本项计入：${fmtWeight(node?.signed_weight)}`));
-    li.append(head);
-
-    if (node?.public_adjudication_basis) {
-      li.append(make("p", "second-item-a-basis", node.public_adjudication_basis));
-    }
-    const scope = textBox("具体范围", node?.public_scope, "second-item-a-scope");
-    if (scope) li.append(scope);
-    const boundary = textBox("边界", node?.public_boundary, "second-item-a-boundary");
-    if (boundary) li.append(boundary);
-    if (node?.public_reception) {
-      li.append(make("small", "second-item-a-reception", node.public_reception));
-    }
+    li.append(make("strong", "", node?.public_label || "制度节点"));
+    if (node?.public_adjudication_basis) li.append(make("p", "", node.public_adjudication_basis));
     return li;
   }
 
   function section(title, nodes) {
+    const api = globalThis.SecondItemMaterialCards;
+    if (api?.group) return api.group(title, nodes.map(card), "当前正式结算没有该类制度节点。");
     const wrapper = make("section", "second-item-a-group");
     wrapper.append(make("h4", "", title));
-    if (!nodes.length) {
-      wrapper.append(make("p", "second-item-a-empty", "当前正式结算没有该类制度节点。"));
-      return wrapper;
-    }
     const list = make("ul", "second-item-a-list");
     list.replaceChildren(...nodes.map(card));
     wrapper.append(list);
     return wrapper;
+  }
+
+  function ownershipKey(record, formal) {
+    return `${record.ruler_id}|${formal.direction_index}|${(formal.public_institution_nodes || []).length}|${formal.public_adjudication_summary || ""}`;
+  }
+
+  function appendDedicatedAudit(body, item, record) {
+    const api = globalThis.SecondItemMaterialCards;
+    const details = make("details", "second-item-dedicated-audit");
+    details.append(make("summary", "", "原始记录与计算口径"));
+    const how = api?.publicEnumText ? api.publicEnumText(item?.reader_how || "") : String(item?.reader_how || "").trim();
+    if (how) details.append(make("p", "prose", how));
+    const refs = [...new Set([item?.source, item?.applied_source, ...(item?.reader_source_refs || [])].filter(Boolean))];
+    if (refs.length && typeof link === "function") {
+      const holder = make("p", "sources");
+      holder.innerHTML = refs.map((ref, i) => link(ref, i ? "补充正式记录 ↗" : "正式记录 ↗", record)).join("");
+      details.append(holder);
+    }
+    body.append(details);
   }
 
   function ensureStyles() {
@@ -211,10 +224,12 @@
     gradeDetails.append(make("summary", "", "为什么最终是这个等级？"));
     gradeDetails.append(make("p", "prose", summary));
     body.append(gradeDetails);
-    body.insertAdjacentHTML("beforeend", secondMethodDetailsMarkup(item, record));
+    appendDedicatedAudit(body, item, record);
 
     body.dataset.aPublic = "done";
     body.dataset.aPublicKey = publicKey;
+    body.dataset.secondPublicOwner = "A";
+    body.dataset.secondInstitutionKey = ownershipKey(record, formal);
   }
 
   function schedule() {

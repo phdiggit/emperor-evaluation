@@ -371,3 +371,15 @@ def test_new_viewer_layers_and_compact_c5_hint():
     assert any("原始记录与专业信息" in item["to"] for item in copy)
     assert "S端表示更能约束自身权力" in person_js
     assert "这项评价描述权力使用方式，不属于能力评价" not in person_js
+
+
+def test_second_item_material_card_phase_one_scope():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert "adjudication-material-card" in alias
+    assert "持续／系统" in alias
+    # Phase one deliberately leaves C1-C4 on the existing generic renderer.
+    assert 'label === "B2反馈与约束"' in alias
+    for label in ("C1民生", "C2经济财政", "C3社会安全", "C4恢复与成本"):
+        assert f'label === "{label}"' not in alias

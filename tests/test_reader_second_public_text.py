@@ -21,7 +21,7 @@ const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const root = process.argv[2];
 const source = fs.readFileSync(path.join(root, 'reader/second-item-public-alias.js'), 'utf8');
-const start = source.indexOf('  function publicText(');
+const start = source.indexOf('  function publicEnumText(');
 const end = source.indexOf('  function patchMetricBodies(', start);
 assert.ok(start > 0 && end > start);
 const context = {document:{createElement(tag){
@@ -32,7 +32,7 @@ const context = {document:{createElement(tag){
   };
 }}};
 vm.createContext(context);
-vm.runInContext(source.slice(start, end) + '\nthis.renderFacts=publicFacts; this.renderText=publicText; this.renderList=publicEvidenceList;', context);
+vm.runInContext(source.slice(start, end) + '\nthis.renderFacts=publicFacts; this.renderText=publicText; this.renderList=publicEvidenceList; this.enumText=publicEnumText;', context);
 const fragments = [
   '保留恢复的责任范围：本人主导。',
   '未过较高档门，但不等于没有改善。',
@@ -63,12 +63,13 @@ for (const name of fs.readdirSync(path.join(root,'reader/data/people'))) {
       assert.equal(rendered.length, evidence.length);
       for (let i=0;i<evidence.length;i++) {
         for (const key of ['public_label','public_direction','public_basis','public_boundary']) {
-          const text = String(evidence[i][key] || '').trim();
-          if (text) assert.ok(rendered[i].includes(text), `${name}/${item.label}/${key}`);
-          if (text) assert.ok(cards[i].textContent.includes(text), `${name}/${item.label}/${key}/card`);
+          const raw = String(evidence[i][key] || '').trim();
+          const shown = context.enumText(raw);
+          if (shown) assert.ok(rendered[i].includes(shown), `${name}/${item.label}/${key}`);
+          if (shown) assert.ok(cards[i].textContent.includes(shown), `${name}/${item.label}/${key}/card`);
         }
       }
-      assert.equal(context.renderText(item.reader_boundary), String(item.reader_boundary || '').trim());
+      assert.equal(context.renderText(item.reader_boundary), context.enumText(String(item.reader_boundary || '').trim()));
       checked++;
     }
   }
@@ -76,7 +77,8 @@ for (const name of fs.readdirSync(path.join(root,'reader/data/people'))) {
 assert.ok(checked > 0);
 // Both the displayed evidence and the outer boundary must use the same lossless formatter.
 assert.match(source, /makeDetails\("范围与边界", publicText\(item\.reader_boundary/);
-assert.match(source, /reading\.append\(publicEvidenceList\(evidence\)\)/);
+assert.match(source, /label === "B2反馈与约束"/);
+assert.match(source, /renderB2MaterialGroups\(evidence\)/);
 assert.match(source, /if \(label === "A制度建设" \|\| label === "B1官僚治理"\) continue/);
 console.log('verified public components:', checked);
 ''', encoding='utf-8')
@@ -151,3 +153,23 @@ for(const source of [alias,labels]){
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
                             text=True, encoding='utf-8')
     assert result.returncode == 0, result.stderr
+
+
+def test_second_item_public_enum_mapping_and_dedicated_ownership():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    a = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
+    b1 = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
+    assert 'SecondItemMaterialCards' in alias
+    assert 'renderB2MaterialGroups(evidence)' in alias
+    assert 'MATERIAL_STRENGTH_TAGS' in alias
+    assert 'A制度建设":"制度建设"' in alias
+    assert 'B1官僚治理":"官僚治理"' in alias
+    assert 'B2反馈与约束":"反馈与约束"' in alias
+    assert 'secondMethodDetailsMarkup(item, record)' not in a
+    assert 'secondMethodDetailsMarkup(item, record)' not in b1
+    assert 'secondPublicOwner = "A"' in a
+    assert 'secondPublicOwner = "B1"' in b1
+    assert 'SecondItemMaterialCards' in a
+    assert 'SecondItemMaterialCards' in b1

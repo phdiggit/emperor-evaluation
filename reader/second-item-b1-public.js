@@ -145,19 +145,21 @@
   }
 
   function card(profile, {supplement = false} = {}) {
-    const li = make("li", supplement ? "second-item-b1-card second-item-b1-supplement" : "second-item-b1-card");
-    if (profile?.profile_id) li.dataset.b1ProfileId = profile.profile_id;
+    const api = globalThis.SecondItemMaterialCards;
+    if (api?.card) return api.card({
+      title: profile?.public_label || "行政运行机制",
+      direction: (profile?.adjudication_tags || []).find(tag => /^正向|^负向/.test(tag)) || "",
+      tags: (profile?.adjudication_tags || []).filter(tag => !/^正向|^负向/.test(tag)),
+      contribution: contribution(profile),
+      body: profile?.adjudication_basis,
+      boundary: profile?.adjudication_boundary,
+      supplement,
+      dataset: {b1ProfileId: profile?.profile_id || ""},
+    });
 
-    const head = make("div", "second-item-b1-head");
-    head.append(make("strong", "", profile.public_label || "行政运行机制"));
-    head.append(tagRow(profile.adjudication_tags || []));
-    head.append(make("span", "second-item-b1-impact", contribution(profile)));
-    li.append(head);
-    if (profile.adjudication_basis) {
-      li.append(make("p", "second-item-b1-basis", profile.adjudication_basis));
-    }
-    const boundary = boundaryBox(profile.adjudication_boundary);
-    if (boundary) li.append(boundary);
+    const li = make("li", supplement ? "second-item-b1-card second-item-b1-supplement" : "second-item-b1-card");
+    li.append(make("strong", "", profile?.public_label || "行政运行机制"));
+    if (profile?.adjudication_basis) li.append(make("p", "", profile.adjudication_basis));
     return li;
   }
 
@@ -202,6 +204,31 @@
     if (!summary) return grade ? `官僚治理的正式公开等级为 ${grade}。` : "";
     return `${summary}${grade ? `综合这些正式裁决，官僚治理的公开等级为 ${grade}。` : ""}`;
   }
+  function genericBodyKey(item) {
+    return [
+      item?.reader_summary || "",
+      ...(Array.isArray(item?.reader_highlights) ? item.reader_highlights : []),
+      item?.reader_boundary || "",
+      item?.reader_how || "",
+      item?.reader_full_basis || "",
+    ].join("|");
+  }
+
+  function appendDedicatedAudit(body, item, record) {
+    const api = globalThis.SecondItemMaterialCards;
+    const details = make("details", "second-item-dedicated-audit");
+    details.append(make("summary", "", "原始记录与计算口径"));
+    const how = api?.publicEnumText ? api.publicEnumText(item?.reader_how || "") : String(item?.reader_how || "").trim();
+    if (how) details.append(make("p", "prose", how));
+    const refs = [...new Set([item?.source, item?.applied_source, ...(item?.reader_source_refs || [])].filter(Boolean))];
+    if (refs.length && typeof link === "function") {
+      const holder = make("p", "sources");
+      holder.innerHTML = refs.map((ref, i) => link(ref, i ? "补充正式记录 ↗" : "正式记录 ↗", record)).join("");
+      details.append(holder);
+    }
+    body.append(details);
+  }
+
 
   function ensureStyles() {
     if (document.getElementById("second-item-b1-public-style")) return;
@@ -270,8 +297,10 @@
     gradeDetails.append(make("summary", "", "为什么最终是这个等级？"));
     gradeDetails.append(make("p", "prose", summaryText(formal, item)));
     body.append(gradeDetails);
-    body.insertAdjacentHTML("beforeend", secondMethodDetailsMarkup(item, record));
+    appendDedicatedAudit(body, item, record);
 
+    body.dataset.secondPublicBodyKey = genericBodyKey(item);
+    body.dataset.secondPublicOwner = "B1";
     body.dataset.b1Public = "done";
   }
 

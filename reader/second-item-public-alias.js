@@ -20,6 +20,31 @@
     "D3政权交接稳定":"终局继承",
   };
   const SECOND_GROUPS = ["method", "finance", "handoff"];
+  const PUBLIC_ITEM_LABELS = {
+    "A制度建设":"制度建设",
+    "B1官僚治理":"官僚治理",
+    "B2反馈与约束":"反馈与约束",
+    "C1民生":"民生",
+    "C2经济财政":"经济财政",
+    "C3社会安全":"社会安全",
+    "C4恢复与成本":"恢复与额外代价",
+    "D1继任行政连续性":"行政连续性",
+    "D3政权交接稳定":"交接稳定",
+  };
+  const PUBLIC_ROLE_LABELS = {
+    MAJOR_RESTRUCTURE:"重构",
+    MAJOR_RECONSTRUCTION:"重建",
+    FOUNDATIONAL_CREATION:"创设",
+    CANONICALIZATION:"定型",
+    MAJOR_CIVILIZATIONAL_CORRECTION:"重大纠偏",
+    STRUCTURAL_NON_DURABLE:"核心结构",
+    DURABILITY_EVIDENCE_PENDING:"耐久性待核",
+  };
+  const MATERIAL_STRENGTH_TAGS = new Map([
+    ["形成持续或系统性结果","持续／系统"],
+    ["持续或系统运行","持续／系统"],
+    ["已观察到实际结果","已观察结果"],
+  ]);
   let scheduled = false;
 
   function finite(value) {
@@ -148,6 +173,27 @@
       .second-item-pool-note{display:none!important}
       .second-item-page-note{margin-top:18px;padding-top:12px}
       .second-item-page-note>summary{font-size:13px;color:var(--muted)}
+      .adjudication-material-group{margin:14px 0 18px}
+      .adjudication-material-group>h4{margin:0 0 8px;font-size:15px}
+      .adjudication-material-list{list-style:none!important;margin:0!important;padding:0!important;display:grid;gap:8px}
+      .adjudication-material-card{margin:0;padding:11px 12px;border:1px solid var(--line);border-radius:5px;background:#fff}
+      .adjudication-material-card.is-supplement{background:#f7f5ef}
+      .adjudication-material-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap}
+      .adjudication-material-head>strong{font-size:14px;line-height:1.55}
+      .adjudication-material-meta{display:flex;align-items:center;justify-content:flex-end;gap:5px;flex-wrap:wrap}
+      .adjudication-material-chip{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:999px;font-size:10px;line-height:1.6;color:var(--muted);font-weight:700;background:#f4f5ef}
+      .adjudication-material-chip.direction{color:var(--green)}
+      .adjudication-material-chip.strength{color:var(--red);border-color:color-mix(in srgb,var(--red) 28%,var(--line))}
+      .adjudication-material-chip.contribution{color:var(--ink);background:#ecefe6}
+      .adjudication-material-basis{margin:7px 0 0!important;font-size:12px!important;line-height:1.78!important;white-space:pre-line}
+      .adjudication-material-scope{margin-top:8px;padding:7px 9px;background:rgba(0,0,0,.025);font-size:11px;line-height:1.65}
+      .adjudication-material-scope strong{color:var(--muted)}
+      .adjudication-material-scope p{margin:2px 0 0}
+      .adjudication-material-boundary{margin-top:7px!important;padding:6px 0 0!important}
+      .adjudication-material-boundary>summary{color:var(--muted);font-size:11px!important}
+      .adjudication-material-boundary>p{margin:5px 0 0;font-size:11px;line-height:1.7}
+      .adjudication-material-footer{display:block;margin-top:7px;color:var(--green);font-size:11px;line-height:1.65;font-weight:600}
+      .adjudication-material-empty{margin:4px 0;color:var(--muted);font-size:12px}
     `;
     document.head.append(style);
   }
@@ -260,23 +306,150 @@
     patchHandoffGrades(root, record);
   }
 
-  function publicTechnicalText(value) {
-    return String(value ?? "")
+  function publicEnumText(value) {
+    let text = String(value ?? "").trim();
+    for (const [from, to] of Object.entries(PUBLIC_ITEM_LABELS)) text = text.replaceAll(from, to);
+    for (const [from, to] of Object.entries(PUBLIC_ROLE_LABELS)) text = text.replace(new RegExp("\\b" + from + "\\b", "g"), to);
+    text = text
+      .replace(/(?:现有材料|现材料|现有证据)?\s*未(?:独立)?闭合\s*R4/gi, "现有证据尚未证明跨朝代长期接收")
+      .replace(/(?:现有材料|现材料|现有证据)?\s*未(?:独立)?闭合\s*R3/gi, "现有证据尚未证明被多个后继统治阶段持续采用")
+      .replace(/闭合\s*R4/gi, "已证明跨朝代长期接收")
+      .replace(/闭合\s*R3/gi, "已证明被多个后继统治阶段持续采用")
+      .replace(/R3\s*\/\s*R4/gi, "长期接收")
+      .replace(/R3\s*门(?:槛)?/gi, "长期接收门槛")
+      .replace(/\bR4\b/gi, "跨朝代长期接收")
+      .replace(/\bR3\b/gi, "被多个后继统治阶段持续采用")
+      .replace(/\bR[12]\b/gi, "后世接收范围有限")
+      .replace(/\bR0\b/gi, "本人任内运行证据")
       .replace(/\bG([0-5])\s*[-/]\s*([A-Za-z-]+)\b/gi, (_, band, position) => `${PUBLIC_GRADE[`G${band}`] || ""}${positionSuffix(position)}`)
       .replace(/\bG([0-5])\b/g, (_, band) => PUBLIC_GRADE[`G${band}`] || band)
       .replace(/\bC[123]-([1-6])\s*\/\s*L([0-3])\b/g, (_, band, loss) => `${STATE_GRADE[Number(band)] || band}档；${LOSS_TEXT[Number(loss)] || ""}`)
       .replace(/\bC[123]-([1-6])\b/g, (_, band) => `${STATE_GRADE[Number(band)] || band}档`)
       .replace(/\bD3-([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
       .replace(/\bH([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
-      .replace(/\bL([0-3])\b/g, (_, level) => LOSS_TEXT[Number(level)] || "")
-      .trim();
+      .replace(/\bL([0-3])\b/g, (_, level) => LOSS_TEXT[Number(level)] || "");
+    return text.trim();
   }
 
-  // Public prose is already adjudicated upstream. Keep short sentences,
-  // negation, quotations and boundaries verbatim; format only outer whitespace.
-  function publicText(value) {
-    return String(value ?? "").trim();
+  function publicTechnicalText(value) {
+    return publicEnumText(value);
   }
+
+  // Only contract-defined enum labels are translated. Sentences, negation,
+  // responsibility and boundaries are otherwise preserved verbatim.
+  function publicText(value) {
+    return publicEnumText(value);
+  }
+
+  function materialStrengthFromTags(tags) {
+    const values = Array.isArray(tags) ? tags : [];
+    for (const [tag, label] of MATERIAL_STRENGTH_TAGS) if (values.includes(tag)) return label;
+    return "";
+  }
+
+  function materialChip(text, className = "") {
+    const value = publicText(text);
+    if (!value) return null;
+    const chip = document.createElement("span");
+    chip.className = `adjudication-material-chip ${className}`.trim();
+    chip.textContent = value;
+    return chip;
+  }
+
+  function materialCard(data = {}) {
+    const card = document.createElement("li");
+    card.className = "adjudication-material-card" + (data.supplement ? " is-supplement" : "");
+    for (const [key, value] of Object.entries(data.dataset || {})) if (value != null && value !== "") card.dataset[key] = String(value);
+
+    const head = document.createElement("div");
+    head.className = "adjudication-material-head";
+    const title = document.createElement("strong");
+    title.textContent = publicText(data.title || "裁决材料");
+    head.append(title);
+
+    const meta = document.createElement("div");
+    meta.className = "adjudication-material-meta";
+    const strength = data.strength || materialStrengthFromTags(data.tags);
+    for (const [value, className] of [
+      [data.direction, "direction"],
+      [strength, "strength"],
+      ...(Array.isArray(data.tags) ? data.tags.filter(tag => !MATERIAL_STRENGTH_TAGS.has(tag)).map(tag => [tag, "tag"]) : []),
+      [data.contribution, "contribution"],
+    ]) {
+      const chip = materialChip(value, className);
+      if (chip) meta.append(chip);
+    }
+    if (meta.childNodes.length) head.append(meta);
+    card.append(head);
+
+    const body = publicText(data.body);
+    if (body) card.append(makeTextBlock("p", "adjudication-material-basis", body));
+
+    const scope = publicText(data.scope);
+    if (scope) {
+      const box = makeTextBlock("div", "adjudication-material-scope", "");
+      box.append(makeTextBlock("strong", "", "具体范围"), makeTextBlock("p", "", scope));
+      card.append(box);
+    }
+
+    const boundary = publicText(data.boundary);
+    if (boundary) {
+      const details = document.createElement("details");
+      details.className = "adjudication-material-boundary";
+      details.append(makeTextBlock("summary", "", "范围与边界"), makeTextBlock("p", "", boundary));
+      card.append(details);
+    }
+
+    const footer = publicText(data.footer);
+    if (footer) card.append(makeTextBlock("small", "adjudication-material-footer", footer));
+    return card;
+  }
+
+  function materialGroup(title, cards, emptyText = "当前没有该类材料。") {
+    const section = document.createElement("section");
+    section.className = "adjudication-material-group";
+    section.append(makeTextBlock("h4", "", publicText(title)));
+    if (!cards.length) {
+      section.append(makeTextBlock("p", "adjudication-material-empty", emptyText));
+      return section;
+    }
+    const list = document.createElement("ul");
+    list.className = "adjudication-material-list";
+    list.replaceChildren(...cards);
+    section.append(list);
+    return section;
+  }
+
+  function renderB2MaterialGroups(evidence) {
+    const groups = {positive:[], negative:[], mixed:[]};
+    for (const entry of evidence || []) {
+      const direction = String(entry?.public_direction || "");
+      const key = direction.startsWith("正向") ? "positive" : direction.startsWith("负向") ? "negative" : "mixed";
+      groups[key].push(materialCard({
+        title: entry?.public_label || entry?.public_role,
+        direction,
+        tags: entry?.public_tags || [],
+        body: entry?.public_basis,
+        boundary: entry?.public_boundary,
+        dataset: {publicEvidenceId: entry?.id || ""},
+      }));
+    }
+    const wrapper = document.createElement("div");
+    wrapper.className = "adjudication-material-groups b2-material-groups";
+    wrapper.append(
+      materialGroup("正向反馈与约束", groups.positive),
+      materialGroup("负向反馈失灵", groups.negative),
+      materialGroup("正负并存或阶段变化", groups.mixed)
+    );
+    return wrapper;
+  }
+
+  globalThis.SecondItemMaterialCards = Object.freeze({
+    card: materialCard,
+    group: materialGroup,
+    strengthFromTags: materialStrengthFromTags,
+    publicEnumText,
+  });
 
   function publicFacts(item) {
     const evidence = Array.isArray(item?.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
@@ -362,7 +535,9 @@
       reading.append(makeTextBlock("div", "label", "为什么这样判断"));
       const evidence = item.reader_public_evidence_items;
       const facts = publicFacts(item);
-      if (Array.isArray(evidence) && evidence.length) {
+      if (label === "B2反馈与约束" && Array.isArray(evidence) && evidence.length) {
+        reading.append(renderB2MaterialGroups(evidence));
+      } else if (Array.isArray(evidence) && evidence.length) {
         reading.append(publicEvidenceList(evidence));
       } else if (facts.length > 1) {
         const list = document.createElement("ul");
