@@ -506,3 +506,18 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;' in home
     assert '总体裁决摘要' in home
     assert 'const logic = (structuredMaterials ? [intro] : [intro, summary])' in home
+def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustment():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+
+    assert "治国成效待正式结算" in template
+    assert "不适用；总分按0计入" in template
+    assert "本项适用，但未形成正向净收益" in template
+    assert "这与“不适用”不同" in template
+    assert "compareFirstAddOn" in template
+    assert "signedAdjustment" in template
+    assert 'groupKey === "civilization"' in home
+    assert "本项适用，但没有形成正向净收益" in home
+    assert 'major === "fourth" && Number(value) > 0' in home
