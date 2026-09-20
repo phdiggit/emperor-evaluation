@@ -20,7 +20,7 @@ def _parser() -> argparse.ArgumentParser:
     maintenance.add_argument("--verify", action="store_true")
     maintenance.add_argument("--related", action="store_true", help="同时执行关联轴的组件校验")
     maintenance.add_argument("--sync", action="store_true", help="校验源后刷新报告列出的确定性下游")
-    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "first-item-a-public-verify", "second-item-b1-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
+    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "first-item-a-public-verify", "first-item-c-public-verify", "first-item-b1-cost-public-verify", "second-item-b1-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
         commands.add_parser(name)
     first_cost = commands.add_parser("first-item-cost-verify")
     first_cost.add_argument("--workspace-root", type=Path, default=Path("."))
@@ -49,6 +49,17 @@ def _parser() -> argparse.ArgumentParser:
     second_item_a_public.add_argument("--write", action="store_true")
     second_item_b2 = commands.add_parser("second-item-b2-verify")
     second_item_b2.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_b2_public = commands.add_parser("second-item-b2-public")
+    second_item_b2_public.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_b2_public.add_argument("--write", action="store_true")
+    second_item_d1_d3_public = commands.add_parser("second-item-d1-d3-public")
+    second_item_d1_d3_public.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_d1_d3_public.add_argument("--write", action="store_true")
+    second_item_c = commands.add_parser("second-item-c-verify")
+    second_item_c.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_c_public = commands.add_parser("second-item-c-public")
+    second_item_c_public.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_c_public.add_argument("--write", action="store_true")
     second_item_b1 = commands.add_parser("second-item-b1-settlement")
     second_item_b1.add_argument("--workspace-root", type=Path, default=Path("."))
     second_item_b1.add_argument("--write", action="store_true")
@@ -102,6 +113,11 @@ def _parser() -> argparse.ArgumentParser:
     third_b1 = commands.add_parser("third-item-b1-settlement")
     third_b1.add_argument("--workspace-root", type=Path, default=Path("."))
     third_b1.add_argument("--write", action="store_true")
+    third_fourth_public = commands.add_parser("third-fourth-item-public")
+    third_fourth_public.add_argument("--workspace-root", type=Path, default=Path("."))
+    third_fourth_public.add_argument("--write", action="store_true")
+    third_fourth_public_verify = commands.add_parser("third-fourth-item-public-verify")
+    third_fourth_public_verify.add_argument("--workspace-root", type=Path, default=Path("."))
     return parser
 
 
@@ -237,6 +253,8 @@ def _dispatch(args: argparse.Namespace) -> int:
         "canonical-ruler-pool-verify": ("canonical_ruler_pool", "verify_canonical_ruler_pool", True),
         "composite-ranking-verify": ("composite_ranking", "verify_composite_ranking", True),
         "first-item-a-public-verify": ("first_item_public_outcomes", "verify_first_item_public_outcomes", True),
+        "first-item-b1-cost-public-verify": ("first_item_b1_cost_public", "verify_first_item_b1_cost_public", True),
+        "first-item-c-public-verify": ("first_item_c_public", "verify_first_item_c_public", True),
         "project-entries-verify": ("project_entries", "verify", True),
         "second-item-b1-verify": ("formal_settlements", "verify_second_item_b1_snapshot", True),
         "profile-m1-verify": ("profile_m1_verifier", "verify", False),
@@ -290,6 +308,42 @@ def _dispatch(args: argparse.Namespace) -> int:
         return 0
     if args.command == "second-item-b2-verify":
         report = verify_second_item_b2_snapshot(args.workspace_root.resolve())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "second-item-b2-public":
+        from emperor_v4.evaluation.second_item_b2_public import run
+
+        report = run(args.workspace_root.resolve(), write=args.write)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "second-item-d1-d3-public":
+        from emperor_v4.evaluation.second_item_d1_d3_public import run
+
+        report = run(args.workspace_root.resolve(), write=args.write)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "second-item-c-verify":
+        from emperor_v4.evaluation.second_item_c_public import verify_public_projection
+
+        report = verify_public_projection(args.workspace_root.resolve())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "second-item-c-public":
+        from emperor_v4.evaluation.second_item_c_public import run
+
+        report = run(args.workspace_root.resolve(), write=args.write)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command in ("third-fourth-item-public", "third-fourth-item-public-verify"):
+        from emperor_v4.evaluation.third_fourth_item_public import (
+            run,
+            verify_public_projection,
+        )
+
+        if args.command == "third-fourth-item-public-verify":
+            report = verify_public_projection(args.workspace_root.resolve())
+        else:
+            report = run(args.workspace_root.resolve(), write=args.write)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "second-item-b1-settlement":

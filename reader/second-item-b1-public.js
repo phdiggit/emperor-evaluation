@@ -20,16 +20,6 @@
     return (record?.net?.component_details?.method || []).find(item => item.label === "B1官僚治理") || null;
   }
 
-  function genericBodyKey(item) {
-    return [
-      item?.reader_summary || "",
-      ...(Array.isArray(item?.reader_highlights) ? item.reader_highlights : []),
-      item?.reader_boundary || "",
-      item?.reader_how || "",
-      item?.reader_full_basis || "",
-    ].join("|");
-  }
-
   function sourcePath(ref) {
     return decodeURIComponent(String(ref || "").split("#", 1)[0]).replace(/:\d+(?:-\d+)?$/, "");
   }
@@ -46,7 +36,8 @@
   }
 
   async function repoJson(path) {
-    const response = await fetch(`../${path}?raw=1`, {cache:"no-cache"});
+    const url = typeof validatedRawUrl === "function" ? validatedRawUrl(path) : `../${path}?raw=1`;
+    const response = await fetch(url, {cache:"no-cache"});
     if (!response.ok) throw new Error(`HTTP ${response.status}: ${path}`);
     return response.json();
   }
@@ -154,19 +145,21 @@
   }
 
   function card(profile, {supplement = false} = {}) {
-    const li = make("li", supplement ? "second-item-b1-card second-item-b1-supplement" : "second-item-b1-card");
-    if (profile?.profile_id) li.dataset.b1ProfileId = profile.profile_id;
+    const api = globalThis.SecondItemMaterialCards;
+    if (api?.card) return api.card({
+      title: profile?.public_label || "行政运行机制",
+      direction: (profile?.adjudication_tags || []).find(tag => /^正向|^负向/.test(tag)) || "",
+      tags: (profile?.adjudication_tags || []).filter(tag => !/^正向|^负向/.test(tag)),
+      contribution: contribution(profile),
+      body: profile?.adjudication_basis,
+      boundary: profile?.adjudication_boundary,
+      supplement,
+      dataset: {b1ProfileId: profile?.profile_id || ""},
+    });
 
-    const head = make("div", "second-item-b1-head");
-    head.append(make("strong", "", profile.public_label || "行政运行机制"));
-    head.append(tagRow(profile.adjudication_tags || []));
-    head.append(make("span", "second-item-b1-impact", contribution(profile)));
-    li.append(head);
-    if (profile.adjudication_basis) {
-      li.append(make("p", "second-item-b1-basis", profile.adjudication_basis));
-    }
-    const boundary = boundaryBox(profile.adjudication_boundary);
-    if (boundary) li.append(boundary);
+    const li = make("li", supplement ? "second-item-b1-card second-item-b1-supplement" : "second-item-b1-card");
+    li.append(make("strong", "", profile?.public_label || "行政运行机制"));
+    if (profile?.adjudication_basis) li.append(make("p", "", profile.adjudication_basis));
     return li;
   }
 
@@ -211,6 +204,31 @@
     if (!summary) return grade ? `官僚治理的正式公开等级为 ${grade}。` : "";
     return `${summary}${grade ? `综合这些正式裁决，官僚治理的公开等级为 ${grade}。` : ""}`;
   }
+  function genericBodyKey(item) {
+    return [
+      item?.reader_summary || "",
+      ...(Array.isArray(item?.reader_highlights) ? item.reader_highlights : []),
+      item?.reader_boundary || "",
+      item?.reader_how || "",
+      item?.reader_full_basis || "",
+    ].join("|");
+  }
+
+  function appendDedicatedAudit(body, item, record) {
+    const api = globalThis.SecondItemMaterialCards;
+    const details = make("details", "second-item-dedicated-audit");
+    details.append(make("summary", "", "原始记录与计算口径"));
+    const how = api?.publicEnumText ? api.publicEnumText(item?.reader_how || "") : String(item?.reader_how || "").trim();
+    if (how) details.append(make("p", "prose", how));
+    const refs = [...new Set([item?.source, item?.applied_source, ...(item?.reader_source_refs || [])].filter(Boolean))];
+    if (refs.length && typeof link === "function") {
+      const holder = make("p", "sources");
+      holder.innerHTML = refs.map((ref, i) => link(ref, i ? "补充正式记录 ↗" : "正式记录 ↗", record)).join("");
+      details.append(holder);
+    }
+    body.append(details);
+  }
+
 
   function ensureStyles() {
     if (document.getElementById("second-item-b1-public-style")) return;
@@ -263,17 +281,6 @@
     }
     const {groups, supplements} = groupedProfiles(formal);
 
-    const boundary = Array.from(body.querySelectorAll(":scope > details")).find(node =>
-      node.querySelector(":scope > summary")?.textContent.trim() === "范围与边界"
-    );
-    const how = Array.from(body.querySelectorAll(":scope > details")).find(node =>
-      node.querySelector(":scope > summary")?.textContent.trim() === "这个分数怎么算？"
-    );
-    body.querySelector(":scope > .net-audit-sources")?.remove();
-    body.querySelector(":scope > .net-formal-basis-raw")?.remove();
-    boundary?.remove();
-    how?.remove();
-
     body.innerHTML = "";
     const reading = make("div", "second-item-public-reading second-item-b1-reading");
     reading.append(make("div", "label", "官僚治理运行链"));
@@ -290,12 +297,12 @@
     gradeDetails.append(make("summary", "", "为什么最终是这个等级？"));
     gradeDetails.append(make("p", "prose", summaryText(formal, item)));
     body.append(gradeDetails);
-    if (boundary) body.append(boundary);
-    if (how) body.append(how);
+    const scoreHow = globalThis.SecondItemScoreHowDetails?.(item, "B1官僚治理");
+    if (scoreHow) body.append(scoreHow);
+    appendDedicatedAudit(body, item, record);
 
-    // Mark the dedicated renderer as satisfying the generic reader contract.
-    // This prevents the generic MutationObserver from repainting the old B1 body.
     body.dataset.secondPublicBodyKey = genericBodyKey(item);
+    body.dataset.secondPublicOwner = "B1";
     body.dataset.b1Public = "done";
   }
 

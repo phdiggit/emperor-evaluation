@@ -184,9 +184,20 @@
     return /^[A-Za-z][A-Za-z0-9_]*$/.test(raw) ? fallback : raw;
   }
 
+  function validatedRawUrl(path) {
+    const local = String(path || "").replace(/^\.\.\//, "").split("#", 1)[0];
+    if (typeof READER_SOURCE_REPOSITORY !== "undefined" && typeof READER_SOURCE_REVISION !== "undefined" &&
+        READER_SOURCE_REPOSITORY && READER_SOURCE_REVISION) {
+      const repo = READER_SOURCE_REPOSITORY.split("/").map(encodeURIComponent).join("/");
+      const file = local.split("/").map(encodeURIComponent).join("/");
+      return `https://raw.githubusercontent.com/${repo}/${encodeURIComponent(READER_SOURCE_REVISION)}/${file}`;
+    }
+    return `../${local}?raw=1`;
+  }
+
   async function json(path) {
     if (cache.has(path)) return cache.get(path);
-    const url = path.startsWith("../") ? `${path}${path.includes("?") ? "&" : "?"}raw=1` : path;
+    const url = path.startsWith("../") ? validatedRawUrl(path) : path;
     const pending = fetch(url, {cache: "no-cache"}).then(response => {
       if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
       return response.json();
@@ -215,7 +226,17 @@
   function repoHref(ref) {
     const value = String(ref || "").trim();
     if (!value) return "";
-    if (/^(docs|config|reader|src)\//.test(value)) return `../${encodeURI(value)}`;
+    if (/^(docs|config|reader|src)\//.test(value)) {
+      if (typeof READER_SOURCE_REPOSITORY !== "undefined" && typeof READER_SOURCE_REVISION !== "undefined" &&
+          READER_SOURCE_REPOSITORY && READER_SOURCE_REVISION) {
+        const [path, ...fragment] = value.split("#");
+        const repo = READER_SOURCE_REPOSITORY.split("/").map(encodeURIComponent).join("/");
+        const file = path.split("/").map(encodeURIComponent).join("/");
+        const hash = fragment.length ? "#" + encodeURIComponent(fragment.join("#")) : "";
+        return `https://github.com/${repo}/blob/${encodeURIComponent(READER_SOURCE_REVISION)}/${file}${hash}`;
+      }
+      return `../${encodeURI(value)}`;
+    }
     if (/^https?:\/\//.test(value)) return value;
     const source = value.match(/^([^/@]+\/[^@]+)@([^#]*)(?:#(.*))?$/);
     if (source) {

@@ -19,7 +19,13 @@
     "handoff_breaks",
     "overlap_power_windows",
     "reaudit_working_copy",
-    "governance_activation"
+    "governance_activation",
+    "public_projection_schema_version",
+    "public_projection_status",
+    "public_projection_axis",
+    "public_projection_record_count",
+    "public_projection_evidence_item_count",
+    "public_projection_source"
   ],
   "payload_metadata": {
     "database_write": false,
@@ -138,6 +144,16 @@
       "review_path": "config/second-item/governance-state-recovery-adjudications.json",
       "reviewed_record_count": 184,
       "out_of_scope_formal_record_count": 11
+    },
+    "public_projection_schema_version": "second-item-c-public-projection-v1",
+    "public_projection_status": "FORMAL_UPSTREAM_SOURCE",
+    "public_projection_axis": "C1",
+    "public_projection_record_count": 195,
+    "public_projection_evidence_item_count": 585,
+    "public_projection_source": {
+      "formal_contract": "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md",
+      "identity": "人物ID与公开条目角色生成稳定公开条目ID；公开文字只由当前正式C1-C4字段确定性投影",
+      "reader_policy": "reader只消费public_adjudication_summary和public_evidence_items"
     }
   },
   "collections": {

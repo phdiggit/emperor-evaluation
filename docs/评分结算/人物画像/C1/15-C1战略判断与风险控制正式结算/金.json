@@ -222,6 +222,47 @@
           "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-JIN-TAIZONG",
           "parent_chains": [
             {
+              "parent_id": "C1-P035-FIELD-ARMY-RECONFIG",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/金.json#parent_id=M4P-RULER-JIN-TAIZONG-TZ-P1",
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/金.json#ruler_id=RULER-JIN-TAIZONG"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/金.json#parent_id=M4P-RULER-JIN-TAIZONG-TZ-P1"
+              ],
+              "cycle_basis": "战争阶段将授官、处分和地方人事资源大幅下放给宗翰等方面军；战线稳定后又在1133年明确收回军帅自行授官，改由朝廷统一选注。高授权—反馈—收权—继续合作构成独立国家级PS2。",
+              "diagnostic_role": "PS2"
+            },
+            {
+              "parent_id": "C1-P035-SUCCESSION-BALANCE",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/金.json#parent_id=M4P-RULER-JIN-TAIZONG-TZ-P3",
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/金.json#ruler_id=RULER-JIN-TAIZONG"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算/金.json#parent_id=M4P-RULER-JIN-TAIZONG-TZ-P3"
+              ],
+              "cycle_basis": "在本人有亲子、太祖支系与开国宗室多方竞争的条件下，接受以完颜亶为明确皇储并完成生前名位配置；太宗死后交接未爆发即时内战。只消费继承风险配置，不倒灌熙宗后续，构成第二条PS2。",
+              "diagnostic_role": "PS2"
+            },
+            {
               "parent_id": "C1-P035-ALLIANCE-OCCUPATION",
               "direction": "MIXED_NEGATIVE",
               "intensity": "MI2",
@@ -246,49 +287,32 @@
               ],
               "cycle_basis": "承接夹攻辽的条款后，宋军失败使金方削地加价，交付燕京前又抽走人口资产；张觉与叛亡反馈后继续拒交山后，联盟破裂。新附人口赈济只能证明部分承载修补。",
               "diagnostic_role": "DW2"
-            },
-            {
-              "ruler_name": "完颜晟",
-              "parent_id": "C1-P035-NEW-POPULATION-INTEGRATION",
-              "direction": "POSITIVE",
-              "intensity": "MI2",
-              "consumption_status": "SCORING_PARENT",
-              "mechanisms": [
-                "PROBLEM_PRIORITY",
-                "GOAL_RESOURCE_FIT",
-                "RISK_OPTIONALITY",
-                "FEEDBACK_RECOURSE"
-              ],
-              "source_refs": [
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-JIN-TAIZONG-TZ-P2",
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-JIN-TAIZONG"
-              ],
-              "direct_process_refs": [
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-JIN-TAIZONG-TZ-P2",
-                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#ruler_id=RULER-JIN-TAIZONG"
-              ],
-              "cycle_basis": "把新附人口从军事接管逐步转为官僚、身份与选官承载，构成与宋金联盟—占领失配不同的非储位资源生命周期。",
-              "diagnostic_role": "PS2"
             }
           ],
           "representative_parent_ids": [
-            "C1-P035-ALLIANCE-OCCUPATION",
-            "C1-P035-NEW-POPULATION-INTEGRATION"
+            "C1-P035-FIELD-ARMY-RECONFIG",
+            "C1-P035-SUCCESSION-BALANCE",
+            "C1-P035-ALLIANCE-OCCUPATION"
           ],
-          "typical_pattern": "太宗原C1明显失步：几乎只消费了宋金联盟恶化和占领承载问题，却没有把其最典型的国内战略资源周期回投C1。跨轴后至少有两条完全独立的国家级PS2，一条还是标准的“高授权—反馈—收权”生命周期。",
+          "typical_pattern": "战时方面军资源的可放可收与宗室继承支系的生前平衡形成两条独立国家级周期；宋金联盟—占领链仍暴露明显承诺与承载下沿。",
           "counterpattern": {
             "positive_parent_refs": [
-              "C1-P035-NEW-POPULATION-INTEGRATION"
+              "C1-P035-FIELD-ARMY-RECONFIG",
+              "C1-P035-SUCCESSION-BALANCE"
             ],
             "counter_parent_refs": [
               "C1-P035-ALLIANCE-OCCUPATION"
             ]
           },
-          "grade_basis": "方面军授权—收权和宗室继承支系配置是两个不同约束下的国家级PS2，足以形成弱PS3迁移；宋金/占领链DW2压住上沿。 由`G2-HIGH`直接升至`G4-LOW / 77`。这不是“多一条储位就升两档”，而是原正式C1漏掉了**最重要的非储位资源生命周期**。",
-          "position_basis": "灭辽结果不换算能力；太祖既定路线限制本人归责。",
+          "grade_basis": "方面军授权—收权与宗室继承支系配置是两个不同约束下的完整PS2，形成弱PS3；宋金/占领链DW2压住上沿，因此维持`G4-LOW / 77`。",
+          "position_basis": "两条独立PS2过G4门；征服结果不换算能力，宋金/占领DW2限制上沿。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": "C1-P035-ALLIANCE-OCCUPATION C1-P035-NEW-POPULATION-INTEGRATION",
+            "scoring_parent_refs": [
+              "C1-P035-FIELD-ARMY-RECONFIG",
+              "C1-P035-SUCCESSION-BALANCE",
+              "C1-P035-ALLIANCE-OCCUPATION"
+            ],
             "result_nonconversion": true
           },
           "reviews": {

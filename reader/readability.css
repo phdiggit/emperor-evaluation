@@ -62,6 +62,95 @@
   margin: 5px 0;
 }
 
+.formal-context-story {
+  margin: 10px 0 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: 6px;
+  background: #fcfbf7;
+}
+
+.formal-context-story .public-context-title {
+  margin-bottom: 7px;
+  font-size: 13px;
+}
+
+.formal-context-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2px 0 8px;
+}
+
+.formal-context-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #f4f5ef;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.formal-context-chip strong {
+  color: var(--ink);
+  font-size: inherit;
+}
+
+.formal-context-chip.context-intensity {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.formal-context-meta-details {
+  margin: 6px 0 8px;
+}
+
+.formal-context-meta-row {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid color-mix(in srgb,var(--line) 70%,transparent);
+}
+
+.formal-context-meta-row > strong {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.formal-context-meta-row .prose {
+  margin: 3px 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.formal-context-story > .metadata {
+  margin-top: 9px;
+}
+
+.formal-context-chip {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  .formal-context-story {
+    padding: 10px 11px;
+  }
+
+  .formal-context-chips {
+    align-items: flex-start;
+  }
+
+  .formal-context-chip {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
+
 .public-person-type {
   margin: 8px 0 10px;
   font-size: 16px;
@@ -311,7 +400,7 @@
   }
 
   #rows tr.home-click-row > td:nth-child(2)::before {
-    content: "净收益";
+    content: "统治绩效";
   }
 
   #rows tr.home-click-row > td:nth-child(4) {
@@ -571,4 +660,106 @@
 
 #history-evidence > .impact-evidence-fold > .subline:first-of-type {
   margin-top: 4px;
+}
+/* Preserve paragraph boundaries supplied by the formal public record. */
+.second-item-public-evidence-card > .prose { white-space: pre-line; }
+
+/* First-visit controls: one state, no duplicated mobile inputs or hidden filters. */
+.home-toolbar { gap: 10px; padding: 14px 0; }
+.home-toolbar #search { flex: 1 1 240px; width: auto; }
+.home-toolbar #polity { flex: 0 1 180px; }
+.home-toolbar #toggle-filters { flex: 0 0 auto; }
+.home-advanced {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.home-advanced[hidden] { display: none; }
+.home-advanced label { min-width: 0; font-size: 13px; }
+.home-advanced label > span { display: block; margin-bottom: 4px; }
+.home-advanced select { width: 100%; }
+.home-filter-meta { flex: 0 0 100%; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; }
+.home-filter-meta .count { margin-left: 0; }
+.home-filter-meta #filter-state { flex: 1 1 auto; overflow-wrap: anywhere; }
+.home-filter-meta #clear-filters:disabled { display: none; }
+#rows td.name button[data-person] { white-space: normal; text-align: left; line-height: 1.45; }
+.power-context-note, .net-power-context-note { max-width: 85ch; margin: 6px 0 16px; }
+.impact-scale-note { padding: 8px 10px; border-left: 2px solid var(--line); background: #f1eee6; }
+.impact-dimension-card .impact-dimension-question { grid-column: 1 / -1; line-height: 1.6; }
+.impact-technical { margin: 12px 0; font-size: 13px; }
+.impact-technical > summary { color: var(--muted); }
+
+@media (max-width: 700px) {
+  body:has(.home-hero) header { padding: 8px 18px; gap: 6px; }
+  body:has(.home-hero) header nav { width: 100%; margin-left: 0; justify-content: space-between; }
+  main:has(.home-hero) { padding-top: 12px; }
+  .home-hero { display: block; padding: 0 0 10px; }
+  .home-hero .eyebrow, .home-hero .legend { display: none; }
+  .home-hero h1 { font-size: 26px; line-height: 1.35; letter-spacing: 1px; margin: 0 0 6px; }
+  .home-hero p { font-size: 14px; line-height: 1.65; margin: 0; }
+  .home-toolbar { padding: 10px 0 12px; gap: 8px; }
+  .home-toolbar #search { flex-basis: 100%; width: 100%; }
+  .home-toolbar #polity { flex: 1 1 0; min-width: 0; }
+  .home-toolbar #toggle-filters { padding: 9px 12px; }
+  .home-filter-meta { gap: 4px 10px; }
+  .home-filter-meta #filter-state { font-size: 12px; }
+  .home-advanced { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  #rows td.name button[data-person] { font-size: 21px; }
+}
+
+#rows td.name small .inline-table-filter { font: inherit; }
+
+
+/* First-visit home defaults to a compact, mobile-safe summary. */
+.home-simple-list{display:grid;gap:10px}
+.home-simple-card{display:grid;grid-template-columns:minmax(230px,1.35fr) minmax(150px,.8fr) minmax(150px,.8fr) minmax(170px,.9fr) auto;align-items:stretch;border:1px solid var(--line);border-radius:7px;background:#fcfbf7;overflow:hidden}
+.home-simple-identity,.home-simple-cell,.home-simple-compare{min-width:0;padding:14px 16px}
+.home-simple-cell,.home-simple-compare{border-left:1px solid var(--line)}
+.home-simple-identity>button[data-person]{padding:0;border:0;color:var(--green);font:20px/1.45 "SimSun",serif;text-align:left}
+.home-simple-identity small{display:block;margin-top:5px}
+.home-simple-identity .inline-table-filter{padding:0;border:0}
+.home-simple-label{display:block;margin-bottom:4px;color:var(--muted);font-size:11px}
+.home-simple-score{display:block;color:var(--ink);font:26px/1.25 Georgia,serif}
+.home-simple-action,.home-simple-profile,.home-simple-impact{display:block;margin-top:5px;padding:0;border:0;color:var(--green);text-align:left}
+.home-simple-profile{margin-top:20px;font-weight:600}
+.home-simple-impact{margin-top:0;color:inherit}
+.home-simple-impact .impact-grade{font-size:26px}
+.home-simple-compare{display:flex;align-items:center}
+.home-simple-compare>button{white-space:nowrap}
+#toggle-home-view{flex:0 0 auto}
+.c5-inline-hint{display:block;margin-top:2px;color:var(--muted);font-size:11px;font-weight:400;white-space:normal}
+.axis-further-check{margin:14px 0 8px;padding:9px 12px;border:1px solid color-mix(in srgb,var(--line) 78%,transparent);border-radius:5px;background:color-mix(in srgb,var(--green) 2%,transparent)}
+.axis-further-check>summary{color:var(--green);font-size:13px}
+.axis-evidence>.metadata{margin-top:8px;opacity:.88}
+.axis-evidence>.metadata>summary{color:var(--muted);font-size:12px}
+.evidence-layer-guide{margin:0 0 10px}
+.guide-quick{margin:16px 0 18px}
+.guide-quick>h2{margin-top:0}
+.guide-quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.guide-quick-grid>div{padding:12px 14px;border:1px solid var(--line);border-radius:5px;background:#f7f5ef}
+.guide-quick-grid strong{color:var(--green)}
+.guide-quick-grid p{margin:4px 0 0;line-height:1.75}
+.guide-more{margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:6px}
+.guide-more>summary{font-size:15px;color:var(--green)}
+.guide-more>.three{margin-top:16px}
+@media(max-width:900px){
+  .home-simple-card{grid-template-columns:1fr 1fr}
+  .home-simple-identity{grid-column:1/-1;border-bottom:1px solid var(--line)}
+  .home-simple-cell{border-left:0}
+  .home-simple-cell:nth-of-type(3),.home-simple-cell:nth-of-type(4){border-top:1px solid var(--line)}
+  .home-simple-compare{grid-column:1/-1;border-left:0;border-top:1px solid var(--line);padding-top:10px;padding-bottom:10px}
+  .home-simple-compare>button{width:100%}
+}
+@media(max-width:700px){
+  .home-toolbar #toggle-home-view{flex:0 0 auto;padding:9px 12px}
+  .home-simple-card{grid-template-columns:1fr 1fr}
+  .home-simple-identity{padding:14px}
+  .home-simple-cell{padding:12px 14px}
+  .home-simple-profile{margin-top:14px}
+  .guide-quick-grid{grid-template-columns:1fr}
+  .axis-further-check{padding:8px 10px}
 }

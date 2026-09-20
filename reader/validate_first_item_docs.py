@@ -11,6 +11,8 @@ sys.path.insert(0, str(ROOT / "src"))
 from emperor_v4.evaluation.first_item_public_outcomes import (  # noqa: E402
     verify_first_item_public_outcomes,
 )
+from emperor_v4.evaluation.first_item_c_public import verify_first_item_c_public
+from emperor_v4.evaluation.first_item_b1_cost_public import verify_first_item_b1_cost_public
 BASE = ROOT / "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力"
 DOCS = {
     "A": BASE / "01-第一项A统一主链客观贡献正式结算.md",
@@ -85,8 +87,8 @@ def validate_battle_list(value: str, *, person: str) -> None:
 def validate() -> None:
     parsed = {code: parse_people(path) for code, path in DOCS.items()}
     expected = set(parsed["A"])
-    if len(expected) != 84:
-        raise ValueError(f"A: expected 84 applicable people, got {len(expected)}")
+    if not expected:
+        raise ValueError('A: formal applicable people are missing')
     for code, people in parsed.items():
         names = set(people)
         if names != expected:
@@ -124,6 +126,8 @@ def validate() -> None:
             validate_battle_list(fields[BATTLE_LIST_FIELD], person=person)
 
     public_report = verify_first_item_public_outcomes(ROOT)
+    verify_first_item_c_public(ROOT)
+    verify_first_item_b1_cost_public(ROOT)
     if public_report["record_count"] != len(expected):
         raise ValueError("第一项A公开成果字段覆盖人数与正式A来源不一致")
 

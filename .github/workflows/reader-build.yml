@@ -11,31 +11,45 @@ on:
       - reader/readability.css
       - reader/readability.js
       - reader/person-readability.js
+      - reader/person-reading-notes.js
+      - reader/person-reading-notes.json
       - reader/first-item-reading.js
       - reader/second-item-reading.js
       - reader/second-item-public-alias.js
       - reader/second-item-a-public.js
       - reader/second-item-b1-public.js
       - reader/second-item-public-labels.js
-      - reader/historical-impact-reading.js
       - reader/validate_first_item_docs.py
       - reader/build_first_item_reader_cache.py
       - src/emperor_v4/evaluation/first_item_public_outcomes.py
+      - src/emperor_v4/evaluation/first_item_c_public.py
+      - src/emperor_v4/evaluation/first_item_b1_cost_public.py
+      - tests/test_first_item_b1_cost_public.py
+      - tests/test_first_item_c_public.py
       - reader/lazy-details.js
       - reader/public-copy.json
       - reader/second-item-summaries.json
       - reader/build.py
       - reader/build_military_archive.py
-      - reader/military.html
+      - reader/military.template.html
       - reader/military-archive.js
       - reader/serve.py
       - reader/_build_military_archive_core.py
       - src/emperor_v4/evaluation/second_item_a_public.py
+      - src/emperor_v4/evaluation/third_fourth*
+      - src/emperor_v4/evaluation/second_item_c_public*
+      - tests/test_second_item_c_public.py
+      - tests/test_third_fourth_item_public.py
+      - src/emperor_v4/evaluation/historical_impact.py
+      - tests/test_historical_impact*.py
+      - docs/项目总纲/历史影响评价总则.md
       - src/emperor_v4/evaluation/second_item_b1_settlement.py
       - tests/test_reader.py
+      - tests/test_reader_public_boundaries.py
       - tests/test_reader_first_item_reading.py
       - tests/test_first_item_public_outcomes.py
       - tests/test_reader_person_readability.py
+      - tests/test_reader_second_public_text.py
       - tests/test_reader_lazy_details.py
       - tests/test_reader_military_archive.py
       - tests/test_reader_military_archive_ref_policy.py
@@ -59,10 +73,14 @@ concurrency:
 permissions:
   contents: write
   pages: write
+  id-token: write
 
 jobs:
   build-reader:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -78,9 +96,6 @@ jobs:
       - name: Verify A public settlement
         run: python -m emperor_v4.eval second-item-a-verify
 
-      - name: Write B1 formal settlement
-        run: python -m emperor_v4.eval second-item-b1-settlement --write
-
       - name: Verify B1 formal settlement
         run: python -m emperor_v4.eval second-item-b1-verify
 
@@ -89,6 +104,17 @@ jobs:
 
       - name: Build military archive indexes
         run: python reader/build_military_archive.py
+
+      - name: Verify public projections
+        run: |
+          python -m emperor_v4.eval second-item-c-public
+          python -m emperor_v4.eval third-fourth-item-public-verify
+          python -m emperor_v4.eval historical-impact-verify
+
+      - name: Verify profile M1 formal settlement
+        run: |
+          python -m emperor_v4.eval profile-m1-verify
+          python -m emperor_v4.eval profile-current-verify --axis M1
 
       - name: Build reader
         run: python reader/build.py
@@ -120,54 +146,72 @@ jobs:
           node --check reader/second-item-a-public.js
           node --check reader/second-item-b1-public.js
           node --check reader/second-item-public-labels.js
-          node --check reader/historical-impact-reading.js
+          node --check reader/person-reading-notes.js
           rm -rf .tmp/reader-js-check
 
       - name: Run behavior tests
-        run: python -m pytest tests/test_reader.py tests/test_reader_first_item_reading.py tests/test_reader_person_readability.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py -q
+        run: python -m pytest tests/test_reader.py tests/test_reader_public_boundaries.py tests/test_reader_first_item_reading.py tests/test_first_item_c_public.py tests/test_first_item_b1_cost_public.py tests/test_reader_person_readability.py tests/test_reader_second_public_text.py tests/test_second_item_c_public.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py tests/test_third_fourth_item_public.py tests/test_historical_impact.py tests/test_historical_impact_source_collections.py -q
 
-      - name: Commit generated reader artifacts
+      - name: Commit validated generated reader artifacts
+        id: validated_release
         shell: bash
         run: |
-          b1_router='docs/评分结算/净收益/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json'
-          b1_shards='docs/评分结算/净收益/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡'
-          if [[ -z "$(git status --porcelain -- reader/index.html reader/data/people reader/data/military reader/data/first-item "$b1_router" "$b1_shards")" ]]; then
-            echo "Generated reader and B1 adjudication artifacts are already current"
-            exit 0
-          fi
-
+          set -euo pipefail
           git fetch origin "${GITHUB_REF_NAME}"
           remote_head="$(git rev-parse "origin/${GITHUB_REF_NAME}")"
           if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
-            echo "This build is superseded by ${remote_head}; skip publishing stale generated artifacts."
+            echo "Validated source was superseded by ${remote_head}; skip release and deployment."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A reader/index.html reader/data/people reader/data/military reader/data/first-item "$b1_router" "$b1_shards"
-          git commit -m "刷新B1逐材料裁决与阅读层"
-          git push
+          release_paths=(reader/index.html reader/military.html reader/source-revision.json reader/data/person-reading-notes.json reader/data/people reader/data/military reader/data/first-item)
+          if [[ -n "$(git status --porcelain -- "${release_paths[@]}")" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A -- "${release_paths[@]}"
+            git commit -m "刷新阅读层"
+            git push
+          else
+            echo "Validated reader release artifacts are already current"
+          fi
 
-      - name: Request Pages build from generated branch HEAD
+          release_head="$(git rev-parse HEAD)"
+          git fetch origin "${GITHUB_REF_NAME}"
+          remote_head="$(git rev-parse "origin/${GITHUB_REF_NAME}")"
+          if [[ "$remote_head" != "$release_head" ]]; then
+            echo "Branch moved to ${remote_head} after validation; skip deployment."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "publish=true" >> "$GITHUB_OUTPUT"
+          echo "release_head=${release_head}" >> "$GITHUB_OUTPUT"
+
+      - name: Configure Pages
+        if: steps.validated_release.outputs.publish == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Stage validated Pages site
+        if: steps.validated_release.outputs.publish == 'true'
         shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          site="$(curl --fail-with-body -sS -L \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "X-GitHub-Api-Version: 2026-03-10" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages")"
-          source_branch="$(printf '%s' "$site" | jq -r '.source.branch // empty')"
-          source_path="$(printf '%s' "$site" | jq -r '.source.path // empty')"
-          if [[ "$source_branch" != "$GITHUB_REF_NAME" || "$source_path" != "/" ]]; then
-            echo "Unexpected Pages source: branch=${source_branch:-<none>} path=${source_path:-<none>}" >&2
-            exit 1
-          fi
-          curl --fail-with-body -sS -L -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "X-GitHub-Api-Version: 2026-03-10" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds"
+          rm -rf .tmp/pages-site
+          mkdir -p .tmp/pages-site/reader
+          cp index.html .tmp/pages-site/
+          cp reader/index.html reader/military.html .tmp/pages-site/reader/
+          cp -a reader/data .tmp/pages-site/reader/
+          touch .tmp/pages-site/.nojekyll
+
+      - name: Upload validated Pages artifact
+        if: steps.validated_release.outputs.publish == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .tmp/pages-site
+
+      - name: Deploy validated Pages artifact
+        if: steps.validated_release.outputs.publish == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
+

@@ -21,6 +21,20 @@ from emperor_v4.evaluation.third_item_d_settlement import (
 )
 
 
+def _without_public_fields(value: Any) -> Any:
+    """Compare scoring views without treating public prose as score input."""
+
+    if isinstance(value, dict):
+        return {
+            key: _without_public_fields(child)
+            for key, child in value.items()
+            if not str(key).startswith("public_")
+        }
+    if isinstance(value, list):
+        return [_without_public_fields(child) for child in value]
+    return value
+
+
 AB_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
 C_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json")
 FORMAL_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json")
@@ -814,8 +828,10 @@ def _validate_result_credit_contract(
             raise ValueError(f"{row['ruler_name']} B80与三轴得分率不一致")
         if require_synchronized and formal is not None and (
             float(formal.get("A120_score_points")) != float(row["A120_points"])
-            or formal.get("A120_axis_adjudications") != row["axes"]
-            or formal.get("B80_adjudication") != row["B80_adjudication"]
+            or _without_public_fields(formal.get("A120_axis_adjudications"))
+            != _without_public_fields(row["axes"])
+            or _without_public_fields(formal.get("B80_adjudication"))
+            != _without_public_fields(row["B80_adjudication"])
             or formal.get("score_ready") != row["score_ready"]
         ):
             raise ValueError(f"{row['ruler_name']} A120/B80正式视图未同步")

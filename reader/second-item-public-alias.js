@@ -7,6 +7,7 @@
   const PUBLIC_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
   const STATE_GRADE = {1:"E",2:"D",3:"C",4:"B",5:"A",6:"S"};
   const HANDOFF_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
+  const FINANCE_ORDINAL_GRADE = {"一":"E","二":"D","三":"C","四":"B","五":"A","六":"S","1":"E","2":"D","3":"C","4":"B","5":"A","6":"S"};
   const LOSS_TEXT = {
     0:"未见独立有效低谷",
     1:"有局部或短时损害",
@@ -20,22 +21,45 @@
     "D3政权交接稳定":"终局继承",
   };
   const SECOND_GROUPS = ["method", "finance", "handoff"];
-  const MAJOR_ROLE_LABELS = {
-    FOUNDATIONAL_CREATION:"创设",
+  const SECOND_CALC_VISIBLE = {
+    method:new Set(["治理手段"]),
+    finance:new Set(["治理结果"]),
+    handoff:new Set(["交接得分"]),
+  };
+  const SECOND_CALC_LABELS = {
+    "AB计分块":"制度建设与官僚治理合成",
+    "B2折算":"反馈与约束折算",
+    "治理手段":"制度与行政合计",
+    "治理结果":"民生与社会合计",
+    "低侧封顶":"交接短板上限",
+    "交接得分":"政权交接得分",
+    "第二项合计":"治国成效合计",
+  };
+  const PUBLIC_ITEM_LABELS = {
+    "A制度建设":"制度建设",
+    "B1官僚治理":"官僚治理",
+    "B2反馈与约束":"反馈与约束",
+    "C1民生":"民生",
+    "C2经济财政":"经济财政",
+    "C3社会安全":"社会安全",
+    "C4恢复与成本":"恢复与额外代价",
+    "D1继任行政连续性":"行政连续性",
+    "D3政权交接稳定":"交接稳定",
+  };
+  const PUBLIC_ROLE_LABELS = {
     MAJOR_RESTRUCTURE:"重构",
     MAJOR_RECONSTRUCTION:"重建",
+    FOUNDATIONAL_CREATION:"创设",
     CANONICALIZATION:"定型",
     MAJOR_CIVILIZATIONAL_CORRECTION:"重大纠偏",
     STRUCTURAL_NON_DURABLE:"核心结构",
-    DURABILITY_EVIDENCE_PENDING:"核心结构",
+    DURABILITY_EVIDENCE_PENDING:"耐久性待核",
   };
-  const CLOSURE_LABELS = {
-    OBSERVED:"已有实际运行",
-    SUSTAINED_OR_SYSTEMIC:"形成持续或系统运行",
-    REVERSED:"后续被逆转",
-    NOT_CLOSED:"尚未形成完整运行证据",
-  };
-  const formalACache = new Map();
+  const MATERIAL_STRENGTH_TAGS = new Map([
+    ["形成持续或系统性结果","持续／系统"],
+    ["持续或系统运行","持续／系统"],
+    ["已观察到实际结果","已观察结果"],
+  ]);
   let scheduled = false;
 
   function finite(value) {
@@ -94,23 +118,6 @@
     };
   }
 
-  function currentSecondPool() {
-    if (typeof byId === "undefined") return [];
-    return Array.from(byId.values()).filter(record =>
-      !record?.supplementary && finite(record?.net?.second_item_score) != null
-    );
-  }
-
-  function secondRankText(record) {
-    const score = finite(record?.net?.second_item_score);
-    if (score == null) return "";
-    const pool = currentSecondPool();
-    if (!pool.length) return "";
-    const rank = 1 + pool.filter(item => finite(item?.net?.second_item_score) > score).length;
-    const pct = Math.max(1, Math.min(100, Math.ceil(rank / pool.length * 100)));
-    return `当前已结算人物：第 ${rank} / ${pool.length}（约前 ${pct}%）`;
-  }
-
   function positionSuffix(text) {
     const lower = String(text || "").toLowerCase();
     if (/lower|low/.test(lower)) return "-";
@@ -141,8 +148,7 @@
   function boundaryExcerpt(item) {
     const text = String(item?.reader_boundary || "").trim();
     if (!text) return "";
-    const first = text.match(/^.*?[。！？；;]/)?.[0] || text;
-    return `边界：${first.trim()}`;
+    return "适用范围与限制见展开说明";
   }
 
   function ensureStyles() {
@@ -150,55 +156,66 @@
     const style = document.createElement("style");
     style.id = "second-item-public-polish-style";
     style.textContent = `
-      .second-item-public-grade-ready > .second-item-scale-note{display:none!important}
-      .second-item-public-grade-ready::after{content:attr(data-public-grade-note);display:block;margin-top:4px;font-size:11px;line-height:1.55;color:var(--green);font-weight:600}
-      .second-item-public-value{font-size:0!important}
-      .net-metric-detail>summary b.second-item-public-value::after{content:attr(data-public-value);font:20px Georgia,serif;color:var(--green)}
-      .component>b.second-item-public-value::after{content:attr(data-public-value);font-size:13px;color:var(--green)}
-      .second-item-public-copy{font-size:0!important}
-      .second-item-public-copy::after{content:attr(data-public-copy);display:block;font-size:13px;line-height:1.7;color:inherit}
-      small.second-item-public-copy::after{font-size:11px;color:var(--muted);line-height:1.55}
-      .second-item-public-score{font-size:0!important}
-      .second-item-public-score::after{content:attr(data-public-score);font:inherit;color:inherit}
-      .net-major-card .big.second-item-public-score::after{font:30px Georgia,serif;color:var(--green)}
-      .second-item-total-grid b.second-item-public-score::after{font:21px Georgia,serif;color:var(--green)}
-      #person-outcome b.second-item-public-score::after,.comparison b.second-item-public-score::after{font:inherit;color:inherit}
+      .second-item-public-grade-ready > .second-item-scale-note{display:block;margin-top:4px;font-size:11px;line-height:1.55;color:var(--green);font-weight:600}
+      .net-metric-detail>summary b.second-item-public-value{font:20px Georgia,serif;color:var(--green)}
+      .component>b.second-item-public-value{font-size:13px;color:var(--green)}
+      .second-item-public-copy{font-size:13px;line-height:1.7}
+      small.second-item-public-copy{font-size:11px;color:var(--muted);line-height:1.55}
+      .net-major-card .big.second-item-public-score{font:30px Georgia,serif;color:var(--green)}
+      .second-item-total-grid b.second-item-public-score{font:21px Georgia,serif;color:var(--green)}
       .second-item-public-reading{margin:2px 0 4px}
       .second-item-public-reading .label{margin-top:8px}
       .second-item-public-reading ul{margin:8px 0 12px;padding-left:20px}
       .second-item-public-reading li{margin:5px 0;line-height:1.8}
       .second-item-public-reading .prose{margin:8px 0 12px}
-      .second-item-pool-note{display:none!important}
-      .second-item-page-note{margin-top:18px;padding-top:12px}
-      .second-item-page-note>summary{font-size:13px;color:var(--muted)}
-      .second-item-institution-reading{margin:4px 0 8px}
-      .second-item-institution-intro{margin:4px 0 14px;line-height:1.75}
-      .second-item-institution-group{margin:14px 0 18px;padding-top:2px}
-      .second-item-institution-group>h4{margin:0 0 8px;font-size:15px}
-      .second-item-institution-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-      .second-item-institution-list>li{margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:#fff}
-      .second-item-institution-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:4px}
-      .second-item-institution-head strong{font-size:14px}
-      .second-item-institution-badge{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:999px;font-size:10px;line-height:1.6;color:var(--green);font-weight:700;background:#f4f5ef}
-      .second-item-institution-direction{font-size:10px;color:var(--muted);font-weight:700}
-      .second-item-institution-meta{margin:2px 0;font-size:11px;color:var(--muted);line-height:1.6}
-      .second-item-institution-note{margin:4px 0 0;font-size:12px;line-height:1.72}
-      .second-item-institution-reception{display:block;margin-top:5px;font-size:11px;line-height:1.65;color:var(--green)}
-      .second-item-institution-empty{margin:4px 0;color:var(--muted);font-size:12px}
+      .adjudication-material-group{margin:14px 0 18px}
+      .adjudication-material-group>h4{margin:0 0 8px;font-size:15px}
+      .adjudication-material-list{list-style:none!important;margin:0!important;padding:0!important;display:grid;gap:8px}
+      .adjudication-material-card{margin:0;padding:11px 12px;border:1px solid var(--line);border-radius:5px;background:#fff}
+      .adjudication-material-card.is-supplement{background:#f7f5ef}
+      .adjudication-material-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap}
+      .adjudication-material-head>strong{font-size:14px;line-height:1.55}
+      .adjudication-material-meta{display:flex;align-items:center;justify-content:flex-end;gap:5px;flex-wrap:wrap}
+      .adjudication-material-chip{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:999px;font-size:10px;line-height:1.6;color:var(--muted);font-weight:700;background:#f4f5ef}
+      .adjudication-material-chip.direction{color:var(--green)}
+      .adjudication-material-chip.strength{color:var(--red);border-color:color-mix(in srgb,var(--red) 28%,var(--line))}
+      .adjudication-material-chip.contribution{color:var(--ink);background:#ecefe6}
+      .adjudication-material-basis{margin:7px 0 0!important;font-size:12px!important;line-height:1.78!important;white-space:pre-line}
+      .adjudication-material-scope{margin-top:7px;padding:7px 9px;background:rgba(0,0,0,.025);font-size:11px;line-height:1.65}
+      .adjudication-material-scope strong{color:var(--muted)}
+      .adjudication-material-scope p{margin:2px 0 0}
+      .adjudication-material-boundary{margin-top:7px!important;padding:6px 0 0!important}
+      .adjudication-material-boundary>summary{color:var(--muted);font-size:11px!important}
+      .adjudication-material-boundary>p{margin:5px 0 0;font-size:11px;line-height:1.7}
+      .adjudication-material-footer{display:block;margin-top:7px;color:var(--green);font-size:11px;line-height:1.65;font-weight:600}
+      .adjudication-material-empty{margin:4px 0;color:var(--muted);font-size:12px}
+      .adjudication-material-card,.adjudication-material-head>strong,.adjudication-material-basis,.adjudication-material-scope,.adjudication-material-boundary>p{overflow-wrap:anywhere}
+      @media(max-width:700px){
+        .adjudication-material-card{padding:10px}
+        .adjudication-material-head{display:block}
+        .adjudication-material-meta{justify-content:flex-start;margin-top:6px}
+        .adjudication-material-chip{white-space:normal;overflow-wrap:anywhere}
+      }
     `;
     document.head.append(style);
   }
 
-  function overlayCopy(node, text) {
+  // The public layer owns these text nodes. The structural renderer respects
+  // the data-public-* markers instead of restoring its intermediate copy.
+  // Write real text: CSS generated content is not a replacement for readable DOM.
+  function setPublicText(node, text, key, className) {
     if (!node || !text) return;
-    node.classList.add("second-item-public-copy");
-    if (node.dataset.publicCopy !== text) node.dataset.publicCopy = text;
+    node.classList.add(className);
+    if (node.dataset[key] !== text) node.dataset[key] = text;
+    if (node.textContent !== text) node.textContent = text;
   }
 
-  function overlayScore(node, text) {
-    if (!node || !text) return;
-    node.classList.add("second-item-public-score");
-    if (node.dataset.publicScore !== text) node.dataset.publicScore = text;
+  function writePublicCopy(node, text) {
+    setPublicText(node, text, "publicCopy", "second-item-public-copy");
+  }
+
+  function writePublicScore(node, text) {
+    setPublicText(node, text, "publicScore", "second-item-public-score");
   }
 
   function setPublicGrade(span, valueNode, grade, noteParts) {
@@ -206,10 +223,14 @@
     const note = noteParts.filter(Boolean).join("｜");
     span.classList.add("second-item-public-grade-ready");
     if (span.dataset.publicGradeNote !== note) span.dataset.publicGradeNote = note;
-    if (valueNode) {
-      valueNode.classList.add("second-item-public-value");
-      if (valueNode.dataset.publicValue !== grade) valueNode.dataset.publicValue = grade;
+    let noteNode = span.querySelector(":scope > .second-item-scale-note");
+    if (!noteNode) {
+      noteNode = document.createElement("small");
+      noteNode.className = "second-item-scale-note";
+      span.append(noteNode);
     }
+    if (noteNode.textContent !== note) noteNode.textContent = note;
+    setPublicText(valueNode, grade, "publicValue", "second-item-public-value");
   }
 
   function patchMethodGrades(root, record) {
@@ -223,7 +244,7 @@
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       const summary = detail.querySelector(":scope > summary");
       setPublicGrade(summary?.querySelector(":scope > span"), summary?.querySelector(":scope > b"), grade,
-        [`原始方向指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}`, boundaryExcerpt(item)]);
+        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（合成输入，不单独加分）`, boundaryExcerpt(item)]);
     }
     for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
       const sourceLabel = span.dataset.secondSourceLabel || "";
@@ -231,7 +252,7 @@
       const grade = publicMethodGrade(item);
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       setPublicGrade(span, span.parentElement?.querySelector(":scope > b"), grade,
-        [`原始方向指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}`, boundaryExcerpt(item)]);
+        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（合成输入，不单独加分）`, boundaryExcerpt(item)]);
     }
   }
 
@@ -287,8 +308,11 @@
     patchHandoffGrades(root, record);
   }
 
-  function translateReceptionCodes(value) {
-    return String(value || "")
+  function publicEnumText(value) {
+    let text = String(value ?? "").trim();
+    for (const [from, to] of Object.entries(PUBLIC_ITEM_LABELS)) text = text.replaceAll(from, to);
+    for (const [from, to] of Object.entries(PUBLIC_ROLE_LABELS)) text = text.replace(new RegExp("\\b" + from + "\\b", "g"), to);
+    text = text
       .replace(/(?:现有材料|现材料|现有证据)?\s*未(?:独立)?闭合\s*R4/gi, "现有证据尚未证明跨朝代长期接收")
       .replace(/(?:现有材料|现材料|现有证据)?\s*未(?:独立)?闭合\s*R3/gi, "现有证据尚未证明被多个后继统治阶段持续采用")
       .replace(/闭合\s*R4/gi, "已证明跨朝代长期接收")
@@ -298,67 +322,334 @@
       .replace(/\bR4\b/gi, "跨朝代长期接收")
       .replace(/\bR3\b/gi, "被多个后继统治阶段持续采用")
       .replace(/\bR[12]\b/gi, "后世接收范围有限")
-      .replace(/\bR0\b/gi, "本人任内运行证据");
-  }
-
-  function publicTechnicalText(value) {
-    return translateReceptionCodes(String(value || ""))
+      .replace(/\bR0\b/gi, "本人任内运行证据")
       .replace(/\bG([0-5])\s*[-/]\s*([A-Za-z-]+)\b/gi, (_, band, position) => `${PUBLIC_GRADE[`G${band}`] || ""}${positionSuffix(position)}`)
       .replace(/\bG([0-5])\b/g, (_, band) => PUBLIC_GRADE[`G${band}`] || band)
       .replace(/\bC[123]-([1-6])\s*\/\s*L([0-3])\b/g, (_, band, loss) => `${STATE_GRADE[Number(band)] || band}档；${LOSS_TEXT[Number(loss)] || ""}`)
       .replace(/\bC[123]-([1-6])\b/g, (_, band) => `${STATE_GRADE[Number(band)] || band}档`)
       .replace(/\bD3-([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
       .replace(/\bH([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
-      .replace(/\bL([0-3])\b/g, (_, level) => LOSS_TEXT[Number(level)] || "")
-      .trim();
+      .replace(/\bL([0-3])\b/g, (_, level) => LOSS_TEXT[Number(level)] || "");
+    return text.trim();
   }
 
-  function cleanHistoricalText(value) {
-    let text = publicTechnicalText(String(value || "").replace(/`/g, "").trim());
-    if (!text) return "";
-    text = text
-      .replace(/\b(?:B1-)?distributed\/personnel\s*M[0-3]\b/gi, "")
-      .replace(/\b(?:MAJOR_RESTRUCTURE|MAJOR_RECONSTRUCTION|FOUNDATIONAL_CREATION|CANONICALIZATION|MAJOR_CIVILIZATIONAL_CORRECTION|STRUCTURAL_NON_DURABLE|DURABILITY_EVIDENCE_PENDING|mixed_positive|mixed_negative|external_constraint|canonical|support|core|central|distributed)\b/gi, "")
-      .replace(/(?:正向|负向|混合偏正|混合偏负)?\s*M[0-3]\b/gi, "")
-      .replace(/\bS(?:\+\+|[+−-])?(?=[^\w]|$)/g, "")
-      .replace(/\bS_(?:end|main|avg|0)\b/gi, "")
-      .replace(/\bP面\b/g, "生产方面")
-      .replace(/\bM侧\b/g, "市场与货币方面")
-      .replace(/\bF\/R面\b/g, "财政与储备方面")
-      .replace(/^正向保留\s*\d+(?:\.\d+)?分[；，。]?\s*/, "")
-      .replace(/(?:正向|负向)\s*\d+(?:\.\d+)?[；，。]?/g, "")
-      .replace(/(?:制度净值|净值|合计)\s*\d+(?:\.\d+)?[；，。]?/g, "")
-      .replace(/主阶段负态主导定\s*[。；]?/g, "主要阶段负面表现占主导。")
-      .replace(/角色改为\s*[。；]?/g, "")
-      .replace(/保留正向\s*[、，。；]?/g, "")
-      .replace(/保留负向\s*[、，。；]?/g, "")
-      .replace(/结算\s*[，,]?\s*/g, "")
-      .replace(/不能从政治清洗或同一问责损害另造[^。；]*[。；]?/g, "")
-      .replace(/不因正负规模或建设名望抬档[。；]?/g, "")
-      .replace(/未过[^。；]*档门[。；]?/g, "")
-      .replace(/阻断[^。；]*档[。；]?/g, "")
-      .replace(/闭合/g, "确认")
-      .replace(/去重/g, "避免重复计算")
-      .replace(/[；，、]\s*[；，、]+/g, "；")
-      .replace(/。\s*。+/g, "。")
-      .replace(/；\s*。/g, "。")
-      .replace(/，\s*。/g, "。")
-      .replace(/\s+/g, " ")
-      .trim();
-    return text
-      .split(/(?<=[。！？])/)
-      .map(part => part.trim())
-      .filter(part => part.length >= 6 && !/^(保留|角色|正式方向|旧结算|改档)/.test(part))
-      .join("")
-      .replace(/^[；，、：\s]+|[；，、：\s]+$/g, "")
-      .trim();
+  function publicTechnicalText(value) {
+    return publicEnumText(value)
+      .replace(/正式方向指数/g, "原始表现指数")
+      .replace(/方向指数/g, "原始表现指数");
   }
+
+  function publicFinanceText(value) {
+    return publicEnumText(value)
+      .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`);
+  }
+
+  function publicCalculationText(value) {
+    let text = publicTechnicalText(value);
+    for (const [from, to] of Object.entries(SECOND_CALC_LABELS)) text = text.replaceAll(from, to);
+    return text;
+  }
+
+  // Only contract-defined enum labels are translated. Sentences, negation,
+  // responsibility and boundaries are otherwise preserved verbatim.
+  function publicText(value) {
+    return publicEnumText(value);
+  }
+
+  const FINANCE_BASE_SCORES = {
+    "C1民生": {1:5.7,2:17.1,3:32.0,4:54.9,5:74.3,6:80.0},
+    "C2经济财政": {1:1.8,2:7.0,3:14.9,4:23.6,5:29.8,6:35.0},
+    "C3社会安全": {1:5.0,2:16.0,3:28.0,4:40.0,5:52.0,6:60.0},
+  };
+  const FINANCE_LOSS_RATE = {0:0,1:0.03,2:0.07,3:0.12};
+
+  function secondMethodExpandedHow(label) {
+    const record = netRecord() || personRecord();
+    const method = itemMap(record, "method");
+    if (!method.size) return "";
+    if (label === "A制度建设" || label === "B1官僚治理") {
+      const a = finite(method.get("A制度建设")?.value);
+      const b1 = finite(method.get("B1官僚治理")?.value);
+      const ab = finite(method.get("AB计分块")?.value);
+      if (a == null || b1 == null || ab == null) return "";
+      const high = Math.max(a, b1);
+      const low = Math.min(a, b1);
+      return `制度建设与官僚治理不各自直接加分，而是组成同一主块：0.8 × [较高表现指数 ${fmt(high)} + 0.5 × 较低表现指数 ${fmt(low)}] = ${fmt(ab)} 分。`;
+    }
+    if (label === "B2反馈与约束") {
+      const b2 = finite(method.get("B2反馈与约束")?.value);
+      const converted = finite(method.get("B2折算")?.value);
+      if (b2 == null || converted == null) return "";
+      return `反馈与约束单独占45分：45 / 80 × 当前表现指数 ${fmt(b2)} = ${fmt(converted)} 分。`;
+    }
+    return "";
+  }
+
+  function secondHandoffExpandedHow() {
+    const record = netRecord() || personRecord();
+    const handoff = itemMap(record, "handoff");
+    const total = handoff.get("交接得分");
+    if (!total) return "";
+    const how = publicTechnicalText(total.reader_how || "");
+    return how ? `${how} 其中0—5只作为 E—S 档在合成公式中的权重，公开裁决仍使用 E—S，并不是另一套数字档位。` : "";
+  }
+
+  function secondScoreHowDetails(item, label) {
+    const details = document.createElement("details");
+    details.className = "second-item-score-how";
+    details.append(makeTextBlock("summary", "", "这个分怎么算？"));
+    const rows = [];
+    const add = (name, value) => { if (value) rows.push([name, value]); };
+
+    if (METHOD_MAX[label]) {
+      const grade = publicMethodGrade(item);
+      add("当前裁决", [grade ? `${grade}档` : "", `原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}`].filter(Boolean).join(" · "));
+      const formal = publicTechnicalText(item.reader_how || "该原始表现指数进入制度与行政合成，不作为本轴直接得分。");
+      const expanded = secondMethodExpandedHow(label);
+      add("换算规则", [formal, expanded].filter(Boolean).join(" "));
+      add("当前结果", "作为制度与行政合成输入，不单独加分");
+    } else if (["C1民生","C2经济财政","C3社会安全"].includes(label)) {
+      const meta = stateGradeMeta(item);
+      const band = String(item?.grade || "").match(/\bC[123]-(\d)\s*\/\s*L([0-3])\b/i);
+      const base = band ? FINANCE_BASE_SCORES[label]?.[Number(band[1])] : null;
+      const rate = band ? FINANCE_LOSS_RATE[Number(band[2])] : null;
+      add("当前裁决", [meta?.grade ? `${meta.grade}档` : "", meta?.lossText || ""].filter(Boolean).join(" · "));
+      if (base != null && rate != null) add("换算规则", `主态基础分 ${base} × (1 − ${Math.round(rate * 100)}%低谷修正)，最终保留1位小数。`);
+      else add("换算规则", publicFinanceText(item.reader_how || ""));
+      add("当前结果", `${fmt(item.value)} 分`);
+    } else if (label === "C4恢复与成本") {
+      add("当前裁决", "恢复、本人可归责恶化与额外民力成本合并结算");
+      add("换算规则", publicFinanceText(item.reader_how || ""));
+      add("当前结果", `${Number(item.value) > 0 ? "+" : ""}${fmt(item.value)} 分`);
+    } else if (HANDOFF_LABELS[label]) {
+      const grade = publicHandoffGrade(item);
+      add("当前裁决", grade ? `${grade}档` : "");
+      const formal = publicTechnicalText(item.reader_how || "");
+      const expanded = secondHandoffExpandedHow();
+      add("换算规则", [formal, expanded].filter(Boolean).join(" "));
+      add("当前结果", grade ? `${grade}档` : "");
+    } else {
+      add("换算规则", publicTechnicalText(item.reader_how || ""));
+      add("当前结果", item.value == null ? "—" : `${fmt(item.value)}${item.unit ? " " + item.unit : ""}`);
+    }
+
+    if (!rows.length) return null;
+    for (const [name,value] of rows) {
+      details.append(makeTextBlock("p", "prose", name + "：" + value));
+    }
+    return details;
+  }
+
+  globalThis.SecondItemScoreHowDetails = secondScoreHowDetails;
+
+  function materialStrengthFromTags(tags) {
+    const values = Array.isArray(tags) ? tags : [];
+    for (const [tag, label] of MATERIAL_STRENGTH_TAGS) if (values.includes(tag)) return label;
+    return "";
+  }
+
+  function materialChip(text, className = "") {
+    const value = publicText(text);
+    if (!value) return null;
+    const chip = document.createElement("span");
+    chip.className = `adjudication-material-chip ${className}`.trim();
+    chip.textContent = value;
+    return chip;
+  }
+
+  function materialCard(data = {}) {
+    const card = document.createElement("li");
+    card.className = "adjudication-material-card" + (data.supplement ? " is-supplement" : "");
+    for (const [key, value] of Object.entries(data.dataset || {})) if (value != null && value !== "") card.dataset[key] = String(value);
+
+    const head = document.createElement("div");
+    head.className = "adjudication-material-head";
+    const title = document.createElement("strong");
+    title.textContent = publicText(data.title || "裁决材料");
+    head.append(title);
+
+    const meta = document.createElement("div");
+    meta.className = "adjudication-material-meta";
+    const strength = data.strength || materialStrengthFromTags(data.tags);
+    for (const [value, className] of [
+      [data.direction, "direction"],
+      [strength, "strength"],
+      ...(Array.isArray(data.tags) ? data.tags.filter(tag => !MATERIAL_STRENGTH_TAGS.has(tag)).map(tag => [tag, "tag"]) : []),
+      [data.contribution, "contribution"],
+    ]) {
+      const chip = materialChip(value, className);
+      if (chip) meta.append(chip);
+    }
+    if (meta.childNodes.length) head.append(meta);
+    card.append(head);
+
+    const body = publicText(data.body);
+    if (body) card.append(makeTextBlock("p", "adjudication-material-basis", body));
+
+    const scope = publicText(data.scope);
+    const boundary = publicText(data.boundary);
+    if (scope || boundary) {
+      const details = document.createElement("details");
+      details.className = "adjudication-material-boundary";
+      details.append(makeTextBlock("summary", "", "范围与边界"));
+      if (scope) {
+        const box = makeTextBlock("div", "adjudication-material-scope", "");
+        box.append(makeTextBlock("strong", "", "具体范围"), makeTextBlock("p", "", scope));
+        details.append(box);
+      }
+      if (boundary) {
+        const box = makeTextBlock("div", "adjudication-material-scope", "");
+        box.append(makeTextBlock("strong", "", "判断边界"), makeTextBlock("p", "", boundary));
+        details.append(box);
+      }
+      card.append(details);
+    }
+
+    const footer = publicText(data.footer);
+    if (footer) card.append(makeTextBlock("small", "adjudication-material-footer", footer));
+    return card;
+  }
+
+  function materialGroup(title, cards, emptyText = "当前没有该类材料。") {
+    const section = document.createElement("section");
+    section.className = "adjudication-material-group";
+    section.append(makeTextBlock("h4", "", publicText(title)));
+    if (!cards.length) {
+      section.append(makeTextBlock("p", "adjudication-material-empty", emptyText));
+      return section;
+    }
+    const list = document.createElement("ul");
+    list.className = "adjudication-material-list";
+    list.replaceChildren(...cards);
+    section.append(list);
+    return section;
+  }
+
+  function renderB2MaterialGroups(evidence) {
+    const groups = {positive:[], negative:[], mixed:[]};
+    for (const entry of evidence || []) {
+      const direction = String(entry?.public_direction || "");
+      const key = direction.startsWith("正向") ? "positive" : direction.startsWith("负向") ? "negative" : "mixed";
+      groups[key].push(materialCard({
+        title: entry?.public_label || entry?.public_role,
+        direction,
+        tags: entry?.public_tags || [],
+        body: entry?.public_basis,
+        boundary: entry?.public_boundary,
+        dataset: {publicEvidenceId: entry?.id || ""},
+      }));
+    }
+    const wrapper = document.createElement("div");
+    wrapper.className = "adjudication-material-groups b2-material-groups";
+    wrapper.append(
+      materialGroup("正向反馈与约束", groups.positive),
+      materialGroup("负向反馈失灵", groups.negative),
+      materialGroup("正负并存或阶段变化", groups.mixed)
+    );
+    return wrapper;
+  }
+
+  function financeRoleKey(role) {
+    const value = String(role || "").trim();
+    if (value === "主要状态") return "state";
+    if (value === "低谷") return "loss";
+    if (value === "边界") return "boundary";
+    if (value === "恢复" || value === "责任范围") return "recovery";
+    if (value === "状态恶化" || value === "额外代价") return "cost";
+    return "other";
+  }
+
+  function renderFinanceMaterialGroups(label, evidence) {
+    const groups = {state:[], loss:[], recovery:[], cost:[], boundary:[], other:[]};
+    for (const entry of evidence || []) {
+      const role = String(entry?.public_role || "").trim();
+      const key = financeRoleKey(role);
+      groups[key].push(materialCard({
+        title: publicFinanceText(entry?.public_label || role || "正式裁决材料"),
+        tags: role ? [role] : [],
+        body: publicFinanceText(entry?.public_basis),
+        boundary: publicFinanceText(entry?.public_boundary),
+        dataset: {publicEvidenceId: entry?.id || ""},
+      }));
+    }
+    const wrapper = document.createElement("div");
+    wrapper.className = "adjudication-material-groups finance-material-groups";
+    if (label === "C4恢复与成本") {
+      wrapper.append(
+        materialGroup("恢复与归责", groups.recovery),
+        materialGroup("恶化与额外代价", groups.cost),
+        materialGroup("重复计算与评价边界", groups.boundary),
+      );
+    } else {
+      wrapper.append(
+        materialGroup("主要状态", groups.state),
+        materialGroup("低谷与损失", groups.loss),
+        materialGroup("评价边界", groups.boundary),
+      );
+    }
+    if (groups.other.length) wrapper.append(materialGroup("其他正式材料", groups.other));
+    return wrapper;
+  }
+
+
+  function renderHandoffMaterialGroups(label, evidence) {
+    const groups = {preparation:[], result:[], continuity:[], other:[]};
+    for (const entry of evidence || []) {
+      const role = String(entry?.public_role || "").trim();
+      const key = role === "事前安排" ? "preparation"
+        : (role === "交接结果" || role === "终局事实") ? "result"
+        : role === "前任行政资产承接" ? "continuity"
+        : "other";
+      groups[key].push(materialCard({
+        title: entry?.public_label || role || "交接裁决材料",
+        tags: role ? [role] : [],
+        body: entry?.public_basis,
+        boundary: entry?.public_boundary,
+        dataset: {publicEvidenceId: entry?.id || ""},
+      }));
+    }
+    const wrapper = document.createElement("div");
+    wrapper.className = "adjudication-material-groups handoff-material-groups";
+    if (label === "D1继任行政连续性") {
+      wrapper.append(materialGroup("行政承接与连续性", groups.continuity));
+    } else {
+      wrapper.append(
+        materialGroup("事前安排", groups.preparation),
+        materialGroup("实际交接与终局事实", groups.result),
+      );
+    }
+    if (groups.other.length) wrapper.append(materialGroup("其他正式材料", groups.other));
+    return wrapper;
+  }
+
+
+  globalThis.SecondItemMaterialCards = Object.freeze({
+    card: materialCard,
+    group: materialGroup,
+    strengthFromTags: materialStrengthFromTags,
+    publicEnumText,
+  });
 
   function publicFacts(item) {
+    const evidence = Array.isArray(item?.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
+    if (evidence.length) {
+      return evidence.map(entry => {
+        if (!entry || typeof entry !== "object") return "";
+        const label = String(entry.public_label || "").trim();
+        const direction = String(entry.public_direction || "").trim();
+        const basis = publicText(entry.public_basis || "");
+        const boundary = publicText(entry.public_boundary || "");
+        return [
+          [label, direction].filter(Boolean).join(" · "),
+          basis,
+          boundary ? `边界：${boundary}` : "",
+        ].filter(Boolean).join("；");
+      }).map(publicText).filter(Boolean);
+    }
     const highlights = (Array.isArray(item?.reader_highlights) ? item.reader_highlights : [])
-      .map(cleanHistoricalText).filter(Boolean).slice(0, 3);
+      .map(publicText).filter(Boolean);
     if (highlights.length) return highlights;
-    const summary = cleanHistoricalText(item?.reader_summary || "");
+    const summary = publicText(item?.reader_summary || "");
     return summary ? [summary] : [];
   }
 
@@ -379,205 +670,18 @@
     return details;
   }
 
-  function sourcePath(ref) {
-    return decodeURIComponent(String(ref || "").split("#", 1)[0]).replace(/:\d+(?:-\d+)?$/, "");
-  }
-
-  function dirname(path) {
-    const at = path.lastIndexOf("/");
-    return at < 0 ? "" : path.slice(0, at);
-  }
-
-  async function fetchRepoJson(path) {
-    const response = await fetch(`../${path}?raw=1`, {cache:"no-cache"});
-    if (!response.ok) throw new Error(`Failed to load ${path}: HTTP ${response.status}`);
-    return response.json();
-  }
-
-  function formalRows(payload) {
-    if (Array.isArray(payload?.records)) return payload.records;
-    if (Array.isArray(payload?.collections?.records?.records)) return payload.collections.records.records;
-    return [];
-  }
-
-  async function loadFormalARecord(record, item) {
-    const path = sourcePath(item?.source);
-    if (!path) return null;
-    const key = `${record.ruler_id}\u0000${path}`;
-    if (formalACache.has(key)) return formalACache.get(key);
-    const pending = (async () => {
-      const payload = await fetchRepoJson(path);
-      let rows = formalRows(payload);
-      if (!rows.length && Array.isArray(payload?.routes)) {
-        const route = payload.routes.find(entry => entry?.polity === record.polity);
-        if (!route?.path) return null;
-        const shardPath = `${dirname(path)}/${route.path}`;
-        rows = formalRows(await fetchRepoJson(shardPath));
-      }
-      return rows.find(row => row?.ruler_id === record.ruler_id) || null;
-    })().catch(error => {
-      console.error("Failed to load formal A institution record", error);
-      return null;
-    });
-    formalACache.set(key, pending);
-    return pending;
-  }
-
-  function directionGroup(direction) {
-    if (direction === "positive") return "positive";
-    if (direction === "negative") return "negative";
-    return "mixed";
-  }
-
-  function directionLabel(direction) {
-    return ({
-      positive:"正向",
-      negative:"负向",
-      mixed_positive:"正向主导",
-      mixed_negative:"负向主导",
-      mixed:"正负并存",
-      neutral:"正负并存",
-    })[direction] || "正负并存";
-  }
-
-  function majorRoleLabel(role) {
-    return MAJOR_ROLE_LABELS[role] || "";
-  }
-
-  function institutionKey(item) {
-    return item?.institution_node_id || `${item?.label_zh || item?.mechanism || ""}\u0000${item?.direction || item?.normative_direction || ""}`;
-  }
-
-  function collectInstitutions(formal) {
-    const groups = {positive:[], negative:[], mixed:[]};
-    if (!formal) return groups;
-    const important = new Map();
-    for (const node of formal.important_institutions || []) {
-      if (node && typeof node === "object") important.set(institutionKey(node), node);
+  function publicEvidenceList(evidence) {
+    const list = makeTextBlock("ul", "second-item-public-evidence", "");
+    for (const entry of evidence) {
+      const card = makeTextBlock("li", "second-item-public-evidence-card", "");
+      const title = [publicText(entry.public_label || entry.public_role), publicText(entry.public_direction)].filter(Boolean).join(" · ");
+      if (title) card.append(makeTextBlock("strong", "", title));
+      card.append(makeTextBlock("p", "prose", publicText(entry.public_basis)));
+      const boundary = makeDetails("适用范围与限制", publicText(entry.public_boundary));
+      if (boundary) card.append(boundary);
+      list.append(card);
     }
-    const seen = new Set();
-    const append = (profile, fallbackDirection) => {
-      if (!profile || typeof profile !== "object") return;
-      const key = institutionKey(profile);
-      if (seen.has(key)) return;
-      seen.add(key);
-      const importantNode = important.get(key) || null;
-      const node = {...(importantNode || {}), ...profile};
-      node._important = Boolean(importantNode || node.decision === "MAJOR_NODE");
-      node._direction = node.direction || node.normative_direction || fallbackDirection || "mixed";
-      groups[directionGroup(node._direction)].push(node);
-    };
-    for (const node of formal.M_positive_profile || []) append(node, "positive");
-    for (const node of formal.M_negative_profile || []) append(node, "negative");
-    for (const node of formal.M_mixed_profile || []) append(node, node?.direction || "mixed");
-    for (const node of important.values()) {
-      const key = institutionKey(node);
-      if (!seen.has(key)) append(node, node.normative_direction || "mixed");
-    }
-    return groups;
-  }
-
-  function receptionText(node) {
-    if (!node?._important) return "";
-    const effect = String(node.S_effect || "").toUpperCase();
-    const gate = String(node.durability_gate || "").toUpperCase();
-    if (effect === "S++") return "后世接收：核心规则跨朝代、经历制度断裂后仍被长期接收。";
-    if (gate.includes("PASS") || effect === "S+" || effect.startsWith("S-")) {
-      return "后世接收：核心规则在多个后继统治阶段仍被实际采用或持续运行。";
-    }
-    if (gate.includes("PENDING") || gate.includes("FAIL_R")) {
-      return "后世接收：现有证据尚不足以证明长期持续沿用。";
-    }
-    return "";
-  }
-
-  function institutionNote(node) {
-    const reason = cleanHistoricalText(node?.reason || "");
-    if (reason) return reason;
-    const closure = CLOSURE_LABELS[String(node?.result_closure || "").toUpperCase()] || "";
-    const mechanism = cleanHistoricalText(node?.mechanism || "");
-    const label = cleanHistoricalText(node?.label_zh || "");
-    if (mechanism && mechanism !== label) return `${mechanism}${closure ? `；${closure}` : ""}`;
-    return closure;
-  }
-
-  function institutionListItem(node) {
-    const li = document.createElement("li");
-    const head = document.createElement("div");
-    head.className = "second-item-institution-head";
-    if (node._important) {
-      const role = majorRoleLabel(node.major_node_role);
-      const badge = makeTextBlock("span", "second-item-institution-badge", role ? `重大制度 · ${role}` : "重大制度");
-      head.append(badge);
-    }
-    head.append(makeTextBlock("strong", "", cleanHistoricalText(node.label_zh || node.mechanism || "未命名制度节点") || "未命名制度节点"));
-    head.append(makeTextBlock("span", "second-item-institution-direction", directionLabel(node._direction)));
-    li.append(head);
-    const metaParts = [];
-    if (node.institution_domain) metaParts.push(node.institution_domain);
-    const closure = CLOSURE_LABELS[String(node.result_closure || "").toUpperCase()] || "";
-    if (closure) metaParts.push(closure);
-    if (metaParts.length) li.append(makeTextBlock("div", "second-item-institution-meta", metaParts.join(" · ")));
-    const note = institutionNote(node);
-    if (note) li.append(makeTextBlock("p", "second-item-institution-note", note));
-    const reception = receptionText(node);
-    if (reception) li.append(makeTextBlock("small", "second-item-institution-reception", reception));
-    return li;
-  }
-
-  function institutionGroup(title, nodes) {
-    const section = document.createElement("section");
-    section.className = "second-item-institution-group";
-    section.append(makeTextBlock("h4", "", `${title} · ${nodes.length}项`));
-    if (!nodes.length) {
-      section.append(makeTextBlock("p", "second-item-institution-empty", "当前正式结算没有独立制度节点。"));
-      return section;
-    }
-    const list = document.createElement("ul");
-    list.className = "second-item-institution-list";
-    for (const node of nodes) list.append(institutionListItem(node));
-    section.append(list);
-    return section;
-  }
-
-  async function patchInstitutionDetail(record) {
-    if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
-    const item = itemMap(record, "method").get("A制度建设");
-    const detail = Array.from(document.querySelectorAll(".net-metric-detail[data-second-source-label]"))
-      .find(node => node.dataset.secondSourceLabel === "A制度建设");
-    const body = detail?.querySelector(":scope > .net-metric-body");
-    if (!item || !body) return;
-    const formal = await loadFormalARecord(record, item);
-    if (!formal || !body.isConnected || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
-    const key = `${record.ruler_id}|${formal.direction_index}|${(formal.M_positive_profile || []).length}|${(formal.M_negative_profile || []).length}|${(formal.M_mixed_profile || []).length}|${(formal.important_institutions || []).length}`;
-    if (body.dataset.secondInstitutionKey === key) return;
-
-    const audit = body.querySelector(":scope > .net-audit-sources");
-    if (audit) audit.remove();
-    let rawFormal = body.querySelector(":scope > .net-formal-basis-raw");
-    if (rawFormal) rawFormal.remove();
-    if (!rawFormal && item.reader_full_basis && item.reader_full_basis !== item.reader_summary) {
-      rawFormal = makeDetails("正式裁决原文（未改写）", item.reader_full_basis, "net-formal-basis-raw");
-    }
-
-    body.innerHTML = "";
-    const reading = document.createElement("div");
-    reading.className = "second-item-institution-reading";
-    reading.append(makeTextBlock("div", "label", "制度建设清单"));
-    reading.append(makeTextBlock("p", "second-item-institution-intro", "按正向、负向和正负并存分类列出制度建设；重大制度另标类型和后世接收。"));
-    const groups = collectInstitutions(formal);
-    reading.append(institutionGroup("正向制度建设", groups.positive));
-    reading.append(institutionGroup("负向制度设计与制度性损害", groups.negative));
-    reading.append(institutionGroup("正负并存的制度", groups.mixed));
-    body.append(reading);
-
-    const summary = cleanHistoricalText(item.reader_summary || "");
-    if (summary) body.append(makeDetails("为什么最终是这个等级？", summary));
-    const how = publicTechnicalText(item.reader_how || "");
-    if (how) body.append(makeDetails("这个分数怎么算？", how));
-    if (rawFormal) body.append(rawFormal);
-    if (audit) body.append(audit);
-    body.dataset.secondInstitutionKey = key;
+    return list;
   }
 
   function patchMetricBodies(record) {
@@ -587,12 +691,14 @@
     if (!root) return;
     for (const detail of root.querySelectorAll(".net-metric-detail[data-second-source-label]")) {
       const label = detail.dataset.secondSourceLabel || "";
-      if (label === "A制度建设") continue;
+      // Dedicated A/B1 renderers own these bodies. Do not overwrite them when
+      // their asynchronous formal data load triggers the shared observer.
+      if (label === "A制度建设" || label === "B1官僚治理") continue;
       const item = items.get(label);
       if (!item || item.reader_kind !== "judgment") continue;
       const body = detail.querySelector(":scope > .net-metric-body");
       if (!body) continue;
-      const key = [item.reader_summary || "", ...(item.reader_highlights || []), item.reader_boundary || "", item.reader_how || "", item.reader_full_basis || ""].join("|");
+      const key = [item.reader_summary || "", JSON.stringify(item.reader_public_evidence_items || []), ...(item.reader_highlights || []), item.reader_boundary || "", item.reader_how || "", item.reader_full_basis || ""].join("|");
       if (body.dataset.secondPublicBodyKey === key && body.querySelector(":scope > .second-item-public-reading")) continue;
       const audit = body.querySelector(":scope > .net-audit-sources");
       if (audit) audit.remove();
@@ -606,20 +712,30 @@
       const reading = document.createElement("div");
       reading.className = "second-item-public-reading";
       reading.append(makeTextBlock("div", "label", "为什么这样判断"));
+      const evidence = item.reader_public_evidence_items;
       const facts = publicFacts(item);
-      if (facts.length > 1) {
+      if (label === "B2反馈与约束" && Array.isArray(evidence) && evidence.length) {
+        reading.append(renderB2MaterialGroups(evidence));
+      } else if (["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label) && Array.isArray(evidence) && evidence.length) {
+        reading.append(renderFinanceMaterialGroups(label, evidence));
+      } else if (["D1继任行政连续性","D3政权交接稳定"].includes(label) && Array.isArray(evidence) && evidence.length) {
+        reading.append(renderHandoffMaterialGroups(label, evidence));
+      } else if (Array.isArray(evidence) && evidence.length) {
+        reading.append(publicEvidenceList(evidence));
+      } else if (facts.length > 1) {
         const list = document.createElement("ul");
         for (const fact of facts) list.append(makeTextBlock("li", "", fact));
         reading.append(list);
       } else if (facts.length === 1) {
         reading.append(makeTextBlock("p", "prose", facts[0]));
       } else {
-        reading.append(makeTextBlock("p", "prose", "当前公开层没有可进一步压缩的独立事实摘要，可展开正式裁决原文核对。"));
+        reading.append(makeTextBlock("p", "prose", "当前尚未提供公开说明，请查看正式记录。"));
       }
       body.append(reading);
-      const boundaryDetails = makeDetails("范围与边界", cleanHistoricalText(item.reader_boundary || ""));
+      const financeItem = ["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label);
+      const boundaryDetails = makeDetails("范围与边界", financeItem ? publicFinanceText(item.reader_boundary || "") : publicText(item.reader_boundary || ""));
       if (boundaryDetails) body.append(boundaryDetails);
-      const howDetails = makeDetails("这个分数怎么算？", publicTechnicalText(item.reader_how || ""));
+      const howDetails = secondScoreHowDetails(item, label);
       if (howDetails) body.append(howDetails);
       if (formal) body.append(formal);
       if (audit) body.append(audit);
@@ -627,28 +743,50 @@
     }
   }
 
+  function patchCalculationRows(root, record) {
+    if (!root || !record?.net) return;
+    for (const key of SECOND_GROUPS) {
+      const panel = root.querySelector(`#net-group-${key}`);
+      const details = panel?.querySelector(":scope > .net-calculations");
+      if (!details) continue;
+      const rows = Array.from(details.querySelectorAll(":scope > .component"));
+      const visible = SECOND_CALC_VISIBLE[key];
+      const calculations = (record.net.component_details?.[key] || [])
+        .filter(item => item.reader_kind === "calculation" && item.value != null && (!visible || visible.has(item.label)));
+      const summary = details.querySelector(":scope > summary");
+      if (summary) summary.textContent = "本组小计怎么形成？";
+      rows.forEach((row, index) => {
+        const item = calculations[index];
+        if (!item) return;
+        const strong = row.querySelector("strong");
+        const small = row.querySelector("small");
+        if (strong) strong.textContent = SECOND_CALC_LABELS[item.label] || publicText(item.public_component_label || item.label);
+        if (small) small.textContent = publicCalculationText(item.reader_how || "");
+      });
+    }
+  }
+
   function patchGroupIntros(record) {
     if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
     const values = secondTotals(record);
-    overlayCopy(document.querySelector('[data-second-intro="method"]'),
-      `这一组看国家机器如何建立规则、配置官僚并形成反馈约束。当前合计 ${fmt(values.method)} 分；公开层先看等级和历史依据，具体指数与折算放在展开内容里。`);
-    overlayCopy(document.querySelector('[data-second-intro="finance"]'),
+    writePublicCopy(document.querySelector('[data-second-intro="method"]'),
+      `这一组看国家机器如何建立规则、配置官僚并形成反馈约束。当前合计 ${fmt(values.method)} 分；公开层先看等级和历史依据，具体表现指数与折算放在展开内容里。`);
+    writePublicCopy(document.querySelector('[data-second-intro="finance"]'),
       `这一组看统治时期普通家庭、经济财政和社会安全的主要状态，再结合任内低谷、恢复与额外代价形成结果判断。当前合计 ${fmt(values.finance)} 分。`);
-    overlayCopy(document.querySelector('[data-second-intro="handoff"]'),
+    writePublicCopy(document.querySelector('[data-second-intro="handoff"]'),
       "统治如何收尾，会直接影响国家机器和继承秩序能否平稳延续。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否顺利；两项均以 S—E 六档显示。");
   }
 
   function patchScorePresentation(record) {
     if (!record?.net) return;
     const totals = secondTotals(record);
-    const rank = secondRankText(record);
     if (location.hash.match(/^#net\/[^/?#]+\/(?:all)?$/)) {
       const card = Array.from(document.querySelectorAll(".net-major-card")).find(node => /\/second(?:\/|$)/.test(node.getAttribute("href") || ""));
       if (card) {
-        if (totals.total != null) overlayScore(card.querySelector(".big"), `${fmt(totals.total)} 分`);
+        if (totals.total != null) writePublicScore(card.querySelector(".big"), `${fmt(totals.total)} 分`);
         if ([totals.method, totals.finance, totals.handoff].every(value => value != null)) {
-          overlayCopy(card.querySelector(":scope > .second-item-card-breakdown"),
-            `${rank ? `${rank} · ` : ""}制度与行政 ${fmt(totals.method)} · 民生与社会 ${fmt(totals.finance)} · 政权交接 ${fmt(totals.handoff)}`);
+          writePublicCopy(card.querySelector(":scope > .second-item-card-breakdown"),
+            `制度与行政 ${fmt(totals.method)} · 民生与社会 ${fmt(totals.finance)} · 政权交接 ${fmt(totals.handoff)}`);
         }
       }
     }
@@ -657,19 +795,19 @@
       const cards = summary?.querySelectorAll(".second-item-total-grid > div");
       if (cards?.length >= 3) {
         const values = [totals.method, totals.finance, totals.handoff];
-        cards.forEach((card, index) => { if (values[index] != null) overlayScore(card.querySelector("b"), `${fmt(values[index])} 分`); });
-        overlayCopy(cards[1]?.querySelector("small"), "民生、经济财政、社会安全、恢复与额外代价");
+        cards.forEach((card, index) => { if (values[index] != null) writePublicScore(card.querySelector("b"), `${fmt(values[index])} 分`); });
+        writePublicCopy(cards[1]?.querySelector("small"), "民生、经济财政、社会安全、恢复与额外代价");
       }
       const intro = document.querySelector(".net-detail-page > .panel");
       const scoreLine = intro?.querySelector(":scope > p.subline");
-      if (totals.total != null) overlayCopy(scoreLine, `治国成效：${fmt(totals.total)} 分${rank ? `；${rank}` : ""}。先看结论，再展开到各项依据。`);
+      if (totals.total != null) writePublicCopy(scoreLine, `治国成效：${fmt(totals.total)} 分。先看结论，再展开到各项依据。`);
     }
     if (location.hash.startsWith("#person/")) {
       const panel = document.getElementById("person-outcome");
       for (const row of panel?.querySelectorAll(":scope > .component") || []) {
         const span = row.querySelector("span");
         if (!span || !span.textContent.trim().startsWith("治国成效")) continue;
-        if (totals.total != null) overlayScore(row.querySelector("b"), `${fmt(totals.total)} 分`);
+        if (totals.total != null) writePublicScore(row.querySelector("b"), `${fmt(totals.total)} 分`);
       }
     }
   }
@@ -682,7 +820,7 @@
       const score = finite(record?.net?.second_item_score);
       const cell = row.cells?.[index + 1];
       if (!cell || score == null) return;
-      overlayScore(cell.querySelector("b"), `${fmt(score)} 分`);
+      writePublicScore(cell.querySelector("b"), `${fmt(score)} 分`);
     });
   }
 
@@ -740,34 +878,14 @@
     }
   }
 
-  function patchPoolNote(record) {
-    if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
-    const root = document.getElementById("net-major-body");
-    if (!root) return;
-    let details = root.querySelector(":scope > .second-item-page-note");
-    if (!details) {
-      details = document.createElement("details");
-      details.className = "second-item-page-note";
-      const summary = document.createElement("summary");
-      summary.textContent = "排名与数据口径";
-      details.append(summary, document.createElement("p"));
-      root.append(details);
-    }
-    const pool = currentSecondPool().length;
-    const text = `当前公开名次只比较已完成治国成效正式结算并进入当前主池的人物，共 ${pool} 人；待正式结算与补充对象不进入本名次。`;
-    const p = details.querySelector("p");
-    if (p && p.textContent !== text) p.textContent = text;
-  }
-
   function patchPublicGrades() {
     const net = netRecord();
     if (net && location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) {
       const root = document.getElementById("net-major-body");
       patchGradeGroups(root, net);
       patchMetricBodies(net);
+      patchCalculationRows(root, net);
       patchGroupIntros(net);
-      patchPoolNote(net);
-      void patchInstitutionDetail(net);
     }
     const person = personRecord();
     if (person) patchGradeGroups(screenEl, person);

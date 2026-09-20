@@ -6,12 +6,12 @@
       "positions": [
         18,
         69,
-        90,
         70,
         71,
+        90,
         91,
-        111,
         110,
+        111,
         139,
         140,
         141,
@@ -82,7 +82,21 @@
             "《明史》：二月壬辰，免河南被災秋糧。甲午，戶部請免南畿、湖廣稅糧。上曰：「凶歲義當損上益下。必欲取盈，如病民何。」悉從之。"
           ],
           "position_residual": 0.5,
-          "grade_threshold_consumed": 1.5
+          "grade_threshold_consumed": 1.5,
+          "public_adjudication_summary": "刘健、李东阳等阁臣和王恕长期面议、执奏并多次改变财政、用人和内臣处置，形成较强的正向机制；李梦阳弹劾外戚后虽一度下狱，最终获释且未受廷杖。反馈安全门通过，但第二条独立持续或系统性的机制和稳定跨层级入口不足。档内位置由现有机制的代表性确定。整体判断为较高档（中位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-EA9EDE31B718D86A",
+              "public_label": "阁臣和王恕长期面议、执奏并反复改变财政、用人和内臣处置",
+              "public_direction": "正向",
+              "public_tags": [
+                "反馈与纠错",
+                "形成持续或系统性结果"
+              ],
+              "public_basis": "阁臣和王恕长期面议、执奏并反复改变财政、用人和内臣处置；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -151,79 +165,33 @@
             "主档G2；去重后净余量-1，对应中下位。"
           ],
           "position_residual": -1.0,
-          "grade_threshold_consumed": 1.0
-        },
-        {
-          "M_mixed_profile": [],
-          "M_negative_profile": [
+          "grade_threshold_consumed": 1.0,
+          "public_adjudication_summary": "监国时廷议战守，采纳于谦反对南迁意见，守京决定形成，形成完整链条有限的正向机制。复储议题中章纶钟同廖庄遭狱杖并有人死亡，按同一议题高烈度有限的负向机制；不按受罚人数或反复执行刑罚自动升持续或系统性的机制。正负重要阶段并存对应中档，两链分别绑定，不能用求直言设置支撑正链。整体判断为中档（中下位）。",
+          "public_evidence_items": [
             {
-              "material_id": "I2-MING-ZHUYOUJIAN-CENSOR-PUNISHMENT-001",
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "signed_weight": -2.0,
-              "mechanism": "对温体仁的反驳与对周延儒的弹劾及救援反复引发杖狱谪逐",
-              "result_closure": "sustained_or_systemic"
-            }
-          ],
-          "M_positive_profile": [
+              "id": "B2-PUBLIC-973335ACE1C29C2C",
+              "public_label": "监国廷议采纳于谦反对南迁意见确定守京",
+              "public_direction": "正向",
+              "public_tags": [
+                "反馈与纠错",
+                "外部约束",
+                "已观察到实际结果"
+              ],
+              "public_basis": "监国廷议采纳于谦反对南迁意见确定守京；已观察到实际结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
             {
-              "material_id": "I2-MING-ZHUYOUJIAN-QIANJIAZHENG-001",
-              "M": "M2",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "signed_weight": 1.0,
-              "mechanism": "钱嘉征等弹劾后魏忠贤被罢逐追治",
-              "result_closure": "observed_or_repeated",
-              "mechanism_role": "external_constraint"
+              "id": "B2-PUBLIC-1656F02B790765BF",
+              "public_label": "章纶钟同廖庄因复储进言遭狱杖，钟同死",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "已观察到实际结果"
+              ],
+              "public_basis": "章纶钟同廖庄因复储进言遭狱杖，钟同死；已观察到实际结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
             }
-          ],
-          "coverage_audit_ids": [
-            "MING17-TWO-SOURCE-FAMILY-GATE",
-            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
-          ],
-          "database_write": false,
-          "direct_material_ids": [
-            "I2-MING-ZHUYOUJIAN-CENSOR-PUNISHMENT-001",
-            "I2-MING-ZHUYOUJIAN-QIANJIAZHENG-001"
-          ],
-          "direction_card_write": true,
-          "direction_index": 33.2,
-          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
-          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
-          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
-          "grade": "G2",
-          "grade_basis": "钱嘉征等进言促成魏忠贤罢逐追治，闭合初年外部反馈正M2。章允儒等反驳温体仁被下狱降谪，后熊开元弹劾周延儒又被杖狱，救援官员接连罢官，闭合跨阶段监督表达受惩负M3。正负均有实际过程，按重要阶段并存定G2；不能把廷议频繁直接记成正M3，也不以拒南迁这一失真概括充当负证。",
-          "grade_gate_basis": "钱嘉征等进言促成魏忠贤罢逐追治，闭合初年外部反馈正M2。章允儒等反驳温体仁被下狱降谪，后熊开元弹劾周延儒又被杖狱，救援官员接连罢官，闭合跨阶段监督表达受惩负M3。正负均有实际过程，按重要阶段并存定G2；不能把廷议频繁直接记成正M3，也不以拒南迁这一失真概括充当负证。",
-          "grade_gate_code": "B2_G2_ONE_CLOSED_OR_MIXED",
-          "index_interval": [
-            32.0,
-            43.9
-          ],
-          "polity": "明",
-          "position": "lower",
-          "position_basis": "有效生命周期权重合计扣除G2门槛占用1后，净余量=-2，据此确定档内位置。",
-          "position_q": 0.1,
-          "rank": 90,
-          "reign_range": "1627-1644北京内城陷落前；不把战役成败重复写入治理轴",
-          "ruler_id": "RULER-MING-ZHU-YOUJIAN",
-          "ruler_name": "朱由检",
-          "verification_material_ids": [
-            "M2-LSM-E005",
-            "M2-LSM-E006",
-            "M2-LSM-E008"
-          ],
-          "material_basis": [
-            "《明史·卷308》：崇祯元年冬，诏会推阁臣，体仁望轻，不与也。侍郎周延儒方以召对称旨，亦弗及。体仁揣帝意必疑，遂上疏讦谦益关节受贿，神奸结党，不当与阁臣选。先是，天启二年，谦益主试浙江，所取士钱千秋者，首场文用俚俗诗一句，分置七义结尾，盖奸人绐为之。为给事中顾其仁所摘，谦益亦自发其事。法司戍千秋及奸人，夺谦益俸，案久定矣。至是体仁复理其事，帝心动。次日，召对阁部科道诸臣于文华殿，命体仁、谦益皆至。谦益不虞体仁之劾己也，辞颇屈，而体仁盛气诋谦益，言如涌泉，因进曰：“臣职非言官不可言，会推不与，宜避嫌不言，但枚卜大典，宗社安危所系。谦益结党受贿，举朝无一人敢言者，臣不忍见皇上孤立于上，是以不得不言。”帝久疑廷臣植党，闻体仁言，辄称善。而执政皆言谦益无罪，吏科都给事中章允儒争尤力，且言：“体仁热中觖望，如谦益当纠，何俟今日。”体仁曰：“前此，谦益皆闲曹，今者纠之，正为朝廷慎用人耳。如允儒言，乃真党也。”帝怒，命礼部进千秋卷，阅意，责谦益，谦益引罪。叹曰：“微体仁，朕几误！”遂叱允儒下诏狱，并切责诸大臣。时大臣无助体仁者，独延儒奏曰：“会推名虽公，主持者止一二人，馀皆不敢言，即言，徒取祸耳。且千秋事有成案，不必复问诸臣。”帝乃即日罢谦益官，命议罪。允儒及给事中瞿式耜、御史房可壮等，皆坐谦益党，降谪有差。",
-            "《明史·卷308》：昌时，嘉兴人。有干材，颇为东林效奔走。然为人墨而傲，通厂卫，把持朝官，同朝咸嫉之。行人司副熊开元廷劾延儒纳贿状，触帝怒，与给事中姜埰俱廷杖，下诏狱。左都御史宗周、佥都御史光辰以救开元、埰罢，尚书石麒又以救宗周等罢，延儒皆弗救，朝议皆以咎延儒。会昌时以年例出言路十人于外，言路大哗。掌科给事中吴麟征、掌道御史祁彪佳劾昌时挟势弄权，延儒颇不自安。",
-            "《明史·卷305》：七年秋八月，熹宗崩，信王立。王素稔忠贤恶，深自儆备，其党自危。杨所修、杨维垣先攻崔呈秀以尝帝，主事陆澄原、钱元悫，员外郎史躬盛遂交章论忠贤。帝犹未发。于是嘉兴贡生钱嘉征劾忠贤十大罪：一并帝，二蔑后，三弄兵，四无二祖列宗，五克削藩封，六无圣，七滥爵，八掩边功，九朘民，十通关节。疏上，帝召忠贤，使内侍读之。忠贤大惧，急以重宝啖信邸太监徐应元求解。应元，故忠贤博徒也。帝知之，斥应元。十一月，遂安置忠贤于凤阳，寻命逮治。忠贤行至阜城，闻之，与李朝钦偕缢死。诏磔其尸。悬首河间。笞杀客氏于浣衣局。魏良卿、侯国兴、客光先等并弃市，籍其家。客氏之籍也，于其家得宫女八人，盖将效吕不韦所为，人尤疾之。"
-          ],
-          "settlement_basis": [
-            "钱嘉征等进言促成魏忠贤罢逐追治，闭合初年外部反馈正M2。章允儒等反驳温体仁被下狱降谪，后熊开元弹劾周延儒又被杖狱，救援官员接连罢官，闭合跨阶段监督表达受惩负M3。正负均有实际过程，按重要阶段并存定G2；不能把廷议频繁直接记成正M3，也不以拒南迁这一失真概括充当负证。",
-            "主档G2；去重后净余量-2，对应下位。"
-          ],
-          "position_residual": -2.0,
-          "grade_threshold_consumed": 1.0
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -292,7 +260,33 @@
             "主档G2；去重后净余量-1，对应中下位。"
           ],
           "position_residual": -1.0,
-          "grade_threshold_consumed": 1.0
+          "grade_threshold_consumed": 1.0,
+          "public_adjudication_summary": "穆宗即位释放海瑞及请释海瑞而受刑的何以尚，形成完整链条对惩谏案件的实际纠偏有限但有实际结果的机制。郑履淳因言事廷杖下狱构成独立有限的负向机制；厂卫密访设置不凭存在自动升级较强的负向机制。正负阶段并存对应中档。两事件分别绑定，不再以仅载郑履淳的同一材料支撑海瑞正链。整体判断为中档（中下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-FCE08128386588E8",
+              "public_label": "即位释放海瑞与救援进言者何以尚",
+              "public_direction": "正向",
+              "public_tags": [
+                "反馈与纠错",
+                "本人纠偏",
+                "已观察到实际结果"
+              ],
+              "public_basis": "即位释放海瑞与救援进言者何以尚；已观察到实际结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
+            {
+              "id": "B2-PUBLIC-723375C7CBA345A3",
+              "public_label": "郑履淳因言事遭廷杖下狱",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "已观察到实际结果"
+              ],
+              "public_basis": "郑履淳因言事遭廷杖下狱；已观察到实际结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -366,7 +360,130 @@
             "《明史·卷9》：癸未，大理卿胡概、參政葉春巡撫南畿、浙江。設巡撫自此始。宣德元年七月己亥，諭六科，凡中官傳旨，必覆奏始行。冬十月，敕公、侯、伯、五府、六部、大學士、給事中審覆重囚。"
           ],
           "position_residual": -1.0,
-          "grade_threshold_consumed": 1.0
+          "grade_threshold_consumed": 1.0,
+          "public_adjudication_summary": "杨士奇长期参与并改变多类最高决策，形成较强的正向机制；戴纶、林长懋、陈祚、郭循等因批评皇帝私人偏好遭重罚，形成较强的负向机制。正负重要阶段并存。档内位置由现有机制的代表性确定。整体判断为中档（中下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-703D4C7F757FCC25",
+              "public_label": "杨士奇在宗室、军政、财政、司法和皇帝个人行为上持续改变最高决策",
+              "public_direction": "正向",
+              "public_tags": [
+                "反馈与纠错",
+                "形成持续或系统性结果"
+              ],
+              "public_basis": "杨士奇在宗室、军政、财政、司法和皇帝个人行为上持续改变最高决策；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
+            {
+              "id": "B2-PUBLIC-17507F78508B8A88",
+              "public_label": "批评皇帝私人偏好和生活方式的多名异议者遭长期系狱或死亡",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "形成持续或系统性结果"
+              ],
+              "public_basis": "批评皇帝私人偏好和生活方式的多名异议者遭长期系狱或死亡；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "material_id": "I2-MING-ZHUYOUJIAN-CENSOR-PUNISHMENT-001",
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "signed_weight": -2.0,
+              "mechanism": "对温体仁的反驳与对周延儒的弹劾及救援反复引发杖狱谪逐",
+              "result_closure": "sustained_or_systemic"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "material_id": "I2-MING-ZHUYOUJIAN-QIANJIAZHENG-001",
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 1.0,
+              "mechanism": "钱嘉征等弹劾后魏忠贤被罢逐追治",
+              "result_closure": "observed_or_repeated",
+              "mechanism_role": "external_constraint"
+            }
+          ],
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-MING-ZHUYOUJIAN-CENSOR-PUNISHMENT-001",
+            "I2-MING-ZHUYOUJIAN-QIANJIAZHENG-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 33.2,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G2",
+          "grade_basis": "钱嘉征等进言促成魏忠贤罢逐追治，闭合初年外部反馈正M2。章允儒等反驳温体仁被下狱降谪，后熊开元弹劾周延儒又被杖狱，救援官员接连罢官，闭合跨阶段监督表达受惩负M3。正负均有实际过程，按重要阶段并存定G2；不能把廷议频繁直接记成正M3，也不以拒南迁这一失真概括充当负证。",
+          "grade_gate_basis": "钱嘉征等进言促成魏忠贤罢逐追治，闭合初年外部反馈正M2。章允儒等反驳温体仁被下狱降谪，后熊开元弹劾周延儒又被杖狱，救援官员接连罢官，闭合跨阶段监督表达受惩负M3。正负均有实际过程，按重要阶段并存定G2；不能把廷议频繁直接记成正M3，也不以拒南迁这一失真概括充当负证。",
+          "grade_gate_code": "B2_G2_ONE_CLOSED_OR_MIXED",
+          "index_interval": [
+            32.0,
+            43.9
+          ],
+          "polity": "明",
+          "position": "lower",
+          "position_basis": "有效生命周期权重合计扣除G2门槛占用1后，净余量=-2，据此确定档内位置。",
+          "position_q": 0.1,
+          "rank": 90,
+          "reign_range": "1627-1644北京内城陷落前；不把战役成败重复写入治理轴",
+          "ruler_id": "RULER-MING-ZHU-YOUJIAN",
+          "ruler_name": "朱由检",
+          "verification_material_ids": [
+            "M2-LSM-E005",
+            "M2-LSM-E006",
+            "M2-LSM-E008"
+          ],
+          "material_basis": [
+            "《明史·卷308》：崇祯元年冬，诏会推阁臣，体仁望轻，不与也。侍郎周延儒方以召对称旨，亦弗及。体仁揣帝意必疑，遂上疏讦谦益关节受贿，神奸结党，不当与阁臣选。先是，天启二年，谦益主试浙江，所取士钱千秋者，首场文用俚俗诗一句，分置七义结尾，盖奸人绐为之。为给事中顾其仁所摘，谦益亦自发其事。法司戍千秋及奸人，夺谦益俸，案久定矣。至是体仁复理其事，帝心动。次日，召对阁部科道诸臣于文华殿，命体仁、谦益皆至。谦益不虞体仁之劾己也，辞颇屈，而体仁盛气诋谦益，言如涌泉，因进曰：“臣职非言官不可言，会推不与，宜避嫌不言，但枚卜大典，宗社安危所系。谦益结党受贿，举朝无一人敢言者，臣不忍见皇上孤立于上，是以不得不言。”帝久疑廷臣植党，闻体仁言，辄称善。而执政皆言谦益无罪，吏科都给事中章允儒争尤力，且言：“体仁热中觖望，如谦益当纠，何俟今日。”体仁曰：“前此，谦益皆闲曹，今者纠之，正为朝廷慎用人耳。如允儒言，乃真党也。”帝怒，命礼部进千秋卷，阅意，责谦益，谦益引罪。叹曰：“微体仁，朕几误！”遂叱允儒下诏狱，并切责诸大臣。时大臣无助体仁者，独延儒奏曰：“会推名虽公，主持者止一二人，馀皆不敢言，即言，徒取祸耳。且千秋事有成案，不必复问诸臣。”帝乃即日罢谦益官，命议罪。允儒及给事中瞿式耜、御史房可壮等，皆坐谦益党，降谪有差。",
+            "《明史·卷308》：昌时，嘉兴人。有干材，颇为东林效奔走。然为人墨而傲，通厂卫，把持朝官，同朝咸嫉之。行人司副熊开元廷劾延儒纳贿状，触帝怒，与给事中姜埰俱廷杖，下诏狱。左都御史宗周、佥都御史光辰以救开元、埰罢，尚书石麒又以救宗周等罢，延儒皆弗救，朝议皆以咎延儒。会昌时以年例出言路十人于外，言路大哗。掌科给事中吴麟征、掌道御史祁彪佳劾昌时挟势弄权，延儒颇不自安。",
+            "《明史·卷305》：七年秋八月，熹宗崩，信王立。王素稔忠贤恶，深自儆备，其党自危。杨所修、杨维垣先攻崔呈秀以尝帝，主事陆澄原、钱元悫，员外郎史躬盛遂交章论忠贤。帝犹未发。于是嘉兴贡生钱嘉征劾忠贤十大罪：一并帝，二蔑后，三弄兵，四无二祖列宗，五克削藩封，六无圣，七滥爵，八掩边功，九朘民，十通关节。疏上，帝召忠贤，使内侍读之。忠贤大惧，急以重宝啖信邸太监徐应元求解。应元，故忠贤博徒也。帝知之，斥应元。十一月，遂安置忠贤于凤阳，寻命逮治。忠贤行至阜城，闻之，与李朝钦偕缢死。诏磔其尸。悬首河间。笞杀客氏于浣衣局。魏良卿、侯国兴、客光先等并弃市，籍其家。客氏之籍也，于其家得宫女八人，盖将效吕不韦所为，人尤疾之。"
+          ],
+          "settlement_basis": [
+            "钱嘉征等进言促成魏忠贤罢逐追治，闭合初年外部反馈正M2。章允儒等反驳温体仁被下狱降谪，后熊开元弹劾周延儒又被杖狱，救援官员接连罢官，闭合跨阶段监督表达受惩负M3。正负均有实际过程，按重要阶段并存定G2；不能把廷议频繁直接记成正M3，也不以拒南迁这一失真概括充当负证。",
+            "主档G2；去重后净余量-2，对应下位。"
+          ],
+          "position_residual": -2.0,
+          "grade_threshold_consumed": 1.0,
+          "public_adjudication_summary": "钱嘉征等进言促成魏忠贤罢逐追治，形成完整链条初年外部反馈有限的正向机制。章允儒等反驳温体仁被下狱降谪，后熊开元弹劾周延儒又被杖狱，救援官员接连罢官，形成完整链条跨阶段监督表达受惩较强的负向机制。正负均有实际过程，按重要阶段并存对应中档；不能把廷议频繁直接记成较强的正向机制，也不以拒南迁这一失真概括充当负证。整体判断为中档（下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-4CA3CFC6BEDC8BEE",
+              "public_label": "钱嘉征等弹劾后魏忠贤被罢逐追治",
+              "public_direction": "正向",
+              "public_tags": [
+                "反馈与纠错",
+                "外部约束",
+                "已观察到实际结果"
+              ],
+              "public_basis": "钱嘉征等弹劾后魏忠贤被罢逐追治；已观察到实际结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
+            {
+              "id": "B2-PUBLIC-544E221BE0F6516E",
+              "public_label": "对温体仁的反驳与对周延儒的弹劾及救援反复引发杖狱谪逐",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "形成持续或系统性结果"
+              ],
+              "public_basis": "对温体仁的反驳与对周延儒的弹劾及救援反复引发杖狱谪逐；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -433,63 +550,33 @@
             "主档G2；去重后净余量-2，对应下位。"
           ],
           "position_residual": -2.0,
-          "grade_threshold_consumed": 1.0
-        },
-        {
-          "M_mixed_profile": [
+          "grade_threshold_consumed": 1.0,
+          "public_adjudication_summary": "瞿式耜力争促成回肇庆，保留有限纠偏有限但有实际结果的机制；孙可望与马吉翔控制通道并杀害阁臣，保留较强的负向机制。两事件分别用E013和E014绑定，不因同一来源包而错误互相避免重复计算。正负阶段并存对应中档。整体判断为中档（下位）。",
+          "public_evidence_items": [
             {
-              "material_id": "I2-MING-ZHUYUNWEN-YINCHANGLONG-001",
-              "M": "M2",
-              "direction": "mixed_negative",
-              "direction_factor": -0.5,
-              "signed_weight": -0.5,
-              "mechanism": "尹昌隆进言获公开承过而后因再次进言被谪",
-              "result_closure": "observed_or_repeated"
+              "id": "B2-PUBLIC-CF92686386131316",
+              "public_label": "瞿式耜力争后回肇庆纠偏",
+              "public_direction": "正向",
+              "public_tags": [
+                "反馈与纠错",
+                "外部约束",
+                "已观察到实际结果"
+              ],
+              "public_basis": "瞿式耜力争后回肇庆纠偏；已观察到实际结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
+            {
+              "id": "B2-PUBLIC-3F2F0ADA48AF39A6",
+              "public_label": "孙可望与近臣控制最高权力通道并杀害阁臣",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "形成持续或系统性结果"
+              ],
+              "public_basis": "孙可望与近臣控制最高权力通道并杀害阁臣；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
             }
-          ],
-          "M_negative_profile": [],
-          "M_positive_profile": [],
-          "coverage_audit_ids": [
-            "MING17-TWO-SOURCE-FAMILY-GATE",
-            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
-          ],
-          "database_write": false,
-          "direct_material_ids": [
-            "I2-MING-ZHUYUNWEN-YINCHANGLONG-001"
-          ],
-          "direction_card_write": true,
-          "direction_index": 20.8,
-          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
-          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
-          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
-          "grade": "G1",
-          "grade_basis": "尹昌隆谏晚朝后皇帝命公开其疏并承认过失，说明意见真实上达，但当前原文未证朝仪实际改正；随后又因地震进言被谪，合为负向主导有限反馈生命周期M2。原求直言采访设置不能代替纠偏，罢复齐黄的泛化负项亦不另计。现证不足真实纠偏闭环且进言安全受损，定G1。",
-          "grade_gate_basis": "尹昌隆谏晚朝后皇帝命公开其疏并承认过失，说明意见真实上达，但当前原文未证朝仪实际改正；随后又因地震进言被谪，合为负向主导有限反馈生命周期M2。原求直言采访设置不能代替纠偏，罢复齐黄的泛化负项亦不另计。现证不足真实纠偏闭环且进言安全受损，定G1。",
-          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
-          "index_interval": [
-            16.0,
-            31.9
-          ],
-          "polity": "明",
-          "position": "lower-middle",
-          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-1，据此确定档内位置。",
-          "position_q": 0.3,
-          "rank": 107,
-          "reign_range": "1398-1402",
-          "ruler_id": "RULER-MING-ZHU-YUNWEN",
-          "ruler_name": "朱允炆",
-          "verification_material_ids": [
-            "MING-YW-REFORM-001"
-          ],
-          "material_basis": [
-            "《明史·卷162》：惠帝初即位，视朝晏。昌隆疏谏曰：“高皇帝鸡鸣而起，昧爽而朝，未日出而临百官，故能庶绩咸熙，天下乂安。陛下嗣守大业，宜追绳祖武，兢兢业业，忧勤万几。今乃即于晏安，日上数刻，犹未临朝。群臣宿卫，疲于伺候，旷职废业，上下懈弛。播之天下，传之四裔，非社稷福也。”帝曰：“昌隆言切直，礼部其宣示天下，使知朕过。”未几，以地震上言，谪福宁知县。燕兵既逼，昌隆以北来奏章动引周公辅成王为词，劝帝罢兵，许王入朝。设有蹉跌，便举位让之。若沈吟不断，进退失据，将求为丹徒布衣且不可得。成祖入京师，昌隆名在奸臣中。以前奏贷死，命傅世子于北平。"
-          ],
-          "settlement_basis": [
-            "尹昌隆谏晚朝后皇帝命公开其疏并承认过失，说明意见真实上达，但当前原文未证朝仪实际改正；随后又因地震进言被谪，合为负向主导有限反馈生命周期M2。原求直言采访设置不能代替纠偏，罢复齐黄的泛化负项亦不另计。现证不足真实纠偏闭环且进言安全受损，定G1。",
-            "主档G1；去重后净余量-1，对应中下位。"
-          ],
-          "position_residual": -1.0,
-          "grade_threshold_consumed": 0.5
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -545,7 +632,92 @@
             "主档G1；去重后净余量-0.5，对应中下位。"
           ],
           "position_residual": -0.5,
-          "grade_threshold_consumed": 0.5
+          "grade_threshold_consumed": 0.5,
+          "public_adjudication_summary": "黄道周等参与议政只证明意见进入，当前材料未形成完整链条其意见改变最高决定的结果，不能用无法控制军队重复计作本项缺陷。现有链为背景背景或未形成实际结果的材料，对应较低档。整体判断为较低档（中下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-19C573F649ADA77D",
+              "public_label": "黄道周等进入决策但不能约束执行",
+              "public_direction": "正负并存",
+              "public_tags": [
+                "反馈与纠错",
+                "已观察到实际结果",
+                "背景材料"
+              ],
+              "public_basis": "黄道周等进入决策但不能约束执行；已观察到实际结果",
+              "public_boundary": "黄道周等参与议政只证明意见进入，当前材料未形成完整链条其意见改变最高决定的结果，不能用无法控制军队重复计作本项缺陷。现有链为背景背景或未形成实际结果的材料，对应较低档。；这条材料仅作背景核对，不单独计算；同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "material_id": "I2-MING-ZHUYUNWEN-YINCHANGLONG-001",
+              "M": "M2",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "signed_weight": -0.5,
+              "mechanism": "尹昌隆进言获公开承过而后因再次进言被谪",
+              "result_closure": "observed_or_repeated"
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-MING-ZHUYUNWEN-YINCHANGLONG-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 20.8,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G1",
+          "grade_basis": "尹昌隆谏晚朝后皇帝命公开其疏并承认过失，说明意见真实上达，但当前原文未证朝仪实际改正；随后又因地震进言被谪，合为负向主导有限反馈生命周期M2。原求直言采访设置不能代替纠偏，罢复齐黄的泛化负项亦不另计。现证不足真实纠偏闭环且进言安全受损，定G1。",
+          "grade_gate_basis": "尹昌隆谏晚朝后皇帝命公开其疏并承认过失，说明意见真实上达，但当前原文未证朝仪实际改正；随后又因地震进言被谪，合为负向主导有限反馈生命周期M2。原求直言采访设置不能代替纠偏，罢复齐黄的泛化负项亦不另计。现证不足真实纠偏闭环且进言安全受损，定G1。",
+          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
+          "index_interval": [
+            16.0,
+            31.9
+          ],
+          "polity": "明",
+          "position": "lower-middle",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-1，据此确定档内位置。",
+          "position_q": 0.3,
+          "rank": 107,
+          "reign_range": "1398-1402",
+          "ruler_id": "RULER-MING-ZHU-YUNWEN",
+          "ruler_name": "朱允炆",
+          "verification_material_ids": [
+            "MING-YW-REFORM-001"
+          ],
+          "material_basis": [
+            "《明史·卷162》：惠帝初即位，视朝晏。昌隆疏谏曰：“高皇帝鸡鸣而起，昧爽而朝，未日出而临百官，故能庶绩咸熙，天下乂安。陛下嗣守大业，宜追绳祖武，兢兢业业，忧勤万几。今乃即于晏安，日上数刻，犹未临朝。群臣宿卫，疲于伺候，旷职废业，上下懈弛。播之天下，传之四裔，非社稷福也。”帝曰：“昌隆言切直，礼部其宣示天下，使知朕过。”未几，以地震上言，谪福宁知县。燕兵既逼，昌隆以北来奏章动引周公辅成王为词，劝帝罢兵，许王入朝。设有蹉跌，便举位让之。若沈吟不断，进退失据，将求为丹徒布衣且不可得。成祖入京师，昌隆名在奸臣中。以前奏贷死，命傅世子于北平。"
+          ],
+          "settlement_basis": [
+            "尹昌隆谏晚朝后皇帝命公开其疏并承认过失，说明意见真实上达，但当前原文未证朝仪实际改正；随后又因地震进言被谪，合为负向主导有限反馈生命周期M2。原求直言采访设置不能代替纠偏，罢复齐黄的泛化负项亦不另计。现证不足真实纠偏闭环且进言安全受损，定G1。",
+            "主档G1；去重后净余量-1，对应中下位。"
+          ],
+          "position_residual": -1.0,
+          "grade_threshold_consumed": 0.5,
+          "public_adjudication_summary": "尹昌隆谏晚朝后皇帝命公开其疏并承认过失，说明意见真实上达，但当前原文未证朝仪实际改正；随后又因地震进言被谪，合为负向主导有限反馈反馈链有限但有实际结果的机制。原求直言采访设置不能代替纠偏，罢复齐黄的泛化负项亦不另计。现证不足真实纠偏闭环且进言安全受损，对应较低档。整体判断为较低档（中下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-D4842FE387496007",
+              "public_label": "尹昌隆进言获公开承过而后因再次进言被谪",
+              "public_direction": "负向主导",
+              "public_tags": [
+                "反馈与纠错",
+                "已观察到实际结果"
+              ],
+              "public_basis": "尹昌隆进言获公开承过而后因再次进言被谪；已观察到实际结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -632,7 +804,44 @@
             "主档G1；去重后净余量-1.5，对应下位。"
           ],
           "position_residual": -1.5,
-          "grade_threshold_consumed": 0.5
+          "grade_threshold_consumed": 0.5,
+          "public_adjudication_summary": "永乐朝并非没有正向议政，蹇义、夏原吉、杨士奇等意见有实际采纳；但较强的负向机制为跨阶段高严重度：靖难后清洗只是起点，解缙案造成本人及关联官员长期诏狱和死亡；永乐十九年夏原吉、吴中、方宾等反对再北征，夏/吴下狱，方宾自杀后尸体仍被戮；迁都/北征等批评者亦有下狱、外调。其覆盖早中晚多个阶段、多个反馈角色，包含长期拘禁与死亡，且多次直接针对皇帝强烈偏好，故负向主要阶段支配，保较低档。整体判断为较低档（下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-992601CF8FF79C95",
+              "public_label": "朝觐官陈民瘼与隐灾问责入口设置",
+              "public_direction": "正向",
+              "public_tags": [
+                "反馈与纠错",
+                "仅作背景核对",
+                "背景材料"
+              ],
+              "public_basis": "朝觐官陈民瘼与隐灾问责入口设置；仅作背景核对",
+              "public_boundary": "这条材料仅作背景核对，不单独计算；同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
+            {
+              "id": "B2-PUBLIC-B9DDA04AEB1D9506",
+              "public_label": "怒决经覆奏改按律并定五覆奏",
+              "public_direction": "正向",
+              "public_tags": [
+                "反馈与纠错",
+                "已观察到实际结果"
+              ],
+              "public_basis": "怒决经覆奏改按律并定五覆奏；已观察到实际结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
+            {
+              "id": "B2-PUBLIC-175E2E4C5EA8C22B",
+              "public_label": "靖难后清洗异议臣僚形成报复性负激励",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "形成持续或系统性结果"
+              ],
+              "public_basis": "靖难后清洗异议臣僚形成报复性负激励；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -697,7 +906,21 @@
             "《明史》：夏四月己酉，上昭聖皇太后尊號曰昭聖康惠慈壽皇太后。庚戌，上興國太后尊號曰本生聖母章聖皇太后。癸丑，追尊興獻帝為本生皇考恭穆獻皇帝，大赦。辛酉，編修鄒守益請罷興獻帝稱考立廟，下錦衣衞獄。 五月乙丑，蔣冕致仕。修撰呂柟言大禮未正，下錦衣衞獄。丁丑，遣使迎獻皇帝神主於安陸。己卯，吏部尚書石珤兼文淵閣大學士，預機務。 六月，御史段續、陳相請正席書、桂萼罪，吏部員外郎薛蕙上為人後解，鴻臚少卿胡侍言張璁等議禮之失，俱下獄。 秋七月乙亥，更定章聖皇太后尊號，去本生之稱。戊寅，廷臣伏闕固爭，下員外郎馬理等一百三十四人錦衣衞獄。癸未，杖馬理等於廷，死者十有六人。甲申，奉安獻皇帝神主於觀德殿。己丑，毛紀致仕。辛卯，杖修撰楊慎，檢討王元正，給事中劉濟、安磐、張漢卿、張原，御史王時柯於廷。原死，慎等戍謫有差。是月，免南畿、河南被災稅糧。"
           ],
           "position_residual": -2.5,
-          "grade_threshold_consumed": 0.5
+          "grade_threshold_consumed": 0.5,
+          "public_adjudication_summary": "大礼议属于一次高度集中的政治冲突，但事件规模和惩罚烈度极高：左顺门大批廷臣伏哭后，多人下诏狱、反复廷杖，出现杖死与长期谪戍；其后嘉靖朝对政治直谏仍有海瑞下狱、杨继盛等高风险案例，说明并非只是一日急性冲突。它在事件范围、惩罚强度、后果不可逆程度与最高权力直接性上均属极高，足以长期制造寒蝉。虽有个别直言未必皆遭重罚，但不足形成主要阶段稳定较强的正向机制，保较低档。整体判断为较低档（下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-9321649C0DB440EE",
+              "public_label": "大礼议多路异议持续受报复",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "设立、运行与后续变化均有材料支持"
+              ],
+              "public_basis": "大礼议多路异议持续受报复；设立、运行与后续变化均有材料支持",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -767,7 +990,33 @@
             "主档G1；去重后净余量-1.5，对应下位。"
           ],
           "position_residual": -1.5,
-          "grade_threshold_consumed": 0.5
+          "grade_threshold_consumed": 0.5,
+          "public_adjudication_summary": "张永在杨一清策划下揭发刘瑾，皇帝由降谪到查办，并令所改制度厘正，形成完整链条有限纠偏有限但有实际结果的机制。另因谏巡幸反复惩罚百余官员并致死，仍为主要阶段拒谏报复较强的负向机制，对应较低档。正链改绑刘瑾实际材料，不再共用只记巡幸杖狱的负证。整体判断为较低档（下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-D30652D4EAEF0BE9",
+              "public_label": "张永揭发刘瑾获处置，所改制度奉诏厘正",
+              "public_direction": "正向",
+              "public_tags": [
+                "反馈与纠错",
+                "外部约束",
+                "已观察到实际结果"
+              ],
+              "public_basis": "张永揭发刘瑾获处置，所改制度奉诏厘正；已观察到实际结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
+            {
+              "id": "B2-PUBLIC-11C3F723FF5E48BF",
+              "public_label": "谏巡幸官员反复遭狱杖并有人死亡",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "形成持续或系统性结果"
+              ],
+              "public_basis": "谏巡幸官员反复遭狱杖并有人死亡；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [
@@ -826,7 +1075,21 @@
             "《明史》：十三年春正月庚戌，大祀天地於南郊。己巳，置西廠，太監汪直提督官校刺事。 夏四月，汪直執郎中武清、樂章，太醫院院判蔣宗武，行人張廷綱，浙江布政使劉福下西廠獄。 五月甲戌，執左通政方賢下西廠獄。丙子，大學士商輅、尚書項忠請罷西廠，從之。 六月甲辰，罷項忠為民。庚戌，復設西廠。丁巳，商輅致仕。"
           ],
           "position_residual": -1.5,
-          "grade_threshold_consumed": 0.5
+          "grade_threshold_consumed": 0.5,
+          "public_adjudication_summary": "西厂逮系官员、阁部请求罢厂、同月复设并处分请求者属于同一反馈链，不能把短暂停办拆成独立有限的正向机制、再把复设另算较强的负向机制。合并后是一次迅速复发且加强报复的负向主导的较强机制链；同类纠偏复发与表达惩罚占主导，按较低档。整体判断为较低档（下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-ACDFFEB7FB7EA3DA",
+              "public_label": "西厂短暂停办后同月复设并处分请求者",
+              "public_direction": "负向主导",
+              "public_tags": [
+                "反馈与纠错",
+                "形成持续或系统性结果"
+              ],
+              "public_basis": "西厂短暂停办后同月复设并处分请求者；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -892,7 +1155,21 @@
             "主档G1；去重后净余量-2.5，对应下位。"
           ],
           "position_residual": -2.5,
-          "grade_threshold_consumed": 0.5
+          "grade_threshold_consumed": 0.5,
+          "public_adjudication_summary": "亲征前群臣反复劝止无效，复辟后于谦、王文及多名御史遭狱杀，主要关键阶段形成报复和拒谏激励。整体判断为较低档（下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-C83222C8A8664D1B",
+              "public_label": "拒谏及于谦王文狱杀",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "设立、运行与后续变化均有材料支持"
+              ],
+              "public_basis": "拒谏及于谦王文狱杀；设立、运行与后续变化均有材料支持",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -958,7 +1235,21 @@
             "主档G1；去重后净余量-2.5，对应下位。"
           ],
           "position_residual": -2.5,
-          "grade_threshold_consumed": 0.5
+          "grade_threshold_consumed": 0.5,
+          "public_adjudication_summary": "后期热审、补官、章奏和赈济请求反复不报，司法淹狱已造成实际死亡，反馈封闭和纠偏复发占主要阶段。整体判断为较低档（下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-84E5028BD973B10D",
+              "public_label": "热审章奏赈济长期不报并致淹狱死亡",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "设立、运行与后续变化均有材料支持"
+              ],
+              "public_basis": "热审章奏赈济长期不报并致淹狱死亡；设立、运行与后续变化均有材料支持",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [
@@ -1031,7 +1322,33 @@
             "《明史·卷139》：王朴，同州人。洪武十八年进士。本名权，帝为改焉。除吏科给事中，以直谏忤旨罢。旋起御史。陈时事千馀言。性鲠直，数与帝辨是非，不肯屈。一日，遇事争之强。帝怒，命戮之。及市，召还，谕之曰：“汝其改乎？”朴对曰：“陛下不以臣为不肖，擢官御史，奈何摧辱至此！使臣无罪，安得戮之？有罪，又安用生之？臣今日愿速死耳。”帝大怒，趣命行刑。过史馆，大呼曰：“学士刘三吾志之：某年月日，皇帝杀无罪御史朴也！”竟戮死。帝撰《大诰》，谓朴诽谤，犹列其名。"
           ],
           "position_residual": -2.0,
-          "grade_threshold_consumed": 0.5
+          "grade_threshold_consumed": 0.5,
+          "public_adjudication_summary": "钱唐反对罢孟子配享获免罪并促恢复，但经文仍被删节，形成完整链条有限正向主导的有限机制。旧刘基较强的正向机制错绑大诰材料，且所举平滞狱止杀段在吴元年，不能倒投正式皇帝窗口，现撤回未证主阶段强度。叶伯巨、李仕鲁、王朴等在不同事项中因进言或抗辩遭死亡惩罚，构成重复压制较强的负向机制；主阶段负态主导对应较低档。整体判断为较低档（下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-FF16B213D3FB0666",
+              "public_label": "钱唐反对罢孟子配享获免罪且配享恢复，但经文仍被删节",
+              "public_direction": "正向主导",
+              "public_tags": [
+                "反馈与纠错",
+                "外部约束",
+                "已观察到实际结果"
+              ],
+              "public_basis": "钱唐反对罢孟子配享获免罪且配享恢复，但经文仍被删节；已观察到实际结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
+            {
+              "id": "B2-PUBLIC-1BD2EB51A7313DD1",
+              "public_label": "叶伯巨李仕鲁王朴等因不同事项进言抗辩遭死亡惩罚",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "形成持续或系统性结果"
+              ],
+              "public_basis": "叶伯巨李仕鲁王朴等因不同事项进言抗辩遭死亡惩罚；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -1096,7 +1413,21 @@
             "主档G0；去重后净余量-2，对应下位。"
           ],
           "position_residual": -2.0,
-          "grade_threshold_consumed": 0.0
+          "grade_threshold_consumed": 0.0,
+          "public_adjudication_summary": "有限但有实际结果的机制-LSM-E001与有限但有实际结果的机制-LSM-E004共同证明科道、都察院、厂卫和表达安全跨渠道封闭，实际纠偏不占主要阶段。整体判断为最低档（下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-D5B9E4D4538B4B20",
+              "public_label": "科道都察院厂卫跨渠道封闭",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "设立、运行与后续变化均有材料支持"
+              ],
+              "public_basis": "科道都察院厂卫跨渠道封闭；设立、运行与后续变化均有材料支持",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -1159,7 +1490,21 @@
             "主档G0；去重后净余量-2，对应下位。"
           ],
           "position_residual": -2.0,
-          "grade_threshold_consumed": 0.0
+          "grade_threshold_consumed": 0.0,
+          "public_adjudication_summary": "言路被阮大铖等转化为报复工具并构狱，且贯穿主要短期统治阶段，可形成完整链条系统性反馈封闭。整体判断为最低档（下位）。",
+          "public_evidence_items": [
+            {
+              "id": "B2-PUBLIC-5DAB07BAFF1FE798",
+              "public_label": "言路爪牙化与报复性构狱",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "设立、运行与后续变化均有材料支持"
+              ],
+              "public_basis": "言路爪牙化与报复性构狱；设立、运行与后续变化均有材料支持",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            }
+          ]
         }
       ]
     }

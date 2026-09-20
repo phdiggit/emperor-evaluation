@@ -14,6 +14,8 @@ MAPPING_PATH = 'config/first-item/military-cost-debits.json'
 
 
 def render_cost_adjudications(source: dict[str, Any]) -> str:
+    from emperor_v4.evaluation.first_item_b1_cost_public import project_cost
+
     lines = ['# 第一项军事成本裁决', '',
              '本表记录逐人成本裁决。全部适用对象及跨项去重闭合后，按已确认映射从四轴合计扣除军事成本，净分进入第一项正式结算及综合榜；待裁决不等于零成本。', '',
              '| 人物 | 成本档 | 位置 | 状态 | 责任窗口 |', '|---|---|---|---|---|']
@@ -21,8 +23,13 @@ def render_cost_adjudications(source: dict[str, Any]) -> str:
         lines.append('| ' + ' | '.join(str(row.get(key) or '待裁决') for key in
                      ('ruler_name', 'cost_band', 'cost_position', 'evidence_status', 'responsibility_window')) + ' |')
     for row in source['records']:
-        lines.extend(['', f"## {row['ruler_name']}", '', row['basis'] or '尚未形成成本裁决。'])
-        lines.extend(f'- 缺口：{gap}' for gap in row['unresolved_gaps'])
+        public = project_cost(row)
+        lines.extend(['', f"## {row['ruler_name']}", '',
+                      f"**成本程度：{public['public_level_label']}；{public['public_status_label']}**", '',
+                      '**责任时期：**' + public['public_responsibility_window'], '', public['public_basis']])
+        lines.extend(f'- 证据缺口：{gap}' for gap in public['public_unresolved_gaps'])
+        lines.extend(f"- [{link['label']}]({link['url']})" for link in public['public_source_links'])
+        lines.extend(['', '<details><summary>原始裁决记录</summary>', '', row['basis'], '', '</details>', ''])
         lines.extend(f'- 证据入口：`{ref}`' for ref in row['source_refs'])
     return '\n'.join(lines) + '\n'
 

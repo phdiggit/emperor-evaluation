@@ -174,3 +174,26 @@ def test_invalid_current_contract_is_rejected(tmp_path: Path, violation: str) ->
     with pytest.raises(ValueError):
         write_views(tmp_path)
         verify(tmp_path)
+
+
+def test_sources_in_distinct_formal_collections_do_not_share_a_cache_entry(tmp_path: Path) -> None:
+    payload, path = _workspace(tmp_path)
+    source_payload = {
+        "records": [{"ruler_id": "SYNTHETIC", "profile_basis": "独立构造的画像事实。"}],
+        "scores": [{"ruler_id": "SYNTHETIC", "state_anchors": {"S_end": "独立构造的状态"}}],
+    }
+    (tmp_path / "mixed-source.json").write_text(json.dumps(source_payload), encoding="utf-8")
+    row = payload["records"][0]
+    row["source_refs"] += [
+        {"kind": "LOCAL_FORMAL_RECORD", "path": "mixed-source.json", "ruler_id": "SYNTHETIC", "field_paths": ["profile_basis"]},
+        {"kind": "LOCAL_FORMAL_RECORD", "path": "mixed-source.json", "ruler_id": "SYNTHETIC", "collection": "scores", "field_paths": ["state_anchors"]},
+    ]
+    row["macro_chains"][0]["source_ref_indices"] = list(range(len(row["source_refs"])))
+    write_polity_routed_json(path, payload, ruler_polities={})
+    write_views(tmp_path)
+    assert verify(tmp_path)["status"] == "PASS"
+    # Removing the explicit selector must not silently search the other collection.
+    row["source_refs"][-1].pop("collection")
+    write_polity_routed_json(path, payload, ruler_polities={})
+    with pytest.raises(ValueError, match="事实字段不存在"):
+        verify(tmp_path, check_reader=False)

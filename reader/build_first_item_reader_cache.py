@@ -14,6 +14,8 @@ from emperor_v4.evaluation.first_item_public_outcomes import (  # noqa: E402
     load_first_item_public_outcomes,
     public_outcome_for_name,
 )
+from emperor_v4.evaluation.first_item_c_public import load_first_item_c_public, public_commander_for_name
+from emperor_v4.evaluation.first_item_b1_cost_public import load_first_item_b1_cost_public
 
 ROOT = Path(__file__).resolve().parents[1]
 PEOPLE_DIR = ROOT / "reader/data/people"
@@ -62,6 +64,8 @@ def build_payloads() -> dict[str, str]:
     parsed = {code: parse_people(path) for code, path in DOCS.items()}
     people = applicable_people()
     public_outcomes = load_first_item_public_outcomes(ROOT)
+    public_commanders = load_first_item_c_public(ROOT)
+    public_b1, public_cost = load_first_item_b1_cost_public(ROOT)
 
     formal_names = set(parsed["A"])
     resolved: dict[str, str] = {}
@@ -102,6 +106,9 @@ def build_payloads() -> dict[str, str]:
             "ruler_name": reader_name,
             "formal_name": formal_name,
             "public_outcome": public_outcome_for_name(public_outcomes, formal_name),
+            "public_commander": public_commander_for_name(public_commanders, formal_name),
+            "public_b1": public_commander_for_name(public_b1, formal_name),
+            "public_cost": public_commander_for_name(public_cost, formal_name),
             "documents": documents,
         }
         outputs[f"{ruler_id}.json"] = json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n"

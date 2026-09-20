@@ -2,6 +2,7 @@
 from pathlib import Path
 from copy import deepcopy
 import json
+import os
 import sys
 import argparse
 import re
@@ -12,13 +13,30 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 DETAILS_DIR = ROOT / "reader/data/people"
 SECOND_ITEM_READER_SUMMARIES = "reader/second-item-summaries.json"
+SOURCE_IDENTITY_PATH = ROOT / "reader/source-revision.json"
+PERSON_NOTES_SOURCE = ROOT / "reader/person-reading-notes.json"
+PERSON_NOTES_SNAPSHOT = ROOT / "reader/data/person-reading-notes.json"
+READER_RUNTIME_SCRIPTS = (
+    "second-item-public-alias.js",
+    "second-item-a-public.js",
+    "second-item-b1-public.js",
+    "second-item-public-labels.js",
+    "person-reading-notes.js",
+)
 sys.path.insert(0, str(ROOT / "src"))
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.first_item_public_outcomes import (
     load_first_item_public_outcomes,
     public_outcome_for_name,
 )
-from emperor_v4.evaluation.profile_parent_schema import parent_chains
+from emperor_v4.evaluation.profile_parent_schema import parent_chains, representative_parent_chains
+from emperor_v4.evaluation.first_item_c_public import (
+    load_first_item_c_public, public_commander_for_name,
+    SOURCE_MARKDOWN_PATH as FIRST_C_SOURCE,
+)
+from emperor_v4.evaluation.first_item_b1_cost_public import (
+    load_first_item_b1_cost_public, B1_SOURCE as FIRST_B1_SOURCE, COST_SOURCE as FIRST_COST_SOURCE,
+)
 from emperor_v4.evaluation.composite_details import load_detail_sources, SECOND
 
 NET_READER_EXTRA_SOURCES = {
@@ -26,6 +44,54 @@ NET_READER_EXTRA_SOURCES = {
     "D3": SECOND + "政权交接稳定/02-D3政权交接稳定方向卡.json",
     "ML": "config/third-item/third-item-military-net-loss-penalties.json",
 }
+HANDOFF_PUBLIC_GRADE = {0: "E", 1: "D", 2: "C", 3: "B", 4: "A", 5: "S"}
+
+
+def handoff_public_grade(value):
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return "未定"
+    if not number.is_integer():
+        return "未定"
+    return HANDOFF_PUBLIC_GRADE.get(int(number), "未定")
+
+
+def reader_source_identity(*, write=False):
+    """Pin reader source links to the source commit that passed validation."""
+    repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
+    revision = os.environ.get("GITHUB_SHA", "").strip().lower()
+    if repository and revision:
+        if not re.fullmatch(r"[^/\\s]+/[^/\\s]+", repository):
+            raise ValueError("Invalid GITHUB_REPOSITORY for reader source identity")
+        if not re.fullmatch(r"[0-9a-f]{40,64}", revision):
+            raise ValueError("Invalid GITHUB_SHA for reader source identity")
+        identity = {"repository": repository, "revision": revision}
+        if write:
+            SOURCE_IDENTITY_PATH.write_text(
+                json.dumps(identity, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+        return identity
+    if SOURCE_IDENTITY_PATH.exists():
+        identity = json.loads(SOURCE_IDENTITY_PATH.read_text(encoding="utf-8"))
+        repository = str(identity.get("repository") or "").strip()
+        revision = str(identity.get("revision") or "").strip().lower()
+        if repository and revision:
+            return {"repository": repository, "revision": revision}
+    return {"repository": "", "revision": ""}
+
+
+def person_notes_snapshot(*, check=False, write=True):
+    content = PERSON_NOTES_SOURCE.read_text(encoding="utf-8")
+    expected = content if content.endswith("\n") else content + "\n"
+    if check:
+        if not PERSON_NOTES_SNAPSHOT.exists() or PERSON_NOTES_SNAPSHOT.read_text(encoding="utf-8") != expected:
+            raise ValueError("Reader person-reading-notes snapshot is stale")
+    elif write:
+        PERSON_NOTES_SNAPSHOT.parent.mkdir(parents=True, exist_ok=True)
+        PERSON_NOTES_SNAPSHOT.write_text(expected, encoding="utf-8", newline="\n")
 
 
 def index(rows):
@@ -71,6 +137,52 @@ def apply_public_copy(template):
     return template
 
 
+FORMAL_CONTEXT_FIELDS = [
+    "parent_id",
+    "parent_ref",
+    "title",
+    "mechanism",
+    "mechanisms",
+    "cycle_basis",
+    "basis",
+    "source_refs",
+    "cycle_anchor_refs",
+    "direct_process_refs",
+    "direction",
+    "intensity",
+    "material_intensity",
+    "attribution",
+    "attribution_basis",
+    "role_attribution",
+    "limitations",
+    "limitation",
+    "intensity_and_role_basis",
+]
+
+
+def inline_runtime_scripts(template):
+    """Freeze runtime JS into the generated page after all validations pass.
+
+    GitHub Pages currently publishes this branch directly. Keeping the browser
+    runtime inside the generated artifact means an unvalidated source commit can
+    only republish the last validated reader/index.html, not new source JS.
+    """
+    for filename in READER_RUNTIME_SCRIPTS:
+        marker = f'<script defer src="{filename}"></script>'
+        if template.count(marker) != 1:
+            raise ValueError(f"Reader runtime script marker missing or duplicated: {filename}")
+        source = (ROOT / "reader" / filename).read_text(encoding="utf-8")
+        source = source.replace("</script>", r"<\/script>")
+        template = template.replace(marker, f"<script>\n{source}\n</script>", 1)
+    return template
+
+
+def _formal_context_projection(context):
+    # Public reading may only expose fields that already exist in the formal
+    # record. Never synthesize direction, strength, attribution or limits here.
+    return pick(context, FORMAL_CONTEXT_FIELDS)
+
+
 def axis_projection(row, fields):
     result = pick(row, fields)
     chains = parent_chains(row)
@@ -82,28 +194,33 @@ def axis_projection(row, fields):
     if isinstance(counter, dict):
         ids = {ref for values in counter.values() if isinstance(values, list) for ref in values if isinstance(ref, str)}
         result["context_lookup"] = {
-            p["parent_id"]: pick(p, ["parent_id", "cycle_basis", "basis", "source_refs", "direction"])
+            p["parent_id"]: _formal_context_projection(p)
             for p in chains if p.get("parent_id") in ids
         }
         missing = ids - result["context_lookup"].keys()
         if missing:
             raise ValueError(f"Unresolved context references: {sorted(missing)}")
 
-    # Reader-only projection: consume existing formal fields without creating a second adjudication source.
-    if row.get("axis_code") == "C4":
-        representative_ids = [x for x in row.get("representative_parent_ids", []) if isinstance(x, str)]
-        chain_by_id = {p.get("parent_id"): p for p in chains if p.get("parent_id")}
+    # Only project explicitly declared representative material. The helper can
+    # fall back to all parent chains for legacy callers, so do not call it when
+    # the formal record has not declared representatives.
+    declared_representatives = (
+        row.get("representative_parent_ids") is not None
+        or isinstance(row.get("representative_parent_contexts"), list)
+    )
+    if declared_representatives:
         result["representative_contexts"] = [
-            pick(chain_by_id[parent_id], ["parent_id", "title", "mechanism", "cycle_basis", "basis", "attribution", "direction"])
-            for parent_id in representative_ids if parent_id in chain_by_id
+            _formal_context_projection(context)
+            for context in representative_parent_chains(row)
+            if isinstance(context, dict)
         ]
+
     if row.get("axis_code") == "C5" and isinstance(row.get("public_evidence_points"), list):
         result["public_evidence_points"] = [
             pick(point, ["title", "details"])
             for point in row["public_evidence_points"] if isinstance(point, dict)
         ]
     return result
-
 
 def _clean_text(value):
     if not isinstance(value, str):
@@ -128,88 +245,9 @@ def _unique_texts(values, limit=4):
             continue
         seen.add(text)
         result.append(text)
-        if len(result) >= limit:
+        if limit is not None and len(result) >= limit:
             break
     return result
-
-
-def _state_summary(record):
-    state = record.get("state_adjudication")
-    if not isinstance(state, dict):
-        return ""
-    preferred = []
-    for key in ("main_review", "loss_review", "result_review", "recovery_review"):
-        block = state.get(key)
-        if isinstance(block, dict):
-            preferred.extend([
-                block.get("main_representativeness"),
-                block.get("summary"),
-                block.get("basis"),
-            ])
-    return _first_text(*preferred)
-
-
-def _formal_summary(record):
-    if not isinstance(record, dict):
-        return ""
-    return _first_text(
-        record.get("public_summary"),
-        record.get("adjudication_reason"),
-        _state_summary(record),
-        record.get("strategy_chain_review_basis"),
-        record.get("grade_basis"),
-        record.get("attribution_basis"),
-        record.get("basis"),
-        record.get("reason"),
-    )
-
-
-def _lead_sentences(text, limit=2):
-    text = _clean_text(text)
-    if not text:
-        return ""
-    parts = [part.strip() for part in re.split(r"(?<=[。！？；])", text) if part.strip()]
-    if not parts:
-        return text
-    return "".join(parts[:limit])
-
-
-def _formal_highlights(record):
-    if not isinstance(record, dict):
-        return []
-    values = []
-    for item in record.get("important_institutions", []):
-        if isinstance(item, dict):
-            values.append(item.get("reason") or item.get("label_zh"))
-    for item in record.get("structured_grade_basis", []):
-        if not isinstance(item, dict):
-            continue
-        role = str(item.get("role", ""))
-        if any(token in role for token in ("正向", "负向", "反例", "边界")):
-            values.append(item.get("text"))
-    for key in ("M_positive_profile", "M_negative_profile", "M_mixed_profile"):
-        for item in record.get(key, []):
-            if isinstance(item, dict):
-                values.append(item.get("mechanism"))
-    for key in (
-        "maintenance_basis", "reversal_basis", "within_band_deterioration_basis",
-        "direction_reason", "recovery_basis",
-    ):
-        values.append(record.get(key))
-    return _unique_texts(values, limit=3)
-
-
-def _formal_boundary(record):
-    if not isinstance(record, dict):
-        return ""
-    values = []
-    for key in ("material_limitations", "unresolved_gaps", "limitations"):
-        value = record.get(key)
-        if isinstance(value, list):
-            values.extend(value)
-        else:
-            values.append(value)
-    return "；".join(_unique_texts(values, limit=2))
 
 
 def _formal_source_refs(record, *extra):
@@ -222,24 +260,213 @@ def _formal_source_refs(record, *extra):
     return list(dict.fromkeys(refs))[:8]
 
 
-def _attach_reader(item, *, kind, summary="", how="", record=None, boundary="", source_refs=(), highlights=()):
+def _attach_reader(item, *, kind, summary="", how="", boundary="", source_refs=(), highlights=()):
+    """Attach explicitly supplied display fields; never infer prose from records."""
     result = dict(item)
     result["reader_kind"] = kind
-    formal_summary = _formal_summary(record)
-    final_summary = _first_text(summary, _lead_sentences(formal_summary))
-    final_highlights = _unique_texts([*highlights, *_formal_highlights(record)], limit=3)
-    final_boundary = _first_text(boundary, _formal_boundary(record))
-    refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
-    if final_summary:
-        result["reader_summary"] = final_summary
-    if formal_summary and _clean_text(final_summary) != _clean_text(formal_summary):
-        result["reader_full_basis"] = formal_summary
-    if final_highlights:
-        result["reader_highlights"] = final_highlights
-    if final_boundary:
-        result["reader_boundary"] = final_boundary
+    for key, value in (("reader_summary", summary), ("reader_boundary", boundary), ("reader_how", how)):
+        if value:
+            result[key] = value
+    if highlights:
+        result["reader_highlights"] = _unique_texts(highlights, limit=None)
+    refs = _formal_source_refs(None, item.get("source"), item.get("applied_source"), *source_refs)
+    if refs:
+        result["reader_source_refs"] = refs
+    return result
+
+
+def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
+    """Project B2's explicit public fields without semantic fallback guessing."""
+
+    if not isinstance(record, dict):
+        raise ValueError("B2 reader projection requires a formal record")
+    summary = record.get("public_adjudication_summary")
+    evidence = record.get("public_evidence_items")
+    if not isinstance(summary, str) or not summary.strip():
+        raise ValueError(f"B2 formal public summary is missing: {record.get('ruler_name')}")
+    if not isinstance(evidence, list) or not evidence:
+        raise ValueError(f"B2 formal public evidence is missing: {record.get('ruler_name')}")
+    result = dict(item)
+    result["reader_kind"] = "judgment"
+    result["reader_summary"] = summary
+    result["public_adjudication_summary"] = summary
+    result["public_evidence_items"] = deepcopy(evidence)
+    result["reader_public_evidence_items"] = deepcopy(evidence)
+    result["reader_highlights"] = _unique_texts(
+        [
+            f"{entry.get('public_label')}：{entry.get('public_basis')}"
+            for entry in evidence
+            if isinstance(entry, dict)
+        ],
+        limit=None,
+    )
+    boundaries = _unique_texts(
+        [entry.get("public_boundary") for entry in evidence if isinstance(entry, dict)],
+        limit=None,
+    )
+    if boundaries:
+        result["reader_boundary"] = "；".join(boundaries)
     if how:
         result["reader_how"] = how
+    refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
+    if refs:
+        result["reader_source_refs"] = refs
+    return result
+
+
+def _attach_method_public_reader(item, *, axis, record, how=""):
+    """A/B1 overviews consume the same declared public prose as detail cards."""
+    summary = record.get("public_adjudication_summary")
+    if not isinstance(summary, str) or not summary.strip():
+        raise ValueError(f"{axis} formal public summary is missing: {record.get('ruler_name')}")
+    if axis == "A":
+        nodes = record.get("public_institution_nodes")
+        if not isinstance(nodes, list):
+            raise ValueError("A formal public nodes are missing")
+        evidence = [dict(
+            public_label=node["public_label"], public_direction=node.get("public_direction", ""),
+            public_basis="\n\n".join(node[key] for key in ("public_adjudication_basis", "public_scope", "public_reception") if node.get(key)),
+            public_boundary=node.get("public_boundary", ""),
+        ) for node in nodes]
+    elif axis == "B1":
+        evidence = [dict(
+            public_label=node["public_label"],
+            public_basis=node["adjudication_basis"],
+            public_boundary=node.get("adjudication_boundary", ""),
+        ) for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile") for node in record.get(key, [])]
+    else:
+        raise ValueError(f"Unsupported method axis: {axis}")
+    result = dict(item)
+    result.update(reader_kind="judgment", reader_summary=summary,
+                  public_adjudication_summary=summary, reader_public_evidence_items=evidence,
+                  reader_how=how, reader_source_refs=_formal_source_refs(record, item.get("source"), item.get("applied_source")))
+    boundaries = _unique_texts([node["public_boundary"] for node in evidence], limit=None)
+    if boundaries:
+        result["reader_boundary"] = "\n\n".join(boundaries)
+    return result
+
+
+def _attach_second_item_c_public_reader(item, *, axis, record, how="", source_refs=()):
+    """Project C1-C4 explicit public fields without reader-side adjudication."""
+
+    if not isinstance(record, dict):
+        raise ValueError(f"{axis} reader projection requires a formal record")
+    summary = record.get("public_adjudication_summary")
+    evidence = record.get("public_evidence_items")
+    if not isinstance(summary, str) or not summary.strip():
+        raise ValueError(f"{axis} formal public summary is missing: {record.get('ruler_name')}")
+    if not isinstance(evidence, list) or not evidence:
+        raise ValueError(f"{axis} formal public evidence is missing: {record.get('ruler_name')}")
+    result = dict(item)
+    result["reader_kind"] = "judgment"
+    result["reader_summary"] = summary
+    result["public_adjudication_summary"] = summary
+    result["public_evidence_items"] = deepcopy(evidence)
+    result["reader_public_evidence_items"] = deepcopy(evidence)
+    result["reader_highlights"] = _unique_texts(
+        [
+            f"{entry.get('public_label')}：{entry.get('public_basis')}"
+            for entry in evidence
+            if isinstance(entry, dict)
+        ],
+        limit=None,
+    )
+    boundaries = _unique_texts(
+        [entry.get("public_boundary") for entry in evidence if isinstance(entry, dict)],
+        limit=None,
+    )
+    if boundaries:
+        result["reader_boundary"] = "；".join(boundaries)
+    if how:
+        result["reader_how"] = how
+    refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
+    if refs:
+        result["reader_source_refs"] = refs
+    return result
+
+
+def _attach_d1_d3_public_reader(item, *, record, axis, how="", source_refs=()):
+    """Project D1/D3's explicit public fields without generic fallback guessing."""
+
+    if not isinstance(record, dict):
+        raise ValueError(f"{axis} reader projection requires a formal record")
+    summary = record.get("public_adjudication_summary")
+    evidence = record.get("public_evidence_items")
+    if not isinstance(summary, str) or not summary.strip():
+        raise ValueError(f"{axis} formal public summary is missing: {record.get('ruler_name')}")
+    if not isinstance(evidence, list) or not evidence:
+        raise ValueError(f"{axis} formal public evidence is missing: {record.get('ruler_name')}")
+    result = dict(item)
+    result["reader_kind"] = "judgment"
+    result["reader_summary"] = summary
+    result["public_adjudication_summary"] = summary
+    result["public_evidence_items"] = deepcopy(evidence)
+    result["reader_public_evidence_items"] = deepcopy(evidence)
+    result["reader_highlights"] = _unique_texts(
+        [
+            f"{entry.get('public_role')}：{entry.get('public_basis')}"
+            for entry in evidence
+            if isinstance(entry, dict)
+        ],
+        limit=None,
+    )
+    boundaries = _unique_texts(
+        [entry.get("public_boundary") for entry in evidence if isinstance(entry, dict)],
+        limit=None,
+    )
+    if boundaries:
+        result["reader_boundary"] = "；".join(boundaries)
+    if how:
+        result["reader_how"] = how
+    refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
+    if refs:
+        result["reader_source_refs"] = refs
+    return result
+
+
+def _attach_formal_public_reader(item, *, record, axis="", how="", source_refs=(), public_label=""):
+    """Consume an Item 3/4 public projection without translating formal codes."""
+
+    if not isinstance(record, dict):
+        raise ValueError(f"{axis or 'formal'} reader projection requires a formal record")
+    projection = record
+    projections = record.get("public_axis_projections")
+    if axis and isinstance(projections, dict) and isinstance(projections.get(axis), dict):
+        projection = projections[axis]
+    summary = projection.get("public_adjudication_summary")
+    evidence = projection.get("public_evidence_items")
+    if not isinstance(summary, str) or not summary.strip():
+        raise ValueError(f"{axis or 'formal'} formal public summary is missing: {record.get('ruler_name')}" )
+    if not isinstance(evidence, list) or not evidence:
+        raise ValueError(f"{axis or 'formal'} formal public evidence is missing: {record.get('ruler_name')}" )
+    result = dict(item)
+    result["reader_kind"] = "judgment"
+    result["reader_summary"] = summary
+    result["public_adjudication_summary"] = summary
+    result["public_evidence_items"] = deepcopy(evidence)
+    result["reader_public_evidence_items"] = deepcopy(evidence)
+    result["public_component_label"] = public_label or projection.get("public_component_label") or record.get("public_component_label")
+    result["public_level_label"] = projection.get("public_level_label") or record.get("public_level_label")
+    result["reader_highlights"] = _unique_texts(
+        [
+            f"{entry.get('public_label') or entry.get('public_role')}：{entry.get('public_basis')}"
+            for entry in evidence
+            if isinstance(entry, dict)
+        ],
+        limit=None,
+    )
+    boundaries = _unique_texts(
+        [entry.get("public_boundary") for entry in evidence if isinstance(entry, dict)],
+        limit=None,
+    )
+    boundary = projection.get("public_boundary") or record.get("public_boundary")
+    if boundary:
+        boundaries.insert(0, boundary)
+    if boundaries:
+        result["reader_boundary"] = "；".join(_unique_texts(boundaries, limit=None))
+    if how:
+        result["reader_how"] = how
+    refs = _formal_source_refs(record, item.get("source"), item.get("applied_source"), *source_refs)
     if refs:
         result["reader_source_refs"] = refs
     return result
@@ -248,6 +475,8 @@ def _attach_reader(item, *, kind, summary="", how="", record=None, boundary="", 
 def load_net_reader_sources(root):
     """Load formal subitem evidence for reader-only explanations."""
     sources = load_detail_sources(root)
+    sources['first_c_public'] = load_first_item_c_public(root)
+    sources['first_b1_public'], sources['first_cost_public'] = load_first_item_b1_cost_public(root)
     for key, path in NET_READER_EXTRA_SOURCES.items():
         payload = load_json(root / path)
         rows = payload["records"]
@@ -335,11 +564,17 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
                     first_item_public_outcomes, name
                 )
         elif label == "B1创业难度与效率":
+            if item.get('value') is None:
+                first[label] = _attach_reader(item, kind='judgment')
+                continue
+            public = public_commander_for_name(sources['first_b1_public'], name)
             first[label] = _attach_reader(
                 item, kind="judgment",
-                summary="评价从什么起点出发、面对多强的主要对手，以及完成创业或统一主链的效率。",
-                how=f"{item.get('grade', '')}；{item.get('note', '')}，合计 {item.get('value')} 分。",
+                summary='\n\n'.join(public[key] for key in ('public_start_basis','public_opponent_basis','public_efficiency_basis')),
+                how=public['public_calculation'],
+                source_refs=(FIRST_B1_SOURCE.as_posix(),),
             )
+            first[label]['reader_public_b1'] = deepcopy(public)
         elif label == "B2组织与整合":
             first[label] = _attach_reader(
                 item, kind="judgment",
@@ -347,18 +582,31 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
                 how=f"{item.get('grade', '')}；{item.get('note', '')}，合计 {item.get('value')} 分。",
             )
         elif label == "C军事统帅与战争解题":
+            if item.get('value') is None:
+                first[label] = _attach_reader(item, kind='judgment')
+                continue
+            commander = public_commander_for_name(sources['first_c_public'], name)
             first[label] = _attach_reader(
                 item, kind="judgment",
-                summary="只评价本人在创业或统一主链中的军事统帅与战争解题能力，团队作用按正式归责路线处理。",
+                summary=commander['public_basis'],
+                boundary=commander['public_boundary'],
+                source_refs=(FIRST_C_SOURCE.as_posix(),),
                 how=f"正式能力档与归责路线共同换算为 {item.get('value')} 分；{item.get('note', '')}",
             )
+            first[label]['reader_public_commander'] = deepcopy(commander)
         elif label == "军事成本扣分":
+            if item.get('value') is None:
+                first[label] = _attach_reader(item, kind='judgment')
+                continue
             cost = sources["first_cost"].get(name, {})
+            public = public_commander_for_name(sources['first_cost_public'], name)
             first[label] = _attach_reader(
-                item, kind="judgment", record=cost,
+                item, kind="judgment", summary=public['public_basis'],
                 how=f"正式军事成本档与档内位置按成本表换算为扣 {item.get('value')} 分。",
-                boundary=cost.get("responsibility_window", ""),
+                boundary=public['public_responsibility_window'],
+                source_refs=(FIRST_COST_SOURCE.as_posix(), *cost.get('source_refs',[])),
             )
+            first[label]['reader_public_cost'] = deepcopy(public)
         else:
             first[label] = _attach_reader(item, kind="calculation")
     if first:
@@ -383,10 +631,11 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
         if label in method:
             item = method[label]
             record = sources[key][sid]
-            method[label] = _attach_reader(
-                item, kind="judgment", record=record,
-                how=f"正式方向指数为 {item.get('value')}；该指数随后进入治理手段合成公式。",
-            )
+            how = f"正式方向指数为 {item.get('value')}；该指数随后进入治理手段合成公式。"
+            if key == "B2":
+                method[label] = _attach_b2_public_reader(item, record=record, how=how)
+            else:
+                method[label] = _attach_method_public_reader(item, axis=key, record=record, how=how)
     if method:
         values = {label: item.get("value") for label, item in method.items()}
         for label in ("AB计分块", "B2折算", "治理手段"):
@@ -415,7 +664,9 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             how = f"正向保留 − 恶化扣分 − 破坏放大扣分 = {item.get('note')} = {item.get('value')} 分。"
         else:
             how = f"正式状态判断与损失修正按本轴合同换算为 {item.get('value')} 分。"
-        finance[label] = _attach_reader(item, kind="judgment", record=record, how=how)
+        finance[label] = _attach_second_item_c_public_reader(
+            item, axis=key, record=record, how=how
+        )
     if "治理结果" in finance:
         values = {label: item.get("value") for label, item in finance.items()}
         finance["治理结果"] = _attach_reader(
@@ -434,9 +685,9 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
         if label in handoff:
             item = handoff[label]
             record = sources[key][sid]
-            handoff[label] = _attach_reader(
-                item, kind="judgment", record=record,
-                how=f"正式交班裁决换算为 {item.get('value')} 级输入；该级本身不是独立可加分。",
+            handoff[label] = _attach_d1_d3_public_reader(
+                item, record=record, axis=key,
+                how=f"公开档位为 {handoff_public_grade(item.get('value'))}档；该档位参与政权交接得分计算，本项不会重复单独加分。",
                 source_refs=(sources[f"{key}_path"],),
             )
     if handoff:
@@ -450,8 +701,10 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             )
         if "交接得分" in handoff:
             handoff["交接得分"]["reader_how"] = (
-                f"min[2 × (D1 {values.get('D1继任行政连续性')} + D3 {values.get('D3政权交接稳定')}), "
-                f"低侧封顶 {values.get('低侧封顶')}] = {values.get('交接得分')} 分。"
+                f"行政连续性 {handoff_public_grade(values.get('D1继任行政连续性'))}档，"
+                f"交接稳定 {handoff_public_grade(values.get('D3政权交接稳定'))}档；"
+                f"两项按 E=0、D=1、C=2、B=3、A=4、S=5 换算后合计并乘2，"
+                f"同时受交接短板上限 {values.get('低侧封顶')} 分约束，最终为 {values.get('交接得分')} 分。"
             )
         if "第二项合计" in handoff:
             method_score = next((x.get("value") for x in details.get("method", []) if x.get("label") == "治理手段"), None)
@@ -467,26 +720,27 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
     strategic = {item["label"]: item for item in details.get("strategic", [])}
     for key in ("A1", "A2"):
         if key in strategic:
-            axis = credit["axes"][key]
-            strategic[key] = _attach_reader(
-                strategic[key], kind="judgment", record=axis,
-                summary=axis.get("attribution_basis", ""),
-                how=f"起点状态、终点状态、改善或恶化及本人归责共同换算为 {strategic[key].get('value')} 分。",
+            strategic[key] = _attach_formal_public_reader(
+                strategic[key], record=credit, axis=key,
+                how=f"起点、终点和本人责任共同换算为 {strategic[key].get('value')} 分。",
             )
     for key in ("B1", "B2", "B4"):
         if key in strategic:
-            axis = ab["axes"][key]
             rate = credit["B80_adjudication"][f"adjudicated_{key}_rate"]
-            strategic[key] = _attach_reader(
-                strategic[key], kind="judgment", record=axis,
-                how=f"正式结果先得到 {strategic[key].get('value')}% 的原始得分率；边界复核后合成采用 {rate:g}%。",
+            strategic[key] = _attach_formal_public_reader(
+                strategic[key], record=ab, axis=key,
+                how=f"当前结果先得到 {strategic[key].get('value')}% 的得分率，合成时采用 {rate:g}%。",
             )
     for label in ("A120", "B80"):
         if label in strategic:
             strategic[label] = _attach_reader(strategic[label], kind="calculation")
+            strategic[label]["public_component_label"] = {
+                "A120": "战略安全成果合计",
+                "B80": "控制成果合成",
+            }[label]
     if "A120" in strategic:
         strategic["A120"]["reader_how"] = (
-            f"A1 {strategic.get('A1', {}).get('value')} + A2 {strategic.get('A2', {}).get('value')} = "
+            f"两项战略安全状态结果 {strategic.get('A1', {}).get('value')} + {strategic.get('A2', {}).get('value')} = "
             f"{strategic['A120'].get('value')} 分。"
         )
     if "B80" in strategic:
@@ -507,39 +761,41 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
     }
     for label, keys in specific_reason_keys.items():
         if label in military:
-            summary = _first_text(*(c_record.get(key) for key in keys), c_record.get("strategy_chain_review_basis"))
-            military[label] = _attach_reader(
-                military[label], kind="judgment", record=c_record, summary=summary,
-                how="这是军事体系能力档输入，不单独加分；三项共同决定C50。",
+            axis = label[:2]
+            military[label] = _attach_formal_public_reader(
+                military[label], record=c_record, axis=axis,
+                how="这是军事体系结果的组成方面，不单独加分；三方面共同确定军事体系结果。",
             )
     if "C50" in military:
-        military["C50"] = _attach_reader(
-            military["C50"], kind="calculation", record=c_record,
-            summary=_formal_summary(c_record),
-            how=f"C1、C2、C3共同确定军事体系总档，再按固定表换算为 {military['C50'].get('value')} 分。",
+        military["C50"] = _attach_formal_public_reader(
+            military["C50"], record=c_record,
+            how=f"三方面军事体系表现共同换算为 {military['C50'].get('value')} 分。",
         )
+        military["C50"]["reader_kind"] = "calculation"
     if "普通成本扣分" in military:
         cost_profile = third.get("global_cost_credit_profile", {})
-        military["普通成本扣分"] = _attach_reader(
-            military["普通成本扣分"], kind="judgment", record=cost_profile,
-            summary=_formal_summary(cost_profile) or "按本人正式统治窗口内的军队、军事资产、后勤与持续再动员成本裁定全局军事成本档。",
-            how=f"全局军事成本档按固定换分表折算为扣 {military['普通成本扣分'].get('value')} 分。",
+        military["普通成本扣分"] = _attach_formal_public_reader(
+            military["普通成本扣分"], record=cost_profile,
+            how=f"普通军事代价按固定换算表折算为扣 {military['普通成本扣分'].get('value')} 分。",
         )
     if "ML扣分" in military:
-        ml_record = sources["ML"].get(person["ruler_id"], {})
-        military["ML扣分"] = _attach_reader(
-            military["ML扣分"], kind="judgment", record=ml_record,
-            summary=_formal_summary(ml_record) or "未触发额外军事净毁损扣分门。",
-            how=f"军事净毁损按ML0—ML4固定表换算为扣 {military['ML扣分'].get('value')} 分。",
+        ml_record = sources["ML"].get(person["ruler_id"]) or third.get("public_military_net_loss", {})
+        military["ML扣分"] = _attach_formal_public_reader(
+            military["ML扣分"], record=ml_record,
+            how=f"重大军事净毁损按固定换算表折算为扣 {military['ML扣分'].get('value')} 分。",
             source_refs=(sources["ML_path"],),
         )
     for label in ("实际扣分", "第三项合计"):
         if label in military:
             military[label] = _attach_reader(military[label], kind="calculation")
+            military[label]["public_component_label"] = {
+                "实际扣分": "实际军事代价",
+                "第三项合计": "第三项军事与边疆净收益",
+            }[label]
     if "实际扣分" in military:
         military["实际扣分"]["reader_how"] = (
-            f"普通成本扣分 {military.get('普通成本扣分', {}).get('value')} 与ML扣分 "
-            f"{military.get('ML扣分', {}).get('value')} 取较大值 = {military['实际扣分'].get('value')} 分。"
+            f"普通军事代价扣减 {military.get('普通成本扣分', {}).get('value')} 与重大军事净毁损扣减 "
+            f"{military.get('ML扣分', {}).get('value')} 取较高值 = {military['实际扣分'].get('value')} 分。"
         )
     if "第三项合计" in military:
         a120 = strategic.get("A120", {}).get("value")
@@ -547,7 +803,7 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
         c50 = military.get("C50", {}).get("value")
         debit = military.get("实际扣分", {}).get("value")
         military["第三项合计"]["reader_how"] = (
-            f"A120 {a120} + B80 {b80} + C50 {c50} − 实际扣分 {debit} "
+            f"战略安全成果 {a120} + 控制成果合成 {b80} + 军事体系结果 {c50} − 实际军事代价 {debit} "
             f"= {military['第三项合计'].get('value')} 分。"
         )
     if military:
@@ -563,22 +819,17 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             continue
         item = civilization[label]
         axis = fourth_axes.get(key, {})
-        if item.get("value") == 0:
-            summary = f"现有材料复核后，没有满足“{civ_names[key]}”本轴计分门槛的独立文明增量，因此本轴调整为0。"
-        else:
-            direction = {"POSITIVE": "正向", "NEGATIVE": "负向", "BALANCED": "正负相抵"}.get(axis.get("direction"), "有符号")
-            summary = f"正式结算认定本人窗口在“{civ_names[key]}”形成可归责的{direction}净变化。"
-        civilization[label] = _attach_reader(
-            item, kind="judgment", summary=summary,
-            how=f"按本轴影响量级、档内位置和方向换算为 {item.get('value')} 分调整。",
-            record=axis,
+        civilization[label] = _attach_formal_public_reader(
+            item, record=fourth, axis=key,
+            how=f"按正式方向、影响幅度和本级位置换算为 {item.get('value')} 分调整。",
         )
     if "第四项调整" in civilization:
         values = [civilization[label].get("value") for label in label_to_axis if label in civilization]
         civilization["第四项调整"] = _attach_reader(
             civilization["第四项调整"], kind="calculation",
-            how=f"三轴有符号调整相加：{' + '.join(str(v) for v in values)} = {civilization['第四项调整'].get('value')} 分。",
+            how=f"国家共同体、教育与人才、知识与文化生态三轴调整相加：{' + '.join(str(v) for v in values)} = {civilization['第四项调整'].get('value')} 分。",
         )
+        civilization["第四项调整"]["public_component_label"] = "第四项文明与国家整合调整"
     if civilization:
         details["civilization"] = [civilization[item["label"]] for item in details["civilization"]]
 
@@ -715,7 +966,11 @@ def build(*, check=False, write=True):
                             settlement_readiness="SUPPLEMENTARY", net=None, axes={}, impact=row, supplementary=True))
     index(records)
 
+    source_identity = reader_source_identity(write=write and not check)
+    person_notes_snapshot(check=check, write=write)
     common = dict(main_count=len(main), ranked_count=len(net),
+                  source_repository=source_identity["repository"],
+                  source_revision=source_identity["revision"],
                   weight_sensitivity=ranking.get("weight_sensitivity", {}),
                   supplementary_count=len(records)-len(main), formula=ranking["formula"],
                   capability_axes=profile["capability_axes"], independent_axes=profile["independent_profile_axes"],
@@ -743,6 +998,7 @@ def build(*, check=False, write=True):
     payload = serialized_json(index_data, html_safe=True)
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")
     template = apply_public_copy(template)
+    template = inline_runtime_scripts(template)
     link_effects = (ROOT / "reader/link-effects.css").read_text(encoding="utf-8").strip()
     readability_css = (ROOT / "reader/readability.css").read_text(encoding="utf-8").strip()
     lazy_details = (ROOT / "reader/lazy-details.js").read_text(encoding="utf-8").strip()

@@ -691,6 +691,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
 
 def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] | None = None, polities: set[str] | None = None) -> dict[str, Any]:
     from emperor_v4.evaluation.second_item_b1_settlement import active_groups, position_from_residual
+    from emperor_v4.evaluation.second_item_b2_public import verify_public_projection
 
     path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B2"]
     payload = load_json(path, polities=polities)
@@ -832,7 +833,7 @@ def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] 
         for block in material_blocks
     ):
         raise ValueError("第二项B2材料依据仍含引用或机器审计字段")
-    return {
+    result = {
         "status": "PASS",
         "record_count": len(records),
         "validation_scope": "SELECTED_RECORD_CONTRACTS" if scoped else "FULL_COMPONENT_CONTRACTS",
@@ -842,6 +843,9 @@ def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] 
         "invalid_M1_count": 0,
         "duplicate_markdown_ruler_count": 0,
     }
+    if not scoped:
+        result["public_projection"] = verify_public_projection(workspace_root, payload=payload)
+    return result
 
 
 def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
@@ -904,6 +908,14 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
     a_report = verify_second_item_a_snapshot(workspace_root)
     verify_second_item_b1_snapshot(workspace_root)
     b2_report = verify_second_item_b2_snapshot(workspace_root)
+    from emperor_v4.evaluation.second_item_c_public import verify_public_projection as verify_c_public_projection
+    from emperor_v4.evaluation.second_item_d1_d3_public import verify_public_projection as verify_d1_d3_public_projection
+
+    c_public_report = verify_c_public_projection(workspace_root)
+    d1_d3_public_report = verify_d1_d3_public_projection(
+        workspace_root,
+        payloads={"D1": payloads["D1"], "D3": payloads["D3"]},
+    )
     id_sets = {key: set(rows) for key, rows in indexed.items()}
     complete_ids = id_sets["method"]
     complete_keys = {"A", "B1", "B2", "method", "D1", "D3", "handoff"}
@@ -1000,6 +1012,8 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         "A_scoring_node_count": a_report["scoring_node_count"],
         "B2_basis_verified_count": b2_report["basis_verified_count"],
         "B2_duplicate_markdown_ruler_count": b2_report["duplicate_markdown_ruler_count"],
+        "C_public_projection": c_public_report,
+        "D1_D3_public_projection": d1_d3_public_report,
         "D3_formal_record_count": len(d3_records),
         "handoff_formula_record_count": len(handoff_records),
     }
@@ -1082,12 +1096,20 @@ def verify_formal_settlements(workspace_root: Path, *, items: set[str] | None = 
         if "second_item" in items:
             result["second_item_components"] = _verify_second_item_components(workspace_root)
         if "third_item" in items:
+            from emperor_v4.evaluation.third_fourth_item_public import verify_public_projection
+
             result["third_item_components"] = {
                 "C": verify_third_item_c_strategy_chain_settlement(workspace_root),
                 "combined": verify_current_third_item_settlement(workspace_root),
+                "public_projection": verify_public_projection(workspace_root),
             }
+        if "fourth_item" in items:
+            from emperor_v4.evaluation.third_fourth_item_public import verify_public_projection
+
+            result["fourth_item_public_projection"] = verify_public_projection(workspace_root)
         return result
     from emperor_v4.evaluation.project_entries import verify as verify_project_entries
+    from emperor_v4.evaluation.third_fourth_item_public import verify_public_projection
     return {
         "status": "PASS",
         "validation_scope": "SNAPSHOT_COHERENCE_NOT_FULL_SEMANTIC_ACCEPTANCE",
@@ -1100,5 +1122,6 @@ def verify_formal_settlements(workspace_root: Path, *, items: set[str] | None = 
             "D": verify_third_item_d_formal_settlement(workspace_root),
             "combined": verify_current_third_item_settlement(workspace_root),
         },
+        "third_fourth_public_projection": verify_public_projection(workspace_root),
         "items": reports,
     }

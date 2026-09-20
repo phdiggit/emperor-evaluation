@@ -12,6 +12,8 @@ fragments uniquely identify that dossier.  Otherwise it stays a search fallback.
 from __future__ import annotations
 
 import importlib.util
+import json
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -618,6 +620,32 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
     return battle_index, commander_index
 
 
+def _build_military_page(root: Path = ROOT) -> None:
+    """Build the served military page from a source template and freeze its JS."""
+    template_path = root / "reader/military.template.html"
+    output_path = root / "reader/military.html"
+    script_path = root / "reader/military-archive.js"
+    template = template_path.read_text(encoding="utf-8")
+    marker = '<script src="military-archive.js"></script>'
+    if template.count(marker) != 1:
+        raise ValueError("military template must contain exactly one runtime script marker")
+    repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
+    revision = os.environ.get("GITHUB_SHA", "").strip().lower()
+    identity_path = root / "reader/source-revision.json"
+    if (not repository or not revision) and identity_path.exists():
+        identity = json.loads(identity_path.read_text(encoding="utf-8"))
+        repository = str(identity.get("repository") or "").strip()
+        revision = str(identity.get("revision") or "").strip().lower()
+    prefix = (
+        "const READER_SOURCE_REPOSITORY=" + json.dumps(repository, ensure_ascii=False) + ";\n"
+        + "const READER_SOURCE_REVISION=" + json.dumps(revision, ensure_ascii=False) + ";\n"
+    )
+    script = prefix + script_path.read_text(encoding="utf-8")
+    script = script.replace("</script>", r"<\/script>")
+    rendered = template.replace(marker, f"<script>\n{script}\n</script>", 1)
+    output_path.write_text(rendered, encoding="utf-8", newline="\n")
+
+
 def main() -> None:
     battle_index, commander_index, evidence = _build_outputs(ROOT)
     out = ROOT / OUTPUT_DIR
@@ -625,6 +653,7 @@ def main() -> None:
     _CORE._write(out / "commanders-index.json", commander_index)
     for filename, payload in evidence.items():
         _CORE._write(out / filename, payload)
+    _build_military_page(ROOT)
     stats = battle_index["first_item_c_anchor_stats"]
     print(
         "military archive indexes: "

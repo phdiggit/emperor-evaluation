@@ -40,6 +40,29 @@ def test_unresolved_context_fails_instead_of_silently_losing_evidence():
         )
 
 
+def test_method_public_projection_preserves_all_nodes_and_boundaries():
+    builder = module("build")
+    tail = "正面表现。" * 80 + "但不能据此认定全部责任。"
+    nodes = [{"public_label": f"制度{i}", "public_adjudication_basis": tail,
+              "public_boundary": f"限制{i}不能删除。", "public_scope": "只含本段。",
+              "public_reception": "后续接收尚不确定。"} for i in range(7)]
+    result = builder._attach_method_public_reader(
+        {}, axis="A", record={"public_adjudication_summary":tail, "public_institution_nodes":nodes})
+    assert result["reader_summary"] == tail
+    assert len(result["reader_public_evidence_items"]) == len(nodes)
+    for node, projected in zip(nodes,result["reader_public_evidence_items"]):
+        assert node["public_adjudication_basis"] in projected["public_basis"]
+        assert node["public_reception"] in projected["public_basis"]
+        assert node["public_boundary"] in result["reader_boundary"]
+    b1 = {"public_label":"运行链", "adjudication_basis":tail, "adjudication_boundary":"仅作背景。"}
+    result = builder._attach_method_public_reader(
+        {}, axis="B1", record={"public_adjudication_summary":tail,"M_mixed_profile":[b1]})
+    assert result["reader_public_evidence_items"][0]["public_basis"] == tail
+    assert result["reader_boundary"] == b1["adjudication_boundary"]
+    with pytest.raises(ValueError, match="public summary"):
+        builder._attach_method_public_reader({}, axis="A", record={"adjudication_reason":tail})
+
+
 def test_document_preserves_duplicate_and_explicit_anchors():
     page = module("serve").document_page(
         "# 标题\n\n## **中文** `代码`\n\n## **中文** `代码`\n\n<a id=\"person-synthetic\"></a>\n"
