@@ -623,3 +623,54 @@
 }
 
 #rows td.name small .inline-table-filter { font: inherit; }
+
+
+/* First-visit home defaults to a compact, mobile-safe summary. */
+.home-simple-list{display:grid;gap:10px}
+.home-simple-card{display:grid;grid-template-columns:minmax(230px,1.35fr) minmax(150px,.8fr) minmax(150px,.8fr) minmax(170px,.9fr) auto;align-items:stretch;border:1px solid var(--line);border-radius:7px;background:#fcfbf7;overflow:hidden}
+.home-simple-identity,.home-simple-cell,.home-simple-compare{min-width:0;padding:14px 16px}
+.home-simple-cell,.home-simple-compare{border-left:1px solid var(--line)}
+.home-simple-identity>button[data-person]{padding:0;border:0;color:var(--green);font:20px/1.45 "SimSun",serif;text-align:left}
+.home-simple-identity small{display:block;margin-top:5px}
+.home-simple-identity .inline-table-filter{padding:0;border:0}
+.home-simple-label{display:block;margin-bottom:4px;color:var(--muted);font-size:11px}
+.home-simple-score{display:block;color:var(--ink);font:26px/1.25 Georgia,serif}
+.home-simple-action,.home-simple-profile,.home-simple-impact{display:block;margin-top:5px;padding:0;border:0;color:var(--green);text-align:left}
+.home-simple-profile{margin-top:20px;font-weight:600}
+.home-simple-impact{margin-top:0;color:inherit}
+.home-simple-impact .impact-grade{font-size:26px}
+.home-simple-compare{display:flex;align-items:center}
+.home-simple-compare>button{white-space:nowrap}
+#toggle-home-view{flex:0 0 auto}
+.c5-inline-hint{display:block;margin-top:2px;color:var(--muted);font-size:11px;font-weight:400;white-space:normal}
+.axis-further-check{margin:14px 0 8px;padding:9px 12px;border:1px solid color-mix(in srgb,var(--line) 78%,transparent);border-radius:5px;background:color-mix(in srgb,var(--green) 2%,transparent)}
+.axis-further-check>summary{color:var(--green);font-size:13px}
+.axis-evidence>.metadata{margin-top:8px;opacity:.88}
+.axis-evidence>.metadata>summary{color:var(--muted);font-size:12px}
+.evidence-layer-guide{margin:0 0 10px}
+.guide-quick{margin:16px 0 18px}
+.guide-quick>h2{margin-top:0}
+.guide-quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.guide-quick-grid>div{padding:12px 14px;border:1px solid var(--line);border-radius:5px;background:#f7f5ef}
+.guide-quick-grid strong{color:var(--green)}
+.guide-quick-grid p{margin:4px 0 0;line-height:1.75}
+.guide-more{margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:6px}
+.guide-more>summary{font-size:15px;color:var(--green)}
+.guide-more>.three{margin-top:16px}
+@media(max-width:900px){
+  .home-simple-card{grid-template-columns:1fr 1fr}
+  .home-simple-identity{grid-column:1/-1;border-bottom:1px solid var(--line)}
+  .home-simple-cell{border-left:0}
+  .home-simple-cell:nth-of-type(3),.home-simple-cell:nth-of-type(4){border-top:1px solid var(--line)}
+  .home-simple-compare{grid-column:1/-1;border-left:0;border-top:1px solid var(--line);padding-top:10px;padding-bottom:10px}
+  .home-simple-compare>button{width:100%}
+}
+@media(max-width:700px){
+  .home-toolbar #toggle-home-view{flex:0 0 auto;padding:9px 12px}
+  .home-simple-card{grid-template-columns:1fr 1fr}
+  .home-simple-identity{padding:14px}
+  .home-simple-cell{padding:12px 14px}
+  .home-simple-profile{margin-top:14px}
+  .guide-quick-grid{grid-template-columns:1fr}
+  .axis-further-check{padding:8px 10px}
+}

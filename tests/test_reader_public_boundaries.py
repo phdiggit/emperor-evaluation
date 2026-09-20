@@ -145,14 +145,14 @@ def test_home_filters_preserve_context_and_use_formal_identity(tmp_path):
 const fs=require('node:fs'),assert=require('node:assert/strict'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8');
 function section(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert.ok(a>=0&&b>a);return source.slice(a,b);}
-const nodes=Object.fromEntries(['search','polity','scope','sort','impact-filter','toggle-filters','advanced-filters','filter-state','clear-filters','count','rows','selection'].map(id=>[id,{id,value:'',hidden:false,textContent:'',innerHTML:'',handlers:{},attributes:{},focus(){this.focused=true;},setAttribute(k,v){this.attributes[k]=v;},addEventListener(k,v){this.handlers[k]=v;}}]));
+const nodes=Object.fromEntries(['search','polity','scope','sort','impact-filter','toggle-home-view','toggle-filters','advanced-filters','filter-state','clear-filters','count','rows','selection'].map(id=>[id,{id,value:'',hidden:false,textContent:'',innerHTML:'',handlers:{},attributes:{},focus(){this.focused=true;},setAttribute(k,v){this.attributes[k]=v;},addEventListener(k,v){this.handlers[k]=v;}}]));
 let writes=0,html='';
 const screen={set innerHTML(v){writes++;html=v;},get innerHTML(){return html;}};
 function record(id,extra={}){return {ruler_id:id,ruler_name:id,polity:'合成朝代',supplementary:false,axes:{},net:null,impact:{identity_label:id+'（合成称号）',reading_start_year:1,public_grade:'B',impact_nature:'合成性质',confidence:'MEDIUM'},...extra};}
 const records=[record('left'),record('right'),record('supplement',{supplementary:true})];
 records[0].impact.identity_label='left（<不作为HTML>）';
 const original=JSON.stringify(records);
-const state={q:'',polity:'',scope:'main',sort:'time',compare:['left'],grade:'',differences:false,filtersOpen:false};
+const state={q:'',polity:'',scope:'main',sort:'time',compare:['left'],grade:'',differences:false,filtersOpen:false,homeView:'simple'};
 const context={DATA:{records,impact_grades:['B'],main_count:2,ranked_count:0,supplementary_count:1,capability_axes:[],independent_axes:[],axis_specs:{}},state,screen,byId:new Map(records.map(r=>[r.ruler_id,r])),document:{getElementById:id=>nodes[id]},nav(){},number:String,conf:String};
 vm.createContext(context);
 vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function home(){','function netPanel('),context);
@@ -164,6 +164,11 @@ assert.ok(nodes['rows'].innerHTML.includes('left（&lt;不作为HTML&gt;）'));
 assert.ok(!nodes['rows'].innerHTML.includes('<不作为HTML>'));
 assert.ok(!nodes['rows'].innerHTML.includes('undefined'));
 assert.ok(nodes['rows'].innerHTML.includes('掌权背景：未列'));
+assert.ok(nodes['rows'].innerHTML.includes('home-simple-list'));
+assert.ok(!nodes['rows'].innerHTML.includes('<table>'));
+nodes['toggle-home-view'].onclick();
+assert.equal(state.homeView,'full');
+assert.ok(nodes['rows'].innerHTML.includes('<table>'));
 const firstWrites=writes;
 nodes['toggle-filters'].onclick();
 assert.equal(writes,firstWrites,'opening filters must not rebuild the page or lose focus');
@@ -350,3 +355,19 @@ def test_generated_reader_release_pins_dynamic_sources():
         military = (root / "reader/military.html").read_text(encoding="utf-8")
         assert f'const READER_SOURCE_REVISION="{expected}"' in military
         assert "raw.githubusercontent.com" in military
+
+
+def test_new_viewer_layers_and_compact_c5_hint():
+    from pathlib import Path
+    import json
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    person_js = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    copy = json.loads((root / "reader/public-copy.json").read_text(encoding="utf-8"))
+    assert "30秒读懂" in template
+    assert "三者可以不一致" in template
+    assert "axis-further-check" in template
+    assert "进一步核对：代表情境、反例与限制" in template
+    assert any("原始记录与专业信息" in item["to"] for item in copy)
+    assert "S端表示更能约束自身权力" in person_js
+    assert "这项评价描述权力使用方式，不属于能力评价" not in person_js

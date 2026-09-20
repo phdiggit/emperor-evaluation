@@ -789,6 +789,13 @@ function firstCommanderMarkup(item) {
   enhancePersonNet();
 
   screen.addEventListener("click", event => {
+    const quickOpen = event.target.closest("[data-home-open]");
+    if (quickOpen) {
+      event.preventDefault();
+      openPersonSection(quickOpen.dataset.homeOpen, quickOpen.dataset.homeSection || "");
+      return;
+    }
+
     const polity = event.target.closest("[data-home-polity]");
     if (polity) {
       event.preventDefault();

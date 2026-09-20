@@ -108,7 +108,7 @@
 
   function evidenceList(block, record) {
     const fold = el("details", "note-evidence");
-    fold.append(el("summary", "", "原始记录：这段提要依据什么？"));
+    fold.append(el("summary", "", "进一步核对：这段提要依据什么？"));
     fold.append(el("p", "note-provenance", "以下是项目现有记录中的定位语句；史料出处和完整说明见相应记录。"));
     const list = el("ul");
     for (const ref of block.evidence) {

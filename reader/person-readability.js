@@ -352,7 +352,7 @@
     }
     const note = document.createElement("div");
     note.className = "c5-scale-note subline";
-    note.textContent = "权力运用与克制关注掌权者在压力、异议和个人利益面前，如何使用和约束权力。等级越接近S，表示越能约束自身权力；越接近E，表示越容易出现报复、滥用强制手段或突破规则的特权行为。这项评价描述权力使用方式，不属于能力评价，也不纳入能力雷达图。";
+    note.textContent = "S端表示更能约束自身权力，E端表示更易出现报复、强制滥用或特权；不计入能力雷达。";
     row.append(note);
   }
 
