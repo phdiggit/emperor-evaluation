@@ -1148,7 +1148,1419 @@ document.getElementById('home-nav').onclick=()=>go('#overview');document.getElem
 screen.addEventListener('click',e=>{const section=e.target.closest('[data-section]');if(section){e.preventDefault();document.getElementById(section.dataset.section)?.scrollIntoView({behavior:'smooth',block:'start'});return}const chain=e.target.closest('[data-chain]');if(chain){e.preventDefault();const target=document.getElementById('chain-'+chain.dataset.chain);if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});}return}const reason=e.target.closest('[data-reason]');if(reason){e.preventDefault();const target=document.getElementById('reason-'+reason.dataset.reason);if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});}return}const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-pick-compare')){const id=b.dataset.pickCompare;if(!state.compare.includes(id)){if(state.compareReplace===0)state.compare.unshift(id);else state.compare.push(id)}state.compareReplace=null;compare();return}if(b.hasAttribute('data-remove-compare')){state.compare=state.compare.filter(id=>id!==b.dataset.removeCompare);compare();return}if(b.hasAttribute('data-replace-compare')){state.compareReplace=Number(b.dataset.replaceCompare);state.compare=state.compare.filter((_,i)=>i!==state.compareReplace);history.replaceState(null,'','#compare');compare();return}if(b.hasAttribute('data-swap-compare')){state.compare.reverse();compare();return}if(b.hasAttribute('data-person'))go('#person/'+b.dataset.person);if(b.hasAttribute('data-home'))go('#overview');if(b.hasAttribute('data-person-compare')){const id=b.dataset.personCompare;state.compare=[id];state.compareReplace=null;go('#compare')}if(b.hasAttribute('data-select')){const id=b.dataset.select;if(state.compare.includes(id))state.compare=state.compare.filter(x=>x!==id);else if(state.compare.length<2)state.compare.push(id);else{document.getElementById('selection').textContent='已选两人，请先取消一人，或进入对照页替换。';return}renderRows()}});
 function route(){const h=location.hash;if(h.startsWith('#person/'))person(byId.get(personId()));else if(h==='#compare')compare();else if(h.startsWith('#compare/')){let ids;try{ids=h.slice(9).split('/').map(decodeURIComponent)}catch{ids=[]}if(ids.length===2&&ids[0]!==ids[1]&&ids.every(id=>byId.has(id))){state.compare=ids;compare()}else{nav('compare');screen.innerHTML='<p>对照地址无效，请重新选择两位人物。</p><button data-home>返回人物总览</button>'}}else if(h==='#guide')guide();else home();window.scrollTo(0,0)}
 window.addEventListener('hashchange',route);route();
-</script><script defer src="second-item-public-alias.js"></script><script defer src="second-item-a-public.js"></script><script defer src="second-item-b1-public.js"></script><script defer src="second-item-public-labels.js"></script><script defer src="person-reading-notes.js"></script><script>
+</script><script>
+"use strict";
+
+(() => {
+  const screenEl = document.getElementById("screen");
+  if (!screenEl) return;
+
+  const PUBLIC_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
+  const STATE_GRADE = {1:"E",2:"D",3:"C",4:"B",5:"A",6:"S"};
+  const HANDOFF_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
+  const LOSS_TEXT = {
+    0:"未见独立有效低谷",
+    1:"有局部或短时损害",
+    2:"出现明显低谷",
+    3:"出现严重低谷",
+  };
+  const METHOD_MAX = {"A制度建设":100,"B1官僚治理":100,"B2反馈与约束":80};
+  const FINANCE_MAX = {"C1民生":80,"C2经济财政":35,"C3社会安全":60};
+  const HANDOFF_LABELS = {
+    "D1继任行政连续性":"行政承接",
+    "D3政权交接稳定":"终局继承",
+  };
+  const SECOND_GROUPS = ["method", "finance", "handoff"];
+  let scheduled = false;
+
+  function finite(value) {
+    if (value == null || value === "") return null;
+    const n = Number(value);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function fmt(value, digits = 1) {
+    const n = finite(value);
+    return n == null ? "—" : n.toFixed(digits);
+  }
+
+  function personRecord() {
+    if (typeof byId === "undefined") return null;
+    const match = location.hash.match(/^#person\/([^/?#]+)/);
+    if (!match) return null;
+    try { return byId.get(decodeURIComponent(match[1])) || null; } catch { return null; }
+  }
+
+  function netRecord() {
+    if (typeof byId === "undefined") return null;
+    const match = location.hash.match(/^#net\/([^/?#]+)/);
+    if (!match) return null;
+    try { return byId.get(decodeURIComponent(match[1])) || null; } catch { return null; }
+  }
+
+  function compareRecords() {
+    if (typeof byId === "undefined" || !location.hash.startsWith("#compare/")) return [];
+    return location.hash.slice(9).split("/").filter(Boolean).slice(0, 2).map(id => {
+      try { return byId.get(decodeURIComponent(id)) || null; } catch { return null; }
+    }).filter(Boolean);
+  }
+
+  function itemMap(record, key) {
+    return new Map((record?.net?.component_details?.[key] || []).map(item => [item.label, item]));
+  }
+
+  function secondItems(record) {
+    const result = new Map();
+    for (const key of SECOND_GROUPS) {
+      for (const item of record?.net?.component_details?.[key] || []) result.set(item.label, item);
+    }
+    return result;
+  }
+
+  function secondTotals(record) {
+    const method = itemMap(record, "method");
+    const finance = itemMap(record, "finance");
+    const handoff = itemMap(record, "handoff");
+    return {
+      method: finite(method.get("治理手段")?.value),
+      finance: finite(finance.get("治理结果")?.value),
+      handoff: finite(handoff.get("交接得分")?.value),
+      total: finite(record?.net?.second_item_score ?? handoff.get("第二项合计")?.value),
+    };
+  }
+
+  function currentSecondPool() {
+    if (typeof byId === "undefined") return [];
+    return Array.from(byId.values()).filter(record =>
+      !record?.supplementary && finite(record?.net?.second_item_score) != null
+    );
+  }
+
+  function secondRankText(record) {
+    const score = finite(record?.net?.second_item_score);
+    if (score == null) return "";
+    const pool = currentSecondPool();
+    if (!pool.length) return "";
+    const rank = 1 + pool.filter(item => finite(item?.net?.second_item_score) > score).length;
+    const pct = Math.max(1, Math.min(100, Math.ceil(rank / pool.length * 100)));
+    return `当前已结算人物：第 ${rank} / ${pool.length}（约前 ${pct}%）`;
+  }
+
+  function positionSuffix(text) {
+    const lower = String(text || "").toLowerCase();
+    if (/lower|low/.test(lower)) return "-";
+    if (/upper|high/.test(lower)) return "+";
+    return "";
+  }
+
+  function publicMethodGrade(item) {
+    const text = String(item?.grade || "");
+    const band = text.match(/\bG([0-5])\b/i);
+    if (!band) return "";
+    return `${PUBLIC_GRADE[`G${band[1]}`] || ""}${positionSuffix(text)}`;
+  }
+
+  function stateGradeMeta(item) {
+    const match = String(item?.grade || "").match(/\bC[123]-(\d)\s*\/\s*L([0-3])\b/i);
+    if (!match) return null;
+    const band = Number(match[1]);
+    const loss = Number(match[2]);
+    return {grade:STATE_GRADE[band] || "",lossText:LOSS_TEXT[loss] || ""};
+  }
+
+  function publicHandoffGrade(item) {
+    const level = Number(item?.value);
+    return Number.isInteger(level) ? HANDOFF_GRADE[level] || "" : "";
+  }
+
+  function boundaryExcerpt(item) {
+    const text = String(item?.reader_boundary || "").trim();
+    if (!text) return "";
+    return "适用范围与限制见展开说明";
+  }
+
+  function ensureStyles() {
+    if (document.getElementById("second-item-public-polish-style")) return;
+    const style = document.createElement("style");
+    style.id = "second-item-public-polish-style";
+    style.textContent = `
+      .second-item-public-grade-ready > .second-item-scale-note{display:block;margin-top:4px;font-size:11px;line-height:1.55;color:var(--green);font-weight:600}
+      .net-metric-detail>summary b.second-item-public-value{font:20px Georgia,serif;color:var(--green)}
+      .component>b.second-item-public-value{font-size:13px;color:var(--green)}
+      .second-item-public-copy{font-size:13px;line-height:1.7}
+      small.second-item-public-copy{font-size:11px;color:var(--muted);line-height:1.55}
+      .net-major-card .big.second-item-public-score{font:30px Georgia,serif;color:var(--green)}
+      .second-item-total-grid b.second-item-public-score{font:21px Georgia,serif;color:var(--green)}
+      .second-item-public-reading{margin:2px 0 4px}
+      .second-item-public-reading .label{margin-top:8px}
+      .second-item-public-reading ul{margin:8px 0 12px;padding-left:20px}
+      .second-item-public-reading li{margin:5px 0;line-height:1.8}
+      .second-item-public-reading .prose{margin:8px 0 12px}
+      .second-item-pool-note{display:none!important}
+      .second-item-page-note{margin-top:18px;padding-top:12px}
+      .second-item-page-note>summary{font-size:13px;color:var(--muted)}
+    `;
+    document.head.append(style);
+  }
+
+  // The public layer owns these text nodes. The structural renderer respects
+  // the data-public-* markers instead of restoring its intermediate copy.
+  // Write real text: CSS generated content is not a replacement for readable DOM.
+  function setPublicText(node, text, key, className) {
+    if (!node || !text) return;
+    node.classList.add(className);
+    if (node.dataset[key] !== text) node.dataset[key] = text;
+    if (node.textContent !== text) node.textContent = text;
+  }
+
+  function writePublicCopy(node, text) {
+    setPublicText(node, text, "publicCopy", "second-item-public-copy");
+  }
+
+  function writePublicScore(node, text) {
+    setPublicText(node, text, "publicScore", "second-item-public-score");
+  }
+
+  function setPublicGrade(span, valueNode, grade, noteParts) {
+    if (!span || !grade) return;
+    const note = noteParts.filter(Boolean).join("｜");
+    span.classList.add("second-item-public-grade-ready");
+    if (span.dataset.publicGradeNote !== note) span.dataset.publicGradeNote = note;
+    let noteNode = span.querySelector(":scope > .second-item-scale-note");
+    if (!noteNode) {
+      noteNode = document.createElement("small");
+      noteNode.className = "second-item-scale-note";
+      span.append(noteNode);
+    }
+    if (noteNode.textContent !== note) noteNode.textContent = note;
+    setPublicText(valueNode, grade, "publicValue", "second-item-public-value");
+  }
+
+  function patchMethodGrades(root, record) {
+    if (!root || !record?.net) return;
+    const items = itemMap(record, "method");
+    if (!items.size) return;
+    for (const detail of root.querySelectorAll(".net-metric-detail[data-second-source-label]")) {
+      const sourceLabel = detail.dataset.secondSourceLabel || "";
+      const item = items.get(sourceLabel);
+      const grade = publicMethodGrade(item);
+      if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
+      const summary = detail.querySelector(":scope > summary");
+      setPublicGrade(summary?.querySelector(":scope > span"), summary?.querySelector(":scope > b"), grade,
+        [`原始方向指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}`, boundaryExcerpt(item)]);
+    }
+    for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
+      const sourceLabel = span.dataset.secondSourceLabel || "";
+      const item = items.get(sourceLabel);
+      const grade = publicMethodGrade(item);
+      if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
+      setPublicGrade(span, span.parentElement?.querySelector(":scope > b"), grade,
+        [`原始方向指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}`, boundaryExcerpt(item)]);
+    }
+  }
+
+  function patchFinanceGrades(root, record) {
+    if (!root || !record?.net) return;
+    const items = itemMap(record, "finance");
+    if (!items.size) return;
+    for (const detail of root.querySelectorAll(".net-metric-detail[data-second-source-label]")) {
+      const sourceLabel = detail.dataset.secondSourceLabel || "";
+      const item = items.get(sourceLabel);
+      const meta = stateGradeMeta(item);
+      if (!item || !meta?.grade || !FINANCE_MAX[sourceLabel]) continue;
+      const summary = detail.querySelector(":scope > summary");
+      setPublicGrade(summary?.querySelector(":scope > span"), summary?.querySelector(":scope > b"), meta.grade,
+        [`结算分 ${Number(item.value).toFixed(1)}`, meta.lossText, boundaryExcerpt(item)]);
+    }
+    for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
+      const sourceLabel = span.dataset.secondSourceLabel || "";
+      const item = items.get(sourceLabel);
+      const meta = stateGradeMeta(item);
+      if (!item || !meta?.grade || !FINANCE_MAX[sourceLabel]) continue;
+      setPublicGrade(span, span.parentElement?.querySelector(":scope > b"), meta.grade,
+        [`结算分 ${Number(item.value).toFixed(1)}`, meta.lossText, boundaryExcerpt(item)]);
+    }
+  }
+
+  function patchHandoffGrades(root, record) {
+    if (!root || !record?.net) return;
+    const items = itemMap(record, "handoff");
+    if (!items.size) return;
+    for (const detail of root.querySelectorAll(".net-metric-detail[data-second-source-label]")) {
+      const sourceLabel = detail.dataset.secondSourceLabel || "";
+      const item = items.get(sourceLabel);
+      const grade = publicHandoffGrade(item);
+      if (!item || !grade || !HANDOFF_LABELS[sourceLabel]) continue;
+      const summary = detail.querySelector(":scope > summary");
+      setPublicGrade(summary?.querySelector(":scope > span"), summary?.querySelector(":scope > b"), grade,
+        [HANDOFF_LABELS[sourceLabel], boundaryExcerpt(item)]);
+    }
+    for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
+      const sourceLabel = span.dataset.secondSourceLabel || "";
+      const item = items.get(sourceLabel);
+      const grade = publicHandoffGrade(item);
+      if (!item || !grade || !HANDOFF_LABELS[sourceLabel]) continue;
+      setPublicGrade(span, span.parentElement?.querySelector(":scope > b"), grade,
+        [HANDOFF_LABELS[sourceLabel], boundaryExcerpt(item)]);
+    }
+  }
+
+  function patchGradeGroups(root, record) {
+    patchMethodGrades(root, record);
+    patchFinanceGrades(root, record);
+    patchHandoffGrades(root, record);
+  }
+
+  function publicTechnicalText(value) {
+    return String(value ?? "")
+      .replace(/\bG([0-5])\s*[-/]\s*([A-Za-z-]+)\b/gi, (_, band, position) => `${PUBLIC_GRADE[`G${band}`] || ""}${positionSuffix(position)}`)
+      .replace(/\bG([0-5])\b/g, (_, band) => PUBLIC_GRADE[`G${band}`] || band)
+      .replace(/\bC[123]-([1-6])\s*\/\s*L([0-3])\b/g, (_, band, loss) => `${STATE_GRADE[Number(band)] || band}档；${LOSS_TEXT[Number(loss)] || ""}`)
+      .replace(/\bC[123]-([1-6])\b/g, (_, band) => `${STATE_GRADE[Number(band)] || band}档`)
+      .replace(/\bD3-([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
+      .replace(/\bH([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
+      .replace(/\bL([0-3])\b/g, (_, level) => LOSS_TEXT[Number(level)] || "")
+      .trim();
+  }
+
+  // Public prose is already adjudicated upstream. Keep short sentences,
+  // negation, quotations and boundaries verbatim; format only outer whitespace.
+  function publicText(value) {
+    return String(value ?? "").trim();
+  }
+
+  function publicFacts(item) {
+    const evidence = Array.isArray(item?.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
+    if (evidence.length) {
+      return evidence.map(entry => {
+        if (!entry || typeof entry !== "object") return "";
+        const label = String(entry.public_label || "").trim();
+        const direction = String(entry.public_direction || "").trim();
+        const basis = publicText(entry.public_basis || "");
+        const boundary = publicText(entry.public_boundary || "");
+        return [
+          [label, direction].filter(Boolean).join(" · "),
+          basis,
+          boundary ? `边界：${boundary}` : "",
+        ].filter(Boolean).join("；");
+      }).map(publicText).filter(Boolean);
+    }
+    const highlights = (Array.isArray(item?.reader_highlights) ? item.reader_highlights : [])
+      .map(publicText).filter(Boolean);
+    if (highlights.length) return highlights;
+    const summary = publicText(item?.reader_summary || "");
+    return summary ? [summary] : [];
+  }
+
+  function makeTextBlock(tagName, className, text) {
+    const node = document.createElement(tagName);
+    if (className) node.className = className;
+    node.textContent = text;
+    return node;
+  }
+
+  function makeDetails(title, text, className = "") {
+    if (!text) return null;
+    const details = document.createElement("details");
+    if (className) details.className = className;
+    const summary = document.createElement("summary");
+    summary.textContent = title;
+    details.append(summary, makeTextBlock("p", "prose", text));
+    return details;
+  }
+
+  function publicEvidenceList(evidence) {
+    const list = makeTextBlock("ul", "second-item-public-evidence", "");
+    for (const entry of evidence) {
+      const card = makeTextBlock("li", "second-item-public-evidence-card", "");
+      const title = [publicText(entry.public_label || entry.public_role), publicText(entry.public_direction)].filter(Boolean).join(" · ");
+      if (title) card.append(makeTextBlock("strong", "", title));
+      card.append(makeTextBlock("p", "prose", publicText(entry.public_basis)));
+      const boundary = makeDetails("适用范围与限制", publicText(entry.public_boundary));
+      if (boundary) card.append(boundary);
+      list.append(card);
+    }
+    return list;
+  }
+
+  function patchMetricBodies(record) {
+    if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
+    const items = secondItems(record);
+    const root = document.getElementById("net-major-body");
+    if (!root) return;
+    for (const detail of root.querySelectorAll(".net-metric-detail[data-second-source-label]")) {
+      const label = detail.dataset.secondSourceLabel || "";
+      // Dedicated A/B1 renderers own these bodies. Do not overwrite them when
+      // their asynchronous formal data load triggers the shared observer.
+      if (label === "A制度建设" || label === "B1官僚治理") continue;
+      const item = items.get(label);
+      if (!item || item.reader_kind !== "judgment") continue;
+      const body = detail.querySelector(":scope > .net-metric-body");
+      if (!body) continue;
+      const key = [item.reader_summary || "", JSON.stringify(item.reader_public_evidence_items || []), ...(item.reader_highlights || []), item.reader_boundary || "", item.reader_how || "", item.reader_full_basis || ""].join("|");
+      if (body.dataset.secondPublicBodyKey === key && body.querySelector(":scope > .second-item-public-reading")) continue;
+      const audit = body.querySelector(":scope > .net-audit-sources");
+      if (audit) audit.remove();
+      let formal = body.querySelector(":scope > .net-formal-basis-raw");
+      if (formal) formal.remove();
+      const raw = String(item.reader_full_basis || "").trim();
+      if (!formal && raw && raw !== String(item.reader_summary || "").trim()) {
+        formal = makeDetails("正式裁决原文（未改写）", raw, "net-formal-basis-raw");
+      }
+      body.innerHTML = "";
+      const reading = document.createElement("div");
+      reading.className = "second-item-public-reading";
+      reading.append(makeTextBlock("div", "label", "为什么这样判断"));
+      const evidence = item.reader_public_evidence_items;
+      const facts = publicFacts(item);
+      if (Array.isArray(evidence) && evidence.length) {
+        reading.append(publicEvidenceList(evidence));
+      } else if (facts.length > 1) {
+        const list = document.createElement("ul");
+        for (const fact of facts) list.append(makeTextBlock("li", "", fact));
+        reading.append(list);
+      } else if (facts.length === 1) {
+        reading.append(makeTextBlock("p", "prose", facts[0]));
+      } else {
+        reading.append(makeTextBlock("p", "prose", "当前尚未提供公开说明，请查看正式记录。"));
+      }
+      body.append(reading);
+      const boundaryDetails = makeDetails("范围与边界", publicText(item.reader_boundary || ""));
+      if (boundaryDetails) body.append(boundaryDetails);
+      const howDetails = makeDetails("这个分数怎么算？", publicTechnicalText(item.reader_how || ""));
+      if (howDetails) body.append(howDetails);
+      if (formal) body.append(formal);
+      if (audit) body.append(audit);
+      body.dataset.secondPublicBodyKey = key;
+    }
+  }
+
+  function patchGroupIntros(record) {
+    if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
+    const values = secondTotals(record);
+    writePublicCopy(document.querySelector('[data-second-intro="method"]'),
+      `这一组看国家机器如何建立规则、配置官僚并形成反馈约束。当前合计 ${fmt(values.method)} 分；公开层先看等级和历史依据，具体指数与折算放在展开内容里。`);
+    writePublicCopy(document.querySelector('[data-second-intro="finance"]'),
+      `这一组看统治时期普通家庭、经济财政和社会安全的主要状态，再结合任内低谷、恢复与额外代价形成结果判断。当前合计 ${fmt(values.finance)} 分。`);
+    writePublicCopy(document.querySelector('[data-second-intro="handoff"]'),
+      "统治如何收尾，会直接影响国家机器和继承秩序能否平稳延续。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否顺利；两项均以 S—E 六档显示。");
+  }
+
+  function patchScorePresentation(record) {
+    if (!record?.net) return;
+    const totals = secondTotals(record);
+    const rank = secondRankText(record);
+    if (location.hash.match(/^#net\/[^/?#]+\/(?:all)?$/)) {
+      const card = Array.from(document.querySelectorAll(".net-major-card")).find(node => /\/second(?:\/|$)/.test(node.getAttribute("href") || ""));
+      if (card) {
+        if (totals.total != null) writePublicScore(card.querySelector(".big"), `${fmt(totals.total)} 分`);
+        if ([totals.method, totals.finance, totals.handoff].every(value => value != null)) {
+          writePublicCopy(card.querySelector(":scope > .second-item-card-breakdown"),
+            `${rank ? `${rank} · ` : ""}制度与行政 ${fmt(totals.method)} · 民生与社会 ${fmt(totals.finance)} · 政权交接 ${fmt(totals.handoff)}`);
+        }
+      }
+    }
+    if (location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) {
+      const summary = document.querySelector(".second-item-reader-summary");
+      const cards = summary?.querySelectorAll(".second-item-total-grid > div");
+      if (cards?.length >= 3) {
+        const values = [totals.method, totals.finance, totals.handoff];
+        cards.forEach((card, index) => { if (values[index] != null) writePublicScore(card.querySelector("b"), `${fmt(values[index])} 分`); });
+        writePublicCopy(cards[1]?.querySelector("small"), "民生、经济财政、社会安全、恢复与额外代价");
+      }
+      const intro = document.querySelector(".net-detail-page > .panel");
+      const scoreLine = intro?.querySelector(":scope > p.subline");
+      if (totals.total != null) writePublicCopy(scoreLine, `治国成效：${fmt(totals.total)} 分${rank ? `；${rank}` : ""}。先看结论，再展开到各项依据。`);
+    }
+    if (location.hash.startsWith("#person/")) {
+      const panel = document.getElementById("person-outcome");
+      for (const row of panel?.querySelectorAll(":scope > .component") || []) {
+        const span = row.querySelector("span");
+        if (!span || !span.textContent.trim().startsWith("治国成效")) continue;
+        if (totals.total != null) writePublicScore(row.querySelector("b"), `${fmt(totals.total)} 分`);
+      }
+    }
+  }
+
+  function patchCompareScores(records) {
+    if (records.length < 2 || !location.hash.startsWith("#compare/")) return;
+    const row = Array.from(screenEl.querySelectorAll(".comparison tbody tr")).find(item => item.cells?.[0]?.textContent.trim() === "治国成效");
+    if (!row) return;
+    records.forEach((record, index) => {
+      const score = finite(record?.net?.second_item_score);
+      const cell = row.cells?.[index + 1];
+      if (!cell || score == null) return;
+      writePublicScore(cell.querySelector("b"), `${fmt(score)} 分`);
+    });
+  }
+
+  function replaceText(node, replacements) {
+    if (!node) return;
+    let next = node.textContent;
+    for (const [from, to] of replacements) next = next.replaceAll(from, to);
+    if (next !== node.textContent) node.textContent = next;
+  }
+
+  function patchPersonOutcomeLink() {
+    const record = personRecord();
+    const panel = document.getElementById("person-outcome");
+    if (!record || !panel) return;
+    const row = Array.from(panel.querySelectorAll(":scope > .component")).find(component => {
+      const label = component.querySelector("span")?.textContent.trim() || "";
+      return label.startsWith("治国成效") || label.startsWith("治国净收益");
+    });
+    if (!row || row.querySelector(":scope > .net-overview-jump")) return;
+    const anchor = document.createElement("a");
+    anchor.className = "net-overview-jump";
+    anchor.href = `#net/${encodeURIComponent(record.ruler_id)}/second`;
+    anchor.setAttribute("aria-label", `查看${record.ruler_name}的治国成效计分逻辑`);
+    while (row.firstChild) anchor.append(row.firstChild);
+    row.append(anchor);
+  }
+
+  function patchShellLanguage() {
+    const head = document.querySelector(".net-detail-head");
+    replaceText(head?.querySelector(".eyebrow"), [["净收益计分", "统治绩效"]]);
+    replaceText(head?.querySelector("h1"), [["净收益计分总览", "统治绩效构成"], ["治国净收益", "治国成效"]]);
+    replaceText(head?.querySelector(".muted"), [["总榜净收益", "统治绩效总分"]]);
+    const nav = document.querySelector(".net-major-nav");
+    if (nav) nav.setAttribute("aria-label", "统治绩效详情");
+    const secondNav = Array.from(nav?.querySelectorAll("a") || []).find(a => /\/second(?:\/|$)/.test(a.getAttribute("href") || ""));
+    if (secondNav && secondNav.textContent !== "治国成效") secondNav.textContent = "治国成效";
+    for (const cardTitle of document.querySelectorAll(".net-major-card h2")) {
+      replaceText(cardTitle, [["治国净收益", "治国成效"], ["净收益计分总览", "统治绩效构成"]]);
+    }
+    const reading = document.querySelector("#person-evidence .net-reading[data-net-compact='done']");
+    if (reading) {
+      const section = reading.closest("section.panel");
+      const heading = section?.querySelector(":scope > h2, :scope > h3");
+      if (heading?.textContent.trim() === "净收益构成") heading.textContent = "统治绩效构成";
+      for (const link of reading.querySelectorAll("a")) replaceText(link, [["净收益计分页", "统治绩效详情"], ["净收益计分", "统治绩效"]]);
+      for (const intro of reading.querySelectorAll("p.reading-intro")) replaceText(intro, [["独立净收益计分页", "独立统治绩效详情页"]]);
+    }
+    for (const message of screenEl.querySelectorAll(".empty p, .empty[role='status']")) {
+      replaceText(message, [
+        ["净收益计分详情加载失败", "统治绩效详情加载失败"],
+        ["净收益详情地址无效", "统治绩效详情地址无效"],
+        ["净收益正式结算", "统治绩效正式结算"],
+        ["净收益计分逻辑", "统治绩效详情"],
+      ]);
+    }
+  }
+
+  function patchPoolNote(record) {
+    if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
+    const root = document.getElementById("net-major-body");
+    if (!root) return;
+    let details = root.querySelector(":scope > .second-item-page-note");
+    if (!details) {
+      details = document.createElement("details");
+      details.className = "second-item-page-note";
+      const summary = document.createElement("summary");
+      summary.textContent = "排名与数据口径";
+      details.append(summary, document.createElement("p"));
+      root.append(details);
+    }
+    const pool = currentSecondPool().length;
+    const text = `当前公开名次只比较已完成治国成效正式结算并进入当前主池的人物，共 ${pool} 人；待正式结算与补充对象不进入本名次。`;
+    const p = details.querySelector("p");
+    if (p && p.textContent !== text) p.textContent = text;
+  }
+
+  function patchPublicGrades() {
+    const net = netRecord();
+    if (net && location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) {
+      const root = document.getElementById("net-major-body");
+      patchGradeGroups(root, net);
+      patchMetricBodies(net);
+      patchGroupIntros(net);
+      patchPoolNote(net);
+    }
+    const person = personRecord();
+    if (person) patchGradeGroups(screenEl, person);
+    const records = compareRecords();
+    if (records.length) {
+      const rows = Array.from(screenEl.querySelectorAll(".comparison tbody tr"));
+      const structureRow = rows.find(row => row.cells?.[0]?.textContent.trim() === "构成与依据");
+      if (structureRow) records.forEach((record, index) => patchGradeGroups(structureRow.cells[index + 1], record));
+      patchCompareScores(records);
+    }
+  }
+
+  function patch() {
+    ensureStyles();
+    patchPersonOutcomeLink();
+    patchShellLanguage();
+    patchPublicGrades();
+    const net = netRecord();
+    if (net) patchScorePresentation(net);
+    const person = personRecord();
+    if (person) patchScorePresentation(person);
+  }
+
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      patch();
+    });
+  }
+
+  new MutationObserver(schedule).observe(screenEl, {childList:true, subtree:true, characterData:true});
+  window.addEventListener("hashchange", schedule);
+  schedule();
+})();
+
+</script><script>
+"use strict";
+
+// #403: 仅消费正式 public_institution_nodes / public_adjudication_summary。
+(() => {
+  const screen = document.getElementById("screen");
+  if (!screen) return;
+
+  const cache = new Map();
+  let scheduled = false;
+
+  function currentRecord() {
+    if (typeof byId === "undefined") return null;
+    const match = location.hash.match(/^#net\/([^/?#]+)\/second(?:\/|$)/);
+    if (!match) return null;
+    try { return byId.get(decodeURIComponent(match[1])) || null; } catch { return null; }
+  }
+
+  function methodItem(record) {
+    return (record?.net?.component_details?.method || []).find(item => item.label === "A制度建设") || null;
+  }
+
+  function sourcePath(ref) {
+    return decodeURIComponent(String(ref || "").split("#", 1)[0]).replace(/:\d+(?:-\d+)?$/, "");
+  }
+
+  function dirname(path) {
+    const at = path.lastIndexOf("/");
+    return at < 0 ? "" : path.slice(0, at);
+  }
+
+  function rows(payload) {
+    if (Array.isArray(payload?.records)) return payload.records;
+    if (Array.isArray(payload?.collections?.records?.records)) return payload.collections.records.records;
+    return [];
+  }
+
+  async function repoJson(path) {
+    const response = await fetch(`../${path}?raw=1`, {cache:"no-cache"});
+    if (!response.ok) throw new Error(`HTTP ${response.status}: ${path}`);
+    return response.json();
+  }
+
+  async function formalA(record, item) {
+    const path = sourcePath(item?.source);
+    if (!path) return null;
+    const key = `${record.ruler_id}\u0000${path}`;
+    if (cache.has(key)) return cache.get(key);
+    const pending = (async () => {
+      const payload = await repoJson(path);
+      let records = rows(payload);
+      if (!records.length && Array.isArray(payload?.routes)) {
+        const route = payload.routes.find(entry => entry?.polity === record.polity);
+        if (!route?.path) return null;
+        records = rows(await repoJson(`${dirname(path)}/${route.path}`));
+      }
+      return records.find(row => row?.ruler_id === record.ruler_id) || null;
+    })().catch(error => {
+      console.error("Failed to load formal A public projection", error);
+      return null;
+    });
+    cache.set(key, pending);
+    return pending;
+  }
+
+  function make(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  function fmtWeight(value) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return "—";
+    const text = Number.isInteger(number) ? String(number) : number.toFixed(1).replace(/\.0$/, "");
+    return number > 0 ? `+${text}` : text;
+  }
+
+  function groupKey(direction) {
+    if (direction === "正向") return "positive";
+    if (direction === "负向") return "negative";
+    return "mixed";
+  }
+
+  function groups(nodes) {
+    const result = {positive:[], negative:[], mixed:[]};
+    for (const node of nodes || []) result[groupKey(node?.public_direction)].push(node);
+    return result;
+  }
+
+  function tagRow(tags) {
+    const row = make("div", "second-item-a-tags");
+    for (const tag of tags || []) row.append(make("span", "second-item-a-tag", tag));
+    return row;
+  }
+
+  function textBox(title, text, className) {
+    if (!String(text || "").trim()) return null;
+    const box = make("div", className);
+    box.append(make("strong", "", title), make("p", "", text));
+    return box;
+  }
+
+  function card(node) {
+    const li = make("li", "second-item-a-card");
+    if (node?.institution_node_id) li.dataset.institutionNodeId = node.institution_node_id;
+
+    const head = make("div", "second-item-a-head");
+    head.append(make("strong", "", node?.public_label || "制度节点"));
+    head.append(tagRow(node?.public_tags || []));
+    head.append(make("span", "second-item-a-direction", node?.public_direction || ""));
+    head.append(make("span", "second-item-a-impact", `本项计入：${fmtWeight(node?.signed_weight)}`));
+    li.append(head);
+
+    if (node?.public_adjudication_basis) {
+      li.append(make("p", "second-item-a-basis", node.public_adjudication_basis));
+    }
+    const scope = textBox("具体范围", node?.public_scope, "second-item-a-scope");
+    if (scope) li.append(scope);
+    const boundary = textBox("边界", node?.public_boundary, "second-item-a-boundary");
+    if (boundary) li.append(boundary);
+    if (node?.public_reception) {
+      li.append(make("small", "second-item-a-reception", node.public_reception));
+    }
+    return li;
+  }
+
+  function section(title, nodes) {
+    const wrapper = make("section", "second-item-a-group");
+    wrapper.append(make("h4", "", title));
+    if (!nodes.length) {
+      wrapper.append(make("p", "second-item-a-empty", "当前正式结算没有该类制度节点。"));
+      return wrapper;
+    }
+    const list = make("ul", "second-item-a-list");
+    list.replaceChildren(...nodes.map(card));
+    wrapper.append(list);
+    return wrapper;
+  }
+
+  function ensureStyles() {
+    if (document.getElementById("second-item-a-public-style")) return;
+    const style = document.createElement("style");
+    style.id = "second-item-a-public-style";
+    style.textContent = `
+      .second-item-a-reading{margin:4px 0 8px}
+      .second-item-a-intro{margin:4px 0 14px;line-height:1.75}
+      .second-item-a-summary{margin:10px 0 16px;padding:11px 13px;border-left:3px solid var(--gold);background:#f1eee6;font-size:12px;line-height:1.75}
+      .second-item-a-group{margin:14px 0 18px}
+      .second-item-a-group>h4{margin:0 0 8px;font-size:15px}
+      .second-item-a-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+      .second-item-a-card{margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:#fff}
+      .second-item-a-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+      .second-item-a-head>strong{font-size:14px}
+      .second-item-a-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+      .second-item-a-tag{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:999px;font-size:10px;line-height:1.6;color:var(--green);font-weight:700;background:#f4f5ef}
+      .second-item-a-direction{font-size:10px;color:var(--muted);font-weight:700}
+      .second-item-a-impact{display:inline-block;margin-left:auto;padding:1px 7px;border-radius:999px;background:#ecefe6;color:var(--ink);font-size:10px;font-weight:700;white-space:nowrap}
+      .second-item-a-basis{margin:6px 0 0;font-size:12px;line-height:1.72}
+      .second-item-a-scope,.second-item-a-boundary{margin-top:7px;padding:7px 9px;background:rgba(0,0,0,.025);font-size:11px;line-height:1.65}
+      .second-item-a-scope strong,.second-item-a-boundary strong{font-size:11px;color:var(--muted)}
+      .second-item-a-scope p,.second-item-a-boundary p{margin:2px 0 0}
+      .second-item-a-reception{display:block;margin-top:7px;font-size:11px;line-height:1.65;color:var(--green);font-weight:600}
+      .second-item-a-empty{margin:4px 0;color:var(--muted);font-size:12px}
+    `;
+    document.head.append(style);
+  }
+
+  async function patch() {
+    ensureStyles();
+    const record = currentRecord();
+    if (!record) return;
+    const item = methodItem(record);
+    const detail = Array.from(document.querySelectorAll(".net-metric-detail[data-second-source-label]"))
+      .find(node => node.dataset.secondSourceLabel === "A制度建设");
+    const body = detail?.querySelector(":scope > .net-metric-body");
+    if (!item || !body) return;
+
+    const formal = await formalA(record, item);
+    if (!formal || !body.isConnected || currentRecord()?.ruler_id !== record.ruler_id) return;
+
+
+    const publicNodes = formal.public_institution_nodes;
+    const summary = String(formal.public_adjudication_summary || "").trim();
+    if (!Array.isArray(publicNodes) || !summary) {
+      if (body.dataset.aPublic === "missing") return;
+      body.innerHTML = "";
+      body.append(make("p", "notice", "制度建设的正式公开节点尚未同步，请先刷新正式 A 公开投影。"));
+      body.dataset.aPublic = "missing";
+      return;
+    }
+
+    const publicKey = `${formal.public_projection_schema_version || ""}|${record.ruler_id}|${publicNodes.length}|${summary}`;
+    if (body.dataset.aPublicKey === publicKey && body.querySelector(":scope > .second-item-a-reading")) return;
+
+
+    body.innerHTML = "";
+    const reading = make("div", "second-item-a-reading");
+    reading.append(make("div", "label", "制度建设清单"));
+    reading.append(make("p", "second-item-a-intro", "按正式逐节点裁决阅读。每项制度直接显示方向、制度类型、本项计入权重、具体范围、边界和后世接收。"));
+    reading.append(make("div", "second-item-a-summary", summary));
+
+    const grouped = groups(publicNodes);
+    reading.append(section("正向制度建设", grouped.positive));
+    reading.append(section("负向制度设计与制度性损害", grouped.negative));
+    reading.append(section("正负并存的制度", grouped.mixed));
+    body.append(reading);
+
+    const gradeDetails = make("details", "");
+    gradeDetails.append(make("summary", "", "为什么最终是这个等级？"));
+    gradeDetails.append(make("p", "prose", summary));
+    body.append(gradeDetails);
+    body.insertAdjacentHTML("beforeend", secondMethodDetailsMarkup(item, record));
+
+    body.dataset.aPublic = "done";
+    body.dataset.aPublicKey = publicKey;
+  }
+
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      void patch();
+    });
+  }
+
+  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true, characterData:true});
+  window.addEventListener("hashchange", schedule);
+  schedule();
+})();
+
+</script><script>
+"use strict";
+
+(() => {
+  const screen = document.getElementById("screen");
+  if (!screen) return;
+
+  const PUBLIC_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
+  const PROFILE_KEYS = ["M_positive_profile", "M_mixed_profile", "M_negative_profile"];
+  const cache = new Map();
+  let scheduled = false;
+
+  function currentRecord() {
+    if (typeof byId === "undefined") return null;
+    const match = location.hash.match(/^#net\/([^/?#]+)\/second(?:\/|$)/);
+    if (!match) return null;
+    try { return byId.get(decodeURIComponent(match[1])) || null; } catch { return null; }
+  }
+
+  function methodItem(record) {
+    return (record?.net?.component_details?.method || []).find(item => item.label === "B1官僚治理") || null;
+  }
+
+  function sourcePath(ref) {
+    return decodeURIComponent(String(ref || "").split("#", 1)[0]).replace(/:\d+(?:-\d+)?$/, "");
+  }
+
+  function dirname(path) {
+    const at = path.lastIndexOf("/");
+    return at < 0 ? "" : path.slice(0, at);
+  }
+
+  function rows(payload) {
+    if (Array.isArray(payload?.records)) return payload.records;
+    if (Array.isArray(payload?.collections?.records?.records)) return payload.collections.records.records;
+    return [];
+  }
+
+  async function repoJson(path) {
+    const response = await fetch(`../${path}?raw=1`, {cache:"no-cache"});
+    if (!response.ok) throw new Error(`HTTP ${response.status}: ${path}`);
+    return response.json();
+  }
+
+  async function formalB1(record, item) {
+    const path = sourcePath(item?.source);
+    if (!path) return null;
+    const key = `${record.ruler_id}\u0000${path}`;
+    if (cache.has(key)) return cache.get(key);
+    const pending = (async () => {
+      const payload = await repoJson(path);
+      let records = rows(payload);
+      if (!records.length && Array.isArray(payload?.routes)) {
+        const route = payload.routes.find(entry => entry?.polity === record.polity);
+        if (!route?.path) return null;
+        records = rows(await repoJson(`${dirname(path)}/${route.path}`));
+      }
+      return records.find(row => row?.ruler_id === record.ruler_id) || null;
+    })().catch(error => {
+      console.error("Failed to load formal B1 record", error);
+      return null;
+    });
+    cache.set(key, pending);
+    return pending;
+  }
+
+  function publicGrade(item) {
+    const match = String(item?.grade || "").match(/\bG([0-5])\b/i);
+    if (!match) return "";
+    const suffix = /(?:upper|high)/i.test(item.grade) ? "+" : /(?:lower|low)/i.test(item.grade) ? "-" : "";
+    return `${PUBLIC_GRADE[`G${match[1]}`] || ""}${suffix}`;
+  }
+
+  function allProfiles(formal) {
+    return PROFILE_KEYS.flatMap(key => formal?.[key] || [])
+      .filter(profile => profile && typeof profile === "object");
+  }
+
+  function directionGroup(profile) {
+    const tags = Array.isArray(profile?.adjudication_tags) ? profile.adjudication_tags : [];
+    if (tags.includes("正向") && !tags.includes("正向主导")) return "positive";
+    if (tags.includes("负向") && !tags.includes("负向主导")) return "negative";
+    return "mixed";
+  }
+
+  function groupedProfiles(formal) {
+    const groups = {positive:[], negative:[], mixed:[], boundary:[]};
+    const profiles = allProfiles(formal);
+    const byId = new Map(profiles.map(profile => [String(profile.profile_id), profile]));
+    const supplements = new Map();
+    for (const profile of profiles) {
+      const status = profile.adjudication_status;
+      if (status === "BOUNDARY_CONTEXT") {
+        groups.boundary.push(profile);
+      } else if (status === "ABSORBED_SAME_LIFECYCLE") {
+        const target = byId.get(String(profile.absorbed_into_profile_id));
+        if (target) {
+          const targetId = String(target.profile_id);
+          if (!supplements.has(targetId)) supplements.set(targetId, []);
+          supplements.get(targetId).push(profile);
+        }
+      } else if (status === "ZERO_NET") {
+        groups.mixed.push(profile);
+      } else if (status === "COUNTED_INDEPENDENT") {
+        groups[directionGroup(profile)].push(profile);
+      }
+    }
+    return {groups, supplements};
+  }
+
+  function make(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text != null) node.textContent = text;
+    return node;
+  }
+
+  function fmtWeight(value) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return "—";
+    const text = Number.isInteger(number) ? String(number) : number.toFixed(1).replace(/\.0$/, "");
+    return number > 0 ? `+${text}` : text;
+  }
+
+  function contribution(profile) {
+    switch (profile?.adjudication_status) {
+      case "ABSORBED_SAME_LIFECYCLE": return "本项计入：并入同一运行链";
+      case "BOUNDARY_CONTEXT": return "本项计入：不单独计入";
+      case "ZERO_NET": return "本项计入：0（不增加净值）";
+      default: return `本项计入：${fmtWeight(profile?.signed_weight)}`;
+    }
+  }
+
+  function tagRow(tags) {
+    const row = make("div", "second-item-b1-tags");
+    for (const tag of tags || []) row.append(make("span", "second-item-b1-tag", tag));
+    return row;
+  }
+
+  function boundaryBox(text) {
+    if (!text) return null;
+    const box = make("div", "second-item-b1-boundary");
+    box.append(make("strong", "", "范围与边界"), make("p", "", text));
+    return box;
+  }
+
+  function card(profile, {supplement = false} = {}) {
+    const li = make("li", supplement ? "second-item-b1-card second-item-b1-supplement" : "second-item-b1-card");
+    if (profile?.profile_id) li.dataset.b1ProfileId = profile.profile_id;
+
+    const head = make("div", "second-item-b1-head");
+    head.append(make("strong", "", profile.public_label || "行政运行机制"));
+    head.append(tagRow(profile.adjudication_tags || []));
+    head.append(make("span", "second-item-b1-impact", contribution(profile)));
+    li.append(head);
+    if (profile.adjudication_basis) {
+      li.append(make("p", "second-item-b1-basis", profile.adjudication_basis));
+    }
+    const boundary = boundaryBox(profile.adjudication_boundary);
+    if (boundary) li.append(boundary);
+    return li;
+  }
+
+  function group(title, items, supplements) {
+    const section = make("section", "second-item-b1-group");
+    section.append(make("h4", "", title));
+    if (!items.length) {
+      section.append(make("p", "second-item-b1-empty", "当前没有该类材料。"));
+      return section;
+    }
+    const list = make("ul", "second-item-b1-list");
+    for (const profile of items) {
+      const item = card(profile);
+      const nested = supplements.get(String(profile.profile_id)) || [];
+      if (nested.length) {
+        const box = make("div", "second-item-b1-supplements");
+        box.append(make("div", "second-item-b1-supplements-title", "并入同一运行链的补充材料"));
+        const nestedList = make("ul", "second-item-b1-nested-list");
+        nestedList.replaceChildren(...nested.map(supplementProfile => card(supplementProfile, {supplement:true})));
+        box.append(nestedList);
+        item.append(box);
+      }
+      list.append(item);
+    }
+    section.append(list);
+    return section;
+  }
+
+  function boundaryGroup(items) {
+    if (!items.length) return null;
+    const section = make("section", "second-item-b1-group second-item-b1-boundary-group");
+    section.append(make("h4", "", "边界材料（不单独计入）"));
+    const list = make("ul", "second-item-b1-list");
+    list.replaceChildren(...items.map(profile => card(profile)));
+    section.append(list);
+    return section;
+  }
+
+  function summaryText(formal, item) {
+    const summary = String(formal?.public_adjudication_summary || "").trim();
+    const grade = publicGrade(item);
+    if (!summary) return grade ? `官僚治理的正式公开等级为 ${grade}。` : "";
+    return `${summary}${grade ? `综合这些正式裁决，官僚治理的公开等级为 ${grade}。` : ""}`;
+  }
+
+  function ensureStyles() {
+    if (document.getElementById("second-item-b1-public-style")) return;
+    const style = document.createElement("style");
+    style.id = "second-item-b1-public-style";
+    style.textContent = `
+      .second-item-b1-reading{margin:4px 0 8px}
+      .second-item-b1-intro{margin:4px 0 14px;line-height:1.75}
+      .second-item-b1-summary{margin:10px 0 16px;padding:11px 13px;border-left:3px solid var(--gold);background:#f1eee6;font-size:12px;line-height:1.75}
+      .second-item-b1-group{margin:14px 0 18px}
+      .second-item-b1-group>h4{margin:0 0 8px;font-size:15px}
+      .second-item-b1-list,.second-item-b1-nested-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+      .second-item-b1-card{margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:#fff}
+      .second-item-b1-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+      .second-item-b1-head strong{font-size:14px}
+      .second-item-b1-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+      .second-item-b1-tag{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:999px;font-size:10px;line-height:1.6;color:var(--green);font-weight:700;background:#f4f5ef}
+      .second-item-b1-impact{display:inline-block;margin-left:auto;padding:1px 7px;border-radius:999px;background:#ecefe6;color:var(--ink);font-size:10px;font-weight:700;white-space:nowrap}
+      .second-item-b1-basis{margin:6px 0 0;font-size:12px;line-height:1.72}
+      .second-item-b1-boundary{margin-top:7px;padding:7px 9px;background:rgba(0,0,0,.025);font-size:11px;line-height:1.65}
+      .second-item-b1-boundary strong{font-size:11px;color:var(--muted)}
+      .second-item-b1-boundary p{margin:2px 0 0}
+      .second-item-b1-supplements{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line)}
+      .second-item-b1-supplements-title{margin-bottom:6px;font-size:11px;color:var(--muted);font-weight:700}
+      .second-item-b1-supplement{background:#f7f5ef}
+      .second-item-b1-empty{margin:4px 0;color:var(--muted);font-size:12px}
+    `;
+    document.head.append(style);
+  }
+
+  async function patch() {
+    ensureStyles();
+    const record = currentRecord();
+    if (!record) return;
+    const item = methodItem(record);
+    const detail = Array.from(document.querySelectorAll(".net-metric-detail[data-second-source-label]"))
+      .find(node => node.dataset.secondSourceLabel === "B1官僚治理");
+    const body = detail?.querySelector(":scope > .net-metric-body");
+    if (!item || !body || body.dataset.b1Public === "done" || body.dataset.b1Public === "loading") return;
+
+    body.dataset.b1Public = "loading";
+    const formal = await formalB1(record, item);
+    if (!formal || !body.isConnected || currentRecord()?.ruler_id !== record.ruler_id) {
+      if (body.isConnected) delete body.dataset.b1Public;
+      return;
+    }
+    if (formal.profile_adjudication_style !== "B1-PROFILE-ADJUDICATION-V2") {
+      delete body.dataset.b1Public;
+      return;
+    }
+    const {groups, supplements} = groupedProfiles(formal);
+
+    body.innerHTML = "";
+    const reading = make("div", "second-item-public-reading second-item-b1-reading");
+    reading.append(make("div", "label", "官僚治理运行链"));
+    reading.append(make("p", "second-item-b1-intro", "每条材料直接读取正式名称、公开标签、本项计入方式与对应裁决；并入材料嵌套在明确的主运行链下。"));
+    reading.append(make("div", "second-item-b1-summary", summaryText(formal, item)));
+    reading.append(group("正向行政运行", groups.positive, supplements));
+    reading.append(group("负向行政失灵", groups.negative, supplements));
+    reading.append(group("正负并存的行政机制", groups.mixed, supplements));
+    const boundarySection = boundaryGroup(groups.boundary);
+    if (boundarySection) reading.append(boundarySection);
+    body.append(reading);
+
+    const gradeDetails = make("details", "", "");
+    gradeDetails.append(make("summary", "", "为什么最终是这个等级？"));
+    gradeDetails.append(make("p", "prose", summaryText(formal, item)));
+    body.append(gradeDetails);
+    body.insertAdjacentHTML("beforeend", secondMethodDetailsMarkup(item, record));
+
+    body.dataset.b1Public = "done";
+  }
+
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      void patch();
+    });
+  }
+
+  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true, characterData:true});
+  window.addEventListener("hashchange", schedule);
+  schedule();
+})();
+
+</script><script>
+"use strict";
+
+(() => {
+  const screen = document.getElementById("screen");
+  if (!screen) return;
+
+  const PUBLIC_LABELS = {
+    "A制度建设": "制度建设",
+    "B1官僚治理": "官僚治理",
+    "B2反馈与约束": "反馈与约束",
+    "C1民生": "民生",
+    "C2经济财政": "经济财政",
+    "C3社会安全": "社会安全",
+    "C4恢复与成本": "恢复与额外代价",
+    "D1继任行政连续性": "行政连续性",
+    "D3政权交接稳定": "交接稳定",
+  };
+
+  let scheduled = false;
+
+  function publicLabel(sourceLabel) {
+    return PUBLIC_LABELS[String(sourceLabel || "")] || "";
+  }
+
+  function patchLabelNode(node, label) {
+    if (!node || !label) return;
+    node.classList.add("second-item-public-title");
+    if (node.dataset.publicTitle !== label) node.dataset.publicTitle = label;
+    const strong = node.querySelector(":scope > strong");
+    if (strong) {
+      if (strong.dataset.publicTitle !== label) strong.dataset.publicTitle = label;
+      if (strong.textContent !== label) strong.textContent = label;
+      return;
+    }
+    // Compact rows keep notes, links and other child elements intact.
+    const texts = Array.from(node.childNodes).filter(child => child.nodeType === Node.TEXT_NODE);
+    if (!texts.length) node.insertBefore(document.createTextNode(label + " "), node.firstChild);
+    else {
+      if (texts[0].nodeValue !== label + " ") texts[0].nodeValue = label + " ";
+      for (const text of texts.slice(1)) if (text.nodeValue) text.nodeValue = "";
+    }
+  }
+
+  function currentPersonId() {
+    const match = location.hash.match(/^#person\/([^/?#]+)/);
+    if (!match) return "";
+    try { return decodeURIComponent(match[1]); } catch { return ""; }
+  }
+
+  function patchPersonNetEvidence() {
+    const rulerId = currentPersonId();
+    if (!rulerId) return;
+    const evidence = document.getElementById("person-evidence");
+    if (!evidence) return;
+    const panel = Array.from(evidence.querySelectorAll(":scope > section.panel")).find(section => {
+      const heading = section.querySelector(":scope > h2, :scope > h3");
+      return ["统治绩效构成", "统治绩效详情"].includes(heading?.textContent.trim());
+    });
+    if (!panel || panel.dataset.canonicalNetEntry === "done") return;
+
+    const encoded = encodeURIComponent(rulerId);
+    panel.dataset.canonicalNetEntry = "done";
+    panel.dataset.netReadable = "done";
+    panel.dataset.ledgerFolded = "done";
+    panel.innerHTML = `
+      <h2>统治绩效详情</h2>
+      <p class="reading-intro">查看完整构成，或直接进入治国成效。</p>
+      <div class="person-net-canonical-grid">
+        <a class="person-net-canonical-card" href="#net/${encoded}/all">
+          <strong>完整统治绩效构成</strong>
+          <small>治国、军事、统一与文明整合</small>
+          <span>查看详情 →</span>
+        </a>
+        <a class="person-net-canonical-card" href="#net/${encoded}/second">
+          <strong>治国成效</strong>
+          <small>制度与行政、民生与社会、政权交接</small>
+          <span>查看详情 →</span>
+        </a>
+      </div>
+    `;
+  }
+
+  function ensureStyles() {
+    if (document.getElementById("second-item-public-title-style")) return;
+    const style = document.createElement("style");
+    style.id = "second-item-public-title-style";
+    style.textContent = `
+      .second-item-public-title{font-size:13px}
+      .net-metric-detail>summary .second-item-public-title{font-size:14px}
+      .person-net-canonical-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+      .person-net-canonical-card{display:flex;min-width:0;min-height:118px;flex-direction:column;gap:5px;padding:16px 18px;border:1px solid var(--line);border-radius:6px;background:#fff;text-decoration:none!important}
+      .person-net-canonical-card:hover{border-color:var(--green);background:#f6f7f1}
+      .person-net-canonical-card strong{font-size:16px;color:var(--ink)}
+      .person-net-canonical-card small{display:block;line-height:1.65;color:var(--muted)}
+      .person-net-canonical-card span{margin-top:auto;font-size:13px;color:var(--green);font-weight:600}
+      @media(max-width:700px){.person-net-canonical-grid{grid-template-columns:1fr}.person-net-canonical-card{min-height:0}}
+    `;
+    document.head.append(style);
+  }
+
+  function patch() {
+    ensureStyles();
+    patchPersonNetEvidence();
+
+    for (const span of screen.querySelectorAll("span[data-second-source-label]")) {
+      const label = publicLabel(span.dataset.secondSourceLabel);
+      if (label) patchLabelNode(span, label);
+    }
+
+    for (const detail of screen.querySelectorAll(".net-metric-detail[data-second-source-label]")) {
+      const label = publicLabel(detail.dataset.secondSourceLabel);
+      if (!label) continue;
+      const span = detail.querySelector(":scope > summary > span");
+      patchLabelNode(span, label);
+    }
+
+    for (const label of screen.querySelectorAll(".compare-evidence-label")) {
+      if (label.textContent.trim() === "展开依据") label.textContent = "详情";
+    }
+  }
+
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      patch();
+    });
+  }
+
+  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true, characterData:true});
+  window.addEventListener("hashchange", schedule);
+  schedule();
+})();
+
+</script><script>
+"use strict";
+
+(() => {
+  const schema = "reader-person-overviews-v2";
+  const overviewKeys = ["outcome", "profile", "impact"];
+  const labels = {
+    outcome: "统治记录摘要", profile: "人物经历摘要", impact: "历史变化摘要",
+  };
+  const own = (object, key) => object != null && Object.prototype.hasOwnProperty.call(object, key);
+  const plain = value => value && typeof value === "object" && !Array.isArray(value);
+  const text = value => typeof value === "string" && value.trim().length > 0;
+  const forbidden = /\b(?:M[1245]|C[1-5]|G[0-5]|MI[0-4]|PS[0-4]|DW[0-4]|AM[1-4])(?:[_-][A-Z_]+)?\b|<|>/;
+  const unsafeKeys = new Set(["__proto__", "prototype", "constructor"]);
+
+  function resolve(record, path) {
+    let value = record;
+    for (const key of path) {
+      if (unsafeKeys.has(key) || !own(value, key)) return undefined;
+      value = value[key];
+    }
+    return value;
+  }
+
+  function validPath(path) {
+    if (!Array.isArray(path) || path.length < 2) return false;
+    if (!path.every(key => (typeof key === "string" && key && !unsafeKeys.has(key)) ||
+        (Number.isInteger(key) && key >= 0))) return false;
+    // Notes may refer to factual prose, not scores or an independently stored summary.
+    if (path.some(key => /^(?:.*grade.*|.*score.*|rank|position|radar_value|reader_governance_summary)$/.test(String(key)))) return false;
+    return path[0] === "impact" ||
+      (path[0] === "axes" && path.length >= 3 && /^(?:M[1245]|C[1-5])$/.test(path[1])) ||
+      (path[0] === "net" && path[1] === "component_details" && path.length >= 5);
+  }
+
+  const exactKeys = (value, keys) => plain(value) && Object.keys(value).length === keys.length && keys.every(key => own(value, key));
+
+  function validateBlock(block) {
+    if (!exactKeys(block, ["text", "evidence"]) || !text(block.text) || forbidden.test(block.text)) throw Error("Invalid reading-note prose");
+    if (!Array.isArray(block.evidence) || !block.evidence.length) throw Error("Reading note needs evidence");
+    for (const ref of block.evidence) {
+      if (!exactKeys(ref, ["path", "quote"]) || !validPath(ref.path) || !text(ref.quote)) throw Error("Invalid reading-note locator");
+    }
+  }
+
+  function validateNotes(payload) {
+    if (!exactKeys(payload, ["schema_id", "records"]) || payload.schema_id !== schema || !plain(payload.records)) throw Error("Invalid reading-note schema");
+    for (const [id, notes] of Object.entries(payload.records)) {
+      if (!id.startsWith("RULER-") || /[\/\\]/.test(id) || !plain(notes)) throw Error("Invalid reading-note identity");
+      // Editorial freedom is limited to the three overview summaries. Decisions,
+      // strength, counterevidence and boundaries belong to the formal records.
+      if (!exactKeys(notes, ["overview"])) throw Error("Only overview summaries are allowed");
+      if (!exactKeys(notes.overview, overviewKeys)) throw Error("Reading note needs three overview sections");
+      for (const block of Object.values(notes.overview)) validateBlock(block);
+    }
+    return payload;
+  }
+
+  function assessBlock(block, record) {
+    const missing = block.evidence.filter(ref => {
+      const value = resolve(record, ref.path);
+      return typeof value !== "string" || !value.includes(ref.quote);
+    });
+    return {status: missing.length ? "needs_review" : "current", missing};
+  }
+
+  // Shared deterministic logic is also exercised with synthetic records in Node.
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = {validateNotes, validateBlock, validPath, resolve, assessBlock};
+    return;
+  }
+
+  const root = document.getElementById("screen");
+  if (!root) return;
+  let payload = null, loading = null, failed = false, queued = false;
+  const el = (tag, className, value) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (value !== undefined) node.textContent = value;
+    return node;
+  };
+
+  function addStyles() {
+    if (document.getElementById("person-reading-notes-style")) return;
+    const style = el("style");
+    style.id = "person-reading-notes-style";
+    style.textContent = `
+      .person-reading-note{margin:12px 0 16px;padding:10px 12px;border-left:2px solid var(--line);background:var(--paper)}
+      .person-reading-note h3{font-size:14px;margin:0 0 6px}
+      .person-reading-note p{font-size:14px;line-height:1.85;margin:6px 0;overflow-wrap:anywhere}
+      .note-evidence{font-size:12px;padding:5px 0;margin-top:8px}
+      .note-evidence summary{font-size:12px;color:var(--muted)}
+      .note-evidence li{white-space:normal;overflow-wrap:anywhere;margin:8px 0}
+      .note-evidence q{display:block;margin-top:4px;color:var(--muted)}
+      .note-provenance,.reading-note-pending{color:var(--muted);font-size:13px}
+    `;
+    document.head.append(style);
+  }
+
+  function sourceFor(record, path) {
+    if (path[0] === "axes") {
+      const spec = DATA.axis_specs[path[1]];
+      return spec ? {path: spec.json, label: `${spec.name}正式记录`} : null;
+    }
+    if (path[0] === "impact") return {path: DATA.sources.impact, label: "历史影响正式记录"};
+    const item = record.net?.component_details?.[path[2]]?.[path[3]];
+    return item?.source ? {path: item.source, label: "统治绩效相关正式记录"} : null;
+  }
+
+  function evidenceList(block, record) {
+    const fold = el("details", "note-evidence");
+    fold.append(el("summary", "", "原始记录：这段提要依据什么？"));
+    fold.append(el("p", "note-provenance", "以下是项目现有记录中的定位语句；史料出处和完整说明见相应记录。"));
+    const list = el("ul");
+    for (const ref of block.evidence) {
+      const item = el("li"), source = sourceFor(record, ref.path);
+      if (source) {
+        const holder = el("span");
+        // Reuse the established source router; it supplies local availability and person parameters.
+        holder.innerHTML = link(source.path.split("#")[0] + "#ruler_id=" + record.ruler_id, source.label + " ↗", record);
+        item.append(holder);
+      }
+      item.append(el("q", "", ref.quote));
+      list.append(item);
+    }
+    fold.append(list);
+    return fold;
+  }
+
+  function pendingNote() {
+    return el("p", "reading-note-pending", "这段阅读提要待复核；以下正式记录仍可查阅。这不是人物裁决状态的变化。");
+  }
+
+  function renderBlock(key, block, record, className) {
+    const section = el("section", className);
+    section.append(el("h3", "", labels[key]));
+    if (assessBlock(block, record).status !== "current") section.append(pendingNote());
+    else section.append(el("p", "note-text", block.text), evidenceList(block, record));
+    return section;
+  }
+
+  function applyOverview(record, notes) {
+    for (const [key, id] of [["outcome", "person-outcome"], ["profile", "person-capability"], ["impact", "person-impact"]]) {
+      const panel = document.getElementById(id);
+      if (!panel || panel.querySelector(":scope > .person-reading-note")) continue;
+      panel.querySelector(":scope > h2")?.after(renderBlock(key, notes.overview[key], record, "person-reading-note"));
+    }
+  }
+
+  function subjects() {
+    // Comparisons use the formal evidence directly; they need no editorial file.
+    if (!location.hash.startsWith("#person/")) return [];
+    const record = byId.get(personId());
+    return record && record.detail_loaded ? [record] : [];
+  }
+
+  function enhance() {
+    queued = false;
+    const active = subjects();
+    if (!active.length) return; // Home and comparison views do not fetch overview summaries.
+    if (!payload) {
+      if (failed) {
+        if (!root.querySelector(".notes-load-notice")) root.prepend(el("p", "notes-load-notice reading-note-pending", "阅读提要暂未加载，现有正式记录仍可阅读。刷新页面可重试。"));
+      } else if (!loading) {
+        loading = fetch("person-reading-notes.json?raw=1", {cache: "no-cache"})
+          .then(response => { if (!response.ok) throw Error("Reading notes unavailable"); return response.json(); })
+          .then(validateNotes)
+          .then(value => { payload = value; schedule(); })
+          .catch(() => { failed = true; schedule(); });
+      }
+      return;
+    }
+    addStyles();
+    for (const record of active) {
+      const notes = payload.records[record.ruler_id];
+      if (!notes) continue; // No invented fallback paragraph for people not yet editorially reviewed.
+      applyOverview(record, notes);
+    }
+  }
+
+  function schedule() {
+    if (!queued) { queued = true; requestAnimationFrame(enhance); }
+  }
+  new MutationObserver(schedule).observe(root, {childList: true, subtree: true});
+  window.addEventListener("hashchange", schedule);
+  schedule();
+})();
+
+</script><script>
 "use strict";
 
 (() => {
