@@ -60,7 +60,7 @@
   const netGroupNames = {
     first: "第一项 · 奠基与统一",
     method: "第二项 · 制度与行政",
-    finance: "第二项 · 财政与民生",
+    finance: "第二项 · 民生与社会",
     handoff: "第二项 · 政权交接",
     strategic: "第三项 · 战略收益与国防",
     military: "第三项 · 军事体系与成本",
