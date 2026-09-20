@@ -427,6 +427,52 @@ function firstCommanderMarkup(item) {
   }
 
   const MATERIAL_CARD_GROUPS = new Set(["strategic", "military", "civilization"]);
+  const THIRD_PUBLIC_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
+  const THIRD_COST_SEVERITY = {
+    0:"无实质军事成本",
+    1:"局部常规军事成本",
+    2:"有限军事成本",
+    3:"明显军事成本",
+    4:"大规模或持续显著军事成本",
+    5:"严重军事成本",
+    6:"极端军事成本",
+    7:"灾难性军事耗竭",
+  };
+  const THIRD_CN_LEVEL = {"零":0,"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7};
+
+  function thirdGradeText(level) {
+    const n = Number(level);
+    return Number.isInteger(n) && THIRD_PUBLIC_GRADE[n] ? `${THIRD_PUBLIC_GRADE[n]}档` : String(level);
+  }
+
+  function thirdCostText(level) {
+    const n = typeof level === "string" && THIRD_CN_LEVEL[level] != null ? THIRD_CN_LEVEL[level] : Number(level);
+    return Number.isInteger(n) && THIRD_COST_SEVERITY[n] ? THIRD_COST_SEVERITY[n] : String(level);
+  }
+
+  function thirdPublicText(value, itemLabel = "") {
+    let text = cleanNetText(value);
+    if (!text) return "";
+    const isCost = itemLabel === "普通成本扣分";
+    text = text
+      .replace(/军事成本(?:达到)?第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level))
+      .replace(/军事成本第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level));
+    if (isCost) {
+      text = text.replace(/第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level));
+    } else {
+      text = text
+        .replace(/第([0-5])级/g, (_, level) => thirdGradeText(level))
+        .replace(/第([一二三四五])级/g, (_, level) => thirdGradeText(THIRD_CN_LEVEL[level]));
+    }
+    text = text
+      .replace(/由([0-5])档升至([0-5])档/g, (_, from, to) => `由${thirdGradeText(from)}升至${thirdGradeText(to)}`)
+      .replace(/([0-5])→([0-5])/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
+      .replace(/三轴([0-5])\/\1\/\1/g, (_, level) => `三方面均为${thirdGradeText(level)}`)
+      .replace(/(支持|阻断|维持|压至|达到)([0-5])档/g, (_, verb, level) => `${verb}${thirdGradeText(level)}`)
+      .replace(/([0-5])档(高位|中位|低位)/g, (_, level, position) => `${thirdGradeText(level)}${position}`)
+      .replace(/客观变动[+-]?\d+档按[+-]?\d+档本人责任/g, "客观状态变化按已裁本人责任计入");
+    return text;
+  }
   const SECOND_PUBLIC_GROUPS = new Set(["method", "finance", "handoff"]);
 
   function metricMaterialCards(item, groupKey) {
@@ -434,14 +480,16 @@ function firstCommanderMarkup(item) {
     const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
     if (!evidence.length) return "";
     const cards = evidence.map(entry => {
-      const title = cleanNetText(entry?.public_label || entry?.public_role || "正式裁决材料");
-      const role = cleanNetText(entry?.public_role || "");
-      const direction = cleanNetText(entry?.public_direction || "");
-      const tags = Array.isArray(entry?.public_tags) ? entry.public_tags.map(cleanNetText).filter(Boolean) : [];
+      const thirdItem = groupKey === "strategic" || groupKey === "military";
+      const format = value => thirdItem ? thirdPublicText(value, item.label) : cleanNetText(value);
+      const title = format(entry?.public_label || entry?.public_role || "正式裁决材料");
+      const role = format(entry?.public_role || "");
+      const direction = format(entry?.public_direction || "");
+      const tags = Array.isArray(entry?.public_tags) ? entry.public_tags.map(format).filter(Boolean) : [];
       const chips = [...new Set([role, direction, ...tags].filter(Boolean))]
         .map(value => `<span class="net-material-chip">${esc(value)}</span>`).join("");
-      const basis = cleanNetText(entry?.public_basis || "");
-      const boundary = cleanNetText(entry?.public_boundary || "");
+      const basis = format(entry?.public_basis || "");
+      const boundary = format(entry?.public_boundary || "");
       return `<li class="net-material-card"><div class="net-material-head"><strong>${esc(title)}</strong>${chips ? `<span class="net-material-meta">${chips}</span>` : ""}</div>${basis ? `<p class="net-material-body">${esc(basis)}</p>` : ""}${boundary ? `<details class="net-material-boundary"><summary>该材料的范围与边界</summary><p>${esc(boundary)}</p></details>` : ""}</li>`;
     }).join("");
     return cards ? `<div class="label">正式裁决材料</div><ul class="net-material-list">${cards}</ul>` : "";
@@ -450,22 +498,24 @@ function firstCommanderMarkup(item) {
   function metricDetail(item, record, groupKey = "") {
     const displayLabel = item.public_component_label || item.label;
     const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
-    const summary = cleanNetText(item.reader_summary || "");
+    const thirdItem = groupKey === "strategic" || groupKey === "military";
+    const formatPublic = value => thirdItem ? thirdPublicText(value, item.label) : cleanNetText(value);
+    const summary = formatPublic(item.reader_summary || "");
     const fullBasis = cleanNetText(item.reader_full_basis || "");
     const publicEvidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
     const highlights = publicEvidence.length
       ? publicEvidence.map(entry => {
-        const label = entry?.public_label || entry?.public_role || "公开依据";
-        const basis = cleanNetText(entry?.public_basis || "");
+        const label = formatPublic(entry?.public_label || entry?.public_role || "公开依据");
+        const basis = formatPublic(entry?.public_basis || "");
         return basis ? `${label}：${basis}` : "";
       }).filter(Boolean)
       : (Array.isArray(item.reader_highlights) ? item.reader_highlights : [])
         .map(cleanNetText).filter(Boolean);
-    const boundary = cleanNetText(item.reader_boundary || "");
-    const how = cleanNetText(item.reader_how || "");
+    const boundary = formatPublic(item.reader_boundary || "");
+    const how = formatPublic(item.reader_how || "");
     const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;
     const logic = (structuredMaterials ? [intro] : [intro, summary]).filter(Boolean).join("\n");
-    const formalLevel = MATERIAL_CARD_GROUPS.has(groupKey) ? cleanNetText(item.public_level_label || "") : "";
+    const formalLevel = MATERIAL_CARD_GROUPS.has(groupKey) ? formatPublic(item.public_level_label || "") : "";
     const full = fullBasis && fullBasis !== summary
       ? `<details><summary>当前人物的完整裁决原文</summary>${prose(fullBasis)}</details>`
       : "";
@@ -485,7 +535,11 @@ function firstCommanderMarkup(item) {
   function calculationBlock(items, groupKey = "") {
     const calculations = items.filter(item => item.reader_kind === "calculation" && item.value != null);
     if (!calculations.length) return "";
-      return `<details class="net-calculations"><summary>计算过程与小计</summary>${calculations.map(item => `<div class="component"><span><strong>${esc(item.public_component_label || item.label)}</strong><small>${esc(cleanNetText(item.reader_how || "按正式公式换算。"))}</small></span><b>${esc(netValue(item, groupKey))}</b></div>`).join("")}</details>`;
+    const thirdItem = groupKey === "strategic" || groupKey === "military";
+    return `<details class="net-calculations"><summary>计算过程与小计</summary>${calculations.map(item => {
+      const how = thirdItem ? thirdPublicText(item.reader_how || "按正式公式换算。", item.label) : cleanNetText(item.reader_how || "按正式公式换算。");
+      return `<div class="component"><span><strong>${esc(item.public_component_label || item.label)}</strong><small>${esc(how)}</small></span><b>${esc(netValue(item, groupKey))}</b></div>`;
+    }).join("")}</details>`;
   }
 
   function genericNetGroup(record, key, items) {

@@ -565,3 +565,16 @@ def test_handoff_public_layer_uses_letter_grades_not_numeric_level_inputs():
     assert 'setRowLabel(span,"行政连续性")' in reading
     assert 'setRowLabel(span,"交接稳定")' in reading
 
+def test_third_item_public_layer_translates_numeric_grades_without_reversing_cost_meaning():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'const THIRD_PUBLIC_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};' in source
+    assert '5:"严重军事成本"' in source
+    assert '6:"极端军事成本"' in source
+    assert '7:"灾难性军事耗竭"' in source
+    assert "function thirdPublicText(value, itemLabel = "")" in source
+    assert "三方面均为" in source
+    assert "客观状态变化按已裁本人责任计入" in source
+    assert 'groupKey === "strategic" || groupKey === "military"' in source
+    assert "thirdPublicText(item.reader_how" in source
+
