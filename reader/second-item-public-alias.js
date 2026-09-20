@@ -118,23 +118,6 @@
     };
   }
 
-  function currentSecondPool() {
-    if (typeof byId === "undefined") return [];
-    return Array.from(byId.values()).filter(record =>
-      !record?.supplementary && finite(record?.net?.second_item_score) != null
-    );
-  }
-
-  function secondRankText(record) {
-    const score = finite(record?.net?.second_item_score);
-    if (score == null) return "";
-    const pool = currentSecondPool();
-    if (!pool.length) return "";
-    const rank = 1 + pool.filter(item => finite(item?.net?.second_item_score) > score).length;
-    const pct = Math.max(1, Math.min(100, Math.ceil(rank / pool.length * 100)));
-    return `当前已结算人物：第 ${rank} / ${pool.length}（约前 ${pct}%）`;
-  }
-
   function positionSuffix(text) {
     const lower = String(text || "").toLowerCase();
     if (/lower|low/.test(lower)) return "-";
@@ -185,9 +168,6 @@
       .second-item-public-reading ul{margin:8px 0 12px;padding-left:20px}
       .second-item-public-reading li{margin:5px 0;line-height:1.8}
       .second-item-public-reading .prose{margin:8px 0 12px}
-      .second-item-pool-note{display:none!important}
-      .second-item-page-note{margin-top:18px;padding-top:12px}
-      .second-item-page-note>summary{font-size:13px;color:var(--muted)}
       .adjudication-material-group{margin:14px 0 18px}
       .adjudication-material-group>h4{margin:0 0 8px;font-size:15px}
       .adjudication-material-list{list-style:none!important;margin:0!important;padding:0!important;display:grid;gap:8px}
@@ -800,14 +780,13 @@
   function patchScorePresentation(record) {
     if (!record?.net) return;
     const totals = secondTotals(record);
-    const rank = secondRankText(record);
     if (location.hash.match(/^#net\/[^/?#]+\/(?:all)?$/)) {
       const card = Array.from(document.querySelectorAll(".net-major-card")).find(node => /\/second(?:\/|$)/.test(node.getAttribute("href") || ""));
       if (card) {
         if (totals.total != null) writePublicScore(card.querySelector(".big"), `${fmt(totals.total)} 分`);
         if ([totals.method, totals.finance, totals.handoff].every(value => value != null)) {
           writePublicCopy(card.querySelector(":scope > .second-item-card-breakdown"),
-            `${rank ? `${rank} · ` : ""}制度与行政 ${fmt(totals.method)} · 民生与社会 ${fmt(totals.finance)} · 政权交接 ${fmt(totals.handoff)}`);
+            `制度与行政 ${fmt(totals.method)} · 民生与社会 ${fmt(totals.finance)} · 政权交接 ${fmt(totals.handoff)}`);
         }
       }
     }
@@ -821,7 +800,7 @@
       }
       const intro = document.querySelector(".net-detail-page > .panel");
       const scoreLine = intro?.querySelector(":scope > p.subline");
-      if (totals.total != null) writePublicCopy(scoreLine, `治国成效：${fmt(totals.total)} 分${rank ? `；${rank}` : ""}。先看结论，再展开到各项依据。`);
+      if (totals.total != null) writePublicCopy(scoreLine, `治国成效：${fmt(totals.total)} 分。先看结论，再展开到各项依据。`);
     }
     if (location.hash.startsWith("#person/")) {
       const panel = document.getElementById("person-outcome");
@@ -899,25 +878,6 @@
     }
   }
 
-  function patchPoolNote(record) {
-    if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
-    const root = document.getElementById("net-major-body");
-    if (!root) return;
-    let details = root.querySelector(":scope > .second-item-page-note");
-    if (!details) {
-      details = document.createElement("details");
-      details.className = "second-item-page-note";
-      const summary = document.createElement("summary");
-      summary.textContent = "排名与数据口径";
-      details.append(summary, document.createElement("p"));
-      root.append(details);
-    }
-    const pool = currentSecondPool().length;
-    const text = `当前公开名次只比较已完成治国成效正式结算并进入当前主池的人物，共 ${pool} 人；待正式结算与补充对象不进入本名次。`;
-    const p = details.querySelector("p");
-    if (p && p.textContent !== text) p.textContent = text;
-  }
-
   function patchPublicGrades() {
     const net = netRecord();
     if (net && location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) {
@@ -926,7 +886,6 @@
       patchMetricBodies(net);
       patchCalculationRows(root, net);
       patchGroupIntros(net);
-      patchPoolNote(net);
     }
     const person = personRecord();
     if (person) patchGradeGroups(screenEl, person);
