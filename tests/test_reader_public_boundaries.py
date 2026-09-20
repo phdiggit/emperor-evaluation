@@ -662,6 +662,17 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "两个战略安全轴最后直接相加" in source
 
 
+def test_person_page_builds_compact_net_summary_without_transient_full_detail_tree():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'if (!section) return;' in source
+    assert 'if (!reading) {' in source
+    assert 'reading = document.createElement("div");' in source
+    assert 'reading.className = "net-reading";' in source
+    assert 'section.dataset.netReadable = "done";' in source
+    assert "independent #net page" in source
+
+
 def test_first_item_overview_cost_uses_public_severity_text():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")

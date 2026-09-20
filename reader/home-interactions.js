@@ -391,11 +391,19 @@ function firstCommanderMarkup(item) {
 
   function compactNetReading(record) {
     const section = netEvidenceSection();
-    const reading = section?.querySelector(".net-reading");
-    if (!reading || reading.dataset.netCompact === "done") return;
+    if (!section) return;
+    let reading = section.querySelector(".net-reading");
+    if (reading?.dataset.netCompact === "done") return;
     const groups = Object.entries(record.net?.component_details || {});
     if (!groups.length) return;
 
+    if (!reading) {
+      reading = document.createElement("div");
+      reading.className = "net-reading";
+      const heading = section.querySelector(":scope > h2, :scope > h3");
+      if (heading) heading.after(reading);
+      else section.prepend(reading);
+    }
     reading.innerHTML = `<p class="reading-intro">这里保留各大项的快速摘要。完整的逐人判断、变量、公式和计分来源放到独立净收益计分页，避免单人主页无限变长。</p><p class="sources"><a href="${netHref(record, "all")}">打开完整净收益计分页 →</a></p>`;
 
     for (const [key, items] of groups) {
@@ -414,6 +422,10 @@ function firstCommanderMarkup(item) {
       reading.append(details);
     }
     reading.dataset.netCompact = "done";
+    // Prevent the legacy person-page renderer from constructing a full detail tree
+    // that this compact view would immediately replace. The independent #net page
+    // remains the only full calculation surface.
+    section.dataset.netReadable = "done";
   }
 
   function enhancePersonNet() {
