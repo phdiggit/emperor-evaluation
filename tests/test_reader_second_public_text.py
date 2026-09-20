@@ -173,3 +173,16 @@ def test_second_item_public_enum_mapping_and_dedicated_ownership():
     assert 'secondPublicOwner = "B1"' in b1
     assert 'SecondItemMaterialCards' in a
     assert 'SecondItemMaterialCards' in b1
+
+
+def test_finance_public_cards_group_only_by_formal_public_role():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert "function financeRoleKey(role)" in alias
+    assert 'value === "主要状态"' in alias
+    assert 'value === "低谷"' in alias
+    assert 'value === "边界"' in alias
+    assert 'value === "恢复" || value === "责任范围"' in alias
+    assert 'value === "状态恶化" || value === "额外代价"' in alias
+    assert "materialStrengthFromTags(entry" not in alias

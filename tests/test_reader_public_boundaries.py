@@ -379,13 +379,19 @@ def test_new_viewer_layers_and_compact_c5_hint():
     assert "这项评价描述权力使用方式，不属于能力评价" not in person_js
 
 
-def test_second_item_material_card_phase_one_scope():
+def test_second_item_material_card_phase_two_scope():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
     assert "adjudication-material-card" in alias
     assert "持续／系统" in alias
-    # Phase one deliberately leaves C1-C4 on the existing generic renderer.
     assert 'label === "B2反馈与约束"' in alias
+    assert "renderFinanceMaterialGroups(label, evidence)" in alias
     for label in ("C1民生", "C2经济财政", "C3社会安全", "C4恢复与成本"):
-        assert f'label === "{label}"' not in alias
+        assert label in alias
+    assert '"主要状态"' in alias
+    assert '"低谷"' in alias
+    assert '"恢复"' in alias
+    assert '"责任范围"' in alias
+    assert '"状态恶化"' in alias
+    assert '"额外代价"' in alias

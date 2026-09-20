@@ -444,6 +444,49 @@
     return wrapper;
   }
 
+  function financeRoleKey(role) {
+    const value = String(role || "").trim();
+    if (value === "主要状态") return "state";
+    if (value === "低谷") return "loss";
+    if (value === "边界") return "boundary";
+    if (value === "恢复" || value === "责任范围") return "recovery";
+    if (value === "状态恶化" || value === "额外代价") return "cost";
+    return "other";
+  }
+
+  function renderFinanceMaterialGroups(label, evidence) {
+    const groups = {state:[], loss:[], recovery:[], cost:[], boundary:[], other:[]};
+    for (const entry of evidence || []) {
+      const role = String(entry?.public_role || "").trim();
+      const key = financeRoleKey(role);
+      groups[key].push(materialCard({
+        title: entry?.public_label || role || "正式裁决材料",
+        tags: role ? [role] : [],
+        body: entry?.public_basis,
+        boundary: entry?.public_boundary,
+        dataset: {publicEvidenceId: entry?.id || ""},
+      }));
+    }
+    const wrapper = document.createElement("div");
+    wrapper.className = "adjudication-material-groups finance-material-groups";
+    if (label === "C4恢复与成本") {
+      wrapper.append(
+        materialGroup("恢复与归责", groups.recovery),
+        materialGroup("恶化与额外代价", groups.cost),
+        materialGroup("重复计算与评价边界", groups.boundary),
+      );
+    } else {
+      wrapper.append(
+        materialGroup("主要状态", groups.state),
+        materialGroup("低谷与损失", groups.loss),
+        materialGroup("评价边界", groups.boundary),
+      );
+    }
+    if (groups.other.length) wrapper.append(materialGroup("其他正式材料", groups.other));
+    return wrapper;
+  }
+
+
   globalThis.SecondItemMaterialCards = Object.freeze({
     card: materialCard,
     group: materialGroup,
@@ -537,6 +580,8 @@
       const facts = publicFacts(item);
       if (label === "B2反馈与约束" && Array.isArray(evidence) && evidence.length) {
         reading.append(renderB2MaterialGroups(evidence));
+      } else if (["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label) && Array.isArray(evidence) && evidence.length) {
+        reading.append(renderFinanceMaterialGroups(label, evidence));
       } else if (Array.isArray(evidence) && evidence.length) {
         reading.append(publicEvidenceList(evidence));
       } else if (facts.length > 1) {
