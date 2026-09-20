@@ -719,6 +719,17 @@ def test_first_item_b1_explains_start_opponent_and_efficiency_subscores():
         assert "速度比≤0.75、1.00、1.25、1.50、2.00、2.50、3.00、4.00" in source
 
 
+
+def test_major_cards_explain_third_and_fourth_item_scales():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "250分制净分" in source
+    assert "再扣实际军事代价" in source
+    assert "有符号调整，三轴合计范围为 -67.5～+67.5" in source
+    assert "本项进入总榜的净分：" in source
+    assert "本项进入总榜的有符号调整：" in source
+    assert "理论范围 -67.5～+67.5" in source
+
 def test_person_page_builds_compact_net_summary_without_transient_full_detail_tree():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
