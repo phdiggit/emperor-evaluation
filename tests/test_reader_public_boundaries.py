@@ -606,7 +606,7 @@ def test_score_explanations_live_inside_subitems_not_repeated_in_top_bridge():
 
     assert "net-score-bridge" not in home
     assert "majorScoreBridge" not in home
-    assert "function scoreHowDetails(item, groupKey, how, formalLevel)" in home
+    assert "function scoreHowDetails(item, groupKey, how, formalLevel, record)" in home
     assert "当前裁决" in home
     assert "换算规则" in home
     assert "当前结果" in home
