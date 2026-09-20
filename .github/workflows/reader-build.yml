@@ -40,6 +40,9 @@ on:
       - src/emperor_v4/evaluation/second_item_c_public*
       - tests/test_second_item_c_public.py
       - tests/test_third_fourth_item_public.py
+      - src/emperor_v4/evaluation/historical_impact.py
+      - tests/test_historical_impact*.py
+      - docs/项目总纲/历史影响评价总则.md
       - src/emperor_v4/evaluation/second_item_b1_settlement.py
       - tests/test_reader.py
       - tests/test_reader_public_boundaries.py
@@ -105,6 +108,7 @@ jobs:
         run: |
           python -m emperor_v4.eval second-item-c-public
           python -m emperor_v4.eval third-fourth-item-public-verify
+          python -m emperor_v4.eval historical-impact-verify
 
       - name: Build reader
         run: python reader/build.py
@@ -140,7 +144,7 @@ jobs:
           rm -rf .tmp/reader-js-check
 
       - name: Run behavior tests
-        run: python -m pytest tests/test_reader.py tests/test_reader_public_boundaries.py tests/test_reader_first_item_reading.py tests/test_first_item_c_public.py tests/test_first_item_b1_cost_public.py tests/test_reader_person_readability.py tests/test_reader_second_public_text.py tests/test_second_item_c_public.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py tests/test_third_fourth_item_public.py -q
+        run: python -m pytest tests/test_reader.py tests/test_reader_public_boundaries.py tests/test_reader_first_item_reading.py tests/test_first_item_c_public.py tests/test_first_item_b1_cost_public.py tests/test_reader_person_readability.py tests/test_reader_second_public_text.py tests/test_second_item_c_public.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py tests/test_third_fourth_item_public.py tests/test_historical_impact.py tests/test_historical_impact_source_collections.py -q
 
       - name: Commit generated reader artifacts
         shell: bash

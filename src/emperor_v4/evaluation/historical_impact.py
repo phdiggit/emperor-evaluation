@@ -35,6 +35,25 @@ def _source_label(source: dict) -> str:
     return f"本地事实：`{source['path']}`；定位：{locator}"
 
 
+def _source_collection(source: dict[str, Any]) -> str:
+    collection = source.get("collection", "records")
+    if not isinstance(collection, str) or collection not in {"records", "scores"}:
+        raise ValueError("历史影响来源使用未支持的正式记录集合")
+    return collection
+
+
+def _source_records(payload: dict[str, Any], source: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """Resolve an explicitly named formal collection, without inferring from prose."""
+    collection = _source_collection(source)
+    rows = payload.get(collection)
+    if not isinstance(rows, list) or any(not isinstance(row, dict) or not row.get("ruler_id") for row in rows):
+        raise ValueError(f"历史影响来源缺少有效{collection}集合")
+    result = {row["ruler_id"]: row for row in rows}
+    if len(result) != len(rows):
+        raise ValueError("历史影响来源人物ID重复")
+    return result
+
+
 def _entry(root: Path) -> dict[str, Any]:
     return yaml.safe_load((root / "config/project.yml").read_text(encoding="utf-8"))["historical_impact_assessment"]
 
@@ -176,7 +195,7 @@ def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
         raise ValueError("历史影响主池覆盖或跨池ID冲突")
     if len(main) != payload["record_count"] or len(extra) != payload["supplementary_record_count"]:
         raise ValueError("历史影响记录数声明不一致")
-    sources: dict[str, dict[str, Any]] = {}
+    sources: dict[tuple[str, str], dict[str, dict[str, Any]]] = {}
     for rows, scope in ((main, "MAIN_POOL"), (extra, "SUPPLEMENTARY")):
         if rows != sorted(rows, key=lambda r: (r["reading_start_year"], r["ruler_id"])):
             raise ValueError("历史影响时代阅读顺序不一致")
@@ -243,11 +262,12 @@ def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
                     path = (root / source["path"]).resolve()
                     if not path.is_relative_to(root.resolve()) or source["ruler_id"] != rid:
                         raise ValueError(f"历史影响来源路径或归人错误: {rid}")
-                    if source["path"] not in sources:
-                        sources[source["path"]] = {r["ruler_id"]: r for r in load_json(path)["records"]}
-                    if rid not in sources[source["path"]]:
+                    source_key = (source["path"], _source_collection(source))
+                    if source_key not in sources:
+                        sources[source_key] = _source_records(load_json(path), source)
+                    if rid not in sources[source_key]:
                         raise ValueError(f"历史影响来源人物不存在: {rid}")
-                    source_row = sources[source["path"]][rid]
+                    source_row = sources[source_key][rid]
                     if not set(source.get("parent_ids", [])) <= {p["parent_id"] for p in source_row.get("parent_chains", [])}:
                         raise ValueError(f"历史影响引用的正式父链不存在: {rid}")
                     if any(k not in source_row for k in source.get("field_paths", [])):
