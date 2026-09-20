@@ -66,20 +66,18 @@
     const pct=Math.max(1,Math.min(100,Math.ceil(t.pool.rank/t.pool.total*100)));
     return`当前已结算人物：第 ${fmt(t.pool.rank,0)} / ${fmt(t.pool.total,0)}（约前 ${pct}%）`;
   }
-  function componentTakeaway(t){
+  function componentFallbackSummary(t){
     const parts=[
-      {label:"制度与行政",score:finite(t.methodScore),max:165},
-      {label:"民生与社会",score:finite(t.resultScore),max:202},
-      {label:"政权交接",score:finite(t.handoffScore),max:20},
-    ].filter(x=>x.score!=null).map(x=>({...x,ratio:x.score/x.max})).sort((a,b)=>b.ratio-a.ratio);
-    if(parts.length<2)return"先看三块构成，再展开到各项依据。";
-    const best=parts[0],weak=parts[parts.length-1];
-    if(Math.abs(best.ratio-weak.ratio)<0.08)return"三块得分相对接近，没有明显由单一分项主导。";
-    return`从三块得分看，${best.label}是相对最强的一项，${weak.label}相对最弱。`;
+      ["制度与行政",finite(t.methodScore),165],
+      ["民生与社会",finite(t.resultScore),202],
+      ["政权交接",finite(t.handoffScore),20],
+    ].filter(([,score])=>score!=null);
+    if(!parts.length)return"先看三块构成，再展开到各项依据。";
+    return`三块分项分别为：${parts.map(([label,score,max])=>`${label} ${fmt(score)} / ${max}`).join("；")}。具体判断依据见下方展开内容。`;
   }
   function personConclusion(t,record){
     const readerSummary=String(record?.net?.reader_governance_summary||"").trim();
-    return readerSummary||componentTakeaway(t);
+    return readerSummary||componentFallbackSummary(t);
   }
 
   function ensureStyles(){
