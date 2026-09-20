@@ -1012,7 +1012,12 @@ function firstCommanderMarkup(item) {
       ["整合", b2["异质整合"]],
     ].filter(([, value]) => value);
     const cText = byLabel["C军事统帅与战争解题"]?.reader_public_commander?.public_basis || "";
-    const costText = firstCostPublicText(cost?.reader_public_cost?.public_basis || "");
+    const costData = cost?.reader_public_cost || {};
+    const costText = [
+      firstCostPublicText(costData.public_level_label || ""),
+      costData.public_status_label || "",
+      costData.public_responsibility_window ? `责任窗口：${costData.public_responsibility_window}` : "",
+    ].filter(Boolean).join(" · ");
     const items = record.net?.component_details?.first || [];
     const parts = Object.fromEntries(items.map(item => [item.label, item.value]));
     const score = [parts["A统一贡献"], parts["B1创业难度与效率"], parts["B2组织与整合"], parts["C军事统帅与战争解题"], parts["第一项净分"], parts["附加F"]];
