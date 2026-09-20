@@ -572,7 +572,7 @@ def test_third_item_public_layer_translates_numeric_grades_without_reversing_cos
     assert '5:"严重军事成本"' in source
     assert '6:"极端军事成本"' in source
     assert '7:"灾难性军事耗竭"' in source
-    assert "function thirdPublicText(value, itemLabel = "")" in source
+    assert 'function thirdPublicText(value, itemLabel = "")' in source
     assert "三方面均为" in source
     assert "客观状态变化按已裁本人责任计入" in source
     assert 'groupKey === "strategic" || groupKey === "military"' in source
