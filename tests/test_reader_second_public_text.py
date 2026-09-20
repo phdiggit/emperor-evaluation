@@ -21,7 +21,7 @@ const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const root = process.argv[2];
 const source = fs.readFileSync(path.join(root, 'reader/second-item-public-alias.js'), 'utf8');
-const start = source.indexOf('  function publicEnumText(');
+const start = source.indexOf('  const PUBLIC_GRADE');
 const end = source.indexOf('  function patchMetricBodies(', start);
 assert.ok(start > 0 && end > start);
 const context = {document:{createElement(tag){
