@@ -328,3 +328,25 @@ def test_generated_reader_runtime_is_self_contained_after_build():
     ):
         assert f'src="{filename}"' not in index
     assert 'src="military-archive.js"' not in military
+
+
+def test_generated_reader_release_pins_dynamic_sources():
+    import json
+    import os
+    import re
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    html = (root / "reader/index.html").read_text(encoding="utf-8")
+    match = re.search(r'<script id="reader-data" type="application/json">(.*?)</script>', html, flags=re.S)
+    assert match
+    payload = json.loads(match.group(1))
+    expected = os.environ.get("GITHUB_SHA", "").lower()
+    if expected:
+        assert payload["source_revision"] == expected
+        assert payload["source_repository"] == os.environ["GITHUB_REPOSITORY"]
+        assert (root / "reader/source-revision.json").is_file()
+        assert (root / "reader/data/person-reading-notes.json").is_file()
+        assert "raw.githubusercontent.com" in html
+        military = (root / "reader/military.html").read_text(encoding="utf-8")
+        assert f'const READER_SOURCE_REVISION="{expected}"' in military
+        assert "raw.githubusercontent.com" in military

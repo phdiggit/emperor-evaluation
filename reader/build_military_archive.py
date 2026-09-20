@@ -12,6 +12,8 @@ fragments uniquely identify that dossier.  Otherwise it stays a search fallback.
 from __future__ import annotations
 
 import importlib.util
+import json
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -627,7 +629,19 @@ def _build_military_page(root: Path = ROOT) -> None:
     marker = '<script src="military-archive.js"></script>'
     if template.count(marker) != 1:
         raise ValueError("military template must contain exactly one runtime script marker")
-    script = script_path.read_text(encoding="utf-8").replace("</script>", r"<\/script>")
+    repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
+    revision = os.environ.get("GITHUB_SHA", "").strip().lower()
+    identity_path = root / "reader/source-revision.json"
+    if (not repository or not revision) and identity_path.exists():
+        identity = json.loads(identity_path.read_text(encoding="utf-8"))
+        repository = str(identity.get("repository") or "").strip()
+        revision = str(identity.get("revision") or "").strip().lower()
+    prefix = (
+        "const READER_SOURCE_REPOSITORY=" + json.dumps(repository, ensure_ascii=False) + ";\n"
+        + "const READER_SOURCE_REVISION=" + json.dumps(revision, ensure_ascii=False) + ";\n"
+    )
+    script = prefix + script_path.read_text(encoding="utf-8")
+    script = script.replace("</script>", r"<\/script>")
     rendered = template.replace(marker, f"<script>\n{script}\n</script>", 1)
     output_path.write_text(rendered, encoding="utf-8", newline="\n")
 
