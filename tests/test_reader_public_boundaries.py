@@ -904,6 +904,23 @@ def test_legacy_second_item_renderer_uses_same_public_grade_language():
     assert 'setNodeText(value,`${methodBand(item)}档`)' in source
     assert ',"恢复与额外成本");' in source
 
+
+def test_second_item_reader_does_not_recompute_current_pool_rank():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    reading = (root / "reader/second-item-reading.js").read_text(encoding="utf-8")
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    for source in (reading, alias):
+        assert "currentSecondPool" not in source
+        assert "secondPoolPosition" not in source
+        assert "secondRankText" not in source
+        assert "rankText(" not in source
+        assert "当前公开名次" not in source
+        assert "排名与数据口径" not in source
+        assert "约前 " not in source
+    assert "制度与行政 + 民生与社会 + 政权交接" in reading
+
+
 def test_second_item_method_index_is_explicitly_an_input_not_a_direct_score():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
