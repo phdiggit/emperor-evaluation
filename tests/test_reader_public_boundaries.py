@@ -733,6 +733,21 @@ def test_first_item_commander_grade_has_public_fixed_score_table():
         assert "对应${item.value}分" in source
 
 
+def test_second_item_calculation_rows_use_public_labels_and_readable_summary():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert '"AB计分块":"制度建设与官僚治理合成"' in source
+    assert '"B2折算":"反馈与约束折算"' in source
+    assert '"治理手段":"制度与行政合计"' in source
+    assert '"治理结果":"民生与社会合计"' in source
+    assert '"低侧封顶":"交接短板上限"' in source
+    assert '"第二项合计":"治国成效合计"' in source
+    assert "function patchCalculationRows(root, record)" in source
+    assert 'summary.textContent = "本组小计怎么形成？"' in source
+    assert "publicCalculationText(item.reader_how" in source
+    assert "patchCalculationRows(root, net);" in source
+
+
 def test_second_item_method_index_is_explicitly_an_input_not_a_direct_score():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")

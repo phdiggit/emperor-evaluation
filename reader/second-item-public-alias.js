@@ -21,6 +21,15 @@
     "D3政权交接稳定":"终局继承",
   };
   const SECOND_GROUPS = ["method", "finance", "handoff"];
+  const SECOND_CALC_LABELS = {
+    "AB计分块":"制度建设与官僚治理合成",
+    "B2折算":"反馈与约束折算",
+    "治理手段":"制度与行政合计",
+    "治理结果":"民生与社会合计",
+    "低侧封顶":"交接短板上限",
+    "交接得分":"政权交接得分",
+    "第二项合计":"治国成效合计",
+  };
   const PUBLIC_ITEM_LABELS = {
     "A制度建设":"制度建设",
     "B1官僚治理":"官僚治理",
@@ -348,6 +357,12 @@
   function publicFinanceText(value) {
     return publicEnumText(value)
       .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`);
+  }
+
+  function publicCalculationText(value) {
+    let text = publicTechnicalText(value);
+    for (const [from, to] of Object.entries(SECOND_CALC_LABELS)) text = text.replaceAll(from, to);
+    return text;
   }
 
   // Only contract-defined enum labels are translated. Sentences, negation,
@@ -741,11 +756,33 @@
     }
   }
 
+  function patchCalculationRows(root, record) {
+    if (!root || !record?.net) return;
+    for (const key of SECOND_GROUPS) {
+      const panel = root.querySelector(`#net-group-${key}`);
+      const details = panel?.querySelector(":scope > .net-calculations");
+      if (!details) continue;
+      const rows = Array.from(details.querySelectorAll(":scope > .component"));
+      const calculations = (record.net.component_details?.[key] || [])
+        .filter(item => item.reader_kind === "calculation" && item.value != null);
+      const summary = details.querySelector(":scope > summary");
+      if (summary) summary.textContent = "本组小计怎么形成？";
+      rows.forEach((row, index) => {
+        const item = calculations[index];
+        if (!item) return;
+        const strong = row.querySelector("strong");
+        const small = row.querySelector("small");
+        if (strong) strong.textContent = SECOND_CALC_LABELS[item.label] || publicText(item.public_component_label || item.label);
+        if (small) small.textContent = publicCalculationText(item.reader_how || "");
+      });
+    }
+  }
+
   function patchGroupIntros(record) {
     if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
     const values = secondTotals(record);
     writePublicCopy(document.querySelector('[data-second-intro="method"]'),
-      `这一组看国家机器如何建立规则、配置官僚并形成反馈约束。当前合计 ${fmt(values.method)} 分；公开层先看等级和历史依据，具体指数与折算放在展开内容里。`);
+      `这一组看国家机器如何建立规则、配置官僚并形成反馈约束。当前合计 ${fmt(values.method)} 分；公开层先看等级和历史依据，具体表现指数与折算放在展开内容里。`);
     writePublicCopy(document.querySelector('[data-second-intro="finance"]'),
       `这一组看统治时期普通家庭、经济财政和社会安全的主要状态，再结合任内低谷、恢复与额外代价形成结果判断。当前合计 ${fmt(values.finance)} 分。`);
     writePublicCopy(document.querySelector('[data-second-intro="handoff"]'),
@@ -879,6 +916,7 @@
       const root = document.getElementById("net-major-body");
       patchGradeGroups(root, net);
       patchMetricBodies(net);
+      patchCalculationRows(root, net);
       patchGroupIntros(net);
       patchPoolNote(net);
     }
