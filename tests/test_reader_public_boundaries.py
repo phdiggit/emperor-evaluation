@@ -50,7 +50,10 @@ const long='已有成果。'.repeat(100)+'末尾仍有不能归给本人的部�
 const template=fs.readFileSync('reader/index.template.html','utf8');
 const identitySource=template.slice(template.indexOf('function personLabel('),template.indexOf('const powerContextNote='));
 const personLabel=new Function(identitySource+'return personLabel;')();
-const render=new Function('esc','firstPublicSharePercent','firstPublicOutcomeParts','firstPublicOutcomeText','firstFactText','personLabel',overview+'return firstItemOverview;')(esc,()=>'',a=>[['成果',a.public_outcome_basis]],String,String,personLabel);
+const costStart=home.indexOf('function firstCostPublicText');
+const costEnd=home.indexOf('\n\nfunction firstCostMarkup',costStart);
+const firstCostPublicText=new Function(home.slice(costStart,costEnd)+';return firstCostPublicText;')();
+const render=new Function('esc','firstPublicSharePercent','firstPublicOutcomeParts','firstPublicOutcomeText','firstFactText','personLabel','firstCostPublicText',overview+'return firstItemOverview;')(esc,()=>'',a=>[['成果',a.public_outcome_basis]],String,String,personLabel,firstCostPublicText);
 const html=render({ruler_name:'合成对象'}, {'B2组织与整合':{'并行执行':long}}, {'A统一贡献':{reader_public_outcome:{public_outcome_basis:long}}});
 assert.equal(html.split(long).length-1,2);
 // Exercise current public data, without storing any adjudication snapshot.
