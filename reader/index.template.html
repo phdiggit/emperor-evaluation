@@ -127,25 +127,28 @@ function contextDirection(c){
  const raw=String(c.direction);
  return Object.prototype.hasOwnProperty.call(formalDirectionNames,raw)?formalDirectionNames[raw]:raw;
 }
-function contextIntensity(c){
- const entries=['intensity','material_intensity']
+function contextIntensityEntries(c){
+ return ['intensity','material_intensity']
   .filter(k=>Object.prototype.hasOwnProperty.call(c||{},k)&&nonEmptyFormal(c[k]))
   .map(k=>[k,c[k]]);
- if(!entries.length)return null;
+}
+function contextIntensity(c){
+ const entries=contextIntensityEntries(c);
+ if(!entries.length)return '未列';
  const rawValues=entries.map(([,v])=>String(v));
- if(rawValues.length>1&&rawValues.some(v=>v!==rawValues[0])){
-  return {label:'上游强度字段不一致',raw:entries};
- }
+ if(rawValues.length>1&&rawValues.some(v=>v!==rawValues[0]))return '上游字段不一致，请查原始记录';
  const raw=rawValues[0];
- return {label:Object.prototype.hasOwnProperty.call(materialIntensityNames,raw)?materialIntensityNames[raw]:raw,raw:entries};
+ return Object.prototype.hasOwnProperty.call(materialIntensityNames,raw)
+  ? materialIntensityNames[raw]
+  : '未设中文展示，请查原始记录';
 }
-function formalMetaField(label,value){
+function formalMetaField(label,value,extraClass=''){
  if(!nonEmptyFormal(value))return '';
- return `<div class="formal-context-meta-row"><strong>${esc(label)}</strong>${axisProse(value)}</div>`;
+ return `<div class="formal-context-meta-row ${extraClass}"><strong>${esc(label)}</strong>${axisProse(value)}</div>`;
 }
-function formalContextMetadata(c){
+function formalContextMetadata(c,{showIntensity=true}={}){
  const direction=contextDirection(c);
- const intensity=contextIntensity(c);
+ const intensityEntries=contextIntensityEntries(c);
  const attrs=['attribution','attribution_basis','role_attribution']
   .filter(k=>Object.prototype.hasOwnProperty.call(c||{},k)&&nonEmptyFormal(c[k]))
   .map(k=>c[k]);
@@ -154,9 +157,9 @@ function formalContextMetadata(c){
   .map(k=>c[k]);
  const parts=[];
  if(direction)parts.push(formalMetaField('正式方向',direction));
- if(intensity){
-  parts.push(formalMetaField('材料强度',intensity.label));
-  const raw=intensity.raw.map(([k,v])=>`${k}=${typeof v==='string'?v:JSON.stringify(v)}`).join('；');
+ if(showIntensity&&intensityEntries.length){
+  parts.push(formalMetaField('材料强度',contextIntensity(c),'context-intensity'));
+  const raw=intensityEntries.map(([k,v])=>`${k}=${typeof v==='string'?v:JSON.stringify(v)}`).join('；');
   parts.push(`<p class="subline formal-context-raw">正式字段：${esc(raw)}</p>`);
  }
  for(const value of attrs)parts.push(formalMetaField('归责',value));
@@ -167,18 +170,18 @@ function formalContextSources(c){
  const refs=[...(c?.source_refs||[]),...(c?.cycle_anchor_refs||[]),...(c?.direct_process_refs||[])].filter(ref=>typeof ref==='string'&&ref);
  return [...new Set(refs)];
 }
-function formalContextStory(c,id=''){
+function formalContextStory(c,id='',options={}){
  if(!c)return prose(id?'情境引用：'+id:'正式记录未列情境正文');
  const rawTitle=String(c.title||'').trim();
  const title=rawTitle?`<div class="public-context-title">${esc(rawTitle)}</div>`:'';
  const body=c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
  const refs=formalContextSources(c);
  const sources=(id||refs.length)?`<details class="metadata"><summary>该情境的来源与原始标注</summary>${id?`<p class="subline">${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'来源原文 ↗'):prose(ref)).join('')}</details>`:'';
- return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c)}${body?axisProse(body):''}${sources}</div>`;
+ return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c,options)}${body?axisProse(body):''}${sources}</div>`;
 }
-function contexts(a){
+function contexts(a,showIntensity=true){
  const labels={positive_parent_refs:'正向表现',counter_parent_refs:'反例与下沿',negative_parent_refs:'负向表现',mixed_parent_refs:'正负混合表现'};
- return Object.entries(a.counterpattern).map(([key,refs])=>`<div class="label">${esc(labels[key]||key)}</div>${Array.isArray(refs)&&refs.length?refs.map(id=>formalContextStory(a.context_lookup?.[id],id)).join(''):'<p class="subline">当前未列独立情境。</p>'}`).join('');
+ return Object.entries(a.counterpattern).map(([key,refs])=>`<div class="label">${esc(labels[key]||key)}</div>${Array.isArray(refs)&&refs.length?refs.map(id=>formalContextStory(a.context_lookup?.[id],id,{showIntensity})).join(''):'<p class="subline">当前未列独立情境。</p>'}`).join('');
 }
 function representativeContexts(a){
  const items=Array.isArray(a.representative_contexts)?a.representative_contexts:[];
