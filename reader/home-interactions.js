@@ -501,6 +501,12 @@ function firstCommanderMarkup(item) {
   const SECOND_PUBLIC_GROUPS = new Set(["method", "finance", "handoff"]);
   const CIV_PUBLIC_DIRECTION = {POSITIVE:"正向",NEGATIVE:"负向",BALANCED:"正负相抵"};
   const CIV_PUBLIC_POSITION = {HIGH:"高位",MID:"中位",LOW:"低位",HIGHEST:"极端上沿"};
+  const CIV_PUBLIC_MAGNITUDE = {
+    1:"局部、短期或低强度变化",
+    2:"清晰但有限的变化",
+    3:"主要领域的稳定改变",
+    4:"跨场景或系统性改变",
+  };
   const CIV_PUBLIC_POINTS = {
     1:{LOW:3.0,MID:4.5,HIGH:6.0},
     2:{LOW:7.5,MID:9.5,HIGH:11.5},
@@ -531,22 +537,50 @@ function firstCommanderMarkup(item) {
     return `<div class="label">裁决说明</div><ul class="net-third-basis-list">${parts.map(part => `<li>${esc(part)}</li>`).join("")}</ul>`;
   }
 
+  function civilizationMagnitudeText(level, direction = "") {
+    const n = typeof level === "string" && THIRD_CN_LEVEL[level] != null ? THIRD_CN_LEVEL[level] : Number(level);
+    if (!Number.isInteger(n) || !CIV_PUBLIC_MAGNITUDE[n]) return String(level || "");
+    if (n === 4 && direction === "POSITIVE") return "跨场景的新范式变化";
+    if (n === 4 && direction === "NEGATIVE") return "系统性破坏";
+    return CIV_PUBLIC_MAGNITUDE[n];
+  }
+
+  function civilizationPublicText(value) {
+    let text = cleanNetText(value);
+    if (!text) return "";
+    const magnitude = (level, direction = "") => civilizationMagnitudeText(level, direction);
+    return text
+      .replace(/正向变化第([1-4一二三四])级/g, (_, level) => `正向变化达到${magnitude(level, "POSITIVE")}`)
+      .replace(/负向变化第([1-4一二三四])级/g, (_, level) => `负向变化达到${magnitude(level, "NEGATIVE")}`)
+      .replace(/净文明影响幅度第([1-4一二三四])级/g, (_, level) => `净影响为${magnitude(level)}`)
+      .replace(/影响幅度第([1-4一二三四])级/g, (_, level) => `影响幅度为${magnitude(level)}`)
+      .replace(/第([1-4一二三四])级影响幅度/g, (_, level) => magnitude(level))
+      .replace(/相对变化第([1-4一二三四])级/g, (_, level) => magnitude(level));
+  }
+
   function civilizationPublicStatus(item, formalLevel = "") {
     const parts = String(item?.grade || "").split("/").map(value => value.trim());
     const direction = CIV_PUBLIC_DIRECTION[parts[0]] || "";
+    if (parts[0] === "BALANCED" || parts[1] === "CIV0") return "正负相抵 · 净调整为0";
+    const magnitude = parts[1]?.match(/^CIV([1-4])$/);
+    const level = magnitude ? civilizationMagnitudeText(magnitude[1], parts[0]) : civilizationPublicText(formalLevel);
     const position = CIV_PUBLIC_POSITION[parts[2]] || "";
-    return [direction, formalLevel, position].filter(Boolean).join(" · ");
+    return [direction, level, position].filter(Boolean).join(" · ");
   }
 
   function civilizationExactHow(item, fallback) {
     const parts = String(item?.grade || "").split("/").map(value => value.trim());
+    if (parts[0] === "BALANCED" || parts[1] === "CIV0") {
+      return "正向与负向材料在本轴净算后相抵，因此本轴调整为0分。";
+    }
     const magnitude = parts[1]?.match(/^CIV([1-4])$/);
     const position = parts[2];
     const points = magnitude ? CIV_PUBLIC_POINTS[Number(magnitude[1])]?.[position] : null;
     const direction = CIV_PUBLIC_DIRECTION[parts[0]] || "";
     if (points == null || !direction) return fallback;
-    const signed = parts[0] === "NEGATIVE" ? -points : parts[0] === "BALANCED" ? 0 : points;
-    return `第${magnitude[1]}级影响的${CIV_PUBLIC_POSITION[position] || position}固定对应${points}分；方向为${direction}，所以当前调整为${signed > 0 ? "+" : ""}${signed}分。`;
+    const signed = parts[0] === "NEGATIVE" ? -points : points;
+    const label = civilizationMagnitudeText(magnitude[1], parts[0]);
+    return `“${label}”的${CIV_PUBLIC_POSITION[position] || position}固定对应${points}分；方向为${direction}，所以当前调整为${signed > 0 ? "+" : ""}${signed}分。`;
   }
 
   function thirdCostExactHow(item, fallback) {
@@ -561,16 +595,29 @@ function firstCommanderMarkup(item) {
     return `当前为${thirdCostText(level)}、${CIV_PUBLIC_POSITION[position] || position}；固定成本系数为${factor}，扣分 = 80 × (1 − ${factor}) = ${shown}分。`;
   }
 
+  function strategicAxisExactHow(item, groupItems) {
+    const grade = String(item?.grade || "").match(/([0-5])\s*→\s*([0-5])档/);
+    const score = Number(item?.value);
+    const trajectory = Number.isFinite(score) ? Number((score / 0.6).toFixed(2)) : null;
+    const current = grade
+      ? `当前状态是接手${thirdGradeText(grade[1])} → 结束${thirdGradeText(grade[2])}`
+      : "";
+    const result = trajectory != null
+      ? `正式轨迹值为${trajectory}，所以 0.6 × ${trajectory} = ${score}分`
+      : "";
+    const a1 = groupItems.get("A1");
+    const a2 = groupItems.get("A2");
+    const total = groupItems.get("A120");
+    const subtotal = [a1?.value, a2?.value, total?.value].every(value => value != null)
+      ? `两个战略安全轴最后直接相加：${a1.value} + ${a2.value} = ${total.value}分。`
+      : "";
+    return `“轨迹值”只是计分中间值，不是另一项评价。计算时 E=0、D=1、C=2、B=3、A=4、S=5；轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整，并限制在0—100；本轴分数 = 0.6 × 轨迹值。专项信用与负向调整均直接读取正式裁决，不由阅读层重算。${current ? " " + current + "；" : " "}${result ? result + "。" : ""}${subtotal ? " " + subtotal : ""}`;
+  }
+
   function detailedHowText(item, groupKey, how, record) {
     const groupItems = new Map((record?.net?.component_details?.[groupKey] || []).map(entry => [entry.label, entry]));
     if (groupKey === "strategic" && ["A1","A2"].includes(item.label)) {
-      const a1 = groupItems.get("A1");
-      const a2 = groupItems.get("A2");
-      const total = groupItems.get("A120");
-      const subtotal = [a1?.value, a2?.value, total?.value].every(value => value != null)
-        ? `两个战略安全轴随后直接相加：${a1.value} + ${a2.value} = ${total.value}分。`
-        : "";
-      return `本轴分数 = 0.6 × 轨迹值；轨迹值由终点状态价值、本人改善、本人回吐、专项信用和负向调整共同形成。当前本轴：${how}${subtotal ? " " + subtotal : ""}`;
+      return strategicAxisExactHow(item, groupItems);
     }
     if (groupKey === "strategic" && ["B1","B2","B4"].includes(item.label)) {
       const b1 = groupItems.get("B1");
@@ -618,7 +665,8 @@ function firstCommanderMarkup(item) {
     if (!evidence.length) return "";
     const cards = evidence.map(entry => {
       const thirdItem = groupKey === "strategic" || groupKey === "military";
-      const format = value => thirdItem ? thirdPublicText(value, item.label) : cleanNetText(value);
+      const fourthItem = groupKey === "civilization";
+      const format = value => thirdItem ? thirdPublicText(value, item.label) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
       const title = format(entry?.public_label || entry?.public_role || "正式裁决材料");
       const role = format(entry?.public_role || "");
       const direction = format(entry?.public_direction || "");
@@ -637,7 +685,8 @@ function firstCommanderMarkup(item) {
     const displayLabel = item.public_component_label || item.label;
     const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
     const thirdItem = groupKey === "strategic" || groupKey === "military";
-    const formatPublic = value => thirdItem ? thirdPublicText(value, item.label) : cleanNetText(value);
+    const fourthItem = groupKey === "civilization";
+    const formatPublic = value => thirdItem ? thirdPublicText(value, item.label) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
     const summary = formatPublic(item.reader_summary || "");
     const fullBasis = cleanNetText(item.reader_full_basis || "");
     const publicEvidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];

@@ -659,6 +659,34 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "两个战略安全轴随后直接相加" in source
 
 
+def test_third_item_strategic_axis_explains_trajectory_as_exact_intermediate_formula():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "function strategicAxisExactHow(item, groupItems)" in source
+    assert "“轨迹值”只是计分中间值，不是另一项评价" in source
+    assert "轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整" in source
+    assert "E=0、D=1、C=2、B=3、A=4、S=5" in source
+    assert "正式轨迹值为" in source
+    assert "专项信用与负向调整均直接读取正式裁决，不由阅读层重算" in source
+
+
+def test_fourth_item_public_layer_uses_semantic_magnitude_labels_instead_of_numbered_levels():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert '1:"局部、短期或低强度变化"' in source
+    assert '2:"清晰但有限的变化"' in source
+    assert '3:"主要领域的稳定改变"' in source
+    assert '4:"跨场景或系统性改变"' in source
+    assert "function civilizationPublicText(value)" in source
+    assert "正向变化达到" in source
+    assert "负向变化达到" in source
+    assert "净影响为" in source
+    assert "正负相抵 · 净调整为0" in source
+    assert "正向与负向材料在本轴净算后相抵，因此本轴调整为0分" in source
+    assert 'fourthItem ? civilizationPublicText(value)' in source
+    assert '第${magnitude[1]}级影响' not in source
+
+
 def test_third_item_long_public_basis_is_losslessly_split_for_readability():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
