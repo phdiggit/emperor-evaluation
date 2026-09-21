@@ -77,6 +77,16 @@ def test_fourth_public_zero_states_distinguish_reviewed_empty_from_balanced_zero
     assert all(axis["public_level_label"] == "正负相抵，净调整为0" for axis in balanced)
 
 
+def test_fourth_public_package_projection_does_not_duplicate_sentence_punctuation():
+    payload = public._refresh_fourth(copy.deepcopy(public._load_payloads(ROOT)["fourth"]))
+    packages = payload["accepted_packages"]
+    assert packages
+    for package in packages:
+        assert "。。" not in package["public_adjudication_summary"]
+        for item in package["public_evidence_items"]:
+            assert "。。" not in item["public_basis"]
+
+
 def test_fourth_public_packages_publish_source_coverage_without_inventing_strength():
     payload = public._refresh_fourth(copy.deepcopy(public._load_payloads(ROOT)["fourth"]))
     packages = payload["accepted_packages"]
