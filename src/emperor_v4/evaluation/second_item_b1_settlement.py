@@ -87,6 +87,11 @@ PUBLIC_CLOSURE_LABELS = {
     "reversed": "后续逆转",
     "not_closed": "运行证据尚未完整",
 }
+B1_PUBLIC_BOUNDARY = (
+    "这里只评价本人统治下官僚组织的选任、分工、协调、替补、事务传递和行政执行；"
+    "制度设置本身、异议反馈与纠错，以及民生、法律、军事结果和后世接收只作背景或邻项依据；"
+    "同一行政运行链的正负事实合并，不重复计入。"
+)
 PUBLIC_FORBIDDEN_RE = re.compile(
     r"(?:本轮|重审|恢复原|旧裁决|\bv20\b|\bv50\b|按合同|门禁|主档|消费|闭合|净余量|"
     r"(?<![A-Za-z])position(?![A-Za-z])|(?<![A-Za-z])fallback(?![A-Za-z])|"
@@ -157,6 +162,22 @@ def _public_summary(row: dict[str, Any]) -> str:
         parts.append(f"{context} 条边界材料不单独计入")
     parts.append("各条权重并不相同，不能按条数直接相减")
     return "；".join(parts) + "。"
+
+
+def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
+    items: list[dict[str, Any]] = []
+    for profile in _iter_profiles(row):
+        status = str(profile.get("adjudication_status") or "")
+        items.append({
+            "public_label": str(profile.get("public_label") or ""),
+            "public_direction": PUBLIC_DIRECTION_LABELS.get(
+                str(profile.get("direction") or ""), "正负并存"
+            ),
+            "public_tags": list(profile.get("adjudication_tags") or []),
+            "public_basis": str(profile.get("adjudication_basis") or ""),
+            "public_boundary": str(profile.get("adjudication_boundary") or B1_PUBLIC_BOUNDARY),
+        })
+    return items
 
 
 def _group_key(profile: dict[str, Any]) -> str:
@@ -353,6 +374,8 @@ def _prepare_profile_adjudication(payload: dict[str, Any]) -> tuple[int, Counter
             status_counts[status] += 1
 
         row["public_adjudication_summary"] = _public_summary(row)
+        row["public_boundary"] = B1_PUBLIC_BOUNDARY
+        row["public_evidence_items"] = _public_evidence_items(row)
         row["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
 
     payload["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
@@ -621,6 +644,10 @@ def validate_public_profile_contract(payload: dict[str, Any]) -> None:
                 raise ValueError(f"B1非并入材料错误保留主profile引用：{row['ruler_name']} / {profile.get('material_id')}")
         if row.get("public_adjudication_summary") != _public_summary(row):
             raise ValueError(f"B1人物级公开总括不是当前profile的机械汇总：{row['ruler_name']}")
+        if row.get("public_boundary") != B1_PUBLIC_BOUNDARY:
+            raise ValueError(f"B1人物级公开边界不是当前正式合同投影：{row['ruler_name']}")
+        if row.get("public_evidence_items") != _public_evidence_items(row):
+            raise ValueError(f"B1人物级公开材料不是当前profile的确定性投影：{row['ruler_name']}")
 
     if payload.get("profile_adjudication_profile_count") != expected_profile_count:
         raise ValueError("B1逐材料公开裁决计数元数据不一致")
