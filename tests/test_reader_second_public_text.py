@@ -206,7 +206,9 @@ def test_second_item_public_enum_mapping_and_dedicated_ownership():
     b1 = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
     assert 'SecondItemMaterialCards' in alias
     assert 'renderB2MaterialGroups(evidence)' in alias
-    assert 'MATERIAL_STRENGTH_TAGS' in alias
+    assert 'MATERIAL_STRENGTH_TAGS' not in alias
+    assert 'materialStrengthFromTags' not in alias
+    assert 'data.tags.map(tag => [tag, "tag"])' in alias
     assert 'A制度建设":"制度建设"' in alias
     assert 'B1官僚治理":"官僚治理"' in alias
     assert 'B2反馈与约束":"反馈与约束"' in alias
