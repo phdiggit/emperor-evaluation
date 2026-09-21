@@ -313,7 +313,8 @@ function firstAddOnValue(n){
 }
 function firstAddOnNote(n){
  if(!n)return '';
- if(n.first_item_status!=='APPLICABLE')return '不适用；总分按0计入';
+ if(n.first_item_status==='NOT_APPLICABLE')return '不适用；总分按0计入';
+ if(n.first_item_status!=='APPLICABLE')return '正式状态未发布；阅读层不判断是否适用';
  if(firstRawScore(n)===0)return '本项适用，但未形成正向净收益';
  return '';
 }
@@ -323,7 +324,8 @@ function firstAddOnComponent(n){
 }
 function compareFirstAddOn(r){
  if(!r?.net)return '—';
- if(r.net.first_item_status!=='APPLICABLE')return '不适用';
+ if(r.net.first_item_status==='NOT_APPLICABLE')return '不适用';
+ if(r.net.first_item_status!=='APPLICABLE')return '状态未发布';
  if(firstRawScore(r.net)===0)return '0.00 · 本项适用';
  return number(r.net.first_item_add_on);
 }
@@ -342,7 +344,7 @@ function renderRows(){
 }
 function netPanel(r){
  const n=r.net;
- return `<section id="person-outcome" class="panel net"><div class="eyebrow">01 / 统治结果</div><h2>统治绩效</h2><p class="subline">按现行合同评价统治绩效</p>${n?`<div class="big">${number(n.total_score)}</div><span class="badge">统治绩效第 ${n.rank} 名 / ${DATA.ranked_count}</span>${`<div class="component"><span>治国成效</span><b>${number(n.second_item_score)}</b></div><div class="component"><span>军事与边疆</span><b>${number(n.third_item_score)}</b></div>`}${firstAddOnComponent(n)}${`<div class="component"><span>文明与国家整合</span><b>${signedAdjustment(n.fourth_item_adjustment)}</b></div>`}<p class="subline">分差不表示历史贡献的倍数，也不是百分制。</p><details><summary>总分口径与权重敏感性</summary><p>总分由上列四项构成。它包含合同规定的结果与过程分量，不是货币收益减成本；零分也不代表每个方面都没有收益或损害。</p><p>第一项${n.first_item_status==='APPLICABLE'?(firstRawScore(n)===0?'适用，但原始净收益为0，附加分为0；这与“不适用”不同':firstRawScore(n)==null?`适用，但原始净收益未列；当前附加分为 ${number(n.first_item_add_on)}`:`原始净收益为 ${number(firstRawScore(n))}，按公式折算为附加分 ${number(n.first_item_add_on)}；原始净收益不再重复相加`):'不适用，附加分按0计入总分；不代表能力失败'}。</p><p class="subline">${esc(DATA.formula)}</p>${n.weight_sensitivity?.all_scenarios?`<p>固定现有裁决，在已声明的 ${DATA.weight_sensitivity.scenario_count} 种权重情景中，名次范围为第 ${n.weight_sensitivity.all_scenarios.best}—${n.weight_sensitivity.all_scenarios.worst} 名。</p><p class="subline">这是有限权重情景的结果，不是置信区间，也不包含史料或裁决不确定性。正式名次仍使用基准权重。</p>`:''}${link('docs/项目总纲/皇帝统治绩效评价合同.md','计分合同与情景设定 ↗')}</details>`:`<div class="big">—</div><p>${r.supplementary?'历史影响补充样本，不纳入此处统治绩效主池统计。':'未进入统治绩效总榜，不能按零分理解。'}</p><p class="subline">${esc(({PENDING_SECOND_ITEM_FORMAL_SETTLEMENT:'第二项正式结算待补',PENDING_THIRD_ITEM_FORMAL_SETTLEMENT:'第三项正式结算待补',PENDING_FIRST_ITEM_FORMAL_SETTLEMENT:'第一项正式结算待补',SUPPLEMENTARY:'补充历史样本，仅提供历史影响'}[r.settlement_readiness]||r.settlement_readiness))}</p>`}<p class="sources">${link(DATA.sources.net_reader,'统治绩效完整依据 ↗')}</p></section>`;
+ return `<section id="person-outcome" class="panel net"><div class="eyebrow">01 / 统治结果</div><h2>统治绩效</h2><p class="subline">按现行合同评价统治绩效</p>${n?`<div class="big">${number(n.total_score)}</div><span class="badge">统治绩效第 ${n.rank} 名 / ${DATA.ranked_count}</span>${`<div class="component"><span>治国成效</span><b>${number(n.second_item_score)}</b></div><div class="component"><span>军事与边疆</span><b>${number(n.third_item_score)}</b></div>`}${firstAddOnComponent(n)}${`<div class="component"><span>文明与国家整合</span><b>${signedAdjustment(n.fourth_item_adjustment)}</b></div>`}<p class="subline">分差不表示历史贡献的倍数，也不是百分制。</p><details><summary>总分口径与权重敏感性</summary><p>总分由上列四项构成。它包含合同规定的结果与过程分量，不是货币收益减成本；零分也不代表每个方面都没有收益或损害。</p><p>第一项${n.first_item_status==='APPLICABLE'?(firstRawScore(n)===0?'适用，但原始净收益为0，附加分为0；这与“不适用”不同':firstRawScore(n)==null?`适用，但原始净收益未列；当前附加分为 ${number(n.first_item_add_on)}`:`原始净收益为 ${number(firstRawScore(n))}，按公式折算为附加分 ${number(n.first_item_add_on)}；原始净收益不再重复相加`):n.first_item_status==='NOT_APPLICABLE'?'不适用，附加分按0计入总分；不代表能力失败':'正式状态未发布；阅读层不判断是否适用'}。</p><p class="subline">${esc(DATA.formula)}</p>${n.weight_sensitivity?.all_scenarios?`<p>固定现有裁决，在已声明的 ${DATA.weight_sensitivity.scenario_count} 种权重情景中，名次范围为第 ${n.weight_sensitivity.all_scenarios.best}—${n.weight_sensitivity.all_scenarios.worst} 名。</p><p class="subline">这是有限权重情景的结果，不是置信区间，也不包含史料或裁决不确定性。正式名次仍使用基准权重。</p>`:''}${link('docs/项目总纲/皇帝统治绩效评价合同.md','计分合同与情景设定 ↗')}</details>`:`<div class="big">—</div><p>${r.supplementary?'历史影响补充样本，不纳入此处统治绩效主池统计。':'未进入统治绩效总榜，不能按零分理解。'}</p><p class="subline">${esc(({PENDING_SECOND_ITEM_FORMAL_SETTLEMENT:'第二项正式结算待补',PENDING_THIRD_ITEM_FORMAL_SETTLEMENT:'第三项正式结算待补',PENDING_FIRST_ITEM_FORMAL_SETTLEMENT:'第一项正式结算待补',SUPPLEMENTARY:'补充历史样本，仅提供历史影响'}[r.settlement_readiness]||r.settlement_readiness))}</p>`}<p class="sources">${link(DATA.sources.net_reader,'统治绩效完整依据 ↗')}</p></section>`;
 }
 
 function impactPanel(r){const h=r.impact;return `<section id="person-impact" class="panel impact"><div class="eyebrow">03 / 历史后效</div><h2>历史影响</h2><p class="subline">路径改变的规模、深度与归责</p><p class="subline">先看范围与深度定基础，再看本人归责；政治范式只作有限补充。</p><div class="big" style="color:var(--red)">${esc(h.public_grade)}</div><p>${esc(impactMeaning[h.public_grade]||'')}</p><span class="badge">${esc(h.impact_nature)}</span> <span class="subline">置信度 ${conf(h.confidence)}</span>${impactScaleNote()}<div class="dimensions">${Object.entries(dimNames).map(([k,n])=>`<div class="impact-dimension-card"><a href="#history-dimension-${k}" data-section="history-dimension-${k}" aria-label="查看${esc(n)}依据"><span>${esc(n)}</span><b>${esc(h.dimensions[k]?.grade||'—')}</b><small class="impact-dimension-question">${esc(impactDimensionQuestions[k]||'查看本维度依据')}</small><small>查看依据 ↓</small></a></div>`).join('')}</div>${gradeHelp('impact')}<p class="sources"><a href="#history-evidence" data-section="history-evidence">查看历史影响依据 ↓</a></p></section>`}
@@ -371,7 +373,7 @@ function compare(){
    SUPPLEMENTARY:'不属本展示主池'
  }[r?.settlement_readiness]||'未入榜');
  const firstRawScore=n=>{const value=n?.first_item_raw_score;return typeof value==='number'&&Number.isFinite(value)?value:null};
- const compareFirstAddOn=r=>!r?.net?'—':r.net.first_item_status!=='APPLICABLE'?'不适用':firstRawScore(r.net)===0?'0.00 · 本项适用':number(r.net.first_item_add_on);
+ const compareFirstAddOn=r=>!r?.net?'—':r.net.first_item_status==='NOT_APPLICABLE'?'不适用':r.net.first_item_status!=='APPLICABLE'?'状态未发布':firstRawScore(r.net)===0?'0.00 · 本项适用':number(r.net.first_item_add_on);
  const signedAdjustment=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?'+'+number(n):number(value);};
  // Same grade does not mean same evidence. Keep every row, and only mark
  // comparable values for visual emphasis; narrative rows are never classified.
