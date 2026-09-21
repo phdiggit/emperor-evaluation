@@ -68,12 +68,13 @@ def test_fourth_public_zero_states_distinguish_reviewed_empty_from_balanced_zero
         for row in payload["records"]
         for axis in row.get("axis_results") or []
     ]
-    reviewed = next(axis for axis in axes if axis.get("disposition") == "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW")
-    balanced = next(axis for axis in axes if axis.get("disposition") == "OBSERVED_OFFSETTING_OR_BALANCED_EFFECTS")
-    assert reviewed["public_level_label"] == "复核后未确认独立净变化"
-    assert "结果方向未单列" not in reviewed["public_adjudication_summary"]
-    assert "经复核后未形成可单独计入的净变化" in reviewed["public_adjudication_summary"]
-    assert balanced["public_level_label"] == "正负相抵，净调整为0"
+    reviewed = [axis for axis in axes if axis.get("disposition") == "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW"]
+    balanced = [axis for axis in axes if axis.get("disposition") == "OBSERVED_OFFSETTING_OR_BALANCED_EFFECTS"]
+    assert reviewed and balanced
+    assert all(axis["public_level_label"] == "复核后未确认独立净变化" for axis in reviewed)
+    assert all("结果方向未单列" not in axis["public_adjudication_summary"] for axis in reviewed)
+    assert all("经复核后未形成可单独计入的净变化" in axis["public_adjudication_summary"] for axis in reviewed)
+    assert all(axis["public_level_label"] == "正负相抵，净调整为0" for axis in balanced)
 
 
 def test_reader_consumes_explicit_public_evidence_for_third_and_fourth_items():
