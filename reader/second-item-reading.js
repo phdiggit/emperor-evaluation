@@ -196,7 +196,7 @@
   function enhanceCompare(records){
     if(records.length<2||records.some(r=>!r?.detail_loaded))return;const rows=Array.from(screenEl.querySelectorAll(".comparison tbody tr")),secondRow=rows.find(r=>["治国净收益","治国成效"].includes(r.cells?.[0]?.textContent.trim()));
     if(secondRow){setNodeText(secondRow.cells?.[0],"治国成效");records.forEach((record,index)=>{const cell=secondRow.cells[index+1];if(!cell)return;if(!record?.net){setNodeText(cell,pendingSecondLabel(record));return;}const t=secondTotals(record),key=String(t.totalScore);if(cell.dataset.secondItemKey===key)return;cell.innerHTML=`<b>${fmt(t.totalScore)} / 387</b>`;cell.dataset.secondItemKey=key;});}
-    const structureRow=rows.find(r=>r.cells?.[0]?.textContent.trim()==="构成与依据");
+    const structureRow=rows.find(r=>["分项构成","构成与依据"].includes(r.cells?.[0]?.textContent.trim()));
     if(structureRow){records.forEach((record,index)=>{const cell=structureRow.cells[index+1];if(!cell)return;if(!record?.net){if(record?.settlement_readiness==="PENDING_SECOND_ITEM_FORMAL_SETTLEMENT")setNodeText(cell,"治国成效正式结算待补；当前没有本项正式结果。");return;}for(const details of cell.querySelectorAll("details")){const summary=details.querySelector(":scope > summary"),kind=groupKindFromSummary(summary);if(kind){setNodeText(summary,publicGroupTitle(kind));formatCompactGroup(details,record,kind);}}});}
   }
 
