@@ -45,6 +45,14 @@ PUBLIC_EVIDENCE_FIELDS = (
     "public_basis",
     "public_boundary",
 )
+PUBLIC_EVIDENCE_OPTIONAL_FIELDS = (
+    "public_source_coverage",
+)
+SOURCE_COVERAGE_LABELS = {
+    "ADEQUATE": "来源覆盖：充分",
+    "PARTIAL_BUT_SUFFICIENT": "来源覆盖：局部但足够",
+    "INSUFFICIENT": "来源覆盖：不足",
+}
 PUBLIC_PROJECTION_FIELDS = {
     "public_adjudication_summary",
     "public_evidence_items",
@@ -401,12 +409,17 @@ def _validate_evidence(items: object, *, prefix: str, ruler_id: str) -> None:
     ids = [str(item.get("id") or "") for item in items if isinstance(item, dict)]
     if len(ids) != len(items) or len(ids) != len(set(ids)):
         raise ValueError(f"公开依据ID缺失或重复：{prefix}/{ruler_id}")
+    required = set(PUBLIC_EVIDENCE_FIELDS)
+    allowed = required | set(PUBLIC_EVIDENCE_OPTIONAL_FIELDS)
     for item in items:
-        if not isinstance(item, dict) or set(item) != set(PUBLIC_EVIDENCE_FIELDS):
+        if not isinstance(item, dict):
             raise ValueError(f"公开依据字段不完整：{prefix}/{ruler_id}")
+        keys = set(item)
+        if not required.issubset(keys) or not keys.issubset(allowed):
+            raise ValueError(f"公开依据字段不完整或含未知字段：{prefix}/{ruler_id}")
         if "-PUBLIC-" not in str(item["id"]):
             raise ValueError(f"公开依据ID不稳定：{prefix}/{ruler_id}")
-        for field in PUBLIC_EVIDENCE_FIELDS[1:]:
+        for field in keys - {"id"}:
             value = item[field]
             if not isinstance(value, str) or not value.strip() or PUBLIC_FORBIDDEN_RE.search(value):
                 raise ValueError(f"公开依据含内部术语：{prefix}/{ruler_id}/{field}")
@@ -884,6 +897,13 @@ def _package_projection(package: dict[str, Any]) -> dict[str, Any]:
         basis,
         boundary,
     )
+    coverage_code = str(package.get("source_coverage") or "")
+    coverage = SOURCE_COVERAGE_LABELS.get(coverage_code)
+    if not coverage:
+        raise ValueError(
+            f"第四项证据包来源覆盖状态缺失或未知：{package.get('package_code') or axis}/{coverage_code or 'EMPTY'}"
+        )
+    item["public_source_coverage"] = coverage
     return _projection(
         summary=basis,
         items=[item],
