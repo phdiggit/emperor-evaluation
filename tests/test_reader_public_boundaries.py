@@ -650,7 +650,7 @@ def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_n
     assert "const compareFirstAddOn=r=>" in block
     assert "const signedAdjustment=value=>" in block
     assert "该对象只作为补充历史样本，不进入人物画像正式评价范围。" in template
-    assert "r.supplementary?'<p>该对象只作为历史影响补充样本" in template
+    assert "r.supplementary?'<p>该对象只作为补充历史样本" in template
 
 def test_handoff_public_layer_uses_letter_grades_not_numeric_level_inputs():
     from pathlib import Path
