@@ -55,11 +55,6 @@
     STRUCTURAL_NON_DURABLE:"核心结构",
     DURABILITY_EVIDENCE_PENDING:"耐久性待核",
   };
-  const MATERIAL_STRENGTH_TAGS = new Map([
-    ["形成持续或系统性结果","持续／系统"],
-    ["持续或系统运行","持续／系统"],
-    ["已观察到实际结果","已观察结果"],
-  ]);
   let scheduled = false;
 
   function finite(value) {
@@ -442,12 +437,6 @@
 
   globalThis.SecondItemScoreHowDetails = secondScoreHowDetails;
 
-  function materialStrengthFromTags(tags) {
-    const values = Array.isArray(tags) ? tags : [];
-    for (const [tag, label] of MATERIAL_STRENGTH_TAGS) if (values.includes(tag)) return label;
-    return "";
-  }
-
   function materialChip(text, className = "") {
     const value = publicText(text);
     if (!value) return null;
@@ -470,11 +459,10 @@
 
     const meta = document.createElement("div");
     meta.className = "adjudication-material-meta";
-    const strength = data.strength || materialStrengthFromTags(data.tags);
     for (const [value, className] of [
       [data.direction, "direction"],
-      [strength, "strength"],
-      ...(Array.isArray(data.tags) ? data.tags.filter(tag => !MATERIAL_STRENGTH_TAGS.has(tag)).map(tag => [tag, "tag"]) : []),
+      [data.strength, "strength"],
+      ...(Array.isArray(data.tags) ? data.tags.map(tag => [tag, "tag"]) : []),
       [data.contribution, "contribution"],
     ]) {
       const chip = materialChip(value, className);
@@ -623,7 +611,6 @@
   globalThis.SecondItemMaterialCards = Object.freeze({
     card: materialCard,
     group: materialGroup,
-    strengthFromTags: materialStrengthFromTags,
     publicEnumText,
   });
 
