@@ -1092,3 +1092,12 @@ def test_reader_guide_explains_material_strength_badges_are_upstream_only():
     assert "只有正式记录明确给出材料强度、情境强度或同类等级时" in template
     assert "没有强度标签只表示上游没有发布这类字段，不等于证据弱" in template
     assert "不由页面补判强弱" in template
+
+
+def test_second_item_compare_enhancers_accept_public_breakdown_row_title():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    reading = (root / "reader/second-item-reading.js").read_text(encoding="utf-8")
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert '["分项构成","构成与依据"].includes' in reading
+    assert '["分项构成", "构成与依据"].includes' in alias
