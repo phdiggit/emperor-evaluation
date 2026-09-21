@@ -29,6 +29,9 @@ def verify() -> dict[str, int]:
         assert claims <= {row["axis_grade"]}, "published grade conflicts with explanatory basis"
         context_intensities = []
         for context in row.get("representative_parent_contexts") or []:
+            assert context.get("direction") != "UNRESOLVED", (
+                f"{row['ruler_name']}: unresolved direction leaked into formal representative context"
+            )
             intensity = context.get("material_intensity")
             if intensity:
                 assert intensity in MATERIAL_INTENSITIES, f"{row['ruler_name']}: invalid material_intensity {intensity}"
