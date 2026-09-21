@@ -1,11 +1,11 @@
 "use strict";
 
-// #403: 仅消费正式 public_institution_nodes / public_adjudication_summary。
+// A 制度建设专用阅读器：只消费构建后人物记录中的正式人物级公开投影。
+// 不回读制度节点正式分片，也不在浏览器中重新组合裁决来源。
 (() => {
   const screen = document.getElementById("screen");
   if (!screen) return;
 
-  const cache = new Map();
   let scheduled = false;
 
   function currentRecord() {
@@ -19,50 +19,6 @@
     return (record?.net?.component_details?.method || []).find(item => item.label === "A制度建设") || null;
   }
 
-  function sourcePath(ref) {
-    return decodeURIComponent(String(ref || "").split("#", 1)[0]).replace(/:\d+(?:-\d+)?$/, "");
-  }
-
-  function dirname(path) {
-    const at = path.lastIndexOf("/");
-    return at < 0 ? "" : path.slice(0, at);
-  }
-
-  function rows(payload) {
-    if (Array.isArray(payload?.records)) return payload.records;
-    if (Array.isArray(payload?.collections?.records?.records)) return payload.collections.records.records;
-    return [];
-  }
-
-  async function repoJson(path) {
-    const url = typeof validatedRawUrl === "function" ? validatedRawUrl(path) : `../${path}?raw=1`;
-    const response = await fetch(url, {cache:"no-cache"});
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${path}`);
-    return response.json();
-  }
-
-  async function formalA(record, item) {
-    const path = sourcePath(item?.source);
-    if (!path) return null;
-    const key = `${record.ruler_id}\u0000${path}`;
-    if (cache.has(key)) return cache.get(key);
-    const pending = (async () => {
-      const payload = await repoJson(path);
-      let records = rows(payload);
-      if (!records.length && Array.isArray(payload?.routes)) {
-        const route = payload.routes.find(entry => entry?.polity === record.polity);
-        if (!route?.path) return null;
-        records = rows(await repoJson(`${dirname(path)}/${route.path}`));
-      }
-      return records.find(row => row?.ruler_id === record.ruler_id) || null;
-    })().catch(error => {
-      console.error("Failed to load formal A public projection", error);
-      return null;
-    });
-    cache.set(key, pending);
-    return pending;
-  }
-
   function make(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -70,71 +26,63 @@
     return node;
   }
 
-  function fmtWeight(value) {
-    const number = Number(value);
-    if (!Number.isFinite(number)) return "—";
-    const text = Number.isInteger(number) ? String(number) : number.toFixed(1).replace(/\.0$/, "");
-    return number > 0 ? `+${text}` : text;
+  function detailsBlock(title, text, className = "") {
+    const value = String(text || "").trim();
+    if (!value) return null;
+    const details = make("details", className);
+    details.append(make("summary", "", title), make("p", "prose", value));
+    return details;
   }
 
-  function groupKey(direction) {
-    if (direction === "正向") return "positive";
-    if (direction === "负向") return "negative";
-    return "mixed";
+  function groupKey(entry) {
+    const direction = String(entry?.public_direction || "");
+    if (direction.startsWith("正向")) return "positive";
+    if (direction.startsWith("负向")) return "negative";
+    if (direction) return "mixed";
+    return "other";
   }
 
-  function groups(nodes) {
-    const result = {positive:[], negative:[], mixed:[]};
-    for (const node of nodes || []) result[groupKey(node?.public_direction)].push(node);
+  function groups(evidence) {
+    const result = {positive:[], negative:[], mixed:[], other:[]};
+    for (const entry of evidence || []) result[groupKey(entry)].push(entry);
     return result;
   }
 
-  function tagRow(tags) {
-    const row = make("div", "second-item-a-tags");
-    for (const tag of tags || []) row.append(make("span", "second-item-a-tag", tag));
-    return row;
-  }
-
-  function textBox(title, text, className) {
-    if (!String(text || "").trim()) return null;
-    const box = make("div", className);
-    box.append(make("strong", "", title), make("p", "", text));
-    return box;
-  }
-
-  function card(node) {
+  function card(entry) {
     const api = globalThis.SecondItemMaterialCards;
     if (api?.card) return api.card({
-      title: node?.public_label || "制度节点",
-      direction: node?.public_direction,
-      tags: node?.public_tags || [],
-      contribution: `本项计入：${fmtWeight(node?.signed_weight)}`,
-      body: node?.public_adjudication_basis,
-      scope: node?.public_scope,
-      boundary: node?.public_boundary,
-      footer: node?.public_reception,
-      dataset: {institutionNodeId: node?.institution_node_id || ""},
+      title: entry?.public_label || "制度建设材料",
+      direction: entry?.public_direction,
+      tags: entry?.public_tags || [],
+      body: entry?.public_basis,
+      boundary: entry?.public_boundary,
     });
 
     const li = make("li", "second-item-a-card");
-    li.append(make("strong", "", node?.public_label || "制度节点"));
-    if (node?.public_adjudication_basis) li.append(make("p", "", node.public_adjudication_basis));
+    li.append(make("strong", "", entry?.public_label || "制度建设材料"));
+    if (entry?.public_basis) li.append(make("p", "", entry.public_basis));
     return li;
   }
 
-  function section(title, nodes) {
+  function section(title, entries) {
     const api = globalThis.SecondItemMaterialCards;
-    if (api?.group) return api.group(title, nodes.map(card), "当前正式结算没有该类制度节点。");
+    if (api?.group) return api.group(title, entries.map(card));
+    if (!entries.length) return document.createDocumentFragment();
     const wrapper = make("section", "second-item-a-group");
     wrapper.append(make("h4", "", title));
     const list = make("ul", "second-item-a-list");
-    list.replaceChildren(...nodes.map(card));
+    list.replaceChildren(...entries.map(card));
     wrapper.append(list);
     return wrapper;
   }
 
-  function ownershipKey(record, formal) {
-    return `${record.ruler_id}|${formal.direction_index}|${(formal.public_institution_nodes || []).length}|${formal.public_adjudication_summary || ""}`;
+  function publicKey(item) {
+    return JSON.stringify([
+      item?.reader_summary || "",
+      item?.reader_boundary || "",
+      item?.reader_public_evidence_items || [],
+      item?.reader_how || "",
+    ]);
   }
 
   function appendDedicatedAudit(body, item, record) {
@@ -164,23 +112,11 @@
       .second-item-a-group>h4{margin:0 0 8px;font-size:15px}
       .second-item-a-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
       .second-item-a-card{margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:#fff}
-      .second-item-a-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-      .second-item-a-head>strong{font-size:14px}
-      .second-item-a-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
-      .second-item-a-tag{display:inline-block;padding:1px 6px;border:1px solid var(--line);border-radius:999px;font-size:10px;line-height:1.6;color:var(--green);font-weight:700;background:#f4f5ef}
-      .second-item-a-direction{font-size:10px;color:var(--muted);font-weight:700}
-      .second-item-a-impact{display:inline-block;margin-left:auto;padding:1px 7px;border-radius:999px;background:#ecefe6;color:var(--ink);font-size:10px;font-weight:700;white-space:nowrap}
-      .second-item-a-basis{margin:6px 0 0;font-size:12px;line-height:1.72}
-      .second-item-a-scope,.second-item-a-boundary{margin-top:7px;padding:7px 9px;background:rgba(0,0,0,.025);font-size:11px;line-height:1.65}
-      .second-item-a-scope strong,.second-item-a-boundary strong{font-size:11px;color:var(--muted)}
-      .second-item-a-scope p,.second-item-a-boundary p{margin:2px 0 0}
-      .second-item-a-reception{display:block;margin-top:7px;font-size:11px;line-height:1.65;color:var(--green);font-weight:600}
-      .second-item-a-empty{margin:4px 0;color:var(--muted);font-size:12px}
     `;
     document.head.append(style);
   }
 
-  async function patch() {
+  function patch() {
     ensureStyles();
     const record = currentRecord();
     if (!record) return;
@@ -190,48 +126,44 @@
     const body = detail?.querySelector(":scope > .net-metric-body");
     if (!item || !body) return;
 
-    const formal = await formalA(record, item);
-    if (!formal || !body.isConnected || currentRecord()?.ruler_id !== record.ruler_id) return;
+    const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
+    const summary = String(item.reader_summary || "").trim();
+    const key = publicKey(item);
+    if (body.dataset.aPublicKey === key && body.querySelector(":scope > .second-item-a-reading")) return;
 
-
-    const publicNodes = formal.public_institution_nodes;
-    const summary = String(formal.public_adjudication_summary || "").trim();
-    if (!Array.isArray(publicNodes) || !summary) {
-      if (body.dataset.aPublic === "missing") return;
+    if (!evidence.length || !summary) {
       body.innerHTML = "";
-      body.append(make("p", "notice", "制度建设的正式公开节点尚未同步，请先刷新正式 A 公开投影。"));
+      body.append(make("p", "notice", "制度建设的正式人物级公开投影尚未同步。"));
       body.dataset.aPublic = "missing";
+      body.dataset.aPublicKey = key;
       return;
     }
 
-    const publicKey = `${formal.public_projection_schema_version || ""}|${record.ruler_id}|${publicNodes.length}|${summary}`;
-    if (body.dataset.aPublicKey === publicKey && body.querySelector(":scope > .second-item-a-reading")) return;
-
-
     body.innerHTML = "";
     const reading = make("div", "second-item-a-reading");
-    reading.append(make("div", "label", "制度建设清单"));
-    reading.append(make("p", "second-item-a-intro", "按正式逐节点裁决阅读。每项制度直接显示方向、制度类型、本项计入权重、具体范围、边界和后世接收。"));
+    reading.append(make("div", "label", "制度建设材料"));
+    reading.append(make("p", "second-item-a-intro", "每张卡直接读取正式人物级公开投影；没有可单列制度节点时，会明确显示对应说明，不由页面自行补判。"));
     reading.append(make("div", "second-item-a-summary", summary));
 
-    const grouped = groups(publicNodes);
+    const grouped = groups(evidence);
     reading.append(section("正向制度建设", grouped.positive));
     reading.append(section("负向制度设计与制度性损害", grouped.negative));
     reading.append(section("正负并存的制度", grouped.mixed));
+    reading.append(section("其他正式说明", grouped.other));
     body.append(reading);
 
-    const gradeDetails = make("details", "");
-    gradeDetails.append(make("summary", "", "为什么最终是这个等级？"));
-    gradeDetails.append(make("p", "prose", summary));
-    body.append(gradeDetails);
+    const boundary = detailsBlock("总体范围与边界", item.reader_boundary);
+    if (boundary) body.append(boundary);
+
+    const gradeDetails = detailsBlock("为什么最终是这个等级？", summary);
+    if (gradeDetails) body.append(gradeDetails);
     const scoreHow = globalThis.SecondItemScoreHowDetails?.(item, "A制度建设");
     if (scoreHow) body.append(scoreHow);
     appendDedicatedAudit(body, item, record);
 
     body.dataset.aPublic = "done";
-    body.dataset.aPublicKey = publicKey;
+    body.dataset.aPublicKey = key;
     body.dataset.secondPublicOwner = "A";
-    body.dataset.secondInstitutionKey = ownershipKey(record, formal);
   }
 
   function schedule() {
@@ -239,7 +171,7 @@
     scheduled = true;
     requestAnimationFrame(() => {
       scheduled = false;
-      void patch();
+      patch();
     });
   }
 

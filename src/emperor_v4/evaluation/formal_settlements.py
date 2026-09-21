@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import re
 from urllib.parse import parse_qs, unquote, urlparse
 from pathlib import Path
@@ -104,6 +105,47 @@ def _load_a_material_registry(workspace_root: Path) -> dict[str, dict[str, Any]]
                 raise ValueError(f"第二项A公共材料ID重复：{material_id}")
             registry[material_id] = material
     return registry
+
+
+def _verify_material_registry_lineage(workspace_root: Path) -> None:
+    registry = _load_a_material_registry(workspace_root)
+    same_slice: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
+    for material in registry.values():
+        for evidence in material.get("evidence") or ():
+            if not isinstance(evidence, dict):
+                continue
+            quote = str(evidence.get("exact_quote") or "")
+            expected_hash = hashlib.sha256(quote.encode("utf-8")).hexdigest()
+            stored_hash = str(evidence.get("exact_quote_sha256") or "")
+            if not quote or (stored_hash and stored_hash != expected_hash):
+                raise ValueError(
+                    f"制度行政材料引文哈希不一致：{material.get('material_id')}"
+                )
+            source_url = str(evidence.get("source_url") or "")
+            source_path = source_url.split("#", 1)[0]
+            if source_path.startswith("docs/") and not (workspace_root / source_path).exists():
+                raise ValueError(
+                    f"制度行政材料本地来源不存在：{material.get('material_id')}"
+                )
+            dimension = str(material.get("mechanism_dimension_zh") or "")
+            if dimension in {"B1", "B2"}:
+                key = (
+                    str(material.get("primary_ruler") or ""),
+                    dimension,
+                    quote,
+                )
+                same_slice.setdefault(key, []).append(material)
+    for (ruler, dimension, _), materials in same_slice.items():
+        directions = {str(item.get("direction") or "") for item in materials}
+        has_positive = any("positive" in value for value in directions)
+        has_negative = any("negative" in value for value in directions)
+        if has_positive and has_negative and any(
+            not str(item.get("shared_evidence_direction_basis") or "").strip()
+            for item in materials
+        ):
+            raise ValueError(
+                f"第二项{dimension}同一证据切片正负复用但缺少分向依据：{ruler}"
+            )
 
 
 def _a_reader_source_label(source_title: object) -> str:
@@ -451,6 +493,7 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
 
 
 def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
+    _verify_material_registry_lineage(workspace_root)
     path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B1"]
     payload = load_json(path)
     records = payload.get("records") or []
@@ -693,6 +736,7 @@ def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] 
     from emperor_v4.evaluation.second_item_b1_settlement import active_groups, position_from_residual
     from emperor_v4.evaluation.second_item_b2_public import verify_public_projection
 
+    _verify_material_registry_lineage(workspace_root)
     path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B2"]
     payload = load_json(path, polities=polities)
     records = payload.get("records") or []

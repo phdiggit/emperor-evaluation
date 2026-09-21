@@ -235,7 +235,7 @@ vm.runInContext(section('const esc=','const number=')+section('const letters=','
 vm.runInContext('person(record)',context);
 assert.ok(screen.innerHTML.includes('本名（正式称呼）'));
 assert.ok(screen.innerHTML.includes('掌权背景：未列'));
-assert.ok(screen.innerHTML.includes('不是统一取证边界'));
+assert.ok(screen.innerHTML.includes('各项具体范围以各自依据为准'));
 assert.ok(screen.innerHTML.includes('各时期'));
 assert.ok(screen.innerHTML.includes('id="person-capability"'),'profile must remain visible without a power-period field');
 assert.ok(screen.innerHTML.includes('四维分项与总等级使用不同刻度'));
@@ -302,14 +302,14 @@ assert.ok(start>=0&&end>start);
 const escape=x=>String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const api=new Function('esc','prose','axisProse','link',source.slice(start,end)+';return {contextIntensity,contexts};')(
  escape,x=>'<p>'+escape(x)+'</p>',x=>'<p>'+escape(x)+'</p>',()=>'<a>合同</a>');
-for(const [code,label] of Object.entries({MI1_CASE:'单一情境',MI2_LIFECYCLE:'完整生命周期情境',MI3_SUSTAINED_SYSTEMIC:'持续系统性情境',MI4_CROSS_PHASE_SYSTEMIC:'跨阶段系统性情境'})){
+for(const [code,label] of Object.entries({MI1:'单一情境',MI1_CASE:'单一情境',MI2:'完整生命周期情境',MI2_LIFECYCLE:'完整生命周期情境',MI3:'持续系统性情境',MI3_SUSTAINED_SYSTEMIC:'持续系统性情境',MI4:'跨阶段系统性情境',MI4_CROSS_PHASE_SYSTEMIC:'跨阶段系统性情境'})){
  assert.equal(api.contextIntensity({intensity:code}),label);
  assert.equal(api.contextIntensity({material_intensity:code}),label);
  assert.equal(api.contextIntensity({intensity:code,material_intensity:code}),label);
 }
 assert.equal(api.contextIntensity({basis:'跨阶段多年反复，有MI4字样。',axis_grade:'G5'}),'未列');
 assert.equal(api.contextIntensity({intensity:null}),'未列');
-assert.equal(api.contextIntensity({intensity:'MI4'}),'未设中文展示，请查原始记录');
+assert.equal(api.contextIntensity({intensity:'FUTURE_CODE'}),'未设中文展示，请查原始记录');
 assert.equal(api.contextIntensity({intensity:'MI1_CASE',material_intensity:'MI4_CROSS_PHASE_SYSTEMIC'}),'上游字段不一致，请查原始记录');
 const record={counterpattern:{negative_parent_refs:['P']},context_lookup:{P:{intensity:'MI2_LIFECYCLE',basis:'完整正式说明，包括反证和限制。'}}};
 const before=JSON.stringify(record),html=api.contexts(record,true);
@@ -391,7 +391,9 @@ def test_second_item_material_card_phase_two_scope():
     root = Path(__file__).resolve().parents[1]
     alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
     assert "adjudication-material-card" in alias
-    assert "持续／系统" in alias
+    assert "materialStrengthFromTags" not in alias
+    assert "MATERIAL_STRENGTH_TAGS" not in alias
+    assert 'data.tags.map(tag => [tag, "tag"])' in alias
     assert 'label === "B2反馈与约束"' in alias
     assert "renderFinanceMaterialGroups(label, evidence)" in alias
     for label in ("C1民生", "C2经济财政", "C3社会安全", "C4恢复与成本"):
@@ -405,6 +407,160 @@ def test_second_item_material_card_phase_two_scope():
     assert "renderHandoffMaterialGroups(label, evidence)" in alias
     assert "D1继任行政连续性" in alias
     assert "D3政权交接稳定" in alias
+
+def test_generated_net_judgments_have_complete_public_reading_fields_across_pool():
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    groups = ("method", "finance", "handoff", "strategic", "military", "civilization")
+    third_fourth = {"strategic", "military", "civilization"}
+    seen = 0
+
+    for path in sorted((root / "reader/data/people").glob("*.json")):
+        record = json.loads(path.read_text(encoding="utf-8")).get("record") or {}
+        details = ((record.get("net") or {}).get("component_details") or {})
+        for group in groups:
+            for item in details.get(group) or []:
+                if item.get("reader_kind") != "judgment":
+                    continue
+                seen += 1
+                prefix = f"{path.name}:{record.get('ruler_name')}:{group}:{item.get('label')}"
+                assert str(item.get("reader_summary") or "").strip(), prefix + ": missing reader_summary"
+                assert str(item.get("reader_boundary") or "").strip(), prefix + ": missing reader_boundary"
+                evidence = item.get("reader_public_evidence_items")
+                assert isinstance(evidence, list) and evidence, prefix + ": missing public evidence"
+                for index, entry in enumerate(evidence):
+                    assert isinstance(entry, dict), prefix + f": evidence[{index}] is not an object"
+                    for field in ("public_label", "public_basis"):
+                        assert str(entry.get(field) or "").strip(), prefix + f": evidence[{index}] missing {field}"
+                    if group in third_fourth:
+                        assert str(entry.get("public_boundary") or "").strip(), prefix + f": evidence[{index}] missing public_boundary"
+                if group in third_fourth:
+                    assert str(item.get("public_component_label") or "").strip(), prefix + ": missing public_component_label"
+                    assert str(item.get("public_level_label") or "").strip(), prefix + ": missing public_level_label"
+
+    assert seen > 0
+
+
+def test_b1_public_projection_has_a_separate_cli_from_formal_recalculation():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    source = (root / "src/emperor_v4/eval.py").read_text(encoding="utf-8")
+    settlement = (root / "src/emperor_v4/evaluation/second_item_b1_settlement.py").read_text(encoding="utf-8")
+    assert 'commands.add_parser("second-item-b1-public")' in source
+    assert 'refresh_b1_public_projection_file' in source
+    assert 'def refresh_b1_public_projection_file' in settlement
+    assert 'def refresh_b1_payload' in settlement
+
+
+def test_b1_public_projection_refresh_preserves_formal_scoring_signature():
+    import copy
+    from pathlib import Path
+    from emperor_v4.evaluation.formal_json_store import load_json
+    from emperor_v4.evaluation.second_item_b1_settlement import (
+        B1_PATH,
+        B1_PUBLIC_BOUNDARY,
+        _scoring_signature,
+        refresh_b1_public_projection,
+        validate_public_profile_contract,
+    )
+
+    root = Path(__file__).resolve().parents[1]
+    payload = load_json(root / B1_PATH)
+    before = _scoring_signature(payload)
+    projected = refresh_b1_public_projection(copy.deepcopy(payload))
+
+    assert _scoring_signature(projected) == before
+    validate_public_profile_contract(projected)
+    assert projected["records"]
+    for row in projected["records"]:
+        assert row["public_boundary"] == B1_PUBLIC_BOUNDARY
+        assert isinstance(row["public_evidence_items"], list) and row["public_evidence_items"]
+
+
+def test_a_public_evidence_does_not_repeat_scope_or_reception_already_in_basis():
+    import copy
+    from pathlib import Path
+    from emperor_v4.evaluation.formal_json_store import load_json
+    from emperor_v4.evaluation.second_item_a_public import A_PATH, _refresh_payload
+
+    root = Path(__file__).resolve().parents[1]
+    projected = _refresh_payload(copy.deepcopy(load_json(root / A_PATH)), root)
+    checked = 0
+    for row in projected["records"]:
+        nodes = row.get("public_institution_nodes") or []
+        evidence = row.get("public_evidence_items") or []
+        if not nodes:
+            continue
+        assert len(nodes) == len(evidence)
+        for node, item in zip(nodes, evidence):
+            basis = str(node.get("public_adjudication_basis") or "")
+            scope = str(node.get("public_scope") or "")
+            reception = str(node.get("public_reception") or "")
+            rendered = str(item.get("public_basis") or "")
+            if scope and scope in basis:
+                assert f"\n\n{scope}" not in rendered
+                checked += 1
+            if reception and reception in basis:
+                assert f"\n\n{reception}" not in rendered
+                checked += 1
+    assert checked > 0
+
+
+def test_a_public_projection_supplies_row_evidence_even_without_institution_nodes():
+    import copy
+    from pathlib import Path
+    from emperor_v4.evaluation.formal_json_store import load_json
+    from emperor_v4.evaluation.second_item_a_public import (
+        A_PATH,
+        A_PUBLIC_BOUNDARY,
+        _refresh_payload,
+        verify_public_projection,
+    )
+
+    root = Path(__file__).resolve().parents[1]
+    payload = load_json(root / A_PATH)
+    projected = _refresh_payload(copy.deepcopy(payload), root)
+    verify_public_projection(root, projected)
+
+    empty_rows = [row for row in projected["records"] if not row.get("public_institution_nodes")]
+    assert empty_rows
+    for row in empty_rows:
+        assert row["public_boundary"] == A_PUBLIC_BOUNDARY
+        evidence = row["public_evidence_items"]
+        assert len(evidence) == 1
+        assert evidence[0]["public_label"] == "当前没有可单列制度节点"
+        assert evidence[0]["public_boundary"] == A_PUBLIC_BOUNDARY
+
+
+def test_method_reader_consumes_row_level_formal_evidence_for_a_and_b1():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    build = (root / "reader/build.py").read_text(encoding="utf-8")
+    start = build.index("def _attach_method_public_reader")
+    end = build.index("\ndef ", start + 4)
+    block = build[start:end]
+    assert block.count('evidence = record.get("public_evidence_items")') == 2
+    assert "public_institution_nodes" not in block
+    assert "M_positive_profile" not in block
+    assert "M_mixed_profile" not in block
+    assert "M_negative_profile" not in block
+
+
+def test_b1_reader_consumes_formal_public_projection_instead_of_rebuilding_profiles():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    settlement = (root / "src/emperor_v4/evaluation/second_item_b1_settlement.py").read_text(encoding="utf-8")
+    build = (root / "reader/build.py").read_text(encoding="utf-8")
+
+    assert "B1_PUBLIC_BOUNDARY" in settlement
+    assert 'row["public_boundary"] = B1_PUBLIC_BOUNDARY' in settlement
+    assert 'row["public_evidence_items"] = _public_evidence_items(row)' in settlement
+    assert 'evidence = record.get("public_evidence_items")' in build
+    assert 'declared_boundary = record.get("public_boundary")' in build
+
 
 def test_third_fourth_detail_material_cards_use_formal_public_fields_only():
     from pathlib import Path
@@ -473,7 +629,7 @@ def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
 
     assert '"统一成果", "先看本人真正留下了什么"' in home
     assert '"创业组织与政治整合", "多线并行、专业分工与异质整合"' in home
-    assert "统一成果 ${a} + 创业难度与效率 ${b1} + 创业组织 ${b2} + 本人统帅 ${c}" in home
+    assert "统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]}" in home
     assert "<strong>统一成果</strong>" in person
     assert "<strong>创业组织与政治整合</strong>" in person
     assert "L档怎么换分" not in person
@@ -534,6 +690,13 @@ def test_mobile_material_cards_stack_labels_and_scores():
     assert "overflow-wrap:anywhere" in home
     assert ".formal-context-chip" in css
     assert "white-space: normal" in css
+def test_second_item_material_groups_do_not_render_empty_categories():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert "if (!cards.length) return document.createDocumentFragment();" in source
+    assert "当前没有该类材料。" not in source
+
+
 def test_structured_material_pages_avoid_default_summary_and_scope_duplication():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
@@ -545,7 +708,144 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'card.append(box);' not in alias[alias.index('const scope = publicText(data.scope)'):alias.index('const footer = publicText(data.footer)')]
     assert 'const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;' in home
     assert '总体裁决摘要' in home
-    assert 'const logic = (structuredMaterials ? [intro] : [intro, summary])' in home
+    assert 'const logic = structuredMaterials ? "" : summary;' in home
+    assert 'class="net-overall-boundary"' in home
+    assert '<summary>总体范围与边界</summary>' in home
+def test_source_coverage_and_material_strength_are_explained_as_different_scales():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "hasSourceCoverage" in home
+    assert "来源覆盖”只表示当前公开证据包的来源是否足够" in home
+    assert "不表示材料强度、结果方向或得分高低" in home
+    assert "“材料强度”描述情境的持续性、作用范围和机制化程度" in template
+    assert "“来源覆盖”描述公开证据包的来源是否足够" in template
+    assert "两者不是同一尺度" in template
+
+
+def test_fourth_item_public_source_coverage_is_rendered_only_when_formally_published():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'const coverage = format(entry?.public_source_coverage || "");' in source
+    assert '[role, direction, coverage, ...tags]' in source
+    assert "net-material-chip" in source
+
+
+def test_profile_material_intensity_aliases_compare_by_public_semantics_not_raw_code():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "const publicValues=rawValues.map(value=>materialIntensityNames[value]||value);" in template
+    assert "publicValues.some(value=>value!==publicValues[0])" in template
+    assert "rawValues.some(v=>v!==rawValues[0])" not in template
+
+
+def test_profile_material_intensity_short_aliases_have_public_labels():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    for token in (
+        "MI1:'单一情境'",
+        "MI2:'完整生命周期情境'",
+        "MI3:'持续系统性情境'",
+        "MI4:'跨阶段系统性情境'",
+    ):
+        assert token in template
+
+
+def test_profile_axis_summary_shows_formal_material_coverage_in_public_words():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "const evidenceLevel=readerText(a.axis_evidence_level||'');" in template
+    assert 'class="axis-evidence-level">材料覆盖：' in template
+    assert "材料覆盖 '+esc(evidenceLevel)" in template
+    assert "材料级别 ${esc(a.axis_evidence_level" not in template
+
+
+def test_reader_guide_preserves_material_strength_display_boundary():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "只有正式记录明确发布相应字段时页面才展示" in template
+    assert "没有这类标签只表示上游没有发布，不等于证据弱" in template
+    assert "两者不是同一尺度" in template
+    assert "页面也不会自行补判" in template
+
+
+def test_public_scope_copy_avoids_internal_pool_and_public_band_jargon():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "不在人物画像主池" not in template
+    assert "不进入本展示的人物画像主池" not in template
+    assert "历史影响池外补充样本" not in template
+    assert " · 补充样本" not in template
+    assert "公众总档和四个维度" not in template
+    assert "<b>公众总档</b>" not in template
+    assert "人物画像正式评价范围" in template
+    assert "补充历史样本" in template
+    assert "历史影响总等级" in template
+
+
+def test_public_power_context_copy_avoids_internal_evidence_window_jargon():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "不是统一取证边界" not in template
+    assert "非统一取证期" not in template
+    assert "各项具体范围以各自依据为准" in template
+    assert "掌权背景（各项范围另见依据）" in template
+
+
+def test_net_detail_renderer_uses_public_performance_language_and_current_person_section_title():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'title: "统治绩效构成"' in source
+    assert 'title: "第三项 · 军事与边疆"' in source
+    assert '["统治绩效构成", "净收益构成"].includes' in source
+    assert 'aria-label="统治绩效详情"' in source
+    assert "正在加载${esc(summary.ruler_name)}的统治绩效详情" in source
+    assert "总榜净收益" not in source
+    assert "净收益计分详情加载失败" not in source
+
+
+def test_compare_net_breakdown_hides_internal_grades_notes_and_calculation_rows():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function compareNetValue")
+    end = template.index("const impactAuditSource", start)
+    block = template[start:end]
+    assert "x.reader_kind==='judgment'" in block
+    assert "x.grade" not in block
+    assert "x.note" not in block
+    assert "内部档位码、折算中间项和小计不在对照页展开" in block
+    assert "row('分项构成'" in template
+    assert "<summary>展开分项</summary>" in template
+
+
+def test_compare_net_breakdown_keeps_formal_public_level_labels():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function compareNetPublicLevel")
+    end = template.index("const impactAuditSource", start)
+    block = template[start:end]
+    assert "item?.public_level_label" in block
+    assert "item?.grade" not in block
+    assert "公开层级随正式字段展示" in block
+    assert "普通成本扣分" in block
+    assert "严重军事成本" in block
+    assert "清晰但有限的变化" in block
+    assert "if(level)return" in block
+    assert "不单独计分" in block
+
+
+def test_base_template_uses_current_second_item_public_terms_before_runtime_patching():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "治国净收益" not in template
+    assert "财政与民生" not in template
+    assert "交接质量" not in template
+    assert "治国成效" in template
+    assert "民生与社会" in template
+    assert "政权交接" in template
+
+
 def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustment():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
@@ -557,9 +857,15 @@ def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustme
     assert "本项适用，但未形成正向净收益" in template
     assert "这与“不适用”不同" in template
     assert "compareFirstAddOn" in template
+    assert "function firstRawScore" in template
+    assert "Number(n.first_item_raw_score)===0" not in template
+    assert "Number(r.net.first_item_raw_score)===0" not in template
     assert "signedAdjustment" in template
     assert 'groupKey === "civilization"' in home
     assert "本项适用，但没有形成正向净收益" in home
+    assert "function finiteNetNumber(value)" in home
+    assert '&& Number(record.net?.first_item_raw_score) === 0' not in home
+    assert '&& Number(record.net.first_item_raw_score) === 0' not in home
     assert 'major === "fourth" && Number(value) > 0' in home
 def test_overview_major_link_matching_tolerates_public_state_notes():
     from pathlib import Path
@@ -569,8 +875,8 @@ def test_overview_major_link_matching_tolerates_public_state_notes():
 def test_supplementary_simple_card_does_not_offer_unavailable_profile():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
-    assert "不在人物画像主池" in template
-    assert "r.supplementary?'<span class=\"muted\">不在人物画像主池</span>'" in template
+    assert "不在人物画像正式评价范围" in template
+    assert "r.supplementary?'<span class=\"muted\">不在人物画像正式评价范围</span>'" in template
 def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_no_dead_help():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
@@ -578,10 +884,11 @@ def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_n
     compare_end = template.index("function guide()", compare_start)
     block = template[compare_start:compare_end]
     assert "const missingNetLabel=r=>" in block
+    assert "const firstRawScore=n=>" in block
     assert "const compareFirstAddOn=r=>" in block
     assert "const signedAdjustment=value=>" in block
-    assert "该对象只作为历史影响补充样本，不进入本展示的人物画像主池。" in template
-    assert "r.supplementary?'<p>该对象只作为历史影响补充样本" in template
+    assert "该对象只作为补充历史样本，不进入人物画像正式评价范围。" in template
+    assert "r.supplementary?'<p>该对象只作为补充历史样本" in template
 
 def test_handoff_public_layer_uses_letter_grades_not_numeric_level_inputs():
     from pathlib import Path
@@ -772,6 +1079,24 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "两个战略安全轴最后直接相加" in source
 
 
+def test_first_item_readers_do_not_backfill_missing_cost_or_net_as_zero():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    first = (root / "reader/first-item-reading.js").read_text(encoding="utf-8")
+
+    assert "[a, b1, b2, c, gross, cost, net, addOn]" in home
+    assert "[a, b1, b2, c, gross, cost, net, addOn]" in person
+    assert "[a, b1, b2, c, gross, cost, net, addOn]" in first
+    assert "cost ?? 0" not in home
+    assert "cost ?? 0" not in person
+    assert '?.value ?? 0' not in first
+    for source in (person, first):
+        assert 'const rawNetScore = byLabel["第一项净分"]?.value;' in source
+        assert 'rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore)' in source
+
+
 def test_first_item_cost_explains_current_fixed_debit_lookup():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
@@ -943,7 +1268,7 @@ def test_third_item_public_aliases_replace_compound_internal_labels_before_bare_
     assert source.index('replace(/\\bB4交班成熟度/g') < source.index('replace(/\\bB4\\b/g')
 
 
-def test_third_item_strategic_axis_explains_trajectory_as_exact_intermediate_formula():
+def test_third_item_strategic_axis_explains_formula_without_reverse_deriving_formal_intermediate():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "function strategicAxisExactHow(item, groupItems)" in source
@@ -952,8 +1277,10 @@ def test_third_item_strategic_axis_explains_trajectory_as_exact_intermediate_for
     assert "E=0、D=1、C=2、B=3、A=4、S=5" in source
     assert "0—5只是在公式中的档位权重" in source
     assert "公开裁决仍使用 E—S" in source
-    assert "正式轨迹值为" in source
-    assert "专项信用与负向调整均直接读取正式裁决，不由阅读层重算" in source
+    assert "当前人物正式结算记录" in source
+    assert "不由阅读层反推中间值" in source
+    assert "正式轨迹值为" not in source
+    assert "score / 0.6" not in source
 
 
 def test_fourth_item_public_layer_uses_semantic_magnitude_labels_instead_of_numbered_levels():
@@ -973,6 +1300,50 @@ def test_fourth_item_public_layer_uses_semantic_magnitude_labels_instead_of_numb
     assert '第${magnitude[1]}级影响' not in source
 
 
+def test_first_item_summary_does_not_repeat_the_same_scoreline_after_detail_cards():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    first_totals = source[source.index("function firstTotals(items)"):source.index("function firstItemOverview", source.index("function firstTotals(items)"))]
+    assert "查看第一项完整折算公式" in first_totals
+    assert "first-item-scoreline" not in first_totals
+    assert "军事代价扣减 =" in first_totals
+
+
+def test_first_item_applicability_is_three_state_and_never_inferred_from_items():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    first = (root / "reader/first-item-reading.js").read_text(encoding="utf-8")
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    for source in (home, person, first):
+        assert '"NOT_APPLICABLE"' in source
+        assert '"APPLICABLE"' in source
+        assert "第一项正式适用状态" in source
+        assert "items.every(item =>" not in source
+    assert "正式状态未发布；阅读层不判断是否适用" in template
+    assert "n.first_item_status==='NOT_APPLICABLE'" in template
+
+
+def test_material_cards_show_optional_formal_source_coverage_without_reader_inference():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'const coverage = format(entry?.public_source_coverage || "");' in source
+    assert '[role, direction, coverage, ...tags]' in source
+    assert "entry?.source_coverage" not in source
+
+
+def test_fourth_item_zero_total_explains_cross_axis_cancellation():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "function fourthAdjustmentNote(record)" in source
+    assert "const adjustment = finiteNetNumber(record.net?.fourth_item_adjustment);" in source
+    assert "Number(record.net?.fourth_item_adjustment) === 0" not in source
+    assert "hasPositive && hasNegative" in source
+    assert "存在正向与负向分轴，合计后相抵" in source
+    assert "0不代表各轴都没有变化" in source
+
+
 def test_third_item_long_public_basis_is_losslessly_split_for_readability():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
@@ -985,3 +1356,20 @@ def test_third_item_long_public_basis_is_losslessly_split_for_readability():
     assert "固定成本系数" in source
     assert "CIV_PUBLIC_POINTS" in source
 
+
+
+def test_reader_guide_explains_material_strength_badges_are_upstream_only():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "只有正式记录明确发布相应字段时页面才展示" in template
+    assert "没有这类标签只表示上游没有发布，不等于证据弱" in template
+    assert "页面也不会自行补判" in template
+
+
+def test_second_item_compare_enhancers_accept_public_breakdown_row_title():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    reading = (root / "reader/second-item-reading.js").read_text(encoding="utf-8")
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert '["分项构成","构成与依据"].includes' in reading
+    assert '["分项构成", "构成与依据"].includes' in alias

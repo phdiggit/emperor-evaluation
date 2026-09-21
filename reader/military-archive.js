@@ -149,7 +149,7 @@
 
   function publicMilitaryText(value) {
     let output = String(value ?? "");
-    const terms = {first_tier_pole:"第一梯队竞争力量",capital_or_state_survival:"首都或国家存续",core_heartland:"核心腹地",important_region:"重要区域",dominant_pole:"主导竞争极",regional_major:"区域主要对手",strong:"强盛",viable:"仍具作战能力",residual:"残余体系",defeat:"失败",victory:"胜利",failed:"未完成",complete:"完成",partial:"部分完成",mixed:"得失并存",objective_shortfall:"未完成目标",objective_shortfalls:"未完成目标"};
+    const terms = {first_tier_pole:"第一梯队竞争力量",capital_or_state_survival:"首都或国家存续",core_heartland:"核心腹地",important_region:"重要区域",dominant_pole:"主导竞争极",regional_major:"区域主要对手",strong:"强盛",viable:"仍具作战能力",residual:"残余体系",defeat:"失败",victory:"胜利",failed:"未完成",complete:"完成",partial:"部分完成",mixed:"得失并存",objective_shortfall:"未完成目标",objective_shortfalls:"未完成目标",unknown:"未明确",unresolved:"尚未确认"};
     output = output.replace(/\b[a-z]+(?:_[a-z]+)*\b/g, word => terms[word] || word);
     for (const [key, label] of Object.entries(publicMilitaryTerms)) {
       output = output.replace(new RegExp(`\\b${key}\\b`, "g"), label);
@@ -169,7 +169,7 @@
       .replace(/\btactical_execution\b/gi, "战术执行")
       .replace(/\bauthorization_only\b/gi, "仅授权")
       .replace(/\bnominal_only\b/gi, "仅名义责任")
-      .replace(/\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g, "内部分类")
+      .replace(/\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g, "分类状态")
       .replace(/\s+/g, " ")
       .trim();
   }
@@ -179,7 +179,7 @@
     if (!raw) return fallback;
     if (mapping[raw]) return mapping[raw];
     const translated = publicMilitaryText(raw);
-    if (translated.includes("内部分类")) return fallback;
+    if (translated.includes("分类状态")) return fallback;
     if (translated !== raw) return translated;
     return /^[A-Za-z][A-Za-z0-9_]*$/.test(raw) ? fallback : raw;
   }
@@ -254,13 +254,13 @@
       if (cardIndex >= 0) {
         const card = activeEvidence.source_cards[cardIndex];
         const paragraph = String(ref).match(/P\d+$/)?.[0] || "";
-        return `<p><a href="#battle=${encodeURIComponent(activeBattleId)}&source=${cardIndex}">《${esc(card.source_volume || card.title)}》${esc(paragraph ? ` · 本地分段 ${paragraph}` : "")} · 查看摘句与定位 →</a></p>`;
+        return `<p><a href="#battle=${encodeURIComponent(activeBattleId)}&source=${cardIndex}">《${esc(card.source_volume || card.title)}》${esc(paragraph ? ` · 史料卡段落 ${paragraph}` : "")} · 查看摘句与定位 →</a></p>`;
       }
       const unit = String(ref).match(/^(SRC-.+)-P\d+$/)?.[1];
       const volume = unit && activeEvidence?.source_cards?.find(card => card.refs.some(anchor => String(anchor).startsWith(unit + "-P")));
       if (volume) {
         const url = volume.source_url || repoHref(`${volume.source_volume}@${volume.revision || ""}`);
-        if (url) return `<p><a href="${esc(url)}" target="_blank" rel="noopener">《${esc(volume.source_volume)}》 · 阅读原卷 ↗</a><br>本地定位：${esc(ref)}；当前来源卡没有与本段单独配对的摘句。</p>`;
+        if (url) return `<p><a href="${esc(url)}" target="_blank" rel="noopener">《${esc(volume.source_volume)}》 · 阅读原卷 ↗</a><br>史料卡定位：${esc(ref)}；当前来源卡没有与本段单独配对的摘句。</p>`;
       }
       const battle = battleForRef(ref);
       if (battle) {
@@ -271,7 +271,7 @@
       const source = String(ref).match(/^([^@]+)@([^#]*)(?:#(.*))?$/);
       const title = source ? `《${source[1].replace("/", " · ")}》` : ref;
       const excerpt = source ? (source[3] || (/^\d+$/.test(source[2]) ? "" : source[2])) : "";
-      return `<p>${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(title)} · 阅读来源 ↗</a>` : esc(title)}${excerpt ? `<br><span>登记定位摘句：${esc(excerpt)}</span>` : ""}</p>`;
+      return `<p>${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(title)} · 阅读来源 ↗</a>` : esc(title)}${excerpt ? `<br><span>来源定位摘句：${esc(excerpt)}</span>` : ""}</p>`;
     }).join("")}</div>`;
   }
 
@@ -335,7 +335,7 @@
   }
 
   const fieldNames = {
-    basis:"依据", source_refs:"来源", P:"人员损害 P", S:"本土受损 S", M:"动员投入 M", A:"军事资产 A", WC:"本阶段成本 WC",
+    basis:"依据", source_refs:"来源", P:"人员损害", S:"本土受损", M:"动员投入", A:"军事资产", WC:"本阶段综合成本",
     P_observed:"已载人员损害", range:"推定区间", center:"区间中心", upper_bound_reason:"上限依据", confidence:"判断把握",
     BCP:"控制收益", BCN:"控制损失", control_objects:"控制对象", control_outcome:"控制结果", control_change_mode:"控制变化",
     continuity_status:"持续状态", control_effect_status:"证据状态", grade:"档位", note:"说明", summary:"摘要",
@@ -385,7 +385,7 @@
     return `<section class="panel"><h2>史料原文摘句与定位</h2><p>摘句按现有史料卡原样展示，属于整组来源；不将一组摘句擅自配给某一个分段编号。分段编号用于本仓库核对。</p>${cards.map((card,index) => {
       const book = String(card.source_volume || "").replace("资治通鉴", "資治通鑑").replace("辽史", "遼史");
       const url = /^https?:\/\//.test(card.source_url || "") ? card.source_url : book.includes("/") ? `https://zh.wikisource.org/wiki/${encodeURI(book)}${/^\d+$/.test(String(card.revision)) ? `?oldid=${card.revision}` : ""}` : "";
-      return `<article class="member" id="source-card-${index}"><h3>${esc(card.title || book)}</h3>${card.quotes.length ? card.quotes.map(quote => `<blockquote class="prose">${esc(quote)}</blockquote>`).join("") : '<p>这张来源卡没有另存原文摘句，请打开原卷阅读；不以裁决摘要冒充原文。</p>'}<p>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">打开《${esc(book)}》${card.revision ? "对应版本" : ""} ↗</a>` : ""}</p><p><a href="${esc(repoHref(card.source))}" target="_blank" rel="noopener">查看保存这些摘句的史料卡 ↗</a></p><small>本地分段：${esc(card.refs.map(ref=>String(ref).match(/P\d+$/)?.[0] || ref).join("、"))}</small></article>`;
+      return `<article class="member" id="source-card-${index}"><h3>${esc(card.title || book)}</h3>${card.quotes.length ? card.quotes.map(quote => `<blockquote class="prose">${esc(quote)}</blockquote>`).join("") : '<p>这张来源卡没有另存原文摘句，请打开原卷阅读；不以裁决摘要冒充原文。</p>'}<p>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">打开《${esc(book)}》${card.revision ? "对应版本" : ""} ↗</a>` : ""}</p><p><a href="${esc(repoHref(card.source))}" target="_blank" rel="noopener">查看保存这些摘句的史料卡 ↗</a></p><small>史料卡段落：${esc(card.refs.map(ref=>String(ref).match(/P\d+$/)?.[0] || ref).join("、"))}</small></article>`;
     }).join("")}</section>`;
   }
 

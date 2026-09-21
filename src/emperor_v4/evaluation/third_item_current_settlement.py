@@ -35,10 +35,49 @@ def _without_public_fields(value: Any) -> Any:
     return value
 
 
+def _replace_non_public_preserving_public(current: Any, source: Any) -> Any:
+    """Replace the scoring view without moving public prose between projections."""
+
+    if isinstance(source, Mapping):
+        current_mapping = current if isinstance(current, Mapping) else {}
+        result = {}
+        for key, child in current_mapping.items():
+            if str(key).startswith("public_"):
+                result[key] = child
+            elif key in source:
+                result[key] = _replace_non_public_preserving_public(
+                    child, source[key]
+                )
+        for key, child in source.items():
+            if key not in current_mapping and not str(key).startswith("public_"):
+                result[key] = _replace_non_public_preserving_public(None, child)
+        return result
+    if isinstance(source, list):
+        if isinstance(current, list) and len(current) == len(source):
+            return [
+                _replace_non_public_preserving_public(old, new)
+                for old, new in zip(current, source, strict=True)
+            ]
+        return [
+            _replace_non_public_preserving_public(None, child)
+            for child in source
+        ]
+    return source
+
+
+def _preserve_mapping_order_if_equal(current: Any, rebuilt: dict) -> dict:
+    """Avoid order-only rewrites when a reconstructed mapping is unchanged."""
+
+    if isinstance(current, Mapping) and current == rebuilt:
+        return dict(current)
+    return rebuilt
+
+
 AB_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
 C_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json")
 FORMAL_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json")
 RESULT_CREDIT_ADJUDICATIONS_PATH = Path("config/third-item/third-item-result-credit-adjudications.json")
+CANONICAL_RULER_POOL_PATH = Path("config/common/canonical-ruler-pool.json")
 COST_CREDIT_FACTORS_PATH = Path("config/third-item/third-item-cost-credit-factors.json")
 MILITARY_NET_LOSS_PENALTIES_PATH = Path("config/third-item/third-item-military-net-loss-penalties.json")
 C_OUTCOME_ADJUDICATIONS_PATH = Path("config/third-item/third-item-c-outcome-adjudications.json")
@@ -837,6 +876,135 @@ def _validate_result_credit_contract(
             raise ValueError(f"{row['ruler_name']} A120/B80正式视图未同步")
 
 
+def _validate_overlapping_subject_windows(
+    workspace_root: Path,
+    payloads: Mapping[str, Mapping[str, Any]],
+) -> None:
+    """Require one synchronized A/B/C/D accounting decision for shared-power windows."""
+    canonical = _load(workspace_root / CANONICAL_RULER_POOL_PATH)
+    shared_candidates = [
+        row
+        for row in canonical.get("records") or ()
+        if row.get("pool_status") == "INCLUDED"
+        and any(
+            token in str(row.get("actual_power_window") or "")
+            for token in ("共享", "共治", "重叠")
+        )
+    ]
+    required_ids: set[str] = set()
+    review_ids: set[str] = set()
+    for row in shared_candidates:
+        adjudication = row.get("actual_power_window_adjudication") or {}
+        status = str(adjudication.get("third_item_overlap_status") or "")
+        if status == "NO_OVERLAP_IN_SCORING_WINDOW":
+            if not str(adjudication.get("basis") or "").strip():
+                raise ValueError(f"{row.get('ruler_name')}共享窗口排除缺少依据")
+            continue
+        if status == "REQUIRES_COMPONENT_REVIEW":
+            raise ValueError(f"{row.get('ruler_name')}共享窗口仍待第三项组件重裁")
+        if status != "COMPONENT_REVIEW_COMPLETE":
+            raise ValueError(f"{row.get('ruler_name')}共享窗口缺少第三项结构化裁决")
+        review_id = str(adjudication.get("overlap_review_id") or "")
+        ruler_ids = {
+            str(value) for value in adjudication.get("overlapping_ruler_ids") or ()
+        }
+        if (
+            not review_id
+            or len(ruler_ids) < 2
+            or str(row.get("ruler_id")) not in ruler_ids
+        ):
+            raise ValueError(f"{row.get('ruler_name')}共享窗口裁决对象不完整")
+        review_ids.add(review_id)
+        required_ids.update(ruler_ids)
+    if not required_ids:
+        return
+    if len(review_ids) != 1:
+        raise ValueError("同一共享权力组必须使用唯一第三项review_id")
+    expected_review_id = next(iter(review_ids))
+    component_indexes = {
+        key: {str(row["ruler_id"]): row for row in payload["records"]}
+        for key, payload in payloads.items()
+    }
+    for ruler_id in sorted(required_ids):
+        reference_review: Mapping[str, Any] | None = None
+        reference_windows: Any = None
+        for component, indexed in component_indexes.items():
+            row = indexed.get(ruler_id)
+            if row is None:
+                raise ValueError(f"共享窗口人物缺少{component}记录：{ruler_id}")
+            review = row.get("overlapping_subject_window_review") or {}
+            windows = row.get("active_rule_windows")
+            if str(review.get("review_id") or "") != expected_review_id:
+                raise ValueError(
+                    f"共享窗口{component}缺少统一review_id：{row.get('ruler_name')}"
+                )
+            if (
+                review.get("status")
+                != "REVIEWED_SHARED_POWER_SINGLE_ACCOUNTING_OWNER"
+            ):
+                raise ValueError(
+                    f"共享窗口{component}尚未闭合单一记账主体：{row.get('ruler_name')}"
+                )
+            if set((review.get("component_scope") or {}).keys()) != {
+                "A",
+                "B",
+                "C",
+                "D",
+            }:
+                raise ValueError(
+                    f"共享窗口{component}未覆盖A/B/C/D：{row.get('ruler_name')}"
+                )
+            if not windows:
+                raise ValueError(
+                    f"共享窗口{component}缺少active_rule_windows：{row.get('ruler_name')}"
+                )
+            if reference_review is None:
+                reference_review = review
+                reference_windows = windows
+            elif review != reference_review or windows != reference_windows:
+                raise ValueError(
+                    f"共享窗口A/B/C/D裁决不同步：{row.get('ruler_name')}"
+                )
+
+
+def _validate_actual_power_window_reviews(
+    workspace_root: Path,
+    payloads: Mapping[str, Mapping[str, Any]],
+) -> None:
+    canonical = _load(workspace_root / CANONICAL_RULER_POOL_PATH)
+    required = {
+        str(row["ruler_id"]): row
+        for row in canonical.get("records") or ()
+        if (row.get("third_item_window_adjudication") or {}).get("status")
+        == "ACCEPTED_AFTER_WINDOW_READJUDICATION"
+    }
+    if not required:
+        return
+    component_indexes = {
+        key: {str(row["ruler_id"]): row for row in payload["records"]}
+        for key, payload in payloads.items()
+    }
+    for ruler_id, canonical_row in required.items():
+        expected_review = None
+        expected_windows = None
+        for component, indexed in component_indexes.items():
+            row = indexed.get(ruler_id)
+            if row is None:
+                raise ValueError(f"实际权力窗口人物缺少{component}记录：{ruler_id}")
+            review = row.get("actual_power_window_review") or {}
+            windows = row.get("active_rule_windows")
+            if review.get("status") != "REVIEWED_ACTUAL_POWER_WINDOW":
+                raise ValueError(f"{canonical_row['ruler_name']}的{component}实际权力窗口未闭合")
+            if set((review.get("component_scope") or {}).keys()) != {"A", "B", "C", "D"}:
+                raise ValueError(f"{canonical_row['ruler_name']}的{component}窗口审查未覆盖A/B/C/D")
+            if not windows:
+                raise ValueError(f"{canonical_row['ruler_name']}的{component}缺少active_rule_windows")
+            if expected_review is None:
+                expected_review, expected_windows = review, windows
+            elif review != expected_review or windows != expected_windows:
+                raise ValueError(f"{canonical_row['ruler_name']}的A/B/C/D实际权力窗口裁决不同步")
+
+
 def _validate_ab_axis_narratives(payload: Mapping[str, Any]) -> None:
     records = list(payload.get("records") or ())
     if len(records) != 201:
@@ -1061,6 +1229,14 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         "military_net_loss": workspace_root / MILITARY_NET_LOSS_PENALTIES_PATH,
     }
     payloads = {key: _load(path) for key, path in paths.items()}
+    _validate_overlapping_subject_windows(
+        workspace_root,
+        {key: payloads[key] for key in ("AB", "C", "D", "result_credit")},
+    )
+    _validate_actual_power_window_reviews(
+        workspace_root,
+        {key: payloads[key] for key in ("AB", "C", "D", "result_credit")},
+    )
     _validate_current_ab_score_fields(payloads["AB"])
     _validate_ab_control_contribution_contract(
         payloads["AB"], depth_source=_load(workspace_root / AB_HANDOFF_ADJUDICATIONS_PATH)
@@ -1279,6 +1455,19 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
             "formal_score_write": total is not None,
             "pending_reason": None if not missing else f"缺少{'、'.join(missing)}闭合结果，第三项不赋中性总分。",
         })
+        if credit_row and credit_row.get("overlapping_subject_window_review"):
+            for shared_field in (
+                "active_rule_windows",
+                "overlapping_subject_window_review",
+            ):
+                base[shared_field] = json.loads(
+                    json.dumps(credit_row[shared_field], ensure_ascii=False)
+                )
+        if credit_row and credit_row.get("actual_power_window_review"):
+            for window_field in ("active_rule_windows", "actual_power_window_review"):
+                base[window_field] = json.loads(
+                    json.dumps(credit_row[window_field], ensure_ascii=False)
+                )
         records.append(base)
 
     _rank(records)
@@ -1361,6 +1550,24 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
     payload = _load(workspace_root / FORMAL_PATH)
     credit_payload = _load(workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH)
     ab_payload = _load(workspace_root / AB_PATH)
+    _validate_overlapping_subject_windows(
+        workspace_root,
+        {
+            "AB": ab_payload,
+            "C": _load(workspace_root / C_PATH),
+            "D": _load(workspace_root / FORMAL_D_PATH),
+            "result_credit": credit_payload,
+        },
+    )
+    _validate_actual_power_window_reviews(
+        workspace_root,
+        {
+            "AB": ab_payload,
+            "C": _load(workspace_root / C_PATH),
+            "D": _load(workspace_root / FORMAL_D_PATH),
+            "result_credit": credit_payload,
+        },
+    )
     _validate_ab_control_contribution_contract(
         ab_payload, depth_source=_load(workspace_root / AB_HANDOFF_ADJUDICATIONS_PATH)
     )
@@ -1554,7 +1761,10 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 } | {
                     str(ref) for ref in row.get("evidence_event_refs") or ()
                 } | depth_ids
-                if not refs or not set(refs).issubset(allowed_refs):
+                if (
+                    (not refs and contribution_type != "INHERITED_ONLY")
+                    or not set(refs).issubset(allowed_refs)
+                ):
                     raise ValueError(f"{name}的AB主控制成果包引用越界")
                 row["primary_control_package_refs"] = refs
             for axis_name, decision in (correction.get("axes") or {}).items():
@@ -1566,13 +1776,15 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 if rate is None:
                     raise ValueError(f"{name}的{axis_name}档位或位置非法")
                 maximum = 30 if axis_name == "B2" else 25
-                row["axes"][axis_name] = {
-                    "grade": f"{axis_name}-{grade}",
-                    "band_position": position,
-                    "score_rate": rate,
-                    "axis_points": round(rate * maximum / 100, 2),
-                    "reason": str(decision["reason"]),
-                }
+                row["axes"].setdefault(axis_name, {}).update(
+                    {
+                        "grade": f"{axis_name}-{grade}",
+                        "band_position": position,
+                        "score_rate": rate,
+                        "axis_points": round(rate * maximum / 100, 2),
+                        "reason": str(decision["reason"]),
+                    }
+                )
             region_updates = correction.get("region_evidence_refs") or {}
             regions = {
                 str(region["object_id"]): region
@@ -1584,7 +1796,8 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 regions[object_id]["evidence_refs"] = list(dict.fromkeys(map(str, refs)))
         maturity_review = maturity_reviews.get(str(row["ruler_id"]))
         if maturity_review is not None:
-            row["axes"]["B4"]["maturity_review"] = maturity_review
+            if row["axes"]["B4"].get("maturity_review") != maturity_review:
+                row["axes"]["B4"]["maturity_review"] = maturity_review
         else:
             row["axes"]["B4"].pop("maturity_review", None)
         contribution_type = str(row.get("control_contribution_type") or "")
@@ -1596,6 +1809,23 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
         credit = credits.get(name)
         if credit is None or str(credit["ruler_id"]) != str(row["ruler_id"]):
             raise ValueError(f"{name}缺少同主体A120/B80当前裁决")
+        shared_review = credit.get("overlapping_subject_window_review") or {}
+        if shared_review.get("review_id"):
+            for shared_field in (
+                "active_rule_windows",
+                "overlapping_subject_window_review",
+            ):
+                if shared_field in credit:
+                    row[shared_field] = json.loads(
+                        json.dumps(credit[shared_field], ensure_ascii=False)
+                    )
+        actual_review = credit.get("actual_power_window_review") or {}
+        if actual_review.get("review_id"):
+            row["reign_range"] = actual_review["window"]
+            for window_field in ("active_rule_windows", "actual_power_window_review"):
+                row[window_field] = json.loads(
+                    json.dumps(credit[window_field], ensure_ascii=False)
+                )
         parts = [_decompose_a120_axis(axis, credit["axes"][axis]) for axis in ("A1", "A2")]
         anchor = round(sum(part[0] for part in parts), 2)
         positive = round(sum(part[1] for part in parts), 2)
@@ -1611,8 +1841,12 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 "B80_score_points": b80,
                 "AB200_score_points": round(a120 + b80, 2),
                 "score_ready": credit["score_ready"],
-                "A120_axis_adjudications": credit["axes"],
-                "B80_adjudication": credit["B80_adjudication"],
+                "A120_axis_adjudications": _replace_non_public_preserving_public(
+                    row.get("A120_axis_adjudications"), credit["axes"]
+                ),
+                "B80_adjudication": _replace_non_public_preserving_public(
+                    row.get("B80_adjudication"), credit["B80_adjudication"]
+                ),
             }
         )
         for axis_name, scope in A_AXIS_SCOPES.items():
@@ -1833,6 +2067,12 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
             outcome_refs.setdefault(outcome, []).append(ref)
         counts = dict(sorted(counts.items()))
         outcome_refs = dict(sorted(outcome_refs.items()))
+        counts = _preserve_mapping_order_if_equal(
+            previous.get("return_class_counts"), counts
+        )
+        outcome_refs = _preserve_mapping_order_if_equal(
+            previous.get("return_class_refs"), outcome_refs
+        )
         known = sum(count for outcome, count in counts.items() if outcome != "UNKNOWN")
         profile_source = str(previous.get("source") or "CURRENT_C_TASKS")
         d_security_profile = _build_d_security_result_profile(
@@ -1953,8 +2193,10 @@ def write_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
     validate_ab_shared_handoffs(workspace_root, ab["records"], check_b1=False)
     _synchronize_current_ab_view(workspace_root)
     _synchronize_current_c_outcome_view(workspace_root)
-    payload = build_current_third_item_settlement(workspace_root)
     json_path = workspace_root / FORMAL_PATH
+    current_payload = _load(json_path) if json_path.exists() else {}
+    payload = build_current_third_item_settlement(workspace_root)
+    payload = _replace_non_public_preserving_public(current_payload, payload)
     markdown_path = json_path.with_suffix(".md")
     _write_text_atomic(
         json_path,

@@ -347,7 +347,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         (
             f"> 本榜只覆盖正式评价池中`COMPOSITE_READY`的{payload['record_count']}人；"
             f"另有{payload['pending_second_item_count']}人因第二项尚未正式结算而不入榜。"
-            f"另有{payload['pending_third_item_count']}人因第三项C父周期语义审计待补而不入榜。"
+            f"另有{payload['pending_third_item_count']}人因第三项实际权力窗口/归责或C父周期语义待重裁而不入榜。"
             f"另有{payload['pending_fourth_item_count']}名原综合就绪对象因第四项证据缺口暂不入榜，不把未知按零分处理。"
             "排名是现行规则与现有正式分项快照的确定性合成，不以历史名望反推分数。"
         ),
@@ -410,9 +410,13 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "### 名望与名次的差异",
         "",
         (
-            f"现行结果中，{summary('嬴政')}；{summary('刘彻')}；{summary('朱元璋')}；"
-            f"{summary('刘邦')}；{summary('刘裕')}；{summary('拓跋焘')}。这些人的长板分散在"
-            "第一项、第二项A制度建设或第三项，综合公式却以第二、三项共同净收益为主体，"
+            "现行结果中，"
+            + "；".join(
+                summary(name)
+                for name in ("嬴政", "刘彻", "朱元璋", "刘邦", "刘裕", "拓跋焘")
+                if name in by_name
+            )
+            + "。这些人的长板分散在第一项、第二项A制度建设或第三项，综合公式却以第二、三项共同净收益为主体，"
             "因此不会自动把统一、扩张或制度名望等同于总榜高位。"
         ),
         "",
@@ -459,7 +463,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
             f"| {row['ruler_name']} | {row['polity']} | `PENDING_SECOND_ITEM` |"
         )
     lines.extend(["", "## 暂不入榜：待第三项正式结算", "",
-                  "以下对象的C父周期语义审计仍有待补边界，不把未知按零分处理。", "",
+                  "以下对象的第三项实际权力窗口/归责或C父周期语义尚未闭合，不把旧分或未知按可排名正式分处理。", "",
                   "| 人物 | 政权 | 状态 |", "|---|---|---|"])
     for row in payload["pending_third_item_records"]:
         lines.append(f"| {row['ruler_name']} | {row['polity']} | `PENDING_THIRD_ITEM` |")

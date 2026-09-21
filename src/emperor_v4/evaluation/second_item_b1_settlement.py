@@ -87,6 +87,11 @@ PUBLIC_CLOSURE_LABELS = {
     "reversed": "后续逆转",
     "not_closed": "运行证据尚未完整",
 }
+B1_PUBLIC_BOUNDARY = (
+    "这里只评价本人统治下官僚组织的选任、分工、协调、替补、事务传递和行政执行；"
+    "制度设置本身、异议反馈与纠错，以及民生、法律、军事结果和后世接收只作背景或邻项依据；"
+    "同一行政运行链的正负事实合并，不重复计入。"
+)
 PUBLIC_FORBIDDEN_RE = re.compile(
     r"(?:本轮|重审|恢复原|旧裁决|\bv20\b|\bv50\b|按合同|门禁|主档|消费|闭合|净余量|"
     r"(?<![A-Za-z])position(?![A-Za-z])|(?<![A-Za-z])fallback(?![A-Za-z])|"
@@ -157,6 +162,22 @@ def _public_summary(row: dict[str, Any]) -> str:
         parts.append(f"{context} 条边界材料不单独计入")
     parts.append("各条权重并不相同，不能按条数直接相减")
     return "；".join(parts) + "。"
+
+
+def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
+    items: list[dict[str, Any]] = []
+    for profile in _iter_profiles(row):
+        status = str(profile.get("adjudication_status") or "")
+        items.append({
+            "public_label": str(profile.get("public_label") or ""),
+            "public_direction": PUBLIC_DIRECTION_LABELS.get(
+                str(profile.get("direction") or ""), "正负并存"
+            ),
+            "public_tags": list(profile.get("adjudication_tags") or []),
+            "public_basis": str(profile.get("adjudication_basis") or ""),
+            "public_boundary": str(profile.get("adjudication_boundary") or B1_PUBLIC_BOUNDARY),
+        })
+    return items
 
 
 def _group_key(profile: dict[str, Any]) -> str:
@@ -353,6 +374,8 @@ def _prepare_profile_adjudication(payload: dict[str, Any]) -> tuple[int, Counter
             status_counts[status] += 1
 
         row["public_adjudication_summary"] = _public_summary(row)
+        row["public_boundary"] = B1_PUBLIC_BOUNDARY
+        row["public_evidence_items"] = _public_evidence_items(row)
         row["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
 
     payload["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
@@ -362,6 +385,94 @@ def _prepare_profile_adjudication(payload: dict[str, Any]) -> tuple[int, Counter
     payload.pop("profile_adjudication_basis_source_counts", None)
     payload.pop("profile_adjudication_polish_count", None)
     return profile_count, status_counts
+
+
+def refresh_b1_public_projection(payload: dict[str, Any]) -> dict[str, Any]:
+    """Refresh only deterministic public fields; never recalculate B1 scoring."""
+
+    before = _scoring_signature(payload)
+    expected_profile_count = 0
+    status_counts: Counter[str] = Counter()
+    for row in payload["records"]:
+        profiles = list(_iter_profiles(row))
+        by_id = {str(profile.get("profile_id") or ""): profile for profile in profiles}
+        for profile in profiles:
+            expected_profile_count += 1
+            status = str(profile.get("adjudication_status") or "")
+            if status not in ADJUDICATION_STATUSES:
+                raise ValueError(
+                    f"B1逐材料公开裁决状态缺失：{row['ruler_name']} / {profile.get('material_id')}"
+                )
+            expected_id = profile_id(str(row["ruler_id"]), profile)
+            if profile.get("profile_id") != expected_id:
+                raise ValueError(
+                    f"B1 profile_id不是当前正式材料的确定性标识：{row['ruler_name']} / {profile.get('material_id')}"
+                )
+            label = _normalize_public_text(profile.get("public_label"))
+            basis = _normalize_public_text(profile.get("adjudication_basis"))
+            boundary = _normalize_public_text(profile.get("adjudication_boundary"))
+            if not label or not basis:
+                raise ValueError(
+                    f"B1逐材料公开名称或裁决缺失：{row['ruler_name']} / {profile.get('material_id')}"
+                )
+            if PUBLIC_FORBIDDEN_RE.search(" ".join((label, basis, boundary))):
+                raise ValueError(
+                    f"B1逐材料公开裁决仍含内部术语：{row['ruler_name']} / {profile.get('material_id')}"
+                )
+            if profile.get("adjudication_tags") != _public_tags(profile, status):
+                raise ValueError(
+                    f"B1逐材料公开标签与正式状态不一致：{row['ruler_name']} / {profile.get('material_id')}"
+                )
+            target_id = str(profile.get("absorbed_into_profile_id") or "")
+            if status == "ABSORBED_SAME_LIFECYCLE":
+                target = by_id.get(target_id)
+                if target is None or target is profile or target.get("adjudication_status") not in {
+                    "COUNTED_INDEPENDENT", "ZERO_NET"
+                }:
+                    raise ValueError(
+                        f"B1并入材料缺少唯一主profile：{row['ruler_name']} / {profile.get('material_id')}"
+                    )
+            elif target_id:
+                raise ValueError(
+                    f"B1非并入材料错误保留主profile引用：{row['ruler_name']} / {profile.get('material_id')}"
+                )
+            status_counts[status] += 1
+
+        row["public_adjudication_summary"] = _public_summary(row)
+        row["public_boundary"] = B1_PUBLIC_BOUNDARY
+        row["public_evidence_items"] = _public_evidence_items(row)
+
+    payload["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
+    payload["profile_adjudication_record_count"] = len(payload.get("records") or [])
+    payload["profile_adjudication_profile_count"] = expected_profile_count
+    payload["profile_adjudication_status_counts"] = dict(sorted(status_counts.items()))
+
+    if _scoring_signature(payload) != before:
+        raise ValueError("B1公开投影刷新意外改变了正式评分字段")
+    validate_public_profile_contract(payload)
+    return payload
+
+
+def refresh_b1_public_projection_file(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
+    path = workspace_root / B1_PATH
+    payload = load_json(path)
+    before = _scoring_signature(payload)
+    projected = refresh_b1_public_projection(payload)
+    if _scoring_signature(projected) != before:
+        raise ValueError("B1公开投影文件刷新意外改变了正式评分字段")
+    if write:
+        write_json(path, projected, ruler_polities=load_ruler_polities(workspace_root))
+        verified = load_json(path)
+        if _scoring_signature(verified) != before:
+            raise ValueError("B1公开投影写回后正式评分字段发生变化")
+        validate_public_profile_contract(verified)
+        projected = verified
+    return {
+        "status": "WRITTEN" if write else "PASS",
+        "record_count": len(projected.get("records") or []),
+        "profile_count": projected.get("profile_adjudication_profile_count"),
+        "status_counts": projected.get("profile_adjudication_status_counts"),
+    }
 
 
 def refresh_b1_payload(payload: dict[str, Any]) -> dict[str, Any]:
@@ -621,6 +732,10 @@ def validate_public_profile_contract(payload: dict[str, Any]) -> None:
                 raise ValueError(f"B1非并入材料错误保留主profile引用：{row['ruler_name']} / {profile.get('material_id')}")
         if row.get("public_adjudication_summary") != _public_summary(row):
             raise ValueError(f"B1人物级公开总括不是当前profile的机械汇总：{row['ruler_name']}")
+        if row.get("public_boundary") != B1_PUBLIC_BOUNDARY:
+            raise ValueError(f"B1人物级公开边界不是当前正式合同投影：{row['ruler_name']}")
+        if row.get("public_evidence_items") != _public_evidence_items(row):
+            raise ValueError(f"B1人物级公开材料不是当前profile的确定性投影：{row['ruler_name']}")
 
     if payload.get("profile_adjudication_profile_count") != expected_profile_count:
         raise ValueError("B1逐材料公开裁决计数元数据不一致")

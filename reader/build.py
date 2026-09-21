@@ -320,29 +320,28 @@ def _attach_method_public_reader(item, *, axis, record, how=""):
     if not isinstance(summary, str) or not summary.strip():
         raise ValueError(f"{axis} formal public summary is missing: {record.get('ruler_name')}")
     if axis == "A":
-        nodes = record.get("public_institution_nodes")
-        if not isinstance(nodes, list):
-            raise ValueError("A formal public nodes are missing")
-        evidence = [dict(
-            public_label=node["public_label"], public_direction=node.get("public_direction", ""),
-            public_basis="\n\n".join(node[key] for key in ("public_adjudication_basis", "public_scope", "public_reception") if node.get(key)),
-            public_boundary=node.get("public_boundary", ""),
-        ) for node in nodes]
+        evidence = record.get("public_evidence_items")
+        if not isinstance(evidence, list) or not evidence:
+            raise ValueError(f"A formal public evidence is missing: {record.get('ruler_name')}")
+        evidence = deepcopy(evidence)
     elif axis == "B1":
-        evidence = [dict(
-            public_label=node["public_label"],
-            public_basis=node["adjudication_basis"],
-            public_boundary=node.get("adjudication_boundary", ""),
-        ) for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile") for node in record.get(key, [])]
+        evidence = record.get("public_evidence_items")
+        if not isinstance(evidence, list) or not evidence:
+            raise ValueError(f"B1 formal public evidence is missing: {record.get('ruler_name')}")
+        evidence = deepcopy(evidence)
     else:
         raise ValueError(f"Unsupported method axis: {axis}")
     result = dict(item)
     result.update(reader_kind="judgment", reader_summary=summary,
                   public_adjudication_summary=summary, reader_public_evidence_items=evidence,
                   reader_how=how, reader_source_refs=_formal_source_refs(record, item.get("source"), item.get("applied_source")))
-    boundaries = _unique_texts([node["public_boundary"] for node in evidence], limit=None)
-    if boundaries:
-        result["reader_boundary"] = "\n\n".join(boundaries)
+    declared_boundary = record.get("public_boundary")
+    if isinstance(declared_boundary, str) and declared_boundary.strip():
+        result["reader_boundary"] = declared_boundary
+    else:
+        boundaries = _unique_texts([node.get("public_boundary") for node in evidence], limit=None)
+        if boundaries:
+            result["reader_boundary"] = "\n\n".join(boundaries)
     return result
 
 
@@ -485,8 +484,9 @@ def load_net_reader_sources(root):
     return sources
 
 
-def load_second_item_reader_summaries(root, eligible_ids):
-    """Load persisted reader-only conclusions for the currently ranked pool."""
+def load_second_item_reader_summaries(root, allowed_ids, eligible_ids):
+    """Load persisted reader-only conclusions without coupling them to composite rank."""
+
     path = root / SECOND_ITEM_READER_SUMMARIES
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -497,10 +497,11 @@ def load_second_item_reader_summaries(root, eligible_ids):
     summaries = payload.get("summaries")
     if not isinstance(summaries, dict):
         raise ValueError("Reader-only Second Item summaries must be an object")
+    allowed = set(allowed_ids)
     eligible = set(eligible_ids)
-    outside = sorted(set(summaries) - eligible)
+    outside = sorted(set(summaries) - allowed)
     if outside:
-        raise ValueError(f"Reader-only Second Item summaries reference unranked rulers: {outside}")
+        raise ValueError(f"Reader-only Second Item summaries reference rulers outside the formal pool: {outside}")
     result = {}
     for ruler_id, summary in summaries.items():
         if not isinstance(ruler_id, str) or not ruler_id:
@@ -911,7 +912,7 @@ def build(*, check=False, write=True):
     ready = {r["ruler_id"] for r in main if r["settlement_readiness"] == "COMPOSITE_READY"}
     if set(net) != ready:
         raise ValueError("Composite ranking does not match current ready pool")
-    second_item_reader_summaries = load_second_item_reader_summaries(ROOT, ready)
+    second_item_reader_summaries = load_second_item_reader_summaries(ROOT, main_ids, ready)
     net_reader_sources = load_net_reader_sources(ROOT)
     first_item_public_outcomes = load_first_item_public_outcomes(ROOT)
     impact_config = config["historical_impact_assessment"]

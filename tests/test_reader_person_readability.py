@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from reader.build import (
     _attach_b2_public_reader,
     _attach_reader,
@@ -332,7 +334,95 @@ def test_material_intensity_names_are_mapped_only_from_structured_fields():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "const materialIntensityNames=" in template
+    for code, label in (
+        ("MI1", "单一情境"),
+        ("MI2", "完整生命周期情境"),
+        ("MI3", "持续系统性情境"),
+        ("MI4", "跨阶段系统性情境"),
+        ("MI1_CASE", "单一情境"),
+        ("MI2_LIFECYCLE", "完整生命周期情境"),
+        ("MI3_SUSTAINED_SYSTEMIC", "持续系统性情境"),
+        ("MI4_CROSS_PHASE_SYSTEMIC", "跨阶段系统性情境"),
+    ):
+        assert f"{code}:'{label}'" in template
     assert ".replace(/MI4" not in template
     assert "MIXED_POSITIVE:'混合偏正'" in template
     assert "MIXED_NEGATIVE:'混合偏负'" in template
+    assert "MIXED_BALANCED:'正负大致平衡'" in template
+    assert "材料强度只描述情境的持续性、作用范围和机制化程度" in template
+    assert "不表示正负方向、能力高低或得分" in template
 
+
+
+def test_generated_reader_profile_context_directions_use_publicly_mapped_formal_enums():
+    import json
+
+    root = Path(__file__).resolve().parents[1]
+    allowed = {"POSITIVE", "NEGATIVE", "MIXED", "MIXED_POSITIVE", "MIXED_NEGATIVE", "MIXED_BALANCED", "LIMITATION"}
+    issues = []
+    checked = 0
+    for path in sorted((root / "reader" / "data" / "people").glob("*.json")):
+        record = json.loads(path.read_text(encoding="utf-8")).get("record") or {}
+        ruler = record.get("ruler_name") or path.stem
+        for axis_code, axis in (record.get("axes") or {}).items():
+            contexts = []
+            contexts.extend(axis.get("representative_contexts") or [])
+            contexts.extend((axis.get("context_lookup") or {}).values())
+            for index, context in enumerate(contexts):
+                if not isinstance(context, dict) or context.get("direction") in (None, ""):
+                    continue
+                checked += 1
+                direction = str(context["direction"])
+                if direction not in allowed:
+                    issues.append(f"{ruler}/{axis_code}/{index}: {direction}")
+    assert checked > 0
+    assert not issues, "\n".join(issues[:50])
+
+
+def test_generated_reader_profile_context_strength_codes_are_formal_and_consistent():
+    import json
+
+    root = Path(__file__).resolve().parents[1]
+    aliases = {
+        "MI1": 1, "MI1_CASE": 1,
+        "MI2": 2, "MI2_LIFECYCLE": 2,
+        "MI3": 3, "MI3_SUSTAINED_SYSTEMIC": 3,
+        "MI4": 4, "MI4_CROSS_PHASE_SYSTEMIC": 4,
+    }
+    issues = []
+    checked = 0
+    for path in sorted((root / "reader" / "data" / "people").glob("*.json")):
+        record = json.loads(path.read_text(encoding="utf-8")).get("record") or {}
+        ruler = record.get("ruler_name") or path.stem
+        for axis_code, axis in (record.get("axes") or {}).items():
+            contexts = []
+            contexts.extend(axis.get("representative_contexts") or [])
+            contexts.extend((axis.get("context_lookup") or {}).values())
+            for index, context in enumerate(contexts):
+                if not isinstance(context, dict):
+                    continue
+                present = {
+                    key: str(context[key])
+                    for key in ("intensity", "material_intensity")
+                    if context.get(key) not in (None, "")
+                }
+                if not present:
+                    continue
+                checked += 1
+                unknown = {key: value for key, value in present.items() if value not in aliases}
+                if unknown:
+                    issues.append(f"{ruler}/{axis_code}/{index}: unknown={unknown}")
+                    continue
+                levels = {aliases[value] for value in present.values()}
+                if len(levels) > 1:
+                    issues.append(f"{ruler}/{axis_code}/{index}: conflict={present}")
+    assert checked > 0
+    assert not issues, "\n".join(issues[:50])
+
+
+def test_person_readability_heading_normalizer_accepts_public_detail_titles():
+    source = (Path(__file__).resolve().parents[1] / "reader" / "person-readability.js").read_text(encoding="utf-8")
+    assert '"人物画像详情"' in source
+    assert '"历史影响详情"' in source
+    assert '"人物画像依据"' in source
+    assert '"历史影响依据"' in source

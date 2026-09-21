@@ -63,6 +63,9 @@ def _parser() -> argparse.ArgumentParser:
     second_item_b1 = commands.add_parser("second-item-b1-settlement")
     second_item_b1.add_argument("--workspace-root", type=Path, default=Path("."))
     second_item_b1.add_argument("--write", action="store_true")
+    second_item_b1_public = commands.add_parser("second-item-b1-public")
+    second_item_b1_public.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_b1_public.add_argument("--write", action="store_true")
     profile_c3 = commands.add_parser("profile-c3-settlement")
     profile_c3.add_argument("--write", action="store_true")
     commands.add_parser("profile-c3-verify")
@@ -164,7 +167,10 @@ def _dispatch(args: argparse.Namespace) -> int:
     from emperor_v4.evaluation.profile_radar import write_samples as write_profile_radar_samples
     from emperor_v4.evaluation.profile_video_card import write_samples as write_profile_video_card_samples
     from emperor_v4.evaluation.profile_video_copy import write_samples as write_profile_video_copy_samples
-    from emperor_v4.evaluation.second_item_b1_settlement import rebuild_derived as rebuild_second_item_b1
+    from emperor_v4.evaluation.second_item_b1_settlement import (
+        rebuild_derived as rebuild_second_item_b1,
+        refresh_b1_public_projection_file,
+    )
     from emperor_v4.evaluation.third_item_current_settlement import (
         verify_current_third_item_settlement,
         write_current_third_item_settlement,
@@ -348,6 +354,10 @@ def _dispatch(args: argparse.Namespace) -> int:
         return 0
     if args.command == "second-item-b1-settlement":
         report = rebuild_second_item_b1(args.workspace_root.resolve(), write=args.write)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "second-item-b1-public":
+        report = refresh_b1_public_projection_file(args.workspace_root.resolve(), write=args.write)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-c3-settlement":

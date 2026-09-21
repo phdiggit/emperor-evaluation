@@ -45,6 +45,14 @@ PUBLIC_EVIDENCE_FIELDS = (
     "public_basis",
     "public_boundary",
 )
+PUBLIC_EVIDENCE_OPTIONAL_FIELDS = (
+    "public_source_coverage",
+)
+SOURCE_COVERAGE_LABELS = {
+    "ADEQUATE": "来源覆盖：充分",
+    "PARTIAL_BUT_SUFFICIENT": "来源覆盖：局部但足够",
+    "INSUFFICIENT": "来源覆盖：不足",
+}
 PUBLIC_PROJECTION_FIELDS = {
     "public_adjudication_summary",
     "public_evidence_items",
@@ -281,6 +289,13 @@ def _band_label(value: object) -> str:
     return BAND_LABELS.get(str(value or ""), "")
 
 
+def _public_sentence(value: object) -> str:
+    text = _first_text(value).strip()
+    if not text:
+        return ""
+    return text if text.endswith(("。", "！", "？", "!", "?")) else text + "。"
+
+
 def _stable_id(prefix: str, ruler_id: object, key: object) -> str:
     raw = f"{prefix}|{ruler_id or ''}|{key}".encode("utf-8")
     return f"{prefix}-PUBLIC-" + hashlib.sha256(raw).hexdigest()[:16].upper()
@@ -401,12 +416,17 @@ def _validate_evidence(items: object, *, prefix: str, ruler_id: str) -> None:
     ids = [str(item.get("id") or "") for item in items if isinstance(item, dict)]
     if len(ids) != len(items) or len(ids) != len(set(ids)):
         raise ValueError(f"公开依据ID缺失或重复：{prefix}/{ruler_id}")
+    required = set(PUBLIC_EVIDENCE_FIELDS)
+    allowed = required | set(PUBLIC_EVIDENCE_OPTIONAL_FIELDS)
     for item in items:
-        if not isinstance(item, dict) or set(item) != set(PUBLIC_EVIDENCE_FIELDS):
+        if not isinstance(item, dict):
             raise ValueError(f"公开依据字段不完整：{prefix}/{ruler_id}")
+        keys = set(item)
+        if not required.issubset(keys) or not keys.issubset(allowed):
+            raise ValueError(f"公开依据字段不完整或含未知字段：{prefix}/{ruler_id}")
         if "-PUBLIC-" not in str(item["id"]):
             raise ValueError(f"公开依据ID不稳定：{prefix}/{ruler_id}")
-        for field in PUBLIC_EVIDENCE_FIELDS[1:]:
+        for field in keys - {"id"}:
             value = item[field]
             if not isinstance(value, str) or not value.strip() or PUBLIC_FORBIDDEN_RE.search(value):
                 raise ValueError(f"公开依据含内部术语：{prefix}/{ruler_id}/{field}")
@@ -479,6 +499,32 @@ def _ab_projection(row: dict[str, Any]) -> dict[str, Any]:
                 projection["public_boundary"],
             )
         )
+    overlap_review = row.get("overlapping_subject_window_review")
+    if isinstance(overlap_review, dict) and overlap_review.get("public_basis"):
+        items.append(
+            _item(
+                "THIRD-AB-OVERLAP",
+                ruler_id,
+                "shared-window",
+                "共享权力窗口",
+                "唯一记账边界",
+                str(overlap_review["public_basis"]),
+                str(overlap_review.get("public_boundary") or "同一阶段的国家结果只记一次。"),
+            )
+        )
+    actual_review = row.get("actual_power_window_review")
+    if isinstance(actual_review, dict) and actual_review.get("public_basis"):
+        items.append(
+            _item(
+                "THIRD-AB-WINDOW",
+                ruler_id,
+                "actual-power-window",
+                "实际权力窗口",
+                "评价窗口边界",
+                str(actual_review["public_basis"]),
+                str(actual_review.get("public_boundary") or "只评价本人实际最高权力窗口。"),
+            )
+        )
     summary = "；".join(item["public_basis"] for item in items)
     summary = summary or "战略安全与边疆控制结果由威胁变化、防线协同、实际控制和稳定交付共同形成。"
     summary += " 本人战略选择、国家资源配置与具体将领执行按各自事实区分。"
@@ -495,7 +541,19 @@ def _ab_projection(row: dict[str, Any]) -> dict[str, Any]:
                 "这里只展示当前正式记录能够支持的安全与控制事实，不把其他项目的成果重复计入。",
             )
         ],
-        boundary="战略安全、边疆控制与具体将领执行分别说明；统一创业存量、继任者阶段和同一成果不重复计入。",
+        boundary=(
+            "战略安全、边疆控制与具体将领执行分别说明；统一创业存量、继任者阶段和同一成果不重复计入。"
+            + (
+                " " + str(overlap_review.get("public_boundary"))
+                if isinstance(overlap_review, dict) and overlap_review.get("public_boundary")
+                else ""
+            )
+            + (
+                " " + str(actual_review.get("public_boundary"))
+                if isinstance(actual_review, dict) and actual_review.get("public_boundary")
+                else ""
+            )
+        ),
         level_label="战略安全与边疆控制结果",
         component_label="战略安全与边疆控制",
         axis_projections=axis_projections,
@@ -870,9 +928,12 @@ def _package_projection(package: dict[str, Any]) -> dict[str, Any]:
     baseline = _first_text(package.get("inherited_baseline"))
     counter = package.get("counterevidence")
     counter_text = _first_text(counter.get("summary") if isinstance(counter, dict) else counter)
-    basis = f"{direction}：{change}。{f'相对既有状态：{baseline}。' if baseline else ''}{attribution}。"
+    basis = f"{direction}：{_public_sentence(change)}"
+    if baseline:
+        basis += f"相对既有状态：{_public_sentence(baseline)}"
+    basis += _public_sentence(attribution)
     if counter_text:
-        basis += f"补充限制：{counter_text}。"
+        basis += f"补充限制：{_public_sentence(counter_text)}"
     boundary = CIVILIZATION_BOUNDARIES.get(axis, "这里只展示本人窗口内能够确认的文明与国家整合变化，不把后世独立发展重复归入本人。")
     level = RELATIVE_CHANGE_LABELS.get(str(package.get("relative_change_level") or ""), "正式记录保留的变化水平")
     item = _item(
@@ -884,6 +945,13 @@ def _package_projection(package: dict[str, Any]) -> dict[str, Any]:
         basis,
         boundary,
     )
+    coverage_code = str(package.get("source_coverage") or "")
+    coverage = SOURCE_COVERAGE_LABELS.get(coverage_code)
+    if not coverage:
+        raise ValueError(
+            f"第四项证据包来源覆盖状态缺失或未知：{package.get('package_code') or axis}/{coverage_code or 'EMPTY'}"
+        )
+    item["public_source_coverage"] = coverage
     return _projection(
         summary=basis,
         items=[item],
@@ -904,11 +972,26 @@ def _fourth_axis_projection(row: dict[str, Any], axis: str, packages: dict[str, 
         package_projections.append(_package_projection(package))
     if package_projections:
         items = [projection["public_evidence_items"][0] for projection in package_projections]
-        direction = DIRECTION_LABELS.get(str(row.get("direction") or ""), "结果方向未单列")
-        summary = f"{CIVILIZATION_AXIS_LABELS[axis]}为{direction}。" + "；".join(
-            projection["public_adjudication_summary"] for projection in package_projections
-        )
-        level = CIV_MAGNITUDE_LABELS.get(str(row.get("magnitude_grade") or ""), "正式记录保留的影响幅度")
+        disposition = str(row.get("disposition") or "")
+        if disposition == "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW":
+            reviewed_summaries = [
+                projection["public_adjudication_summary"].replace("结果方向未单列：", "材料记录：", 1)
+                for projection in package_projections
+            ]
+            summary = f"{CIVILIZATION_AXIS_LABELS[axis]}：现有材料经复核后未形成可单独计入的净变化。" + "；".join(
+                reviewed_summaries
+            )
+            level = "复核后未确认独立净变化"
+        else:
+            direction = DIRECTION_LABELS.get(str(row.get("direction") or ""), "结果方向未单列")
+            summary = f"{CIVILIZATION_AXIS_LABELS[axis]}为{direction}。" + "；".join(
+                projection["public_adjudication_summary"] for projection in package_projections
+            )
+            level = (
+                "正负相抵，净调整为0"
+                if disposition == "OBSERVED_OFFSETTING_OR_BALANCED_EFFECTS"
+                else CIV_MAGNITUDE_LABELS.get(str(row.get("magnitude_grade") or ""), "正式记录保留的影响幅度")
+            )
     else:
         items = [
             _item(

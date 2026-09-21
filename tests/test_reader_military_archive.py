@@ -246,3 +246,45 @@ def test_military_archive_index_does_not_copy_full_adjudication_text(tmp_path: P
     packed = json.dumps({"b": battles, "c": commanders}, ensure_ascii=False)
 
     assert long_basis not in packed
+
+
+def test_military_archive_public_cost_labels_hide_internal_axis_codes():
+    source = (Path(__file__).resolve().parents[1] / "reader" / "military-archive.js").read_text(encoding="utf-8")
+    assert 'P:"人员损害"' in source
+    assert 'S:"本土受损"' in source
+    assert 'M:"动员投入"' in source
+    assert 'A:"军事资产"' in source
+    assert 'WC:"本阶段综合成本"' in source
+    for leaked in ("人员损害 P", "本土受损 S", "动员投入 M", "军事资产 A", "本阶段成本 WC"):
+        assert leaked not in source
+
+
+def test_military_archive_template_uses_final_public_header_copy():
+    template = (Path(__file__).resolve().parents[1] / "reader" / "military.template.html").read_text(encoding="utf-8")
+    assert "战役与统帅档案" in template
+    assert "战役档案 · 统帅档案" in template
+    assert "公共军事成果阅读层" not in template
+    assert "战役与武将档案" not in template
+
+
+def test_military_archive_translates_public_placeholder_values():
+    source = (Path(__file__).resolve().parents[1] / "reader" / "military-archive.js").read_text(encoding="utf-8")
+    assert 'unknown:"未明确"' in source
+    assert 'unresolved:"尚未确认"' in source
+
+
+def test_military_archive_source_copy_uses_reader_facing_locator_terms():
+    source = (Path(__file__).resolve().parents[1] / "reader" / "military-archive.js").read_text(encoding="utf-8")
+    assert "本地分段" not in source
+    assert "本地定位" not in source
+    assert "登记定位摘句" not in source
+    assert "史料卡段落" in source
+    assert "史料卡定位" in source
+    assert "来源定位摘句" in source
+
+
+def test_military_archive_unknown_internal_codes_use_neutral_reader_fallback():
+    source = (Path(__file__).resolve().parents[1] / "reader" / "military-archive.js").read_text(encoding="utf-8")
+    assert '"内部分类"' not in source
+    assert '"分类状态"' in source
+    assert 'translated.includes("分类状态")' in source

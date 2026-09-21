@@ -61,6 +61,60 @@ def test_third_fourth_public_projection_covers_the_current_pool_without_score_dr
     assert report["fourth_item"]["package_count"] > 0
 
 
+def test_fourth_public_zero_states_distinguish_reviewed_empty_from_balanced_zero():
+    payload = public._refresh_fourth(copy.deepcopy(public._load_payloads(ROOT)["fourth"]))
+    axes = [
+        axis
+        for row in payload["records"]
+        for axis in row.get("axis_results") or []
+    ]
+    reviewed = [axis for axis in axes if axis.get("disposition") == "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW"]
+    balanced = [axis for axis in axes if axis.get("disposition") == "OBSERVED_OFFSETTING_OR_BALANCED_EFFECTS"]
+    assert reviewed and balanced
+    assert all(axis["public_level_label"] == "复核后未确认独立净变化" for axis in reviewed)
+    assert all("结果方向未单列" not in axis["public_adjudication_summary"] for axis in reviewed)
+    assert all("经复核后未形成可单独计入的净变化" in axis["public_adjudication_summary"] for axis in reviewed)
+    assert all(axis["public_level_label"] == "正负相抵，净调整为0" for axis in balanced)
+
+
+def test_fourth_public_package_projection_does_not_duplicate_sentence_punctuation():
+    payload = public._refresh_fourth(copy.deepcopy(public._load_payloads(ROOT)["fourth"]))
+    packages = payload["accepted_packages"]
+    assert packages
+    for package in packages:
+        assert "。。" not in package["public_adjudication_summary"]
+        for item in package["public_evidence_items"]:
+            assert "。。" not in item["public_basis"]
+
+
+def test_fourth_public_packages_publish_source_coverage_without_inventing_strength():
+    payload = public._refresh_fourth(copy.deepcopy(public._load_payloads(ROOT)["fourth"]))
+    packages = payload["accepted_packages"]
+    assert packages
+    expected = {"来源覆盖：充分", "来源覆盖：局部但足够", "来源覆盖：不足"}
+    seen = set()
+    for package in packages:
+        evidence = package["public_evidence_items"]
+        assert len(evidence) == 1
+        coverage = evidence[0].get("public_source_coverage")
+        assert coverage in expected
+        seen.add(coverage)
+    assert seen == expected
+
+
+def test_third_public_evidence_does_not_fake_source_coverage():
+    payloads = public._load_payloads(ROOT)
+    projected = public._refresh_third(copy.deepcopy({key: value for key, value in payloads.items() if key != "fourth"}))
+    items = [
+        item
+        for key in ("AB", "C", "D", "credit", "ML", "total")
+        for row in projected[key]["records"]
+        for item in row.get("public_evidence_items") or []
+    ]
+    assert items
+    assert all("public_source_coverage" not in item for item in items)
+
+
 def test_reader_consumes_explicit_public_evidence_for_third_and_fourth_items():
     projected = []
     for path in (ROOT / "reader/data/people").glob("*.json"):

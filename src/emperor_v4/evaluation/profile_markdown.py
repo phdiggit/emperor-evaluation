@@ -573,7 +573,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         raise ValueError(f"unsupported profile axis: {axis}")
     records = settlement["records"]
     labels, shared = ({}, []) if axis in {"M4", "C3"} else _shared_limitations(records)
-    profile_note = "> 独立人物画像轴；不进入净收益综合总榜，不生成画像总分或轴内排名。JSON是唯一机器入口；本文是同值阅读视图。"
+    profile_note = "> 独立人物画像轴。JSON是唯一机器入口；本文是同值阅读视图。"
     if axis == "C1":
         reading_source_note = f"- 全池表的‘典型模式’为人物类型摘要，‘限制’只显示最强计分负证档位；逐人条目展开完整主模式、裁档理由、限制和代表父链，每条父链最多列{C1_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合保留在正式JSON。"
     elif axis == "C2":
@@ -591,7 +591,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         "",
         "## 阅读说明",
         "",
-        "- 全池表用于横向扫读；顺序仅是稳定展示顺序，不是画像排名。",
+        "- 全池表采用稳定展示顺序，用于横向扫读。",
         "- `G0—G5`与档内位置共同映射雷达值；`E1—E3`表示证据完成度，不能替代能力裁决。",
         reading_source_note,
         "",
@@ -611,7 +611,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             "## 军事画像口径",
             "",
             "- 裁档结果由正式 JSON 中的 `axis_grade` 与 `position` 给出，裁档理由须与之同值。",
-            "- M1 裁档理由与档内依据不得使用第三项的汇总数值；第三项只可作为具体父周期结果的追溯入口。",
+            "- M1裁档理由与档内依据不得使用既有汇总数值；军事结算只可作为具体父周期结果的追溯入口。",
             "- `operational_design` 在阅读层统一标作“统筹+／统筹−／统筹±”，不再伪装为前线指挥。",
             "- 自然语言中的情境数量不作为机器裁档输入；复核以结构化父链为准。",
             "",

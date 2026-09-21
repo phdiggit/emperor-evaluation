@@ -40,7 +40,7 @@
   }
 
   function normalizeEvidenceCardHeadings() {
-    for (const title of ["统治绩效构成", "人物画像依据", "历史影响依据"]) {
+    for (const title of ["统治绩效构成", "人物画像详情", "人物画像依据", "历史影响详情", "历史影响依据"]) {
       const section = evidenceSection(title);
       if (!section || section.dataset.publicHeading === "done") continue;
       const heading = section.querySelector(":scope > h2, :scope > h3");
@@ -251,17 +251,19 @@
     const cost = byLabel["军事成本扣分"]?.value;
     const net = byLabel["第一项净分"]?.value;
     const addOn = byLabel["附加F"]?.value;
-    if ([a, b1, b2, c, gross, net, addOn].some(value => value == null)) return "";
+    if ([a, b1, b2, c, gross, cost, net, addOn].some(value => value == null)) return "";
     const addOnText = Number(addOn) > 0 ? `+${addOn}` : String(addOn);
-    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div><div class="component"><span><strong>第一项原始净收益</strong><small>统一成果、创业难度与效率、创业组织、本人统帅合计后，再扣除本人窗口内的军事代价</small></span><b>${esc(net)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>所有人物都使用同一条折算曲线，避免第一项量纲直接压过其他项目</small></span><b>${esc(addOnText)}</b></div>${prose("先算第一项原始净收益，再按全员统一曲线折算为总榜加成；因此两个数字不是同一量纲，也不应直接比较大小。") }<details><summary>查看完整公式</summary>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n第一项净分 S1 = max(0, 四轴毛分 − 军事代价扣减) = max(0, ${gross} − ${cost ?? 0}) = ${net}。\n总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></article>`;
+    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div><div class="component"><span><strong>第一项原始净收益</strong><small>统一成果、创业难度与效率、创业组织、本人统帅合计后，再扣除本人窗口内的军事代价</small></span><b>${esc(net)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>所有人物都使用同一条折算曲线，避免第一项量纲直接压过其他项目</small></span><b>${esc(addOnText)}</b></div>${prose("先算第一项原始净收益，再按全员统一曲线折算为总榜加成；因此两个数字不是同一量纲，也不应直接比较大小。") }<details><summary>查看完整公式</summary>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n第一项净分 S1 = max(0, 四轴毛分 − 军事代价扣减) = max(0, ${gross} − ${cost}) = ${net}。\n总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></article>`;
   }
 
   async function hydrateFirstItemGroup(group, record, items) {
-    const firstNotApplicable = items.every(item =>
-      item.value == null || (item.label === "附加F" && Number(item.value) === 0)
-    );
-    if (firstNotApplicable) {
+    const firstStatus = record.net?.first_item_status;
+    if (firstStatus === "NOT_APPLICABLE") {
       group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
+      return;
+    }
+    if (firstStatus !== "APPLICABLE") {
+      group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice"><strong>第一项正式适用状态未发布。</strong>阅读层不根据分项空值或现有材料自行判断该人物是否适用本项。</p>`;
       return;
     }
 
@@ -282,7 +284,8 @@
     if (byLabel["C军事统帅与战争解题"]) cards.push(renderFirstC(byLabel["C军事统帅与战争解题"], bulletsByLabel["C军事统帅与战争解题"], record));
     if (byLabel["军事成本扣分"]?.value != null) cards.push(`<article class="context-story net-public-item first-item-card"><div class="component"><strong>战争代价</strong><b>${esc(netValue(byLabel["军事成本扣分"]))}</b></div>${firstCostMarkup(byLabel["军事成本扣分"])}<details><summary>扣分怎样换算</summary>${prose(firstCostExactHow(byLabel["军事成本扣分"]))}</details>${firstItemSourceBlock(byLabel["军事成本扣分"], record)}</article>`);
     const totals = firstItemTotals(items);
-    const netScore = Number(byLabel["第一项净分"]?.value);
+    const rawNetScore = byLabel["第一项净分"]?.value;
+    const netScore = rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore);
     const zeroNote = Number.isFinite(netScore) && netScore === 0
       ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这与“不适用”不同：这里已经进入第一项结算，只是正向成果在扣除相关军事代价后没有留下正的净值。</p>`
       : "";
@@ -363,11 +366,14 @@
       group.dataset.netGroup = key;
       const title = `<h3>${esc(netGroupNames[key] || groupNames[key] || key)}</h3>`;
 
-      const firstNotApplicable = key === "first" && items.every(item =>
-        item.value == null || (item.label === "附加F" && Number(item.value) === 0)
-      );
-      if (firstNotApplicable) {
+      const firstStatus = key === "first" ? record.net?.first_item_status : "";
+      if (firstStatus === "NOT_APPLICABLE") {
         group.innerHTML = `${title}<p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
+        intro.append(group);
+        continue;
+      }
+      if (key === "first" && firstStatus !== "APPLICABLE") {
+        group.innerHTML = `${title}<p class="notice"><strong>第一项正式适用状态未发布。</strong>阅读层不根据分项空值或现有材料自行判断是否适用。</p>`;
         intro.append(group);
         continue;
       }
