@@ -281,3 +281,10 @@ def test_military_archive_source_copy_uses_reader_facing_locator_terms():
     assert "史料卡段落" in source
     assert "史料卡定位" in source
     assert "来源定位摘句" in source
+
+
+def test_military_archive_unknown_internal_codes_use_neutral_reader_fallback():
+    source = (Path(__file__).resolve().parents[1] / "reader" / "military-archive.js").read_text(encoding="utf-8")
+    assert '"内部分类"' not in source
+    assert '"分类状态"' in source
+    assert 'translated.includes("分类状态")' in source
