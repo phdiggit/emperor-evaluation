@@ -441,6 +441,31 @@ def test_generated_net_judgments_have_complete_public_reading_fields_across_pool
     assert seen > 0
 
 
+def test_b1_public_projection_refresh_preserves_formal_scoring_signature():
+    import copy
+    from pathlib import Path
+    from emperor_v4.evaluation.formal_json_store import load_json
+    from emperor_v4.evaluation.second_item_b1_settlement import (
+        B1_PATH,
+        B1_PUBLIC_BOUNDARY,
+        _scoring_signature,
+        refresh_b1_public_projection,
+        validate_public_profile_contract,
+    )
+
+    root = Path(__file__).resolve().parents[1]
+    payload = load_json(root / B1_PATH)
+    before = _scoring_signature(payload)
+    projected = refresh_b1_public_projection(copy.deepcopy(payload))
+
+    assert _scoring_signature(projected) == before
+    validate_public_profile_contract(projected)
+    assert projected["records"]
+    for row in projected["records"]:
+        assert row["public_boundary"] == B1_PUBLIC_BOUNDARY
+        assert isinstance(row["public_evidence_items"], list) and row["public_evidence_items"]
+
+
 def test_b1_reader_consumes_formal_public_projection_instead_of_rebuilding_profiles():
     from pathlib import Path
 
