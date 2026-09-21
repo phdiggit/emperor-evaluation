@@ -555,6 +555,14 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'const logic = structuredMaterials ? "" : summary;' in home
     assert 'class="net-overall-boundary"' in home
     assert '<summary>总体范围与边界</summary>' in home
+def test_fourth_item_public_source_coverage_is_rendered_only_when_formally_published():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'const coverage = format(entry?.public_source_coverage || "");' in source
+    assert '[role, direction, coverage, ...tags]' in source
+    assert "net-material-chip" in source
+
+
 def test_reader_guide_preserves_material_strength_display_boundary():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
