@@ -54,11 +54,19 @@ def test_method_public_projection_preserves_all_nodes_and_boundaries():
         assert node["public_adjudication_basis"] in projected["public_basis"]
         assert node["public_reception"] in projected["public_basis"]
         assert node["public_boundary"] in result["reader_boundary"]
-    b1 = {"public_label":"运行链", "adjudication_basis":tail, "adjudication_boundary":"仅作背景。"}
+    b1_evidence = [{
+        "public_label": "运行链",
+        "public_basis": tail,
+        "public_boundary": "仅作背景。",
+    }]
     result = builder._attach_method_public_reader(
-        {}, axis="B1", record={"public_adjudication_summary":tail,"M_mixed_profile":[b1]})
-    assert result["reader_public_evidence_items"][0]["public_basis"] == tail
-    assert result["reader_boundary"] == b1["adjudication_boundary"]
+        {}, axis="B1", record={
+            "public_adjudication_summary": tail,
+            "public_boundary": "仅作背景。",
+            "public_evidence_items": b1_evidence,
+        })
+    assert result["reader_public_evidence_items"] == b1_evidence
+    assert result["reader_boundary"] == "仅作背景。"
     with pytest.raises(ValueError, match="public summary"):
         builder._attach_method_public_reader({}, axis="A", record={"adjudication_reason":tail})
 
