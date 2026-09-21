@@ -63,7 +63,7 @@ function firstCommanderMarkup(item) {
 
   const netMajorSpecs = {
     all: {
-      title: "净收益计分总览",
+      title: "统治绩效构成",
       description: "四个大项分别展开；先看单人结算逻辑，再看公式，最后才进入原始正式文档。",
       groups: [],
     },
@@ -78,7 +78,7 @@ function firstCommanderMarkup(item) {
       groups: ["method", "finance", "handoff"],
     },
     third: {
-      title: "第三项 · 军事与边疆净收益",
+      title: "第三项 · 军事与边疆",
       description: "战略安全收益、军事体系兑现与军事成本在同一项内结算。",
       groups: ["strategic", "military"],
     },
@@ -367,7 +367,7 @@ function firstCommanderMarkup(item) {
   function netEvidenceSection() {
     return Array.from(document.querySelectorAll("#person-evidence > section.panel")).find(section => {
       const heading = section.querySelector(":scope > h2, :scope > h3");
-      return heading?.textContent.trim() === "净收益构成";
+      return ["统治绩效构成", "净收益构成"].includes(heading?.textContent.trim());
     }) || null;
   }
 
@@ -398,7 +398,7 @@ function firstCommanderMarkup(item) {
     const sourceLink = panel.querySelector(":scope > p.sources a");
     if (sourceLink) {
       sourceLink.href = netHref(record, "all");
-      sourceLink.textContent = "查看完整净收益计分页 →";
+      sourceLink.textContent = "查看完整统治绩效详情 →";
     }
     panel.dataset.netLinks = "done";
   }
@@ -418,7 +418,7 @@ function firstCommanderMarkup(item) {
       if (heading) heading.after(reading);
       else section.prepend(reading);
     }
-    reading.innerHTML = `<p class="reading-intro">这里保留各大项的快速摘要。完整的逐人判断、变量、公式和计分来源放到独立净收益计分页，避免单人主页无限变长。</p><p class="sources"><a href="${netHref(record, "all")}">打开完整净收益计分页 →</a></p>`;
+    reading.innerHTML = `<p class="reading-intro">这里保留各大项的快速摘要。完整的逐人判断、变量、公式和计分来源放到独立统治绩效详情页，避免单人主页无限变长。</p><p class="sources"><a href="${netHref(record, "all")}">打开完整统治绩效详情 →</a></p>`;
 
     for (const [key, items] of groups) {
       if (!Array.isArray(items)) continue;
@@ -428,7 +428,7 @@ function firstCommanderMarkup(item) {
       const judgments = items.filter(item => item.reader_kind === "judgment" && (item.value != null || item.unit === "不单独计分" || item.public_level_label));
       const firstNotApplicable = key === "first" && record.net?.first_item_status === "NOT_APPLICABLE";
       const preview = firstNotApplicable
-        ? `<p class="notice">该人物不适用第一项，本项不参与净收益计分。</p>`
+        ? `<p class="notice">该人物不适用第一项，本项不参与统治绩效计分。</p>`
         : judgments.map(item => `<div class="component"><span>${esc(item.public_component_label || item.label)}</span><b>${esc(netValue(item, key))}</b></div>`).join("");
       details.innerHTML = `<summary>${esc(netGroupNames[key] || key)}</summary>${preview}<p class="sources"><a href="${netHref(record, major, key)}">查看这组完整计分逻辑 →</a></p>`;
       reading.append(details);
@@ -1039,7 +1039,7 @@ function firstCommanderMarkup(item) {
     if (!container) return;
     const firstNotApplicable = record.net?.first_item_status === "NOT_APPLICABLE";
     if (firstNotApplicable) {
-      container.innerHTML = `<section class="panel"><h2>${esc(netMajorSpecs.first.title)}</h2><p class="notice">本项只评价建国、复国或统一创业主链；该人物不适用，因此这一项不参与净收益计分。</p></section>`;
+      container.innerHTML = `<section class="panel"><h2>${esc(netMajorSpecs.first.title)}</h2><p class="notice">本项只评价建国、复国或统一创业主链；该人物不适用，因此这一项不参与统治绩效计分。</p></section>`;
       return;
     }
 
@@ -1086,7 +1086,7 @@ function firstCommanderMarkup(item) {
       const label = key === "all" ? "总览" : netMajorSpecs[key].title.replace(/^第[一二三四]项 · /, "");
       return `<a class="${active === key ? "active" : ""}" href="${netHref(record, key)}">${esc(label)}</a>`;
     }).join("");
-    return `<nav class="net-major-nav" aria-label="净收益计分页">${links}</nav>`;
+    return `<nav class="net-major-nav" aria-label="统治绩效详情">${links}</nav>`;
   }
 
   function majorCard(record, major) {
@@ -1109,7 +1109,7 @@ function firstCommanderMarkup(item) {
 
   function renderNetShell(record, active, body) {
     nav("");
-    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(personLabel(record))}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 净收益计分</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "净收益")}</h1><p class="muted">掌权背景：${esc(record.actual_power_window || "未列")} · 总榜净收益 ${number(record.net?.total_score)}</p></div></div><p class="subline net-power-context-note">本项采用的时间与责任范围见各条依据；不能仅凭上述背景时期判断事件是否计入。</p>${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
+    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(personLabel(record))}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权背景：${esc(record.actual_power_window || "未列")} · 统治绩效总分 ${number(record.net?.total_score)}</p></div></div><p class="subline net-power-context-note">本项采用的时间与责任范围见各条依据；不能仅凭上述背景时期判断事件是否计入。</p>${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
   }
 
   function renderNetLanding(record) {
@@ -1177,16 +1177,16 @@ function firstCommanderMarkup(item) {
     const summary = byId.get(parsed.rulerId);
     nav("");
     if (!summary) {
-      screen.innerHTML = `<div class="empty"><p>净收益详情地址无效。</p><a href="#overview">返回人物总览</a></div>`;
+      screen.innerHTML = `<div class="empty"><p>统治绩效详情地址无效。</p><a href="#overview">返回人物总览</a></div>`;
       return true;
     }
     const generation = ++netRenderGeneration;
-    screen.innerHTML = `<div class="empty" role="status">正在加载${esc(summary.ruler_name)}的净收益计分逻辑…</div>`;
+    screen.innerHTML = `<div class="empty" role="status">正在加载${esc(summary.ruler_name)}的统治绩效详情…</div>`;
     try {
       const record = await loadNetRecord(summary);
       if (generation !== netRenderGeneration || !location.hash.startsWith("#net/")) return true;
       if (!record.net) {
-        screen.innerHTML = `<div class="empty"><p>${esc(personLabel(record))}没有可展示的净收益正式结算。</p><a href="#person/${encodeURIComponent(record.ruler_id)}">返回人物页</a></div>`;
+        screen.innerHTML = `<div class="empty"><p>${esc(personLabel(record))}没有可展示的统治绩效正式结算。</p><a href="#person/${encodeURIComponent(record.ruler_id)}">返回人物页</a></div>`;
         return true;
       }
       renderNetMajor(record, parsed.major, parsed.focus);
@@ -1194,7 +1194,7 @@ function firstCommanderMarkup(item) {
     } catch (error) {
       console.error(error);
       if (generation === netRenderGeneration) {
-        screen.innerHTML = `<div class="empty"><p>净收益计分详情加载失败。</p><p class="subline">人物总览与人物主页仍可正常使用。</p><a href="#person/${encodeURIComponent(summary.ruler_id)}">返回人物页</a></div>`;
+        screen.innerHTML = `<div class="empty"><p>统治绩效详情加载失败。</p><p class="subline">人物总览与人物主页仍可正常使用。</p><a href="#person/${encodeURIComponent(summary.ruler_id)}">返回人物页</a></div>`;
       }
     }
     return true;
