@@ -512,6 +512,19 @@ def _ab_projection(row: dict[str, Any]) -> dict[str, Any]:
                 str(overlap_review.get("public_boundary") or "同一阶段的国家结果只记一次。"),
             )
         )
+    actual_review = row.get("actual_power_window_review")
+    if isinstance(actual_review, dict) and actual_review.get("public_basis"):
+        items.append(
+            _item(
+                "THIRD-AB-WINDOW",
+                ruler_id,
+                "actual-power-window",
+                "实际权力窗口",
+                "评价窗口边界",
+                str(actual_review["public_basis"]),
+                str(actual_review.get("public_boundary") or "只评价本人实际最高权力窗口。"),
+            )
+        )
     summary = "；".join(item["public_basis"] for item in items)
     summary = summary or "战略安全与边疆控制结果由威胁变化、防线协同、实际控制和稳定交付共同形成。"
     summary += " 本人战略选择、国家资源配置与具体将领执行按各自事实区分。"
@@ -533,6 +546,11 @@ def _ab_projection(row: dict[str, Any]) -> dict[str, Any]:
             + (
                 " " + str(overlap_review.get("public_boundary"))
                 if isinstance(overlap_review, dict) and overlap_review.get("public_boundary")
+                else ""
+            )
+            + (
+                " " + str(actual_review.get("public_boundary"))
+                if isinstance(actual_review, dict) and actual_review.get("public_boundary")
                 else ""
             )
         ),

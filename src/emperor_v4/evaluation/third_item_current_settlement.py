@@ -967,6 +967,44 @@ def _validate_overlapping_subject_windows(
                 )
 
 
+def _validate_actual_power_window_reviews(
+    workspace_root: Path,
+    payloads: Mapping[str, Mapping[str, Any]],
+) -> None:
+    canonical = _load(workspace_root / CANONICAL_RULER_POOL_PATH)
+    required = {
+        str(row["ruler_id"]): row
+        for row in canonical.get("records") or ()
+        if (row.get("third_item_window_adjudication") or {}).get("status")
+        == "ACCEPTED_AFTER_WINDOW_READJUDICATION"
+    }
+    if not required:
+        return
+    component_indexes = {
+        key: {str(row["ruler_id"]): row for row in payload["records"]}
+        for key, payload in payloads.items()
+    }
+    for ruler_id, canonical_row in required.items():
+        expected_review = None
+        expected_windows = None
+        for component, indexed in component_indexes.items():
+            row = indexed.get(ruler_id)
+            if row is None:
+                raise ValueError(f"实际权力窗口人物缺少{component}记录：{ruler_id}")
+            review = row.get("actual_power_window_review") or {}
+            windows = row.get("active_rule_windows")
+            if review.get("status") != "REVIEWED_ACTUAL_POWER_WINDOW":
+                raise ValueError(f"{canonical_row['ruler_name']}的{component}实际权力窗口未闭合")
+            if set((review.get("component_scope") or {}).keys()) != {"A", "B", "C", "D"}:
+                raise ValueError(f"{canonical_row['ruler_name']}的{component}窗口审查未覆盖A/B/C/D")
+            if not windows:
+                raise ValueError(f"{canonical_row['ruler_name']}的{component}缺少active_rule_windows")
+            if expected_review is None:
+                expected_review, expected_windows = review, windows
+            elif review != expected_review or windows != expected_windows:
+                raise ValueError(f"{canonical_row['ruler_name']}的A/B/C/D实际权力窗口裁决不同步")
+
+
 def _validate_ab_axis_narratives(payload: Mapping[str, Any]) -> None:
     records = list(payload.get("records") or ())
     if len(records) != 201:
@@ -1192,6 +1230,10 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
     }
     payloads = {key: _load(path) for key, path in paths.items()}
     _validate_overlapping_subject_windows(
+        workspace_root,
+        {key: payloads[key] for key in ("AB", "C", "D", "result_credit")},
+    )
+    _validate_actual_power_window_reviews(
         workspace_root,
         {key: payloads[key] for key in ("AB", "C", "D", "result_credit")},
     )
@@ -1421,6 +1463,11 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
                 base[shared_field] = json.loads(
                     json.dumps(credit_row[shared_field], ensure_ascii=False)
                 )
+        if credit_row and credit_row.get("actual_power_window_review"):
+            for window_field in ("active_rule_windows", "actual_power_window_review"):
+                base[window_field] = json.loads(
+                    json.dumps(credit_row[window_field], ensure_ascii=False)
+                )
         records.append(base)
 
     _rank(records)
@@ -1504,6 +1551,15 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
     credit_payload = _load(workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH)
     ab_payload = _load(workspace_root / AB_PATH)
     _validate_overlapping_subject_windows(
+        workspace_root,
+        {
+            "AB": ab_payload,
+            "C": _load(workspace_root / C_PATH),
+            "D": _load(workspace_root / FORMAL_D_PATH),
+            "result_credit": credit_payload,
+        },
+    )
+    _validate_actual_power_window_reviews(
         workspace_root,
         {
             "AB": ab_payload,
@@ -1705,7 +1761,10 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 } | {
                     str(ref) for ref in row.get("evidence_event_refs") or ()
                 } | depth_ids
-                if not refs or not set(refs).issubset(allowed_refs):
+                if (
+                    (not refs and contribution_type != "INHERITED_ONLY")
+                    or not set(refs).issubset(allowed_refs)
+                ):
                     raise ValueError(f"{name}的AB主控制成果包引用越界")
                 row["primary_control_package_refs"] = refs
             for axis_name, decision in (correction.get("axes") or {}).items():
@@ -1760,6 +1819,13 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                     row[shared_field] = json.loads(
                         json.dumps(credit[shared_field], ensure_ascii=False)
                     )
+        actual_review = credit.get("actual_power_window_review") or {}
+        if actual_review.get("review_id"):
+            row["reign_range"] = actual_review["window"]
+            for window_field in ("active_rule_windows", "actual_power_window_review"):
+                row[window_field] = json.loads(
+                    json.dumps(credit[window_field], ensure_ascii=False)
+                )
         parts = [_decompose_a120_axis(axis, credit["axes"][axis]) for axis in ("A1", "A2")]
         anchor = round(sum(part[0] for part in parts), 2)
         positive = round(sum(part[1] for part in parts), 2)

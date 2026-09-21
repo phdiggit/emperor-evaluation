@@ -69,11 +69,47 @@ actual_power_window_overrides:
       - docs/公共成果/军事/01-战役登记/qin_tang-03.json
       - docs/公共成果/军事/01-战役登记/qin_tang-21.json
       - docs/公共成果/军事/01-战役登记/qin_tang-19.json
+  玄烨:
+    actual_power_window: 1669—1722年亲政
+    third_item_window_status: COMPONENT_REVIEW_COMPLETE
+    basis: 1661—1669辅政期只作继承状态；第三项本人信用、体系表现与成本从1669年亲政起算。现有计分链均始于1673年以后，无须删除当前计分链。
+    evidence_refs:
+      - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
+  嬴政:
+    actual_power_window: 前238—前210年亲政
+    third_item_window_status: COMPONENT_REVIEW_COMPLETE
+    basis: 前246—前238年吕不韦主政期只作继承状态；第三项当前计分的匈奴、长城与岭南链均发生于亲政后，现值不因切窗改变。
+    evidence_refs:
+      - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
+  司马曜:
+    actual_power_window: 376—396年亲政
+    third_item_window_status: COMPONENT_REVIEW_COMPLETE
+    basis: 372—376年褚太后临朝期只作继承状态；现有第三项计分链均发生于378年以后，起终安全档不变。
+    evidence_refs:
+      - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
+  宇文邕:
+    actual_power_window: 572—578年诛宇文护后亲政
+    third_item_window_status: COMPONENT_REVIEW_COMPLETE
+    basis: 560—572年宇文护实际主政期退出本人第三项信用与成本；566年信州链及564年宕昌控制包删除，灭北齐统一链仅保留572—577本人阶段的能力观察并继续按第一项去重。
+    evidence_refs:
+      - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
+  高湛:
+    actual_power_window: 561—569年含太上皇实际掌权期
+    third_item_window_status: COMPONENT_REVIEW_COMPLETE
+    basis: 565年禅位不构成实际权力终点；窗口延长至569年失去最高权力。新增阶段没有独立计分链，现有A/B/C/D值不变。
+    evidence_refs:
+      - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
+  高纬:
+    actual_power_window: 569—577年亲政至亡国
+    third_item_window_status: COMPONENT_REVIEW_COMPLETE
+    basis: 565—569年高湛仍以太上皇实际掌权，该阶段退出高纬本人第三项；现有计分链均发生于573年以后，起点状态改在569年承接，现值不变。
+    evidence_refs:
+      - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
 
 third_item_window_adjudications:
   FORMAL_SCORE_INVALIDATED_PENDING_READJUDICATION:
-    rulers: [玄烨, 司马曜, 宇文邕, 高湛, 高纬, 嬴政, 李谅祚, 李秉常, 李乾顺]
-    basis: 规范人物池的实际最高权力窗口与当前第三项消费窗口存在实质冲突，且现有第三项正式记录仍消费非本人独立最高权力阶段，或把仍由前任实际掌权的阶段切给继任者。玄烨、司马曜、宇文邕、嬴政的第三项仍以名义即位而非亲政起点建立A/B/C/D窗口；高湛、高纬在565—569太上皇实际掌权期存在主体错切；李谅祚、李秉常、李乾顺仍按幼主名义在位期消费长期军事结果与成本。完成逐人起终锚、逐链授权责任和成本窗口重裁前，旧第三项分不得进入综合榜。共享或摄政关系不得机械对半，必须逐链实证归责。
+    rulers: [李谅祚, 李秉常, 李乾顺]
+    basis: 李谅祚、李秉常、李乾顺仍按幼主名义在位期消费长期军事结果与成本。完成逐人起终锚、逐链授权责任和成本窗口重裁前，旧第三项分不得进入综合榜。共享或摄政关系不得机械对半，必须逐链实证归责。
     evidence_refs:
       - config/common/canonical-ruler-pool.json
       - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
@@ -91,6 +127,15 @@ third_item_window_adjudications:
       - docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json
       - docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json
       - docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md
+  ACCEPTED_AFTER_WINDOW_READJUDICATION:
+    rulers: [玄烨, 嬴政, 司马曜, 宇文邕, 高湛, 高纬]
+    basis: 六人已按规范实际最高权力窗口完成A/B/C/D同值复核。玄烨、嬴政、司马曜、高湛、高纬的现有计分链均位于修正后的本人窗口内，只更新起终窗口与公开边界；宇文邕另删除572亲政前的信州链与宕昌控制包，按572—578窗口重算。
+    evidence_refs:
+      - config/third-item/third-item-result-credit-adjudications.json
+      - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
+      - docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json
+      - docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json
+      - docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json
   ACCEPTED_AFTER_WINDOW_NARROWING:
     rulers: [冯太后, 刘肇, 刘祜, 刘志]
     basis: 现有第三项正式记录已经把实际最高权力窗口与名义在位期拆开：冯太后仅消费465—467与476—490两个临朝窗口；刘肇从92年六月亲政起算并将此前窦氏期只作继承基线；刘祜严格只消费121—125亲政期；刘志从150年亲政起算。窗口前事实只允许作为继承状态、客观基线或明确排除材料，不产生本人信用或成本。
