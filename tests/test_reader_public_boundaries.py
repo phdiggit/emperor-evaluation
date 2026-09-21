@@ -817,6 +817,22 @@ def test_compare_net_breakdown_hides_internal_grades_notes_and_calculation_rows(
     assert "<summary>展开分项</summary>" in template
 
 
+def test_compare_net_breakdown_keeps_formal_public_level_labels():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function compareNetPublicLevel")
+    end = template.index("const impactAuditSource", start)
+    block = template[start:end]
+    assert "item?.public_level_label" in block
+    assert "item?.grade" not in block
+    assert "公开层级随正式字段展示" in block
+    assert "普通成本扣分" in block
+    assert "严重军事成本" in block
+    assert "清晰但有限的变化" in block
+    assert "if(level)return" in block
+    assert "不单独计分" in block
+
+
 def test_base_template_uses_current_second_item_public_terms_before_runtime_patching():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
