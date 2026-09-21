@@ -555,6 +555,20 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'const logic = structuredMaterials ? "" : summary;' in home
     assert 'class="net-overall-boundary"' in home
     assert '<summary>总体范围与边界</summary>' in home
+def test_public_scope_copy_avoids_internal_pool_and_public_band_jargon():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "不在人物画像主池" not in template
+    assert "不进入本展示的人物画像主池" not in template
+    assert "历史影响池外补充样本" not in template
+    assert " · 补充样本" not in template
+    assert "公众总档和四个维度" not in template
+    assert "<b>公众总档</b>" not in template
+    assert "人物画像正式评价范围" in template
+    assert "补充历史样本" in template
+    assert "历史影响总等级" in template
+
+
 def test_public_power_context_copy_avoids_internal_evidence_window_jargon():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
