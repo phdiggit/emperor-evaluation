@@ -254,13 +254,13 @@
       if (cardIndex >= 0) {
         const card = activeEvidence.source_cards[cardIndex];
         const paragraph = String(ref).match(/P\d+$/)?.[0] || "";
-        return `<p><a href="#battle=${encodeURIComponent(activeBattleId)}&source=${cardIndex}">《${esc(card.source_volume || card.title)}》${esc(paragraph ? ` · 本地分段 ${paragraph}` : "")} · 查看摘句与定位 →</a></p>`;
+        return `<p><a href="#battle=${encodeURIComponent(activeBattleId)}&source=${cardIndex}">《${esc(card.source_volume || card.title)}》${esc(paragraph ? ` · 史料卡段落 ${paragraph}` : "")} · 查看摘句与定位 →</a></p>`;
       }
       const unit = String(ref).match(/^(SRC-.+)-P\d+$/)?.[1];
       const volume = unit && activeEvidence?.source_cards?.find(card => card.refs.some(anchor => String(anchor).startsWith(unit + "-P")));
       if (volume) {
         const url = volume.source_url || repoHref(`${volume.source_volume}@${volume.revision || ""}`);
-        if (url) return `<p><a href="${esc(url)}" target="_blank" rel="noopener">《${esc(volume.source_volume)}》 · 阅读原卷 ↗</a><br>本地定位：${esc(ref)}；当前来源卡没有与本段单独配对的摘句。</p>`;
+        if (url) return `<p><a href="${esc(url)}" target="_blank" rel="noopener">《${esc(volume.source_volume)}》 · 阅读原卷 ↗</a><br>史料卡定位：${esc(ref)}；当前来源卡没有与本段单独配对的摘句。</p>`;
       }
       const battle = battleForRef(ref);
       if (battle) {
@@ -271,7 +271,7 @@
       const source = String(ref).match(/^([^@]+)@([^#]*)(?:#(.*))?$/);
       const title = source ? `《${source[1].replace("/", " · ")}》` : ref;
       const excerpt = source ? (source[3] || (/^\d+$/.test(source[2]) ? "" : source[2])) : "";
-      return `<p>${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(title)} · 阅读来源 ↗</a>` : esc(title)}${excerpt ? `<br><span>登记定位摘句：${esc(excerpt)}</span>` : ""}</p>`;
+      return `<p>${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(title)} · 阅读来源 ↗</a>` : esc(title)}${excerpt ? `<br><span>来源定位摘句：${esc(excerpt)}</span>` : ""}</p>`;
     }).join("")}</div>`;
   }
 
@@ -385,7 +385,7 @@
     return `<section class="panel"><h2>史料原文摘句与定位</h2><p>摘句按现有史料卡原样展示，属于整组来源；不将一组摘句擅自配给某一个分段编号。分段编号用于本仓库核对。</p>${cards.map((card,index) => {
       const book = String(card.source_volume || "").replace("资治通鉴", "資治通鑑").replace("辽史", "遼史");
       const url = /^https?:\/\//.test(card.source_url || "") ? card.source_url : book.includes("/") ? `https://zh.wikisource.org/wiki/${encodeURI(book)}${/^\d+$/.test(String(card.revision)) ? `?oldid=${card.revision}` : ""}` : "";
-      return `<article class="member" id="source-card-${index}"><h3>${esc(card.title || book)}</h3>${card.quotes.length ? card.quotes.map(quote => `<blockquote class="prose">${esc(quote)}</blockquote>`).join("") : '<p>这张来源卡没有另存原文摘句，请打开原卷阅读；不以裁决摘要冒充原文。</p>'}<p>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">打开《${esc(book)}》${card.revision ? "对应版本" : ""} ↗</a>` : ""}</p><p><a href="${esc(repoHref(card.source))}" target="_blank" rel="noopener">查看保存这些摘句的史料卡 ↗</a></p><small>本地分段：${esc(card.refs.map(ref=>String(ref).match(/P\d+$/)?.[0] || ref).join("、"))}</small></article>`;
+      return `<article class="member" id="source-card-${index}"><h3>${esc(card.title || book)}</h3>${card.quotes.length ? card.quotes.map(quote => `<blockquote class="prose">${esc(quote)}</blockquote>`).join("") : '<p>这张来源卡没有另存原文摘句，请打开原卷阅读；不以裁决摘要冒充原文。</p>'}<p>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">打开《${esc(book)}》${card.revision ? "对应版本" : ""} ↗</a>` : ""}</p><p><a href="${esc(repoHref(card.source))}" target="_blank" rel="noopener">查看保存这些摘句的史料卡 ↗</a></p><small>史料卡段落：${esc(card.refs.map(ref=>String(ref).match(/P\d+$/)?.[0] || ref).join("、"))}</small></article>`;
     }).join("")}</section>`;
   }
 
