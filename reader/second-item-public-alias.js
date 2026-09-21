@@ -889,7 +889,7 @@
     const records = compareRecords();
     if (records.length) {
       const rows = Array.from(screenEl.querySelectorAll(".comparison tbody tr"));
-      const structureRow = rows.find(row => row.cells?.[0]?.textContent.trim() === "构成与依据");
+      const structureRow = rows.find(row => ["分项构成", "构成与依据"].includes(row.cells?.[0]?.textContent.trim()));
       if (structureRow) records.forEach((record, index) => patchGradeGroups(structureRow.cells[index + 1], record));
       patchCompareScores(records);
     }
