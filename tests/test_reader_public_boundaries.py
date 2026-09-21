@@ -555,6 +555,15 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'const logic = structuredMaterials ? "" : summary;' in home
     assert 'class="net-overall-boundary"' in home
     assert '<summary>总体范围与边界</summary>' in home
+def test_reader_guide_preserves_material_strength_display_boundary():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "只有正式记录明确给出材料强度、情境强度或同类等级时" in template
+    assert "没有强度标签只表示上游没有发布这类字段，不等于证据弱" in template
+    assert "第三、第四项若只发布结果层级和范围边界" in template
+    assert "不由页面补判强弱" in template
+
+
 def test_public_scope_copy_avoids_internal_pool_and_public_band_jargon():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
