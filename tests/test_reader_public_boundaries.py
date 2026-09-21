@@ -473,7 +473,7 @@ def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
 
     assert '"统一成果", "先看本人真正留下了什么"' in home
     assert '"创业组织与政治整合", "多线并行、专业分工与异质整合"' in home
-    assert "统一成果 ${a} + 创业难度与效率 ${b1} + 创业组织 ${b2} + 本人统帅 ${c}" in home
+    assert "统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]}" in home
     assert "<strong>统一成果</strong>" in person
     assert "<strong>创业组织与政治整合</strong>" in person
     assert "L档怎么换分" not in person
