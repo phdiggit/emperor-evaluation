@@ -67,7 +67,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: reader-build-${{ github.ref }}
+  group: reader-build-${{ github.ref_name }}
   cancel-in-progress: true
 
 permissions:
