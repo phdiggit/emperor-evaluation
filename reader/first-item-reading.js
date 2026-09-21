@@ -188,10 +188,10 @@
     const b2 = byLabel["B2组织与整合"]?.value;
     const c = byLabel["C军事统帅与战争解题"]?.value;
     const gross = byLabel["四轴合计"]?.value;
-    const cost = byLabel["军事成本扣分"]?.value ?? 0;
+    const cost = byLabel["军事成本扣分"]?.value;
     const net = byLabel["第一项净分"]?.value;
     const addOn = byLabel["附加F"]?.value;
-    if ([a, b1, b2, c, gross, net, addOn].some(value => value == null)) return "";
+    if ([a, b1, b2, c, gross, cost, net, addOn].some(value => value == null)) return "";
     const addOnText = Number(addOn) > 0 ? `+${addOn}分` : `${addOn}分`;
     const publicEquation = `统一成果 ${a} + 难度效率 ${b1} + 组织整合 ${b2} + 统帅 ${c} − 战争代价 ${cost} = ${net}`;
     return `<article class="context-story net-public-item first-item-total"><div class="component"><span><strong>第一项结算</strong><small>${esc(publicEquation)}</small></span><b>${esc(`${net}分`)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>统一使用同一条折算曲线</small></span><b>${esc(addOnText)}</b></div>${ruleDetails([`内部四项：A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。`, `第一项净分 S1 = max(0, ${gross} − ${cost}) = ${net}。`, `总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`])}</article>`;
@@ -225,7 +225,8 @@
     if (byLabel["B2组织与整合"]) cards.push(renderB2(byLabel["B2组织与整合"], data["B2组织与整合"], record));
     if (byLabel["C军事统帅与战争解题"]) cards.push(renderC(byLabel["C军事统帅与战争解题"], data["C军事统帅与战争解题"], record));
     if (byLabel["军事成本扣分"]?.value != null) cards.push(renderCost(byLabel["军事成本扣分"], record));
-    const netScore = Number(byLabel["第一项净分"]?.value);
+    const rawNetScore = byLabel["第一项净分"]?.value;
+    const netScore = rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore);
     const zeroNote = Number.isFinite(netScore) && netScore === 0
       ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这里已经进入第一项结算，只是成果在扣除相关战争代价后没有留下正的净值。</p>`
       : "";
