@@ -353,6 +353,31 @@ def test_material_intensity_names_are_mapped_only_from_structured_fields():
 
 
 
+def test_generated_reader_profile_context_directions_use_publicly_mapped_formal_enums():
+    import json
+
+    root = Path(__file__).resolve().parents[1]
+    allowed = {"POSITIVE", "NEGATIVE", "MIXED", "MIXED_POSITIVE", "MIXED_NEGATIVE", "LIMITATION"}
+    issues = []
+    checked = 0
+    for path in sorted((root / "reader" / "data" / "people").glob("*.json")):
+        record = json.loads(path.read_text(encoding="utf-8")).get("record") or {}
+        ruler = record.get("ruler_name") or path.stem
+        for axis_code, axis in (record.get("axes") or {}).items():
+            contexts = []
+            contexts.extend(axis.get("representative_contexts") or [])
+            contexts.extend((axis.get("context_lookup") or {}).values())
+            for index, context in enumerate(contexts):
+                if not isinstance(context, dict) or context.get("direction") in (None, ""):
+                    continue
+                checked += 1
+                direction = str(context["direction"])
+                if direction not in allowed:
+                    issues.append(f"{ruler}/{axis_code}/{index}: {direction}")
+    assert checked > 0
+    assert not issues, "\n".join(issues[:50])
+
+
 def test_generated_reader_profile_context_strength_codes_are_formal_and_consistent():
     import json
 
