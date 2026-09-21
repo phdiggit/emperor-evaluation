@@ -335,7 +335,7 @@
   }
 
   const fieldNames = {
-    basis:"依据", source_refs:"来源", P:"人员损害 P", S:"本土受损 S", M:"动员投入 M", A:"军事资产 A", WC:"本阶段成本 WC",
+    basis:"依据", source_refs:"来源", P:"人员损害", S:"本土受损", M:"动员投入", A:"军事资产", WC:"本阶段综合成本",
     P_observed:"已载人员损害", range:"推定区间", center:"区间中心", upper_bound_reason:"上限依据", confidence:"判断把握",
     BCP:"控制收益", BCN:"控制损失", control_objects:"控制对象", control_outcome:"控制结果", control_change_mode:"控制变化",
     continuity_status:"持续状态", control_effect_status:"证据状态", grade:"档位", note:"说明", summary:"摘要",
