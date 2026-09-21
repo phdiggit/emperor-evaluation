@@ -101,13 +101,15 @@ def _load_admission_adjudications(workspace_root: Path) -> dict[str, Any]:
     groups = payload.get("pending_second_item_feasibility_groups")
     overrides = payload.get("actual_power_window_overrides") or {}
     window_groups = payload.get("second_item_window_adjudications") or {}
+    third_window_groups = payload.get("third_item_window_adjudications") or {}
     if (
         not isinstance(exclusions, dict)
         or not isinstance(groups, dict)
         or not isinstance(overrides, dict)
         or not isinstance(window_groups, dict)
+        or not isinstance(third_window_groups, dict)
     ):
-        raise ValueError("正式池准入裁决缺少排除或第二项可行性分组")
+        raise ValueError("正式池准入裁决缺少排除、第二项可行性或分项窗口裁决")
     for ruler_name, override in overrides.items():
         refs = override.get("evidence_refs") or []
         if not override.get("actual_power_window") or not override.get("basis") or not refs:
@@ -115,6 +117,19 @@ def _load_admission_adjudications(workspace_root: Path) -> dict[str, Any]:
         missing_refs = [ref for ref in refs if not (workspace_root / ref).exists()]
         if missing_refs:
             raise ValueError(f"实际权力窗口覆写存在悬空证据：{ruler_name}={missing_refs}")
+    third_window_names: set[str] = set()
+    for status, group in third_window_groups.items():
+        refs = group.get("evidence_refs") or []
+        rulers = [str(name) for name in group.get("rulers") or []]
+        if not group.get("basis") or not refs or not rulers:
+            raise ValueError(f"第三项窗口裁决不完整：{status}")
+        duplicates = third_window_names.intersection(rulers)
+        if duplicates:
+            raise ValueError(f"第三项窗口对象重复裁决：{sorted(duplicates)}")
+        third_window_names.update(rulers)
+        missing_refs = [ref for ref in refs if not (workspace_root / ref).exists()]
+        if missing_refs:
+            raise ValueError(f"第三项窗口裁决存在悬空证据：{status}={missing_refs}")
     for group_code, group in groups.items():
         refs = group.get("evidence_refs") or []
         rulers = group.get("rulers") or []
@@ -168,6 +183,20 @@ def _index_second_item_window_adjudications(
     return indexed
 
 
+def _index_third_item_window_adjudications(
+    adjudications: Mapping[str, Any],
+) -> dict[str, dict[str, Any]]:
+    indexed: dict[str, dict[str, Any]] = {}
+    for status, group in adjudications.get("third_item_window_adjudications", {}).items():
+        for ruler_name in group["rulers"]:
+            indexed[str(ruler_name)] = {
+                "status": str(status),
+                "basis": str(group["basis"]),
+                "evidence_refs": list(group["evidence_refs"]),
+            }
+    return indexed
+
+
 def _index_by_name(payload: Mapping[str, Any], item: str) -> dict[str, Mapping[str, Any]]:
     records = payload.get("records") or ()
     indexed: dict[str, Mapping[str, Any]] = {}
@@ -195,6 +224,15 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
     invalidated_second_item_names = {
         name
         for name, adjudication in window_adjudications.items()
+        if adjudication["status"]
+        == "FORMAL_SCORE_INVALIDATED_PENDING_READJUDICATION"
+    }
+    third_window_adjudications = _index_third_item_window_adjudications(
+        admission_adjudications
+    )
+    invalidated_third_item_names = {
+        name
+        for name, adjudication in third_window_adjudications.items()
         if adjudication["status"]
         == "FORMAL_SCORE_INVALIDATED_PENDING_READJUDICATION"
     }
@@ -255,10 +293,12 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         raise ValueError(f"准入裁决包含候选母池外排除对象：{sorted(unknown_exclusions)}")
     unknown_overrides = set(actual_power_window_overrides) - master_names
     unknown_window_adjudications = set(window_adjudications) - set(indexed["second_item"])
-    if unknown_overrides or unknown_window_adjudications:
+    unknown_third_window_adjudications = set(third_window_adjudications) - set(indexed["third_item"])
+    if unknown_overrides or unknown_window_adjudications or unknown_third_window_adjudications:
         raise ValueError(
             "实际权力窗口裁决存在未知对象："
-            f"覆写={sorted(unknown_overrides)}，第二项={sorted(unknown_window_adjudications)}"
+            f"覆写={sorted(unknown_overrides)}，第二项={sorted(unknown_window_adjudications)}，"
+            f"第三项={sorted(unknown_third_window_adjudications)}"
         )
     expected_pending_names = master_names - set(indexed["second_item"]) - set(exclusions)
     if set(pending_feasibility) != expected_pending_names:
@@ -304,6 +344,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         third_item_formal = (
             source_rows["third_item"] is not None
             and source_rows["third_item"].get("third_item_score_points") is not None
+            and name not in invalidated_third_item_names
         )
         if reason_code is None:
             missing = [
@@ -364,6 +405,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                     "fourth_item_formal": source_rows["fourth_item"] is not None,
                 },
                 "second_item_window_adjudication": window_adjudications.get(name),
+                "third_item_window_adjudication": third_window_adjudications.get(name),
                 "source_item_ids": {
                     item: row.get("ruler_id") if row else None for item, row in source_rows.items()
                 },
@@ -471,7 +513,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
             "requires_formal_scores_for_composite_readiness": ["second_item", "third_item"],
             "requires_closed_signed_adjustment": "fourth_item",
             "second_item_policy": "local evidence availability permits admission; missing or window-invalidated formal score blocks composite readiness and ranking",
-            "third_item_policy": "a missing C score or pending C parent-cycle semantic audit blocks composite readiness and ranking; unknown is not converted to zero",
+            "third_item_policy": "a missing formal score, unresolved shared-power/window attribution, or pending C parent-cycle semantic audit blocks composite readiness and ranking; unknown is not converted to zero",
             "first_item_policy": "conditional_add_on_only; every absent record must be adjudicated as explicit F=0 or pending formal A/B/C settlement",
             "feasibility_policy": "admit rulers with sufficient local reading products and historical sources even when second-item settlement is pending",
             "exclusion_precedence": [
@@ -565,7 +607,7 @@ def render_canonical_ruler_pool_markdown(payload: Mapping[str, Any]) -> str:
             "",
             "## 池内第三项待正式结算",
             "",
-            "以下对象的第三项C父周期语义审计尚有待补边界，在补齐独立C父周期前不得计算综合分或进入总排名：",
+            "以下对象的第三项正式分因实际权力窗口/共享权力归责或C父周期语义尚未闭合而失效；完成对应重裁前不得计算综合分或进入总排名：",
             "",
             "| 对象 | 政权 | 实权窗口 | 第三项状态 | 第一项状态 |",
             "|---|---|---|---|---|",
