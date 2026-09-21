@@ -149,7 +149,8 @@ function contextIntensity(c){
  const entries=contextIntensityEntries(c);
  if(!entries.length)return '未列';
  const rawValues=entries.map(([,v])=>String(v));
- if(rawValues.length>1&&rawValues.some(v=>v!==rawValues[0]))return '上游字段不一致，请查原始记录';
+ const publicValues=rawValues.map(value=>materialIntensityNames[value]||value);
+ if(publicValues.length>1&&publicValues.some(value=>value!==publicValues[0]))return '上游字段不一致，请查原始记录';
  const raw=rawValues[0];
  return Object.prototype.hasOwnProperty.call(materialIntensityNames,raw)
   ? materialIntensityNames[raw]
