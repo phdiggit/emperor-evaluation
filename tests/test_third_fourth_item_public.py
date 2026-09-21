@@ -61,6 +61,21 @@ def test_third_fourth_public_projection_covers_the_current_pool_without_score_dr
     assert report["fourth_item"]["package_count"] > 0
 
 
+def test_fourth_public_zero_states_distinguish_reviewed_empty_from_balanced_zero():
+    payload = public._refresh_fourth(copy.deepcopy(public._load_payloads(ROOT)["fourth"]))
+    axes = [
+        axis
+        for row in payload["records"]
+        for axis in row.get("axis_results") or []
+    ]
+    reviewed = next(axis for axis in axes if axis.get("disposition") == "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW")
+    balanced = next(axis for axis in axes if axis.get("disposition") == "OBSERVED_OFFSETTING_OR_BALANCED_EFFECTS")
+    assert reviewed["public_level_label"] == "复核后未确认独立净变化"
+    assert "结果方向未单列" not in reviewed["public_adjudication_summary"]
+    assert "经复核后未形成可单独计入的净变化" in reviewed["public_adjudication_summary"]
+    assert balanced["public_level_label"] == "正负相抵，净调整为0"
+
+
 def test_reader_consumes_explicit_public_evidence_for_third_and_fourth_items():
     projected = []
     for path in (ROOT / "reader/data/people").glob("*.json"):
