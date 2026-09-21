@@ -563,6 +563,15 @@ def test_fourth_item_public_source_coverage_is_rendered_only_when_formally_publi
     assert "net-material-chip" in source
 
 
+def test_profile_axis_summary_shows_formal_material_coverage_in_public_words():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "const evidenceLevel=readerText(a.axis_evidence_level||'');" in template
+    assert 'class="axis-evidence-level">材料覆盖：' in template
+    assert "材料覆盖 '+esc(evidenceLevel)" in template
+    assert "材料级别 ${esc(a.axis_evidence_level" not in template
+
+
 def test_reader_guide_preserves_material_strength_display_boundary():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
