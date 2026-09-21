@@ -423,9 +423,7 @@ function firstCommanderMarkup(item) {
       details.className = "net-summary-group";
       const major = netGroupMajor[key] || "all";
       const judgments = items.filter(item => item.reader_kind === "judgment" && (item.value != null || item.unit === "不单独计分" || item.public_level_label));
-      const firstNotApplicable = key === "first" && items.every(item =>
-        item.value == null || (item.label === "附加F" && Number(item.value) === 0)
-      );
+      const firstNotApplicable = key === "first" && record.net?.first_item_status === "NOT_APPLICABLE";
       const preview = firstNotApplicable
         ? `<p class="notice">该人物不适用第一项，本项不参与净收益计分。</p>`
         : judgments.map(item => `<div class="component"><span>${esc(item.public_component_label || item.label)}</span><b>${esc(netValue(item, key))}</b></div>`).join("");
