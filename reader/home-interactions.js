@@ -433,10 +433,12 @@ function firstCommanderMarkup(item) {
       details.className = "net-summary-group";
       const major = netGroupMajor[key] || "all";
       const judgments = items.filter(item => item.reader_kind === "judgment" && (item.value != null || item.unit === "不单独计分" || item.public_level_label));
-      const firstNotApplicable = key === "first" && record.net?.first_item_status === "NOT_APPLICABLE";
-      const preview = firstNotApplicable
+      const firstStatus = key === "first" ? record.net?.first_item_status : "";
+      const preview = firstStatus === "NOT_APPLICABLE"
         ? `<p class="notice">该人物不适用第一项，本项不参与统治绩效计分。</p>`
-        : judgments.map(item => `<div class="component"><span>${esc(item.public_component_label || item.label)}</span><b>${esc(netValue(item, key))}</b></div>`).join("");
+        : key === "first" && firstStatus !== "APPLICABLE"
+          ? `<p class="notice">第一项正式适用状态尚未发布；阅读层不判断该人物是否适用本项。</p>`
+          : judgments.map(item => `<div class="component"><span>${esc(item.public_component_label || item.label)}</span><b>${esc(netValue(item, key))}</b></div>`).join("");
       details.innerHTML = `<summary>${esc(netGroupNames[key] || key)}</summary>${preview}<p class="sources"><a href="${netHref(record, major, key)}">查看这组完整计分逻辑 →</a></p>`;
       reading.append(details);
     }
@@ -1049,9 +1051,13 @@ function firstCommanderMarkup(item) {
     const items = record.net?.component_details?.first || [];
     const container = document.getElementById("net-major-body");
     if (!container) return;
-    const firstNotApplicable = record.net?.first_item_status === "NOT_APPLICABLE";
-    if (firstNotApplicable) {
+    const firstStatus = record.net?.first_item_status;
+    if (firstStatus === "NOT_APPLICABLE") {
       container.innerHTML = `<section class="panel"><h2>${esc(netMajorSpecs.first.title)}</h2><p class="notice">本项只评价建国、复国或统一创业主链；该人物不适用，因此这一项不参与统治绩效计分。</p></section>`;
+      return;
+    }
+    if (firstStatus !== "APPLICABLE") {
+      container.innerHTML = `<section class="panel"><h2>${esc(netMajorSpecs.first.title)}</h2><p class="notice">第一项正式适用状态尚未发布；阅读层不根据分项空值或现有材料自行判断是否适用。</p></section>`;
       return;
     }
 
@@ -1105,15 +1111,18 @@ function firstCommanderMarkup(item) {
     const value = majorValue(record, major);
     const spec = netMajorSpecs[major];
     const rawFirstScore = finiteNetNumber(record.net?.first_item_raw_score);
-    const extra = major === "first" && record.net?.first_item_status === "APPLICABLE"
+    const firstStatus = record.net?.first_item_status;
+    const extra = major === "first" && firstStatus === "APPLICABLE"
       ? rawFirstScore === 0
         ? '<p class="subline">本项适用，但原始净收益为0；总榜附加为0。</p>'
         : rawFirstScore == null
           ? `<p class="subline">本项适用，但原始净收益未列；当前显示正式附加分 ${number(record.net?.first_item_add_on)}。</p>`
           : `<p class="subline">第一项原始净收益：${number(rawFirstScore)}；此处显示进入总榜的附加分。</p>`
-      : major === "first"
+      : major === "first" && firstStatus === "NOT_APPLICABLE"
         ? `<p class="subline">该人物第一项不适用。</p>`
-        : major === "third"
+        : major === "first"
+          ? `<p class="subline">第一项正式适用状态未发布；阅读层不作默认判断。</p>`
+          : major === "third"
           ? '<p class="subline">250分制净分；战略、控制与军事体系收益合计后，再扣实际军事代价。</p>'
           : major === "fourth"
             ? `<p class="subline">${esc(fourthAdjustmentNote(record))}</p>`
