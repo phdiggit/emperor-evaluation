@@ -129,7 +129,7 @@ const format=t=>esc(t).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*
 function prose(t){if(Array.isArray(t))return t.length?t.map(prose).join(''):'';if(t&&typeof t==='object')return Object.entries(t).map(([k,v])=>`<div class="label">${esc(k)}</div>${prose(v)}`).join('');if(!t)return '';return String(t).split(/\n\s*\n/).map(block=>`<p class="prose">${format(block)}</p>`).join('')}
 // Display names follow the profile contract, section 2.3. No prose-based classification.
 const materialIntensityNames={MI1:'单一情境',MI1_CASE:'单一情境',MI2:'完整生命周期情境',MI2_LIFECYCLE:'完整生命周期情境',MI3:'持续系统性情境',MI3_SUSTAINED_SYSTEMIC:'持续系统性情境',MI4:'跨阶段系统性情境',MI4_CROSS_PHASE_SYSTEMIC:'跨阶段系统性情境'};
-const formalDirectionNames={POSITIVE:'正向',NEGATIVE:'负向',MIXED_POSITIVE:'混合偏正',MIXED_NEGATIVE:'混合偏负',MIXED:'正负混合',LIMITATION:'限制／边界'};
+const formalDirectionNames={POSITIVE:'正向',NEGATIVE:'负向',MIXED_POSITIVE:'混合偏正',MIXED_NEGATIVE:'混合偏负',MIXED_BALANCED:'正负大致平衡',MIXED:'正负混合',LIMITATION:'限制／边界'};
 function nonEmptyFormal(value){
  if(Array.isArray(value))return value.length>0;
  if(value&&typeof value==='object')return Object.keys(value).length>0;
