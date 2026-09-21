@@ -555,6 +555,18 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'const logic = structuredMaterials ? "" : summary;' in home
     assert 'class="net-overall-boundary"' in home
     assert '<summary>总体范围与边界</summary>' in home
+def test_net_detail_renderer_uses_public_performance_language_and_current_person_section_title():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'title: "统治绩效构成"' in source
+    assert 'title: "第三项 · 军事与边疆"' in source
+    assert '["统治绩效构成", "净收益构成"].includes' in source
+    assert 'aria-label="统治绩效详情"' in source
+    assert "正在加载${esc(summary.ruler_name)}的统治绩效详情" in source
+    assert "总榜净收益" not in source
+    assert "净收益计分详情加载失败" not in source
+
+
 def test_compare_net_breakdown_hides_internal_grades_notes_and_calculation_rows():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
