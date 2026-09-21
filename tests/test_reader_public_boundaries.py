@@ -764,8 +764,8 @@ def test_reader_guide_preserves_material_strength_display_boundary():
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "只有正式记录明确发布相应字段时页面才展示" in template
     assert "没有这类标签只表示上游没有发布，不等于证据弱" in template
-    assert "第三、第四项若只发布结果层级和范围边界" in template
-    assert "不由页面补判强弱" in template
+    assert "两者不是同一尺度" in template
+    assert "页面也不会自行补判" in template
 
 
 def test_public_scope_copy_avoids_internal_pool_and_public_band_jargon():
@@ -1312,7 +1312,7 @@ def test_reader_guide_explains_material_strength_badges_are_upstream_only():
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "只有正式记录明确发布相应字段时页面才展示" in template
     assert "没有这类标签只表示上游没有发布，不等于证据弱" in template
-    assert "不由页面补判强弱" in template
+    assert "页面也不会自行补判" in template
 
 
 def test_second_item_compare_enhancers_accept_public_breakdown_row_title():
