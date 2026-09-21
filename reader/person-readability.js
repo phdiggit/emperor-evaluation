@@ -257,9 +257,7 @@
   }
 
   async function hydrateFirstItemGroup(group, record, items) {
-    const firstNotApplicable = items.every(item =>
-      item.value == null || (item.label === "附加F" && Number(item.value) === 0)
-    );
+    const firstNotApplicable = record.net?.first_item_status === "NOT_APPLICABLE";
     if (firstNotApplicable) {
       group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
       return;
@@ -363,9 +361,7 @@
       group.dataset.netGroup = key;
       const title = `<h3>${esc(netGroupNames[key] || groupNames[key] || key)}</h3>`;
 
-      const firstNotApplicable = key === "first" && items.every(item =>
-        item.value == null || (item.label === "附加F" && Number(item.value) === 0)
-      );
+      const firstNotApplicable = key === "first" && record.net?.first_item_status === "NOT_APPLICABLE";
       if (firstNotApplicable) {
         group.innerHTML = `${title}<p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
         intro.append(group);
