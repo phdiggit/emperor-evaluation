@@ -477,6 +477,35 @@ def test_b1_public_projection_refresh_preserves_formal_scoring_signature():
         assert isinstance(row["public_evidence_items"], list) and row["public_evidence_items"]
 
 
+def test_a_public_evidence_does_not_repeat_scope_or_reception_already_in_basis():
+    import copy
+    from pathlib import Path
+    from emperor_v4.evaluation.formal_json_store import load_json
+    from emperor_v4.evaluation.second_item_a_public import A_PATH, _refresh_payload
+
+    root = Path(__file__).resolve().parents[1]
+    projected = _refresh_payload(copy.deepcopy(load_json(root / A_PATH)), root)
+    checked = 0
+    for row in projected["records"]:
+        nodes = row.get("public_institution_nodes") or []
+        evidence = row.get("public_evidence_items") or []
+        if not nodes:
+            continue
+        assert len(nodes) == len(evidence)
+        for node, item in zip(nodes, evidence):
+            basis = str(node.get("public_adjudication_basis") or "")
+            scope = str(node.get("public_scope") or "")
+            reception = str(node.get("public_reception") or "")
+            rendered = str(item.get("public_basis") or "")
+            if scope and scope in basis:
+                assert f"\n\n{scope}" not in rendered
+                checked += 1
+            if reception and reception in basis:
+                assert f"\n\n{reception}" not in rendered
+                checked += 1
+    assert checked > 0
+
+
 def test_a_public_projection_supplies_row_evidence_even_without_institution_nodes():
     import copy
     from pathlib import Path
