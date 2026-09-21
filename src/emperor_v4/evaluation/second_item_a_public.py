@@ -36,6 +36,11 @@ PUBLIC_NODE_FIELDS = (
     "public_boundary",
     "public_reception",
 )
+A_PUBLIC_BOUNDARY = (
+    "制度建设公开层只展示当前正式结构中已经闭合为独立制度节点的材料；"
+    "没有可单列节点时，只表示当前正式记录未形成可单独展示的制度节点，"
+    "不据此推断其他制度行为的存在与否或效果。"
+)
 PROFILE_KEYS = ("M_positive_profile", "M_mixed_profile", "M_negative_profile")
 MATERIAL_KEYS = (
     "construction_operation_material_ids",
@@ -796,12 +801,38 @@ def _summary(
     )
 
 
+def _public_evidence_items(row: dict[str, Any], nodes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if not nodes:
+        return [{
+            "public_label": "当前没有可单列制度节点",
+            "public_tags": ["未形成独立制度节点"],
+            "public_basis": "当前正式记录没有可单列的制度节点，因此本项没有逐节点材料卡。",
+            "public_boundary": A_PUBLIC_BOUNDARY,
+        }]
+    return [
+        {
+            "public_label": str(node["public_label"]),
+            "public_direction": str(node["public_direction"]),
+            "public_tags": list(node["public_tags"]),
+            "public_basis": "\n\n".join(
+                str(node[key])
+                for key in ("public_adjudication_basis", "public_scope", "public_reception")
+                if node.get(key)
+            ),
+            "public_boundary": str(node["public_boundary"]),
+        }
+        for node in nodes
+    ]
+
+
 def _scoring_signature(payload: dict[str, Any]) -> str:
     snapshot = copy.deepcopy(payload.get("records") or [])
     for row in snapshot:
         for key in (
             "public_institution_nodes",
             "public_adjudication_summary",
+            "public_boundary",
+            "public_evidence_items",
             "P_gross",
             "N_gross",
             "A_net_units",
@@ -856,6 +887,8 @@ def _refresh_payload(payload: dict[str, Any], workspace_root: Path) -> dict[str,
             reception_counts,
             len(nodes),
         )
+        row["public_boundary"] = A_PUBLIC_BOUNDARY
+        row["public_evidence_items"] = _public_evidence_items(row, nodes)
         public_node_count += len(nodes)
 
     for row in payload.get("records") or []:
@@ -991,6 +1024,17 @@ def verify_public_projection(
         expected_summary = _summary(row, positive, negative, net, reception_counts, len(actual_nodes))
         if summary != expected_summary:
             raise ValueError(f"第二项A人物级公开总结不是正式总账的确定性投影：{name}")
+        if row.get("public_boundary") != A_PUBLIC_BOUNDARY:
+            raise ValueError(f"第二项A人物级公开边界不是当前公开合同投影：{name}")
+        evidence = row.get("public_evidence_items")
+        expected_evidence = _public_evidence_items(row, actual_nodes)
+        if evidence != expected_evidence:
+            raise ValueError(f"第二项A人物级公开证据不是当前制度节点的确定性投影：{name}")
+        for index, item in enumerate(evidence):
+            for field in ("public_label", "public_basis", "public_boundary"):
+                value = str(item.get(field) or "")
+                if not value.strip() or PUBLIC_FORBIDDEN_RE.search(value):
+                    raise ValueError(f"第二项A公开证据字段缺失或含内部术语：{name} / {index} / {field}")
         expected_node_count += len(actual_nodes)
     if payload.get("public_projection_node_count") != expected_node_count:
         raise ValueError("第二项A公开投影节点计数不一致")
