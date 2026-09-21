@@ -336,3 +336,11 @@ def test_material_intensity_names_are_mapped_only_from_structured_fields():
     assert "MIXED_POSITIVE:'混合偏正'" in template
     assert "MIXED_NEGATIVE:'混合偏负'" in template
 
+
+
+def test_person_readability_heading_normalizer_accepts_public_detail_titles():
+    source = (Path(__file__).resolve().parents[1] / "reader" / "person-readability.js").read_text(encoding="utf-8")
+    assert '"人物画像详情"' in source
+    assert '"历史影响详情"' in source
+    assert '"人物画像依据"' in source
+    assert '"历史影响依据"' in source
