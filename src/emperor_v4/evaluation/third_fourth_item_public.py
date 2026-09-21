@@ -499,6 +499,19 @@ def _ab_projection(row: dict[str, Any]) -> dict[str, Any]:
                 projection["public_boundary"],
             )
         )
+    overlap_review = row.get("overlapping_subject_window_review")
+    if isinstance(overlap_review, dict) and overlap_review.get("public_basis"):
+        items.append(
+            _item(
+                "THIRD-AB-OVERLAP",
+                ruler_id,
+                "shared-window",
+                "共享权力窗口",
+                "唯一记账边界",
+                str(overlap_review["public_basis"]),
+                str(overlap_review.get("public_boundary") or "同一阶段的国家结果只记一次。"),
+            )
+        )
     summary = "；".join(item["public_basis"] for item in items)
     summary = summary or "战略安全与边疆控制结果由威胁变化、防线协同、实际控制和稳定交付共同形成。"
     summary += " 本人战略选择、国家资源配置与具体将领执行按各自事实区分。"
@@ -515,7 +528,14 @@ def _ab_projection(row: dict[str, Any]) -> dict[str, Any]:
                 "这里只展示当前正式记录能够支持的安全与控制事实，不把其他项目的成果重复计入。",
             )
         ],
-        boundary="战略安全、边疆控制与具体将领执行分别说明；统一创业存量、继任者阶段和同一成果不重复计入。",
+        boundary=(
+            "战略安全、边疆控制与具体将领执行分别说明；统一创业存量、继任者阶段和同一成果不重复计入。"
+            + (
+                " " + str(overlap_review.get("public_boundary"))
+                if isinstance(overlap_review, dict) and overlap_review.get("public_boundary")
+                else ""
+            )
+        ),
         level_label="战略安全与边疆控制结果",
         component_label="战略安全与边疆控制",
         axis_projections=axis_projections,

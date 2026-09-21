@@ -77,6 +77,7 @@ AB_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/�
 C_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json")
 FORMAL_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json")
 RESULT_CREDIT_ADJUDICATIONS_PATH = Path("config/third-item/third-item-result-credit-adjudications.json")
+CANONICAL_RULER_POOL_PATH = Path("config/common/canonical-ruler-pool.json")
 COST_CREDIT_FACTORS_PATH = Path("config/third-item/third-item-cost-credit-factors.json")
 MILITARY_NET_LOSS_PENALTIES_PATH = Path("config/third-item/third-item-military-net-loss-penalties.json")
 C_OUTCOME_ADJUDICATIONS_PATH = Path("config/third-item/third-item-c-outcome-adjudications.json")
@@ -875,6 +876,97 @@ def _validate_result_credit_contract(
             raise ValueError(f"{row['ruler_name']} A120/B80正式视图未同步")
 
 
+def _validate_overlapping_subject_windows(
+    workspace_root: Path,
+    payloads: Mapping[str, Mapping[str, Any]],
+) -> None:
+    """Require one synchronized A/B/C/D accounting decision for shared-power windows."""
+    canonical = _load(workspace_root / CANONICAL_RULER_POOL_PATH)
+    shared_candidates = [
+        row
+        for row in canonical.get("records") or ()
+        if row.get("pool_status") == "INCLUDED"
+        and any(
+            token in str(row.get("actual_power_window") or "")
+            for token in ("共享", "共治", "重叠")
+        )
+    ]
+    required_ids: set[str] = set()
+    review_ids: set[str] = set()
+    for row in shared_candidates:
+        adjudication = row.get("actual_power_window_adjudication") or {}
+        status = str(adjudication.get("third_item_overlap_status") or "")
+        if status == "NO_OVERLAP_IN_SCORING_WINDOW":
+            if not str(adjudication.get("basis") or "").strip():
+                raise ValueError(f"{row.get('ruler_name')}共享窗口排除缺少依据")
+            continue
+        if status == "REQUIRES_COMPONENT_REVIEW":
+            raise ValueError(f"{row.get('ruler_name')}共享窗口仍待第三项组件重裁")
+        if status != "COMPONENT_REVIEW_COMPLETE":
+            raise ValueError(f"{row.get('ruler_name')}共享窗口缺少第三项结构化裁决")
+        review_id = str(adjudication.get("overlap_review_id") or "")
+        ruler_ids = {
+            str(value) for value in adjudication.get("overlapping_ruler_ids") or ()
+        }
+        if (
+            not review_id
+            or len(ruler_ids) < 2
+            or str(row.get("ruler_id")) not in ruler_ids
+        ):
+            raise ValueError(f"{row.get('ruler_name')}共享窗口裁决对象不完整")
+        review_ids.add(review_id)
+        required_ids.update(ruler_ids)
+    if not required_ids:
+        return
+    if len(review_ids) != 1:
+        raise ValueError("同一共享权力组必须使用唯一第三项review_id")
+    expected_review_id = next(iter(review_ids))
+    component_indexes = {
+        key: {str(row["ruler_id"]): row for row in payload["records"]}
+        for key, payload in payloads.items()
+    }
+    for ruler_id in sorted(required_ids):
+        reference_review: Mapping[str, Any] | None = None
+        reference_windows: Any = None
+        for component, indexed in component_indexes.items():
+            row = indexed.get(ruler_id)
+            if row is None:
+                raise ValueError(f"共享窗口人物缺少{component}记录：{ruler_id}")
+            review = row.get("overlapping_subject_window_review") or {}
+            windows = row.get("active_rule_windows")
+            if str(review.get("review_id") or "") != expected_review_id:
+                raise ValueError(
+                    f"共享窗口{component}缺少统一review_id：{row.get('ruler_name')}"
+                )
+            if (
+                review.get("status")
+                != "REVIEWED_SHARED_POWER_SINGLE_ACCOUNTING_OWNER"
+            ):
+                raise ValueError(
+                    f"共享窗口{component}尚未闭合单一记账主体：{row.get('ruler_name')}"
+                )
+            if set((review.get("component_scope") or {}).keys()) != {
+                "A",
+                "B",
+                "C",
+                "D",
+            }:
+                raise ValueError(
+                    f"共享窗口{component}未覆盖A/B/C/D：{row.get('ruler_name')}"
+                )
+            if not windows:
+                raise ValueError(
+                    f"共享窗口{component}缺少active_rule_windows：{row.get('ruler_name')}"
+                )
+            if reference_review is None:
+                reference_review = review
+                reference_windows = windows
+            elif review != reference_review or windows != reference_windows:
+                raise ValueError(
+                    f"共享窗口A/B/C/D裁决不同步：{row.get('ruler_name')}"
+                )
+
+
 def _validate_ab_axis_narratives(payload: Mapping[str, Any]) -> None:
     records = list(payload.get("records") or ())
     if len(records) != 201:
@@ -1099,6 +1191,10 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         "military_net_loss": workspace_root / MILITARY_NET_LOSS_PENALTIES_PATH,
     }
     payloads = {key: _load(path) for key, path in paths.items()}
+    _validate_overlapping_subject_windows(
+        workspace_root,
+        {key: payloads[key] for key in ("AB", "C", "D", "result_credit")},
+    )
     _validate_current_ab_score_fields(payloads["AB"])
     _validate_ab_control_contribution_contract(
         payloads["AB"], depth_source=_load(workspace_root / AB_HANDOFF_ADJUDICATIONS_PATH)
@@ -1317,6 +1413,14 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
             "formal_score_write": total is not None,
             "pending_reason": None if not missing else f"缺少{'、'.join(missing)}闭合结果，第三项不赋中性总分。",
         })
+        if credit_row and credit_row.get("overlapping_subject_window_review"):
+            for shared_field in (
+                "active_rule_windows",
+                "overlapping_subject_window_review",
+            ):
+                base[shared_field] = json.loads(
+                    json.dumps(credit_row[shared_field], ensure_ascii=False)
+                )
         records.append(base)
 
     _rank(records)
@@ -1399,6 +1503,15 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
     payload = _load(workspace_root / FORMAL_PATH)
     credit_payload = _load(workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH)
     ab_payload = _load(workspace_root / AB_PATH)
+    _validate_overlapping_subject_windows(
+        workspace_root,
+        {
+            "AB": ab_payload,
+            "C": _load(workspace_root / C_PATH),
+            "D": _load(workspace_root / FORMAL_D_PATH),
+            "result_credit": credit_payload,
+        },
+    )
     _validate_ab_control_contribution_contract(
         ab_payload, depth_source=_load(workspace_root / AB_HANDOFF_ADJUDICATIONS_PATH)
     )
@@ -1637,6 +1750,16 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
         credit = credits.get(name)
         if credit is None or str(credit["ruler_id"]) != str(row["ruler_id"]):
             raise ValueError(f"{name}缺少同主体A120/B80当前裁决")
+        shared_review = credit.get("overlapping_subject_window_review") or {}
+        if shared_review.get("review_id"):
+            for shared_field in (
+                "active_rule_windows",
+                "overlapping_subject_window_review",
+            ):
+                if shared_field in credit:
+                    row[shared_field] = json.loads(
+                        json.dumps(credit[shared_field], ensure_ascii=False)
+                    )
         parts = [_decompose_a120_axis(axis, credit["axes"][axis]) for axis in ("A1", "A2")]
         anchor = round(sum(part[0] for part in parts), 2)
         positive = round(sum(part[1] for part in parts), 2)

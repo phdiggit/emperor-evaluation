@@ -41,13 +41,51 @@ actual_power_window_overrides:
     basis: 146—150年梁妠临朝不得与刘志重复归责；本人窗口从150年亲政起算。
     evidence_refs:
       - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
+  刘肇:
+    actual_power_window: 92—105年亲政；88—92年窦氏主政期另标共享
+    third_item_overlap_status: NO_OVERLAP_IN_SCORING_WINDOW
+    basis: 刘肇当前正式评价窗口从92年亲政起算；88—92年窦氏主政期不进入本人的第三项计分窗口，因此不存在当前A/B/C/D并行重复消费。
+    evidence_refs:
+      - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
+  李治:
+    actual_power_window: 649—683年；660年后与武则天共享部分权力
+    third_item_overlap_status: COMPONENT_REVIEW_COMPLETE
+    overlap_review_id: THIRD-OVERLAP-TANG-LIZHI-WUZETIAN-660-683
+    overlapping_ruler_ids: [RULER-TANG-LIZHI, RULER-TANG-WUZETIAN]
+    basis: 660—683年属于李治与武则天共享部分最高权力的政治窗口；现有百济、高句丽、唐罗等正式战役卡把任将、出兵与收束军令直接定位到李治，故第三项采用李治为单一记账主体。吐蕃父卡明确不能闭合单一政治责任中心，保留为共享背景与证据边界，但仍按正式军令签发主体的统一规则只在李治账消费；该选择不表示武则天没有政治影响。
+    evidence_refs:
+      - docs/公共成果/军事/01-战役登记/qin_tang-22.json
+      - docs/公共成果/军事/01-战役登记/qin_tang-03.json
+      - docs/公共成果/军事/01-战役登记/qin_tang-21.json
+      - docs/公共成果/军事/01-战役登记/qin_tang-19.json
+  武则天:
+    actual_power_window: 660—705年由参政、临朝到称帝的连续实际权力期
+    third_item_overlap_status: COMPONENT_REVIEW_COMPLETE
+    overlap_review_id: THIRD-OVERLAP-TANG-LIZHI-WUZETIAN-660-683
+    overlapping_ruler_ids: [RULER-TANG-LIZHI, RULER-TANG-WUZETIAN]
+    basis: 武则天的规范实际权力期从660年开始，但660—683年同一国家军事结果已按具名任将、出兵和收束军令由李治作为第三项单一记账主体消费；武则天不重复取得该阶段A/B/C/D信用或承担同一成本，684年以后再进入本人独立第三项窗口。此处只处理绩效账唯一消费，不否定共享政治权力。
+    evidence_refs:
+      - docs/公共成果/军事/01-战役登记/qin_tang-22.json
+      - docs/公共成果/军事/01-战役登记/qin_tang-03.json
+      - docs/公共成果/军事/01-战役登记/qin_tang-21.json
+      - docs/公共成果/军事/01-战役登记/qin_tang-19.json
 
 third_item_window_adjudications:
   FORMAL_SCORE_INVALIDATED_PENDING_READJUDICATION:
-    rulers: [李治, 武则天, 玄烨, 司马曜, 宇文邕, 高湛, 高纬, 嬴政, 李谅祚, 李秉常, 李乾顺]
-    basis: 规范人物池的实际最高权力窗口与当前第三项消费窗口存在实质冲突，且现有第三项正式记录仍消费非本人独立最高权力阶段、把共同掌权阶段完整归给单一主体，或把仍由前任实际掌权的阶段切给继任者。李治、武则天需重裁660—683共享权力；玄烨、司马曜、宇文邕、嬴政的第三项仍以名义即位而非亲政起点建立A/B/C/D窗口；高湛、高纬在565—569太上皇实际掌权期存在主体错切；李谅祚、李秉常、李乾顺仍按幼主名义在位期消费长期军事结果与成本。完成逐人起终锚、逐链授权责任和成本窗口重裁前，旧第三项分不得进入综合榜。共享或摄政关系不得机械对半，必须逐链实证归责。
+    rulers: [玄烨, 司马曜, 宇文邕, 高湛, 高纬, 嬴政, 李谅祚, 李秉常, 李乾顺]
+    basis: 规范人物池的实际最高权力窗口与当前第三项消费窗口存在实质冲突，且现有第三项正式记录仍消费非本人独立最高权力阶段，或把仍由前任实际掌权的阶段切给继任者。玄烨、司马曜、宇文邕、嬴政的第三项仍以名义即位而非亲政起点建立A/B/C/D窗口；高湛、高纬在565—569太上皇实际掌权期存在主体错切；李谅祚、李秉常、李乾顺仍按幼主名义在位期消费长期军事结果与成本。完成逐人起终锚、逐链授权责任和成本窗口重裁前，旧第三项分不得进入综合榜。共享或摄政关系不得机械对半，必须逐链实证归责。
     evidence_refs:
       - config/common/canonical-ruler-pool.json
+      - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
+      - docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json
+      - docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json
+      - docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json
+      - docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md
+  ACCEPTED_AFTER_SHARED_WINDOW_ADJUDICATION:
+    rulers: [李治, 武则天]
+    basis: 660—683年共享权力已完成A/B/C/D同值重裁。百济、高句丽、唐罗等具名任将、出兵与收束军令由李治作为第三项单一记账主体消费；武则天不重复取得同阶段成果或承担同一成本，自684年起进入独立第三项窗口。吐蕃父卡不能进一步拆分共同中枢责任，已作为公开证据缺口保留；单一记账只防止重复评价，不表示李治独占全部历史责任。
+    evidence_refs:
+      - config/third-item/third-item-result-credit-adjudications.json
       - docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
       - docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json
       - docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json
