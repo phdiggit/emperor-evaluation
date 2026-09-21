@@ -2,17 +2,17 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>帝王三镜 · 战役与武将档案</title>
+<title>帝王三镜 · 战役与统帅档案</title>
 <style>
 :root{--paper:#f5f2eb;--ink:#242e2c;--muted:#727970;--line:#deded3;--red:#984333;--green:#286559;--gold:#96763c}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.75 "Microsoft YaHei",sans-serif}a{color:var(--green)}header{padding:18px 4vw;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:20px;background:#f9f7f1}header strong{font:22px serif;letter-spacing:2px}header span{color:var(--muted);font-size:12px}header a{margin-left:auto}main{max-width:1120px;margin:auto;padding:28px 4vw 70px}h1,h2{font-family:"SimSun",serif}h1{font-size:38px;line-height:1.3;margin:8px 0 18px}h2{font-size:24px;margin:8px 0}.eyebrow{letter-spacing:3px;font-size:11px;color:var(--red)}.muted,.subline,small{color:var(--muted)}.panel{border:1px solid var(--line);border-radius:7px;padding:22px;background:#fcfbf7;margin:16px 0}.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.toolbar input{flex:1;min-width:240px;background:#fffdf8;border:1px solid var(--line);padding:10px 12px;border-radius:4px;font:inherit}.toolbar button{background:var(--ink);color:white;border:1px solid var(--ink);border-radius:4px;padding:9px 16px;font:inherit;cursor:pointer}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.stat{border-top:2px solid var(--line);padding-top:10px}.stat b{font:28px Georgia,serif;color:var(--green)}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{display:block;border:1px solid var(--line);border-radius:6px;padding:15px;background:#fcfbf7;text-decoration:none;color:inherit}.card:hover{border-color:var(--green)}.card strong{display:block;font-size:16px}.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.chip{display:inline-block;padding:2px 7px;border-radius:3px;background:#e9eee5;font-size:12px}.chip.result{color:var(--red)}.chip.diff{color:var(--green)}.prose{white-space:pre-line;line-height:1.95}.label{font-size:12px;color:var(--red);margin-top:16px}.notice{border-left:3px solid var(--gold);padding:10px 14px;background:#eeeae0;font-size:13px}.member{border-top:1px solid var(--line);padding:12px 0}.member:first-child{border-top:0}.member-head{display:flex;justify-content:space-between;gap:12px}.sources{font-size:12px;overflow-wrap:anywhere}.sources code{display:block;margin:5px 0;white-space:normal}.back{font-size:13px}.grade-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.grade-grid>div{padding:10px;background:#f1eee6;border-radius:4px}.empty{padding:40px;text-align:center;color:var(--muted)}details{border-top:1px solid var(--line);padding:12px 0}summary{cursor:pointer;font-weight:600}.achievement{border-top:1px dotted var(--line);padding:12px 0}.achievement:first-child{border-top:0}.footer{font-size:12px;color:var(--muted);margin-top:28px}@media(max-width:700px){main{padding:20px 16px}.cards,.stats,.grade-grid{grid-template-columns:1fr}h1{font-size:30px}header span{display:none}}
 </style>
 </head>
 <body>
-<header><strong>帝王三镜</strong><span>公共军事成果阅读层</span><a href="index.html">返回人物总览</a></header>
+<header><strong>帝王三镜</strong><span>战役档案 · 统帅档案</span><a href="index.html">返回人物总览</a></header>
 <main id="archive-app"><div class="empty">正在加载战役与武将索引…</div></main>
 <script>
 const READER_SOURCE_REPOSITORY="phdiggit/emperor-evaluation";
-const READER_SOURCE_REVISION="a158b37aafe8393dae0e446b76138380a4ffee82";
+const READER_SOURCE_REVISION="9013c42692ae71df44bfe974da0f530597e7fd67";
 "use strict";
 
 (() => {
@@ -164,7 +164,7 @@ const READER_SOURCE_REVISION="a158b37aafe8393dae0e446b76138380a4ffee82";
 
   function publicMilitaryText(value) {
     let output = String(value ?? "");
-    const terms = {first_tier_pole:"第一梯队竞争力量",capital_or_state_survival:"首都或国家存续",core_heartland:"核心腹地",important_region:"重要区域",dominant_pole:"主导竞争极",regional_major:"区域主要对手",strong:"强盛",viable:"仍具作战能力",residual:"残余体系",defeat:"失败",victory:"胜利",failed:"未完成",complete:"完成",partial:"部分完成",mixed:"得失并存",objective_shortfall:"未完成目标",objective_shortfalls:"未完成目标"};
+    const terms = {first_tier_pole:"第一梯队竞争力量",capital_or_state_survival:"首都或国家存续",core_heartland:"核心腹地",important_region:"重要区域",dominant_pole:"主导竞争极",regional_major:"区域主要对手",strong:"强盛",viable:"仍具作战能力",residual:"残余体系",defeat:"失败",victory:"胜利",failed:"未完成",complete:"完成",partial:"部分完成",mixed:"得失并存",objective_shortfall:"未完成目标",objective_shortfalls:"未完成目标",unknown:"未明确",unresolved:"尚未确认"};
     output = output.replace(/\b[a-z]+(?:_[a-z]+)*\b/g, word => terms[word] || word);
     for (const [key, label] of Object.entries(publicMilitaryTerms)) {
       output = output.replace(new RegExp(`\\b${key}\\b`, "g"), label);
@@ -269,13 +269,13 @@ const READER_SOURCE_REVISION="a158b37aafe8393dae0e446b76138380a4ffee82";
       if (cardIndex >= 0) {
         const card = activeEvidence.source_cards[cardIndex];
         const paragraph = String(ref).match(/P\d+$/)?.[0] || "";
-        return `<p><a href="#battle=${encodeURIComponent(activeBattleId)}&source=${cardIndex}">《${esc(card.source_volume || card.title)}》${esc(paragraph ? ` · 本地分段 ${paragraph}` : "")} · 查看摘句与定位 →</a></p>`;
+        return `<p><a href="#battle=${encodeURIComponent(activeBattleId)}&source=${cardIndex}">《${esc(card.source_volume || card.title)}》${esc(paragraph ? ` · 史料卡段落 ${paragraph}` : "")} · 查看摘句与定位 →</a></p>`;
       }
       const unit = String(ref).match(/^(SRC-.+)-P\d+$/)?.[1];
       const volume = unit && activeEvidence?.source_cards?.find(card => card.refs.some(anchor => String(anchor).startsWith(unit + "-P")));
       if (volume) {
         const url = volume.source_url || repoHref(`${volume.source_volume}@${volume.revision || ""}`);
-        if (url) return `<p><a href="${esc(url)}" target="_blank" rel="noopener">《${esc(volume.source_volume)}》 · 阅读原卷 ↗</a><br>本地定位：${esc(ref)}；当前来源卡没有与本段单独配对的摘句。</p>`;
+        if (url) return `<p><a href="${esc(url)}" target="_blank" rel="noopener">《${esc(volume.source_volume)}》 · 阅读原卷 ↗</a><br>史料卡定位：${esc(ref)}；当前来源卡没有与本段单独配对的摘句。</p>`;
       }
       const battle = battleForRef(ref);
       if (battle) {
@@ -286,7 +286,7 @@ const READER_SOURCE_REVISION="a158b37aafe8393dae0e446b76138380a4ffee82";
       const source = String(ref).match(/^([^@]+)@([^#]*)(?:#(.*))?$/);
       const title = source ? `《${source[1].replace("/", " · ")}》` : ref;
       const excerpt = source ? (source[3] || (/^\d+$/.test(source[2]) ? "" : source[2])) : "";
-      return `<p>${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(title)} · 阅读来源 ↗</a>` : esc(title)}${excerpt ? `<br><span>登记定位摘句：${esc(excerpt)}</span>` : ""}</p>`;
+      return `<p>${href ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(title)} · 阅读来源 ↗</a>` : esc(title)}${excerpt ? `<br><span>来源定位摘句：${esc(excerpt)}</span>` : ""}</p>`;
     }).join("")}</div>`;
   }
 
@@ -400,7 +400,7 @@ const READER_SOURCE_REVISION="a158b37aafe8393dae0e446b76138380a4ffee82";
     return `<section class="panel"><h2>史料原文摘句与定位</h2><p>摘句按现有史料卡原样展示，属于整组来源；不将一组摘句擅自配给某一个分段编号。分段编号用于本仓库核对。</p>${cards.map((card,index) => {
       const book = String(card.source_volume || "").replace("资治通鉴", "資治通鑑").replace("辽史", "遼史");
       const url = /^https?:\/\//.test(card.source_url || "") ? card.source_url : book.includes("/") ? `https://zh.wikisource.org/wiki/${encodeURI(book)}${/^\d+$/.test(String(card.revision)) ? `?oldid=${card.revision}` : ""}` : "";
-      return `<article class="member" id="source-card-${index}"><h3>${esc(card.title || book)}</h3>${card.quotes.length ? card.quotes.map(quote => `<blockquote class="prose">${esc(quote)}</blockquote>`).join("") : '<p>这张来源卡没有另存原文摘句，请打开原卷阅读；不以裁决摘要冒充原文。</p>'}<p>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">打开《${esc(book)}》${card.revision ? "对应版本" : ""} ↗</a>` : ""}</p><p><a href="${esc(repoHref(card.source))}" target="_blank" rel="noopener">查看保存这些摘句的史料卡 ↗</a></p><small>本地分段：${esc(card.refs.map(ref=>String(ref).match(/P\d+$/)?.[0] || ref).join("、"))}</small></article>`;
+      return `<article class="member" id="source-card-${index}"><h3>${esc(card.title || book)}</h3>${card.quotes.length ? card.quotes.map(quote => `<blockquote class="prose">${esc(quote)}</blockquote>`).join("") : '<p>这张来源卡没有另存原文摘句，请打开原卷阅读；不以裁决摘要冒充原文。</p>'}<p>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">打开《${esc(book)}》${card.revision ? "对应版本" : ""} ↗</a>` : ""}</p><p><a href="${esc(repoHref(card.source))}" target="_blank" rel="noopener">查看保存这些摘句的史料卡 ↗</a></p><small>史料卡段落：${esc(card.refs.map(ref=>String(ref).match(/P\d+$/)?.[0] || ref).join("、"))}</small></article>`;
     }).join("")}</section>`;
   }
 
