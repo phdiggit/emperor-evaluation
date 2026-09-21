@@ -353,6 +353,47 @@ def test_material_intensity_names_are_mapped_only_from_structured_fields():
 
 
 
+def test_generated_reader_profile_context_strength_codes_are_formal_and_consistent():
+    import json
+
+    root = Path(__file__).resolve().parents[1]
+    aliases = {
+        "MI1": 1, "MI1_CASE": 1,
+        "MI2": 2, "MI2_LIFECYCLE": 2,
+        "MI3": 3, "MI3_SUSTAINED_SYSTEMIC": 3,
+        "MI4": 4, "MI4_CROSS_PHASE_SYSTEMIC": 4,
+    }
+    issues = []
+    checked = 0
+    for path in sorted((root / "reader" / "data" / "people").glob("*.json")):
+        record = json.loads(path.read_text(encoding="utf-8")).get("record") or {}
+        ruler = record.get("ruler_name") or path.stem
+        for axis_code, axis in (record.get("axes") or {}).items():
+            contexts = []
+            contexts.extend(axis.get("representative_contexts") or [])
+            contexts.extend((axis.get("context_lookup") or {}).values())
+            for index, context in enumerate(contexts):
+                if not isinstance(context, dict):
+                    continue
+                present = {
+                    key: str(context[key])
+                    for key in ("intensity", "material_intensity")
+                    if context.get(key) not in (None, "")
+                }
+                if not present:
+                    continue
+                checked += 1
+                unknown = {key: value for key, value in present.items() if value not in aliases}
+                if unknown:
+                    issues.append(f"{ruler}/{axis_code}/{index}: unknown={unknown}")
+                    continue
+                levels = {aliases[value] for value in present.values()}
+                if len(levels) > 1:
+                    issues.append(f"{ruler}/{axis_code}/{index}: conflict={present}")
+    assert checked > 0
+    assert not issues, "\n".join(issues[:50])
+
+
 def test_person_readability_heading_normalizer_accepts_public_detail_titles():
     source = (Path(__file__).resolve().parents[1] / "reader" / "person-readability.js").read_text(encoding="utf-8")
     assert '"人物画像详情"' in source
