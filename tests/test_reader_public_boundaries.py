@@ -1309,14 +1309,20 @@ def test_first_item_summary_does_not_repeat_the_same_scoreline_after_detail_card
     assert "军事代价扣减 =" in first_totals
 
 
-def test_first_item_not_applicable_uses_formal_status_instead_of_reader_inference():
+def test_first_item_applicability_is_three_state_and_never_inferred_from_items():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
-    for source in (home, person):
-        assert 'record.net?.first_item_status === "NOT_APPLICABLE"' in source
+    first = (root / "reader/first-item-reading.js").read_text(encoding="utf-8")
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    for source in (home, person, first):
+        assert '"NOT_APPLICABLE"' in source
+        assert '"APPLICABLE"' in source
+        assert "第一项正式适用状态" in source
         assert "items.every(item =>" not in source
+    assert "正式状态未发布；阅读层不判断是否适用" in template
+    assert "n.first_item_status==='NOT_APPLICABLE'" in template
 
 
 def test_material_cards_show_optional_formal_source_coverage_without_reader_inference():
