@@ -906,8 +906,12 @@ def _fourth_axis_projection(row: dict[str, Any], axis: str, packages: dict[str, 
         items = [projection["public_evidence_items"][0] for projection in package_projections]
         disposition = str(row.get("disposition") or "")
         if disposition == "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW":
+            reviewed_summaries = [
+                projection["public_adjudication_summary"].replace("结果方向未单列：", "材料记录：", 1)
+                for projection in package_projections
+            ]
             summary = f"{CIVILIZATION_AXIS_LABELS[axis]}：现有材料经复核后未形成可单独计入的净变化。" + "；".join(
-                projection["public_adjudication_summary"] for projection in package_projections
+                reviewed_summaries
             )
             level = "复核后未确认独立净变化"
         else:
