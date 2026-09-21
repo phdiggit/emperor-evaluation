@@ -149,7 +149,7 @@
 
   function publicMilitaryText(value) {
     let output = String(value ?? "");
-    const terms = {first_tier_pole:"第一梯队竞争力量",capital_or_state_survival:"首都或国家存续",core_heartland:"核心腹地",important_region:"重要区域",dominant_pole:"主导竞争极",regional_major:"区域主要对手",strong:"强盛",viable:"仍具作战能力",residual:"残余体系",defeat:"失败",victory:"胜利",failed:"未完成",complete:"完成",partial:"部分完成",mixed:"得失并存",objective_shortfall:"未完成目标",objective_shortfalls:"未完成目标"};
+    const terms = {first_tier_pole:"第一梯队竞争力量",capital_or_state_survival:"首都或国家存续",core_heartland:"核心腹地",important_region:"重要区域",dominant_pole:"主导竞争极",regional_major:"区域主要对手",strong:"强盛",viable:"仍具作战能力",residual:"残余体系",defeat:"失败",victory:"胜利",failed:"未完成",complete:"完成",partial:"部分完成",mixed:"得失并存",objective_shortfall:"未完成目标",objective_shortfalls:"未完成目标",unknown:"未明确",unresolved:"尚未确认"};
     output = output.replace(/\b[a-z]+(?:_[a-z]+)*\b/g, word => terms[word] || word);
     for (const [key, label] of Object.entries(publicMilitaryTerms)) {
       output = output.replace(new RegExp(`\\b${key}\\b`, "g"), label);
