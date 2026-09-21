@@ -207,8 +207,13 @@
   async function build(group, record, items) {
     const dedicated = /^#net\/[^/?#]+\/first(?:\/|$)/.test(location.hash);
     const heading = dedicated ? "" : `<h3>第一项 · 奠基与统一</h3>`;
-    if (record.net?.first_item_status !== "APPLICABLE") {
+    const firstStatus = record.net?.first_item_status;
+    if (firstStatus === "NOT_APPLICABLE") {
       group.innerHTML = `<div class="first-item-public-v2">${heading}<p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入建国、复国或统一创业主链的本项加分口径。</p></div>`;
+      return;
+    }
+    if (firstStatus !== "APPLICABLE") {
+      group.innerHTML = `<div class="first-item-public-v2">${heading}<p class="notice"><strong>第一项正式适用状态未发布。</strong>阅读层不根据现有分项自行判断是否适用。</p></div>`;
       return;
     }
     const formalName = FORMAL_NAME_ALIASES[record.ruler_name] || record.ruler_name;
