@@ -709,6 +709,19 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'const logic = structuredMaterials ? "" : summary;' in home
     assert 'class="net-overall-boundary"' in home
     assert '<summary>总体范围与边界</summary>' in home
+def test_source_coverage_and_material_strength_are_explained_as_different_scales():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "hasSourceCoverage" in home
+    assert "来源覆盖”只表示当前公开证据包的来源是否足够" in home
+    assert "不表示材料强度、结果方向或得分高低" in home
+    assert "“材料强度”描述情境的持续性、作用范围和机制化程度" in template
+    assert "“来源覆盖”描述公开证据包的来源是否足够" in template
+    assert "两者不是同一尺度" in template
+
+
 def test_fourth_item_public_source_coverage_is_rendered_only_when_formally_published():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
