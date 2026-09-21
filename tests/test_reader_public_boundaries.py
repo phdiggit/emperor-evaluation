@@ -863,6 +863,9 @@ def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustme
     assert "signedAdjustment" in template
     assert 'groupKey === "civilization"' in home
     assert "本项适用，但没有形成正向净收益" in home
+    assert "function finiteNetNumber(value)" in home
+    assert 'Number(record.net?.first_item_raw_score) === 0' not in home
+    assert 'Number(record.net.first_item_raw_score) === 0' not in home
     assert 'major === "fourth" && Number(value) > 0' in home
 def test_overview_major_link_matching_tolerates_public_state_notes():
     from pathlib import Path
@@ -1310,6 +1313,8 @@ def test_fourth_item_zero_total_explains_cross_axis_cancellation():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "function fourthAdjustmentNote(record)" in source
+    assert "const adjustment = finiteNetNumber(record.net?.fourth_item_adjustment);" in source
+    assert "Number(record.net?.fourth_item_adjustment) === 0" not in source
     assert "hasPositive && hasNegative" in source
     assert "存在正向与负向分轴，合计后相抵" in source
     assert "0不代表各轴都没有变化" in source
