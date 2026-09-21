@@ -302,14 +302,14 @@ assert.ok(start>=0&&end>start);
 const escape=x=>String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const api=new Function('esc','prose','axisProse','link',source.slice(start,end)+';return {contextIntensity,contexts};')(
  escape,x=>'<p>'+escape(x)+'</p>',x=>'<p>'+escape(x)+'</p>',()=>'<a>合同</a>');
-for(const [code,label] of Object.entries({MI1_CASE:'单一情境',MI2_LIFECYCLE:'完整生命周期情境',MI3_SUSTAINED_SYSTEMIC:'持续系统性情境',MI4_CROSS_PHASE_SYSTEMIC:'跨阶段系统性情境'})){
+for(const [code,label] of Object.entries({MI1:'单一情境',MI1_CASE:'单一情境',MI2:'完整生命周期情境',MI2_LIFECYCLE:'完整生命周期情境',MI3:'持续系统性情境',MI3_SUSTAINED_SYSTEMIC:'持续系统性情境',MI4:'跨阶段系统性情境',MI4_CROSS_PHASE_SYSTEMIC:'跨阶段系统性情境'})){
  assert.equal(api.contextIntensity({intensity:code}),label);
  assert.equal(api.contextIntensity({material_intensity:code}),label);
  assert.equal(api.contextIntensity({intensity:code,material_intensity:code}),label);
 }
 assert.equal(api.contextIntensity({basis:'跨阶段多年反复，有MI4字样。',axis_grade:'G5'}),'未列');
 assert.equal(api.contextIntensity({intensity:null}),'未列');
-assert.equal(api.contextIntensity({intensity:'MI4'}),'未设中文展示，请查原始记录');
+assert.equal(api.contextIntensity({intensity:'FUTURE_CODE'}),'未设中文展示，请查原始记录');
 assert.equal(api.contextIntensity({intensity:'MI1_CASE',material_intensity:'MI4_CROSS_PHASE_SYSTEMIC'}),'上游字段不一致，请查原始记录');
 const record={counterpattern:{negative_parent_refs:['P']},context_lookup:{P:{intensity:'MI2_LIFECYCLE',basis:'完整正式说明，包括反证和限制。'}}};
 const before=JSON.stringify(record),html=api.contexts(record,true);
