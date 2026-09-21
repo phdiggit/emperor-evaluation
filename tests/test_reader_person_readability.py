@@ -348,6 +348,7 @@ def test_material_intensity_names_are_mapped_only_from_structured_fields():
     assert ".replace(/MI4" not in template
     assert "MIXED_POSITIVE:'混合偏正'" in template
     assert "MIXED_NEGATIVE:'混合偏负'" in template
+    assert "MIXED_BALANCED:'正负大致平衡'" in template
     assert "材料强度只描述情境的持续性、作用范围和机制化程度" in template
     assert "不表示正负方向、能力高低或得分" in template
 
@@ -357,7 +358,7 @@ def test_generated_reader_profile_context_directions_use_publicly_mapped_formal_
     import json
 
     root = Path(__file__).resolve().parents[1]
-    allowed = {"POSITIVE", "NEGATIVE", "MIXED", "MIXED_POSITIVE", "MIXED_NEGATIVE", "LIMITATION"}
+    allowed = {"POSITIVE", "NEGATIVE", "MIXED", "MIXED_POSITIVE", "MIXED_NEGATIVE", "MIXED_BALANCED", "LIMITATION"}
     issues = []
     checked = 0
     for path in sorted((root / "reader" / "data" / "people").glob("*.json")):
