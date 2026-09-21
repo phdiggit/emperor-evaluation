@@ -857,6 +857,9 @@ def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustme
     assert "本项适用，但未形成正向净收益" in template
     assert "这与“不适用”不同" in template
     assert "compareFirstAddOn" in template
+    assert "function firstRawScore" in template
+    assert "Number(n.first_item_raw_score)===0" not in template
+    assert "Number(r.net.first_item_raw_score)===0" not in template
     assert "signedAdjustment" in template
     assert 'groupKey === "civilization"' in home
     assert "本项适用，但没有形成正向净收益" in home
@@ -878,6 +881,7 @@ def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_n
     compare_end = template.index("function guide()", compare_start)
     block = template[compare_start:compare_end]
     assert "const missingNetLabel=r=>" in block
+    assert "const firstRawScore=n=>" in block
     assert "const compareFirstAddOn=r=>" in block
     assert "const signedAdjustment=value=>" in block
     assert "该对象只作为补充历史样本，不进入人物画像正式评价范围。" in template
