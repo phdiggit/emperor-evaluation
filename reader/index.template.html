@@ -9,7 +9,7 @@
 @media(max-width:700px){header{gap:10px;flex-wrap:wrap}header span{display:none}nav{gap:4px}nav button{padding:6px 10px;font-size:12px}main{padding:22px 18px}.hero,.three{grid-template-columns:1fr}.hero{gap:10px}.three>.impact{grid-column:auto}h1{font-size:32px}.person-head{align-items:start}.person-head button{font-size:12px}.panel{padding:20px}.count{margin-left:0}.legend{gap:12px}.legend b{font-size:14px}.compare-select{flex-wrap:wrap}.compare-select select{width:100%}th,td{padding:12px}.comparison td{min-width:160px}.comparison td:first-child{min-width:95px}input{min-width:0;width:100%}.toolbar select{flex:1}.big{font-size:44px}}
 @media print{header nav,.toolbar,button,.compare-select{display:none}body{background:white}main{padding:0}.panel{break-inside:avoid}.three{display:block}.panel{margin-bottom:15px}details{break-inside:avoid}}
 
-.read-more{font-size:13px;display:inline-block;margin-top:8px}.reading-intro{font-size:15px;line-height:1.85;margin:18px 0}.subline,td small{font-size:13px;color:#60695f}.axis-row{font-size:14px;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding:14px 0}.axis-letter{font:26px Georgia,serif;color:var(--green);width:2.4em;text-align:left}.axis-row a{text-decoration:none}.axis-row a:hover{text-decoration:underline}.axis-excerpt{grid-column:1/-1}.excerpt{font-size:14px;line-height:1.8;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:#515d55}.overview-axes{display:grid;grid-template-columns:repeat(2,1fr);gap:3px 14px;font-size:12px}.overview-axes span{display:flex;justify-content:space-between;gap:9px}.overview-axes b{font:16px Georgia,serif;color:var(--green);flex:0 0 2.4em;text-align:left}.section-title{margin-top:30px}.metadata{margin-top:20px}.prose{font-size:15px}.comparison-scroll{max-height:72vh;overflow:auto}.comparison thead th{position:sticky;top:0;z-index:3;background:#e9ede3;font-size:16px;font-weight:bold}.comparison td:first-child{position:sticky;left:0;z-index:1;background:#f5f2eb}.comparison thead th:first-child{left:0;z-index:4}.comparison-section th{font-size:16px;font-weight:bold;background:#e5e9dd;color:var(--ink)}.difference-toggle{display:flex;gap:8px;align-items:center;margin:12px 0}.difference-toggle input{min-width:0;width:18px;height:18px}.comparison td{overflow-wrap:anywhere}.comparison .subline{margin:5px 0}.comparison details{border:0;padding:0}.impact h3{margin-top:20px}.three{grid-template-columns:1fr 1.25fr 1.1fr}
+.read-more{font-size:13px;display:inline-block;margin-top:8px}.reading-intro{font-size:15px;line-height:1.85;margin:18px 0}.subline,td small{font-size:13px;color:#60695f}.axis-row{font-size:14px;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding:14px 0}.axis-letter{font:26px Georgia,serif;color:var(--green);width:2.4em;text-align:left}.axis-row a{text-decoration:none}.axis-row a:hover{text-decoration:underline}.axis-excerpt{grid-column:1/-1}.excerpt{font-size:14px;line-height:1.8;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:#515d55}.overview-axes{display:grid;grid-template-columns:repeat(2,1fr);gap:3px 14px;font-size:12px}.overview-axes span{display:flex;justify-content:space-between;gap:9px}.overview-axes b{font:16px Georgia,serif;color:var(--green);flex:0 0 2.4em;text-align:left}.section-title{margin-top:30px}.metadata{margin-top:20px}.prose{font-size:15px}.comparison-scroll{max-height:72vh;overflow:auto}.comparison thead th{position:sticky;top:0;z-index:3;background:#e9ede3;font-size:16px;font-weight:bold}.comparison td:first-child{position:sticky;left:0;z-index:1;background:#f5f2eb}.comparison thead th:first-child{left:0;z-index:4}.comparison-section th{font-size:16px;font-weight:bold;background:#e5e9dd;color:var(--ink)}.difference-toggle{display:flex;gap:8px;align-items:center;margin:12px 0}.difference-toggle input{min-width:0;width:18px;height:18px}.comparison td{overflow-wrap:anywhere}.comparison .subline{margin:5px 0}.compare-net-result{display:flex;flex-direction:column;align-items:flex-end;text-align:right}.compare-net-result small{max-width:26ch;white-space:normal;line-height:1.45;font-weight:400}.comparison details{border:0;padding:0}.impact h3{margin-top:20px}.three{grid-template-columns:1fr 1.25fr 1.1fr}
 @media(max-width:1050px){.three{grid-template-columns:1fr 1fr}}
 @media(max-width:700px){.three{grid-template-columns:1fr}.comparison td:first-child{min-width:95px;max-width:110px}.comparison td{min-width:140px}.comparison-scroll{max-height:75vh}.comparison thead th{font-size:15px}.overview-axes{font-size:12px}.prose{font-size:15px}.person-head{flex-wrap:wrap}}
 .comparison.emphasize-differences tr[data-compare-equal="false"]>td{background:#edf2e9}
@@ -74,16 +74,43 @@ function paradigmReceptionProse(review){
 }
 function axisProse(t){if(typeof t==='string')return prose(readerText(t));if(Array.isArray(t))return t.length?t.map(axisProse).join(''):prose('未另列说明');if(t&&typeof t==='object'){const labels={positive_parent_refs:'正向情境引用',counter_parent_refs:'反例情境引用'};return `<details><summary>查看结构化情境引用</summary>${Object.entries(t).map(([k,v])=>`<div class="label">${esc(labels[k]||k)}</div>${axisProse(v)}`).join('')}</details>`}return prose('未另列说明')}
 function excerpt(t){return `<div class="excerpt">${format(Array.isArray(t)?t.join('；'):t||'尚无独立说明')}</div>`}
+function compareNetPublicLevel(item,key){
+ let text=String(item?.public_level_label||'').trim();
+ if(!text)return '';
+ const cn={零:0,一:1,二:2,三:3,四:4,五:5,六:6,七:7};
+ if(key==='strategic'||key==='military'){
+  const grades={0:'E档',1:'D档',2:'C档',3:'B档',4:'A档',5:'S档'};
+  const costs={0:'无实质军事成本',1:'局部常规军事成本',2:'有限军事成本',3:'明显军事成本',4:'大规模或持续显著军事成本',5:'严重军事成本',6:'极端军事成本',7:'灾难性军事耗竭'};
+  const isCost=item?.label==='普通成本扣分';
+  text=text.replace(/第([0-7一二三四五六七])级/g,(_,raw)=>{
+   const n=Object.prototype.hasOwnProperty.call(cn,raw)?cn[raw]:Number(raw);
+   return isCost?(costs[n]||raw):(grades[n]||raw);
+  });
+ }
+ if(key==='civilization'){
+  const magnitude={1:'局部、短期或低强度变化',2:'清晰但有限的变化',3:'主要领域的稳定改变',4:'跨场景或系统性改变'};
+  text=text.replace(/第([1-4一二三四])级影响幅度/g,(_,raw)=>{
+   const n=Object.prototype.hasOwnProperty.call(cn,raw)?cn[raw]:Number(raw);
+   return magnitude[n]||raw;
+  });
+ }
+ return readerText(text);
+}
 function compareNetValue(item,key){
- if(item?.value==null)return item?.unit==='不单独计分'?'不单独计分':'—';
+ const level=compareNetPublicLevel(item,key);
+ const nonScoring=item?.unit==='不单独计分';
+ if(item?.value==null){
+  if(level)return `<span class="compare-net-result"><b>${esc(level)}</b>${nonScoring?'<small>不单独计分</small>':''}</span>`;
+  return `<span class="compare-net-result"><b>${nonScoring?'不单独计分':'—'}</b></span>`;
+ }
  const value=key==='civilization'&&Number(item.value)>0?'+'+number(item.value):number(item.value);
- return `${value}${item.unit?' '+esc(item.unit):''}`;
+ return `<span class="compare-net-result"><b>${value}${item.unit?' '+esc(item.unit):''}</b>${level?`<small>${esc(level)}</small>`:''}</span>`;
 }
 function netGroups(r){
  return Object.entries(r.net.component_details||{}).map(([key,items])=>{
   const judgments=(items||[]).filter(x=>x.reader_kind==='judgment'&&(x.value!=null||x.unit==='不单独计分'||x.public_level_label));
   if(!judgments.length)return '';
-  return `<details><summary>${esc(groupNames[key]||key)}</summary><p class="subline">只列正式分项与结果；内部档位码、折算中间项和小计不在对照页展开。</p>${judgments.map(x=>`<div class="component"><span>${esc(x.public_component_label||x.label)}</span><b>${compareNetValue(x,key)}</b></div>`).join('')}</details>`;
+  return `<details><summary>${esc(groupNames[key]||key)}</summary><p class="subline">只列正式分项与结果；公开层级随正式字段展示，内部档位码、折算中间项和小计不在对照页展开。</p>${judgments.map(x=>`<div class="component"><span>${esc(x.public_component_label||x.label)}</span>${compareNetValue(x,key)}</div>`).join('')}</details>`;
  }).join('');
 }
 const impactAuditSource=s=>{
