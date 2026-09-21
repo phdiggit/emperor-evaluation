@@ -801,6 +801,19 @@ def _summary(
     )
 
 
+def _public_evidence_basis(node: dict[str, Any]) -> str:
+    parts: list[str] = []
+    for key in ("public_adjudication_basis", "public_scope", "public_reception"):
+        value = str(node.get(key) or "").strip()
+        if not value:
+            continue
+        existing = "\n\n".join(parts)
+        if existing and value in existing:
+            continue
+        parts.append(value)
+    return "\n\n".join(parts)
+
+
 def _public_evidence_items(row: dict[str, Any], nodes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     if not nodes:
         return [{
@@ -814,11 +827,7 @@ def _public_evidence_items(row: dict[str, Any], nodes: list[dict[str, Any]]) -> 
             "public_label": str(node["public_label"]),
             "public_direction": str(node["public_direction"]),
             "public_tags": list(node["public_tags"]),
-            "public_basis": "\n\n".join(
-                str(node[key])
-                for key in ("public_adjudication_basis", "public_scope", "public_reception")
-                if node.get(key)
-            ),
+            "public_basis": _public_evidence_basis(node),
             "public_boundary": str(node["public_boundary"]),
         }
         for node in nodes
