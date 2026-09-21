@@ -1079,6 +1079,24 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "两个战略安全轴最后直接相加" in source
 
 
+def test_first_item_readers_do_not_backfill_missing_cost_or_net_as_zero():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    first = (root / "reader/first-item-reading.js").read_text(encoding="utf-8")
+
+    assert "[a, b1, b2, c, gross, cost, net, addOn]" in home
+    assert "[a, b1, b2, c, gross, cost, net, addOn]" in person
+    assert "[a, b1, b2, c, gross, cost, net, addOn]" in first
+    assert "cost ?? 0" not in home
+    assert "cost ?? 0" not in person
+    assert '?.value ?? 0' not in first
+    for source in (person, first):
+        assert 'const rawNetScore = byLabel["第一项净分"]?.value;' in source
+        assert 'rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore)' in source
+
+
 def test_first_item_cost_explains_current_fixed_debit_lookup():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
