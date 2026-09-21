@@ -943,7 +943,7 @@ def test_third_item_public_aliases_replace_compound_internal_labels_before_bare_
     assert source.index('replace(/\\bB4交班成熟度/g') < source.index('replace(/\\bB4\\b/g')
 
 
-def test_third_item_strategic_axis_explains_trajectory_as_exact_intermediate_formula():
+def test_third_item_strategic_axis_explains_formula_without_reverse_deriving_formal_intermediate():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "function strategicAxisExactHow(item, groupItems)" in source
@@ -952,8 +952,10 @@ def test_third_item_strategic_axis_explains_trajectory_as_exact_intermediate_for
     assert "E=0、D=1、C=2、B=3、A=4、S=5" in source
     assert "0—5只是在公式中的档位权重" in source
     assert "公开裁决仍使用 E—S" in source
-    assert "正式轨迹值为" in source
-    assert "专项信用与负向调整均直接读取正式裁决，不由阅读层重算" in source
+    assert "当前人物正式结算记录" in source
+    assert "不由阅读层反推中间值" in source
+    assert "正式轨迹值为" not in source
+    assert "score / 0.6" not in source
 
 
 def test_fourth_item_public_layer_uses_semantic_magnitude_labels_instead_of_numbered_levels():
@@ -971,6 +973,22 @@ def test_fourth_item_public_layer_uses_semantic_magnitude_labels_instead_of_numb
     assert "正向与负向材料在本轴净算后相抵，因此本轴调整为0分" in source
     assert 'fourthItem ? civilizationPublicText(value)' in source
     assert '第${magnitude[1]}级影响' not in source
+
+
+def test_first_item_not_applicable_uses_formal_status_instead_of_reader_inference():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'const firstNotApplicable = record.net?.first_item_status === "NOT_APPLICABLE";' in source
+    assert "items.every(item =>" not in source
+
+
+def test_fourth_item_zero_total_explains_cross_axis_cancellation():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "function fourthAdjustmentNote(record)" in source
+    assert "hasPositive && hasNegative" in source
+    assert "存在正向与负向分轴，合计后相抵" in source
+    assert "0不代表各轴都没有变化" in source
 
 
 def test_third_item_long_public_basis_is_losslessly_split_for_readability():
