@@ -347,7 +347,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         (
             f"> 本榜只覆盖正式评价池中`COMPOSITE_READY`的{payload['record_count']}人；"
             f"另有{payload['pending_second_item_count']}人因第二项尚未正式结算而不入榜。"
-            f"另有{payload['pending_third_item_count']}人因第三项C父周期语义审计待补而不入榜。"
+            f"另有{payload['pending_third_item_count']}人因第三项实际权力窗口/归责或C父周期语义待重裁而不入榜."
             f"另有{payload['pending_fourth_item_count']}名原综合就绪对象因第四项证据缺口暂不入榜，不把未知按零分处理。"
             "排名是现行规则与现有正式分项快照的确定性合成，不以历史名望反推分数。"
         ),
@@ -459,7 +459,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
             f"| {row['ruler_name']} | {row['polity']} | `PENDING_SECOND_ITEM` |"
         )
     lines.extend(["", "## 暂不入榜：待第三项正式结算", "",
-                  "以下对象的C父周期语义审计仍有待补边界，不把未知按零分处理。", "",
+                  "以下对象的第三项实际权力窗口/归责或C父周期语义尚未闭合，不把旧分或未知按可排名正式分处理。", "",
                   "| 人物 | 政权 | 状态 |", "|---|---|---|"])
     for row in payload["pending_third_item_records"]:
         lines.append(f"| {row['ruler_name']} | {row['polity']} | `PENDING_THIRD_ITEM` |")
