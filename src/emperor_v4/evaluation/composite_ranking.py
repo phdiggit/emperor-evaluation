@@ -410,9 +410,13 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "### 名望与名次的差异",
         "",
         (
-            f"现行结果中，{summary('嬴政')}；{summary('刘彻')}；{summary('朱元璋')}；"
-            f"{summary('刘邦')}；{summary('刘裕')}；{summary('拓跋焘')}。这些人的长板分散在"
-            "第一项、第二项A制度建设或第三项，综合公式却以第二、三项共同净收益为主体，"
+            "现行结果中，"
+            + "；".join(
+                summary(name)
+                for name in ("嬴政", "刘彻", "朱元璋", "刘邦", "刘裕", "拓跋焘")
+                if name in by_name
+            )
+            + "。这些人的长板分散在第一项、第二项A制度建设或第三项，综合公式却以第二、三项共同净收益为主体，"
             "因此不会自动把统一、扩张或制度名望等同于总榜高位。"
         ),
         "",
