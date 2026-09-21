@@ -484,8 +484,9 @@ def load_net_reader_sources(root):
     return sources
 
 
-def load_second_item_reader_summaries(root, eligible_ids):
-    """Load persisted reader-only conclusions for the currently ranked pool."""
+def load_second_item_reader_summaries(root, allowed_ids, eligible_ids):
+    """Load persisted reader-only conclusions without coupling them to composite rank."""
+
     path = root / SECOND_ITEM_READER_SUMMARIES
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -496,10 +497,11 @@ def load_second_item_reader_summaries(root, eligible_ids):
     summaries = payload.get("summaries")
     if not isinstance(summaries, dict):
         raise ValueError("Reader-only Second Item summaries must be an object")
+    allowed = set(allowed_ids)
     eligible = set(eligible_ids)
-    outside = sorted(set(summaries) - eligible)
+    outside = sorted(set(summaries) - allowed)
     if outside:
-        raise ValueError(f"Reader-only Second Item summaries reference unranked rulers: {outside}")
+        raise ValueError(f"Reader-only Second Item summaries reference rulers outside the formal pool: {outside}")
     result = {}
     for ruler_id, summary in summaries.items():
         if not isinstance(ruler_id, str) or not ruler_id:
@@ -910,7 +912,7 @@ def build(*, check=False, write=True):
     ready = {r["ruler_id"] for r in main if r["settlement_readiness"] == "COMPOSITE_READY"}
     if set(net) != ready:
         raise ValueError("Composite ranking does not match current ready pool")
-    second_item_reader_summaries = load_second_item_reader_summaries(ROOT, ready)
+    second_item_reader_summaries = load_second_item_reader_summaries(ROOT, main_ids, ready)
     net_reader_sources = load_net_reader_sources(ROOT)
     first_item_public_outcomes = load_first_item_public_outcomes(ROOT)
     impact_config = config["historical_impact_assessment"]
