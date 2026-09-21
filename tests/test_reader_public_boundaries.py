@@ -477,6 +477,32 @@ def test_b1_public_projection_refresh_preserves_formal_scoring_signature():
         assert isinstance(row["public_evidence_items"], list) and row["public_evidence_items"]
 
 
+def test_a_public_projection_supplies_row_evidence_even_without_institution_nodes():
+    import copy
+    from pathlib import Path
+    from emperor_v4.evaluation.formal_json_store import load_json
+    from emperor_v4.evaluation.second_item_a_public import (
+        A_PATH,
+        A_PUBLIC_BOUNDARY,
+        _refresh_payload,
+        verify_public_projection,
+    )
+
+    root = Path(__file__).resolve().parents[1]
+    payload = load_json(root / A_PATH)
+    projected = _refresh_payload(copy.deepcopy(payload), root)
+    verify_public_projection(root, projected)
+
+    empty_rows = [row for row in projected["records"] if not row.get("public_institution_nodes")]
+    assert empty_rows
+    for row in empty_rows:
+        assert row["public_boundary"] == A_PUBLIC_BOUNDARY
+        evidence = row["public_evidence_items"]
+        assert len(evidence) == 1
+        assert evidence[0]["public_label"] == "当前没有可单列制度节点"
+        assert evidence[0]["public_boundary"] == A_PUBLIC_BOUNDARY
+
+
 def test_b1_reader_consumes_formal_public_projection_instead_of_rebuilding_profiles():
     from pathlib import Path
 
