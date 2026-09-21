@@ -563,6 +563,18 @@ def test_fourth_item_public_source_coverage_is_rendered_only_when_formally_publi
     assert "net-material-chip" in source
 
 
+def test_profile_material_intensity_short_aliases_have_public_labels():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    for token in (
+        "MI1:'单一情境'",
+        "MI2:'完整生命周期情境'",
+        "MI3:'持续系统性情境'",
+        "MI4:'跨阶段系统性情境'",
+    ):
+        assert token in template
+
+
 def test_profile_axis_summary_shows_formal_material_coverage_in_public_words():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
