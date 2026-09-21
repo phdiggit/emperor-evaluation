@@ -1084,3 +1084,11 @@ def test_third_item_long_public_basis_is_losslessly_split_for_readability():
     assert "固定成本系数" in source
     assert "CIV_PUBLIC_POINTS" in source
 
+
+
+def test_reader_guide_explains_material_strength_badges_are_upstream_only():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "只有正式记录明确给出材料强度、情境强度或同类等级时" in template
+    assert "没有强度标签只表示上游没有发布这类字段，不等于证据弱" in template
+    assert "不由页面补判强弱" in template
