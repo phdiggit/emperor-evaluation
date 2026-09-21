@@ -35,6 +35,44 @@ def _without_public_fields(value: Any) -> Any:
     return value
 
 
+def _replace_non_public_preserving_public(current: Any, source: Any) -> Any:
+    """Replace the scoring view without moving public prose between projections."""
+
+    if isinstance(source, Mapping):
+        current_mapping = current if isinstance(current, Mapping) else {}
+        result = {}
+        for key, child in current_mapping.items():
+            if str(key).startswith("public_"):
+                result[key] = child
+            elif key in source:
+                result[key] = _replace_non_public_preserving_public(
+                    child, source[key]
+                )
+        for key, child in source.items():
+            if key not in current_mapping and not str(key).startswith("public_"):
+                result[key] = _replace_non_public_preserving_public(None, child)
+        return result
+    if isinstance(source, list):
+        if isinstance(current, list) and len(current) == len(source):
+            return [
+                _replace_non_public_preserving_public(old, new)
+                for old, new in zip(current, source, strict=True)
+            ]
+        return [
+            _replace_non_public_preserving_public(None, child)
+            for child in source
+        ]
+    return source
+
+
+def _preserve_mapping_order_if_equal(current: Any, rebuilt: dict) -> dict:
+    """Avoid order-only rewrites when a reconstructed mapping is unchanged."""
+
+    if isinstance(current, Mapping) and current == rebuilt:
+        return dict(current)
+    return rebuilt
+
+
 AB_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
 C_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json")
 FORMAL_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json")
@@ -1566,13 +1604,15 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 if rate is None:
                     raise ValueError(f"{name}的{axis_name}档位或位置非法")
                 maximum = 30 if axis_name == "B2" else 25
-                row["axes"][axis_name] = {
-                    "grade": f"{axis_name}-{grade}",
-                    "band_position": position,
-                    "score_rate": rate,
-                    "axis_points": round(rate * maximum / 100, 2),
-                    "reason": str(decision["reason"]),
-                }
+                row["axes"].setdefault(axis_name, {}).update(
+                    {
+                        "grade": f"{axis_name}-{grade}",
+                        "band_position": position,
+                        "score_rate": rate,
+                        "axis_points": round(rate * maximum / 100, 2),
+                        "reason": str(decision["reason"]),
+                    }
+                )
             region_updates = correction.get("region_evidence_refs") or {}
             regions = {
                 str(region["object_id"]): region
@@ -1584,7 +1624,8 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 regions[object_id]["evidence_refs"] = list(dict.fromkeys(map(str, refs)))
         maturity_review = maturity_reviews.get(str(row["ruler_id"]))
         if maturity_review is not None:
-            row["axes"]["B4"]["maturity_review"] = maturity_review
+            if row["axes"]["B4"].get("maturity_review") != maturity_review:
+                row["axes"]["B4"]["maturity_review"] = maturity_review
         else:
             row["axes"]["B4"].pop("maturity_review", None)
         contribution_type = str(row.get("control_contribution_type") or "")
@@ -1611,8 +1652,12 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 "B80_score_points": b80,
                 "AB200_score_points": round(a120 + b80, 2),
                 "score_ready": credit["score_ready"],
-                "A120_axis_adjudications": credit["axes"],
-                "B80_adjudication": credit["B80_adjudication"],
+                "A120_axis_adjudications": _replace_non_public_preserving_public(
+                    row.get("A120_axis_adjudications"), credit["axes"]
+                ),
+                "B80_adjudication": _replace_non_public_preserving_public(
+                    row.get("B80_adjudication"), credit["B80_adjudication"]
+                ),
             }
         )
         for axis_name, scope in A_AXIS_SCOPES.items():
@@ -1833,6 +1878,12 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
             outcome_refs.setdefault(outcome, []).append(ref)
         counts = dict(sorted(counts.items()))
         outcome_refs = dict(sorted(outcome_refs.items()))
+        counts = _preserve_mapping_order_if_equal(
+            previous.get("return_class_counts"), counts
+        )
+        outcome_refs = _preserve_mapping_order_if_equal(
+            previous.get("return_class_refs"), outcome_refs
+        )
         known = sum(count for outcome, count in counts.items() if outcome != "UNKNOWN")
         profile_source = str(previous.get("source") or "CURRENT_C_TASKS")
         d_security_profile = _build_d_security_result_profile(
@@ -1953,8 +2004,10 @@ def write_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
     validate_ab_shared_handoffs(workspace_root, ab["records"], check_b1=False)
     _synchronize_current_ab_view(workspace_root)
     _synchronize_current_c_outcome_view(workspace_root)
-    payload = build_current_third_item_settlement(workspace_root)
     json_path = workspace_root / FORMAL_PATH
+    current_payload = _load(json_path) if json_path.exists() else {}
+    payload = build_current_third_item_settlement(workspace_root)
+    payload = _replace_non_public_preserving_public(current_payload, payload)
     markdown_path = json_path.with_suffix(".md")
     _write_text_atomic(
         json_path,
