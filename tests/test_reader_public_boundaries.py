@@ -545,7 +545,9 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'card.append(box);' not in alias[alias.index('const scope = publicText(data.scope)'):alias.index('const footer = publicText(data.footer)')]
     assert 'const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;' in home
     assert '总体裁决摘要' in home
-    assert 'const logic = (structuredMaterials ? [intro] : [intro, summary])' in home
+    assert 'const logic = structuredMaterials ? "" : summary;' in home
+    assert 'class="net-overall-boundary"' in home
+    assert '<summary>总体范围与边界</summary>' in home
 def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustment():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
