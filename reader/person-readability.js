@@ -40,7 +40,7 @@
   }
 
   function normalizeEvidenceCardHeadings() {
-    for (const title of ["统治绩效构成", "人物画像依据", "历史影响依据"]) {
+    for (const title of ["统治绩效构成", "人物画像详情", "人物画像依据", "历史影响详情", "历史影响依据"]) {
       const section = evidenceSection(title);
       if (!section || section.dataset.publicHeading === "done") continue;
       const heading = section.querySelector(":scope > h2, :scope > h3");
