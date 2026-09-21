@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from reader.build import (
     _attach_b2_public_reader,
     _attach_reader,
