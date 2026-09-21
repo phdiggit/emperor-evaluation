@@ -329,20 +329,23 @@ def _attach_method_public_reader(item, *, axis, record, how=""):
             public_boundary=node.get("public_boundary", ""),
         ) for node in nodes]
     elif axis == "B1":
-        evidence = [dict(
-            public_label=node["public_label"],
-            public_basis=node["adjudication_basis"],
-            public_boundary=node.get("adjudication_boundary", ""),
-        ) for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile") for node in record.get(key, [])]
+        evidence = record.get("public_evidence_items")
+        if not isinstance(evidence, list) or not evidence:
+            raise ValueError(f"B1 formal public evidence is missing: {record.get('ruler_name')}")
+        evidence = deepcopy(evidence)
     else:
         raise ValueError(f"Unsupported method axis: {axis}")
     result = dict(item)
     result.update(reader_kind="judgment", reader_summary=summary,
                   public_adjudication_summary=summary, reader_public_evidence_items=evidence,
                   reader_how=how, reader_source_refs=_formal_source_refs(record, item.get("source"), item.get("applied_source")))
-    boundaries = _unique_texts([node["public_boundary"] for node in evidence], limit=None)
-    if boundaries:
-        result["reader_boundary"] = "\n\n".join(boundaries)
+    declared_boundary = record.get("public_boundary")
+    if isinstance(declared_boundary, str) and declared_boundary.strip():
+        result["reader_boundary"] = declared_boundary
+    else:
+        boundaries = _unique_texts([node.get("public_boundary") for node in evidence], limit=None)
+        if boundaries:
+            result["reader_boundary"] = "\n\n".join(boundaries)
     return result
 
 
