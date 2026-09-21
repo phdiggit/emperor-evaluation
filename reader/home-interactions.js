@@ -339,6 +339,17 @@ function firstCommanderMarkup(item) {
     return net.total_score;
   }
 
+  function fourthAdjustmentNote(record) {
+    const axes = (record.net?.component_details?.civilization || [])
+      .filter(item => item.label !== "第四项调整" && item.value != null && Number.isFinite(Number(item.value)));
+    const hasPositive = axes.some(item => Number(item.value) > 0);
+    const hasNegative = axes.some(item => Number(item.value) < 0);
+    if (Number(record.net?.fourth_item_adjustment) === 0 && hasPositive && hasNegative) {
+      return "本项总调整为0：存在正向与负向分轴，合计后相抵；0不代表各轴都没有变化。";
+    }
+    return "有符号调整，三轴合计范围为 -67.5～+67.5；正负值直接进入总榜。";
+  }
+
   function netHref(record, major = "all", focus = "") {
     const suffix = focus ? `/${encodeURIComponent(focus)}` : "";
     return `#net/${encodeURIComponent(record.ruler_id)}/${major}${suffix}`;
@@ -626,21 +637,12 @@ function firstCommanderMarkup(item) {
 
   function strategicAxisExactHow(item, groupItems) {
     const grade = String(item?.grade || "").match(/([0-5])\s*→\s*([0-5])档/);
-    const score = Number(item?.value);
-    const trajectory = Number.isFinite(score) ? Number((score / 0.6).toFixed(2)) : null;
     const current = grade
       ? `当前状态是接手${thirdGradeText(grade[1])} → 结束${thirdGradeText(grade[2])}`
       : "";
-    const result = trajectory != null
-      ? `正式轨迹值为${trajectory}，所以 0.6 × ${trajectory} = ${score}分`
-      : "";
-    const a1 = groupItems.get("A1");
-    const a2 = groupItems.get("A2");
-    const total = groupItems.get("A120");
-    const subtotal = [a1?.value, a2?.value, total?.value].every(value => value != null)
-      ? `两个战略安全轴最后直接相加：${a1.value} + ${a2.value} = ${total.value}分。`
-      : "";
-    return `“轨迹值”只是计分中间值，不是另一项评价。计算时 E=0、D=1、C=2、B=3、A=4、S=5；0—5只是在公式中的档位权重，公开裁决仍使用 E—S，并不是另一套数字档位。轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整，并限制在0—100；本轴分数 = 0.6 × 轨迹值。专项信用与负向调整均直接读取正式裁决，不由阅读层重算。${current ? " " + current + "；" : " "}${result ? result + "。" : ""}${subtotal ? " " + subtotal : ""}`;
+    const formalCurrent = thirdPublicText(item?.reader_how || "", item?.label || "");
+    const subtotal = thirdPublicText(groupItems.get("A120")?.reader_how || "", "A120");
+    return `“轨迹值”只是计分中间值，不是另一项评价。计算时 E=0、D=1、C=2、B=3、A=4、S=5；0—5只是在公式中的档位权重，公开裁决仍使用 E—S，并不是另一套数字档位。轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整，并限制在0—100；本轴分数 = 0.6 × 轨迹值。专项信用、负向调整和最终分数均直接读取正式裁决，不由阅读层反推中间值。${current ? " " + current + "。" : ""}${formalCurrent ? " 当前人物正式结算记录：" + formalCurrent : ""}${subtotal ? " 两轴小计正式记录：" + subtotal : ""}`;
   }
 
   function detailedHowText(item, groupKey, how, record) {
@@ -1030,9 +1032,7 @@ function firstCommanderMarkup(item) {
     const items = record.net?.component_details?.first || [];
     const container = document.getElementById("net-major-body");
     if (!container) return;
-    const firstNotApplicable = items.every(item =>
-      item.value == null || (item.label === "附加F" && Number(item.value) === 0)
-    );
+    const firstNotApplicable = record.net?.first_item_status === "NOT_APPLICABLE";
     if (firstNotApplicable) {
       container.innerHTML = `<section class="panel"><h2>${esc(netMajorSpecs.first.title)}</h2><p class="notice">本项只评价建国、复国或统一创业主链；该人物不适用，因此这一项不参与净收益计分。</p></section>`;
       return;
@@ -1096,7 +1096,7 @@ function firstCommanderMarkup(item) {
         : major === "third"
           ? '<p class="subline">250分制净分；战略、控制与军事体系收益合计后，再扣实际军事代价。</p>'
           : major === "fourth"
-            ? '<p class="subline">有符号调整，三轴合计范围为 -67.5～+67.5；正负值直接进入总榜。</p>'
+            ? `<p class="subline">${esc(fourthAdjustmentNote(record))}</p>`
             : "";
     const shownValue = value == null ? "—" : major === "fourth" && Number(value) > 0 ? `+${number(value)}` : number(value);
     return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(spec.title)}</h2><div class="big">${shownValue}</div>${extra}<p>${esc(spec.description)}</p><p class="sources">查看完整计分逻辑 →</p></a>`;
@@ -1127,7 +1127,7 @@ function firstCommanderMarkup(item) {
     const scoreNote = major === "third"
       ? `本项进入总榜的净分：${shownValue} / 250；已扣实际军事代价。`
       : major === "fourth"
-        ? `本项进入总榜的有符号调整：${shownValue}；理论范围 -67.5～+67.5。`
+        ? `本项进入总榜的有符号调整：${shownValue}。 ${fourthAdjustmentNote(record)}`
         : `本项进入总榜的分值：${shownValue}。`;
     renderNetShell(record, major, `<section class="panel"><h2>${esc(spec.title)}</h2><p>${esc(spec.description)}</p><p class="subline">${esc(scoreNote)}</p></section><div id="net-major-body"><div class="empty">正在整理当前人物的逐项结算逻辑…</div></div>`);
     renderGenericMajor(record, major, focus);
