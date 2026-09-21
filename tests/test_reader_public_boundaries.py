@@ -995,6 +995,15 @@ def test_fourth_item_public_layer_uses_semantic_magnitude_labels_instead_of_numb
     assert '第${magnitude[1]}级影响' not in source
 
 
+def test_first_item_summary_does_not_repeat_the_same_scoreline_after_detail_cards():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    first_totals = source[source.index("function firstTotals(items)"):source.index("function firstItemOverview", source.index("function firstTotals(items)"))]
+    assert "查看第一项完整折算公式" in first_totals
+    assert "first-item-scoreline" not in first_totals
+    assert "军事代价扣减 =" in first_totals
+
+
 def test_first_item_not_applicable_uses_formal_status_instead_of_reader_inference():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
