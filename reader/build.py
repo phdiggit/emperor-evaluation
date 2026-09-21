@@ -320,14 +320,10 @@ def _attach_method_public_reader(item, *, axis, record, how=""):
     if not isinstance(summary, str) or not summary.strip():
         raise ValueError(f"{axis} formal public summary is missing: {record.get('ruler_name')}")
     if axis == "A":
-        nodes = record.get("public_institution_nodes")
-        if not isinstance(nodes, list):
-            raise ValueError("A formal public nodes are missing")
-        evidence = [dict(
-            public_label=node["public_label"], public_direction=node.get("public_direction", ""),
-            public_basis="\n\n".join(node[key] for key in ("public_adjudication_basis", "public_scope", "public_reception") if node.get(key)),
-            public_boundary=node.get("public_boundary", ""),
-        ) for node in nodes]
+        evidence = record.get("public_evidence_items")
+        if not isinstance(evidence, list) or not evidence:
+            raise ValueError(f"A formal public evidence is missing: {record.get('ruler_name')}")
+        evidence = deepcopy(evidence)
     elif axis == "B1":
         evidence = record.get("public_evidence_items")
         if not isinstance(evidence, list) or not evidence:
