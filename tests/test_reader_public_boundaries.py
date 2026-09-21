@@ -555,6 +555,20 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'const logic = structuredMaterials ? "" : summary;' in home
     assert 'class="net-overall-boundary"' in home
     assert '<summary>总体范围与边界</summary>' in home
+def test_compare_net_breakdown_hides_internal_grades_notes_and_calculation_rows():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function compareNetValue")
+    end = template.index("const impactAuditSource", start)
+    block = template[start:end]
+    assert "x.reader_kind==='judgment'" in block
+    assert "x.grade" not in block
+    assert "x.note" not in block
+    assert "内部档位码、折算中间项和小计不在对照页展开" in block
+    assert "row('分项构成'" in template
+    assert "<summary>展开分项</summary>" in template
+
+
 def test_base_template_uses_current_second_item_public_terms_before_runtime_patching():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
