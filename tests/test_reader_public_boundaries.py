@@ -406,6 +406,39 @@ def test_second_item_material_card_phase_two_scope():
     assert "D1继任行政连续性" in alias
     assert "D3政权交接稳定" in alias
 
+def test_generated_net_judgments_have_complete_public_reading_fields_across_pool():
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    groups = ("method", "finance", "handoff", "strategic", "military", "civilization")
+    third_fourth = {"strategic", "military", "civilization"}
+    seen = 0
+
+    for path in sorted((root / "reader/data/people").glob("*.json")):
+        record = json.loads(path.read_text(encoding="utf-8")).get("record") or {}
+        details = ((record.get("net") or {}).get("component_details") or {})
+        for group in groups:
+            for item in details.get(group) or []:
+                if item.get("reader_kind") != "judgment":
+                    continue
+                seen += 1
+                prefix = f"{path.name}:{record.get('ruler_name')}:{group}:{item.get('label')}"
+                assert str(item.get("reader_summary") or "").strip(), prefix + ": missing reader_summary"
+                assert str(item.get("reader_boundary") or "").strip(), prefix + ": missing reader_boundary"
+                evidence = item.get("reader_public_evidence_items")
+                assert isinstance(evidence, list) and evidence, prefix + ": missing public evidence"
+                for index, entry in enumerate(evidence):
+                    assert isinstance(entry, dict), prefix + f": evidence[{index}] is not an object"
+                    for field in ("public_label", "public_basis", "public_boundary"):
+                        assert str(entry.get(field) or "").strip(), prefix + f": evidence[{index}] missing {field}"
+                if group in third_fourth:
+                    assert str(item.get("public_component_label") or "").strip(), prefix + ": missing public_component_label"
+                    assert str(item.get("public_level_label") or "").strip(), prefix + ": missing public_level_label"
+
+    assert seen > 0
+
+
 def test_third_fourth_detail_material_cards_use_formal_public_fields_only():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
