@@ -342,12 +342,19 @@ function firstCommanderMarkup(item) {
     return net.total_score;
   }
 
+  function finiteNetNumber(value) {
+    if (value == null || value === "") return null;
+    const n = Number(value);
+    return Number.isFinite(n) ? n : null;
+  }
+
   function fourthAdjustmentNote(record) {
     const axes = (record.net?.component_details?.civilization || [])
-      .filter(item => item.label !== "第四项调整" && item.value != null && Number.isFinite(Number(item.value)));
-    const hasPositive = axes.some(item => Number(item.value) > 0);
-    const hasNegative = axes.some(item => Number(item.value) < 0);
-    if (Number(record.net?.fourth_item_adjustment) === 0 && hasPositive && hasNegative) {
+      .filter(item => item.label !== "第四项调整" && finiteNetNumber(item.value) != null);
+    const hasPositive = axes.some(item => finiteNetNumber(item.value) > 0);
+    const hasNegative = axes.some(item => finiteNetNumber(item.value) < 0);
+    const adjustment = finiteNetNumber(record.net?.fourth_item_adjustment);
+    if (adjustment === 0 && hasPositive && hasNegative) {
       return "本项总调整为0：存在正向与负向分轴，合计后相抵；0不代表各轴都没有变化。";
     }
     return "有符号调整，三轴合计范围为 -67.5～+67.5；正负值直接进入总榜。";
@@ -1068,7 +1075,7 @@ function firstCommanderMarkup(item) {
     if (byLabel["军事成本扣分"]?.value != null) cards.push(renderFirstCost(byLabel["军事成本扣分"], record));
 
     const windowText = bulletsByLabel["B1创业难度与效率"]["效率"] || "";
-    const zeroNote = record.net?.first_item_status === "APPLICABLE" && Number(record.net?.first_item_raw_score) === 0
+    const zeroNote = record.net?.first_item_status === "APPLICABLE" && finiteNetNumber(record.net?.first_item_raw_score) === 0
       ? '<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这与“不适用”不同：本项已经进入结算，只是成果在扣除本人窗口内军事代价后归零，因此总榜附加为0。</p>'
       : "";
     const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl>${ownA.public_project ? `<dt>共同项目</dt><dd>${esc(firstPublicOutcomeText(ownA.public_project))}</dd>` : ""}${firstPublicOutcomeParts(ownA).map(([label, value]) => `<dt>${esc(label)}</dt><dd>${esc(firstPublicOutcomeText(value))}</dd>`).join("")}${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources">${link('docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md','查看完整规则合同 ↗',record)}</p></details>`;
@@ -1097,10 +1104,13 @@ function firstCommanderMarkup(item) {
   function majorCard(record, major) {
     const value = majorValue(record, major);
     const spec = netMajorSpecs[major];
+    const rawFirstScore = finiteNetNumber(record.net?.first_item_raw_score);
     const extra = major === "first" && record.net?.first_item_status === "APPLICABLE"
-      ? Number(record.net.first_item_raw_score) === 0
+      ? rawFirstScore === 0
         ? '<p class="subline">本项适用，但原始净收益为0；总榜附加为0。</p>'
-        : `<p class="subline">第一项原始净收益：${number(record.net.first_item_raw_score)}；此处显示进入总榜的附加分。</p>`
+        : rawFirstScore == null
+          ? `<p class="subline">本项适用，但原始净收益未列；当前显示正式附加分 ${number(record.net?.first_item_add_on)}。</p>`
+          : `<p class="subline">第一项原始净收益：${number(rawFirstScore)}；此处显示进入总榜的附加分。</p>`
       : major === "first"
         ? `<p class="subline">该人物第一项不适用。</p>`
         : major === "third"
