@@ -638,7 +638,7 @@ def test_overview_major_link_matching_tolerates_public_state_notes():
 def test_supplementary_simple_card_does_not_offer_unavailable_profile():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
-    assert "不在人物画像主池" in template
+    assert "不在人物画像正式评价范围" in template
     assert "r.supplementary?'<span class=\"muted\">不在人物画像主池</span>'" in template
 def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_no_dead_help():
     from pathlib import Path
@@ -649,7 +649,7 @@ def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_n
     assert "const missingNetLabel=r=>" in block
     assert "const compareFirstAddOn=r=>" in block
     assert "const signedAdjustment=value=>" in block
-    assert "该对象只作为历史影响补充样本，不进入本展示的人物画像主池。" in template
+    assert "该对象只作为补充历史样本，不进入人物画像正式评价范围。" in template
     assert "r.supplementary?'<p>该对象只作为历史影响补充样本" in template
 
 def test_handoff_public_layer_uses_letter_grades_not_numeric_level_inputs():
