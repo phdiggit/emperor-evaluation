@@ -534,6 +534,13 @@ def test_mobile_material_cards_stack_labels_and_scores():
     assert "overflow-wrap:anywhere" in home
     assert ".formal-context-chip" in css
     assert "white-space: normal" in css
+def test_second_item_material_groups_do_not_render_empty_categories():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert "if (!cards.length) return document.createDocumentFragment();" in source
+    assert "当前没有该类材料。" not in source
+
+
 def test_structured_material_pages_avoid_default_summary_and_scope_duplication():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
