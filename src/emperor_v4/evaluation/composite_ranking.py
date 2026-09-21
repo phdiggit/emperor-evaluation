@@ -347,7 +347,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         (
             f"> 本榜只覆盖正式评价池中`COMPOSITE_READY`的{payload['record_count']}人；"
             f"另有{payload['pending_second_item_count']}人因第二项尚未正式结算而不入榜。"
-            f"另有{payload['pending_third_item_count']}人因第三项实际权力窗口/归责或C父周期语义待重裁而不入榜."
+            f"另有{payload['pending_third_item_count']}人因第三项实际权力窗口/归责或C父周期语义待重裁而不入榜。"
             f"另有{payload['pending_fourth_item_count']}名原综合就绪对象因第四项证据缺口暂不入榜，不把未知按零分处理。"
             "排名是现行规则与现有正式分项快照的确定性合成，不以历史名望反推分数。"
         ),
