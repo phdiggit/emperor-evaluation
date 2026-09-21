@@ -12,6 +12,7 @@ PROFILE_ROOT = ROOT / "docs" / "评分结算" / "人物画像"
 SETTLEMENT = PROFILE_ROOT / "M1" / "01-M1军事判断与统帅能力正式结算.json"
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 FORBIDDEN_AGGREGATES = ("第三项A+B", "D线性Q", "总排名", "第三项总分")
+MATERIAL_INTENSITIES = {"MI1_CASE", "MI2_LIFECYCLE", "MI3_SUSTAINED_SYSTEMIC", "MI4_CROSS_PHASE_SYSTEMIC"}
 
 
 def verify() -> dict[str, int]:
@@ -25,6 +26,15 @@ def verify() -> dict[str, int]:
         assert not any(token in serialized for token in FORBIDDEN_AGGREGATES), "third-item aggregate leaked into M1 record"
         claims = set(re.findall(r"(?:取|定|支持)(G[0-5])", text))
         assert claims <= {row["axis_grade"]}, "published grade conflicts with explanatory basis"
+        for context in row.get("representative_parent_contexts") or []:
+            intensity = context.get("material_intensity")
+            if intensity:
+                assert intensity in MATERIAL_INTENSITIES, f"{row['ruler_name']}: invalid material_intensity {intensity}"
+        for intensity in row.get("grade_basis_claimed_material_intensities") or []:
+            assert intensity in MATERIAL_INTENSITIES, f"{row['ruler_name']}: invalid claimed material intensity {intensity}"
+        max_intensity = row.get("representative_context_max_material_intensity")
+        if max_intensity:
+            assert max_intensity in MATERIAL_INTENSITIES, f"{row['ruler_name']}: invalid max material intensity {max_intensity}"
     markdown = MARKDOWN.read_text(encoding="utf-8")
     assert "非前线指挥链" not in markdown or "前线−" not in markdown.split("非前线指挥链")[0][-80:], "operational design displayed as frontline"
     assert not any(token in markdown for token in FORBIDDEN_AGGREGATES), "third-item aggregate leaked into reading view"
