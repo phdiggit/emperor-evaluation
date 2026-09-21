@@ -430,13 +430,29 @@ def test_generated_net_judgments_have_complete_public_reading_fields_across_pool
                 assert isinstance(evidence, list) and evidence, prefix + ": missing public evidence"
                 for index, entry in enumerate(evidence):
                     assert isinstance(entry, dict), prefix + f": evidence[{index}] is not an object"
-                    for field in ("public_label", "public_basis", "public_boundary"):
+                    for field in ("public_label", "public_basis"):
                         assert str(entry.get(field) or "").strip(), prefix + f": evidence[{index}] missing {field}"
+                    if group in third_fourth:
+                        assert str(entry.get("public_boundary") or "").strip(), prefix + f": evidence[{index}] missing public_boundary"
                 if group in third_fourth:
                     assert str(item.get("public_component_label") or "").strip(), prefix + ": missing public_component_label"
                     assert str(item.get("public_level_label") or "").strip(), prefix + ": missing public_level_label"
 
     assert seen > 0
+
+
+def test_b1_reader_consumes_formal_public_projection_instead_of_rebuilding_profiles():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    settlement = (root / "src/emperor_v4/evaluation/second_item_b1_settlement.py").read_text(encoding="utf-8")
+    build = (root / "reader/build.py").read_text(encoding="utf-8")
+
+    assert "B1_PUBLIC_BOUNDARY" in settlement
+    assert 'row["public_boundary"] = B1_PUBLIC_BOUNDARY' in settlement
+    assert 'row["public_evidence_items"] = _public_evidence_items(row)' in settlement
+    assert 'evidence = record.get("public_evidence_items")' in build
+    assert 'declared_boundary = record.get("public_boundary")' in build
 
 
 def test_third_fourth_detail_material_cards_use_formal_public_fields_only():
