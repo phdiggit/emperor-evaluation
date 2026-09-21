@@ -563,6 +563,14 @@ def test_fourth_item_public_source_coverage_is_rendered_only_when_formally_publi
     assert "net-material-chip" in source
 
 
+def test_profile_material_intensity_aliases_compare_by_public_semantics_not_raw_code():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "const publicValues=rawValues.map(value=>materialIntensityNames[value]||value);" in template
+    assert "publicValues.some(value=>value!==publicValues[0])" in template
+    assert "rawValues.some(v=>v!==rawValues[0])" not in template
+
+
 def test_profile_material_intensity_short_aliases_have_public_labels():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
