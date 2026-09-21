@@ -286,7 +286,7 @@ function firstCommanderMarkup(item) {
       .net-material-body{margin:7px 0 0!important;font-size:12px!important;line-height:1.78!important}
       .net-material-boundary{margin-top:7px!important;padding-top:6px!important}
       .net-material-boundary>summary{font-size:11px!important;color:var(--muted)}
-      .net-material-boundary>p{margin:5px 0 0;font-size:11px;line-height:1.7}\n      .net-material-summary{margin:10px 0 0}\n      .net-material-summary>summary{font-size:12px;color:var(--muted)}
+      .net-material-boundary>p{margin:5px 0 0;font-size:11px;line-height:1.7}\n      .net-source-coverage-note{margin:3px 0 8px!important}\n      .net-material-summary{margin:10px 0 0}\n      .net-material-summary>summary{font-size:12px;color:var(--muted)}
       .net-overall-boundary{margin:10px 0 0}
       .net-overall-boundary>summary{font-size:12px;color:var(--muted)}
       .net-overall-boundary>.prose{margin-top:7px}
@@ -715,7 +715,11 @@ function firstCommanderMarkup(item) {
           : (basis ? `<p class="net-material-body">${esc(basis)}</p>` : "");
       return `<li class="net-material-card"><div class="net-material-head"><strong>${esc(title)}</strong>${chips ? `<span class="net-material-meta">${chips}</span>` : ""}</div>${basisMarkup}${boundary ? `<details class="net-material-boundary"><summary>该材料的范围与边界</summary><p>${esc(boundary)}</p></details>` : ""}</li>`;
     }).join("");
-    return cards ? `<div class="label">正式裁决材料</div><ul class="net-material-list">${cards}</ul>` : "";
+    const hasSourceCoverage = evidence.some(entry => format(entry?.public_source_coverage || ""));
+    const coverageNote = hasSourceCoverage
+      ? '<p class="subline net-source-coverage-note">“来源覆盖”只表示当前公开证据包的来源是否足够，不表示材料强度、结果方向或得分高低。</p>'
+      : "";
+    return cards ? `<div class="label">正式裁决材料</div>${coverageNote}<ul class="net-material-list">${cards}</ul>` : "";
   }
 
   function metricDetail(item, record, groupKey = "") {
