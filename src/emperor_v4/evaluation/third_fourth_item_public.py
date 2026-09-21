@@ -289,6 +289,13 @@ def _band_label(value: object) -> str:
     return BAND_LABELS.get(str(value or ""), "")
 
 
+def _public_sentence(value: object) -> str:
+    text = _first_text(value).strip()
+    if not text:
+        return ""
+    return text if text.endswith(("。", "！", "？", "!", "?")) else text + "。"
+
+
 def _stable_id(prefix: str, ruler_id: object, key: object) -> str:
     raw = f"{prefix}|{ruler_id or ''}|{key}".encode("utf-8")
     return f"{prefix}-PUBLIC-" + hashlib.sha256(raw).hexdigest()[:16].upper()
@@ -883,9 +890,12 @@ def _package_projection(package: dict[str, Any]) -> dict[str, Any]:
     baseline = _first_text(package.get("inherited_baseline"))
     counter = package.get("counterevidence")
     counter_text = _first_text(counter.get("summary") if isinstance(counter, dict) else counter)
-    basis = f"{direction}：{change}。{f'相对既有状态：{baseline}。' if baseline else ''}{attribution}。"
+    basis = f"{direction}：{_public_sentence(change)}"
+    if baseline:
+        basis += f"相对既有状态：{_public_sentence(baseline)}"
+    basis += _public_sentence(attribution)
     if counter_text:
-        basis += f"补充限制：{counter_text}。"
+        basis += f"补充限制：{_public_sentence(counter_text)}"
     boundary = CIVILIZATION_BOUNDARIES.get(axis, "这里只展示本人窗口内能够确认的文明与国家整合变化，不把后世独立发展重复归入本人。")
     level = RELATIVE_CHANGE_LABELS.get(str(package.get("relative_change_level") or ""), "正式记录保留的变化水平")
     item = _item(
