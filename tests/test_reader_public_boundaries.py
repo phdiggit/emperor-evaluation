@@ -532,6 +532,20 @@ def test_a_public_projection_supplies_row_evidence_even_without_institution_node
         assert evidence[0]["public_boundary"] == A_PUBLIC_BOUNDARY
 
 
+def test_method_reader_consumes_row_level_formal_evidence_for_a_and_b1():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    build = (root / "reader/build.py").read_text(encoding="utf-8")
+    start = build.index("def _attach_method_public_reader")
+    end = build.index("\ndef ", start + 4)
+    block = build[start:end]
+    assert block.count('evidence = record.get("public_evidence_items")') == 2
+    assert "public_institution_nodes" not in block
+    assert "M_positive_profile" not in block
+    assert "M_mixed_profile" not in block
+    assert "M_negative_profile" not in block
+
+
 def test_b1_reader_consumes_formal_public_projection_instead_of_rebuilding_profiles():
     from pathlib import Path
 
