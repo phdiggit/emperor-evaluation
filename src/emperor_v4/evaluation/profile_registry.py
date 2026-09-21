@@ -202,7 +202,7 @@ def write_profile_manifest(axes: Iterable[str] | None = None) -> Path:
     markdown = ROOT / profile["manifest_markdown"]
     lines = [
         "# 皇帝人物画像已结算轴正式入口", "",
-        "> 以下为项目配置登记的正式当前轴。人物画像不进入综合总榜，不设画像总分或轴内排名。", "",
+        "> 以下为项目配置登记的正式当前轴。", "",
         "| 轴 | 名称 | 人数 | 机器入口 | 阅读视图 |", "|---|---|---:|---|---|",
     ]
     for entry in manifest["axes"]:
@@ -232,13 +232,13 @@ def write_profile_summary() -> Path:
             raise ValueError(f"{axis}汇总人物集合不一致")
 
     lines = ["# 九轴结算汇总", "",
-        "> 机器真值以各轴正式JSON为准；本表不生成画像总分、能力总分、轴内排名或综合总榜。", "",
+        "> 机器真值以各轴正式JSON为准。", "",
         "## 汇总口径", "",
         f"- 八个能力轴：{'、'.join(capabilities)}。",
         f"- 一个独立画像轴：{'、'.join(independent)}；C5评价权力运用风格与克制，不归入能力轴。",
         f"- 当前正式人物：{len(people)}人。九轴顺序：{'、'.join(axes)}。",
-        "- 单元格为档位-档内位置（雷达值）；未完成实裁的历史显示点标为‘显示点’，数值留空；证据不足的无档结案与不适用分别标明，均留空、不补零。",
-        "- 按规范人物池稳定顺序展示；时序仅用于阅读，不是排名。", "",
+        "- 单元格为档位-档内位置；未完成实裁的历史显示点标为‘显示点’，数值留空；证据不足的无档结案与不适用分别标明，均留空、不补零。",
+        "- 按规范人物池稳定顺序展示。", "",
         "## 正式轴入口", "", "| 轴 | 分类 | 名称 | 正式JSON |", "|---|---|---|---|"]
     for axis in axes:
         entry = profile["settled_axes"][axis]
@@ -260,7 +260,7 @@ def write_profile_summary() -> Path:
             elif row.get("display_point_only") or row.get("adjudication_state") in {"UNRESOLVED_EVIDENCE_GAP", "REASSESSMENT_REQUIRED"}:
                 cell = f"显示点·{label}（—）"
             else:
-                cell = f"{label}（{row['radar_value']}）"
+                cell = label
             cells.append(cell)
         lines.append("| " + " | ".join(cells) + " |")
     path = ROOT / profile["summary_markdown"]
