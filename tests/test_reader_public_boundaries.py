@@ -441,6 +441,17 @@ def test_generated_net_judgments_have_complete_public_reading_fields_across_pool
     assert seen > 0
 
 
+def test_b1_public_projection_has_a_separate_cli_from_formal_recalculation():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    source = (root / "src/emperor_v4/eval.py").read_text(encoding="utf-8")
+    settlement = (root / "src/emperor_v4/evaluation/second_item_b1_settlement.py").read_text(encoding="utf-8")
+    assert 'commands.add_parser("second-item-b1-public")' in source
+    assert 'refresh_b1_public_projection_file' in source
+    assert 'def refresh_b1_public_projection_file' in settlement
+    assert 'def refresh_b1_payload' in settlement
+
+
 def test_b1_public_projection_refresh_preserves_formal_scoring_signature():
     import copy
     from pathlib import Path
