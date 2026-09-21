@@ -235,7 +235,7 @@ vm.runInContext(section('const esc=','const number=')+section('const letters=','
 vm.runInContext('person(record)',context);
 assert.ok(screen.innerHTML.includes('本名（正式称呼）'));
 assert.ok(screen.innerHTML.includes('掌权背景：未列'));
-assert.ok(screen.innerHTML.includes('不是统一取证边界'));
+assert.ok(screen.innerHTML.includes('各项具体范围以各自依据为准'));
 assert.ok(screen.innerHTML.includes('各时期'));
 assert.ok(screen.innerHTML.includes('id="person-capability"'),'profile must remain visible without a power-period field');
 assert.ok(screen.innerHTML.includes('四维分项与总等级使用不同刻度'));
@@ -555,6 +555,15 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'const logic = structuredMaterials ? "" : summary;' in home
     assert 'class="net-overall-boundary"' in home
     assert '<summary>总体范围与边界</summary>' in home
+def test_public_power_context_copy_avoids_internal_evidence_window_jargon():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "不是统一取证边界" not in template
+    assert "非统一取证期" not in template
+    assert "各项具体范围以各自依据为准" in template
+    assert "掌权背景（各项范围另见依据）" in template
+
+
 def test_net_detail_renderer_uses_public_performance_language_and_current_person_section_title():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
