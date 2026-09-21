@@ -257,9 +257,13 @@
   }
 
   async function hydrateFirstItemGroup(group, record, items) {
-    const firstNotApplicable = record.net?.first_item_status === "NOT_APPLICABLE";
-    if (firstNotApplicable) {
+    const firstStatus = record.net?.first_item_status;
+    if (firstStatus === "NOT_APPLICABLE") {
       group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
+      return;
+    }
+    if (firstStatus !== "APPLICABLE") {
+      group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice"><strong>第一项正式适用状态未发布。</strong>阅读层不根据分项空值或现有材料自行判断该人物是否适用本项。</p>`;
       return;
     }
 
@@ -362,9 +366,14 @@
       group.dataset.netGroup = key;
       const title = `<h3>${esc(netGroupNames[key] || groupNames[key] || key)}</h3>`;
 
-      const firstNotApplicable = key === "first" && record.net?.first_item_status === "NOT_APPLICABLE";
-      if (firstNotApplicable) {
+      const firstStatus = key === "first" ? record.net?.first_item_status : "";
+      if (firstStatus === "NOT_APPLICABLE") {
         group.innerHTML = `${title}<p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
+        intro.append(group);
+        continue;
+      }
+      if (key === "first" && firstStatus !== "APPLICABLE") {
+        group.innerHTML = `${title}<p class="notice"><strong>第一项正式适用状态未发布。</strong>阅读层不根据分项空值或现有材料自行判断是否适用。</p>`;
         intro.append(group);
         continue;
       }
