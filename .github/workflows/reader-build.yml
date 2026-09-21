@@ -1,7 +1,7 @@
 name: Build reader
 
 # Source refresh commits created by Actions do not recursively trigger workflows;
-# a normal source push remains the validation/deployment entry point.
+# a normal source push remains the validation/deployment entry point after deterministic projection refreshes.
 
 on:
   push:
