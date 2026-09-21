@@ -334,9 +334,22 @@ def test_material_intensity_names_are_mapped_only_from_structured_fields():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "const materialIntensityNames=" in template
+    for code, label in (
+        ("MI1", "单一情境"),
+        ("MI2", "完整生命周期情境"),
+        ("MI3", "持续系统性情境"),
+        ("MI4", "跨阶段系统性情境"),
+        ("MI1_CASE", "单一情境"),
+        ("MI2_LIFECYCLE", "完整生命周期情境"),
+        ("MI3_SUSTAINED_SYSTEMIC", "持续系统性情境"),
+        ("MI4_CROSS_PHASE_SYSTEMIC", "跨阶段系统性情境"),
+    ):
+        assert f"{code}:'{label}'" in template
     assert ".replace(/MI4" not in template
     assert "MIXED_POSITIVE:'混合偏正'" in template
     assert "MIXED_NEGATIVE:'混合偏负'" in template
+    assert "材料强度只描述情境的持续性、作用范围和机制化程度" in template
+    assert "不表示正负方向、能力高低或得分" in template
 
 
 
