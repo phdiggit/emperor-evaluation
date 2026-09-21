@@ -702,8 +702,9 @@ function firstCommanderMarkup(item) {
       const title = format(entry?.public_label || entry?.public_role || "正式裁决材料");
       const role = format(entry?.public_role || "");
       const direction = format(entry?.public_direction || "");
+      const coverage = format(entry?.public_source_coverage || "");
       const tags = Array.isArray(entry?.public_tags) ? entry.public_tags.map(format).filter(Boolean) : [];
-      const chips = [...new Set([role, direction, ...tags].filter(Boolean))]
+      const chips = [...new Set([role, direction, coverage, ...tags].filter(Boolean))]
         .map(value => `<span class="net-material-chip">${esc(value)}</span>`).join("");
       const basis = format(entry?.public_basis || "");
       const boundary = format(entry?.public_boundary || "");
