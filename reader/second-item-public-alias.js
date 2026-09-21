@@ -510,14 +510,11 @@
     return card;
   }
 
-  function materialGroup(title, cards, emptyText = "当前没有该类材料。") {
+  function materialGroup(title, cards) {
+    if (!cards.length) return document.createDocumentFragment();
     const section = document.createElement("section");
     section.className = "adjudication-material-group";
     section.append(makeTextBlock("h4", "", publicText(title)));
-    if (!cards.length) {
-      section.append(makeTextBlock("p", "adjudication-material-empty", emptyText));
-      return section;
-    }
     const list = document.createElement("ul");
     list.className = "adjudication-material-list";
     list.replaceChildren(...cards);
