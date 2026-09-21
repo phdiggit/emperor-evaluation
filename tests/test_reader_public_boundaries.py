@@ -977,9 +977,12 @@ def test_fourth_item_public_layer_uses_semantic_magnitude_labels_instead_of_numb
 
 def test_first_item_not_applicable_uses_formal_status_instead_of_reader_inference():
     from pathlib import Path
-    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
-    assert 'const firstNotApplicable = record.net?.first_item_status === "NOT_APPLICABLE";' in source
-    assert "items.every(item =>" not in source
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    for source in (home, person):
+        assert 'record.net?.first_item_status === "NOT_APPLICABLE"' in source
+        assert "items.every(item =>" not in source
 
 
 def test_fourth_item_zero_total_explains_cross_axis_cancellation():
