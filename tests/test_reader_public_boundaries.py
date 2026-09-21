@@ -1068,7 +1068,7 @@ def test_material_cards_show_optional_formal_source_coverage_without_reader_infe
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert 'const coverage = format(entry?.public_source_coverage || "");' in source
     assert '[role, direction, coverage, ...tags]' in source
-    assert "source_coverage" not in source
+    assert "entry?.source_coverage" not in source
 
 
 def test_fourth_item_zero_total_explains_cross_axis_cancellation():
