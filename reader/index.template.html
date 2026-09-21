@@ -58,7 +58,7 @@ const grade=a=>!a?'未覆盖':ungraded(a)?'无档结案':pending(a)?(a.adjudicat
 
 // Public identity is supplied by the formal source; never infer a title from a name.
 function personLabel(r){return String(r?.impact?.identity_label||r?.ruler_name||'');}
-const powerContextNote='掌权时期只作为人物背景；不同评价采用的事件范围并不完全相同，各项具体范围以各自依据为准。';
+const powerContextNote='掌权时期只作为人物背景；人物画像可采用各时期能反映本人表现、且可明确归责的事件。不同评价采用的事件范围并不完全相同，各项具体范围以各自依据为准。';
 const impactDimensionQuestions={scope:'实际改变覆盖多大范围？',depth_duration:'改变有多深，持续多久？',personal_causality:'哪些变化真正依赖本人？',paradigm:'后世如何实际沿用其治道？'};
 function impactScaleNote(){return '<p class="subline impact-scale-note">四维分项与总等级使用不同刻度；不能按相同字母直接比较，也不做平均。</p>';}
 function impactTechnicalHelp(){return '<details class="impact-technical"><summary>技术说明：正式档位与公开等级</summary><p>最终内部裁判带 → 公众等级：S+→S+ · S→S · S−→A · A+→B · A→C · B→D · C→E。内部裁判带不是四维中的某一个字母。</p></details>';}
