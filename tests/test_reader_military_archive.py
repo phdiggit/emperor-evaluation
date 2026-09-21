@@ -246,3 +246,14 @@ def test_military_archive_index_does_not_copy_full_adjudication_text(tmp_path: P
     packed = json.dumps({"b": battles, "c": commanders}, ensure_ascii=False)
 
     assert long_basis not in packed
+
+
+def test_military_archive_public_cost_labels_hide_internal_axis_codes():
+    source = (Path(__file__).resolve().parents[1] / "reader" / "military-archive.js").read_text(encoding="utf-8")
+    assert 'P:"人员损害"' in source
+    assert 'S:"本土受损"' in source
+    assert 'M:"动员投入"' in source
+    assert 'A:"军事资产"' in source
+    assert 'WC:"本阶段综合成本"' in source
+    for leaked in ("人员损害 P", "本土受损 S", "动员投入 M", "军事资产 A", "本阶段成本 WC"):
+        assert leaked not in source
