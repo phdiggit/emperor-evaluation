@@ -169,7 +169,7 @@
       .replace(/\btactical_execution\b/gi, "战术执行")
       .replace(/\bauthorization_only\b/gi, "仅授权")
       .replace(/\bnominal_only\b/gi, "仅名义责任")
-      .replace(/\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g, "内部分类")
+      .replace(/\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g, "分类状态")
       .replace(/\s+/g, " ")
       .trim();
   }
@@ -179,7 +179,7 @@
     if (!raw) return fallback;
     if (mapping[raw]) return mapping[raw];
     const translated = publicMilitaryText(raw);
-    if (translated.includes("内部分类")) return fallback;
+    if (translated.includes("分类状态")) return fallback;
     if (translated !== raw) return translated;
     return /^[A-Za-z][A-Za-z0-9_]*$/.test(raw) ? fallback : raw;
   }
