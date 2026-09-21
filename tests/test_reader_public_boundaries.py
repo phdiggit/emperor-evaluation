@@ -555,6 +555,17 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'const logic = structuredMaterials ? "" : summary;' in home
     assert 'class="net-overall-boundary"' in home
     assert '<summary>总体范围与边界</summary>' in home
+def test_base_template_uses_current_second_item_public_terms_before_runtime_patching():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "治国净收益" not in template
+    assert "财政与民生" not in template
+    assert "交接质量" not in template
+    assert "治国成效" in template
+    assert "民生与社会" in template
+    assert "政权交接" in template
+
+
 def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustment():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
