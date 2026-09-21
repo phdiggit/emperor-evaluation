@@ -391,7 +391,9 @@ def test_second_item_material_card_phase_two_scope():
     root = Path(__file__).resolve().parents[1]
     alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
     assert "adjudication-material-card" in alias
-    assert "持续／系统" in alias
+    assert "materialStrengthFromTags" not in alias
+    assert "MATERIAL_STRENGTH_TAGS" not in alias
+    assert 'data.tags.map(tag => [tag, "tag"])' in alias
     assert 'label === "B2反馈与约束"' in alias
     assert "renderFinanceMaterialGroups(label, evidence)" in alias
     for label in ("C1民生", "C2经济财政", "C3社会安全", "C4恢复与成本"):
