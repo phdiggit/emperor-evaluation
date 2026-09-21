@@ -164,6 +164,40 @@ for(const source of [alias,labels]){
     assert result.returncode == 0, result.stderr
 
 
+def test_a_and_b1_dedicated_renderers_only_consume_built_row_public_projection():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    a = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
+    b1 = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
+
+    for source in (a, b1):
+        assert "reader_public_evidence_items" in source
+        assert "reader_summary" in source
+        assert "reader_boundary" in source
+        assert "fetch(" not in source
+        assert "repoJson" not in source
+
+    assert "public_institution_nodes" not in a
+    assert "formalA" not in a
+
+    for forbidden in (
+        "PROFILE_KEYS",
+        "M_positive_profile",
+        "M_mixed_profile",
+        "M_negative_profile",
+        "formalB1",
+        "adjudication_status",
+        "absorbed_into_profile_id",
+        "signed_weight",
+    ):
+        assert forbidden not in b1
+
+    assert "public_direction" in b1
+    assert "public_tags" in b1
+    assert "并入同一运行链" in b1
+    assert "不单独计入" in b1
+
+
 def test_second_item_public_enum_mapping_and_dedicated_ownership():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
