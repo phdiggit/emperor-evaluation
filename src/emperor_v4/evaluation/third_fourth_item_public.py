@@ -904,11 +904,22 @@ def _fourth_axis_projection(row: dict[str, Any], axis: str, packages: dict[str, 
         package_projections.append(_package_projection(package))
     if package_projections:
         items = [projection["public_evidence_items"][0] for projection in package_projections]
-        direction = DIRECTION_LABELS.get(str(row.get("direction") or ""), "结果方向未单列")
-        summary = f"{CIVILIZATION_AXIS_LABELS[axis]}为{direction}。" + "；".join(
-            projection["public_adjudication_summary"] for projection in package_projections
-        )
-        level = CIV_MAGNITUDE_LABELS.get(str(row.get("magnitude_grade") or ""), "正式记录保留的影响幅度")
+        disposition = str(row.get("disposition") or "")
+        if disposition == "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW":
+            summary = f"{CIVILIZATION_AXIS_LABELS[axis]}：现有材料经复核后未形成可单独计入的净变化。" + "；".join(
+                projection["public_adjudication_summary"] for projection in package_projections
+            )
+            level = "复核后未确认独立净变化"
+        else:
+            direction = DIRECTION_LABELS.get(str(row.get("direction") or ""), "结果方向未单列")
+            summary = f"{CIVILIZATION_AXIS_LABELS[axis]}为{direction}。" + "；".join(
+                projection["public_adjudication_summary"] for projection in package_projections
+            )
+            level = (
+                "正负相抵，净调整为0"
+                if disposition == "OBSERVED_OFFSETTING_OR_BALANCED_EFFECTS"
+                else CIV_MAGNITUDE_LABELS.get(str(row.get("magnitude_grade") or ""), "正式记录保留的影响幅度")
+            )
     else:
         items = [
             _item(
