@@ -639,7 +639,7 @@ def test_supplementary_simple_card_does_not_offer_unavailable_profile():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "不在人物画像正式评价范围" in template
-    assert "r.supplementary?'<span class=\"muted\">不在人物画像主池</span>'" in template
+    assert "r.supplementary?'<span class=\"muted\">不在人物画像正式评价范围</span>'" in template
 def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_no_dead_help():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
