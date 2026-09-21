@@ -265,3 +265,9 @@ def test_military_archive_template_uses_final_public_header_copy():
     assert "战役档案 · 统帅档案" in template
     assert "公共军事成果阅读层" not in template
     assert "战役与武将档案" not in template
+
+
+def test_military_archive_translates_public_placeholder_values():
+    source = (Path(__file__).resolve().parents[1] / "reader" / "military-archive.js").read_text(encoding="utf-8")
+    assert 'unknown:"未明确"' in source
+    assert 'unresolved:"尚未确认"' in source
