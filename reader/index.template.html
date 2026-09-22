@@ -64,7 +64,7 @@ function impactScaleNote(){return '<p class="subline impact-scale-note">四维�
 function impactTechnicalHelp(){return '<details class="impact-technical"><summary>技术说明：正式档位与公开等级</summary><p>最终内部裁判带 → 公众等级：S+→S+ · S→S · S−→A · A+→B · A→C · B→D · C→E。内部裁判带不是四维中的某一个字母。</p></details>';}
 
 const groupNames={first:'奠基与统一：原分及折算',method:'治国：制度与行政',finance:'治国：民生与社会',handoff:'治国：政权交接',strategic:'军事：战略收益与国防',military:'军事：体系与成本',civilization:'文明与国家整合'};
-const impactMeaning={'S+':'文明／国家主路径重塑',S:'超重大历史影响',A:'重大长期历史影响',B:'重大历史影响',C:'显著历史影响',D:'有限但真实影响',E:'弱历史影响'};
+const impactMeaning={'S+':'最高量级历史影响',S:'超重大历史影响',A:'重大长期历史影响',B:'重大历史影响',C:'显著历史影响',D:'有限但真实影响',E:'弱历史影响'};
 const readingTerms={PS0:'仅有结果或资源背景',PS1:'局部正确选择',PS2:'完整独立决策周期',PS3:'可跨情境迁移的强模式',PS4:'不同约束下反复兑现的罕见模式',DW0:'未能归责本人的负面结果',DW1:'已纠正且未复发的局部误判',DW2:'造成显著损失但已恢复或未同类复发的错误',DW3:'同类机制重复失败、反馈后加码或优势下崩盘',DW4:'跨机制与阶段的稳定失能',AM1:'局部制度接口',AM2:'全国重要子系统',AM3:'国家核心系统',AM4:'国家基本运行架构重构'};
 function readerText(t){return String(t??'').replace(/\b(?:PS[0-4]|DW[0-4]|AM[1-4])\b/g,k=>readingTerms[k]).replace(/G([0-5])[- /]*(LOW|MID|HIGH)/g,(_,g,p)=>grade({axis_grade:'G'+g,position:p})).replace(/G([0-5])/g,(_,g)=>letters['G'+g]+'档').replace(/EPISODE_TAG/g,'局部情境证据').replace(/BOUNDED_PROFILE/g,'有明确适用边界的画像').replace(/FULL_GRADE/g,'完整定档').replace(/\bE1\b/g,'少量情境材料').replace(/\bE2\b/g,'多个独立情境材料').replace(/\bE3\b/g,'主要命题已有代表性材料').replace(/\bC5\b/g,'权力运用与克制').replace(/COUNTEREVIDENCE_FOUND/g,'已找到明确反例')}
 function paradigmReceptionProse(review){

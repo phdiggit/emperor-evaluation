@@ -14,7 +14,7 @@ PUBLIC_GRADES = ("S+", "S", "A", "B", "C", "D", "E")
 DIMENSION_GRADES = ("S+", "S", "S-", "A+", "A", "B", "C")
 LABEL_MAPPING = dict(zip(DIMENSION_GRADES, PUBLIC_GRADES))
 DIMENSIONS = {"scope": "范围", "depth_duration": "深度/持续", "personal_causality": "个人因果", "paradigm": "范式"}
-PUBLIC_MEANINGS = dict(zip(PUBLIC_GRADES, ("文明／国家主路径重塑", "超重大历史影响", "重大长期历史影响", "重大历史影响", "显著历史影响", "有限但真实影响", "弱历史影响")))
+PUBLIC_MEANINGS = dict(zip(PUBLIC_GRADES, ("最高量级历史影响", "超重大历史影响", "重大长期历史影响", "重大历史影响", "显著历史影响", "有限但真实影响", "弱历史影响")))
 PUBLIC_FIELD_SCHEMA_VERSION = "historical-impact-public-v1"
 PUBLIC_INTERNAL_PATTERNS = (
     r"项目(?:底账|重审|第三项|第一项A|B2|D|M[1-5]|C[1-5])",
