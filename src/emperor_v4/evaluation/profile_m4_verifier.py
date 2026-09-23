@@ -9,6 +9,7 @@ import yaml
 
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_parent_schema import parent_chains
+from emperor_v4.evaluation.profile_record_integrity import verify_current_records
 
 from emperor_v4.evaluation.profile_m4_settlement import (
     AUDIT,
@@ -49,12 +50,7 @@ def _walk(value: Any):
             yield from _walk(child)
 
 
-def verify_payloads(
-    settlement: dict[str, Any],
-    audit: dict[str, Any],
-    high: dict[str, Any],
-    review: dict[str, Any],
-) -> dict[str, Any]:
+def verify_payloads(settlement: dict) -> dict:
     records = settlement["records"]
     pool = _load(POOL)
     included = {row["ruler_id"] for row in pool["records"] if row["pool_status"] == "INCLUDED"}
@@ -64,9 +60,9 @@ def verify_payloads(
     assert settlement["authority_mode"] == "FORMAL_SETTLEMENT_PATCH_SOURCE"
     assert settlement["contract_version"]
     assert "manual_adjudication" not in settlement
-    assert settlement["record_count"] == len(records) == 184
+    assert settlement["record_count"] == len(records) == len(included)
     assert {row["ruler_id"] for row in records} == included
-    assert len({row["task_code"] for row in records}) == 184
+    assert len({row["task_code"] for row in records}) == len(records)
     assert all(row["task_code"] == f"PROFILE-M4-{row['ruler_id']}" for row in records)
     assert records == sorted(records, key=lambda row: (-row["radar_value"], row["ruler_id"]))
     assert not any(settlement[key] for key in (
@@ -97,7 +93,9 @@ def verify_payloads(
             assert row["output_mode"] == "EPISODE_TAG"
             assert row["score_status"] == "EVIDENCE_LIMITED"
         assert len(row["typical_pattern"]) >= 20
-        assert row["limitations"] and row["counterpattern"]
+        assert isinstance(row["limitations"], list) and row["counterpattern"]
+        if row["score_status"] == "EVIDENCE_LIMITED":
+            assert row["limitations"], "bounded profile must state its evidence gaps"
         assert set(row["major_mechanisms_observed"]) == {
             "ALLIANCE_FORMATION", "INTEREST_STATUS_CONFIGURATION", "POLITICAL_CREDIT", "CONFLICT_AND_EXIT",
         }
@@ -154,62 +152,24 @@ def verify_payloads(
                 assert row["confidence"] in {"LOW", "MEDIUM"}
                 assert row["source_density_review"] == "MATERIAL_DENSITY_LIMITED"
     assert len(parent_ids) == len(set(parent_ids))
-    assert len({row["typical_pattern"] for row in records}) == 184
-
-    assert audit["schema_version"] == "profile-m4-unit-disposition-audit-v1"
-    assert audit["record_count"] == 184 and audit["unresolved_count"] == 0
-    assert audit["unit_count"] == len(audit["units"])
-    assert set(audit["normative_entries"]) == NORMATIVE_ENTRIES
-    allowed = {"SCORING_PARENT", "BACKGROUND_VALIDATION", "AXIS_OUT_WITH_REASON", "UNRESOLVED_EVIDENCE_GAP"}
-    assert all(unit["status"] in allowed and unit["reason"].strip() for unit in audit["units"])
-    assert len({unit["unit_id"] for unit in audit["units"]}) == audit["unit_count"]
-    parent_set = set(parent_ids)
-    scoring = [unit for unit in audit["units"] if unit["status"] == "SCORING_PARENT"]
-    assert {unit["scoring_parent_id"] for unit in scoring} == parent_set
-    assert all(unit["entry"] == "M4_EXPLICIT_ADJUDICATION" for unit in scoring)
-
-    assert high["schema_version"] == "profile-m4-high-grade-alliance-lifecycle-review-v1"
-    high_ids = {row["ruler_id"] for row in records if row["axis_grade"] in {"G4", "G5"}}
-    assert {row["ruler_id"] for row in high["reviews"]} == high_ids
-    assert all(row["lifecycle_count"] >= 1 and row["mechanism_count"] == 4 for row in high["reviews"])
-    assert all(row["review_outcome"] in {"HIGH_GRADE_SUPPORTED", "HIGH_GRADE_SUPPORTED_WITH_EVIDENCE_LIMIT"} for row in high["reviews"])
-
-    assert review["schema_version"] == "profile-m4-two-pass-full-pool-review-v1"
-    assert review["mechanical_screen_count"] == review["semantic_review_count"] == len(review["records"]) == 184
-    assert all(
-        row["positive_and_negative_checked"]
-        and row["all_scoring_parents_closed"]
-        and row["unclosed_observations_excluded_from_scoring"]
-        and row["all_normative_entries_consumed"]
-        for row in review["records"]
-    )
-    return {
-        "status": "PASS",
-        "record_count": len(records),
-        "parent_count": len(parent_ids),
-        "audit_unit_count": audit["unit_count"],
-        "high_grade_count": len(high_ids),
-    }
+    assert len({row["typical_pattern"] for row in records}) == len(records)
+    verify_current_records(settlement)
+    return {"status": "PASS", "record_count": len(records), "parent_count": sum(len(parent_chains(r)) for r in records)}
 
 
-def verify() -> dict[str, Any]:
-    settlement, audit, high, review = (_load(path) for path in (SETTLEMENT, AUDIT, HIGH_REVIEW, FULL_POOL_REVIEW))
-    assert _read(MARKDOWN).decode("utf-8") == render_profile_markdown(settlement)
-    result = verify_payloads(settlement, audit, high, review)
-    project = yaml.safe_load(_read(PROJECT).decode("utf-8"))["profile_assessment"]
-    assert project["settled_axes"]["M4"]["json"].endswith(SETTLEMENT.name)
+def verify() -> dict:
+    settlement = _load(SETTLEMENT)
+    assert _read(MARKDOWN).decode("utf-8") == render_profile_markdown(settlement), "reading view differs from current formal records"
+    result = verify_payloads(settlement)
+    profile = yaml.safe_load(_read(PROJECT).decode("utf-8"))["profile_assessment"]
+    entry = profile["settled_axes"]["M4"]
+    assert (ROOT / entry["json"]).resolve() == SETTLEMENT.resolve()
+    assert (ROOT / entry["markdown"]).resolve() == MARKDOWN.resolve()
     manifest = _load(MANIFEST)
-    axis = next(row for row in manifest["axes"] if row["axis_code"] == "M4")
-    assert axis["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
-    assert {item["path"] for item in axis["audit_jsons"]} == {
-        path.relative_to(MANIFEST.parent).as_posix()
-        for path in (AUDIT, HIGH_REVIEW, FULL_POOL_REVIEW)
-    }
-    assert {item["audit_kind"] for item in axis["audit_jsons"]} == {
-        "UNIT_DISPOSITION",
-        "HIGH_GRADE_LIFECYCLE",
-        "FULL_POOL_REVIEW",
-    }
+    registered = next(r for r in manifest["axes"] if r["axis_code"] == "M4")
+    assert registered["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
+    assert registered["markdown"] == MARKDOWN.relative_to(MANIFEST.parent).as_posix()
+    assert registered["record_count"] == len(settlement["records"])
     return result
 
 

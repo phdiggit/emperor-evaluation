@@ -755,7 +755,8 @@ def test_profile_material_intensity_short_aliases_have_public_labels():
 def test_profile_axis_summary_shows_formal_material_coverage_in_public_words():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
-    assert "const evidenceLevel=readerText(a.axis_evidence_level||'');" in template
+    assert "const evidenceScope=axisEvidenceScope(a,c),evidenceLevel=evidenceScope.coverage;" in template
+    assert "coverage:scope.material_coverage_label" in template
     assert 'class="axis-evidence-level">材料覆盖：' in template
     assert "材料覆盖 '+esc(evidenceLevel)" in template
     assert "材料级别 ${esc(a.axis_evidence_level" not in template

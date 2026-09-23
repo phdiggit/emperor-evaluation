@@ -455,6 +455,18 @@ def _parent_lines(
 
 
 def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, str]) -> list[str]:
+    if axis == "M1":
+        lines = [
+            "| 展示序 | 人物 | 档位 | 雷达值 | 材料底池覆盖 | 本人能力证据 | 判断把握 | 定档范围 | 典型模式 |",
+            "|---:|---|---|---:|---|---|---|---|---|",
+        ]
+        for display, row in enumerate(records, 1):
+            scope = row["evidence_scope"]
+            cells = [display, row["ruler_name"], _grade(row), row["radar_value"],
+                     scope["material_coverage_label"], scope["ability_evidence_label"],
+                     row["confidence"], scope["conclusion_mode_label"], row["typical_pattern"]]
+            lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
+        return lines
     if axis == "C1":
         lines = [
             "| 雷达值 | 档位 | 位置 | 人物 | 政权 | 证据 | 置信度 | 人物类型 | 负证档位 |",
@@ -592,7 +604,8 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         "## 阅读说明",
         "",
         "- 全池表采用稳定展示顺序，用于横向扫读。",
-        "- `G0—G5`与档内位置共同映射雷达值；`E1—E3`表示证据完成度，不能替代能力裁决。",
+        ("- `G0—G5`与档内位置共同映射雷达值；M1底池已完成全生涯逐战役登记，`E1—E3`描述本人能力证据形态，不表示材料覆盖进度。"
+         if axis == "M1" else "- `G0—G5`与档内位置共同映射雷达值；`E1—E3`表示证据完成度，不能替代能力裁决。"),
         reading_source_note,
         "",
     ]
@@ -614,6 +627,9 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             "- M1裁档理由与档内依据不得使用既有汇总数值；军事结算只可作为具体父周期结果的追溯入口。",
             "- `operational_design` 在阅读层统一标作“统筹+／统筹−／统筹±”，不再伪装为前线指挥。",
             "- 自然语言中的情境数量不作为机器裁档输入；复核以结构化父链为准。",
+            "- " + records[0]["evidence_scope"]["material_coverage_basis"],
+            "- " + records[0]["evidence_scope"]["confidence_basis"],
+            "- " + records[0]["evidence_scope"]["grade_boundary"],
             "",
         ])
     if axis == "C5":
@@ -644,7 +660,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         "- 同源材料须分别说明各轴的独立命题与归责边界；当前正式父链保留依据，不依赖历史过程审计。",
     ]
     axis_boundary_note = {
-        "M1": "- M1只消费战役、战区、统帅与作战操作；战略目标、风险选择和退出留在C1，外交条件交换留在M2。",
+        "M1": "- M1消费可归责的军事方向、战区统筹、直接指挥与失败后重组；依角色区分可证明的能力，不把名将临阵成果上收。C1另评跨领域战略判断，M2另评外交条件交换。",
         "M2": "- M2只消费外部对象的条件、承诺、反馈和执行；战略目标与风险取舍留在C1，内部集团整合留在M4。",
         "C1": "- C1只消费战略目标、优先级、风险、资源与退出；具体战役解题留在M1，外部条件交换留在M2。",
         "C2": "- C2只消费信息取得、反证理解与认知更新；战略选择、外交条件和权力程序不因共享史料转入C2。",
@@ -666,6 +682,13 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             else f"- **结算**：`{_grade(row)}` / 雷达值 `{row['radar_value']}` / `{row['axis_evidence_level']}` / "
             f"`{'证据有限' if axis == 'C2' and row['score_status'] == 'EVIDENCE_LIMITED' else row['score_status']}`。"
         )
+        if axis == "M1":
+            scope = row["evidence_scope"]
+            settlement_line = (
+                f"- **结算**：`{_grade(row)}` / 雷达值 `{row['radar_value']}` / 判断把握 `{row['confidence']}` / `FINAL`。\n"
+                f"- **材料底池覆盖**：{scope['material_coverage_label']}。\n"
+                f"- **本人能力证据**：{scope['ability_evidence_label']}（`{row['axis_evidence_level']}`）；{scope['conclusion_mode_label']}。"
+            )
         lines.extend([
             f"### {display}. {row['ruler_name']}（{row['ruler_id']}）",
             "",
@@ -687,6 +710,26 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             paired = projection.get("paired_result_difficulty_campaign_roles_display")
             lines.append("- 武将登记逐项（成果等级/难度｜战役群名称/武将角色）：")
             lines.append(f"  {paired or '—'}")
+            role_labels = {
+                "DIRECT_COMMAND": "直接作战指挥",
+                "OPERATIONAL_COORDINATION": "战区与多军统筹",
+                "STRATEGIC_DIRECTION": "军事战略方向",
+                "NOMINAL_AUTHORIZATION": "名义授权",
+                "ROLE_UNRESOLVED": "本人角色待核",
+            }
+            role_items = (row.get("m1_role_projection") or {}).get("items", [])
+            if role_items:
+                lines.append("- **M1本人角色与独立周期**：")
+                for item in role_items:
+                    label = role_labels[item["m1_role_class"]]
+                    lines.append(f"  - `{item['capability_episode_ref']}`：{label}；{item.get('canonical_label') or '名称未登记'}。")
+                    if item.get("projection_note"):
+                        lines.append(f"    - 归责依据：{item['projection_note']}")
+                    for phase in item.get("phase_evidence", []):
+                        lines.append(f"    - 阶段角色：{role_labels[phase['m1_role_class']]}；{phase.get('canonical_label') or phase['capability_episode_ref']}。")
+            calibration = row.get("horizontal_calibration")
+            if calibration:
+                lines.append(f"- **横向校准**：{calibration['decision_basis']}")
             projection_reasons = list(
                 dict.fromkeys(
                     str(context.get("secondary_projection_reason") or "").strip()

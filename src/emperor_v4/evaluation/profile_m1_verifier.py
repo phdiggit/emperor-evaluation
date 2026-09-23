@@ -6,6 +6,10 @@ import re
 from pathlib import Path
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.profile_record_integrity import verify_current_records
+from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+from emperor_v4.evaluation.profile_m1_evidence import verify_evidence_scope
+from emperor_v4.evaluation.profile_registry import profile_axis_entry
 
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "人物画像"
@@ -18,10 +22,16 @@ MATERIAL_INTENSITY_ORDER = {"MI1_CASE": 1, "MI2_LIFECYCLE": 2, "MI3_SUSTAINED_SY
 
 def verify() -> dict[str, int]:
     payload = load_json(SETTLEMENT)
+    entry = profile_axis_entry("M1")
+    assert payload["contract_version"] == entry["axis_contract_version"], "M1 contract version drift"
     rows = payload["records"]
+    verify_current_records(payload)
     pool = load_json(ROOT / "config/common/canonical-ruler-pool.json")
     assert {r["ruler_id"] for r in rows} == {r["ruler_id"] for r in pool["records"] if r["pool_status"] == "INCLUDED"}
     for row in rows:
+        verify_evidence_scope(row)
+        assert row["evidence_scope"]["schema_version"] == entry["evidence_scope_schema_version"]
+        assert all((ROOT / ref).is_file() for ref in row["evidence_scope"]["source_refs"]), "M1 source registry missing"
         text = "\n".join(str(row.get(key, "")) for key in ("grade_basis", "position_basis"))
         serialized = json.dumps(row, ensure_ascii=False)
         assert not any(token in serialized for token in FORBIDDEN_AGGREGATES), "third-item aggregate leaked into M1 record"
@@ -48,6 +58,7 @@ def verify() -> dict[str, int]:
                 f"{max_intensity} != {expected_max}"
             )
     markdown = MARKDOWN.read_text(encoding="utf-8")
+    assert markdown == render_profile_markdown(payload), "M1 reading view differs from current formal records"
     assert "非前线指挥链" not in markdown or "前线−" not in markdown.split("非前线指挥链")[0][-80:], "operational design displayed as frontline"
     assert not any(token in markdown for token in FORBIDDEN_AGGREGATES), "third-item aggregate leaked into reading view"
     return {"records": len(rows), "aggregate_leaks": 0, "grade_conflicts": 0}

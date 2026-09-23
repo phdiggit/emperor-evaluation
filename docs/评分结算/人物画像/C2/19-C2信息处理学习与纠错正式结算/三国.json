@@ -7,13 +7,13 @@
         14,
         28,
         40,
-        53,
-        89,
-        124,
-        153,
-        156,
-        173,
-        181
+        54,
+        90,
+        125,
+        154,
+        157,
+        174,
+        182
       ],
       "records": [
         {
@@ -47,9 +47,7 @@
               "C2-P171-CHIBI-AFTERMATH",
               "C2-P171-HANZHONG-DELAY",
               "C2-P171-WUHUAN-REMONSTRANCE-REVIEW",
-              "C2-P171-KONGRONG-SUPPRESSION",
-              "C2-R2-9CED74B1ADE4",
-              "C2-R2-7BCFC77EDB89"
+              "C2-P171-KONGRONG-SUPPRESSION"
             ]
           },
           "limitations": [
@@ -61,27 +59,32 @@
             "C2-P171-CHIBI-AFTERMATH",
             "C2-P171-HANZHONG-DELAY",
             "C2-P171-WUHUAN-REMONSTRANCE-REVIEW",
-            "C2-P171-KONGRONG-SUPPRESSION",
-            "C2-R2-9CED74B1ADE4",
-            "C2-R2-7BCFC77EDB89"
+            "C2-P171-KONGRONG-SUPPRESSION"
           ],
           "parent_chains": [
             {
               "parent_id": "C2-P171-GUANDU-INTELLIGENCE",
               "cycle_type": "TRUTH_ACQUISITION",
               "direction": "POSITIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "官渡相持、粮运告急时，许攸来降并提供乌巢储粮情报；曹操亲自追问兵粮实数、在众将质疑中核验其可行性后改变常规守势突袭乌巢，终局验证了信源辨别。",
+              "intensity": "MI2",
+              "basis": "许攸提供乌巢情报后，曹操追问袁军粮数、在众将质疑中自行判断信源可用性，改变守势亲袭乌巢并获结果复验。。",
               "cycle_anchor_refs": [
-                "https://zh.wikisource.org/zh-hant/資治通鑑/卷066"
+                "https://zh.wikisource.org/zh-hant/資治通鑑/卷066",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7065",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#I2-LHAN-CAOCAO-REMONSTRANT-REWARD-001",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#I2-QIN95-FACT-SUPP29-CAOCAO-CAPTURE-65-29"
               ],
               "source_parent_refs": [],
-              "lifecycle_review": "按C2生命周期核对：官渡相持、粮运告急时，许攸来降并提供乌巢储粮情报；曹操亲自追问兵粮实数、在众将质疑中核验其可行性后改变常规守势突袭乌巢，终局验证了信源辨别。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "lifecycle_review": "按C2二轮生命周期核对：许攸提供乌巢情报后，曹操追问袁军粮数、在众将质疑中自行判断信源可用性，改变守势亲袭乌巢并获结果复验。。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
               "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
-              "material_intensity": "MI2_LIFECYCLE",
+              "material_intensity": "MI2",
               "feedback_suppression_review": {
                 "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
+              },
+              "source_alias_parent_ids": [
+                "C2-R2-9CED74B1ADE4"
+              ],
+              "capability_episode_ref": "C2-P171-GUANDU-INTELLIGENCE"
             },
             {
               "parent_id": "C2-P171-CHIBI-AFTERMATH",
@@ -98,7 +101,8 @@
               "material_intensity": "MI1_CASE",
               "feedback_suppression_review": {
                 "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
+              },
+              "capability_episode_ref": "C2-P171-CHIBI-AFTERMATH"
             },
             {
               "parent_id": "C2-P171-HANZHONG-DELAY",
@@ -121,26 +125,34 @@
                 "feedback_arrival": "附件二轮逐人裁决确认可信反馈或反证到达本人。",
                 "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
                 "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
-              }
+              },
+              "capability_episode_ref": "C2-P171-HANZHONG-DELAY"
             },
             {
               "parent_id": "C2-P171-WUHUAN-REMONSTRANCE-REVIEW",
               "cycle_type": "ERROR_CORRECTION",
               "direction": "POSITIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "乌桓险胜后，曹操没有以结果证明此前反对意见错误，而是公开承认此行乘危侥幸、反对者所陈是万安之计，厚赏进谏者并要求以后勿难言；这是对决策质量而非战果的事后重估。",
+              "intensity": "MI2",
+              "basis": "远征获胜后不以胜利给此前决策背书，反而承认“乘危徼幸”、奖赏曾谏阻者并要求以后勿难言。这是对决策质量与结果分离的元认知重评，。",
               "cycle_anchor_refs": [
-                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7065"
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7065",
+                "https://zh.wikisource.org/zh-hant/資治通鑑/卷066",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#I2-LHAN-CAOCAO-REMONSTRANT-REWARD-001",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#I2-QIN95-FACT-SUPP29-CAOCAO-CAPTURE-65-29"
               ],
               "source_parent_refs": [
                 "I2-LHAN-CAOCAO-REMONSTRANT-REWARD-001"
               ],
-              "lifecycle_review": "按C2生命周期核对：乌桓险胜后，曹操没有以结果证明此前反对意见错误，而是公开承认此行乘危侥幸、反对者所陈是万安之计，厚赏进谏者并要求以后勿难言；这是对决策质量而非战果的事后重估。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
-              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新/拒绝更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
-              "material_intensity": "MI2_LIFECYCLE",
+              "lifecycle_review": "按C2二轮生命周期核对：远征获胜后不以胜利给此前决策背书，反而承认“乘危徼幸”、奖赏曾谏阻者并要求以后勿难言。这是对决策质量与结果分离的元认知重评，。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2",
               "feedback_suppression_review": {
                 "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
+              },
+              "source_alias_parent_ids": [
+                "C2-R2-7BCFC77EDB89"
+              ],
+              "capability_episode_ref": "C2-P171-WUHUAN-REMONSTRANCE-REVIEW"
             },
             {
               "parent_id": "C2-P171-KONGRONG-SUPPRESSION",
@@ -165,47 +177,8 @@
                 "feedback_arrival": "附件二轮逐人裁决确认可信反馈或反证到达本人。",
                 "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
                 "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
-              }
-            },
-            {
-              "parent_id": "C2-R2-9CED74B1ADE4",
-              "cycle_type": "TRUTH_ACQUISITION",
-              "direction": "POSITIVE",
-              "intensity": "MI2",
-              "basis": "许攸提供乌巢情报后，曹操追问袁军粮数、在众将质疑中自行判断信源可用性，改变守势亲袭乌巢并获结果复验。。",
-              "cycle_anchor_refs": [
-                "https://zh.wikisource.org/zh-hant/資治通鑑/卷066",
-                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7065",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#I2-LHAN-CAOCAO-REMONSTRANT-REWARD-001",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#I2-QIN95-FACT-SUPP29-CAOCAO-CAPTURE-65-29"
-              ],
-              "source_parent_refs": [],
-              "lifecycle_review": "按C2二轮生命周期核对：许攸提供乌巢情报后，曹操追问袁军粮数、在众将质疑中自行判断信源可用性，改变守势亲袭乌巢并获结果复验。。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
-              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
-              "material_intensity": "MI2",
-              "feedback_suppression_review": {
-                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
-            },
-            {
-              "parent_id": "C2-R2-7BCFC77EDB89",
-              "cycle_type": "ERROR_CORRECTION",
-              "direction": "POSITIVE",
-              "intensity": "MI2",
-              "basis": "远征获胜后不以胜利给此前决策背书，反而承认“乘危徼幸”、奖赏曾谏阻者并要求以后勿难言。这是对决策质量与结果分离的元认知重评，。",
-              "cycle_anchor_refs": [
-                "https://zh.wikisource.org/zh-hant/資治通鑑/卷066",
-                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7065",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#I2-LHAN-CAOCAO-REMONSTRANT-REWARD-001",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#I2-QIN95-FACT-SUPP29-CAOCAO-CAPTURE-65-29"
-              ],
-              "source_parent_refs": [],
-              "lifecycle_review": "按C2二轮生命周期核对：远征获胜后不以胜利给此前决策背书，反而承认“乘危徼幸”、奖赏曾谏阻者并要求以后勿难言。这是对决策质量与结果分离的元认知重评，。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
-              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
-              "material_intensity": "MI2",
-              "feedback_suppression_review": {
-                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
+              },
+              "capability_episode_ref": "C2-P171-KONGRONG-SUPPRESSION"
             }
           ],
           "source_unit_ids": [
@@ -291,7 +264,7 @@
             "isolated_positive_parent_ids": [
               "C2-P171-CHIBI-AFTERMATH"
             ],
-            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "asymmetry_decision": "只比较当前独立认知生命周期；时长、处罚烈度和相同事实的来源重复均不增加强度。",
             "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
           },
           "review_status": "ROUND2_MANUAL_ADJUDICATED"

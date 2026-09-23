@@ -8,8 +8,8 @@
         68,
         70,
         71,
-        88,
-        102,
+        89,
+        103,
         124,
         130,
         153,
@@ -48,8 +48,8 @@
             "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
             "WAR-LEAD-HAN-HANZHONG-215"
           ],
-          "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
-          "decision_origin": "M1_V11_G5_REVERSE_REVIEW_RETAINED",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-WEI-CAOCAO",
           "representative_parent_contexts": [
             {
@@ -80,7 +80,7 @@
             "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
           },
           "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [],
           "material_intensity_claim_text_fields": [
             "grade_basis",
@@ -88,174 +88,6 @@
           ],
           "representative_context_max_material_intensity": "MI1_CASE",
           "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-WEI-CAOCAO",
-          "normative_entry_coverage": {
-            "sequence": 160,
-            "task_code": "PROFILE-M1-RULER-WEI-CAOCAO",
-            "ruler_id": "RULER-WEI-CAOCAO",
-            "ruler_name": "曹操",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-HAN-BINGZHOU-206",
-                  "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
-                  "WAR-LEAD-HAN-CHANGXI-201",
-                  "WAR-LEAD-HAN-GUANDU-199-200",
-                  "WAR-LEAD-HAN-HANZHONG-215",
-                  "WAR-LEAD-HAN-HEBEI-201-205",
-                  "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
-                  "WAR-LEAD-HAN-QINGZHOU-YELLOW-TURBAN-191-192",
-                  "WAR-LEAD-HAN-RUXU-212-213",
-                  "WAR-LEAD-HAN-WUHUAN-206-207",
-                  "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
-                  "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
-                  "WAR-LEAD-HAN-YANZHOU-LUBU-194-195",
-                  "WAR-LEAD-HAN-YOUZHOU-ZHAODU-HUONU-205"
-                ],
-                "stable_parent_ref_count": 14,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "PCR-HAN-CAOCAO-HUGUAN-206",
-                  "PCR-HAN-CAOCAO-QINGZHOU-YELLOW-TURBAN-192",
-                  "PCR-HAN-CAOCAO-WANCHENG-197-FAILURE",
-                  "PCR-HAN-CAOCAO-ZHANGXIU-RECOVERY-197-198",
-                  "WAR-LEAD-HAN-CHANGXI-201",
-                  "WAR-LEAD-HAN-GUANDU-199-200",
-                  "WAR-LEAD-HAN-HANZHONG-215",
-                  "WAR-LEAD-HAN-HEBEI-201-205",
-                  "WAR-LEAD-HAN-WUHUAN-206-207",
-                  "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
-                  "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
-                  "WAR-LEAD-HAN-YANZHOU-LUBU-194-195",
-                  "WAR-LEAD-HAN-YOUZHOU-ZHAODU-HUONU-205"
-                ],
-                "stable_parent_ref_count": 13,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "PCR-HAN-CAOCAO-HUGUAN-206",
-                  "PCR-HAN-CAOCAO-QINGZHOU-YELLOW-TURBAN-192",
-                  "PCR-HAN-CAOCAO-WANCHENG-197-FAILURE",
-                  "TALENT-SUPPLEMENT:PCR-HAN-CAOCAO-HUGUAN-206:positive",
-                  "TALENT-SUPPLEMENT:PCR-HAN-CAOCAO-QINGZHOU-YELLOW-TURBAN-192:positive",
-                  "TALENT-SUPPLEMENT:PCR-HAN-CAOCAO-WANCHENG-197-FAILURE:negative",
-                  "TALENT-SUPPLEMENT:WAR-LEAD-HAN-CHANGXI-201:positive",
-                  "TALENT-SUPPLEMENT:WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208:negative",
-                  "TALENT-SUPPLEMENT:WAR-LEAD-HAN-RUXU-212-213:negative",
-                  "TALENT-SUPPLEMENT:WAR-LEAD-HAN-WUHUAN-206-207:positive",
-                  "TALENT-SUPPLEMENT:WAR-LEAD-HAN-WUHUAN-GUANGPING-205:positive",
-                  "TALENT-SUPPLEMENT:WAR-LEAD-HAN-YANZHOU-LUBU-194-195:positive",
-                  "TALENT-SUPPLEMENT:WAR-LEAD-HAN-YOUZHOU-ZHAODU-HUONU-205:positive",
-                  "UCP-ANNEXATION-CAO-HANZHONG:WAR-LEAD-HAN-HANZHONG-215:曹操",
-                  "UCP-ANNEXATION-CAO-NORTH:WAR-LEAD-HAN-CAO-ZHANGXIU-197-199:failure:0",
-                  "UCP-ANNEXATION-CAO-NORTH:WAR-LEAD-HAN-CAO-ZHANGXIU-197-199:曹操",
-                  "UCP-ANNEXATION-CAO-NORTH:WAR-LEAD-HAN-GUANDU-199-200:曹操",
-                  "UCP-ANNEXATION-CAO-NORTH:WAR-LEAD-HAN-HEBEI-201-205:曹操",
-                  "UCP-ANNEXATION-CAO-XUZHOU-LUBU:WAR-LEAD-HAN-XUZHOU-LUBU-196-198:曹操",
-                  "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
-                  "WAR-LEAD-HAN-CHANGXI-201",
-                  "WAR-LEAD-HAN-GUANDU-199-200",
-                  "WAR-LEAD-HAN-HANZHONG-215",
-                  "WAR-LEAD-HAN-HEBEI-201-205",
-                  "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
-                  "WAR-LEAD-HAN-RUXU-212-213",
-                  "WAR-LEAD-HAN-WUHUAN-206-207",
-                  "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
-                  "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
-                  "WAR-LEAD-HAN-YANZHOU-LUBU-194-195",
-                  "WAR-LEAD-HAN-YOUZHOU-ZHAODU-HUONU-205"
-                ],
-                "stable_parent_ref_count": 31,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "HAN-HEISHAN-185-205",
-                  "PCR-HAN-CAOCAO-HUGUAN-206",
-                  "PCR-HAN-CAOCAO-QINGZHOU-YELLOW-TURBAN-192",
-                  "PCR-HAN-CAOCAO-WANCHENG-197-FAILURE",
-                  "WAR-LEAD-HAN-BINGZHOU-206",
-                  "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
-                  "WAR-LEAD-HAN-CHANGXI-201",
-                  "WAR-LEAD-HAN-FANCHENG-JINGZHOU-219",
-                  "WAR-LEAD-HAN-FENGYI-LIANGXING-212",
-                  "WAR-LEAD-HAN-GUANDU-199-200",
-                  "WAR-LEAD-HAN-HANZHONG-215",
-                  "WAR-LEAD-HAN-HANZHONG-217-219",
-                  "WAR-LEAD-HAN-HEBEI-201-205",
-                  "WAR-LEAD-HAN-HEDONG-WEIGU-205",
-                  "WAR-LEAD-HAN-HEFEI-208-209-END",
-                  "WAR-LEAD-HAN-HEFEI-XIAOYAOJIN-215",
-                  "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
-                  "WAR-LEAD-HAN-NANJUN-208-209-END",
-                  "WAR-LEAD-HAN-NORTHERN-TRIBES-216",
-                  "WAR-LEAD-HAN-QINGZHOU-YELLOW-TURBAN-191-192",
-                  "WAR-LEAD-HAN-RUXU-212-213",
-                  "WAR-LEAD-HAN-RUXU-217",
-                  "WAR-LEAD-HAN-SANBA-215",
-                  "WAR-LEAD-HAN-SHANGYONG-219",
-                  "WAR-LEAD-HAN-TONGGUAN-LONGYOU-211-214-END",
-                  "WAR-LEAD-HAN-WAN-218-219",
-                  "WAR-LEAD-HAN-WANCHENG-214",
-                  "WAR-LEAD-HAN-WUHUAN-206-207",
-                  "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
-                  "WAR-LEAD-HAN-WUHUAN-XIANBEI-218",
-                  "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
-                  "WAR-LEAD-HAN-YANZHOU-LUBU-194-195",
-                  "WAR-LEAD-HAN-YOUZHOU-ZHAODU-HUONU-205",
-                  "《三国志》卷一《武帝纪》建安十二年、二十一年",
-                  "《三国志》卷三十《乌丸鲜卑东夷传》",
-                  "《晋书》卷一百一《刘元海载记》"
-                ],
-                "stable_parent_ref_count": 36,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 4,
-            "entry_gap_count": 0,
-            "full_grade_normative_entry_gate_passed": true,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -267,12 +99,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "stability_limited_repeated_major_failures",
             "profile_ref": "MIL-PROFILE-81E81A63FC0D33E9"
-          },
-          "pre_structural_review_grade_basis": "十五个情境覆盖根据地危机、官渡、河北、乌桓和汉中等多类高压任务，方向、战区统筹与临阵调整长期保持罕见水平。",
-          "structural_review": {
-            "status": "REVISED",
-            "basis_code": "G5_DUAL_GATE_REPEATED_FAILURES",
-            "basis": "武将登记明确为top并标记重复重大失败；官渡等高峰支持强长板，但赤壁、濡须等下沿不满足G5全分布门。"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -336,23 +162,6 @@
               "16) 前线− `B/D2`｜曹操两攻濡须未能突破／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线+ `B/D2`｜亲征围降壶关并迫使高干出逃／主将<br>2) 前线+ `A/D3`｜兵少初挫后整军昼夜连续作战，迫使三十万战士投降并终结主集团／主将<br>3) 前线+ `A/D3`｜攻取湖阳舞阴，并在安众归路被断时以伪遁夹击脱险破敌／主帅<br>4) 前线+ `C/D1`｜昌豨东海围降／主帅<br>5) 前线+ `S/D4`｜官渡战争终局／主帅<br>6) 前线+ `A/D2`｜曹操兼并汉中／主帅<br>7) 前线+ `S-/D2`｜曹操征服河北袁氏核心／主帅<br>8) 前线+ `S-/D3`｜乌桓远征与白狼山决战／主帅<br>9) 前线+ `C/D1`｜三郡乌桓攻犷平与曹操解围／主帅<br>10) 前线+ `A/D3`｜徐州反复争夺与吕布覆亡／主帅<br>11) 前线+ `A/D3`｜吕布争兖州与曹操收复战役群／主将<br>12) 前线+ `C/D1`｜赵犊霍奴幽州内乱／主帅<br>13) 前线− `A/D2`｜受降后因本人处置失当触发张绣反袭，军势崩溃并损失曹昂典韦／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>14) 前线− `A/D3`｜曹操与张绣南阳战役群／主帅／结果责任=actual_command_scope／致败责任=ATTRIBUTABLE_COMMAND_ERROR<br>15) 前线± `S-/D3`｜赤壁战争父级／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>16) 前线− `B/D2`｜曹操两攻濡须未能突破／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "RETAINED",
-            "before": {
-              "axis_grade": "G4",
-              "position": "HIGH",
-              "radar_value": 87
-            },
-            "after": {
-              "axis_grade": "G4",
-              "position": "HIGH",
-              "radar_value": 87
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "武将登记明确为top并标记重复重大失败；官渡等高峰支持强长板，但赤壁、濡须等下沿不满足G5全分布门。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -701,7 +510,107 @@
             "stability": "重复重大负向/混合周期形成全生涯高变异，未通过G5稳定性门",
             "decision": "G4-HIGH_RETAINED",
             "basis": "官渡S/D4与乌桓S-/D3等已经满足历史级直接锚和强复验的角色厚度要求，曹操并不是因为缺G5锚而停在G4；真正的否决来自赤壁、濡须等多组可归责重大负向/混合周期和全生涯高变异，下沿未通过G5稳定性门。故保留G4-HIGH。"
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-HAN-BINGZHOU-206",
+                "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
+                "WAR-LEAD-HAN-CHANGXI-201",
+                "WAR-LEAD-HAN-GUANDU-199-200",
+                "WAR-LEAD-HAN-HANZHONG-215",
+                "WAR-LEAD-HAN-HEBEI-201-205",
+                "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
+                "WAR-LEAD-HAN-QINGZHOU-YELLOW-TURBAN-191-192",
+                "WAR-LEAD-HAN-RUXU-212-213",
+                "WAR-LEAD-HAN-WUHUAN-206-207",
+                "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
+                "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
+                "WAR-LEAD-HAN-YANZHOU-LUBU-194-195",
+                "WAR-LEAD-HAN-YOUZHOU-ZHAODU-HUONU-205"
+              ]
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": [
+                "PCR-HAN-CAOCAO-HUGUAN-206",
+                "PCR-HAN-CAOCAO-QINGZHOU-YELLOW-TURBAN-192",
+                "PCR-HAN-CAOCAO-WANCHENG-197-FAILURE",
+                "PCR-HAN-CAOCAO-ZHANGXIU-RECOVERY-197-198",
+                "WAR-LEAD-HAN-CHANGXI-201",
+                "WAR-LEAD-HAN-GUANDU-199-200",
+                "WAR-LEAD-HAN-HANZHONG-215",
+                "WAR-LEAD-HAN-HEBEI-201-205",
+                "WAR-LEAD-HAN-WUHUAN-206-207",
+                "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
+                "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
+                "WAR-LEAD-HAN-YANZHOU-LUBU-194-195",
+                "WAR-LEAD-HAN-YOUZHOU-ZHAODU-HUONU-205"
+              ]
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "HAN-HEISHAN-185-205",
+                "PCR-HAN-CAOCAO-HUGUAN-206",
+                "PCR-HAN-CAOCAO-QINGZHOU-YELLOW-TURBAN-192",
+                "PCR-HAN-CAOCAO-WANCHENG-197-FAILURE",
+                "WAR-LEAD-HAN-BINGZHOU-206",
+                "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
+                "WAR-LEAD-HAN-CHANGXI-201",
+                "WAR-LEAD-HAN-FANCHENG-JINGZHOU-219",
+                "WAR-LEAD-HAN-FENGYI-LIANGXING-212",
+                "WAR-LEAD-HAN-GUANDU-199-200",
+                "WAR-LEAD-HAN-HANZHONG-215",
+                "WAR-LEAD-HAN-HANZHONG-217-219",
+                "WAR-LEAD-HAN-HEBEI-201-205",
+                "WAR-LEAD-HAN-HEDONG-WEIGU-205",
+                "WAR-LEAD-HAN-HEFEI-208-209-END",
+                "WAR-LEAD-HAN-HEFEI-XIAOYAOJIN-215",
+                "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
+                "WAR-LEAD-HAN-NANJUN-208-209-END",
+                "WAR-LEAD-HAN-NORTHERN-TRIBES-216",
+                "WAR-LEAD-HAN-QINGZHOU-YELLOW-TURBAN-191-192",
+                "WAR-LEAD-HAN-RUXU-212-213",
+                "WAR-LEAD-HAN-RUXU-217",
+                "WAR-LEAD-HAN-SANBA-215",
+                "WAR-LEAD-HAN-SHANGYONG-219",
+                "WAR-LEAD-HAN-TONGGUAN-LONGYOU-211-214-END",
+                "WAR-LEAD-HAN-WAN-218-219",
+                "WAR-LEAD-HAN-WANCHENG-214",
+                "WAR-LEAD-HAN-WUHUAN-206-207",
+                "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
+                "WAR-LEAD-HAN-WUHUAN-XIANBEI-218",
+                "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
+                "WAR-LEAD-HAN-YANZHOU-LUBU-194-195",
+                "WAR-LEAD-HAN-YOUZHOU-ZHAODU-HUONU-205",
+                "《三国志》卷一《武帝纪》建安十二年、二十一年",
+                "《三国志》卷三十《乌丸鲜卑东夷传》",
+                "《晋书》卷一百一《刘元海载记》"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E3",
+            "ability_evidence_label": "主要能力命题已完成归责、反例与限制核对",
+            "conclusion_mode_label": "已定档；发布全生涯能力模式与限制",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
         },
         {
           "sequence": 141,
@@ -734,8 +643,8 @@
             "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
             "WAR-LEAD-SG-WU-HAN-YILING-221-222"
           ],
-          "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
-          "decision_origin": "V03_EXPLICIT_WHOLE_DISTRIBUTION_ADJUDICATION_REUSED",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-SHU-LIUBEI",
           "representative_parent_contexts": [
             {
@@ -766,7 +675,7 @@
             "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
           },
           "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [],
           "material_intensity_claim_text_fields": [
             "grade_basis",
@@ -774,108 +683,6 @@
           ],
           "representative_context_max_material_intensity": "MI1_CASE",
           "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-SHU-LIUBEI",
-          "normative_entry_coverage": {
-            "sequence": 141,
-            "task_code": "PROFILE-M1-RULER-SHU-LIUBEI",
-            "ruler_id": "RULER-SHU-LIUBEI",
-            "ruler_name": "刘备",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-HAN-BOWANG-202",
-                  "WAR-LEAD-HAN-HANZHONG-217-219",
-                  "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
-                  "WAR-LEAD-HAN-LIUBEI-RUNAN-199-201",
-                  "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END",
-                  "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
-                  "WAR-LEAD-SG-WU-HAN-YILING-221-222"
-                ],
-                "stable_parent_ref_count": 7,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-HAN-BOWANG-202",
-                  "WAR-LEAD-HAN-HANZHONG-217-219",
-                  "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
-                  "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END"
-                ],
-                "stable_parent_ref_count": 4,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "UCP-ANNEXATION-CAO-XUZHOU-LUBU:WAR-LEAD-HAN-XUZHOU-LUBU-196-198:刘备",
-                  "UCP-REGIONAL-LIUBEI-SOUTHWEST:WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END:刘备",
-                  "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END",
-                  "WAR-LEAD-HAN-XUZHOU-LUBU-196-198"
-                ],
-                "stable_parent_ref_count": 4,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "CAMPAIGN-SG-WU-HAN-YILING-221-222",
-                  "WAR-LEAD-HAN-FANCHENG-JINGZHOU-219",
-                  "WAR-LEAD-HAN-HANZHONG-217-219",
-                  "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END",
-                  "WAR-LEAD-HAN-SANBA-215",
-                  "WAR-LEAD-HAN-SHANGYONG-219",
-                  "WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
-                  "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
-                  "WAR-LEAD-SG-SHU-NANZHONG-223-225",
-                  "WAR-LEAD-SG-SHU-NORTH-228",
-                  "WAR-LEAD-SG-WEI-SHANGYONG-220",
-                  "WAR-LEAD-SG-WU-HAN-YILING-221-222",
-                  "《三国志》卷三十二《先主传》章武元年至三年"
-                ],
-                "stable_parent_ref_count": 13,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 4,
-            "entry_gap_count": 0,
-            "full_grade_normative_entry_gate_passed": true,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -887,9 +694,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "stability_limited_repeated_major_failures",
             "profile_ref": "MIL-PROFILE-DFB789DCAC998D9A"
-          },
-          "structural_review": {
-            "status": "NOT_IN_HIGH_GRADE_REVIEW"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -926,23 +730,6 @@
               "7) 前线− `S/D3`｜夷陵之战／主帅／结果责任=independent_direction_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线+ `C/D2`｜博望叶县诱伏战／主帅<br>2) 前线+ `S-/D3`｜刘备夺汉中战役群／主帅<br>3) 前线+ `A/D2`｜赤壁战争父级／主帅<br>4) 前线+ `S-/D3`｜刘备兼并益州终局／主帅<br>5) 前线− `B/D1`｜刘备汝南游动根据失守／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>6) 前线− `A/D3`｜徐州反复争夺中失去独立根据／主将／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>7) 前线− `S/D3`｜夷陵之战／主帅／结果责任=independent_direction_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "RETAINED",
-            "before": {
-              "axis_grade": "G3",
-              "position": "HIGH",
-              "radar_value": 71
-            },
-            "after": {
-              "axis_grade": "G3",
-              "position": "HIGH",
-              "radar_value": 71
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "能在不稳定资源条件下维持独立军令，并在博望、益州和汉中完成从战术到长期战区的正向闭合。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -1126,7 +913,68 @@
             "route": null,
             "decision": "G3-HIGH",
             "basis": "G4/G5 role-combination gate does not apply to the current grade."
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-HAN-BOWANG-202",
+                "WAR-LEAD-HAN-HANZHONG-217-219",
+                "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
+                "WAR-LEAD-HAN-LIUBEI-RUNAN-199-201",
+                "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END",
+                "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
+                "WAR-LEAD-SG-WU-HAN-YILING-221-222"
+              ]
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-HAN-BOWANG-202",
+                "WAR-LEAD-HAN-HANZHONG-217-219",
+                "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
+                "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END"
+              ]
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "CAMPAIGN-SG-WU-HAN-YILING-221-222",
+                "WAR-LEAD-HAN-FANCHENG-JINGZHOU-219",
+                "WAR-LEAD-HAN-HANZHONG-217-219",
+                "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END",
+                "WAR-LEAD-HAN-SANBA-215",
+                "WAR-LEAD-HAN-SHANGYONG-219",
+                "WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+                "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
+                "WAR-LEAD-SG-SHU-NANZHONG-223-225",
+                "WAR-LEAD-SG-SHU-NORTH-228",
+                "WAR-LEAD-SG-WEI-SHANGYONG-220",
+                "WAR-LEAD-SG-WU-HAN-YILING-221-222",
+                "《三国志》卷三十二《先主传》章武元年至三年"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E3",
+            "ability_evidence_label": "主要能力命题已完成归责、反例与限制核对",
+            "conclusion_mode_label": "已定档；发布全生涯能力模式与限制",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
         },
         {
           "sequence": 162,
@@ -1143,7 +991,7 @@
           "axis_evidence_level": "E2",
           "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
-          "score_status": "EVIDENCE_LIMITED",
+          "score_status": "FINAL",
           "axis_grade": "G3",
           "position": "HIGH",
           "score_100": 71,
@@ -1152,7 +1000,7 @@
           "whole_distribution_grade_basis": "武将锚为ordinary且多数战区并未亲临；持续授权能力不等同综合统帅G4。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
           "phase_profile": "规范池实际权力窗口为226—239年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
-          "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
+          "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。",
           "limitations": [
             "未亲临多数战区。"
           ],
@@ -1188,9 +1036,9 @@
             "WAR-LEAD-SG-WEI-XIANBEI-233",
             "《资治通鉴》卷七十四景初二年"
           ],
-          "search_scope": "现行第三项AB/C/D父链与国防安全登记",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
           "targeted_supplement_ref": "M1-V04-SUPP-RULER-WEI-CAORUI",
-          "decision_origin": "V04_EXPLICIT_ZERO_REGISTRY_CONTEXT_TARGETED_LOCAL_ADJUDICATION",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-GAP-ADJ-RULER-WEI-CAORUI",
           "representative_parent_contexts": [
             {
@@ -1215,14 +1063,14 @@
           "typical_pattern": "吴、蜀、辽东多线高压下持续进行方向判断和统帅授权，形成国家级MI3模式。",
           "counterpattern": "本人不继承满宠、司马懿临阵能力，石亭构成下沿。",
           "grade_basis": "武将锚为ordinary且多数战区并未亲临；持续授权能力不等同综合统帅G4。",
-          "position_basis": "档内高位：规范池实际权力窗口为226—239年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：未亲临多数战区。",
+          "position_basis": "档内高位：规范池实际权力窗口为226—239年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。；限制：未亲临多数战区。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "本人统兵、战争方向、战区统筹或可归责军事授权至少一项闭合；国家结果与将领临阵成果未直接换算。"
           },
           "talent_gap_audit_ref": "M1-V05-GAP-ADJ-RULER-WEI-CAORUI",
           "same_chain_semantic_conflict_review_status": "V05_REVIEWED_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V05_EXPLICIT_GAP_REVIEW",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [
             "MI3_SUSTAINED_SYSTEMIC"
           ],
@@ -1232,101 +1080,6 @@
           ],
           "representative_context_max_material_intensity": "MI3_SUSTAINED_SYSTEMIC",
           "material_intensity_claim_consistency_status": "PASS_SUPPORTED_BY_REPRESENTATIVE_CONTEXT",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-WEI-CAORUI",
-          "normative_entry_coverage": {
-            "sequence": 162,
-            "task_code": "PROFILE-M1-RULER-WEI-CAORUI",
-            "ruler_id": "RULER-WEI-CAORUI",
-            "ruler_name": "曹叡",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_NO_ELIGIBLE_RULER_ROLE_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "反向连接未发现本人统兵、方向决定或战区统筹父链",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_PROFILE_WITH_NO_ELIGIBLE_CAPABILITY_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "人物画像已连接，但无可用于M1的已消费本人能力父情境",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_FORMAL_NOT_APPLICABLE",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "NOT_APPLICABLE_NON_FOUNDER",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "CAMPAIGN-SHU-FIRST-NORTH-227-228",
-                  "CAMPAIGN-V071-SG-WEI-HANZHONG-230",
-                  "CAMPAIGN-V071-SG-WEI-WU-SHITING-228",
-                  "CAMPAIGN-WEI-LIAODONG-232-238",
-                  "WAR-LEAD-SG-CHENCANG-WALL-228",
-                  "WAR-LEAD-SG-HEFEI-NEW-CITY-232",
-                  "WAR-LEAD-SG-SHU-CHENCANG-228",
-                  "WAR-LEAD-SG-SHU-NORTH-228",
-                  "WAR-LEAD-SG-SHU-QISHAN-231",
-                  "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
-                  "WAR-LEAD-SG-SHU-WUZHANG-234",
-                  "WAR-LEAD-SG-WEI-HANZHONG-230",
-                  "WAR-LEAD-SG-WEI-HANZHONG-244",
-                  "WAR-LEAD-SG-WEI-LIAODONG-238",
-                  "WAR-LEAD-SG-WEI-MENGDA-227-228",
-                  "WAR-LEAD-SG-WEI-WU-226",
-                  "WAR-LEAD-SG-WEI-WU-234",
-                  "WAR-LEAD-SG-WEI-WU-FULING-231",
-                  "WAR-LEAD-SG-WEI-WU-HEFEI-230",
-                  "WAR-LEAD-SG-WEI-WU-HEFEI-233",
-                  "WAR-LEAD-SG-WEI-WU-SHITING-228",
-                  "WAR-LEAD-SG-WEI-XIANBEI-228",
-                  "WAR-LEAD-SG-WEI-XIANBEI-233",
-                  "《资治通鉴》卷七十四景初二年"
-                ],
-                "stable_parent_ref_count": 24,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 1,
-            "entry_gap_count": 0,
-            "full_grade_normative_entry_gate_passed": true,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -1338,12 +1091,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "no_comparable_major_failure_established",
             "profile_ref": "MIL-PROFILE-A6E24AC442E30B64"
-          },
-          "pre_structural_review_grade_basis": "与G4-MID实战锚朱温相比，曹叡以国家级持续多战区授权补足非亲征差异，强度和压力相当。",
-          "structural_review": {
-            "status": "REVISED",
-            "basis_code": "G4_FIELD_COMMAND_BOUNDARY",
-            "basis": "武将锚为ordinary且多数战区并未亲临；持续授权能力不等同综合统帅G4。"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -1360,23 +1107,6 @@
             ],
             "paired_result_difficulty_campaign_role_items": [],
             "paired_result_difficulty_campaign_roles_display": "—"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "RETAINED",
-            "before": {
-              "axis_grade": "G3",
-              "position": "HIGH",
-              "radar_value": 71
-            },
-            "after": {
-              "axis_grade": "G3",
-              "position": "HIGH",
-              "radar_value": 71
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "武将锚为ordinary且多数战区并未亲临；持续授权能力不等同综合统帅G4。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -1452,7 +1182,66 @@
             "route": null,
             "decision": "G3-HIGH",
             "basis": "G4/G5 role-combination gate does not apply to the current grade."
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": []
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": []
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "CAMPAIGN-SHU-FIRST-NORTH-227-228",
+                "CAMPAIGN-V071-SG-WEI-HANZHONG-230",
+                "CAMPAIGN-V071-SG-WEI-WU-SHITING-228",
+                "CAMPAIGN-WEI-LIAODONG-232-238",
+                "WAR-LEAD-SG-CHENCANG-WALL-228",
+                "WAR-LEAD-SG-HEFEI-NEW-CITY-232",
+                "WAR-LEAD-SG-SHU-CHENCANG-228",
+                "WAR-LEAD-SG-SHU-NORTH-228",
+                "WAR-LEAD-SG-SHU-QISHAN-231",
+                "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
+                "WAR-LEAD-SG-SHU-WUZHANG-234",
+                "WAR-LEAD-SG-WEI-HANZHONG-230",
+                "WAR-LEAD-SG-WEI-HANZHONG-244",
+                "WAR-LEAD-SG-WEI-LIAODONG-238",
+                "WAR-LEAD-SG-WEI-MENGDA-227-228",
+                "WAR-LEAD-SG-WEI-WU-226",
+                "WAR-LEAD-SG-WEI-WU-234",
+                "WAR-LEAD-SG-WEI-WU-FULING-231",
+                "WAR-LEAD-SG-WEI-WU-HEFEI-230",
+                "WAR-LEAD-SG-WEI-WU-HEFEI-233",
+                "WAR-LEAD-SG-WEI-WU-SHITING-228",
+                "WAR-LEAD-SG-WEI-XIANBEI-228",
+                "WAR-LEAD-SG-WEI-XIANBEI-233",
+                "《资治通鉴》卷七十四景初二年"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E2",
+            "ability_evidence_label": "本人能力证据包含独立情境或完整变化链",
+            "conclusion_mode_label": "已定档；本人能力结论有明确适用边界",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。本人能力证据包含独立情境或完整变化链；E级描述本人能力可证形态，不描述底池登记进度。"
         },
         {
           "sequence": 164,
@@ -1475,16 +1264,16 @@
           "score_100": 71,
           "radar_value": 71,
           "applicability_basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。",
-          "whole_distribution_grade_basis": "武将锚仅important且全分布厚度不足；国家级授权结果不直接换算G4。",
+          "whole_distribution_grade_basis": "武将锚仅important且独立可归责军事表现不足以证明更高档；国家级授权结果不直接换算G4。",
           "role_attribution": "灭蜀终局不继承邓艾越阴平的临阵能力。",
           "phase_profile": "灭蜀终局不继承邓艾越阴平的临阵能力。",
           "failure_and_recovery": "只有两个主要生命周期且前线依赖钟会、邓艾等，限制全机制上限；战略组织达到G4低位。",
           "limitations": [
-            "INSUFFICIENT_WHOLE_DISTRIBUTION_THICKNESS"
+            "独立可归责军事表现与跨任务复验有限，不表示材料底池未覆盖全生涯。"
           ],
           "diagnostic_context_refs": [],
-          "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
-          "decision_origin": "V03_EXPLICIT_WHOLE_DISTRIBUTION_ADJUDICATION_REUSED",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-WEI-SIMAZHAO",
           "representative_parent_contexts": [
             {
@@ -1502,14 +1291,14 @@
           ],
           "typical_pattern": "寿春与灭蜀两个D3方向覆盖其主要掌权军事机会，目标、战区配置和一次临阵机制均闭合。",
           "counterpattern": "只有两个主要生命周期且前线依赖钟会、邓艾等，限制全机制上限；战略组织达到G4低位。",
-          "grade_basis": "武将锚仅important且全分布厚度不足；国家级授权结果不直接换算G4。",
-          "position_basis": "档内高位：灭蜀终局不继承邓艾越阴平的临阵能力。；只有两个主要生命周期且前线依赖钟会、邓艾等，限制全机制上限；战略组织达到G4低位。；限制：INSUFFICIENT_WHOLE_DISTRIBUTION_THICKNESS",
+          "grade_basis": "武将锚仅important且独立可归责军事表现不足以证明更高档；国家级授权结果不直接换算G4。",
+          "position_basis": "档内高位：灭蜀终局不继承邓艾越阴平的临阵能力。；只有两个主要生命周期且前线依赖钟会、邓艾等，限制全机制上限；战略组织达到G4低位。；限制：独立可归责军事表现与跨任务复验有限，不表示材料底池未覆盖全生涯。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
           },
           "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [],
           "material_intensity_claim_text_fields": [
             "grade_basis",
@@ -1517,97 +1306,6 @@
           ],
           "representative_context_max_material_intensity": "MI1_CASE",
           "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-WEI-SIMAZHAO",
-          "normative_entry_coverage": {
-            "sequence": 164,
-            "task_code": "PROFILE-M1-RULER-WEI-SIMAZHAO",
-            "ruler_id": "RULER-WEI-SIMAZHAO",
-            "ruler_name": "司马昭",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-SG-SHOUCHUN-257",
-                  "WAR-LEAD-SG-WEISHU-263"
-                ],
-                "stable_parent_ref_count": 2,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-SG-SHOUCHUN-257",
-                  "WAR-LEAD-SG-WEISHU-263"
-                ],
-                "stable_parent_ref_count": 2,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "UCP-ANNEXATION-WEI-SHU-263:WAR-LEAD-SG-WEISHU-263:司马昭",
-                  "WAR-LEAD-SG-WEISHU-263"
-                ],
-                "stable_parent_ref_count": 2,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "CAMPAIGN-V076-SG-SHU-DIDAO-255",
-                  "CAMPAIGN-V077-SG-SHOUCHUN-257",
-                  "WAR-LEAD-SG-JIAOZHI-263",
-                  "WAR-LEAD-SG-JUSHUI-CANCEL-261",
-                  "WAR-LEAD-SG-SHOUCHUN-257",
-                  "WAR-LEAD-SG-SHU-DIDAO-255",
-                  "WAR-LEAD-SG-WEI-HUAINAN-255",
-                  "WAR-LEAD-SG-WEISHU-263",
-                  "WAR-LEAD-SG-YONGAN-264",
-                  "WAR-LEAD-SG-ZHONGHUI-264",
-                  "《资治通鉴》卷七十六正元二年"
-                ],
-                "stable_parent_ref_count": 11,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 4,
-            "entry_gap_count": 0,
-            "full_grade_normative_entry_gate_passed": true,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -1619,12 +1317,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "no_comparable_major_failure_established",
             "profile_ref": "MIL-PROFILE-B2DD6D794342436D"
-          },
-          "pre_structural_review_grade_basis": "寿春与灭蜀两个D3方向覆盖其主要掌权军事机会，目标、战区配置和一次临阵机制均闭合。",
-          "structural_review": {
-            "status": "REVISED",
-            "basis_code": "G4_FULL_LIFETIME_GATE",
-            "basis": "武将锚仅important且全分布厚度不足；国家级授权结果不直接换算G4。"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -1646,23 +1338,6 @@
               "2) 统筹+ `S-/—`｜突破汉中—剑阁体系并终结蜀汉国家／统筹"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线+ `A/D3`｜诸葛诞据寿春与魏吴围援战／主帅<br>2) 统筹+ `S-/—`｜魏三路灭蜀／统筹"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "RETAINED",
-            "before": {
-              "axis_grade": "G3",
-              "position": "HIGH",
-              "radar_value": 71
-            },
-            "after": {
-              "axis_grade": "G3",
-              "position": "HIGH",
-              "radar_value": 71
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "武将锚仅important且全分布厚度不足；国家级授权结果不直接换算G4。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -1788,7 +1463,59 @@
             "route": null,
             "decision": "G3-HIGH",
             "basis": "G4/G5 role-combination gate does not apply to the current grade."
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-SG-SHOUCHUN-257",
+                "WAR-LEAD-SG-WEISHU-263"
+              ]
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-SG-SHOUCHUN-257",
+                "WAR-LEAD-SG-WEISHU-263"
+              ]
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "CAMPAIGN-V076-SG-SHU-DIDAO-255",
+                "CAMPAIGN-V077-SG-SHOUCHUN-257",
+                "WAR-LEAD-SG-JIAOZHI-263",
+                "WAR-LEAD-SG-JUSHUI-CANCEL-261",
+                "WAR-LEAD-SG-SHOUCHUN-257",
+                "WAR-LEAD-SG-SHU-DIDAO-255",
+                "WAR-LEAD-SG-WEI-HUAINAN-255",
+                "WAR-LEAD-SG-WEISHU-263",
+                "WAR-LEAD-SG-YONGAN-264",
+                "WAR-LEAD-SG-ZHONGHUI-264",
+                "《资治通鉴》卷七十六正元二年"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E3",
+            "ability_evidence_label": "主要能力命题已完成归责、反例与限制核对",
+            "conclusion_mode_label": "已定档；发布全生涯能力模式与限制",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
         },
         {
           "sequence": 166,
@@ -1821,8 +1548,8 @@
             "WAR-LEAD-SG-WEI-WU-234",
             "PCR-SG-SUNQUAN-YIZHOU-230-231-DECISION-FAILURE"
           ],
-          "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
-          "decision_origin": "V03_EXPLICIT_WHOLE_DISTRIBUTION_ADJUDICATION_REUSED",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-WU-SUNQUAN",
           "representative_parent_contexts": [
             {
@@ -1853,7 +1580,7 @@
             "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
           },
           "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [],
           "material_intensity_claim_text_fields": [
             "grade_basis",
@@ -1861,147 +1588,6 @@
           ],
           "representative_context_max_material_intensity": "MI1_CASE",
           "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-WU-SUNQUAN",
-          "normative_entry_coverage": {
-            "sequence": 166,
-            "task_code": "PROFILE-M1-RULER-WU-SUNQUAN",
-            "ruler_id": "RULER-WU-SUNQUAN",
-            "ruler_name": "孙权",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-HAN-HEFEI-208-209-END",
-                  "WAR-LEAD-HAN-JINGZHOU-219",
-                  "WAR-LEAD-HAN-RUXU-212-213",
-                  "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
-                  "WAR-LEAD-HAN-SUNQUAN-LISHU-200",
-                  "WAR-LEAD-HAN-SUNQUAN-SHANYUE-203",
-                  "WAR-LEAD-HAN-WANCHENG-214",
-                  "WAR-LEAD-HAN-WU-HUANGZU-208",
-                  "WAR-LEAD-SG-WEI-WU-234",
-                  "WAR-LEAD-SG-WU-YIZHOU-230-231"
-                ],
-                "stable_parent_ref_count": 10,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-HAN-JINGZHOU-219",
-                  "WAR-LEAD-HAN-RUXU-212-213",
-                  "WAR-LEAD-HAN-SUNQUAN-SHANYUE-203",
-                  "WAR-LEAD-HAN-WANCHENG-214",
-                  "WAR-LEAD-HAN-WU-HUANGZU-208"
-                ],
-                "stable_parent_ref_count": 5,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "UCP-ANNEXATION-SUNQUAN-WEST-SOUTH:WAR-LEAD-HAN-SUNQUAN-HUANGZU-203:孙权",
-                  "UCP-ANNEXATION-SUNQUAN-WEST-SOUTH:WAR-LEAD-HAN-WU-HUANGZU-208:孙权",
-                  "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
-                  "WAR-LEAD-HAN-WU-HUANGZU-208"
-                ],
-                "stable_parent_ref_count": 4,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "CAMPAIGN-V070-SG-WU-JIAOZHOU-226",
-                  "CAMPAIGN-V070-SG-WU-POYANG-225-227",
-                  "CAMPAIGN-V072-SG-WEI-WU-234",
-                  "CAMPAIGN-V072-SG-WU-LIAODONG-233",
-                  "CAMPAIGN-V072-SG-WU-WUXI-231-234",
-                  "CAMPAIGN-V073-SG-WU-DANYANG-234-237",
-                  "CAMPAIGN-V074-SG-WU-LIAOSHI-239-240",
-                  "CAMPAIGN-V075-SG-WU-JIAOZHOU-248",
-                  "CAMPAIGN-V075-SG-WU-TUTANG-250",
-                  "WAR-LEAD-HAN-FANCHENG-JINGZHOU-219",
-                  "WAR-LEAD-HAN-HEFEI-208-209-END",
-                  "WAR-LEAD-HAN-HEFEI-XIAOYAOJIN-215",
-                  "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
-                  "WAR-LEAD-HAN-NANJUN-208-209-END",
-                  "WAR-LEAD-HAN-RUXU-212-213",
-                  "WAR-LEAD-HAN-RUXU-217",
-                  "WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
-                  "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
-                  "WAR-LEAD-HAN-SUNQUAN-LISHU-200",
-                  "WAR-LEAD-HAN-SUNQUAN-SHANYUE-203",
-                  "WAR-LEAD-HAN-WANCHENG-214",
-                  "WAR-LEAD-HAN-WU-DANYANG-208",
-                  "WAR-LEAD-HAN-WU-HUANGZU-208",
-                  "WAR-LEAD-HAN-WU-SHANYUE-217",
-                  "WAR-LEAD-SG-DONGXING-DIKE-252",
-                  "WAR-LEAD-SG-WEI-WU-222-223",
-                  "WAR-LEAD-SG-WEI-WU-224-225",
-                  "WAR-LEAD-SG-WEI-WU-226",
-                  "WAR-LEAD-SG-WEI-WU-234",
-                  "WAR-LEAD-SG-WEI-WU-241",
-                  "WAR-LEAD-SG-WEI-WU-250-251",
-                  "WAR-LEAD-SG-WEI-WU-DONGXING-252",
-                  "WAR-LEAD-SG-WEI-WU-FULING-231",
-                  "WAR-LEAD-SG-WEI-WU-HEFEI-230",
-                  "WAR-LEAD-SG-WEI-WU-HEFEI-233",
-                  "WAR-LEAD-SG-WEI-WU-SHITING-228",
-                  "WAR-LEAD-SG-WU-DANYANG-234-237",
-                  "WAR-LEAD-SG-WU-DONGAN",
-                  "WAR-LEAD-SG-WU-HAN-YILING-221-222",
-                  "WAR-LEAD-SG-WU-HANAN-242",
-                  "WAR-LEAD-SG-WU-JIAOZHOU-226",
-                  "WAR-LEAD-SG-WU-JIAOZHOU-248",
-                  "WAR-LEAD-SG-WU-LIAODONG-233",
-                  "WAR-LEAD-SG-WU-LIAOSHI-239-240",
-                  "WAR-LEAD-SG-WU-POYANG-225-227",
-                  "WAR-LEAD-SG-WU-TUTANG-250",
-                  "WAR-LEAD-SG-WU-WUXI-231-234",
-                  "WAR-LEAD-SG-WU-YIZHOU-230-231"
-                ],
-                "stable_parent_ref_count": 48,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 4,
-            "entry_gap_count": 0,
-            "full_grade_normative_entry_gate_passed": true,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -2013,9 +1599,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "no_comparable_major_failure_established",
             "profile_ref": "MIL-PROFILE-96C157DF0195422A"
-          },
-          "structural_review": {
-            "status": "NOT_IN_HIGH_GRADE_REVIEW"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -2061,23 +1644,6 @@
               "10) 前线− `B/D2`｜吴三路攻魏／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 统筹+ `A/—`｜袭荆州的战区统筹与外交协同／统筹<br>2) 前线+ `B/D2`｜孙权连续守住濡须江防／主帅<br>3) 统筹+ `B/—`｜孙权回师平山越／统筹<br>4) 统筹+ `B/—`｜孙权攻取皖城／统筹<br>5) 统筹+ `A/—`｜孙权决断并统筹征黄祖／统筹<br>6) 前线± `B/D1`｜孙权：军事结果与屠迁责任均归孙权。／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN<br>7) 前线− `B/—`｜远海求民决策失败／非前线指挥链／结果责任=operational_design_scope／致败责任=UNKNOWN<br>8) 前线− `B/D2`｜孙权围合肥未克并撤军／主将／结果责任=actual_command_scope／致败责任=UNKNOWN<br>9) 前线± `B/D2`｜WAR-LEAD-HAN-SUNQUAN-HUANGZU-203／主帅／结果责任=independent_direction_scope／致败责任=UNKNOWN<br>10) 前线− `B/D2`｜吴三路攻魏／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "RETAINED",
-            "before": {
-              "axis_grade": "G3",
-              "position": "MID",
-              "radar_value": 65
-            },
-            "after": {
-              "axis_grade": "G3",
-              "position": "MID",
-              "radar_value": 65
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "战略采纳和战区配置常能形成正向结果，但本人亲征与高风险项目的下沿反复出现，典型表现为长于方向、弱于稳定现场兑现。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -2268,7 +1834,107 @@
             "route": null,
             "decision": "G3-MID",
             "basis": "G4/G5 role-combination gate does not apply to the current grade."
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-HAN-HEFEI-208-209-END",
+                "WAR-LEAD-HAN-JINGZHOU-219",
+                "WAR-LEAD-HAN-RUXU-212-213",
+                "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
+                "WAR-LEAD-HAN-SUNQUAN-LISHU-200",
+                "WAR-LEAD-HAN-SUNQUAN-SHANYUE-203",
+                "WAR-LEAD-HAN-WANCHENG-214",
+                "WAR-LEAD-HAN-WU-HUANGZU-208",
+                "WAR-LEAD-SG-WEI-WU-234",
+                "WAR-LEAD-SG-WU-YIZHOU-230-231"
+              ]
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-HAN-JINGZHOU-219",
+                "WAR-LEAD-HAN-RUXU-212-213",
+                "WAR-LEAD-HAN-SUNQUAN-SHANYUE-203",
+                "WAR-LEAD-HAN-WANCHENG-214",
+                "WAR-LEAD-HAN-WU-HUANGZU-208"
+              ]
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "CAMPAIGN-V070-SG-WU-JIAOZHOU-226",
+                "CAMPAIGN-V070-SG-WU-POYANG-225-227",
+                "CAMPAIGN-V072-SG-WEI-WU-234",
+                "CAMPAIGN-V072-SG-WU-LIAODONG-233",
+                "CAMPAIGN-V072-SG-WU-WUXI-231-234",
+                "CAMPAIGN-V073-SG-WU-DANYANG-234-237",
+                "CAMPAIGN-V074-SG-WU-LIAOSHI-239-240",
+                "CAMPAIGN-V075-SG-WU-JIAOZHOU-248",
+                "CAMPAIGN-V075-SG-WU-TUTANG-250",
+                "WAR-LEAD-HAN-FANCHENG-JINGZHOU-219",
+                "WAR-LEAD-HAN-HEFEI-208-209-END",
+                "WAR-LEAD-HAN-HEFEI-XIAOYAOJIN-215",
+                "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
+                "WAR-LEAD-HAN-NANJUN-208-209-END",
+                "WAR-LEAD-HAN-RUXU-212-213",
+                "WAR-LEAD-HAN-RUXU-217",
+                "WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+                "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
+                "WAR-LEAD-HAN-SUNQUAN-LISHU-200",
+                "WAR-LEAD-HAN-SUNQUAN-SHANYUE-203",
+                "WAR-LEAD-HAN-WANCHENG-214",
+                "WAR-LEAD-HAN-WU-DANYANG-208",
+                "WAR-LEAD-HAN-WU-HUANGZU-208",
+                "WAR-LEAD-HAN-WU-SHANYUE-217",
+                "WAR-LEAD-SG-DONGXING-DIKE-252",
+                "WAR-LEAD-SG-WEI-WU-222-223",
+                "WAR-LEAD-SG-WEI-WU-224-225",
+                "WAR-LEAD-SG-WEI-WU-226",
+                "WAR-LEAD-SG-WEI-WU-234",
+                "WAR-LEAD-SG-WEI-WU-241",
+                "WAR-LEAD-SG-WEI-WU-250-251",
+                "WAR-LEAD-SG-WEI-WU-DONGXING-252",
+                "WAR-LEAD-SG-WEI-WU-FULING-231",
+                "WAR-LEAD-SG-WEI-WU-HEFEI-230",
+                "WAR-LEAD-SG-WEI-WU-HEFEI-233",
+                "WAR-LEAD-SG-WEI-WU-SHITING-228",
+                "WAR-LEAD-SG-WU-DANYANG-234-237",
+                "WAR-LEAD-SG-WU-DONGAN",
+                "WAR-LEAD-SG-WU-HAN-YILING-221-222",
+                "WAR-LEAD-SG-WU-HANAN-242",
+                "WAR-LEAD-SG-WU-JIAOZHOU-226",
+                "WAR-LEAD-SG-WU-JIAOZHOU-248",
+                "WAR-LEAD-SG-WU-LIAODONG-233",
+                "WAR-LEAD-SG-WU-LIAOSHI-239-240",
+                "WAR-LEAD-SG-WU-POYANG-225-227",
+                "WAR-LEAD-SG-WU-TUTANG-250",
+                "WAR-LEAD-SG-WU-WUXI-231-234",
+                "WAR-LEAD-SG-WU-YIZHOU-230-231"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E3",
+            "ability_evidence_label": "主要能力命题已完成归责、反例与限制核对",
+            "conclusion_mode_label": "已定档；发布全生涯能力模式与限制",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
         },
         {
           "sequence": 167,
@@ -2285,7 +1951,7 @@
           "axis_evidence_level": "E1",
           "output_mode": "EPISODE_TAG",
           "confidence": "LOW",
-          "score_status": "EVIDENCE_LIMITED",
+          "score_status": "FINAL",
           "axis_grade": "G3",
           "position": "LOW",
           "score_100": 58,
@@ -2294,7 +1960,7 @@
           "whole_distribution_grade_basis": "保留有限合格判断，但主动统筹、成果和跨战区复验均缺，降为G3低位。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
           "phase_profile": "规范池实际权力窗口为258—264年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
-          "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
+          "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。",
           "limitations": [
             "可归责独立军事事件少，跨阶段复验有限。"
           ],
@@ -2307,9 +1973,9 @@
             "WAR-LEAD-SG-WULING-263",
             "WAR-LEAD-SG-YONGAN-264"
           ],
-          "search_scope": "现行第三项AB/C/D父链与国防安全登记",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
           "targeted_supplement_ref": "M1-V04-SUPP-RULER-WU-SUNXIU",
-          "decision_origin": "V04_EXPLICIT_ZERO_REGISTRY_CONTEXT_TARGETED_LOCAL_ADJUDICATION",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-WU-SUNXIU",
           "representative_parent_contexts": [
             {
@@ -2331,13 +1997,13 @@
           "typical_pattern": "有限决策情境显示基本可用，没有闭合持续失能。",
           "counterpattern": "短在位材料不足以填充中位",
           "grade_basis": "保留有限合格判断，但主动统筹、成果和跨战区复验均缺，降为G3低位。",
-          "position_basis": "档内低位：规范池实际权力窗口为258—264年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：可归责独立军事事件少，跨阶段复验有限。",
+          "position_basis": "档内低位：规范池实际权力窗口为258—264年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。；限制：可归责独立军事事件少，跨阶段复验有限。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "在位期掌握对魏防务及蜀亡后的战略选择。"
           },
           "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [],
           "material_intensity_claim_text_fields": [
             "grade_basis",
@@ -2345,82 +2011,6 @@
           ],
           "representative_context_max_material_intensity": "MI1_CASE",
           "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-WU-SUNXIU",
-          "normative_entry_coverage": {
-            "sequence": 167,
-            "task_code": "PROFILE-M1-RULER-WU-SUNXIU",
-            "ruler_id": "RULER-WU-SUNXIU",
-            "ruler_name": "孙休",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_NO_ELIGIBLE_RULER_ROLE_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "反向连接未发现本人统兵、方向决定或战区统筹父链",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_PROFILE_WITH_NO_ELIGIBLE_CAPABILITY_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "人物画像已连接，但无可用于M1的已消费本人能力父情境",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_FORMAL_NOT_APPLICABLE",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "NOT_APPLICABLE_NON_FOUNDER",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "CAMPAIGN-V078-SG-JIAOZHI-263",
-                  "WAR-LEAD-SG-JIAOZHI-263",
-                  "WAR-LEAD-SG-SHOUCHUN-257",
-                  "WAR-LEAD-SG-WULING-263",
-                  "WAR-LEAD-SG-YONGAN-264"
-                ],
-                "stable_parent_ref_count": 5,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 1,
-            "entry_gap_count": 0,
-            "full_grade_normative_entry_gate_passed": true,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -2432,9 +2022,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "no_comparable_major_failure_established",
             "profile_ref": "MIL-PROFILE-C133E7E1A9BE2AB1"
-          },
-          "structural_review": {
-            "status": "NOT_IN_HIGH_GRADE_REVIEW"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -2451,23 +2038,6 @@
             ],
             "paired_result_difficulty_campaign_role_items": [],
             "paired_result_difficulty_campaign_roles_display": "—"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "CHANGED",
-            "before": {
-              "axis_grade": "G3",
-              "position": "MID",
-              "radar_value": 65
-            },
-            "after": {
-              "axis_grade": "G3",
-              "position": "LOW",
-              "radar_value": 58
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "保留有限合格判断，但主动统筹、成果和跨战区复验均缺，降为G3低位。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -2543,7 +2113,47 @@
             "route": null,
             "decision": "G3-LOW",
             "basis": "G4/G5 role-combination gate does not apply to the current grade."
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": []
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": []
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "CAMPAIGN-V078-SG-JIAOZHI-263",
+                "WAR-LEAD-SG-JIAOZHI-263",
+                "WAR-LEAD-SG-SHOUCHUN-257",
+                "WAR-LEAD-SG-WULING-263",
+                "WAR-LEAD-SG-YONGAN-264"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E1",
+            "ability_evidence_label": "本人能力证据集中于有限可归责情境",
+            "conclusion_mode_label": "已定档；能力外推限于可归责情境",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。本人能力证据集中于有限可归责情境；E级描述本人能力可证形态，不描述底池登记进度。"
         },
         {
           "sequence": 142,
@@ -2560,7 +2170,7 @@
           "axis_evidence_level": "E2",
           "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
-          "score_status": "EVIDENCE_LIMITED",
+          "score_status": "FINAL",
           "axis_grade": "G2",
           "position": "HIGH",
           "score_100": 51,
@@ -2569,7 +2179,7 @@
           "whole_distribution_grade_basis": "能维持部分授权体系，但对姜维连年用兵和末期防务纠偏不足；投降结果不单独定档。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
           "phase_profile": "规范池实际权力窗口为223—263年；234年前与诸葛亮辅政结构并存，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
-          "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
+          "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。",
           "limitations": [
             "前期与诸葛亮共同权力边界明显。"
           ],
@@ -2607,9 +2217,9 @@
             "WAR-LEAD-SG-WEI-SHU-TAOXI-247",
             "WAR-LEAD-SG-WEISHU-263"
           ],
-          "search_scope": "现行第三项AB/C/D父链与国防安全登记",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
           "targeted_supplement_ref": "M1-V04-SUPP-RULER-SHU-LIUSHAN",
-          "decision_origin": "V04_EXPLICIT_ZERO_REGISTRY_CONTEXT_TARGETED_LOCAL_ADJUDICATION",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-SHU-LIUSHAN",
           "representative_parent_contexts": [
             {
@@ -2629,15 +2239,15 @@
             }
           ],
           "typical_pattern": "能维持部分授权体系，但对姜维连年用兵和末期防务纠偏不足；投降结果不单独定档。",
-          "counterpattern": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
+          "counterpattern": "只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。",
           "grade_basis": "能维持部分授权体系，但对姜维连年用兵和末期防务纠偏不足；投降结果不单独定档。",
-          "position_basis": "档内高位：规范池实际权力窗口为223—263年；234年前与诸葛亮辅政结构并存，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：前期与诸葛亮共同权力边界明显。",
+          "position_basis": "档内高位：规范池实际权力窗口为223—263年；234年前与诸葛亮辅政结构并存，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。；限制：前期与诸葛亮共同权力边界明显。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "诸葛亮死后长期掌握北伐授权及魏军入蜀的最高决策。"
           },
           "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [],
           "material_intensity_claim_text_fields": [
             "grade_basis",
@@ -2645,101 +2255,6 @@
           ],
           "representative_context_max_material_intensity": "MI1_CASE",
           "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-SHU-LIUSHAN",
-          "normative_entry_coverage": {
-            "sequence": 142,
-            "task_code": "PROFILE-M1-RULER-SHU-LIUSHAN",
-            "ruler_id": "RULER-SHU-LIUSHAN",
-            "ruler_name": "刘禅",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_NO_ELIGIBLE_RULER_ROLE_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "反向连接未发现本人统兵、方向决定或战区统筹父链",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_PROFILE_WITH_NO_ELIGIBLE_CAPABILITY_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "人物画像已连接，但无可用于M1的已消费本人能力父情境",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_FORMAL_NOT_APPLICABLE",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "NOT_APPLICABLE_NON_FOUNDER",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "CAMPAIGN-V070-SG-SHU-NANZHONG-223-225",
-                  "CAMPAIGN-V071-SG-SHU-CHENCANG-228",
-                  "CAMPAIGN-V074-SG-SHU-YUEXI-240",
-                  "CAMPAIGN-V077-SG-DUANGU-256",
-                  "CAMPAIGN-V078-SG-HOUHE-262",
-                  "WAR-LEAD-SG-DUANGU-256",
-                  "WAR-LEAD-SG-HANZHONG-WALL-229",
-                  "WAR-LEAD-SG-HOUHE-262",
-                  "WAR-LEAD-SG-MANGSHUI-257",
-                  "WAR-LEAD-SG-SHU-CHENCANG-228",
-                  "WAR-LEAD-SG-SHU-DIDAO-255",
-                  "WAR-LEAD-SG-SHU-LIUZHOU-233",
-                  "WAR-LEAD-SG-SHU-LONGXI-254",
-                  "WAR-LEAD-SG-SHU-NANZHONG-223-225",
-                  "WAR-LEAD-SG-SHU-NORTH-228",
-                  "WAR-LEAD-SG-SHU-QISHAN-231",
-                  "WAR-LEAD-SG-SHU-WEIYAN-234",
-                  "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
-                  "WAR-LEAD-SG-SHU-WUZHANG-234",
-                  "WAR-LEAD-SG-SHU-YUEXI-240",
-                  "WAR-LEAD-SG-WEI-HANZHONG-230",
-                  "WAR-LEAD-SG-WEI-HANZHONG-244",
-                  "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
-                  "WAR-LEAD-SG-WEI-SHU-TAOXI-247"
-                ],
-                "stable_parent_ref_count": 24,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 1,
-            "entry_gap_count": 0,
-            "full_grade_normative_entry_gate_passed": true,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -2751,9 +2266,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "no_comparable_major_failure_established",
             "profile_ref": "MIL-PROFILE-75618080A15A0FA5"
-          },
-          "structural_review": {
-            "status": "NOT_IN_HIGH_GRADE_REVIEW"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -2770,23 +2282,6 @@
             ],
             "paired_result_difficulty_campaign_role_items": [],
             "paired_result_difficulty_campaign_roles_display": "—"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "RETAINED",
-            "before": {
-              "axis_grade": "G2",
-              "position": "HIGH",
-              "radar_value": 51
-            },
-            "after": {
-              "axis_grade": "G2",
-              "position": "HIGH",
-              "radar_value": 51
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "能维持部分授权体系，但对姜维连年用兵和末期防务纠偏不足；投降结果不单独定档。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -2862,7 +2357,66 @@
             "route": null,
             "decision": "G2-HIGH",
             "basis": "G4/G5 role-combination gate does not apply to the current grade."
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": []
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": []
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "CAMPAIGN-V070-SG-SHU-NANZHONG-223-225",
+                "CAMPAIGN-V071-SG-SHU-CHENCANG-228",
+                "CAMPAIGN-V074-SG-SHU-YUEXI-240",
+                "CAMPAIGN-V077-SG-DUANGU-256",
+                "CAMPAIGN-V078-SG-HOUHE-262",
+                "WAR-LEAD-SG-DUANGU-256",
+                "WAR-LEAD-SG-HANZHONG-WALL-229",
+                "WAR-LEAD-SG-HOUHE-262",
+                "WAR-LEAD-SG-MANGSHUI-257",
+                "WAR-LEAD-SG-SHU-CHENCANG-228",
+                "WAR-LEAD-SG-SHU-DIDAO-255",
+                "WAR-LEAD-SG-SHU-LIUZHOU-233",
+                "WAR-LEAD-SG-SHU-LONGXI-254",
+                "WAR-LEAD-SG-SHU-NANZHONG-223-225",
+                "WAR-LEAD-SG-SHU-NORTH-228",
+                "WAR-LEAD-SG-SHU-QISHAN-231",
+                "WAR-LEAD-SG-SHU-WEIYAN-234",
+                "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
+                "WAR-LEAD-SG-SHU-WUZHANG-234",
+                "WAR-LEAD-SG-SHU-YUEXI-240",
+                "WAR-LEAD-SG-WEI-HANZHONG-230",
+                "WAR-LEAD-SG-WEI-HANZHONG-244",
+                "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
+                "WAR-LEAD-SG-WEI-SHU-TAOXI-247"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E2",
+            "ability_evidence_label": "本人能力证据包含独立情境或完整变化链",
+            "conclusion_mode_label": "已定档；本人能力结论有明确适用边界",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。本人能力证据包含独立情境或完整变化链；E级描述本人能力可证形态，不描述底池登记进度。"
         },
         {
           "sequence": 163,
@@ -2890,11 +2444,11 @@
           "phase_profile": "同一东兴战役的决定与失败只按一个生命周期消费。",
           "failure_and_recovery": "东兴错误配置构成明确下沿，后续淮南处置显示一定恢复；因此为明显短板高位。",
           "limitations": [
-            "INSUFFICIENT_WHOLE_DISTRIBUTION_THICKNESS"
+            "独立可归责军事表现与跨任务复验有限，不表示材料底池未覆盖全生涯。"
           ],
           "diagnostic_context_refs": [],
-          "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
-          "decision_origin": "V03_EXPLICIT_WHOLE_DISTRIBUTION_ADJUDICATION_REUSED",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-WEI-SIMASHI",
           "representative_parent_contexts": [
             {
@@ -2919,13 +2473,13 @@
           "typical_pattern": "东兴失败与淮南平叛三个情境覆盖其短掌权期主要军事决策，一正两负且主机制完整。",
           "counterpattern": "东兴错误配置构成明确下沿，后续淮南处置显示一定恢复；因此为明显短板高位。",
           "grade_basis": "东兴失败与淮南平叛三个情境覆盖其短掌权期主要军事决策，一正两负且主机制完整。",
-          "position_basis": "档内高位：同一东兴战役的决定与失败只按一个生命周期消费。；东兴错误配置构成明确下沿，后续淮南处置显示一定恢复；因此为明显短板高位。；限制：INSUFFICIENT_WHOLE_DISTRIBUTION_THICKNESS",
+          "position_basis": "档内高位：同一东兴战役的决定与失败只按一个生命周期消费。；东兴错误配置构成明确下沿，后续淮南处置显示一定恢复；因此为明显短板高位。；限制：独立可归责军事表现与跨任务复验有限，不表示材料底池未覆盖全生涯。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
           },
           "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [],
           "material_intensity_claim_text_fields": [
             "grade_basis",
@@ -2933,93 +2487,6 @@
           ],
           "representative_context_max_material_intensity": "MI1_CASE",
           "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-WEI-SIMASHI",
-          "normative_entry_coverage": {
-            "sequence": 163,
-            "task_code": "PROFILE-M1-RULER-WEI-SIMASHI",
-            "ruler_id": "RULER-WEI-SIMASHI",
-            "ruler_name": "司马师",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-SG-WEI-HUAINAN-255",
-                  "WAR-LEAD-SG-WEI-WU-DONGXING-252"
-                ],
-                "stable_parent_ref_count": 2,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-SG-WEI-HUAINAN-255"
-                ],
-                "stable_parent_ref_count": 1,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTION_GAP_APPLICABLE_WITHOUT_STABLE_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "第一项C适用但无稳定父链",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": true,
-                "full_grade_entry_gate_passed": false,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "CAMPAIGN-V075-SG-WEI-WU-DONGXING-252",
-                  "WAR-LEAD-SG-SHU-DIDAO-255",
-                  "WAR-LEAD-SG-SHU-LONGXI-254",
-                  "WAR-LEAD-SG-WEI-GOGURYEO-246",
-                  "WAR-LEAD-SG-WEI-HUAINAN-255",
-                  "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
-                  "WAR-LEAD-SG-WEI-SHU-TAOXI-247",
-                  "WAR-LEAD-SG-WEI-WU-250-251",
-                  "WAR-LEAD-SG-WEI-WU-DONGXING-252",
-                  "WAR-LEAD-SG-WU-HEFEI-253",
-                  "《三国志》卷四《齐王纪》嘉平五年"
-                ],
-                "stable_parent_ref_count": 11,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 3,
-            "entry_gap_count": 1,
-            "full_grade_normative_entry_gate_passed": false,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "FULL_GRADE_WITHHELD_ENTRY_GAP_GRADE_RETAINED",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -3031,9 +2498,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "no_comparable_major_failure_established",
             "profile_ref": "MIL-PROFILE-1EDF375D2F5B31F5"
-          },
-          "structural_review": {
-            "status": "NOT_IN_HIGH_GRADE_REVIEW"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -3055,23 +2519,6 @@
               "2) 前线− `A/—`｜三道攻吴决策失败／非前线指挥链／结果责任=operational_design_scope／致败责任=UNKNOWN"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线+ `A/D2`｜毌丘俭、文钦起兵／主帅<br>2) 前线− `A/—`｜三道攻吴决策失败／非前线指挥链／结果责任=operational_design_scope／致败责任=UNKNOWN"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "RETAINED",
-            "before": {
-              "axis_grade": "G2",
-              "position": "HIGH",
-              "radar_value": 51
-            },
-            "after": {
-              "axis_grade": "G2",
-              "position": "HIGH",
-              "radar_value": 51
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "东兴失败与淮南平叛三个情境覆盖其短掌权期主要军事决策，一正两负且主机制完整。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -3108,12 +2555,16 @@
                 "source_consumption_mode": null,
                 "source_capability_mode": null,
                 "campaign_tier": null,
-                "combat_difficulty": "D3",
-                "m1_role_class": "NOMINAL_AUTHORIZATION",
+                "combat_difficulty": null,
+                "m1_role_class": "STRATEGIC_DIRECTION",
                 "source_role_conflict": false,
                 "local_direct_phase_present": false,
-                "projection_rule": "NOT_IN_COMMAND_CHAIN_WITHOUT_OPERATIONAL_PROOF",
-                "projection_note": null
+                "projection_rule": "EXPLICIT_PERSONAL_DECISION_REVIEW",
+                "projection_note": "傅嘏明确反对在敌情不明时大军临险，司马师不采并下令三道攻吴，最终东兴七万主攻军大溃且三路均无夺地。",
+                "source_refs": [
+                  "資治通鑑/卷075@617541"
+                ],
+                "task_combat_difficulty": "D3"
               }
             ]
           },
@@ -3143,14 +2594,6 @@
               "d3_d4_refs": []
             },
             "STRATEGIC_DIRECTION": {
-              "episode_count": 0,
-              "episode_refs": [],
-              "positive_episode_refs": [],
-              "negative_episode_refs": [],
-              "high_pressure_refs": [],
-              "d3_d4_refs": []
-            },
-            "NOMINAL_AUTHORIZATION": {
               "episode_count": 1,
               "episode_refs": [
                 "WAR-LEAD-SG-WEI-WU-DONGXING-252"
@@ -3159,12 +2602,16 @@
               "negative_episode_refs": [
                 "WAR-LEAD-SG-WEI-WU-DONGXING-252"
               ],
-              "high_pressure_refs": [
-                "WAR-LEAD-SG-WEI-WU-DONGXING-252"
-              ],
-              "d3_d4_refs": [
-                "WAR-LEAD-SG-WEI-WU-DONGXING-252"
-              ]
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
+            },
+            "NOMINAL_AUTHORIZATION": {
+              "episode_count": 0,
+              "episode_refs": [],
+              "positive_episode_refs": [],
+              "negative_episode_refs": [],
+              "high_pressure_refs": [],
+              "d3_d4_refs": []
             },
             "ROLE_UNRESOLVED": {
               "episode_count": 0,
@@ -3176,7 +2623,7 @@
             },
             "source_role_conflict_refs": [],
             "local_direct_phase_refs": [],
-            "interpretation": "Task difficulty is not transferred to the person without the matching M1 role; counts explain evidence thickness and never map numerically to grade."
+            "interpretation": "角色数量只解释证据分布；源角色、个人军事选择与轴内角色分别保留，不作数量换档。"
           },
           "m1_role_gate_review": {
             "schema_version": "m1-role-gate-review-v1",
@@ -3194,7 +2641,58 @@
             "route": null,
             "decision": "G2-HIGH",
             "basis": "G4/G5 role-combination gate does not apply to the current grade."
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-SG-WEI-HUAINAN-255",
+                "WAR-LEAD-SG-WEI-WU-DONGXING-252"
+              ]
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-SG-WEI-HUAINAN-255"
+              ]
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "CAMPAIGN-V075-SG-WEI-WU-DONGXING-252",
+                "WAR-LEAD-SG-SHU-DIDAO-255",
+                "WAR-LEAD-SG-SHU-LONGXI-254",
+                "WAR-LEAD-SG-WEI-GOGURYEO-246",
+                "WAR-LEAD-SG-WEI-HUAINAN-255",
+                "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
+                "WAR-LEAD-SG-WEI-SHU-TAOXI-247",
+                "WAR-LEAD-SG-WEI-WU-250-251",
+                "WAR-LEAD-SG-WEI-WU-DONGXING-252",
+                "WAR-LEAD-SG-WU-HEFEI-253",
+                "《三国志》卷四《齐王纪》嘉平五年"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E3",
+            "ability_evidence_label": "主要能力命题已完成归责、反例与限制核对",
+            "conclusion_mode_label": "已定档；本人能力结论有明确适用边界",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
         },
         {
           "sequence": 161,
@@ -3222,11 +2720,11 @@
           "phase_profile": "三路将领具体得失分别归责，只计本人战争目标、总体部署和亲征处置。",
           "failure_and_recovery": "对江防、气候和水军条件反复判断失误，撤军止损存在但没有形成有效恢复，典型模式为明显短板。",
           "limitations": [
-            "SINGLE_CONTEXT_ONLY"
+            "可归责强军事表现集中于同一任务或生命周期，不能拆作多次独立复验。"
           ],
           "diagnostic_context_refs": [],
-          "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
-          "decision_origin": "V03_EXPLICIT_WHOLE_DISTRIBUTION_ADJUDICATION_REUSED",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-WEI-CAOPI",
           "representative_parent_contexts": [
             {
@@ -3239,13 +2737,13 @@
           "typical_pattern": "定点补查确认222至225年三次不同部署的伐吴均由本人发起并两次亲临，形成跨三次不同部署的军事能力观察。",
           "counterpattern": "对江防、气候和水军条件反复判断失误，撤军止损存在但没有形成有效恢复，典型模式为明显短板。",
           "grade_basis": "定点补查确认222至225年三次不同部署的伐吴均由本人发起并两次亲临，形成跨三次不同部署的军事能力观察；现有反复失利与退出结果仍支持G2低位。",
-          "position_basis": "档内低位：三路将领具体得失分别归责，只计本人战争目标、总体部署和亲征处置。；对江防、气候和水军条件反复判断失误，撤军止损存在但没有形成有效恢复，典型模式为明显短板。；限制：SINGLE_CONTEXT_ONLY",
+          "position_basis": "档内低位：三路将领具体得失分别归责，只计本人战争目标、总体部署和亲征处置。；对江防、气候和水军条件反复判断失误，撤军止损存在但没有形成有效恢复，典型模式为明显短板。；限制：可归责强军事表现集中于同一任务或生命周期，不能拆作多次独立复验。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
           },
           "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [],
           "material_intensity_claim_text_fields": [
             "grade_basis",
@@ -3253,90 +2751,6 @@
           ],
           "representative_context_max_material_intensity": "MI1_CASE",
           "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-WEI-CAOPI",
-          "normative_entry_coverage": {
-            "sequence": 161,
-            "task_code": "PROFILE-M1-RULER-WEI-CAOPI",
-            "ruler_id": "RULER-WEI-CAOPI",
-            "ruler_name": "曹丕",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-SG-WEI-WU-224-225"
-                ],
-                "stable_parent_ref_count": 1,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_PROFILE_WITH_NO_ELIGIBLE_CAPABILITY_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "人物画像已连接，但无可用于M1的已消费本人能力父情境",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTION_GAP_APPLICABLE_WITHOUT_STABLE_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "第一项C适用但无稳定父链",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": true,
-                "full_grade_entry_gate_passed": false,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "CAMPAIGN-V070-SG-WEI-WU-224-225",
-                  "WAR-LEAD-SG-SHU-NORTH-228",
-                  "WAR-LEAD-SG-WEI-HEXI-220",
-                  "WAR-LEAD-SG-WEI-HEXI-221",
-                  "WAR-LEAD-SG-WEI-MENGDA-227-228",
-                  "WAR-LEAD-SG-WEI-SHANGYONG-220",
-                  "WAR-LEAD-SG-WEI-WU-222-223",
-                  "WAR-LEAD-SG-WEI-WU-224-225",
-                  "WAR-LEAD-SG-WEI-WU-226",
-                  "WAR-LEAD-SG-WEI-XIANBEI-224-225",
-                  "《三国志》卷二《文帝纪》黄初三年二月"
-                ],
-                "stable_parent_ref_count": 11,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 2,
-            "entry_gap_count": 1,
-            "full_grade_normative_entry_gate_passed": false,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "FULL_GRADE_WITHHELD_ENTRY_GAP_GRADE_RETAINED",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -3348,9 +2762,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "no_comparable_major_failure_established",
             "profile_ref": "MIL-PROFILE-7AED5A082D53544C"
-          },
-          "structural_review": {
-            "status": "NOT_IN_HIGH_GRADE_REVIEW"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -3369,23 +2780,6 @@
               "1) 前线− `B/D2`｜曹丕两次南征未渡江／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线− `B/D2`｜曹丕两次南征未渡江／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "RETAINED",
-            "before": {
-              "axis_grade": "G2",
-              "position": "LOW",
-              "radar_value": 38
-            },
-            "after": {
-              "axis_grade": "G2",
-              "position": "LOW",
-              "radar_value": 38
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "定点补查确认222至225年三次不同部署的伐吴均由本人发起并两次亲临，形成跨三次不同部署的军事能力观察；现有反复失利与退出结果仍支持G2低位。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -3481,7 +2875,55 @@
             "route": null,
             "decision": "G2-LOW",
             "basis": "G4/G5 role-combination gate does not apply to the current grade."
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-SG-WEI-WU-224-225"
+              ]
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": []
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "CAMPAIGN-V070-SG-WEI-WU-224-225",
+                "WAR-LEAD-SG-SHU-NORTH-228",
+                "WAR-LEAD-SG-WEI-HEXI-220",
+                "WAR-LEAD-SG-WEI-HEXI-221",
+                "WAR-LEAD-SG-WEI-MENGDA-227-228",
+                "WAR-LEAD-SG-WEI-SHANGYONG-220",
+                "WAR-LEAD-SG-WEI-WU-222-223",
+                "WAR-LEAD-SG-WEI-WU-224-225",
+                "WAR-LEAD-SG-WEI-WU-226",
+                "WAR-LEAD-SG-WEI-XIANBEI-224-225",
+                "《三国志》卷二《文帝纪》黄初三年二月"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E3",
+            "ability_evidence_label": "主要能力命题已完成归责、反例与限制核对",
+            "conclusion_mode_label": "已定档；本人能力结论有明确适用边界",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
         },
         {
           "sequence": 165,
@@ -3498,7 +2940,7 @@
           "axis_evidence_level": "E2",
           "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
-          "score_status": "EVIDENCE_LIMITED",
+          "score_status": "FINAL",
           "axis_grade": "G1",
           "position": "LOW",
           "score_100": 18,
@@ -3507,7 +2949,7 @@
           "whole_distribution_grade_basis": "战略冒进、军政内耗和末期防务失效反复出现，局部胜绩不足改变强短板。",
           "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
           "phase_profile": "规范池实际权力窗口为264—280年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。",
-          "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
+          "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。",
           "limitations": [
             "国力差距不替代本人归责。"
           ],
@@ -3530,9 +2972,9 @@
             "WAR-LEAD-SG-YONGAN-264",
             "資治通鑑/卷79#王濬造舟及吾彥請增兵"
           ],
-          "search_scope": "现行第三项AB/C/D父链与国防安全登记",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
           "targeted_supplement_ref": "M1-V04-SUPP-RULER-WU-SUNHAO",
-          "decision_origin": "V04_EXPLICIT_ZERO_REGISTRY_CONTEXT_TARGETED_LOCAL_ADJUDICATION",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-WU-SUNHAO",
           "representative_parent_contexts": [
             {
@@ -3552,15 +2994,15 @@
             }
           ],
           "typical_pattern": "战略冒进、军政内耗和末期防务失效反复出现，局部胜绩不足改变强短板。",
-          "counterpattern": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
+          "counterpattern": "只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。",
           "grade_basis": "战略冒进、军政内耗和末期防务失效反复出现，局部胜绩不足改变强短板。",
-          "position_basis": "档内低位：规范池实际权力窗口为264—280年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：国力差距不替代本人归责。",
+          "position_basis": "档内低位：规范池实际权力窗口为264—280年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。；限制：国力差距不替代本人归责。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "晋灭吴前长期掌握边防与最高军事授权。"
           },
           "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [],
           "material_intensity_claim_text_fields": [
             "grade_basis",
@@ -3568,88 +3010,6 @@
           ],
           "representative_context_max_material_intensity": "MI1_CASE",
           "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-WU-SUNHAO",
-          "normative_entry_coverage": {
-            "sequence": 165,
-            "task_code": "PROFILE-M1-RULER-WU-SUNHAO",
-            "ruler_id": "RULER-WU-SUNHAO",
-            "ruler_name": "孙皓",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_NO_ELIGIBLE_RULER_ROLE_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "反向连接未发现本人统兵、方向决定或战区统筹父链",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_PROFILE_WITH_NO_ELIGIBLE_CAPABILITY_PARENT",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "人物画像已连接，但无可用于M1的已消费本人能力父情境",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "CONNECTED_FORMAL_NOT_APPLICABLE",
-                "stable_parent_refs": [],
-                "stable_parent_ref_count": 0,
-                "no_hit_reason": "NOT_APPLICABLE_NON_FOUNDER",
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "CAMPAIGN-V078-SG-YONGAN-264",
-                  "CAMPAIGN-V079-JINWU-XILING-272",
-                  "WAR-LEAD-JIN-WANCHENG-278",
-                  "WAR-LEAD-JIN-XILING-278",
-                  "WAR-LEAD-JINWU-268",
-                  "WAR-LEAD-JINWU-BORDER-277",
-                  "WAR-LEAD-JINWU-JIAOZHI-268",
-                  "WAR-LEAD-JINWU-XILING-272",
-                  "WAR-LEAD-SG-JIAOZHI-263",
-                  "WAR-LEAD-SG-YONGAN-264",
-                  "資治通鑑/卷79#王濬造舟及吾彥請增兵"
-                ],
-                "stable_parent_ref_count": 11,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 1,
-            "entry_gap_count": 0,
-            "full_grade_normative_entry_gate_passed": true,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -3661,9 +3021,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "no_comparable_major_failure_established",
             "profile_ref": "MIL-PROFILE-0438F1C34F3B0662"
-          },
-          "structural_review": {
-            "status": "NOT_IN_HIGH_GRADE_REVIEW"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -3680,23 +3037,6 @@
             ],
             "paired_result_difficulty_campaign_role_items": [],
             "paired_result_difficulty_campaign_roles_display": "—"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "RETAINED",
-            "before": {
-              "axis_grade": "G1",
-              "position": "LOW",
-              "radar_value": 18
-            },
-            "after": {
-              "axis_grade": "G1",
-              "position": "LOW",
-              "radar_value": 18
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "战略冒进、军政内耗和末期防务失效反复出现，局部胜绩不足改变强短板。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -3772,7 +3112,53 @@
             "route": null,
             "decision": "G1-LOW",
             "basis": "G4/G5 role-combination gate does not apply to the current grade."
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": []
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": []
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "CAMPAIGN-V078-SG-YONGAN-264",
+                "CAMPAIGN-V079-JINWU-XILING-272",
+                "WAR-LEAD-JIN-WANCHENG-278",
+                "WAR-LEAD-JIN-XILING-278",
+                "WAR-LEAD-JINWU-268",
+                "WAR-LEAD-JINWU-BORDER-277",
+                "WAR-LEAD-JINWU-JIAOZHI-268",
+                "WAR-LEAD-JINWU-XILING-272",
+                "WAR-LEAD-SG-JIAOZHI-263",
+                "WAR-LEAD-SG-YONGAN-264",
+                "資治通鑑/卷79#王濬造舟及吾彥請增兵"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E2",
+            "ability_evidence_label": "本人能力证据包含独立情境或完整变化链",
+            "conclusion_mode_label": "已定档；本人能力结论有明确适用边界",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。本人能力证据包含独立情境或完整变化链；E级描述本人能力可证形态，不描述底池登记进度。"
         }
       ]
     }

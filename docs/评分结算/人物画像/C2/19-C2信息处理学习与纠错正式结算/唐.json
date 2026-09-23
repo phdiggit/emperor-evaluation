@@ -8,14 +8,14 @@
         13,
         29,
         30,
-        51,
         52,
-        88,
-        123,
-        154,
+        53,
+        89,
+        124,
         155,
-        171,
-        172
+        156,
+        172,
+        173
       ],
       "records": [
         {
@@ -340,8 +340,7 @@
             "status": "C2_RELEVANT",
             "scoring_parent_refs": [
               "C2-V2-AB89D962067A",
-              "C2-R2-E8B5A00CBCB5",
-              "C2-R2-7949D061B245"
+              "C2-R2-E8B5A00CBCB5"
             ]
           },
           "limitations": [
@@ -350,26 +349,32 @@
           "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
           "representative_parent_ids": [
             "C2-V2-AB89D962067A",
-            "C2-R2-E8B5A00CBCB5",
-            "C2-R2-7949D061B245"
+            "C2-R2-E8B5A00CBCB5"
           ],
           "parent_chains": [
             {
               "parent_id": "C2-V2-AB89D962067A",
-              "cycle_type": "TRUTH_ACQUISITION",
-              "direction": "POSITIVE",
-              "intensity": "MI2",
-              "basis": "使者因驿食黑饼鞭打驿吏，地方将实物黑饼上呈；李忱由物证反推远地粮食困乏，重新评价使者行为并处置，属于 。",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "使者因驿食黑饼鞭打驿吏，地方将实物黑饼上呈；李忱由物证反推远地粮食困乏，重新评价使者行为并处置，属于 TRUTH_ACQUISITION / POSITIVE / MI2。",
               "cycle_anchor_refs": [
-                "https://zh.wikisource.org/zh-hant/資治通鑑/卷249"
+                "https://zh.wikisource.org/zh-hant/資治通鑑/卷249",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷249",
+                "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7249&oldid=2693114",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json#MC-TANG-XUANZONG-EUNUCH-LIMIT"
               ],
               "source_parent_refs": [],
-              "lifecycle_review": "按C2二轮生命周期核对：使者因驿食黑饼鞭打驿吏，地方将实物黑饼上呈；李忱由物证反推远地粮食困乏，重新评价使者行为并处置，属于 。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "lifecycle_review": "按C2二轮生命周期核对：使者因驿食黑饼鞭打驿吏，地方将实物黑饼上呈；李忱由物证反推远地粮食困乏，重新评价使者行为并处置，属于 TRUTH_ACQUISITION / POSITIVE / MI2。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
               "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
-              "material_intensity": "MI2",
+              "material_intensity": "MI2_LIFECYCLE",
               "feedback_suppression_review": {
                 "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
+              },
+              "source_alias_parent_ids": [
+                "C2-R2-7949D061B245"
+              ],
+              "capability_episode_ref": "C2-V2-AB89D962067A"
             },
             {
               "parent_id": "C2-R2-E8B5A00CBCB5",
@@ -389,27 +394,8 @@
               "material_intensity": "MI2",
               "feedback_suppression_review": {
                 "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
-            },
-            {
-              "parent_id": "C2-R2-7949D061B245",
-              "cycle_type": "ERROR_CORRECTION",
-              "direction": "MIXED_POSITIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "使者因驿食黑饼鞭打驿吏，地方将实物黑饼上呈；李忱由物证反推远地粮食困乏，重新评价使者行为并处置，属于 TRUTH_ACQUISITION / POSITIVE / MI2。",
-              "cycle_anchor_refs": [
-                "https://zh.wikisource.org/zh-hant/資治通鑑/卷249",
-                "https://zh.wikisource.org/wiki/資治通鑑/卷249",
-                "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7249&oldid=2693114",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json#MC-TANG-XUANZONG-EUNUCH-LIMIT"
-              ],
-              "source_parent_refs": [],
-              "lifecycle_review": "按C2二轮生命周期核对：使者因驿食黑饼鞭打驿吏，地方将实物黑饼上呈；李忱由物证反推远地粮食困乏，重新评价使者行为并处置，属于 TRUTH_ACQUISITION / POSITIVE / MI2。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
-              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
-              "material_intensity": "MI2_LIFECYCLE",
-              "feedback_suppression_review": {
-                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
+              },
+              "capability_episode_ref": "C2-R2-E8B5A00CBCB5"
             }
           ],
           "source_unit_ids": [
@@ -443,7 +429,7 @@
             "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
             "suppression_parent_ids": [],
             "isolated_positive_parent_ids": [],
-            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "asymmetry_decision": "只比较当前独立认知生命周期；时长、处罚烈度和相同事实的来源重复均不增加强度。",
             "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
           }
         },

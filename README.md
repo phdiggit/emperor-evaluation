@@ -22,6 +22,14 @@
 
 正式评价池按实际独立最高权力至少3年和证据可行性筛定。当前人数、待补对象及分项别名统一见[`正式评价对象范围`](docs/项目总纲/正式评价对象范围.md)及其机器入口`config/common/canonical-ruler-pool.json`，本页不另存人数副本。综合计算只读取`COMPOSITE_READY`对象；第一项不适用者取F=0。
 
+## 聊天版评估包
+
+运行 `python package_net_review.py`，生成 `.tmp/evaluation-packages/皇帝三体系评估包.zip`，供上传给聊天版临时会话阅读。
+
+包内包含统治绩效、人物画像、历史影响三个体系的完整原始合同、正式结算 JSON 及其全部路由分片、Markdown 结算源/阅读视图，以及项目入口和正式人物池。源文件逐字节复制，保留仓库路径；不再生成精简合同。根目录只增加使用说明和文件清单，不打入代码、展示素材、过程审计及完整史料库。结算记录中的依据和引用保留，但包外史料仍需另行补充，不能把包内阅读当作完整溯源。
+
+默认只生成一个完整包。`--output <路径.zip>` 可指定输出，`--list` 只查看入包清单；如需分开上传，使用 `--package contracts|settlements|profile-contract|profile-settlements|historical-impact-contract|historical-impact-settlements` 单选统治绩效、人物画像或历史影响的合同/结算，所有输出均为 ZIP。
+
 ## 保留范围
 
 - `archive/`：[完整退役组件的最后有效合同、证据与结算](archive/README.md)，不进入现行评分或发布。

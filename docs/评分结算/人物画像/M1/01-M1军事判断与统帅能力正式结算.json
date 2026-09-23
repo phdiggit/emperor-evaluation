@@ -17,11 +17,12 @@
     "method",
     "summary",
     "records",
-    "record_order_policy"
+    "record_order_policy",
+    "evidence_coverage_policy"
   ],
   "payload_metadata": {
     "schema_version": "emperor-profile-m1-formal-settlement-v1",
-    "contract_version": "FORMAL-V1.1",
+    "contract_version": "FORMAL-V1.2",
     "canonical_status": "FORMAL_CURRENT",
     "axis_code": "M1",
     "axis_name": "军事判断与统帅能力",
@@ -34,7 +35,7 @@
       "normative_entries": [
         "docs/公共成果/军事/01-战役登记.json",
         "docs/公共成果/军事/02-武将人才等级.json",
-        "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项政权奠基与统一贡献及能力正式结算.json",
+        "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项政权奠基与统一贡献及能力正式结算.md",
         "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json"
       ]
     },
@@ -59,7 +60,8 @@
       "role_distribution_numeric_weighting_used": false,
       "g4_g5_role_combination_gate": true,
       "direct_command_required_for_g5": true,
-      "single_lifecycle_component_count_as_independent_cycles": false
+      "single_lifecycle_component_count_as_independent_cycles": false,
+      "material_coverage_separate_from_ability_evidence": true
     },
     "summary": {
       "pool_count": 184,
@@ -68,71 +70,52 @@
       "applicable_unresolved_count": 0,
       "radar_complete_count": 184,
       "axis_evidence_distribution": {
-        "E1": 30,
-        "E2": 75,
+        "E1": 29,
+        "E2": 76,
         "E3": 79
       },
       "output_mode_distribution": {
         "BOUNDED_PROFILE": 88,
-        "EPISODE_TAG": 30,
-        "FULL_GRADE": 66
+        "EPISODE_TAG": 29,
+        "FULL_GRADE": 67
       },
       "confidence_distribution": {
         "HIGH": 66,
-        "LOW": 30,
-        "MEDIUM": 88
+        "LOW": 29,
+        "MEDIUM": 89
       },
       "grade_distribution": {
         "G0": 5,
         "G1": 25,
         "G2": 46,
-        "G3": 74,
-        "G4": 26,
+        "G3": 73,
+        "G4": 27,
         "G5": 8
       },
       "position_distribution": {
-        "HIGH": 82,
-        "LOW": 44,
+        "HIGH": 81,
+        "LOW": 45,
         "MID": 58
       },
-      "talent_grade_difference_review_count": 16,
-      "positive_difference_review_count": 12,
-      "negative_difference_review_count": 4,
-      "no_profile_g4_g5_review_count": 0,
-      "grade_position_change_count": 7,
-      "war_conduct_excluded_from_m1_direction_count": 4,
-      "normative_entry_coverage_complete_count": 187,
-      "normative_entry_full_grade_gate_pass_count": 131,
-      "full_grade_withheld_by_normative_entry_gap_count": 10,
-      "required_trace_field_complete_count": 184,
-      "material_intensity_claim_consistency_complete_count": 184,
-      "structural_high_grade_review_count": 64,
-      "structural_grade_or_position_change_count": 52,
-      "military_talent_profile_connected_count": 120,
-      "military_talent_no_formal_profile_count": 64,
-      "military_talent_alias_match_count": 2,
-      "missing_anchor_strength_review_count": 64,
-      "missing_anchor_or_alias_grade_position_change_count": 20,
-      "talent_result_difficulty_combo_review_count": 120,
-      "talent_result_difficulty_combo_candidate_count": 19,
-      "talent_result_difficulty_combo_change_count": 7,
-      "military_talent_registry_projection_count": 120,
-      "full_pool_readjudication_count": 184,
-      "full_pool_readjudication_changed_count": 35,
-      "third_item_strategy_crosscheck_count": 184,
       "role_projection_complete_count": 184,
-      "formal_profile_role_projection_count": 120,
-      "fallback_role_projection_count": 64,
-      "source_role_conflict_record_count": 3,
-      "source_role_conflict_item_count": 5,
-      "g4_g5_role_gate_review_count": 35,
-      "g4_g5_role_gate_change_count": 4,
-      "m1_v11_rationale_repair_count": 6,
-      "g4_high_to_g5_reverse_review_count": 9,
-      "g4_high_to_g5_promotion_count": 3,
-      "g4_high_to_g5_retained_count": 6
+      "source_role_conflict_record_count": 2,
+      "source_role_conflict_item_count": 3,
+      "score_status_distribution": {
+        "FINAL": 184
+      },
+      "material_coverage_distribution": {
+        "FULL_LIFETIME_REGISTERED": 184
+      }
     },
-    "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+    "evidence_coverage_policy": {
+      "schema_version": "m1-evidence-scope-v1",
+      "material_base": "FULL_LIFETIME_BATTLE_REGISTRY",
+      "representative_contexts_are_material_inventory": false,
+      "talent_profile_absence_implies_material_gap": false,
+      "evidence_level_is_material_coverage": false,
+      "coverage_implies_higher_grade": false
+    }
   },
   "collections": {
     "records": {

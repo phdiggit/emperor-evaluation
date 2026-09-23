@@ -30,6 +30,7 @@ from emperor_v4.evaluation.first_item_public_outcomes import (
     public_outcome_for_name,
 )
 from emperor_v4.evaluation.profile_parent_schema import parent_chains, representative_parent_chains
+from emperor_v4.evaluation.profile_m1_evidence import verify_evidence_scope
 from emperor_v4.evaluation.first_item_c_public import (
     load_first_item_c_public, public_commander_for_name,
     SOURCE_MARKDOWN_PATH as FIRST_C_SOURCE,
@@ -930,13 +931,16 @@ def build(*, check=False, write=True):
         rows = index(load_json(ROOT / spec["json"])["records"])
         if set(rows) != main_ids:
             raise ValueError(f"{code}: coverage differs from included pool")
+        if code == "M1":
+            for row in rows.values():
+                verify_evidence_scope(row)
         axes[code] = rows
     axis_fields = ["axis_grade", "position", "radar_value", "output_mode", "confidence",
                    "applicability_status", "not_applicable_reason", "grade_basis", "typical_pattern",
                    "counterpattern", "limitations", "person_type", "score_status", "axis_evidence_level",
                    "adjudication_state", "display_point_only", "formal_status", "no_grade_closure",
                    "position_basis", "applicability_basis", "evidence_assessment_basis",
-                   "assessment_basis", "final_capability_review"]
+                   "assessment_basis", "final_capability_review", "evidence_scope"]
     net_fields = ["rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
                   "second_item_score", "third_item_score", "fourth_item_adjustment", "component_details",
                   "weight_sensitivity"]
