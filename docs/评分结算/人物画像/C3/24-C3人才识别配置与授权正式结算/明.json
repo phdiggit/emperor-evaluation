@@ -5,11 +5,11 @@
     "records": {
       "positions": [
         12,
-        28,
-        29,
         30,
-        53,
-        54,
+        31,
+        32,
+        57,
+        58,
         108,
         127,
         141,
@@ -134,8 +134,8 @@
           "resolved_high_gate_decision": {
             "ruler_id": "RULER-MING-ZHU-YOUCHENG",
             "ruler_name": "朱祐樘",
-            "outcome": "RETAIN_G3_HIGH",
-            "reason": "刘健李东阳谢迁内阁链跨年但仍属同一行政责任中心组合，不能按成员与议题数量拆成G4。"
+            "outcome": "RETAIN_G4_MID",
+            "reason": "G4-MID：不仅有刘健、李东阳、谢迁的中枢组合，还长期使用马文升处理军政、刘大夏处理河工与兵政，跨专业、跨阶段的责任中心足够稳定。李广受宠和何鼎案说明亲近/宫廷反馈环境存在真实下沿，因此止于G4-MID。"
           },
           "sequence": 16,
           "axis_code": "C3",
@@ -308,6 +308,12 @@
             ],
             "decision_basis": "姚广孝靖难—辅政授权补足原记录遗漏的生涯阶段，张辅军事与蹇义、夏原吉行政财政形成独立复验；晚期人才保护反复失常是真实下沿，但不抹除跨阶段强模式，定G4-LOW。",
             "scores_used_as_formula": false
+          },
+          "resolved_high_gate_decision": {
+            "ruler_id": "RULER-MING-ZHU-DI",
+            "ruler_name": "朱棣",
+            "outcome": "RETAIN_G4_LOW",
+            "reason": "G4-LOW：姚广孝从靖难到辅政的持续授权，张辅方面军事的接续与再任，蹇义、夏原吉等行政财政的专业配置，形成跨阶段跨任务的强模式；晚期多个专业责任人被排出构成真实反复下沿，限制位置而不抹去整体强项。"
           }
         },
         {
@@ -425,7 +431,28 @@
           "representative_parent_ids": [
             "C3P-S061-03",
             "C3P-S061-01"
-          ]
+          ],
+          "resolved_high_gate_decision": {
+            "ruler_id": "RULER-MING-ZHU-ZAIHOU",
+            "ruler_name": "朱载坖",
+            "outcome": "RETAIN_G4_LOW",
+            "reason": "G4-LOW：G4门槛复核：高拱—张居正中枢、王崇古—方逢时边疆外交、谭纶—戚继光边防军事至少三种专业接口；并有反多数意见下采纳一线专业方案的验证。"
+          },
+          "horizontal_calibration": {
+            "method": "CURRENT_CONTRACT_AND_INDEPENDENT_LIFECYCLES",
+            "comparators": [
+              {
+                "ruler_id": "RULER-MING-ZHU-DI",
+                "comparison": "朱棣凭姚广孝、军事接续与行政财政的独立复验保留G4低位，晚期人才损失不自动抹除全期强项。本人的独立性及反证权重见本记录定档依据。"
+              },
+              {
+                "ruler_id": "RULER-SHU-LIUBEI",
+                "comparison": "刘备以诸葛亮与魏延的独立职责、长期授权和交班复验过门；不要求第三领域，也不因旧臣续认而减信用。"
+              }
+            ],
+            "decision_basis": "G4-LOW：G4门槛复核：高拱—张居正中枢、王崇古—方逢时边疆外交、谭纶—戚继光边防军事至少三种专业接口；并有反多数意见下采纳一线专业方案的验证。",
+            "scores_used_as_formula": false
+          }
         },
         {
           "task_code": "PROFILE-C3-RULER-MING-ZHU-ZHANJI",
@@ -542,7 +569,28 @@
           "representative_parent_ids": [
             "C3P-S062-01",
             "C3P-S062-03"
-          ]
+          ],
+          "resolved_high_gate_decision": {
+            "ruler_id": "RULER-MING-ZHU-ZHANJI",
+            "ruler_name": "朱瞻基",
+            "outcome": "RETAIN_G4_LOW",
+            "reason": "G4-LOW：G4门槛复核：三杨中枢之外，况钟、于谦、周忱等在不同地区反复出现本人识别、破格配置和长期交付；第二任务域不是单个名臣或单项目。"
+          },
+          "horizontal_calibration": {
+            "method": "CURRENT_CONTRACT_AND_INDEPENDENT_LIFECYCLES",
+            "comparators": [
+              {
+                "ruler_id": "RULER-MING-ZHU-DI",
+                "comparison": "朱棣凭姚广孝、军事接续与行政财政的独立复验保留G4低位，晚期人才损失不自动抹除全期强项。本人的独立性及反证权重见本记录定档依据。"
+              },
+              {
+                "ruler_id": "RULER-SHU-LIUBEI",
+                "comparison": "刘备以诸葛亮与魏延的独立职责、长期授权和交班复验过门；不要求第三领域，也不因旧臣续认而减信用。"
+              }
+            ],
+            "decision_basis": "G4-LOW：G4门槛复核：三杨中枢之外，况钟、于谦、周忱等在不同地区反复出现本人识别、破格配置和长期交付；第二任务域不是单个名臣或单项目。",
+            "scores_used_as_formula": false
+          }
         },
         {
           "task_code": "PROFILE-C3-RULER-MING-ZHU-QIYU",
@@ -634,14 +682,12 @@
             "SUCCESSION_AND_POWER_RELATIONS"
           ],
           "major_phase_coverage": "MULTI_PHASE_OR_CROSS_TASK_CLOSED",
-          "typical_pattern": "土木危机中对于谦的识别、破格授权和持续保护极强，几乎达到单链极限；但尚缺第二条同等级、独立的跨任务人才生命周期，因此不因“北京保卫战成功”机械升G4。",
+          "typical_pattern": "于谦的危机统筹、后续兵政与保护是极强主链；其他中枢人员尚缺独立的人选—真实权限—交付—反馈闭环。夺门结局和易储伦理不替代C3反证，保留G3高位。",
           "counterpattern": "正统末危机中，于谦已经有长期巡抚、边政和行政履历；景泰即位后迅速把他提升为兵部尚书，实际统筹京师防务；于谦获得整合京军、调将、布防、决断战机等真实权限，不是名义尚书；北京保卫之后并未立即收权，于谦继续承担兵政整顿、十团营等职责，说明高压交付后仍持续获得信任。",
-          "grade_basis": "G3-HIGH：土木危机中对于谦的识别、破格授权和持续保护极强，几乎达到单链极限；但尚缺第二条同等级、独立的跨任务人才生命周期，因此不因“北京保卫战成功”机械升G4。",
-          "position_basis": "HIGH：土木危机中对于谦的识别、破格授权和持续保护极强，几乎达到单链极限；但尚缺第二条同等级、独立的跨任务人才生命周期，因此不因“北京保卫战成功”机械升G4。",
+          "grade_basis": "G3-HIGH：于谦的危机统筹、后续兵政与保护是极强主链；其他中枢人员尚缺独立的人选—真实权限—交付—反馈闭环。夺门结局和易储伦理不替代C3反证，保留G3高位。",
+          "position_basis": "HIGH：主正链强，独立闭环缺口或持续反转仍不足确认稳定G4。",
           "limitations": [
-            "王文、陈循、商辂、彭时等在景泰期承担中枢议政，但现有材料更多证明“团队正常运行”，尚不足分别闭合与于谦同等级的人选—岗位—权限—反馈生命周期。",
-            "石亨有真实战功，后续夺门发生在景泰病重、权力失控阶段；不能仅凭后来的政治投机倒推“早先任用石亨就是识人失败”。",
-            "夺门之变说明任末控制和交班严重失败，但不能用结局代替具体人才链。"
+            "于谦的危机统筹、后续兵政与保护是极强主链；其他中枢人员尚缺独立的人选—真实权限—交付—反馈闭环。夺门结局和易储伦理不替代C3反证，保留G3高位。"
           ],
           "latent_high_grade_hypothesis": null,
           "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
@@ -656,7 +702,7 @@
             "ruler_id": "RULER-MING-ZHU-QIYU",
             "ruler_name": "朱祁钰",
             "outcome": "RETAIN_G3_HIGH",
-            "reason": "于谦北京保卫链完整且强，但只有一个重大任务父链，未通过G4复验门。"
+            "reason": "G3-HIGH：于谦的危机统筹、后续兵政与保护是极强主链；其他中枢人员尚缺独立的人选—真实权限—交付—反馈闭环。夺门结局和易储伦理不替代C3反证，保留G3高位。"
           },
           "sequence": 15,
           "axis_code": "C3",
@@ -666,7 +712,22 @@
           "representative_parent_ids": [
             "C3P-S052-01",
             "C3P-S052-02"
-          ]
+          ],
+          "horizontal_calibration": {
+            "method": "CURRENT_CONTRACT_AND_INDEPENDENT_LIFECYCLES",
+            "comparators": [
+              {
+                "ruler_id": "RULER-MING-ZHU-DI",
+                "comparison": "朱棣凭姚广孝、军事接续与行政财政的独立复验保留G4低位，晚期人才损失不自动抹除全期强项。本人的独立性及反证权重见本记录定档依据。"
+              },
+              {
+                "ruler_id": "RULER-SHU-LIUBEI",
+                "comparison": "刘备以诸葛亮与魏延的独立职责、长期授权和交班复验过门；不要求第三领域，也不因旧臣续认而减信用。"
+              }
+            ],
+            "decision_basis": "G3-HIGH：于谦的危机统筹、后续兵政与保护是极强主链；其他中枢人员尚缺独立的人选—真实权限—交付—反馈闭环。夺门结局和易储伦理不替代C3反证，保留G3高位。",
+            "scores_used_as_formula": false
+          }
         },
         {
           "task_code": "PROFILE-C3-RULER-MING-ZHU-YUANZHANG",
@@ -763,14 +824,12 @@
             "SUCCESSION_AND_POWER_RELATIONS"
           ],
           "major_phase_coverage": "MULTI_PHASE_OR_CROSS_TASK_CLOSED",
-          "typical_pattern": "军事识人授权近乎历史级，文政也绝非空白；但最高中枢责任中心的人选和权力边界反复出问题。真正压档的是“高权中枢配置不稳定”，不是晚年杀了多少功臣。",
+          "typical_pattern": "军事授权和李善长等行政正链均强；杨宪、汪广洋、胡惟庸最高中枢配置连续失稳，尤其胡惟庸在预警后持续越权。纠偏转为皇帝自担协调，未恢复稳定高授权责任中心，故极强军事链仍不足推翻G3高位结论。",
           "counterpattern": "陶安先以战略建议进入幕府，后又承担地方治理、翰林、礼制律令和江西行省等不同任务，岗位随能力迁移；刘基则长期承担战略、制度和中枢判断接口；这些正证足以否定“朱元璋不会用文臣”的简单说法；刘基在李善长罢后，先后明确反对杨宪、汪广洋、胡惟庸进入宰相级责任中心，分别指出器量、能力或失控风险。",
-          "grade_basis": "G3-HIGH：军事识人授权近乎历史级，文政也绝非空白；但最高中枢责任中心的人选和权力边界反复出问题。真正压档的是“高权中枢配置不稳定”，不是晚年杀了多少功臣。",
-          "position_basis": "HIGH：军事识人授权近乎历史级，文政也绝非空白；但最高中枢责任中心的人选和权力边界反复出问题。真正压档的是“高权中枢配置不稳定”，不是晚年杀了多少功臣。",
+          "grade_basis": "G3-HIGH：军事授权和李善长等行政正链均强；杨宪、汪广洋、胡惟庸最高中枢配置连续失稳，尤其胡惟庸在预警后持续越权。纠偏转为皇帝自担协调，未恢复稳定高授权责任中心，故极强军事链仍不足推翻G3高位结论。",
+          "position_basis": "HIGH：主正链强，独立闭环缺口或持续反转仍不足确认稳定G4。",
           "limitations": [
-            "总体画像：军事识人授权近乎历史级，文政也绝非空白；但最高中枢责任中心的人选和权力边界反复出问题。真正压档的是“高权中枢配置不稳定”，不是晚年杀了多少功臣。",
-            "刘基在李善长罢后，先后明确反对杨宪、汪广洋、胡惟庸进入宰相级责任中心，分别指出器量、能力或失控风险。",
-            "这里不能把三人简单视为“刘基预言都灵验所以皇帝必错”，但至少说明中枢最高权力岗位的人选与监督连续性明显弱于军事方面军配置。"
+            "军事授权和李善长等行政正链均强；杨宪、汪广洋、胡惟庸最高中枢配置连续失稳，尤其胡惟庸在预警后持续越权。纠偏转为皇帝自担协调，未恢复稳定高授权责任中心，故极强军事链仍不足推翻G3高位结论。"
           ],
           "latent_high_grade_hypothesis": null,
           "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
@@ -784,8 +843,8 @@
           "resolved_high_gate_decision": {
             "ruler_id": "RULER-MING-ZHU-YUANZHANG",
             "ruler_name": "朱元璋",
-            "outcome": "RETAIN_G3_HIGH_EXCEPTIONAL_MILITARY_CHAIN",
-            "reason": "军事授权链覆盖平吴、北伐、伐蜀、云南、北元等相互可区分的责任中心交付，达到极强链；与李渊的跨任务正链、忽必烈的强文武正链及其各自反证比较后，胡惟庸预警后误用与集中式纠偏仍阻断G4，但不足把该跨阶段正链压为G3-LOW。"
+            "outcome": "RETAIN_G3_HIGH",
+            "reason": "G3-HIGH：军事授权和李善长等行政正链均强；杨宪、汪广洋、胡惟庸最高中枢配置连续失稳，尤其胡惟庸在预警后持续越权。纠偏转为皇帝自担协调，未恢复稳定高授权责任中心，故极强军事链仍不足推翻G3高位结论。"
           },
           "sequence": 17,
           "axis_code": "C3",
@@ -795,7 +854,22 @@
           "representative_parent_ids": [
             "C3P-S059-01",
             "C3P-S059-03"
-          ]
+          ],
+          "horizontal_calibration": {
+            "method": "CURRENT_CONTRACT_AND_INDEPENDENT_LIFECYCLES",
+            "comparators": [
+              {
+                "ruler_id": "RULER-MING-ZHU-DI",
+                "comparison": "朱棣凭姚广孝、军事接续与行政财政的独立复验保留G4低位，晚期人才损失不自动抹除全期强项。本人的独立性及反证权重见本记录定档依据。"
+              },
+              {
+                "ruler_id": "RULER-SHU-LIUBEI",
+                "comparison": "刘备以诸葛亮与魏延的独立职责、长期授权和交班复验过门；不要求第三领域，也不因旧臣续认而减信用。"
+              }
+            ],
+            "decision_basis": "G3-HIGH：军事授权和李善长等行政正链均强；杨宪、汪广洋、胡惟庸最高中枢配置连续失稳，尤其胡惟庸在预警后持续越权。纠偏转为皇帝自担协调，未恢复稳定高授权责任中心，故极强军事链仍不足推翻G3高位结论。",
+            "scores_used_as_formula": false
+          }
         },
         {
           "task_code": "PROFILE-C3-RULER-MING-ZHU-HOUCONG",

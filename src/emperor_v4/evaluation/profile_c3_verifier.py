@@ -82,6 +82,20 @@ def _clauses(text: str) -> list[str]:
     return [part.strip("。； \n") for part in re.split(r"[；。]", text) if part.strip("。； \n")]
 
 
+def verify_resolved_gate_decision(row: dict) -> None:
+    """A current explicit gate decision cannot publish a different grade/position."""
+    decision = row.get("resolved_high_gate_decision")
+    if decision is None:
+        return
+    label = row["ruler_id"]
+    assert decision["ruler_id"] == label, f"detached C3 gate decision: {label}"
+    assert decision["ruler_name"] == row["ruler_name"], f"C3 gate identity mismatch: {label}"
+    assert decision["reason"].strip(), f"empty C3 gate reason: {label}"
+    match = re.search(r"(?:^|_)(G[0-5])_(LOW|MID|HIGH)(?:_|$)", decision["outcome"])
+    if match:
+        assert match.groups() == (row["axis_grade"], row["position"]), f"stale C3 gate decision: {label}"
+
+
 def verify_payloads(settlement: dict) -> dict:
     records = settlement["records"]
     pool = _load(POOL)
@@ -113,6 +127,7 @@ def verify_payloads(settlement: dict) -> dict:
     parent_ids = []
     narratives = []
     for row in records:
+        verify_resolved_gate_decision(row)
         parents = parent_chains(row)
         check = row["axis_relevance_check"]
         assert check == {
