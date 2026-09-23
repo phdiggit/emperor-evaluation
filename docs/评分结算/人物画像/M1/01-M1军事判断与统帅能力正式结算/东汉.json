@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        9,
+        10,
         36,
         38,
         39,
@@ -502,7 +502,38 @@
             "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
             "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
           },
-          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。",
+          "m1_stability_review": {
+            "schema_version": "m1-stability-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.3",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "published_grade": "G4",
+            "published_position": "HIGH",
+            "decision": "PASS",
+            "cases": [
+              {
+                "cycle_ref": "HAN-STARTUP-CENTRAL-25-26",
+                "alias_refs": [],
+                "label": "中原轻进与重组",
+                "negative_tier": "A",
+                "tier_basis": "FAILURE_IMPACT_TIER",
+                "consequence": "本人轻进受挫。",
+                "attribution": "明确本人军事选择。",
+                "feedback": "败绩后调整部署。",
+                "recovery": "重新组织战区并完成中原收束。",
+                "residual_loss": "前段损失保留。",
+                "effect": "POSITION_LIMIT",
+                "decision_basis": "同周期的失败与恢复合看，不重复计为多个反证。",
+                "source_refs": [
+                  "docs/公共成果/军事/01-战役登记.json#HAN-STARTUP-CENTRAL-25-26"
+                ]
+              }
+            ],
+            "basis": "轻进负A与重组后中原收束按一个完整周期审查，不重复计罚；失败门不阻断，但第二个历史级或近历史级锚仍不足，维持G4-HIGH。"
+          }
         },
         {
           "sequence": 19,

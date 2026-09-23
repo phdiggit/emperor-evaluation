@@ -9,6 +9,8 @@ from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_record_integrity import verify_current_records
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 from emperor_v4.evaluation.profile_m1_evidence import verify_evidence_scope
+from emperor_v4.evaluation.profile_m1_stability import verify_stability_review, verify_failure_aliases
+from emperor_v4.evaluation.talent_registry_store import load_talent_registry
 from emperor_v4.evaluation.profile_registry import profile_axis_entry
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -25,10 +27,15 @@ def verify() -> dict[str, int]:
     entry = profile_axis_entry("M1")
     assert payload["contract_version"] == entry["axis_contract_version"], "M1 contract version drift"
     rows = payload["records"]
+    talent = load_talent_registry(ROOT / "docs/公共成果/军事/02-武将人才等级.json")
+    for profile in talent["profiles"]:
+        if any(item.get("source_alias_refs") for item in profile.get("failure_accountability", [])):
+            verify_failure_aliases(profile["failure_accountability"])
     verify_current_records(payload)
     pool = load_json(ROOT / "config/common/canonical-ruler-pool.json")
     assert {r["ruler_id"] for r in rows} == {r["ruler_id"] for r in pool["records"] if r["pool_status"] == "INCLUDED"}
     for row in rows:
+        verify_stability_review(row)
         verify_evidence_scope(row)
         assert row["evidence_scope"]["schema_version"] == entry["evidence_scope_schema_version"]
         assert all((ROOT / ref).is_file() for ref in row["evidence_scope"]["source_refs"]), "M1 source registry missing"

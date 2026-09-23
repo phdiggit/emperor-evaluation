@@ -940,7 +940,7 @@ def build(*, check=False, write=True):
                    "counterpattern", "limitations", "person_type", "score_status", "axis_evidence_level",
                    "adjudication_state", "display_point_only", "formal_status", "no_grade_closure",
                    "position_basis", "applicability_basis", "evidence_assessment_basis",
-                   "assessment_basis", "final_capability_review", "evidence_scope"]
+                   "assessment_basis", "final_capability_review", "evidence_scope", "m1_stability_review"]
     net_fields = ["rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
                   "second_item_score", "third_item_score", "fourth_item_adjustment", "component_details",
                   "weight_sensitivity"]

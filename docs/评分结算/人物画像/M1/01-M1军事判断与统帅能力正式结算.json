@@ -22,7 +22,7 @@
   ],
   "payload_metadata": {
     "schema_version": "emperor-profile-m1-formal-settlement-v1",
-    "contract_version": "FORMAL-V1.2",
+    "contract_version": "FORMAL-V1.3",
     "canonical_status": "FORMAL_CURRENT",
     "axis_code": "M1",
     "axis_name": "军事判断与统帅能力",
@@ -61,7 +61,8 @@
       "g4_g5_role_combination_gate": true,
       "direct_command_required_for_g5": true,
       "single_lifecycle_component_count_as_independent_cycles": false,
-      "material_coverage_separate_from_ability_evidence": true
+      "material_coverage_separate_from_ability_evidence": true,
+      "failure_consequence_gate": "DEDUPLICATED_PERSON_OUTCOME_WITH_EXPLICIT_RECOVERY_ADJUDICATION"
     },
     "summary": {
       "pool_count": 184,
@@ -85,16 +86,16 @@
         "MEDIUM": 89
       },
       "grade_distribution": {
-        "G0": 5,
-        "G1": 25,
-        "G2": 46,
+        "G5": 9,
+        "G4": 26,
         "G3": 73,
-        "G4": 27,
-        "G5": 8
+        "G2": 46,
+        "G1": 25,
+        "G0": 5
       },
       "position_distribution": {
-        "HIGH": 81,
-        "LOW": 45,
+        "HIGH": 80,
+        "LOW": 46,
         "MID": 58
       },
       "role_projection_complete_count": 184,

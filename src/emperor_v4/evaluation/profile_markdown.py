@@ -706,6 +706,14 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
                 lines.append(f"  - **{point['title']}**")
                 lines.extend(f"    - {detail}" for detail in point.get("details", []))
         if axis == "M1":
+            stability = row.get("m1_stability_review")
+            if stability:
+                lines.append(f"- **重大军事失败复核**：{stability['basis']}")
+                for case in stability["cases"]:
+                    tier = case["negative_tier"] or "未单列纯负档"
+                    lines.append(f"  - **{case['label']}（{tier}）**：{case['consequence']}")
+                    for title, field in (("本人归责", "attribution"), ("反馈", "feedback"), ("恢复", "recovery"), ("残余损失", "residual_loss"), ("裁决", "decision_basis")):
+                        lines.append(f"    - {title}：{case[field]}")
             projection = row.get("military_talent_registry_projection") or {}
             paired = projection.get("paired_result_difficulty_campaign_roles_display")
             lines.append("- 武将登记逐项（成果等级/难度｜战役群名称/武将角色）：")

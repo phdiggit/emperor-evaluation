@@ -5,7 +5,7 @@
     "records": {
       "positions": [
         3,
-        10,
+        11,
         45,
         46,
         47,
@@ -602,7 +602,20 @@
             "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
             "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
           },
-          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。",
+          "m1_stability_review": {
+            "schema_version": "m1-stability-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.3",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "published_grade": "G5",
+            "published_position": "LOW",
+            "decision": "PASS",
+            "cases": [],
+            "basis": "既有直接统帅与战略设计两锚的角色边界保持；当前登记未闭合足以阻断G5的本人重大失败。不以无败绩补第二个前线样本，维持G5-LOW。"
+          }
         },
         {
           "sequence": 48,
@@ -1343,7 +1356,72 @@
             "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
             "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
           },
-          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。",
+          "m1_stability_review": {
+            "schema_version": "m1-stability-review-v1",
+            "reviewed_under_contract": "FORMAL-V1.3",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "published_grade": "G4",
+            "published_position": "HIGH",
+            "decision": "PASS",
+            "cases": [
+              {
+                "cycle_ref": "WAR-POST-47422C3A346FDC56758F",
+                "alias_refs": [],
+                "label": "济南—东昌与靖难恢复",
+                "negative_tier": "A",
+                "tier_basis": "PERSON_NEGATIVE_RESULT",
+                "consequence": "济南未克、东昌大败。",
+                "attribution": "本人实际指挥。",
+                "feedback": "受阻败绩到达。",
+                "recovery": "恢复南下并完成灵璧、南京终局。",
+                "residual_loss": "东昌伤亡和未克成本保留。",
+                "effect": "POSITION_LIMIT",
+                "decision_basis": "重大失败后有同方向恢复，不自动挡G5。",
+                "source_refs": [
+                  "docs/公共成果/军事/01-战役登记.json#WAR-POST-47422C3A346FDC56758F"
+                ]
+              },
+              {
+                "cycle_ref": "WAR-POST-E2A06FBDDFD72D4B503E",
+                "alias_refs": [],
+                "label": "齐眉山失利",
+                "negative_tier": "B",
+                "tier_basis": "PERSON_NEGATIVE_RESULT",
+                "consequence": "实际统军失利。",
+                "attribution": "本人结果责任。",
+                "feedback": "战场失利到达。",
+                "recovery": "不补造该次失利的单独恢复链。",
+                "residual_loss": "该次失败保留。",
+                "effect": "POSITION_LIMIT",
+                "decision_basis": "负B不按次数放大为重大失能。",
+                "source_refs": [
+                  "docs/公共成果/军事/01-战役登记.json#WAR-POST-E2A06FBDDFD72D4B503E"
+                ]
+              },
+              {
+                "cycle_ref": "WAR-POST-2766693FD3160ECD705E",
+                "alias_refs": [],
+                "label": "第五次亲征无所得",
+                "negative_tier": "B",
+                "tier_basis": "PERSON_NEGATIVE_RESULT",
+                "consequence": "搜山未见敌，粮尽班师。",
+                "attribution": "本人目标和行军安排责任。",
+                "feedback": "前锋粮尽到达。",
+                "recovery": "撤军止损，未形成原目标恢复。",
+                "residual_loss": "无所得与消耗保留。",
+                "effect": "POSITION_LIMIT",
+                "decision_basis": "未登记国家主力崩溃，不把一般未达目标升级成S类后果。",
+                "source_refs": [
+                  "docs/公共成果/军事/01-战役登记.json#WAR-POST-2766693FD3160ECD705E"
+                ]
+              }
+            ],
+            "basis": "济南—东昌负A后恢复靖难战线，齐眉山负B及晚年无所得撤军分别保留；无同型重大错误持续摧毁主要体系。本门不自动封顶，原历史级直接锚强度不足的正向门仍在，维持G4-HIGH。"
+          }
         },
         {
           "sequence": 51,
