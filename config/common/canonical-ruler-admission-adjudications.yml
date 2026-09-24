@@ -5,6 +5,9 @@ policy:
   requires_independent_highest_decision_power: true
   pending_second_item_requires_local_evidence_refs: true
 
+first_item_scope_notes:
+  玄烨: 1673—1683三藩—台湾再统一适用第一项。三藩旧地恢复270按50%折为135，1683年台湾郑氏空间按第一项主要区域60的半幅覆盖记新增30，原始有效信用165；清初共同项目原始总量1015封顶后归一，玄烨等效信用162.56、A=19.5。三藩既有清廷控制的“深化信用”不另加分，避免与恢复及第二项治理重复。
+
 actual_power_window_overrides:
   李存勖:
     actual_power_window: 908—926年
@@ -145,6 +148,16 @@ third_item_window_adjudications:
       - docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json
       - docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md
 second_item_window_adjudications:
+  ACCEPTED_SHARED_WINDOW_SINGLE_ACCOUNTING_NO_MACRO_SPLIT:
+    rulers: [李治, 武则天]
+    basis: 660—683年为李治与武则天共享部分最高权力的政治窗口。第二项的宏观民生、财政、社会安全和整体官僚运行结果无法在不重复计分的前提下可靠拆成个人比例，故继续由在位皇帝李治作为单一绩效记账主体消费；武则天在共享期可明确闭合的个人决策、人才、组织、制度与政治责任仍进入人物画像和历史影响，但不复制同一宏观第二项状态分。自684年起武则天进入独立第二项窗口。该规则仅解决绩效唯一消费，不否定共享政治权力。
+    overlap_review_id: SECOND-OVERLAP-TANG-LIZHI-WUZETIAN-660-683
+    overlapping_ruler_ids: [RULER-TANG-LIZHI, RULER-TANG-WUZETIAN]
+    score_change: NONE
+    evidence_refs:
+      - docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.json
+      - docs/项目总纲/皇帝人物画像评估体系合同.md
+      - docs/项目总纲/历史影响评价总则.md
   ACCEPTED_AFTER_WINDOW_NARROWING:
     rulers: [冯太后, 刘肇, 刘祜, 刘志, 司马曜, 宇文邕, 嬴政, 高纬, 玄烨]
     basis: 第二项计分主因位于本人实际最高权力窗口；窗口前材料仅允许作继承基线、背景或明确不计分约束。刘祜、刘志已完成C1—C4逐轴重审，其余对象经现有四轴证据复核，正式分值均可保留。
