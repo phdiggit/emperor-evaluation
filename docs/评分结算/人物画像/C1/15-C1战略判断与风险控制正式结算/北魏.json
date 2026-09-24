@@ -4,10 +4,10 @@
   "collections": {
     "records": {
       "positions": [
-        31,
-        38,
-        39,
-        66,
+        29,
+        36,
+        37,
+        65,
         90,
         108,
         139
@@ -94,7 +94,7 @@
           "limitations": [],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 4,
-          "formal_order": 31
+          "formal_order": 29
         },
         {
           "sequence": 111,
@@ -203,7 +203,7 @@
           "limitations": [],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 4,
-          "formal_order": 38
+          "formal_order": 36
         },
         {
           "sequence": 112,
@@ -246,6 +246,28 @@
               "diagnostic_role": "PS2"
             },
             {
+              "parent_id": "C1-P112-HEIR-RISK-RECONFIG",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-拓跋宏-XW-P2",
+                "https://zh.wikisource.org/w/index.php?oldid=1151294&title=資治通鑑/卷141"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/w/index.php?oldid=1151294&title=資治通鑑/卷141"
+              ],
+              "cycle_basis": "迁洛后的储位危机中，元恂与留守北方的集团相连并出现谋逆报告；继续维持原储君会把改革反弹带入最高权力交接。孝文帝废元恂、改立元恪，重新配置继承风险和中枢承载，构成独立于迁洛空间重组的一次本人PS2决策周期。元恪以后继位只作结果验证，不把M4联盟经营另计一次C1成果。",
+              "diagnostic_role": "PS2",
+              "secondary_projection_reason": "M4主记继承联盟的参与、破裂与重组；C1只计皇帝面对储位风险所作的继承目标、替换选择与风险配置，不重复结算联盟合作质量。"
+            },
+            {
               "parent_id": "C1-P112-SOUTHERN-CAMPAIGN-COUNTER",
               "direction": "NEGATIVE",
               "intensity": "MI2",
@@ -267,24 +289,27 @@
           ],
           "representative_parent_ids": [
             "C1-P112-LUOYANG-REFORM",
+            "C1-P112-HEIR-RISK-RECONFIG",
             "C1-P112-SOUTHERN-CAMPAIGN-COUNTER"
           ],
-          "typical_pattern": "拓跋宏原C1是一条迁洛PS2加一条南征DW2。M4补出的继承重构使其跨过G4门：元恂危机后，他不是仅仅“认识到太子有问题”，而是实际替换继承人与辅政资源结构。",
+          "typical_pattern": "迁洛改变国家空间与集团资源配置；元恂储位危机后改立元恪，重新配置最高权力交接风险。两条约束不同的本人PS2周期合成弱PS3；南征DW2与高压破裂限制G4上沿。",
           "counterpattern": {
             "positive_parent_refs": [
-              "C1-P112-LUOYANG-REFORM"
+              "C1-P112-LUOYANG-REFORM",
+              "C1-P112-HEIR-RISK-RECONFIG"
             ],
             "counter_parent_refs": [
               "C1-P112-SOUTHERN-CAMPAIGN-COUNTER"
             ]
           },
-          "grade_basis": "迁洛与继承重构虽处同一改革大背景，但对应的是两个独立国家级问题：一个是国家空间—集团资源重组，一个是最高权力转移。两个PS2足以进G4；南征DW2与跨阶段反例复验不足把位置压在`G4-LOW / 77`。",
-          "position_basis": "迁洛的国家空间—集团重组与继承资源重构是两个独立PS2，构成G4门；南征DW2与跨阶段反例复验不足压在LOW，取G4-LOW。",
+          "grade_basis": "迁洛后的国家空间与资源重组、元恂危机后的储位替换属于两种独立国家级约束，各有本人选择与过程定位，合成弱PS3并满足G4准入。南征DW2、迁洛与继承两链的冲突成本及跨阶段稳定性不足，取G4-LOW / 77。",
+          "position_basis": "两条独立PS2支持G4；元恂危机本身和南征DW2限制风险控制下沿，取G4-LOW。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
               "C1-P112-LUOYANG-REFORM",
-              "C1-P112-SOUTHERN-CAMPAIGN-COUNTER"
+              "C1-P112-SOUTHERN-CAMPAIGN-COUNTER",
+              "C1-P112-HEIR-RISK-RECONFIG"
             ],
             "result_nonconversion": true
           },
@@ -305,11 +330,11 @@
             }
           },
           "limitations": [
-            "扣除冯太后继承基础与财政专业设计后，只确认一个本人可归责的完整正向周期；南征为DW2，故由G4-LOW降至G3-HIGH。"
+            "迁洛资源重配扣除冯太后遗留基础与臣下专业设计；元恂破裂后改立元恪仅计本人继承风险选择，联盟维系归M4，元恪后续秩序不前置归功。南征DW2与两链高压破裂限制G4上沿。"
           ],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 4,
-          "formal_order": 39
+          "formal_order": 37
         },
         {
           "sequence": 114,
@@ -439,7 +464,7 @@
           "limitations": [],
           "formal_status": "FORMAL_CURRENT",
           "grade_numeric": 3,
-          "formal_order": 66
+          "formal_order": 65
         },
         {
           "sequence": 113,
