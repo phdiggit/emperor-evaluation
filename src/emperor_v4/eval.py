@@ -35,6 +35,8 @@ def _parser() -> argparse.ArgumentParser:
     totals.add_argument("--write", action="store_true")
     sensitivity = commands.add_parser("cost-sensitivity", help="核对或生成不计分的军事成本裁决敏感性分析")
     sensitivity.add_argument("--write", action="store_true")
+    evidence_sensitivity = commands.add_parser("evidence-sensitivity", help="核对或生成不计分的证据解释情景；未量化不作零跨度")
+    evidence_sensitivity.add_argument("--write", action="store_true")
     profile_current = commands.add_parser("profile-current-verify")
     profile_current.add_argument("--axis", required=True, choices=profile_axes)
     fourth_a = commands.add_parser("fourth-item-a-verify")
@@ -240,6 +242,10 @@ def _dispatch(args: argparse.Namespace) -> int:
     if args.command == "second-item-totals":
         report = rebuild_second_item_b1(Path(".").resolve(), write=args.write, refresh_source=False)
         print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "evidence-sensitivity":
+        from emperor_v4.evaluation.evidence_sensitivity import run
+        print(json.dumps(run(Path('.').resolve(), write=args.write), ensure_ascii=False, indent=2))
         return 0
     if args.command == "cost-sensitivity":
         from emperor_v4.evaluation.cost_sensitivity import run

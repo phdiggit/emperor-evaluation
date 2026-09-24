@@ -16,6 +16,19 @@ from emperor_v4.evaluation.third_fourth_public_language import translate, langua
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_zero_ml_projection_preserves_unresolved_basis_without_inventing_gate_failure():
+    basis = "负向结果已证，尚缺同一战略链的本方成本与本人责任复核。"
+    projection = public._ml_projection({"grade": "ML0", "basis": basis}, "SYNTHETIC-RULER")
+    assert basis in projection["public_adjudication_summary"]
+    assert "现有材料没有同时确认" not in projection["public_adjudication_summary"]
+
+
+def test_explicit_cross_item_codes_do_not_use_military_meanings():
+    with language_domain('civilization'):
+        assert translate('第二项B2负责反馈；第二项C3负责人身安全。') == '第二项反馈纠错与权力约束负责反馈；第二项社会安全负责人身安全。'
+    assert translate('人物M1独立表达。') == '人物画像军事判断与统帅能力独立表达。'
+
+
 def test_public_translation_preserves_conditions_and_unknown_text_fails_closed():
     text = translate('不因C7自动升ML；EN3或多方向EN2须分别证明。')
     assert text == '不因军事成本第7级自动升重大军事净毁损等级；全国或多数核心防务体系崩溃或多方向主要方向耐久恶化须分别证明。'

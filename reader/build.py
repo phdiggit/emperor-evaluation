@@ -84,6 +84,22 @@ def reader_source_identity(*, write=False):
     return {"repository": "", "revision": ""}
 
 
+def write_generated_text(path, content):
+    if path.exists() and path.read_bytes() == content.encode('utf-8'):
+        return
+    import tempfile
+    temporary_dir = ROOT / '.tmp' / 'reader-writes'
+    temporary_dir.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', newline='\n',
+                                     dir=temporary_dir, delete=False) as stream:
+        temporary = Path(stream.name)
+        stream.write(content)
+    try:
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
 def person_notes_snapshot(*, check=False, write=True):
     content = PERSON_NOTES_SOURCE.read_text(encoding="utf-8")
     expected = content if content.endswith("\n") else content + "\n"
@@ -92,7 +108,7 @@ def person_notes_snapshot(*, check=False, write=True):
             raise ValueError("Reader person-reading-notes snapshot is stale")
     elif write:
         PERSON_NOTES_SNAPSHOT.parent.mkdir(parents=True, exist_ok=True)
-        PERSON_NOTES_SNAPSHOT.write_text(expected, encoding="utf-8", newline="\n")
+        write_generated_text(PERSON_NOTES_SNAPSHOT, expected)
 
 
 def index(rows):
@@ -872,7 +888,11 @@ def record_summary(record):
     summary["net"] = pick(net, [
         "rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
         "second_item_score", "third_item_score", "fourth_item_adjustment",
+        "evidence_assessment", "prudent_score_interval", "governance_context",
     ]) if net else None
+    if summary["net"] and net.get('evidence_assessment'):
+        summary["net"]['evidence_assessment'] = pick(net['evidence_assessment'],
+            ['score_status','score_label','rank_status','rank_label'])
     summary["impact"] = summary_impact
     summary["axes"] = {code: axis_summary(axis) for code, axis in record.get("axes", {}).items()}
     summary["detail_ref"] = detail_ref(record["ruler_id"])
@@ -943,13 +963,15 @@ def build(*, check=False, write=True):
                    "assessment_basis", "final_capability_review", "evidence_scope", "m1_stability_review"]
     net_fields = ["rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
                   "second_item_score", "third_item_score", "fourth_item_adjustment", "component_details",
-                  "weight_sensitivity"]
+                  "weight_sensitivity", "evidence_assessment", "prudent_score_interval",
+                  "governance_context"]
     records = []
     for person in main:
         rid = person["ruler_id"]
         record = pick(person, ["ruler_id", "ruler_name", "polity", "actual_power_window", "settlement_readiness"])
         projected_net = pick(net[rid], net_fields) if rid in net else None
         if projected_net:
+            projected_net['evidence_assessment'] = net[rid]['evidence_assessment']['public_projection']
             projected_net["component_details"] = project_net_explanations(
                 person,
                 net[rid],
@@ -1038,13 +1060,13 @@ def build(*, check=False, write=True):
             if (DETAILS_DIR / name).read_bytes() != content.encode("utf-8"):
                 raise ValueError(f"Reader detail shard is stale: {name}")
     elif write:
-        output.write_text(rendered, encoding="utf-8", newline="\n")
+        write_generated_text(output, rendered)
         DETAILS_DIR.mkdir(parents=True, exist_ok=True)
         for stale in DETAILS_DIR.glob("*.json"):
             if stale.name not in expected_detail_names:
                 stale.unlink()
         for name, content in detail_files.items():
-            (DETAILS_DIR / name).write_text(content, encoding="utf-8", newline="\n")
+            write_generated_text(DETAILS_DIR / name, content)
 
     index_kib = len(rendered.encode("utf-8")) / 1024
     detail_mib = sum(len(content.encode("utf-8")) for content in detail_files.values()) / (1024 * 1024)

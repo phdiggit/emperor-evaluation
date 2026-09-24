@@ -430,6 +430,7 @@
           "signed_security_candidate_before_cost": "D0",
           "cost_grade_delta": 0,
           "security_result_distribution": {
+            "E0": 1,
             "EN2": 2
           },
           "external_strategic_chains": [
@@ -468,6 +469,24 @@
               ],
               "achievement_grade_detail": "EN2_MAJOR_DETERIORATION",
               "security_result_grade": "EN2"
+            },
+            {
+              "chain_id": "ZZTJ-281-BACHDANG-JIAOZHOU-0937",
+              "member_cycle_refs": [
+                "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#ZZTJ-281-BACHDANG-JIAOZHOU-0937",
+                "https://zh.wikisource.org/zh-hant/資治通鑑_(四庫全書本)/卷281"
+              ],
+              "security_result_grade": "E0",
+              "achievement_grade": "E0",
+              "effective_opponent_challenge_grade": "O3",
+              "effective_opponent_challenge_basis": "吴权已据交州并能组织本区域军队和江口防御，构成区域军政对手；不以获胜反推全国级挑战。",
+              "basis": "938年皎公羡求援触发新授权，南汉试图重新取得交州，弘操舟师中伏而败，本人收余众退回。交州在931年已失，938年未取得新的控制；不把同一失地再算EN2。此链安全净变化为E0，实际本方军事毁损仍完整进入成本。",
+              "terminal_result_profile": "复取交州失败，终点维持出兵前无交州控制的状态；舰队与士卒实际损失另计。",
+              "ruler_responsibility": "FULL",
+              "responsibility_basis": "本人明确授权出兵并自屯海门声援，未采纳持重及乡导建议；不属于将领独立违令或接手前损失。"
             }
           ],
           "strategic_internal_chains": [
@@ -506,7 +525,7 @@
             "abnormal_cost_chain_count": 0,
             "abnormal_process_chain_count": 0,
             "excluded_nonconsumable_count": 0,
-            "notes": "两条公共记录均为刘龑在位完整战略链；未与创业统一链重叠，也不剥离失败阶段或倒灌后续成功。",
+            "notes": "931年交州、938年复取及张遇贤链分别按授权与终点消费；938年不重复计算931年失地，第一项取得窗口仍排除。",
             "source_refs": [
               "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项政权奠基与统一贡献及能力正式结算.json",
               "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json"
@@ -515,51 +534,57 @@
           "cross_item_excluded_chains": [],
           "non_military_loss_cost_exclusions": [],
           "attributable_cost_profile": {
-            "cost_band": "C3",
-            "status": "CONFIRMED",
-            "position": "HIGH",
-            "single_admission_fact": "931交州链中，区域中枢失陷后南汉实际组织程宝援军再围，主将战死，形成明确区域方向救援和军资投入。 但现有证据只闭合区域级军事承载；援军总规模、重大人员毁损和组织连续性均未达到C4硬结构。 交州失控及其后政治安全结果不得倒灌制造成本。 因此仍为C3上沿，不进C4。",
-            "admission_route": "SAME_CHAIN_REGIONAL_RELIEF_M2_A2_WITHOUT_F3",
-            "basis": "931交州链中，区域中枢失陷后南汉实际组织程宝援军再围，主将战死，形成明确区域方向救援和军资投入。 但现有证据只闭合区域级军事承载；援军总规模、重大人员毁损和组织连续性均未达到C4硬结构。 交州失控及其后政治安全结果不得倒灌制造成本。 因此仍为C3上沿，不进C4。",
+            "cost_band": "C4",
+            "status": "LOWER_BOUND",
+            "position": "MID",
+            "single_admission_fact": "938年受命出征舰队陷入铁杙，士卒覆溺太半、主将死亡；本人收余众而还。",
+            "admission_route": "ACTUAL_FORMATION_AND_NAVAL_ASSET_DESTRUCTION",
+            "basis": "938年本人命弘操率战舰取交州并自屯海门声援；战舰受铁杙阻断，士卒覆溺太半、弘操战死，本人收余众退回。完整闭合本方实质兵团及舰船毁损，超过仅方向级投入的C3；高比例损失与指挥者死亡构成档内强化，按已证结构定C4中位下界。全国军力分母、该舰队是否为主要野战力量或不可替代军种、灾后核心失能与重建未闭合，不能仅由出征目的或王子领军升C5；军额失载，十万实际死亡下界未证，C6人员及核心两路径均未闭合，C7亦无首灾后重大补充再损证据。931年援军另保留，不跨七年拼成连续高强度。",
             "source_refs": [
               "docs/史料通读产物/五代十国/资治通鉴/volume-277.battle-adjudications.json#ZZTJ-277-JIAOZHOU-0931",
-              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-277-JIAOZHOU-0931"
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-277-JIAOZHOU-0931",
+              "https://zh.wikisource.org/wiki/資治通鑑/卷281",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#ZZTJ-281-BACHDANG-JIAOZHOU-0937",
+              "https://zh.wikisource.org/zh-hant/資治通鑑_(四庫全書本)/卷281"
             ],
-            "public_adjudication_summary": "普通军事代价为第3级、高位。931交州链中，区域中枢失陷后南汉实际组织程宝援军再围，主将战死，形成明确区域方向救援和军资投入。 但现有证据只证实区域级军事承载；援军总规模、重大人员毁损和组织连续性均未达到军事成本第4级硬结构。 交州失控及其后政治安全结果不得倒灌制造成本。 因此仍为军事成本第3级上沿，不进军事成本第4级。",
+            "unresolved_gaps": [
+              "全国可调用军力分母、舰队核心角色、具体损失数及灾后替代过程未闭合；C4中位为已证下界，不是上限。"
+            ],
+            "public_adjudication_summary": "普通军事代价为第4级、中位。938年本人命弘操率战舰取交州并自屯海门声援；战舰受铁杙阻断，士卒覆溺太半、弘操战死，本人收余众退回。完整证实本方实质兵团及舰船毁损，超过仅方向级投入的军事成本第3级；高比例损失与指挥者死亡构成同级强化，按已证结构定军事成本第4级中位下界。全国军力分母、该舰队是否为主要野战力量或不可替代军种、灾后核心失能与重建未证实，不能仅由出征目的或王子领军升军事成本第5级；军额失载，十万实际死亡下界未证，军事成本第6级人员及核心两路径均未证实，军事成本第7级亦无首灾后重大补充再损证据。931年援军另保留，不跨七年拼成连续高强度。",
             "public_evidence_items": [
               {
                 "id": "THIRD-D-COST-PUBLIC-3B0590B7D1412B9A",
                 "public_label": "普通军事代价",
                 "public_role": "本方军事承载",
-                "public_basis": "普通军事代价为第3级、高位。931交州链中，区域中枢失陷后南汉实际组织程宝援军再围，主将战死，形成明确区域方向救援和军资投入。 但现有证据只证实区域级军事承载；援军总规模、重大人员毁损和组织连续性均未达到军事成本第4级硬结构。 交州失控及其后政治安全结果不得倒灌制造成本。 因此仍为军事成本第3级上沿，不进军事成本第4级。",
+                "public_basis": "普通军事代价为第4级、中位。938年本人命弘操率战舰取交州并自屯海门声援；战舰受铁杙阻断，士卒覆溺太半、弘操战死，本人收余众退回。完整证实本方实质兵团及舰船毁损，超过仅方向级投入的军事成本第3级；高比例损失与指挥者死亡构成同级强化，按已证结构定军事成本第4级中位下界。全国军力分母、该舰队是否为主要野战力量或不可替代军种、灾后核心失能与重建未证实，不能仅由出征目的或王子领军升军事成本第5级；军额失载，十万实际死亡下界未证，军事成本第6级人员及核心两路径均未证实，军事成本第7级亦无首灾后重大补充再损证据。931年援军另保留，不跨七年拼成连续高强度。",
                 "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入。"
               }
             ],
             "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入。",
-            "public_level_label": "普通军事代价为第3级、高位",
+            "public_level_label": "普通军事代价为第4级、中位",
             "public_component_label": "普通军事代价"
           },
-          "adjudication_basis": "交州外部EN2且无正向成果，成本前D0；张遇贤内部EN2进一步压低档内位置。 军事成本按独立合同裁为C3（HIGH，CONFIRMED）；具体结构见成本依据。",
-          "coverage_status": "CONFIRMED",
+          "adjudication_basis": "交州931年失守及张遇贤内部恶化维持D0；938年新授权复取失败为E0，不重复扣失地。舰队实质毁损接入C4中位下界。ML虽已有EN2及本人责任，但已证成本尚未达到C5门，维持ML0；不以未知假定已达更高门。",
+          "coverage_status": "LOWER_BOUND",
           "source_batch": "sol_c",
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
           "database_write": false,
-          "public_adjudication_summary": "战略结果由1条外部结果链和1条内部军事链共同构成。交州外部主要方向耐久恶化且无正向成果，成本前战略安全净变化第0级；张遇贤内部主要方向耐久恶化进一步压低本级位置。 军事成本按独立规定判断为军事成本第3级（高位，关键结构已证实）；具体结构见成本依据。",
+          "public_adjudication_summary": "战略结果由2条外部结果链和1条内部军事链共同构成。交州931年失守及张遇贤内部恶化维持战略安全净变化第0级；938年新授权复取失败为没有净安全改善，不重复扣失地。舰队实质毁损接入军事成本第4级中位下界。重大军事净毁损等级虽已有主要方向耐久恶化及本人责任，但已证成本尚未达到军事成本第5级门，维持当前未作重大军事净毁损追加；不以未知假定已达更高门。",
           "public_evidence_items": [
             {
               "id": "THIRD-D-PUBLIC-6D8481E8E06C8154",
               "public_label": "战略结果组合",
               "public_role": "战略结果",
-              "public_basis": "现有材料列出1条外部战略结果链和1条内部军事链。交州外部主要方向耐久恶化且无正向成果，成本前战略安全净变化第0级；张遇贤内部主要方向耐久恶化进一步压低本级位置。 军事成本按独立规定判断为军事成本第3级（高位，关键结构已证实）；具体结构见成本依据。",
+              "public_basis": "现有材料列出2条外部战略结果链和1条内部军事链。交州931年失守及张遇贤内部恶化维持战略安全净变化第0级；938年新授权复取失败为没有净安全改善，不重复扣失地。舰队实质毁损接入军事成本第4级中位下界。重大军事净毁损等级虽已有主要方向耐久恶化及本人责任，但已证成本尚未达到军事成本第5级门，维持当前未作重大军事净毁损追加；不以未知假定已达更高门。",
               "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算。"
             },
             {
               "id": "THIRD-D-COST-PUBLIC-3B0590B7D1412B9A",
               "public_label": "普通军事代价",
               "public_role": "本方军事承载",
-              "public_basis": "普通军事代价为第3级、高位。931交州链中，区域中枢失陷后南汉实际组织程宝援军再围，主将战死，形成明确区域方向救援和军资投入。 但现有证据只证实区域级军事承载；援军总规模、重大人员毁损和组织连续性均未达到军事成本第4级硬结构。 交州失控及其后政治安全结果不得倒灌制造成本。 因此仍为军事成本第3级上沿，不进军事成本第4级。",
+              "public_basis": "普通军事代价为第4级、中位。938年本人命弘操率战舰取交州并自屯海门声援；战舰受铁杙阻断，士卒覆溺太半、弘操战死，本人收余众退回。完整证实本方实质兵团及舰船毁损，超过仅方向级投入的军事成本第3级；高比例损失与指挥者死亡构成同级强化，按已证结构定军事成本第4级中位下界。全国军力分母、该舰队是否为主要野战力量或不可替代军种、灾后核心失能与重建未证实，不能仅由出征目的或王子领军升军事成本第5级；军额失载，十万实际死亡下界未证，军事成本第6级人员及核心两路径均未证实，军事成本第7级亦无首灾后重大补充再损证据。931年援军另保留，不跨七年拼成连续高强度。",
               "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入。"
             },
             {
@@ -1249,9 +1274,10 @@
                 "repetition": "OFFENSIVE_COLLAPSE_CORE_SIEGE_AND_POST_DISASTER_REMOBILIZATION",
                 "duration": "MEDIUM_SINGLE_YEAR_MULTI_PHASE"
               },
-              "ruler_responsibility": "DIRECT_STRATEGIC_AUTHORIZATION_WITH_DELEGATED_FIELD_COMMAND",
+              "ruler_responsibility": "MATERIAL｜902年本人河东军由李嗣昭、周德威攻慈隰以分朱全忠兵势，河东军深入后被破，杀获万余、兵仗辎重几尽，继受晋阳围攻并数年不敢与全忠争。本人败后另遣李存信率亲兵接应、持续守城；既有战略授权记录与同链本方重要军团军资毁损与重大方向能力退化闭合C5。前线部署由将领分担；晋阳固守、收集溃兵与复取三州是实际恢复，敌军疫退也须保留。不把杀获全算阵亡，不拼906—907恢复后的新战事，按一条主要方向裁ML1。",
               "responsibility_basis": "李克用批准深入进攻并承担灾害后的晋阳核心决策责任；前线断路与溃败由李嗣昭、周德威等执行，不越证据写成本人战术指挥。",
               "source_refs": [
+                "https://zh.wikisource.org/wiki/資治通鑑/卷263",
                 "docs/公共成果/军事/01-战役登记/five_dynasties-05.json#WAR-FD-9B32D83821ED49194189",
                 "docs/史料通读产物/五代十国/资治通鉴/volume-263.source-summary.md#ZZTJ-263-HEDONG-BIAN-0902"
               ],

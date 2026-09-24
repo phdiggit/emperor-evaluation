@@ -19,6 +19,8 @@ from emperor_v4.evaluation.formal_json_store import (
 
 
 VERSION = "GOVERNANCE-STATE-RECOVERY-V4"
+C4_SCORE_MIN = -40
+C4_SCORE_MAX = 27
 REVIEW_PATH = Path("config/second-item/governance-state-recovery-adjudications.json")
 REVIEW_MARKDOWN_PATH = Path(
     "docs/评分结算/净收益/第二项治国净收益/财政民生/08-主态低谷与净恢复逐人裁决.md"
@@ -184,7 +186,7 @@ def retained_recovery(
     rounded_quality = int(quality.quantize(Decimal("1"), rounding=ROUND_HALF_UP))
     terminal_band = min(6, rounded_quality, min(ends.values()) + 1)
     cap = (7.9, 15.9, 24.9, 27, 27, 27)[terminal_band - 1]
-    recovery = _round(min(Decimal(27), raw))
+    recovery = _round(min(Decimal(C4_SCORE_MAX), raw))
     return {
         "raw_recovery": float(raw),
         "recovery_score": recovery,
@@ -334,7 +336,7 @@ def verify_governance_state_recovery_review(workspace_root: Path) -> dict[str, A
             raise ValueError(f'C4 calculation mismatch: {rid}')
         if active:
             c4 = formal['C4'][rid]
-            value = _round(max(Decimal('-40'), min(Decimal(27), Decimal(str(calculated['positive_retained'])) - Decimal(str(rec['deterioration_penalty'])) - Decimal(str(c4['destructive_amplification_penalty'])))))
+            value = _round(max(Decimal(C4_SCORE_MIN), min(Decimal(C4_SCORE_MAX), Decimal(str(calculated['positive_retained'])) - Decimal(str(rec['deterioration_penalty'])) - Decimal(str(c4['destructive_amplification_penalty'])))))
             if c4['score'] != value or c4['recovery_formula_version'] != VERSION or c4['recovery_score'] != calculated['recovery_score'] or c4['deterioration_penalty'] != rec['deterioration_penalty']:
                 raise ValueError(f'Formal C4 drift: {rid}')
             for a in AXES:
@@ -394,7 +396,7 @@ def _apply_c4(row: dict[str, Any], ruling: dict[str, Any]) -> None:
     row['recovery_formula_version'] = VERSION
     row['difficulty_weighted_recovery_credit'] = row['weighted_net_recovery_delta'] = round(cal['raw_recovery'] / 10, 2)
     row['recovery_path_basis'] = {a: {'start_band':rec['baseline'][a]['label'], 'highest_achieved_band':rec['terminal'][a]['label'], 'linear_delta':max(0, rec['terminal'][a]['band']-rec['baseline'][a]['band']), 'boundary_difficulty_credit':cal['axis_details'][a]['boundary_credit'], 'axis_weight':WEIGHTS[a], 'attribution_factor':cal['axis_details'][a]['attribution_factor'], 'weighted_difficulty_credit':cal['axis_details'][a]['weighted_credit'], 'retained_increment':cal['axis_details'][a]['retained_increment']} for a in AXES}
-    row['score'] = row['raw_score'] = _round(max(Decimal('-40'), min(Decimal(27), Decimal(str(cal['positive_retained']))-Decimal(str(rec['deterioration_penalty']))-Decimal(str(row['destructive_amplification_penalty'])))))
+    row['score'] = row['raw_score'] = _round(max(Decimal(C4_SCORE_MIN), min(Decimal(C4_SCORE_MAX), Decimal(str(cal['positive_retained']))-Decimal(str(rec['deterioration_penalty']))-Decimal(str(row['destructive_amplification_penalty'])))))
     for key in ('v2_recovery_attribution', 'v2_recovery_baseline_review', 'v2_state_recovery_adjudication'):
         row.pop(key, None)
     row['state_recovery_adjudication'] = {'version': VERSION, 'review_ref':f'{REVIEW_PATH.as_posix()}#ruler_id={row["ruler_id"]}', 'baseline': rec['baseline'], 'terminal': rec['terminal'], 'attribution': rec['attribution'], 'calculation':cal}

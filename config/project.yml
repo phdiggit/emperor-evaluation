@@ -29,6 +29,7 @@ scoring_contract:
   cross_item_ranking_write: true
   composite_ranking_json: docs/评分结算/净收益/00-统治绩效综合评分榜.json
   composite_ranking_markdown: docs/评分结算/净收益/00-统治绩效综合评分榜.md
+  composite_governance_context: config/common/composite-governance-context.json
 
 canonical_ruler_pool:
   status: current
@@ -159,6 +160,22 @@ formal_settlements:
       command: third-fourth-item-public --write
       verify_command: third-fourth-item-public-verify
       source: formal_fourth_item_axis_results_and_packages
+
+evidence_interpretation_sensitivity:
+  role: non_scoring_evidence_interpretation_analysis
+  contract: docs/证据规则/裁决不确定性与敏感性合同.md
+  cases: config/common/evidence-interpretation-cases.json
+  prudent_military_cost_reviews: config/common/prudent-military-cost-grade-reviews.json
+  prudent_strategic_stage_reviews: config/common/prudent-strategic-stage-grade-reviews.json
+  prudent_governance_scenarios: config/common/prudent-governance-grade-scenarios.json
+  prudent_governance_main_reviews: config/common/prudent-governance-main-grade-reviews.json
+  prudent_score_output: docs/评分结算/净收益/00-统治绩效综合评分榜.json
+  prudent_score_scope: current_corpus_evidence_review_not_statistical_probability
+  json: docs/评分结算/净收益/综合分析/02-证据裁决敏感性.json
+  markdown: docs/评分结算/净收益/综合分析/02-证据裁决敏感性.md
+  command: evidence-sensitivity
+  confidence_interval: false
+  unquantified_range: null
 
 adjudication_sensitivity:
   role: non_scoring_evidence_interpretation_analysis

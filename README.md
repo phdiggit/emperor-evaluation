@@ -26,7 +26,7 @@
 
 运行 `python package_net_review.py`，生成 `.tmp/evaluation-packages/皇帝三体系评估包.zip`，供上传给聊天版临时会话阅读。
 
-包内包含统治绩效、人物画像、历史影响三个体系的完整原始合同、正式结算 JSON 及其全部路由分片、Markdown 结算源/阅读视图，以及项目入口和正式人物池。源文件逐字节复制，保留仓库路径；不再生成精简合同。根目录只增加使用说明和文件清单，不打入代码、展示素材、过程审计及完整史料库。结算记录中的依据和引用保留，但包外史料仍需另行补充，不能把包内阅读当作完整溯源。
+包内包含统治绩效、人物画像、历史影响三个体系的完整原始合同、正式结算 JSON 及其全部路由分片、Markdown 结算源/阅读视图，以及项目入口、正式人物池和总榜治理规模／复杂度的非计分分类源。源文件逐字节复制，保留仓库路径；不再生成精简合同。根目录只增加使用说明和文件清单，不打入代码、展示素材、过程审计及完整史料库。结算记录中的依据和引用保留，但包外史料仍需另行补充，不能把包内阅读当作完整溯源。
 
 默认只生成一个完整包。`--output <路径.zip>` 可指定输出，`--list` 只查看入包清单；如需分开上传，使用 `--package contracts|settlements|profile-contract|profile-settlements|historical-impact-contract|historical-impact-settlements` 单选统治绩效、人物画像或历史影响的合同/结算，所有输出均为 ZIP。
 
@@ -123,6 +123,8 @@ python v4.py composite-ranking --write
 阅读概览与详情均保留完整公开文字，不按字数或前几句生成摘要。第二项 A/B1 的概览和专用正文读取同一正式公开裁决，专用正文独立展示范围、计算与来源，不依赖旧渲染器中转。画像正文仅映射明确的代码和档位，不全局改写中文词语；公开净收益正文不经过画像术语映射。
 
 军损数量解释试点见[军事成本裁决敏感性](docs/评分结算/净收益/综合分析/01-军事成本裁决敏感性.md)。相关正式输入变动后运行`python v4.py cost-sensitivity --write`，只读核对省略`--write`；案例基准档位变化须先复核案例。分析不改正式评分，且不把被排除假设纳入证据允许范围。
+
+证据解释遵循[裁决不确定性与敏感性合同](docs/证据规则/裁决不确定性与敏感性合同.md)。运行`python v4.py composite-ranking --write`按[军事成本逐人复核](config/common/prudent-military-cost-grade-reviews.json)、[低证据治理主态复核](config/common/prudent-governance-main-grade-reviews.json)与[治理联合候选](config/common/prudent-governance-grade-scenarios.json)为174名入榜者生成现有史料审慎分数区间，再运行`python v4.py evidence-sensitivity --write`及`python reader/build.py`同步[当前分析](docs/评分结算/净收益/综合分析/02-证据裁决敏感性.md)与阅读层。区间不是统计置信区间或未来史料的绝对界；单点只表示本轮语料未留下具体有源异档。已经成立的合法替代情景仍须证据与依赖完全闭合，候选区间端点不得冒称已采信分数或名次。
 
 需要评分回归时运行常规测试（不含 acceptance 与 presentation；单组件改动可指定相关测试路径）：
 

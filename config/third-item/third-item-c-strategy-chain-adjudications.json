@@ -678,7 +678,7 @@
       "source_schema_version": "third-item-c-shadow-grade-progress-v2-single-file-master",
       "source_status_before_writeback": "SHADOW_ONLY_NOT_WRITTEN_TO_FORMAL_C_SETTLEMENT",
       "rulers_reviewed": 201,
-      "current_strategy_chain_count": 1253,
+      "current_strategy_chain_count": 1254,
       "capability_only_strategy_chain_count": 113,
       "final_grade_changes": [
         {
@@ -127409,7 +127409,7 @@
       "ruler_name": "刘龑",
       "scoring_unit": "STRATEGIC_CHAIN",
       "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
-      "strategy_chain_count": 6,
+      "strategy_chain_count": 7,
       "strategy_chains": [
         {
           "chain_id": "FD19-YAN-CUR-01-A185AD6B",
@@ -127537,6 +127537,31 @@
           },
           "basis": "专用父周期语义审查已确认这些成员属于同一压力对象、连续动员与共同终局；本战略链只结算一次。",
           "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+        },
+        {
+          "chain_id": "FD19-YAN-938-BACHDANG",
+          "label": "938年白藤江复取交州失败",
+          "period": "938",
+          "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+          "opponent_system": "INHERIT_FORMAL_PARENT_OPPONENT",
+          "opponent_grade": "INHERIT_FORMAL_PARENT",
+          "member_parent_refs": [
+            "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
+          ],
+          "terminal_result_class": "NEGATIVE_RETURN",
+          "major_system_success": false,
+          "major_system_failure": false,
+          "axis_signals": {
+            "C1": "NEGATIVE",
+            "C2": "NEGATIVE",
+            "C3": "STRONG_NEGATIVE"
+          },
+          "basis": "本人授权舟师进取交州，舰队追击中伏、主将死亡、士卒覆溺太半且未完成任务，是独立负向实战结果；没有国家体系总体失能证据，不升为重大体系崩溃。",
+          "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW",
+          "source_refs": [
+            "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#ZZTJ-281-BACHDANG-JIAOZHOU-0937",
+            "https://zh.wikisource.org/zh-hant/資治通鑑_(四庫全書本)/卷281"
+          ]
         }
       ],
       "capability_only_strategy_chains": [],
@@ -127577,9 +127602,17 @@
           "parent_ref": "ZZTJ-283-ZHANG-YUXIAN-QIANZHOU",
           "strategy_chain_ref": "FD19-YAN-CUR-06-F1F13C9A",
           "parent_role_in_chain": "EVIDENCE_ONLY"
+        },
+        {
+          "parent_ref": "ZZTJ-281-BACHDANG-JIAOZHOU-0937",
+          "strategy_chain_ref": "FD19-YAN-938-BACHDANG",
+          "parent_role_in_chain": "EVIDENCE_ONLY"
         }
       ],
-      "return_class_counts": "NOT_PRIMARY_IN_STRATEGIC_CHAIN_MODE",
+      "return_class_counts": {
+        "NEGATIVE_RETURN": 2,
+        "UNKNOWN": 5
+      },
       "shadow_axis_grades": {
         "C1": "C1-2",
         "C2": "C2-2",
@@ -127592,7 +127625,7 @@
       "formal_overall_grade_snapshot": "C-2",
       "shadow_overall_change_required": false,
       "shadow_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
-      "within_grade_signal": "C2_LOW_MID_BY_DEDICATED_PARENT_REVIEW",
+      "within_grade_signal": "两条已知负向战略链，按现行结果质量与证据强度公式计算档内位置；其余五链结果仍为UNKNOWN，不补造结果。",
       "gate_status": "RAW_BELOW_C4_GATE_NOT_APPLICABLE",
       "axis5_revalidation": {
         "C1": {
@@ -127617,7 +127650,7 @@
         ],
         "window_rule": "只结算刘龑任内失控与威胁外逸，不把南唐后续平定结果倒灌。"
       },
-      "basis": "闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链消费，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。",
+      "basis": "闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链消费，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，档内按现行回报公式重算。",
       "final_horizontal_review_required": false,
       "horizontal_review_batch": "030-HORIZONTAL-REVIEW",
       "strategy_chain_major_success_count": 0,
@@ -127634,12 +127667,12 @@
           "combat_delivery_grade": "C1-2",
           "operational_sustainability_cap": "C2-2",
           "system_reliability_cap": "C3-2",
-          "C_score_rate": 50.25,
-          "C_score_points": 25.1,
+          "C_score_rate": 48.5,
+          "C_score_points": 24.2,
           "C_score_support_surplus": 0,
           "C_score_axis_surplus_position": 0.0,
-          "C_score_outcome_position": 0.375,
-          "C_score_band_position": 0.375,
+          "C_score_outcome_position": 0.25,
+          "C_score_band_position": 0.25,
           "C_score_band": {
             "lower_rate": 45,
             "upper_rate": 59
@@ -127647,7 +127680,7 @@
           "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
           "scoring_unit": "STRATEGIC_CHAIN",
           "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
-          "strategy_chain_count": 6,
+          "strategy_chain_count": 7,
           "strategy_chains": [
             {
               "chain_id": "FD19-YAN-CUR-01-A185AD6B",
@@ -127775,6 +127808,31 @@
               },
               "basis": "专用父周期语义审查已确认这些成员属于同一压力对象、连续动员与共同终局；本战略链只结算一次。",
               "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "FD19-YAN-938-BACHDANG",
+              "label": "938年白藤江复取交州失败",
+              "period": "938",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "INHERIT_FORMAL_PARENT_OPPONENT",
+              "opponent_grade": "INHERIT_FORMAL_PARENT",
+              "member_parent_refs": [
+                "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "NEGATIVE",
+                "C2": "NEGATIVE",
+                "C3": "STRONG_NEGATIVE"
+              },
+              "basis": "本人授权舟师进取交州，舰队追击中伏、主将死亡、士卒覆溺太半且未完成任务，是独立负向实战结果；没有国家体系总体失能证据，不升为重大体系崩溃。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#ZZTJ-281-BACHDANG-JIAOZHOU-0937",
+                "https://zh.wikisource.org/zh-hant/資治通鑑_(四庫全書本)/卷281"
+              ]
             }
           ],
           "strategy_chain_refs": [
@@ -127783,22 +127841,24 @@
             "FD19-YAN-CUR-03-6B795520",
             "FD19-YAN-CUR-04-E18BD098",
             "FD19-YAN-CUR-05-5650EDB5",
-            "FD19-YAN-CUR-06-F1F13C9A"
+            "FD19-YAN-CUR-06-F1F13C9A",
+            "FD19-YAN-938-BACHDANG"
           ],
           "capability_only_strategy_chain_count": 0,
           "capability_only_strategy_chains": [],
           "capability_only_strategy_chain_refs": [],
           "strategy_chain_outcome_profile": {
             "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
-            "selected_chain_count": 6,
-            "known_outcome_count": 1,
+            "selected_chain_count": 7,
+            "known_outcome_count": 2,
             "return_class_counts": {
-              "NEGATIVE_RETURN": 1,
+              "NEGATIVE_RETURN": 2,
               "UNKNOWN": 5
             },
             "return_class_chain_refs": {
               "NEGATIVE_RETURN": [
-                "FD19-YAN-CUR-06-F1F13C9A"
+                "FD19-YAN-CUR-06-F1F13C9A",
+                "FD19-YAN-938-BACHDANG"
               ],
               "UNKNOWN": [
                 "FD19-YAN-CUR-01-A185AD6B",
@@ -127847,13 +127907,18 @@
               "parent_ref": "ZZTJ-283-ZHANG-YUXIAN-QIANZHOU",
               "strategy_chain_ref": "FD19-YAN-CUR-06-F1F13C9A",
               "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "ZZTJ-281-BACHDANG-JIAOZHOU-0937",
+              "strategy_chain_ref": "FD19-YAN-938-BACHDANG",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
             }
           ],
-          "strategy_chain_parent_cycle_evidence_count": 7,
+          "strategy_chain_parent_cycle_evidence_count": 8,
           "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
           "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
           "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
-          "strategy_chain_review_basis": "闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链消费，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。",
+          "strategy_chain_review_basis": "闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链消费，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，档内按现行回报公式重算。",
           "strategy_chain_major_success_count": 0,
           "strategy_chain_major_failure_count": 0,
           "capability_only_major_success_count": 0,
@@ -127872,27 +127937,30 @@
             "ZZTJ-276-CHU-HAN-FENGZHOU-0928",
             "ZZTJ-277-JIAOZHOU-0931",
             "ZZTJ-280-HAN-CHU-MENGGUI-0936",
-            "ZZTJ-283-ZHANG-YUXIAN-HAN"
+            "ZZTJ-283-ZHANG-YUXIAN-HAN",
+            "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
           ],
-          "current_parent_cycle_count": 6,
+          "current_parent_cycle_count": 7,
           "independent_task_groups": [
             "ZZTJ-271-MIN-HAN-MEIKOU-0922",
             "ZZTJ-273-HAN-MIN-0924",
             "ZZTJ-276-CHU-HAN-FENGZHOU-0928",
             "ZZTJ-277-JIAOZHOU-0931",
             "ZZTJ-280-HAN-CHU-MENGGUI-0936",
-            "ZZTJ-283-ZHANG-YUXIAN-HAN"
+            "ZZTJ-283-ZHANG-YUXIAN-HAN",
+            "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
           ],
-          "independent_task_count": 6,
+          "independent_task_count": 7,
           "current_item_task_refs": [
             "ZZTJ-271-MIN-HAN-MEIKOU-0922",
             "ZZTJ-273-HAN-MIN-0924",
             "ZZTJ-276-CHU-HAN-FENGZHOU-0928",
             "ZZTJ-277-JIAOZHOU-0931",
             "ZZTJ-280-HAN-CHU-MENGGUI-0936",
-            "ZZTJ-283-ZHANG-YUXIAN-HAN"
+            "ZZTJ-283-ZHANG-YUXIAN-HAN",
+            "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
           ],
-          "current_item_task_count": 6,
+          "current_item_task_count": 7,
           "parent_cycle_removed_by_v30": [],
           "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
           "major_victory_gate_chain_view": {

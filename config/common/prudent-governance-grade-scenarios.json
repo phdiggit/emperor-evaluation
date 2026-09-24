@@ -1,0 +1,431 @@
+{
+  "schema_version": "prudent-governance-grade-scenarios-v1",
+  "scope": "CURRENT_CORPUS_JOINT_CASES_NOT_STATISTICAL_COVERAGE",
+  "scenarios": [
+    {
+      "case_id": "HANDOFF-RISK-GATE-RULER-HAN-LIUBANG",
+      "scenario_id": "LIUBANG-d3_3",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "https://zh.wikisource.org/zh-hant/資治通鑑/卷012",
+        "https://zh.wikisource.org/wiki/史記/卷008",
+        "https://zh.wikisource.org/zh-hant/資治通鑑考異_(四庫全書本)/卷01",
+        "https://zh.wikisource.org/wiki/史記/卷009"
+      ],
+      "dependency_basis": "排除的只是当前命题下不成立的低档；D1行政连续性已有独立萧何—曹参链，本问题不改变它。固定D1五档后，尚未排除的D3三至五档经低侧封顶公式形成16—20分保守核查范围，端点不是已采信裁决。病不听政的时点与前任配置归责、最高档共识完整性仍未闭合。",
+      "affected": [
+        {
+          "ruler_id": "RULER-HAN-LIUBANG",
+          "axes": {},
+          "recovery_attribution": {},
+          "handoff_D3_level": 3
+        }
+      ]
+    },
+    {
+      "case_id": "HANDOFF-RISK-GATE-RULER-HAN-LIUBANG",
+      "scenario_id": "LIUBANG-d3_5",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "https://zh.wikisource.org/zh-hant/資治通鑑/卷012",
+        "https://zh.wikisource.org/wiki/史記/卷008",
+        "https://zh.wikisource.org/zh-hant/資治通鑑考異_(四庫全書本)/卷01",
+        "https://zh.wikisource.org/wiki/史記/卷009"
+      ],
+      "dependency_basis": "排除的只是当前命题下不成立的低档；D1行政连续性已有独立萧何—曹参链，本问题不改变它。固定D1五档后，尚未排除的D3三至五档经低侧封顶公式形成16—20分保守核查范围，端点不是已采信裁决。病不听政的时点与前任配置归责、最高档共识完整性仍未闭合。",
+      "affected": [
+        {
+          "ruler_id": "RULER-HAN-LIUBANG",
+          "axes": {},
+          "recovery_attribution": {},
+          "handoff_D3_level": 5
+        }
+      ]
+    },
+    {
+      "case_id": "YELURUAN-C3-RESIDENT-OUTCOME",
+      "scenario_id": "YELURUAN-resident_three",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json",
+        "https://zh.wikisource.org/wiki/遼史/卷5"
+      ],
+      "dependency_basis": "现行社会安全起终点和主态仍待联合核对居民结果、实际控制地域与共享交班锚；不凭顶层冲突直接外推居民损害，也不因缺证自动上调。",
+      "affected": [
+        {
+          "ruler_id": "RULER-LIAO-YELU-RUAN",
+          "axes": {
+            "C3": {
+              "s0": 2,
+              "main": 3,
+              "end": 3
+            }
+          },
+          "recovery_attribution": {
+            "C3": 1.0
+          }
+        },
+        {
+          "ruler_id": "RULER-LIAO-YELU-DEGUANG",
+          "axes": {
+            "C3": {
+              "end": 2
+            }
+          },
+          "recovery_attribution": {}
+        }
+      ]
+    },
+    {
+      "case_id": "QIANLIU-SOURCE-CONFLICT",
+      "scenario_id": "QIANLIU-household_three",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json",
+        "https://zh.wikisource.org/wiki/新五代史/卷67",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷267"
+      ],
+      "dependency_basis": "C2现三档，四档已由现有高档门排除；C1二至三档、C3二至三档仍须联合核催欠的本人时段、地区和家庭/人身结果。当前均只支持现采档，不把两个待审上端叠加。",
+      "affected": [
+        {
+          "ruler_id": "RULER-SHADOW-钱镠",
+          "axes": {
+            "C1": {
+              "main": 3,
+              "end": 3
+            }
+          },
+          "recovery_attribution": {
+            "C1": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "QIANLIU-SOURCE-CONFLICT",
+      "scenario_id": "QIANLIU-security_three",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json",
+        "https://zh.wikisource.org/wiki/新五代史/卷67",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷267"
+      ],
+      "dependency_basis": "C2现三档，四档已由现有高档门排除；C1二至三档、C3二至三档仍须联合核催欠的本人时段、地区和家庭/人身结果。当前均只支持现采档，不把两个待审上端叠加。",
+      "affected": [
+        {
+          "ruler_id": "RULER-SHADOW-钱镠",
+          "axes": {
+            "C3": {
+              "main": 3,
+              "end": 3
+            }
+          },
+          "recovery_attribution": {
+            "C3": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "QIANLIU-SOURCE-CONFLICT",
+      "scenario_id": "QIANLIU-both_three",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json",
+        "https://zh.wikisource.org/wiki/新五代史/卷67",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷267"
+      ],
+      "dependency_basis": "C2现三档，四档已由现有高档门排除；C1二至三档、C3二至三档仍须联合核催欠的本人时段、地区和家庭/人身结果。当前均只支持现采档，不把两个待审上端叠加。",
+      "affected": [
+        {
+          "ruler_id": "RULER-SHADOW-钱镠",
+          "axes": {
+            "C1": {
+              "main": 3,
+              "end": 3
+            },
+            "C3": {
+              "main": 3,
+              "end": 3
+            }
+          },
+          "recovery_attribution": {
+            "C1": 1.0,
+            "C3": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "NURHACI-GOVERNANCE-WINDOW",
+      "scenario_id": "NURHACI-early_low",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "dependency_basis": "尚未闭合早期治理对象与主态代表性，不以称汗年份自动截断，也不以缺乏材料自动调档。",
+      "affected": [
+        {
+          "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
+          "axes": {
+            "C1": {
+              "main": 2
+            },
+            "C2": {
+              "main": 2
+            }
+          },
+          "recovery_attribution": {}
+        }
+      ]
+    },
+    {
+      "case_id": "NURHACI-GOVERNANCE-WINDOW",
+      "scenario_id": "NURHACI-late_security_three",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "dependency_basis": "尚未闭合早期治理对象与主态代表性，不以称汗年份自动截断，也不以缺乏材料自动调档。",
+      "affected": [
+        {
+          "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
+          "axes": {
+            "C3": {
+              "main": 3,
+              "end": 3
+            }
+          },
+          "recovery_attribution": {
+            "C3": 1.0
+          }
+        },
+        {
+          "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
+          "axes": {
+            "C3": {
+              "s0": 3
+            }
+          },
+          "recovery_attribution": {
+            "C3": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "FENGTAIHOU-C2-MAIN-PERIOD",
+      "scenario_id": "FENG-handoff_four",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json",
+        "https://zh.wikisource.org/zh-hant/魏書/卷110",
+        "https://zh.wikisource.org/zh-hans/魏書/卷110",
+        "https://zh.wikisource.org/zh-hans/魏書/卷7上",
+        "https://zh.wikisource.org/zh-hans/魏書/卷7下"
+      ],
+      "dependency_basis": "当前保留交班与后继接手的既有五档及恢复结算，尚未以新证确认或改判；不能把主态三档机械搬到端点。该缺口仍影响两人的C4，不再放宽已重裁的C2主态。",
+      "affected": [
+        {
+          "ruler_id": "RULER-SHADOW-冯太后",
+          "axes": {
+            "C2": {
+              "end": 4
+            }
+          },
+          "recovery_attribution": {
+            "C2": 0.0
+          }
+        },
+        {
+          "ruler_id": "RULER-SHADOW-拓跋宏",
+          "axes": {
+            "C2": {
+              "s0": 4
+            }
+          },
+          "recovery_attribution": {
+            "C2": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "SIMA-HOUSEHOLD-ANCHOR-RESULT-GAP",
+      "scenario_id": "SIMA-household_three",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/三國志/卷04",
+        "https://zh.wikisource.org/wiki/晉書/卷002",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷076",
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "dependency_basis": "具体缺口为251—265年可比治理范围的家庭衣食、留存资产、净役负结果，以及265年交班兑现；涉及司马师、司马昭的主态与交班、司马炎接手和恢复分，须联合裁决。尚无依赖闭合的替代档位，不能报固定分差或自动改档。",
+      "affected": [
+        {
+          "ruler_id": "RULER-WEI-SIMASHI",
+          "axes": {
+            "C1": {
+              "main": 3,
+              "end": 3
+            }
+          },
+          "recovery_attribution": {
+            "C1": 1.0
+          }
+        },
+        {
+          "ruler_id": "RULER-WEI-SIMAZHAO",
+          "axes": {
+            "C1": {
+              "s0": 3,
+              "main": 3
+            }
+          },
+          "recovery_attribution": {}
+        }
+      ]
+    },
+    {
+      "case_id": "SIMA-HOUSEHOLD-ANCHOR-RESULT-GAP",
+      "scenario_id": "SIMA-terminal_two",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/三國志/卷04",
+        "https://zh.wikisource.org/wiki/晉書/卷002",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷076",
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "dependency_basis": "具体缺口为251—265年可比治理范围的家庭衣食、留存资产、净役负结果，以及265年交班兑现；涉及司马师、司马昭的主态与交班、司马炎接手和恢复分，须联合裁决。尚无依赖闭合的替代档位，不能报固定分差或自动改档。",
+      "affected": [
+        {
+          "ruler_id": "RULER-WEI-SIMAZHAO",
+          "axes": {
+            "C1": {
+              "end": 2
+            }
+          },
+          "recovery_attribution": {
+            "C1": 0.0
+          }
+        },
+        {
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "axes": {
+            "C1": {
+              "s0": 2
+            }
+          },
+          "recovery_attribution": {
+            "C1": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "HELIAN-HOUSEHOLD-ECONOMY-INDEPENDENT-RESULT",
+      "scenario_id": "HELIAN-household_three",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/晉書/卷130",
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "dependency_basis": "具体缺口是407—425年家庭衣食及劳力再生产的阶段覆盖、市场和公共财政实际失灵结果，以及这些后果与已结算人身伤害的分离。三轴主态、低谷和交班恶化须联合审查，不能以工程暴虐或国家规模小直接补足全任崩解门，也不能任意设相邻档情景。",
+      "affected": [
+        {
+          "ruler_id": "RULER-SHADOW-赫连勃勃",
+          "axes": {
+            "C1": {
+              "main": 3,
+              "end": 3
+            }
+          },
+          "recovery_attribution": {
+            "C1": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "HELIAN-HOUSEHOLD-ECONOMY-INDEPENDENT-RESULT",
+      "scenario_id": "HELIAN-economy_three",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/晉書/卷130",
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "dependency_basis": "具体缺口是407—425年家庭衣食及劳力再生产的阶段覆盖、市场和公共财政实际失灵结果，以及这些后果与已结算人身伤害的分离。三轴主态、低谷和交班恶化须联合审查，不能以工程暴虐或国家规模小直接补足全任崩解门，也不能任意设相邻档情景。",
+      "affected": [
+        {
+          "ruler_id": "RULER-SHADOW-赫连勃勃",
+          "axes": {
+            "C2": {
+              "main": 3,
+              "end": 3
+            }
+          },
+          "recovery_attribution": {
+            "C2": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "HELIAN-HOUSEHOLD-ECONOMY-INDEPENDENT-RESULT",
+      "scenario_id": "HELIAN-both_three",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/晉書/卷130",
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "dependency_basis": "具体缺口是407—425年家庭衣食及劳力再生产的阶段覆盖、市场和公共财政实际失灵结果，以及这些后果与已结算人身伤害的分离。三轴主态、低谷和交班恶化须联合审查，不能以工程暴虐或国家规模小直接补足全任崩解门，也不能任意设相邻档情景。",
+      "affected": [
+        {
+          "ruler_id": "RULER-SHADOW-赫连勃勃",
+          "axes": {
+            "C1": {
+              "main": 3,
+              "end": 3
+            },
+            "C2": {
+              "main": 3,
+              "end": 3
+            }
+          },
+          "recovery_attribution": {
+            "C1": 1.0,
+            "C2": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "LIXIONG-C1-C3-MACRO-SCOPE",
+      "scenario_id": "LIXIONG-C1-C3-MAIN-END-FOUR",
+      "kind": "PRUDENT_CONDITIONAL_REVIEW_ONLY",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/資治通鑑/卷089",
+        "https://zh.wikisource.org/wiki/晉書/卷121",
+        "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-李雄",
+        "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
+      ],
+      "dependency_basis": "联合复核只比较C1与C3主态、交班四至五档，并同步本人C4保留恢复；若低档成立须保留或重审独立L2，不把同一贫地或宁州伤害重复压档。C2仍采三档：年丰谷登支持民间经济，但国用不足、官无秩禄和以财得官阻断公共财政健康四档；不能把C1/C3高态转为财政高档，也不按小政权身份额外折分。",
+      "affected": [
+        {
+          "ruler_id": "RULER-SHADOW-李雄",
+          "axes": {
+            "C1": {
+              "main": 4,
+              "end": 4
+            },
+            "C3": {
+              "main": 4,
+              "end": 4
+            }
+          },
+          "recovery_attribution": {}
+        }
+      ]
+    }
+  ]
+}

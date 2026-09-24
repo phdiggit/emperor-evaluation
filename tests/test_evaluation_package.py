@@ -44,6 +44,7 @@ def test_current_system_entries_and_all_router_shards_are_present(prepared):
     impact = project["historical_impact_assessment"]
     profile = project["profile_assessment"]
     required = [impact[key] for key in ("contract", "calibration_document", "json", "markdown")]
+    required.append(project["scoring_contract"]["composite_governance_context"])
     required += [profile[key] for key in ("contract", "manifest_json", "manifest_markdown", "summary_markdown")]
     for section in (*project["formal_settlements"].values(), *profile["settled_axes"].values()):
         required.extend(section[key] for key in ("json", "markdown") if key in section)
@@ -59,6 +60,14 @@ def test_current_system_entries_and_all_router_shards_are_present(prepared):
             for route in data["routes"]:
                 assert (Path(name).parent / route["path"]).as_posix() in entries
     assert routers == manifest["router_count"]
+
+
+@pytest.mark.parametrize("package", ["contracts", "settlements"])
+def test_net_packages_include_current_governance_context(package):
+    project = yaml.safe_load((ROOT / "config/project.yml").read_text(encoding="utf-8"))
+    context_path = project["scoring_contract"]["composite_governance_context"]
+    paths = {path.relative_to(ROOT).as_posix() for path in packager.collect(ROOT, package)}
+    assert context_path in paths
 
 
 @pytest.mark.parametrize("package", [kind for kind in packager.PACKAGE_KINDS if kind != "all"])

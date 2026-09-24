@@ -130,7 +130,7 @@ BAND_LABELS = {
     "lower": "下位",
 }
 ML_LABELS = {
-    "ML0": "未达到重大军事净毁损追加条件",
+    "ML0": "当前未作重大军事净毁损追加",
     "ML1": "有限重大军事净毁损",
     "ML2": "明显重大军事净毁损",
     "ML3": "严重重大军事净毁损",
@@ -757,7 +757,7 @@ def _ml_projection(row: dict[str, Any], ruler_id: str, *, prefix: str = "THIRD-M
     )
     basis = _first_text(row.get("basis"), row.get("military_net_loss_basis"))
     if grade == "ML0":
-        summary = f"{label}。现有材料没有同时确认重大安全结果、较高本方军事代价和足够本人责任，因此不追加重大军事净毁损扣减。"
+        summary = f"{label}。{basis or '当前记录没有单独追加扣减；这不代替重大结果、本方成本、本人责任及同链去重的逐项裁决。'}"
     else:
         summary = f"{label}。{basis or '现有材料确认达到重大结果、较高本方代价和本人责任条件。'} {attribution}。"
     boundary = THIRD_BOUNDARIES["ML"]

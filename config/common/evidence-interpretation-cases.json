@@ -1,0 +1,2522 @@
+{
+  "schema_version": "evidence-interpretation-cases-v1",
+  "contract": "docs/证据规则/裁决不确定性与敏感性合同.md",
+  "cases": [
+    {
+      "case_id": "LICHEN-COST-UPPER-COVERAGE",
+      "ruler_id": "RULER-TANG-LICHEN",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "已证军事成本下界能否变成总分和名次的可靠区间？",
+      "basis": "现行第三项全局成本记录明确为LOWER_BOUND：已知行动以有限边疆处置、接收和局地恢复为主，本方动员峰值与毁损覆盖仍有限。该状态只能说明当前已证成本，不能证明所有失载成本很小，也不能直接猜测成本应再升一档。须有新的同窗本方承载或毁损证据，才形成可计算的更高成本解释。河湟接收中的张议潮自主行动与吐蕃内乱机会已在本人贡献裁决中受限，不能将整个十一州成果重新无条件归帝。",
+      "limitations": "未闭合的是成本上侧的量化证据，不是宣告现有最低已证成本不准入。更高成本还须同审ML和跨项分账；不由LOWER_BOUND推出综合分下界或排名区间。",
+      "source_refs": [
+        "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json#ruler_id=RULER-TANG-LICHEN",
+        "docs/证据规则/军事成本评估合同.md"
+      ],
+      "changes": [],
+      "public_basis": "现有军事记录证明了已发生的最低成本，但没有闭合全任期成本的上限。不同战争的损失不能任意跨年相加，也不能由缺少具体人数推定没有损失。",
+      "public_limitations": "更高成本是否成立、是否同时触发重大军事净毁损追加，仍须联合核对。不能把军事成本下界直接当成综合分下界或名次区间。",
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "现采军事成本档；当前没有已证明可替换它的更高档。",
+        "basis": "现有材料只证有限边疆接收与处置；未知兵额不能生成相邻高档。补入真实新军损后按对应准入重开，不以LOWER_BOUND直接放宽到C7。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "未闭合的是成本上侧的量化证据，不是宣告现有最低已证成本不准入。更高成本还须同审ML和跨项分账；不由LOWER_BOUND推出综合分下界或排名区间。",
+        "baseline_by_ruler": {
+          "RULER-TANG-LICHEN": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L1"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 4,
+                "end_band": 4,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 3,
+                "main_band": 4,
+                "end_band": 4,
+                "loss_grade": "L2"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 4,
+                "C3": 4
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 1.0,
+                "C3": 1.0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 3,
+              "D3_level": 2
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 2.8
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "SIMAYAN-POSTEXIT-AND-INFERENCE",
+      "ruler_id": "RULER-SHADOW-司马炎",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "能否用身后内战直接否定本人太康社会状态？",
+      "basis": "不能。现行民生四档有太康安业结果并计广泛饥荒低谷；经济财政四档未把仓府丰盛当成市场和公共财政双柱极盛；社会安全四档则明确含受约束系统推断，直接宏观锚偏薄。三者证据结构不同。八王之乱等后继时期结果不能倒灌成本人居民状态；交班安排责任应在其规定项目审查。",
+      "limitations": "受约束推断并非高精度测量；如果取得本人窗口的独立司法或居民安全反证，应重审C3及其端点联动。目前未据身后灾难制造降档情景。",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-司马炎",
+        "docs/分项规则/第二项治国净收益/财政民生/02-主态低谷与净恢复机制.md"
+      ],
+      "changes": []
+    },
+    {
+      "case_id": "LIZHI-SHARED-POWER-IS-NOT-A-PROBABILITY",
+      "ruler_id": "RULER-TANG-LIZHI",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "共同掌权是否意味着所有军事得失或置信度直接乘一半？",
+      "basis": "不能。现行第三项将660—683年具名任将、出兵与收束军令对应的军事绩效统一记在李治名下，武则天不重复领取；这是一致记账边界，不是已测得李治占百分之百的历史因果贡献。治理状态本身与可归责恶化也分开，后者沿逐轴归责处理。不能将共同掌权自动换成全项0.5系数，更不能同时给两人完整收益后只折成本。",
+      "limitations": "吐蕃方向共同中枢的进一步责任比例仍无法精确拆分；改变记账边界必须联合审查两人全部相关窗口与损益，现工具不输出单人机械减半情景。",
+      "source_refs": [
+        "docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json#ruler_id=RULER-TANG-LIZHI",
+        "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LIZHI",
+        "config/common/canonical-ruler-pool.json#ruler_id=RULER-TANG-LIZHI"
+      ],
+      "changes": []
+    },
+    {
+      "case_id": "YINGZHENG-MACRO-NEGATIVE-WINDOW",
+      "ruler_id": "RULER-QIN-YINGZHENG",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "负向宏观总评是否可以把二世崩解一并归入始皇？",
+      "basis": "不能。《汉书》食货志以“至于始皇”引出工程、赋役及家庭衣食不足，能够支持本人窗口的负向家庭状态；但该段末尾概括到海内愁怨、溃畔，不能据一段叙述便把二世时期的征解网络断裂全部倒灌始皇。现行C2以始皇末仍能运行而严重透支为二档，二世另以供给失衡及广域征解断裂支持一档。宏观负评与宏观褒评须使用相同的时点、对象和代表性审查。",
+      "limitations": "该总评不是人口年统计；不同地区、亲政前段与统一后段不能被一句话抹平。历史影响S+也不构成把净收益分抬回预期名次的证据。",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-QIN-YINGZHENG",
+        "https://zh.wikisource.org/wiki/漢書/卷024"
+      ],
+      "changes": []
+    },
+    {
+      "case_id": "TUOBAHONG-C3-IDENTITY-DOUBLE-COUNT",
+      "ruler_id": "RULER-SHADOW-拓跋宏",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "能否把迁洛改籍与不得北葬再计为社会安全低谷？",
+      "basis": "不得北葬与改籍洛阳证明身份、地域和共同体选择受到限制，适用第四项国家共同体与社会整合的对象边界；同条记载没有另外闭合抓捕、酷刑、死亡或普通财产侵夺。现行C3不再以该身份后果计L1。下列数值仅显示重复扣分假设的影响，不是合法替代裁决。",
+      "limitations": "不否认迁洛具有强制性，也不取消第四项既有强制同化负向限制；没有把全部迁洛史料解释为没有居民损害。",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-拓跋宏",
+        "docs/分项规则/第四项文明与国家整合收益/00-规则与计分合同.md",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷140"
+      ],
+      "changes": [
+        {
+          "kind": "GOVERNANCE_MAIN_AND_LOSS",
+          "ruler_id": "RULER-SHADOW-拓跋宏",
+          "axis": "C3",
+          "baseline": {
+            "s0_band": 4,
+            "main_band": 4,
+            "end_band": 4,
+            "loss_grade": "L0"
+          },
+          "alternative": {
+            "main_band": 4,
+            "loss_grade": "L1"
+          },
+          "dependency_basis": "仅演示重复加入身份低谷；接手、主态、交班均不改变，C4恢复恶化及第四项保持当前裁决。",
+          "deduplication_basis": "该假设恰因将第四项身份/共同体对象搬入C3而被排除；不进入证据允许范围。"
+        }
+      ]
+    },
+    {
+      "case_id": "LIXIONG-MACRO-SOURCE-INDEPENDENCE",
+      "ruler_id": "RULER-SHADOW-李雄",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "同源总评能否作为多个独立阶段，或按小政权身份直接折分？",
+      "basis": "不能。《华阳国志》《晋书》《资治通鉴》的近同叙事须按来源谱系辨认；不同书名不构成独立复验。现行C1以家庭余量和少役互证，C3以基层安全和司法结果互证，属于同源中的不同命题，不能写成三条独立史源。小政权规模不是现行治理结果合同的折分项。贫者无地与晚年宁州侵扰已有独立负面处置，不能把资料少等同没有反证。",
+      "limitations": "本处排除两种不合法推法；高态的逐年覆盖和精确交班持续性仍不能由书名数量证明，未给出可量化的全历史误差范围。",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-李雄",
+        "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
+      ],
+      "changes": []
+    },
+    {
+      "case_id": "LIUBEI-C3-SOURCE-WINDOW",
+      "ruler_id": "RULER-SHU-LIUBEI",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "能否用227年“益州疲弊”直接证明214年接手状态？",
+      "basis": "不能。《通鉴》卷69覆盖220—222年，不是214年取得益州的窗口；《三国志》卷35出师表中的“益州疲弊”位于建兴五年、刘备死后。当前C3依据改由《通鉴》卷67的围城震怖、百姓攻战三年支撑接手脆弱状态，以入蜀后“益州之民，是以大和”及行政实际运行支持基本秩序；C4和民力分账说明同步使用214年材料。纠正史源与时点，不把已排除的错引保留为合法替代解释。",
+      "limitations": "现有独立材料仍支持既定三锚，分数未因换源而变化；这不表示已量化本人全部不确定性。法正擅杀的受害者身份与普通社会范围仍有限，不能直接外推全境。",
+      "source_refs": [
+        "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHU-LIUBEI",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷069",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷067",
+        "https://zh.wikisource.org/wiki/三國志/卷35"
+      ],
+      "changes": []
+    },
+    {
+      "case_id": "LIUYAN-938-JOINT-COST-REVIEW",
+      "ruler_id": "RULER-FD-LIU-YAN",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "938年舰队毁损闭合到何种成本结构，更高档为何仍未量化？",
+      "basis": "938年本人命弘操率战舰取交州并自屯海门声援；战舰受铁杙阻断，士卒覆溺太半、弘操战死，本人收余众退回。完整闭合本方实质兵团及舰船毁损，超过仅方向级投入的C3；高比例损失与指挥者死亡构成档内强化，按已证结构定C4中位下界。全国军力分母、该舰队是否为主要野战力量或不可替代军种、灾后核心失能与重建未闭合，不能仅由出征目的或王子领军升C5；军额失载，十万实际死亡下界未证，C6人员及核心两路径均未闭合，C7亦无首灾后重大补充再损证据。931年援军另保留，不跨七年拼成连续高强度。 已同步军事体系负向任务、D局部与全局成本；既有EN2保留，938年不重复扣同一失地。现证成本未到C5，ML0不变。",
+      "limitations": "已修正漏接并按已证结构结算；更高成本的关键角色和灾后证据仍未闭合，不能将下界标签翻译为综合分下界或任意排名区间。",
+      "source_refs": [
+        "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#ZZTJ-281-BACHDANG-JIAOZHOU-0937",
+        "https://zh.wikisource.org/zh-hant/資治通鑑_(四庫全書本)/卷281",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-FD-LIU-YAN"
+      ],
+      "changes": [],
+      "public_basis": "938年刘龑命弘操率战舰进取交州，自己驻海门声援。舰船受铁桩阻断，士卒覆溺过半、弘操战死，本人收余众退回。这证明了本方兵团和舰船的实质毁损，现按军事成本第四级中位的已证下界结算；较高损失比例和主将死亡支持档内强化。该舰队占全国军力的份额、是否承担主要或不可替代功能、灾后失能与重建均未查明，不能仅凭王子领军或远征目标推入更高等级。具体军额不明，无法证明十万人实际死亡；国家核心军事能力失能及灾后重大补充再损也未证实。931年援军另行保留，不能跨七年拼成连续高强度战争。已补入军事体系的负向任务和成本结算；交州此前已失，938年不重复扣同一失地。已证成本尚未满足重大军事净毁损追加的成本门槛，因此没有另加该项扣减。",
+      "public_limitations": "漏接已经修正，更高成本的关键角色与灾后证据仍未闭合。这里的下界只指军事成本，不能据此给出综合分下界或任意排名区间。",
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "现采C4中位；本次复核候选C4—C5（一档），ML仍为0。",
+        "basis": "舰队覆损已证C4；C5须补该舰队的重要军事角色。938复取链最终为E0，不能借931等旧EN2自动配ML；C6两路径和C7补建再损未闭合。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "已修正漏接并按已证结构结算；更高成本的关键角色和灾后证据仍未闭合，不能将下界标签翻译为综合分下界或任意排名区间。",
+        "baseline_by_ruler": {
+          "RULER-FD-LIU-YAN": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 2,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 2
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 2
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 1,
+              "D3_level": 3
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 10.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "HANDOFF-RISK-GATE-RULER-ROSTER-0F3BA2C535371D66",
+      "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "缺少现实风险检验能否继续作为交接最高档的限制？",
+      "basis": "成年在位皇帝承接、归政事实及随后中央运作已证，维持安全交接。限制来自归政时具体议定、军政力量共同接受和授权交割细节未获同等直接材料，而非缺少危机检验；不把后来能够发令当作此前每个准备环节都已证明。现证仍属明确结果而结构细节不足，保留原档内位置。",
+      "limitations": "归政议定与授权交割细节尚不完备，不能将现档当成历史事实精确测量。",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/欽定重訂契丹國志_(四庫全書本)/卷13",
+        "https://zh.wikisource.org/wiki/遼史/卷14",
+        "https://zh.wikisource.org/wiki/遼史/卷15"
+      ],
+      "changes": [],
+      "public_basis": "成年在位皇帝承接、归政事实及随后中央运作已证，维持安全交接。限制来自归政时具体议定、军政力量共同接受和授权交割细节未获同等直接材料，而非缺少危机检验；不把后来能够发令当作此前每个准备环节都已证明。现证仍属明确结果而结构细节不足，保留原档内位置。",
+      "public_limitations": "归政议定与授权交割细节尚不完备，不能将现档当成历史事实精确测量。"
+    },
+    {
+      "case_id": "HANDOFF-RISK-GATE-RULER-HAN-LIUBANG",
+      "ruler_id": "RULER-HAN-LIUBANG",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "顺位即位后吕后实际掌权与惠帝不听政，是否改变交接性质？",
+      "basis": "《通鉴》卷12高帝十二年至惠帝元年完整窗口记太子即位、陈平宿卫及任郎中令、周勃续定燕地，中央已有单一有效承接，排除交接断裂与分裂争位。戚夫人、赵王如意受害未重新决定皇位或以武装强制更换实际最高权力，惠帝仍在位且随后仍参与任相；不能只凭周边杀戮判暴力接管。《史记》卷9把吕氏掌南北军与号令一出太后置于惠帝死后，不得倒移到刘邦退出窗口。《通鉴》仍记惠帝首年病而不听政，故安排失效的脆弱完成、安全交接与高质量交接之间尚需辨析，不认定余下三档都是成立的情景。",
+      "limitations": "排除的只是当前命题下不成立的低档；D1行政连续性已有独立萧何—曹参链，本问题不改变它。固定D1五档后，尚未排除的D3三至五档经低侧封顶公式形成16—20分保守核查范围，端点不是已采信裁决。病不听政的时点与前任配置归责、最高档共识完整性仍未闭合。",
+      "source_refs": [
+        "https://zh.wikisource.org/zh-hant/資治通鑑/卷012",
+        "https://zh.wikisource.org/wiki/史記/卷008",
+        "https://zh.wikisource.org/zh-hant/資治通鑑考異_(四庫全書本)/卷01",
+        "https://zh.wikisource.org/wiki/史記/卷009"
+      ],
+      "changes": [],
+      "public_basis": "《通鉴》卷12高帝十二年至惠帝元年完整窗口记太子即位、陈平宿卫及任郎中令、周勃续定燕地，中央已有单一有效承接，排除交接断裂与分裂争位。戚夫人、赵王如意受害未重新决定皇位或以武装强制更换实际最高权力，惠帝仍在位且随后仍参与任相；不能只凭周边杀戮判暴力接管。《史记》卷9把吕氏掌南北军与号令一出太后置于惠帝死后，不得倒移到刘邦退出窗口。《通鉴》仍记惠帝首年病而不听政，故安排失效的脆弱完成、安全交接与高质量交接之间尚需辨析，不认定余下三档都是成立的情景。",
+      "public_limitations": "行政连续性已有独立萧何—曹参链，本问题不改变它。部分较低交接档已被排除，但其余档位并不因此成为已成立的替代裁决。病不听政的时点、前任配置归责及最高档的共识材料仍需核对，暂不列数值替代。",
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "D3现4；复核候选3—5（两档）；D1固定5，交接项条件值16—20。",
+        "basis": "3须证明首年不听政构成交接安排失效或权力悬置；5须补明确安排与关键力量共识。0—2已由有效中央承接、无并立与无重新决定继承者排除。三档不是均已采信，不把条件16—20称真实分数区间。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "排除的只是当前命题下不成立的低档；D1行政连续性已有独立萧何—曹参链，本问题不改变它。固定D1五档后，尚未排除的D3三至五档经低侧封顶公式形成16—20分保守核查范围，端点不是已采信裁决。病不听政的时点与前任配置归责、最高档共识完整性仍未闭合。",
+        "baseline_by_ruler": {
+          "RULER-HAN-LIUBANG": {
+            "governance": {
+              "C1": {
+                "s0_band": 1,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L3"
+              },
+              "C2": {
+                "s0_band": 1,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L3"
+              },
+              "C3": {
+                "s0_band": 1,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L3"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1
+              },
+              "terminal": {
+                "C1": 2,
+                "C2": 3,
+                "C3": 3
+              },
+              "attribution": {
+                "C1": 1.0,
+                "C2": 1.0,
+                "C3": 1.0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 5,
+              "D3_level": 4
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 12.5
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "HANDOFF-RISK-GATE-RULER-SHADOW-冯太后",
+      "ruler_id": "RULER-SHADOW-冯太后",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "缺少现实风险检验能否继续作为交接最高档的限制？",
+      "basis": "既在位皇帝的法定承接地位、维持政务的金册遗令、群臣围绕皇帝组织承接以及首年亲政均有直接材料，达到高质量交接。礼制争论不是争夺最高权力；太后早年的废帝意图已经大臣阻止，未在退出窗口重新启动。没有另立储君不构成摄政归政的缺项。遗令主要规定服丧与政务，详细权力配置较简，故取本档下部。",
+      "limitations": "只判断交接窗口，不归责继任者长期治理或亡国结果。",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/資治通鑑/卷137"
+      ],
+      "changes": [],
+      "public_basis": "既在位皇帝的法定承接地位、维持政务的金册遗令、群臣围绕皇帝组织承接以及首年亲政均有直接材料，达到高质量交接。礼制争论不是争夺最高权力；太后早年的废帝意图已经大臣阻止，未在退出窗口重新启动。没有另立储君不构成摄政归政的缺项。遗令主要规定服丧与政务，详细权力配置较简，故取本档下部。",
+      "public_limitations": "只判断交接窗口，不归责继任者长期治理或亡国结果。"
+    },
+    {
+      "case_id": "HANDOFF-RISK-GATE-RULER-JIN-TAIZONG",
+      "ruler_id": "RULER-JIN-TAIZONG",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "缺少现实风险检验能否继续作为交接最高档的限制？",
+      "basis": "定储由具名军政核心共同提出并获皇帝正式确认，继位、诏令和首年中央运行相接，安排与关键力量接受均有直接材料，达到高质量交接。太宗此前迟疑已由正式定储收束；1137年以后高层清洗和1139年宗室谋反超出此次交接一年窗，不倒灌。档内取中段，不另奖励未发生的风险。",
+      "limitations": "只判断交接窗口，不归责继任者长期治理或亡国结果。",
+      "source_refs": [
+        "https://zh.wikisource.org/zh-hans/金史/卷4"
+      ],
+      "changes": [],
+      "public_basis": "定储由具名军政核心共同提出并获皇帝正式确认，继位、诏令和首年中央运行相接，安排与关键力量接受均有直接材料，达到高质量交接。太宗此前迟疑已由正式定储收束；1137年以后高层清洗和1139年宗室谋反超出此次交接一年窗，不倒灌。档内取中段，不另奖励未发生的风险。",
+      "public_limitations": "只判断交接窗口，不归责继任者长期治理或亡国结果。"
+    },
+    {
+      "case_id": "HANDOFF-RISK-GATE-RULER-PUBLIC-4EB7AC987FECC59F",
+      "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "缺少现实风险检验能否继续作为交接最高档的限制？",
+      "basis": "秘密建储、具名宗王与文武核心受命、共同启封宣诏、四辅臣配置及实际即位均有连续直接材料，达到高质量交接。继任者调整王公兼管部院和处理旧案属于新君施政，未改变继承者或造成竞争中央；不以没有武装争位为拒绝最高档的理由。安排跨多年准备且临终执行清晰，档内取上部。",
+      "limitations": "只判断交接窗口，不归责继任者长期治理或亡国结果。",
+      "source_refs": [
+        "https://zh.wikisource.org/zh-hant/清史稿/卷10",
+        "https://zh.wikisource.org/zh-hant/雍正朝實錄/卷之一百五十九"
+      ],
+      "changes": [],
+      "public_basis": "秘密建储、具名宗王与文武核心受命、共同启封宣诏、四辅臣配置及实际即位均有连续直接材料，达到高质量交接。继任者调整王公兼管部院和处理旧案属于新君施政，未改变继承者或造成竞争中央；不以没有武装争位为拒绝最高档的理由。安排跨多年准备且临终执行清晰，档内取上部。",
+      "public_limitations": "只判断交接窗口，不归责继任者长期治理或亡国结果。"
+    },
+    {
+      "case_id": "HANDOFF-RISK-GATE-RULER-LIAO-YELU-HONGJI",
+      "ruler_id": "RULER-LIAO-YELU-HONGJI",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "缺少现实风险检验能否继续作为交接最高档的限制？",
+      "basis": "既定皇太孙掌握明确的中央军政职分，遗诏、柩前即位和群臣共同尊奉构成直接承接链，首年没有继承竞争，达到高质量交接。复官及后来清算旧案不等于改变继承者；1102年萧海里叛乱和后来的亡国不能倒灌本次交接。档内取中段，保留既有派系背景而不把远期后果加进来。",
+      "limitations": "只判断交接窗口，不归责继任者长期治理或亡国结果。",
+      "source_refs": [
+        "https://zh.wikisource.org/zh-hans/遼史/卷27"
+      ],
+      "changes": [],
+      "public_basis": "既定皇太孙掌握明确的中央军政职分，遗诏、柩前即位和群臣共同尊奉构成直接承接链，首年没有继承竞争，达到高质量交接。复官及后来清算旧案不等于改变继承者；1102年萧海里叛乱和后来的亡国不能倒灌本次交接。档内取中段，保留既有派系背景而不把远期后果加进来。",
+      "public_limitations": "只判断交接窗口，不归责继任者长期治理或亡国结果。"
+    },
+    {
+      "case_id": "YELURUAN-C3-RESIDENT-OUTCOME",
+      "ruler_id": "RULER-LIAO-YELU-RUAN",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "宗室冲突能否充分支持普通居民社会安全低态？",
+      "basis": "已核《辽史》卷5：横渡对峙、宗室谋反、行宫弑杀均有直接记载；崇德宫户分赐涉及身份依附，不能无条件替代普通居民司法与人身安全。前任中原失序与本人退回北方后的治理地域还存在可比性问题。",
+      "limitations": "现行社会安全起终点和主态仍待联合核对居民结果、实际控制地域与共享交班锚；不凭顶层冲突直接外推居民损害，也不因缺证自动上调。",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json",
+        "https://zh.wikisource.org/wiki/遼史/卷5"
+      ],
+      "changes": [],
+      "public_basis": "已核《辽史》卷5：横渡对峙、宗室谋反、行宫弑杀均有直接记载；崇德宫户分赐涉及身份依附，不能无条件替代普通居民司法与人身安全。前任中原失序与本人退回北方后的治理地域还存在可比性问题。",
+      "public_limitations": "现行社会安全起终点和主态仍待联合核对居民结果、实际控制地域与共享交班锚；不凭顶层冲突直接外推居民损害，也不因缺证自动上调。",
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "C3主态现2；复核候选2—3（一档），起终点与C4须同审。",
+        "basis": "北方可运行秩序已证，低态依据的居民对象与地域覆盖有争议；没有直接广域居民安全结果支持4以上，也不能用行宫弑杀把主态降1。需重核947交班地域，不能只改主态。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "现行社会安全起终点和主态仍待联合核对居民结果、实际控制地域与共享交班锚；不凭顶层冲突直接外推居民损害，也不因缺证自动上调。",
+        "baseline_by_ruler": {
+          "RULER-LIAO-YELU-DEGUANG": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L3"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 2,
+                "loss_grade": "L3"
+              },
+              "C3": {
+                "s0_band": 2,
+                "main_band": 2,
+                "end_band": 1,
+                "loss_grade": "L3"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 2
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 2,
+                "C3": 1
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 1.0,
+                "C2": 1.0,
+                "C3": 1.0
+              }
+            },
+            "handoff": {
+              "D1_level": 2,
+              "D3_level": 1
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          },
+          "RULER-LIAO-YELU-RUAN": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 2,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 1,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 2,
+                "C3": 1
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 2
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 1.0,
+                "C3": 1.0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 3,
+              "D3_level": 2
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 12.5
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "QIANLIU-SOURCE-CONFLICT",
+      "ruler_id": "RULER-SHADOW-钱镠",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "重敛史源争议是否在治理三轴得到一致限定？",
+      "basis": "《资治通鉴》卷267只记钱唐城市富庶；《新五代史》卷67另记自钱镠世常重敛、逐户征取和欠赋笞责，不能拼成一条同书原文。现行C2正式记录已有四档主态门失败：区域私经济正证不足以证明公共财政健康，重敛和贡奉为反证，独立储备与常规余额亦缺。三轴须各按对象消费同一负证，钱俶后期倾国贡奉不倒灌。",
+      "limitations": "C2现三档，四档已由现有高档门排除；C1二至三档、C3二至三档仍须联合核催欠的本人时段、地区和家庭/人身结果。当前均只支持现采档，不把两个待审上端叠加。",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json",
+        "https://zh.wikisource.org/wiki/新五代史/卷67",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷267"
+      ],
+      "changes": [],
+      "public_basis": "《资治通鉴》卷267只记钱唐城市富庶；《新五代史》卷67另记自钱镠世常重敛、逐户征取和欠赋笞责，不能拼成一条同书原文。现行C2正式记录已有四档主态门失败：区域私经济正证不足以证明公共财政健康，重敛和贡奉为反证，独立储备与常规余额亦缺。三轴须各按对象消费同一负证，钱俶后期倾国贡奉不倒灌。",
+      "public_limitations": "C2现三档，四档已由现有高档门排除；C1二至三档、C3二至三档仍须联合核催欠的本人时段、地区和家庭/人身结果。当前均只支持现采档，不把两个待审上端叠加。",
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "C1现2、条件复核2—3；C2现3、四档已排除；C3现2、条件复核2—3，C1/C3须联合。",
+        "basis": "两条史源分别记城市富庶与跨代重敛。C2正式高档门已失败，未见独立公共财政健康证据，故不能保留四档作为当前有源候选。C1/C3上端需要证明负证不代表本人主要窗口并核家庭与人身后果；单独的城市富庶不能补足。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "C2现三档，四档已由现有高档门排除；C1二至三档、C3二至三档仍须联合核催欠的本人时段、地区和家庭/人身结果。当前均只支持现采档，不把两个待审上端叠加。",
+        "baseline_by_ruler": {
+          "RULER-SHADOW-钱镠": {
+            "governance": {
+              "C1": {
+                "s0_band": 2,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 2,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 2,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 2,
+                "C2": 2,
+                "C3": 2
+              },
+              "terminal": {
+                "C1": 2,
+                "C2": 3,
+                "C3": 2
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 1.0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 3,
+              "D3_level": 5
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 16.2
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "YUWENYONG-LUMEN-POWER-WINDOW",
+      "ruler_id": "RULER-SHADOW-宇文邕",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "能否把天和时期创设露门学整体计为572年后本人新增成果？",
+      "basis": "不能。已把天和设学及沈重早期授业放回继承基线；亲政后建德三年新增培养岗位、乐逊实际授业及平齐后熊安生进入中央培养体系仍支持有限扩展，原幅度与分数不变。",
+      "limitations": "原在北齐的学生数、大象及隋代成果不计本人新增；不再声称本人亲政从无到有创设露门学。",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/周書/卷05",
+        "https://zh.wikisource.org/wiki/周書/卷45"
+      ],
+      "changes": [],
+      "public_basis": "现行文化教育叙述涉及天和时期的露门学，566年设置早于宇文邕572年独立亲政。须分开创设责任、继承的机构以及后来对实际授业的支持。",
+      "public_limitations": "亲政后增量与共享中枢责任尚未闭合，不能把整个机构成就直接归本人，也不能因始设较早抹去后续增量。"
+    },
+    {
+      "case_id": "LIUCONG-OWN-MILITARY-COST-BOUND",
+      "ruler_id": "RULER-SHADOW-刘聪",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "叛乱人口与政治处刑能否证明本方高军事成本？",
+      "basis": "317年刘乂案后发生独立氐羌叛乱，刘聪任靳准实施区域讨伐，已证方向级军事投入。十余万落是叛乱人口组织，不能替代本方动员兵额；一万五千余坑杀属于政治处刑，不是本方战斗兵团损失。现有本人军额、军资、战争准备与组织毁损均未闭合，未能证明C4所需的大规模或持续显著行动、实质兵团毁损或重大战争准备。按已证结构改取C3低位下界；无档内强化证据，不因责任恶劣或叛军规模抬位置。洛阳、关中取得链已经由第一项消费，不回填第三项成本。",
+      "limitations": "本方动员兵额、实物投入及组织损失未闭合；C3低位为已证成本，不是全任期上限。",
+      "source_refs": [
+        "docs/史料通读产物/唐以前编年/两晋/卷090-通读总结.md#SEC-LEAD-HAN-TAIDI-317",
+        "https://zh.wikisource.org/zh/晉書/卷102",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷090"
+      ],
+      "changes": [],
+      "public_basis": "317年的区域讨伐证明本方实际方向级投入；叛乱人口和政治处刑人数都不能当作本方出兵或战损。原高档缺少本方大规模投入、兵团毁损或重大准备的证据，已改按军事成本第三级低位的已证下界结算；责任严重也不直接抬高客观损耗。",
+      "public_limitations": "本方具体动员、军资和损失仍未闭合，因此不能据现值声明综合分或名次的完整范围。",
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "现采C3低位；当前有源改判集仅C3。",
+        "basis": "十余万落为叛乱人口、一万五千处刑为政治杀戮，本方规模和重要军团毁损未证，不能把这两个数字保留成C4/C5候选。新军用投入证据到来时重开。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "本方动员兵额、实物投入及组织损失未闭合；C3低位为已证成本，不是全任期上限。",
+        "baseline_by_ruler": {
+          "RULER-SHADOW-刘聪": {
+            "governance": {
+              "C1": {
+                "s0_band": 2,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 2,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 2,
+                "C2": 3,
+                "C3": 2
+              },
+              "terminal": {
+                "C1": 1,
+                "C2": 2,
+                "C3": 1
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 1.0,
+                "C2": 1.0,
+                "C3": 1.0
+              }
+            },
+            "handoff": {
+              "D1_level": 1,
+              "D3_level": 1
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 2.8
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "WUZETIAN-GOVERNANCE-WINDOW",
+      "ruler_id": "RULER-TANG-WUZETIAN",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "660—683共享参政背景是否仍被治理三轴重复计分？",
+      "basis": "现行三轴已明确按684—705本人实际最高权力期结算并排除682饥荒，背景时间不等于消费时间。本命题没有剩余的数值替代；若主张重分共享期，必须先联合重裁两人窗口。",
+      "limitations": "只关闭把背景年份等同计分窗口的命题；不改变既定主态、低谷及端点，也不宣布所有武周治理史料争议消失。",
+      "public_basis": "现行三轴已明确按684—705本人实际最高权力期结算并排除682饥荒，背景时间不等于消费时间。本命题没有剩余的数值替代；若主张重分共享期，必须先联合重裁两人窗口。",
+      "public_limitations": "当前主态3/4/3，背景年份本身不产生替代档位；其他有实际结果的争议须另立命题。",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "changes": [],
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "当前C1/C2/C3主态3/4/3；660—683共享背景不另产生浮动档。",
+        "basis": "现行三轴已明确按684—705本人实际最高权力期结算并排除682饥荒，背景时间不等于消费时间。本命题没有剩余的数值替代；若主张重分共享期，必须先联合重裁两人窗口。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "只关闭把背景年份等同计分窗口的命题；不改变既定主态、低谷及端点，也不宣布所有武周治理史料争议消失。",
+        "baseline_by_ruler": {
+          "RULER-TANG-WUZETIAN": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L3"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 4,
+                "end_band": 3,
+                "loss_grade": "L2"
+              },
+              "C3": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L3"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 4,
+              "D3_level": 2
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "NURHACI-GOVERNANCE-WINDOW",
+      "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "1583年以来的建基期是否被治理主态充分覆盖？",
+      "basis": "当前实际掌权背景为1583—1626年，民生主态依据集中于1616—1626年；早期治理对象、政权形成和后期新占地的可比范围需要明确。第一项创业成本已覆盖较早时期，不能据此推定民生也已覆盖。",
+      "limitations": "尚未闭合早期治理对象与主态代表性，不以称汗年份自动截断，也不以缺乏材料自动调档。",
+      "public_basis": "当前实际掌权背景为1583—1626年，民生主态依据集中于1616—1626年；早期治理对象、政权形成和后期新占地的可比范围需要明确。第一项创业成本已覆盖较早时期，不能据此推定民生也已覆盖。",
+      "public_limitations": "尚未闭合早期治理对象与主态代表性，不以称汗年份自动截断，也不以缺乏材料自动调档。",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "changes": [],
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "C1现3、复核2—3；C2现3、复核2—3；C3现2、复核2—3，均一档且联合。",
+        "basis": "1616—1626的可运行基本盘与新占区强制已证；扩入1583以来早期阶段只能检验困顿/基本维持及脆弱/可运行的代表性。现证没有全任家庭普遍温饱或财政社会健康高态，不列4以上；端点和皇太极接手不得随主态自动搬动。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "尚未闭合早期治理对象与主态代表性，不以称汗年份自动截断，也不以缺乏材料自动调档。",
+        "baseline_by_ruler": {
+          "RULER-PUBLIC-6339E33979E7CCF5": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L2"
+              },
+              "C2": {
+                "s0_band": 2,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L2"
+              },
+              "C3": {
+                "s0_band": 2,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L2"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 2,
+                "C3": 2
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 1.0,
+                "C3": 1.0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 4,
+              "D3_level": 3
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 12.5
+            }
+          },
+          "RULER-PUBLIC-6E925E92C6F5ECA5": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 2,
+                "loss_grade": "L1"
+              },
+              "C3": {
+                "s0_band": 2,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 2
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 2,
+                "C3": 2
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 4,
+              "D3_level": 4
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 0.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "FENGTAIHOU-C2-MAIN-PERIOD",
+      "ruler_id": "RULER-SHADOW-冯太后",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "488年以后丰赡总评能否落实为490年冯太后交班与拓跋宏接手的五档锚？",
+      "basis": "《魏书》卷110把公私丰赡系于太和十二年措施实行以后，不能反铺465—467及476—490两个掌权阶段。三长制前户籍隐漏、贫富同科和豪强倍征说明征解配置与民间承载长期不均；太和八年广域常调及班禄、十一年府藏盈积与实际赈给又证明财政机器和储备并未失灵。两柱可运行而未能证明主要阶段均健康，主态取三档，排除四至六档；不因家庭饥困把经济财政直接判为崩解。太和十年课调省费和十二年后公私丰赡只证后段改善。 主态与L已经联合重裁，现存未决转为丰赡结果的具体兑现时点；489年十五州镇大饥不能自动等同经济财政失灵，但使490年两柱同时高位仍须独立核实。",
+      "limitations": "当前保留交班与后继接手的既有五档及恢复结算，尚未以新证确认或改判；不能把主态三档机械搬到端点。该缺口仍影响两人的C4，不再放宽已重裁的C2主态。",
+      "public_basis": "《魏书》卷110把公私丰赡系于太和十二年措施实行以后，不能反铺465—467及476—490两个掌权阶段。三长制前户籍隐漏、贫富同科和豪强倍征说明征解配置与民间承载长期不均；太和八年广域常调及班禄、十一年府藏盈积与实际赈给又证明财政机器和储备并未失灵。两柱可运行而未能证明主要阶段均健康，主态取三档，排除四至六档；不因家庭饥困把经济财政直接判为崩解。太和十年课调省费和十二年后公私丰赡只证后段改善。 主态与L已经联合重裁，现存未决转为丰赡结果的具体兑现时点；489年十五州镇大饥不能自动等同经济财政失灵，但使490年两柱同时高位仍须独立核实。",
+      "public_limitations": "当前保留交班与后继接手的既有五档及恢复结算，尚未以新证确认或改判；不能把主态三档机械搬到端点。该缺口仍影响两人的C4，不再放宽已重裁的C2主态。",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json",
+        "https://zh.wikisource.org/zh-hant/魏書/卷110",
+        "https://zh.wikisource.org/zh-hans/魏書/卷110",
+        "https://zh.wikisource.org/zh-hans/魏書/卷7上",
+        "https://zh.wikisource.org/zh-hans/魏書/卷7下"
+      ],
+      "changes": [],
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "C2主态3、L2固定；490年交班5复核4—5（一档），拓跋宏接手同步。",
+        "basis": "488后丰赡支持高端，489广域饥荒使兑现时间需核，但不能由家庭饥荒推财政崩解。已有财库赈给与晚期改善阻止降到1—3；没有双柱极盛证据支持6。只算两人C4联动，不重开已裁主态。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "当前保留交班与后继接手的既有五档及恢复结算，尚未以新证确认或改判；不能把主态三档机械搬到端点。该缺口仍影响两人的C4，不再放宽已重裁的C2主态。",
+        "baseline_by_ruler": {
+          "RULER-SHADOW-冯太后": {
+            "governance": {
+              "C1": {
+                "s0_band": 4,
+                "main_band": 3,
+                "end_band": 4,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 4,
+                "main_band": 3,
+                "end_band": 5,
+                "loss_grade": "L2"
+              },
+              "C3": {
+                "s0_band": 3,
+                "main_band": 4,
+                "end_band": 4,
+                "loss_grade": "L1"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 4,
+                "C2": 4,
+                "C3": 3
+              },
+              "terminal": {
+                "C1": 4,
+                "C2": 5,
+                "C3": 4
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0.5,
+                "C3": 0.5
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 4,
+              "D3_level": 5
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 12.5
+            }
+          },
+          "RULER-SHADOW-拓跋宏": {
+            "governance": {
+              "C1": {
+                "s0_band": 4,
+                "main_band": 4,
+                "end_band": 4,
+                "loss_grade": "L1"
+              },
+              "C2": {
+                "s0_band": 5,
+                "main_band": 5,
+                "end_band": 5,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 4,
+                "main_band": 4,
+                "end_band": 4,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 4,
+                "C2": 5,
+                "C3": 4
+              },
+              "terminal": {
+                "C1": 4,
+                "C2": 5,
+                "C3": 4
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 4,
+              "D3_level": 5
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "LIYUAN-C2-RETROSPECTIVE-ENDPOINT",
+      "ruler_id": "RULER-TANG-LIYUAN",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "能否用628年租入追诊把626年交班直接定为二档？",
+      "basis": "武德四年开元通宝已获远近流通便利，武德七年常规租调、役制和户籍机器运行，证明民间交易与公共财政至少基本运行；此前隋末脆弱作为S0，主要阶段及626交班均取C2-3。戴胄所述每年租入只够当年，明确作于贞观二年四月，晚于李渊退位近两年，其间已历贞观元年关中饥、二年蝗，不能反向当作626年库藏年度账；本人窗口又无独立已证持续失衡阶段，不能凭后继追诊把交班单独压回二档。四档仍需两柱健康及可核静态储备，现证不足。 李世民接手同步三档，628年低储备另在其本人L2审查，李渊原L1因越窗撤销。",
+      "limitations": "只关闭用继任两年后的财政账直接压低626交班这一命题；后续若有武德九年直接财政收支或储备证据，须联合重开两人端点。",
+      "public_basis": "武德四年开元通宝已获远近流通便利，武德七年常规租调、役制和户籍机器运行，证明民间交易与公共财政至少基本运行；此前隋末脆弱作为S0，主要阶段及626交班均取C2-3。戴胄所述每年租入只够当年，明确作于贞观二年四月，晚于李渊退位近两年，其间已历贞观元年关中饥、二年蝗，不能反向当作626年库藏年度账；本人窗口又无独立已证持续失衡阶段，不能凭后继追诊把交班单独压回二档。四档仍需两柱健康及可核静态储备，现证不足。 李世民接手同步三档，628年低储备另在其本人L2审查，李渊原L1因越窗撤销。",
+      "public_limitations": "只关闭用继任两年后的财政账直接压低626交班这一命题；后续若有武德九年直接财政收支或储备证据，须联合重开两人端点。",
+      "source_refs": [
+        "config/second-item/governance-state-recovery-adjudications.json",
+        "https://zh.wikisource.org/zh-hant/冊府元龜/卷0502",
+        "https://zh.wikisource.org/wiki/舊唐書/卷48",
+        "https://zh.wikisource.org/zh-hant/冊府元龜_(四庫全書本)/卷0502",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷192"
+      ],
+      "changes": [],
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "李渊C2主态3、交班3、L0；李世民接手3，628年储备弱面归其任内L2；本命题无有源异档。",
+        "basis": "武德四年开元通宝已获远近流通便利，武德七年常规租调、役制和户籍机器运行，证明民间交易与公共财政至少基本运行；此前隋末脆弱作为S0，主要阶段及626交班均取C2-3。戴胄所述每年租入只够当年，明确作于贞观二年四月，晚于李渊退位近两年，其间已历贞观元年关中饥、二年蝗，不能反向当作626年库藏年度账；本人窗口又无独立已证持续失衡阶段，不能凭后继追诊把交班单独压回二档。四档仍需两柱健康及可核静态储备，现证不足。 李世民接手同步三档，628年低储备另在其本人L2审查，李渊原L1因越窗撤销。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "只关闭用继任两年后的财政账直接压低626交班这一命题；后续若有武德九年直接财政收支或储备证据，须联合重开两人端点。",
+        "baseline_by_ruler": {
+          "RULER-TANG-LIYUAN": {
+            "governance": {
+              "C1": {
+                "s0_band": 1,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 2,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 1,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L3"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 1,
+                "C2": 2,
+                "C3": 1
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "attribution": {
+                "C1": 1.0,
+                "C2": 1.0,
+                "C3": 1.0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 2,
+              "D3_level": 2
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "SIMA-HOUSEHOLD-ANCHOR-RESULT-GAP",
+      "ruler_id": "RULER-WEI-SIMAZHAO",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "司马师、司马昭连续推断及265年家庭交班三档有何独立结果支持？",
+      "basis": "现有二档为承接前任交班的受约束判断，不是已经直接观察到本人全境多数家庭长期困顿。《三国志》卷4所记252年雁门、新兴惧远役而反只证明征发预期压力，东兴军败和淮南平乱不能代替实际家庭衣食结果；255年赦免受胁吏民只证处置边界。缺本人窗口的独立广域家庭结果，保留当前档待联合审查，不因资料薄弱自动调档，也不继续把这条推断当作后任独立正证。 当前主态二档及交班三档须区分证据性质。《晋书》卷2息役六年是本人军事计划中的陈说，不能独证家庭温饱；《三国志》卷4记263年益州减租一半五年、264年给廪二年并复除二十岁仅面向应募内迁蜀人，并非所有蜀民或魏全境。任末政策不能证明主要阶段状态，也未独立闭合265年广域家庭基本维持。保留既有主态与端点待联合审查，不把停止连续推定当作自动降档。",
+      "limitations": "具体缺口为251—265年可比治理范围的家庭衣食、留存资产、净役负结果，以及265年交班兑现；涉及司马师、司马昭的主态与交班、司马炎接手和恢复分，须联合裁决。尚无依赖闭合的替代档位，不能报固定分差或自动改档。",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/三國志/卷04",
+        "https://zh.wikisource.org/wiki/晉書/卷002",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷076",
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "changes": [],
+      "public_basis": "现有二档为承接前任交班的受约束判断，不是已经直接观察到本人全境多数家庭长期困顿。《三国志》卷4所记252年雁门、新兴惧远役而反只证明征发预期压力，东兴军败和淮南平乱不能代替实际家庭衣食结果；255年赦免受胁吏民只证处置边界。缺本人窗口的独立广域家庭结果，保留当前档待联合审查，不因资料薄弱自动调档，也不继续把这条推断当作后任独立正证。 当前主态二档及交班三档须区分证据性质。《晋书》卷2息役六年是本人军事计划中的陈说，不能独证家庭温饱；《三国志》卷4记263年益州减租一半五年、264年给廪二年并复除二十岁仅面向应募内迁蜀人，并非所有蜀民或魏全境。任末政策不能证明主要阶段状态，也未独立闭合265年广域家庭基本维持。保留既有主态与端点待联合审查，不把停止连续推定当作自动降档。",
+      "public_limitations": "具体缺口为251—265年可比治理范围的家庭衣食、留存资产、净役负结果，以及265年交班兑现；涉及司马师、司马昭的主态与交班、司马炎接手和恢复分，须联合裁决。尚无依赖闭合的替代档位，不能报固定分差或自动改档。",
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "司马师、司马昭C1主态现2、复核2—3；司马昭265交班现3、复核2—3，均一档且联合。",
+        "basis": "继承的家庭困顿锚与本人可运行社会经济背景形成2/3争议；没有广域家庭崩解支持1，也没有全任普遍温饱支持4以上。减租免役仅局部不能自动取3，三人交接链和司马炎恢复须同审。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "具体缺口为251—265年可比治理范围的家庭衣食、留存资产、净役负结果，以及265年交班兑现；涉及司马师、司马昭的主态与交班、司马炎接手和恢复分，须联合裁决。尚无依赖闭合的替代档位，不能报固定分差或自动改档。",
+        "baseline_by_ruler": {
+          "RULER-SHADOW-司马炎": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 4,
+                "end_band": 4,
+                "loss_grade": "L3"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 4,
+                "end_band": 4,
+                "loss_grade": "L2"
+              },
+              "C3": {
+                "s0_band": 3,
+                "main_band": 4,
+                "end_band": 4,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "terminal": {
+                "C1": 4,
+                "C2": 4,
+                "C3": 4
+              },
+              "attribution": {
+                "C1": 1.0,
+                "C2": 1.0,
+                "C3": 1.0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 2,
+              "D3_level": 2
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 12.5
+            }
+          },
+          "RULER-WEI-SIMASHI": {
+            "governance": {
+              "C1": {
+                "s0_band": 2,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L2"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 2,
+                "C2": 3,
+                "C3": 3
+              },
+              "terminal": {
+                "C1": 2,
+                "C2": 3,
+                "C3": 3
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 4,
+              "D3_level": 3
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          },
+          "RULER-WEI-SIMAZHAO": {
+            "governance": {
+              "C1": {
+                "s0_band": 2,
+                "main_band": 2,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L2"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 2,
+                "C2": 3,
+                "C3": 3
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "attribution": {
+                "C1": 1.0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 4,
+              "D3_level": 5
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "LUGUANG-POSTEXIT-FAMINE-AND-VICTIM-SCOPE",
+      "ruler_id": "RULER-SHADOW-吕光",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "能否将402年吕隆饥荒及八名孙辈受害扩大为吕光全任崩溃和广域居民屠杀？",
+      "basis": "不能。已将387年凉州米斗五百与402年姑臧米斗五千分开，前者纳入本人家庭及生产市场低谷，后者排除；粮丰城固发生在早期饥荒之前。郭黁所杀为八名孙辈，按实际范围重裁人身低谷，不用残酷程度代替广域门。",
+      "limitations": "吕光主态、低谷、399交班与恢复恶化已同步；不主张灾年精确人口损失比例，不把晚期政治陈说当全境家庭普查。",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/資治通鑑/卷107",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷112",
+        "https://zh.wikisource.org/wiki/晉書/卷122"
+      ],
+      "changes": [],
+      "public_basis": "不能。已将387年凉州米斗五百与402年姑臧米斗五千分开，前者纳入本人家庭及生产市场低谷，后者排除；粮丰城固发生在早期饥荒之前。郭黁所杀为八名孙辈，按实际范围重裁人身低谷，不用残酷程度代替广域门。",
+      "public_limitations": "吕光主态、低谷、399交班与恢复恶化已同步；不主张灾年精确人口损失比例，不把晚期政治陈说当全境家庭普查。"
+    },
+    {
+      "case_id": "HELIAN-HOUSEHOLD-ECONOMY-INDEPENDENT-RESULT",
+      "ruler_id": "RULER-SHADOW-赫连勃勃",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "统万役工损害能否独立支持赫连勃勃全任家庭与经济财政一档？",
+      "basis": "《晋书》卷130记征发岭北夷夏十万人建统万、严酷验工并杀工匠数千，另有多次迁户；这些实际劳力抽取和死亡不能删除。但人无生赖紧接任意刑杀，不能仅凭这句把全部家庭衣食与经济财政都判成崩解。现有一档暂保，待核407—425年家庭再生产受损在主要阶段的覆盖，以及C3已消费的人身损害之外的独立生计结果；不因工程成城自动断言家庭无损。 统万工程征发十万人和杀工匠数千证明真实生产劳力损耗，不能把工程名目当作成本；但现有材料还没有独立闭合全任市场、财政调度及公共汲取系统接近失序。当前一档保留为待联合复核值，人身暴力已由C3消费，不能以同一杀戮事实单独证明两柱崩解，也不能因史料缺少财政数字自动升降。",
+      "limitations": "具体缺口是407—425年家庭衣食及劳力再生产的阶段覆盖、市场和公共财政实际失灵结果，以及这些后果与已结算人身伤害的分离。三轴主态、低谷和交班恶化须联合审查，不能以工程暴虐或国家规模小直接补足全任崩解门，也不能任意设相邻档情景。",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/晉書/卷130",
+        "config/second-item/governance-state-recovery-adjudications.json"
+      ],
+      "changes": [],
+      "public_basis": "《晋书》卷130记征发岭北夷夏十万人建统万、严酷验工并杀工匠数千，另有多次迁户；这些实际劳力抽取和死亡不能删除。但人无生赖紧接任意刑杀，不能仅凭这句把全部家庭衣食与经济财政都判成崩解。现有一档暂保，待核407—425年家庭再生产受损在主要阶段的覆盖，以及C3已消费的人身损害之外的独立生计结果；不因工程成城自动断言家庭无损。 统万工程征发十万人和杀工匠数千证明真实生产劳力损耗，不能把工程名目当作成本；但现有材料还没有独立闭合全任市场、财政调度及公共汲取系统接近失序。当前一档保留为待联合复核值，人身暴力已由C3消费，不能以同一杀戮事实单独证明两柱崩解，也不能因史料缺少财政数字自动升降。",
+      "public_limitations": "具体缺口是407—425年家庭衣食及劳力再生产的阶段覆盖、市场和公共财政实际失灵结果，以及这些后果与已结算人身伤害的分离。三轴主态、低谷和交班恶化须联合审查，不能以工程暴虐或国家规模小直接补足全任崩解门，也不能任意设相邻档情景。",
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "C1、C2现1，各复核1—3（两档）；C3现1不随之上调。",
+        "basis": "征发十万人、实际劳力损耗及暴力支持低端；家庭与财政全任崩解的独立结果不足，困顿2和基本运行3值得核。尚无普遍温饱或两柱健康支持4以上。两轴与低谷、交班、恢复、DA共用役工事实，须联合重裁；两项各两档绝不等于总分只差两档。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "具体缺口是407—425年家庭衣食及劳力再生产的阶段覆盖、市场和公共财政实际失灵结果，以及这些后果与已结算人身伤害的分离。三轴主态、低谷和交班恶化须联合审查，不能以工程暴虐或国家规模小直接补足全任崩解门，也不能任意设相邻档情景。",
+        "baseline_by_ruler": {
+          "RULER-SHADOW-赫连勃勃": {
+            "governance": {
+              "C1": {
+                "s0_band": 1,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 2,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 1,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 1,
+                "C2": 2,
+                "C3": 1
+              },
+              "terminal": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 2,
+              "D3_level": 5
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ML-BOUNDED-RULER-YUAN-TOGHON-TEMUR",
+      "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "扩廓内争同链本方军损是否仍不足追加净毁损？",
+      "basis": "《元史》141记1367年皇帝削扩廓兵权、命诸军东向讨之，1368年再下诏削爵令共诛，具MATERIAL决策责任。关保、貊高与诸军跨年实际交战，卷005卡载关陕秦陇十余万元军仍与扩廓相攻；关保、貊高所部遭夜袭大败、两将被擒，本方重要兵团及持续动员已使该内争链自身达到C5下界，终局负安全结果达EN3。皇太子、将领分兵与扩廓抗命另负责任，元军未援大都及亡国受明军外压，不算全部由皇帝造成；败讯后罢抚军院、恢复扩廓也是收束反证。故取一条主方向损失的ML1，不把一次内争拆成反复再授权的ML2；与普通C5-MID扣分取高，总分不变。",
+      "limitations": "军额不是死亡数，不推C6；皇太子与诸将分责，明军迫都不搬入本链。ML2所需多个明确本人失败后再动员阶段未证，未来新链仍可重开。",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/元史/卷141",
+        "docs/史料通读产物/明/明通鉴/volume-005.battle-adjudications.json#MTJ-YUAN-KOKO-INTERNAL-1368",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR"
+      ],
+      "changes": [],
+      "public_basis": "《元史》141记1367年皇帝削扩廓兵权、命诸军东向讨之，1368年再下诏削爵令共诛，具MATERIAL决策责任。关保、貊高与诸军跨年实际交战，卷005卡载关陕秦陇十余万元军仍与扩廓相攻；关保、貊高所部遭夜袭大败、两将被擒，本方重要兵团及持续动员已使该内争链自身达到C5下界，终局负安全结果达EN3。皇太子、将领分兵与扩廓抗命另负责任，元军未援大都及亡国受明军外压，不算全部由皇帝造成；败讯后罢抚军院、恢复扩廓也是收束反证。故取一条主方向损失的ML1，不把一次内争拆成反复再授权的ML2；与普通C5-MID扣分取高，总分不变。",
+      "public_limitations": "军额不是死亡数，不推C6；皇太子与诸将分责，明军迫都不搬入本链。ML2所需多个明确本人失败后再动员阶段未证，未来新链仍可重开。",
+      "grade_review": {
+        "kind": "MILITARY_NET_LOSS",
+        "baseline_grade": "ML1",
+        "baseline_cost_debit": 20.4,
+        "candidate_grades": [
+          "ML1"
+        ],
+        "basis": "《元史》141记1367年皇帝削扩廓兵权、命诸军东向讨之，1368年再下诏削爵令共诛，具MATERIAL决策责任。关保、貊高与诸军跨年实际交战，卷005卡载关陕秦陇十余万元军仍与扩廓相攻；关保、貊高所部遭夜袭大败、两将被擒，本方重要兵团及持续动员已使该内争链自身达到C5下界，终局负安全结果达EN3。皇太子、将领分兵与扩廓抗命另负责任，元军未援大都及亡国受明军外压，不算全部由皇帝造成；败讯后罢抚军院、恢复扩廓也是收束反证。故取一条主方向损失的ML1，不把一次内争拆成反复再授权的ML2；与普通C5-MID扣分取高，总分不变。",
+        "excluded_basis": "旧ML0漏本链C5兵团与本人MATERIAL命令；单链损害及失败后收束阻止ML2，C7和罕见主动自毁门均未证，排除ML3/4。",
+        "dependency_basis": "当前C5-MID普通成本20.4分略高于ML1的20分，二者取高不叠扣，总分不变。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "baseline_by_ruler": {
+          "RULER-YUAN-TOGHON-TEMUR": {
+            "governance": {
+              "C1": {
+                "s0_band": 1,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 1,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 3,
+                "main_band": 2,
+                "end_band": 1,
+                "loss_grade": "L3"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 3
+              },
+              "terminal": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.5,
+                "C2": 0.5,
+                "C3": 0.5
+              }
+            },
+            "handoff": {
+              "D1_level": 2,
+              "D3_level": 5
+            },
+            "military": {
+              "military_net_loss_grade": "ML1",
+              "cost_debit_points": 20.4
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ML-BOUNDED-RULER-JIN-AIZONG",
+      "ruler_id": "RULER-JIN-AIZONG",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "三峰山核心军力毁损是否仍可不计重大军事净毁损？",
+      "basis": "国家生存负链已达EN3，本人窗口的两省主军在三峰山遭核心级毁损，军用成本按同链C6-MID成立。1231年皇帝否决只待敌劳的方案并诏襄邓迎战，对该阶段承担MATERIAL决策责任；1232年主军大溃且未恢复原功能，取ML2。凤翔催援而合达蒲阿不行、蒙古攻势与继承危局保留为分责，不把全部十年败亡归帝或因EN3自动判ML3；普通成本与ML取高不叠扣。",
+      "limitations": "首灾后独立重大补建的来源、规模与新损耗及两项关联功能持续失效的完整分段；亡国和民生惨况不补该门；未来补证须重审成本和净毁损，不按当前固定成本猜测更高分差。",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/金史/卷17",
+        "https://zh.wikisource.org/wiki/金史/卷18",
+        "docs/史料通读产物/金/金史/volume-017.battle-adjudications(5).json#MONGOL-JIN-SANFENGSHAN-1232",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-JIN-AIZONG"
+      ],
+      "changes": [],
+      "public_basis": "国家生存负链已达EN3，本人窗口的两省主军在三峰山遭核心级毁损，军用成本按同链C6-MID成立。1231年皇帝否决只待敌劳的方案并诏襄邓迎战，对该阶段承担MATERIAL决策责任；1232年主军大溃且未恢复原功能，取ML2。凤翔催援而合达蒲阿不行、蒙古攻势与继承危局保留为分责，不把全部十年败亡归帝或因EN3自动判ML3；普通成本与ML取高不叠扣。",
+      "public_limitations": "首灾后独立重大补建的来源、规模与新损耗及两项关联功能持续失效的完整分段；亡国和民生惨况不补该门；未来补证须重审成本和净毁损，不按当前固定成本猜测更高分差。",
+      "grade_review": {
+        "kind": "MILITARY_NET_LOSS",
+        "baseline_grade": "ML2",
+        "baseline_cost_debit": 36.4,
+        "candidate_grades": [
+          "ML2"
+        ],
+        "basis": "国家生存负链已达EN3，本人窗口的两省主军在三峰山遭核心级毁损，军用成本按同链C6-MID成立。1231年皇帝否决只待敌劳的方案并诏襄邓迎战，对该阶段承担MATERIAL决策责任；1232年主军大溃且未恢复原功能，取ML2。凤翔催援而合达蒲阿不行、蒙古攻势与继承危局保留为分责，不把全部十年败亡归帝或因EN3自动判ML3；普通成本与ML取高不叠扣。",
+        "excluded_basis": "旧ML0/ML1不覆盖已证EN3、同链核心C6与本人MATERIAL决策；ML3要求C7，灾后重大补建再损未闭合；ML4的可收束反复全国主动自毁亦未证。",
+        "dependency_basis": "C6成本与ML2取高，固定其他项目时实际军事扣分为40分；若未来成本升C7须重裁，不能把本单点当全历史上限。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "baseline_by_ruler": {
+          "RULER-JIN-AIZONG": {
+            "governance": {
+              "C1": {
+                "s0_band": 1,
+                "main_band": 2,
+                "end_band": 1,
+                "loss_grade": "L3"
+              },
+              "C2": {
+                "s0_band": 2,
+                "main_band": 2,
+                "end_band": 1,
+                "loss_grade": "L3"
+              },
+              "C3": {
+                "s0_band": 1,
+                "main_band": 2,
+                "end_band": 1,
+                "loss_grade": "L3"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 1,
+                "C2": 2,
+                "C3": 1
+              },
+              "terminal": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.25,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 2,
+              "D3_level": 0
+            },
+            "military": {
+              "military_net_loss_grade": "ML2",
+              "cost_debit_points": 36.4
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ML-BOUNDED-RULER-MING-ZHU-HOUZHAO",
+      "ruler_id": "RULER-MING-ZHU-HOUZHAO",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "朱厚照军事净毁损的有限复核档位",
+      "basis": "1515—1516宣府潘浩和张永等有败绩、二十堡失守，但“杀掠人畜数万”混合军民与牲畜，不能当本方兵员死亡或重要兵团毁损；本人在各失守节点的可区分错误授权未载。1517应州本人亲援、敌骑退去构成同方向实际反证。全局C5成本还含霸州会剿、宁王事后亲征和其他军费，不得借给本链。当前证据不追加净毁损。",
+      "limitations": "仅审1515—1517北边；排除用敌方十万骑、混合杀掠数或霸州宁王成本代替本链本方C5毁损，也不抹掉应州亲援与退敌。新证证明本人命令及重要本方损失时重开。",
+      "source_refs": [
+        "docs/史料通读产物/明/明通鉴/volume-050.battle-adjudications.json#MTJ-MING-TATAR-NORTH-1515-1516",
+        "docs/史料通读产物/明/明通鉴/volume-051.battle-adjudications.json#MTJ-MING-TATAR-NORTH-1515-1516",
+        "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-TATAR-NORTH-1515-1516",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-MING-ZHU-HOUZHAO"
+      ],
+      "changes": [],
+      "public_basis": "1515—1516宣府潘浩和张永等有败绩、二十堡失守，但“杀掠人畜数万”混合军民与牲畜，不能当本方兵员死亡或重要兵团毁损；本人在各失守节点的可区分错误授权未载。1517应州本人亲援、敌骑退去构成同方向实际反证。全局C5成本还含霸州会剿、宁王事后亲征和其他军费，不得借给本链。当前证据不追加净毁损。",
+      "public_limitations": "仅审1515—1517北边；排除用敌方十万骑、混合杀掠数或霸州宁王成本代替本链本方C5毁损，也不抹掉应州亲援与退敌。新证证明本人命令及重要本方损失时重开。",
+      "grade_review": {
+        "kind": "MILITARY_NET_LOSS",
+        "baseline_grade": "ML0",
+        "baseline_cost_debit": 24.6,
+        "candidate_grades": [
+          "ML0"
+        ],
+        "basis": "1515—1516宣府潘浩和张永等有败绩、二十堡失守，但“杀掠人畜数万”混合军民与牲畜，不能当本方兵员死亡或重要兵团毁损；本人在各失守节点的可区分错误授权未载。1517应州本人亲援、敌骑退去构成同方向实际反证。全局C5成本还含霸州会剿、宁王事后亲征和其他军费，不得借给本链。当前证据不追加净毁损。",
+        "excluded_basis": "仅审1515—1517北边；排除用敌方十万骑、混合杀掠数或霸州宁王成本代替本链本方C5毁损，也不抹掉应州亲援与退敌。新证证明本人命令及重要本方损失时重开。 当前普通成本未到C7，不列ML3/4。",
+        "dependency_basis": "已逐链核结果、军用成本、本人责任和去重；普通成本与净毁损取高，不叠扣。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "baseline_by_ruler": {
+          "RULER-MING-ZHU-HOUZHAO": {
+            "governance": {
+              "C1": {
+                "s0_band": 4,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L2"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 4,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 4,
+                "C2": 3,
+                "C3": 4
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 1.0,
+                "C2": 1.0,
+                "C3": 1.0
+              }
+            },
+            "handoff": {
+              "D1_level": 3,
+              "D3_level": 4
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ML-BOUNDED-RULER-MING-ZHU-HOUCONG",
+      "ruler_id": "RULER-MING-ZHU-HOUCONG",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "朱厚熜军事净毁损的有限复核档位",
+      "basis": "1522、1546、1550、1557—1558及1563—1564北边多次失守与长期军事承载已证，EN2及全局C5不能撤销。但‘杀伤以万计’和七十余堡男女三千属军民混合或平民口径，不充本方兵团死亡。1550京畿勤王五六万军缺粮、仇鸾昌平败绩千余，为本方实际军事代价；战后抽六万八千边军入卫、边防转弱是另一个可审政策后果。贡市曾开又废且入寇与互市并存，不能直接用‘拒贡导致四十年战争’证明本人连续自毁。目前未把这些阶段逐一连成本人在已知重大失败后仍再次授权同类失败动员；故ML2重复失败门从当前候选中排除，只保留一条主要方向的本人任将/续投责任能否独立闭合的ML0—ML1复核。固定C5-HIGH普通成本24.6分时，该候选不改总分。",
+      "limitations": "ML1仍须把具体本人决定与同链C5本方军用成本、EN2负结果对应；战败将领行为、平民掳掠及敌骑人数不得填军损。若发现本人失败反馈后的新命令及新重大军损，才重开ML2；本次一档候选不是已支持替代。",
+      "source_refs": [
+        "docs/史料通读产物/明/明通鉴/volume-054.battle-adjudications.json#MTJ-MING-HETAO-RAIDS-1522",
+        "docs/史料通读产物/明/明通鉴/volume-062.battle-adjudications.json#MTJ-MING-ALTAN-XUANFU-QINGYANG-1546",
+        "docs/史料通读产物/明/明通鉴/volume-063.battle-adjudications.json#MTJ-MING-ALTAN-JINGSHI-1550",
+        "docs/史料通读产物/明/明通鉴/volume-065.battle-adjudications.json#MTJ-MING-XINAI-DATONG-YOUWEI-1557-1558",
+        "docs/史料通读产物/明/明通鉴/volume-067.battle-adjudications.json#MTJ-MING-NORTH-SHAANXI-SHANXI-1564",
+        "docs/史料通读产物/明/明通鉴/volume-067.battle-adjudications.json#MTJ-MING-XINAI-BATUER-JINGJI-1563",
+        "docs/史料通读产物/明/明通鉴/volume-066.battle-adjudications.json#MTJ-MING-FUJIAN-BANDIT-CRISIS-1560",
+        "docs/史料通读产物/明/明通鉴/volume-066.battle-adjudications.json#MTJ-MING-ZHANGLIAN-1561-1562",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-MING-ZHU-HOUCONG",
+        "docs/史料通读产物/明/明通鉴/volume-064.source-summary.md#L50"
+      ],
+      "changes": [],
+      "public_basis": "1522、1546、1550、1557—1558及1563—1564北边多次失守与长期军事承载已证，EN2及全局C5不能撤销。但‘杀伤以万计’和七十余堡男女三千属军民混合或平民口径，不充本方兵团死亡。1550京畿勤王五六万军缺粮、仇鸾昌平败绩千余，为本方实际军事代价；战后抽六万八千边军入卫、边防转弱是另一个可审政策后果。贡市曾开又废且入寇与互市并存，不能直接用‘拒贡导致四十年战争’证明本人连续自毁。目前未把这些阶段逐一连成本人在已知重大失败后仍再次授权同类失败动员；故ML2重复失败门从当前候选中排除，只保留一条主要方向的本人任将/续投责任能否独立闭合的ML0—ML1复核。固定C5-HIGH普通成本24.6分时，该候选不改总分。",
+      "public_limitations": "ML1仍须把具体本人决定与同链C5本方军用成本、EN2负结果对应；战败将领行为、平民掳掠及敌骑人数不得填军损。若发现本人失败反馈后的新命令及新重大军损，才重开ML2；本次一档候选不是已支持替代。",
+      "grade_review": {
+        "kind": "MILITARY_NET_LOSS",
+        "baseline_grade": "ML0",
+        "baseline_cost_debit": 24.6,
+        "candidate_grades": [
+          "ML0",
+          "ML1"
+        ],
+        "basis": "1522、1546、1550、1557—1558及1563—1564北边多次失守与长期军事承载已证，EN2及全局C5不能撤销。但‘杀伤以万计’和七十余堡男女三千属军民混合或平民口径，不充本方兵团死亡。1550京畿勤王五六万军缺粮、仇鸾昌平败绩千余，为本方实际军事代价；战后抽六万八千边军入卫、边防转弱是另一个可审政策后果。贡市曾开又废且入寇与互市并存，不能直接用‘拒贡导致四十年战争’证明本人连续自毁。目前未把这些阶段逐一连成本人在已知重大失败后仍再次授权同类失败动员；故ML2重复失败门从当前候选中排除，只保留一条主要方向的本人任将/续投责任能否独立闭合的ML0—ML1复核。固定C5-HIGH普通成本24.6分时，该候选不改总分。",
+        "excluded_basis": "当前未证多个重大失败后本人重复授权，ML2排除；C7及罕见主动自毁门未证，ML3/4排除。新证可重开，不把四十年任期当失败次数。",
+        "dependency_basis": "ML1仍须把具体本人决定与同链C5本方军用成本、EN2负结果对应；战败将领行为、平民掳掠及敌骑人数不得填军损。若发现本人失败反馈后的新命令及新重大军损，才重开ML2；本次一档候选不是已支持替代。 普通成本与ML取高，不叠扣。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "baseline_by_ruler": {
+          "RULER-MING-ZHU-HOUCONG": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 2,
+                "loss_grade": "L3"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 2,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L3"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "terminal": {
+                "C1": 2,
+                "C2": 2,
+                "C3": 3
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 3,
+              "D3_level": 4
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ML-BOUNDED-RULER-TANG-LIHENG",
+      "ruler_id": "RULER-TANG-LIHENG",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "李亨军事净毁损的有限复核档位",
+      "basis": "757—758河陇失去多处军镇、边道和屯田节点，战略负结果明确；卷219—220当前同链记录却未载可分出的唐方军人死亡、军资毁失或新增重大动员。李亨为平安史调边军的共同政策背景不能直接证明他对每次失守负主要军事败责。安史正面作战的C5总成本不能替河陇负链过同链门，当前证据不追加净毁损。",
+      "limitations": "仅审757—758河陇；排除借安史军费或后任763终局。现有河陇负链缺自身C5本方军事成本与本人具体重大失败责任；补得新军损和授权证据时重开。",
+      "source_refs": [
+        "docs/史料通读产物/唐以前编年/唐/卷219-通读总结.md",
+        "docs/史料通读产物/唐以前编年/唐/卷220-通读总结.md",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-TANG-LIHENG"
+      ],
+      "changes": [],
+      "public_basis": "757—758河陇失去多处军镇、边道和屯田节点，战略负结果明确；卷219—220当前同链记录却未载可分出的唐方军人死亡、军资毁失或新增重大动员。李亨为平安史调边军的共同政策背景不能直接证明他对每次失守负主要军事败责。安史正面作战的C5总成本不能替河陇负链过同链门，当前证据不追加净毁损。",
+      "public_limitations": "仅审757—758河陇；排除借安史军费或后任763终局。现有河陇负链缺自身C5本方军事成本与本人具体重大失败责任；补得新军损和授权证据时重开。",
+      "grade_review": {
+        "kind": "MILITARY_NET_LOSS",
+        "baseline_grade": "ML0",
+        "baseline_cost_debit": 24.6,
+        "candidate_grades": [
+          "ML0"
+        ],
+        "basis": "757—758河陇失去多处军镇、边道和屯田节点，战略负结果明确；卷219—220当前同链记录却未载可分出的唐方军人死亡、军资毁失或新增重大动员。李亨为平安史调边军的共同政策背景不能直接证明他对每次失守负主要军事败责。安史正面作战的C5总成本不能替河陇负链过同链门，当前证据不追加净毁损。",
+        "excluded_basis": "仅审757—758河陇；排除借安史军费或后任763终局。现有河陇负链缺自身C5本方军事成本与本人具体重大失败责任；补得新军损和授权证据时重开。 当前普通成本未到C7，不列ML3/4。",
+        "dependency_basis": "已逐链核结果、军用成本、本人责任和去重；普通成本与净毁损取高，不叠扣。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "baseline_by_ruler": {
+          "RULER-TANG-LIHENG": {
+            "governance": {
+              "C1": {
+                "s0_band": 1,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 1,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 1,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1
+              },
+              "terminal": {
+                "C1": 1,
+                "C2": 2,
+                "C3": 1
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 1.0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 4,
+              "D3_level": 2
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ML-BOUNDED-RULER-TANG-LIXUAN",
+      "ruler_id": "RULER-TANG-LIXUAN",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "李儇军事净毁损的有限复核档位",
+      "basis": "885—886沙苑败绩和第二次播迁有真实新募神策及多镇军需，不能把这一军用投入说成零；卷256同时明确夺盐池、换镇和挟帝的驱动者是田令孜，皇帝本人在本链开战或失败后再授权的FULL/MATERIAL责任未证。880安南中央处置也未载，黄巢大链军费不能补本人归责门。当前证据不追加净毁损。",
+      "limitations": "仅审885—886沙苑与播迁；排除将田令孜挟帝等同李儇主动再授权、将安南远镇失控凑成重复失败。现证责任门不闭合；若有本人有效命令原件可重开。",
+      "source_refs": [
+        "docs/史料通读产物/唐以前编年/唐/卷253-通读总结.md#WAR-LEAD-253-09",
+        "config/third-item/third-item-d-cycle-adjudications.json#legacy_unknown_manual_batches[status=CLOSED][investment_cycle_ref=SECOND-FLIGHT-ZHUMEI-885-886]",
+        "docs/史料通读产物/唐以前编年/唐/卷256-通读总结.md#WAR-LEAD-256-SECOND-FLIGHT",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-TANG-LIXUAN"
+      ],
+      "changes": [],
+      "public_basis": "885—886沙苑败绩和第二次播迁有真实新募神策及多镇军需，不能把这一军用投入说成零；卷256同时明确夺盐池、换镇和挟帝的驱动者是田令孜，皇帝本人在本链开战或失败后再授权的FULL/MATERIAL责任未证。880安南中央处置也未载，黄巢大链军费不能补本人归责门。当前证据不追加净毁损。",
+      "public_limitations": "仅审885—886沙苑与播迁；排除将田令孜挟帝等同李儇主动再授权、将安南远镇失控凑成重复失败。现证责任门不闭合；若有本人有效命令原件可重开。",
+      "grade_review": {
+        "kind": "MILITARY_NET_LOSS",
+        "baseline_grade": "ML0",
+        "baseline_cost_debit": 24.6,
+        "candidate_grades": [
+          "ML0"
+        ],
+        "basis": "885—886沙苑败绩和第二次播迁有真实新募神策及多镇军需，不能把这一军用投入说成零；卷256同时明确夺盐池、换镇和挟帝的驱动者是田令孜，皇帝本人在本链开战或失败后再授权的FULL/MATERIAL责任未证。880安南中央处置也未载，黄巢大链军费不能补本人归责门。当前证据不追加净毁损。",
+        "excluded_basis": "仅审885—886沙苑与播迁；排除将田令孜挟帝等同李儇主动再授权、将安南远镇失控凑成重复失败。现证责任门不闭合；若有本人有效命令原件可重开。 当前普通成本未到C7，不列ML3/4。",
+        "dependency_basis": "已逐链核结果、军用成本、本人责任和去重；普通成本与净毁损取高，不叠扣。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "baseline_by_ruler": {
+          "RULER-TANG-LIXUAN": {
+            "governance": {
+              "C1": {
+                "s0_band": 2,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              },
+              "C2": {
+                "s0_band": 2,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 2,
+                "main_band": 1,
+                "end_band": 1,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 2,
+                "C2": 2,
+                "C3": 2
+              },
+              "terminal": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 3,
+              "D3_level": 3
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ML-BOUNDED-RULER-TANG-LIYU",
+      "ruler_id": "RULER-TANG-LIYU",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "李豫军事净毁损的有限复核档位",
+      "basis": "逐链核对当前材料：763—765河陇剑南失地延续继承危机，未见本人把另一次同链C5军损重新授权；765—768西川雪谷大败出自郭英乂断崔旰军饷并冒雪出击，非本人失败后重复动员；775—777魏博确由代宗诏九道进讨，但卷225所载官军曾取德、磁，主力停进主要由李正己、李宝臣、李忠臣撤军和田承嗣离间，该链本方军用投入与损失尚未证成独立C5；778阳曲唐军死万余属本方重大损失，但鲍防拒李自良坚壁建议而命焦伯瑜迎战，随后羊武谷反击、回纥退去，未见本人作此战术决定或失败后再次授权。负结果与全局C5不可跨链拼合，现证不追加ML。",
+      "limitations": "当前四条链均未同时闭合本人FULL/MATERIAL决定、同链C5军损与EN2/EN3净负尾；阳曲军人死亡不能与魏博授权跨链凑成二级。若取得本人独立命令或同链毁损新证，可重开，不由缺证推定全任零损失。",
+      "source_refs": [
+        "docs/史料通读产物/唐以前编年/唐/卷223-通读总结.md#WAR-LEAD-TANG-HEXILONGYOU-763",
+        "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763",
+        "docs/史料通读产物/唐以前编年/唐/卷223-通读总结.md#WAR-LEAD-TANG-WESTERN-FRONT-763-765",
+        "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#CAMPAIGN-TANG-WESTERN-FRONT-763-765",
+        "docs/史料通读产物/唐以前编年/唐/卷225-通读总结.md#WAR-LEAD-TANG-UIGHUR-778",
+        "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#CAMPAIGN-TANG-UIGHUR-778",
+        "docs/史料通读产物/唐以前编年/唐/卷224-通读总结.md#WAR-LEAD-TANG-FANZHEN-768-773",
+        "docs/史料通读产物/唐以前编年/唐/卷222-通读总结.md#WAR-LEAD-TANG-HEBEI-JIEDUSHI",
+        "docs/史料通读产物/唐以前编年/唐/卷224-通读总结.md#WAR-LEAD-TANG-SICHUAN-765-768",
+        "docs/史料通读产物/唐以前编年/唐/卷225-通读总结.md#WAR-LEAD-TANG-WEIBO-775",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-TANG-LIYU"
+      ],
+      "changes": [],
+      "public_basis": "逐链核对当前材料：763—765河陇剑南失地延续继承危机，未见本人把另一次同链C5军损重新授权；765—768西川雪谷大败出自郭英乂断崔旰军饷并冒雪出击，非本人失败后重复动员；775—777魏博确由代宗诏九道进讨，但卷225所载官军曾取德、磁，主力停进主要由李正己、李宝臣、李忠臣撤军和田承嗣离间，该链本方军用投入与损失尚未证成独立C5；778阳曲唐军死万余属本方重大损失，但鲍防拒李自良坚壁建议而命焦伯瑜迎战，随后羊武谷反击、回纥退去，未见本人作此战术决定或失败后再次授权。负结果与全局C5不可跨链拼合，现证不追加ML。",
+      "public_limitations": "当前四条链均未同时闭合本人FULL/MATERIAL决定、同链C5军损与EN2/EN3净负尾；阳曲军人死亡不能与魏博授权跨链凑成二级。若取得本人独立命令或同链毁损新证，可重开，不由缺证推定全任零损失。",
+      "grade_review": {
+        "kind": "MILITARY_NET_LOSS",
+        "baseline_grade": "ML0",
+        "baseline_cost_debit": 24.6,
+        "candidate_grades": [
+          "ML0"
+        ],
+        "basis": "逐链核对当前材料：763—765河陇剑南失地延续继承危机，未见本人把另一次同链C5军损重新授权；765—768西川雪谷大败出自郭英乂断崔旰军饷并冒雪出击，非本人失败后重复动员；775—777魏博确由代宗诏九道进讨，但卷225所载官军曾取德、磁，主力停进主要由李正己、李宝臣、李忠臣撤军和田承嗣离间，该链本方军用投入与损失尚未证成独立C5；778阳曲唐军死万余属本方重大损失，但鲍防拒李自良坚壁建议而命焦伯瑜迎战，随后羊武谷反击、回纥退去，未见本人作此战术决定或失败后再次授权。负结果与全局C5不可跨链拼合，现证不追加ML。",
+        "excluded_basis": "当前四条链均未同时闭合本人FULL/MATERIAL决定、同链C5军损与EN2/EN3净负尾；阳曲军人死亡不能与魏博授权跨链凑成二级。若取得本人独立命令或同链毁损新证，可重开，不由缺证推定全任零损失。 当前C5未到C7，ML3/4亦不入本次有源候选。",
+        "dependency_basis": "四链分开归责；普通成本与ML取高，不将不同链的成本、责任和负尾交叉搭配。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "baseline_by_ruler": {
+          "RULER-TANG-LIYU": {
+            "governance": {
+              "C1": {
+                "s0_band": 1,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L2"
+              },
+              "C2": {
+                "s0_band": 2,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 1,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L3"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 1,
+                "C2": 2,
+                "C3": 1
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 2
+              },
+              "attribution": {
+                "C1": 1.0,
+                "C2": 1.0,
+                "C3": 1.0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 4,
+              "D3_level": 5
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ML-BOUNDED-RULER-TANG-WUZETIAN",
+      "ruler_id": "RULER-TANG-WUZETIAN",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "武则天军事净毁损的有限复核档位",
+      "basis": "687爨宝璧违诏协同自行远袭而覆没，不能充作武则天本人反复冒进；689二十万领兵不证明新军损。697年批准六州降户、谷种、织物、农器与铁交默啜，是有预警仍资敌的本人决策，但属人口及外交生产物资外付，不能整笔转作本方军事资产毁损。698年大军确实动员、追击不及，河北被屠掠者主要是居民；700年陇右监马万余匹被掠是真实本方军用资产损失，已按普通成本保留。现有记录未证明697—703默啜链自身达到C5的主要军力毁损或国家尺度长期高强度军用承载，亦未将后续马损直接连成她对一次EN2/EN3重大失败的主要个人军事责任；不能借696—697契丹覆军的C5成本或705以后鸣沙败战，当前不追加ML。",
+      "limitations": "目前只排除这些已审链在当前来源下的ML1；数十万动员为实际军用投入但有重叠，多次任元帅未行不能计已投入；万余监马须保留为军事资产损失，不能当已证核心骑兵功能失能。新证闭合本方同链C5和本人主要责任时重开。",
+      "source_refs": [
+        "docs/史料通读产物/唐以前编年/唐/卷206-通读总结.md#WAR-LEAD-TANG-TURK-698",
+        "docs/史料通读产物/唐以前编年/唐/卷207-通读总结.md#WAR-LEAD-TANG-TURK-700-703",
+        "docs/史料通读产物/唐以前编年/唐/卷206-通读总结.md#WAR-LEAD-TANG-TURK-SUBSIDY-697",
+        "docs/史料通读产物/唐以前编年/唐/卷203-通读总结.md#WAR-LEAD-TANG-GOKTURK-682-686",
+        "docs/史料通读产物/唐以前编年/唐/卷204-通读总结.md#WAR-LEAD-TANG-TURKS-687",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-TANG-WUZETIAN"
+      ],
+      "changes": [],
+      "public_basis": "687爨宝璧违诏协同自行远袭而覆没，不能充作武则天本人反复冒进；689二十万领兵不证明新军损。697年批准六州降户、谷种、织物、农器与铁交默啜，是有预警仍资敌的本人决策，但属人口及外交生产物资外付，不能整笔转作本方军事资产毁损。698年大军确实动员、追击不及，河北被屠掠者主要是居民；700年陇右监马万余匹被掠是真实本方军用资产损失，已按普通成本保留。现有记录未证明697—703默啜链自身达到C5的主要军力毁损或国家尺度长期高强度军用承载，亦未将后续马损直接连成她对一次EN2/EN3重大失败的主要个人军事责任；不能借696—697契丹覆军的C5成本或705以后鸣沙败战，当前不追加ML。",
+      "public_limitations": "目前只排除这些已审链在当前来源下的ML1；数十万动员为实际军用投入但有重叠，多次任元帅未行不能计已投入；万余监马须保留为军事资产损失，不能当已证核心骑兵功能失能。新证闭合本方同链C5和本人主要责任时重开。",
+      "grade_review": {
+        "kind": "MILITARY_NET_LOSS",
+        "baseline_grade": "ML0",
+        "baseline_cost_debit": 24.6,
+        "candidate_grades": [
+          "ML0"
+        ],
+        "basis": "687爨宝璧违诏协同自行远袭而覆没，不能充作武则天本人反复冒进；689二十万领兵不证明新军损。697年批准六州降户、谷种、织物、农器与铁交默啜，是有预警仍资敌的本人决策，但属人口及外交生产物资外付，不能整笔转作本方军事资产毁损。698年大军确实动员、追击不及，河北被屠掠者主要是居民；700年陇右监马万余匹被掠是真实本方军用资产损失，已按普通成本保留。现有记录未证明697—703默啜链自身达到C5的主要军力毁损或国家尺度长期高强度军用承载，亦未将后续马损直接连成她对一次EN2/EN3重大失败的主要个人军事责任；不能借696—697契丹覆军的C5成本或705以后鸣沙败战，当前不追加ML。",
+        "excluded_basis": "目前只排除这些已审链在当前来源下的ML1；数十万动员为实际军用投入但有重叠，多次任元帅未行不能计已投入；万余监马须保留为军事资产损失，不能当已证核心骑兵功能失能。新证闭合本方同链C5和本人主要责任时重开。 当前C5未到C7，ML3/4亦不入本次有源候选。",
+        "dependency_basis": "697资敌、698追击、700监马损失与契丹链分账，普通成本与ML取高，不叠扣。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "baseline_by_ruler": {
+          "RULER-TANG-WUZETIAN": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L3"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 4,
+                "end_band": 3,
+                "loss_grade": "L2"
+              },
+              "C3": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L3"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 3
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 4,
+              "D3_level": 2
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ML-BOUNDED-RULER-SHADOW-萧衍",
+      "ruler_id": "RULER-SHADOW-萧衍",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "萧衍军事净毁损的有限复核档位",
+      "basis": "506洛口军败的决定性夜逃出自萧宏；525萧综在皇帝已敕撤军后叛投，不能反作萧衍拒绝止损。529元颢入洛后，陈庆之请求再向梁增兵，元颢因忌其军而拒绝并反向上表称无须援军，萧衍遂诏后军止于边。元颢随后失洛，陈庆之撤退又遭嵩高水涨、数千军死散；现有原文不支持把未获增援说成萧衍主动拒援或在已知败绩后重复令军冒进。三次毁损均保留本方普通军事成本及D负结果，不能跨期拼兵数并将各将决策改署皇帝；当前不追加ML。",
+      "limitations": "三链均未闭合本人对对应重大净毁损的FULL/MATERIAL失败决定，529尤其有元颢反向奏报。现有本方军损不能按人数跨不同恢复周期合并。新见萧衍本人有效命令或不同独立负链可重开。",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/資治通鑑/卷146",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷150",
+        "docs/史料通读产物/唐以前编年/南北朝/卷145-通读总结.md#WAR-LEAD-145-06",
+        "docs/史料通读产物/唐以前编年/南北朝/卷146-通读总结.md#WAR-LEAD-146-01",
+        "docs/史料通读产物/唐以前编年/南北朝/卷146-通读总结.md#WAR-LEAD-146-04",
+        "docs/史料通读产物/唐以前编年/南北朝/卷146-通读总结.md#WAR-LEAD-146-05",
+        "docs/史料通读产物/唐以前编年/南北朝/卷146-通读总结.md#WAR-LEAD-146-06",
+        "docs/史料通读产物/唐以前编年/南北朝/卷150-通读总结.md#L102",
+        "docs/史料通读产物/唐以前编年/南北朝/卷153-通读总结.md#L44",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷153"
+      ],
+      "changes": [],
+      "public_basis": "506洛口军败的决定性夜逃出自萧宏；525萧综在皇帝已敕撤军后叛投，不能反作萧衍拒绝止损。529元颢入洛后，陈庆之请求再向梁增兵，元颢因忌其军而拒绝并反向上表称无须援军，萧衍遂诏后军止于边。元颢随后失洛，陈庆之撤退又遭嵩高水涨、数千军死散；现有原文不支持把未获增援说成萧衍主动拒援或在已知败绩后重复令军冒进。三次毁损均保留本方普通军事成本及D负结果，不能跨期拼兵数并将各将决策改署皇帝；当前不追加ML。",
+      "public_limitations": "三链均未闭合本人对对应重大净毁损的FULL/MATERIAL失败决定，529尤其有元颢反向奏报。现有本方军损不能按人数跨不同恢复周期合并。新见萧衍本人有效命令或不同独立负链可重开。",
+      "grade_review": {
+        "kind": "MILITARY_NET_LOSS",
+        "baseline_grade": "ML0",
+        "baseline_cost_debit": 24.6,
+        "candidate_grades": [
+          "ML0"
+        ],
+        "basis": "506洛口军败的决定性夜逃出自萧宏；525萧综在皇帝已敕撤军后叛投，不能反作萧衍拒绝止损。529元颢入洛后，陈庆之请求再向梁增兵，元颢因忌其军而拒绝并反向上表称无须援军，萧衍遂诏后军止于边。元颢随后失洛，陈庆之撤退又遭嵩高水涨、数千军死散；现有原文不支持把未获增援说成萧衍主动拒援或在已知败绩后重复令军冒进。三次毁损均保留本方普通军事成本及D负结果，不能跨期拼兵数并将各将决策改署皇帝；当前不追加ML。",
+        "excluded_basis": "三链均未闭合本人对对应重大净毁损的FULL/MATERIAL失败决定，529尤其有元颢反向奏报。现有本方军损不能按人数跨不同恢复周期合并。新见萧衍本人有效命令或不同独立负链可重开。 当前C5未到C7，ML3/4亦不入本次有源候选。",
+        "dependency_basis": "三次战役分别核本方损失及本人责任，普通成本与ML取高，不叠扣，也不跨独立恢复周期累计。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "baseline_by_ruler": {
+          "RULER-SHADOW-萧衍": {
+            "governance": {
+              "C1": {
+                "s0_band": 2,
+                "main_band": 3,
+                "end_band": 1,
+                "loss_grade": "L3"
+              },
+              "C2": {
+                "s0_band": 2,
+                "main_band": 4,
+                "end_band": 1,
+                "loss_grade": "L3"
+              },
+              "C3": {
+                "s0_band": 3,
+                "main_band": 4,
+                "end_band": 1,
+                "loss_grade": "L3"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 2,
+                "C2": 2,
+                "C3": 3
+              },
+              "terminal": {
+                "C1": 1,
+                "C2": 1,
+                "C3": 1
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.5,
+                "C2": 0.5,
+                "C3": 0.5
+              }
+            },
+            "handoff": {
+              "D1_level": 1,
+              "D3_level": 1
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ML-BOUNDED-RULER-SS-ZHAO-KUO",
+      "ruler_id": "RULER-SS-ZHAO-KUO",
+      "status": "REJECTED_DIAGNOSTIC",
+      "question": "赵扩军事净毁损的有限复核档位",
+      "basis": "1217—1218川陕链的EN2负结果明确：李贵逃遁、宋军溃散，大散关一度弃守，阜郊、湫池堡失守。阜郊‘死者五万人’未分军民，不能直接立本方五万军人死亡下界；该链也未独证重要宋军兵团达到C5严重毁损。现有逐链归责只到共同承载，未见赵扩对该次失守的具体错误作战命令或失败后再授权；开禧北伐属1206—1208别链，不能借其本人主动性。1218—1222枣阳与淮南仍有有效守援的独立反证。全局C5高位保留多方向长期军用承载，当前不把其与川陕单链负尾搭配追加ML。",
+      "limitations": "当前川陕链缺可拆出的本方C5毁损及本人FULL/MATERIAL失败决定，不能把混合五万人、开禧授权和后续守援跨链拼合。若补得同链军人及军资损失和本人有效命令，仍可重开；当前单点不证明历史损失上界。",
+      "source_refs": [
+        "docs/史料通读产物/南宋/续资治通鉴/volume-161.battle-adjudications.json#XZTJ-SONG-JIN-SICHUAN-1217-1218",
+        "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-JIN-SICHUAN-1217-1218",
+        "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-SS-ZHAO-KUO"
+      ],
+      "changes": [],
+      "public_basis": "1217—1218川陕链的EN2负结果明确：李贵逃遁、宋军溃散，大散关一度弃守，阜郊、湫池堡失守。阜郊‘死者五万人’未分军民，不能直接立本方五万军人死亡下界；该链也未独证重要宋军兵团达到C5严重毁损。现有逐链归责只到共同承载，未见赵扩对该次失守的具体错误作战命令或失败后再授权；开禧北伐属1206—1208别链，不能借其本人主动性。1218—1222枣阳与淮南仍有有效守援的独立反证。全局C5高位保留多方向长期军用承载，当前不把其与川陕单链负尾搭配追加ML。",
+      "public_limitations": "当前川陕链缺可拆出的本方C5毁损及本人FULL/MATERIAL失败决定，不能把混合五万人、开禧授权和后续守援跨链拼合。若补得同链军人及军资损失和本人有效命令，仍可重开；当前单点不证明历史损失上界。",
+      "grade_review": {
+        "kind": "MILITARY_NET_LOSS",
+        "baseline_grade": "ML0",
+        "baseline_cost_debit": 24.6,
+        "candidate_grades": [
+          "ML0"
+        ],
+        "basis": "1217—1218川陕链的EN2负结果明确：李贵逃遁、宋军溃散，大散关一度弃守，阜郊、湫池堡失守。阜郊‘死者五万人’未分军民，不能直接立本方五万军人死亡下界；该链也未独证重要宋军兵团达到C5严重毁损。现有逐链归责只到共同承载，未见赵扩对该次失守的具体错误作战命令或失败后再授权；开禧北伐属1206—1208别链，不能借其本人主动性。1218—1222枣阳与淮南仍有有效守援的独立反证。全局C5高位保留多方向长期军用承载，当前不把其与川陕单链负尾搭配追加ML。",
+        "excluded_basis": "当前川陕链缺可拆出的本方C5毁损及本人FULL/MATERIAL失败决定，不能把混合五万人、开禧授权和后续守援跨链拼合。若补得同链军人及军资损失和本人有效命令，仍可重开；当前单点不证明历史损失上界。 当前C5未到C7，ML3/4亦不入本次有源候选。",
+        "dependency_basis": "川陕负链与枣阳淮南守援、开禧北伐分别核责；普通成本与ML取高，不叠扣。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "baseline_by_ruler": {
+          "RULER-SS-ZHAO-KUO": {
+            "governance": {
+              "C1": {
+                "s0_band": 3,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L3"
+              },
+              "C2": {
+                "s0_band": 3,
+                "main_band": 2,
+                "end_band": 2,
+                "loss_grade": "L0"
+              },
+              "C3": {
+                "s0_band": 4,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L0"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 3,
+                "C2": 3,
+                "C3": 4
+              },
+              "terminal": {
+                "C1": 3,
+                "C2": 2,
+                "C3": 3
+              },
+              "attribution": {
+                "C1": 0,
+                "C2": 0,
+                "C3": 0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.5,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 3,
+              "D3_level": 2
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 24.6
+            }
+          }
+        }
+      }
+    },
+    {
+      "case_id": "LIXIONG-C1-C3-MACRO-SCOPE",
+      "ruler_id": "RULER-SHADOW-李雄",
+      "status": "UNRESOLVED_EVIDENCE_GAP",
+      "question": "同谱系治世总评能否充分覆盖李雄三十年主要阶段及交班的C1/C3五档？",
+      "basis": "《资治通鉴》卷89与《晋书》卷121记蜀地屡熟、民多富实、少役及闾门不闭，另有狱无滞囚和刑不滥及；这些分别是家庭、治安与司法的实际结果，现C1/C3五档有正证，不因只是一组史源而自动降档。但两书的近同总评不能算相隔多年独立复验；三十年主要阶段、交班仍须核地域与时段代表性。李班所记贫者无地及晚年宁州官军凌掠、民反为实际反证，已分别保留C1/C3低谷，不拿身后李班李期内争倒扣，也不将汉中建宁强迁在C3重复消费。",
+      "limitations": "联合复核只比较C1与C3主态、交班四至五档，并同步本人C4保留恢复；若低档成立须保留或重审独立L2，不把同一贫地或宁州伤害重复压档。C2仍采三档：年丰谷登支持民间经济，但国用不足、官无秩禄和以财得官阻断公共财政健康四档；不能把C1/C3高态转为财政高档，也不按小政权身份额外折分。",
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/資治通鑑/卷089",
+        "https://zh.wikisource.org/wiki/晉書/卷121",
+        "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-李雄",
+        "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
+      ],
+      "changes": [],
+      "public_basis": "《资治通鉴》卷89与《晋书》卷121记蜀地屡熟、民多富实、少役及闾门不闭，另有狱无滞囚和刑不滥及；这些分别是家庭、治安与司法的实际结果，现C1/C3五档有正证，不因只是一组史源而自动降档。但两书的近同总评不能算相隔多年独立复验；三十年主要阶段、交班仍须核地域与时段代表性。李班所记贫者无地及晚年宁州官军凌掠、民反为实际反证，已分别保留C1/C3低谷，不拿身后李班李期内争倒扣，也不将汉中建宁强迁在C3重复消费。",
+      "public_limitations": "联合复核只比较C1与C3主态、交班四至五档，并同步本人C4保留恢复；若低档成立须保留或重审独立L2，不把同一贫地或宁州伤害重复压档。C2仍采三档：年丰谷登支持民间经济，但国用不足、官无秩禄和以财得官阻断公共财政健康四档；不能把C1/C3高态转为财政高档，也不按小政权身份额外折分。",
+      "grade_review": {
+        "kind": "SOURCE_BOUNDED_REVIEW",
+        "display": "C1现5、复核4—5；C2现3固定；C3现5、复核4—5。C1/C3和C4交班恢复联合。",
+        "basis": "《资治通鉴》卷89与《晋书》卷121记蜀地屡熟、民多富实、少役及闾门不闭，另有狱无滞囚和刑不滥及；这些分别是家庭、治安与司法的实际结果，现C1/C3五档有正证，不因只是一组史源而自动降档。但两书的近同总评不能算相隔多年独立复验；三十年主要阶段、交班仍须核地域与时段代表性。李班所记贫者无地及晚年宁州官军凌掠、民反为实际反证，已分别保留C1/C3低谷，不拿身后李班李期内争倒扣，也不将汉中建宁强迁在C3重复消费。",
+        "admissibility": "CONDITIONAL_REVIEW_ONLY",
+        "dependency_basis": "联合复核只比较C1与C3主态、交班四至五档，并同步本人C4保留恢复；若低档成立须保留或重审独立L2，不把同一贫地或宁州伤害重复压档。C2仍采三档：年丰谷登支持民间经济，但国用不足、官无秩禄和以财得官阻断公共财政健康四档；不能把C1/C3高态转为财政高档，也不按小政权身份额外折分。",
+        "baseline_by_ruler": {
+          "RULER-SHADOW-李雄": {
+            "governance": {
+              "C1": {
+                "s0_band": 1,
+                "main_band": 5,
+                "end_band": 5,
+                "loss_grade": "L2"
+              },
+              "C2": {
+                "s0_band": 2,
+                "main_band": 3,
+                "end_band": 3,
+                "loss_grade": "L1"
+              },
+              "C3": {
+                "s0_band": 1,
+                "main_band": 5,
+                "end_band": 5,
+                "loss_grade": "L2"
+              }
+            },
+            "recovery": {
+              "baseline": {
+                "C1": 1,
+                "C2": 2,
+                "C3": 1
+              },
+              "terminal": {
+                "C1": 5,
+                "C2": 3,
+                "C3": 5
+              },
+              "attribution": {
+                "C1": 1.0,
+                "C2": 1.0,
+                "C3": 1.0
+              },
+              "deterioration_attribution": {
+                "C1": 0.0,
+                "C2": 0.0,
+                "C3": 0.0
+              }
+            },
+            "handoff": {
+              "D1_level": 2,
+              "D3_level": 2
+            },
+            "military": {
+              "military_net_loss_grade": "ML0",
+              "cost_debit_points": 16.2
+            }
+          }
+        }
+      }
+    }
+  ],
+  "coverage_closures": [],
+  "rank_envelope": {
+    "scope": "REGISTERED_DISPUTES_AND_COST_INTENSITY_OTHER_ADOPTED_RULINGS_FIXED",
+    "meaning": "合同外包范围仅用于排除名次变化，不是可采信的史料分数区间；重叠不证明不稳定。",
+    "case_scopes": {
+      "LICHEN-COST-UPPER-COVERAGE": {
+        "affected": [
+          {
+            "ruler_id": "RULER-TANG-LICHEN",
+            "components": [
+              "THIRD_COST"
+            ]
+          }
+        ],
+        "dependency_basis": "检验已定军事行动与安全/控制结果下的本方成本强度；普通成本与ML联合取高并受80分总扣减限额约束，不重复扣两次。新发现独立战果或另项事实须另开影响范围，本声明不包含未发现材料。"
+      },
+      "LIUYAN-938-JOINT-COST-REVIEW": {
+        "affected": [
+          {
+            "ruler_id": "RULER-FD-LIU-YAN",
+            "components": [
+              "THIRD_COST"
+            ]
+          }
+        ],
+        "dependency_basis": "检验已定军事行动与安全/控制结果下的本方成本强度；普通成本与ML联合取高并受80分总扣减限额约束，不重复扣两次。新发现独立战果或另项事实须另开影响范围，本声明不包含未发现材料。"
+      },
+      "LIUCONG-OWN-MILITARY-COST-BOUND": {
+        "affected": [
+          {
+            "ruler_id": "RULER-SHADOW-刘聪",
+            "components": [
+              "THIRD_COST"
+            ]
+          }
+        ],
+        "dependency_basis": "检验已定军事行动与安全/控制结果下的本方成本强度；普通成本与ML联合取高并受80分总扣减限额约束，不重复扣两次。新发现独立战果或另项事实须另开影响范围，本声明不包含未发现材料。"
+      },
+      "HANDOFF-RISK-GATE-RULER-HAN-LIUBANG": {
+        "affected": [
+          {
+            "ruler_id": "RULER-HAN-LIUBANG",
+            "components": [
+              "HANDOFF"
+            ],
+            "handoff_exclusions": {
+              "baseline": {
+                "D1_level": 5,
+                "D3_level": 4
+              },
+              "excluded_d3_levels": {
+                "0": "太子即位且陈平宿卫、周勃军队续行，单一中央有效接续，非中央断裂。",
+                "1": "赵王如意未另建争位中枢；卢绾闻帝崩逃亡属前已发生的反叛，不是现实中央承继战争。",
+                "2": "惠帝依既定身份继位，后续杀戚氏母子不等于重新决定皇位或以武力夺取最高权力；不听政本身未证强制废立，按合同不由周边清洗自动入本档。"
+              },
+              "source_refs": [
+                "https://zh.wikisource.org/zh-hant/資治通鑑/卷012",
+                "https://zh.wikisource.org/wiki/史記/卷008",
+                "https://zh.wikisource.org/zh-hant/資治通鑑考異_(四庫全書本)/卷01",
+                "https://zh.wikisource.org/wiki/史記/卷009"
+              ],
+              "dependency_basis": "本问题仅涉及D3交接性质；萧何—曹参旧行政链及实际持续交付不受争议影响，D1五档固定。逐档排除后按现行交接公式计算，不再将行政连续性一起放宽。",
+              "public_basis": "《通鉴》卷12高帝十二年至惠帝元年完整窗口记太子即位、陈平宿卫及任郎中令、周勃续定燕地，中央已有单一有效承接，排除交接断裂与分裂争位。戚夫人、赵王如意受害未重新决定皇位或以武装强制更换实际最高权力，惠帝仍在位且随后仍参与任相；不能只凭周边杀戮判暴力接管。《史记》卷9把吕氏掌南北军与号令一出太后置于惠帝死后，不得倒移到刘邦退出窗口。《通鉴》仍记惠帝首年病而不听政，故安排失效的脆弱完成、安全交接与高质量交接之间尚需辨析，不认定余下三档都是成立的情景。"
+            }
+          }
+        ],
+        "dependency_basis": "本问题仅涉及D3交接性质；萧何—曹参旧行政链及实际持续交付不受争议影响，D1五档固定。逐档排除后按现行交接公式计算，不再将行政连续性一起放宽。"
+      },
+      "YELURUAN-C3-RESIDENT-OUTCOME": {
+        "affected": [
+          {
+            "ruler_id": "RULER-LIAO-YELU-RUAN",
+            "components": [
+              "C3",
+              "C4"
+            ]
+          },
+          {
+            "ruler_id": "RULER-LIAO-YELU-DEGUANG",
+            "components": [
+              "C4"
+            ]
+          }
+        ],
+        "dependency_basis": "社会安全对象与地域可比性涉及本人的主态、低谷、起终点、恢复与归责；共享前任交班锚另放宽前任C4。后继耶律璟不在当前入榜池，不纳入竞争排名。"
+      },
+      "QIANLIU-SOURCE-CONFLICT": {
+        "affected": [
+          {
+            "ruler_id": "RULER-SHADOW-钱镠",
+            "components": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ]
+          }
+        ],
+        "dependency_basis": "同源重敛影响家庭、财政、人身各轴及端点、去重；四项治理结果同时放宽，不独立拼接为声称真实可达的裁决。"
+      },
+      "NURHACI-GOVERNANCE-WINDOW": {
+        "affected": [
+          {
+            "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
+            "components": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ]
+          },
+          {
+            "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
+            "components": [
+              "C4"
+            ]
+          }
+        ],
+        "dependency_basis": "早期与后期治理对象关系影响本人三轴、恢复恶化；后继共享接手锚可能改变恢复/恶化，放宽后继C4。创业取得事实及其独立成本不因治理背景年份自动变化。"
+      },
+      "FENGTAIHOU-C2-MAIN-PERIOD": {
+        "affected": [
+          {
+            "ruler_id": "RULER-SHADOW-冯太后",
+            "components": [
+              "C4"
+            ]
+          },
+          {
+            "ruler_id": "RULER-SHADOW-拓跋宏",
+            "components": [
+              "C4"
+            ]
+          }
+        ],
+        "dependency_basis": "主态三档与独立487年生产损害L2已按实际结果联合重裁。尚未闭合的是488年后丰赡总评在490年的兑现时点，只影响冯太后交班、拓跋宏接手及两人C4恢复恶化；不据此重新放宽主态分，也不机械改端点。"
+      },
+      "SIMA-HOUSEHOLD-ANCHOR-RESULT-GAP": {
+        "affected": [
+          {
+            "ruler_id": "RULER-WEI-SIMASHI",
+            "components": [
+              "C1",
+              "C4"
+            ]
+          },
+          {
+            "ruler_id": "RULER-WEI-SIMAZHAO",
+            "components": [
+              "C1",
+              "C4"
+            ]
+          },
+          {
+            "ruler_id": "RULER-SHADOW-司马炎",
+            "components": [
+              "C4"
+            ]
+          }
+        ],
+        "dependency_basis": "同一曹魏实际掌权交接链；司马师与司马昭缺独立家庭结果不能连续传播推断，司马昭265年交班与司马炎接手须同改，政策覆盖不可外推全境。"
+      },
+      "HELIAN-HOUSEHOLD-ECONOMY-INDEPENDENT-RESULT": {
+        "affected": [
+          {
+            "ruler_id": "RULER-SHADOW-赫连勃勃",
+            "components": [
+              "C1",
+              "C2",
+              "C4"
+            ]
+          }
+        ],
+        "dependency_basis": "本人家庭、经济财政主态与同窗低谷去重及终点联动；C3既有直接人身伤害不自动撤销。直接后继赫连昌、赫连定非本次入榜消费者，不虚接他国锚。"
+      },
+      "ML-BOUNDED-RULER-MING-ZHU-HOUCONG": {
+        "affected": [
+          {
+            "ruler_id": "RULER-MING-ZHU-HOUCONG",
+            "components": [
+              "THIRD_COST"
+            ]
+          }
+        ],
+        "dependency_basis": "只审本人的军事净毁损，与普通军事扣分取高；保守内部检验继续使用既有成本分账对象，不公开其合同极限。"
+      },
+      "LIXIONG-C1-C3-MACRO-SCOPE": {
+        "affected": [
+          {
+            "ruler_id": "RULER-SHADOW-李雄",
+            "components": [
+              "C1",
+              "C3",
+              "C4"
+            ]
+          }
+        ],
+        "dependency_basis": "C1/C3同一总评的代表性及两轴交班影响本人C4保留恢复；C2独立财政反证固定。"
+      }
+    }
+  }
+}

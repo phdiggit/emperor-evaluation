@@ -1210,7 +1210,7 @@
           "position": "middle",
           "position_basis": "A结构厚度=0.50（G0—G3含已消费的C_A/2），G2主档消费=0.50；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
           "position_q": 0.5,
-          "rank": 78,
+          "rank": 79,
           "reign_range": "前48—前33",
           "ruler_id": "RULER-HAN-LIUSHI",
           "ruler_name": "刘奭",
@@ -1338,7 +1338,7 @@
           "position": "middle",
           "position_basis": "A结构厚度=0.50（G0—G3含已消费的C_A/2），G2主档消费=0.50；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
           "position_q": 0.5,
-          "rank": 78,
+          "rank": 79,
           "reign_range": "前195—前180",
           "ruler_id": "RULER-HAN-LUYU",
           "ruler_name": "吕雉",
@@ -1465,7 +1465,7 @@
           "position": "lower",
           "position_basis": "制度净值1，按G2净值锚点及独立接口质量定lower；正负规模不托底档位或内部指数。",
           "position_q": 0.1,
-          "rank": 96,
+          "rank": 97,
           "reign_range": "前195—前188",
           "ruler_id": "RULER-HAN-LIUYING",
           "ruler_name": "刘盈",
@@ -1551,7 +1551,26 @@
             }
           ],
           "M_negative_profile": [],
-          "M_positive_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1,
+              "material_id": "MC-WHAN-LIUHENG-SPEECH-LAW-REPEAL",
+              "institution_node_id": "WHAN-WEN-SPEECH-LAW-REPEAL",
+              "institution_domain": "法律与司法",
+              "institution_lineage": "汉代言语入罪与受理规则",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "counts_toward_S": false,
+              "mechanism": "废诽谤妖言罪并禁止附会言语治罪",
+              "label_zh": "废诽谤妖言罪并禁止附会言语治罪",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1,
+              "base_signed": 1,
+              "durability_bonus": 0,
+              "direction_reason": "文帝二年废诽谤妖言罪，并明确禁止官吏受理祝诅和其他言语而附会大逆、诽谤的案件，改变起诉受理的法定依据；本节点只计法源与司法受理规则，不另宣称全国实际免罪人数或完整言论自由。 吕后先前除妖言令是继承基线，文帝针对任内仍存在的诽谤与附会治罪再次纠偏，不重复领取开创或长期骨架资格。"
+            }
+          ],
           "S_depth_units": 0,
           "S_minus": 0,
           "S_minus_node_ids": [],
@@ -1563,7 +1582,8 @@
           "database_write": false,
           "direct_material_ids": [
             "I2-WHAN-WEN-CORPORAL-PUNISHMENT-001",
-            "I2-WHAN-WEN-COLLECTIVE-LIABILITY-001"
+            "I2-WHAN-WEN-COLLECTIVE-LIABILITY-001",
+            "MC-WHAN-LIUHENG-SPEECH-LAW-REPEAL"
           ],
           "direct_material_roles": {
             "I2-WHAN-WEN-COLLECTIVE-LIABILITY-001": [
@@ -1571,15 +1591,18 @@
             ],
             "I2-WHAN-WEN-CORPORAL-PUNISHMENT-001": [
               "A_LIFECYCLE_EVIDENCE"
+            ],
+            "MC-WHAN-LIUHENG-SPEECH-LAW-REPEAL": [
+              "A_LIFECYCLE_EVIDENCE"
             ]
           },
           "direction_card_write": true,
-          "direction_index": 22.0,
+          "direction_index": 50.5,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
           "formal_evidence_state": "FORMAL_SCORED",
-          "grade": "G1",
-          "grade_basis": "废收孥相坐与新垣平案反转合为混正M2；废肉刑及笞三百五百、右趾改弃市合为平衡M3。前者有限减害仍成立，后者减残肢和增死亡同属替代刑设计，不能把负段留给景帝承担。正向0.5、负向0，制度净值0.5，依净账与独立门槛结算G1。",
+          "grade": "G2",
+          "grade_basis": "废收孥与新垣平案反转为混正M2，废肉刑及其高死亡替代刑为平衡M3；另补独立的废诽谤妖言罪及禁止附会言语受理正M2。三条法律接口分别为亲属连坐、刑罚方式和言语入罪，未重复。制度净值1.5，依合同为G2；无独立S，不上推重大骨架。",
           "important_institutions": [
             {
               "S_depth_weight": 0,
@@ -1615,34 +1638,53 @@
             }
           ],
           "index_interval": [
-            20,
-            39.9
+            40,
+            54.9
           ],
           "polity": "西汉",
-          "position": "lower",
-          "position_basis": "制度净值0.5，按G1净值锚点及独立接口质量定lower；正负规模不托底档位或内部指数。",
-          "position_q": 0.1,
-          "rank": 122,
+          "position": "middle-upper",
+          "position_basis": "净值1.5高于有限单链锚，且言语受理规则与亲属连坐、替代刑相互独立，取G2中上位50.5；不宣称言论安全覆盖全任或后继永久维持。",
+          "position_q": 0.7,
+          "rank": 77,
           "reign_range": "前180—前157",
           "ruler_id": "RULER-HAN-LIUHENG",
           "ruler_name": "刘恒",
           "verification_material_ids": [],
           "extreme_delta_reopen": false,
-          "A_net_units": 0.5,
-          "P_gross": 0.5,
+          "A_net_units": 1.5,
+          "P_gross": 1.5,
           "N_gross": 0,
           "v2_explicit_patch": true,
           "extreme_delta_review": "COMPLETED_CURRENT_NODE_AND_CROSS_ITEM_REVIEW",
-          "netting_boundary_basis": "废收孥相坐与新垣平案反转合为混正M2；废肉刑及笞三百五百、右趾改弃市合为平衡M3。前者有限减害仍成立，后者减残肢和增死亡同属替代刑设计，不能把负段留给景帝承担。",
+          "netting_boundary_basis": "废收孥与新垣平案反转为混正M2，废肉刑及其高死亡替代刑为平衡M3；另补独立的废诽谤妖言罪及禁止附会言语受理正M2。三条法律接口分别为亲属连坐、刑罚方式和言语入罪，未重复。制度净值1.5，依合同为G2；无独立S，不上推重大骨架。",
           "a_grade_gate_profile_ids": [],
           "netting_material_basis": [
             {
               "book": "《汉书·卷23》",
               "original_text": "是後，外有輕刑之名，內實殺人。斬右止者又當死。斬左止者笞五百，當劓者笞三百，率多死。",
               "source_ref": "docs/公共成果/法律/回源资料/历代刑法志通读/source-texts/漢書__卷023.txt"
+            },
+            {
+              "book": "《汉书·卷4》文帝二年五月",
+              "original_text": "五月，詔曰：「古之治天下，朝有進善之旌，誹謗之木，所以通治道而來諫者也。今法有誹謗訞言之罪，是使眾臣不敢盡情，而上無由聞過失也。將何以來遠方之賢良？其除之。民或祝詛上，以相約而後相謾，吏以為大逆，其有他言，吏又以為誹謗。此細民之愚，無知抵死，朕甚不取。自今以來，有犯此者勿聽治。」",
+              "source_ref": "https://zh.wikisource.org/wiki/漢書/卷004"
             }
           ],
           "public_institution_nodes": [
+            {
+              "institution_node_id": "WHAN-WEN-SPEECH-LAW-REPEAL",
+              "public_label": "废诽谤妖言罪并禁止附会言语治罪",
+              "public_direction": "正向",
+              "public_tags": [
+                "局部建设",
+                "已有实际运行"
+              ],
+              "signed_weight": 1,
+              "public_adjudication_basis": "文帝二年废诽谤妖言罪，并明确禁止官吏受理祝诅和其他言语而附会大逆、诽谤的案件，改变起诉受理的法定依据；本节点只计法源与司法受理规则，不另宣称全国实际免罪人数或完整言论自由。 吕后先前除妖言令是继承基线，文帝针对任内仍存在的诽谤与附会治罪再次纠偏，不重复领取开创或长期骨架资格；具体范围是废诽谤妖言罪并禁止附会言语治罪；文帝二年废诽谤妖言罪，并明确禁止官吏受理祝诅和其他言语而附会大逆、诽谤的案件，改变起诉受理的法定依据；本节点只计法源与司法受理规则，不另宣称全国实际免罪人数或完整言论自由；运行结果是诏令直接撤销既有罪名及其受理依据，形成已实施的有限法律纠偏；不是仅有拟议",
+              "public_scope": "废诽谤妖言罪并禁止附会言语治罪；文帝二年废诽谤妖言罪，并明确禁止官吏受理祝诅和其他言语而附会大逆、诽谤的案件，改变起诉受理的法定依据；本节点只计法源与司法受理规则，不另宣称全国实际免罪人数或完整言论自由",
+              "public_boundary": "制度A独占法源删改；其他治理评价仅作意图背景，不能据诏令另造反馈结果；第四项C不重复计言论安全；本节点只计法源与司法受理规则，不另宣称全国实际免罪人数或完整言论自由；吕后先前除妖言令是继承基线，文帝针对任内仍存在的诽谤与附会治罪再次纠偏，不重复领取开创或长期骨架资格；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点",
+              "public_reception": "已有任内实际运行证据，未计入长期接收加权。"
+            },
             {
               "institution_node_id": "A-PUBLIC-NODE-4987BE208AB65FC5",
               "public_label": "废收孥相坐及政治大案恢复族诛",
@@ -1672,9 +1714,19 @@
               "public_reception": "未计入长期接收加权。"
             }
           ],
-          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为0.5，负向影响权重为0，制度净值为+0.5；后世接收概况：已有任内或阶段性实际运行1项；未计入长期接收加权1项；公开等级为D级（下位）。",
+          "public_adjudication_summary": "正式制度建设公开结论：正向影响权重为1.5，负向影响权重为0，制度净值为+1.5；后世接收概况：已有任内或阶段性实际运行2项；未计入长期接收加权1项；公开等级为C级（中上位）。",
           "public_boundary": "制度建设公开层只展示当前正式结构中已经闭合为独立制度节点的材料；没有可单列节点时，只表示当前正式记录未形成可单独展示的制度节点，不据此推断其他制度行为的存在与否或效果。",
           "public_evidence_items": [
+            {
+              "public_label": "废诽谤妖言罪并禁止附会言语治罪",
+              "public_direction": "正向",
+              "public_tags": [
+                "局部建设",
+                "已有实际运行"
+              ],
+              "public_basis": "文帝二年废诽谤妖言罪，并明确禁止官吏受理祝诅和其他言语而附会大逆、诽谤的案件，改变起诉受理的法定依据；本节点只计法源与司法受理规则，不另宣称全国实际免罪人数或完整言论自由。 吕后先前除妖言令是继承基线，文帝针对任内仍存在的诽谤与附会治罪再次纠偏，不重复领取开创或长期骨架资格；具体范围是废诽谤妖言罪并禁止附会言语治罪；文帝二年废诽谤妖言罪，并明确禁止官吏受理祝诅和其他言语而附会大逆、诽谤的案件，改变起诉受理的法定依据；本节点只计法源与司法受理规则，不另宣称全国实际免罪人数或完整言论自由；运行结果是诏令直接撤销既有罪名及其受理依据，形成已实施的有限法律纠偏；不是仅有拟议\n\n已有任内实际运行证据，未计入长期接收加权。",
+              "public_boundary": "制度A独占法源删改；其他治理评价仅作意图背景，不能据诏令另造反馈结果；第四项C不重复计言论安全；本节点只计法源与司法受理规则，不另宣称全国实际免罪人数或完整言论自由；吕后先前除妖言令是继承基线，文帝针对任内仍存在的诽谤与附会治罪再次纠偏，不重复领取开创或长期骨架资格；未列入上述范围的其他制度行为、运行结果和后继成果不归入本节点"
+            },
             {
               "public_label": "废收孥相坐及政治大案恢复族诛",
               "public_direction": "正向主导",
@@ -1816,7 +1868,7 @@
           "position": "lower",
           "position_basis": "制度净值0.5，按G1净值锚点及独立接口质量定lower；正负规模不托底档位或内部指数。",
           "position_q": 0.1,
-          "rank": 122,
+          "rank": 123,
           "reign_range": "前7—前1",
           "ruler_id": "RULER-HAN-LIUXIN",
           "ruler_name": "刘欣",

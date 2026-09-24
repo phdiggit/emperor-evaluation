@@ -1391,7 +1391,7 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         net_loss = military_net_loss_by_name.get(name)
         net_loss_grade = str(net_loss["grade"]) if net_loss else "ML0"
         net_loss_penalty = float(expected_penalties[net_loss_grade])
-        net_loss_basis = str(net_loss["basis"]) if net_loss else "未同时通过EN2/EN3、C5以上本方成本和本人责任门，不生成负向尾部。"
+        net_loss_basis = str(net_loss["basis"]) if net_loss else "当前未登记单独的重大军事净毁损裁决，普通军事成本仍按正式记录扣减；未登记本身不证明追加条件已被逐项排除。"
         net_loss_attribution = (
             "NONE"
             if net_loss is None
