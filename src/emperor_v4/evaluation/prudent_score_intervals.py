@@ -27,6 +27,12 @@ STAGE_REVIEW = Path('config/common/prudent-strategic-stage-grade-reviews.json')
 C4 = gov_math.FORMAL_PATHS['C4']
 HANDOFF = Path('docs/评分结算/净收益/第二项治国净收益/政权交接稳定/03-交接质量20分正式结算.json')
 FACTORS = Path('config/third-item/third-item-cost-credit-factors.json')
+ENDPOINT_RULES = {
+    'paired_endpoints_only': '只消费列出的配对端点，不拆分主档与低谷',
+    'score_extrema_across_explicit_endpoints_only': '只消费列出的显式端点',
+    'lower_and_upper_endpoints': '只比较列出的上下端点',
+    'score_extrema_across_all_allowed_grade_loss_combinations': '仅本轴已允许的主档与低谷可组合',
+}
 
 
 def _needs_main_grade_review(label: object) -> bool:
@@ -326,6 +332,7 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
             'current_loss_grade':original['loss_review']['grade'],
             'allowed_endpoints':allowed,'endpoint_scores':scores,
             'leaderboard_consumption':final['leaderboard_consumption'],
+            'endpoint_rule':ENDPOINT_RULES[final['leaderboard_consumption']],
             'conditional_delta_range':[round(min(scores.values())-current,2),round(max(scores.values())-current,2)],
             'review_gate':review['reason'],'source_ref':source_ref,
         })

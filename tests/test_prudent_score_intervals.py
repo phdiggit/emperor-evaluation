@@ -17,6 +17,17 @@ def test_own_interval_rank_projection_holds_other_formal_scores_fixed():
     assert projected['is_joint_rank_interval'] is False
 
 
+def test_own_interval_rank_projection_uses_strict_competition_ties():
+    records = [
+        {'ruler_id': 'A', 'total_score': 100.0},
+        {'ruler_id': 'B', 'total_score': 90.0},
+        {'ruler_id': 'C', 'total_score': 90.0},
+        {'ruler_id': 'D', 'total_score': 80.0},
+    ]
+    projected = _own_interval_rank_projection(records, 'B', 90.0, 100.0)
+    assert (projected['best'], projected['worst']) == (1, 2)
+
+
 
 def test_paired_terminal_endpoints_do_not_cross_grade_and_loss():
     ruling = {
