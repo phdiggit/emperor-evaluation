@@ -888,7 +888,7 @@ def record_summary(record):
     summary["net"] = pick(net, [
         "rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
         "second_item_score", "third_item_score", "fourth_item_adjustment",
-        "evidence_assessment", "prudent_score_interval", "governance_context",
+        "evidence_assessment", "prudent_score_interval", "prudent_rank_projection", "governance_context",
     ]) if net else None
     if summary["net"] and net.get('evidence_assessment'):
         summary["net"]['evidence_assessment'] = pick(net['evidence_assessment'],
@@ -964,7 +964,7 @@ def build(*, check=False, write=True):
     net_fields = ["rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
                   "second_item_score", "third_item_score", "fourth_item_adjustment", "component_details",
                   "weight_sensitivity", "evidence_assessment", "prudent_score_interval",
-                  "governance_context"]
+                  "prudent_rank_projection", "governance_context"]
     records = []
     for person in main:
         rid = person["ruler_id"]

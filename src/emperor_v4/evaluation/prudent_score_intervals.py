@@ -27,6 +27,12 @@ STAGE_REVIEW = Path('config/common/prudent-strategic-stage-grade-reviews.json')
 C4 = gov_math.FORMAL_PATHS['C4']
 HANDOFF = Path('docs/评分结算/净收益/第二项治国净收益/政权交接稳定/03-交接质量20分正式结算.json')
 FACTORS = Path('config/third-item/third-item-cost-credit-factors.json')
+ENDPOINT_RULES = {
+    'paired_endpoints_only': '只消费列出的配对端点，不拆分主档与低谷',
+    'score_extrema_across_explicit_endpoints_only': '只消费列出的显式端点',
+    'lower_and_upper_endpoints': '只比较列出的上下端点',
+    'score_extrema_across_all_allowed_grade_loss_combinations': '仅本轴已允许的主档与低谷可组合',
+}
 
 
 def _needs_main_grade_review(label: object) -> bool:
@@ -36,6 +42,25 @@ def _needs_main_grade_review(label: object) -> bool:
     if normalized.startswith(('MEDIUM', 'LOW')) or normalized in {'中', '中低', '中高'}:
         return True
     raise ValueError(f'未知治理证据置信标签：{label}')
+
+
+def _own_interval_rank_projection(
+    records: list[dict[str, Any]], ruler_id: str, lower: float, upper: float
+) -> dict[str, Any]:
+    """Project one person's prudent score interval onto others' formal scores."""
+    if lower > upper:
+        raise ValueError('审慎分位置投影区间倒置')
+    others = [
+        float(row['total_score']) for row in records if row['ruler_id'] != ruler_id
+    ]
+    return {
+        'best': 1 + sum(score > upper for score in others),
+        'worst': 1 + sum(score > lower for score in others),
+        'method': 'OWN_PRUDENT_INTERVAL_VS_OTHER_FORMAL_SCORES',
+        'other_scores_fixed': True,
+        'is_joint_rank_interval': False,
+        'basis': '仅将本人现有史料审慎分数区间投影到当前正式榜，其他人物固定为正式综合分；不是联合名次置信区间。',
+    }
 
 
 def _declared_terminal_endpoints(final: dict[str, Any]) -> list[str]:
@@ -307,6 +332,7 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
             'current_loss_grade':original['loss_review']['grade'],
             'allowed_endpoints':allowed,'endpoint_scores':scores,
             'leaderboard_consumption':final['leaderboard_consumption'],
+            'endpoint_rule':ENDPOINT_RULES[final['leaderboard_consumption']],
             'conditional_delta_range':[round(min(scores.values())-current,2),round(max(scores.values())-current,2)],
             'review_gate':review['reason'],'source_ref':source_ref,
         })
@@ -356,6 +382,9 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
                 else 'SINGLE_CURRENT_CORPUS_DISPOSITION_NOT_FUTURE_SOURCE_PROOF'
             ),
         }
+        row['prudent_rank_projection'] = _own_interval_rank_projection(
+            records, rid, low, high
+        )
         assessment=row.get('evidence_assessment',{})
         projection=assessment.get('public_projection',{})
         if projection:

@@ -1,6 +1,32 @@
 from copy import deepcopy
 
-from emperor_v4.evaluation.prudent_score_intervals import _check_lineage_ref, _cost_delta, _declared_terminal_endpoints, _governance_score, _mutate, _needs_main_grade_review
+from emperor_v4.evaluation.prudent_score_intervals import _check_lineage_ref, _cost_delta, _declared_terminal_endpoints, _governance_score, _mutate, _needs_main_grade_review, _own_interval_rank_projection
+
+
+def test_own_interval_rank_projection_holds_other_formal_scores_fixed():
+    records = [
+        {'ruler_id': 'A', 'total_score': 100.0},
+        {'ruler_id': 'B', 'total_score': 90.0},
+        {'ruler_id': 'C', 'total_score': 80.0},
+        {'ruler_id': 'D', 'total_score': 70.0},
+    ]
+    projected = _own_interval_rank_projection(records, 'B', 75.0, 95.0)
+    assert projected['best'] == 2
+    assert projected['worst'] == 3
+    assert projected['other_scores_fixed'] is True
+    assert projected['is_joint_rank_interval'] is False
+
+
+def test_own_interval_rank_projection_uses_strict_competition_ties():
+    records = [
+        {'ruler_id': 'A', 'total_score': 100.0},
+        {'ruler_id': 'B', 'total_score': 90.0},
+        {'ruler_id': 'C', 'total_score': 90.0},
+        {'ruler_id': 'D', 'total_score': 80.0},
+    ]
+    projected = _own_interval_rank_projection(records, 'B', 90.0, 100.0)
+    assert (projected['best'], projected['worst']) == (1, 2)
+
 
 
 def test_paired_terminal_endpoints_do_not_cross_grade_and_loss():
