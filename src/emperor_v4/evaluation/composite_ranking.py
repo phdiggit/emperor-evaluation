@@ -365,6 +365,19 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         for row in widest
     )
 
+    pending_notes = []
+    if payload["pending_second_item_count"]:
+        pending_notes.append(f"{payload['pending_second_item_count']}人待第二项正式结算")
+    if payload["pending_third_item_count"]:
+        pending_notes.append(f"{payload['pending_third_item_count']}人待第三项正式结算")
+    if payload["pending_fourth_item_count"]:
+        pending_notes.append(f"{payload['pending_fourth_item_count']}人存在第四项证据缺口")
+    ranking_status = (
+        f"> 本榜当前列出正式评价池中`COMPOSITE_READY`的{payload['record_count']}人。"
+        + (("另有" + "；".join(pending_notes) + "；") if pending_notes else "")
+        + "未结算或未闭合输入不按零分填补。排名只由现行合同与正式分项生成，不按历史名望或榜形反推。"
+    )
+
     lines = [
         "# 皇帝统治绩效综合评分榜",
         "",
@@ -373,26 +386,19 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "",
         "> 这里的统治绩效是带成本与损害修正的综合评价：包含政权奠基贡献、治理与军事手段及体系有效性、治理/安全/文明结果和可归责成本；不等同于人物画像的能力总评或历史影响。",
         "",
-        "> 口径提示：第二项治理结果不按政权规模折扣，第三项仅部分计入控制规模。"
-        "本榜衡量现行规则下的统治绩效，不衡量收益总量、人均或年均收益，"
-        "也不等同于王朝体量、历史功业总量或综合历史地位排名。",
+        ranking_status,
         "",
-        (
-            "> 第四项语义复核门已闭合。"
-            if payload["fourth_item_semantic_review_complete"]
-            else "> **第四项全池语义复核尚未完成，本榜是当前快照的条件排序，不是复核终榜。**"
-            "已确认改判已同步；未解决的证据、归责与空轴排漏仍可能改变分数和名次。"
-        ),
+        "## 先读口径",
         "",
-        (
-            f"> 本榜只覆盖正式评价池中`COMPOSITE_READY`的{payload['record_count']}人；"
-            f"另有{payload['pending_second_item_count']}人因第二项尚未正式结算而不入榜。"
-            f"另有{payload['pending_third_item_count']}人因第三项实际权力窗口/归责或C父周期语义待重裁而不入榜。"
-            f"另有{payload['pending_fourth_item_count']}名原综合就绪对象因第四项证据缺口暂不入榜，不把未知按零分处理。"
-            "排名是现行规则与现有正式分项快照的确定性合成，不以历史名望反推分数。"
-        ),
+        "**史料不是按条数投票。** 本榜遵循最小充分证据：单一但可定位、窗口匹配、对象明确且直接闭合结果的宏观总评，可以承担主锚；多源互证是增强项，不是机械门槛。资料稀疏、史料篇幅短或低于HIGH的标签本身，不自动降档、降置信或制造浮动区间。",
         "",
-        "## 口径",
+        "**治理规模／复杂度只作比较背景。** 第二项绝对治理结果不按政权大小折扣。当前没有跨时代稳定且副作用可控的复杂度换算机制；强行加权容易重复奖励已在其他项目体现的规模与压力、反向奖励制度碎片化、二次压低小政权的真实绝对结果，并使排名过度依赖人为系数。",
+        "",
+        "**去重是去同一结果，不是禁止同一机制产生多个结果。** 同一制度或治理机制若分别产生已经闭合的行政、反馈、民生、财政、安全、军事或文明结果，各项可分别计入；禁止的是把同一最终收益或损害换名后重复换分。多个项目同时偏高或偏低、总分明显离群，都只能触发证据、归责、公式和去重复核，不能成为自动配平理由。",
+        "",
+        "本榜衡量现行规则下的统治绩效，不衡量收益总量、人均或年均收益，也不等同于王朝体量、历史功业总量或综合历史地位排名。",
+        "",
+        "## 计分与不确定性",
         "",
         "综合分公式：`T = 第二项 + 第三项 + F + 第四项调整`，其中"
         f"`F = {FIRST_ITEM_ADD_ON_COEFFICIENT:.2f} × 637 × (第一项净分 / 240)^1.25`。第一项不适用者是`F=0`，"
@@ -410,15 +416,9 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "单点表示本轮现有语料未留下有源异档，不表示历史真值已穷尽。",
         f"逐人区间已覆盖{payload['prudent_score_interval_coverage']['pool_count']}名入榜者；"
         f"其中{payload['prudent_score_interval_coverage']['nonpoint_count']}人为非单点。",
-        ("治理低于HIGH的逐轴记录中，"
-         f"{payload['prudent_score_interval_coverage']['governance_axis_review_methods'].get('FORMAL_REASON_REUSED_LINEAGE_RECORDED', 0)}轴"
-         "复用正式理由与来源谱系，仍待独立原文复核；"
-         f"第三项{payload['prudent_score_interval_coverage']['strategic_stage_review_methods'].get('FORMAL_STAGE_BASIS_REUSED', 0)}条"
-         "低置信阶段沿用正式阶段依据。登记覆盖与快照同值不等于原典语义终审。"),
         "",
-        "> 综合分不表示历史贡献或统治能力的倍数关系；多项优势叠加可能形成明显领先。"
-        "离群是复核线索，本身不足以证明评分正确或错误。评分是否合理，应检验分项证据、"
-        "归责去重与规则一致性，不以贴合名望或缩小分差为目标。",
+        "> 分差和离群只具有诊断意义。多项独立结果同向可以真实累积成明显领先或落后；"
+        "复核只检查证据、归责、公式和去重，不以贴合名望、缩小分差或改变特定人物名次为目标。",
         "",
         (
             f"当前均分{payload['mean_score']:.2f}，中位数{payload['median_score']:.2f}，"
@@ -457,13 +457,10 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
 
 
     coverage=payload['prudent_score_interval_coverage']
-    issue_people=sum(bool(r['evidence_assessment']['public_projection']['public_issues']) for r in records)
-    lines.extend(['', '## 审慎区间与正式裁决', '',
-                  '完整总榜已逐人列出现有史料审慎分数区间；不再把旧的“未列数值替代”重复写成174行待办。'
-                  '审慎端点用于当前语料下的分数复核，正式分数仍采用已裁档位；条件端点未自动成为已采信替代，也不生成候选名次。', '',
-                  f'本轮有{coverage["nonpoint_count"]}人列非单点审慎区间；{issue_people}人的源记录仍保留分项覆盖限制或关联命题。'
-                  f'其中{coverage["cost_review_count"]}人有军事成本下界/暂定标签，另有{coverage["active_case_count"]}条具名未决命题；'
-                  '两类存在重合，关联人物也会显示命题，所以这些数量不能相加当作未完成区间人数。', '',
+    lines.extend(['', '## 审慎区间', '',
+                  '完整总榜逐人列出现有史料审慎分数区间。区间只纳入当前语料下具名、有源、可计价的档位或成本替代解释；'
+                  '史料条数、材料稀疏、置信度标签和人物名望本身都不自动生成区间。正式综合分仍采用已采信裁决，审慎端点用于显示现有证据允许的条件波动。', '',
+                  f'当前{coverage["nonpoint_count"]}人列非单点区间；单点仅表示本轮已登记语料没有留下可定位的有源异档，不表示历史真值已穷尽。', '',
                   '[逐人档位候选、触发事实及来源](综合分析/02-证据裁决敏感性.md)', ''])
     supported=[(row,alt) for row in records
                for alt in row['evidence_assessment']['public_projection']['supported_alternatives']]
