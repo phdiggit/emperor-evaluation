@@ -340,6 +340,10 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         value = row["weight_sensitivity"][group]
         return f"{value['best']}—{value['worst']}"
 
+    def prudent_rank_range(row: Mapping[str, Any]) -> str:
+        value = row["prudent_rank_projection"]
+        return f"{value['best']}—{value['worst']}"
+
     def summary(name: str) -> str:
         row = by_name[name]
         return (
@@ -438,10 +442,11 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         payload['governance_context_legend']['rules']['complexity'],
         "",
         "以下两组名次范围固定正式裁决，只改变权重：仅附加项覆盖9组，全部调权覆盖27组。"
-        "它们不与审慎分数区间自动合成；条件端点未证明可达，不能据此生成名次。计算方法见下方折叠说明。",
+        "它们不与审慎分数区间自动合成。审慎分位置投影只把本人审慎分上下端点代入当前正式榜，其他人物固定为正式综合分；"
+        "它不是联合名次置信区间，也不证明区间端点可以与其他人物的端点同时实现。计算方法见下方折叠说明。",
         "",
-        "| 正式名次 | 人物 | 政权 | 治理规模／复杂度 | 共同项合计 | 奠基附加F | 文明调整 | 正式综合分 | 现有史料审慎分数区间 | 仅附加项调权名次范围 | 全部调权情景名次范围 |",
-        "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|",
+        "| 正式名次 | 人物 | 政权 | 治理规模／复杂度 | 共同项合计 | 奠基附加F | 文明调整 | 正式综合分 | 现有史料审慎分数区间 | 审慎分位置投影 | 仅附加项调权名次范围 | 全部调权情景名次范围 |",
+        "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in records:
         context = row['governance_context']
@@ -452,7 +457,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
             f"{row['common_score']:.2f} | {row['first_item_add_on']:.2f} | "
             f"{row['fourth_item_adjustment']:+.1f} | **{row['total_score']:.2f}** | "
             f"{row['prudent_score_interval']['lower']:.2f}—{row['prudent_score_interval']['upper']:.2f} | "
-            f"{rank_range(row, 'add_ons_only')} | {rank_range(row)} |"
+            f"{prudent_rank_range(row)} | {rank_range(row, 'add_ons_only')} | {rank_range(row)} |"
         )
 
 
