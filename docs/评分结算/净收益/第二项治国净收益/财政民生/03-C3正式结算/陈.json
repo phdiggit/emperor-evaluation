@@ -30,7 +30,7 @@
           ],
           "main_band": "C3-3",
           "polity": "陈",
-          "rank": 90,
+          "rank": 93,
           "reign_range": [
             559,
             566
@@ -40,7 +40,7 @@
           "score": 27.2,
           "stability_class_diagnostic_only": "K3",
           "state_anchors": {
-            "S0": "C3-2",
+            "S0": "C3-3",
             "S_main": "C3-3",
             "S_avg": "C3-3",
             "S_end": "C3-3"
@@ -86,7 +86,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-陈蒨",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-陈蒨",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-陈蒨",
-                "陈朝因军费民困减省宫廷百司并拒绝奢侈进奉"
+                "陈朝因军费民困减省宫廷百司并拒绝奢侈进奉",
+                "docs/史料通读产物/唐以前编年/南北朝/卷169-通读总结.md",
+                "《陈书》卷3"
               ]
             },
             "score": 27.2
@@ -114,10 +116,24 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L1",
+              "range": "C3-3/L1",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "基本司法秩序支撑主态；未申冤滞作为范围未闭合的独立实际伤害仅计L1，不因诏书语气外推L2。",
+              "allowed_endpoints": [
+                "C3-3/L1"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-陈蒨&axis=C3"
+          }
         },
         {
-          "adjudication_reason": "太建期常规社会秩序仍可运行，但纯C3材料并不支持四档：本人诏书直接承认鞫讯案件充积、牢狱人员繁多；新取江淮区域又出现剽掠和将帅军人不顾刑典的阶段性安全裂缝。 证据链：太建十一年诏称“鞫讯之牒，盈于听览；舂釱之人，烦于牢犴”；另有江淮“年少犹有剽掠……将帅军人，罔顾刑典”。",
+          "adjudication_reason": "太建期常规国家与基层秩序仍可运行，C3-3成立；‘鞫讯之牒盈于听览、舂釱之人烦于牢犴’构成司法高档阻断并由主态消费。另有新取江淮区域‘年少犹有剽掠’且‘将帅军人，罔顾刑典’，对象是重要区域居民，行为又由地方青年与军人两类主体持续出现，已超过L1的单点/有限后果门槛，应按重要地区明显、反复的人身财产保护缺口取L2。",
           "authority_attribution": "只按本人实际最高治理权窗口和主要控制区结算；战争胜负不重复计分。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -129,6 +145,14 @@
                 "docs/史料通读产物/唐以前编年/南北朝/卷170-通读总结.md:313"
               ],
               "summary": "**①战前状态、起因与可证目标**：叔陵长期苛刻险诈，与新安王伯固秘密图谋不轨。陈宣帝病危时磨药刀、索剑，意图在继承时夺权；在宫禁刺杀太子后，事件升级为赦囚、招兵、据城的实际武装叛乱。"
+            },
+            {
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷175-通读总结.md",
+                "《陈书·宣帝本纪》"
+              ],
+              "summary": "江淮实际剽掠与军人违法作为独立重要区域低谷计L2；积狱问题由三档主态消费。",
+              "evidence_role": "TERMINAL_BACK_SOURCE"
             }
           ],
           "evidence_refs": [
@@ -136,14 +160,14 @@
           ],
           "main_band": "C3-3",
           "polity": "陈",
-          "rank": 90,
+          "rank": 98,
           "reign_range": [
             569,
             582
           ],
           "ruler_id": "RULER-SHADOW-陈顼",
           "ruler_name": "陈顼",
-          "score": 27.2,
+          "score": 26.0,
           "stability_class_diagnostic_only": "K3",
           "state_anchors": {
             "S0": "C3-3",
@@ -173,44 +197,46 @@
               "original_text": "江淮年少，犹有剽掠……将帅军人，罔顾刑典。"
             }
           ],
-          "loss_grade": "L1",
-          "stability_basis": "常规基本秩序成立；新取江淮实际剽掠另计有界居民损害，积狱问题已由主态消费。",
+          "loss_grade": "L2",
+          "stability_basis": "积狱问题已进入三档主态；江淮实际剽掠与军人违法作为独立重要区域低谷计L2，不与积狱重复。",
           "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
           "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
           "state_adjudication": {
             "version": "GOVERNANCE-STATE-RECOVERY-V4",
             "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-陈顼",
             "loss_review": {
-              "grade": "L1",
-              "basis": "常规基本秩序成立；新取江淮实际剽掠另计有界居民损害，积狱问题已由主态消费。",
+              "grade": "L2",
+              "basis": "积狱问题已进入三档主态；江淮实际剽掠与军人违法作为独立重要区域低谷计L2，不与积狱重复。",
               "strong_dimensions": [],
-              "main_representativeness": "太建期常规社会秩序仍可运行，但纯C3材料并不支持四档：本人诏书直接承认鞫讯案件充积、牢狱人员繁多；新取江淮区域又出现剽掠和将帅军人不顾刑典的阶段性安全裂缝。 证据链：太建十一年诏称“鞫讯之牒，盈于听览；舂釱之人，烦于牢犴”；另有江淮“年少犹有剽掠……将帅军人，罔顾刑典”。",
+              "main_representativeness": "太建期常规国家与基层秩序仍可运行，C3-3成立；‘鞫讯之牒盈于听览、舂釱之人烦于牢犴’构成司法高档阻断并由主态消费。另有新取江淮区域‘年少犹有剽掠’且‘将帅军人，罔顾刑典’，对象是重要区域居民，行为又由地方青年与军人两类主体持续出现，已超过L1的单点/有限后果门槛，应按重要地区明显、反复的人身财产保护缺口取L2。",
               "full_window_reviewed": true,
-              "deduplication": "常规基本秩序成立；新取江淮实际剽掠另计有界居民损害，积狱问题已由主态消费。",
+              "deduplication": "积狱问题已进入三档主态；江淮实际剽掠与军人违法作为独立重要区域低谷计L2，不与积狱重复。",
               "evidence_refs": [
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-陈顼",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-陈顼",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-陈顼",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-陈顼",
-                "陈朝因军费民困减省宫廷百司并拒绝奢侈进奉"
+                "陈朝因军费民困减省宫廷百司并拒绝奢侈进奉",
+                "docs/史料通读产物/唐以前编年/南北朝/卷175-通读总结.md",
+                "《陈书·宣帝本纪》"
               ]
             },
-            "score": 27.2
+            "score": 26.0
           },
-          "public_adjudication_summary": "主要状态：可运行秩序。太建期常规社会秩序仍可运行，但纯社会安全材料并不支持四档：本人诏书直接承认鞫讯案件充积、牢狱人员繁多；新取江淮区域又出现剽掠和将帅军人不顾刑典的阶段性安全裂缝。 证据链：太建十一年诏称“鞫讯之牒，盈于听览；舂釱之人，烦于牢犴”；另有江淮“年少犹有剽掠……将帅军人，罔顾刑典”。\n\n有界局部或短时损害：常规基本秩序成立；新取江淮实际剽掠另计有界居民损害，积狱问题已由主要阶段状态计入。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：可运行秩序。太建期常规国家与基层秩序仍可运行，社会安全“可运行秩序”成立；‘鞫讯之牒盈于听览、舂釱之人烦于牢犴’构成司法高档阻断并由主要阶段状态计入。另有新取江淮区域‘年少犹有剽掠’且‘将帅军人，罔顾刑典’，对象是重要区域居民，行为又由地方青年与军人两类主体持续出现，已超过有界局部或短时损害的单点/有限后果条件，应按重要地区明显、反复的人身财产保护缺口取重要地区或群体出现明显损害。\n\n重要地区或群体出现明显损害：积狱问题已进入三档主要阶段状态；江淮实际剽掠与军人违法作为独立重要区域低谷计重要地区或群体出现明显损害，不与积狱重复。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C3-PUBLIC-7389F14B2FB0AC61",
               "public_label": "主要状态：可运行秩序",
               "public_role": "主要状态",
-              "public_basis": "太建期常规社会秩序仍可运行，但纯社会安全材料并不支持四档：本人诏书直接承认鞫讯案件充积、牢狱人员繁多；新取江淮区域又出现剽掠和将帅军人不顾刑典的阶段性安全裂缝。 证据链：太建十一年诏称“鞫讯之牒，盈于听览；舂釱之人，烦于牢犴”；另有江淮“年少犹有剽掠……将帅军人，罔顾刑典”。",
+              "public_basis": "太建期常规国家与基层秩序仍可运行，社会安全“可运行秩序”成立；‘鞫讯之牒盈于听览、舂釱之人烦于牢犴’构成司法高档阻断并由主要阶段状态计入。另有新取江淮区域‘年少犹有剽掠’且‘将帅军人，罔顾刑典’，对象是重要区域居民，行为又由地方青年与军人两类主体持续出现，已超过有界局部或短时损害的单点/有限后果条件，应按重要地区明显、反复的人身财产保护缺口取重要地区或群体出现明显损害。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
               "id": "C3-PUBLIC-1F33EC4256DE11EA",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "有界局部或短时损害：常规基本秩序成立；新取江淮实际剽掠另计有界居民损害，积狱问题已由主要阶段状态计入。",
+              "public_basis": "重要地区或群体出现明显损害：积狱问题已进入三档主要阶段状态；江淮实际剽掠与军人违法作为独立重要区域低谷计重要地区或群体出现明显损害，不与积狱重复。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
@@ -220,10 +246,24 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L2",
+              "range": "C3-3/L2",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "积狱问题已进入三档主态；江淮实际剽掠与军人违法作为独立重要区域低谷计L2，不与积狱重复。",
+              "allowed_endpoints": [
+                "C3-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-陈顼&axis=C3"
+          }
         },
         {
-          "adjudication_reason": "从侯景余乱和南方持续武装冲突的一档低位起步，短任内常规司法已经恢复到可运作层面，并有亲览词讼、临讯狱讼等实际运行，但材料不足证明主要控制区已广域进入C3-3，故主态与终点仍取C3-2。起点及恢复过程不降低低谷修正，未见恢复后二次跌破，故历史低谷标签。",
+          "adjudication_reason": "557—559短任仍处多线战争与割据收束期，但战争数量、军政控制得失和军队损失不能直接替代普通居民C3结果。本人窗口内反而有亲览词讼、临讯狱讼等常规司法实际运行；现有材料未闭合主要实际控制区普通居民在人身财产与司法/基层控制两面持续脆弱到C3-2。短任与材料稀疏本身不降档，侯景余乱接手低位也不单独扣L。因此原C3-2回调为C3-3/L0。 交班锚：常规司法仍运行，战争形势不直接压低交班居民安全。",
           "authority_attribution": "557—559年本人最高权力；短任材料稀疏只降低置信度，不自动降档；战争胜负不重复计分。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -240,23 +280,24 @@
           "evidence_refs": [
             "C3-REMAINING-陈-陈霸先"
           ],
-          "main_band": "C3-2",
+          "main_band": "C3-3",
           "polity": "陈",
-          "rank": 133,
+          "rank": 45,
           "reign_range": [
             557,
             559
           ],
           "ruler_id": "RULER-SHADOW-陈霸先",
           "ruler_name": "陈霸先",
-          "score": 16.0,
+          "score": 28.0,
           "state_anchors": {
             "S0": "C3-1",
-            "S_main": "C3-2",
-            "S_end": "C3-2"
+            "S_main": "C3-3",
+            "S_end": "C3-3",
+            "S_avg": "C3-3"
           },
-          "raw_state_band": "C3-2",
-          "formal_band": "C3-2",
+          "raw_state_band": "C3-3",
+          "formal_band": "C3-3",
           "peak_band": null,
           "material_basis": [
             {
@@ -264,20 +305,20 @@
               "original_text": "陈霸先在永定年间多次亲览词讼、临讯狱讼，说明常规司法已恢复运行。"
             }
           ],
-          "public_adjudication_summary": "主要状态：持续脆弱。从侯景余乱和南方持续武装冲突的一档低位起步，短任内常规司法已经恢复到可运作层面，并有亲览词讼、临讯狱讼等实际运行，但材料不足证明主要控制区已广域进入社会安全“可运行秩序”，故主要阶段状态与终点仍取社会安全“持续脆弱”。起点及恢复过程不降低低谷损害，未见恢复后二次跌破，故历史低谷标签。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：可运行秩序。557—559短任仍处多线战争与割据收束期，但战争数量、军政控制得失和军队损失不能直接替代普通居民社会安全结果。本人掌权时期内反而有亲览词讼、临讯狱讼等常规司法实际运行；现有材料未证实主要实际控制区普通居民在人身财产与司法/基层控制两面持续脆弱到社会安全“持续脆弱”。短任与材料稀疏本身不降档，侯景余乱接手低位也不单独扣低谷损害。因此原社会安全“持续脆弱”回调为社会安全“可运行秩序”/未另证独立有效低谷。 任期结束状态依据：常规司法仍运行，战争形势不直接压低任期结束居民安全。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C3-PUBLIC-E2A0E76566EAFEA0",
-              "public_label": "主要状态：持续脆弱",
+              "public_label": "主要状态：可运行秩序",
               "public_role": "主要状态",
-              "public_basis": "从侯景余乱和南方持续武装冲突的一档低位起步，短任内常规司法已经恢复到可运作层面，并有亲览词讼、临讯狱讼等实际运行，但材料不足证明主要控制区已广域进入社会安全“可运行秩序”，故主要阶段状态与终点仍取社会安全“持续脆弱”。起点及恢复过程不降低低谷损害，未见恢复后二次跌破，故历史低谷标签。",
+              "public_basis": "557—559短任仍处多线战争与割据收束期，但战争数量、军政控制得失和军队损失不能直接替代普通居民社会安全结果。本人掌权时期内反而有亲览词讼、临讯狱讼等常规司法实际运行；现有材料未证实主要实际控制区普通居民在人身财产与司法/基层控制两面持续脆弱到社会安全“持续脆弱”。短任与材料稀疏本身不降档，侯景余乱接手低位也不单独扣低谷损害。因此原社会安全“持续脆弱”回调为社会安全“可运行秩序”/未另证独立有效低谷。 任期结束状态依据：常规司法仍运行，战争形势不直接压低任期结束居民安全。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
               "id": "C3-PUBLIC-588C2E7635368533",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
@@ -287,10 +328,44 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L0",
+              "range": "C3-3/L0",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "多线战争仅在闭合居民安全后果时进入C3；接手余乱低态不作为L，现无独立居民低谷。",
+              "allowed_endpoints": [
+                "C3-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-陈霸先&axis=C3"
+          },
+          "loss_grade": "L0",
+          "stability_basis": "多线战争仅在闭合居民安全后果时进入C3；接手余乱低态不作为L，现无独立居民低谷。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-陈霸先&axis=C3",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "多线战争仅在闭合居民安全后果时进入C3；接手余乱低态不作为L，现无独立居民低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "557—559短任仍处多线战争与割据收束期，但战争数量、军政控制得失和军队损失不能直接替代普通居民C3结果。本人窗口内反而有亲览词讼、临讯狱讼等常规司法实际运行；现有材料未闭合主要实际控制区普通居民在人身财产与司法/基层控制两面持续脆弱到C3-2。短任与材料稀疏本身不降档，侯景余乱接手低位也不单独扣L。因此原C3-2回调为C3-3/L0。 交班锚：常规司法仍运行，战争形势不直接压低交班居民安全。",
+              "full_window_reviewed": true,
+              "deduplication": "多线战争仅在闭合居民安全后果时进入C3；接手余乱低态不作为L，现无独立居民低谷。",
+              "evidence_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷167-通读总结.md",
+                "《陈书》相关本纪"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "陈后主本人诏书已承认“奸盗多有，俗尚浇诈，政鲜惟良”，直接证明基层秩序和社会可预期性长期脆弱，主态C3-2。",
+          "adjudication_reason": "至德二年诏书直接承认‘奸盗多有，俗尚浇诈，政鲜惟良’，同时太建/至德后续编年又明载卖官鬻狱、货赂公行，基层秩序与司法可预期性两面持续脆弱，足以闭合C3-2。589年白土冈败、百司离散、建康失守主要是军政终局；材料明确军人伤亡和宫禁侵害，但未另闭合本人仍有实际治理权时普通居民发生独立L2级人身财产低谷。章大宝等叛乱也未给出可去重的居民后果。故保留C3-2主态，撤去旧L2。",
           "authority_attribution": "582—589年本人最高权力；亡国标签本身不计C3，只以任内奸盗、叛乱和建康实际秩序崩解结果裁档。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -309,14 +384,14 @@
           ],
           "main_band": "C3-2",
           "polity": "陈",
-          "rank": 162,
+          "rank": 136,
           "reign_range": [
             582,
             589
           ],
           "ruler_id": "RULER-SHADOW-陈叔宝",
           "ruler_name": "陈叔宝",
-          "score": 14.9,
+          "score": 16.0,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-3",
@@ -340,55 +415,50 @@
             {
               "book": "《陈书》卷6",
               "original_text": "至德二年诏称“法令滋章，奸盗多有，俗尚浇诈，政鲜惟良”。"
-            },
-            {
-              "book": "《陈书》卷6",
-              "original_text": "至德三年章大宝举兵反。"
-            },
-            {
-              "book": "《资治通鉴》卷177",
-              "original_text": "隋军入建康前后守备与百司离散，首都保护体系实际崩解。"
             }
           ],
-          "loss_grade": "L2",
-          "stability_basis": "长期奸盗由二档消费；末段普通保护失效另计实质低谷，不以军事入城升级。",
+          "loss_grade": "L0",
+          "stability_basis": "奸盗与卖官鬻狱共同定义二档主态；建康军事终局不自动产生居民L，未证独立低谷则L0。",
           "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
           "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
           "state_adjudication": {
             "version": "GOVERNANCE-STATE-RECOVERY-V4",
             "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-陈叔宝",
             "loss_review": {
-              "grade": "L2",
-              "basis": "长期奸盗由二档消费；末段普通保护失效另计实质低谷，不以军事入城升级。",
+              "grade": "L0",
+              "basis": "奸盗与卖官鬻狱共同定义二档主态；建康军事终局不自动产生居民L，未证独立低谷则L0。",
               "strong_dimensions": [],
-              "main_representativeness": "陈后主本人诏书已承认“奸盗多有，俗尚浇诈，政鲜惟良”，直接证明基层秩序和社会可预期性长期脆弱，主态C3-2。",
+              "main_representativeness": "至德二年诏书直接承认‘奸盗多有，俗尚浇诈，政鲜惟良’，同时太建/至德后续编年又明载卖官鬻狱、货赂公行，基层秩序与司法可预期性两面持续脆弱，足以闭合C3-2。589年白土冈败、百司离散、建康失守主要是军政终局；材料明确军人伤亡和宫禁侵害，但未另闭合本人仍有实际治理权时普通居民发生独立L2级人身财产低谷。章大宝等叛乱也未给出可去重的居民后果。故保留C3-2主态，撤去旧L2。",
               "full_window_reviewed": true,
-              "deduplication": "长期奸盗由二档消费；末段普通保护失效另计实质低谷，不以军事入城升级。",
+              "deduplication": "奸盗与卖官鬻狱共同定义二档主态；建康军事终局不自动产生居民L，未证独立低谷则L0。",
               "evidence_refs": [
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-陈叔宝",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-陈叔宝",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-陈叔宝",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-陈叔宝",
                 "《资治通鉴》共享通读卡正文",
-                "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7176"
+                "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7176",
+                "docs/史料通读产物/唐以前编年/南北朝/卷176-通读总结.md",
+                "docs/史料通读产物/唐以前编年/隋/卷177-通读总结.md",
+                "《陈书》卷6"
               ]
             },
-            "score": 14.9
+            "score": 16.0
           },
-          "public_adjudication_summary": "主要状态：持续脆弱。陈后主本人诏书已承认“奸盗多有，俗尚浇诈，政鲜惟良”，直接证明基层秩序和社会可预期性长期脆弱，主要阶段状态社会安全“持续脆弱”。\n\n重要地区或群体出现明显损害：长期奸盗由二档计入；末段普通保护失效另计实质低谷，不以军事入城升级。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：持续脆弱。至德二年诏书直接承认‘奸盗多有，俗尚浇诈，政鲜惟良’，同时太建/至德后续编年又明载卖官鬻狱、货赂公行，基层秩序与司法可预期性两面持续脆弱，足以证实社会安全“持续脆弱”。589年白土冈败、百司离散、建康失守主要是军政终局；材料明确军人伤亡和宫禁侵害，但未另证实本人仍有实际治理权时普通居民发生独立重要地区或群体出现明显损害级人身财产低谷。章大宝等叛乱也未给出可避免重复计算的居民后果。故保留社会安全“持续脆弱”主要阶段状态，撤去旧重要地区或群体出现明显损害。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C3-PUBLIC-A7AE17E05982ECA9",
               "public_label": "主要状态：持续脆弱",
               "public_role": "主要状态",
-              "public_basis": "陈后主本人诏书已承认“奸盗多有，俗尚浇诈，政鲜惟良”，直接证明基层秩序和社会可预期性长期脆弱，主要阶段状态社会安全“持续脆弱”。",
+              "public_basis": "至德二年诏书直接承认‘奸盗多有，俗尚浇诈，政鲜惟良’，同时太建/至德后续编年又明载卖官鬻狱、货赂公行，基层秩序与司法可预期性两面持续脆弱，足以证实社会安全“持续脆弱”。589年白土冈败、百司离散、建康失守主要是军政终局；材料明确军人伤亡和宫禁侵害，但未另证实本人仍有实际治理权时普通居民发生独立重要地区或群体出现明显损害级人身财产低谷。章大宝等叛乱也未给出可避免重复计算的居民后果。故保留社会安全“持续脆弱”主要阶段状态，撤去旧重要地区或群体出现明显损害。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
               "id": "C3-PUBLIC-2888989B6F6340C0",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "重要地区或群体出现明显损害：长期奸盗由二档计入；末段普通保护失效另计实质低谷，不以军事入城升级。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
@@ -398,7 +468,21 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-2/L0",
+              "range": "C3-2/L0",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "奸盗与卖官鬻狱共同定义二档主态；建康军事终局不自动产生居民L，未证独立低谷则L0。",
+              "allowed_endpoints": [
+                "C3-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-陈叔宝&axis=C3"
+          }
         }
       ]
     }

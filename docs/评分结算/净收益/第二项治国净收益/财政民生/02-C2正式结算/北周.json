@@ -64,7 +64,7 @@
           ],
           "peak_band": null,
           "polity": "北周",
-          "rank": 55,
+          "rank": 53,
           "reign_range": [
             572,
             578
@@ -115,7 +115,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_zhou.json#material_id=I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT",
-                "https://zh.wikisource.org/w/index.php?title=周書/卷06&oldid=2589015"
+                "https://zh.wikisource.org/w/index.php?title=周書/卷06&oldid=2589015",
+                "https://zh.wikisource.org/zh-hans/全後周文/卷二",
+                "https://zh.wikisource.org/zh-hans/欽定古今圖書集成/經濟彙編/食貨典/第070卷"
               ]
             },
             "score": 14.9
@@ -143,7 +145,27 @@
               "public_basis": "灭北齐的统一收益属于其他轴/外生规模变化，不能自动替代经济财政经济财政结果。\n\n废佛、节用、水利等如无实际产出/财政结果证实，不单独加档。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-3/L0",
+              "range": [
+                "C2-2/L0~L1",
+                "C2-3/L0"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C2-2/L0",
+                "C2-2/L1",
+                "C2-3/L0",
+                "C2-3/L1"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-宇文邕&axis=C2"
+          }
         }
       ]
     }

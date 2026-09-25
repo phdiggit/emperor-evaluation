@@ -55,7 +55,7 @@
           ],
           "peak_band": null,
           "polity": "南齐",
-          "rank": 55,
+          "rank": 53,
           "reign_range": [
             479,
             482
@@ -124,7 +124,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧道成",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧道成",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧道成",
-                "《资治通鉴》共享通读卡正文"
+                "《资治通鉴》共享通读卡正文",
+                "https://zh.wikisource.org/zh-hans/南齐书/卷37"
               ]
             },
             "score": 14.9
@@ -152,7 +153,25 @@
               "public_basis": "“吏民始得安业”不作为经济财政高档证据。\n\n检籍会增加税基，也会产生刚性转嫁，不能单向计入。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-3/L0",
+              "range": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-萧道成&axis=C2"
+          }
         },
         {
           "adjudication_reason": "原结算认为明帝时期宫廷与战争支出侵蚀永明积累，方向可以保留，但原证据卡明显混入北魏迁洛和郁林王材料。本轮只消费本人窗口：建武元年直接停石头后渚商旅税、断土贡、还新林苑民地，随后又多次蠲战区税调，说明财政与市场系统仍可运行并主动减负；但这些主要是政策动作，且北魏战争持续侵蚀税基，缺P/M与F/R健康结果闭合。因此主态仍C2-3。",
@@ -211,7 +230,7 @@
           ],
           "peak_band": null,
           "polity": "南齐",
-          "rank": 55,
+          "rank": 53,
           "reign_range": [
             494,
             498
@@ -262,7 +281,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
                 "迁洛营都、行宫供顿与人口安置形成长期工程和迁徙负担",
-                "docs/史料通读产物/唐以前编年/南北朝/卷138-通读总结.md#L93"
+                "docs/史料通读产物/唐以前编年/南北朝/卷138-通读总结.md#L93",
+                "https://zh.wikisource.org/zh-hans/全齊文/卷五",
+                "https://zh.wikisource.org/zh-hans/南齊書"
               ]
             },
             "score": 14.9
@@ -290,7 +311,24 @@
               "public_basis": "北魏迁洛及郁林王耗用储备的材料不作为本人状态依据。\n\n战争不机械扣经济财政，只计入其已证实到的税基与财政措施。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-3/L0",
+              "range": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ],
+              "leaderboard_consumption": "lower_and_upper_endpoints",
+              "allowed_endpoints": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-萧鸾&axis=C2"
+          }
         }
       ]
     }

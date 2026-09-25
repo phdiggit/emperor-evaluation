@@ -476,7 +476,7 @@ def write_component_readers(workspace_root: Path) -> None:
     for axis, rel in FORMAL_PATHS.items():
         payload = load_json(root / rel)
         rows = sorted(payload['scores'], key=lambda r: (r['rank'], r['ruler_id']))
-        lines = [f'# {axis}财政民生正式结算', '', f'> 当前规范池采用{VERSION}。池外记录保留既有结果且不进入当前综合榜。', '']
+        lines = [f'# {axis}财政民生正式结算', '', f'> 当前规范池采用{VERSION}。池外命中低置信终裁者按正式端点结算，其余保留既有结果；池外均不进入当前综合榜。', '']
         if axis in AXES:
             lines += ['| 人物 | 政权 | 全任曲线 S0→S_main→S_end | L有限修正 | 分数 |', '|---|---|---|---|---:|']
             for row in rows:
@@ -504,7 +504,8 @@ def write_component_readers(workspace_root: Path) -> None:
                     else:
                         lines.append('  - '+str(m))
             if row.get('state_adjudication'):
-                lines.append('- 完整裁决与引用：[逐人源](../../../../../config/second-item/governance-state-recovery-adjudications.json)。')
+                review_ref = row['state_adjudication'].get('review_ref', '').split('#', 1)[0]
+                lines.append(f'- 完整裁决与引用：[逐人源](../../../../../{review_ref})。')
             lines.append('')
         (root/rel.with_suffix('.md')).write_text('\n'.join(lines),encoding='utf-8')
 

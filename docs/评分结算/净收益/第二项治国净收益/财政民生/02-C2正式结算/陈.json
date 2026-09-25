@@ -58,7 +58,7 @@
           ],
           "peak_band": null,
           "polity": "陈",
-          "rank": 55,
+          "rank": 53,
           "reign_range": [
             559,
             566
@@ -68,7 +68,7 @@
           "score": 14.9,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
-            "S0": "C2-3",
+            "S0": "C2-2",
             "S_main": "C2-3",
             "S_avg": "C2-3",
             "S_end": "C2-3"
@@ -127,7 +127,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-陈蒨",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-陈蒨",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-陈蒨",
-                "陈朝因军费民困减省宫廷百司并拒绝奢侈进奉"
+                "陈朝因军费民困减省宫廷百司并拒绝奢侈进奉",
+                "https://zh.wikisource.org/zh-hans/陳書",
+                "https://zh.wikisource.org/zh-hans/隋書_(四庫全書本)/卷24"
               ]
             },
             "score": 14.9
@@ -155,10 +157,27 @@
               "public_basis": "节用、减役、币制改革都是政策工具，若无后续结果不能单独承担四档。\n\n战后恢复幅度属于动态语义，不作为经济财政额外加分。\n\n接手时经济财政基本运行，与陈霸先任期结束时相衔接。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-3/L0",
+              "range": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ],
+              "leaderboard_consumption": "lower_and_upper_endpoints",
+              "allowed_endpoints": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-陈蒨&axis=C2"
+          }
         },
         {
-          "adjudication_reason": "原结算所谓“梁末废墟上恢复江南基本财政、农桑和秩序”方向保留，但旧核心证据“军粮五十万石、分三十万石资西军”发生在称帝前的军政创业阶段，只能证明其控制集团有物资组织能力，不能直接抬高陈朝常态财政。557—559短任内又缺P/M/F/R的广域健康结果，因此主态仍C2-3。交班时陈初货币虽混乱，但尚不足判系统性脆弱到二档，故S_end取三，并同步陈蒨S0修为三。",
+          "adjudication_reason": "“陈初铁钱不行、私钱杂行、兼以粟帛为货”闭合货币市场长期脆弱，且财政生产健康结果不足，原C2-3下调二档。 交班锚：陈初货币市场脆弱延续，未证交班时经济财政已恢复三档。",
           "confidence": "LOW",
           "evidence": [
             {
@@ -185,27 +204,27 @@
           "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
           "high_band_gate": {
             "status": "FAIL_C2_4_MAIN",
-            "basis": "可确认基本财政与资源体系延续，但M面仍弱、F/R健康结果不足，四档失败。"
+            "basis": "“陈初铁钱不行、私钱杂行、兼以粟帛为货”闭合货币市场长期脆弱，且财政生产健康结果不足，原C2-3下调二档。"
           },
-          "main_band": "C2-3",
+          "main_band": "C2-2",
           "material_limitations": [
-            "前创业军粮不得直接等同陈朝财政高位。",
-            "S_end=C2-3，并将已重裁陈蒨S0由C2-2同步为C2-3。"
+            "前创业军粮不得直接等同陈朝财政高位。"
           ],
           "peak_band": null,
           "polity": "陈",
-          "rank": 55,
+          "rank": 144,
           "reign_range": [
             557,
             559
           ],
           "ruler_id": "RULER-SHADOW-陈霸先",
           "ruler_name": "陈霸先",
-          "score": 14.9,
+          "score": 7.0,
           "state_anchors": {
             "S0": "C2-2",
-            "S_avg": "C2-3",
-            "S_end": "C2-3"
+            "S_avg": "C2-2",
+            "S_end": "C2-2",
+            "S_main": "C2-2"
           },
           "m3_supplement_review": null,
           "d_cost_crosscheck": {
@@ -215,30 +234,62 @@
             "cost_position": "LOW",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "public_adjudication_summary": "主要状态：基本运行。梁末废墟上，江南财政、农桑及秩序有所恢复；但“军粮五十万石、分三十万石资西军”发生于称帝前的军政创业阶段，只能证明该控制集团具有物资组织能力，不能直接抬高陈朝常态财政评价。557—559短任内又缺生产/市场与货币/财政/储备的广域健康结果，因此主要阶段状态仍经济财政“基本运行”。任期结束时陈初货币虽混乱，但尚不足判系统性脆弱到二档，故任期结束状态取三，并同步陈蒨接手状态修为三。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：汲取脆弱。“陈初铁钱不行、私钱杂行、兼以粟帛为货”证实货币市场长期脆弱，且财政生产健康结果不足，原经济财政“基本运行”下调二档。 任期结束状态依据：陈初货币市场脆弱延续，未证任期结束时经济财政已恢复三档。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C2-PUBLIC-A3A7912345BD8F16",
-              "public_label": "主要状态：基本运行",
+              "public_label": "主要状态：汲取脆弱",
               "public_role": "主要状态",
-              "public_basis": "梁末废墟上，江南财政、农桑及秩序有所恢复；但“军粮五十万石、分三十万石资西军”发生于称帝前的军政创业阶段，只能证明该控制集团具有物资组织能力，不能直接抬高陈朝常态财政评价。557—559短任内又缺生产/市场与货币/财政/储备的广域健康结果，因此主要阶段状态仍经济财政“基本运行”。任期结束时陈初货币虽混乱，但尚不足判系统性脆弱到二档，故任期结束状态取三，并同步陈蒨接手状态修为三。",
+              "public_basis": "“陈初铁钱不行、私钱杂行、兼以粟帛为货”证实货币市场长期脆弱，且财政生产健康结果不足，原经济财政“基本运行”下调二档。 任期结束状态依据：陈初货币市场脆弱延续，未证任期结束时经济财政已恢复三档。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             },
             {
               "id": "C2-PUBLIC-A33EDD196BFA9835",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             },
             {
               "id": "C2-PUBLIC-BFB410F2340B19DF",
               "public_label": "评价边界",
               "public_role": "边界",
-              "public_basis": "前创业军粮不得直接等同陈朝财政高位。\n\n任期结束时经济财政基本运行，陈蒨接手时也应按这一状态评价。",
+              "public_basis": "前创业军粮不得直接等同陈朝财政高位。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-2/L0",
+              "range": "C2-2/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-陈霸先&axis=C2"
+          },
+          "loss_grade": "L0",
+          "stability_basis": "“陈初铁钱不行、私钱杂行、兼以粟帛为货”闭合货币市场长期脆弱，且财政生产健康结果不足，原C2-3下调二档。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-陈霸先&axis=C2",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "“陈初铁钱不行、私钱杂行、兼以粟帛为货”闭合货币市场长期脆弱，且财政生产健康结果不足，原C2-3下调二档。",
+              "strong_dimensions": [],
+              "main_representativeness": "“陈初铁钱不行、私钱杂行、兼以粟帛为货”闭合货币市场长期脆弱，且财政生产健康结果不足，原C2-3下调二档。 交班锚：陈初货币市场脆弱延续，未证交班时经济财政已恢复三档。",
+              "full_window_reviewed": true,
+              "deduplication": "“陈初铁钱不行、私钱杂行、兼以粟帛为货”闭合货币市场长期脆弱，且财政生产健康结果不足，原C2-3下调二档。",
+              "evidence_refs": [
+                "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-陈霸先&axis=C2"
+              ]
+            },
+            "score": 7.0
+          }
         },
         {
           "adjudication_reason": "太建后期史料直接记载“府帑未充，民疲征赋”，公共财政只能判基本运行；太建十一年大货六铢又迅速从一当十退回一当一并出现“人皆不便”，市场货币面也未达健康。两面硬反证同时存在，旧四档下调三档。",
@@ -298,7 +349,7 @@
           ],
           "peak_band": null,
           "polity": "陈",
-          "rank": 55,
+          "rank": 53,
           "reign_range": [
             569,
             582
@@ -426,7 +477,7 @@
           ],
           "peak_band": null,
           "polity": "陈",
-          "rank": 147,
+          "rank": 144,
           "reign_range": [
             582,
             589
@@ -477,7 +528,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-陈叔宝",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-陈叔宝",
                 "《资治通鉴》共享通读卡正文",
-                "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7176"
+                "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7176",
+                "https://zh.wikisource.org/zh-hans/資治通鑑_(胡三省音注)/卷176"
               ]
             },
             "score": 7.0
@@ -505,7 +557,20 @@
               "public_basis": "接手时经济财政基本运行，与陈顼任期结束时的状态相衔接。\n\n隋灭陈本身不自动判一档\n\n旧任期结束状态=经济财政“失灵崩解”修为2。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-2/L0",
+              "range": "C2-2/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-陈叔宝&axis=C2"
+          }
         }
       ]
     }

@@ -65,7 +65,7 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 129,
+          "rank": 125,
           "reign_range": [
             [
               465,
@@ -301,7 +301,8 @@
                 "《资治通鉴》共享通读卡正文",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_wei.json#material_id=I2-QIN95-FACT-SUPP29-TUOBAGUANG-GARRISON-140-11",
                 "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7140",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "https://zh.wikisource.org/zh-hant/魏書/卷110"
               ]
             },
             "score": 29.8
@@ -329,7 +330,20 @@
               "public_basis": "“公私丰赡”是本人掌权时期直接结果，可作为五档综合锚\n\n但六档不能把同一条综合史评拆成四个独立有力证据。\n\n太和五铢在后续时期出现地区流通不一，故不把货币面判为罕见极强。\n\n迁都和对南齐战争的成本只作军事战略结果侧压力，不机械压低经济财政。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-5/L0",
+              "range": "C2-5/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-5/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-拓跋宏&axis=C2"
+          }
         },
         {
           "adjudication_reason": "元恪承接太和改革后的高位系统，任内没有常规财政结构性失效的硬证，且延昌元年面对京师谷贵仍能一次性出仓粟八十万石，说明R至少健康。后期连续水旱、京师粮价与多地就谷迁食形成本人窗口内真实的生产—市场压力，使S_end降至三档；但这些冲击没有闭合为全任公共财政脆弱，故主态仍保四。",
@@ -440,7 +454,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-元恪",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-元恪",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-元恪",
-                "《资治通鉴》共享通读卡正文"
+                "《资治通鉴》共享通读卡正文",
+                "《魏书·宣武帝纪》",
+                "《魏书·食货志》"
               ]
             },
             "score": 21.9
@@ -468,7 +484,29 @@
               "public_basis": "水旱本身不因恢复与额外代价逻辑扣经济财政\n\n真正进入经济财政的是“京师谷贵、就谷迁食”等已实现的绝对经济状态。\n\n正光以后预征六年租调、帑藏空竭发生在元恪死后，不得回填。\n\n接手时经济财政富实强健，与拓跋宏任期结束时相衔接。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-4/L2",
+              "range": [
+                "C2-3/L0~L1",
+                "C2-4/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C2-3/L0",
+                "C2-3/L1",
+                "C2-3/L2",
+                "C2-4/L0",
+                "C2-4/L1",
+                "C2-4/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-元恪&axis=C2"
+          }
         },
         {
           "adjudication_reason": "按既有审核结论保C2-4，但删除“冲击后恢复能力”这一C4污染。本人窗口直接材料显示灾荒后确已形成“岁数丰穰、畜牧滋息”的生产结果；泰常三年又能集中积租于定、相、冀并在多次水灾后减免租税，说明常规财政和粮储体系仍在运行。公共财政的直接余量证据弱于生产面，故四档可保、五档不开放。",
@@ -716,7 +754,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-拓跋焘",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-拓跋焘",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-拓跋焘",
-                "刘宋币制反复与轻钱私铸导致粮价和市场崩坏"
+                "刘宋币制反复与轻钱私铸导致粮价和市场崩坏",
+                "https://zh.wikisource.org/zh-hant/魏書/卷110"
               ]
             },
             "score": 21.9
@@ -744,7 +783,29 @@
               "public_basis": "战争成本不在经济财政内部再次压低得分。\n\n这里只计入史料已经证实到的生产损耗。\n\n市场货币材料不足降低置信度，不因缺证直接判弱。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-4/L2",
+              "range": [
+                "C2-3/L0~L1",
+                "C2-4/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C2-3/L0",
+                "C2-3/L1",
+                "C2-3/L2",
+                "C2-4/L0",
+                "C2-4/L1",
+                "C2-4/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-拓跋焘&axis=C2"
+          }
         },
         {
           "adjudication_reason": "原结算关于三等九品租输、罢十五项杂调和山东征戍转运压力的框架基本成立。新核史料还直接给出“赋敛稍轻，民复赡矣”，说明改革后至少恢复到基本可运行；但这仍主要闭合税负与P侧生活/生产余量，缺市场货币和公共储备的健康结果，而且天安、皇兴间连年大旱与山东转运构成持续约束。因此保C2-3，不把改革动作本身抬成四档。",
@@ -793,7 +854,7 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 129,
+          "rank": 125,
           "reign_range": "465—476年；471年退位后仍掌权",
           "ruler_id": "RULER-SHADOW-拓跋弘",
           "ruler_name": "拓跋弘",
@@ -873,7 +934,22 @@
               "public_basis": "本人主政只计入467—476实际掌权段。\n\n冯太后在465—467年与476年以后分两段实际掌权，应分别核对各段起点和终点，不能用全任期的一组状态机械衔接。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-3/L2",
+              "range": "C2-2/L0 ↔ C2-3/L2",
+              "allowed_endpoints": [
+                "C2-2/L0",
+                "C2-3/L2"
+              ],
+              "leaderboard_consumption": "paired_endpoints_only",
+              "deduplication": "连旱征运若定义长期弱柱则C2-2/L0；若改革后基本经济财政运行代表主态，则前段生产财政冲击只计L2。"
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-拓跋弘&axis=C2"
+          }
         },
         {
           "adjudication_reason": "原结算关于给牛授田和农业组织形成北魏早期生产基础可以保留；但新核《魏书·食货志》同时给出了很关键的上限反证：虽“比岁大熟”，却“犹未足以久赡”。这意味着P已经强劲恢复，但F/R仍只有有限供给余量。征服所得珍宝畜产只可说明一时国用，不能作为正常财政强证。故主态仍C2-3，晚段生产改善使交班锚维持C2-4，与拓跋嗣S0同步。",
@@ -922,7 +998,7 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 55,
+          "rank": 53,
           "reign_range": [
             386,
             409
@@ -972,7 +1048,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-拓跋珪",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-拓跋珪",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-拓跋珪",
-                "魏书·刑罚志"
+                "魏书·刑罚志",
+                "https://zh.wikisource.org/zh-hans/魏书/卷110",
+                "https://zh.wikisource.org/wiki/魏書_(四庫全書本)/卷101010"
               ]
             },
             "score": 14.9
@@ -1000,7 +1078,20 @@
               "public_basis": "“破卫辰，收珍宝畜产，渐增国用”属于征服资产，不计正常财政高档。\n\n任期结束时经济财政健康稳定，与拓跋嗣接手时的状态相衔接。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-3/L0",
+              "range": "C2-3/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-拓跋珪&axis=C2"
+          }
         }
       ]
     }

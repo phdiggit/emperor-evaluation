@@ -1,11 +1,12 @@
 """Current-source, non-probabilistic score enclosures for the ranked pool.
 
-The input registries adjudicate candidate grades and linked scenarios. This
+The input registries adjudicate terminal endpoints and linked scenarios. This
 module prices them with the live settlement formulas; it never edits grades.
 """
 from __future__ import annotations
 
 import json
+import re
 from collections import defaultdict
 from copy import deepcopy
 from decimal import Decimal
@@ -18,7 +19,7 @@ from emperor_v4.evaluation import governance_state_recovery as gov_math
 
 COST_REVIEW = Path('config/common/prudent-military-cost-grade-reviews.json')
 GOV_REVIEW = Path('config/common/prudent-governance-grade-scenarios.json')
-AXIS_REVIEW = Path('config/common/prudent-governance-main-grade-reviews.json')
+AXIS_REVIEW = Path('config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json')
 CASES = Path('config/common/evidence-interpretation-cases.json')
 THIRD = Path('docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json')
 D_STAGE = Path('docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json')
@@ -35,6 +36,38 @@ def _needs_main_grade_review(label: object) -> bool:
     if normalized.startswith(('MEDIUM', 'LOW')) or normalized in {'中', '中低', '中高'}:
         return True
     raise ValueError(f'未知治理证据置信标签：{label}')
+
+
+def _declared_terminal_endpoints(final: dict[str, Any]) -> list[str]:
+    """Expand only a ruling that explicitly permits grade/loss combinations."""
+    primary = final['primary_endpoint']
+    if final['status'] == 'FINAL_SINGLE_POINT':
+        return [primary]
+    raw = final['range']
+    if isinstance(raw, str):
+        raw = [part.strip() for part in raw.split('↔')]
+    if not isinstance(raw, list) or len(raw) < 2:
+        raise ValueError('治理终裁审慎区间缺端点')
+    mode = final['leaderboard_consumption']
+    if mode in {'paired_endpoints_only','score_extrema_across_explicit_endpoints_only',
+                'lower_and_upper_endpoints'}:
+        return raw
+    if mode != 'score_extrema_across_all_allowed_grade_loss_combinations':
+        raise ValueError(f'未知治理终裁端点消费方式：{mode}')
+    parsed = []
+    for value in raw:
+        match = re.fullmatch(r'(C[123])-([1-6])/L([0-3])(?:~L([0-3]))?', value)
+        if not match:
+            raise ValueError(f'治理终裁组合端点非法：{value}')
+        parsed.append(match)
+    axis = parsed[0][1]
+    if any(match[1]!=axis for match in parsed):
+        raise ValueError('治理终裁组合端点跨轴')
+    bands = [int(match[2]) for match in parsed]
+    losses = [int(value) for match in parsed for value in (match[3],match[4]) if value is not None]
+    return [f'{axis}-{grade}/L{loss}'
+            for grade in range(min(bands),max(bands)+1)
+            for loss in range(min(losses),max(losses)+1)]
 
 
 def _check_ref(root: Path, ref: str) -> None:
@@ -154,8 +187,8 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
         raise ValueError('军事成本审慎范围版本不符')
     if scenario_source.get('schema_version') != 'prudent-governance-grade-scenarios-v1':
         raise ValueError('治理联动审慎范围版本不符')
-    if axis_source.get('schema_version') != 'prudent-governance-main-grade-reviews-v1':
-        raise ValueError('治理主态审慎范围版本不符')
+    if axis_source.get('schema_version') != 'c1-c2-c3-low-confidence-terminal-adjudications-v1':
+        raise ValueError('治理低置信终裁版本不符')
 
     third = {r['ruler_id']:r for r in load_json(root / THIRD)['records']}
     stage_review_count, stage_axis_count, stage_review_methods = _validate_stage_reviews(root, set(by_id))
@@ -228,49 +261,62 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
     second_ids={r['ruler_id']:r['source_item_ids']['second_item'] for r in pool if r['ruler_id'] in by_id}
     formal_axes={a:{r['ruler_id']:r for r in load_json(root/path)['scores']}
                  for a,path in gov_math.FORMAL_PATHS.items() if a in gov_math.AXES}
-    expected_axis={(rid,a) for rid in by_id for a in gov_math.AXES
-                   if _needs_main_grade_review(formal_axes[a][second_ids[rid]].get('confidence',''))}
+    expected_all={(row['ruler_id'],a) for a, rows in formal_axes.items() for row in rows.values()
+                  if _needs_main_grade_review(row.get('confidence',''))}
     axis_reviews={(r['ruler_id'],r['axis']):r for r in axis_source['records']}
-    if len(axis_reviews)!=len(axis_source['records']) or set(axis_reviews)!=expected_axis:
-        raise ValueError('治理低证据主态复核未覆盖当前入榜对象')
+    if (len(axis_reviews)!=len(axis_source['records']) or set(axis_reviews)!=expected_all
+            or axis_source.get('record_count')!=len(axis_reviews)):
+        raise ValueError('治理低置信终裁未完整覆盖正式分片')
     axis_deltas: dict[str,list[dict]] = defaultdict(list)
     method_counts: dict[str,int] = defaultdict(int)
     for (rid,axis),review in axis_reviews.items():
-        method = review.get('review_method')
-        if method not in {'PRIOR_GRADE_REVIEW', 'DIRECT_SOURCE_RECHECKED',
-                          'FORMAL_REASON_REUSED_LINEAGE_RECORDED'}:
-            raise ValueError(f'治理主态审慎复核方法缺失：{rid}/{axis}')
-        method_counts[method] += 1
-        original=gov[second_ids[rid]]['axes'][axis]
-        if (review['baseline_main_band'],review['baseline_loss_grade'],str(review['baseline_confidence_label'])) != (
-                original['main_band'],original['loss_review']['grade'],str(formal_axes[axis][second_ids[rid]].get('confidence'))):
-            raise ValueError(f'治理主态审慎基准漂移：{rid}/{axis}')
-        _check_ref(root,review['source_ref'])
-        if not review.get('review_gate'):
-            raise ValueError(f'治理主态审慎缺逐轴依据：{rid}/{axis}')
-        lineage = review.get('evidence_lineage', {})
-        if not (lineage.get('works_or_reading_sources') or lineage.get('direct_refs')):
-            raise ValueError(f'治理主态审慎缺史源谱系：{rid}/{axis}')
-        for ref in lineage.get('direct_refs', []):
-            _check_lineage_ref(root, ref)
-        current=gov_math.state_score(axis,original['main_band'],original['loss_review']['grade'])
-        candidate=gov_math.state_score(axis,review['candidate_main_band'],review['candidate_loss_grade'])
-        if current == candidate:
+        final=review.get('final_adjudication',{})
+        status=review.get('decision_final')
+        if status not in {'FINAL_SINGLE_POINT','FINAL_PRUDENT_RANGE'} or final.get('status')!=status:
+            raise ValueError(f'治理终裁状态非法：{rid}/{axis}')
+        method_counts[status] += 1
+        formal_row=formal_axes[axis][rid]
+        if formal_row.get('low_confidence_terminal_adjudication',{}).get('final_adjudication')!=final:
+            raise ValueError(f'治理终裁正式分片漂移：{rid}/{axis}')
+        primary=final['primary_endpoint']
+        if primary!=f"{formal_row['main_band']}/{formal_row['loss_grade']}":
+            raise ValueError(f'治理终裁采用点漂移：{rid}/{axis}')
+        allowed=final.get('allowed_endpoints',[])
+        if (not allowed or len(allowed)!=len(set(allowed)) or primary not in allowed
+                or (status=='FINAL_SINGLE_POINT' and allowed!=[primary])
+                or (status=='FINAL_PRUDENT_RANGE' and len(allowed)<2)
+                or allowed!=_declared_terminal_endpoints(final)):
+            raise ValueError(f'治理终裁端点非法：{rid}/{axis}')
+        scores={}
+        for endpoint in allowed:
+            grade, loss=endpoint.split('/')
+            if grade not in {f'{axis}-{n}' for n in range(1,7)} or loss not in gov_math.LOSS_RATES:
+                raise ValueError(f'治理终裁端点档位非法：{rid}/{axis}: {endpoint}')
+            scores[endpoint]=gov_math.state_score(axis,int(grade[-1]),loss)
+        if status=='FINAL_SINGLE_POINT':
             continue
+        if rid not in second_ids.values():
+            continue
+        original=gov[rid]['axes'][axis]
+        current=gov_math.state_score(axis,original['main_band'],original['loss_review']['grade'])
+        if current!=scores[primary]:
+            raise ValueError(f'治理终裁分值基准漂移：{rid}/{axis}')
+        source_ref=f'{AXIS_REVIEW.as_posix()}#ruler_id={rid}&axis={axis}'
         axis_deltas[rid].append({
             'axis':axis,'current_grade':f'{axis}-{original["main_band"]}',
-            'candidate_grade':f'{axis}-{review["candidate_main_band"]}',
             'current_loss_grade':original['loss_review']['grade'],
-            'candidate_loss_grade':review['candidate_loss_grade'],
-            'conditional_total_delta':round(candidate-current,2),
-            'review_gate':review['review_gate'],'source_ref':review['source_ref'],
+            'allowed_endpoints':allowed,'endpoint_scores':scores,
+            'leaderboard_consumption':final['leaderboard_consumption'],
+            'conditional_delta_range':[round(min(scores.values())-current,2),round(max(scores.values())-current,2)],
+            'review_gate':review['reason'],'source_ref':source_ref,
         })
 
     intervals=0
     for rid,row in by_id.items():
         case_deltas=governance_case_deltas[rid]
-        gov_min=sum(min([0.0]+d) for d in case_deltas.values())+sum(min(0.0,x['conditional_total_delta']) for x in axis_deltas[rid])
-        gov_max=sum(max([0.0]+d) for d in case_deltas.values())+sum(max(0.0,x['conditional_total_delta']) for x in axis_deltas[rid])
+        source_id=second_ids[rid]
+        gov_min=sum(min([0.0]+d) for d in case_deltas.values())+sum(x['conditional_delta_range'][0] for x in axis_deltas[source_id])
+        gov_max=sum(max([0.0]+d) for d in case_deltas.values())+sum(x['conditional_delta_range'][1] for x in axis_deltas[source_id])
         base=float(row['total_score'])
         # Widen at the final precision so floating arithmetic cannot omit an endpoint.
         low=floor((base+cost_deltas[rid]+gov_min+1e-8)*100)/100
@@ -279,13 +325,9 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
             raise ValueError(f'正式分数不在审慎区间：{rid}')
         if low<high:intervals+=1
         review=reviews.get(rid)
-        per_axis_methods = {axis: axis_reviews[(rid,axis)]['review_method']
-                            for axis in gov_math.AXES if (rid,axis) in axis_reviews}
-        pending_axes = [axis for axis,method in per_axis_methods.items()
-                        if method == 'FORMAL_REASON_REUSED_LINEAGE_RECORDED']
-        basis = '依当前正式理由与已登记争议暂列的现有史料审慎复核区间；不是统计置信区间或未来史料的绝对界。'
-        if pending_axes:
-            basis += f' {"、".join(pending_axes)}仅复用正式理由与谱系，仍待独立原文核查。'
+        per_axis_methods = {axis: axis_reviews[(source_id,axis)]['decision_final']
+                            for axis in gov_math.AXES if (source_id,axis) in axis_reviews}
+        basis = '依低置信逐轴终裁的合法端点计算现有史料审慎区间；不是统计置信区间或未来史料的绝对界。'
         row['prudent_score_interval']={
             'lower':low,'upper':high,
             'basis':basis,
@@ -300,7 +342,7 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
                 'review_gate':review['review_gate'],'source_ref':review['source_ref'],
             },
             'linked_case_ids':sorted(case_deltas),
-            'axis_reviews':axis_deltas[rid],
+            'axis_reviews':axis_deltas[source_id],
             'linked_reviews':[
                 {'case_id':cid,'question':active_cases[cid]['question'],
                  'basis':active_cases[cid].get('public_basis',active_cases[cid]['basis']),

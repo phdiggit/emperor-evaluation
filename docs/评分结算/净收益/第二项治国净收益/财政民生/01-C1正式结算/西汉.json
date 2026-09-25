@@ -443,7 +443,10 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUQI",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUQI",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUQI",
-                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUQI"
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUQI",
+                "https://zh.wikisource.org/zh/資治通鑑/卷015",
+                "https://ctext.org/text.pl?if=gb&node=8560&show=parallel",
+                "https://ctext.org/text.pl?if=gb&node=61987&show=parallel"
               ]
             },
             "score": 69.1
@@ -471,7 +474,20 @@
               "public_basis": "第三项军事成本军事成本第五级主要由七国之乱全国多方向动员、军资城防承载及削藩触发责任准入，另有数轮匈奴入边。民生只计入已经落到家庭端的吴地大征发及已实现的民食不足；军队战损、驻屯规模和战争胜负本身不另扣民生，也不与上述历史低谷标签低谷重复计数。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-5/L2",
+              "range": "C1-5/L2",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-5/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUQI&axis=C1"
+          }
         },
         {
           "adjudication_reason": "《汉书·食货志》“宣帝即位……百姓安土，岁数丰穰”足以闭合主要统治区普遍温饱。昭帝阶段“颇有畜积”属于前任恢复，后世“百姓訾富虽不及文景”又属于更晚的累世承平总结，均不得倒灌为宣帝本人C1-5强锚；故正式锁定C1-4。",
@@ -714,7 +730,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUXIN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUXIN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUXIN",
-                "汉书·食货志"
+                "汉书·食货志",
+                "https://zh.wikisource.org/zh/漢書/卷024下"
               ]
             },
             "score": 32.0
@@ -742,10 +759,23 @@
               "public_basis": "户口、府库、田宅价格均不单独抬高或压低民生；历史低谷标签仅表示未确认有效低谷。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-3/L0",
+              "range": "C1-3/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUXIN&axis=C1"
+          }
         },
         {
-          "adjudication_reason": "战争后继续恢复，“孝惠、高后之间，衣食滋殖”直接闭合家庭衣食改善到基本维持，但不足普遍温饱。",
+          "adjudication_reason": "单一总评不因来源条数自动降级；三至四档是命题强度边界，不是史料数量惩罚。",
           "confidence": "MEDIUM",
           "evidence": [
             {
@@ -790,7 +820,8 @@
           "state_anchors": {
             "S0": "C1-2",
             "S_avg": "C1-3",
-            "S_end": "C1-3"
+            "S_end": "C1-3",
+            "S_main": "C1-3"
           },
           "raw_state_band": "C1-3",
           "formal_band": "C1-3",
@@ -809,21 +840,21 @@
               "original_text": "孝惠垂拱，高后女主……天下晏然，民务稼穑，衣食滋殖。"
             }
           ],
-          "stability_basis": "池外既有记录；当前规范池未启用新的低谷修正裁决。",
-          "public_adjudication_summary": "主要状态：基本维持。战争后继续恢复，“孝惠、高后之间，衣食滋殖”直接证实家庭衣食改善到基本维持，但不足普遍温饱。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
+          "stability_basis": "“天下晏然、民务稼穑、衣食滋殖”是广域直接总评；其语义可闭合基本维持，并存在达到普遍温饱的合法上端，但缺更细家庭余量互证。",
+          "public_adjudication_summary": "主要状态：基本维持。单一总评不因来源条数自动降级；三至四档是命题强度边界，不是史料数量惩罚。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C1-PUBLIC-9844C2D1F87778A7",
               "public_label": "主要状态：基本维持",
               "public_role": "主要状态",
-              "public_basis": "战争后继续恢复，“孝惠、高后之间，衣食滋殖”直接证实家庭衣食改善到基本维持，但不足普遍温饱。",
+              "public_basis": "单一总评不因来源条数自动降级；三至四档是命题强度边界，不是史料数量惩罚。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             },
             {
               "id": "C1-PUBLIC-774CC733A1A1E3BA",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             },
             {
@@ -833,7 +864,40 @@
               "public_basis": "材料覆盖孝惠—高后共同阶段；文景后来的富足不得倒灌。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L0",
+              "range": "C1-3/L0 ↔ C1-4/L0",
+              "allowed_endpoints": [
+                "C1-3/L0",
+                "C1-4/L0"
+              ],
+              "leaderboard_consumption": "paired_endpoints_only",
+              "deduplication": "“天下晏然、民务稼穑、衣食滋殖”是广域直接总评；其语义可闭合基本维持，并存在达到普遍温饱的合法上端，但缺更细家庭余量互证。"
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUYING&axis=C1"
+          },
+          "loss_grade": "L0",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUYING&axis=C1",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "“天下晏然、民务稼穑、衣食滋殖”是广域直接总评；其语义可闭合基本维持，并存在达到普遍温饱的合法上端，但缺更细家庭余量互证。",
+              "strong_dimensions": [],
+              "main_representativeness": "单一总评不因来源条数自动降级；三至四档是命题强度边界，不是史料数量惩罚。",
+              "full_window_reviewed": true,
+              "deduplication": "“天下晏然、民务稼穑、衣食滋殖”是广域直接总评；其语义可闭合基本维持，并存在达到普遍温饱的合法上端，但缺更细家庭余量互证。",
+              "evidence_refs": [
+                "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUYING&axis=C1"
+              ]
+            },
+            "score": 32.0
+          }
         },
         {
           "adjudication_reason": "实际权力窗口与孝惠阶段重叠，现有广域材料确认战后“民务稼穑、衣食滋殖”，足以C1-3但不足C1-4。",
@@ -932,7 +996,10 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LUYU",
                 "汉书·刑法志",
                 "汉书·食货志",
-                "汉书·高后纪"
+                "汉书·高后纪",
+                "《汉书·刑法志》",
+                "https://zh.wikisource.org/zh/漢書/卷024下",
+                "《史记·吕太后本纪》"
               ]
             },
             "score": 32.0
@@ -960,7 +1027,20 @@
               "public_basis": "共同阶段材料不能切成吕雉独占贡献；史料稀疏不等于高度稳定。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-3/L0",
+              "range": "C1-3/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LUYU&axis=C1"
+          }
         },
         {
           "adjudication_reason": "任内普通家庭总体仍以基本维持为主。“号为安乐”不足升C1-4；昌陵五年营作已闭合天下虚耗、百姓罢劳、多赋敛徭役、卒徒死者连属，另有梁国和平原连续水灾至人相食。",
@@ -1004,7 +1084,7 @@
           ],
           "peak_band": null,
           "polity": "西汉",
-          "rank": 106,
+          "rank": 104,
           "reign_range": "前33—前7",
           "ruler_id": "RULER-HAN-LIUAO",
           "ruler_name": "刘骜",
@@ -1089,7 +1169,8 @@
                 "资治通鉴卷三十一财政民生卡",
                 "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7031",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/western_han.json#material_id=I2-WHAN-CHENG-CHANG-LING-001-M2-M3-02-AUDIT",
-                "https://zh.wikisource.org/wiki/資治通鑑/卷031"
+                "https://zh.wikisource.org/wiki/資治通鑑/卷031",
+                "https://ctext.org/text.pl?if=gb&node=63314&show=parallel"
               ]
             },
             "score": 28.2
@@ -1117,7 +1198,20 @@
               "public_basis": "昌陵与灾区负证不按条数拼历史低谷标签；劝谏中的夸张数字不作精确统计。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-3/L3",
+              "range": "C1-3/L3",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-3/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUAO&axis=C1"
+          }
         },
         {
           "adjudication_reason": "接手文景高位后，长期战争、工程与财政汲取逐步耗尽家庭余量。中段仍不足证明全国多数家庭长期无法维生，主态保C1-3；晚期“天下虚耗，人复相食”闭合终点C1-2。",
@@ -1182,7 +1276,7 @@
           ],
           "peak_band": null,
           "polity": "西汉",
-          "rank": 106,
+          "rank": 104,
           "reign_range": "前141—前87",
           "ruler_id": "RULER-HAN-LIUCHE",
           "ruler_name": "刘彻",
@@ -1276,7 +1370,8 @@
                 "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7022",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/western_han.json#material_id=I2-WHAN-WUDI-FISCAL-ADMIN-OPERATION-001",
                 "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7019&oldid=1511466",
-                "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7020&oldid=1511467"
+                "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7020&oldid=1511467",
+                "https://zh.wikisource.org/zh-hans/漢書/卷024上"
               ]
             },
             "score": 28.2
@@ -1304,7 +1399,31 @@
               "public_basis": "董仲舒文字含劝谏与制度回顾；终局主要由“天下虚耗、人复相食”承担。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L3",
+              "range": [
+                "C1-2/L0~L1",
+                "C1-3/L3"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-2/L1",
+                "C1-2/L2",
+                "C1-2/L3",
+                "C1-3/L0",
+                "C1-3/L1",
+                "C1-3/L2",
+                "C1-3/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUCHE&axis=C1"
+          }
         },
         {
           "adjudication_reason": "承接宣帝C1-4后，初元初年关东连续灾害迅速压低家庭状态；此后仍能基本运行，但缺重新闭合全国普遍温饱的家庭锚。",
@@ -1342,7 +1461,7 @@
           ],
           "peak_band": null,
           "polity": "西汉",
-          "rank": 106,
+          "rank": 104,
           "reign_range": "前48—前33",
           "ruler_id": "RULER-HAN-LIUSHI",
           "ruler_name": "刘奭",
@@ -1403,7 +1522,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUSHI",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUSHI",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUSHI",
-                "汉书·食货志"
+                "汉书·食货志",
+                "https://zh.wikisource.org/zh-hans/漢書/卷024上",
+                "《汉书·元帝纪》"
               ]
             },
             "score": 28.2
@@ -1431,7 +1552,31 @@
               "public_basis": "灾害本身不作本人负贡献；后半任缺恢复到民生“普遍温饱”的直接家庭锚。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L3",
+              "range": [
+                "C1-2/L0~L1",
+                "C1-3/L3"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-2/L1",
+                "C1-2/L2",
+                "C1-2/L3",
+                "C1-3/L0",
+                "C1-3/L1",
+                "C1-3/L2",
+                "C1-3/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUSHI&axis=C1"
+          }
         },
         {
           "adjudication_reason": "统一后民无盖藏、家庭缺少积蓄，兵役仍反复；前196仍以中国新劳苦停止南越远征，前195长安请耕上林反映土地承受约束。以战后恢复尚未完成的困顿阶段保留主态、交班二档，不把返籍、复田宅诏令当成多数家庭已稳定维生，也不以未达富庶压档。前205关中人相食另计L；后任衣食滋殖不倒灌。",
@@ -1557,7 +1702,9 @@
                 "docs/史料通读产物/唐以前编年/汉/卷009-通读总结.md",
                 "docs/史料通读产物/唐以前编年/汉/卷011-通读总结.md",
                 "docs/史料通读产物/唐以前编年/汉/卷012-通读总结.md",
-                "https://zh.wikisource.org/wiki/漢書/卷024"
+                "https://zh.wikisource.org/wiki/漢書/卷024",
+                "https://zh.wikisource.org/zh/漢書/卷024下",
+                "https://zh.wikisource.org/zh-hant/史記/卷113"
               ]
             },
             "score": 15.0
@@ -1592,7 +1739,25 @@
               "public_basis": "文景至武帝初总评时间跨度过长，不能证明前195年任期结束状态；死者过半为史家总括，不能当精确人口比例；任期结束状态缺少窄时点家庭供给材料。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-2/L3",
+              "range": [
+                "C1-2/L3",
+                "C1-3/L3"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L3",
+                "C1-3/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUBANG&axis=C1"
+          }
         },
         {
           "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。接手时承平、府库和行政存量强，随后边疆扩张、频繁改制和不稳定法令迅速增加社会与行政扰动。生产受到禁令和徭役压制，俸禄失常引发私征腐败，流民、战争、饥疫和救济克扣共同造成系统性人口社会崩解。",

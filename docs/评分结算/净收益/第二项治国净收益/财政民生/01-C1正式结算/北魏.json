@@ -387,7 +387,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-拓跋珪",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-拓跋珪",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-拓跋珪",
-                "魏书·刑罚志"
+                "魏书·刑罚志",
+                "https://zh.wikisource.org/zh-hans/魏书/卷110"
               ]
             },
             "score": 32.0
@@ -415,7 +416,20 @@
               "public_basis": "“比岁大熟”首先是生产结果，民生“基本维持”依赖授田给牛、持续丰收与缺乏继续广域失保反证的受约束推断；“犹未足以久赡”明确封住民生“普遍温饱”。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-3/L0",
+              "range": "C1-3/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-拓跋珪&axis=C1"
+          }
         },
         {
           "adjudication_reason": "前期承接较高盘面，但延昌年间多区域饥馑与死亡反复出现，足以阻断普遍温饱；现证仍不足证明多数家庭长期进入C1-2，故主态维持C1-3。",
@@ -456,7 +470,7 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 74,
+          "rank": 72,
           "reign_range": [
             499,
             515
@@ -517,7 +531,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-元恪",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-元恪",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-元恪",
-                "《资治通鉴》共享通读卡正文"
+                "《资治通鉴》共享通读卡正文",
+                "https://zh.wikisource.org/zh-hans/魏書/卷8"
               ]
             },
             "score": 29.8
@@ -545,7 +560,29 @@
               "public_basis": "神龟、正光和预征六年租调均在518年后，严禁归给元恪；延昌末危机很深，但不足把全局任期结束状态压民生“广泛困顿”。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L2",
+              "range": [
+                "C1-2/L0~L1",
+                "C1-3/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-2/L1",
+                "C1-2/L2",
+                "C1-3/L0",
+                "C1-3/L1",
+                "C1-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-元恪&axis=C1"
+          }
         },
         {
           "adjudication_reason": "任内普通家庭总体能够维持基本生活，但尚无充分材料证明多数家庭普遍达到稳定温饱。定向迁食、安集和劝农后，次年明确出现丰收与民众富安。",
@@ -583,7 +620,7 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 74,
+          "rank": 72,
           "reign_range": [
             409,
             423
@@ -718,7 +755,7 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "rank": 74,
+          "rank": 72,
           "raw_state_band": "C1-3",
           "formal_band": "C1-3",
           "raw_peak_band": null,
@@ -781,7 +818,22 @@
               "public_basis": "与冯太后实际权力窗口严格分离；连旱与恢复不得双重计入。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L2",
+              "range": "C1-2/L0 ↔ C1-3/L2",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-3/L2"
+              ],
+              "leaderboard_consumption": "paired_endpoints_only",
+              "deduplication": "连旱征运若占据主要家庭状态则C1-2/L0；若“赋敛稍轻、民复赡”代表恢复后主态，则前段灾压只计L2。"
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-拓跋弘&axis=C1"
+          }
         },
         {
           "adjudication_reason": "联动前任泰常八年末饥荒，S0 C1-4→C1-3。任内多数阶段维持基本生活，但神麚四年、太平真君元年和九年仍见多次实际饥馑，尤其十五州镇民饥构成实质低谷。",
@@ -871,7 +923,7 @@
           ],
           "peak_band": null,
           "polity": "北魏",
-          "rank": 74,
+          "rank": 72,
           "reign_range": [
             423,
             452
@@ -933,7 +985,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-拓跋焘",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-拓跋焘",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-拓跋焘",
-                "刘宋币制反复与轻钱私铸导致粮价和市场崩坏"
+                "刘宋币制反复与轻钱私铸导致粮价和市场崩坏",
+                "https://zh.wikisource.org/zh-hans/魏書/卷4下"
               ]
             },
             "score": 29.8
@@ -961,7 +1014,29 @@
               "public_basis": "南征“所过杀掠”首先属于战区暴力/社会安全和战争后果，不直接替代北魏核心家庭民生状态；饥荒不按记载条数拼历史低谷标签。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L2",
+              "range": [
+                "C1-2/L0~L1",
+                "C1-3/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-2/L1",
+                "C1-2/L2",
+                "C1-3/L0",
+                "C1-3/L1",
+                "C1-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-拓跋焘&axis=C1"
+          }
         }
       ]
     }

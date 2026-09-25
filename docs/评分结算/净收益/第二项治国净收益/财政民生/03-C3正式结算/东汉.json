@@ -127,7 +127,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUDA",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUDA",
                 "《后汉书》卷二《显宗孝明帝纪》",
-                "《后汉书》卷三《肃宗孝章帝纪》"
+                "《后汉书》卷三《肃宗孝章帝纪》",
+                "https://zh.wikisource.org/zh-hans/東漢㑹要_(四庫全書本)/卷35"
               ]
             },
             "score": 37.2
@@ -155,7 +156,20 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-4/L2",
+              "range": "C3-4/L2",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C3-4/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUDA&axis=C3"
+          }
         },
         {
           "adjudication_reason": "承接章帝四档；永元六年亲录洛阳囚并实际纠出冤狱、追责洛阳令，证明司法救济仍有运行结果，结合前任四档交班与任内未见普通社会广域失序，主态维持C3-4。",
@@ -236,7 +250,11 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUZHAO",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUZHAO",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUZHAO",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "https://zh.wikisource.org/zh-hans/欽定古今圖書集成/經濟彙編/祥刑典/第161卷",
+                "https://zh.wikisource.org/zh-hans/後漢書/卷25",
+                "https://zh.wikisource.org/zh-hans/後漢書/卷86",
+                "https://zh.wikisource.org/zh-hans/東漢㑹要_(四庫全書本)/全覽2"
               ]
             },
             "score": 37.2
@@ -264,7 +282,25 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C3-4/L2",
+              "range": [
+                "C3-3/L2",
+                "C3-4/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C3-3/L2",
+                "C3-4/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUZHAO&axis=C3"
+          }
         },
         {
           "adjudication_reason": "承接更始崩解一档；统一战争、成都降后纵掠及建武十五—十六年度田扰动均为本人恢复阶段的实际低谷，另按L裁决。建武十六年前后出现“牛马放牧不收，邑门不闭”，次年《东观汉记》又记“商贾重宝，单车露宿……道无拾遗”，两组相邻时期的财产安全与基层秩序结果足以闭合长期C3-4，但司法救济等多轴高位仍不足五档。",
@@ -298,7 +334,7 @@
           ],
           "main_band": "C3-4",
           "polity": "东汉",
-          "rank": 39,
+          "rank": 38,
           "reign_range": "25—57",
           "ruler_id": "RULER-HAN-LIUXIU",
           "ruler_name": "刘秀",
@@ -424,7 +460,7 @@
           ],
           "main_band": "C3-4",
           "polity": "东汉",
-          "rank": 39,
+          "rank": 38,
           "reign_range": "57—75",
           "ruler_id": "RULER-HAN-LIUZHUANG",
           "ruler_name": "刘庄",
@@ -559,7 +595,7 @@
           ],
           "main_band": "C3-3",
           "polity": "东汉",
-          "rank": 46,
+          "rank": 45,
           "reign_range": "106—121",
           "ruler_id": "RULER-HAN-DENGSUI",
           "ruler_name": "邓绥",
@@ -668,7 +704,7 @@
           ],
           "main_band": "C3-3",
           "polity": "东汉",
-          "rank": 46,
+          "rank": 45,
           "reign_range": "121—125",
           "ruler_id": "RULER-HAN-LIUHU",
           "ruler_name": "刘祜",
@@ -721,7 +757,9 @@
                 "东汉会要卷二十九安帝诏",
                 "东汉荒政总结",
                 "后汉书·陈宠附陈忠传",
-                "资治通鉴卷五十财政民生卡"
+                "资治通鉴卷五十财政民生卡",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷050",
+                "docs/史料通读产物/唐以前编年/汉/卷050-通读总结.md"
               ]
             },
             "score": 28.0
@@ -749,10 +787,23 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L0",
+              "range": "C3-3/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C3-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIUHU&axis=C3"
+          }
         },
         {
-          "adjudication_reason": "临朝期扬、徐等地盗乱与羌患仍在，梁冀集团又长期侵夺民户、强取良人为奴，普通人的人身财产与基层保护持续脆弱，足以维持C3-2主态。灾荒、军费等C1/C2材料退出；",
+          "adjudication_reason": "144—150实际临朝窗口不能把顺帝期十余年扬徐盗乱和羌战全部倒灌为本人二档主态。145年本人摄政下东南父级明确“东南悉平”，陇右亦在同年复平，说明此前大范围失序已收束；之后国家与基层常态仍可运行，主态更符合C3-3。与此同时，本人窗口仍有147年清河武装刺杀地方长官、148年白马羌寇广汉属国杀长吏，以及梁冀权势体系侵夺民户、强取良人为奴等实际人身财产裂缝，足以形成独立L2，但不足证明至少两面持续脆弱占据全任主态而维持C3-2。灾荒、军费和赋役材料不进入C3。 交班锚：平乱后的可运行秩序延续至交班；局部损害另列L2。",
           "authority_attribution": "144—150年实际临朝最高权力；与刘志早期共享社会状态，梁冀受权体系造成的人身财产侵害计入本窗口。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -766,24 +817,32 @@
                 "docs/史料通读产物/唐以前编年/汉/卷053-通读总结.md:120"
               ],
               "summary": "顺帝至梁太后期出现扬徐十余年盗乱、羌战与十万级屯兵、历年巨额军费；随后梁冀强取良人为奴、郡县十倍调发，三十二郡蝗灾、数十万户流冗和多地人相食，社会状态由基本秩序降至广泛不安全。"
+            },
+            {
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷052-通读总结.md",
+                "docs/史料通读产物/唐以前编年/汉/卷053-通读总结.md"
+              ],
+              "summary": "145年东南与陇右失序收束支持三档；147—148年局部武装杀官与梁冀侵夺民户、强取良人为奴作为独立L2。",
+              "evidence_role": "TERMINAL_BACK_SOURCE"
             }
           ],
           "evidence_refs": [
             "EHAN-SHUN-LIANG-DECLINE"
           ],
-          "main_band": "C3-2",
+          "main_band": "C3-3",
           "polity": "东汉",
-          "rank": 133,
+          "rank": 98,
           "reign_range": "144—150",
           "ruler_id": "RULER-HAN-LIANGNA",
           "ruler_name": "梁妠",
-          "score": 16.0,
+          "score": 26.0,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C3-2",
-            "S_main": "C3-2",
-            "S_avg": "C3-2",
-            "S_end": "C3-2"
+            "S_main": "C3-3",
+            "S_avg": "C3-3",
+            "S_end": "C3-3"
           },
           "m3_supplement_review": {
             "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
@@ -794,33 +853,29 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "raw_state_band": "C3-2",
-          "formal_band": "C3-2",
+          "raw_state_band": "C3-3",
+          "formal_band": "C3-3",
           "peak_band": null,
           "material_basis": [
             {
               "book": "《后汉书》梁冀相关传记",
               "original_text": "梁冀及党附侵夺民户、强取良人为奴，地方保护受权势压制。"
-            },
-            {
-              "book": "《资治通鉴》",
-              "original_text": "梁太后期扬徐盗乱及羌患持续，基层秩序未恢复至三档。"
             }
           ],
-          "loss_grade": "L0",
-          "stability_basis": "盗乱和强取良人为奴已由二档消费，不再拆成同轴低谷。",
+          "loss_grade": "L2",
+          "stability_basis": "144—150实际临朝窗口不能把顺帝期十余年扬徐盗乱和羌战全部倒灌为本人二档主态。145年本人摄政下东南父级明确“东南悉平”，陇右亦在同年复平，说明此前大范围失序已收束；之后国家与基层常态仍可运行，主态更符合C3-3。与此同时，本人窗口仍有147年清河武装刺杀地方长官、148年白马羌寇广汉属国杀长吏，以及梁冀权势体系侵夺民户、强取良人为奴等实际人身财产裂缝，足以形成独立L2，但不足证明至少两面持续脆弱占据全任主态而维持C3-2。灾荒、军费和赋役材料不进入C3。",
           "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
           "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
           "state_adjudication": {
             "version": "GOVERNANCE-STATE-RECOVERY-V4",
             "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIANGNA",
             "loss_review": {
-              "grade": "L0",
-              "basis": "盗乱和强取良人为奴已由二档消费，不再拆成同轴低谷。",
+              "grade": "L2",
+              "basis": "144—150实际临朝窗口不能把顺帝期十余年扬徐盗乱和羌战全部倒灌为本人二档主态。145年本人摄政下东南父级明确“东南悉平”，陇右亦在同年复平，说明此前大范围失序已收束；之后国家与基层常态仍可运行，主态更符合C3-3。与此同时，本人窗口仍有147年清河武装刺杀地方长官、148年白马羌寇广汉属国杀长吏，以及梁冀权势体系侵夺民户、强取良人为奴等实际人身财产裂缝，足以形成独立L2，但不足证明至少两面持续脆弱占据全任主态而维持C3-2。灾荒、军费和赋役材料不进入C3。",
               "strong_dimensions": [],
-              "main_representativeness": "临朝期扬、徐等地盗乱与羌患仍在，梁冀集团又长期侵夺民户、强取良人为奴，普通人的人身财产与基层保护持续脆弱，足以维持C3-2主态。灾荒、军费等C1/C2材料退出；",
+              "main_representativeness": "144—150实际临朝窗口不能把顺帝期十余年扬徐盗乱和羌战全部倒灌为本人二档主态。145年本人摄政下东南父级明确“东南悉平”，陇右亦在同年复平，说明此前大范围失序已收束；之后国家与基层常态仍可运行，主态更符合C3-3。与此同时，本人窗口仍有147年清河武装刺杀地方长官、148年白马羌寇广汉属国杀长吏，以及梁冀权势体系侵夺民户、强取良人为奴等实际人身财产裂缝，足以形成独立L2，但不足证明至少两面持续脆弱占据全任主态而维持C3-2。灾荒、军费和赋役材料不进入C3。 交班锚：平乱后的可运行秩序延续至交班；局部损害另列L2。",
               "full_window_reviewed": true,
-              "deduplication": "盗乱和强取良人为奴已由二档消费，不再拆成同轴低谷。",
+              "deduplication": "144—150实际临朝窗口不能把顺帝期十余年扬徐盗乱和羌战全部倒灌为本人二档主态。145年本人摄政下东南父级明确“东南悉平”，陇右亦在同年复平，说明此前大范围失序已收束；之后国家与基层常态仍可运行，主态更符合C3-3。与此同时，本人窗口仍有147年清河武装刺杀地方长官、148年白马羌寇广汉属国杀长吏，以及梁冀权势体系侵夺民户、强取良人为奴等实际人身财产裂缝，足以形成独立L2，但不足证明至少两面持续脆弱占据全任主态而维持C3-2。灾荒、军费和赋役材料不进入C3。",
               "evidence_refs": [
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIANGNA",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIANGNA",
@@ -828,25 +883,27 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIANGNA",
                 "东汉会要卷三十顺帝诏",
                 "东汉会要卷二十八户口垦田",
-                "东汉会要卷三十桓帝建和三年诏"
+                "东汉会要卷三十桓帝建和三年诏",
+                "docs/史料通读产物/唐以前编年/汉/卷052-通读总结.md",
+                "docs/史料通读产物/唐以前编年/汉/卷053-通读总结.md"
               ]
             },
-            "score": 16.0
+            "score": 26.0
           },
-          "public_adjudication_summary": "主要状态：持续脆弱。临朝期扬、徐等地盗乱与羌患仍在，梁冀集团又长期侵夺民户、强取良人为奴，普通人的人身财产与基层保护持续脆弱，足以维持社会安全“持续脆弱”主要阶段状态。灾荒、军费等民生/经济财政材料退出；\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：可运行秩序。144—150实际临朝窗口不能把顺帝期十余年扬徐盗乱和羌战全部倒灌为本人二档主要阶段状态。145年本人摄政下东南父级明确“东南悉平”，陇右亦在同年复平，说明此前大范围失序已收束；之后国家与基层常态仍可运行，主要阶段状态更符合社会安全“可运行秩序”。与此同时，本人掌权时期仍有147年清河武装刺杀地方长官、148年白马羌寇广汉属国杀长吏，以及梁冀权势体系侵夺民户、强取良人为奴等实际人身财产裂缝，足以形成独立重要地区或群体出现明显损害，但不足证明至少两面持续脆弱占据全任主要阶段状态而维持社会安全“持续脆弱”。灾荒、军费和赋役材料不进入社会安全。 任期结束状态依据：平乱后的可运行秩序延续至任期结束；局部损害另列重要地区或群体出现明显损害。\n\n重要地区或群体出现明显损害：144—150实际临朝窗口不能把顺帝期十余年扬徐盗乱和羌战全部倒灌为本人二档主要阶段状态。145年本人摄政下东南父级明确“东南悉平”，陇右亦在同年复平，说明此前大范围失序已收束；之后国家与基层常态仍可运行，主要阶段状态更符合社会安全“可运行秩序”。与此同时，本人掌权时期仍有147年清河武装刺杀地方长官、148年白马羌寇广汉属国杀长吏，以及梁冀权势体系侵夺民户、强取良人为奴等实际人身财产裂缝，足以形成独立重要地区或群体出现明显损害，但不足证明至少两面持续脆弱占据全任主要阶段状态而维持社会安全“持续脆弱”。灾荒、军费和赋役材料不进入社会安全。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C3-PUBLIC-5921253845DB29A9",
-              "public_label": "主要状态：持续脆弱",
+              "public_label": "主要状态：可运行秩序",
               "public_role": "主要状态",
-              "public_basis": "临朝期扬、徐等地盗乱与羌患仍在，梁冀集团又长期侵夺民户、强取良人为奴，普通人的人身财产与基层保护持续脆弱，足以维持社会安全“持续脆弱”主要阶段状态。灾荒、军费等民生/经济财政材料退出；",
+              "public_basis": "144—150实际临朝窗口不能把顺帝期十余年扬徐盗乱和羌战全部倒灌为本人二档主要阶段状态。145年本人摄政下东南父级明确“东南悉平”，陇右亦在同年复平，说明此前大范围失序已收束；之后国家与基层常态仍可运行，主要阶段状态更符合社会安全“可运行秩序”。与此同时，本人掌权时期仍有147年清河武装刺杀地方长官、148年白马羌寇广汉属国杀长吏，以及梁冀权势体系侵夺民户、强取良人为奴等实际人身财产裂缝，足以形成独立重要地区或群体出现明显损害，但不足证明至少两面持续脆弱占据全任主要阶段状态而维持社会安全“持续脆弱”。灾荒、军费和赋役材料不进入社会安全。 任期结束状态依据：平乱后的可运行秩序延续至任期结束；局部损害另列重要地区或群体出现明显损害。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
               "id": "C3-PUBLIC-A2980F046218A2A5",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
+              "public_basis": "重要地区或群体出现明显损害：144—150实际临朝窗口不能把顺帝期十余年扬徐盗乱和羌战全部倒灌为本人二档主要阶段状态。145年本人摄政下东南父级明确“东南悉平”，陇右亦在同年复平，说明此前大范围失序已收束；之后国家与基层常态仍可运行，主要阶段状态更符合社会安全“可运行秩序”。与此同时，本人掌权时期仍有147年清河武装刺杀地方长官、148年白马羌寇广汉属国杀长吏，以及梁冀权势体系侵夺民户、强取良人为奴等实际人身财产裂缝，足以形成独立重要地区或群体出现明显损害，但不足证明至少两面持续脆弱占据全任主要阶段状态而维持社会安全“持续脆弱”。灾荒、军费和赋役材料不进入社会安全。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
@@ -856,7 +913,20 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L2",
+              "range": "C3-3/L2",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C3-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-HAN-LIANGNA&axis=C3"
+          }
         },
         {
           "adjudication_reason": "承接安帝末基本秩序，但顺帝期扬、徐盗贼长期盘互，羌患及多地基层治安压力使广泛不安全成为主要状态；局部招抚清平不足以恢复全国三档。",
@@ -880,7 +950,7 @@
           ],
           "main_band": "C3-2",
           "polity": "东汉",
-          "rank": 133,
+          "rank": 136,
           "reign_range": "125—144",
           "ruler_id": "RULER-HAN-LIUBAO",
           "ruler_name": "刘保",
@@ -990,7 +1060,7 @@
           ],
           "main_band": "C3-2",
           "polity": "东汉",
-          "rank": 133,
+          "rank": 136,
           "reign_range": "150—168",
           "ruler_id": "RULER-HAN-LIUZHI",
           "ruler_name": "刘志",

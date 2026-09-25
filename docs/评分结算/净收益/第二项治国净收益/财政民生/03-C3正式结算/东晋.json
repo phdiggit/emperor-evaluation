@@ -29,7 +29,7 @@
           ],
           "main_band": "C3-3",
           "polity": "东晋",
-          "rank": 46,
+          "rank": 45,
           "reign_range": [
             376,
             396
@@ -80,7 +80,10 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马曜",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马曜",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马曜",
-                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马曜"
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+                "docs/史料通读产物/唐以前编年/两晋/卷107-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷108-通读总结.md",
+                "《晋书·食货志》"
               ]
             },
             "score": 28.0
@@ -108,10 +111,23 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L0",
+              "range": "C3-3/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C3-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马曜&axis=C3"
+          }
         },
         {
-          "adjudication_reason": "起点承接元帝末王敦入都后的二档低位。本人窗口内继续处理同一王敦危机并最终剪除逆臣、恢复中枢与基本秩序，终点回三档；起点低位及其恢复过程按合同不得降低低谷修正，现无独立跌破三档的后续阶段，故历史低谷标签。",
+          "adjudication_reason": "324年王敦再次逼近建康造成本人窗口内的核心安全危机，随后中央与首都秩序恢复。终裁保留三种有源解释：危机占据短任主态时为C3-2/L0；基本秩序仍为主态、危机作为独立重要低谷时为C3-3/L2；危机的影响已纳入三档主态代表性而未另证独立低谷时为C3-3/L0。接手时第一次王敦入都的低位只作S0，不另扣L；三个端点仅逐个消费。",
           "authority_attribution": "322—325本人最高权力；王敦危机视为从S0延续的同一恢复簇，不二次消费低谷修正。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -130,7 +146,7 @@
           ],
           "main_band": "C3-3",
           "polity": "东晋",
-          "rank": 46,
+          "rank": 45,
           "reign_range": [
             322,
             325
@@ -141,7 +157,8 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",
-            "S_end": "C3-3"
+            "S_end": "C3-3",
+            "S_avg": "C3-3"
           },
           "raw_state_band": "C3-3",
           "formal_band": "C3-3",
@@ -152,20 +169,20 @@
               "original_text": "史论称明帝“诛剪逆臣，克复大业”，支持同一危机收束后的基本秩序恢复。"
             }
           ],
-          "public_adjudication_summary": "主要状态：可运行秩序。起点承接元帝末王敦入都后的二档低位。本人掌权时期内继续处理同一王敦危机并最终剪除逆臣、恢复中枢与基本秩序，终点回三档；起点低位及其恢复过程按合同不得降低低谷损害，现无独立跌破三档的后续阶段，故历史低谷标签。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：可运行秩序。324年王敦再次逼近建康造成本人掌权时期内的核心安全危机，随后中央与首都秩序恢复。终裁保留三种有源解释：危机占据短任主要阶段状态时为社会安全“持续脆弱”/未另证独立有效低谷；基本秩序仍为主要阶段状态、危机作为独立重要低谷时为社会安全“可运行秩序”/重要地区或群体出现明显损害；危机的影响已纳入三档主要阶段状态代表性而未另证独立低谷时为社会安全“可运行秩序”/未另证独立有效低谷。接手时第一次王敦入都的低位只作接手状态，不另扣低谷损害；三个端点仅逐个计入。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C3-PUBLIC-5332D58A30E29C51",
               "public_label": "主要状态：可运行秩序",
               "public_role": "主要状态",
-              "public_basis": "起点承接元帝末王敦入都后的二档低位。本人掌权时期内继续处理同一王敦危机并最终剪除逆臣、恢复中枢与基本秩序，终点回三档；起点低位及其恢复过程按合同不得降低低谷损害，现无独立跌破三档的后续阶段，故历史低谷标签。",
+              "public_basis": "324年王敦再次逼近建康造成本人掌权时期内的核心安全危机，随后中央与首都秩序恢复。终裁保留三种有源解释：危机占据短任主要阶段状态时为社会安全“持续脆弱”/未另证独立有效低谷；基本秩序仍为主要阶段状态、危机作为独立重要低谷时为社会安全“可运行秩序”/重要地区或群体出现明显损害；危机的影响已纳入三档主要阶段状态代表性而未另证独立低谷时为社会安全“可运行秩序”/未另证独立有效低谷。接手时第一次王敦入都的低位只作接手状态，不另扣低谷损害；三个端点仅逐个计入。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
               "id": "C3-PUBLIC-120C4876B9E4B0DD",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
@@ -175,7 +192,47 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C3-3/L0",
+              "range": [
+                "C3-2/L0",
+                "C3-3/L0",
+                "C3-3/L2"
+              ],
+              "allowed_endpoints": [
+                "C3-2/L0",
+                "C3-3/L0",
+                "C3-3/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_explicit_endpoints_only",
+              "interpretation": "three explicit endpoints; no Cartesian expansion"
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马绍&axis=C3"
+          },
+          "loss_grade": "L0",
+          "stability_basis": "324年王敦再次逼近建康造成本人窗口内的核心安全危机，随后中央与首都秩序恢复。终裁保留三种有源解释：危机占据短任主态时为C3-2/L0；基本秩序仍为主态、危机作为独立重要低谷时为C3-3/L2；危机的影响已纳入三档主态代表性而未另证独立低谷时为C3-3/L0。接手时第一次王敦入都的低位只作S0，不另扣L；三个端点仅逐个消费。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马绍&axis=C3",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "324年王敦再次逼近建康造成本人窗口内的核心安全危机，随后中央与首都秩序恢复。终裁保留三种有源解释：危机占据短任主态时为C3-2/L0；基本秩序仍为主态、危机作为独立重要低谷时为C3-3/L2；危机的影响已纳入三档主态代表性而未另证独立低谷时为C3-3/L0。接手时第一次王敦入都的低位只作S0，不另扣L；三个端点仅逐个消费。",
+              "strong_dimensions": [],
+              "main_representativeness": "324年王敦再次逼近建康造成本人窗口内的核心安全危机，随后中央与首都秩序恢复。终裁保留三种有源解释：危机占据短任主态时为C3-2/L0；基本秩序仍为主态、危机作为独立重要低谷时为C3-3/L2；危机的影响已纳入三档主态代表性而未另证独立低谷时为C3-3/L0。接手时第一次王敦入都的低位只作S0，不另扣L；三个端点仅逐个消费。",
+              "full_window_reviewed": true,
+              "deduplication": "324年王敦再次逼近建康造成本人窗口内的核心安全危机，随后中央与首都秩序恢复。终裁保留三种有源解释：危机占据短任主态时为C3-2/L0；基本秩序仍为主态、危机作为独立重要低谷时为C3-3/L2；危机的影响已纳入三档主态代表性而未另证独立低谷时为C3-3/L0。接手时第一次王敦入都的低位只作S0，不另扣L；三个端点仅逐个消费。",
+              "evidence_refs": [
+                "https://zh.wikisource.org/wiki/資治通鑑/卷093",
+                "docs/史料通读产物/唐以前编年/两晋/卷093-通读总结.md"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
           "adjudication_reason": "南渡草创后江东形成基本可运行秩序，主态三档；",
@@ -197,7 +254,7 @@
           ],
           "main_band": "C3-3",
           "polity": "东晋",
-          "rank": 120,
+          "rank": 119,
           "reign_range": [
             317,
             322
@@ -252,7 +309,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马睿",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马睿",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马睿",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "docs/史料通读产物/唐以前编年/两晋/卷092-通读总结.md",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷092"
               ]
             },
             "score": 24.6
@@ -280,7 +339,20 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L3",
+              "range": "C3-3/L3",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C3-3/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马睿&axis=C3"
+          }
         }
       ]
     }

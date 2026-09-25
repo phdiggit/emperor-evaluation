@@ -29,7 +29,7 @@
           "evidence": [
             {
               "anchor_time": "明朝固定审计所定位的本人统治窗口",
-              "described_state": "S_avg=C1-3。赈灾、复业命令和漕运只证明政策与供给能力，缺本人窗口普通家庭广域生计状态；晚期北征、营建与继任撤采办形成反虚高压力。",
+              "described_state": "本人主要阶段按C1-4受约束采用；跨洪永熙宣“百姓充实、上下交足”可作共享宏观证据，永乐期多地饥困与贫户远运另计独立L2。赈灾和复业政策本身不直接证明家庭结果。",
               "evidence_id": "MING-DI-ADMIN-001",
               "identity_reason": "材料可定位于本人窗口或直接描述本人窗口结果。",
               "identity_status": "CURRENT_WINDOW_DIRECT",
@@ -58,7 +58,7 @@
             },
             {
               "anchor_time": "明朝固定审计所定位的本人统治窗口",
-              "described_state": "S_avg=C1-3。赈灾、复业命令和漕运只证明政策与供给能力，缺本人窗口普通家庭广域生计状态；晚期北征、营建与继任撤采办形成反虚高压力。",
+              "described_state": "本人主要阶段按C1-4受约束采用；跨洪永熙宣“百姓充实、上下交足”可作共享宏观证据，永乐期多地饥困与贫户远运另计独立L2。赈灾和复业政策本身不直接证明家庭结果。",
               "evidence_id": "MING-DI-SUCCESSOR-001",
               "identity_reason": "材料可定位于本人窗口或直接描述本人窗口结果。",
               "identity_status": "CURRENT_WINDOW_DIRECT",
@@ -338,7 +338,8 @@
                 "docs/史料通读产物/明/明通鉴/volume-019.source-summary.md#L23",
                 "docs/史料通读产物/明/明通鉴/volume-020.source-summary.md#L25",
                 "docs/史料通读产物/明/明通鉴/volume-020.source-summary.md#L47",
-                "docs/史料通读产物/明/明通鉴/volume-021.source-summary.md#L17"
+                "docs/史料通读产物/明/明通鉴/volume-021.source-summary.md#L17",
+                "https://zh.wikisource.org/zh-hant/明史/卷77"
               ]
             },
             "score": 51.1
@@ -366,7 +367,20 @@
               "public_basis": "跨洪永熙宣总体证据不能独占归因于朱棣；洪熙元年四月淮徐山东“民多乏食”距离成祖去世已有数月，只作任期结束连续性支持，不单独倒算任期结束状态。晚期23.5万民夫为直接役负，但也不按人数机械降档。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-4/L2",
+              "range": "C1-4/L2",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-4/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-DI&axis=C1"
+          }
         },
         {
           "adjudication_reason": "主态维持C1-4。《明史》全期总评“民物康阜”直接约束主要统治区普通家庭在稳定温饱层级；现证没有“家给人足/家有余蓄”级广域家庭余量强锚，C1-5不开放。",
@@ -935,7 +949,7 @@
           ]
         },
         {
-          "adjudication_reason": "实际中枢约一年且控制范围不断受战争压缩，现证只能确认福建及相邻实际控制区的基本生产、税饷接口仍可运行，不足开放C1-4。",
+          "adjudication_reason": "短窗区域饥荒有实害，但是否覆盖主要控制区和主要时段不足以写死二档。",
           "confidence": "LOW",
           "evidence": [
             {
@@ -980,11 +994,12 @@
           "reign_range": "1645-1646福建隆武实际中枢；郑氏控制作为本人权责限制而非扩张辖境",
           "ruler_id": "RULER-MING-ZHU-YUJIAN",
           "ruler_name": "朱聿键",
-          "score": 30.7,
+          "score": 29.8,
           "state_anchors": {
             "S0": "C1-3",
             "S_avg": "C1-3",
-            "S_end": "C1-3"
+            "S_end": "C1-3",
+            "S_main": "C1-3"
           },
           "raw_state_band": "C1-3",
           "formal_band": "C1-3",
@@ -1004,21 +1019,21 @@
               "original_text": "隆武二年四月，温州饥，小民白日抢夺米谷；五月发银赈济，后又以温州饥再发银赈之。"
             }
           ],
-          "stability_basis": "池外既有记录；当前规范池未启用新的低谷修正裁决。",
-          "public_adjudication_summary": "主要状态：基本维持。实际中枢约一年且控制范围不断受战争压缩，现证只能确认福建及相邻实际控制区的基本生产、税饷接口仍可运行，不足开放民生“普遍温饱”。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
+          "stability_basis": "若闽浙连续旱饥代表短窗多数家庭主态则C1-2/L0；若控制区基本生产仍可运行，则灾段作为L2。",
+          "public_adjudication_summary": "主要状态：基本维持。短窗区域饥荒有实害，但是否覆盖主要控制区和主要时段不足以写死二档。\n\n重要地区或群体出现明显损害：若闽浙连续旱饥代表短窗多数家庭主要阶段状态则民生“广泛困顿”/未另证独立有效低谷；若控制区基本生产仍可运行，则灾段作为重要地区或群体出现明显损害。\n\n评价范围：这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C1-PUBLIC-45F92C37D2DA2488",
               "public_label": "主要状态：基本维持",
               "public_role": "主要状态",
-              "public_basis": "实际中枢约一年且控制范围不断受战争压缩，现证只能确认福建及相邻实际控制区的基本生产、税饷接口仍可运行，不足开放民生“普遍温饱”。",
+              "public_basis": "短窗区域饥荒有实害，但是否覆盖主要控制区和主要时段不足以写死二档。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             },
             {
               "id": "C1-PUBLIC-9CB3CAAEEE9F79B3",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "重要地区或群体出现明显损害：若闽浙连续旱饥代表短窗多数家庭主要阶段状态则民生“广泛困顿”/未另证独立有效低谷；若控制区基本生产仍可运行，则灾段作为重要地区或群体出现明显损害。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             },
             {
@@ -1028,7 +1043,40 @@
               "public_basis": "战争、缺饷和政权控制收缩本身不机械扣民生；只计入已经落到家庭食物可得性与抢粮的结果。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L2",
+              "range": "C1-2/L0 ↔ C1-3/L2",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-3/L2"
+              ],
+              "leaderboard_consumption": "paired_endpoints_only",
+              "deduplication": "若闽浙连续旱饥代表短窗多数家庭主态则C1-2/L0；若控制区基本生产仍可运行，则灾段作为L2。"
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YUJIAN&axis=C1"
+          },
+          "loss_grade": "L2",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YUJIAN&axis=C1",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "若闽浙连续旱饥代表短窗多数家庭主态则C1-2/L0；若控制区基本生产仍可运行，则灾段作为L2。",
+              "strong_dimensions": [],
+              "main_representativeness": "短窗区域饥荒有实害，但是否覆盖主要控制区和主要时段不足以写死二档。",
+              "full_window_reviewed": true,
+              "deduplication": "若闽浙连续旱饥代表短窗多数家庭主态则C1-2/L0；若控制区基本生产仍可运行，则灾段作为L2。",
+              "evidence_refs": [
+                "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YUJIAN&axis=C1"
+              ]
+            },
+            "score": 29.8
+          }
         },
         {
           "adjudication_reason": "承接弘治C1-4后，正德期缺继续证明普遍温饱的本人窗口家庭锚；多轮饥荒与额外汲取使主态回到C1-3，但不能按灾年密度直接判C1-2。",
@@ -1102,7 +1150,7 @@
           ],
           "peak_band": null,
           "polity": "明",
-          "rank": 74,
+          "rank": 72,
           "reign_range": "1505-1521",
           "ruler_id": "RULER-MING-ZHU-HOUZHAO",
           "ruler_name": "朱厚照",
@@ -1160,7 +1208,8 @@
                 "明史",
                 "docs/史料通读产物/明/明通鉴/volume-046.source-summary.md#L18-L22",
                 "docs/史料通读产物/明/明通鉴/volume-047.source-summary.md#L41-L42",
-                "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B781"
+                "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B781",
+                "https://zh.wikisource.org/zh-hans/明史/卷30"
               ]
             },
             "score": 29.8
@@ -1188,7 +1237,24 @@
               "public_basis": "史料密度与灾年数量不自动抬低谷损害；营建和皇店只在证实家庭结果时进入民生。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L2",
+              "range": [
+                "C1-2/L2",
+                "C1-3/L2"
+              ],
+              "leaderboard_consumption": "lower_and_upper_endpoints",
+              "allowed_endpoints": [
+                "C1-2/L2",
+                "C1-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-HOUZHAO&axis=C1"
+          }
         },
         {
           "adjudication_reason": "景泰短任处于土木之变后恢复与多灾窗口；救济、蠲免和停采办只证明系统仍能运行，缺普遍温饱家庭锚，主态C1-3。",
@@ -1260,7 +1326,7 @@
           ],
           "peak_band": null,
           "polity": "明",
-          "rank": 74,
+          "rank": 72,
           "reign_range": "1449-1457",
           "ruler_id": "RULER-MING-ZHU-QIYU",
           "ruler_name": "朱祁钰",
@@ -1340,7 +1406,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-QIYU",
                 "明史/卷11",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json#material_id=MING-QY-FISCAL-001",
-                "https://zh.wikisource.org/w/index.php?title=明史/卷11&oldid=2594653"
+                "https://zh.wikisource.org/w/index.php?title=明史/卷11&oldid=2594653",
+                "https://zh.wikisource.org/zh/明史/卷11"
               ]
             },
             "score": 29.8
@@ -1368,7 +1435,29 @@
               "public_basis": "灾害与赈济条数不等于次级主要阶段状态；不重复计入主要阶段状态证据时未过重复计入条件。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L2",
+              "range": [
+                "C1-2/L0~L1",
+                "C1-3/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-2/L1",
+                "C1-2/L2",
+                "C1-3/L0",
+                "C1-3/L1",
+                "C1-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-QIYU&axis=C1"
+          }
         },
         {
           "adjudication_reason": "开国战争后的低起点逐步恢复，任内多数阶段可维持基本衣食；晚期史家总评“闾阎充实”可约束交班达到C1-4，但不能反推三十年全任均处普遍温饱。洪武十二年皇帝本人承认“天下贫民困于饥寒者多”，与多轮区域饥荒共同限制主态上推。",
@@ -1412,7 +1501,7 @@
           ],
           "peak_band": null,
           "polity": "明",
-          "rank": 74,
+          "rank": 72,
           "reign_range": "1368-1398",
           "ruler_id": "RULER-MING-ZHU-YUANZHANG",
           "ruler_name": "朱元璋",
@@ -2123,7 +2212,8 @@
                 "docs/史料通读产物/明/明通鉴/volume-014.source-summary.md#L51",
                 "docs/史料通读产物/明/明通鉴/volume-014.source-summary.md#L94-L95",
                 "docs/史料通读产物/明/明通鉴/volume-001.source-summary.md#L46",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "https://zh.wikisource.org/zh-hans/明史/卷3"
               ]
             },
             "score": 29.8
@@ -2151,7 +2241,20 @@
               "public_basis": "人口、屯田、仓储、军食不作为民生主证；“闾阎充实”为晚期/跨朝约束，不倒填全任。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-3/L2",
+              "range": "C1-3/L2",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YUANZHANG&axis=C1"
+          }
         },
         {
           "adjudication_reason": "承接嘉靖末C1-2后，通过减赋清逋、撤除部分额外汲取与灾民安置恢复到基本维持；“减赋息民、边陲宁谧”仍主要是政策/背景，不足证明多数家庭普遍温饱。",
@@ -2256,7 +2359,7 @@
           ],
           "peak_band": null,
           "polity": "明",
-          "rank": 74,
+          "rank": 72,
           "reign_range": "1567-1572",
           "ruler_id": "RULER-MING-ZHU-ZAIHOU",
           "ruler_name": "朱载坖",
@@ -2339,7 +2442,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-ZAIHOU",
                 "明史",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json#material_id=EV-LQ-C2-01",
-                ".cache/source-text/明史-明/卷019.md"
+                ".cache/source-text/明史-明/卷019.md",
+                "https://zh.wikisource.org/zh-hans/明史/卷19",
+                "https://zh.wikisource.org/wiki/明通鑑/卷069"
               ]
             },
             "score": 29.8
@@ -2367,7 +2472,29 @@
               "public_basis": "灾害发生不认定为本人造成；本项只确认家庭绝对状态。未证实独立于主要阶段状态判断之外的第二个宏观民生“广泛困顿”常态，不判历史低谷标签。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L2",
+              "range": [
+                "C1-2/L0~L1",
+                "C1-3/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-2/L1",
+                "C1-2/L2",
+                "C1-3/L0",
+                "C1-3/L1",
+                "C1-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-ZAIHOU&axis=C1"
+          }
         },
         {
           "adjudication_reason": "全任多数家庭仍可基本维持，但中后期边事、营建和灾荒使余量持续收缩。嘉靖末多核心区连续饥荒与“民不聊生、室如悬磬”互证，交班已广泛困顿。",
@@ -2470,7 +2597,7 @@
           ],
           "peak_band": null,
           "polity": "明",
-          "rank": 106,
+          "rank": 104,
           "reign_range": "1521-1567",
           "ruler_id": "RULER-MING-ZHU-HOUCONG",
           "ruler_name": "朱厚熜",
@@ -2557,7 +2684,9 @@
                 "docs/史料通读产物/明/明通鉴/volume-067.source-summary.md#L54",
                 "docs/史料通读产物/明/明通鉴/volume-067.source-summary.md#L90",
                 "https://zh.wikisource.org/wiki/明通鉴/卷062",
-                "https://zh.wikisource.org/wiki/明通鉴/卷067"
+                "https://zh.wikisource.org/wiki/明通鉴/卷067",
+                "https://zh.wikisource.org/zh-hans/明史/卷18",
+                "https://zh.wikisource.org/zh-hans/明史/卷30"
               ]
             },
             "score": 28.2
@@ -2585,7 +2714,31 @@
               "public_basis": "《治安疏》有劝谏语境，不能单独定档；终点由连续灾荒与继任短窗共同证实。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L3",
+              "range": [
+                "C1-2/L0~L1",
+                "C1-3/L3"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-2/L1",
+                "C1-2/L2",
+                "C1-2/L3",
+                "C1-3/L0",
+                "C1-3/L1",
+                "C1-3/L2",
+                "C1-3/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-HOUCONG&axis=C1"
+          }
         },
         {
           "adjudication_reason": "两个实际执政窗口均能维持基本生产与家庭生活，但现证没有本人窗口覆盖主要统治区的“多数家庭稳定温饱”直接锚。旧峰值C1-4主要由减税、赈免等政策/结果背景推高，缺纯C1广域温饱强证，撤销峰值登记。",
@@ -2660,7 +2813,7 @@
           ],
           "peak_band": null,
           "polity": "明",
-          "rank": 106,
+          "rank": 104,
           "reign_range": "1435-1449; 1457-1464",
           "ruler_id": "RULER-MING-ZHU-QIZHEN",
           "ruler_name": "朱祁镇",
@@ -2780,7 +2933,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-MING-ZHU-QIZHEN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-MING-ZHU-QIZHEN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-MING-ZHU-QIZHEN",
-                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-QIZHEN"
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-QIZHEN",
+                "https://zh.wikisource.org/zh-hans/明史/卷30"
               ]
             },
             "score": 28.2
@@ -2808,7 +2962,24 @@
               "public_basis": "灾荒本身不作本人负贡献；这里仅用于绝对家庭状态与低谷损害。历史低谷标签成立依第二执政短窗的高时间密度与多主要区域实际饥困，不按灾年条数机械累计。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L3",
+              "range": [
+                "C1-2/L0",
+                "C1-3/L3"
+              ],
+              "leaderboard_consumption": "lower_and_upper_endpoints",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-3/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-QIZHEN&axis=C1"
+          }
         },
         {
           "adjudication_reason": "接手洪武末C1-4，但四年短任很快进入靖难长期战争；减赋、宽政等是政策，不能证明本人窗口仍维持普遍温饱。现证最稳只闭合基本维持。",
@@ -2882,7 +3053,7 @@
           ],
           "peak_band": null,
           "polity": "明",
-          "rank": 106,
+          "rank": 104,
           "reign_range": "1398-1402",
           "ruler_id": "RULER-MING-ZHU-YUNWEN",
           "ruler_name": "朱允炆",
@@ -2943,7 +3114,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-MING-ZHU-YUNWEN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-MING-ZHU-YUNWEN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-YUNWEN",
-                "明史/卷4"
+                "明史/卷4",
+                "https://zh.wikisource.org/zh-hant/明史_(四庫全書本)/卷077",
+                "https://zh.wikisource.org/zh-hans/明史/卷4"
               ]
             },
             "score": 28.2
@@ -2971,7 +3144,31 @@
               "public_basis": "“鞠为茂草”首先是生产结果，只有其对家庭维生的明确传导部分进入民生；南方主要经济区未同时证实民生“广泛困顿”级普遍家庭困顿。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L3",
+              "range": [
+                "C1-2/L0~L1",
+                "C1-3/L3"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-2/L1",
+                "C1-2/L2",
+                "C1-2/L3",
+                "C1-3/L0",
+                "C1-3/L1",
+                "C1-3/L2",
+                "C1-3/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YUNWEN&axis=C1"
+          }
         },
         {
           "adjudication_reason": "以1646—1659年失去实际治理权前的南明控制区为对象。《南明史稿·食货志》记西南诸督抚勋镇分掌财赋，永历三年甲子所军租及云南营庄使田主余粮锐减，贵州征派遍及谷麻牲畜；十一年李定国收回滇黔赋役后，元江等地仍一再增赋，出现直接“民不堪命”结果。这些是多地跨阶段家庭净负担与余量受损，结合长期移动控制区，受约束保C1-2；各军头自行征敛不能全归朱由榔个人，且材料不足证明全部家庭进入一档饥亡崩溃。1659年入缅失权后随从被掠只作排除背景，不进入本人家庭主态或端点。",
@@ -3147,7 +3344,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-MING-ZHU-YOULANG",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-YOULANG",
                 "https://zh.wikisource.org/wiki/明史/卷120",
-                "https://zh.wikisource.org/zh-hans/南明史稿/卷009"
+                "https://zh.wikisource.org/zh-hans/南明史稿/卷009",
+                "https://zh.wikisource.org/zh-hant/南明史稿/卷009"
               ]
             },
             "score": 17.1
@@ -3175,10 +3373,23 @@
               "public_basis": "政权覆灭本身不决定民生“崩溃”。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-2/L0",
+              "range": "C1-2/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YOULANG&axis=C1"
+          }
         },
         {
-          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。M2-LSM-E010只能证明江南官署与征发仍可短期运行。",
+          "adjudication_reason": "短任江淮军政征发和家庭压力已达广泛困顿；无足够直接结果把多数家庭抬到基本维持。",
           "confidence": "LOW",
           "evidence": [
             {
@@ -3219,15 +3430,16 @@
           ],
           "peak_band": null,
           "polity": "明",
-          "rank": 156,
+          "rank": 125,
           "reign_range": "1644-1645南京弘光实际中枢；不扩张到全部南方名义辖境",
           "ruler_id": "RULER-MING-ZHU-YOUSONG",
           "ruler_name": "朱由崧",
-          "score": 16.8,
+          "score": 17.1,
           "state_anchors": {
             "S0": "C1-2",
             "S_avg": "C1-2",
-            "S_end": "C1-2"
+            "S_end": "C1-2",
+            "S_main": "C1-2"
           },
           "raw_state_band": "C1-2",
           "formal_band": "C1-2",
@@ -3243,21 +3455,21 @@
               "original_text": "五月庚寅，称监国，以史可法及马士英等俱为大学士。壬寅，称帝于南京，命可法督师江北，召士英入阁办事。明年五月，大清兵渡江，福王出奔太平。大清兵至芜湖，总兵田雄劫福王以降。阁臣六人。"
             }
           ],
-          "stability_basis": "池外既有记录；当前规范池未启用新的低谷修正裁决。",
-          "public_adjudication_summary": "主要状态：广泛困顿。任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。所引江南官署与征发材料只能证明江南官署与征发仍可短期运行。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
+          "stability_basis": "短任江淮军政征发和家庭压力已达广泛困顿；无足够直接结果把多数家庭抬到基本维持。",
+          "public_adjudication_summary": "主要状态：广泛困顿。短任江淮军政征发和家庭压力已达广泛困顿；无足够直接结果把多数家庭抬到基本维持。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C1-PUBLIC-B8D115335397E7DD",
               "public_label": "主要状态：广泛困顿",
               "public_role": "主要状态",
-              "public_basis": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。所引江南官署与征发材料只能证明江南官署与征发仍可短期运行。",
+              "public_basis": "短任江淮军政征发和家庭压力已达广泛困顿；无足够直接结果把多数家庭抬到基本维持。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             },
             {
               "id": "C1-PUBLIC-75045605ABD566E5",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             },
             {
@@ -3267,7 +3479,38 @@
               "public_basis": "未取得弘光控制区家庭生计与生产的多轴连续正文。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-2/L0",
+              "range": "C1-2/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YOUSONG&axis=C1"
+          },
+          "loss_grade": "L0",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YOUSONG&axis=C1",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "短任江淮军政征发和家庭压力已达广泛困顿；无足够直接结果把多数家庭抬到基本维持。",
+              "strong_dimensions": [],
+              "main_representativeness": "短任江淮军政征发和家庭压力已达广泛困顿；无足够直接结果把多数家庭抬到基本维持。",
+              "full_window_reviewed": true,
+              "deduplication": "短任江淮军政征发和家庭压力已达广泛困顿；无足够直接结果把多数家庭抬到基本维持。",
+              "evidence_refs": [
+                "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YOUSONG&axis=C1"
+              ]
+            },
+            "score": 17.1
+          }
         },
         {
           "adjudication_reason": "本人实际主政期内跨省灾荒、额外汲取与农桑失业等家庭后果共同闭合广泛困顿主态2。",
@@ -3602,7 +3845,10 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-MING-ZHU-YOUJIAO",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-MING-ZHU-YOUJIAO",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-YOUJIAO",
-                "《明通鉴》卷084"
+                "《明通鉴》卷084",
+                "https://zh.wikisource.org/wiki/明史/卷22",
+                "https://zh.wikisource.org/zh-hans/明史/卷30",
+                "https://zh.wikisource.org/zh-hans/明通鑑/卷084"
               ]
             },
             "score": 15.9
@@ -3630,7 +3876,29 @@
               "public_basis": "历史低谷标签仅表示未确认主要阶段状态以下有效低谷，不以史料沉默证明稳定。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-2/L2",
+              "range": [
+                "C1-2/L0~L1",
+                "C1-3/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-2/L1",
+                "C1-2/L2",
+                "C1-3/L0",
+                "C1-3/L1",
+                "C1-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YOUJIAO&axis=C1"
+          }
         },
         {
           "adjudication_reason": "长期加派与广域饥荒使普通家庭主要状态处于广泛困顿。",

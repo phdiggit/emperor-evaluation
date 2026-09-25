@@ -381,8 +381,8 @@ def render(payload: dict) -> str:
             labels += f'；成本现{cost_review["current_grade"]}、审慎复核至{cost_review["candidate_max_grade"]}：{cost_review["review_gate"]}'
         if interval:
             labels += ''.join(
-                f'；{x["axis"]}现{x["current_grade"]}/{x["current_loss_grade"]}、复核{x["candidate_grade"]}/{x["candidate_loss_grade"]}：{x["review_gate"]}'
-                for x in interval.get('axis_reviews',[]) if x['current_grade']!=x['candidate_grade'] or x['current_loss_grade']!=x['candidate_loss_grade']
+                f'；{x["axis"]}终裁端点{"、".join(x["allowed_endpoints"])}：{x["review_gate"]}'
+                for x in interval.get('axis_reviews',[])
             )
         display_range=(f'{interval["lower"]:.2f}—{interval["upper"]:.2f}' if interval else '尚未逐人复核')
         lines.append(f'| {row["ruler_name"]} | {"／".join(str(mains.get(a,"—")) for a in ("C1","C2","C3"))} | {annotation.get("third_item_cost_grade","—")}／{annotation.get("military_net_loss_grade","—")} | {labels} | {display_range} |')

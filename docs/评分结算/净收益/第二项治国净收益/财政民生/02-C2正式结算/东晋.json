@@ -56,7 +56,7 @@
           ],
           "peak_band": null,
           "polity": "东晋",
-          "rank": 129,
+          "rank": 125,
           "reign_range": [
             376,
             396
@@ -105,7 +105,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马曜",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马曜",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马曜",
-                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马曜"
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+                "https://zh.wikisource.org/wiki/資治通鑑_(四部叢刊本)/卷第一百七"
               ]
             },
             "score": 13.9
@@ -133,7 +134,20 @@
               "public_basis": "“家给人足”不进入经济财政。\n\n劳役只在已证实到生产/财政负担时计入，不按战争责任机械扣档。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-3/L2",
+              "range": "C2-3/L2",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马曜&axis=C2"
+          }
         },
         {
           "adjudication_reason": "原结算“草创低位恢复”可以保留，但应改写成结果轴。元帝为晋王时已按入谷多少考核，并要求军队自佃；太兴后频年麦作“为益犹多”，同时三吴大饥时仍可开仓振给并省众役。这说明P与R/F均达到基本运行，但军兴、运漕和大量游食人口仍是直接结构约束，尚不足两柱健康，故保三。",
@@ -191,7 +205,7 @@
           ],
           "peak_band": null,
           "polity": "东晋",
-          "rank": 55,
+          "rank": 53,
           "reign_range": [
             317,
             322
@@ -293,7 +307,7 @@
           ]
         },
         {
-          "adjudication_reason": "原结算三档结论保留，但原两张证据卡一张是江东大火、一张是石勒补偿樊坦，均不能直接承担司马绍C2。本轮按短任口径重做：他直接承接司马睿C2-3交班盘面；温峤在明帝时仍建议恢复田曹、劝课农桑，表明农业财政机器尚处继续修复阶段，而太宁三年自春至六月不雨亦构成生产压力。没有新证据证明两柱健康或长期脆弱，因此用一跳连续性闭合C2-3。",
+          "adjudication_reason": "C2本人窗口缺两柱直接结果，一跳连续性只够基本运行，国用并匮又形成真实二档解释。",
           "confidence": "LOW",
           "evidence": [
             {
@@ -320,17 +334,16 @@
           "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
           "high_band_gate": {
             "status": "FAIL_C2_4_MAIN",
-            "basis": "短任缺本人窗口两柱健康硬证；直接继承三档状态且无系统性失灵证据，故三档。"
+            "basis": "C2本人窗口缺两柱直接结果，一跳连续性只够基本运行，国用并匮又形成真实二档解释。"
           },
           "main_band": "C2-3",
           "material_limitations": [
-            "S0=C2-3与本批司马睿S_end强制同步。",
             "原结算两张与本人C2关系不足的证据卡已删除。",
             "灾旱仅作P面压力，不因灾害本身降二。"
           ],
           "peak_band": null,
           "polity": "东晋",
-          "rank": 55,
+          "rank": 53,
           "reign_range": [
             322,
             325
@@ -341,7 +354,8 @@
           "state_anchors": {
             "S0": "C2-3",
             "S_avg": "C2-3",
-            "S_end": "C2-3"
+            "S_end": "C2-3",
+            "S_main": "C2-3"
           },
           "m3_supplement_review": null,
           "d_cost_crosscheck": {
@@ -351,30 +365,64 @@
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "public_adjudication_summary": "主要状态：基本运行。经济财政基本运行的判断，不能由江东大火或石勒补偿樊坦的记载直接支持；这些材料不足以说明司马绍本人的经济财政状态。本人任期短，接手时承接司马睿末经济财政基本运行的状态。温峤在明帝时仍建议恢复田曹、劝课农桑，表明农业财政机器尚处继续修复阶段，而太宁三年自春至六月不雨亦构成生产压力。没有新证据证明两柱健康或长期脆弱，因此用一跳连续性证实经济财政“基本运行”。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：基本运行。经济财政本人掌权时期缺两柱直接结果，一跳连续性只够基本运行，国用并匮又形成真实二档解释。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C2-PUBLIC-D56FC6100237B5D6",
               "public_label": "主要状态：基本运行",
               "public_role": "主要状态",
-              "public_basis": "经济财政基本运行的判断，不能由江东大火或石勒补偿樊坦的记载直接支持；这些材料不足以说明司马绍本人的经济财政状态。本人任期短，接手时承接司马睿末经济财政基本运行的状态。温峤在明帝时仍建议恢复田曹、劝课农桑，表明农业财政机器尚处继续修复阶段，而太宁三年自春至六月不雨亦构成生产压力。没有新证据证明两柱健康或长期脆弱，因此用一跳连续性证实经济财政“基本运行”。",
+              "public_basis": "经济财政本人掌权时期缺两柱直接结果，一跳连续性只够基本运行，国用并匮又形成真实二档解释。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             },
             {
               "id": "C2-PUBLIC-935DF8C55DA5F05D",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             },
             {
               "id": "C2-PUBLIC-1306BC4E9DDD54EB",
               "public_label": "评价边界",
               "public_role": "边界",
-              "public_basis": "接手时经济财政基本运行，与司马睿任期结束时相衔接。\n\n两条与本人经济财政关系不足的材料不作为依据。\n\n灾旱仅作生产面压力，不因灾害本身降二。",
+              "public_basis": "两条与本人经济财政关系不足的材料不作为依据。\n\n灾旱仅作生产面压力，不因灾害本身降二。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-3/L0",
+              "range": "C2-2/L0 ↔ C2-3/L0",
+              "allowed_endpoints": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ],
+              "leaderboard_consumption": "paired_endpoints_only",
+              "deduplication": "本人窗财政生产结果稀薄；若把国用并匮与旱灾视为持续弱柱则二档，若按一跳连续性及系统仍运行则三档，二者不得自由组合。"
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马绍&axis=C2"
+          },
+          "loss_grade": "L0",
+          "stability_basis": "本人窗财政生产结果稀薄；若把国用并匮与旱灾视为持续弱柱则二档，若按一跳连续性及系统仍运行则三档，二者不得自由组合。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马绍&axis=C2",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "本人窗财政生产结果稀薄；若把国用并匮与旱灾视为持续弱柱则二档，若按一跳连续性及系统仍运行则三档，二者不得自由组合。",
+              "strong_dimensions": [],
+              "main_representativeness": "C2本人窗口缺两柱直接结果，一跳连续性只够基本运行，国用并匮又形成真实二档解释。",
+              "full_window_reviewed": true,
+              "deduplication": "本人窗财政生产结果稀薄；若把国用并匮与旱灾视为持续弱柱则二档，若按一跳连续性及系统仍运行则三档，二者不得自由组合。",
+              "evidence_refs": [
+                "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马绍&axis=C2"
+              ]
+            },
+            "score": 14.9
+          }
         }
       ]
     }

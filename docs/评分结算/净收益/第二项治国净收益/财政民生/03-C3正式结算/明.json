@@ -339,7 +339,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-MING-ZHU-YOUCHENG",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-YOUCHENG",
                 "《明通鉴》卷四十一至四十三通读总结",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "docs/史料通读产物/明/明通鉴/volume-033.source-summary.md",
+                "docs/史料通读产物/明/明通鉴/volume-044.source-summary.md"
               ]
             },
             "score": 38.8
@@ -367,7 +369,27 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C3-4/L1",
+              "range": [
+                "C3-3/L0~L1",
+                "C3-4/L1"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C3-3/L0",
+                "C3-3/L1",
+                "C3-4/L0",
+                "C3-4/L1"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YOUCHENG&axis=C3"
+          }
         },
         {
           "adjudication_reason": "承接弘治四档，正德前期刘瑾体系造成非罪滥及良善、枷号死亡数千、校尉四出与“天下骚动”，并由官吏加倍取民导致“民穷盗起”，形成全国性、持续数年的深低谷；诛瑾虽纠偏，但后期内臣与巡幸侵扰未能恢复四档。",
@@ -405,7 +427,7 @@
           ],
           "main_band": "C3-3",
           "polity": "明",
-          "rank": 46,
+          "rank": 45,
           "reign_range": "1505-1521",
           "ruler_id": "RULER-MING-ZHU-HOUZHAO",
           "ruler_name": "朱厚照",
@@ -531,7 +553,7 @@
           ],
           "main_band": "C3-3",
           "polity": "明",
-          "rank": 46,
+          "rank": 45,
           "reign_range": "1464-1487",
           "ruler_id": "RULER-MING-ZHU-JIANSHEN",
           "ruler_name": "朱见深",
@@ -588,7 +610,11 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-MING-ZHU-JIANSHEN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-MING-ZHU-JIANSHEN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-JIANSHEN",
-                "明史"
+                "明史",
+                "docs/史料通读产物/明/明通鉴/volume-033.source-summary.md",
+                "docs/史料通读产物/明/明通鉴/volume-036.source-summary.md",
+                "docs/史料通读产物/明/明通鉴/volume-038.source-summary.md",
+                "docs/史料通读产物/明/明通鉴/volume-044.source-summary.md"
               ]
             },
             "score": 28.0
@@ -616,7 +642,21 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L0",
+              "range": "C3-3/L0",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "厂卫拘系与区域盗乱用于三档主态，不再重复扣L。",
+              "allowed_endpoints": [
+                "C3-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-JIANSHEN&axis=C3"
+          }
         },
         {
           "adjudication_reason": "第一段承接宣宗四档，但正统后期地方盗群与边防崩口使主态跌至三档；土木后瓦剌长驱至紫荆关、逼近京师，形成一个实质性短期安全低谷。复辟后夺门清洗和厂卫压力继续阻断四档，但未再形成足以与主态竞争的二档长段。",
@@ -653,7 +693,7 @@
           ],
           "main_band": "C3-3",
           "polity": "明",
-          "rank": 46,
+          "rank": 45,
           "reign_range": "1435-1449; 1457-1464",
           "ruler_id": "RULER-MING-ZHU-QIZHEN",
           "ruler_name": "朱祁镇",
@@ -771,7 +811,7 @@
           ],
           "main_band": "C3-3",
           "polity": "明",
-          "rank": 46,
+          "rank": 45,
           "reign_range": "1567-1572",
           "ruler_id": "RULER-MING-ZHU-ZAIHOU",
           "ruler_name": "朱载坖",
@@ -830,7 +870,10 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-ZAIHOU",
                 "明史",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json#material_id=EV-LQ-C2-01",
-                ".cache/source-text/明史-明/卷019.md"
+                ".cache/source-text/明史-明/卷019.md",
+                "docs/史料通读产物/明/明通鉴/volume-071.source-summary.md",
+                "docs/史料通读产物/明/明通鉴/volume-075.source-summary.md",
+                "docs/史料通读产物/明/明通鉴/volume-076.source-summary.md"
               ]
             },
             "score": 28.0
@@ -858,7 +901,21 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L0",
+              "range": "C3-3/L0",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "政治司法任意只用于阻断四档，不外推普通社会二档，也不另扣L。",
+              "allowed_endpoints": [
+                "C3-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-ZAIHOU&axis=C3"
+          }
         },
         {
           "adjudication_reason": "从元末战争低位恢复到基本秩序三档；但洪武中期锦衣卫治狱一度“多非法凌虐”，胡蓝大案又形成显著政治司法低谷，长期阻断四档。",
@@ -883,7 +940,7 @@
           ],
           "main_band": "C3-3",
           "polity": "明",
-          "rank": 97,
+          "rank": 98,
           "reign_range": "1368-1398",
           "ruler_id": "RULER-MING-ZHU-YUANZHANG",
           "ruler_name": "朱元璋",
@@ -1269,7 +1326,7 @@
           ],
           "main_band": "C3-3",
           "polity": "明",
-          "rank": 120,
+          "rank": 119,
           "reign_range": "1402-1424",
           "ruler_id": "RULER-MING-ZHU-DI",
           "ruler_name": "朱棣",
@@ -1478,7 +1535,7 @@
           ],
           "main_band": "C3-3",
           "polity": "明",
-          "rank": 120,
+          "rank": 119,
           "reign_range": "1521-1567",
           "ruler_id": "RULER-MING-ZHU-HOUCONG",
           "ruler_name": "朱厚熜",
@@ -1597,7 +1654,7 @@
           ],
           "main_band": "C3-3",
           "polity": "明",
-          "rank": 120,
+          "rank": 119,
           "reign_range": "1572-1620",
           "ruler_id": "RULER-MING-ZHU-YIJUN",
           "ruler_name": "朱翊钧",
@@ -1731,7 +1788,7 @@
           ],
           "main_band": "C3-2",
           "polity": "明",
-          "rank": 133,
+          "rank": 136,
           "reign_range": "1620-1627；只按本人实际最高治理权，魏忠贤为受权执行链",
           "ruler_id": "RULER-MING-ZHU-YOUJIAO",
           "ruler_name": "朱由校",
@@ -1846,7 +1903,7 @@
           ],
           "main_band": "C3-2",
           "polity": "明",
-          "rank": 133,
+          "rank": 136,
           "reign_range": "1398-1402",
           "ruler_id": "RULER-MING-ZHU-YUNWEN",
           "ruler_name": "朱允炆",
@@ -1930,7 +1987,7 @@
           ]
         },
         {
-          "adjudication_reason": "弘光南廷重建后南京、江南仍保有基本行政和城市秩序，不能把北京覆亡直接平移为全任一档；但江北四镇军纪失控、地方抢掠与朝廷法纪贿狱并存，使人身财产和司法至少两面持续脆弱，主态应为二档。清军渡江后中枢迅速瓦解，终点降一档，故历史低谷标签。",
+          "adjudication_reason": "1644—1645南京弘光实际中枢仍维持部分城市行政，但江北四镇军纪失控，高杰等军队对扬州城外居民持续焚掠抢夺，朝廷内部又存在法纪废弛与贿狱，普通人身财产安全、基层控制/司法至少两面持续脆弱，足以闭合C3-2。清军渡江后福王出奔、南京中枢短窗解体只证明终点恶化；现合同明确末期较低不自动触发L，且四镇侵掠与法纪裂缝已经由二档主态消费。因此不把亡国标签或中枢解体再重复扣L，收成C3-2/L0。",
           "authority_attribution": "1644—1645南京弘光实际中枢；不扩张到全部南方名义辖境。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -1961,15 +2018,16 @@
           ],
           "main_band": "C3-2",
           "polity": "明",
-          "rank": 168,
+          "rank": 136,
           "reign_range": "1644-1645南京弘光实际中枢；不扩张到全部南方名义辖境",
           "ruler_id": "RULER-MING-ZHU-YOUSONG",
           "ruler_name": "朱由崧",
-          "score": 14.7,
+          "score": 16.0,
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",
-            "S_end": "C3-1"
+            "S_end": "C3-1",
+            "S_avg": "C3-2"
           },
           "raw_state_band": "C3-2",
           "formal_band": "C3-2",
@@ -1988,20 +2046,20 @@
               "original_text": "清兵渡江后福王出奔，南京中枢在短窗内实际解体。"
             }
           ],
-          "public_adjudication_summary": "主要状态：持续脆弱。弘光南廷重建后南京、江南仍保有基本行政和城市秩序，不能把北京覆亡直接平移为全任一档；但江北四镇军纪失控、地方抢掠与朝廷法纪贿狱并存，使人身财产和司法至少两面持续脆弱，主要阶段状态应为二档。清军渡江后中枢迅速瓦解，终点降一档，故历史低谷标签。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：持续脆弱。1644—1645南京弘光实际中枢仍维持部分城市行政，但江北四镇军纪失控，高杰等军队对扬州城外居民持续焚掠抢夺，朝廷内部又存在法纪废弛与贿狱，普通人身财产安全、基层控制/司法至少两面持续脆弱，足以证实社会安全“持续脆弱”。清军渡江后福王出奔、南京中枢短窗解体只证明终点恶化；现合同明确末期较低不自动触发低谷损害，且四镇侵掠与法纪裂缝已经由二档主要阶段状态计入。因此不把亡国标签或中枢解体再重复扣低谷损害，收成社会安全“持续脆弱”/未另证独立有效低谷。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C3-PUBLIC-D1242914E7411B70",
               "public_label": "主要状态：持续脆弱",
               "public_role": "主要状态",
-              "public_basis": "弘光南廷重建后南京、江南仍保有基本行政和城市秩序，不能把北京覆亡直接平移为全任一档；但江北四镇军纪失控、地方抢掠与朝廷法纪贿狱并存，使人身财产和司法至少两面持续脆弱，主要阶段状态应为二档。清军渡江后中枢迅速瓦解，终点降一档，故历史低谷标签。",
+              "public_basis": "1644—1645南京弘光实际中枢仍维持部分城市行政，但江北四镇军纪失控，高杰等军队对扬州城外居民持续焚掠抢夺，朝廷内部又存在法纪废弛与贿狱，普通人身财产安全、基层控制/司法至少两面持续脆弱，足以证实社会安全“持续脆弱”。清军渡江后福王出奔、南京中枢短窗解体只证明终点恶化；现合同明确末期较低不自动触发低谷损害，且四镇侵掠与法纪裂缝已经由二档主要阶段状态计入。因此不把亡国标签或中枢解体再重复扣低谷损害，收成社会安全“持续脆弱”/未另证独立有效低谷。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
               "id": "C3-PUBLIC-0227A9737DBF8765",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
@@ -2011,10 +2069,45 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-2/L0",
+              "range": "C3-2/L0",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "四镇侵掠和法纪贿狱用于C3-2主态；南京终点解体不以亡国标签自动生成L。",
+              "allowed_endpoints": [
+                "C3-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YOUSONG&axis=C3"
+          },
+          "loss_grade": "L0",
+          "stability_basis": "四镇侵掠和法纪贿狱用于C3-2主态；南京终点解体不以亡国标签自动生成L。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YOUSONG&axis=C3",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "四镇侵掠和法纪贿狱用于C3-2主态；南京终点解体不以亡国标签自动生成L。",
+              "strong_dimensions": [],
+              "main_representativeness": "1644—1645南京弘光实际中枢仍维持部分城市行政，但江北四镇军纪失控，高杰等军队对扬州城外居民持续焚掠抢夺，朝廷内部又存在法纪废弛与贿狱，普通人身财产安全、基层控制/司法至少两面持续脆弱，足以闭合C3-2。清军渡江后福王出奔、南京中枢短窗解体只证明终点恶化；现合同明确末期较低不自动触发L，且四镇侵掠与法纪裂缝已经由二档主态消费。因此不把亡国标签或中枢解体再重复扣L，收成C3-2/L0。",
+              "full_window_reviewed": true,
+              "deduplication": "四镇侵掠和法纪贿狱用于C3-2主态；南京终点解体不以亡国标签自动生成L。",
+              "evidence_refs": [
+                "docs/史料通读产物/明/明通鉴/volume-092.source-summary.md",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算/明.json",
+                "docs/分项规则/第二项治国净收益/财政民生/02-主态低谷与净恢复机制.md#2-全任低谷l"
+              ]
+            },
+            "score": 16.0
+          }
         },
         {
-          "adjudication_reason": "隆武在福建建立中枢后仍有可运行行政秩序，不能因弘光覆亡直接判全任崩解；但郑氏掣肘、强征军饷和地方官吏督迫使基层与财产安全持续脆弱，符合二档。1646年清军入闽、汀州失守并本人被执，交班状态降至一档，故历史低谷标签。",
+          "adjudication_reason": "1645—1646福建隆武实际中枢仍有可运行行政秩序，但郑氏掣肘、强征军饷和地方督迫使基层控制与财产安全持续脆弱，足以闭合C3-2。1646年清军入闽、汀州失守并本人被执证明交班点跌至一档，但亡国/被执和军政中枢终止本身不自动构成居民C3低谷；现有可定位居民损害主要已由二档主态消费，未找到与之独立的广泛严重居民安全后果，故L0。",
           "authority_attribution": "1645—1646福建隆武实际中枢；郑氏控制作为本人权责限制，不扩张名义覆盖。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -2032,15 +2125,16 @@
           ],
           "main_band": "C3-2",
           "polity": "明",
-          "rank": 168,
+          "rank": 136,
           "reign_range": "1645-1646福建隆武实际中枢；郑氏控制作为本人权责限制而非扩张辖境",
           "ruler_id": "RULER-MING-ZHU-YUJIAN",
           "ruler_name": "朱聿键",
-          "score": 14.7,
+          "score": 16.0,
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",
-            "S_end": "C3-1"
+            "S_end": "C3-1",
+            "S_avg": "C3-2"
           },
           "raw_state_band": "C3-2",
           "formal_band": "C3-2",
@@ -2059,20 +2153,20 @@
               "original_text": "清军进入福建后汀州失守，隆武被执，实际保护体系终止。"
             }
           ],
-          "public_adjudication_summary": "主要状态：持续脆弱。隆武在福建建立中枢后仍有可运行行政秩序，不能因弘光覆亡直接判全任崩解；但郑氏掣肘、强征军饷和地方官吏督迫使基层与财产安全持续脆弱，符合二档。1646年清军入闽、汀州失守并本人被执，任期结束状态降至一档，故历史低谷标签。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：持续脆弱。1645—1646福建隆武实际中枢仍有可运行行政秩序，但郑氏掣肘、强征军饷和地方督迫使基层控制与财产安全持续脆弱，足以证实社会安全“持续脆弱”。1646年清军入闽、汀州失守并本人被执证明任期结束点跌至一档，但亡国/被执和军政中枢终止本身不自动构成居民社会安全低谷；现有可定位居民损害主要已由二档主要阶段状态计入，未找到与之独立的广泛严重居民安全后果，故未另证独立有效低谷。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C3-PUBLIC-F94857B58BC70737",
               "public_label": "主要状态：持续脆弱",
               "public_role": "主要状态",
-              "public_basis": "隆武在福建建立中枢后仍有可运行行政秩序，不能因弘光覆亡直接判全任崩解；但郑氏掣肘、强征军饷和地方官吏督迫使基层与财产安全持续脆弱，符合二档。1646年清军入闽、汀州失守并本人被执，任期结束状态降至一档，故历史低谷标签。",
+              "public_basis": "1645—1646福建隆武实际中枢仍有可运行行政秩序，但郑氏掣肘、强征军饷和地方督迫使基层控制与财产安全持续脆弱，足以证实社会安全“持续脆弱”。1646年清军入闽、汀州失守并本人被执证明任期结束点跌至一档，但亡国/被执和军政中枢终止本身不自动构成居民社会安全低谷；现有可定位居民损害主要已由二档主要阶段状态计入，未找到与之独立的广泛严重居民安全后果，故未另证独立有效低谷。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
               "id": "C3-PUBLIC-B14F006E59E4A5F6",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
@@ -2082,7 +2176,41 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-2/L0",
+              "range": "C3-2/L0",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "郑氏掣肘、强征军饷和基层督迫用于C3-2；汀州失守和本人被执只证明终点崩落，不按亡国标签自动补L。",
+              "allowed_endpoints": [
+                "C3-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YUJIAN&axis=C3"
+          },
+          "loss_grade": "L0",
+          "stability_basis": "郑氏掣肘、强征军饷和基层督迫用于C3-2；汀州失守和本人被执只证明终点崩落，不按亡国标签自动补L。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YUJIAN&axis=C3",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "郑氏掣肘、强征军饷和基层督迫用于C3-2；汀州失守和本人被执只证明终点崩落，不按亡国标签自动补L。",
+              "strong_dimensions": [],
+              "main_representativeness": "1645—1646福建隆武实际中枢仍有可运行行政秩序，但郑氏掣肘、强征军饷和地方督迫使基层控制与财产安全持续脆弱，足以闭合C3-2。1646年清军入闽、汀州失守并本人被执证明交班点跌至一档，但亡国/被执和军政中枢终止本身不自动构成居民C3低谷；现有可定位居民损害主要已由二档主态消费，未找到与之独立的广泛严重居民安全后果，故L0。",
+              "full_window_reviewed": true,
+              "deduplication": "郑氏掣肘、强征军饷和基层督迫用于C3-2；汀州失守和本人被执只证明终点崩落，不按亡国标签自动补L。",
+              "evidence_refs": [
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算/明.json",
+                "docs/分项规则/第二项治国净收益/财政民生/02-主态低谷与净恢复机制.md#2-全任低谷l"
+              ]
+            },
+            "score": 16.0
+          }
         },
         {
           "adjudication_reason": "崇祯初承接天启末低位，1628年后流贼由陕西持续扩展，州县反复被掠、地方瞒报与招抚失效使基层控制长期失灵；",
@@ -2268,7 +2396,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-MING-ZHU-YOULANG",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-MING-ZHU-YOULANG",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-MING-ZHU-YOULANG",
-                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-YOULANG"
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-YOULANG",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算/明.json"
               ]
             },
             "score": 5.0
@@ -2296,7 +2425,21 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-1/L0",
+              "range": "C3-1/L0",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "长期战争、武装控制、人口迁徙和入缅后保护崩解已由C3-1最低主态消费。",
+              "allowed_endpoints": [
+                "C3-1/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-MING-ZHU-YOULANG&axis=C3"
+          }
         }
       ]
     }

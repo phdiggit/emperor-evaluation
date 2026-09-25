@@ -69,7 +69,7 @@
           ],
           "peak_band": null,
           "polity": "秦",
-          "rank": 147,
+          "rank": 144,
           "reign_range": "前238—前210",
           "ruler_id": "RULER-QIN-YINGZHENG",
           "ruler_name": "嬴政",
@@ -120,7 +120,11 @@
                 "秦统一后财政赋役专题总结",
                 "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7007",
                 "https://zh.wikisource.org/wiki/漢書/卷024",
-                "https://zh.wikisource.org/wiki/史記/卷006"
+                "https://zh.wikisource.org/wiki/史記/卷006",
+                "《汉书·沟洫志》",
+                "《汉书·食货志》",
+                "《史记·秦始皇本纪》",
+                "《资治通鉴》卷六"
               ]
             },
             "score": 7.0
@@ -148,7 +152,20 @@
               "public_basis": "普通家庭衣食不足由民生计入，不改称生产断裂重复支撑经济财政最低档。\n\n郑国渠仅证前段关中生产强，未证明统一后全国两柱健康；始皇主要阶段状态按后段更广治理对象的持续财政汲取脆弱判定，不作任期年数平均。\n\n三十一年米石千六百保留为粮食供给和交易压力记录，但缺少同口径常价、持续时间及独立停产断供结果，不能仅凭价格另证较二档更差的系统状态。长期超常汲取及供给压力由二档主要阶段状态计入；二世起义后征解断裂不进入本人低谷。全任未另证可独立计入的有效低谷，取未另证独立有效低谷。\n\n《汉书》秦末总括须拆窗；一档所需多面系统断裂在始皇退出前未证实，故置信度取中。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-2/L0",
+              "range": "C2-2/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-QIN-YINGZHENG&axis=C2"
+          }
         },
         {
           "adjudication_reason": "接手承接始皇末仍能运行而严重透支的财政经济系统，S0为C2-2。二世续建阿房、增加咸阳屯卫，因供给不足再调郡县菽粟并令运输者自赍粮，继续放大征解失衡；其后关东多地脱离中央、诸侯复立，至晚期自关以东大抵尽叛，郡县常规征收与跨区供给所依托的控制网络广泛断裂。以供给失衡和税基、征解网络瓦解共同支持主态及交班C2-1，属于受约束系统判断，不以群盗或亡国标签直接换档，也不把家庭衣食不足再作独立生产崩解证据。",
@@ -255,7 +272,8 @@
                 "资治通鉴卷七通读总结",
                 "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7007",
                 "https://zh.wikisource.org/wiki/漢書/卷024",
-                "https://zh.wikisource.org/wiki/史記/卷006"
+                "https://zh.wikisource.org/wiki/史記/卷006",
+                "《史记·秦始皇本纪》二世元年至三年"
               ]
             },
             "score": 1.8
@@ -283,7 +301,25 @@
               "public_basis": "接手二档与任内、任期结束一档分开；不把始皇家庭困顿或二世后果跨窗混用。\n\n一档由供给失衡和常规税基、征解网络广泛断裂共同支持；全国生产与市场细部仍缺直接连续材料，置信度取中。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-1/L0",
+              "range": [
+                "C2-1/L0",
+                "C2-2/L0"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C2-1/L0",
+                "C2-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-QIN-HUHAI&axis=C2"
+          }
         }
       ]
     }

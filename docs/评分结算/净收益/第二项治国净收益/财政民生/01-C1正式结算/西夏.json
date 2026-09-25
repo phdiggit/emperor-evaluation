@@ -123,7 +123,20 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-3/L0",
+              "range": "C1-3/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-XIXIA-LIANQUAN&axis=C1"
+          }
         },
         {
           "adjudication_reason": "长期和平、互市和基本社会运行支持C1-3，但缺直接广域家庭温饱锚，不升4。",
@@ -193,7 +206,7 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "rank": 74,
+          "rank": 72,
           "raw_state_band": "C1-3",
           "formal_band": "C1-3",
           "raw_peak_band": null,
@@ -253,7 +266,22 @@
               "public_basis": "连续灾情不得按年份拆成多个低谷；大规模役作无家庭端实现后果时不进入低谷损害。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L2",
+              "range": "C1-3/L2 ↔ C1-3/L3",
+              "allowed_endpoints": [
+                "C1-3/L2",
+                "C1-3/L3"
+              ],
+              "leaderboard_consumption": "paired_endpoints_only",
+              "deduplication": "长期和平与互市支撑基本生活；灵夏大饥的独立深谷确定，但在L2与L3之间取决于“民大饥、野食依赖”范围和持续性。"
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-XIXIA-LIDEMING&axis=C1"
+          }
         },
         {
           "adjudication_reason": "任内普通家庭总体能够维持基本生活，但尚无充分材料证明多数家庭普遍达到稳定温饱。早期饥荒至卖子、战争与岁赐中断；和议后恢复岁赐，跨州发粟赈旱饥并维持公共供给。",
@@ -379,7 +407,7 @@
               }
             ]
           },
-          "rank": 74,
+          "rank": 72,
           "raw_state_band": "C1-3",
           "formal_band": "C1-3",
           "raw_peak_band": null,
@@ -446,7 +474,7 @@
           ]
         },
         {
-          "adjudication_reason": "早期承接较高状态，但55年长任中缺足以维持普遍温饱主态的纯C1连续锚，故主态3。",
+          "adjudication_reason": "55年长任主态仅能闭合基本维持；1142升米百钱、1143灾后大饥诸部无食构成独立严重深谷，L3。",
           "confidence": "MEDIUM_HIGH_WINDOW_READJUDICATED",
           "evidence": [
             {
@@ -472,7 +500,7 @@
           "reign_range": "1139—1193年",
           "ruler_id": "RULER-XIXIA-LIRENXIAO",
           "ruler_name": "李仁孝",
-          "score": 29.8,
+          "score": 28.2,
           "state_anchors": {
             "S0": "C1-4",
             "S_main": "C1-3",
@@ -533,7 +561,7 @@
               }
             ]
           },
-          "rank": 74,
+          "rank": 104,
           "raw_state_band": "C1-3",
           "formal_band": "C1-3",
           "raw_peak_band": null,
@@ -545,20 +573,23 @@
               "original_text": "河西诸州食稼殆尽。"
             }
           ],
-          "stability_basis": "长期基本生活主态保留；初期连续粮荒至诸部无食另计实质深谷。",
-          "loss_grade": "L2",
+          "stability_basis": "55年长任主态仅能闭合基本维持；1142升米百钱、1143灾后大饥诸部无食构成独立严重深谷，L3。",
+          "loss_grade": "L3",
           "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
           "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
           "state_adjudication": {
             "version": "GOVERNANCE-STATE-RECOVERY-V4",
             "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-XIXIA-LIRENXIAO",
             "loss_review": {
-              "grade": "L2",
-              "basis": "长期基本生活主态保留；初期连续粮荒至诸部无食另计实质深谷。",
-              "strong_dimensions": [],
-              "main_representativeness": "早期承接较高状态，但55年长任中缺足以维持普遍温饱主态的纯C1连续锚，故主态3。",
+              "grade": "L3",
+              "basis": "55年长任主态仅能闭合基本维持；1142升米百钱、1143灾后大饥诸部无食构成独立严重深谷，L3。",
+              "strong_dimensions": [
+                "severity",
+                "scope"
+              ],
+              "main_representativeness": "55年长任主态仅能闭合基本维持；1142升米百钱、1143灾后大饥诸部无食构成独立严重深谷，L3。",
               "full_window_reviewed": true,
-              "deduplication": "长期基本生活主态保留；初期连续粮荒至诸部无食另计实质深谷。",
+              "deduplication": "55年长任主态仅能闭合基本维持；1142升米百钱、1143灾后大饥诸部无食构成独立严重深谷，L3。",
               "evidence_refs": [
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-XIXIA-LIRENXIAO",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-XIXIA-LIRENXIAO",
@@ -566,22 +597,22 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LIRENXIAO"
               ]
             },
-            "score": 29.8
+            "score": 28.2
           },
-          "public_adjudication_summary": "主要状态：基本维持。早期承接较高状态，但55年长任中缺足以维持普遍温饱主要阶段状态的纯民生连续锚，故主要阶段状态3。\n\n重要地区或群体出现明显损害：长期基本生活主要阶段状态保留；初期连续粮荒至诸部无食另计实质深谷。\n\n评价范围：这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：基本维持。55年长任主要阶段状态仅能证实基本维持；1142升米百钱、1143灾后大饥诸部无食构成独立严重深谷，严重且广泛或长期反复的本轴损害。\n\n严重且广泛或长期反复的本轴损害：55年长任主要阶段状态仅能证实基本维持；1142升米百钱、1143灾后大饥诸部无食构成独立严重深谷，严重且广泛或长期反复的本轴损害。\n\n评价范围：这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C1-PUBLIC-ADAB44A210922634",
               "public_label": "主要状态：基本维持",
               "public_role": "主要状态",
-              "public_basis": "早期承接较高状态，但55年长任中缺足以维持普遍温饱主要阶段状态的纯民生连续锚，故主要阶段状态3。",
+              "public_basis": "55年长任主要阶段状态仅能证实基本维持；1142升米百钱、1143灾后大饥诸部无食构成独立严重深谷，严重且广泛或长期反复的本轴损害。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             },
             {
               "id": "C1-PUBLIC-E9A1DEA8BB2DC262",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "重要地区或群体出现明显损害：长期基本生活主要阶段状态保留；初期连续粮荒至诸部无食另计实质深谷。",
+              "public_basis": "严重且广泛或长期反复的本轴损害：55年长任主要阶段状态仅能证实基本维持；1142升米百钱、1143灾后大饥诸部无食构成独立严重深谷，严重且广泛或长期反复的本轴损害。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             },
             {
@@ -591,7 +622,20 @@
               "public_basis": "军役规模和农业损失只有明确传导到家庭维生后才进入民生。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-3/L3",
+              "range": "C1-3/L3",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-3/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-XIXIA-LIRENXIAO&axis=C1"
+          }
         },
         {
           "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。十分之九人马点集、长期旱灾与民大饥构成低位压力；跨州运粮赈济、止兵和恢复使贡贸易形成局部修复，但梁氏长期用兵已造成强烈民怨。",
@@ -741,7 +785,20 @@
               "public_basis": "只结算本人恢复名义与实权后的窗口；梁氏外戚承担的政策责任单独限制本人责任归属系数。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-2/L0",
+              "range": "C1-2/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-XIXIA-LIBINGCHANG&axis=C1"
+          }
         },
         {
           "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。频年点集导致横山羌众志乖离，继而强迁族帐至兴州，出现内附、人口流失与长期兵役负担的闭合链。",
@@ -846,7 +903,20 @@
               "public_basis": "只结算本人掌权后的晚期窗口，幼年没藏氏摄政不倒算本人。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-2/L0",
+              "range": "C1-2/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-XIXIA-LILIANGZUO&axis=C1"
+          }
         },
         {
           "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。建成财政仓储农业和军区架构，但十五岁起系统兵役、战争导致互市断裂、人口畜产迁避与资用乏困；和约后互市恢复，却又以数万丁夫建宫苑、役民建寺，身后总评为劳役无时、众怨方兴。",

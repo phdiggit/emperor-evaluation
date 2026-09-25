@@ -244,7 +244,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-PUBLIC-4EB7AC987FECC59F",
                 "docs/史料通读产物/清/清史稿/volume-009.source-summary.md",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/qing.json#material_id=MAT-QING-AA76249A266295E9",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/qing.json#material_id=MAT-QING-F5B443FCA73B526A"
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/qing.json#material_id=MAT-QING-F5B443FCA73B526A",
+                "https://zh.wikisource.org/zh-hans/世宗憲皇帝聖訓_(四庫全書本)/卷36",
+                "https://zh.wikisource.org/zh-hans/清史稿/卷337"
               ]
             },
             "score": 37.2
@@ -272,7 +274,25 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C3-4/L2",
+              "range": [
+                "C3-3/L0",
+                "C3-4/L2"
+              ],
+              "allowed_endpoints": [
+                "C3-3/L0",
+                "C3-4/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_explicit_endpoints_only",
+              "interpretation": "paired endpoints; repeated security/judicial cracks are either absorbed into C3-3 main state or retained as L2 under C3-4"
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-PUBLIC-4EB7AC987FECC59F&axis=C3"
+          }
         },
         {
           "adjudication_reason": "S0随胤禛交班同步改为C3-4。原五档主要依赖“承平日久、生齿殷繁”、灾赈、减刑等C1/政策材料，不能证明C3多轴长期高位。纯C3反证则跨区域反复出现：河南“多盗”、保甲甲长畏窝家甚于官法，福建长期多械斗且地方百姓称告官后“一二年狱不竟”，另有大族欺凌小族引发械斗。这些足以否定C3-5，但在大部分窗口内常规秩序仍可运行、局部整治后又能出现“商旅坦行”，故主态取C3-4。",
@@ -422,7 +442,7 @@
           ],
           "main_band": "C3-3",
           "polity": "清",
-          "rank": 97,
+          "rank": 98,
           "reign_range": "1626-1643",
           "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
           "ruler_name": "皇太极",
@@ -586,7 +606,7 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "rank": 97,
+          "rank": 98,
           "raw_state_band": "C3-3",
           "formal_band": "C3-3",
           "peak_band": null,
@@ -627,7 +647,10 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-79839092B61C3D74",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-PUBLIC-79839092B61C3D74",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-PUBLIC-79839092B61C3D74",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "docs/史料通读产物/清/清史稿/volume-023.source-summary.md",
+                "docs/史料通读产物/清/清史稿/volume-024.source-summary.md",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算/清.json"
               ]
             },
             "score": 26.0
@@ -655,10 +678,24 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L2",
+              "range": "C3-3/L2",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "多点已实现盗劫和古田伤亡进入L2；筹划事件及1898失权后的义和团、失都全部排除。",
+              "allowed_endpoints": [
+                "C3-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-PUBLIC-79839092B61C3D74&axis=C3"
+          }
         },
         {
-          "adjudication_reason": "承接嘉庆末三档。道光三十年间主要统治区仍维持基本可运行秩序，各地盗乱、回疆与台湾事件大多能局部收束；",
+          "adjudication_reason": "1820—1850年主要统治区仍维持可运行秩序，各地盗乱、回疆与沿海事件多数能局部收束，主态C3-3成立。旧L2的‘云南汉回互斗历十数年’表述范围含混，本轮不直接沿用；但道光末永昌汉回冲突有更硬的本人窗口材料：中央追究地方前一年杀回民过多，并命林则徐审理‘杀无辜一万余人’等案件，同时道光末广西等又有群盗扩张。万人级无辜伤害在重要地区已满足严重度与群体范围门，主态三档仍可由全国大部基本秩序独立成立，故L应由L2升为L3。",
           "authority_attribution": "1820—1850年本人最高权力；鸦片战争胜负不直接进C3，只消费沿海治安、地方暴力和基层控制的实际后果。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -671,6 +708,14 @@
                 "docs/史料通读产物/清/清史稿/volume-018.source-summary.md:31"
               ],
               "summary": "嘉庆期白莲教长期战争、官军误杀平民、乡勇善后与天理教滥捕使广泛不安全延续；道光期多地盗乱、鸦片治理失效和战争压力未形成广域恢复，社会状态维持二档。"
+            },
+            {
+              "source_refs": [
+                "docs/史料通读产物/清/清史稿/volume-019.source-summary.md",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算/清.json"
+              ],
+              "summary": "道光末永昌汉回冲突中，中央追究地方杀无辜一万余人的案件；重要地区严重人身伤害独立计L3。",
+              "evidence_role": "TERMINAL_BACK_SOURCE"
             }
           ],
           "evidence_refs": [
@@ -678,11 +723,11 @@
           ],
           "main_band": "C3-3",
           "polity": "清",
-          "rank": 97,
+          "rank": 119,
           "reign_range": "1820-1850",
           "ruler_id": "RULER-PUBLIC-7C4ED87E9C80BF8A",
           "ruler_name": "旻宁",
-          "score": 26.0,
+          "score": 24.6,
           "stability_class_diagnostic_only": "K2",
           "state_anchors": {
             "S0": "C3-3",
@@ -716,43 +761,48 @@
               "original_text": "道光季年……群盗蜂起。"
             }
           ],
-          "loss_grade": "L2",
-          "stability_basis": "基本秩序及局部收束支持三档；汉回互斗与广西群盗另计区域居民低谷。",
+          "loss_grade": "L3",
+          "stability_basis": "全国大部基本秩序支撑C3-3；永昌万人级无辜伤害作为独立重要地区严重低谷进入L3，鸦片战争胜负本身不重复。",
           "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
           "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
           "state_adjudication": {
             "version": "GOVERNANCE-STATE-RECOVERY-V4",
             "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-PUBLIC-7C4ED87E9C80BF8A",
             "loss_review": {
-              "grade": "L2",
-              "basis": "基本秩序及局部收束支持三档；汉回互斗与广西群盗另计区域居民低谷。",
-              "strong_dimensions": [],
-              "main_representativeness": "承接嘉庆末三档。道光三十年间主要统治区仍维持基本可运行秩序，各地盗乱、回疆与台湾事件大多能局部收束；",
+              "grade": "L3",
+              "basis": "全国大部基本秩序支撑C3-3；永昌万人级无辜伤害作为独立重要地区严重低谷进入L3，鸦片战争胜负本身不重复。",
+              "strong_dimensions": [
+                "severity",
+                "scope"
+              ],
+              "main_representativeness": "1820—1850年主要统治区仍维持可运行秩序，各地盗乱、回疆与沿海事件多数能局部收束，主态C3-3成立。旧L2的‘云南汉回互斗历十数年’表述范围含混，本轮不直接沿用；但道光末永昌汉回冲突有更硬的本人窗口材料：中央追究地方前一年杀回民过多，并命林则徐审理‘杀无辜一万余人’等案件，同时道光末广西等又有群盗扩张。万人级无辜伤害在重要地区已满足严重度与群体范围门，主态三档仍可由全国大部基本秩序独立成立，故L应由L2升为L3。",
               "full_window_reviewed": true,
-              "deduplication": "基本秩序及局部收束支持三档；汉回互斗与广西群盗另计区域居民低谷。",
+              "deduplication": "全国大部基本秩序支撑C3-3；永昌万人级无辜伤害作为独立重要地区严重低谷进入L3，鸦片战争胜负本身不重复。",
               "evidence_refs": [
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-7C4ED87E9C80BF8A",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-7C4ED87E9C80BF8A",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-PUBLIC-7C4ED87E9C80BF8A",
-                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-PUBLIC-7C4ED87E9C80BF8A"
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-PUBLIC-7C4ED87E9C80BF8A",
+                "docs/史料通读产物/清/清史稿/volume-019.source-summary.md",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算/清.json"
               ]
             },
-            "score": 26.0
+            "score": 24.6
           },
-          "public_adjudication_summary": "主要状态：可运行秩序。承接嘉庆末三档。道光三十年间主要统治区仍维持基本可运行秩序，各地盗乱、回疆与台湾事件大多能局部收束；\n\n重要地区或群体出现明显损害：基本秩序及局部收束支持三档；汉回互斗与广西群盗另计区域居民低谷。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：可运行秩序。1820—1850年主要统治区仍维持可运行秩序，各地盗乱、回疆与沿海事件多数能局部收束，主要阶段状态社会安全“可运行秩序”成立。旧重要地区或群体出现明显损害的‘云南汉回互斗历十数年’表述范围含混，当前不直接沿用；但道光末永昌汉回冲突有更硬的本人掌权时期材料：中央追究地方前一年杀回民过多，并命林则徐审理‘杀无辜一万余人’等案件，同时道光末广西等又有群盗扩张。万人级无辜伤害在重要地区已满足严重度与群体范围门，主要阶段状态三档仍可由全国大部基本秩序独立成立，故低谷损害应由重要地区或群体出现明显损害升为严重且广泛或长期反复的本轴损害。\n\n严重且广泛或长期反复的本轴损害：全国大部基本秩序支撑社会安全“可运行秩序”；永昌万人级无辜伤害作为独立重要地区严重低谷进入严重且广泛或长期反复的本轴损害，鸦片战争胜负本身不重复。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C3-PUBLIC-4BD04F6F57407982",
               "public_label": "主要状态：可运行秩序",
               "public_role": "主要状态",
-              "public_basis": "承接嘉庆末三档。道光三十年间主要统治区仍维持基本可运行秩序，各地盗乱、回疆与台湾事件大多能局部收束；",
+              "public_basis": "1820—1850年主要统治区仍维持可运行秩序，各地盗乱、回疆与沿海事件多数能局部收束，主要阶段状态社会安全“可运行秩序”成立。旧重要地区或群体出现明显损害的‘云南汉回互斗历十数年’表述范围含混，当前不直接沿用；但道光末永昌汉回冲突有更硬的本人掌权时期材料：中央追究地方前一年杀回民过多，并命林则徐审理‘杀无辜一万余人’等案件，同时道光末广西等又有群盗扩张。万人级无辜伤害在重要地区已满足严重度与群体范围门，主要阶段状态三档仍可由全国大部基本秩序独立成立，故低谷损害应由重要地区或群体出现明显损害升为严重且广泛或长期反复的本轴损害。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
               "id": "C3-PUBLIC-5FDA683955F043F0",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "重要地区或群体出现明显损害：基本秩序及局部收束支持三档；汉回互斗与广西群盗另计区域居民低谷。",
+              "public_basis": "严重且广泛或长期反复的本轴损害：全国大部基本秩序支撑社会安全“可运行秩序”；永昌万人级无辜伤害作为独立重要地区严重低谷进入严重且广泛或长期反复的本轴损害，鸦片战争胜负本身不重复。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
@@ -762,7 +812,21 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L3",
+              "range": "C3-3/L3",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "全国大部基本秩序支撑C3-3；永昌万人级无辜伤害作为独立重要地区严重低谷进入L3，鸦片战争胜负本身不重复。",
+              "allowed_endpoints": [
+                "C3-3/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-PUBLIC-7C4ED87E9C80BF8A&axis=C3"
+          }
         },
         {
           "adjudication_reason": "亲政起点承接白莲教战争二档；嘉庆七年前后三省教匪收束，随后海盗也被压平并出现“海疆以安”，主要统治区恢复到基本可运行秩序。",
@@ -797,7 +861,7 @@
           ],
           "main_band": "C3-3",
           "polity": "清",
-          "rank": 97,
+          "rank": 98,
           "reign_range": "1799-1820",
           "ruler_id": "RULER-PUBLIC-93F6E8CA07BBD59F",
           "ruler_name": "颙琰",
@@ -907,7 +971,7 @@
           ],
           "main_band": "C3-2",
           "polity": "后金",
-          "rank": 133,
+          "rank": 136,
           "reign_range": "1616-1626",
           "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
           "ruler_name": "努尔哈赤",
@@ -959,7 +1023,10 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-6E925E92C6F5ECA5",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-6E925E92C6F5ECA5",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-PUBLIC-6E925E92C6F5ECA5",
-                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-PUBLIC-6E925E92C6F5ECA5"
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-PUBLIC-6E925E92C6F5ECA5",
+                "docs/史料通读产物/清/清史稿/volume-001.source-summary.md",
+                "docs/史料通读产物/明/明通鉴/volume-072.source-summary.md",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算/清.json"
               ]
             },
             "score": 16.0
@@ -987,7 +1054,22 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C3-2/L0",
+              "range": "C3-2/L0 ↔ C3-3/L3",
+              "leaderboard_consumption": "paired_endpoints_only",
+              "allowed_endpoints": [
+                "C3-2/L0",
+                "C3-3/L3"
+              ],
+              "deduplication": "同一组征服性俘掠若用于压主态到二档则L0；若核心区基本秩序作为三档主态，则该组俘获与财产剥夺只能作为L3，禁止二次消费。"
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-PUBLIC-6E925E92C6F5ECA5&axis=C3"
+          }
         },
         {
           "adjudication_reason": "亲政承接征服期广泛不安全二档。逃人法造成道路骚扰、冤陷、破家和流离者无所投止，说明主态仍低；后期圈占收缩、缉事与地方盗案逐步受到约束，普通社会恢复到基本秩序三档。",
@@ -1021,7 +1103,7 @@
           ],
           "main_band": "C3-2",
           "polity": "清",
-          "rank": 133,
+          "rank": 136,
           "reign_range": "1650-1661",
           "ruler_id": "RULER-PUBLIC-AD29E67DF9E98569",
           "ruler_name": "福临",
@@ -1140,7 +1222,7 @@
           ],
           "main_band": "C3-2",
           "polity": "清",
-          "rank": 171,
+          "rank": 169,
           "reign_range": "1861-1873;1875-1889;1898-1908",
           "ruler_id": "RULER-ROSTER-D4955237564AB2D6",
           "ruler_name": "慈禧",

@@ -58,7 +58,7 @@
           ],
           "peak_band": null,
           "polity": "北齐",
-          "rank": 147,
+          "rank": 144,
           "reign_range": [
             550,
             559
@@ -273,7 +273,10 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高湛",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高湛",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高湛",
-                "《资治通鉴》共享通读卡正文"
+                "《资治通鉴》共享通读卡正文",
+                "《隋书·食货志》",
+                "《北齐书·武成帝纪》",
+                "《资治通鉴》卷170"
               ]
             },
             "score": 1.8
@@ -301,7 +304,20 @@
               "public_basis": "不因大水本身机械降档\n\n计入的是已实现的粮价、供给、财政调度结果。\n\n565年禅位不截断取证；纳入高湛作为太上皇继续掌握军国大事至569年的实际权力窗口。\n\n高湛死后由高纬独立承担的财政后果不倒灌。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-1/L0",
+              "range": "C2-1/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-1/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-高湛&axis=C2"
+          }
         },
         {
           "adjudication_reason": "高纬窗口的公共财政失效是直接而非由亡国倒推：史料明确记“府藏空竭”，随后卖官取直，赋繁役重并达到“民不聊生”。这把F/R不足与对民间生产、资产的额外汲取连成同一链。早期罢百工细作、放老病宫人等止损保留，但不足逆转中后期公私双柱系统性失效，故维持一档。",
@@ -425,7 +441,25 @@
               "public_basis": "北齐亡国和战争失败不作为经济财政自动扣档。\n\n早期减省与释放措施是真实反证，但没有证实到财政储备和民间生产重新恢复。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-1/L0",
+              "range": [
+                "C2-1/L0",
+                "C2-2/L0"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C2-1/L0",
+                "C2-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-高纬&axis=C2"
+          }
         }
       ]
     }

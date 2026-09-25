@@ -83,7 +83,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马炎",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马炎",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马炎",
-                "https://zh.wikisource.org/wiki/資治通鑑/卷081"
+                "https://zh.wikisource.org/wiki/資治通鑑/卷081",
+                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷079-通读总结.md"
               ]
             },
             "score": 40.0
@@ -111,7 +113,25 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C3-4/L0",
+              "range": [
+                "C3-3/L0",
+                "C3-4/L0"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C3-3/L0",
+                "C3-4/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马炎&axis=C3"
+          }
         }
       ]
     }

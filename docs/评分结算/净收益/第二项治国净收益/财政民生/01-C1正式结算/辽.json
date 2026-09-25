@@ -346,7 +346,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-LIAO-YELU-DASHI",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-LIAO-YELU-DASHI",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-LIAO-YELU-DASHI",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "https://zh.wikisource.org/wiki/遼史/卷30",
+                "https://zh.wikisource.org/zh-hant/宋史紀事本末/卷52"
               ]
             },
             "score": 32.0
@@ -374,7 +376,25 @@
               "public_basis": "史料极疏；历史低谷标签仅表示未确认有效低谷。“威行绝域”等不作民生高档证据。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-3/L0",
+              "range": [
+                "C1-2/L0",
+                "C1-3/L0"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C1-2/L0",
+                "C1-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-LIAO-YELU-DASHI&axis=C1"
+          }
         },
         {
           "adjudication_reason": "任内普通家庭总体处于基本维持。多京、多州反复饥贫、流民与役重材料阻止上推C1-4；和平、农业产出和低粮价等只留其他结果轴。",
@@ -858,7 +878,7 @@
           ],
           "main_band": "C1-3",
           "polity": "辽（契丹）",
-          "rank": 74,
+          "rank": 72,
           "reign_range": "907-926",
           "ruler_id": "RULER-ROSTER-2035C039E3532021",
           "ruler_name": "耶律阿保机",
@@ -994,7 +1014,7 @@
           ],
           "main_band": "C1-3",
           "polity": "辽",
-          "rank": 106,
+          "rank": 104,
           "reign_range": "927-947",
           "ruler_id": "RULER-LIAO-YELU-DEGUANG",
           "ruler_name": "耶律德光",

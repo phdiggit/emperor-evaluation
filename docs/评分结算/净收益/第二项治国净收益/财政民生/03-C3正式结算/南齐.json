@@ -28,7 +28,7 @@
           ],
           "main_band": "C3-3",
           "polity": "南齐",
-          "rank": 46,
+          "rank": 45,
           "reign_range": [
             494,
             498
@@ -85,7 +85,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
                 "迁洛营都、行宫供顿与人口安置形成长期工程和迁徙负担",
-                "docs/史料通读产物/唐以前编年/南北朝/卷138-通读总结.md#L93"
+                "docs/史料通读产物/唐以前编年/南北朝/卷138-通读总结.md#L93",
+                "docs/史料通读产物/唐以前编年/南北朝/卷138-通读总结.md",
+                "docs/史料通读产物/唐以前编年/南北朝/卷139-通读总结.md"
               ]
             },
             "score": 28.0
@@ -113,10 +115,24 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L0",
+              "range": "C3-3/L0",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "政治诛戮只作高档阻断，不把宗室/精英案件外推成普通社会低谷。",
+              "allowed_endpoints": [
+                "C3-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-萧鸾&axis=C3"
+          }
         },
         {
-          "adjudication_reason": "短任内最有力的纯C3结果是裁撤大量候官、停止繁密台使和众募后“吏民始得安业”，证明普通社会至少维持基本秩序；沈攸之宗族诛杀属于政治司法负证，只阻断更高档，不能外推普通社会跌至二档。 证据链：“罢候官千数，停繁密台使，断众募，吏民始得安业”；诛沈攸之宗族只作政治司法反证。",
+          "adjudication_reason": "齐初罢候官千数、停繁密台使、断众募后，史料直接记‘吏民始得安业’，这是普通社会秩序恢复的结果，足以支持C3-3。旧L1把改革前候官、台使扰民状态继续作为本人任内低谷重复消费，但这些主要是接手时的既有制度负担，479年即被撤除；按合同，接手瞬间低态和‘尚在恢复’本身不单独扣L。沈攸之宗族诛杀又属于政治司法定点案件，不能外推普通社会。因此L1撤为L0。",
           "authority_attribution": "只按本人实际最高治理权窗口和主要控制区结算；战争胜负不重复计分。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -135,14 +151,14 @@
           ],
           "main_band": "C3-3",
           "polity": "南齐",
-          "rank": 90,
+          "rank": 45,
           "reign_range": [
             479,
             482
           ],
           "ruler_id": "RULER-SHADOW-萧道成",
           "ruler_name": "萧道成",
-          "score": 27.2,
+          "score": 28.0,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C3-3",
@@ -166,50 +182,48 @@
             {
               "book": "《资治通鉴》卷135",
               "original_text": "罢候官千数，停繁密台使，断众募，吏民始得安业。"
-            },
-            {
-              "book": "《资治通鉴》卷134",
-              "original_text": "收攸之诸子及宗族，皆杀之。"
             }
           ],
-          "loss_grade": "L1",
-          "stability_basis": "吏民安业支持基本秩序；候官台使实际扰动另计有限安全恢复缺口，宗族个案不外推。",
+          "loss_grade": "L0",
+          "stability_basis": "候官/台使扰民作为接手低态与恢复正证的前置，不再重复扣L；沈攸之宗族案不作为普通居民L。",
           "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
           "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
           "state_adjudication": {
             "version": "GOVERNANCE-STATE-RECOVERY-V4",
             "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-萧道成",
             "loss_review": {
-              "grade": "L1",
-              "basis": "吏民安业支持基本秩序；候官台使实际扰动另计有限安全恢复缺口，宗族个案不外推。",
+              "grade": "L0",
+              "basis": "候官/台使扰民作为接手低态与恢复正证的前置，不再重复扣L；沈攸之宗族案不作为普通居民L。",
               "strong_dimensions": [],
-              "main_representativeness": "短任内最有力的纯C3结果是裁撤大量候官、停止繁密台使和众募后“吏民始得安业”，证明普通社会至少维持基本秩序；沈攸之宗族诛杀属于政治司法负证，只阻断更高档，不能外推普通社会跌至二档。 证据链：“罢候官千数，停繁密台使，断众募，吏民始得安业”；诛沈攸之宗族只作政治司法反证。",
+              "main_representativeness": "齐初罢候官千数、停繁密台使、断众募后，史料直接记‘吏民始得安业’，这是普通社会秩序恢复的结果，足以支持C3-3。旧L1把改革前候官、台使扰民状态继续作为本人任内低谷重复消费，但这些主要是接手时的既有制度负担，479年即被撤除；按合同，接手瞬间低态和‘尚在恢复’本身不单独扣L。沈攸之宗族诛杀又属于政治司法定点案件，不能外推普通社会。因此L1撤为L0。",
               "full_window_reviewed": true,
-              "deduplication": "吏民安业支持基本秩序；候官台使实际扰动另计有限安全恢复缺口，宗族个案不外推。",
+              "deduplication": "候官/台使扰民作为接手低态与恢复正证的前置，不再重复扣L；沈攸之宗族案不作为普通居民L。",
               "evidence_refs": [
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧道成",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧道成",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧道成",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧道成",
-                "《资治通鉴》共享通读卡正文"
+                "《资治通鉴》共享通读卡正文",
+                "docs/史料通读产物/唐以前编年/南北朝/卷135-通读总结.md#FIN-LEAD-135-01",
+                "docs/史料通读产物/唐以前编年/南北朝/卷134-通读总结.md"
               ]
             },
-            "score": 27.2
+            "score": 28.0
           },
-          "public_adjudication_summary": "主要状态：可运行秩序。短任内最有力的纯社会安全结果是裁撤大量候官、停止繁密台使和众募后“吏民始得安业”，证明普通社会至少维持基本秩序；沈攸之宗族诛杀属于政治司法负证，只阻断更高档，不能外推普通社会跌至二档。 证据链：“罢候官千数，停繁密台使，断众募，吏民始得安业”；诛沈攸之宗族只作政治司法反证。\n\n有界局部或短时损害：吏民安业支持基本秩序；候官台使实际扰动另计有限安全恢复缺口，宗族个案不外推。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：可运行秩序。齐初罢候官千数、停繁密台使、断众募后，史料直接记‘吏民始得安业’，这是普通社会秩序恢复的结果，足以支持社会安全“可运行秩序”。旧有界局部或短时损害把改革前候官、台使扰民状态继续作为本人任内低谷重复计入，但这些主要是接手时的既有制度负担，479年即被撤除；按合同，接手瞬间低态和‘尚在恢复’本身不单独扣低谷损害。沈攸之宗族诛杀又属于政治司法定点案件，不能外推普通社会。因此有界局部或短时损害撤为未另证独立有效低谷。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C3-PUBLIC-494CCB1448792C82",
               "public_label": "主要状态：可运行秩序",
               "public_role": "主要状态",
-              "public_basis": "短任内最有力的纯社会安全结果是裁撤大量候官、停止繁密台使和众募后“吏民始得安业”，证明普通社会至少维持基本秩序；沈攸之宗族诛杀属于政治司法负证，只阻断更高档，不能外推普通社会跌至二档。 证据链：“罢候官千数，停繁密台使，断众募，吏民始得安业”；诛沈攸之宗族只作政治司法反证。",
+              "public_basis": "齐初罢候官千数、停繁密台使、断众募后，史料直接记‘吏民始得安业’，这是普通社会秩序恢复的结果，足以支持社会安全“可运行秩序”。旧有界局部或短时损害把改革前候官、台使扰民状态继续作为本人任内低谷重复计入，但这些主要是接手时的既有制度负担，479年即被撤除；按合同，接手瞬间低态和‘尚在恢复’本身不单独扣低谷损害。沈攸之宗族诛杀又属于政治司法定点案件，不能外推普通社会。因此有界局部或短时损害撤为未另证独立有效低谷。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
               "id": "C3-PUBLIC-F860072A7A81292A",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "有界局部或短时损害：吏民安业支持基本秩序；候官台使实际扰动另计有限安全恢复缺口，宗族个案不外推。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
@@ -219,7 +233,21 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-3/L0",
+              "range": "C3-3/L0",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "候官/台使扰民作为接手低态与恢复正证的前置，不再重复扣L；沈攸之宗族案不作为普通居民L。",
+              "allowed_endpoints": [
+                "C3-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-萧道成&axis=C3"
+          }
         }
       ]
     }

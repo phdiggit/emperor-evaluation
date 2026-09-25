@@ -134,7 +134,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马曜",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马曜",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马曜",
-                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马曜"
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+                "https://zh.wikisource.org/zh-hant/晉書/卷026"
               ]
             },
             "score": 48.3
@@ -162,7 +163,20 @@
               "public_basis": "范宁疏具有劝谏语境，已实现家庭结果可以入低谷，但不能据一次奏疏外推为长期次级主要阶段状态；“太元末年”正锚本身位于更晚阶段，因此不能再把任期结束状态压到民生“普遍温饱”以下。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-4/L3",
+              "range": "C1-4/L3",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-4/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马曜&axis=C1"
+          }
         },
         {
           "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。推广种麦后农业有所恢复，但江东核心区仍反复遭遇大饥、旱疫，绝对主态维持C1-2。",
@@ -282,7 +296,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马睿",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马睿",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马睿",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "https://zh.wikisource.org/zh-hant/晉書/卷026",
+                "https://zh.wikisource.org/wiki/晉書/卷006"
               ]
             },
             "score": 17.1
@@ -310,10 +326,27 @@
               "public_basis": "灾害结果进入绝对状态与低谷损害，但自然成因不认定为本人造成；三吴与京畿深灾仍不足外推全境民生“崩溃”。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C1-2/L0",
+              "range": [
+                "C1-1/L0",
+                "C1-2/L0"
+              ],
+              "leaderboard_consumption": "lower_and_upper_endpoints",
+              "allowed_endpoints": [
+                "C1-1/L0",
+                "C1-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马睿&axis=C1"
+          }
         },
         {
-          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。东晋主要统治区处于社会凋弊、百姓困穷与国用匮乏并存状态，吴郡灾荒又形成局部饥死阶段。",
+          "adjudication_reason": "《晋书》直接记天下凋弊、百姓困穷并有吴郡大饥；足以闭合短任家庭广泛困顿，不因短任或材料条数另造区间。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
             {
@@ -352,18 +385,19 @@
           ],
           "peak_band": null,
           "polity": "东晋",
-          "rank": 156,
+          "rank": 125,
           "reign_range": [
             322,
             325
           ],
           "ruler_id": "RULER-SHADOW-司马绍",
           "ruler_name": "司马绍",
-          "score": 16.8,
+          "score": 17.1,
           "state_anchors": {
             "S0": "C1-2",
             "S_avg": "C1-2",
-            "S_end": "C1-2"
+            "S_end": "C1-2",
+            "S_main": "C1-2"
           },
           "raw_state_band": "C1-2",
           "formal_band": "C1-2",
@@ -379,21 +413,21 @@
               "original_text": "天下凋弊，加以灾荒，百姓困穷，国用并匮……吴郡大饥，死者以百数。"
             }
           ],
-          "stability_basis": "池外既有记录；当前规范池未启用新的低谷修正裁决。",
-          "public_adjudication_summary": "主要状态：广泛困顿。任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。东晋主要统治区处于社会凋弊、百姓困穷与国用匮乏并存状态，吴郡灾荒又形成局部饥死阶段。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
+          "stability_basis": "《晋书》直接记天下凋弊、百姓困穷并有吴郡大饥；足以闭合短任家庭广泛困顿，不因短任或材料条数另造区间。",
+          "public_adjudication_summary": "主要状态：广泛困顿。《晋书》直接记天下凋弊、百姓困穷并有吴郡大饥；足以证实短任家庭广泛困顿，不因短任或材料条数另造区间。\n\n未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。\n\n评价范围：这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C1-PUBLIC-528FB0F02C3D9152",
               "public_label": "主要状态：广泛困顿",
               "public_role": "主要状态",
-              "public_basis": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。东晋主要统治区处于社会凋弊、百姓困穷与国用匮乏并存状态，吴郡灾荒又形成局部饥死阶段。",
+              "public_basis": "《晋书》直接记天下凋弊、百姓困穷并有吴郡大饥；足以证实短任家庭广泛困顿，不因短任或材料条数另造区间。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             },
             {
               "id": "C1-PUBLIC-B12854FDF9E52B08",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "未另证独立有效低谷：未另证独立有效低谷；这不等于全任没有局部压力。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             },
             {
@@ -403,7 +437,38 @@
               "public_basis": "人物窗口短、直接材料少；吴郡灾情不外推全境。",
               "public_boundary": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C1-2/L0",
+              "range": "C1-2/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C1-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马绍&axis=C1"
+          },
+          "loss_grade": "L0",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马绍&axis=C1",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "《晋书》直接记天下凋弊、百姓困穷并有吴郡大饥；足以闭合短任家庭广泛困顿，不因短任或材料条数另造区间。",
+              "strong_dimensions": [],
+              "main_representativeness": "《晋书》直接记天下凋弊、百姓困穷并有吴郡大饥；足以闭合短任家庭广泛困顿，不因短任或材料条数另造区间。",
+              "full_window_reviewed": true,
+              "deduplication": "《晋书》直接记天下凋弊、百姓困穷并有吴郡大饥；足以闭合短任家庭广泛困顿，不因短任或材料条数另造区间。",
+              "evidence_refs": [
+                "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-司马绍&axis=C1"
+              ]
+            },
+            "score": 17.1
+          }
         }
       ]
     }

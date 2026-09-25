@@ -28,7 +28,7 @@
           ],
           "main_band": "C3-4",
           "polity": "梁",
-          "rank": 39,
+          "rank": 38,
           "reign_range": [
             502,
             549
@@ -87,7 +87,10 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧衍",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧衍",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧衍",
-                "《资治通鉴》共享通读卡正文"
+                "《资治通鉴》共享通读卡正文",
+                "https://www.shidianguji.com/mid-page/7622047444511604787",
+                "docs/史料通读产物/唐以前编年/南北朝/卷143-通读总结.md",
+                "docs/史料通读产物/唐以前编年/南北朝/卷162-通读总结.md"
               ]
             },
             "score": 35.2
@@ -115,10 +118,28 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C3-4/L3",
+              "range": [
+                "C3-3/L3",
+                "C3-4/L3"
+              ],
+              "allowed_endpoints": [
+                "C3-3/L3",
+                "C3-4/L3"
+              ],
+              "leaderboard_consumption": "score_extrema_across_explicit_endpoints_only",
+              "interpretation": "late core security collapse is independent of the uncertainty over whether the long mid-reign order reaches C3-4"
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-萧衍&axis=C3"
+          }
         },
         {
-          "adjudication_reason": "侯景被平后江陵中枢和荆州核心仍能维持基本行政，不能把梁末总体崩坏直接判作萧绎全任一档；但本人为政尚严、司法残酷，加之与萧纪等内战使安全长期脆弱，主态二档。554年西魏围江陵后城防、司法和居民保护全面瓦解，终点一档，故历史低谷标签。",
+          "adjudication_reason": "552—554年侯景平定后江陵中枢仍能维持基本行政，但本人为政尚严、司法残酷并与萧纪等内战叠加，使人身司法和基层控制至少两面持续脆弱，主态C3-2成立。江陵被围末期又有独立严重后果：狱中死囚数千，萧绎拒绝释放并下令棓杀；这是本人实际最高权力窗口内、核心城市重要群体的直接大规模司法杀害，不是单纯亡国标签，且主态二档仍可由长期严酷司法和内战脆弱独立成立。因此正式补L3；城陷后由西魏实施的俘奴、杀弱者不再倒灌本人L。",
           "authority_attribution": "552—554年本人实际最高权力；侯景之乱遗产只用于起点，554年江陵陷落即退出实际最高权力，身后被杀不延长窗口。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -136,18 +157,19 @@
           ],
           "main_band": "C3-2",
           "polity": "梁",
-          "rank": 168,
+          "rank": 169,
           "reign_range": [
             552,
             555
           ],
           "ruler_id": "RULER-SHADOW-萧绎",
           "ruler_name": "萧绎",
-          "score": 14.7,
+          "score": 14.1,
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",
-            "S_end": "C3-1"
+            "S_end": "C3-1",
+            "S_avg": "C3-2"
           },
           "raw_state_band": "C3-2",
           "formal_band": "C3-2",
@@ -166,20 +188,20 @@
               "original_text": "江陵陷落后大量居民被俘为奴，弱者被杀，冻死践踏者众。"
             }
           ],
-          "public_adjudication_summary": "主要状态：持续脆弱。侯景被平后江陵中枢和荆州核心仍能维持基本行政，不能把梁末总体崩坏直接判作萧绎全任一档；但本人为政尚严、司法残酷，加之与萧纪等内战使安全长期脆弱，主要阶段状态二档。554年西魏围江陵后城防、司法和居民保护全面瓦解，终点一档，故历史低谷标签。\n\n当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+          "public_adjudication_summary": "主要状态：持续脆弱。552—554年侯景平定后江陵中枢仍能维持基本行政，但本人为政尚严、司法残酷并与萧纪等内战叠加，使人身司法和基层控制至少两面持续脆弱，主要阶段状态社会安全“持续脆弱”成立。江陵被围末期又有独立严重后果：狱中死囚数千，萧绎拒绝释放并下令棓杀；这是本人实际掌权时期内、核心城市重要群体的直接大规模司法杀害，不是单纯亡国标签，且主要阶段状态二档仍可由长期严酷司法和内战脆弱独立成立。因此正式补严重且广泛或长期反复的本轴损害；城陷后由西魏实施的俘奴、杀弱者不再倒灌本人低谷损害。\n\n严重且广泛或长期反复的本轴损害：长期司法严酷/内战脆弱用于社会安全“持续脆弱”；江陵末期本人下令棓杀数千囚犯独立进入严重且广泛或长期反复的本轴损害；失权后西魏新增居民损害排除。\n\n评价范围：这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
           "public_evidence_items": [
             {
               "id": "C3-PUBLIC-9231CFDF93915E7D",
               "public_label": "主要状态：持续脆弱",
               "public_role": "主要状态",
-              "public_basis": "侯景被平后江陵中枢和荆州核心仍能维持基本行政，不能把梁末总体崩坏直接判作萧绎全任一档；但本人为政尚严、司法残酷，加之与萧纪等内战使安全长期脆弱，主要阶段状态二档。554年西魏围江陵后城防、司法和居民保护全面瓦解，终点一档，故历史低谷标签。",
+              "public_basis": "552—554年侯景平定后江陵中枢仍能维持基本行政，但本人为政尚严、司法残酷并与萧纪等内战叠加，使人身司法和基层控制至少两面持续脆弱，主要阶段状态社会安全“持续脆弱”成立。江陵被围末期又有独立严重后果：狱中死囚数千，萧绎拒绝释放并下令棓杀；这是本人实际掌权时期内、核心城市重要群体的直接大规模司法杀害，不是单纯亡国标签，且主要阶段状态二档仍可由长期严酷司法和内战脆弱独立成立。因此正式补严重且广泛或长期反复的本轴损害；城陷后由西魏实施的俘奴、杀弱者不再倒灌本人低谷损害。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
               "id": "C3-PUBLIC-DF729FFA4741520C",
               "public_label": "低谷与损失",
               "public_role": "低谷",
-              "public_basis": "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。",
+              "public_basis": "严重且广泛或长期反复的本轴损害：长期司法严酷/内战脆弱用于社会安全“持续脆弱”；江陵末期本人下令棓杀数千囚犯独立进入严重且广泛或长期反复的本轴损害；失权后西魏新增居民损害排除。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             },
             {
@@ -189,7 +211,44 @@
               "public_basis": "没有另列个人材料限制，评价范围仍以下述边界为准。",
               "public_boundary": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C3-2/L3",
+              "range": "C3-2/L3",
+              "leaderboard_consumption": "single_point",
+              "deduplication": "长期司法严酷/内战脆弱用于C3-2；江陵末期本人下令棓杀数千囚犯独立进入L3；失权后西魏新增居民损害排除。",
+              "allowed_endpoints": [
+                "C3-2/L3"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-萧绎&axis=C3"
+          },
+          "loss_grade": "L3",
+          "stability_basis": "长期司法严酷/内战脆弱用于C3-2；江陵末期本人下令棓杀数千囚犯独立进入L3；失权后西魏新增居民损害排除。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V4",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V4",
+            "review_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-萧绎&axis=C3",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "长期司法严酷/内战脆弱用于C3-2；江陵末期本人下令棓杀数千囚犯独立进入L3；失权后西魏新增居民损害排除。",
+              "strong_dimensions": [
+                "severity",
+                "scope"
+              ],
+              "main_representativeness": "552—554年侯景平定后江陵中枢仍能维持基本行政，但本人为政尚严、司法残酷并与萧纪等内战叠加，使人身司法和基层控制至少两面持续脆弱，主态C3-2成立。江陵被围末期又有独立严重后果：狱中死囚数千，萧绎拒绝释放并下令棓杀；这是本人实际最高权力窗口内、核心城市重要群体的直接大规模司法杀害，不是单纯亡国标签，且主态二档仍可由长期严酷司法和内战脆弱独立成立。因此正式补L3；城陷后由西魏实施的俘奴、杀弱者不再倒灌本人L。",
+              "full_window_reviewed": true,
+              "deduplication": "长期司法严酷/内战脆弱用于C3-2；江陵末期本人下令棓杀数千囚犯独立进入L3；失权后西魏新增居民损害排除。",
+              "evidence_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷165-通读总结.md",
+                "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算/梁.json"
+              ]
+            },
+            "score": 14.1
+          }
         }
       ]
     }

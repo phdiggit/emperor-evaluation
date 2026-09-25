@@ -124,7 +124,7 @@ python v4.py composite-ranking --write
 
 军损数量解释试点见[军事成本裁决敏感性](docs/评分结算/净收益/综合分析/01-军事成本裁决敏感性.md)。相关正式输入变动后运行`python v4.py cost-sensitivity --write`，只读核对省略`--write`；案例基准档位变化须先复核案例。分析不改正式评分，且不把被排除假设纳入证据允许范围。
 
-证据解释遵循[裁决不确定性与敏感性合同](docs/证据规则/裁决不确定性与敏感性合同.md)。运行`python v4.py composite-ranking --write`按[军事成本逐人复核](config/common/prudent-military-cost-grade-reviews.json)、[低证据治理主态复核](config/common/prudent-governance-main-grade-reviews.json)与[治理联合候选](config/common/prudent-governance-grade-scenarios.json)为174名入榜者生成现有史料审慎分数区间，再运行`python v4.py evidence-sensitivity --write`及`python reader/build.py`同步[当前分析](docs/评分结算/净收益/综合分析/02-证据裁决敏感性.md)与阅读层。区间不是统计置信区间或未来史料的绝对界；单点只表示本轮语料未留下具体有源异档。已经成立的合法替代情景仍须证据与依赖完全闭合，候选区间端点不得冒称已采信分数或名次。
+证据解释遵循[裁决不确定性与敏感性合同](docs/证据规则/裁决不确定性与敏感性合同.md)。运行`python v4.py composite-ranking --write`按[军事成本逐人复核](config/common/prudent-military-cost-grade-reviews.json)、[C1—C3低置信终裁](config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json)与[治理联合候选](config/common/prudent-governance-grade-scenarios.json)为入榜者生成现有史料审慎分数区间，再运行`python v4.py evidence-sensitivity --write`及`python reader/build.py`同步[当前分析](docs/评分结算/净收益/综合分析/02-证据裁决敏感性.md)与阅读层。区间不是统计置信区间或未来史料的绝对界；单点只表示本轮语料未留下具体有源异档。已闭合的终裁端点按声明的配对或组合规则消费，其他条件候选不得冒称已采信分数或名次。
 
 需要评分回归时运行常规测试（不含 acceptance 与 presentation；单组件改动可指定相关测试路径）：
 

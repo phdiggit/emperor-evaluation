@@ -401,7 +401,9 @@
                 "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md#L26",
                 "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md#L29",
                 "docs/史料通读产物/五代十国/资治通鉴/volume-283.source-summary.md#L20",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "https://zh.wikisource.org/zh-hant/十國春秋_(四庫全書本)/卷003",
+                "https://zh.wikisource.org/zh-hant/十國春秋/卷034"
               ]
             },
             "score": 22.9
@@ -429,7 +431,20 @@
               "public_basis": "“兵食有余”可证明公共粮储/军食余量，但不等同民间富足\n\n民间柱另由垦辟桑柘证实。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-4/L1",
+              "range": "C2-4/L1",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-4/L1"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-FD-LI-BIAN&axis=C2"
+          }
         },
         {
           "adjudication_reason": "河东十州征赋被当时判断为足以自给，且刘崇在称帝前已“实府库、罢上供财赋”，说明公共财政至少能支撑基本政权运行；但财政资源高度军事化，缺P/M广域健康结果，无法仅凭府库和自给抬到四档，故保三。",
@@ -468,7 +483,7 @@
           ],
           "peak_band": null,
           "polity": "五代十国",
-          "rank": 55,
+          "rank": 53,
           "reign_range": "951-954",
           "ruler_id": "RULER-SHADOW-刘崇",
           "ruler_name": "刘崇",
@@ -534,7 +549,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-刘崇",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-刘崇",
                 "volume-288.source-summary.md",
-                "《新五代史》卷七十"
+                "《新五代史》卷七十",
+                "https://zh.wikisource.org/zh-hans/新五代史/卷70",
+                "《资治通鉴》卷288"
               ]
             },
             "score": 14.9
@@ -562,7 +579,25 @@
               "public_basis": "军事用途不使府库结果失效，但也不把军事准备本身当经济财政正向。\n\n缺生产/市场与货币材料降低上限，不自动判二档。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-3/L0",
+              "range": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-刘崇&axis=C2"
+          }
         },
         {
           "adjudication_reason": "南汉控制南海贸易资源并能够积聚大量珍宝，说明公共与宫廷财政并非失能；但现存硬证主要是国家/宫廷财富集中和对南海珍货的聚集，不能等同民间生产、市场广域健康。本人又长期奢侈营建，缺少常规财政余额与普通市场结果，因此保三档。",
@@ -601,7 +636,7 @@
           ],
           "peak_band": null,
           "polity": "南汉",
-          "rank": 55,
+          "rank": 53,
           "reign_range": "917-942",
           "ruler_id": "RULER-FD-LIU-YAN",
           "ruler_name": "刘龑",
@@ -676,7 +711,20 @@
               "public_basis": "宫廷珍宝≠财政健康，也≠民间商业繁荣。\n\n材料不足降低置信度，不因缺证直接判二档。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-3/L0",
+              "range": "C2-3/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-FD-LIU-YAN&axis=C2"
+          }
         },
         {
           "adjudication_reason": "后蜀长期能够维持基本财政与市场体系，但广政后期已出现累年逋税、调度不足，并以铁钱和榷铁补财政缺口；相关材料又直言民甚苦之。这里足以把末段公共财政和市场货币判为脆弱，却没有证据证明亡国前P/M/F/R多面已全面断裂，因此主档仍三、交班从旧C2-1纠正为C2-2。",
@@ -725,7 +773,7 @@
           ],
           "peak_band": null,
           "polity": "后蜀",
-          "rank": 129,
+          "rank": 125,
           "reign_range": "934-965",
           "ruler_id": "RULER-FD-MENG-CHANG",
           "ruler_name": "孟昶",
@@ -774,7 +822,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-MENG-CHANG",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-MENG-CHANG",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-MENG-CHANG",
-                "docs/史料通读产物/五代十国/资治通鉴/volume-288.source-summary.md"
+                "docs/史料通读产物/五代十国/资治通鉴/volume-288.source-summary.md",
+                "https://zh.wikisource.org/zh-hans/蜀梼杌/卷下",
+                "https://zh.wikisource.org/zh-hans/欽定古今圖書集成/經濟彙編/食貨典/第353卷"
               ]
             },
             "score": 13.9
@@ -802,7 +852,25 @@
               "public_basis": "964—965年亡国及军事崩解不能直接证明任期结束时经济财政全面失灵；须与恢复成本及政权存续分别评价。\n\n“多积刍粟”只证明仍有储备动作/存量，不足反推公共财政健康。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-3/L2",
+              "range": [
+                "C2-3/L2",
+                "C2-4/L2"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C2-3/L2",
+                "C2-4/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-FD-MENG-CHANG&axis=C2"
+          }
         },
         {
           "adjudication_reason": "原结算是本批里较扎实的一条，核心判断保留。西川本身有富庶底盘和盐业收入，但孟知祥为争盐利在汉州置三税场重征，虽岁得七万缗，却直接导致“商旅不复之东川”；同时面对后唐索钱又明言“军用不足”。这说明市场和公共财政都能运转，但结构余量有限，正是C2-3，而非健康四档。",
@@ -852,7 +920,7 @@
           ],
           "peak_band": null,
           "polity": "五代十国",
-          "rank": 55,
+          "rank": 53,
           "reign_range": "925-934实际割据",
           "ruler_id": "RULER-SHADOW-孟知祥",
           "ruler_name": "孟知祥",
@@ -1066,7 +1134,7 @@
           ],
           "peak_band": null,
           "polity": "后梁",
-          "rank": 119,
+          "rank": 116,
           "reign_range": "907-912",
           "ruler_id": "RULER-FD-ZHU-WEN",
           "ruler_name": "朱温",
@@ -1165,7 +1233,20 @@
               "public_basis": "旧证据“盗减什七八”属于社会安全治安结果，完全移出经济财政。\n\n建昌院作为机构本身不加分，只用于证明财政归集系统存在。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-3/L1",
+              "range": "C2-3/L1",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-3/L1"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-FD-ZHU-WEN&axis=C2"
+          }
         },
         {
           "adjudication_reason": "天成初任圜判三司后一年内确实达到“府库充实”，但这是短时财政峰值；同一时代农户仍有“二月卖新丝、五月粜新谷”的低余量现实，后续亦缺广域市场、生产与财政同时健康的持续闭合。故保三档，仅登记短期C2-4峰值。",
@@ -1214,7 +1295,7 @@
           ],
           "peak_band": null,
           "polity": "后唐",
-          "rank": 55,
+          "rank": 53,
           "reign_range": "926-933",
           "ruler_id": "RULER-FD-LI-SIYUAN",
           "ruler_name": "李嗣源",
@@ -1288,7 +1369,9 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-LI-SIYUAN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-LI-SIYUAN",
                 "docs/史料通读产物/五代十国/资治通鉴/volume-275.source-summary.md#L13",
-                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+                "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷275",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷276"
               ]
             },
             "score": 14.9
@@ -1316,7 +1399,26 @@
               "public_basis": "政策减免不直接抬档。\n\n“军民皆足”不作为经济财政证据，只保留同句“府库充实”。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-3/L0",
+              "range": [
+                "C2-2/L0",
+                "C2-4/L0"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C2-2/L0",
+                "C2-3/L0",
+                "C2-4/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-FD-LI-SIYUAN&axis=C2"
+          }
         },
         {
           "adjudication_reason": "漕运损耗、汴河水运和田租体系已有明确修补并产生运行结果，市场与公共财政两柱均达到基本运转；全窗口同时存在高强度动员、强制收铜和大规模筑城等实际约束，财政余量与市场条件不足以支持两柱同时达到健康。故按已实现状态取C2-3，不以任期长度或材料稀疏降档。",
@@ -1366,7 +1468,7 @@
           ],
           "peak_band": null,
           "polity": "后周",
-          "rank": 55,
+          "rank": 53,
           "reign_range": "954-959",
           "ruler_id": "RULER-FD-CHAI-RONG",
           "ruler_name": "柴荣",
@@ -1437,7 +1539,9 @@
                 "docs/史料通读产物/五代十国/资治通鉴/volume-292.source-summary.md",
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-0EF377A16B67B9D1",
                 "docs/史料通读产物/五代十国/资治通鉴/volume-294.source-summary.md",
-                "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-921AD902726FD41B"
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-921AD902726FD41B",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷292",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷294"
               ]
             },
             "score": 14.9
@@ -1465,7 +1569,25 @@
               "public_basis": "制度修补和交通工程只有证实到实际运行结果时才计入\n\n不能由改革数量推出经济财政“健康稳定”。\n\n任期长度本身不参与经济财政状态降档；未达到“健康稳定”来自公共财政健康与静态余量未直接证实，以及强制收铜、筑城等已证经济约束。短观察窗只限制证据覆盖并影响置信，不作为负向结果。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_PRUDENT_RANGE",
+            "final_adjudication": {
+              "status": "FINAL_PRUDENT_RANGE",
+              "primary_endpoint": "C2-3/L0",
+              "range": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ],
+              "leaderboard_consumption": "score_extrema_across_all_allowed_grade_loss_combinations",
+              "interpretation": "terminal epistemic range; no further upstream adjudication required for this audit cycle",
+              "allowed_endpoints": [
+                "C2-2/L0",
+                "C2-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-FD-CHAI-RONG&axis=C2"
+          }
         },
         {
           "adjudication_reason": "前蜀能够长期组织区域物资与商贸，说明私经济并非失效；但本人窗口最直接的财政评价是“赋敛重”，经谏后也只是“赋敛稍损”。公共财政仍明显依赖较重汲取，缺储备余量和常规收支健康证据，故三档。",
@@ -1514,7 +1636,7 @@
           ],
           "peak_band": null,
           "polity": "前蜀",
-          "rank": 55,
+          "rank": 53,
           "reign_range": "907-918",
           "ruler_id": "RULER-FD-WANG-JIAN",
           "ruler_name": "王建",
@@ -1613,7 +1735,20 @@
               "public_basis": "军马采购只证明区域市场接口存在，不因其军事用途额外加分。\n\n不以蜀地总体富庶印象替代本人掌权时期财政健康证据。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-3/L0",
+              "range": "C2-3/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-FD-WANG-JIAN&axis=C2"
+          }
         },
         {
           "adjudication_reason": "建国初“府库殚竭、民间困穷”，随后数年确实恢复到“中国稍安”，且农业、仓储与商业重新进入运行；但“稍安”只是恢复到基本可运转，并无两柱均健康的直接结果。对契丹持续输送财帛和同期开支压力进一步阻断四档，故保三。",
@@ -1662,7 +1797,7 @@
           ],
           "peak_band": null,
           "polity": "后晋",
-          "rank": 129,
+          "rank": 125,
           "reign_range": "936-942",
           "ruler_id": "RULER-FD-SHI-JINGTANG",
           "ruler_name": "石敬瑭",
@@ -1819,7 +1954,8 @@
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-6814A9F4AD4BD616",
                 "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md",
                 "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md#L16",
-                "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md#L19"
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md#L19",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷281"
               ]
             },
             "score": 13.9
@@ -1847,7 +1983,20 @@
               "public_basis": "“中国稍安”是综合恢复总评，不能拆成两柱均健康。\n\n契丹关系只在已经形成的财帛支出压力层面计入，不按外交或军事责任机械扣分。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-3/L2",
+              "range": "C2-3/L2",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-3/L2"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-FD-SHI-JINGTANG&axis=C2"
+          }
         },
         {
           "adjudication_reason": "营田户转为永业后出现修屋、植木和地利数倍，是直接的生产恢复结果；取消租牛课、减牛皮税和禁斗余称耗降低征收摩擦。但公共财政材料主要证明从苛耗恢复到常规运行，尚不能证明健康余量，因此三档。",
@@ -1896,7 +2045,7 @@
           ],
           "peak_band": null,
           "polity": "后周",
-          "rank": 55,
+          "rank": 53,
           "reign_range": "951-954",
           "ruler_id": "RULER-FD-GUO-WEI",
           "ruler_name": "郭威",
@@ -2036,7 +2185,8 @@
                 "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md",
                 "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#L11",
                 "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#L13",
-                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#L14"
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#L14",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷291"
               ]
             },
             "score": 14.9
@@ -2064,7 +2214,20 @@
               "public_basis": "户部增户受制度与登记改变影响，不作为生产增长硬证。\n\n短任且财政支出高度军事化，未见公共财政稳定余量有力证据。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-3/L0",
+              "range": "C2-3/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-3/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-FD-GUO-WEI&axis=C2"
+          }
         },
         {
           "adjudication_reason": "钱塘区域生产与城市繁荣支持私经济运行；《新五代史》卷67始于钱镠的重敛和贡奉限制公共财政健康，但现证没有闭合征解系统失灵、广域停摆或公库不能支持基本治理，维持三档。三档不是因为史源有争议便自动减轻负证：同源负评仍计入，只按经济财政对象判断；后继钱俶倾国贡奉不倒灌。",
@@ -2123,7 +2286,7 @@
           ],
           "peak_band": null,
           "polity": "五代十国",
-          "rank": 55,
+          "rank": 53,
           "reign_range": "893-932实际割据",
           "ruler_id": "RULER-SHADOW-钱镠",
           "ruler_name": "钱镠",
@@ -2241,7 +2404,7 @@
           ],
           "peak_band": null,
           "polity": "五代十国",
-          "rank": 129,
+          "rank": 125,
           "reign_range": "907-929实际割据",
           "ruler_id": "RULER-SHADOW-高季兴",
           "ruler_name": "高季兴",
@@ -2356,7 +2519,7 @@
           ],
           "peak_band": null,
           "polity": "后梁",
-          "rank": 147,
+          "rank": 144,
           "reign_range": "913-923",
           "ruler_id": "RULER-FD-ZHU-YOUZHEN",
           "ruler_name": "朱友贞",
@@ -2403,7 +2566,8 @@
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-ZHU-YOUZHEN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-ZHU-YOUZHEN",
                 "docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-ZHU-YOUZHEN",
-                "docs/史料通读产物/五代十国/资治通鉴/volume-270.source-summary.md"
+                "docs/史料通读产物/五代十国/资治通鉴/volume-270.source-summary.md",
+                "https://zh.wikisource.org/zh-hans/資治通鑑_(四庫全書本)/卷270"
               ]
             },
             "score": 7.0
@@ -2431,7 +2595,20 @@
               "public_basis": "河北丧失和军事失败不机械扣经济财政\n\n只计入已经形成的公私困竭与财政余量不足。\n\n任期结束状态从旧经济财政“失灵崩解”修为经济财政“汲取脆弱”。",
               "public_boundary": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。"
             }
-          ]
+          ],
+          "low_confidence_terminal_adjudication": {
+            "decision_final": "FINAL_SINGLE_POINT",
+            "final_adjudication": {
+              "status": "FINAL_SINGLE_POINT",
+              "primary_endpoint": "C2-2/L0",
+              "range": "C2-2/L0",
+              "leaderboard_consumption": "single_point",
+              "allowed_endpoints": [
+                "C2-2/L0"
+              ]
+            },
+            "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-FD-ZHU-YOUZHEN&axis=C2"
+          }
         },
         {
           "adjudication_reason": "原结算二档理由非常扎实，应保留。河东末期直接出现“帑藏空虚，诸军卖马以自给”，而李克用本人发问“不贮军食何以聚众，不置兵甲何以克敌，不修城池何以捍御”，说明R与F长期处在低位；李袭吉所建议的省营缮、薄赋敛只是未实行建议，不能抬档。唯一需要修的是双锚：李存勖实际直接承接河东盘面，因此其S0应从3同步到2，而不是反过来把李克用终点抬高。",
@@ -2480,7 +2657,7 @@
           ],
           "peak_band": null,
           "polity": "五代十国",
-          "rank": 147,
+          "rank": 144,
           "reign_range": "895-908实际割据",
           "ruler_id": "RULER-SHADOW-李克用",
           "ruler_name": "李克用",
@@ -2791,7 +2968,7 @@
           ],
           "peak_band": null,
           "polity": "南唐",
-          "rank": 147,
+          "rank": 144,
           "reign_range": "961-975",
           "ruler_id": "RULER-FD-LI-YU",
           "ruler_name": "李煜",
