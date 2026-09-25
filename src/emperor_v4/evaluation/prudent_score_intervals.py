@@ -38,6 +38,25 @@ def _needs_main_grade_review(label: object) -> bool:
     raise ValueError(f'未知治理证据置信标签：{label}')
 
 
+def _own_interval_rank_projection(
+    records: list[dict[str, Any]], ruler_id: str, lower: float, upper: float
+) -> dict[str, Any]:
+    """Project one person's prudent score interval onto others' formal scores."""
+    if lower > upper:
+        raise ValueError('审慎分位置投影区间倒置')
+    others = [
+        float(row['total_score']) for row in records if row['ruler_id'] != ruler_id
+    ]
+    return {
+        'best': 1 + sum(score > upper for score in others),
+        'worst': 1 + sum(score > lower for score in others),
+        'method': 'OWN_PRUDENT_INTERVAL_VS_OTHER_FORMAL_SCORES',
+        'other_scores_fixed': True,
+        'is_joint_rank_interval': False,
+        'basis': '仅将本人现有史料审慎分数区间投影到当前正式榜，其他人物固定为正式综合分；不是联合名次置信区间。',
+    }
+
+
 def _declared_terminal_endpoints(final: dict[str, Any]) -> list[str]:
     """Expand only a ruling that explicitly permits grade/loss combinations."""
     primary = final['primary_endpoint']
@@ -356,6 +375,9 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
                 else 'SINGLE_CURRENT_CORPUS_DISPOSITION_NOT_FUTURE_SOURCE_PROOF'
             ),
         }
+        row['prudent_rank_projection'] = _own_interval_rank_projection(
+            records, rid, low, high
+        )
         assessment=row.get('evidence_assessment',{})
         projection=assessment.get('public_projection',{})
         if projection:
