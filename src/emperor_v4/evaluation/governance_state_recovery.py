@@ -352,6 +352,53 @@ def _competition_ranks(rows: list[dict[str, Any]]) -> None:
         r['rank'] = values.index(float(r['score'])) + 1
 
 
+def _terminal_endpoint_display(row: dict[str, Any]) -> str:
+    terminal = row.get('low_confidence_terminal_adjudication')
+    if not terminal:
+        return '—'
+    final = terminal['final_adjudication']
+    primary = final['primary_endpoint']
+    allowed = final['allowed_endpoints']
+    if primary != f'{row["main_band"]}/{row["loss_grade"]}' or primary not in allowed:
+        raise ValueError(f'审慎端点与正式采用点不同值：{row["ruler_id"]}')
+    status = terminal['decision_final']
+    if status != final['status']:
+        raise ValueError(f'审慎端点状态不同值：{row["ruler_id"]}')
+    if status == 'FINAL_SINGLE_POINT':
+        if allowed != [primary]:
+            raise ValueError(f'单点终裁含其他端点：{row["ruler_id"]}')
+        return '单点'
+    if status != 'FINAL_PRUDENT_RANGE' or len(allowed) < 2:
+        raise ValueError(f'审慎区间终裁无合法端点：{row["ruler_id"]}')
+    mode = final['leaderboard_consumption']
+    if mode == 'score_extrema_across_all_allowed_grade_loss_combinations':
+        parts = []
+        for endpoint in allowed:
+            match = re.fullmatch(r'(C[123])-([1-6])/L([0-3])', endpoint)
+            if not match:
+                raise ValueError(f'审慎组合端点格式非法：{row["ruler_id"]}')
+            parts.append((match[1], int(match[2]), int(match[3])))
+        axes = {axis for axis, _, _ in parts}
+        bands = {band for _, band, _ in parts}
+        losses = {loss for _, _, loss in parts}
+        if (len(axes) != 1 or bands != set(range(min(bands), max(bands) + 1))
+                or losses != set(range(min(losses), max(losses) + 1))
+                or set(parts) != {(next(iter(axes)), band, loss) for band in bands for loss in losses}):
+            raise ValueError(f'审慎组合端点集合不完整：{row["ruler_id"]}')
+        axis = next(iter(axes))
+        band_text = f'{axis}-{min(bands)}' + (f'～{max(bands)}' if len(bands) > 1 else '')
+        loss_text = f'L{min(losses)}' + (f'～L{max(losses)}' if len(losses) > 1 else '')
+        return f'{band_text} × {loss_text}'
+    labels = {
+        'paired_endpoints_only': '仅配对',
+        'score_extrema_across_explicit_endpoints_only': '仅列端点',
+        'lower_and_upper_endpoints': '两端',
+    }
+    if mode not in labels:
+        raise ValueError(f'未知审慎端点消费方式：{row["ruler_id"]}')
+    return labels[mode] + '：' + '、'.join(allowed)
+
+
 def _apply_state(row: dict[str, Any], state: dict[str, Any]) -> None:
     row['score'] = state['state_score']
     row['main_band'] = state['main_label']
@@ -478,11 +525,12 @@ def write_component_readers(workspace_root: Path) -> None:
         rows = sorted(payload['scores'], key=lambda r: (r['rank'], r['ruler_id']))
         lines = [f'# {axis}财政民生正式结算', '', f'> 当前规范池采用{VERSION}。池外命中低置信终裁者按正式端点结算，其余保留既有结果；池外均不进入当前综合榜。', '']
         if axis in AXES:
-            lines += ['| 人物 | 政权 | 全任曲线 S0→S_main→S_end | L有限修正 | 分数 |', '|---|---|---|---|---:|']
+            lines += ['> 审慎端点只列本轮现有史料允许的敏感性解释；正式分数仍按表中的S_main和L计算。×表示该轴档位与L可组合；仅配对、仅列端点及两端均不得交叉组合。单点表示本轮未留异端；—表示没有低置信终裁。', '',
+                      '| 人物 | 政权 | 全任曲线 S0→S_main→S_end | L有限修正 | 本轮审慎端点 | 分数 |', '|---|---|---|---|---|---:|']
             for row in rows:
                 s=row['state_anchors']
                 curve='→'.join(str(s.get(k,s.get('S_avg',''))) for k in ('S0','S_main','S_end'))
-                lines.append(f'| {row["ruler_name"]} | {row["polity"]} | {curve} | {row.get("loss_grade","池外既有裁决")} | **{row["score"]:.1f}** |')
+                lines.append(f'| {row["ruler_name"]} | {row["polity"]} | {curve} | {row.get("loss_grade","池外既有裁决")} | {_terminal_endpoint_display(row)} | **{row["score"]:.1f}** |')
         else:
             lines += ['| 排名 | 人物 | 政权 | 保留恢复 | 归责恶化 | DA | C4净分（恢复 - 可归责恶化 - DA） |', '|---:|---|---|---:|---:|---|---:|']
             for row in rows:

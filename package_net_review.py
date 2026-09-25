@@ -123,6 +123,7 @@ def collect(root: Path, package: str = "all") -> list[Path]:
                             if key in item)
         for directory in item_directories(NET_ROOT):
             add_tree(directory)
+        add_tree(f"{NET_ROOT}/综合分析")
 
     if package in {"all", "profile-settlements"}:
         selected.update(profile[key] for key in ("manifest_json", "manifest_markdown", "summary_markdown"))
@@ -173,6 +174,7 @@ def package_note(package: str) -> bytes:
 - 共同上位合同：`docs/项目总纲/皇帝综合评价体系合同.md`。
 - 统治绩效：从`config/project.yml`的`scoring_contract`及`formal_settlements`进入总榜与四项结算。
 - 总榜治理规模／复杂度是非计分背景，逐人分档与依据见`scoring_contract.composite_governance_context`。
+- 总榜内部跳转的证据裁决敏感性阅读页位于`docs/评分结算/净收益/综合分析/`，随统治绩效结算入包。
 - 人物画像：从`profile_assessment`进入九轴合同、轴入口与九轴汇总。
 - 历史影响：从`historical_impact_assessment`进入总则、校准依据和正式结算。
 - 人物身份、适用范围及综合榜就绪状态：从`canonical_ruler_pool`进入正式人物池。

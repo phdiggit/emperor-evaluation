@@ -3,6 +3,7 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import re
 import zipfile
 
 import pytest
@@ -68,6 +69,20 @@ def test_net_packages_include_current_governance_context(package):
     context_path = project["scoring_contract"]["composite_governance_context"]
     paths = {path.relative_to(ROOT).as_posix() for path in packager.collect(ROOT, package)}
     assert context_path in paths
+
+
+@pytest.mark.parametrize("package", ["all", "settlements"])
+def test_composite_markdown_local_links_are_packaged(package):
+    project = yaml.safe_load((ROOT / "config/project.yml").read_text(encoding="utf-8"))
+    markdown = project["scoring_contract"]["composite_ranking_markdown"]
+    selected = {path.relative_to(ROOT).as_posix() for path in packager.collect(ROOT, package)}
+    assert markdown in selected
+    for target in re.findall(r"\]\(([^)]+)\)", (ROOT / markdown).read_text(encoding="utf-8")):
+        if target.startswith(("https://", "http://", "#")):
+            continue
+        resolved = (ROOT / markdown).parent.joinpath(target.split("#", 1)[0]).resolve()
+        assert resolved.is_relative_to(ROOT)
+        assert resolved.relative_to(ROOT).as_posix() in selected
 
 
 @pytest.mark.parametrize("package", [kind for kind in packager.PACKAGE_KINDS if kind != "all"])
