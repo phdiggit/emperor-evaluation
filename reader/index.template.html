@@ -350,14 +350,18 @@ function evidenceAssessment(n, expanded=false){
  const scopeDetail=context?`<p>治理规模／复杂度：${esc(context.scale_label)}／${esc(context.complexity_label)}。${esc(context.basis)}此栏仅说明本人窗口的治理对象，不改变正式分数或名次。</p>`:'';
  const prudent=n?.prudent_score_interval;
  const prudentLine=prudent?`<small class="evidence-assessment">现有史料审慎分数区间：${number(prudent.lower)}—${number(prudent.upper)}（非统计概率）</small>`:'';
- if(!expanded)return `${scopeLine}${prudentLine}<small class="evidence-assessment">${labels}</small>`;
+ const projection=n?.prudent_rank_projection;
+ const projectionText=projection?(projection.best===projection.worst?`第 ${projection.best} 名`:`第 ${projection.best}—${projection.worst} 名`):'';
+ const projectionLine=projection?`<small class="evidence-assessment">审慎分位置投影：${projectionText}（仅本人分数变化）</small>`:'';
+ if(!expanded)return `${scopeLine}${prudentLine}${projectionLine}<small class="evidence-assessment">${labels}</small>`;
  const ranges=a.verified_score_range?`<p>已闭合情景分数范围：${a.verified_score_range.map(number).join('—')}；名次范围：${a.verified_rank_range.join('—')}。</p>`:'';
  const prudentDetails=prudent?`<p>现有史料审慎分数区间：${number(prudent.lower)}—${number(prudent.upper)}。${esc(prudent.basis)}</p>${prudent.cost_review?`<p>军事成本：现${esc(prudent.cost_review.current_grade)}，复核上端${esc(prudent.cost_review.candidate_max_grade)}；${esc(prudent.cost_review.review_gate)}</p><p>现档依据：${esc(prudent.cost_review.current_cost_basis)}</p>`:''}`:'';
+ const projectionDetails=projection?`<p>审慎分位置投影：${projectionText}。${esc(projection.basis)}</p>`:'';
  const prudentAxes=(prudent?.axis_reviews||[]).map(x=>`<p>${esc(x.axis)}：现${esc(x.current_grade)}／${esc(x.current_loss_grade)}，复核${esc(x.candidate_grade)}／${esc(x.candidate_loss_grade)}；${esc(x.review_gate)}</p>`).join('');
  const prudentLinks=(prudent?.linked_reviews||[]).map(x=>`<h4>${esc(x.question)}</h4><p>单命题条件分差：${x.conditional_delta_range.map(number).join('—')}。${esc(x.basis)}</p>`).join('');
  const issues=(a.public_issues||[]).map(x=>`<h4>${esc(x.question)}</h4><p>${esc(x.basis)}</p><p>限制：${esc(x.limitations)}</p>`).join('');
  const alternatives=(a.supported_alternatives||[]).map(x=>`<h4>${esc(x.question)}</h4><p>此解释下：${number(x.total_score)}分（分差 ${x.delta>=0?'+':''}${number(x.delta)}），第${x.rank}名。</p><p>${esc(x.public_basis)}</p><p>限制：${esc(x.public_limitations)}</p>`).join('');
- return `${scopeLine}<details class="evidence-assessment"><summary>${labels}</summary>${scopeDetail}${prudentDetails}${prudentAxes}${prudentLinks}<p>${esc(a.public_basis)}</p>${ranges}${alternatives}${issues}</details>`;
+ return `${scopeLine}<details class="evidence-assessment"><summary>${labels}</summary>${scopeDetail}${prudentDetails}${projectionDetails}${prudentAxes}${prudentLinks}<p>${esc(a.public_basis)}</p>${ranges}${alternatives}${issues}</details>`;
 }
 function netPanel(r){
  const n=r.net;
