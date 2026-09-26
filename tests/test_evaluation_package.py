@@ -71,6 +71,18 @@ def test_net_packages_include_current_governance_context(package):
     assert context_path in paths
 
 
+def test_complete_package_includes_public_results(prepared):
+    entries, _ = prepared
+    public_root = ROOT / packager.PUBLIC_RESULTS_ROOT
+    sources = {
+        path.relative_to(ROOT).as_posix()
+        for path in public_root.rglob("*")
+        if path.is_file() and path.suffix.lower() in {".md", ".json", ".txt"}
+    }
+    assert sources
+    assert sources <= entries.keys()
+
+
 @pytest.mark.parametrize("package", ["all", "settlements"])
 def test_composite_markdown_local_links_are_packaged(package):
     project = yaml.safe_load((ROOT / "config/project.yml").read_text(encoding="utf-8"))

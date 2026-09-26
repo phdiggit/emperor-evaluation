@@ -30,6 +30,7 @@ PACKAGE_KINDS = tuple(PACKAGE_LABELS)
 PACKAGE_OUTPUT_NAMES = {key: f"{label}.zip" for key, label in PACKAGE_LABELS.items()}
 NET_ROOT = "docs/评分结算/净收益"
 PROFILE_ROOT = "docs/评分结算/人物画像"
+PUBLIC_RESULTS_ROOT = "docs/公共成果"
 ROUTER_SCHEMA = "formal-json-polity-router-v1"
 
 
@@ -42,7 +43,7 @@ def source_path(root: Path, relative: str) -> Path:
         raise FileNotFoundError(path)
     if path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):
         raise ValueError(f"不接受符号链接或仓库外文件：{path}")
-    if path.suffix.lower() not in {".md", ".json", ".yml", ".yaml"}:
+    if path.suffix.lower() not in {".md", ".json", ".yml", ".yaml", ".txt"}:
         raise ValueError(f"不支持的来源类型：{path}")
     return path
 
@@ -142,6 +143,14 @@ def collect(root: Path, package: str = "all") -> list[Path]:
     if package in {"all", "historical-impact-settlements"}:
         selected.update((impact["json"], impact["markdown"]))
 
+    if package == "all":
+        directory = root / PUBLIC_RESULTS_ROOT
+        if not directory.is_dir():
+            raise FileNotFoundError(directory)
+        for path in directory.rglob("*"):
+            if path.is_file() and path.suffix.lower() in {".md", ".json", ".txt"}:
+                selected.add(path.relative_to(root).as_posix())
+
     # Follow only formal JSON router shards. Missing shards must fail packaging.
     pending = list(selected)
     while pending:
@@ -177,6 +186,7 @@ def package_note(package: str) -> bytes:
 - 总榜内部跳转的证据裁决敏感性阅读页位于`docs/评分结算/净收益/综合分析/`，随统治绩效结算入包。
 - 人物画像：从`profile_assessment`进入九轴合同、轴入口与九轴汇总。
 - 历史影响：从`historical_impact_assessment`进入总则、校准依据和正式结算。
+- 完整包另含`docs/公共成果/`下的Markdown、JSON和文本资料，可按结算引用原路径查阅。
 - 人物身份、适用范围及综合榜就绪状态：从`canonical_ruler_pool`进入正式人物池。
 
 ## 文件与数据约定
@@ -192,8 +202,8 @@ JSON若标记`formal-json-polity-router-v1`，必须按`routes[].path`读取相�
 
 ## 范围与追溯边界
 
-保留完整合同、结算JSON/Markdown、必要入口、人物池及总榜治理背景分类源；不含代码、测试、展示素材、
-退役归档、过程审计、其他配置裁决输入及完整史料库。结算中保留的史源、归责、去重依据和引用原文不改动。
+保留完整合同、结算JSON/Markdown、必要入口、人物池、总榜治理背景分类源及完整包中的公共成果资料；
+不含代码、测试、展示素材、退役归档、过程审计、其他配置裁决输入及完整史料库。结算中保留的史源、归责、去重依据和引用原文不改动。
 配置和原合同也可能引用包外文件；引用存在不表示该文件已入包。
 需要包外证据时，明确列出缺失的原路径或史料位置，请用户补充，不能把包内阅读当作完整史料复核。
 本包用于解释和讨论当前结算，不是离线重建环境，也不宣称完成新的历史语义审查。
