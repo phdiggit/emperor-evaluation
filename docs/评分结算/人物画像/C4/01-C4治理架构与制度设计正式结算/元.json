@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        3,
+        4,
         20,
         21,
         22,
@@ -23,17 +23,19 @@
           "axis_code": "C4",
           "axis_name": "治理架构与制度设计能力",
           "axis_grade": "G5",
-          "position": "MID",
+          "position": "LOW",
           "axis_evidence_level": "E3",
           "confidence": "HIGH",
           "output_mode": "FULL_GRADE",
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "行省帝国架构+法源/复合管辖+司法复核",
+          "typical_pattern": "行省—中央层级一体化主干；法政复验混合",
           "counterpattern": "阿合马、桑哥阶段财政司法出现严刑、法外处理和特旨例外；不同身份的司法待遇也保留明显分层，说明统一规则并不完整。",
-          "grade_basis": "行省—中央机构构成复合帝国中央—区域AM4；法源/管辖为独立AM3",
-          "position_basis": "行省—中央机构构成复合帝国中央—区域AM4；法源/管辖为独立AM3",
-          "limitations": [],
+          "grade_basis": "行省—中央分职构成可运行的一体化AM4；法源、复合管辖与司法复核有结构选择，但特旨、多头法源、身份差等和技术信用限制历史级上沿",
+          "position_basis": "G5-LOW：行省主干跨地区运行并获后继接收；相较嬴政、杨坚、刘彻，覆盖和跨朝接收较窄，法政同轴反证重；不以可拆分第二链自动抬MID",
+          "limitations": [
+            "法源、管辖与程序链混合运行，特旨、多头机关及身份差等持续削弱规则一致性；何荣祖等臣僚技术信用须切分。"
+          ],
           "axis_relevance_check": {
             "status": "C4_RELEVANT",
             "boundary": "只消费长期组织、权责、信息与责任接口；制度净收益、认知更新、用人和执行另属原轴。"
@@ -93,25 +95,31 @@
             "C4P-RULER-YUAN-KUBLAI-02"
           ],
           "source_refs": [
-            "docs/评分结算/人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-YUAN-KUBLAI"
+            "docs/评分结算/人物画像/C4/02-C4裁决依据.json#evidence_id=C4-EVIDENCE-RULER-YUAN-KUBLAI",
+            "docs/公共成果/制度行政/03-重要制度发展节点链.md#L294",
+            "docs/公共成果/制度行政/03-重要制度发展节点链.md#L299",
+            "docs/公共成果/法律/朝代底账/22-元代法律治理结构化登记前底账.md#L59",
+            "docs/公共成果/法律/朝代底账/22-元代法律治理结构化登记前底账.md#L62",
+            "docs/公共成果/法律/朝代底账/22-元代法律治理结构化登记前底账.md#L64",
+            "docs/公共成果/法律/朝代底账/22-元代法律治理结构化登记前底账.md#L58",
+            "docs/公共成果/法律/朝代底账/22-元代法律治理结构化登记前底账.md#L60",
+            "docs/公共成果/法律/朝代底账/22-元代法律治理结构化登记前底账.md#L63"
           ],
           "adjudication_origin": {
-            "kind": "USER_SUPPLIED_ADJUDICATION",
-            "contract_version": "FORMAL-V2.2",
-            "sheet_file": "C4裁决清单.md",
-            "sheet_line": 223
+            "kind": "CURRENT_C4_G5_HORIZONTAL_REVIEW",
+            "contract_version": "FORMAL-V2.4",
+            "basis": "一体化AM4准入、法政混合反证与五人横校"
           },
           "applicability": {
             "status": "APPLICABLE",
             "basis": "人物生涯中具有所引且可归责的结构选择机会；规范actual_power_window仅作人物背景，不作为C4适用性或证据准入门。"
           },
-          "score_100": 94,
-          "radar_value": 94,
+          "score_100": 91,
+          "radar_value": 91,
           "architecture_review": {
             "magnitude": "AM4",
-            "basis": "- **AM4核心**：行省—中书/枢密/御史形成超大复合帝国中央—区域层级新骨架，属于典型AM4。\n- **第二AM3**：统一法源/复合管辖与疑狱复核构成独立法政主干。\n- **限制**：刘秉忠、许衡等技术信用重；阿合马/桑哥阶段财政司法俘获与身份分层明显。\n- **档位**：G5-MID。",
-            "independence_policy": "同一AM4包不拆票；第二AM3或等价高难复验按父链的实质不同结构任务或压力判断。",
-            "gate_review_origin": "用户提交V2.2五名G5硬门复核；正式采用，不按名望或配额另裁。"
+            "basis": "- **AM4核心**：行中书省与中央中书、枢密、御史形成复合帝国的区域责任、军政分工和监督接口，跨地区运行并为元代后继接收；一体化主干可以过量级门。\n- **去光环与归责**：去掉行省这一最著名节点，中央分职与法政接口仍有结构选择，但不足另成同等量级AM4；刘秉忠、许衡及何荣祖等技术信用须切分。\n- **法政复验与反证**：《至元新格》整理、复合管辖和死刑复核有真实接口，但法源仍受特旨、多头机关冲击，身份差等和阿合马、桑哥阶段法外酷讯构成长期同轴反证；不得仅凭另列法政链自动抬至G5-MID。\n- **横校与定位**：行省主干仍足历史级LOW；与嬴政、杨坚、刘彻的多核心覆盖及跨朝接收比较，功能宽度和法政下沿较弱；与赵匡胤同取LOW，不再凭可拆分的第二链获得MID优势。",
+            "integrated_architecture_policy": "一套本人可归责、已运行且跨至少三个核心功能的一体化AM4可以通过量级门；不拆同一改革包，也不强制另列独立AM3。独立高难链只用于复验和档内横校。"
           },
           "sequence": 4
         },

@@ -28,8 +28,8 @@ def validate_decision(row: dict[str, Any]) -> None:
         raise ValueError('C4未完成最低证据门')
     if row['axis_grade'] == 'G5':
         review = row.get('architecture_review', {})
-        if review.get('magnitude') != 'AM4' or not review.get('basis') or not review.get('independence_policy'):
-            raise ValueError('C4 G5缺架构量级及独立性复核')
+        if review.get('magnitude') != 'AM4' or not review.get('basis') or not review.get('integrated_architecture_policy'):
+            raise ValueError('C4 G5缺一体化架构量级复核')
 
 
 def _grade(row: dict[str, Any]) -> str:
