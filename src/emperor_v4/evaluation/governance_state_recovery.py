@@ -19,6 +19,8 @@ from emperor_v4.evaluation.formal_json_store import (
 
 
 VERSION = "GOVERNANCE-STATE-RECOVERY-V4"
+C4_SCORE_MIN = -40
+C4_SCORE_MAX = 27
 REVIEW_PATH = Path("config/second-item/governance-state-recovery-adjudications.json")
 REVIEW_MARKDOWN_PATH = Path(
     "docs/评分结算/净收益/第二项治国净收益/财政民生/08-主态低谷与净恢复逐人裁决.md"
@@ -184,7 +186,7 @@ def retained_recovery(
     rounded_quality = int(quality.quantize(Decimal("1"), rounding=ROUND_HALF_UP))
     terminal_band = min(6, rounded_quality, min(ends.values()) + 1)
     cap = (7.9, 15.9, 24.9, 27, 27, 27)[terminal_band - 1]
-    recovery = _round(min(Decimal(27), raw))
+    recovery = _round(min(Decimal(C4_SCORE_MAX), raw))
     return {
         "raw_recovery": float(raw),
         "recovery_score": recovery,
@@ -334,7 +336,7 @@ def verify_governance_state_recovery_review(workspace_root: Path) -> dict[str, A
             raise ValueError(f'C4 calculation mismatch: {rid}')
         if active:
             c4 = formal['C4'][rid]
-            value = _round(max(Decimal('-40'), min(Decimal(27), Decimal(str(calculated['positive_retained'])) - Decimal(str(rec['deterioration_penalty'])) - Decimal(str(c4['destructive_amplification_penalty'])))))
+            value = _round(max(Decimal(C4_SCORE_MIN), min(Decimal(C4_SCORE_MAX), Decimal(str(calculated['positive_retained'])) - Decimal(str(rec['deterioration_penalty'])) - Decimal(str(c4['destructive_amplification_penalty'])))))
             if c4['score'] != value or c4['recovery_formula_version'] != VERSION or c4['recovery_score'] != calculated['recovery_score'] or c4['deterioration_penalty'] != rec['deterioration_penalty']:
                 raise ValueError(f'Formal C4 drift: {rid}')
             for a in AXES:
@@ -348,6 +350,53 @@ def _competition_ranks(rows: list[dict[str, Any]]) -> None:
     values = sorted((float(r['score']) for r in rows), reverse=True)
     for r in rows:
         r['rank'] = values.index(float(r['score'])) + 1
+
+
+def _terminal_endpoint_display(row: dict[str, Any]) -> str:
+    terminal = row.get('low_confidence_terminal_adjudication')
+    if not terminal:
+        return '—'
+    final = terminal['final_adjudication']
+    primary = final['primary_endpoint']
+    allowed = final['allowed_endpoints']
+    if primary != f'{row["main_band"]}/{row["loss_grade"]}' or primary not in allowed:
+        raise ValueError(f'审慎端点与正式采用点不同值：{row["ruler_id"]}')
+    status = terminal['decision_final']
+    if status != final['status']:
+        raise ValueError(f'审慎端点状态不同值：{row["ruler_id"]}')
+    if status == 'FINAL_SINGLE_POINT':
+        if allowed != [primary]:
+            raise ValueError(f'单点终裁含其他端点：{row["ruler_id"]}')
+        return '单点'
+    if status != 'FINAL_PRUDENT_RANGE' or len(allowed) < 2:
+        raise ValueError(f'审慎区间终裁无合法端点：{row["ruler_id"]}')
+    mode = final['leaderboard_consumption']
+    if mode == 'score_extrema_across_all_allowed_grade_loss_combinations':
+        parts = []
+        for endpoint in allowed:
+            match = re.fullmatch(r'(C[123])-([1-6])/L([0-3])', endpoint)
+            if not match:
+                raise ValueError(f'审慎组合端点格式非法：{row["ruler_id"]}')
+            parts.append((match[1], int(match[2]), int(match[3])))
+        axes = {axis for axis, _, _ in parts}
+        bands = {band for _, band, _ in parts}
+        losses = {loss for _, _, loss in parts}
+        if (len(axes) != 1 or bands != set(range(min(bands), max(bands) + 1))
+                or losses != set(range(min(losses), max(losses) + 1))
+                or set(parts) != {(next(iter(axes)), band, loss) for band in bands for loss in losses}):
+            raise ValueError(f'审慎组合端点集合不完整：{row["ruler_id"]}')
+        axis = next(iter(axes))
+        band_text = f'{axis}-{min(bands)}' + (f'～{max(bands)}' if len(bands) > 1 else '')
+        loss_text = f'L{min(losses)}' + (f'～L{max(losses)}' if len(losses) > 1 else '')
+        return f'{band_text} × {loss_text}'
+    labels = {
+        'paired_endpoints_only': '仅配对',
+        'score_extrema_across_explicit_endpoints_only': '仅列端点',
+        'lower_and_upper_endpoints': '两端',
+    }
+    if mode not in labels:
+        raise ValueError(f'未知审慎端点消费方式：{row["ruler_id"]}')
+    return labels[mode] + '：' + '、'.join(allowed)
 
 
 def _apply_state(row: dict[str, Any], state: dict[str, Any]) -> None:
@@ -394,7 +443,7 @@ def _apply_c4(row: dict[str, Any], ruling: dict[str, Any]) -> None:
     row['recovery_formula_version'] = VERSION
     row['difficulty_weighted_recovery_credit'] = row['weighted_net_recovery_delta'] = round(cal['raw_recovery'] / 10, 2)
     row['recovery_path_basis'] = {a: {'start_band':rec['baseline'][a]['label'], 'highest_achieved_band':rec['terminal'][a]['label'], 'linear_delta':max(0, rec['terminal'][a]['band']-rec['baseline'][a]['band']), 'boundary_difficulty_credit':cal['axis_details'][a]['boundary_credit'], 'axis_weight':WEIGHTS[a], 'attribution_factor':cal['axis_details'][a]['attribution_factor'], 'weighted_difficulty_credit':cal['axis_details'][a]['weighted_credit'], 'retained_increment':cal['axis_details'][a]['retained_increment']} for a in AXES}
-    row['score'] = row['raw_score'] = _round(max(Decimal('-40'), min(Decimal(27), Decimal(str(cal['positive_retained']))-Decimal(str(rec['deterioration_penalty']))-Decimal(str(row['destructive_amplification_penalty'])))))
+    row['score'] = row['raw_score'] = _round(max(Decimal(C4_SCORE_MIN), min(Decimal(C4_SCORE_MAX), Decimal(str(cal['positive_retained']))-Decimal(str(rec['deterioration_penalty']))-Decimal(str(row['destructive_amplification_penalty'])))))
     for key in ('v2_recovery_attribution', 'v2_recovery_baseline_review', 'v2_state_recovery_adjudication'):
         row.pop(key, None)
     row['state_recovery_adjudication'] = {'version': VERSION, 'review_ref':f'{REVIEW_PATH.as_posix()}#ruler_id={row["ruler_id"]}', 'baseline': rec['baseline'], 'terminal': rec['terminal'], 'attribution': rec['attribution'], 'calculation':cal}
@@ -474,13 +523,14 @@ def write_component_readers(workspace_root: Path) -> None:
     for axis, rel in FORMAL_PATHS.items():
         payload = load_json(root / rel)
         rows = sorted(payload['scores'], key=lambda r: (r['rank'], r['ruler_id']))
-        lines = [f'# {axis}财政民生正式结算', '', f'> 当前规范池采用{VERSION}。池外记录保留既有结果且不进入当前综合榜。', '']
+        lines = [f'# {axis}财政民生正式结算', '', f'> 当前规范池采用{VERSION}。池外命中低置信终裁者按正式端点结算，其余保留既有结果；池外均不进入当前综合榜。', '']
         if axis in AXES:
-            lines += ['| 人物 | 政权 | 全任曲线 S0→S_main→S_end | L有限修正 | 分数 |', '|---|---|---|---|---:|']
+            lines += ['> 审慎端点只列本轮现有史料允许的敏感性解释；正式分数仍按表中的S_main和L计算。×表示该轴档位与L可组合；仅配对、仅列端点及两端均不得交叉组合。单点表示本轮未留异端；—表示没有低置信终裁。', '',
+                      '| 人物 | 政权 | 全任曲线 S0→S_main→S_end | L有限修正 | 本轮审慎端点 | 分数 |', '|---|---|---|---|---|---:|']
             for row in rows:
                 s=row['state_anchors']
                 curve='→'.join(str(s.get(k,s.get('S_avg',''))) for k in ('S0','S_main','S_end'))
-                lines.append(f'| {row["ruler_name"]} | {row["polity"]} | {curve} | {row.get("loss_grade","池外既有裁决")} | **{row["score"]:.1f}** |')
+                lines.append(f'| {row["ruler_name"]} | {row["polity"]} | {curve} | {row.get("loss_grade","池外既有裁决")} | {_terminal_endpoint_display(row)} | **{row["score"]:.1f}** |')
         else:
             lines += ['| 排名 | 人物 | 政权 | 保留恢复 | 归责恶化 | DA | C4净分（恢复 - 可归责恶化 - DA） |', '|---:|---|---|---:|---:|---|---:|']
             for row in rows:
@@ -502,7 +552,8 @@ def write_component_readers(workspace_root: Path) -> None:
                     else:
                         lines.append('  - '+str(m))
             if row.get('state_adjudication'):
-                lines.append('- 完整裁决与引用：[逐人源](../../../../../config/second-item/governance-state-recovery-adjudications.json)。')
+                review_ref = row['state_adjudication'].get('review_ref', '').split('#', 1)[0]
+                lines.append(f'- 完整裁决与引用：[逐人源](../../../../../{review_ref})。')
             lines.append('')
         (root/rel.with_suffix('.md')).write_text('\n'.join(lines),encoding='utf-8')
 

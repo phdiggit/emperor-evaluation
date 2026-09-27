@@ -16,6 +16,7 @@ from emperor_v4.evaluation.first_item_markdown_settlement import (
 
 
 POOL_PATH = "config/common/canonical-ruler-pool.json"
+GOVERNANCE_CONTEXT = "config/common/composite-governance-context.json"
 OUTPUT_JSON = "docs/评分结算/净收益/00-统治绩效综合评分榜.json"
 OUTPUT_MARKDOWN = "docs/评分结算/净收益/00-统治绩效综合评分榜.md"
 FIRST_ITEM_ADD_ON_COEFFICIENT = 0.20
@@ -148,6 +149,34 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         for row in pool["records"]
         if row["settlement_readiness"] == "COMPOSITE_READY"
     ]
+    context_payload = _read_json(workspace_root / GOVERNANCE_CONTEXT)
+    if (context_payload.get("schema_version") != "composite-governance-context-v1"
+            or context_payload.get("role") != "non_scoring_comparison_context"):
+        raise ValueError("综合榜治理规模与复杂度入口无效")
+    context_rows = {row["ruler_id"]: row for row in context_payload["records"]}
+    if len(context_rows) != len(context_payload["records"]):
+        raise ValueError("综合榜治理背景人物重复")
+    ready_ids = {row["ruler_id"] for row in ready}
+    if set(context_rows) != ready_ids:
+        raise ValueError("综合榜治理背景未覆盖当前全部入榜对象")
+    context_labels = context_payload["labels"]
+    for pool_row in ready:
+        context = context_rows[pool_row["ruler_id"]]
+        second_id = pool_row["source_item_ids"]["second_item"]
+        if (context["ruler_name"] != pool_row["ruler_name"]
+                or context["actual_power_window"] != pool_row["actual_power_window"]
+                or context["formal_polity"] != indexed["second_item"][second_id]["polity"]):
+            raise ValueError(f"综合榜治理背景人物或窗口漂移：{pool_row['ruler_id']}")
+        if (context["scale_band"] not in context_labels["scale"]
+                or context["complexity_band"] not in context_labels["complexity"]
+                or context["scale_label"] != context_labels["scale"][context["scale_band"]]
+                or context["complexity_label"] != context_labels["complexity"][context["complexity_band"]]
+                or not context.get("display_polity")
+                or not context.get("basis") or not context.get("source_refs")):
+            raise ValueError(f"综合榜治理背景档位或依据缺失：{pool_row['ruler_id']}")
+        for ref in context["source_refs"]:
+            if not ref.startswith(("https://", "http://")) and not (workspace_root / ref.split("#", 1)[0]).is_file():
+                raise ValueError(f"综合榜治理背景来源不存在：{ref}")
     pending = [
         {
             "ruler_id": row["ruler_id"],
@@ -230,6 +259,7 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
                 "ruler_id": pool_row["ruler_id"],
                 "ruler_name": pool_row["ruler_name"],
                 "polity": pool_row["polity"],
+                "governance_context": context_rows[pool_row["ruler_id"]],
                 "first_item_status": (
                     "APPLICABLE" if first_applicable else "NOT_APPLICABLE"
                 ),
@@ -254,6 +284,10 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         row["rank"] = _competition_rank(scores, index)
 
     sensitivity = _weight_sensitivity(records, sensitivity_inputs)
+    from emperor_v4.evaluation.evidence_sensitivity import annotate_ranking
+    annotate_ranking(workspace_root, records, pool['records'], detail_sources)
+    from emperor_v4.evaluation.prudent_score_intervals import attach as attach_prudent_intervals
+    prudent_coverage = attach_prudent_intervals(workspace_root, records)
     pending.sort(key=lambda row: row["ruler_id"])
     fourth_review = {
         key: payloads["fourth_item"].get(key, {})
@@ -275,6 +309,11 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         "formula": f"T = S2 + S3 + {FIRST_ITEM_ADD_ON_COEFFICIENT:.2f} * 637 * (S1 / 240) ^ 1.25 + CIV4",
         "first_item_not_applicable_policy": "F=0; not treated as a zero-score failure",
         "rank_tie_policy": "competition_rank_then_ruler_id",
+        "governance_context_legend": {
+            "labels": context_labels,
+            "rules": context_payload["rules"],
+        },
+        "prudent_score_interval_coverage": prudent_coverage,
         "weight_sensitivity": sensitivity,
         "score_precision": "source scores retained; F and T rounded to 2 decimals",
         "record_count": len(records),
@@ -294,10 +333,15 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
 
 def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
     records = payload["records"]
+    context_labels = payload["governance_context_legend"]["labels"]
     by_name = {row["ruler_name"]: row for row in records}
 
     def rank_range(row: Mapping[str, Any], group: str = "all_scenarios") -> str:
         value = row["weight_sensitivity"][group]
+        return f"{value['best']}—{value['worst']}"
+
+    def prudent_rank_range(row: Mapping[str, Any]) -> str:
+        value = row["prudent_rank_projection"]
         return f"{value['best']}—{value['worst']}"
 
     def summary(name: str) -> str:
@@ -325,6 +369,19 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         for row in widest
     )
 
+    pending_notes = []
+    if payload["pending_second_item_count"]:
+        pending_notes.append(f"{payload['pending_second_item_count']}人待第二项正式结算")
+    if payload["pending_third_item_count"]:
+        pending_notes.append(f"{payload['pending_third_item_count']}人待第三项正式结算")
+    if payload["pending_fourth_item_count"]:
+        pending_notes.append(f"{payload['pending_fourth_item_count']}人存在第四项证据缺口")
+    ranking_status = (
+        f"> 本榜当前列出正式评价池中`COMPOSITE_READY`的{payload['record_count']}人。"
+        + (("另有" + "；".join(pending_notes) + "；") if pending_notes else "")
+        + "未结算或未闭合输入不按零分填补。排名只由现行合同与正式分项生成，不按历史名望或榜形反推。"
+    )
+
     lines = [
         "# 皇帝统治绩效综合评分榜",
         "",
@@ -333,26 +390,19 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "",
         "> 这里的统治绩效是带成本与损害修正的综合评价：包含政权奠基贡献、治理与军事手段及体系有效性、治理/安全/文明结果和可归责成本；不等同于人物画像的能力总评或历史影响。",
         "",
-        "> 口径提示：第二项治理结果不按政权规模折扣，第三项仅部分计入控制规模。"
-        "本榜衡量现行规则下的统治绩效，不衡量收益总量、人均或年均收益，"
-        "也不等同于王朝体量、历史功业总量或综合历史地位排名。",
+        ranking_status,
         "",
-        (
-            "> 第四项语义复核门已闭合。"
-            if payload["fourth_item_semantic_review_complete"]
-            else "> **第四项全池语义复核尚未完成，本榜是当前快照的条件排序，不是复核终榜。**"
-            "已确认改判已同步；未解决的证据、归责与空轴排漏仍可能改变分数和名次。"
-        ),
+        "## 先读口径",
         "",
-        (
-            f"> 本榜只覆盖正式评价池中`COMPOSITE_READY`的{payload['record_count']}人；"
-            f"另有{payload['pending_second_item_count']}人因第二项尚未正式结算而不入榜。"
-            f"另有{payload['pending_third_item_count']}人因第三项实际权力窗口/归责或C父周期语义待重裁而不入榜。"
-            f"另有{payload['pending_fourth_item_count']}名原综合就绪对象因第四项证据缺口暂不入榜，不把未知按零分处理。"
-            "排名是现行规则与现有正式分项快照的确定性合成，不以历史名望反推分数。"
-        ),
+        "**史料不是按条数投票。** 本榜遵循最小充分证据：单一但可定位、窗口匹配、对象明确且直接闭合结果的宏观总评，可以承担主锚；多源互证是增强项，不是机械门槛。资料稀疏、史料篇幅短或低于HIGH的标签本身，不自动降档、降置信或制造浮动区间。",
         "",
-        "## 口径",
+        "**治理规模／复杂度只作比较背景。** 第二项绝对治理结果不按政权大小折扣。当前没有跨时代稳定且副作用可控的复杂度换算机制；强行加权容易重复奖励已在其他项目体现的规模与压力、反向奖励制度碎片化、二次压低小政权的真实绝对结果，并使排名过度依赖人为系数。",
+        "",
+        "**去重是去同一结果，不是禁止同一机制产生多个结果。** 同一制度或治理机制若分别产生已经闭合的行政、反馈、民生、财政、安全、军事或文明结果，各项可分别计入；禁止的是把同一最终收益或损害换名后重复换分。多个项目同时偏高或偏低、总分明显离群，都只能触发证据、归责、公式和去重复核，不能成为自动配平理由。",
+        "",
+        "本榜衡量现行规则下的统治绩效，不衡量收益总量、人均或年均收益，也不等同于王朝体量、历史功业总量或综合历史地位排名。",
+        "",
+        "## 计分与不确定性",
         "",
         "综合分公式：`T = 第二项 + 第三项 + F + 第四项调整`，其中"
         f"`F = {FIRST_ITEM_ADD_ON_COEFFICIENT:.2f} × 637 × (第一项净分 / 240)^1.25`。第一项不适用者是`F=0`，"
@@ -362,11 +412,17 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "总分小数表示规则计算精度，不代表史料与历史判断具有同等精度。名次为现行规则及"
         "正式裁决下的条件排序；微小分差不应直接解释为可辨识的历史优劣。表中范围是所列离散"
         "权重情景下的最好至最差名次，不是置信区间，也不是连续参数范围的严格界限。"
-        "史料、归责、分项裁决及第一项指数均固定；证据与裁决不确定性尚未评估。",
+        "史料、归责、分项裁决及第一项指数均固定；与下列现有史料审慎分数区间是不同问题。",
         "",
-        "> 综合分不表示历史贡献或统治能力的倍数关系；多项优势叠加可能形成明显领先。"
-        "离群是复核线索，本身不足以证明评分正确或错误。评分是否合理，应检验分项证据、"
-        "归责去重与规则一致性，不以贴合名望或缩小分差为目标。",
+        "正式综合分是已采信四项裁决按现行权重计算的基准点，审慎分数区间不取代该点。"
+        "审慎区间固定权重，按现有史料中逐人复核的军事成本档与具名治理联动命题计算；"
+        "不标统计覆盖率，也不保证未来新增史料不能重开。非单点区间可包含未被证实可同时达到的端点；"
+        "单点表示本轮现有语料未留下有源异档，不表示历史真值已穷尽。",
+        f"逐人区间已覆盖{payload['prudent_score_interval_coverage']['pool_count']}名入榜者；"
+        f"其中{payload['prudent_score_interval_coverage']['nonpoint_count']}人为非单点。",
+        "",
+        "> 分差和离群只具有诊断意义。多项独立结果同向可以真实累积成明显领先或落后；"
+        "复核只检查证据、归责、公式和去重，不以贴合名望、缩小分差或改变特定人物名次为目标。",
         "",
         (
             f"当前均分{payload['mean_score']:.2f}，中位数{payload['median_score']:.2f}，"
@@ -375,18 +431,50 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "",
         "## 完整总榜",
         "",
-        "仅附加项范围覆盖9种情景，全部范围覆盖27种情景。范围两端均为名次；计算方法见下方折叠说明。",
+        ("治理规模／复杂度是非计分背景：规模按"
+         + '、'.join(payload['governance_context_legend']['labels']['scale'].values())
+         + "四档；复杂度按"
+         + '、'.join(payload['governance_context_legend']['labels']['complexity'].values())
+         + "四档。"),
+        payload['governance_context_legend']['rules']['window']
+        + payload['governance_context_legend']['rules']['scoring'],
+        payload['governance_context_legend']['rules']['scale'],
+        payload['governance_context_legend']['rules']['complexity'],
         "",
-        "| 基准名次 | 人物 | 政权 | 共同项合计 | 奠基附加F | 文明调整 | 综合分 | 仅附加项范围 | 全部情景范围 |",
-        "|---:|---|---|---:|---:|---:|---:|---:|---:|",
+        "以下两组名次范围固定正式裁决，只改变权重：仅附加项覆盖9组，全部调权覆盖27组。"
+        "它们不与审慎分数区间自动合成。审慎分位置投影只把本人审慎分上下端点代入当前正式榜，其他人物固定为正式综合分；"
+        "它不是联合名次置信区间，也不证明区间端点可以与其他人物的端点同时实现。计算方法见下方折叠说明。",
+        "",
+        "| 正式名次 | 人物 | 政权 | 治理规模／复杂度 | 共同项合计 | 奠基附加F | 文明调整 | 正式综合分 | 现有史料审慎分数区间 | 审慎分位置投影 | 仅附加项调权名次范围 | 全部调权情景名次范围 |",
+        "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in records:
+        context = row['governance_context']
+        governance_display = (context_labels['scale'][context['scale_band']] + '／'
+                              + context_labels['complexity'][context['complexity_band']])
         lines.append(
-            f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | "
+            f"| {row['rank']} | {row['ruler_name']} | {context['display_polity']} | {governance_display} | "
             f"{row['common_score']:.2f} | {row['first_item_add_on']:.2f} | "
             f"{row['fourth_item_adjustment']:+.1f} | **{row['total_score']:.2f}** | "
-            f"{rank_range(row, 'add_ons_only')} | {rank_range(row)} |"
+            f"{row['prudent_score_interval']['lower']:.2f}—{row['prudent_score_interval']['upper']:.2f} | "
+            f"{prudent_rank_range(row)} | {rank_range(row, 'add_ons_only')} | {rank_range(row)} |"
         )
+
+
+    coverage=payload['prudent_score_interval_coverage']
+    lines.extend(['', '## 审慎区间', '',
+                  '完整总榜逐人列出现有史料审慎分数区间。区间只纳入当前语料下具名、有源、可计价的档位或成本替代解释；'
+                  '史料条数、材料稀疏、置信度标签和人物名望本身都不自动生成区间。正式综合分仍采用已采信裁决，审慎端点用于显示现有证据允许的条件波动。', '',
+                  f'当前{coverage["nonpoint_count"]}人列非单点区间；单点仅表示本轮已登记语料没有留下可定位的有源异档，不表示历史真值已穷尽。', '',
+                  '[逐人档位候选、触发事实及来源](综合分析/02-证据裁决敏感性.md)', ''])
+    supported=[(row,alt) for row in records
+               for alt in row['evidence_assessment']['public_projection']['supported_alternatives']]
+    if supported:
+        lines.extend(['### 已采信的其他合法解释', '',
+                      '| 人物 | 解释 | 替代总分及分差 | 条件名次 |', '|---|---|---:|---:|'])
+        for row,alt in supported:
+            lines.append(f"| {row['ruler_name']} | {alt['question']} | {alt['total_score']:.2f}（{alt['delta']:+.2f}） | {alt['rank']} |")
+        lines.append('')
 
     lines.extend(["",
         "## 排名分析",
@@ -493,19 +581,18 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
 def write_composite_ranking(workspace_root: Path) -> dict[str, Path]:
     from emperor_v4.evaluation.third_item_current_settlement import (
         verify_current_third_item_settlement,
+        _write_text_atomic,
     )
 
     verify_current_third_item_settlement(workspace_root)
     payload = build_composite_ranking(workspace_root)
     json_path = workspace_root / OUTPUT_JSON
     markdown_path = workspace_root / OUTPUT_MARKDOWN
-    json_path.write_text(
+    _write_text_atomic(json_path,
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-        newline="\n",
     )
-    markdown_path.write_text(
-        render_composite_ranking_markdown(payload), encoding="utf-8", newline="\n"
+    _write_text_atomic(markdown_path,
+        render_composite_ranking_markdown(payload)
     )
     return {"json": json_path, "markdown": markdown_path}
 

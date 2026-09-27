@@ -1420,25 +1420,25 @@
       "actor_kinds": [
         "person"
       ],
-      "military_grade": "top",
+      "military_grade": "historic",
       "ability_profile": "high_ceiling_with_major_adverse",
       "grade_status": "current_battle_registry_grade",
-      "stability_status": "stability_limited_repeated_major_failures",
+      "stability_status": "major_failure_with_effective_recovery",
       "major_adverse_episode_refs": [
         "MIL-EPISODE-CAOCAO-ZHANGXIU-197-198",
-        "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
         "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208"
       ],
       "stability_gate": {
         "major_positive_context_count": 7,
-        "major_adverse_context_count": 3,
-        "commander_responsibility_major_failure_count": 2,
+        "major_adverse_context_count": 2,
+        "commander_responsibility_major_failure_count": 1,
         "high_peak_count": 1,
         "abundant_peak_exception": false,
-        "stability_cap_applied": true
+        "stability_cap_applied": false,
+        "basis": "宛城人物与南阳父群失败为同一反袭，只计一次；赤壁保留混合性质，濡须为负B；严重下沿与有效重建并存，旧重复失败封顶不成立。"
       },
-      "rule_path": "historic_blocked_by_failure_pressure",
-      "blocked_historic_path": "historic_extreme_problem_solver",
+      "rule_path": "historic_extreme_problem_solver",
+      "blocked_historic_path": null,
       "consumed_achievements": [
         {
           "campaign_ref": "PCR-HAN-CAOCAO-HUGUAN-206",
@@ -2032,7 +2032,7 @@
           "decisive_relation": "none",
           "result_direction": "negative",
           "outcome_responsibility": "actual_command_scope",
-          "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+          "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
           "campaign_tier": "A",
           "combat_difficulty": "D2",
           "outcome_durability": false,
@@ -2046,7 +2046,7 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": false,
-          "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。"
+          "responsibility_basis": "受降后因纳张济妻、笼络胡车儿并放松警戒触发张绣反袭，导致曹昂、典韦等死亡和本军崩溃；后续恢复战线不抹去该次可归责指挥失败。"
         },
         {
           "campaign_ref": "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
@@ -2109,7 +2109,7 @@
           "decisive_relation": "none",
           "result_direction": "negative",
           "outcome_responsibility": "actual_command_scope",
-          "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+          "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
           "campaign_tier": "A",
           "combat_difficulty": "D2",
           "outcome_durability": false,
@@ -2118,33 +2118,17 @@
           "source_refs": [
             "docs/史料通读产物/唐以前编年/汉/卷062-通读总结.md#L159",
             "docs/史料通读产物/唐以前编年/汉/卷062-通读总结.md#L161",
-            "docs/史料通读产物/唐以前编年/汉/卷062-通读总结.md#L163"
+            "docs/史料通读产物/唐以前编年/汉/卷062-通读总结.md#L163",
+            "資治通鑑/卷062@7904753"
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": false,
-          "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。",
-          "episode_result_count": 1
-        },
-        {
-          "campaign_ref": "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
-          "canonical_label": "曹操与张绣南阳战役群",
-          "capability_episode_ref": "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
-          "consumption_mode": "none",
-          "result_direction": "negative",
-          "campaign_tier": "A",
-          "combat_difficulty": "D3",
-          "role_code": "commander_in_chief",
-          "capability_mode": "integrated_command",
-          "decisive_relation": "decisive_creator",
-          "stable_delivery": false,
-          "outcome_responsibility": "actual_command_scope",
-          "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
-          "basis": "受降后因纳张济妻、笼络胡车儿并放松警戒触发张绣反袭，导致曹昂、典韦等死亡和本军崩溃；后续恢复战线不抹去该次可归责指挥失败。",
-          "source_refs": [
-            "資治通鑑/卷062@7904753"
-          ],
-          "episode_result_count": 1
+          "responsibility_basis": "受降后因纳张济妻、笼络胡车儿并放松警戒触发张绣反袭，导致曹昂、典韦等死亡和本军崩溃；后续恢复战线不抹去该次可归责指挥失败。",
+          "episode_result_count": 1,
+          "source_alias_refs": [
+            "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199"
+          ]
         },
         {
           "campaign_ref": "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
@@ -2224,7 +2208,7 @@
         "command_adverse": -2.22,
         "net": 6.43
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 historic_blocked_by_failure_pressure 当前定为 top。 稳定性状态=stability_limited_repeated_major_failures。"
+      "grade_basis": "官渡S/D4与乌桓S-/D3及跨对象直接作战复验满足原历史级能力路径；宛城失败先按独立周期归并，赤壁保留混合损害，濡须未突破保留负B。重大下沿与作战重建并存，不再采用重复反袭造成的封顶。"
     },
     {
       "profile_ref": "MIL-PROFILE-43C47AF8E1E1C688",

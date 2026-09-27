@@ -72,6 +72,19 @@ def test_reader_exposes_decision_before_expandable_evidence(tmp_path: Path) -> N
     assert result.count("<details>") == result.count("</details>")
 
 
+def test_changed_nature_basis_is_visible_without_changing_grade(tmp_path: Path) -> None:
+    from emperor_v4.evaluation.historical_impact import render
+
+    payload, _ = _workspace(tmp_path)
+    row = payload["records"][0]
+    row["impact_nature"] = "正向为主"
+    row["impact_nature_basis"] = "本人建立的国家接口持续运行；另一次短时冲突未形成相当的独立负向结构。"
+    text = render(payload)
+    assert f"｜{row['impact_nature']}｜" in text
+    assert "**影响性质依据：**" + row["impact_nature_basis"] in text
+    assert row["public_grade"] == "C"
+
+
 def test_reader_deduplicates_basis_without_losing_extra_reason(tmp_path: Path) -> None:
     from emperor_v4.evaluation.historical_impact import render
     payload, _ = _workspace(tmp_path)

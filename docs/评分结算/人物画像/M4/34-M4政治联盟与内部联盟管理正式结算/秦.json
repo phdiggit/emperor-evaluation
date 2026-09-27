@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        114,
+        74,
         182
       ],
       "records": [
@@ -17,12 +17,12 @@
           "actual_power_window": "前238—前210年亲政",
           "external_batch_id": "M4-WEB-01",
           "external_batch_file": "M4-WEB-01-秦与西汉第01批-检索与初裁.md",
-          "axis_grade": "G2",
-          "position": "HIGH",
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
+          "axis_grade": "G3",
+          "position": "MID",
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "major_mechanisms_observed": [
             "ALLIANCE_FORMATION",
             "INTEREST_STATUS_CONFIGURATION",
@@ -145,9 +145,9 @@
               "status_and_resource_configuration": "嬴政采纳谏言撤逐客，李斯由客卿升廷尉、丞相并参与统一后制度设计。",
               "political_credit_and_delivery": "撤令与持续升迁构成可验证承诺，但承诺依赖君主个人且缺乏集团性保护。；李斯等提供统一战略、郡县制度与法令文字整合。",
               "feedback_and_conflict_handling": "逐客争议、分封与郡县争议、儒生以古非今等反馈进入朝廷。；嬴政能在逐客和李信败楚后纠错；但统一后对异议士人转向禁书、惩处。",
-              "exit_result": "客卿官僚在本人统治期持续运转，但未形成能抵抗继承伪诏和近侍垄断的交接结构。",
+              "exit_result": "本人在世时客卿与军功核心持续合作；死后伪诏、换人和清洗只用于有限耐久性观察，不作为本人新的选择或独立负父链。",
               "counterevidence": "接纳李斯、王翦等跨地域人才及实际纠错，不能把其内部整合概括为纯粹排斥。",
-              "lifecycle_reasoning": "",
+              "lifecycle_reasoning": "在世实际吸纳、权力资源配置与合作兑现是本链核心；后续失败须分离新行动者责任。",
               "direction": "MIXED_POSITIVE",
               "material_intensity": "MI2_LIFECYCLE",
               "source_ids": [
@@ -179,9 +179,9 @@
               "status_and_resource_configuration": "王翦获近乎空国之军；王翦以反复请田宅向君主证明无政治野心，形成非正式互保。",
               "political_credit_and_delivery": "嬴政兑现兵权与奖赏，王翦完成楚战；但互信需靠将领自污，且蒙恬军与扶苏绑定而无稳固继承保障。；王翦、王贲、蒙氏连续完成灭国与边疆任务。",
               "feedback_and_conflict_handling": "李信败楚、王翦兵力判断、王翦对君主疑心的预判均到达嬴政。；嬴政承认判断失误、重新授权王翦；对军功集团总体维持。",
-              "exit_result": "本人在世时合作高效；死后扶苏蒙氏被符玺伪诏清除，显示集团关系未能安全转移。",
+              "exit_result": "本人在世时客卿与军功核心持续合作；死后伪诏、换人和清洗只用于有限耐久性观察，不作为本人新的选择或独立负父链。",
               "counterevidence": "王翦链是强正证；不能用秦二世的全部行为倒灌给嬴政，但继承接口设计不足仍属其晚期责任。",
-              "lifecycle_reasoning": "",
+              "lifecycle_reasoning": "在世实际吸纳、权力资源配置与合作兑现是本链核心；后续失败须分离新行动者责任。",
               "direction": "MIXED_POSITIVE",
               "material_intensity": "MI2_LIFECYCLE",
               "source_ids": [
@@ -205,7 +205,28 @@
               "closure_status": "CLOSED"
             }
           ],
-          "non_scoring_unclosed_observations": [],
+          "non_scoring_unclosed_observations": [
+            {
+              "parent_id": "M4-QIN-LOCAL-ELITES-OBSERVATION",
+              "closure_status": "UNRESOLVED_EVIDENCE_GAP",
+              "observation": "统一后旧精英进入地方治理的范围与持续性",
+              "status": "UNRESOLVED_EVIDENCE_GAP",
+              "reason": "资料未闭合，不按缺料计负，不从秦亡倒推。",
+              "source_refs": [
+                "https://zh.wikisource.org/zh-hans/史記/卷006"
+              ]
+            },
+            {
+              "parent_id": "M4-QIN-SUCCESSION-OBSERVATION",
+              "closure_status": "UNRESOLVED_EVIDENCE_GAP",
+              "observation": "沙丘继承文书与生前交接保障",
+              "status": "UNRESOLVED_EVIDENCE_GAP",
+              "reason": "保留脆弱性观察；伪诏、杀扶苏蒙氏等新行动不全部归嬴政。",
+              "source_refs": [
+                "https://zh.wikisource.org/zh-hans/史記/卷088"
+              ]
+            }
+          ],
           "boundary_dispositions": [
             {
               "fact": "灭六国与北击匈奴战果",
@@ -327,17 +348,17 @@
               "url_status": "DIRECT_HTTP_REFERENCE"
             }
           ],
-          "typical_pattern": "对能直接服务统一的客卿和军事核心高度吸收、能在重大专业判断上纠错；对征服地区旧精英、独立士人和继承集团主要靠控制与排除，关系难以转移。",
-          "counterpattern": "接纳李斯、王翦等跨地域人才及实际纠错，不能把其内部整合概括为纯粹排斥。；王翦链是强正证；不能用秦二世的全部行为倒灌给嬴政，但继承接口设计不足仍属其晚期责任。",
-          "grade_basis": "存在强而清晰的正链，故非G1；但六类集团中宗室交接、地方旧精英和信息接口的可持续性不足，整体尚不能称多数情境稳定可用。",
-          "position_basis": "HIGH由典型表现、下沿、恢复、阶段一致性和未覆盖范围共同确定，不按父链数或材料数微调。",
+          "typical_pattern": "对客卿与军功核心能够维持跨阶段合作；征服后异质集团的参与与安全退出较薄，继承保障仍有缺口。",
+          "counterpattern": "迁徙豪强与压缩士人参与显示统一后控制性较强；继承接口缺稳固保障，但死后伪诏和清洗由新行动者实施，只能有界复验生前安排的耐久性。",
+          "grade_basis": "G3-MID：撤逐客令后的客卿准入与军功家族长期合作证明核心集团关系可用；统一后旧精英参与和继承安全仍有明显限制，但未观察清楚不等于多数集团失能，胡亥、赵高的死后新选择也不整包归本人。",
+          "position_basis": "G3中位：核心合作有持续兑现，但关系主要依赖皇帝个人确认，缺跨旧精英与交接压力的充分复验；不以集团名单数量、秦亡速度或未观测比例换档。",
           "limitations": [
-            "秦史主要来自汉代史家",
-            "统一后旧精英吸收缺乏系统量化",
-            "坑儒与扶苏遗诏细节争议"
+            "统一后地方旧精英持续参与渠道未完整闭合，属于证据与外推限制，不能自动记负。",
+            "沙丘伪诏细节与始皇继承意图有争议，不把继任者的清洗倒灌为本人反复破坏已运行联盟。",
+            "史料主要来自汉代史家；当前改为E2有界结论，不宣称全集团覆盖完成。"
           ],
-          "what_could_change_grade": "若专题研究证明统一后地方旧精英大规模、持续进入郡县治理且继承安排并非制度性空白，可上调G3；反之若客卿和军功集团安全性比现有叙事更差，可下调。",
-          "source_density_review": "COVERAGE_CLOSED",
+          "what_could_change_grade": "补足统一后旧精英实际参与、利益配置和冲突退出，以及生前继承安排的直接材料后再审上沿；不得要求证明制度性零缺陷才能进入G3。",
+          "source_density_review": "BOUNDED_WITH_EXPLICIT_GAPS",
           "max_negative_calibration": null,
           "rev1_same_grade_substantive_change": null,
           "axis_relevance_check": {
@@ -367,12 +388,31 @@
           "axis_code": "M4",
           "axis_name": "政治联盟与内部联盟管理",
           "formal_status": "FORMAL_CURRENT",
-          "score_100": 51,
-          "radar_value": 51,
+          "score_100": 65,
+          "radar_value": 65,
           "representative_parent_ids": [
             "M4P-RULER-QIN-YINGZHENG-QYZ-P1",
             "M4P-RULER-QIN-YINGZHENG-QYZ-P2"
-          ]
+          ],
+          "horizontal_calibration": {
+            "method": "CURRENT_CONTRACT_AND_INDEPENDENT_LIFECYCLES",
+            "comparators": [
+              {
+                "ruler_id": "RULER-SHADOW-司马炎",
+                "comparison": "司马炎有生前收到继承风险反馈却未形成稳固交接的直接负链；嬴政不能因死后伪诏同额负担继任者的新选择。"
+              },
+              {
+                "ruler_id": "RULER-SHADOW-刘裕",
+                "comparison": "刘裕的主要正链仍集中于个人接口；嬴政的客卿准入与军功家族合作具有集团层次，但征服后旧精英及交接证据仍不足。"
+              },
+              {
+                "ruler_id": "RULER-WEI-CAOCAO",
+                "comparison": "曹操有跨旧敌、汉廷官僚、士人及继任接续的广泛闭合结构；嬴政尚不足同等跨集团信用与安全退出，不能进入G4。"
+              }
+            ],
+            "decision_basis": "在世时客卿与军功集团长期合作可用；征服后的参与和继承安全确有薄弱处，但缺料不等于多数集团失能。定G3-MID，保留交接脆弱与异质集团不足。",
+            "scores_used_as_formula": false
+          }
         },
         {
           "sequence": 83,

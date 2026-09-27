@@ -59,6 +59,7 @@
     evidence_lower_bound: "现有证据下限",
   };
   const stabilityStatusName = {
+    major_failure_with_effective_recovery: "重大失败后完成有效重建，损失仍限制上沿",
     no_comparable_major_failure_established: "未发现足以压低总档的同量级重大失败",
     stability_limited_major_failure: "受一次重大失败限制",
     stability_limited_repeated_major_failures: "受多次重大失败限制",

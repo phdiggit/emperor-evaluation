@@ -45,3 +45,14 @@ def test_g5_requires_documented_magnitude_review():
     row.update(axis_grade="G5", position="LOW", score_100=91, radar_value=91)
     with pytest.raises(ValueError, match="架构量级"):
         validate_decision(row)
+
+
+def test_g5_single_integrated_am4_needs_no_second_am3():
+    row = decision()
+    row.update(axis_grade="G5", position="LOW", score_100=91, radar_value=91)
+    row["architecture_review"] = {
+        "magnitude": "AM4",
+        "basis": "合成例：三个核心功能在共同治理逻辑下重写并运行。",
+        "integrated_architecture_policy": "单组一体化架构，不拆分补票。",
+    }
+    validate_decision(row)

@@ -89,7 +89,7 @@ const data={capability_axes:capabilities,independent_axes:['C5'],axis_specs:Obje
 const state={compare:['left','right'],differences:false};
 const context={DATA:data,state,screen,byId:new Map(),nav(){},history:{replaceState(){}},
  document:{getElementById(id){assert.equal(id,'differences');return checkbox;},querySelector(selector){assert.equal(selector,'.comparison');return table;}},
- esc:String,number:v=>String(v??'—'),conf:String,dimNames:{extent:'范围'},gradeHelp:()=>'',
+ esc:String,number:v=>String(v??'—'),conf:String,dimNames:{extent:'范围'},gradeHelp:()=>'',evidenceAssessment:()=>'',
  netGroups:r=>`<p>构成-${r.ruler_id}</p>`,historySections:r=>`<p>后效-${r.ruler_id}</p>`,
  axisEvidence:(r,c)=>`<details><summary>${c}</summary><p>${r.axes[c].evidence}</p></details>`};
 vm.createContext(context);
@@ -755,7 +755,8 @@ def test_profile_material_intensity_short_aliases_have_public_labels():
 def test_profile_axis_summary_shows_formal_material_coverage_in_public_words():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
-    assert "const evidenceLevel=readerText(a.axis_evidence_level||'');" in template
+    assert "const evidenceScope=axisEvidenceScope(a,c),evidenceLevel=evidenceScope.coverage;" in template
+    assert "coverage:scope.material_coverage_label" in template
     assert 'class="axis-evidence-level">材料覆盖：' in template
     assert "材料覆盖 '+esc(evidenceLevel)" in template
     assert "材料级别 ${esc(a.axis_evidence_level" not in template

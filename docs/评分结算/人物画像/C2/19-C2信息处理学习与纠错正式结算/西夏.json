@@ -4,14 +4,14 @@
   "collections": {
     "records": {
       "positions": [
-        90,
         91,
         92,
         93,
-        125,
+        94,
         126,
         127,
-        128
+        128,
+        129
       ],
       "records": [
         {
@@ -413,12 +413,11 @@
           "adjudication_ref": "C2-CHAT-REVIEW-V2-ROUND2#RULER-RULER-XIXIA-LIANQUAN",
           "typical_pattern": "局部纠错型：能够在部分反馈到达后改判，但直接生命周期或跨域迁移仍有限。",
           "counterpattern": "当前C2正式JSON只有一条 TRUTH_ACQUISITION / POSITIVE / MI1_CASE，却沿用了“拒绝更新、依赖失真接口突出”的G2-LOW模板理由；没有闭合负父链支撑这句话。",
-          "grade_basis": "李安全：当前C2正式JSON只有一条 主动求真链，却沿用了“拒绝更新、依赖失真接口突出”的G2-LOW模板理由；没有闭合负父链支撑这句话；李安全与纯佑争夺西夏最高权力现实皇位斗争；史源又未闭合安全得位后对旧党展开系统清洗。不能因为其得位方式或传统评价压C2",
+          "grade_basis": "李安全：1209年蒙古进攻与引水等军事现实促成有限适应，现有材料未闭合主动交叉核验的完整过程；保留有限混合正向片段和G2-MID有界结论，不把得位方式或没有负链误写成认知失能。",
           "position_basis": "李安全：G2-MID档内定位：能力呈局部、混合或材料受限状态；档内位置取决于反馈吸收稳定性和直接证据厚度；包含主动取证或冲突信源辨析；当前为E1有界证据，不是对全生涯能力低下的断言。",
           "axis_relevance_check": {
             "status": "C2_RELEVANT",
             "scoring_parent_refs": [
-              "C2-V2-3F3530C7DF5A",
               "C2-R2-80756F0CAC95"
             ]
           },
@@ -427,27 +426,9 @@
           ],
           "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
           "representative_parent_ids": [
-            "C2-V2-3F3530C7DF5A",
             "C2-R2-80756F0CAC95"
           ],
           "parent_chains": [
-            {
-              "parent_id": "C2-V2-3F3530C7DF5A",
-              "cycle_type": "TRUTH_ACQUISITION",
-              "direction": "POSITIVE",
-              "intensity": "MI1_CASE",
-              "basis": "当前C2正式JSON只有一条 ，却沿用了“拒绝更新、依赖失真接口突出”的G2-LOW模板理由；没有闭合负父链支撑这句话。",
-              "cycle_anchor_refs": [
-                "CAMPAIGN-XIXIA-MONGOL-RIVERWEST-1209"
-              ],
-              "source_parent_refs": [],
-              "lifecycle_review": "按C2二轮生命周期核对：当前C2正式JSON只有一条 ，却沿用了“拒绝更新、依赖失真接口突出”的G2-LOW模板理由；没有闭合负父链支撑这句话。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
-              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
-              "material_intensity": "MI1_CASE",
-              "feedback_suppression_review": {
-                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
-            },
             {
               "parent_id": "C2-R2-80756F0CAC95",
               "cycle_type": "TRUTH_ACQUISITION",
@@ -463,7 +444,8 @@
               "material_intensity": "MI1_CASE",
               "feedback_suppression_review": {
                 "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
-              }
+              },
+              "capability_episode_ref": "C2-R2-80756F0CAC95"
             }
           ],
           "source_unit_ids": [
@@ -498,9 +480,19 @@
               "C2-V2-3F3530C7DF5A",
               "C2-R2-80756F0CAC95"
             ],
-            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "asymmetry_decision": "只比较当前独立认知生命周期；时长、处罚烈度和相同事实的来源重复均不增加强度。",
             "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
-          }
+          },
+          "non_scoring_observations": [
+            {
+              "source_parent_ref": "C2-V2-3F3530C7DF5A",
+              "disposition": "BACKGROUND_VALIDATION",
+              "reason": "这是关于旧父链拆分或裁档的说明，不是独立认知生命周期；只消费现存具名行为父链，未闭合反例保留为材料限制。",
+              "source_refs": [
+                "CAMPAIGN-XIXIA-MONGOL-RIVERWEST-1209"
+              ]
+            }
+          ]
         },
         {
           "sequence": 127,

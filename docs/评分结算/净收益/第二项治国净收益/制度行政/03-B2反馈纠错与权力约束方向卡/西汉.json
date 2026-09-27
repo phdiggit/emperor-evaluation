@@ -888,6 +888,28 @@
               "mechanism": "沈命法问责使郡府小吏相互隐匿盗情，只取真实信息失效切片",
               "result_closure": "sustained_or_systemic",
               "evidence_slice": "CONCEALED_BANDIT_REPORTS"
+            },
+            {
+              "material_id": "MC-WHAN-LIUCHE-YANYI-FEEDBACK",
+              "lifecycle_key": "MC-WHAN-LIUCHE-YANYI-FEEDBACK",
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1,
+              "signed_weight": -2,
+              "mechanism": "颜异回答皮币价格不相称使武帝不悦，后由张汤按腹诽论死；此后形成腹诽法比，公卿大夫多谄谀取容，闭合从异议受罚到群体反馈失真的链条。",
+              "result_closure": "sustained_or_systemic",
+              "mechanism_role": "information_ingress"
+            },
+            {
+              "material_id": "MC-WHAN-LIUCHE-SIMAQIAN-FEEDBACK",
+              "lifecycle_key": "MC-WHAN-LIUCHE-SIMAQIAN-FEEDBACK",
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1,
+              "signed_weight": -1,
+              "mechanism": "司马迁应武帝召问陈述李陵战功，未获听明而被认定沮贰师、为李陵游说，下狱并受腐刑；反馈—归罪—实罚为独立有限链。",
+              "result_closure": "observed_or_repeated",
+              "mechanism_role": "information_ingress"
             }
           ],
           "M_positive_profile": [
@@ -907,7 +929,9 @@
           "direct_material_ids": [
             "I2-WHAN-WUDI-COERCIVE-ADMIN-FAILURE-001",
             "I2-WHAN-WUDI-LATE-CORRECTION-001",
-            "I2-WHAN-WUDI-WITCHCRAFT-FEEDBACK-COLLAPSE-001"
+            "I2-WHAN-WUDI-WITCHCRAFT-FEEDBACK-COLLAPSE-001",
+            "MC-WHAN-LIUCHE-YANYI-FEEDBACK",
+            "MC-WHAN-LIUCHE-SIMAQIAN-FEEDBACK"
           ],
           "direction_card_write": true,
           "direction_index": 17.6,
@@ -915,8 +939,8 @@
           "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G1",
-          "grade_basis": "轮台诏拒绝远屯与加赋，且此后不复出军，闭合晚期自我纠偏正M2，不能因旧标题误写选官而删除。沈命法使小吏与府相互隐匿盗情，构成独立系统负M3；巫蛊中信息隔绝与高压虽后有田千秋进言获悟，仍以负向主导生命周期M3计。主要阶段负态仍主导，定G1，晚期止损不足据以覆盖全期。",
-          "grade_gate_basis": "轮台诏拒绝远屯与加赋，且此后不复出军，闭合晚期自我纠偏正M2，不能因旧标题误写选官而删除。沈命法使小吏与府相互隐匿盗情，构成独立系统负M3；巫蛊中信息隔绝与高压虽后有田千秋进言获悟，仍以负向主导生命周期M3计。主要阶段负态仍主导，定G1，晚期止损不足据以覆盖全期。",
+          "grade_basis": "轮台止损正M2、沈命法隐匿盗情负M3、巫蛊反馈崩解及迟到纠偏混负M3之外，颜异案形成腹诽法比与公卿谄谀的独立负M3；司马迁应召论李陵受刑为独立负M2。负向主导主要阶段，仍G1；未把个案扩大为全任一切渠道封闭，亦不因晚期纠偏抹去已成损害。",
+          "grade_gate_basis": "轮台止损正M2、沈命法隐匿盗情负M3、巫蛊反馈崩解及迟到纠偏混负M3之外，颜异案形成腹诽法比与公卿谄谀的独立负M3；司马迁应召论李陵受刑为独立负M2。负向主导主要阶段，仍G1；未把个案扩大为全任一切渠道封闭，亦不因晚期纠偏抹去已成损害。",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
           "index_interval": [
             16.0,
@@ -924,7 +948,7 @@
           ],
           "polity": "西汉",
           "position": "lower",
-          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-2.5，据此确定档内位置。",
+          "position_basis": "独立生命周期权重净和-5，扣G1门槛0.5，净余量-5.5，仍为下位17.6。",
           "position_q": 0.1,
           "rank": 126,
           "reign_range": "前141—前87",
@@ -946,15 +970,18 @@
             "《資治通鑑·卷022》：司直，吏二千石，当先请，奈何擅斩之！",
             "《資治通鑑·卷022》：胜之惶恐，自杀。",
             "《資治通鑑·卷022》：智者不敢言，辩士不敢说，臣窃痛之！",
-            "《資治通鑑·卷022》：书奏，天子感寤，然尚未显言赦之也。"
+            "《資治通鑑·卷022》：书奏，天子感寤，然尚未显言赦之也。",
+            "《史记·卷30》颜异案：腹诽法比以后公卿大夫多谄谀取容。",
+            "《汉书·卷62》司马迁：应召论李陵，未获听明而下狱受腐刑。"
           ],
           "settlement_basis": [
-            "轮台诏拒绝远屯与加赋，且此后不复出军，闭合晚期自我纠偏正M2，不能因旧标题误写选官而删除。沈命法使小吏与府相互隐匿盗情，构成独立系统负M3；巫蛊中信息隔绝与高压虽后有田千秋进言获悟，仍以负向主导生命周期M3计。主要阶段负态仍主导，定G1，晚期止损不足据以覆盖全期。",
-            "主档G1；去重后净余量-2.5，对应下位。"
+            "轮台止损正M2、沈命法隐匿盗情负M3、巫蛊反馈崩解及迟到纠偏混负M3之外，颜异案形成腹诽法比与公卿谄谀的独立负M3；司马迁应召论李陵受刑为独立负M2。负向主导主要阶段，仍G1；未把个案扩大为全任一切渠道封闭，亦不因晚期纠偏抹去已成损害。",
+            "独立生命周期权重净和-5，扣G1门槛0.5，净余量-5.5，仍为下位17.6。",
+            "颜异与司马迁政治反馈受罚由本项结算；知识轴不再以二人人身损害直接扣分。"
           ],
-          "position_residual": -2.5,
+          "position_residual": -5.5,
           "grade_threshold_consumed": 0.5,
-          "public_adjudication_summary": "轮台诏拒绝远屯与加赋，且此后不复出军，形成完整链条晚期自我纠偏有限的正向机制，不能因旧标题误写选官而删除。沈命法使小吏与府相互隐匿盗情，构成独立系统较强的负向机制；巫蛊中信息隔绝与高压虽后有田千秋进言获悟，仍以负向主导反馈链持续或系统性的机制计。主要阶段负态仍主导，对应较低档，晚期止损不足据以覆盖全期。整体判断为较低档（下位）。",
+          "public_adjudication_summary": "轮台止损有限的正向机制、沈命法隐匿盗情较强的负向机制、巫蛊反馈崩解及迟到纠偏混较强的负向机制之外，颜异案形成腹诽法比与公卿谄谀的独立较强的负向机制；司马迁应召论李陵受刑为独立有限的负向机制。负向主导主要阶段，仍较低档；未把个案扩大为全任一切渠道封闭，亦不因晚期纠偏抹去已成损害。整体判断为较低档（下位）。",
           "public_evidence_items": [
             {
               "id": "B2-PUBLIC-05D03B66DF69E687",
@@ -988,6 +1015,30 @@
                 "形成持续或系统性结果"
               ],
               "public_basis": "沈命法问责使郡府小吏相互隐匿盗情，只取真实信息失效切片；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
+            {
+              "id": "B2-PUBLIC-9CB52D7922D472DF",
+              "public_label": "颜异回答皮币价格不相称使武帝不悦，后由张汤按腹诽论死",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "信息进入",
+                "形成持续或系统性结果"
+              ],
+              "public_basis": "颜异回答皮币价格不相称使武帝不悦，后由张汤按腹诽论死；此后形成腹诽法比，公卿大夫多谄谀取容，形成完整链条从异议受罚到群体反馈失真的链条。；形成持续或系统性结果",
+              "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
+            },
+            {
+              "id": "B2-PUBLIC-DED5F0B501FEB845",
+              "public_label": "司马迁应武帝召问陈述李陵战功，未获听明而被认定沮贰师、为李陵游说，下狱并受腐刑",
+              "public_direction": "负向",
+              "public_tags": [
+                "反馈与纠错",
+                "信息进入",
+                "已观察到实际结果"
+              ],
+              "public_basis": "司马迁应武帝召问陈述李陵战功，未获听明而被认定沮贰师、为李陵游说，下狱并受腐刑；反馈—归罪—实罚为独立有限链。；已观察到实际结果",
               "public_boundary": "同一机制只作一次判断，不重复计算；其他治理结果不在这里重复计算。"
             }
           ]

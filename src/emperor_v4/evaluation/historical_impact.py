@@ -14,7 +14,7 @@ PUBLIC_GRADES = ("S+", "S", "A", "B", "C", "D", "E")
 DIMENSION_GRADES = ("S+", "S", "S-", "A+", "A", "B", "C")
 LABEL_MAPPING = dict(zip(DIMENSION_GRADES, PUBLIC_GRADES))
 DIMENSIONS = {"scope": "范围", "depth_duration": "深度/持续", "personal_causality": "个人因果", "paradigm": "范式"}
-PUBLIC_MEANINGS = dict(zip(PUBLIC_GRADES, ("文明／国家主路径重塑", "超重大历史影响", "重大长期历史影响", "重大历史影响", "显著历史影响", "有限但真实影响", "弱历史影响")))
+PUBLIC_MEANINGS = dict(zip(PUBLIC_GRADES, ("最高量级历史影响", "超重大历史影响", "重大长期历史影响", "重大历史影响", "显著历史影响", "有限但真实影响", "弱历史影响")))
 PUBLIC_FIELD_SCHEMA_VERSION = "historical-impact-public-v1"
 PUBLIC_INTERNAL_PATTERNS = (
     r"项目(?:底账|重审|第三项|第一项A|B2|D|M[1-5]|C[1-5])",
@@ -96,6 +96,7 @@ def render(payload: dict[str, Any]) -> str:
                 f"**总档：{row['public_grade']}·{PUBLIC_MEANINGS[row['public_grade']]}｜{row['impact_nature']}｜置信度：{confidence}**", "",
                 "；".join(f"{label}：{_dimension(row, d)}" for d, label in DIMENSIONS.items()) + "。", ""])
             lines.extend(["**公开总档依据：**" + row["public_total_basis"], "",
+                *(["**影响性质依据：**" + row["impact_nature_basis"], ""] if row.get("impact_nature_basis") else []),
                 "**公开维度说明：**", "",
                 *[f"{label}：{row['dimensions'][d]['public_basis']}" for d, label in DIMENSIONS.items()], "",
                 "**公开边界：**" + row["public_boundary"], ""])
@@ -213,6 +214,8 @@ def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
                 raise ValueError(f"历史影响四维不完整: {rid}")
             _validate_public_text(row.get("public_total_basis"), "public_total_basis", rid)
             _validate_public_text(row.get("public_boundary"), "public_boundary", rid)
+            if "impact_nature_basis" in row:
+                _validate_public_text(row["impact_nature_basis"], "impact_nature_basis", rid)
             for dimension_key in DIMENSIONS:
                 _validate_public_text(row["dimensions"][dimension_key].get("public_basis"), f"dimensions.{dimension_key}.public_basis", rid)
             if row["dimensions"]["scope"]["boundary_note"]:

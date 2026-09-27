@@ -175,11 +175,15 @@ def _index_second_item_window_adjudications(
     indexed: dict[str, dict[str, Any]] = {}
     for status, group in adjudications["second_item_window_adjudications"].items():
         for ruler_name in group["rulers"]:
-            indexed[str(ruler_name)] = {
+            entry = {
                 "status": str(status),
                 "basis": str(group["basis"]),
                 "evidence_refs": list(group["evidence_refs"]),
             }
+            for key in ("overlap_review_id", "overlapping_ruler_ids", "score_change"):
+                if key in group:
+                    entry[key] = group[key]
+            indexed[str(ruler_name)] = entry
     return indexed
 
 
@@ -217,6 +221,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
     actual_power_window_overrides = admission_adjudications.get(
         "actual_power_window_overrides", {}
     )
+    first_item_scope_notes = admission_adjudications.get("first_item_scope_notes", {})
     pending_feasibility = _index_pending_second_item_feasibility(admission_adjudications)
     window_adjudications = _index_second_item_window_adjudications(
         admission_adjudications
@@ -431,6 +436,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                     if reason_code is not None
                     else (
                         FIRST_ITEM_NOT_APPLICABLE_ALLOWLIST.get(name)
+                        or first_item_scope_notes.get(name)
                         or FIRST_ITEM_PENDING_FORMAL_SETTLEMENT.get(name)
                         or "新第一项正式总榜未列示；按现行合同不适用，F=0。"
                     )

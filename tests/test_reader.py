@@ -32,6 +32,20 @@ def test_projection_preserves_reasons_and_deduplicates_sources():
     assert result["context_lookup"]["p"]["cycle_basis"] == "fact"
 
 
+def test_overview_keeps_upstream_prudent_rank_projection():
+    projection = {
+        "best": 2, "worst": 4,
+        "method": "OWN_PRUDENT_INTERVAL_VS_OTHER_FORMAL_SCORES",
+        "other_scores_fixed": True, "is_joint_rank_interval": False,
+    }
+    summary = module("build").record_summary({
+        "ruler_id": "synthetic", "ruler_name": "示例", "polity": "示例政权",
+        "impact": {"dimensions": {}}, "axes": {},
+        "net": {"rank": 3, "total_score": 90.0, "prudent_rank_projection": projection},
+    })
+    assert summary["net"]["prudent_rank_projection"] == projection
+
+
 def test_unresolved_context_fails_instead_of_silently_losing_evidence():
     with pytest.raises(ValueError, match="Unresolved context"):
         module("build").axis_projection(

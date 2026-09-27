@@ -18,7 +18,7 @@ TERMS = {
     'PROVISIONAL': '关键证据仍有缺口', 'NOT_APPLICABLE': '不适用',
     'NOT_CLOSED': '终点证据不足', 'UNKNOWN': '证据不足',
     'ML': '重大军事净毁损等级',
-    'ML0': '未达到重大军事净毁损追加条件', 'ML1': '有限重大军事净毁损',
+    'ML0': '当前未作重大军事净毁损追加', 'ML1': '有限重大军事净毁损',
     'ML2': '明显重大军事净毁损', 'ML3': '严重重大军事净毁损', 'ML4': '极严重重大军事净毁损',
     'EN': '负向安全结果', 'EN1': '局部方向净恶化',
     'EN2': '主要方向耐久恶化', 'EN3': '全国或多数核心防务体系崩溃',
@@ -97,6 +97,16 @@ TOKEN = re.compile(r'[A-Za-z][A-Za-z0-9_]*(?:-[A-Za-z0-9_]+)*')
 def translate(text: str) -> str:
     if text in TRANSLATIONS:
         return TRANSLATIONS[text]
+    # Resolve explicitly qualified cross-item codes before this module's local
+    # military/civilization vocabulary; C3 and B2 have different constructs.
+    for code, label in {
+        'A': '制度建设', 'B1': '官僚治理与行政执行',
+        'B2': '反馈纠错与权力约束', 'C1': '民生福祉',
+        'C2': '经济活力与财政健康', 'C3': '社会安全',
+        'C4': '社会恢复与可归责恶化',
+    }.items():
+        text = re.sub(r'第二项\s*'+code+r'(?![A-Za-z0-9])', '第二项'+label, text)
+    text = re.sub(r'(?:人物|画像)M1(?![A-Za-z0-9])', '人物画像军事判断与统帅能力', text)
     # These are explicitly labelled provenance tails, not parts of a verdict.
     # The original record and reader source references retain the identifiers.
     text = re.sub(r'(?:依据链|依据)[:：](?=(?:[A-Z][A-Z0-9]*(?:-|_|::)|docs/))[^。]*(?:。|$)', '', text)

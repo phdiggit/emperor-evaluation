@@ -6,9 +6,43 @@ from emperor_v4.evaluation.governance_state_recovery import (
     AXES,
     FIXED_POINTS,
     LOSS_RATES,
+    _terminal_endpoint_display,
     retained_recovery,
     state_score,
 )
+
+
+def test_terminal_endpoint_display_keeps_paired_losses_together():
+    row = {
+        'ruler_id': 'synthetic', 'main_band': 'C3-2', 'loss_grade': 'L0',
+        'low_confidence_terminal_adjudication': {
+            'decision_final': 'FINAL_PRUDENT_RANGE',
+            'final_adjudication': {
+                'status': 'FINAL_PRUDENT_RANGE', 'primary_endpoint': 'C3-2/L0',
+                'allowed_endpoints': ['C3-2/L0', 'C3-3/L2'],
+                'leaderboard_consumption': 'paired_endpoints_only',
+            },
+        },
+    }
+    assert _terminal_endpoint_display(row) == '仅配对：C3-2/L0、C3-3/L2'
+
+
+def test_terminal_endpoint_display_compacts_only_a_complete_combination_set():
+    row = {
+        'ruler_id': 'synthetic', 'main_band': 'C2-2', 'loss_grade': 'L0',
+        'low_confidence_terminal_adjudication': {
+            'decision_final': 'FINAL_PRUDENT_RANGE',
+            'final_adjudication': {
+                'status': 'FINAL_PRUDENT_RANGE', 'primary_endpoint': 'C2-2/L0',
+                'allowed_endpoints': [f'C2-{band}/L{loss}' for band in (2, 3) for loss in (0, 1)],
+                'leaderboard_consumption': 'score_extrema_across_all_allowed_grade_loss_combinations',
+            },
+        },
+    }
+    assert _terminal_endpoint_display(row) == 'C2-2～3 × L0～L1'
+    row['low_confidence_terminal_adjudication']['final_adjudication']['allowed_endpoints'].pop()
+    with pytest.raises(ValueError, match='集合不完整'):
+        _terminal_endpoint_display(row)
 
 
 @pytest.mark.parametrize("axis", AXES)

@@ -16,6 +16,12 @@ from emperor_v4.evaluation.second_item_c_public import (
 )
 
 
+def test_cross_item_axis_uses_its_own_meaning():
+    assert _clean('第四项A独占身份后果，A记录制度。') == '第四项国家共同体与社会整合独占身份后果，制度建设记录制度。'
+    assert '教育可及与人才流动' in _clean('第四项B')
+    assert '知识生产与文化生态' in _clean('第四项C')
+
+
 def _state_row(axis: str) -> dict:
     return {
         "ruler_id": f"SYNTHETIC-{axis}",

@@ -7996,14 +7996,15 @@
           "polity": "南汉",
           "partition": "五代十国",
           "reign_range": "917-942",
-          "independent_task_count": 6,
+          "independent_task_count": 7,
           "independent_task_groups": [
             "ZZTJ-271-MIN-HAN-MEIKOU-0922",
             "ZZTJ-273-HAN-MIN-0924",
             "ZZTJ-276-CHU-HAN-FENGZHOU-0928",
             "ZZTJ-277-JIAOZHOU-0931",
             "ZZTJ-280-HAN-CHU-MENGGUI-0936",
-            "ZZTJ-283-ZHANG-YUXIAN-HAN"
+            "ZZTJ-283-ZHANG-YUXIAN-HAN",
+            "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
           ],
           "parent_cycle_merge_adjudications": [
             {
@@ -8034,8 +8035,8 @@
           "operational_sustainability_cap": "C2-2",
           "system_reliability_cap": "C3-2",
           "C_overall_grade": "C-2",
-          "C_score_rate": 50.25,
-          "C_score_points": 25.1,
+          "C_score_rate": 48.5,
+          "C_score_points": 24.2,
           "C_score_support_surplus": 0,
           "C_score_band": {
             "lower_rate": 45,
@@ -8060,25 +8061,26 @@
             "status": "PASSED"
           },
           "C_score_axis_surplus_position": 0.0,
-          "C_score_outcome_position": 0.375,
-          "C_score_band_position": 0.375,
+          "C_score_outcome_position": 0.25,
+          "C_score_band_position": 0.25,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY",
           "parent_cycle_reference_policy": "CANONICAL_C_PRESSURE_PARENT_CYCLES_WITH_EXPLICIT_OBSERVATION_AND_PENDING_D_BOUNDARIES",
-          "current_item_task_count": 6,
+          "current_item_task_count": 7,
           "current_item_task_refs": [
             "ZZTJ-271-MIN-HAN-MEIKOU-0922",
             "ZZTJ-273-HAN-MIN-0924",
             "ZZTJ-276-CHU-HAN-FENGZHOU-0928",
             "ZZTJ-277-JIAOZHOU-0931",
             "ZZTJ-280-HAN-CHU-MENGGUI-0936",
-            "ZZTJ-283-ZHANG-YUXIAN-HAN"
+            "ZZTJ-283-ZHANG-YUXIAN-HAN",
+            "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
           ],
           "task_outcome_profile": {
             "source": "CURRENT_C_TASKS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
-            "selected_task_count": 6,
+            "selected_task_count": 7,
             "known_outcome_count": 0,
             "return_class_counts": {
-              "UNKNOWN": 6
+              "UNKNOWN": 7
             },
             "return_class_refs": {
               "UNKNOWN": [
@@ -8087,20 +8089,25 @@
                 "ZZTJ-276-CHU-HAN-FENGZHOU-0928",
                 "ZZTJ-277-JIAOZHOU-0931",
                 "ZZTJ-280-HAN-CHU-MENGGUI-0936",
-                "ZZTJ-283-ZHANG-YUXIAN-HAN"
+                "ZZTJ-283-ZHANG-YUXIAN-HAN",
+                "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
               ]
             },
             "status": "UNQUANTIFIED",
             "d_security_result_profile": {
               "source": "CURRENT_D_FORMAL_STRATEGIC_CHAINS",
               "status": "PARTIAL_D_CHAIN_MATCH",
-              "selected_task_count": 6,
-              "matched_task_count": 1,
-              "known_result_count": 1,
+              "selected_task_count": 7,
+              "matched_task_count": 2,
+              "known_result_count": 2,
               "security_result_grade_counts": {
+                "E0": 1,
                 "EN2": 1
               },
               "security_result_grade_refs": {
+                "E0": [
+                  "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
+                ],
                 "EN2": [
                   "ZZTJ-283-ZHANG-YUXIAN-HAN"
                 ]
@@ -8114,7 +8121,7 @@
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期6项，已知结果0项，回报剖面={'UNKNOWN': 6}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期7项，已知结果0项，回报剖面={'UNKNOWN': 7}；重大体系胜绩0项、重大体系失败0项。",
           "observed_parent_cycle_count": 6,
           "non_scoring_observation_refs": [],
           "non_scoring_observation_count": 0,
@@ -8128,7 +8135,7 @@
           "final_grade": "C-2",
           "scoring_unit": "STRATEGIC_CHAIN",
           "parent_cycle_role": "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN",
-          "strategy_chain_count": 6,
+          "strategy_chain_count": 7,
           "strategy_chains": [
             {
               "chain_id": "FD19-YAN-CUR-01-A185AD6B",
@@ -8256,6 +8263,31 @@
               },
               "basis": "专用父周期语义审查已确认这些成员属于同一压力对象、连续动员与共同终局；本战略链只结算一次。",
               "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW"
+            },
+            {
+              "chain_id": "FD19-YAN-938-BACHDANG",
+              "label": "938年白藤江复取交州失败",
+              "period": "938",
+              "chain_type": "CURRENT_EXTERNAL_STRATEGIC",
+              "opponent_system": "INHERIT_FORMAL_PARENT_OPPONENT",
+              "opponent_grade": "INHERIT_FORMAL_PARENT",
+              "member_parent_refs": [
+                "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
+              ],
+              "terminal_result_class": "NEGATIVE_RETURN",
+              "major_system_success": false,
+              "major_system_failure": false,
+              "axis_signals": {
+                "C1": "NEGATIVE",
+                "C2": "NEGATIVE",
+                "C3": "STRONG_NEGATIVE"
+              },
+              "basis": "本人授权舟师进取交州，舰队追击中伏、主将死亡、士卒覆溺太半且未完成任务，是独立负向实战结果；没有国家体系总体失能证据，不升为重大体系崩溃。",
+              "provenance": "SHADOW_STRATEGIC_CHAIN_REVIEW",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#ZZTJ-281-BACHDANG-JIAOZHOU-0937",
+                "https://zh.wikisource.org/zh-hant/資治通鑑_(四庫全書本)/卷281"
+              ]
             }
           ],
           "strategy_chain_refs": [
@@ -8264,22 +8296,24 @@
             "FD19-YAN-CUR-03-6B795520",
             "FD19-YAN-CUR-04-E18BD098",
             "FD19-YAN-CUR-05-5650EDB5",
-            "FD19-YAN-CUR-06-F1F13C9A"
+            "FD19-YAN-CUR-06-F1F13C9A",
+            "FD19-YAN-938-BACHDANG"
           ],
           "capability_only_strategy_chain_count": 0,
           "capability_only_strategy_chains": [],
           "capability_only_strategy_chain_refs": [],
           "strategy_chain_outcome_profile": {
             "source": "CURRENT_STRATEGIC_CHAIN_RESULTS",
-            "selected_chain_count": 6,
-            "known_outcome_count": 1,
+            "selected_chain_count": 7,
+            "known_outcome_count": 2,
             "return_class_counts": {
-              "NEGATIVE_RETURN": 1,
+              "NEGATIVE_RETURN": 2,
               "UNKNOWN": 5
             },
             "return_class_chain_refs": {
               "NEGATIVE_RETURN": [
-                "FD19-YAN-CUR-06-F1F13C9A"
+                "FD19-YAN-CUR-06-F1F13C9A",
+                "FD19-YAN-938-BACHDANG"
               ],
               "UNKNOWN": [
                 "FD19-YAN-CUR-01-A185AD6B",
@@ -8328,13 +8362,18 @@
               "parent_ref": "ZZTJ-283-ZHANG-YUXIAN-QIANZHOU",
               "strategy_chain_ref": "FD19-YAN-CUR-06-F1F13C9A",
               "parent_role_in_chain": "EVIDENCE_ONLY"
+            },
+            {
+              "parent_ref": "ZZTJ-281-BACHDANG-JIAOZHOU-0937",
+              "strategy_chain_ref": "FD19-YAN-938-BACHDANG",
+              "parent_role_in_chain": "EVIDENCE_ONLY"
             }
           ],
-          "strategy_chain_parent_cycle_evidence_count": 7,
+          "strategy_chain_parent_cycle_evidence_count": 8,
           "strategy_chain_parent_cycle_status": "FLATTENED_EVIDENCE_ONLY_NO_SCORE_WEIGHT",
           "strategy_chain_review_batch": "030-HORIZONTAL-REVIEW",
           "strategy_chain_review_status": "STRATEGIC_CHAIN_PRIMARY_REVIEW_COMPLETE",
-          "strategy_chain_review_basis": "闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链消费，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。",
+          "strategy_chain_review_basis": "闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链消费，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，档内按现行回报公式重算。",
           "strategy_chain_major_success_count": 0,
           "strategy_chain_major_failure_count": 0,
           "capability_only_major_success_count": 0,
@@ -8351,9 +8390,10 @@
             "ZZTJ-276-CHU-HAN-FENGZHOU-0928",
             "ZZTJ-277-JIAOZHOU-0931",
             "ZZTJ-280-HAN-CHU-MENGGUI-0936",
-            "ZZTJ-283-ZHANG-YUXIAN-HAN"
+            "ZZTJ-283-ZHANG-YUXIAN-HAN",
+            "ZZTJ-281-BACHDANG-JIAOZHOU-0937"
           ],
-          "current_parent_cycle_count": 6,
+          "current_parent_cycle_count": 7,
           "parent_cycle_removed_by_v30": [],
           "major_vote_dedup_policy": "COUNT_STRATEGY_CHAINS_NOT_PARENT_REFS",
           "major_victory_gate_chain_view": {
@@ -8383,27 +8423,27 @@
               "status": "NOT_A_GRADE5_CANDIDATE"
             }
           },
-          "public_adjudication_summary": "军事体系整体为第2级水平。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 本人战略责任与具体统帅执行按事实区分。",
+          "public_adjudication_summary": "军事体系整体为第2级水平。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，同级按现行回报公式重算。 本人战略责任与具体统帅执行按事实区分。",
           "public_evidence_items": [
             {
               "id": "THIRD-C-PUBLIC-E786A48586630831",
               "public_label": "实战任务交付",
               "public_role": "实战结果",
-              "public_basis": "该方面为第2级水平。已核对6项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
+              "public_basis": "该方面为第2级水平。已核对7项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，同级按现行回报公式重算。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
               "public_boundary": "这里只看本人责任窗口内军事体系把资源转化为真实任务结果的表现，具体统帅执行按事实分别承担责任。"
             },
             {
               "id": "THIRD-C-PUBLIC-8BC3397AD74B7E62",
               "public_label": "持续作战与任务承载",
               "public_role": "持续承载",
-              "public_basis": "该方面为第2级水平。已核对6项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
+              "public_basis": "该方面为第2级水平。已核对7项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，同级按现行回报公式重算。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
               "public_boundary": "这里只看跨阶段动员、补充和完成任务的实际承载，不把单次胜负或后继者独立作战重复计入。"
             },
             {
               "id": "THIRD-C-PUBLIC-4C7E1BE9BA8233FD",
               "public_label": "军事体系可靠性",
               "public_role": "体系可靠性",
-              "public_basis": "该方面为第2级水平。已核对6项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
+              "public_basis": "该方面为第2级水平。已核对7项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，同级按现行回报公式重算。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
               "public_boundary": "这里只看不同战区和压力下体系是否可靠，不把单名将的独立能力或同一战果重复计为体系表现。"
             }
           ],
@@ -8412,13 +8452,13 @@
           "public_component_label": "军事体系整体结果",
           "public_axis_projections": {
             "C1": {
-              "public_adjudication_summary": "该方面为第2级水平。已核对6项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
+              "public_adjudication_summary": "该方面为第2级水平。已核对7项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，同级按现行回报公式重算。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
               "public_evidence_items": [
                 {
                   "id": "THIRD-C1-PUBLIC-291E6705D6A6C3DB",
                   "public_label": "实战任务交付",
                   "public_role": "实战结果",
-                  "public_basis": "该方面为第2级水平。已核对6项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
+                  "public_basis": "该方面为第2级水平。已核对7项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，同级按现行回报公式重算。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
                   "public_boundary": "这里只看本人责任窗口内军事体系把资源转化为真实任务结果的表现，具体统帅执行按事实分别承担责任。"
                 }
               ],
@@ -8427,13 +8467,13 @@
               "public_component_label": "实战任务交付"
             },
             "C2": {
-              "public_adjudication_summary": "该方面为第2级水平。已核对6项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
+              "public_adjudication_summary": "该方面为第2级水平。已核对7项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，同级按现行回报公式重算。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
               "public_evidence_items": [
                 {
                   "id": "THIRD-C2-PUBLIC-7D403B4A245B3906",
                   "public_label": "持续作战与任务承载",
                   "public_role": "持续承载",
-                  "public_basis": "该方面为第2级水平。已核对6项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
+                  "public_basis": "该方面为第2级水平。已核对7项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，同级按现行回报公式重算。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
                   "public_boundary": "这里只看跨阶段动员、补充和完成任务的实际承载，不把单次胜负或后继者独立作战重复计入。"
                 }
               ],
@@ -8442,13 +8482,13 @@
               "public_component_label": "持续作战与任务承载"
             },
             "C3": {
-              "public_adjudication_summary": "该方面为第2级水平。已核对6项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
+              "public_adjudication_summary": "该方面为第2级水平。已核对7项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，同级按现行回报公式重算。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
               "public_evidence_items": [
                 {
                   "id": "THIRD-C3-PUBLIC-9CA7E05C646B8B67",
                   "public_label": "军事体系可靠性",
                   "public_role": "体系可靠性",
-                  "public_basis": "该方面为第2级水平。已核对6项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
+                  "public_basis": "该方面为第2级水平。已核对7项独立任务，其中较好结果0项、低回报0项、负向结果0项。闽、楚、交州等外线胜负混杂；张遇贤军在南汉境内起事、击败南汉军并陷循州后外溢虔州，必须按一个连续叛乱链计入，且本人窗口未恢复受损控制。整体只能证明局部任务能力与有限持续/复制，2/2/2维持。 938年独立舟师败损补入负向实战链；既有局部任务交付及持续性仍支持2/2/2，不因单次区域失败认定全国体系瘫痪，同级按现行回报公式重算。 本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。",
                   "public_boundary": "这里只看不同战区和压力下体系是否可靠，不把单名将的独立能力或同一战果重复计为体系表现。"
                 }
               ],

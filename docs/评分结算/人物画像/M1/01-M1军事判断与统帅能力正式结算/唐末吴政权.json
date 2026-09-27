@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        63
+        62
       ],
       "records": [
         {
@@ -28,16 +28,16 @@
           "score_100": 71,
           "radar_value": 71,
           "applicability_basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。",
-          "whole_distribution_grade_basis": "武将锚仅important且全分布厚度不足；当前支持明显长板但不足以发布G4。",
+          "whole_distribution_grade_basis": "武将锚仅important且独立可归责军事表现不足以证明更高档；当前支持明显长板但不足以发布G4。",
           "role_attribution": "同一战争子摘录去重，取三个父级任务。",
           "phase_profile": "同一战争子摘录去重，取三个父级任务。",
           "failure_and_recovery": "情境数有限且无同强失败链，限制G5；主要窗口覆盖充分。",
           "limitations": [
-            "INSUFFICIENT_WHOLE_DISTRIBUTION_THICKNESS"
+            "独立可归责军事表现与跨任务复验有限，不表示材料底池未覆盖全生涯。"
           ],
           "diagnostic_context_refs": [],
-          "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
-          "decision_origin": "V03_EXPLICIT_WHOLE_DISTRIBUTION_ADJUDICATION_REUSED",
+          "search_scope": "全生涯逐战役登记为材料底池；武将人才汇总和代表父周期用于定位本人角色，军事结算只作具体成果与成本父周期反查。",
+          "decision_origin": "EXPLICIT_CURRENT_PERSON_ADJUDICATION",
           "adjudication_ref": "M1-V05-ADJ-RULER-SHADOW-杨行密",
           "representative_parent_contexts": [
             {
@@ -61,14 +61,14 @@
           ],
           "typical_pattern": "三个独立情境含D4，覆盖淮南创业、清口和不同对象，方向、统筹和临阵均有高压复验。",
           "counterpattern": "情境数有限且无同强失败链，限制G5；主要窗口覆盖充分。",
-          "grade_basis": "武将锚仅important且全分布厚度不足；当前支持明显长板但不足以发布G4。",
-          "position_basis": "档内高位：同一战争子摘录去重，取三个父级任务。；情境数有限且无同强失败链，限制G5；主要窗口覆盖充分。；限制：INSUFFICIENT_WHOLE_DISTRIBUTION_THICKNESS",
+          "grade_basis": "武将锚仅important且独立可归责军事表现不足以证明更高档；当前支持明显长板但不足以发布G4。",
+          "position_basis": "档内高位：同一战争子摘录去重，取三个父级任务。；情境数有限且无同强失败链，限制G5；主要窗口覆盖充分。；限制：独立可归责军事表现与跨任务复验有限，不表示材料底池未覆盖全生涯。",
           "axis_relevance_check": {
             "status": "M1_RELEVANT",
             "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
           },
           "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
-          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "explicit_adjudication_source_origin": "LIFETIME_BATTLE_REGISTRY_WITH_PERSONAL_ROLE_REVIEW",
           "grade_basis_claimed_material_intensities": [],
           "material_intensity_claim_text_fields": [
             "grade_basis",
@@ -76,102 +76,6 @@
           ],
           "representative_context_max_material_intensity": "MI1_CASE",
           "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
-          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-SHADOW-杨行密",
-          "normative_entry_coverage": {
-            "sequence": 121,
-            "task_code": "PROFILE-M1-RULER-SHADOW-杨行密",
-            "ruler_id": "RULER-SHADOW-杨行密",
-            "ruler_name": "杨行密",
-            "axis_code": "M1",
-            "entries": [
-              {
-                "entry_code": "M1_BATTLE_REGISTRY",
-                "source_path": "docs/公共成果/军事/01-战役登记.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "WAR-LEAD-259-HUAINAN-END",
-                  "WAR-LEAD-260-HUAINAN-ZHEDONG-OPEN",
-                  "WAR-LEAD-261-QINGKOU-END"
-                ],
-                "stable_parent_ref_count": 3,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
-                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "PCR-LOW-9A221555C2947652",
-                  "WAR-LEAD-259-HUAINAN-END",
-                  "WAR-LEAD-261-QINGKOU-END"
-                ],
-                "stable_parent_ref_count": 3,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_FIRST_ITEM_C",
-                "source_path": "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "PCR-LOW-9A221555C2947652",
-                  "TALENT-SUPPLEMENT:PCR-LOW-9A221555C2947652:positive",
-                  "TALENT-SUPPLEMENT:WAR-LEAD-259-HUAINAN-END:positive",
-                  "TALENT-SUPPLEMENT:WAR-LEAD-261-QINGKOU-END:positive",
-                  "WAR-LEAD-259-HUAINAN-END",
-                  "WAR-LEAD-261-QINGKOU-END"
-                ],
-                "stable_parent_ref_count": 6,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              },
-              {
-                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
-                "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
-                "connection_attempted": true,
-                "connection_status": "MATCHED_STABLE_PARENTS",
-                "stable_parent_refs": [
-                  "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904",
-                  "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
-                  "CHAIN-YANGXINGMI-FENGHONGDUO-902",
-                  "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905",
-                  "PARENT-FENGHONGDUO-FLEET-902",
-                  "PARENT-HUAINAN-ANRENYI-903-905",
-                  "PARENT-HUAINAN-DUHONG-EOZHOU-902-905",
-                  "PARENT-HUAINAN-TIANJUN-REBELLION-903",
-                  "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
-                  "ZZTJ-264-HUAINAN-SUZHOU-0903"
-                ],
-                "stable_parent_ref_count": 10,
-                "no_hit_reason": null,
-                "supplement_required": false,
-                "entry_mapping_remediation_required": false,
-                "full_grade_entry_gate_passed": true,
-                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
-              }
-            ],
-            "all_normative_entries_attempted": true,
-            "stable_parent_entry_count": 4,
-            "entry_gap_count": 0,
-            "full_grade_normative_entry_gate_passed": true,
-            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
-            "historical_supplement_required": false,
-            "existing_supplement_parent_refs": []
-          },
-          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
           "formal_status": "FORMAL_CURRENT",
           "military_talent_anchor": {
             "status": "FORMAL_PROFILE_CONNECTED",
@@ -183,12 +87,6 @@
             "grade_status": "current_battle_registry_grade",
             "stability_status": "no_comparable_major_failure_established",
             "profile_ref": "MIL-PROFILE-144786BB66E94F93"
-          },
-          "pre_structural_review_grade_basis": "三个独立情境含D4，覆盖淮南创业、清口和不同对象，方向、统筹和临阵均有高压复验。",
-          "structural_review": {
-            "status": "REVISED",
-            "basis_code": "G4_FULL_LIFETIME_GATE",
-            "basis": "武将锚仅important且全分布厚度不足；当前支持明显长板但不足以发布G4。"
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -213,23 +111,6 @@
               "3) 前线+ `A/D3`｜清口—淠水汴淮决战897／主帅"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线+ `B/D2`｜杨行密：围苏并取得苏州，统淮南主要阶段。／主将<br>2) 统筹+ `A/—`｜杨行密采纳持久消耗方案并统筹孙儒战争终局／统筹<br>3) 前线+ `A/D3`｜清口—淠水汴淮决战897／主帅"
-          },
-          "full_pool_readjudication": {
-            "status": "FULL_LIFETIME_REVIEWED",
-            "decision_status": "RETAINED",
-            "before": {
-              "axis_grade": "G3",
-              "position": "HIGH",
-              "radar_value": 71
-            },
-            "after": {
-              "axis_grade": "G3",
-              "position": "HIGH",
-              "radar_value": 71
-            },
-            "result_difficulty_role_reviewed": true,
-            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
-            "basis": "武将锚仅important且全分布厚度不足；当前支持明显长板但不足以发布G4。"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -370,7 +251,60 @@
             "route": null,
             "decision": "G3-HIGH",
             "basis": "G4/G5 role-combination gate does not apply to the current grade."
-          }
+          },
+          "source_entry_connections": [
+            {
+              "entry_code": "M1_BATTLE_REGISTRY",
+              "source_path": "docs/公共成果/军事/01-战役登记.json",
+              "stable_parent_refs": [
+                "WAR-LEAD-259-HUAINAN-END",
+                "WAR-LEAD-260-HUAINAN-ZHEDONG-OPEN",
+                "WAR-LEAD-261-QINGKOU-END"
+              ]
+            },
+            {
+              "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+              "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+              "stable_parent_refs": [
+                "PCR-LOW-9A221555C2947652",
+                "WAR-LEAD-259-HUAINAN-END",
+                "WAR-LEAD-261-QINGKOU-END"
+              ]
+            },
+            {
+              "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+              "source_path": "docs/评分结算/净收益/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+              "stable_parent_refs": [
+                "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904",
+                "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
+                "CHAIN-YANGXINGMI-FENGHONGDUO-902",
+                "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905",
+                "PARENT-FENGHONGDUO-FLEET-902",
+                "PARENT-HUAINAN-ANRENYI-903-905",
+                "PARENT-HUAINAN-DUHONG-EOZHOU-902-905",
+                "PARENT-HUAINAN-TIANJUN-REBELLION-903",
+                "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+                "ZZTJ-264-HUAINAN-SUZHOU-0903"
+              ]
+            }
+          ],
+          "evidence_scope": {
+            "schema_version": "m1-evidence-scope-v1",
+            "material_coverage_status": "FULL_LIFETIME_REGISTERED",
+            "material_coverage_label": "全生涯逐战役登记已覆盖",
+            "material_coverage_basis": "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。",
+            "source_refs": [
+              "docs/公共成果/军事/01-战役登记.json",
+              "docs/公共成果/军事/02-武将人才等级.json"
+            ],
+            "ability_evidence_level": "E3",
+            "ability_evidence_label": "主要能力命题已完成归责、反例与限制核对",
+            "conclusion_mode_label": "已定档；发布全生涯能力模式与限制",
+            "attribution_boundary": "战役已登记不等于本人亲自指挥；名将战果、任务难度和国家资源不得自动转为本人能力。",
+            "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
+            "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
+          },
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
         }
       ]
     }
