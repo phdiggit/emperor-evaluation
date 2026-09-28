@@ -27,6 +27,10 @@ def verify() -> dict[str, int]:
     entry = profile_axis_entry("M1")
     assert payload["contract_version"] == entry["axis_contract_version"], "M1 contract version drift"
     rows = payload["records"]
+    assert payload["record_order_policy"] == "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    assert rows == sorted(rows, key=lambda row: (-row["radar_value"], row["ruler_id"])), (
+        "M1 display order differs from the declared policy"
+    )
     talent = load_talent_registry(ROOT / "docs/公共成果/军事/02-武将人才等级.json")
     for profile in talent["profiles"]:
         if any(item.get("source_alias_refs") for item in profile.get("failure_accountability", [])):
