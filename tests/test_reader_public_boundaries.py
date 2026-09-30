@@ -270,6 +270,10 @@ assert.equal(api.names('M1.4反馈'),'失败识别、止损与重组反馈');
 assert.equal(api.names('C2-SYNTHETIC-CASE'),'学习纠错情境记录');
 for(const s of ['MODEL-C5','C5.md','C2.9','C50','aC5','MAC5','未知CODE'])assert.equal(api.names(s),s);
 assert.equal(api.scope('R2_BOUNDED'),'扩大到单一家庭或窄亲属群');
+assert.equal(
+ api.map('本轮MI2_LIFECYCLE材料未过G5硬门，最新重裁后仍保留MI4_CROSS_PHASE_SYSTEMIC正链；整改前显示已撤回。'),
+ '当前公开材料范围内完整生命周期情境材料未过G5定档条件，重新核对后仍保留跨阶段系统性情境正链；此前显示已撤回。'
+);
 // Public names only act in the profile renderer, never by mutating stored data.
 const original={axis:'C5',source:'docs/C5/source.json',prose:'C5具体行为'};
 const before=JSON.stringify(original);api.map(original.prose);assert.equal(JSON.stringify(original),before);
