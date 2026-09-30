@@ -159,6 +159,7 @@ def test_home_simple_cards_use_three_full_column_targets():
     assert 'data-home-section="person-capability"' in simple
     assert 'data-home-section="person-impact"' in simple
     assert "homeProfileSummary(r)" in simple
+    assert "home-profile-static" in simple
     assert "homePrudentRank(r.net)" in simple
     assert "home-simple-action" not in simple
     assert "home-simple-compare" not in simple
