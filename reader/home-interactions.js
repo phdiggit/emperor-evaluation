@@ -559,7 +559,11 @@ function firstCommanderMarkup(item) {
       .replace(/([一二三四五六七])档本人改善/g, (_, count) => `${count}个等级的本人改善`)
       .replace(/(实战任务交付|持续作战与任务承载|军事体系可靠性)=([0-5])/g, (_, label, level) => `${label}为${thirdGradeText(level)}`)
       .replace(/(实战任务交付|持续作战与任务承载|军事体系可靠性)维持([0-5])/g, (_, label, level) => `${label}维持${thirdGradeText(level)}`)
-      .replace(/客观变动[+-]?\d+档按[+-]?\d+档本人责任/g, "客观状态变化按已裁本人责任计入")
+      .replace(/故?客观变动[+-]?\d+档按[+-]?\d+档本人责任/g, "相应状态变化按本人责任计入")
+      .replace(/第三项独立计入/g, "本项计入")
+      .replace(/第三项独立方向/g, "本项")
+      .replace(/第三项只读/g, "本项只计")
+      .replace(/(实际控制范围|战略成果价值|控制成果稳定性)为当前结果为/g, "$1当前为")
       .replace(/\bA1主要安全威胁与战略主动/g, "主要安全威胁与战略主动")
       .replace(/\bA2防线协同与战略纵深/g, "防线协同与战略纵深")
       .replace(/\bB1实际控制范围/g, "实际控制范围")
@@ -586,7 +590,9 @@ function firstCommanderMarkup(item) {
       .replace(/不生成变化分\s+没有确认本人造成的状态变化/g, "不产生变化分；现有材料没有确认本人造成状态变化")
       .replace(/。。+/g, "。");
     if (!isCost) {
-      text = text.replace(/(^|[^A-Za-z0-9_.])([0-5])档/g, (_, prefix, level) => `${prefix}${thirdGradeText(level)}`);
+      text = text
+        .replace(/(^|[^A-Za-z0-9_.])([0-5])档/g, (_, prefix, level) => `${prefix}${thirdGradeText(level)}`)
+        .replace(/规模与控制强度：/g, "");
     }
     return cleanNetText(text);
   }
