@@ -32,13 +32,15 @@ const context = {document:{createElement(tag){
   };
 }}};
 vm.createContext(context);
-vm.runInContext(source.slice(start, end) + '\nthis.renderFacts=publicFacts; this.renderText=publicText; this.renderList=publicEvidenceList; this.enumText=publicEnumText; this.financeText=publicFinanceText;', context);
+vm.runInContext(source.slice(start, end) + '\nthis.renderFacts=publicFacts; this.renderText=publicText; this.renderList=publicEvidenceList; this.enumText=publicEnumText; this.financeText=publicFinanceText; this.boundaryText=publicBoundaryText; this.financeBoundaryText=publicFinanceBoundaryText;', context);
 for (const [raw,shown] of Object.entries({
   '五档':'A档','第五档':'A档','四档':'B档','第四档':'B档',
   '三档':'C档','第三档':'C档','二档':'D档','第二档':'D档',
   '一档':'E档','第一档':'E档','六档':'S档','第六档':'S档'
 })) assert.equal(context.financeText(raw),shown);
 assert.equal(context.financeText('中期支持五档，但长期阻断六档；主态维持四档。'),'中期支持A档，但长期阻断S档；主态维持B档。');
+assert.equal(context.boundaryText('同一机制只作一次判断；同一机制只作一次判断；'),'同一机制只作一次判断');
+assert.equal(context.financeBoundaryText('第五档；第五档；'),'A档');
 const fragments = [
   '保留恢复的责任范围：本人主导。',
   '未过较高档门，但不等于没有改善。',
@@ -81,10 +83,10 @@ for (const name of fs.readdirSync(path.join(root,'reader/data/people'))) {
   }
 }
 assert.ok(checked > 0);
-// Both the displayed evidence and the outer boundary must use the same lossless formatter.
+// Evidence prose stays lossless; only the outer boundary summary may collapse exact repeated clauses.
 assert.match(source, /const financeItem = \["C1民生","C2经济财政","C3社会安全","C4恢复与成本"\]\.includes\(label\)/);
-assert.match(source, /makeDetails\("范围与边界", financeItem \? publicFinanceText\(item\.reader_boundary/);
-assert.match(source, /: publicText\(item\.reader_boundary/);
+assert.match(source, /makeDetails\("范围与边界", financeItem \? publicFinanceBoundaryText\(item\.reader_boundary/);
+assert.match(source, /: publicBoundaryText\(item\.reader_boundary/);
 assert.match(source, /body: publicFinanceText\(entry\?\.public_basis\)/);
 assert.match(source, /label === "B2反馈与约束"/);
 assert.match(source, /renderB2MaterialGroups\(evidence\)/);
