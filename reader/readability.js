@@ -40,7 +40,7 @@
     .replace(/\bMI2(?:_LIFECYCLE)?\b/g, "完整生命周期情境")
     .replace(/\bMI3(?:_SUSTAINED_SYSTEMIC)?\b/g, "持续系统性情境")
     .replace(/\bMI4(?:_CROSS_PHASE_SYSTEMIC)?\b/g, "跨阶段系统性情境")
-    .replace(/最新重裁/g, "重新核对后")
+    .replace(/最新重裁/g, "重新核对")
     .replace(/重裁/g, "重新核对")
     .replace(/整改前/g, "此前")
     .replace(/硬门/g, "定档条件")
