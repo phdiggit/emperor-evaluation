@@ -853,3 +853,24 @@
 .home-profile-static .muted{margin:auto 0;line-height:1.7}
 @media(max-width:700px){.home-profile-static{min-height:150px;padding:15px}}
 @media(max-width:520px){.home-profile-static{min-height:0}}
+
+/* Focused system routes and compact uncertainty summary. */
+.net-position-summary{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:0 0 14px;font-size:13px}
+.net-position-summary>strong{font-size:15px}
+.net-position-summary>span{color:var(--green)}
+.net-position-summary small{margin-left:3px;padding:0 5px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:10px;font-weight:400}
+.system-route-nav{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 18px;padding:8px;border:1px solid var(--line);border-radius:6px;background:#eeefe7}
+.system-route-nav a{padding:5px 9px;border-radius:4px;text-decoration:none}
+.system-route-nav a.active{background:var(--ink);color:#fff}
+.single-system-page{max-width:1040px;margin:0 auto}
+.single-system-page>.panel{margin-bottom:18px}
+.single-system-evidence{max-width:none;margin:18px 0 0}
+.guide-rank-context{margin-top:16px}
+.guide-term-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px}
+.guide-term-grid>div{padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:#f7f5ef}
+.guide-term-grid strong{color:var(--green)}
+.guide-term-grid p{margin:4px 0 0;line-height:1.75;font-size:13px}
+@media(max-width:700px){
+ .system-route-nav{overflow-x:auto;flex-wrap:nowrap;white-space:nowrap}
+ .guide-term-grid{grid-template-columns:1fr}
+}

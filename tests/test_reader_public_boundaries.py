@@ -1379,3 +1379,12 @@ def test_second_item_compare_enhancers_accept_public_breakdown_row_title():
     alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
     assert '["分项构成","构成与依据"].includes' in reading
     assert '["分项构成", "构成与依据"].includes' in alias
+
+
+def test_stale_editorial_overviews_are_not_exposed_as_public_status():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/person-reading-notes.js").read_text(encoding="utf-8")
+    assert "这段阅读提要待复核" not in source
+    assert "阅读提要暂未加载" not in source
+    assert 'if (assessBlock(block, record).status !== "current") return null;' in source
+    assert "if (block) panel.querySelector" in source

@@ -172,23 +172,20 @@ function firstCommanderMarkup(item) {
   }
 
   function openPersonSection(id, section) {
-    const hash = "#person/" + encodeURIComponent(id);
-    if (!section) {
-      go(hash);
+    const encoded = encodeURIComponent(id);
+    if (section === "person-outcome") {
+      go(`#net/${encoded}/all`);
       return;
     }
-    if (location.hash === hash) {
-      route();
-      scrollWhenReady(section);
+    if (section === "person-capability") {
+      go(`#person/${encoded}/profile`);
       return;
     }
-
-    const afterRoute = () => {
-      window.removeEventListener("hashchange", afterRoute);
-      scrollWhenReady(section);
-    };
-    window.addEventListener("hashchange", afterRoute);
-    location.hash = hash;
+    if (section === "person-impact") {
+      go(`#person/${encoded}/impact`);
+      return;
+    }
+    go("#person/" + encoded);
   }
 
   function applyPolityFilter(polity) {

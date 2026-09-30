@@ -169,3 +169,29 @@ def test_home_simple_cards_use_three_full_column_targets():
     assert "Home result-card redesign" in css
     assert ".home-eval-net:hover" in css
     assert ".home-impact-mark .impact-grade" in css
+
+
+def test_home_system_columns_route_to_distinct_reading_paths():
+    source = (ROOT / "reader" / "home-interactions.js").read_text(encoding="utf-8")
+    assert 'section === "person-outcome"' in source
+    assert '#net/${encoded}/all' in source
+    assert 'section === "person-capability"' in source
+    assert '#person/${encoded}/profile' in source
+    assert 'section === "person-impact"' in source
+    assert '#person/${encoded}/impact' in source
+    template = (ROOT / "reader" / "index.template.html").read_text(encoding="utf-8")
+    assert "const personView=" in template
+    assert "function profilePage(r)" in template
+    assert "function impactPage(r)" in template
+    assert "personSystemNav(r,'overview')" in template
+
+
+def test_reader_explains_rank_uncertainty_without_overloading_compare_row():
+    template = (ROOT / "reader" / "index.template.html").read_text(encoding="utf-8")
+    compare_start = template.index("function compare(){")
+    compare_end = template.index("function guide()", compare_start)
+    compare = template[compare_start:compare_end]
+    for phrase in ("正式绩效", "审慎位置投影", "治理背景（非计分）", "史料与权重说明", "审慎位置固定权重"):
+        assert phrase in compare
+    for phrase in ("正式名次、审慎位置与治理背景", "不是统计置信区间", "不是所有人物同时变化后的联合名次区间", "与史料不确定性是两条不同问题", "当前不计分、不加难度奖励", "net-position-summary"):
+        assert phrase in template
