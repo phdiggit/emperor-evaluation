@@ -84,7 +84,7 @@ function firstCommanderMarkup(item) {
     },
     fourth: {
       title: "第四项 · 文明与国家整合",
-      description: "以有符号调整进入总榜，正向、负向与零调整都保留具体结算依据。",
+      description: "看本人窗口在共同体、教育人才与知识文化三方面形成的可归责净变化；这是有符号调整，不是文明程度或时代先进程度排名。",
       groups: ["civilization"],
     },
   };
@@ -358,9 +358,20 @@ function firstCommanderMarkup(item) {
       .filter(item => item.label !== "第四项调整" && finiteNetNumber(item.value) != null);
     const hasPositive = axes.some(item => finiteNetNumber(item.value) > 0);
     const hasNegative = axes.some(item => finiteNetNumber(item.value) < 0);
+    const hasBalancedZero = axes.some(item => /^BALANCED\s*\/\s*CIV0$/i.test(String(item.grade || "").trim()));
+    const hasNoIndependentChange = axes.some(item => /^NO_ELIGIBLE/i.test(String(item.grade || "").trim()));
     const adjustment = finiteNetNumber(record.net?.fourth_item_adjustment);
     if (adjustment === 0 && hasPositive && hasNegative) {
       return "本项总调整为0：存在正向与负向分轴，合计后相抵；0不代表各轴都没有变化。";
+    }
+    if (adjustment === 0 && hasBalancedZero && hasNoIndependentChange) {
+      return "本项总调整为0：部分分项的已确认正负变化相抵，其余分项未确认可单独计入的净变化；这些0的来源并不相同。";
+    }
+    if (adjustment === 0 && hasBalancedZero) {
+      return "本项总调整为0：至少一个分项存在已确认的正负变化，但在该分项内净算后相抵；0不等于没有变化。";
+    }
+    if (adjustment === 0 && hasNoIndependentChange) {
+      return "本项总调整为0：当前分项未确认可单独计入的净变化；0不表示相关领域没有史料，只表示没有形成独立有符号调整。";
     }
     return "三个分项合计范围为 -67.5～+67.5；正负值直接进入总榜。";
   }

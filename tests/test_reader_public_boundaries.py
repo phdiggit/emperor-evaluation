@@ -1468,3 +1468,14 @@ def test_compare_highlight_excludes_context_uncertainty_and_preserves_profile_ev
     assert "判断把握：" in readability
     assert 'meta.className = "compare-evidence-meta"' in readability
     assert ".compare-evidence-meta{" in css
+
+
+def test_fourth_item_reader_distinguishes_zero_sources_and_rejects_progress_ranking_reading():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "不是文明程度或时代先进程度排名" in source
+    assert "hasBalancedZero" in source
+    assert "hasNoIndependentChange" in source
+    assert "这些0的来源并不相同" in source
+    assert "0不等于没有变化" in source
+    assert "没有形成独立有符号调整" in source
