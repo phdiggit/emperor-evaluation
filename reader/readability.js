@@ -45,6 +45,14 @@
     .replace(/整改前/g, "此前")
     .replace(/硬门/g, "定档条件")
     .replace(/本轮/g, "当前公开材料范围内")
+    .replace(/([SABCDE](?:[+−-])?)\/D[34]\b/g, "$1成果／高压任务")
+    .replace(/最新B1/g, "现行官僚治理材料")
+    .replace(/重新反向检索后/g, "补充反例核对后")
+    .replace(/硬负例/g, "明确强反例")
+    .replace(/重要下沿需要同时消费/g, "重要下限证据需要同时计入")
+    .replace(/行政正链/g, "行政正向证据链")
+    .replace(/中枢正链/g, "中枢正向证据链")
+    .replace(/极强军事链/g, "极强军事证据链")
     .replace(/\bUNRESOLVED\b/g, "尚未确认");
 
   readerText = publicReaderText;
