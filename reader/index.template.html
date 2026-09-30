@@ -88,6 +88,14 @@ function impactPublicText(t){
   .replace(/足以守([SABCDE][+−-]?)/g,'足以支持$1档')
   .replace(/故守([SABCDE][+−-]?)/g,'因此维持$1档');
 }
+function impactDimensionPublicText(key,value){
+ let text=impactPublicText(value);
+ const labels={scope:"影响范围",depth_duration:"深度与持续",personal_causality:"个人因果",paradigm:"政治范式"};
+ const label=labels[key]||"";
+ if(label)text=text.replace(new RegExp(`^${label}为[SABCDE](?:[+−-])?[。；:]?\\s*`),"");
+ if(key==="paradigm")text=text.replace(/^范式[SABCDE](?:[+−-])?[。；:]?\s*/,"");
+ return text.trim();
+}
 function paradigmReceptionProse(review){
  const receptions=Array.isArray(review?.receptions)?review.receptions.filter(r=>r&&typeof r==='object'):[];
  if(!receptions.length)return '';
@@ -166,7 +174,7 @@ function historySections(r,idSuffix='',compact=false){
  const counterfactual=impactPublicText(h.nearest_feasible_counterfactual||h.counterfactual_entry?.functional_alternative||causalReview.strongest_alternative||'');
  const personalBoundary=impactPublicText(h.personal_causal_boundary||'');
  const evidenceBoundary=impactPublicText(h.public_boundary||h.confidence_basis||'');
- const publicBasis=key=>impactPublicText(h.dimensions?.[key]?.public_basis||'当前正式记录未另列公开说明。');
+ const publicBasis=key=>impactDimensionPublicText(key,h.dimensions?.[key]?.public_basis||'当前正式记录未另列公开说明。');
  const hid=base=>`${base}${idSuffix}`;
  const dimension=(key,title,question,body)=>`<details id="${hid(`history-dimension-${key}`)}" class="impact-dimension-section impact-evidence-fold"><summary><span>${esc(title)}</span><span class="badge">${esc(h.dimensions?.[key]?.grade||'—')}</span></summary><p class="subline">${esc(question)}</p>${body}</details>`;
  const scopeBody=`${prose(publicBasis('scope'))}${impactSourceList(r,scopeIndices,'范围依据')}`;
