@@ -325,7 +325,10 @@ function firstCommanderMarkup(item) {
   }
 
   function netValue(item, groupKey = "") {
-    if (item?.value == null) return item?.unit === "不单独计分" ? "不单独计分" : "—";
+    if (item?.value == null) return item?.unit === "不单独计分" ? "参与合成，不单列分值" : "—";
+    if (groupKey === "strategic" && item.unit === "%" && ["B1","B2","B4"].includes(item.label)) {
+      return `合成采用 ${Number(item.value)}%`;
+    }
     const signed = item.value > 0 && groupKey === "civilization" ? `+${item.value}` : String(item.value);
     return `${signed}${item.unit ? ` ${item.unit}` : ""}`;
   }
@@ -354,7 +357,7 @@ function firstCommanderMarkup(item) {
     if (adjustment === 0 && hasPositive && hasNegative) {
       return "本项总调整为0：存在正向与负向分轴，合计后相抵；0不代表各轴都没有变化。";
     }
-    return "有符号调整，三轴合计范围为 -67.5～+67.5；正负值直接进入总榜。";
+    return "有符号调整，三个分项合计范围为 -67.5～+67.5；正负值直接进入总榜。";
   }
 
   function netHref(record, major = "all", focus = "") {
@@ -767,7 +770,7 @@ function firstCommanderMarkup(item) {
       : "";
     const formula = scoreHowDetails(item, groupKey, how, formalLevel, record);
     const secondSource = SECOND_PUBLIC_GROUPS.has(groupKey) ? ` data-second-source-label="${esc(item.label)}"` : "";
-    return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">正式层级：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${summaryFold}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
+    return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">当前判断：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${summaryFold}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
   }
 
   const PUBLIC_CALCULATION_KEEP = {
@@ -1153,7 +1156,7 @@ function firstCommanderMarkup(item) {
     const scoreNote = major === "third"
       ? `本项进入总榜的净分：${shownValue} / 250；已扣实际军事代价。`
       : major === "fourth"
-        ? `本项进入总榜的有符号调整：${shownValue}。 ${fourthAdjustmentNote(record)} 理论范围 -67.5～+67.5。`
+        ? `本项进入总榜的有符号调整：${shownValue}。 ${fourthAdjustmentNote(record)}`
         : `本项进入总榜的分值：${shownValue}。`;
     renderNetShell(record, major, `<section class="panel"><h2>${esc(spec.title)}</h2><p>${esc(spec.description)}</p><p class="subline">${esc(scoreNote)}</p></section><div id="net-major-body"><div class="empty">正在整理当前人物的逐项结算逻辑…</div></div>`);
     renderGenericMajor(record, major, focus);

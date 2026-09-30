@@ -239,7 +239,7 @@
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       const summary = detail.querySelector(":scope > summary");
       setPublicGrade(summary?.querySelector(":scope > span"), summary?.querySelector(":scope > b"), grade,
-        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（合成输入，不单独加分）`, boundaryExcerpt(item)]);
+        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`, boundaryExcerpt(item)]);
     }
     for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
       const sourceLabel = span.dataset.secondSourceLabel || "";
@@ -247,7 +247,7 @@
       const grade = publicMethodGrade(item);
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       setPublicGrade(span, span.parentElement?.querySelector(":scope > b"), grade,
-        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（合成输入，不单独加分）`, boundaryExcerpt(item)]);
+        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`, boundaryExcerpt(item)]);
     }
   }
 
@@ -402,7 +402,7 @@
       const formal = publicTechnicalText(item.reader_how || "该原始表现指数进入制度与行政合成，不作为本轴直接得分。");
       const expanded = secondMethodExpandedHow(label);
       add("换算规则", [formal, expanded].filter(Boolean).join(" "));
-      add("当前结果", "作为制度与行政合成输入，不单独加分");
+      add("当前结果", "用于制度与行政折算，不单列得分");
     } else if (["C1民生","C2经济财政","C3社会安全"].includes(label)) {
       const meta = stateGradeMeta(item);
       const band = String(item?.grade || "").match(/\bC[123]-(\d)\s*\/\s*L([0-3])\b/i);

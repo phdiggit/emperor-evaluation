@@ -589,7 +589,7 @@ def test_third_fourth_detail_material_cards_use_formal_public_fields_only():
     ):
         assert forbidden not in block
     assert "metricDetail(item, record, key)" in source
-    assert '正式层级：' in source
+    assert '当前判断：' in source
 
 def test_profile_material_strength_is_public_first_and_raw_code_is_audit_only():
     from pathlib import Path
@@ -1138,10 +1138,10 @@ def test_major_cards_explain_third_and_fourth_item_scales():
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "250分制净分" in source
     assert "再扣实际军事代价" in source
-    assert "有符号调整，三轴合计范围为 -67.5～+67.5" in source
+    assert "有符号调整，三个分项合计范围为 -67.5～+67.5" in source
     assert "本项进入总榜的净分：" in source
     assert "本项进入总榜的有符号调整：" in source
-    assert "理论范围 -67.5～+67.5" in source
+    assert "理论范围 -67.5～+67.5" not in source
 
 def test_person_page_builds_compact_net_summary_without_transient_full_detail_tree():
     from pathlib import Path
@@ -1229,7 +1229,7 @@ def test_legacy_second_item_renderer_uses_same_public_grade_language():
     assert "主要状态第" not in source
     assert "低谷修正${low}级" not in source
     assert "原始表现指数" in source
-    assert "合成输入，不单独加分" in source
+    assert "用于本组折算，不单列得分" in source
     assert '"A制度建设":"制度建设"' in source
     assert '"C1民生":"民生"' in source
     assert 'setNodeText(value,`${methodBand(item)}档`)' in source
@@ -1257,8 +1257,8 @@ def test_second_item_method_index_is_explicitly_an_input_not_a_direct_score():
     source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
     assert "原始方向指数" not in source
     assert "原始表现指数" in source
-    assert "合成输入，不单独加分" in source
-    assert "作为制度与行政合成输入，不单独加分" in source
+    assert "用于本组折算，不单列得分" in source
+    assert "用于制度与行政折算，不单列得分" in source
     assert "较高表现指数" in source
     assert "当前表现指数" in source
 
@@ -1388,3 +1388,16 @@ def test_stale_editorial_overviews_are_not_exposed_as_public_status():
     assert "阅读提要暂未加载" not in source
     assert 'if (assessBlock(block, record).status !== "current") return null;' in source
     assert "if (block) panel.querySelector" in source
+
+
+def test_third_item_percentages_are_labeled_as_composite_adoption_rates():
+    from pathlib import Path
+    home = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    person = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
+    assert 'groupKey === "strategic" && item.unit === "%" && ["B1","B2","B4"].includes(item.label)' in home
+    assert "合成采用 ${Number(item.value)}%" in home
+    assert "合成采用 ${Number(item.value)}%" in person
+    assert "合成采用 ${esc(String(Number(item.value)))}%" in template
+    assert "参与合成，不单列分值" in home
+    assert "参与合成，不单列分值" in template

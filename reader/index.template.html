@@ -101,8 +101,11 @@ function compareNetValue(item,key){
  const level=compareNetPublicLevel(item,key);
  const nonScoring=item?.unit==='不单独计分';
  if(item?.value==null){
-  if(level)return `<span class="compare-net-result"><b>${esc(level)}</b>${nonScoring?'<small>不单独计分</small>':''}</span>`;
-  return `<span class="compare-net-result"><b>${nonScoring?'不单独计分':'—'}</b></span>`;
+  if(level)return `<span class="compare-net-result"><b>${esc(level)}</b>${nonScoring?'<small>参与合成，不单列分值</small>':''}</span>`;
+  return `<span class="compare-net-result"><b>${nonScoring?'参与合成，不单列分值':'—'}</b></span>`;
+ }
+ if(key==='strategic'&&item.unit==='%'&&['B1','B2','B4'].includes(item.label)){
+  return `<span class="compare-net-result"><b>合成采用 ${esc(String(Number(item.value)))}%</b>${level?`<small>${esc(level)}</small>`:''}</span>`;
  }
  const value=key==='civilization'&&Number(item.value)>0?'+'+number(item.value):number(item.value);
  return `<span class="compare-net-result"><b>${value}${item.unit?' '+esc(item.unit):''}</b>${level?`<small>${esc(level)}</small>`:''}</span>`;
@@ -111,7 +114,7 @@ function netGroups(r){
  return Object.entries(r.net.component_details||{}).map(([key,items])=>{
   const judgments=(items||[]).filter(x=>x.reader_kind==='judgment'&&(x.value!=null||x.unit==='不单独计分'||x.public_level_label));
   if(!judgments.length)return '';
-  return `<details><summary>${esc(groupNames[key]||key)}</summary><p class="subline">只列正式分项与结果；公开层级随正式字段展示，内部档位码、折算中间项和小计不在对照页展开。</p>${judgments.map(x=>`<div class="component"><span>${esc(x.public_component_label||x.label)}</span>${compareNetValue(x,key)}</div>`).join('')}</details>`;
+  return `<details><summary>${esc(groupNames[key]||key)}</summary><p class="subline">只列正式分项与结果；当前判断随正式字段展示，内部档位码、折算中间项和小计不在对照页展开。</p>${judgments.map(x=>`<div class="component"><span>${esc(x.public_component_label||x.label)}</span>${compareNetValue(x,key)}</div>`).join('')}</details>`;
  }).join('');
 }
 const impactAuditSource=s=>{

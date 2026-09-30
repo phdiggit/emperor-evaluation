@@ -293,7 +293,8 @@
   }
 
   function netValue(item) {
-    if (item.value == null) return item.unit === "不单独计分" ? "不单独计分" : "—";
+    if (item.value == null) return item.unit === "不单独计分" ? "参与合成，不单列分值" : "—";
+    if (item.unit === "%" && ["B1","B2","B4"].includes(item.label)) return `合成采用 ${Number(item.value)}%`;
     const signed = item.value > 0 && item.label?.includes("文明") ? `+${item.value}` : String(item.value);
     return `${signed}${item.unit ? ` ${item.unit}` : ""}`;
   }
