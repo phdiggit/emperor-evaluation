@@ -274,6 +274,14 @@ assert.equal(
  api.map('本轮MI2_LIFECYCLE材料未过G5硬门，最新重裁后仍保留MI4_CROSS_PHASE_SYSTEMIC正链；整改前显示已撤回。'),
  '当前公开材料范围内完整生命周期情境材料未过G5定档条件，重新核对后仍保留跨阶段系统性情境正链；此前显示已撤回。'
 );
+assert.equal(
+ api.map('洛阳—虎牢S+/D4与河东反攻S-/D4构成极高压力直接统帅高峰。'),
+ '洛阳—虎牢S+成果／高压任务与河东反攻S-成果／高压任务构成极高压力直接统帅高峰。'
+);
+assert.equal(
+ api.map('最新B1显示行政正链；重新反向检索后发现硬负例，三条重要下沿需要同时消费，极强军事链仍保留。'),
+ '现行官僚治理材料显示行政正向证据链；补充反例核对后发现明确强反例，三条重要下限证据需要同时计入，极强军事证据链仍保留。'
+);
 // Public names only act in the profile renderer, never by mutating stored data.
 const original={axis:'C5',source:'docs/C5/source.json',prose:'C5具体行为'};
 const before=JSON.stringify(original);api.map(original.prose);assert.equal(JSON.stringify(original),before);
