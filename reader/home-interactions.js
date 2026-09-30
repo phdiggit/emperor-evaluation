@@ -665,8 +665,22 @@ function firstCommanderMarkup(item) {
       .replace(/影响幅度第([1-4一二三四])级/g, (_, level) => `影响幅度为${magnitude(level)}`)
       .replace(/第([1-4一二三四])级影响幅度/g, (_, level) => magnitude(level))
       .replace(/相对变化第([1-4一二三四])级/g, (_, level) => magnitude(level))
+      .replace(/结果方向未单列[：:]?/g, "正负变化并存：")
+      .replace(/相对既有状态[：:]/g, "比较起点：")
+      .replace(/责任范围按现有材料区分。?/g, "")
+      .replace(/本人窗口内的责任按事实区分。?/g, "")
+      .replace(/本人直接委托并提供支持。?/g, "本人直接委托并提供支持。")
+      .replace(/补充限制[：:]/g, "限制：")
+      .replace(/故本知识包按轴边界撤资格，保留史实。?/g, "因此该材料保留为背景，但不再单独形成本轴调整。")
+      .replace(/撤销本包/g, "该材料不再单独计入")
+      .replace(/净带位/g, "净档位")
+      .replace(/同窗文字标准化/g, "同轴文字标准化")
       .replace(/同账/g, "在同一维度合并判断")
-      .replace(/不足以洗掉/g, "不足以抵消");
+      .replace(/不足以洗掉/g, "不足以抵消")
+      .replace(/\s+；/g, "；")
+      .replace(/。。+/g, "。")
+      .replace(/\s+/g, " ")
+      .trim();
   }
 
   function civilizationBasisMarkup(value) {
