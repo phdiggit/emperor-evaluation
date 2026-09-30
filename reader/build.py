@@ -869,6 +869,48 @@ def axis_summary(axis):
     ])
 
 
+def public_power_window(value):
+    """Turn structured-looking power windows into stable human-readable text."""
+    if value is None:
+        return ""
+    if not isinstance(value, str):
+        value = json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    text = value.strip()
+    if not text.startswith("["):
+        return text
+    try:
+        parsed = json.loads(text)
+    except (TypeError, ValueError, json.JSONDecodeError):
+        return text
+    if not isinstance(parsed, list) or not parsed:
+        return text
+    spans = []
+    for span in parsed:
+        if not isinstance(span, list) or len(span) != 2:
+            return text
+        start, end = span
+        if not isinstance(start, int) or isinstance(start, bool) or not isinstance(end, int) or isinstance(end, bool):
+            return text
+        def year_label(year):
+            return f"前{abs(year)}" if year < 0 else str(year)
+        spans.append(f"{year_label(start)}—{year_label(end)}年")
+    return "；".join(spans)
+
+
+def public_governance_context(context):
+    if not isinstance(context, dict):
+        return context
+    result = deepcopy(context)
+    raw = result.get("actual_power_window")
+    shown = public_power_window(raw)
+    if raw is not None:
+        result["actual_power_window"] = shown
+    basis = result.get("basis")
+    if isinstance(basis, str) and raw is not None and shown != str(raw):
+        result["basis"] = basis.replace(str(raw), shown)
+    return result
+
+
 def record_summary(record):
     """Project a small, self-sufficient overview row without evidence prose."""
     net = record.get("net")
@@ -969,9 +1011,11 @@ def build(*, check=False, write=True):
     for person in main:
         rid = person["ruler_id"]
         record = pick(person, ["ruler_id", "ruler_name", "polity", "actual_power_window", "settlement_readiness"])
+        record["actual_power_window"] = public_power_window(record.get("actual_power_window"))
         projected_net = pick(net[rid], net_fields) if rid in net else None
         if projected_net:
             projected_net['evidence_assessment'] = net[rid]['evidence_assessment']['public_projection']
+            projected_net["governance_context"] = public_governance_context(projected_net.get("governance_context"))
             projected_net["component_details"] = project_net_explanations(
                 person,
                 net[rid],
@@ -989,7 +1033,7 @@ def build(*, check=False, write=True):
         if row["ruler_id"] in main_ids:
             raise ValueError("Supplementary sample overlaps main pool")
         records.append(dict(ruler_id=row["ruler_id"], ruler_name=row["ruler_name"], polity=row["polity"],
-                            actual_power_window=row.get("reference_power_window", ""),
+                            actual_power_window=public_power_window(row.get("reference_power_window", "")),
                             settlement_readiness="SUPPLEMENTARY", net=None, axes={}, impact=row, supplementary=True))
     index(records)
 
