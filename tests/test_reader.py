@@ -195,3 +195,13 @@ def test_reader_explains_rank_uncertainty_without_overloading_compare_row():
         assert phrase in compare
     for phrase in ("正式名次、审慎位置与治理背景", "不是统计置信区间", "不是所有人物同时变化后的联合名次区间", "与史料不确定性是两条不同问题", "当前不计分、不加难度奖励", "net-position-summary"):
         assert phrase in template
+
+
+def test_net_detail_uses_same_system_navigation_as_profile_and_impact():
+    source = (ROOT / "reader" / "home-interactions.js").read_text(encoding="utf-8")
+    start = source.index("function renderNetShell")
+    end = source.index("function renderNetLanding", start)
+    block = source[start:end]
+    assert 'typeof personSystemNav === "function"' in block
+    assert 'personSystemNav(record, "net")' in block
+    assert "${systemNav}${majorNav(record, active)}" in block

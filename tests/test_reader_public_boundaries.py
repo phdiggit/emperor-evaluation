@@ -1401,3 +1401,18 @@ def test_third_item_percentages_are_labeled_as_composite_adoption_rates():
     assert "合成采用 ${esc(String(Number(item.value)))}%" in template
     assert "参与合成，不单列分值" in home
     assert "参与合成，不单列分值" in template
+
+
+def test_third_public_level_heading_drops_redundant_current_result_prefix():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'formalLevel.replace(/^当前结果为\\s*/, "")' in source
+    assert '当前判断：${esc(formalLevelDisplay)}' in source
+    assert '当前判断：${esc(formalLevel)}' not in source
+
+
+def test_fourth_item_group_heading_is_not_identical_to_page_title():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'title: "第四项 · 文明与国家整合"' in source
+    assert 'civilization: "文明与国家整合 · 分项结算"' in source
