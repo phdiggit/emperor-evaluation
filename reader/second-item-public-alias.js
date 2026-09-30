@@ -351,6 +351,34 @@
     return publicEnumText(value);
   }
 
+  function dedupeBoundaryText(value) {
+    const text = String(value ?? "")
+      .replace(/\s+/g, " ")
+      .replace(/。；/g, "；")
+      .replace(/；；+/g, "；")
+      .trim();
+    if (!text) return "";
+    const seen = new Set();
+    const clauses = [];
+    for (const raw of text.split("；")) {
+      const clause = raw.trim();
+      if (!clause) continue;
+      const key = clause.replace(/[。；]+$/g, "").trim();
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      clauses.push(clause);
+    }
+    return clauses.join("；");
+  }
+
+  function publicBoundaryText(value) {
+    return dedupeBoundaryText(publicText(value));
+  }
+
+  function publicFinanceBoundaryText(value) {
+    return dedupeBoundaryText(publicFinanceText(value));
+  }
+
   const FINANCE_BASE_SCORES = {
     "C1民生": {1:5.7,2:17.1,3:32.0,4:54.9,5:74.3,6:80.0},
     "C2经济财政": {1:1.8,2:7.0,3:14.9,4:23.6,5:29.8,6:35.0},
@@ -475,7 +503,7 @@
     if (body) card.append(makeTextBlock("p", "adjudication-material-basis", body));
 
     const scope = publicText(data.scope);
-    const boundary = publicText(data.boundary);
+    const boundary = publicBoundaryText(data.boundary);
     if (scope || boundary) {
       const details = document.createElement("details");
       details.className = "adjudication-material-boundary";
@@ -612,6 +640,7 @@
     card: materialCard,
     group: materialGroup,
     publicEnumText,
+    boundaryText: publicBoundaryText,
   });
 
   function publicFacts(item) {
@@ -717,7 +746,7 @@
       }
       body.append(reading);
       const financeItem = ["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label);
-      const boundaryDetails = makeDetails("范围与边界", financeItem ? publicFinanceText(item.reader_boundary || "") : publicText(item.reader_boundary || ""));
+      const boundaryDetails = makeDetails("范围与边界", financeItem ? publicFinanceBoundaryText(item.reader_boundary || "") : publicBoundaryText(item.reader_boundary || ""));
       if (boundaryDetails) body.append(boundaryDetails);
       const howDetails = secondScoreHowDetails(item, label);
       if (howDetails) body.append(howDetails);
