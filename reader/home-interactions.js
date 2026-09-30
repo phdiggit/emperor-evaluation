@@ -539,7 +539,7 @@ function firstCommanderMarkup(item) {
       .replace(/。[^。]{0,16}\s+防线协同与战略纵深（边界、门户、纵深与缓冲体系）本人责任判断：/g, "。")
       .replace(/维持主要本人责任0\.75/g, "维持本人主要责任")
       .replace(/主导国家层面的网络建设，取1；/g, "主导国家层面的网络建设，按本人主要责任计入；")
-      .replace(/，?故客观变动[+-]?\d+档中取[+-]?\d+(?:\.\d+)?档。?/g, "。")
+      .replace(/[，；,;]?故客观变动[+-]?\d+档中取[+-]?\d+(?:\.\d+)?档。?/g, "。")
       .replace(/军事成本(?:达到)?第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level))
       .replace(/军事成本第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level));
     if (isCost) {
