@@ -535,6 +535,11 @@ function firstCommanderMarkup(item) {
       .replace(/规模与控制强度：数值不变；补齐逐区域账。?/g, "按各区域实际控制情况核对。")
       .replace(/规模与控制强度：数值不变；交趾、河西陇右、北方边郡均改为规范锚。?/g, "交趾、河西陇右与北方边郡作为本项主要控制范围依据。")
       .replace(/规模与控制强度：数值与得分率不变；旧唐代河西—陇右规范化为河西—陇右走廊。?/g, "河西—陇右走廊作为本项主要控制范围依据。")
+      .replace(/。[^。]{0,16}\s+主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：/g, "。")
+      .replace(/。[^。]{0,16}\s+防线协同与战略纵深（边界、门户、纵深与缓冲体系）本人责任判断：/g, "。")
+      .replace(/维持主要本人责任0\.75/g, "维持本人主要责任")
+      .replace(/主导国家层面的网络建设，取1；/g, "主导国家层面的网络建设，按本人主要责任计入；")
+      .replace(/，?故客观变动[+-]?\d+档中取[+-]?\d+(?:\.\d+)?档。?/g, "。")
       .replace(/军事成本(?:达到)?第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level))
       .replace(/军事成本第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level));
     if (isCost) {
@@ -577,8 +582,24 @@ function firstCommanderMarkup(item) {
       .replace(/军事体系整体([SABCDE]档)稀缺条件成立/g, "军事体系整体满足$1的高档条件")
       .replace(/封顶([0-5])档/g, (_, level) => `最高计至${thirdGradeText(level)}`)
       .replace(/([SABCDE]档)\s+(高位|中位|低位)/g, "$1$2")
-      .replace(/不生成变化分\s+没有确认本人造成的状态变化/g, "不产生变化分；现有材料没有确认本人造成状态变化");
-    return text;
+      .replace(/本轴客观([SABCDE]档)→\1，无正向跨档/g, "本轴从接手到结束均为$1，未发生正向跨档")
+      .replace(/不生成变化分\s+没有确认本人造成的状态变化/g, "不产生变化分；现有材料没有确认本人造成状态变化")
+      .replace(/。。+/g, "。");
+    if (!isCost) {
+      text = text.replace(/(^|[^A-Za-z0-9_.])([0-5])档/g, (_, prefix, level) => `${prefix}${thirdGradeText(level)}`);
+    }
+    return cleanNetText(text);
+  }
+
+  function thirdItemPublicText(item, value) {
+    let text = thirdPublicText(value, item?.label || "");
+    if (!item || !["A1","A2"].includes(item.label)) return text;
+    const transition = String(item.grade || "").match(/([0-5])\s*→\s*([0-5])档/);
+    if (!transition) return text;
+    const endGrade = thirdGradeText(transition[2]);
+    return text
+      .replace(/结束时未单列等级安全水平/g, `结束时${endGrade}安全水平`)
+      .replace(/结束时为未单列等级/g, `结束时为${endGrade}`);
   }
   const SECOND_PUBLIC_GROUPS = new Set(["method", "finance", "handoff"]);
   const CIV_PUBLIC_DIRECTION = {POSITIVE:"正向",NEGATIVE:"负向",BALANCED:"正负相抵"};
@@ -749,7 +770,7 @@ function firstCommanderMarkup(item) {
     const cards = evidence.map(entry => {
       const thirdItem = groupKey === "strategic" || groupKey === "military";
       const fourthItem = groupKey === "civilization";
-      const format = value => thirdItem ? thirdPublicText(value, item.label) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
+      const format = value => thirdItem ? thirdItemPublicText(item, value) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
       const title = format(entry?.public_label || entry?.public_role || "正式裁决材料");
       const role = format(entry?.public_role || "");
       const direction = format(entry?.public_direction || "");
@@ -760,7 +781,7 @@ function firstCommanderMarkup(item) {
       const basis = format(entry?.public_basis || "");
       const boundary = format(entry?.public_boundary || "");
       const basisMarkup = thirdItem
-        ? thirdBasisMarkup(entry?.public_basis || "", item.label)
+        ? thirdBasisMarkup(format(entry?.public_basis || ""), "")
         : fourthItem
           ? civilizationBasisMarkup(entry?.public_basis || "")
           : (basis ? `<p class="net-material-body">${esc(basis)}</p>` : "");
@@ -778,7 +799,7 @@ function firstCommanderMarkup(item) {
     const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
     const thirdItem = groupKey === "strategic" || groupKey === "military";
     const fourthItem = groupKey === "civilization";
-    const formatPublic = value => thirdItem ? thirdPublicText(value, item.label) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
+    const formatPublic = value => thirdItem ? thirdItemPublicText(item, value) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
     const summary = formatPublic(item.reader_summary || "");
     const fullBasis = cleanNetText(item.reader_full_basis || "");
     const publicEvidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
