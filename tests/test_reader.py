@@ -146,3 +146,25 @@ def test_json_http_view_preserves_raw_and_uses_logical_loader(tmp_path, monkeypa
         server.shutdown()
         server.server_close()
         thread.join()
+
+def test_home_simple_cards_use_three_full_column_targets():
+    template = (ROOT / "reader" / "index.template.html").read_text(encoding="utf-8")
+    start = template.index(" const simple=()=>")
+    end = template.index(" const full=()=>", start)
+    simple = template[start:end]
+    assert 'home-eval-card home-eval-net' in simple
+    assert 'home-eval-card home-eval-profile' in simple
+    assert 'home-eval-card home-eval-impact' in simple
+    assert 'data-home-section="person-outcome"' in simple
+    assert 'data-home-section="person-capability"' in simple
+    assert 'data-home-section="person-impact"' in simple
+    assert "homeProfileSummary(r)" in simple
+    assert "homePrudentRank(r.net)" in simple
+    assert "home-simple-action" not in simple
+    assert "home-simple-compare" not in simple
+    assert "data-home-grade" not in simple
+
+    css = (ROOT / "reader" / "readability.css").read_text(encoding="utf-8")
+    assert "Home result-card redesign" in css
+    assert ".home-eval-net:hover" in css
+    assert ".home-impact-mark .impact-grade" in css
