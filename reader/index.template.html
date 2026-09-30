@@ -70,16 +70,23 @@ const readingTerms={PS0:'仅有结果或资源背景',PS1:'局部正确选择',P
 function readerText(t){return String(t??'').replace(/\b(?:PS[0-4]|DW[0-4]|AM[1-4])\b/g,k=>readingTerms[k]).replace(/G([0-5])[- /]*(LOW|MID|HIGH)/g,(_,g,p)=>grade({axis_grade:'G'+g,position:p})).replace(/G([0-5])/g,(_,g)=>letters['G'+g]+'档').replace(/EPISODE_TAG/g,'局部情境证据').replace(/BOUNDED_PROFILE/g,'有明确适用边界的画像').replace(/FULL_GRADE/g,'完整定档').replace(/\bE1\b/g,'少量情境材料').replace(/\bE2\b/g,'多个独立情境材料').replace(/\bE3\b/g,'主要命题已有代表性材料').replace(/\bC5\b/g,'权力运用与克制').replace(/COUNTEREVIDENCE_FOUND/g,'已找到明确反例')}
 function impactPublicText(t){
  return String(t??'')
-  .replace(/V1\.4硬门复核通过[：:]/g,'最高档条件复核通过：')
-  .replace(/V1\.4不再把/g,'当前公开口径不再把')
-  .replace(/按V1\.4这属于/g,'按当前公开口径，这属于')
-  .replace(/按V1\.4/g,'按当前公开口径')
-  .replace(/V1\.4硬门/g,'最高档条件')
-  .replace(/V1\.4/g,'当前公开口径')
+  .replace(/V\d+(?:\.\d+)+硬门复核通过[：:]/gi,'最高档条件复核通过：')
+  .replace(/V\d+(?:\.\d+)+不再把/gi,'当前公开口径不再把')
+  .replace(/按V\d+(?:\.\d+)+这属于/gi,'按当前公开口径，这属于')
+  .replace(/按V\d+(?:\.\d+)+/gi,'按当前公开口径')
+  .replace(/V\d+(?:\.\d+)+硬门/gi,'最高档条件')
+  .replace(/V\d+(?:\.\d+)+范围只消费/gi,'范围只计')
+  .replace(/V\d+(?:\.\d+)+/gi,'当前公开口径')
   .replace(/按去名测试剔除纯制度惯性后/g,'剔除仅由名号、法统或制度惯性造成的接收后')
   .replace(/去名测试/g,'剔除名号与制度惯性的复核')
   .replace(/([SABCDE][+−-]?)硬门/g,'$1档条件')
-  .replace(/旧([SABCDE][+−-]?)/g,'此前$1档判断');
+  .replace(/旧([SABCDE][+−-]?)/g,'此前$1档判断')
+  .replace(/项目C1/g,'人物画像“战略判断”材料')
+  .replace(/项目已经把/g,'当前公开裁决已把')
+  .replace(/有效影响门槛/g,'正式计入条件')
+  .replace(/回填本人范围/g,'扩大本人归责范围')
+  .replace(/足以守([SABCDE][+−-]?)/g,'足以支持$1档')
+  .replace(/故守([SABCDE][+−-]?)/g,'因此维持$1档');
 }
 function paradigmReceptionProse(review){
  const receptions=Array.isArray(review?.receptions)?review.receptions.filter(r=>r&&typeof r==='object'):[];
