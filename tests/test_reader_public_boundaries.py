@@ -1626,9 +1626,9 @@ def test_first_item_shared_project_percentage_is_labeled_as_allocation_share():
     template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
 
     for source in (home, person):
-        assert "本人项目份额" in source
-        assert "共同项目按有效控制信用分配" in source
-        assert "不是领土、人口或军队比例" in source
+        assert "本人成果规模" in source
+        assert "全国核心统一尺度" in source
+        assert "不是共同项目分成，也不是领土、人口或军队比例" in source
         assert "成果占比" not in source
         assert "正向净收益" not in source
     assert "本项适用，但第一项结算分为0" in template
