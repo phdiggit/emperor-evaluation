@@ -1081,7 +1081,8 @@ function firstCommanderMarkup(item) {
     const grade = firstItemPublicText(item.grade || "");
     const how = firstItemPublicText(item.reader_how || "");
     const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}\\n当前能力裁决：${grade || "按正式能力档裁决"}。\\n正式记录：${how || "按正式能力档与责任路线换算。"}`)}</details>`;
-    return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${rules}`, record);
+    const crossSystem = `<p class="subline first-item-cross-system-note">这里使用第一项自己的军事指挥归责口径；人物画像 M1 是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算。</p>`;
+    return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${crossSystem}${rules}`, record);
   }
 
   function renderFirstCost(item, record) {
