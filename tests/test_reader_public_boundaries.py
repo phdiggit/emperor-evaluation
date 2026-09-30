@@ -828,7 +828,7 @@ def test_compare_net_breakdown_keeps_formal_public_level_labels():
     block = template[start:end]
     assert "item?.public_level_label" in block
     assert "item?.grade" not in block
-    assert "公开层级随正式字段展示" in block
+    assert "当前判断随正式字段展示" in block
     assert "普通成本扣分" in block
     assert "严重军事成本" in block
     assert "清晰但有限的变化" in block
