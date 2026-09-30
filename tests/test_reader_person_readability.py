@@ -449,8 +449,8 @@ def test_profile_output_mode_is_evidence_thickness_not_a_grade_gate():
 def test_first_item_reader_distinguishes_shared_project_share_from_real_world_percentages():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
-    assert "本人项目份额" in source
-    assert "不是领土、人口或军队比例" in source
+    assert "本人成果规模" in source
+    assert "不是共同项目分成，也不是领土、人口或军队比例" in source
     assert "本项适用，但第一项结算分归零" in source
     assert "成果占比" not in source
     assert "正向净收益" not in source
