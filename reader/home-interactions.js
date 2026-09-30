@@ -553,7 +553,16 @@ function firstCommanderMarkup(item) {
       .replace(/\bB1\b/g, "控制范围")
       .replace(/\bB2\b/g, "战略价值")
       .replace(/\bB4\b/g, "成果稳定性")
-      .replace(/三轴/g, "三方面");
+      .replace(/三轴/g, "三方面")
+      .replace(/父周期仅完成边界证实，任务成员与独立父周期结构未变；没有产生新的升降档理由。?/g, "复核后，既有任务边界与独立任务划分不变；没有新增升降档依据。")
+      .replace(/父周期/g, "独立任务周期")
+      .replace(/机械落/g, "据此定为")
+      .replace(/第三项现期/g, "本项当前窗口")
+      .replace(/仅按军事体系规定作为能力专用证据/g, "只作为军事体系判断的补充证据")
+      .replace(/军事体系整体([SABCDE]档)稀缺条件成立/g, "军事体系整体满足$1的高档条件")
+      .replace(/封顶([0-5])档/g, (_, level) => `最高计至${thirdGradeText(level)}`)
+      .replace(/([SABCDE]档)\s+(高位|中位|低位)/g, "$1$2")
+      .replace(/不生成变化分\s+没有确认本人造成的状态变化/g, "不产生变化分；现有材料没有确认本人造成状态变化");
     return text;
   }
   const SECOND_PUBLIC_GROUPS = new Set(["method", "finance", "handoff"]);
@@ -613,7 +622,9 @@ function firstCommanderMarkup(item) {
       .replace(/净文明影响幅度第([1-4一二三四])级/g, (_, level) => `净影响为${magnitude(level)}`)
       .replace(/影响幅度第([1-4一二三四])级/g, (_, level) => `影响幅度为${magnitude(level)}`)
       .replace(/第([1-4一二三四])级影响幅度/g, (_, level) => magnitude(level))
-      .replace(/相对变化第([1-4一二三四])级/g, (_, level) => magnitude(level));
+      .replace(/相对变化第([1-4一二三四])级/g, (_, level) => magnitude(level))
+      .replace(/同账/g, "在同一维度合并判断")
+      .replace(/不足以洗掉/g, "不足以抵消");
   }
 
   function civilizationBasisMarkup(value) {
