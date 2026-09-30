@@ -1049,7 +1049,7 @@ function firstCommanderMarkup(item) {
     const facts = firstPublicOutcomeParts(publicOutcome)
       .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
       .join("");
-    const share = percent ? `<div class="label">本人项目份额</div>${prose(`约${percent}%（共同项目按有效控制信用分配；不是领土、人口或军队比例）`)}` : "";
+    const share = percent ? `<div class="label">本人成果规模</div>${prose(`约${percent}%全国核心统一尺度（按本人有效控制成果计算；不是共同项目分成，也不是领土、人口或军队比例）`)}` : "";
     const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary><div class="label">A看什么</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">有效控制信用U</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。U不是人口、面积或军队人数。")}${prose(`项目A池 = 120 × (min(1000, U) / 1000)^0.65；单人项目直接取项目A池，共同项目再按本人控制信用占项目总信用的比例分配。${calculation ? `\n当前人物正式代入：${calculation}` : ""}`)}</details>`;
     return firstMetricDetail("net-first-a", "统一成果", "先看本人真正留下了什么", item, `${project}${facts}${share}${rules}`, record);
   }
@@ -1110,7 +1110,7 @@ function firstCommanderMarkup(item) {
       a.public_project ? `共同项目：${a.public_project}` : "",
       a.public_outcome_basis ? `起点背景：${firstPublicOutcomeText(a.public_outcome_basis)}` : "",
       a.public_scope ? `实际成果：${firstPublicOutcomeText(a.public_scope)}` : "",
-      aPercent ? `本人项目份额：约${aPercent}%（按有效控制信用分配，不是领土、人口或军队比例）` : "",
+      aPercent ? `本人成果规模：约${aPercent}%全国核心统一尺度（按本人有效控制成果计算；不是共同项目分成，也不是领土、人口或军队比例）` : "",
     ].filter(Boolean).join(" ");
     const b1Parts = [
       ["起点", b1.public_start_basis],
