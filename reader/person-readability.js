@@ -238,7 +238,7 @@
 
   function renderFirstC(item, bullets, record) {
     const facts = firstCommanderMarkup(item);
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>满分40；只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(netValue(item))}</b></div>${facts}<details><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>满分40；只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(netValue(item))}</b></div>${facts}<p class="subline first-item-cross-system-note">这里使用第一项自己的军事指挥归责口径；人物画像 M1 是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算。</p><details><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
   function firstItemTotals(items) {
