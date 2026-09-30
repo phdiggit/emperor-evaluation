@@ -434,3 +434,13 @@ def test_person_reader_first_item_public_terms_match_current_performance_vocabul
     assert "第一项结算分" in source
     assert "原始净收益" not in source
     assert "本项不计入统治绩效" in source
+
+
+def test_profile_output_mode_is_evidence_thickness_not_a_grade_gate():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    contract = (Path(__file__).resolve().parents[1] / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md").read_text(encoding="utf-8")
+    assert "output_mode==='NOT_APPLICABLE'" in template
+    assert "EPISODE_TAG" in contract and "适用人物仍发布低置信度G档和数值" in contract
+    assert "BOUNDED_PROFILE" in contract and "适用人物仍发布中置信度G档和数值" in contract
+    assert "表示证据厚度，不再充当给分开关" in contract

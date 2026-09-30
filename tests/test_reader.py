@@ -205,3 +205,18 @@ def test_net_detail_uses_same_system_navigation_as_profile_and_impact():
     assert 'typeof personSystemNav === "function"' in block
     assert 'personSystemNav(record, "net")' in block
     assert "${systemNav}${majorNav(record, active)}" in block
+
+
+def test_profile_summary_shows_evidence_thickness_and_keeps_c5_as_style_axis():
+    template = (ROOT / "reader" / "index.template.html").read_text(encoding="utf-8")
+    assert "function compactAxisMeta(a)" in template
+    assert "axis_evidence_level" in template
+    assert "判断把握：" in template
+    assert 'class="axis-row-meta"' in template
+    assert "风格轴：S端表示更克制，不代表能力高低。" in template
+    assert "C5:'权力运用与克制'" in template
+    assert ">九轴画像<" not in template
+
+    css = (ROOT / "reader" / "readability.css").read_text(encoding="utf-8")
+    assert ".axis-row-meta{" in css
+    assert ".c5-style-note{" in css
