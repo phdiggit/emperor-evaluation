@@ -1014,7 +1014,7 @@ assert.equal(
 );
 assert.equal(
   thirdCtx.thirdPublicText('因此实战任务交付=4而持续作战与任务承载/军事体系可靠性=3。','C1实战交付'),
-  '因此实战任务交付为A档而持续作战与任务承载/军事体系可靠性=B档。'
+  '因此实战任务交付为A档而持续作战与任务承载/军事体系可靠性为B档。'
 );
 
 const civCtx={
@@ -1079,7 +1079,7 @@ def test_third_item_public_layer_translates_numeric_grades_without_reversing_cos
     assert '7:"灾难性军事耗竭"' in source
     assert 'function thirdPublicText(value, itemLabel = "")' in source
     assert "三方面均为" in source
-    assert "客观状态变化按已裁本人责任计入" in source
+    assert "相应状态变化按本人责任计入" in source
     assert 'groupKey === "strategic" || groupKey === "military"' in source
     assert "thirdPublicText(item.reader_how" in source
 
