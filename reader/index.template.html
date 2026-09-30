@@ -323,7 +323,7 @@ function firstAddOnNote(n){
  if(!n)return '';
  if(n.first_item_status==='NOT_APPLICABLE')return '不适用；总分按0计入';
  if(n.first_item_status!=='APPLICABLE')return '正式状态未发布；阅读层不判断是否适用';
- if(firstRawScore(n)===0)return '本项适用，但未形成正向净收益';
+ if(firstRawScore(n)===0)return '本项适用，但第一项结算分为0';
  return '';
 }
 function firstAddOnComponent(n){

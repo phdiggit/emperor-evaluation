@@ -444,3 +444,13 @@ def test_profile_output_mode_is_evidence_thickness_not_a_grade_gate():
     assert "EPISODE_TAG" in contract and "适用人物仍发布低置信度G档和数值" in contract
     assert "BOUNDED_PROFILE" in contract and "适用人物仍发布中置信度G档和数值" in contract
     assert "表示证据厚度，不再充当给分开关" in contract
+
+
+def test_first_item_reader_distinguishes_shared_project_share_from_real_world_percentages():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
+    assert "本人项目份额" in source
+    assert "不是领土、人口或军队比例" in source
+    assert "本项适用，但第一项结算分归零" in source
+    assert "成果占比" not in source
+    assert "正向净收益" not in source

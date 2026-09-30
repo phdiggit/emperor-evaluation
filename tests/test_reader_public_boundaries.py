@@ -855,7 +855,7 @@ def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustme
 
     assert "治国成效待正式结算" in template
     assert "不适用；总分按0计入" in template
-    assert "本项适用，但未形成正向净收益" in template
+    assert "本项适用，但第一项结算分为0" in template
     assert "这与“不适用”不同" in template
     assert "compareFirstAddOn" in template
     assert "function firstRawScore" in template
@@ -863,7 +863,7 @@ def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustme
     assert "Number(r.net.first_item_raw_score)===0" not in template
     assert "signedAdjustment" in template
     assert 'groupKey === "civilization"' in home
-    assert "本项适用，但没有形成正向净收益" in home
+    assert "本项适用，但第一项结算分归零" in home
     assert "function finiteNetNumber(value)" in home
     assert '&& Number(record.net?.first_item_raw_score) === 0' not in home
     assert '&& Number(record.net.first_item_raw_score) === 0' not in home
@@ -1479,3 +1479,20 @@ def test_fourth_item_reader_distinguishes_zero_sources_and_rejects_progress_rank
     assert "这些0的来源并不相同" in source
     assert "0不等于没有变化" in source
     assert "没有形成独立有符号调整" in source
+
+
+def test_first_item_shared_project_percentage_is_labeled_as_allocation_share():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader" / "home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader" / "person-readability.js").read_text(encoding="utf-8")
+    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
+
+    for source in (home, person):
+        assert "本人项目份额" in source
+        assert "共同项目按有效控制信用分配" in source
+        assert "不是领土、人口或军队比例" in source
+        assert "成果占比" not in source
+        assert "正向净收益" not in source
+    assert "本项适用，但第一项结算分为0" in template
+    assert "正向净收益" not in template

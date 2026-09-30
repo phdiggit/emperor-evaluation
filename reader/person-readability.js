@@ -218,7 +218,7 @@
     const facts = firstPublicOutcomeParts(publicOutcome)
       .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
       .join("");
-    const share = percent ? `<div class="label">成果占比</div>${prose(`约${percent}%`)}` : "";
+    const share = percent ? `<div class="label">本人项目份额</div>${prose(`约${percent}%（共同项目按有效控制信用分配；不是领土、人口或军队比例）`)}` : "";
     return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>满分120；只看本人最终留下的稳定控制成果</small></span><b>${esc(netValue(item))}</b></div>${project}${facts}${share}<details><summary>这个分怎么算？</summary>${prose(`A = 120 × (min(1000, U) / 1000)^0.65，最后保留1位小数。${calculation ? `\n当前人物的正式代入：${calculation}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
@@ -287,7 +287,7 @@
     const rawNetScore = byLabel["第一项净分"]?.value;
     const netScore = rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore);
     const zeroNote = Number.isFinite(netScore) && netScore === 0
-      ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这与“不适用”不同：这里已经进入第一项结算，只是正向成果在扣除相关军事代价后没有留下正的净值。</p>`
+      ? `<p class="notice"><strong>本项适用，但第一项结算分归零。</strong>这与“不适用”不同：这里已经进入第一项结算，成果与能力分在扣除本人责任窗口内军事代价后归零。</p>`
       : "";
     group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="reading-intro"><strong>本项只计算本人实际承担的创业／统一成果、本人统帅贡献及其代价；先形成第一项结算分，再统一折算为总榜加成。</strong>不适用不等于军事能力差。下面再按统一成果、创业难度与效率、创业组织与政治整合、本人统帅展开具体依据。</p>${zeroNote}${cards.join("")}${totals}`;
   }
