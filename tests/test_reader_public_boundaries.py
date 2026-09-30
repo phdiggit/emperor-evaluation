@@ -129,7 +129,7 @@ const initialHTML=html,initialWrites=writes,rowCount=(html.match(/<tr/g)||[]).le
 for(const id of ['left','right'])for(const c of codes)assert.ok(html.includes(`${id}-${c}-独立依据`));
 assert.ok(html.includes('data-compare-equal="true"'));
 assert.ok(html.includes('data-compare-equal="false"'));
-assert.ok(html.includes('突出分数／等级差异'));
+assert.ok(html.includes('突出正式数值／档位差异'));
 // Toggling only changes the table's class, not DOM/evidence/open state/scroll.
 checkbox.onchange({target:{checked:true}});assert.equal(emphasis,true);
 assert.equal(writes,initialWrites);assert.equal(html,initialHTML);
@@ -1443,3 +1443,28 @@ def test_third_item_reader_separates_scoring_chains_and_exposes_intermediate_tot
     assert 'thirdCalculationRows(military, ["实际扣分"]' in source
     assert 'thirdCalculationRows(military, ["第三项合计"]' in source
     assert 'military:new Set(["C50","实际扣分","第三项合计"])' in source
+
+
+def test_compare_highlight_excludes_context_uncertainty_and_preserves_profile_evidence_strength():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
+    readability = (root / "reader" / "readability.js").read_text(encoding="utf-8")
+    css = (root / "reader" / "readability.css").read_text(encoding="utf-8")
+
+    block = template[template.index("function compare(){"):template.index("function guide()")]
+    assert "突出正式数值／档位差异" in block
+    assert "不表示差异已经超出审慎位置投影、证据厚度或判断把握" in block
+    assert "row('掌权背景（各项范围另见依据）',r=>esc(r.actual_power_window||'未列'),false)" in block
+    assert "row('量级置信度',r=>conf(r.impact.confidence),false)" in block
+    assert "row('影响性质',r=>esc(r.impact.impact_nature),false)" in block
+
+    magnitude = block[block.index("row('历史影响量级'"):block.index("row('影响性质'")]
+    assert "impact-grade" in magnitude
+    assert "impact_nature" not in magnitude
+
+    assert 'const coverage = summary.querySelector(".axis-evidence-level")?.textContent.trim() || "";' in readability
+    assert "axisRecordForEvidence(summary.parentElement)" in readability
+    assert "判断把握：" in readability
+    assert 'meta.className = "compare-evidence-meta"' in readability
+    assert ".compare-evidence-meta{" in css

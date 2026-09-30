@@ -69,6 +69,11 @@
       const badge = summary.querySelector(".badge");
       if (!badge) continue;
       const grade = badge.textContent.trim();
+      const coverage = summary.querySelector(".axis-evidence-level")?.textContent.trim() || "";
+      const axis = axisRecordForEvidence(summary.parentElement);
+      const metaParts = [coverage];
+      if (axis?.output_mode) metaParts.push(mode(axis.output_mode));
+      if (axis?.confidence) metaParts.push(`判断把握：${conf(axis.confidence)}`);
       summary.textContent = "";
       const compactBadge = document.createElement("span");
       compactBadge.className = "badge";
@@ -77,6 +82,13 @@
       label.className = "compare-evidence-label";
       label.textContent = "展开依据";
       summary.append(compactBadge, label);
+      const metaText = metaParts.filter(Boolean).join(" · ");
+      if (metaText) {
+        const meta = document.createElement("small");
+        meta.className = "compare-evidence-meta";
+        meta.textContent = metaText;
+        summary.append(meta);
+      }
       summary.dataset.compactCompare = "done";
     }
   }
