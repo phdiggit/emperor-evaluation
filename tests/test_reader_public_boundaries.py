@@ -1032,6 +1032,14 @@ assert.equal(civCtx.civilizationPublicText('净文明影响幅度第1级'),'净�
 assert.equal(civCtx.civilizationPublicText('第三级影响幅度'),'主要领域的稳定改变');
 assert.equal(civCtx.civilizationPublicText('与负向变化第2级同账。'),'与负向变化达到清晰但有限的变化在同一维度合并判断。');
 assert.equal(civCtx.civilizationPublicText('正向变化第2级，但不足以洗掉系统性负向变化。'),'正向变化达到清晰但有限的变化，但不足以抵消系统性负向变化。');
+assert.equal(
+  civCtx.civilizationPublicText('结果方向未单列：甲。相对既有状态：乙。责任范围按现有材料区分。补充限制：丙。'),
+  '正负变化并存：甲。比较起点：乙。限制：丙。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('故本知识包按轴边界撤资格，保留史实。撤销本包，不否认原事实。同窗文字标准化。'),
+  '因此该材料保留为背景，但不再单独形成本轴调整。该材料不再单独计入，不否认原事实。同轴文字标准化。'
+);
 
 const genericCtx={
   esc:String,
