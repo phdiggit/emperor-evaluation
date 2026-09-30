@@ -1291,6 +1291,25 @@ def test_second_item_a_and_b1_lead_with_reader_summary_not_internal_ledger_copy(
     assert 'detailsBlock("为什么最终是这个等级？", formalSummary || summary)' in b1_source
 
 
+
+def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "function impactPublicText(t)" in source
+    assert "最高档条件复核通过" in source
+    assert "当前公开口径不再把" in source
+    assert "剔除仅由名号、法统或制度惯性造成的接收后" in source
+    assert "剔除名号与制度惯性的复核" in source
+    assert "const publicBasis=key=>impactPublicText(" in source
+    assert "const counterfactual=impactPublicText(" in source
+    assert "const personalBoundary=impactPublicText(" in source
+    assert "const evidenceBoundary=impactPublicText(" in source
+    assert "prose(impactPublicText(h.public_total_basis))" in source
+    assert "prose(impactPublicText(h.impact_nature_basis))" in source
+    assert "prose(impactPublicText(c.narrative))" in source
+    assert "prose(impactPublicText(r.actual_use||'未另列说明'))" in source
+
+
 def test_third_item_public_aliases_replace_compound_internal_labels_before_bare_codes():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
