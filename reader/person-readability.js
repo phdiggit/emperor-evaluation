@@ -218,7 +218,7 @@
     const facts = firstPublicOutcomeParts(publicOutcome)
       .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
       .join("");
-    const share = percent ? `<div class="label">本人项目份额</div>${prose(`约${percent}%（共同项目按有效控制信用分配；不是领土、人口或军队比例）`)}` : "";
+    const share = percent ? `<div class="label">本人成果规模</div>${prose(`约${percent}%全国核心统一尺度（按本人有效控制成果计算；不是共同项目分成，也不是领土、人口或军队比例）`)}` : "";
     return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>满分120；只看本人最终留下的稳定控制成果</small></span><b>${esc(netValue(item))}</b></div>${project}${facts}${share}<details><summary>这个分怎么算？</summary>${prose(`A = 120 × (min(1000, U) / 1000)^0.65，最后保留1位小数。${calculation ? `\n当前人物的正式代入：${calculation}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
