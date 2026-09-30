@@ -1415,6 +1415,30 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "prose(impactPublicText(r.actual_use||'未另列说明'))" in source
 
 
+
+def test_profile_primary_pattern_hides_internal_summary_labels():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "function profilePublicPattern(value)" in source
+    assert "帝国基础架构能力突出；后世影响力不直接换算为本轴能力" in source
+    assert "本轴存在明确的低档反向制度表现" in source
+    assert "武举与监察重组形成正向制度建设，同时告密—酷吏机制构成强反例" in source
+    assert "科举与法源恢复形成正向制度建设，但货币与军政架构存在明显失配" in source
+    assert "prose(profilePublicPattern(a.typical_pattern" in source
+
+
+def test_first_item_commander_explains_why_profile_m1_may_differ():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    expected = "人物画像 M1 是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算"
+    assert expected in home
+    assert expected in person
+    assert "first-item-cross-system-note" in home
+    assert "first-item-cross-system-note" in person
+
+
 def test_third_item_public_aliases_replace_compound_internal_labels_before_bare_codes():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
