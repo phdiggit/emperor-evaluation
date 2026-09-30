@@ -357,7 +357,7 @@ function firstCommanderMarkup(item) {
     if (adjustment === 0 && hasPositive && hasNegative) {
       return "本项总调整为0：存在正向与负向分轴，合计后相抵；0不代表各轴都没有变化。";
     }
-    return "有符号调整，三个分项合计范围为 -67.5～+67.5；正负值直接进入总榜。";
+    return "三个分项合计范围为 -67.5～+67.5；正负值直接进入总榜。";
   }
 
   function netHref(record, major = "all", focus = "") {
@@ -753,7 +753,11 @@ function firstCommanderMarkup(item) {
     const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;
     const logic = structuredMaterials ? "" : summary;
     const formalLevel = MATERIAL_CARD_GROUPS.has(groupKey) ? formatPublic(item.public_level_label || "") : "";
-    const formalLevelDisplay = formalLevel.replace(/^当前结果为\s*/, "");
+    const formalLevelBase = formalLevel.replace(/^当前结果为\s*/, "");
+    const repeatedPrefix = displayLabel + "为";
+    const formalLevelDisplay = formalLevelBase.startsWith(repeatedPrefix)
+      ? formalLevelBase.slice(repeatedPrefix.length)
+      : formalLevelBase;
     const full = fullBasis && fullBasis !== summary
       ? `<details><summary>当前人物的完整裁决原文</summary>${prose(fullBasis)}</details>`
       : "";

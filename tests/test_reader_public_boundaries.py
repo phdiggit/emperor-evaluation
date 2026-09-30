@@ -1138,7 +1138,7 @@ def test_major_cards_explain_third_and_fourth_item_scales():
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "250分制净分" in source
     assert "再扣实际军事代价" in source
-    assert "有符号调整，三个分项合计范围为 -67.5～+67.5" in source
+    assert "三个分项合计范围为 -67.5～+67.5；正负值直接进入总榜" in source
     assert "本项进入总榜的净分：" in source
     assert "本项进入总榜的有符号调整：" in source
     assert "理论范围 -67.5～+67.5" not in source
@@ -1407,6 +1407,8 @@ def test_third_public_level_heading_drops_redundant_current_result_prefix():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert 'formalLevel.replace(/^当前结果为\\s*/, "")' in source
+    assert 'const repeatedPrefix = displayLabel + "为";' in source
+    assert "formalLevelBase.startsWith(repeatedPrefix)" in source
     assert '当前判断：${esc(formalLevelDisplay)}' in source
     assert '当前判断：${esc(formalLevel)}' not in source
 
