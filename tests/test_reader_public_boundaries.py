@@ -1418,3 +1418,28 @@ def test_fourth_item_group_heading_is_not_identical_to_page_title():
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert 'title: "第四项 · 文明与国家整合"' in source
     assert 'civilization: "文明与国家整合 · 分项结算"' in source
+
+
+def test_first_item_public_copy_uses_settlement_score_not_legacy_net_benefit_term():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    for rel in ("reader/home-interactions.js", "reader/person-readability.js", "reader/index.template.html"):
+        source = (root / rel).read_text(encoding="utf-8")
+        assert "原始净收益" not in source
+    assert "第一项结算分" in (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "本项不计入统治绩效" in (root / "reader/person-readability.js").read_text(encoding="utf-8")
+
+
+def test_third_item_reader_separates_scoring_chains_and_exposes_intermediate_totals():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "function thirdMajorGroups(record, details)" in source
+    for phrase in ("安全状态变化", "控制成果质量", "军事体系表现", "军事代价"):
+        assert phrase in source
+    assert "不是领土占比、现实概率或独立得分" in source
+    assert 'thirdCalculationRows(strategic, ["A120"]' in source
+    assert 'thirdCalculationRows(strategic, ["B80"]' in source
+    assert 'thirdCalculationRows(military, ["C50"]' in source
+    assert 'thirdCalculationRows(military, ["实际扣分"]' in source
+    assert 'thirdCalculationRows(military, ["第三项合计"]' in source
+    assert 'military:new Set(["C50","实际扣分","第三项合计"])' in source

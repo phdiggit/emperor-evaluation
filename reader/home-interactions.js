@@ -303,6 +303,11 @@ function firstCommanderMarkup(item) {
       .net-material-card,.net-material-head>strong,.net-material-body,.net-material-boundary>p{overflow-wrap:anywhere}
       .net-third-basis-list{margin:8px 0 0;padding-left:18px;font-size:12px;line-height:1.75}
       .net-third-basis-list li{margin:4px 0}
+      .net-third-subgroup{margin:18px 0 0}
+      .net-third-subgroup+.net-third-subgroup{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+      .net-third-subgroup>h3{margin:0 0 4px;font-size:17px}
+      .net-third-subgroup-note{margin:0 0 10px}
+      .net-third-total{margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
       .net-score-how{margin-top:12px}
       .net-score-how>summary{font-size:12px;color:var(--muted)}
       .net-score-how dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:5px 10px;margin:8px 0 0;font-size:12px;line-height:1.7}
@@ -783,7 +788,7 @@ function firstCommanderMarkup(item) {
     finance:new Set(["治理结果"]),
     handoff:new Set(["交接得分"]),
     strategic:new Set(["A120","B80"]),
-    military:new Set(["第三项合计"]),
+    military:new Set(["C50","实际扣分","第三项合计"]),
     civilization:new Set(["第四项调整"]),
   };
 
@@ -1014,7 +1019,7 @@ function firstCommanderMarkup(item) {
     const net = byLabel["第一项净分"]?.value;
     const addOn = byLabel["附加F"]?.value;
     if ([a, b1, b2, c, gross, cost, net, addOn].some(value => value == null)) return "";
-    return `<div class="net-detail-total"><details><summary>查看第一项完整折算公式</summary>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n军事代价扣减 = ${cost}。\n第一项原始净收益 S1 = max(0, ${gross} − ${cost}) = ${net} / 240。\n总榜附加 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></div>`;
+    return `<div class="net-detail-total"><details><summary>查看第一项完整折算公式</summary>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n军事代价扣减 = ${cost}。\n第一项结算分 S1 = max(0, ${gross} − ${cost}) = ${net} / 240。\n总榜附加 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></div>`;
   }
 
   function firstItemOverview(record, bulletsByLabel, byLabel) {
@@ -1049,7 +1054,7 @@ function firstCommanderMarkup(item) {
     const items = record.net?.component_details?.first || [];
     const parts = Object.fromEntries(items.map(item => [item.label, item.value]));
     const score = [parts["A统一贡献"], parts["B1创业难度与效率"], parts["B2组织与整合"], parts["C军事统帅与战争解题"], parts["军事成本扣分"], parts["第一项净分"], parts["附加F"]];
-    return `<section class="first-item-overview"><h2>先看${esc(personLabel(record))}在这条主链里实际做了什么</h2><p class="subline">下面默认只放当前人物的成果、难题、组织、统帅和代价；指标定义与公式都收进折叠项。</p><div class="first-item-story-grid">${aText ? `<div class="first-item-story-card"><b>统一成果</b><p>${esc(aText)}</p></div>` : ""}${b1Parts.length ? `<div class="first-item-story-card"><b>起点、强敌与速度</b><ul>${b1Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(value)}</li>`).join("")}</ul></div>` : ""}${b2Parts.length ? `<div class="first-item-story-card"><b>组织与整合</b><ul>${b2Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstFactText(value))}</li>`).join("")}</ul></div>` : ""}${cText ? `<div class="first-item-story-card"><b>本人统帅</b><p>${esc(cText)}</p></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]} − 战争代价 ${score[4]} = <strong>原始净收益 ${score[5]}</strong> → 总榜附加 <strong>+${score[6]}</strong></div>` : ""}</section>`;
+    return `<section class="first-item-overview"><h2>先看${esc(personLabel(record))}在这条主链里实际做了什么</h2><p class="subline">下面默认只放当前人物的成果、难题、组织、统帅和代价；指标定义与公式都收进折叠项。</p><div class="first-item-story-grid">${aText ? `<div class="first-item-story-card"><b>统一成果</b><p>${esc(aText)}</p></div>` : ""}${b1Parts.length ? `<div class="first-item-story-card"><b>起点、强敌与速度</b><ul>${b1Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(value)}</li>`).join("")}</ul></div>` : ""}${b2Parts.length ? `<div class="first-item-story-card"><b>组织与整合</b><ul>${b2Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstFactText(value))}</li>`).join("")}</ul></div>` : ""}${cText ? `<div class="first-item-story-card"><b>本人统帅</b><p>${esc(cText)}</p></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]} − 战争代价 ${score[4]} = <strong>第一项结算分 ${score[5]}</strong> → 总榜附加 <strong>+${score[6]}</strong></div>` : ""}</section>`;
   }
 
   async function renderFirstMajor(record, focus = "") {
@@ -1095,10 +1100,55 @@ function firstCommanderMarkup(item) {
     if (focus) requestAnimationFrame(() => document.getElementById(`net-first-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));
   }
 
+
+  function thirdJudgmentCards(record, items, labels, groupKey) {
+    const wanted = new Set(labels);
+    return items
+      .filter(item => wanted.has(item.label) && item.reader_kind === "judgment")
+      .map(item => metricDetail(item, record, groupKey)).join("");
+  }
+
+  function thirdCalculationRows(items, labels, groupKey, summary) {
+    const wanted = new Set(labels);
+    const subset = items.filter(item => wanted.has(item.label));
+    if (!subset.length) return "";
+    const block = calculationBlock(subset, groupKey);
+    return block ? block.replace("<summary>本组小计怎么形成？</summary>", `<summary>${esc(summary)}</summary>`) : "";
+  }
+
+  function thirdMajorGroups(record, details) {
+    const strategic = details.strategic || [];
+    const military = details.military || [];
+    const strategicSection = `<section id="net-group-strategic" class="panel net-detail-group"><h2>第三项 · 战略收益与国防</h2>
+      <div class="net-third-subgroup"><h3>安全状态变化</h3><p class="subline net-third-subgroup-note">主要安全威胁与防线纵深分别按正式规则直接形成战略安全分。</p>
+        ${thirdJudgmentCards(record, strategic, ["A1","A2"], "strategic")}
+        ${thirdCalculationRows(strategic, ["A120"], "strategic", "安全状态小计怎么形成？")}
+      </div>
+      <div class="net-third-subgroup"><h3>控制成果质量</h3><p class="subline net-third-subgroup-note">下面三项显示的是进入控制成果合成的采用率，不是领土占比、现实概率或独立得分。</p>
+        ${thirdJudgmentCards(record, strategic, ["B1","B2","B4"], "strategic")}
+        ${thirdCalculationRows(strategic, ["B80"], "strategic", "控制成果小计怎么形成？")}
+      </div>
+    </section>`;
+    const militarySection = `<section id="net-group-military" class="panel net-detail-group"><h2>第三项 · 军事体系与成本</h2>
+      <div class="net-third-subgroup"><h3>军事体系表现</h3><p class="subline net-third-subgroup-note">三方面共同决定军事体系结果；单项参与合成，不单列分值。</p>
+        ${thirdJudgmentCards(record, military, ["C1实战交付","C2持续作战","C3体系可靠性"], "military")}
+        ${thirdCalculationRows(military, ["C50"], "military", "军事体系结果怎么形成？")}
+      </div>
+      <div class="net-third-subgroup"><h3>军事代价</h3><p class="subline net-third-subgroup-note">普通军事代价与重大军事净毁损按正式规则合并，避免同一损失重复扣减。</p>
+        ${thirdJudgmentCards(record, military, ["普通成本扣分","ML扣分"], "military")}
+        ${thirdCalculationRows(military, ["实际扣分"], "military", "实际军事代价怎么形成？")}
+      </div>
+      <div class="net-third-total">${thirdCalculationRows(military, ["第三项合计"], "military", "第三项总分怎么形成？")}</div>
+    </section>`;
+    return strategicSection + militarySection;
+  }
+
   function renderGenericMajor(record, major, focus = "") {
     const spec = netMajorSpecs[major];
     const details = record.net?.component_details || {};
-    const content = spec.groups.map(key => genericNetGroup(record, key, details[key] || [])).join("");
+    const content = major === "third"
+      ? thirdMajorGroups(record, details)
+      : spec.groups.map(key => genericNetGroup(record, key, details[key] || [])).join("");
     const container = document.getElementById("net-major-body");
     if (container) container.innerHTML = content || `<section class="panel"><p class="notice">这一项暂未形成可展示的完整分项记录。</p></section>`;
     if (focus) requestAnimationFrame(() => document.getElementById(`net-group-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));
@@ -1119,10 +1169,10 @@ function firstCommanderMarkup(item) {
     const firstStatus = record.net?.first_item_status;
     const extra = major === "first" && firstStatus === "APPLICABLE"
       ? rawFirstScore === 0
-        ? '<p class="subline">本项适用，但原始净收益为0；总榜附加为0。</p>'
+        ? '<p class="subline">本项适用，但第一项结算分为0；总榜附加为0。</p>'
         : rawFirstScore == null
-          ? `<p class="subline">本项适用，但原始净收益未列；当前显示正式附加分 ${number(record.net?.first_item_add_on)}。</p>`
-          : `<p class="subline">第一项原始净收益：${number(rawFirstScore)}；此处显示进入总榜的附加分。</p>`
+          ? `<p class="subline">本项适用，但第一项结算分未列；当前显示正式附加分 ${number(record.net?.first_item_add_on)}。</p>`
+          : `<p class="subline">第一项结算分：${number(rawFirstScore)}；此处显示进入总榜的附加分。</p>`
       : major === "first" && firstStatus === "NOT_APPLICABLE"
         ? `<p class="subline">该人物第一项不适用。</p>`
         : major === "first"

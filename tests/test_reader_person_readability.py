@@ -426,3 +426,11 @@ def test_person_readability_heading_normalizer_accepts_public_detail_titles():
     assert '"历史影响详情"' in source
     assert '"人物画像依据"' in source
     assert '"历史影响依据"' in source
+
+
+def test_person_reader_first_item_public_terms_match_current_performance_vocabulary():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
+    assert "第一项结算分" in source
+    assert "原始净收益" not in source
+    assert "本项不计入统治绩效" in source
