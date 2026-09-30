@@ -841,3 +841,15 @@
   .home-impact-body{min-height:100px}
 }
 @media(prefers-reduced-motion:reduce){.home-eval-card{transition:none}.home-eval-card:hover{transform:none}}
+
+.home-profile-static{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  min-height:100%;
+  padding:17px 19px;
+  background:color-mix(in srgb,var(--gold) 2%,transparent);
+}
+.home-profile-static .muted{margin:auto 0;line-height:1.7}
+@media(max-width:700px){.home-profile-static{min-height:150px;padding:15px}}
+@media(max-width:520px){.home-profile-static{min-height:0}}
