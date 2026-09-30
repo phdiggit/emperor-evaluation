@@ -967,7 +967,7 @@ const thirdCtx={cleanNetText:v=>String(v??'').replace(/\s+/g,' ').trim()};
 vm.createContext(thirdCtx);
 vm.runInContext(
   section(home,'  const MATERIAL_CARD_GROUPS','  const SECOND_PUBLIC_GROUPS')
-  +'\nthis.thirdPublicText=thirdPublicText;', thirdCtx);
+  +'\nthis.thirdPublicText=thirdPublicText; this.thirdItemPublicText=thirdItemPublicText;', thirdCtx);
 assert.equal(thirdCtx.thirdPublicText('结束时第5级安全水平','A1'),'结束时S档安全水平');
 assert.equal(thirdCtx.thirdPublicText('1→5档','A1'),'D档→S档');
 assert.equal(
@@ -985,11 +985,11 @@ assert.equal(
 );
 assert.equal(
   thirdCtx.thirdPublicText('实际控制范围为当前结果为第4级、中位。规模与控制强度：废止‘1206—1227新增整链一律归第一项’的形式节点切法；只排除灭夏终局0.8及攻金遗留控制0.5，花剌子模—中亚—西亚4.25保留在第三项，机械落实际控制范围第4级 中位。','B1'),
-  '实际控制范围为当前结果为A档、中位。统一主链中已由第一项承担的灭夏终局与攻金遗留控制不重复计入；花剌子模—中亚—西亚的控制成果保留在本项。'
+  '实际控制范围当前为A档、中位。统一主链中已由第一项承担的灭夏终局与攻金遗留控制不重复计入；花剌子模—中亚—西亚的控制成果保留在本项。'
 );
 assert.equal(
   thirdCtx.thirdPublicText('实际控制范围为当前结果为第3级、低位。规模与控制强度：西北0.8继承；统一后北方边郡0.8仅作客观库存；河南地—朔方新增0.6、岭南新增0.8；删除旧西南0.5与1.05非标准草原包。','B1'),
-  '实际控制范围为当前结果为B档、低位。河南地—朔方与岭南的新增控制计入本项；继承存量及未达到正式标准的控制包不重复计算。'
+  '实际控制范围当前为B档、低位。河南地—朔方与岭南的新增控制计入本项；继承存量及未达到正式标准的控制包不重复计算。'
 );
 assert.equal(
   thirdCtx.thirdPublicText('按重大压力下保全封顶4档。机械落实际控制范围第4级 中位。','B1'),
@@ -998,6 +998,15 @@ assert.equal(
 assert.equal(
   thirdCtx.thirdPublicText('战争保留为第三项现期；相关战争仅按军事体系规定作为能力专用证据。','C1实战交付'),
   '战争保留为本项当前窗口；相关战争只作为军事体系判断的补充证据。'
+);
+const strategicItem={label:'A1',grade:'3→0档'};
+assert.equal(
+  thirdCtx.thirdItemPublicText(strategicItem,'接手时为第3级，结束时为未单列等级。李隆基 主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：主要威胁转为安史叛军；故客观变动-3档按-3档本人责任。'),
+  '接手时为B档，结束时为E档。主要威胁转为安史叛军；相应状态变化按本人责任计入。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('接手时为第2级，结束时为第3级。刘秀 主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：北方改善部分来自外部因素；故客观变动+1档中取0.5档。本人和其他责任中心共同承担。','A1'),
+  '接手时为C档，结束时为B档。北方改善部分来自外部因素；。本人和其他责任中心共同承担。'
 );
 assert.equal(
   thirdCtx.thirdPublicText('因此实战任务交付=4而持续作战与任务承载/军事体系可靠性=3。','C1实战交付'),
