@@ -220,3 +220,16 @@ def test_profile_summary_shows_evidence_thickness_and_keeps_c5_as_style_axis():
     css = (ROOT / "reader" / "readability.css").read_text(encoding="utf-8")
     assert ".axis-row-meta{" in css
     assert ".c5-style-note{" in css
+
+
+def test_historical_impact_public_questions_match_formal_contract():
+    root = ROOT
+    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
+    contract = (root / "docs" / "项目总纲" / "历史影响评价总则.md").read_text(encoding="utf-8")
+    assert "<h2>历史影响量级</h2>" in template
+    assert "历史影响量级为什么这样定？" in template
+    assert "实际改写覆盖了哪些政治空间、政治主体或国家关键接口" in template
+    assert "后世最高权力是否把本人或其治世作为政治参照并实际使用" in template
+    assert "后世如何实际沿用其治道" not in template
+    assert "公开标题使用“历史影响量级”" in contract
+    assert "后世最高权力是否把这个人或其治世本身当作政治参照并实际使用" in contract
