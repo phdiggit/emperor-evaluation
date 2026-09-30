@@ -946,6 +946,18 @@ assert.equal(
   '控制范围与战略价值按55%/45%合成，再由成果稳定性修正'
 );
 assert.equal(thirdCtx.thirdPublicText('普通军事代价为第5级、中位','普通成本扣分'),'普通军事代价为严重军事成本、中位');
+assert.equal(
+  thirdCtx.thirdPublicText('父周期仅完成边界证实，任务成员与独立父周期结构未变；没有产生新的升降档理由。','C1实战交付'),
+  '复核后，既有任务边界与独立任务划分不变；没有新增升降档依据。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('按重大压力下保全封顶4档。机械落实际控制范围第4级 中位。','B1'),
+  '按重大压力下保全最高计至A档。据此定为实际控制范围A档中位。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('战争保留为第三项现期；相关战争仅按军事体系规定作为能力专用证据。','C1实战交付'),
+  '战争保留为本项当前窗口；相关战争只作为军事体系判断的补充证据。'
+);
 
 const civCtx={
   cleanNetText:v=>String(v??'').replace(/\s+/g,' ').trim(),
@@ -960,6 +972,8 @@ assert.equal(civCtx.civilizationPublicText('正向变化第3级'),'正向变化�
 assert.equal(civCtx.civilizationPublicText('负向变化第4级'),'负向变化达到系统性破坏');
 assert.equal(civCtx.civilizationPublicText('净文明影响幅度第1级'),'净影响为局部、短期或低强度变化');
 assert.equal(civCtx.civilizationPublicText('第三级影响幅度'),'主要领域的稳定改变');
+assert.equal(civCtx.civilizationPublicText('与负向变化第2级同账。'),'与负向变化达到清晰但有限的变化在同一维度合并判断。');
+assert.equal(civCtx.civilizationPublicText('正向变化第2级，但不足以洗掉系统性负向变化。'),'正向变化达到清晰但有限的变化，但不足以抵消系统性负向变化。');
 
 const genericCtx={
   esc:String,
