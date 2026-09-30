@@ -1054,7 +1054,7 @@ def test_calculation_blocks_keep_only_public_subtotals_not_repeated_intermediate
     assert 'finance:new Set(["治理结果"])' in home
     assert 'handoff:new Set(["交接得分"])' in home
     assert 'strategic:new Set(["A120","B80"])' in home
-    assert 'military:new Set(["第三项合计"])' in home
+    assert 'military:new Set(["C50","实际扣分","第三项合计"])' in home
     assert 'civilization:new Set(["第四项调整"])' in home
     assert "<summary>本组小计怎么形成？</summary>" in home
     assert 'method:new Set(["治理手段"])' in alias
