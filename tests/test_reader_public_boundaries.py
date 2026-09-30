@@ -231,7 +231,7 @@ const original=JSON.stringify(record);
 const screen={innerHTML:''};
 const context={record,screen,DATA:{capability_axes:[],independent_axes:[],axis_order:[]},nav(){},dimNames,impactMeaning:{},conf:String,gradeHelp:()=>'',axisRows:()=>'',radar:()=>'',historySections:()=>'',netPanel:()=>'<section>合成结果</section>'};
 vm.createContext(context);
-vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function impactPanel(','function axisEvidence(')+section('function person(r){','function compare(){'),context);
+vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function impactPanel(','function axisEvidence(')+section('function profilePanel(r)','function compare(){'),context);
 vm.runInContext('person(record)',context);
 assert.ok(screen.innerHTML.includes('本名（正式称呼）'));
 assert.ok(screen.innerHTML.includes('掌权背景：未列'));

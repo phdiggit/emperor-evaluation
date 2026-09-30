@@ -448,7 +448,7 @@ function impactPage(r){
  screen.innerHTML=`${personSubpageHead(r,'历史影响','impact')}<div class="single-system-page">${impactPanel(r)}<section id="history-evidence" class="panel evidence reading-wide single-system-evidence">${historySections(r)}</section></div>`;
 }
 function person(r){
- const view=personView();
+ const view=typeof location==='undefined'?'':(()=>{const parts=location.hash.slice(8).split('/');return parts.length>1?parts[1]:''})();
  if(view==='profile'){profilePage(r);return}
  if(view==='impact'){impactPage(r);return}
  nav('');if(!r){screen.innerHTML='<p>未找到该人物。</p><button data-home>返回人物总览</button>';return}
@@ -467,6 +467,8 @@ function compare(){
  const firstRawScore=n=>{const value=n?.first_item_raw_score;return typeof value==='number'&&Number.isFinite(value)?value:null};
  const compareFirstAddOn=r=>!r?.net?'—':r.net.first_item_status==='NOT_APPLICABLE'?'不适用':r.net.first_item_status!=='APPLICABLE'?'状态未发布':firstRawScore(r.net)===0?'0.00 · 本项适用':number(r.net.first_item_add_on);
  const signedAdjustment=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?'+'+number(n):number(value);};
+ const prudentPositionText=n=>{const p=n?.prudent_rank_projection;if(!p)return '';return p.best===p.worst?`第 ${p.best} 名`:`第 ${p.best}—${p.worst} 名`;};
+ const governanceContextText=n=>{const c=n?.governance_context;return c?`${c.scale_label} · ${c.complexity_label}`:'';};
  // Same grade does not mean same evidence. Keep every row, and only mark
  // comparable values for visual emphasis; narrative rows are never classified.
  const row=(label,fn,comparable=true)=>{const left=fn(a,0),right=fn(b,1);return `<tr${comparable?` data-compare-equal="${left===right}"`:''}><td>${label}</td><td>${left}</td><td>${right}</td></tr>`};
