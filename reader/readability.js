@@ -36,6 +36,15 @@
     .replace(/\bSCORING_PARENT\b/g, "主要计分证据")
     .replace(/\bREFUSAL_OR_RECURRENCE\b/g, "拒绝更新或同类复发情境")
     .replace(/\bTRUTH_ACQUISITION\b/g, "求真取证情境")
+    .replace(/\bMI1(?:_CASE)?\b/g, "单一情境")
+    .replace(/\bMI2(?:_LIFECYCLE)?\b/g, "完整生命周期情境")
+    .replace(/\bMI3(?:_SUSTAINED_SYSTEMIC)?\b/g, "持续系统性情境")
+    .replace(/\bMI4(?:_CROSS_PHASE_SYSTEMIC)?\b/g, "跨阶段系统性情境")
+    .replace(/最新重裁/g, "重新核对后")
+    .replace(/重裁/g, "重新核对")
+    .replace(/整改前/g, "此前")
+    .replace(/硬门/g, "定档条件")
+    .replace(/本轮/g, "当前公开材料范围内")
     .replace(/\bUNRESOLVED\b/g, "尚未确认");
 
   readerText = publicReaderText;
