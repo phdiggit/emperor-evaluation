@@ -919,6 +919,35 @@ def test_handoff_public_layer_uses_letter_grades_not_numeric_level_inputs():
     assert 'setRowLabel(span,"交接稳定")' in reading
 
 
+
+def test_reader_formats_structured_power_windows_without_changing_formal_source():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/build.py").read_text(encoding="utf-8")
+    assert "def public_power_window(value):" in source
+    assert 'return "；".join(spans)' in source
+    assert 'f"前{abs(year)}"' in source
+    assert 'record["actual_power_window"] = public_power_window(record.get("actual_power_window"))' in source
+    assert 'projected_net["governance_context"] = public_governance_context(' in source
+    assert 'actual_power_window=public_power_window(row.get("reference_power_window", ""))' in source
+
+    namespace = {"json": __import__("json"), "deepcopy": __import__("copy").deepcopy}
+    start = source.index("def public_power_window(value):")
+    end = source.index("\ndef record_summary(record):", start)
+    exec(source[start:end], namespace)
+    fmt = namespace["public_power_window"]
+    ctx = namespace["public_governance_context"]
+
+    assert fmt("[[1435, 1449], [1457, 1464]]") == "1435—1449年；1457—1464年"
+    assert fmt("[[-238, -221], [-220, -210]]") == "前238—前221年；前220—前210年"
+    assert fmt("712—756年；756年失去实权后停止") == "712—756年；756年失去实权后停止"
+    raw = {"actual_power_window":"[[1435, 1449], [1457, 1464]]",
+           "basis":"本人实际权力窗口[[1435, 1449], [1457, 1464]]：全国州县继续运行。"}
+    shown = ctx(raw)
+    assert shown["actual_power_window"] == "1435—1449年；1457—1464年"
+    assert "1435—1449年；1457—1464年" in shown["basis"]
+    assert raw["actual_power_window"].startswith("[[")
+
+
 def test_public_runtime_formatters_and_non_scoring_axes_behave_as_rendered(tmp_path):
     node = shutil.which("node")
     if not node:
