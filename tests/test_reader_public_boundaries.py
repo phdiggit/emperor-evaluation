@@ -1385,6 +1385,13 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "人物画像“战略判断”材料" in source
     assert "当前公开裁决已把" in source
     assert "正式计入条件" in source
+    assert ".replace(/只消费/g,'只计入')" in source
+    assert ".replace(/硬变化/g,'已确认的实际变化')" in source
+    assert ".replace(/去重桥接/g,'去重后综合判断')" in source
+    assert ".replace(/有效空间当量/g,'实际影响范围')" in source
+    assert ".replace(/本人分叉/g,'取决于本人选择的分支')" in source
+    assert ".replace(/闭合为/g,'发展为')" in source
+    assert "尚未形成多个最高权力稳定接收的独立证据链" in source
     assert "扩大本人归责范围" in source
     assert "足以支持$1档" in source
     assert "因此维持$1档" in source
