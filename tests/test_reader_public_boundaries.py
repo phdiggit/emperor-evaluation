@@ -1296,10 +1296,18 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "function impactPublicText(t)" in source
+    assert "V\\d+(?:\\.\\d+)+硬门复核通过" in source
     assert "最高档条件复核通过" in source
+    assert "V\\d+(?:\\.\\d+)+范围只消费" in source
     assert "当前公开口径不再把" in source
     assert "剔除仅由名号、法统或制度惯性造成的接收后" in source
     assert "剔除名号与制度惯性的复核" in source
+    assert "人物画像“战略判断”材料" in source
+    assert "当前公开裁决已把" in source
+    assert "正式计入条件" in source
+    assert "扩大本人归责范围" in source
+    assert "足以支持$1档" in source
+    assert "因此维持$1档" in source
     assert "const publicBasis=key=>impactPublicText(" in source
     assert "const counterfactual=impactPublicText(" in source
     assert "const personalBoundary=impactPublicText(" in source
