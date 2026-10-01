@@ -1997,6 +1997,15 @@ def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
     assert ".home-formal-rank,.home-full-position" in css
 
 
+def test_profile_metadata_uses_reader_friendly_source_labels():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "function profileSourceMarkup(ref,index,r)" in template
+    assert "正式材料 ${index+1} ↗" in template
+    assert "史料来源 ${index+1} ↗" in template
+    assert "link(ref,ref)" not in template
+    assert "profileSourceMarkup(ref,index,r)" in template
+
 def test_profile_public_pattern_hides_cross_axis_work_codes():
     from pathlib import Path
 
