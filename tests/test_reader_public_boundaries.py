@@ -1073,7 +1073,7 @@ assert.equal(
 );
 assert.equal(
   thirdCtx.thirdPublicText('关键证据仍有缺口缺口保留。','普通成本扣分'),
-  '关键证据仍有证据缺口仍存在。'
+  '关键证据仍有缺口。'
 );
 const strategicItem={label:'A1',grade:'3→0档'};
 assert.equal(
