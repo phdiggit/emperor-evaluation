@@ -1706,7 +1706,10 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     start = template.index("function profilePublicPattern(value)")
     end = template.index("function axisEvidence(", start)
     block = template[start:end]
-    assert "战略判断的低档方向仍然成立" in block
-    assert "内部联盟材料进一步确认" in block
-    assert "原C1低档方向仍然成立" in block
-    assert "M4补证可以确认" in block
+    assert "shortNames[code]||code" in block
+    assert "直接证据有限：" in block
+    assert "剔除与其他能力轴重复的材料后，本轴依据更集中" in block
+    assert "负向证据" in block
+    assert "目前证据链尚未完整" in block
+    assert "没有确认由本人直接造成的完整负向链" in block
+    assert "当前判断不过度奖励“判断正确”；执行闭环仍明显不足。" in block
