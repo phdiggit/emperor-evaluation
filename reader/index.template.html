@@ -164,7 +164,10 @@ function impactDimensionPublicText(key,value){
  const labels={scope:"影响范围",depth_duration:"深度与持续",personal_causality:"个人因果",paradigm:"政治范式"};
  const label=labels[key]||"";
  if(label)text=text.replace(new RegExp(`^${label}为[SABCDE](?:[+−-])?[。；:]?\\s*`),"");
- if(key==="paradigm")text=text.replace(/^范式[SABCDE](?:[+−-])?[。；:]?\s*/,"");
+ if(key==="paradigm"){
+  text=text.replace(/^范式[SABCDE](?:[+−-])?[。；:]?\s*/,"");
+  text=text.replace(/^[SABCDE](?:[+−-])?[。；:]\s*/,"");
+ }
  return text.trim();
 }
 function paradigmReceptionProse(review){
@@ -524,6 +527,7 @@ function axisEvidenceScope(a,c){
 }
 function profilePublicPattern(value){
  return readerText(value)
+  .replace(/`?(M1|M2|M4|M5|C1|C2|C3|C4|C5)-P[A-Za-z0-9_-]+`?/g,(_,code)=>(shortNames[code]||code)+"既有情境材料")
   .replace(/\b(M1|M2|M4|M5|C1|C2|C3|C4|C5)\b/g,(_,code)=>shortNames[code]||code)
   .replace(/^帝国基础架构\s*\/\s*影响力去光环$/,"帝国基础架构能力突出；后世影响力不直接换算为本轴能力")
   .replace(/^明确G0负样本$/,"本轴存在明确的低档反向制度表现")
@@ -537,6 +541,8 @@ function profilePublicPattern(value){
   .replace(/负(单一情境|完整生命周期情境|持续系统性情境|跨阶段系统性情境)/g,"负向$1材料")
   .replace(/正(单一情境|完整生命周期情境|持续系统性情境|跨阶段系统性情境)/g,"正向$1材料")
   .replace(/目前没有闭合/g,"目前证据链尚未完整")
+  .replace(/没有闭合出/g,"没有形成")
+  .replace(/未闭合/g,"尚未形成")
   .replace(/无本人闭合负链/g,"没有确认由本人直接造成的完整负向链")
   .replace(/父链/g,"证据链")
   .replace(/现有证据链仅到完整生命周期情境汇总强度/g,"现有证据只支持到完整生命周期情境的强度")
