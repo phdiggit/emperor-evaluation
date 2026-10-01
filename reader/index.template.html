@@ -590,9 +590,11 @@ function person(r){
  const overview=supplementary
   ? `<div class="single-system-page">${impactPanel(r)}</div>`
   : `<div class="three overview-panels">${netPanel(r)}${profilePanel(r)}${impactPanel(r)}</div>`;
- const evidenceLead=supplementary?'本页只展开历史影响正式依据。':'三套结论各自成立。按想了解的问题展开，不把同一字母当成相同尺度。';
+ const evidenceHeader=supplementary
+  ? '<h2>历史影响依据</h2><p class="muted">本页只展开历史影响正式依据。</p>'
+  : '<h2>结论背后的依据</h2><p class="muted">三套结论各自成立。按想了解的问题展开，不把同一字母当成相同尺度。</p>';
  const nonImpactEvidence=supplementary?'':`${r.net?`<section class="panel"><h3>统治绩效构成</h3>${netGroups(r)}</section>`:''}${profileEvidencePanel(r)}`;
- screen.innerHTML=`<button class="back" data-home>← 人物总览</button><div class="person-head"><div><div class="eyebrow">${esc(r.polity)} / ${esc(pageMode)}</div><h1>${esc(personLabel(r))}</h1><p class="muted">掌权背景：${esc(r.actual_power_window||'未列')} ${supplementary?'<span class="scope-label">· 历史影响补充样本</span>':''}</p></div><button data-person-compare="${r.ruler_id}">选择另一人对照 →</button></div><p class="subline power-context-note">${esc(contextNote)}</p>${personSystemNav(r,'overview')}${chapterNav}${overview}<section id="person-evidence" class="evidence reading-wide"><h2>结论背后的依据</h2><p class="muted">${esc(evidenceLead)}</p>${nonImpactEvidence}<section id="history-evidence" class="panel evidence">${historySections(r)}</section></section>`;
+ screen.innerHTML=`<button class="back" data-home>← 人物总览</button><div class="person-head"><div><div class="eyebrow">${esc(r.polity)} / ${esc(pageMode)}</div><h1>${esc(personLabel(r))}</h1><p class="muted">掌权背景：${esc(r.actual_power_window||'未列')} ${supplementary?'<span class="scope-label">· 历史影响补充样本</span>':''}</p></div><button data-person-compare="${r.ruler_id}">选择另一人对照 →</button></div><p class="subline power-context-note">${esc(contextNote)}</p>${personSystemNav(r,'overview')}${chapterNav}${overview}<section id="person-evidence" class="evidence reading-wide">${evidenceHeader}${nonImpactEvidence}<section id="history-evidence" class="panel evidence">${historySections(r)}</section></section>`;
 }
 
 function compare(){
