@@ -26,6 +26,8 @@ function firstCostPublicText(value) {
   return String(value || "")
     .replace(/现行第三项仍有相关计入，必须同步退出后才启用净分。?/g, "相关战争若已在军事与边疆项计入，本项不重复计算；当前按正式去重后的结果结算。")
     .replace(/跨项证实：/g, "跨项去重：")
+    .replace(/由第一项计入/g, "由奠基与统一项计入")
+    .replace(/留第三项/g, "留在军事与边疆项")
     .replace(/第([0-7一二三四五六七])级(?:成本)?/g, (_, level) => {
       const index = chinese[level] != null ? chinese[level] : Number(level);
       return severity[index] || level;
@@ -748,6 +750,8 @@ function firstCommanderMarkup(item) {
       .replace(/旧包/g, "原有材料")
       .replace(/新包/g, "新增材料")
       .replace(/另包/g, "另一项材料")
+      .replace(/不作为该项材料普通限制吞并/g, "不与该项材料的普通限制合并")
+      .replace(/变化另一项材料共同使/g, "变化与另一项材料共同使")
       .replace(/扩搜新证/g, "新增材料")
       .replace(/计分资格/g, "单独调整依据")
       .replace(/同轴禁毁负包/g, "同一维度中的禁毁负向材料")
