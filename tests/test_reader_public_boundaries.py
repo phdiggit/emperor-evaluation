@@ -683,6 +683,9 @@ def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     assert 'firstCostPublicText(data.public_basis)' in source
     assert "当前能力裁决：" in source
     assert 'firstItemPublicText(item.grade || "")' in source
+    assert "相关战争若已在军事与边疆项计入，本项不重复计算" in source
+    assert "由奠基与统一项计入" in source
+    assert "留在军事与边疆项" in source
 
 
 def test_mobile_material_cards_stack_labels_and_scores():
@@ -1095,6 +1098,18 @@ assert.equal(
   thirdCtx.thirdPublicText('974—975水陆军连续失效；这是单一但国家级终局崩溃链，1/1/0维持。','C1实战交付'),
   '974—975水陆军连续失效；这是单一但国家级终局崩溃链，实战任务交付D档、持续作战D档、体系可靠性E档。'
 );
+assert.equal(
+  thirdCtx.thirdPublicText('河西树机能270、277、279三票归为同一连续父周期，7项降至5项；完整河西周期取回报与投入相称，278西陵独立突袭由证据不足证据支持评为低回报。去重后故三轴4/4/3不变。','C1实战交付'),
+  '河西树机能270、277、279三次相关行动归为同一连续任务周期；完整河西周期取回报与投入相称，278年西陵独立突袭现有证据仅支持判断为低回报。去重后故实战任务交付A档、持续作战A档、体系可靠性B档。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('本批父周期边界未改变足以影响三轴的事实基础，正式横校沿用正式三轴/既有能力专用判断。','C1实战交付'),
+  '重新核对任务边界后，三方面事实基础未变，现有等级维持不变。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：旧账仅以1.3→0并启用按终局崩溃强制清零。现改为从杨坚真实4.2交班库存逐区域核退出；吐谷浑、伊吾阶段新增另存峰值但不进入618终点。最终实际控制范围率仍0，但不是由终局标签强制清零。','B1'),
+  '实际控制范围当前为E档、低位。按杨坚交班时的实际控制存量逐区域核对；吐谷浑、伊吾虽有阶段新增，但至618年均未形成可保留的终点控制，因此实际控制范围归零。'
+);
 const strategicItem={label:'A1',grade:'3→0档'};
 assert.equal(
   thirdCtx.thirdItemPublicText(strategicItem,'接手时为第3级，结束时为未单列等级。李隆基 主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：主要威胁转为安史叛军；故客观变动-3档按-3档本人责任。'),
@@ -1120,6 +1135,10 @@ vm.runInContext(
   +'\nthis.civilizationPublicText=civilizationPublicText;', civCtx);
 assert.equal(civCtx.civilizationPublicText('正向变化第3级'),'正向变化达到主要领域的稳定改变');
 assert.equal(civCtx.civilizationPublicText('负向变化第4级'),'负向变化达到系统性破坏');
+assert.equal(
+  civCtx.civilizationPublicText('负向变化第2级.5；原理由中的相对变化第3级与文明影响幅度第3级为过期表述。'),
+  '负向变化在清晰但有限基础上进一步强化；此前较高等级表述已不再采用。'
+);
 assert.equal(civCtx.civilizationPublicText('净文明影响幅度第1级'),'净影响为局部、短期或低强度变化');
 assert.equal(civCtx.civilizationPublicText('第三级影响幅度'),'主要领域的稳定改变');
 assert.equal(civCtx.civilizationPublicText('与负向变化第2级同账。'),'与负向变化达到清晰但有限的变化在同一维度合并判断。');
@@ -1541,6 +1560,9 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "没有形成可继承的稳定统治终点" in source
     assert "统治绩效中的统一成果只保留稳定控制" in source
     assert "统治绩效中的控制成果只看可继承的稳定终点" in source
+    assert "直接抬高等级" in source
+    assert "交叉核对结论" in source
+    assert "直接结构风险" in source
     assert "([SABCDE][+−-]?)门" in source
     assert "prose(impactPublicText(r.actual_use||'未另列说明'))" in source
 
@@ -1813,6 +1835,9 @@ def test_finance_public_copy_collapses_repeated_no_low_point_phrase():
     block = source[start:end]
     assert "未另证独立有效低谷[：:]\\s*未另证独立有效低谷" in block
     assert "军事与边疆项的战略结果未单独计入" in block
+    assert "直接等同" in source
+    assert "因此整体判断上调" in source
+    assert "压低当前等级的档内位置" in source
     assert "能够保留到任期结束的明确恢复" in block
     assert "可在任期结束确认的恢复" in block
     assert "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态" in block
