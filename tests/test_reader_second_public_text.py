@@ -53,7 +53,7 @@ const fragments = [
 for (const text of fragments) {
   const shownText = context.renderText(text);
   const item = {reader_public_evidence_items:[{public_label:'依据',public_basis:text,public_boundary:'不重复计入。'}]};
-  assert.deepEqual(Array.from(context.renderFacts(item)), ['依据；'+shownText+'；边界：不重复计入。']);
+  assert.deepEqual(Array.from(context.renderFacts(item)), [context.renderText('依据；'+shownText+'；边界：不重复计入。')]);
   const card = context.renderList(item.reader_public_evidence_items).children[0];
   assert.equal(card.children[1].textContent, shownText);
   assert.equal(card.children[2].tag, 'details');
