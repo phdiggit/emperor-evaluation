@@ -337,6 +337,8 @@
 
   function publicFinanceText(value) {
     const financeSpecific = String(value ?? "")
+      .replace(/按合同前者越窗/g, "按评价窗口，前者不计入本期")
+      .replace(/故终态社会安全“([^”]+)”\/未另证独立有效低谷，并要求正式重要地区或群体出现明显损害撤销。?/g, "因此任期结束时社会安全为“$1”，且未另证独立有效低谷，不再单列“重要地区或群体出现明显损害”。")
       .replace(/旧任期结束状态=经济财政“失灵崩解”把1127靖康终局倒灌到赵佶1126年退位，必须纠正。/g, "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态。");
     return publicText(financeSpecific)
       .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`)
