@@ -160,6 +160,8 @@ def test_home_simple_cards_use_three_full_column_targets():
     assert 'data-home-section="person-impact"' in simple
     assert "homeProfileSummary(r)" in simple
     assert "home-profile-static" in simple
+    assert "home-eval-static" in simple
+    assert '${r.net?`<button type="button" class="home-eval-card home-eval-net"' in simple
     assert "homePrudentRank(r.net)" in simple
     assert "home-simple-action" not in simple
     assert "home-simple-compare" not in simple
@@ -168,12 +170,14 @@ def test_home_simple_cards_use_three_full_column_targets():
     css = (ROOT / "reader" / "readability.css").read_text(encoding="utf-8")
     assert "Home result-card redesign" in css
     assert ".home-eval-net:hover" in css
+    assert ".home-eval-static" in css
     assert ".home-impact-mark .impact-grade" in css
 
 
 def test_home_system_columns_route_to_distinct_reading_paths():
     source = (ROOT / "reader" / "home-interactions.js").read_text(encoding="utf-8")
     assert 'section === "person-outcome"' in source
+    assert 'if (section === "person-outcome" && !record.net) continue;' in source
     assert '#net/${encoded}/all' in source
     assert 'section === "person-capability"' in source
     assert '#person/${encoded}/profile' in source
