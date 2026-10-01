@@ -657,7 +657,9 @@ def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
     assert "<strong>创业组织与政治整合</strong>" in person
     assert "L档怎么换分" not in person
     # Internal formulas remain available inside collapsed calculation details.
-    assert "四轴毛分 = A + B1 + B2 + C" in home
+    assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in home
+    assert "第一项结算分 S1" not in home
+    assert "总榜附加 F" not in home
     assert "B2 = 并行执行分" in person
 def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_severity():
     from pathlib import Path
