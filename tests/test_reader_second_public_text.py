@@ -38,13 +38,15 @@ for (const [raw,shown] of Object.entries({
   '三档':'C档','第三档':'C档','二档':'D档','第二档':'D档',
   '一档':'E档','第一档':'E档','六档':'S档','第六档':'S档'
 })) assert.equal(context.financeText(raw),shown);
-assert.equal(context.financeText('中期支持五档，但长期阻断六档；主态维持四档。'),'中期支持A档，但长期阻断S档；主态维持B档。');
+assert.equal(context.financeText('中期支持五档，但长期阻断六档；主态维持四档。'),'中期支持A档，但长期阻断S档；主要阶段状态维持B档。');
 assert.equal(context.boundaryText('同一机制只作一次判断；同一机制只作一次判断；'),'同一机制只作一次判断');
 assert.equal(context.financeBoundaryText('第五档；第五档；'),'A档');
 assert.equal(context.financeText('后任衣食滋殖不倒灌。'),'后任衣食滋殖不追溯计入本人。');
 assert.equal(context.financeText('本人主要阶段状态2维持。'),'本人主要阶段状态为D档维持。');
 assert.equal(context.financeText('只登记峰值5而非主要阶段状态5。'),'只登记峰值达到A档而非主要阶段状态为A档。');
 assert.equal(context.financeText('亲政起点硬承接3而非旧4。'),'亲政接手时状态为C档，不沿用此前B档判断。');
+assert.equal(context.financeText('按合同前者越窗，后者保留。'),'按评价窗口，前者不计入本期，后者保留。');
+assert.equal(context.financeText('旧任期结束状态=经济财政“失灵崩解”把1127靖康终局倒灌到赵佶1126年退位，必须纠正。'),'不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态。');
 assert.equal(context.boundaryText('只计算逐字引文证明链条成立的制度接口'),'只计算现有直接史料能够确认的制度接口');
 assert.equal(context.boundaryText('运行结果是已形成；未计入长期接收加权。'),'实际运行情况：已形成；未因后世长期沿用获得额外提高。');
 assert.equal(context.boundaryText('未见有源D档或B档端点'),'未见有证据支持的D档或B档判断');
