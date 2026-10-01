@@ -529,8 +529,8 @@ function axisEvidenceScope(a,c){
  return {coverage:scope.material_coverage_label,modeLabel:scope.conclusion_mode_label,detail:'<div class="label">材料底池与本人能力证据</div>'+axisProse(scope.material_coverage_basis)+axisProse(scope.ability_evidence_label)+axisProse(scope.attribution_boundary)+axisProse(scope.confidence_basis)+axisProse(scope.grade_boundary)};
 }
 function profilePublicPattern(value){
- return readerText(value)
-  .replace(/`?(M1|M2|M4|M5|C1|C2|C3|C4|C5)-P[A-Za-z0-9_-]+`?/g,(_,code)=>(shortNames[code]||code)+"既有情境材料")
+ const cleaned=String(value??'').replace(/`?(M1|M2|M4|M5|C1|C2|C3|C4|C5)-P[A-Za-z0-9_-]+`?/g,(_,code)=>(shortNames[code]||code)+"既有情境材料");
+ return readerText(cleaned)
   .replace(/\b(M1|M2|M4|M5|C1|C2|C3|C4|C5)\b/g,(_,code)=>shortNames[code]||code)
   .replace(/^帝国基础架构\s*\/\s*影响力去光环$/,"帝国基础架构能力突出；后世影响力不直接换算为本轴能力")
   .replace(/^明确G0负样本$/,"本轴存在明确的低档反向制度表现")
