@@ -1930,6 +1930,14 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert '.replace(/父链/g,"证据链")' in block
     assert "现有证据只支持到完整生命周期情境的强度" in block
     assert "当前判断不过度奖励“判断正确”；执行闭环仍明显不足。" in block
+    assert "MI1(?:_CASE)?" in template
+    assert "MI2(?:_LIFECYCLE)?" in template
+    assert "MI3(?:_SUSTAINED_SYSTEMIC)?" in template
+    assert "MI4(?:_CROSS_PHASE_SYSTEMIC)?" in template
+    assert "materialIntensityNames[k]||k" in template
+    assert "formalDirectionNames[k]||k" in template
+    assert "负向$1材料" in block
+    assert "正向$1材料" in block
 
 
 def test_third_public_copy_hides_fallen_regime_audit_codes():
