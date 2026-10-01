@@ -1530,6 +1530,8 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "人物画像“战略判断”材料" in source
     assert "人物画像“'+(shortNames[code]||code)+'”材料" in source
     assert "军事结算材料" in source
+    assert "奠基与统一中的组织与整合材料显示" in source
+    assert "判断把握为中等" in source
     assert "民生与财政结算材料" in source
     assert "集团机制材料复核" in source
     assert "相关正式材料" in source
