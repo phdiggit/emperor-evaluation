@@ -623,6 +623,12 @@ def test_profile_material_strength_is_public_first_and_raw_code_is_audit_only():
     assert ".formal-context-story" in css
     assert ".formal-context-chip.context-intensity" in css
 
+def test_home_full_table_uses_current_performance_accessibility_label():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'section === "person-outcome" ? "统治绩效"' in source
+    assert 'section === "person-outcome" ? "净收益"' not in source
+
 def test_second_item_detail_renderer_keeps_public_takeover_hook():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
