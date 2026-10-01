@@ -155,9 +155,12 @@ function impactTotalPublicText(h){
  let causalNote='用于判断这些变化有多少真正依赖本人。';
  if(/个人因果[^。]*下调一档/.test(formal))causalNote='本人归责不足以支撑更高的基础判断，因此综合量级向下修正。';
  else if(/个人因果[^。]*(?:提出一档上调|上调一档)/.test(formal))causalNote='本人归责较强，对基础判断形成上调作用，但仍受影响范围与持续程度约束。';
- else if(/个人因果[^。]*(?:维持基础量级|不会仅凭这一项提高总量级)/.test(formal))causalNote='该项没有单独改变由范围与持续形成的基础判断。';
+ else if(/个人因果[^。]*(?:维持[^。；]*基础|不再改变量级|不会仅凭这一项提高总量级)/.test(formal))causalNote='该项没有单独改变由范围与持续形成的基础判断。';
+ let paradigmNote='只作为后世实际接收的有限补充，不与前三项做平均。';
+ if(/政治范式[^。；]*(?:上调一档|提高一档)/.test(formal))paradigmNote='后世最高权力的实际接收证据足够强，因此在前三项判断之后形成一档上调；仍受影响范围、持续程度与证据去重约束。';
+ else if(/政治范式[^。；]*(?:不改变|不提高|仅修正|不再改变量级)/.test(formal))paradigmNote='本次没有单独改变前三项形成的综合判断，也不与前三项做平均。';
  const meaning=impactMeaning[gradeValue]?'（'+impactMeaning[gradeValue]+'）':'';
- return '影响范围为'+scope+'，深度与持续为'+depth+'；两者先确定基础影响。个人因果为'+causal+'；'+causalNote+'政治范式为'+paradigm+'；只作为后世实际接收的有限补充，不与前三项做平均。综合后公开等级为'+gradeValue+meaning+'。';
+ return '影响范围为'+scope+'，深度与持续为'+depth+'；两者先确定基础影响。个人因果为'+causal+'；'+causalNote+'政治范式为'+paradigm+'；'+paradigmNote+'综合后公开等级为'+gradeValue+meaning+'。';
 }
 function impactDimensionPublicText(key,value){
  let text=impactPublicText(value);
