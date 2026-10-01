@@ -2063,7 +2063,14 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "求真取证情境" in block
     assert "拒绝更新或同类复发情境" in block
     assert "多功能、广域行政链整体失效" in block
-    assert "民生财政相关结果" in block
+    assert "治理恢复的具体工具专业性由民生财政相关结果承担" in block
+    assert '.replace(/\\bM3\\b/g,"民生财政相关结果")' not in block
+    assert "官僚治理现有材料已确认岭南物流的持续运行链与有限选任链" in block
+    assert "学习纠错与反馈约束" in block
+    assert "反馈后调整路径" in block
+    assert "极广外溢范围" in block
+    assert "极深负向下沿" in block
+    assert "负向风险链" in block
     assert "官僚治理正式材料" in block
     assert "精英级" in block
     assert "跨家庭或较广党附范围的族诛" in block
