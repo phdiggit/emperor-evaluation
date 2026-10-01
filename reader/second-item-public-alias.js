@@ -336,7 +336,9 @@
   }
 
   function publicFinanceText(value) {
-    return publicText(value)
+    const financeSpecific = String(value ?? "")
+      .replace(/旧任期结束状态=经济财政“失灵崩解”把1127靖康终局倒灌到赵佶1126年退位，必须纠正。/g, "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态。");
+    return publicText(financeSpecific)
       .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`)
       .replace(/起点硬承接([1-6])而非旧([1-6])/g, (_, current, old) => `接手时状态为${FINANCE_ORDINAL_GRADE[current] || current}档，不沿用此前${FINANCE_ORDINAL_GRADE[old] || old}档判断`)
       .replace(/主要阶段状态\s*([1-6])/g, (_, level) => `主要阶段状态为${FINANCE_ORDINAL_GRADE[level] || level}档`)
@@ -350,7 +352,6 @@
       .replace(/不能继续扣低谷损害/g, "不再作为独立低谷重复计入")
       .replace(/第三项军事战略结果为不适用，是因创业\/统一整链避免重复计算，不代表战争成本低；/g, "军事与边疆项的战略结果未单独计入，是因为创业或统一主链已由其他项目承担；这不代表战争成本低；")
       .replace(/没有可归入本人掌权时期的恢复，因此不另行扩大恢复责任。/g, "没有形成可在任期结束确认的恢复，因此不另行扩大恢复责任。")
-      .replace(/旧任期结束状态=经济财政“失灵崩解”把1127靖康终局倒灌到赵佶1126年退位，必须纠正。/g, "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态。")
       .replace(/。；/g, "；")
       .replace(/；；+/g, "；");
   }
