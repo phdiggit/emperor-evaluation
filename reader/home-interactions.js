@@ -554,7 +554,7 @@ function firstCommanderMarkup(item) {
       .replace(/父卡/g, "上位任务记录")
       .replace(/不生成本人改善信用/g, "不计为本人改善成果")
       .replace(/回灌/g, "重复计入")
-      .replace(/缺口缺口保留/g, "证据缺口仍存在")
+      .replace(/关键证据仍有缺口缺口保留/g, "关键证据仍有缺口")
       .replace(/轴5必须由第三项本体重大体系胜绩复验/g, "S档必须由本项自身的重大体系胜绩再次验证")
       .replace(/第三项军事体系军事体系正证/g, "本项军事体系的正向证据")
       .replace(/军事体系军事体系/g, "军事体系")
