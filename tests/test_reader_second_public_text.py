@@ -51,6 +51,7 @@ assert.equal(context.boundaryText('材料越窗，不准入当前判断'),'材�
 assert.equal(context.boundaryText('公共法律底账完成复裁'),'公共法律正式记录完成复核');
 assert.equal(context.boundaryText('前中期主态可维持'),'前中期主要阶段状态可维持');
 assert.equal(context.boundaryText('第三项军事成本第五级低位由正式材料准入'),'严重军事成本（低位）由正式材料支持计入');
+assert.equal(context.boundaryText('削藩触发责任准入'),'削藩触发本人责任条件');
 assert.equal(context.boundaryText('跨代结果不回算本人，也不作为G4第二独立验证'),'跨代结果不回算本人，也不作为A档第二独立验证');
 assert.equal(context.boundaryText('当前G4档材料继续保留'),'当前A档材料继续保留');
 const fragments = [
