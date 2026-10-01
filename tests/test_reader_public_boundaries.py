@@ -1051,6 +1051,30 @@ assert.equal(
   thirdCtx.thirdPublicText('可移交控制结构的覆盖、持续和承载强度判断为控制成果稳定性第0级；不重复计算安全态势项宏观边疆态势。','B4'),
   '可移交控制结构的覆盖、持续和承载强度判断为控制成果稳定性E档；不重复计算已经在安全态势中判断的宏观边疆变化。'
 );
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：原正式控制规模值为52，实际采用值为0；统一参照点后，客观加权值为0.72，对应正式值应为44，但第三项有效采用比例仍为0。','B1'),
+  '实际控制范围当前为E档、低位。相关控制成果已在奠基与统一项计入，本项不再重复计入。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('按军事体系整体第4级重大胜绩硬门封顶军事体系整体第3级。','C1实战交付'),
+  '尚未达到A档所需的重大体系胜绩条件，军事体系整体维持B档。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('正式军事体系按8条当前任务与4条仅作能力证据支撑三轴4档；创业恢复链不回灌第三项结果/成本。','C1实战交付'),
+  '现有正式任务与补充能力证据共同支持三方面均为A档；创业恢复链不重复计入本项结果/成本。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('普通军事代价为不适用或尚未定级。当前第三项成本清单将其标记为不适用。按当前评定用户指定范围，不重新审查该状态的跨项来源；只确认没有独立军事体系档需要重新定级。','普通成本扣分'),
+  '普通军事代价为不适用或尚未定级。当前本项不单独结算军事代价。相关战争成本已按评价边界在其他项目处理，本项不重复结算。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('1161父卡将临机整军归于将领，客观终点升档但不生成本人改善信用；创业恢复链不回灌第三项结果。','A1'),
+  '1161上位任务记录将临机整军归于将领，客观终点升档但不计为本人改善成果；创业恢复链不重复计入本项结果。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('关键证据仍有缺口缺口保留。','普通成本扣分'),
+  '关键证据仍有证据缺口仍存在。'
+);
 const strategicItem={label:'A1',grade:'3→0档'};
 assert.equal(
   thirdCtx.thirdItemPublicText(strategicItem,'接手时为第3级，结束时为未单列等级。李隆基 主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：主要威胁转为安史叛军；故客观变动-3档按-3档本人责任。'),
@@ -1762,6 +1786,7 @@ def test_finance_public_copy_collapses_repeated_no_low_point_phrase():
     end = source.index("function publicCalculationText(value)", start)
     block = source[start:end]
     assert "未另证独立有效低谷[：:]\\s*未另证独立有效低谷" in block
+    assert "军事与边疆项的战略结果未单独计入" in block
     assert "能够保留到任期结束的明确恢复" in block
     assert "可在任期结束确认的恢复" in block
     assert "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态" in block
