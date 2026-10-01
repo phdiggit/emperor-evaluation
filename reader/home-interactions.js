@@ -463,9 +463,12 @@ function firstCommanderMarkup(item) {
       reading.append(details);
     }
     reading.dataset.netCompact = "done";
-    // Prevent the legacy person-page renderer from constructing a full detail tree
-    // that this compact view would immediately replace. The independent #net page
-    // remains the only full calculation surface.
+    // The person page is summary-only. Remove the legacy raw calculation folds
+    // that were already emitted by the base template; the independent #net page
+    // remains the single full calculation surface.
+    for (const node of Array.from(section.children)) {
+      if (node.tagName === "DETAILS") node.remove();
+    }
     section.dataset.netReadable = "done";
   }
 
