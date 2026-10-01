@@ -459,3 +459,12 @@ def test_first_item_reader_distinguishes_shared_project_share_from_real_world_pe
     assert "本项适用，但第一项结算分归零" in source
     assert "成果占比" not in source
     assert "正向净收益" not in source
+
+def test_person_page_drops_legacy_net_ledger_in_favor_of_net_detail_page():
+    from pathlib import Path
+    home = (Path(__file__).resolve().parents[1] / 'reader/home-interactions.js').read_text(encoding='utf-8')
+    person = (Path(__file__).resolve().parents[1] / 'reader/person-readability.js').read_text(encoding='utf-8')
+    assert 'if (node.tagName === "DETAILS") node.remove();' in home
+    assert 'remains the single full calculation surface' in home
+    assert 'function foldNetLedger()' not in person
+    assert '完整计分账本（审计视图）' not in person
