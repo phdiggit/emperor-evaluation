@@ -2092,6 +2092,25 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "极深负向下沿" in block
     assert "负向风险链" in block
     assert "官僚治理正式材料" in block
+    assert '.replace(/actual_power_window/g,"掌权时期")' in block
+    assert '.replace(/重裁/g,"重新核对")' in block
+    assert '.replace(/倒灌/g,"追溯计入")' in block
+    assert '.replace(/回填/g,"追溯计入")' in block
+    assert '.replace(/分账/g,"分开评价")' in block
+    assert '.replace(/底账/g,"正式材料")' in block
+    assert '.replace(/闭合/g,"确认")' in block
+    assert '.replace(/准入/g,"纳入判断")' in block
+    assert "尚未确认的负向候选材料" in block
+    assert "背景材料" in block
+    assert "单一家庭或窄亲属群范围" in block
+    assert "功臣安全的极深负向下沿" in block
+    assert "政治表达安全的极深负向下沿" in block
+    assert "强藩违法特权" in block
+    assert "军队违法特权" in block
+    assert "反例覆盖复核" in block
+    assert "史源冲突" in block
+    assert "实际权力受限" in block
+    assert "归责存在争议或共享" in block
     assert "精英级" in block
     assert "跨家庭或较广党附范围的族诛" in block
     assert "面向一般民众或多个无关群体的系统性恐怖" in block
