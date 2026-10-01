@@ -49,7 +49,7 @@ assert.equal(context.boundaryText('只计算逐字引文证明链条成立的制
 assert.equal(context.boundaryText('运行结果是已形成；未计入长期接收加权。'),'实际运行情况：已形成；未因后世长期沿用获得额外提高。');
 assert.equal(context.boundaryText('未见有源D档或B档端点'),'未见有证据支持的D档或B档判断');
 assert.equal(context.boundaryText('未通过较高档条件槛'),'未通过较高档条件');
-assert.equal(context.boundaryText('综合净值为-1，减轻负账'),'综合综合判断仍偏负，减轻负向影响');
+assert.equal(context.boundaryText('综合净值为-1，减轻负账'),'综合判断仍偏负，减轻负向影响');
 assert.equal(context.boundaryText('后继结果不倒算本人，也不回填'),'后继结果不追溯计入本人，也不追溯计入本人');
 assert.equal(context.boundaryText('见父链及对应原始片段；本层只修正机制颗粒度，不新增史实'),'见证据链及对应原始片段；此处只说明机制范围，不新增历史事实');
 assert.equal(context.boundaryText('后任结果不得倒灌为本人主要状态'),'后任结果不得追溯作为本人主要状态');
