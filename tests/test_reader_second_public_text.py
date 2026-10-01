@@ -41,6 +41,8 @@ for (const [raw,shown] of Object.entries({
 assert.equal(context.financeText('中期支持五档，但长期阻断六档；主态维持四档。'),'中期支持A档，但长期阻断S档；主态维持B档。');
 assert.equal(context.boundaryText('同一机制只作一次判断；同一机制只作一次判断；'),'同一机制只作一次判断');
 assert.equal(context.financeBoundaryText('第五档；第五档；'),'A档');
+assert.equal(context.boundaryText('跨代结果不回算本人，也不作为G4第二独立验证'),'跨代结果不回算本人，也不作为A档第二独立验证');
+assert.equal(context.boundaryText('当前G4档材料继续保留'),'当前A档材料继续保留');
 const fragments = [
   '保留恢复的责任范围：本人主导。',
   '未过较高档门，但不等于没有改善。',
