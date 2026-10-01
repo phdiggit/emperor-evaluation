@@ -1563,6 +1563,20 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "直接抬高等级" in source
     assert "交叉核对结论" in source
     assert "直接结构风险" in source
+    assert "人物画像“'+(shortNames[a]||a)+'”与“'+(shortNames[b]||b)+'”材料" in source
+    assert "社会安全结算材料" in source
+    assert "既有反向材料核对" in source
+    assert "不能把全部结果都归于本人" in source
+    assert ".replace(/倒灌/g,'归入')" in source
+    assert ".replace(/回填/g,'归入')" in source
+    assert ".replace(/父链/g,'主链')" in source
+    assert ".replace(/闭合/g,'形成')" in source
+    assert "国家基本运行架构重构" in source
+    assert "高能力档位下的重大负向统帅案例" in source
+    assert "当时可确认的外部等效控制记录" in source
+    assert ".replace(/刷分/g,'重复计分')" in source
+    assert ".replace(/底账/g,'结算材料')" in source
+    assert "机械(?=计数|叠加|相加|换档|提高|降低|下降|映射|等价|当作)" in source
     assert "([SABCDE][+−-]?)门" in source
     assert "prose(impactPublicText(r.actual_use||'未另列说明'))" in source
 
