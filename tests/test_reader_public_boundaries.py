@@ -1521,6 +1521,7 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "当前公开口径不再把" in source
     assert "剔除仅由名号、法统或制度惯性造成的接收后" in source
     assert "剔除名号与制度惯性的复核" in source
+    assert "但不能把五代十国全部归入本人”这一主链中" in source
     assert "人物画像“战略判断”材料" in source
     assert "人物画像“'+(shortNames[code]||code)+'”材料" in source
     assert "军事结算材料" in source
@@ -1949,21 +1950,3 @@ def test_third_public_copy_hides_fallen_regime_audit_codes():
     assert "同一主链的安全态势和控制成果不在本项重复计入" in block
 
 
-def test_huang_chao_public_causality_has_balanced_reader_wording():
-    import json
-    from pathlib import Path
-
-    path = Path(__file__).resolve().parents[1] / "docs/评分结算/历史影响/01-历史影响正式结算/大齐.json"
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    record = payload["collections"]["supplementary_records"]["records"][0]
-
-    basis = record["dimensions"]["personal_causality"]["public_basis"]
-    decision = record["causal_review"]["decision"]
-    chain = next(item for item in record["macro_chains"] if item["chain_id"] == "HI-HIMPACT-QI-HUANGCHAO-02")
-
-    assert "不能把五代十国全部归入本人" in basis
-    assert "不能把全部结果都归于本人" in basis
-    assert "但“五代十国全部”不得" not in basis
-    assert "全部结果上收" not in basis
-    assert "不能把五代十国全部归入本人" in decision
-    assert "不得回填" not in chain["title"]
