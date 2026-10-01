@@ -1841,6 +1841,11 @@ def test_finance_public_copy_collapses_repeated_no_low_point_phrase():
     assert "能够保留到任期结束的明确恢复" in block
     assert "可在任期结束确认的恢复" in block
     assert "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态" in block
+    assert "民生主要状态维持为“$1”" in block
+    assert "现有证据尚不足" in block
+    assert "按评价窗口，前者不计入本期" in block
+    assert "不再作为独立低谷重复计入" in block
+    assert "不再单列“重要地区或群体出现明显损害”" in block
     assert "function publicHandoffText(value)" in block
     assert "实际率领百官" in block
     assert "这只能证明部分行政承接" in block
@@ -1926,3 +1931,25 @@ def test_third_public_copy_hides_fallen_regime_audit_codes():
     assert "本人对后续${direction}承担主要责任" in block
     assert "(^|[^\\d])([0-5])\\/([0-5])\\/([0-5])(?=$|[^\\d])" in block
     assert "实战任务交付${thirdGradeText(delivery)}、持续作战${thirdGradeText(endurance)}、体系可靠性${thirdGradeText(reliability)}" in block
+    assert "当前没有可与创业统一主链分离的独立体系压力任务" in block
+    assert "同一主链的安全态势和控制成果不在本项重复计入" in block
+
+
+def test_huang_chao_public_causality_has_balanced_reader_wording():
+    import json
+    from pathlib import Path
+
+    path = Path(__file__).resolve().parents[1] / "docs/评分结算/历史影响/01-历史影响正式结算/大齐.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    record = payload["collections"]["supplementary_records"]["records"][0]
+
+    basis = record["dimensions"]["personal_causality"]["public_basis"]
+    decision = record["causal_review"]["decision"]
+    chain = next(item for item in record["macro_chains"] if item["chain_id"] == "HI-HIMPACT-QI-HUANGCHAO-02")
+
+    assert "不能把五代十国全部归入本人" in basis
+    assert "不能把全部结果都归于本人" in basis
+    assert "但“五代十国全部”不得" not in basis
+    assert "全部结果上收" not in basis
+    assert "不能把五代十国全部归入本人" in decision
+    assert "不得回填" not in chain["title"]
