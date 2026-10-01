@@ -225,7 +225,7 @@ function firstCommanderMarkup(item) {
         cell.dataset.homeSection = section;
         cell.tabIndex = 0;
         cell.setAttribute("role", "link");
-        const label = section === "person-outcome" ? "净收益" : section === "person-capability" ? "人物画像" : "历史影响";
+        const label = section === "person-outcome" ? "统治绩效" : section === "person-capability" ? "人物画像" : "历史影响";
         cell.setAttribute("aria-label", `查看${personLabel(record)}的${label}`);
       }
 
