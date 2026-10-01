@@ -1520,6 +1520,12 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "prose(impactTotalPublicText(h))" in source
     assert "prose(impactPublicText(h.impact_nature_basis))" in source
     assert "prose(impactPublicText(c.narrative))" in source
+    assert "<summary>${esc(impactPublicText(c.title))}</summary>" in source
+    assert "统治绩效中的统一成果未保留，不等于历史影响范围为0" in source
+    assert "没有形成可继承的稳定统治终点" in source
+    assert "统治绩效中的统一成果只保留稳定控制" in source
+    assert "统治绩效中的控制成果只看可继承的稳定终点" in source
+    assert "([SABCDE][+−-]?)门" in source
     assert "prose(impactPublicText(r.actual_use||'未另列说明'))" in source
 
 
