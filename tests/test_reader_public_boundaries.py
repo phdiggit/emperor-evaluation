@@ -1536,6 +1536,9 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "核对《帝鉴图说》" in source
     assert "不因后世名望提高等级" in source
     assert "当前公开裁决已把" in source
+    assert "现有归责材料认为，这一终局变化高度依赖本人选择。" in source
+    assert ".replace(/\\bDECISIVE_DRIVER\\b/g,\'决定性个人驱动\')" in source
+    assert ".replace(/项目D/g,\'现有归责材料\')" in source
     assert "正式计入条件" in source
     assert ".replace(/只消费/g,'只计入')" in source
     assert ".replace(/硬变化/g,'已确认的实际变化')" in source
