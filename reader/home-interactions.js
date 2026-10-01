@@ -529,7 +529,7 @@ function firstCommanderMarkup(item) {
   function thirdPublicText(value, itemLabel = "") {
     let text = cleanNetText(value);
     if (!text) return "";
-    const isCost = itemLabel === "普通成本扣分";
+    const isCost = itemLabel === "普通成本扣分" || itemLabel === "ML扣分";
     text = text
       .replace(/已核对\d+项独立任务，其中较好结果\d+项、低回报\d+项、负向结果\d+项。?/g, "")
       .replace(/父周期仅完成边界证实，任务成员与独立父周期结构未变；没有产生新的升降档理由。?/g, "")
@@ -541,6 +541,7 @@ function firstCommanderMarkup(item) {
       .replace(/父级重新裁任务回报类别/g, "在合并后的任务周期重新判断整体回报")
       .replace(/正式横校档/g, "当前等级")
       .replace(/正式横校/g, "交叉核对")
+      .replace(/战略链化/g, "按战略主链归并")
       .replace(/本次重做撤销上一版近1:1链化；以\d+条战略链为评分单元，父任务只作证据下钻；三轴与整体水平经复核不变。?/g, "多个具体任务按战略主链归并，避免把同一主链拆成重复计分。")
       .replace(/复裁撤销前166\/162\/158过度合并：三轮均已各自证实，前162还以再和亲形成明确周期终点；仅将前162年汉匈战争重绑至其战役群。?/g, "前166、前162、前158三轮边患分别有独立材料；前162另有再和亲作为阶段终点。")
       .replace(/旧“北方36—46”宽父拆为卢芳—匈奴、乌桓、鲜卑三个独立压力对象，6票升至8票。拆分不是加功，反而要求分别复核回报；?/g, "北方压力按卢芳—匈奴、乌桓、鲜卑三个独立对象分别核对；拆分仅用于避免混并，不额外增加得分。")
@@ -619,7 +620,15 @@ function firstCommanderMarkup(item) {
       .replace(/维持主要本人责任0\.75/g, "维持本人主要责任")
       .replace(/本人对后续(恶化|改善)主要本人责任[+-]?\d+(?:\.\d+)?档。?/g, (_, direction) => `本人对后续${direction}承担主要责任。`)
       .replace(/主导国家层面的网络建设，取1；/g, "主导国家层面的网络建设，按本人主要责任计入；")
+      .replace(/当前结果先得到\s*[\d.]+%\s*的得分率，合成时采用\s*([\d.]+)%。?/g, "当前等级进入合成时采用 $1%。")
+      .replace(/档位(?:和|与)得分率不变/g, "档位和合成比例不变")
+      .replace(/得分率/g, "合成比例")
+      .replace(/不把([^，。；]+?)损失回填十万或核心门/g, "不把$1任内损失计入本人，也不据此补足更高成本条件")
+      .replace(/不回填([^，。；]+)/g, "不把$1重复计入本人")
+      .replace(/核心门/g, "更高成本条件")
+      .replace(/回填/g, "重复计入")
       .replace(/[，；,;]?故客观变动[+-]?\d+档中取[+-]?\d+(?:\.\d+)?档。?/g, "。")
+      .replace(/军事成本为第([0-7一二三四五六七])级(高位|中位|低位|极端上沿)/g, (_, level, position) => `军事成本为${thirdCostText(level)}、${position}`)
       .replace(/军事成本(?:达到)?第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level))
       .replace(/军事成本第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level));
     if (isCost) {
@@ -631,8 +640,8 @@ function firstCommanderMarkup(item) {
     }
     text = text
       .replace(/由([0-5])档升至([0-5])档/g, (_, from, to) => `由${thirdGradeText(from)}升至${thirdGradeText(to)}`)
-      .replace(/([0-5])→([0-5])档/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
-      .replace(/([0-5])→([0-5])/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
+      .replace(/(?<![\d.])([0-5])→([0-5])档/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
+      .replace(/(?<![\d.])([0-5])→([0-5])(?![\d.])/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
       .replace(/三轴(?:维持)?([0-5])\/\1\/\1/g, (_, level) => `三方面均为${thirdGradeText(level)}`)
       .replace(/(支持|阻断|维持|压至|达到)([0-5])档/g, (_, verb, level) => `${verb}${thirdGradeText(level)}`)
       .replace(/([0-5])档(高位|中位|低位)/g, (_, level, position) => `${thirdGradeText(level)}${position}`)
@@ -826,6 +835,7 @@ function firstCommanderMarkup(item) {
       .replace(/同账/g, "在同一维度合并判断")
       .replace(/作净算/g, "合并判断")
       .replace(/回填/g, "重复计入本人")
+      .replace(/倒算本人/g, "追溯计入本人")
       .replace(/倒算给/g, "追溯计入")
       .replace(/另定整数负向变化/g, "另定为独立负向变化")
       .replace(/轴级/g, "本轴")
