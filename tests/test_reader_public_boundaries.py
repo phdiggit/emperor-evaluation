@@ -1910,8 +1910,9 @@ def test_history_total_public_explanation_stays_on_public_scale():
     assert "总等级为什么和四维字母不同？" in template
     assert "同一个字母不能跨两套刻度直接比较" in template
     assert "最终内部裁判带" not in template
-    assert "这是离线交互设计样稿" not in template
-    assert "阅读层随构建流程同步刷新" in template
+    public_copy = (Path(__file__).resolve().parents[1] / "reader/public-copy.json").read_text(encoding="utf-8")
+    assert "这是离线交互设计样稿。展示数据来自构建时的正式结算；更新正式记录后重新构建阅读页。" in public_copy
+    assert "本站是正式结算数据的只读阅读层；正式记录更新后，页面随之重建。" in public_copy
     dimension_start = template.index("function impactDimensionPublicText")
     dimension_end = template.index("function paradigmReceptionProse", dimension_start)
     dimension = template[dimension_start:dimension_end]
