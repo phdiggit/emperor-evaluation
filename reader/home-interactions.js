@@ -222,6 +222,7 @@ function firstCommanderMarkup(item) {
         const cell = cells[Number(index)];
         if (!cell) continue;
         if (section === "person-outcome" && !record.net) continue;
+        if (section === "person-capability" && record.supplementary) continue;
         cell.classList.add("home-jump-cell");
         cell.dataset.homeSection = section;
         cell.tabIndex = 0;
