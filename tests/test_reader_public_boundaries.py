@@ -2066,6 +2066,10 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "民生财政相关结果" in block
     assert "官僚治理正式材料" in block
     assert "精英级" in block
+    assert "跨家庭或较广党附范围的族诛" in block
+    assert "面向一般民众或多个无关群体的系统性恐怖" in block
+    assert "反馈与约束中的异议安全" in block
+    assert "主要归组织执行与官僚治理" in block
     assert '.replace(/\\bLOW\\b/g,"低位")' in block
     assert '.replace(/\\bMID\\b/g,"中位")' in block
     assert '.replace(/\\bHIGH\\b/g,"高位")' in block
