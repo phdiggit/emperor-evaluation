@@ -1819,6 +1819,38 @@ def test_history_total_public_explanation_stays_on_public_scale():
     assert "impactTechnicalHelp()" in template
 
 
+def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    css = (root / "reader/readability.css").read_text(encoding="utf-8")
+
+    start = template.index("function netPositionSummary(n)")
+    end = template.index("function netPanel(r)", start)
+    block = template[start:end]
+    assert "const lead=prudent?" in block
+    assert "审慎位置" in block
+    assert "正式点位 第" in block
+    assert "<strong>正式第" not in block
+
+    assert 'class="home-net-rank"><strong>' in template
+    assert 'class="home-formal-rank">正式点位 第' in template
+    assert 'class="home-full-position"' in template
+    assert "审慎位置、正式点位与治理背景" in template
+    assert "页面优先展示这一范围" in template
+
+    compare_start = template.index("function compare(){")
+    compare_end = template.index("function guide()", compare_start)
+    compare = template[compare_start:compare_end]
+    assert "row('审慎位置投影'" in compare
+    assert "row('正式点位（当前规则点估计）'" in compare
+    assert "row('正式绩效'" not in compare
+
+    assert ".net-position-summary>.net-formal-position{color:var(--muted)}" in css
+    assert ".home-formal-rank,.home-full-position" in css
+
+
 def test_profile_public_pattern_hides_cross_axis_work_codes():
     from pathlib import Path
 
