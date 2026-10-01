@@ -1921,6 +1921,25 @@ def test_history_total_public_explanation_stays_on_public_scale():
     assert "text.replace(/^[SABCDE](?:[+−-])?[。；:]\\s*/" in dimension
 
 
+
+def test_prudent_evidence_details_hide_internal_grade_codes():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("const prudentAxisNames=")
+    end = template.index("function prudentPositionText", start)
+    block = template[start:end]
+    assert 'C1:"民生",C2:"经济财政",C3:"社会安全"' in block
+    assert '0:"未见独立有效低谷"' in block
+    assert '5:"严重军事成本",6:"极端军事成本"' in block
+    assert "function prudentEndpointText" in block
+    assert "function prudentCostText" in block
+    assert "function prudentIssueText" in block
+    assert "现有史料允许的审慎判断" in block
+    assert "军事成本的审慎边界" in block
+    assert "本轮合法端点" not in block
+    assert "单命题条件分差" not in block
+    assert "现有史料允许的审慎上端" in block
+    assert "prudentGeneralText(a.public_basis)" in block
 def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
     from pathlib import Path
 
