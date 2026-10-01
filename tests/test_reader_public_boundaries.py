@@ -1910,3 +1910,19 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert '.replace(/父链/g,"证据链")' in block
     assert "现有证据只支持到完整生命周期情境的强度" in block
     assert "当前判断不过度奖励“判断正确”；执行闭环仍明显不足。" in block
+
+
+def test_third_public_copy_hides_fallen_regime_audit_codes():
+    from pathlib import Path
+
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    start = source.index("function thirdPublicText")
+    end = source.index("function thirdItemPublicText", start)
+    block = source[start:end]
+
+    assert "仍为0，但从错误0→0重建为真实" in block
+    assert "重新核对后，确认任内发生大规模边疆退控并最终归零。" in block
+    assert "本人对后续(恶化|改善)主要本人责任" in block
+    assert "本人对后续${direction}承担主要责任" in block
+    assert "(^|[^\\d])([0-5])\\/([0-5])\\/([0-5])(?=$|[^\\d])" in block
+    assert "实战任务交付${thirdGradeText(delivery)}、持续作战${thirdGradeText(endurance)}、体系可靠性${thirdGradeText(reliability)}" in block
