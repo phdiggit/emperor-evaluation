@@ -2126,6 +2126,27 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "史源冲突" in block
     assert "实际权力受限" in block
     assert "归责存在争议或共享" in block
+    assert "极重安全恶化并伴随重要区域控制丧失" in block
+    assert "严重安全恶化并伴随重要区域控制丧失" in block
+    assert "核心区域军政功能严重受损并伴随严重安全恶化" in block
+    assert "仅有局部安全改善但整体出现明显持续安全恶化" in block
+    assert "高到极高强度军事资源投入或损失" in block
+    assert "继任行政连续性" in block
+    assert "高压任务难度完整归给" in block
+    assert "极端逆转级前线压力" in block
+    assert "中等强度负向证据" in block
+    assert "极高强度负向证据" in block
+    assert "最高指挥者" in block
+    assert "问题优先级判断" in block
+    assert "目标—资源匹配" in block
+    assert "风险与可选方案控制" in block
+    assert "一般司法治理" in block
+    assert "现实武装威胁下的安全处置" in block
+    assert "差异法域" in block
+    assert "创业主阶段" in block
+    assert "雁门危机战役材料" in block
+    assert "葛陂南进撤退阶段材料" in block
+    assert "稳定证据链[A-Za-z0-9_:-]{4,}已" in block
     assert "精英级" in block
     assert "跨家庭或较广党附范围的族诛" in block
     assert "面向一般民众或多个无关群体的系统性恐怖" in block
