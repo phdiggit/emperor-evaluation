@@ -600,6 +600,9 @@ def test_third_fourth_detail_material_cards_use_formal_public_fields_only():
         "strengthFrom",
     ):
         assert forbidden not in block
+    assert block.count("const format = value =>") == 1
+    assert block.index("const format = value =>") < block.index("const cards = evidence.map")
+    assert "const hasSourceCoverage = evidence.some(entry => format(" in block
     assert "metricDetail(item, record, key)" in source
     assert '当前判断：' in source
 
