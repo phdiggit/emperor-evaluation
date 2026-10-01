@@ -1956,6 +1956,15 @@ def test_prudent_evidence_details_hide_internal_grade_codes():
     assert "单命题条件分差" not in block
     assert "现有史料允许的审慎上端" in block
     assert "prudentGeneralText(a.public_basis)" in block
+def test_net_panel_uses_public_component_names_in_total_formula():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function netPanel(r)")
+    end = template.index("function impactPanel", start)
+    block = template[start:end]
+    assert "统治绩效总分 = 治国成效 + 军事与边疆 + 奠基与统一附加 + 文明与国家整合。" in block
+    assert "DATA.formula" not in block
+
 def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
     from pathlib import Path
 
