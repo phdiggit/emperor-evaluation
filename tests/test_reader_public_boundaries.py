@@ -1073,6 +1073,14 @@ assert.equal(civCtx.civilizationPublicText('第三级影响幅度'),'主要领�
 assert.equal(civCtx.civilizationPublicText('与负向变化第2级同账。'),'与负向变化达到清晰但有限的变化在同一维度合并判断。');
 assert.equal(civCtx.civilizationPublicText('正向变化第2级，但不足以洗掉系统性负向变化。'),'正向变化达到清晰但有限的变化，但不足以抵消系统性负向变化。');
 assert.equal(
+  civCtx.civilizationPublicText('本包只计入目录；同轴禁毁负包不因此减轻。覆盖与持续性未同时强，取中位，撤去原高位。'),
+  '该项材料只计入目录；同一维度中的禁毁负向材料不因此减轻。覆盖与持续性未同时强，取中位，不再维持此前高位。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('直接人身后果退出第四项，归第二项社会安全；晚年收束进一步压低净带位，净轴复核为文明影响幅度第2级低位负。'),
+  '直接人身后果不在文明与国家整合项重复计入，归入治国成效中的社会安全；晚年收束进一步降低综合档位，综合判断为文明影响幅度为清晰但有限的变化低位负。'
+);
+assert.equal(
   civCtx.civilizationPublicText('结果方向未单列：甲。相对既有状态：乙。责任范围按现有材料区分。补充限制：丙。'),
   '正负变化并存：甲。比较起点：乙。限制：丙。'
 );
