@@ -1109,6 +1109,14 @@ function firstCommanderMarkup(item) {
       .trim();
   }
 
+  function firstOutcomeCalculationText(value) {
+    return firstItemPublicText(value)
+      .replace(/成果信用U=(\d+(?:\.\d+)?)/g, "本人有效控制成果值为$1")
+      .replace(/单人项目按统一贡献曲线计算，共同项目先生成项目A池再按正式个人信用分账/g, "单人完成时直接按统一成果曲线计算；多人共同完成时，先确定项目整体成果，再按正式归责分给个人")
+      .replace(/项目A池/g, "项目整体成果")
+      .replace(/正式个人信用分账/g, "按正式归责分配个人成果");
+  }
+
   const FIRST_COST_DEBIT = {
     0:{LOW:0,MID:0,HIGH:0},
     1:{LOW:0.5,MID:1,HIGH:1.5},
@@ -1193,14 +1201,14 @@ function firstCommanderMarkup(item) {
 
   function renderFirstA(item, bullets, record) {
     const publicOutcome = item.reader_public_outcome || {};
-    const calculation = item.reader_how || "";
+    const calculation = firstOutcomeCalculationText(item.reader_how || "");
     const percent = firstPublicSharePercent(publicOutcome);
     const project = publicOutcome.public_project ? `<div class="label">共同项目</div>${prose(firstPublicOutcomeText(publicOutcome.public_project))}` : "";
     const facts = firstPublicOutcomeParts(publicOutcome)
       .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
       .join("");
     const share = percent ? `<div class="label">本人成果规模</div>${prose(`约${percent}%全国核心统一尺度（按本人有效控制成果计算；不是共同项目分成，也不是领土、人口或军队比例）`)}` : "";
-    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary><div class="label">A看什么</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">有效控制信用U</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。U不是人口、面积或军队人数。")}${prose(`项目A池 = 120 × (min(1000, U) / 1000)^0.65；单人项目直接取项目A池，共同项目再按本人控制信用占项目总信用的比例分配。${calculation ? `\n当前人物正式代入：${calculation}` : ""}`)}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary><div class="label">这项看什么</div>${prose("这里只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别在其他分项评价。")}<div class="label">本人有效控制成果值</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。这个数不是人口、面积或军队人数。")}${prose(`统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65；单人完成时直接计算，多人共同完成时再按正式归责分配个人成果。${calculation ? `\n当前人物正式代入：${calculation}` : ""}`)}</details>`;
     return firstMetricDetail("net-first-a", "统一成果", "先看本人真正留下了什么", item, `${project}${facts}${share}${rules}`, record);
   }
 
