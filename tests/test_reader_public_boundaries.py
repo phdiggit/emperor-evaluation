@@ -1013,6 +1013,12 @@ vm.runInContext(
   +'\nthis.thirdPublicText=thirdPublicText; this.thirdItemPublicText=thirdItemPublicText;', thirdCtx);
 assert.equal(thirdCtx.thirdPublicText('结束时第5级安全水平','A1'),'结束时S档安全水平');
 assert.equal(thirdCtx.thirdPublicText('1→5档','A1'),'D档→S档');
+assert.equal(thirdCtx.thirdPublicText('0.25→0.75覆盖','B1'),'0.25→0.75覆盖');
+assert.equal(thirdCtx.thirdPublicText('旧终点值 3.6→3.4，净变化 1.3→1.1，加权值 2.22→2.02；档位和得分率不变。','B1'),'旧终点值 3.6→3.4，净变化 1.3→1.1，加权值 2.22→2.02；档位和合成比例不变。');
+assert.equal(thirdCtx.thirdPublicText('当前结果先得到 37.0% 的得分率，合成时采用 37%。','B1'),'当前等级进入合成时采用 37%。');
+assert.equal(thirdCtx.thirdPublicText('军事成本为第六级低位。成本是否达到第七级。','ML扣分'),'军事成本为极端军事成本、低位。成本是否达到灾难性军事耗竭。');
+assert.equal(thirdCtx.thirdPublicText('战略链化不会把阶段性反击冲销终局失效。','C1实战交付'),'按战略主链归并不会把阶段性反击冲销终局失效。');
+assert.equal(thirdCtx.thirdPublicText('不回填朱祁镇灾后再动员。','ML扣分'),'不把朱祁镇灾后再动员重复计入本人。');
 assert.equal(
   thirdCtx.thirdPublicText('B1控制规模与B2战略价值按55%/45%合成，再由B4交班成熟度修正','B80'),
   '控制范围与战略价值按55%/45%合成，再由成果稳定性修正'
@@ -1174,6 +1180,7 @@ assert.equal(civCtx.civilizationPublicText('正向变化第2级，但不足以�
 assert.equal(civCtx.civilizationPublicText('与本轴另包的严苛限制作净算。'),'与本轴另一项材料的严苛限制合并判断。');
 assert.equal(civCtx.civilizationPublicText('不把后继军事成果回填。'),'不把后继军事成果重复计入本人。');
 assert.equal(civCtx.civilizationPublicText('不把后世结果倒算给本朝。'),'不把后世结果追溯计入本朝。');
+assert.equal(civCtx.civilizationPublicText('后来峰值不全部倒算本人。'),'后来峰值不全部追溯计入本人。');
 assert.equal(civCtx.civilizationPublicText('不足以把抽象控制另定整数负向变化第1级。'),'不足以把抽象控制另定为独立负向变化达到局部、短期或低强度变化。');
 assert.equal(civCtx.civilizationPublicText('轴级仍按正向变化第3级判断。'),'本轴仍按正向变化达到主要领域的稳定改变判断。');
 assert.equal(
