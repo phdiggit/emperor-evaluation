@@ -73,6 +73,7 @@ assert.equal(context.boundaryText('前中期主态可维持'),'前中期主要�
 assert.equal(context.boundaryText('第三项军事成本第五级低位由正式材料准入'),'严重军事成本（低位）由正式材料支持计入');
 assert.equal(context.boundaryText('削藩触发责任准入'),'削藩触发本人责任条件');
 assert.equal(context.boundaryText('跨代结果不回算本人，也不作为G4第二独立验证'),'跨代结果不回算本人，也不作为A档第二独立验证');
+assert.equal(context.boundaryText('靖难胜负只在D3计算；D1不受影响'),'靖难胜负只在交接稳定计算；行政连续性不受影响');
 assert.equal(context.boundaryText('当前G4档材料继续保留'),'当前A档材料继续保留');
 const fragments = [
   '保留恢复的责任范围：本人主导。',
