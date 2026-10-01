@@ -1549,7 +1549,9 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "因此维持$1档" in source
     assert "function impactDimensionPublicText(key,value)" in source
     assert "const publicBasis=key=>impactDimensionPublicText(" in source
-    assert 'if(key==="paradigm")text=text.replace(/^范式' in source
+    assert 'if(key==="paradigm"){' in source
+    assert 'text=text.replace(/^范式' in source
+    assert 'text=text.replace(/^[SABCDE](?:[+−-])?[。；:]\\s*/' in source
     assert "const counterfactual=impactPublicText(" in source
     assert "const personalBoundary=impactPublicText(" in source
     assert "const evidenceBoundary=impactPublicText(" in source
