@@ -43,6 +43,9 @@ assert.equal(context.boundaryText('同一机制只作一次判断；同一机制
 assert.equal(context.financeBoundaryText('第五档；第五档；'),'A档');
 assert.equal(context.boundaryText('见父链及对应原始片段；本层只修正机制颗粒度，不新增史实'),'见证据链及对应原始片段；此处只说明机制范围，不新增历史事实');
 assert.equal(context.boundaryText('后任结果不得倒灌为本人主要状态'),'后任结果不得追溯作为本人主要状态');
+assert.equal(context.boundaryText('不能倒灌抹去后者的已观察收益'),'不能追溯用来抹去后者的已观察收益');
+assert.equal(context.boundaryText('灾害不得倒灌社会安全'),'灾害不得追溯计入社会安全');
+assert.equal(context.boundaryText('后任衣食滋殖不倒灌。'),'后任衣食滋殖不追溯计入本人。');
 assert.equal(context.boundaryText('后续扩张不回填本人窗口'),'后续扩张不追溯计入本人窗口');
 assert.equal(context.boundaryText('材料越窗，不准入当前判断'),'材料超出评价窗口，不纳入当前判断');
 assert.equal(context.boundaryText('公共法律底账完成复裁'),'公共法律正式记录完成复核');
