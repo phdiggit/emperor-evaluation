@@ -365,7 +365,11 @@
   // Only contract-defined enum labels are translated. Sentences, negation,
   // responsibility and boundaries are otherwise preserved verbatim.
   function publicText(value) {
-    return publicEnumText(value);
+    return publicEnumText(value)
+      .replace(/机械等价/g, "直接等同")
+      .replace(/故较低档→较高档/g, "因此整体判断上调")
+      .replace(/压低较高档\s*档内位置/g, "压低当前等级的档内位置")
+      .replace(/整体判断为较高档（中下位）/g, "整体判断位于当前公开等级的中下段");
   }
 
   function dedupeBoundaryText(value) {
