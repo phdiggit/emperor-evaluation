@@ -703,7 +703,7 @@ function impactPage(r){
 }
 function person(r){
  const view=typeof location==='undefined'?'':(()=>{const parts=location.hash.slice(8).split('/');return parts.length>1?parts[1]:''})();
- if(view==='profile'){if(r?.supplementary){impactPage(r);return}profilePage(r);return}
+ if(view==='profile'){if(r?.supplementary){history.replaceState(null,'',`#person/${encodeURIComponent(r.ruler_id)}/impact`);impactPage(r);return}profilePage(r);return}
  if(view==='impact'){impactPage(r);return}
  nav('');if(!r){screen.innerHTML='<p>未找到该人物。</p><button data-home>返回人物总览</button>';return}
  const supplementary=!!r.supplementary;
