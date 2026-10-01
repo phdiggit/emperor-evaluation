@@ -1988,6 +1988,11 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert '.replace(/\\bHIGH\\b/g,"高位")' in block
     assert "横向负向证据强度校准" in block
     assert "最大负向证据校准" in block
+    assert "相关情境材料未附正文" in template
+    assert "esc(profilePublicPattern(point.title))" in template
+    assert "定档依据（原文）" not in template
+    assert "档内定位（原文）" not in template
+    assert "限制与证据边界（原文）" not in template
 
 
 def test_third_public_copy_hides_fallen_regime_audit_codes():
