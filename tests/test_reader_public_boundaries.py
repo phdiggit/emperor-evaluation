@@ -836,7 +836,8 @@ def test_compare_net_breakdown_hides_internal_grades_notes_and_calculation_rows(
     assert "x.reader_kind==='judgment'" in block
     assert "x.grade" not in block
     assert "x.note" not in block
-    assert "内部档位码、折算中间项和小计不在对照页展开" in block
+    assert "计算中间项和小计不在对照页展开" in block
+    assert "内部档位码" not in block
     assert "row('分项构成'" in template
     assert "<summary>展开分项</summary>" in template
 
@@ -1906,6 +1907,11 @@ def test_history_total_public_explanation_stays_on_public_scale():
     assert "本次没有单独改变前三项形成的综合判断" in block
     assert "prose(impactTotalPublicText(h))" in template
     assert "impactTechnicalHelp()" in template
+    assert "总等级为什么和四维字母不同？" in template
+    assert "同一个字母不能跨两套刻度直接比较" in template
+    assert "最终内部裁判带" not in template
+    assert "这是离线交互设计样稿" not in template
+    assert "阅读层随构建流程同步刷新" in template
     dimension_start = template.index("function impactDimensionPublicText")
     dimension_end = template.index("function paradigmReceptionProse", dimension_start)
     dimension = template[dimension_start:dimension_end]
