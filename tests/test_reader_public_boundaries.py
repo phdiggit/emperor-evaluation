@@ -2048,6 +2048,10 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "没有形成" in block
     assert "尚未形成" in block
     assert "相关证据链已" in block
+    assert "A-Za-z0-9_:-" in block
+    assert "较广外溢范围" in block
+    assert "过错归责仍未确定" in block
+    assert "第${n}组材料" in block
     assert "本人不在直接指挥链中" in block
     assert "投入大量资源却" in block
     assert "相关正式材料已完成核对" in block
