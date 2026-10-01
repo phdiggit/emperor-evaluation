@@ -1954,6 +1954,8 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "正向$1材料" in block
     assert "-P[A-Za-z0-9_-]+" in block
     assert '"既有情境材料"' in block
+    assert "const cleaned=String(value??'').replace" in block
+    assert block.index("const cleaned=String(value??'').replace") < block.index("return readerText(cleaned)")
     assert "没有形成" in block
     assert "尚未形成" in block
 
