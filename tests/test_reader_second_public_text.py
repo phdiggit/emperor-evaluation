@@ -94,7 +94,8 @@ assert.match(source, /renderB2MaterialGroups\(evidence\)/);
 assert.match(source, /if \(label === "A制度建设" \|\| label === "B1官僚治理"\) continue/);
 console.log('verified public components:', checked);
 ''', encoding='utf-8')
-    subprocess.run([node, str(script), str(ROOT)], check=True, capture_output=True, text=True, encoding='utf-8')
+    completed = subprocess.run([node, str(script), str(ROOT)], check=False, capture_output=True, text=True, encoding='utf-8')
+    assert completed.returncode == 0, completed.stderr or completed.stdout
 
 
 def test_public_values_are_real_text_and_structural_updates_respect_ownership(tmp_path):
