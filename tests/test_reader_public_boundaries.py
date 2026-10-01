@@ -1697,3 +1697,16 @@ def test_history_total_public_explanation_stays_on_public_scale():
     assert "对应公开等级" not in block
     assert "prose(impactTotalPublicText(h))" in template
     assert "impactTechnicalHelp()" in template
+
+
+def test_profile_public_pattern_hides_cross_axis_work_codes():
+    from pathlib import Path
+
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function profilePublicPattern(value)")
+    end = template.index("function axisEvidence(", start)
+    block = template[start:end]
+    assert "战略判断的低档方向仍然成立" in block
+    assert "内部联盟材料进一步确认" in block
+    assert "原C1低档方向仍然成立" in block
+    assert "M4补证可以确认" in block
