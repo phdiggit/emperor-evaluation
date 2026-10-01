@@ -312,7 +312,7 @@ const source=fs.readFileSync('reader/index.template.html','utf8');
 const start=source.indexOf('const materialIntensityNames='),end=source.indexOf('\nfunction radar(',start);
 assert.ok(start>=0&&end>start);
 const escape=x=>String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-const api=new Function('esc','prose','axisProse','link',source.slice(start,end)+';return {contextIntensity,contexts};')(
+const api=new Function('esc','prose','axisProse','link',source.slice(start,end)+';return {contextDirection,contextIntensity,contexts};')(
  escape,x=>'<p>'+escape(x)+'</p>',x=>'<p>'+escape(x)+'</p>',()=>'<a>合同</a>');
 for(const [code,label] of Object.entries({MI1:'单一情境',MI1_CASE:'单一情境',MI2:'完整生命周期情境',MI2_LIFECYCLE:'完整生命周期情境',MI3:'持续系统性情境',MI3_SUSTAINED_SYSTEMIC:'持续系统性情境',MI4:'跨阶段系统性情境',MI4_CROSS_PHASE_SYSTEMIC:'跨阶段系统性情境'})){
  assert.equal(api.contextIntensity({intensity:code}),label);
@@ -322,6 +322,8 @@ for(const [code,label] of Object.entries({MI1:'单一情境',MI1_CASE:'单一情
 assert.equal(api.contextIntensity({basis:'跨阶段多年反复，有MI4字样。',axis_grade:'G5'}),'未列');
 assert.equal(api.contextIntensity({intensity:null}),'未列');
 assert.equal(api.contextIntensity({intensity:'FUTURE_CODE'}),'未设中文展示，请查原始记录');
+assert.equal(api.contextDirection({direction:'POSITIVE'}),'正向');
+assert.equal(api.contextDirection({direction:'FUTURE_DIRECTION'}),'未设中文展示，请查原始记录');
 assert.equal(api.contextIntensity({intensity:'MI1_CASE',material_intensity:'MI4_CROSS_PHASE_SYSTEMIC'}),'上游字段不一致，请查原始记录');
 const record={counterpattern:{negative_parent_refs:['P']},context_lookup:{P:{intensity:'MI2_LIFECYCLE',basis:'完整正式说明，包括反证和限制。'}}};
 const before=JSON.stringify(record),html=api.contexts(record,true);
@@ -850,7 +852,7 @@ def test_compare_net_breakdown_keeps_formal_public_level_labels():
     block = template[start:end]
     assert "item?.public_level_label" in block
     assert "item?.grade" not in block
-    assert "当前判断随正式字段展示" in block
+    assert "当前判断按正式记录展示" in block
     assert "普通成本扣分" in block
     assert "严重军事成本" in block
     assert "清晰但有限的变化" in block
@@ -2003,6 +2005,8 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert '.replace(/\\bHIGH\\b/g,"高位")' in block
     assert "横向负向证据强度校准" in block
     assert "最大负向证据校准" in block
+    assert "事件后果尺度，不是人物画像等级" in template
+    assert "未单列独立负向后果等级" in template
     assert "相关情境材料未附正文" in template
     assert "esc(profilePublicPattern(point.title))" in template
     assert "定档依据（原文）" not in template
