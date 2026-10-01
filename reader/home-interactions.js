@@ -937,10 +937,10 @@ function firstCommanderMarkup(item) {
     if (!MATERIAL_CARD_GROUPS.has(groupKey)) return "";
     const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
     if (!evidence.length) return "";
+    const thirdItem = groupKey === "strategic" || groupKey === "military";
+    const fourthItem = groupKey === "civilization";
+    const format = value => thirdItem ? thirdItemPublicText(item, value) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
     const cards = evidence.map(entry => {
-      const thirdItem = groupKey === "strategic" || groupKey === "military";
-      const fourthItem = groupKey === "civilization";
-      const format = value => thirdItem ? thirdItemPublicText(item, value) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
       const title = format(entry?.public_label || entry?.public_role || "正式裁决材料");
       const role = format(entry?.public_role || "");
       const direction = format(entry?.public_direction || "");
