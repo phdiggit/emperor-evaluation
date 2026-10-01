@@ -337,7 +337,17 @@
   function publicFinanceText(value) {
     return publicEnumText(value)
       .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`)
-      .replace(/未另证独立有效低谷[：:]\s*未另证独立有效低谷[；;]?/g, "未另证独立有效低谷；")
+      .replace(/未另证独立有效低谷[：:]\s*未另证独立有效低谷[；;]?/g, "没有另证独立有效低谷；")
+      .replace(/未形成明确的本人掌权时期恢复；短暂峰值或单纯止损不作为恢复结果。/g, "未形成能够保留到任期结束的明确恢复；短暂峰值或单纯止损不作为恢复结果。")
+      .replace(/没有可归入本人掌权时期的恢复，因此不另行扩大恢复责任。/g, "没有形成可在任期结束确认的恢复，因此不另行扩大恢复责任。")
+      .replace(/旧任期结束状态=经济财政“失灵崩解”把1127靖康终局倒灌到赵佶1126年退位，必须纠正。/g, "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态。")
+      .replace(/。；/g, "；")
+      .replace(/；；+/g, "；");
+  }
+
+  function publicHandoffText(value) {
+    return publicText(value)
+      .replace(/实际率百官/g, "实际率领百官")
       .replace(/。；/g, "；")
       .replace(/；；+/g, "；");
   }
@@ -617,10 +627,10 @@
         : role === "前任行政资产承接" ? "continuity"
         : "other";
       groups[key].push(materialCard({
-        title: entry?.public_label || role || "交接裁决材料",
+        title: publicHandoffText(entry?.public_label || role || "交接裁决材料"),
         tags: role ? [role] : [],
-        body: entry?.public_basis,
-        boundary: entry?.public_boundary,
+        body: publicHandoffText(entry?.public_basis),
+        boundary: publicHandoffText(entry?.public_boundary),
         dataset: {publicEvidenceId: entry?.id || ""},
       }));
     }
