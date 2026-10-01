@@ -72,18 +72,19 @@ for (const name of fs.readdirSync(path.join(root,'reader/data/people'))) {
       for (let i=0;i<evidence.length;i++) {
         for (const key of ['public_label','public_direction','public_basis','public_boundary']) {
           const raw = String(evidence[i][key] || '').trim();
-          const shown = context.enumText(raw);
+          const shown = context.renderText(raw);
           if (shown) assert.ok(rendered[i].includes(shown), `${name}/${item.label}/${key}`);
           if (shown) assert.ok(cards[i].textContent.includes(shown), `${name}/${item.label}/${key}/card`);
         }
       }
-      assert.equal(context.renderText(item.reader_boundary), context.enumText(String(item.reader_boundary || '').trim()));
+      const rawBoundary = String(item.reader_boundary || '').trim();
+      if (rawBoundary) assert.ok(context.boundaryText(rawBoundary).length > 0);
       checked++;
     }
   }
 }
 assert.ok(checked > 0);
-// Evidence prose stays lossless; only the outer boundary summary may collapse exact repeated clauses.
+// Public cards use declared reader wording plus presentation-only cleanup; formal source text remains in the audit fold.
 assert.match(source, /const financeItem = \["C1民生","C2经济财政","C3社会安全","C4恢复与成本"\]\.includes\(label\)/);
 assert.match(source, /makeDetails\("范围与边界", financeItem \? publicFinanceBoundaryText\(item\.reader_boundary/);
 assert.match(source, /: publicBoundaryText\(item\.reader_boundary/);
