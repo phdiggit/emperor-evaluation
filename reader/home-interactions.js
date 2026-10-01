@@ -51,7 +51,7 @@ function firstCommanderMarkup(item) {
     return '<p class="notice">本人统帅的公开说明尚未同步。</p>';
   }
   const battles = source.public_battles.length
-    ? `<details class="first-item-battle-evidence"><summary>查看已明确记载的战役与统筹成果</summary><ul class="first-item-battles">${source.public_battles.map(battle => `<li><strong>${esc(battle.name)}</strong> · ${esc(battle.role)} · ${esc(battle.result)}成果 · ${esc(battle.difficulty ? `${battle.difficulty}难度` : '难度未单列')} <a href="military.html#search=${encodeURIComponent(battle.name)}">查看战役档案 ↗</a></li>`).join('')}</ul></details>`
+    ? `<details class="first-item-battle-evidence"><summary>查看已明确记载的战役与统筹成果</summary><p class="subline">“战役成果”和“任务难度”使用军事材料自己的字母刻度，不是人物画像等级。</p><ul class="first-item-battles">${source.public_battles.map(battle => `<li><strong>${esc(battle.name)}</strong> · ${esc(battle.role)} · 战役成果：${esc(battle.result)} · ${esc(battle.difficulty ? `任务难度：${battle.difficulty}` : '任务难度：未单列')} <a href="military.html#search=${encodeURIComponent(battle.name)}">查看战役档案 ↗</a></li>`).join('')}</ul></details>`
     : '';
   return `<div class="first-item-commander-public"><div class="label">为什么这样评</div>${prose(source.public_basis)}<div class="label">责任与限制</div>${prose(source.public_boundary)}${battles}</div>`;
 }
