@@ -1441,7 +1441,7 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "const counterfactual=impactPublicText(" in source
     assert "const personalBoundary=impactPublicText(" in source
     assert "const evidenceBoundary=impactPublicText(" in source
-    assert "prose(impactPublicText(h.public_total_basis))" in source
+    assert "prose(impactTotalPublicText(h))" in source
     assert "prose(impactPublicText(h.impact_nature_basis))" in source
     assert "prose(impactPublicText(c.narrative))" in source
     assert "prose(impactPublicText(r.actual_use||'未另列说明'))" in source
