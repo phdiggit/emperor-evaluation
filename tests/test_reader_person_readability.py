@@ -439,6 +439,9 @@ def test_person_reader_first_item_public_terms_match_current_performance_vocabul
     assert "项目整体成果" in source
     assert "按正式归责分配个人成果" in source
     assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
+    assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in source
+    assert "第一项净分 S1" not in source
+    assert "总榜附加分 F" not in source
 
 
 def test_profile_output_mode_is_evidence_thickness_not_a_grade_gate():
