@@ -341,7 +341,7 @@ function formalContextStory(c,id='',options={}){
  const body=c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
  const refs=formalContextSources(c);
  const rawIntensity=options.showIntensity===false?'':formalContextRawIntensity(c);
- const sources=(id||refs.length||rawIntensity)?`<details class="metadata"><summary>该情境的来源与原始标注</summary>${id?`<p class="subline">${esc(id)}</p>`:''}${rawIntensity?`<p class="subline">材料强度原始字段：${esc(rawIntensity)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'来源原文 ↗'):prose(ref)).join('')}</details>`:'';
+ const sources=(id||refs.length||rawIntensity)?`<details class="metadata"><summary>该情境的来源与原始标注</summary>${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${rawIntensity?`<p class="subline">材料强度原始字段：${esc(rawIntensity)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'来源原文 ↗'):prose(ref)).join('')}</details>`:'';
  return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c,options)}${body?axisProse(body):''}${sources}</div>`;
 }
 
