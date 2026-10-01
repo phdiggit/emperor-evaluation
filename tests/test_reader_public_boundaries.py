@@ -2068,6 +2068,11 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "官僚治理现有材料已确认岭南物流的持续运行链与有限选任链" in block
     assert "学习纠错与反馈约束" in block
     assert "反馈后调整路径" in block
+    assert "错误纠正情境" in block
+    assert "不是国家运行架构换代" in block
+    assert "官僚治理材料" in block
+    assert "制度设计或制度建设等相关评价" in block
+    assert '.replace(/消费/g,"计入")' in block
     assert "极广外溢范围" in block
     assert "极深负向下沿" in block
     assert "负向风险链" in block
