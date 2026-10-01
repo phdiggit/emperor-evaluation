@@ -32,7 +32,7 @@ const context = {document:{createElement(tag){
   };
 }}};
 vm.createContext(context);
-vm.runInContext(source.slice(start, end) + '\nthis.renderFacts=publicFacts; this.renderText=publicText; this.renderList=publicEvidenceList; this.enumText=publicEnumText; this.financeText=publicFinanceText; this.boundaryText=publicBoundaryText; this.financeBoundaryText=publicFinanceBoundaryText;', context);
+vm.runInContext(source.slice(start, end) + '\nthis.renderFacts=publicFacts; this.renderText=publicText; this.renderList=publicEvidenceList; this.enumText=publicEnumText; this.financeText=publicFinanceText; this.boundaryText=publicBoundaryText; this.financeText=publicFinanceText; this.financeBoundaryText=publicFinanceBoundaryText;', context);
 for (const [raw,shown] of Object.entries({
   '五档':'A档','第五档':'A档','四档':'B档','第四档':'B档',
   '三档':'C档','第三档':'C档','二档':'D档','第二档':'D档',
@@ -41,6 +41,16 @@ for (const [raw,shown] of Object.entries({
 assert.equal(context.financeText('中期支持五档，但长期阻断六档；主态维持四档。'),'中期支持A档，但长期阻断S档；主态维持B档。');
 assert.equal(context.boundaryText('同一机制只作一次判断；同一机制只作一次判断；'),'同一机制只作一次判断');
 assert.equal(context.financeBoundaryText('第五档；第五档；'),'A档');
+assert.equal(context.financeText('后任衣食滋殖不倒灌。'),'后任衣食滋殖不追溯计入本人。');
+assert.equal(context.financeText('本人主要阶段状态2维持。'),'本人主要阶段状态为D档维持。');
+assert.equal(context.financeText('只登记峰值5而非主要阶段状态5。'),'只登记峰值达到A档而非主要阶段状态为A档。');
+assert.equal(context.financeText('亲政起点硬承接3而非旧4。'),'亲政接手时状态为C档，不沿用此前B档判断。');
+assert.equal(context.boundaryText('只计算逐字引文证明链条成立的制度接口'),'只计算现有直接史料能够确认的制度接口');
+assert.equal(context.boundaryText('运行结果是已形成；未计入长期接收加权。'),'实际运行情况：已形成；未因后世长期沿用获得额外提高。');
+assert.equal(context.boundaryText('未见有源D档或B档端点'),'未见有证据支持的D档或B档判断');
+assert.equal(context.boundaryText('未通过较高档条件槛'),'未通过较高档条件');
+assert.equal(context.boundaryText('综合净值为-1，减轻负账'),'综合综合判断仍偏负，减轻负向影响');
+assert.equal(context.boundaryText('后继结果不倒算本人，也不回填'),'后继结果不追溯计入本人，也不追溯计入本人');
 assert.equal(context.boundaryText('见父链及对应原始片段；本层只修正机制颗粒度，不新增史实'),'见证据链及对应原始片段；此处只说明机制范围，不新增历史事实');
 assert.equal(context.boundaryText('后任结果不得倒灌为本人主要状态'),'后任结果不得追溯作为本人主要状态');
 assert.equal(context.boundaryText('不能倒灌抹去后者的已观察收益'),'不能追溯用来抹去后者的已观察收益');
