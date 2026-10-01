@@ -1027,6 +1027,22 @@ assert.equal(
   thirdCtx.thirdPublicText('靖难不再作为第三项军事体系军事体系正证；其能力只保留在人物画像。','C1实战交付'),
   '靖难不再作为本项军事体系的正向证据；其能力只保留在人物画像。'
 );
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第3级、低位。规模与控制强度：旧账错误按靖康覆亡把赵佶终点值直接清零，采用比例29；修正终局时点并保留西北真实扩张后升至60。','B1'),
+  '实际控制范围当前为B档、低位。按赵佶实际退位时点判断，不把1127年的靖康覆亡倒推到1126年；退位前已经形成的西北控制成果仍计入。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：有效率仍0，但旧0→0改为0.725→0，真实表达终局退控。','B1'),
+  '实际控制范围当前为E档、低位。任期内实际控制继续收缩，并在政权终结时归零。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第3级、低位。规模与控制强度：旧0.65→2.1使用安南临时0.5尺度；规范后0.8→2.4，加权值 1.71→1.92，得分率仍60。','B1'),
+  '实际控制范围当前为B档、低位。按统一口径重新核对安南及相关边疆控制后，当前控制范围等级不变。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('本人可本人责任主干改为党项方向；两个本人窗口合并，景泰间实际控制范围存量没有跨阶梯变化。','B2'),
+  '本人可归责的主干成果改为党项方向；两个本人窗口合并，景泰间实际控制范围存量没有跨公开等级变化。'
+);
 const strategicItem={label:'A1',grade:'3→0档'};
 assert.equal(
   thirdCtx.thirdItemPublicText(strategicItem,'接手时为第3级，结束时为未单列等级。李隆基 主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：主要威胁转为安史叛军；故客观变动-3档按-3档本人责任。'),
@@ -1698,6 +1714,11 @@ def test_finance_public_copy_collapses_repeated_no_low_point_phrase():
     end = source.index("function publicCalculationText(value)", start)
     block = source[start:end]
     assert "未另证独立有效低谷[：:]\\s*未另证独立有效低谷" in block
+    assert "能够保留到任期结束的明确恢复" in block
+    assert "可在任期结束确认的恢复" in block
+    assert "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态" in block
+    assert "function publicHandoffText(value)" in block
+    assert "实际率领百官" in block
     assert '.replace(/。；/g, "；")' in block
 
 
