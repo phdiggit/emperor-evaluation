@@ -1571,6 +1571,18 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "军事结算材料" in source
     assert "奠基与统一中的组织与整合材料显示" in source
     assert "判断把握为中等" in source
+    assert "制度结算材料" in source
+    assert "较强但归责受限的有效责任链" in source
+    assert "人物画像“用人授权”材料对此只确认有限的个人用人授权信用" in source
+    assert "系统性、持续性的可观察制度成果" in source
+    assert "顶级强度负向链" in source
+    assert "社会安全处于E档的残局" in source
+    assert "官僚治理材料又显示" in source
+    assert "而非完全归于本人" in source
+    assert "民力成本分项不再追加独立残余成本" in source
+    assert ".replace(/\\bNEGATIVE\\b/g,\'负向\')" in source
+    assert ".replace(/\\bMI3\\b/g,\'持续系统性情境\')" in source
+    assert "极端劣势或濒临崩溃的逆转任务" in source
     assert "民生与财政结算材料" in source
     assert "集团机制材料复核" in source
     assert "相关正式材料" in source
