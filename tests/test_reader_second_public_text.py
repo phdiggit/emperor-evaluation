@@ -44,10 +44,10 @@ assert.equal(context.financeBoundaryText('第五档；第五档；'),'A档');
 assert.equal(context.boundaryText('见父链及对应原始片段；本层只修正机制颗粒度，不新增史实'),'见证据链及对应原始片段；此处只说明机制范围，不新增历史事实');
 assert.equal(context.boundaryText('后任结果不得倒灌为本人主要状态'),'后任结果不得追溯作为本人主要状态');
 assert.equal(context.boundaryText('后续扩张不回填本人窗口'),'后续扩张不追溯计入本人窗口');
-assert.equal(context.boundaryText('材料越窗，不准入当前判断'),'材料超出评价窗口，不计入条件当前判断');
+assert.equal(context.boundaryText('材料越窗，不准入当前判断'),'材料超出评价窗口，不纳入当前判断');
 assert.equal(context.boundaryText('公共法律底账完成复裁'),'公共法律正式记录完成复核');
 assert.equal(context.boundaryText('前中期主态可维持'),'前中期主要阶段状态可维持');
-assert.equal(context.boundaryText('第三项军事成本第五级低位由正式材料准入'),'严重军事成本（低位）由正式材料计入条件');
+assert.equal(context.boundaryText('第三项军事成本第五级低位由正式材料准入'),'严重军事成本（低位）由正式材料支持计入');
 assert.equal(context.boundaryText('跨代结果不回算本人，也不作为G4第二独立验证'),'跨代结果不回算本人，也不作为A档第二独立验证');
 assert.equal(context.boundaryText('当前G4档材料继续保留'),'当前A档材料继续保留');
 const fragments = [
