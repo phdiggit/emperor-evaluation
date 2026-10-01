@@ -178,7 +178,7 @@ function paradigmReceptionProse(review){
  if(!receptions.length)return '';
  return `<div class="label">实际接收窗口</div>${receptions.map(r=>`<div class="context-story impact-reception"><div class="label">接收者</div><p class="prose">${esc(r.receiver||'未注明')}</p><div class="label">载体</div><p class="prose">${esc(r.carrier||'未注明')}</p><div class="label">实际用途</div>${prose(impactPublicText(r.actual_use||'未另列说明'))}</div>`).join('')}`;
 }
-function axisProse(t){if(typeof t==='string')return prose(readerText(t));if(Array.isArray(t))return t.length?t.map(axisProse).join(''):prose('未另列说明');if(t&&typeof t==='object'){const labels={positive_parent_refs:'正向情境引用',counter_parent_refs:'反例情境引用'};return `<details><summary>查看结构化情境引用</summary>${Object.entries(t).map(([k,v])=>`<div class="label">${esc(labels[k]||k)}</div>${axisProse(v)}`).join('')}</details>`}return prose('未另列说明')}
+function axisProse(t){if(typeof t==='string')return prose(profilePublicPattern(t));if(Array.isArray(t))return t.length?t.map(axisProse).join(''):prose('未另列说明');if(t&&typeof t==='object'){const labels={positive_parent_refs:'正向情境引用',counter_parent_refs:'反例情境引用'};return `<details><summary>查看结构化情境引用</summary>${Object.entries(t).map(([k,v])=>`<div class="label">${esc(labels[k]||k)}</div>${axisProse(v)}`).join('')}</details>`}return prose('未另列说明')}
 function excerpt(t){return `<div class="excerpt">${format(Array.isArray(t)?t.join('；'):t||'尚无独立说明')}</div>`}
 function compareNetPublicLevel(item,key){
  let text=String(item?.public_level_label||'').trim();
@@ -330,7 +330,7 @@ function formalContextSources(c){
 function formalContextStory(c,id='',options={}){
  if(!c)return prose(id?'情境引用：'+id:'正式记录未列情境正文');
  const rawTitle=String(c.title||'').trim();
- const title=rawTitle?`<div class="public-context-title">${esc(rawTitle)}</div>`:'';
+ const title=rawTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
  const body=c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
  const refs=formalContextSources(c);
  const rawIntensity=options.showIntensity===false?'':formalContextRawIntensity(c);
@@ -548,6 +548,14 @@ function profilePublicPattern(value){
   .replace(/未闭合/g,"尚未形成")
   .replace(/无本人闭合负链/g,"没有确认由本人直接造成的完整负向链")
   .replace(/父链/g,"证据链")
+  .replace(/硬门/g,"必要条件")
+  .replace(/(?:正式)?横校/g,"交叉核对")
+  .replace(/刷档/g,"人为拔高等级")
+  .replace(/整改前/g,"此前")
+  .replace(/规范池/g,"正式材料范围")
+  .replace(/实际权力窗口/g,"掌权时期")
+  .replace(/事件准入截止线/g,"事件纳入范围的截止线")
+  .replace(/显示点/g,"展示等级")
   .replace(/现有证据链仅到完整生命周期情境汇总强度/g,"现有证据只支持到完整生命周期情境的强度")
   .replace(/原\s*[SABCDE](?:[+−-])?\s*对“判断正确”奖励过多，对执行闭环要求不足。?/g,"当前判断不过度奖励“判断正确”；执行闭环仍明显不足。")
   .replace(/本轮可定位/g,"当前可定位")
