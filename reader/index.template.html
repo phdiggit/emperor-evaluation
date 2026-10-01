@@ -96,6 +96,18 @@ function impactPublicText(t){
   .replace(/足以守([SABCDE][+−-]?)/g,'足以支持$1档')
   .replace(/故守([SABCDE][+−-]?)/g,'因此维持$1档');
 }
+function impactTotalPublicText(h){
+ const dims=h?.dimensions||{};
+ const scope=dims.scope?.grade||'',depth=dims.depth_duration?.grade||'',causal=dims.personal_causality?.grade||'',paradigm=dims.paradigm?.grade||'',gradeValue=h?.public_grade||'';
+ if(!(scope&&depth&&causal&&paradigm&&gradeValue))return impactPublicText(h?.public_total_basis||'');
+ const formal=String(h?.public_total_basis||'');
+ let causalNote='用于判断这些变化有多少真正依赖本人。';
+ if(/个人因果[^。]*下调一档/.test(formal))causalNote='本人归责不足以支撑更高的基础判断，因此综合量级向下修正。';
+ else if(/个人因果[^。]*(?:提出一档上调|上调一档)/.test(formal))causalNote='本人归责较强，对基础判断形成上调作用，但仍受影响范围与持续程度约束。';
+ else if(/个人因果[^。]*(?:维持基础量级|不会仅凭这一项提高总量级)/.test(formal))causalNote='该项没有单独改变由范围与持续形成的基础判断。';
+ const meaning=impactMeaning[gradeValue]?'（'+impactMeaning[gradeValue]+'）':'';
+ return '影响范围为'+scope+'，深度与持续为'+depth+'；两者先确定基础影响。个人因果为'+causal+'；'+causalNote+'政治范式为'+paradigm+'；只作为后世实际接收的有限补充，不与前三项做平均。综合后公开等级为'+gradeValue+meaning+'。';
+}
 function impactDimensionPublicText(key,value){
  let text=impactPublicText(value);
  const labels={scope:"影响范围",depth_duration:"深度与持续",personal_causality:"个人因果",paradigm:"政治范式"};
@@ -189,7 +201,7 @@ function historySections(r,idSuffix='',compact=false){
  const depthBody=`${prose(publicBasis('depth_duration'))}${impactSourceList(r,depthIndices,'深度依据')}`;
  const causalBody=`${prose(publicBasis('personal_causality'))}${counterfactual?`<div class="label">如果没有这个人</div>${prose(counterfactual)}`:''}${personalBoundary?`<div class="label">详细归责边界</div>${prose(personalBoundary)}`:''}${impactSourceList(r,causalIndices,'因果依据')}`;
  const paradigmBody=`${paradigmReceptionProse(paradigmReview)}${prose(publicBasis('paradigm'))}${impactSourceList(r,paradigmIndices,'范式依据')}`;
- return `${compact?'':'<h2 class="evidence-card-title">历史影响依据</h2>'}<details><summary>历史影响量级为什么这样定？</summary>${prose(impactPublicText(h.public_total_basis))}</details>${h.impact_nature_basis?`<details><summary>影响性质为何是${esc(h.impact_nature)}？</summary>${prose(impactPublicText(h.impact_nature_basis))}</details>`:''}${impactScaleNote()}<details class="impact-core-chains impact-evidence-fold"><summary>核心历史主链</summary><p class="subline">事实主链用于追溯实际变化；四维和总档说明直接读取正式公开裁决。</p>${chains.map(c=>`<details id="${hid(`chain-${c.chain_id}`)}"><summary>${esc(c.title)}</summary>${prose(impactPublicText(c.narrative))}${impactSourceList(r,c.source_ref_indices,'本链依据')}</details>`).join('')}</details>${dimension('scope','影响范围','实际改写覆盖了哪些政治空间、政治主体或国家关键接口。',scopeBody)}${dimension('depth_duration','深度与持续','本人退出后哪些结构继续约束后继。',depthBody)}${dimension('personal_causality','个人因果','这些变化有多少真正依赖本人。',causalBody)}${dimension('paradigm','政治范式','后世最高权力是否把本人或其治世作为政治参照并实际使用。',paradigmBody)}<details id="${hid('history-judgment-boundary')}" class="impact-dimension-section impact-boundary impact-evidence-fold"><summary><span>判断边界</span><span class="subline">置信度 ${conf(h.confidence)}</span></summary>${evidenceBoundary?prose(evidenceBoundary):'<p class="subline">当前正式记录未另列补充边界。</p>'}</details><p class="sources impact-reading-links">${link(DATA.sources.impact_reader,'历史影响完整阅读页 ↗')}${link(DATA.sources.impact,'正式记录入口 ↗')}</p>`;
+ return `${compact?'':'<h2 class="evidence-card-title">历史影响依据</h2>'}<details><summary>历史影响量级为什么这样定？</summary>${prose(impactTotalPublicText(h))}</details>${h.impact_nature_basis?`<details><summary>影响性质为何是${esc(h.impact_nature)}？</summary>${prose(impactPublicText(h.impact_nature_basis))}</details>`:''}${impactScaleNote()}<details class="impact-core-chains impact-evidence-fold"><summary>核心历史主链</summary><p class="subline">事实主链用于追溯实际变化；四维和总档说明直接读取正式公开裁决。</p>${chains.map(c=>`<details id="${hid(`chain-${c.chain_id}`)}"><summary>${esc(c.title)}</summary>${prose(impactPublicText(c.narrative))}${impactSourceList(r,c.source_ref_indices,'本链依据')}</details>`).join('')}</details>${dimension('scope','影响范围','实际改写覆盖了哪些政治空间、政治主体或国家关键接口。',scopeBody)}${dimension('depth_duration','深度与持续','本人退出后哪些结构继续约束后继。',depthBody)}${dimension('personal_causality','个人因果','这些变化有多少真正依赖本人。',causalBody)}${dimension('paradigm','政治范式','后世最高权力是否把本人或其治世作为政治参照并实际使用。',paradigmBody)}<details id="${hid('history-judgment-boundary')}" class="impact-dimension-section impact-boundary impact-evidence-fold"><summary><span>判断边界</span><span class="subline">置信度 ${conf(h.confidence)}</span></summary>${evidenceBoundary?prose(evidenceBoundary):'<p class="subline">当前正式记录未另列补充边界。</p>'}</details><p class="sources impact-reading-links">${link(DATA.sources.impact_reader,'历史影响完整阅读页 ↗')}${link(DATA.sources.impact,'正式记录入口 ↗')}</p>`;
 }
 
 const format=t=>esc(t).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
