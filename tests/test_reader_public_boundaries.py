@@ -1014,7 +1014,7 @@ vm.runInContext(
 assert.equal(thirdCtx.thirdPublicText('结束时第5级安全水平','A1'),'结束时S档安全水平');
 assert.equal(thirdCtx.thirdPublicText('1→5档','A1'),'D档→S档');
 assert.equal(thirdCtx.thirdPublicText('0.25→0.75覆盖','B1'),'0.25→0.75覆盖');
-assert.equal(thirdCtx.thirdPublicText('旧终点值 3.6→3.4，净变化 1.3→1.1，加权值 2.22→2.02；档位和得分率不变。','B1'),'旧终点值 3.6→3.4，净变化 1.3→1.1，加权值 2.22→2.02；档位和合成比例不变。');
+assert.equal(thirdCtx.thirdPublicText('旧终点值 3.6→3.4，净变化 1.3→1.1，加权值 2.22→2.02；档位和得分率不变。','B1'),'此前结束时控制存量 3.6→3.4，净变化 1.3→1.1，综合控制量 2.22→2.02；档位和合成比例不变。');
 assert.equal(thirdCtx.thirdPublicText('当前结果先得到 37.0% 的得分率，合成时采用 37%。','B1'),'当前等级进入合成时采用 37%。');
 assert.equal(thirdCtx.thirdPublicText('旧起点值 3.6→3.4，终点值 4.0→3.8，加权值 1.84→1.76；档位和得分率不变。','B1'),'此前接手时控制存量 3.6→3.4，结束时控制存量 4.0→3.8，综合控制量 1.84→1.76；档位和合成比例不变。');
 assert.equal(thirdCtx.thirdPublicText('采用比例 0→15。','B1'),'合成比例由 0% 调整为 15%。');
