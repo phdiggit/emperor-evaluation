@@ -1439,6 +1439,13 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "剔除仅由名号、法统或制度惯性造成的接收后" in source
     assert "剔除名号与制度惯性的复核" in source
     assert "人物画像“战略判断”材料" in source
+    assert "人物画像“'+(shortNames[code]||code)+'”材料" in source
+    assert "军事结算材料" in source
+    assert "民生与财政结算材料" in source
+    assert "皇帝主要承担批准、整合、维持与责任规则调整" in source
+    assert "明确区分" in source
+    assert "核对《帝鉴图说》" in source
+    assert "不因后世名望提高等级" in source
     assert "当前公开裁决已把" in source
     assert "正式计入条件" in source
     assert ".replace(/只消费/g,'只计入')" in source
