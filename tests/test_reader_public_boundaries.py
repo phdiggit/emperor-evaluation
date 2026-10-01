@@ -2097,7 +2097,9 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert '.replace(/倒灌/g,"追溯计入")' in block
     assert '.replace(/回填/g,"追溯计入")' in block
     assert '.replace(/分账/g,"分开评价")' in block
-    assert '.replace(/底账/g,"正式材料")' in block
+    assert '.replace(/(?:正式)?底账/g,"正式材料")' in block
+    assert '.replace(/窗口门/g,"适用范围")' in block
+    assert '.replace(/最新重裁/g,"最新核对")' in block
     assert '.replace(/闭合/g,"确认")' in block
     assert '.replace(/准入/g,"纳入判断")' in block
     assert "尚未确认的负向候选材料" in block
