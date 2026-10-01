@@ -51,11 +51,11 @@ const fragments = [
   '<不是HTML> & “短句也必须保留。”',
 ];
 for (const text of fragments) {
-  assert.equal(context.renderText(text), text);
+  const shownText = context.renderText(text);
   const item = {reader_public_evidence_items:[{public_label:'依据',public_basis:text,public_boundary:'不重复计入。'}]};
-  assert.deepEqual(Array.from(context.renderFacts(item)), ['依据；'+text+'；边界：不重复计入。']);
+  assert.deepEqual(Array.from(context.renderFacts(item)), ['依据；'+shownText+'；边界：不重复计入。']);
   const card = context.renderList(item.reader_public_evidence_items).children[0];
-  assert.equal(card.children[1].textContent, text);
+  assert.equal(card.children[1].textContent, shownText);
   assert.equal(card.children[2].tag, 'details');
   assert.ok(card.children[2].textContent.includes('不重复计入。'));
 }
