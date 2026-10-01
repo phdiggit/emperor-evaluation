@@ -336,7 +336,10 @@
 
   function publicFinanceText(value) {
     return publicEnumText(value)
-      .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`);
+      .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`)
+      .replace(/未另证独立有效低谷[：:]\s*未另证独立有效低谷[；;]?/g, "未另证独立有效低谷；")
+      .replace(/。；/g, "；")
+      .replace(/；；+/g, "；");
   }
 
   function publicCalculationText(value) {
