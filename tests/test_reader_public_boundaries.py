@@ -2056,6 +2056,16 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "战区或多军统筹" in block
     assert "军事角色尚未确定" in block
     assert "角色字段与事实叙述存在冲突" in block
+    assert "档战役成果／多重重大约束的高压任务" in block
+    assert "档战役成果／极端劣势或濒临崩溃的逆转任务" in block
+    assert "登记角色：主要指挥者" in block
+    assert "登记角色：最高指挥者" in block
+    assert "求真取证情境" in block
+    assert "拒绝更新或同类复发情境" in block
+    assert "多功能、广域行政链整体失效" in block
+    assert "民生财政相关结果" in block
+    assert "官僚治理正式材料" in block
+    assert "精英级" in block
     assert '.replace(/\\bLOW\\b/g,"低位")' in block
     assert '.replace(/\\bMID\\b/g,"中位")' in block
     assert '.replace(/\\bHIGH\\b/g,"高位")' in block
