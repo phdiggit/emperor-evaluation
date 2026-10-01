@@ -281,7 +281,7 @@ function nonEmptyFormal(value){
 function contextDirection(c){
  if(!nonEmptyFormal(c?.direction))return '';
  const raw=String(c.direction);
- return Object.prototype.hasOwnProperty.call(formalDirectionNames,raw)?formalDirectionNames[raw]:raw;
+ return Object.prototype.hasOwnProperty.call(formalDirectionNames,raw)?formalDirectionNames[raw]:'未设中文展示，请查原始记录';
 }
 function contextIntensityEntries(c){
  return ['intensity','material_intensity']
@@ -527,7 +527,7 @@ function m1FailureReview(a){
  const review=a.m1_stability_review;
  if(!review)return '';
  const fields=[['本人归责','attribution'],['反馈','feedback'],['恢复','recovery'],['残余损失','residual_loss'],['裁决','decision_basis']];
- return `<details class="metadata"><summary>军事失败与恢复复核</summary>${axisProse(review.basis)}${review.cases.map(item=>`<section><h4>${esc(item.label)}</h4><p class="subline">${item.negative_tier?'本人负向后果档：'+esc(item.negative_tier):'未单列纯负档；按已登记的实际损害复核'}</p>${axisProse(item.consequence)}${fields.map(([label,key])=>`<div class="label">${label}</div>${axisProse(item[key])}`).join('')}</section>`).join('')}</details>`;
+ return `<details class="metadata"><summary>军事失败与恢复复核</summary>${axisProse(review.basis)}${review.cases.map(item=>`<section><h4>${esc(item.label)}</h4><p class="subline">${item.negative_tier?'本人负向后果等级：'+esc(item.negative_tier)+'（事件后果尺度，不是人物画像等级）':'未单列独立负向后果等级；按已登记的实际损害复核'}</p>${axisProse(item.consequence)}${fields.map(([label,key])=>`<div class="label">${label}</div>${axisProse(item[key])}`).join('')}</section>`).join('')}</details>`;
 }
 function axisEvidenceScope(a,c){
  if(c!=='M1')return {coverage:readerText(a.axis_evidence_level||''),modeLabel:mode(a.output_mode),detail:''};
