@@ -24,6 +24,8 @@ function firstCostPublicText(value) {
   const severity = ["无显著代价","很低成本","较低成本","中等成本","较高成本","高成本","极高成本","灾难级成本"];
   const chinese = {"零":0,"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7};
   return String(value || "")
+    .replace(/现行第三项仍有相关计入，必须同步退出后才启用净分。?/g, "相关战争若已在军事与边疆项计入，本项不重复计算；当前按正式去重后的结果结算。")
+    .replace(/跨项证实：/g, "跨项去重：")
     .replace(/第([0-7一二三四五六七])级(?:成本)?/g, (_, level) => {
       const index = chinese[level] != null ? chinese[level] : Number(level);
       return severity[index] || level;
@@ -524,6 +526,9 @@ function firstCommanderMarkup(item) {
     text = text
       .replace(/已核对\d+项独立任务，其中较好结果\d+项、低回报\d+项、负向结果\d+项。?/g, "")
       .replace(/父周期仅完成边界证实，任务成员与独立父周期结构未变；没有产生新的升降档理由。?/g, "")
+      .replace(/河西树机能270、277、279三票归为同一连续父周期，7项降至5项；?/g, "河西树机能270、277、279三次相关行动归为同一连续任务周期；")
+      .replace(/278西陵独立突袭由证据不足证据支持评为低回报/g, "278年西陵独立突袭现有证据仅支持判断为低回报")
+      .replace(/本批父周期边界未改变足以影响三轴的事实基础，正式横校沿用正式三轴\/既有能力专用判断。?/g, "重新核对任务边界后，三方面事实基础未变，现有等级维持不变。")
       .replace(/本次重做撤销上一版近1:1链化；以\d+条战略链为评分单元，父任务只作证据下钻；三轴与整体水平经复核不变。?/g, "多个具体任务按战略主链归并，避免把同一主链拆成重复计分。")
       .replace(/复裁撤销前166\/162\/158过度合并：三轮均已各自证实，前162还以再和亲形成明确周期终点；仅将前162年汉匈战争重绑至其战役群。?/g, "前166、前162、前158三轮边患分别有独立材料；前162另有再和亲作为阶段终点。")
       .replace(/旧“北方36—46”宽父拆为卢芳—匈奴、乌桓、鲜卑三个独立压力对象，6票升至8票。拆分不是加功，反而要求分别复核回报；?/g, "北方压力按卢芳—匈奴、乌桓、鲜卑三个独立对象分别核对；拆分仅用于避免混并，不额外增加得分。")
@@ -544,6 +549,9 @@ function firstCommanderMarkup(item) {
       .replace(/旧账错误按靖康覆亡把赵佶终点值直接清零，采用比例29；修正终局时点并保留西北真实扩张后升至60。?/g, "按赵佶实际退位时点判断，不把1127年的靖康覆亡倒推到1126年；退位前已经形成的西北控制成果仍计入。")
       .replace(/有效率仍0，但旧0→0改为0\.725→0，真实表达终局退控。?/g, "任期内实际控制继续收缩，并在政权终结时归零。")
       .replace(/旧0\.65→2\.1使用安南临时0\.5尺度；规范后0\.8→2\.4，加权值\s*1\.71→1\.92，得分率仍60。?/g, "按统一口径重新核对安南及相关边疆控制后，当前控制范围等级不变。")
+      .replace(/规模与控制强度：旧账仅以1\.3→0并启用按终局崩溃强制清零。现改为从杨坚真实4\.2交班库存逐区域核退出；吐谷浑、伊吾阶段新增另存峰值但不进入618终点。最终实际控制范围率仍0，但不是由终局标签强制清零。?/g, "按杨坚交班时的实际控制存量逐区域核对；吐谷浑、伊吾虽有阶段新增，但至618年均未形成可保留的终点控制，因此实际控制范围归零。")
+      .replace(/执行终局门后/g, "按政权终结时的实际控制结果判断后")
+      .replace(/依终局门归零/g, "因政权终结且无可移交成果而归零")
       .replace(/本人可本人责任主干/g, "本人可归责的主干成果")
       .replace(/跨阶梯变化/g, "跨公开等级变化")
       .replace(/真实\d+(?:\.\d+)?边疆库存/g, "既有边疆控制存量")
@@ -622,7 +630,7 @@ function firstCommanderMarkup(item) {
       .replace(/父周期/g, "独立任务周期")
       .replace(/已核对(\d+)项独立任务，其中较好结果0项、低回报0项、负向结果0项。?/g, "已核对$1项独立任务。")
       .replace(/([0-5])\/\1\/\1维持/g, (_, level) => `三方面维持${thirdGradeText(level)}`)
-      .replace(/([0-5])\/([0-5])\/([0-5])维持/g, (_, delivery, endurance, reliability) => `实战任务交付${thirdGradeText(delivery)}、持续作战${thirdGradeText(endurance)}、体系可靠性${thirdGradeText(reliability)}`)
+      .replace(/(?:三方面)?([0-5])\/([0-5])\/([0-5])(?:维持|不变)/g, (_, delivery, endurance, reliability) => `实战任务交付${thirdGradeText(delivery)}、持续作战${thirdGradeText(endurance)}、体系可靠性${thirdGradeText(reliability)}`)
       .replace(/实际控制范围全量复核已确认最终同级率/g, "现有正式复核维持当前控制范围判断")
       .replace(/只作仅作能力证据能力证据/g, "只作能力证据")
       .replace(/能力证据能力证据/g, "能力证据")
@@ -709,6 +717,10 @@ function firstCommanderMarkup(item) {
     const magnitude = (level, direction = "") => civilizationMagnitudeText(level, direction);
     return text
       .replace(/净文明影响幅度第0级/g, "正负相抵，净调整为0")
+      .replace(/原理由中的相对变化第3级与文明影响幅度第3级为过期表述。?/g, "此前较高等级表述已不再采用。")
+      .replace(/补强为负向变化第2(?:级\.5|\.5级)/g, "共同使负向变化在清晰但有限基础上进一步强化")
+      .replace(/负向变化第2(?:级\.5|\.5级)/g, "负向变化在清晰但有限基础上进一步强化")
+      .replace(/正向变化第2(?:级\.5|\.5级)/g, "正向变化在清晰但有限基础上进一步强化")
       .replace(/文明影响幅度第0级/g, "正负相抵，净调整为0")
       .replace(/不进相对变化第([1-4一二三四])级/g, (_, level) => `不足以达到${magnitude(level)}`)
       .replace(/不能升相对变化第([1-4一二三四])级/g, (_, level) => `不足以达到${magnitude(level)}`)
@@ -734,6 +746,8 @@ function firstCommanderMarkup(item) {
       .replace(/现包/g, "当前材料")
       .replace(/原包/g, "原有材料")
       .replace(/旧包/g, "原有材料")
+      .replace(/新包/g, "新增材料")
+      .replace(/另包/g, "另一项材料")
       .replace(/扩搜新证/g, "新增材料")
       .replace(/计分资格/g, "单独调整依据")
       .replace(/同轴禁毁负包/g, "同一维度中的禁毁负向材料")
@@ -773,6 +787,7 @@ function firstCommanderMarkup(item) {
       .replace(/轴正负相抵/g, "本轴综合正负相抵")
       .replace(/不足以洗掉/g, "不足以抵消")
       .replace(/\s+；/g, "；")
+      .replace(/。；/g, "；")
       .replace(/。。+/g, "。")
       .replace(/\s+/g, " ")
       .trim();
