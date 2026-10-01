@@ -349,6 +349,9 @@
   function publicHandoffText(value) {
     return publicText(value)
       .replace(/实际率百官/g, "实际率领百官")
+      .replace(/故仅能支持，不能把主政权降服等同全国行政完整收束。?/g, "这只能证明部分行政承接，不能把主政权降服等同于全国行政完整收束。")
+      .replace(/。、/g, "。")
+      .replace(/；、/g, "；")
       .replace(/。；/g, "；")
       .replace(/；；+/g, "；");
   }
