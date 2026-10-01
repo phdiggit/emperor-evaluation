@@ -687,6 +687,14 @@ def test_first_item_a_how_block_shows_exact_public_curve():
     assert "有效控制信用U" not in source
 
 
+def test_first_item_commander_battle_letters_are_labeled_as_battle_scales():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "战役成果：" in source
+    assert "任务难度：" in source
+    assert "不是人物画像等级" in source
+    assert "${esc(battle.result)}成果" not in source
+
 def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
