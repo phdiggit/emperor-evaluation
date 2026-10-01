@@ -1454,6 +1454,11 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "人物画像“'+(shortNames[code]||code)+'”材料" in source
     assert "军事结算材料" in source
     assert "民生与财政结算材料" in source
+    assert "集团机制材料复核" in source
+    assert "相关正式材料" in source
+    assert "重大内部恶化" in source
+    assert "同一条国家级主链" in source
+    assert "全国核心尺度25%" in source
     assert "皇帝主要承担批准、整合、维持与责任规则调整" in source
     assert "明确区分" in source
     assert "核对《帝鉴图说》" in source
