@@ -1822,6 +1822,9 @@ def test_fourth_item_reader_distinguishes_zero_sources_and_rejects_progress_rank
     assert "这些0的来源并不相同" in source
     assert "0不等于没有变化" in source
     assert "没有形成独立有符号调整" in source
+    assert "废除诽谤、妖言罪的制度与受理边界变化已由相关治理材料承担" in source
+    assert "不能证明已经形成实际反馈效果" in source
+    assert "归入相关制度与社会治理材料" in source
 
 
 def test_first_item_shared_project_percentage_is_labeled_as_allocation_share():
@@ -1880,6 +1883,10 @@ def test_history_total_public_explanation_stays_on_public_scale():
     assert "对应公开等级" not in block
     assert "prose(impactTotalPublicText(h))" in template
     assert "impactTechnicalHelp()" in template
+    dimension_start = template.index("function impactDimensionPublicText")
+    dimension_end = template.index("function paradigmReceptionProse", dimension_start)
+    dimension = template[dimension_start:dimension_end]
+    assert "text.replace(/^[SABCDE](?:[+−-])?[。；:]\\s*/" in dimension
 
 
 def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
@@ -1938,6 +1945,10 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "formalDirectionNames[k]||k" in template
     assert "负向$1材料" in block
     assert "正向$1材料" in block
+    assert "-P[A-Za-z0-9_-]+" in block
+    assert '"既有情境材料"' in block
+    assert "没有形成" in block
+    assert "尚未形成" in block
 
 
 def test_third_public_copy_hides_fallen_regime_audit_codes():
