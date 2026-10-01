@@ -1991,6 +1991,11 @@ def test_third_public_copy_hides_fallen_regime_audit_codes():
     assert "重新核对本人窗口内的实际控制范围后" in block
     assert "\\d+票(?:降至|升至)\\d+票" in block
     assert "相关任务按统一边界重新归并" in block
+    assert '.replace(/现行贡献类型为/g, "当前成果类型为")' in block
+    assert '.replace(/本包事实/g, "本项已经确认的事实")' in block
+    assert '.replace(/控制包/g, "控制成果")' in block
+    assert '.replace(/重复交付与恢复/g, "多次维持并在受压后恢复")' in block
+    assert "重大压力下保全的等级上限" in block
     assert "父级重新裁任务回报类别" in block
     assert "在合并后的任务周期重新判断整体回报" in block
     assert "正式横校档" in block
