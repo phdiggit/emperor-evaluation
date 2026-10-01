@@ -1883,6 +1883,11 @@ def test_history_total_public_explanation_stays_on_public_scale():
     assert "综合后公开等级为" in block
     assert "最终量级为" not in block
     assert "对应公开等级" not in block
+    assert "政治范式[^。；]*(?:上调一档|提高一档)" in block
+    assert "后世最高权力的实际接收证据足够强" in block
+    assert "形成一档上调" in block
+    assert "政治范式[^。；]*(?:不改变|不提高|仅修正|不再改变量级)" in block
+    assert "本次没有单独改变前三项形成的综合判断" in block
     assert "prose(impactTotalPublicText(h))" in template
     assert "impactTechnicalHelp()" in template
     dimension_start = template.index("function impactDimensionPublicText")
