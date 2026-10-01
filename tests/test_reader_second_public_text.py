@@ -50,6 +50,7 @@ assert.equal(context.financeText('数字不单独抬档，战争不机械扣档�
 assert.equal(context.financeText('只登记峰值5而非主要阶段状态5。'),'只登记峰值达到A档而非主要阶段状态为A档。');
 assert.equal(context.financeText('亲政起点硬承接3而非旧4。'),'亲政接手时状态为C档，不沿用此前B档判断。');
 assert.equal(context.financeText('按合同前者越窗，后者保留。'),'按评价窗口，前者不计入本期，后者保留。');
+assert.equal(context.financeText('故终态社会安全“可运行秩序”/未另证独立有效低谷，并要求正式重要地区或群体出现明显损害撤销。'),'因此任期结束时社会安全为“可运行秩序”，且未另证独立有效低谷，不再单列“重要地区或群体出现明显损害”。');
 assert.equal(context.financeText('旧任期结束状态=经济财政“失灵崩解”把1127靖康终局倒灌到赵佶1126年退位，必须纠正。'),'不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态。');
 assert.equal(context.boundaryText('只计算逐字引文证明链条成立的制度接口'),'只计算现有直接史料能够确认的制度接口');
 assert.equal(context.boundaryText('运行结果是已形成；未计入长期接收加权。'),'实际运行情况：已形成；未因后世长期沿用获得额外提高。');
