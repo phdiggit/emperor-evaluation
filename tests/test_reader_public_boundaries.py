@@ -2122,7 +2122,7 @@ def test_supplementary_person_page_is_history_impact_only():
     assert "本页只展开历史影响正式依据。" in block
     assert "supplementary?'':" in block
     assert "历史影响概览" in block
-    assert "if(r?.supplementary){impactPage(r);return}" in block
+    assert "history.replaceState(null,\'\',`#person/${encodeURIComponent(r.ruler_id)}/impact`);impactPage(r);return" in block
 
 
 def test_first_item_not_applicable_card_uses_explicit_label():
