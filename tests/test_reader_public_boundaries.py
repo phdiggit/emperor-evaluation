@@ -1942,6 +1942,14 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "目前证据链尚未完整" in block
     assert "没有确认由本人直接造成的完整负向链" in block
     assert '.replace(/父链/g,"证据链")' in block
+    assert '.replace(/硬门/g,"必要条件")' in block
+    assert '.replace(/(?:正式)?横校/g,"交叉核对")' in block
+    assert '.replace(/整改前/g,"此前")' in block
+    assert "正式材料范围" in block
+    assert "事件纳入范围的截止线" in block
+    assert "展示等级" in block
+    assert "function axisProse(t){if(typeof t===\'string\')return prose(profilePublicPattern(t));" in template
+    assert "esc(profilePublicPattern(rawTitle))" in template
     assert "现有证据只支持到完整生命周期情境的强度" in block
     assert "当前判断不过度奖励“判断正确”；执行闭环仍明显不足。" in block
     assert "MI1(?:_CASE)?" in template
