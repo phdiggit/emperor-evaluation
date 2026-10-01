@@ -1079,6 +1079,22 @@ assert.equal(
   thirdCtx.thirdPublicText('关键证据仍有缺口缺口保留。','普通成本扣分'),
   '关键证据仍有缺口。'
 );
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、中位。规模与控制强度：数值不变；旧标识规范化。','B1'),
+  '实际控制范围当前为E档、中位。当前正式材料支持维持这一控制范围等级。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：承接北方边郡遗漏修正：起点值 5.8→6.6，加权值 -3.48→-3.96；终局门下档位与得分率不变。','B1'),
+  '实际控制范围当前为E档、低位。补齐北方边郡材料后，政权终结这一结论不变，因此控制范围等级仍维持当前判断。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('战略成果价值为当前结果为第0级、低位。终局门覆盖任内阶段性占领或扩域尝试。','B2'),
+  '战略成果价值当前为E档、低位。政权终结后，任内阶段性占领或扩域尝试不作为可移交成果。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('974—975水陆军连续失效；这是单一但国家级终局崩溃链，1/1/0维持。','C1实战交付'),
+  '974—975水陆军连续失效；这是单一但国家级终局崩溃链，实战任务交付D档、持续作战D档、体系可靠性E档。'
+);
 const strategicItem={label:'A1',grade:'3→0档'};
 assert.equal(
   thirdCtx.thirdItemPublicText(strategicItem,'接手时为第3级，结束时为未单列等级。李隆基 主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：主要威胁转为安史叛军；故客观变动-3档按-3档本人责任。'),
@@ -1802,6 +1818,8 @@ def test_finance_public_copy_collapses_repeated_no_low_point_phrase():
     assert "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态" in block
     assert "function publicHandoffText(value)" in block
     assert "实际率领百官" in block
+    assert "这只能证明部分行政承接" in block
+    assert '.replace(/。、/g, "。")' in block
     assert '.replace(/。；/g, "；")' in block
 
 
@@ -1864,4 +1882,6 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "负向证据" in block
     assert "目前证据链尚未完整" in block
     assert "没有确认由本人直接造成的完整负向链" in block
+    assert '.replace(/父链/g,"证据链")' in block
+    assert "现有证据只支持到完整生命周期情境的强度" in block
     assert "当前判断不过度奖励“判断正确”；执行闭环仍明显不足。" in block
