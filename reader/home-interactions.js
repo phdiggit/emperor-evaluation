@@ -1380,7 +1380,9 @@ function firstCommanderMarkup(item) {
           : major === "fourth"
             ? `<p class="subline">${esc(fourthAdjustmentNote(record))}</p>`
             : "";
-    const shownValue = value == null ? "—" : major === "fourth" && Number(value) > 0 ? `+${number(value)}` : number(value);
+    const shownValue = major === "first" && firstStatus === "NOT_APPLICABLE"
+      ? "不适用"
+      : value == null ? "—" : major === "fourth" && Number(value) > 0 ? `+${number(value)}` : number(value);
     return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(spec.title)}</h2><div class="big">${shownValue}</div>${extra}<p>${esc(spec.description)}</p><p class="sources">查看完整计分逻辑 →</p></a>`;
   }
 
