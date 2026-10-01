@@ -43,6 +43,10 @@ assert.equal(context.boundaryText('同一机制只作一次判断；同一机制
 assert.equal(context.financeBoundaryText('第五档；第五档；'),'A档');
 assert.equal(context.financeText('后任衣食滋殖不倒灌。'),'后任衣食滋殖不追溯计入本人。');
 assert.equal(context.financeText('本人主要阶段状态2维持。'),'本人主要阶段状态为D档维持。');
+assert.equal(context.financeText('严格按907—918正式窗口，终态维持四档。'),'严格按907—918评价窗口，任期结束状态维持B档。');
+assert.equal(context.financeText('未见有源二档或四档端点。'),'未见有证据支持的D档或B档判断。');
+assert.equal(context.financeText('灾年条数不作为历史低谷标签计数器。'),'灾年条数不作为历史低谷判断计数器。');
+assert.equal(context.financeText('数字不单独抬档，战争不机械扣档；现证限制升档。'),'数字不单独提高等级，战争不机械降低等级；现证限制上调等级。');
 assert.equal(context.financeText('只登记峰值5而非主要阶段状态5。'),'只登记峰值达到A档而非主要阶段状态为A档。');
 assert.equal(context.financeText('亲政起点硬承接3而非旧4。'),'亲政接手时状态为C档，不沿用此前B档判断。');
 assert.equal(context.financeText('按合同前者越窗，后者保留。'),'按评价窗口，前者不计入本期，后者保留。');
@@ -51,6 +55,7 @@ assert.equal(context.boundaryText('只计算逐字引文证明链条成立的制
 assert.equal(context.boundaryText('运行结果是已形成；未计入长期接收加权。'),'实际运行情况：已形成；未因后世长期沿用获得额外提高。');
 assert.equal(context.boundaryText('未见有源D档或B档端点'),'未见有证据支持的D档或B档判断');
 assert.equal(context.boundaryText('未通过较高档条件槛'),'未通过较高档条件');
+assert.equal(context.boundaryText('一年观察窗内不能用远期爆雷压档，也不能因此降档。'),'一年观察窗内不能用远期爆雷压低等级，也不能因此下调等级。');
 assert.equal(context.boundaryText('综合净值为-1，减轻负账'),'综合判断仍偏负，减轻负向影响');
 assert.equal(context.boundaryText('后继结果不倒算本人，也不回填'),'后继结果不追溯计入本人，也不追溯计入本人');
 assert.equal(context.boundaryText('见父链及对应原始片段；本层只修正机制颗粒度，不新增史实'),'见证据链及对应原始片段；此处只说明机制范围，不新增历史事实');
