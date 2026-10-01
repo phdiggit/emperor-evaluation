@@ -434,6 +434,11 @@ def test_person_reader_first_item_public_terms_match_current_performance_vocabul
     assert "第一项结算分" in source
     assert "原始净收益" not in source
     assert "本项不计入统治绩效" in source
+    assert "firstOutcomeCalculationText(item.reader_how || \"\")" in source
+    assert "本人有效控制成果值为$1" in source
+    assert "项目整体成果" in source
+    assert "按正式归责分配个人成果" in source
+    assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
 
 
 def test_profile_output_mode_is_evidence_thickness_not_a_grade_gate():
