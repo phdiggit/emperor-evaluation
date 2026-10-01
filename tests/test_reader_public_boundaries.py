@@ -1143,6 +1143,11 @@ assert.equal(civCtx.civilizationPublicText('净文明影响幅度第1级'),'净�
 assert.equal(civCtx.civilizationPublicText('第三级影响幅度'),'主要领域的稳定改变');
 assert.equal(civCtx.civilizationPublicText('与负向变化第2级同账。'),'与负向变化达到清晰但有限的变化在同一维度合并判断。');
 assert.equal(civCtx.civilizationPublicText('正向变化第2级，但不足以洗掉系统性负向变化。'),'正向变化达到清晰但有限的变化，但不足以抵消系统性负向变化。');
+assert.equal(civCtx.civilizationPublicText('与本轴另包的严苛限制作净算。'),'与本轴另一项材料的严苛限制合并判断。');
+assert.equal(civCtx.civilizationPublicText('不把后继军事成果回填。'),'不把后继军事成果重复计入本人。');
+assert.equal(civCtx.civilizationPublicText('不把后世结果倒算给本朝。'),'不把后世结果追溯计入本朝。');
+assert.equal(civCtx.civilizationPublicText('不足以把抽象控制另定整数负向变化第1级。'),'不足以把抽象控制另定为独立负向变化达到局部、短期或低强度变化。');
+assert.equal(civCtx.civilizationPublicText('轴级仍按正向变化第3级判断。'),'本轴仍按正向变化达到主要领域的稳定改变判断。');
 assert.equal(
   civCtx.civilizationPublicText('本包只计入目录；同轴禁毁负包不因此减轻。覆盖与持续性未同时强，取中位，撤去原高位。'),
   '该项材料只计入目录；同一维度中的禁毁负向材料不因此减轻。覆盖与持续性未同时强，取中位，不再维持此前高位。'
