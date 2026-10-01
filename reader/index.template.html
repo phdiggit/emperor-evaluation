@@ -618,7 +618,8 @@ function profilePublicPattern(value){
   .replace(/角色=commander_in_chief/g,"登记角色：最高指挥者")
   .replace(/B1现有材料可闭合岭南物流M3与有限选任M2/g,"官僚治理现有材料已确认岭南物流的持续运行链与有限选任链")
   .replace(/治理恢复的具体工具专业性归M3/g,"治理恢复的具体工具专业性由民生财政相关结果承担")
-  .replace(/C2\/B2/g,"学习纠错与反馈约束");
+  .replace(/C2\/B2/g,"学习纠错与反馈约束")
+  .replace(/C4\/A等构念/g,"制度设计或制度建设等相关评价");
  return readerText(cleaned)
   .replace(/\b(M1|M2|M4|M5|C1|C2|C3|C4|C5)\b/g,(_,code)=>shortNames[code]||code)
   .replace(/^帝国基础架构\s*\/\s*影响力去光环$/,"帝国基础架构能力突出；后世影响力不直接换算为本轴能力")
@@ -683,6 +684,12 @@ function profilePublicPattern(value){
   .replace(/\bR4\b/g,"系统性极端外溢范围")
   .replace(/B2异议安全/g,"反馈与约束中的异议安全")
   .replace(/\bFEEDBACK_RECOURSE\b/g,"反馈后调整路径")
+  .replace(/\bERROR_CORRECTION\b/g,"错误纠正情境")
+  .replace(/不是OS换代/g,"不是国家运行架构换代")
+  .replace(/\bB1最新材料/g,"官僚治理最新材料")
+  .replace(/\bB1材料/g,"官僚治理材料")
+  .replace(/\bB1现有材料/g,"官僚治理现有材料")
+  .replace(/消费/g,"计入")
   .replace(/\bEXTREME_BREADTH\b/g,"极广外溢范围")
   .replace(/\bVERY_DEEP_FLOOR\b/g,"极深负向下沿")
   .replace(/\bDW\b/g,"负向风险链")
