@@ -1948,6 +1948,20 @@ def test_third_public_copy_hides_fallen_regime_audit_codes():
     assert "实战任务交付${thirdGradeText(delivery)}、持续作战${thirdGradeText(endurance)}、体系可靠性${thirdGradeText(reliability)}" in block
     assert "当前没有可与创业统一主链分离的独立体系压力任务" in block
     assert "同一主链的安全态势和控制成果不在本项重复计入" in block
+    assert "终点值由-?\\d+" in block
+    assert "重新核对本人窗口内的实际控制范围后" in block
+    assert "\\d+票(?:降至|升至)\\d+票" in block
+    assert "相关任务按统一边界重新归并" in block
+    assert "父级重新裁任务回报类别" in block
+    assert "在合并后的任务周期重新判断整体回报" in block
+    assert "正式横校档" in block
+    assert "当前等级" in block
+    assert "客观状态确有改善，但相关创业统一主链已由奠基与统一项计入" in block
+    assert "只把淮河、荆湖北缘和川陕三个真实外部边疆方向计入实际控制范围" in block
+    assert "材料覆盖缺口" in block
+    assert "已达到$1所需条件" in block
+    assert "补足该条件" in block
+    assert "不提高到" in block
 
 
 
