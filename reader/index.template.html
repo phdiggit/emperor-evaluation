@@ -86,7 +86,7 @@ function impactPublicText(t){
   .replace(/项目战争账/g,'军事结算材料')
   .replace(/项目财政民生底账/g,'民生与财政结算材料')
   .replace(/项目集团复核/g,'集团机制材料复核')
-  .replace(/项目B1\\/C3材料/g,'相关正式材料')
+  .replace(/项目B1\/C3材料/g,'相关正式材料')
   .replace(/项目已经把/g,'当前公开裁决已把')
   .replace(/G([0-5])[- /]*(LOW|MID|HIGH)/g,(_,g,p)=>grade({axis_grade:'G'+g,position:p}))
   .replace(/G([0-5])/g,(_,g)=>letters['G'+g]+'档')
