@@ -2081,6 +2081,19 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "治理恢复的具体工具专业性由民生财政相关结果承担" in block
     assert '.replace(/\\bM3\\b/g,"民生财政相关结果")' not in block
     assert "官僚治理现有材料已确认岭南物流的持续运行链与有限选任链" in block
+    assert '.replace(/\\bB1\\b/g,"官僚治理")' in block
+    assert '.replace(/\\bB2\\b/g,"反馈与约束")' in block
+    assert "正向为主的系统性机制" in block
+    assert "负向系统性机制" in block
+    assert "系统性、持续性的稳定交付" in block
+    assert "法律简化主要属于民生财政相关结果／学习纠错辅助背景" in block
+    assert "具体制度专业判断不在本轴重复计入" in block
+    assert "高压与极端逆转任务数量" in block
+    assert "任务压力尚未达到高压或极端逆转级" in block
+    assert "前线高压任务锚" in block
+    assert "原“常规风险任务”难度不足以反映兵力与接战条件" in block
+    assert "多重重大约束的高压任务" in block
+    assert "极端劣势或濒临崩溃的逆转任务" in block
     assert "学习纠错与反馈约束" in block
     assert "反馈后调整路径" in block
     assert "错误纠正情境" in block
