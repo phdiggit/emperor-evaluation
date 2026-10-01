@@ -178,6 +178,7 @@ def test_home_system_columns_route_to_distinct_reading_paths():
     source = (ROOT / "reader" / "home-interactions.js").read_text(encoding="utf-8")
     assert 'section === "person-outcome"' in source
     assert 'if (section === "person-outcome" && !record.net) continue;' in source
+    assert 'if (section === "person-capability" && record.supplementary) continue;' in source
     assert '#net/${encoded}/all' in source
     assert 'section === "person-capability"' in source
     assert '#person/${encoded}/profile' in source
