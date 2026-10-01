@@ -324,6 +324,8 @@
       .replace(/\bC[123]-([1-6])\s*\/\s*L([0-3])\b/g, (_, band, loss) => `${STATE_GRADE[Number(band)] || band}档；${LOSS_TEXT[Number(loss)] || ""}`)
       .replace(/\bC[123]-([1-6])\b/g, (_, band) => `${STATE_GRADE[Number(band)] || band}档`)
       .replace(/\bD3-([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
+      .replace(/\bD1\b/g, "行政连续性")
+      .replace(/\bD3\b/g, "交接稳定")
       .replace(/\bH([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
       .replace(/\bL([0-3])\b/g, (_, level) => LOSS_TEXT[Number(level)] || "");
     return text.trim();
@@ -536,7 +538,7 @@
     if (METHOD_MAX[label]) {
       const grade = publicMethodGrade(item);
       add("当前裁决", [grade ? `${grade}档` : "", `原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}`].filter(Boolean).join(" · "));
-      const formal = publicTechnicalText(item.reader_how || "该原始表现指数进入制度与行政合成，不作为本轴直接得分。");
+      const formal = publicTechnicalText(item.reader_how || "该原始表现指数进入制度与行政合成，不作为本项直接得分。");
       const expanded = secondMethodExpandedHow(label);
       add("换算规则", [formal, expanded].filter(Boolean).join(" "));
       add("当前结果", "用于制度与行政折算，不单列得分");
@@ -546,7 +548,7 @@
       const base = band ? FINANCE_BASE_SCORES[label]?.[Number(band[1])] : null;
       const rate = band ? FINANCE_LOSS_RATE[Number(band[2])] : null;
       add("当前裁决", [meta?.grade ? `${meta.grade}档` : "", meta?.lossText || ""].filter(Boolean).join(" · "));
-      if (base != null && rate != null) add("换算规则", `主态基础分 ${base} × (1 − ${Math.round(rate * 100)}%低谷修正)，最终保留1位小数。`);
+      if (base != null && rate != null) add("换算规则", `主要状态基础分 ${base} × (1 − ${Math.round(rate * 100)}%低谷修正)，最终保留1位小数。`);
       else add("换算规则", publicFinanceText(item.reader_how || ""));
       add("当前结果", `${fmt(item.value)} 分`);
     } else if (label === "C4恢复与成本") {
