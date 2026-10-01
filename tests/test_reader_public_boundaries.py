@@ -1672,3 +1672,28 @@ def test_first_item_shared_project_percentage_is_labeled_as_allocation_share():
         assert "正向净收益" not in source
     assert "本项适用，但第一项结算分为0" in template
     assert "正向净收益" not in template
+
+
+def test_finance_public_copy_collapses_repeated_no_low_point_phrase():
+    from pathlib import Path
+
+    source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    start = source.index("function publicFinanceText(value)")
+    end = source.index("function publicCalculationText(value)", start)
+    block = source[start:end]
+    assert "未另证独立有效低谷[：:]\\s*未另证独立有效低谷" in block
+    assert '.replace(/。；/g, "；")' in block
+
+
+def test_history_total_public_explanation_stays_on_public_scale():
+    from pathlib import Path
+
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function impactTotalPublicText(h)")
+    end = template.index("function impactDimensionPublicText", start)
+    block = template[start:end]
+    assert "综合后公开等级为" in block
+    assert "最终量级为" not in block
+    assert "对应公开等级" not in block
+    assert "prose(impactTotalPublicText(h))" in template
+    assert "impactTechnicalHelp()" in template
