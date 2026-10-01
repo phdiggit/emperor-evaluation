@@ -1950,3 +1950,32 @@ def test_third_public_copy_hides_fallen_regime_audit_codes():
     assert "同一主链的安全态势和控制成果不在本项重复计入" in block
 
 
+
+
+def test_supplementary_person_page_is_history_impact_only():
+    from pathlib import Path
+
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function person(r){")
+    end = template.index("\nfunction compare(){", start)
+    block = template[start:end]
+
+    assert "const pageMode=supplementary?'历史影响补充样本':'三套评价';" in block
+    assert "该对象只进入历史影响补充样本，不纳入统治绩效主池或人物画像正式评价。" in block
+    assert "本页只展开历史影响正式依据。" in block
+    assert "supplementary?'':" in block
+    assert "历史影响概览" in block
+    assert "if(r?.supplementary){impactPage(r);return}" in block
+
+
+def test_first_item_not_applicable_card_uses_explicit_label():
+    from pathlib import Path
+
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    start = source.index("function majorCard(record, major)")
+    end = source.index("function renderNetShell", start)
+    block = source[start:end]
+
+    assert 'major === "first" && firstStatus === "NOT_APPLICABLE"' in block
+    assert '? "不适用"' in block
+    assert "该人物第一项不适用。" in block
