@@ -1974,6 +1974,20 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert block.index("const cleaned=String(value??'').replace") < block.index("return readerText(cleaned)")
     assert "没有形成" in block
     assert "尚未形成" in block
+    assert "相关证据链已" in block
+    assert "本人不在直接指挥链中" in block
+    assert "投入大量资源却" in block
+    assert "相关正式材料已完成核对" in block
+    assert "材料有限" in block
+    assert "完整生命周期的强负向材料" in block
+    assert "战区或多军统筹" in block
+    assert "军事角色尚未确定" in block
+    assert "角色字段与事实叙述存在冲突" in block
+    assert '.replace(/\\bLOW\\b/g,"低位")' in block
+    assert '.replace(/\\bMID\\b/g,"中位")' in block
+    assert '.replace(/\\bHIGH\\b/g,"高位")' in block
+    assert "横向负向证据强度校准" in block
+    assert "最大负向证据校准" in block
 
 
 def test_third_public_copy_hides_fallen_regime_audit_codes():
