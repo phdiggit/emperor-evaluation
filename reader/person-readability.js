@@ -442,24 +442,6 @@
     if (target?.tagName === "DETAILS") target.open = true;
   }
 
-  function foldNetLedger() {
-    const section = evidenceSection("统治绩效构成");
-    if (!section || section.dataset.ledgerFolded === "done") return;
-
-    const items = Array.from(section.children).filter(node => node.tagName === "DETAILS");
-    if (!items.length) return;
-    const note = document.createElement("p");
-    note.className = "subline net-ledger-note";
-    note.textContent = "下面保留原始指标、内部档位、折算与小计，供复核使用；普通阅读无需展开。";
-    const wrapper = document.createElement("details");
-    wrapper.className = "net-ledger";
-    const toggle = document.createElement("summary");
-    toggle.textContent = "完整计分账本（审计视图）";
-    wrapper.append(toggle, ...items);
-    section.append(note, wrapper);
-    section.dataset.ledgerFolded = "done";
-  }
-
   function ensureMilitaryArchiveNav() {
     const nav = document.querySelector("header nav");
     if (!nav || nav.querySelector("[data-military-archive-nav]")) return;
@@ -485,7 +467,6 @@
     enhanceImpact(record);
     normalizeEvidenceCardHeadings();
     buildNetReading(record);
-    foldNetLedger();
   }
 
   screen.addEventListener("click", openHistoricalImpactTarget, true);
