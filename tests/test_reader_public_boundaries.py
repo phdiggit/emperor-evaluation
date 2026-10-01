@@ -615,6 +615,7 @@ def test_profile_material_strength_is_public_first_and_raw_code_is_audit_only():
     css = (root / "reader/readability.css").read_text(encoding="utf-8")
     assert "formal-context-chip" in template
     assert "材料强度原始字段" in template
+    assert "情境记录编号：" in template
     metadata_start = template.index("function formalContextMetadata")
     story_start = template.index("function formalContextStory", metadata_start)
     metadata_block = template[metadata_start:story_start]
