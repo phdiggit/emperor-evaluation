@@ -67,6 +67,20 @@
             "military_capability_contribution": {
               "capability_mode": "independent_direction",
               "decisive_relation": "stage_executor"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：反击卢容失败后退屯九真，只闭合本路局部败果，不复制父级A。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "資治通鑑/卷098@1502617",
+                "WAR-LEAD-098-JIUZHEN-348"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT---638CC15995"
             }
           },
           "command_result_direction": "negative",
@@ -83,7 +97,21 @@
             "source_refs": [
               "資治通鑑/卷098@1502617",
               "WAR-LEAD-098-JIUZHEN-348"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：反击卢容失败后退屯九真，只闭合本路局部败果，不复制父级A。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "資治通鑑/卷098@1502617",
+                "WAR-LEAD-098-JIUZHEN-348"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT---638CC15995"
+            }
           }
         },
         {
@@ -678,11 +706,11 @@
             ],
             "mixed_result_review": {
               "schema_version": "military-mixed-result-review-v1",
-              "decision": "mixed_review",
+              "decision": "negative",
               "positive_result": "统筹接管河西郡县、迁治张掖。",
               "adverse_result": "拒谏追击大败，相关西安守军又被击破。",
               "retention": "已接管与失守分开保留；获救脱险不作为正果。",
-              "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+              "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
               "source_refs": [
                 "資治通鑑/卷110@1472366",
                 "WAR-LEAD-110-NORTHLIANG-398"
@@ -705,6 +733,20 @@
               "major_result": false,
               "failure_established": true,
               "failure_effect_tier": "B"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：本人操作：拒绝归师勿遏的劝阻而决定追击，发生大败；迁治任官和部将取郡不能替代本人已兑现的军事设计正果。 兑现与边界：只保留已闭本人追击B级败果，不复制蒙逊取郡和救援成果。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+              "personal_scope": "operational_design_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷110@1472366",
+                "WAR-LEAD-110-NORTHLIANG-398"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "WAR-LEAD-110-NORTHLIANG-398"
             }
           },
           "command_result_direction": "negative",
@@ -1815,6 +1857,19 @@
             "military_capability_contribution": {
               "capability_mode": "integrated_command",
               "decisive_relation": "none"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "S-",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：侯景统合本方主力守卫建康，在姑孰、石头和建康连续败退，最终失去首都与军政体系并在逃亡中被杀，闭合negative S-/D3。此处只登记实际败局，不凭结果反推卡内未载的个人指挥过失。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷164@2310031"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+              "deduplication_ref": "PCR-AUDIT-CAMPAIGN-NC-HOUJING-JIANKANG-END-552-侯景-NEGATIVE-1"
             }
           },
           "person_command_index": {
@@ -1829,7 +1884,20 @@
             "basis": "侯景统合本方主力守卫建康，在姑孰、石头和建康连续败退，最终失去首都与军政体系并在逃亡中被杀，闭合negative S-/D3。此处只登记实际败局，不凭结果反推卡内未载的个人指挥过失。",
             "source_refs": [
               "資治通鑑/卷164@2310031"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "S-",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：侯景统合本方主力守卫建康，在姑孰、石头和建康连续败退，最终失去首都与军政体系并在逃亡中被杀，闭合negative S-/D3。此处只登记实际败局，不凭结果反推卡内未载的个人指挥过失。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷164@2310031"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+              "deduplication_ref": "PCR-AUDIT-CAMPAIGN-NC-HOUJING-JIANKANG-END-552-侯景-NEGATIVE-1"
+            }
           }
         }
       ],
@@ -3866,6 +3934,19 @@
                 "source_refs": [
                   "docs/史料通读产物/唐以前编年/汉/卷025-通读总结.md"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "B",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：郑吉先完成攻破车师和屯田支点的正A/D2，三年后又承担被围与撤弃方向负B/D2。撤军不抹前胜，前胜也不掩最终失去支点。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/汉/卷025-通读总结.md"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "MIL-EPISODE-ZHENGJI-CHESHI-67-64"
               }
             }
           ],
@@ -3881,7 +3962,20 @@
             "basis": "郑吉先完成攻破车师和屯田支点的正A/D2，三年后又承担被围与撤弃方向负B/D2。撤军不抹前胜，前胜也不掩最终失去支点。",
             "source_refs": [
               "docs/史料通读产物/唐以前编年/汉/卷025-通读总结.md"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：郑吉先完成攻破车师和屯田支点的正A/D2，三年后又承担被围与撤弃方向负B/D2。撤军不抹前胜，前胜也不掩最终失去支点。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷025-通读总结.md"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "MIL-EPISODE-ZHENGJI-CHESHI-67-64"
+            }
           }
         },
         {
@@ -4681,6 +4775,19 @@
                 "source_refs": [
                   "資治通鑑/卷021@1511468"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "A",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：万级斩获和三万骑六七成物故分别闭合为正B与负A；两路均未完成逆转，惨烈过程不换D4，按D2。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "資治通鑑/卷021@1511468"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-HAN-LIGUANGLI-TIANHAN-99-LOSS"
               }
             }
           ],
@@ -4696,7 +4803,20 @@
             "basis": "万级斩获和三万骑六七成物故分别闭合为正B与负A；两路均未完成逆转，惨烈过程不换D4，按D2。 本人实际组织并实现本条已缩小的B级结果，贡献限定该方向，不能因同周期终败归零。",
             "source_refs": [
               "資治通鑑/卷021@1511468"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：万级斩获和三万骑六七成物故分别闭合为正B与负A；两路均未完成逆转，惨烈过程不换D4，按D2。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷021@1511468"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-HAN-LIGUANGLI-TIANHAN-99-LOSS"
+            }
           }
         },
         {
@@ -4752,6 +4872,19 @@
                 "source_refs": [
                   "資治通鑑/卷021@1511468"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "A",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：李陵的连续抗击形成高难B/D3战术能力事实，最终全军覆没形成负A/D2。局部反击未完成全方向逆转，不升D4；终败也不能抹掉已实现杀伤。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "資治通鑑/卷021@1511468"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-HAN-LILING-JUNJISHAN-99-LOSS"
               }
             }
           ],
@@ -4767,7 +4900,20 @@
             "basis": "李陵的连续抗击形成高难B/D3战术能力事实，最终全军覆没形成负A/D2。局部反击未完成全方向逆转，不升D4；终败也不能抹掉已实现杀伤。 本人实际组织并实现本条已缩小的B级结果，贡献限定该方向，不能因同周期终败归零。",
             "source_refs": [
               "資治通鑑/卷021@1511468"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：李陵的连续抗击形成高难B/D3战术能力事实，最终全军覆没形成负A/D2。局部反击未完成全方向逆转，不升D4；终败也不能抹掉已实现杀伤。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷021@1511468"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-HAN-LILING-JUNJISHAN-99-LOSS"
+            }
           }
         },
         {
@@ -4830,6 +4976,19 @@
               "major_result": false,
               "failure_established": true,
               "failure_effect_tier": "A"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：本人操作：制定多路部署并作出李陵独进与拒绝缓期的作战方向决定，未承担前线统帅职责。 兑现与边界：制定多路部署并作出李陵独进与拒绝缓期的作战方向决定，未承担前线统帅职责。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+              "personal_scope": "operational_design_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷021@1511468"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "WAR-LEAD-HAN-TIANHAN-99"
             }
           },
           "operational_role_review": {
@@ -5092,6 +5251,22 @@
               "military_capability_contribution": {
                 "capability_mode": "independent_direction",
                 "decisive_relation": "stage_executor"
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "B",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：张朗有真实战获与受降，不能归零；但只负责班勇多年再通链的末段一路且违约造成失序，故正B与负B并列，不继承父S-或投影A。",
+                "personal_scope": "independent_direction_scope",
+                "responsibility_coefficient": 0.35,
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L45",
+                  "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L46",
+                  "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L47",
+                  "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L48"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-HAN-ZHANGLANG-YANQI-127-BREACH"
               }
             }
           ],
@@ -5111,7 +5286,23 @@
               "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L46",
               "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L47",
               "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L48"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：张朗有真实战获与受降，不能归零；但只负责班勇多年再通链的末段一路且违约造成失序，故正B与负B并列，不继承父S-或投影A。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L45",
+                "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L46",
+                "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L47",
+                "docs/史料通读产物/唐以前编年/汉/卷051-通读总结.md#L48"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-HAN-ZHANGLANG-YANQI-127-BREACH"
+            }
           }
         },
         {
@@ -5287,7 +5478,22 @@
                 "decisive_relation": "none"
               },
               "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
-              "responsibility_basis": "史料明确记其拥兵不进，未救州军，直接关联溃败与重大伤亡。"
+              "responsibility_basis": "史料明确记其拥兵不进，未救州军，直接关联溃败与重大伤亡。",
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "A",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：吕辟胡先有局部压制，后又因不进造成方向崩坏；正B与负A并列，父群最终由继任者平定形成的难度不归本人。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L34",
+                  "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L35",
+                  "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L36"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
+                "deduplication_ref": "PCR-HAN-LUBIHU-YIZHOU-FAILURE"
+              }
             }
           ],
           "talent_credit": "independent",
@@ -5305,7 +5511,22 @@
               "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L34",
               "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L35",
               "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L36"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：吕辟胡先有局部压制，后又因不进造成方向崩坏；正B与负A并列，父群最终由继任者平定形成的难度不归本人。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L34",
+                "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L35",
+                "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L36"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
+              "deduplication_ref": "PCR-HAN-LUBIHU-YIZHOU-FAILURE"
+            }
           }
         },
         {
@@ -5930,6 +6151,19 @@
             "military_capability_contribution": {
               "capability_mode": "independent_direction",
               "decisive_relation": "none"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：拓跋焘亲统中路，采纳待会师方案后未能捕获柔然主力，返程乏粮多死；承担本人方向的共享B/D2负向结果，但不独占刘絜操弄会师造成的主要过失。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.85,
+              "source_refs": [
+                "資治通鑑/卷124@803171"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+              "deduplication_ref": "WAR-LEAD-NC-WEI-RURAN-443"
             }
           },
           "person_command_index": {
@@ -5944,7 +6178,20 @@
             "basis": "拓跋焘亲统中路，采纳待会师方案后未能捕获柔然主力，返程乏粮多死；承担本人方向的共享B/D2负向结果，但不独占刘絜操弄会师造成的主要过失。",
             "source_refs": [
               "資治通鑑/卷124@803171"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：拓跋焘亲统中路，采纳待会师方案后未能捕获柔然主力，返程乏粮多死；承担本人方向的共享B/D2负向结果，但不独占刘絜操弄会师造成的主要过失。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.85,
+              "source_refs": [
+                "資治通鑑/卷124@803171"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+              "deduplication_ref": "WAR-LEAD-NC-WEI-RURAN-443"
+            }
           }
         },
         {

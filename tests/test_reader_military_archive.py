@@ -68,6 +68,25 @@ def test_military_archive_indexes_point_to_canonical_shards(tmp_path: Path):
     assert commanders["records"][0]["profile_ref"] == "MIL-PROFILE-TEST"
 
 
+def test_person_only_registration_does_not_duplicate_its_public_parent(tmp_path: Path):
+    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 2})
+    write_json(tmp_path / module.BATTLE_DIR / "demo-00.json", {"records": [
+        {"war_event_id": "WAR-SYNTHETIC", "canonical_label": "独立构造的战争",
+         "members": [{"actor_name": "测试将领", "person_command_result": [{"result_ref": "PCR-SYNTHETIC"}]}]},
+        {"war_event_id": "PCR-SYNTHETIC", "canonical_label": "既有本人成果的来源补登记",
+         "record_level": "person_command_result_registration", "settlement_scope": "PERSON_RESULT_ONLY",
+         "public_outcome_registered": False, "members": []}]})
+    minimal_commander(tmp_path)
+    battles, _ = module.build_indexes(tmp_path)
+    assert battles["record_count"] == len(battles["records"]) == 1
+    assert battles["result_ref_to_battle"]["PCR-SYNTHETIC"] == "WAR-SYNTHETIC"
+    # Input count is still checked against all current registry records.
+    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 3})
+    import pytest
+    with pytest.raises(ValueError, match="count mismatch"):
+        module.build_indexes(tmp_path)
+
+
 def test_first_item_c_anchor_binds_only_unique_matching_battle(tmp_path: Path):
     write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 2})
     write_json(

@@ -107,7 +107,7 @@
             "person_ref": "MIL-PER-81E81A63FC0D33E9",
             "military_grade": "historic",
             "grade_status": "current_battle_registry_grade",
-            "stability_status": "major_failure_with_effective_recovery",
+            "stability_status": "stability_limited_repeated_major_failures",
             "profile_ref": "MIL-PROFILE-81E81A63FC0D33E9"
           },
           "military_talent_registry_projection": {
@@ -115,7 +115,7 @@
             "source_path": "docs/公共成果/军事/02-武将人才等级.md",
             "profile_ref": "MIL-PROFILE-81E81A63FC0D33E9",
             "profile_person": "曹操",
-            "result_difficulty_combinations_display": "1) 前线+ `B/D2`<br>2) 前线+ `A/D3`<br>3) 前线+ `A/D3`<br>4) 前线+ `C/D1`<br>5) 前线+ `S/D4`<br>6) 前线+ `A/D2`<br>7) 前线+ `S-/D2`<br>8) 前线+ `S-/D3`<br>9) 前线+ `C/D1`<br>10) 前线+ `A/D3`<br>11) 前线+ `A/D3`<br>12) 前线+ `C/D1`<br>13) 前线− `A/D2`<br>14) 前线− `B/D2`<br>15) 前线− `A/D3`<br>16) 前线± `S-/D3`",
+            "result_difficulty_combinations_display": "1) 前线+ `B/D2`<br>2) 前线+ `A/D3`<br>3) 前线+ `A/D3`<br>4) 前线+ `C/D1`<br>5) 前线+ `S/D4`<br>6) 前线+ `A/D2`<br>7) 前线+ `S-/D2`<br>8) 前线+ `S-/D3`<br>9) 前线+ `C/D1`<br>10) 前线+ `A/D3`<br>11) 前线+ `A/D3`<br>12) 前线+ `C/D1`<br>13) 前线− `A/D2`<br>14) 前线− `B/D2`<br>15) 前线− `A/D3`<br>16) 前线+ `A/—`<br>17) 前线− `S-/D3`",
             "result_difficulty_combination_items": [
               "1) 前线+ `B/D2`",
               "2) 前线+ `A/D3`",
@@ -132,9 +132,10 @@
               "13) 前线− `A/D2`",
               "14) 前线− `B/D2`",
               "15) 前线− `A/D3`",
-              "16) 前线± `S-/D3`"
+              "16) 前线+ `A/—`",
+              "17) 前线− `S-/D3`"
             ],
-            "campaign_group_roles_display": "1) 亲征围降壶关并迫使高干出逃／主将<br>2) 兵少初挫后整军昼夜连续作战，迫使三十万战士投降并终结主集团／主将<br>3) 攻取湖阳舞阴，并在安众归路被断时以伪遁夹击脱险破敌／主帅<br>4) 昌豨东海围降／主帅<br>5) 官渡战争终局／主帅<br>6) 曹操兼并汉中／主帅<br>7) 曹操征服河北袁氏核心／主帅<br>8) 乌桓远征与白狼山决战／主帅<br>9) 三郡乌桓攻犷平与曹操解围／主帅<br>10) 徐州反复争夺与吕布覆亡／主帅<br>11) 吕布争兖州与曹操收复战役群／主将<br>12) 赵犊霍奴幽州内乱／主帅<br>13) 受降后因本人处置失当触发张绣反袭，军势崩溃并损失曹昂典韦／主帅／结果责任=actual_command_scope／致败责任=ATTRIBUTABLE_COMMAND_ERROR<br>14) 曹操两攻濡须未能突破／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>15) 曹操亲援汉中未能恢复控制，军士逃亡后全撤／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>16) 荆州南征取得荆北与赤壁东进失败／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+            "campaign_group_roles_display": "1) 亲征围降壶关并迫使高干出逃／主将<br>2) 兵少初挫后整军昼夜连续作战，迫使三十万战士投降并终结主集团／主将<br>3) 攻取湖阳舞阴，并在安众归路被断时以伪遁夹击脱险破敌／主帅<br>4) 昌豨东海围降／主帅<br>5) 官渡战争终局／主帅<br>6) 曹操兼并汉中／主帅<br>7) 曹操征服河北袁氏核心／主帅<br>8) 乌桓远征与白狼山决战／主帅<br>9) 三郡乌桓攻犷平与曹操解围／主帅<br>10) 徐州反复争夺与吕布覆亡／主帅<br>11) 吕布争兖州与曹操收复战役群／主将<br>12) 赵犊霍奴幽州内乱／主帅<br>13) 受降后因本人处置失当触发张绣反袭，军势崩溃并损失曹昂典韦／主帅／本人结果责任：本人实际指挥范围／致败归责：已证实本人指挥失误／本人败果=A（难度不作扣减乘数）<br>14) 曹操两攻濡须未能突破／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=B（难度不作扣减乘数）<br>15) 曹操亲援汉中未能恢复控制，军士逃亡后全撤／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=A（难度不作扣减乘数）<br>16) 荆州南征取得荆北与赤壁东进失败：同一南征周期接收荆北及水军，形成真实区域控制变化。／主帅<br>17) 荆州南征取得荆北与赤壁东进失败：赤壁船营焚毁、主力重大损耗并北撤。／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=S-（难度不作扣减乘数）",
             "campaign_group_role_items": [
               "1) 亲征围降壶关并迫使高干出逃／主将",
               "2) 兵少初挫后整军昼夜连续作战，迫使三十万战士投降并终结主集团／主将",
@@ -148,10 +149,11 @@
               "10) 徐州反复争夺与吕布覆亡／主帅",
               "11) 吕布争兖州与曹操收复战役群／主将",
               "12) 赵犊霍奴幽州内乱／主帅",
-              "13) 受降后因本人处置失当触发张绣反袭，军势崩溃并损失曹昂典韦／主帅／结果责任=actual_command_scope／致败责任=ATTRIBUTABLE_COMMAND_ERROR",
-              "14) 曹操两攻濡须未能突破／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
-              "15) 曹操亲援汉中未能恢复控制，军士逃亡后全撤／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
-              "16) 荆州南征取得荆北与赤壁东进失败／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
+              "13) 受降后因本人处置失当触发张绣反袭，军势崩溃并损失曹昂典韦／主帅／本人结果责任：本人实际指挥范围／致败归责：已证实本人指挥失误／本人败果=A（难度不作扣减乘数）",
+              "14) 曹操两攻濡须未能突破／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=B（难度不作扣减乘数）",
+              "15) 曹操亲援汉中未能恢复控制，军士逃亡后全撤／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=A（难度不作扣减乘数）",
+              "16) 荆州南征取得荆北与赤壁东进失败：同一南征周期接收荆北及水军，形成真实区域控制变化。／主帅",
+              "17) 荆州南征取得荆北与赤壁东进失败：赤壁船营焚毁、主力重大损耗并北撤。／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=S-（难度不作扣减乘数）"
             ],
             "paired_result_difficulty_campaign_role_items": [
               "1) 前线+ `B/D2`｜亲征围降壶关并迫使高干出逃／主将",
@@ -166,10 +168,11 @@
               "10) 前线+ `A/D3`｜徐州反复争夺与吕布覆亡／主帅",
               "11) 前线+ `A/D3`｜吕布争兖州与曹操收复战役群／主将",
               "12) 前线+ `C/D1`｜赵犊霍奴幽州内乱／主帅",
-              "13) 前线− `A/D2`｜受降后因本人处置失当触发张绣反袭，军势崩溃并损失曹昂典韦／主帅／结果责任=actual_command_scope／致败责任=ATTRIBUTABLE_COMMAND_ERROR",
-              "14) 前线− `B/D2`｜曹操两攻濡须未能突破／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
-              "15) 前线− `A/D3`｜曹操亲援汉中未能恢复控制，军士逃亡后全撤／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
-              "16) 前线± `S-/D3`｜荆州南征取得荆北与赤壁东进失败／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
+              "13) 前线− `A/D2`｜受降后因本人处置失当触发张绣反袭，军势崩溃并损失曹昂典韦／主帅／本人结果责任：本人实际指挥范围／致败归责：已证实本人指挥失误／本人败果=A（难度不作扣减乘数）",
+              "14) 前线− `B/D2`｜曹操两攻濡须未能突破／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=B（难度不作扣减乘数）",
+              "15) 前线− `A/D3`｜曹操亲援汉中未能恢复控制，军士逃亡后全撤／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=A（难度不作扣减乘数）",
+              "16) 前线+ `A/—`｜荆州南征取得荆北与赤壁东进失败：同一南征周期接收荆北及水军，形成真实区域控制变化。／主帅",
+              "17) 前线− `S-/D3`｜荆州南征取得荆北与赤壁东进失败：赤壁船营焚毁、主力重大损耗并北撤。／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=S-（难度不作扣减乘数）"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线+ `B/D2`｜亲征围降壶关并迫使高干出逃／主将<br>2) 前线+ `A/D3`｜兵少初挫后整军昼夜连续作战，迫使三十万战士投降并终结主集团／主将<br>3) 前线+ `A/D3`｜攻取湖阳舞阴，并在安众归路被断时以伪遁夹击脱险破敌／主帅<br>4) 前线+ `C/D1`｜昌豨东海围降／主帅<br>5) 前线+ `S/D4`｜官渡战争终局／主帅<br>6) 前线+ `A/D2`｜曹操兼并汉中／主帅<br>7) 前线+ `S-/D2`｜曹操征服河北袁氏核心／主帅<br>8) 前线+ `S-/D3`｜乌桓远征与白狼山决战／主帅<br>9) 前线+ `C/D1`｜三郡乌桓攻犷平与曹操解围／主帅<br>10) 前线+ `A/D3`｜徐州反复争夺与吕布覆亡／主帅<br>11) 前线+ `A/D3`｜吕布争兖州与曹操收复战役群／主将<br>12) 前线+ `C/D1`｜赵犊霍奴幽州内乱／主帅<br>13) 前线− `A/D2`｜受降后因本人处置失当触发张绣反袭，军势崩溃并损失曹昂典韦／主帅／结果责任=actual_command_scope／致败责任=ATTRIBUTABLE_COMMAND_ERROR<br>14) 前线− `B/D2`｜曹操两攻濡须未能突破／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>15) 前线− `A/D3`｜曹操亲援汉中未能恢复控制，军士逃亡后全撤／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>16) 前线± `S-/D3`｜荆州南征取得荆北与赤壁东进失败／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
           },
@@ -942,24 +945,24 @@
               "6) 前线− `A/D3`",
               "7) 前线− `S/D3`"
             ],
-            "campaign_group_roles_display": "1) 博望叶县诱伏战／主帅<br>2) 刘备夺汉中战役群／主帅<br>3) 赤壁战争父级／主帅<br>4) 刘备兼并益州终局／主帅<br>5) 刘备汝南游动根据失守／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>6) 徐州反复争夺中失去独立根据／主将／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>7) 夷陵之战／主帅／结果责任=independent_direction_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+            "campaign_group_roles_display": "1) 博望叶县诱伏战／主帅<br>2) 刘备夺汉中战役群／主帅<br>3) 赤壁战争父级／主帅<br>4) 刘备兼并益州终局／主帅<br>5) 刘备汝南游动根据失守／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=B（难度不作扣减乘数）<br>6) 徐州反复争夺中失去独立根据／主将／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=A（难度不作扣减乘数）<br>7) 夷陵之战／主帅／本人结果责任：本人独立方向决策范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=S（难度不作扣减乘数）",
             "campaign_group_role_items": [
               "1) 博望叶县诱伏战／主帅",
               "2) 刘备夺汉中战役群／主帅",
               "3) 赤壁战争父级／主帅",
               "4) 刘备兼并益州终局／主帅",
-              "5) 刘备汝南游动根据失守／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
-              "6) 徐州反复争夺中失去独立根据／主将／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
-              "7) 夷陵之战／主帅／结果责任=independent_direction_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
+              "5) 刘备汝南游动根据失守／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=B（难度不作扣减乘数）",
+              "6) 徐州反复争夺中失去独立根据／主将／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=A（难度不作扣减乘数）",
+              "7) 夷陵之战／主帅／本人结果责任：本人独立方向决策范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=S（难度不作扣减乘数）"
             ],
             "paired_result_difficulty_campaign_role_items": [
               "1) 前线+ `C/D2`｜博望叶县诱伏战／主帅",
               "2) 前线+ `S-/D3`｜刘备夺汉中战役群／主帅",
               "3) 前线+ `A/D2`｜赤壁战争父级／主帅",
               "4) 前线+ `S-/D3`｜刘备兼并益州终局／主帅",
-              "5) 前线− `B/D1`｜刘备汝南游动根据失守／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
-              "6) 前线− `A/D3`｜徐州反复争夺中失去独立根据／主将／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
-              "7) 前线− `S/D3`｜夷陵之战／主帅／结果责任=independent_direction_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
+              "5) 前线− `B/D1`｜刘备汝南游动根据失守／主帅／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=B（难度不作扣减乘数）",
+              "6) 前线− `A/D3`｜徐州反复争夺中失去独立根据／主将／本人结果责任：本人实际指挥范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=A（难度不作扣减乘数）",
+              "7) 前线− `S/D3`｜夷陵之战／主帅／本人结果责任：本人独立方向决策范围／致败归责：实际指挥责任成立，具体致败过错未定／本人败果=S（难度不作扣减乘数）"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线+ `C/D2`｜博望叶县诱伏战／主帅<br>2) 前线+ `S-/D3`｜刘备夺汉中战役群／主帅<br>3) 前线+ `A/D2`｜赤壁战争父级／主帅<br>4) 前线+ `S-/D3`｜刘备兼并益州终局／主帅<br>5) 前线− `B/D1`｜刘备汝南游动根据失守／主帅／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>6) 前线− `A/D3`｜徐州反复争夺中失去独立根据／主将／结果责任=actual_command_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH<br>7) 前线− `S/D3`｜夷陵之战／主帅／结果责任=independent_direction_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
           },
@@ -1648,18 +1651,23 @@
             "profile_person": "曹叡",
             "person_ref": "MIL-PER-A6E24AC442E30B64",
             "military_grade": "ordinary",
-            "grade_status": "current_battle_registry_grade",
+            "grade_status": "evidence_lower_bound",
             "stability_status": "no_comparable_major_failure_established",
-            "profile_ref": "MIL-PROFILE-A6E24AC442E30B64"
+            "profile_ref": "MIL-PROFILE-A6E24AC442E30B64",
+            "military_grade_boundary": {
+              "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+              "coverage_status": "NOT_ESTABLISHED",
+              "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+            }
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
             "source_path": "docs/公共成果/军事/02-武将人才等级.md",
             "profile_ref": "MIL-PROFILE-A6E24AC442E30B64",
             "profile_person": "曹叡",
-            "result_difficulty_combinations_display": "—",
+            "result_difficulty_combinations_display": "",
             "result_difficulty_combination_items": [],
-            "campaign_group_roles_display": "—",
+            "campaign_group_roles_display": "",
             "campaign_group_role_items": [],
             "paired_result_difficulty_campaign_role_items": [],
             "paired_result_difficulty_campaign_roles_display": "—"
@@ -1974,7 +1982,7 @@
               "10) 前线− `B/D2`",
               "11) 统筹− `B/—`"
             ],
-            "campaign_group_roles_display": "1) 孙权连续守住濡须江防／主帅<br>2) 孙权克皖城消灭李术集团／主帅<br>3) 孙权西击黄祖／主帅<br>4) 袭荆州的战区统筹与外交协同／统筹<br>5) 孙权回师平山越／统筹<br>6) 孙权攻取皖城／统筹<br>7) 孙权决断并统筹征黄祖／统筹<br>8) 孙权配置吕蒙二万、鲁肃一万并在陆口节制，反馈后急调吕蒙／统筹<br>9) 孙权围合肥未克并撤军／主将／结果责任=actual_command_scope／致败责任=UNKNOWN<br>10) 吴三路攻魏／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN<br>11) 远海求民决策失败／统筹／结果责任=operational_design_scope／致败责任=UNKNOWN",
+            "campaign_group_roles_display": "1) 孙权连续守住濡须江防／主帅<br>2) 孙权克皖城消灭李术集团／主帅<br>3) 孙权西击黄祖／主帅<br>4) 袭荆州的战区统筹与外交协同／统筹<br>5) 孙权回师平山越／统筹<br>6) 孙权攻取皖城／统筹<br>7) 孙权决断并统筹征黄祖／统筹<br>8) 孙权配置吕蒙二万、鲁肃一万并在陆口节制，反馈后急调吕蒙／统筹<br>9) 孙权围合肥未克并撤军／主将／本人结果责任：本人实际指挥范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）<br>10) 吴三路攻魏／主帅／本人结果责任：本人实际指挥范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）<br>11) 远海求民决策失败／统筹／本人结果责任：本人战区设计与统筹范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）",
             "campaign_group_role_items": [
               "1) 孙权连续守住濡须江防／主帅",
               "2) 孙权克皖城消灭李术集团／主帅",
@@ -1984,9 +1992,9 @@
               "6) 孙权攻取皖城／统筹",
               "7) 孙权决断并统筹征黄祖／统筹",
               "8) 孙权配置吕蒙二万、鲁肃一万并在陆口节制，反馈后急调吕蒙／统筹",
-              "9) 孙权围合肥未克并撤军／主将／结果责任=actual_command_scope／致败责任=UNKNOWN",
-              "10) 吴三路攻魏／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN",
-              "11) 远海求民决策失败／统筹／结果责任=operational_design_scope／致败责任=UNKNOWN"
+              "9) 孙权围合肥未克并撤军／主将／本人结果责任：本人实际指挥范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）",
+              "10) 吴三路攻魏／主帅／本人结果责任：本人实际指挥范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）",
+              "11) 远海求民决策失败／统筹／本人结果责任：本人战区设计与统筹范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）"
             ],
             "paired_result_difficulty_campaign_role_items": [
               "1) 前线+ `B/D2`｜孙权连续守住濡须江防／主帅",
@@ -1997,9 +2005,9 @@
               "6) 统筹+ `B/—`｜孙权攻取皖城／统筹",
               "7) 统筹+ `A/—`｜孙权决断并统筹征黄祖／统筹",
               "8) 统筹+ `A/—`｜孙权配置吕蒙二万、鲁肃一万并在陆口节制，反馈后急调吕蒙／统筹",
-              "9) 前线− `B/D2`｜孙权围合肥未克并撤军／主将／结果责任=actual_command_scope／致败责任=UNKNOWN",
-              "10) 前线− `B/D2`｜吴三路攻魏／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN",
-              "11) 统筹− `B/—`｜远海求民决策失败／统筹／结果责任=operational_design_scope／致败责任=UNKNOWN"
+              "9) 前线− `B/D2`｜孙权围合肥未克并撤军／主将／本人结果责任：本人实际指挥范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）",
+              "10) 前线− `B/D2`｜吴三路攻魏／主帅／本人结果责任：本人实际指挥范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）",
+              "11) 统筹− `B/—`｜远海求民决策失败／统筹／本人结果责任：本人战区设计与统筹范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线+ `B/D2`｜孙权连续守住濡须江防／主帅<br>2) 前线+ `B/D1`｜孙权克皖城消灭李术集团／主帅<br>3) 前线+ `B/D2`｜孙权西击黄祖／主帅<br>4) 统筹+ `A/—`｜袭荆州的战区统筹与外交协同／统筹<br>5) 统筹+ `B/—`｜孙权回师平山越／统筹<br>6) 统筹+ `B/—`｜孙权攻取皖城／统筹<br>7) 统筹+ `A/—`｜孙权决断并统筹征黄祖／统筹<br>8) 统筹+ `A/—`｜孙权配置吕蒙二万、鲁肃一万并在陆口节制，反馈后急调吕蒙／统筹<br>9) 前线− `B/D2`｜孙权围合肥未克并撤军／主将／结果责任=actual_command_scope／致败责任=UNKNOWN<br>10) 前线− `B/D2`｜吴三路攻魏／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN<br>11) 统筹− `B/—`｜远海求民决策失败／统筹／结果责任=operational_design_scope／致败责任=UNKNOWN"
           },
@@ -2618,18 +2626,23 @@
             "profile_person": "刘禅",
             "person_ref": "MIL-PER-75618080A15A0FA5",
             "military_grade": "ordinary",
-            "grade_status": "current_battle_registry_grade",
+            "grade_status": "evidence_lower_bound",
             "stability_status": "no_comparable_major_failure_established",
-            "profile_ref": "MIL-PROFILE-75618080A15A0FA5"
+            "profile_ref": "MIL-PROFILE-75618080A15A0FA5",
+            "military_grade_boundary": {
+              "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+              "coverage_status": "NOT_ESTABLISHED",
+              "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+            }
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
             "source_path": "docs/公共成果/军事/02-武将人才等级.md",
             "profile_ref": "MIL-PROFILE-75618080A15A0FA5",
             "profile_person": "刘禅",
-            "result_difficulty_combinations_display": "—",
+            "result_difficulty_combinations_display": "",
             "result_difficulty_combination_items": [],
-            "campaign_group_roles_display": "—",
+            "campaign_group_roles_display": "",
             "campaign_group_role_items": [],
             "paired_result_difficulty_campaign_role_items": [],
             "paired_result_difficulty_campaign_roles_display": "—"
@@ -2846,7 +2859,7 @@
             "person_ref": "MIL-PER-1EDF375D2F5B31F5",
             "military_grade": "important",
             "grade_status": "current_battle_registry_grade",
-            "stability_status": "no_comparable_major_failure_established",
+            "stability_status": "major_adverse_established",
             "profile_ref": "MIL-PROFILE-1EDF375D2F5B31F5"
           },
           "military_talent_registry_projection": {
@@ -2859,14 +2872,14 @@
               "1) 前线+ `A/D2`",
               "2) 统筹− `A/—`"
             ],
-            "campaign_group_roles_display": "1) 毌丘俭、文钦起兵／主帅<br>2) 三道攻吴决策失败／统筹／结果责任=operational_design_scope／致败责任=UNKNOWN",
+            "campaign_group_roles_display": "1) 毌丘俭、文钦起兵／主帅<br>2) 三道攻吴决策失败／统筹／本人结果责任：本人战区设计与统筹范围／致败归责：具体致败责任未定／本人败果=A（难度不作扣减乘数）",
             "campaign_group_role_items": [
               "1) 毌丘俭、文钦起兵／主帅",
-              "2) 三道攻吴决策失败／统筹／结果责任=operational_design_scope／致败责任=UNKNOWN"
+              "2) 三道攻吴决策失败／统筹／本人结果责任：本人战区设计与统筹范围／致败归责：具体致败责任未定／本人败果=A（难度不作扣减乘数）"
             ],
             "paired_result_difficulty_campaign_role_items": [
               "1) 前线+ `A/D2`｜毌丘俭、文钦起兵／主帅",
-              "2) 统筹− `A/—`｜三道攻吴决策失败／统筹／结果责任=operational_design_scope／致败责任=UNKNOWN"
+              "2) 统筹− `A/—`｜三道攻吴决策失败／统筹／本人结果责任：本人战区设计与统筹范围／致败归责：具体致败责任未定／本人败果=A（难度不作扣减乘数）"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线+ `A/D2`｜毌丘俭、文钦起兵／主帅<br>2) 统筹− `A/—`｜三道攻吴决策失败／统筹／结果责任=operational_design_scope／致败责任=UNKNOWN"
           },
@@ -3152,18 +3165,23 @@
             "profile_person": "孙休",
             "person_ref": "MIL-PER-C133E7E1A9BE2AB1",
             "military_grade": "ordinary",
-            "grade_status": "current_battle_registry_grade",
+            "grade_status": "evidence_lower_bound",
             "stability_status": "no_comparable_major_failure_established",
-            "profile_ref": "MIL-PROFILE-C133E7E1A9BE2AB1"
+            "profile_ref": "MIL-PROFILE-C133E7E1A9BE2AB1",
+            "military_grade_boundary": {
+              "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+              "coverage_status": "NOT_ESTABLISHED",
+              "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+            }
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
             "source_path": "docs/公共成果/军事/02-武将人才等级.md",
             "profile_ref": "MIL-PROFILE-C133E7E1A9BE2AB1",
             "profile_person": "孙休",
-            "result_difficulty_combinations_display": "—",
+            "result_difficulty_combinations_display": "",
             "result_difficulty_combination_items": [],
-            "campaign_group_roles_display": "—",
+            "campaign_group_roles_display": "",
             "campaign_group_role_items": [],
             "paired_result_difficulty_campaign_role_items": [],
             "paired_result_difficulty_campaign_roles_display": "—"
@@ -3368,9 +3386,14 @@
             "profile_person": "曹丕",
             "person_ref": "MIL-PER-7AED5A082D53544C",
             "military_grade": "ordinary",
-            "grade_status": "current_battle_registry_grade",
+            "grade_status": "evidence_lower_bound",
             "stability_status": "no_comparable_major_failure_established",
-            "profile_ref": "MIL-PROFILE-7AED5A082D53544C"
+            "profile_ref": "MIL-PROFILE-7AED5A082D53544C",
+            "military_grade_boundary": {
+              "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+              "coverage_status": "NOT_ESTABLISHED",
+              "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+            }
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
@@ -3381,12 +3404,12 @@
             "result_difficulty_combination_items": [
               "1) 前线− `B/D2`"
             ],
-            "campaign_group_roles_display": "1) 曹丕两次南征未渡江／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN",
+            "campaign_group_roles_display": "1) 曹丕两次南征未渡江／主帅／本人结果责任：本人实际指挥范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）",
             "campaign_group_role_items": [
-              "1) 曹丕两次南征未渡江／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN"
+              "1) 曹丕两次南征未渡江／主帅／本人结果责任：本人实际指挥范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）"
             ],
             "paired_result_difficulty_campaign_role_items": [
-              "1) 前线− `B/D2`｜曹丕两次南征未渡江／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN"
+              "1) 前线− `B/D2`｜曹丕两次南征未渡江／主帅／本人结果责任：本人实际指挥范围／致败归责：具体致败责任未定／本人败果=B（难度不作扣减乘数）"
             ],
             "paired_result_difficulty_campaign_roles_display": "1) 前线− `B/D2`｜曹丕两次南征未渡江／主帅／结果责任=actual_command_scope／致败责任=UNKNOWN"
           },
@@ -3626,18 +3649,23 @@
             "profile_person": "孙皓",
             "person_ref": "MIL-PER-0438F1C34F3B0662",
             "military_grade": "ordinary",
-            "grade_status": "current_battle_registry_grade",
+            "grade_status": "evidence_lower_bound",
             "stability_status": "no_comparable_major_failure_established",
-            "profile_ref": "MIL-PROFILE-0438F1C34F3B0662"
+            "profile_ref": "MIL-PROFILE-0438F1C34F3B0662",
+            "military_grade_boundary": {
+              "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+              "coverage_status": "NOT_ESTABLISHED",
+              "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+            }
           },
           "military_talent_registry_projection": {
             "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
             "source_path": "docs/公共成果/军事/02-武将人才等级.md",
             "profile_ref": "MIL-PROFILE-0438F1C34F3B0662",
             "profile_person": "孙皓",
-            "result_difficulty_combinations_display": "—",
+            "result_difficulty_combinations_display": "",
             "result_difficulty_combination_items": [],
-            "campaign_group_roles_display": "—",
+            "campaign_group_roles_display": "",
             "campaign_group_role_items": [],
             "paired_result_difficulty_campaign_role_items": [],
             "paired_result_difficulty_campaign_roles_display": "—"

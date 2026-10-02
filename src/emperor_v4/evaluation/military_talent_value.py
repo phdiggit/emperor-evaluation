@@ -13,6 +13,7 @@ from typing import Any, Mapping, Sequence
 
 from emperor_v4.evaluation.talent_registry_store import load_talent_registry, write_talent_registry, talent_profiles_by_ref
 from emperor_v4.evaluation.profile_m1_stability import verify_failure_aliases
+from emperor_v4.evaluation.military_public_text import registered_military_display
 
 TIER_VALUE = {"C": 0.15, "B": 0.4, "A": 1.0, "S-": 2.2, "S": 3.6, "S+": 4.5}
 TIER_ORDER = {tier: i for i, tier in enumerate(TIER_VALUE)}
@@ -70,20 +71,61 @@ def adverse_responsibility(row: Mapping[str, Any]) -> float:
                 str(row.get("capability_mode")), 0.0)
 
 
+def outcome_rows(row: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Project adjudicated sides; mixed is a description, never a discount."""
+    if row.get("result_direction") != "mixed_review" or is_pending(row):
+        return [dict(row)]
+    validate_mixed_result(row)
+    result = []
+    for component in row["mixed_result_review"]["components"]:
+        item = {**row, **component}
+        item["campaign_tier"] = component["effect_tier"]
+        item["result_direction"] = component["direction"]
+        if item["consumption_mode"] == "operational_result":
+            review = dict(item["operational_role_review"])
+            review["major_result"] = component["direction"] == "positive" and TIER_ORDER[component["effect_tier"]] >= TIER_ORDER["A"]
+            review["failure_effect_tier"] = component["effect_tier"] if component["direction"] == "negative" else None
+            item["operational_role_review"] = review
+        result.append(item)
+    return result
+
+
+def positive_results(profile: Mapping[str, Any]) -> list[dict[str, Any]]:
+    return [item for row in [*profile.get("consumed_achievements", []),
+                            *profile.get("negative_or_mixed_command_records", [])]
+            for item in outcome_rows(row) if item.get("result_direction") == "positive"]
+
+
+def adverse_results(profile: Mapping[str, Any]) -> list[dict[str, Any]]:
+    return [item for row in profile.get("negative_or_mixed_command_records", profile.get("failure_accountability", []))
+            for item in outcome_rows(row) if item.get("result_direction") == "negative"]
+
+
 def result_value(row: Mapping[str, Any]) -> float:
     if is_pending(row):
         return 0.0
     tier = TIER_VALUE.get(str(row.get("campaign_tier")), 0.0)
     direction = row.get("result_direction")
+    if direction == "mixed_review":
+        return float(sum(Decimal(str(result_value(item))) for item in outcome_rows(row)))
+    if direction == "negative":
+        review = row.get("adverse_result_review") or {}
+        if review.get("effect_tier") not in TIER_VALUE:
+            raise ValueError("已闭败果缺少本人实际后果档")
+        tier = TIER_VALUE[review["effect_tier"]]
+        responsibility = review.get("responsibility_coefficient")
+        if responsibility not in CONTRIBUTION.values():
+            raise ValueError("已闭败果缺少已裁结果责任系数")
+        return _product(tier, 0.4 if row.get("consumption_mode") == "operational_result" else 1,
+                        responsibility, -0.8)
     if row.get("consumption_mode") == "operational_result":
-        return _product(tier, 0.4, {"positive": 1.0, "negative": -0.8, "mixed_review": -0.4}.get(direction, 0.0))
+        return _product(tier, 0.4, 1.0 if direction == "positive" else 0.0)
     # An ungraded difficulty is not a D2 capability gate; the existing net-value
     # convention only applies the unmodified result base, without a difficulty premium.
     multiplier = DIFFICULTY.get(str(row.get("combat_difficulty")), 1.0)
     if direction == "positive":
         return _product(tier, multiplier, CONTRIBUTION.get(str(row.get("decisive_relation")), 0.0))
-    return _product(tier, multiplier, adverse_responsibility(row), {
-        "negative": -0.8, "mixed_review": -0.4}.get(direction, 0.0))
+    return 0.0
 
 
 def _product(*factors: float) -> float:
@@ -101,6 +143,8 @@ def episode_anchors(rows: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     anchors = []
     for ref, group in groups.items():
         def key(row: Mapping[str, Any]) -> tuple:
+            if row.get("result_direction") == "negative":
+                return (abs(result_value(row)), 0, 0, 0, str(row.get("campaign_ref")))
             primary = row.get("decisive_relation") in {"decisive_creator", "decisive_successor", "co_decisive"} and row.get("capability_mode") not in {"operational_design", "authorization_only", "nominal_only", "unresolved"}
             return (primary, TIER_ORDER.get(str(row.get("campaign_tier")), -1),
                     list(DIFFICULTY).index(row["combat_difficulty"]) if row.get("combat_difficulty") in DIFFICULTY else -1,
@@ -145,8 +189,8 @@ def positive_breakdown(rows: Sequence[Mapping[str, Any]]) -> tuple[Decimal, Deci
 
 
 def net_value(profile: Mapping[str, Any]) -> dict[str, float]:
-    adverse = episode_anchors(profile.get("negative_or_mixed_command_records") or [])
-    frontline, operational = positive_breakdown(profile.get("consumed_achievements") or [])
+    adverse = episode_anchors(adverse_results(profile))
+    frontline, operational = positive_breakdown(positive_results(profile))
     debit = sum((Decimal(str(result_value(r))) for r in adverse), Decimal(0))
     return {"frontline_positive": float(round(frontline, 2)), "operational_positive": float(round(operational, 2)),
             "command_adverse": float(round(debit, 2)), "net": float(round(frontline + operational + debit, 2))}
@@ -156,13 +200,14 @@ def stability_counts(profile: Mapping[str, Any]) -> dict[str, Any]:
     """Count declared independent major contexts, without adjudicating a grade."""
     def major(row: Mapping[str, Any]) -> bool:
         return TIER_ORDER.get(str(row.get("campaign_tier")), -1) >= TIER_ORDER["A"] and row.get("combat_difficulty") in {"D2", "D3", "D4"}
-    front_positive = episode_anchors([r for r in profile.get("consumed_achievements", [])
+    front_positive = episode_anchors([r for r in positive_results(profile)
         if major(r) and r.get("decisive_relation") in {"decisive_creator", "decisive_successor", "co_decisive"}
         and r.get("capability_mode") not in {"operational_design", "authorization_only", "nominal_only", "unresolved"}])
-    front_adverse = episode_anchors([r for r in profile.get("failure_accountability", profile.get("negative_or_mixed_command_records", []))
-        if major(r) and r.get("result_direction") in {"negative", "mixed_review"}
+    front_adverse = episode_anchors([r for r in adverse_results(profile)
+        if TIER_ORDER.get(str(r.get("adverse_result_review", {}).get("effect_tier")), -1) >= TIER_ORDER["A"]
+        and r.get("consumption_mode") != "operational_result"
         and r.get("role_code") in {"commander_in_chief", "principal_commander"}
-        and adverse_responsibility(r) >= 0.85
+        and r.get("adverse_result_review", {}).get("responsibility_coefficient", 0) >= 0.85
         and not str(r.get("causal_fault") or "").upper().startswith("NO_FAULT")
         and r.get("causal_fault") != "NOT_RESPONSIBLE"])
     def operational(row: Mapping[str, Any], adverse: bool = False) -> bool:
@@ -176,8 +221,9 @@ def stability_counts(profile: Mapping[str, Any]) -> dict[str, Any]:
                     and not str(row.get("causal_fault") or "").upper().startswith("NO_FAULT")
                     and row.get("causal_fault") != "NOT_RESPONSIBLE")
         return review.get("major_result") is True and TIER_ORDER.get(str(row.get("campaign_tier")), -1) >= TIER_ORDER["A"]
-    op_positive = episode_anchors([r for r in profile.get("consumed_achievements", []) if operational(r)])
-    op_adverse = episode_anchors([r for r in profile.get("failure_accountability", profile.get("negative_or_mixed_command_records", [])) if operational(r, True)])
+    op_positive = episode_anchors([r for r in positive_results(profile) if operational(r)])
+    op_adverse = episode_anchors([r for r in adverse_results(profile) if operational(r, True)
+        and r.get("adverse_result_review", {}).get("responsibility_coefficient", 0) >= 0.85])
     positive = episode_anchors([*front_positive, *op_positive])
     adverse = episode_anchors([*front_adverse, *op_adverse])
     hard = sum(r.get("result_direction") == "negative" for r in adverse)
@@ -196,6 +242,46 @@ def stability_counts(profile: Mapping[str, Any]) -> dict[str, Any]:
     return counts
 
 
+def positive_evidence_paths(profile: Mapping[str, Any]) -> dict[str, list[str]]:
+    """Deterministic positive eligibility; reliability and final grade stay adjudicated."""
+    anchors = episode_anchors(positive_results(profile))
+    front = [r for r in anchors if r.get("capability_mode") not in
+             {"operational_design", "authorization_only", "nominal_only", "unresolved"}
+             and r.get("decisive_relation") in {"decisive_creator", "decisive_successor", "co_decisive"}]
+    op = [r for r in anchors if r.get("consumption_mode") == "operational_result"
+          and r.get("operational_role_review", {}).get("status") == "QUALIFIED"
+          and r.get("operational_role_review", {}).get("major_result") is True]
+    def count(tier: str, difficulty: str) -> int:
+        return sum(TIER_ORDER[r["campaign_tier"]] >= TIER_ORDER[tier]
+                   and r.get("combat_difficulty") in set(list(DIFFICULTY)[list(DIFFICULTY).index(difficulty):]) for r in front)
+    a2, a3, sm2, sm3, s2, s3, s4, sp3 = (count(t,d) for t,d in
+        [("A","D2"),("A","D3"),("S-","D2"),("S-","D3"),("S","D2"),("S","D3"),("S","D4"),("S+","D3")])
+    op_a = sum(TIER_ORDER[r["campaign_tier"]] >= TIER_ORDER["A"] for r in op)
+    op_s = sum(TIER_ORDER[r["campaign_tier"]] >= TIER_ORDER["S"] for r in op)
+    paths = {"elite": [], "top": [], "historic": []}
+    if sm2: paths["elite"].append("frontline_strategic_peak")
+    if a3 >= 2: paths["elite"].append("frontline_independent_hard_solutions")
+    if a2 >= 3: paths["elite"].append("frontline_reliable_major_command")
+    if op_s >= 1 and op_a + a2 >= 2: paths["elite"].append("operational_peak_with_independent_validation")
+    if sp3: paths["top"].append("frontline_era_scale_peak")
+    if s3 and a2 >= 2: paths["top"].append("frontline_s_peak_with_validation")
+    if sm3 and (sm2 >= 2 or a2 >= 3): paths["top"].append("frontline_s_minus_peak_with_validation")
+    if s2 and op_s and a2 >= 2: paths["top"].append("frontline_peak_with_independent_design")
+    if a2 >= 4 and (a3 or sm2): paths["top"].append("frontline_sustained_major_command")
+    if op_s >= 2 and op_a + a2 >= 3: paths["top"].append("operational_system_with_independent_validation")
+    if paths["top"]:
+        if sp3 and sm3 >= 2 and a2 >= 3: paths["historic"].append("era_terminal_peak_with_hard_validation")
+        if (s3 >= 2 or (s4 and sm3 >= 2)) and a2 >= 3: paths["historic"].append("independent_extreme_strategic_peaks")
+        independent_hard_rechecks = any(
+            sum(TIER_ORDER[r["campaign_tier"]] >= TIER_ORDER["A"] and r.get("combat_difficulty") in {"D3", "D4"}
+                for r in front if episode_ref(r) != episode_ref(peak)) >= 2
+            for peak in front if TIER_ORDER[peak["campaign_tier"]] >= TIER_ORDER["S"]
+            and peak.get("combat_difficulty") in {"D2", "D3", "D4"})
+        if s2 and ((a2 >= 4 and a3 >= 2) or independent_hard_rechecks):
+            paths["historic"].append("sustained_grand_command_with_strategic_peak")
+    return paths
+
+
 def refresh_values(payload: Mapping[str, Any]) -> dict[str, Any]:
     """Refresh derived values from already adjudicated records, preserving identities."""
     result = deepcopy(dict(payload))
@@ -203,10 +289,14 @@ def refresh_values(payload: Mapping[str, Any]) -> dict[str, Any]:
     for p in profiles:
         p["net_strategic_value_breakdown"] = net_value(p)
         p["net_strategic_value"] = p["net_strategic_value_breakdown"]["net"]
-        p["capability_episode_anchors"] = episode_anchors(p.get("consumed_achievements") or [])
+        p["capability_episode_anchors"] = episode_anchors(positive_results(p))
         p["capability_episode_count"] = len(p["capability_episode_anchors"])
+        p["positive_evidence_paths"] = positive_evidence_paths(p)
         counts = stability_counts(p)
         p["stability_gate"] = {**p.get("stability_gate", {}), **counts}
+        if p.get("stability_status") in {"no_comparable_major_failure_established", "major_adverse_established"}:
+            p["stability_status"] = ("major_adverse_established" if counts["major_adverse_context_count"]
+                                     else "no_comparable_major_failure_established")
         if "combined_major_adverse_episode_refs" in counts:
             p["major_adverse_episode_refs"] = counts["combined_major_adverse_episode_refs"]
     result["profile_count"] = len(profiles)
@@ -227,6 +317,7 @@ def display_entries(profile: Mapping[str, Any]) -> list[tuple[str, str]]:
     rows.extend(profile.get("pending_person_command_results") or [])
     rows.extend(profile.get("objective_shortfalls") or [])
     rows.extend(profile.get("excluded_command_records") or [])
+    rows = [item for row in rows for item in outcome_rows(row)]
     seen = set()
     for row in rows:
         identity = (row.get("campaign_ref"), row.get("result_direction"))
@@ -248,20 +339,22 @@ def display_entries(profile: Mapping[str, Any]) -> list[tuple[str, str]]:
         text = f"{_cell(row.get('canonical_label') or row.get('campaign_ref'))}／{role}"
         if direction in {"negative", "mixed_review"}:
             text += f"／结果责任={_cell(row.get('outcome_responsibility'))}／致败责任={_cell(row.get('causal_fault'))}"
+        if direction == "negative" and row.get("adverse_result_review"):
+            text += f"／本人败果={row['adverse_result_review']['effect_tier']}（难度不作扣减乘数）"
         if is_pending(row):
             text += "／史源或本人结果未决，不计净值"
         if direction == "objective_shortfall":
             text += "／仅目标短缺，未闭本人损害，不计净值或稳定性败责"
         if direction == "not_applicable":
             text += "／非军事结果，不计净值或稳定性败责"
-        entries.append((f"{kind}{marker} `{row.get('campaign_tier') or '—'}/{row.get('combat_difficulty') or '—'}`", text))
+        entries.append((f"{kind}{marker} `{row.get('campaign_tier') or '—'}/{row.get('combat_difficulty') or '—'}`", registered_military_display(text)))
     return entries
 
 
 def render_markdown(payload: Mapping[str, Any]) -> str:
     lines = ["# 秦至清武将人才等级", "",
              "本表消费当前已闭人物结果及其有效父战役、史源连接；旧引用只作保留别名，不重复计入。",
-             "按档位分组展示，净值只作同档、相近角色校准。S+基础值为 `4.5`；正向每个能力情境取单项值最高的一个代表，前线与统筹共用 `1、0.8、0.6、0.4` 递减队列，第五项起按 `0.2` 计，尾部合计不超过首项单项值。统筹单项仍乘 `0.4`，不继承前线难度。正向与不利结果分别去重；同一完整周期的阶段正负并存，不增加独立复验次数。负向仍按 `-0.8`、混合按 `-0.4` 直接相加；明确史源冲突不计净值。", "",
+             "按等级从高到低、同级净值从高到低展示；等级与净值均相同时按朝代、姓名及稳定ID排序。净值是成果与实际损害余额，不是军事能力分；解释人物差异时仍须核对角色、履历机会和史料覆盖。S+基础值为 `4.5`；正向每个能力情境取最高代表，前线与统筹共用 `1、0.8、0.6、0.4` 递减队列，第五项起按 `0.2` 计，尾部合计不超过首项单项值。统筹仍乘 `0.4`，不继承前线难度。混合结果分别消费已裁正果和败果，取消半额扣减；败果按本人后果档、结果责任与 `-0.8` 计算，不乘难度、不递减。正负分别去重，同周期只形成一次独立复验；可靠性另裁，明确史源冲突不计确定净值。", "",
              "有界档位按当前下限统计，同时展示待证上界；下端不代表已经完成全生涯无能力判定。", "",
              f"- 人物档案：{payload['profile_count']}", f"- 身份别名归并组：{payload['identity_alias_group_count']}", "", "## 档位统计", "",
              "| 档位 | 数量 |", "| --- | ---: |"]
@@ -271,13 +364,14 @@ def render_markdown(payload: Mapping[str, Any]) -> str:
     profiles = sorted(payload["profiles"], key=lambda p: (-GRADE_ORDER.index(p["military_grade"]), -p["net_strategic_value"], p["dynasty"], p["person"], p["profile_ref"]))
     for p in profiles:
         entries = display_entries(p)
-        combinations = "<br>".join(f"{i}) {a}" for i, (a, _) in enumerate(entries, 1)) or "—"
+        combinations = "<br>".join(f"<nobr>{i}) {a}</nobr>" for i, (a, _) in enumerate(entries, 1)) or "—"
         campaigns = "<br>".join(f"{i}) {b}" for i, (_, b) in enumerate(entries, 1)) or "—"
         ability = ABILITY_LABELS.get(p["ability_profile"], p["ability_profile"])
         interval = p.get("military_grade_interval")
         grade_display = (f"{interval['lower']}—{interval['upper']}（{interval.get('pending_label', '统筹支撑待证')}）" if interval else p['military_grade'])
         if p.get("military_grade_boundary") and not interval:
-            grade_display = f"{p['military_grade']}（现有史料下限；更高档待证）"
+            grade_display = ("未定档（当前材料下限ordinary）" if p["military_grade"] == "ordinary"
+                             else f"{p['military_grade']}（现有史料下限；更高档待证）")
         elif p.get("grade_status") == "evidence_lower_bound" and not interval:
             grade_display = f"{p['military_grade']}（现有史料下限）"
         lines.append(f"| {_cell(p['dynasty'])} | {_cell(p['person'])} | `{grade_display}` | {ability} | {p['net_strategic_value']:.2f} | {combinations} | {campaigns} |")
@@ -295,6 +389,61 @@ def validate_mixed_result(row: Mapping[str, Any]) -> None:
             raise ValueError(f"已裁混合结果缺少 {field}")
     if not review.get("source_refs"):
         raise ValueError("已裁混合结果缺少史源")
+    components = review.get("components", [])
+    if len(components) != 2 or {c.get("direction") for c in components} != {"positive", "negative"}:
+        raise ValueError("已裁混合结果必须分别核定一份正果与败果")
+    for component in components:
+        if component.get("effect_tier") not in TIER_VALUE or not component.get("basis") or not component.get("source_refs"):
+            raise ValueError("混合单边缺少本人结果尺度或史源")
+        if component.get("direction") == "positive" and (component.get("combat_difficulty") not in {None, *DIFFICULTY}
+                or component.get("decisive_relation") not in CONTRIBUTION):
+            raise ValueError("混合正果缺少本人难度与贡献")
+        if component.get("direction") == "negative":
+            if component.get("adverse_result_review", {}).get("effect_tier") != component["effect_tier"]:
+                raise ValueError("混合败果尺度与后果审查不同值")
+            validate_adverse_result({**row, **component, "result_direction": "negative"})
+
+
+def validate_adverse_result(row: Mapping[str, Any]) -> None:
+    if row.get("result_direction") != "negative" or is_pending(row):
+        return
+    review = row.get("adverse_result_review") or {}
+    if (review.get("effect_tier") not in TIER_VALUE or not review.get("basis")
+            or not review.get("personal_scope") or not review.get("source_refs")
+            or type(review.get("responsibility_coefficient")) not in {int, float}
+            or review.get("responsibility_coefficient") not in CONTRIBUTION.values()):
+        raise ValueError("已闭败果缺少本人后果、控制范围、结果责任或史源")
+
+
+def validate_operational_grade(profile: Mapping[str, Any]) -> None:
+    """Check declared design-path gates, without assigning a person's grade."""
+    review = profile.get("operational_grade_review")
+    if not review:
+        return
+    anchors = {episode_ref(r): r for r in episode_anchors(positive_results(profile))}
+    refs = review.get("episode_refs", [])
+    if len(refs) != len(set(refs)) or any(ref not in anchors for ref in refs):
+        raise ValueError("统筹定档引用重复或未闭正向情境")
+    rows = [anchors[ref] for ref in refs]
+    operational = [r for r in rows if r.get("consumption_mode") == "operational_result"
+                   and r.get("operational_role_review", {}).get("status") == "QUALIFIED"
+                   and r.get("operational_role_review", {}).get("major_result") is True]
+    frontier = [r for r in rows if r.get("consumption_mode") != "operational_result"
+                and r.get("combat_difficulty") in {"D2", "D3", "D4"}
+                and r.get("decisive_relation") in {"decisive_creator", "decisive_successor", "co_decisive"}]
+    major = [r for r in [*operational, *frontier] if TIER_ORDER[r["campaign_tier"]] >= TIER_ORDER["A"]]
+    peaks = [r for r in operational if TIER_ORDER[r["campaign_tier"]] >= TIER_ORDER["S"]]
+    path = review.get("path")
+    valid = ((path == "elite_operational_peak_with_independent_validation" and len(peaks) >= 1 and len(major) >= 2)
+             or (path == "top_operational_system_with_independent_validation" and len(peaks) >= 2 and len(major) >= 3))
+    expected = "elite" if path == "elite_operational_peak_with_independent_validation" else "top"
+    if not valid or review.get("published_grade") != profile["military_grade"] or profile["military_grade"] != expected:
+        raise ValueError("统筹定档路径与已闭情境或发布档位不符")
+    for field in ("constraint_resolution", "implementation_result", "independence_basis", "reliability_basis", "source_refs"):
+        if not review.get(field):
+            raise ValueError(f"统筹高档缺少 {field}")
+    if len(review.get("comparators", [])) < 2:
+        raise ValueError("统筹高档缺少相邻档横向比较")
 
 
 def validate_operational_role(row: Mapping[str, Any]) -> None:
@@ -327,6 +476,16 @@ def _validate_records(payload: Mapping[str, Any]) -> None:
     if len(ids) != len(set(ids)):
         raise ValueError("军事人才存在重复稳定person_ref")
     for p in payload["profiles"]:
+        validate_operational_grade(p)
+        if p.get("operational_grade_review"):
+            comparators = [c.get("person") for c in p["operational_grade_review"]["comparators"]]
+            names = {r["person"] for r in payload["profiles"]}
+            if len(comparators) != len(set(comparators)) or not set(comparators) <= names or p["person"] in comparators:
+                raise ValueError("统筹定档比较对象重复、缺失或指向本人")
+        if (p["military_grade"] == "ordinary" and p.get("grade_status") != "evidence_lower_bound"
+                and (p.get("career_coverage_review", {}).get("status") != "COMPLETE"
+                     or not all(p.get("career_coverage_review", {}).get(key) for key in ("basis", "source_refs", "reviewed_periods")))):
+            raise ValueError("确定ordinary必须闭合全生涯覆盖、时段及史源；缺证只能发布材料下限")
         interval = p.get("military_grade_interval")
         if interval:
             lower, upper = interval.get("lower"), interval.get("upper")
@@ -337,6 +496,7 @@ def _validate_records(payload: Mapping[str, Any]) -> None:
         for rows in (p.get("consumed_achievements") or [], p.get("negative_or_mixed_command_records") or []):
             for row in rows:
                 validate_mixed_result(row)
+                validate_adverse_result(row)
                 validate_operational_role(row)
                 if row.get("capability_mode") not in CAPABILITY_MODES:
                     raise ValueError(f"{p['person']}: 未定义能力模式 {row.get('capability_mode')}")
@@ -360,6 +520,8 @@ def verify(root: Path) -> dict[str, int]:
             raise ValueError(f"{p['person']}: 当前记录与净值分解不同值")
         if any(p.get("stability_gate", {}).get(k) != value for k, value in stability_counts(p).items()):
             raise ValueError(f"{p['person']}: 稳定性独立情境计数不同值")
+        if p.get("positive_evidence_paths") != positive_evidence_paths(p):
+            raise ValueError(f"{p['person']}: 正向事实准入路径不同值")
     refreshed = refresh_values(payload)
     for field in ["profile_count", "grade_counts", "grade_status_counts", "stability_status_counts", "identity_alias_group_count", "evidence_lower_bound_profile_count"]:
         if payload[field] != refreshed[field]:

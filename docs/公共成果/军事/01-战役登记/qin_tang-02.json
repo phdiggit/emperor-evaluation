@@ -339,6 +339,19 @@
             "military_capability_contribution": {
               "capability_mode": "integrated_command",
               "decisive_relation": "none"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "S-",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：冉闵亲统冉魏主力，在廉台与慕容恪反复接战后被连马方阵与两翼夹击击溃并被擒；邺城随后失守、政权终结，闭合negative S-/D4。此处只登记实际败局，不凭结果反推卡内未载的个人指挥过失。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷099@1502618"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+              "deduplication_ref": "PCR-AUDIT-CAMPAIGN-JIN-YAN-RANWEI-END-352-冉闵-NEGATIVE-1"
             }
           },
           "person_command_index": {
@@ -353,7 +366,20 @@
             "basis": "冉闵亲统冉魏主力，在廉台与慕容恪反复接战后被连马方阵与两翼夹击击溃并被擒；邺城随后失守、政权终结，闭合negative S-/D4。此处只登记实际败局，不凭结果反推卡内未载的个人指挥过失。",
             "source_refs": [
               "資治通鑑/卷099@1502618"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "S-",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：冉闵亲统冉魏主力，在廉台与慕容恪反复接战后被连马方阵与两翼夹击击溃并被擒；邺城随后失守、政权终结，闭合negative S-/D4。此处只登记实际败局，不凭结果反推卡内未载的个人指挥过失。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷099@1502618"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+              "deduplication_ref": "PCR-AUDIT-CAMPAIGN-JIN-YAN-RANWEI-END-352-冉闵-NEGATIVE-1"
+            }
           }
         }
       ],
@@ -2158,6 +2184,19 @@
             "military_capability_contribution": {
               "capability_mode": "integrated_command",
               "decisive_relation": "decisive_creator"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：识破诈降后虽有局部应对，但未形成闭合正果；拒绝孙白象关于熊昙朗谋杀的明确预警，随后本人被杀、军队被并，消费negative B/D2。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷167@1502665"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "WAR-LEAD-167-YUZHANG-559"
             }
           },
           "person_command_index": {
@@ -2172,7 +2211,20 @@
             "basis": "识破诈降后虽有局部应对，但未形成闭合正果；拒绝孙白象关于熊昙朗谋杀的明确预警，随后本人被杀、军队被并，消费negative B/D2。",
             "source_refs": [
               "資治通鑑/卷167@1502665"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：识破诈降后虽有局部应对，但未形成闭合正果；拒绝孙白象关于熊昙朗谋杀的明确预警，随后本人被杀、军队被并，消费negative B/D2。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷167@1502665"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "WAR-LEAD-167-YUZHANG-559"
+            }
           },
           "role_code": "principal_commander",
           "sovereign_at_event": false,
@@ -3110,7 +3162,44 @@
               "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
               "source_refs": [
                 "資治通鑑/卷065@2306420"
-              ]
+              ],
+              "components": [
+                {
+                  "direction": "positive",
+                  "effect_tier": "A",
+                  "combat_difficulty": null,
+                  "canonical_label": "荆州南征取得荆北与赤壁东进失败：同一南征周期接收荆北及水军，形成真实区域控制变化。",
+                  "decisive_relation": "decisive_creator",
+                  "basis": "同一南征周期接收荆北及水军，形成真实区域控制变化。 只以已取得荆北成果支持混合，不以保全实力、撤军或后来恢复支持；不称江陵长期保有。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                  "source_refs": [
+                    "資治通鑑/卷065@2306420"
+                  ]
+                },
+                {
+                  "direction": "negative",
+                  "effect_tier": "S-",
+                  "combat_difficulty": "D3",
+                  "canonical_label": "荆州南征取得荆北与赤壁东进失败：赤壁船营焚毁、主力重大损耗并北撤。",
+                  "basis": "赤壁船营焚毁、主力重大损耗并北撤。 只以已取得荆北成果支持混合，不以保全实力、撤军或后来恢复支持；不称江陵长期保有。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "source_refs": [
+                    "資治通鑑/卷065@2306420"
+                  ],
+                  "adverse_result_review": {
+                    "schema_version": "military-adverse-result-v2",
+                    "effect_tier": "S-",
+                    "basis": "赤壁船营焚毁、主力重大损耗并北撤。 只以已取得荆北成果支持混合，不以保全实力、撤军或后来恢复支持；不称江陵长期保有。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                    "personal_scope": "actual_command_scope",
+                    "responsibility_coefficient": 1.0,
+                    "source_refs": [
+                      "資治通鑑/卷065@2306420"
+                    ],
+                    "difficulty_used_as_penalty": false,
+                    "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+                    "deduplication_ref": "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208"
+                  }
+                }
+              ],
+              "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
             }
           },
           "role_code": "commander_in_chief",
@@ -3139,7 +3228,44 @@
               "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
               "source_refs": [
                 "資治通鑑/卷065@2306420"
-              ]
+              ],
+              "components": [
+                {
+                  "direction": "positive",
+                  "effect_tier": "A",
+                  "combat_difficulty": null,
+                  "canonical_label": "荆州南征取得荆北与赤壁东进失败：同一南征周期接收荆北及水军，形成真实区域控制变化。",
+                  "decisive_relation": "decisive_creator",
+                  "basis": "同一南征周期接收荆北及水军，形成真实区域控制变化。 只以已取得荆北成果支持混合，不以保全实力、撤军或后来恢复支持；不称江陵长期保有。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                  "source_refs": [
+                    "資治通鑑/卷065@2306420"
+                  ]
+                },
+                {
+                  "direction": "negative",
+                  "effect_tier": "S-",
+                  "combat_difficulty": "D3",
+                  "canonical_label": "荆州南征取得荆北与赤壁东进失败：赤壁船营焚毁、主力重大损耗并北撤。",
+                  "basis": "赤壁船营焚毁、主力重大损耗并北撤。 只以已取得荆北成果支持混合，不以保全实力、撤军或后来恢复支持；不称江陵长期保有。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "source_refs": [
+                    "資治通鑑/卷065@2306420"
+                  ],
+                  "adverse_result_review": {
+                    "schema_version": "military-adverse-result-v2",
+                    "effect_tier": "S-",
+                    "basis": "赤壁船营焚毁、主力重大损耗并北撤。 只以已取得荆北成果支持混合，不以保全实力、撤军或后来恢复支持；不称江陵长期保有。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                    "personal_scope": "actual_command_scope",
+                    "responsibility_coefficient": 1.0,
+                    "source_refs": [
+                      "資治通鑑/卷065@2306420"
+                    ],
+                    "difficulty_used_as_penalty": false,
+                    "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+                    "deduplication_ref": "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208"
+                  }
+                }
+              ],
+              "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
             }
           },
           "military_capability_contribution": {
@@ -3328,6 +3454,19 @@
               "source_refs": [
                 "資治通鑑/卷013@2175050"
               ]
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：远征没有取得可验收战果，故为负A/D2；长期受疫不等于完成显著劣势逆转，不升D4，也不凭失败结果反推个人败责。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷013@2175050"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-HAN-ZHOUZAO-NANYUE-181-179-FAILURE"
             }
           },
           "command_result_direction": "negative",
@@ -3343,7 +3482,20 @@
             "basis": "远征没有取得可验收战果，故为负A/D2；长期受疫不等于完成显著劣势逆转，不升D4，也不凭失败结果反推个人败责。",
             "source_refs": [
               "資治通鑑/卷013@2175050"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：远征没有取得可验收战果，故为负A/D2；长期受疫不等于完成显著劣势逆转，不升D4，也不凭失败结果反推个人败责。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷013@2175050"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-HAN-ZHOUZAO-NANYUE-181-179-FAILURE"
+            }
           }
         }
       ],
@@ -3990,6 +4142,19 @@
               "source_refs": [
                 "docs/史料通读产物/唐以前编年/汉/卷030-通读总结.md"
               ]
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：万年没有可验收正果；其本人面对险垒和久战压力支持D2，但父群后来由陈立断粮断水逆转形成的D3不能倒投，且本人擅进制造的困难不得抬档。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.85,
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷030-通读总结.md"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-HAN-WANNIAN-YELANG-27-FAILURE"
             }
           },
           "command_result_direction": "negative",
@@ -4005,7 +4170,20 @@
             "basis": "万年没有可验收正果；其本人面对险垒和久战压力支持D2，但父群后来由陈立断粮断水逆转形成的D3不能倒投，且本人擅进制造的困难不得抬档。",
             "source_refs": [
               "docs/史料通读产物/唐以前编年/汉/卷030-通读总结.md"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：万年没有可验收正果；其本人面对险垒和久战压力支持D2，但父群后来由陈立断粮断水逆转形成的D3不能倒投，且本人擅进制造的困难不得抬档。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.85,
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷030-通读总结.md"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-HAN-WANNIAN-YELANG-27-FAILURE"
+            }
           }
         }
       ],
@@ -4460,6 +4638,19 @@
               "source_refs": [
                 "資治通鑑/卷123@617587"
               ]
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：刘絜虽为两道前锋之一，但卡内唯一可归个人的闭合动作是因卜日不利停止追击，使董来万余溃军返回姑臧并受到魏主责怒；姑臧围降和河西接管由拓跋焘统合，不能据共同前锋身份冲销明确负绩。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "資治通鑑/卷123@617587"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT-WAR-LEAD-NC-WEI-NORTHERN-LIANG-439-刘絜"
             }
           },
           "command_result_direction": "negative",
@@ -4483,7 +4674,20 @@
             "basis": "刘絜虽为两道前锋之一，但卡内唯一可归个人的闭合动作是因卜日不利停止追击，使董来万余溃军返回姑臧并受到魏主责怒；姑臧围降和河西接管由拓跋焘统合，不能据共同前锋身份冲销明确负绩。",
             "source_refs": [
               "資治通鑑/卷123@617587"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：刘絜虽为两道前锋之一，但卡内唯一可归个人的闭合动作是因卜日不利停止追击，使董来万余溃军返回姑臧并受到魏主责怒；姑臧围降和河西接管由拓跋焘统合，不能据共同前锋身份冲销明确负绩。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "資治通鑑/卷123@617587"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT-WAR-LEAD-NC-WEI-NORTHERN-LIANG-439-刘絜"
+            }
           }
         }
       ],
@@ -5441,6 +5645,19 @@
             "military_capability_contribution": {
               "capability_mode": "tactical_execution",
               "decisive_relation": "none"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：受命守土山顶部却私离部署，使高丽数百兵夺取突破口，唐军三日不能复；只结算本人执行失误造成的A档败果，不继承全役S-/D3。",
+              "personal_scope": "scoped_stage_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "資治通鑑/卷198@1502841"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "WAR-PERSON-TANG-FUFUAI-GOGURYEO-645"
             }
           },
           "person_command_index": {
@@ -5455,7 +5672,20 @@
             "result_direction": "negative",
             "source_refs": [
               "資治通鑑/卷198@1502841"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：受命守土山顶部却私离部署，使高丽数百兵夺取突破口，唐军三日不能复；只结算本人执行失误造成的A档败果，不继承全役S-/D3。",
+              "personal_scope": "scoped_stage_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "資治通鑑/卷198@1502841"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "WAR-PERSON-TANG-FUFUAI-GOGURYEO-645"
+            }
           },
           "role_code": "participant",
           "talent_credit": "scoped"
@@ -5673,7 +5903,20 @@
             "basis": "其负责方向以关键门户失守收束。",
             "source_refs": [
               "資治通鑑/卷214@2209406"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：其负责方向以关键门户失守收束。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.85,
+              "source_refs": [
+                "資治通鑑/卷214@2209406"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "CAMPAIGN-TANG-TIBET-HEXISHIPU-738-741"
+            }
           },
           "person_command_index": {
             "consumption_mode": "person_result",
@@ -5687,7 +5930,20 @@
             "basis": "其负责方向以关键门户失守收束。",
             "source_refs": [
               "資治通鑑/卷214@2209406"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：其负责方向以关键门户失守收束。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.85,
+              "source_refs": [
+                "資治通鑑/卷214@2209406"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "CAMPAIGN-TANG-TIBET-HEXISHIPU-738-741"
+            }
           }
         }
       ],
@@ -5849,7 +6105,20 @@
             "basis": "爨宝璧欲独占战功，不等黑齿常之协同而率精兵一万三千先行，泄露军情后全军覆没，闭合negative A/D3。",
             "source_refs": [
               "資治通鑑/卷204@1553956"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：爨宝璧欲独占战功，不等黑齿常之协同而率精兵一万三千先行，泄露军情后全军覆没，闭合negative A/D3。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷204@1553956"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-TANG-CUANBAOBI-TURK-DEFEAT-687"
+            }
           },
           "person_command_result": {
             "result_ref": "PCR-TANG-CUANBAOBI-TURK-DEFEAT-687",
@@ -5865,6 +6134,19 @@
             "military_capability_contribution": {
               "capability_mode": "integrated_command",
               "decisive_relation": "none"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：爨宝璧欲独占战功，不等黑齿常之协同而率精兵一万三千先行，泄露军情后全军覆没，闭合negative A/D3。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷204@1553956"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-TANG-CUANBAOBI-TURK-DEFEAT-687"
             }
           },
           "command_result_direction": "negative",
@@ -6282,7 +6564,44 @@
               "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
               "source_refs": [
                 "資治通鑑/卷224@803242"
-              ]
+              ],
+              "components": [
+                {
+                  "direction": "positive",
+                  "effect_tier": "C",
+                  "combat_difficulty": null,
+                  "canonical_label": "马璘：先有续败，后袭击辎重并促成退兵；须以人物子成果核定，不能直接复制父档。：后段袭辎重并实际促成吐蕃退兵。",
+                  "decisive_relation": "decisive_creator",
+                  "basis": "后段袭辎重并实际促成吐蕃退兵。 迫退是已兑现军事效果；整军与投入本身不发信用。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                  "source_refs": [
+                    "資治通鑑/卷224@803242"
+                  ]
+                },
+                {
+                  "direction": "negative",
+                  "effect_tier": "C",
+                  "combat_difficulty": "D2",
+                  "canonical_label": "马璘：先有续败，后袭击辎重并促成退兵；须以人物子成果核定，不能直接复制父档。：先段续败。",
+                  "basis": "先段续败。 迫退是已兑现军事效果；整军与投入本身不发信用。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "source_refs": [
+                    "資治通鑑/卷224@803242"
+                  ],
+                  "adverse_result_review": {
+                    "schema_version": "military-adverse-result-v2",
+                    "effect_tier": "C",
+                    "basis": "先段续败。 迫退是已兑现军事效果；整军与投入本身不发信用。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                    "personal_scope": "independent_direction_scope",
+                    "responsibility_coefficient": 0.85,
+                    "source_refs": [
+                      "資治通鑑/卷224@803242"
+                    ],
+                    "difficulty_used_as_penalty": false,
+                    "causal_fault": "UNKNOWN",
+                    "deduplication_ref": "PCR-LOW-EEDDEE631D0C6947"
+                  }
+                }
+              ],
+              "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
             }
           },
           "role_code": "principal_commander",
@@ -6315,7 +6634,44 @@
               "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
               "source_refs": [
                 "資治通鑑/卷224@803242"
-              ]
+              ],
+              "components": [
+                {
+                  "direction": "positive",
+                  "effect_tier": "C",
+                  "combat_difficulty": null,
+                  "canonical_label": "马璘：先有续败，后袭击辎重并促成退兵；须以人物子成果核定，不能直接复制父档。：后段袭辎重并实际促成吐蕃退兵。",
+                  "decisive_relation": "decisive_creator",
+                  "basis": "后段袭辎重并实际促成吐蕃退兵。 迫退是已兑现军事效果；整军与投入本身不发信用。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                  "source_refs": [
+                    "資治通鑑/卷224@803242"
+                  ]
+                },
+                {
+                  "direction": "negative",
+                  "effect_tier": "C",
+                  "combat_difficulty": "D2",
+                  "canonical_label": "马璘：先有续败，后袭击辎重并促成退兵；须以人物子成果核定，不能直接复制父档。：先段续败。",
+                  "basis": "先段续败。 迫退是已兑现军事效果；整军与投入本身不发信用。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "source_refs": [
+                    "資治通鑑/卷224@803242"
+                  ],
+                  "adverse_result_review": {
+                    "schema_version": "military-adverse-result-v2",
+                    "effect_tier": "C",
+                    "basis": "先段续败。 迫退是已兑现军事效果；整军与投入本身不发信用。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                    "personal_scope": "independent_direction_scope",
+                    "responsibility_coefficient": 0.85,
+                    "source_refs": [
+                      "資治通鑑/卷224@803242"
+                    ],
+                    "difficulty_used_as_penalty": false,
+                    "causal_fault": "UNKNOWN",
+                    "deduplication_ref": "PCR-LOW-EEDDEE631D0C6947"
+                  }
+                }
+              ],
+              "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
             }
           },
           "military_capability_contribution": {
@@ -6584,6 +6940,23 @@
             "military_capability_contribution": {
               "capability_mode": "integrated_command",
               "decisive_relation": "none"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "S-",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：王邑掌握四十二万全国主力、到城近十万及完整攻城器械，对八九千守军具有显著有利条件，故失败难度按D1而非套用刘秀的D4。全国主力在昆阳崩溃并触发各郡响应，人物负向影响达到S-；长安终局仍不归他独占。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L32",
+                "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L33",
+                "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L34",
+                "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L35",
+                "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L39"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-XIN-WANGYI-KUNYANG-23-FAILURE"
             }
           },
           "command_result_direction": "negative",
@@ -6604,7 +6977,24 @@
               "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L34",
               "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L35",
               "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L39"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "S-",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：王邑掌握四十二万全国主力、到城近十万及完整攻城器械，对八九千守军具有显著有利条件，故失败难度按D1而非套用刘秀的D4。全国主力在昆阳崩溃并触发各郡响应，人物负向影响达到S-；长安终局仍不归他独占。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L32",
+                "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L33",
+                "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L34",
+                "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L35",
+                "docs/史料通读产物/唐以前编年/汉/卷039-通读总结.md#L39"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-XIN-WANGYI-KUNYANG-23-FAILURE"
+            }
           }
         },
         {

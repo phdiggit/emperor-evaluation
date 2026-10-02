@@ -82,6 +82,8 @@ def _collect_registry_routes(root: Path) -> tuple[dict[str, str], dict[str, set[
             battle_id = str(record.get("war_event_id") or "").strip()
             if not battle_id:
                 continue
+            if _CORE.person_only_registration(record):
+                continue
             _bind_route(routes, battle_id, battle_id)
             remember_group(record.get("campaign_group_ref"), battle_id)
 
@@ -470,6 +472,8 @@ def _reader_evidence(root: Path, battle_index: dict[str, Any]) -> dict[str, dict
     sources: dict[str, Any] = {}
     for shard in sorted((root / _CORE.BATTLE_DIR).glob("*.json")):
         for record in _CORE._load(shard).get("records", []):
+            if _CORE.person_only_registration(record):
+                continue
             row = by_id[record["war_event_id"]]
             phases = record.get("subject_phase_views") or []
             parts = []

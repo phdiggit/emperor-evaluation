@@ -72,7 +72,7 @@ def _load(path: Path) -> dict[str, Any]:
 def _write(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     text = json.dumps(payload, ensure_ascii=False, separators=(",", ":"), sort_keys=False) + "\n"
-    path.write_text(text, encoding="utf-8")
+    path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def _period(record: dict[str, Any]) -> str:
@@ -411,6 +411,15 @@ def _bind_ref(mapping: dict[str, str], ref: Any, battle_id: str, label: str) -> 
     mapping[ref_text] = battle_id
 
 
+def person_only_registration(record: dict[str, Any]) -> bool:
+    if (record.get("record_level") == "person_command_result_registration"
+            and (record.get("public_outcome_registered") is False or record.get("settlement_scope") == "PERSON_RESULT_ONLY")):
+        if record.get("public_outcome_registered") is not False or record.get("settlement_scope") != "PERSON_RESULT_ONLY":
+            raise ValueError(f"invalid person-only registration: {record.get('war_event_id')}")
+        return True
+    return False
+
+
 def _remember_ref_candidate(candidates: dict[str, set[str]], ref: Any, battle_id: str) -> None:
     ref_text = str(ref or "").strip()
     if ref_text:
@@ -452,6 +461,10 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
             if not battle_id or battle_id in seen_battles:
                 raise ValueError(f"duplicate or missing battle id in {shard}: {battle_id}")
             seen_battles.add(battle_id)
+            # A person-only lineage node is not another public battle. Its PCR
+            # continues to resolve through the parent that explicitly owns it.
+            if person_only_registration(record):
+                continue
             _bind_ref(registry_ref_to_battle, battle_id, battle_id, "war event ref")
             _remember_ref_candidate(group_ref_candidates, record.get("campaign_group_ref"), battle_id)
 
@@ -539,9 +552,9 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
             battle_id = next(iter(battle_ids))
             _bind_ref(registry_ref_to_battle, ref, battle_id, "unique campaign group ref")
 
-    expected_battles = int(battle_manifest.get("record_count") or len(battle_rows))
-    if len(battle_rows) != expected_battles:
-        raise ValueError(f"battle registry count mismatch: {len(battle_rows)} != {expected_battles}")
+    expected_battles = int(battle_manifest.get("record_count") or len(seen_battles))
+    if len(seen_battles) != expected_battles:
+        raise ValueError(f"battle registry count mismatch: {len(seen_battles)} != {expected_battles}")
 
     anchors = _parse_first_item_c_anchors(root / FIRST_ITEM_C_SETTLEMENT)
 

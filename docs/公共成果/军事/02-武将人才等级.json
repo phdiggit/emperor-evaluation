@@ -18,7 +18,9 @@
     "stability_status_counts",
     "evidence_lower_bound_profile_count",
     "profiles",
-    "identity_aliases"
+    "identity_aliases",
+    "value_contract_version",
+    "net_value_policy"
   ],
   "profile_order": [
     "MIL-PROFILE-4B6050B3FE0EEEA7",
@@ -2064,22 +2066,23 @@
     "grade_counts": {
       "historic": 13,
       "top": 37,
-      "elite": 87,
-      "important": 446,
+      "elite": 88,
+      "important": 445,
       "capable": 99,
       "usable": 730,
       "ordinary": 617
     },
     "grade_status_counts": {
-      "evidence_lower_bound": 755,
-      "current_battle_registry_grade": 1274
+      "evidence_lower_bound": 1151,
+      "current_battle_registry_grade": 878
     },
     "stability_status_counts": {
-      "no_comparable_major_failure_established": 1771,
+      "no_comparable_major_failure_established": 1744,
       "stability_limited_major_failure": 220,
-      "stability_limited_repeated_major_failures": 38
+      "stability_limited_repeated_major_failures": 38,
+      "major_adverse_established": 27
     },
-    "evidence_lower_bound_profile_count": 755,
+    "evidence_lower_bound_profile_count": 1151,
     "identity_aliases": [
       {
         "profile_ref": "MIL-PROFILE-46DE0440E687D594",
@@ -2120,7 +2123,15 @@
         ],
         "basis": "本记录保留旧稳定ID与来源事实，仅为身份别名，不另裁军事人才档。《西夏书事》嘉定二年1209及宝庆二年1226的蒙古主，与《元史》太祖本纪相同蒙古最高统帅铁木真，同年同地个人亲征；属于跨书泛称别名，不是独立西夏人物。"
       }
-    ]
+    ],
+    "value_contract_version": "MILITARY-VALUE-V2",
+    "net_value_policy": {
+      "positive": "shared_diminishing_queue",
+      "negative": "actual_person_effect_tier_x_responsibility_x_0.8_without_difficulty",
+      "mixed": "separate_adjudicated_sides_one_episode",
+      "comparison": "same_grade_role_opportunity_and_evidence_coverage_only",
+      "reliability": "independent_adjudication_not_net_value"
+    }
   },
   "shards": [
     {

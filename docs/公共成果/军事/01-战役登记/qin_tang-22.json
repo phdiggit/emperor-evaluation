@@ -823,6 +823,20 @@
                 "資治通鑑/卷105@cache-6e1a242b1904bd8a",
                 "WAR-LEAD-105-JIN-OFFENSIVE-383"
               ]
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：桓冲统十万攻襄阳主方向，受慕容垂举炬疑兵影响即退，未形成可归其个人的稳定战果；父群局部胜利属于杨亮、郭铨、桓石虔各路，不能冲销其主攻失败。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷105@cache-6e1a242b1904bd8a",
+                "WAR-LEAD-105-JIN-OFFENSIVE-383"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT-WAR-LEAD-105-JIN-OFFENSIVE-383-桓冲"
             }
           },
           "command_result_direction": "negative",
@@ -848,7 +862,21 @@
             "source_refs": [
               "資治通鑑/卷105@cache-6e1a242b1904bd8a",
               "WAR-LEAD-105-JIN-OFFENSIVE-383"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：桓冲统十万攻襄阳主方向，受慕容垂举炬疑兵影响即退，未形成可归其个人的稳定战果；父群局部胜利属于杨亮、郭铨、桓石虔各路，不能冲销其主攻失败。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "資治通鑑/卷105@cache-6e1a242b1904bd8a",
+                "WAR-LEAD-105-JIN-OFFENSIVE-383"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT-WAR-LEAD-105-JIN-OFFENSIVE-383-桓冲"
+            }
           }
         },
         {
@@ -1173,11 +1201,51 @@
               "positive_result": "统筹多路实际取金城等城。",
               "adverse_result": "本统筹链吕延本路覆败，随后全军撤回。",
               "retention": "取城与军团损失并存；只取统筹，无前线难度。",
-              "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+              "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
               "source_refs": [
                 "資治通鑑/卷109@1497681",
                 "WAR-LEAD-109-LIANG-WESTQIN-397"
-              ]
+              ],
+              "components": [
+                {
+                  "direction": "positive",
+                  "effect_tier": "B",
+                  "combat_difficulty": null,
+                  "canonical_label": "吕光亲率大军屯长最并部署三路，前期取金城等地，吕延覆败后又决定全军撤回；总体统筹确为mixed A，但他不在吕延伏击现场，只消费无前线难度的统筹结果。：统筹多路实际取金城等城。",
+                  "decisive_relation": "decisive_creator",
+                  "basis": "统筹多路实际取金城等城。 取城与军团损失并存；只取统筹，无前线难度。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                  "source_refs": [
+                    "資治通鑑/卷109@1497681",
+                    "WAR-LEAD-109-LIANG-WESTQIN-397"
+                  ]
+                },
+                {
+                  "direction": "negative",
+                  "effect_tier": "A",
+                  "combat_difficulty": null,
+                  "canonical_label": "吕光亲率大军屯长最并部署三路，前期取金城等地，吕延覆败后又决定全军撤回；总体统筹确为mixed A，但他不在吕延伏击现场，只消费无前线难度的统筹结果。：本统筹链吕延本路覆败，随后全军撤回。",
+                  "basis": "本统筹链吕延本路覆败，随后全军撤回。 取城与军团损失并存；只取统筹，无前线难度。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "source_refs": [
+                    "資治通鑑/卷109@1497681",
+                    "WAR-LEAD-109-LIANG-WESTQIN-397"
+                  ],
+                  "adverse_result_review": {
+                    "schema_version": "military-adverse-result-v2",
+                    "effect_tier": "A",
+                    "basis": "本统筹链吕延本路覆败，随后全军撤回。 取城与军团损失并存；只取统筹，无前线难度。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                    "personal_scope": "operational_design_scope",
+                    "responsibility_coefficient": 1.0,
+                    "source_refs": [
+                      "資治通鑑/卷109@1497681",
+                      "WAR-LEAD-109-LIANG-WESTQIN-397"
+                    ],
+                    "difficulty_used_as_penalty": false,
+                    "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+                    "deduplication_ref": "PCR-AUDIT-WAR-LEAD-109-LIANG-WESTQIN-397-吕光"
+                  }
+                }
+              ],
+              "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
             },
             "operational_role_review": {
               "schema_version": "military-operational-role-review-v1",
@@ -1246,11 +1314,51 @@
               "positive_result": "统筹多路实际取金城等城。",
               "adverse_result": "本统筹链吕延本路覆败，随后全军撤回。",
               "retention": "取城与军团损失并存；只取统筹，无前线难度。",
-              "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+              "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
               "source_refs": [
                 "資治通鑑/卷109@1497681",
                 "WAR-LEAD-109-LIANG-WESTQIN-397"
-              ]
+              ],
+              "components": [
+                {
+                  "direction": "positive",
+                  "effect_tier": "B",
+                  "combat_difficulty": null,
+                  "canonical_label": "吕光亲率大军屯长最并部署三路，前期取金城等地，吕延覆败后又决定全军撤回；总体统筹确为mixed A，但他不在吕延伏击现场，只消费无前线难度的统筹结果。：统筹多路实际取金城等城。",
+                  "decisive_relation": "decisive_creator",
+                  "basis": "统筹多路实际取金城等城。 取城与军团损失并存；只取统筹，无前线难度。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                  "source_refs": [
+                    "資治通鑑/卷109@1497681",
+                    "WAR-LEAD-109-LIANG-WESTQIN-397"
+                  ]
+                },
+                {
+                  "direction": "negative",
+                  "effect_tier": "A",
+                  "combat_difficulty": null,
+                  "canonical_label": "吕光亲率大军屯长最并部署三路，前期取金城等地，吕延覆败后又决定全军撤回；总体统筹确为mixed A，但他不在吕延伏击现场，只消费无前线难度的统筹结果。：本统筹链吕延本路覆败，随后全军撤回。",
+                  "basis": "本统筹链吕延本路覆败，随后全军撤回。 取城与军团损失并存；只取统筹，无前线难度。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "source_refs": [
+                    "資治通鑑/卷109@1497681",
+                    "WAR-LEAD-109-LIANG-WESTQIN-397"
+                  ],
+                  "adverse_result_review": {
+                    "schema_version": "military-adverse-result-v2",
+                    "effect_tier": "A",
+                    "basis": "本统筹链吕延本路覆败，随后全军撤回。 取城与军团损失并存；只取统筹，无前线难度。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                    "personal_scope": "operational_design_scope",
+                    "responsibility_coefficient": 1.0,
+                    "source_refs": [
+                      "資治通鑑/卷109@1497681",
+                      "WAR-LEAD-109-LIANG-WESTQIN-397"
+                    ],
+                    "difficulty_used_as_penalty": false,
+                    "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+                    "deduplication_ref": "PCR-AUDIT-WAR-LEAD-109-LIANG-WESTQIN-397-吕光"
+                  }
+                }
+              ],
+              "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
             },
             "operational_role_review": {
               "schema_version": "military-operational-role-review-v1",
@@ -1421,8 +1529,56 @@
               "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
               "source_refs": [
                 "資治通鑑/卷109@1497681",
-                "WAR-LEAD-109-LIANG-WESTQIN-397"
-              ]
+                "WAR-LEAD-109-LIANG-WESTQIN-397",
+                "https://zh.wikisource.org/wiki/晉書/卷122",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷109"
+              ],
+              "components": [
+                {
+                  "direction": "positive",
+                  "effect_tier": "B",
+                  "combat_difficulty": null,
+                  "canonical_label": "吕延本路先攻取临洮武始河关，后拒谏轻骑追击中伏败退：攻克临洮、武始、河关多城。",
+                  "decisive_relation": "decisive_creator",
+                  "basis": "攻克临洮、武始、河关多城。 前段攻取不冒充终局维持；实际败军保留。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                  "source_refs": [
+                    "資治通鑑/卷109@1497681",
+                    "WAR-LEAD-109-LIANG-WESTQIN-397",
+                    "https://zh.wikisource.org/wiki/晉書/卷122",
+                    "https://zh.wikisource.org/wiki/資治通鑑/卷109"
+                  ]
+                },
+                {
+                  "direction": "negative",
+                  "effect_tier": "A",
+                  "combat_difficulty": "D3",
+                  "canonical_label": "吕延本路先攻取临洮武始河关，后拒谏轻骑追击中伏败退：拒谏轻骑追击中伏，本人战死并使本路败退。",
+                  "basis": "拒谏轻骑追击中伏，本人战死并使本路败退。 前段攻取不冒充终局维持；实际败军保留。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "source_refs": [
+                    "資治通鑑/卷109@1497681",
+                    "WAR-LEAD-109-LIANG-WESTQIN-397",
+                    "https://zh.wikisource.org/wiki/晉書/卷122",
+                    "https://zh.wikisource.org/wiki/資治通鑑/卷109"
+                  ],
+                  "adverse_result_review": {
+                    "schema_version": "military-adverse-result-v2",
+                    "effect_tier": "A",
+                    "basis": "拒谏轻骑追击中伏，本人战死并使本路败退。 前段攻取不冒充终局维持；实际败军保留。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                    "personal_scope": "independent_direction_scope",
+                    "responsibility_coefficient": 0.85,
+                    "source_refs": [
+                      "資治通鑑/卷109@1497681",
+                      "WAR-LEAD-109-LIANG-WESTQIN-397",
+                      "https://zh.wikisource.org/wiki/晉書/卷122",
+                      "https://zh.wikisource.org/wiki/資治通鑑/卷109"
+                    ],
+                    "difficulty_used_as_penalty": false,
+                    "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
+                    "deduplication_ref": "PCR-AUDIT-WAR-LEAD-109-LIANG-WESTQIN-397-吕延"
+                  }
+                }
+              ],
+              "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
             },
             "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR"
           },
@@ -1461,8 +1617,56 @@
               "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
               "source_refs": [
                 "資治通鑑/卷109@1497681",
-                "WAR-LEAD-109-LIANG-WESTQIN-397"
-              ]
+                "WAR-LEAD-109-LIANG-WESTQIN-397",
+                "https://zh.wikisource.org/wiki/晉書/卷122",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷109"
+              ],
+              "components": [
+                {
+                  "direction": "positive",
+                  "effect_tier": "B",
+                  "combat_difficulty": null,
+                  "canonical_label": "吕延本路先攻取临洮武始河关，后拒谏轻骑追击中伏败退：攻克临洮、武始、河关多城。",
+                  "decisive_relation": "decisive_creator",
+                  "basis": "攻克临洮、武始、河关多城。 前段攻取不冒充终局维持；实际败军保留。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                  "source_refs": [
+                    "資治通鑑/卷109@1497681",
+                    "WAR-LEAD-109-LIANG-WESTQIN-397",
+                    "https://zh.wikisource.org/wiki/晉書/卷122",
+                    "https://zh.wikisource.org/wiki/資治通鑑/卷109"
+                  ]
+                },
+                {
+                  "direction": "negative",
+                  "effect_tier": "A",
+                  "combat_difficulty": "D3",
+                  "canonical_label": "吕延本路先攻取临洮武始河关，后拒谏轻骑追击中伏败退：拒谏轻骑追击中伏，本人战死并使本路败退。",
+                  "basis": "拒谏轻骑追击中伏，本人战死并使本路败退。 前段攻取不冒充终局维持；实际败军保留。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "source_refs": [
+                    "資治通鑑/卷109@1497681",
+                    "WAR-LEAD-109-LIANG-WESTQIN-397",
+                    "https://zh.wikisource.org/wiki/晉書/卷122",
+                    "https://zh.wikisource.org/wiki/資治通鑑/卷109"
+                  ],
+                  "adverse_result_review": {
+                    "schema_version": "military-adverse-result-v2",
+                    "effect_tier": "A",
+                    "basis": "拒谏轻骑追击中伏，本人战死并使本路败退。 前段攻取不冒充终局维持；实际败军保留。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                    "personal_scope": "independent_direction_scope",
+                    "responsibility_coefficient": 0.85,
+                    "source_refs": [
+                      "資治通鑑/卷109@1497681",
+                      "WAR-LEAD-109-LIANG-WESTQIN-397",
+                      "https://zh.wikisource.org/wiki/晉書/卷122",
+                      "https://zh.wikisource.org/wiki/資治通鑑/卷109"
+                    ],
+                    "difficulty_used_as_penalty": false,
+                    "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
+                    "deduplication_ref": "PCR-AUDIT-WAR-LEAD-109-LIANG-WESTQIN-397-吕延"
+                  }
+                }
+              ],
+              "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
             },
             "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR"
           },
@@ -1723,6 +1927,19 @@
             "military_capability_contribution": {
               "capability_mode": "integrated_command",
               "decisive_relation": "co_decisive"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：统三万东下并分遣各路，其所统益州军发生反叛并导致成都方向崩解，最高指挥负果为A；不自动等同个人误判。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 0.85,
+              "source_refs": [
+                "資治通鑑/卷114@617578"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT---772EC76A05"
             }
           },
           "command_result_direction": "negative",
@@ -1738,7 +1955,20 @@
             "basis": "统三万东下并分遣各路，其所统益州军发生反叛并导致成都方向崩解，最高指挥负果为A；不自动等同个人误判。",
             "source_refs": [
               "資治通鑑/卷114@617578"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：统三万东下并分遣各路，其所统益州军发生反叛并导致成都方向崩解，最高指挥负果为A；不自动等同个人误判。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 0.85,
+              "source_refs": [
+                "資治通鑑/卷114@617578"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT---772EC76A05"
+            }
           }
         },
         {
@@ -1770,6 +2000,19 @@
             "military_capability_contribution": {
               "capability_mode": "independent_direction",
               "decisive_relation": "stage_executor"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：奉命反击并在谯明子战中大败，只消费成都保卫方向B级负果。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "資治通鑑/卷114@617578"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT---612DD4ADA7"
             }
           },
           "command_result_direction": "negative",
@@ -1785,7 +2028,20 @@
             "basis": "奉命反击并在谯明子战中大败，只消费成都保卫方向B级负果。",
             "source_refs": [
               "資治通鑑/卷114@617578"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：奉命反击并在谯明子战中大败，只消费成都保卫方向B级负果。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "資治通鑑/卷114@617578"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT---612DD4ADA7"
+            }
           }
         },
         {
@@ -3771,7 +4027,21 @@
               "decisive_relation": "none"
             },
             "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
-            "responsibility_basis": "在险阻地区以轻兵独进，直接导致本路万余人覆没。"
+            "responsibility_basis": "在险阻地区以轻兵独进，直接导致本路万余人覆没。",
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：刘尚没有正向阶段成果；本人轻进制造的困境不能获得父群后续平乱的难度，按负A/D2。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.85,
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md#L34",
+                "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md#L35"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
+              "deduplication_ref": "PCR-HAN-LIUSHANG-WULING-47-FAILURE"
+            }
           },
           "command_result_direction": "negative",
           "talent_credit": "independent",
@@ -3788,7 +4058,21 @@
             "source_refs": [
               "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md#L34",
               "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md#L35"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：刘尚没有正向阶段成果；本人轻进制造的困境不能获得父群后续平乱的难度，按负A/D2。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.85,
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md#L34",
+                "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md#L35"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
+              "deduplication_ref": "PCR-HAN-LIUSHANG-WULING-47-FAILURE"
+            }
           }
         },
         {
@@ -3846,6 +4130,19 @@
                 "source_refs": [
                   "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "A",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：马援的临乡初胜与壶头未克均是本人实际结果；耿舒主张走充道路平方案，马援坚持壶头路近水险方案并获准，随后受阻、疫死过半，路线选择与结果均由本人闭合。后由宗均收尾，不把父群终局倒投给马援。 本条负果已经限定本人直接统率的军队/守城/路线范围；不可仅因它是父群一段而再乘stage_executor，负向贡献关系记none，由实际integrated_command取结果责任，具体过错原标保留。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "ATTRIBUTABLE_ROUTE_SELECTION",
+                "deduplication_ref": "PCR-HAN-MAYUAN-WULING-HUTOU-49"
               }
             }
           ],
@@ -3861,7 +4158,20 @@
             "basis": "马援的临乡初胜与壶头未克均是本人实际结果；耿舒主张走充道路平方案，马援坚持壶头路近水险方案并获准，随后受阻、疫死过半，路线选择与结果均由本人闭合。后由宗均收尾，不把父群终局倒投给马援。 本条负果已经限定本人直接统率的军队/守城/路线范围；不可仅因它是父群一段而再乘stage_executor，负向贡献关系记none，由实际integrated_command取结果责任，具体过错原标保留。",
             "source_refs": [
               "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：马援的临乡初胜与壶头未克均是本人实际结果；耿舒主张走充道路平方案，马援坚持壶头路近水险方案并获准，随后受阻、疫死过半，路线选择与结果均由本人闭合。后由宗均收尾，不把父群终局倒投给马援。 本条负果已经限定本人直接统率的军队/守城/路线范围；不可仅因它是父群一段而再乘stage_executor，负向贡献关系记none，由实际integrated_command取结果责任，具体过错原标保留。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "ATTRIBUTABLE_ROUTE_SELECTION",
+              "deduplication_ref": "PCR-HAN-MAYUAN-WULING-HUTOU-49"
+            }
           }
         },
         {
@@ -5895,6 +6205,19 @@
             "military_capability_contribution": {
               "capability_mode": "independent_direction",
               "decisive_relation": "stage_executor"
+            },
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：564年临川反攻大败，只消费该次方向B级负果；后续他人终结周迪不能反写。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "資治通鑑/卷169@1502684"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT---821B85B49A"
             }
           },
           "command_result_direction": "negative",
@@ -5910,7 +6233,20 @@
             "basis": "564年临川反攻大败，只消费该次方向B级负果；后续他人终结周迪不能反写。",
             "source_refs": [
               "資治通鑑/卷169@1502684"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：564年临川反攻大败，只消费该次方向B级负果；后续他人终结周迪不能反写。",
+              "personal_scope": "independent_direction_scope",
+              "responsibility_coefficient": 0.35,
+              "source_refs": [
+                "資治通鑑/卷169@1502684"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AUDIT---821B85B49A"
+            }
           }
         },
         {

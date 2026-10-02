@@ -603,7 +603,22 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": true,
-          "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。"
+          "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。",
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：主帅身份、本人作战、败绩和重大损失均逐字闭合；只保存实际指挥败责，不推断因果过错。 本人实际统率本条已缩小的军队/城防/撤退方向，结果责任取该范围完整控制；具体过错另判，不因未知降为战术执行。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷2@2594615#甲戌，魏國公徐達為征虜大將軍，出雁門，趨和林，曹國公李文忠為左副將軍，出應昌，宋國公馮勝為征西將軍，取甘肅，征擴廓帖木兒。",
+              "明史/卷2@2594615#五月壬子，徐達及元兵戰於嶺北，敗績。",
+              "明史/卷125@2602117#達戰不利，死者數萬人。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+            "deduplication_ref": "PCR-0A0BFB5066A82B3D770D"
+          }
         }
       ],
       "failure_accountability": [
@@ -632,7 +647,22 @@
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": true,
           "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。",
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：主帅身份、本人作战、败绩和重大损失均逐字闭合；只保存实际指挥败责，不推断因果过错。 本人实际统率本条已缩小的军队/城防/撤退方向，结果责任取该范围完整控制；具体过错另判，不因未知降为战术执行。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷2@2594615#甲戌，魏國公徐達為征虜大將軍，出雁門，趨和林，曹國公李文忠為左副將軍，出應昌，宋國公馮勝為征西將軍，取甘肅，征擴廓帖木兒。",
+              "明史/卷2@2594615#五月壬子，徐達及元兵戰於嶺北，敗績。",
+              "明史/卷125@2602117#達戰不利，死者數萬人。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+            "deduplication_ref": "PCR-0A0BFB5066A82B3D770D"
+          }
         }
       ],
       "attributable_failures": [
@@ -658,14 +688,29 @@
           ]
         }
       ],
-      "net_strategic_value": 7.88,
+      "net_strategic_value": 8.08,
       "net_strategic_value_breakdown": {
         "frontline_positive": 8.88,
         "operational_positive": 0.0,
-        "command_adverse": -1.0,
-        "net": 7.88
+        "command_adverse": -0.8,
+        "net": 8.08
       },
-      "grade_basis": "按当前本人已实现成果及实际角色裁决：收复叛军夺取的洪都。=C/D1（stage_executor）；与朱元璋等共同南略定远、收军并攻下滁州。=C/D1（co_decisive）；统军围安丰并决策潜穿城墙，破城后击退元援军=A/D2（decisive_creator）；与常遇春合围苏州、断援筑围，最终攻克苏州并俘张士诚。=S-/D1（co_decisive）；沈儿峪方向击破扩廓帖木儿主力并尽降其众。=S-/D1（decisive_creator）；连续攻取高邮、淮安、兴化、濠州及徐宿诸地，闭合淮东平定主攻链。=A/D2（decisive_creator）；太原至庆阳的山西、陕西主攻链，闭合两省平定。=S-/D3（decisive_creator）；常州方向攻克。=A/D2（decisive_creator）；作为二十五万北伐军主将，连续攻取沂州、益都、济南并进入元大都。=S/D3（decisive_creator）。正向能力路径=historic_sustained_grand_command；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。 历史级路径仍以有源直接主峰、独立高难复验和跨对象持续控制成立；没有以净值或名望换档。"
+      "grade_basis": "按当前本人已实现成果及实际角色裁决：收复叛军夺取的洪都。=C/D1（stage_executor）；与朱元璋等共同南略定远、收军并攻下滁州。=C/D1（co_decisive）；统军围安丰并决策潜穿城墙，破城后击退元援军=A/D2（decisive_creator）；与常遇春合围苏州、断援筑围，最终攻克苏州并俘张士诚。=S-/D1（co_decisive）；沈儿峪方向击破扩廓帖木儿主力并尽降其众。=S-/D1（decisive_creator）；连续攻取高邮、淮安、兴化、濠州及徐宿诸地，闭合淮东平定主攻链。=A/D2（decisive_creator）；太原至庆阳的山西、陕西主攻链，闭合两省平定。=S-/D3（decisive_creator）；常州方向攻克。=A/D2（decisive_creator）；作为二十五万北伐军主将，连续攻取沂州、益都、济南并进入元大都。=S/D3（decisive_creator）。正向能力路径=historic_sustained_grand_command；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。 历史级路径仍以有源直接主峰、独立高难复验和跨对象持续控制成立；没有以净值或名望换档。",
+      "positive_evidence_paths": {
+        "elite": [
+          "frontline_strategic_peak",
+          "frontline_independent_hard_solutions",
+          "frontline_reliable_major_command"
+        ],
+        "top": [
+          "frontline_s_peak_with_validation",
+          "frontline_s_minus_peak_with_validation",
+          "frontline_sustained_major_command"
+        ],
+        "historic": [
+          "sustained_grand_command_with_strategic_peak"
+        ]
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-505468277FC05320",
@@ -811,7 +856,14 @@
         "command_adverse": 0.0,
         "net": 3.55
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 elite_strategic_peak 当前定为 elite。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 elite_strategic_peak 当前定为 elite。",
+      "positive_evidence_paths": {
+        "elite": [
+          "frontline_strategic_peak"
+        ],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-8F919BFB3D250735",
@@ -911,7 +963,14 @@
         "command_adverse": 0.0,
         "net": 2.75
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 elite_strategic_peak 当前定为 elite。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 elite_strategic_peak 当前定为 elite。",
+      "positive_evidence_paths": {
+        "elite": [
+          "frontline_strategic_peak"
+        ],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-5C6CAB86EEC50774",
@@ -1247,7 +1306,14 @@
         "net": 2.88
       },
       "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 elite_reliable_major_command 当前可证下限为 elite，覆盖增加后可复核升级，非冻结终值。",
-      "ledger_coverage_basis": "本轮按实际本人目标、控制与原史源补闭，保留正负与目标短缺；未声称全生涯史源穷尽。"
+      "ledger_coverage_basis": "本轮按实际本人目标、控制与原史源补闭，保留正负与目标短缺；未声称全生涯史源穷尽。",
+      "positive_evidence_paths": {
+        "elite": [
+          "frontline_reliable_major_command"
+        ],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-0734615789D99D8E",
@@ -1673,7 +1739,14 @@
         "command_adverse": 0.0,
         "net": 2.63
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 elite_reliable_major_command 当前可证下限为 elite，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 elite_reliable_major_command 当前可证下限为 elite，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [
+          "frontline_reliable_major_command"
+        ],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-15A16D99CD929D0F",
@@ -1837,7 +1910,12 @@
         "command_adverse": 0.0,
         "net": 1.86
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-6F00F7AF65F6BC92",
@@ -2076,7 +2154,12 @@
         "command_adverse": 0.0,
         "net": 1.8
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-19E54A84DC628B48",
@@ -2228,7 +2311,12 @@
         "command_adverse": 0.0,
         "net": 1.57
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-40E57E8F47F62D0B",
@@ -2501,7 +2589,12 @@
       },
       "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。 统筹现按具体操作—实施—本人结果链准入，正负对称；国家A级结果不直接成为本人A级能力情境，统筹D为空不豁免实际败果。",
       "objective_shortfalls": [],
-      "excluded_command_records": []
+      "excluded_command_records": [],
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-C30B46B15D94D742",
@@ -2842,7 +2935,22 @@
           ],
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D1",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合李嗣昭的实际行动与本人结果：契丹军复徇幽蓟，攻拔蓟州和石城县；张文礼求援后，遣兵援镇州并与后唐军交战。；蓟州、石城被攻克，李嗣昭被杀；张文礼不久死亡，其子向契丹奉表。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "遼史/卷2@2325084#攻薊州。戊午，拔之，擒刺史胡瓊，以盧國用、涅魯古典軍民事。",
+              "遼史/卷2@2325084#命郎君迭烈、將軍康末怛往擊，敗之，殺其將李嗣昭。",
+              "遼史/卷2@2325084#攻石城縣，拔之。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-7AD48C67DAB912BF9F9E"
+          }
         }
       ],
       "failure_accountability": [
@@ -2870,7 +2978,22 @@
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D1",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合李嗣昭的实际行动与本人结果：契丹军复徇幽蓟，攻拔蓟州和石城县；张文礼求援后，遣兵援镇州并与后唐军交战。；蓟州、石城被攻克，李嗣昭被杀；张文礼不久死亡，其子向契丹奉表。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "遼史/卷2@2325084#攻薊州。戊午，拔之，擒刺史胡瓊，以盧國用、涅魯古典軍民事。",
+              "遼史/卷2@2325084#命郎君迭烈、將軍康末怛往擊，敗之，殺其將李嗣昭。",
+              "遼史/卷2@2325084#攻石城縣，拔之。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-7AD48C67DAB912BF9F9E"
+          }
         }
       ],
       "attributable_failures": [
@@ -2896,16 +3019,21 @@
           ]
         }
       ],
-      "net_strategic_value": 1.73,
+      "net_strategic_value": 1.7,
       "net_strategic_value_breakdown": {
         "frontline_positive": 1.82,
         "operational_positive": 0.0,
-        "command_adverse": -0.09,
-        "net": 1.73
+        "command_adverse": -0.12,
+        "net": 1.7
       },
       "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。 混合准入现按本人实际正果、败果和目标短缺分裁；仅止损、死亡或非指挥行为不替代军事结果。新闭局部正果仅按现行合同复核能力下限，不按净值换档。",
       "objective_shortfalls": [],
-      "excluded_command_records": []
+      "excluded_command_records": [],
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-0231A56982D48F3A",
@@ -3050,7 +3178,12 @@
         "command_adverse": 0.0,
         "net": 1.43
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-C646E451A9ED4C43",
@@ -3147,7 +3280,12 @@
         "command_adverse": 0.0,
         "net": 1.25
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-F96F789DA560F2E1",
@@ -3246,7 +3384,12 @@
         "command_adverse": 0.0,
         "net": 1.25
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-45D544F909326145",
@@ -3347,7 +3490,12 @@
         "command_adverse": 0.0,
         "net": 1.25
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-D3892C5828C0D588",
@@ -3495,7 +3643,12 @@
         "command_adverse": 0.0,
         "net": 1.27
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-037E7103EB995074",
@@ -3643,7 +3796,12 @@
         "command_adverse": 0.0,
         "net": 1.12
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-52CFE30A177839C0",
@@ -3740,7 +3898,12 @@
         "command_adverse": 0.0,
         "net": 1.06
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-08985E205DDBEEC2",
@@ -3837,7 +4000,12 @@
         "command_adverse": 0.0,
         "net": 1.06
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-CFE781D3FD4E78FA",
@@ -3936,7 +4104,12 @@
         "command_adverse": 0.0,
         "net": 1.06
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-6B446426A25B41AE",
@@ -4035,7 +4208,12 @@
         "command_adverse": 0.0,
         "net": 1.06
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-56304EBB9D930290",
@@ -4193,7 +4371,12 @@
         "command_adverse": 0.0,
         "net": 1.03
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-83876279FEFA1278",
@@ -4292,7 +4475,12 @@
         "command_adverse": 0.0,
         "net": 1.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-909EBAF799A0CD85",
@@ -4725,6 +4913,11 @@
         ],
         "transcription_checked": "https://www.zhonghuashu.com/wiki/宋史/卷273",
         "source_limit": "规范本传及现有编年内保important，阳曲A/D2已实作；其余阶段保B/C，不以长履历/名望硬凑三A级。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
       }
     },
     {
@@ -4842,7 +5035,12 @@
         "command_adverse": 0.0,
         "net": 1.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-BE5A26B9D14CB856",
@@ -4945,7 +5143,12 @@
         "command_adverse": 0.0,
         "net": 0.85
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-8CBD5D64816A46DF",
@@ -5044,7 +5247,12 @@
         "command_adverse": 0.0,
         "net": 0.85
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-B71F53890927ECB9",
@@ -5143,7 +5351,12 @@
         "command_adverse": 0.0,
         "net": 0.85
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-3A55922B4F991131",
@@ -5242,7 +5455,12 @@
         "command_adverse": 0.0,
         "net": 0.85
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-262F5E3C909774DC",
@@ -5349,7 +5567,12 @@
         "command_adverse": 0.0,
         "net": 0.85
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-DDEF86AA32B9DD15",
@@ -5446,7 +5669,12 @@
         "command_adverse": 0.0,
         "net": 0.85
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-489FB675E8E6F910",
@@ -5543,7 +5771,12 @@
         "command_adverse": 0.0,
         "net": 0.85
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-4A0D71875777C280",
@@ -5640,7 +5873,12 @@
         "command_adverse": 0.0,
         "net": 0.85
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-185F7D2EEBDC0D8C",
@@ -5737,7 +5975,12 @@
         "command_adverse": 0.0,
         "net": 0.85
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-8D1860C4FF096F0B",
@@ -5840,7 +6083,12 @@
         "command_adverse": 0.0,
         "net": 0.85
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前可证下限为 important，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-72B09335DB67D779",
@@ -5951,7 +6199,20 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": false
+          "evidence_lower_bound": false,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：毛宝奉命守隔江无援的邾城，面对后赵两万骑攻城，城陷六千人死且本人突围溺亡；其个人没有石城反击阶段，故为negative A/D3而非父群mixed。陶侃早已反对该部署、毛宝又主动求援，卡内没有毛宝个人误判，不能因败亡再叠加败责。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 0.35,
+            "source_refs": [
+              "WAR-LEAD-096-ZHUCHENG-339"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-AUDIT-WAR-LEAD-096-ZHUCHENG-339-毛宝"
+          }
         }
       ],
       "failure_accountability": [
@@ -5977,18 +6238,36 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": false,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：毛宝奉命守隔江无援的邾城，面对后赵两万骑攻城，城陷六千人死且本人突围溺亡；其个人没有石城反击阶段，故为negative A/D3而非父群mixed。陶侃早已反对该部署、毛宝又主动求援，卡内没有毛宝个人误判，不能因败亡再叠加败责。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 0.35,
+            "source_refs": [
+              "WAR-LEAD-096-ZHUCHENG-339"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-AUDIT-WAR-LEAD-096-ZHUCHENG-339-毛宝"
+          }
         }
       ],
       "attributable_failures": [],
-      "net_strategic_value": 0.71,
+      "net_strategic_value": 0.78,
       "net_strategic_value_breakdown": {
         "frontline_positive": 1.06,
         "operational_positive": 0.0,
-        "command_adverse": -0.35,
-        "net": 0.71
+        "command_adverse": -0.28,
+        "net": 0.78
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-42D2D82FB17352F1",
@@ -6115,6 +6394,19 @@
             "source_refs": [
               "資治通鑑/卷218@1996147"
             ]
+          },
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "S-",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：实际正果：正确识敌与主张固守是未获执行的判断，不是已兑现军事正果。 实际不利及边界：灵宝军崩溃并失潼关。 保留情况：强令和现场控制边界保留；不把正确建议折成混合半扣。 仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 0.35,
+            "source_refs": [
+              "資治通鑑/卷218@1996147"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "WAR-LEAD-TANG-ANSHI-END"
           }
         }
       ],
@@ -6153,7 +6445,20 @@
               "資治通鑑/卷218@1996147"
             ]
           },
-          "source_alias_refs": []
+          "source_alias_refs": [],
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "S-",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：实际正果：正确识敌与主张固守是未获执行的判断，不是已兑现军事正果。 实际不利及边界：灵宝军崩溃并失潼关。 保留情况：强令和现场控制边界保留；不把正确建议折成混合半扣。 仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 0.35,
+            "source_refs": [
+              "資治通鑑/卷218@1996147"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "WAR-LEAD-TANG-ANSHI-END"
+          }
         }
       ],
       "attributable_failures": [
@@ -6189,16 +6494,21 @@
           "failure_impact_tier": "S-"
         }
       ],
-      "net_strategic_value": 0.23,
+      "net_strategic_value": 0.38,
       "net_strategic_value_breakdown": {
         "frontline_positive": 1.0,
         "operational_positive": 0.0,
-        "command_adverse": -0.77,
-        "net": 0.23
+        "command_adverse": -0.62,
+        "net": 0.38
       },
       "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_hard_a_or_two_independent_a 当前定为 important。 混合准入现按本人实际正果、败果和目标短缺分裁；仅止损、死亡或非指挥行为不替代军事结果。新闭局部正果仅按现行合同复核能力下限，不按净值换档。",
       "objective_shortfalls": [],
-      "excluded_command_records": []
+      "excluded_command_records": [],
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-55C90740C3AA0B12",
@@ -6311,7 +6621,20 @@
           "parent_campaign_tier": "S-",
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": false,
-          "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。"
+          "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。",
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "S-",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：作为十七万军主将追击入背崖险地，全军在契丹反击下覆败并战死；战争后来平定不能覆盖本人本阶段败绩。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "資治通鑑/卷206@1554189"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+            "deduplication_ref": "WAR-LEAD-TANG-KHITAN-697"
+          }
         },
         {
           "campaign_ref": "WAR-PERSON-TANG-WANGXIAOJIE-SULUOHANSHAN-696",
@@ -6335,7 +6658,20 @@
           "parent_campaign_tier": "S-",
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": false,
-          "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。"
+          "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。",
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：696年与娄师德在素罗汗山败于吐蕃；败战未使四镇再失，故负向边界取A而不反写此前S-正果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 0.85,
+            "source_refs": [
+              "資治通鑑/卷205@1502886"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+            "deduplication_ref": "WAR-PERSON-TANG-WANGXIAOJIE-SULUOHANSHAN-696"
+          }
         }
       ],
       "failure_accountability": [
@@ -6362,7 +6698,20 @@
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": false,
           "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。",
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "S-",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：作为十七万军主将追击入背崖险地，全军在契丹反击下覆败并战死；战争后来平定不能覆盖本人本阶段败绩。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "資治通鑑/卷206@1554189"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+            "deduplication_ref": "WAR-LEAD-TANG-KHITAN-697"
+          }
         },
         {
           "campaign_ref": "WAR-PERSON-TANG-WANGXIAOJIE-SULUOHANSHAN-696",
@@ -6387,18 +6736,38 @@
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": false,
           "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。",
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：696年与娄师德在素罗汗山败于吐蕃；败战未使四镇再失，故负向边界取A而不反写此前S-正果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 0.85,
+            "source_refs": [
+              "資治通鑑/卷205@1502886"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+            "deduplication_ref": "WAR-PERSON-TANG-WANGXIAOJIE-SULUOHANSHAN-696"
+          }
         }
       ],
       "attributable_failures": [],
-      "net_strategic_value": -0.85,
+      "net_strategic_value": -0.24,
       "net_strategic_value_breakdown": {
         "frontline_positive": 2.2,
         "operational_positive": 0.0,
-        "command_adverse": -3.05,
-        "net": -0.85
+        "command_adverse": -2.44,
+        "net": -0.24
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 elite_blocked_by_failure_pressure 当前定为 important。 稳定性状态=stability_limited_repeated_major_failures。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 elite_blocked_by_failure_pressure 当前定为 important。 稳定性状态=stability_limited_repeated_major_failures。",
+      "positive_evidence_paths": {
+        "elite": [
+          "frontline_strategic_peak"
+        ],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-27F54370A3F29681",
@@ -6543,7 +6912,12 @@
         "command_adverse": 0.0,
         "net": 0.72
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前定为 capable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前定为 capable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-33F0703433747820",
@@ -6693,7 +7067,12 @@
         "command_adverse": 0.0,
         "net": 0.51
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前定为 capable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前定为 capable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-1A2A906F74E5D9CF",
@@ -6874,7 +7253,12 @@
         "command_adverse": 0.0,
         "net": 0.67
       },
-      "grade_basis": "按当前本人已实现成果及实际角色裁决：奉命实际攻破苦竹隘=B/D2（decisive_creator）；与阿术赴济南，邀击大破李璮军并斩首四千=B/D2（co_decisive）。正向能力路径=one_a_or_two_independent_b；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。"
+      "grade_basis": "按当前本人已实现成果及实际角色裁决：奉命实际攻破苦竹隘=B/D2（decisive_creator）；与阿术赴济南，邀击大破李璮军并斩首四千=B/D2（co_decisive）。正向能力路径=one_a_or_two_independent_b；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-F8C48BEAF50A292D",
@@ -7019,7 +7403,12 @@
       },
       "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前定为 capable。 统筹现按具体操作—实施—本人结果链准入，正负对称；国家A级结果不直接成为本人A级能力情境，统筹D为空不豁免实际败果。",
       "objective_shortfalls": [],
-      "excluded_command_records": []
+      "excluded_command_records": [],
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-C5650360217356A7",
@@ -7197,7 +7586,12 @@
       },
       "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前定为 capable。 统筹现按具体操作—实施—本人结果链准入，正负对称；国家A级结果不直接成为本人A级能力情境，统筹D为空不豁免实际败果。",
       "objective_shortfalls": [],
-      "excluded_command_records": []
+      "excluded_command_records": [],
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-80AF479F239D86CB",
@@ -7341,7 +7735,12 @@
         "command_adverse": 0.0,
         "net": 0.25
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前定为 capable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前定为 capable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-D3815383EE6B0BB6",
@@ -7502,7 +7901,21 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": false
+          "evidence_lower_bound": false,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：甘卓兵力倍于武昌留军，邓骞、乐道融先后建议直取武昌或断彭泽；他发布讨敦檄文后却在猪口停数十日，王敦取建康后仍拒绝断彭泽，最终撤回、散兵佃作并解除戒备，全军窗口和本人家族均覆灭。败绩A级、决策责任明确，但未形成高强度正面交战，难度应D1而非D2。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "資治通鑑/卷092@1552069",
+              "WAR-LEAD-GANZHUO-322"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-AUDIT-WAR-LEAD-GANZHUO-322-甘卓"
+          }
         }
       ],
       "failure_accountability": [
@@ -7529,7 +7942,21 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": false,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：甘卓兵力倍于武昌留军，邓骞、乐道融先后建议直取武昌或断彭泽；他发布讨敦檄文后却在猪口停数十日，王敦取建康后仍拒绝断彭泽，最终撤回、散兵佃作并解除戒备，全军窗口和本人家族均覆灭。败绩A级、决策责任明确，但未形成高强度正面交战，难度应D1而非D2。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "資治通鑑/卷092@1552069",
+              "WAR-LEAD-GANZHUO-322"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-AUDIT-WAR-LEAD-GANZHUO-322-甘卓"
+          }
         },
         {
           "campaign_ref": "WAR-LEAD-GANZHUO-322",
@@ -7586,14 +8013,19 @@
           "failure_impact_tier": "A"
         }
       ],
-      "net_strategic_value": 0.01,
+      "net_strategic_value": -0.19,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.61,
         "operational_positive": 0.0,
-        "command_adverse": -0.6,
-        "net": 0.01
+        "command_adverse": -0.8,
+        "net": -0.19
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前定为 capable。 稳定性状态=stability_limited_major_failure。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前定为 capable。 稳定性状态=stability_limited_major_failure。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-638FC5EE383BCF18",
@@ -7751,7 +8183,20 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：行动句和结果句均闭合张珏所统防御主力崩溃；实际负向结果成立，但个人过失证据不足。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷183@2334250#擊之，玨兵大潰。其夜"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-647D89C4063CECB5AB27"
+          }
         }
       ],
       "failure_accountability": [
@@ -7777,7 +8222,20 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：行动句和结果句均闭合张珏所统防御主力崩溃；实际负向结果成立，但个人过失证据不足。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷183@2334250#擊之，玨兵大潰。其夜"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-647D89C4063CECB5AB27"
+          }
         }
       ],
       "attributable_failures": [
@@ -7808,7 +8266,12 @@
         "command_adverse": -0.8,
         "net": -0.16
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前可证下限为 capable，覆盖增加后可复核升级，非冻结终值。 稳定性状态=stability_limited_major_failure。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_a_or_two_independent_b 当前可证下限为 capable，覆盖增加后可复核升级，非冻结终值。 稳定性状态=stability_limited_major_failure。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-62C3D30D0409E01B",
@@ -7905,7 +8368,12 @@
         "command_adverse": 0.0,
         "net": 0.5
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-8CF411BC41E8FC8D",
@@ -8002,7 +8470,12 @@
         "command_adverse": 0.0,
         "net": 0.5
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-18750F8A38EF288A",
@@ -8101,7 +8574,12 @@
         "command_adverse": 0.0,
         "net": 0.5
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-B7C032FE2BB6086D",
@@ -8198,7 +8676,12 @@
         "command_adverse": 0.0,
         "net": 0.5
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-9C0309B5BD206921",
@@ -8297,7 +8780,12 @@
         "command_adverse": 0.0,
         "net": 0.42
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-979D1E7ABB9F48AE",
@@ -8394,7 +8882,12 @@
         "command_adverse": 0.0,
         "net": 0.4
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-A72F7D8E574A1777",
@@ -8495,7 +8988,12 @@
         "command_adverse": 0.0,
         "net": 0.4
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-2E05598535DA046A",
@@ -8594,7 +9092,12 @@
         "command_adverse": 0.0,
         "net": 0.4
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-DEE008625CEA92BD",
@@ -8679,8 +9182,87 @@
           "evidence_lower_bound": false
         }
       ],
-      "capability_episode_count": 2,
+      "capability_episode_count": 3,
       "capability_episode_anchors": [
+        {
+          "campaign_ref": "PCR-AUDIT---B7BAD1EE6D",
+          "capability_episode_ref": "PCR-AUDIT---B7BAD1EE6D",
+          "canonical_label": "祖逖在该战役群中的mixed_review人物成果：先击败大掠豫州的陈川。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "independent_direction",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": "independent_direction_scope",
+          "causal_fault": "UNKNOWN",
+          "campaign_tier": "B",
+          "combat_difficulty": null,
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "先击败大掠豫州的陈川。 初次破敌确有结果；后撤止损不另作正果。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+          "source_refs": [
+            "資治通鑑/卷091@2042381",
+            "WAR-LEAD-CHENCHUAN-319"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": false,
+          "mixed_result_review": {
+            "schema_version": "military-mixed-result-review-v1",
+            "decision": "mixed_review",
+            "positive_result": "先击败大掠豫州的陈川。",
+            "adverse_result": "石虎援军在浚仪破晋军，继而连退、据点失控。",
+            "retention": "初次破敌确有结果；后撤止损不另作正果。",
+            "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+            "source_refs": [
+              "資治通鑑/卷091@2042381",
+              "WAR-LEAD-CHENCHUAN-319"
+            ],
+            "components": [
+              {
+                "direction": "positive",
+                "effect_tier": "B",
+                "combat_difficulty": null,
+                "canonical_label": "祖逖在该战役群中的mixed_review人物成果：先击败大掠豫州的陈川。",
+                "decisive_relation": "decisive_creator",
+                "basis": "先击败大掠豫州的陈川。 初次破敌确有结果；后撤止损不另作正果。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                "source_refs": [
+                  "資治通鑑/卷091@2042381",
+                  "WAR-LEAD-CHENCHUAN-319"
+                ]
+              },
+              {
+                "direction": "negative",
+                "effect_tier": "B",
+                "combat_difficulty": "D2",
+                "canonical_label": "祖逖在该战役群中的mixed_review人物成果：石虎援军在浚仪破晋军，继而连退、据点失控。",
+                "basis": "石虎援军在浚仪破晋军，继而连退、据点失控。 初次破敌确有结果；后撤止损不另作正果。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                "source_refs": [
+                  "資治通鑑/卷091@2042381",
+                  "WAR-LEAD-CHENCHUAN-319"
+                ],
+                "adverse_result_review": {
+                  "schema_version": "military-adverse-result-v2",
+                  "effect_tier": "B",
+                  "basis": "石虎援军在浚仪破晋军，继而连退、据点失控。 初次破敌确有结果；后撤止损不另作正果。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "personal_scope": "independent_direction_scope",
+                  "responsibility_coefficient": 0.85,
+                  "source_refs": [
+                    "資治通鑑/卷091@2042381",
+                    "WAR-LEAD-CHENCHUAN-319"
+                  ],
+                  "difficulty_used_as_penalty": false,
+                  "causal_fault": "UNKNOWN",
+                  "deduplication_ref": "PCR-AUDIT---B7BAD1EE6D"
+                }
+              }
+            ],
+            "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
+          },
+          "direction": "positive",
+          "effect_tier": "B",
+          "episode_result_count": 1
+        },
         {
           "campaign_ref": "PCR-LOW-80F87F948413CCD8",
           "capability_episode_ref": "PCR-LOW-80F87F948413CCD8",
@@ -8767,7 +9349,47 @@
             "source_refs": [
               "資治通鑑/卷091@2042381",
               "WAR-LEAD-CHENCHUAN-319"
-            ]
+            ],
+            "components": [
+              {
+                "direction": "positive",
+                "effect_tier": "B",
+                "combat_difficulty": null,
+                "canonical_label": "祖逖在该战役群中的mixed_review人物成果：先击败大掠豫州的陈川。",
+                "decisive_relation": "decisive_creator",
+                "basis": "先击败大掠豫州的陈川。 初次破敌确有结果；后撤止损不另作正果。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                "source_refs": [
+                  "資治通鑑/卷091@2042381",
+                  "WAR-LEAD-CHENCHUAN-319"
+                ]
+              },
+              {
+                "direction": "negative",
+                "effect_tier": "B",
+                "combat_difficulty": "D2",
+                "canonical_label": "祖逖在该战役群中的mixed_review人物成果：石虎援军在浚仪破晋军，继而连退、据点失控。",
+                "basis": "石虎援军在浚仪破晋军，继而连退、据点失控。 初次破敌确有结果；后撤止损不另作正果。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                "source_refs": [
+                  "資治通鑑/卷091@2042381",
+                  "WAR-LEAD-CHENCHUAN-319"
+                ],
+                "adverse_result_review": {
+                  "schema_version": "military-adverse-result-v2",
+                  "effect_tier": "B",
+                  "basis": "石虎援军在浚仪破晋军，继而连退、据点失控。 初次破敌确有结果；后撤止损不另作正果。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "personal_scope": "independent_direction_scope",
+                  "responsibility_coefficient": 0.85,
+                  "source_refs": [
+                    "資治通鑑/卷091@2042381",
+                    "WAR-LEAD-CHENCHUAN-319"
+                  ],
+                  "difficulty_used_as_penalty": false,
+                  "causal_fault": "UNKNOWN",
+                  "deduplication_ref": "PCR-AUDIT---B7BAD1EE6D"
+                }
+              }
+            ],
+            "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
           }
         }
       ],
@@ -8806,22 +9428,67 @@
             "source_refs": [
               "資治通鑑/卷091@2042381",
               "WAR-LEAD-CHENCHUAN-319"
-            ]
+            ],
+            "components": [
+              {
+                "direction": "positive",
+                "effect_tier": "B",
+                "combat_difficulty": null,
+                "canonical_label": "祖逖在该战役群中的mixed_review人物成果：先击败大掠豫州的陈川。",
+                "decisive_relation": "decisive_creator",
+                "basis": "先击败大掠豫州的陈川。 初次破敌确有结果；后撤止损不另作正果。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                "source_refs": [
+                  "資治通鑑/卷091@2042381",
+                  "WAR-LEAD-CHENCHUAN-319"
+                ]
+              },
+              {
+                "direction": "negative",
+                "effect_tier": "B",
+                "combat_difficulty": "D2",
+                "canonical_label": "祖逖在该战役群中的mixed_review人物成果：石虎援军在浚仪破晋军，继而连退、据点失控。",
+                "basis": "石虎援军在浚仪破晋军，继而连退、据点失控。 初次破敌确有结果；后撤止损不另作正果。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                "source_refs": [
+                  "資治通鑑/卷091@2042381",
+                  "WAR-LEAD-CHENCHUAN-319"
+                ],
+                "adverse_result_review": {
+                  "schema_version": "military-adverse-result-v2",
+                  "effect_tier": "B",
+                  "basis": "石虎援军在浚仪破晋军，继而连退、据点失控。 初次破敌确有结果；后撤止损不另作正果。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "personal_scope": "independent_direction_scope",
+                  "responsibility_coefficient": 0.85,
+                  "source_refs": [
+                    "資治通鑑/卷091@2042381",
+                    "WAR-LEAD-CHENCHUAN-319"
+                  ],
+                  "difficulty_used_as_penalty": false,
+                  "causal_fault": "UNKNOWN",
+                  "deduplication_ref": "PCR-AUDIT---B7BAD1EE6D"
+                }
+              }
+            ],
+            "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
           },
           "source_alias_refs": []
         }
       ],
       "attributable_failures": [],
-      "net_strategic_value": 0.39,
+      "net_strategic_value": 0.48,
       "net_strategic_value_breakdown": {
-        "frontline_positive": 0.44,
+        "frontline_positive": 0.75,
         "operational_positive": 0.0,
-        "command_adverse": -0.06,
-        "net": 0.39
+        "command_adverse": -0.27,
+        "net": 0.48
       },
       "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。 混合准入现按本人实际正果、败果和目标短缺分裁；仅止损、死亡或非指挥行为不替代军事结果。新闭局部正果仅按现行合同复核能力下限，不按净值换档。",
       "objective_shortfalls": [],
-      "excluded_command_records": []
+      "excluded_command_records": [],
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-A591F5D8EE86A68F",
@@ -8920,7 +9587,12 @@
         "command_adverse": 0.0,
         "net": 0.34
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-31038E4D9BB827F5",
@@ -9017,7 +9689,12 @@
         "command_adverse": 0.0,
         "net": 0.34
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-B4F011A623223188",
@@ -9116,7 +9793,12 @@
         "command_adverse": 0.0,
         "net": 0.34
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-268BAC5C3307274B",
@@ -9213,7 +9895,12 @@
         "command_adverse": 0.0,
         "net": 0.34
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-EF27AAE4C7C8138F",
@@ -9310,7 +9997,12 @@
         "command_adverse": 0.0,
         "net": 0.3
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-BD8FEC0D06CA660A",
@@ -9409,7 +10101,12 @@
         "command_adverse": 0.0,
         "net": 0.3
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-1183055F4702C0B1",
@@ -9526,7 +10223,12 @@
         "command_adverse": 0.0,
         "net": 0.3
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-F151E40307CA11D0",
@@ -9642,7 +10344,12 @@
         "command_adverse": 0.0,
         "net": 0.3
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-3A81FC8963F30F35",
@@ -9739,7 +10446,12 @@
         "command_adverse": 0.0,
         "net": 0.3
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-D551451CDDD76073",
@@ -9895,7 +10607,12 @@
         "command_adverse": 0.0,
         "net": 0.18
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-5006149DA74F61A7",
@@ -10000,7 +10717,12 @@
         "command_adverse": 0.0,
         "net": 0.18
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-3FEAC3B8BC9D67CA",
@@ -10099,7 +10821,12 @@
         "command_adverse": 0.0,
         "net": 0.4
       },
-      "grade_basis": "按当前本人已实现成果及实际角色裁决：162年统十余万军至长沙、再破武陵并促成大批受降，完成重大阶段性平定；163至165年同一父链继续复发，故本人取B/D2阶段成果而不复制最终A档。=B/D2（decisive_creator）。正向能力路径=one_realized_command_result；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。"
+      "grade_basis": "按当前本人已实现成果及实际角色裁决：162年统十余万军至长沙、再破武陵并促成大批受降，完成重大阶段性平定；163至165年同一父链继续复发，故本人取B/D2阶段成果而不复制最终A档。=B/D2（decisive_creator）。正向能力路径=one_realized_command_result；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-305655D13FED283B",
@@ -10198,7 +10925,12 @@
         "command_adverse": 0.0,
         "net": 0.14
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-E929FE1B27C55368",
@@ -10297,7 +11029,12 @@
         "command_adverse": 0.0,
         "net": 0.14
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-0A5C0CB98955AC2C",
@@ -10398,7 +11135,12 @@
         "command_adverse": 0.0,
         "net": 0.14
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-C382339D384FE3A0",
@@ -10503,7 +11245,12 @@
         "command_adverse": 0.0,
         "net": 0.14
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-2FCDBE9F75196B91",
@@ -10606,7 +11353,12 @@
         "command_adverse": 0.0,
         "net": 0.14
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-0CED05A52622D26C",
@@ -10711,7 +11463,12 @@
         "command_adverse": 0.0,
         "net": 0.14
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-48AFF9A72D32402D",
@@ -10856,6 +11613,11 @@
         ],
         "career_scope": "996少年军役—1058卒，宋史278全传包括晚年军政",
         "source_limit": "无已定位未读可改变档位的军事事件；本传未证阅兵与国家和约确定因果，不消费但保留操作事实。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
       }
     },
     {
@@ -10953,7 +11715,12 @@
         "command_adverse": 0.0,
         "net": 0.14
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-12E3B86CCD832055",
@@ -11097,7 +11864,12 @@
         "command_adverse": 0.0,
         "net": 0.14
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-A15989D7CA2378A6",
@@ -11196,7 +11968,12 @@
         "command_adverse": 0.0,
         "net": 0.11
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-E15C2D6A3D8091E0",
@@ -11293,7 +12070,12 @@
         "command_adverse": 0.0,
         "net": 0.11
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-01AD37B694C8AA7F",
@@ -11396,7 +12178,12 @@
         "command_adverse": 0.0,
         "net": 0.1
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-ADF6D81B9CC914F7",
@@ -11505,7 +12292,12 @@
         "command_adverse": 0.0,
         "net": 0.1
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-F7B6DEBAD1C2190B",
@@ -11618,7 +12410,12 @@
         "command_adverse": 0.0,
         "net": 0.1
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-206222891D72A7E8",
@@ -11717,7 +12514,12 @@
         "command_adverse": 0.0,
         "net": 0.1
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-3380EE0FFF0DC289",
@@ -11871,7 +12673,12 @@
         "command_adverse": 0.0,
         "net": 0.07
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-B8FF5781979C5EC4",
@@ -11970,7 +12777,12 @@
         "command_adverse": 0.0,
         "net": 0.05
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-C550EC78F9252310",
@@ -12067,7 +12879,12 @@
         "command_adverse": 0.0,
         "net": 0.05
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-AF587FA09EC0A0DB",
@@ -12164,7 +12981,12 @@
         "command_adverse": 0.0,
         "net": 0.05
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-0077CB09E989F953",
@@ -12261,7 +13083,12 @@
         "command_adverse": 0.0,
         "net": 0.05
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-77124074A9DED300",
@@ -12362,7 +13189,12 @@
         "command_adverse": 0.0,
         "net": 0.05
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-D420B153A1F00715",
@@ -12461,7 +13293,12 @@
         "command_adverse": 0.0,
         "net": 0.04
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-B3B9B0513DB77F5C",
@@ -12558,7 +13395,12 @@
         "command_adverse": 0.0,
         "net": 0.04
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-14D1E580C154CB52",
@@ -12657,7 +13499,12 @@
         "command_adverse": 0.0,
         "net": 0.11
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-09E1B82FCC4348A1",
@@ -12754,7 +13601,12 @@
         "command_adverse": 0.0,
         "net": 0.1
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-F422110389AA405E",
@@ -12859,7 +13711,12 @@
         "command_adverse": 0.0,
         "net": 0.04
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-C6A8B292B40B0431",
@@ -12962,7 +13819,12 @@
         "command_adverse": 0.0,
         "net": 0.04
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-2AE2832F434CBD41",
@@ -13145,7 +14007,22 @@
           ],
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：实际连续统军且目标未达，保存本人失败；不把其济南经营另行正绩混入本组。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷214@2340460#毛貴陷濟南路，守將愛迪戰死。",
+              "續資治通鑑/卷214@2340460#眾刺殺之，無血，惟見有白氣沖天。",
+              "續資治通鑑/卷214@2340460#戰于柳林，官軍捷，賊退走，京師乃安。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-3BDEC40A864CFFE91648"
+          }
         }
       ],
       "failure_accountability": [
@@ -13173,7 +14050,22 @@
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：实际连续统军且目标未达，保存本人失败；不把其济南经营另行正绩混入本组。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷214@2340460#毛貴陷濟南路，守將愛迪戰死。",
+              "續資治通鑑/卷214@2340460#眾刺殺之，無血，惟見有白氣沖天。",
+              "續資治通鑑/卷214@2340460#戰于柳林，官軍捷，賊退走，京師乃安。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-3BDEC40A864CFFE91648"
+          }
         }
       ],
       "attributable_failures": [],
@@ -13184,7 +14076,12 @@
         "command_adverse": -0.32,
         "net": 0.07
       },
-      "grade_basis": "按当前本人已实现成果及实际角色裁决：连续攻陷清沧济南般阳。=C/D1（decisive_creator）；连续攻陷胶莱益都滨莒等地。=B/D1（decisive_creator）。正向能力路径=one_realized_command_result；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。"
+      "grade_basis": "按当前本人已实现成果及实际角色裁决：连续攻陷清沧济南般阳。=C/D1（decisive_creator）；连续攻陷胶莱益都滨莒等地。=B/D1（decisive_creator）。正向能力路径=one_realized_command_result；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-5B48BE442FD301CA",
@@ -13296,7 +14193,21 @@
           ],
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D1",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：现有仅消费最终克南京；事实卡明确闍母初败后才由宗望接管，先败阶段遗漏。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "金史/卷3@2432693#庚午，宗望及張覺戰于南京東，大敗之。張覺奔宋",
+              "金史/卷3@2432693#闍母克南京，殺都統張敦固。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-9C0BCBB99BAD7D84D7E2"
+          }
         }
       ],
       "failure_accountability": [
@@ -13323,7 +14234,21 @@
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D1",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：现有仅消费最终克南京；事实卡明确闍母初败后才由宗望接管，先败阶段遗漏。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "金史/卷3@2432693#庚午，宗望及張覺戰于南京東，大敗之。張覺奔宋",
+              "金史/卷3@2432693#闍母克南京，殺都統張敦固。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-9C0BCBB99BAD7D84D7E2"
+          }
         }
       ],
       "attributable_failures": [
@@ -13348,14 +14273,19 @@
           ]
         }
       ],
-      "net_strategic_value": -0.09,
+      "net_strategic_value": -0.17,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.15,
         "operational_positive": 0.0,
-        "command_adverse": -0.24,
-        "net": -0.09
+        "command_adverse": -0.32,
+        "net": -0.17
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-67ED51F6C39D3283",
@@ -13526,7 +14456,12 @@
         "command_adverse": 0.0,
         "net": 0.1
       },
-      "grade_basis": "按当前本人已实现成果及实际角色裁决：攻陷蕲水黄州并建立政权。=C/D1（co_decisive）。正向能力路径=one_realized_command_result；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。"
+      "grade_basis": "按当前本人已实现成果及实际角色裁决：攻陷蕲水黄州并建立政权。=C/D1（co_decisive）。正向能力路径=one_realized_command_result；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-14DAB0941186A835",
@@ -13645,7 +14580,22 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：奉命救援却因惧不进，未形成正向战果；明确不进造成救援失败。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "西夏書事/33@2289939#仁多泉城降于熙河將劉法，法屠之。",
+              "西夏書事/33@2289939#察哥聞法名不敢進，城中孤守月餘，力竭出降。",
+              "西夏書事/33@2289939#法受而屠之，死者三千餘人。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "EXPLICIT_FAILURE_TO_ADVANCE",
+            "deduplication_ref": "PCR-08624F3A3E3F0F64DD1E"
+          }
         },
         {
           "campaign_ref": "PCR-2DB0900E4788CCB8AC90",
@@ -13670,7 +14620,22 @@
           ],
           "parent_campaign_tier": "C",
           "parent_combat_difficulty": "D1",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合察哥的实际行动与本人结果：亲自再围震武并昼夜猛攻，援军至后撤退、目标未达。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "西夏書事/33@2289939#五月，復圍震武軍，不克。",
+              "西夏書事/33@2289939#察哥因童貫兵進鳴沙，復至震武，日夜百道攻之，城中危甚。",
+              "西夏書事/33@2289939#會貫兵還救，乃退。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-2DB0900E4788CCB8AC90"
+          }
         }
       ],
       "failure_accountability": [
@@ -13698,7 +14663,22 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：奉命救援却因惧不进，未形成正向战果；明确不进造成救援失败。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "西夏書事/33@2289939#仁多泉城降于熙河將劉法，法屠之。",
+              "西夏書事/33@2289939#察哥聞法名不敢進，城中孤守月餘，力竭出降。",
+              "西夏書事/33@2289939#法受而屠之，死者三千餘人。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "EXPLICIT_FAILURE_TO_ADVANCE",
+            "deduplication_ref": "PCR-08624F3A3E3F0F64DD1E"
+          }
         },
         {
           "campaign_ref": "PCR-2DB0900E4788CCB8AC90",
@@ -13724,7 +14704,22 @@
           "parent_campaign_tier": "C",
           "parent_combat_difficulty": "D1",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合察哥的实际行动与本人结果：亲自再围震武并昼夜猛攻，援军至后撤退、目标未达。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "西夏書事/33@2289939#五月，復圍震武軍，不克。",
+              "西夏書事/33@2289939#察哥因童貫兵進鳴沙，復至震武，日夜百道攻之，城中危甚。",
+              "西夏書事/33@2289939#會貫兵還救，乃退。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-2DB0900E4788CCB8AC90"
+          }
         }
       ],
       "attributable_failures": [
@@ -13771,14 +14766,19 @@
           ]
         }
       ],
-      "net_strategic_value": -0.59,
+      "net_strategic_value": -0.42,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.5,
         "operational_positive": 0.0,
-        "command_adverse": -1.09,
-        "net": -0.59
+        "command_adverse": -0.92,
+        "net": -0.42
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。 稳定性状态=stability_limited_major_failure。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前可证下限为 usable，覆盖增加后可复核升级，非冻结终值。 稳定性状态=stability_limited_major_failure。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-84206D1C3F021887",
@@ -13893,7 +14893,22 @@
           ],
           "parent_campaign_tier": "S-",
           "parent_combat_difficulty": "D3",
-          "evidence_lower_bound": false
+          "evidence_lower_bound": false,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "S-",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：统淄青多州反汴，终局多州失守并以弟为质请降；与朱全忠正向终局分列实际败果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "資治通鑑/卷263@1502862",
+              "資治通鑑/卷264@1775896",
+              "WAR-LEAD-264-PINGLU-END"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "WAR-LEAD-264-PINGLU-END"
+          }
         }
       ],
       "failure_accountability": [
@@ -13921,18 +14936,38 @@
           "parent_campaign_tier": "S-",
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": false,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "S-",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：统淄青多州反汴，终局多州失守并以弟为质请降；与朱全忠正向终局分列实际败果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "資治通鑑/卷263@1502862",
+              "資治通鑑/卷264@1775896",
+              "WAR-LEAD-264-PINGLU-END"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "WAR-LEAD-264-PINGLU-END"
+          }
         }
       ],
       "attributable_failures": [],
-      "net_strategic_value": -1.8,
+      "net_strategic_value": -1.36,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.4,
         "operational_positive": 0.0,
-        "command_adverse": -2.2,
-        "net": -1.8
+        "command_adverse": -1.76,
+        "net": -1.36
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。 稳定性状态=stability_limited_major_failure。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 one_realized_command_result 当前定为 usable。 稳定性状态=stability_limited_major_failure。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-A5B8ACE696A5820E",
@@ -14031,7 +15066,12 @@
         "command_adverse": 0.0,
         "net": 0.34
       },
-      "grade_basis": "现有已闭本人B级正向共同执行或战区设计成立，无已登记负向情境；按至少一项已实现C/B贡献取得usable证据下限。未知具体节制关系不等于没有已实现贡献，不声明全生涯上限。"
+      "grade_basis": "现有已闭本人B级正向共同执行或战区设计成立，无已登记负向情境；按至少一项已实现C/B贡献取得usable证据下限。未知具体节制关系不等于没有已实现贡献，不声明全生涯上限。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-B21055D840A008DD",
@@ -14052,7 +15092,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14079,7 +15119,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-DD5E444959848A66",
@@ -14100,7 +15150,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14143,7 +15193,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-BE3EEC97DCDC6DEF",
@@ -14164,7 +15224,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14222,7 +15282,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-ABB7F89A75017EBB",
@@ -14243,7 +15313,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14286,7 +15356,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-3651C2FE543EFD31",
@@ -14307,7 +15387,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14350,7 +15430,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-75618080A15A0FA5",
@@ -14372,7 +15462,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14399,7 +15489,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-3E5761F7E4E8F8AB",
@@ -14420,7 +15520,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14463,7 +15563,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-B194D02313FD292F",
@@ -14484,7 +15594,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14511,7 +15621,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-402C513130586C84",
@@ -14532,7 +15652,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14559,7 +15679,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-90747966B23C6D68",
@@ -14580,7 +15710,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14607,7 +15737,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-88E6BD7EBE03F940",
@@ -14628,7 +15768,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14655,7 +15795,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-25108742F3933502",
@@ -14676,7 +15826,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14703,7 +15853,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-C077BCB3E28344B5",
@@ -14724,7 +15884,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14751,7 +15911,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-69FDC18EFB0590B4",
@@ -14772,7 +15942,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14799,7 +15969,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-7D8902AC0DB2C9BE",
@@ -14822,15 +16002,15 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "stability_limited_major_failure",
       "major_adverse_episode_refs": [
         "WAR-LEAD-144-07"
       ],
       "stability_gate": {
         "major_positive_context_count": 0,
-        "major_adverse_context_count": 1,
-        "commander_responsibility_major_failure_count": 1,
+        "major_adverse_context_count": 0,
+        "commander_responsibility_major_failure_count": 0,
         "high_peak_count": 0,
         "abundant_peak_exception": false,
         "stability_cap_applied": false
@@ -14889,7 +16069,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。 稳定性状态=stability_limited_major_failure。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。 稳定性状态=stability_limited_major_failure。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-E712F5CE0D793B17",
@@ -14910,7 +16100,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14937,7 +16127,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-53A3BE006F28FF18",
@@ -14958,7 +16158,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -14985,7 +16185,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-8869854D568EBF19",
@@ -15006,7 +16216,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -15033,7 +16243,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-699AF9CFED356E80",
@@ -15054,7 +16274,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -15081,7 +16301,17 @@
         "command_adverse": 0.0,
         "net": 0.0
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-9C33F93DA467793E",
@@ -15102,7 +16332,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -15141,7 +16371,20 @@
           ],
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": false
+          "evidence_lower_bound": false,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：轻敌出城被拘，直接造成围城，保留明确失败责任。 本项只结算本人可观察的负向结果，不继承父群其他方向、其他人物或未完成部分。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 0.85,
+            "source_refs": [
+              "資治通鑑/卷123@617587"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-LOW-EA3D7850A9BAFA46"
+          }
         }
       ],
       "failure_accountability": [
@@ -15167,18 +16410,41 @@
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": false,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：轻敌出城被拘，直接造成围城，保留明确失败责任。 本项只结算本人可观察的负向结果，不继承父群其他方向、其他人物或未完成部分。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 0.85,
+            "source_refs": [
+              "資治通鑑/卷123@617587"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-LOW-EA3D7850A9BAFA46"
+          }
         }
       ],
       "attributable_failures": [],
-      "net_strategic_value": -0.08,
+      "net_strategic_value": -0.1,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.0,
         "operational_positive": 0.0,
-        "command_adverse": -0.08,
-        "net": -0.08
+        "command_adverse": -0.1,
+        "net": -0.1
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-63A96DEEC924DFE4",
@@ -15243,7 +16509,25 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：古州叛乱中作为镇抚迎战并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷3@2597561#阿資復叛，西平侯沐春擊敗之。",
+              "明史/卷3@2597561#何福討都勻、畢節諸蠻，平之。",
+              "明史/卷3@2597561#水西蠻叛，都督僉事顧成為征南將軍，討平之。",
+              "明史/卷3@2597561#古州蠻叛，龍里千戶吳得、鎮撫井孚戰死。",
+              "明史/卷3@2597561#麓川平緬土酋刀幹孟逐其宣慰使思倫發以叛。",
+              "明史/卷3@2597561#沐春擊刀幹孟，大敗之。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-E1EE069D1BF2EB69E7F3"
+          }
         }
       ],
       "failure_accountability": [
@@ -15274,7 +16558,25 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：古州叛乱中作为镇抚迎战并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷3@2597561#阿資復叛，西平侯沐春擊敗之。",
+              "明史/卷3@2597561#何福討都勻、畢節諸蠻，平之。",
+              "明史/卷3@2597561#水西蠻叛，都督僉事顧成為征南將軍，討平之。",
+              "明史/卷3@2597561#古州蠻叛，龍里千戶吳得、鎮撫井孚戰死。",
+              "明史/卷3@2597561#麓川平緬土酋刀幹孟逐其宣慰使思倫發以叛。",
+              "明史/卷3@2597561#沐春擊刀幹孟，大敗之。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-E1EE069D1BF2EB69E7F3"
+          }
         }
       ],
       "attributable_failures": [
@@ -15303,14 +16605,24 @@
           ]
         }
       ],
-      "net_strategic_value": -0.09,
+      "net_strategic_value": -0.12,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.0,
         "operational_positive": 0.0,
-        "command_adverse": -0.09,
-        "net": -0.09
+        "command_adverse": -0.12,
+        "net": -0.12
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-EEF1BA5C48F97430",
@@ -15373,7 +16685,23 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与任寿、陈价共同迎战满俊并败绩。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷13@2594669#開城賊滿俊反",
+              "明史/卷13@2594669#任壽、陳价、寧夏總兵官廣義伯吳琮及滿俊戰，敗績",
+              "明史/卷13@2594669#項忠敗賊於石城，伏羌伯毛忠戰死。",
+              "明史/卷13@2594669#項忠擊擒滿俊，送京師，伏誅。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-05522A6E33AEA5FF6051"
+          }
         }
       ],
       "failure_accountability": [
@@ -15402,7 +16730,23 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与任寿、陈价共同迎战满俊并败绩。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷13@2594669#開城賊滿俊反",
+              "明史/卷13@2594669#任壽、陳价、寧夏總兵官廣義伯吳琮及滿俊戰，敗績",
+              "明史/卷13@2594669#項忠敗賊於石城，伏羌伯毛忠戰死。",
+              "明史/卷13@2594669#項忠擊擒滿俊，送京師，伏誅。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-05522A6E33AEA5FF6051"
+          }
         }
       ],
       "attributable_failures": [
@@ -15429,14 +16773,24 @@
           ]
         }
       ],
-      "net_strategic_value": -0.09,
+      "net_strategic_value": -0.12,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.0,
         "operational_positive": 0.0,
-        "command_adverse": -0.09,
-        "net": -0.09
+        "command_adverse": -0.12,
+        "net": -0.12
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-9EF73B6284E6BDEC",
@@ -15498,7 +16852,22 @@
           ],
           "parent_campaign_tier": "C",
           "parent_combat_difficulty": "D1",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合尤世功的实际行动与本人结果：守沈阳战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷22@2594638#大清兵取瀋陽，總兵官尤世功、賀世賢戰死。",
+              "明史/卷22@2594638#戰於渾河，皆敗沒。",
+              "明史/卷22@2594638#大清兵取遼陽，經略袁應泰等死之。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-4EFD42247DB1EDD90633"
+          }
         }
       ],
       "failure_accountability": [
@@ -15526,7 +16895,22 @@
           "parent_campaign_tier": "C",
           "parent_combat_difficulty": "D1",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合尤世功的实际行动与本人结果：守沈阳战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷22@2594638#大清兵取瀋陽，總兵官尤世功、賀世賢戰死。",
+              "明史/卷22@2594638#戰於渾河，皆敗沒。",
+              "明史/卷22@2594638#大清兵取遼陽，經略袁應泰等死之。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-4EFD42247DB1EDD90633"
+          }
         }
       ],
       "attributable_failures": [
@@ -15552,14 +16936,24 @@
           ]
         }
       ],
-      "net_strategic_value": -0.09,
+      "net_strategic_value": -0.12,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.0,
         "operational_positive": 0.0,
-        "command_adverse": -0.09,
-        "net": -0.09
+        "command_adverse": -0.12,
+        "net": -0.12
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-10C4495A3901BA93",
@@ -15623,7 +17017,24 @@
           ],
           "parent_campaign_tier": "C",
           "parent_combat_difficulty": "D1",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+              "明史/卷6@2594619#討本雅失里。",
+              "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+              "明史/卷6@2594619#遂決意親征。",
+              "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-D4D03A25218862C65137"
+          }
         }
       ],
       "failure_accountability": [
@@ -15653,7 +17064,24 @@
           "parent_campaign_tier": "C",
           "parent_combat_difficulty": "D1",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+              "明史/卷6@2594619#討本雅失里。",
+              "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+              "明史/卷6@2594619#遂決意親征。",
+              "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-D4D03A25218862C65137"
+          }
         }
       ],
       "attributable_failures": [
@@ -15681,14 +17109,24 @@
           ]
         }
       ],
-      "net_strategic_value": -0.09,
+      "net_strategic_value": -0.12,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.0,
         "operational_positive": 0.0,
-        "command_adverse": -0.09,
-        "net": -0.09
+        "command_adverse": -0.12,
+        "net": -0.12
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-536B5A5A8FF3246D",
@@ -15752,7 +17190,24 @@
           ],
           "parent_campaign_tier": "C",
           "parent_combat_difficulty": "D1",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+              "明史/卷6@2594619#討本雅失里。",
+              "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+              "明史/卷6@2594619#遂決意親征。",
+              "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-95E09F08260B40816FE5"
+          }
         }
       ],
       "failure_accountability": [
@@ -15782,7 +17237,24 @@
           "parent_campaign_tier": "C",
           "parent_combat_difficulty": "D1",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+              "明史/卷6@2594619#討本雅失里。",
+              "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+              "明史/卷6@2594619#遂決意親征。",
+              "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-95E09F08260B40816FE5"
+          }
         }
       ],
       "attributable_failures": [
@@ -15810,14 +17282,24 @@
           ]
         }
       ],
-      "net_strategic_value": -0.09,
+      "net_strategic_value": -0.12,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.0,
         "operational_positive": 0.0,
-        "command_adverse": -0.09,
-        "net": -0.09
+        "command_adverse": -0.12,
+        "net": -0.12
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-9D1AEB26921F3A42",
@@ -15877,7 +17359,20 @@
           ],
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D1",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合苗再成的实际行动与本人结果：阿珠攻真州，苗再成等在老鹳觜迎战失败。；真州外围宋军败退。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷181@2329823#大戰於老鸛觜，敗績"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-043B883E7BD225626833"
+          }
         }
       ],
       "failure_accountability": [
@@ -15903,7 +17398,20 @@
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D1",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合苗再成的实际行动与本人结果：阿珠攻真州，苗再成等在老鹳觜迎战失败。；真州外围宋军败退。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷181@2329823#大戰於老鸛觜，敗績"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-043B883E7BD225626833"
+          }
         }
       ],
       "attributable_failures": [
@@ -15927,14 +17435,24 @@
           ]
         }
       ],
-      "net_strategic_value": -0.09,
+      "net_strategic_value": -0.12,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.0,
         "operational_positive": 0.0,
-        "command_adverse": -0.09,
-        "net": -0.09
+        "command_adverse": -0.12,
+        "net": -0.12
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-A4B65AB8211D69B6",
@@ -15955,7 +17473,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -15994,7 +17512,20 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": false
+          "evidence_lower_bound": false,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：独军深入且不设备而败降，只消费轵关方向B级负果，并记primary 0.7。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 0.35,
+            "source_refs": [
+              "資治通鑑/卷169@1502684"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-AUDIT---FDA38A55CA"
+          }
         }
       ],
       "failure_accountability": [
@@ -16020,7 +17551,20 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": false,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：独军深入且不设备而败降，只消费轵关方向B级负果，并记primary 0.7。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 0.35,
+            "source_refs": [
+              "資治通鑑/卷169@1502684"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-AUDIT---FDA38A55CA"
+          }
         }
       ],
       "attributable_failures": [
@@ -16048,7 +17592,17 @@
         "command_adverse": -0.11,
         "net": -0.11
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-286FCEF1317556CD",
@@ -16069,7 +17623,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -16108,7 +17662,20 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D3",
-          "evidence_lower_bound": false
+          "evidence_lower_bound": false,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：主动进讨后中高句丽诈降反袭，承担初败阶段；父A还包含后续夫余援军反击与招降终局，不能复制整个跨年父群。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 0.35,
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/汉/卷050-通读总结.md"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "WAR-LEAD-HAN-GAOGULI-121-122"
+          }
         }
       ],
       "failure_accountability": [
@@ -16134,18 +17701,41 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": false,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：主动进讨后中高句丽诈降反袭，承担初败阶段；父A还包含后续夫余援军反击与招降终局，不能复制整个跨年父群。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 0.35,
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/汉/卷050-通读总结.md"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "WAR-LEAD-HAN-GAOGULI-121-122"
+          }
         }
       ],
       "attributable_failures": [],
-      "net_strategic_value": -0.14,
+      "net_strategic_value": -0.11,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.0,
         "operational_positive": 0.0,
-        "command_adverse": -0.14,
-        "net": -0.14
+        "command_adverse": -0.11,
+        "net": -0.11
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-A7607067BE7A6C61",
@@ -16166,7 +17756,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "no_comparable_major_failure_established",
       "major_adverse_episode_refs": [],
       "stability_gate": {
@@ -16205,7 +17795,20 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D3",
-          "evidence_lower_bound": false
+          "evidence_lower_bound": false,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：率二千先行征讨而败，只消费本人前军败果；后任高仁厚完成的A/D3逆转不得倒灌。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "資治通鑑/卷255@1760490"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "WAR-LEAD-255-GORGE-REBELLION"
+          }
         }
       ],
       "failure_accountability": [
@@ -16231,7 +17834,20 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": false,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：率二千先行征讨而败，只消费本人前军败果；后任高仁厚完成的A/D3逆转不得倒灌。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "資治通鑑/卷255@1760490"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "WAR-LEAD-255-GORGE-REBELLION"
+          }
         }
       ],
       "attributable_failures": [
@@ -16259,7 +17875,17 @@
         "command_adverse": -0.32,
         "net": -0.32
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-22CFC947E1EC452B",
@@ -16321,7 +17947,22 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：逐字锚只闭合仇鸾白羊口败绩，不能把古北口突破、薄都城和整个军事体系失效全部归给他。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷18@2594633#俺答大舉入寇，攻古北口，薊鎮兵潰。",
+              "明史/卷18@2594633#壬午，薄都城。",
+              "明史/卷18@2594633#丁亥，仇鸞敗績於白羊口。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-62DA1E8D3C98D6B329CE"
+          }
         }
       ],
       "failure_accountability": [
@@ -16349,7 +17990,22 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：逐字锚只闭合仇鸾白羊口败绩，不能把古北口突破、薄都城和整个军事体系失效全部归给他。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "明史/卷18@2594633#俺答大舉入寇，攻古北口，薊鎮兵潰。",
+              "明史/卷18@2594633#壬午，薄都城。",
+              "明史/卷18@2594633#丁亥，仇鸞敗績於白羊口。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-62DA1E8D3C98D6B329CE"
+          }
         }
       ],
       "attributable_failures": [
@@ -16382,7 +18038,17 @@
         "command_adverse": -0.32,
         "net": -0.32
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-ECE8553E6CFCCB07",
@@ -16446,7 +18112,24 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：在胜州作战失败；材料未证明个人因果过错。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "金史/卷6@2432736#籍契丹部人丁壯為兵，部人不願行",
+              "金史/卷6@2432736#尚書兵部侍郎溫敦朮突剌等與窩斡戰，敗於勝州。",
+              "金史/卷6@2432736#右副元帥完顏謀衍等敗窩斡於長濼。",
+              "金史/卷6@2432736#右副元帥僕散忠義大敗窩斡於嫋嶺西陷泉。",
+              "金史/卷6@2432736#元帥右都監完顏思敬獲契丹窩斡，余眾悉平。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-96B11D73255DFB1D1916"
+          }
         }
       ],
       "failure_accountability": [
@@ -16476,7 +18159,24 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：在胜州作战失败；材料未证明个人因果过错。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "金史/卷6@2432736#籍契丹部人丁壯為兵，部人不願行",
+              "金史/卷6@2432736#尚書兵部侍郎溫敦朮突剌等與窩斡戰，敗於勝州。",
+              "金史/卷6@2432736#右副元帥完顏謀衍等敗窩斡於長濼。",
+              "金史/卷6@2432736#右副元帥僕散忠義大敗窩斡於嫋嶺西陷泉。",
+              "金史/卷6@2432736#元帥右都監完顏思敬獲契丹窩斡，余眾悉平。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-96B11D73255DFB1D1916"
+          }
         }
       ],
       "attributable_failures": [],
@@ -16487,7 +18187,17 @@
         "command_adverse": -0.32,
         "net": -0.32
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-BBF4027A39CE1771",
@@ -16547,7 +18257,20 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：拒降守沙洋，城破被擒杀",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷180@2603111#大用，餘悉屠之。\n進"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-1592585D5462B32397FF"
+          }
         }
       ],
       "failure_accountability": [
@@ -16573,7 +18296,20 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：拒降守沙洋，城破被擒杀",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷180@2603111#大用，餘悉屠之。\n進"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-1592585D5462B32397FF"
+          }
         }
       ],
       "attributable_failures": [
@@ -16604,7 +18340,17 @@
         "command_adverse": -0.32,
         "net": -0.32
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-23746A1E265F42BA",
@@ -16666,7 +18412,22 @@
           ],
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：保存战术失败事实，但无证据表明京师危机由其决策造成，不标重大败责。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷214@2340460#毛貴陷濟南路，守將愛迪戰死。",
+              "續資治通鑑/卷214@2340460#眾刺殺之，無血，惟見有白氣沖天。",
+              "續資治通鑑/卷214@2340460#戰于柳林，官軍捷，賊退走，京師乃安。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-47F9606F7B5D40D456AD"
+          }
         }
       ],
       "failure_accountability": [
@@ -16694,7 +18455,22 @@
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：保存战术失败事实，但无证据表明京师危机由其决策造成，不标重大败责。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷214@2340460#毛貴陷濟南路，守將愛迪戰死。",
+              "續資治通鑑/卷214@2340460#眾刺殺之，無血，惟見有白氣沖天。",
+              "續資治通鑑/卷214@2340460#戰于柳林，官軍捷，賊退走，京師乃安。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-47F9606F7B5D40D456AD"
+          }
         }
       ],
       "attributable_failures": [],
@@ -16705,7 +18481,17 @@
         "command_adverse": -0.32,
         "net": -0.32
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-3A00CB76471411C5",
@@ -16769,7 +18555,24 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：结果明确李玉贸然袭归安而全军覆没，保存本人可归责败绩。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "資治通鑑/卷294@2594143#極言拒絕之",
+              "資治通鑑/卷294@2594143#使，將兵六萬",
+              "資治通鑑/卷294@2594143#分屯要害以備周",
+              "資治通鑑/卷294@2594143#邀之，斬玉，其",
+              "資治通鑑/卷294@2594143#玉，其眾皆沒"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-88BA07AA90426BA5A256"
+          }
         }
       ],
       "failure_accountability": [
@@ -16799,7 +18602,24 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "B",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：结果明确李玉贸然袭归安而全军覆没，保存本人可归责败绩。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "資治通鑑/卷294@2594143#極言拒絕之",
+              "資治通鑑/卷294@2594143#使，將兵六萬",
+              "資治通鑑/卷294@2594143#分屯要害以備周",
+              "資治通鑑/卷294@2594143#邀之，斬玉，其",
+              "資治通鑑/卷294@2594143#玉，其眾皆沒"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-88BA07AA90426BA5A256"
+          }
         }
       ],
       "attributable_failures": [
@@ -16827,12 +18647,12 @@
           ]
         }
       ],
-      "net_strategic_value": -0.24,
+      "net_strategic_value": -0.32,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.0,
         "operational_positive": 0.0,
-        "command_adverse": -0.24,
-        "net": -0.24
+        "command_adverse": -0.32,
+        "net": -0.32
       },
       "grade_basis": "已按来源时间和阵营拆清本人履历；当前档仅为本人现存已实现贡献的可证下限，不声明全生涯无军事能力；净值和Gate由主控按当前消费重新计算。",
       "identity_resolution": {
@@ -16856,6 +18676,16 @@
             "identity_scope": "五代十国同名主身份"
           }
         ]
+      },
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
       }
     },
     {
@@ -16877,7 +18707,7 @@
       ],
       "military_grade": "ordinary",
       "ability_profile": "limited_realized_evidence",
-      "grade_status": "current_battle_registry_grade",
+      "grade_status": "evidence_lower_bound",
       "stability_status": "stability_limited_major_failure",
       "major_adverse_episode_refs": [
         "PCR-SG-HUJI-DUANGU-256-FAILURE"
@@ -16918,7 +18748,20 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": false
+          "evidence_lower_bound": false,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：胡济无正向战果，其可核实贡献是未按约会师并造成主攻方向孤立，按负A/D2及从属执行责任。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 0.85,
+            "source_refs": [
+              "資治通鑑/卷077@803131"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-SG-HUJI-DUANGU-256-FAILURE"
+          }
         }
       ],
       "failure_accountability": [
@@ -16944,7 +18787,20 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": false,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：胡济无正向战果，其可核实贡献是未按约会师并造成主攻方向孤立，按负A/D2及从属执行责任。",
+            "personal_scope": "independent_direction_scope",
+            "responsibility_coefficient": 0.85,
+            "source_refs": [
+              "資治通鑑/卷077@803131"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-SG-HUJI-DUANGU-256-FAILURE"
+          }
         }
       ],
       "attributable_failures": [
@@ -16972,7 +18828,17 @@
         "command_adverse": -0.68,
         "net": -0.68
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。 稳定性状态=stability_limited_major_failure。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前定为 ordinary。 稳定性状态=stability_limited_major_failure。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-85DA24E65A2A08DA",
@@ -17091,7 +18957,22 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": false,
-          "responsibility_basis": "史料明确记其拥兵不进，未救州军，直接关联溃败与重大伤亡。"
+          "responsibility_basis": "史料明确记其拥兵不进，未救州军，直接关联溃败与重大伤亡。",
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：吕辟胡先有局部压制，后又因不进造成方向崩坏；正B与负A并列，父群最终由继任者平定形成的难度不归本人。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L34",
+              "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L35",
+              "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L36"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
+            "deduplication_ref": "PCR-HAN-LUBIHU-YIZHOU-FAILURE"
+          }
         }
       ],
       "failure_accountability": [
@@ -17123,7 +19004,22 @@
           "responsibility_basis": "史料明确记其拥兵不进，未救州军，直接关联溃败与重大伤亡。",
           "source_alias_refs": [
             "WAR-LEAD-HAN-YIZHOU-86-82"
-          ]
+          ],
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：吕辟胡先有局部压制，后又因不进造成方向崩坏；正B与负A并列，父群最终由继任者平定形成的难度不归本人。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L34",
+              "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L35",
+              "docs/史料通读产物/唐以前编年/汉/卷023-通读总结.md#L36"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
+            "deduplication_ref": "PCR-HAN-LUBIHU-YIZHOU-FAILURE"
+          }
         }
       ],
       "attributable_failures": [
@@ -17154,7 +19050,12 @@
         "command_adverse": -0.8,
         "net": -0.4
       },
-      "grade_basis": "按当前本人已实现成果及实际角色裁决：入益州初期击破反叛方向并取得阶段性压制=B/D2（decisive_creator）。正向能力路径=one_realized_command_result；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。"
+      "grade_basis": "按当前本人已实现成果及实际角色裁决：入益州初期击破反叛方向并取得阶段性压制=B/D2（decisive_creator）。正向能力路径=one_realized_command_result；稳定性未达到当前失败密度封顶；低于elite的已实现C/B贡献不因终败删除。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-6EAC441FE7E66052",
@@ -17224,7 +19125,28 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：史源明确亲率而败退，保存首都防御重大败责，不以皇太子身份推定。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "元史/卷046@1814448#西道以關保領軍五萬，合擊之",
+              "元史/卷046@1814448#孛羅帖木兒留兵守大同",
+              "元史/卷046@1814448#復大舉向闕",
+              "元史/卷046@1814448#前鋒軍入居庸關",
+              "元史/卷046@1814448#軍士皆無鬭志",
+              "元史/卷046@1814448#白鎖住扈從皇太子出順承門",
+              "元史/卷046@1814448#孛羅帖木兒駐兵健德門外",
+              "元史/卷046@1814448#其部屬布列省臺百司",
+              "元史/卷046@1814448#節制天下軍馬"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-F8E4A26F8BEC492C886A"
+          }
         }
       ],
       "failure_accountability": [
@@ -17258,7 +19180,28 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：史源明确亲率而败退，保存首都防御重大败责，不以皇太子身份推定。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "元史/卷046@1814448#西道以關保領軍五萬，合擊之",
+              "元史/卷046@1814448#孛羅帖木兒留兵守大同",
+              "元史/卷046@1814448#復大舉向闕",
+              "元史/卷046@1814448#前鋒軍入居庸關",
+              "元史/卷046@1814448#軍士皆無鬭志",
+              "元史/卷046@1814448#白鎖住扈從皇太子出順承門",
+              "元史/卷046@1814448#孛羅帖木兒駐兵健德門外",
+              "元史/卷046@1814448#其部屬布列省臺百司",
+              "元史/卷046@1814448#節制天下軍馬"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-F8E4A26F8BEC492C886A"
+          }
         }
       ],
       "attributable_failures": [
@@ -17297,7 +19240,17 @@
         "command_adverse": -0.8,
         "net": -0.8
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。 稳定性状态=stability_limited_major_failure。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。 稳定性状态=stability_limited_major_failure。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-BEF7DA991F75112A",
@@ -17363,7 +19316,24 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：只消费本人阶段失败。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "清史稿/卷11@2616671#命張廣泗進剿大金川土司莎羅奔。",
+              "清史稿/卷11@2616671#訥親、張廣泗以貽誤軍機，褫職逮問。",
+              "清史稿/卷11@2616671#以大金川莎羅奔、郎卡乞降，命傅恆班師",
+              "清史稿/卷11@2616671#張廣泗處斬。",
+              "清史稿/卷11@2616671#以其祖遏必隆刀于軍前斬之。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-8BE467EA46E5ADC55C8E"
+          }
         }
       ],
       "failure_accountability": [
@@ -17393,7 +19363,24 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：只消费本人阶段失败。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "清史稿/卷11@2616671#命張廣泗進剿大金川土司莎羅奔。",
+              "清史稿/卷11@2616671#訥親、張廣泗以貽誤軍機，褫職逮問。",
+              "清史稿/卷11@2616671#以大金川莎羅奔、郎卡乞降，命傅恆班師",
+              "清史稿/卷11@2616671#張廣泗處斬。",
+              "清史稿/卷11@2616671#以其祖遏必隆刀于軍前斬之。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-8BE467EA46E5ADC55C8E"
+          }
         }
       ],
       "attributable_failures": [
@@ -17428,7 +19415,17 @@
         "command_adverse": -0.8,
         "net": -0.8
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。 稳定性状态=stability_limited_major_failure。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。 稳定性状态=stability_limited_major_failure。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-49470C1CE3A129ED",
@@ -17467,8 +19464,122 @@
       "rule_path": "realized_mixed_local_contribution_lower_bound",
       "blocked_historic_path": null,
       "consumed_achievements": [],
-      "capability_episode_count": 0,
-      "capability_episode_anchors": [],
+      "capability_episode_count": 1,
+      "capability_episode_anchors": [
+        {
+          "campaign_ref": "PCR-F44ABC32BAFD5E519931",
+          "capability_episode_ref": "PCR-F44ABC32BAFD5E519931",
+          "canonical_label": "沙河先败后参与高梁河交战，横击终局主要由休哥与斜轸完成：本人继续参与高梁河接战，进入己方实际获胜周期。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "NOT_APPLICABLE",
+          "campaign_tier": "C",
+          "combat_difficulty": null,
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "本人继续参与高梁河接战，进入己方实际获胜周期。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+          "source_refs": [
+            "遼史/卷9@1745917#戰於沙河，失利。",
+            "遼史/卷9@1745917#宋主圍南京。",
+            "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+            "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+            "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+            "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+          ],
+          "parent_campaign_tier": "S-",
+          "parent_combat_difficulty": "D3",
+          "evidence_lower_bound": true,
+          "mixed_result_review": {
+            "schema_version": "military-mixed-result-review-v1",
+            "decision": "mixed_review",
+            "positive_result": "本人继续参与高梁河接战，进入己方实际获胜周期。",
+            "adverse_result": "先在沙河失利。",
+            "retention": "只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。",
+            "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+            "source_refs": [
+              "遼史/卷9@1745917#戰於沙河，失利。",
+              "遼史/卷9@1745917#宋主圍南京。",
+              "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+              "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+              "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+              "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+            ],
+            "components": [
+              {
+                "direction": "positive",
+                "effect_tier": "C",
+                "combat_difficulty": null,
+                "canonical_label": "沙河先败后参与高梁河交战，横击终局主要由休哥与斜轸完成：本人继续参与高梁河接战，进入己方实际获胜周期。",
+                "decisive_relation": "stage_executor",
+                "basis": "本人继续参与高梁河接战，进入己方实际获胜周期。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ]
+              },
+              {
+                "direction": "negative",
+                "effect_tier": "B",
+                "combat_difficulty": "D1",
+                "canonical_label": "沙河先败后参与高梁河交战，横击终局主要由休哥与斜轸完成：先在沙河失利。",
+                "basis": "先在沙河失利。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ],
+                "adverse_result_review": {
+                  "schema_version": "military-adverse-result-v2",
+                  "effect_tier": "B",
+                  "basis": "先在沙河失利。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "personal_scope": "actual_command_scope",
+                  "responsibility_coefficient": 1.0,
+                  "source_refs": [
+                    "遼史/卷9@1745917#戰於沙河，失利。",
+                    "遼史/卷9@1745917#宋主圍南京。",
+                    "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                    "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                    "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                    "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                  ],
+                  "difficulty_used_as_penalty": false,
+                  "causal_fault": "NOT_APPLICABLE",
+                  "deduplication_ref": "PCR-F44ABC32BAFD5E519931"
+                }
+              }
+            ],
+            "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
+          },
+          "mixed_capability_review": {
+            "positive_effect_tier": "C",
+            "positive_effect_basis": "本人继续参与高梁河接战，进入己方实际获胜周期。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。",
+            "capability_decision": "已闭局部军事贡献支持usable材料下限；不把混合总档或父群档直接转为正向能力锚。",
+            "scope_boundary": "本人正果与败果分别按上述components消费；同周期不增加独立复验次数，保留实际败果。",
+            "source_refs": [
+              "遼史/卷9@1745917#戰於沙河，失利。",
+              "遼史/卷9@1745917#宋主圍南京。",
+              "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+              "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+              "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+              "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+            ]
+          },
+          "direction": "positive",
+          "effect_tier": "C",
+          "episode_result_count": 1
+        }
+      ],
       "pending_person_command_results": [],
       "negative_or_mixed_command_records": [
         {
@@ -17496,7 +19607,24 @@
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：逐字锚明确耶律沙为援汉都统并在白马岭作战不利，援军重大损失且未阻止北汉灭亡。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "遼史/卷9@1745917#河東朔命，所當問罪。若北朝不援，和約如舊，不然則戰。",
+              "遼史/卷9@1745917#漢以宋兵壓境，遣使乞援。",
+              "遼史/卷9@1745917#詔南府宰相耶律沙為都統、冀王敵烈為監軍赴之",
+              "遼史/卷9@1745917#耶律沙等與宋戰於白馬嶺，不利，冀王敵烈及突呂不部節度使都敏、黃皮室詳穩唐筈皆死之，士卒死傷甚眾。",
+              "遼史/卷9@1745917#劉繼元降宋，漢亡。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-4C105920F35CB58C7EB0"
+          }
         },
         {
           "campaign_ref": "PCR-55950C502D47B13ED002",
@@ -17523,7 +19651,24 @@
           ],
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D1",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合耶律沙的实际行动与本人结果：耶律沙等率辽援军至白马岭，先锋未渡完大涧即遭郭进骑兵猛击。；辽军大败，多名宗王将领战死；耶律色珍以万弩救援后宋军退却。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷010@2311081#塔爾等以先鋒渡澗，未半",
+              "續資治通鑑/卷010@2311081#進率騎奮擊，大敗之",
+              "續資治通鑑/卷010@2311081#古俱歿于陣",
+              "續資治通鑑/卷010@2311081#萬弩齊發，宋師乃退",
+              "續資治通鑑/卷010@2311081#沙、穆濟僅以身免"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-55950C502D47B13ED002"
+          }
         },
         {
           "campaign_ref": "PCR-FD00758EA85F0301758C",
@@ -17551,7 +19696,25 @@
           ],
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D1",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合耶律沙的实际行动与本人结果：宋军先击败耶律沙援军，薄暮时耶律休格与色珍分翼反击，幽州守军同时出城呼应。；宋军大败，太宗乘驴车南逃；辽军追至涿州并缴获大量军资。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷010@2311081#戰於高梁河",
+              "續資治通鑑/卷010@2311081#之，沙敗走。會",
+              "續資治通鑑/卷010@2311081#分左右翼奮擊",
+              "續資治通鑑/卷010@2311081#之。宋師大敗",
+              "續資治通鑑/卷010@2311081#帝乘驢車南走",
+              "續資治通鑑/卷010@2311081#獲兵仗、符印、糧饋、貨幣不可勝計"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-FD00758EA85F0301758C"
+          }
         },
         {
           "campaign_ref": "PCR-F44ABC32BAFD5E519931",
@@ -17594,13 +19757,65 @@
               "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
               "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
               "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
-            ]
+            ],
+            "components": [
+              {
+                "direction": "positive",
+                "effect_tier": "C",
+                "combat_difficulty": null,
+                "canonical_label": "沙河先败后参与高梁河交战，横击终局主要由休哥与斜轸完成：本人继续参与高梁河接战，进入己方实际获胜周期。",
+                "decisive_relation": "stage_executor",
+                "basis": "本人继续参与高梁河接战，进入己方实际获胜周期。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ]
+              },
+              {
+                "direction": "negative",
+                "effect_tier": "B",
+                "combat_difficulty": "D1",
+                "canonical_label": "沙河先败后参与高梁河交战，横击终局主要由休哥与斜轸完成：先在沙河失利。",
+                "basis": "先在沙河失利。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ],
+                "adverse_result_review": {
+                  "schema_version": "military-adverse-result-v2",
+                  "effect_tier": "B",
+                  "basis": "先在沙河失利。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "personal_scope": "actual_command_scope",
+                  "responsibility_coefficient": 1.0,
+                  "source_refs": [
+                    "遼史/卷9@1745917#戰於沙河，失利。",
+                    "遼史/卷9@1745917#宋主圍南京。",
+                    "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                    "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                    "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                    "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                  ],
+                  "difficulty_used_as_penalty": false,
+                  "causal_fault": "NOT_APPLICABLE",
+                  "deduplication_ref": "PCR-F44ABC32BAFD5E519931"
+                }
+              }
+            ],
+            "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
           },
           "mixed_capability_review": {
             "positive_effect_tier": "C",
             "positive_effect_basis": "本人继续参与高梁河接战，进入己方实际获胜周期。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。",
             "capability_decision": "已闭局部军事贡献支持usable材料下限；不把混合总档或父群档直接转为正向能力锚。",
-            "scope_boundary": "只取已裁本人城防、攻取、破敌、解围或实际参战阶段；不新增独立周期，不另发正向净值，也不撤销本条实际败果。",
+            "scope_boundary": "本人正果与败果分别按上述components消费；同周期不增加独立复验次数，保留实际败果。",
             "source_refs": [
               "遼史/卷9@1745917#戰於沙河，失利。",
               "遼史/卷9@1745917#宋主圍南京。",
@@ -17639,7 +19854,24 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "A",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：逐字锚明确耶律沙为援汉都统并在白马岭作战不利，援军重大损失且未阻止北汉灭亡。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "遼史/卷9@1745917#河東朔命，所當問罪。若北朝不援，和約如舊，不然則戰。",
+              "遼史/卷9@1745917#漢以宋兵壓境，遣使乞援。",
+              "遼史/卷9@1745917#詔南府宰相耶律沙為都統、冀王敵烈為監軍赴之",
+              "遼史/卷9@1745917#耶律沙等與宋戰於白馬嶺，不利，冀王敵烈及突呂不部節度使都敏、黃皮室詳穩唐筈皆死之，士卒死傷甚眾。",
+              "遼史/卷9@1745917#劉繼元降宋，漢亡。"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-4C105920F35CB58C7EB0"
+          }
         },
         {
           "campaign_ref": "PCR-55950C502D47B13ED002",
@@ -17667,7 +19899,24 @@
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D1",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合耶律沙的实际行动与本人结果：耶律沙等率辽援军至白马岭，先锋未渡完大涧即遭郭进骑兵猛击。；辽军大败，多名宗王将领战死；耶律色珍以万弩救援后宋军退却。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷010@2311081#塔爾等以先鋒渡澗，未半",
+              "續資治通鑑/卷010@2311081#進率騎奮擊，大敗之",
+              "續資治通鑑/卷010@2311081#古俱歿于陣",
+              "續資治通鑑/卷010@2311081#萬弩齊發，宋師乃退",
+              "續資治通鑑/卷010@2311081#沙、穆濟僅以身免"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-55950C502D47B13ED002"
+          }
         },
         {
           "campaign_ref": "PCR-FD00758EA85F0301758C",
@@ -17696,7 +19945,25 @@
           "parent_campaign_tier": "B",
           "parent_combat_difficulty": "D1",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "C",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合耶律沙的实际行动与本人结果：宋军先击败耶律沙援军，薄暮时耶律休格与色珍分翼反击，幽州守军同时出城呼应。；宋军大败，太宗乘驴车南逃；辽军追至涿州并缴获大量军资。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "續資治通鑑/卷010@2311081#戰於高梁河",
+              "續資治通鑑/卷010@2311081#之，沙敗走。會",
+              "續資治通鑑/卷010@2311081#分左右翼奮擊",
+              "續資治通鑑/卷010@2311081#之。宋師大敗",
+              "續資治通鑑/卷010@2311081#帝乘驢車南走",
+              "續資治通鑑/卷010@2311081#獲兵仗、符印、糧饋、貨幣不可勝計"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-FD00758EA85F0301758C"
+          }
         },
         {
           "campaign_ref": "PCR-F44ABC32BAFD5E519931",
@@ -17740,14 +20007,66 @@
               "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
               "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
               "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
-            ]
+            ],
+            "components": [
+              {
+                "direction": "positive",
+                "effect_tier": "C",
+                "combat_difficulty": null,
+                "canonical_label": "沙河先败后参与高梁河交战，横击终局主要由休哥与斜轸完成：本人继续参与高梁河接战，进入己方实际获胜周期。",
+                "decisive_relation": "stage_executor",
+                "basis": "本人继续参与高梁河接战，进入己方实际获胜周期。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ]
+              },
+              {
+                "direction": "negative",
+                "effect_tier": "B",
+                "combat_difficulty": "D1",
+                "canonical_label": "沙河先败后参与高梁河交战，横击终局主要由休哥与斜轸完成：先在沙河失利。",
+                "basis": "先在沙河失利。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ],
+                "adverse_result_review": {
+                  "schema_version": "military-adverse-result-v2",
+                  "effect_tier": "B",
+                  "basis": "先在沙河失利。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "personal_scope": "actual_command_scope",
+                  "responsibility_coefficient": 1.0,
+                  "source_refs": [
+                    "遼史/卷9@1745917#戰於沙河，失利。",
+                    "遼史/卷9@1745917#宋主圍南京。",
+                    "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                    "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                    "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                    "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                  ],
+                  "difficulty_used_as_penalty": false,
+                  "causal_fault": "NOT_APPLICABLE",
+                  "deduplication_ref": "PCR-F44ABC32BAFD5E519931"
+                }
+              }
+            ],
+            "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
           },
           "source_alias_refs": [],
           "mixed_capability_review": {
             "positive_effect_tier": "C",
             "positive_effect_basis": "本人继续参与高梁河接战，进入己方实际获胜周期。 只取本人参与阶段，终局横击主要归休哥斜轸，不能继承其完整逆转。",
             "capability_decision": "已闭局部军事贡献支持usable材料下限；不把混合总档或父群档直接转为正向能力锚。",
-            "scope_boundary": "只取已裁本人城防、攻取、破敌、解围或实际参战阶段；不新增独立周期，不另发正向净值，也不撤销本条实际败果。",
+            "scope_boundary": "本人正果与败果分别按上述components消费；同周期不增加独立复验次数，保留实际败果。",
             "source_refs": [
               "遼史/卷9@1745917#戰於沙河，失利。",
               "遼史/卷9@1745917#宋主圍南京。",
@@ -17831,17 +20150,22 @@
           ]
         }
       ],
-      "net_strategic_value": -1.02,
+      "net_strategic_value": -1.31,
       "net_strategic_value_breakdown": {
-        "frontline_positive": 0.0,
+        "frontline_positive": 0.05,
         "operational_positive": 0.0,
-        "command_adverse": -1.02,
-        "net": -1.02
+        "command_adverse": -1.36,
+        "net": -1.31
       },
       "grade_basis": "本人实际局部正果：本人继续参与高梁河接战，进入己方实际获胜周期。 按本人局部C级军事贡献支持usable下限，撤销“无可消费正果”的旧理由。混合条目的总档不等于正果档，不据父群A档推为capable或important；原败果、保留或撤销情况及其史源不变。更高档须补闭独立本人正果尺度、角色、难度与可靠性；当前不发布全生涯无能或最终档位结论。",
       "objective_shortfalls": [],
       "excluded_command_records": [],
-      "military_grade_boundary": "当前混合记录中的本人正果支持usable下限；更高档需本人独立正果尺度及生涯材料复核，不以混合总档自动升级。"
+      "military_grade_boundary": "当前混合记录中的本人正果支持usable下限；更高档需本人独立正果尺度及生涯材料复核，不以混合总档自动升级。",
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-728B16B7B34D785A",
@@ -17907,7 +20231,24 @@
           ],
           "parent_campaign_tier": "S-",
           "parent_combat_difficulty": "D3",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "S-",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与千家奴共同覆军，事后明确坐罪。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+              "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+              "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+              "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+              "金史/卷13@2432650#，皆歸大元。初"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-E45DC165C5846E550251"
+          }
         }
       ],
       "failure_accountability": [
@@ -17937,7 +20278,24 @@
           "parent_campaign_tier": "S-",
           "parent_combat_difficulty": "D3",
           "evidence_lower_bound": true,
-          "episode_result_count": 1
+          "episode_result_count": 1,
+          "adverse_result_review": {
+            "schema_version": "military-adverse-result-v2",
+            "effect_tier": "S-",
+            "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与千家奴共同覆军，事后明确坐罪。",
+            "personal_scope": "actual_command_scope",
+            "responsibility_coefficient": 1.0,
+            "source_refs": [
+              "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+              "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+              "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+              "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+              "金史/卷13@2432650#，皆歸大元。初"
+            ],
+            "difficulty_used_as_penalty": false,
+            "causal_fault": "UNKNOWN",
+            "deduplication_ref": "PCR-E45DC165C5846E550251"
+          }
         }
       ],
       "attributable_failures": [
@@ -17965,14 +20323,24 @@
           ]
         }
       ],
-      "net_strategic_value": -2.2,
+      "net_strategic_value": -1.76,
       "net_strategic_value_breakdown": {
         "frontline_positive": 0.0,
         "operational_positive": 0.0,
-        "command_adverse": -2.2,
-        "net": -2.2
+        "command_adverse": -1.76,
+        "net": -1.76
       },
-      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。 稳定性状态=stability_limited_major_failure。"
+      "grade_basis": "仅消费最新战役登记中的本人主帅或主将成果；按 no_consumable_positive_command_result 当前可证下限为 ordinary，覆盖增加后可复核升级，非冻结终值。 稳定性状态=stability_limited_major_failure。",
+      "military_grade_boundary": {
+        "basis": "当前登记未闭本人已实现的正向军事贡献，且未证明全生涯材料覆盖完整；ordinary仅作为机器材料下限，不发表确定无能力结论。",
+        "coverage_status": "NOT_ESTABLISHED",
+        "upgrade_trigger": "补闭本人实际军事结果、控制范围及史源后重裁；不凭名望升档。"
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
+      }
     },
     {
       "profile_ref": "MIL-PROFILE-3360FB57A54F2E5E",
@@ -18089,6 +20457,11 @@
             ]
           }
         ]
+      },
+      "positive_evidence_paths": {
+        "elite": [],
+        "top": [],
+        "historic": []
       }
     }
   ]

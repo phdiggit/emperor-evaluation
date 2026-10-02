@@ -4,21 +4,35 @@ import pytest
 from emperor_v4.evaluation.talent_registry_store import talent_profiles_by_ref
 
 from emperor_v4.evaluation.military_talent_value import (
-    display_entries, episode_anchors, net_value, refresh_values, result_value, stability_counts, validate_mixed_result, validate_operational_role,
+    display_entries, episode_anchors, net_value, refresh_values, result_value, stability_counts, validate_mixed_result, validate_operational_role, validate_adverse_result, validate_operational_grade, outcome_rows, positive_evidence_paths,
 )
 
 
 def result(ref, tier="A", difficulty="D3", direction="positive", **fields):
-    return {"campaign_ref": ref, "capability_episode_ref": ref, "campaign_tier": tier,
+    row = {"campaign_ref": ref, "capability_episode_ref": ref, "campaign_tier": tier,
             "combat_difficulty": difficulty, "result_direction": direction,
             "consumption_mode": "person_result", "capability_mode": "integrated_command",
             "decisive_relation": "decisive_creator", **fields}
+    if direction == "negative":
+        row["adverse_result_review"] = {"effect_tier": tier, "basis": "独立构造的本人败果",
+            "personal_scope": "本人控制方向", "source_refs": ["synthetic-source"],
+            "responsibility_coefficient": {"co_decisive": 0.85, "stage_executor": 0.35,
+                "terminal_finisher": 0.5}.get(row["decisive_relation"], 1.0)}
+    return row
 
 
 def mixed_review():
     return {"decision": "mixed_review", "positive_result": "解围目标实际完成",
             "adverse_result": "同周期另一方向失守", "retention": "解围结果保持，失地未恢复",
-            "personal_scope": "本人实际指挥的两个阶段", "source_refs": ["synthetic-source"]}
+            "personal_scope": "本人实际指挥的两个阶段", "source_refs": ["synthetic-source"],
+            "components": [
+                {"direction": "positive", "effect_tier": "A", "combat_difficulty": "D3",
+                 "decisive_relation": "decisive_creator", "basis": "实际解围", "source_refs": ["synthetic-source"]},
+                {"direction": "negative", "effect_tier": "A", "combat_difficulty": "D3",
+                 "basis": "实际失守", "source_refs": ["synthetic-source"],
+                 "adverse_result_review": {"effect_tier": "A", "basis": "实际失守",
+                     "personal_scope": "本人指挥范围", "source_refs": ["synthetic-source"],
+                     "responsibility_coefficient": 1.0}}]}
 
 
 def operational_review(**overrides):
@@ -159,8 +173,8 @@ def test_decimal_midpoint_rounding_uses_unrounded_total():
     loss = result("loss", tier="S-", difficulty="D1", direction="negative")
     value = net_value({"consumed_achievements": rows, "negative_or_mixed_command_records": [loss]})
     assert value["frontline_positive"] == 3.72  # Exact 3.725, ties to even.
-    assert value["command_adverse"] == -1.32
-    assert value["net"] == 2.4  # Exact 2.405, without rounding components first.
+    assert value["command_adverse"] == -1.76
+    assert value["net"] == 1.96  # Exact 1.965, without rounding components first.
 
 
 def test_source_conflict_is_neither_positive_nor_a_certain_debit():
@@ -185,7 +199,7 @@ def test_positive_and_adverse_phases_keep_both_without_extra_positive_thickness(
     p = {"consumed_achievements": [result("cycle")],
          "negative_or_mixed_command_records": [result("cycle", direction="negative")]}
     value = net_value(p)
-    assert value == {"frontline_positive": 1.25, "operational_positive": 0.0, "command_adverse": -1.0, "net": 0.25}
+    assert value == {"frontline_positive": 1.25, "operational_positive": 0.0, "command_adverse": -0.8, "net": 0.45}
 
 
 def test_refresh_preserves_source_and_stable_identity():
@@ -219,3 +233,90 @@ def test_identity_alias_resolves_to_one_canonical_person_and_fails_on_cycles():
     assert len(payload["profiles"]) == 1
     with pytest.raises(ValueError, match="循环"):
         talent_profiles_by_ref({"profiles": [p], "identity_aliases": [{"profile_ref": "A", "canonical_profile_ref": "B"}, {"profile_ref": "B", "canonical_profile_ref": "A"}]})
+
+
+def test_mixed_and_split_representations_have_identical_values_and_stability():
+    mixed = result("cycle", direction="mixed_review", mixed_result_review=mixed_review(),
+                   role_code="commander_in_chief", causal_fault="SUPPORTED_COMMAND_ERROR")
+    positive, negative = outcome_rows(mixed)
+    single = {"negative_or_mixed_command_records": [mixed]}
+    split = {"consumed_achievements": [positive], "negative_or_mixed_command_records": [negative]}
+    assert net_value(single) == net_value(split)
+    assert stability_counts(single) == stability_counts(split)
+    # An explicit projection of the same positive side cannot award another credit.
+    assert net_value({**single, "consumed_achievements": [positive]}) == net_value(single)
+
+
+def test_negative_difficulty_does_not_change_loss_or_responsibility_count():
+    rows = [result("loss", difficulty=d, direction="negative", role_code="commander_in_chief")
+            for d in (None, "D0", "D1", "D2", "D3", "D4")]
+    assert {result_value(row) for row in rows} == {-0.8}
+    assert {stability_counts({"negative_or_mixed_command_records": [row]})[
+        "commander_responsibility_major_failure_count"] for row in rows} == {1}
+
+
+def test_worst_actual_loss_per_episode_is_kept_and_missing_consequence_fails():
+    small = result("shared", tier="B", direction="negative", difficulty="D4")
+    large = result("shared", tier="S-", direction="negative", difficulty="D0")
+    assert net_value({"negative_or_mixed_command_records": [small, large]}) == net_value(
+        {"negative_or_mixed_command_records": [large]})
+    unknown = {**large, "adverse_result_review": {}}
+    with pytest.raises(ValueError):
+        result_value(unknown)
+    with pytest.raises(ValueError):
+        validate_adverse_result(unknown)
+
+
+def test_operational_elite_requires_independent_validation_and_actual_operation():
+    peak = result("design", tier="S", difficulty=None, consumption_mode="operational_result",
+                  capability_mode="operational_design", operational_role_review=operational_review())
+    repeat = result("repeat", difficulty="D2")
+    review = {"path": "elite_operational_peak_with_independent_validation", "published_grade": "elite",
+              "episode_refs": ["design", "repeat"], "constraint_resolution": "后勤与两路时机协调",
+              "implementation_result": "实际闭合终局", "independence_basis": "不同对象与任务",
+              "reliability_basis": "无已证重复失能", "source_refs": ["synthetic-source"],
+              "comparators": ["synthetic-one", "synthetic-two"]}
+    profile = {"military_grade": "elite", "consumed_achievements": [peak, repeat],
+               "operational_grade_review": review}
+    validate_operational_grade(profile)
+    with pytest.raises(ValueError):
+        validate_operational_grade({**profile, "consumed_achievements": [peak]})
+    with pytest.raises(ValueError):
+        validate_operational_grade({**profile, "operational_grade_review": {**review,
+            "episode_refs": ["design", "design"]}})
+    with pytest.raises(ValueError):
+        validate_operational_grade({**profile, "consumed_achievements": [
+            {**peak, "operational_role_review": operational_review(status="AUTHORIZATION_ONLY")}, repeat]})
+
+
+def test_historic_positive_paths_require_independent_strategic_and_hard_rechecks():
+    peak = result("strategic", tier="S", difficulty="D3")
+    first = result("hard-one", difficulty="D3")
+    second = result("hard-two", difficulty="D4")
+    profile = {"consumed_achievements": [peak, first, second]}
+    assert positive_evidence_paths(profile)["historic"]
+    assert not positive_evidence_paths({"consumed_achievements": [peak, first, deepcopy(first)]})["historic"]
+    assert positive_evidence_paths(profile) == positive_evidence_paths(
+        {"consumed_achievements": list(reversed(profile["consumed_achievements"]))})
+
+
+def test_operational_top_candidate_has_three_independent_major_results():
+    def op(ref, tier):
+        return result(ref, tier=tier, difficulty=None, consumption_mode="operational_result",
+                      capability_mode="operational_design", operational_role_review=operational_review())
+    first, second, repeat = op("one", "S"), op("two", "S"), op("three", "A")
+    paths = positive_evidence_paths({"consumed_achievements": [first, second, repeat]})
+    assert "operational_system_with_independent_validation" in paths["top"]
+    assert not paths["historic"]
+    assert not positive_evidence_paths({"consumed_achievements": [first, second, deepcopy(second)]})["top"]
+
+
+def test_refresh_updates_major_adverse_presence_without_regrading():
+    profile = {"profile_ref": "SYNTHETIC", "person_ref": "PERSON-SYNTHETIC", "person": "合成人物",
+               "military_grade": "elite", "grade_status": "evidence_lower_bound",
+               "stability_status": "no_comparable_major_failure_established",
+               "negative_or_mixed_command_records": [result("loss", direction="negative", difficulty="D1",
+                                                              role_code="commander_in_chief")]}
+    current = refresh_values({"profiles": [profile]})["profiles"][0]
+    assert current["stability_status"] == "major_adverse_established"
+    assert current["military_grade"] == profile["military_grade"]

@@ -140,7 +140,22 @@
               "西夏書事/42@2291165#秋九月，蒙古破銀州。",
               "西夏書事/42@2291165#監府塔海出戰，兵敗被俘。",
               "西夏書事/42@2291165#斬首數萬級，獲生口、牛羊數十萬，銀州遂破。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：作为银州监府出战，兵败被俘；无充分材料确定个人因果过错。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "西夏書事/42@2291165#秋九月，蒙古破銀州。",
+                "西夏書事/42@2291165#監府塔海出戰，兵敗被俘。",
+                "西夏書事/42@2291165#斬首數萬級，獲生口、牛羊數十萬，銀州遂破。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-A53B3694363DD1F7F319"
+            }
           },
           "person_command_result": [
             {
@@ -167,6 +182,21 @@
                   "西夏書事/42@2291165#監府塔海出戰，兵敗被俘。",
                   "西夏書事/42@2291165#斬首數萬級，獲生口、牛羊數十萬，銀州遂破。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "A",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：作为银州监府出战，兵败被俘；无充分材料确定个人因果过错。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "西夏書事/42@2291165#秋九月，蒙古破銀州。",
+                  "西夏書事/42@2291165#監府塔海出戰，兵敗被俘。",
+                  "西夏書事/42@2291165#斬首數萬級，獲生口、牛羊數十萬，銀州遂破。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-A53B3694363DD1F7F319"
               }
             }
           ],
@@ -1248,7 +1278,67 @@
               "西夏書事/33@2289939#伏發殱之，阿土罕棄馬越山得脫。",
               "西夏書事/33@2289939#進軍宜水，與金將斡魯、婁室兩軍戰，敗績。",
               "西夏書事/33@2289939#良輔大敗，死者數千人，退走野谷，渡澗水，水暴至，漂沒不可勝計。"
-            ]
+            ],
+            "mixed_result_review": {
+              "schema_version": "military-mixed-result-review-v1",
+              "decision": "mixed_review",
+              "positive_result": "天德伏歼金军。",
+              "adverse_result": "宜水大败。",
+              "retention": "两阶段均发生，前胜不抹后败。",
+              "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+              "source_refs": [
+                "西夏書事/33@2289939#遣大將李良輔救遼，破金兵于天德軍。",
+                "西夏書事/33@2289939#伏發殱之，阿土罕棄馬越山得脫。",
+                "西夏書事/33@2289939#進軍宜水，與金將斡魯、婁室兩軍戰，敗績。",
+                "西夏書事/33@2289939#良輔大敗，死者數千人，退走野谷，渡澗水，水暴至，漂沒不可勝計。"
+              ],
+              "components": [
+                {
+                  "direction": "positive",
+                  "effect_tier": "B",
+                  "combat_difficulty": null,
+                  "canonical_label": "率三万先在天德伏歼金军，继而宜水大败；需分别保存先胜后败。：天德伏歼金军。",
+                  "decisive_relation": "decisive_creator",
+                  "basis": "天德伏歼金军。 两阶段均发生，前胜不抹后败。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                  "source_refs": [
+                    "西夏書事/33@2289939#遣大將李良輔救遼，破金兵于天德軍。",
+                    "西夏書事/33@2289939#伏發殱之，阿土罕棄馬越山得脫。",
+                    "西夏書事/33@2289939#進軍宜水，與金將斡魯、婁室兩軍戰，敗績。",
+                    "西夏書事/33@2289939#良輔大敗，死者數千人，退走野谷，渡澗水，水暴至，漂沒不可勝計。"
+                  ]
+                },
+                {
+                  "direction": "negative",
+                  "effect_tier": "B",
+                  "combat_difficulty": "D1",
+                  "canonical_label": "率三万先在天德伏歼金军，继而宜水大败；需分别保存先胜后败。：宜水大败。",
+                  "basis": "宜水大败。 两阶段均发生，前胜不抹后败。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                  "source_refs": [
+                    "西夏書事/33@2289939#遣大將李良輔救遼，破金兵于天德軍。",
+                    "西夏書事/33@2289939#伏發殱之，阿土罕棄馬越山得脫。",
+                    "西夏書事/33@2289939#進軍宜水，與金將斡魯、婁室兩軍戰，敗績。",
+                    "西夏書事/33@2289939#良輔大敗，死者數千人，退走野谷，渡澗水，水暴至，漂沒不可勝計。"
+                  ],
+                  "adverse_result_review": {
+                    "schema_version": "military-adverse-result-v2",
+                    "effect_tier": "B",
+                    "basis": "宜水大败。 两阶段均发生，前胜不抹后败。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                    "personal_scope": "actual_command_scope",
+                    "responsibility_coefficient": 1.0,
+                    "source_refs": [
+                      "西夏書事/33@2289939#遣大將李良輔救遼，破金兵于天德軍。",
+                      "西夏書事/33@2289939#伏發殱之，阿土罕棄馬越山得脫。",
+                      "西夏書事/33@2289939#進軍宜水，與金將斡魯、婁室兩軍戰，敗績。",
+                      "西夏書事/33@2289939#良輔大敗，死者數千人，退走野谷，渡澗水，水暴至，漂沒不可勝計。"
+                    ],
+                    "difficulty_used_as_penalty": false,
+                    "causal_fault": "NOT_APPLICABLE",
+                    "deduplication_ref": "PCR-0AFE2C4A99BDCED3F83D"
+                  }
+                }
+              ],
+              "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
+            }
           },
           "person_command_result": [
             {
@@ -1277,6 +1367,66 @@
                   "西夏書事/33@2289939#進軍宜水，與金將斡魯、婁室兩軍戰，敗績。",
                   "西夏書事/33@2289939#良輔大敗，死者數千人，退走野谷，渡澗水，水暴至，漂沒不可勝計。"
                 ]
+              },
+              "mixed_result_review": {
+                "schema_version": "military-mixed-result-review-v1",
+                "decision": "mixed_review",
+                "positive_result": "天德伏歼金军。",
+                "adverse_result": "宜水大败。",
+                "retention": "两阶段均发生，前胜不抹后败。",
+                "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+                "source_refs": [
+                  "西夏書事/33@2289939#遣大將李良輔救遼，破金兵于天德軍。",
+                  "西夏書事/33@2289939#伏發殱之，阿土罕棄馬越山得脫。",
+                  "西夏書事/33@2289939#進軍宜水，與金將斡魯、婁室兩軍戰，敗績。",
+                  "西夏書事/33@2289939#良輔大敗，死者數千人，退走野谷，渡澗水，水暴至，漂沒不可勝計。"
+                ],
+                "components": [
+                  {
+                    "direction": "positive",
+                    "effect_tier": "B",
+                    "combat_difficulty": null,
+                    "canonical_label": "率三万先在天德伏歼金军，继而宜水大败；需分别保存先胜后败。：天德伏歼金军。",
+                    "decisive_relation": "decisive_creator",
+                    "basis": "天德伏歼金军。 两阶段均发生，前胜不抹后败。 仅此已裁本人正向阶段；未单独闭合该阶段战前约束，不继承混合总档难度。",
+                    "source_refs": [
+                      "西夏書事/33@2289939#遣大將李良輔救遼，破金兵于天德軍。",
+                      "西夏書事/33@2289939#伏發殱之，阿土罕棄馬越山得脫。",
+                      "西夏書事/33@2289939#進軍宜水，與金將斡魯、婁室兩軍戰，敗績。",
+                      "西夏書事/33@2289939#良輔大敗，死者數千人，退走野谷，渡澗水，水暴至，漂沒不可勝計。"
+                    ]
+                  },
+                  {
+                    "direction": "negative",
+                    "effect_tier": "B",
+                    "combat_difficulty": "D1",
+                    "canonical_label": "率三万先在天德伏歼金军，继而宜水大败；需分别保存先胜后败。：宜水大败。",
+                    "basis": "宜水大败。 两阶段均发生，前胜不抹后败。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                    "source_refs": [
+                      "西夏書事/33@2289939#遣大將李良輔救遼，破金兵于天德軍。",
+                      "西夏書事/33@2289939#伏發殱之，阿土罕棄馬越山得脫。",
+                      "西夏書事/33@2289939#進軍宜水，與金將斡魯、婁室兩軍戰，敗績。",
+                      "西夏書事/33@2289939#良輔大敗，死者數千人，退走野谷，渡澗水，水暴至，漂沒不可勝計。"
+                    ],
+                    "adverse_result_review": {
+                      "schema_version": "military-adverse-result-v2",
+                      "effect_tier": "B",
+                      "basis": "宜水大败。 两阶段均发生，前胜不抹后败。 只结算已闭本人损害，不以死亡、撤退动作或未完成更大目标另扣。",
+                      "personal_scope": "actual_command_scope",
+                      "responsibility_coefficient": 1.0,
+                      "source_refs": [
+                        "西夏書事/33@2289939#遣大將李良輔救遼，破金兵于天德軍。",
+                        "西夏書事/33@2289939#伏發殱之，阿土罕棄馬越山得脫。",
+                        "西夏書事/33@2289939#進軍宜水，與金將斡魯、婁室兩軍戰，敗績。",
+                        "西夏書事/33@2289939#良輔大敗，死者數千人，退走野谷，渡澗水，水暴至，漂沒不可勝計。"
+                      ],
+                      "difficulty_used_as_penalty": false,
+                      "causal_fault": "NOT_APPLICABLE",
+                      "deduplication_ref": "PCR-0AFE2C4A99BDCED3F83D"
+                    }
+                  }
+                ],
+                "consumption_policy": "SEPARATE_ACTUAL_OUTCOMES_ONE_EPISODE"
               }
             }
           ],
@@ -1469,7 +1619,22 @@
               "西夏書事/19@2288612#襲契丹將蕭惠兵，敗之。",
               "西夏書事/19@2288612#遣兵從高坂突下擊之",
               "西夏書事/19@2288612#士卒死傷萬計。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：作为辽军实际统帅遭突击溃败且几乎被俘；现有只消费没藏讹庞胜方。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "西夏書事/19@2288612#襲契丹將蕭惠兵，敗之。",
+                "西夏書事/19@2288612#遣兵從高坂突下擊之",
+                "西夏書事/19@2288612#士卒死傷萬計。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-3E3A230DAA1FC42FAFEA"
+            }
           },
           "person_command_result": [
             {
@@ -1496,6 +1661,21 @@
                   "西夏書事/19@2288612#遣兵從高坂突下擊之",
                   "西夏書事/19@2288612#士卒死傷萬計。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "A",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：作为辽军实际统帅遭突击溃败且几乎被俘；现有只消费没藏讹庞胜方。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "西夏書事/19@2288612#襲契丹將蕭惠兵，敗之。",
+                  "西夏書事/19@2288612#遣兵從高坂突下擊之",
+                  "西夏書事/19@2288612#士卒死傷萬計。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-3E3A230DAA1FC42FAFEA"
               }
             }
           ],
