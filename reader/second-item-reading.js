@@ -109,7 +109,7 @@
   function ensureMethodGroup(t){
     const section=document.getElementById("net-group-method");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"制度与行政");
     addGroupIntro(section,"method",`这一组看国家机器如何建立规则、配置官僚并形成反馈约束。三项使用不同原始量表，统一折算后本组最高165分；当前得分为 ${fmt(t.methodScore)} / 165。具体折算方法放在各项展开内容中。`);
-    for(const label of ["A制度建设","B1官僚治理","B2反馈与约束"]){const item=t.method.get(label),detail=metricDetail(section,[label,METHOD_PUBLIC[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;setMetricDisplay(detail,`${methodBand(item)}档`,joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}（合成输入，不单独加分）`,boundaryExcerpt(item)),METHOD_PUBLIC[label]);}
+    for(const label of ["A制度建设","B1官僚治理","B2反馈与约束"]){const item=t.method.get(label),detail=metricDetail(section,[label,METHOD_PUBLIC[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;setMetricDisplay(detail,`${methodBand(item)}档`,joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}（用于本组折算，不单列得分）`,boundaryExcerpt(item)),METHOD_PUBLIC[label]);}
   }
   function ensureC4Note(detail,value){
     const body=detail?.querySelector(":scope > .net-metric-body");if(!body)return;let note=body.querySelector(":scope > .second-item-c4-note");if(!note){note=document.createElement("p");note.className="second-item-c4-note";body.insertBefore(note,body.firstChild);}
@@ -173,7 +173,7 @@
       const span=row.querySelector(":scope > span"),value=row.querySelector(":scope > b");if(!span||!value)continue;const label=span.dataset.secondSourceLabel||directText(span)||span.querySelector("strong")?.textContent.trim()||"";let sourceLabel=label;
       if(!map.has(sourceLabel)){sourceLabel=Object.keys(METHOD_PUBLIC).find(k=>METHOD_PUBLIC[k]===label)||Object.keys(FINANCE_PUBLIC).find(k=>FINANCE_PUBLIC[k]===label)||({"恢复与额外成本（C4）":"C4恢复与成本","行政连续性（D1）":"D1继任行政连续性","交接稳定（D3）":"D3政权交接稳定","行政连续性":"D1继任行政连续性","交接稳定":"D3政权交接稳定","交接短板上限":"低侧封顶","政权交接得分":"交接得分","治国成效合计":"第二项合计"}[label]||label);}
       span.dataset.secondSourceLabel=sourceLabel;const item=map.get(sourceLabel);
-      if(kind==="method"&&item&&METHOD_MAX[sourceLabel]){setRowLabel(span,METHOD_PUBLIC[sourceLabel]);setNodeText(value,`${methodBand(item)}档`);replaceCompactNote(span,joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[sourceLabel]}（合成输入，不单独加分）`,boundaryExcerpt(item)));}
+      if(kind==="method"&&item&&METHOD_MAX[sourceLabel]){setRowLabel(span,METHOD_PUBLIC[sourceLabel]);setNodeText(value,`${methodBand(item)}档`);replaceCompactNote(span,joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`,boundaryExcerpt(item)));}
       else if(kind==="finance"&&item&&FINANCE_MAX[sourceLabel]){setRowLabel(span,FINANCE_PUBLIC[sourceLabel]);setNodeText(value,`${fmt(item.value)} / ${FINANCE_MAX[sourceLabel]} 分`);replaceCompactNote(span,joinNote(stateMeta(item),boundaryExcerpt(item)));}
       else if(kind==="finance"&&item&&sourceLabel==="C4恢复与成本"){setRowLabel(span,"恢复与额外成本");setNodeText(value,`${signedFmt(item.value)} 分`);replaceCompactNote(span,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)));}
       else if(kind==="handoff"&&item&&sourceLabel==="D1继任行政连续性"){setRowLabel(span,"行政连续性");setNodeText(value,`${handoffGrade(item.value)}档`);replaceCompactNote(span,joinNote("行政承接",boundaryExcerpt(item)));}

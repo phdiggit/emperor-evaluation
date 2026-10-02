@@ -79,6 +79,21 @@ def test_public_projection_preserves_scoring_fields_and_keeps_all_evidence():
     assert report["D3"]["public_evidence_item_count"] == 3
 
 
+
+def test_d3_public_arrangement_uses_explicit_formal_successor_status_before_generic_placeholder():
+    row = _d3_row()
+    row.update({
+        "actual_successor": "朱高炽",
+        "prearrangement_evidence": "固定本纪、编年终局窗口及具名列传复核",
+        "reason": "事前太子明确，军中死亡和六军在外构成现实风险检验。",
+    })
+    projected = _refresh_payload({"records": [row]}, "D3")
+    arrangement = projected["records"][0]["public_evidence_items"][0]
+    assert arrangement["public_role"] == "事前安排"
+    assert arrangement["public_basis"] == "朱高炽的既定承接地位明确"
+    assert "未提供可直述" not in arrangement["public_basis"]
+
+
 def test_current_d1_d3_projection_covers_the_formal_pool_without_internal_public_terms():
     root = Path(__file__).resolve().parents[1]
     d1 = load_json(root / D1_PATH)

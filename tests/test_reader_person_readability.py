@@ -426,3 +426,48 @@ def test_person_readability_heading_normalizer_accepts_public_detail_titles():
     assert '"历史影响详情"' in source
     assert '"人物画像依据"' in source
     assert '"历史影响依据"' in source
+
+
+def test_person_reader_first_item_public_terms_match_current_performance_vocabulary():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
+    assert "第一项结算分" in source
+    assert "原始净收益" not in source
+    assert "本项不计入统治绩效" in source
+    assert "firstOutcomeCalculationText(item.reader_how || \"\")" in source
+    assert "本人有效控制成果值为$1" in source
+    assert "项目整体成果" in source
+    assert "按正式归责分配个人成果" in source
+    assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
+    assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in source
+    assert "第一项净分 S1" not in source
+    assert "总榜附加分 F" not in source
+
+
+def test_profile_output_mode_is_evidence_thickness_not_a_grade_gate():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    contract = (Path(__file__).resolve().parents[1] / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md").read_text(encoding="utf-8")
+    assert "output_mode==='NOT_APPLICABLE'" in template
+    assert "EPISODE_TAG" in contract and "适用人物仍发布低置信度G档和数值" in contract
+    assert "BOUNDED_PROFILE" in contract and "适用人物仍发布中置信度G档和数值" in contract
+    assert "表示证据厚度，不再充当给分开关" in contract
+
+
+def test_first_item_reader_distinguishes_shared_project_share_from_real_world_percentages():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
+    assert "本人成果规模" in source
+    assert "不是共同项目分成，也不是领土、人口或军队比例" in source
+    assert "本项适用，但第一项结算分归零" in source
+    assert "成果占比" not in source
+    assert "正向净收益" not in source
+
+def test_person_page_drops_legacy_net_ledger_in_favor_of_net_detail_page():
+    from pathlib import Path
+    home = (Path(__file__).resolve().parents[1] / 'reader/home-interactions.js').read_text(encoding='utf-8')
+    person = (Path(__file__).resolve().parents[1] / 'reader/person-readability.js').read_text(encoding='utf-8')
+    assert 'if (node.tagName === "DETAILS") node.remove();' in home
+    assert 'remains the single full calculation surface' in home
+    assert 'function foldNetLedger()' not in person
+    assert '完整计分账本（审计视图）' not in person

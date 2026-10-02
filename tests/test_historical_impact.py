@@ -210,3 +210,13 @@ def test_sources_in_distinct_formal_collections_do_not_share_a_cache_entry(tmp_p
     write_polity_routed_json(path, payload, ruler_polities={})
     with pytest.raises(ValueError, match="事实字段不存在"):
         verify(tmp_path, check_reader=False)
+
+
+def test_reader_does_not_narrow_scope_or_paradigm_constructs():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
+    assert "实际改变覆盖到多大政治空间。" not in template
+    assert "后世最高权力是否实际使用这个人或其治道。" not in template
+    assert "政治主体或国家关键接口" in template
+    assert "作为政治参照并实际使用" in template

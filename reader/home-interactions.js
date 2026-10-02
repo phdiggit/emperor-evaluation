@@ -24,6 +24,10 @@ function firstCostPublicText(value) {
   const severity = ["无显著代价","很低成本","较低成本","中等成本","较高成本","高成本","极高成本","灾难级成本"];
   const chinese = {"零":0,"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7};
   return String(value || "")
+    .replace(/现行第三项仍有相关计入，必须同步退出后才启用净分。?/g, "相关战争若已在军事与边疆项计入，本项不重复计算；当前按正式去重后的结果结算。")
+    .replace(/跨项证实：/g, "跨项去重：")
+    .replace(/由第一项计入/g, "由奠基与统一项计入")
+    .replace(/留第三项/g, "留在军事与边疆项")
     .replace(/第([0-7一二三四五六七])级(?:成本)?/g, (_, level) => {
       const index = chinese[level] != null ? chinese[level] : Number(level);
       return severity[index] || level;
@@ -47,7 +51,7 @@ function firstCommanderMarkup(item) {
     return '<p class="notice">本人统帅的公开说明尚未同步。</p>';
   }
   const battles = source.public_battles.length
-    ? `<details class="first-item-battle-evidence"><summary>查看已明确记载的战役与统筹成果</summary><ul class="first-item-battles">${source.public_battles.map(battle => `<li><strong>${esc(battle.name)}</strong> · ${esc(battle.role)} · ${esc(battle.result)}成果 · ${esc(battle.difficulty ? `${battle.difficulty}难度` : '难度未单列')} <a href="military.html#search=${encodeURIComponent(battle.name)}">查看战役档案 ↗</a></li>`).join('')}</ul></details>`
+    ? `<details class="first-item-battle-evidence"><summary>查看已明确记载的战役与统筹成果</summary><p class="subline">“战役成果”和“任务难度”使用军事材料自己的字母刻度，不是人物画像等级。</p><ul class="first-item-battles">${source.public_battles.map(battle => `<li><strong>${esc(battle.name)}</strong> · ${esc(battle.role)} · 战役成果：${esc(battle.result)} · ${esc(battle.difficulty ? `任务难度：${battle.difficulty}` : '任务难度：未单列')} <a href="military.html#search=${encodeURIComponent(battle.name)}">查看战役档案 ↗</a></li>`).join('')}</ul></details>`
     : '';
   return `<div class="first-item-commander-public"><div class="label">为什么这样评</div>${prose(source.public_basis)}<div class="label">责任与限制</div>${prose(source.public_boundary)}${battles}</div>`;
 }
@@ -84,7 +88,7 @@ function firstCommanderMarkup(item) {
     },
     fourth: {
       title: "第四项 · 文明与国家整合",
-      description: "以有符号调整进入总榜，正向、负向与零调整都保留具体结算依据。",
+      description: "看本人窗口在共同体、教育人才与知识文化三方面形成的可归责净变化；这是有符号调整，不是文明程度或时代先进程度排名。",
       groups: ["civilization"],
     },
   };
@@ -96,7 +100,7 @@ function firstCommanderMarkup(item) {
     handoff: "第二项 · 政权交接",
     strategic: "第三项 · 战略收益与国防",
     military: "第三项 · 军事体系与成本",
-    civilization: "第四项 · 文明与国家整合",
+    civilization: "文明与国家整合 · 分项结算",
   };
 
   const netGroupMajor = {
@@ -172,23 +176,20 @@ function firstCommanderMarkup(item) {
   }
 
   function openPersonSection(id, section) {
-    const hash = "#person/" + encodeURIComponent(id);
-    if (!section) {
-      go(hash);
+    const encoded = encodeURIComponent(id);
+    if (section === "person-outcome") {
+      go(`#net/${encoded}/all`);
       return;
     }
-    if (location.hash === hash) {
-      route();
-      scrollWhenReady(section);
+    if (section === "person-capability") {
+      go(`#person/${encoded}/profile`);
       return;
     }
-
-    const afterRoute = () => {
-      window.removeEventListener("hashchange", afterRoute);
-      scrollWhenReady(section);
-    };
-    window.addEventListener("hashchange", afterRoute);
-    location.hash = hash;
+    if (section === "person-impact") {
+      go(`#person/${encoded}/impact`);
+      return;
+    }
+    go("#person/" + encoded);
   }
 
   function applyPolityFilter(polity) {
@@ -220,11 +221,13 @@ function firstCommanderMarkup(item) {
       for (const [index, section] of Object.entries(sectionByCell)) {
         const cell = cells[Number(index)];
         if (!cell) continue;
+        if (section === "person-outcome" && !record.net) continue;
+        if (section === "person-capability" && record.supplementary) continue;
         cell.classList.add("home-jump-cell");
         cell.dataset.homeSection = section;
         cell.tabIndex = 0;
         cell.setAttribute("role", "link");
-        const label = section === "person-outcome" ? "净收益" : section === "person-capability" ? "人物画像" : "历史影响";
+        const label = section === "person-outcome" ? "统治绩效" : section === "person-capability" ? "人物画像" : "历史影响";
         cell.setAttribute("aria-label", `查看${personLabel(record)}的${label}`);
       }
 
@@ -306,6 +309,11 @@ function firstCommanderMarkup(item) {
       .net-material-card,.net-material-head>strong,.net-material-body,.net-material-boundary>p{overflow-wrap:anywhere}
       .net-third-basis-list{margin:8px 0 0;padding-left:18px;font-size:12px;line-height:1.75}
       .net-third-basis-list li{margin:4px 0}
+      .net-third-subgroup{margin:18px 0 0}
+      .net-third-subgroup+.net-third-subgroup{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+      .net-third-subgroup>h3{margin:0 0 4px;font-size:17px}
+      .net-third-subgroup-note{margin:0 0 10px}
+      .net-third-total{margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
       .net-score-how{margin-top:12px}
       .net-score-how>summary{font-size:12px;color:var(--muted)}
       .net-score-how dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:5px 10px;margin:8px 0 0;font-size:12px;line-height:1.7}
@@ -328,7 +336,10 @@ function firstCommanderMarkup(item) {
   }
 
   function netValue(item, groupKey = "") {
-    if (item?.value == null) return item?.unit === "不单独计分" ? "不单独计分" : "—";
+    if (item?.value == null) return item?.unit === "不单独计分" ? "参与合成，不单列分值" : "—";
+    if (groupKey === "strategic" && item.unit === "%" && ["B1","B2","B4"].includes(item.label)) {
+      return `合成采用 ${Number(item.value)}%`;
+    }
     const signed = item.value > 0 && groupKey === "civilization" ? `+${item.value}` : String(item.value);
     return `${signed}${item.unit ? ` ${item.unit}` : ""}`;
   }
@@ -353,11 +364,22 @@ function firstCommanderMarkup(item) {
       .filter(item => item.label !== "第四项调整" && finiteNetNumber(item.value) != null);
     const hasPositive = axes.some(item => finiteNetNumber(item.value) > 0);
     const hasNegative = axes.some(item => finiteNetNumber(item.value) < 0);
+    const hasBalancedZero = axes.some(item => /^BALANCED\s*\/\s*CIV0$/i.test(String(item.grade || "").trim()));
+    const hasNoIndependentChange = axes.some(item => /^NO_ELIGIBLE/i.test(String(item.grade || "").trim()));
     const adjustment = finiteNetNumber(record.net?.fourth_item_adjustment);
     if (adjustment === 0 && hasPositive && hasNegative) {
       return "本项总调整为0：存在正向与负向分轴，合计后相抵；0不代表各轴都没有变化。";
     }
-    return "有符号调整，三轴合计范围为 -67.5～+67.5；正负值直接进入总榜。";
+    if (adjustment === 0 && hasBalancedZero && hasNoIndependentChange) {
+      return "本项总调整为0：部分分项的已确认正负变化相抵，其余分项未确认可单独计入的净变化；这些0的来源并不相同。";
+    }
+    if (adjustment === 0 && hasBalancedZero) {
+      return "本项总调整为0：至少一个分项存在已确认的正负变化，但在该分项内净算后相抵；0不等于没有变化。";
+    }
+    if (adjustment === 0 && hasNoIndependentChange) {
+      return "本项总调整为0：当前分项未确认可单独计入的净变化；0不表示相关领域没有史料，只表示没有形成独立有符号调整。";
+    }
+    return "三个分项合计范围为 -67.5～+67.5；正负值直接进入总榜。";
   }
 
   function netHref(record, major = "all", focus = "") {
@@ -443,9 +465,12 @@ function firstCommanderMarkup(item) {
       reading.append(details);
     }
     reading.dataset.netCompact = "done";
-    // Prevent the legacy person-page renderer from constructing a full detail tree
-    // that this compact view would immediately replace. The independent #net page
-    // remains the only full calculation surface.
+    // The person page is summary-only. Remove the legacy raw calculation folds
+    // that were already emitted by the base template; the independent #net page
+    // remains the single full calculation surface.
+    for (const node of Array.from(section.children)) {
+      if (node.tagName === "DETAILS") node.remove();
+    }
     section.dataset.netReadable = "done";
   }
 
@@ -504,8 +529,106 @@ function firstCommanderMarkup(item) {
   function thirdPublicText(value, itemLabel = "") {
     let text = cleanNetText(value);
     if (!text) return "";
-    const isCost = itemLabel === "普通成本扣分";
+    const isCost = itemLabel === "普通成本扣分" || itemLabel === "ML扣分";
     text = text
+      .replace(/已核对\d+项独立任务，其中较好结果\d+项、低回报\d+项、负向结果\d+项。?/g, "")
+      .replace(/父周期仅完成边界证实，任务成员与独立父周期结构未变；没有产生新的升降档理由。?/g, "")
+      .replace(/河西树机能270、277、279三票归为同一连续父周期，7项降至5项；?/g, "河西树机能270、277、279三次相关行动归为同一连续任务周期；")
+      .replace(/278西陵独立突袭由证据不足证据支持评为低回报/g, "278年西陵独立突袭现有证据仅支持判断为低回报")
+      .replace(/本批父周期边界未改变足以影响三轴的事实基础，正式横校沿用正式三轴\/既有能力专用判断。?/g, "重新核对任务边界后，三方面事实基础未变，现有等级维持不变。")
+      .replace(/前129—前119五条汉匈主战阶段合为一个连续父周期，19票降至15票。河西、漠北等阶段价值与成本必须在父级重新裁任务回报类别，不能再按五票累计；但剩余任务厚度、重大成功与重大失败证据仍足以维持军事体系整体第三级正式横校档。?/g, "前129—前119年汉匈主战阶段按同一连续任务周期合并判断，河西、漠北等阶段不重复累计；其余任务厚度与重大成败证据仍支持军事体系整体B档。")
+      .replace(/\d+票(?:降至|升至)\d+票/g, "相关任务按统一边界重新归并")
+      .replace(/父级重新裁任务回报类别/g, "在合并后的任务周期重新判断整体回报")
+      .replace(/正式横校档/g, "当前等级")
+      .replace(/正式横校/g, "交叉核对")
+      .replace(/战略链化/g, "按战略主链归并")
+      .replace(/本次重做撤销上一版近1:1链化；以\d+条战略链为评分单元，父任务只作证据下钻；三轴与整体水平经复核不变。?/g, "多个具体任务按战略主链归并，避免把同一主链拆成重复计分。")
+      .replace(/复裁撤销前166\/162\/158过度合并：三轮均已各自证实，前162还以再和亲形成明确周期终点；仅将前162年汉匈战争重绑至其战役群。?/g, "前166、前162、前158三轮边患分别有独立材料；前162另有再和亲作为阶段终点。")
+      .replace(/旧“北方36—46”宽父拆为卢芳—匈奴、乌桓、鲜卑三个独立压力对象，6票升至8票。拆分不是加功，反而要求分别复核回报；?/g, "北方压力按卢芳—匈奴、乌桓、鲜卑三个独立对象分别核对；拆分仅用于避免混并，不额外增加得分。")
+      .replace(/规模与控制强度：西北0\.8继承；统一后北方边郡0\.8仅作客观库存；河南地—朔方新增0\.6、岭南新增0\.8；删除旧西南0\.5与1\.05非标准草原包。?/g, "河南地—朔方与岭南的新增控制计入本项；继承存量及未达到正式标准的控制包不重复计算。")
+      .replace(/规模与控制强度：废止‘1206—1227新增整链一律归第一项’的形式节点切法；只排除灭夏终局0\.8及攻金遗留控制0\.5，花剌子模—中亚—西亚4\.25保留在第三项，机械落实际控制范围第4级 中位。?/g, "统一主链中已由第一项承担的灭夏终局与攻金遗留控制不重复计入；花剌子模—中亚—西亚的控制成果保留在本项。")
+      .replace(/规模与控制强度：旧账把东北等后期新增预埋进起点值，同时把本土海岸1\.0误计实际控制范围；重建后仅保留可独立证实的松外增量。?/g, "只计本人窗口内可独立证实的松外新增控制；后期新增与本土海岸存量不重复算作本人控制增量。")
+      .replace(/规模与控制强度：实际控制范围全量复核已确认最终同级率。?/g, "当前正式材料支持维持这一控制范围等级。")
+      .replace(/终点值由-?\d+(?:\.\d+)?修正为-?\d+(?:\.\d+)?，净变化由-?\d+(?:\.\d+)?修正为-?\d+(?:\.\d+)?，加权值由-?\d+(?:\.\d+)?修正为-?\d+(?:\.\d+)?；实际控制范围由第([一二三四五0-5])级(高位|中位|低位)的\d+(?:\.\d+)?调整为第([一二三四五0-5])级(高位|中位|低位)的\d+(?:\.\d+)?。?/g, (_, from, fromPos, to, toPos) => `重新核对本人窗口内的实际控制范围后，当前判断由${thirdGradeText(THIRD_CN_LEVEL[from] ?? from)}${fromPos}调整为${thirdGradeText(THIRD_CN_LEVEL[to] ?? to)}${toPos}。`)
+      .replace(/规模与控制强度：数值不变；旧标识规范化。?/g, "当前正式材料支持维持这一控制范围等级。")
+      .replace(/承接北方边郡遗漏修正：起点值\s*5\.8→6\.6，加权值\s*-3\.48→-3\.96；终局门下档位与得分率不变。?/g, "补齐北方边郡材料后，政权终结这一结论不变，因此控制范围等级仍维持当前判断。")
+      .replace(/终局门覆盖任内阶段性占领或扩域尝试。?/g, "政权终结后，任内阶段性占领或扩域尝试不作为可移交成果。")
+      .replace(/终局门命中；?/g, "政权终结，因此")
+      .replace(/规模与控制强度：数值不变；北方边疆规范化。?/g, "北方边疆作为本项主要控制范围依据。")
+      .replace(/规模与控制强度：数值不变；补齐逐区域账。?/g, "按各区域实际控制情况核对。")
+      .replace(/规模与控制强度：数值不变；交趾、河西陇右、北方边郡均改为规范锚。?/g, "交趾、河西陇右与北方边郡作为本项主要控制范围依据。")
+      .replace(/规模与控制强度：数值与得分率不变；旧唐代河西—陇右规范化为河西—陇右走廊。?/g, "河西—陇右走廊作为本项主要控制范围依据。")
+      .replace(/原正式控制规模值为\d+(?:\.\d+)?，实际采用值为\d+(?:\.\d+)?；统一参照点后，客观加权值为\d+(?:\.\d+)?，对应正式值应为\d+(?:\.\d+)?，但第三项有效采用比例仍为0。?/g, "相关控制成果已在奠基与统一项计入，本项不再重复计入。")
+      .replace(/旧1\.3→1\.3混淆西南与交州，并漏记北方边郡和启民属部。重建客观库存为2\.4→4\.2；其中602交州0\.8作为统一尾链由第一项计入，第三项有效加权值=2\.76-0\.8=1\.96，实际控制范围率44→60。?/g, "重新核对西南、交州、北方边郡与启民部后，本人窗口内实际控制范围有明显扩大；602年交州属于统一尾链，已由奠基与统一项计入，本项不重复计算。")
+      .replace(/旧账错误按靖康覆亡把赵佶终点值直接清零，采用比例29；修正终局时点并保留西北真实扩张后升至60。?/g, "按赵佶实际退位时点判断，不把1127年的靖康覆亡倒推到1126年；退位前已经形成的西北控制成果仍计入。")
+      .replace(/有效率仍0，但旧0→0改为0\.725→0，真实表达终局退控。?/g, "任期内实际控制继续收缩，并在政权终结时归零。")
+      .replace(/仍为0，但从错误0→0重建为真实\d+(?:\.\d+)?→0的大规模边疆退控。?/g, "重新核对后，确认任内发生大规模边疆退控并最终归零。")
+      .replace(/旧0\.65→2\.1使用安南临时0\.5尺度；规范后0\.8→2\.4，加权值\s*1\.71→1\.92，得分率仍60。?/g, "按统一口径重新核对安南及相关边疆控制后，当前控制范围等级不变。")
+      .replace(/规模与控制强度：旧账仅以1\.3→0并启用按终局崩溃强制清零。现改为从杨坚真实4\.2交班库存逐区域核退出；吐谷浑、伊吾阶段新增另存峰值但不进入618终点。最终实际控制范围率仍0，但不是由终局标签强制清零。?/g, "按杨坚交班时的实际控制存量逐区域核对；吐谷浑、伊吾虽有阶段新增，但至618年均未形成可保留的终点控制，因此实际控制范围归零。")
+      .replace(/执行终局门后/g, "按政权终结时的实际控制结果判断后")
+      .replace(/依终局门归零/g, "因政权终结且无可移交成果而归零")
+      .replace(/本人可本人责任主干/g, "本人可归责的主干成果")
+      .replace(/跨阶梯变化/g, "跨公开等级变化")
+      .replace(/真实\d+(?:\.\d+)?边疆库存/g, "既有边疆控制存量")
+      .replace(/不使用终局\s*强制修正/g, "按政权终结时的实际控制结果判断")
+      .replace(/统一执行终局门/g, "按政权终结时的实际控制结果判断")
+      .replace(/依全包及主要方向封顶维持/g, "综合全部方向后维持")
+      .replace(/按用户冻结规则/g, "按当前固定口径")
+      .replace(/按军事体系整体第([0-5])级重大胜绩硬门封顶军事体系整体第([0-5])级。?/g, (_, ceiling, actual) => `尚未达到${thirdGradeText(ceiling)}所需的重大体系胜绩条件，军事体系整体维持${thirdGradeText(actual)}。`)
+      .replace(/正式军事体系按\d+条当前任务与\d+条仅作能力证据支撑三轴([0-5])档/g, (_, level) => `现有正式任务与补充能力证据共同支持三方面均为${thirdGradeText(level)}`)
+      .replace(/当前第三项成本清单将其标记为不适用。?/g, "当前本项不单独结算军事代价。")
+      .replace(/故客观变动[+-]?\d+档，第三项可本人责任变动取0档。?/g, "客观状态确有改善，但相关创业统一主链已由奠基与统一项计入，本项不再重复计算本人收益。")
+      .replace(/得分率不变；删除长江内线伪实际控制范围对象，改用淮河、荆湖北缘、川陕三个真实外部边疆扇区。?/g, "重新核对后，只把淮河、荆湖北缘和川陕三个真实外部边疆方向计入实际控制范围。")
+      .replace(/固定父卡将/g, "正式任务记录将")
+      .replace(/战略安全净变化链亦裁定/g, "相关正式材料也认定")
+      .replace(/战略安全净变化底账/g, "相关正式记录")
+      .replace(/当前军事体系项无独立体系压力父周期；本人物现档来自能力专用\/完整任期无压力等既有路由，父周期归并没有新增输入。?/g, "当前没有可与创业统一主链分离的独立体系压力任务；现有等级主要依据能力证据与完整任期表现，任务归并未改变判断。")
+      .replace(/同链安全态势\/控制成果\/战略安全净变化退出，仅留军事体系\s*仅作能力证据/g, "同一主链的安全态势和控制成果不在本项重复计入；相关战事只保留为军事体系能力证据")
+      .replace(/按当前评定用户指定范围，不重新审查该状态的跨项来源；只确认没有独立军事体系档需要重新定级。?/g, "相关战争成本已按评价边界在其他项目处理，本项不重复结算。")
+      .replace(/父卡/g, "正式任务记录")
+      .replace(/不生成本人改善信用/g, "不计为本人改善成果")
+      .replace(/战略安全净变化链亦记皇帝具体成果责任未建立/g, "现有材料也未能确认皇帝本人对这一改善承担明确成果责任")
+      .replace(/剥离创业统一重复计分后/g, "扣除已经由奠基与统一项承担的创业统一成果后")
+      .replace(/并通过军事体系整体第([0-5])级条件/g, (_, level) => `并达到军事体系整体${thirdGradeText(level)}所需条件`)
+      .replace(/早期\d+条仅保留能力证据/g, "早期相关任务只作为能力证据")
+      .replace(/回灌/g, "重复计入")
+      .replace(/关键证据仍有缺口缺口保留/g, "关键证据仍有缺口")
+      .replace(/轴5必须由第三项本体重大体系胜绩复验/g, "S档必须由本项自身的重大体系胜绩再次验证")
+      .replace(/第三项军事体系军事体系正证/g, "本项军事体系的正向证据")
+      .replace(/军事体系军事体系/g, "军事体系")
+      .replace(/第三项本体/g, "本项自身")
+      .replace(/第三项(?!现期)/g, "本项")
+      .replace(/第一项/g, "奠基与统一项")
+      .replace(/最终([0-5])\/\1\/\1、军事体系整体第\1级。?/g, (_, level) => `三方面均为${thirdGradeText(level)}。`)
+      .replace(/军事体系整体第([0-5])级维持\d+/g, (_, level) => `军事体系整体维持${thirdGradeText(level)}`)
+      .replace(/重大失败不是独立倍增计票/g, "重大失败不会因事件拆分而重复加重判断")
+      .replace(/不重复计算安全态势项宏观边疆态势/g, "不重复计算已经在安全态势中判断的宏观边疆变化")
+      .replace(/正式摘要明确本方兵团对象、分母和(\d{4})本人重大决策责任已证实，核心兵团毁损分母仍缺/g, "现有材料已能确认本方兵团对象与$1年的本人重大决策责任，但核心兵团总量及毁损比例仍缺直接证据")
+      .replace(/两路径复核/g, "升级条件核对")
+      .replace(/内部链覆盖缺口/g, "材料覆盖缺口")
+      .replace(/已过([^；。]{1,28})门/g, "已达到$1所需条件")
+      .replace(/补门/g, "补足该条件")
+      .replace(/不上推/g, "不提高到")
+      .replace(/底账/g, "正式记录")
+      .replace(/现行贡献类型为/g, "当前成果类型为")
+      .replace(/本包事实/g, "本项已经确认的事实")
+      .replace(/控制包/g, "控制成果")
+      .replace(/重复交付与恢复/g, "多次维持并在受压后恢复")
+      .replace(/按压力保全上限裁/g, "受重大压力下保全的等级上限约束，")
+      .replace(/。[^。]{0,16}\s+主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：/g, "。")
+      .replace(/。[^。]{0,16}\s+防线协同与战略纵深（边界、门户、纵深与缓冲体系）本人责任判断：/g, "。")
+      .replace(/维持主要本人责任0\.75/g, "维持本人主要责任")
+      .replace(/本人对后续(恶化|改善)主要本人责任[+-]?\d+(?:\.\d+)?档。?/g, (_, direction) => `本人对后续${direction}承担主要责任。`)
+      .replace(/主导国家层面的网络建设，取1；/g, "主导国家层面的网络建设，按本人主要责任计入；")
+      .replace(/当前结果先得到\s*[\d.]+%\s*的得分率，合成时采用\s*([\d.]+)%。?/g, "当前等级进入合成时采用 $1%。")
+      .replace(/档位(?:和|与)得分率不变/g, "档位和合成比例不变")
+      .replace(/得分率/g, "合成比例")
+      .replace(/不把([^，。；]+?)损失回填十万或核心门/g, "不把$1任内损失计入本人，也不据此补足更高成本条件")
+      .replace(/不回填([^，。；]+)/g, "不把$1重复计入本人")
+      .replace(/核心门/g, "更高成本条件")
+      .replace(/回填/g, "重复计入")
+      .replace(/[，；,;]?故客观变动[+-]?\d+档中取[+-]?\d+(?:\.\d+)?档。?/g, "。")
+      .replace(/军事成本为第([0-7一二三四五六七])级(高位|中位|低位|极端上沿)/g, (_, level, position) => `军事成本为${thirdCostText(level)}、${position}`)
       .replace(/军事成本(?:达到)?第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level))
       .replace(/军事成本第([0-7一二三四五六七])级/g, (_, level) => thirdCostText(level));
     if (isCost) {
@@ -517,13 +640,19 @@ function firstCommanderMarkup(item) {
     }
     text = text
       .replace(/由([0-5])档升至([0-5])档/g, (_, from, to) => `由${thirdGradeText(from)}升至${thirdGradeText(to)}`)
-      .replace(/([0-5])→([0-5])档/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
-      .replace(/([0-5])→([0-5])/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
+      .replace(/(?<![\d.])([0-5])→([0-5])档/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
+      .replace(/(?<![\d.])([0-5])→([0-5])(?![\d.])/g, (_, from, to) => `${thirdGradeText(from)}→${thirdGradeText(to)}`)
       .replace(/三轴(?:维持)?([0-5])\/\1\/\1/g, (_, level) => `三方面均为${thirdGradeText(level)}`)
       .replace(/(支持|阻断|维持|压至|达到)([0-5])档/g, (_, verb, level) => `${verb}${thirdGradeText(level)}`)
       .replace(/([0-5])档(高位|中位|低位)/g, (_, level, position) => `${thirdGradeText(level)}${position}`)
       .replace(/([一二三四五六七])档本人改善/g, (_, count) => `${count}个等级的本人改善`)
-      .replace(/客观变动[+-]?\d+档按[+-]?\d+档本人责任/g, "客观状态变化按已裁本人责任计入")
+      .replace(/(实战任务交付|持续作战与任务承载|军事体系可靠性)=([0-5])/g, (_, label, level) => `${label}为${thirdGradeText(level)}`)
+      .replace(/(实战任务交付|持续作战与任务承载|军事体系可靠性)维持([0-5])/g, (_, label, level) => `${label}维持${thirdGradeText(level)}`)
+      .replace(/故?客观变动[+-]?\d+档按[+-]?\d+档本人责任/g, "相应状态变化按本人责任计入")
+      .replace(/第三项独立计入/g, "本项计入")
+      .replace(/第三项独立方向/g, "本项")
+      .replace(/第三项只读/g, "本项只计")
+      .replace(/(实际控制范围|战略成果价值|控制成果稳定性)为当前结果为/g, "$1当前为")
       .replace(/\bA1主要安全威胁与战略主动/g, "主要安全威胁与战略主动")
       .replace(/\bA2防线协同与战略纵深/g, "防线协同与战略纵深")
       .replace(/\bB1实际控制范围/g, "实际控制范围")
@@ -537,8 +666,64 @@ function firstCommanderMarkup(item) {
       .replace(/\bB1\b/g, "控制范围")
       .replace(/\bB2\b/g, "战略价值")
       .replace(/\bB4\b/g, "成果稳定性")
-      .replace(/三轴/g, "三方面");
-    return text;
+      .replace(/三轴/g, "三方面")
+      .replace(/父周期仅完成边界证实，任务成员与独立父周期结构未变；没有产生新的升降档理由。?/g, "复核后，既有任务边界与独立任务划分不变；没有新增升降档依据。")
+      .replace(/父周期/g, "独立任务周期")
+      .replace(/已核对(\d+)项独立任务，其中较好结果0项、低回报0项、负向结果0项。?/g, "已核对$1项独立任务。")
+      .replace(/([0-5])\/\1\/\1维持/g, (_, level) => `三方面维持${thirdGradeText(level)}`)
+      .replace(/(?:三方面)?([0-5])\/([0-5])\/([0-5])(?:维持|不变)/g, (_, delivery, endurance, reliability) => `实战任务交付${thirdGradeText(delivery)}、持续作战${thirdGradeText(endurance)}、体系可靠性${thirdGradeText(reliability)}`)
+      .replace(/(^|[^\d])([0-5])\/([0-5])\/([0-5])(?=$|[^\d])/g, (_, prefix, delivery, endurance, reliability) => `${prefix}实战任务交付${thirdGradeText(delivery)}、持续作战${thirdGradeText(endurance)}、体系可靠性${thirdGradeText(reliability)}`)
+      .replace(/实际控制范围全量复核已确认最终同级率/g, "现有正式复核维持当前控制范围判断")
+      .replace(/只作仅作能力证据能力证据/g, "只作能力证据")
+      .replace(/能力证据能力证据/g, "能力证据")
+      .replace(/旧起点值/g, "此前接手时控制存量")
+      .replace(/旧终点值/g, "此前结束时控制存量")
+      .replace(/旧加权值/g, "此前综合控制量")
+      .replace(/起点值/g, "接手时控制存量")
+      .replace(/终点值/g, "结束时控制存量")
+      .replace(/(?:第三项有效|客观|有效)?加权值/g, "综合控制量")
+      .replace(/实际采用值/g, "本项实际采用值")
+      .replace(/采用比例/g, "合成比例")
+      .replace(/实际控制范围率/g, "控制范围合成比例")
+      .replace(/重建客观库存/g, "重新核对控制存量")
+      .replace(/客观起终库存/g, "接手与结束时的控制存量")
+      .replace(/交班库存/g, "任期结束时可移交的控制存量")
+      .replace(/继承库存/g, "继承控制存量")
+      .replace(/真实库存/g, "实际控制存量")
+      .replace(/控制范围合成比例\s*(\d+(?:\.\d+)?)→(\d+(?:\.\d+)?)/g, "控制范围合成比例由 $1% 调整为 $2%")
+      .replace(/合成比例\s*(\d+(?:\.\d+)?)→(\d+(?:\.\d+)?)/g, "合成比例由 $1% 调整为 $2%")
+      .replace(/合成比例仍\s*(\d+(?:\.\d+)?)(?![%\d.])/g, "合成比例仍为$1%")
+      .replace(/合成比例\s*(\d+(?:\.\d+)?)(?![%\d.])/g, "合成比例 $1%")
+      .replace(/机械落/g, "据此定为")
+      .replace(/第三项现期/g, "本项当前窗口")
+      .replace(/仅按军事体系规定作为能力专用证据/g, "只作为军事体系判断的补充证据")
+      .replace(/军事体系整体([SABCDE]档)稀缺条件成立/g, "军事体系整体满足$1的高档条件")
+      .replace(/封顶([0-5])档/g, (_, level) => `最高计至${thirdGradeText(level)}`)
+      .replace(/([SABCDE]档)\s+(高位|中位|低位)/g, "$1$2")
+      .replace(/受([SABCDE]档)上限约束/g, "最高不超过$1")
+      .replace(/本轴客观([SABCDE]档)→\1，无正向跨档/g, "本轴从接手到结束均为$1，未发生正向跨档")
+      .replace(/不生成变化分\s+没有确认本人造成的状态变化/g, "不产生变化分；现有材料没有确认本人造成状态变化")
+      .replace(/结果\/成本/g, "结果与成本")
+      .replace(/普通军事代价为不适用或尚未定级。当前本项不单独结算军事代价。/g, "本项不单独结算军事代价。")
+      .replace(/改善成果\s+本人责任按现有材料区分/g, "改善成果。本人责任按现有材料区分")
+      .replace(/。。+/g, "。");
+    if (!isCost) {
+      text = text
+        .replace(/(^|[^A-Za-z0-9_.])([0-5])档/g, (_, prefix, level) => `${prefix}${thirdGradeText(level)}`)
+        .replace(/规模与控制强度：/g, "");
+    }
+    return cleanNetText(text);
+  }
+
+  function thirdItemPublicText(item, value) {
+    let text = thirdPublicText(value, item?.label || "");
+    if (!item || !["A1","A2"].includes(item.label)) return text;
+    const transition = String(item.grade || "").match(/([0-5])\s*→\s*([0-5])档/);
+    if (!transition) return text;
+    const endGrade = thirdGradeText(transition[2]);
+    return text
+      .replace(/结束时未单列等级安全水平/g, `结束时${endGrade}安全水平`)
+      .replace(/结束时为未单列等级/g, `结束时为${endGrade}`);
   }
   const SECOND_PUBLIC_GROUPS = new Set(["method", "finance", "handoff"]);
   const CIV_PUBLIC_DIRECTION = {POSITIVE:"正向",NEGATIVE:"负向",BALANCED:"正负相抵"};
@@ -592,12 +777,93 @@ function firstCommanderMarkup(item) {
     if (!text) return "";
     const magnitude = (level, direction = "") => civilizationMagnitudeText(level, direction);
     return text
+      .replace(/净文明影响幅度第0级/g, "正负相抵，净调整为0")
+      .replace(/原理由中的相对变化第3级与文明影响幅度第3级为过期表述。?/g, "此前较高等级表述已不再采用。")
+      .replace(/补强为负向变化第2(?:级\.5|\.5级)/g, "共同使负向变化在清晰但有限基础上进一步强化")
+      .replace(/负向变化第2(?:级\.5|\.5级)/g, "负向变化在清晰但有限基础上进一步强化")
+      .replace(/正向变化第2(?:级\.5|\.5级)/g, "正向变化在清晰但有限基础上进一步强化")
+      .replace(/文明影响幅度第0级/g, "正负相抵，净调整为0")
+      .replace(/不进相对变化第([1-4一二三四])级/g, (_, level) => `不足以达到${magnitude(level)}`)
+      .replace(/不能升相对变化第([1-4一二三四])级/g, (_, level) => `不足以达到${magnitude(level)}`)
+      .replace(/不构成相对变化第([1-4一二三四])级禁入/g, (_, level) => `本身不会自动排除${magnitude(level)}`)
+      .replace(/重大负向限制第([1-4一二三四])级/g, (_, level) => `重大负向限制达到${magnitude(level, "NEGATIVE")}`)
       .replace(/正向变化第([1-4一二三四])级/g, (_, level) => `正向变化达到${magnitude(level, "POSITIVE")}`)
       .replace(/负向变化第([1-4一二三四])级/g, (_, level) => `负向变化达到${magnitude(level, "NEGATIVE")}`)
       .replace(/净文明影响幅度第([1-4一二三四])级/g, (_, level) => `净影响为${magnitude(level)}`)
       .replace(/影响幅度第([1-4一二三四])级/g, (_, level) => `影响幅度为${magnitude(level)}`)
       .replace(/第([1-4一二三四])级影响幅度/g, (_, level) => magnitude(level))
-      .replace(/相对变化第([1-4一二三四])级/g, (_, level) => magnitude(level));
+      .replace(/相对变化第([1-4一二三四])级/g, (_, level) => magnitude(level))
+      .replace(/结果方向未单列[：:]?/g, "正负变化并存：")
+      .replace(/相对既有状态[：:]/g, "比较起点：")
+      .replace(/责任范围按现有材料区分。?/g, "")
+      .replace(/本人窗口内的责任按事实区分。?/g, "")
+      .replace(/本人直接委托并提供支持。?/g, "本人直接委托并提供支持。")
+      .replace(/补充限制[：:]/g, "限制：")
+      .replace(/故本知识包按轴边界撤资格，保留史实。?/g, "因此该材料保留为背景，但不再单独形成本轴调整。")
+      .replace(/撤销本包计分资格/g, "该材料不再单独形成调整")
+      .replace(/撤销本包/g, "该材料不再单独计入")
+      .replace(/本包未证成/g, "该项材料尚未证明")
+      .replace(/本包/g, "该项材料")
+      .replace(/现包/g, "当前材料")
+      .replace(/原包/g, "原有材料")
+      .replace(/旧包/g, "原有材料")
+      .replace(/新包/g, "新增材料")
+      .replace(/另包/g, "另一项材料")
+      .replace(/不作为该项材料普通限制吞并/g, "不与该项材料的普通限制合并")
+      .replace(/变化另一项材料共同使/g, "变化与另一项材料共同使")
+      .replace(/扩搜新证/g, "新增材料")
+      .replace(/计分资格/g, "单独调整依据")
+      .replace(/同轴禁毁负包/g, "同一维度中的禁毁负向材料")
+      .replace(/同一正包/g, "同一组正向材料")
+      .replace(/同包/g, "同组材料")
+      .replace(/负包/g, "负向材料")
+      .replace(/正包/g, "正向材料")
+      .replace(/独立增强包/g, "独立加成")
+      .replace(/独立负(?=清晰|主要|广泛|根本性|相对变化)/g, "独立负向")
+      .replace(/不在第四项复制军事损益/g, "不在文明与国家整合项重复计算军事得失")
+      .replace(/退出第四项/g, "不在文明与国家整合项重复计入")
+      .replace(/退出本轴/g, "不在本轴重复计入")
+      .replace(/废诽谤妖言罪的法源及受理边界归第二项制度共同体与社会整合；?/g, "废除诽谤、妖言罪的制度与受理边界变化已由相关治理材料承担；")
+      .replace(/诏令目的涉及来谏，但不能单靠诏令再算战略成果价值反馈结果，更不独证知识文本或教学网络变化。?/g, "诏令虽有鼓励进谏的目的，但仅凭诏令本身不能证明已经形成实际反馈效果，也不能证明知识文本或教学网络发生独立变化。")
+      .replace(/归第二项制度共同体与社会整合/g, "归入相关制度与社会治理材料")
+      .replace(/战略成果价值反馈结果/g, "已经形成实际反馈效果")
+      .replace(/归第二项社会安全/g, "归入治国成效中的社会安全")
+      .replace(/归第二项反馈纠错与权力约束/g, "归入治国成效中的反馈与约束")
+      .replace(/轴净/g, "本轴综合")
+      .replace(/净轴复核为/g, "综合判断为")
+      .replace(/净轴/g, "综合判断")
+      .replace(/压低净带位/g, "降低综合档位")
+      .replace(/净带位/g, "综合档位")
+      .replace(/取中位，撤去原高位/g, "取中位，不再维持此前高位")
+      .replace(/撤去普通反证负向变化达到/g, "普通反证不足以另列")
+      .replace(/撤去原高位/g, "不再维持此前高位")
+      .replace(/原高位持续性不足/g, "此前高位所需的持续性不足")
+      .replace(/硬门/g, "强约束")
+      .replace(/硬负记录/g, "明确负向记录")
+      .replace(/硬负向/g, "强负向")
+      .replace(/定文明影响幅度为/g, "综合判断为")
+      .replace(/保文明影响幅度为/g, "综合保留为")
+      .replace(/本人出口无据/g, "缺少本人任内实际结果依据")
+      .replace(/不得以未知写成/g, "不能在证据不足时写成")
+      .replace(/共同限制带位/g, "共同限制档内位置")
+      .replace(/限制带位/g, "限制档内位置")
+      .replace(/保有限正向变化/g, "形成有限正向变化")
+      .replace(/保强迁强负向/g, "强迁仍属强负向")
+      .replace(/同窗文字标准化/g, "同轴文字标准化")
+      .replace(/同账/g, "在同一维度合并判断")
+      .replace(/作净算/g, "合并判断")
+      .replace(/回填/g, "重复计入本人")
+      .replace(/倒算本人/g, "追溯计入本人")
+      .replace(/倒算给/g, "追溯计入")
+      .replace(/另定整数负向变化/g, "另定为独立负向变化")
+      .replace(/轴级/g, "本轴")
+      .replace(/轴正负相抵/g, "本轴综合正负相抵")
+      .replace(/不足以洗掉/g, "不足以抵消")
+      .replace(/\s+；/g, "；")
+      .replace(/。；/g, "；")
+      .replace(/。。+/g, "。")
+      .replace(/\s+/g, " ")
+      .trim();
   }
 
   function civilizationBasisMarkup(value) {
@@ -704,10 +970,10 @@ function firstCommanderMarkup(item) {
     if (!MATERIAL_CARD_GROUPS.has(groupKey)) return "";
     const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
     if (!evidence.length) return "";
+    const thirdItem = groupKey === "strategic" || groupKey === "military";
+    const fourthItem = groupKey === "civilization";
+    const format = value => thirdItem ? thirdItemPublicText(item, value) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
     const cards = evidence.map(entry => {
-      const thirdItem = groupKey === "strategic" || groupKey === "military";
-      const fourthItem = groupKey === "civilization";
-      const format = value => thirdItem ? thirdPublicText(value, item.label) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
       const title = format(entry?.public_label || entry?.public_role || "正式裁决材料");
       const role = format(entry?.public_role || "");
       const direction = format(entry?.public_direction || "");
@@ -718,7 +984,7 @@ function firstCommanderMarkup(item) {
       const basis = format(entry?.public_basis || "");
       const boundary = format(entry?.public_boundary || "");
       const basisMarkup = thirdItem
-        ? thirdBasisMarkup(entry?.public_basis || "", item.label)
+        ? thirdBasisMarkup(format(entry?.public_basis || ""), "")
         : fourthItem
           ? civilizationBasisMarkup(entry?.public_basis || "")
           : (basis ? `<p class="net-material-body">${esc(basis)}</p>` : "");
@@ -736,7 +1002,7 @@ function firstCommanderMarkup(item) {
     const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
     const thirdItem = groupKey === "strategic" || groupKey === "military";
     const fourthItem = groupKey === "civilization";
-    const formatPublic = value => thirdItem ? thirdPublicText(value, item.label) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
+    const formatPublic = value => thirdItem ? thirdItemPublicText(item, value) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
     const summary = formatPublic(item.reader_summary || "");
     const fullBasis = cleanNetText(item.reader_full_basis || "");
     const publicEvidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
@@ -753,6 +1019,11 @@ function firstCommanderMarkup(item) {
     const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;
     const logic = structuredMaterials ? "" : summary;
     const formalLevel = MATERIAL_CARD_GROUPS.has(groupKey) ? formatPublic(item.public_level_label || "") : "";
+    const formalLevelBase = formalLevel.replace(/^当前结果为\s*/, "");
+    const repeatedPrefix = displayLabel + "为";
+    const formalLevelDisplay = formalLevelBase.startsWith(repeatedPrefix)
+      ? formalLevelBase.slice(repeatedPrefix.length)
+      : formalLevelBase;
     const full = fullBasis && fullBasis !== summary
       ? `<details><summary>当前人物的完整裁决原文</summary>${prose(fullBasis)}</details>`
       : "";
@@ -770,7 +1041,7 @@ function firstCommanderMarkup(item) {
       : "";
     const formula = scoreHowDetails(item, groupKey, how, formalLevel, record);
     const secondSource = SECOND_PUBLIC_GROUPS.has(groupKey) ? ` data-second-source-label="${esc(item.label)}"` : "";
-    return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevel ? `<small class="net-formal-level">正式层级：${esc(formalLevel)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${summaryFold}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
+    return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevelDisplay ? `<small class="net-formal-level">当前判断：${esc(formalLevelDisplay)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${summaryFold}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
   }
 
   const PUBLIC_CALCULATION_KEEP = {
@@ -778,7 +1049,7 @@ function firstCommanderMarkup(item) {
     finance:new Set(["治理结果"]),
     handoff:new Set(["交接得分"]),
     strategic:new Set(["A120","B80"]),
-    military:new Set(["第三项合计"]),
+    military:new Set(["C50","实际扣分","第三项合计"]),
     civilization:new Set(["第四项调整"]),
   };
 
@@ -871,6 +1142,14 @@ function firstCommanderMarkup(item) {
       .trim();
   }
 
+  function firstOutcomeCalculationText(value) {
+    return firstItemPublicText(value)
+      .replace(/成果信用U=(\d+(?:\.\d+)?)/g, "本人有效控制成果值为$1")
+      .replace(/单人项目按统一贡献曲线计算，共同项目先生成项目A池再按正式个人信用分账/g, "单人完成时直接按统一成果曲线计算；多人共同完成时，先确定项目整体成果，再按正式归责分给个人")
+      .replace(/项目A池/g, "项目整体成果")
+      .replace(/正式个人信用分账/g, "按正式归责分配个人成果");
+  }
+
   const FIRST_COST_DEBIT = {
     0:{LOW:0,MID:0,HIGH:0},
     1:{LOW:0.5,MID:1,HIGH:1.5},
@@ -955,14 +1234,14 @@ function firstCommanderMarkup(item) {
 
   function renderFirstA(item, bullets, record) {
     const publicOutcome = item.reader_public_outcome || {};
-    const calculation = item.reader_how || "";
+    const calculation = firstOutcomeCalculationText(item.reader_how || "");
     const percent = firstPublicSharePercent(publicOutcome);
     const project = publicOutcome.public_project ? `<div class="label">共同项目</div>${prose(firstPublicOutcomeText(publicOutcome.public_project))}` : "";
     const facts = firstPublicOutcomeParts(publicOutcome)
       .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
       .join("");
-    const share = percent ? `<div class="label">成果占比</div>${prose(`约${percent}%`)}` : "";
-    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary><div class="label">A看什么</div>${prose("A只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别放到B1、B2、C。")}<div class="label">有效控制信用U</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。U不是人口、面积或军队人数。")}${prose(`项目A池 = 120 × (min(1000, U) / 1000)^0.65；单人项目直接取项目A池，共同项目再按本人控制信用占项目总信用的比例分配。${calculation ? `\n当前人物正式代入：${calculation}` : ""}`)}</details>`;
+    const share = percent ? `<div class="label">本人成果规模</div>${prose(`约${percent}%全国核心统一尺度（按本人有效控制成果计算；不是共同项目分成，也不是领土、人口或军队比例）`)}` : "";
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary><div class="label">这项看什么</div>${prose("这里只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别在其他分项评价。")}<div class="label">本人有效控制成果值</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。这个数不是人口、面积或军队人数。")}${prose(`统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65；单人完成时直接计算，多人共同完成时再按正式归责分配个人成果。${calculation ? `\n当前人物正式代入：${calculation}` : ""}`)}</details>`;
     return firstMetricDetail("net-first-a", "统一成果", "先看本人真正留下了什么", item, `${project}${facts}${share}${rules}`, record);
   }
 
@@ -988,7 +1267,8 @@ function firstCommanderMarkup(item) {
     const grade = firstItemPublicText(item.grade || "");
     const how = firstItemPublicText(item.reader_how || "");
     const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}\\n当前能力裁决：${grade || "按正式能力档裁决"}。\\n正式记录：${how || "按正式能力档与责任路线换算。"}`)}</details>`;
-    return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${rules}`, record);
+    const crossSystem = `<p class="subline first-item-cross-system-note">这里使用第一项自己的军事指挥归责口径；人物画像 M1 是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算。</p>`;
+    return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${crossSystem}${rules}`, record);
   }
 
   function renderFirstCost(item, record) {
@@ -1009,7 +1289,7 @@ function firstCommanderMarkup(item) {
     const net = byLabel["第一项净分"]?.value;
     const addOn = byLabel["附加F"]?.value;
     if ([a, b1, b2, c, gross, cost, net, addOn].some(value => value == null)) return "";
-    return `<div class="net-detail-total"><details><summary>查看第一项完整折算公式</summary>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n军事代价扣减 = ${cost}。\n第一项原始净收益 S1 = max(0, ${gross} − ${cost}) = ${net} / 240。\n总榜附加 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></div>`;
+    return `<div class="net-detail-total"><details><summary>查看第一项完整折算公式</summary>${prose(`四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅 = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n军事代价扣减 = ${cost}。\n第一项结算分 = max(0, ${gross} − ${cost}) = ${net} / 240。\n总榜附加 = 0.20 × 637 × (第一项结算分 / 240)^1.25 = ${addOn}。`)}</details></div>`;
   }
 
   function firstItemOverview(record, bulletsByLabel, byLabel) {
@@ -1022,7 +1302,7 @@ function firstCommanderMarkup(item) {
       a.public_project ? `共同项目：${a.public_project}` : "",
       a.public_outcome_basis ? `起点背景：${firstPublicOutcomeText(a.public_outcome_basis)}` : "",
       a.public_scope ? `实际成果：${firstPublicOutcomeText(a.public_scope)}` : "",
-      aPercent ? `成果占比：约${aPercent}%` : "",
+      aPercent ? `本人成果规模：约${aPercent}%全国核心统一尺度（按本人有效控制成果计算；不是共同项目分成，也不是领土、人口或军队比例）` : "",
     ].filter(Boolean).join(" ");
     const b1Parts = [
       ["起点", b1.public_start_basis],
@@ -1044,7 +1324,7 @@ function firstCommanderMarkup(item) {
     const items = record.net?.component_details?.first || [];
     const parts = Object.fromEntries(items.map(item => [item.label, item.value]));
     const score = [parts["A统一贡献"], parts["B1创业难度与效率"], parts["B2组织与整合"], parts["C军事统帅与战争解题"], parts["军事成本扣分"], parts["第一项净分"], parts["附加F"]];
-    return `<section class="first-item-overview"><h2>先看${esc(personLabel(record))}在这条主链里实际做了什么</h2><p class="subline">下面默认只放当前人物的成果、难题、组织、统帅和代价；指标定义与公式都收进折叠项。</p><div class="first-item-story-grid">${aText ? `<div class="first-item-story-card"><b>统一成果</b><p>${esc(aText)}</p></div>` : ""}${b1Parts.length ? `<div class="first-item-story-card"><b>起点、强敌与速度</b><ul>${b1Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(value)}</li>`).join("")}</ul></div>` : ""}${b2Parts.length ? `<div class="first-item-story-card"><b>组织与整合</b><ul>${b2Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstFactText(value))}</li>`).join("")}</ul></div>` : ""}${cText ? `<div class="first-item-story-card"><b>本人统帅</b><p>${esc(cText)}</p></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]} − 战争代价 ${score[4]} = <strong>原始净收益 ${score[5]}</strong> → 总榜附加 <strong>+${score[6]}</strong></div>` : ""}</section>`;
+    return `<section class="first-item-overview"><h2>先看${esc(personLabel(record))}在这条主链里实际做了什么</h2><p class="subline">下面默认只放当前人物的成果、难题、组织、统帅和代价；指标定义与公式都收进折叠项。</p><div class="first-item-story-grid">${aText ? `<div class="first-item-story-card"><b>统一成果</b><p>${esc(aText)}</p></div>` : ""}${b1Parts.length ? `<div class="first-item-story-card"><b>起点、强敌与速度</b><ul>${b1Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(value)}</li>`).join("")}</ul></div>` : ""}${b2Parts.length ? `<div class="first-item-story-card"><b>组织与整合</b><ul>${b2Parts.map(([label, value]) => `<li><strong>${label}：</strong>${esc(firstFactText(value))}</li>`).join("")}</ul></div>` : ""}${cText ? `<div class="first-item-story-card"><b>本人统帅</b><p>${esc(cText)}</p></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]} − 战争代价 ${score[4]} = <strong>第一项结算分 ${score[5]}</strong> → 总榜附加 <strong>+${score[6]}</strong></div>` : ""}</section>`;
   }
 
   async function renderFirstMajor(record, focus = "") {
@@ -1082,7 +1362,7 @@ function firstCommanderMarkup(item) {
 
     const windowText = bulletsByLabel["B1创业难度与效率"]["效率"] || "";
     const zeroNote = record.net?.first_item_status === "APPLICABLE" && finiteNetNumber(record.net?.first_item_raw_score) === 0
-      ? '<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这与“不适用”不同：本项已经进入结算，只是成果在扣除本人窗口内军事代价后归零，因此总榜附加为0。</p>'
+      ? '<p class="notice"><strong>本项适用，但第一项结算分归零。</strong>这与“不适用”不同：本项已经进入结算，成果与能力分在扣除本人责任窗口内军事代价后归零，因此总榜附加为0。</p>'
       : "";
     const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl>${ownA.public_project ? `<dt>共同项目</dt><dd>${esc(firstPublicOutcomeText(ownA.public_project))}</dd>` : ""}${firstPublicOutcomeParts(ownA).map(([label, value]) => `<dt>${esc(label)}</dt><dd>${esc(firstPublicOutcomeText(value))}</dd>`).join("")}${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources">${link('docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md','查看完整规则合同 ↗',record)}</p></details>`;
 
@@ -1090,10 +1370,55 @@ function firstCommanderMarkup(item) {
     if (focus) requestAnimationFrame(() => document.getElementById(`net-first-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));
   }
 
+
+  function thirdJudgmentCards(record, items, labels, groupKey) {
+    const wanted = new Set(labels);
+    return items
+      .filter(item => wanted.has(item.label) && item.reader_kind === "judgment")
+      .map(item => metricDetail(item, record, groupKey)).join("");
+  }
+
+  function thirdCalculationRows(items, labels, groupKey, summary) {
+    const wanted = new Set(labels);
+    const subset = items.filter(item => wanted.has(item.label));
+    if (!subset.length) return "";
+    const block = calculationBlock(subset, groupKey);
+    return block ? block.replace("<summary>本组小计怎么形成？</summary>", `<summary>${esc(summary)}</summary>`) : "";
+  }
+
+  function thirdMajorGroups(record, details) {
+    const strategic = details.strategic || [];
+    const military = details.military || [];
+    const strategicSection = `<section id="net-group-strategic" class="panel net-detail-group"><h2>第三项 · 战略收益与国防</h2>
+      <div class="net-third-subgroup"><h3>安全状态变化</h3><p class="subline net-third-subgroup-note">主要安全威胁与防线纵深分别按正式规则直接形成战略安全分。</p>
+        ${thirdJudgmentCards(record, strategic, ["A1","A2"], "strategic")}
+        ${thirdCalculationRows(strategic, ["A120"], "strategic", "安全状态小计怎么形成？")}
+      </div>
+      <div class="net-third-subgroup"><h3>控制成果质量</h3><p class="subline net-third-subgroup-note">下面三项显示的是进入控制成果合成的采用率，不是领土占比、现实概率或独立得分。</p>
+        ${thirdJudgmentCards(record, strategic, ["B1","B2","B4"], "strategic")}
+        ${thirdCalculationRows(strategic, ["B80"], "strategic", "控制成果小计怎么形成？")}
+      </div>
+    </section>`;
+    const militarySection = `<section id="net-group-military" class="panel net-detail-group"><h2>第三项 · 军事体系与成本</h2>
+      <div class="net-third-subgroup"><h3>军事体系表现</h3><p class="subline net-third-subgroup-note">三方面共同决定军事体系结果；单项参与合成，不单列分值。</p>
+        ${thirdJudgmentCards(record, military, ["C1实战交付","C2持续作战","C3体系可靠性"], "military")}
+        ${thirdCalculationRows(military, ["C50"], "military", "军事体系结果怎么形成？")}
+      </div>
+      <div class="net-third-subgroup"><h3>军事代价</h3><p class="subline net-third-subgroup-note">普通军事代价与重大军事净毁损按正式规则合并，避免同一损失重复扣减。</p>
+        ${thirdJudgmentCards(record, military, ["普通成本扣分","ML扣分"], "military")}
+        ${thirdCalculationRows(military, ["实际扣分"], "military", "实际军事代价怎么形成？")}
+      </div>
+      <div class="net-third-total">${thirdCalculationRows(military, ["第三项合计"], "military", "第三项总分怎么形成？")}</div>
+    </section>`;
+    return strategicSection + militarySection;
+  }
+
   function renderGenericMajor(record, major, focus = "") {
     const spec = netMajorSpecs[major];
     const details = record.net?.component_details || {};
-    const content = spec.groups.map(key => genericNetGroup(record, key, details[key] || [])).join("");
+    const content = major === "third"
+      ? thirdMajorGroups(record, details)
+      : spec.groups.map(key => genericNetGroup(record, key, details[key] || [])).join("");
     const container = document.getElementById("net-major-body");
     if (container) container.innerHTML = content || `<section class="panel"><p class="notice">这一项暂未形成可展示的完整分项记录。</p></section>`;
     if (focus) requestAnimationFrame(() => document.getElementById(`net-group-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));
@@ -1114,10 +1439,10 @@ function firstCommanderMarkup(item) {
     const firstStatus = record.net?.first_item_status;
     const extra = major === "first" && firstStatus === "APPLICABLE"
       ? rawFirstScore === 0
-        ? '<p class="subline">本项适用，但原始净收益为0；总榜附加为0。</p>'
+        ? '<p class="subline">本项适用，但第一项结算分为0；总榜附加为0。</p>'
         : rawFirstScore == null
-          ? `<p class="subline">本项适用，但原始净收益未列；当前显示正式附加分 ${number(record.net?.first_item_add_on)}。</p>`
-          : `<p class="subline">第一项原始净收益：${number(rawFirstScore)}；此处显示进入总榜的附加分。</p>`
+          ? `<p class="subline">本项适用，但第一项结算分未列；当前显示正式附加分 ${number(record.net?.first_item_add_on)}。</p>`
+          : `<p class="subline">第一项结算分：${number(rawFirstScore)}；此处显示进入总榜的附加分。</p>`
       : major === "first" && firstStatus === "NOT_APPLICABLE"
         ? `<p class="subline">该人物第一项不适用。</p>`
         : major === "first"
@@ -1127,17 +1452,20 @@ function firstCommanderMarkup(item) {
           : major === "fourth"
             ? `<p class="subline">${esc(fourthAdjustmentNote(record))}</p>`
             : "";
-    const shownValue = value == null ? "—" : major === "fourth" && Number(value) > 0 ? `+${number(value)}` : number(value);
+    const shownValue = major === "first" && firstStatus === "NOT_APPLICABLE"
+      ? "不适用"
+      : value == null ? "—" : major === "fourth" && Number(value) > 0 ? `+${number(value)}` : number(value);
     return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(spec.title)}</h2><div class="big">${shownValue}</div>${extra}<p>${esc(spec.description)}</p><p class="sources">查看完整计分逻辑 →</p></a>`;
   }
 
   function renderNetShell(record, active, body) {
     nav("");
-    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(personLabel(record))}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权背景：${esc(record.actual_power_window || "未列")} · 统治绩效总分 ${number(record.net?.total_score)}</p></div></div><p class="subline net-power-context-note">本项采用的时间与责任范围见各条依据；不能仅凭上述背景时期判断事件是否计入。</p>${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
+    const systemNav = typeof personSystemNav === "function" ? personSystemNav(record, "net") : "";
+    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(personLabel(record))}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权背景：${esc(record.actual_power_window || "未列")} · 统治绩效总分 ${number(record.net?.total_score)}</p></div></div><p class="subline net-power-context-note">本项采用的时间与责任范围见各条依据；不能仅凭上述背景时期判断事件是否计入。</p>${systemNav}${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
   }
 
   function renderNetLanding(record) {
-    renderNetShell(record, "all", `<section class="panel"><h2>怎么读这页</h2><p>先选一个大项。每个指标优先展示当前人物自己的结算逻辑和公式；整份正式结算文件只保留为最深层审计入口。</p></section><div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div>`);
+    renderNetShell(record, "all", `<section class="panel"><h2>怎么读这页</h2><p>先选一个大项。每个指标优先展示当前人物自己的结算逻辑和公式；整份正式结算文件只保留为最深层复核入口。</p></section><div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div>`);
   }
 
   function renderNetMajor(record, major, focus) {
@@ -1156,7 +1484,7 @@ function firstCommanderMarkup(item) {
     const scoreNote = major === "third"
       ? `本项进入总榜的净分：${shownValue} / 250；已扣实际军事代价。`
       : major === "fourth"
-        ? `本项进入总榜的有符号调整：${shownValue}。 ${fourthAdjustmentNote(record)} 理论范围 -67.5～+67.5。`
+        ? `本项进入总榜的有符号调整：${shownValue}。 ${fourthAdjustmentNote(record)}`
         : `本项进入总榜的分值：${shownValue}。`;
     renderNetShell(record, major, `<section class="panel"><h2>${esc(spec.title)}</h2><p>${esc(spec.description)}</p><p class="subline">${esc(scoreNote)}</p></section><div id="net-major-body"><div class="empty">正在整理当前人物的逐项结算逻辑…</div></div>`);
     renderGenericMajor(record, major, focus);

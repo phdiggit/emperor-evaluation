@@ -308,7 +308,11 @@ def _d3_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
     if not arrangement:
         arrangement = "正式记录未见前任留下的明确承接安排。"
     elif "终局窗口" in arrangement and ("固定" in arrangement or "复核" in arrangement):
-        arrangement = "现有材料未提供可直述的事前安排。"
+        reason_text = _clean_public_text(row.get("reason"))
+        if re.search(r"事前(?:太子|储位|继承人|承接者).*明确", reason_text):
+            arrangement = f"{successor}的既定承接地位明确"
+        else:
+            arrangement = "现有材料未提供可直述的事前安排。"
     if not terminal:
         terminal = facts
     return [

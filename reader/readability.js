@@ -36,6 +36,23 @@
     .replace(/\bSCORING_PARENT\b/g, "主要计分证据")
     .replace(/\bREFUSAL_OR_RECURRENCE\b/g, "拒绝更新或同类复发情境")
     .replace(/\bTRUTH_ACQUISITION\b/g, "求真取证情境")
+    .replace(/\bMI1(?:_CASE)?\b/g, "单一情境")
+    .replace(/\bMI2(?:_LIFECYCLE)?\b/g, "完整生命周期情境")
+    .replace(/\bMI3(?:_SUSTAINED_SYSTEMIC)?\b/g, "持续系统性情境")
+    .replace(/\bMI4(?:_CROSS_PHASE_SYSTEMIC)?\b/g, "跨阶段系统性情境")
+    .replace(/最新重裁/g, "重新核对")
+    .replace(/重裁/g, "重新核对")
+    .replace(/整改前/g, "此前")
+    .replace(/硬门/g, "定档条件")
+    .replace(/本轮/g, "当前公开材料范围内")
+    .replace(/([SABCDE](?:[+−-])?)\/D[34]\b/g, "$1成果／高压任务")
+    .replace(/最新B1/g, "现行官僚治理材料")
+    .replace(/重新反向检索后/g, "补充反例核对后")
+    .replace(/硬负例/g, "明确强反例")
+    .replace(/重要下沿需要同时消费/g, "重要下限证据需要同时计入")
+    .replace(/行政正链/g, "行政正向证据链")
+    .replace(/中枢正链/g, "中枢正向证据链")
+    .replace(/极强军事链/g, "极强军事证据链")
     .replace(/\bUNRESOLVED\b/g, "尚未确认");
 
   readerText = publicReaderText;
@@ -69,6 +86,11 @@
       const badge = summary.querySelector(".badge");
       if (!badge) continue;
       const grade = badge.textContent.trim();
+      const coverage = summary.querySelector(".axis-evidence-level")?.textContent.trim() || "";
+      const axis = axisRecordForEvidence(summary.parentElement);
+      const metaParts = [coverage];
+      if (axis?.output_mode) metaParts.push(mode(axis.output_mode));
+      if (axis?.confidence) metaParts.push(`判断把握：${conf(axis.confidence)}`);
       summary.textContent = "";
       const compactBadge = document.createElement("span");
       compactBadge.className = "badge";
@@ -77,6 +99,13 @@
       label.className = "compare-evidence-label";
       label.textContent = "展开依据";
       summary.append(compactBadge, label);
+      const metaText = metaParts.filter(Boolean).join(" · ");
+      if (metaText) {
+        const meta = document.createElement("small");
+        meta.className = "compare-evidence-meta";
+        meta.textContent = metaText;
+        summary.append(meta);
+      }
       summary.dataset.compactCompare = "done";
     }
   }

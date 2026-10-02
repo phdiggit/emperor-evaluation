@@ -142,6 +142,14 @@
       .trim();
   }
 
+  function firstOutcomeCalculationText(value) {
+    return firstItemPublicText(value)
+      .replace(/成果信用U=(\d+(?:\.\d+)?)/g, "本人有效控制成果值为$1")
+      .replace(/单人项目按统一贡献曲线计算，共同项目先生成项目A池再按正式个人信用分账/g, "单人完成时直接按统一成果曲线计算；多人共同完成时，先确定项目整体成果，再按正式归责分给个人")
+      .replace(/项目A池/g, "项目整体成果")
+      .replace(/正式个人信用分账/g, "按正式归责分配个人成果");
+  }
+
   const FIRST_COST_DEBIT = {
     0:{LOW:0,MID:0,HIGH:0},
     1:{LOW:0.5,MID:1,HIGH:1.5},
@@ -212,14 +220,14 @@
 
   function renderFirstA(item, bullets, record) {
     const publicOutcome = item.reader_public_outcome || {};
-    const calculation = item.reader_how || "";
+    const calculation = firstOutcomeCalculationText(item.reader_how || "");
     const percent = firstPublicSharePercent(publicOutcome);
     const project = publicOutcome.public_project ? `<div class="label">共同项目</div>${prose(firstPublicOutcomeText(publicOutcome.public_project))}` : "";
     const facts = firstPublicOutcomeParts(publicOutcome)
       .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
       .join("");
-    const share = percent ? `<div class="label">成果占比</div>${prose(`约${percent}%`)}` : "";
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>满分120；只看本人最终留下的稳定控制成果</small></span><b>${esc(netValue(item))}</b></div>${project}${facts}${share}<details><summary>这个分怎么算？</summary>${prose(`A = 120 × (min(1000, U) / 1000)^0.65，最后保留1位小数。${calculation ? `\n当前人物的正式代入：${calculation}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+    const share = percent ? `<div class="label">本人成果规模</div>${prose(`约${percent}%全国核心统一尺度（按本人有效控制成果计算；不是共同项目分成，也不是领土、人口或军队比例）`)}` : "";
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>满分120；只看本人最终留下的稳定控制成果</small></span><b>${esc(netValue(item))}</b></div>${project}${facts}${share}<details><summary>这个分怎么算？</summary>${prose(`统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65，最后保留1位小数。${calculation ? `\n当前人物的正式代入：${calculation}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
   function renderFirstB1(item, bullets, record) {
@@ -238,7 +246,7 @@
 
   function renderFirstC(item, bullets, record) {
     const facts = firstCommanderMarkup(item);
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>满分40；只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(netValue(item))}</b></div>${facts}<details><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>满分40；只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(netValue(item))}</b></div>${facts}<p class="subline first-item-cross-system-note">这里使用第一项自己的军事指挥归责口径；人物画像 M1 是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算。</p><details><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
   }
 
   function firstItemTotals(items) {
@@ -253,13 +261,13 @@
     const addOn = byLabel["附加F"]?.value;
     if ([a, b1, b2, c, gross, cost, net, addOn].some(value => value == null)) return "";
     const addOnText = Number(addOn) > 0 ? `+${addOn}` : String(addOn);
-    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div><div class="component"><span><strong>第一项原始净收益</strong><small>统一成果、创业难度与效率、创业组织、本人统帅合计后，再扣除本人窗口内的军事代价</small></span><b>${esc(net)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>所有人物都使用同一条折算曲线，避免第一项量纲直接压过其他项目</small></span><b>${esc(addOnText)}</b></div>${prose("先算第一项原始净收益，再按全员统一曲线折算为总榜加成；因此两个数字不是同一量纲，也不应直接比较大小。") }<details><summary>查看完整公式</summary>${prose(`四轴毛分 = A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n第一项净分 S1 = max(0, 四轴毛分 − 军事代价扣减) = max(0, ${gross} − ${cost}) = ${net}。\n总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`)}</details></article>`;
+    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div><div class="component"><span><strong>第一项结算分</strong><small>统一成果、创业难度与效率、创业组织、本人统帅合计后，再扣除本人窗口内的军事代价</small></span><b>${esc(net)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>所有人物都使用同一条折算曲线，避免第一项量纲直接压过其他项目</small></span><b>${esc(addOnText)}</b></div>${prose("先算第一项结算分，再按全员统一曲线折算为总榜加成；因此两个数字不是同一量纲，也不应直接比较大小。") }<details><summary>查看完整公式</summary>${prose(`四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅 = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n第一项结算分 = max(0, 四轴毛分 − 军事代价扣减) = max(0, ${gross} − ${cost}) = ${net}。\n总榜附加 = 0.20 × 637 × (第一项结算分 / 240)^1.25 = ${addOn}。`)}</details></article>`;
   }
 
   async function hydrateFirstItemGroup(group, record, items) {
     const firstStatus = record.net?.first_item_status;
     if (firstStatus === "NOT_APPLICABLE") {
-      group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
+      group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此本项不计入统治绩效。</p>`;
       return;
     }
     if (firstStatus !== "APPLICABLE") {
@@ -287,13 +295,14 @@
     const rawNetScore = byLabel["第一项净分"]?.value;
     const netScore = rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore);
     const zeroNote = Number.isFinite(netScore) && netScore === 0
-      ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这与“不适用”不同：这里已经进入第一项结算，只是正向成果在扣除相关军事代价后没有留下正的净值。</p>`
+      ? `<p class="notice"><strong>本项适用，但第一项结算分归零。</strong>这与“不适用”不同：这里已经进入第一项结算，成果与能力分在扣除本人责任窗口内军事代价后归零。</p>`
       : "";
-    group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="reading-intro"><strong>本项只计算本人实际承担的创业／统一成果、本人统帅贡献及其代价；先形成原始净收益，再统一折算为总榜加成。</strong>不适用不等于军事能力差。下面再按统一成果、创业难度与效率、创业组织与政治整合、本人统帅展开具体依据。</p>${zeroNote}${cards.join("")}${totals}`;
+    group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="reading-intro"><strong>本项只计算本人实际承担的创业／统一成果、本人统帅贡献及其代价；先形成第一项结算分，再统一折算为总榜加成。</strong>不适用不等于军事能力差。下面再按统一成果、创业难度与效率、创业组织与政治整合、本人统帅展开具体依据。</p>${zeroNote}${cards.join("")}${totals}`;
   }
 
   function netValue(item) {
-    if (item.value == null) return item.unit === "不单独计分" ? "不单独计分" : "—";
+    if (item.value == null) return item.unit === "不单独计分" ? "参与合成，不单列分值" : "—";
+    if (item.unit === "%" && ["B1","B2","B4"].includes(item.label)) return `合成采用 ${Number(item.value)}%`;
     const signed = item.value > 0 && item.label?.includes("文明") ? `+${item.value}` : String(item.value);
     return `${signed}${item.unit ? ` ${item.unit}` : ""}`;
   }
@@ -368,7 +377,7 @@
 
       const firstStatus = key === "first" ? record.net?.first_item_status : "";
       if (firstStatus === "NOT_APPLICABLE") {
-        group.innerHTML = `${title}<p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此第一项不参与净收益计分。</p>`;
+        group.innerHTML = `${title}<p class="notice"><strong>本项不适用。</strong>这不代表军事能力差，只表示该人物没有进入“建国、复国或统一创业主链”的本项加分口径，因此本项不计入统治绩效。</p>`;
         intro.append(group);
         continue;
       }
@@ -433,24 +442,6 @@
     if (target?.tagName === "DETAILS") target.open = true;
   }
 
-  function foldNetLedger() {
-    const section = evidenceSection("统治绩效构成");
-    if (!section || section.dataset.ledgerFolded === "done") return;
-
-    const items = Array.from(section.children).filter(node => node.tagName === "DETAILS");
-    if (!items.length) return;
-    const note = document.createElement("p");
-    note.className = "subline net-ledger-note";
-    note.textContent = "下面保留原始指标、内部档位、折算与小计，供复核使用；普通阅读无需展开。";
-    const wrapper = document.createElement("details");
-    wrapper.className = "net-ledger";
-    const toggle = document.createElement("summary");
-    toggle.textContent = "完整计分账本（审计视图）";
-    wrapper.append(toggle, ...items);
-    section.append(note, wrapper);
-    section.dataset.ledgerFolded = "done";
-  }
-
   function ensureMilitaryArchiveNav() {
     const nav = document.querySelector("header nav");
     if (!nav || nav.querySelector("[data-military-archive-nav]")) return;
@@ -476,7 +467,6 @@
     enhanceImpact(record);
     normalizeEvidenceCardHeadings();
     buildNetReading(record);
-    foldNetLedger();
   }
 
   screen.addEventListener("click", openHistoricalImpactTarget, true);
