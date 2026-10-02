@@ -50,7 +50,7 @@
           "actor_name": "傅尔丹",
           "actor_kind": "person",
           "role_code": "commander_in_chief",
-          "contribution_scope": "已验收事实卡明确闭合傅尔丹的实际行动与本人结果：轻进中伏并先退，造成大败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "contribution_scope": "逐字锚明确轻进中伏、傅尔丹弃大军先退至大败，行为与后果链已经闭合，记SUPPORTED_DECISION_RESPONSIBILITY。结果仍为本人当前已裁C/D1负向下限，规模和战前难度未凭此一句上推，不重复另加损失。",
           "person_command_index": {
             "consumption_mode": "person_result",
             "command_scope": "scoped_stage",
@@ -60,13 +60,14 @@
             "projected_result_tier": "C",
             "projected_combat_difficulty": "D1",
             "detail_status": "resolved_person_result",
-            "basis": "已验收事实卡明确闭合傅尔丹的实际行动与本人结果：轻进中伏并先退，造成大败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "basis": "逐字锚明确轻进中伏、傅尔丹弃大军先退至大败，行为与后果链已经闭合，记SUPPORTED_DECISION_RESPONSIBILITY。结果仍为本人当前已裁C/D1负向下限，规模和战前难度未凭此一句上推，不重复另加损失。",
             "source_refs": [
               "清史稿/卷9@1794968#征討準噶爾。",
               "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
               "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
               "清史稿/卷9@1794968#從後議遣使。"
-            ]
+            ],
+            "causal_fault": "SUPPORTED_DECISION_RESPONSIBILITY"
           },
           "person_command_result": [
             {
@@ -77,8 +78,8 @@
               "combat_difficulty": "D1",
               "stable_delivery": false,
               "outcome_responsibility": "actual_command_scope",
-              "causal_fault": "UNKNOWN",
-              "basis": "已验收事实卡明确闭合傅尔丹的实际行动与本人结果：轻进中伏并先退，造成大败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "causal_fault": "SUPPORTED_DECISION_RESPONSIBILITY",
+              "basis": "逐字锚明确轻进中伏、傅尔丹弃大军先退至大败，行为与后果链已经闭合，记SUPPORTED_DECISION_RESPONSIBILITY。结果仍为本人当前已裁C/D1负向下限，规模和战前难度未凭此一句上推，不重复另加损失。",
               "source_refs": [
                 "清史稿/卷9@1794968#征討準噶爾。",
                 "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
@@ -88,14 +89,17 @@
               "military_capability_contribution": {
                 "capability_mode": "integrated_command",
                 "decisive_relation": "none",
-                "basis": "已验收事实卡明确闭合傅尔丹的实际行动与本人结果：轻进中伏并先退，造成大败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "basis": "逐字锚明确轻进中伏、傅尔丹弃大军先退至大败，行为与后果链已经闭合，记SUPPORTED_DECISION_RESPONSIBILITY。结果仍为本人当前已裁C/D1负向下限，规模和战前难度未凭此一句上推，不重复另加损失。",
                 "source_refs": [
                   "清史稿/卷9@1794968#征討準噶爾。",
                   "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
                   "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
                   "清史稿/卷9@1794968#從後議遣使。"
                 ]
-              }
+              },
+              "source_alias_refs": [
+                "WAR-POST-AA37F973454949F6F76E"
+              ]
             }
           ]
         },
@@ -161,10 +165,10 @@
           "actor_kind": "person",
           "failure_domain": "command_failure",
           "responsibility": "actual_command_scope",
-          "causal_fault": "UNKNOWN",
+          "causal_fault": "SUPPORTED_DECISION_RESPONSIBILITY",
           "failure_impact_tier": "C",
           "severity": 0.2,
-          "basis": "已验收事实卡明确闭合傅尔丹的实际行动与本人结果：轻进中伏并先退，造成大败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "basis": "逐字锚明确轻进中伏、傅尔丹弃大军先退至大败，行为与后果链已经闭合，记SUPPORTED_DECISION_RESPONSIBILITY。结果仍为本人当前已裁C/D1负向下限，规模和战前难度未凭此一句上推，不重复另加损失。",
           "source_refs": [
             "清史稿/卷9@1794968#征討準噶爾。",
             "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
@@ -510,17 +514,17 @@
           "actor_name": "僧格林沁",
           "actor_kind": "person",
           "role_code": "commander_in_chief",
-          "contribution_scope": "本人实际统军与败死终局闭合，因果过错保持未知。",
+          "contribution_scope": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
           "person_command_index": {
             "consumption_mode": "person_result",
-            "command_scope": "scoped_stage",
-            "capability_mode": "tactical_execution",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
             "decisive_relation": "none",
             "result_direction": "negative",
             "projected_result_tier": "A",
             "projected_combat_difficulty": "D1",
             "detail_status": "resolved_person_result",
-            "basis": "本人实际统军与败死终局闭合，因果过错保持未知。",
+            "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
             "source_refs": [
               "清史稿/卷21@1814546#僧格林沁剿賊於菏澤南吳家店，失利",
               "清史稿/卷21@1814546#命曾國籓節制直、豫、魯三省軍防。"
@@ -536,20 +540,23 @@
               "stable_delivery": true,
               "outcome_responsibility": "actual_command_scope",
               "causal_fault": "UNKNOWN",
-              "basis": "本人实际统军与败死终局闭合，因果过错保持未知。",
+              "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
               "source_refs": [
                 "清史稿/卷21@1814546#僧格林沁剿賊於菏澤南吳家店，失利",
                 "清史稿/卷21@1814546#命曾國籓節制直、豫、魯三省軍防。"
               ],
               "military_capability_contribution": {
-                "capability_mode": "tactical_execution",
+                "capability_mode": "integrated_command",
                 "decisive_relation": "none",
-                "basis": "本人实际统军与败死终局闭合，因果过错保持未知。",
+                "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
                 "source_refs": [
                   "清史稿/卷21@1814546#僧格林沁剿賊於菏澤南吳家店，失利",
                   "清史稿/卷21@1814546#命曾國籓節制直、豫、魯三省軍防。"
                 ]
-              }
+              },
+              "source_alias_refs": [
+                "WAR-POST-1B5616AA499EC1053343"
+              ]
             }
           ]
         }

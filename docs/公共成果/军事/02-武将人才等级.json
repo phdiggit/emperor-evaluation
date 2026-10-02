@@ -1,7 +1,7 @@
 {
   "schema_version": "military-talent-registry-manifest-v1",
   "content_schema_version": "military-talent-grade-registry-v3",
-  "profile_count": 2025,
+  "profile_count": 2029,
   "bucket_count": 16,
   "payload_key_order": [
     "schema_version",
@@ -17,7 +17,8 @@
     "grade_status_counts",
     "stability_status_counts",
     "evidence_lower_bound_profile_count",
-    "profiles"
+    "profiles",
+    "identity_aliases"
   ],
   "profile_order": [
     "MIL-PROFILE-4B6050B3FE0EEEA7",
@@ -353,7 +354,6 @@
     "MIL-PROFILE-0AE3157FFF5F03A0",
     "MIL-PROFILE-4F3832EFEB3607ED",
     "MIL-PROFILE-276AEE634B071BC3",
-    "MIL-PROFILE-46DE0440E687D594",
     "MIL-PROFILE-134F736BD03440DA",
     "MIL-PROFILE-E7577C2AB4471DFC",
     "MIL-PROFILE-C892A1730DB03243",
@@ -1040,7 +1040,6 @@
     "MIL-PROFILE-8F919BFB3D250735",
     "MIL-PROFILE-5C6CAB86EEC50774",
     "MIL-PROFILE-0734615789D99D8E",
-    "MIL-PROFILE-B1D13070D20E37DA",
     "MIL-PROFILE-15A16D99CD929D0F",
     "MIL-PROFILE-6F00F7AF65F6BC92",
     "MIL-PROFILE-19E54A84DC628B48",
@@ -2044,44 +2043,90 @@
     "MIL-PROFILE-B3DCFE6EF8022436",
     "MIL-PROFILE-E23E14943FBA4F5E",
     "MIL-PROFILE-7FE1DA77C162F09D",
-    "MIL-PROFILE-6C0FB55EE79B209E"
+    "MIL-PROFILE-6C0FB55EE79B209E",
+    "MIL-PROFILE-3360FB57A54F2E5E",
+    "MIL-PROFILE-733EC154196FC4B0",
+    "MIL-PROFILE-980B7E8BF861A43D",
+    "MIL-PROFILE-27CB8259E89CBF6E",
+    "MIL-PROFILE-70062B5C8A4E3D41",
+    "MIL-PROFILE-2ECF8F74300BE2BC"
   ],
   "payload_metadata": {
     "schema_version": "military-talent-grade-registry-v3",
     "status": "current_battle_registry_authoritative",
     "source_registry_ref": "docs/公共成果/军事/01-战役登记.json",
     "capability_episode_registry_ref": "config/military/military-capability-episodes.json",
-    "capability_episode_count": 18,
+    "capability_episode_count": 39,
     "supersedes_prior_military_talent_grades": true,
     "formal_score_write": false,
-    "profile_count": 2025,
-    "identity_alias_group_count": 164,
+    "profile_count": 2029,
+    "identity_alias_group_count": 162,
     "grade_counts": {
       "historic": 13,
-      "top": 51,
-      "elite": 78,
-      "important": 433,
-      "capable": 97,
-      "usable": 693,
-      "ordinary": 660
+      "top": 37,
+      "elite": 87,
+      "important": 446,
+      "capable": 99,
+      "usable": 730,
+      "ordinary": 617
     },
     "grade_status_counts": {
-      "current_battle_registry_grade": 1284,
-      "evidence_lower_bound": 741
+      "evidence_lower_bound": 755,
+      "current_battle_registry_grade": 1274
     },
     "stability_status_counts": {
-      "no_comparable_major_failure_established": 1781,
-      "stability_limited_repeated_major_failures": 41,
-      "stability_limited_major_failure": 202,
-      "major_failure_with_effective_recovery": 1
+      "no_comparable_major_failure_established": 1771,
+      "stability_limited_major_failure": 220,
+      "stability_limited_repeated_major_failures": 38
     },
-    "evidence_lower_bound_profile_count": 741
+    "evidence_lower_bound_profile_count": 755,
+    "identity_aliases": [
+      {
+        "profile_ref": "MIL-PROFILE-46DE0440E687D594",
+        "person_ref": "MIL-PER-46DE0440E687D594",
+        "canonical_profile_ref": "MIL-PROFILE-10573E5FBFDE7881",
+        "canonical_person_ref": "MIL-PER-10573E5FBFDE7881",
+        "name_aliases": [
+          "斡鲁"
+        ],
+        "actor_ref_aliases": [
+          "PERSON-POST-2CC6E8BD3DD49D66"
+        ],
+        "source_refs": [
+          "續資治通鑑/卷094@2299574#將兵三萬救遼",
+          "續資治通鑑/卷094@2299574#夏人漂沒者不可勝計"
+        ],
+        "basis": "本记录保留旧稳定ID与来源事实，仅为身份别名，不另裁军事人才档。《金史》卷71斡鲁同一传记连续记载收国二年征高永昌与后来同娄室击李良辅三万援辽军；韩國公劾者第二子斡鲁身份闭合。北宋只是观察朝代标签；金军统帅同人，不另造第二人物。"
+      },
+      {
+        "profile_ref": "MIL-PROFILE-B1D13070D20E37DA",
+        "person_ref": "MIL-PER-B1D13070D20E37DA",
+        "canonical_profile_ref": "MIL-PROFILE-BA28C6F26A53F67D",
+        "canonical_person_ref": "MIL-PER-BA28C6F26A53F67D",
+        "name_aliases": [
+          "蒙古主"
+        ],
+        "actor_ref_aliases": [
+          "PERSON-POST-2992D5296FD1BF14"
+        ],
+        "source_refs": [
+          "西夏書事/42@2291165#八月，蒙古兵破應里等縣。",
+          "西夏書事/42@2291165#蒙古主踰沙陀，至黃河九渡，攻破之。",
+          "西夏書事/42@2291165#冬十月，蒙古破夏州，州人术速忽里降。",
+          "西夏書事/40@2291027#三月，蒙古兵入河西，大都督府主高逸死之。",
+          "西夏書事/40@2291027#督兵五萬禦之，大敗。逸被獲，不屈死。",
+          "西夏書事/40@2291027#夏四月，兀剌海城降。",
+          "西夏書事/40@2291027#蒙古主設伏以待，遣遊兵誘之入伏，獲之，遂破克夷。"
+        ],
+        "basis": "本记录保留旧稳定ID与来源事实，仅为身份别名，不另裁军事人才档。《西夏书事》嘉定二年1209及宝庆二年1226的蒙古主，与《元史》太祖本纪相同蒙古最高统帅铁木真，同年同地个人亲征；属于跨书泛称别名，不是独立西夏人物。"
+      }
+    ]
   },
   "shards": [
     {
       "path": "02-武将人才等级/bucket-00.json",
       "bucket": 0,
-      "profile_count": 128
+      "profile_count": 129
     },
     {
       "path": "02-武将人才等级/bucket-01.json",
@@ -2091,7 +2136,7 @@
     {
       "path": "02-武将人才等级/bucket-02.json",
       "bucket": 2,
-      "profile_count": 140
+      "profile_count": 139
     },
     {
       "path": "02-武将人才等级/bucket-03.json",
@@ -2116,7 +2161,7 @@
     {
       "path": "02-武将人才等级/bucket-07.json",
       "bucket": 7,
-      "profile_count": 113
+      "profile_count": 114
     },
     {
       "path": "02-武将人才等级/bucket-08.json",
@@ -2136,12 +2181,12 @@
     {
       "path": "02-武将人才等级/bucket-11.json",
       "bucket": 11,
-      "profile_count": 144
+      "profile_count": 145
     },
     {
       "path": "02-武将人才等级/bucket-12.json",
       "bucket": 12,
-      "profile_count": 118
+      "profile_count": 119
     },
     {
       "path": "02-武将人才等级/bucket-13.json",
@@ -2156,7 +2201,7 @@
     {
       "path": "02-武将人才等级/bucket-15.json",
       "bucket": 15,
-      "profile_count": 112
+      "profile_count": 113
     }
   ]
 }

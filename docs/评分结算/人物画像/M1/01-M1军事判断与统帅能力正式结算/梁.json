@@ -97,21 +97,21 @@
             "source_path": "docs/公共成果/军事/02-武将人才等级.md",
             "profile_ref": "MIL-PROFILE-7F921D945D408747",
             "profile_person": "萧衍",
-            "result_difficulty_combinations_display": "1) 前线+ `S/D3`<br>2) 前线− `S-/—`",
+            "result_difficulty_combinations_display": "1) 前线+ `S/D3`<br>2) 统筹− `S-/—`",
             "result_difficulty_combination_items": [
               "1) 前线+ `S/D3`",
-              "2) 前线− `S-/—`"
+              "2) 统筹− `S-/—`"
             ],
-            "campaign_group_roles_display": "1) 萧衍起兵、六门长围与台城陷落／主帅<br>2) 侯景围陷台城与梁首都救援失败／非前线指挥链／结果责任=operational_design_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+            "campaign_group_roles_display": "1) 萧衍起兵、六门长围与台城陷落／主帅<br>2) 侯景围陷台城与梁首都救援失败／统筹／结果责任=operational_design_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
             "campaign_group_role_items": [
               "1) 萧衍起兵、六门长围与台城陷落／主帅",
-              "2) 侯景围陷台城与梁首都救援失败／非前线指挥链／结果责任=operational_design_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
+              "2) 侯景围陷台城与梁首都救援失败／统筹／结果责任=operational_design_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
             ],
             "paired_result_difficulty_campaign_role_items": [
               "1) 前线+ `S/D3`｜萧衍起兵、六门长围与台城陷落／主帅",
-              "2) 前线− `S-/—`｜侯景围陷台城与梁首都救援失败／非前线指挥链／结果责任=operational_design_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
+              "2) 统筹− `S-/—`｜侯景围陷台城与梁首都救援失败／统筹／结果责任=operational_design_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
             ],
-            "paired_result_difficulty_campaign_roles_display": "1) 前线+ `S/D3`｜萧衍起兵、六门长围与台城陷落／主帅<br>2) 前线− `S-/—`｜侯景围陷台城与梁首都救援失败／非前线指挥链／结果责任=operational_design_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
+            "paired_result_difficulty_campaign_roles_display": "1) 前线+ `S/D3`｜萧衍起兵、六门长围与台城陷落／主帅<br>2) 统筹− `S-/—`｜侯景围陷台城与梁首都救援失败／统筹／结果责任=operational_design_scope／致败责任=COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
           },
           "third_item_strategy_crosscheck": {
             "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
@@ -391,7 +391,34 @@
             "confidence_basis": "判断把握反映本人角色、因果归属与能力外推的确定程度，不表示全生涯材料是否登记完毕。",
             "grade_boundary": "覆盖完成不自动提高能力档位；强军事周期、角色组合、跨任务复验与稳定性仍按M1合同判断。"
           },
-          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。"
+          "evidence_assessment_basis": "全生涯战役底池已覆盖。主要能力命题已完成归责、反例与限制核对；E级描述本人能力可证形态，不描述底池登记进度。",
+          "operational_admission_review": {
+            "schema_version": "m1-operational-admission-v1",
+            "source_refs": [
+              "docs/证据规则/公共成果登记与人物画像规则.md"
+            ],
+            "basis": "只以真实大局操作及兑现作为统筹支撑；人才定档不映射M1。原轴独立前线、战略及其他原史链继续分别复核。",
+            "cases": [
+              {
+                "schema_version": "military-operational-role-review-v1",
+                "status": "QUALIFIED",
+                "constraint": "当前问题为侯景围陷台城与梁首都救援失败；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+                "operation": "招引并安置侯景后，换俘安排直接改变其反叛预期；兵变后以萧正德为防御责任中心，建康外围由其接应而崩溃。只取该决策及控制失效，不把柳仲礼不战和所有台城饥病整包归本人。",
+                "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+                "result_link": "对降军安置、敌我转换和防御责任中心的错误处置与建康防线破坏相连；仅该军事决策链，不因在位就包揽全国家失败。",
+                "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+                "source_refs": [
+                  "資治通鑑/卷162@803202",
+                  "docs/史料通读产物/唐以前编年/南北朝/卷161-通读总结.md"
+                ],
+                "implemented": true,
+                "outcome_established": true,
+                "major_result": false,
+                "failure_established": true,
+                "failure_effect_tier": "S-"
+              }
+            ]
+          }
         }
       ]
     }

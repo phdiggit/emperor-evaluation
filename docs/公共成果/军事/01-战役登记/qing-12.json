@@ -3,7 +3,7 @@
   "partition": "qing",
   "bucket": 12,
   "bucket_count": 24,
-  "record_count": 11,
+  "record_count": 12,
   "records": [
     {
       "war_event_id": "WAR-POST-7E3EBD9D1E1278972FBE",
@@ -1494,6 +1494,71 @@
       "wc_grade": null,
       "security_grade": null,
       "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "PCR-QING-NURHACI-NINGYUAN-1626-SHORTFALL",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-QING-NURHACI-NINGYUAN-1626-SHORTFALL",
+      "canonical_label": "努尔哈赤宁远攻城未克后撤军",
+      "period": {
+        "start": "1626",
+        "end": "1626"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/明/明通鉴/volume-084.battle-adjudications.json",
+          "docs/史料通读产物/明/明通鉴/volume-084.source-summary.md"
+        ],
+        "source_card_refs": [
+          "WAR-POST-9DE872BDFD5B46DE73BB",
+          "WAR-CARD-5ACA2CAF1B5D8E3874CE"
+        ],
+        "lineage_basis": "已保留源卡与原史源回补本人结果；仅PERSON_RESULT_ONLY，不另结算公共战争、成本或安全收益。"
+      },
+      "source_refs": [
+        "清史稿/卷1@2589312#城上放西洋炮，頗傷士卒，乃罷攻。",
+        "清史稿/卷1@2589312#奪舟二千，盡焚其軍儲，班師。",
+        "清史稿/卷1@2589312#袁崇煥何人，乃能爾耶！"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-QING-NURHACI-NINGYUAN-1626-SHORTFALL",
+          "capability_episode_ref": "PCR-QING-NURHACI-NINGYUAN-1626-SHORTFALL",
+          "canonical_label": "努尔哈赤宁远攻城未克后撤军",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "objective_shortfall",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "NO_ATTRIBUTABLE_FAILURE_ESTABLISHED",
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_objective_shortfall",
+          "basis": "本人最高指挥攻宁远，冻土难掘与守城炮火使攻城停止，转攻觉华岛焚军储后撤。固定源能闭攻城目标未成，未闭后金主军损失达到确定个人负果的范围；不以未克或数月后病死倒推能力败责，不将焚岛作为抹败奖励。",
+          "source_refs": [
+            "清史稿/卷1@2589312#城上放西洋炮，頗傷士卒，乃罷攻。",
+            "清史稿/卷1@2589312#奪舟二千，盡焚其軍儲，班師。",
+            "清史稿/卷1@2589312#袁崇煥何人，乃能爾耶！"
+          ],
+          "evidence_lower_bound": true,
+          "result_period": {
+            "start": "1626",
+            "end": "1626"
+          },
+          "person_command_result_ref": "PCR-QING-NURHACI-NINGYUAN-1626-SHORTFALL",
+          "person": "努尔哈赤",
+          "profile_ref": "MIL-PROFILE-44F70D5754CFAD29",
+          "person_ref": "MIL-PER-44F70D5754CFAD29",
+          "actor_ref": "PERSON-POST-6E925E92C6F5ECA5"
+        }
+      ]
     }
   ]
 }

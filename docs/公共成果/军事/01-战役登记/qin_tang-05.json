@@ -3,7 +3,7 @@
   "partition": "qin_tang",
   "bucket": 5,
   "bucket_count": 24,
-  "record_count": 40,
+  "record_count": 42,
   "records": [
     {
       "war_event_id": "WAR-LEAD-101-LUOYANG-I-362",
@@ -239,7 +239,7 @@
           "actor_kind": "person",
           "actor_name": "刘牢之",
           "actor_ref": "PER-DRAFT-77B024CCA8A132F2",
-          "contribution_scope": "率五千直渡洛涧、击破梁成并断归津。",
+          "contribution_scope": "率五千直渡洛涧、击破梁成并断归津，完成淝水决战前的关键独立方向；不完整继承父级S成果。",
           "military_capability_contribution": {
             "capability_mode": "independent_direction",
             "decisive_relation": "co_decisive",
@@ -254,7 +254,7 @@
             "result_direction": "positive",
             "result_tier": "A",
             "combat_difficulty": "D3",
-            "basis": "率五千直渡洛涧、击破梁成并断归津，完成淝水决战前的关键独立方向；不完整继承父级S-成果。",
+            "basis": "率五千直渡洛涧、击破梁成并断归津，完成淝水决战前的关键独立方向；不完整继承父级S成果。",
             "source_refs": [
               "資治通鑑/卷104@1332670",
               "資治通鑑/卷105@cache-6e1a242b1904bd8a"
@@ -266,14 +266,14 @@
           },
           "person_command_index": {
             "consumption_mode": "person_result",
-            "command_scope": "independent_direction",
+            "command_scope": "full_campaign",
             "capability_mode": "independent_direction",
             "decisive_relation": "co_decisive",
             "result_direction": "positive",
             "projected_result_tier": "A",
             "projected_combat_difficulty": "D3",
             "detail_status": "resolved_person_result",
-            "basis": "率五千直渡洛涧、击破梁成并断归津，完成淝水决战前的关键独立方向；不完整继承父级S-成果。",
+            "basis": "率五千直渡洛涧、击破梁成并断归津，完成淝水决战前的关键独立方向；不完整继承父级S成果。",
             "source_refs": [
               "資治通鑑/卷104@1332670",
               "資治通鑑/卷105@cache-6e1a242b1904bd8a"
@@ -402,11 +402,47 @@
             "projected_result_tier": "A",
             "projected_combat_difficulty": null,
             "detail_status": "operational_direction_resolved",
-            "basis": "命三路平定青徐兖。",
+            "basis": "本人操作：针对青徐兖三个叛乱节点，分别配置慕容镇、慕容昱、韩范承担方向责任；不以宗室猜忌或处刑算军事能力。 兑现与边界：命三路平定青徐兖。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
             "source_refs": [
               "資治通鑑/卷114@617578",
               "WAR-LEAD-114-SOUTHYAN-CIVIL-406"
-            ]
+            ],
+            "operational_role_review": {
+              "schema_version": "military-operational-role-review-v1",
+              "status": "QUALIFIED",
+              "constraint": "当前问题为南燕宗室内战；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+              "operation": "针对青徐兖三个叛乱节点，分别配置慕容镇、慕容昱、韩范承担方向责任；不以宗室猜忌或处刑算军事能力。",
+              "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+              "result_link": "命三路平定青徐兖。",
+              "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+              "source_refs": [
+                "資治通鑑/卷114@617578",
+                "WAR-LEAD-114-SOUTHYAN-CIVIL-406"
+              ],
+              "implemented": true,
+              "outcome_established": true,
+              "major_result": true,
+              "failure_established": false,
+              "failure_effect_tier": null
+            }
+          },
+          "operational_role_review": {
+            "schema_version": "military-operational-role-review-v1",
+            "status": "QUALIFIED",
+            "constraint": "当前问题为南燕宗室内战；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+            "operation": "针对青徐兖三个叛乱节点，分别配置慕容镇、慕容昱、韩范承担方向责任；不以宗室猜忌或处刑算军事能力。",
+            "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+            "result_link": "命三路平定青徐兖。",
+            "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+            "source_refs": [
+              "資治通鑑/卷114@617578",
+              "WAR-LEAD-114-SOUTHYAN-CIVIL-406"
+            ],
+            "implemented": true,
+            "outcome_established": true,
+            "major_result": true,
+            "failure_established": false,
+            "failure_effect_tier": null
           }
         },
         {
@@ -815,7 +851,7 @@
             "result_tier": "A",
             "combat_difficulty": "D3",
             "stable_delivery": false,
-            "basis": "陈显达前期与元英屡战屡胜、围马圈四十日并迫城中粮绝，最终取城且斩获千计；随后未采冯道根路线建议、贪取绢物停追、深入急水并在退路被断后溃败，死三万余、失军资亿计。正负阶段都明确，定mixed A；复杂围城、路线误判与断退转换支持D3而非D2。",
+            "basis": "实际正果：屡胜元英并克马圈，斩获千计。 实际不利及边界：深入后退路断绝、三万余死及军资亿计损失。 保留情况：前期攻取未保持，实际斩获仍保留；不把退走当正果。 仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
             "source_refs": [
               "docs/史料通读产物/唐以前编年/南北朝/卷142-通读总结.md"
             ],
@@ -823,6 +859,20 @@
               "capability_mode": "integrated_command",
               "decisive_relation": "decisive_creator",
               "basis": "陈显达前期与元英屡战屡胜、围马圈四十日并迫城中粮绝，最终取城且斩获千计；随后未采冯道根路线建议、贪取绢物停追、深入急水并在退路被断后溃败，死三万余、失军资亿计。正负阶段都明确，定mixed A；复杂围城、路线误判与断退转换支持D3而非D2。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷142-通读总结.md"
+              ]
+            },
+            "source_alias_refs": [
+              "WAR-LEAD-142-01"
+            ],
+            "mixed_result_review": {
+              "schema_version": "military-mixed-result-review-v1",
+              "decision": "mixed_review",
+              "positive_result": "屡胜元英并克马圈，斩获千计。",
+              "adverse_result": "深入后退路断绝、三万余死及军资亿计损失。",
+              "retention": "前期攻取未保持，实际斩获仍保留；不把退走当正果。",
+              "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
               "source_refs": [
                 "docs/史料通读产物/唐以前编年/南北朝/卷142-通读总结.md"
               ]
@@ -846,7 +896,29 @@
             "projected_result_tier": "A",
             "projected_combat_difficulty": "D3",
             "detail_status": "resolved_person_result",
-            "basis": "陈显达前期与元英屡战屡胜、围马圈四十日并迫城中粮绝，最终取城且斩获千计；随后未采冯道根路线建议、贪取绢物停追、深入急水并在退路被断后溃败，死三万余、失军资亿计。正负阶段都明确，定mixed A；复杂围城、路线误判与断退转换支持D3而非D2。",
+            "basis": "实际正果：屡胜元英并克马圈，斩获千计。 实际不利及边界：深入后退路断绝、三万余死及军资亿计损失。 保留情况：前期攻取未保持，实际斩获仍保留；不把退走当正果。 仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/南北朝/卷142-通读总结.md"
+            ],
+            "mixed_result_review": {
+              "schema_version": "military-mixed-result-review-v1",
+              "decision": "mixed_review",
+              "positive_result": "屡胜元英并克马圈，斩获千计。",
+              "adverse_result": "深入后退路断绝、三万余死及军资亿计损失。",
+              "retention": "前期攻取未保持，实际斩获仍保留；不把退走当正果。",
+              "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷142-通读总结.md"
+              ]
+            }
+          },
+          "mixed_result_review": {
+            "schema_version": "military-mixed-result-review-v1",
+            "decision": "mixed_review",
+            "positive_result": "屡胜元英并克马圈，斩获千计。",
+            "adverse_result": "深入后退路断绝、三万余死及军资亿计损失。",
+            "retention": "前期攻取未保持，实际斩获仍保留；不把退走当正果。",
+            "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
             "source_refs": [
               "docs/史料通读产物/唐以前编年/南北朝/卷142-通读总结.md"
             ]
@@ -1694,7 +1766,7 @@
             "result_tier": "A",
             "combat_difficulty": null,
             "stable_delivery": false,
-            "basis": "杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。",
+            "basis": "本人操作：杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。 兑现与边界：杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
             "source_refs": [
               "資治通鑑/卷257@803268",
               "資治通鑑/卷258@1554177",
@@ -1706,13 +1778,35 @@
             "military_capability_contribution": {
               "capability_mode": "operational_design",
               "decisive_relation": "none"
+            },
+            "operational_role_review": {
+              "schema_version": "military-operational-role-review-v1",
+              "status": "QUALIFIED",
+              "constraint": "当前问题为杨行密采纳持久消耗方案并统筹孙儒战争终局；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+              "operation": "杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。",
+              "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+              "result_link": "杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。",
+              "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+              "source_refs": [
+                "資治通鑑/卷257@803268",
+                "資治通鑑/卷258@1554177",
+                "資治通鑑/卷259@803270",
+                "WAR-LEAD-257-HUAINAN-OPEN",
+                "WAR-LEAD-258-HUAINAN-OPEN",
+                "WAR-LEAD-259-HUAINAN-END"
+              ],
+              "implemented": true,
+              "outcome_established": true,
+              "major_result": true,
+              "failure_established": false,
+              "failure_effect_tier": null
             }
           },
           "command_result_direction": "positive",
           "military_capability_contribution": {
             "capability_mode": "operational_design",
             "decisive_relation": "none",
-            "basis": "采纳持久消耗方案并维持总体控制，属于可验证统筹，不继承安仁义、田頵的前线D4。",
+            "basis": "本人操作：杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。 兑现与边界：杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
             "source_refs": [
               "資治通鑑/卷257@803268",
               "資治通鑑/卷258@1554177",
@@ -1720,7 +1814,29 @@
               "WAR-LEAD-257-HUAINAN-OPEN",
               "WAR-LEAD-258-HUAINAN-OPEN",
               "WAR-LEAD-259-HUAINAN-END"
-            ]
+            ],
+            "operational_role_review": {
+              "schema_version": "military-operational-role-review-v1",
+              "status": "QUALIFIED",
+              "constraint": "当前问题为杨行密采纳持久消耗方案并统筹孙儒战争终局；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+              "operation": "杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。",
+              "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+              "result_link": "杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。",
+              "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+              "source_refs": [
+                "資治通鑑/卷257@803268",
+                "資治通鑑/卷258@1554177",
+                "資治通鑑/卷259@803270",
+                "WAR-LEAD-257-HUAINAN-OPEN",
+                "WAR-LEAD-258-HUAINAN-OPEN",
+                "WAR-LEAD-259-HUAINAN-END"
+              ],
+              "implemented": true,
+              "outcome_established": true,
+              "major_result": true,
+              "failure_established": false,
+              "failure_effect_tier": null
+            }
           },
           "person_command_index": {
             "consumption_mode": "operational_result",
@@ -1731,7 +1847,7 @@
             "projected_result_tier": "A",
             "projected_combat_difficulty": null,
             "detail_status": "operational_direction_resolved",
-            "basis": "杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。",
+            "basis": "本人操作：杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。 兑现与边界：杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
             "source_refs": [
               "資治通鑑/卷257@803268",
               "資治通鑑/卷258@1554177",
@@ -1739,7 +1855,51 @@
               "WAR-LEAD-257-HUAINAN-OPEN",
               "WAR-LEAD-258-HUAINAN-OPEN",
               "WAR-LEAD-259-HUAINAN-END"
-            ]
+            ],
+            "operational_role_review": {
+              "schema_version": "military-operational-role-review-v1",
+              "status": "QUALIFIED",
+              "constraint": "当前问题为杨行密采纳持久消耗方案并统筹孙儒战争终局；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+              "operation": "杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。",
+              "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+              "result_link": "杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。",
+              "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+              "source_refs": [
+                "資治通鑑/卷257@803268",
+                "資治通鑑/卷258@1554177",
+                "資治通鑑/卷259@803270",
+                "WAR-LEAD-257-HUAINAN-OPEN",
+                "WAR-LEAD-258-HUAINAN-OPEN",
+                "WAR-LEAD-259-HUAINAN-END"
+              ],
+              "implemented": true,
+              "outcome_established": true,
+              "major_result": true,
+              "failure_established": false,
+              "failure_effect_tier": null
+            }
+          },
+          "operational_role_review": {
+            "schema_version": "military-operational-role-review-v1",
+            "status": "QUALIFIED",
+            "constraint": "当前问题为杨行密采纳持久消耗方案并统筹孙儒战争终局；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+            "operation": "杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。",
+            "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+            "result_link": "杨行密采纳坚壁清野、截粮待疫方案并维持总体控制，最终决定出击，形成A级统筹成果；破五十余寨、擒斩孙儒及相应D4前线压力由安仁义、田頵等实际执行者消费。",
+            "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+            "source_refs": [
+              "資治通鑑/卷257@803268",
+              "資治通鑑/卷258@1554177",
+              "資治通鑑/卷259@803270",
+              "WAR-LEAD-257-HUAINAN-OPEN",
+              "WAR-LEAD-258-HUAINAN-OPEN",
+              "WAR-LEAD-259-HUAINAN-END"
+            ],
+            "implemented": true,
+            "outcome_established": true,
+            "major_result": true,
+            "failure_established": false,
+            "failure_effect_tier": null
           }
         },
         {
@@ -1754,7 +1914,7 @@
             "result_direction": "positive",
             "result_tier": "A",
             "combat_difficulty": null,
-            "basis": "提出坚壁清野、轻骑截粮方案。",
+            "basis": "本人操作：提出坚壁清野、轻骑截粮方案。 兑现与边界：提出坚壁清野、轻骑截粮方案。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
             "source_refs": [
               "資治通鑑/卷257@803268",
               "資治通鑑/卷258@1554177",
@@ -1775,13 +1935,35 @@
                 "WAR-LEAD-258-HUAINAN-OPEN",
                 "WAR-LEAD-259-HUAINAN-END"
               ]
+            },
+            "operational_role_review": {
+              "schema_version": "military-operational-role-review-v1",
+              "status": "QUALIFIED",
+              "constraint": "当前问题为提出坚壁清野、轻骑截粮方案。；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+              "operation": "提出坚壁清野、轻骑截粮方案。",
+              "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+              "result_link": "提出坚壁清野、轻骑截粮方案。",
+              "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+              "source_refs": [
+                "資治通鑑/卷257@803268",
+                "資治通鑑/卷258@1554177",
+                "資治通鑑/卷259@803270",
+                "WAR-LEAD-257-HUAINAN-OPEN",
+                "WAR-LEAD-258-HUAINAN-OPEN",
+                "WAR-LEAD-259-HUAINAN-END"
+              ],
+              "implemented": true,
+              "outcome_established": true,
+              "major_result": true,
+              "failure_established": false,
+              "failure_effect_tier": null
             }
           },
           "command_result_direction": "positive",
           "military_capability_contribution": {
             "capability_mode": "operational_design",
             "decisive_relation": "none",
-            "basis": "提出坚壁清野、轻骑截粮方案。",
+            "basis": "本人操作：提出坚壁清野、轻骑截粮方案。 兑现与边界：提出坚壁清野、轻骑截粮方案。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
             "source_refs": [
               "資治通鑑/卷257@803268",
               "資治通鑑/卷258@1554177",
@@ -1789,7 +1971,29 @@
               "WAR-LEAD-257-HUAINAN-OPEN",
               "WAR-LEAD-258-HUAINAN-OPEN",
               "WAR-LEAD-259-HUAINAN-END"
-            ]
+            ],
+            "operational_role_review": {
+              "schema_version": "military-operational-role-review-v1",
+              "status": "QUALIFIED",
+              "constraint": "当前问题为提出坚壁清野、轻骑截粮方案。；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+              "operation": "提出坚壁清野、轻骑截粮方案。",
+              "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+              "result_link": "提出坚壁清野、轻骑截粮方案。",
+              "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+              "source_refs": [
+                "資治通鑑/卷257@803268",
+                "資治通鑑/卷258@1554177",
+                "資治通鑑/卷259@803270",
+                "WAR-LEAD-257-HUAINAN-OPEN",
+                "WAR-LEAD-258-HUAINAN-OPEN",
+                "WAR-LEAD-259-HUAINAN-END"
+              ],
+              "implemented": true,
+              "outcome_established": true,
+              "major_result": true,
+              "failure_established": false,
+              "failure_effect_tier": null
+            }
           },
           "person_command_index": {
             "consumption_mode": "operational_result",
@@ -1800,7 +2004,7 @@
             "projected_result_tier": "A",
             "projected_combat_difficulty": null,
             "detail_status": "operational_direction_resolved",
-            "basis": "提出坚壁清野、轻骑截粮方案。",
+            "basis": "本人操作：提出坚壁清野、轻骑截粮方案。 兑现与边界：提出坚壁清野、轻骑截粮方案。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
             "source_refs": [
               "資治通鑑/卷257@803268",
               "資治通鑑/卷258@1554177",
@@ -1808,7 +2012,51 @@
               "WAR-LEAD-257-HUAINAN-OPEN",
               "WAR-LEAD-258-HUAINAN-OPEN",
               "WAR-LEAD-259-HUAINAN-END"
-            ]
+            ],
+            "operational_role_review": {
+              "schema_version": "military-operational-role-review-v1",
+              "status": "QUALIFIED",
+              "constraint": "当前问题为提出坚壁清野、轻骑截粮方案。；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+              "operation": "提出坚壁清野、轻骑截粮方案。",
+              "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+              "result_link": "提出坚壁清野、轻骑截粮方案。",
+              "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+              "source_refs": [
+                "資治通鑑/卷257@803268",
+                "資治通鑑/卷258@1554177",
+                "資治通鑑/卷259@803270",
+                "WAR-LEAD-257-HUAINAN-OPEN",
+                "WAR-LEAD-258-HUAINAN-OPEN",
+                "WAR-LEAD-259-HUAINAN-END"
+              ],
+              "implemented": true,
+              "outcome_established": true,
+              "major_result": true,
+              "failure_established": false,
+              "failure_effect_tier": null
+            }
+          },
+          "operational_role_review": {
+            "schema_version": "military-operational-role-review-v1",
+            "status": "QUALIFIED",
+            "constraint": "当前问题为提出坚壁清野、轻骑截粮方案。；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+            "operation": "提出坚壁清野、轻骑截粮方案。",
+            "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+            "result_link": "提出坚壁清野、轻骑截粮方案。",
+            "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+            "source_refs": [
+              "資治通鑑/卷257@803268",
+              "資治通鑑/卷258@1554177",
+              "資治通鑑/卷259@803270",
+              "WAR-LEAD-257-HUAINAN-OPEN",
+              "WAR-LEAD-258-HUAINAN-OPEN",
+              "WAR-LEAD-259-HUAINAN-END"
+            ],
+            "implemented": true,
+            "outcome_established": true,
+            "major_result": true,
+            "failure_established": false,
+            "failure_effect_tier": null
           }
         },
         {
@@ -4960,6 +5208,168 @@
       "limitations": [],
       "contract_adjudication": true,
       "unification_portfolio_ref": "UCP-REGIONAL-SHILE-FORMATION"
+    },
+    {
+      "war_event_id": "PUBLIC-PCR-HAN-SUNLIU-PERSON-DIRECTIONS-215",
+      "dynasty": "东汉",
+      "dynasty_partition": "qin_tang",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+      "canonical_label": "孙权配置吕蒙二万、鲁肃一万并在陆口节制，反馈后急调吕蒙",
+      "period": {
+        "start": "215年春夏",
+        "end": "215年春夏"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/唐以前编年/汉/卷067-通读总结.md"
+        ],
+        "source_revision_refs": [
+          "docs/史料通读产物/唐以前编年/汉/卷067-通读总结.md#WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+          "資治通鑑/卷067@2567256#遣呂蒙督兵二萬以取三郡",
+          "資治通鑑/卷067@2567256#飛書召呂蒙，使捨零陵急還助肅",
+          "資治通鑑/卷067@2567256#蒙得書，秘之，夜，召諸將授以方略",
+          "https://zh.wikisource.org/wiki/資治通鑑/卷067"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "docs/史料通读产物/唐以前编年/汉/卷067-通读总结.md#WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+        "資治通鑑/卷067@2567256#遣呂蒙督兵二萬以取三郡",
+        "資治通鑑/卷067@2567256#飛書召呂蒙，使捨零陵急還助肅",
+        "資治通鑑/卷067@2567256#蒙得書，秘之，夜，召諸將授以方略",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷067"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PUBLIC-PCR-HAN-SUNLIU-PERSON-DIRECTIONS-215",
+          "canonical_label": "孙权配置吕蒙二万、鲁肃一万并在陆口节制，反馈后急调吕蒙",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "operational_result",
+          "capability_mode": "operational_design",
+          "decisive_relation": "none",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": null,
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/汉/卷067-通读总结.md#WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+            "資治通鑑/卷067@2567256#遣呂蒙督兵二萬以取三郡",
+            "資治通鑑/卷067@2567256#飛書召呂蒙，使捨零陵急還助肅",
+            "資治通鑑/卷067@2567256#蒙得書，秘之，夜，召諸將授以方略",
+            "https://zh.wikisource.org/wiki/資治通鑑/卷067"
+          ],
+          "parent_campaign_tier": null,
+          "parent_combat_difficulty": "D_NOT_REQUIRED",
+          "evidence_lower_bound": false,
+          "capability_episode_ref": "MIL-EPISODE-SUNQUAN-SUNLIU-JINGZHOU-215",
+          "basis": "本人操作：本人明确配置取地与拒援两个责任中心，亲至陆口节制；刘备亲至、关羽争三郡后发急书调吕蒙助鲁肃，随后军事取得与和约分界闭合。取A级具体战区统筹结果，不继承吕蒙D2或鲁肃临阵压力，不把通常一次任将当作能力。 兑现与边界：本人明确配置取地与拒援两个责任中心，亲至陆口节制；刘备亲至、关羽争三郡后发急书调吕蒙助鲁肃，随后军事取得与和约分界闭合。取A级具体战区统筹结果，不继承吕蒙D2或鲁肃临阵压力，不把通常一次任将当作能力。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+          "person_command_result_ref": "PUBLIC-PCR-HAN-SUNLIU-PERSON-DIRECTIONS-215",
+          "person": "孙权",
+          "profile_ref": "MIL-PROFILE-96C157DF0195422A",
+          "person_ref": "MIL-PER-96C157DF0195422A",
+          "actor_ref": "PER-BATTLE-55DC300CA88C7661",
+          "operational_role_review": {
+            "schema_version": "military-operational-role-review-v1",
+            "status": "QUALIFIED",
+            "constraint": "当前问题为孙权配置吕蒙二万、鲁肃一万并在陆口节制，反馈后急调吕蒙；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+            "operation": "本人明确配置取地与拒援两个责任中心，亲至陆口节制；刘备亲至、关羽争三郡后发急书调吕蒙助鲁肃，随后军事取得与和约分界闭合。取A级具体战区统筹结果，不继承吕蒙D2或鲁肃临阵压力，不把通常一次任将当作能力。",
+            "implementation": "当前引用记载已实施或已采纳的上述操作及结果。",
+            "result_link": "本人明确配置取地与拒援两个责任中心，亲至陆口节制；刘备亲至、关羽争三郡后发急书调吕蒙助鲁肃，随后军事取得与和约分界闭合。取A级具体战区统筹结果，不继承吕蒙D2或鲁肃临阵压力，不把通常一次任将当作能力。",
+            "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/汉/卷067-通读总结.md#WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+              "資治通鑑/卷067@2567256#遣呂蒙督兵二萬以取三郡",
+              "資治通鑑/卷067@2567256#飛書召呂蒙，使捨零陵急還助肅",
+              "資治通鑑/卷067@2567256#蒙得書，秘之，夜，召諸將授以方略",
+              "https://zh.wikisource.org/wiki/資治通鑑/卷067"
+            ],
+            "implemented": true,
+            "outcome_established": true,
+            "major_result": true,
+            "failure_established": false,
+            "failure_effect_tier": null
+          }
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "parent_campaign_ref": "WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-9B87983B043350F407AD",
+      "dynasty": "唐／五代十国",
+      "dynasty_partition": "qin_tang",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-9B87983B043350F407AD",
+      "canonical_label": "与李嗣源共同率援军翻越山路、连续击退契丹并解除幽州长期围困。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#/cards/0"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷269@cache-3aef2736d81bac75#昼夜四面俱进",
+        "資治通鑑/卷269@cache-3aef2736d81bac75#日杀千计，而攻之不止",
+        "資治通鑑/卷269@cache-3aef2736d81bac75#命嗣源将兵先进，军于涞水",
+        "資治通鑑/卷270@803281#契丹圍幽州且二百日",
+        "資治通鑑/卷270@803281#契丹人馬死傷塞路",
+        "資治通鑑/卷270@803281#之，俘斬萬計"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-9B87983B043350F407AD",
+          "capability_episode_ref": "PCR-9B87983B043350F407AD",
+          "canonical_label": "与李嗣源共同率援军翻越山路、连续击退契丹并解除幽州长期围困。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "independent_direction",
+          "decisive_relation": "co_decisive",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D3",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "事实明确李存审为七万援军具名主将之一并参与连续击退契丹；只与李嗣源共享该解围能力情境一次。",
+          "source_refs": [
+            "資治通鑑/卷269@cache-3aef2736d81bac75#昼夜四面俱进",
+            "資治通鑑/卷269@cache-3aef2736d81bac75#日杀千计，而攻之不止",
+            "資治通鑑/卷269@cache-3aef2736d81bac75#命嗣源将兵先进，军于涞水",
+            "資治通鑑/卷270@803281#契丹圍幽州且二百日",
+            "資治通鑑/卷270@803281#契丹人馬死傷塞路",
+            "資治通鑑/卷270@803281#之，俘斬萬計"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D3",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-9B87983B043350F407AD",
+          "person": "李存审",
+          "profile_ref": "MIL-PROFILE-6F824EBA53A751C4",
+          "person_ref": "MIL-PER-6F824EBA53A751C4",
+          "actor_ref": "PER-BATTLE-CF21020F9DA87127"
+        }
+      ]
     }
   ]
 }

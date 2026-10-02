@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 10,
   "bucket_count": 24,
-  "record_count": 24,
+  "record_count": 27,
   "records": [
     {
       "war_event_id": "WAR-FD-E7AAD4C10D2D735D6A56",
@@ -5263,6 +5263,199 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-88276CFAC7CE983ED8C7",
+      "dynasty": "五代十国／北宋",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-88276CFAC7CE983ED8C7",
+      "canonical_label": "李筠攻克辽州并俘刺史张丕",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-294.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-294.battle-adjudications.json#/cards/18"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷294@2594143#敗北漢兵於北井",
+        "資治通鑑/卷294@2594143#斬首二千餘級",
+        "資治通鑑/卷294@2594143#漢，拔遼州，獲",
+        "資治通鑑/卷294@2594143#獲其刺史張丕"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-88276CFAC7CE983ED8C7",
+          "capability_episode_ref": "PCR-88276CFAC7CE983ED8C7",
+          "canonical_label": "李筠攻克辽州并俘刺史张丕",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动与结果分别闭合辽州方向，只消费李筠本人完成的攻城战果。",
+          "source_refs": [
+            "資治通鑑/卷294@2594143#敗北漢兵於北井",
+            "資治通鑑/卷294@2594143#斬首二千餘級",
+            "資治通鑑/卷294@2594143#漢，拔遼州，獲",
+            "資治通鑑/卷294@2594143#獲其刺史張丕"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-88276CFAC7CE983ED8C7",
+          "person": "李筠",
+          "profile_ref": "MIL-PROFILE-960B8420B78F8F67",
+          "person_ref": "MIL-PER-960B8420B78F8F67",
+          "actor_ref": "PERSON-POST-E1DFFE6E4CA6DCDD"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-AC9ED1C4484F12EEFC32",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-AC9ED1C4484F12EEFC32",
+      "canonical_label": "夜断浮桥并攻破德胜南城及沿河诸寨。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-272.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-272.battle-adjudications.json#/cards/3"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷272@1554183#命甲士六百",
+        "資治通鑑/卷272@1554183#南城遂破，斬首數千級",
+        "資治通鑑/卷272@1554183#寨，皆拔之，聲"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-AC9ED1C4484F12EEFC32",
+          "capability_episode_ref": "PCR-AC9ED1C4484F12EEFC32",
+          "canonical_label": "夜断浮桥并攻破德胜南城及沿河诸寨。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": true,
+          "detail_status": "resolved_person_result",
+          "basis": "本人实际设计并指挥夜袭，突破闭合；不继承后续杨刘未克的失败。",
+          "source_refs": [
+            "資治通鑑/卷272@1554183#命甲士六百",
+            "資治通鑑/卷272@1554183#南城遂破，斬首數千級",
+            "資治通鑑/卷272@1554183#寨，皆拔之，聲"
+          ],
+          "parent_campaign_tier": "B",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-AC9ED1C4484F12EEFC32",
+          "person": "王彦章",
+          "profile_ref": "MIL-PROFILE-77BA2ADE07BB8DA8",
+          "person_ref": "MIL-PER-77BA2ADE07BB8DA8",
+          "actor_ref": "PERSON-POST-F20B6FDDB109FAEE"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-8DA7EE2536C57C794B3D",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "MIL-EPISODE-FUYANQING-BAITUANWEI-945",
+      "canonical_label": "符彦卿逆风率万骑横击契丹并解除白团卫围困",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.battle-adjudications.json#/cards/30"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷284@803293#契丹圍之數重",
+        "資治通鑑/卷284@803293#寨後斷糧道。",
+        "資治通鑑/卷284@803293#之，人馬俱渴",
+        "資治通鑑/卷284@803293#擁萬餘騎橫擊契丹",
+        "資治通鑑/卷284@803293#契丹大敗而走",
+        "資治通鑑/卷284@803293#逐北二十餘里",
+        "資治通鑑/卷284@803293#駝，乘之而走"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-8DA7EE2536C57C794B3D",
+          "capability_episode_ref": "MIL-EPISODE-FUYANQING-BAITUANWEI-945",
+          "canonical_label": "符彦卿逆风率万骑横击契丹并解除白团卫围困",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "independent_direction",
+          "decisive_relation": "co_decisive",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D4",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "945年白团卫晋军数重被围、粮道断绝、取泥水饮且逆风濒危；符彦卿与诸将率万余精骑逆风横击，直接创造骑兵破围结果。本人实际承担极端劣势与临阵逆转，取重大主力/危机解除A/D4共同决定成果；不共享其他人独立指挥或后续全国终局。",
+          "source_refs": [
+            "資治通鑑/卷284@803293#契丹圍之數重",
+            "資治通鑑/卷284@803293#寨後斷糧道。",
+            "資治通鑑/卷284@803293#之，人馬俱渴",
+            "資治通鑑/卷284@803293#擁萬餘騎橫擊契丹",
+            "資治通鑑/卷284@803293#契丹大敗而走",
+            "資治通鑑/卷284@803293#逐北二十餘里",
+            "資治通鑑/卷284@803293#駝，乘之而走"
+          ],
+          "parent_campaign_tier": "B",
+          "parent_combat_difficulty": "D1",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-8DA7EE2536C57C794B3D",
+          "person": "符彦卿",
+          "profile_ref": "MIL-PROFILE-1C1414FE080A82E2",
+          "person_ref": "MIL-PER-1C1414FE080A82E2",
+          "actor_ref": "PERSON-POST-6865310F9D71B240"
+        }
       ]
     }
   ]

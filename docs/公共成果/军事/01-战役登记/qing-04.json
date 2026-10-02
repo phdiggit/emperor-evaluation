@@ -103,17 +103,17 @@
           "actor_name": "孔有德",
           "actor_kind": "person",
           "role_code": "commander_in_chief",
-          "contribution_scope": "列传闭合本人出战、败退与桂林终局；只保存负向结果，不把战败自动写为决策过失。",
+          "contribution_scope": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
           "person_command_index": {
             "consumption_mode": "person_result",
-            "command_scope": "scoped_stage",
-            "capability_mode": "tactical_execution",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
             "decisive_relation": "none",
             "result_direction": "negative",
             "projected_result_tier": "A",
             "projected_combat_difficulty": "D3",
             "detail_status": "resolved_person_result",
-            "basis": "列传闭合本人出战、败退与桂林终局；只保存负向结果，不把战败自动写为决策过失。",
+            "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
             "source_refs": [
               "清史稿/卷224@2433586#可望令定國與馮雙禮將八萬人自黎平出靖州",
               "清史稿/卷224@2433586#有德率師出戰，定國軍中象陣略退，斬馭象者以徇，所部戰甚力，驅象突陣，有德敗績，退保桂林。",
@@ -132,7 +132,7 @@
               "stable_delivery": true,
               "outcome_responsibility": "actual_command_scope",
               "causal_fault": "UNKNOWN",
-              "basis": "列传闭合本人出战、败退与桂林终局；只保存负向结果，不把战败自动写为决策过失。",
+              "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
               "source_refs": [
                 "清史稿/卷224@2433586#可望令定國與馮雙禮將八萬人自黎平出靖州",
                 "清史稿/卷224@2433586#有德率師出戰，定國軍中象陣略退，斬馭象者以徇，所部戰甚力，驅象突陣，有德敗績，退保桂林。",
@@ -141,9 +141,9 @@
                 "清史稿/卷224@2433586#敬謹親王自率精騎追之，遇伏，沒於陣。"
               ],
               "military_capability_contribution": {
-                "capability_mode": "tactical_execution",
+                "capability_mode": "integrated_command",
                 "decisive_relation": "none",
-                "basis": "列传闭合本人出战、败退与桂林终局；只保存负向结果，不把战败自动写为决策过失。",
+                "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
                 "source_refs": [
                   "清史稿/卷224@2433586#可望令定國與馮雙禮將八萬人自黎平出靖州",
                   "清史稿/卷224@2433586#有德率師出戰，定國軍中象陣略退，斬馭象者以徇，所部戰甚力，驅象突陣，有德敗績，退保桂林。",
@@ -151,7 +151,10 @@
                   "清史稿/卷224@2433586#定國分兵徇廣西諸郡縣，梧州、柳州皆下",
                   "清史稿/卷224@2433586#敬謹親王自率精騎追之，遇伏，沒於陣。"
                 ]
-              }
+              },
+              "source_alias_refs": [
+                "WAR-POST-94649F1CC0F37466AB2D"
+              ]
             }
           ]
         }

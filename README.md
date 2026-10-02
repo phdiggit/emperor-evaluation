@@ -64,7 +64,10 @@ python v4.py formal-settlements-verify --item second_item
 
 ```powershell
 python v4.py project-entries-verify
+python v4.py military-talent-verify
 ```
+
+军事人才局部裁决直接维护当前人物记录及其有效来源；完成后运行`python v4.py military-talent-views --write`同步净值、统计和阅读视图，再执行上述校验。此命令保留人物ID与已裁档位，不从父战役重新生成身份或裁决，也不恢复退役人才生成器。
 
 首次安装：
 

@@ -250,21 +250,21 @@
           ]
         },
         {
-          "actor_ref": "PERSON-POST-33026747E91F7D78",
+          "actor_ref": "PERSON-SPLIT-70062B5C8A4E3D41",
           "actor_name": "李玉",
           "actor_kind": "person",
-          "role_code": "commander_in_chief",
-          "contribution_scope": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+          "role_code": "participant",
+          "contribution_scope": "雷州百户李玉迎战倭寇并战死；未载其为最高主帅、所统部队整体败果或可归责指挥错误，仅保留本人前线伤亡。",
           "person_command_index": {
-            "consumption_mode": "person_result",
-            "command_scope": "scoped_stage",
-            "capability_mode": "integrated_command",
+            "consumption_mode": "none",
+            "command_scope": "supporting_participation",
+            "capability_mode": "tactical_execution",
             "decisive_relation": "none",
-            "result_direction": "negative",
-            "projected_result_tier": "C",
-            "projected_combat_difficulty": "D1",
-            "detail_status": "resolved_person_result",
-            "basis": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+            "result_direction": "not_applicable",
+            "projected_result_tier": null,
+            "projected_combat_difficulty": null,
+            "detail_status": "not_required",
+            "basis": "雷州百户李玉迎战倭寇并战死；未载其为最高主帅、所统部队整体败果或可归责指挥错误，仅保留本人前线伤亡。",
             "source_refs": [
               "明史/卷3@2597561#燕王敗敵於徹徹兒山，又追敗之於兀良哈禿城而還。",
               "明史/卷3@2597561#倭寇雷州，百戶李玉、鎮撫陶鼎戰死。",
@@ -275,22 +275,22 @@
             {
               "result_ref": "PCR-2B491F2F92E60C578CA1",
               "result_label": "倭寇雷州时作为百户迎战并战死。",
-              "result_direction": "negative",
-              "result_tier": "C",
-              "combat_difficulty": "D1",
+              "result_direction": "not_applicable",
+              "result_tier": null,
+              "combat_difficulty": null,
               "stable_delivery": false,
-              "outcome_responsibility": "actual_command_scope",
-              "causal_fault": "UNKNOWN",
-              "basis": "倭寇雷州时作为百户迎战并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+              "outcome_responsibility": null,
+              "causal_fault": "NOT_APPLICABLE",
+              "basis": "雷州百户李玉迎战倭寇并战死；未载其为最高主帅、所统部队整体败果或可归责指挥错误，仅保留本人前线伤亡。",
               "source_refs": [
                 "明史/卷3@2597561#燕王敗敵於徹徹兒山，又追敗之於兀良哈禿城而還。",
                 "明史/卷3@2597561#倭寇雷州，百戶李玉、鎮撫陶鼎戰死。",
                 "明史/卷3@2597561#倭寇寧海，指揮陶鐸擊敗之。"
               ],
               "military_capability_contribution": {
-                "capability_mode": "integrated_command",
+                "capability_mode": "tactical_execution",
                 "decisive_relation": "none",
-                "basis": "倭寇雷州时作为百户迎战并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+                "basis": "雷州百户李玉迎战倭寇并战死；未载其为最高主帅、所统部队整体败果或可归责指挥错误，仅保留本人前线伤亡。",
                 "source_refs": [
                   "明史/卷3@2597561#燕王敗敵於徹徹兒山，又追敗之於兀良哈禿城而還。",
                   "明史/卷3@2597561#倭寇雷州，百戶李玉、鎮撫陶鼎戰死。",
@@ -298,7 +298,12 @@
                 ]
               }
             }
-          ]
+          ],
+          "identity_source_binding": {
+            "person_ref": "MIL-PER-70062B5C8A4E3D41",
+            "profile_ref": "MIL-PROFILE-70062B5C8A4E3D41",
+            "identity_scope": "明雷州百户"
+          }
         },
         {
           "actor_ref": "PERSON-POST-2735BFB7195279CE",
@@ -404,22 +409,7 @@
         }
       ],
       "attributable_failures": [
-        {
-          "actor_ref": "PERSON-POST-33026747E91F7D78",
-          "actor_name": "李玉",
-          "actor_kind": "person",
-          "failure_domain": "command_failure",
-          "responsibility": "actual_command_scope",
-          "causal_fault": "UNKNOWN",
-          "failure_impact_tier": "C",
-          "severity": 0.2,
-          "basis": "倭寇雷州时作为百户迎战并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
-          "source_refs": [
-            "明史/卷3@2597561#燕王敗敵於徹徹兒山，又追敗之於兀良哈禿城而還。",
-            "明史/卷3@2597561#倭寇雷州，百戶李玉、鎮撫陶鼎戰死。",
-            "明史/卷3@2597561#倭寇寧海，指揮陶鐸擊敗之。"
-          ]
-        },
+        null,
         {
           "actor_ref": "PERSON-POST-5715DAA668A0268E",
           "actor_name": "陶鼎",
@@ -730,17 +720,17 @@
           "actor_name": "汤和",
           "actor_kind": "person",
           "role_code": "commander_in_chief",
-          "contribution_scope": "本人实际指挥与败绩闭合；因果过错未载。",
+          "contribution_scope": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
           "person_command_index": {
             "consumption_mode": "person_result",
-            "command_scope": "scoped_stage",
-            "capability_mode": "tactical_execution",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
             "decisive_relation": "none",
             "result_direction": "negative",
             "projected_result_tier": "B",
             "projected_combat_difficulty": "D2",
             "detail_status": "resolved_person_result",
-            "basis": "本人实际指挥与败绩闭合；因果过错未载。",
+            "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
             "source_refs": [
               "明史/卷2@2594615#湯和及元兵戰於斷頭山，敗績。"
             ]
@@ -755,18 +745,21 @@
               "stable_delivery": true,
               "outcome_responsibility": "actual_command_scope",
               "causal_fault": "UNKNOWN",
-              "basis": "本人实际指挥与败绩闭合；因果过错未载。",
+              "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
               "source_refs": [
                 "明史/卷2@2594615#湯和及元兵戰於斷頭山，敗績。"
               ],
               "military_capability_contribution": {
-                "capability_mode": "tactical_execution",
+                "capability_mode": "integrated_command",
                 "decisive_relation": "none",
-                "basis": "本人实际指挥与败绩闭合；因果过错未载。",
+                "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
                 "source_refs": [
                   "明史/卷2@2594615#湯和及元兵戰於斷頭山，敗績。"
                 ]
-              }
+              },
+              "source_alias_refs": [
+                "WAR-POST-A11309AB833EC3056F81"
+              ]
             }
           ]
         }
@@ -18065,7 +18058,7 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "十余万流寇出陕犯河南—陷陈州灵宝英山并焚霍山",
       "period": {
-        "start": "1630",
+        "start": "1634",
         "end": "1634"
       },
       "public_outcome_registered": false,
@@ -18217,7 +18210,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0244",
             "SRC-MINGTONGJIAN-088-2550896-L0247",
             "SRC-MINGTONGJIAN-088-2550896-L0253"
-          ]
+          ],
+          "event_period": {
+            "start": "1634",
+            "end": "1634"
+          }
         },
         {
           "evaluation_subject_phase": "高迎祥李自成等流寇 × 岁末关中河南江北扩张阶段",
@@ -18335,7 +18332,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0244",
             "SRC-MINGTONGJIAN-088-2550896-L0247",
             "SRC-MINGTONGJIAN-088-2550896-L0253"
-          ]
+          ],
+          "event_period": {
+            "start": "1634",
+            "end": "1634"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -18345,7 +18346,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-5435710765EF761B6884",
@@ -18356,8 +18358,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "蕲黄皖境战事—灵宝澗口焦村官军先胜—三十万流寇会聚压垮两翼",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1635",
+        "end": "1635"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -18498,7 +18500,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0463",
             "SRC-MINGTONGJIAN-088-2550896-L0464",
             "SRC-MINGTONGJIAN-088-2550896-L0465"
-          ]
+          ],
+          "event_period": {
+            "start": "1635",
+            "end": "1635"
+          }
         },
         {
           "evaluation_subject_phase": "高迎祥李自成张献忠等三十万流寇 × 灵宝会聚阶段",
@@ -18609,7 +18615,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0463",
             "SRC-MINGTONGJIAN-088-2550896-L0464",
             "SRC-MINGTONGJIAN-088-2550896-L0465"
-          ]
+          ],
+          "event_period": {
+            "start": "1635",
+            "end": "1635"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -18619,7 +18629,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-032FD768586CCA94034D",
@@ -18630,8 +18641,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "洪承畴临潼败老回回诸贼",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1635",
+        "end": "1635"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -18743,7 +18754,11 @@
           },
           "source_anchor_refs": [
             "SRC-MINGTONGJIAN-088-2550896-L0515"
-          ]
+          ],
+          "event_period": {
+            "start": "1635",
+            "end": "1635"
+          }
         },
         {
           "evaluation_subject_phase": "老回回诸部 × 临潼受挫阶段",
@@ -18833,7 +18848,11 @@
           },
           "source_anchor_refs": [
             "SRC-MINGTONGJIAN-088-2550896-L0515"
-          ]
+          ],
+          "event_period": {
+            "start": "1635",
+            "end": "1635"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -18843,7 +18862,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-0923989AE052CEC8E47A",

@@ -23,7 +23,9 @@ def verify_stability_review(row: dict) -> None:
     assert review["schema_version"] == "m1-stability-review-v1", label
     assert review["published_grade"] == row["axis_grade"] and review["published_position"] == row["position"], f"stale M1 failure decision: {label}"
     assert review["decision"] in DECISIONS and review["basis"].strip(), label
-    assert review["source_refs"] and review["reviewed_under_contract"] == "FORMAL-V1.3", label
+    from emperor_v4.evaluation.profile_registry import profile_axis_entry
+    current_contract = profile_axis_entry("M1")["axis_contract_version"]
+    assert review["source_refs"] and review["reviewed_under_contract"] in {"FORMAL-V1.3", current_contract}, label
     seen = set()
     blockers = []
     for case in review["cases"]:

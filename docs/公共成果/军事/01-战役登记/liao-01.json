@@ -122,13 +122,13 @@
           "person_command_index": {
             "consumption_mode": "person_result",
             "command_scope": "scoped_stage",
-            "capability_mode": "tactical_execution",
-            "decisive_relation": "stage_executor",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
             "result_direction": "positive",
             "projected_result_tier": "C",
             "projected_combat_difficulty": "D3",
             "detail_status": "resolved_person_result",
-            "basis": "洺州遭遇宋军并将其击退。",
+            "basis": "洺州遭遇宋军并将其击退。 本人实际率军/组织并完成已缩小的该子方向结果；此信用不向父群全部终局扩张。",
             "source_refs": [
               "遼史/卷14@1745954#遼師與宋兵戰於唐興，大破之。",
               "遼史/卷14@1745954#攻瀛州，不克。",
@@ -147,7 +147,7 @@
               "stable_delivery": false,
               "outcome_responsibility": null,
               "causal_fault": null,
-              "basis": "洺州遭遇宋军并将其击退。",
+              "basis": "洺州遭遇宋军并将其击退。 本人实际率军/组织并完成已缩小的该子方向结果；此信用不向父群全部终局扩张。",
               "source_refs": [
                 "遼史/卷14@1745954#遼師與宋兵戰於唐興，大破之。",
                 "遼史/卷14@1745954#攻瀛州，不克。",
@@ -156,8 +156,8 @@
                 "遼史/卷14@1745954#詔諸軍解嚴。"
               ],
               "military_capability_contribution": {
-                "capability_mode": "tactical_execution",
-                "decisive_relation": "stage_executor",
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
                 "basis": "洺州遭遇宋军并将其击退。",
                 "source_refs": [
                   "遼史/卷14@1745954#遼師與宋兵戰於唐興，大破之。",
@@ -168,7 +168,23 @@
                 ]
               }
             }
-          ]
+          ],
+          "current_source_lineage": {
+            "source_refs": [
+              "遼史/卷14@1745954#遼師與宋兵戰於唐興，大破之。",
+              "遼史/卷14@1745954#攻瀛州，不克。",
+              "遼史/卷14@1745954#蕭撻凜中伏弩死。",
+              "遼史/卷14@1745954#以太后為叔母，願歲輸銀十萬兩，絹二十萬匹。許之，即遣閤門使丁振持書報聘。",
+              "遼史/卷14@1745954#詔諸軍解嚴。"
+            ],
+            "source_urls": [
+              "https://zh.wikisource.org/w/index.php?title=%E9%81%BC%E5%8F%B2%2F%E5%8D%B714&oldid=1745954"
+            ],
+            "legacy_source_files": [
+              "docs/史料通读产物/唐以后编年/辽史/volume-14.registry.json"
+            ],
+            "lineage_basis": "当前本人结果携带已引用原史源逐字定位；旧编年文件路径只是历史别名，不作为仍存在的文件或全生涯材料缺口。"
+          }
         },
         {
           "actor_ref": "PERSON-POST-B711E69DFB2B2A77",
@@ -255,7 +271,23 @@
                 ]
               }
             }
-          ]
+          ],
+          "current_source_lineage": {
+            "source_refs": [
+              "遼史/卷14@1745954#遼師與宋兵戰於唐興，大破之。",
+              "遼史/卷14@1745954#攻瀛州，不克。",
+              "遼史/卷14@1745954#蕭撻凜中伏弩死。",
+              "遼史/卷14@1745954#以太后為叔母，願歲輸銀十萬兩，絹二十萬匹。許之，即遣閤門使丁振持書報聘。",
+              "遼史/卷14@1745954#詔諸軍解嚴。"
+            ],
+            "source_urls": [
+              "https://zh.wikisource.org/w/index.php?title=%E9%81%BC%E5%8F%B2%2F%E5%8D%B714&oldid=1745954"
+            ],
+            "legacy_source_files": [
+              "docs/史料通读产物/唐以后编年/辽史/volume-14.registry.json"
+            ],
+            "lineage_basis": "当前本人结果携带已引用原史源逐字定位；旧编年文件路径只是历史别名，不作为仍存在的文件或全生涯材料缺口。"
+          }
         }
       ],
       "attributable_failures": [
@@ -347,25 +379,47 @@
           "campaign_ref": "PUBLIC-PCR-YELUDASHI-EASTERN-1134-1137",
           "capability_episode_ref": "MIL-EPISODE-YELUDASHI-EASTERN-1134-1137",
           "canonical_label": "七万骑东征三年万里无所得",
-          "role_code": "commander_in_chief",
-          "consumption_mode": "person_result",
-          "capability_mode": "integrated_command",
-          "decisive_relation": "decisive_creator",
-          "result_direction": "negative",
+          "role_code": "not_in_command_chain",
+          "consumption_mode": "operational_result",
+          "capability_mode": "operational_design",
+          "decisive_relation": "none",
+          "result_direction": "objective_shortfall",
           "outcome_responsibility": "actual_command_scope",
           "causal_fault": "SUPPORTED_DECISION_RESPONSIBILITY",
           "campaign_tier": "A",
-          "combat_difficulty": "D3",
+          "combat_difficulty": null,
           "outcome_durability": false,
-          "detail_status": "resolved_person_result",
-          "basis": "统一核心闭合后本人率七万骑东征，行万余里、历时三年仍无所得且牛马多死；属于独立的统一后亲征失败，不回灌创业父链。",
+          "detail_status": "resolved_objective_shortfall",
+          "basis": "本人操作：康国元年大石以七万骑配置东征，任萧斡里剌都元帅，训其择善水草、量敌而进；实际出征和撤返由元帅统率。大石承担具体方向、资源及授权设计，不是本人亲征；无所得和牛马损失保留为统筹不利，不继承前线D3。 兑现与边界：远征无所得及牛马损失保留为目标短缺和成本；未闭本人指挥失误或实际独立败军结果。 仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
           "source_refs": [
             "DINV::YELU_DASHI::EASTERN_EXPEDITION-1134-1137",
             "《辽史》卷三十《天祚皇帝四》康国元年条"
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D3",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "episode_result_count": 1,
+          "profile_ref": "MIL-PROFILE-A21AFF19EDE5BB2F",
+          "person_ref": "MIL-PER-A21AFF19EDE5BB2F",
+          "actor_ref": "RULER-LIAO-YELU-DASHI",
+          "operational_role_review": {
+            "schema_version": "military-operational-role-review-v1",
+            "status": "RESULT_NOT_ESTABLISHED",
+            "constraint": "当前问题为七万骑东征三年万里无所得；目标与关键条件由本条原史源限定，不把国家规模或头衔当本人任务。",
+            "operation": "康国元年大石以七万骑配置东征，任萧斡里剌都元帅，训其择善水草、量敌而进；实际出征和撤返由元帅统率。大石承担具体方向、资源及授权设计，不是本人亲征；无所得和牛马损失保留为统筹不利，不继承前线D3。",
+            "implementation": "当前支撑不足，原行动与来源保留，未建立可消费统筹链。",
+            "result_link": "远征无所得及牛马损失保留为目标短缺和成本；未闭本人指挥失误或实际独立败军结果。",
+            "personal_scope": "仅消费已明确的本人选择、采纳或关键组织执行；不继承前线D、下属战果或整体国家终局。",
+            "source_refs": [
+              "DINV::YELU_DASHI::EASTERN_EXPEDITION-1134-1137",
+              "《辽史》卷三十《天祚皇帝四》康国元年条"
+            ],
+            "implemented": false,
+            "outcome_established": false,
+            "major_result": false,
+            "failure_established": false,
+            "failure_effect_tier": null
+          }
         }
       ]
     }

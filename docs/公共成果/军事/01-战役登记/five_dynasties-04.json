@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 4,
   "bucket_count": 24,
-  "record_count": 23,
+  "record_count": 24,
   "records": [
     {
       "war_event_id": "WAR-FD-5999D9FC3168385112F1",
@@ -4589,6 +4589,72 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "定向补充只闭合卷294以后本政权终局；父卡指标不得复制给其他主体。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-A68D1EBD0A1D1F2CFE79",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-A68D1EBD0A1D1F2CFE79",
+      "canonical_label": "北汉乘郭威死，以三万兵会契丹万余骑南攻潞州，并伏击穆令均部。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-291.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-291.battle-adjudications.json#/cards/12"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷291@1554151#契丹遣其武定節度使、政事令楊兗將萬餘騎",
+        "資治通鑑/卷291@1554151#北漢主自將兵三萬",
+        "資治通鑑/卷291@1554151#伏發，殺令均",
+        "資治通鑑/卷291@1554151#俘斬士卒千餘人",
+        "資治通鑑/卷291@1554151#黨，嬰城自守"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-A68D1EBD0A1D1F2CFE79",
+          "capability_episode_ref": "PCR-A68D1EBD0A1D1F2CFE79",
+          "canonical_label": "北汉乘郭威死，以三万兵会契丹万余骑南攻潞州，并伏击穆令均部。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "结果明确穆令均所部遭伏击、本人战死且士卒损失千余，保存本人败责。",
+          "source_refs": [
+            "資治通鑑/卷291@1554151#契丹遣其武定節度使、政事令楊兗將萬餘騎",
+            "資治通鑑/卷291@1554151#北漢主自將兵三萬",
+            "資治通鑑/卷291@1554151#伏發，殺令均",
+            "資治通鑑/卷291@1554151#俘斬士卒千餘人",
+            "資治通鑑/卷291@1554151#黨，嬰城自守"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-A68D1EBD0A1D1F2CFE79",
+          "person": "穆令均",
+          "profile_ref": "MIL-PROFILE-B93792B0381C3715",
+          "person_ref": "MIL-PER-B93792B0381C3715",
+          "actor_ref": "PERSON-POST-5394F4F7397B5885"
+        }
       ]
     }
   ]

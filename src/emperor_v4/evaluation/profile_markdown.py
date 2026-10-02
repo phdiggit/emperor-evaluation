@@ -35,6 +35,7 @@ def _grade(record: dict[str, Any]) -> str:
 
 
 _M1_RESULT_SCOPE_LABELS = {
+    "unresolved_command_scope": "本人指挥范围尚未闭合",
     "actual_command_scope": "本人实际指挥范围",
     "operational_design_scope": "本人战区设计与统筹范围",
     "independent_direction_scope": "本人独立方向决策范围",

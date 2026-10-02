@@ -3,7 +3,7 @@
   "partition": "ming",
   "bucket": 2,
   "bucket_count": 24,
-  "record_count": 73,
+  "record_count": 74,
   "records": [
     {
       "war_event_id": "WAR-POST-8475C89878BD58028771",
@@ -681,7 +681,23 @@
                 ]
               }
             }
-          ]
+          ],
+          "current_source_lineage": {
+            "source_refs": [
+              "明史/卷2@2594615#之，分道北征。\n",
+              "明史/卷2@2594615#徐達大破擴廓帖木兒於沈兒峪，盡降其眾",
+              "明史/卷2@2594615#李文忠克應昌。",
+              "明史/卷2@2594615#降五萬餘人",
+              "明史/卷2@2594615#鄧愈克河州。"
+            ],
+            "source_urls": [
+              "https://zh.wikisource.org/w/index.php?title=%E6%98%8E%E5%8F%B2%2F%E5%8D%B72&oldid=2594615"
+            ],
+            "legacy_source_files": [
+              "docs/史料通读产物/唐以后编年/明史/volume-02.registry.json"
+            ],
+            "lineage_basis": "当前本人结果携带已引用原史源逐字定位；旧编年文件路径只是历史别名，不作为仍存在的文件或全生涯材料缺口。"
+          }
         },
         {
           "actor_ref": "PERSON-POST-712CF7E91444A65B",
@@ -692,50 +708,44 @@
           "person_command_index": {
             "consumption_mode": "person_result",
             "command_scope": "scoped_stage",
-            "capability_mode": "tactical_execution",
-            "decisive_relation": "stage_executor",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
             "result_direction": "positive",
             "projected_result_tier": "A",
-            "projected_combat_difficulty": "D1",
+            "projected_combat_difficulty": "D2",
             "detail_status": "resolved_person_result",
-            "basis": "只消费攻克应昌和宫廷方向阶段，不把徐达沈儿峪主力终局复制给李文忠。",
+            "basis": "A为北元军政行在重大打击，政权与主力仍在，不作国家S终局；D2限本人从野狐岭至开平应昌的长程独立方向与兼程突进，不继承徐达沈儿峪条件。五万余属全方向受降，非应昌一城俘军。",
             "source_refs": [
               "明史/卷2@2594615#之，分道北征。\n",
               "明史/卷2@2594615#徐達大破擴廓帖木兒於沈兒峪，盡降其眾",
               "明史/卷2@2594615#李文忠克應昌。",
               "明史/卷2@2594615#降五萬餘人",
-              "明史/卷2@2594615#鄧愈克河州。"
+              "明史/卷2@2594615#鄧愈克河州。",
+              "明史/卷126#洪武三年-以十萬人出野狐嶺至應昌"
             ]
           },
           "person_command_result": [
             {
               "result_ref": "PCR-7661D53A939AD90A6A82",
-              "result_label": "应昌方向攻克北元宫廷驻地；俘获宗室与降众属于该方向，但五万余的逐人归属仍有语句省略。",
+              "result_label": "獨當東路兼程取應昌，俘元皇孫宗室，並在興州紅羅山受降兵民。",
               "result_direction": "positive",
               "result_tier": "A",
-              "combat_difficulty": "D1",
+              "combat_difficulty": "D2",
               "stable_delivery": false,
               "outcome_responsibility": null,
               "causal_fault": null,
-              "basis": "只消费攻克应昌和宫廷方向阶段，不把徐达沈儿峪主力终局复制给李文忠。",
+              "basis": "A为北元军政行在重大打击，政权与主力仍在，不作国家S终局；D2限本人从野狐岭至开平应昌的长程独立方向与兼程突进，不继承徐达沈儿峪条件。五万余属全方向受降，非应昌一城俘军。",
               "source_refs": [
                 "明史/卷2@2594615#之，分道北征。\n",
                 "明史/卷2@2594615#徐達大破擴廓帖木兒於沈兒峪，盡降其眾",
                 "明史/卷2@2594615#李文忠克應昌。",
                 "明史/卷2@2594615#降五萬餘人",
-                "明史/卷2@2594615#鄧愈克河州。"
+                "明史/卷2@2594615#鄧愈克河州。",
+                "明史/卷126#洪武三年-以十萬人出野狐嶺至應昌"
               ],
               "military_capability_contribution": {
-                "capability_mode": "tactical_execution",
-                "decisive_relation": "stage_executor",
-                "basis": "只消费攻克应昌和宫廷方向阶段，不把徐达沈儿峪主力终局复制给李文忠。",
-                "source_refs": [
-                  "明史/卷2@2594615#之，分道北征。\n",
-                  "明史/卷2@2594615#徐達大破擴廓帖木兒於沈兒峪，盡降其眾",
-                  "明史/卷2@2594615#李文忠克應昌。",
-                  "明史/卷2@2594615#降五萬餘人",
-                  "明史/卷2@2594615#鄧愈克河州。"
-                ]
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator"
               }
             }
           ]
@@ -15468,8 +15478,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "沈丘官军败绩—张全昌被执—流寇挟之攻蕲黄",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1635",
+        "end": "1635"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -15599,7 +15609,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0424",
             "SRC-MINGTONGJIAN-088-2550896-L0426",
             "SRC-MINGTONGJIAN-088-2550896-L0428"
-          ]
+          ],
+          "event_period": {
+            "start": "1635",
+            "end": "1635"
+          }
         },
         {
           "evaluation_subject_phase": "蝎子块等流寇 × 沈丘战胜阶段",
@@ -15703,7 +15717,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0424",
             "SRC-MINGTONGJIAN-088-2550896-L0426",
             "SRC-MINGTONGJIAN-088-2550896-L0428"
-          ]
+          ],
+          "event_period": {
+            "start": "1635",
+            "end": "1635"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -15713,7 +15731,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-29F438DBE1369587583D",
@@ -15724,8 +15743,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "老回回数万围陕州—雪夜袭陷—史记言等死难",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1635",
+        "end": "1635"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -15855,7 +15874,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0478",
             "SRC-MINGTONGJIAN-088-2550896-L0480",
             "SRC-MINGTONGJIAN-088-2550896-L0481"
-          ]
+          ],
+          "event_period": {
+            "start": "1635",
+            "end": "1635"
+          }
         },
         {
           "evaluation_subject_phase": "老回回等流寇 × 围取陕州阶段",
@@ -15959,7 +15982,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0478",
             "SRC-MINGTONGJIAN-088-2550896-L0480",
             "SRC-MINGTONGJIAN-088-2550896-L0481"
-          ]
+          ],
+          "event_period": {
+            "start": "1635",
+            "end": "1635"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -15969,7 +15996,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-D40ADBD3A778F418E35D",
@@ -16693,6 +16721,70 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-MING-CHANGYUCHUN-QUZHOU-1359",
+      "dynasty": "元／明",
+      "dynasty_partition": "ming",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-MING-CHANGYUCHUN-QUZHOU-1359",
+      "canonical_label": "常遇春独立攻取衢州",
+      "period": {
+        "start": "1359",
+        "end": "1359"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/元/续资治通鉴&元史/volume-215.battle-adjudications.json",
+          "docs/史料通读产物/元/续资治通鉴&元史/volume-215.source-summary.md"
+        ],
+        "source_card_refs": [
+          "WAR-CARD-36756E4B14FB15B07EC6"
+        ],
+        "lineage_basis": "已保留源卡与原史源回补本人结果；仅PERSON_RESULT_ONLY，不另结算公共战争、成本或安全收益。"
+      },
+      "source_refs": [
+        "SRC-XUZIZHITONGJIAN-215-2340527-P0056",
+        "SRC-XUZIZHITONGJIAN-215-2340527-P0071",
+        "SRC-XUZIZHITONGJIAN-215-2340527-P0072"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-MING-CHANGYUCHUN-QUZHOU-1359",
+          "capability_episode_ref": "PCR-MING-CHANGYUCHUN-QUZHOU-1359",
+          "canonical_label": "常遇春独立攻取衢州",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "本人围攻衢州两月，奇兵突入南门瓮城、毁战具并攻具地道并用，取得城地与万人级守军。只取独立重要区域攻坚A/D2，不从全浙终局上收。",
+          "source_refs": [
+            "SRC-XUZIZHITONGJIAN-215-2340527-P0056",
+            "SRC-XUZIZHITONGJIAN-215-2340527-P0071",
+            "SRC-XUZIZHITONGJIAN-215-2340527-P0072"
+          ],
+          "evidence_lower_bound": true,
+          "result_period": {
+            "start": "1359",
+            "end": "1359"
+          },
+          "person_command_result_ref": "PCR-MING-CHANGYUCHUN-QUZHOU-1359",
+          "person": "常遇春",
+          "profile_ref": "MIL-PROFILE-978B18D0F5A99C7D",
+          "person_ref": "MIL-PER-978B18D0F5A99C7D",
+          "actor_ref": "PERSON-POST-DB3117E8DA09AA33"
+        }
       ]
     }
   ]

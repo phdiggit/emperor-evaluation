@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 6,
   "bucket_count": 24,
-  "record_count": 22,
+  "record_count": 25,
   "records": [
     {
       "war_event_id": "WAR-FD-C74D4CD9739473D344CC",
@@ -4486,6 +4486,210 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-390FA50ED9A28E335C92",
+      "dynasty": "五代十国／北宋",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-390FA50ED9A28E335C92",
+      "canonical_label": "宋军在泽州南与李筠、北汉联军交战。；三万余敌军被破，范守图被获、卢赞被杀。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-001.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-001.battle-adjudications.json#/cards/5"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "續資治通鑑/卷001@2603334#破李筠軍三萬餘於澤州南",
+        "續資治通鑑/卷001@2603334#獲北漢河陽節度使范守圖",
+        "續資治通鑑/卷001@2603334#圖，殺盧贊。筠"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-390FA50ED9A28E335C92",
+          "capability_episode_ref": "PCR-390FA50ED9A28E335C92",
+          "canonical_label": "宋军在泽州南与李筠、北汉联军交战。；三万余敌军被破，范守图被获、卢赞被杀。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "campaign_tier": "C",
+          "combat_difficulty": "D1",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "已验收事实卡明确闭合李筠的实际行动与本人结果：宋军在泽州南与李筠、北汉联军交战。；三万余敌军被破，范守图被获、卢赞被杀。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "source_refs": [
+            "續資治通鑑/卷001@2603334#破李筠軍三萬餘於澤州南",
+            "續資治通鑑/卷001@2603334#獲北漢河陽節度使范守圖",
+            "續資治通鑑/卷001@2603334#圖，殺盧贊。筠"
+          ],
+          "parent_campaign_tier": "C",
+          "parent_combat_difficulty": "D1",
+          "evidence_lower_bound": true,
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-390FA50ED9A28E335C92",
+          "person": "李筠",
+          "profile_ref": "MIL-PROFILE-960B8420B78F8F67",
+          "person_ref": "MIL-PER-960B8420B78F8F67",
+          "actor_ref": "PERSON-POST-E1DFFE6E4CA6DCDD"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-CB155FDFCB736C04BD39",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-CB155FDFCB736C04BD39",
+      "canonical_label": "李绍琛攻威武、破三泉并强渡绵江推进汉州",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-273.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-274.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-273.battle-adjudications.json#/cards/4",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-274.battle-adjudications.json#/cards/0"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷273@1502848#攻蜀威武城",
+        "資治通鑑/卷273@1502848#能守，亦降。景",
+        "資治通鑑/卷273@1502848#糧二十萬斛",
+        "資治通鑑/卷273@1502848#敗兵萬餘人逸去",
+        "資治通鑑/卷273@1502848#討戰於三泉",
+        "資治通鑑/卷273@1502848#蜀兵大敗，斬首五千級",
+        "資治通鑑/卷273@1502848#糧十五萬斛",
+        "資治通鑑/卷274@803285#倉庫民居已為蜀兵所燔",
+        "資治通鑑/卷274@803285#從兵得濟者僅千人",
+        "資治通鑑/卷274@803285#溺死者亦千餘人",
+        "資治通鑑/卷274@803285#未，進據漢州"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-CB155FDFCB736C04BD39",
+          "capability_episode_ref": "PCR-CB155FDFCB736C04BD39",
+          "canonical_label": "李绍琛攻威武、破三泉并强渡绵江推进汉州",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "三项事实闭合李绍琛前锋突破链；灭蜀最终受降及其他方向不归给本人。",
+          "source_refs": [
+            "資治通鑑/卷273@1502848#攻蜀威武城",
+            "資治通鑑/卷273@1502848#能守，亦降。景",
+            "資治通鑑/卷273@1502848#糧二十萬斛",
+            "資治通鑑/卷273@1502848#敗兵萬餘人逸去",
+            "資治通鑑/卷273@1502848#討戰於三泉",
+            "資治通鑑/卷273@1502848#蜀兵大敗，斬首五千級",
+            "資治通鑑/卷273@1502848#糧十五萬斛",
+            "資治通鑑/卷274@803285#倉庫民居已為蜀兵所燔",
+            "資治通鑑/卷274@803285#從兵得濟者僅千人",
+            "資治通鑑/卷274@803285#溺死者亦千餘人",
+            "資治通鑑/卷274@803285#未，進據漢州"
+          ],
+          "parent_campaign_tier": "S-",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-CB155FDFCB736C04BD39",
+          "person": "李绍琛",
+          "profile_ref": "MIL-PROFILE-6AE1C34E14F9F3E9",
+          "person_ref": "MIL-PER-6AE1C34E14F9F3E9",
+          "actor_ref": "PERSON-POST-DD15B386F98CA80C"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-8A767D91C9CFD0977BFB",
+      "dynasty": "五代十国／北宋",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-8A767D91C9CFD0977BFB",
+      "canonical_label": "李重进北井击败北汉军并斩首二千余",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-294.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-294.battle-adjudications.json#/cards/17"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷294@2594143#敗北漢兵於北井",
+        "資治通鑑/卷294@2594143#斬首二千餘級",
+        "資治通鑑/卷294@2594143#漢，拔遼州，獲",
+        "資治通鑑/卷294@2594143#獲其刺史張丕"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-8A767D91C9CFD0977BFB",
+          "capability_episode_ref": "PCR-8A767D91C9CFD0977BFB",
+          "canonical_label": "李重进北井击败北汉军并斩首二千余",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动与结果分别闭合北井方向，只消费李重进本人完成的北井战果。",
+          "source_refs": [
+            "資治通鑑/卷294@2594143#敗北漢兵於北井",
+            "資治通鑑/卷294@2594143#斬首二千餘級",
+            "資治通鑑/卷294@2594143#漢，拔遼州，獲",
+            "資治通鑑/卷294@2594143#獲其刺史張丕"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-8A767D91C9CFD0977BFB",
+          "person": "李重进",
+          "profile_ref": "MIL-PROFILE-91FA12A4519B1C79",
+          "person_ref": "MIL-PER-91FA12A4519B1C79",
+          "actor_ref": "PERSON-POST-B728B44D8F56619D"
+        }
       ]
     }
   ]

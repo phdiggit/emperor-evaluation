@@ -29,6 +29,11 @@ def test_unknown_registered_responsibility_fails_closed():
         _m1_public_registered_display("致败责任=NEW_UNDECLARED_CODE")
 
 
+def test_unresolved_command_scope_remains_explicit_in_public_text():
+    public = _m1_public_registered_display("结果责任=unresolved_command_scope")
+    assert public == "本人结果责任：本人指挥范围尚未闭合"
+
+
 def test_formal_m1_public_reasons_exclude_talent_grades_and_machine_labels():
     settlement = load_json(SETTLEMENT)
     for row in settlement["records"]:

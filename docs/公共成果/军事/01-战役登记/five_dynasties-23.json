@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 23,
   "bucket_count": 24,
-  "record_count": 15,
+  "record_count": 16,
   "records": [
     {
       "war_event_id": "WAR-FD-9A168C979E59DC5D4FAC",
@@ -3736,6 +3736,71 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-570BC72E6C7B123AA950",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-570BC72E6C7B123AA950",
+      "canonical_label": "赵晖加紧攻凤翔，王景崇拟以诈降与北门突围求死战。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-288.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-288.battle-adjudications.json#/cards/5"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷288@1769130#暉急攻鳳翔",
+        "資治通鑑/卷288@1769130#燒城東門詐降",
+        "資治通鑑/卷288@1769130#出北門突暉軍",
+        "資治通鑑/卷288@1769130#與家人自焚",
+        "資治通鑑/卷288@1769130#焚矣。璨亦降。\n"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-570BC72E6C7B123AA950",
+          "capability_episode_ref": "PCR-570BC72E6C7B123AA950",
+          "canonical_label": "赵晖加紧攻凤翔，王景崇拟以诈降与北门突围求死战。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D1",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确赵晖持续攻凤翔，结果句明确王景崇自焚、守军投降。",
+          "source_refs": [
+            "資治通鑑/卷288@1769130#暉急攻鳳翔",
+            "資治通鑑/卷288@1769130#燒城東門詐降",
+            "資治通鑑/卷288@1769130#出北門突暉軍",
+            "資治通鑑/卷288@1769130#與家人自焚",
+            "資治通鑑/卷288@1769130#焚矣。璨亦降。\n"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-570BC72E6C7B123AA950",
+          "person": "赵晖",
+          "profile_ref": "MIL-PROFILE-66629A9E3DDD0B33",
+          "person_ref": "MIL-PER-66629A9E3DDD0B33",
+          "actor_ref": "PERSON-POST-DB9F6503AC5A5308"
+        }
       ]
     }
   ]

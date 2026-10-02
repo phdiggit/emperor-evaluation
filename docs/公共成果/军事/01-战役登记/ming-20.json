@@ -3,7 +3,7 @@
   "partition": "ming",
   "bucket": 20,
   "bucket_count": 24,
-  "record_count": 79,
+  "record_count": 80,
   "records": [
     {
       "war_event_id": "WAR-POST-46F8012947B32862CE41",
@@ -265,7 +265,7 @@
           "actor_name": "朱棣",
           "actor_kind": "person",
           "role_code": "commander_in_chief",
-          "contribution_scope": "朱棣亲自发动并控制远征，阿鲁台目标未获且因粮尽终止；保存实际战役失败，具体致败过错份额未知。",
+          "contribution_scope": "朱棣实际发动并控制第五次北征，目标未获、粮尽终止；现有具名逐字锚与定向检索未有明确强令、灾害或无控制免责，按主帅结果责任闭合。此标签不是已经证明具体致败过错，具体因果原因仍不补推。",
           "person_command_index": {
             "consumption_mode": "person_result",
             "command_scope": "scoped_stage",
@@ -275,14 +275,15 @@
             "projected_result_tier": "B",
             "projected_combat_difficulty": "D2",
             "detail_status": "resolved_person_result",
-            "basis": "朱棣亲自发动并控制远征，阿鲁台目标未获且因粮尽终止；保存实际战役失败，具体致败过错份额未知。",
+            "basis": "朱棣实际发动并控制第五次北征，目标未获、粮尽终止；现有具名逐字锚与定向检索未有明确强令、灾害或无控制免责，按主帅结果责任闭合。此标签不是已经证明具体致败过错，具体因果原因仍不补推。",
             "source_refs": [
               "明史/卷7@2594620#阿魯台犯大同、開平",
               "明史/卷7@2594620#諭諸將親征。",
               "明史/卷7@2594620#張輔等窮搜山谷三百里無所得",
               "明史/卷7@2594620#，以糧盡還。甲",
               "明史/卷7@2594620#甲子，班師，命"
-            ]
+            ],
+            "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
           },
           "person_command_result": [
             {
@@ -293,8 +294,8 @@
               "combat_difficulty": "D2",
               "stable_delivery": false,
               "outcome_responsibility": "actual_command_scope",
-              "causal_fault": "UNKNOWN",
-              "basis": "朱棣亲自发动并控制远征，阿鲁台目标未获且因粮尽终止；保存实际战役失败，具体致败过错份额未知。",
+              "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+              "basis": "朱棣实际发动并控制第五次北征，目标未获、粮尽终止；现有具名逐字锚与定向检索未有明确强令、灾害或无控制免责，按主帅结果责任闭合。此标签不是已经证明具体致败过错，具体因果原因仍不补推。",
               "source_refs": [
                 "明史/卷7@2594620#阿魯台犯大同、開平",
                 "明史/卷7@2594620#諭諸將親征。",
@@ -305,7 +306,7 @@
               "military_capability_contribution": {
                 "capability_mode": "integrated_command",
                 "decisive_relation": "none",
-                "basis": "朱棣亲自发动并控制远征，阿鲁台目标未获且因粮尽终止；保存实际战役失败，具体致败过错份额未知。",
+                "basis": "朱棣实际发动并控制第五次北征，目标未获、粮尽终止；现有具名逐字锚与定向检索未有明确强令、灾害或无控制免责，按主帅结果责任闭合。此标签不是已经证明具体致败过错，具体因果原因仍不补推。",
                 "source_refs": [
                   "明史/卷7@2594620#阿魯台犯大同、開平",
                   "明史/卷7@2594620#諭諸將親征。",
@@ -313,7 +314,10 @@
                   "明史/卷7@2594620#，以糧盡還。甲",
                   "明史/卷7@2594620#甲子，班師，命"
                 ]
-              }
+              },
+              "source_alias_refs": [
+                "WAR-POST-2766693FD3160ECD705E"
+              ]
             }
           ]
         }
@@ -15491,8 +15495,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "曹文诏左良玉晋豫连续追剿：涉县—寿阳—泽州—润城",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1633",
+        "end": "1633"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -15676,7 +15680,11 @@
             "SRC-MINGTONGJIAN-087-2550895-L0332",
             "SRC-MINGTONGJIAN-087-2550895-L0337",
             "SRC-MINGTONGJIAN-087-2550895-L0339"
-          ]
+          ],
+          "event_period": {
+            "start": "1633",
+            "end": "1633"
+          }
         },
         {
           "evaluation_subject_phase": "山西流寇诸部 × 涉县寿阳泽州润城等连续受挫阶段",
@@ -15803,7 +15811,11 @@
             "SRC-MINGTONGJIAN-087-2550895-L0332",
             "SRC-MINGTONGJIAN-087-2550895-L0337",
             "SRC-MINGTONGJIAN-087-2550895-L0339"
-          ]
+          ],
+          "event_period": {
+            "start": "1633",
+            "end": "1633"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -15813,7 +15825,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-2E17D3A173FB0E398CD1",
@@ -15824,8 +15837,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "林县—侯家庄川兵覆没—曹文诏夜袭反击",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1633",
+        "end": "1633"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -15956,7 +15969,11 @@
             "SRC-MINGTONGJIAN-087-2550895-L0370",
             "SRC-MINGTONGJIAN-087-2550895-L0372",
             "SRC-MINGTONGJIAN-087-2550895-L0374"
-          ]
+          ],
+          "event_period": {
+            "start": "1633",
+            "end": "1633"
+          }
         },
         {
           "evaluation_subject_phase": "河南山西流寇 × 林县侯家庄阶段",
@@ -16060,7 +16077,11 @@
             "SRC-MINGTONGJIAN-087-2550895-L0370",
             "SRC-MINGTONGJIAN-087-2550895-L0372",
             "SRC-MINGTONGJIAN-087-2550895-L0374"
-          ]
+          ],
+          "event_period": {
+            "start": "1633",
+            "end": "1633"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -16070,7 +16091,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-C6C18588CAC6782584C3",
@@ -16324,8 +16346,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "汤九州嵩县深追中伏覆败",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1636",
+        "end": "1637"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -16439,7 +16461,11 @@
           },
           "source_anchor_refs": [
             "SRC-MINGTONGJIAN-089-2550897-L0145"
-          ]
+          ],
+          "event_period": {
+            "start": "1636",
+            "end": "1637"
+          }
         },
         {
           "evaluation_subject_phase": "嵩县流寇伏兵 × 伏击阶段",
@@ -16529,7 +16555,11 @@
           },
           "source_anchor_refs": [
             "SRC-MINGTONGJIAN-089-2550897-L0145"
-          ]
+          ],
+          "event_period": {
+            "start": "1636",
+            "end": "1637"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -16539,7 +16569,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-1D79B743CF21CFEA2F3E",
@@ -17105,8 +17136,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "淅川吴村孙应元黄得功周遇吉击溃马光玉—阻其合张献忠",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1639",
+        "end": "1639"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -17244,7 +17275,11 @@
             "SRC-MINGTONGJIAN-090-2550898-L0476",
             "SRC-MINGTONGJIAN-090-2550898-L0478",
             "SRC-MINGTONGJIAN-090-2550898-L0480"
-          ]
+          ],
+          "event_period": {
+            "start": "1639",
+            "end": "1639"
+          }
         },
         {
           "evaluation_subject_phase": "马光玉许可受等 × 吴村受挫阶段",
@@ -17355,7 +17390,11 @@
             "SRC-MINGTONGJIAN-090-2550898-L0476",
             "SRC-MINGTONGJIAN-090-2550898-L0478",
             "SRC-MINGTONGJIAN-090-2550898-L0480"
-          ]
+          ],
+          "event_period": {
+            "start": "1639",
+            "end": "1639"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -17365,7 +17404,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-6EACA023019A56F5A430",
@@ -17669,6 +17709,87 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-MING-SUNCHUANTING-JIAXIAN-1642",
+      "dynasty": "明",
+      "dynasty_partition": "ming",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-MING-SUNCHUANTING-JIAXIAN-1642",
+      "canonical_label": "孙传庭郏县先胜后秦军数千覆败",
+      "period": {
+        "start": "1642",
+        "end": "1642"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/明/明通鉴/volume-092.battle-adjudications.json",
+          "docs/史料通读产物/明/明通鉴/volume-092.source-summary.md"
+        ],
+        "source_card_refs": [
+          "WAR-CARD-03C026AAAE25672A8D83"
+        ],
+        "lineage_basis": "已保留源卡与原史源回补本人结果；仅PERSON_RESULT_ONLY，不另结算公共战争、成本或安全收益。"
+      },
+      "source_refs": [
+        "SRC-MINGTONGJIAN-092-2550900-L0303",
+        "SRC-MINGTONGJIAN-092-2550900-L0305",
+        "SRC-MINGTONGJIAN-092-2550900-L0307",
+        "SRC-MINGTONGJIAN-092-2550900-L0309"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-MING-SUNCHUANTING-JIAXIAN-1642",
+          "capability_episode_ref": "PCR-MING-SUNCHUANTING-JIAXIAN-1642",
+          "canonical_label": "孙传庭郏县先胜后秦军数千覆败",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "mixed_review",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "SUPPORTED_COMMAND_ERROR_WITH_FORCED_OFFENSIVE_CONSTRAINT",
+          "campaign_tier": "A",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "实际正果：郏县设三伏实际斩首千余并追三十里，不是仅接战或敌军示弱。 实际不利及边界：后军争取弃资而乱，反击致数千覆军和七十八将校失陷。 保留情况：本轮先胜后败，两段均有真实军事结果；最终退出，强令、大雨与本人追击控制责任同时保留。 仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-092-2550900-L0303",
+            "SRC-MINGTONGJIAN-092-2550900-L0305",
+            "SRC-MINGTONGJIAN-092-2550900-L0307",
+            "SRC-MINGTONGJIAN-092-2550900-L0309"
+          ],
+          "evidence_lower_bound": true,
+          "result_period": {
+            "start": "1642",
+            "end": "1642"
+          },
+          "person_command_result_ref": "PCR-MING-SUNCHUANTING-JIAXIAN-1642",
+          "person": "孙传庭",
+          "profile_ref": "MIL-PROFILE-01A9EED0712C265B",
+          "person_ref": "MIL-PER-01A9EED0712C265B",
+          "actor_ref": "PERSON-POST-5E979A2BAC0C0077",
+          "mixed_result_review": {
+            "schema_version": "military-mixed-result-review-v1",
+            "decision": "mixed_review",
+            "positive_result": "郏县设三伏实际斩首千余并追三十里，不是仅接战或敌军示弱。",
+            "adverse_result": "后军争取弃资而乱，反击致数千覆军和七十八将校失陷。",
+            "retention": "本轮先胜后败，两段均有真实军事结果；最终退出，强令、大雨与本人追击控制责任同时保留。",
+            "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+            "source_refs": [
+              "SRC-MINGTONGJIAN-092-2550900-L0303",
+              "SRC-MINGTONGJIAN-092-2550900-L0305",
+              "SRC-MINGTONGJIAN-092-2550900-L0307",
+              "SRC-MINGTONGJIAN-092-2550900-L0309"
+            ]
+          },
+          "failure_impact_tier": "A"
+        }
       ]
     }
   ]

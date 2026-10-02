@@ -530,21 +530,22 @@
           "actor_name": "朱棣",
           "actor_kind": "person",
           "role_code": "commander_in_chief",
-          "contribution_scope": "本人在场统军且燕军败绩闭合；因果过错保持未知。",
+          "contribution_scope": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
           "person_command_index": {
             "consumption_mode": "person_result",
-            "command_scope": "scoped_stage",
-            "capability_mode": "tactical_execution",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
             "decisive_relation": "none",
             "result_direction": "negative",
             "projected_result_tier": "B",
             "projected_combat_difficulty": "D2",
             "detail_status": "resolved_person_result",
-            "basis": "本人在场统军且燕军败绩闭合；因果过错保持未知。",
+            "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
             "source_refs": [
               "明史/卷4@2594634#徐輝祖等敗燕兵於齊眉山",
               "明史/卷5@2594618#大戰齊眉山下。"
-            ]
+            ],
+            "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH"
           },
           "person_command_result": [
             {
@@ -555,21 +556,24 @@
               "combat_difficulty": "D2",
               "stable_delivery": true,
               "outcome_responsibility": "actual_command_scope",
-              "causal_fault": "UNKNOWN",
-              "basis": "本人在场统军且燕军败绩闭合；因果过错保持未知。",
+              "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+              "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
               "source_refs": [
                 "明史/卷4@2594634#徐輝祖等敗燕兵於齊眉山",
                 "明史/卷5@2594618#大戰齊眉山下。"
               ],
               "military_capability_contribution": {
-                "capability_mode": "tactical_execution",
+                "capability_mode": "integrated_command",
                 "decisive_relation": "none",
-                "basis": "本人在场统军且燕军败绩闭合；因果过错保持未知。",
+                "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
                 "source_refs": [
                   "明史/卷4@2594634#徐輝祖等敗燕兵於齊眉山",
                   "明史/卷5@2594618#大戰齊眉山下。"
                 ]
-              }
+              },
+              "source_alias_refs": [
+                "WAR-POST-E2A06FBDDFD72D4B503E"
+              ]
             }
           ]
         }
@@ -15796,8 +15800,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "流寇犯畿南—临城顺德真定—卢象升石城反击",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1633",
+        "end": "1633"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -15938,7 +15942,11 @@
             "SRC-MINGTONGJIAN-087-2550895-L0310",
             "SRC-MINGTONGJIAN-087-2550895-L0312",
             "SRC-MINGTONGJIAN-087-2550895-L0313"
-          ]
+          ],
+          "event_period": {
+            "start": "1633",
+            "end": "1633"
+          }
         },
         {
           "evaluation_subject_phase": "畿南流寇 × 临城顺德真定扩张阶段",
@@ -16049,7 +16057,11 @@
             "SRC-MINGTONGJIAN-087-2550895-L0310",
             "SRC-MINGTONGJIAN-087-2550895-L0312",
             "SRC-MINGTONGJIAN-087-2550895-L0313"
-          ]
+          ],
+          "event_period": {
+            "start": "1633",
+            "end": "1633"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -16059,7 +16071,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-AABDED8BDA408144F411",
@@ -16070,7 +16083,7 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "车箱峡假降—四万余流寇逸出—杀安抚五十余—连陷七州县",
       "period": {
-        "start": "1630",
+        "start": "1634",
         "end": "1634"
       },
       "public_outcome_registered": false,
@@ -16227,7 +16240,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0202",
             "SRC-MINGTONGJIAN-088-2550896-L0204",
             "SRC-MINGTONGJIAN-088-2550896-L0205"
-          ]
+          ],
+          "event_period": {
+            "start": "1634",
+            "end": "1634"
+          }
         },
         {
           "evaluation_subject_phase": "高迎祥李自成张献忠等 × 假降逸出复叛阶段",
@@ -16352,7 +16369,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0202",
             "SRC-MINGTONGJIAN-088-2550896-L0204",
             "SRC-MINGTONGJIAN-088-2550896-L0205"
-          ]
+          ],
+          "event_period": {
+            "start": "1634",
+            "end": "1634"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -16362,7 +16383,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-12EDF1FBBA2AF95DE945",
@@ -16373,8 +16395,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "黑水峪孙传庭击擒高迎祥",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1636",
+        "end": "1636"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -16496,7 +16518,11 @@
           "source_anchor_refs": [
             "SRC-MINGTONGJIAN-089-2550897-L0192",
             "SRC-MINGTONGJIAN-089-2550897-L0196"
-          ]
+          ],
+          "event_period": {
+            "start": "1636",
+            "end": "1636"
+          }
         },
         {
           "evaluation_subject_phase": "高迎祥部 × 黑水峪覆败阶段",
@@ -16593,7 +16619,11 @@
           "source_anchor_refs": [
             "SRC-MINGTONGJIAN-089-2550897-L0192",
             "SRC-MINGTONGJIAN-089-2550897-L0196"
-          ]
+          ],
+          "event_period": {
+            "start": "1636",
+            "end": "1636"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -16603,7 +16633,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-366B53375F6640908D28",
