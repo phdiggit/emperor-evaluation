@@ -126,15 +126,11 @@
     return fold;
   }
 
-  function pendingNote() {
-    return el("p", "reading-note-pending", "这段阅读提要待复核；以下正式记录仍可查阅。这不是人物裁决状态的变化。");
-  }
-
   function renderBlock(key, block, record, className) {
+    if (assessBlock(block, record).status !== "current") return null;
     const section = el("section", className);
     section.append(el("h3", "", labels[key]));
-    if (assessBlock(block, record).status !== "current") section.append(pendingNote());
-    else section.append(el("p", "note-text", block.text), evidenceList(block, record));
+    section.append(el("p", "note-text", block.text), evidenceList(block, record));
     return section;
   }
 
@@ -142,7 +138,8 @@
     for (const [key, id] of [["outcome", "person-outcome"], ["profile", "person-capability"], ["impact", "person-impact"]]) {
       const panel = document.getElementById(id);
       if (!panel || panel.querySelector(":scope > .person-reading-note")) continue;
-      panel.querySelector(":scope > h2")?.after(renderBlock(key, notes.overview[key], record, "person-reading-note"));
+      const block = renderBlock(key, notes.overview[key], record, "person-reading-note");
+      if (block) panel.querySelector(":scope > h2")?.after(block);
     }
   }
 
@@ -159,7 +156,7 @@
     if (!active.length) return; // Home and comparison views do not fetch overview summaries.
     if (!payload) {
       if (failed) {
-        if (!root.querySelector(".notes-load-notice")) root.prepend(el("p", "notes-load-notice reading-note-pending", "阅读提要暂未加载，现有正式记录仍可阅读。刷新页面可重试。"));
+        return;
       } else if (!loading) {
         loading = fetch("data/person-reading-notes.json", {cache: "no-cache"})
           .then(response => { if (!response.ok) throw Error("Reading notes unavailable"); return response.json(); })

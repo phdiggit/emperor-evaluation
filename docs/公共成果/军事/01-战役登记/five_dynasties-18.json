@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 18,
   "bucket_count": 24,
-  "record_count": 21,
+  "record_count": 25,
   "records": [
     {
       "war_event_id": "WAR-FD-29BC416045BE5B83399D",
@@ -6722,6 +6722,277 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-BD5FC58FFCE27185365D",
+      "dynasty": "五代十国／北宋",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-BD5FC58FFCE27185365D",
+      "canonical_label": "同一事实卡中第二具名人物有实际统军、交战或攻守动作并形成可观察结果，当前未消费。；北汉乘郭威死，以三万兵会契丹万余骑南攻潞州，并伏击穆令均部。；穆令均战死，后周士卒被俘斩千余，李筠退守上党。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-291.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-291.battle-adjudications.json#/cards/12"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷291@1554151#契丹遣其武定節度使、政事令楊兗將萬餘騎",
+        "資治通鑑/卷291@1554151#北漢主自將兵三萬",
+        "資治通鑑/卷291@1554151#伏發，殺令均",
+        "資治通鑑/卷291@1554151#俘斬士卒千餘人",
+        "資治通鑑/卷291@1554151#黨，嬰城自守"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-BD5FC58FFCE27185365D",
+          "capability_episode_ref": "PCR-BD5FC58FFCE27185365D",
+          "canonical_label": "同一事实卡中第二具名人物有实际统军、交战或攻守动作并形成可观察结果，当前未消费。；北汉乘郭威死，以三万兵会契丹万余骑南攻潞州，并伏击穆令均部。；穆令均战死，后周士卒被俘斩千余，李筠退守上党。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "campaign_tier": "C",
+          "combat_difficulty": "D1",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "同一事实卡中第二具名人物有实际统军、交战或攻守动作并形成可观察结果，当前未消费。；北汉乘郭威死，以三万兵会契丹万余骑南攻潞州，并伏击穆令均部。；穆令均战死，后周士卒被俘斩千余，李筠退守上党。；仅消费该事实闭合阶段，不继承父战役档位或同群终局。",
+          "source_refs": [
+            "資治通鑑/卷291@1554151#契丹遣其武定節度使、政事令楊兗將萬餘騎",
+            "資治通鑑/卷291@1554151#北漢主自將兵三萬",
+            "資治通鑑/卷291@1554151#伏發，殺令均",
+            "資治通鑑/卷291@1554151#俘斬士卒千餘人",
+            "資治通鑑/卷291@1554151#黨，嬰城自守"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-BD5FC58FFCE27185365D",
+          "person": "李筠",
+          "profile_ref": "MIL-PROFILE-960B8420B78F8F67",
+          "person_ref": "MIL-PER-960B8420B78F8F67",
+          "actor_ref": "PERSON-POST-E1DFFE6E4CA6DCDD"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-6D2436495036F85C28BE",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-6D2436495036F85C28BE",
+      "canonical_label": "率三百敢死士破联舰并完成解围。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#/cards/1"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷270@803281#選效節敢死士得三百人",
+        "資治通鑑/卷270@803281#梁兵焚溺者殆半",
+        "資治通鑑/卷270@803281#渡。瑰解圍走"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-6D2436495036F85C28BE",
+          "capability_episode_ref": "PCR-6D2436495036F85C28BE",
+          "canonical_label": "率三百敢死士破联舰并完成解围。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D3",
+          "outcome_durability": true,
+          "detail_status": "resolved_person_result",
+          "basis": "选择敢死士、斧断竹索、火攻联舰与解围终局闭合。",
+          "source_refs": [
+            "資治通鑑/卷270@803281#選效節敢死士得三百人",
+            "資治通鑑/卷270@803281#梁兵焚溺者殆半",
+            "資治通鑑/卷270@803281#渡。瑰解圍走"
+          ],
+          "parent_campaign_tier": "B",
+          "parent_combat_difficulty": "D3",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-6D2436495036F85C28BE",
+          "person": "李建及",
+          "profile_ref": "MIL-PROFILE-4791A178E8039C88",
+          "person_ref": "MIL-PER-4791A178E8039C88",
+          "actor_ref": "PERSON-POST-8C30ED687469D276"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-D7C3790F5D3EC1A7D92E",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-D7C3790F5D3EC1A7D92E",
+      "canonical_label": "杜重威、侯益在汜水击败张从宾万余人，俘斩殆尽并克关。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#/cards/3"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷281@1769092#遂與之同反",
+        "資治通鑑/卷281@1769092#反，殺皇子河",
+        "資治通鑑/卷281@1769092#又引兵入洛陽",
+        "資治通鑑/卷281@1769092#關，將逼汴州",
+        "資治通鑑/卷281@1769092#攻汜水，殺巡檢使宋廷浩",
+        "資治通鑑/卷281@1769092#將奔晉陽以避之",
+        "資治通鑑/卷281@1769092#輕動。」帝乃止。\n<",
+        "資治通鑑/卷281@1769092#賓眾萬餘人",
+        "資治通鑑/卷281@1769092#戰，俘斬殆盡",
+        "資治通鑑/卷281@1769092#盡，遂克汜水",
+        "資治通鑑/卷281@1769092#從賓走，乘馬渡河，溺死"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-D7C3790F5D3EC1A7D92E",
+          "capability_episode_ref": "PCR-D7C3790F5D3EC1A7D92E",
+          "canonical_label": "杜重威、侯益在汜水击败张从宾万余人，俘斩殆尽并克关。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "independent_direction",
+          "decisive_relation": "co_decisive",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确侯益与杜重威共同击败张从宾主力并克关，结果句明确叛乱平定。",
+          "source_refs": [
+            "資治通鑑/卷281@1769092#遂與之同反",
+            "資治通鑑/卷281@1769092#反，殺皇子河",
+            "資治通鑑/卷281@1769092#又引兵入洛陽",
+            "資治通鑑/卷281@1769092#關，將逼汴州",
+            "資治通鑑/卷281@1769092#攻汜水，殺巡檢使宋廷浩",
+            "資治通鑑/卷281@1769092#將奔晉陽以避之",
+            "資治通鑑/卷281@1769092#輕動。」帝乃止。\n<",
+            "資治通鑑/卷281@1769092#賓眾萬餘人",
+            "資治通鑑/卷281@1769092#戰，俘斬殆盡",
+            "資治通鑑/卷281@1769092#盡，遂克汜水",
+            "資治通鑑/卷281@1769092#從賓走，乘馬渡河，溺死"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-D7C3790F5D3EC1A7D92E",
+          "person": "侯益",
+          "profile_ref": "MIL-PROFILE-AD2EB9FCC1695DA4",
+          "person_ref": "MIL-PER-AD2EB9FCC1695DA4",
+          "actor_ref": "PERSON-POST-2DDD2E3C5621FDBF"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-3B72B0BB5CD8D8DF3815",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-3B72B0BB5CD8D8DF3815",
+      "canonical_label": "安审晖击败李承裕所率南唐军的阶段战果",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-282.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-282.battle-adjudications.json#/cards/5"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷282@2303983#與承裕戰於城南，大破之",
+        "資治通鑑/卷282@2303983#追敗唐兵於黃花谷",
+        "資治通鑑/卷282@2303983#又敗唐兵於雲夢澤中",
+        "資治通鑑/卷282@2303983#斬承裕及其眾千五百人",
+        "資治通鑑/卷282@2303983#皆賜馬及器服而歸之",
+        "資治通鑑/卷282@2303983#失亡四千人"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-3B72B0BB5CD8D8DF3815",
+          "capability_episode_ref": "PCR-3B72B0BB5CD8D8DF3815",
+          "canonical_label": "安审晖击败李承裕所率南唐军的阶段战果",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确安审晖参与连续反击；只消费本人所在阶段，不继承父项全部终局。",
+          "source_refs": [
+            "資治通鑑/卷282@2303983#與承裕戰於城南，大破之",
+            "資治通鑑/卷282@2303983#追敗唐兵於黃花谷",
+            "資治通鑑/卷282@2303983#又敗唐兵於雲夢澤中",
+            "資治通鑑/卷282@2303983#斬承裕及其眾千五百人",
+            "資治通鑑/卷282@2303983#皆賜馬及器服而歸之",
+            "資治通鑑/卷282@2303983#失亡四千人"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-3B72B0BB5CD8D8DF3815",
+          "person": "安审晖",
+          "profile_ref": "MIL-PROFILE-28B3DFDA07E83B8D",
+          "person_ref": "MIL-PER-28B3DFDA07E83B8D",
+          "actor_ref": "PERSON-POST-9F2A6BDBD53E963B"
+        }
       ]
     }
   ]

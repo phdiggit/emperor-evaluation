@@ -92,7 +92,21 @@
                 ]
               }
             }
-          ]
+          ],
+          "current_source_lineage": {
+            "source_refs": [
+              "西夏書事/41@2291160#五月，金人侵隆州。",
+              "西夏書事/41@2291160#出兵由安塞堡襲之。",
+              "西夏書事/41@2291160#城中步騎二千出戰而敗，合達進薄城下，破西北隅。會日暮引退，城得全。"
+            ],
+            "source_urls": [
+              "https://zh.wikisource.org/w/index.php?title=%E8%A5%BF%E5%A4%8F%E6%9B%B8%E4%BA%8B%2F41&oldid=2291160"
+            ],
+            "legacy_source_files": [
+              "docs/史料通读产物/唐以后编年/西夏书事/volume-41.registry.json"
+            ],
+            "lineage_basis": "当前本人结果携带已引用原史源逐字定位；旧编年文件路径只是历史别名，不作为仍存在的文件或全生涯材料缺口。"
+          }
         }
       ],
       "attributable_failures": [],
@@ -1279,7 +1293,7 @@
       "cost_or_burden": "unknown",
       "members": [
         {
-          "actor_ref": "PERSON-POST-69E1DC5423796FBA",
+          "actor_ref": "PERSON-SPLIT-2ECF8F74300BE2BC",
           "actor_name": "李信",
           "actor_kind": "person",
           "role_code": "commander_in_chief",
@@ -1298,7 +1312,22 @@
               "西夏書事/22@2288741#梁氏遣將以十萬衆築鬧訛堡，距慶州界二十里，又築城十二盤",
               "西夏書事/22@2288741#信兵三犯之，乃曰︰「汝眞欲戰也？」始縱兩翼圍之",
               "西夏書事/22@2288741#開圍一角，使信等逃還。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "B",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合李信的实际行动与本人结果：三次进攻筑堡军，遭两翼合围大败后逃回。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "西夏書事/22@2288741#梁氏遣將以十萬衆築鬧訛堡，距慶州界二十里，又築城十二盤",
+                "西夏書事/22@2288741#信兵三犯之，乃曰︰「汝眞欲戰也？」始縱兩翼圍之",
+                "西夏書事/22@2288741#開圍一角，使信等逃還。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-3CBFBF20CCA59654A342"
+            }
           },
           "person_command_result": [
             {
@@ -1325,14 +1354,34 @@
                   "西夏書事/22@2288741#信兵三犯之，乃曰︰「汝眞欲戰也？」始縱兩翼圍之",
                   "西夏書事/22@2288741#開圍一角，使信等逃還。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "B",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合李信的实际行动与本人结果：三次进攻筑堡军，遭两翼合围大败后逃回。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "西夏書事/22@2288741#梁氏遣將以十萬衆築鬧訛堡，距慶州界二十里，又築城十二盤",
+                  "西夏書事/22@2288741#信兵三犯之，乃曰︰「汝眞欲戰也？」始縱兩翼圍之",
+                  "西夏書事/22@2288741#開圍一角，使信等逃還。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-3CBFBF20CCA59654A342"
               }
             }
-          ]
+          ],
+          "identity_source_binding": {
+            "person_ref": "MIL-PER-2ECF8F74300BE2BC",
+            "profile_ref": "MIL-PROFILE-2ECF8F74300BE2BC",
+            "identity_scope": "北宋1070宋军；西夏书事为敌方史源"
+          }
         }
       ],
       "attributable_failures": [
         {
-          "actor_ref": "PERSON-POST-69E1DC5423796FBA",
+          "actor_ref": "PERSON-SPLIT-2ECF8F74300BE2BC",
           "actor_name": "李信",
           "actor_kind": "person",
           "failure_domain": "command_failure",

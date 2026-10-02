@@ -121,3 +121,27 @@ def load_talent_registry(manifest_path: Path) -> dict[str, Any]:
     for key in manifest.get("payload_key_order") or ():
         result[key] = profiles if key == "profiles" else metadata[key]
     return result
+
+
+def talent_profiles_by_ref(payload: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
+    """Resolve retained identity aliases without counting them as people twice."""
+    profiles = {str(p["profile_ref"]): p for p in payload.get("profiles") or []}
+    aliases = {str(a["profile_ref"]): str(a["canonical_profile_ref"])
+               for a in payload.get("identity_aliases") or []}
+    if set(aliases) & set(profiles):
+        raise ValueError("军事人才别名ID与当前人物ID重叠")
+    if len(aliases) != len(payload.get("identity_aliases") or []):
+        raise ValueError("军事人才身份别名ID重复")
+    result = dict(profiles)
+    for alias in aliases:
+        ref = alias
+        seen = set()
+        while ref in aliases:
+            if ref in seen:
+                raise ValueError("军事人才身份别名循环")
+            seen.add(ref)
+            ref = aliases[ref]
+        if ref not in profiles:
+            raise ValueError(f"军事人才身份别名目标不存在: {alias}")
+        result[alias] = profiles[ref]
+    return result

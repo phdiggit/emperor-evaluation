@@ -158,3 +158,16 @@ def test_reader_translation_helpers_are_formatters_only_for_third_and_fourth_pub
         assert "replace(/\\bML" not in text
         assert "replace(/\\bCIV" not in text
         assert "replace(/\\bDA" not in text
+
+
+def test_reader_keeps_formal_fourth_zero_distinctions_visible_at_major_level():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    start = source.index("function fourthAdjustmentNote")
+    end = source.index("function netHref", start)
+    block = source[start:end]
+    assert "BALANCED" in block and "CIV0" in block
+    assert "NO_ELIGIBLE" in block
+    assert "部分分项的已确认正负变化相抵" in block
+    assert "未确认可单独计入的净变化" in block
+    assert "0不表示相关领域没有史料" in block

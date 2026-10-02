@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 16,
   "bucket_count": 24,
-  "record_count": 29,
+  "record_count": 31,
   "records": [
     {
       "war_event_id": "WAR-FD-64EAD7C4422B7454E441",
@@ -6392,6 +6392,135 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-0A53815E6DC8E60E4417",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-0A53815E6DC8E60E4417",
+      "canonical_label": "先登杀守卒、开门纳军，完成郓州牙城突破。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-272.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-272.battle-adjudications.json#/cards/2"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷272@1554183#部精兵五千",
+        "資治通鑑/卷272@1554183#李從珂先登，殺守卒",
+        "資治通鑑/卷272@1554183#入，遂拔牙城",
+        "資治通鑑/卷272@1554183#禁焚掠，撫吏民"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-0A53815E6DC8E60E4417",
+          "capability_episode_ref": "PCR-0A53815E6DC8E60E4417",
+          "canonical_label": "先登杀守卒、开门纳军，完成郓州牙城突破。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D3",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "只消费李从珂先登、破门的高难攻坚阶段，不继承李嗣源对全链的A档总指挥信用。",
+          "source_refs": [
+            "資治通鑑/卷272@1554183#部精兵五千",
+            "資治通鑑/卷272@1554183#李從珂先登，殺守卒",
+            "資治通鑑/卷272@1554183#入，遂拔牙城",
+            "資治通鑑/卷272@1554183#禁焚掠，撫吏民"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D3",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-0A53815E6DC8E60E4417",
+          "person": "李从珂",
+          "profile_ref": "MIL-PROFILE-A5C75B63CCE06B17",
+          "person_ref": "MIL-PER-A5C75B63CCE06B17",
+          "actor_ref": "PERSON-POST-0173C7D114E57787"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-88BA07AA90426BA5A256",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-88BA07AA90426BA5A256",
+      "canonical_label": "后蜀拒绝荆南劝其称臣于周，调六万兵分守要害。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-294.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-294.battle-adjudications.json#/cards/11"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷294@2594143#極言拒絕之",
+        "資治通鑑/卷294@2594143#使，將兵六萬",
+        "資治通鑑/卷294@2594143#分屯要害以備周",
+        "資治通鑑/卷294@2594143#邀之，斬玉，其",
+        "資治通鑑/卷294@2594143#玉，其眾皆沒"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-88BA07AA90426BA5A256",
+          "capability_episode_ref": "PCR-88BA07AA90426BA5A256",
+          "canonical_label": "后蜀拒绝荆南劝其称臣于周，调六万兵分守要害。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "campaign_tier": "B",
+          "combat_difficulty": "D1",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "结果明确李玉贸然袭归安而全军覆没，保存本人可归责败绩。",
+          "source_refs": [
+            "資治通鑑/卷294@2594143#極言拒絕之",
+            "資治通鑑/卷294@2594143#使，將兵六萬",
+            "資治通鑑/卷294@2594143#分屯要害以備周",
+            "資治通鑑/卷294@2594143#邀之，斬玉，其",
+            "資治通鑑/卷294@2594143#玉，其眾皆沒"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-88BA07AA90426BA5A256",
+          "person": "李玉",
+          "profile_ref": "MIL-PROFILE-3A00CB76471411C5",
+          "person_ref": "MIL-PER-3A00CB76471411C5",
+          "actor_ref": "PERSON-POST-33026747E91F7D78"
+        }
       ]
     }
   ]

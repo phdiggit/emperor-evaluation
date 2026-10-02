@@ -20,8 +20,10 @@ def _parser() -> argparse.ArgumentParser:
     maintenance.add_argument("--verify", action="store_true")
     maintenance.add_argument("--related", action="store_true", help="同时执行关联轴的组件校验")
     maintenance.add_argument("--sync", action="store_true", help="校验源后刷新报告列出的确定性下游")
-    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "first-item-a-public-verify", "first-item-c-public-verify", "first-item-b1-cost-public-verify", "second-item-b1-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
+    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "first-item-a-public-verify", "first-item-c-public-verify", "first-item-b1-cost-public-verify", "second-item-b1-verify", "military-talent-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
         commands.add_parser(name)
+    talent_views = commands.add_parser("military-talent-views", help="仅刷新当前已裁人才记录的净值、统计与阅读视图")
+    talent_views.add_argument("--write", action="store_true")
     first_cost = commands.add_parser("first-item-cost-verify")
     first_cost.add_argument("--workspace-root", type=Path, default=Path("."))
     formal = commands.add_parser("formal-settlements-verify")
@@ -259,6 +261,10 @@ def _dispatch(args: argparse.Namespace) -> int:
         from emperor_v4.evaluation.historical_impact import write_views
         print(json.dumps(write_views(Path(".").resolve()), ensure_ascii=False, indent=2))
         return 0
+    if args.command == "military-talent-views":
+        from emperor_v4.evaluation.military_talent_value import verify, write_views
+        print(json.dumps((write_views if args.write else verify)(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
     standalone = {
         "historical-impact-verify": ("historical_impact", "verify", True),
         "profile-m5-verify": ("profile_m5", "verify", True),
@@ -270,6 +276,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         "project-entries-verify": ("project_entries", "verify", True),
         "second-item-b1-verify": ("formal_settlements", "verify_second_item_b1_snapshot", True),
         "profile-m1-verify": ("profile_m1_verifier", "verify", False),
+        "military-talent-verify": ("military_talent_value", "verify", True),
         "profile-c1-verify": ("profile_c1_verifier", "verify", True),
         "profile-c2-verify": ("profile_c2_verifier", "verify", False),
         "profile-c5-verify": ("profile_c2_c5_verifier", "verify", False),

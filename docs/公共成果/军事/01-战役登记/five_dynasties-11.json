@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 11,
   "bucket_count": 24,
-  "record_count": 18,
+  "record_count": 20,
   "records": [
     {
       "war_event_id": "WAR-FD-C8B3B4CA560BAA4FFC40",
@@ -3841,6 +3841,140 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-3F179BBEC363D635C6A1",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-3F179BBEC363D635C6A1",
+      "canonical_label": "张汉真率闽军攻福州东关，黄仁讽出城力战。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.battle-adjudications.json#/cards/31"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷284@803293#州，攻其東關",
+        "資治通鑑/卷284@803293#滅，開門力戰",
+        "資治通鑑/卷284@803293#戰，大破閩兵",
+        "資治通鑑/卷284@803293#執漢真，入城，斬之"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-3F179BBEC363D635C6A1",
+          "capability_episode_ref": "PCR-3F179BBEC363D635C6A1",
+          "canonical_label": "张汉真率闽军攻福州东关，黄仁讽出城力战。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确黄仁讽出城力战，结果句明确闽军大败、主将被俘斩。",
+          "source_refs": [
+            "資治通鑑/卷284@803293#州，攻其東關",
+            "資治通鑑/卷284@803293#滅，開門力戰",
+            "資治通鑑/卷284@803293#戰，大破閩兵",
+            "資治通鑑/卷284@803293#執漢真，入城，斬之",
+            "https://zh.wikisource.org/wiki/九國志/卷十",
+            "https://zh.wikisource.org/wiki/資治通鑑/卷284"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-3F179BBEC363D635C6A1",
+          "person": "黄仁讽",
+          "profile_ref": "MIL-PROFILE-A21F9D8D4A0B23B7",
+          "person_ref": "MIL-PER-A21F9D8D4A0B23B7",
+          "actor_ref": "PERSON-POST-A07804BCB6B1859E"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-D613B801C8DB442DA249",
+      "dynasty": "五代十国／辽",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "MIL-EPISODE-LISHOUZHEN-BAITUANWEI-945",
+      "canonical_label": "李守贞决死中军并组织步骑协同解除白团卫围困",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.battle-adjudications.json#/cards/30"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷284@803293#契丹圍之數重",
+        "資治通鑑/卷284@803293#寨後斷糧道。",
+        "資治通鑑/卷284@803293#之，人馬俱渴",
+        "資治通鑑/卷284@803293#擁萬餘騎橫擊契丹",
+        "資治通鑑/卷284@803293#契丹大敗而走",
+        "資治通鑑/卷284@803293#逐北二十餘里",
+        "資治通鑑/卷284@803293#駝，乘之而走"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-D613B801C8DB442DA249",
+          "capability_episode_ref": "MIL-EPISODE-LISHOUZHEN-BAITUANWEI-945",
+          "canonical_label": "李守贞决死中军并组织步骑协同解除白团卫围困",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "co_decisive",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D4",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "945年白团卫晋军数重被围、粮道断绝、取泥水饮且逆风濒危；李守贞明确反对等待、指挥中军决死，随后令步兵拔鹿角出战，与诸骑军共同创造解围。本人实际承担极端劣势与临阵逆转，取重大主力/危机解除A/D4共同决定成果；不共享其他人独立指挥或后续全国终局。",
+          "source_refs": [
+            "資治通鑑/卷284@803293#契丹圍之數重",
+            "資治通鑑/卷284@803293#寨後斷糧道。",
+            "資治通鑑/卷284@803293#之，人馬俱渴",
+            "資治通鑑/卷284@803293#擁萬餘騎橫擊契丹",
+            "資治通鑑/卷284@803293#契丹大敗而走",
+            "資治通鑑/卷284@803293#逐北二十餘里",
+            "資治通鑑/卷284@803293#駝，乘之而走"
+          ],
+          "parent_campaign_tier": "B",
+          "parent_combat_difficulty": "D1",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-D613B801C8DB442DA249",
+          "person": "李守贞",
+          "profile_ref": "MIL-PROFILE-8DEACCF1E6ED14DF",
+          "person_ref": "MIL-PER-8DEACCF1E6ED14DF",
+          "actor_ref": "PERSON-POST-7B2867AAD9A7E8AB"
+        }
       ]
     }
   ]

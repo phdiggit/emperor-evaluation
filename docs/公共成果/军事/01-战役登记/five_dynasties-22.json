@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 22,
   "bucket_count": 24,
-  "record_count": 25,
+  "record_count": 28,
   "records": [
     {
       "war_event_id": "WAR-FD-D77B788EBA064C6F888E",
@@ -6133,6 +6133,259 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-02BCF7401A87DFAEA16E",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-02BCF7401A87DFAEA16E",
+      "canonical_label": "马全节击败李承裕所率南唐军的阶段战果",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-282.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-282.battle-adjudications.json#/cards/5"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷282@2303983#與承裕戰於城南，大破之",
+        "資治通鑑/卷282@2303983#追敗唐兵於黃花谷",
+        "資治通鑑/卷282@2303983#又敗唐兵於雲夢澤中",
+        "資治通鑑/卷282@2303983#斬承裕及其眾千五百人",
+        "資治通鑑/卷282@2303983#皆賜馬及器服而歸之",
+        "資治通鑑/卷282@2303983#失亡四千人"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-02BCF7401A87DFAEA16E",
+          "capability_episode_ref": "PCR-02BCF7401A87DFAEA16E",
+          "canonical_label": "马全节击败李承裕所率南唐军的阶段战果",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确马全节参与连续反击；只消费本人所在阶段，不继承父项全部终局。",
+          "source_refs": [
+            "資治通鑑/卷282@2303983#與承裕戰於城南，大破之",
+            "資治通鑑/卷282@2303983#追敗唐兵於黃花谷",
+            "資治通鑑/卷282@2303983#又敗唐兵於雲夢澤中",
+            "資治通鑑/卷282@2303983#斬承裕及其眾千五百人",
+            "資治通鑑/卷282@2303983#皆賜馬及器服而歸之",
+            "資治通鑑/卷282@2303983#失亡四千人"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-02BCF7401A87DFAEA16E",
+          "person": "马全节",
+          "profile_ref": "MIL-PROFILE-147BCE31909A9FA2",
+          "person_ref": "MIL-PER-147BCE31909A9FA2",
+          "actor_ref": "PERSON-POST-06BED940C0CDEDC5"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-59ADB9DF6E49185F4FCA",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-59ADB9DF6E49185F4FCA",
+      "canonical_label": "赵匡胤倍道袭清流关，从山后夹击并追入滁州。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-292.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-292.battle-adjudications.json#/cards/14"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷292@1769707#倍道襲清流關",
+        "資治通鑑/卷292@1769707#引兵出山後",
+        "資治通鑑/卷292@1769707#腦，生擒之，並",
+        "資治通鑑/卷292@1769707#之，並擒姚鳳",
+        "資治通鑑/卷292@1769707#鳳，遂克滁州"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-59ADB9DF6E49185F4FCA",
+          "capability_episode_ref": "PCR-59ADB9DF6E49185F4FCA",
+          "canonical_label": "赵匡胤倍道袭清流关，从山后夹击并追入滁州。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确赵匡胤倍道袭关、夹击并追入滁州，结果句明确滁州被攻克。",
+          "source_refs": [
+            "資治通鑑/卷292@1769707#倍道襲清流關",
+            "資治通鑑/卷292@1769707#引兵出山後",
+            "資治通鑑/卷292@1769707#腦，生擒之，並",
+            "資治通鑑/卷292@1769707#之，並擒姚鳳",
+            "資治通鑑/卷292@1769707#鳳，遂克滁州"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-59ADB9DF6E49185F4FCA",
+          "person": "赵匡胤",
+          "profile_ref": "MIL-PROFILE-7BA8BC2D2C3FE948",
+          "person_ref": "MIL-PER-7BA8BC2D2C3FE948",
+          "actor_ref": "PERSON-POST-21F30C9AD2C6298E"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-7160F79C329B4FD0F70F",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-7160F79C329B4FD0F70F",
+      "canonical_label": "契丹与王都夜袭新乐杀朱建丰；王晏球随后在曲阳以短兵冲阵，击溃王都与契丹万余人。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#/cards/6"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷276@1767667#開門納官軍",
+        "資治通鑑/卷276@1767667#都舉族自焚",
+        "資治通鑑/卷276@1767667#擒禿餒及契丹二千人",
+        "資治通鑑/卷276@1767667#大梁，斬於市。\n",
+        "資治通鑑/卷276@1767667#拔其北關城",
+        "資治通鑑/卷276@1767667#禿餒以萬騎突入定州",
+        "資治通鑑/卷276@1767667#下，大破之。禿",
+        "資治通鑑/卷276@1767667#得其西關城",
+        "資治通鑑/卷276@1767667#徒多殺精兵，無損於賊",
+        "資治通鑑/卷276@1767667#不若食三州之租，愛民養兵以俟之",
+        "資治通鑑/卷276@1767667#內潰。」帝從之。",
+        "資治通鑑/卷276@1767667#增修西關城以為行府",
+        "資治通鑑/卷276@1767667#使三州民輸稅供軍食而守之",
+        "資治通鑑/卷276@1767667#有詔促令攻城",
+        "資治通鑑/卷276@1767667#晏球不得已",
+        "資治通鑑/卷276@1767667#殺傷將士三千人",
+        "資治通鑑/卷276@1767667#生擒惕隱等數百人",
+        "資治通鑑/卷276@1767667#村民以白梃擊之",
+        "資治通鑑/卷276@1767667#得脫歸國者不過數十人",
+        "資治通鑑/卷276@1767667#不敢輕犯塞",
+        "資治通鑑/卷276@1767667#將七千騎救定州",
+        "資治通鑑/卷276@1767667#逆戰於唐河北，大破之",
+        "資治通鑑/卷276@1767667#俘斬及陷溺死者，不可勝數",
+        "資治通鑑/卷276@1767667#陰與之謀復河北故事",
+        "資治通鑑/卷276@1767667#使圖之，不克",
+        "資治通鑑/卷276@1767667#晏球以都反狀聞",
+        "資治通鑑/卷276@1767667#日以私財饗士",
+        "資治通鑑/卷276@1767667#未嘗戮一卒",
+        "資治通鑑/卷276@1767667#謝久煩饋運而已",
+        "資治通鑑/卷276@1767667#夜襲新樂，破之，殺建豐",
+        "資治通鑑/卷276@1767667#以短兵擊之",
+        "資治通鑑/卷276@1767667#契丹死者過半",
+        "資治通鑑/卷276@1767667#北走者殆無孑遺"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-7160F79C329B4FD0F70F",
+          "capability_episode_ref": "PCR-7160F79C329B4FD0F70F",
+          "canonical_label": "契丹与王都夜袭新乐杀朱建丰；王晏球随后在曲阳以短兵冲阵，击溃王都与契丹万余人。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D3",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动与结果链明确王晏球野战击溃援军、转入长期围困并完成定州平定。",
+          "source_refs": [
+            "資治通鑑/卷276@1767667#開門納官軍",
+            "資治通鑑/卷276@1767667#都舉族自焚",
+            "資治通鑑/卷276@1767667#擒禿餒及契丹二千人",
+            "資治通鑑/卷276@1767667#大梁，斬於市。\n",
+            "資治通鑑/卷276@1767667#拔其北關城",
+            "資治通鑑/卷276@1767667#禿餒以萬騎突入定州",
+            "資治通鑑/卷276@1767667#下，大破之。禿",
+            "資治通鑑/卷276@1767667#得其西關城",
+            "資治通鑑/卷276@1767667#徒多殺精兵，無損於賊",
+            "資治通鑑/卷276@1767667#不若食三州之租，愛民養兵以俟之",
+            "資治通鑑/卷276@1767667#內潰。」帝從之。",
+            "資治通鑑/卷276@1767667#增修西關城以為行府",
+            "資治通鑑/卷276@1767667#使三州民輸稅供軍食而守之",
+            "資治通鑑/卷276@1767667#有詔促令攻城",
+            "資治通鑑/卷276@1767667#晏球不得已",
+            "資治通鑑/卷276@1767667#殺傷將士三千人",
+            "資治通鑑/卷276@1767667#生擒惕隱等數百人",
+            "資治通鑑/卷276@1767667#村民以白梃擊之",
+            "資治通鑑/卷276@1767667#得脫歸國者不過數十人",
+            "資治通鑑/卷276@1767667#不敢輕犯塞",
+            "資治通鑑/卷276@1767667#將七千騎救定州",
+            "資治通鑑/卷276@1767667#逆戰於唐河北，大破之",
+            "資治通鑑/卷276@1767667#俘斬及陷溺死者，不可勝數",
+            "資治通鑑/卷276@1767667#陰與之謀復河北故事",
+            "資治通鑑/卷276@1767667#使圖之，不克",
+            "資治通鑑/卷276@1767667#晏球以都反狀聞",
+            "資治通鑑/卷276@1767667#日以私財饗士",
+            "資治通鑑/卷276@1767667#未嘗戮一卒",
+            "資治通鑑/卷276@1767667#謝久煩饋運而已",
+            "資治通鑑/卷276@1767667#夜襲新樂，破之，殺建豐",
+            "資治通鑑/卷276@1767667#以短兵擊之",
+            "資治通鑑/卷276@1767667#契丹死者過半",
+            "資治通鑑/卷276@1767667#北走者殆無孑遺"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-7160F79C329B4FD0F70F",
+          "person": "王晏球",
+          "profile_ref": "MIL-PROFILE-E366CC8F89C984BA",
+          "person_ref": "MIL-PER-E366CC8F89C984BA",
+          "actor_ref": "PERSON-POST-170CE393050CCA66"
+        }
       ]
     }
   ]

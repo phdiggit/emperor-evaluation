@@ -1,11 +1,10 @@
 """Separate registered lifetime coverage from attributable ability evidence."""
 BATTLE_REGISTRY = "docs/公共成果/军事/01-战役登记.json"
-TALENT_REGISTRY = "docs/公共成果/军事/02-武将人才等级.json"
 COVERAGE_STATUS = "FULL_LIFETIME_REGISTERED"
 COVERAGE_LABEL = "全生涯逐战役登记已覆盖"
 COVERAGE_BASIS = (
     "材料底池已按全生涯逐战役登记；代表情境只是本次能力裁决的定位索引，"
-    "不是全部已检视战役的目录。没有独立武将档案不表示没有军事材料。"
+    "不是全部已检视战役的目录。没有单独的人物级索引不表示军事材料未登记。"
 )
 ABILITY_LABELS = {
     "E1": "本人能力证据集中于有限可归责情境",
@@ -26,7 +25,7 @@ def evidence_scope(level: str, mode: str) -> dict:
         "material_coverage_status": COVERAGE_STATUS,
         "material_coverage_label": COVERAGE_LABEL,
         "material_coverage_basis": COVERAGE_BASIS,
-        "source_refs": [BATTLE_REGISTRY, TALENT_REGISTRY],
+        "source_refs": [BATTLE_REGISTRY],
         "ability_evidence_level": level,
         "ability_evidence_label": ABILITY_LABELS[level],
         "conclusion_mode_label": MODE_LABELS[mode],

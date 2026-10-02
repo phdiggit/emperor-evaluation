@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 20,
   "bucket_count": 24,
-  "record_count": 14,
+  "record_count": 18,
   "records": [
     {
       "war_event_id": "WAR-FD-404642ED0364FF11759D",
@@ -3065,6 +3065,266 @@
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D1",
           "evidence_lower_bound": true
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-AE382B0E3BC4449E4B01",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-AE382B0E3BC4449E4B01",
+      "canonical_label": "李从珂递坊击败梁前锋",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-272.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-272.battle-adjudications.json#/cards/5"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷272@1554183#敗其前鋒於遞坊鎮",
+        "資治通鑑/卷272@1554183#獲將士三百人，斬首二百級"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-AE382B0E3BC4449E4B01",
+          "capability_episode_ref": "PCR-AE382B0E3BC4449E4B01",
+          "canonical_label": "李从珂递坊击败梁前锋",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "只消费李从珂本人率骑兵完成的递坊阶段。",
+          "source_refs": [
+            "資治通鑑/卷272@1554183#敗其前鋒於遞坊鎮",
+            "資治通鑑/卷272@1554183#獲將士三百人，斬首二百級"
+          ],
+          "parent_campaign_tier": "S",
+          "parent_combat_difficulty": "D3",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-AE382B0E3BC4449E4B01",
+          "person": "李从珂",
+          "profile_ref": "MIL-PROFILE-A5C75B63CCE06B17",
+          "person_ref": "MIL-PER-A5C75B63CCE06B17",
+          "actor_ref": "PERSON-POST-0173C7D114E57787"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-89F9CB74D4775B49ACBB",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-89F9CB74D4775B49ACBB",
+      "canonical_label": "赵匡赞入朝后，王景崇统关西兵击退后蜀李廷珪并追张虔钊军。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-287.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-287.battle-adjudications.json#/cards/9"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷287@1329024#敗廷珪於子午谷",
+        "資治通鑑/卷287@1329024#孤，引兵夜遁",
+        "資治通鑑/卷287@1329024#追敗蜀兵於散關",
+        "資治通鑑/卷287@1329024#俘將卒四百人"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-89F9CB74D4775B49ACBB",
+          "capability_episode_ref": "PCR-89F9CB74D4775B49ACBB",
+          "canonical_label": "赵匡赞入朝后，王景崇统关西兵击退后蜀李廷珪并追张虔钊军。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确王景崇统关西兵反击并追击，结果句闭合后蜀两路败退。",
+          "source_refs": [
+            "資治通鑑/卷287@1329024#敗廷珪於子午谷",
+            "資治通鑑/卷287@1329024#孤，引兵夜遁",
+            "資治通鑑/卷287@1329024#追敗蜀兵於散關",
+            "資治通鑑/卷287@1329024#俘將卒四百人"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-89F9CB74D4775B49ACBB",
+          "person": "王景崇",
+          "profile_ref": "MIL-PROFILE-8E4B930967092C60",
+          "person_ref": "MIL-PER-8E4B930967092C60",
+          "actor_ref": "PERSON-POST-1413CA37A602AD0B"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-71E49675C6EBDD4D6686",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-71E49675C6EBDD4D6686",
+      "canonical_label": "孙锐、冯晖逼范延光起兵，范延光以二万步骑沿河进至黎阳口。；后晋调白奉进、杨光远、杜重威等多路军防御讨伐。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#/cards/2"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷281@1769092#合謀逼延光反",
+        "資治通鑑/卷281@1769092#言，遂從之。甲",
+        "資治通鑑/卷281@1769092#將步騎二萬",
+        "資治通鑑/卷281@1769092#一萬屯滑州。"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-71E49675C6EBDD4D6686",
+          "capability_episode_ref": "PCR-71E49675C6EBDD4D6686",
+          "canonical_label": "孙锐、冯晖逼范延光起兵，范延光以二万步骑沿河进至黎阳口。；后晋调白奉进、杨光远、杜重威等多路军防御讨伐。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "unresolved",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "NOT_APPLICABLE",
+          "campaign_tier": "B",
+          "combat_difficulty": "D1",
+          "outcome_durability": false,
+          "detail_status": "person_result_required",
+          "basis": "实际正果：只有举兵、进至黎阳口的行动，未闭可验收战果。 实际不利及边界：现引用只记后晋部署讨伐，尚未闭本人的交战与终局。 保留情况：保留来源与真实统军事实，未闭本人结果前零消费。 仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+          "source_refs": [
+            "資治通鑑/卷281@1769092#合謀逼延光反",
+            "資治通鑑/卷281@1769092#言，遂從之。甲",
+            "資治通鑑/卷281@1769092#將步騎二萬",
+            "資治通鑑/卷281@1769092#一萬屯滑州。"
+          ],
+          "parent_campaign_tier": "B",
+          "parent_combat_difficulty": "D1",
+          "evidence_lower_bound": true,
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-71E49675C6EBDD4D6686",
+          "person": "范延光",
+          "profile_ref": "MIL-PROFILE-890D287BA1901888",
+          "person_ref": "MIL-PER-890D287BA1901888",
+          "actor_ref": "PERSON-POST-1C58FDC7B45E5B2A",
+          "mixed_result_review": {
+            "schema_version": "military-mixed-result-review-v1",
+            "decision": "unresolved",
+            "positive_result": "只有举兵、进至黎阳口的行动，未闭可验收战果。",
+            "adverse_result": "现引用只记后晋部署讨伐，尚未闭本人的交战与终局。",
+            "retention": "保留来源与真实统军事实，未闭本人结果前零消费。",
+            "personal_scope": "仅消费本条已有本人角色与成果范围；不继承父群、其他将领或其他周期。",
+            "source_refs": [
+              "資治通鑑/卷281@1769092#合謀逼延光反",
+              "資治通鑑/卷281@1769092#言，遂從之。甲",
+              "資治通鑑/卷281@1769092#將步騎二萬",
+              "資治通鑑/卷281@1769092#一萬屯滑州。"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-8ED6DEAA3AD49FA58659",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "MIL-EPISODE-LICUNXU-HULIU-PUYANG-918",
+      "canonical_label": "拒绝避战建议急攻，所部先乱并造成重大损失。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#/cards/1"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷270@803281#周德威不能制，父子皆戰死",
+        "資治通鑑/卷270@803281#兩軍所喪士卒各三之二"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-8ED6DEAA3AD49FA58659",
+          "capability_episode_ref": "MIL-EPISODE-LICUNXU-HULIU-918",
+          "canonical_label": "拒绝避战建议急攻，所部先乱并造成重大损失。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "SUPPORTED_DECISION_RESPONSIBILITY",
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": true,
+          "detail_status": "resolved_person_result",
+          "basis": "本人战前决策、实际统帅与前段失败连续闭合。 本人当时是实际总帅，对行动与前段军队运行拥有控制；负果不按tactical_execution弱化为从属执行。所存B级阶段后果保持，军队损失不因后续获胜而抹去；明确决策过错与UNKNOWN分别保留。",
+          "source_refs": [
+            "資治通鑑/卷270@803281#周德威不能制，父子皆戰死",
+            "資治通鑑/卷270@803281#兩軍所喪士卒各三之二"
+          ],
+          "parent_campaign_tier": "B",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-8ED6DEAA3AD49FA58659",
+          "person": "李存勖",
+          "profile_ref": "MIL-PROFILE-6FE2D80439F84FB0",
+          "person_ref": "MIL-PER-6FE2D80439F84FB0",
+          "actor_ref": "PERSON-POST-E89283EAF44AD214"
         }
       ]
     }

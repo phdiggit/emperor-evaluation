@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 2,
   "bucket_count": 24,
-  "record_count": 24,
+  "record_count": 25,
   "records": [
     {
       "war_event_id": "WAR-FD-E2DD2B558C4BBCE59AB7",
@@ -4807,6 +4807,65 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-43A28E805F2A45A9E33C",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-43A28E805F2A45A9E33C",
+      "canonical_label": "截梁粮运后中伏先败。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-271.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-271.battle-adjudications.json#/cards/0"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷271@1751976#路，晉兵大敗"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-43A28E805F2A45A9E33C",
+          "capability_episode_ref": "MIL-EPISODE-LICUNXU-PANZHANG-PUYANG-919",
+          "canonical_label": "截梁粮运后中伏先败。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": true,
+          "detail_status": "resolved_person_result",
+          "basis": "本人实际行动与前段败绩闭合，因果过错保持未知。 本人当时是实际总帅，对行动与前段军队运行拥有控制；负果不按tactical_execution弱化为从属执行。所存B级阶段后果保持，军队损失不因后续获胜而抹去；明确决策过错与UNKNOWN分别保留。",
+          "source_refs": [
+            "資治通鑑/卷271@1751976#路，晉兵大敗"
+          ],
+          "parent_campaign_tier": "B",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。",
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-43A28E805F2A45A9E33C",
+          "person": "李存勖",
+          "profile_ref": "MIL-PROFILE-6FE2D80439F84FB0",
+          "person_ref": "MIL-PER-6FE2D80439F84FB0",
+          "actor_ref": "PERSON-POST-E89283EAF44AD214"
+        }
       ]
     }
   ]

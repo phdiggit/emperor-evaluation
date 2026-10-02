@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 15,
   "bucket_count": 24,
-  "record_count": 29,
+  "record_count": 33,
   "records": [
     {
       "war_event_id": "WAR-FD-E8E4720D09DA21DD003B",
@@ -5689,6 +5689,251 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-F05DBEB711EB5EA688D7",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-F05DBEB711EB5EA688D7",
+      "canonical_label": "梁惠王朱友能举兵趋大梁，霍彦威、王彦章、张汉杰奉命讨伐。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-271.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-271.battle-adjudications.json#/cards/8"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷271@1751976#友能反，舉兵趣大梁",
+        "資治通鑑/卷271@1751976#陳留，兵敗，走",
+        "資治通鑑/卷271@1751976#惠王友能降"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-F05DBEB711EB5EA688D7",
+          "capability_episode_ref": "PCR-F05DBEB711EB5EA688D7",
+          "canonical_label": "梁惠王朱友能举兵趋大梁，霍彦威、王彦章、张汉杰奉命讨伐。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "independent_direction",
+          "decisive_relation": "co_decisive",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D1",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确张汉杰与两将共同奉命讨伐并迫朱友能投降。",
+          "source_refs": [
+            "資治通鑑/卷271@1751976#友能反，舉兵趣大梁",
+            "資治通鑑/卷271@1751976#陳留，兵敗，走",
+            "資治通鑑/卷271@1751976#惠王友能降"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-F05DBEB711EB5EA688D7",
+          "person": "张汉杰",
+          "profile_ref": "MIL-PROFILE-0F310EB3E089A229",
+          "person_ref": "MIL-PER-0F310EB3E089A229",
+          "actor_ref": "PERSON-POST-9D765E4D4F2867B8"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-33A2DE547A8386E9ADD5",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-33A2DE547A8386E9ADD5",
+      "canonical_label": "张汉真率闽军攻福州东关，黄仁讽出城力战。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.battle-adjudications.json#/cards/31"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷284@803293#州，攻其東關",
+        "資治通鑑/卷284@803293#滅，開門力戰",
+        "資治通鑑/卷284@803293#戰，大破閩兵",
+        "資治通鑑/卷284@803293#執漢真，入城，斬之"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-33A2DE547A8386E9ADD5",
+          "capability_episode_ref": "PCR-33A2DE547A8386E9ADD5",
+          "canonical_label": "张汉真率闽军攻福州东关，黄仁讽出城力战。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确张汉真率闽军进攻，结果句明确其军大败且本人被俘斩。",
+          "source_refs": [
+            "資治通鑑/卷284@803293#州，攻其東關",
+            "資治通鑑/卷284@803293#滅，開門力戰",
+            "資治通鑑/卷284@803293#戰，大破閩兵",
+            "資治通鑑/卷284@803293#執漢真，入城，斬之"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-33A2DE547A8386E9ADD5",
+          "person": "张汉真",
+          "profile_ref": "MIL-PROFILE-BB51E16C97F84D4B",
+          "person_ref": "MIL-PER-BB51E16C97F84D4B",
+          "actor_ref": "PERSON-POST-7B98D67FADBDF9A7"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-FAD4DD8A482A2EDDF41B",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "MIL-EPISODE-LICUNXU-HULIU-PUYANG-918",
+      "canonical_label": "午后重整夺山并完成反败梁军。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#/cards/1"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷270@803281#之，梁兵大敗。",
+        "資治通鑑/卷270@803281#兩軍所喪士卒各三之二"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-FAD4DD8A482A2EDDF41B",
+          "capability_episode_ref": "MIL-EPISODE-LICUNXU-HULIU-918",
+          "canonical_label": "午后重整夺山并完成反败梁军。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "independent_direction",
+          "decisive_relation": "decisive_successor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D3",
+          "outcome_durability": true,
+          "detail_status": "resolved_person_result",
+          "basis": "本人继续实际统军并闭合逆转终局，只消费逆转阶段。",
+          "source_refs": [
+            "資治通鑑/卷270@803281#之，梁兵大敗。",
+            "資治通鑑/卷270@803281#兩軍所喪士卒各三之二"
+          ],
+          "parent_campaign_tier": "B",
+          "parent_combat_difficulty": "D3",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-FAD4DD8A482A2EDDF41B",
+          "person": "李存勖",
+          "profile_ref": "MIL-PROFILE-6FE2D80439F84FB0",
+          "person_ref": "MIL-PER-6FE2D80439F84FB0",
+          "actor_ref": "PERSON-POST-E89283EAF44AD214"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-BECC096409C11EB1BB8E",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-BECC096409C11EB1BB8E",
+      "canonical_label": "李存勖亲攻镇州十日未克；韩正时率千骑突围求援，在行唐被追斩。；镇州仍守，突围求援失败。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-271.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-271.battle-adjudications.json#/cards/9"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷271@1751976#盡銳攻之，旬日不克",
+        "資治通鑑/卷271@1751976#追至行唐，斬之"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-BECC096409C11EB1BB8E",
+          "capability_episode_ref": "PCR-BECC096409C11EB1BB8E",
+          "canonical_label": "李存勖亲攻镇州十日未克；韩正时率千骑突围求援，在行唐被追斩。；镇州仍守，突围求援失败。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+          "campaign_tier": "C",
+          "combat_difficulty": "D1",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "已验收事实卡明确闭合李存勖的实际行动与本人结果：李存勖亲攻镇州十日未克；韩正时率千骑突围求援，在行唐被追斩。；镇州仍守，突围求援失败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "source_refs": [
+            "資治通鑑/卷271@1751976#盡銳攻之，旬日不克",
+            "資治通鑑/卷271@1751976#追至行唐，斬之"
+          ],
+          "parent_campaign_tier": "C",
+          "parent_combat_difficulty": "D1",
+          "evidence_lower_bound": true,
+          "responsibility_basis": "elite以上实际主帅败绩经既有逐字锚与定向检索后仍不能免责；按主帅结果责任闭合，不保留过错未知。",
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-BECC096409C11EB1BB8E",
+          "person": "李存勖",
+          "profile_ref": "MIL-PROFILE-6FE2D80439F84FB0",
+          "person_ref": "MIL-PER-6FE2D80439F84FB0",
+          "actor_ref": "PERSON-POST-E89283EAF44AD214"
+        }
       ]
     }
   ]

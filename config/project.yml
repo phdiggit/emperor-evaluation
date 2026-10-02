@@ -261,7 +261,7 @@ profile_assessment:
     M1:
       name: 军事判断与统帅能力
       contract: docs/分项规则/人物画像轴/M1-军事判断与统帅能力.md
-      axis_contract_version: FORMAL-V1.3
+      axis_contract_version: FORMAL-V1.4
       evidence_scope_schema_version: m1-evidence-scope-v1
       payload_schema_version: emperor-profile-m1-formal-settlement-v1
       axis_kind: DIRECT_PROFILE_AXIS
@@ -411,6 +411,8 @@ retained_build_chain:
   opponent_system_contract_document: docs/证据规则/军事对手战争机器O档合同.md
   battle_registry: docs/公共成果/军事/01-战役登记.json
   military_talent_registry: docs/公共成果/军事/02-武将人才等级.json
+  military_talent_verification_command: military-talent-verify
+  military_talent_reading_view_command: military-talent-views --write
   military_cost_benefit_audit_lineage: docs/公共成果/军事/03-军事行动成本和收益登记.json
   first_item_commands: []
   third_item_commands: [third-item-b1-settlement, third-item-c-settlement, third-item-d-verify, third-item-current-settlement]

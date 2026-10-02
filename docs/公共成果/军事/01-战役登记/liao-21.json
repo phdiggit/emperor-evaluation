@@ -361,7 +361,7 @@
       "dynasty_partition": "liao",
       "record_level": "person_command_result_registration",
       "campaign_group_ref": "QDGZ-LIAO-SONG-LANGOU-FANCUN-1122",
-      "canonical_label": "兰沟甸至范村守御",
+      "canonical_label": "兰沟甸掩击宋前锋并守住燕山战线",
       "period": {
         "start": "1122",
         "end": "1122"
@@ -375,11 +375,12 @@
         "lineage_basis": "既有通读卡回补公共人物战役结果。"
       },
       "source_refs": [
-        "SRC-QIDANGUOZHI-011-2258712-P0020"
+        "SRC-QIDANGUOZHI-011-2258712-P0015",
+        "docs/史料通读产物/辽/契丹国志/volume-011.battle-adjudications.json#宋第一次北攻燕—兰沟甸、范村受挫—白沟十二日后班师"
       ],
       "person_command_results": [
         {
-          "person_command_result_ref": "PCR-M1-YELUDASHI-LANGOU-1122",
+          "person_command_result_ref": "PUBLIC-PCR-YELUDASHI-LANGOU-1122",
           "person": "耶律大石",
           "ruler_id": "RULER-LIAO-YELU-DASHI",
           "campaign_ref": "PUBLIC-PCR-YELUDASHI-LANGOU-1122",
@@ -387,22 +388,33 @@
           "canonical_label": "兰沟甸掩击宋前锋并守住燕山战线",
           "role_code": "principal_commander",
           "consumption_mode": "person_result",
-          "capability_mode": "integrated_command",
-          "decisive_relation": "co_decisive",
+          "capability_mode": "independent_direction",
+          "decisive_relation": "decisive_creator",
           "result_direction": "positive",
           "outcome_responsibility": null,
           "causal_fault": null,
-          "campaign_tier": "A",
+          "campaign_tier": "B",
           "combat_difficulty": "D2",
           "outcome_durability": false,
           "detail_status": "resolved_person_result",
-          "basis": "以一千五百余骑屯涿州新城，在兰沟甸掩击宋前锋；后与萧幹方向共同迫宋军撤退，取本人A/D2下限，不复制萧幹范村战果。",
+          "basis": "大石林牙以一千五百余骑屯涿州新城，独立在兰沟甸掩击杨可世数千轻骑，致其被伤退；这是本人局部击退前锋的B/D2结果。萧幹增兵二万于范村力战及宋全军撤退不归其独占；P0015为此战，旧P0020是郭药师降宋，保留为失准旧引用而不用作当前来源。",
           "source_refs": [
-            "SRC-QIDANGUOZHI-011-2258712-P0020"
+            "SRC-QIDANGUOZHI-011-2258712-P0015",
+            "docs/史料通读产物/辽/契丹国志/volume-011.battle-adjudications.json#宋第一次北攻燕—兰沟甸、范村受挫—白沟十二日后班师"
           ],
           "parent_campaign_tier": "A",
           "parent_combat_difficulty": "D2",
-          "evidence_lower_bound": true
+          "evidence_lower_bound": true,
+          "source_alias_refs": [],
+          "source_anchor_correction": {
+            "invalidated_source_refs": [
+              "SRC-QIDANGUOZHI-011-2258712-P0020"
+            ],
+            "basis": "P0020记郭药师降宋，不能作为兰沟甸战役的有效别名；该战当前引用P0015。"
+          },
+          "profile_ref": "MIL-PROFILE-A21AFF19EDE5BB2F",
+          "person_ref": "MIL-PER-A21AFF19EDE5BB2F",
+          "actor_ref": "RULER-LIAO-YELU-DASHI"
         }
       ]
     }

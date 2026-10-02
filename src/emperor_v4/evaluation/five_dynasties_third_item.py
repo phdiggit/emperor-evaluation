@@ -20,7 +20,7 @@ from emperor_v4.evaluation.opponent_system_contract import (
     load_opponent_system_contract,
     opponent_system_grades_at_least,
 )
-from emperor_v4.evaluation.talent_registry_store import load_talent_registry
+from emperor_v4.evaluation.talent_registry_store import load_talent_registry, talent_profiles_by_ref as index_talent_profiles
 from emperor_v4.evaluation.post_tang_third_item_consumption import (
     iter_post_tang_bound_cycles,
 )
@@ -1490,7 +1490,7 @@ def _apply_c5_axis_gate(
         ):
             c3_passed = False
             continue
-        commander_refs.append(profile_ref)
+        commander_refs.append(str(profile.get("profile_ref") or profile_ref))
         commander_names.append(str(profile.get("person") or profile_ref))
     c3_passed = c3_passed and len(set(commander_refs)) >= 2
 
@@ -2974,10 +2974,7 @@ def _align_bc_to_system_stress_parent_cycles(
     talent_payload = load_talent_registry(
         workspace_root / MILITARY_TALENT_REGISTRY_PATH
     )
-    talent_profiles_by_ref = {
-        str(profile["profile_ref"]): profile
-        for profile in talent_payload.get("profiles") or ()
-    }
+    talent_profiles_by_ref = index_talent_profiles(talent_payload)
     first_item_c_payload = load_json(workspace_root / FIRST_ITEM_C_SETTLEMENT_PATH)
     first_item_capability_refs_by_id: dict[str, set[str]] = {}
     first_item_major_success_refs_by_id: dict[str, set[str]] = defaultdict(set)

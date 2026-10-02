@@ -3,7 +3,7 @@
   "partition": "five_dynasties",
   "bucket": 21,
   "bucket_count": 24,
-  "record_count": 20,
+  "record_count": 24,
   "records": [
     {
       "war_event_id": "WAR-FD-AC4647D742DD5304B8B9",
@@ -4595,6 +4595,258 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "PCR-DD02378CD2464862F295",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-DD02378CD2464862F295",
+      "canonical_label": "赵匡胤先破泗州南门、水寨和月城，世宗督军攻城。",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-293.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-293.battle-adjudications.json#/cards/30"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷293@1502955#破水寨及月城",
+        "資治通鑑/卷293@1502955#再遇舉城降，",
+        "資治通鑑/卷293@1502955#毋得犯民田",
+        "資治通鑑/卷293@1502955#田，民皆感悅",
+        "資治通鑑/卷293@1502955#無一卒敢擅入城者"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-DD02378CD2464862F295",
+          "capability_episode_ref": "PCR-DD02378CD2464862F295",
+          "canonical_label": "赵匡胤先破泗州南门、水寨和月城，世宗督军攻城。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确赵匡胤连续破南门、水寨和月城，结果句明确泗州举城投降。",
+          "source_refs": [
+            "資治通鑑/卷293@1502955#破水寨及月城",
+            "資治通鑑/卷293@1502955#再遇舉城降，",
+            "資治通鑑/卷293@1502955#毋得犯民田",
+            "資治通鑑/卷293@1502955#田，民皆感悅",
+            "資治通鑑/卷293@1502955#無一卒敢擅入城者"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-DD02378CD2464862F295",
+          "person": "赵匡胤",
+          "profile_ref": "MIL-PROFILE-7BA8BC2D2C3FE948",
+          "person_ref": "MIL-PER-7BA8BC2D2C3FE948",
+          "actor_ref": "PERSON-POST-21F30C9AD2C6298E"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-B4CD2217A3EC3ED5BD4D",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-B4CD2217A3EC3ED5BD4D",
+      "canonical_label": "李严与李绍琛率先浮马渡绵江",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-274.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-274.battle-adjudications.json#/cards/0"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷274@803285#倉庫民居已為蜀兵所燔",
+        "資治通鑑/卷274@803285#從兵得濟者僅千人",
+        "資治通鑑/卷274@803285#溺死者亦千餘人",
+        "資治通鑑/卷274@803285#未，進據漢州"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-B4CD2217A3EC3ED5BD4D",
+          "capability_episode_ref": "PCR-B4CD2217A3EC3ED5BD4D",
+          "canonical_label": "李严与李绍琛率先浮马渡绵江",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "只消费李严在绵江强渡中的明确执行部分。",
+          "source_refs": [
+            "資治通鑑/卷274@803285#倉庫民居已為蜀兵所燔",
+            "資治通鑑/卷274@803285#從兵得濟者僅千人",
+            "資治通鑑/卷274@803285#溺死者亦千餘人",
+            "資治通鑑/卷274@803285#未，進據漢州"
+          ],
+          "parent_campaign_tier": "S-",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-B4CD2217A3EC3ED5BD4D",
+          "person": "李严",
+          "profile_ref": "MIL-PROFILE-2FCDBE9F75196B91",
+          "person_ref": "MIL-PER-2FCDBE9F75196B91",
+          "actor_ref": "PERSON-POST-136CF3B676BFCAC3"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-9C4782122AD8BA92D614",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-9C4782122AD8BA92D614",
+      "canonical_label": "石敬瑭参加后续四面攻城并迫使大梁开门",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#/cards/0"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷276@1767667#守殷遂乘城拒守",
+        "資治通鑑/卷276@1767667#未明行二百里",
+        "資治通鑑/卷276@1767667#梁，四面進攻",
+        "資治通鑑/卷276@1767667#相帥開門降"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-9C4782122AD8BA92D614",
+          "capability_episode_ref": "PCR-9C4782122AD8BA92D614",
+          "canonical_label": "石敬瑭参加后续四面攻城并迫使大梁开门",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "independent_direction",
+          "decisive_relation": "terminal_finisher",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D1",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "行动句明确石敬瑭参加后续四面攻城；只消费终局执行部分。",
+          "source_refs": [
+            "資治通鑑/卷276@1767667#守殷遂乘城拒守",
+            "資治通鑑/卷276@1767667#未明行二百里",
+            "資治通鑑/卷276@1767667#梁，四面進攻",
+            "資治通鑑/卷276@1767667#相帥開門降"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-9C4782122AD8BA92D614",
+          "person": "石敬瑭",
+          "profile_ref": "MIL-PROFILE-1FE1D64C2F994922",
+          "person_ref": "MIL-PER-1FE1D64C2F994922",
+          "actor_ref": "PERSON-POST-62F74E6019E121A1"
+        }
+      ]
+    },
+    {
+      "war_event_id": "PCR-AB2E25270ADEC99213D2",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-AB2E25270ADEC99213D2",
+      "canonical_label": "张永德击败泗州方向南唐援军万余",
+      "period": {
+        "start": "unknown",
+        "end": "unknown"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-293.battle-adjudications.json"
+        ],
+        "source_card_refs": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-293.battle-adjudications.json#/cards/13"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "資治通鑑/卷293@1502955#敗楚州兵萬餘人於灣頭堰",
+        "資治通鑑/卷293@1502955#獲漣州刺史秦進崇",
+        "資治通鑑/卷293@1502955#敗泗州兵萬餘人於曲溪堰"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-AB2E25270ADEC99213D2",
+          "capability_episode_ref": "PCR-AB2E25270ADEC99213D2",
+          "canonical_label": "张永德击败泗州方向南唐援军万余",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "两路分立，只消费张永德本人负责方向的阶段成果。",
+          "source_refs": [
+            "資治通鑑/卷293@1502955#敗楚州兵萬餘人於灣頭堰",
+            "資治通鑑/卷293@1502955#獲漣州刺史秦進崇",
+            "資治通鑑/卷293@1502955#敗泗州兵萬餘人於曲溪堰"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-AB2E25270ADEC99213D2",
+          "person": "张永德",
+          "profile_ref": "MIL-PROFILE-B920A096E937FB2D",
+          "person_ref": "MIL-PER-B920A096E937FB2D",
+          "actor_ref": "PERSON-POST-FFE3EE9A0E5EFB24"
+        }
       ]
     }
   ]

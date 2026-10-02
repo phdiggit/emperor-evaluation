@@ -178,21 +178,36 @@
           "actor_name": "朱棣",
           "actor_kind": "person",
           "role_code": "commander_in_chief",
-          "contribution_scope": "本人实际统军与未克、大败结果闭合；失败归因保持未知。",
+          "contribution_scope": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
           "person_command_index": {
             "consumption_mode": "person_result",
-            "command_scope": "scoped_stage",
-            "capability_mode": "tactical_execution",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
             "decisive_relation": "none",
             "result_direction": "negative",
             "projected_result_tier": "A",
             "projected_combat_difficulty": "D2",
             "detail_status": "resolved_person_result",
-            "basis": "本人实际统军与未克、大败结果闭合；失败归因保持未知。",
+            "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
             "source_refs": [
               "明史/卷5@2594618#鐵鉉、盛庸堅守，不克。",
               "明史/卷5@2594618#王大敗，潰圍以免，亡數萬人，張玉戰死。"
-            ]
+            ],
+            "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "A",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷5@2594618#鐵鉉、盛庸堅守，不克。",
+                "明史/卷5@2594618#王大敗，潰圍以免，亡數萬人，張玉戰死。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+              "deduplication_ref": "PCR-106B29AC92F6FF74E346"
+            }
           },
           "person_command_result": [
             {
@@ -203,20 +218,37 @@
               "combat_difficulty": "D2",
               "stable_delivery": true,
               "outcome_responsibility": "actual_command_scope",
-              "causal_fault": "UNKNOWN",
-              "basis": "本人实际统军与未克、大败结果闭合；失败归因保持未知。",
+              "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+              "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
               "source_refs": [
                 "明史/卷5@2594618#鐵鉉、盛庸堅守，不克。",
                 "明史/卷5@2594618#王大敗，潰圍以免，亡數萬人，張玉戰死。"
               ],
               "military_capability_contribution": {
-                "capability_mode": "tactical_execution",
+                "capability_mode": "integrated_command",
                 "decisive_relation": "none",
-                "basis": "本人实际统军与未克、大败结果闭合；失败归因保持未知。",
+                "basis": "本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
                 "source_refs": [
                   "明史/卷5@2594618#鐵鉉、盛庸堅守，不克。",
                   "明史/卷5@2594618#王大敗，潰圍以免，亡數萬人，張玉戰死。"
                 ]
+              },
+              "source_alias_refs": [
+                "WAR-POST-47422C3A346FDC56758F"
+              ],
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "A",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：本人实际控制该已缩小作战方向，从接战到败退/终局均由本人指挥；应以integrated_command保存完整本人控制，不能因具体败因未知缩为tactical_execution。已成负结果、结果责任继续保留，未证因果过错不补推。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷5@2594618#鐵鉉、盛庸堅守，不克。",
+                  "明史/卷5@2594618#王大敗，潰圍以免，亡數萬人，張玉戰死。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH",
+                "deduplication_ref": "PCR-106B29AC92F6FF74E346"
               }
             }
           ]
@@ -455,7 +487,22 @@
               "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
               "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
               "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合张承胤的实际行动与本人结果：率援军赴抚顺败没。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
+                "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
+                "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-BACD828BDFC050C3F5F9"
+            }
           },
           "person_command_result": [
             {
@@ -482,6 +529,21 @@
                   "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
                   "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合张承胤的实际行动与本人结果：率援军赴抚顺败没。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
+                  "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
+                  "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-BACD828BDFC050C3F5F9"
               }
             }
           ]
@@ -506,7 +568,22 @@
               "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
               "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
               "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合张斾的实际行动与本人结果：守清河堡战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
+                "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
+                "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AD6553A496B49656B3E7"
+            }
           },
           "person_command_result": [
             {
@@ -533,6 +610,21 @@
                   "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
                   "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合张斾的实际行动与本人结果：守清河堡战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
+                  "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
+                  "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-AD6553A496B49656B3E7"
               }
             }
           ]
@@ -557,7 +649,22 @@
               "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
               "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
               "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合王命印的实际行动与本人结果：守抚顺城战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
+                "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
+                "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-2D2A75192A74A7A0CAE1"
+            }
           },
           "person_command_result": [
             {
@@ -584,6 +691,21 @@
                   "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
                   "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合王命印的实际行动与本人结果：守抚顺城战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
+                  "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
+                  "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-2D2A75192A74A7A0CAE1"
               }
             }
           ]
@@ -608,7 +730,22 @@
               "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
               "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
               "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合邹储贤的实际行动与本人结果：守清河堡战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
+                "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
+                "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-9653E7D26DE3A55E79EF"
+            }
           },
           "person_command_result": [
             {
@@ -635,6 +772,21 @@
                   "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
                   "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合邹储贤的实际行动与本人结果：守清河堡战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷21@2594637#大清兵克撫順城，千總王命印死之。",
+                  "明史/卷21@2594637#總兵官張承胤帥師援撫順，敗沒。",
+                  "明史/卷21@2594637#大清兵克清河堡，守將鄒儲賢、張斾死之。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-9653E7D26DE3A55E79EF"
               }
             }
           ]
@@ -1012,7 +1164,25 @@
               "明史/卷14@2594628#朱永敗寇於大同、宣府。",
               "明史/卷14@2594628#寇復入居河套。",
               "明史/卷14@2594628#小王子犯甘州，指揮姚英等戰死。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合姚英的实际行动与本人结果：甘州迎敌战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷14@2594628#迤北小王子犯大同。",
+                "明史/卷14@2594628#總兵官許寧禦之，敗績。",
+                "明史/卷14@2594628#犯宣府，巡撫都御史秦紘、總兵官周玉禦卻之。",
+                "明史/卷14@2594628#朱永敗寇於大同、宣府。",
+                "明史/卷14@2594628#寇復入居河套。",
+                "明史/卷14@2594628#小王子犯甘州，指揮姚英等戰死。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-01978F37D43A5BE755AB"
+            }
           },
           "person_command_result": [
             {
@@ -1045,6 +1215,24 @@
                   "明史/卷14@2594628#寇復入居河套。",
                   "明史/卷14@2594628#小王子犯甘州，指揮姚英等戰死。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合姚英的实际行动与本人结果：甘州迎敌战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷14@2594628#迤北小王子犯大同。",
+                  "明史/卷14@2594628#總兵官許寧禦之，敗績。",
+                  "明史/卷14@2594628#犯宣府，巡撫都御史秦紘、總兵官周玉禦卻之。",
+                  "明史/卷14@2594628#朱永敗寇於大同、宣府。",
+                  "明史/卷14@2594628#寇復入居河套。",
+                  "明史/卷14@2594628#小王子犯甘州，指揮姚英等戰死。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-01978F37D43A5BE755AB"
               }
             }
           ]
@@ -1192,7 +1380,25 @@
               "明史/卷14@2594628#朱永敗寇於大同、宣府。",
               "明史/卷14@2594628#寇復入居河套。",
               "明史/卷14@2594628#小王子犯甘州，指揮姚英等戰死。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合许宁的实际行动与本人结果：迎击小王子败绩。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷14@2594628#迤北小王子犯大同。",
+                "明史/卷14@2594628#總兵官許寧禦之，敗績。",
+                "明史/卷14@2594628#犯宣府，巡撫都御史秦紘、總兵官周玉禦卻之。",
+                "明史/卷14@2594628#朱永敗寇於大同、宣府。",
+                "明史/卷14@2594628#寇復入居河套。",
+                "明史/卷14@2594628#小王子犯甘州，指揮姚英等戰死。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-D3A0A5789040214A29F3"
+            }
           },
           "person_command_result": [
             {
@@ -1225,6 +1431,24 @@
                   "明史/卷14@2594628#寇復入居河套。",
                   "明史/卷14@2594628#小王子犯甘州，指揮姚英等戰死。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合许宁的实际行动与本人结果：迎击小王子败绩。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷14@2594628#迤北小王子犯大同。",
+                  "明史/卷14@2594628#總兵官許寧禦之，敗績。",
+                  "明史/卷14@2594628#犯宣府，巡撫都御史秦紘、總兵官周玉禦卻之。",
+                  "明史/卷14@2594628#朱永敗寇於大同、宣府。",
+                  "明史/卷14@2594628#寇復入居河套。",
+                  "明史/卷14@2594628#小王子犯甘州，指揮姚英等戰死。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-D3A0A5789040214A29F3"
               }
             }
           ]
@@ -1442,7 +1666,24 @@
               "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
               "明史/卷6@2594619#遂決意親征。",
               "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合丘福的实际行动与本人结果：率军北征在胪朐河败绩并战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+                "明史/卷6@2594619#討本雅失里。",
+                "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+                "明史/卷6@2594619#遂決意親征。",
+                "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-1031CBB880D6BF26BE7D"
+            }
           },
           "person_command_result": [
             {
@@ -1473,6 +1714,23 @@
                   "明史/卷6@2594619#遂決意親征。",
                   "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：已验收事实卡明确闭合丘福的实际行动与本人结果：率军北征在胪朐河败绩并战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+                  "明史/卷6@2594619#討本雅失里。",
+                  "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+                  "明史/卷6@2594619#遂決意親征。",
+                  "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-1031CBB880D6BF26BE7D"
               }
             }
           ]
@@ -1499,7 +1757,24 @@
               "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
               "明史/卷6@2594619#遂決意親征。",
               "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+                "明史/卷6@2594619#討本雅失里。",
+                "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+                "明史/卷6@2594619#遂決意親征。",
+                "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-D4D03A25218862C65137"
+            }
           },
           "person_command_result": [
             {
@@ -1530,6 +1805,23 @@
                   "明史/卷6@2594619#遂決意親征。",
                   "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+                  "明史/卷6@2594619#討本雅失里。",
+                  "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+                  "明史/卷6@2594619#遂決意親征。",
+                  "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-D4D03A25218862C65137"
               }
             }
           ]
@@ -1556,7 +1848,24 @@
               "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
               "明史/卷6@2594619#遂決意親征。",
               "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+                "明史/卷6@2594619#討本雅失里。",
+                "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+                "明史/卷6@2594619#遂決意親征。",
+                "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-582CE5B3F60C1C77411A"
+            }
           },
           "person_command_result": [
             {
@@ -1587,6 +1896,23 @@
                   "明史/卷6@2594619#遂決意親征。",
                   "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+                  "明史/卷6@2594619#討本雅失里。",
+                  "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+                  "明史/卷6@2594619#遂決意親征。",
+                  "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-582CE5B3F60C1C77411A"
               }
             }
           ]
@@ -1613,7 +1939,24 @@
               "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
               "明史/卷6@2594619#遂決意親征。",
               "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+                "明史/卷6@2594619#討本雅失里。",
+                "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+                "明史/卷6@2594619#遂決意親征。",
+                "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-95E09F08260B40816FE5"
+            }
           },
           "person_command_result": [
             {
@@ -1644,6 +1987,23 @@
                   "明史/卷6@2594619#遂決意親征。",
                   "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+                  "明史/卷6@2594619#討本雅失里。",
+                  "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+                  "明史/卷6@2594619#遂決意親征。",
+                  "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-95E09F08260B40816FE5"
               }
             }
           ]
@@ -1670,7 +2030,24 @@
               "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
               "明史/卷6@2594619#遂決意親征。",
               "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
-            ]
+            ],
+            "adverse_result_review": {
+              "schema_version": "military-adverse-result-v2",
+              "effect_tier": "C",
+              "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+              "personal_scope": "actual_command_scope",
+              "responsibility_coefficient": 1.0,
+              "source_refs": [
+                "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+                "明史/卷6@2594619#討本雅失里。",
+                "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+                "明史/卷6@2594619#遂決意親征。",
+                "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+              ],
+              "difficulty_used_as_penalty": false,
+              "causal_fault": "UNKNOWN",
+              "deduplication_ref": "PCR-AC56A2E7FA47F81E3B72"
+            }
           },
           "person_command_result": [
             {
@@ -1701,6 +2078,23 @@
                   "明史/卷6@2594619#遂決意親征。",
                   "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
                 ]
+              },
+              "adverse_result_review": {
+                "schema_version": "military-adverse-result-v2",
+                "effect_tier": "C",
+                "basis": "沿用当前已裁本人纯负结果范围，不采用父群或正果档：与丘福共同统军，在胪朐河败绩并战死。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+                "personal_scope": "actual_command_scope",
+                "responsibility_coefficient": 1.0,
+                "source_refs": [
+                  "明史/卷6@2594619#給事中郭驥使本雅失里，為所殺。",
+                  "明史/卷6@2594619#討本雅失里。",
+                  "明史/卷6@2594619#丘福敗績於臚朐河，福及聰、真、忠、遠皆戰死。",
+                  "明史/卷6@2594619#遂決意親征。",
+                  "明史/卷6@2594619#削丘福封爵，徙其家於海南。"
+                ],
+                "difficulty_used_as_penalty": false,
+                "causal_fault": "UNKNOWN",
+                "deduplication_ref": "PCR-AC56A2E7FA47F81E3B72"
               }
             }
           ]
@@ -16708,7 +17102,7 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "梁山乡兵与秦良玉阻进—流寇百丈关入秦破凤县",
       "period": {
-        "start": "1630",
+        "start": "1634",
         "end": "1634"
       },
       "public_outcome_registered": false,
@@ -16833,7 +17227,11 @@
           "source_anchor_refs": [
             "SRC-MINGTONGJIAN-088-2550896-L0132",
             "SRC-MINGTONGJIAN-088-2550896-L0133"
-          ]
+          ],
+          "event_period": {
+            "start": "1634",
+            "end": "1634"
+          }
         },
         {
           "evaluation_subject_phase": "流寇两支 × 川北受阻与凤县突破阶段",
@@ -16930,7 +17328,11 @@
           "source_anchor_refs": [
             "SRC-MINGTONGJIAN-088-2550896-L0132",
             "SRC-MINGTONGJIAN-088-2550896-L0133"
-          ]
+          ],
+          "event_period": {
+            "start": "1634",
+            "end": "1634"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -16940,7 +17342,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-BF46AAF0AEF5B0E759C1",
@@ -16951,7 +17354,7 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "陈奇瑜卢象升五省会剿—乌林关等连胜—围车箱峡",
       "period": {
-        "start": "1630",
+        "start": "1634",
         "end": "1634"
       },
       "public_outcome_registered": false,
@@ -17092,7 +17495,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0176",
             "SRC-MINGTONGJIAN-088-2550896-L0178",
             "SRC-MINGTONGJIAN-088-2550896-L0179"
-          ]
+          ],
+          "event_period": {
+            "start": "1634",
+            "end": "1634"
+          }
         },
         {
           "evaluation_subject_phase": "高迎祥李自成张献忠等 × 被逼入车箱峡阶段",
@@ -17204,7 +17611,11 @@
             "SRC-MINGTONGJIAN-088-2550896-L0176",
             "SRC-MINGTONGJIAN-088-2550896-L0178",
             "SRC-MINGTONGJIAN-088-2550896-L0179"
-          ]
+          ],
+          "event_period": {
+            "start": "1634",
+            "end": "1634"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -17214,7 +17625,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-07EA0D6FCE347EFD0AB2",
@@ -17225,8 +17637,8 @@
       "campaign_group_ref": "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
       "canonical_label": "左良玉刘国能镇平关大捷—张任学陈襄叶裕连胜",
       "period": {
-        "start": "1630",
-        "end": "1634"
+        "start": "1639",
+        "end": "1639"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_THIRD_ITEM_SUBJECT_PHASE_CONTAINER",
@@ -17351,7 +17763,11 @@
           "source_anchor_refs": [
             "SRC-MINGTONGJIAN-090-2550898-L0388",
             "SRC-MINGTONGJIAN-090-2550898-L0390"
-          ]
+          ],
+          "event_period": {
+            "start": "1639",
+            "end": "1639"
+          }
         },
         {
           "evaluation_subject_phase": "马进忠等楚豫流寇 × 多路受挫阶段",
@@ -17448,7 +17864,11 @@
           "source_anchor_refs": [
             "SRC-MINGTONGJIAN-090-2550898-L0388",
             "SRC-MINGTONGJIAN-090-2550898-L0390"
-          ]
+          ],
+          "event_period": {
+            "start": "1639",
+            "end": "1639"
+          }
         }
       ],
       "subject_phase_count": 2,
@@ -17458,7 +17878,8 @@
       "limitations": [
         "只供第三项按主体阶段消费；不得与同一公共campaign成果重复计数。",
         "来源分区不等于主体政权，皇帝归责只读取显式ruler_binding。"
-      ]
+      ],
+      "period_basis": "发生期按本卡逐字原文所在崇祯年次定位；多年度引文保留范围，未能唯一定位则限于来源卷实际年次，不沿用稳定父链ID中1630—1634的旧文字。"
     },
     {
       "war_event_id": "WAR-CARD-85F255FC4395E27734D6",

@@ -90,11 +90,17 @@
     return section;
   }
 
-  function summaryText(item) {
-    const summary = String(item?.reader_summary || "").trim();
+  function summaryText(item, evidence) {
     const grade = publicGrade(item);
-    if (!summary) return grade ? `官僚治理的正式公开等级为 ${grade}。` : "";
-    return `${summary}${grade ? ` 综合这些正式裁决，官僚治理的公开等级为 ${grade}。` : ""}`;
+    const groups = groupedEvidence(evidence);
+    const parts = [
+      groups.positive.length ? `正向运行链 ${groups.positive.length} 条` : "",
+      groups.negative.length ? `负向失灵链 ${groups.negative.length} 条` : "",
+      groups.mixed.length ? `正负并存链 ${groups.mixed.length} 条` : "",
+      groups.supplement.length ? `并入既有链的补充材料 ${groups.supplement.length} 条` : "",
+      groups.boundary.length ? `边界材料 ${groups.boundary.length} 条` : "",
+    ].filter(Boolean);
+    return `官僚治理公开等级为 ${grade || "未列"}。当前公开材料按${parts.join("、") || "行政运行链"}展开；链条数量用于组织阅读，不按条数直接相减。`;
   }
 
   function publicKey(item) {
@@ -149,7 +155,8 @@
     if (!item || !body) return;
 
     const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
-    const summary = summaryText(item);
+    const formalSummary = String(item.reader_summary || "").trim();
+    const summary = summaryText(item, evidence);
     const key = publicKey(item);
     if (body.dataset.secondPublicBodyKey === key && body.querySelector(":scope > .second-item-b1-reading")) return;
 
@@ -174,10 +181,11 @@
     reading.append(group("边界材料（不单独计入）", groups.boundary));
     body.append(reading);
 
-    const boundary = detailsBlock("总体范围与边界", item.reader_boundary);
+    const boundaryText = globalThis.SecondItemMaterialCards?.boundaryText?.(item.reader_boundary) || item.reader_boundary;
+    const boundary = detailsBlock("总体范围与边界", boundaryText);
     if (boundary) body.append(boundary);
 
-    const gradeDetails = detailsBlock("为什么最终是这个等级？", summary);
+    const gradeDetails = detailsBlock("为什么最终是这个等级？", formalSummary || summary);
     if (gradeDetails) body.append(gradeDetails);
     const scoreHow = globalThis.SecondItemScoreHowDetails?.(item, "B1官僚治理");
     if (scoreHow) body.append(scoreHow);

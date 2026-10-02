@@ -3,7 +3,7 @@
   "partition": "north_song",
   "bucket": 22,
   "bucket_count": 24,
-  "record_count": 31,
+  "record_count": 36,
   "records": [
     {
       "war_event_id": "WAR-NS-E448521F7AA658A04A35",
@@ -6849,6 +6849,449 @@
       "limitations": [
         "父卡指标不得复制给主体；皇帝与摄政者按互斥实际主政窗口归责。"
       ]
+    },
+    {
+      "war_event_id": "PCR-9EDB3D6FFF237323475D",
+      "dynasty": "北宋",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-9EDB3D6FFF237323475D",
+      "canonical_label": "辽军诛杀准布五群牧长，余党溃散；耶律华格增援萧托云，诱降诸部并留兵镇守。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷030@2271047#孝穆悉誅之，",
+          "續資治通鑑/卷030@2271047#待，餘黨皆潰",
+          "續資治通鑑/卷030@2271047#誘諸部皆降",
+          "續資治通鑑/卷030@2271047#西北路略平",
+          "續資治通鑑/卷030@2271047#叛者既服，兵安用益",
+          "續資治通鑑/卷030@2271047#邊患何時而息"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7030&oldid=2271047"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。",
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-030.battle-adjudications.json#/cards/0"
+        ]
+      },
+      "source_refs": [
+        "續資治通鑑/卷030@2271047#孝穆悉誅之，",
+        "續資治通鑑/卷030@2271047#待，餘黨皆潰",
+        "續資治通鑑/卷030@2271047#誘諸部皆降",
+        "續資治通鑑/卷030@2271047#西北路略平",
+        "續資治通鑑/卷030@2271047#叛者既服，兵安用益",
+        "續資治通鑑/卷030@2271047#邊患何時而息"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-9EDB3D6FFF237323475D",
+          "capability_episode_ref": "PCR-9EDB3D6FFF237323475D",
+          "canonical_label": "辽军诛杀准布五群牧长，余党溃散；耶律华格增援萧托云，诱降诸部并留兵镇守。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "仅按本战役卡显式具名行动与结果消费本人完成部分：准布叛乱主干平定，辽主拒绝继续增兵以免边患不息。",
+          "source_refs": [
+            "續資治通鑑/卷030@2271047#孝穆悉誅之，",
+            "續資治通鑑/卷030@2271047#待，餘黨皆潰",
+            "續資治通鑑/卷030@2271047#誘諸部皆降",
+            "續資治通鑑/卷030@2271047#西北路略平",
+            "續資治通鑑/卷030@2271047#叛者既服，兵安用益",
+            "續資治通鑑/卷030@2271047#邊患何時而息"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-9EDB3D6FFF237323475D",
+          "person": "萧托云",
+          "profile_ref": "MIL-PROFILE-F2870C5875187EC7",
+          "person_ref": "MIL-PER-F2870C5875187EC7",
+          "actor_ref": "PERSON-POST-308401C8D379A8B5"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-F2870C5875187EC7",
+        "previous_campaign_ref": "PCR-9EDB3D6FFF237323475D",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-07.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-DC31B29F73FE7C5A3174",
+      "dynasty": "北宋／辽",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "MIL-EPISODE-CAOBIN-JIANGNAN-974-975",
+      "canonical_label": "控制金陵破城入城终局，并约束诸将、完成都城接收。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷008@2311074#未，金陵城破",
+          "續資治通鑑/卷008@2311074#帥壯士巷戰死",
+          "續資治通鑑/卷008@2311074#破城日不妄殺一人",
+          "續資治通鑑/卷008@2311074#乃奉表納降",
+          "續資治通鑑/卷008@2311074#申嚴禁暴之令",
+          "續資治通鑑/卷008@2311074#無得匿人妻子"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7008&oldid=2311074"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。",
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-008.battle-adjudications.json#/cards/9"
+        ]
+      },
+      "source_refs": [
+        "續資治通鑑/卷008@2311074#未，金陵城破",
+        "續資治通鑑/卷008@2311074#帥壯士巷戰死",
+        "續資治通鑑/卷008@2311074#破城日不妄殺一人",
+        "續資治通鑑/卷008@2311074#乃奉表納降",
+        "續資治通鑑/卷008@2311074#申嚴禁暴之令",
+        "續資治通鑑/卷008@2311074#無得匿人妻子"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-DC31B29F73FE7C5A3174",
+          "capability_episode_ref": "MIL-EPISODE-CAOBIN-JIANGNAN-974-975",
+          "canonical_label": "控制金陵破城入城终局，并约束诸将、完成都城接收。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "independent_direction",
+          "decisive_relation": "terminal_finisher",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "S-",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "破城终局明确由曹彬在入城前约束诸将并在入城后执行禁暴，消费都城终局，不向其他未具名将领传播。",
+          "source_refs": [
+            "續資治通鑑/卷008@2311074#未，金陵城破",
+            "續資治通鑑/卷008@2311074#帥壯士巷戰死",
+            "續資治通鑑/卷008@2311074#破城日不妄殺一人",
+            "續資治通鑑/卷008@2311074#乃奉表納降",
+            "續資治通鑑/卷008@2311074#申嚴禁暴之令",
+            "續資治通鑑/卷008@2311074#無得匿人妻子"
+          ],
+          "parent_campaign_tier": "S-",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-DC31B29F73FE7C5A3174",
+          "person": "曹彬",
+          "profile_ref": "MIL-PROFILE-175F723AFC052F8A",
+          "person_ref": "MIL-PER-175F723AFC052F8A",
+          "actor_ref": "PERSON-POST-E3FF601739E70753"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-175F723AFC052F8A",
+        "previous_campaign_ref": "PCR-DC31B29F73FE7C5A3174",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-09.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-6310FE336ED57956C873",
+      "dynasty": "北宋／西夏",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-6310FE336ED57956C873",
+      "canonical_label": "杨业提出避敌护民方案，被王侁等逼令正面进军；辽军诈败伏击，约定谷口援军又先撤。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷013@2601957#不可，此必敗之勢也",
+          "續資治通鑑/卷013@2601957#諸君于此張步兵強弩",
+          "續資治通鑑/卷013@2601957#敗，伏兵四起",
+          "續資治通鑑/卷013@2601957#望見無人，拊膺大慟",
+          "續資治通鑑/卷013@2601957#創，士卒殆盡",
+          "續資治通鑑/卷013@2601957#食，三日而死",
+          "續資治通鑑/卷013@2601957#任，侁除名，配"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7013&oldid=2601957"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。",
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-013.battle-adjudications.json#/cards/3"
+        ]
+      },
+      "source_refs": [
+        "續資治通鑑/卷013@2601957#不可，此必敗之勢也",
+        "續資治通鑑/卷013@2601957#諸君于此張步兵強弩",
+        "續資治通鑑/卷013@2601957#敗，伏兵四起",
+        "續資治通鑑/卷013@2601957#望見無人，拊膺大慟",
+        "續資治通鑑/卷013@2601957#創，士卒殆盡",
+        "續資治通鑑/卷013@2601957#食，三日而死",
+        "續資治通鑑/卷013@2601957#任，侁除名，配"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-6310FE336ED57956C873",
+          "capability_episode_ref": "PCR-6310FE336ED57956C873",
+          "canonical_label": "杨业提出避敌护民方案，被王侁等逼令正面进军；辽军诈败伏击，约定谷口援军又先撤。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "SUPPORTED_STAGE_CAUSATION",
+          "campaign_tier": "A",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "仅按本战役卡显式具名行动与结果消费本人完成部分：杨业军覆没，杨业被俘绝食三日而死，潘美削三任，王侁除名流配，刘文裕贬官。",
+          "source_refs": [
+            "續資治通鑑/卷013@2601957#不可，此必敗之勢也",
+            "續資治通鑑/卷013@2601957#諸君于此張步兵強弩",
+            "續資治通鑑/卷013@2601957#敗，伏兵四起",
+            "續資治通鑑/卷013@2601957#望見無人，拊膺大慟",
+            "續資治通鑑/卷013@2601957#創，士卒殆盡",
+            "續資治通鑑/卷013@2601957#食，三日而死",
+            "續資治通鑑/卷013@2601957#任，侁除名，配"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-6310FE336ED57956C873",
+          "person": "王侁",
+          "profile_ref": "MIL-PROFILE-2FFDEE71EC295CB7",
+          "person_ref": "MIL-PER-2FFDEE71EC295CB7",
+          "actor_ref": "PERSON-POST-01777AF85B92686F"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-2FFDEE71EC295CB7",
+        "previous_campaign_ref": "PCR-6310FE336ED57956C873",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-10.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-D748BDFF501B860324B6",
+      "dynasty": "北宋",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-D748BDFF501B860324B6",
+      "canonical_label": "丁德裕等击破蜀乱余众、擒康祚；康延泽击退王可僚并追至合州。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷004@2299538#通帥師破賊",
+          "續資治通鑑/卷004@2299538#擒其僞都統康祚",
+          "續資治通鑑/卷004@2299538#延澤擊走之",
+          "續資治通鑑/卷004@2299538#追奔至合州",
+          "續資治通鑑/卷004@2299538#全師雄病死金堂",
+          "續資治通鑑/卷004@2299538#輯，賊衆悉平"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7004&oldid=2299538"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。",
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-004.battle-adjudications.json#/cards/15"
+        ]
+      },
+      "source_refs": [
+        "續資治通鑑/卷004@2299538#通帥師破賊",
+        "續資治通鑑/卷004@2299538#擒其僞都統康祚",
+        "續資治通鑑/卷004@2299538#延澤擊走之",
+        "續資治通鑑/卷004@2299538#追奔至合州",
+        "續資治通鑑/卷004@2299538#全師雄病死金堂",
+        "續資治通鑑/卷004@2299538#輯，賊衆悉平"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-D748BDFF501B860324B6",
+          "capability_episode_ref": "PCR-D748BDFF501B860324B6",
+          "canonical_label": "丁德裕等击破蜀乱余众、擒康祚；康延泽击退王可僚并追至合州。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "仅按本战役卡显式具名行动与结果消费本人完成部分：全师雄病死后，各军招辑余众，蜀乱全部平定。",
+          "source_refs": [
+            "續資治通鑑/卷004@2299538#通帥師破賊",
+            "續資治通鑑/卷004@2299538#擒其僞都統康祚",
+            "續資治通鑑/卷004@2299538#延澤擊走之",
+            "續資治通鑑/卷004@2299538#追奔至合州",
+            "續資治通鑑/卷004@2299538#全師雄病死金堂",
+            "續資治通鑑/卷004@2299538#輯，賊衆悉平"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-D748BDFF501B860324B6",
+          "person": "丁德裕",
+          "profile_ref": "MIL-PROFILE-2655F48D38800991",
+          "person_ref": "MIL-PER-2655F48D38800991",
+          "actor_ref": "PERSON-POST-1F0C7F721C9EAA3F"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-2655F48D38800991",
+        "previous_campaign_ref": "PCR-D748BDFF501B860324B6",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-11.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-89AB90DECE9A71B2BF6E",
+      "dynasty": "北宋／西夏",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-89AB90DECE9A71B2BF6E",
+      "canonical_label": "宋廷五路进军李继迁，诸将失期或见敌不击，仅王超、范廷召在乌白池连续交战；王德用率五千精兵转战三日并整军退还。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷019@2626397#州，凡五路，率",
+          "續資治通鑑/卷019@2626397#破賊于烏白池",
+          "續資治通鑑/卷019@2626397#生擒二千餘人",
+          "續資治通鑑/卷019@2626397#李繼遷遁去",
+          "續資治通鑑/卷019@2626397#不及援靈州",
+          "續資治通鑑/卷019@2626397#而諸將失期",
+          "續資治通鑑/卷019@2626397#終不能擒賊",
+          "續資治通鑑/卷019@2626397#千，轉戰三日",
+          "續資治通鑑/卷019@2626397#整，不敢近，超"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7019&oldid=2626397"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。",
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-019.battle-adjudications.json#/cards/0"
+        ]
+      },
+      "source_refs": [
+        "續資治通鑑/卷019@2626397#州，凡五路，率",
+        "續資治通鑑/卷019@2626397#破賊于烏白池",
+        "續資治通鑑/卷019@2626397#生擒二千餘人",
+        "續資治通鑑/卷019@2626397#李繼遷遁去",
+        "續資治通鑑/卷019@2626397#不及援靈州",
+        "續資治通鑑/卷019@2626397#而諸將失期",
+        "續資治通鑑/卷019@2626397#終不能擒賊",
+        "續資治通鑑/卷019@2626397#千，轉戰三日",
+        "續資治通鑑/卷019@2626397#整，不敢近，超"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-89AB90DECE9A71B2BF6E",
+          "capability_episode_ref": "PCR-89AB90DECE9A71B2BF6E",
+          "canonical_label": "宋廷五路进军李继迁，诸将失期或见敌不击，仅王超、范廷召在乌白池连续交战；王德用率五千精兵转战三日并整军退还。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "仅按本战役卡显式具名行动与结果消费本人完成部分：宋军斩五十、俘二千余且多次获胜，但未能擒获李继迁，也未及时援救灵州。",
+          "source_refs": [
+            "續資治通鑑/卷019@2626397#州，凡五路，率",
+            "續資治通鑑/卷019@2626397#破賊于烏白池",
+            "續資治通鑑/卷019@2626397#生擒二千餘人",
+            "續資治通鑑/卷019@2626397#李繼遷遁去",
+            "續資治通鑑/卷019@2626397#不及援靈州",
+            "續資治通鑑/卷019@2626397#而諸將失期",
+            "續資治通鑑/卷019@2626397#終不能擒賊",
+            "續資治通鑑/卷019@2626397#千，轉戰三日",
+            "續資治通鑑/卷019@2626397#整，不敢近，超"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-89AB90DECE9A71B2BF6E",
+          "person": "王超",
+          "profile_ref": "MIL-PROFILE-6ACCFE27A49EAAB0",
+          "person_ref": "MIL-PER-6ACCFE27A49EAAB0",
+          "actor_ref": "PERSON-POST-B70A13B320E573BB"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-6ACCFE27A49EAAB0",
+        "previous_campaign_ref": "PCR-89AB90DECE9A71B2BF6E",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-13.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
     }
   ]
 }

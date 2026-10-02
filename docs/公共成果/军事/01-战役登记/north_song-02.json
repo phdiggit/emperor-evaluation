@@ -3,7 +3,7 @@
   "partition": "north_song",
   "bucket": 2,
   "bucket_count": 24,
-  "record_count": 25,
+  "record_count": 32,
   "records": [
     {
       "war_event_id": "WAR-NS-E6E1A6C215A801CB8BA0",
@@ -5218,6 +5218,571 @@
       "limitations": [
         "父卡指标不得复制给主体；皇帝与摄政者按互斥实际主政窗口归责。"
       ]
+    },
+    {
+      "war_event_id": "PCR-0AE0B047569F99595BBD",
+      "dynasty": "北宋／南宋／金",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-0AE0B047569F99595BBD",
+      "canonical_label": "金军攻辽春州，辽东北诸军不战自溃，女古皮室四部及渤海人降金，杲又陷泰州。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷092@2299369#遼東北面諸軍不戰自潰",
+          "續資治通鑑/卷092@2299369#貝勒杲復陷泰州"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7092&oldid=2299369"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "續資治通鑑/卷092@2299369#遼東北面諸軍不戰自潰",
+        "續資治通鑑/卷092@2299369#貝勒杲復陷泰州"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-0AE0B047569F99595BBD",
+          "capability_episode_ref": "PCR-0AE0B047569F99595BBD",
+          "canonical_label": "金军攻辽春州，辽东北诸军不战自溃，女古皮室四部及渤海人降金，杲又陷泰州。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "仅按本战役卡显式具名行动与结果消费本人完成部分：金继续夺取辽东北地区并获得部众归降。",
+          "source_refs": [
+            "續資治通鑑/卷092@2299369#遼東北面諸軍不戰自潰",
+            "續資治通鑑/卷092@2299369#貝勒杲復陷泰州"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-0AE0B047569F99595BBD",
+          "person": "完颜杲",
+          "profile_ref": "MIL-PROFILE-3CBE6BD85564772B",
+          "person_ref": "MIL-PER-3CBE6BD85564772B",
+          "actor_ref": "PERSON-POST-AD7794CE4F46D37F"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-3CBE6BD85564772B",
+        "previous_campaign_ref": "PCR-0AE0B047569F99595BBD",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-01.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-06E693426267B1B709CF",
+      "dynasty": "北宋",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-06E693426267B1B709CF",
+      "canonical_label": "景思立在踏白城战败阵亡，青宜结势力围河州；玛尔戩继攻岷州被高遵裕、包顺击退。王韶返熙后率二万兵攻其外援，破四蕃结河川族、断夏路，迫使玛尔戩撤围，继而焚帐八千并受其率众投降。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷070@2273591#知河州景思立與青宜結果莊戰于踏白城，敗死，賊遂圍河州",
+          "續資治通鑑/卷070@2273591#瑪爾戩寇岷州",
+          "續資治通鑑/卷070@2273591#總管高遵裕遣包順等擊走之",
+          "續資治通鑑/卷070@2273591#破四蕃結河川族，斷夏國通路",
+          "續資治通鑑/卷070@2273591#瑪爾戩知有援，拔柵去",
+          "續資治通鑑/卷070@2273591#焚賊八千帳，斬首七十餘級",
+          "續資治通鑑/卷070@2273591#率酋長八十餘人詣軍門降"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7070&oldid=2273591"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。",
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-070.battle-adjudications.json#/cards/2"
+        ]
+      },
+      "source_refs": [
+        "續資治通鑑/卷070@2273591#知河州景思立與青宜結果莊戰于踏白城，敗死，賊遂圍河州",
+        "續資治通鑑/卷070@2273591#瑪爾戩寇岷州",
+        "續資治通鑑/卷070@2273591#總管高遵裕遣包順等擊走之",
+        "續資治通鑑/卷070@2273591#破四蕃結河川族，斷夏國通路",
+        "續資治通鑑/卷070@2273591#瑪爾戩知有援，拔柵去",
+        "續資治通鑑/卷070@2273591#焚賊八千帳，斬首七十餘級",
+        "續資治通鑑/卷070@2273591#率酋長八十餘人詣軍門降"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-06E693426267B1B709CF",
+          "capability_episode_ref": "PCR-06E693426267B1B709CF",
+          "canonical_label": "受高遵裕派遣，在岷州击退玛尔戩进攻军。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "仅消费包顺等在岷州击走敌军的本人阶段结果；王韶断夏路、解河州围、焚帐和受降属于另一人的行动，全部排除。本人难度与阶段档暂保持原记录，尚不声明全生涯终档。",
+          "source_refs": [
+            "續資治通鑑/卷070@2273591#知河州景思立與青宜結果莊戰于踏白城，敗死，賊遂圍河州",
+            "續資治通鑑/卷070@2273591#瑪爾戩寇岷州",
+            "續資治通鑑/卷070@2273591#總管高遵裕遣包順等擊走之",
+            "續資治通鑑/卷070@2273591#破四蕃結河川族，斷夏國通路",
+            "續資治通鑑/卷070@2273591#瑪爾戩知有援，拔柵去",
+            "續資治通鑑/卷070@2273591#焚賊八千帳，斬首七十餘級",
+            "續資治通鑑/卷070@2273591#率酋長八十餘人詣軍門降",
+            "https://zh.wikisource.org/wiki/續資治通鑑/卷070"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-06E693426267B1B709CF",
+          "person": "包顺",
+          "profile_ref": "MIL-PROFILE-07A13CA43159BB39",
+          "person_ref": "MIL-PER-07A13CA43159BB39",
+          "actor_ref": "PERSON-POST-F07BB6ACB8BF44F8"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-07A13CA43159BB39",
+        "previous_campaign_ref": "PCR-06E693426267B1B709CF",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-06.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-5E18BF9182A7C57644A8",
+      "dynasty": "北宋",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-5E18BF9182A7C57644A8",
+      "canonical_label": "李继勋部与北汉军交战。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷002@2358394#敗北漢軍千餘人",
+          "續資治通鑑/卷002@2358394#獲遼州刺史傅廷彥弟勳以獻"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7002&oldid=2358394"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。",
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-002.battle-adjudications.json#/cards/3"
+        ]
+      },
+      "source_refs": [
+        "續資治通鑑/卷002@2358394#敗北漢軍千餘人",
+        "續資治通鑑/卷002@2358394#獲遼州刺史傅廷彥弟勳以獻"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-5E18BF9182A7C57644A8",
+          "capability_episode_ref": "PCR-5E18BF9182A7C57644A8",
+          "canonical_label": "李继勋部与北汉军交战。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "仅按本战役卡显式具名行动与结果消费本人完成部分：北汉军千余被败、百余被斩，傅廷彦之弟傅勋被俘。",
+          "source_refs": [
+            "續資治通鑑/卷002@2358394#敗北漢軍千餘人",
+            "續資治通鑑/卷002@2358394#獲遼州刺史傅廷彥弟勳以獻"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-5E18BF9182A7C57644A8",
+          "person": "李继勋",
+          "profile_ref": "MIL-PROFILE-34A17923F82BE979",
+          "person_ref": "MIL-PER-34A17923F82BE979",
+          "actor_ref": "PERSON-POST-83FA2AD922AC6EB3"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-34A17923F82BE979",
+        "previous_campaign_ref": "PCR-5E18BF9182A7C57644A8",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-09.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-B9AC8CD9AB4C66F9EAD4",
+      "dynasty": "北宋／辽",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "MIL-EPISODE-CAOBIN-JIANGNAN-974-975",
+      "canonical_label": "鄂州水军三千余被败，宋军获战舰七十余艘；杜真军因郑彦华不救而败。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷008@2311074#敗江南鄂州水軍三千餘人",
+          "續資治通鑑/卷008@2311074#獲戰艦四十餘艘",
+          "續資治通鑑/卷008@2311074#敗江南兵於新寨",
+          "續資治通鑑/卷008@2311074#獲戰艦三十艘",
+          "續資治通鑑/卷008@2311074#彥華擁兵不救",
+          "續資治通鑑/卷008@2311074#救，真眾大敗"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7008&oldid=2311074"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。"
+      },
+      "source_refs": [
+        "續資治通鑑/卷008@2311074#敗江南鄂州水軍三千餘人",
+        "續資治通鑑/卷008@2311074#獲戰艦四十餘艘",
+        "續資治通鑑/卷008@2311074#敗江南兵於新寨",
+        "續資治通鑑/卷008@2311074#獲戰艦三十艘",
+        "續資治通鑑/卷008@2311074#彥華擁兵不救",
+        "續資治通鑑/卷008@2311074#救，真眾大敗"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-B9AC8CD9AB4C66F9EAD4",
+          "capability_episode_ref": "MIL-EPISODE-CAOBIN-JIANGNAN-974-975",
+          "canonical_label": "鄂州水军三千余被败，宋军获战舰七十余艘；杜真军因郑彦华不救而败。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "independent_direction",
+          "decisive_relation": "co_decisive",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "C",
+          "combat_difficulty": "D1",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "李恕、曹彬等先后取胜，需按各自阶段拆分；不得为曹彬再造独立征江南能力情境。 按WAR-LEAD-TANG-GOGURYEO-645人物消费门槛复核：父战役群战略结果只由完整实际统帅或明确共同最高统帅消费；分道、阶段、追击、守城环节和战术执行只消费本人闭合部分。 本人结果重定为C/D1。",
+          "source_refs": [
+            "續資治通鑑/卷008@2311074#敗江南鄂州水軍三千餘人",
+            "續資治通鑑/卷008@2311074#獲戰艦四十餘艘",
+            "續資治通鑑/卷008@2311074#敗江南兵於新寨",
+            "續資治通鑑/卷008@2311074#獲戰艦三十艘",
+            "續資治通鑑/卷008@2311074#彥華擁兵不救",
+            "續資治通鑑/卷008@2311074#救，真眾大敗"
+          ],
+          "parent_campaign_tier": "B",
+          "parent_combat_difficulty": "D1",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-B9AC8CD9AB4C66F9EAD4",
+          "person": "曹彬",
+          "profile_ref": "MIL-PROFILE-175F723AFC052F8A",
+          "person_ref": "MIL-PER-175F723AFC052F8A",
+          "actor_ref": "PERSON-POST-E3FF601739E70753"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-175F723AFC052F8A",
+        "previous_campaign_ref": "PCR-B9AC8CD9AB4C66F9EAD4",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-09.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-36E895C634A85FB045D6",
+      "dynasty": "北宋",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-36E895C634A85FB045D6",
+      "canonical_label": "金陵城破后的巷战抵抗阶段。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷008@2311074#未，金陵城破",
+          "續資治通鑑/卷008@2311074#帥壯士巷戰死",
+          "續資治通鑑/卷008@2311074#破城日不妄殺一人",
+          "續資治通鑑/卷008@2311074#乃奉表納降",
+          "續資治通鑑/卷008@2311074#申嚴禁暴之令",
+          "續資治通鑑/卷008@2311074#無得匿人妻子"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7008&oldid=2311074"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。",
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-008.battle-adjudications.json#/cards/9"
+        ]
+      },
+      "source_refs": [
+        "續資治通鑑/卷008@2311074#未，金陵城破",
+        "續資治通鑑/卷008@2311074#帥壯士巷戰死",
+        "續資治通鑑/卷008@2311074#破城日不妄殺一人",
+        "續資治通鑑/卷008@2311074#乃奉表納降",
+        "續資治通鑑/卷008@2311074#申嚴禁暴之令",
+        "續資治通鑑/卷008@2311074#無得匿人妻子"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-36E895C634A85FB045D6",
+          "capability_episode_ref": "PCR-36E895C634A85FB045D6",
+          "canonical_label": "金陵城破后的巷战抵抗阶段。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "none",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "仅消费本人率壮士巷战至死的局部负向结果，不承担南唐全局灭亡败责。",
+          "source_refs": [
+            "續資治通鑑/卷008@2311074#未，金陵城破",
+            "續資治通鑑/卷008@2311074#帥壯士巷戰死",
+            "續資治通鑑/卷008@2311074#破城日不妄殺一人",
+            "續資治通鑑/卷008@2311074#乃奉表納降",
+            "續資治通鑑/卷008@2311074#申嚴禁暴之令",
+            "續資治通鑑/卷008@2311074#無得匿人妻子"
+          ],
+          "parent_campaign_tier": "S-",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "episode_result_count": 1,
+          "person_command_result_ref": "PCR-36E895C634A85FB045D6",
+          "person": "咼彦",
+          "profile_ref": "MIL-PROFILE-CF2E01A032B21B2C",
+          "person_ref": "MIL-PER-CF2E01A032B21B2C",
+          "actor_ref": "PERSON-POST-AF67415E6002F86A"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-CF2E01A032B21B2C",
+        "previous_campaign_ref": "PCR-36E895C634A85FB045D6",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-09.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-2BB55BD49A8F8BC6B937",
+      "dynasty": "北宋",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-2BB55BD49A8F8BC6B937",
+      "canonical_label": "汪端率数万人攻朗州，尹重睿击退；其后汪端聚众山泽继续为盗。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷003@1483702#汪端以數萬人寇州城",
+          "續資治通鑑/卷003@1483702#尹重睿擊走之",
+          "續資治通鑑/卷003@1483702#與其黨聚山澤爲盜",
+          "續資治通鑑/卷003@1483702#慕容延釗獲汪端",
+          "續資治通鑑/卷003@1483702#僧無與謀者，皆得全活"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7003&oldid=1483702"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。",
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-003.battle-adjudications.json#/cards/6"
+        ]
+      },
+      "source_refs": [
+        "續資治通鑑/卷003@1483702#汪端以數萬人寇州城",
+        "續資治通鑑/卷003@1483702#尹重睿擊走之",
+        "續資治通鑑/卷003@1483702#與其黨聚山澤爲盜",
+        "續資治通鑑/卷003@1483702#慕容延釗獲汪端",
+        "續資治通鑑/卷003@1483702#僧無與謀者，皆得全活"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-2BB55BD49A8F8BC6B937",
+          "capability_episode_ref": "PCR-2BB55BD49A8F8BC6B937",
+          "canonical_label": "汪端率数万人攻朗州，尹重睿击退；其后汪端聚众山泽继续为盗。",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "tactical_execution",
+          "decisive_relation": "stage_executor",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "仅按本战役卡显式具名行动与结果消费本人完成部分：慕容延钊擒获并处死汪端，受牵连的一千余僧经查无谋反而获释。",
+          "source_refs": [
+            "續資治通鑑/卷003@1483702#汪端以數萬人寇州城",
+            "續資治通鑑/卷003@1483702#尹重睿擊走之",
+            "續資治通鑑/卷003@1483702#與其黨聚山澤爲盜",
+            "續資治通鑑/卷003@1483702#慕容延釗獲汪端",
+            "續資治通鑑/卷003@1483702#僧無與謀者，皆得全活"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-2BB55BD49A8F8BC6B937",
+          "person": "尹重睿",
+          "profile_ref": "MIL-PROFILE-41C3A66D57D4FF11",
+          "person_ref": "MIL-PER-41C3A66D57D4FF11",
+          "actor_ref": "PERSON-POST-288619BB089930D7"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-41C3A66D57D4FF11",
+        "previous_campaign_ref": "PCR-2BB55BD49A8F8BC6B937",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-11.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PCR-5F02760117914DBF26FC",
+      "dynasty": "北宋",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "PCR-5F02760117914DBF26FC",
+      "canonical_label": "阿侬集残众三千余准备再寇，余靖发动峒兵突袭特磨。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
+        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+      },
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_RESULT",
+      "source_lineage": {
+        "source_files": [],
+        "source_revision_refs": [
+          "續資治通鑑/卷054@2311108#收残众约三千餘人，复欲入寇",
+          "續資治通鑑/卷054@2311108#发峒兵入特磨掩袭",
+          "續資治通鑑/卷054@2311108#并智高弟、子皆获之"
+        ],
+        "source_urls": [
+          "https://zh.wikisource.org/w/index.php?title=%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7054&oldid=2311108"
+        ],
+        "lineage_basis": "既有已裁本人结果与有效原史源卡的直接登记连接；供人物归责消费，不增加公共战争成果或独立能力厚度。结果维护以本人范围为界，不由来源卡其他阶段补写成果。",
+        "source_card_refs": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-054.battle-adjudications.json#/cards/1"
+        ]
+      },
+      "source_refs": [
+        "續資治通鑑/卷054@2311108#收残众约三千餘人，复欲入寇",
+        "續資治通鑑/卷054@2311108#发峒兵入特磨掩袭",
+        "續資治通鑑/卷054@2311108#并智高弟、子皆获之"
+      ],
+      "person_command_results": [
+        {
+          "campaign_ref": "PCR-5F02760117914DBF26FC",
+          "capability_episode_ref": "PCR-5F02760117914DBF26FC",
+          "canonical_label": "阿侬集残众三千余准备再寇，余靖发动峒兵突袭特磨。",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "仅按本战役卡显式具名行动与结果消费本人完成部分：阿侬、侬智光及侬智高二子继宗继封一并被捕送京，侬智高核心家属集团覆灭。",
+          "source_refs": [
+            "續資治通鑑/卷054@2311108#收残众约三千餘人，复欲入寇",
+            "續資治通鑑/卷054@2311108#发峒兵入特磨掩袭",
+            "續資治通鑑/卷054@2311108#并智高弟、子皆获之"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true,
+          "person_command_result_ref": "PCR-5F02760117914DBF26FC",
+          "person": "余靖",
+          "profile_ref": "MIL-PROFILE-EB0C89CC61FCF3AB",
+          "person_ref": "MIL-PER-EB0C89CC61FCF3AB",
+          "actor_ref": "PERSON-POST-74DA3D42CF1BAF58"
+        }
+      ],
+      "score_consumption_exclusions": [
+        "first_item_a_war_cost",
+        "third_item_country_outcome"
+      ],
+      "source_link_repair": {
+        "profile_ref": "MIL-PROFILE-EB0C89CC61FCF3AB",
+        "previous_campaign_ref": "PCR-5F02760117914DBF26FC",
+        "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-13.json",
+        "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
+      },
+      "settlement_scope": "PERSON_RESULT_ONLY"
     }
   ]
 }

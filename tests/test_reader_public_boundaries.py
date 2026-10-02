@@ -129,7 +129,7 @@ const initialHTML=html,initialWrites=writes,rowCount=(html.match(/<tr/g)||[]).le
 for(const id of ['left','right'])for(const c of codes)assert.ok(html.includes(`${id}-${c}-独立依据`));
 assert.ok(html.includes('data-compare-equal="true"'));
 assert.ok(html.includes('data-compare-equal="false"'));
-assert.ok(html.includes('突出分数／等级差异'));
+assert.ok(html.includes('突出正式数值／档位差异'));
 // Toggling only changes the table's class, not DOM/evidence/open state/scroll.
 checkbox.onchange({target:{checked:true}});assert.equal(emphasis,true);
 assert.equal(writes,initialWrites);assert.equal(html,initialHTML);
@@ -231,7 +231,7 @@ const original=JSON.stringify(record);
 const screen={innerHTML:''};
 const context={record,screen,DATA:{capability_axes:[],independent_axes:[],axis_order:[]},nav(){},dimNames,impactMeaning:{},conf:String,gradeHelp:()=>'',axisRows:()=>'',radar:()=>'',historySections:()=>'',netPanel:()=>'<section>合成结果</section>'};
 vm.createContext(context);
-vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function impactPanel(','function axisEvidence(')+section('function person(r){','function compare(){'),context);
+vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function impactPanel(','function axisEvidence(')+section('function profilePanel(r)','function compare(){'),context);
 vm.runInContext('person(record)',context);
 assert.ok(screen.innerHTML.includes('本名（正式称呼）'));
 assert.ok(screen.innerHTML.includes('掌权背景：未列'));
@@ -270,6 +270,18 @@ assert.equal(api.names('M1.4反馈'),'失败识别、止损与重组反馈');
 assert.equal(api.names('C2-SYNTHETIC-CASE'),'学习纠错情境记录');
 for(const s of ['MODEL-C5','C5.md','C2.9','C50','aC5','MAC5','未知CODE'])assert.equal(api.names(s),s);
 assert.equal(api.scope('R2_BOUNDED'),'扩大到单一家庭或窄亲属群');
+assert.equal(
+ api.map('本轮MI2_LIFECYCLE材料未过G5硬门，最新重裁后仍保留MI4_CROSS_PHASE_SYSTEMIC正链；整改前显示已撤回。'),
+ '当前公开材料范围内完整生命周期情境材料未过G5定档条件，重新核对后仍保留跨阶段系统性情境正链；此前显示已撤回。'
+);
+assert.equal(
+ api.map('洛阳—虎牢S+/D4与河东反攻S-/D4构成极高压力直接统帅高峰。'),
+ '洛阳—虎牢S+成果／高压任务与河东反攻S-成果／高压任务构成极高压力直接统帅高峰。'
+);
+assert.equal(
+ api.map('最新B1显示行政正链；重新反向检索后发现硬负例，三条重要下沿需要同时消费，极强军事链仍保留。'),
+ '现行官僚治理材料显示行政正向证据链；补充反例核对后发现明确强反例，三条重要下限证据需要同时计入，极强军事证据链仍保留。'
+);
 // Public names only act in the profile renderer, never by mutating stored data.
 const original={axis:'C5',source:'docs/C5/source.json',prose:'C5具体行为'};
 const before=JSON.stringify(original);api.map(original.prose);assert.equal(JSON.stringify(original),before);
@@ -300,7 +312,7 @@ const source=fs.readFileSync('reader/index.template.html','utf8');
 const start=source.indexOf('const materialIntensityNames='),end=source.indexOf('\nfunction radar(',start);
 assert.ok(start>=0&&end>start);
 const escape=x=>String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-const api=new Function('esc','prose','axisProse','link',source.slice(start,end)+';return {contextIntensity,contexts};')(
+const api=new Function('esc','prose','axisProse','link',source.slice(start,end)+';return {contextDirection,contextIntensity,contexts};')(
  escape,x=>'<p>'+escape(x)+'</p>',x=>'<p>'+escape(x)+'</p>',()=>'<a>合同</a>');
 for(const [code,label] of Object.entries({MI1:'单一情境',MI1_CASE:'单一情境',MI2:'完整生命周期情境',MI2_LIFECYCLE:'完整生命周期情境',MI3:'持续系统性情境',MI3_SUSTAINED_SYSTEMIC:'持续系统性情境',MI4:'跨阶段系统性情境',MI4_CROSS_PHASE_SYSTEMIC:'跨阶段系统性情境'})){
  assert.equal(api.contextIntensity({intensity:code}),label);
@@ -310,6 +322,8 @@ for(const [code,label] of Object.entries({MI1:'单一情境',MI1_CASE:'单一情
 assert.equal(api.contextIntensity({basis:'跨阶段多年反复，有MI4字样。',axis_grade:'G5'}),'未列');
 assert.equal(api.contextIntensity({intensity:null}),'未列');
 assert.equal(api.contextIntensity({intensity:'FUTURE_CODE'}),'未设中文展示，请查原始记录');
+assert.equal(api.contextDirection({direction:'POSITIVE'}),'正向');
+assert.equal(api.contextDirection({direction:'FUTURE_DIRECTION'}),'未设中文展示，请查原始记录');
 assert.equal(api.contextIntensity({intensity:'MI1_CASE',material_intensity:'MI4_CROSS_PHASE_SYSTEMIC'}),'上游字段不一致，请查原始记录');
 const record={counterpattern:{negative_parent_refs:['P']},context_lookup:{P:{intensity:'MI2_LIFECYCLE',basis:'完整正式说明，包括反证和限制。'}}};
 const before=JSON.stringify(record),html=api.contexts(record,true);
@@ -588,8 +602,11 @@ def test_third_fourth_detail_material_cards_use_formal_public_fields_only():
         "strengthFrom",
     ):
         assert forbidden not in block
+    assert block.count("const format = value =>") == 1
+    assert block.index("const format = value =>") < block.index("const cards = evidence.map")
+    assert "const hasSourceCoverage = evidence.some(entry => format(" in block
     assert "metricDetail(item, record, key)" in source
-    assert '正式层级：' in source
+    assert '当前判断：' in source
 
 def test_profile_material_strength_is_public_first_and_raw_code_is_audit_only():
     from pathlib import Path
@@ -598,6 +615,7 @@ def test_profile_material_strength_is_public_first_and_raw_code_is_audit_only():
     css = (root / "reader/readability.css").read_text(encoding="utf-8")
     assert "formal-context-chip" in template
     assert "材料强度原始字段" in template
+    assert "情境记录编号：" in template
     metadata_start = template.index("function formalContextMetadata")
     story_start = template.index("function formalContextStory", metadata_start)
     metadata_block = template[metadata_start:story_start]
@@ -605,6 +623,12 @@ def test_profile_material_strength_is_public_first_and_raw_code_is_audit_only():
     assert "正式字段：" not in metadata_block
     assert ".formal-context-story" in css
     assert ".formal-context-chip.context-intensity" in css
+
+def test_home_full_table_uses_current_performance_accessibility_label():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'section === "person-outcome" ? "统治绩效"' in source
+    assert 'section === "person-outcome" ? "净收益"' not in source
 
 def test_second_item_detail_renderer_keeps_public_takeover_hook():
     from pathlib import Path
@@ -634,7 +658,9 @@ def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
     assert "<strong>创业组织与政治整合</strong>" in person
     assert "L档怎么换分" not in person
     # Internal formulas remain available inside collapsed calculation details.
-    assert "四轴毛分 = A + B1 + B2 + C" in home
+    assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in home
+    assert "第一项结算分 S1" not in home
+    assert "总榜附加 F" not in home
     assert "B2 = 并行执行分" in person
 def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_severity():
     from pathlib import Path
@@ -657,9 +683,20 @@ def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_se
 def test_first_item_a_how_block_shows_exact_public_curve():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
-    assert "项目A池 = 120 × (min(1000, U) / 1000)^0.65" in source
-    assert "共同项目再按本人控制信用占项目总信用的比例分配" in source
+    assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
+    assert "多人共同完成时再按正式归责分配个人成果" in source
+    assert "firstOutcomeCalculationText(item.reader_how || \"\")" in source
+    assert "项目A池 = " not in source
+    assert "有效控制信用U" not in source
 
+
+def test_first_item_commander_battle_letters_are_labeled_as_battle_scales():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "战役成果：" in source
+    assert "任务难度：" in source
+    assert "不是人物画像等级" in source
+    assert "${esc(battle.result)}成果" not in source
 
 def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     from pathlib import Path
@@ -671,6 +708,9 @@ def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     assert 'firstCostPublicText(data.public_basis)' in source
     assert "当前能力裁决：" in source
     assert 'firstItemPublicText(item.grade || "")' in source
+    assert "相关战争若已在军事与边疆项计入，本项不重复计算" in source
+    assert "由奠基与统一项计入" in source
+    assert "留在军事与边疆项" in source
 
 
 def test_mobile_material_cards_stack_labels_and_scores():
@@ -815,7 +855,8 @@ def test_compare_net_breakdown_hides_internal_grades_notes_and_calculation_rows(
     assert "x.reader_kind==='judgment'" in block
     assert "x.grade" not in block
     assert "x.note" not in block
-    assert "内部档位码、折算中间项和小计不在对照页展开" in block
+    assert "计算中间项和小计不在对照页展开" in block
+    assert "内部档位码" not in block
     assert "row('分项构成'" in template
     assert "<summary>展开分项</summary>" in template
 
@@ -828,7 +869,7 @@ def test_compare_net_breakdown_keeps_formal_public_level_labels():
     block = template[start:end]
     assert "item?.public_level_label" in block
     assert "item?.grade" not in block
-    assert "公开层级随正式字段展示" in block
+    assert "当前判断按正式记录展示" in block
     assert "普通成本扣分" in block
     assert "严重军事成本" in block
     assert "清晰但有限的变化" in block
@@ -855,7 +896,7 @@ def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustme
 
     assert "治国成效待正式结算" in template
     assert "不适用；总分按0计入" in template
-    assert "本项适用，但未形成正向净收益" in template
+    assert "本项适用，但第一项结算分为0" in template
     assert "这与“不适用”不同" in template
     assert "compareFirstAddOn" in template
     assert "function firstRawScore" in template
@@ -863,7 +904,7 @@ def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustme
     assert "Number(r.net.first_item_raw_score)===0" not in template
     assert "signedAdjustment" in template
     assert 'groupKey === "civilization"' in home
-    assert "本项适用，但没有形成正向净收益" in home
+    assert "本项适用，但第一项结算分归零" in home
     assert "function finiteNetNumber(value)" in home
     assert '&& Number(record.net?.first_item_raw_score) === 0' not in home
     assert '&& Number(record.net.first_item_raw_score) === 0' not in home
@@ -877,7 +918,12 @@ def test_supplementary_simple_card_does_not_offer_unavailable_profile():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "不在人物画像正式评价范围" in template
-    assert "r.supplementary?'<span class=\"muted\">不在人物画像正式评价范围</span>'" in template
+    assert "r.supplementary?'<div class=\"home-profile-static\">" in template
+    simple_start = template.index(" const simple=()=>")
+    simple_end = template.index(" const full=()=>", simple_start)
+    simple = template[simple_start:simple_end]
+    assert 'data-home-section="person-capability"' in simple
+    assert "home-profile-static" in simple
 def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_no_dead_help():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
@@ -890,6 +936,8 @@ def test_compare_edge_helpers_are_self_contained_and_supplementary_profile_has_n
     assert "const signedAdjustment=value=>" in block
     assert "该对象只作为补充历史样本，不进入人物画像正式评价范围。" in template
     assert "r.supplementary?'<p>该对象只作为补充历史样本" in template
+    assert "const stateLabel=r=>r.supplementary?'不在人物画像正式评价范围':grade(r.axes[c])" in block
+    assert "r.supplementary?'<span class=\"muted\">不在人物画像正式评价范围</span>'" in block
 
 def test_handoff_public_layer_uses_letter_grades_not_numeric_level_inputs():
     from pathlib import Path
@@ -914,6 +962,35 @@ def test_handoff_public_layer_uses_letter_grades_not_numeric_level_inputs():
     assert 'setRowLabel(span,"交接稳定")' in reading
 
 
+
+def test_reader_formats_structured_power_windows_without_changing_formal_source():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/build.py").read_text(encoding="utf-8")
+    assert "def public_power_window(value):" in source
+    assert 'return "；".join(spans)' in source
+    assert 'f"前{abs(year)}"' in source
+    assert 'record["actual_power_window"] = public_power_window(record.get("actual_power_window"))' in source
+    assert 'projected_net["governance_context"] = public_governance_context(' in source
+    assert 'actual_power_window=public_power_window(row.get("reference_power_window", ""))' in source
+
+    namespace = {"json": __import__("json"), "deepcopy": __import__("copy").deepcopy}
+    start = source.index("def public_power_window(value):")
+    end = source.index("\ndef record_summary(record):", start)
+    exec(source[start:end], namespace)
+    fmt = namespace["public_power_window"]
+    ctx = namespace["public_governance_context"]
+
+    assert fmt("[[1435, 1449], [1457, 1464]]") == "1435—1449年；1457—1464年"
+    assert fmt("[[-238, -221], [-220, -210]]") == "前238—前221年；前220—前210年"
+    assert fmt("712—756年；756年失去实权后停止") == "712—756年；756年失去实权后停止"
+    raw = {"actual_power_window":"[[1435, 1449], [1457, 1464]]",
+           "basis":"本人实际权力窗口[[1435, 1449], [1457, 1464]]：全国州县继续运行。"}
+    shown = ctx(raw)
+    assert shown["actual_power_window"] == "1435—1449年；1457—1464年"
+    assert "1435—1449年；1457—1464年" in shown["basis"]
+    assert raw["actual_power_window"].startswith("[[")
+
+
 def test_public_runtime_formatters_and_non_scoring_axes_behave_as_rendered(tmp_path):
     node = shutil.which("node")
     if not node:
@@ -933,14 +1010,157 @@ const thirdCtx={cleanNetText:v=>String(v??'').replace(/\s+/g,' ').trim()};
 vm.createContext(thirdCtx);
 vm.runInContext(
   section(home,'  const MATERIAL_CARD_GROUPS','  const SECOND_PUBLIC_GROUPS')
-  +'\nthis.thirdPublicText=thirdPublicText;', thirdCtx);
+  +'\nthis.thirdPublicText=thirdPublicText; this.thirdItemPublicText=thirdItemPublicText;', thirdCtx);
 assert.equal(thirdCtx.thirdPublicText('结束时第5级安全水平','A1'),'结束时S档安全水平');
 assert.equal(thirdCtx.thirdPublicText('1→5档','A1'),'D档→S档');
+assert.equal(thirdCtx.thirdPublicText('0.25→0.75覆盖','B1'),'0.25→0.75覆盖');
+assert.equal(thirdCtx.thirdPublicText('旧终点值 3.6→3.4，净变化 1.3→1.1，加权值 2.22→2.02；档位和得分率不变。','B1'),'此前结束时控制存量 3.6→3.4，净变化 1.3→1.1，综合控制量 2.22→2.02；档位和合成比例不变。');
+assert.equal(thirdCtx.thirdPublicText('当前结果先得到 37.0% 的得分率，合成时采用 37%。','B1'),'当前等级进入合成时采用 37%。');
+assert.equal(thirdCtx.thirdPublicText('旧起点值 3.6→3.4，终点值 4.0→3.8，加权值 1.84→1.76；档位和得分率不变。','B1'),'此前接手时控制存量 3.6→3.4，结束时控制存量 4.0→3.8，综合控制量 1.84→1.76；档位和合成比例不变。');
+assert.equal(thirdCtx.thirdPublicText('采用比例 0→15。','B1'),'合成比例由 0% 调整为 15%。');
+assert.equal(thirdCtx.thirdPublicText('实际控制范围率44→60。','B1'),'控制范围合成比例由 44% 调整为 60%。');
+assert.equal(thirdCtx.thirdPublicText('客观起终库存保留，交班库存与继承库存分别核对。','B1'),'接手与结束时的控制存量保留，任期结束时可移交的控制存量与继承控制存量分别核对。');
+assert.equal(thirdCtx.thirdPublicText('军事成本为第六级低位。成本是否达到第七级。','ML扣分'),'军事成本为极端军事成本、低位。成本是否达到灾难性军事耗竭。');
+assert.equal(thirdCtx.thirdPublicText('战略链化不会把阶段性反击冲销终局失效。','C1实战交付'),'按战略主链归并不会把阶段性反击冲销终局失效。');
+assert.equal(thirdCtx.thirdPublicText('不回填朱祁镇灾后再动员。','ML扣分'),'不把朱祁镇灾后再动员重复计入本人。');
 assert.equal(
   thirdCtx.thirdPublicText('B1控制规模与B2战略价值按55%/45%合成，再由B4交班成熟度修正','B80'),
   '控制范围与战略价值按55%/45%合成，再由成果稳定性修正'
 );
 assert.equal(thirdCtx.thirdPublicText('普通军事代价为第5级、中位','普通成本扣分'),'普通军事代价为严重军事成本、中位');
+assert.equal(
+  thirdCtx.thirdPublicText('父周期仅完成边界证实，任务成员与独立父周期结构未变；没有产生新的升降档理由。','C1实战交付'),
+  ''
+);
+assert.equal(
+  thirdCtx.thirdPublicText('该方面为第5级水平。已核对5项独立任务，其中较好结果0项、低回报0项、负向结果0项。三个重大成功能力信号且无重大失败。','C1实战交付'),
+  '该方面为S档水平。三个重大成功能力信号且无重大失败。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第4级、中位。规模与控制强度：废止‘1206—1227新增整链一律归第一项’的形式节点切法；只排除灭夏终局0.8及攻金遗留控制0.5，花剌子模—中亚—西亚4.25保留在第三项，机械落实际控制范围第4级 中位。','B1'),
+  '实际控制范围当前为A档、中位。统一主链中已由奠基与统一项承担的灭夏终局与攻金遗留控制不重复计入；花剌子模—中亚—西亚的控制成果保留在本项。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第3级、低位。规模与控制强度：西北0.8继承；统一后北方边郡0.8仅作客观库存；河南地—朔方新增0.6、岭南新增0.8；删除旧西南0.5与1.05非标准草原包。','B1'),
+  '实际控制范围当前为B档、低位。河南地—朔方与岭南的新增控制计入本项；继承存量及未达到正式标准的控制成果不重复计算。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('按重大压力下保全封顶4档。机械落实际控制范围第4级 中位。','B1'),
+  '按重大压力下保全最高计至A档。据此定为实际控制范围A档中位。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('战争保留为第三项现期；相关战争仅按军事体系规定作为能力专用证据。','C1实战交付'),
+  '战争保留为本项当前窗口；相关战争只作为军事体系判断的补充证据。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：承接嬴政真实3.0边疆库存后逐区退出；不使用终局 强制修正。','B1'),
+  '实际控制范围当前为E档、低位。承接嬴政既有边疆控制存量后逐区退出；按政权终结时的实际控制结果判断。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('战略成果价值为当前结果为第0级、低位。本人任内中央与边疆控制随秦政权崩溃归零，统一执行终局门；没有可在交班时保留的控制成果。','B2'),
+  '战略成果价值当前为E档、低位。本人任内中央与边疆控制随秦政权崩溃归零，按政权终结时的实际控制结果判断；没有可在交班时保留的控制成果。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('按用户冻结规则，轴5必须由第三项本体重大体系胜绩复验。最终4/4/4、军事体系整体第4级。','C1实战交付'),
+  '按当前固定口径，S档必须由本项自身的重大体系胜绩再次验证。三方面均为A档。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('靖难不再作为第三项军事体系军事体系正证；其能力只保留在人物画像。','C1实战交付'),
+  '靖难不再作为本项军事体系的正向证据；其能力只保留在人物画像。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第3级、低位。规模与控制强度：旧账错误按靖康覆亡把赵佶终点值直接清零，采用比例29；修正终局时点并保留西北真实扩张后升至60。','B1'),
+  '实际控制范围当前为B档、低位。按赵佶实际退位时点判断，不把1127年的靖康覆亡倒推到1126年；退位前已经形成的西北控制成果仍计入。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：有效率仍0，但旧0→0改为0.725→0，真实表达终局退控。','B1'),
+  '实际控制范围当前为E档、低位。任期内实际控制继续收缩，并在政权终结时归零。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第3级、低位。规模与控制强度：旧0.65→2.1使用安南临时0.5尺度；规范后0.8→2.4，加权值 1.71→1.92，得分率仍60。','B1'),
+  '实际控制范围当前为B档、低位。按统一口径重新核对安南及相关边疆控制后，当前控制范围等级不变。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('本人可本人责任主干改为党项方向；两个本人窗口合并，景泰间实际控制范围存量没有跨阶梯变化。','B2'),
+  '本人可归责的主干成果改为党项方向；两个本人窗口合并，景泰间实际控制范围存量没有跨公开等级变化。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('重大失败不是独立倍增计票，但共同证明持续作战与体系可靠性进入1档，军事体系整体第1级维持2。','C1实战交付'),
+  '重大失败不会因事件拆分而重复加重判断，但共同证明持续作战与体系可靠性进入D档，军事体系整体维持D档。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('可移交控制结构的覆盖、持续和承载强度判断为控制成果稳定性第0级；不重复计算安全态势项宏观边疆态势。','B4'),
+  '可移交控制结构的覆盖、持续和承载强度判断为控制成果稳定性E档；不重复计算已经在安全态势中判断的宏观边疆变化。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：原正式控制规模值为52，实际采用值为0；统一参照点后，客观加权值为0.72，对应正式值应为44，但第三项有效采用比例仍为0。','B1'),
+  '实际控制范围当前为E档、低位。相关控制成果已在奠基与统一项计入，本项不再重复计入。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('按军事体系整体第4级重大胜绩硬门封顶军事体系整体第3级。','C1实战交付'),
+  '尚未达到A档所需的重大体系胜绩条件，军事体系整体维持B档。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('采石构成重大体系胜绩并通过军事体系整体第4级条件。','C1实战交付'),
+  '采石构成重大体系胜绩并达到军事体系整体A档所需条件。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('正式军事体系按8条当前任务与4条仅作能力证据支撑三轴4档；创业恢复链不回灌第三项结果/成本。','C1实战交付'),
+  '现有正式任务与补充能力证据共同支持三方面均为A档；创业恢复链不重复计入本项结果与成本。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('普通军事代价为不适用或尚未定级。当前第三项成本清单将其标记为不适用。按当前评定用户指定范围，不重新审查该状态的跨项来源；只确认没有独立军事体系档需要重新定级。','普通成本扣分'),
+  '本项不单独结算军事代价。相关战争成本已按评价边界在其他项目处理，本项不重复结算。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('1161父卡将临机整军归于将领，客观终点升档但不生成本人改善信用；创业恢复链不回灌第三项结果。','A1'),
+  '1161正式任务记录将临机整军归于将领，客观终点升档但不计为本人改善成果；创业恢复链不重复计入本项结果。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('关键证据仍有缺口缺口保留。','普通成本扣分'),
+  '关键证据仍有缺口。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、中位。规模与控制强度：数值不变；旧标识规范化。','B1'),
+  '实际控制范围当前为E档、中位。当前正式材料支持维持这一控制范围等级。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：承接北方边郡遗漏修正：起点值 5.8→6.6，加权值 -3.48→-3.96；终局门下档位与得分率不变。','B1'),
+  '实际控制范围当前为E档、低位。补齐北方边郡材料后，政权终结这一结论不变，因此控制范围等级仍维持当前判断。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('战略成果价值为当前结果为第0级、低位。终局门覆盖任内阶段性占领或扩域尝试。','B2'),
+  '战略成果价值当前为E档、低位。政权终结后，任内阶段性占领或扩域尝试不作为可移交成果。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('974—975水陆军连续失效；这是单一但国家级终局崩溃链，1/1/0维持。','C1实战交付'),
+  '974—975水陆军连续失效；这是单一但国家级终局崩溃链，实战任务交付D档、持续作战D档、体系可靠性E档。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('河西树机能270、277、279三票归为同一连续父周期，7项降至5项；完整河西周期取回报与投入相称，278西陵独立突袭由证据不足证据支持评为低回报。去重后故三轴4/4/3不变。','C1实战交付'),
+  '河西树机能270、277、279三次相关行动归为同一连续任务周期；完整河西周期取回报与投入相称，278年西陵独立突袭现有证据仅支持判断为低回报。去重后故实战任务交付A档、持续作战A档、体系可靠性B档。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('本批父周期边界未改变足以影响三轴的事实基础，正式横校沿用正式三轴/既有能力专用判断。','C1实战交付'),
+  '重新核对任务边界后，三方面事实基础未变，现有等级维持不变。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：旧账仅以1.3→0并启用按终局崩溃强制清零。现改为从杨坚真实4.2交班库存逐区域核退出；吐谷浑、伊吾阶段新增另存峰值但不进入618终点。最终实际控制范围率仍0，但不是由终局标签强制清零。','B1'),
+  '实际控制范围当前为E档、低位。按杨坚交班时的实际控制存量逐区域核对；吐谷浑、伊吾虽有阶段新增，但至618年均未形成可保留的终点控制，因此实际控制范围归零。'
+);
+const strategicItem={label:'A1',grade:'3→0档'};
+assert.equal(
+  thirdCtx.thirdItemPublicText(strategicItem,'接手时为第3级，结束时为未单列等级。李隆基 主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：主要威胁转为安史叛军；故客观变动-3档按-3档本人责任。'),
+  '接手时为B档，结束时为E档。主要威胁转为安史叛军；相应状态变化按本人责任计入。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('接手时为第2级，结束时为第3级。刘秀 主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：北方改善部分来自外部因素；故客观变动+1档中取0.5档。本人和其他责任中心共同承担。','A1'),
+  '接手时为C档，结束时为B档。北方改善部分来自外部因素。本人和其他责任中心共同承担。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('因此实战任务交付=4而持续作战与任务承载/军事体系可靠性=3。','C1实战交付'),
+  '因此实战任务交付为A档而持续作战与任务承载/军事体系可靠性为B档。'
+);
 
 const civCtx={
   cleanNetText:v=>String(v??'').replace(/\s+/g,' ').trim(),
@@ -953,8 +1173,56 @@ vm.runInContext(
   +'\nthis.civilizationPublicText=civilizationPublicText;', civCtx);
 assert.equal(civCtx.civilizationPublicText('正向变化第3级'),'正向变化达到主要领域的稳定改变');
 assert.equal(civCtx.civilizationPublicText('负向变化第4级'),'负向变化达到系统性破坏');
+assert.equal(
+  civCtx.civilizationPublicText('负向变化第2级.5；原理由中的相对变化第3级与文明影响幅度第3级为过期表述。'),
+  '负向变化在清晰但有限基础上进一步强化；此前较高等级表述已不再采用。'
+);
 assert.equal(civCtx.civilizationPublicText('净文明影响幅度第1级'),'净影响为局部、短期或低强度变化');
 assert.equal(civCtx.civilizationPublicText('第三级影响幅度'),'主要领域的稳定改变');
+assert.equal(civCtx.civilizationPublicText('与负向变化第2级同账。'),'与负向变化达到清晰但有限的变化在同一维度合并判断。');
+assert.equal(civCtx.civilizationPublicText('正向变化第2级，但不足以洗掉系统性负向变化。'),'正向变化达到清晰但有限的变化，但不足以抵消系统性负向变化。');
+assert.equal(civCtx.civilizationPublicText('与本轴另包的严苛限制作净算。'),'与本轴另一项材料的严苛限制合并判断。');
+assert.equal(civCtx.civilizationPublicText('不把后继军事成果回填。'),'不把后继军事成果重复计入本人。');
+assert.equal(civCtx.civilizationPublicText('不把后世结果倒算给本朝。'),'不把后世结果追溯计入本朝。');
+assert.equal(civCtx.civilizationPublicText('后来峰值不全部倒算本人。'),'后来峰值不全部追溯计入本人。');
+assert.equal(civCtx.civilizationPublicText('不足以把抽象控制另定整数负向变化第1级。'),'不足以把抽象控制另定为独立负向变化达到局部、短期或低强度变化。');
+assert.equal(civCtx.civilizationPublicText('轴级仍按正向变化第3级判断。'),'本轴仍按正向变化达到主要领域的稳定改变判断。');
+assert.equal(
+  civCtx.civilizationPublicText('本包只计入目录；同轴禁毁负包不因此减轻。覆盖与持续性未同时强，取中位，撤去原高位。'),
+  '该项材料只计入目录；同一维度中的禁毁负向材料不因此减轻。覆盖与持续性未同时强，取中位，不再维持此前高位。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('直接人身后果退出第四项，归第二项社会安全；晚年收束进一步压低净带位，净轴复核为文明影响幅度第2级低位负。'),
+  '直接人身后果不在文明与国家整合项重复计入，归入治国成效中的社会安全；晚年收束进一步降低综合档位，综合判断为文明影响幅度为清晰但有限的变化低位负。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('本包未证成独立社会身份变化；不得以未知写成正向变化第1级。撤销本包计分资格，割地事实仍保留，不在第四项复制军事损益。'),
+  '该项材料尚未证明独立社会身份变化；不能在证据不足时写成正向变化达到局部、短期或低强度变化。该材料不再单独形成调整，割地事实仍保留，不在文明与国家整合项重复计算军事得失。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('撤销的燕云交割包仍无计分资格；本包是扩搜新证，不能随旧包撤销而漏计。两条链共同限制带位，保强迁硬负向。'),
+  '撤销的燕云交割包仍无单独调整依据；该项材料是新增材料，不能随原有材料撤销而漏计。两条链共同限制档内位置，强迁仍属强负向。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('与独立负相对变化第2级同账，轴净文明影响幅度第0级，不能把两个表现写成两个独立增强包。'),
+  '与独立负向清晰但有限的变化在同一维度合并判断，本轴综合正负相抵，净调整为0，不能把两个表现写成两个独立加成。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('因此定相对变化第2级，不进相对变化第3级；原高位持续性不足。'),
+  '因此定清晰但有限的变化，不足以达到主要领域的稳定改变；此前高位所需的持续性不足。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('政治反馈后果退出本轴，归第二项反馈纠错与权力约束；净档仍受重大负向限制第4级下限约束，不以科学生产消去硬负记录。'),
+  '政治反馈后果不在本轴重复计入，归入治国成效中的反馈与约束；净档仍受重大负向限制达到系统性破坏下限约束，不以科学生产消去明确负向记录。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('结果方向未单列：甲。相对既有状态：乙。责任范围按现有材料区分。补充限制：丙。'),
+  '正负变化并存：甲。比较起点：乙。限制：丙。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('故本知识包按轴边界撤资格，保留史实。撤销本包，不否认原事实。同窗文字标准化。'),
+  '因此该材料保留为背景，但不再单独形成本轴调整。该材料不再单独计入，不否认原事实。同轴文字标准化。'
+);
 
 const genericCtx={
   esc:String,
@@ -1002,7 +1270,7 @@ def test_third_item_public_layer_translates_numeric_grades_without_reversing_cos
     assert '7:"灾难性军事耗竭"' in source
     assert 'function thirdPublicText(value, itemLabel = "")' in source
     assert "三方面均为" in source
-    assert "客观状态变化按已裁本人责任计入" in source
+    assert "相应状态变化按本人责任计入" in source
     assert 'groupKey === "strategic" || groupKey === "military"' in source
     assert "thirdPublicText(item.reader_how" in source
 
@@ -1049,7 +1317,7 @@ def test_calculation_blocks_keep_only_public_subtotals_not_repeated_intermediate
     assert 'finance:new Set(["治理结果"])' in home
     assert 'handoff:new Set(["交接得分"])' in home
     assert 'strategic:new Set(["A120","B80"])' in home
-    assert 'military:new Set(["第三项合计"])' in home
+    assert 'military:new Set(["C50","实际扣分","第三项合计"])' in home
     assert 'civilization:new Set(["第四项调整"])' in home
     assert "<summary>本组小计怎么形成？</summary>" in home
     assert 'method:new Set(["治理手段"])' in alias
@@ -1133,10 +1401,10 @@ def test_major_cards_explain_third_and_fourth_item_scales():
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "250分制净分" in source
     assert "再扣实际军事代价" in source
-    assert "有符号调整，三轴合计范围为 -67.5～+67.5" in source
+    assert "三个分项合计范围为 -67.5～+67.5；正负值直接进入总榜" in source
     assert "本项进入总榜的净分：" in source
     assert "本项进入总榜的有符号调整：" in source
-    assert "理论范围 -67.5～+67.5" in source
+    assert "理论范围 -67.5～+67.5" not in source
 
 def test_person_page_builds_compact_net_summary_without_transient_full_detail_tree():
     from pathlib import Path
@@ -1224,7 +1492,7 @@ def test_legacy_second_item_renderer_uses_same_public_grade_language():
     assert "主要状态第" not in source
     assert "低谷修正${low}级" not in source
     assert "原始表现指数" in source
-    assert "合成输入，不单独加分" in source
+    assert "用于本组折算，不单列得分" in source
     assert '"A制度建设":"制度建设"' in source
     assert '"C1民生":"民生"' in source
     assert 'setNodeText(value,`${methodBand(item)}档`)' in source
@@ -1252,10 +1520,153 @@ def test_second_item_method_index_is_explicitly_an_input_not_a_direct_score():
     source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
     assert "原始方向指数" not in source
     assert "原始表现指数" in source
-    assert "合成输入，不单独加分" in source
-    assert "作为制度与行政合成输入，不单独加分" in source
+    assert "用于本组折算，不单列得分" in source
+    assert "用于制度与行政折算，不单列得分" in source
     assert "较高表现指数" in source
     assert "当前表现指数" in source
+
+
+
+
+def test_second_item_public_boundary_display_deduplicates_repeated_clauses():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    assert "function dedupeBoundaryText(value)" in source
+    assert "function publicBoundaryText(value)" in source
+    assert "function publicFinanceBoundaryText(value)" in source
+    assert "boundaryText: publicBoundaryText" in source
+    assert 'const boundary = publicBoundaryText(data.boundary);' in source
+    assert 'financeItem ? publicFinanceBoundaryText(item.reader_boundary || "") : publicBoundaryText(item.reader_boundary || "")' in source
+
+
+def test_second_item_a_and_b1_lead_with_reader_summary_not_internal_ledger_copy():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    a_source = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
+    b1_source = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
+    assert "function publicSummary(item, evidence)" in a_source
+    assert "内部影响权重、长期接收折算和原始表现指数只放在计算说明中" in a_source
+    assert 'const formalSummary = String(item.reader_summary || "").trim();' in a_source
+    assert 'detailsBlock("为什么最终是这个等级？", formalSummary)' in a_source
+    assert "function summaryText(item, evidence)" in b1_source
+    assert "链条数量用于组织阅读，不按条数直接相减" in b1_source
+    assert 'const formalSummary = String(item.reader_summary || "").trim();' in b1_source
+    assert 'detailsBlock("为什么最终是这个等级？", formalSummary || summary)' in b1_source
+
+
+
+def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "function impactPublicText(t)" in source
+    assert "V\\d+(?:\\.\\d+)+硬门复核通过" in source
+    assert "最高档条件复核通过" in source
+    assert "V\\d+(?:\\.\\d+)+范围只消费" in source
+    assert "当前公开口径不再把" in source
+    assert "剔除仅由名号、法统或制度惯性造成的接收后" in source
+    assert "剔除名号与制度惯性的复核" in source
+    assert "但不能把五代十国全部归入本人”这一主链中" in source
+    assert "人物画像“战略判断”材料" in source
+    assert "人物画像“'+(shortNames[code]||code)+'”材料" in source
+    assert "军事结算材料" in source
+    assert "奠基与统一中的组织与整合材料显示" in source
+    assert "判断把握为中等" in source
+    assert "制度结算材料" in source
+    assert "较强但归责受限的有效责任链" in source
+    assert "人物画像“用人授权”材料对此只确认有限的个人用人授权信用" in source
+    assert "系统性、持续性的可观察制度成果" in source
+    assert "顶级强度负向链" in source
+    assert "社会安全处于E档的残局" in source
+    assert "官僚治理材料又显示" in source
+    assert "而非完全归于本人" in source
+    assert "民力成本分项不再追加独立残余成本" in source
+    assert ".replace(/\\bNEGATIVE\\b/g,\'负向\')" in source
+    assert ".replace(/\\bMI3\\b/g,\'持续系统性情境\')" in source
+    assert "极端劣势或濒临崩溃的逆转任务" in source
+    assert "民生与财政结算材料" in source
+    assert "集团机制材料复核" in source
+    assert "相关正式材料" in source
+    assert "重大内部恶化" in source
+    assert "同一条国家级主链" in source
+    assert "全国核心尺度25%" in source
+    assert "皇帝主要承担批准、整合、维持与责任规则调整" in source
+    assert "明确区分" in source
+    assert "核对《帝鉴图说》" in source
+    assert "不因后世名望提高等级" in source
+    assert "当前公开裁决已把" in source
+    assert "现有归责材料认为，这一终局变化高度依赖本人选择。" in source
+    assert ".replace(/\\bDECISIVE_DRIVER\\b/g,\'决定性个人驱动\')" in source
+    assert ".replace(/项目D/g,\'现有归责材料\')" in source
+    assert "正式计入条件" in source
+    assert ".replace(/只消费/g,'只计入')" in source
+    assert ".replace(/硬变化/g,'已确认的实际变化')" in source
+    assert ".replace(/去重桥接/g,'去重后综合判断')" in source
+    assert ".replace(/有效空间当量/g,'实际影响范围')" in source
+    assert ".replace(/本人分叉/g,'取决于本人选择的分支')" in source
+    assert ".replace(/闭合为/g,'发展为')" in source
+    assert "尚未形成多个最高权力稳定接收的独立证据链" in source
+    assert "扩大本人归责范围" in source
+    assert "足以支持$1档" in source
+    assert "因此维持$1档" in source
+    assert "function impactDimensionPublicText(key,value)" in source
+    assert "const publicBasis=key=>impactDimensionPublicText(" in source
+    assert 'if(key==="paradigm"){' in source
+    assert 'text=text.replace(/^范式' in source
+    assert 'text=text.replace(/^[SABCDE](?:[+−-])?[。；:]\\s*/' in source
+    assert "const counterfactual=impactPublicText(" in source
+    assert "const personalBoundary=impactPublicText(" in source
+    assert "const evidenceBoundary=impactPublicText(" in source
+    assert "prose(impactTotalPublicText(h))" in source
+    assert "prose(impactPublicText(h.impact_nature_basis))" in source
+    assert "prose(impactPublicText(c.narrative))" in source
+    assert "<summary>${esc(impactPublicText(c.title))}</summary>" in source
+    assert "统治绩效中的统一成果未保留，不等于历史影响范围为0" in source
+    assert "没有形成可继承的稳定统治终点" in source
+    assert "统治绩效中的统一成果只保留稳定控制" in source
+    assert "统治绩效中的控制成果只看可继承的稳定终点" in source
+    assert "直接抬高等级" in source
+    assert "交叉核对结论" in source
+    assert "直接结构风险" in source
+    assert "人物画像“'+(shortNames[a]||a)+'”与“'+(shortNames[b]||b)+'”材料" in source
+    assert "社会安全结算材料" in source
+    assert "既有反向材料核对" in source
+    assert "不能把全部结果都归于本人" in source
+    assert ".replace(/倒灌/g,'归入')" in source
+    assert ".replace(/回填/g,'归入')" in source
+    assert ".replace(/父链/g,'主链')" in source
+    assert ".replace(/闭合/g,'形成')" in source
+    assert "国家基本运行架构重构" in source
+    assert "高能力档位下的重大负向统帅案例" in source
+    assert "当时可确认的外部等效控制记录" in source
+    assert ".replace(/刷分/g,'重复计分')" in source
+    assert ".replace(/底账/g,'结算材料')" in source
+    assert "机械(?=计数|叠加|相加|换档|提高|降低|下降|映射|等价|当作)" in source
+    assert "([SABCDE][+−-]?)门" in source
+    assert "prose(impactPublicText(r.actual_use||'未另列说明'))" in source
+
+
+
+def test_profile_primary_pattern_hides_internal_summary_labels():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "function profilePublicPattern(value)" in source
+    assert "帝国基础架构能力突出；后世影响力不直接换算为本轴能力" in source
+    assert "本轴存在明确的低档反向制度表现" in source
+    assert "武举与监察重组形成正向制度建设，同时告密—酷吏机制构成强反例" in source
+    assert "科举与法源恢复形成正向制度建设，但货币与军政架构存在明显失配" in source
+    assert "prose(profilePublicPattern(a.typical_pattern" in source
+
+
+def test_first_item_commander_explains_why_profile_m1_may_differ():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    expected = "人物画像 M1 是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算"
+    assert expected in home
+    assert expected in person
+    assert "first-item-cross-system-note" in home
+    assert "first-item-cross-system-note" in person
 
 
 def test_third_item_public_aliases_replace_compound_internal_labels_before_bare_codes():
@@ -1374,3 +1785,462 @@ def test_second_item_compare_enhancers_accept_public_breakdown_row_title():
     alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
     assert '["分项构成","构成与依据"].includes' in reading
     assert '["分项构成", "构成与依据"].includes' in alias
+
+
+def test_stale_editorial_overviews_are_not_exposed_as_public_status():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/person-reading-notes.js").read_text(encoding="utf-8")
+    assert "这段阅读提要待复核" not in source
+    assert "阅读提要暂未加载" not in source
+    assert 'if (assessBlock(block, record).status !== "current") return null;' in source
+    assert "if (block) panel.querySelector" in source
+
+
+def test_third_item_percentages_are_labeled_as_composite_adoption_rates():
+    from pathlib import Path
+    home = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    person = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
+    assert 'groupKey === "strategic" && item.unit === "%" && ["B1","B2","B4"].includes(item.label)' in home
+    assert "合成采用 ${Number(item.value)}%" in home
+    assert "合成采用 ${Number(item.value)}%" in person
+    assert "合成采用 ${esc(String(Number(item.value)))}%" in template
+    assert "参与合成，不单列分值" in home
+    assert "参与合成，不单列分值" in template
+
+
+def test_third_public_level_heading_drops_redundant_current_result_prefix():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'formalLevel.replace(/^当前结果为\\s*/, "")' in source
+    assert 'const repeatedPrefix = displayLabel + "为";' in source
+    assert "formalLevelBase.startsWith(repeatedPrefix)" in source
+    assert '当前判断：${esc(formalLevelDisplay)}' in source
+    assert '当前判断：${esc(formalLevel)}' not in source
+
+
+def test_fourth_item_group_heading_is_not_identical_to_page_title():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert 'title: "第四项 · 文明与国家整合"' in source
+    assert 'civilization: "文明与国家整合 · 分项结算"' in source
+
+
+def test_first_item_public_copy_uses_settlement_score_not_legacy_net_benefit_term():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    for rel in ("reader/home-interactions.js", "reader/person-readability.js", "reader/index.template.html"):
+        source = (root / rel).read_text(encoding="utf-8")
+        assert "原始净收益" not in source
+    assert "第一项结算分" in (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "本项不计入统治绩效" in (root / "reader/person-readability.js").read_text(encoding="utf-8")
+
+
+def test_third_item_reader_separates_scoring_chains_and_exposes_intermediate_totals():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "function thirdMajorGroups(record, details)" in source
+    for phrase in ("安全状态变化", "控制成果质量", "军事体系表现", "军事代价"):
+        assert phrase in source
+    assert "不是领土占比、现实概率或独立得分" in source
+    assert 'thirdCalculationRows(strategic, ["A120"]' in source
+    assert 'thirdCalculationRows(strategic, ["B80"]' in source
+    assert 'thirdCalculationRows(military, ["C50"]' in source
+    assert 'thirdCalculationRows(military, ["实际扣分"]' in source
+    assert 'thirdCalculationRows(military, ["第三项合计"]' in source
+    assert 'military:new Set(["C50","实际扣分","第三项合计"])' in source
+
+
+def test_compare_highlight_excludes_context_uncertainty_and_preserves_profile_evidence_strength():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
+    readability = (root / "reader" / "readability.js").read_text(encoding="utf-8")
+    css = (root / "reader" / "readability.css").read_text(encoding="utf-8")
+
+    block = template[template.index("function compare(){"):template.index("function guide()")]
+    assert "突出正式数值／档位差异" in block
+    assert "不表示差异已经超出审慎位置投影、证据厚度或判断把握" in block
+    assert "row('掌权背景（各项范围另见依据）',r=>esc(r.actual_power_window||'未列'),false)" in block
+    assert "row('量级置信度',r=>conf(r.impact.confidence),false)" in block
+    assert "row('影响性质',r=>esc(r.impact.impact_nature),false)" in block
+
+    magnitude = block[block.index("row('历史影响量级'"):block.index("row('影响性质'")]
+    assert "impact-grade" in magnitude
+    assert "impact_nature" not in magnitude
+
+    assert 'const coverage = summary.querySelector(".axis-evidence-level")?.textContent.trim() || "";' in readability
+    assert "axisRecordForEvidence(summary.parentElement)" in readability
+    assert "判断把握：" in readability
+    assert 'meta.className = "compare-evidence-meta"' in readability
+    assert ".compare-evidence-meta{" in css
+
+
+def test_fourth_item_reader_distinguishes_zero_sources_and_rejects_progress_ranking_reading():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "不是文明程度或时代先进程度排名" in source
+    assert "hasBalancedZero" in source
+    assert "hasNoIndependentChange" in source
+    assert "这些0的来源并不相同" in source
+    assert "0不等于没有变化" in source
+    assert "没有形成独立有符号调整" in source
+    assert "废除诽谤、妖言罪的制度与受理边界变化已由相关治理材料承担" in source
+    assert "不能证明已经形成实际反馈效果" in source
+    assert "归入相关制度与社会治理材料" in source
+
+
+def test_first_item_shared_project_percentage_is_labeled_as_allocation_share():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader" / "home-interactions.js").read_text(encoding="utf-8")
+    person = (root / "reader" / "person-readability.js").read_text(encoding="utf-8")
+    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
+
+    for source in (home, person):
+        assert "本人成果规模" in source
+        assert "全国核心统一尺度" in source
+        assert "不是共同项目分成，也不是领土、人口或军队比例" in source
+        assert "成果占比" not in source
+        assert "正向净收益" not in source
+    assert "本项适用，但第一项结算分为0" in template
+    assert "正向净收益" not in template
+
+
+def test_finance_public_copy_collapses_repeated_no_low_point_phrase():
+    from pathlib import Path
+
+    source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    start = source.index("function publicFinanceText(value)")
+    end = source.index("function publicCalculationText(value)", start)
+    block = source[start:end]
+    assert "未另证独立有效低谷[：:]\\s*未另证独立有效低谷" in block
+    assert "军事与边疆项的战略结果未单独计入" in block
+    assert "直接等同" in source
+    assert "因此整体判断上调" in source
+    assert "压低当前等级的档内位置" in source
+    assert "能够保留到任期结束的明确恢复" in block
+    assert "可在任期结束确认的恢复" in block
+    assert "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态" in block
+    assert "民生主要状态维持为“$1”" in block
+    assert "现有证据尚不足" in block
+    assert "按评价窗口，前者不计入本期" in block
+    assert "不再作为独立低谷重复计入" in block
+    assert "不再单列“重要地区或群体出现明显损害”" in block
+    assert "function publicHandoffText(value)" in block
+    assert "实际率领百官" in block
+    assert "这只能证明部分行政承接" in block
+    assert '.replace(/。、/g, "。")' in block
+    assert '.replace(/。；/g, "；")' in block
+
+
+def test_history_total_public_explanation_stays_on_public_scale():
+    from pathlib import Path
+
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function impactTotalPublicText(h)")
+    end = template.index("function impactDimensionPublicText", start)
+    block = template[start:end]
+    assert "综合后公开等级为" in block
+    assert "最终量级为" not in block
+    assert "对应公开等级" not in block
+    assert "政治范式[^。；]*(?:上调一档|提高一档)" in block
+    assert "后世最高权力的实际接收证据足够强" in block
+    assert "形成一档上调" in block
+    assert "政治范式[^。；]*(?:不改变|不提高|仅修正|不再改变量级)" in block
+    assert "本次没有单独改变前三项形成的综合判断" in block
+    assert "prose(impactTotalPublicText(h))" in template
+    assert "impactTechnicalHelp()" in template
+    assert "总等级为什么和四维字母不同？" in template
+    assert "同一个字母不能跨两套刻度直接比较" in template
+    assert "最终内部裁判带" not in template
+    public_copy = (Path(__file__).resolve().parents[1] / "reader/public-copy.json").read_text(encoding="utf-8")
+    assert "这是离线交互设计样稿。展示数据来自构建时的正式结算；更新正式记录后重新构建阅读页。" in public_copy
+    assert "本站是正式结算数据的只读阅读层；正式记录更新后，页面随之重建。" in public_copy
+    dimension_start = template.index("function impactDimensionPublicText")
+    dimension_end = template.index("function paradigmReceptionProse", dimension_start)
+    dimension = template[dimension_start:dimension_end]
+    assert "text.replace(/^[SABCDE](?:[+−-])?[。；:]\\s*/" in dimension
+
+
+
+def test_prudent_evidence_details_hide_internal_grade_codes():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("const prudentAxisNames=")
+    end = template.index("function prudentPositionText", start)
+    block = template[start:end]
+    assert 'C1:"民生",C2:"经济财政",C3:"社会安全"' in block
+    assert '0:"未见独立有效低谷"' in block
+    assert '5:"严重军事成本",6:"极端军事成本"' in block
+    assert "function prudentEndpointText" in block
+    assert "function prudentCostText" in block
+    assert "function prudentIssueText" in block
+    assert "现有史料允许的审慎判断" in block
+    assert "军事成本的审慎边界" in block
+    assert "本轮合法端点" not in block
+    assert "单命题条件分差" not in block
+    assert "现有史料允许的审慎上端" in block
+    assert "prudentGeneralText(a.public_basis)" in block
+def test_net_panel_uses_public_component_names_in_total_formula():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function netPanel(r)")
+    end = template.index("function impactPanel", start)
+    block = template[start:end]
+    assert "统治绩效总分 = 治国成效 + 军事与边疆 + 奠基与统一附加 + 文明与国家整合。" in block
+    assert "DATA.formula" not in block
+
+def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    css = (root / "reader/readability.css").read_text(encoding="utf-8")
+
+    start = template.index("function netPositionSummary(n)")
+    end = template.index("function netPanel(r)", start)
+    block = template[start:end]
+    assert "const lead=prudent?" in block
+    assert "审慎位置" in block
+    assert "正式点位 第" in block
+    assert "<strong>正式第" not in block
+
+    assert 'class="home-net-rank"><strong>' in template
+    assert 'class="home-formal-rank">正式点位 第' in template
+    assert 'class="home-full-position"' in template
+    assert "审慎位置、正式点位与治理背景" in template
+    assert "页面优先展示这一范围" in template
+
+    compare_start = template.index("function compare(){")
+    compare_end = template.index("function guide()", compare_start)
+    compare = template[compare_start:compare_end]
+    assert "row('审慎位置投影'" in compare
+    assert "row('正式点位（当前规则点估计）'" in compare
+    assert "row('正式绩效'" not in compare
+
+    assert ".net-position-summary>.net-formal-position{color:var(--muted)}" in css
+    assert ".home-formal-rank,.home-full-position" in css
+
+
+def test_profile_metadata_uses_reader_friendly_source_labels():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "function profileSourceMarkup(ref,index,r)" in template
+    assert "正式材料 ${index+1} ↗" in template
+    assert "史料来源 ${index+1} ↗" in template
+    assert "link(ref,ref)" not in template
+    assert "profileSourceMarkup(ref,index,r)" in template
+
+def test_profile_public_pattern_hides_cross_axis_work_codes():
+    from pathlib import Path
+
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function profilePublicPattern(value)")
+    end = template.index("function axisEvidence(", start)
+    block = template[start:end]
+    assert "shortNames[code]||code" in block
+    assert "直接证据有限：" in block
+    assert "剔除与其他能力轴重复的材料后，本轴依据更集中" in block
+    assert "负向证据" in block
+    assert "目前证据链尚未完整" in block
+    assert "没有确认由本人直接造成的完整负向链" in block
+    assert '.replace(/父链/g,"证据链")' in block
+    assert '.replace(/硬门/g,"必要条件")' in block
+    assert '.replace(/(?:正式)?横校/g,"交叉核对")' in block
+    assert '.replace(/整改前/g,"此前")' in block
+    assert "正式材料范围" in block
+    assert "事件纳入范围的截止线" in block
+    assert "展示等级" in block
+    assert "function axisProse(t){if(typeof t===\'string\')return prose(profilePublicPattern(t));" in template
+    assert "esc(profilePublicPattern(rawTitle))" in template
+    assert "现有证据只支持到完整生命周期情境的强度" in block
+    assert "当前判断不过度奖励“判断正确”；执行闭环仍明显不足。" in block
+    assert "MI1(?:_CASE)?" in template
+    assert "MI2(?:_LIFECYCLE)?" in template
+    assert "MI3(?:_SUSTAINED_SYSTEMIC)?" in template
+    assert "MI4(?:_CROSS_PHASE_SYSTEMIC)?" in template
+    assert "materialIntensityNames[k]||k" in template
+    assert "formalDirectionNames[k]||k" in template
+    assert "负向$1材料" in block
+    assert "正向$1材料" in block
+    assert "-P[A-Za-z0-9_-]+" in block
+    assert '"既有情境材料"' in block
+    assert "const cleaned=String(value??'')" in block
+    assert block.index("const cleaned=String(value??'')") < block.index("return readerText(cleaned)")
+    assert "没有形成" in block
+    assert "尚未形成" in block
+    assert "相关证据链已" in block
+    assert "A-Za-z0-9_:-" in block
+    assert "较广外溢范围" in block
+    assert "过错归责仍未确定" in block
+    assert "第${n}组材料" in block
+    assert "本人不在直接指挥链中" in block
+    assert "投入大量资源却" in block
+    assert "相关正式材料已完成核对" in block
+    assert "材料有限" in block
+    assert "完整生命周期的强负向材料" in block
+    assert "战区或多军统筹" in block
+    assert "军事角色尚未确定" in block
+    assert "角色字段与事实叙述存在冲突" in block
+    assert "档战役成果／多重重大约束的高压任务" in block
+    assert "档战役成果／极端劣势或濒临崩溃的逆转任务" in block
+    assert "登记角色：主要指挥者" in block
+    assert "登记角色：最高指挥者" in block
+    assert "求真取证情境" in block
+    assert "拒绝更新或同类复发情境" in block
+    assert "多功能、广域行政链整体失效" in block
+    assert "治理恢复的具体工具专业性由民生财政相关结果承担" in block
+    assert '.replace(/\\bM3\\b/g,"民生财政相关结果")' not in block
+    assert "官僚治理现有材料已确认岭南物流的持续运行链与有限选任链" in block
+    assert '.replace(/\\bB1\\b/g,"官僚治理")' in block
+    assert '.replace(/\\bB2\\b/g,"反馈与约束")' in block
+    assert "正向为主的系统性机制" in block
+    assert "负向系统性机制" in block
+    assert "系统性、持续性的稳定交付" in block
+    assert "法律简化主要属于民生财政相关结果／学习纠错辅助背景" in block
+    assert "具体制度专业判断不在本轴重复计入" in block
+    assert "高压与极端逆转任务数量" in block
+    assert "任务压力尚未达到高压或极端逆转级" in block
+    assert "前线高压任务锚" in block
+    assert "原“常规风险任务”难度不足以反映兵力与接战条件" in block
+    assert "多重重大约束的高压任务" in block
+    assert "极端劣势或濒临崩溃的逆转任务" in block
+    assert "学习纠错与反馈约束" in block
+    assert "反馈后调整路径" in block
+    assert "错误纠正情境" in block
+    assert "不是国家运行架构换代" in block
+    assert "官僚治理材料" in block
+    assert "制度设计或制度建设等相关评价" in block
+    assert '.replace(/消费/g,"计入")' in block
+    assert "极广外溢范围" in block
+    assert "极深负向下沿" in block
+    assert "负向风险链" in block
+    assert "官僚治理正式材料" in block
+    assert '.replace(/actual_power_window/g,"掌权时期")' in block
+    assert '.replace(/重裁/g,"重新核对")' in block
+    assert '.replace(/倒灌/g,"追溯计入")' in block
+    assert '.replace(/回填/g,"追溯计入")' in block
+    assert '.replace(/分账/g,"分开评价")' in block
+    assert '.replace(/(?:正式)?底账/g,"正式材料")' in block
+    assert '.replace(/窗口门/g,"适用范围")' in block
+    assert '.replace(/最新重裁/g,"最新核对")' in block
+    assert '.replace(/闭合/g,"确认")' in block
+    assert '.replace(/准入/g,"纳入判断")' in block
+    assert "尚未确认的负向候选材料" in block
+    assert "背景材料" in block
+    assert "单一家庭或窄亲属群范围" in block
+    assert "功臣安全的极深负向下沿" in block
+    assert "政治表达安全的极深负向下沿" in block
+    assert "强藩违法特权" in block
+    assert "军队违法特权" in block
+    assert "反例覆盖复核" in block
+    assert "史源冲突" in block
+    assert "实际权力受限" in block
+    assert "归责存在争议或共享" in block
+    assert "极重安全恶化并伴随重要区域控制丧失" in block
+    assert "严重安全恶化并伴随重要区域控制丧失" in block
+    assert "核心区域军政功能严重受损并伴随严重安全恶化" in block
+    assert "仅有局部安全改善但整体出现明显持续安全恶化" in block
+    assert "高到极高强度军事资源投入或损失" in block
+    assert "继任行政连续性" in block
+    assert "高压任务难度完整归给" in block
+    assert "极端逆转级前线压力" in block
+    assert "中等强度负向证据" in block
+    assert "极高强度负向证据" in block
+    assert "最高指挥者" in block
+    assert "问题优先级判断" in block
+    assert "目标—资源匹配" in block
+    assert "风险与可选方案控制" in block
+    assert "一般司法治理" in block
+    assert "现实武装威胁下的安全处置" in block
+    assert "差异法域" in block
+    assert "创业主阶段" in block
+    assert "雁门危机战役材料" in block
+    assert "葛陂南进撤退阶段材料" in block
+    assert "稳定证据链[A-Za-z0-9_:-]{4,}已" in block
+    assert "精英级" in block
+    assert "跨家庭或较广党附范围的族诛" in block
+    assert "面向一般民众或多个无关群体的系统性恐怖" in block
+    assert "反馈与约束中的异议安全" in block
+    assert "主要归组织执行与官僚治理" in block
+    assert '.replace(/\\bLOW\\b/g,"低位")' in block
+    assert '.replace(/\\bMID\\b/g,"中位")' in block
+    assert '.replace(/\\bHIGH\\b/g,"高位")' in block
+    assert "横向负向证据强度校准" in block
+    assert "最大负向证据校准" in block
+    assert "事件后果尺度，不是人物画像等级" in template
+    assert "未单列独立负向后果等级" in template
+    assert "相关情境材料未附正文" in template
+    assert "esc(profilePublicPattern(point.title))" in template
+    assert "定档依据（原文）" not in template
+    assert "档内定位（原文）" not in template
+    assert "限制与证据边界（原文）" not in template
+
+
+def test_third_public_copy_hides_fallen_regime_audit_codes():
+    from pathlib import Path
+
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    start = source.index("function thirdPublicText")
+    end = source.index("function thirdItemPublicText", start)
+    block = source[start:end]
+
+    assert "仍为0，但从错误0→0重建为真实" in block
+    assert "重新核对后，确认任内发生大规模边疆退控并最终归零。" in block
+    assert "本人对后续(恶化|改善)主要本人责任" in block
+    assert "本人对后续${direction}承担主要责任" in block
+    assert "(^|[^\\d])([0-5])\\/([0-5])\\/([0-5])(?=$|[^\\d])" in block
+    assert "实战任务交付${thirdGradeText(delivery)}、持续作战${thirdGradeText(endurance)}、体系可靠性${thirdGradeText(reliability)}" in block
+    assert "当前没有可与创业统一主链分离的独立体系压力任务" in block
+    assert "同一主链的安全态势和控制成果不在本项重复计入" in block
+    assert "终点值由-?\\d+" in block
+    assert "重新核对本人窗口内的实际控制范围后" in block
+    assert "\\d+票(?:降至|升至)\\d+票" in block
+    assert "相关任务按统一边界重新归并" in block
+    assert '.replace(/现行贡献类型为/g, "当前成果类型为")' in block
+    assert '.replace(/本包事实/g, "本项已经确认的事实")' in block
+    assert '.replace(/控制包/g, "控制成果")' in block
+    assert '.replace(/重复交付与恢复/g, "多次维持并在受压后恢复")' in block
+    assert "重大压力下保全的等级上限" in block
+    assert "父级重新裁任务回报类别" in block
+    assert "在合并后的任务周期重新判断整体回报" in block
+    assert "正式横校档" in block
+    assert "当前等级" in block
+    assert "客观状态确有改善，但相关创业统一主链已由奠基与统一项计入" in block
+    assert "只把淮河、荆湖北缘和川陕三个真实外部边疆方向计入实际控制范围" in block
+    assert "材料覆盖缺口" in block
+    assert "已达到$1所需条件" in block
+    assert "补足该条件" in block
+    assert "不提高到" in block
+
+
+
+
+def test_supplementary_person_page_is_history_impact_only():
+    from pathlib import Path
+
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function person(r){")
+    end = template.index("\nfunction compare(){", start)
+    block = template[start:end]
+
+    assert "const pageMode=supplementary?'历史影响补充样本':'三套评价';" in block
+    assert "该对象只进入历史影响补充样本，不纳入统治绩效主池或人物画像正式评价。" in block
+    assert "本页只展开历史影响正式依据。" in block
+    assert "supplementary?'':" in block
+    assert "历史影响概览" in block
+    assert "history.replaceState(null,\'\',`#person/${encodeURIComponent(r.ruler_id)}/impact`);impactPage(r);return" in block
+
+
+def test_first_item_not_applicable_card_uses_explicit_label():
+    from pathlib import Path
+
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    start = source.index("function majorCard(record, major)")
+    end = source.index("function renderNetShell", start)
+    block = source[start:end]
+
+    assert 'major === "first" && firstStatus === "NOT_APPLICABLE"' in block
+    assert '? "不适用"' in block
+    assert "该人物第一项不适用。" in block

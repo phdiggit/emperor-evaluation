@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.military_public_text import registered_military_display as _m1_public_registered_display
 from emperor_v4.evaluation.profile_publication import is_closed_no_grade
 from emperor_v4.evaluation.profile_registry import (
     PROFILE_ROOT,
@@ -32,6 +33,7 @@ def _escape(value: Any) -> str:
 
 def _grade(record: dict[str, Any]) -> str:
     return f"{record['axis_grade']}-{record['position']}"
+
 
 
 def _m2_adjudication_label(record: dict[str, Any]) -> str:
@@ -716,8 +718,8 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
                         lines.append(f"    - {title}：{case[field]}")
             projection = row.get("military_talent_registry_projection") or {}
             paired = projection.get("paired_result_difficulty_campaign_roles_display")
-            lines.append("- 武将登记逐项（成果等级/难度｜战役群名称/武将角色）：")
-            lines.append(f"  {paired or '—'}")
+            lines.append("- 本人战役事实摘录（成果等级/难度｜战役群名称/本人角色）：")
+            lines.append(f"  {_m1_public_registered_display(paired) if paired else '—'}")
             role_labels = {
                 "DIRECT_COMMAND": "直接作战指挥",
                 "OPERATIONAL_COORDINATION": "战区与多军统筹",
@@ -730,11 +732,13 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
                 lines.append("- **M1本人角色与独立周期**：")
                 for item in role_items:
                     label = role_labels[item["m1_role_class"]]
-                    lines.append(f"  - `{item['capability_episode_ref']}`：{label}；{item.get('canonical_label') or '名称未登记'}。")
+                    public_name = _m1_public_registered_display(item.get("canonical_label") or "名称未登记")
+                    lines.append(f"  - `{item['capability_episode_ref']}`：{label}；{public_name}。")
                     if item.get("projection_note"):
                         lines.append(f"    - 归责依据：{item['projection_note']}")
                     for phase in item.get("phase_evidence", []):
-                        lines.append(f"    - 阶段角色：{role_labels[phase['m1_role_class']]}；{phase.get('canonical_label') or phase['capability_episode_ref']}。")
+                        public_phase = _m1_public_registered_display(phase.get("canonical_label") or phase["capability_episode_ref"])
+                        lines.append(f"    - 阶段角色：{role_labels[phase['m1_role_class']]}；{public_phase}。")
             calibration = row.get("horizontal_calibration")
             if calibration:
                 lines.append(f"- **横向校准**：{calibration['decision_basis']}")

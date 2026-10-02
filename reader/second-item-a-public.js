@@ -34,6 +34,27 @@
     return details;
   }
 
+  function publicGrade(item) {
+    const match = String(item?.grade || "").match(/\bG([0-5])\b/i);
+    if (!match) return "";
+    const grade = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"}[Number(match[1])] || "";
+    const suffix = /(?:upper|high)/i.test(item.grade) ? "+" : /(?:lower|low)/i.test(item.grade) ? "-" : "";
+    return grade + suffix;
+  }
+
+  function publicSummary(item, evidence) {
+    const grade = publicGrade(item);
+    const counts = {positive:0, negative:0, mixed:0, other:0};
+    for (const entry of evidence || []) counts[groupKey(entry)] += 1;
+    const parts = [
+      counts.positive ? `正向制度节点 ${counts.positive} 项` : "",
+      counts.negative ? `负向制度节点 ${counts.negative} 项` : "",
+      counts.mixed ? `正负并存节点 ${counts.mixed} 项` : "",
+      counts.other ? `其他正式说明 ${counts.other} 项` : "",
+    ].filter(Boolean);
+    return `制度建设公开等级为 ${grade || "未列"}。当前公开材料列出${parts.join("、") || "已闭合的制度节点"}；具体事实逐项展示。内部影响权重、长期接收折算和原始表现指数只放在计算说明中。`;
+  }
+
   function groupKey(entry) {
     const direction = String(entry?.public_direction || "");
     if (direction.startsWith("正向")) return "positive";
@@ -127,7 +148,8 @@
     if (!item || !body) return;
 
     const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
-    const summary = String(item.reader_summary || "").trim();
+    const formalSummary = String(item.reader_summary || "").trim();
+    const summary = publicSummary(item, evidence);
     const key = publicKey(item);
     if (body.dataset.aPublicKey === key && body.querySelector(":scope > .second-item-a-reading")) return;
 
@@ -152,10 +174,11 @@
     reading.append(section("其他正式说明", grouped.other));
     body.append(reading);
 
-    const boundary = detailsBlock("总体范围与边界", item.reader_boundary);
+    const boundaryText = globalThis.SecondItemMaterialCards?.boundaryText?.(item.reader_boundary) || item.reader_boundary;
+    const boundary = detailsBlock("总体范围与边界", boundaryText);
     if (boundary) body.append(boundary);
 
-    const gradeDetails = detailsBlock("为什么最终是这个等级？", summary);
+    const gradeDetails = detailsBlock("为什么最终是这个等级？", formalSummary);
     if (gradeDetails) body.append(gradeDetails);
     const scoreHow = globalThis.SecondItemScoreHowDetails?.(item, "A制度建设");
     if (scoreHow) body.append(scoreHow);

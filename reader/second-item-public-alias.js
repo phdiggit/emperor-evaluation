@@ -239,7 +239,7 @@
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       const summary = detail.querySelector(":scope > summary");
       setPublicGrade(summary?.querySelector(":scope > span"), summary?.querySelector(":scope > b"), grade,
-        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（合成输入，不单独加分）`, boundaryExcerpt(item)]);
+        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`, boundaryExcerpt(item)]);
     }
     for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
       const sourceLabel = span.dataset.secondSourceLabel || "";
@@ -247,7 +247,7 @@
       const grade = publicMethodGrade(item);
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       setPublicGrade(span, span.parentElement?.querySelector(":scope > b"), grade,
-        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（合成输入，不单独加分）`, boundaryExcerpt(item)]);
+        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`, boundaryExcerpt(item)]);
     }
   }
 
@@ -319,10 +319,13 @@
       .replace(/\bR[12]\b/gi, "后世接收范围有限")
       .replace(/\bR0\b/gi, "本人任内运行证据")
       .replace(/\bG([0-5])\s*[-/]\s*([A-Za-z-]+)\b/gi, (_, band, position) => `${PUBLIC_GRADE[`G${band}`] || ""}${positionSuffix(position)}`)
-      .replace(/\bG([0-5])\b/g, (_, band) => PUBLIC_GRADE[`G${band}`] || band)
+      .replace(/\bG([0-5])(?=档)/g, (_, band) => PUBLIC_GRADE[`G${band}`] || band)
+      .replace(/\bG([0-5])\b/g, (_, band) => `${PUBLIC_GRADE[`G${band}`] || band}档`)
       .replace(/\bC[123]-([1-6])\s*\/\s*L([0-3])\b/g, (_, band, loss) => `${STATE_GRADE[Number(band)] || band}档；${LOSS_TEXT[Number(loss)] || ""}`)
       .replace(/\bC[123]-([1-6])\b/g, (_, band) => `${STATE_GRADE[Number(band)] || band}档`)
       .replace(/\bD3-([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
+      .replace(/\bD1\b/g, "行政连续性")
+      .replace(/\bD3\b/g, "交接稳定")
       .replace(/\bH([0-5])\b/g, (_, level) => `${HANDOFF_GRADE[Number(level)] || level}档`)
       .replace(/\bL([0-3])\b/g, (_, level) => LOSS_TEXT[Number(level)] || "");
     return text.trim();
@@ -335,8 +338,38 @@
   }
 
   function publicFinanceText(value) {
-    return publicEnumText(value)
-      .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`);
+    const financeSpecific = String(value ?? "")
+      .replace(/按合同前者越窗/g, "按评价窗口，前者不计入本期")
+      .replace(/故终态社会安全“([^”]+)”\/未另证独立有效低谷，并要求正式重要地区或群体出现明显损害撤销。?/g, "因此任期结束时社会安全为“$1”，且未另证独立有效低谷，不再单列“重要地区或群体出现明显损害”。")
+      .replace(/旧任期结束状态=经济财政“失灵崩解”把1127靖康终局倒灌到赵佶1126年退位，必须纠正。/g, "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态。");
+    return publicText(financeSpecific)
+      .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`)
+      .replace(/起点硬承接([1-6])而非旧([1-6])/g, (_, current, old) => `接手时状态为${FINANCE_ORDINAL_GRADE[current] || current}档，不沿用此前${FINANCE_ORDINAL_GRADE[old] || old}档判断`)
+      .replace(/主要阶段状态\s*([1-6])/g, (_, level) => `主要阶段状态为${FINANCE_ORDINAL_GRADE[level] || level}档`)
+      .replace(/峰值\s*([1-6])/g, (_, level) => `峰值达到${FINANCE_ORDINAL_GRADE[level] || level}档`)
+      .replace(/有源([SABCDE])档或([SABCDE])档端点/g, "有证据支持的$1档或$2档判断")
+      .replace(/([SABCDE])档端点/g, "$1档判断")
+      .replace(/未另证独立有效低谷[：:]\s*未另证独立有效低谷[；;]?/g, "没有另证独立有效低谷；")
+      .replace(/未形成明确的本人掌权时期恢复；短暂峰值或单纯止损不作为恢复结果。/g, "未形成能够保留到任期结束的明确恢复；短暂峰值或单纯止损不作为恢复结果。")
+      .replace(/主要状态等级民生“([^”]+)”维持。?/g, "民生主要状态维持为“$1”。")
+      .replace(/因此由([1-6])升([1-6])，不进([1-6])。?/g, (_, from, to, ceiling) => `因此从${FINANCE_ORDINAL_GRADE[from] || from}档上调至${FINANCE_ORDINAL_GRADE[to] || to}档，现有证据尚不足${FINANCE_ORDINAL_GRADE[ceiling] || ceiling}档。`)
+      .replace(/故终态社会安全“([^”]+)”\/未另证独立有效低谷，并要求正式重要地区或群体出现明显损害撤销。?/g, "因此任期结束时社会安全为“$1”，且未另证独立有效低谷，不再单列“重要地区或群体出现明显损害”。")
+      .replace(/按合同前者越窗/g, "按评价窗口，前者不计入本期")
+      .replace(/不能继续扣低谷损害/g, "不再作为独立低谷重复计入")
+      .replace(/第三项军事战略结果为不适用，是因创业\/统一整链避免重复计算，不代表战争成本低；/g, "军事与边疆项的战略结果未单独计入，是因为创业或统一主链已由其他项目承担；这不代表战争成本低；")
+      .replace(/没有可归入本人掌权时期的恢复，因此不另行扩大恢复责任。/g, "没有形成可在任期结束确认的恢复，因此不另行扩大恢复责任。")
+      .replace(/。；/g, "；")
+      .replace(/；；+/g, "；");
+  }
+
+  function publicHandoffText(value) {
+    return publicText(value)
+      .replace(/实际率百官/g, "实际率领百官")
+      .replace(/故仅能支持，不能把主政权降服等同全国行政完整收束。?/g, "这只能证明部分行政承接，不能把主政权降服等同于全国行政完整收束。")
+      .replace(/。、/g, "。")
+      .replace(/；、/g, "；")
+      .replace(/。；/g, "；")
+      .replace(/；；+/g, "；");
   }
 
   function publicCalculationText(value) {
@@ -348,7 +381,113 @@
   // Only contract-defined enum labels are translated. Sentences, negation,
   // responsibility and boundaries are otherwise preserved verbatim.
   function publicText(value) {
-    return publicEnumText(value);
+    return publicEnumText(value)
+      .replace(/机械等价/g, "直接等同")
+      .replace(/当前固定窗口/g, "当前评价窗口")
+      .replace(/正式窗口/g, "评价窗口")
+      .replace(/按合同/g, "按评价规则")
+      .replace(/终态/g, "任期结束状态")
+      .replace(/低谷标签/g, "低谷判断")
+      .replace(/抬档/g, "提高等级")
+      .replace(/压档/g, "压低等级")
+      .replace(/扣档/g, "降低等级")
+      .replace(/升档/g, "上调等级")
+      .replace(/降档/g, "下调等级")
+      .replace(/现有直接史料能够确认事实链已确认/g, "现有直接史料能够确认")
+      .replace(/逐字引文证明链条成立/g, "现有直接史料能够确认")
+      .replace(/链条成立/g, "事实链已确认")
+      .replace(/固定史源/g, "固定史料")
+      .replace(/运行结果是/g, "实际运行情况：")
+      .replace(/未计入长期接收加权/g, "未因后世长期沿用获得额外提高")
+      .replace(/不自动取得长期接收权重/g, "不因后世长期沿用自动提高判断")
+      .replace(/长期接收加权/g, "后世长期沿用加成")
+      .replace(/低态/g, "低位状态")
+      .replace(/有源([SABCDE][+−-]?)档或([SABCDE][+−-]?)档端点/g, "有证据支持的$1档或$2档判断")
+      .replace(/条件槛/g, "条件")
+      .replace(/(?:综合)?净值为-1/g, "综合判断仍偏负")
+      .replace(/负账/g, "负向影响")
+      .replace(/倒算/g, "追溯计入")
+      .replace(/追溯计入计入/g, "追溯计入")
+      .replace(/持续采用持续采用/g, "持续采用")
+      .replace(/故较低档→较高档/g, "因此整体判断上调")
+      .replace(/压低较高档\s*档内位置/g, "压低当前等级的档内位置")
+      .replace(/整体判断为较高档（中下位）/g, "整体判断位于当前公开等级的中下段")
+      .replace(/经两层独立固定史源和五长期接收条件复裁计入制度建设/g, "经独立史源与长期接收条件复核后计入制度建设")
+      .replace(/按当前固定窗口和设立、运行与后续变化去重裁决/g, "按当前评价窗口，将同一机制的设立、运行与后续变化合并判断")
+      .replace(/本层只修正机制颗粒度，不新增史实/g, "此处只说明机制范围，不新增历史事实")
+      .replace(/父链/g, "证据链")
+      .replace(/复裁/g, "复核")
+      .replace(/重裁/g, "重新核对")
+      .replace(/未通过实际恢复准入/g, "尚未达到实际恢复的计入条件")
+      .replace(/不准入当前判断/g, "不纳入当前判断")
+      .replace(/责任准入/g, "本人责任条件")
+      .replace(/由([^，。；]+)准入/g, "由$1支持计入")
+      .replace(/准入/g, "计入条件")
+      .replace(/按合同前者越窗/g, "按评价窗口，前者不计入本期")
+      .replace(/越窗/g, "超出评价窗口")
+      .replace(/公共法律底账/g, "公共法律正式记录")
+      .replace(/联合底账/g, "联合正式记录")
+      .replace(/底账/g, "正式记录")
+      .replace(/前中期主态/g, "前中期主要阶段状态")
+      .replace(/主要阶段压制异议的主态/g, "主要阶段压制异议的状态")
+      .replace(/主态/g, "主要阶段状态")
+      .replace(/不能倒灌抹去/g, "不能追溯用来抹去")
+      .replace(/不把([^，。；]+?)倒灌为/g, "不把$1追溯作为")
+      .replace(/不得把([^，。；]+?)倒灌为/g, "不得把$1追溯作为")
+      .replace(/不能把([^，。；]+?)倒灌为/g, "不能把$1追溯作为")
+      .replace(/不得倒灌为/g, "不得追溯作为")
+      .replace(/不能倒灌为/g, "不能追溯作为")
+      .replace(/不倒灌为/g, "不追溯作为")
+      .replace(/不得倒灌(?=[^，。；])/g, "不得追溯计入")
+      .replace(/不能倒灌(?=[^，。；])/g, "不能追溯计入")
+      .replace(/不倒灌(?=[^，。；])/g, "不追溯计入")
+      .replace(/不得倒灌/g, "不得追溯计入本人")
+      .replace(/不能倒灌/g, "不能追溯计入本人")
+      .replace(/不倒灌/g, "不追溯计入本人")
+      .replace(/倒灌/g, "追溯计入")
+      .replace(/不得把([^，。；]+?)回填/g, "不得把$1追溯计入本人")
+      .replace(/不能把([^，。；]+?)回填/g, "不能把$1追溯计入本人")
+      .replace(/不把([^，。；]+?)回填/g, "不把$1追溯计入本人")
+      .replace(/不得回填(?=[^，。；])/g, "不得追溯计入")
+      .replace(/不能回填(?=[^，。；])/g, "不能追溯计入")
+      .replace(/不回填(?=[^，。；])/g, "不追溯计入")
+      .replace(/不得回填/g, "不得追溯计入本人")
+      .replace(/不能回填/g, "不能追溯计入本人")
+      .replace(/不回填/g, "不追溯计入本人")
+      .replace(/回填/g, "追溯计入")
+      .replace(/第三项军事成本军事成本/g, "军事与边疆项的军事成本")
+      .replace(/第三项军事成本/g, "军事与边疆项的军事成本")
+      .replace(/军事与边疆项的军事成本第五级(高位|中位|低位)?/g, (_, position) => `严重军事成本${position ? "（"+position+"）" : ""}`)
+      .replace(/。；/g, "；")
+      .replace(/；；+/g, "；");
+  }
+
+  function dedupeBoundaryText(value) {
+    const text = String(value ?? "")
+      .replace(/\s+/g, " ")
+      .replace(/。；/g, "；")
+      .replace(/；；+/g, "；")
+      .trim();
+    if (!text) return "";
+    const seen = new Set();
+    const clauses = [];
+    for (const raw of text.split("；")) {
+      const clause = raw.trim();
+      if (!clause) continue;
+      const key = clause.replace(/[。；]+$/g, "").trim();
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      clauses.push(clause);
+    }
+    return clauses.join("；");
+  }
+
+  function publicBoundaryText(value) {
+    return dedupeBoundaryText(publicText(value));
+  }
+
+  function publicFinanceBoundaryText(value) {
+    return dedupeBoundaryText(publicFinanceText(value));
   }
 
   const FINANCE_BASE_SCORES = {
@@ -399,17 +538,17 @@
     if (METHOD_MAX[label]) {
       const grade = publicMethodGrade(item);
       add("当前裁决", [grade ? `${grade}档` : "", `原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}`].filter(Boolean).join(" · "));
-      const formal = publicTechnicalText(item.reader_how || "该原始表现指数进入制度与行政合成，不作为本轴直接得分。");
+      const formal = publicTechnicalText(item.reader_how || "该原始表现指数进入制度与行政合成，不作为本项直接得分。");
       const expanded = secondMethodExpandedHow(label);
       add("换算规则", [formal, expanded].filter(Boolean).join(" "));
-      add("当前结果", "作为制度与行政合成输入，不单独加分");
+      add("当前结果", "用于制度与行政折算，不单列得分");
     } else if (["C1民生","C2经济财政","C3社会安全"].includes(label)) {
       const meta = stateGradeMeta(item);
       const band = String(item?.grade || "").match(/\bC[123]-(\d)\s*\/\s*L([0-3])\b/i);
       const base = band ? FINANCE_BASE_SCORES[label]?.[Number(band[1])] : null;
       const rate = band ? FINANCE_LOSS_RATE[Number(band[2])] : null;
       add("当前裁决", [meta?.grade ? `${meta.grade}档` : "", meta?.lossText || ""].filter(Boolean).join(" · "));
-      if (base != null && rate != null) add("换算规则", `主态基础分 ${base} × (1 − ${Math.round(rate * 100)}%低谷修正)，最终保留1位小数。`);
+      if (base != null && rate != null) add("换算规则", `主要状态基础分 ${base} × (1 − ${Math.round(rate * 100)}%低谷修正)，最终保留1位小数。`);
       else add("换算规则", publicFinanceText(item.reader_how || ""));
       add("当前结果", `${fmt(item.value)} 分`);
     } else if (label === "C4恢复与成本") {
@@ -475,7 +614,7 @@
     if (body) card.append(makeTextBlock("p", "adjudication-material-basis", body));
 
     const scope = publicText(data.scope);
-    const boundary = publicText(data.boundary);
+    const boundary = publicBoundaryText(data.boundary);
     if (scope || boundary) {
       const details = document.createElement("details");
       details.className = "adjudication-material-boundary";
@@ -586,10 +725,10 @@
         : role === "前任行政资产承接" ? "continuity"
         : "other";
       groups[key].push(materialCard({
-        title: entry?.public_label || role || "交接裁决材料",
+        title: publicHandoffText(entry?.public_label || role || "交接裁决材料"),
         tags: role ? [role] : [],
-        body: entry?.public_basis,
-        boundary: entry?.public_boundary,
+        body: publicHandoffText(entry?.public_basis),
+        boundary: publicHandoffText(entry?.public_boundary),
         dataset: {publicEvidenceId: entry?.id || ""},
       }));
     }
@@ -612,6 +751,7 @@
     card: materialCard,
     group: materialGroup,
     publicEnumText,
+    boundaryText: publicBoundaryText,
   });
 
   function publicFacts(item) {
@@ -717,7 +857,7 @@
       }
       body.append(reading);
       const financeItem = ["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label);
-      const boundaryDetails = makeDetails("范围与边界", financeItem ? publicFinanceText(item.reader_boundary || "") : publicText(item.reader_boundary || ""));
+      const boundaryDetails = makeDetails("范围与边界", financeItem ? publicFinanceBoundaryText(item.reader_boundary || "") : publicBoundaryText(item.reader_boundary || ""));
       if (boundaryDetails) body.append(boundaryDetails);
       const howDetails = secondScoreHowDetails(item, label);
       if (howDetails) body.append(howDetails);
