@@ -1517,7 +1517,7 @@ function firstCommanderMarkup(item) {
     }
     const shownValue = value == null ? "—" : major === "fourth" && Number(value) > 0 ? `+${scoreNumber(value)}` : scoreNumber(value);
     const scoreNote = major === "third"
-      ? `本项计入统治绩效总分的净分：${shownValue} / 250；已扣实际军事代价。`
+      ? `本项计入统治绩效总分的净分：${shownValue} / 250；已扣实际军事代价。分项小数来自统一计分公式，不表示历史判断本身具有同等测量精度；阅读时先看公开档位与事实依据。`
       : major === "fourth"
         ? `本项计入统治绩效总分的有符号调整：${shownValue}。 ${fourthAdjustmentNote(record)}`
         : `本项计入统治绩效总分的分值：${shownValue}。`;
