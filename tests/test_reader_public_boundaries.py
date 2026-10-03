@@ -1017,7 +1017,7 @@ def test_public_scope_copy_avoids_internal_pool_and_public_band_jargon():
     assert "不在统治绩效正式评价范围" in template
     assert "该补充样本不在人物画像正式评价范围。" in template
     assert "M2终局" not in template
-    assert "外交博弈轴若终局证据未显示能力，则发布 E" in template
+    assert "八轴分别观察军事、外交、联盟、组织、判断、学习、用人与制度设计等能力" in template
     assert "看治国、军事、统一与文明整合如何共同构成统治绩效" in template
 
 
