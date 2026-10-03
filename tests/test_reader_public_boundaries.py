@@ -2480,6 +2480,29 @@ def test_every_ranked_reader_record_has_prudent_score_and_rank_projection():
     assert ranked > 0
 
 
+
+def test_every_ranked_reader_record_has_governance_context():
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    ranked = 0
+    for path in sorted((root / "reader/data/people").glob("*.json")):
+        record = json.loads(path.read_text(encoding="utf-8")).get("record") or {}
+        net = record.get("net") or {}
+        if not isinstance(net.get("rank"), int):
+            continue
+        ranked += 1
+        prefix = f"{path.name}:{record.get('ruler_name')}:rank={net.get('rank')}"
+        context = net.get("governance_context")
+        assert isinstance(context, dict), prefix + ": missing governance_context"
+        assert str(context.get("scale_label") or "").strip(), prefix + ": missing scale_label"
+        assert str(context.get("complexity_label") or "").strip(), prefix + ": missing complexity_label"
+        assert str(context.get("basis") or "").strip(), prefix + ": missing governance context basis"
+
+    assert ranked > 0
+
+
 def test_prudent_evidence_details_hide_internal_grade_codes():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
