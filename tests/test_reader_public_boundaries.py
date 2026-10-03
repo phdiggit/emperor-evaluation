@@ -2294,7 +2294,7 @@ def test_person_compact_net_summary_prefers_public_third_and_fourth_item_status(
     script.write_text(r'''
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('reader/home-interactions.js','utf8');
-const start=source.indexOf('  function compactNetPublicValue(');
+const start=source.indexOf('  const FIRST_COMPACT_LABELS =');
 const end=source.indexOf('\n  function compactNetReading(',start);
 assert.ok(start>=0&&end>start);
 const ctx={
@@ -2304,7 +2304,7 @@ const ctx={
   finiteNetNumber:value=>value==null?null:Number(value)
 };
 vm.createContext(ctx);
-vm.runInContext(source.slice(start,end)+';this.compactNetPublicValue=compactNetPublicValue;',ctx);
+vm.runInContext(source.slice(start,end)+';this.compactNetPublicValue=compactNetPublicValue;this.compactNetPublicLabel=compactNetPublicLabel;',ctx);
 
 assert.equal(
   ctx.compactNetPublicValue({label:'C1实战交付',value:null,unit:'不单独计分',public_level_label:'实战任务交付为第4级'},'military'),
@@ -2314,6 +2314,12 @@ assert.equal(
   ctx.compactNetPublicValue({label:'B1',value:37,unit:'%',public_level_label:'当前结果为第1级、中位'},'strategic'),
   '当前结果为D档、中位 · 合成采用 37%'
 );
+assert.equal(ctx.compactNetPublicLabel({label:'A统一贡献'},'first'),'统一成果');
+assert.equal(ctx.compactNetPublicLabel({label:'B1创业难度与效率'},'first'),'起点、强敌与速度');
+assert.equal(ctx.compactNetPublicLabel({label:'B2组织与整合'},'first'),'创业组织与政治整合');
+assert.equal(ctx.compactNetPublicLabel({label:'C军事统帅与战争解题'},'first'),'本人统帅');
+assert.equal(ctx.compactNetPublicLabel({label:'军事成本扣分'},'first'),'军事代价');
+assert.equal(ctx.compactNetPublicValue({label:'军事成本扣分',value:27,unit:'分'},'first'),'扣 27 分');
 assert.equal(
   ctx.compactNetPublicValue({value:0,unit:'分',public_level_label:'正负相抵 · 净调整为0'},'civilization'),
   '正负相抵 · 净调整为0'
@@ -2331,9 +2337,10 @@ assert.equal(
     assert result.returncode == 0, result.stderr
 
     source = (ROOT / "reader/home-interactions.js").read_text(encoding="utf-8")
-    compact = source[source.index("function compactNetPublicValue"):source.index("function cleanNetText")]
+    compact = source[source.index("const FIRST_COMPACT_LABELS"):source.index("function cleanNetText")]
     assert "thirdItemPublicText(item, item?.public_level_label || \"\")" in compact
     assert "civilizationPublicStatus(item, item?.public_level_label || \"\")" in compact
+    assert "compactNetPublicLabel(item, key)" in compact
     assert "compactNetPublicValue(item, key)" in compact
 
 
