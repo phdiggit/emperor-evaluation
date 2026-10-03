@@ -26,8 +26,11 @@ const termEnd=readability.indexOf('\n  function foldHomeStatus',termStart);
 const map=new Function('readerText',readability.slice(termStart,termEnd)+';return readerText;')(String);
 assert.equal(map(text),text);
 assert.equal(map('POSITIVE'),'正向');
-const direct=person.match(/const netPublicText = [^;]+;/)[0];
-const publicText=new Function(direct+'return netPublicText;')();
+const cleanStart=home.indexOf('  function cleanNetText(value)');
+const cleanEnd=home.indexOf('\n\n  function uniqueSourceRefs',cleanStart);
+assert.ok(cleanStart>=0&&cleanEnd>cleanStart);
+const publicText=new Function(home.slice(cleanStart,cleanEnd)+';return cleanNetText;')();
+assert.ok(!person.includes('const netPublicText ='),'legacy person net renderer must stay retired');
 assert.equal(publicText(text),text);
 assert.equal(publicText('G3属于原公开正文。'),'G3属于原公开正文。');
 
@@ -285,10 +288,14 @@ assert.equal(
 // Public names only act in the profile renderer, never by mutating stored data.
 const original={axis:'C5',source:'docs/C5/source.json',prose:'C5具体行为'};
 const before=JSON.stringify(original);api.map(original.prose);assert.equal(JSON.stringify(original),before);
+const home=fs.readFileSync('reader/home-interactions.js','utf8');
 const person=fs.readFileSync('reader/person-readability.js','utf8');
-const direct=person.match(/const netPublicText = [^;]+;/)[0];
-const net=new Function(direct+'return netPublicText;')();
+const cleanStart=home.indexOf('  function cleanNetText(value)');
+const cleanEnd=home.indexOf('\n\n  function uniqueSourceRefs',cleanStart);
+assert.ok(cleanStart>=0&&cleanEnd>cleanStart);
+const net=new Function(home.slice(cleanStart,cleanEnd)+';return cleanNetText;')();
 assert.equal(net('C1民生原公开文字'),'C1民生原公开文字');
+assert.ok(!person.includes('const netPublicText ='));
 assert.ok(!person.includes('"C5越接近'));
 const template=fs.readFileSync('reader/index.template.html','utf8');
 const copy=JSON.parse(fs.readFileSync('reader/public-copy.json','utf8'));
@@ -679,7 +686,6 @@ def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_se
     assert "L0—L5" not in home
     assert "E、D、C、B、A、S 六档" in home
     assert 'const severity = ["无显著代价","很低成本","较低成本","中等成本","较高成本","高成本","极高成本","灾难级成本"];' in home
-    assert '[["成本程度", publicLevel]' not in home  # exact tuple formatting may vary
     assert '["成本程度", publicLevel]' in home
     assert "FIRST_PUBLIC_C_GRADES" not in person
 
@@ -1446,14 +1452,14 @@ def test_first_item_commander_grade_has_public_fixed_score_table():
     root = Path(__file__).resolve().parents[1]
     home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
-    for source in (home, person):
-        assert "function firstCommanderScoreText(item)" in source
-        assert "D档（基础统帅）低/中/高位=4/7/10分" in source
-        assert "C档（重要统帅）=12/15/18分" in source
-        assert "B档（优秀统帅）=20/23/26分" in source
-        assert "A档（顶级统帅）=28/31/34分" in source
-        assert "S档（历史级统帅）=36/38/40分" in source
-        assert "对应${item.value}分" in source
+    assert "function firstCommanderScoreText(item)" in home
+    assert "D档（基础统帅）低/中/高位=4/7/10分" in home
+    assert "C档（重要统帅）=12/15/18分" in home
+    assert "B档（优秀统帅）=20/23/26分" in home
+    assert "A档（顶级统帅）=28/31/34分" in home
+    assert "S档（历史级统帅）=36/38/40分" in home
+    assert "对应${item.value}分" in home
+    assert "firstCommanderScoreText" not in person
 
 
 def test_second_item_calculation_rows_use_public_labels_and_readable_summary():
@@ -1653,9 +1659,9 @@ def test_first_item_commander_explains_why_profile_m1_may_differ():
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
     expected = "人物画像 M1 是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算"
     assert expected in home
-    assert expected in person
     assert "first-item-cross-system-note" in home
-    assert "first-item-cross-system-note" in person
+    assert expected not in person
+    assert "first-item-cross-system-note" not in person
 
 
 def test_third_item_public_aliases_replace_compound_internal_labels_before_bare_codes():
@@ -1717,11 +1723,12 @@ def test_first_item_applicability_is_three_state_and_never_inferred_from_items()
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
     first = (root / "reader/first-item-reading.js").read_text(encoding="utf-8")
     template = (root / "reader/index.template.html").read_text(encoding="utf-8")
-    for source in (home, person, first):
+    for source in (home, first):
         assert '"NOT_APPLICABLE"' in source
         assert '"APPLICABLE"' in source
         assert "第一项正式适用状态" in source
         assert "items.every(item =>" not in source
+    assert "buildNetReading" not in person
     assert "正式状态未发布；阅读层不判断是否适用" in template
     assert "n.first_item_status==='NOT_APPLICABLE'" in template
 
@@ -1792,7 +1799,7 @@ def test_third_item_percentages_are_labeled_as_composite_adoption_rates():
     person = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
     assert 'groupKey === "strategic" && item.unit === "%" && ["B1","B2","B4"].includes(item.label)' in home
     assert "合成采用 ${Number(item.value)}%" in home
-    assert "合成采用 ${Number(item.value)}%" in person
+    assert "buildNetReading" not in person
     assert "合成采用 ${esc(String(Number(item.value)))}%" in template
     assert "参与合成，不单列分值" in home
     assert "参与合成，不单列分值" in template
@@ -1898,12 +1905,12 @@ def test_first_item_shared_project_percentage_is_labeled_as_allocation_share():
     person = (root / "reader" / "person-readability.js").read_text(encoding="utf-8")
     template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
 
-    for source in (home, person):
-        assert "本人成果规模" in source
-        assert "全国核心统一尺度" in source
-        assert "不是共同项目分成，也不是领土、人口或军队比例" in source
-        assert "成果占比" not in source
-        assert "正向净收益" not in source
+    assert "本人成果规模" in home
+    assert "全国核心统一尺度" in home
+    assert "不是共同项目分成，也不是领土、人口或军队比例" in home
+    assert "成果占比" not in home
+    assert "正向净收益" not in home
+    assert "buildNetReading" not in person
     assert "本项适用，但第一项结算分为0" in template
     assert "正向净收益" not in template
 
