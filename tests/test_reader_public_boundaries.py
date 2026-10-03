@@ -3142,6 +3142,9 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "function profileDistinctLimitations(value,...priorValues)" in template
     assert "const distinctLimitations=profileDistinctLimitations" in template
     assert "boundaryParts" in template
+    assert "const adjudicationBody=" in template
+    assert "const adjudicationDetails=adjudicationBody?" in template
+    assert "${adjudicationDetails}" in template
     assert "规范池实际权力窗口为[^；]+" in template
     assert "；?限制：[\\s\\S]*$" in template
     assert 'distinctPositionBasis?`<div class="label">档内定位</div>' in template
