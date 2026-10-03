@@ -453,8 +453,8 @@ function missingNetLabel(r){
  return missingNetLabels[r?.settlement_readiness]||'未入榜';
 }
 function signedAdjustment(value){
- const n=Number(value);
- return Number.isFinite(n)&&n>0?'+'+scoreNumber(n):scoreNumber(Number.isFinite(n)?n:value);
+ if(typeof value!=='number'||!Number.isFinite(value))return '—';
+ return value>0?'+'+scoreNumber(value):scoreNumber(value);
 }
 function firstRawScore(n){
  const value=n?.first_item_raw_score;
