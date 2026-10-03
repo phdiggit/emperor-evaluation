@@ -57,9 +57,12 @@ def test_browser_preserves_stages_long_basis_gaps_and_links(tmp_path):
     script.write_text(r'''
 const fs=require('node:fs'), assert=require('node:assert/strict');
 const source=fs.readFileSync('reader/home-interactions.js','utf8');
+const textStart=source.indexOf('function firstPublicText(value)');
+const textEnd=source.indexOf('\n\nfunction firstB1Markup',textStart);
+const firstPublicText=new Function(source.slice(textStart,textEnd)+';return firstPublicText;')();
 const helpers=source.slice(source.indexOf('function firstB1Markup'),source.indexOf('function firstCommanderMarkup'));
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-const {b1,cost}=new Function('esc','prose',helpers+';return {b1:firstB1Markup,cost:firstCostMarkup}')(esc,s=>'<p>'+esc(s)+'</p>');
+const {b1,cost}=new Function('esc','prose','firstPublicText',helpers+';return {b1:firstB1Markup,cost:firstCostMarkup}')(esc,s=>'<p>'+esc(s)+'</p>',firstPublicText);
 const stages='先完成甲段。后完成乙段；两段分别计时，不据此推定总年数。';
 assert.ok(b1({reader_public_b1:{public_efficiency_basis:stages}}).includes(stages));
 const basis='完整依据。'.repeat(100)+'末尾责任限制不得删除。';

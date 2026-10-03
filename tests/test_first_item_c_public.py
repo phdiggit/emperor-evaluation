@@ -60,9 +60,12 @@ def test_all_browser_paths_render_basis_and_boundary_even_with_battles(tmp_path)
     script.write_text(r'''
 const fs=require('node:fs'), assert=require('node:assert/strict');
 const source=fs.readFileSync('reader/home-interactions.js','utf8');
+const textStart=source.indexOf('function firstPublicText(value)');
+const textEnd=source.indexOf('\n\nfunction firstB1Markup',textStart);
+const firstPublicText=new Function(source.slice(textStart,textEnd)+';return firstPublicText;')();
 const fn=source.match(/function firstCommanderMarkup\(item\) {[\s\S]*?\n}\n/)[0];
 const escape=text=>String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;');
-const render=new Function('esc','prose',fn+';return firstCommanderMarkup;')(escape,text=>'<p>'+escape(text)+'</p>');
+const render=new Function('esc','prose','firstPublicText',fn+';return firstCommanderMarkup;')(escape,text=>'<p>'+escape(text)+'</p>',firstPublicText);
 const publicData={public_basis:'正面表现不能掩盖失败。',public_boundary:'不属于本人指挥。<原句>',
  public_battles:[{name:'甲战',role:'战略统筹',result:'A',difficulty:''}]};
 const html=render({reader_public_commander:publicData});

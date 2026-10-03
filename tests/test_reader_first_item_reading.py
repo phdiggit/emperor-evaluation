@@ -39,12 +39,20 @@ const parserEnd = source.indexOf("\n  function firstItemPublicText", parserStart
 assert.ok(parserStart >= 0 && parserEnd > parserStart, "active first-item parser fragment not found");
 const parse = new Function(`${source.slice(parserStart, parserEnd)};return firstItemBullets;`)();
 
+const textStart = source.indexOf("function firstPublicText(value)");
+const textEnd = source.indexOf("\n\nfunction firstB1Markup", textStart);
+assert.ok(textStart >= 0 && textEnd > textStart, "first public text helper not found");
+const firstPublicText = new Function(
+  `${source.slice(textStart, textEnd)};return firstPublicText;`,
+)();
+
 const publicStart = source.indexOf("  function firstPublicOutcomeText");
 const publicEnd = source.indexOf("\n\n  function firstPublicOutcomeParts", publicStart);
 assert.ok(publicStart >= 0 && publicEnd > publicStart, "active public outcome helper not found");
 const publicOutcomeText = new Function(
+  "firstPublicText",
   `${source.slice(publicStart, publicEnd)};return firstPublicOutcomeText;`,
-)();
+)(firstPublicText);
 
 (async () => {
   const first = await loader("docs/first-item.md", {ruler_id: "RULER-A"});
