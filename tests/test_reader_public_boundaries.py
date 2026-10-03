@@ -2063,6 +2063,45 @@ assert.equal(violations.length,0,violations.slice(0,100).join('\n\n'));
     assert result.returncode == 0, result.stderr
 
 
+
+def test_profile_adjudication_deduplicates_grade_basis_when_it_repeats_primary_pattern(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for reader behavior")
+    script = tmp_path / "profile-dedup.cjs"
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('reader/index.template.html','utf8');
+
+const shortNames={M1:'军事统帅',M2:'外交博弈',M4:'内部联盟',M5:'组织执行',C1:'战略判断',C2:'学习纠错',C3:'用人授权',C4:'制度设计',C5:'权力运用与克制'};
+const materialIntensityNames={MI1:'单一情境',MI1_CASE:'单一情境',MI2:'完整生命周期情境',MI2_LIFECYCLE:'完整生命周期情境',MI3:'持续系统性情境',MI3_SUSTAINED_SYSTEMIC:'持续系统性情境',MI4:'跨阶段系统性情境',MI4_CROSS_PHASE_SYSTEMIC:'跨阶段系统性情境'};
+const formalDirectionNames={POSITIVE:'正向',NEGATIVE:'负向',MIXED_POSITIVE:'正向为主',MIXED_NEGATIVE:'负向为主',MIXED_BALANCED:'正负并存',MIXED:'正负并存',LIMITATION:'限制'};
+const readingTerms={PS0:'仅有结果或资源背景',PS1:'局部正确选择',PS2:'完整独立决策周期',PS3:'可跨情境迁移的强模式',PS4:'不同约束下反复兑现的罕见模式',DW0:'未能归责本人的负面结果',DW1:'已纠正且未复发的局部误判',DW2:'造成显著损失但已恢复或未同类复发的错误',DW3:'同类机制重复失败、反馈后加码或优势下崩盘',DW4:'跨机制与阶段的稳定失能',AM1:'局部制度接口',AM2:'全国重要子系统',AM3:'国家核心系统',AM4:'国家基本运行架构重构'};
+const letters={G5:'S',G4:'A',G3:'B',G2:'C',G1:'D',G0:'E'};
+const grade=a=>letters[a.axis_grade]+({LOW:'−',MID:'',HIGH:'+'}[a.position]||'');
+function readerText(t){return String(t??'').replace(/\b(?:PS[0-4]|DW[0-4]|AM[1-4])\b/g,k=>readingTerms[k]).replace(/\b(?:MI1(?:_CASE)?|MI2(?:_LIFECYCLE)?|MI3(?:_SUSTAINED_SYSTEMIC)?|MI4(?:_CROSS_PHASE_SYSTEMIC)?)\b/g,k=>materialIntensityNames[k]||k).replace(/\b(?:POSITIVE|NEGATIVE|MIXED_POSITIVE|MIXED_NEGATIVE|MIXED_BALANCED|MIXED|LIMITATION)\b/g,k=>formalDirectionNames[k]||k).replace(/G([0-5])[- /]*(LOW|MID|HIGH)/g,(_,g,p)=>grade({axis_grade:'G'+g,position:p})).replace(/G([0-5])/g,(_,g)=>letters['G'+g]+'档').replace(/EPISODE_TAG/g,'局部情境证据').replace(/BOUNDED_PROFILE/g,'有明确适用边界的画像').replace(/FULL_GRADE/g,'完整定档').replace(/\bE1\b/g,'少量情境材料').replace(/\bE2\b/g,'多个独立情境材料').replace(/\bE3\b/g,'主要命题已有代表性材料').replace(/\bC5\b/g,'权力运用与克制').replace(/COUNTEREVIDENCE_FOUND/g,'已找到明确反例')}
+const start=source.indexOf('function profilePublicPattern(value)');
+const end=source.indexOf('\nfunction profileSourceMarkup',start);
+assert.ok(start>=0&&end>start);
+const ctx={shortNames,materialIntensityNames,formalDirectionNames,readingTerms,letters,grade,readerText};
+vm.createContext(ctx);
+vm.runInContext(source.slice(start,end)+';this.profileDistinctGradeBasis=profileDistinctGradeBasis;',ctx);
+
+const same='方面军识别、接替和授权长期稳定，且对失败将领多能重配而非机械清洗；行政用人亦有正面基础。';
+assert.equal(ctx.profileDistinctGradeBasis('G4-MID：'+same,same),'');
+assert.equal(
+  ctx.profileDistinctGradeBasis('G4-LOW：G4门槛复核：王翦复起与逐客令撤回分属军事、行政，两条链都不是单纯成功。','王翦复起与逐客令撤回分属军事、行政，两条链都不是单纯成功。'),
+  ''
+);
+assert.equal(
+  ctx.profileDistinctGradeBasis('G4-LOW：主要表现成立，但另有晚期反例，因此只取下沿。',same),
+  'A−：主要表现成立，但另有晚期反例，因此只取下沿。'
+);
+''',encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
+
+
 def test_profile_primary_pattern_hides_internal_summary_labels():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
