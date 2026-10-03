@@ -92,7 +92,7 @@ const data={capability_axes:capabilities,independent_axes:['C5'],axis_specs:Obje
 const state={compare:['left','right'],differences:false};
 const context={DATA:data,state,screen,byId:new Map(),nav(){},history:{replaceState(){}},
  document:{getElementById(id){assert.equal(id,'differences');return checkbox;},querySelector(selector){assert.equal(selector,'.comparison');return table;}},
- esc:String,number:v=>String(v??'—'),conf:String,dimNames:{extent:'范围'},gradeHelp:()=>'',evidenceAssessment:()=>'',
+ esc:String,number:v=>String(v??'—'),scoreNumber:v=>String(v??'—'),conf:String,dimNames:{extent:'范围'},gradeHelp:()=>'',evidenceAssessment:()=>'',
  netGroups:r=>`<p>构成-${r.ruler_id}</p>`,historySections:r=>`<p>后效-${r.ruler_id}</p>`,
  axisEvidence:(r,c)=>`<details><summary>${c}</summary><p>${r.axes[c].evidence}</p></details>`};
 vm.createContext(context);
@@ -132,7 +132,7 @@ const initialHTML=html,initialWrites=writes,rowCount=(html.match(/<tr/g)||[]).le
 for(const id of ['left','right'])for(const c of codes)assert.ok(html.includes(`${id}-${c}-独立依据`));
 assert.ok(html.includes('data-compare-equal="true"'));
 assert.ok(html.includes('data-compare-equal="false"'));
-assert.ok(html.includes('突出正式数值／档位差异'));
+assert.ok(html.includes('突出当前展示值／档位差异'));
 // Toggling only changes the table's class, not DOM/evidence/open state/scroll.
 checkbox.onchange({target:{checked:true}});assert.equal(emphasis,true);
 assert.equal(writes,initialWrites);assert.equal(html,initialHTML);
@@ -165,7 +165,7 @@ const records=[record('left'),record('right'),record('supplement',{supplementary
 records[0].impact.identity_label='left（<不作为HTML>）';
 const original=JSON.stringify(records);
 const state={q:'',polity:'',scope:'main',sort:'time',compare:['left'],grade:'',differences:false,filtersOpen:false,homeView:'simple'};
-const context={DATA:{records,impact_grades:['B'],main_count:2,ranked_count:0,supplementary_count:1,capability_axes:[],independent_axes:[],axis_specs:{}},state,screen,byId:new Map(records.map(r=>[r.ruler_id,r])),document:{getElementById:id=>nodes[id]},nav(){},number:String,conf:String};
+const context={DATA:{records,impact_grades:['B'],main_count:2,ranked_count:0,supplementary_count:1,capability_axes:[],independent_axes:[],axis_specs:{}},state,screen,byId:new Map(records.map(r=>[r.ruler_id,r])),document:{getElementById:id=>nodes[id]},nav(){},number:String,scoreNumber:String,conf:String};
 vm.createContext(context);
 vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function home(){','function netPanel('),context);
 vm.runInContext('home()',context);
@@ -2315,7 +2315,7 @@ def test_compare_highlight_excludes_context_uncertainty_and_preserves_profile_ev
     css = (root / "reader" / "readability.css").read_text(encoding="utf-8")
 
     block = template[template.index("function compare(){"):template.index("function guide()")]
-    assert "突出正式数值／档位差异" in block
+    assert "突出当前展示值／档位差异" in block
     assert "不表示差异已经超出审慎位置投影、证据厚度或判断把握" in block
     assert "row('掌权背景（各项范围另见依据）',r=>esc(r.actual_power_window||'未列'),false)" in block
     assert "row('量级置信度',r=>conf(r.impact.confidence),false)" in block
