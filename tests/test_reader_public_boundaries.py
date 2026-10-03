@@ -906,6 +906,70 @@ def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     assert "相关战争若已在军事与边疆项计入，本项不重复计算" in source
     assert "由奠基与统一项计入" in source
     assert "留在军事与边疆项" in source
+    assert "function firstPublicText(value)" in source
+    assert 'return firstPublicText(value)' in source
+    assert 'prose(firstPublicText(value))' in source
+    assert 'prose(firstPublicText(source.public_basis))' in source
+    assert 'prose(firstPublicText(source.public_boundary))' in source
+    assert 'firstCostPublicText(data.public_responsibility_window)' in source
+
+
+def test_first_item_public_formatter_cleans_current_people_pool(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for reader behavior")
+    script = tmp_path / "first-item-pool-leaks.cjs"
+    script.write_text(r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const home=fs.readFileSync('reader/home-interactions.js','utf8');
+const start=home.indexOf('function firstPublicText(value)');
+const end=home.indexOf('\n\nfunction firstB1Markup',start);
+assert.ok(start>=0&&end>start,'firstPublicText block');
+const firstPublicText=new Function(home.slice(start,end)+';return firstPublicText;')();
+
+const forbidden=[
+  /尚未?闭合/,
+  /闭合/,
+  /倒灌/,
+  /回填/,
+  /父链/,
+  /准入条件/
+];
+function check(value,where){
+  if(value==null||value==='')return;
+  const out=firstPublicText(String(value));
+  for(const pattern of forbidden)assert.doesNotMatch(out,pattern,where+' => '+out);
+}
+function walk(value,where,key=''){
+  if(value==null)return;
+  if(typeof value==='string'){
+    if(!/(?:url|path|source)/i.test(key))check(value,where);
+    return;
+  }
+  if(Array.isArray(value)){
+    value.forEach((v,i)=>walk(v,where+'['+i+']',key));
+    return;
+  }
+  if(typeof value==='object'){
+    for(const [k,v] of Object.entries(value))walk(v,where+'.'+k,k);
+  }
+}
+for(const filename of fs.readdirSync('reader/data/first-item').filter(name=>name.endsWith('.json')).sort()){
+  const payload=JSON.parse(fs.readFileSync('reader/data/first-item/'+filename,'utf8'));
+  for(const key of ['public_outcome','public_b1','public_commander','public_cost'])walk(payload[key],filename+':'+key,key);
+}
+for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.endsWith('.json')).sort()){
+  const record=JSON.parse(fs.readFileSync('reader/data/people/'+filename,'utf8')).record||{};
+  for(const [i,item] of (record.net?.component_details?.first||[]).entries()){
+    for(const key of ['reader_public_outcome','reader_public_b1','reader_public_commander','reader_public_cost']){
+      walk(item?.[key],filename+':first['+i+'].'+key,key);
+    }
+  }
+}
+assert.equal(firstPublicText('后续阶段不回填，共同父链尚未闭合，未过准入条件。'),'后续阶段不追溯计入，共同主链尚未形成完整证据，未过计入条件。');
+''',encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
 
 
 def test_mobile_material_cards_stack_labels_and_scores():
