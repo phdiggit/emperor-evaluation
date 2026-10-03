@@ -7,7 +7,6 @@
   if (!screen) return;
 
   const PUBLIC_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
-  let scheduled = false;
 
   function currentRecord() {
     if (typeof byId === "undefined") return null;
@@ -196,16 +195,5 @@
     body.dataset.b1Public = "done";
   }
 
-  function schedule() {
-    if (scheduled) return;
-    scheduled = true;
-    requestAnimationFrame(() => {
-      scheduled = false;
-      patch();
-    });
-  }
-
-  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true, characterData:true});
-  window.addEventListener("hashchange", schedule);
-  schedule();
+  globalThis.SecondItemB1Public = Object.freeze({patch});
 })();
