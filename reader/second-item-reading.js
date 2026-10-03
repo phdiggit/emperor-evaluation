@@ -205,6 +205,12 @@
     if(route.major!=="second")return;
     ensureSecondSummary(record,t);ensureMethodGroup(t);ensureFinanceGroup(t);ensureHandoffGroup(t);
   }
-  function enhance(){ensureStyles();const netRecord=recordForNetRoute();if(netRecord)enhanceNetRoute(netRecord);const personRecord=recordForPersonRoute();if(personRecord)enhancePersonOverview(personRecord);const compareRecords=recordsForCompareRoute();if(compareRecords.length)enhanceCompare(compareRecords);}
+  function enhancePublicLayers(){
+    for(const name of ["SecondItemPublicAlias","SecondItemAPublic","SecondItemB1Public","SecondItemPublicLabels"]){
+      const api=globalThis[name];
+      if(api&&typeof api.patch==="function")api.patch();
+    }
+  }
+  function enhance(){ensureStyles();const netRecord=recordForNetRoute();if(netRecord)enhanceNetRoute(netRecord);const personRecord=recordForPersonRoute();if(personRecord)enhancePersonOverview(personRecord);const compareRecords=recordsForCompareRoute();if(compareRecords.length)enhanceCompare(compareRecords);enhancePublicLayers();}
   window.SecondItemReading = Object.freeze({enhance});
 })();
