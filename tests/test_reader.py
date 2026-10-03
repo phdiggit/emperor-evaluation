@@ -196,9 +196,9 @@ def test_reader_explains_rank_uncertainty_without_overloading_compare_row():
     compare_start = template.index("function compare(){")
     compare_end = template.index("function guide()", compare_start)
     compare = template[compare_start:compare_end]
-    for phrase in ("统治绩效", "审慎位置投影", "正式点位（当前规则点估计）", "治理背景（非计分）", "史料与权重说明", "审慎位置固定权重"):
+    for phrase in ("统治绩效", "审慎位置投影", "规则点位（当前规则点估计）", "治理背景（非计分）", "史料与权重说明", "审慎位置固定权重"):
         assert phrase in compare
-    for phrase in ("审慎位置、正式点位与治理背景", "页面优先展示这一范围", "不是统计置信区间", "不是所有人物同时变化后的联合名次区间", "与史料不确定性是两条不同问题", "当前不计分、不加难度奖励", "net-position-summary"):
+    for phrase in ("审慎位置、规则点位与治理背景", "页面优先展示这一范围", "不是统计置信区间", "不是所有人物同时变化后的联合名次区间", "与史料不确定性是两条不同问题", "当前不计分、不加难度奖励", "net-position-summary"):
         assert phrase in template
 
 
