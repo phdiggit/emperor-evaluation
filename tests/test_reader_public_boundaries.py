@@ -1475,6 +1475,14 @@ assert.equal(
   thirdCtx.thirdPublicText('旧实际控制范围 E档→E档与其安全态势/控制成果材料直接矛盾；补全三方向继承控制存量后合成比例由 0% 调整为 52%。','B1'),
   '此前控制范围判断与安全态势、控制成果材料不一致；补全三方向继承控制存量后，当前合成比例为52%。'
 );
+assert.equal(
+  thirdCtx.thirdPublicText('旧实际控制范围=30；修复继承存量断链后升至37。','B1'),
+  '修复继承存量断链后，当前控制范围合成比例为37%。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('旧实际控制范围=30；旧区域对象漂移导致继承存量漏记，修正后升至44。','B1'),
+  '此前区域对象口径漂移导致继承存量漏记，修正后，当前控制范围合成比例为44%。'
+);
 
 const civCtx={
   cleanNetText:v=>String(v??'').replace(/\s+/g,' ').trim(),

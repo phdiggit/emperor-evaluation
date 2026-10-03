@@ -46,7 +46,7 @@ assert.equal(context.financeText('本人主要阶段状态2维持。'),'本人�
 assert.equal(context.financeText('严格按907—918正式窗口，终态维持四档。'),'严格按907—918评价窗口，任期结束状态维持B档。');
 assert.equal(context.financeText('未见有源二档或四档端点。'),'未见有证据支持的D档或B档判断。');
 assert.equal(context.financeText('灾年条数不作为历史低谷标签计数器。'),'灾年条数不作为历史低谷判断计数器。');
-assert.equal(context.financeText('数字不单独抬档，战争不机械扣档；现证限制升档。'),'数字不单独提高等级，战争不机械降低等级；现证限制上调等级。');
+assert.equal(context.financeText('数字不单独抬档，战争不机械扣档；现证限制升档。'),'数字不单独提高等级，战争不直接降低等级；现证限制上调等级。');
 assert.equal(context.financeText('只登记峰值5而非主要阶段状态5。'),'只登记峰值达到A档而非主要阶段状态为A档。');
 assert.equal(context.financeText('亲政起点硬承接3而非旧4。'),'亲政接手时状态为C档，不沿用此前B档判断。');
 assert.equal(context.financeText('按合同前者越窗，后者保留。'),'按评价窗口，前者不计入本期，后者保留。');
