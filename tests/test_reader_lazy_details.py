@@ -130,6 +130,34 @@ def test_lazy_details_does_not_inject_takeover_renderers():
     assert 'window.addEventListener("hashchange"' not in source
 
 
+def test_reader_surface_enhancers_share_main_observer():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+
+    assert home.count("new MutationObserver(") == 1
+    assert "window.ReaderSurfaceEnhancer = Object.freeze({schedule: scheduleReaderSurfaceEnhancement});" in home
+    for api in ("SecondItemReading", "ReaderReadability", "PersonReadability", "PersonReadingNotes"):
+        assert f'\"{api}\"' in home
+
+    for filename, api in (
+        ("readability.js", "ReaderReadability"),
+        ("person-readability.js", "PersonReadability"),
+        ("person-reading-notes.js", "PersonReadingNotes"),
+        ("second-item-reading.js", "SecondItemReading"),
+    ):
+        source = (root / "reader" / filename).read_text(encoding="utf-8")
+        assert f"globalThis.{api} = Object.freeze({{enhance}});" in source or (
+            api == "SecondItemReading" and "window.SecondItemReading = Object.freeze({enhance});" in source
+        )
+        assert "new MutationObserver(" not in source
+        assert 'window.addEventListener("hashchange"' not in source
+
+    lazy = (root / "reader/lazy-details.js").read_text(encoding="utf-8")
+    assert "new MutationObserver(" not in lazy
+    assert 'window.addEventListener("hashchange"' not in lazy
+
+
 def test_second_item_renderer_is_build_frozen_and_main_renderer_coordinated():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
