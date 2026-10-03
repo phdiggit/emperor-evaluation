@@ -2125,6 +2125,26 @@ def test_first_item_commander_explains_why_profile_m1_may_differ():
     assert "first-item-cross-system-note" not in person
 
 
+
+def test_second_item_group_intros_explain_scope_without_repeating_current_subtotals():
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    reading = (root / "reader/second-item-reading.js").read_text(encoding="utf-8")
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+
+    assert '当前得分为 ${fmt(t.methodScore)} / 165' not in reading
+    assert '四项合计为 ${fmt(t.resultScore)} / 202' not in reading
+    assert '最终得分 ${fmt(score)} / 20' not in reading
+    assert '当前合计 ${fmt(values.method)} 分' not in alias
+    assert '当前合计 ${fmt(values.finance)} 分' not in alias
+
+    assert '制度与行政<b>${fmt(t.methodScore)} / 165</b>' in reading
+    assert '民生与社会<b>${fmt(t.resultScore)} / 202</b>' in reading
+    assert '政权交接<b>${fmt(t.handoffScore)} / 20</b>' in reading
+    assert '本组小计怎么形成？' in alias
+
+
 def test_third_item_public_aliases_replace_compound_internal_labels_before_bare_codes():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
