@@ -16,7 +16,6 @@ on:
       - reader/person-readability.js
       - reader/person-reading-notes.js
       - reader/person-reading-notes.json
-      - reader/first-item-reading.js
       - reader/second-item-reading.js
       - reader/second-item-public-alias.js
       - reader/second-item-a-public.js
@@ -145,7 +144,6 @@ jobs:
           print('inline executable scripts:', len(executable))
           PY
           for file in .tmp/reader-js-check/*.js; do node --check "$file"; done
-          node --check reader/first-item-reading.js
           node --check reader/second-item-reading.js
           node --check reader/second-item-public-alias.js
           node --check reader/second-item-a-public.js
