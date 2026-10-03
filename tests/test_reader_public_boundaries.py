@@ -2444,8 +2444,7 @@ def test_paradigm_reception_windows_are_secondary_collapsed_evidence():
     history_start = template.index("function historySections(")
     history_end = template.index("const format=", history_start)
     history = template[history_start:history_end]
-    expected = "const paradigmBody=\`\${prose(publicBasis('paradigm'))}\${paradigmReceptionProse(paradigmReview)}"
-    assert expected in history
+    assert "const paradigmBody=`${prose(publicBasis('paradigm'))}${paradigmReceptionProse(paradigmReview)}" in history
 
 
 def test_prudent_evidence_details_hide_internal_grade_codes():
