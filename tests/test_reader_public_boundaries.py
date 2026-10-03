@@ -1812,6 +1812,93 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
 
 
 
+
+def test_historical_impact_public_formatter_cleans_current_people_pool(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for reader behavior")
+    script = tmp_path / "impact-pool-leaks.cjs"
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('reader/index.template.html','utf8');
+const start=source.indexOf('function impactPublicText(t)');
+const end=source.indexOf('\nfunction impactTotalPublicText',start);
+assert.ok(start>=0&&end>start,'impactPublicText fragment not found');
+
+const letters={G5:'S',G4:'A',G3:'B',G2:'C',G1:'D',G0:'E'};
+const shortNames={M1:'军事统帅',M2:'外交博弈',M4:'内部联盟',M5:'组织执行',C1:'战略判断',C2:'学习纠错',C3:'用人授权',C4:'制度设计',C5:'权力运用与克制'};
+const readingTerms={PS0:'仅有结果或资源背景',PS1:'局部正确选择',PS2:'完整独立决策周期',PS3:'可跨情境迁移的强模式',PS4:'不同约束下反复兑现的罕见模式',DW0:'未能归责本人的负面结果',DW1:'已纠正且未复发的局部误判',DW2:'造成显著损失但已恢复或未同类复发的错误',DW3:'同类机制重复失败、反馈后加码或优势下崩盘',DW4:'跨机制与阶段的稳定失能',AM1:'局部制度接口',AM2:'全国重要子系统',AM3:'国家核心系统',AM4:'国家基本运行架构重构'};
+const grade=a=>letters[a.axis_grade]+({LOW:'−',MID:'',HIGH:'+'}[a.position]||'');
+const ctx={letters,shortNames,readingTerms,grade};
+vm.createContext(ctx);
+vm.runInContext(source.slice(start,end)+';this.impactPublicText=impactPublicText;',ctx);
+
+const forbidden=[
+  /V\d+(?:\.\d+)+/i,
+  /硬门/,
+  /去名测试/,
+  /底账/,
+  /(?:回填|倒灌)/,
+  /父链/,
+  /消费/,
+  /刷(?:分|档)/,
+  /横校/,
+  /上收/,
+  /闭合/,
+  /机械(?:计数|叠加|相加|换档|提高|降低|下降|映射|等价|当作)/,
+  /external_equivalent_block/,
+  /\bDECISIVE_DRIVER\b/,
+  /\bFULL\b/,
+  /\b(?:PS[0-4]|DW[0-4]|AM[1-4]|MI[1-4](?:_[A-Z_]+)?|G[0-5](?:[- /](?:LOW|MID|HIGH))?)\b/,
+  /(?<![A-Za-z0-9_.-])(?:M[1245]|C[1-5])(?![A-Za-z0-9_.-])/,
+  /\bO[0-3](?:-[A-Z])?\b/,
+  /\bEN\d\b/,
+  /\bN\d\b/
+];
+
+function assertClean(value,where,{transform=true}={}){
+  if(value==null||value==='')return;
+  const out=transform?ctx.impactPublicText(String(value)):String(value);
+  for(const pattern of forbidden){
+    assert.doesNotMatch(out,pattern,where+' => '+out);
+  }
+}
+
+for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.endsWith('.json')).sort()){
+  const record=JSON.parse(fs.readFileSync('reader/data/people/'+filename,'utf8')).record||{};
+  const h=record.impact;
+  if(!h)continue;
+  const root=filename+':'+(record.ruler_name||record.ruler_id||'?');
+
+  for(const [key,value] of Object.entries({
+    public_total_basis:h.public_total_basis,
+    impact_nature_basis:h.impact_nature_basis,
+    nearest_feasible_counterfactual:h.nearest_feasible_counterfactual,
+    functional_alternative:h.counterfactual_entry?.functional_alternative,
+    personal_causal_boundary:h.personal_causal_boundary,
+    public_boundary:h.public_boundary,
+    confidence_basis:h.confidence_basis,
+  })) assertClean(value,root+':'+key);
+
+  for(const [key,dimension] of Object.entries(h.dimensions||{})){
+    assertClean(dimension?.public_basis,root+':dimension.'+key+'.public_basis');
+    assertClean(dimension?.boundary_note,root+':dimension.'+key+'.boundary_note');
+  }
+  for(const [index,chain] of (h.macro_chains||[]).entries()){
+    assertClean(chain?.title,root+':macro_chains['+index+'].title');
+    assertClean(chain?.narrative,root+':macro_chains['+index+'].narrative');
+  }
+  for(const [index,reception] of (h.paradigm_review?.receptions||[]).entries()){
+    assertClean(reception?.receiver,root+':reception['+index+'].receiver',{transform:false});
+    assertClean(reception?.carrier,root+':reception['+index+'].carrier',{transform:false});
+    assertClean(reception?.actual_use,root+':reception['+index+'].actual_use');
+  }
+}
+''',encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
+
+
 def test_profile_primary_pattern_hides_internal_summary_labels():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
