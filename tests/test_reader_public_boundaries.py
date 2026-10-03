@@ -1009,6 +1009,9 @@ def test_public_scope_copy_avoids_internal_pool_and_public_band_jargon():
     assert "历史影响 · 总等级" in template
     assert '<option value="impact">历史影响总等级</option>' in template
     assert "全部影响等级" in template
+    assert "统治绩效主池" not in template
+    assert "统治绩效总榜" not in template
+    assert "统治绩效正式排序" in template
 
 
 def test_public_power_context_copy_avoids_internal_evidence_window_jargon():
@@ -2879,7 +2882,7 @@ def test_supplementary_person_page_is_history_impact_only():
     block = template[start:end]
 
     assert "const pageMode=supplementary?'历史影响补充样本':'三套评价';" in block
-    assert "该对象只进入历史影响补充样本，不纳入统治绩效主池或人物画像正式评价。" in block
+    assert "该对象只进入历史影响补充样本，不纳入统治绩效正式评价范围或人物画像正式评价范围。" in block
     assert "本页只展开历史影响正式依据。" in block
     assert "supplementary?'':" in block
     assert "历史影响概览" in block
