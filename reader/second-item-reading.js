@@ -205,12 +205,23 @@
     if(route.major!=="second")return;
     ensureSecondSummary(record,t);ensureMethodGroup(t);ensureFinanceGroup(t);ensureHandoffGroup(t);
   }
-  function enhancePublicLayers(){
-    for(const name of ["SecondItemPublicAlias","SecondItemAPublic","SecondItemB1Public","SecondItemPublicLabels"]){
-      const api=globalThis[name];
-      if(api&&typeof api.patch==="function")api.patch();
-    }
+  function patchPublicLayer(name){
+    const api=globalThis[name];
+    if(api&&typeof api.patch==="function")api.patch();
   }
-  function enhance(){ensureStyles();const netRecord=recordForNetRoute();if(netRecord)enhanceNetRoute(netRecord);const personRecord=recordForPersonRoute();if(personRecord)enhancePersonOverview(personRecord);const compareRecords=recordsForCompareRoute();if(compareRecords.length)enhanceCompare(compareRecords);enhancePublicLayers();}
+  function enhance(){
+    ensureStyles();
+    // Normalize the generic second-item DOM first. Structural enrichment then
+    // adds summaries and C4 guidance without having them cleared on first pass.
+    patchPublicLayer("SecondItemPublicAlias");
+    const netRecord=recordForNetRoute();if(netRecord)enhanceNetRoute(netRecord);
+    const personRecord=recordForPersonRoute();if(personRecord)enhancePersonOverview(personRecord);
+    const compareRecords=recordsForCompareRoute();if(compareRecords.length)enhanceCompare(compareRecords);
+    // Dedicated A/B1 bodies intentionally override only their owned metrics;
+    // labels run last so titles settle once.
+    patchPublicLayer("SecondItemAPublic");
+    patchPublicLayer("SecondItemB1Public");
+    patchPublicLayer("SecondItemPublicLabels");
+  }
   window.SecondItemReading = Object.freeze({enhance});
 })();
