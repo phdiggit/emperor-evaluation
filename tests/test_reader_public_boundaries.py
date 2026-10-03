@@ -430,6 +430,87 @@ def test_second_item_material_card_phase_two_scope():
     assert "D1继任行政连续性" in alias
     assert "D3政权交接稳定" in alias
 
+
+def test_third_item_public_formatter_cleans_current_people_pool(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for reader behavior")
+    script = tmp_path / "third-item-pool-leaks.cjs"
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const home=fs.readFileSync('reader/home-interactions.js','utf8');
+function section(source,start,end){
+  const a=source.indexOf(start),b=source.indexOf(end,a);
+  assert.ok(a>=0&&b>a,start);
+  return source.slice(a,b);
+}
+const ctx={cleanNetText:v=>String(v??'').replace(/\s+/g,' ').trim()};
+vm.createContext(ctx);
+vm.runInContext(
+  section(home,'  const MATERIAL_CARD_GROUPS','  const SECOND_PUBLIC_GROUPS')
+  +'\nthis.thirdItemPublicText=thirdItemPublicText;',ctx
+);
+
+const forbidden=[
+  /父周期/,
+  /父任务只作证据下钻/,
+  /正式横校/,
+  /旧账/,
+  /本次重做/,
+  /用户冻结/,
+  /得分率/,
+  /机械落/,
+  /回灌/,
+  /底账/,
+  /补门/,
+  /核心门/,
+  /本包事实/,
+  /控制包/,
+  /现行贡献类型/,
+  /战略链化/,
+  /采用比例/,
+  /实际控制范围率/,
+  /1:1链化/,
+  /\d+票(?:降至|升至)\d+票/,
+  /第三项本体/,
+  /第三项现期/,
+  /第三项只读/,
+  /第三项独立(?:计入|方向)/,
+  /三轴/
+];
+
+function check(value,item,where){
+  if(value==null||value==='')return;
+  const out=ctx.thirdItemPublicText(item,String(value));
+  for(const pattern of forbidden){
+    assert.doesNotMatch(out,pattern,where+' => '+out);
+  }
+}
+for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.endsWith('.json')).sort()){
+  const record=JSON.parse(fs.readFileSync('reader/data/people/'+filename,'utf8')).record||{};
+  const details=record.net?.component_details||{};
+  for(const group of ['strategic','military']){
+    for(const item of details[group]||[]){
+      const where=filename+':'+(record.ruler_name||record.ruler_id||'?')+':'+group+':'+(item.label||'?');
+      for(const key of ['reader_summary','reader_boundary','reader_how','public_level_label']){
+        check(item[key],item,where+':'+key);
+      }
+      for(const [index,entry] of (item.reader_public_evidence_items||[]).entries()){
+        for(const key of ['public_label','public_role','public_direction','public_source_coverage','public_basis','public_boundary']){
+          check(entry?.[key],item,where+':evidence['+index+'].'+key);
+        }
+        for(const [tagIndex,tag] of (entry?.public_tags||[]).entries()){
+          check(tag,item,where+':evidence['+index+'].public_tags['+tagIndex+']');
+        }
+      }
+    }
+  }
+}
+''',encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
+
+
 def test_generated_net_judgments_have_complete_public_reading_fields_across_pool():
     import json
     from pathlib import Path
