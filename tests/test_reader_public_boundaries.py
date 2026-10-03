@@ -840,7 +840,7 @@ def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
     assert "第一项原始净分 S1" not in home
     assert '"统一成果", "先看本人真正留下了什么"' in home
     assert '"创业组织与政治整合", "多线并行、专业分工与异质整合"' in home
-    assert "统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]}" in home
+    assert "第一项结算分 <strong>${scoreNumber(netScore)} / 240</strong> · 统治绩效附加 <strong>+${scoreNumber(addOn)}</strong>" in home
     assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in home
     assert "第一项结算分 S1" not in home
     assert "总榜附加 F" not in home
@@ -2196,10 +2196,17 @@ def test_fourth_item_public_layer_uses_semantic_magnitude_labels_instead_of_numb
 def test_first_item_summary_does_not_repeat_the_same_scoreline_after_detail_cards():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
-    first_totals = source[source.index("function firstTotals(items)"):source.index("function firstItemOverview", source.index("function firstTotals(items)"))]
+    totals_start = source.index("function firstTotals(items)")
+    overview_start = source.index("function firstItemOverview", totals_start)
+    overview_end = source.index("async function renderFirstMajor", overview_start)
+    first_totals = source[totals_start:overview_start]
+    overview = source[overview_start:overview_end]
+
     assert "查看第一项完整折算公式" in first_totals
-    assert "first-item-scoreline" not in first_totals
     assert "军事代价扣减 =" in first_totals
+    assert "四轴毛分 =" not in overview
+    assert "统一成果 ${score[0]} +" not in overview
+    assert "第一项结算分 <strong>${scoreNumber(netScore)} / 240</strong>" in overview
 
 
 
