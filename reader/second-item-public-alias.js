@@ -330,10 +330,34 @@
     return text.trim();
   }
 
+  function publicReaderHygiene(value) {
+    return String(value ?? "")
+      .replace(/未闭合/g, "尚未确认")
+      .replace(/闭合/g, "确认")
+      .replace(/故不增加本项净值/g, "因此不另行增加本项结果")
+      .replace(/制度净值/g, "制度正负影响合计")
+      .replace(/净值为/g, "正负影响合计为")
+      .replace(/本项净值/g, "本项综合结果")
+      .replace(/净值/g, "综合结果")
+      .replace(/机械门槛/g, "固定门槛")
+      .replace(/不机械/g, "不直接")
+      .replace(/机械/g, "直接")
+      .replace(/合同规定/g, "评价规则规定")
+      .replace(/按合同/g, "按评价规则")
+      .replace(/整改时/g, "复核时")
+      .replace(/整改/g, "复核")
+      .replace(/应删除旧版([^。；]+?)，纯经济财政保C档/g, "此前混入的$1应移出本项，经济财政维持C档")
+      .replace(/旧版/g, "此前判断")
+      .replace(/本轮/g, "当前")
+      .replace(/越窗/g, "超出评价窗口")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   function publicTechnicalText(value) {
-    return publicEnumText(value)
+    return publicReaderHygiene(publicEnumText(value)
       .replace(/正式方向指数/g, "原始表现指数")
-      .replace(/方向指数/g, "原始表现指数");
+      .replace(/方向指数/g, "原始表现指数"));
   }
 
   function publicFinanceText(value) {
@@ -380,7 +404,7 @@
   // Only contract-defined enum labels are translated. Sentences, negation,
   // responsibility and boundaries are otherwise preserved verbatim.
   function publicText(value) {
-    return publicEnumText(value)
+    const text = publicEnumText(value)
       .replace(/机械等价/g, "直接等同")
       .replace(/当前固定窗口/g, "当前评价窗口")
       .replace(/正式窗口/g, "评价窗口")
@@ -459,6 +483,7 @@
       .replace(/军事与边疆项的军事成本第五级(高位|中位|低位)?/g, (_, position) => `严重军事成本${position ? "（"+position+"）" : ""}`)
       .replace(/。；/g, "；")
       .replace(/；；+/g, "；");
+    return publicReaderHygiene(text);
   }
 
   function dedupeBoundaryText(value) {

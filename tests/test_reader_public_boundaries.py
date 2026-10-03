@@ -925,6 +925,77 @@ def test_mobile_material_cards_stack_labels_and_scores():
     assert "overflow-wrap:anywhere" in home
     assert ".formal-context-chip" in css
     assert "white-space: normal" in css
+def test_second_item_public_formatter_cleans_current_people_pool(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for reader behavior")
+    script = tmp_path / "second-item-pool-leaks.cjs"
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('reader/second-item-public-alias.js','utf8');
+const start=source.indexOf('  const PUBLIC_GRADE');
+const end=source.indexOf('\n  function secondMethodExpandedHow',start);
+assert.ok(start>=0&&end>start,'second public formatter block');
+const ctx={};
+vm.createContext(ctx);
+vm.runInContext(
+  source.slice(start,end)
+  +'\nthis.publicText=publicText;this.publicTechnicalText=publicTechnicalText;this.publicFinanceText=publicFinanceText;this.publicHandoffText=publicHandoffText;this.publicBoundaryText=publicBoundaryText;this.publicFinanceBoundaryText=publicFinanceBoundaryText;',
+  ctx
+);
+
+assert.equal(
+  ctx.publicText('当前正式结构中已经闭合为独立制度节点；制度净值为+5；不机械降低等级；合同规定仍需保留限制。'),
+  '当前正式结构中已经确认为独立制度节点；制度正负影响合计为+5；不直接降低等级；评价规则规定仍需保留限制。'
+);
+assert.equal(
+  ctx.publicTechnicalText('整改时应删除旧版宗室谋乱材料，纯经济财政保C档；本轮不机械扣分。'),
+  '复核时此前混入的宗室谋乱材料应移出本项，经济财政维持C档；当前不直接扣分。'
+);
+
+const forbidden=[
+  /未?闭合/,
+  /(?:制度|本项)?净值/,
+  /机械/,
+  /合同规定|按合同/,
+  /整改/,
+  /旧版/
+];
+function format(group,key,value){
+  if(value==null||value==='')return '';
+  if(group==='finance')return key==='reader_boundary'?ctx.publicFinanceBoundaryText(value):ctx.publicFinanceText(value);
+  if(group==='handoff')return key==='reader_boundary'?ctx.publicBoundaryText(ctx.publicHandoffText(value)):ctx.publicHandoffText(value);
+  if(key==='reader_how')return ctx.publicTechnicalText(value);
+  if(key==='reader_boundary')return ctx.publicBoundaryText(value);
+  return ctx.publicText(value);
+}
+function check(value,group,key,where){
+  const out=format(group,key,value);
+  if(!out)return;
+  for(const pattern of forbidden)assert.doesNotMatch(out,pattern,where+' => '+out);
+}
+for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.endsWith('.json')).sort()){
+  const record=JSON.parse(fs.readFileSync('reader/data/people/'+filename,'utf8')).record||{};
+  const details=record.net?.component_details||{};
+  for(const group of ['method','finance','handoff']){
+    for(const item of details[group]||[]){
+      const root=filename+':'+(record.ruler_name||record.ruler_id||'?')+':'+group+':'+(item.label||'?');
+      for(const key of ['reader_summary','reader_boundary','reader_how','public_level_label'])check(item[key],group,key,root+':'+key);
+      const evidence=item.reader_public_evidence_items||item.public_evidence_items||[];
+      for(const [i,entry] of evidence.entries()){
+        for(const key of ['public_label','public_direction','public_role','public_basis','public_boundary','public_source_coverage']){
+          check(entry?.[key],group,key,root+':evidence['+i+'].'+key);
+        }
+        for(const [j,tag] of (entry?.public_tags||[]).entries())check(tag,group,'public_tags',root+':evidence['+i+'].public_tags['+j+']');
+      }
+    }
+  }
+}
+''',encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
+
+
 def test_second_item_material_groups_do_not_render_empty_categories():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
@@ -1399,6 +1470,10 @@ assert.equal(
 assert.equal(
   thirdCtx.thirdPublicText('相关任务按统一边界重新归并；凉州重大失败仍保留，只取消阶段负面重复计票。','C1实战交付'),
   '相关任务按统一边界重新归并；凉州重大失败仍保留，阶段负面不重复计入。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('旧实际控制范围 E档→E档与其安全态势/控制成果材料直接矛盾；补全三方向继承控制存量后合成比例由 0% 调整为 52%。','B1'),
+  '此前控制范围判断与安全态势、控制成果材料不一致；补全三方向继承控制存量后，当前合成比例为52%。'
 );
 
 const civCtx={
