@@ -511,6 +511,105 @@ for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.end
     assert result.returncode == 0, result.stderr
 
 
+
+def test_fourth_item_public_formatter_cleans_current_people_pool(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for reader behavior")
+    script = tmp_path / "fourth-item-pool-leaks.cjs"
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const home=fs.readFileSync('reader/home-interactions.js','utf8');
+function section(source,start,end){
+  const a=source.indexOf(start),b=source.indexOf(end,a);
+  assert.ok(a>=0&&b>a,start);
+  return source.slice(a,b);
+}
+const ctx={
+  cleanNetText:v=>String(v??'').replace(/\s+/g,' ').trim(),
+  THIRD_CN_LEVEL:{'零':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7},
+  esc:String
+};
+vm.createContext(ctx);
+vm.runInContext(
+  section(home,'  const CIV_PUBLIC_DIRECTION','  function civilizationPublicStatus')
+  +'\nthis.civilizationPublicText=civilizationPublicText;',ctx
+);
+
+const forbidden=[
+  /(?:本|现|原|旧|新|另)包/,
+  /正包/,
+  /负包/,
+  /同包/,
+  /独立增强包/,
+  /计分资格/,
+  /扩搜新证/,
+  /净轴/,
+  /净带位/,
+  /限制带位/,
+  /共同限制带位/,
+  /硬门/,
+  /硬负记录/,
+  /硬负向/,
+  /回填/,
+  /倒算(?:本人|给)/,
+  /轴级/,
+  /作净算/,
+  /洗掉/,
+  /退出第四项/,
+  /相对变化第[1-4一二三四]级/,
+  /文明影响幅度第[0-4零一二三四]级/,
+  /第[1-4一二三四]级影响幅度/,
+  /结果方向未单列/,
+  /相对既有状态/,
+  /责任范围按现有材料区分/,
+  /补充限制/,
+  /归第二项/,
+  /同账/,
+  /另定整数负向变化/
+];
+
+function assertClean(out,where){
+  for(const pattern of forbidden){
+    assert.doesNotMatch(out,pattern,where+' => '+out);
+  }
+}
+function checkJudgment(value,where){
+  if(value==null||value==='')return;
+  assertClean(ctx.civilizationPublicText(String(value)),where);
+}
+function checkCalculation(value,where){
+  if(value==null||value==='')return;
+  assertClean(ctx.cleanNetText(String(value)),where);
+}
+
+for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.endsWith('.json')).sort()){
+  const record=JSON.parse(fs.readFileSync('reader/data/people/'+filename,'utf8')).record||{};
+  const items=record.net?.component_details?.civilization||[];
+  for(const item of items){
+    const where=filename+':'+(record.ruler_name||record.ruler_id||'?')+':civilization:'+(item.label||'?');
+    if(item.reader_kind==='calculation'){
+      checkCalculation(item.reader_how,where+':reader_how');
+      continue;
+    }
+    for(const key of ['reader_summary','reader_boundary','reader_how','public_level_label']){
+      checkJudgment(item[key],where+':'+key);
+    }
+    for(const [index,entry] of (item.reader_public_evidence_items||[]).entries()){
+      for(const key of ['public_label','public_role','public_direction','public_source_coverage','public_basis','public_boundary']){
+        checkJudgment(entry?.[key],where+':evidence['+index+'].'+key);
+      }
+      for(const [tagIndex,tag] of (entry?.public_tags||[]).entries()){
+        checkJudgment(tag,where+':evidence['+index+'].public_tags['+tagIndex+']');
+      }
+    }
+  }
+}
+''',encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
+
+
 def test_generated_net_judgments_have_complete_public_reading_fields_across_pool():
     import json
     from pathlib import Path
