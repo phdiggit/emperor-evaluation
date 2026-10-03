@@ -177,7 +177,5 @@
   function schedule() {
     if (!queued) { queued = true; requestAnimationFrame(enhance); }
   }
-  new MutationObserver(schedule).observe(root, {childList: true, subtree: true});
-  window.addEventListener("hashchange", schedule);
-  schedule();
+  globalThis.PersonReadingNotes = Object.freeze({enhance});
 })();
