@@ -387,7 +387,8 @@ function formalContextSources(c){
 function formalContextStory(c,id='',options={}){
  if(!c)return prose(id?'相关情境材料未附正文':'正式记录未列情境正文');
  const rawTitle=String(c.title||'').trim();
- const title=rawTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
+ const genericTitle=/^(?:主要)?父情境\d+$|^代表情境\d+$/.test(rawTitle);
+ const title=rawTitle&&!genericTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
  const body=c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
  const refs=formalContextSources(c);
  const rawIntensity=options.showIntensity===false?'':formalContextRawIntensity(c);
