@@ -827,32 +827,26 @@ def test_second_item_detail_renderer_keeps_public_takeover_hook():
     # A/B1 and the shared B2/C/D public renderers all locate detail nodes through this hook.
     for label in ("A制度建设", "B1官僚治理", "B2反馈与约束"):
         assert label in source
+
 def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
-    first = (root / "reader/first-item-reading.js").read_text(encoding="utf-8")
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
 
-    for source in (home, first):
-        assert "A · 统一主链客观贡献" not in source
-        assert "B2 · 创业组织" not in source
-        assert "下面再按A、B1、B2、C" not in source
-        assert "第一项原始净分 S1" not in source
-
+    assert "A · 统一主链客观贡献" not in home
+    assert "B2 · 创业组织" not in home
+    assert "下面再按A、B1、B2、C" not in home
+    assert "第一项原始净分 S1" not in home
     assert '"统一成果", "先看本人真正留下了什么"' in home
     assert '"创业组织与政治整合", "多线并行、专业分工与异质整合"' in home
     assert "统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]}" in home
-    assert "<strong>统一成果</strong>" in first
-    assert "<strong>组织与整合</strong>" in first
     assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in home
-    assert "四项毛分 = 统一成果 + 创业难度与效率 + 组织整合 + 本人统帅" in first
     assert "第一项结算分 S1" not in home
     assert "总榜附加 F" not in home
-    assert "第一项净分 S1" not in first
-    assert "总榜附加分 F" not in first
     for legacy in ("renderFirstA", "renderFirstB1", "renderFirstB2", "renderFirstC", "buildNetReading"):
         assert legacy not in person
+    assert not (root / "reader/first-item-reading.js").exists()
 
 def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_severity():
     from pathlib import Path
@@ -1538,18 +1532,14 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     assert "两个战略安全轴最后直接相加" in source
 
 
+
 def test_first_item_readers_do_not_backfill_missing_cost_or_net_as_zero():
     from pathlib import Path
-    root = Path(__file__).resolve().parents[1]
-    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
-    first = (root / "reader/first-item-reading.js").read_text(encoding="utf-8")
+    home = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
 
     assert "[a, b1, b2, c, gross, cost, net, addOn]" in home
-    assert "[a, b1, b2, c, gross, cost, net, addOn]" in first
     assert "cost ?? 0" not in home
-    assert '?.value ?? 0' not in first
-    assert 'const rawNetScore = byLabel["第一项净分"]?.value;' in first
-    assert 'rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore)' in first
+    assert "rawFirstScore == null || rawFirstScore === \"\"" in home
 
 def test_first_item_cost_explains_current_fixed_debit_lookup():
     from pathlib import Path
@@ -1897,22 +1887,21 @@ def test_first_item_summary_does_not_repeat_the_same_scoreline_after_detail_card
     assert "军事代价扣减 =" in first_totals
 
 
+
 def test_first_item_applicability_is_three_state_and_never_inferred_from_items():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
-    first = (root / "reader/first-item-reading.js").read_text(encoding="utf-8")
     template = (root / "reader/index.template.html").read_text(encoding="utf-8")
-    for source in (home, first):
-        assert '"NOT_APPLICABLE"' in source
-        assert '"APPLICABLE"' in source
-        assert "第一项正式适用状态" in source
-        assert "items.every(item =>" not in source
+
+    assert '"NOT_APPLICABLE"' in home
+    assert '"APPLICABLE"' in home
+    assert "第一项正式适用状态" in home
+    assert "items.every(item =>" not in home
     assert "buildNetReading" not in person
     assert "正式状态未发布；阅读层不判断是否适用" in template
     assert "n.first_item_status==='NOT_APPLICABLE'" in template
-
 
 def test_material_cards_show_optional_formal_source_coverage_without_reader_inference():
     from pathlib import Path
@@ -2067,15 +2056,16 @@ def test_fourth_item_reader_distinguishes_zero_sources_and_rejects_progress_rank
     assert "归入相关制度与社会治理材料" in source
 
 
+
 def test_active_first_item_renderer_uses_public_formula_vocabulary():
     from pathlib import Path
-    source = (Path(__file__).resolve().parents[1] / "reader/first-item-reading.js").read_text(encoding="utf-8")
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     for forbidden in ("内部指标：A", "内部指标：B1", "内部指标：B2", "内部四项：A + B1 + B2 + C", "第一项净分 S1", "总榜附加分 F", "成果占比", "正向净收益"):
         assert forbidden not in source
     assert "本人成果规模" in source
     assert "不是共同项目分成，也不是领土、人口或军队比例" in source
     assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
-    assert "四项毛分 = 统一成果 + 创业难度与效率 + 组织整合 + 本人统帅" in source
+    assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in source
     assert "第一项结算分 = max(0" in source
     assert "总榜附加 = 0.20 × 637 × (第一项结算分 / 240)^1.25" in source
 
