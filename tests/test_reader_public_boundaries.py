@@ -2447,6 +2447,39 @@ def test_paradigm_reception_windows_are_secondary_collapsed_evidence():
     assert "const paradigmBody=`${prose(publicBasis('paradigm'))}${paradigmReceptionProse(paradigmReview)}" in history
 
 
+
+def test_every_ranked_reader_record_has_prudent_score_and_rank_projection():
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    ranked = 0
+    for path in sorted((root / "reader/data/people").glob("*.json")):
+        record = json.loads(path.read_text(encoding="utf-8")).get("record") or {}
+        net = record.get("net") or {}
+        rank = net.get("rank")
+        if not isinstance(rank, int):
+            continue
+        ranked += 1
+        prefix = f"{path.name}:{record.get('ruler_name')}:rank={rank}"
+
+        interval = net.get("prudent_score_interval")
+        assert isinstance(interval, dict), prefix + ": missing prudent_score_interval"
+        lower, upper = interval.get("lower"), interval.get("upper")
+        assert isinstance(lower, (int, float)) and isinstance(upper, (int, float)), prefix + ": invalid prudent score bounds"
+        assert lower <= upper, prefix + ": prudent score interval reversed"
+        assert str(interval.get("basis") or "").strip(), prefix + ": prudent score basis missing"
+
+        projection = net.get("prudent_rank_projection")
+        assert isinstance(projection, dict), prefix + ": missing prudent_rank_projection"
+        best, worst = projection.get("best"), projection.get("worst")
+        assert isinstance(best, int) and isinstance(worst, int), prefix + ": invalid prudent rank bounds"
+        assert 1 <= best <= worst, prefix + ": prudent rank projection reversed or out of range"
+        assert str(projection.get("basis") or "").strip(), prefix + ": prudent rank basis missing"
+
+    assert ranked > 0
+
+
 def test_prudent_evidence_details_hide_internal_grade_codes():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
