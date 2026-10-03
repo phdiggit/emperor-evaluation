@@ -202,6 +202,6 @@
     translateNamedProfileReferences();
   }
 
-  new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});
-  enhance();
+  globalThis.ReaderReadability = Object.freeze({enhance});
+  window.ReaderSurfaceEnhancer?.schedule();
 })();
