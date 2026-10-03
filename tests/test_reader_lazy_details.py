@@ -170,9 +170,9 @@ def test_second_item_renderer_is_build_frozen_and_main_renderer_coordinated():
     assert "window.SecondItemReading = Object.freeze({enhance});" in second
     assert "new MutationObserver(schedule)" not in second
     assert 'window.addEventListener("hashchange",schedule)' not in second
-    assert "function enhanceSecondItemReading()" in home
-    assert "const reader = window.SecondItemReading;" in home
-    assert home.count("enhanceSecondItemReading();") >= 2
+    assert "function runReaderEnhancer(name)" in home
+    assert '"SecondItemReading"' in home
+    assert "runReaderEnhancer(name);" in home
 
     layer_apis = {
         "second-item-public-alias.js": "SecondItemPublicAlias",
