@@ -55,7 +55,6 @@
     STRUCTURAL_NON_DURABLE:"核心结构",
     DURABILITY_EVIDENCE_PENDING:"耐久性待核",
   };
-  let scheduled = false;
 
   function finite(value) {
     if (value == null || value === "") return null;
@@ -1033,16 +1032,5 @@
     if (person) patchScorePresentation(person);
   }
 
-  function schedule() {
-    if (scheduled) return;
-    scheduled = true;
-    requestAnimationFrame(() => {
-      scheduled = false;
-      patch();
-    });
-  }
-
-  new MutationObserver(schedule).observe(screenEl, {childList:true, subtree:true, characterData:true});
-  window.addEventListener("hashchange", schedule);
-  schedule();
+  globalThis.SecondItemPublicAlias = Object.freeze({patch});
 })();
