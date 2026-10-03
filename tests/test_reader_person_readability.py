@@ -428,20 +428,16 @@ def test_person_readability_heading_normalizer_accepts_public_detail_titles():
     assert '"历史影响依据"' in source
 
 
-def test_person_reader_first_item_public_terms_match_current_performance_vocabulary():
+def test_person_readability_does_not_own_net_detail_rendering():
     from pathlib import Path
-    source = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
-    assert "第一项结算分" in source
-    assert "原始净收益" not in source
-    assert "本项不计入统治绩效" in source
-    assert "firstOutcomeCalculationText(item.reader_how || \"\")" in source
-    assert "本人有效控制成果值为$1" in source
-    assert "项目整体成果" in source
-    assert "按正式归责分配个人成果" in source
-    assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
-    assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in source
-    assert "第一项净分 S1" not in source
-    assert "总榜附加分 F" not in source
+    person = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
+    home = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    first = (Path(__file__).resolve().parents[1] / "reader/first-item-reading.js").read_text(encoding="utf-8")
+    for legacy in ("renderFirstA", "renderFirstB1", "renderFirstB2", "renderFirstC", "firstItemTotals", "hydrateFirstItemGroup", "buildNetReading"):
+        assert legacy not in person
+    assert "第一项结算分" in home
+    assert "第一项结算分" in first
+    assert "原始净收益" not in person
 
 
 def test_profile_output_mode_is_evidence_thickness_not_a_grade_gate():
@@ -456,7 +452,7 @@ def test_profile_output_mode_is_evidence_thickness_not_a_grade_gate():
 
 def test_first_item_reader_distinguishes_shared_project_share_from_real_world_percentages():
     from pathlib import Path
-    source = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
+    source = (Path(__file__).resolve().parents[1] / "reader/first-item-reading.js").read_text(encoding="utf-8")
     assert "本人成果规模" in source
     assert "不是共同项目分成，也不是领土、人口或军队比例" in source
     assert "本项适用，但第一项结算分归零" in source
