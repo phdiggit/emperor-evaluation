@@ -2355,7 +2355,7 @@ assert.deepEqual(
   ['短边界仍应保留。']
 );
 assert.equal(
-  ctx.profileDistinctLimitations('同一完整限制句已经在主要表现中明确出现。','主要表现前文；同一完整限制句已经在主要表现中明确出现。',''),
+  ctx.profileDistinctLimitations('同一完整限制句已经在主要表现中明确出现，并且没有增加新的证据边界或反例。','主要表现前文；同一完整限制句已经在主要表现中明确出现，并且没有增加新的证据边界或反例。',''),
   ''
 );
 ''',encoding='utf-8')
