@@ -2517,6 +2517,21 @@ def test_history_total_public_explanation_stays_on_public_scale():
 
 
 
+
+def test_history_scale_note_is_not_repeated_on_person_or_standalone_impact_pages():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function historySections(")
+    end = template.index("const format=", start)
+    block = template[start:end]
+    assert "${compact?impactScaleNote():''}" in block
+    assert "${impactScaleNote()}<details class=\"impact-core-chains" not in block
+    impact_start = template.index("function impactPanel(")
+    impact_end = template.index("function m1FailureReview", impact_start)
+    impact = template[impact_start:impact_end]
+    assert "${impactScaleNote()}" in impact
+
+
 def test_paradigm_reception_windows_are_secondary_collapsed_evidence():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
