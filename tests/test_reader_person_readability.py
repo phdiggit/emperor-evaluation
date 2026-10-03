@@ -246,8 +246,11 @@ for(const [id,notes] of Object.entries(payload.records)){
 }
 // Counts are reported, not fixed against a historical editorial batch.
 console.log(JSON.stringify({current,needsReview}));
+const build=fs.readFileSync('reader/build.py','utf8');
+assert.ok(build.includes('"person-reading-notes.js"'));
+assert.ok(build.includes('runtime_script_blocks()'));
 const copy=JSON.parse(fs.readFileSync('reader/public-copy.json','utf8'));
-assert.ok(copy.some(row=>row.to.includes('src="person-reading-notes.js"')));
+assert.ok(!copy.some(row=>String(row.to||'').includes('person-reading-notes.js')));
 ''')
 
 
