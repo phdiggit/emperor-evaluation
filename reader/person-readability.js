@@ -89,7 +89,6 @@
   }
 
   screen.addEventListener("click", openHistoricalImpactTarget, true);
-  new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});
-  window.addEventListener("hashchange", enhance);
-  enhance();
+  globalThis.PersonReadability = Object.freeze({enhance});
+  window.ReaderSurfaceEnhancer?.schedule();
 })();
