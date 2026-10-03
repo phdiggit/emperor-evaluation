@@ -885,6 +885,10 @@ function profilePublicPattern(value){
   .replace(/原\s*[SABCDE](?:[+−-])?\s*对“判断正确”奖励过多，对执行闭环要求不足。?/g,"当前判断不过度奖励“判断正确”；执行闭环仍明显不足。")
   .replace(/本轮可定位/g,"当前可定位")
   .replace(/本轮/g,"当前")
+  .replace(/([SABCDE][+−-]?)\s*(?:\/|／)\s*\d+(?:\.\d+)?\b/g,"$1档")
+  .replace(/([SABCDE][+−-]?)（\d+(?:\.\d+)?）/g,"$1档")
+  .replace(/`/g,"")
+  .replace(/\*\*/g,"")
   .trim();
 }
 function profileComparableText(value){
