@@ -2311,7 +2311,7 @@ const end=source.indexOf('\nfunction profileSourceMarkup',start);
 assert.ok(start>=0&&end>start);
 const ctx={shortNames,materialIntensityNames,formalDirectionNames,readingTerms,letters,grade,readerText};
 vm.createContext(ctx);
-vm.runInContext(source.slice(start,end)+';this.profileDistinctGradeBasis=profileDistinctGradeBasis;this.profileDistinctPositionBasis=profileDistinctPositionBasis;',ctx);
+vm.runInContext(source.slice(start,end)+';this.profileDistinctGradeBasis=profileDistinctGradeBasis;this.profilePositionPublicPattern=profilePositionPublicPattern;this.profileDistinctPositionBasis=profileDistinctPositionBasis;',ctx);
 
 const same='方面军识别、接替和授权长期稳定，且对失败将领多能重配而非机械清洗；行政用人亦有正面基础。';
 assert.equal(ctx.profileDistinctGradeBasis('G4-MID：'+same,same),'');
@@ -2328,6 +2328,22 @@ assert.equal(ctx.profileDistinctPositionBasis('档内中位：'+same,same,'G4-MI
 assert.equal(
   ctx.profileDistinctPositionBasis('LOW：主要表现成立，但晚期反例使其只能落在本档下沿。',same,''),
   '低位：主要表现成立，但晚期反例使其只能落在本档下沿。'
+);
+assert.equal(
+  ctx.profilePositionPublicPattern('档内高位：规范池实际权力窗口为951-954，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。；限制：材料底池已覆盖；本人能力外推须按已连接的实际角色和独立任务判断。'),
+  '高位'
+);
+assert.equal(
+  ctx.profileDistinctPositionBasis('档内高位：规范池实际权力窗口为951-954，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。；限制：材料底池已覆盖。','',''),
+  ''
+);
+assert.equal(
+  ctx.profileDistinctPositionBasis('档内中位：规范池实际权力窗口为1722—1735年，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；准噶尔战争的大军重败与指挥层折损已经到达最高决策层，后续惩处将领并转向议和，但未在任内完成同方向军事恢复；属于可用机制仍存、重大授权判断明显失衡。；限制：亲临统帅不可观察。','',''),
+  '中位：准噶尔战争的大军重败与指挥层折损已经到达最高决策层，后续惩处将领并转向议和，但未在任内完成同方向军事恢复；属于可用机制仍存、重大授权判断明显失衡。'
+);
+assert.equal(
+  ctx.profileDistinctPositionBasis('档内中位：只计十年准备、用人配置和最终下令，不把六路前线解题归给皇帝。；本人无临阵角色，成功高度依赖羊祜、杜预、王濬等；战略设计偏强但不达到历史级全机制。；限制：可归责强军事表现集中于同一任务或生命周期。','',''),
+  '中位：只计十年准备、用人配置和最终下令，不把六路前线解题归给皇帝。；本人无临阵角色，成功高度依赖羊祜、杜预、王濬等；战略设计偏强但不达到历史级全机制。'
 );
 ''',encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
@@ -3109,6 +3125,9 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "定档依据（原文）" not in template
     assert "档内定位（原文）" not in template
     assert "const distinctPositionBasis=profileDistinctPositionBasis" in template
+    assert "function profilePositionPublicPattern(value)" in template
+    assert "规范池实际权力窗口为[^；]+" in template
+    assert "；?限制：[\\s\\S]*$" in template
     assert 'distinctPositionBasis?`<div class="label">档内定位</div>' in template
     assert "限制与证据边界（原文）" not in template
 

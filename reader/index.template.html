@@ -922,8 +922,19 @@ function profileDistinctGradeBasis(value,primary){
  if(b.length>=24&&(a===b||a.endsWith(b)))return "";
  return shown;
 }
+function profilePositionPublicPattern(value){
+ const cleaned=String(value??'')
+  .replace(/规范池实际权力窗口为[^；]+，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；?/g,"")
+  .replace(/只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。；?/g,"")
+  .replace(/；?限制：[\s\S]*$/g,"")
+  .replace(/；；+/g,"；")
+  .replace(/：；/g,"：")
+  .replace(/[；：]\s*$/g,"")
+  .trim();
+ return profilePublicPattern(cleaned);
+}
 function profileDistinctPositionBasis(value,primary,gradeBasis){
- const shown=profilePublicPattern(value);
+ const shown=profilePositionPublicPattern(value);
  const a=profileComparableText(shown);
  if(!a)return "";
  for(const candidate of [primary,gradeBasis]){
