@@ -3109,7 +3109,7 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "定档依据（原文）" not in template
     assert "档内定位（原文）" not in template
     assert "const distinctPositionBasis=profileDistinctPositionBasis" in template
-    assert "distinctPositionBasis?\`<div class=\\"label\\">档内定位</div>" in template
+    assert 'distinctPositionBasis?`<div class="label">档内定位</div>' in template
     assert "限制与证据边界（原文）" not in template
 
 
