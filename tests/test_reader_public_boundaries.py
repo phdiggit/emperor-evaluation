@@ -824,7 +824,7 @@ def test_profile_material_strength_is_public_first_and_raw_code_is_audit_only():
     assert "formal-context-raw" not in metadata_block
     assert "正式字段：" not in metadata_block
     assert ".formal-context-story" in css
-    assert 'const genericTitle=/^(?:主要)?父情境\\d+$|^代表情境\\d+$/' in template
+    assert 'const genericTitle=/^(?:(?:主要)?父情境\\d+|父链[A-ZＡ-Ｚ]|主要结构链\\d+|代表情境\\d+)$/' in template
     assert "rawTitle&&!genericTitle" in template
     assert ".formal-context-chip.context-intensity" in css
 
