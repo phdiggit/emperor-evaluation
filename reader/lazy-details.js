@@ -182,13 +182,7 @@
     return baseGuide();
   };
 
-  if (!document.querySelector('script[data-first-item-reading]')) {
-    const script = document.createElement("script");
-    script.src = "first-item-reading.js";
-    script.async = false;
-    script.dataset.firstItemReading = "true";
-    document.head.append(script);
-  }
+  // First-item detail rendering is owned by home-interactions.js; do not inject a second takeover renderer.
 
   // Second-item guidance is still a separate lazy-loaded view helper.
   if (!document.querySelector('script[data-second-item-reading]')) {
