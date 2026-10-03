@@ -123,7 +123,11 @@ def test_lazy_details_does_not_inject_takeover_renderers():
     assert "data-first-item-reading" not in source
     assert "second-item-reading.js" not in source
     assert "data-second-item-reading" not in source
-    assert "First- and second-item presentation code is frozen into the validated reader build" in source
+    assert "Presentation is owned by the validated renderers" in source
+    assert "first-item-public-v2" not in source
+    assert "simplifyFirstItemSourceLinks" not in source
+    assert "new MutationObserver(" not in source
+    assert 'window.addEventListener("hashchange"' not in source
 
 
 def test_second_item_renderer_is_build_frozen_and_main_renderer_coordinated():
