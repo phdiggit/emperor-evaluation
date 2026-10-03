@@ -1572,9 +1572,9 @@ def test_major_cards_explain_third_and_fourth_item_scales():
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "250分制净分" in source
     assert "再扣实际军事代价" in source
-    assert "三个分项合计范围为 -67.5～+67.5；正负值直接进入总榜" in source
-    assert "本项进入总榜的净分：" in source
-    assert "本项进入总榜的有符号调整：" in source
+    assert "三个分项合计范围为 -67.5～+67.5；正负值直接计入统治绩效总分" in source
+    assert "本项计入统治绩效总分的净分：" in source
+    assert "本项计入统治绩效总分的有符号调整：" in source
     assert "理论范围 -67.5～+67.5" not in source
 
 def test_person_page_builds_compact_net_summary_without_transient_full_detail_tree():
@@ -2441,7 +2441,7 @@ def test_active_first_item_renderer_uses_public_formula_vocabulary():
     assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
     assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in source
     assert "第一项结算分 = max(0" in source
-    assert "总榜附加 = 0.20 × 637 × (第一项结算分 / 240)^1.25" in source
+    assert "统治绩效附加 = 0.20 × 637 × (第一项结算分 / 240)^1.25" in source
 
 def test_first_item_shared_project_percentage_is_labeled_as_allocation_share():
     from pathlib import Path
