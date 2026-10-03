@@ -430,13 +430,13 @@ def test_person_readability_heading_normalizer_accepts_public_detail_titles():
 
 def test_person_readability_does_not_own_net_detail_rendering():
     from pathlib import Path
-    person = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
-    home = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
-    first = (Path(__file__).resolve().parents[1] / "reader/first-item-reading.js").read_text(encoding="utf-8")
+    root = Path(__file__).resolve().parents[1]
+    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
     for legacy in ("renderFirstA", "renderFirstB1", "renderFirstB2", "renderFirstC", "firstItemTotals", "hydrateFirstItemGroup", "buildNetReading"):
         assert legacy not in person
     assert "第一项结算分" in home
-    assert "第一项结算分" in first
+    assert not (root / "reader/first-item-reading.js").exists()
     assert "原始净收益" not in person
 
 
