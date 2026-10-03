@@ -86,6 +86,7 @@ function impactPublicText(t){
   .replace(/按去名测试剔除纯制度惯性后/g,'剔除仅由名号、法统或制度惯性造成的接收后')
   .replace(/去名测试/g,'剔除名号与制度惯性的复核')
   .replace(/([SABCDE][+−-]?)硬门/g,'$1档条件')
+  .replace(/硬门/g,'定档条件')
   .replace(/旧([SABCDE][+−-]?)/g,'此前$1档判断')
   .replace(/项目(M1|M2|M4|M5|C1|C2|C3|C4|C5)[\/／](M1|M2|M4|M5|C1|C2|C3|C4|C5)/g,(_,a,b)=>'人物画像“'+(shortNames[a]||a)+'”与“'+(shortNames[b]||b)+'”材料')
   .replace(/项目C1/g,'人物画像“战略判断”材料')
@@ -141,6 +142,8 @@ function impactPublicText(t){
   .replace(/强切分/g,'明确区分')
   .replace(/反查《帝鉴图说》/g,'核对《帝鉴图说》')
   .replace(/不因后世名望加档/g,'不因后世名望提高等级')
+  .replace(/不用名望补档/g,'不以名望提高等级')
+  .replace(/补档/g,'提高等级')
   .replace(/当前只已有充分证据/g,'当前只有充分证据')
   .replace(/EN2重大内部恶化/g,'重大内部恶化')
   .replace(/O3-M父链/g,'同一条国家级主链')
@@ -196,10 +199,10 @@ function impactDimensionPublicText(key,value){
  let text=impactPublicText(value);
  const labels={scope:"影响范围",depth_duration:"深度与持续",personal_causality:"个人因果",paradigm:"政治范式"};
  const label=labels[key]||"";
- if(label)text=text.replace(new RegExp(`^${label}为[SABCDE](?:[+−-])?[。；:]?\\s*`),"");
+ if(label)text=text.replace(new RegExp(`^${label}为[SABCDE](?:[+−-])?[。；:]?\\s*`),"").trimStart();
  if(key==="paradigm"){
-  text=text.replace(/^范式[SABCDE](?:[+−-])?[。；:]?\s*/,"");
-  text=text.replace(/^[SABCDE](?:[+−-])?[。；:]\s*/,"");
+  text=text.replace(/^范式[SABCDE](?:[+−-])?[。；:]?\s*/,"").trimStart();
+  text=text.replace(/^[SABCDE](?:[+−-])?[。；:]\s*/,"").trimStart();
  }
  return text.trim();
 }
