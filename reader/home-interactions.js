@@ -1553,20 +1553,31 @@ function firstCommanderMarkup(item) {
     return true;
   }
 
-  function enhanceSecondItemReading() {
-    const reader = window.SecondItemReading;
-    if (reader && typeof reader.enhance === "function") reader.enhance();
+  function runReaderEnhancer(name) {
+    const enhancer = window[name];
+    if (enhancer && typeof enhancer.enhance === "function") enhancer.enhance();
   }
 
-  new MutationObserver(() => {
+  let readerEnhancementQueued = false;
+  function enhanceReaderSurface() {
+    readerEnhancementQueued = false;
     enhanceHomeRows();
     enhancePersonNet();
-    enhanceSecondItemReading();
-  }).observe(screen, {childList: true, subtree: true});
-  enhanceHomeRows();
+    for (const name of ["SecondItemReading", "ReaderReadability", "PersonReadability", "PersonReadingNotes"]) {
+      runReaderEnhancer(name);
+    }
+  }
+
+  function scheduleReaderSurfaceEnhancement() {
+    if (readerEnhancementQueued) return;
+    readerEnhancementQueued = true;
+    requestAnimationFrame(enhanceReaderSurface);
+  }
+
+  window.ReaderSurfaceEnhancer = Object.freeze({schedule: scheduleReaderSurfaceEnhancement});
+  new MutationObserver(scheduleReaderSurfaceEnhancement).observe(screen, {childList: true, subtree: true});
   ensureNetStyles();
-  enhancePersonNet();
-  enhanceSecondItemReading();
+  enhanceReaderSurface();
 
   screen.addEventListener("click", event => {
     const quickOpen = event.target.closest("[data-home-open]");
