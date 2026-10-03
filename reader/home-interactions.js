@@ -1227,7 +1227,7 @@ function firstCommanderMarkup(item) {
     const start = "起点资源档表示入链时可调用的军政资源强弱，不是好坏评分；资源越弱，创业难度分越高：E档15、D档13、C档11、B档8、A档5、S档2、S+档0。";
     const opponent = "对手压力按最强两个独立战争机器计：E档1、D档2、C档4、B档6、A档8、S档10；最强全值，第二强取50%，合计最多15分。";
     const efficiency = "完成效率最多20分：期望完成年 = 4 + 8 × √(本阶段有效控制信用 / 1000)；速度比 = 实际阶段年数 / 期望完成年。速度比≤0.75、1.00、1.25、1.50、2.00、2.50、3.00、4.00时，依次得20、18、16、14、11、8、5、2分；超过4.00得0分。";
-    return `B1满分50 = 起点难度15 + 对手难度15 + 完成效率20。\n${start}\n${opponent}\n${efficiency}${current ? `\n当前人物：${current}` : ""}`;
+    return `“起点、强敌与速度”满分50 = 起点难度15 + 对手难度15 + 完成效率20。\n${start}\n${opponent}\n${efficiency}${current ? `\n当前人物：${current}` : ""}`;
   }
 
   function firstCommanderScoreText(item) {
@@ -1307,7 +1307,7 @@ function firstCommanderMarkup(item) {
     const integration = bullets["异质整合"] || "";
     const basis = bullets["裁决依据"] || "";
     const facts = `${parallel ? `<div class="label">多线任务怎样同时推进</div>${prose(firstFactText(parallel))}` : ""}${coverage ? `<div class="label">团队怎样分工</div>${prose(firstFactText(coverage))}` : ""}${integration ? `<div class="label">旧部、降附者与异质集团怎样整合</div>${prose(firstFactText(integration))}` : ""}${basis ? `<div class="label">本人组织表现与限制</div>${prose(firstFactText(basis))}` : ""}${bullets["材料来源"] ? `<details><summary>史料与归责来源</summary><p class="sources">${firstEvidenceMarkup(bullets["材料来源"], "B2组织与整合")}</p></details>` : ""}`;
-    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose("B2看创业或统一机器能否多线并行、把高难任务交给专业责任中心，并把不同地域和旧集团稳定接入同一执行体系。三个维度均分为 E、D、C、B、A、S 六档，依次对应0、2、4、6、8、10分，三项相加。")}${result ? prose(`当前人物正式结算：${firstFactText(result)}`) : ""}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose("“创业组织与政治整合”看创业或统一机器能否多线并行、把高难任务交给专业责任中心，并把不同地域和旧集团稳定接入同一执行体系。三个维度均分为 E、D、C、B、A、S 六档，依次对应0、2、4、6、8、10分，三项相加。")}${result ? prose(`当前人物正式结算：${firstFactText(result)}`) : ""}</details>`;
     return firstMetricDetail("net-first-b2", "创业组织与政治整合", "多线并行、专业分工与异质整合", item, `${facts}${rules}`, record);
   }
 
@@ -1316,7 +1316,7 @@ function firstCommanderMarkup(item) {
     const grade = firstItemPublicText(item.grade || "");
     const how = firstItemPublicText(item.reader_how || "");
     const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}\\n当前能力裁决：${grade || "按正式能力档裁决"}。\\n正式记录：${how || "按正式能力档与责任路线换算。"}`)}</details>`;
-    const crossSystem = `<p class="subline first-item-cross-system-note">这里使用第一项自己的军事指挥归责口径；人物画像 M1 是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算。</p>`;
+    const crossSystem = `<p class="subline first-item-cross-system-note">这里使用第一项自己的军事指挥归责口径；人物画像“军事统帅”是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算。</p>`;
     return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${crossSystem}${rules}`, record);
   }
 
@@ -1413,7 +1413,7 @@ function firstCommanderMarkup(item) {
     const zeroNote = record.net?.first_item_status === "APPLICABLE" && finiteNetNumber(record.net?.first_item_raw_score) === 0
       ? '<p class="notice"><strong>本项适用，但第一项结算分归零。</strong>这与“不适用”不同：本项已经进入结算，成果与能力分在扣除本人责任窗口内军事代价后归零，因此统治绩效附加为0。</p>'
       : "";
-    const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl>${ownA.public_project ? `<dt>共同项目</dt><dd>${esc(firstPublicOutcomeText(ownA.public_project))}</dd>` : ""}${firstPublicOutcomeParts(ownA).map(([label, value]) => `<dt>${esc(label)}</dt><dd>${esc(firstPublicOutcomeText(value))}</dd>`).join("")}${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources">${link('docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md','查看完整规则合同 ↗',record)}</p></details>`;
+    const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl>${ownA.public_project ? `<dt>共同项目</dt><dd>${esc(firstPublicOutcomeText(ownA.public_project))}</dd>` : ""}${firstPublicOutcomeParts(ownA).map(([label, value]) => `<dt>${esc(label)}</dt><dd>${esc(firstPublicOutcomeText(value))}</dd>`).join("")}${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources">${link('docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md','查看完整规则 ↗',record)}</p></details>`;
 
     container.innerHTML = `<section class="panel net-detail-group">${firstItemOverview(record, bulletsByLabel, byLabel)}${zeroNote}${scope}${cards.join("")}${firstTotals(items)}</section>`;
     if (focus) requestAnimationFrame(() => document.getElementById(`net-first-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));
