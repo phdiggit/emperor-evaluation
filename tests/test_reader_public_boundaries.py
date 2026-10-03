@@ -64,7 +64,7 @@ for(const path of fs.readdirSync('reader/data/people')) {
  const record=JSON.parse(fs.readFileSync('reader/data/people/'+path,'utf8')).record;
  for(const items of Object.values(record.net?.component_details||{})) {
   for(const item of items)for(const key of ['reader_summary','reader_boundary']) {
-   if(item[key])assert.equal(publicText(item[key]),String(item[key]).replace(/\\s+/g,' ').trim());
+   if(item[key])assert.equal(publicText(item[key]),String(item[key]).replace(/\s+/g,' ').trim());
   }
  }
 }
