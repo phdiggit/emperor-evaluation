@@ -1567,7 +1567,8 @@ def test_first_item_b1_explains_start_opponent_and_efficiency_subscores():
     from pathlib import Path
     home = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "function firstB1ScoreText(item)" in home
-    assert "“起点、强敌与速度”满分50 = 起点难度15 + 对手难度15 + 完成效率20" in home\n    assert "B1满分50" not in home
+    assert "“起点、强敌与速度”满分50 = 起点难度15 + 对手难度15 + 完成效率20" in home
+    assert "B1满分50" not in home
     assert "资源越弱，创业难度分越高" in home
     assert "E档15、D档13、C档11、B档8、A档5、S档2、S+档0" in home
     assert "最强全值，第二强取50%" in home
