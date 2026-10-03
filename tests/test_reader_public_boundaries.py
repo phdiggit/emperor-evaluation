@@ -2519,25 +2519,50 @@ def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
     block = template[start:end]
     assert "const lead=prudent?" in block
     assert "审慎位置" in block
-    assert "正式点位 第" in block
+    assert "规则点位 第" in block
     assert "<strong>正式第" not in block
 
     assert 'class="home-net-rank"><strong>' in template
-    assert 'class="home-formal-rank">正式点位 第' in template
+    assert 'class="home-formal-rank">规则点位 第' in template
     assert 'class="home-full-position"' in template
-    assert "审慎位置、正式点位与治理背景" in template
+    assert "审慎位置、规则点位与治理背景" in template
     assert "页面优先展示这一范围" in template
 
     compare_start = template.index("function compare(){")
     compare_end = template.index("function guide()", compare_start)
     compare = template[compare_start:compare_end]
     assert "row('审慎位置投影'" in compare
-    assert "row('正式点位（当前规则点估计）'" in compare
+    assert "row('规则点位（当前规则点估计）'" in compare
     assert "row('正式绩效'" not in compare
 
     assert ".net-position-summary>.net-formal-position{color:var(--muted)}" in css
     assert ".home-formal-rank,.home-full-position" in css
 
+
+
+def test_top_level_performance_scores_use_reader_precision_but_audit_precision_is_preserved():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+
+    assert "const number=v=>typeof v==='number'?v.toFixed(2):'—';" in template
+    assert "const scoreNumber=v=>typeof v==='number'?v.toFixed(1):'—';" in template
+
+    assert '<b class="home-simple-score">${scoreNumber(r.net.total_score)}</b>' in template
+    assert '<span class="number">${scoreNumber(r.net.total_score)}</span>' in template
+    assert '<div class="big">${scoreNumber(n.total_score)}</div>' in template
+    assert '<span>治国成效</span><b>${scoreNumber(n.second_item_score)}</b>' in template
+    assert '<span>军事与边疆</span><b>${scoreNumber(n.third_item_score)}</b>' in template
+
+    compare_start = template.index("function compare(){")
+    compare_end = template.index("function guide()", compare_start)
+    compare = template[compare_start:compare_end]
+    assert "row('统治绩效',r=>r.net?`<b>${scoreNumber(r.net.total_score)}</b>`" in compare
+    assert "row('治国成效',r=>scoreNumber(r.net?.second_item_score))" in compare
+    assert "row('军事与边疆',r=>scoreNumber(r.net?.third_item_score))" in compare
+
+    assert "number(prudent.lower)" in template
+    assert "number(prudent.upper)" in template
+    assert "number(x.delta)" in template
 
 def test_profile_metadata_uses_reader_friendly_source_labels():
     from pathlib import Path
