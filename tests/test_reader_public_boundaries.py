@@ -1950,6 +1950,14 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "机械(?=计数|叠加|相加|换档|提高|降低|下降|映射|等价|当作)" in source
     assert "([SABCDE][+−-]?)门" in source
     assert "prose(impactPublicText(r.actual_use||'未另列说明'))" in source
+    assert ".replace(/项目正式结算显示/g,'正式结算材料显示')" in source
+    assert ".replace(/项目重审/g,'复核材料')" in source
+    assert ".replace(/重审/g,'复核')" in source
+    assert ".replace(/现有硬证据/g,'现有明确证据')" in source
+    assert ".replace(/硬证/g,'明确证据')" in source
+    assert ".replace(/本轮/g,'当前材料')" in source
+    assert "判断把握为中等，并保留明确边界" in source
+    assert ".replace(/尚尚未/g,'尚未')" in source
 
 
 
@@ -1995,7 +2003,13 @@ const forbidden=[
   /(?<![A-Za-z0-9_.-])(?:M[1245]|C[1-5])(?![A-Za-z0-9_.-])/,
   /\bO[0-3](?:-[A-Z])?\b/,
   /\bEN\d\b/,
-  /\bN\d\b/
+  /\bN\d\b/,
+  /硬证/,
+  /重审/,
+  /项目正式结算/,
+  /本轮/,
+  /按中置信有界发布/,
+  /尚尚未/
 ];
 
 const violations=[];
