@@ -1552,13 +1552,20 @@ function firstCommanderMarkup(item) {
     return true;
   }
 
+  function enhanceSecondItemReading() {
+    const reader = window.SecondItemReading;
+    if (reader && typeof reader.enhance === "function") reader.enhance();
+  }
+
   new MutationObserver(() => {
     enhanceHomeRows();
     enhancePersonNet();
+    enhanceSecondItemReading();
   }).observe(screen, {childList: true, subtree: true});
   enhanceHomeRows();
   ensureNetStyles();
   enhancePersonNet();
+  enhanceSecondItemReading();
 
   screen.addEventListener("click", event => {
     const quickOpen = event.target.closest("[data-home-open]");
