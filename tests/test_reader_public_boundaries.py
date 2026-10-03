@@ -1822,7 +1822,7 @@ def test_historical_impact_public_formatter_cleans_current_people_pool(tmp_path)
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('reader/index.template.html','utf8');
 const start=source.indexOf('function impactPublicText(t)');
-const end=source.indexOf('\nfunction impactTotalPublicText',start);
+const end=source.indexOf('\nfunction paradigmReceptionProse',start);
 assert.ok(start>=0&&end>start,'impactPublicText fragment not found');
 
 const letters={G5:'S',G4:'A',G3:'B',G2:'C',G1:'D',G0:'E'};
@@ -1831,11 +1831,12 @@ const readingTerms={PS0:'仅有结果或资源背景',PS1:'局部正确选择',P
 const grade=a=>letters[a.axis_grade]+({LOW:'−',MID:'',HIGH:'+'}[a.position]||'');
 const ctx={letters,shortNames,readingTerms,grade};
 vm.createContext(ctx);
-vm.runInContext(source.slice(start,end)+';this.impactPublicText=impactPublicText;',ctx);
+vm.runInContext(source.slice(start,end)+';this.impactPublicText=impactPublicText;this.impactDimensionPublicText=impactDimensionPublicText;',ctx);
 
 const forbidden=[
   /V\d+(?:\.\d+)+/i,
   /硬门/,
+  /(?:补档|加档)/,
   /去名测试/,
   /底账/,
   /(?:回填|倒灌)/,
@@ -1881,7 +1882,9 @@ for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.end
   })) assertClean(value,root+':'+key);
 
   for(const [key,dimension] of Object.entries(h.dimensions||{})){
-    assertClean(dimension?.public_basis,root+':dimension.'+key+'.public_basis');
+    const shown=ctx.impactDimensionPublicText(key,dimension?.public_basis||'');
+    assertClean(shown,root+':dimension.'+key+'.public_basis',{transform:false});
+    if(key==='paradigm')assert.doesNotMatch(shown,/^范式[SABCDE](?:[+−-])?[。；:]?/,root+': duplicated paradigm grade => '+shown);
     assertClean(dimension?.boundary_note,root+':dimension.'+key+'.boundary_note');
   }
   for(const [index,chain] of (h.macro_chains||[]).entries()){
