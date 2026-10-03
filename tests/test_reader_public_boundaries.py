@@ -1890,6 +1890,18 @@ def test_fourth_item_reader_distinguishes_zero_sources_and_rejects_progress_rank
     assert "归入相关制度与社会治理材料" in source
 
 
+def test_active_first_item_renderer_uses_public_formula_vocabulary():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/first-item-reading.js").read_text(encoding="utf-8")
+    for forbidden in ("内部指标：A", "内部指标：B1", "内部指标：B2", "内部四项：A + B1 + B2 + C", "第一项净分 S1", "总榜附加分 F", "成果占比", "正向净收益"):
+        assert forbidden not in source
+    assert "本人成果规模" in source
+    assert "不是共同项目分成，也不是领土、人口或军队比例" in source
+    assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
+    assert "四项毛分 = 统一成果 + 创业难度与效率 + 组织整合 + 本人统帅" in source
+    assert "第一项结算分 = max(0" in source
+    assert "总榜附加 = 0.20 × 637 × (第一项结算分 / 240)^1.25" in source
+
 def test_first_item_shared_project_percentage_is_labeled_as_allocation_share():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
