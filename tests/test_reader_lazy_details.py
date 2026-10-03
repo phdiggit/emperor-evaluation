@@ -115,10 +115,29 @@ def test_local_reader_server_serves_military_indexes_as_json(relative):
         server.server_close()
         thread.join()
 
-def test_lazy_details_does_not_inject_second_first_item_renderer():
+def test_lazy_details_does_not_inject_takeover_renderers():
     from pathlib import Path
-    source = (Path(__file__).resolve().parents[1] / "reader/lazy-details.js").read_text(encoding="utf-8")
+    root = Path(__file__).resolve().parents[1]
+    source = (root / "reader/lazy-details.js").read_text(encoding="utf-8")
     assert "first-item-reading.js" not in source
     assert "data-first-item-reading" not in source
-    assert "First-item detail rendering is owned by home-interactions.js" in source
-    assert "second-item-reading.js" in source
+    assert "second-item-reading.js" not in source
+    assert "data-second-item-reading" not in source
+    assert "First- and second-item presentation code is frozen into the validated reader build" in source
+
+
+def test_second_item_renderer_is_build_frozen_and_main_renderer_coordinated():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    build = (root / "reader/build.py").read_text(encoding="utf-8")
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    second = (root / "reader/second-item-reading.js").read_text(encoding="utf-8")
+
+    assert 'second_item_reading_js = (ROOT / "reader/second-item-reading.js").read_text' in build
+    assert "{second_item_reading_js}" in build
+    assert "window.SecondItemReading = Object.freeze({enhance});" in second
+    assert "new MutationObserver(schedule)" not in second
+    assert 'window.addEventListener("hashchange",schedule)' not in second
+    assert "function enhanceSecondItemReading()" in home
+    assert "const reader = window.SecondItemReading;" in home
+    assert home.count("enhanceSecondItemReading();") >= 2
