@@ -114,3 +114,11 @@ def test_local_reader_server_serves_military_indexes_as_json(relative):
         server.shutdown()
         server.server_close()
         thread.join()
+
+def test_lazy_details_does_not_inject_second_first_item_renderer():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/lazy-details.js").read_text(encoding="utf-8")
+    assert "first-item-reading.js" not in source
+    assert "data-first-item-reading" not in source
+    assert "First-item detail rendering is owned by home-interactions.js" in source
+    assert "second-item-reading.js" in source
