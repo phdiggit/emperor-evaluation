@@ -154,12 +154,10 @@ def test_second_item_renderer_is_build_frozen_and_main_renderer_coordinated():
         assert "new MutationObserver(" not in source
         assert 'window.addEventListener("hashchange"' not in source
 
-    order = [
-        '"SecondItemPublicAlias"',
-        '"SecondItemAPublic"',
-        '"SecondItemB1Public"',
-        '"SecondItemPublicLabels"',
-    ]
-    positions = [second.index(token) for token in order]
-    assert positions == sorted(positions)
-    assert "enhancePublicLayers();" in second
+    alias_pos = second.index('patchPublicLayer("SecondItemPublicAlias");')
+    structural_pos = second.index("const netRecord=recordForNetRoute()")
+    a_pos = second.index('patchPublicLayer("SecondItemAPublic");')
+    b1_pos = second.index('patchPublicLayer("SecondItemB1Public");')
+    labels_pos = second.index('patchPublicLayer("SecondItemPublicLabels");')
+    assert alias_pos < structural_pos < a_pos < b1_pos < labels_pos
+    assert "function patchPublicLayer(name)" in second
