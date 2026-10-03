@@ -359,6 +359,7 @@ def test_generated_reader_runtime_is_self_contained_after_build():
     index = (root / "reader/index.html").read_text(encoding="utf-8")
     military = (root / "reader/military.html").read_text(encoding="utf-8")
     for filename in (
+        "second-item-reading.js",
         "second-item-public-alias.js",
         "second-item-a-public.js",
         "second-item-b1-public.js",
@@ -1478,7 +1479,7 @@ def test_second_item_calculation_rows_use_public_labels_and_readable_summary():
 
 
 
-def test_legacy_second_item_renderer_uses_same_public_grade_language():
+def test_second_item_renderer_uses_same_public_grade_language():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/second-item-reading.js").read_text(encoding="utf-8")
     assert 'const METHOD_BAND_LABELS = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};' in source
