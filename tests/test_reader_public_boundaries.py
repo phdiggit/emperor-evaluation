@@ -1572,6 +1572,8 @@ def test_major_cards_explain_third_and_fourth_item_scales():
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "250分制净分" in source
     assert "再扣实际军事代价" in source
+    assert "分项小数来自统一计分公式，不表示历史判断本身具有同等测量精度" in source
+    assert "阅读时先看公开档位与事实依据" in source
     assert "三个分项合计范围为 -67.5～+67.5；正负值直接计入统治绩效总分" in source
     assert "本项计入统治绩效总分的净分：" in source
     assert "本项计入统治绩效总分的有符号调整：" in source
