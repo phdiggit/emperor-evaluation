@@ -2344,6 +2344,12 @@ assert.equal(ctx.compactNetPublicLabel({label:'B1创业难度与效率'},'first'
 assert.equal(ctx.compactNetPublicLabel({label:'B2组织与整合'},'first'),'创业组织与政治整合');
 assert.equal(ctx.compactNetPublicLabel({label:'C军事统帅与战争解题'},'first'),'本人统帅');
 assert.equal(ctx.compactNetPublicLabel({label:'军事成本扣分'},'first'),'军事代价');
+assert.equal(ctx.compactNetPublicLabel({label:'A制度建设'},'method'),'制度建设与实际运行');
+assert.equal(ctx.compactNetPublicLabel({label:'B1官僚治理'},'method'),'官僚治理与行政执行');
+assert.equal(ctx.compactNetPublicLabel({label:'C1民生'},'finance'),'民生状况');
+assert.equal(ctx.compactNetPublicLabel({label:'C4恢复与成本'},'finance'),'恢复能力与额外代价');
+assert.equal(ctx.compactNetPublicLabel({label:'D1继任行政连续性'},'handoff'),'继任后的行政连续性');
+assert.equal(ctx.compactNetPublicLabel({label:'D3政权交接稳定'},'handoff'),'政权交接稳定性');
 assert.equal(ctx.compactNetPublicValue({label:'军事成本扣分',value:27,unit:'分'},'first'),'扣 27 分');
 assert.equal(
   ctx.compactNetPublicValue({value:0,unit:'分',public_level_label:'正负相抵 · 净调整为0'},'civilization'),
@@ -2366,6 +2372,9 @@ assert.equal(
     assert "thirdItemPublicText(item, item?.public_level_label || \"\")" in compact
     assert "civilizationPublicStatus(item, item?.public_level_label || \"\")" in compact
     assert "compactNetPublicLabel(item, key)" in compact
+    assert "publicNetComponentLabel(item)" in source
+    assert "const displayLabel = publicNetComponentLabel(item);" in source
+    assert "esc(publicNetComponentLabel(item))" in source
     assert "compactNetPublicValue(item, key)" in compact
 
 

@@ -439,10 +439,24 @@ function firstCommanderMarkup(item) {
     "C军事统帅与战争解题": "本人统帅",
     "军事成本扣分": "军事代价",
   };
+  const NET_PUBLIC_LABELS = {
+    ...FIRST_COMPACT_LABELS,
+    "A制度建设": "制度建设与实际运行",
+    "B1官僚治理": "官僚治理与行政执行",
+    "B2反馈与约束": "反馈纠错与权力约束",
+    "C1民生": "民生状况",
+    "C2经济财政": "经济与财政",
+    "C3社会安全": "社会安全",
+    "C4恢复与成本": "恢复能力与额外代价",
+    "D1继任行政连续性": "继任后的行政连续性",
+    "D3政权交接稳定": "政权交接稳定性",
+  };
+  function publicNetComponentLabel(item) {
+    return item?.public_component_label || NET_PUBLIC_LABELS[item?.label] || item?.label || "";
+  }
 
   function compactNetPublicLabel(item, key) {
-    if (key === "first") return FIRST_COMPACT_LABELS[item?.label] || item?.public_component_label || item?.label || "";
-    return item?.public_component_label || item?.label || "";
+    return publicNetComponentLabel(item);
   }
 
   function compactNetPublicValue(item, key) {
@@ -1033,7 +1047,7 @@ function firstCommanderMarkup(item) {
   }
 
   function metricDetail(item, record, groupKey = "") {
-    const displayLabel = item.public_component_label || item.label;
+    const displayLabel = publicNetComponentLabel(item);
     const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
     const thirdItem = groupKey === "strategic" || groupKey === "military";
     const fourthItem = groupKey === "civilization";
@@ -1099,7 +1113,7 @@ function firstCommanderMarkup(item) {
     const thirdItem = groupKey === "strategic" || groupKey === "military";
     return `<details class="net-calculations"><summary>本组小计怎么形成？</summary>${calculations.map(item => {
       const how = thirdItem ? thirdPublicText(item.reader_how || "按正式公式换算。", item.label) : cleanNetText(item.reader_how || "按正式公式换算。");
-      return `<div class="component"><span><strong>${esc(item.public_component_label || item.label)}</strong><small>${esc(how)}</small></span><b>${esc(netValue(item, groupKey))}</b></div>`;
+      return `<div class="component"><span><strong>${esc(publicNetComponentLabel(item))}</strong><small>${esc(how)}</small></span><b>${esc(netValue(item, groupKey))}</b></div>`;
     }).join("")}</details>`;
   }
 
