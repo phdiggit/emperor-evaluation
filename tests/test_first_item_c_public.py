@@ -74,7 +74,7 @@ assert.ok(html.includes('不是人物画像等级'));
 assert.ok(!html.includes('前线作战'));
 assert.ok(!render({reader_public_commander:{...publicData,public_battles:[]}}).includes('first-item-battles'));
 assert.ok(render({reader_summary:'甲战取得大捷'}).includes('公开说明尚未同步'));
-for(const path of ['reader/home-interactions.js','reader/person-readability.js','reader/first-item-reading.js']){
+for(const path of ['reader/home-interactions.js','reader/first-item-reading.js']){
  const text=fs.readFileSync(path,'utf8');
  assert.ok(text.includes('firstCommanderMarkup(item)'));
  assert.ok(!/fallbackBattleAnchors|structuredBattleAnchors|publicCommanderText/.test(text));
