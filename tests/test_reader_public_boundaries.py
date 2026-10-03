@@ -2311,7 +2311,7 @@ const end=source.indexOf('\nfunction profileSourceMarkup',start);
 assert.ok(start>=0&&end>start);
 const ctx={shortNames,materialIntensityNames,formalDirectionNames,readingTerms,letters,grade,readerText};
 vm.createContext(ctx);
-vm.runInContext(source.slice(start,end)+';this.profileDistinctGradeBasis=profileDistinctGradeBasis;',ctx);
+vm.runInContext(source.slice(start,end)+';this.profileDistinctGradeBasis=profileDistinctGradeBasis;this.profileDistinctPositionBasis=profileDistinctPositionBasis;',ctx);
 
 const same='方面军识别、接替和授权长期稳定，且对失败将领多能重配而非机械清洗；行政用人亦有正面基础。';
 assert.equal(ctx.profileDistinctGradeBasis('G4-MID：'+same,same),'');
@@ -2322,6 +2322,12 @@ assert.equal(
 assert.equal(
   ctx.profileDistinctGradeBasis('G4-LOW：主要表现成立，但另有晚期反例，因此只取下沿。',same),
   'A−：主要表现成立，但另有晚期反例，因此只取下沿。'
+);
+assert.equal(ctx.profileDistinctPositionBasis('MID：'+same,same,'G4-MID：'+same),'');
+assert.equal(ctx.profileDistinctPositionBasis('档内中位：'+same,same,'G4-MID：'+same),'');
+assert.equal(
+  ctx.profileDistinctPositionBasis('LOW：主要表现成立，但晚期反例使其只能落在本档下沿。',same,''),
+  '低位：主要表现成立，但晚期反例使其只能落在本档下沿。'
 );
 ''',encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
@@ -3102,6 +3108,8 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "esc(profilePublicPattern(point.title))" in template
     assert "定档依据（原文）" not in template
     assert "档内定位（原文）" not in template
+    assert "const distinctPositionBasis=profileDistinctPositionBasis" in template
+    assert "distinctPositionBasis?\`<div class=\\"label\\">档内定位</div>" in template
     assert "限制与证据边界（原文）" not in template
 
 
