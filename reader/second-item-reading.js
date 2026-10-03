@@ -107,7 +107,7 @@
 
   function ensureMethodGroup(t){
     const section=document.getElementById("net-group-method");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"制度与行政");
-    addGroupIntro(section,"method",`这一组看国家机器如何建立规则、配置官僚并形成反馈约束。三项使用不同原始量表，统一折算后本组最高165分；当前得分为 ${fmt(t.methodScore)} / 165。具体折算方法放在各项展开内容中。`);
+    addGroupIntro(section,"method","这一组看国家机器如何建立规则、配置官僚并形成反馈约束。三项使用不同原始量表，统一折算后本组最高165分；具体折算方法放在各项展开内容中。");
     for(const label of ["A制度建设","B1官僚治理","B2反馈与约束"]){const item=t.method.get(label),detail=metricDetail(section,[label,METHOD_PUBLIC[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;setMetricDisplay(detail,`${methodBand(item)}档`,joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}（用于本组折算，不单列得分）`,boundaryExcerpt(item)),METHOD_PUBLIC[label]);}
   }
   function ensureC4Note(detail,value){
@@ -119,7 +119,7 @@
   }
   function ensureFinanceGroup(t){
     const section=document.getElementById("net-group-finance");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"民生与社会");
-    addGroupIntro(section,"finance",`这一组看统治时期的民生、经济财政、社会安全，以及恢复与额外成本。前三项满分分别为80、35、60，C4另记恢复增量、本人可归责恶化与额外民力/治理成本的净调整；四项合计为 ${fmt(t.resultScore)} / 202。`);
+    addGroupIntro(section,"finance","这一组看统治时期的民生、经济财政、社会安全，以及恢复与额外成本。前三项满分分别为80、35、60，C4另记恢复增量、本人可归责恶化与额外民力/治理成本的净调整；本组小计在下方展开说明。");
     for(const label of ["C1民生","C2经济财政","C3社会安全"]){const item=t.finance.get(label),detail=metricDetail(section,[label,FINANCE_PUBLIC[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;setMetricDisplay(detail,`${fmt(item.value)} / ${FINANCE_MAX[label]} 分`,joinNote(`状态分·满分${FINANCE_MAX[label]}`,stateMeta(item),boundaryExcerpt(item)),FINANCE_PUBLIC[label]);}
     const item=t.finance.get("C4恢复与成本"),detail=metricDetail(section,["C4恢复与成本","恢复与额外成本（C4）","C4恢复、恶化与额外成本调整"]);markSourceLabel(detail,"C4恢复与成本");
     if(item&&detail){setMetricDisplay(detail,`${signedFmt(item.value)} 分`,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)),"恢复与额外成本");ensureC4Note(detail,item.value);}
@@ -128,7 +128,7 @@
     const section=document.getElementById("net-group-handoff");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"政权交接");
     const d1i=t.handoff.get("D1继任行政连续性"),d3i=t.handoff.get("D3政权交接稳定"),d1=finite(d1i?.value),d3=finite(d3i?.value),cap=finite(t.handoff.get("低侧封顶")?.value),score=t.handoffScore;
     let exp="统治如何收尾，会直接决定国家机器和继承秩序能否平稳延续，因此交接结果计入治国成效。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否稳定。";
-    if([d1,d3,cap,score].every(v=>v!=null))exp=`统治如何收尾，会直接决定国家机器和继承秩序能否平稳延续，因此交接结果计入治国成效。行政连续性为 ${handoffGrade(d1)}档，交接稳定为 ${handoffGrade(d3)}档；较弱一侧把本项最高分限制在 ${fmt(cap)}，最终得分 ${fmt(score)} / 20。`;
+    if([d1,d3,cap,score].every(v=>v!=null))exp=`统治如何收尾，会直接决定国家机器和继承秩序能否平稳延续，因此交接结果计入治国成效。行政连续性为 ${handoffGrade(d1)}档，交接稳定为 ${handoffGrade(d3)}档；较弱一侧把本项最高可得分限制在 ${fmt(cap)}，最终分值见本组小计。`;
     addGroupIntro(section,"handoff",exp);
     const d1d=metricDetail(section,["D1继任行政连续性","行政连续性（D1）","行政连续性"]),d3d=metricDetail(section,["D3政权交接稳定","交接稳定（D3）","交接稳定"]);markSourceLabel(d1d,"D1继任行政连续性");markSourceLabel(d3d,"D3政权交接稳定");
     setMetricDisplay(d1d,d1==null?"—":`${handoffGrade(d1)}档`,joinNote("行政承接",boundaryExcerpt(d1i)),"行政连续性");
