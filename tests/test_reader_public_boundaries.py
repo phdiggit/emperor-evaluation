@@ -2607,6 +2607,12 @@ def test_top_level_performance_scores_use_reader_precision_but_audit_precision_i
     assert "number(prudent.upper)" in template
     assert "number(x.delta)" in template
 
+    home = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "统治绩效总分 ${scoreNumber(record.net?.total_score)}" in home
+    assert "当前显示正式附加分 ${scoreNumber(record.net?.first_item_add_on)}" in home
+    assert "第一项结算分：${scoreNumber(rawFirstScore)}" in home
+    assert 'major === "fourth" && Number(value) > 0 ? `+${scoreNumber(value)}` : scoreNumber(value)' in home
+
 def test_profile_metadata_uses_reader_friendly_source_labels():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
