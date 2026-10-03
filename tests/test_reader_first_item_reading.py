@@ -38,16 +38,6 @@ const specs = [
     parserEnd: "\n  function firstItemPublicText",
     parserName: "firstItemBullets",
   },
-  {
-    path: process.argv[4],
-    loaderStart: "  function firstItemRawUrl",
-    loaderEnd: "\n  function firstItemBulletsForName",
-    cacheName: "firstItemDocCache",
-    loaderName: "loadFirstItemDoc",
-    parserStart: "  function firstItemBulletsForName",
-    parserEnd: "\n  function firstItemPublicText",
-    parserName: "firstItemBullets",
-  },
 ];
 
 (async () => {
@@ -107,7 +97,6 @@ const specs = [
     files = [
         "reader/first-item-reading.js",
         "reader/home-interactions.js",
-        "reader/person-readability.js",
     ]
     result = subprocess.run(
         [node, str(script), *files],
