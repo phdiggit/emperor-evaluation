@@ -2673,6 +2673,14 @@ def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
     assert "审慎位置" in block
     assert "规则点位 第" in block
     assert "<strong>正式第" not in block
+    assert "正式第 ${" not in template
+    assert "已闭合情景分数范围" not in template
+    assert "已验证情景分数范围" in template
+    assert "三体系总规则 ↗" in template
+    assert "历史影响规则 ↗" in template
+    assert "人物画像规则 ↗" in template
+    assert "统治绩效规则 ↗" in template
+    assert "入口配置 ↗" not in template
 
     assert 'class="home-net-rank"><strong>' in template
     assert 'class="home-formal-rank">规则点位 第' in template
