@@ -65,11 +65,10 @@ assert.ok(b1({reader_public_b1:{public_efficiency_basis:stages}}).includes(stage
 const basis='完整依据。'.repeat(100)+'末尾责任限制不得删除。';
 const html=cost({reader_public_cost:{public_basis:basis, public_responsibility_window:'只含本人时期。',public_unresolved_gaps:['上限尚不明确。'],public_source_links:[{label:'补充史料',url:'https://example.org/source'}]}});
 for(const text of [basis,'只含本人时期。','上限尚不明确。','https://example.org/source']) assert.ok(html.includes(text));
-for(const path of ['reader/home-interactions.js','reader/first-item-reading.js']) {
- const text=fs.readFileSync(path,'utf8');
- assert.ok(text.includes('firstB1Markup(item)'));
- assert.ok(text.includes('firstCostMarkup('));
-}
+const active=fs.readFileSync('reader/home-interactions.js','utf8');
+assert.ok(active.includes('firstB1Markup(item)'));
+assert.ok(active.includes('firstCostMarkup('));
+assert.ok(!fs.existsSync('reader/first-item-reading.js'));
 const retired=fs.readFileSync('reader/person-readability.js','utf8');
 assert.ok(!retired.includes('firstB1Markup(item)'));
 assert.ok(!retired.includes('firstCostMarkup('));
