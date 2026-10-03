@@ -929,6 +929,7 @@ function profilePositionPublicPattern(value){
   .replace(/；?限制：[\s\S]*$/g,"")
   .replace(/；；+/g,"；")
   .replace(/：；/g,"：")
+  .replace(/^档内(高位|中位|低位)([：:]?)/,"$1$2")
   .replace(/[；：]\s*$/g,"")
   .trim();
  return profilePublicPattern(cleaned);
