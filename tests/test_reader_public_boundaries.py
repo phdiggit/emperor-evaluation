@@ -2285,6 +2285,58 @@ def test_third_item_percentages_are_labeled_as_composite_adoption_rates():
     assert "参与合成，不单列分值" in template
 
 
+
+def test_person_compact_net_summary_prefers_public_third_and_fourth_item_status(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for reader behavior")
+    script = tmp_path / "compact-net-public-value.cjs"
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('reader/home-interactions.js','utf8');
+const start=source.indexOf('  function compactNetPublicValue(');
+const end=source.indexOf('\n  function compactNetReading(',start);
+assert.ok(start>=0&&end>start);
+const ctx={
+  netValue:(item,key)=>item.value==null?'参与合成，不单列分值':(item.unit==='%'?'合成采用 '+item.value+'%':item.value+' 分'),
+  thirdItemPublicText:(item,value)=>String(value||'').replace('第4级','A档').replace('第1级','D档'),
+  civilizationPublicStatus:(item,value)=>String(value||''),
+  finiteNetNumber:value=>value==null?null:Number(value)
+};
+vm.createContext(ctx);
+vm.runInContext(source.slice(start,end)+';this.compactNetPublicValue=compactNetPublicValue;',ctx);
+
+assert.equal(
+  ctx.compactNetPublicValue({label:'C1实战交付',value:null,unit:'不单独计分',public_level_label:'实战任务交付为第4级'},'military'),
+  '实战任务交付为A档'
+);
+assert.equal(
+  ctx.compactNetPublicValue({label:'B1',value:37,unit:'%',public_level_label:'当前结果为第1级、中位'},'strategic'),
+  '当前结果为D档、中位 · 合成采用 37%'
+);
+assert.equal(
+  ctx.compactNetPublicValue({value:0,unit:'分',public_level_label:'正负相抵 · 净调整为0'},'civilization'),
+  '正负相抵 · 净调整为0'
+);
+assert.equal(
+  ctx.compactNetPublicValue({value:0,unit:'分',public_level_label:'没有确认独立变化'},'civilization'),
+  '没有确认独立变化'
+);
+assert.equal(
+  ctx.compactNetPublicValue({value:6,unit:'分',public_level_label:'正向 · 局部变化'},'civilization'),
+  '正向 · 局部变化 · 6 分'
+);
+''',encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
+
+    source = (ROOT / "reader/home-interactions.js").read_text(encoding="utf-8")
+    compact = source[source.index("function compactNetPublicValue"):source.index("function cleanNetText")]
+    assert "thirdItemPublicText(item, item?.public_level_label || \"\")" in compact
+    assert "civilizationPublicStatus(item, item?.public_level_label || \"\")" in compact
+    assert "compactNetPublicValue(item, key)" in compact
+
+
 def test_third_public_level_heading_drops_redundant_current_result_prefix():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
