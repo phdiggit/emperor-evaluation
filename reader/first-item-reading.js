@@ -116,6 +116,15 @@
     return String(value ?? "").trim();
   }
 
+  function publicCalculationText(value) {
+    return publicFact(value)
+      .replace(/成果信用U=(\d+(?:\.\d+)?)/g, "本人有效控制成果值为$1")
+      .replace(/单人项目按统一贡献曲线计算，共同项目先生成项目A池再按正式个人信用分账/g, "单人完成时直接按统一成果曲线计算；多人共同完成时，先确定项目整体成果，再按正式归责分给个人")
+      .replace(/项目A池/g, "项目整体成果")
+      .replace(/正式个人信用分账/g, "按正式归责分配个人成果");
+  }
+
+
   function publicOutcomeParts(outcome) {
     if (!outcome || typeof outcome !== "object") return [];
     return [
@@ -143,16 +152,16 @@
     const publicOutcome = item.reader_public_outcome || {};
     const calculation = item.reader_how || "";
     const percent = publicSharePercent(publicOutcome);
-    const scaleText = percent ? `成果占比：约${percent}%` : "";
+    const scaleText = percent ? `本人成果规模：约${percent}%全国核心统一尺度（按本人有效控制成果计算；不是共同项目分成，也不是领土、人口或军队比例）` : "";
     const project = publicOutcome.public_project ? `<div class="label">共同项目</div>${prose(publicOutcomeText(publicOutcome.public_project))}` : "";
     const facts = publicOutcomeParts(publicOutcome)
       .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(publicOutcomeText(value))}`)
       .join("");
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>先看本人实际完成并留下的统一成果</small></span><b>${esc(score(item))}</b></div>${project}${facts}${scaleText ? prose(scaleText) : ""}${ruleDetails(["内部指标：A。", calculation])}${sourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>先看本人实际完成并留下的统一成果</small></span><b>${esc(score(item))}</b></div>${project}${facts}${scaleText ? prose(scaleText) : ""}${ruleDetails(["统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65。", publicCalculationText(calculation)])}${sourceBlock(item, record)}</article>`;
   }
 
   function renderB1(item, data, record) {
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>起点、强敌与速度</strong><small>起点实力越强，不等于创业难度越高</small></span><b>${esc(score(item))}</b></div>${firstB1Markup(item)}${ruleDetails(["内部指标：B1。", item.reader_public_b1?.public_calculation || ""])}${sourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>起点、强敌与速度</strong><small>起点实力越强，不等于创业难度越高</small></span><b>${esc(score(item))}</b></div>${firstB1Markup(item)}${ruleDetails(["起点、主要对手与完成效率分别按统一规则计分。", publicCalculationText(item.reader_public_b1?.public_calculation || "")])}${sourceBlock(item, record)}</article>`;
   }
 
 
@@ -169,7 +178,7 @@
       .filter(([, value]) => value)
       .map(([label, value]) => `${label} <strong>${value}</strong>`)
       .join(" · ");
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>组织与整合</strong><small>看多线执行、专业分工和不同集团能否进入同一套运行体系</small></span><b>${esc(score(item))}</b></div>${metrics ? `<p class="prose">${metrics}</p>` : ""}${p.fact ? `<div class="label">并行执行</div>${prose(publicFact(p.fact))}` : ""}${c.fact ? `<div class="label">专业分工</div>${prose(publicFact(c.fact))}` : ""}${i.fact ? `<div class="label">异质整合</div>${prose(publicFact(i.fact))}` : ""}${basis ? `<div class="label">补充依据</div>${prose(publicFact(basis))}` : ""}${ruleDetails(["内部指标：B2。", parallel, coverage, integration, result])}${sourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>组织与整合</strong><small>看多线执行、专业分工和不同集团能否进入同一套运行体系</small></span><b>${esc(score(item))}</b></div>${metrics ? `<p class="prose">${metrics}</p>` : ""}${p.fact ? `<div class="label">并行执行</div>${prose(publicFact(p.fact))}` : ""}${c.fact ? `<div class="label">专业分工</div>${prose(publicFact(c.fact))}` : ""}${i.fact ? `<div class="label">异质整合</div>${prose(publicFact(i.fact))}` : ""}${basis ? `<div class="label">补充依据</div>${prose(publicFact(basis))}` : ""}${ruleDetails(["并行执行、专业分工与异质整合三个维度分别按 E、D、C、B、A、S 六档换分后相加。", result ? `当前结算：${publicFact(result)}` : ""])}${sourceBlock(item, record)}</article>`;
   }
 
   function renderC(item, data, record) {
@@ -194,7 +203,7 @@
     if ([a, b1, b2, c, gross, cost, net, addOn].some(value => value == null)) return "";
     const addOnText = Number(addOn) > 0 ? `+${addOn}分` : `${addOn}分`;
     const publicEquation = `统一成果 ${a} + 难度效率 ${b1} + 组织整合 ${b2} + 统帅 ${c} − 战争代价 ${cost} = ${net}`;
-    return `<article class="context-story net-public-item first-item-total"><div class="component"><span><strong>第一项结算</strong><small>${esc(publicEquation)}</small></span><b>${esc(`${net}分`)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>统一使用同一条折算曲线</small></span><b>${esc(addOnText)}</b></div>${ruleDetails([`内部四项：A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。`, `第一项净分 S1 = max(0, ${gross} − ${cost}) = ${net}。`, `总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`])}</article>`;
+    return `<article class="context-story net-public-item first-item-total"><div class="component"><span><strong>第一项结算</strong><small>${esc(publicEquation)}</small></span><b>${esc(`${net}分`)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>统一使用同一条折算曲线</small></span><b>${esc(addOnText)}</b></div>${ruleDetails([`四项毛分 = 统一成果 + 创业难度与效率 + 组织整合 + 本人统帅 = ${a} + ${b1} + ${b2} + ${c} = ${gross}。`, `第一项结算分 = max(0, ${gross} − ${cost}) = ${net}。`, `总榜附加 = 0.20 × 637 × (第一项结算分 / 240)^1.25 = ${addOn}。`])}</article>`;
   }
 
   function firstItemTarget() {
@@ -233,11 +242,11 @@
     const rawNetScore = byLabel["第一项净分"]?.value;
     const netScore = rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore);
     const zeroNote = Number.isFinite(netScore) && netScore === 0
-      ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这里已经进入第一项结算，只是成果在扣除相关战争代价后没有留下正的净值。</p>`
+      ? `<p class="notice"><strong>本项适用，但第一项结算分归零。</strong>这里已经进入第一项结算，成果与能力分在扣除本人责任窗口内的战争代价后归零。</p>`
       : "";
     const intro = dedicated
-      ? `<p class="reading-intro"><strong>先看${esc(record.ruler_name)}在这条主链里实际做了什么。</strong>内部指标代号、变量定义和公式全部收进“规则与计算”。</p>`
-      : `<p class="reading-intro"><strong>默认层只讲这个人实际做了什么。</strong>内部指标代号、变量定义和公式统一收进“规则与计算”；公众等级只用来辅助读事实。</p>`;
+      ? `<p class="reading-intro"><strong>先看${esc(record.ruler_name)}在这条主链里实际做了什么。</strong>指标定义和公式全部收进“规则与计算”。</p>`
+      : `<p class="reading-intro"><strong>默认层只讲这个人实际做了什么。</strong>指标定义和公式统一收进“规则与计算”；公众等级只用来辅助读事实。</p>`;
     group.innerHTML = `<div class="first-item-public-v2">${heading}${intro}${zeroNote}${cards.join("")}${renderTotals(items)}</div>`;
   }
 
