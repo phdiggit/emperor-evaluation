@@ -893,9 +893,9 @@
     if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
     const values = secondTotals(record);
     writePublicCopy(document.querySelector('[data-second-intro="method"]'),
-      `这一组看国家机器如何建立规则、配置官僚并形成反馈约束。当前合计 ${fmt(values.method)} 分；公开层先看等级和历史依据，具体表现指数与折算放在展开内容里。`);
+      "这一组看国家机器如何建立规则、配置官僚并形成反馈约束。公开层先看等级和历史依据，具体表现指数与折算放在展开内容里。");
     writePublicCopy(document.querySelector('[data-second-intro="finance"]'),
-      `这一组看统治时期普通家庭、经济财政和社会安全的主要状态，再结合任内低谷、恢复与额外代价形成结果判断。当前合计 ${fmt(values.finance)} 分。`);
+      "这一组看统治时期普通家庭、经济财政和社会安全的主要状态，再结合任内低谷、恢复与额外代价形成结果判断。");
     writePublicCopy(document.querySelector('[data-second-intro="handoff"]'),
       "统治如何收尾，会直接影响国家机器和继承秩序能否平稳延续。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否顺利；两项均以 S—E 六档显示。");
   }
