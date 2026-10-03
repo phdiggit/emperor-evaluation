@@ -141,3 +141,25 @@ def test_second_item_renderer_is_build_frozen_and_main_renderer_coordinated():
     assert "function enhanceSecondItemReading()" in home
     assert "const reader = window.SecondItemReading;" in home
     assert home.count("enhanceSecondItemReading();") >= 2
+
+    layer_apis = {
+        "second-item-public-alias.js": "SecondItemPublicAlias",
+        "second-item-a-public.js": "SecondItemAPublic",
+        "second-item-b1-public.js": "SecondItemB1Public",
+        "second-item-public-labels.js": "SecondItemPublicLabels",
+    }
+    for filename, api in layer_apis.items():
+        source = (root / "reader" / filename).read_text(encoding="utf-8")
+        assert f"globalThis.{api} = Object.freeze({{patch}});" in source
+        assert "new MutationObserver(" not in source
+        assert 'window.addEventListener("hashchange"' not in source
+
+    order = [
+        '"SecondItemPublicAlias"',
+        '"SecondItemAPublic"',
+        '"SecondItemB1Public"',
+        '"SecondItemPublicLabels"',
+    ]
+    positions = [second.index(token) for token in order]
+    assert positions == sorted(positions)
+    assert "enhancePublicLayers();" in second
