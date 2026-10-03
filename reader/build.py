@@ -1073,6 +1073,7 @@ def build(*, check=False, write=True):
     link_effects = (ROOT / "reader/link-effects.css").read_text(encoding="utf-8").strip()
     readability_css = (ROOT / "reader/readability.css").read_text(encoding="utf-8").strip()
     lazy_details = (ROOT / "reader/lazy-details.js").read_text(encoding="utf-8").strip()
+    second_item_reading_js = (ROOT / "reader/second-item-reading.js").read_text(encoding="utf-8").strip()
     home_interactions = (ROOT / "reader/home-interactions.js").read_text(encoding="utf-8").strip()
     readability_js = (ROOT / "reader/readability.js").read_text(encoding="utf-8").strip()
     person_readability_js = (ROOT / "reader/person-readability.js").read_text(encoding="utf-8").strip()
@@ -1083,7 +1084,7 @@ def build(*, check=False, write=True):
         raise ValueError("Reader template must contain a body close tag")
     template = template.replace(
         "</body>",
-        f"<script>\n{lazy_details}\n</script>\n<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n<script>\n{person_readability_js}\n</script>\n</body>",
+        f"<script>\n{lazy_details}\n</script>\n<script>\n{second_item_reading_js}\n</script>\n<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n<script>\n{person_readability_js}\n</script>\n</body>",
         1,
     )
     output = ROOT / "reader/index.html"
