@@ -1857,11 +1857,15 @@ const forbidden=[
   /\bN\d\b/
 ];
 
+const violations=[];
 function assertClean(value,where,{transform=true}={}){
   if(value==null||value==='')return;
   const out=transform?ctx.impactPublicText(String(value)):String(value);
   for(const pattern of forbidden){
-    assert.doesNotMatch(out,pattern,where+' => '+out);
+    if(pattern.test(out)){
+      violations.push(where+' ['+String(pattern)+'] => '+out);
+      break;
+    }
   }
 }
 
@@ -1884,7 +1888,9 @@ for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.end
   for(const [key,dimension] of Object.entries(h.dimensions||{})){
     const shown=ctx.impactDimensionPublicText(key,dimension?.public_basis||'');
     assertClean(shown,root+':dimension.'+key+'.public_basis',{transform:false});
-    if(key==='paradigm')assert.doesNotMatch(shown,/^范式[SABCDE](?:[+−-])?[。；:]?/,root+': duplicated paradigm grade => '+shown);
+    if(key==='paradigm'&&/^范式[SABCDE](?:[+−-])?[。；:]?/.test(shown)){
+      violations.push(root+': duplicated paradigm grade => '+shown);
+    }
     assertClean(dimension?.boundary_note,root+':dimension.'+key+'.boundary_note');
   }
   for(const [index,chain] of (h.macro_chains||[]).entries()){
@@ -1897,6 +1903,7 @@ for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.end
     assertClean(reception?.actual_use,root+':reception['+index+'].actual_use');
   }
 }
+assert.equal(violations.length,0,violations.slice(0,80).join('\n\n'));
 ''',encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
     assert result.returncode == 0, result.stderr
