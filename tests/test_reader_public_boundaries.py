@@ -1909,6 +1909,160 @@ assert.equal(violations.length,0,violations.slice(0,80).join('\n\n'));
     assert result.returncode == 0, result.stderr
 
 
+
+def test_profile_public_formatter_cleans_current_people_pool(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for reader behavior")
+    script = tmp_path / "profile-pool-leaks.cjs"
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('reader/index.template.html','utf8');
+const start=source.indexOf('function profilePublicPattern(value)');
+const end=source.indexOf('\nfunction profileSourceMarkup',start);
+assert.ok(start>=0&&end>start,'profilePublicPattern fragment not found');
+
+const shortNames={M1:'军事统帅',M2:'外交博弈',M4:'内部联盟',M5:'组织执行',C1:'战略判断',C2:'学习纠错',C3:'用人授权',C4:'制度设计',C5:'权力运用与克制'};
+const materialIntensityNames={
+  MI1:'单一情境',MI1_CASE:'单一情境',
+  MI2:'完整生命周期情境',MI2_LIFECYCLE:'完整生命周期情境',
+  MI3:'持续系统性情境',MI3_SUSTAINED_SYSTEMIC:'持续系统性情境',
+  MI4:'跨阶段系统性情境',MI4_CROSS_PHASE_SYSTEMIC:'跨阶段系统性情境'
+};
+const formalDirectionNames={
+  POSITIVE:'正向',NEGATIVE:'负向',MIXED_POSITIVE:'正向为主',MIXED_NEGATIVE:'负向为主',
+  MIXED_BALANCED:'正负并存',MIXED:'正负并存',LIMITATION:'限制'
+};
+const readingTerms={
+  PS0:'仅有结果或资源背景',PS1:'局部正确选择',PS2:'完整独立决策周期',
+  PS3:'可跨情境迁移的强模式',PS4:'不同约束下反复兑现的罕见模式',
+  DW0:'未能归责本人的负面结果',DW1:'已纠正且未复发的局部误判',
+  DW2:'造成显著损失但已恢复或未同类复发的错误',
+  DW3:'同类机制重复失败、反馈后加码或优势下崩盘',DW4:'跨机制与阶段的稳定失能',
+  AM1:'局部制度接口',AM2:'全国重要子系统',AM3:'国家核心系统',AM4:'国家基本运行架构重构'
+};
+const letters={G5:'S',G4:'A',G3:'B',G2:'C',G1:'D',G0:'E'};
+const grade=a=>letters[a.axis_grade]+({LOW:'−',MID:'',HIGH:'+'}[a.position]||'');
+function readerText(t){
+  return String(t??'')
+    .replace(/\b(?:PS[0-4]|DW[0-4]|AM[1-4])\b/g,k=>readingTerms[k])
+    .replace(/\b(?:MI1(?:_CASE)?|MI2(?:_LIFECYCLE)?|MI3(?:_SUSTAINED_SYSTEMIC)?|MI4(?:_CROSS_PHASE_SYSTEMIC)?)\b/g,k=>materialIntensityNames[k]||k)
+    .replace(/\b(?:POSITIVE|NEGATIVE|MIXED_POSITIVE|MIXED_NEGATIVE|MIXED_BALANCED|MIXED|LIMITATION)\b/g,k=>formalDirectionNames[k]||k)
+    .replace(/G([0-5])[- /]*(LOW|MID|HIGH)/g,(_,g,p)=>grade({axis_grade:'G'+g,position:p}))
+    .replace(/G([0-5])/g,(_,g)=>letters['G'+g]+'档')
+    .replace(/EPISODE_TAG/g,'局部情境证据')
+    .replace(/BOUNDED_PROFILE/g,'有明确适用边界的画像')
+    .replace(/FULL_GRADE/g,'完整定档')
+    .replace(/\bE1\b/g,'少量情境材料')
+    .replace(/\bE2\b/g,'多个独立情境材料')
+    .replace(/\bE3\b/g,'主要命题已有代表性材料')
+    .replace(/\bC5\b/g,'权力运用与克制')
+    .replace(/COUNTEREVIDENCE_FOUND/g,'已找到明确反例');
+}
+const ctx={shortNames,materialIntensityNames,formalDirectionNames,readingTerms,letters,grade,readerText};
+vm.createContext(ctx);
+vm.runInContext(source.slice(start,end)+';this.profilePublicPattern=profilePublicPattern;',ctx);
+
+const forbidden=[
+  /\b(?:MI1(?:_CASE)?|MI2(?:_LIFECYCLE)?|MI3(?:_SUSTAINED_SYSTEMIC)?|MI4(?:_CROSS_PHASE_SYSTEMIC)?)\b/,
+  /\b(?:PS[0-4]|DW[0-4]|AM[1-4])\b/,
+  /\bG[0-5](?:[- /](?:LOW|MID|HIGH))?\b/,
+  /(?<![A-Za-z0-9_.-])(?:M1|M2|M4|M5|C1|C2|C3|C4|C5)(?![A-Za-z0-9_.-])/,
+  /\bN[1-5](?:-(?:LOW|MID|HIGH))?\b/,
+  /\bREV1\b/,
+  /\b(?:DIRECT_COMMAND|OPERATIONAL_COORDINATION|STRATEGIC_DIRECTION|NOMINAL_AUTHORIZATION|ROLE_UNRESOLVED|ROLE_SEMANTIC_CONFLICT)\b/,
+  /\b(?:TRUTH_ACQUISITION|REFUSAL_OR_RECURRENCE|BACKGROUND_VALIDATION|AXIS_OUT_WITH_REASON)\b/,
+  /\b(?:FORMAL_CURRENT|SCORING_PARENT|UNRESOLVED_NEGATIVE_CANDIDATE|UNRESOLVED_EVIDENCE_GAP|SOURCE_DENSITY_ASYMMETRY_REVIEW)\b/,
+  /\b(?:VERY_DEEP_MERIT_FLOOR|VERY_DEEP_EXPRESSION_FLOOR|EXTREME_DEEP_FLOOR|DEEP_FLOOR)\b/,
+  /\b(?:WARLORD-IMPUNITY|ARMY-IMPUNITY|OPERATING_SELF_BINDING_INSTITUTION|DEEP_FAMILY_EXPANSION|EXTENDED_CLAN_PURGE|EXTENDED_FAMILY_PURGE|FAMILY_CHAIN_DEEP_FLOOR|CLAN_EXTINCTION_EXTREME_FLOOR)\b/,
+  /\b(?:SOURCE_CONFLICT|SUPPORTING_ONLY|POLITICAL_STRUGGLE|BORDERLINE|ATTRIBUTION_LIMITED|ATTRIBUTION_CONFLICT|PARTICIPATION_SCOPE_UNCERTAIN|SELF_CAUSED|NO_FAULT|EVIDENCE_LIMITED_ATTRIBUTION|EVIDENCE_LIMITED_POWER|POWER_CONSTRAINED|CONTESTED_OR_SHARED_ATTRIBUTION)\b/,
+  /\b(?:R1_LIMITED|R2_BOUNDED|R3_BROAD|R4_SYSTEMIC_EXTREME)\b/,
+  /\b(?:PROBLEM_PRIORITY|GOAL_RESOURCE_FIT|RISK_OPTIONALITY|FEEDBACK_RECOURSE|ERROR_CORRECTION|GENERAL_JUDICIAL_GOVERNANCE|ACTIVE_SELF_RESTRAINT|STOPLOSS|CLAN_EXPANSION|UNEQUAL-LAW)\b/,
+  /\bFORMAL-V\d+(?:\.\d+)?\b/,
+  /\bV\d+(?:\.\d+)+\b/,
+  /父链/,
+  /硬门/,
+  /横校/,
+  /刷档/,
+  /整改前/,
+  /规范池/,
+  /事件准入截止线/,
+  /底账/,
+  /倒灌/,
+  /回填/,
+  /分账/,
+  /重裁/,
+  /闭合/,
+  /本轮/,
+  /准入/,
+  /窗口门/,
+  /M5\/A4/,
+  /A4\/A5投入/,
+  /第三项A1/,
+  /第三项正式结算显示安全态势A1/
+];
+
+const violations=[];
+function inspect(value,where){
+  if(value==null||value==='')return;
+  const out=ctx.profilePublicPattern(String(value));
+  for(const pattern of forbidden){
+    if(pattern.test(out)){
+      violations.push(where+' ['+String(pattern)+'] => '+out);
+      break;
+    }
+  }
+}
+
+function inspectContext(c,where){
+  if(!c||typeof c!=='object')return;
+  for(const key of ['title','mechanism','cycle_basis','basis','intensity_and_role_basis','attribution','attribution_basis','role_attribution','limitations','limitation']){
+    const value=c[key];
+    if(Array.isArray(value)) value.forEach((v,i)=>inspect(v,where+'.'+key+'['+i+']'));
+    else inspect(value,where+'.'+key);
+  }
+}
+
+for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.endsWith('.json')).sort()){
+  const record=JSON.parse(fs.readFileSync('reader/data/people/'+filename,'utf8')).record||{};
+  if(record.supplementary)continue;
+  for(const [axisCode,a] of Object.entries(record.axes||{})){
+    const root=filename+':'+(record.ruler_name||record.ruler_id||'?')+':'+axisCode;
+    for(const key of ['typical_pattern','grade_basis','position_basis','evidence_assessment_basis','applicability_basis','not_applicable_reason']){
+      inspect(a?.[key],root+':'+key);
+    }
+    for(const [i,value] of (Array.isArray(a?.limitations)?a.limitations:[]).entries()) inspect(value,root+':limitations['+i+']');
+    if(typeof a?.counterpattern==='string')inspect(a.counterpattern,root+':counterpattern');
+
+    const scope=a?.evidence_scope||{};
+    for(const key of ['material_coverage_basis','ability_evidence_label','attribution_boundary','confidence_basis','grade_boundary']){
+      inspect(scope[key],root+':evidence_scope.'+key);
+    }
+
+    inspect(a?.m1_stability_review?.basis,root+':m1_stability_review.basis');
+    for(const [i,item] of (a?.m1_stability_review?.cases||[]).entries()){
+      for(const key of ['label','consequence','attribution','feedback','recovery','residual_loss','decision_basis']){
+        inspect(item?.[key],root+':m1_stability_review.cases['+i+'].'+key);
+      }
+    }
+
+    for(const [i,c] of (a?.representative_contexts||[]).entries()) inspectContext(c,root+':representative_contexts['+i+']');
+    for(const [id,c] of Object.entries(a?.context_lookup||{})) inspectContext(c,root+':context_lookup.'+id);
+    for(const [i,point] of (a?.public_evidence_points||[]).entries()){
+      inspect(point?.title,root+':public_evidence_points['+i+'].title');
+      inspect(point?.details,root+':public_evidence_points['+i+'].details');
+    }
+
+    const noGrade=a?.no_grade_closure||{};
+    for(const key of ['review_scope','evidence_gap','reopen_condition']) inspect(noGrade[key],root+':no_grade_closure.'+key);
+  }
+}
+assert.equal(violations.length,0,violations.slice(0,100).join('\n\n'));
+''',encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
+
+
 def test_profile_primary_pattern_hides_internal_summary_labels():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
