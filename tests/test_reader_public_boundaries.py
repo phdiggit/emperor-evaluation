@@ -2660,12 +2660,20 @@ def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
     assert "页面优先展示这一范围" in template
     assert "主页面总分只显示1位小数以避免制造虚假精度" in template
     assert "排序与规则点位仍按未舍入的正式结算值计算" in template
+    assert "非计分 · 未校准规模难度" in template
+    assert "跨规模名次不能理解为已经消除治理难度差异" in template
+    assert "当前榜单没有对区域、广域与超广域治理难度做分数校准" in template
 
     compare_start = template.index("function compare(){")
     compare_end = template.index("function guide()", compare_start)
     compare = template[compare_start:compare_end]
     assert "row('审慎位置投影'" in compare
     assert "row('规则点位（当前规则点估计）'" in compare
+    assert "function governanceContextDiffers" not in compare  # helper is a const closure, not a global classifier
+    assert "const governanceContextDiffers=()=>{" in compare
+    assert "governanceCompareWarning=governanceContextDiffers()" in compare
+    assert "当前统治绩效未对这些差异加权" in compare
+    assert "治理背景（非计分；未校准规模难度）" in compare
     assert "row('正式绩效'" not in compare
 
     assert ".net-position-summary>.net-formal-position{color:var(--muted)}" in css
