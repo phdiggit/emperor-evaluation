@@ -182,16 +182,8 @@
     return baseGuide();
   };
 
-  // First-item detail rendering is owned by home-interactions.js; do not inject a second takeover renderer.
-
-  // Second-item guidance is still a separate lazy-loaded view helper.
-  if (!document.querySelector('script[data-second-item-reading]')) {
-    const script = document.createElement("script");
-    script.src = "second-item-reading.js";
-    script.async = false;
-    script.dataset.secondItemReading = "true";
-    document.head.append(script);
-  }
+  // First- and second-item presentation code is frozen into the validated reader build.
+  // This lazy layer owns detail-shard loading and source-link cleanup only.
 
   new MutationObserver(simplifyFirstItemSourceLinks).observe(screen, {childList: true, subtree: true});
   window.addEventListener("hashchange", simplifyFirstItemSourceLinks);
