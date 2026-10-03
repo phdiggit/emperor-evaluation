@@ -177,21 +177,14 @@ FORMAL_CONTEXT_FIELDS = [
 ]
 
 
-def inline_runtime_scripts(template):
-    """Freeze runtime JS into the generated page after all validations pass.
-
-    GitHub Pages currently publishes this branch directly. Keeping the browser
-    runtime inside the generated artifact means an unvalidated source commit can
-    only republish the last validated reader/index.html, not new source JS.
-    """
+def runtime_script_blocks():
+    """Freeze validated runtime JS directly into the generated reader artifact."""
+    blocks = []
     for filename in READER_RUNTIME_SCRIPTS:
-        marker = f'<script defer src="{filename}"></script>'
-        if template.count(marker) != 1:
-            raise ValueError(f"Reader runtime script marker missing or duplicated: {filename}")
         source = (ROOT / "reader" / filename).read_text(encoding="utf-8")
         source = source.replace("</script>", r"<\/script>")
-        template = template.replace(marker, f"<script>\n{source}\n</script>", 1)
-    return template
+        blocks.append(f"<script>\n{source}\n</script>")
+    return "\n".join(blocks)
 
 
 def _formal_context_projection(context):
@@ -1069,9 +1062,9 @@ def build(*, check=False, write=True):
     payload = serialized_json(index_data, html_safe=True)
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")
     template = apply_public_copy(template)
-    template = inline_runtime_scripts(template)
     link_effects = (ROOT / "reader/link-effects.css").read_text(encoding="utf-8").strip()
     readability_css = (ROOT / "reader/readability.css").read_text(encoding="utf-8").strip()
+    runtime_scripts = runtime_script_blocks()
     lazy_details = (ROOT / "reader/lazy-details.js").read_text(encoding="utf-8").strip()
     second_item_reading_js = (ROOT / "reader/second-item-reading.js").read_text(encoding="utf-8").strip()
     home_interactions = (ROOT / "reader/home-interactions.js").read_text(encoding="utf-8").strip()
@@ -1084,7 +1077,7 @@ def build(*, check=False, write=True):
         raise ValueError("Reader template must contain a body close tag")
     template = template.replace(
         "</body>",
-        f"<script>\n{lazy_details}\n</script>\n<script>\n{second_item_reading_js}\n</script>\n<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n<script>\n{person_readability_js}\n</script>\n</body>",
+        f"{runtime_scripts}\n<script>\n{lazy_details}\n</script>\n<script>\n{second_item_reading_js}\n</script>\n<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n<script>\n{person_readability_js}\n</script>\n</body>",
         1,
     )
     output = ROOT / "reader/index.html"
