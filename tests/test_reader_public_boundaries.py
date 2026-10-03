@@ -2631,6 +2631,8 @@ def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
     assert 'class="home-full-position"' in template
     assert "审慎位置、规则点位与治理背景" in template
     assert "页面优先展示这一范围" in template
+    assert "主页面总分只显示1位小数以避免制造虚假精度" in template
+    assert "排序与规则点位仍按未舍入的正式结算值计算" in template
 
     compare_start = template.index("function compare(){")
     compare_end = template.index("function guide()", compare_start)
