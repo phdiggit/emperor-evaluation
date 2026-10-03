@@ -1538,8 +1538,8 @@ def test_first_item_readers_do_not_backfill_missing_cost_or_net_as_zero():
     home = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
 
     assert "[a, b1, b2, c, gross, cost, net, addOn]" in home
+    assert ".some(value => value == null)" in home
     assert "cost ?? 0" not in home
-    assert "rawFirstScore == null || rawFirstScore === \"\"" in home
 
 def test_first_item_cost_explains_current_fixed_debit_lookup():
     from pathlib import Path
