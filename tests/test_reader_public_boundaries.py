@@ -2433,6 +2433,21 @@ def test_history_total_public_explanation_stays_on_public_scale():
 
 
 
+def test_paradigm_reception_windows_are_secondary_collapsed_evidence():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index("function paradigmReceptionProse")
+    end = template.index("function axisProse", start)
+    block = template[start:end]
+    assert '<details class="impact-receptions"><summary>查看实际接收窗口</summary>' in block
+    assert '<details class="impact-receptions" open' not in block
+    history_start = template.index("function historySections(")
+    history_end = template.index("const format=", history_start)
+    history = template[history_start:history_end]
+    expected = "const paradigmBody=\`\${prose(publicBasis('paradigm'))}\${paradigmReceptionProse(paradigmReview)}"
+    assert expected in history
+
+
 def test_prudent_evidence_details_hide_internal_grade_codes():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
