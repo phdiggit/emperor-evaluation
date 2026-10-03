@@ -610,6 +610,7 @@ function firstCommanderMarkup(item) {
       .replace(/补门/g, "补足该条件")
       .replace(/不上推/g, "不提高到")
       .replace(/底账/g, "正式记录")
+      .replace(/旧账/g, "此前记录")
       .replace(/现行贡献类型为/g, "当前成果类型为")
       .replace(/本包事实/g, "本项已经确认的事实")
       .replace(/控制包/g, "控制成果")
