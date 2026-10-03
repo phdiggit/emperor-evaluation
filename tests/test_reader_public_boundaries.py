@@ -1012,6 +1012,13 @@ def test_public_scope_copy_avoids_internal_pool_and_public_band_jargon():
     assert "统治绩效主池" not in template
     assert "统治绩效总榜" not in template
     assert "统治绩效正式排序" in template
+    assert "主池" not in template
+    assert '<option value="main">正式评价对象</option>' in template
+    assert "不在统治绩效正式评价范围" in template
+    assert "该补充样本不在人物画像正式评价范围。" in template
+    assert "M2终局" not in template
+    assert "外交博弈轴若终局证据未显示能力，则发布 E" in template
+    assert "按现行规则评价统治绩效" in template
 
 
 def test_public_power_context_copy_avoids_internal_evidence_window_jargon():
