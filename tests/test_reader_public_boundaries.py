@@ -2311,7 +2311,7 @@ const end=source.indexOf('\nfunction profileSourceMarkup',start);
 assert.ok(start>=0&&end>start);
 const ctx={shortNames,materialIntensityNames,formalDirectionNames,readingTerms,letters,grade,readerText};
 vm.createContext(ctx);
-vm.runInContext(source.slice(start,end)+';this.profileDistinctGradeBasis=profileDistinctGradeBasis;this.profilePositionPublicPattern=profilePositionPublicPattern;this.profileDistinctPositionBasis=profileDistinctPositionBasis;',ctx);
+vm.runInContext(source.slice(start,end)+';this.profileDistinctGradeBasis=profileDistinctGradeBasis;this.profilePositionPublicPattern=profilePositionPublicPattern;this.profileDistinctPositionBasis=profileDistinctPositionBasis;this.profileDistinctLimitations=profileDistinctLimitations;',ctx);
 
 const same='方面军识别、接替和授权长期稳定，且对失败将领多能重配而非机械清洗；行政用人亦有正面基础。';
 assert.equal(ctx.profileDistinctGradeBasis('G4-MID：'+same,same),'');
@@ -2344,6 +2344,19 @@ assert.equal(
 assert.equal(
   ctx.profileDistinctPositionBasis('档内中位：只计十年准备、用人配置和最终下令，不把六路前线解题归给皇帝。；本人无临阵角色，成功高度依赖羊祜、杜预、王濬等；战略设计偏强但不达到历史级全机制。；限制：可归责强军事表现集中于同一任务或生命周期。','',''),
   '中位：只计十年准备、用人配置和最终下令，不把六路前线解题归给皇帝。；本人无临阵角色，成功高度依赖羊祜、杜预、王濬等；战略设计偏强但不达到历史级全机制。'
+);
+const duplicateLimitation='军事授权和行政正链均强，但最高中枢配置连续失稳，纠偏后也未恢复稳定高授权责任中心。';
+assert.deepEqual(
+  ctx.profileDistinctLimitations([duplicateLimitation,'另有一条独立证据边界。'],duplicateLimitation,''),
+  ['另有一条独立证据边界。']
+);
+assert.deepEqual(
+  ctx.profileDistinctLimitations(['短边界仍应保留。'],'这是一段很长的主要表现，但不包含短边界内容。',''),
+  ['短边界仍应保留。']
+);
+assert.equal(
+  ctx.profileDistinctLimitations('同一完整限制句已经在主要表现中明确出现。','主要表现前文；同一完整限制句已经在主要表现中明确出现。',''),
+  ''
 );
 ''',encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
@@ -3126,6 +3139,9 @@ def test_profile_public_pattern_hides_cross_axis_work_codes():
     assert "档内定位（原文）" not in template
     assert "const distinctPositionBasis=profileDistinctPositionBasis" in template
     assert "function profilePositionPublicPattern(value)" in template
+    assert "function profileDistinctLimitations(value,...priorValues)" in template
+    assert "const distinctLimitations=profileDistinctLimitations" in template
+    assert "boundaryParts" in template
     assert "规范池实际权力窗口为[^；]+" in template
     assert "；?限制：[\\s\\S]*$" in template
     assert 'distinctPositionBasis?`<div class="label">档内定位</div>' in template
