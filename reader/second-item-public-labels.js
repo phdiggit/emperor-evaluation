@@ -16,7 +16,6 @@
     "D3政权交接稳定": "交接稳定",
   };
 
-  let scheduled = false;
 
   function publicLabel(sourceLabel) {
     return PUBLIC_LABELS[String(sourceLabel || "")] || "";
@@ -119,16 +118,5 @@
     }
   }
 
-  function schedule() {
-    if (scheduled) return;
-    scheduled = true;
-    requestAnimationFrame(() => {
-      scheduled = false;
-      patch();
-    });
-  }
-
-  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true, characterData:true});
-  window.addEventListener("hashchange", schedule);
-  schedule();
+  globalThis.SecondItemPublicLabels = Object.freeze({patch});
 })();
