@@ -432,6 +432,24 @@ function firstCommanderMarkup(item) {
     panel.dataset.netLinks = "done";
   }
 
+  function compactNetPublicValue(item, key) {
+    const raw = netValue(item, key);
+    if (key === "strategic" || key === "military") {
+      const status = thirdItemPublicText(item, item?.public_level_label || "");
+      if (!status) return raw;
+      if (item?.value == null || item?.unit === "不单独计分") return status;
+      return `${status} · ${raw}`;
+    }
+    if (key === "civilization") {
+      const status = civilizationPublicStatus(item, item?.public_level_label || "");
+      if (!status) return raw;
+      const value = finiteNetNumber(item?.value);
+      if (value === 0 && (status.includes("净调整为0") || status.includes("没有确认独立变化"))) return status;
+      return `${status} · ${raw}`;
+    }
+    return raw;
+  }
+
   function compactNetReading(record) {
     const section = netEvidenceSection();
     if (!section) return;
@@ -460,7 +478,7 @@ function firstCommanderMarkup(item) {
         ? `<p class="notice">该人物不适用第一项，本项不参与统治绩效计分。</p>`
         : key === "first" && firstStatus !== "APPLICABLE"
           ? `<p class="notice">第一项正式适用状态尚未发布；阅读层不判断该人物是否适用本项。</p>`
-          : judgments.map(item => `<div class="component"><span>${esc(item.public_component_label || item.label)}</span><b>${esc(netValue(item, key))}</b></div>`).join("");
+          : judgments.map(item => `<div class="component"><span>${esc(item.public_component_label || item.label)}</span><b>${esc(compactNetPublicValue(item, key))}</b></div>`).join("");
       details.innerHTML = `<summary>${esc(netGroupNames[key] || key)}</summary>${preview}<p class="sources"><a href="${netHref(record, major, key)}">查看这组完整计分逻辑 →</a></p>`;
       reading.append(details);
     }
