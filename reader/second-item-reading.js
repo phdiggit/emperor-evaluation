@@ -13,7 +13,6 @@
   const LOSS_PUBLIC_TEXT = {0:"未见独立有效低谷",1:"有局部或短时损害",2:"出现明显低谷",3:"出现严重低谷"};
   const HANDOFF_PUBLIC_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
   function handoffGrade(value){const n=finite(value);return n!=null&&Number.isInteger(n)?HANDOFF_PUBLIC_GRADE[n]||"—":"—";}
-  let scheduled = false;
 
   function finite(value){if(value==null||value==="")return null;const n=Number(value);return Number.isFinite(n)?n:null;}
   function fmt(value,digits=1){const n=finite(value);return n==null?"—":n.toFixed(digits);}
@@ -207,6 +206,5 @@
     ensureSecondSummary(record,t);ensureMethodGroup(t);ensureFinanceGroup(t);ensureHandoffGroup(t);
   }
   function enhance(){ensureStyles();const netRecord=recordForNetRoute();if(netRecord)enhanceNetRoute(netRecord);const personRecord=recordForPersonRoute();if(personRecord)enhancePersonOverview(personRecord);const compareRecords=recordsForCompareRoute();if(compareRecords.length)enhanceCompare(compareRecords);}
-  function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;enhance();});}
-  new MutationObserver(schedule).observe(screenEl,{childList:true,subtree:true,characterData:true});window.addEventListener("hashchange",schedule);schedule();
+  window.SecondItemReading = Object.freeze({enhance});
 })();
