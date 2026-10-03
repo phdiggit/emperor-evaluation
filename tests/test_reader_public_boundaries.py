@@ -643,9 +643,10 @@ def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    first = (root / "reader/first-item-reading.js").read_text(encoding="utf-8")
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
 
-    for source in (home, person):
+    for source in (home, first):
         assert "A · 统一主链客观贡献" not in source
         assert "B2 · 创业组织" not in source
         assert "下面再按A、B1、B2、C" not in source
@@ -654,31 +655,33 @@ def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
     assert '"统一成果", "先看本人真正留下了什么"' in home
     assert '"创业组织与政治整合", "多线并行、专业分工与异质整合"' in home
     assert "统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]}" in home
-    assert "<strong>统一成果</strong>" in person
-    assert "<strong>创业组织与政治整合</strong>" in person
-    assert "L档怎么换分" not in person
-    # Internal formulas remain available inside collapsed calculation details.
+    assert "<strong>统一成果</strong>" in first
+    assert "<strong>组织与整合</strong>" in first
     assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in home
+    assert "四项毛分 = 统一成果 + 创业难度与效率 + 组织整合 + 本人统帅" in first
     assert "第一项结算分 S1" not in home
     assert "总榜附加 F" not in home
-    assert "B2 = 并行执行分" in person
+    assert "第一项净分 S1" not in first
+    assert "总榜附加分 F" not in first
+    for legacy in ("renderFirstA", "renderFirstB1", "renderFirstB2", "renderFirstC", "buildNetReading"):
+        assert legacy not in person
+
 def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_severity():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
 
-    for source in (home, person):
-        assert 'const FIRST_PUBLIC_C_GRADES = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};' in source
-        assert '"起点R$1级"' not in source
-        assert '"L$1级"' not in source
-        assert '第${n}档' not in source
-        assert "L0—L5" not in source
-        assert "E、D、C、B、A、S 六档" in source
-
+    assert 'const FIRST_PUBLIC_C_GRADES = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};' in home
+    assert '"起点R$1级"' not in home
+    assert '"L$1级"' not in home
+    assert '第${n}档' not in home
+    assert "L0—L5" not in home
+    assert "E、D、C、B、A、S 六档" in home
     assert 'const severity = ["无显著代价","很低成本","较低成本","中等成本","较高成本","高成本","极高成本","灾难级成本"];' in home
+    assert '[["成本程度", publicLevel]' not in home  # exact tuple formatting may vary
     assert '["成本程度", publicLevel]' in home
-
+    assert "FIRST_PUBLIC_C_GRADES" not in person
 
 def test_first_item_a_how_block_shows_exact_public_curve():
     from pathlib import Path
@@ -1352,49 +1355,35 @@ def test_first_item_readers_do_not_backfill_missing_cost_or_net_as_zero():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
-    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
     first = (root / "reader/first-item-reading.js").read_text(encoding="utf-8")
 
     assert "[a, b1, b2, c, gross, cost, net, addOn]" in home
-    assert "[a, b1, b2, c, gross, cost, net, addOn]" in person
     assert "[a, b1, b2, c, gross, cost, net, addOn]" in first
     assert "cost ?? 0" not in home
-    assert "cost ?? 0" not in person
     assert '?.value ?? 0' not in first
-    for source in (person, first):
-        assert 'const rawNetScore = byLabel["第一项净分"]?.value;' in source
-        assert 'rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore)' in source
-
+    assert 'const rawNetScore = byLabel["第一项净分"]?.value;' in first
+    assert 'rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore)' in first
 
 def test_first_item_cost_explains_current_fixed_debit_lookup():
     from pathlib import Path
-    root = Path(__file__).resolve().parents[1]
-    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
-    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
-    for source in (home, person):
-        assert "const FIRST_COST_DEBIT" in source
-        assert "5:{LOW:18,MID:22.5,HIGH:27}" in source
-        assert "7:{LOW:60,MID:68,HIGH:76,HIGHEST:80}" in source
-        assert "function firstCostExactHow(item)" in source
-        assert "固定扣分表直接对应" in source
-        assert "所以本项扣" in source
-
+    home = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "const FIRST_COST_DEBIT" in home
+    assert "5:{LOW:18,MID:22.5,HIGH:27}" in home
+    assert "7:{LOW:60,MID:68,HIGH:76,HIGHEST:80}" in home
+    assert "function firstCostExactHow(item)" in home
+    assert "固定扣分表直接对应" in home
+    assert "所以本项扣" in home
 
 def test_first_item_b1_explains_start_opponent_and_efficiency_subscores():
     from pathlib import Path
-    root = Path(__file__).resolve().parents[1]
-    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
-    person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
-    for source in (home, person):
-        assert "function firstB1ScoreText(item)" in source
-        assert "B1满分50 = 起点难度15 + 对手难度15 + 完成效率20" in source
-        assert "资源越弱，创业难度分越高" in source
-        assert "E档15、D档13、C档11、B档8、A档5、S档2、S+档0" in source
-        assert "最强全值，第二强取50%" in source
-        assert "期望完成年 = 4 + 8 × √(本阶段有效控制信用 / 1000)" in source
-        assert "速度比≤0.75、1.00、1.25、1.50、2.00、2.50、3.00、4.00" in source
-
-
+    home = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "function firstB1ScoreText(item)" in home
+    assert "B1满分50 = 起点难度15 + 对手难度15 + 完成效率20" in home
+    assert "资源越弱，创业难度分越高" in home
+    assert "E档15、D档13、C档11、B档8、A档5、S档2、S+档0" in home
+    assert "最强全值，第二强取50%" in home
+    assert "期望完成年 = 4 + 8 × √(本阶段有效控制信用 / 1000)" in home
+    assert "速度比≤0.75、1.00、1.25、1.50、2.00、2.50、3.00、4.00" in home
 
 def test_major_cards_explain_third_and_fourth_item_scales():
     from pathlib import Path
@@ -1833,7 +1822,7 @@ def test_first_item_public_copy_uses_settlement_score_not_legacy_net_benefit_ter
         source = (root / rel).read_text(encoding="utf-8")
         assert "原始净收益" not in source
     assert "第一项结算分" in (root / "reader/home-interactions.js").read_text(encoding="utf-8")
-    assert "本项不计入统治绩效" in (root / "reader/person-readability.js").read_text(encoding="utf-8")
+    assert "buildNetReading" not in (root / "reader/person-readability.js").read_text(encoding="utf-8")
 
 
 def test_third_item_reader_separates_scoring_chains_and_exposes_intermediate_totals():
