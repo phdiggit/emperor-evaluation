@@ -2668,7 +2668,7 @@ def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
     compare_end = template.index("function guide()", compare_start)
     compare = template[compare_start:compare_end]
     assert "row('审慎位置投影'" in compare
-    assert "row('规则点位（当前规则点估计）'" in compare
+    assert "row('规则点位（点估计）'" in compare
     assert "function governanceContextDiffers" not in compare  # helper is a const closure, not a global classifier
     assert "const governanceContextDiffers=()=>{" in compare
     assert "governanceCompareWarning=governanceContextDiffers()" in compare
@@ -2700,6 +2700,9 @@ def test_top_level_performance_scores_use_reader_precision_but_audit_precision_i
     assert "row('统治绩效',r=>r.net?`<b>${scoreNumber(r.net.total_score)}</b>`" in compare
     assert "row('治国成效',r=>scoreNumber(r.net?.second_item_score))" in compare
     assert "row('军事与边疆',r=>scoreNumber(r.net?.third_item_score))" in compare
+    assert "firstRawScore(r.net)===0?'0.0 · 本项适用':scoreNumber(r.net.first_item_add_on)" in compare
+    assert "return Number.isFinite(n)&&n>0?'+'+scoreNumber(n):scoreNumber(value)" in compare
+    assert "number(r.net.first_item_add_on)" not in compare
 
     assert "number(prudent.lower)" in template
     assert "number(prudent.upper)" in template
