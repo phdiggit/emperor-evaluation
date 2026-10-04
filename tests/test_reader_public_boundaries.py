@@ -46,7 +46,7 @@ for(const file of ['reader/second-item-a-public.js','reader/second-item-b1-publi
 }
 const alias=fs.readFileSync('reader/second-item-public-alias.js','utf8');
 assert.ok(!alias.includes('patchInstitutionDetail'));
-assert.ok(alias.includes('renderB2MaterialGroups(evidence)'));
+assert.ok(alias.includes('renderB2MaterialGroups(evidence, item.reader_boundary)'));
 
 const overview=home.slice(home.indexOf('  function firstItemOverview'),home.indexOf('  async function renderFirstMajor'));
 const long='已有成果。'.repeat(100)+'末尾仍有不能归给本人的部分。';
@@ -428,7 +428,7 @@ def test_second_item_material_card_phase_two_scope():
     assert "MATERIAL_STRENGTH_TAGS" not in alias
     assert 'data.tags.map(tag => [tag, "tag"])' in alias
     assert 'label === "B2反馈与约束"' in alias
-    assert "renderFinanceMaterialGroups(label, evidence)" in alias
+    assert "renderFinanceMaterialGroups(label, evidence, item.reader_boundary)" in alias
     for label in ("C1民生", "C2经济财政", "C3社会安全", "C4恢复与成本"):
         assert label in alias
     assert '"主要状态"' in alias
@@ -437,7 +437,7 @@ def test_second_item_material_card_phase_two_scope():
     assert '"责任范围"' in alias
     assert '"状态恶化"' in alias
     assert '"额外代价"' in alias
-    assert "renderHandoffMaterialGroups(label, evidence)" in alias
+    assert "renderHandoffMaterialGroups(label, evidence, item.reader_boundary)" in alias
     assert "D1继任行政连续性" in alias
     assert "D3政权交接稳定" in alias
 

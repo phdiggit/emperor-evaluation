@@ -103,7 +103,7 @@ assert.match(source, /makeDetails\("范围与边界", financeItem \? publicFinan
 assert.match(source, /: publicBoundaryText\(item\.reader_boundary/);
 assert.match(source, /body: publicFinanceText\(entry\?\.public_basis\)/);
 assert.match(source, /label === "B2反馈与约束"/);
-assert.match(source, /renderB2MaterialGroups\(evidence\)/);
+assert.match(source, /renderB2MaterialGroups\(evidence, item\.reader_boundary\)/);
 assert.match(source, /if \(label === "A制度建设" \|\| label === "B1官僚治理"\) continue/);
 ''', encoding='utf-8')
     completed = subprocess.run([node, str(script), str(ROOT)], check=False, capture_output=True, text=True, encoding='utf-8')
@@ -221,7 +221,7 @@ def test_second_item_public_enum_mapping_and_dedicated_ownership():
     a = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
     b1 = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
     assert 'SecondItemMaterialCards' in alias
-    assert 'renderB2MaterialGroups(evidence)' in alias
+    assert 'renderB2MaterialGroups(evidence, item.reader_boundary)' in alias
     assert 'MATERIAL_STRENGTH_TAGS' not in alias
     assert 'materialStrengthFromTags' not in alias
     assert 'data.tags.map(tag => [tag, "tag"])' in alias
@@ -253,7 +253,7 @@ def test_handoff_public_cards_group_only_by_formal_public_role():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
-    assert "function renderHandoffMaterialGroups(label, evidence)" in alias
+    assert "function renderHandoffMaterialGroups(label, evidence, sharedBoundary)" in alias
     assert 'role === "事前安排"' in alias
     assert 'role === "交接结果" || role === "终局事实"' in alias
     assert 'role === "前任行政资产承接"' in alias
