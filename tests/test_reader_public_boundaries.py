@@ -2114,7 +2114,7 @@ def test_second_item_a_and_b1_lead_with_reader_summary_not_internal_ledger_copy(
     a_source = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
     b1_source = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
     assert "function publicSummary(item, evidence)" in a_source
-    assert "内部影响权重、长期接收折算和原始表现指数只放在计算说明中" in a_source
+    assert "影响权重、后世接收折算和原始表现指数只放在计算说明中" in a_source
     assert 'const formalSummary = String(item.reader_summary || "").trim();' in a_source
     assert 'detailsBlock("为什么最终是这个等级？", formalSummary)' in a_source
     assert "function summaryText(item, evidence)" in b1_source
