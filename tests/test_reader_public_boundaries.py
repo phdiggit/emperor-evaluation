@@ -1807,6 +1807,25 @@ vm.createContext(civCtx);
 vm.runInContext(
   section(home,'  const CIV_PUBLIC_DIRECTION','  function civilizationPublicStatus')
   +'\nthis.civilizationPublicText=civilizationPublicText;', civCtx);
+assert.equal(
+  civCtx.civilizationPublicText('正式材料没有确认本人窗口形成可以与既有状态区分的独立变化。'),
+  '现有材料尚未确认本人窗口形成可以与既有状态区分的独立变化。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('现有材料经复核后未形成可单独计入的净变化。不以词史总地位或低档补资格，撤销原局部、短期或低强度变化、中位。'),
+  '现有材料未形成可单独计入的净变化。不因词史总地位或较低变化幅度而另行计入，此前的局部、短期或低强度变化中位判断不再保留。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('负组件只计入特定学术内容的持续退出，不将判死、赦免另拆包，也不宣称全部著述消失；无系统性禁毁，不开硬负门。'),
+  '负向部分只计入特定学术内容的持续退出，不把判死、赦免另列为独立负项，也不宣称全部著述消失；无系统性禁毁，不足以形成系统性负向变化。'
+);
+assert.equal(
+  civCtx.civilizationPublicText('准入与纪律限制由同轴负向材料计入；故删除该项并维持中央范围上限。'),
+  '入学条件与纪律限制另由本轴负向材料反映；因此该项不单独形成更高负向判断，影响范围仍限于中央学习环境。'
+);
+assert.equal(civCtx.civilizationPublicText('由高位降中位。'),'因此取中位。');
+assert.equal(civCtx.civilizationPublicText('按正式方向、影响幅度和本级位置换算。'),'按当前方向、影响幅度和档内位置换算。');
+assert.equal(civCtx.civilizationPublicText('现有材料未证实当期可本人责任的公共传播。'),'现有材料未证实当期可归于本人的公共传播。');
 assert.equal(civCtx.civilizationPublicText('正向变化第3级'),'正向变化达到主要领域的稳定改变');
 assert.equal(civCtx.civilizationPublicText('负向变化第4级'),'负向变化达到系统性破坏');
 assert.equal(
