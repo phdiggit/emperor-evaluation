@@ -2699,12 +2699,52 @@ def test_third_item_reader_separates_scoring_chains_and_exposes_intermediate_tot
     for phrase in ("安全状态变化", "控制成果质量", "军事体系表现", "军事代价"):
         assert phrase in source
     assert "不是领土占比、现实概率或独立得分" in source
+    assert 'const THIRD_MILITARY_SYSTEM_LABELS = ["C1实战交付","C2持续作战","C3体系可靠性"]' in source
+    assert "function thirdMilitarySharedSummary(items)" in source
+    assert "function thirdMilitarySystemCards(record, items)" in source
+    assert "军事体系共同裁决摘要" in source
+    assert 'metricDetail(sharedSummary ? {...item, reader_summary:""} : item, record, "military")' in source
+    assert "${thirdMilitarySystemCards(record, military)}" in source
     assert 'thirdCalculationRows(strategic, ["A120"]' in source
     assert 'thirdCalculationRows(strategic, ["B80"]' in source
     assert 'thirdCalculationRows(military, ["C50"]' in source
     assert 'thirdCalculationRows(military, ["实际扣分"]' in source
     assert 'thirdCalculationRows(military, ["第三项合计"]' in source
     assert 'military:new Set(["C50","实际扣分","第三项合计"])' in source
+
+
+def test_third_item_military_system_shared_summary_deduplicates_repeated_prose(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for reader behavior")
+    script = tmp_path / "third-military-shared-summary.cjs"
+    script.write_text(r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const source=fs.readFileSync('reader/home-interactions.js','utf8');
+const start=source.indexOf('  const THIRD_MILITARY_SYSTEM_LABELS');
+const end=source.indexOf('\n  function thirdCalculationRows',start);
+assert.ok(start>=0&&end>start,'third military helper fragment');
+const api=new Function(
+  'thirdItemPublicText','cleanNetText','metricDetail','prose',
+  source.slice(start,end)+';return {thirdMilitarySharedSummary};'
+)(
+  (item,value)=>String(value||''),
+  value=>String(value||'').replace(/\s+/g,' ').trim(),
+  ()=>'',value=>'<p>'+value+'</p>'
+);
+const labels=['C1实战交付','C2持续作战','C3体系可靠性'];
+const common='共同依据：多个方向的成功与失败共同决定体系判断。';
+const items=labels.map((label,index)=>({
+  label,
+  reader_kind:'judgment',
+  reader_summary:'该方面为'+['A','B','C'][index]+'档水平。'+common
+}));
+assert.equal(api.thirdMilitarySharedSummary(items),common);
+items[2]={...items[2],reader_summary:'该方面为C档水平。另一段专属依据。'};
+assert.equal(api.thirdMilitarySharedSummary(items),'');
+''',encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
 
 
 def test_compare_highlight_excludes_context_uncertainty_and_preserves_profile_evidence_strength():

@@ -1504,6 +1504,35 @@ function firstCommanderMarkup(item) {
       .map(item => metricDetail(item, record, groupKey)).join("");
   }
 
+  const THIRD_MILITARY_SYSTEM_LABELS = ["C1实战交付","C2持续作战","C3体系可靠性"];
+
+  function thirdMilitarySummaryTail(item) {
+    const text = thirdItemPublicText(item, item?.reader_summary || "");
+    return cleanNetText(text.replace(/^该方面为(?:[SABCDE](?:[+−-])?档|未单列等级)水平[。；]?\s*/, ""));
+  }
+
+  function thirdMilitarySharedSummary(items) {
+    const byLabel = new Map(items.filter(item => item.reader_kind === "judgment").map(item => [item.label, item]));
+    const rows = THIRD_MILITARY_SYSTEM_LABELS.map(label => byLabel.get(label));
+    if (rows.some(item => !item)) return "";
+    const tails = rows.map(thirdMilitarySummaryTail);
+    if (!tails[0] || tails.some(text => text !== tails[0])) return "";
+    return tails[0];
+  }
+
+  function thirdMilitarySystemCards(record, items) {
+    const wanted = new Set(THIRD_MILITARY_SYSTEM_LABELS);
+    const sharedSummary = thirdMilitarySharedSummary(items);
+    const cards = items
+      .filter(item => wanted.has(item.label) && item.reader_kind === "judgment")
+      .map(item => metricDetail(sharedSummary ? {...item, reader_summary:""} : item, record, "military"))
+      .join("");
+    const common = sharedSummary
+      ? `<details class="net-material-summary net-third-shared-summary"><summary>军事体系共同裁决摘要</summary>${prose(sharedSummary)}</details>`
+      : "";
+    return common + cards;
+  }
+
   function thirdCalculationRows(items, labels, groupKey, summary) {
     const wanted = new Set(labels);
     const subset = items.filter(item => wanted.has(item.label));
@@ -1527,7 +1556,7 @@ function firstCommanderMarkup(item) {
     </section>`;
     const militarySection = `<section id="net-group-military" class="panel net-detail-group"><h2>第三项 · 军事体系与成本</h2>
       <div class="net-third-subgroup"><h3>军事体系表现</h3><p class="subline net-third-subgroup-note">三方面共同决定军事体系结果；单项参与合成，不单列分值。</p>
-        ${thirdJudgmentCards(record, military, ["C1实战交付","C2持续作战","C3体系可靠性"], "military")}
+        ${thirdMilitarySystemCards(record, military)}
         ${thirdCalculationRows(military, ["C50"], "military", "军事体系结果怎么形成？")}
       </div>
       <div class="net-third-subgroup"><h3>军事代价</h3><p class="subline net-third-subgroup-note">普通军事代价与重大军事净毁损按正式规则合并，避免同一损失重复扣减。</p>
