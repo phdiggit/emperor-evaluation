@@ -3026,6 +3026,21 @@ def test_top_level_performance_scores_use_reader_precision_but_audit_precision_i
     assert "第一项结算分：${scoreNumber(rawFirstScore)}" in home
     assert 'major === "fourth" && Number(value) > 0 ? `+${scoreNumber(value)}` : scoreNumber(value)' in home
 
+def test_profile_metadata_hides_internal_axis_codes_and_raw_radar_values():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    start = template.index('<details class="metadata"><summary>材料与正式记录</summary>')
+    end = template.index('</details></details>', start)
+    block = template[start:end]
+    assert "公开状态：" in block
+    assert "雷达按公开18级档位绘制" in block
+    assert "grade(a)" in block
+    assert "a.axis_grade" not in block
+    assert "a.radar_value" not in block
+    assert "pos(a.position)" not in block
+    assert " · ${c} " not in block
+
+
 def test_profile_metadata_uses_reader_friendly_source_labels():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
