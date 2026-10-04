@@ -800,6 +800,13 @@ def test_b1_reader_consumes_formal_public_projection_instead_of_rebuilding_profi
     assert 'declared_boundary = record.get("public_boundary")' in build
 
 
+def test_generic_net_full_basis_is_clearly_marked_as_unedited_audit_text():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert '<summary>正式裁决原文（未改写）</summary>${prose(fullBasis)}' in source
+    assert "当前人物的完整裁决原文" not in source
+
+
 def test_third_fourth_detail_material_cards_use_formal_public_fields_only():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")

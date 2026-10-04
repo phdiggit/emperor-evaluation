@@ -1160,7 +1160,7 @@ function firstCommanderMarkup(item) {
       ? formalLevelBase.slice(repeatedPrefix.length)
       : formalLevelBase;
     const full = fullBasis && fullBasis !== summary
-      ? `<details><summary>当前人物的完整裁决原文</summary>${prose(fullBasis)}</details>`
+      ? `<details><summary>正式裁决原文（未改写）</summary>${prose(fullBasis)}</details>`
       : "";
     const materialCards = metricMaterialCards(item, groupKey);
     const summaryFold = structuredMaterials && summary
