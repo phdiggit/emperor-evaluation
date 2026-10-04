@@ -39,9 +39,9 @@ const state={q:'',polity:'',scope:'main',sort:'time',compare:[],grade:'',differe
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const number=v=>typeof v==='number'?v.toFixed(2):'—';
 const scoreNumber=v=>typeof v==='number'?v.toFixed(1):'—';
-const conf=v=>({HIGH:'高',MEDIUM:'中',LOW:'低'}[v]||v||'未声明');
-const pos=v=>({HIGH:'高位',MID:'中位',LOW:'低位'}[v]||v||'');
-const mode=v=>({FULL_GRADE:'完整定档',BOUNDED_PROFILE:'有界画像',MATERIAL_DENSITY_LIMITED:'材料密度受限',NOT_APPLICABLE:'不适用',EPISODE_TAG:'仅有局部情境证据',NO_GRADE:'证据不足，无档结案'}[v]||v||'未声明');
+const conf=v=>({HIGH:'高',MEDIUM:'中',LOW:'低'}[v]||'未列');
+const pos=v=>({HIGH:'高位',MID:'中位',LOW:'低位'}[v]||'');
+const mode=v=>({FULL_GRADE:'完整定档',BOUNDED_PROFILE:'有界画像',MATERIAL_DENSITY_LIMITED:'材料密度受限',NOT_APPLICABLE:'不适用',EPISODE_TAG:'仅有局部情境证据',NO_GRADE:'证据不足，无档结案'}[v]||'未列');
 const dimNames={scope:'影响范围',depth_duration:'深度与持续',personal_causality:'个人因果',paradigm:'政治范式'};
 const sourceRepoBase=()=>DATA.source_repository&&DATA.source_revision?'https://github.com/'+DATA.source_repository.split('/').map(encodeURIComponent).join('/')+'/blob/'+encodeURIComponent(DATA.source_revision)+'/':'';
 const validatedRawUrl=p=>{const path=String(p||'').split('#',1)[0].replace(/^\.\.\//,'');if(DATA.source_repository&&DATA.source_revision)return 'https://raw.githubusercontent.com/'+DATA.source_repository.split('/').map(encodeURIComponent).join('/')+'/'+encodeURIComponent(DATA.source_revision)+'/'+path.split('/').map(encodeURIComponent).join('/');return '../'+path+'?raw=1'};

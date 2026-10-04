@@ -395,6 +395,16 @@ def test_generated_reader_release_pins_dynamic_sources():
         assert "raw.githubusercontent.com" in military
 
 
+def test_reader_global_enum_fallbacks_hide_unknown_raw_codes():
+    from pathlib import Path
+    template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
+    assert "const conf=v=>({HIGH:'高',MEDIUM:'中',LOW:'低'}[v]||'未列');" in template
+    assert "const pos=v=>({HIGH:'高位',MID:'中位',LOW:'低位'}[v]||'');" in template
+    assert "const mode=v=>({FULL_GRADE:'完整定档',BOUNDED_PROFILE:'有界画像',MATERIAL_DENSITY_LIMITED:'材料密度受限',NOT_APPLICABLE:'不适用',EPISODE_TAG:'仅有局部情境证据',NO_GRADE:'证据不足，无档结案'}[v]||'未列');" in template
+    assert "||v||'未声明'" not in template
+    assert "未声明" not in template
+
+
 def test_new_viewer_layers_and_compact_c5_hint():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
