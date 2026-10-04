@@ -2202,11 +2202,11 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     source = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "function impactPublicText(t)" in source
     assert "V\\d+(?:\\.\\d+)+硬门复核通过" in source
-    assert "最高档条件复核通过" in source
+    assert "现有材料满足最高档条件" in source
     assert "V\\d+(?:\\.\\d+)+范围只消费" in source
-    assert "当前公开口径不再把" in source
+    assert "当前判断不再把" in source
     assert "剔除仅由名号、法统或制度惯性造成的接收后" in source
-    assert "剔除名号与制度惯性的复核" in source
+    assert "剔除仅由名号与制度惯性造成的接收" in source
     assert "但不能把五代十国全部归入本人”这一主链中" in source
     assert "人物画像“战略判断”材料" in source
     assert "人物画像“'+(shortNames[code]||code)+'”材料" in source
@@ -2239,7 +2239,7 @@ def test_historical_impact_public_copy_hides_model_version_and_review_jargon():
     assert "现有归责材料认为，这一终局变化高度依赖本人选择。" in source
     assert ".replace(/\\bDECISIVE_DRIVER\\b/g,\'决定性个人驱动\')" in source
     assert ".replace(/项目D/g,\'现有归责材料\')" in source
-    assert "正式计入条件" in source
+    assert "可确认历史变化的条件" in source
     assert ".replace(/只消费/g,'只计入')" in source
     assert ".replace(/硬变化/g,'已确认的实际变化')" in source
     assert ".replace(/去重桥接/g,'去重后综合判断')" in source
@@ -2317,6 +2317,14 @@ const ctx={letters,shortNames,readingTerms,grade};
 vm.createContext(ctx);
 vm.runInContext(source.slice(start,end)+';this.impactPublicText=impactPublicText;this.impactDimensionPublicText=impactDimensionPublicText;',ctx);
 
+assert.equal(ctx.impactPublicText('V4.1硬门复核通过：材料成立。'),'现有材料满足最高档条件：材料成立。');
+assert.equal(ctx.impactPublicText('范围只计已经越过正式计入条件的结果。'),'范围只计已经形成可确认历史变化的结果。');
+assert.equal(ctx.impactPublicText('项目正式战役群把陈友谅线视为最高主链。'),'相关战役材料把陈友谅线视为最高主链。');
+assert.equal(ctx.impactPublicText('当前材料扩搜把长期深度的主证从甲移到乙。'),'现有材料把长期深度的主要依据从甲移到乙。');
+assert.equal(ctx.impactPublicText('项目军事体系观察把铁木真列为极限锚。'),'军事体系材料把铁木真作为极高参照。');
+assert.equal(ctx.impactPublicText('文学名望当前材料不以政治范式替代明确证据。'),'文学名望本身不能替代政治范式所需的明确接收证据。');
+assert.equal(ctx.impactPublicText('S+归责门仍需满足。'),'S+个人因果条件仍需满足。');
+
 const forbidden=[
   /V\d+(?:\.\d+)+/i,
   /硬门/,
@@ -2349,7 +2357,17 @@ const forbidden=[
   /合同/,
   /机械/,
   /重裁/,
-  /门槛/
+  /门槛/,
+  /当前公开口径/,
+  /最高档条件复核通过/,
+  /正式计入条件/,
+  /归责门/,
+  /项目正式战役群/,
+  /项目战役结算材料/,
+  /项目军事体系观察/,
+  /当前材料扩搜/,
+  /极限锚/,
+  /剔除名号与制度惯性的复核/
 ];
 
 const violations=[];

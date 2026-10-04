@@ -213,7 +213,28 @@ function impactPublicText(t){
   .replace(/机械/g,'直接')
   .replace(/门槛/g,'条件')
   .replace(/足以守([SABCDE][+−-]?)/g,'足以支持$1档')
-  .replace(/故守([SABCDE][+−-]?)/g,'因此维持$1档');
+  .replace(/故守([SABCDE][+−-]?)/g,'因此维持$1档')
+  .replace(/最高档条件复核通过/g,'现有材料满足最高档条件')
+  .replace(/当前公开口径不再把/g,'当前判断不再把')
+  .replace(/按当前公开口径/g,'按当前判断边界')
+  .replace(/当前公开口径/g,'当前判断')
+  .replace(/范围只计已经越过正式计入条件的结果/g,'范围只计已经形成可确认历史变化的结果')
+  .replace(/正式计入条件/g,'可确认历史变化的条件')
+  .replace(/([SABCDE][+−-]?)归责门/g,'$1个人因果条件')
+  .replace(/归责门/g,'个人因果条件')
+  .replace(/项目正式战役群/g,'相关战役材料')
+  .replace(/项目战役结算材料/g,'相关战役材料')
+  .replace(/项目军事体系观察把([^，。；]+)列为极限锚/g,'军事体系材料把$1作为极高参照')
+  .replace(/项目军事体系观察/g,'军事体系材料')
+  .replace(/当前材料扩搜把/g,'现有材料把')
+  .replace(/当前材料扩搜/g,'现有材料')
+  .replace(/主证/g,'主要依据')
+  .replace(/极限锚/g,'极高参照')
+  .replace(/空间锚/g,'空间参照')
+  .replace(/去重后的当量桥接/g,'合并后的范围判断')
+  .replace(/去重后综合判断/g,'合并判断')
+  .replace(/剔除名号与制度惯性的复核/g,'剔除仅由名号与制度惯性造成的接收')
+  .replace(/文学名望当前材料不以政治范式替代明确证据/g,'文学名望本身不能替代政治范式所需的明确接收证据');
 }
 function impactTotalPublicText(h){
  const dims=h?.dimensions||{};
