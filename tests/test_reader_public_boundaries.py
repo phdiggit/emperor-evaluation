@@ -512,7 +512,11 @@ const forbidden=[
   /独立独立/,
   /旧只记[^。；]*→/,
   /此前记录[^。；]*→/,
-  /旧卡|两票|436—437卡/
+  /旧卡|两票|436—437卡/,
+  /旧[ABCDE]档→[ABCDE]档/,
+  /重建(?:为)?\d+(?:\.\d+)?→/,
+  /旧\d+(?:\.\d+)?(?:临时包|西州残值|总量)/,
+  /旧\d{3,4}—\d{3,4}合并/
 ];
 
 function check(value,item,where){
@@ -602,7 +606,8 @@ const forbidden=[
   /补充限制/,
   /归第二项/,
   /同账/,
-  /另定整数负向变化/
+  /另定整数负向变化/,
+  /机械/
 ];
 
 function assertClean(out,where){
@@ -614,6 +619,10 @@ function checkJudgment(value,where){
   if(value==null||value==='')return;
   assertClean(ctx.civilizationPublicText(String(value)),where);
 }
+assert.equal(ctx.civilizationPublicText('两条清晰但有限的变化不能机械堆成主要领域的稳定改变。'),'两条清晰但有限的变化不能直接叠加为主要领域的稳定改变。');
+assert.equal(ctx.civilizationPublicText('不把整体声誉机械转化为高分。'),'不把整体声誉直接转化为高分。');
+assert.equal(ctx.civilizationPublicText('不以字数缺失机械判零。'),'不以字数缺失直接判为零。');
+
 function checkCalculation(value,where){
   if(value==null||value==='')return;
   assertClean(ctx.cleanNetText(String(value)),where);
@@ -1614,6 +1623,34 @@ assert.equal(
   '此前只计燕云控制，漏掉阿保机交班时的草原和辽东控制存量；补全后当前控制范围判断相应上调。'
 );
 assert.equal(
+  thirdCtx.thirdPublicText('旧954—955合并上层证据先整体退出，955胡卢河若独立拆链后再复核。','普通成本扣分'),
+  '954—955年合并材料不再作为本项独立成本依据；955年胡卢河仅在能够形成独立任务链时另行判断。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('旧E档→E档无法表达真实退控；重建为3.0→1.65，控制范围合成比例由 0% 调整为 15%。','B1'),
+  '重新核对控制存量后，明确记录任期内真实退控；当前控制范围合成比例为15%。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('旧E档→E档掩盖蒙古造成的真实退控；重建3.0→1.5，合成比例由 0% 调整为 15%。','B1'),
+  '重新核对控制存量后，纳入蒙古进攻造成的真实退控；当前控制范围合成比例为15%。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('旧E档→E档无法表达河北、山东、河东、陕西持续退控；重建1.5→0.725，合成比例由 0% 调整为 29%。','B1'),
+  '重新核对控制存量后，纳入河北、山东、河东、陕西的持续退控；当前控制范围合成比例为29%。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('旧1.0临时包改为草原规范依据0.875+辽东0.5；45→59。','B1'),
+  '统一草原与辽东控制口径后，当前控制范围合成比例为59%。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('旧0.2西州残值改为0.3三受降城实际控制存量；综合控制量已重新核对，合成比例仍为30%。','B1'),
+  '重新核对后，删除西州错误残余控制并计入三受降城实际控制存量；合成比例仍为30%。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('旧5.0总量被东北1.4+松外0.5高估；三受降城0.3保留。控制范围合成比例由 67% 调整为 59%。','B1'),
+  '重新核对后，东北与松外控制存量不再高估，三受降城控制仍保留；当前控制范围合成比例为59%。'
+);
+assert.equal(
   thirdCtx.thirdPublicText('452北伐由证据不足证据支持评为负向，另一独立独立任务周期维持。','C1实战交付'),
   '452北伐现有证据仅支持判断为负向，另一独立任务周期维持。'
 );
@@ -2343,6 +2380,10 @@ const forbidden=[
   /纳入判断合同/,
   /组织执行合同/,
   /审计/,
+  /附件终审/,
+  /本批/,
+  /跨轴/,
+  /项目内部联盟\/军事统帅/,
   /`/,
   /\*\*/,
   /[SABCDE][+−-]?\s*(?:\/|／)\s*\d+(?:\.\d+)?\b/,
@@ -2451,6 +2492,14 @@ assert.equal(
 assert.equal(
   ctx.profilePublicPattern('按A档纳入判断合同；不拆票凑A档；组织执行合同只约束本轴。'),
   '按A档判断规则；不把同一证据链拆成多条来提高到A档；组织执行规则只约束本轴。'
+);
+assert.equal(
+  ctx.profilePublicPattern('附件终审逐人材料吸纳：某人是本批代表；跨轴补查显示项目内部联盟/军事统帅可以确认，诊断：局部正确选择。'),
+  '某人是当前复核代表；补充核对显示人物画像“内部联盟”与“军事统帅”材料可以确认，判断：局部正确选择。'
+);
+assert.equal(
+  ctx.profilePublicPattern('原战略判断既有情境材料已经不是单一链；正式战略判断几乎只计入终局事件；原E档过低。'),
+  '既有战略判断材料已经不是单一链；既有战略判断主要只依据终局事件；此前E档过低。'
 );
 assert.equal(ctx.profileDistinctPositionBasis('MID：'+same,same,'G4-MID：'+same),'');
 assert.equal(ctx.profileDistinctPositionBasis('档内中位：'+same,same,'G4-MID：'+same),'');
