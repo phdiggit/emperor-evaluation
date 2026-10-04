@@ -1057,7 +1057,7 @@ const ctx={};
 vm.createContext(ctx);
 vm.runInContext(
   source.slice(start,end)
-  +'\nthis.publicText=publicText;this.publicTechnicalText=publicTechnicalText;this.publicFinanceText=publicFinanceText;this.publicHandoffText=publicHandoffText;this.publicBoundaryText=publicBoundaryText;this.publicFinanceBoundaryText=publicFinanceBoundaryText;',
+  +'\nthis.publicText=publicText;this.publicTechnicalText=publicTechnicalText;this.publicFinanceText=publicFinanceText;this.publicHandoffText=publicHandoffText;this.publicBoundaryText=publicBoundaryText;this.publicFinanceBoundaryText=publicFinanceBoundaryText;this.publicMaterialBodyText=publicMaterialBodyText;this.publicBoundaryDifference=publicBoundaryDifference;',
   ctx
 );
 
@@ -1100,6 +1100,16 @@ assert.equal(
 );
 const duplicateDamage=ctx.publicFinanceText('主要状态：可运行秩序。另有独立常态说明。 重要地区或群体出现明显损害：'+repeatedFinanceBlock+' 重要地区或群体出现明显损害：'+repeatedFinanceBlock+' 评价范围：这里只展示居民安全结果。');
 assert.equal((duplicateDamage.match(/重要地区或群体出现明显损害：/g)||[]).length,1);
+assert.equal(
+  ctx.publicMaterialBodyText('范质泣谏使窦仪免于枉杀','范质泣谏使窦仪免于枉杀；已观察到实际结果'),
+  '已观察到实际结果'
+);
+assert.equal(
+  ctx.publicMaterialBodyText('制度建设','制度建设推动长期变化'),
+  '制度建设推动长期变化'
+);
+assert.equal(ctx.publicBoundaryDifference('同一机制只作一次判断。','同一机制只作一次判断。'),'');
+assert.equal(ctx.publicBoundaryDifference('本卡特有边界。','总体边界。'),'本卡特有边界。');
 
 const forbidden=[
   /未?闭合/,
@@ -1187,11 +1197,19 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
     alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
+    a_public = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
+    b1_public = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
     home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
 
     assert 'if (scope || boundary)' in alias
     assert 'details.append(makeTextBlock("summary", "", "范围与边界"))' in alias
     assert 'card.append(box);' not in alias[alias.index('const scope = publicText(data.scope)'):alias.index('const footer = publicText(data.footer)')]
+    assert 'const body = publicMaterialBodyText(data.title || "裁决材料", data.body);' in alias
+    assert 'renderB2MaterialGroups(evidence, item.reader_boundary)' in alias
+    assert 'renderFinanceMaterialGroups(label, evidence, item.reader_boundary)' in alias
+    assert 'renderHandoffMaterialGroups(label, evidence, item.reader_boundary)' in alias
+    assert 'api.boundaryDifference(entry?.public_boundary, sharedBoundary)' in a_public
+    assert 'api.boundaryDifference(entry?.public_boundary, sharedBoundary)' in b1_public
     assert 'const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;' in home
     assert '总体裁决摘要' in home
     assert 'const logic = structuredMaterials ? "" : summary;' in home

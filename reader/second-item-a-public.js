@@ -68,14 +68,14 @@
     return result;
   }
 
-  function card(entry) {
+  function card(entry, sharedBoundary) {
     const api = globalThis.SecondItemMaterialCards;
     if (api?.card) return api.card({
       title: entry?.public_label || "制度建设材料",
       direction: entry?.public_direction,
       tags: entry?.public_tags || [],
       body: entry?.public_basis,
-      boundary: entry?.public_boundary,
+      boundary: api.boundaryDifference ? api.boundaryDifference(entry?.public_boundary, sharedBoundary) : entry?.public_boundary,
     });
 
     const li = make("li", "second-item-a-card");
@@ -84,14 +84,14 @@
     return li;
   }
 
-  function section(title, entries) {
+  function section(title, entries, sharedBoundary) {
     const api = globalThis.SecondItemMaterialCards;
-    if (api?.group) return api.group(title, entries.map(card));
+    if (api?.group) return api.group(title, entries.map(entry => card(entry, sharedBoundary)));
     if (!entries.length) return document.createDocumentFragment();
     const wrapper = make("section", "second-item-a-group");
     wrapper.append(make("h4", "", title));
     const list = make("ul", "second-item-a-list");
-    list.replaceChildren(...entries.map(card));
+    list.replaceChildren(...entries.map(entry => card(entry, sharedBoundary)));
     wrapper.append(list);
     return wrapper;
   }
@@ -167,10 +167,11 @@
     reading.append(make("div", "second-item-a-summary", summary));
 
     const grouped = groups(evidence);
-    reading.append(section("正向制度建设", grouped.positive));
-    reading.append(section("负向制度设计与制度性损害", grouped.negative));
-    reading.append(section("正负并存的制度", grouped.mixed));
-    reading.append(section("其他正式说明", grouped.other));
+    const sharedBoundary = item.reader_boundary || "";
+    reading.append(section("正向制度建设", grouped.positive, sharedBoundary));
+    reading.append(section("负向制度设计与制度性损害", grouped.negative, sharedBoundary));
+    reading.append(section("正负并存的制度", grouped.mixed, sharedBoundary));
+    reading.append(section("其他正式说明", grouped.other, sharedBoundary));
     body.append(reading);
 
     const boundaryText = globalThis.SecondItemMaterialCards?.boundaryText?.(item.reader_boundary) || item.reader_boundary;

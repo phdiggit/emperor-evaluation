@@ -602,6 +602,24 @@
     return dedupeBoundaryText(publicFinanceText(value));
   }
 
+  function publicMaterialBodyText(titleValue, bodyValue) {
+    const title = publicText(titleValue).replace(/\s+/g, " ").trim().replace(/[：:；;，,。.!！？?、]+$/g, "");
+    const body = publicText(bodyValue).replace(/\s+/g, " ").trim();
+    if (!title || !body) return body;
+    if (body === title) return "";
+    if (!body.startsWith(title)) return body;
+    const tail = body.slice(title.length);
+    if (!/^[：:；;，,。.!！？?、\s]/.test(tail)) return body;
+    return tail.replace(/^[：:；;，,。.!！？?、\s]+/, "").trim();
+  }
+
+  function publicBoundaryDifference(value, sharedValue, formatter = publicBoundaryText) {
+    const current = formatter(value);
+    if (!current) return "";
+    const shared = formatter(sharedValue);
+    return shared && current === shared ? "" : current;
+  }
+
   const FINANCE_BASE_SCORES = {
     "C1民生": {1:5.7,2:17.1,3:32.0,4:54.9,5:74.3,6:80.0},
     "C2经济财政": {1:1.8,2:7.0,3:14.9,4:23.6,5:29.8,6:35.0},
@@ -722,7 +740,7 @@
     if (meta.childNodes.length) head.append(meta);
     card.append(head);
 
-    const body = publicText(data.body);
+    const body = publicMaterialBodyText(data.title || "裁决材料", data.body);
     if (body) card.append(makeTextBlock("p", "adjudication-material-basis", body));
 
     const scope = publicText(data.scope);
@@ -761,7 +779,7 @@
     return section;
   }
 
-  function renderB2MaterialGroups(evidence) {
+  function renderB2MaterialGroups(evidence, sharedBoundary) {
     const groups = {positive:[], negative:[], mixed:[]};
     for (const entry of evidence || []) {
       const direction = String(entry?.public_direction || "");
@@ -771,7 +789,7 @@
         direction,
         tags: entry?.public_tags || [],
         body: entry?.public_basis,
-        boundary: entry?.public_boundary,
+        boundary: publicBoundaryDifference(entry?.public_boundary, sharedBoundary),
         dataset: {publicEvidenceId: entry?.id || ""},
       }));
     }
@@ -795,7 +813,7 @@
     return "other";
   }
 
-  function renderFinanceMaterialGroups(label, evidence) {
+  function renderFinanceMaterialGroups(label, evidence, sharedBoundary) {
     const groups = {state:[], loss:[], recovery:[], cost:[], boundary:[], other:[]};
     for (const entry of evidence || []) {
       const role = String(entry?.public_role || "").trim();
@@ -804,7 +822,7 @@
         title: publicFinanceText(entry?.public_label || role || "正式裁决材料"),
         tags: role ? [role] : [],
         body: publicFinanceText(entry?.public_basis),
-        boundary: publicFinanceText(entry?.public_boundary),
+        boundary: publicBoundaryDifference(entry?.public_boundary, sharedBoundary, publicFinanceBoundaryText),
         dataset: {publicEvidenceId: entry?.id || ""},
       }));
     }
@@ -828,7 +846,7 @@
   }
 
 
-  function renderHandoffMaterialGroups(label, evidence) {
+  function renderHandoffMaterialGroups(label, evidence, sharedBoundary) {
     const groups = {preparation:[], result:[], continuity:[], other:[]};
     for (const entry of evidence || []) {
       const role = String(entry?.public_role || "").trim();
@@ -840,7 +858,7 @@
         title: publicHandoffText(entry?.public_label || role || "交接裁决材料"),
         tags: role ? [role] : [],
         body: publicHandoffText(entry?.public_basis),
-        boundary: publicHandoffText(entry?.public_boundary),
+        boundary: publicBoundaryDifference(entry?.public_boundary, sharedBoundary, value => publicBoundaryText(publicHandoffText(value))),
         dataset: {publicEvidenceId: entry?.id || ""},
       }));
     }
@@ -864,6 +882,8 @@
     group: materialGroup,
     publicEnumText,
     boundaryText: publicBoundaryText,
+    bodyText: publicMaterialBodyText,
+    boundaryDifference: publicBoundaryDifference,
   });
 
   function publicFacts(item) {
@@ -951,11 +971,11 @@
       const evidence = item.reader_public_evidence_items;
       const facts = publicFacts(item);
       if (label === "B2反馈与约束" && Array.isArray(evidence) && evidence.length) {
-        reading.append(renderB2MaterialGroups(evidence));
+        reading.append(renderB2MaterialGroups(evidence, item.reader_boundary));
       } else if (["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label) && Array.isArray(evidence) && evidence.length) {
-        reading.append(renderFinanceMaterialGroups(label, evidence));
+        reading.append(renderFinanceMaterialGroups(label, evidence, item.reader_boundary));
       } else if (["D1继任行政连续性","D3政权交接稳定"].includes(label) && Array.isArray(evidence) && evidence.length) {
-        reading.append(renderHandoffMaterialGroups(label, evidence));
+        reading.append(renderHandoffMaterialGroups(label, evidence, item.reader_boundary));
       } else if (Array.isArray(evidence) && evidence.length) {
         reading.append(publicEvidenceList(evidence));
       } else if (facts.length > 1) {

@@ -57,7 +57,7 @@
     return groups;
   }
 
-  function card(entry, {supplement = false} = {}) {
+  function card(entry, sharedBoundary, {supplement = false} = {}) {
     const api = globalThis.SecondItemMaterialCards;
     const direction = String(entry?.public_direction || "");
     const tags = (Array.isArray(entry?.public_tags) ? entry.public_tags : [])
@@ -67,7 +67,7 @@
       direction,
       tags,
       body: entry?.public_basis,
-      boundary: entry?.public_boundary,
+      boundary: api.boundaryDifference ? api.boundaryDifference(entry?.public_boundary, sharedBoundary) : entry?.public_boundary,
       supplement,
     });
 
@@ -77,14 +77,14 @@
     return li;
   }
 
-  function group(title, entries, {supplement = false} = {}) {
+  function group(title, entries, sharedBoundary, {supplement = false} = {}) {
     const api = globalThis.SecondItemMaterialCards;
-    if (api?.group) return api.group(title, entries.map(entry => card(entry, {supplement})));
+    if (api?.group) return api.group(title, entries.map(entry => card(entry, sharedBoundary, {supplement})));
     if (!entries.length) return document.createDocumentFragment();
     const section = make("section", "second-item-b1-group");
     section.append(make("h4", "", title));
     const list = make("ul", "second-item-b1-list");
-    list.replaceChildren(...entries.map(entry => card(entry, {supplement})));
+    list.replaceChildren(...entries.map(entry => card(entry, sharedBoundary, {supplement})));
     section.append(list);
     return section;
   }
@@ -168,16 +168,17 @@
     }
 
     const groups = groupedEvidence(evidence);
+    const sharedBoundary = item.reader_boundary || "";
     body.innerHTML = "";
     const reading = make("div", "second-item-public-reading second-item-b1-reading");
     reading.append(make("div", "label", "官僚治理运行链"));
     reading.append(make("p", "second-item-b1-intro", "每张卡直接读取正式人物级公开投影；“独立计入”“并入同一运行链”“不单独计入”等标签都由上游裁决直接发布，页面不重新判断。"));
     reading.append(make("div", "second-item-b1-summary", summary));
-    reading.append(group("正向行政运行", groups.positive));
-    reading.append(group("负向行政失灵", groups.negative));
-    reading.append(group("正负并存的行政机制", groups.mixed));
-    reading.append(group("并入同一运行链的补充材料", groups.supplement, {supplement:true}));
-    reading.append(group("边界材料（不单独计入）", groups.boundary));
+    reading.append(group("正向行政运行", groups.positive, sharedBoundary));
+    reading.append(group("负向行政失灵", groups.negative, sharedBoundary));
+    reading.append(group("正负并存的行政机制", groups.mixed, sharedBoundary));
+    reading.append(group("并入同一运行链的补充材料", groups.supplement, sharedBoundary, {supplement:true}));
+    reading.append(group("边界材料（不单独计入）", groups.boundary, sharedBoundary));
     body.append(reading);
 
     const boundaryText = globalThis.SecondItemMaterialCards?.boundaryText?.(item.reader_boundary) || item.reader_boundary;
