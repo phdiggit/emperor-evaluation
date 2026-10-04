@@ -1053,7 +1053,7 @@ function firstCommanderMarkup(item) {
       : "";
     const formalCurrent = thirdPublicText(item?.reader_how || "", item?.label || "");
     const subtotal = thirdPublicText(groupItems.get("A120")?.reader_how || "", "A120");
-    return `“轨迹值”只是计分中间值，不是另一项评价。计算时 E=0、D=1、C=2、B=3、A=4、S=5；0—5只是在公式中的档位权重，公开裁决仍使用 E—S，并不是另一套数字档位。轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整，并限制在0—100；本轴分数 = 0.6 × 轨迹值。专项信用、负向调整和最终分数均直接读取正式裁决，不由阅读层反推中间值。${current ? " " + current + "。" : ""}${formalCurrent ? " 当前人物正式结算记录：" + formalCurrent : ""}${subtotal ? " 两个战略安全轴最后直接相加；两轴小计正式记录：" + subtotal : ""}`;
+    return `“轨迹值”只是计分中间值，不是另一项评价。计算时 E=0、D=1、C=2、B=3、A=4、S=5；0—5只是在公式中的档位权重，公开裁决仍使用 E—S，并不是另一套数字档位。轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整，并限制在0—100；本轴分数 = 0.6 × 轨迹值。专项信用、负向调整和最终分数均直接读取正式裁决，页面不自行反推中间值。${current ? " " + current + "。" : ""}${formalCurrent ? " 当前人物正式结算记录：" + formalCurrent : ""}${subtotal ? " 两个战略安全轴最后直接相加；两轴小计正式记录：" + subtotal : ""}`;
   }
 
   function detailedHowText(item, groupKey, how, record) {

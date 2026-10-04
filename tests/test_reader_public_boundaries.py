@@ -1220,6 +1220,8 @@ def test_reader_guide_preserves_material_strength_display_boundary():
     assert "这是离线交互设计样稿" not in template
     assert "更新正式记录后重新构建阅读页" not in template
     assert "本页展示最近一次正式发布的结算数据" in template
+    assert "本页只展示已经裁定的事实和限制。" in template
+    assert "本阅读层展示" not in template
     assert "正式记录更新后会在后续发布中同步" in template
     assert "两者不是同一尺度" in template
     assert "页面也不会自行补判" in template
@@ -2554,7 +2556,7 @@ def test_third_item_strategic_axis_explains_formula_without_reverse_deriving_for
     assert "0—5只是在公式中的档位权重" in source
     assert "公开裁决仍使用 E—S" in source
     assert "当前人物正式结算记录" in source
-    assert "不由阅读层反推中间值" in source
+    assert "页面不自行反推中间值" in source
     assert "正式轨迹值为" not in source
     assert "score / 0.6" not in source
 
