@@ -2581,7 +2581,8 @@ def test_first_item_applicability_is_three_state_and_never_inferred_from_items()
     assert "第一项正式适用状态" in home
     assert "items.every(item =>" not in home
     assert "buildNetReading" not in person
-    assert "正式状态未发布；阅读层不判断是否适用" in template
+    assert "正式适用状态未发布，因此不作适用性推断" in template
+    assert "阅读层不判断" not in template
     assert "n.first_item_status==='NOT_APPLICABLE'" in template
 
 def test_material_cards_show_optional_formal_source_coverage_without_reader_inference():
@@ -2615,6 +2616,23 @@ def test_third_item_long_public_basis_is_losslessly_split_for_readability():
     assert "固定成本系数" in source
     assert "CIV_PUBLIC_POINTS" in source
 
+
+
+def test_reader_notices_avoid_internal_system_voice_and_paths():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    template = (root / "reader/index.template.html").read_text(encoding="utf-8")
+    home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "该历史引用暂不可打开" in template
+    assert "当前文件不可用" not in template
+    assert "历史引用（当前文件不可用）" not in template
+    assert "正式记录未提供本人统帅的公开说明。" in home
+    assert "公开说明尚未同步" not in home
+    assert "阅读层不判断" not in home
+    assert "阅读层不根据" not in home
+    assert "阅读层不作默认判断" not in home
+    assert "因此不作适用性推断" in home
+    assert "因此不作默认推断" in home
 
 
 def test_reader_guide_explains_material_strength_badges_are_formal_record_only():

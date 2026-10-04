@@ -64,7 +64,7 @@ function firstCostMarkup(item) {
 function firstCommanderMarkup(item) {
   const source = item?.reader_public_commander;
   if (!source?.public_basis || !source?.public_boundary || !Array.isArray(source.public_battles)) {
-    return '<p class="notice">本人统帅的公开说明尚未同步。</p>';
+    return '<p class="notice">正式记录未提供本人统帅的公开说明。</p>';
   }
   const battles = source.public_battles.length
     ? `<details class="first-item-battle-evidence"><summary>查看已明确记载的战役与统筹成果</summary><p class="subline">“战役成果”和“任务难度”使用军事材料自己的字母刻度，不是人物画像等级。</p><ul class="first-item-battles">${source.public_battles.map(battle => `<li><strong>${esc(battle.name)}</strong> · ${esc(battle.role)} · 战役成果：${esc(battle.result)} · ${esc(battle.difficulty ? `任务难度：${battle.difficulty}` : '任务难度：未单列')} <a href="military.html#search=${encodeURIComponent(battle.name)}">查看战役档案 ↗</a></li>`).join('')}</ul></details>`
@@ -523,7 +523,7 @@ function firstCommanderMarkup(item) {
       const preview = firstStatus === "NOT_APPLICABLE"
         ? `<p class="notice">该人物不适用第一项，本项不参与统治绩效计分。</p>`
         : key === "first" && firstStatus !== "APPLICABLE"
-          ? `<p class="notice">第一项正式适用状态尚未发布；阅读层不判断该人物是否适用本项。</p>`
+          ? `<p class="notice">第一项正式适用状态尚未发布，因此不作适用性推断。</p>`
           : judgments.map(item => `<div class="component"><span>${esc(compactNetPublicLabel(item, key))}</span><b>${esc(compactNetPublicValue(item, key))}</b></div>`).join("");
       details.innerHTML = `<summary>${esc(netGroupNames[key] || key)}</summary>${preview}<p class="sources"><a href="${netHref(record, major, key)}">查看这组完整计分逻辑 →</a></p>`;
       reading.append(details);
@@ -1472,7 +1472,7 @@ function firstCommanderMarkup(item) {
       return;
     }
     if (firstStatus !== "APPLICABLE") {
-      container.innerHTML = `<section class="panel"><h2>${esc(netMajorSpecs.first.title)}</h2><p class="notice">第一项正式适用状态尚未发布；阅读层不根据分项空值或现有材料自行判断是否适用。</p></section>`;
+      container.innerHTML = `<section class="panel"><h2>${esc(netMajorSpecs.first.title)}</h2><p class="notice">第一项正式适用状态尚未发布，因此不根据分项空值或现有材料推断是否适用。</p></section>`;
       return;
     }
 
@@ -1610,7 +1610,7 @@ function firstCommanderMarkup(item) {
       : major === "first" && firstStatus === "NOT_APPLICABLE"
         ? `<p class="subline">该人物第一项不适用。</p>`
         : major === "first"
-          ? `<p class="subline">第一项正式适用状态未发布；阅读层不作默认判断。</p>`
+          ? `<p class="subline">第一项正式适用状态未发布，因此不作默认推断。</p>`
           : major === "third"
           ? '<p class="subline">250分制净分；战略、控制与军事体系收益合计后，再扣实际军事代价。</p>'
           : major === "fourth"
