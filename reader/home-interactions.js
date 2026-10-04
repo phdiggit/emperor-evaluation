@@ -20,7 +20,19 @@ function firstPublicText(value) {
     .replace(/倒灌/g, "追溯计入")
     .replace(/回填/g, "追溯计入")
     .replace(/父链/g, "主链")
-    .replace(/准入条件/g, "计入条件")
+    .replace(/未过准入条件/g, "尚未满足相应条件")
+    .replace(/的准入条件/g, "所需条件")
+    .replace(/准入条件/g, "相应条件")
+    .replace(/归责路线/g, "责任类型")
+    .replace(/正式能力档/g, "当前能力档")
+    .replace(/正式军事成本档/g, "当前军事成本等级")
+    .replace(/正式归责/g, "当前责任划分")
+    .replace(/按正式A项控制信用与项目归属/g, "按当前统一成果与项目归属")
+    .replace(/现行独立第三项投资链/g, "当前由军事与边疆项单独结算的战争链")
+    .replace(/沿第三项边界排除/g, "按军事与边疆项边界不在这里计入")
+    .replace(/另循第三项/g, "另由军事与边疆项处理")
+    .replace(/不倒入本项/g, "不归入本项")
+    .replace(/史源：补充史料\d+\s*。?/g, "")
     .replace(/拆票/g, "拆成多个独立任务")
     .replace(/机械/g, "直接")
     .replace(/按合同/g, "按规则")
@@ -1341,9 +1353,9 @@ function firstCommanderMarkup(item) {
   function firstOutcomeCalculationText(value) {
     return firstItemPublicText(value)
       .replace(/成果信用U=(\d+(?:\.\d+)?)/g, "本人有效控制成果值为$1")
-      .replace(/单人项目按统一贡献曲线计算，共同项目先生成项目A池再按正式个人信用分账/g, "单人完成时直接按统一成果曲线计算；多人共同完成时，先确定项目整体成果，再按正式归责分给个人")
+      .replace(/单人项目按统一贡献曲线计算，共同项目先生成项目A池再按正式个人信用分账/g, "单人完成时直接按统一成果曲线计算；多人共同完成时，先确定项目整体成果，再按当前责任划分分给个人")
       .replace(/项目A池/g, "项目整体成果")
-      .replace(/正式个人信用分账/g, "按正式归责分配个人成果");
+      .replace(/正式个人信用分账/g, "按当前责任划分分配个人成果");
   }
 
   const FIRST_COST_DEBIT = {
@@ -1437,7 +1449,7 @@ function firstCommanderMarkup(item) {
       .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
       .join("");
     const share = percent ? `<div class="label">本人成果规模</div>${prose(`约${percent}%全国核心统一尺度（按本人有效控制成果计算；不是共同项目分成，也不是领土、人口或军队比例）`)}` : "";
-    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary><div class="label">这项看什么</div>${prose("这里只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别在其他分项评价。")}<div class="label">本人有效控制成果值</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。这个数不是人口、面积或军队人数。")}${prose(`统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65；单人完成时直接计算，多人共同完成时再按正式归责分配个人成果。${calculation ? `\n当前人物正式代入：${calculation}` : ""}`)}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary><div class="label">这项看什么</div>${prose("这里只评价建国、复国或统一主链中，本人最终真正留下的稳定控制成果。继承来的既有版图不算本人新增；起点、对手、速度、组织和本人军事能力分别在其他分项评价。")}<div class="label">本人有效控制成果值</div>${prose("新增稳定控制按100%计，恢复旧有稳定控制按50%计；1000代表一个全国核心统一尺度。这个数不是人口、面积或军队人数。")}${prose(`统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65；单人完成时直接计算，多人共同完成时再按当前责任划分分配个人成果。${calculation ? `\n当前人物代入：${calculation}` : ""}`)}</details>`;
     return firstMetricDetail("net-first-a", "统一成果", "先看本人真正留下了什么", item, `${project}${facts}${share}${rules}`, record);
   }
 
@@ -1454,7 +1466,7 @@ function firstCommanderMarkup(item) {
     const integration = bullets["异质整合"] || "";
     const basis = bullets["裁决依据"] || "";
     const facts = `${parallel ? `<div class="label">多线任务怎样同时推进</div>${prose(firstFactText(parallel))}` : ""}${coverage ? `<div class="label">团队怎样分工</div>${prose(firstFactText(coverage))}` : ""}${integration ? `<div class="label">旧部、降附者与异质集团怎样整合</div>${prose(firstFactText(integration))}` : ""}${basis ? `<div class="label">本人组织表现与限制</div>${prose(firstFactText(basis))}` : ""}${bullets["材料来源"] ? `<details><summary>史料与归责来源</summary><p class="sources">${firstEvidenceMarkup(bullets["材料来源"], "B2组织与整合")}</p></details>` : ""}`;
-    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose("“创业组织与政治整合”看创业或统一机器能否多线并行、把高难任务交给专业责任中心，并把不同地域和旧集团稳定接入同一执行体系。三个维度均分为 E、D、C、B、A、S 六档，依次对应0、2、4、6、8、10分，三项相加。")}${result ? prose(`当前人物正式结算：${firstFactText(result)}`) : ""}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose("“创业组织与政治整合”看创业或统一机器能否多线并行、把高难任务交给专业责任中心，并把不同地域和旧集团稳定接入同一执行体系。三个维度均分为 E、D、C、B、A、S 六档，依次对应0、2、4、6、8、10分，三项相加。")}${result ? prose(`当前人物：${firstFactText(result)}`) : ""}</details>`;
     return firstMetricDetail("net-first-b2", "创业组织与政治整合", "多线并行、专业分工与异质整合", item, `${facts}${rules}`, record);
   }
 
@@ -1462,14 +1474,14 @@ function firstCommanderMarkup(item) {
     const facts = firstCommanderMarkup(item);
     const grade = firstItemPublicText(item.grade || "");
     const how = firstItemPublicText(item.reader_how || "");
-    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}\\n当前能力裁决：${grade || "按正式能力档裁决"}。\\n正式记录：${how || "按正式能力档与责任路线换算。"}`)}</details>`;
+    const rules = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}\\n当前能力判断：${grade || "按当前能力档判断"}。\\n当前换算：${how || "按当前能力档与责任类型换算。"}`)}</details>`;
     const crossSystem = `<p class="subline first-item-cross-system-note">这里使用第一项自己的军事指挥归责口径；人物画像“军事统帅”是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算。</p>`;
     return firstMetricDetail("net-first-c", "本人统帅", "只看本人亲自承担并完成的军事指挥事实", item, `${facts}${crossSystem}${rules}`, record);
   }
 
   function renderFirstCost(item, record) {
     const level = firstCostPublicText(item.reader_public_cost?.public_level_label || "");
-    const rule = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`当前成本裁决：${level || "按正式成本严重度裁决"}。\\n${firstCostExactHow(item)}\\n当前扣减：${item.value} 分。`)}</details>`;
+    const rule = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`当前成本判断：${level || "按当前成本严重度判断"}。\\n${firstCostExactHow(item)}\\n当前扣减：${item.value} 分。`)}</details>`;
     return firstMetricDetail("net-first-cost", "军事成本 · 战争代价", "从四轴毛分中扣除", item, `${firstCostMarkup(item)}${rule}`, record, `扣 ${item.value} 分`);
   }
 

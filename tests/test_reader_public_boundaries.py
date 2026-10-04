@@ -925,7 +925,7 @@ def test_first_item_a_how_block_shows_exact_public_curve():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
-    assert "多人共同完成时再按正式归责分配个人成果" in source
+    assert "多人共同完成时再按当前责任划分分配个人成果" in source
     assert "firstOutcomeCalculationText(item.reader_how || \"\")" in source
     assert "项目A池 = " not in source
     assert "有效控制信用U" not in source
@@ -954,7 +954,7 @@ def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     assert "极高成本" in source
     assert "灾难级成本" in source
     assert 'firstCostPublicText(data.public_basis)' in source
-    assert "当前能力裁决：" in source
+    assert "当前能力判断：" in source
     assert 'firstItemPublicText(item.grade || "")' in source
     assert "相关战争若已在军事与边疆项计入，本项不重复计算" in source
     assert "由奠基与统一项计入" in source
@@ -965,6 +965,13 @@ def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     assert 'prose(firstPublicText(source.public_basis))' in source
     assert 'prose(firstPublicText(source.public_boundary))' in source
     assert 'firstCostPublicText(data.public_responsibility_window)' in source
+    assert "当前人物正式代入" not in source
+    assert "当前人物正式结算" not in source
+    assert "当前能力裁决" not in source
+    assert "正式记录：${how" not in source
+    assert "当前能力判断：" in source
+    assert "当前成本判断：" in source
+    assert "当前换算：" in source
 
 
 def test_first_item_public_formatter_cleans_current_people_pool(tmp_path):
@@ -1022,7 +1029,15 @@ for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.end
     }
   }
 }
-assert.equal(firstPublicText('后续阶段不回填，共同父链尚未闭合，未过准入条件。'),'后续阶段不追溯计入，共同主链尚未形成完整证据，未过计入条件。');
+assert.equal(firstPublicText('后续阶段不回填，共同父链尚未闭合，未过准入条件。'),'后续阶段不追溯计入，共同主链尚未形成完整证据，尚未满足相应条件。');
+assert.equal(
+  firstPublicText('正式能力档与归责路线共同换算；现行独立第三项投资链另循第三项，不倒入本项。'),
+  '当前能力档与责任类型共同换算；当前由军事与边疆项单独结算的战争链另由军事与边疆项处理，不归入本项。'
+);
+assert.equal(
+  firstPublicText('全国核心能力伤筋动骨的第六级成本的准入条件未满足。史源：补充史料1 。'),
+  '全国核心能力伤筋动骨的第六级成本所需条件未满足。'
+);
 ''',encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
     assert result.returncode == 0, result.stderr
