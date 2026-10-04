@@ -9,7 +9,7 @@
   const own = (object, key) => object != null && Object.prototype.hasOwnProperty.call(object, key);
   const plain = value => value && typeof value === "object" && !Array.isArray(value);
   const text = value => typeof value === "string" && value.trim().length > 0;
-  const forbidden = /\b(?:M[1245]|C[1-5]|G[0-5]|MI[0-4]|PS[0-4]|DW[0-4]|AM[1-4])(?:[_-][A-Z_]+)?\b|(?:正式记录|回填|倒灌|闭合|整改)|<|>/;
+  const forbidden = /\b(?:M[1245]|C[1-5]|G[0-5]|MI[0-4]|PS[0-4]|DW[0-4]|AM[1-4])(?:[_-][A-Z_]+)?\b|(?:正式记录|回填|倒灌|闭合|整改|本项|该项|项目同时|现有裁决|正式裁决|现有结算|正式画像|提前计入|取证|复验|正式评价|评价依据|归责)|<|>/;
   const unsafeKeys = new Set(["__proto__", "prototype", "constructor"]);
 
   function resolve(record, path) {
@@ -109,7 +109,7 @@
   function evidenceList(block, record) {
     const fold = el("details", "note-evidence");
     fold.append(el("summary", "", "进一步核对：这段提要依据什么？"));
-    fold.append(el("p", "note-provenance", "以下是项目现有记录中的定位语句；史料出处和完整说明见相应记录。"));
+    fold.append(el("p", "note-provenance", "以下列出本段提要对应的定位语句；史料出处和完整说明见相应记录。"));
     const list = el("ul");
     for (const ref of block.evidence) {
       const item = el("li"), source = sourceFor(record, ref.path);

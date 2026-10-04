@@ -2827,7 +2827,7 @@ def test_person_reading_note_overviews_avoid_project_workflow_language():
 
     root = Path(__file__).resolve().parents[1]
     payload = json.loads((root / "reader/person-reading-notes.json").read_text(encoding="utf-8"))
-    forbidden = ("正式记录", "回填", "倒灌", "闭合", "整改")
+    forbidden = ("正式记录", "回填", "倒灌", "闭合", "整改", "本项", "该项", "项目同时", "现有裁决", "正式裁决", "现有结算", "正式画像", "提前计入", "取证", "复验", "正式评价", "评价依据", "归责")
     for ruler_id, notes in payload["records"].items():
         for key, block in notes["overview"].items():
             for token in forbidden:
@@ -2836,6 +2836,8 @@ def test_person_reading_note_overviews_avoid_project_workflow_language():
     runtime = (root / "reader/person-reading-notes.js").read_text(encoding="utf-8")
     for token in forbidden:
         assert token in runtime
+    assert "项目现有记录中的定位语句" not in runtime
+    assert "本段提要对应的定位语句" in runtime
 
 
 def test_stale_editorial_overviews_are_not_exposed_as_public_status():
