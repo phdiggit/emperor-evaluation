@@ -76,7 +76,7 @@ assert.ok(html.includes('任务难度：未单列'));
 assert.ok(html.includes('不是人物画像等级'));
 assert.ok(!html.includes('前线作战'));
 assert.ok(!render({reader_public_commander:{...publicData,public_battles:[]}}).includes('first-item-battles'));
-assert.ok(render({reader_summary:'甲战取得大捷'}).includes('公开说明尚未同步'));
+assert.ok(render({reader_summary:'甲战取得大捷'}).includes('正式记录未提供本人统帅的公开说明'));
 const active=fs.readFileSync('reader/home-interactions.js','utf8');
 assert.ok(active.includes('firstCommanderMarkup(item)'));
 assert.ok(!/fallbackBattleAnchors|structuredBattleAnchors|publicCommanderText/.test(active));
