@@ -1515,8 +1515,8 @@ function firstCommanderMarkup(item) {
 
   const THIRD_MILITARY_SYSTEM_LABELS = ["C1实战交付","C2持续作战","C3体系可靠性"];
 
-  function thirdMilitarySummaryTail(item) {
-    const text = thirdItemPublicText(item, item?.reader_summary || "");
+  function thirdMilitaryCommonTail(item, value) {
+    const text = thirdItemPublicText(item, value || "");
     return cleanNetText(text.replace(/^该方面为(?:[SABCDE](?:[+−-])?档|未单列等级)水平[。；]?\s*/, ""));
   }
 
@@ -1524,20 +1524,52 @@ function firstCommanderMarkup(item) {
     const byLabel = new Map(items.filter(item => item.reader_kind === "judgment").map(item => [item.label, item]));
     const rows = THIRD_MILITARY_SYSTEM_LABELS.map(label => byLabel.get(label));
     if (rows.some(item => !item)) return "";
-    const tails = rows.map(thirdMilitarySummaryTail);
+    const tails = rows.map(item => thirdMilitaryCommonTail(item, item?.reader_summary || ""));
     if (!tails[0] || tails.some(text => text !== tails[0])) return "";
+    return tails[0];
+  }
+
+  function thirdMilitarySharedEvidence(items) {
+    const byLabel = new Map(items.filter(item => item.reader_kind === "judgment").map(item => [item.label, item]));
+    const rows = THIRD_MILITARY_SYSTEM_LABELS.map(label => byLabel.get(label));
+    if (rows.some(item => !item)) return "";
+    const tails = [];
+    for (const item of rows) {
+      const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
+      if (evidence.length !== 1) return "";
+      const entry = evidence[0] || {};
+      if (entry.public_direction || entry.public_source_coverage || (Array.isArray(entry.public_tags) && entry.public_tags.length)) return "";
+      const entryBoundary = cleanNetText(thirdItemPublicText(item, entry.public_boundary || ""));
+      const itemBoundary = cleanNetText(thirdItemPublicText(item, item.reader_boundary || ""));
+      if (entryBoundary !== itemBoundary) return "";
+      const tail = thirdMilitaryCommonTail(item, entry.public_basis || "");
+      if (!tail) return "";
+      tails.push(tail);
+    }
+    if (tails.some(text => text !== tails[0])) return "";
     return tails[0];
   }
 
   function thirdMilitarySystemCards(record, items) {
     const wanted = new Set(THIRD_MILITARY_SYSTEM_LABELS);
     const sharedSummary = thirdMilitarySharedSummary(items);
+    const sharedEvidence = thirdMilitarySharedEvidence(items);
+    const collapseMaterials = !!(sharedSummary && sharedEvidence && sharedSummary === sharedEvidence);
     const cards = items
       .filter(item => wanted.has(item.label) && item.reader_kind === "judgment")
-      .map(item => metricDetail(sharedSummary ? {...item, reader_summary:""} : item, record, "military"))
+      .map(item => {
+        const publicItem = collapseMaterials
+          ? {...item, reader_summary:"", reader_public_evidence_items:[], reader_highlights:[]}
+          : sharedSummary
+            ? {...item, reader_summary:""}
+            : item;
+        return metricDetail(publicItem, record, "military");
+      })
       .join("");
-    const common = sharedSummary
-      ? `<details class="net-material-summary net-third-shared-summary"><summary>军事体系共同裁决摘要</summary>${prose(sharedSummary)}</details>`
+    const commonText = collapseMaterials ? sharedEvidence : sharedSummary;
+    const commonLabel = collapseMaterials ? "军事体系共同裁决依据" : "军事体系共同裁决摘要";
+    const common = commonText
+      ? `<details class="net-material-summary net-third-shared-summary"><summary>${commonLabel}</summary>${prose(commonText)}</details>`
       : "";
     return common + cards;
   }

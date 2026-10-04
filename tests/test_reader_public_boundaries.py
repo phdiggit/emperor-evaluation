@@ -2789,9 +2789,12 @@ def test_third_item_reader_separates_scoring_chains_and_exposes_intermediate_tot
     assert "不是领土占比、现实概率或独立得分" in source
     assert 'const THIRD_MILITARY_SYSTEM_LABELS = ["C1实战交付","C2持续作战","C3体系可靠性"]' in source
     assert "function thirdMilitarySharedSummary(items)" in source
+    assert "function thirdMilitarySharedEvidence(items)" in source
     assert "function thirdMilitarySystemCards(record, items)" in source
     assert "军事体系共同裁决摘要" in source
-    assert 'metricDetail(sharedSummary ? {...item, reader_summary:""} : item, record, "military")' in source
+    assert "军事体系共同裁决依据" in source
+    assert 'reader_public_evidence_items:[], reader_highlights:[]' in source
+    assert 'return metricDetail(publicItem, record, "military");' in source
     assert "${thirdMilitarySystemCards(record, military)}" in source
     assert 'thirdCalculationRows(strategic, ["A120"]' in source
     assert 'thirdCalculationRows(strategic, ["B80"]' in source
@@ -2812,22 +2815,53 @@ const source=fs.readFileSync('reader/home-interactions.js','utf8');
 const start=source.indexOf('  const THIRD_MILITARY_SYSTEM_LABELS');
 const end=source.indexOf('\n  function thirdCalculationRows',start);
 assert.ok(start>=0&&end>start,'third military helper fragment');
+const calls=[];
 const api=new Function(
   'thirdItemPublicText','cleanNetText','metricDetail','prose',
-  source.slice(start,end)+';return {thirdMilitarySharedSummary};'
+  source.slice(start,end)+';return {thirdMilitarySharedSummary,thirdMilitarySharedEvidence,thirdMilitarySystemCards};'
 )(
   (item,value)=>String(value||''),
   value=>String(value||'').replace(/\s+/g,' ').trim(),
-  ()=>'',value=>'<p>'+value+'</p>'
+  item=>{calls.push(item);return '<card>'+item.label+'</card>';},
+  value=>'<p>'+value+'</p>'
 );
 const labels=['C1实战交付','C2持续作战','C3体系可靠性'];
 const common='共同依据：多个方向的成功与失败共同决定体系判断。';
-const items=labels.map((label,index)=>({
-  label,
-  reader_kind:'judgment',
-  reader_summary:'该方面为'+['A','B','C'][index]+'档水平。'+common
-}));
+const items=labels.map((label,index)=>{
+  const boundary='边界'+index;
+  return {
+    label,
+    reader_kind:'judgment',
+    reader_summary:'该方面为'+['A','B','C'][index]+'档水平。'+common,
+    reader_boundary:boundary,
+    reader_public_evidence_items:[{
+      public_label:label,
+      public_role:label,
+      public_basis:'该方面为'+['A','B','C'][index]+'档水平。'+common,
+      public_boundary:boundary,
+      public_tags:[],
+      public_direction:'',
+      public_source_coverage:''
+    }]
+  };
+});
 assert.equal(api.thirdMilitarySharedSummary(items),common);
+assert.equal(api.thirdMilitarySharedEvidence(items),common);
+const html=api.thirdMilitarySystemCards({},items);
+assert.ok(html.includes('军事体系共同裁决依据'));
+assert.equal(calls.length,3);
+for(const item of calls){
+  assert.equal(item.reader_summary,'');
+  assert.deepEqual(item.reader_public_evidence_items,[]);
+  assert.deepEqual(item.reader_highlights,[]);
+}
+calls.length=0;
+items[2].reader_public_evidence_items[0].public_source_coverage='来源充分';
+const fallback=api.thirdMilitarySystemCards({},items);
+assert.ok(fallback.includes('军事体系共同裁决摘要'));
+assert.ok(!fallback.includes('军事体系共同裁决依据'));
+assert.equal(calls.length,3);
+for(const item of calls)assert.equal(item.reader_public_evidence_items.length,1);
 items[2]={...items[2],reader_summary:'该方面为C档水平。另一段专属依据。'};
 assert.equal(api.thirdMilitarySharedSummary(items),'');
 ''',encoding='utf-8')
