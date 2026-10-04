@@ -2821,6 +2821,23 @@ def test_second_item_compare_enhancers_accept_public_breakdown_row_title():
     assert '["分项构成", "构成与依据"].includes' in alias
 
 
+def test_person_reading_note_overviews_avoid_project_workflow_language():
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    payload = json.loads((root / "reader/person-reading-notes.json").read_text(encoding="utf-8"))
+    forbidden = ("正式记录", "回填", "倒灌", "闭合", "整改")
+    for ruler_id, notes in payload["records"].items():
+        for key, block in notes["overview"].items():
+            for token in forbidden:
+                assert token not in block["text"], f"{ruler_id}:{key} => {token}: {block['text']}"
+
+    runtime = (root / "reader/person-reading-notes.js").read_text(encoding="utf-8")
+    for token in forbidden:
+        assert token in runtime
+
+
 def test_stale_editorial_overviews_are_not_exposed_as_public_status():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/person-reading-notes.js").read_text(encoding="utf-8")

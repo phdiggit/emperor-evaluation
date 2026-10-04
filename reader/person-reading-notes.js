@@ -9,7 +9,7 @@
   const own = (object, key) => object != null && Object.prototype.hasOwnProperty.call(object, key);
   const plain = value => value && typeof value === "object" && !Array.isArray(value);
   const text = value => typeof value === "string" && value.trim().length > 0;
-  const forbidden = /\b(?:M[1245]|C[1-5]|G[0-5]|MI[0-4]|PS[0-4]|DW[0-4]|AM[1-4])(?:[_-][A-Z_]+)?\b|<|>/;
+  const forbidden = /\b(?:M[1245]|C[1-5]|G[0-5]|MI[0-4]|PS[0-4]|DW[0-4]|AM[1-4])(?:[_-][A-Z_]+)?\b|(?:正式记录|回填|倒灌|闭合|整改)|<|>/;
   const unsafeKeys = new Set(["__proto__", "prototype", "constructor"]);
 
   function resolve(record, path) {
