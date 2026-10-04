@@ -1598,7 +1598,7 @@ assert.equal(
 );
 assert.equal(
   thirdCtx.thirdPublicText('战略成果价值为当前结果为第0级、低位。本人任内中央与边疆控制随秦政权崩溃归零，统一执行终局门；没有可在任期结束时保留的控制成果。','B2'),
-  '战略成果价值当前为E档、低位。本人任内中央与边疆控制随秦政权崩溃归零，按政权终结时的实际控制结果判断；没有可在交班时保留的控制成果。'
+  '战略成果价值当前为E档、低位。本人任内中央与边疆控制随秦政权崩溃归零，按政权终结时的实际控制结果判断；没有可在任期结束时保留的控制成果。'
 );
 assert.equal(
   thirdCtx.thirdPublicText('按用户冻结规则，轴5必须由第三项本体重大体系胜绩复验。最终4/4/4、军事体系整体第4级。','C1实战交付'),
@@ -2725,7 +2725,7 @@ def test_third_item_strategic_axis_explains_formula_without_reverse_deriving_for
     assert "轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整" in source
     assert "E=0、D=1、C=2、B=3、A=4、S=5" in source
     assert "0—5只是在公式中的档位权重" in source
-    assert "公开裁决仍使用 E—S" in source
+    assert "最终等级仍按 E—S 表示" in source
     assert "当前人物正式结算记录" in source
     assert "页面不自行反推中间值" in source
     assert "正式轨迹值为" not in source
