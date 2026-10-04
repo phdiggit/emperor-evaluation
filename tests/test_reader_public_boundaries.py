@@ -2557,7 +2557,7 @@ def test_third_item_long_public_basis_is_losslessly_split_for_readability():
 
 
 
-def test_reader_guide_explains_material_strength_badges_are_formal-record_only():
+def test_reader_guide_explains_material_strength_badges_are_formal_record_only():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "只有正式记录明确发布相应字段时页面才展示" in template
