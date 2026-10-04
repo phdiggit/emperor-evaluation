@@ -380,6 +380,62 @@
       .trim();
   }
 
+  const FINANCE_SECTION_LABELS = [
+    "主要状态：",
+    "任期结束状态依据：",
+    "有界局部或短时损害：",
+    "重要地区或群体出现明显损害：",
+    "严重且广泛或长期反复的本轴损害：",
+    "未另证独立有效低谷：",
+    "评价范围：",
+  ];
+  const FINANCE_REPEATED_DAMAGE_NOTES = {
+    "有界局部或短时损害：": "上述材料同时构成本项的有界局部或短时损害依据。",
+    "重要地区或群体出现明显损害：": "上述材料同时构成本项的重要地区或群体损害依据。",
+    "严重且广泛或长期反复的本轴损害：": "上述材料同时构成本项的严重且广泛或长期反复损害依据。",
+  };
+
+  function dedupeFinanceRepeatedSections(value) {
+    const text = String(value ?? "").replace(/\s+/g, " ").trim();
+    if (!text) return "";
+    const pattern = new RegExp("(" + FINANCE_SECTION_LABELS.map(label => label.replace(/[.*+?^$\{\}()|[\]\\]/g, "\\  function publicTechnicalText(value) {
+    return publicReaderHygiene(publicEnumText(value)
+      .replace(/正式方向指数/g, "原始表现指数")
+      .replace(/方向指数/g, "原始表现指数"));
+  }
+
+  function publicFinanceText(value) {")).join("|") + ")", "g");
+    const matches = [...text.matchAll(pattern)];
+    if (matches.length < 2) return text;
+    const prefix = text.slice(0, matches[0].index).trim();
+    const sections = matches.map((match, index) => ({
+      label: match[0],
+      body: text.slice(match.index + match[0].length, index + 1 < matches.length ? matches[index + 1].index : text.length).trim(),
+    }));
+    const mainBody = sections.find(section => section.label === "主要状态：")?.body || "";
+    const seen = new Set();
+    const rendered = [];
+    let changed = false;
+    for (const section of sections) {
+      const normalized = section.body.replace(/\s+/g, " ").trim();
+      const key = section.label + "|" + normalized;
+      if (normalized.length >= 80 && seen.has(key)) {
+        changed = true;
+        continue;
+      }
+      seen.add(key);
+      const note = FINANCE_REPEATED_DAMAGE_NOTES[section.label];
+      if (note && normalized.length >= 80 && mainBody.includes(normalized)) {
+        rendered.push(section.label + note);
+        changed = true;
+      } else {
+        rendered.push(section.label + section.body);
+      }
+    }
+    if (!changed) return text;
+    return [prefix, ...rendered].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+  }
+
   function publicTechnicalText(value) {
     return publicReaderHygiene(publicEnumText(value)
       .replace(/正式方向指数/g, "原始表现指数")
@@ -398,7 +454,7 @@
       .replace(/旧任期结束状态=([1-6])下调为([1-6])。?/g, (_, from, to) => `此前的任期结束状态由${FINANCE_ORDINAL_GRADE[from] || from}档下调为${FINANCE_ORDINAL_GRADE[to] || to}档。`)
       .replace(/不再沿用旧任期结束状态=/g, "不再沿用此前的任期结束状态判断：")
       .replace(/旧任期结束状态=/g, "此前的任期结束状态判断：");
-    return publicText(financeSpecific)
+    const shown = publicText(financeSpecific)
       .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`)
       .replace(/起点硬承接([1-6])而非旧([1-6])/g, (_, current, old) => `接手时状态为${FINANCE_ORDINAL_GRADE[current] || current}档，不沿用此前${FINANCE_ORDINAL_GRADE[old] || old}档判断`)
       .replace(/主要阶段状态\s*([1-6])/g, (_, level) => `主要阶段状态为${FINANCE_ORDINAL_GRADE[level] || level}档`)
@@ -420,6 +476,7 @@
       .replace(/没有可归入本人掌权时期的恢复，因此不另行扩大恢复责任。/g, "没有形成可在任期结束确认的恢复，因此不另行扩大恢复责任。")
       .replace(/。；/g, "；")
       .replace(/；；+/g, "；");
+    return dedupeFinanceRepeatedSections(shown);
   }
 
   function publicHandoffText(value) {

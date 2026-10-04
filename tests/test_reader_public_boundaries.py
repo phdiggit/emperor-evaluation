@@ -1093,6 +1093,13 @@ assert.equal(
   ctx.publicText('军队损耗与战役结果归第三项，居民结果归C1/C2/C4。'),
   '军队损耗与战役结果归第三项，居民结果归入民生、经济财政与恢复和额外代价。'
 );
+const repeatedFinanceBlock='这段材料同时说明常态运行和局部损害，包含足够长的事实链、责任边界与结果说明，用来验证长段重复只保留一份正文。'.repeat(2);
+assert.equal(
+  ctx.publicFinanceText('主要状态：可运行秩序。'+repeatedFinanceBlock+' 重要地区或群体出现明显损害：'+repeatedFinanceBlock+' 评价范围：这里只展示居民安全结果。'),
+  '主要状态：可运行秩序。'+repeatedFinanceBlock+' 重要地区或群体出现明显损害：上述材料同时构成本项的重要地区或群体损害依据。 评价范围：这里只展示居民安全结果。'
+);
+const duplicateDamage=ctx.publicFinanceText('主要状态：可运行秩序。另有独立常态说明。 重要地区或群体出现明显损害：'+repeatedFinanceBlock+' 重要地区或群体出现明显损害：'+repeatedFinanceBlock+' 评价范围：这里只展示居民安全结果。');
+assert.equal((duplicateDamage.match(/重要地区或群体出现明显损害：/g)||[]).length,1);
 
 const forbidden=[
   /未?闭合/,
@@ -1122,10 +1129,34 @@ function format(group,key,value){
   if(key==='reader_boundary')return ctx.publicBoundaryText(value);
   return ctx.publicText(value);
 }
+function assertNoFinanceSectionDuplication(out,where){
+  const labels=['主要状态：','任期结束状态依据：','有界局部或短时损害：','重要地区或群体出现明显损害：','严重且广泛或长期反复的本轴损害：','未另证独立有效低谷：','评价范围：'];
+  const pattern=new RegExp('('+labels.map(label=>label.replace(/[.*+?^$\\{\\}()|[\\]\\\\]/g,'\\\\function check(value,group,key,where){
+  const out=format(group,key,value);
+  if(!out)return;
+  for(const pattern of forbidden)assert.doesNotMatch(out,pattern,where+' => '+out);
+}')).join('|')+')','g');
+  const matches=[...out.matchAll(pattern)];
+  const sections=matches.map((match,index)=>({
+    label:match[0],
+    body:out.slice(match.index+match[0].length,index+1<matches.length?matches[index+1].index:out.length).replace(/\s+/g,' ').trim(),
+  }));
+  const main=sections.find(section=>section.label==='主要状态：')?.body||'';
+  const seen=new Set();
+  for(const section of sections){
+    const sectionKey=section.label+'|'+section.body;
+    if(section.body.length>=80)assert.ok(!seen.has(sectionKey),where+' => duplicate section '+section.label+section.body);
+    seen.add(sectionKey);
+    if(['有界局部或短时损害：','重要地区或群体出现明显损害：','严重且广泛或长期反复的本轴损害：'].includes(section.label)&&section.body.length>=80&&main){
+      assert.ok(!main.includes(section.body),where+' => repeated main-state block under '+section.label+section.body);
+    }
+  }
+}
 function check(value,group,key,where){
   const out=format(group,key,value);
   if(!out)return;
   for(const pattern of forbidden)assert.doesNotMatch(out,pattern,where+' => '+out);
+  if(group==='finance')assertNoFinanceSectionDuplication(out,where);
 }
 for(const filename of fs.readdirSync('reader/data/people').filter(name=>name.endsWith('.json')).sort()){
   const record=JSON.parse(fs.readFileSync('reader/data/people/'+filename,'utf8')).record||{};
