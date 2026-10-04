@@ -1060,7 +1060,7 @@ const ctx={};
 vm.createContext(ctx);
 vm.runInContext(
   source.slice(start,end)
-  +'\nthis.publicText=publicText;this.publicTechnicalText=publicTechnicalText;this.publicFinanceText=publicFinanceText;this.publicHandoffText=publicHandoffText;this.publicBoundaryText=publicBoundaryText;this.publicFinanceBoundaryText=publicFinanceBoundaryText;this.publicMaterialBodyText=publicMaterialBodyText;this.publicBoundaryDifference=publicBoundaryDifference;',
+  +'\nthis.publicText=publicText;this.publicTechnicalText=publicTechnicalText;this.publicFinanceText=publicFinanceText;this.publicHandoffText=publicHandoffText;this.publicBoundaryText=publicBoundaryText;this.publicFinanceBoundaryText=publicFinanceBoundaryText;this.publicMaterialTitleText=publicMaterialTitleText;this.publicMaterialBodyText=publicMaterialBodyText;this.publicBoundaryDifference=publicBoundaryDifference;',
   ctx
 );
 
@@ -1110,6 +1110,18 @@ assert.equal(
 assert.equal(
   ctx.publicMaterialBodyText('制度建设','制度建设推动长期变化'),
   '制度建设推动长期变化'
+);
+assert.equal(
+  ctx.publicMaterialTitleText('刘备外出时诸葛亮镇成都署府事并维持中枢交付中枢',['中枢行政链']),
+  '刘备外出时诸葛亮镇成都署府事并维持中枢交付'
+);
+assert.equal(
+  ctx.publicMaterialTitleText('中枢权力俘获与反馈压制',['中枢行政链']),
+  '中枢权力俘获与反馈压制'
+);
+assert.equal(
+  ctx.publicMaterialBodyText('徐邈任用、地方交付与中央奖升核心','徐邈任用、地方交付与中央奖升核心；该材料形成独立行政运行链，计入本项'),
+  ''
 );
 assert.equal(ctx.publicBoundaryDifference('同一机制只作一次判断。','同一机制只作一次判断。'),'');
 assert.equal(ctx.publicBoundaryDifference('本卡特有边界。','总体边界。'),'本卡特有边界。');
@@ -1207,7 +1219,11 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'if (scope || boundary)' in alias
     assert 'details.append(makeTextBlock("summary", "", "范围与边界"))' in alias
     assert 'card.append(box);' not in alias[alias.index('const scope = publicText(data.scope)'):alias.index('const footer = publicText(data.footer)')]
-    assert 'const body = publicMaterialBodyText(data.title || "裁决材料", data.body);' in alias
+    assert 'title.textContent = publicMaterialTitleText(rawTitle, data.tags);' in alias
+    assert 'const body = publicMaterialBodyText(rawTitle, data.body);' in alias
+    assert '["核心行政链", "核心"]' in alias
+    assert '["中枢行政链", "中枢"]' in alias
+    assert '["多责任官行政链", "多责任官"]' in alias
     assert 'renderB2MaterialGroups(evidence, item.reader_boundary)' in alias
     assert 'renderFinanceMaterialGroups(label, evidence, item.reader_boundary)' in alias
     assert 'renderHandoffMaterialGroups(label, evidence, item.reader_boundary)' in alias

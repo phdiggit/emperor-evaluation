@@ -602,6 +602,24 @@
     return dedupeBoundaryText(publicFinanceText(value));
   }
 
+  const MATERIAL_ROLE_SUFFIXES = [
+    ["核心行政链", "核心"],
+    ["中枢行政链", "中枢"],
+    ["多责任官行政链", "多责任官"],
+  ];
+
+  function publicMaterialTitleText(value, tags = []) {
+    let title = publicText(value).replace(/\s+/g, " ").trim();
+    const publicTags = (Array.isArray(tags) ? tags : []).map(publicText);
+    for (const [tag, suffix] of MATERIAL_ROLE_SUFFIXES) {
+      if (publicTags.includes(tag) && title.endsWith(suffix) && title.length > suffix.length) {
+        title = title.slice(0, -suffix.length).trim();
+        break;
+      }
+    }
+    return title;
+  }
+
   function publicMaterialBodyText(titleValue, bodyValue) {
     const title = publicText(titleValue).replace(/\s+/g, " ").trim().replace(/[：:；;，,。.!！？?、]+$/g, "");
     const body = publicText(bodyValue).replace(/\s+/g, " ").trim();
@@ -610,7 +628,9 @@
     if (!body.startsWith(title)) return body;
     const tail = body.slice(title.length);
     if (!/^[：:；;，,。.!！？?、\s]/.test(tail)) return body;
-    return tail.replace(/^[：:；;，,。.!！？?、\s]+/, "").trim();
+    const shown = tail.replace(/^[：:；;，,。.!！？?、\s]+/, "").trim();
+    if (/^该材料形成独立行政运行链，计入本项[。]?$/.test(shown)) return "";
+    return shown;
   }
 
   function publicBoundaryDifference(value, sharedValue, formatter = publicBoundaryText) {
@@ -723,7 +743,8 @@
     const head = document.createElement("div");
     head.className = "adjudication-material-head";
     const title = document.createElement("strong");
-    title.textContent = publicText(data.title || "裁决材料");
+    const rawTitle = data.title || "裁决材料";
+    title.textContent = publicMaterialTitleText(rawTitle, data.tags);
     head.append(title);
 
     const meta = document.createElement("div");
@@ -740,7 +761,7 @@
     if (meta.childNodes.length) head.append(meta);
     card.append(head);
 
-    const body = publicMaterialBodyText(data.title || "裁决材料", data.body);
+    const body = publicMaterialBodyText(rawTitle, data.body);
     if (body) card.append(makeTextBlock("p", "adjudication-material-basis", body));
 
     const scope = publicText(data.scope);
@@ -883,6 +904,7 @@
     publicEnumText,
     text: publicText,
     boundaryText: publicBoundaryText,
+    titleText: publicMaterialTitleText,
     bodyText: publicMaterialBodyText,
     boundaryDifference: publicBoundaryDifference,
   });
