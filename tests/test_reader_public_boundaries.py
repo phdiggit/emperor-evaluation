@@ -497,7 +497,12 @@ const forbidden=[
   /闭环/,
   /旧版|上一版/,
   /(?:拆票|计票|混合票|\d+票)/,
-  /锚/
+  /锚/,
+  /证据不足证据/,
+  /独立独立/,
+  /旧只记[^。；]*→/,
+  /此前记录[^。；]*→/,
+  /旧卡|两票|436—437卡/
 ];
 
 function check(value,item,where){
@@ -1035,6 +1040,18 @@ assert.equal(
   ctx.publicFinanceText('正式状态判断与损失修正按本轴合同换算为 28.2 分。'),
   '正式状态判断与损失修正按本轴规则换算为 28.2 分。'
 );
+assert.equal(
+  ctx.publicText('不把后继司法改革倒灌计入；本批没有地区执行统计。'),
+  '不把后继司法改革追溯计入；当前复核没有地区执行统计。'
+);
+assert.equal(
+  ctx.publicFinanceText('旧任期结束状态=民生“广泛困顿”主要由病末及死后后秦迅速分裂反推，纯民生家庭结果不足，故终点2→3。'),
+  '此前把病末及身后后秦分裂反推为本人任期结束时的民生状态；现有家庭生活材料不足以支持这一反推，因此任期结束状态改为“基本维持”。'
+);
+assert.equal(
+  ctx.publicText('军队损耗与战役结果归第三项，居民结果归C1/C2/C4。'),
+  '军队损耗与战役结果归第三项，居民结果归入民生、经济财政与恢复和额外代价。'
+);
 
 const forbidden=[
   /未?闭合/,
@@ -1047,7 +1064,14 @@ const forbidden=[
   /路由/,
   /切片/,
   /锚/,
-  /可独立审计|固定语义审计/
+  /可独立审计|固定语义审计/,
+  /追溯计入计入/,
+  /本批/,
+  /N3·L4·READY/,
+  /归C1\/C2\/C4/,
+  /旧任期结束状态=/,
+  /终点\d+→\d+/,
+  /审计/
 ];
 function format(group,key,value){
   if(value==null||value==='')return '';
@@ -1550,6 +1574,14 @@ assert.equal(
 assert.equal(
   thirdCtx.thirdPublicText('支持第六级高位军事成本；肃宗重建不倒灌本人。','ML扣分'),
   '支持极端军事成本（高位）；肃宗后续重建不归入本人。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('旧只记燕云0→0.8，漏掉阿保机交班草原和辽东库存；45→59。','B1'),
+  '此前只计燕云控制，漏掉阿保机交班时的草原和辽东控制存量；补全后当前控制范围判断相应上调。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('452北伐由证据不足证据支持评为负向，另一独立独立任务周期维持。','C1实战交付'),
+  '452北伐现有证据仅支持判断为负向，另一独立任务周期维持。'
 );
 assert.equal(
   thirdCtx.thirdPublicText('数值不变；伊吾0.2改用哈密门户，其余旧标识规范化。','B1'),
@@ -2265,6 +2297,14 @@ const forbidden=[
   /机械/,
   /锚/,
   /门槛/,
+  /尚尚未/,
+  /整改/,
+  /高档审计/,
+  /拆票/,
+  /按合同/,
+  /纳入判断合同/,
+  /组织执行合同/,
+  /审计/,
   /`/,
   /\*\*/,
   /[SABCDE][+−-]?\s*(?:\/|／)\s*\d+(?:\.\d+)?\b/,
@@ -2365,6 +2405,14 @@ assert.equal(
 assert.equal(
   ctx.profileDistinctGradeBasis('G4-LOW：主要表现成立，但另有晚期反例，因此只取下沿。',same),
   'A−：主要表现成立，但另有晚期反例，因此只取下沿。'
+);
+assert.equal(
+  ctx.profilePublicPattern('反向窗口已审阅但尚尚未形成；整改后恢复；现有高档审计只确认一条链。'),
+  '反向窗口已审阅但尚未形成；调整后恢复；现有高档复核只确认一条链。'
+);
+assert.equal(
+  ctx.profilePublicPattern('按A档纳入判断合同；不拆票凑A档；组织执行合同只约束本轴。'),
+  'A档判断规则；不把同一证据链拆成多条来提高到A档；组织执行规则只约束本轴。'
 );
 assert.equal(ctx.profileDistinctPositionBasis('MID：'+same,same,'G4-MID：'+same),'');
 assert.equal(ctx.profileDistinctPositionBasis('档内中位：'+same,same,'G4-MID：'+same),'');
