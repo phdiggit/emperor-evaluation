@@ -1244,6 +1244,19 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'const logic = structuredMaterials ? "" : summary;' in home
     assert 'class="net-overall-boundary"' in home
     assert '<summary>总体范围与边界</summary>' in home
+def test_structured_material_cards_deduplicate_single_summary_and_shared_boundary():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+
+    assert "function materialSummaryCoveredBySingleEvidence(summaryValue, basisValue)" in source
+    assert "if (summary === basis) return true;" in source
+    assert "summaryTail.length >= 20 && summaryTail === basisTail" in source
+    assert 'const overallBoundary = format(item.reader_boundary || "");' in source
+    assert 'const boundary = candidateBoundary && candidateBoundary !== overallBoundary ? candidateBoundary : "";' in source
+    assert "const summaryCoveredByEvidence = structuredMaterials" in source
+    assert "structuredMaterials && summary && !summaryCoveredByEvidence" in source
+
+
 def test_source_coverage_and_material_strength_are_explained_as_different_scales():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]

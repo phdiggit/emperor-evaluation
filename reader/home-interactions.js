@@ -1115,6 +1115,20 @@ function firstCommanderMarkup(item) {
     return `<details class="net-score-how"><summary>这个分怎么算？</summary><dl>${rows.map(([label,value]) => `<dt>${esc(label)}</dt><dd>${esc(value)}</dd>`).join("")}</dl></details>`;
   }
 
+  function materialSummaryCoveredBySingleEvidence(summaryValue, basisValue) {
+    const summary = cleanNetText(summaryValue);
+    const basis = cleanNetText(basisValue);
+    if (!summary || !basis) return false;
+    if (summary === basis) return true;
+    const tail = value => {
+      const index = value.indexOf("。");
+      return index >= 0 ? cleanNetText(value.slice(index + 1)) : "";
+    };
+    const summaryTail = tail(summary);
+    const basisTail = tail(basis);
+    return summaryTail.length >= 20 && summaryTail === basisTail;
+  }
+
   function metricMaterialCards(item, groupKey) {
     if (!MATERIAL_CARD_GROUPS.has(groupKey)) return "";
     const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
@@ -1122,6 +1136,7 @@ function firstCommanderMarkup(item) {
     const thirdItem = groupKey === "strategic" || groupKey === "military";
     const fourthItem = groupKey === "civilization";
     const format = value => thirdItem ? thirdItemPublicText(item, value) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
+    const overallBoundary = format(item.reader_boundary || "");
     const cards = evidence.map(entry => {
       const title = format(entry?.public_label || entry?.public_role || "正式裁决材料");
       const role = format(entry?.public_role || "");
@@ -1131,7 +1146,8 @@ function firstCommanderMarkup(item) {
       const chips = [...new Set([role, direction, coverage, ...tags].filter(Boolean))]
         .map(value => `<span class="net-material-chip">${esc(value)}</span>`).join("");
       const basis = format(entry?.public_basis || "");
-      const boundary = format(entry?.public_boundary || "");
+      const candidateBoundary = format(entry?.public_boundary || "");
+      const boundary = candidateBoundary && candidateBoundary !== overallBoundary ? candidateBoundary : "";
       const basisMarkup = thirdItem
         ? thirdBasisMarkup(format(entry?.public_basis || ""), "")
         : fourthItem
@@ -1166,6 +1182,9 @@ function firstCommanderMarkup(item) {
     const boundary = formatPublic(item.reader_boundary || "");
     const how = formatPublic(item.reader_how || "");
     const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;
+    const singleEvidenceBasis = publicEvidence.length === 1 ? formatPublic(publicEvidence[0]?.public_basis || "") : "";
+    const summaryCoveredByEvidence = structuredMaterials
+      && materialSummaryCoveredBySingleEvidence(summary, singleEvidenceBasis);
     const logic = structuredMaterials ? "" : summary;
     const formalLevel = MATERIAL_CARD_GROUPS.has(groupKey) ? formatPublic(item.public_level_label || "") : "";
     const formalLevelBase = formalLevel.replace(/^当前结果为\s*/, "");
@@ -1177,7 +1196,7 @@ function firstCommanderMarkup(item) {
       ? `<details><summary>正式裁决原文（未改写）</summary>${prose(fullBasis)}</details>`
       : "";
     const materialCards = metricMaterialCards(item, groupKey);
-    const summaryFold = structuredMaterials && summary
+    const summaryFold = structuredMaterials && summary && !summaryCoveredByEvidence
       ? `<details class="net-material-summary"><summary>总体裁决摘要</summary>${prose(summary)}</details>`
       : "";
     const facts = materialCards || (highlights.length
