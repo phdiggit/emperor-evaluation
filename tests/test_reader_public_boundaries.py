@@ -397,16 +397,14 @@ def test_generated_reader_release_pins_dynamic_sources():
 
 def test_new_viewer_layers_and_compact_c5_hint():
     from pathlib import Path
-    import json
     root = Path(__file__).resolve().parents[1]
     template = (root / "reader/index.template.html").read_text(encoding="utf-8")
     person_js = (root / "reader/person-readability.js").read_text(encoding="utf-8")
-    copy = json.loads((root / "reader/public-copy.json").read_text(encoding="utf-8"))
     assert "30秒读懂" in template
     assert "三者可以不一致" in template
     assert "axis-further-check" in template
     assert "进一步核对：代表情境、反例与限制" in template
-    assert any("原始记录与专业信息" in item["to"] for item in copy)
+    assert "原始记录与专业信息" in template
     assert "S端表示更能约束自身权力" in person_js
     assert "这项评价描述权力使用方式，不属于能力评价" not in person_js
 
@@ -1154,7 +1152,7 @@ def test_profile_axis_summary_shows_formal_material_coverage_in_public_words():
     assert "const evidenceScope=axisEvidenceScope(a,c),evidenceLevel=evidenceScope.coverage;" in template
     assert "coverage:scope.material_coverage_label" in template
     assert 'class="axis-evidence-level">材料覆盖：' in template
-    assert "材料覆盖 '+esc(evidenceLevel)" in template
+    assert "材料覆盖：'+esc(evidenceLevel)" in template
     assert "材料级别 ${esc(a.axis_evidence_level" not in template
 
 
@@ -1162,7 +1160,11 @@ def test_reader_guide_preserves_material_strength_display_boundary():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "只有正式记录明确发布相应字段时页面才展示" in template
-    assert "没有这类标签只表示上游没有发布，不等于证据弱" in template
+    assert "没有这类标签只表示正式记录未发布该字段，不等于证据弱" in template
+    assert "这是离线交互设计样稿" not in template
+    assert "更新正式记录后重新构建阅读页" not in template
+    assert "本页展示最近一次正式发布的结算数据" in template
+    assert "正式记录更新后会在后续发布中同步" in template
     assert "两者不是同一尺度" in template
     assert "页面也不会自行补判" in template
 
