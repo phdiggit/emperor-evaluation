@@ -2727,7 +2727,7 @@ def test_third_item_strategic_axis_explains_formula_without_reverse_deriving_for
     assert "0—5只是在公式中的档位权重" in source
     assert "最终等级仍按 E—S 表示" in source
     assert "当前人物：" in source
-    assert "页面不自行反推中间值" in source
+    assert "专项信用与负向调整均采用当前已确定值，不从最终分数反推" in source
     assert "正式轨迹值为" not in source
     assert "score / 0.6" not in source
 
