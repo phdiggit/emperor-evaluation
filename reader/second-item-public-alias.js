@@ -398,13 +398,7 @@
   function dedupeFinanceRepeatedSections(value) {
     const text = String(value ?? "").replace(/\s+/g, " ").trim();
     if (!text) return "";
-    const pattern = new RegExp("(" + FINANCE_SECTION_LABELS.map(label => label.replace(/[.*+?^$\{\}()|[\]\\]/g, "\\  function publicTechnicalText(value) {
-    return publicReaderHygiene(publicEnumText(value)
-      .replace(/正式方向指数/g, "原始表现指数")
-      .replace(/方向指数/g, "原始表现指数"));
-  }
-
-  function publicFinanceText(value) {")).join("|") + ")", "g");
+    const pattern = /(主要状态：|任期结束状态依据：|有界局部或短时损害：|重要地区或群体出现明显损害：|严重且广泛或长期反复的本轴损害：|未另证独立有效低谷：|评价范围：)/g;
     const matches = [...text.matchAll(pattern)];
     if (matches.length < 2) return text;
     const prefix = text.slice(0, matches[0].index).trim();

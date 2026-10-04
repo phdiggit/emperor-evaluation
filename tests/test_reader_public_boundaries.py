@@ -1130,12 +1130,7 @@ function format(group,key,value){
   return ctx.publicText(value);
 }
 function assertNoFinanceSectionDuplication(out,where){
-  const labels=['主要状态：','任期结束状态依据：','有界局部或短时损害：','重要地区或群体出现明显损害：','严重且广泛或长期反复的本轴损害：','未另证独立有效低谷：','评价范围：'];
-  const pattern=new RegExp('('+labels.map(label=>label.replace(/[.*+?^$\\{\\}()|[\\]\\\\]/g,'\\\\function check(value,group,key,where){
-  const out=format(group,key,value);
-  if(!out)return;
-  for(const pattern of forbidden)assert.doesNotMatch(out,pattern,where+' => '+out);
-}')).join('|')+')','g');
+  const pattern=/(主要状态：|任期结束状态依据：|有界局部或短时损害：|重要地区或群体出现明显损害：|严重且广泛或长期反复的本轴损害：|未另证独立有效低谷：|评价范围：)/g;
   const matches=[...out.matchAll(pattern)];
   const sections=matches.map((match,index)=>({
     label:match[0],
@@ -1152,6 +1147,7 @@ function assertNoFinanceSectionDuplication(out,where){
     }
   }
 }
+
 function check(value,group,key,where){
   const out=format(group,key,value);
   if(!out)return;
