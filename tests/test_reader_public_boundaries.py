@@ -2970,6 +2970,16 @@ def test_first_item_public_copy_uses_settlement_score_not_legacy_net_benefit_ter
     assert "buildNetReading" not in (root / "reader/person-readability.js").read_text(encoding="utf-8")
 
 
+def test_third_item_score_explanations_avoid_release_process_language():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+
+    for phrase in ("页面不自行反推中间值", "当前人物正式结算记录", "两轴小计正式记录", "正式合成结果", "当前本项："):
+        assert phrase not in source
+    for phrase in ("最终等级仍按 E—S 表示", "专项信用与负向调整均采用当前已确定值", "当前两轴小计：", "当前合成结果为", "当前结果说明："):
+        assert phrase in source
+
+
 def test_third_item_reader_separates_scoring_chains_and_exposes_intermediate_totals():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")

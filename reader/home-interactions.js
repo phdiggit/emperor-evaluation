@@ -1067,7 +1067,7 @@ function firstCommanderMarkup(item) {
       : "";
     const formalCurrent = thirdPublicText(item?.reader_how || "", item?.label || "");
     const subtotal = thirdPublicText(groupItems.get("A120")?.reader_how || "", "A120");
-    return `“轨迹值”只是计分中间值，不是另一项评价。计算时 E=0、D=1、C=2、B=3、A=4、S=5；0—5只是在公式中的档位权重，公开裁决仍使用 E—S，并不是另一套数字档位。轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整，并限制在0—100；本轴分数 = 0.6 × 轨迹值。专项信用、负向调整和最终分数均直接读取正式裁决，页面不自行反推中间值。${current ? " " + current + "。" : ""}${formalCurrent ? " 当前人物正式结算记录：" + formalCurrent : ""}${subtotal ? " 两个战略安全轴最后直接相加；两轴小计正式记录：" + subtotal : ""}`;
+    return `“轨迹值”只是计分中间值，不是另一项评价。计算时 E=0、D=1、C=2、B=3、A=4、S=5；0—5只是在公式中的档位权重，最终等级仍按 E—S 表示，并不是另一套数字档位。轨迹值 = 10 × 结束档位数值 + 14 × 本人可归责档差 + 专项信用 − 负向调整，并限制在0—100；本轴分数 = 0.6 × 轨迹值。专项信用与负向调整均采用当前已确定值，不从最终分数反推。${current ? " " + current + "。" : ""}${formalCurrent ? " 当前人物：" + formalCurrent : ""}${subtotal ? " 两个战略安全轴最后直接相加；当前两轴小计：" + subtotal : ""}`;
   }
 
   function detailedHowText(item, groupKey, how, record) {
@@ -1081,9 +1081,9 @@ function firstCommanderMarkup(item) {
       const b4 = groupItems.get("B4");
       const total = groupItems.get("B80");
       const current = [b1?.value, b2?.value, b4?.value, total?.value].every(value => value != null)
-        ? `当前三项得分率为控制范围 ${b1.value}%、战略价值 ${b2.value}%、成果稳定性 ${b4.value}%；正式合成结果为 ${total.value}分。`
+        ? `当前三项得分率为控制范围 ${b1.value}%、战略价值 ${b2.value}%、成果稳定性 ${b4.value}%；当前合成结果为 ${total.value}分。`
         : "";
-      return `三项先各自形成得分率；控制范围与战略价值按55%/45%合成，再由成果稳定性修正。${current ? " " + current : ""} 当前本项：${how}`;
+      return `三项先各自形成得分率；控制范围与战略价值按55%/45%合成，再由成果稳定性修正。${current ? " " + current : ""} 当前结果说明：${how}`;
     }
     if (groupKey === "military" && ["C1实战交付","C2持续作战","C3体系可靠性"].includes(item.label)) {
       const axes = ["C1实战交付","C2持续作战","C3体系可靠性"].map(label => groupItems.get(label)).filter(Boolean);
@@ -1092,7 +1092,7 @@ function firstCommanderMarkup(item) {
       const current = statuses.length && total
         ? `当前三方面：${statuses.join("；")}；${thirdPublicText(total.public_level_label || "", total.label)}，军事体系结果为 ${total.value}分。`
         : "";
-      return `三方面分别定档但不单独加分，共同确定军事体系整体档位。整体档位对应50分项得分率：E档0%—29%、D档30%—44%、C档45%—59%、B档60%—74%、A档75%—89%、S档90%—100%。${current ? " " + current : ""} 当前本项：${how}`;
+      return `三方面分别定档但不单独加分，共同确定军事体系整体档位。整体档位对应50分项得分率：E档0%—29%、D档30%—44%、C档45%—59%、B档60%—74%、A档75%—89%、S档90%—100%。${current ? " " + current : ""} 当前结果说明：${how}`;
     }
     if (groupKey === "military" && item.label === "普通成本扣分") return thirdCostExactHow(item, how);
     if (groupKey === "military" && item.label === "ML扣分") {
