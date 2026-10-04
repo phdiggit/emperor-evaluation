@@ -112,17 +112,13 @@
   }
 
   function appendDedicatedAudit(body, item, record) {
-    const api = globalThis.SecondItemMaterialCards;
-    const details = make("details", "second-item-dedicated-audit");
-    details.append(make("summary", "", "正式依据与计算说明"));
-    const how = api?.publicEnumText ? api.publicEnumText(item?.reader_how || "") : String(item?.reader_how || "").trim();
-    if (how) details.append(make("p", "prose", how));
     const refs = [...new Set([item?.source, item?.applied_source, ...(item?.reader_source_refs || [])].filter(Boolean))];
-    if (refs.length && typeof link === "function") {
-      const holder = make("p", "sources");
-      holder.innerHTML = refs.map((ref, i) => link(ref, i ? "补充正式记录 ↗" : "正式记录 ↗", record)).join("");
-      details.append(holder);
-    }
+    if (!refs.length || typeof link !== "function") return;
+    const details = make("details", "second-item-dedicated-audit");
+    details.append(make("summary", "", "正式记录来源"));
+    const holder = make("p", "sources");
+    holder.innerHTML = refs.map((ref, i) => link(ref, i ? "补充正式记录 ↗" : "正式记录 ↗", record)).join("");
+    details.append(holder);
     body.append(details);
   }
 

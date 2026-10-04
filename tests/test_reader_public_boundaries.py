@@ -42,6 +42,9 @@ for(const file of ['reader/second-item-a-public.js','reader/second-item-b1-publi
  const dedicated=fs.readFileSync(file,'utf8');
  assert.ok(!dedicated.includes('secondMethodDetailsMarkup(item, record)'));
  assert.ok(dedicated.includes('appendDedicatedAudit'));
+ const audit=dedicated.slice(dedicated.indexOf('function appendDedicatedAudit'),dedicated.indexOf('function ensureStyles'));
+ assert.ok(audit.includes('"正式记录来源"'));
+ assert.ok(!audit.includes('reader_how'));
  assert.ok(dedicated.includes('SecondItemMaterialCards'));
 }
 const alias=fs.readFileSync('reader/second-item-public-alias.js','utf8');
@@ -1214,7 +1217,11 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
         assert "正式人物级公开投影" not in public_source
         assert "上游裁决" not in public_source
         assert "原始记录与计算口径" not in public_source
-        assert "正式依据与计算说明" in public_source
+        assert "正式记录来源" in public_source
+        assert "正式依据与计算说明" not in public_source
+        audit_start = public_source.index("function appendDedicatedAudit")
+        audit_end = public_source.index("function ensureStyles", audit_start)
+        assert "reader_how" not in public_source[audit_start:audit_end]
     assert "内部影响权重" not in a_public
     assert 'const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;' in home
     assert '总体裁决摘要' in home
