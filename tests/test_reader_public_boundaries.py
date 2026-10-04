@@ -920,6 +920,13 @@ def test_first_item_commander_battle_letters_are_labeled_as_battle_scales():
     assert "不是人物画像等级" in source
     assert "${esc(battle.result)}成果" not in source
 
+def test_first_item_scope_routes_cost_boundary_through_public_formatter():
+    from pathlib import Path
+    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert '军事成本责任范围</dt><dd>${esc(firstPublicText(byLabel["军事成本扣分"].reader_boundary))}' in source
+    assert '军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}' not in source
+
+
 def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
