@@ -1535,6 +1535,22 @@ vm.createContext(thirdCtx);
 vm.runInContext(
   section(home,'  const MATERIAL_CARD_GROUPS','  const SECOND_PUBLIC_GROUPS')
   +'\nthis.thirdPublicText=thirdPublicText; this.thirdItemPublicText=thirdItemPublicText;', thirdCtx);
+assert.equal(
+  thirdCtx.thirdPublicText('接手时为第3级。现有上层证据未显示摄政替代；本窗口未见替代者，故交班为第4级。','A1'),
+  '接手时为B档。现有材料未显示摄政替代；任内未见替代者，故结束时为A档。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('实际控制范围为当前结果为第5级、高位。规模与控制强度：总量不变；全部旧唐代区域标识迁移到同一口径。','B1'),
+  '实际控制范围当前为S档、高位。现有材料支持维持当前控制范围等级。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('统一核心领土由第一项计入；本项只读岭南成果，阶段扩张只留在战争卡和军事体系/相关正式记录。','B2'),
+  '统一核心领土由奠基与统一项计入；这里只计岭南成果，阶段扩张只作为战争与军事体系表现背景，不计作可移交控制成果。'
+);
+assert.equal(
+  thirdCtx.thirdPublicText('终点值由3.0修正为3.8，净变化由2.2修正为3.0，加权值由2.52修正为3.32；实际控制范围由第三级高位的74调整为第四级低位的75。','B1'),
+  ''
+);
 assert.equal(thirdCtx.thirdPublicText('结束时第5级安全水平','A1'),'结束时S档安全水平');
 assert.equal(thirdCtx.thirdPublicText('1→5档','A1'),'D档→S档');
 assert.equal(thirdCtx.thirdPublicText('0.25→0.75覆盖','B1'),'0.25→0.75覆盖');
@@ -1581,7 +1597,7 @@ assert.equal(
   '实际控制范围当前为E档、低位。承接嬴政既有边疆控制存量后逐区退出；按政权终结时的实际控制结果判断。'
 );
 assert.equal(
-  thirdCtx.thirdPublicText('战略成果价值为当前结果为第0级、低位。本人任内中央与边疆控制随秦政权崩溃归零，统一执行终局门；没有可在交班时保留的控制成果。','B2'),
+  thirdCtx.thirdPublicText('战略成果价值为当前结果为第0级、低位。本人任内中央与边疆控制随秦政权崩溃归零，统一执行终局门；没有可在任期结束时保留的控制成果。','B2'),
   '战略成果价值当前为E档、低位。本人任内中央与边疆控制随秦政权崩溃归零，按政权终结时的实际控制结果判断；没有可在交班时保留的控制成果。'
 );
 assert.equal(
@@ -1646,7 +1662,7 @@ assert.equal(
 );
 assert.equal(
   thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、中位。规模与控制强度：数值不变；旧标识规范化。','B1'),
-  '实际控制范围当前为E档、中位。当前正式材料支持维持这一控制范围等级。'
+  '实际控制范围当前为E档、中位。现有材料支持维持这一控制范围等级。'
 );
 assert.equal(
   thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：承接北方边郡遗漏修正：起点值 5.8→6.6，加权值 -3.48→-3.96；终局门下档位与得分率不变。','B1'),
@@ -1670,7 +1686,7 @@ assert.equal(
 );
 assert.equal(
   thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：旧账仅以1.3→0并启用按终局崩溃强制清零。现改为从杨坚真实4.2交班库存逐区域核退出；吐谷浑、伊吾阶段新增另存峰值但不进入618终点。最终实际控制范围率仍0，但不是由终局标签强制清零。','B1'),
-  '实际控制范围当前为E档、低位。按杨坚交班时的实际控制存量逐区域核对；吐谷浑、伊吾虽有阶段新增，但至618年均未形成可保留的终点控制，因此实际控制范围归零。'
+  '实际控制范围当前为E档、低位。按杨坚任期结束时的实际控制存量逐区域核对；吐谷浑、伊吾虽有阶段新增，但至618年均未形成可保留的终点控制，因此实际控制范围归零。'
 );
 const strategicItem={label:'A1',grade:'3→0档'};
 assert.equal(
@@ -1707,7 +1723,7 @@ assert.equal(
 );
 assert.equal(
   thirdCtx.thirdPublicText('旧只记燕云0→0.8，漏掉阿保机交班草原和辽东库存；45→59。','B1'),
-  '此前只计燕云控制，漏掉阿保机交班时的草原和辽东控制存量；补全后当前控制范围判断相应上调。'
+  '此前只计燕云控制，漏掉阿保机任期结束时的草原和辽东控制存量；补全后当前控制范围判断相应上调。'
 );
 assert.equal(
   thirdCtx.thirdPublicText('旧954—955合并上层证据先整体退出，955胡卢河若独立拆链后再复核。','普通成本扣分'),

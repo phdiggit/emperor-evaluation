@@ -850,6 +850,20 @@ function firstCommanderMarkup(item) {
       .replace(/主锚/g, "主要依据")
       .replace(/直接锚/g, "直接依据")
       .replace(/锚/g, "依据")
+      .replace(/现有上层证据/g, "现有材料")
+      .replace(/当前正式材料/g, "现有材料")
+      .replace(/相关正式记录/g, "相关材料")
+      .replace(/正式任务记录/g, "任务记录")
+      .replace(/正式材料/g, "现有材料")
+      .replace(/正式记录/g, "记录")
+      .replace(/本项只读/g, "这里只计")
+      .replace(/本项独立方向/g, "这一独立方向")
+      .replace(/本窗口/g, "任内")
+      .replace(/交班时/g, "任期结束时")
+      .replace(/交班为/g, "结束时为")
+      .replace(/总量不变；全部旧唐代区域标识迁移到同一口径。?/g, "现有材料支持维持当前控制范围等级。")
+      .replace(/阶段扩张只留在战争卡和军事体系\/相关材料/g, "阶段扩张只作为战争与军事体系表现背景，不计作可移交控制成果")
+      .replace(/重新核对本人窗口内的实际控制范围后，当前判断由[SABCDE]档(?:高位|中位|低位)?调整为[SABCDE]档(?:高位|中位|低位)?。?/g, "")
       .replace(/。。+/g, "。");
     if (!isCost) {
       text = text
