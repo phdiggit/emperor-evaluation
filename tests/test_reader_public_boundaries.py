@@ -1210,6 +1210,12 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
     assert 'renderHandoffMaterialGroups(label, evidence, item.reader_boundary)' in alias
     assert 'api.boundaryDifference(entry?.public_boundary, sharedBoundary)' in a_public
     assert 'api.boundaryDifference(entry?.public_boundary, sharedBoundary)' in b1_public
+    for public_source in (a_public, b1_public):
+        assert "正式人物级公开投影" not in public_source
+        assert "上游裁决" not in public_source
+        assert "原始记录与计算口径" not in public_source
+        assert "正式依据与计算说明" in public_source
+    assert "内部影响权重" not in a_public
     assert 'const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;' in home
     assert '总体裁决摘要' in home
     assert 'const logic = structuredMaterials ? "" : summary;' in home

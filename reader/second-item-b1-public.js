@@ -1,6 +1,6 @@
 "use strict";
 
-// B1 官僚治理专用阅读器：只消费构建后人物记录中的正式人物级公开投影。
+// B1 官僚治理专用阅读器：只消费构建后人物记录中的正式公开材料。
 // 分组依据仅来自 public_direction / public_tags，不回读原始 profile。
 (() => {
   const screen = document.getElementById("screen");
@@ -114,7 +114,7 @@
   function appendDedicatedAudit(body, item, record) {
     const api = globalThis.SecondItemMaterialCards;
     const details = make("details", "second-item-dedicated-audit");
-    details.append(make("summary", "", "原始记录与计算口径"));
+    details.append(make("summary", "", "正式依据与计算说明"));
     const how = api?.publicEnumText ? api.publicEnumText(item?.reader_how || "") : String(item?.reader_how || "").trim();
     if (how) details.append(make("p", "prose", how));
     const refs = [...new Set([item?.source, item?.applied_source, ...(item?.reader_source_refs || [])].filter(Boolean))];
@@ -161,7 +161,7 @@
 
     if (!evidence.length || !summary) {
       body.innerHTML = "";
-      body.append(make("p", "notice", "官僚治理的正式人物级公开投影尚未同步。"));
+      body.append(make("p", "notice", "官僚治理的公开裁决材料当前未提供。"));
       body.dataset.b1Public = "missing";
       body.dataset.secondPublicBodyKey = key;
       return;
@@ -172,7 +172,7 @@
     body.innerHTML = "";
     const reading = make("div", "second-item-public-reading second-item-b1-reading");
     reading.append(make("div", "label", "官僚治理运行链"));
-    reading.append(make("p", "second-item-b1-intro", "每张卡直接读取正式人物级公开投影；“独立计入”“并入同一运行链”“不单独计入”等标签都由上游裁决直接发布，页面不重新判断。"));
+    reading.append(make("p", "second-item-b1-intro", "每张卡都来自当前正式裁决；“独立计入”“并入同一运行链”“不单独计入”等标签只说明材料在本项中的作用，链条数量不直接决定等级。"));
     reading.append(make("div", "second-item-b1-summary", summary));
     reading.append(group("正向行政运行", groups.positive, sharedBoundary));
     reading.append(group("负向行政失灵", groups.negative, sharedBoundary));

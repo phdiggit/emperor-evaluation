@@ -1,6 +1,6 @@
 "use strict";
 
-// A 制度建设专用阅读器：只消费构建后人物记录中的正式人物级公开投影。
+// A 制度建设专用阅读器：只消费构建后人物记录中的正式公开材料。
 // 不回读制度节点正式分片，也不在浏览器中重新组合裁决来源。
 (() => {
   const screen = document.getElementById("screen");
@@ -51,7 +51,7 @@
       counts.mixed ? `正负并存节点 ${counts.mixed} 项` : "",
       counts.other ? `其他正式说明 ${counts.other} 项` : "",
     ].filter(Boolean);
-    return `制度建设公开等级为 ${grade || "未列"}。当前公开材料列出${parts.join("、") || "已闭合的制度节点"}；具体事实逐项展示。内部影响权重、长期接收折算和原始表现指数只放在计算说明中。`;
+    return `制度建设公开等级为 ${grade || "未列"}。当前公开材料列出${parts.join("、") || "已闭合的制度节点"}；具体事实逐项展示。影响权重、后世接收折算和原始表现指数只放在计算说明中。`;
   }
 
   function groupKey(entry) {
@@ -108,7 +108,7 @@
   function appendDedicatedAudit(body, item, record) {
     const api = globalThis.SecondItemMaterialCards;
     const details = make("details", "second-item-dedicated-audit");
-    details.append(make("summary", "", "原始记录与计算口径"));
+    details.append(make("summary", "", "正式依据与计算说明"));
     const how = api?.publicEnumText ? api.publicEnumText(item?.reader_how || "") : String(item?.reader_how || "").trim();
     if (how) details.append(make("p", "prose", how));
     const refs = [...new Set([item?.source, item?.applied_source, ...(item?.reader_source_refs || [])].filter(Boolean))];
@@ -154,7 +154,7 @@
 
     if (!evidence.length || !summary) {
       body.innerHTML = "";
-      body.append(make("p", "notice", "制度建设的正式人物级公开投影尚未同步。"));
+      body.append(make("p", "notice", "制度建设的公开裁决材料当前未提供。"));
       body.dataset.aPublic = "missing";
       body.dataset.aPublicKey = key;
       return;
@@ -163,7 +163,7 @@
     body.innerHTML = "";
     const reading = make("div", "second-item-a-reading");
     reading.append(make("div", "label", "制度建设材料"));
-    reading.append(make("p", "second-item-a-intro", "每张卡直接读取正式人物级公开投影；没有可单列制度节点时，会明确显示对应说明，不由页面自行补判。"));
+    reading.append(make("p", "second-item-a-intro", "每张卡都来自当前正式裁决；没有可单列制度节点时，会直接显示现有正式说明，不另作推断。"));
     reading.append(make("div", "second-item-a-summary", summary));
 
     const grouped = groups(evidence);
