@@ -1654,7 +1654,7 @@ assert.equal(
 );
 assert.equal(
   thirdCtx.thirdPublicText('1161父卡将临机整军归于将领，客观终点升档但不生成本人改善信用；创业恢复链不回灌第三项结果。','A1'),
-  '1161正式任务记录将临机整军归于将领，客观终点升档但不计为本人改善成果；创业恢复链不重复计入本项结果。'
+  '1161任务记录将临机整军归于将领，客观终点升档但不计为本人改善成果；创业恢复链不重复计入本项结果。'
 );
 assert.equal(
   thirdCtx.thirdPublicText('关键证据仍有缺口缺口保留。','普通成本扣分'),
@@ -2726,7 +2726,7 @@ def test_third_item_strategic_axis_explains_formula_without_reverse_deriving_for
     assert "E=0、D=1、C=2、B=3、A=4、S=5" in source
     assert "0—5只是在公式中的档位权重" in source
     assert "最终等级仍按 E—S 表示" in source
-    assert "当前人物正式结算记录" in source
+    assert "当前人物：" in source
     assert "页面不自行反推中间值" in source
     assert "正式轨迹值为" not in source
     assert "score / 0.6" not in source
