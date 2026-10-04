@@ -2396,6 +2396,7 @@ const forbidden=[
   /本批/,
   /跨轴/,
   /项目内部联盟\/军事统帅/,
+  /武将登记/,
   /`/,
   /\*\*/,
   /[SABCDE][+−-]?\s*(?:\/|／)\s*\d+(?:\.\d+)?\b/,
@@ -2512,6 +2513,10 @@ assert.equal(
 assert.equal(
   ctx.profilePublicPattern('原战略判断既有情境材料已经不是单一链；正式战略判断几乎只计入终局事件；原E档过低。'),
   '既有战略判断材料已经不是单一链；既有战略判断主要只依据终局事件；此前E档过低。'
+);
+assert.equal(
+  ctx.profilePublicPattern("'本轮按武将登记逐项复核：A/D3，某战役完成多路协同并形成高压逆转。卡内细节支持D3。，角色=commander_in_chief。某战役完成多路协同并形成高压逆转。卡内细节支持D3。'"),
+  '当前按战役情境逐项核对：A档战役成果／多重重大约束的高压任务，某战役完成多路协同并形成高压逆转。卡内细节支持D3。，登记角色：最高指挥者。'
 );
 assert.equal(ctx.profileDistinctPositionBasis('MID：'+same,same,'G4-MID：'+same),'');
 assert.equal(ctx.profileDistinctPositionBasis('档内中位：'+same,same,'G4-MID：'+same),'');

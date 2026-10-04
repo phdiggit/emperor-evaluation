@@ -665,6 +665,7 @@ function axisEvidenceScope(a,c){
 }
 function profilePublicPattern(value){
  const cleaned=String(value??'')
+  .replace(/^'?本轮按武将登记逐项复核：([^，]+)，([\s\S]+?)。，角色=([A-Za-z_]+)。\2。'?$/,"本轮按武将登记逐项复核：$1，$2。，角色=$3。")
   .replace(/`?(M1|M2|M4|M5|C1|C2|C3|C4|C5)-P[A-Za-z0-9_-]+`?/g,(_,code)=>(shortNames[code]||code)+"既有情境材料")
   .replace(/稳定父链[A-Za-z0-9_:-]{4,}已/g,"相关证据链已")
   .replace(/稳定证据链[A-Za-z0-9_:-]{4,}已/g,"相关证据链已")
@@ -931,6 +932,7 @@ function profilePublicPattern(value){
   .replace(/闭合/g,"确认")
   .replace(/现有证据链仅到完整生命周期情境汇总强度/g,"现有证据只支持到完整生命周期情境的强度")
   .replace(/原\s*[SABCDE](?:[+−-])?\s*对“判断正确”奖励过多，对执行闭环要求不足。?/g,"当前判断不过度奖励“判断正确”；执行闭环仍明显不足。")
+  .replace(/本轮按武将登记逐项复核[：:]/g,"当前按战役情境逐项核对：")
   .replace(/本轮可定位/g,"当前可定位")
   .replace(/本轮/g,"当前")
   .replace(/锚定/g,"确定")
