@@ -2412,7 +2412,7 @@ assert.equal(
 );
 assert.equal(
   ctx.profilePublicPattern('按A档纳入判断合同；不拆票凑A档；组织执行合同只约束本轴。'),
-  'A档判断规则；不把同一证据链拆成多条来提高到A档；组织执行规则只约束本轴。'
+  '按A档判断规则；不把同一证据链拆成多条来提高到A档；组织执行规则只约束本轴。'
 );
 assert.equal(ctx.profileDistinctPositionBasis('MID：'+same,same,'G4-MID：'+same),'');
 assert.equal(ctx.profileDistinctPositionBasis('档内中位：'+same,same,'G4-MID：'+same),'');
