@@ -517,7 +517,7 @@ function firstAddOnValue(n){
 function firstAddOnNote(n){
  if(!n)return '';
  if(n.first_item_status==='NOT_APPLICABLE')return '不适用；总分按0计入';
- if(n.first_item_status!=='APPLICABLE')return '正式适用状态未发布，因此不作适用性推断';
+ if(n.first_item_status!=='APPLICABLE')return '适用状态尚未确定，因此暂不作适用性推断';
  if(firstRawScore(n)===0)return '本项适用，但第一项结算分为0';
  return '';
 }
@@ -528,7 +528,7 @@ function firstAddOnComponent(n){
 function compareFirstAddOn(r){
  if(!r?.net)return '—';
  if(r.net.first_item_status==='NOT_APPLICABLE')return '不适用';
- if(r.net.first_item_status!=='APPLICABLE')return '状态未发布';
+ if(r.net.first_item_status!=='APPLICABLE')return '状态未定';
  if(firstRawScore(r.net)===0)return '0.0 · 本项适用';
  return scoreNumber(r.net.first_item_add_on);
 }

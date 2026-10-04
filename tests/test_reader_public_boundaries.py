@@ -2827,10 +2827,10 @@ def test_first_item_applicability_is_three_state_and_never_inferred_from_items()
 
     assert '"NOT_APPLICABLE"' in home
     assert '"APPLICABLE"' in home
-    assert "第一项正式适用状态" in home
+    assert "第一项适用状态尚未确定" in home
     assert "items.every(item =>" not in home
     assert "buildNetReading" not in person
-    assert "正式适用状态未发布，因此不作适用性推断" in template
+    assert "适用状态尚未确定，因此暂不作适用性推断" in template
     assert "阅读层不判断" not in template
     assert "n.first_item_status==='NOT_APPLICABLE'" in template
 
@@ -2875,7 +2875,7 @@ def test_reader_notices_avoid_internal_system_voice_and_paths():
     assert "该历史引用暂不可打开" in template
     assert "当前文件不可用" not in template
     assert "历史引用（当前文件不可用）" not in template
-    assert "正式记录未提供本人统帅的公开说明。" in home
+    assert "当前没有可展示的本人统帅说明。" in home
     assert "公开说明尚未同步" not in home
     assert "阅读层不判断" not in home
     assert "阅读层不根据" not in home

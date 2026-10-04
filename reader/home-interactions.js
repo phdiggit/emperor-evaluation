@@ -52,7 +52,7 @@ function firstCostPublicText(value) {
   const severity = ["无显著代价","很低成本","较低成本","中等成本","较高成本","高成本","极高成本","灾难级成本"];
   const chinese = {"零":0,"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7};
   return firstPublicText(value)
-    .replace(/现行第三项仍有相关计入，必须同步退出后才启用净分。?/g, "相关战争若已在军事与边疆项计入，本项不重复计算；当前按正式去重后的结果结算。")
+    .replace(/现行第三项仍有相关计入，必须同步退出后才启用净分。?/g, "相关战争若已在军事与边疆项计入，本项不重复计算；当前只保留未在其他项目重复计算的战争代价。")
     .replace(/跨项证实：/g, "跨项去重：")
     .replace(/由第一项计入/g, "由奠基与统一项计入")
     .replace(/留第三项/g, "留在军事与边疆项")
@@ -76,7 +76,7 @@ function firstCostMarkup(item) {
 function firstCommanderMarkup(item) {
   const source = item?.reader_public_commander;
   if (!source?.public_basis || !source?.public_boundary || !Array.isArray(source.public_battles)) {
-    return '<p class="notice">正式记录未提供本人统帅的公开说明。</p>';
+    return '<p class="notice">当前没有可展示的本人统帅说明。</p>';
   }
   const battles = source.public_battles.length
     ? `<details class="first-item-battle-evidence"><summary>查看已明确记载的战役与统筹成果</summary><p class="subline">“战役成果”和“任务难度”使用军事材料自己的字母刻度，不是人物画像等级。</p><ul class="first-item-battles">${source.public_battles.map(battle => `<li><strong>${esc(battle.name)}</strong> · ${esc(battle.role)} · 战役成果：${esc(battle.result)} · ${esc(battle.difficulty ? `任务难度：${battle.difficulty}` : '任务难度：未单列')} <a href="military.html#search=${encodeURIComponent(battle.name)}">查看战役档案 ↗</a></li>`).join('')}</ul></details>`
@@ -535,7 +535,7 @@ function firstCommanderMarkup(item) {
       const preview = firstStatus === "NOT_APPLICABLE"
         ? `<p class="notice">该人物不适用第一项，本项不参与统治绩效计分。</p>`
         : key === "first" && firstStatus !== "APPLICABLE"
-          ? `<p class="notice">第一项正式适用状态尚未发布，因此不作适用性推断。</p>`
+          ? `<p class="notice">第一项适用状态尚未确定，因此暂不作适用性推断。</p>`
           : judgments.map(item => `<div class="component"><span>${esc(compactNetPublicLabel(item, key))}</span><b>${esc(compactNetPublicValue(item, key))}</b></div>`).join("");
       details.innerHTML = `<summary>${esc(netGroupNames[key] || key)}</summary>${preview}<p class="sources"><a href="${netHref(record, major, key)}">查看这组完整计分逻辑 →</a></p>`;
       reading.append(details);
