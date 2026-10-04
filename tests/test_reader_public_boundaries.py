@@ -2714,8 +2714,11 @@ def test_compare_highlight_excludes_context_uncertainty_and_preserves_profile_ev
     block = template[template.index("function compare(){"):template.index("function guide()")]
     assert "突出当前展示值／档位差异" in block
     assert "不表示差异已经超出审慎位置投影、证据厚度或判断把握" in block
+    assert "量级置信度" not in template
+    assert ">置信度 " not in template
+    assert "判断把握：" in template
     assert "row('掌权背景（各项范围另见依据）',r=>esc(r.actual_power_window||'未列'),false)" in block
-    assert "row('量级置信度',r=>conf(r.impact.confidence),false)" in block
+    assert "row('判断把握',r=>conf(r.impact.confidence),false)" in block
     assert "row('影响性质',r=>esc(r.impact.impact_nature),false)" in block
 
     magnitude = block[block.index("row('历史影响量级'"):block.index("row('影响性质'")]
@@ -3029,11 +3032,13 @@ def test_top_level_performance_scores_use_reader_precision_but_audit_precision_i
 def test_profile_metadata_hides_internal_axis_codes_and_raw_radar_values():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
-    start = template.index('<details class="metadata"><summary>材料与正式记录</summary>')
+    start = template.index('<details class="metadata"><summary>原始记录与专业信息</summary>')
     end = template.index('</details></details>', start)
     block = template[start:end]
-    assert "公开状态：" in block
-    assert "雷达按公开18级档位绘制" in block
+    assert "展示模式：" in block
+    assert "判断把握：" in block
+    assert "公开等级：" in block
+    assert "当前状态：无档结案" in block
     assert "grade(a)" in block
     assert "a.axis_grade" not in block
     assert "a.radar_value" not in block
