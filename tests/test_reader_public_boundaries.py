@@ -2557,12 +2557,13 @@ def test_third_item_long_public_basis_is_losslessly_split_for_readability():
 
 
 
-def test_reader_guide_explains_material_strength_badges_are_upstream_only():
+def test_reader_guide_explains_material_strength_badges_are_formal-record_only():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "只有正式记录明确发布相应字段时页面才展示" in template
-    assert "没有这类标签只表示上游没有发布，不等于证据弱" in template
+    assert "没有这类标签只表示正式记录未发布该字段，不等于证据弱" in template
     assert "页面也不会自行补判" in template
+    assert "上游没有发布" not in template
 
 
 def test_second_item_compare_enhancers_accept_public_breakdown_row_title():
@@ -2826,8 +2827,10 @@ def test_history_total_public_explanation_stays_on_public_scale():
     assert "同一个字母不能跨两套刻度直接比较" in template
     assert "最终内部裁判带" not in template
     public_copy = (Path(__file__).resolve().parents[1] / "reader/public-copy.json").read_text(encoding="utf-8")
-    assert "这是离线交互设计样稿。展示数据来自构建时的正式结算；更新正式记录后重新构建阅读页。" in public_copy
-    assert "本站是正式结算数据的只读阅读层；正式记录更新后，页面随之重建。" in public_copy
+    assert "这是离线交互设计样稿" not in public_copy
+    assert "本站是正式结算数据的只读阅读层" not in public_copy
+    assert "本页展示最近一次正式发布的结算数据" in template
+    assert "正式记录更新后会在后续发布中同步" in template
     dimension_start = template.index("function impactDimensionPublicText")
     dimension_end = template.index("function paradigmReceptionProse", dimension_start)
     dimension = template[dimension_start:dimension_end]
