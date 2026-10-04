@@ -881,6 +881,7 @@
     card: materialCard,
     group: materialGroup,
     publicEnumText,
+    text: publicText,
     boundaryText: publicBoundaryText,
     bodyText: publicMaterialBodyText,
     boundaryDifference: publicBoundaryDifference,

@@ -2118,15 +2118,17 @@ def test_second_item_public_boundary_display_deduplicates_repeated_clauses():
 def test_second_item_a_and_b1_lead_with_reader_summary_not_internal_ledger_copy():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
+    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
     a_source = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
     b1_source = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
+    assert "text: publicText" in alias
     assert "function publicSummary(item, evidence)" in a_source
     assert "影响权重、后世接收折算和原始表现指数只放在计算说明中" in a_source
-    assert 'const formalSummary = String(item.reader_summary || "").trim();' in a_source
+    assert 'const formalSummary = globalThis.SecondItemMaterialCards?.text?.(item.reader_summary) || String(item.reader_summary || "").trim();' in a_source
     assert 'detailsBlock("为什么最终是这个等级？", formalSummary)' in a_source
     assert "function summaryText(item, evidence)" in b1_source
     assert "链条数量用于组织阅读，不按条数直接相减" in b1_source
-    assert 'const formalSummary = String(item.reader_summary || "").trim();' in b1_source
+    assert 'const formalSummary = globalThis.SecondItemMaterialCards?.text?.(item.reader_summary) || String(item.reader_summary || "").trim();' in b1_source
     assert 'detailsBlock("为什么最终是这个等级？", formalSummary || summary)' in b1_source
 
 

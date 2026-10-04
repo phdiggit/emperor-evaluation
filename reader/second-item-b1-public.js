@@ -150,7 +150,7 @@
     if (!item || !body) return;
 
     const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
-    const formalSummary = String(item.reader_summary || "").trim();
+    const formalSummary = globalThis.SecondItemMaterialCards?.text?.(item.reader_summary) || String(item.reader_summary || "").trim();
     const summary = summaryText(item, evidence);
     const key = publicKey(item);
     if (body.dataset.secondPublicBodyKey === key && body.querySelector(":scope > .second-item-b1-reading")) return;
