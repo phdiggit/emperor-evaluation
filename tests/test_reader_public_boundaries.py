@@ -3578,3 +3578,27 @@ def test_first_item_not_applicable_card_uses_explicit_label():
     assert 'major === "first" && firstStatus === "NOT_APPLICABLE"' in block
     assert '? "不适用"' in block
     assert "该人物第一项不适用。" in block
+
+
+def test_b1_independent_public_cards_reject_duplicate_titles_and_bases():
+    from emperor_v4.evaluation.second_item_b1_settlement import _validate_independent_public_card_distinctness
+
+    duplicate_basis = {
+        "ruler_name": "测试人物",
+        "M_positive_profile": [
+            {"profile_id": "P1", "material_id": "M1", "adjudication_status": "COUNTED_INDEPENDENT", "public_label": "甲链", "adjudication_basis": "同一正文"},
+            {"profile_id": "P2", "material_id": "M2", "adjudication_status": "COUNTED_INDEPENDENT", "public_label": "乙链", "adjudication_basis": "同一正文"},
+        ],
+    }
+    with pytest.raises(ValueError, match="公开裁决正文重复"):
+        _validate_independent_public_card_distinctness(duplicate_basis)
+
+    duplicate_label = {
+        "ruler_name": "测试人物",
+        "M_positive_profile": [
+            {"profile_id": "P1", "material_id": "M1", "adjudication_status": "COUNTED_INDEPENDENT", "public_label": "同名卡", "adjudication_basis": "正文甲"},
+            {"profile_id": "P2", "material_id": "M2", "adjudication_status": "COUNTED_INDEPENDENT", "public_label": "同名卡", "adjudication_basis": "正文乙"},
+        ],
+    }
+    with pytest.raises(ValueError, match="公开名称重复"):
+        _validate_independent_public_card_distinctness(duplicate_label)

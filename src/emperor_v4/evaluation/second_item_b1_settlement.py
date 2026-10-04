@@ -117,6 +117,30 @@ def _normalize_public_text(value: object) -> str:
     return text.strip(" ；，。")
 
 
+def _validate_independent_public_card_distinctness(row: dict[str, Any]) -> None:
+    labels: dict[str, dict[str, Any]] = {}
+    bases: dict[str, dict[str, Any]] = {}
+    for profile in _iter_profiles(row):
+        if profile.get("adjudication_status") != "COUNTED_INDEPENDENT":
+            continue
+        label = _normalize_public_text(profile.get("public_label"))
+        basis = _normalize_public_text(profile.get("adjudication_basis"))
+        if label in labels:
+            previous = labels[label]
+            raise ValueError(
+                f"B1独立材料公开名称重复：{row['ruler_name']} / "
+                f"{previous.get('profile_id')} / {profile.get('profile_id')} / {label}"
+            )
+        if basis in bases:
+            previous = bases[basis]
+            raise ValueError(
+                f"B1独立材料公开裁决正文重复：{row['ruler_name']} / "
+                f"{previous.get('profile_id')} / {profile.get('profile_id')}"
+            )
+        labels[label] = profile
+        bases[basis] = profile
+
+
 def _public_tags(profile: dict[str, Any], status: str) -> list[str]:
     role = "补充材料" if status == "ABSORBED_SAME_LIFECYCLE" else (
         "边界材料" if status == "BOUNDARY_CONTEXT" else PUBLIC_ROLE_LABELS.get(
@@ -730,6 +754,7 @@ def validate_public_profile_contract(payload: dict[str, Any]) -> None:
                     raise ValueError(f"B1并入材料缺少唯一主profile：{row['ruler_name']} / {profile.get('material_id')}")
             elif target_id:
                 raise ValueError(f"B1非并入材料错误保留主profile引用：{row['ruler_name']} / {profile.get('material_id')}")
+        _validate_independent_public_card_distinctness(row)
         if row.get("public_adjudication_summary") != _public_summary(row):
             raise ValueError(f"B1人物级公开总括不是当前profile的机械汇总：{row['ruler_name']}")
         if row.get("public_boundary") != B1_PUBLIC_BOUNDARY:
