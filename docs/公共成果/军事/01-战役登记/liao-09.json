@@ -3,7 +3,7 @@
   "partition": "liao",
   "bucket": 9,
   "bucket_count": 24,
-  "record_count": 8,
+  "record_count": 9,
   "records": [
     {
       "war_event_id": "WAR-POST-5853E54630C829D39861",
@@ -1164,6 +1164,57 @@
           }
         }
       ]
+    },
+    {
+      "war_event_id": "PUBLIC-PERSON-SHULVPING-HEISHAN-913",
+      "dynasty_partition": "liao",
+      "record_level": "person_command_result_registration",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_ACTION_EVIDENCE",
+      "canonical_label": "诸弟叛乱时黑山据险自固",
+      "period": {
+        "start": "913",
+        "end": "913"
+      },
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/遼史/卷73",
+        "https://zh.wikisource.org/wiki/遼史/卷1"
+      ],
+      "source_lineage": {
+        "source_files": [],
+        "lineage_basis": "原史源直接闭合人物行动与结果；仅为本人归责提供维护入口，不新增公共战争成果、成本或独立情境。"
+      },
+      "person_command_results": [],
+      "personal_action_attributions": [
+        {
+          "evidence_ref": "ACTION-B6CCFDC42C36F7733D17",
+          "person": "述律平",
+          "canonical_label": "诸弟叛乱时黑山据险自固",
+          "period": {
+            "start": "913",
+            "end": "913"
+          },
+          "evidence_kind": "military_operation",
+          "personal_role": "有限防御控制",
+          "military_judgment": "本人驻军黑山，阻险自固。",
+          "implementation": "阿保机另命阿古只率百骑护卫，叛党忌其勇略不敢犯。",
+          "personal_result": "本人有限防御组织成立，援将威慑不全部转授；未具年室韦反击不混为同场。",
+          "failure_and_limits": "",
+          "capability_episode_ref": "LIAO-PRINCES-913",
+          "source_refs": [
+            "https://zh.wikisource.org/wiki/遼史/卷73",
+            "https://zh.wikisource.org/wiki/遼史/卷1"
+          ],
+          "source_quotes": [
+            "淳欽皇后軍黑山，阻險自固",
+            "命阿古只統百騎往衛之",
+            "是不可犯也"
+          ],
+          "result_direction": "positive"
+        }
+      ],
+      "dynasty": "辽"
     }
   ]
 }

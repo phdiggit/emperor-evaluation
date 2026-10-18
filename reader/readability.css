@@ -1,4 +1,12 @@
 /* Readability layer: mobile cards, quieter metadata, and compact comparison evidence. */
+.net-c-authored{margin:16px 0;padding:16px;border:1px solid var(--line);border-radius:6px;background:#fcfbf7;min-width:0}
+.c-public-reading .prose{white-space:pre-wrap;overflow-wrap:anywhere}
+.c-public-reading details{margin:10px 0}
+.c-public-facts{padding-left:20px}
+.c-public-fact{margin:16px 0;list-style:none;padding:12px 0;border-top:1px solid var(--line)}
+.c-public-fact h4{margin:0 0 8px}
+.c-public-source{padding:10px 0;border-bottom:1px solid var(--line)}
+.c-public-source blockquote{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;padding-left:12px;border-left:2px solid var(--line)}
 .footer-note .home-count-summary {
   display: block;
 }
@@ -891,3 +899,76 @@
 .c5-style-note{margin:2px 0 4px}
 @media(max-width:700px){.axis-row-meta{font-size:10px}}
 .compare-evidence-meta{display:block;margin-top:4px;color:var(--muted);font-size:11px;line-height:1.5;font-weight:400;white-space:normal}
+
+
+/* First-item A: individual reading entry, then attribution, then method. */
+.first-a-reading { padding: 24px 28px; scroll-margin-top: 80px; }
+.first-a-eyebrow { color: var(--green); font-size: 12px; letter-spacing: .08em; margin-bottom: 10px; }
+.first-a-heading { display: flex; gap: 20px; align-items: baseline; justify-content: space-between; }
+.first-a-heading h3 { font-size: 23px; line-height: 1.5; margin: 0; font-weight: 600; }
+.first-a-score { flex-shrink: 0; font-size: 21px; color: var(--green); font-variant-numeric: tabular-nums; }
+.first-a-score small { font-size: 12px; color: var(--muted); font-weight: 400; }
+.first-a-story { max-width: 48em; margin: 16px 0 20px; }
+.first-a-story p { font-size: 16px; line-height: 1.95; }
+.first-a-attribution { border-top: 1px solid var(--line, #deded5); padding-top: 10px; }
+.first-a-attribution > summary { color: var(--green); font-size: 14px; }
+.first-a-attribution dl { margin: 18px 0; }
+.first-a-attribution dt { color: var(--muted); font-size: 12px; margin-top: 15px; }
+.first-a-attribution dd { margin: 4px 0 0; }
+.first-a-project { font-size: 13px; color: var(--muted); }
+.first-a-method { margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--line, #deded5); }
+.first-a-method > summary { font-size: 13px; }
+.first-a-method p { overflow-wrap: anywhere; }
+.first-a-directory-link { font-size: 12px; margin: 16px 0 0; }
+.first-a-teaser { border-left: 2px solid #97b0a5; padding: 4px 14px; margin: 16px 0; }
+.first-a-teaser h4 { line-height: 1.7; margin: 0 0 8px; }
+.first-a-teaser p { line-height: 1.85; margin: 0; }
+@media (max-width: 600px) {
+  .first-a-reading { padding: 20px 18px; }
+  .first-a-heading { flex-direction: column; gap: 10px; }
+  .first-a-heading h3 { font-size: 21px; }
+  .first-a-story p { font-size: 15px; }
+}
+
+.first-b1-components { display:flex; flex-wrap:wrap; gap:12px 24px; padding:12px 0 18px; color:var(--muted); font-size:13px; }
+.first-b1-components b { color:var(--green); font-size:16px; font-weight:500; }
+.first-b1-components small { font-size:11px; }
+.first-b1-facts { border-top:1px solid var(--line); padding-top:10px; }
+.first-b1-facts > summary { color:var(--green); font-size:14px; }
+.first-b1-method { border-top:1px solid var(--line); margin-top:20px; padding-top:12px; }
+.first-b1-method p { overflow-wrap:anywhere; }
+.first-b2-facts { border-top:1px solid var(--line); padding-top:10px; }
+.first-b2-facts > summary { color:var(--green); font-size:14px; }
+.first-b2-method { border-top:1px solid var(--line); margin-top:20px; padding-top:12px; }
+.first-b2-method p { overflow-wrap:anywhere; }
+
+/* C stories keep positive results and adverse phases together in deep evidence. */
+.first-c-setback{border-left:2px solid #b48a74;padding:4px 12px;margin:12px 0}.first-c-direction{display:inline-block;font-size:12px;color:var(--muted);margin-left:10px}.first-c-positive,.first-c-setbacks{margin-top:20px}.first-c-facts dd{overflow-wrap:anywhere}.first-c-reading h4{margin:18px 0 8px}
+
+.first-c-registry{margin-top:20px}.first-c-evidence-entry{border-top:1px solid var(--line);padding:14px 0;overflow-wrap:anywhere}.first-c-evidence-entry h4{line-height:1.7}.first-c-evidence-entry dd{margin-bottom:10px}.first-c-evidence-entry .sources{font-size:12px}
+/* A reads formal prose verbatim; keep source references usable on small screens. */
+.second-item-a-reading{margin:8px 0 16px}
+.second-item-a-story{font-size:15px;line-height:1.85}
+.second-item-a-summary{margin:14px 0 20px;padding:13px 16px;border-left:3px solid var(--gold);background:#f1eee6;line-height:1.85}
+.second-item-a-summary p{margin:6px 0 0}
+.second-item-a-group{margin:18px 0}
+.second-item-a-list{list-style:none;padding:0;display:grid;gap:12px}
+.second-item-a-reception{font-size:12px;color:var(--muted);line-height:1.7}
+.second-item-a-sources .sources{display:flex;flex-wrap:wrap;gap:8px}
+.second-item-a-sources a{overflow-wrap:anywhere;max-width:100%}
+.third-c-material h5{font-size:1em;line-height:1.6;margin:16px 0 8px}
+.third-c-material{margin:14px 0;overflow-wrap:anywhere}
+.third-c-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:16px 0}
+.third-c-overview>div{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;padding:10px 12px;border-radius:5px;background:var(--panel-soft,#f3f4ee)}
+.third-c-overview span{font-size:13px;color:var(--muted)}.third-c-overview strong{margin-left:auto;white-space:nowrap}
+.third-c-public-reading>details{border-top:1px solid var(--line);padding:6px 0;margin:6px 0}.third-c-story{max-width:48em;line-height:1.95}
+@media(max-width:520px){.third-c-overview{gap:5px}.third-c-overview>div{display:block;padding:8px}.third-c-overview span,.third-c-overview strong{display:block}.third-c-overview strong{margin:3px 0 0}}
+.third-c-material blockquote{white-space:pre-wrap;overflow-wrap:anywhere;border-left:2px solid var(--line);padding-left:12px;margin:12px 0}
+/* Contract readings display saved evidence, limits and adjacent-grade findings. */
+.third-c-contract-review{overflow-wrap:anywhere;border-top:2px solid #8ba89a;margin-top:24px}
+.third-c-adjacent-boundary{border-top:1px solid #d7d9cc;padding-top:16px;margin-top:16px}
+.third-c-contract-review .notice{border-left:3px solid #b18a45;padding:8px 12px;background:#faf4e7;color:#29332f}
+.third-c-audit-terms dt{font-weight:700;margin-top:12px}.third-c-audit-terms dd{margin:4px 0 12px;line-height:1.8}.third-c-material:focus{outline:2px solid #315d56;outline-offset:6px}.third-c-judgment-materials{overflow-wrap:anywhere}
+.third-c-overview .third-c-review-status{display:block;flex-basis:100%;font-size:12px;line-height:1.6;overflow-wrap:anywhere}.third-c-axis>.third-c-review-status{font-size:14px;line-height:1.7;color:#52635b}.third-c-review-note{line-height:1.7}
+
+.fourth-c-entry-links{display:flex;flex-wrap:wrap;gap:8px 20px;margin:12px 0;font-size:14px;overflow-wrap:anywhere}

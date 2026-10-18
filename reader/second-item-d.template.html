@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>政权交接 · 帝王三镜</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f3ec;color:#29332f;font:16px/1.9 "Microsoft YaHei",sans-serif}main,header{max-width:980px;margin:auto;padding:24px}header{border-bottom:1px solid #d7d9cc}a{color:#315d56}input{width:100%;padding:12px;font:inherit}article{margin:24px 0;padding:20px;background:#fffefa;border-left:3px solid #8ba89a}h2{margin:0}.d-axis{padding:16px 0;border-top:1px solid #d7d9cc}h3{margin:0 0 10px}h4{margin:0 0 8px}summary{cursor:pointer;padding:8px 0}li{padding:12px 0}blockquote{border-left:2px solid #ccc;margin:12px 0;padding-left:16px;white-space:pre-wrap;overflow-wrap:anywhere}.prose{white-space:pre-wrap;overflow-wrap:anywhere}.meta{color:#586659;font-size:14px}[hidden]{display:none!important}details{margin:8px 0}details>ul{padding-left:20px}@media(max-width:600px){main,header{padding:14px}article{padding:14px}}
+</style></head><body>
+<header><a href="index.html">帝王三镜</a> · <a href="index.html#guide">如何阅读</a></header>
+<main><h1>退出掌权后，行政与最高权力如何接续</h1>
+<p>行政连续性看留下的人员、官署与命令是否继续运行；交接稳定看最高权力承接时是否发生争位、强制接管或中央分裂。先读经历，再展开定档说明和逐条史源。</p>
+<p>这里覆盖交接正式记录全部 __COUNT__ 人，包含尚未进入综合榜的对象。排列沿用正式记录顺序，不另设排名。旧行政资源继续被使用，与本政权是否安全继承，分别判断。</p>
+<details><summary>两个档位怎样形成20分？</summary><p>两项均以S、A、B、C、D、E显示，分别换算为5、4、3、2、1、0，合计乘2；再受较弱一侧的上限约束。较弱一侧为E、D、C、B、A、S时，上限依次为4、8、12、16、20、20分。两项的档内指数不再单独加分。</p></details>
+<label for="search">搜索人物、经历或史料</label><input id="search" type="search" autocomplete="off">
+<p role="status">当前显示 <span id="count">__COUNT__</span> 人。</p>
+<section aria-label="全池政权交接阅读">__ENTRIES__</section></main>
+<script>
+if(['localhost','127.0.0.1','[::1]'].includes(location.hostname))for(const anchor of document.querySelectorAll('[data-local-source]'))anchor.href='../'+anchor.dataset.localSource;
+const entries=[...document.querySelectorAll('article')];document.getElementById('search').addEventListener('input',event=>{const q=event.target.value.trim();let count=0;for(const entry of entries){entry.hidden=q!==''&&!entry.textContent.includes(q);if(!entry.hidden)count++;}document.getElementById('count').textContent=count;});
+</script></body></html>

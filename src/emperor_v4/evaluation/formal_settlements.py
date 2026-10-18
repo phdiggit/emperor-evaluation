@@ -20,6 +20,7 @@ from emperor_v4.evaluation.second_item_b1_settlement import (
     position_from_residual,
     position_residual,
     validate_gate_references,
+    validate_public_profile_contract,
     verify_derived_views,
 )
 from emperor_v4.evaluation.third_item_current_settlement import (
@@ -496,6 +497,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
     _verify_material_registry_lineage(workspace_root)
     path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B1"]
     payload = load_json(path)
+    validate_public_profile_contract(payload)
     records = payload.get("records") or []
     if len(records) != 185 or payload.get("record_count") != 185:
         raise ValueError("第二项B1正式记录数不是185")
@@ -702,6 +704,8 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
             f"### {row['ruler_name']}（{row['polity']}，分项第{row['rank']}名）\n\n"
             f"- 档位：{row['grade']}（{position_cn[row['position']]}）\n"
             f"- 内部指数：{float(row['direction_index']):.1f}/100\n"
+            f"- 具体经历：{row['public_story']}\n"
+            f"- 本人责任：{row['public_responsibility']}\n"
             "- 结算依据：\n"
             f"{structured_basis}"
         )
@@ -840,6 +844,9 @@ def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] 
             raise ValueError(f"第二项B2审查人物仍有重复计权机制：{current.get('ruler_name')}")
 
     markdown = path.with_suffix(".md").read_text(encoding="utf-8")
+    from emperor_v4.evaluation.second_item_b2_public import render_public_markdown
+    if render_public_markdown(markdown, {"records": records}) != markdown:
+        raise ValueError("第二项B2 Markdown公开正文与正式记录不同值")
     sections = markdown.split("\n### ")[1:]
     if scoped:
         selected_names = {row["ruler_name"] for row in records}
@@ -856,8 +863,9 @@ def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] 
         "mixed_negative", "event_scale", "sanction_intensity", "irreversibility",
         "highest_power_directness",
     )
-    if any(term in markdown for term in untranslated_terms) or re.search(
-        r"(?<![A-Za-z0-9])[A-Za-z]+(?:_[A-Za-z0-9]+)+", markdown
+    visible_markdown = re.sub(r'\]\([^)]*\)', ']', markdown)
+    if any(term in visible_markdown for term in untranslated_terms) or re.search(
+        r"(?<![A-Za-z0-9])[A-Za-z]+(?:_[A-Za-z0-9]+)+", visible_markdown
     ):
         raise ValueError("第二项B2 Markdown仍含未翻译机器审计词")
     sections_by_name = {section.split("（", 1)[0]: section for section in sections}
@@ -901,7 +909,6 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
 
     d3_payload = payloads["D3"]
     d3_records = list(d3_payload.get("records") or [])
-    d3_markdown = (workspace_root / SECOND_ITEM_COMPONENT_PATHS["D3"]).with_suffix(".md").read_text(encoding="utf-8")
     d3_intervals = {
         "D3-0": (0.0, 2.85), "D3-1": (3.0, 5.85), "D3-2": (6.0, 8.85),
         "D3-3": (9.0, 11.85), "D3-4": (12.0, 14.10), "D3-5": (14.25, 15.0),
@@ -921,12 +928,12 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
             raise ValueError(f"第二项D3档位与内部指数不一致：{row.get('ruler_name')}")
         if int(row.get("rank")) != d3_scores.index(index) + 1:
             raise ValueError(f"第二项D3竞争排名不一致：{row.get('ruler_name')}")
-        expected_table = (
-            f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {grade}（"
-        )
-        expected_detail = f"### {row['ruler_name']}（{row['polity']}，分项第{row['rank']}名）"
-        if expected_table not in d3_markdown or expected_detail not in d3_markdown:
-            raise ValueError(f"第二项D3 Markdown未同步：{row.get('ruler_name')}")
+    from emperor_v4.evaluation.second_item_d1_d3_public import render_public_markdown
+
+    for axis in ("D1", "D3"):
+        markdown = (workspace_root / SECOND_ITEM_COMPONENT_PATHS[axis]).with_suffix(".md").read_text(encoding="utf-8")
+        if markdown != render_public_markdown(payloads[axis], axis):
+            raise ValueError(f"第二项{axis}公开Markdown与正式正文、史源不同值")
 
     handoff_records = list(payloads["handoff"].get("records") or [])
     handoff_scores = sorted((float(row["score"]) for row in handoff_records), reverse=True)

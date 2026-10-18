@@ -166,9 +166,41 @@
           "signed_security_candidate_before_cost": "D1",
           "cost_grade_delta": 0,
           "security_result_distribution": {
-            "E2": 1
+            "E2": 1,
+            "EN1": 1
           },
-          "external_strategic_chains": [],
+          "external_strategic_chains": [
+            {
+              "chain_id": "FB-WEI-INVASION-418",
+              "label": "418年北魏侵燕与和龙守御",
+              "member_cycle_refs": [
+                "WAR-LEAD-118-WEI-NORTHYAN-418"
+              ],
+              "effective_opponent_challenge_grade": "O4",
+              "effective_opponent_challenge_basis": "实际二万精骑、幽州支军及君主后援，多路区域国家投入；未将魏全国全部主力借入。",
+              "security_result_grade": "EN1",
+              "achievement_grade": "EN1",
+              "achievement_grade_detail": "EN1",
+              "security_change_basis": "乙连城失、古泥野战败及万余家被掠，方向局部净恶化；和龙守住、政权仍在，未证全国崩溃或主要方向持久全面恶化。",
+              "mobilization_peak": "NOT_CLOSED",
+              "mobilization_basis": "燕方实到兵数未载；魏二万精骑不是本方投入。",
+              "force_destruction": "NOT_CLOSED",
+              "force_destruction_basis": "燕古泥军败、皇甫轨被杀已证军损，受损军人数及战后再补未载，不把万余家平民全部计军人。",
+              "ruler_responsibility": "ORDINARY_COMMAND_RESPONSIBILITY",
+              "responsibility_basis": "冯跋未采取可证防备、本人最终守城；突然来袭与对手优势共同作用，不推独占全部损害责任。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷118-通读总结.md#WAR-LEAD-118-WEI-NORTHYAN-418"
+              ],
+              "terminal_result_profile": {
+                "threat_change": "LOCAL_DETERIORATION",
+                "control_change": "乙连失、和龙保住",
+                "material_return": "NOT_APPLICABLE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "WAR-LEAD-118-WEI-NORTHYAN-418",
+                "aggregation_basis": "同一入侵的外围失利与都城守成都合于一链，不按阶段重复计。"
+              }
+            }
+          ],
           "strategic_internal_chains": [
             {
               "chain_id": "FB-NORTHYAN-TWO-PREFECTURE-REBELLION-410",
@@ -237,20 +269,23 @@
             "public_level_label": "普通军事代价为第4级、低位",
             "public_component_label": "普通军事代价"
           },
-          "adjudication_basis": "去除创业取得政权链后无可消费外部战略改善；两州内部E2恢复不制造D2。 军事成本按独立合同裁为C4（LOW，CONFIRMED）；具体结构见成本依据。",
+          "adjudication_basis": [
+            "去除创业取得政权链后无可消费外部战略改善；两州内部E2恢复不制造D2。 军事成本按独立合同裁为C4（LOW，CONFIRMED）；具体结构见成本依据。",
+            "补入418魏侵本人窗口：局部失城与人口被掠不被410平叛抵消；保都使其不构成国家终局。正负并列后仍近无净改善，维持D1中位。410二万军为本方实际投入，418燕野战损失规模未载，不能由被掠平民推高军队成本，原成本档暂不另加。"
+          ],
           "coverage_status": "CONFIRMED",
           "source_batch": "sol_a",
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
           "database_write": false,
-          "public_adjudication_summary": "战略结果由0条外部结果链和1条内部军事链共同构成。去除创业取得政权链后无可计入外部战略改善；两州内部区域方向稳定或恢复恢复不制造战略安全净变化第2级。 军事成本按独立规定判断为军事成本第4级（低位，关键结构已证实）；具体结构见成本依据。",
+          "public_adjudication_summary": "战略结果由1条外部结果链和1条内部军事链共同构成。去除创业取得政权链后无可计入外部战略改善；两州内部区域方向稳定或恢复恢复不制造战略安全净变化第2级。 军事成本按独立规定判断为军事成本第4级（低位，关键结构已证实）；具体结构见成本依据。；补入418魏侵本人窗口：局部失城与人口被掠不被410平叛抵消；保都使其不构成国家终局。正负并列后仍近无净改善，维持战略安全净变化第1级中位。410二万军为本方实际投入，418燕野战损失规模未载，不能由被掠平民推高军队成本，原成本档暂不另加。",
           "public_evidence_items": [
             {
               "id": "THIRD-D-PUBLIC-893A94707F7CE2C5",
               "public_label": "战略结果组合",
               "public_role": "战略结果",
-              "public_basis": "现有材料列出0条外部战略结果链和1条内部军事链。去除创业取得政权链后无可计入外部战略改善；两州内部区域方向稳定或恢复恢复不制造战略安全净变化第2级。 军事成本按独立规定判断为军事成本第4级（低位，关键结构已证实）；具体结构见成本依据。",
+              "public_basis": "现有材料列出1条外部战略结果链和1条内部军事链。去除创业取得政权链后无可计入外部战略改善；两州内部区域方向稳定或恢复恢复不制造战略安全净变化第2级。 军事成本按独立规定判断为军事成本第4级（低位，关键结构已证实）；具体结构见成本依据。；补入418魏侵本人窗口：局部失城与人口被掠不被410平叛抵消；保都使其不构成国家终局。正负并列后仍近无净改善，维持战略安全净变化第1级中位。410二万军为本方实际投入，418燕野战损失规模未载，不能由被掠平民推高军队成本，原成本档暂不另加。",
               "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算。"
             },
             {
@@ -2158,9 +2193,108 @@
           "signed_security_candidate_before_cost": "D3",
           "cost_grade_delta": 0,
           "security_result_distribution": {
-            "E3_REGIONAL_TERMINAL": 1
+            "E0": 1,
+            "E1": 1,
+            "E2": 1,
+            "E3_MAJOR_STAGE": 1
           },
-          "external_strategic_chains": [],
+          "external_strategic_chains": [
+            {
+              "chain_id": "FJ-QIN-LIANG-353-354",
+              "member_cycle_refs": [
+                "CAMPAIGN-V099-099-LIANGQIN-353-354"
+              ],
+              "effective_opponent_challenge_grade": "O4",
+              "effective_opponent_challenge_basis": "前凉实际两轮方面军进攻后，秦先胜、丢秦州陈仓再反击；王擢被前凉排斥后率众降秦，秦补任秦州刺史，区域压力恢复为E2。归附有凉内部冲突共同因果，不推全部行政接收或终结前凉国家。",
+              "achievement_grade": "E2",
+              "achievement_grade_detail": "E2",
+              "security_result_grade": "E2",
+              "challenge_context": "前凉实际两轮方面军进攻后，秦先胜、丢秦州陈仓再反击；王擢被前凉排斥后率众降秦，秦补任秦州刺史，区域压力恢复为E2。归附有凉内部冲突共同因果，不推全部行政接收或终结前凉国家。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "现有完整军事过程的安全结果",
+              "within_grade_position": "MID",
+              "terminal_result_profile": "前凉实际两轮方面军进攻后，秦先胜、丢秦州陈仓再反击；王擢被前凉排斥后率众降秦，秦补任秦州刺史，区域压力恢复为E2。归附有凉内部冲突共同因果，不推全部行政接收或终结前凉国家。",
+              "control_change": "仅认本人实际节点及军事压力变化",
+              "security_change_basis": "前凉实际两轮方面军进攻后，秦先胜、丢秦州陈仓再反击；王擢被前凉排斥后率众降秦，秦补任秦州刺史，区域压力恢复为E2。归附有凉内部冲突共同因果，不推全部行政接收或终结前凉国家。",
+              "mobilization_peak": "本军数万，分阶段不相加",
+              "mobilization_basis": "353年四万屯陇东；354年五万迎敌、三万会军与七千侧击不同阶段不相加。",
+              "force_destruction": "F1_LIMITED_FORCE_LOSS",
+              "force_destruction_basis": "有实际交战和太子负伤后亡，本军总损失及分母失载；不计对手死亡或居民迁失为秦军损失。",
+              "process_burden": {
+                "repetition": "MULTI_STAGE",
+                "duration": "本对象实际阶段"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "苻健在世授权及本人核心防御，具体战场执行分别归将领。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷099-通读总结.md#WAR-LEAD-099-LIANGQIN-353-354",
+                "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-FUJIAN-PHASES-353-355"
+              ]
+            },
+            {
+              "chain_id": "FJ-QIN-HUANWEN-354",
+              "member_cycle_refs": [
+                "CAMPAIGN-V099-099-HUANQIN-354"
+              ],
+              "effective_opponent_challenge_grade": "O4",
+              "effective_opponent_challenge_basis": "桓温四万荆州军及子午侧翼入关，秦初败后续战使之撤回，保长安为E1止损恢复，不冒作永久终结东晋。陈仓对王擢一段已归凉秦链，不重复加安全结果。",
+              "achievement_grade": "E1",
+              "achievement_grade_detail": "E1",
+              "security_result_grade": "E1",
+              "challenge_context": "桓温四万荆州军及子午侧翼入关，秦初败后续战使之撤回，保长安为E1止损恢复，不冒作永久终结东晋。陈仓对王擢一段已归凉秦链，不重复加安全结果。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "现有完整军事过程的安全结果",
+              "within_grade_position": "MID",
+              "terminal_result_profile": "桓温四万荆州军及子午侧翼入关，秦初败后续战使之撤回，保长安为E1止损恢复，不冒作永久终结东晋。陈仓对王擢一段已归凉秦链，不重复加安全结果。",
+              "control_change": "仅认本人实际节点及军事压力变化",
+              "security_change_basis": "桓温四万荆州军及子午侧翼入关，秦初败后续战使之撤回，保长安为E1止损恢复，不冒作永久终结东晋。陈仓对王擢一段已归凉秦链，不重复加安全结果。",
+              "mobilization_peak": "本军数万，分阶段不相加",
+              "mobilization_basis": "353年四万屯陇东；354年五万迎敌、三万会军与七千侧击不同阶段不相加。",
+              "force_destruction": "F1_LIMITED_FORCE_LOSS",
+              "force_destruction_basis": "有实际交战和太子负伤后亡，本军总损失及分母失载；不计对手死亡或居民迁失为秦军损失。",
+              "process_burden": {
+                "repetition": "MULTI_STAGE",
+                "duration": "本对象实际阶段"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "苻健在世授权及本人核心防御，具体战场执行分别归将领。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷099-通读总结.md#WAR-LEAD-099-HUANQIN-354"
+              ]
+            },
+            {
+              "chain_id": "FJ-QIN-QIUCHI-353",
+              "member_cycle_refs": [
+                "CAMPAIGN-V099-099-QIUCHI-353"
+              ],
+              "effective_opponent_challenge_grade": "NOT_CLOSED",
+              "effective_opponent_challenge_basis": "现有本人段确认杨初仇池守军击退秦军，但与既有仇池区域机器的具体承继及本轮投入尚未足以唯一确定O3或O4。军额和军需细目未载不能作为降为O3的独立理由，保留候选，不把前任母体全部实力直接借入。",
+              "achievement_grade": "E0",
+              "achievement_grade_detail": "E0",
+              "security_result_grade": "E0",
+              "challenge_context": "本次苻飞进攻杨初仇池未成，未证秦本方既有安全结构净恶化，不将主动无功写成EN；后续四万屯军作为已执行投入。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "现有完整军事过程的安全结果",
+              "within_grade_position": "MID",
+              "terminal_result_profile": "本次苻飞进攻杨初仇池未成，未证秦本方既有安全结构净恶化，不将主动无功写成EN；后续四万屯军作为已执行投入。",
+              "control_change": "仅认本人实际节点及军事压力变化",
+              "security_change_basis": "本次苻飞进攻杨初仇池未成，未证秦本方既有安全结构净恶化，不将主动无功写成EN；后续四万屯军作为已执行投入。",
+              "mobilization_peak": "本军数万，分阶段不相加",
+              "mobilization_basis": "353年四万屯陇东；354年五万迎敌、三万会军与七千侧击不同阶段不相加。",
+              "force_destruction": "F1_LIMITED_FORCE_LOSS",
+              "force_destruction_basis": "有实际交战和太子负伤后亡，本军总损失及分母失载；不计对手死亡或居民迁失为秦军损失。",
+              "process_burden": {
+                "repetition": "MULTI_STAGE",
+                "duration": "本对象实际阶段"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "苻健在世授权及本人核心防御，具体战场执行分别归将领。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷099-通读总结.md#WAR-LEAD-099-QIUCHI-353",
+                "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-FUJIAN-PHASES-353-355"
+              ]
+            }
+          ],
           "strategic_internal_chains": [
             {
               "chain_id": "FJ-QIN-GUANZHONG-REBELLIONS-352-354",
@@ -2168,9 +2302,9 @@
                 "QIN-REBELS-GUANZHONG-MULTINODE-353-354",
                 "QIN-REBELS-ZHANGYU-PALACE-353"
               ],
-              "effective_opponent_challenge_grade": "O3",
-              "achievement_grade": "E3_REGIONAL_TERMINAL",
-              "basis": "353年张遇宫门袭击与353—354年池阳、鄠、雍、司竹、灞城多节点平乱为建国后的独立关中安全链；352年宜秋建国收尾阶段明确退出。354年逐城收束、关中悉平。",
+              "effective_opponent_challenge_grade": "O2",
+              "achievement_grade": "E3_MAJOR_STAGE",
+              "basis": "张遇同谋及关中多城军政节点被逐一解除，核心区域恢复形成重大阶段改善；呼延毒一万随晋退，未证明全部原武装终结或永久稳定，不再写区域对手全部终结。",
               "mobilization_peak": "W_NOT_RECORDED_MULTI_ROUTE",
               "force_destruction": "F1_LIMITED_FORCE_LOSS",
               "force_destruction_basis": "前秦分路逐城作战确认非零军损，但本方伤亡人数、部队分母、毁损比例和组织重建均失载；叛军数万人与首领死亡不计前秦成本。",
@@ -2187,18 +2321,18 @@
               ],
               "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
               "acquisition_mode": "MULTI_STAGE_COMBAT",
-              "result_type": "REGIONAL_THREAT_TERMINATED",
+              "result_type": "MAJOR_STAGE_GAIN_TARGET_NOT_CLOSED",
               "within_grade_position": "MID",
               "terminal_result_profile": {
-                "threat_change": "REGIONAL_THREAT_TERMINATED",
-                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "threat_change": "重大阶段改善，残余随晋退",
+                "control_change": "关中主要节点收复",
                 "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
                 "durability": "LIMITED_OR_NOT_CLOSED",
                 "terminal_member_ref": "QIN-REBELS-GUANZHONG-MULTINODE-353-354",
-                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+                "aggregation_basis": "张遇与关联诸将同谋，宫门和多城为同一危机阶段；不计宜秋、独立刘康或桓温外军。"
               },
-              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
-              "security_result_grade": "E3_REGIONAL_TERMINAL",
+              "achievement_grade_detail": "E3_MAJOR_STAGE",
+              "security_result_grade": "E3_MAJOR_STAGE",
               "phase_scope": {
                 "start_year": 353,
                 "end_year": 354,
@@ -2209,15 +2343,15 @@
             }
           ],
           "ordinary_suppression_summary": {
-            "count": 1,
-            "presumed_or_explicit_success_count": 1,
+            "count": 2,
+            "presumed_or_explicit_success_count": 2,
             "explicit_failure_or_unresolved_count": 0,
             "abnormal_cost_chain_count": 1,
             "abnormal_process_chain_count": 1,
-            "notes": "平阳刘康为不同地方集团且规模失载，作为普通局地收束摘要，不并入关中战略链。公共总父票为NONCONSUMABLE；司马勋、姚襄、诚桥等建国初期创业与关中控制取得成果按第一项/第三项C去重，不转成D外部链。",
+            "notes": "平阳刘康与355年苻菁府兵攻门分别为已执行普通军事任务。攻宫实际受压可支持C，但没有已发生国家级失控，不另造D战略安全加分；实际出军和陈兵仍进入本任全局成本。宜秋保持第一项排除。",
             "source_refs": [
-              "docs/史料通读产物/唐以前编年/两晋/卷099-通读总结.md#WAR-LEAD-099-QIN-REBELS-352-354",
-              "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#QIN-REBELS-PINGYANG-LIUKANG-353"
+              "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-FUJIAN-PHASES-353-355",
+              "docs/史料通读产物/唐以前编年/两晋/卷100-通读总结.md#WAR-LEAD-100-FUJING-355"
             ]
           },
           "cross_item_excluded_chains": [
@@ -2235,44 +2369,44 @@
           "attributable_cost_profile": {
             "cost_band": "C4",
             "status": "CONFIRMED",
-            "position": "MID",
-            "admission_fact": "352宜秋属于前秦建国收尾，按既定第一/第三项边界退出。 第三项只看353—354：张遇宫门未遂后，池阳、鄠、雍、司竹、灞城等多点武装合计数万人，苻雄、苻法、苻飞分路逐城平定，连续两年。 叛军“数万人”不是本方损失，但官军多路、跨多个关中节点的连续作战本身已经构成显著区域军事投入，足以C4。 本方死亡、军资和组织毁损均失载，且两年仍不足长期国家级承载，因此只取C4-MID，不进C5。",
-            "basis": "352宜秋属于前秦建国收尾，按既定第一/第三项边界退出。 第三项只看353—354：张遇宫门未遂后，池阳、鄠、雍、司竹、灞城等多点武装合计数万人，苻雄、苻法、苻飞分路逐城平定，连续两年。 叛军“数万人”不是本方损失，但官军多路、跨多个关中节点的连续作战本身已经构成显著区域军事投入，足以C4。 本方死亡、军资和组织毁损均失载，且两年仍不足长期国家级承载，因此只取C4-MID，不进C5。",
-            "public_adjudication_summary": "普通军事代价为第4级、中位。352宜秋属于前秦建国收尾，按既定第一/第三项边界退出。 第三项只看353—354：张遇宫门未遂后，池阳、鄠、雍、司竹、灞城等多点武装合计数万人，苻雄、苻法、苻飞分路逐城平定，连续两年。 叛军“数万人”不是本方损失，但官军多路、跨多个关中节点的连续作战本身已经构成显著区域军事投入，足以军事成本第4级。 本方死亡、军资和组织毁损均失载，且两年仍不足长期国家级承载，因此只取军事成本第4级、中位，不进军事成本第5级。",
+            "position": "HIGH",
+            "admission_fact": "第一项只消费350—352建国，宜秋不回流。353—354关中分路逐城、四万屯陇东、五万迎桓温并在失利后重会军及七千侧击，形成明确大型多向和持续区域投入；太子负伤后亡与355实际陈兵保留。军额不跨阶段相加，晋方死万余、叛军数万和迁走三千余户不计秦军损失，灾荒不直接替代本军伤亡。大型动员、分路接续及多核心方向同向强化，裁C4/HIGH；未证明主要兵团严重毁损或长期反复高强度的国家尺度负担，不据两年和战败数量升C5。",
+            "basis": "第一项只消费350—352建国，宜秋不回流。353—354关中分路逐城、四万屯陇东、五万迎桓温并在失利后重会军及七千侧击，形成明确大型多向和持续区域投入；太子负伤后亡与355实际陈兵保留。军额不跨阶段相加，晋方死万余、叛军数万和迁走三千余户不计秦军损失，灾荒不直接替代本军伤亡。大型动员、分路接续及多核心方向同向强化，裁C4/HIGH；未证明主要兵团严重毁损或长期反复高强度的国家尺度负担，不据两年和战败数量升C5。",
+            "public_adjudication_summary": "普通军事代价为第4级、高位。第一项只计入350—352建国，宜秋不回流。353—354关中分路逐城、四万屯陇东、五万迎桓温并在失利后重会军及七千侧击，形成明确大型多向和持续区域投入；太子负伤后亡与355实际陈兵保留。军额不跨阶段相加，晋方死万余、叛军数万和迁走三千余户不计秦军损失，灾荒不直接替代本军伤亡。大型动员、分路接续及多核心方向同向强化，裁军事成本第4级/高位；未证明主要兵团严重毁损或长期反复高强度的国家尺度负担，不据两年和战败数量升军事成本第5级。",
             "public_evidence_items": [
               {
                 "id": "THIRD-D-COST-PUBLIC-EE515B4CC483AFE6",
                 "public_label": "普通军事代价",
                 "public_role": "本方军事承载",
-                "public_basis": "普通军事代价为第4级、中位。352宜秋属于前秦建国收尾，按既定第一/第三项边界退出。 第三项只看353—354：张遇宫门未遂后，池阳、鄠、雍、司竹、灞城等多点武装合计数万人，苻雄、苻法、苻飞分路逐城平定，连续两年。 叛军“数万人”不是本方损失，但官军多路、跨多个关中节点的连续作战本身已经构成显著区域军事投入，足以军事成本第4级。 本方死亡、军资和组织毁损均失载，且两年仍不足长期国家级承载，因此只取军事成本第4级、中位，不进军事成本第5级。",
+                "public_basis": "普通军事代价为第4级、高位。第一项只计入350—352建国，宜秋不回流。353—354关中分路逐城、四万屯陇东、五万迎桓温并在失利后重会军及七千侧击，形成明确大型多向和持续区域投入；太子负伤后亡与355实际陈兵保留。军额不跨阶段相加，晋方死万余、叛军数万和迁走三千余户不计秦军损失，灾荒不直接替代本军伤亡。大型动员、分路接续及多核心方向同向强化，裁军事成本第4级/高位；未证明主要兵团严重毁损或长期反复高强度的国家尺度负担，不据两年和战败数量升军事成本第5级。",
                 "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入。"
               }
             ],
             "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入。",
-            "public_level_label": "普通军事代价为第4级、中位",
+            "public_level_label": "普通军事代价为第4级、高位",
             "public_component_label": "普通军事代价"
           },
-          "adjudication_basis": "353—354年宫门、关中多节点危机收束按E3进入安全组合，形成主要区域改善，成本前D3；352年创业阶段继续排除，恢复关中不另创造新增控制包。 军事成本按独立合同裁为C4（MID，CONFIRMED）；具体结构见成本依据。",
+          "adjudication_basis": "当前关中E3重大阶段改善、前凉方向E2恢复及桓温E1止损并列，仇池无功E0；残余未全灭不写永久终结。C4高位成本明显，仍按D3低位审计，不另作加分。原混合总父卡不消费，宜秋成果和成本只归第一项。",
           "coverage_status": "CONFIRMED",
           "source_batch": "sol_a",
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
           "database_write": false,
-          "public_adjudication_summary": "战略结果由0条外部结果链和1条内部军事链共同构成。353—354年宫门、关中多节点危机收束按重大阶段或区域终局成果进入安全组合，形成主要区域改善，成本前战略安全净变化第3级；352年创业阶段继续排除，恢复关中不另创造新增控制包。 军事成本按独立规定判断为军事成本第4级（中位，关键结构已证实）；具体结构见成本依据。",
+          "public_adjudication_summary": "战略结果由3条外部结果链和1条内部军事链共同构成。当前关中重大阶段或区域终局成果重大阶段改善、前凉方向区域方向稳定或恢复恢复及桓温止损或恢复原线止损并列，仇池无功没有净安全改善；残余未全灭不写永久终结。军事成本第4级高位成本明显，仍按战略安全净变化第3级低位核对，不另作加分。原混合总父卡不计入，宜秋成果和成本只归第一项。",
           "public_evidence_items": [
             {
               "id": "THIRD-D-PUBLIC-7E10B9736A10B7FD",
               "public_label": "战略结果组合",
               "public_role": "战略结果",
-              "public_basis": "现有材料列出0条外部战略结果链和1条内部军事链。353—354年宫门、关中多节点危机收束按重大阶段或区域终局成果进入安全组合，形成主要区域改善，成本前战略安全净变化第3级；352年创业阶段继续排除，恢复关中不另创造新增控制包。 军事成本按独立规定判断为军事成本第4级（中位，关键结构已证实）；具体结构见成本依据。",
+              "public_basis": "现有材料列出3条外部战略结果链和1条内部军事链。当前关中重大阶段或区域终局成果重大阶段改善、前凉方向区域方向稳定或恢复恢复及桓温止损或恢复原线止损并列，仇池无功没有净安全改善；残余未全灭不写永久终结。军事成本第4级高位成本明显，仍按战略安全净变化第3级低位核对，不另作加分。原混合总父卡不计入，宜秋成果和成本只归第一项。",
               "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算。"
             },
             {
               "id": "THIRD-D-COST-PUBLIC-EE515B4CC483AFE6",
               "public_label": "普通军事代价",
               "public_role": "本方军事承载",
-              "public_basis": "普通军事代价为第4级、中位。352宜秋属于前秦建国收尾，按既定第一/第三项边界退出。 第三项只看353—354：张遇宫门未遂后，池阳、鄠、雍、司竹、灞城等多点武装合计数万人，苻雄、苻法、苻飞分路逐城平定，连续两年。 叛军“数万人”不是本方损失，但官军多路、跨多个关中节点的连续作战本身已经构成显著区域军事投入，足以军事成本第4级。 本方死亡、军资和组织毁损均失载，且两年仍不足长期国家级承载，因此只取军事成本第4级、中位，不进军事成本第5级。",
+              "public_basis": "普通军事代价为第4级、高位。第一项只计入350—352建国，宜秋不回流。353—354关中分路逐城、四万屯陇东、五万迎桓温并在失利后重会军及七千侧击，形成明确大型多向和持续区域投入；太子负伤后亡与355实际陈兵保留。军额不跨阶段相加，晋方死万余、叛军数万和迁走三千余户不计秦军损失，灾荒不直接替代本军伤亡。大型动员、分路接续及多核心方向同向强化，裁军事成本第4级/高位；未证明主要兵团严重毁损或长期反复高强度的国家尺度负担，不据两年和战败数量升军事成本第5级。",
               "public_boundary": "普通军事代价只记录本人统治窗口内本方军队、军事资产、后勤与持续动员的实际承载；重大净毁损追加判断使用同一损失时不再重复扣减，外部行动和非军事成本不并入。"
             },
             {
@@ -2305,52 +2439,10 @@
           "cost_grade_delta": 0,
           "security_result_distribution": {
             "E3_MAJOR_STAGE": 2,
-            "E3_REGIONAL_TERMINAL": 3,
+            "E3_REGIONAL_TERMINAL": 2,
             "EN3": 1
           },
           "external_strategic_chains": [
-            {
-              "chain_id": "FJ-YAO-357",
-              "member_cycle_refs": [
-                "CAMPAIGN-V100-100-YAO-357"
-              ],
-              "effective_opponent_challenge_grade": "O3",
-              "challenge_context": "姚襄集团能跨北屈、杏城、敷城扩张并吸附羌胡与秦民五万余户，构成关中一大方向威胁；没有多方向国家投送能力。",
-              "achievement_grade": "E3_REGIONAL_TERMINAL",
-              "security_change_basis": "一万五千秦军在三原终结姚襄武装中枢并巩固关中，属于区域威胁终局；归附人口不作资产回报。",
-              "mobilization_peak": "W10_30",
-              "mobilization_basis": "秦军步骑一万五千。",
-              "force_destruction": "F2_LARGE_PERSONNEL_IMPAIRMENT_FORCE_STRUCTURE_RETAINED",
-              "force_destruction_basis": "会战发生但秦军伤亡失载，只能保留百人级损害下界；姚军损失与归附人口不计秦方成本，无秦军组织性毁损证据。",
-              "process_burden": {
-                "repetition": "SINGLE",
-                "duration": "SHORT"
-              },
-              "ruler_responsibility": "ORDINARY_COMMAND_RESPONSIBILITY",
-              "responsibility_basis": "苻坚作为参战将领及窗口主体参与响应，但此役起于苻生在位，不能把全部国家战略责任倒灌给苻坚。",
-              "source_refs": [
-                "docs/史料通读产物/唐以前编年/两晋/卷100-通读总结.md#WAR-LEAD-100-YAO-357",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#RULER-SHADOW-苻坚::357—385::CAMPAIGN-V100-100-YAO-357"
-              ],
-              "acquisition_mode": "COMBAT_AND_SUBMISSION_OR_INCORPORATION",
-              "result_type": "REGIONAL_THREAT_TERMINATED",
-              "within_grade_position": "MID",
-              "terminal_result_profile": {
-                "threat_change": "REGIONAL_THREAT_TERMINATED",
-                "control_change": "一万五千秦军在三原终结姚襄武装中枢并巩固关中，属于区域威胁终局；归附人口不作资产回报。",
-                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
-                "durability": "LIMITED_OR_NOT_CLOSED",
-                "terminal_member_ref": "CAMPAIGN-V100-100-YAO-357",
-                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
-              },
-              "effective_opponent_challenge_basis": "姚襄集团能跨北屈、杏城、敷城扩张并吸附羌胡与秦民五万余户，构成关中一大方向威胁；没有多方向国家投送能力。",
-              "effective_opponent_challenge_source_refs": [
-                "docs/史料通读产物/唐以前编年/两晋/卷100-通读总结.md#WAR-LEAD-100-YAO-357",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#RULER-SHADOW-苻坚::357—385::CAMPAIGN-V100-100-YAO-357"
-              ],
-              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
-              "security_result_grade": "E3_REGIONAL_TERMINAL"
-            },
             {
               "chain_id": "FJ-JIN-GRAND-OFFENSIVE-378-379",
               "member_cycle_refs": [
@@ -2744,6 +2836,52 @@
               "exclusion_reason": "371仇池、373梁益、376前凉的统一取得及374蜀地直接巩固由第一项消费；四公、苻洛及378年以后独立战争留第三项。",
               "consumption_scope": "FIRST_ITEM_ONLY_RESULT_AND_COST",
               "excluded_from_D": true
+            },
+            {
+              "chain_id": "FJ-YAO-357",
+              "member_cycle_refs": [
+                "CAMPAIGN-V100-100-YAO-357"
+              ],
+              "effective_opponent_challenge_grade": "O3",
+              "challenge_context": "姚襄集团能跨北屈、杏城、敷城扩张并吸附羌胡与秦民五万余户，构成关中一大方向威胁；没有多方向国家投送能力。",
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "security_change_basis": "一万五千秦军在三原终结姚襄武装中枢并巩固关中，属于区域威胁终局；归附人口不作资产回报。",
+              "mobilization_peak": "W10_30",
+              "mobilization_basis": "秦军步骑一万五千。",
+              "force_destruction": "F2_LARGE_PERSONNEL_IMPAIRMENT_FORCE_STRUCTURE_RETAINED",
+              "force_destruction_basis": "会战发生但秦军伤亡失载，只能保留百人级损害下界；姚军损失与归附人口不计秦方成本，无秦军组织性毁损证据。",
+              "process_burden": {
+                "repetition": "SINGLE",
+                "duration": "SHORT"
+              },
+              "ruler_responsibility": "ORDINARY_COMMAND_RESPONSIBILITY",
+              "responsibility_basis": "苻坚作为参战将领及窗口主体参与响应，但此役起于苻生在位，不能把全部国家战略责任倒灌给苻坚。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷100-通读总结.md#WAR-LEAD-100-YAO-357",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#RULER-SHADOW-苻坚::357—385::CAMPAIGN-V100-100-YAO-357"
+              ],
+              "acquisition_mode": "COMBAT_AND_SUBMISSION_OR_INCORPORATION",
+              "result_type": "REGIONAL_THREAT_TERMINATED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "REGIONAL_THREAT_TERMINATED",
+                "control_change": "一万五千秦军在三原终结姚襄武装中枢并巩固关中，属于区域威胁终局；归附人口不作资产回报。",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "CAMPAIGN-V100-100-YAO-357",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "effective_opponent_challenge_basis": "姚襄集团能跨北屈、杏城、敷城扩张并吸附羌胡与秦民五万余户，构成关中一大方向威胁；没有多方向国家投送能力。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷100-通读总结.md#WAR-LEAD-100-YAO-357",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#RULER-SHADOW-苻坚::357—385::CAMPAIGN-V100-100-YAO-357"
+              ],
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL",
+              "reason": "357年四五月受苻生授权，苻坚仅为参战将领，不属于其主政窗口，成果和成本均不进入本人D；淝水等其余链仍决定原安全负向与军事成本。",
+              "exclusion_reason": "357年四五月受苻生授权，苻坚仅为参战将领，不属于其主政窗口，成果和成本均不进入本人D；淝水等其余链仍决定原安全负向与军事成本。",
+              "excluded_from_D": true,
+              "consumption_scope": "OUTSIDE_RULER_WINDOW"
             }
           ],
           "non_military_loss_cost_exclusions": [],
@@ -2777,13 +2915,13 @@
           "formal_grade_write": true,
           "formal_score_write": true,
           "database_write": false,
-          "public_adjudication_summary": "战略结果由4条外部结果链和2条内部军事链共同构成。统一取得与直接巩固链退出后，保留378—379年对晋攻势、苻洛、龟兹及淝水等独立链；淝水全国主力瓦解和本人决策责任仍证实战略安全净变化第0级低位，成本军事成本第6级高位不变。 军事成本按独立规定判断为军事成本第6级（高位，关键结构已证实）；具体结构见成本依据。",
+          "public_adjudication_summary": "战略结果由3条外部结果链和2条内部军事链共同构成。统一取得与直接巩固链退出后，保留378—379年对晋攻势、苻洛、龟兹及淝水等独立链；淝水全国主力瓦解和本人决策责任仍证实战略安全净变化第0级低位，成本军事成本第6级高位不变。 军事成本按独立规定判断为军事成本第6级（高位，关键结构已证实）；具体结构见成本依据。",
           "public_evidence_items": [
             {
               "id": "THIRD-D-PUBLIC-906F442235CA8BF7",
               "public_label": "战略结果组合",
               "public_role": "战略结果",
-              "public_basis": "现有材料列出4条外部战略结果链和2条内部军事链。统一取得与直接巩固链退出后，保留378—379年对晋攻势、苻洛、龟兹及淝水等独立链；淝水全国主力瓦解和本人决策责任仍证实战略安全净变化第0级低位，成本军事成本第6级高位不变。 军事成本按独立规定判断为军事成本第6级（高位，关键结构已证实）；具体结构见成本依据。",
+              "public_basis": "现有材料列出3条外部战略结果链和2条内部军事链。统一取得与直接巩固链退出后，保留378—379年对晋攻势、苻洛、龟兹及淝水等独立链；淝水全国主力瓦解和本人决策责任仍证实战略安全净变化第0级低位，成本军事成本第6级高位不变。 军事成本按独立规定判断为军事成本第6级（高位，关键结构已证实）；具体结构见成本依据。",
               "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算。"
             },
             {
@@ -2822,18 +2960,17 @@
           "signed_security_candidate_before_cost": "D1",
           "cost_grade_delta": -1,
           "security_result_distribution": {
-            "E3_REGIONAL_TERMINAL": 1
+            "E1": 1
           },
           "external_strategic_chains": [],
           "strategic_internal_chains": [
             {
               "chain_id": "HLBB-SUCCESSION-CIVIL-WAR-424",
               "member_cycle_refs": [
-                "WAR-LEAD-NC-XIA-CIVIL-WAR",
-                "SOURCE-GAP-ZZT120-XIA-SUCCESSION-424"
+                "WAR-LEAD-NC-XIA-CIVIL-WAR"
               ],
               "effective_opponent_challenge_grade": "O4",
-              "achievement_grade": "E3_NATIONAL_INTERNAL_TERMINAL",
+              "achievement_grade": "E1",
               "basis": "赫连勃勃拟废太子瑰、立酒泉公伦后，瑰七万与伦三万在高平互战，昌再以一万袭杀瑰并收八万五千众；两支继承武装终结且中央重新控制主力，但内部恢复不制造外部成果。",
               "mobilization_peak": "W100_PLUS_STATE_MAIN_FORCE_CIVIL_WAR",
               "force_destruction": "F3_REPEATED_MAJOR_FORMATION_COMMAND_COLLAPSE_AND_REABSORPTION",
@@ -2845,23 +2982,23 @@
               "ruler_responsibility": "DIRECT_CAUSAL_SUCCESSION_POLICY_RESPONSIBILITY",
               "responsibility_basis": "赫连勃勃本人拟废太子并改立伦，直接触发瑰北伐伦及随后昌袭瑰的继承战争；终局重新立昌不消除其起因责任。",
               "source_refs": [
-                "docs/史料通读产物/唐以前编年/南北朝/卷120-通读总结.md#WAR-LEAD-NC-XIA-CIVIL-WAR",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#XIA-SUCCESSION-CIVIL-WAR-424"
+                "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-XIA-SUCCESSION-424"
               ],
               "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
               "acquisition_mode": "MULTI_STAGE_COMBAT",
               "result_type": "MAJOR_OR_REGIONAL_GAIN",
               "within_grade_position": "MID",
               "terminal_result_profile": {
-                "threat_change": "MAJOR_OR_REGIONAL_GAIN",
-                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
-                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "threat_change": "RESTORED_INTERNAL_CONTROL",
+                "control_change": "昌并军归统万、改立太子，原主权范围未扩展",
+                "material_return": "NOT_APPLICABLE",
                 "durability": "LIMITED_OR_NOT_CLOSED",
-                "terminal_member_ref": "SOURCE-GAP-ZZT120-XIA-SUCCESSION-424",
-                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+                "terminal_member_ref": "WAR-LEAD-NC-XIA-CIVIL-WAR",
+                "aggregation_basis": "同一废立内战只记一次止损；不因八万五千再接收另生一项新增资产。"
               },
-              "achievement_grade_detail": "E3_NATIONAL_INTERNAL_TERMINAL",
-              "security_result_grade": "E3_REGIONAL_TERMINAL"
+              "achievement_grade_detail": "E1",
+              "security_result_grade": "E1",
+              "security_change_basis": "本人废立引发主军互斗、原立伦目标失败；昌袭杀瑰后并军归统万，仅恢复中央军队统一，不是新增消灭外部或独立区域国家。"
             }
           ],
           "ordinary_suppression_summary": {
@@ -2894,20 +3031,23 @@
             "public_level_label": "普通军事代价为第5级、高位",
             "public_component_label": "普通军事代价"
           },
-          "adjudication_basis": "去除全部创业统一外链后无可消费外部战略改善；424异常国家级内战虽终局恢复E3。 军事成本按独立合同裁为C5（HIGH，CONFIRMED）；具体结构见成本依据。",
+          "adjudication_basis": [
+            "去除全部创业统一外链后无可消费外部战略改善；424异常国家级内战虽终局恢复E3。 军事成本按独立合同裁为C5（HIGH，CONFIRMED）；具体结构见成本依据。",
+            "原典已补明424本人废立与诸军归属；终点只恢复原中央统一，E3区域威胁终结改E1。三万军败及主将死亡仍是军损，八万五千再接收不等原三万全部物理毁灭，原C5-HIGH成本与D0低位保留。"
+          ],
           "coverage_status": "CONFIRMED",
           "source_batch": "sol_a",
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
           "database_write": false,
-          "public_adjudication_summary": "战略结果由0条外部结果链和1条内部军事链共同构成。去除全部创业统一外链后无可计入外部战略改善；424异常国家级内战虽终局恢复重大阶段或区域终局成果。 军事成本按独立规定判断为军事成本第5级（高位，关键结构已证实）；具体结构见成本依据。",
+          "public_adjudication_summary": "战略结果由0条外部结果链和1条内部军事链共同构成。去除全部创业统一外链后无可计入外部战略改善；424异常国家级内战虽终局恢复重大阶段或区域终局成果。 军事成本按独立规定判断为军事成本第5级（高位，关键结构已证实）；具体结构见成本依据。；原典已补明424本人废立与诸军归属；终点只恢复原中央统一，重大阶段或区域终局成果区域威胁终结改止损或恢复原线。三万军败及主将死亡仍是军损，八万五千再接收不等原三万全部物理毁灭，原军事成本第5级、高位成本与战略安全净变化第0级低位保留。",
           "public_evidence_items": [
             {
               "id": "THIRD-D-PUBLIC-A1F1F4F25FB49F79",
               "public_label": "战略结果组合",
               "public_role": "战略结果",
-              "public_basis": "现有材料列出0条外部战略结果链和1条内部军事链。去除全部创业统一外链后无可计入外部战略改善；424异常国家级内战虽终局恢复重大阶段或区域终局成果。 军事成本按独立规定判断为军事成本第5级（高位，关键结构已证实）；具体结构见成本依据。",
+              "public_basis": "现有材料列出0条外部战略结果链和1条内部军事链。去除全部创业统一外链后无可计入外部战略改善；424异常国家级内战虽终局恢复重大阶段或区域终局成果。 军事成本按独立规定判断为军事成本第5级（高位，关键结构已证实）；具体结构见成本依据。；原典已补明424本人废立与诸军归属；终点只恢复原中央统一，重大阶段或区域终局成果区域威胁终结改止损或恢复原线。三万军败及主将死亡仍是军损，八万五千再接收不等原三万全部物理毁灭，原军事成本第5级、高位成本与战略安全净变化第0级低位保留。",
               "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算。"
             },
             {

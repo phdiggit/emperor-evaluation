@@ -13,6 +13,9 @@ import re
 from pathlib import Path
 from typing import Any
 from emperor_v4.evaluation.third_fourth_public_language import language_domain
+from emperor_v4.evaluation.third_item_a_public import reading_projection, verify_reading_sources
+from emperor_v4.evaluation.third_item_b_public import reading_projection as b_reading_projection, verify_sources as verify_b_sources
+from emperor_v4.evaluation.third_item_c_public import reading_projection as c_reading_projection, verify_sources as verify_c_sources
 
 from emperor_v4.evaluation.formal_json_store import (
     load_json,
@@ -62,6 +65,9 @@ PUBLIC_PROJECTION_FIELDS = {
     "public_axis_projections",
     "public_military_cost",
     "public_military_net_loss",
+    "public_reading",
+    "public_exclusion_reading",
+    "public_c_result_reading",
 }
 
 THIRD_ROUTED_PATHS = {
@@ -75,7 +81,7 @@ THIRD_AXIS_LABELS = {
     "A2": "防线协同与战略纵深",
     "B1": "实际控制范围",
     "B2": "战略成果价值",
-    "B4": "控制成果稳定性",
+    "B4": "控制成果的交班成熟度",
     "C1": "实战任务交付",
     "C2": "持续作战与任务承载",
     "C3": "军事体系可靠性",
@@ -97,9 +103,9 @@ THIRD_AXIS_ROLES = {
 THIRD_BOUNDARIES = {
     "A1": "这里只看本人统治窗口内的安全威胁变化和战略主动，不把统一创业存量、继任者阶段或将领独立行动重复计入。",
     "A2": "这里只看本人窗口新增或保全的边防协同与战略纵深，不把继承存量重复计作本人建设。",
-    "B1": "这里只看本人窗口可确认的实际控制范围变化，不按继承存量、名称或一次性占领自动计作新增成果。",
-    "B2": "这里只看控制成果的战略价值，不把面积、战役数量或同一成果重复计入。",
-    "B4": "这里只看控制成果在本人离场前后的稳定交付，不把后继者独立表现倒归本人。",
+    "B1": "控制规模按本人窗口净变化与交班规模共同评价，继承存量不是本人新增贡献。核心统一空间及同一成果按现行跨项裁决排除。",
+    "B2": "只评价本人合格控制成果的战略作用，先核对贡献类型与上限；不把面积、战役数量或同一成果重复计入。",
+    "B4": "只看本人交班时全部主要合格控制成果的移交条件与本人任内运行证据，不用继任者独立表现反推，不把新近、重兵或尚存强敌本身当作成熟度缺口。",
     "C1": "这里只看本人责任窗口内军事体系把资源转化为真实任务结果的表现，具体统帅执行按事实分别承担责任。",
     "C2": "这里只看跨阶段动员、补充和完成任务的实际承载，不把单次胜负或后继者独立作战重复计入。",
     "C3": "这里只看不同战区和压力下体系是否可靠，不把单名将的独立能力或同一战果重复计为体系表现。",
@@ -168,7 +174,8 @@ ATTRIBUTION_LABELS = {
 }
 
 # Public text is intentionally stricter than the formal records.  A source may
-# keep codes, URLs and audit vocabulary; a public projection may not.
+# keep codes, URLs and audit vocabulary. O1--O6 are public contract terms,
+# not internal identifiers; all other Latin tokens remain disallowed.
 PUBLIC_FORBIDDEN_RE = re.compile(
     r"(?:https?://|"
     r"ML[0-4]|CIV[0-4]|DA[0-9]+|"
@@ -176,7 +183,7 @@ PUBLIC_FORBIDDEN_RE = re.compile(
     r"core|support|reader|formal|source|position|grade|direction|schema)\b|"
     r"门槛|闭合|消费|净账|父链|归责|独立门槛|版本史|审计|本轮|重审|重裁|回源|"
     r"字段|枚举|过程史|主档|档内位置|"
-    r"[A-Za-z])",
+    r"(?!(?<![A-Za-z0-9_])O[1-6](?![A-Za-z0-9_]))[A-Za-z])",
     flags=re.IGNORECASE,
 )
 
@@ -271,7 +278,7 @@ def _number(value: object) -> float:
 
 
 def _level_number(value: object) -> int | None:
-    text = str(value or "")
+    text = "" if value is None else str(value)
     for pattern in (r"S([0-6])", r"[-/]([0-6])", r"([0-6])$"):
         matches = re.findall(pattern, text)
         if matches:
@@ -477,7 +484,7 @@ def _ab_axis_projection(axis: str, row: dict[str, Any], ruler_id: str) -> dict[s
     )
 
 
-def _ab_projection(row: dict[str, Any]) -> dict[str, Any]:
+def _ab_projection(row: dict[str, Any], a_projections: dict[str, Any] | None = None) -> dict[str, Any]:
     ruler_id = str(row.get("ruler_id") or "")
     axes = row.get("axes") if isinstance(row.get("axes"), dict) else {}
     axis_projections: dict[str, dict[str, Any]] = {}
@@ -485,7 +492,7 @@ def _ab_projection(row: dict[str, Any]) -> dict[str, Any]:
     for axis in ("A1", "A2", "B1", "B2", "B4"):
         if not isinstance(axes.get(axis), dict):
             continue
-        projection = _ab_axis_projection(axis, axes[axis], ruler_id)
+        projection = copy.deepcopy(a_projections[axis]) if a_projections and axis in a_projections else _ab_axis_projection(axis, axes[axis], ruler_id)
         _apply_projection(axes[axis], projection)
         axis_projections[axis] = projection
         items.append(
@@ -560,31 +567,44 @@ def _ab_projection(row: dict[str, Any]) -> dict[str, Any]:
     )
 
 
-def _credit_axis_projection(axis: str, row: dict[str, Any], ruler_id: str) -> dict[str, Any]:
-    start = _level_label(row.get("start_grade"))
+def _b_axis_projection(axis, reading, ruler_id):
+    items = [
+        _item('THIRD-' + axis, ruler_id, str(index), entry['label'], '现行裁决叙述', entry['basis'], reading['boundary'])
+        for index, entry in enumerate(reading['evidence_items'])
+    ]
+    if not items:
+        items = [_item('THIRD-' + axis, ruler_id, 'scope', '当前控制成果范围', '现行裁决叙述', reading['story'], reading['boundary'])]
+    projection = _projection(summary=reading['decision'], items=items, boundary=reading['boundary'],
+                             level_label=reading['rate_note'], component_label=THIRD_AXIS_LABELS[axis])
+    projection['public_reading'] = reading
+    return projection
+
+
+def _credit_axis_projection(axis: str, row: dict[str, Any], ruler_id: str, contract: dict[str, Any]) -> dict[str, Any]:
     end = _level_label(row.get("end_grade"))
-    attribution = ATTRIBUTION_LABELS.get(str(row.get("attribution_category") or ""), "本人责任按正式记录区分")
-    basis = _first_text(row.get("attribution_basis"), row.get("settlement_type_basis"))
-    text = f"接手时为{start}，结束时为{end}。{basis or '正式记录保留了起点、终点和责任范围。'} {attribution}。"
+    reading = reading_projection(axis, row, contract)
+    text = reading['decision']
     item = _item(
         "THIRD-" + axis,
         ruler_id,
         "result",
         THIRD_AXIS_LABELS[axis],
         "本人责任结果",
-        text,
-        THIRD_BOUNDARIES[axis],
+        reading['story'],
+        reading['boundary'],
     )
-    return _projection(
+    projection = _projection(
         summary=text,
         items=[item],
-        boundary=THIRD_BOUNDARIES[axis],
+        boundary=reading['boundary'],
         level_label=f"结束时{end}安全水平",
         component_label=THIRD_AXIS_LABELS[axis],
     )
+    projection['public_reading'] = reading
+    return projection
 
 
-def _credit_projection(row: dict[str, Any]) -> dict[str, Any]:
+def _credit_projection(row: dict[str, Any], contract: dict[str, Any], ab: dict[str, Any] | None = None) -> dict[str, Any]:
     ruler_id = str(row.get("ruler_id") or "")
     axes = row.get("axes") if isinstance(row.get("axes"), dict) else {}
     axis_projections: dict[str, dict[str, Any]] = {}
@@ -592,7 +612,7 @@ def _credit_projection(row: dict[str, Any]) -> dict[str, Any]:
     for axis in ("A1", "A2"):
         if not isinstance(axes.get(axis), dict):
             continue
-        projection = _credit_axis_projection(axis, axes[axis], ruler_id)
+        projection = _credit_axis_projection(axis, axes[axis], ruler_id, contract)
         _apply_projection(axes[axis], projection)
         axis_projections[axis] = projection
         items.append(
@@ -609,7 +629,7 @@ def _credit_projection(row: dict[str, Any]) -> dict[str, Any]:
     b80 = row.get("B80_adjudication")
     if isinstance(b80, dict):
         b_items = []
-        for axis, label in (("B1", "实际控制范围"), ("B2", "战略成果价值"), ("B4", "控制成果稳定性")):
+        for axis, label in (("B1", "实际控制范围"), ("B2", "战略成果价值"), ("B4", "控制成果的交班成熟度")):
             rate = b80.get(f"adjudicated_{axis}_rate")
             b_items.append(
                 _item(
@@ -618,7 +638,7 @@ def _credit_projection(row: dict[str, Any]) -> dict[str, Any]:
                     axis,
                     label,
                     "合成采用比例",
-                    f"正式合成采用比例为{_number(rate):g}%，用于表达该方面在控制成果合成中的实际权重。",
+                    f"现行轴记录的原始得分率为{_number(ab['axes'][axis]['score_rate'] if ab else b80[f'formal_{axis}_rate']):g}%，正式合成实际采用{_number(rate):g}%；得分率不等于合成权重。",
                     THIRD_BOUNDARIES[axis],
                 )
             )
@@ -652,80 +672,24 @@ def _credit_projection(row: dict[str, Any]) -> dict[str, Any]:
     )
 
 
-def _c_axis_projection(axis: str, row: dict[str, Any], ruler_id: str) -> dict[str, Any]:
-    grade_key = {
-        "C1": "combat_delivery_grade",
-        "C2": "operational_sustainability_cap",
-        "C3": "system_reliability_cap",
-    }[axis]
-    level = _level_label(row.get(grade_key))
-    profile = row.get("task_outcome_profile") if isinstance(row.get("task_outcome_profile"), dict) else {}
-    count_text = ""
-    if profile:
-        selected = int(_number(profile.get("selected_task_count")))
-        high = int(_number((profile.get("return_class_counts") or {}).get("HIGH_RETURN")))
-        low = int(_number((profile.get("return_class_counts") or {}).get("LOW_RETURN")))
-        negative = int(_number((profile.get("return_class_counts") or {}).get("NEGATIVE_RETURN")))
-        count_text = f"已核对{selected}项独立任务，其中较好结果{high}项、低回报{low}项、负向结果{negative}项。"
-    raw = _strip_internal_tail(
-        _first_text(
-        row.get("strategy_chain_review_basis"),
-        row.get("current_task_basis_reason"),
-        row.get("cap_reasons"),
-        )
-    )
-    if not raw:
-        raw = "正式记录保留了该方面的军事体系结果。"
-    attribution = "本人承担国家战略选择和军政资源配置责任；具体统帅执行按各自事实区分。"
-    basis = f"该方面为{level}水平。{count_text}{raw} {attribution}"
-    item = _item(
-        "THIRD-" + axis,
-        ruler_id,
-        "result",
-        THIRD_AXIS_LABELS[axis],
-        THIRD_AXIS_ROLES[axis],
-        basis,
-        THIRD_BOUNDARIES[axis],
-    )
-    return _projection(
-        summary=basis,
-        items=[item],
-        boundary=THIRD_BOUNDARIES[axis],
-        level_label=f"{THIRD_AXIS_LABELS[axis]}为{level}",
-        component_label=THIRD_AXIS_LABELS[axis],
-    )
-
-
-@language_domain('capability')
 def _c_projection(row: dict[str, Any]) -> dict[str, Any]:
-    ruler_id = str(row.get("ruler_id") or "")
-    projections: dict[str, dict[str, Any]] = {}
-    items: list[dict[str, str]] = []
-    for axis in ("C1", "C2", "C3"):
-        projection = _c_axis_projection(axis, row, ruler_id)
-        projections[axis] = projection
-        items.append(
-            _item(
-                "THIRD-C",
-                ruler_id,
-                axis,
-                projection["public_component_label"],
-                projection["public_evidence_items"][0]["public_role"],
-                projection["public_evidence_items"][0]["public_basis"],
-                projection["public_boundary"],
-            )
-        )
-    overall = _level_label(row.get("C_overall_grade"))
-    basis = _strip_internal_tail(_first_text(row.get("strategy_chain_review_basis"), row.get("current_task_basis_reason")))
-    summary = f"军事体系整体为{overall}水平。{basis or '实战交付、持续承载和体系可靠性共同形成当前结果。'} 本人战略责任与具体统帅执行按事实区分。"
-    return _projection(
-        summary=summary,
-        items=items,
-        boundary="军事体系只看本人责任窗口内的实战交付、持续承载与可靠性；创业能力、单名将执行和同一战略链不重复计入。",
-        level_label=f"军事体系整体为{overall}水平",
-        component_label="军事体系整体结果",
-        axis_projections=projections,
-    )
+    data = c_reading_projection(row)
+    ruler_id = row['ruler_id']
+    def evidence(axis, prefix):
+        a = data['axes'][axis]
+        return [dict(id=_stable_id(prefix, ruler_id, axis), public_label=a['label'],
+                     public_role='逐轴评价判断', public_basis=a['basis'], public_boundary=data['boundary'])]
+    projections = {
+        axis: dict(public_adjudication_summary=a['basis'], public_evidence_items=evidence(axis, 'THIRD-'+axis),
+                   public_boundary=data['boundary'], public_level_label=a['grade_label'],
+                   public_component_label=a['label'])
+        for axis, a in data['axes'].items()
+    }
+    return dict(public_adjudication_summary=data['story'],
+                public_evidence_items=[evidence(axis, 'THIRD-C')[0] for axis in data['axes']],
+                public_boundary=data['boundary'], public_level_label=data['calculation']['total_label'],
+                public_component_label='军事体系整体结果', public_axis_projections=projections,
+                public_reading=copy.deepcopy(row['public_reading']))
 
 
 def _cost_projection(profile: dict[str, Any], ruler_id: str, *, prefix: str = "THIRD-COST") -> dict[str, Any]:
@@ -886,10 +850,15 @@ def _refresh_third(payloads: dict[str, dict[str, Any]]) -> dict[str, dict[str, A
     ids = set(total_rows)
     if not ids or any(set(rows) != ids for rows in (ab_rows, c_rows, d_rows, credit_rows)):
         raise ValueError("第三项公开投影组件人物集合不一致")
-    for row in ab_rows.values():
-        _apply_projection(row, _ab_projection(row))
     for row in credit_rows.values():
-        _apply_projection(row, _credit_projection(row))
+        _apply_projection(row, _credit_projection(row, payloads['credit']['contract'], ab_rows[row['ruler_id']]))
+    for row in ab_rows.values():
+        credit = credit_rows[row['ruler_id']]
+        projections = copy.deepcopy(credit['public_axis_projections'])
+        for key in ('B1', 'B2', 'B4'):
+            reading = b_reading_projection(key, row, credit)
+            projections[key] = _b_axis_projection(key, reading, row['ruler_id'])
+        _apply_projection(row, _ab_projection(row, projections))
     for row in c_rows.values():
         _apply_projection(row, _c_projection(row))
     for row in d_rows.values():
@@ -910,6 +879,8 @@ def _refresh_third(payloads: dict[str, dict[str, Any]]) -> dict[str, dict[str, A
             else "docs/分项规则/第四项文明与国家整合收益/00-规则与计分合同.md",
             "reader_policy": "reader只显示public_adjudication_summary、public_evidence_items和public_boundary",
         }
+        if key == 'C':
+            payload['public_projection_source']['reader_policy'] = '阅读层直接展示public_reading；计算解释由现行结算字段在上游确定性生成，不改写人物正文。'
     payloads["AB"]["public_projection_record_count"] = len(ab_rows)
     payloads["C"]["public_projection_record_count"] = len(c_rows)
     payloads["D"]["public_projection_record_count"] = len(d_rows)
@@ -920,18 +891,72 @@ def _refresh_third(payloads: dict[str, dict[str, Any]]) -> dict[str, dict[str, A
 
 
 def _package_projection(package: dict[str, Any]) -> dict[str, Any]:
+    if package.get('axis') in ('A', 'B'):
+        if package['axis'] == 'A':
+            from .fourth_item_a_public import package_reading
+        else:
+            from .fourth_item_b_public import package_reading
+        reading = package_reading(package)
+        item = dict(id=_stable_id('FOURTH-PACKAGE', package['ruler_id'], package['package_code']),
+                    public_label=reading['title'], public_role=reading['status'],
+                    public_basis=reading['story'], public_boundary=reading['boundary'])
+        item['public_source_coverage'] = SOURCE_COVERAGE_LABELS[package['source_coverage']]
+        return dict(public_reading=copy.deepcopy(package['public_reading']),
+                    public_adjudication_summary=reading['story'], public_evidence_items=[item],
+                    public_boundary=reading['boundary'], public_level_label=reading['status'],
+                    public_component_label=CIVILIZATION_AXIS_LABELS[package['axis']])
     ruler_id = str(package.get("ruler_id") or "")
     axis = str(package.get("axis") or "")
+    c_reading = None
+    if axis == 'C':
+        c_reading = package.get('public_c_result_reading')
+        if not isinstance(c_reading, dict):
+            raise ValueError(f"知识文化材料缺少独立结果与本人责任正文：{package.get('package_code')}")
+        for field in ('result', 'responsibility', 'scope'):
+            value = c_reading.get(field)
+            if not isinstance(value, str) or not value.strip() or PUBLIC_FORBIDDEN_RE.search(value):
+                raise ValueError(f"知识文化结果与责任正文无效：{package.get('package_code')}/{field}")
+        if c_reading.get('source_refs') != package.get('source_refs'):
+            raise ValueError(f"知识文化结果与责任来源未同步：{package.get('package_code')}")
+    if axis == 'C' and package.get('scoring_eligibility') == 'REVOKED':
+        reading = package.get('public_exclusion_reading')
+        if not isinstance(reading, dict):
+            raise ValueError(f"撤资格知识文化材料缺少公开事实与不计分说明：{package.get('package_code')}")
+        for field in ('story', 'reason'):
+            value = reading.get(field)
+            if not isinstance(value, str) or not value.strip() or PUBLIC_FORBIDDEN_RE.search(value):
+                raise ValueError(f"撤资格知识文化材料公开正文无效：{package.get('package_code')}/{field}")
+        status = '不单独计分，保留相关事实'
+        basis = (f"{status}。{reading['story']}不计分原因：{reading['reason']}"
+                 f"本人责任：{c_reading['responsibility']}知识文化结果与跨项边界：{c_reading['scope']}")
+        boundary = '这项材料不参与知识文化项的方向、幅度和分数合成；保留相关事实不表示已经确认正向成果或负向损害。'
+        item = _item('FOURTH-PACKAGE', ruler_id, str(package['package_code']),
+                     CIVILIZATION_AXIS_LABELS[axis], status, basis, boundary)
+        item['public_source_coverage'] = SOURCE_COVERAGE_LABELS[package['source_coverage']]
+        projection = _projection(summary=basis, items=[item], boundary=boundary,
+                                 level_label=status, component_label=CIVILIZATION_AXIS_LABELS[axis])
+        projection['public_exclusion_reading'] = copy.deepcopy(reading)
+        projection['public_c_result_reading'] = copy.deepcopy(c_reading)
+        return projection
     direction = DIRECTION_LABELS.get(str(package.get("direction") or ""), "结果方向未单列")
     attribution = ATTRIBUTION_LABELS.get(str(package.get("attribution_strength") or ""), "责任范围按正式记录区分")
     change = _first_text(package.get("attributable_change")) or "正式记录没有保留可直述的本人窗口变化。"
+    if c_reading is not None:
+        from .fourth_item_a import components
+        positive, negative = components(package)
+        direction = ('正负结果并存' if positive and negative else '正向变化' if positive
+                     else '负向变化' if negative else '未形成可计入结果')
+        change = c_reading['result']
     baseline = _first_text(package.get("inherited_baseline"))
     counter = package.get("counterevidence")
     counter_text = _first_text(counter.get("summary") if isinstance(counter, dict) else counter)
     basis = f"{direction}：{_public_sentence(change)}"
     if baseline:
         basis += f"相对既有状态：{_public_sentence(baseline)}"
-    basis += _public_sentence(attribution)
+    if c_reading is not None:
+        basis += f"本人责任：{c_reading['responsibility']}知识文化结果与跨项边界：{c_reading['scope']}"
+    else:
+        basis += _public_sentence(attribution)
     if counter_text:
         basis += f"补充限制：{_public_sentence(counter_text)}"
     boundary = CIVILIZATION_BOUNDARIES.get(axis, "这里只展示本人窗口内能够确认的文明与国家整合变化，不把后世独立发展重复归入本人。")
@@ -952,17 +977,20 @@ def _package_projection(package: dict[str, Any]) -> dict[str, Any]:
             f"第四项证据包来源覆盖状态缺失或未知：{package.get('package_code') or axis}/{coverage_code or 'EMPTY'}"
         )
     item["public_source_coverage"] = coverage
-    return _projection(
+    projection = _projection(
         summary=basis,
         items=[item],
         boundary=boundary,
         level_label=f"{level}，{direction}",
         component_label=CIVILIZATION_AXIS_LABELS.get(axis, "文明与国家整合变化"),
     )
+    if c_reading is not None:
+        projection['public_c_result_reading'] = copy.deepcopy(c_reading)
+    return projection
 
 
-def _fourth_axis_projection(row: dict[str, Any], axis: str, packages: dict[str, dict[str, Any]]) -> dict[str, Any]:
-    ruler_id = str(row.get("ruler_id") or "")
+def _fourth_axis_projection(row: dict[str, Any], axis: str, packages: dict[str, dict[str, Any]], *, parent=None) -> dict[str, Any]:
+    ruler_id = str((parent or row).get("ruler_id") or "")
     refs = [str(ref) for ref in row.get("package_refs") or () if ref]
     package_projections = []
     for ref in refs:
@@ -1006,13 +1034,23 @@ def _fourth_axis_projection(row: dict[str, Any], axis: str, packages: dict[str, 
         ]
         summary = f"{CIVILIZATION_AXIS_LABELS[axis]}：正式材料没有确认本人窗口形成可以与既有状态区分的独立变化，因此本轴不形成单独调整。"
         level = "没有确认独立变化"
-    return _projection(
+    reading = None
+    if axis == 'C':
+        from .fourth_item_c_public import axis_reading
+        reading = axis_reading(parent, row, packages)
+        if not refs:
+            summary = reading['zero_reason']
+            items[0]['public_basis'] = reading['zero_reason']
+    projection = _projection(
         summary=summary,
         items=items,
         boundary=CIVILIZATION_BOUNDARIES[axis],
         level_label=level,
         component_label=CIVILIZATION_AXIS_LABELS[axis],
     )
+    if reading is not None:
+        projection['public_reading'] = copy.deepcopy(row['public_reading'])
+    return projection
 
 
 def _fourth_projection(row: dict[str, Any], packages: dict[str, dict[str, Any]]) -> dict[str, Any]:
@@ -1022,7 +1060,27 @@ def _fourth_projection(row: dict[str, Any], packages: dict[str, dict[str, Any]])
     for axis in "ABC":
         if not isinstance(axes.get(axis), dict):
             continue
-        projection = _fourth_axis_projection(axes[axis], axis, packages)
+        if axis in ('A', 'B'):
+            if axis == 'A':
+                from .fourth_item_a_public import axis_reading
+            else:
+                from .fourth_item_b_public import axis_reading
+            reading = axis_reading(row, axes[axis], packages)
+            evidence = [copy.deepcopy(packages[ref]['public_evidence_items'][0]) for ref in axes[axis]['package_refs']]
+            if not evidence:
+                evidence = [dict(id=_stable_id('FOURTH-AXIS', row['ruler_id'], f'{axis}-no-independent-change'),
+                                 public_label=CIVILIZATION_AXIS_LABELS[axis], public_role='没有确认独立变化',
+                                 public_basis=reading['story'], public_boundary=reading['boundary'])]
+            disposition = axes[axis]['disposition']
+            level = ('复核后未确认独立净变化' if disposition == 'NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW'
+                     else '正负相抵，净调整为0' if disposition == 'OBSERVED_OFFSETTING_OR_BALANCED_EFFECTS'
+                     else CIV_MAGNITUDE_LABELS.get(str(axes[axis].get('magnitude_grade')), '没有确认独立变化'))
+            projection = dict(public_reading=copy.deepcopy(axes[axis]['public_reading']),
+                              public_adjudication_summary=reading['story'] + reading['decision'],
+                              public_evidence_items=evidence, public_boundary=reading['boundary'],
+                              public_level_label=level, public_component_label=CIVILIZATION_AXIS_LABELS[axis])
+        else:
+            projection = _fourth_axis_projection(axes[axis], axis, packages, parent=row)
         _apply_projection(axes[axis], projection)
         axis_projections[axis] = projection
         items.extend(projection["public_evidence_items"])
@@ -1065,6 +1123,7 @@ def _refresh_fourth(payload: dict[str, Any]) -> dict[str, Any]:
     payload["public_projection_source"] = {
         "formal_contract": "docs/分项规则/第四项文明与国家整合收益/00-规则与计分合同.md",
         "reader_policy": "reader只显示public_adjudication_summary、public_evidence_items和public_boundary",
+        "a_reader_policy": "A轴与A影响包的public_reading直接维护正文和逐条来源；刷新只保留正文并按实际组件生成计算与方向，阅读层不改写。",
     }
     return payload
 
@@ -1149,7 +1208,20 @@ def verify_public_projection(workspace_root: Path) -> dict[str, Any]:
     root = workspace_root.resolve()
     payloads = _load_payloads(root)
     third = _verify_third(payloads)
+    third['a_reading_source_count'] = verify_reading_sources(root, payloads['credit'])
+    third['b_reading_source_count'] = verify_b_sources(root, payloads['AB'])
+    third['c_reading_source_count'] = verify_c_sources(root, payloads['C'])
+    from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
+    c_markdown = (root / THIRD_C_PATH).with_suffix('.md')
+    if c_markdown.read_text(encoding='utf-8') != _render_formal_markdown('C', payloads['C']['records']):
+        raise ValueError('第三项C正式Markdown与当前上游公开正文不同步')
     fourth = _verify_fourth(payloads["fourth"])
+    from .fourth_item_a_public import verify_readings
+    fourth['a_authored_reading_count'] = verify_readings(payloads['fourth'], root)
+    from .fourth_item_b_public import verify_readings as verify_b_readings
+    fourth['b_authored_reading_count'] = verify_b_readings(payloads['fourth'], root)
+    from .fourth_item_c_public import verify_readings as verify_c_readings
+    fourth['c_authored_reading_count'] = verify_c_readings(payloads['fourth'], root)
     if third["record_count"] != fourth["record_count"]:
         raise ValueError("第三项与第四项公开投影人物数量不一致")
     return {
@@ -1174,7 +1246,13 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
     # Validate the complete batch before any file is written.
     _verify_third(projected_third)
     _verify_fourth(projected_fourth)
+    verify_reading_sources(root, projected_third['credit'])
+    verify_b_sources(root, projected_third['AB'])
+    verify_c_sources(root, projected_third['C'])
     if write:
+        from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
+        ab_markdown = _render_formal_markdown('AB', projected_third['AB']['records'])
+        c_markdown = _render_formal_markdown('C', projected_third['C']['records'])
         polities = load_ruler_polities(root)
         for key, path in THIRD_ROUTED_PATHS.items():
             write_json(root / path, projected_third[key], ruler_polities=polities)
@@ -1186,6 +1264,12 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
             }[key]
             write_json(root / path, projected_third[key])
         write_json(root / FOURTH_PATH, projected_fourth, ruler_polities=polities)
+        markdown_path = (root / THIRD_AB_PATH).with_suffix('.md')
+        if markdown_path.read_text(encoding='utf-8') != ab_markdown:
+            markdown_path.write_text(ab_markdown, encoding='utf-8', newline='\n')
+        c_markdown_path = (root / THIRD_C_PATH).with_suffix('.md')
+        if c_markdown_path.read_text(encoding='utf-8') != c_markdown:
+            c_markdown_path.write_text(c_markdown, encoding='utf-8', newline='\n')
         report = verify_public_projection(root)
         report["status"] = "WRITTEN"
         return report

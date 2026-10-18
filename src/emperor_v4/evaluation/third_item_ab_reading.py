@@ -1,6 +1,7 @@
 """Reader layout for current AB decisions; never changes adjudication values."""
 
 import re
+import posixpath
 from typing import Any, Mapping
 from urllib.parse import quote
 
@@ -113,6 +114,41 @@ def source_links(row: Mapping[str, Any]) -> str:
     return '；'.join(links)
 
 
+def b_reading_lines(row, name, title):
+    reading = row['axes'][name]['public_reading']
+    def sources(refs):
+        result = []
+        for ref in refs:
+            path, _, anchor = ref['path'].partition('#')
+            relative = posixpath.relpath(path, 'docs/评分结算/净收益/第三项军事与边疆净收益/国防安全')
+            target = quote(relative, safe='/') + ('#' + quote(anchor, safe='=') if anchor else '')
+            result.append(f"- {ref['kind']}：[{ref['label']}]({target})")
+        return result
+    lines = [f'**{name} {title}**', '', f"评价时期：{reading['window']}。", '',
+             reading['story'], '', reading['rate_note'], '']
+    if reading.get('review_note'):
+        lines += ['**' + reading['review_note'] + '**', '']
+    lines += ['为什么这样评：' + reading['decision'], '', '<details><summary>本人贡献、采用率、计算与来源</summary>', '',
+              reading['responsibility'], '', reading['contribution_note'], '', reading['boundary'], '']
+    if reading.get('review_explanation'):
+        lines += ['复核具体依据：' + reading['review_explanation'], '']
+    if reading.get('regions'):
+        lines += ['| 控制对象 | 接班当量 | 交班当量 | 采用范围 |', '|---|---:|---:|---|']
+        for region in reading['regions']:
+            start = region['start'] if region['start'] is not None else '未单列'
+            end = region['end'] if region['end'] is not None else '未单列'
+            disposition = '已排除，不作独立控制增益' if region['excluded'] else '按现行快照核对'
+            lines.append(f"| {region['label']} | {start} | {end} | {disposition} |")
+        lines += ['', '当量来自现行区域裁决；未单列不等于0。总快照及跨项排除分别核对，不把旧区域记录不加区分地重新相加。', '']
+    lines += [reading['adoption_basis'], '', *([reading['diagnostic_note'], ''] if reading['diagnostic_note'] else []),
+              reading['method'], '', reading['calculation'], '', reading['combination'], '',
+              *reading['rate_table'], '', *reading['scale'], '', reading['source_note'], '']
+    for evidence in reading['evidence_items']:
+        lines += [f"**{evidence['label']}**（现行裁决叙述）", '', evidence['basis'], '', *sources(evidence['sources']), '']
+    lines += ['人物相关现行材料：', '', *sources(reading['sources']), '', '</details>', '']
+    return lines
+
+
 def render_person(row: Mapping[str, Any], *, b_basis, b_grade, b_regions, depth_lines) -> list[str]:
     axes = row['A120_axis_adjudications']
     b = row['B80_adjudication']
@@ -130,7 +166,21 @@ def render_person(row: Mapping[str, Any], *, b_basis, b_grade, b_regions, depth_
         lines.append(f"| {name} {titles[name]} | {grade}档 | {rate:g}% |")
     lines += ['', *([prose(row['A_axis_common_context']), ''] if row.get('A_axis_common_context') else [])]
     for name in ('A1', 'A2'):
-        lines += [f"**{name} {titles[name]}**", '', a_reason(row, name), '', '计分：' + a_calculation(axes[name]), '']
+        reading = (row.get('axes', {}).get(name) or {}).get('public_reading')
+        if reading:
+            links = []
+            for ref in reading['sources']:
+                path, _, anchor = ref['path'].partition('#')
+                relative = posixpath.relpath(path, 'docs/评分结算/净收益/第三项军事与边疆净收益/国防安全')
+                target = quote(relative, safe='/') + ('#' + quote(anchor, safe='=') if anchor else '')
+                links.append(f"- {ref['kind']}：[{ref['label']}]({target})")
+            lines += [f"**{name} {titles[name]}**", '', f"评价时期：{reading['window']}。", '', reading['story'], '',
+                      '为什么这样评：' + reading['decision'], '', '<details><summary>本人责任、计算与来源</summary>', '',
+                      reading['responsibility'], '', reading['method'], '', reading['calculation'], '',
+                      reading['source_note'], '', *links, '', reading['boundary'], '',
+                      *reading['scale'], '', '</details>', '']
+        else:
+            lines += [f"**{name} {titles[name]}**", '', a_reason(row, name), '', '计分：' + a_calculation(axes[name]), '']
     control = row.get('b1_control_equivalents') or {}
     b1 = row['axes']['B1']
     net = control.get('net_change', b1.get('raw_net_change'))
@@ -142,8 +192,13 @@ def render_person(row: Mapping[str, Any], *, b_basis, b_grade, b_regions, depth_
         amounts.append(f"本项计入净增{float(net)-excluded:+g}当量")
     if end is not None:
         amounts.append(f"交班规模{float(end):g}当量")
-    lines += ['**B1 控制规模**', '', prose(b_regions(row), '，'.join(amounts)), '']
-    for name in ('B2', 'B4'):
+    authored_b = all(row['axes'][key].get('public_reading') for key in ('B1', 'B2', 'B4'))
+    if authored_b:
+        for name in ('B1', 'B2', 'B4'):
+            lines += b_reading_lines(row, name, titles[name])
+    else:
+        lines += ['**B1 控制规模**', '', prose(b_regions(row), '，'.join(amounts)), '']
+    for name in (() if authored_b else ('B2', 'B4')):
         adjusted = float(row['axes'][name].get('score_rate') or 0) != float(b[f'adjudicated_{name}_rate'])
         basis = b.get('consistency_basis') if adjusted else b_basis(row, name)
         lines += [f"**{name} {titles[name]}**", '', prose(basis, ruler=str(row['ruler_name'])), '']

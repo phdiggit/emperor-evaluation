@@ -16,40 +16,12 @@
     "to": "改变了多大范围的历史路径，又持续了多久"
   },
   {
-    "from": "正式主池",
-    "to": "正式评价对象"
-  },
-  {
     "from": "历史影响补充样本",
     "to": "补充历史样本"
   },
   {
-    "from": "历史影响 · 公众总档",
-    "to": "历史影响 · 等级"
-  },
-  {
-    "from": "量级置信度",
-    "to": "判断把握"
-  },
-  {
-    "from": "不属本展示主池",
-    "to": "不在本评价范围"
-  },
-  {
-    "from": "补充历史样本，不纳入此处统治绩效主池统计。",
-    "to": "补充历史样本，不纳入统治绩效正式评价范围。"
-  },
-  {
-    "from": "不在本展示画像主池内。",
-    "to": "不在人物画像正式评价范围内。"
-  },
-  {
     "from": "该补充样本",
     "to": "该补充历史样本"
-  },
-  {
-    "from": "历史影响总档",
-    "to": "历史影响等级"
   },
   {
     "from": "正式记录中的人物表现",
@@ -92,44 +64,16 @@
     "to": "人物画像详情 ↓"
   },
   {
-    "from": "按现行合同评价统治绩效",
-    "to": "看治国、军事、统一与文明整合如何共同构成统治绩效"
-  },
-  {
     "from": "按相同维度展开双方依据，保留不同起点、责任窗口与材料限制。",
     "to": "按相同维度并排阅读双方结论和依据，同时保留各自的历史起点、实际掌权时期与材料限制。"
-  },
-  {
-    "from": "八轴评价判断、联盟、组织、学习、用人与制度设计等能力。已裁能力从E−到S+分18级展示；待补证与待重裁分别标明，历史值不绘入雷达。M2终局未显示能力者发布E，范围说明随依据保留。逐轴看等级、反例与适用范围。",
-    "to": "八轴分别观察军事、外交、联盟、组织、判断、学习、用人与制度设计等能力。已完成裁决的能力从E−到S+分18级展示；证据不足、待补证、待重裁或不适用都会单独标明，不会自动按低等级处理。逐轴可查看等级、主要表现、反例与适用范围。"
   },
   {
     "from": "权力运用与克制是人物画像中的独立行为风格项，与八个能力轴一起展示。雷达不计算面积得分，不生成全能指数。",
     "to": "权力运用与克制单独描述掌权者使用权力的方式，不当作能力高低。雷达只帮助观察八项能力的结构差异，不计算面积得分，也不生成“全能指数”。"
   },
   {
-    "from": "历史影响评价改变的范围、深度与持续、个人因果和政治范式。公众总档来自已裁结论。",
-    "to": "历史影响评价一个人改变历史路径的范围、深度与持续时间，以及其中有多少能够归于本人。历史影响等级直接读取正式裁决，不由其他分数换算。"
-  },
-  {
-    "from": "本阅读层展示已经裁定的事实和限制。尚未正式裁定的跨体系因果解释，不从字母或分数差自动生成。",
-    "to": "本阅读层只整理已经正式裁定的结论、依据和限制，不会根据字母或分数差自动给人物贴额外标签。"
-  },
-  {
     "from": "先看统治绩效的损益构成，再读能力轴的行为情境，最后检查历史影响的共同主链与反事实。",
     "to": "先看统治绩效的构成与依据，再读能力轴的行为情境，最后检查历史影响的共同主链与反事实。"
-  },
-  {
-    "from": "主池 ${DATA.main_count} 人，统治绩效入榜 ${DATA.ranked_count} 人，历史影响另有 ${DATA.supplementary_count} 位补充样本；补充样本不加入主池统计。",
-    "to": "正式评价对象 ${DATA.main_count} 人，统治绩效入榜 ${DATA.ranked_count} 人；历史影响另有 ${DATA.supplementary_count} 位补充历史样本，不计入正式评价对象统计。"
-  },
-  {
-    "from": "主池 ${DATA.main_count} 人 · 统治绩效入榜 ${DATA.ranked_count} 人 · 补充历史样本 ${DATA.supplementary_count} 人。",
-    "to": "正式评价对象 ${DATA.main_count} 人 · 统治绩效入榜 ${DATA.ranked_count} 人 · 补充历史样本 ${DATA.supplementary_count} 人。"
-  },
-  {
-    "from": "这是离线交互设计样稿。展示数据来自构建时的正式结算；更新正式记录后重新构建阅读页。",
-    "to": "本站是正式结算数据的只读阅读层；正式记录更新后，页面随之重建。"
   },
   {
     "from": "The three perspectives",
@@ -140,10 +84,6 @@
     "to": "阅读指南"
   },
   {
-    "from": "M2经终局核对仍无可证能力者列E，并保留范围说明。",
-    "to": ""
-  },
-  {
     "from": "总分口径与权重敏感性",
     "to": "这个分数怎么来的？"
   },
@@ -152,19 +92,7 @@
     "to": "<strong>换一套合理权重，名次会变化多少？</strong> 在已声明的 ${DATA.weight_sensitivity.scenario_count} 种权重情景中，名次范围为第 ${n.weight_sensitivity.all_scenarios.best}—${n.weight_sensitivity.all_scenarios.worst} 名。"
   },
   {
-    "from": "置信度 ${conf(h.confidence)}",
-    "to": "判断把握：${conf(h.confidence)}"
-  },
-  {
     "from": "<span class=\"badge\">${esc(h.impact_nature)}</span> <span class=\"subline\">判断把握：${conf(h.confidence)}</span>",
     "to": "<span class=\"badge\">${esc(h.impact_nature)}</span> <span class=\"subline\">判断把握：${conf(h.confidence)}</span><p class=\"subline confidence-note\">表示证据与归责判断的稳定程度，不表示影响大小。</p>"
-  },
-  {
-    "from": "<details class=\"metadata\"><summary>材料与正式记录</summary><p class=\"subline\">${esc(evidenceScope.modeLabel)} · 判断把握 ${esc(conf(a.confidence))}${evidenceLevel?' · 材料覆盖 '+esc(evidenceLevel):''} · ${c} ${ungraded(a)?'无档结案（不发布数值）':pending(a)?'历史保留值（不作当前等级）：':'正式档位：'}${esc(a.axis_grade||'')} ${esc(pos(a.position))} · ${pending(a)?'历史数值':'雷达投影'} ${a.radar_value??'无'}</p>",
-    "to": "<details class=\"metadata\"><summary>原始记录与专业信息</summary><p class=\"subline\">展示模式：${esc(evidenceScope.modeLabel)} · 判断把握：${esc(conf(a.confidence))}${evidenceLevel?' · 材料覆盖：'+esc(evidenceLevel):''} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>"
-  },
-  {
-    "from": "</body>",
-    "to": "<script defer src=\"second-item-public-alias.js\"></script><script defer src=\"second-item-a-public.js\"></script><script defer src=\"second-item-b1-public.js\"></script><script defer src=\"second-item-public-labels.js\"></script><script defer src=\"person-reading-notes.js\"></script></body>"
   }
 ]

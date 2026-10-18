@@ -159,6 +159,13 @@ def _cost_delta(current_debit: float, ml: float, grade: str, position: str, fact
     return round(current_debit-candidate_debit,2)
 
 
+def _ranked_review_subset(reviews: dict, ranked_ids: set, pool_ids: set) -> dict:
+    """Keep evidence for pending rulers, but never price it into a ranking."""
+    if not set(reviews) <= pool_ids:
+        raise ValueError('审慎复核包含正式池之外的对象')
+    return {rid: review for rid, review in reviews.items() if rid in ranked_ids}
+
+
 def _validate_stage_reviews(root: Path, ranked_ids: set[str]) -> tuple[int, int, dict[str, int]]:
     source = load_json(root / STAGE_REVIEW)
     if source.get('schema_version') != 'prudent-strategic-stage-grade-reviews-v1':
@@ -224,18 +231,23 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
     active_cases = {c['case_id']:c for c in case_source['cases'] if c['status']=='UNRESOLVED_EVIDENCE_GAP'}
 
     expected_cost = {rid for rid in by_id if third[rid]['global_cost_credit_profile']['status'] in ('LOWER_BOUND','PROVISIONAL')}
-    reviews = {r['ruler_id']:r for r in cost_source['records']}
-    if len(reviews)!=len(cost_source['records']) or set(reviews)!=expected_cost:
+    all_reviews = {r['ruler_id']:r for r in cost_source['records']}
+    pool_records = load_json(root/'config/common/canonical-ruler-pool.json')['records']
+    pool_ids = {r['ruler_id'] for r in pool_records if r['pool_status']=='INCLUDED'}
+    reviews = _ranked_review_subset(all_reviews, set(by_id), pool_ids)
+    if len(all_reviews)!=len(cost_source['records']) or set(reviews)!=expected_cost:
         raise ValueError('军事成本审慎复核没有逐人覆盖现行下界与暂定对象')
     scenario_cases={s['case_id'] for s in scenario_source['scenarios']}
     for cid, case in active_cases.items():
+        if case['ruler_id'] not in by_id:
+            continue
         if cid in scenario_cases:
             continue
         scope=case_source['rank_envelope']['case_scopes'][cid]['affected']
         if case['ruler_id'] not in reviews or len(scope)!=1 or scope[0]['components']!=['THIRD_COST']:
             raise ValueError(f'现行未决命题未进入审慎区间：{cid}')
     cost_deltas = {rid:0.0 for rid in by_id}
-    for rid, review in reviews.items():
+    for rid, review in all_reviews.items():
         t = third[rid]; cost = t['global_cost_credit_profile']
         if (review['baseline_band'],review['baseline_position'],review['baseline_status']) != (
                 cost['cost_band'],cost['position'],cost['status']):
@@ -246,6 +258,8 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
         grade = review['candidate_max_band']; position = review['candidate_max_position']
         if grade not in factors or position not in factors[grade]:
             raise ValueError(f'军事成本审慎候选非法：{rid}')
+        if rid not in by_id:
+            continue
         current_debit=float(t['applied_military_debit_points'])
         ml=abs(float(t['military_net_loss_penalty']))
         cost_deltas[rid]=_cost_delta(current_debit,ml,grade,position,factors)
@@ -262,7 +276,9 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
         for mutation in scenario['affected']:
             rid=mutation['ruler_id']
             if rid not in by_id:
-                raise ValueError(f'治理联动对象未入榜：{rid}')
+                if rid in pool_ids:
+                    continue
+                raise ValueError(f'治理联动对象不在正式池：{rid}')
             if 'handoff_D3_level' in mutation:
                 h=handoff[rid]
                 d1, d3=h['D1_level'], mutation['handoff_D3_level']

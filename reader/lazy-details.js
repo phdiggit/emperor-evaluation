@@ -190,17 +190,11 @@
     document.head.append(script);
   }
 
-  // Second-item guidance is still a separate lazy-loaded view helper.
-  if (!document.querySelector('script[data-second-item-reading]')) {
-    const script = document.createElement("script");
-    script.src = "second-item-reading.js";
-    script.async = false;
-    script.dataset.secondItemReading = "true";
-    document.head.append(script);
-  }
-
   new MutationObserver(simplifyFirstItemSourceLinks).observe(screen, {childList: true, subtree: true});
   window.addEventListener("hashchange", simplifyFirstItemSourceLinks);
+
+  // Presentation is owned by the validated renderers; this layer only owns
+  // detail-shard loading and first-item source-cache routing.
 
   // The template performs one synchronous first render before this enhancement is
   // injected. Re-route once so direct person/compare URLs immediately switch to

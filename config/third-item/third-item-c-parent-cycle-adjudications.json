@@ -2415,7 +2415,7 @@
       "partition": "秦汉三国",
       "reign_range": "前7—前1",
       "raw_current_task_count": 1,
-      "final_current_parent_cycle_count": 1,
+      "final_current_parent_cycle_count": 0,
       "observed_parent_cycle_count": 1,
       "closed_public_cycle_count": 0,
       "legacy_pending_cycle_count": 1,
@@ -2428,7 +2428,14 @@
         "LEGACY_FORMAL_C_LINEAGE": 1
       },
       "status": "PARTIAL_LEGACY_SOURCE_PENDING",
-      "parent_cycles": [
+      "parent_cycles": [],
+      "excluded_observation_cycles": [],
+      "pending_d_only_cycles": [],
+      "pending_binding_cycles": [],
+      "preexisting_merge_adjudications": [],
+      "pending_parent_boundary_refs": [],
+      "pending_parent_boundary_count": 0,
+      "out_of_window_parent_cycles": [
         {
           "cycle_ref": "HAN-CHESHI-DEFECTION-2",
           "decision": "PENDING_LEGACY_SOURCE_REVIEW",
@@ -2447,15 +2454,10 @@
             "HAN-CHESHI-DEFECTION-2"
           ],
           "semantic_reason": "HAN-CHESHI-DEFECTION-2当前只能追溯到旧正式C lineage，当前公共C subject_phase登记未覆盖；D交叉索引=['无']仅作辅助定位。保留既有正式引用以避免反向改分，但本次不把旧引用宣称为已完成的历史语义闭合；待补同一统治窗口、压力对象、连续动员、共同终局与来源锚。",
-          "formal_action": "RETAIN_CURRENT_PENDING_SOURCE_REVIEW"
+          "formal_action": "RETAIN_CURRENT_PENDING_SOURCE_REVIEW",
+          "exclusion_basis": "公元2年、王莽当政，哀帝已于前1年去世；不保留为本人当前任务。"
         }
-      ],
-      "excluded_observation_cycles": [],
-      "pending_d_only_cycles": [],
-      "pending_binding_cycles": [],
-      "preexisting_merge_adjudications": [],
-      "pending_parent_boundary_refs": [],
-      "pending_parent_boundary_count": 0
+      ]
     },
     {
       "ruler_id": "RULER-SHADOW-刘渊",
@@ -4137,7 +4139,7 @@
       "partition": "秦汉三国",
       "reign_range": "251—255",
       "raw_current_task_count": 1,
-      "final_current_parent_cycle_count": 1,
+      "final_current_parent_cycle_count": 3,
       "observed_parent_cycle_count": 2,
       "closed_public_cycle_count": 0,
       "legacy_pending_cycle_count": 1,
@@ -4170,6 +4172,59 @@
           ],
           "semantic_reason": "CAMPAIGN-V075-SG-WEI-WU-DONGXING-252当前只能追溯到旧正式C lineage，当前公共C subject_phase登记未覆盖；D交叉索引=['无']仅作辅助定位。保留既有正式引用以避免反向改分，但本次不把旧引用宣称为已完成的历史语义闭合；待补同一统治窗口、压力对象、连续动员、共同终局与来源锚。",
           "formal_action": "RETAIN_CURRENT_PENDING_SOURCE_REVIEW"
+        },
+        {
+          "cycle_ref": "WAR-LEAD-SG-WU-HEFEI-253",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/三国/卷076-通读总结.md#WAR-LEAD-SG-WU-HEFEI-253",
+            "docs/史料通读产物/唐以前编年/三国/卷076-通读总结.md#WAR-LEAD-SG-WU-HEFEI-253",
+            "docs/史料通读产物/唐以前编年/三国/卷076-通读总结.md#WAR-LEAD-SG-WU-HEFEI-253"
+          ],
+          "period": [
+            "253年三月至七月"
+          ],
+          "labels": [
+            "253年合肥新城守援"
+          ],
+          "member_campaign_group_refs": [
+            "WAR-LEAD-SG-WU-HEFEI-253"
+          ],
+          "current_raw_member_refs": [
+            "WAR-LEAD-SG-WU-HEFEI-253"
+          ],
+          "semantic_reason": "独立目标与授权；本人主政窗口内完整收束，不与252年东兴或257年淮南新战争混合。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "WAR-LEAD-SG-WEI-HUAINAN-255",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/三国/卷076-通读总结.md#WAR-LEAD-SG-WEI-HUAINAN-255",
+            "docs/史料通读产物/唐以前编年/三国/卷076-通读总结.md#WAR-LEAD-SG-WEI-HUAINAN-255",
+            "docs/史料通读产物/唐以前编年/三国/卷076-通读总结.md#WAR-LEAD-SG-WEI-HUAINAN-255",
+            "docs/史料通读产物/唐以前编年/三国/卷076-通读总结.md#WAR-LEAD-SG-WEI-HUAINAN-255"
+          ],
+          "period": [
+            "255年正月至二月"
+          ],
+          "labels": [
+            "255年毌丘俭文钦淮南起兵"
+          ],
+          "member_campaign_group_refs": [
+            "WAR-LEAD-SG-WEI-HUAINAN-255"
+          ],
+          "current_raw_member_refs": [
+            "WAR-LEAD-SG-WEI-HUAINAN-255"
+          ],
+          "semantic_reason": "独立目标与授权；本人主政窗口内完整收束，不与252年东兴或257年淮南新战争混合。",
+          "formal_action": "RETAIN_CURRENT"
         }
       ],
       "excluded_observation_cycles": [],
@@ -5082,7 +5137,7 @@
       "partition": "秦汉三国",
       "reign_range": "前195—前180",
       "raw_current_task_count": 1,
-      "final_current_parent_cycle_count": 1,
+      "final_current_parent_cycle_count": 2,
       "observed_parent_cycle_count": 3,
       "closed_public_cycle_count": 0,
       "legacy_pending_cycle_count": 1,
@@ -5115,6 +5170,31 @@
           ],
           "semantic_reason": "HAN-NANYUE-EMBARGO当前只能追溯到旧正式C lineage，当前公共C subject_phase登记未覆盖；D交叉索引=['无']仅作辅助定位。保留既有正式引用以避免反向改分，但本次不把旧引用宣称为已完成的历史语义闭合；待补同一统治窗口、压力对象、连续动员、共同终局与来源锚。",
           "formal_action": "RETAIN_CURRENT_PENDING_SOURCE_REVIEW"
+        },
+        {
+          "cycle_ref": "HAN-NORTHERN-BORDER",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/汉/卷013-通读总结.md#WAR-LEAD-HAN-NORTHERN-BORDER",
+            "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-LUZHI-NORTHERN-WINDOW"
+          ],
+          "period": [
+            "高后五年至七年（前183—前181）"
+          ],
+          "labels": [
+            "高后北地驻屯及狄道阿阳侵掠"
+          ],
+          "member_campaign_group_refs": [
+            "HAN-NORTHERN-BORDER"
+          ],
+          "current_raw_member_refs": [
+            "HAN-NORTHERN-BORDER"
+          ],
+          "semantic_reason": "同一北边保境任务的发骑驻屯、岁更与两次侵掠合为一链；制度成立不直接当拒敌成功，侵掠次数不另出票。",
+          "formal_action": "RETAIN_CURRENT"
         }
       ],
       "excluded_observation_cycles": [],
@@ -16507,7 +16587,7 @@
       "partition": "秦汉三国",
       "reign_range": "220—226",
       "raw_current_task_count": 1,
-      "final_current_parent_cycle_count": 1,
+      "final_current_parent_cycle_count": 5,
       "observed_parent_cycle_count": 2,
       "closed_public_cycle_count": 0,
       "legacy_pending_cycle_count": 1,
@@ -16542,6 +16622,102 @@
           ],
           "semantic_reason": "CAMPAIGN-V070-SG-WEI-WU-224-225当前只能追溯到旧正式C lineage，当前公共C subject_phase登记未覆盖；D交叉索引=['CP-WEI-WU-222-226']仅作辅助定位。保留既有正式引用以避免反向改分，但本次不把旧引用宣称为已完成的历史语义闭合；待补同一统治窗口、压力对象、连续动员、共同终局与来源锚。",
           "formal_action": "RETAIN_CURRENT_PENDING_SOURCE_REVIEW"
+        },
+        {
+          "cycle_ref": "CAMPAIGN-V070-SG-WEI-WU-222-223",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-WU-222-223"
+          ],
+          "period": [
+            "222年秋至223年春"
+          ],
+          "labels": [
+            "222—223年江陵与濡须进攻"
+          ],
+          "member_campaign_group_refs": [
+            "CAMPAIGN-V070-SG-WEI-WU-222-223"
+          ],
+          "current_raw_member_refs": [
+            "CAMPAIGN-V070-SG-WEI-WU-222-223"
+          ],
+          "semantic_reason": "本人实际主政窗口内的独立目标及终局；与已结束或授权重置的后续行动分开。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "CAMPAIGN-SG-WEI-HEXI-220",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/三国/卷069-通读总结.md#WAR-LEAD-SG-WEI-HEXI-220"
+          ],
+          "period": [
+            "220年夏"
+          ],
+          "labels": [
+            "220年河西多郡军乱"
+          ],
+          "member_campaign_group_refs": [
+            "CAMPAIGN-SG-WEI-HEXI-220"
+          ],
+          "current_raw_member_refs": [
+            "CAMPAIGN-SG-WEI-HEXI-220"
+          ],
+          "semantic_reason": "本人实际主政窗口内的独立目标及终局；与已结束或授权重置的后续行动分开。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "CAMPAIGN-SG-WEI-HEXI-221",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/三国/卷069-通读总结.md#WAR-LEAD-SG-WEI-HEXI-221"
+          ],
+          "period": [
+            "221年冬及本轮收束"
+          ],
+          "labels": [
+            "221年卢水胡与麴光新乱"
+          ],
+          "member_campaign_group_refs": [
+            "CAMPAIGN-SG-WEI-HEXI-221"
+          ],
+          "current_raw_member_refs": [
+            "CAMPAIGN-SG-WEI-HEXI-221"
+          ],
+          "semantic_reason": "本人实际主政窗口内的独立目标及终局；与已结束或授权重置的后续行动分开。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "WAR-LEAD-SG-WEI-XIANBEI-224-225",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-XIANBEI-224-225"
+          ],
+          "period": [
+            "224—225年"
+          ],
+          "labels": [
+            "224—225年轲比能边患反击"
+          ],
+          "member_campaign_group_refs": [
+            "WAR-LEAD-SG-WEI-XIANBEI-224-225"
+          ],
+          "current_raw_member_refs": [
+            "WAR-LEAD-SG-WEI-XIANBEI-224-225"
+          ],
+          "semantic_reason": "本人实际主政窗口内的独立目标及终局；与已结束或授权重置的后续行动分开。",
+          "formal_action": "RETAIN_CURRENT"
         }
       ],
       "excluded_observation_cycles": [],
@@ -16558,7 +16734,7 @@
       "partition": "秦汉三国",
       "reign_range": "226—239",
       "raw_current_task_count": 4,
-      "final_current_parent_cycle_count": 4,
+      "final_current_parent_cycle_count": 5,
       "observed_parent_cycle_count": 5,
       "closed_public_cycle_count": 0,
       "legacy_pending_cycle_count": 4,
@@ -16659,6 +16835,30 @@
           ],
           "semantic_reason": "CAMPAIGN-WEI-LIAODONG-232-238当前只能追溯到旧正式C lineage，当前公共C subject_phase登记未覆盖；D交叉索引=['CR-LIAODONG-232-238']仅作辅助定位。保留既有正式引用以避免反向改分，但本次不把旧引用宣称为已完成的历史语义闭合；待补同一统治窗口、压力对象、连续动员、共同终局与来源锚。",
           "formal_action": "RETAIN_CURRENT_PENDING_SOURCE_REVIEW"
+        },
+        {
+          "cycle_ref": "WAR-LEAD-SG-WEI-WU-226",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-WU-226"
+          ],
+          "period": [
+            "226年曹丕去世后"
+          ],
+          "labels": [
+            "226年江夏、襄阳守御"
+          ],
+          "member_campaign_group_refs": [
+            "WAR-LEAD-SG-WEI-WU-226"
+          ],
+          "current_raw_member_refs": [
+            "WAR-LEAD-SG-WEI-WU-226"
+          ],
+          "semantic_reason": "本人实际主政窗口内的独立目标及终局；与已结束或授权重置的后续行动分开。",
+          "formal_action": "RETAIN_CURRENT"
         }
       ],
       "excluded_observation_cycles": [],
@@ -48061,7 +48261,7 @@
       "partition": "元",
       "reign_range": "1307-1311",
       "raw_current_task_count": 2,
-      "final_current_parent_cycle_count": 2,
+      "final_current_parent_cycle_count": 3,
       "observed_parent_cycle_count": 2,
       "closed_public_cycle_count": 2,
       "legacy_pending_cycle_count": 0,
@@ -48154,6 +48354,54 @@
           "semantic_reason": "公共C主体阶段已绑定，但原campaign_group_ref不是独立战争父周期的证明。现有审计未逐一闭合同一压力对象下的连续动员、共同终局及与相邻任务的分界；暂保留引用，列入父周期边界待审，不宣称语义闭合。",
           "formal_action": "RETAIN_CANONICAL_CURRENT",
           "independence_review_status": "PENDING_PARENT_BOUNDARY_REVIEW"
+        },
+        {
+          "cycle_ref": "YUAN-WUZONG-AMA-1310",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "TERMINAL_RESULT_NOT_CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-YUAN-WUZONG-TIANMO-1310"
+          ],
+          "period": [
+            "1310年正月至1311年武宗崩前"
+          ],
+          "labels": [
+            "阿马乖西带联军及元军应对"
+          ],
+          "member_campaign_group_refs": [
+            "YUAN-WUZONG-AMA-1310"
+          ],
+          "current_raw_member_refs": [
+            "YUAN-WUZONG-AMA-1310"
+          ],
+          "semantic_reason": "实际军队、戍卒或军事节点受压的本人任务；后任收束不前移，未闭合终点保持未知。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "YUAN-WUZONG-TIANMO-1310",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-YUAN-WUZONG-TIANMO-1310"
+          ],
+          "period": [
+            "1310年四月至十一月"
+          ],
+          "labels": [
+            "田墨容米洞军事危机与来降"
+          ],
+          "member_campaign_group_refs": [
+            "YUAN-WUZONG-TIANMO-1310"
+          ],
+          "current_raw_member_refs": [
+            "YUAN-WUZONG-TIANMO-1310"
+          ],
+          "semantic_reason": "实际军队、戍卒或军事节点受压的本人任务；后任收束不前移，未闭合终点保持未知。",
+          "formal_action": "RETAIN_CURRENT"
         }
       ],
       "excluded_observation_cycles": [],
@@ -51270,7 +51518,7 @@
         355
       ],
       "raw_current_task_count": 1,
-      "final_current_parent_cycle_count": 1,
+      "final_current_parent_cycle_count": 7,
       "observed_parent_cycle_count": 1,
       "closed_public_cycle_count": 0,
       "legacy_pending_cycle_count": 1,
@@ -51288,24 +51536,179 @@
       "status": "PARTIAL_LEGACY_SOURCE_PENDING",
       "parent_cycles": [
         {
-          "cycle_ref": "CAMPAIGN-V099-099-QIN-REBELS-352-354",
-          "decision": "PENDING_LEGACY_SOURCE_REVIEW",
-          "source_class": "LEGACY_FORMAL_C_LINEAGE",
-          "evidence_status": "PENDING",
+          "cycle_ref": "QIN-REBELS-ZHANGYU-PALACE-353",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
           "d_cross_index": [],
           "source_refs": [
-            "docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json#ruler_id=RULER-SHADOW-苻健#parent_ref=CAMPAIGN-V099-099-QIN-REBELS-352-354"
+            "docs/史料通读产物/唐以前编年/两晋/卷099-通读总结.md#WAR-LEAD-099-QIN-REBELS-352-354",
+            "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-FUJIAN-PHASES-353-355"
           ],
-          "period": [],
-          "labels": [],
+          "period": [
+            "353年七月至354年八月"
+          ],
+          "labels": [
+            "张遇同谋及关中多城危机"
+          ],
           "member_campaign_group_refs": [
-            "CAMPAIGN-V099-099-QIN-REBELS-352-354"
+            "QIN-REBELS-ZHANGYU-PALACE-353"
           ],
           "current_raw_member_refs": [
-            "CAMPAIGN-V099-099-QIN-REBELS-352-354"
+            "QIN-REBELS-ZHANGYU-PALACE-353"
           ],
-          "semantic_reason": "CAMPAIGN-V099-099-QIN-REBELS-352-354当前只能追溯到旧正式C lineage，当前公共C subject_phase登记未覆盖；D交叉索引=['无']仅作辅助定位。保留既有正式引用以避免反向改分，但本次不把旧引用宣称为已完成的历史语义闭合；待补同一统治窗口、压力对象、连续动员、共同终局与来源锚。",
-          "formal_action": "RETAIN_CURRENT_PENDING_SOURCE_REVIEW"
+          "semantic_reason": "张遇共同谋划的宫门阶段与其同党多城起兵、分路镇压构成同一关中危机；宜秋和平阳刘康退出，两个阶段引用不生成两条战略链。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "QIN-REBELS-GUANZHONG-MULTINODE-353-354",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/两晋/卷099-通读总结.md#WAR-LEAD-099-QIN-REBELS-352-354",
+            "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-FUJIAN-PHASES-353-355"
+          ],
+          "period": [
+            "353年七月至354年八月"
+          ],
+          "labels": [
+            "张遇同谋及关中多城危机"
+          ],
+          "member_campaign_group_refs": [
+            "QIN-REBELS-GUANZHONG-MULTINODE-353-354"
+          ],
+          "current_raw_member_refs": [
+            "QIN-REBELS-GUANZHONG-MULTINODE-353-354"
+          ],
+          "semantic_reason": "张遇共同谋划的宫门阶段与其同党多城起兵、分路镇压构成同一关中危机；宜秋和平阳刘康退出，两个阶段引用不生成两条战略链。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "QIN-REBELS-PINGYANG-LIUKANG-353",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/两晋/卷099-通读总结.md#WAR-LEAD-099-QIN-REBELS-352-354",
+            "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-FUJIAN-PHASES-353-355"
+          ],
+          "period": [
+            "353年四月"
+          ],
+          "labels": [
+            "平阳刘康武装"
+          ],
+          "member_campaign_group_refs": [
+            "QIN-REBELS-PINGYANG-LIUKANG-353"
+          ],
+          "current_raw_member_refs": [
+            "QIN-REBELS-PINGYANG-LIUKANG-353"
+          ],
+          "semantic_reason": "本人窗口内独立压力对象与实际任务；按完整终局判断，不按卡片或成员数计票。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "CAMPAIGN-V099-099-LIANGQIN-353-354",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/两晋/卷099-通读总结.md#WAR-LEAD-099-LIANGQIN-353-354",
+            "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-FUJIAN-PHASES-353-355"
+          ],
+          "period": [
+            "353年二月至354年十一月"
+          ],
+          "labels": [
+            "前凉王擢龙黎—秦州方向"
+          ],
+          "member_campaign_group_refs": [
+            "CAMPAIGN-V099-099-LIANGQIN-353-354"
+          ],
+          "current_raw_member_refs": [
+            "CAMPAIGN-V099-099-LIANGQIN-353-354"
+          ],
+          "semantic_reason": "本人窗口内独立压力对象与实际任务；按完整终局判断，不按卡片或成员数计票。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "CAMPAIGN-V099-099-HUANQIN-354",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/两晋/卷099-通读总结.md#WAR-LEAD-099-HUANQIN-354",
+            "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-FUJIAN-PHASES-353-355"
+          ],
+          "period": [
+            "354年二月至六月主要攻防"
+          ],
+          "labels": [
+            "桓温荆州主军与子午侧翼"
+          ],
+          "member_campaign_group_refs": [
+            "CAMPAIGN-V099-099-HUANQIN-354"
+          ],
+          "current_raw_member_refs": [
+            "CAMPAIGN-V099-099-HUANQIN-354"
+          ],
+          "semantic_reason": "只认桓温荆州主军、司马勋子午侧翼及秦主军防御；陈仓对王擢的同一次击退只作凉秦链成员，不重复形成重大胜绩。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "CAMPAIGN-V099-099-QIUCHI-353",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/两晋/卷099-通读总结.md#WAR-LEAD-099-QIUCHI-353",
+            "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-FUJIAN-PHASES-353-355"
+          ],
+          "period": [
+            "353年六月"
+          ],
+          "labels": [
+            "杨初仇池防御军"
+          ],
+          "member_campaign_group_refs": [
+            "CAMPAIGN-V099-099-QIUCHI-353"
+          ],
+          "current_raw_member_refs": [
+            "CAMPAIGN-V099-099-QIUCHI-353"
+          ],
+          "semantic_reason": "本人窗口内独立压力对象与实际任务；按完整终局判断，不按卡片或成员数计票。",
+          "formal_action": "RETAIN_CURRENT"
+        },
+        {
+          "cycle_ref": "CAMPAIGN-V100-100-FUJING-355",
+          "decision": "RETAIN_CURRENT",
+          "source_class": "AUTHORED_PRIMARY_WINDOW_REVIEW",
+          "evidence_status": "CLOSED",
+          "d_cross_index": [],
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/两晋/卷100-通读总结.md#WAR-LEAD-100-FUJING-355",
+            "docs/公共成果/军事/对手战争机器窗口证据.md#O-SOURCE-FUJIAN-PHASES-353-355"
+          ],
+          "period": [
+            "355年六月苻健在世"
+          ],
+          "labels": [
+            "苻菁府兵攻东掖门"
+          ],
+          "member_campaign_group_refs": [
+            "CAMPAIGN-V100-100-FUJING-355"
+          ],
+          "current_raw_member_refs": [
+            "CAMPAIGN-V100-100-FUJING-355"
+          ],
+          "semantic_reason": "本人窗口内独立压力对象与实际任务；按完整终局判断，不按卡片或成员数计票。",
+          "formal_action": "RETAIN_CURRENT"
         }
       ],
       "excluded_observation_cycles": [],

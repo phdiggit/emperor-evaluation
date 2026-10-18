@@ -6,7 +6,6 @@
   const screen = document.getElementById("screen");
   if (!screen) return;
 
-  const PUBLIC_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
   let scheduled = false;
 
   function currentRecord() {
@@ -35,18 +34,12 @@
     return details;
   }
 
-  function publicGrade(item) {
-    const match = String(item?.grade || "").match(/\bG([0-5])\b/i);
-    if (!match) return "";
-    const suffix = /(?:upper|high)/i.test(item.grade) ? "+" : /(?:lower|low)/i.test(item.grade) ? "-" : "";
-    return `${PUBLIC_GRADE[`G${match[1]}`] || ""}${suffix}`;
-  }
-
   function evidenceGroup(entry) {
     const tags = Array.isArray(entry?.public_tags) ? entry.public_tags : [];
     if (tags.includes("不单独计入")) return "boundary";
     if (tags.includes("并入同一运行链")) return "supplement";
     const direction = String(entry?.public_direction || "");
+    if (direction === "边界材料") return "boundary";
     if (direction.startsWith("正向")) return "positive";
     if (direction.startsWith("负向")) return "negative";
     return "mixed";
@@ -70,6 +63,7 @@
       body: entry?.public_basis,
       boundary: entry?.public_boundary,
       supplement,
+      verbatim: true,
     });
 
     const li = make("li", supplement ? "second-item-b1-card second-item-b1-supplement" : "second-item-b1-card");
@@ -90,21 +84,10 @@
     return section;
   }
 
-  function summaryText(item, evidence) {
-    const grade = publicGrade(item);
-    const groups = groupedEvidence(evidence);
-    const parts = [
-      groups.positive.length ? `正向运行链 ${groups.positive.length} 条` : "",
-      groups.negative.length ? `负向失灵链 ${groups.negative.length} 条` : "",
-      groups.mixed.length ? `正负并存链 ${groups.mixed.length} 条` : "",
-      groups.supplement.length ? `并入既有链的补充材料 ${groups.supplement.length} 条` : "",
-      groups.boundary.length ? `边界材料 ${groups.boundary.length} 条` : "",
-    ].filter(Boolean);
-    return `官僚治理公开等级为 ${grade || "未列"}。当前公开材料按${parts.join("、") || "行政运行链"}展开；链条数量用于组织阅读，不按条数直接相减。`;
-  }
-
   function publicKey(item) {
     return JSON.stringify([
+      item?.reader_story || "",
+      item?.reader_responsibility || "",
       item?.reader_summary || "",
       item?.reader_boundary || "",
       item?.reader_public_evidence_items || [],
@@ -113,11 +96,8 @@
   }
 
   function appendDedicatedAudit(body, item, record) {
-    const api = globalThis.SecondItemMaterialCards;
     const details = make("details", "second-item-dedicated-audit");
-    details.append(make("summary", "", "原始记录与计算口径"));
-    const how = api?.publicEnumText ? api.publicEnumText(item?.reader_how || "") : String(item?.reader_how || "").trim();
-    if (how) details.append(make("p", "prose", how));
+    details.append(make("summary", "", "完整正式记录与来源"));
     const refs = [...new Set([item?.source, item?.applied_source, ...(item?.reader_source_refs || [])].filter(Boolean))];
     if (refs.length && typeof link === "function") {
       const holder = make("p", "sources");
@@ -156,11 +136,12 @@
 
     const evidence = Array.isArray(item.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
     const formalSummary = String(item.reader_summary || "").trim();
-    const summary = summaryText(item, evidence);
+    const story = String(item.reader_story || "").trim();
+    const responsibility = String(item.reader_responsibility || "").trim();
     const key = publicKey(item);
     if (body.dataset.secondPublicBodyKey === key && body.querySelector(":scope > .second-item-b1-reading")) return;
 
-    if (!evidence.length || !summary) {
+    if (!evidence.length || !formalSummary || !story || !responsibility) {
       body.innerHTML = "";
       body.append(make("p", "notice", "官僚治理的正式人物级公开投影尚未同步。"));
       body.dataset.b1Public = "missing";
@@ -171,9 +152,11 @@
     const groups = groupedEvidence(evidence);
     body.innerHTML = "";
     const reading = make("div", "second-item-public-reading second-item-b1-reading");
-    reading.append(make("div", "label", "官僚治理运行链"));
-    reading.append(make("p", "second-item-b1-intro", "每张卡直接读取正式人物级公开投影；“独立计入”“并入同一运行链”“不单独计入”等标签都由上游裁决直接发布，页面不重新判断。"));
-    reading.append(make("div", "second-item-b1-summary", summary));
+    reading.append(make("h4", "", "具体经历"), make("p", "prose second-item-b1-story", story));
+    reading.append(make("h4", "", "本人承担什么责任"), make("p", "prose second-item-b1-responsibility", responsibility));
+    const reason = make("div", "second-item-b1-summary");
+    reason.append(make("strong", "", "为什么是这个等级"), make("p", "prose", formalSummary));
+    reading.append(reason);
     reading.append(group("正向行政运行", groups.positive));
     reading.append(group("负向行政失灵", groups.negative));
     reading.append(group("正负并存的行政机制", groups.mixed));
@@ -181,12 +164,10 @@
     reading.append(group("边界材料（不单独计入）", groups.boundary));
     body.append(reading);
 
-    const boundaryText = globalThis.SecondItemMaterialCards?.boundaryText?.(item.reader_boundary) || item.reader_boundary;
+    const boundaryText = item.reader_boundary;
     const boundary = detailsBlock("总体范围与边界", boundaryText);
     if (boundary) body.append(boundary);
 
-    const gradeDetails = detailsBlock("为什么最终是这个等级？", formalSummary || summary);
-    if (gradeDetails) body.append(gradeDetails);
     const scoreHow = globalThis.SecondItemScoreHowDetails?.(item, "B1官僚治理");
     if (scoreHow) body.append(scoreHow);
     appendDedicatedAudit(body, item, record);

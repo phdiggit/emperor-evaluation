@@ -80,7 +80,7 @@
     const refs = [...new Set([item.source, item.applied_source, ...(item.reader_source_refs || [])].filter(Boolean))];
     const links = refs.map((ref, index) => link(ref, index ? `补充来源 ${index} ↗` : "裁决依据 ↗", record)).join(" ");
     const basis = includeBasis && item.reader_full_basis ? prose(item.reader_full_basis) : "";
-    return links || basis ? `<details${item.reader_public_commander || item.reader_public_b1 || item.reader_public_cost ? ' data-formal-public-source' : ''}><summary>裁决依据与来源</summary>${links ? `<p class="sources">${links}</p>` : ""}${basis}</details>` : "";
+    return links || basis ? `<details${item.reader_public_commander || item.reader_public_b1 || item.reader_public_b2 || item.reader_public_cost ? ' data-formal-public-source' : ''}><summary>裁决依据与来源</summary>${links ? `<p class="sources">${links}</p>` : ""}${basis}</details>` : "";
   }
 
   function ruleDetails(lines) {
@@ -121,7 +121,7 @@
     return [
       ["起点与继承背景", outcome.public_outcome_basis],
       ["本人实际成果范围", outcome.public_scope],
-      ["公开边界", outcome.public_boundary],
+      ["哪些成果不算在本人名下", outcome.public_boundary],
     ].filter(([, value]) => publicOutcomeText(value));
   }
 
@@ -140,41 +140,20 @@
   }
 
   function renderA(item, data, record) {
-    const publicOutcome = item.reader_public_outcome || {};
-    const calculation = item.reader_how || "";
-    const percent = publicSharePercent(publicOutcome);
-    const scaleText = percent ? `成果占比：约${percent}%` : "";
-    const project = publicOutcome.public_project ? `<div class="label">共同项目</div>${prose(publicOutcomeText(publicOutcome.public_project))}` : "";
-    const facts = publicOutcomeParts(publicOutcome)
-      .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(publicOutcomeText(value))}`)
-      .join("");
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>先看本人实际完成并留下的统一成果</small></span><b>${esc(score(item))}</b></div>${project}${facts}${scaleText ? prose(scaleText) : ""}${ruleDetails(["内部指标：A。", calculation])}${sourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card first-a-reading">${firstAReadingMarkup(item, record)}</article>`;
   }
 
   function renderB1(item, data, record) {
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>起点、强敌与速度</strong><small>起点实力越强，不等于创业难度越高</small></span><b>${esc(score(item))}</b></div>${firstB1Markup(item)}${ruleDetails(["内部指标：B1。", item.reader_public_b1?.public_calculation || ""])}${sourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card first-a-reading first-b1-reading">${firstB1ReadingMarkup(item, record)}</article>`;
   }
 
 
   function renderB2(item, data, record) {
-    const result = data["B2结算"] || "";
-    const parallel = data["并行执行"] || "";
-    const coverage = data["团队能力覆盖与组织杠杆"] || data["能力覆盖/组织杠杆"] || "";
-    const integration = data["异质整合"] || "";
-    const basis = data["裁决依据"] || "";
-    const p = lDimension(parallel);
-    const c = lDimension(coverage);
-    const i = lDimension(integration);
-    const metrics = [["并行执行", p.grade], ["专业分工", c.grade], ["异质整合", i.grade]]
-      .filter(([, value]) => value)
-      .map(([label, value]) => `${label} <strong>${value}</strong>`)
-      .join(" · ");
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>组织与整合</strong><small>看多线执行、专业分工和不同集团能否进入同一套运行体系</small></span><b>${esc(score(item))}</b></div>${metrics ? `<p class="prose">${metrics}</p>` : ""}${p.fact ? `<div class="label">并行执行</div>${prose(publicFact(p.fact))}` : ""}${c.fact ? `<div class="label">专业分工</div>${prose(publicFact(c.fact))}` : ""}${i.fact ? `<div class="label">异质整合</div>${prose(publicFact(i.fact))}` : ""}${basis ? `<div class="label">补充依据</div>${prose(publicFact(basis))}` : ""}${ruleDetails(["内部指标：B2。", parallel, coverage, integration, result])}${sourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card first-a-reading first-b2-reading">${firstB2ReadingMarkup(item, record)}</article>`;
   }
 
   function renderC(item, data, record) {
-    const facts = firstCommanderMarkup(item);
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(score(item))}</b></div>${facts}${ruleDetails(["这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。"])}${sourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card first-a-reading first-c-reading">${firstCommanderMarkup(item, record)}</article>`;
   }
 
   function renderCost(item, record) {
@@ -199,7 +178,9 @@
 
   function firstItemTarget() {
     if (/^#net\/[^/?#]+\/first(?:\/|$)/.test(location.hash)) {
-      return document.getElementById("net-major-body");
+      // The dedicated route is rendered by home-interactions.js. Replacing it
+      // asynchronously discards its anchors and moves the reader's scroll target.
+      return null;
     }
     return document.querySelector('.net-public-group[data-net-group="first"]');
   }
@@ -219,7 +200,7 @@
     const formalName = FORMAL_NAME_ALIASES[record.ruler_name] || record.ruler_name;
     const names = [record.ruler_name, formalName];
     const entries = await Promise.all(Object.entries(DOCS).filter(([label]) => label !== "C军事统帅与战争解题")
-      .filter(([label]) => label !== "A统一贡献" && label !== "B1创业难度与效率")
+      .filter(([label]) => label !== "A统一贡献" && label !== "B1创业难度与效率" && label !== "B2组织与整合")
       .map(async ([label, ref]) => [label, bullets(await loadDoc(ref, record), names)]));
     if (!group.isConnected || currentRecord()?.ruler_id !== record.ruler_id) return;
     const data = Object.fromEntries(entries);
@@ -235,9 +216,7 @@
     const zeroNote = Number.isFinite(netScore) && netScore === 0
       ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这里已经进入第一项结算，只是成果在扣除相关战争代价后没有留下正的净值。</p>`
       : "";
-    const intro = dedicated
-      ? `<p class="reading-intro"><strong>先看${esc(record.ruler_name)}在这条主链里实际做了什么。</strong>内部指标代号、变量定义和公式全部收进“规则与计算”。</p>`
-      : `<p class="reading-intro"><strong>默认层只讲这个人实际做了什么。</strong>内部指标代号、变量定义和公式统一收进“规则与计算”；公众等级只用来辅助读事实。</p>`;
+    const intro = "";
     group.innerHTML = `<div class="first-item-public-v2">${heading}${intro}${zeroNote}${cards.join("")}${renderTotals(items)}</div>`;
   }
 

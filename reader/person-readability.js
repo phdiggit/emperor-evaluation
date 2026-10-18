@@ -58,13 +58,13 @@
   }
 
   const netGroupNames = {
-    first: "第一项 · 奠基与统一",
-    method: "第二项 · 制度与行政",
-    finance: "第二项 · 民生与社会",
-    handoff: "第二项 · 政权交接",
-    strategic: "第三项 · 战略收益与国防",
-    military: "第三项 · 军事体系与成本",
-    civilization: "第四项 · 文明与国家整合",
+    first: "奠基与统一",
+    method: "制度与行政",
+    finance: "民生与社会",
+    handoff: "政权交接",
+    strategic: "战略收益与国防",
+    military: "军事体系与成本",
+    civilization: "文明与国家整合",
   };
 
   const firstItemDocs = {
@@ -142,14 +142,6 @@
       .trim();
   }
 
-  function firstOutcomeCalculationText(value) {
-    return firstItemPublicText(value)
-      .replace(/成果信用U=(\d+(?:\.\d+)?)/g, "本人有效控制成果值为$1")
-      .replace(/单人项目按统一贡献曲线计算，共同项目先生成项目A池再按正式个人信用分账/g, "单人完成时直接按统一成果曲线计算；多人共同完成时，先确定项目整体成果，再按正式归责分给个人")
-      .replace(/项目A池/g, "项目整体成果")
-      .replace(/正式个人信用分账/g, "按正式归责分配个人成果");
-  }
-
   const FIRST_COST_DEBIT = {
     0:{LOW:0,MID:0,HIGH:0},
     1:{LOW:0.5,MID:1,HIGH:1.5},
@@ -174,17 +166,7 @@
   }
 
   function firstB1ScoreText(item) {
-    const current = firstItemPublicText(item?.reader_public_b1?.public_calculation || item?.reader_how || "");
-    const start = "起点资源档表示入链时可调用的军政资源强弱，不是好坏评分；资源越弱，创业难度分越高：E档15、D档13、C档11、B档8、A档5、S档2、S+档0。";
-    const opponent = "对手压力按最强两个独立战争机器计：E档1、D档2、C档4、B档6、A档8、S档10；最强全值，第二强取50%，合计最多15分。";
-    const efficiency = "完成效率最多20分：期望完成年 = 4 + 8 × √(本阶段有效控制信用 / 1000)；速度比 = 实际阶段年数 / 期望完成年。速度比≤0.75、1.00、1.25、1.50、2.00、2.50、3.00、4.00时，依次得20、18、16、14、11、8、5、2分；超过4.00得0分。";
-    return `B1满分50 = 起点难度15 + 对手难度15 + 完成效率20。\n${start}\n${opponent}\n${efficiency}${current ? `\n当前人物：${current}` : ""}`;
-  }
-
-  function firstCommanderScoreText(item) {
-    const grade = firstItemPublicText(item?.grade || "");
-    const table = "固定换算：E档=0分；D档（基础统帅）低/中/高位=4/7/10分；C档（重要统帅）=12/15/18分；B档（优秀统帅）=20/23/26分；A档（顶级统帅）=28/31/34分；S档（历史级统帅）=36/38/40分。";
-    return `${table}${grade ? ` 当前为${grade}，对应${item.value}分。` : ""}`;
+    return item?.reader_public_b1?.public_calculation || "";
   }
 
   function firstFactText(value) {
@@ -203,7 +185,7 @@
     return [
       ["起点与继承背景", outcome.public_outcome_basis],
       ["本人实际成果范围", outcome.public_scope],
-      ["公开边界", outcome.public_boundary],
+      ["哪些成果不算在本人名下", outcome.public_boundary],
     ].filter(([, value]) => firstPublicOutcomeText(value));
   }
 
@@ -218,35 +200,21 @@
     return sources ? `<details><summary>裁决依据与来源</summary><p class="sources">${sources}</p></details>` : "";
   }
 
-  function renderFirstA(item, bullets, record) {
-    const publicOutcome = item.reader_public_outcome || {};
-    const calculation = firstOutcomeCalculationText(item.reader_how || "");
-    const percent = firstPublicSharePercent(publicOutcome);
-    const project = publicOutcome.public_project ? `<div class="label">共同项目</div>${prose(firstPublicOutcomeText(publicOutcome.public_project))}` : "";
-    const facts = firstPublicOutcomeParts(publicOutcome)
-      .map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(firstPublicOutcomeText(value))}`)
-      .join("");
-    const share = percent ? `<div class="label">本人成果规模</div>${prose(`约${percent}%全国核心统一尺度（按本人有效控制成果计算；不是共同项目分成，也不是领土、人口或军队比例）`)}` : "";
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>统一成果</strong><small>满分120；只看本人最终留下的稳定控制成果</small></span><b>${esc(netValue(item))}</b></div>${project}${facts}${share}<details><summary>这个分怎么算？</summary>${prose(`统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65，最后保留1位小数。${calculation ? `\n当前人物的正式代入：${calculation}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+  function renderFirstA(item, data, record) {
+    return `<article class="context-story net-public-item first-item-card first-a-reading">${firstAReadingMarkup(item, record)}</article>`;
   }
 
-  function renderFirstB1(item, bullets, record) {
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><strong>起点、强敌与速度</strong><b>${esc(netValue(item))}</b></div>${firstB1Markup(item)}<details><summary>这个分怎么算？</summary>${prose(firstB1ScoreText(item))}</details>${firstItemSourceBlock(item, record)}</article>`;
+  function renderFirstB1(item, data, record) {
+    return `<article class="context-story net-public-item first-item-card first-a-reading first-b1-reading">${firstB1ReadingMarkup(item, record)}</article>`;
   }
 
 
-  function renderFirstB2(item, bullets, record) {
-    const result = bullets["B2结算"] || "";
-    const parallel = bullets["并行执行"] || "";
-    const coverage = bullets["团队能力覆盖与组织杠杆"] || bullets["能力覆盖/组织杠杆"] || "";
-    const integration = bullets["异质整合"] || "";
-    const basis = bullets["裁决依据"] || "";
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>创业组织与政治整合</strong><small>满分30；看多线并行、专业分工与异质整合</small></span><b>${esc(netValue(item))}</b></div><div class="label">这项看什么</div>${prose("看创业或统一机器能不能脱离本人逐项盯办而运行：能否多线并行、能否把高难任务交给专业责任中心、能否把不同地域和旧集团稳定整合进同一执行体系。")}${parallel ? `<div class="label">并行执行</div>${prose(firstFactText(parallel))}` : ""}${coverage ? `<div class="label">专业覆盖与组织杠杆</div>${prose(firstFactText(coverage))}` : ""}${integration ? `<div class="label">异质整合</div>${prose(firstFactText(integration))}` : ""}${basis ? `<div class="label">为什么这样判</div>${prose(firstFactText(basis))}` : ""}<details><summary>这个分怎么算？</summary>${prose(`三个维度均分为 E、D、C、B、A、S 六档，依次对应0、2、4、6、8、10分；B2 = 并行执行分 + 专业覆盖／组织杠杆分 + 异质整合分。${result ? `\n本人的正式结算：${firstItemPublicText(result)}` : ""}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+  function renderFirstB2(item, data, record) {
+    return `<article class="context-story net-public-item first-item-card first-a-reading first-b2-reading">${firstB2ReadingMarkup(item, record)}</article>`;
   }
 
   function renderFirstC(item, bullets, record) {
-    const facts = firstCommanderMarkup(item);
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>本人统帅</strong><small>满分40；只看本人亲自承担并完成的军事指挥事实</small></span><b>${esc(netValue(item))}</b></div>${facts}<p class="subline first-item-cross-system-note">这里使用第一项自己的军事指挥归责口径；人物画像 M1 是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算。</p><details><summary>这个分怎么算？</summary>${prose(`这里只看本人亲自承担的整体部署、战役指挥或临阵处理；将领独立完成的战果不直接归到本人名下。\\n${firstCommanderScoreText(item)}`)}</details>${firstItemSourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card first-a-reading first-c-reading">${firstCommanderMarkup(item, record)}</article>`;
   }
 
   function firstItemTotals(items) {
@@ -302,7 +270,7 @@
 
   function netValue(item) {
     if (item.value == null) return item.unit === "不单独计分" ? "参与合成，不单列分值" : "—";
-    if (item.unit === "%" && ["B1","B2","B4"].includes(item.label)) return `合成采用 ${Number(item.value)}%`;
+    if (item.unit === "%" && ["B1","B2","B4"].includes(item.label)) return item.applied_value == null ? '实际采用率尚未发布' : `合成采用 ${Number(item.applied_value)}%`;
     const signed = item.value > 0 && item.label?.includes("文明") ? `+${item.value}` : String(item.value);
     return `${signed}${item.unit ? ` ${item.unit}` : ""}`;
   }
@@ -319,6 +287,34 @@
   }
 
   function netJudgment(item, record) {
+    if (item.reader_public_fourth_c) {
+      return `<article class="fourth-c-authored">${globalThis.FourthItemCReading.heading(item)}${globalThis.FourthItemCReading.html(item, record)}</article>`;
+    }
+    if (item.reader_public_fourth_b) {
+      return `<article class="fourth-b-authored">${globalThis.FourthItemBReading.heading(item)}${globalThis.FourthItemBReading.html(item, record)}</article>`;
+    }
+    if (item.reader_public_fourth_a) {
+      return `<article class="context-story fourth-a-authored">${globalThis.FourthItemAReading.heading(item)}${globalThis.FourthItemAReading.html(item, record)}</article>`;
+    }
+    if (item.reader_public_third_c) {
+      return `<article class="context-story third-c-authored">${globalThis.ThirdItemCReading.heading(item)}${globalThis.ThirdItemCReading.html(item, record)}</article>`;
+    }
+    if (item.reader_public_b && globalThis.ThirdItemBReading) {
+      return `<article class="context-story net-public-item third-b-authored">${globalThis.ThirdItemBReading.heading(item)}${globalThis.ThirdItemBReading.html(item, record)}</article>`;
+    }
+    if (item.reader_public_a && globalThis.ThirdItemAReading) {
+      return `<article class="context-story net-public-item third-a-authored"><div class="component"><strong>${esc(item.public_component_label)}</strong><b>${esc(item.value)} / 60 分</b></div>${globalThis.ThirdItemAReading.html(item, record)}</article>`;
+    }
+    if (item.reader_public_c && globalThis.SecondItemCReading) {
+      return `<article class="context-story net-public-item net-c-authored"><div class="component"><strong>${esc(item.public_component_label || item.label)}</strong><b>${esc(item.value)} 分</b></div>${globalThis.SecondItemCReading.html(item)}</article>`;
+    }
+    if (item.label === "B2反馈与约束" && globalThis.SecondItemB2Reading) {
+      return `<article class="context-story net-public-item b2-overview"><div class="component"><span><strong>反馈与约束</strong></span></div>${globalThis.SecondItemB2Reading.html(item)}<p class="sources">${netSourceLinks(item, record)}</p></article>`;
+    }
+    if (item.label === "A制度建设") {
+      const facts = (item.reader_public_evidence_items || []).map(entry => `<li><strong>${esc(entry.public_label)}</strong>${prose(entry.public_basis)}</li>`).join("");
+      return `<article class="context-story net-public-item"><div class="component"><span><strong>制度建设</strong></span><b>${esc(netValue(item))}</b></div>${prose(item.reader_story)}<div class="label">为什么是这个等级</div>${prose(item.reader_summary)}${facts ? `<ul>${facts}</ul>` : ""}<p class="sources">${netSourceLinks(item, record)}</p></article>`;
+    }
     const displayLabel = item.public_component_label || (item.label === "军事成本扣分" ? "军事代价扣减" : item.label);
     const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
     const decision = item.reader_summary ? conciseNetText(item.reader_summary) : "";
@@ -470,7 +466,6 @@
   }
 
   screen.addEventListener("click", openHistoricalImpactTarget, true);
-  new MutationObserver(enhance).observe(screen, {childList: true, subtree: true});
-  window.addEventListener("hashchange", enhance);
-  enhance();
+  window.PersonReadability = Object.freeze({enhance});
+  window.ReaderSurfaceEnhancer?.schedule();
 })();

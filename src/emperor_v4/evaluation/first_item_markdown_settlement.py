@@ -38,7 +38,7 @@ _C_ROW = re.compile(
     re.MULTILINE,
 )
 
-_A_POOL_DISPLAY = re.compile(r"项目A池为\*\*(?P<pool>[0-9.]+)\*\*")
+_A_POOL_DISPLAY = re.compile(r"项目A池为(?:\*\*)?(?P<pool>[0-9.]+)(?:\*\*)?")
 _A_POOL_FORMULA = re.compile(
     r"项目A池\s*=\s*(?P<maximum>[0-9.]+)×\((?P<control>[0-9.]+)/1000\)\^0\.65=(?P<pool>[0-9.]+)"
 )
@@ -109,12 +109,14 @@ def load_first_item_markdown_settlement(workspace_root: Path, *, validate_cost: 
 def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any]:
     from emperor_v4.evaluation.first_item_c_public import verify_first_item_c_public
     from emperor_v4.evaluation.first_item_b1_cost_public import verify_first_item_b1_cost_public
+    from emperor_v4.evaluation.first_item_b2_public import verify_first_item_b2_public
 
     rows = load_first_item_markdown_settlement(workspace_root)
     a_pool_text_audited_sections = _validate_a_pool_text_consistency(workspace_root)
     public_outcomes = verify_first_item_public_outcomes(workspace_root)
     public_commander = verify_first_item_c_public(workspace_root)
     public_b1_cost = verify_first_item_b1_cost_public(workspace_root)
+    public_b2 = verify_first_item_b2_public(workspace_root)
     missing = [
         relative for relative in COMPONENT_SETTLEMENTS
         if not (workspace_root / relative).is_file()
@@ -127,6 +129,12 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
     if len(c_rows) != len(rows) or len(c_by_name) != len(c_rows):
         raise ValueError("第一项C正式结算人数为空、缺失或重复")
     totals_by_name = {row["name"]: row for row in rows}
+    from emperor_v4.evaluation.first_item_b1_inputs import load_b1_inputs, load_opponent_systems, b1_components
+    b1_inputs = load_b1_inputs(workspace_root)
+    b1_systems = load_opponent_systems(workspace_root)
+    for name, record in b1_inputs.items():
+        if totals_by_name[name]['b1'] != b1_components(record, b1_systems)['total_points']:
+            raise ValueError(f'第一项总表与B1正式计时、对手计算不同值：{name}')
     b2_audited = _validate_b2_text_consistency(workspace_root, totals_by_name)
     a_text = (workspace_root / COMPONENT_SETTLEMENTS[0]).read_text(encoding="utf-8-sig")
     a_rows = {}
@@ -143,6 +151,9 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
             raise ValueError(f"第一项A与总表分值不一致：{name}")
     if set(c_by_name) != set(totals_by_name):
         raise ValueError("第一项C与总表人物集合不一致")
+    from emperor_v4.evaluation.first_item_public_outcomes import _parse_source_sections
+    c_fields = _parse_source_sections(workspace_root / COMPONENT_SETTLEMENTS[-1])
+    total_c_fields = _component_fields_by_person((workspace_root / TOTAL_SETTLEMENT).read_text(encoding='utf-8-sig'), 'C')
     for name, c_row in c_by_name.items():
         points = float(c_row["points"])
         if points != _C_POINTS[c_row["grade"]]:
@@ -151,6 +162,11 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
             raise ValueError(f"第一项C与总表分值不一致：{name}")
         if (points == 0) != (c_row["route"] == "NONE"):
             raise ValueError(f"第一项C责任路线与分值不一致：{name}")
+        for key, value in c_fields[name].items():
+            if key == 'C结算':
+                continue
+            if total_c_fields.get(name, {}).get(key, '').replace('**', '').replace('`', '').strip() != value:
+                raise ValueError(f'第一项C正式字段与总阅读视图不一致：{name}/{key}')
     return {
         "path": TOTAL_SETTLEMENT,
         "record_count": len(rows),
@@ -161,9 +177,24 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
         "public_outcomes": public_outcomes,
         "public_commander": public_commander,
         "public_b1_cost": public_b1_cost,
+        "public_b2": public_b2,
         "b2_material_sections": b2_audited,
         "component_paths": list(COMPONENT_SETTLEMENTS),
     }
+
+
+def _component_fields_by_person(value: str, code: str | None = None) -> dict[str, dict[str, str]]:
+    """Repeated public field names belong to their own component section."""
+    result = {}
+    for match in re.finditer(r'^### \d+\. (.+)\n([\s\S]*?)(?=^### |\Z)', value, re.M):
+        body = match[2]
+        if code:
+            component = re.search(r'^\*\*' + re.escape(code) + r'｜[^\n]+\n([\s\S]*?)(?=^\*\*[A-Z][0-9]?｜|\Z)', body, re.M)
+            if not component:
+                raise ValueError(f'第一项总阅读视图缺少组件：{match[1]}/{code}')
+            body = component[1]
+        result[match[1]] = dict(re.findall(r'^- \*\*(.+?)\*\*：(.+)$', body, re.M))
+    return result
 
 
 def _validate_b2_text_consistency(workspace_root: Path, totals_by_name: dict[str, Any]) -> int:
@@ -171,10 +202,8 @@ def _validate_b2_text_consistency(workspace_root: Path, totals_by_name: dict[str
     component = workspace_root / COMPONENT_SETTLEMENTS[2]
     text = component.read_text(encoding="utf-8-sig")
     total = (workspace_root / TOTAL_SETTLEMENT).read_text(encoding="utf-8-sig")
-    def sections(value):
-        return {m[1]: dict(re.findall(r"^- \*\*(.+?)\*\*：(.+)$", m[2], re.M))
-                for m in re.finditer(r"^### \d+\. (.+)\n([\s\S]*?)(?=^### |\Z)", value, re.M)}
-    people, total_people = sections(text), sections(total)
+    people = _component_fields_by_person(text)
+    total_people = _component_fields_by_person(total, 'B2')
     if set(people) != set(totals_by_name):
         raise ValueError("第一项B2人物集合与总表不一致")
     table = {}
@@ -204,6 +233,9 @@ def _validate_b2_text_consistency(workspace_root: Path, totals_by_name: dict[str
         if not declared or float(declared[1]) != points or float(table[name][-1].strip("*")) != points or totals_by_name[name]["b2"] != points:
             raise ValueError(f"第一项B2合计与总表不一致：{name}")
         refs = fields.get("材料来源", "")
+        for key in ("评价窗口", "本人控制链", "公开阅读问题", "公开阅读正文"):
+            if not fields.get(key) or total_people.get(name, {}).get(key) != fields[key]:
+                raise ValueError(f"第一项B2公开字段与总阅读视图不一致：{name}/{key}")
         links = re.findall(r"\[[^\]]+\]\(([^)]+)\)", refs)
         if not links or total_people.get(name, {}).get("材料来源") != refs:
             raise ValueError(f"第一项B2材料来源缺失或阅读视图不一致：{name}")

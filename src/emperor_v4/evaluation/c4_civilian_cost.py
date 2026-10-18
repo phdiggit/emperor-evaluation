@@ -57,7 +57,9 @@ def verify_snapshot(workspace_root: Path) -> dict[str, Any]:
         raise ValueError("C4 civilian audit metadata mismatch")
     scores = sorted((row["score"] for row in rows), reverse=True)
     markdown = (workspace_root / ROOT_PATH / "04-C4正式结算.md").read_text(encoding="utf-8")
-    blocks = re.split(r"(?m)^### ", markdown)[1:]
+    # The authored public appendix has its own parity gate. Parse the original
+    # technical ruler blocks here so its headings cannot duplicate the roster.
+    blocks = re.split(r"(?m)^### ", markdown.split('<!-- c-public-start -->', 1)[0])[1:]
     reader = {block.split("（", 1)[0]: block for block in blocks}
     if len(reader) != len(rows):
         raise ValueError("C4 reader coverage mismatch")

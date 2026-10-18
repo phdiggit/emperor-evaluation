@@ -3,7 +3,7 @@
   "partition": "north_song",
   "bucket": 21,
   "bucket_count": 24,
-  "record_count": 34,
+  "record_count": 35,
   "records": [
     {
       "war_event_id": "WAR-NS-3DECF4BC79AEB6625917",
@@ -6571,6 +6571,56 @@
         "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
       },
       "settlement_scope": "PERSON_RESULT_ONLY"
+    },
+    {
+      "war_event_id": "PUBLIC-PERSON-ZHAOKUANGYIN-JINLING-975",
+      "dynasty_partition": "north_song",
+      "record_level": "person_command_result_registration",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_ACTION_EVIDENCE",
+      "canonical_label": "看营地图预判北砦夜袭并令筑深沟",
+      "period": {
+        "start": "975",
+        "end": "975"
+      },
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/宋史/卷258"
+      ],
+      "source_lineage": {
+        "source_files": [],
+        "lineage_basis": "原史源直接闭合人物行动与结果；仅为本人归责提供维护入口，不新增公共战争成果、成本或独立情境。"
+      },
+      "person_command_results": [],
+      "personal_action_attributions": [
+        {
+          "evidence_ref": "ACTION-C87292A13BFDF8B656AA",
+          "person": "赵匡胤",
+          "canonical_label": "看营地图预判北砦夜袭并令筑深沟",
+          "period": {
+            "start": "975",
+            "end": "975"
+          },
+          "evidence_kind": "military_operation",
+          "personal_role": "远程战术判断",
+          "military_judgment": "看潘美北砦营地图后判断敌军必夜出袭营，急令曹彬筑深沟。",
+          "implementation": "深沟完成后南唐军夜袭，潘美所部依沟拒击。",
+          "personal_result": "预测、预防部署与敌袭被拒闭合；仅局部防御，不继承灭南唐全局终果。",
+          "failure_and_limits": "",
+          "capability_episode_ref": "SONG-SOUTHTANG-974-975",
+          "source_refs": [
+            "https://zh.wikisource.org/wiki/宋史/卷258"
+          ],
+          "source_quotes": [
+            "圖其形勢來上",
+            "吳人必夜出兵來寇",
+            "令曹彬速成深溝以自固",
+            "美率所部依新溝拒之，吳人大敗"
+          ],
+          "result_direction": "positive"
+        }
+      ],
+      "dynasty": "北宋"
     }
   ]
 }

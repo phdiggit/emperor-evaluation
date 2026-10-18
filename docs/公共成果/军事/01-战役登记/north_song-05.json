@@ -586,6 +586,36 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；皇帝与摄政者按互斥实际主政窗口归责。"
+      ],
+      "personal_action_attributions": [
+        {
+          "evidence_ref": "ACTION-5EF420E537D8D079A9CB",
+          "person": "赵匡胤",
+          "canonical_label": "宋刘光义、曹彬军 × 峡路破寨夺夔州阶段",
+          "period": {
+            "start": "964",
+            "end": "965"
+          },
+          "evidence_kind": "military_operation",
+          "personal_role": "战役方案设计",
+          "military_judgment": "预授舍舟潜进、先取锁江浮梁再引战棹夹攻的具体方案，以解除夔州江防封锁。",
+          "implementation": "宋峡路军连续攻破松木、三会、巫山等寨，随后按赵匡胤预授方案舍舟潜进，先夺夔州锁江浮梁，再引战棹夹攻。武守谦率千余出战猪头铺败退，宋军乘胜登城，最终取得夔州；缴获战舰二百余艘。",
+          "personal_result": "刘光义等依预授方案夺浮梁并取得夔州，源卡明确方案出自太祖；前线潜进、破敌与难度另归执行者。",
+          "failure_and_limits": "",
+          "capability_episode_ref": "WAR-NS-D07B0E74E84B15BEAE56",
+          "source_refs": [
+            "WAR-NS-D07B0E74E84B15BEAE56-P01",
+            "SRC-XUZIZHITONGJIAN-004-2299538-P0031",
+            "SRC-XUZIZHITONGJIAN-004-2299538-P0032"
+          ],
+          "source_quotes": [
+            "死者五千餘人",
+            "奪戰艦二百餘艘",
+            "先奪浮梁，復引舟而上，遂破州城",
+            "彥儔力戰不勝，身被十餘槍"
+          ],
+          "result_direction": "positive"
+        }
       ]
     },
     {
@@ -6293,8 +6323,8 @@
       "campaign_group_ref": "PCR-A45FB852802963B61A21",
       "canonical_label": "亲临太原总攻，控制军队后退尺度并接受北汉投降。",
       "period": {
-        "start": "UNKNOWN_WITHIN_SOURCE_SCOPE",
-        "end": "UNKNOWN_WITHIN_SOURCE_SCOPE"
+        "start": "979",
+        "end": "979"
       },
       "public_outcome_registered": false,
       "disposition": "REGISTERED_PERSON_RESULT",
@@ -6366,7 +6396,13 @@
         "baseline_talent_path": "docs/公共成果/军事/02-武将人才等级/bucket-00.json",
         "fact_scope": "EXISTING_ACCEPTED_PERSON_RESULT_ONLY"
       },
-      "settlement_scope": "PERSON_RESULT_ONLY"
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "period_source_basis": {
+        "source_refs": [
+          "https://zh.wikisource.org/wiki/宋史/卷004"
+        ],
+        "basis": "太平兴国四年五月灭北汉终局；只定位既有本人总攻受降阶段，不补全战役信用。"
+      }
     },
     {
       "war_event_id": "PCR-081BF31E1E271009519C",

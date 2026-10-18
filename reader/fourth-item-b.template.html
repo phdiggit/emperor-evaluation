@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>教育可及与人才流动 · 帝王三镜</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f3ec;color:#29332f;font:16px/1.9 "Microsoft YaHei",sans-serif}main,header{max-width:980px;margin:auto;padding:24px}header{border-bottom:1px solid #d7d9cc}a{color:#315d56}input{width:100%;padding:12px;font:inherit}article.person{margin:24px 0;padding:20px;background:#fffefa;border-left:3px solid #8ba89a}h2{margin:0}h4{margin:12px 0 8px}summary{cursor:pointer;padding:8px 0}.prose{white-space:pre-wrap;overflow-wrap:anywhere}.meta,.sources,.subline{font-size:14px;overflow-wrap:anywhere}[hidden]{display:none!important}details{margin:8px 0}.component{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}.net-material-card,.context-story{padding:14px 0;border-top:1px solid #d7d9cc}.label{font-weight:bold;margin-top:16px}@media(max-width:600px){main,header{padding:14px}article.person{padding:14px}}
+</style></head><body>
+<header><a href="index.html">帝王三镜</a> · <a href="index.html#guide">如何阅读</a></header>
+<main><h1>谁获得了学习与进身机会，谁又被挡在门外？</h1>
+<p>这里看学校是否实际教学、谁能入学、学成后能否跨地域或身份进入新的岗位。制度名称、名臣数量和典籍体量本身不代替结果。先比较本人继承的状态，再看覆盖、持续性和限制；零分分别说明未确认独立变化、材料复核后不计分与正负相抵。</p>
+<p>收录第四项现有全部 <span id="total">__COUNT__</span> 条人物记录，按姓名排列。每人的实际主政时期和综合评价就绪状态分别标明；保留的单项记录不表示已进入综合评价池，也不据此另作排名。</p>
+<label for="search">搜索人物、经历或材料</label><input id="search" type="search" autocomplete="off"><p>当前显示 <span id="count">__COUNT__</span> 人。</p>
+<section id="entries" aria-label="教育可及与人才流动全池阅读"></section></main>
+<script id="fourth-b-data" type="application/json">__PAYLOAD__</script>
+<script>
+const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sourceIdentity=__SOURCE_IDENTITY__;
+function link(path,label){const local=['localhost','127.0.0.1','[::1]'].includes(location.hostname);const href=/^https?:\/\//.test(path)?path:local||!sourceIdentity.repository||!sourceIdentity.revision?'../'+path:'https://github.com/'+sourceIdentity.repository+'/blob/'+sourceIdentity.revision+'/'+path;return `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`;}
+</script><script src="fourth-item-b-public.js"></script><script>
+const DATA=JSON.parse(document.getElementById('fourth-b-data').textContent);
+document.getElementById('entries').innerHTML=DATA.map(r=>`<article class="person" id="${esc(r.ruler_id)}"><h2>${esc(r.ruler_name)}</h2><p class="meta">${esc(r.polity)} · ${esc(r.pool_note)}</p>${FourthItemBReading.heading(r.item)}${FourthItemBReading.html(r.item,r)}</article>`).join('');
+const entries=[...document.querySelectorAll('article.person')];document.getElementById('search').addEventListener('input',event=>{const q=event.target.value.trim();let count=0;for(const entry of entries){entry.hidden=q!==''&&!entry.textContent.includes(q);if(!entry.hidden)count++;}document.getElementById('count').textContent=count;});
+if(location.hash){const entry=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(entry)entry.scrollIntoView();}
+</script></body></html>

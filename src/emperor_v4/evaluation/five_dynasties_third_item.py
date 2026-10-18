@@ -1293,7 +1293,7 @@ def _apply_c_within_band_position(row: dict[str, Any]) -> None:
         _axis_grade(row["operational_sustainability_cap"], "C2"),
         _axis_grade(row["system_reliability_cap"], "C3"),
     ]
-    grade = min(axes)
+    grade = _axis_grade(row["final_grade"], "C") if row.get("final_grade") else min(axes)
     lower, upper = (
         (0, 29), (30, 44), (45, 59),
         (60, 74), (75, 89), (90, 100),
@@ -1305,13 +1305,13 @@ def _apply_c_within_band_position(row: dict[str, Any]) -> None:
         band_position = 1.0
         rate = 100.0
     else:
-        axis_position = surplus / (2 * (5 - grade))
-        outcome_profile = row.get("task_outcome_profile") or {}
+        axis_position = max(0.0, min(1.0, surplus / (2 * (5 - grade))))
+        outcome_profile = row.get("strategy_chain_outcome_profile", row.get("task_outcome_profile")) or {}
         counts = dict(outcome_profile.get("return_class_counts") or {})
         known = sum(
             int(count)
             for outcome, count in counts.items()
-            if outcome != "UNKNOWN"
+            if outcome in {"HIGH_RETURN", "PROPORTIONATE_RETURN", "LOW_RETURN", "NEGATIVE_RETURN"}
         )
         if known:
             quality = (
@@ -1322,7 +1322,7 @@ def _apply_c_within_band_position(row: dict[str, Any]) -> None:
             confidence = min(1.0, known / 4)
             outcome_position = 0.5 + (quality - 0.5) * confidence
         else:
-            outcome_position = axis_position
+            outcome_position = 0.5
         position_decision = row.get("C_score_within_band_adjudication") or {}
         position_code = str(position_decision.get("position") or "")
         adjudicated_position = {
@@ -1330,16 +1330,8 @@ def _apply_c_within_band_position(row: dict[str, Any]) -> None:
             "MID": 0.5,
             "HIGH": 0.75,
         }.get(position_code)
-        # Founding/unification capability may establish the C axis grade, but
-        # it must not also provide a second within-band bonus when the current
-        # Third Item contributes no independent stress cycle of its own.
-        if (
-            int(row.get("current_item_task_count") or 0) == 0
-            and row.get("capability_only_parent_refs")
-        ):
-            outcome_position = min(outcome_position, 0.5)
-            if adjudicated_position is not None:
-                adjudicated_position = min(adjudicated_position, 0.5)
+        if row.get("system_observation_status") == "INHERITED_UNTESTED":
+            outcome_position = 0.5
         evidence_position = max(axis_position, outcome_position)
         band_position = (
             max(axis_position, adjudicated_position)
@@ -1355,8 +1347,12 @@ def _apply_c_within_band_position(row: dict[str, Any]) -> None:
         "C_score_outcome_position": round(outcome_position, 4),
         "C_score_band_position": round(band_position, 4),
         "C_score_position_method": (
-            "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION"
+            "INHERITED_SYSTEM_NEUTRAL_POSITION"
+            if row.get("system_observation_status") == "INHERITED_UNTESTED"
+            else "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION"
             if row.get("C_score_within_band_adjudication")
+            else "AXIS_SURPLUS_PLUS_STRATEGIC_CHAIN_OUTCOME_QUALITY"
+            if "strategy_chain_outcome_profile" in row
             else "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY"
         ),
         "C_score_band": {"lower_rate": lower, "upper_rate": upper},
@@ -4383,6 +4379,10 @@ def _render_formal_markdown(
             else:
                 lines += [f"- 裁决：{_ab_settlement_basis(row)}", ""]
             continue
+        if row.get('public_reading'):
+            from emperor_v4.evaluation.third_item_c_public import markdown as c_public_markdown
+            lines += [c_public_markdown(row), '']
+            continue
         if row.get("C_overall_grade") == "C-N":
             lines += [
                 f"- 裁决：{_markdown_cell(_joined_reasons(row.get('cap_reasons') or []))}",
@@ -4405,6 +4405,15 @@ def _render_formal_markdown(
             f"- 裁决：{_markdown_cell(c_basis)}",
             "",
         ]
+    if kind == 'C' and unscored:
+        from emperor_v4.evaluation.third_item_c_public import markdown as c_public_markdown
+        lines += ['## 必要证据不足，暂不计分', '']
+        for row in unscored:
+            lines += [f"### {row['ruler_name']}（暂不计分）", '']
+            if row.get('public_reading'):
+                lines += [c_public_markdown(row), '']
+            else:
+                lines += [_markdown_cell(_joined_reasons(row.get('cap_reasons') or [])), '']
     return "\n".join(lines).rstrip() + "\n"
 
 

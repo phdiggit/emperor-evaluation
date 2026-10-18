@@ -157,7 +157,10 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
     if len(context_rows) != len(context_payload["records"]):
         raise ValueError("综合榜治理背景人物重复")
     ready_ids = {row["ruler_id"] for row in ready}
-    if set(context_rows) != ready_ids:
+    # Background evidence remains valid when a ruler temporarily leaves the
+    # ranking because a necessary score is unresolved. Only ready rows score.
+    pool_ids = {row['ruler_id'] for row in pool['records'] if row['pool_status'] == 'INCLUDED'}
+    if not ready_ids <= set(context_rows) or not set(context_rows) <= pool_ids:
         raise ValueError("综合榜治理背景未覆盖当前全部入榜对象")
     context_labels = context_payload["labels"]
     for pool_row in ready:

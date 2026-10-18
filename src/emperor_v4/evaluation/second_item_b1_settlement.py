@@ -117,19 +117,44 @@ def _normalize_public_text(value: object) -> str:
     return text.strip(" ；，。")
 
 
+def _validate_independent_public_card_distinctness(row: dict[str, Any]) -> None:
+    labels: dict[str, dict[str, Any]] = {}
+    bases: dict[str, dict[str, Any]] = {}
+    for profile in _iter_profiles(row):
+        if profile.get("adjudication_status") != "COUNTED_INDEPENDENT":
+            continue
+        label = _normalize_public_text(profile.get("public_label"))
+        basis = _normalize_public_text(profile.get("adjudication_basis"))
+        if label in labels:
+            previous = labels[label]
+            raise ValueError(
+                f"B1独立材料公开名称重复：{row['ruler_name']} / "
+                f"{previous.get('profile_id')} / {profile.get('profile_id')} / {label}"
+            )
+        if basis in bases:
+            previous = bases[basis]
+            raise ValueError(
+                f"B1独立材料公开裁决正文重复：{row['ruler_name']} / "
+                f"{previous.get('profile_id')} / {profile.get('profile_id')}"
+            )
+        labels[label] = profile
+        bases[basis] = profile
+
+
 def _public_tags(profile: dict[str, Any], status: str) -> list[str]:
-    role = "补充材料" if status == "ABSORBED_SAME_LIFECYCLE" else (
+    unscored = profile.get("M") == "M0"
+    role = "边界材料" if unscored else "补充材料" if status == "ABSORBED_SAME_LIFECYCLE" else (
         "边界材料" if status == "BOUNDARY_CONTEXT" else PUBLIC_ROLE_LABELS.get(
             str(profile.get("b1_role") or ""), "行政运行链"
         )
     )
     values = [
-        PUBLIC_DIRECTION_LABELS.get(str(profile.get("direction") or ""), "正负并存"),
+        "边界材料" if unscored else PUBLIC_DIRECTION_LABELS.get(str(profile.get("direction") or ""), "正负并存"),
         role,
         PUBLIC_STATUS_LABELS[status],
     ]
     closure = PUBLIC_CLOSURE_LABELS.get(str(profile.get("result_closure") or "").lower())
-    if closure:
+    if closure and not unscored and status != "BOUNDARY_CONTEXT":
         values.append(closure)
     return list(dict.fromkeys(value for value in values if value))
 
@@ -142,26 +167,17 @@ def _weight_text(value: object) -> str:
 
 
 def _public_summary(row: dict[str, Any]) -> str:
-    independent = [
-        profile for profile in _iter_profiles(row)
-        if profile.get("adjudication_status") == "COUNTED_INDEPENDENT"
-    ]
-    positive = sum(1 for profile in independent if profile.get("direction") in {"positive", "positive_correction"})
-    negative = sum(1 for profile in independent if profile.get("direction") == "negative")
-    mixed = sum(
-        1 for profile in independent
-        if profile.get("direction") not in {"positive", "positive_correction", "negative"}
-    )
-    mixed += sum(1 for profile in _iter_profiles(row) if profile.get("adjudication_status") == "ZERO_NET")
-    absorbed = sum(1 for profile in _iter_profiles(row) if profile.get("adjudication_status") == "ABSORBED_SAME_LIFECYCLE")
-    context = sum(1 for profile in _iter_profiles(row) if profile.get("adjudication_status") == "BOUNDARY_CONTEXT")
-    parts = [f"正式结算按独立行政运行链判断：正向 {positive} 条、负向 {negative} 条、正负并存 {mixed} 条"]
-    if absorbed:
-        parts.append(f"{absorbed} 条补充材料并入同一运行链")
-    if context:
-        parts.append(f"{context} 条边界材料不单独计入")
-    parts.append("各条权重并不相同，不能按条数直接相减")
-    return "；".join(parts) + "。"
+    """The formal record authors the explanation; counts cannot explain a grade."""
+    return _authored_public_text(row, "public_adjudication_summary")
+
+
+def _authored_public_text(row: dict[str, Any], field: str) -> str:
+    value = row.get(field)
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"B1缺少逐人撰写的公开正文：{row.get('ruler_name')} / {field}")
+    if PUBLIC_FORBIDDEN_RE.search(value) or re.search(r"\bG[0-5]\b|正式结算按独立行政运行链判断|逐字史料所载", value):
+        raise ValueError(f"B1公开正文仍是内部裁决或占位模板：{row.get('ruler_name')} / {field}")
+    return value
 
 
 def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
@@ -169,8 +185,10 @@ def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
     for profile in _iter_profiles(row):
         status = str(profile.get("adjudication_status") or "")
         items.append({
+            "profile_id": str(profile.get("profile_id") or ""),
+            "material_id": str(profile.get("material_id") or ""),
             "public_label": str(profile.get("public_label") or ""),
-            "public_direction": PUBLIC_DIRECTION_LABELS.get(
+            "public_direction": "边界材料" if profile.get("M") == "M0" else PUBLIC_DIRECTION_LABELS.get(
                 str(profile.get("direction") or ""), "正负并存"
             ),
             "public_tags": list(profile.get("adjudication_tags") or []),
@@ -274,10 +292,22 @@ def _public_position_basis(row: dict[str, Any]) -> str:
         "middle-upper": "中上位",
         "upper": "上位",
     }
+    grade = str(row["grade"])
+    public_grade = dict(zip(INTERVALS, ("E", "D", "C", "B", "A", "S")))[grade]
+    low, high = INTERVALS[grade]
+    groups = active_groups(row)
+    weight = sum(float(profile.get("signed_weight") or 0) for profile in groups)
+    residual = position_residual(row)
+    severity = round(weight - THRESHOLDS[grade] - residual, 3)
+    terms = "、".join(f"{profile.get('public_label')}（{_weight_text(profile.get('signed_weight'))}）" for profile in groups)
     return (
-        f"档位{row['grade']}内的公开位置按有效行政运行链的合计依据机械确定为"
-        f"{position_cn[row['position']]}，公开指数为{float(row['direction_index']):.1f}/100；"
-        "该位置只用于同档展示，不用于跨档比较。"
+        f"先依据上述经历判断为{public_grade}档，再计算档内位置；材料条数不直接决定档位。"
+        f"去重后的计权依据为：{terms or '无有效计权材料'}，合计{weight:g}；"
+        f"减去本档固定占用{THRESHOLDS[grade]:g}和独立严重失灵修正{severity:g}，余额为{residual:g}。"
+        "余额小于−1为下位，−1至不足0为中下位，0至不足1为中位，1至不足2为中上位，至少2为上位。"
+        f"本人为{position_cn[row['position']]}，取区间位置{POSITION_Q[row['position']]:g}；"
+        f"{public_grade}档区间{low:g}—{high:g}，指数={low:g}+{POSITION_Q[row['position']]:g}×({high:g}−{low:g})"
+        f"={float(row['direction_index']):.1f}/100（保留一位小数）。该指数再进入制度与行政合成，不单列得分。"
     )
 
 
@@ -373,7 +403,10 @@ def _prepare_profile_adjudication(payload: dict[str, Any]) -> tuple[int, Counter
                 raise ValueError(f"非并入profile不得保留absorbed_into_profile_id：{row['ruler_name']} / {profile.get('material_id')}")
             status_counts[status] += 1
 
+        _authored_public_text(row, "public_story")
+        _authored_public_text(row, "public_responsibility")
         row["public_adjudication_summary"] = _public_summary(row)
+        row["public_index_calculation"] = _public_position_basis(row)
         row["public_boundary"] = B1_PUBLIC_BOUNDARY
         row["public_evidence_items"] = _public_evidence_items(row)
         row["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
@@ -438,9 +471,13 @@ def refresh_b1_public_projection(payload: dict[str, Any]) -> dict[str, Any]:
                 )
             status_counts[status] += 1
 
+        _authored_public_text(row, "public_story")
+        _authored_public_text(row, "public_responsibility")
         row["public_adjudication_summary"] = _public_summary(row)
+        row["public_index_calculation"] = _public_position_basis(row)
         row["public_boundary"] = B1_PUBLIC_BOUNDARY
         row["public_evidence_items"] = _public_evidence_items(row)
+        row["structured_grade_basis"] = _structured_basis(row)
 
     payload["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
     payload["profile_adjudication_record_count"] = len(payload.get("records") or [])
@@ -698,6 +735,12 @@ def validate_public_profile_contract(payload: dict[str, Any]) -> None:
     expected_profile_count = 0
     status_counts: Counter[str] = Counter()
     for row in payload["records"]:
+        _authored_public_text(row, "public_story")
+        _authored_public_text(row, "public_responsibility")
+        _public_summary(row)
+        _validate_independent_public_card_distinctness(row)
+        if row.get("public_index_calculation") != _public_position_basis(row):
+            raise ValueError(f"B1公开档内计算与当前输入不一致：{row['ruler_name']}")
         profiles = list(_iter_profiles(row))
         by_id = {str(profile.get("profile_id")): profile for profile in profiles}
         for profile in profiles:
@@ -719,6 +762,10 @@ def validate_public_profile_contract(payload: dict[str, Any]) -> None:
                 raise ValueError(f"B1逐材料公开名称或裁决缺失：{row['ruler_name']} / {profile.get('material_id')}")
             if PUBLIC_FORBIDDEN_RE.search(" ".join((label, basis, str(profile.get("adjudication_boundary") or "")))):
                 raise ValueError(f"B1逐材料公开裁决仍含内部术语：{row['ruler_name']} / {profile.get('material_id')}")
+            if re.search(r"逐字史料所载|仅按引文可直接观察|当前等级|根据既有材料，裁为|该材料形成独立行政运行链", basis):
+                raise ValueError(f"B1逐材料公开裁决仍是占位或过程模板：{row['ruler_name']} / {profile.get('material_id')}")
+            if status == "COUNTED_INDEPENDENT" and re.search(r"只作官僚治理.*背景|不直接计为交付结果|仅作背景，不", basis):
+                raise ValueError(f"B1独立计入材料正文却声明不计入：{row['ruler_name']} / {profile.get('material_id')}")
             if profile.get("adjudication_tags") != _public_tags(profile, status):
                 raise ValueError(f"B1逐材料公开标签与正式状态不一致：{row['ruler_name']} / {profile.get('material_id')}")
             target_id = str(profile.get("absorbed_into_profile_id") or "")
@@ -730,8 +777,6 @@ def validate_public_profile_contract(payload: dict[str, Any]) -> None:
                     raise ValueError(f"B1并入材料缺少唯一主profile：{row['ruler_name']} / {profile.get('material_id')}")
             elif target_id:
                 raise ValueError(f"B1非并入材料错误保留主profile引用：{row['ruler_name']} / {profile.get('material_id')}")
-        if row.get("public_adjudication_summary") != _public_summary(row):
-            raise ValueError(f"B1人物级公开总括不是当前profile的机械汇总：{row['ruler_name']}")
         if row.get("public_boundary") != B1_PUBLIC_BOUNDARY:
             raise ValueError(f"B1人物级公开边界不是当前正式合同投影：{row['ruler_name']}")
         if row.get("public_evidence_items") != _public_evidence_items(row):
@@ -867,6 +912,8 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
             f"### {row['ruler_name']}（{row['polity']}，分项第{row['rank']}名）", "",
             f"- 档位：{row['grade']}（{position_cn[row['position']]}）",
             f"- 内部指数：{float(row['direction_index']):.1f}/100",
+            f"- 具体经历：{row['public_story']}",
+            f"- 本人责任：{row['public_responsibility']}",
             "- 结算依据：",
         ])
         lines.extend(

@@ -3,7 +3,7 @@
   "partition": "qing",
   "bucket": 5,
   "bucket_count": 24,
-  "record_count": 9,
+  "record_count": 10,
   "records": [
     {
       "war_event_id": "WAR-POST-85F04B0F52DBBC3E190F",
@@ -816,6 +816,55 @@
       ],
       "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
       "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "PUBLIC-PERSON-XUANYE-YUEZHOU-1678-1679",
+      "dynasty_partition": "qing",
+      "record_level": "person_command_result_registration",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_ACTION_EVIDENCE",
+      "canonical_label": "岳州围饷方案的采纳及增援实施",
+      "period": {
+        "start": "1678",
+        "end": "1679"
+      },
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/清史稿/卷218"
+      ],
+      "source_lineage": {
+        "source_files": [],
+        "lineage_basis": "原史源直接闭合人物行动与结果；仅为本人归责提供维护入口，不新增公共战争成果、成本或独立情境。"
+      },
+      "person_command_results": [],
+      "personal_action_attributions": [
+        {
+          "evidence_ref": "ACTION-5BFD08950A9BE48D481C",
+          "person": "玄烨",
+          "canonical_label": "岳州围饷方案的采纳及增援实施",
+          "period": {
+            "start": "1678",
+            "end": "1679"
+          },
+          "evidence_kind": "military_operation",
+          "personal_role": "有限方案采纳与实施支持",
+          "military_judgment": "察尼提出趁湖水涸后木栰立椿列炮、小舟徼巡、围断敌饷的方案；帝确认并令关保增援。",
+          "implementation": "水陆兵持续合围，降将舟师来降，吴应麒弃城，岳州恢复。",
+          "personal_result": "本人只取有明确军事内容的采用与实施支持，方案构思、持续战场调度及克城主功归察尼等，不继承全三藩终局。",
+          "failure_and_limits": "",
+          "capability_episode_ref": "QING-SANFAN-YUEZHOU",
+          "source_refs": [
+            "https://zh.wikisource.org/wiki/清史稿/卷218"
+          ],
+          "source_quotes": [
+            "宜於湖水涸後，圍以木栰，立椿列礮",
+            "上善其言，令副都統關保濟師",
+            "屢疏請增調水陸軍合圍，上皆許之"
+          ],
+          "result_direction": "positive"
+        }
+      ],
+      "dynasty": "清"
     }
   ]
 }

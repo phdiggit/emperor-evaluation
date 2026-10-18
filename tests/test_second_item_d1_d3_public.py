@@ -3,142 +3,159 @@ from __future__ import annotations
 from copy import deepcopy
 import json
 from pathlib import Path
+from html.parser import HTMLParser
+import pytest
 
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.second_item_d1_d3_public import (
-    D1_PATH,
-    D3_PATH,
-    PUBLIC_EVIDENCE_FIELDS,
-    PUBLIC_FORBIDDEN_RE,
-    _refresh_payload,
-    _scoring_signature,
-    verify_public_projection,
+    D1_PATH, D3_PATH, PUBLIC_RECORD_FIELDS, PUBLIC_EVIDENCE_FIELDS,
+    PUBLIC_FORBIDDEN_RE, _refresh_payload, _scoring_signature,
+    verify_public_projection, render_public_markdown, run,
 )
 
 
-def _d1_row() -> dict:
-    return {
-        "ruler_id": "SYNTHETIC-D1-RULER",
-        "ruler_name": "合成甲",
-        "grade": "G3",
-        "handoff_level": "H3",
-        "grade_basis": "H3：前任留下的中枢人员与命令链在退出后继续运行；D3事实不在本轴重复计算。",
-        "M_positive_profile": [
-            {
-                "M": "M2",
-                "direction": "positive",
-                "mechanism": "DIRECT_D1_CONTINUITY",
-                "result_closure": "observed_or_repeated",
-                "signed_weight": 1.0,
-            }
-        ],
-        "M_mixed_profile": [],
-        "M_negative_profile": [
-            {
-                "M": "M2",
-                "direction": "negative",
-                "mechanism": "行政链重组",
-                "result_closure": "observed_or_repeated",
-                "signed_weight": -1.0,
-            }
-        ],
-    }
+def synthetic(root, axis):
+    folder = root / 'docs'
+    folder.mkdir(exist_ok=True)
+    source = folder / 'synthetic-source.md'
+    source.write_text('旧臣继续办事，太子承接。\n', encoding='utf-8')
+    row = dict(ruler_id='SYNTHETIC-RULER', ruler_name='合成甲', polity='合成国',
+               direction_index=1.5, grade='G2', handoff_level='H2', D3_grade='D3-2',
+               grade_basis='允许保留内部H2代码', reason='内部判词不得生成公开正文',
+               public_story='旧臣继续办事，太子承接。',
+               public_adjudication_summary='承接有实际运行依据，但存在明确限制。',
+               public_window='观察实际退出后的接续。',
+               public_responsibility='只采用所留人员和安排。',
+               public_boundary='不以继任者全部成果证明前任贡献。',
+               public_evidence_items=[dict(id=f'{axis}-SYNTHETIC-EVIDENCE',
+                   public_label='既有人员与承接', public_role='交接结果',
+                   public_basis='太子承接且旧臣继续办事。',
+                   public_boundary='此条不说明继任者长期成败。', evidence_mode='INFERRED',
+                   source_refs=[dict(path='docs/synthetic-source.md',
+                       source_title='合成史料', source_locator='第1行', source_kind='史料原文引句',
+                       source_url='', excerpt='旧臣继续办事，太子承接。', public_excerpt='旧臣继续办事，太子承接。', line=1)])])
+    return _refresh_payload(dict(records=[row]), axis)
 
 
-def _d3_row() -> dict:
-    return {
-        "ruler_id": "SYNTHETIC-D1-RULER",
-        "ruler_name": "合成乙",
-        "D3_grade": "D3-2",
-        "actual_successor": "继承者乙",
-        "prearrangement_evidence": "已立太子并安排辅政。",
-        "immediate_result_facts": ["宫廷武装介入", "一个中央很快恢复运行"],
-        "reason": "实际承接由强制手段决定。",
-        "terminal_evidence": "继承窗口内完成强制接管。",
-    }
+def test_refresh_preserves_authored_text_sources_and_nonpublic_fields(tmp_path):
+    for axis in ('D1', 'D3'):
+        payload = synthetic(tmp_path, axis)
+        before = deepcopy(payload)
+        payload['records'][0]['grade_basis'] = '换成新的内部说明也不重写正文'
+        signature = _scoring_signature(payload)
+        refreshed = _refresh_payload(payload, axis)
+        assert _scoring_signature(refreshed) == signature
+        for field in PUBLIC_RECORD_FIELDS:
+            assert refreshed['records'][0][field] == before['records'][0][field]
 
 
-def test_public_projection_preserves_scoring_fields_and_keeps_all_evidence():
-    d1 = {"records": [_d1_row()]}
-    d3 = {"records": [_d3_row()]}
-    before_d1 = deepcopy(d1)
-    before_d3 = deepcopy(d3)
-
-    projected_d1 = _refresh_payload(d1, "D1")
-    projected_d3 = _refresh_payload(d3, "D3")
-
-    assert _scoring_signature(projected_d1) == _scoring_signature(before_d1)
-    assert _scoring_signature(projected_d3) == _scoring_signature(before_d3)
-    assert len(projected_d1["records"][0]["public_evidence_items"]) == 2
-    assert len(projected_d3["records"][0]["public_evidence_items"]) == 3
-    report = verify_public_projection(
-        Path("."), payloads={"D1": projected_d1, "D3": projected_d3}
-    )
-    assert report["record_count"] == 1
-    assert report["D1"]["public_evidence_item_count"] == 2
-    assert report["D3"]["public_evidence_item_count"] == 3
+def test_missing_authored_text_is_rejected_instead_of_inferred(tmp_path):
+    payload = synthetic(tmp_path, 'D1')
+    del payload['records'][0]['public_story']
+    with pytest.raises(ValueError, match='缺少直接维护'):
+        _refresh_payload(payload, 'D1')
 
 
+@pytest.mark.parametrize('damage', ['quote', 'transcription', 'line', 'path', 'source', 'code', 'fragment'])
+def test_invalid_source_or_prose_fails_closed(tmp_path, damage):
+    payloads = {axis: synthetic(tmp_path, axis) for axis in ('D1', 'D3')}
+    item = payloads['D1']['records'][0]['public_evidence_items'][0]
+    ref = item['source_refs'][0]
+    if damage == 'quote': ref['excerpt'] = '没有这句史料'
+    elif damage == 'transcription': ref['public_excerpt'] = '在史料引句中添加新结论'
+    elif damage == 'line': ref['line'] = 7
+    elif damage == 'path': ref['path'] = '../outside.md'
+    elif damage == 'source': item['source_refs'] = []
+    elif damage == 'code': item['public_basis'] = 'H2达到条件。'
+    else: item['public_basis'] = '其价值达到。'
+    with pytest.raises(ValueError):
+        verify_public_projection(tmp_path, payloads=payloads)
 
-def test_d3_public_arrangement_uses_explicit_formal_successor_status_before_generic_placeholder():
-    row = _d3_row()
-    row.update({
-        "actual_successor": "朱高炽",
-        "prearrangement_evidence": "固定本纪、编年终局窗口及具名列传复核",
-        "reason": "事前太子明确，军中死亡和六军在外构成现实风险检验。",
-    })
-    projected = _refresh_payload({"records": [row]}, "D3")
-    arrangement = projected["records"][0]["public_evidence_items"][0]
-    assert arrangement["public_role"] == "事前安排"
-    assert arrangement["public_basis"] == "朱高炽的既定承接地位明确"
-    assert "未提供可直述" not in arrangement["public_basis"]
+
+def test_markdown_displays_full_authored_text_and_quotations(tmp_path):
+    payload = synthetic(tmp_path, 'D1')
+    markdown = render_public_markdown(payload, 'D1')
+    row = payload['records'][0]
+    for field in PUBLIC_RECORD_FIELDS:
+        if field != 'public_evidence_items': assert row[field] in markdown
+    assert row['public_evidence_items'][0]['source_refs'][0]['excerpt'] in markdown
+    assert markdown == render_public_markdown(payload, 'D1')
 
 
-def test_current_d1_d3_projection_covers_the_formal_pool_without_internal_public_terms():
+def test_current_sources_and_reading_views_are_synchronized():
     root = Path(__file__).resolve().parents[1]
-    d1 = load_json(root / D1_PATH)
-    d3 = load_json(root / D3_PATH)
-    report = verify_public_projection(root, payloads={"D1": d1, "D3": d3})
-
-    assert report["record_count"] == len(d1["records"]) == len(d3["records"])
-    assert {row["ruler_id"] for row in d1["records"]} == {row["ruler_id"] for row in d3["records"]}
-    for payload in (d1, d3):
-        for row in payload["records"]:
-            fields = [row["public_adjudication_summary"]]
-            fields.extend(
-                item[field]
-                for item in row["public_evidence_items"]
-                for field in PUBLIC_EVIDENCE_FIELDS
-                if field != "id"
-            )
-            assert all(not PUBLIC_FORBIDDEN_RE.search(value) for value in fields)
+    before = {p: p.read_bytes() for p in (root / D1_PATH, root / D3_PATH)}
+    report = run(root)
+    assert report['record_count'] == len(load_json(root / D1_PATH)['records'])
+    assert all(path.read_bytes() == content for path, content in before.items())
 
 
-def test_reader_uses_the_complete_formal_d1_d3_public_projection():
+def test_reader_uses_complete_authored_projection_without_transforming_evidence():
     root = Path(__file__).resolve().parents[1]
-    d1 = {row["ruler_name"]: row for row in load_json(root / D1_PATH)["records"]}
-    d3 = {row["ruler_name"]: row for row in load_json(root / D3_PATH)["records"]}
-    seen = {"D1": 0, "D3": 0}
+    sources = {axis: {r['ruler_id']: r for r in load_json(root / path)['records']}
+               for axis, path in [('D1', D1_PATH), ('D3', D3_PATH)]}
+    seen = set()
+    for path in (root / 'reader/data/people').glob('*.json'):
+        record = json.loads(path.read_text(encoding='utf-8'))['record']
+        for item in (record.get('net') or {}).get('component_details', {}).get('handoff', []):
+            axis = {'D1继任行政连续性': 'D1', 'D3政权交接稳定': 'D3'}.get(item.get('label'))
+            if not axis: continue
+            formal = sources[axis][record['ruler_id']]
+            assert item['reader_public_d'] == {k: formal[k] for k in PUBLIC_RECORD_FIELDS}
+            assert item['reader_public_evidence_items'] == formal['public_evidence_items']
+            seen.add(axis)
+    assert seen == set(sources)
 
-    for path in (root / "reader/data/people").glob("*.json"):
-        detail = json.loads(path.read_text(encoding="utf-8"))
-        person_name = (detail.get("record") or {}).get("ruler_name")
-        handoff = ((detail.get("record") or {}).get("net") or {}).get("component_details", {}).get("handoff", [])
-        for item in handoff:
-            label = item.get("label")
-            if label == "D1继任行政连续性":
-                formal = d1[person_name]
-                axis = "D1"
-            elif label == "D3政权交接稳定":
-                formal = d3[person_name]
-                axis = "D3"
-            else:
-                continue
-            seen[axis] += 1
-            assert item["reader_public_evidence_items"] == formal["public_evidence_items"]
-            assert item["public_adjudication_summary"] == formal["public_adjudication_summary"]
-            assert "reader_full_basis" not in item
-            assert len(item["reader_public_evidence_items"]) >= 1
 
-    assert seen["D1"] > 0
-    assert seen["D3"] > 0
+def test_current_public_text_has_no_internal_notation():
+    root = Path(__file__).resolve().parents[1]
+    for path in (D1_PATH, D3_PATH):
+        for row in load_json(root / path)['records']:
+            for field in PUBLIC_RECORD_FIELDS:
+                if field != 'public_evidence_items': assert not PUBLIC_FORBIDDEN_RE.search(row[field])
+            for item in row['public_evidence_items']:
+                assert set(item) == set(PUBLIC_EVIDENCE_FIELDS)
+                for field in ('public_label', 'public_role', 'public_basis', 'public_boundary'):
+                    assert not PUBLIC_FORBIDDEN_RE.search(item[field])
+
+
+def test_full_pool_collection_keeps_every_authored_record_and_quotation():
+    class Collection(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.current = None
+            self.people = {}
+            self.evidence = set()
+
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if tag == 'article':
+                self.current = attrs['id']
+                self.people[self.current] = ''
+            if 'data-public-evidence-id' in attrs:
+                self.evidence.add(attrs['data-public-evidence-id'])
+
+        def handle_endtag(self, tag):
+            if tag == 'article': self.current = None
+
+        def handle_data(self, data):
+            if self.current: self.people[self.current] += data
+
+    root = Path(__file__).resolve().parents[1]
+    page = Collection()
+    page.feed((root / 'reader/second-item-d.html').read_text(encoding='utf-8'))
+    expected_ids, expected_evidence = set(), set()
+    for path in (D1_PATH, D3_PATH):
+        for row in load_json(root / path)['records']:
+            expected_ids.add(row['ruler_id'])
+            text = page.people[row['ruler_id']]
+            for field in PUBLIC_RECORD_FIELDS:
+                if field != 'public_evidence_items':
+                    assert all(part in text for part in row[field].split('\n\n'))
+            for item in row['public_evidence_items']:
+                expected_evidence.add(item['id'])
+                assert item['public_basis'] in text
+                for ref in item['source_refs']:
+                    assert ref['public_excerpt'] in text
+    assert set(page.people) == expected_ids
+    assert page.evidence == expected_evidence

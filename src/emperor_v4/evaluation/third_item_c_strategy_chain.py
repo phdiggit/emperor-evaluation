@@ -248,10 +248,6 @@ def _verify_score_fields(
         "upper_rate": GRADE_RANGES[final][1],
     }:
         raise ValueError(f"{row.get('ruler_name')}C档区间与最终档不一致")
-    if source_row and source_row.get("formal_score_rate_snapshot") is not None and row.get("system_observation_status") != "INHERITED_UNTESTED":
-        if rate != float(source_row["formal_score_rate_snapshot"]):
-            raise ValueError(f"{row.get('ruler_name')}保留的正式得分率快照未同步")
-        return
     if final == 5:
         if rate != 100.0 or position != 1.0:
             raise ValueError(f"{row.get('ruler_name')}C5分值未闭合")
@@ -262,7 +258,7 @@ def _verify_score_fields(
         for axis, field in AXIS_FIELDS.items()
     }
     surplus = sum(int(value) - final for value in axes.values())
-    expected_axis_position = surplus / (2 * (5 - final))
+    expected_axis_position = max(0.0, min(1.0, surplus / (2 * (5 - final))))
     profile = row.get("strategy_chain_outcome_profile") or {}
     counts = profile.get("return_class_counts") or {}
     known = sum(
@@ -286,7 +282,9 @@ def _verify_score_fields(
         ) / known
         expected_outcome_position = 0.5 + (quality - 0.5) * min(1.0, known / 4)
     else:
-        expected_outcome_position = expected_axis_position
+        expected_outcome_position = 0.5
+    if abs(float(row.get("C_score_outcome_position")) - round(expected_outcome_position, 4)) > 0.0001:
+        raise ValueError(f"{row.get('ruler_name')}结果质量位置未按合同派生")
     position_decision = row.get("C_score_within_band_adjudication") or {}
     explicit_position = {
         "LOW": 0.25,
@@ -322,6 +320,12 @@ def verify_third_item_c_strategy_chain_settlement(
     current_count = 0
     capability_count = 0
     final_changes = []
+    from emperor_v4.evaluation.third_item_c_contract_reading import load_context
+    from emperor_v4.evaluation.talent_registry_store import load_talent_registry, talent_profiles_by_ref
+    from emperor_v4.evaluation.third_item_c_five_gate import verify_five_gate
+    five_systems = load_context(workspace_root)["systems"]
+    five_profiles = talent_profiles_by_ref(load_talent_registry(
+        workspace_root / "docs/公共成果/军事/02-武将人才等级.json"))
     for source_id, source_row in source_by_id.items():
         row = formal_by_id[source_id]
         if row.get("ruler_name") != source_row.get("ruler_name"):
@@ -357,6 +361,7 @@ def verify_third_item_c_strategy_chain_settlement(
         _verify_inherited_system(row)
         _verify_grade_projection(row)
         _verify_score_fields(row, source_row)
+        verify_five_gate(row, five_systems, five_profiles)
         before_grade = source_row["formal_writeback"].get("before_formal_overall_grade")
         if before_grade is None:
             raise ValueError(f"{row.get('ruler_name')}缺少正式写回前总档快照")

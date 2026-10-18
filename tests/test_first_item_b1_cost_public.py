@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_b1_requires_declared_prose_and_keeps_multiple_stages():
     fields = {'公开起点说明':'资源有限。', '公开对手说明':'对手有稳定组织。',
-              '公开效率说明':'第一阶段三年；第二阶段五年，不合并计时。', 'B1结算':'R1 + O2'}
+              '公开效率说明':'第一阶段三年；第二阶段五年，不合并计时。', 'B1结算':'R1 + O2',
+              '公开阅读问题':'这段合成取得过程经历了什么？','公开阅读正文':'合成对象先后完成两个目标，各有自己的条件与工期。'}
     assert project_b1(fields)['public_efficiency_basis'] == fields['公开效率说明']
     del fields['公开效率说明']
     fields['效率'] = '实际八年。'
@@ -62,14 +63,54 @@ const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'
 const {b1,cost}=new Function('esc','prose',helpers+';return {b1:firstB1Markup,cost:firstCostMarkup}')(esc,s=>'<p>'+esc(s)+'</p>');
 const stages='先完成甲段。后完成乙段；两段分别计时，不据此推定总年数。';
 assert.ok(b1({reader_public_b1:{public_efficiency_basis:stages}}).includes(stages));
+const entryStart=source.indexOf('function firstB1ReadingMarkup'), entryEnd=source.indexOf('// Formal public fields are shared',entryStart);
+const entry=new Function('esc','prose','link','firstB1Markup',source.slice(entryStart,entryEnd)+'return firstB1ReadingMarkup;')(esc,s=>'<p>'+esc(s)+'</p>',ref=>'<a>'+esc(ref)+'</a>',b1);
+const entryHtml=entry({value:25,reader_public_b1:{public_question:'合成问题？',public_story:'正文保留完整含义。',public_efficiency_basis:stages,public_method:'合成规则。',public_calculation:'合成计算。',start_points:5,opponent_points:0,efficiency_points:20,public_sources:['docs/source.md']}},{});
+for(const text of ['合成问题？','正文保留完整含义。',stages,'合成计算。','docs/source.md'])assert.ok(entryHtml.includes(text));
+assert.ok(entryHtml.indexOf('正文保留完整含义。')<entryHtml.indexOf('<details class="first-b1-facts">'));
+assert.ok(entryHtml.indexOf('<details class="first-b1-facts">')<entryHtml.indexOf('<details class="first-b1-method">'));
+assert.ok(!entryHtml.includes('<details open'));
 const basis='完整依据。'.repeat(100)+'末尾责任限制不得删除。';
 const html=cost({reader_public_cost:{public_basis:basis, public_responsibility_window:'只含本人时期。',public_unresolved_gaps:['上限尚不明确。'],public_source_links:[{label:'补充史料',url:'https://example.org/source'}]}});
 for(const text of [basis,'只含本人时期。','上限尚不明确。','https://example.org/source']) assert.ok(html.includes(text));
 for(const path of ['reader/home-interactions.js','reader/person-readability.js','reader/first-item-reading.js']) {
  const text=fs.readFileSync(path,'utf8');
- assert.ok(text.includes('firstB1Markup(item)'));
+ assert.ok(text.includes('firstB1ReadingMarkup(item, record)'));
  assert.ok(text.includes('firstCostMarkup('));
 }
 ''',encoding='utf-8')
     result=subprocess.run([node,str(script)],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
     assert result.returncode == 0,result.stderr
+
+
+def test_b1_collection_covers_every_current_formal_entry():
+    from html.parser import HTMLParser
+
+    class Entries(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.entries = {}
+            self.current = None
+
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if tag == 'article' and 'first-b1-reading' in attrs.get('class',''):
+                self.current = attrs['id']
+                self.entries[self.current] = []
+
+        def handle_endtag(self, tag):
+            if tag == 'article':
+                self.current = None
+
+        def handle_data(self, value):
+            if self.current:
+                self.entries[self.current].append(value)
+
+    parser = Entries()
+    parser.feed((ROOT/'reader/first-item-b1.html').read_text(encoding='utf-8'))
+    formal, _ = load_first_item_b1_cost_public(ROOT)
+    assert set(parser.entries) == set(formal)
+    for name, chunks in parser.entries.items():
+        text = ''.join(chunks)
+        assert formal[name]['public_question'] in text
+        assert formal[name]['public_story'] in text

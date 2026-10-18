@@ -3,7 +3,7 @@
   "partition": "qin_tang",
   "bucket": 22,
   "bucket_count": 24,
-  "record_count": 49,
+  "record_count": 50,
   "records": [
     {
       "war_event_id": "WAR-LEAD-096-FANCHENG-339",
@@ -7001,6 +7001,57 @@
           "actor_ref": "PER-BATTLE-9FAE2802A25C0DDC"
         }
       ]
+    },
+    {
+      "war_event_id": "PUBLIC-PERSON-LVGUANG-GUZANG-386",
+      "dynasty_partition": "qin_tang",
+      "record_level": "person_command_result_registration",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_ACTION_EVIDENCE",
+      "canonical_label": "张大豫反攻时出击姑臧围军",
+      "period": {
+        "start": "386",
+        "end": "386"
+      },
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/晉書/卷122",
+        "https://zh.wikisource.org/wiki/資治通鑑/卷106"
+      ],
+      "source_lineage": {
+        "source_files": [],
+        "lineage_basis": "原史源直接闭合人物行动与结果；仅为本人归责提供维护入口，不新增公共战争成果、成本或独立情境。"
+      },
+      "person_command_results": [],
+      "personal_action_attributions": [
+        {
+          "evidence_ref": "ACTION-3D49764FF6A7B85C207A",
+          "person": "吕光",
+          "canonical_label": "张大豫反攻时出击姑臧围军",
+          "period": {
+            "start": "386",
+            "end": "386"
+          },
+          "evidence_kind": "military_operation",
+          "personal_role": "实际指挥",
+          "military_judgment": "在部将杜进先败、张大豫逼姑臧而王穆求援的条件下，亲自出击围军。",
+          "implementation": "本人击破王穆与奚于等军；张大豫后续追剿与擒获由彭晃徐炅等完成。",
+          "personal_result": "本人保住姑臧核心的正向指挥成立，不将外征龟兹或388后另役搬入。",
+          "failure_and_limits": "",
+          "capability_episode_ref": "LATERLIANG-FOUNDING-385-387",
+          "source_refs": [
+            "https://zh.wikisource.org/wiki/晉書/卷122",
+            "https://zh.wikisource.org/wiki/資治通鑑/卷106"
+          ],
+          "source_quotes": [
+            "大豫遂進逼姑臧",
+            "光出擊，破之",
+            "斬奚于等二萬餘級"
+          ],
+          "result_direction": "positive"
+        }
+      ],
+      "dynasty": "后凉"
     }
   ]
 }

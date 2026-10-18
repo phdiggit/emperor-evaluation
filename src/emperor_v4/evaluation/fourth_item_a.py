@@ -86,6 +86,14 @@ def net_result(packages):
 
 def verify(root: Path, *, check_views=True):
     payload = load_json(root / JSON_PATH)
+    from .fourth_item_a_public import verify_readings
+    verify_readings(payload, root)
+    from .fourth_item_b_public import verify_readings as verify_b_readings
+    verify_b_readings(payload, root)
+    from .fourth_item_c_public import verify_readings as verify_c_readings
+    verify_c_readings(payload, root)
+    from .third_fourth_item_public import _verify_fourth
+    _verify_fourth(payload)
     packages = payload['accepted_packages']
     by_code = {p['package_code']: p for p in packages}
     errors = []
@@ -236,6 +244,16 @@ def _render_axis(payload, axis):
         lines.append(f'| {rank} | {r["ruler_name"]} | {r["polity"]} | {label(a["disposition"])} | {a.get("magnitude_grade") or "—"} | {label(a.get("band"))} | {fmt(a["signed_adjustment"])} |')
     lines += ['', '## 触发人物与结算依据', '']
     for r, a in arows:
+        if axis in ('A', 'B', 'C'):
+            if axis == 'A':
+                from .fourth_item_a_public import axis_reading, markdown_reading
+            elif axis == 'B':
+                from .fourth_item_b_public import axis_reading, markdown_reading
+            else:
+                from .fourth_item_c_public import axis_reading, markdown_reading
+            reading = axis_reading(r, a, by_code)
+            lines += [f'### {r["ruler_name"]}（{fmt(a["signed_adjustment"])}）', '', markdown_reading(reading), '']
+            continue
         if not a['package_refs']:
             continue
         lines += [f'### {r["ruler_name"]}（{fmt(a["signed_adjustment"])}；{a.get("magnitude_grade") or "无合格增量"}·{a.get("band") or "—"}）', '']
@@ -244,8 +262,18 @@ def _render_axis(payload, axis):
         for code in a['package_refs']:
             p = by_code[code]
             lines += [f'- **影响包 `{code}`**（{label(p.get("scoring_eligibility", "ELIGIBLE"))}）']
+            if axis == 'C' and p.get('scoring_eligibility') == 'REVOKED':
+                lines += ['  - 公开说明：' + p['public_adjudication_summary'],
+                          '  - 范围：' + p['public_boundary'],
+                          '  - 史源：' + '；'.join(clean(s) for s in p.get('source_refs', [])), '']
+                continue
+            if axis == 'C':
+                lines += ['  - 公开结果与责任：' + p['public_adjudication_summary']]
             fields = [('继承基线','inherited_baseline'),('本人变化','attributable_change'),('层级依据','relative_change_level_basis'),('覆盖','field_coverage'),('持续性与交班','durability_and_handoff'),('归责','attribution_strength')]
             for field_label, key in fields:
+                if axis == 'C' and key == 'attribution_strength':
+                    lines.append('  - 本人责任：' + p['public_c_result_reading']['responsibility'])
+                    continue
                 lines.append(f'  - {field_label}：{clean(p.get(key))}')
             lines.append(f'  - 反证与限制：{clean(p.get("counterevidence", {}).get("summary"))}')
             lines.append(f'  - 硬负向门：{p.get("hard_negative_gate", "NONE")}；证据覆盖：{p.get("source_coverage")}。')
@@ -273,5 +301,7 @@ def write_views(root: Path):
     verify(root, check_views=False)
     payload = load_json(root / JSON_PATH)
     for path, text in render(payload).items():
-        (root/path).write_text(text, encoding='utf-8', newline='\n')
+        target = root / path
+        if not target.exists() or target.read_text(encoding='utf-8') != text:
+            target.write_text(text, encoding='utf-8', newline='\n')
     return verify(root)

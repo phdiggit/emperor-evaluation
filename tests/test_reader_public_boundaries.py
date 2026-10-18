@@ -38,8 +38,14 @@ for(const s of [text,'原计算口径。','完整原始裁决。','docs/a.json',
 for(const file of ['reader/second-item-a-public.js','reader/second-item-b1-public.js']){
  const dedicated=fs.readFileSync(file,'utf8');
  assert.ok(!dedicated.includes('secondMethodDetailsMarkup(item, record)'));
- assert.ok(dedicated.includes('appendDedicatedAudit'));
- assert.ok(dedicated.includes('SecondItemMaterialCards'));
+ if(file.includes('second-item-a-')){
+  assert.ok(dedicated.includes('entry.public_sources'));
+  assert.ok(dedicated.includes('完整正式记录'));
+  assert.ok(!dedicated.includes('SecondItemMaterialCards'));
+ }else{
+  assert.ok(dedicated.includes('appendDedicatedAudit'));
+  assert.ok(dedicated.includes('SecondItemMaterialCards'));
+ }
 }
 const alias=fs.readFileSync('reader/second-item-public-alias.js','utf8');
 assert.ok(!alias.includes('patchInstitutionDetail'));
@@ -54,8 +60,26 @@ const costStart=home.indexOf('function firstCostPublicText');
 const costEnd=home.indexOf('\n\nfunction firstCostMarkup',costStart);
 const firstCostPublicText=new Function(home.slice(costStart,costEnd)+';return firstCostPublicText;')();
 const render=new Function('esc','firstPublicSharePercent','firstPublicOutcomeParts','firstPublicOutcomeText','firstFactText','personLabel','firstCostPublicText',overview+'return firstItemOverview;')(esc,()=>'',a=>[['成果',a.public_outcome_basis]],String,String,personLabel,firstCostPublicText);
-const html=render({ruler_name:'合成对象'}, {'B2组织与整合':{'并行执行':long}}, {'A统一贡献':{reader_public_outcome:{public_outcome_basis:long}}});
-assert.equal(html.split(long).length-1,2);
+const html=render({ruler_name:'合成对象'}, {}, {'A统一贡献':{reader_public_outcome:{public_question:'合成阅读问题',public_story:long}}});
+assert.equal(html.split(long).length-1,0); // The overview links to the full narrative card.
+const aStart=home.indexOf('function firstAReadingMarkup'),aEnd=home.indexOf('// Formal public fields are shared',aStart);
+const aMarkup=new Function('esc','prose','link',home.slice(aStart,aEnd)+'return firstAReadingMarkup;')(esc,prose,(ref)=>'<a>'+esc(ref)+'</a>');
+const aHtml=aMarkup({value:12,reader_how:'合成计算。',source:'合成来源',reader_public_outcome:{public_question:'合成问题？',public_story:long,public_scope:'合成范围',public_outcome_basis:'合成起点',public_boundary:text,public_share_percent:10,public_scale_basis:'合成尺度说明'}},{});
+assert.equal(aHtml.split(long).length-1,1);
+assert.ok(aHtml.indexOf(long)<aHtml.indexOf('<details class="first-a-attribution">'));
+assert.ok(aHtml.indexOf('<details class="first-a-attribution">')<aHtml.indexOf('<details class="first-a-method">'));
+assert.ok(aHtml.includes(text));
+assert.ok(aHtml.includes('合成计算。'));
+assert.ok(!aHtml.includes('<details open'));
+const noNote=aMarkup({value:12,reader_how:'合成计算。',reader_public_outcome:{public_question:'合成问题？',public_story:long,public_scope:'合成范围',public_outcome_basis:'合成起点',public_boundary:null,public_share_percent:10,public_scale_basis:'合成尺度说明'}},{});
+assert.ok(!noNote.includes('<dt>具体范围说明</dt>'));
+assert.ok(noNote.includes('合成范围'));
+const b2Markup=new Function('esc','prose','link',home.slice(aStart,aEnd)+'return firstB2ReadingMarkup;')(esc,prose,(ref)=>'<a>'+esc(ref)+'</a>');
+const b2Html=b2Markup({value:12,reader_public_b2:{public_question:'合成组织问题？',public_story:long,public_window:'本阶段',public_control:'授权两处主责',public_method:'逐项裁档相加',total_points:12,dimensions:[{label:'合成分项',points:4,basis:text}],public_sources:['docs/example.md']}},{});
+assert.equal(b2Html.split(long).length-1,1);
+assert.ok(b2Html.includes(text));
+assert.ok(b2Html.indexOf(long)<b2Html.indexOf('<details class="first-b2-facts">'));
+assert.ok(b2Html.indexOf('<details class="first-b2-facts">')<b2Html.indexOf('<details class="first-b2-method">'));
 // Exercise current public data, without storing any adjudication snapshot.
 for(const path of fs.readdirSync('reader/data/people')) {
  const record=JSON.parse(fs.readFileSync('reader/data/people/'+path,'utf8')).record;
@@ -89,7 +113,7 @@ const data={capability_axes:capabilities,independent_axes:['C5'],axis_specs:Obje
 const state={compare:['left','right'],differences:false};
 const context={DATA:data,state,screen,byId:new Map(),nav(){},history:{replaceState(){}},
  document:{getElementById(id){assert.equal(id,'differences');return checkbox;},querySelector(selector){assert.equal(selector,'.comparison');return table;}},
- esc:String,number:v=>String(v??'—'),conf:String,dimNames:{extent:'范围'},gradeHelp:()=>'',evidenceAssessment:()=>'',
+ esc:String,number:v=>String(v??'—'),scoreNumber:v=>String(v??'—'),conf:String,dimNames:{extent:'范围'},gradeHelp:()=>'',evidenceAssessment:()=>'',
  netGroups:r=>`<p>构成-${r.ruler_id}</p>`,historySections:r=>`<p>后效-${r.ruler_id}</p>`,
  axisEvidence:(r,c)=>`<details><summary>${c}</summary><p>${r.axes[c].evidence}</p></details>`};
 vm.createContext(context);
@@ -129,7 +153,7 @@ const initialHTML=html,initialWrites=writes,rowCount=(html.match(/<tr/g)||[]).le
 for(const id of ['left','right'])for(const c of codes)assert.ok(html.includes(`${id}-${c}-独立依据`));
 assert.ok(html.includes('data-compare-equal="true"'));
 assert.ok(html.includes('data-compare-equal="false"'));
-assert.ok(html.includes('突出正式数值／档位差异'));
+assert.ok(html.includes('突出当前展示值／档位差异'));
 // Toggling only changes the table's class, not DOM/evidence/open state/scroll.
 checkbox.onchange({target:{checked:true}});assert.equal(emphasis,true);
 assert.equal(writes,initialWrites);assert.equal(html,initialHTML);
@@ -321,10 +345,10 @@ for(const [code,label] of Object.entries({MI1:'单一情境',MI1_CASE:'单一情
 }
 assert.equal(api.contextIntensity({basis:'跨阶段多年反复，有MI4字样。',axis_grade:'G5'}),'未列');
 assert.equal(api.contextIntensity({intensity:null}),'未列');
-assert.equal(api.contextIntensity({intensity:'FUTURE_CODE'}),'未设中文展示，请查原始记录');
+assert.equal(api.contextIntensity({intensity:'FUTURE_CODE'}),'正式记录未提供可展示的标签');
 assert.equal(api.contextDirection({direction:'POSITIVE'}),'正向');
-assert.equal(api.contextDirection({direction:'FUTURE_DIRECTION'}),'未设中文展示，请查原始记录');
-assert.equal(api.contextIntensity({intensity:'MI1_CASE',material_intensity:'MI4_CROSS_PHASE_SYSTEMIC'}),'上游字段不一致，请查原始记录');
+assert.equal(api.contextDirection({direction:'FUTURE_DIRECTION'}),'正式记录未提供可展示的标签');
+assert.equal(api.contextIntensity({intensity:'MI1_CASE',material_intensity:'MI4_CROSS_PHASE_SYSTEMIC'}),'正式记录中的材料强度字段存在冲突，请查看正式记录');
 const record={counterpattern:{negative_parent_refs:['P']},context_lookup:{P:{intensity:'MI2_LIFECYCLE',basis:'完整正式说明，包括反证和限制。'}}};
 const before=JSON.stringify(record),html=api.contexts(record,true);
 assert.ok(html.includes('context-intensity'));
@@ -386,16 +410,14 @@ def test_generated_reader_release_pins_dynamic_sources():
 
 def test_new_viewer_layers_and_compact_c5_hint():
     from pathlib import Path
-    import json
     root = Path(__file__).resolve().parents[1]
     template = (root / "reader/index.template.html").read_text(encoding="utf-8")
     person_js = (root / "reader/person-readability.js").read_text(encoding="utf-8")
-    copy = json.loads((root / "reader/public-copy.json").read_text(encoding="utf-8"))
     assert "30秒读懂" in template
     assert "三者可以不一致" in template
     assert "axis-further-check" in template
     assert "进一步核对：代表情境、反例与限制" in template
-    assert any("原始记录与专业信息" in item["to"] for item in copy)
+    assert "原始记录与专业信息" in template
     assert "S端表示更能约束自身权力" in person_js
     assert "这项评价描述权力使用方式，不属于能力评价" not in person_js
 
@@ -442,12 +464,32 @@ def test_generated_net_judgments_have_complete_public_reading_fields_across_pool
                 prefix = f"{path.name}:{record.get('ruler_name')}:{group}:{item.get('label')}"
                 assert str(item.get("reader_summary") or "").strip(), prefix + ": missing reader_summary"
                 assert str(item.get("reader_boundary") or "").strip(), prefix + ": missing reader_boundary"
-                evidence = item.get("reader_public_evidence_items")
-                assert isinstance(evidence, list) and evidence, prefix + ": missing public evidence"
+                if group == 'finance':
+                    authored = item.get('reader_public_c')
+                    assert isinstance(authored, dict), prefix + ': missing authored C record'
+                    assert authored['public_story'] == item['reader_story']
+                    assert authored['public_calculation'] == item['reader_how']
+                    evidence = authored.get('public_evidence_items')
+                else:
+                    evidence = item.get("reader_public_evidence_items")
+                assert isinstance(evidence, list), prefix + ": missing public evidence"
+                if item.get("label") == "A制度建设":
+                    assert item.get("reader_story"), prefix + ": missing authored story"
+                else:
+                    assert evidence, prefix + ": missing public evidence"
                 for index, entry in enumerate(evidence):
                     assert isinstance(entry, dict), prefix + f": evidence[{index}] is not an object"
                     for field in ("public_label", "public_basis"):
                         assert str(entry.get(field) or "").strip(), prefix + f": evidence[{index}] missing {field}"
+                    if group == 'finance':
+                        assert entry.get('public_scope'), prefix + ': missing adoption scope'
+                        if entry.get('source_binding_kind') == 'CLAIM_SUPPORT':
+                            assert entry.get('source_refs'), prefix + ': missing adopted per-entry sources'
+                        else:
+                            assert entry.get('source_binding_kind') == 'MATERIAL_COLLECTION', prefix
+                            assert not entry.get('source_refs'), prefix + ': collection falsely bound as proof'
+                            assert authored.get('public_related_source_refs'), prefix + ': missing collected materials'
+                            assert authored.get('public_source_note'), prefix + ': missing collection limits'
                     if group in third_fourth:
                         assert str(entry.get("public_boundary") or "").strip(), prefix + f": evidence[{index}] missing public_boundary"
                 if group in third_fourth:
@@ -493,59 +535,24 @@ def test_b1_public_projection_refresh_preserves_formal_scoring_signature():
         assert isinstance(row["public_evidence_items"], list) and row["public_evidence_items"]
 
 
-def test_a_public_evidence_does_not_repeat_scope_or_reception_already_in_basis():
+def test_a_public_evidence_is_verbatim_and_empty_nodes_have_no_placeholder():
     import copy
-    from pathlib import Path
     from emperor_v4.evaluation.formal_json_store import load_json
     from emperor_v4.evaluation.second_item_a_public import A_PATH, _refresh_payload
-
-    root = Path(__file__).resolve().parents[1]
-    projected = _refresh_payload(copy.deepcopy(load_json(root / A_PATH)), root)
-    checked = 0
-    for row in projected["records"]:
-        nodes = row.get("public_institution_nodes") or []
-        evidence = row.get("public_evidence_items") or []
-        if not nodes:
-            continue
-        assert len(nodes) == len(evidence)
-        for node, item in zip(nodes, evidence):
-            basis = str(node.get("public_adjudication_basis") or "")
-            scope = str(node.get("public_scope") or "")
-            reception = str(node.get("public_reception") or "")
-            rendered = str(item.get("public_basis") or "")
-            if scope and scope in basis:
-                assert f"\n\n{scope}" not in rendered
-                checked += 1
-            if reception and reception in basis:
-                assert f"\n\n{reception}" not in rendered
-                checked += 1
-    assert checked > 0
-
-
-def test_a_public_projection_supplies_row_evidence_even_without_institution_nodes():
-    import copy
-    from pathlib import Path
-    from emperor_v4.evaluation.formal_json_store import load_json
-    from emperor_v4.evaluation.second_item_a_public import (
-        A_PATH,
-        A_PUBLIC_BOUNDARY,
-        _refresh_payload,
-        verify_public_projection,
-    )
-
     root = Path(__file__).resolve().parents[1]
     payload = load_json(root / A_PATH)
     projected = _refresh_payload(copy.deepcopy(payload), root)
-    verify_public_projection(root, projected)
-
-    empty_rows = [row for row in projected["records"] if not row.get("public_institution_nodes")]
-    assert empty_rows
-    for row in empty_rows:
-        assert row["public_boundary"] == A_PUBLIC_BOUNDARY
+    for row in projected["records"]:
+        assert row["public_story"] and row["public_adjudication_summary"]
+        nodes = row["public_institution_nodes"]
         evidence = row["public_evidence_items"]
-        assert len(evidence) == 1
-        assert evidence[0]["public_label"] == "当前没有可单列制度节点"
-        assert evidence[0]["public_boundary"] == A_PUBLIC_BOUNDARY
+        assert len(nodes) == len(evidence)
+        for node, item in zip(nodes, evidence):
+            assert item["public_basis"] == node["public_adjudication_basis"]
+            assert item["public_sources"] == node["public_sources"]
+            assert item["public_reception"] == node["public_reception"]
+        if not nodes:
+            assert evidence == []
 
 
 def test_method_reader_consumes_row_level_formal_evidence_for_a_and_b1():
@@ -651,17 +658,17 @@ def test_first_item_public_layer_hides_axis_codes_outside_formula_folds():
         assert "下面再按A、B1、B2、C" not in source
         assert "第一项原始净分 S1" not in source
 
-    assert '"统一成果", "先看本人真正留下了什么"' in home
-    assert '"创业组织与政治整合", "多线并行、专业分工与异质整合"' in home
+    assert "outcome.public_question" in home
+    assert "firstB2ReadingMarkup(item, record)" in home
     assert "统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]}" in home
-    assert "<strong>统一成果</strong>" in person
-    assert "<strong>创业组织与政治整合</strong>" in person
+    assert "firstAReadingMarkup(item, record)" in person
+    assert "firstB2ReadingMarkup(item, record)" in person
     assert "L档怎么换分" not in person
     # Internal formulas remain available inside collapsed calculation details.
     assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in home
     assert "第一项结算分 S1" not in home
     assert "总榜附加 F" not in home
-    assert "B2 = 并行执行分" in person
+    assert "prose(data.public_method)" in home
 def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_severity():
     from pathlib import Path
     root = Path(__file__).resolve().parents[1]
@@ -674,7 +681,7 @@ def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_se
         assert '"L$1级"' not in source
         assert '第${n}档' not in source
         assert "L0—L5" not in source
-        assert "E、D、C、B、A、S 六档" in source
+        assert "E、D、C、B、A、S 六档" not in source  # B2 method is declared upstream.
 
     assert 'const severity = ["无显著代价","很低成本","较低成本","中等成本","较高成本","高成本","极高成本","灾难级成本"];' in home
     assert '["成本程度", publicLevel]' in home
@@ -682,12 +689,14 @@ def test_first_item_public_grade_translator_uses_letter_grades_and_named_cost_se
 
 def test_first_item_a_how_block_shows_exact_public_curve():
     from pathlib import Path
-    source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
-    assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
-    assert "多人共同完成时再按正式归责分配个人成果" in source
-    assert "firstOutcomeCalculationText(item.reader_how || \"\")" in source
-    assert "项目A池 = " not in source
-    assert "有效控制信用U" not in source
+    root = Path(__file__).resolve().parents[1]
+    # All entry points consume the same upstream explanation and exact calculation.
+    # The browser must not substitute a per-person formula for a shared project.
+    for filename in ("home-interactions.js", "person-readability.js", "first-item-reading.js"):
+        source = (root / "reader" / filename).read_text(encoding="utf-8")
+        assert "firstAReadingMarkup(item, record)" in source
+        assert "统一成果分 = 120 ×" not in source
+    assert "public_scale_basis" in (root / "reader/home-interactions.js").read_text(encoding="utf-8")
 
 
 def test_first_item_commander_battle_letters_are_labeled_as_battle_scales():
@@ -706,8 +715,8 @@ def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     assert "极高成本" in source
     assert "灾难级成本" in source
     assert 'firstCostPublicText(data.public_basis)' in source
-    assert "当前能力裁决：" in source
-    assert 'firstItemPublicText(item.grade || "")' in source
+    assert '${prose(source.public_basis)}' in source
+    assert '${prose(source.public_method)}' in source
     assert "相关战争若已在军事与边疆项计入，本项不重复计算" in source
     assert "由奠基与统一项计入" in source
     assert "留在军事与边疆项" in source
@@ -745,7 +754,7 @@ def test_structured_material_pages_avoid_default_summary_and_scope_duplication()
 
     assert 'if (scope || boundary)' in alias
     assert 'details.append(makeTextBlock("summary", "", "范围与边界"))' in alias
-    assert 'card.append(box);' not in alias[alias.index('const scope = publicText(data.scope)'):alias.index('const footer = publicText(data.footer)')]
+    assert 'card.append(box);' not in alias[alias.index('const scope = format(data.scope)'):alias.index('const footer = publicText(data.footer)')]
     assert 'const structuredMaterials = MATERIAL_CARD_GROUPS.has(groupKey) && publicEvidence.length > 0;' in home
     assert '总体裁决摘要' in home
     assert 'const logic = structuredMaterials ? "" : summary;' in home
@@ -798,7 +807,7 @@ def test_profile_axis_summary_shows_formal_material_coverage_in_public_words():
     assert "const evidenceScope=axisEvidenceScope(a,c),evidenceLevel=evidenceScope.coverage;" in template
     assert "coverage:scope.material_coverage_label" in template
     assert 'class="axis-evidence-level">材料覆盖：' in template
-    assert "材料覆盖 '+esc(evidenceLevel)" in template
+    assert "材料覆盖：'+esc(evidenceLevel)" in template
     assert "材料级别 ${esc(a.axis_evidence_level" not in template
 
 
@@ -806,7 +815,13 @@ def test_reader_guide_preserves_material_strength_display_boundary():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "只有正式记录明确发布相应字段时页面才展示" in template
-    assert "没有这类标签只表示上游没有发布，不等于证据弱" in template
+    assert "没有这类标签只表示正式记录未发布该字段，不等于证据弱" in template
+    assert "这是离线交互设计样稿" not in template
+    assert "更新正式记录后重新构建阅读页" not in template
+    assert "本页展示最近一次正式发布的结算数据" in template
+    assert "本页只展示已经裁定的事实和限制。" in template
+    assert "本阅读层展示" not in template
+    assert "正式记录更新后会在后续发布中同步" in template
     assert "两者不是同一尺度" in template
     assert "页面也不会自行补判" in template
 
@@ -838,7 +853,7 @@ def test_net_detail_renderer_uses_public_performance_language_and_current_person
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert 'title: "统治绩效构成"' in source
-    assert 'title: "第三项 · 军事与边疆"' in source
+    assert 'title: "军事与边疆"' in source
     assert '["统治绩效构成", "净收益构成"].includes' in source
     assert 'aria-label="统治绩效详情"' in source
     assert "正在加载${esc(summary.ruler_name)}的统治绩效详情" in source
@@ -1012,6 +1027,12 @@ vm.runInContext(
   section(home,'  const MATERIAL_CARD_GROUPS','  const SECOND_PUBLIC_GROUPS')
   +'\nthis.thirdPublicText=thirdPublicText; this.thirdItemPublicText=thirdItemPublicText;', thirdCtx);
 assert.equal(thirdCtx.thirdPublicText('结束时第5级安全水平','A1'),'结束时S档安全水平');
+for(const label of ['C1实战交付','C2持续作战','C3体系可靠性','C50']){
+  for(const text of ['两路军在不同月份完成防御。',' 三方面分别讨论。\n保留原文的段落与数量。','任意新术语 SAMPLE 不得在阅读层删除。']){
+    assert.equal(thirdCtx.thirdPublicText(text,label),text);
+  }
+}
+
 assert.equal(thirdCtx.thirdPublicText('1→5档','A1'),'D档→S档');
 assert.equal(thirdCtx.thirdPublicText('0.25→0.75覆盖','B1'),'0.25→0.75覆盖');
 assert.equal(thirdCtx.thirdPublicText('旧终点值 3.6→3.4，净变化 1.3→1.1，加权值 2.22→2.02；档位和得分率不变。','B1'),'此前结束时控制存量 3.6→3.4，净变化 1.3→1.1，综合控制量 2.22→2.02；档位和合成比例不变。');
@@ -1021,21 +1042,15 @@ assert.equal(thirdCtx.thirdPublicText('采用比例 0→15。','B1'),'合成比�
 assert.equal(thirdCtx.thirdPublicText('实际控制范围率44→60。','B1'),'控制范围合成比例由 44% 调整为 60%。');
 assert.equal(thirdCtx.thirdPublicText('客观起终库存保留，交班库存与继承库存分别核对。','B1'),'接手与结束时的控制存量保留，任期结束时可移交的控制存量与继承控制存量分别核对。');
 assert.equal(thirdCtx.thirdPublicText('军事成本为第六级低位。成本是否达到第七级。','ML扣分'),'军事成本为极端军事成本、低位。成本是否达到灾难性军事耗竭。');
-assert.equal(thirdCtx.thirdPublicText('战略链化不会把阶段性反击冲销终局失效。','C1实战交付'),'按战略主链归并不会把阶段性反击冲销终局失效。');
+
 assert.equal(thirdCtx.thirdPublicText('不回填朱祁镇灾后再动员。','ML扣分'),'不把朱祁镇灾后再动员重复计入本人。');
 assert.equal(
   thirdCtx.thirdPublicText('B1控制规模与B2战略价值按55%/45%合成，再由B4交班成熟度修正','B80'),
   '控制范围与战略价值按55%/45%合成，再由成果稳定性修正'
 );
 assert.equal(thirdCtx.thirdPublicText('普通军事代价为第5级、中位','普通成本扣分'),'普通军事代价为严重军事成本、中位');
-assert.equal(
-  thirdCtx.thirdPublicText('父周期仅完成边界证实，任务成员与独立父周期结构未变；没有产生新的升降档理由。','C1实战交付'),
-  ''
-);
-assert.equal(
-  thirdCtx.thirdPublicText('该方面为第5级水平。已核对5项独立任务，其中较好结果0项、低回报0项、负向结果0项。三个重大成功能力信号且无重大失败。','C1实战交付'),
-  '该方面为S档水平。三个重大成功能力信号且无重大失败。'
-);
+
+
 assert.equal(
   thirdCtx.thirdPublicText('实际控制范围为当前结果为第4级、中位。规模与控制强度：废止‘1206—1227新增整链一律归第一项’的形式节点切法；只排除灭夏终局0.8及攻金遗留控制0.5，花剌子模—中亚—西亚4.25保留在第三项，机械落实际控制范围第4级 中位。','B1'),
   '实际控制范围当前为A档、中位。统一主链中已由奠基与统一项承担的灭夏终局与攻金遗留控制不重复计入；花剌子模—中亚—西亚的控制成果保留在本项。'
@@ -1048,10 +1063,7 @@ assert.equal(
   thirdCtx.thirdPublicText('按重大压力下保全封顶4档。机械落实际控制范围第4级 中位。','B1'),
   '按重大压力下保全最高计至A档。据此定为实际控制范围A档中位。'
 );
-assert.equal(
-  thirdCtx.thirdPublicText('战争保留为第三项现期；相关战争仅按军事体系规定作为能力专用证据。','C1实战交付'),
-  '战争保留为本项当前窗口；相关战争只作为军事体系判断的补充证据。'
-);
+
 assert.equal(
   thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：承接嬴政真实3.0边疆库存后逐区退出；不使用终局 强制修正。','B1'),
   '实际控制范围当前为E档、低位。承接嬴政既有边疆控制存量后逐区退出；按政权终结时的实际控制结果判断。'
@@ -1060,14 +1072,8 @@ assert.equal(
   thirdCtx.thirdPublicText('战略成果价值为当前结果为第0级、低位。本人任内中央与边疆控制随秦政权崩溃归零，统一执行终局门；没有可在交班时保留的控制成果。','B2'),
   '战略成果价值当前为E档、低位。本人任内中央与边疆控制随秦政权崩溃归零，按政权终结时的实际控制结果判断；没有可在交班时保留的控制成果。'
 );
-assert.equal(
-  thirdCtx.thirdPublicText('按用户冻结规则，轴5必须由第三项本体重大体系胜绩复验。最终4/4/4、军事体系整体第4级。','C1实战交付'),
-  '按当前固定口径，S档必须由本项自身的重大体系胜绩再次验证。三方面均为A档。'
-);
-assert.equal(
-  thirdCtx.thirdPublicText('靖难不再作为第三项军事体系军事体系正证；其能力只保留在人物画像。','C1实战交付'),
-  '靖难不再作为本项军事体系的正向证据；其能力只保留在人物画像。'
-);
+
+
 assert.equal(
   thirdCtx.thirdPublicText('实际控制范围为当前结果为第3级、低位。规模与控制强度：旧账错误按靖康覆亡把赵佶终点值直接清零，采用比例29；修正终局时点并保留西北真实扩张后升至60。','B1'),
   '实际控制范围当前为B档、低位。按赵佶实际退位时点判断，不把1127年的靖康覆亡倒推到1126年；退位前已经形成的西北控制成果仍计入。'
@@ -1084,10 +1090,7 @@ assert.equal(
   thirdCtx.thirdPublicText('本人可本人责任主干改为党项方向；两个本人窗口合并，景泰间实际控制范围存量没有跨阶梯变化。','B2'),
   '本人可归责的主干成果改为党项方向；两个本人窗口合并，景泰间实际控制范围存量没有跨公开等级变化。'
 );
-assert.equal(
-  thirdCtx.thirdPublicText('重大失败不是独立倍增计票，但共同证明持续作战与体系可靠性进入1档，军事体系整体第1级维持2。','C1实战交付'),
-  '重大失败不会因事件拆分而重复加重判断，但共同证明持续作战与体系可靠性进入D档，军事体系整体维持D档。'
-);
+
 assert.equal(
   thirdCtx.thirdPublicText('可移交控制结构的覆盖、持续和承载强度判断为控制成果稳定性第0级；不重复计算安全态势项宏观边疆态势。','B4'),
   '可移交控制结构的覆盖、持续和承载强度判断为控制成果稳定性E档；不重复计算已经在安全态势中判断的宏观边疆变化。'
@@ -1096,18 +1099,9 @@ assert.equal(
   thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：原正式控制规模值为52，实际采用值为0；统一参照点后，客观加权值为0.72，对应正式值应为44，但第三项有效采用比例仍为0。','B1'),
   '实际控制范围当前为E档、低位。相关控制成果已在奠基与统一项计入，本项不再重复计入。'
 );
-assert.equal(
-  thirdCtx.thirdPublicText('按军事体系整体第4级重大胜绩硬门封顶军事体系整体第3级。','C1实战交付'),
-  '尚未达到A档所需的重大体系胜绩条件，军事体系整体维持B档。'
-);
-assert.equal(
-  thirdCtx.thirdPublicText('采石构成重大体系胜绩并通过军事体系整体第4级条件。','C1实战交付'),
-  '采石构成重大体系胜绩并达到军事体系整体A档所需条件。'
-);
-assert.equal(
-  thirdCtx.thirdPublicText('正式军事体系按8条当前任务与4条仅作能力证据支撑三轴4档；创业恢复链不回灌第三项结果/成本。','C1实战交付'),
-  '现有正式任务与补充能力证据共同支持三方面均为A档；创业恢复链不重复计入本项结果与成本。'
-);
+
+
+
 assert.equal(
   thirdCtx.thirdPublicText('普通军事代价为不适用或尚未定级。当前第三项成本清单将其标记为不适用。按当前评定用户指定范围，不重新审查该状态的跨项来源；只确认没有独立军事体系档需要重新定级。','普通成本扣分'),
   '本项不单独结算军事代价。相关战争成本已按评价边界在其他项目处理，本项不重复结算。'
@@ -1132,18 +1126,9 @@ assert.equal(
   thirdCtx.thirdPublicText('战略成果价值为当前结果为第0级、低位。终局门覆盖任内阶段性占领或扩域尝试。','B2'),
   '战略成果价值当前为E档、低位。政权终结后，任内阶段性占领或扩域尝试不作为可移交成果。'
 );
-assert.equal(
-  thirdCtx.thirdPublicText('974—975水陆军连续失效；这是单一但国家级终局崩溃链，1/1/0维持。','C1实战交付'),
-  '974—975水陆军连续失效；这是单一但国家级终局崩溃链，实战任务交付D档、持续作战D档、体系可靠性E档。'
-);
-assert.equal(
-  thirdCtx.thirdPublicText('河西树机能270、277、279三票归为同一连续父周期，7项降至5项；完整河西周期取回报与投入相称，278西陵独立突袭由证据不足证据支持评为低回报。去重后故三轴4/4/3不变。','C1实战交付'),
-  '河西树机能270、277、279三次相关行动归为同一连续任务周期；完整河西周期取回报与投入相称，278年西陵独立突袭现有证据仅支持判断为低回报。去重后故实战任务交付A档、持续作战A档、体系可靠性B档。'
-);
-assert.equal(
-  thirdCtx.thirdPublicText('本批父周期边界未改变足以影响三轴的事实基础，正式横校沿用正式三轴/既有能力专用判断。','C1实战交付'),
-  '重新核对任务边界后，三方面事实基础未变，现有等级维持不变。'
-);
+
+
+
 assert.equal(
   thirdCtx.thirdPublicText('实际控制范围为当前结果为第0级、低位。规模与控制强度：旧账仅以1.3→0并启用按终局崩溃强制清零。现改为从杨坚真实4.2交班库存逐区域核退出；吐谷浑、伊吾阶段新增另存峰值但不进入618终点。最终实际控制范围率仍0，但不是由终局标签强制清零。','B1'),
   '实际控制范围当前为E档、低位。按杨坚交班时的实际控制存量逐区域核对；吐谷浑、伊吾虽有阶段新增，但至618年均未形成可保留的终点控制，因此实际控制范围归零。'
@@ -1157,10 +1142,7 @@ assert.equal(
   thirdCtx.thirdPublicText('接手时为第2级，结束时为第3级。刘秀 主要安全威胁与战略主动（主要威胁能力与战略主动）本人责任判断：北方改善部分来自外部因素；故客观变动+1档中取0.5档。本人和其他责任中心共同承担。','A1'),
   '接手时为C档，结束时为B档。北方改善部分来自外部因素。本人和其他责任中心共同承担。'
 );
-assert.equal(
-  thirdCtx.thirdPublicText('因此实战任务交付=4而持续作战与任务承载/军事体系可靠性=3。','C1实战交付'),
-  '因此实战任务交付为A档而持续作战与任务承载/军事体系可靠性为B档。'
-);
+
 
 const civCtx={
   cleanNetText:v=>String(v??'').replace(/\s+/g,' ').trim(),
@@ -1288,8 +1270,8 @@ def test_score_explanations_live_inside_subitems_not_repeated_in_top_bridge():
     assert "当前裁决" in home
     assert "换算规则" in home
     assert "当前结果" in home
-    assert "FINANCE_BASE_SCORES" in alias
-    assert "FINANCE_LOSS_RATE" in alias
+    assert "FINANCE_BASE_SCORES" not in alias
+    assert "FINANCE_LOSS_RATE" not in alias
     assert "SecondItemScoreHowDetails" in alias
     assert 'SecondItemScoreHowDetails?.(item, "A制度建设")' in a
     assert 'SecondItemScoreHowDetails?.(item, "B1官僚治理")' in b1
@@ -1341,10 +1323,9 @@ def test_third_item_non_scoring_military_axes_remain_visible_and_explain_composi
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert 'item.unit === "不单独计分"' in source
     assert 'detailedHowText(item, groupKey, how, record)' in source
-    assert 'groupItems.get("C50")' in source
-    assert "当前三方面：" in source
-    assert "军事体系结果为" in source
-    assert "当前三项得分率为控制范围" in source
+    assert 'globalThis.ThirdItemCReading.html(item, record)' in source
+    assert 'item.reader_public_third_c' in source
+    assert "当前三项实际采用率为控制范围" in source
     assert "两个战略安全轴最后直接相加" in source
 
 
@@ -1387,12 +1368,11 @@ def test_first_item_b1_explains_start_opponent_and_efficiency_subscores():
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
     for source in (home, person):
         assert "function firstB1ScoreText(item)" in source
-        assert "B1满分50 = 起点难度15 + 对手难度15 + 完成效率20" in source
-        assert "资源越弱，创业难度分越高" in source
-        assert "E档15、D档13、C档11、B档8、A档5、S档2、S+档0" in source
-        assert "最强全值，第二强取50%" in source
-        assert "期望完成年 = 4 + 8 × √(本阶段有效控制信用 / 1000)" in source
-        assert "速度比≤0.75、1.00、1.25、1.50、2.00、2.50、3.00、4.00" in source
+        assert "firstB1ReadingMarkup(item, record)" in source
+        assert 'return item?.reader_public_b1?.public_calculation || "";' in source
+        assert "E档15、D档13、C档11、B档8、A档5、S档2、S+档0" not in source
+    for key in ('start_points','opponent_points','efficiency_points','public_method'):
+        assert key in home
 
 
 
@@ -1414,19 +1394,21 @@ def test_person_page_builds_compact_net_summary_without_transient_full_detail_tr
     assert 'reading = document.createElement("div");' in source
     assert 'reading.className = "net-reading";' in source
     assert 'section.dataset.netReadable = "done";' in source
-    assert "independent #net page" in source
+    compact = source[source.index('function compactNetReading(record)'):source.index('function enhancePersonNet()')]
+    assert 'item.reader_public_a' in compact
+    assert 'metricDetail(item, record, key)' in compact
 
 
 
-def test_first_item_overview_keeps_outcome_boundary_in_detail_only():
+def test_first_item_overview_does_not_repeat_the_individual_a_entry():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     start = source.index("function firstItemOverview")
     end = source.index("async function renderFirstMajor", start)
     block = source[start:end]
-    assert "起点背景：" in block
-    assert "实际成果：" in block
-    assert "a.public_scope" in block
+    assert "a.public_question" not in block
+    assert "a.public_story" not in block
+    assert "a.public_scope" not in block
     assert "a.public_boundary" not in block
 
 def test_first_item_overview_cost_is_compact_and_does_not_repeat_full_basis():
@@ -1457,14 +1439,15 @@ def test_first_item_commander_grade_has_public_fixed_score_table():
     root = Path(__file__).resolve().parents[1]
     home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
-    for source in (home, person):
-        assert "function firstCommanderScoreText(item)" in source
-        assert "D档（基础统帅）低/中/高位=4/7/10分" in source
-        assert "C档（重要统帅）=12/15/18分" in source
-        assert "B档（优秀统帅）=20/23/26分" in source
-        assert "A档（顶级统帅）=28/31/34分" in source
-        assert "S档（历史级统帅）=36/38/40分" in source
-        assert "对应${item.value}分" in source
+    from emperor_v4.evaluation.first_item_c_public import load_first_item_c_public
+    from emperor_v4.evaluation.first_item_weights import C_POINTS
+    for record in load_first_item_c_public(root).values():
+        for level in range(1, 6):
+            values = '、'.join(f"{C_POINTS[f'C-{level}-{position}']:g}" for position in ('LOW', 'MID', 'HIGH'))
+            assert values + '分' in record['public_method']
+    assert '${prose(source.public_method)}' in home
+    assert 'firstCommanderMarkup(item, record)' in person
+    assert 'function firstCommanderScoreText' not in home + person
 
 
 def test_second_item_calculation_rows_use_public_labels_and_readable_summary():
@@ -1535,7 +1518,7 @@ def test_second_item_public_boundary_display_deduplicates_repeated_clauses():
     assert "function publicBoundaryText(value)" in source
     assert "function publicFinanceBoundaryText(value)" in source
     assert "boundaryText: publicBoundaryText" in source
-    assert 'const boundary = publicBoundaryText(data.boundary);' in source
+    assert 'const boundary = data.verbatim ? format(data.boundary) : publicBoundaryText(data.boundary);' in source
     assert 'financeItem ? publicFinanceBoundaryText(item.reader_boundary || "") : publicBoundaryText(item.reader_boundary || "")' in source
 
 
@@ -1544,14 +1527,16 @@ def test_second_item_a_and_b1_lead_with_reader_summary_not_internal_ledger_copy(
     root = Path(__file__).resolve().parents[1]
     a_source = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
     b1_source = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
-    assert "function publicSummary(item, evidence)" in a_source
-    assert "内部影响权重、长期接收折算和原始表现指数只放在计算说明中" in a_source
-    assert 'const formalSummary = String(item.reader_summary || "").trim();' in a_source
-    assert 'detailsBlock("为什么最终是这个等级？", formalSummary)' in a_source
-    assert "function summaryText(item, evidence)" in b1_source
-    assert "链条数量用于组织阅读，不按条数直接相减" in b1_source
+    assert "const story = item.reader_story;" in a_source
+    assert "function publicSummary" not in a_source
+    assert "const summary = item.reader_summary;" in a_source
+    assert 'make("p", "prose", summary)' in a_source
+    assert "function summaryText(item, evidence)" not in b1_source
+    assert 'item.reader_story' in b1_source
+    assert 'item.reader_responsibility' in b1_source
     assert 'const formalSummary = String(item.reader_summary || "").trim();' in b1_source
-    assert 'detailsBlock("为什么最终是这个等级？", formalSummary || summary)' in b1_source
+    assert 'make("p", "prose", formalSummary)' in b1_source
+    assert b1_source.index('"具体经历"') < b1_source.index('"本人承担什么责任"') < b1_source.index('"为什么是这个等级"') < b1_source.index('group("正向行政运行"')
 
 
 
@@ -1663,10 +1648,12 @@ def test_first_item_commander_explains_why_profile_m1_may_differ():
     home = (root / "reader/home-interactions.js").read_text(encoding="utf-8")
     person = (root / "reader/person-readability.js").read_text(encoding="utf-8")
     expected = "人物画像 M1 是独立能力轴，事件范围与归责门槛不同，两者不能按档位或分数直接换算"
-    assert expected in home
-    assert expected in person
-    assert "first-item-cross-system-note" in home
-    assert "first-item-cross-system-note" in person
+    from emperor_v4.evaluation.first_item_c_public import load_first_item_c_public
+    records = load_first_item_c_public(root)
+    assert all(expected in row['public_method'] for row in records.values())
+    assert '${prose(source.public_method)}' in home
+    assert 'firstCommanderMarkup(item, record)' in person
+    assert home.index('first-c-method') < home.index('${prose(source.public_method)}')
 
 
 def test_third_item_public_aliases_replace_compound_internal_labels_before_bare_codes():
@@ -1733,7 +1720,7 @@ def test_first_item_applicability_is_three_state_and_never_inferred_from_items()
         assert '"APPLICABLE"' in source
         assert "第一项正式适用状态" in source
         assert "items.every(item =>" not in source
-    assert "正式状态未发布；阅读层不判断是否适用" in template
+    assert "适用状态尚未确定，因此暂不作适用性推断" in template
     assert "n.first_item_status==='NOT_APPLICABLE'" in template
 
 
@@ -1764,7 +1751,7 @@ def test_third_item_long_public_basis_is_losslessly_split_for_readability():
     assert "net-third-basis-list" in source
     assert "裁决说明" in source
     assert "match(/[^。！？；]+[。！？；]?/g)" in source
-    assert "三方面分别定档但不单独加分" in source
+    assert 'globalThis.ThirdItemCReading.heading(item)' in source
     assert "固定成本系数" in source
     assert "CIV_PUBLIC_POINTS" in source
 
@@ -1774,7 +1761,7 @@ def test_reader_guide_explains_material_strength_badges_are_upstream_only():
     from pathlib import Path
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     assert "只有正式记录明确发布相应字段时页面才展示" in template
-    assert "没有这类标签只表示上游没有发布，不等于证据弱" in template
+    assert "没有这类标签只表示正式记录未发布该字段，不等于证据弱" in template
     assert "页面也不会自行补判" in template
 
 
@@ -1802,9 +1789,11 @@ def test_third_item_percentages_are_labeled_as_composite_adoption_rates():
     template = (Path(__file__).resolve().parents[1] / "reader/index.template.html").read_text(encoding="utf-8")
     person = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
     assert 'groupKey === "strategic" && item.unit === "%" && ["B1","B2","B4"].includes(item.label)' in home
-    assert "合成采用 ${Number(item.value)}%" in home
-    assert "合成采用 ${Number(item.value)}%" in person
-    assert "合成采用 ${esc(String(Number(item.value)))}%" in template
+    assert "合成采用 ${Number(item.applied_value)}%" in home
+    assert "合成采用 ${Number(item.applied_value)}%" in person
+    assert 'Number(item.applied_value)' in template
+    for source in (home, person, template):
+        assert '合成采用 ${Number(item.value)}%' not in source
     assert "参与合成，不单列分值" in home
     assert "参与合成，不单列分值" in template
 
@@ -1822,7 +1811,7 @@ def test_third_public_level_heading_drops_redundant_current_result_prefix():
 def test_fourth_item_group_heading_is_not_identical_to_page_title():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
-    assert 'title: "第四项 · 文明与国家整合"' in source
+    assert 'title: "文明与国家整合"' in source
     assert 'civilization: "文明与国家整合 · 分项结算"' in source
 
 
@@ -1840,7 +1829,7 @@ def test_third_item_reader_separates_scoring_chains_and_exposes_intermediate_tot
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "function thirdMajorGroups(record, details)" in source
-    for phrase in ("安全状态变化", "控制成果质量", "军事体系表现", "军事代价"):
+    for phrase in ("战略安全成果", "控制成果质量", "军事体系表现", "军事代价"):
         assert phrase in source
     assert "不是领土占比、现实概率或独立得分" in source
     assert 'thirdCalculationRows(strategic, ["A120"]' in source
@@ -1859,10 +1848,13 @@ def test_compare_highlight_excludes_context_uncertainty_and_preserves_profile_ev
     css = (root / "reader" / "readability.css").read_text(encoding="utf-8")
 
     block = template[template.index("function compare(){"):template.index("function guide()")]
-    assert "突出正式数值／档位差异" in block
+    assert "突出当前展示值／档位差异" in block
     assert "不表示差异已经超出审慎位置投影、证据厚度或判断把握" in block
+    assert "量级置信度" not in template
+    assert ">置信度 " not in template
+    assert "判断把握：" in template
     assert "row('掌权背景（各项范围另见依据）',r=>esc(r.actual_power_window||'未列'),false)" in block
-    assert "row('量级置信度',r=>conf(r.impact.confidence),false)" in block
+    assert "row('判断把握',r=>conf(r.impact.confidence),false)" in block
     assert "row('影响性质',r=>esc(r.impact.impact_nature),false)" in block
 
     magnitude = block[block.index("row('历史影响量级'"):block.index("row('影响性质'")]
@@ -1898,40 +1890,21 @@ def test_first_item_shared_project_percentage_is_labeled_as_allocation_share():
     template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
 
     for source in (home, person):
-        assert "本人成果规模" in source
-        assert "全国核心统一尺度" in source
-        assert "不是共同项目分成，也不是领土、人口或军队比例" in source
+        assert "firstAReadingMarkup(item, record)" in source
         assert "成果占比" not in source
         assert "正向净收益" not in source
     assert "本项适用，但第一项结算分为0" in template
     assert "正向净收益" not in template
+    assert "public_scale_basis" in home
 
 
-def test_finance_public_copy_collapses_repeated_no_low_point_phrase():
-    from pathlib import Path
-
-    source = (Path(__file__).resolve().parents[1] / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
-    start = source.index("function publicFinanceText(value)")
-    end = source.index("function publicCalculationText(value)", start)
-    block = source[start:end]
-    assert "未另证独立有效低谷[：:]\\s*未另证独立有效低谷" in block
-    assert "军事与边疆项的战略结果未单独计入" in block
-    assert "直接等同" in source
-    assert "因此整体判断上调" in source
-    assert "压低当前等级的档内位置" in source
-    assert "能够保留到任期结束的明确恢复" in block
-    assert "可在任期结束确认的恢复" in block
-    assert "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态" in block
-    assert "民生主要状态维持为“$1”" in block
-    assert "现有证据尚不足" in block
-    assert "按评价窗口，前者不计入本期" in block
-    assert "不再作为独立低谷重复计入" in block
-    assert "不再单列“重要地区或群体出现明显损害”" in block
-    assert "function publicHandoffText(value)" in block
-    assert "实际率领百官" in block
-    assert "这只能证明部分行政承接" in block
-    assert '.replace(/。、/g, "。")' in block
-    assert '.replace(/。；/g, "；")' in block
+def test_finance_reader_preserves_authored_prose_and_uses_upstream_calculation():
+    root = Path(__file__).resolve().parents[1]
+    source = (root / "reader/second-item-c-public.js").read_text(encoding="utf-8")
+    assert 'record.public_calculation' in source
+    assert 'entry.source_refs' in source
+    assert 'record.public_story' in source
+    assert '.replace(/' not in source[source.index('function html(item)'):]
 
 
 def test_history_total_public_explanation_stays_on_public_scale():
@@ -1955,8 +1928,10 @@ def test_history_total_public_explanation_stays_on_public_scale():
     assert "同一个字母不能跨两套刻度直接比较" in template
     assert "最终内部裁判带" not in template
     public_copy = (Path(__file__).resolve().parents[1] / "reader/public-copy.json").read_text(encoding="utf-8")
-    assert "这是离线交互设计样稿。展示数据来自构建时的正式结算；更新正式记录后重新构建阅读页。" in public_copy
-    assert "本站是正式结算数据的只读阅读层；正式记录更新后，页面随之重建。" in public_copy
+    assert "这是离线交互设计样稿" not in public_copy
+    assert "本站是正式结算数据的只读阅读层" not in public_copy
+    assert "本页展示最近一次正式发布的结算数据" in template
+    assert "正式记录更新后会在后续发布中同步" in template
     dimension_start = template.index("function impactDimensionPublicText")
     dimension_end = template.index("function paradigmReceptionProse", dimension_start)
     dimension = template[dimension_start:dimension_end]
@@ -2003,20 +1978,38 @@ def test_prudent_rank_is_primary_and_formal_rank_is_point_estimate():
     block = template[start:end]
     assert "const lead=prudent?" in block
     assert "审慎位置" in block
-    assert "正式点位 第" in block
+    assert "规则点位 第" in block
     assert "<strong>正式第" not in block
+    assert "正式第 ${" not in template
+    assert "已闭合情景分数范围" not in template
+    assert "已验证情景分数范围" in template
+    assert "三体系总规则 ↗" in template
+    assert "历史影响规则 ↗" in template
+    assert "人物画像规则 ↗" in template
+    assert "统治绩效规则 ↗" in template
+    assert "入口配置 ↗" not in template
 
     assert 'class="home-net-rank"><strong>' in template
-    assert 'class="home-formal-rank">正式点位 第' in template
+    assert 'class="home-formal-rank">规则点位 第' in template
     assert 'class="home-full-position"' in template
-    assert "审慎位置、正式点位与治理背景" in template
+    assert "审慎位置、规则点位与治理背景" in template
     assert "页面优先展示这一范围" in template
+    assert "主页面总分只显示1位小数以避免制造虚假精度" in template
+    assert "排序与规则点位仍按未舍入的正式结算值计算" in template
+    assert "非计分 · 未校准规模难度" in template
+    assert "跨规模名次不能理解为已经消除治理难度差异" in template
+    assert "当前榜单没有对区域、广域与超广域治理难度做分数校准" in template
 
     compare_start = template.index("function compare(){")
     compare_end = template.index("function guide()", compare_start)
     compare = template[compare_start:compare_end]
     assert "row('审慎位置投影'" in compare
-    assert "row('正式点位（当前规则点估计）'" in compare
+    assert "row('规则点位（点估计）'" in compare
+    assert "function governanceContextDiffers" not in compare  # helper is a const closure, not a global classifier
+    assert "const governanceContextDiffers=()=>{" in compare
+    assert "governanceCompareWarning=governanceContextDiffers()" in compare
+    assert "当前统治绩效未对这些差异加权" in compare
+    assert "治理背景（非计分；未校准规模难度）" in compare
     assert "row('正式绩效'" not in compare
 
     assert ".net-position-summary>.net-formal-position{color:var(--muted)}" in css
@@ -2226,7 +2219,7 @@ def test_supplementary_person_page_is_history_impact_only():
     block = template[start:end]
 
     assert "const pageMode=supplementary?'历史影响补充样本':'三套评价';" in block
-    assert "该对象只进入历史影响补充样本，不纳入统治绩效主池或人物画像正式评价。" in block
+    assert "该对象只进入历史影响补充样本，不纳入统治绩效正式评价范围或人物画像正式评价范围。" in block
     assert "本页只展开历史影响正式依据。" in block
     assert "supplementary?'':" in block
     assert "历史影响概览" in block

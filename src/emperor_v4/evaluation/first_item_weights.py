@@ -1,10 +1,25 @@
 """First-item contract weights and grade projections; no historical adjudication."""
 from decimal import Decimal, ROUND_HALF_UP
+from math import sqrt, isfinite
 
 A_MAX = 120
 B1_MAX = 50
 B2_MAX = 30
 C_MAX = 40
+B1_START_POINTS = {f"R{i}": value for i, value in enumerate((15, 13, 11, 8, 5, 2, 0))}
+B1_OPPONENT_POINTS = {f"O{i}": value for i, value in enumerate((0, 1, 2, 4, 6, 8, 10)) if i}
+
+
+def b1_efficiency_points(control_credit: float, years: float) -> float:
+    if not isfinite(control_credit) or not isfinite(years) or control_credit < 0 or years < 0:
+        raise ValueError("B1 stage credit and years must be nonnegative")
+    if control_credit == 0:
+        return 0.0
+    ratio = years / (4 + 8 * sqrt(control_credit / 1000))
+    for limit, points in ((.75, 20), (1, 18), (1.25, 16), (1.5, 14), (2, 11), (2.5, 8), (3, 5), (4, 2)):
+        if ratio <= limit + 1e-12:
+            return float(points)
+    return 0.0
 C_POINTS = {
     "C-0": 0.0,
     "C-1-LOW": 4.0, "C-1-MID": 7.0, "C-1-HIGH": 10.0,

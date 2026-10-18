@@ -95,6 +95,10 @@ for i in (3,4,5):
 TOKEN = re.compile(r'[A-Za-z][A-Za-z0-9_]*(?:-[A-Za-z0-9_]+)*')
 
 def translate(text: str) -> str:
+    # Explicit cross-item qualifiers take precedence over the local axis names.
+    # "制度A" and "B2反馈" refer to governance, even in civilization prose.
+    text = re.sub(r'第二项制度\s*A(?![A-Za-z0-9])', '第二项制度建设', text)
+    text = re.sub(r'(?<![A-Za-z0-9])B2反馈', '反馈纠错与权力约束', text)
     if text in TRANSLATIONS:
         return TRANSLATIONS[text]
     # Resolve explicitly qualified cross-item codes before this module's local

@@ -1,175 +1,87 @@
-from __future__ import annotations
-
+"""Contract checks use synthetic records; historical verdicts are not fixtures."""
 from copy import deepcopy
-import json
+
+import pytest
 
 from emperor_v4.evaluation.second_item_a_public import (
-    PUBLIC_FORBIDDEN_RE,
-    _clean_public_text,
-    _ensure_profile_ids,
-    _public_nodes,
-    _refresh_payload,
+    PUBLIC_PROJECTION_SCHEMA, _public_nodes, _refresh_payload,
+    _scoring_signature, _verify_ref, public_markdown,
 )
 
 
-def _material(material_id: str, *, measure: str, operation: str, result: str, scope: str = "R0") -> dict:
-    return {
-        "material_id": material_id,
-        "measure": measure,
-        "operation": operation,
-        "result": result,
-        "cost_or_capture": "只计算一次，其他项目事实只作交叉核对。",
-        "reception_scope": scope,
+def payload():
+    node = {
+        "institution_node_id":"SYNTHETIC-NODE", "public_label":"文书复核",
+        "public_direction":"正向", "public_tags":["局部建设"], "signed_weight":1,
+        "public_adjudication_basis":"本人设置文书复核，由指定官员实际办理。但不证明所有案件均无差错。",
+        "public_boundary":None, "public_reception":"只证明任内办理，后继采用尚缺证据。",
+        "public_sources":[{"label":"合成证据", "ref":"evidence.json#material_id=SYNTHETIC-MATERIAL"}],
+        "public_material_ids":["SYNTHETIC-MATERIAL"],
     }
+    return {"public_projection_schema_version":PUBLIC_PROJECTION_SCHEMA, "records":[{
+        "ruler_id":"SYNTHETIC-RULER", "ruler_name":"合成甲",
+        "grade":"G2", "position":"lower", "direction_index":40, "rank":1,
+        "P_gross":1, "N_gross":0, "A_net_units":1,
+        "important_institutions":[{"institution_node_id":"SYNTHETIC-NODE", "normative_direction":"negative"}],
+        "M_positive_profile":[{"institution_node_id":"SYNTHETIC-NODE", "direction":"positive", "signed_weight":1, "material_ids":["SYNTHETIC-MATERIAL"]}],
+        "M_mixed_profile":[], "M_negative_profile":[],
+        "public_story":"本人建立文书复核组织。",
+        "public_adjudication_summary":"有限建设已经运行，长期范围不明，支持C级下位。",
+        "public_boundary":"只评价该制度改变。",
+        "public_institution_nodes":[node], "public_evidence_items":[],
+    }]}
 
 
-def _row() -> dict:
-    return {
-        "ruler_id": "SYNTHETIC-RULER",
-        "ruler_name": "合成甲",
-        "grade": "G2",
-        "position": "lower",
-        "direction_index": 41.5,
-        "rank": 1,
-        "important_institutions": [
-            {
-                "institution_node_id": "SYNTHETIC-NODE-1",
-                "label_zh": "中央文书接口",
-                "institution_domain": "中央组织",
-                "major_node_role": "MAJOR_RESTRUCTURE",
-                "decision": "MAJOR_NODE",
-                "normative_direction": "positive",
-                "reason": "本人设置中央文书接口并投入实际运行。",
-                "material_ids": ["SYNTHETIC-MATERIAL-1"],
-                "construction_operation_material_ids": ["SYNTHETIC-MATERIAL-1"],
-                "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
-                "counts_toward_S": False,
-            }
-        ],
-        "M_positive_profile": [
-            {
-                "institution_node_id": "SYNTHETIC-NODE-1",
-                "M": "M2",
-                "direction": "positive",
-                "direction_factor": 1.0,
-                "signed_weight": 1.0,
-                "result_closure": "observed",
-                "material_ids": ["SYNTHETIC-MATERIAL-1"],
-            },
-            {
-                "M": "M2",
-                "direction": "positive",
-                "direction_factor": 1.0,
-                "signed_weight": 1.0,
-                "result_closure": "observed",
-                "mechanism": "地方账簿核验接口",
-                "material_ids": ["SYNTHETIC-MATERIAL-2"],
-            },
-        ],
-        "M_mixed_profile": [],
-        "M_negative_profile": [],
-    }
+def test_projection_preserves_authored_prose_and_all_scoring_fields(tmp_path):
+    original = payload()
+    result = _refresh_payload(deepcopy(original), tmp_path)
+    assert _scoring_signature(result) == _scoring_signature(original)
+    row = result["records"][0]
+    assert row["public_story"] == original["records"][0]["public_story"]
+    assert row["public_adjudication_summary"] == original["records"][0]["public_adjudication_summary"]
+    assert row["public_evidence_items"][0]["public_basis"] == row["public_institution_nodes"][0]["public_adjudication_basis"]
+    assert _refresh_payload(deepcopy(result), tmp_path) == result
+    assert row["public_story"] in public_markdown(result)
+    assert row["public_adjudication_summary"] in public_markdown(result)
 
 
-def test_public_nodes_merge_by_id_and_assign_a_stable_id_to_unidentified_profile():
-    row = _row()
-    _ensure_profile_ids(row)
-    materials = {
-        "SYNTHETIC-MATERIAL-1": _material(
-            "SYNTHETIC-MATERIAL-1",
-            measure="设置中央文书接口",
-            operation="中央文书接口投入运行",
-            result="形成稳定文书传递",
-        ),
-        "SYNTHETIC-MATERIAL-2": _material(
-            "SYNTHETIC-MATERIAL-2",
-            measure="建立地方账簿核验",
-            operation="地方账簿核验实际运行",
-            result="形成地方核验结果",
-        ),
-    }
-
-    nodes, counts = _public_nodes(row, materials)
-
-    assert len(nodes) == 2
-    assert nodes[0]["institution_node_id"] == "SYNTHETIC-NODE-1"
-    assert nodes[0]["signed_weight"] == 1
-    assert nodes[1]["institution_node_id"].startswith("A-PUBLIC-NODE-")
-    assert counts["actual"] == 1
-    assert counts["not_counted"] == 1
-    for node in nodes:
-        assert set(node) == {
-            "institution_node_id",
-            "public_label",
-            "public_direction",
-            "public_tags",
-            "signed_weight",
-            "public_adjudication_basis",
-            "public_scope",
-            "public_boundary",
-            "public_reception",
-        }
-        text = " ".join(
-            str(node[field])
-            for field in (
-                "public_label",
-                "public_adjudication_basis",
-                "public_scope",
-                "public_boundary",
-                "public_reception",
-            )
-        )
-        assert not PUBLIC_FORBIDDEN_RE.search(text)
+@pytest.mark.parametrize("field", ["public_story", "public_adjudication_summary"])
+def test_missing_authored_words_fail_closed(tmp_path, field):
+    data = payload()
+    data["records"][0].pop(field)
+    with pytest.raises(ValueError, match="人工正文"):
+        _refresh_payload(data, tmp_path)
 
 
-def test_public_text_translates_internal_shorthand_before_persisting():
-    text = _clean_public_text(
-        "按正式显式复核完成canonical生命周期复核；R4与S++门禁不重复消费；"
-        "按A审查清单进入A计权，M2与position只作内部记录。"
-    )
-
-    assert "现有材料" in text
-    assert "跨朝代长期沿用" in text
-    assert "只计算一次" in text
-    assert not PUBLIC_FORBIDDEN_RE.search(text)
+@pytest.mark.parametrize("text", ["该节点被判断为重构，已有材料支持。", "不在本节点中判断正负方向", "制度净值为1", "M2运行"])
+def test_stale_or_technical_copy_is_rejected_not_rewritten(tmp_path, text):
+    data = payload()
+    data["records"][0]["public_institution_nodes"][0]["public_adjudication_basis"] = text
+    with pytest.raises(ValueError, match="人工正文"):
+        _refresh_payload(data, tmp_path)
+    assert data["records"][0]["public_institution_nodes"][0]["public_adjudication_basis"] == text
 
 
-def test_public_projection_fills_missing_totals_without_changing_scoring_fields(tmp_path):
-    payload = {
-        "records": [_row()],
-        "schema_id": "synthetic-a",
-    }
-    before = deepcopy(payload["records"][0])
-    root = tmp_path
-    material_root = root / "docs/公共成果/制度行政/01-制度行政计分材料登记"
-    material_root.mkdir(parents=True)
-    for material in (
-        _material(
-            "SYNTHETIC-MATERIAL-1",
-            measure="设置中央文书接口",
-            operation="中央文书接口投入运行",
-            result="形成稳定文书传递",
-        ),
-        _material(
-            "SYNTHETIC-MATERIAL-2",
-            measure="建立地方账簿核验",
-            operation="地方账簿核验实际运行",
-            result="形成地方核验结果",
-        ),
-        ):
-        (material_root / f"{material['material_id']}.json").write_text(
-            '{"records": [' + json.dumps(material, ensure_ascii=False) + ']}',
-            encoding="utf-8",
-        )
+@pytest.mark.parametrize("key,value", [("signed_weight",2), ("public_direction","负向"), ("institution_node_id","UNKNOWN")])
+def test_public_node_cannot_override_formal_identity_direction_or_weight(key,value):
+    data = payload()
+    row = data["records"][0]
+    row["public_institution_nodes"][0][key] = value
+    with pytest.raises(ValueError):
+        _public_nodes(row)
 
-    projected = _refresh_payload(payload, root)
-    row = projected["records"][0]
 
-    assert row["P_gross"] == 2
-    assert row["N_gross"] == 0
-    assert row["A_net_units"] == 2
-    assert row["grade"] == before["grade"]
-    assert row["position"] == before["position"]
-    assert row["direction_index"] == before["direction_index"]
-    assert row["rank"] == before["rank"]
-    assert row["public_adjudication_summary"].endswith("C级（下位）。")
+def test_no_nodes_is_an_empty_list_not_a_counted_explanation_card(tmp_path):
+    data = payload()
+    row = data["records"][0]
+    row.update(important_institutions=[], M_positive_profile=[], public_institution_nodes=[])
+    result = _refresh_payload(data, tmp_path)
+    assert result["records"][0]["public_evidence_items"] == []
+    assert result["records"][0]["public_story"]
+
+
+def test_source_anchor_resolves_and_missing_anchor_or_path_is_rejected(tmp_path):
+    (tmp_path/"evidence.json").write_text('{"records":[{"material_id":"SYNTHETIC-MATERIAL","facts":["原句"]}]}',encoding="utf-8")
+    _verify_ref(tmp_path,"evidence.json#material_id=SYNTHETIC-MATERIAL/facts/0")
+    for ref in ["evidence.json#material_id=UNKNOWN", "missing.json", "../escape.json", "javascript:alert(1)"]:
+        with pytest.raises(ValueError): _verify_ref(tmp_path,ref)

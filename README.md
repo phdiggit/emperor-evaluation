@@ -113,17 +113,33 @@ python v4.py historical-impact-verify
 python v4.py composite-ranking --write
 ```
 
-第二项组件变动后，`python v4.py second-item-totals --write`同步汇总与四张阅读页；A制度建设的公开逐节点正式投影使用`python v4.py second-item-a-public --write`，B2反馈与约束的公开裁决投影使用`python v4.py second-item-b2-public --write`，C1—C4财政民生结果的公开裁决投影使用`python v4.py second-item-c-public --write`。第三、第四项公开裁决投影使用`python v4.py third-fourth-item-public --write`，可用`python v4.py third-fourth-item-public-verify`单独校验。第二项正式校验同时核对组件抄录、竞争排名、公开字段及阅读同值。
+第二项组件变动后，`python v4.py second-item-totals --write`同步汇总与四张阅读页；A制度建设的人物正文、定档理由和逐节点事实直接维护在正式JSON，`python v4.py second-item-a-public --write`只同步逐字证据投影及Markdown阅读段，不从权重或数量生成历史解释；B2反馈与约束的公开裁决投影使用`python v4.py second-item-b2-public --write`，该命令保留直接维护在正式记录中的定档说明与逐条正文，只刷新结构元数据并同步Markdown；`reader/second-item-b2.html`提供全池入口，概览、对照与详情使用同一正文及逐条史源，C1—C4财政民生结果的公开裁决投影使用`python v4.py second-item-c-public --write`。第三、第四项公开裁决投影使用`python v4.py third-fourth-item-public --write`，可用`python v4.py third-fourth-item-public-verify`单独校验。第二项正式校验同时核对组件抄录、竞争排名、公开字段及阅读同值。
+
+第二项C的人物正文、损害证据边界、逐条史源和个人限制直接维护在正式JSON；已绑定的逐条依据与尚未建立逐条支持关系的相关材料汇集分别展示，明确采用范围和推断性质。`second-item-c-public --write`保留正文与来源，只同步计算说明、元数据和四张Markdown阅读视图。`reader/second-item-c.html`提供全部正式C记录入口，详情与对照只展示同一上游字段。修改后运行`python v4.py second-item-c-verify`、`python v4.py formal-settlements-verify --item second_item`及阅读层构建和检查；结构、引用定位与同值通过不代表史源已在语义上证明对应事实。
+
+第二项D的具体经历、当前定档说明、观察窗口、本人责任、限制及逐条史源直接维护在D1、D3正式JSON；原文转录、既有摘要和评价判断分别标明。`python v4.py second-item-d1-d3-public --write`保留全部公开正文与引用，只刷新元数据及两张Markdown；不加`--write`校验来源、正文和阅读视图。详情、概览与对照使用同一上游字段，原文摘录和来源逐条展开；随后运行第二项正式校验及阅读层构建、检查。公开文案维护不改评分。
 
 第三、第四项公开文案使用明确的中文术语及绑定原句的完整转述，未知代码或英文必须补充转述后才能生成，不得删除字母或拼接残句。校验同时比较完整公开投影与非公开评分来源；结构校验不代替文意复核。修改转述后重建公开字段，再运行`python reader/build.py`及`python reader/build.py --check`。合并时先解决合同、源记录与生成器冲突，再重建公开投影和`reader/data/people/`，不要手工拼接生成文案。Pages成功不代表Build reader成功，发布验收须确认对应提交的构建与行为检查均通过。
 
+第三项A的具体经历、定档说明、本人责任、评价时期和来源直接维护在结果信用正式JSON各轴的`public_reading`中。公开投影保留正文并核对来源定位，只刷新基于合同的计算和档位说明，同步AB正式JSON及Markdown；人物页、第三项详情与对照页使用同一正文。修改后运行`python v4.py third-fourth-item-public --write`、`python v4.py formal-settlements-verify --item third_item`和阅读层构建／检查。判词与计分矛盾须先核对现行归责与交班依据，不为展示修改分数。
+
+第三项B正文与逐条来源维护在AB正式JSON的B1／B2／B4各轴`public_reading`；原始率、实际采用率及另存诊断率分列，B4复核状态随正式来源明确展示。现值暂留不等于复核通过。上述公开投影命令保留正文、核对现行来源并同步空间快照与B合成计算、Markdown；随后构建阅读层，人物页、详情和对照使用同一正文。失效过程引用替换为现行区域及归责依据，不恢复已退役文件，不因展示整理改变评分。
+
 主态低谷与净恢复 V4 已统一启用（L有限修正，历史K不计分）；可用 `python v4.py governance-state-recovery-verify` 校验，或用 `python v4.py governance-state-recovery-report --write` 刷新逐人阅读页。启用与刷新不做跨项文件哈希同步。
 
-第一项本人统帅的公开说明直接维护在 C 正式 Markdown 的“公开裁决依据”“公开责任边界”中，战役列表只读取“统一链战役清单”。修改后运行`python v4.py first-item-c-public-verify`，再重建`reader/build.py`与`reader/build_first_item_reader_cache.py`；阅读层不猜测角色、不生成战役条目，也不因展示列表而省略责任与限制。
+第一项 C 的事实真源是公共战役登记。正式 C Markdown 逐条绑定公共本人结果、成员、具名行动或范围说明，声明采用、窗口及同情境去重；缺证先回源补登记，不从 M1、武将汇总或旧判词反推。`python v4.py first-item-c-public-verify`验证全部当前对象、本人引用、源路径、处置和档分同值；阅读页`reader/first-item-c.html`默认展示逐人问题与经历，职责后再展开评价、胜败和逐条公共原字段。分值改判同步第一项总视图、综合榜与相关分析，再构建主阅读页和逐人缓存。
 
-第一项 B1 的“公开起点说明”“公开对手说明”“公开效率说明”维护在 B1 正式 Markdown；军事成本的公开依据、责任时期、证据缺口与补充链接维护在成本正式 JSON。运行`python v4.py first-item-b1-cost-public-verify`核对覆盖与字段，再重建阅读数据及第一项缓存。页面直接展示公开字段，分阶段效率不合并成单一年数，成本依据与缺口不截断；原始计分记录保留在规则折叠项和来源入口。
+第一项 B1 的逐人阅读问题、阅读正文、起点、对手和效率说明维护在 B1 正式 Markdown；计时阶段、具名对手及计算参数维护在正式入口登记的 B1 计时与对手依据。`python v4.py first-item-b1-cost-public-verify`核对来源、公式与正式分数，再用`python reader/build.py`及`python reader/build_first_item_reader_cache.py`同步展示。分数变动须先同步第一项总表并运行`python v4.py composite-ranking --write`，相关分析按其命令重建。阅读层直接展示上游内容，不补对手、不改工期；分阶段效率不合并成单一年数。军事成本的公开依据、责任时期、证据缺口与补充链接仍维护在成本正式 JSON，完整依据保留在深层展开项。
 
-阅读概览与详情均保留完整公开文字，不按字数或前几句生成摘要。第二项 A/B1 的概览和专用正文读取同一正式公开裁决，专用正文独立展示范围、计算与来源，不依赖旧渲染器中转。画像正文仅映射明确的代码和档位，不全局改写中文词语；公开净收益正文不经过画像术语映射。
+第一项 B2 的评价窗口、本人控制链、三项档位依据及逐人阅读问题、正文维护在 B2 正式 Markdown。`python v4.py first-item-b2-public-verify`校验完整覆盖、公开投影与档位换分；修改后同步第一项总阅读视图，有分值变化时重建综合榜及相关分析，再运行`python reader/build.py`与`python reader/build_first_item_reader_cache.py`。`reader/first-item-b2.html`覆盖全部适用人物，人物主页、对照与详情使用同一上游正文；默认显示问题、经历与三个分数，逐层展开职责、裁决限制和史料，浏览器不补写组织事实或推断本人控制。
+
+第四项 C 全池阅读页为`reader/fourth-item-c.html`，覆盖正式 C 记录的完整集合，独立于综合榜就绪状态。它与人物概览、详情、对照使用同一`fourth-item-c-public.js`正文和导航；跨页以正式人物标识定位，详情以`#net/人物标识/fourth/c`定位 C 卡。仅为已有阅读人物页及已就绪详情提供回链，池外单项不生成虚假人物入口。姓名、经历、来源和零值说明均可全文搜索；构建与`--check`核对全池内容，评分与原引用保持不变。
+
+第四项 C 的逐条史源入口维护在材料 `public_c_result_reading.sources`，原引用与链接严格同值；位置理由、零值原因和复核范围维护在轴级 `public_reading`。人物概览、详情与对照共同展示完整来源和只读合成步骤，区分无独立材料、复核后不计分与正负相抵。修改后运行 `python v4.py third-fourth-item-public --write`、`python v4.py fourth-item-c-views --write`、`python v4.py fourth-item-c-verify`及阅读层构建／检查。来源与说明维护不改变评分；未知链接不猜配，原引记述不冒充古籍逐字原文。
+
+第四项 B 的经历、本人责任、比较起点、定档理由与逐条史源直接维护在正式 JSON 的 B 轴及 B 材料 `public_reading`；`third-fourth-item-public --write`只投影正文，不改变评分。`python v4.py fourth-item-b-views --write`同步正式阅读视图，`python v4.py fourth-item-b-verify`校验三轴合同、正文、来源及视图同值；再运行阅读层构建与检查。人物页、详情、对照和`reader/fourth-item-b.html`共用完整正文，撤资格材料保留事实但不标作正向成果；零分区分未确认独立变化、材料复核后不计分与正负相抵，不用前后任或其他项目事实补写本人教育结果。
+
+阅读概览与详情均保留完整公开文字，不按字数或前几句生成摘要。第二项 A/B1 的概览和专用正文读取同一正式公开裁决，专用正文独立展示范围、计算与来源，不依赖旧渲染器中转。B1的具体经历、本人责任、定档理由及逐材料解释直接维护在正式JSON，`python v4.py second-item-b1-public --write`只投影正文并刷新档内指数计算，随后以`python v4.py second-item-b1-verify`及`python reader/build.py --check`校验；刷新不得用条数总括覆盖人物正文，也不改变评分。画像正文仅映射明确的代码和档位，不全局改写中文词语；公开净收益正文不经过画像术语映射。
 
 军损数量解释试点见[军事成本裁决敏感性](docs/评分结算/净收益/综合分析/01-军事成本裁决敏感性.md)。相关正式输入变动后运行`python v4.py cost-sensitivity --write`，只读核对省略`--write`；案例基准档位变化须先复核案例。分析不改正式评分，且不把被排除假设纳入证据允许范围。
 

@@ -20,7 +20,7 @@ B2_PATH = Path(
     "03-B2反馈纠错与权力约束方向卡.json"
 )
 CONTRACT_PATH = Path("docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md")
-PUBLIC_PROJECTION_SCHEMA = "second-item-b2-public-projection-v1"
+PUBLIC_PROJECTION_SCHEMA = "second-item-b2-authored-public-v2"
 PROFILE_KEYS = ("M_positive_profile", "M_mixed_profile", "M_negative_profile")
 PUBLIC_EVIDENCE_FIELDS = (
     "id",
@@ -29,40 +29,10 @@ PUBLIC_EVIDENCE_FIELDS = (
     "public_tags",
     "public_basis",
     "public_boundary",
+    "source_refs",
 )
 
 PUBLIC_DIRECTIONS = {"正向", "负向", "正向主导", "负向主导", "正负并存"}
-GRADE_LABELS = {
-    "G0": "最低档",
-    "G1": "较低档",
-    "G2": "中档",
-    "G3": "较高档",
-    "G4": "高档",
-    "G5": "最高档",
-}
-POSITION_LABELS = {
-    "lower": "下位",
-    "lower-middle": "中下位",
-    "middle": "中位",
-    "middle-upper": "中上位",
-    "upper": "上位",
-}
-ROLE_LABELS = {
-    "external_constraint": "外部约束",
-    "information_ingress": "信息进入",
-    "sovereign_self_correction": "本人纠偏",
-    "ignored_high_stakes_feedback": "重要意见未被采纳",
-}
-CLOSURE_LABELS = {
-    "observed": "已观察到实际结果",
-    "observed_or_repeated": "已观察到实际结果",
-    "repeated_or_stage": "在多个阶段出现实际结果",
-    "sustained_or_systemic": "形成持续或系统性结果",
-    "institution_lifecycle_adjudicated": "设立、运行与后续变化均有材料支持",
-    "limited_observation": "目前只有有限的实际观察",
-    "context_only": "仅作背景核对",
-}
-
 PUBLIC_FORBIDDEN_RE = re.compile(
     r"(?:"
     r"(?<![A-Za-z0-9])(?:B1|B2|C[1-4]|D[13]|M[0-3]|M|G[0-5]|R[0-4])(?![A-Za-z0-9])|"
@@ -72,7 +42,7 @@ PUBLIC_FORBIDDEN_RE = re.compile(
     r"context_only|external_constraint|information_ingress|"
     r"sovereign_self_correction|ignored_high_stakes_feedback)\b|"
     r"[A-Za-z]+(?:_[A-Za-z0-9]+)+|"
-    r"生命周期|门禁|主档|消费|净余量|计权|闭合|本轮|重审|重裁|恢复原|版本史"
+    r"生命周期|门禁|主档|消费|净余量|计权|闭合|本轮|重审|重裁|恢复原|版本史|错绑|现撤回|已吸收|形成完整链条|反馈反馈链"
     r")",
     flags=re.IGNORECASE,
 )
@@ -85,139 +55,6 @@ def _number(value: object) -> float:
         return float(value)
     except (TypeError, ValueError):
         return 0.0
-
-
-def _unique(values: list[str]) -> list[str]:
-    result: list[str] = []
-    seen: set[str] = set()
-    for value in values:
-        text = value.strip()
-        if text and text not in seen:
-            seen.add(text)
-            result.append(text)
-    return result
-
-
-def _clean_public_text(value: object) -> str:
-    """Translate formal B2 shorthand before it reaches the public source."""
-
-    text = str(value or "").replace("`", "").replace("\r", " ").replace("\n", " ")
-    text = re.sub(r"\{\{.*?\}\}", "", text)
-    text = re.sub(r"\s+", " ", text).strip()
-
-    # Remove process-history clauses from the person-level summary. The
-    # underlying formal settlement remains available in the machine fields.
-    text = re.sub(
-        r"[^。；]*?(?:专项扩搜|扩搜|重审|重裁|再审|改判|按修订后的)[^。；]*[。；]",
-        "",
-        text,
-    )
-    replacements = (
-        (r"(?<![A-Za-z0-9])B1(?![A-Za-z0-9])", "官僚治理"),
-        (r"(?<![A-Za-z0-9])B2(?![A-Za-z0-9])", "本项"),
-        (r"(?<![A-Za-z0-9])C[1-4](?![A-Za-z0-9])", "其他治理结果"),
-        (r"(?<![A-Za-z0-9])D(?:1|3)(?![A-Za-z0-9])", "交接评价"),
-        (r"mixed[-_]negative\s*M3", "负向主导的较强机制"),
-        (r"mixed[-_]positive\s*M3", "正向主导的较强机制"),
-        (r"mixed[-_]negative\s*M2", "负向主导的有限机制"),
-        (r"mixed[-_]positive\s*M2", "正向主导的有限机制"),
-        (r"正向主导\s*mixed\s*M3", "正向主导的较强机制"),
-        (r"负向主导\s*mixed\s*M3", "负向主导的较强机制"),
-        (r"mixed\s*M3", "正负并存的较强机制"),
-        (r"mixed\s*M2", "正负并存的有限机制"),
-        (r"有限(?:的)?\s*正向?M2", "有限的正向机制"),
-        (r"有限(?:的)?\s*负向?M2", "有限的负向机制"),
-        (r"正向M3", "较强的正向机制"),
-        (r"负向M3", "较强的负向机制"),
-        (r"正向M2", "有限的正向机制"),
-        (r"负向M2", "有限的负向机制"),
-        (r"正M3", "较强的正向机制"),
-        (r"负M3", "较强的负向机制"),
-        (r"正M2", "有限的正向机制"),
-        (r"负M2", "有限的负向机制"),
-        (r"多M2路径", "多条有限机制路径"),
-        (r"多M2门", "多条有限机制条件"),
-        (r"M数量", "机制数量"),
-        (r"计M", "计入机制判断"),
-        (r"(?<![A-Za-z0-9])M3(?![A-Za-z0-9])", "持续或系统性的机制"),
-        (r"(?<![A-Za-z0-9])M2(?![A-Za-z0-9])", "有限但有实际结果的机制"),
-        (r"(?<![A-Za-z0-9])M1(?![A-Za-z0-9])", "阶段性机制"),
-        (r"(?<![A-Za-z0-9])M0(?![A-Za-z0-9])", "背景或未形成实际结果的材料"),
-        (r"(?<![A-Za-z0-9])G5(?![A-Za-z0-9])", "最高档"),
-        (r"(?<![A-Za-z0-9])G4(?![A-Za-z0-9])", "高档"),
-        (r"(?<![A-Za-z0-9])G3(?![A-Za-z0-9])", "较高档"),
-        (r"(?<![A-Za-z0-9])G2(?![A-Za-z0-9])", "中档"),
-        (r"(?<![A-Za-z0-9])G1(?![A-Za-z0-9])", "较低档"),
-        (r"(?<![A-Za-z0-9])G0(?![A-Za-z0-9])", "最低档"),
-        (r"(?<![A-Za-z0-9])R4(?![A-Za-z0-9])", "跨朝代长期沿用"),
-        (r"(?<![A-Za-z0-9])R3(?![A-Za-z0-9])", "多个后继阶段持续采用"),
-        (r"(?<![A-Za-z0-9])R[12](?![A-Za-z0-9])", "有限的后世接收"),
-        (r"(?<![A-Za-z0-9])R0(?![A-Za-z0-9])", "本人任内实际运行"),
-        (r"(?<![A-Za-z0-9])external_constraint(?![A-Za-z0-9])", "外部约束"),
-        (r"(?<![A-Za-z0-9])information_ingress(?![A-Za-z0-9])", "信息进入"),
-        (r"(?<![A-Za-z0-9])sovereign_self_correction(?![A-Za-z0-9])", "本人纠偏"),
-        (r"(?<![A-Za-z0-9])ignored_high_stakes_feedback(?![A-Za-z0-9])", "重要意见未被采纳"),
-        (r"(?<![A-Za-z0-9])observed_or_repeated(?![A-Za-z0-9])", "已观察到实际结果"),
-        (r"(?<![A-Za-z0-9])repeated_or_stage(?![A-Za-z0-9])", "在多个阶段出现实际结果"),
-        (r"(?<![A-Za-z0-9])sustained_or_systemic(?![A-Za-z0-9])", "形成持续或系统性结果"),
-        (r"(?<![A-Za-z0-9])institution_lifecycle_adjudicated(?![A-Za-z0-9])", "设立、运行与后续变化均有材料支持"),
-        (r"(?<![A-Za-z0-9])context_only(?![A-Za-z0-9])", "仅作背景核对"),
-        (r"(?<![A-Za-z0-9])event_scale(?![A-Za-z0-9])", "事件范围"),
-        (r"(?<![A-Za-z0-9])sanction_intensity(?![A-Za-z0-9])", "惩罚强度"),
-        (r"(?<![A-Za-z0-9])irreversibility(?![A-Za-z0-9])", "后果不可逆程度"),
-        (r"(?<![A-Za-z0-9])highest_power_directness(?![A-Za-z0-9])", "最高权力直接性"),
-        (r"(?<![A-Za-z0-9])position(?![A-Za-z0-9])", "档内位置"),
-        (r"(?<![A-Za-z0-9])lifecycle(?![A-Za-z0-9])", "反馈链"),
-        (r"生命周期", "反馈链"),
-        (r"跨层级信息进入", "跨层级的信息进入"),
-        (r"跨渠道门", "跨渠道条件"),
-        (r"主档", "整体判断"),
-        (r"门禁", "等级条件"),
-        (r"净余量", "综合余量"),
-        (r"计权", "计入计算"),
-        (r"消费", "计算"),
-        (r"闭合", "形成完整链条"),
-        (r"去重", "避免重复计算"),
-        (r"混合偏正", "正向主导"),
-        (r"混合偏负", "负向主导"),
-        (r"mixed_positive", "正向主导"),
-        (r"mixed_negative", "负向主导"),
-        (r"positive", "正向"),
-        (r"negative", "负向"),
-        (r"balanced|mixed|neutral", "正负并存"),
-        (r"本轮", ""),
-        (r"恢复原", "恢复既有"),
-    )
-    for pattern, replacement in replacements:
-        text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
-
-    text = re.sub(
-        r"档内位置按[^。；]+(?:。|；)?",
-        "档内位置由现有机制的代表性确定。",
-        text,
-    )
-    text = re.sub(r"定(最低档|较低档|中档|较高档|高档|最高档)", r"对应\1", text)
-    text = re.sub(r"维持(最低档|较低档|中档|较高档|高档|最高档)", r"整体判断为\1", text)
-    text = text.replace("有限有限的", "有限的")
-    text = text.replace("有限有限但有实际结果的机制", "有限但有实际结果的机制")
-    text = text.replace("正负并存-负向", "负向主导")
-    text = text.replace("正负并存-正向", "正向主导")
-    text = text.replace("多有限但有实际结果的机制", "多条有限机制")
-    text = text.replace("抬持续或系统性的机制", "抬成持续或系统性的机制")
-    text = text.replace("外部约束 持续或系统性的机制", "持续运行的外部约束")
-    text = text.replace("反复运行的持续运行的外部约束", "持续运行的外部约束")
-    text = text.replace("整体判断整体判断为", "整体判断为")
-    text = text.replace("整体判断较高档保留", "整体判断为较高档")
-    text = text.replace("硬门", "条件")
-    text = text.replace("最低门", "最低条件")
-    text = text.replace("档门", "档位条件")
-    text = text.replace("负链", "负向机制")
-    text = text.replace("middle", "中位")
-    text = re.sub(r"[；，、]\s*[；，、]+", "；", text)
-    text = re.sub(r"。\s*。+", "。", text)
-    text = re.sub(r"；\s*。", "。", text)
-    text = re.sub(r"\s+", " ", text)
-    return text.strip(" ；，、")
 
 
 def _profile_rows(row: dict[str, Any]):
@@ -281,91 +118,64 @@ def _public_direction(profiles: list[dict[str, Any]]) -> str:
     return "正负并存"
 
 
-def _public_label(profiles: list[dict[str, Any]]) -> str:
-    for profile in profiles:
-        candidate = _clean_public_text(profile.get("label_zh") or profile.get("mechanism"))
-        if candidate:
-            candidate = re.split(r"[；。]", candidate, maxsplit=1)[0].strip()
-            if len(candidate) > 80:
-                candidate = candidate[:77].rstrip("，、； ") + "…"
-            return candidate
-    return "反馈与约束机制"
-
-
-def _public_basis(profiles: list[dict[str, Any]]) -> str:
-    values: list[str] = []
-    for profile in profiles:
-        mechanism = _clean_public_text(profile.get("mechanism"))
-        closure = CLOSURE_LABELS.get(str(profile.get("result_closure") or ""), "")
-        if mechanism and closure and closure not in mechanism:
-            mechanism = f"{mechanism}；{closure}"
-        if mechanism:
-            values.append(mechanism)
-    return "；".join(_unique(values)) or "现有正式记录未提供可直述的机制依据。"
-
-
-def _public_tags(profiles: list[dict[str, Any]]) -> list[str]:
-    tags = ["反馈与纠错"]
-    for profile in profiles:
-        role = ROLE_LABELS.get(str(profile.get("mechanism_role") or ""))
-        if role:
-            tags.append(role)
-        closure = CLOSURE_LABELS.get(str(profile.get("result_closure") or ""))
-        if closure:
-            tags.append(closure)
-        if _number(profile.get("signed_weight")) == 0 or str(profile.get("position_count_mode") or "") in {
-            "context_only",
-            "context_only_no_effective_mechanism",
-        }:
-            tags.append("背景材料")
-    if len(profiles) > 1 or any(profile.get("absorbed_into_lifecycle_key") for profile in profiles):
-        tags.append("同一机制的合并阶段")
-    return _unique(tags)
-
-
-def _public_boundary(profiles: list[dict[str, Any]]) -> str:
-    values: list[str] = []
-    for profile in profiles:
-        reason = _clean_public_text(profile.get("position_exclusion_reason"))
-        if reason:
-            values.append(reason)
-    if any(_number(profile.get("signed_weight")) == 0 for profile in profiles):
-        values.append("这条材料仅作背景核对，不单独计算")
-    if len(profiles) > 1 or any(profile.get("absorbed_into_lifecycle_key") for profile in profiles):
-        values.append("同一反馈机制的多个阶段合并展示，不重复计算")
-    else:
-        values.append("同一机制只作一次判断，不重复计算")
-    values.append("其他治理结果不在这里重复计算")
-    return "；".join(_unique(values)) + "。"
-
-
 def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
-    items = []
-    for group_key, profiles in _group_profiles(row).items():
-        items.append(
-            {
-                "id": _stable_id(row, group_key),
-                "public_label": _public_label(profiles),
-                "public_direction": _public_direction(profiles),
-                "public_tags": _public_tags(profiles),
-                "public_basis": _public_basis(profiles),
-                "public_boundary": _public_boundary(profiles),
-            }
-        )
-    return items
+    items = row.get("public_evidence_items")
+    if not isinstance(items, list) or not items:
+        raise ValueError(f"B2缺少直接维护的逐条公开正文：{row.get('ruler_name')}")
+    return copy.deepcopy(items)
 
 
 def _public_summary(row: dict[str, Any]) -> str:
-    basis = row.get("grade_basis") or next(iter(row.get("settlement_basis") or []), "")
-    text = _clean_public_text(basis)
-    grade = GRADE_LABELS.get(str(row.get("grade") or ""), "当前等级")
-    position = POSITION_LABELS.get(str(row.get("position") or ""), "当前档内位置")
-    if text and text[-1] not in "。！？":
-        text += "。"
-    tail = f"整体判断为{grade}（{position}）。"
-    if tail not in text:
-        text += tail
-    return text or tail
+    text = row.get("public_adjudication_summary")
+    if not isinstance(text, str) or not text.strip():
+        raise ValueError(f"B2缺少直接维护的公开定档理由：{row.get('ruler_name')}")
+    return text
+
+
+def _source_material_ids(profiles: list[dict[str, Any]]) -> set[str]:
+    return {
+        str(value) for profile in profiles
+        for value in [profile.get("material_id"), *(profile.get("material_ids") or []),
+                      *(profile.get("merged_source_material_ids") or [])]
+        if value
+    }
+
+
+def _verify_sources(root: Path, item: dict[str, Any], profiles: list[dict[str, Any]], cache: dict) -> None:
+    refs = item.get("source_refs")
+    if not isinstance(refs, list) or not refs:
+        raise ValueError(f"B2公开材料缺少来源：{item.get('id')}")
+    expected = _source_material_ids(profiles)
+    if {ref.get("material_id") for ref in refs} != expected:
+        raise ValueError(f"B2公开来源与正式材料身份不一致：{item.get('id')}")
+    for ref in refs:
+        relative = Path(str(ref.get("path") or ""))
+        path = (root / relative).resolve()
+        allowed = (root / "docs/公共成果/制度行政/01-制度行政计分材料登记").resolve()
+        if relative.is_absolute() or not path.is_relative_to(allowed) or not path.is_file():
+            raise ValueError(f"B2公开来源不在有效材料登记中：{relative}")
+        if path not in cache:
+            cache[path] = {m["material_id"]: m for m in load_json(path).get("records", [])}
+        material = cache[path].get(ref["material_id"])
+        if material is None:
+            raise ValueError(f"B2公开来源缺少对应材料：{ref['material_id']}")
+        candidates = []
+        for evidence in material.get("evidence") or []:
+            if not isinstance(evidence, dict):
+                continue
+            candidates.append({
+                "path": relative.as_posix(), "material_id": material["material_id"],
+                "source_title": evidence.get("source_title") or evidence.get("source_locator") or "所引史料",
+                "source_locator": evidence.get("source_locator") or "",
+                "source_url": evidence.get("source_url") or "",
+                "exact_quote": evidence.get("exact_quote") or "",
+            })
+        if not candidates:
+            candidates.append({"path": relative.as_posix(), "material_id": material["material_id"],
+                               "source_title": "正式材料登记", "source_locator": "",
+                               "source_url": "", "exact_quote": ""})
+        if ref not in candidates:
+            raise ValueError(f"B2公开史源不与登记逐字同值：{ref['material_id']}")
 
 
 def _scoring_signature(payload: dict[str, Any]) -> str:
@@ -411,7 +221,7 @@ def _refresh_payload(payload: dict[str, Any]) -> dict[str, Any]:
     payload["public_projection_source"] = {
         "formal_contract": CONTRACT_PATH.as_posix(),
         "identity": "人物ID加lifecycle_key、absorbed_into_lifecycle_key或材料ID生成稳定公开条目ID",
-        "reader_policy": "reader只消费public_adjudication_summary和public_evidence_items",
+        "reader_policy": "公开正文直接维护于正式记录；命令只校验机制身份、方向、阶段边界及逐字史源，不从内部判词生成历史解释",
     }
     return payload
 
@@ -439,6 +249,7 @@ def verify_public_projection(
     expected_merged_count = 0
     expected_zero_weight_count = 0
     all_ids: set[str] = set()
+    source_cache: dict = {}
     for row in records:
         name = str(row.get("ruler_name"))
         profiles = list(_profile_rows(row))
@@ -474,9 +285,23 @@ def verify_public_projection(
                 value = item.get(field)
                 if not isinstance(value, str) or not value.strip() or PUBLIC_FORBIDDEN_RE.search(value):
                     raise ValueError(f"第二项B2公开字段含空值或内部术语：{name} / {item.get('id')} / {field}")
-        expected_items = _public_evidence_items(row)
-        if actual_items != expected_items:
-            raise ValueError(f"第二项B2公开材料不是当前正式结构的确定性投影：{name}")
+        expected_ids = [_stable_id(row, key) for key in groups]
+        if ids != expected_ids:
+            raise ValueError(f"第二项B2公开材料与正式机制身份或顺序不一致：{name}")
+        for item, group in zip(actual_items, groups.values()):
+            if item["public_direction"] != _public_direction(group):
+                raise ValueError(f"第二项B2公开方向与正式方向不一致：{name}")
+            effective = [p for p in group if _number(p.get("signed_weight")) != 0]
+            if ("背景材料" in item["public_tags"]) != (not effective):
+                raise ValueError(f"第二项B2整条背景标记与有效阶段不一致：{name}")
+            partial = bool(effective) and len(effective) < len(group)
+            if ("部分阶段不另计" in item["public_tags"]) != partial:
+                raise ValueError(f"第二项B2合并阶段标记不一致：{name}")
+            if effective and "这条材料仅" in item["public_boundary"]:
+                raise ValueError(f"第二项B2有效机制被整条写成背景：{name}")
+            if item["public_basis"].rstrip("。") == item["public_label"].rstrip("。"):
+                raise ValueError(f"第二项B2正文仅重复标题：{name}")
+            _verify_sources(workspace_root, item, group, source_cache)
         summary = row.get("public_adjudication_summary")
         if not isinstance(summary, str) or not summary.strip() or PUBLIC_FORBIDDEN_RE.search(summary):
             raise ValueError(f"第二项B2人物级公开总结缺失或含内部术语：{name}")
@@ -502,15 +327,50 @@ def verify_public_projection(
     }
 
 
+def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
+    records = {row['ruler_name']: row for row in payload['records']}
+    parts = re.split(r'(?=^### )', markdown, flags=re.MULTILINE)
+    seen = set()
+    for index, part in enumerate(parts):
+        match = re.match(r'### ([^（\n]+)（[^\n]+\n', part)
+        if not match or match[1] not in records:
+            continue
+        row = records[match[1]]
+        seen.add(match[1])
+        body = part[match.end():].strip()
+        if '<!-- b2-public-start -->' in body:
+            body = body.split('<!-- b2-public-end -->', 1)[1].strip()
+        opener = '<details><summary>技术结算与原材料</summary>'
+        if body.startswith(opener) and body.endswith('</details>'):
+            body = body[len(opener):-len('</details>')].strip()
+        lines = ['<!-- b2-public-start -->', '', row['public_adjudication_summary'], '']
+        for item in row['public_evidence_items']:
+            lines += [f"- **{item['public_label']}**（{item['public_direction']}；{'、'.join(item['public_tags'])}）",
+                      f"  - 事实与判断：{item['public_basis']}", f"  - 适用边界：{item['public_boundary']}"]
+            for ref in item['source_refs']:
+                target = '../../../../公共成果/制度行政/01-制度行政计分材料登记/' + Path(ref['path']).name
+                lines.append(f"  - 来源：{ref['source_title']} {ref['source_locator']}；[材料登记]({target})")
+        lines += ['', '<!-- b2-public-end -->', '', opener, '', body, '', '</details>', '']
+        parts[index] = match[0] + '\n' + '\n'.join(lines) + '\n'
+    if seen != set(records):
+        raise ValueError('B2 Markdown人物块与正式记录不一致')
+    return ''.join(parts).rstrip() + '\n'
+
+
 def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
     path = workspace_root / B2_PATH
     current = load_json(path)
     projected = _refresh_payload(copy.deepcopy(current))
+    verify_public_projection(workspace_root, projected)
+    markdown_path = path.with_suffix('.md')
+    current_markdown = markdown_path.read_text(encoding='utf-8')
+    projected_markdown = render_public_markdown(current_markdown, projected)
     if write:
         write_json(path, projected, ruler_polities=load_ruler_polities(workspace_root))
+        markdown_path.write_text(projected_markdown, encoding='utf-8')
         report = verify_public_projection(workspace_root)
         report["status"] = "WRITTEN"
         return report
-    if projected != current:
+    if projected != current or projected_markdown != current_markdown:
         raise ValueError("第二项B2正式公开投影未同步；请运行second-item-b2-public --write")
     return verify_public_projection(workspace_root)

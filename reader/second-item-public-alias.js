@@ -10,7 +10,7 @@
   const FINANCE_ORDINAL_GRADE = {"一":"E","二":"D","三":"C","四":"B","五":"A","六":"S","1":"E","2":"D","3":"C","4":"B","5":"A","6":"S"};
   const LOSS_TEXT = {
     0:"未见独立有效低谷",
-    1:"有局部或短时损害",
+    1:"已证独立损害，按证据范围作有限修正",
     2:"出现明显低谷",
     3:"出现严重低谷",
   };
@@ -132,7 +132,7 @@
     if (!match) return null;
     const band = Number(match[1]);
     const loss = Number(match[2]);
-    return {grade:STATE_GRADE[band] || "",lossText:LOSS_TEXT[loss] || ""};
+    return {grade:STATE_GRADE[band] || "",lossText:item.public_loss_label || LOSS_TEXT[loss] || ""};
   }
 
   function publicHandoffGrade(item) {
@@ -239,7 +239,7 @@
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       const summary = detail.querySelector(":scope > summary");
       setPublicGrade(summary?.querySelector(":scope > span"), summary?.querySelector(":scope > b"), grade,
-        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`, boundaryExcerpt(item)]);
+        sourceLabel === "A制度建设" ? [boundaryExcerpt(item)] : [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`, boundaryExcerpt(item)]);
     }
     for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
       const sourceLabel = span.dataset.secondSourceLabel || "";
@@ -247,7 +247,7 @@
       const grade = publicMethodGrade(item);
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       setPublicGrade(span, span.parentElement?.querySelector(":scope > b"), grade,
-        [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`, boundaryExcerpt(item)]);
+        sourceLabel === "A制度建设" ? [boundaryExcerpt(item)] : [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`, boundaryExcerpt(item)]);
     }
   }
 
@@ -337,30 +337,7 @@
       .replace(/方向指数/g, "原始表现指数");
   }
 
-  function publicFinanceText(value) {
-    const financeSpecific = String(value ?? "")
-      .replace(/按合同前者越窗/g, "按评价窗口，前者不计入本期")
-      .replace(/故终态社会安全“([^”]+)”\/未另证独立有效低谷，并要求正式重要地区或群体出现明显损害撤销。?/g, "因此任期结束时社会安全为“$1”，且未另证独立有效低谷，不再单列“重要地区或群体出现明显损害”。")
-      .replace(/旧任期结束状态=经济财政“失灵崩解”把1127靖康终局倒灌到赵佶1126年退位，必须纠正。/g, "不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态。");
-    return publicText(financeSpecific)
-      .replace(/第?([一二三四五六1-6])档/g, (_, level) => `${FINANCE_ORDINAL_GRADE[level] || level}档`)
-      .replace(/起点硬承接([1-6])而非旧([1-6])/g, (_, current, old) => `接手时状态为${FINANCE_ORDINAL_GRADE[current] || current}档，不沿用此前${FINANCE_ORDINAL_GRADE[old] || old}档判断`)
-      .replace(/主要阶段状态\s*([1-6])/g, (_, level) => `主要阶段状态为${FINANCE_ORDINAL_GRADE[level] || level}档`)
-      .replace(/峰值\s*([1-6])/g, (_, level) => `峰值达到${FINANCE_ORDINAL_GRADE[level] || level}档`)
-      .replace(/有源([SABCDE])档或([SABCDE])档端点/g, "有证据支持的$1档或$2档判断")
-      .replace(/([SABCDE])档端点/g, "$1档判断")
-      .replace(/未另证独立有效低谷[：:]\s*未另证独立有效低谷[；;]?/g, "没有另证独立有效低谷；")
-      .replace(/未形成明确的本人掌权时期恢复；短暂峰值或单纯止损不作为恢复结果。/g, "未形成能够保留到任期结束的明确恢复；短暂峰值或单纯止损不作为恢复结果。")
-      .replace(/主要状态等级民生“([^”]+)”维持。?/g, "民生主要状态维持为“$1”。")
-      .replace(/因此由([1-6])升([1-6])，不进([1-6])。?/g, (_, from, to, ceiling) => `因此从${FINANCE_ORDINAL_GRADE[from] || from}档上调至${FINANCE_ORDINAL_GRADE[to] || to}档，现有证据尚不足${FINANCE_ORDINAL_GRADE[ceiling] || ceiling}档。`)
-      .replace(/故终态社会安全“([^”]+)”\/未另证独立有效低谷，并要求正式重要地区或群体出现明显损害撤销。?/g, "因此任期结束时社会安全为“$1”，且未另证独立有效低谷，不再单列“重要地区或群体出现明显损害”。")
-      .replace(/按合同前者越窗/g, "按评价窗口，前者不计入本期")
-      .replace(/不能继续扣低谷损害/g, "不再作为独立低谷重复计入")
-      .replace(/第三项军事战略结果为不适用，是因创业\/统一整链避免重复计算，不代表战争成本低；/g, "军事与边疆项的战略结果未单独计入，是因为创业或统一主链已由其他项目承担；这不代表战争成本低；")
-      .replace(/没有可归入本人掌权时期的恢复，因此不另行扩大恢复责任。/g, "没有形成可在任期结束确认的恢复，因此不另行扩大恢复责任。")
-      .replace(/。；/g, "；")
-      .replace(/；；+/g, "；");
-  }
+  function publicFinanceText(value) { return String(value ?? ""); }
 
   function publicHandoffText(value) {
     return publicText(value)
@@ -487,15 +464,8 @@
   }
 
   function publicFinanceBoundaryText(value) {
-    return dedupeBoundaryText(publicFinanceText(value));
+    return String(value ?? "");
   }
-
-  const FINANCE_BASE_SCORES = {
-    "C1民生": {1:5.7,2:17.1,3:32.0,4:54.9,5:74.3,6:80.0},
-    "C2经济财政": {1:1.8,2:7.0,3:14.9,4:23.6,5:29.8,6:35.0},
-    "C3社会安全": {1:5.0,2:16.0,3:28.0,4:40.0,5:52.0,6:60.0},
-  };
-  const FINANCE_LOSS_RATE = {0:0,1:0.03,2:0.07,3:0.12};
 
   function secondMethodExpandedHow(label) {
     const record = netRecord() || personRecord();
@@ -535,26 +505,20 @@
     const rows = [];
     const add = (name, value) => { if (value) rows.push([name, value]); };
 
+    if (item.reader_public_c) {
+      details.append(makeTextBlock("p", "prose", item.reader_public_c.public_calculation));
+      return details;
+    }
+
     if (METHOD_MAX[label]) {
       const grade = publicMethodGrade(item);
       add("当前裁决", [grade ? `${grade}档` : "", `原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}`].filter(Boolean).join(" · "));
-      const formal = publicTechnicalText(item.reader_how || "该原始表现指数进入制度与行政合成，不作为本项直接得分。");
+      const formal = label === "B1官僚治理" ? String(item.reader_how || "") : publicTechnicalText(item.reader_how || "该原始表现指数进入制度与行政合成，不作为本项直接得分。");
       const expanded = secondMethodExpandedHow(label);
       add("换算规则", [formal, expanded].filter(Boolean).join(" "));
       add("当前结果", "用于制度与行政折算，不单列得分");
-    } else if (["C1民生","C2经济财政","C3社会安全"].includes(label)) {
-      const meta = stateGradeMeta(item);
-      const band = String(item?.grade || "").match(/\bC[123]-(\d)\s*\/\s*L([0-3])\b/i);
-      const base = band ? FINANCE_BASE_SCORES[label]?.[Number(band[1])] : null;
-      const rate = band ? FINANCE_LOSS_RATE[Number(band[2])] : null;
-      add("当前裁决", [meta?.grade ? `${meta.grade}档` : "", meta?.lossText || ""].filter(Boolean).join(" · "));
-      if (base != null && rate != null) add("换算规则", `主要状态基础分 ${base} × (1 − ${Math.round(rate * 100)}%低谷修正)，最终保留1位小数。`);
-      else add("换算规则", publicFinanceText(item.reader_how || ""));
-      add("当前结果", `${fmt(item.value)} 分`);
-    } else if (label === "C4恢复与成本") {
-      add("当前裁决", "恢复、本人可归责恶化与额外民力成本合并结算");
-      add("换算规则", publicFinanceText(item.reader_how || ""));
-      add("当前结果", `${Number(item.value) > 0 ? "+" : ""}${fmt(item.value)} 分`);
+    } else if (FINANCE_MAX[label] || label === "C4恢复与成本") {
+      throw new Error("第二项C缺少上游正式计算说明，请重建阅读数据");
     } else if (HANDOFF_LABELS[label]) {
       const grade = publicHandoffGrade(item);
       add("当前裁决", grade ? `${grade}档` : "");
@@ -586,6 +550,7 @@
   }
 
   function materialCard(data = {}) {
+    const format = data.verbatim ? value => String(value ?? "") : publicText;
     const card = document.createElement("li");
     card.className = "adjudication-material-card" + (data.supplement ? " is-supplement" : "");
     for (const [key, value] of Object.entries(data.dataset || {})) if (value != null && value !== "") card.dataset[key] = String(value);
@@ -593,7 +558,7 @@
     const head = document.createElement("div");
     head.className = "adjudication-material-head";
     const title = document.createElement("strong");
-    title.textContent = publicText(data.title || "裁决材料");
+    title.textContent = format(data.title || "裁决材料");
     head.append(title);
 
     const meta = document.createElement("div");
@@ -610,11 +575,11 @@
     if (meta.childNodes.length) head.append(meta);
     card.append(head);
 
-    const body = publicText(data.body);
+    const body = format(data.body);
     if (body) card.append(makeTextBlock("p", "adjudication-material-basis", body));
 
-    const scope = publicText(data.scope);
-    const boundary = publicBoundaryText(data.boundary);
+    const scope = format(data.scope);
+    const boundary = data.verbatim ? format(data.boundary) : publicBoundaryText(data.boundary);
     if (scope || boundary) {
       const details = document.createElement("details");
       details.className = "adjudication-material-boundary";
@@ -660,8 +625,24 @@
         tags: entry?.public_tags || [],
         body: entry?.public_basis,
         boundary: entry?.public_boundary,
+        verbatim: true,
         dataset: {publicEvidenceId: entry?.id || ""},
       }));
+      const card = groups[key][groups[key].length - 1];
+      const sources = document.createElement("details");
+      sources.className = "b2-material-sources";
+      sources.append(makeTextBlock("summary", "", "本条史料与归责依据"));
+      for (const ref of entry.source_refs || []) {
+        const source = makeTextBlock("div", "b2-source", "");
+        source.append(makeTextBlock("p", "", [ref.source_title, ref.source_locator].filter(Boolean).join(" · ")));
+        if (ref.exact_quote) source.append(makeTextBlock("blockquote", "prose", ref.exact_quote));
+        const links = document.createElement("p");
+        links.className = "sources";
+        if (typeof link === "function") links.innerHTML = link(ref.path, "查看所引材料登记 ↗") + (ref.source_url ? " " + link(ref.source_url, "查看史源 ↗") : "");
+        source.append(links);
+        sources.append(source);
+      }
+      card.append(sources);
     }
     const wrapper = document.createElement("div");
     wrapper.className = "adjudication-material-groups b2-material-groups";
@@ -672,6 +653,20 @@
     );
     return wrapper;
   }
+
+  function b2Reading(item) {
+    const reading = document.createElement("div");
+    reading.className = "second-item-public-reading b2-public-reading";
+    reading.append(makeTextBlock("div", "label", "为什么是这个等级"));
+    reading.append(makeTextBlock("p", "prose b2-adjudication-summary", String(item.public_adjudication_summary || item.reader_summary || "")));
+    reading.append(makeTextBlock("p", "subline", "看具体意见如何进入、本人如何处置及结果是否改变。主动改意、接受信息与受到外部程序约束分别理解；背景材料不当作独立功过。"));
+    reading.append(renderB2MaterialGroups(item.reader_public_evidence_items || item.public_evidence_items || []));
+    return reading;
+  }
+  globalThis.SecondItemB2Reading = Object.freeze({
+    render: b2Reading,
+    html: item => b2Reading(item).outerHTML,
+  });
 
   function financeRoleKey(role) {
     const value = String(role || "").trim();
@@ -722,20 +717,44 @@
       const role = String(entry?.public_role || "").trim();
       const key = role === "事前安排" ? "preparation"
         : (role === "交接结果" || role === "终局事实") ? "result"
-        : role === "前任行政资产承接" ? "continuity"
+        : (role === "前任行政资产承接" || role === "行政承接与限制") ? "continuity"
         : "other";
-      groups[key].push(materialCard({
-        title: publicHandoffText(entry?.public_label || role || "交接裁决材料"),
+      const card = materialCard({
+        verbatim: true,
+        title: entry.public_label,
         tags: role ? [role] : [],
-        body: publicHandoffText(entry?.public_basis),
-        boundary: publicHandoffText(entry?.public_boundary),
+        body: entry.public_basis,
+        boundary: entry.public_boundary,
         dataset: {publicEvidenceId: entry?.id || ""},
-      }));
+      });
+      const sources = document.createElement("details");
+      sources.className = "handoff-public-sources";
+      sources.append(makeTextBlock("summary", "", "本条史料与评价依据"));
+      for (const ref of entry.source_refs) {
+        const source = document.createElement("section");
+        source.append(makeTextBlock("p", "meta", `${ref.source_kind} · ${ref.source_title} · ${ref.source_locator}`));
+        if (ref.support_role) source.append(makeTextBlock("p", "meta", ref.support_role));
+        source.append(makeTextBlock("blockquote", "prose", ref.public_excerpt));
+        const links = document.createElement("p");
+        links.className = "sources";
+        if (typeof link === "function") links.innerHTML = link(ref.path, "查看所引记录 ↗");
+        if (ref.source_url?.startsWith("https://")) {
+          const anchor = document.createElement("a");
+          anchor.href = ref.source_url; anchor.textContent = "查看史源 ↗";
+          anchor.target = "_blank"; anchor.rel = "noopener";
+          links.append(document.createTextNode(" · "), anchor);
+        }
+        source.append(links); sources.append(source);
+      }
+      card.append(sources);
+      const modes = {DIRECT:"史料直接记载", INFERRED:"受约束推断", ASSESSMENT:"正式评价判断", BACKGROUND:"背景核对"};
+      card.prepend(makeTextBlock("p", "meta", modes[entry.evidence_mode]));
+      groups[key].push(card);
     }
     const wrapper = document.createElement("div");
     wrapper.className = "adjudication-material-groups handoff-material-groups";
     if (label === "D1继任行政连续性") {
-      wrapper.append(materialGroup("行政承接与连续性", groups.continuity));
+      wrapper.append(materialGroup("行政承接、断裂与限制", groups.continuity));
     } else {
       wrapper.append(
         materialGroup("事前安排", groups.preparation),
@@ -754,7 +773,25 @@
     boundaryText: publicBoundaryText,
   });
 
+  function handoffReading(item) {
+    const authored = item.reader_public_d;
+    if (!authored) throw new Error("缺少政权交接正式公开正文");
+    const reading = document.createElement("div");
+    reading.className = "handoff-authored-reading";
+    reading.dataset.formalPublicSource = "";
+    for (const paragraph of authored.public_story.split(/\n\n+/)) reading.append(makeTextBlock("p", "prose", paragraph));
+    reading.append(makeDetails("为什么这样评", authored.public_adjudication_summary));
+    reading.append(makeTextBlock("p", "prose", `观察范围：${authored.public_window}`));
+    reading.append(makeTextBlock("p", "prose", `本人责任：${authored.public_responsibility}`));
+    reading.append(renderHandoffMaterialGroups(item.label, authored.public_evidence_items));
+    reading.append(makeDetails("范围与边界", authored.public_boundary));
+    return reading;
+  }
+
+  globalThis.SecondItemDReading = Object.freeze({html: item => handoffReading(item).outerHTML});
+
   function publicFacts(item) {
+    if (item?.reader_public_d) return [item.reader_public_d.public_story];
     const evidence = Array.isArray(item?.reader_public_evidence_items) ? item.reader_public_evidence_items : [];
     if (evidence.length) {
       return evidence.map(entry => {
@@ -819,10 +856,11 @@
       // their asynchronous formal data load triggers the shared observer.
       if (label === "A制度建设" || label === "B1官僚治理") continue;
       const item = items.get(label);
+      if (item?.reader_public_c) continue;
       if (!item || item.reader_kind !== "judgment") continue;
       const body = detail.querySelector(":scope > .net-metric-body");
       if (!body) continue;
-      const key = [item.reader_summary || "", JSON.stringify(item.reader_public_evidence_items || []), ...(item.reader_highlights || []), item.reader_boundary || "", item.reader_how || "", item.reader_full_basis || ""].join("|");
+      const key = [item.reader_summary || "", JSON.stringify(item.reader_public_d || null), JSON.stringify(item.reader_public_evidence_items || []), ...(item.reader_highlights || []), item.reader_boundary || "", item.reader_how || "", item.reader_full_basis || ""].join("|");
       if (body.dataset.secondPublicBodyKey === key && body.querySelector(":scope > .second-item-public-reading")) continue;
       const audit = body.querySelector(":scope > .net-audit-sources");
       if (audit) audit.remove();
@@ -839,11 +877,13 @@
       const evidence = item.reader_public_evidence_items;
       const facts = publicFacts(item);
       if (label === "B2反馈与约束" && Array.isArray(evidence) && evidence.length) {
-        reading.append(renderB2MaterialGroups(evidence));
+        reading.replaceChildren(...b2Reading(item).childNodes);
+        reading.classList.add("b2-public-reading");
       } else if (["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label) && Array.isArray(evidence) && evidence.length) {
         reading.append(renderFinanceMaterialGroups(label, evidence));
       } else if (["D1继任行政连续性","D3政权交接稳定"].includes(label) && Array.isArray(evidence) && evidence.length) {
-        reading.append(renderHandoffMaterialGroups(label, evidence));
+        reading.replaceChildren(handoffReading(item));
+        reading.dataset.formalPublicSource = "";
       } else if (Array.isArray(evidence) && evidence.length) {
         reading.append(publicEvidenceList(evidence));
       } else if (facts.length > 1) {
@@ -857,7 +897,9 @@
       }
       body.append(reading);
       const financeItem = ["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label);
-      const boundaryDetails = makeDetails("范围与边界", financeItem ? publicFinanceBoundaryText(item.reader_boundary || "") : publicBoundaryText(item.reader_boundary || ""));
+      const boundaryDetails = item.reader_public_d
+        ? null
+        : makeDetails("范围与边界", financeItem ? publicFinanceBoundaryText(item.reader_boundary || "") : publicBoundaryText(item.reader_boundary || ""));
       if (boundaryDetails) body.append(boundaryDetails);
       const howDetails = secondScoreHowDetails(item, label);
       if (howDetails) body.append(howDetails);

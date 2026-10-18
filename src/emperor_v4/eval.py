@@ -20,7 +20,7 @@ def _parser() -> argparse.ArgumentParser:
     maintenance.add_argument("--verify", action="store_true")
     maintenance.add_argument("--related", action="store_true", help="同时执行关联轴的组件校验")
     maintenance.add_argument("--sync", action="store_true", help="校验源后刷新报告列出的确定性下游")
-    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "first-item-a-public-verify", "first-item-c-public-verify", "first-item-b1-cost-public-verify", "second-item-b1-verify", "military-talent-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
+    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "first-item-a-public-verify", "first-item-c-public-verify", "first-item-b1-cost-public-verify", "first-item-b2-public-verify", "second-item-b1-verify", "military-talent-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
         commands.add_parser(name)
     talent_views = commands.add_parser("military-talent-views", help="仅刷新当前已裁人才记录的净值、统计与阅读视图")
     talent_views.add_argument("--write", action="store_true")
@@ -41,9 +41,9 @@ def _parser() -> argparse.ArgumentParser:
     evidence_sensitivity.add_argument("--write", action="store_true")
     profile_current = commands.add_parser("profile-current-verify")
     profile_current.add_argument("--axis", required=True, choices=profile_axes)
-    fourth_a = commands.add_parser("fourth-item-a-verify")
+    fourth_a = commands.add_parser("fourth-item-a-verify", aliases=["fourth-item-b-verify", "fourth-item-c-verify"])
     fourth_a.add_argument("--workspace-root", type=Path, default=Path("."))
-    fourth_a_views = commands.add_parser("fourth-item-a-views")
+    fourth_a_views = commands.add_parser("fourth-item-a-views", aliases=["fourth-item-b-views", "fourth-item-c-views"])
     fourth_a_views.add_argument("--workspace-root", type=Path, default=Path("."))
     fourth_a_views.add_argument("--write", action="store_true")
     second_item_a = commands.add_parser("second-item-a-verify")
@@ -272,6 +272,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         "composite-ranking-verify": ("composite_ranking", "verify_composite_ranking", True),
         "first-item-a-public-verify": ("first_item_public_outcomes", "verify_first_item_public_outcomes", True),
         "first-item-b1-cost-public-verify": ("first_item_b1_cost_public", "verify_first_item_b1_cost_public", True),
+        "first-item-b2-public-verify": ("first_item_b2_public", "verify_first_item_b2_public", True),
         "first-item-c-public-verify": ("first_item_c_public", "verify_first_item_c_public", True),
         "project-entries-verify": ("project_entries", "verify", True),
         "second-item-b1-verify": ("formal_settlements", "verify_second_item_b1_snapshot", True),
@@ -288,8 +289,8 @@ def _dispatch(args: argparse.Namespace) -> int:
         result = verify(Path(".").resolve()) if needs_root else verify()
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
-    if args.command in ("fourth-item-a-verify", "fourth-item-a-views"):
-        if args.command == "fourth-item-a-views" and args.write:
+    if args.command in ("fourth-item-a-verify", "fourth-item-a-views", "fourth-item-b-verify", "fourth-item-b-views", "fourth-item-c-verify", "fourth-item-c-views"):
+        if args.command in ("fourth-item-a-views", "fourth-item-b-views", "fourth-item-c-views") and args.write:
             report = write_fourth_item_a_views(args.workspace_root.resolve())
         else:
             report = verify_fourth_item_a(args.workspace_root.resolve())

@@ -71,6 +71,69 @@ def test_c_profile_rebuild_keeps_order_when_mapping_is_semantically_equal():
     }
 
 
+def test_c_major_result_summary_counts_chains_and_separates_capability():
+    from emperor_v4.evaluation.third_item_current_settlement import _current_c_task_basis_reason
+
+    row = {
+        "strategy_chains": [{
+            "chain_id": "synthetic-pressure",
+            "source_event_refs": ["phase-a", "phase-b", "phase-c", "phase-d"],
+            "major_system_failure": True,
+        }],
+        "major_system_failure_refs": ["phase-a", "phase-b", "phase-c", "phase-d"],
+        "capability_only_strategy_chains": [{
+            "chain_id": "synthetic-capability", "major_system_success": True,
+        }],
+    }
+    text = _current_c_task_basis_reason(row, row["major_system_failure_refs"], 0, {})
+    assert "当前战略链重大体系胜绩0项、重大体系失败1项" in text
+    assert "能力专用战略链胜绩1项、重大失败0项" in text
+
+
+def test_changed_a_endpoints_do_not_restore_retired_atomic_scores(monkeypatch, tmp_path):
+    from copy import deepcopy
+    from emperor_v4.evaluation import third_item_current_settlement as settlement
+    from emperor_v4.evaluation import five_dynasties_third_item as rendering
+
+    # Independent synthetic endpoints exercise a writer transition, not ruler results.
+    row = {
+        "ruler_id": "synthetic", "ruler_name": "合成对象",
+        "control_contribution_type": "INHERITED_ONLY",
+        "axes": {name: {"axis_points": 99, "reason": name + "合成事实"}
+                 for name in ("A1", "A2", "B4")},
+    }
+    adjudication = {
+        "ruler_id": "synthetic", "ruler_name": "合成对象", "score_ready": True,
+        "axes": {name: {"start_grade": 2, "end_grade": 2, "objective_delta": 0}
+                 for name in ("A1", "A2")},
+        "A120_points": 0, "B80_adjudication": {"B80_points": 0},
+    }
+    payloads = {settlement.AB_PATH: {"records": [row]},
+                settlement.RESULT_CREDIT_ADJUDICATIONS_PATH: {"records": [adjudication]},
+                settlement.AB_HANDOFF_ADJUDICATIONS_PATH: {}}
+    monkeypatch.setattr(settlement, "_load", lambda path: payloads[path.relative_to(tmp_path)])
+    monkeypatch.setattr(settlement, "_load_a_axis_narrative_adjudications", lambda root: {})
+    # Scoring and evidence validation have separate tests; isolate the write boundary.
+    for name in ("_validate_result_credit_contract", "_validate_ab_control_contribution_contract",
+                 "_validate_ab_axis_narratives"):
+        monkeypatch.setattr(settlement, name, lambda *args, **kwargs: None)
+    monkeypatch.setattr(settlement, "_decompose_a120_axis", lambda *args: (0, 0))
+    monkeypatch.setattr(settlement, "load_ruler_polities", lambda root: {})
+    saved = []
+    monkeypatch.setattr(settlement, "write_json", lambda path, payload, **kwargs: saved.append(deepcopy(payload)))
+    monkeypatch.setattr(rendering, "_render_formal_markdown", lambda *args: "")
+    monkeypatch.setattr(settlement, "_write_text_atomic", lambda *args: None)
+
+    settlement._synchronize_current_ab_view(tmp_path)
+    settlement._validate_current_ab_score_fields(saved[-1])
+    for name in ("A1", "A2"):
+        assert row["axes"][name]["end"] == settlement._a_axis_state_fields(name, adjudication["axes"][name])["end"]
+        assert "axis_points" not in row["axes"][name]
+    first = saved[-1]
+    settlement._synchronize_current_ab_view(tmp_path)
+    assert saved[-1] == first
+
+
 def _shared_window_payloads():
     scope = {axis: f"synthetic {axis}" for axis in ("A", "B", "C", "D")}
     reviews = {

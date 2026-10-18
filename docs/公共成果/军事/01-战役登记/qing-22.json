@@ -3,7 +3,7 @@
   "partition": "qing",
   "bucket": 22,
   "bucket_count": 24,
-  "record_count": 11,
+  "record_count": 12,
   "records": [
     {
       "war_event_id": "WAR-POST-FCA2E3570A3FFFC41419",
@@ -995,6 +995,56 @@
       ],
       "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
       "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "PUBLIC-PERSON-HONGXIUQUAN-NANJING-1861-1864",
+      "dynasty_partition": "qing",
+      "record_level": "person_command_result_registration",
+      "settlement_scope": "PERSON_RESULT_ONLY",
+      "public_outcome_registered": false,
+      "disposition": "REGISTERED_PERSON_ACTION_EVIDENCE",
+      "canonical_label": "天京粮道与弃守建议的本人处置",
+      "period": {
+        "start": "1861",
+        "end": "1864"
+      },
+      "source_refs": [
+        "https://zh.wikisource.org/wiki/清史稿/卷475"
+      ],
+      "source_lineage": {
+        "source_files": [],
+        "lineage_basis": "原史源直接闭合人物行动与结果；仅为本人归责提供维护入口，不新增公共战争成果、成本或独立情境。"
+      },
+      "person_command_results": [],
+      "personal_action_attributions": [
+        {
+          "evidence_ref": "ACTION-A025665D1FB894DE048F",
+          "person": "洪秀全",
+          "canonical_label": "天京粮道与弃守建议的本人处置",
+          "period": {
+            "start": "1861",
+            "end": "1864"
+          },
+          "evidence_kind": "military_operation",
+          "personal_role": "防御及资源决策",
+          "military_judgment": "对李秀成预储粮食、废洪氏帖及粮道已绝后弃城的建议拒不有效纠正。",
+          "implementation": "粮食供应受阻，李秀成再劝弃城时以天兵、甜露作答；首都继续陷于饥困。",
+          "personal_result": "有明确的本人防御与资源决策下沿，不能由国家终结倒推每场战术；当前未因此制造正向能力结果。",
+          "failure_and_limits": "预警到达后未有效处置粮道与退守，实际后果保留；降将记述与官修叙事立场须保留。",
+          "capability_episode_ref": "TAIPING-NANJING-1861-1864",
+          "source_refs": [
+            "https://zh.wikisource.org/wiki/清史稿/卷475"
+          ],
+          "source_quotes": [
+            "保固京城，必須多購糧食",
+            "秀全信其言，置之不問",
+            "糧道已絕，饑死可立待也",
+            "食天生甜露，自能救饑"
+          ],
+          "result_direction": "negative"
+        }
+      ],
+      "dynasty": "清／太平天国"
     }
   ]
 }

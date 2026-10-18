@@ -86,8 +86,76 @@ def test_fourth_public_zero_states_distinguish_reviewed_empty_from_balanced_zero
     assert reviewed and balanced
     assert all(axis["public_level_label"] == "复核后未确认独立净变化" for axis in reviewed)
     assert all("结果方向未单列" not in axis["public_adjudication_summary"] for axis in reviewed)
-    assert all("经复核后未形成可单独计入的净变化" in axis["public_adjudication_summary"] for axis in reviewed)
+    assert all(axis['signed_adjustment'] == 0 for axis in reviewed)
+    # Authored explanations may change independently of the zero-state contract.
+    # Do not freeze one historical template as the required public judgment.
+    for axis in reviewed:
+        if axis.get('public_reading'):
+            reading = axis['public_reading']
+            if reading['schema'] == 'fourth-item-c-sources-and-score-v1':
+                assert reading['zero_reason'].strip()
+            else:
+                assert axis['public_adjudication_summary'] == reading['story'] + reading['decision']
+            assert all(item['public_role'] == '不单独计分，保留相关事实'
+                       for item in axis['public_evidence_items'])
+        else:
+            assert axis['public_adjudication_summary'].strip()
     assert all(axis["public_level_label"] == "正负相抵，净调整为0" for axis in balanced)
+
+
+def test_revoked_c_material_uses_authored_facts_without_repeating_old_result_claims():
+    package = dict(package_code='SYNTHETIC-EXCLUDED-C', ruler_id='SYNTHETIC', axis='C',
+                   direction='POSITIVE', scoring_eligibility='REVOKED',
+                   source_coverage='INSUFFICIENT', attributable_change='旧表述已经实现广泛改善。',
+                   source_refs=[], public_c_result_reading=dict(result='设置过一个机构。', responsibility='本人只授权设置。', scope='尚无知识产出。', source_refs=[]),
+                   public_exclusion_reading=dict(story='设置过一个机构。', reason='尚未证实实际知识产出。'))
+    before = copy.deepcopy(package)
+    projection = public._package_projection(package)
+    assert package == before
+    assert projection['public_evidence_items'][0]['public_role'] == '不单独计分，保留相关事实'
+    assert projection['public_level_label'] == '不单独计分，保留相关事实'
+    assert '旧表述已经实现广泛改善' not in projection['public_adjudication_summary']
+    assert '设置过一个机构' in projection['public_adjudication_summary']
+    assert projection['public_exclusion_reading'] == package['public_exclusion_reading']
+    public._apply_projection(package, projection)
+    assert public._package_projection(package) == projection
+
+
+def test_revoked_c_material_requires_an_explicit_public_explanation():
+    package = dict(package_code='SYNTHETIC-EXCLUDED-C', ruler_id='SYNTHETIC', axis='C',
+                   direction='NEGATIVE', scoring_eligibility='REVOKED', source_coverage='INSUFFICIENT',
+                   source_refs=[], public_c_result_reading=dict(result='发生过处置。',responsibility='本人下令。',scope='未证明知识结果。',source_refs=[]))
+    with pytest.raises(ValueError, match='公开事实与不计分说明'):
+        public._package_projection(package)
+
+
+def test_c_result_requires_authored_responsibility_and_exact_source_binding():
+    package = dict(package_code='SYNTHETIC-C', ruler_id='SYNTHETIC', axis='C',
+                   direction='POSITIVE', relative_change_level='R2', source_coverage='ADEQUATE',
+                   source_refs=['https://example.org/source'], public_c_result_reading=dict(
+                       result='已完成知识产品并供专业查用。', responsibility='本人授权，学者实际编纂。',
+                       scope='不将作者的全部成就归给本人。', source_refs=['https://example.org/source']))
+    before = copy.deepcopy(package)
+    projection = public._package_projection(package)
+    assert package == before
+    assert '本人授权，学者实际编纂。' in projection['public_adjudication_summary']
+    del package['public_c_result_reading']['responsibility']
+    with pytest.raises(ValueError, match='responsibility'):
+        public._package_projection(package)
+    package = copy.deepcopy(before)
+    package['public_c_result_reading']['source_refs'] = ['https://example.org/unrelated']
+    with pytest.raises(ValueError, match='来源未同步'):
+        public._package_projection(package)
+
+
+def test_governance_qualifiers_override_local_civilization_and_military_codes():
+    for domain in ('civilization', 'military'):
+        with language_domain(domain):
+            assert translate('第二项制度A处理法令；B2反馈结果另证。') == '第二项制度建设处理法令；反馈纠错与权力约束结果另证。'
+    with language_domain('civilization'):
+        assert translate('主结果归C。') == '主结果归知识与文化生态。'
+    with language_domain('military'):
+        assert translate('B2与C。') == '战略成果价值与军事体系。'
 
 
 def test_fourth_public_package_projection_does_not_duplicate_sentence_punctuation():

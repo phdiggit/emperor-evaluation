@@ -83,6 +83,12 @@ const specs = [
   }
 
   const publicSource = fs.readFileSync(specs[0].path, "utf8");
+  const targetStart = publicSource.indexOf("  function firstItemTarget()");
+  const targetEnd = publicSource.indexOf("\n  async function build", targetStart);
+  const targetRoot = {};
+  const target = new Function("location", "document", publicSource.slice(targetStart, targetEnd) + ";return firstItemTarget;");
+  assert.equal(target({hash:"#net/SYNTHETIC/first/a"}, {getElementById:()=>targetRoot,querySelector:()=>targetRoot})(), null);
+  assert.equal(target({hash:"#person/SYNTHETIC"}, {querySelector:()=>targetRoot})(), targetRoot);
   const publicStart = publicSource.indexOf("  function publicFact");
   const publicEnd = publicSource.indexOf("\n  function lDimension", publicStart);
   assert.ok(publicStart >= 0 && publicEnd > publicStart, "public reader helpers not found");

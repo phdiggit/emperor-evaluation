@@ -1859,7 +1859,6 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 axis["observed_trajectory_value"] = base
                 axis["base_trajectory_value"] = base
                 axis["trajectory_value"] = _clamp(0, 100, base + float(axis.get("ceiling_bonus") or 0))
-                axis["axis_points"] = round(0.4 * axis["trajectory_value"], 2)
             axis.update(state_fields)
             axis["assessment_scope"] = scope
             if not str(axis.get("reason") or "").strip():
@@ -1924,6 +1923,22 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
     )
     write_json(ab_path, ab_payload, ruler_polities=load_ruler_polities(workspace_root))
     _write_text_atomic(ab_path.with_suffix(".md"), _render_formal_markdown("AB", ab_payload["records"]))
+
+
+def _current_c_task_basis_reason(row, current_refs, known, counts) -> str:
+    def major_count(chains, flag):
+        return len({chain["chain_id"] for chain in chains if chain.get(flag)})
+
+    current = row.get("strategy_chains") or ()
+    capability = row.get("capability_only_strategy_chains") or ()
+    return (
+        f"当前第三项体系压力父周期{len(current_refs)}项，已知结果{known}项，"
+        f"回报剖面={counts}；当前战略链重大体系胜绩"
+        f"{major_count(current, 'major_system_success')}项、重大体系失败"
+        f"{major_count(current, 'major_system_failure')}项；能力专用战略链胜绩"
+        f"{major_count(capability, 'major_system_success')}项、重大失败"
+        f"{major_count(capability, 'major_system_failure')}项。"
+    )
 
 
 def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
@@ -2097,11 +2112,8 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
                 "UNQUANTIFIED" if current_refs else "NOT_APPLICABLE"
             ),
         }
-        row["current_task_basis_reason"] = (
-            f"当前第三项独立体系压力父周期{len(current_refs)}项，已知结果{known}项，"
-            f"回报剖面={counts}；重大体系胜绩"
-            f"{len(row.get('major_system_success_refs') or ())}项、重大体系失败"
-            f"{len(row.get('major_system_failure_refs') or ())}项。"
+        row["current_task_basis_reason"] = _current_c_task_basis_reason(
+            row, current_refs, known, counts
         )
     shared_owners: dict[str, list[tuple[str, str]]] = {}
     for row in payload["records"]:

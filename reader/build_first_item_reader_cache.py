@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 
 from validate_first_item_docs import DOCS, parse_people
+from build import write_generated_text
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from emperor_v4.evaluation.first_item_public_outcomes import (  # noqa: E402
@@ -16,6 +17,7 @@ from emperor_v4.evaluation.first_item_public_outcomes import (  # noqa: E402
 )
 from emperor_v4.evaluation.first_item_c_public import load_first_item_c_public, public_commander_for_name
 from emperor_v4.evaluation.first_item_b1_cost_public import load_first_item_b1_cost_public
+from emperor_v4.evaluation.first_item_b2_public import load_first_item_b2_public
 
 ROOT = Path(__file__).resolve().parents[1]
 PEOPLE_DIR = ROOT / "reader/data/people"
@@ -66,6 +68,7 @@ def build_payloads() -> dict[str, str]:
     public_outcomes = load_first_item_public_outcomes(ROOT)
     public_commanders = load_first_item_c_public(ROOT)
     public_b1, public_cost = load_first_item_b1_cost_public(ROOT)
+    public_b2 = load_first_item_b2_public(ROOT)
 
     formal_names = set(parsed["A"])
     resolved: dict[str, str] = {}
@@ -108,6 +111,7 @@ def build_payloads() -> dict[str, str]:
             "public_outcome": public_outcome_for_name(public_outcomes, formal_name),
             "public_commander": public_commander_for_name(public_commanders, formal_name),
             "public_b1": public_commander_for_name(public_b1, formal_name),
+            "public_b2": public_commander_for_name(public_b2, formal_name),
             "public_cost": public_commander_for_name(public_cost, formal_name),
             "documents": documents,
         }
@@ -135,7 +139,9 @@ def build(*, check: bool = False) -> None:
         if stale.is_file() and stale.name not in expected:
             stale.unlink()
     for name, content in outputs.items():
-        (OUTPUT_DIR / name).write_text(content, encoding="utf-8", newline="\n")
+            path = OUTPUT_DIR / name
+            if not path.exists() or path.read_bytes() != content.encode("utf-8"):
+                write_generated_text(path, content)
     print(f"First-item reader cache built: people={len(outputs)}")
 
 

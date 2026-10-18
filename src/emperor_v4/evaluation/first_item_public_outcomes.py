@@ -21,7 +21,8 @@ PUBLIC_FIELDS = (
     "public_scope",
     "public_boundary",
 )
-PUBLIC_RECORD_FIELDS = (*PUBLIC_FIELDS, "public_project")
+PUBLIC_READING_FIELDS = ("public_question", "public_story")
+PUBLIC_RECORD_FIELDS = (*PUBLIC_FIELDS, "public_project", *PUBLIC_READING_FIELDS)
 PUBLIC_NAME_ALIASES = {
     "完颜晟": "完颜吴乞买",
 }
@@ -110,6 +111,10 @@ def load_first_item_public_outcomes(
         raise ValueError("第一项A公开成果伴随数据schema错误")
     if tuple(payload.get("fields") or ()) != PUBLIC_RECORD_FIELDS:
         raise ValueError("第一项A公开成果字段登记不一致")
+    reading_guide = payload.get("reading_guide") or {}
+    for field in ("public_scale_basis", "public_calculation_basis"):
+        if not isinstance(reading_guide.get(field), str) or not reading_guide[field].strip():
+            raise ValueError(f"第一项A缺少统一公开说明：{field}")
     source_ref = str(payload.get("source_markdown") or "").replace("\\", "/")
     if source_ref != SOURCE_MARKDOWN_PATH.as_posix():
         raise ValueError("第一项A公开成果伴随数据未登记当前正式A来源")
@@ -130,8 +135,15 @@ def load_first_item_public_outcomes(
             raise ValueError(f"第一项A公开成果人物不在正式A来源：{name}")
         result: dict[str, Any] = {
             field: _validate_public_text(name, field, record.get(field))
-            for field in PUBLIC_FIELDS
+            for field in (*PUBLIC_FIELDS, *PUBLIC_READING_FIELDS)
+            if field != "public_boundary"
         }
+        if "public_boundary" not in record:
+            raise ValueError(f"第一项A公开范围说明未声明：{name}")
+        boundary = record["public_boundary"]
+        result["public_boundary"] = (
+            None if boundary is None else _validate_public_text(name, "public_boundary", boundary)
+        )
         project = record.get("public_project")
         if project is not None:
             if not isinstance(project, str) or not 2 <= len(project.strip()) <= 80:
@@ -140,7 +152,19 @@ def load_first_item_public_outcomes(
             project = project.removeprefix("共同项目：").strip()
         result["public_project"] = project
         result["public_share_percent"] = _share_percent(source_sections[name])
+        result.update({field: reading_guide[field] for field in (
+            "public_scale_basis", "public_calculation_basis"
+        )})
+        calculation = source_sections[name].get("计算", "")
+        if not calculation:
+            raise ValueError(f"第一项A缺少正式计算：{name}")
+        result["public_calculation"] = calculation
         by_name[name] = result
+
+    for field in PUBLIC_READING_FIELDS:
+        texts = [record[field] for record in by_name.values()]
+        if len(set(texts)) != len(texts):
+            raise ValueError(f"第一项A人物阅读入口重复：{field}")
 
     source_names = set(source_sections)
     if expected_names is None:

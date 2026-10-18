@@ -25,33 +25,26 @@ const start = source.indexOf('  const PUBLIC_GRADE');
 const end = source.indexOf('  function patchMetricBodies(', start);
 assert.ok(start > 0 && end > start);
 const context = {document:{createElement(tag){
-  return {tag, children:[], ownText:'',
+  return {tag, children:[], ownText:'', dataset:{},
     append(...nodes){this.children.push(...nodes);},
+    replaceChildren(...nodes){this.children=[...nodes];},
+    get childNodes(){return this.children;},
     set textContent(value){this.ownText=value;},
     get textContent(){return this.ownText+this.children.map(node=>node.textContent).join('');}
   };
 }}};
 vm.createContext(context);
-vm.runInContext(source.slice(start, end) + '\nthis.renderFacts=publicFacts; this.renderText=publicText; this.renderList=publicEvidenceList; this.enumText=publicEnumText; this.financeText=publicFinanceText; this.boundaryText=publicBoundaryText; this.financeText=publicFinanceText; this.financeBoundaryText=publicFinanceBoundaryText;', context);
-for (const [raw,shown] of Object.entries({
-  '五档':'A档','第五档':'A档','四档':'B档','第四档':'B档',
-  '三档':'C档','第三档':'C档','二档':'D档','第二档':'D档',
-  '一档':'E档','第一档':'E档','六档':'S档','第六档':'S档'
-})) assert.equal(context.financeText(raw),shown);
-assert.equal(context.financeText('中期支持五档，但长期阻断六档；主态维持四档。'),'中期支持A档，但长期阻断S档；主要阶段状态维持B档。');
+context.document.createDocumentFragment=()=>context.document.createElement('fragment');
+vm.runInContext(source.slice(start, end) + '\nthis.renderB2=b2Reading; this.renderFacts=publicFacts; this.renderText=publicText; this.renderList=publicEvidenceList; this.enumText=publicEnumText; this.financeText=publicFinanceText; this.boundaryText=publicBoundaryText; this.financeText=publicFinanceText; this.financeBoundaryText=publicFinanceBoundaryText;', context);
+const b2Text='部分意见获采，但晚期保护失败；不据缺证推定不存在。';
+const b2=context.renderB2({reader_summary:b2Text,reader_public_evidence_items:[
+ {id:'synthetic-positive',public_label:'一条机制',public_direction:'正向主导',public_tags:['部分阶段不另计'],public_basis:'当面劝阻后改变决定，后来又有受罚。',public_boundary:'只合并该次前后过程。',source_refs:[{source_title:'合成史源',source_locator:'合成定位',exact_quote:'合成原引文'}]},
+ {id:'synthetic-background',public_label:'背景',public_direction:'正向',public_tags:['背景材料'],public_basis:'只证明设置渠道，尚未证明实际纠正。',public_boundary:'整条不计。',source_refs:[]}
+]});
+for(const text of [b2Text,'正向主导','部分阶段不另计','只合并该次前后过程。','合成原引文','尚未证明实际纠正','背景材料'])assert.ok(b2.textContent.includes(text),text);
+for (const raw of ['第五档；不等于损害轻微。','后任结果不得倒灌。','<不是HTML> & “原句”。']) assert.equal(context.financeText(raw),raw);
 assert.equal(context.boundaryText('同一机制只作一次判断；同一机制只作一次判断；'),'同一机制只作一次判断');
-assert.equal(context.financeBoundaryText('第五档；第五档；'),'A档');
-assert.equal(context.financeText('后任衣食滋殖不倒灌。'),'后任衣食滋殖不追溯计入本人。');
-assert.equal(context.financeText('本人主要阶段状态2维持。'),'本人主要阶段状态为D档维持。');
-assert.equal(context.financeText('严格按907—918正式窗口，终态维持四档。'),'严格按907—918评价窗口，任期结束状态维持B档。');
-assert.equal(context.financeText('未见有源二档或四档端点。'),'未见有证据支持的D档或B档判断。');
-assert.equal(context.financeText('灾年条数不作为历史低谷标签计数器。'),'灾年条数不作为历史低谷判断计数器。');
-assert.equal(context.financeText('数字不单独抬档，战争不机械扣档；现证限制升档。'),'数字不单独提高等级，战争不机械降低等级；现证限制上调等级。');
-assert.equal(context.financeText('只登记峰值5而非主要阶段状态5。'),'只登记峰值达到A档而非主要阶段状态为A档。');
-assert.equal(context.financeText('亲政起点硬承接3而非旧4。'),'亲政接手时状态为C档，不沿用此前B档判断。');
-assert.equal(context.financeText('按合同前者越窗，后者保留。'),'按评价窗口，前者不计入本期，后者保留。');
-assert.equal(context.financeText('故终态社会安全“可运行秩序”/未另证独立有效低谷，并要求正式重要地区或群体出现明显损害撤销。'),'因此任期结束时社会安全为“可运行秩序”，且未另证独立有效低谷，不再单列“重要地区或群体出现明显损害”。');
-assert.equal(context.financeText('旧任期结束状态=经济财政“失灵崩解”把1127靖康终局倒灌到赵佶1126年退位，必须纠正。'),'不能把1127年的靖康终局倒推为赵佶1126年退位时的经济财政状态。');
+assert.equal(context.financeBoundaryText('第五档；第五档；'),'第五档；第五档；');
 assert.equal(context.boundaryText('只计算逐字引文证明链条成立的制度接口'),'只计算现有直接史料能够确认的制度接口');
 assert.equal(context.boundaryText('运行结果是已形成；未计入长期接收加权。'),'实际运行情况：已形成；未因后世长期沿用获得额外提高。');
 assert.equal(context.boundaryText('未见有源D档或B档端点'),'未见有证据支持的D档或B档判断');
@@ -103,7 +96,7 @@ assert.match(source, /makeDetails\("范围与边界", financeItem \? publicFinan
 assert.match(source, /: publicBoundaryText\(item\.reader_boundary/);
 assert.match(source, /body: publicFinanceText\(entry\?\.public_basis\)/);
 assert.match(source, /label === "B2反馈与约束"/);
-assert.match(source, /renderB2MaterialGroups\(evidence\)/);
+assert.match(source, /b2Reading\(item\)/);
 assert.match(source, /if \(label === "A制度建设" \|\| label === "B1官僚治理"\) continue/);
 ''', encoding='utf-8')
     completed = subprocess.run([node, str(script), str(ROOT)], check=False, capture_output=True, text=True, encoding='utf-8')
@@ -232,7 +225,9 @@ def test_second_item_public_enum_mapping_and_dedicated_ownership():
     assert 'secondMethodDetailsMarkup(item, record)' not in b1
     assert 'secondPublicOwner = "A"' in a
     assert 'secondPublicOwner = "B1"' in b1
-    assert 'SecondItemMaterialCards' in a
+    assert 'entry.public_basis' in a
+    assert 'entry.public_sources' in a
+    assert 'SecondItemMaterialCards' not in a
     assert 'SecondItemMaterialCards' in b1
 
 

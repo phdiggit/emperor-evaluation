@@ -1,6 +1,16 @@
 from copy import deepcopy
+import pytest
 
 from emperor_v4.evaluation.prudent_score_intervals import _check_lineage_ref, _cost_delta, _declared_terminal_endpoints, _governance_score, _mutate, _needs_main_grade_review, _own_interval_rank_projection
+from emperor_v4.evaluation.prudent_score_intervals import _ranked_review_subset
+
+
+def test_pending_ruler_evidence_is_preserved_without_a_ranked_delta():
+    reviews = {'ready': {'basis': '有来源'}, 'pending': {'basis': '仍有效'}}
+    assert _ranked_review_subset(reviews, {'ready'}, {'ready', 'pending'}) == {'ready': reviews['ready']}
+    assert 'pending' in reviews
+    with pytest.raises(ValueError, match='正式池之外'):
+        _ranked_review_subset({'foreign': {}}, {'ready'}, {'ready', 'pending'})
 
 
 def test_own_interval_rank_projection_holds_other_formal_scores_fixed():

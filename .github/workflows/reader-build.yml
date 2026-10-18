@@ -9,8 +9,21 @@ on:
       - codex/single-ruler-session-control
     paths:
       - reader/index.template.html
+      - reader/first-item-a.template.html
+      - reader/first-item-b1.template.html
+      - reader/first-item-b2.template.html
+      - reader/first-item-c.template.html
       - reader/link-effects.css
       - reader/home-interactions.js
+      - reader/third-item-a-public.js
+      - reader/third-item-c-public.js
+      - reader/third-item-c.template.html
+      - reader/third-item-c-collection.js
+      - src/emperor_v4/evaluation/third_item_c_public.py
+      - src/emperor_v4/evaluation/third_item_c_contract_reading.py
+      - tests/test_third_item_c_public.py
+      - tests/test_reader_third_c_collection.py
+      - reader/third-item-b-public.js
       - reader/readability.css
       - reader/readability.js
       - reader/person-readability.js
@@ -26,9 +39,19 @@ on:
       - reader/build_first_item_reader_cache.py
       - src/emperor_v4/evaluation/first_item_public_outcomes.py
       - src/emperor_v4/evaluation/first_item_c_public.py
+      - src/emperor_v4/evaluation/first_item_c_evidence.py
       - src/emperor_v4/evaluation/first_item_b1_cost_public.py
+      - src/emperor_v4/evaluation/first_item_b2_public.py
+      - src/emperor_v4/evaluation/first_item_b1_inputs.py
+      - src/emperor_v4/evaluation/first_item_weights.py
+      - src/emperor_v4/evaluation/first_item_markdown_settlement.py
+      - config/military/opponent-system-contract.json
+      - tests/test_first_item_b1_inputs.py
+      - tests/test_first_item_weights.py
       - tests/test_first_item_b1_cost_public.py
+      - tests/test_first_item_b2_public.py
       - tests/test_first_item_c_public.py
+      - tests/test_first_item_c_evidence.py
       - reader/lazy-details.js
       - reader/public-copy.json
       - reader/second-item-summaries.json
@@ -43,6 +66,12 @@ on:
       - src/emperor_v4/evaluation/second_item_c_public*
       - tests/test_second_item_c_public.py
       - tests/test_third_fourth_item_public.py
+      - tests/test_third_item_a_public_reading.py
+      - src/emperor_v4/evaluation/third_item_a_public.py
+      - src/emperor_v4/evaluation/third_item_b_public.py
+      - tests/test_third_item_b_public.py
+      - src/emperor_v4/evaluation/third_item_ab_reading.py
+      - config/third-item/**
       - src/emperor_v4/evaluation/historical_impact.py
       - src/emperor_v4/evaluation/profile_m1_verifier.py
       - src/emperor_v4/evaluation/profile_markdown.py
@@ -133,16 +162,19 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import re
-          html = Path('reader/index.html').read_text(encoding='utf-8')
-          scripts = re.findall(r'<script([^>]*)>(.*?)</script>', html, flags=re.S)
-          executable = [body for attrs, body in scripts if 'application/json' not in attrs and not re.search(r'\bsrc\s*=', attrs)]
-          if not executable:
-            raise SystemExit('no executable browser scripts found')
           out = Path('.tmp/reader-js-check')
           out.mkdir(parents=True, exist_ok=True)
-          for i, body in enumerate(executable):
-              (out / f'{i}.js').write_text(body, encoding='utf-8')
-          print('inline executable scripts:', len(executable))
+          total = 0
+          for filename in ('reader/third-item-c.html', 'reader/index.html', 'reader/first-item-a.html', 'reader/first-item-b1.html', 'reader/first-item-b2.html', 'reader/second-item-b2.html'):
+              page = Path(filename)
+              scripts = re.findall(r'<script([^>]*)>(.*?)</script>', page.read_text(encoding='utf-8'), flags=re.S)
+              executable = [body for attrs, body in scripts if 'application/json' not in attrs and not re.search(r'\bsrc\s*=', attrs)]
+              if not executable:
+                  raise SystemExit(f'no executable browser scripts found: {filename}')
+              for i, body in enumerate(executable):
+                  (out / f'{page.stem}-{i}.js').write_text(body, encoding='utf-8')
+              total += len(executable)
+          print('inline executable scripts:', total)
           PY
           for file in .tmp/reader-js-check/*.js; do node --check "$file"; done
           node --check reader/first-item-reading.js
@@ -151,11 +183,15 @@ jobs:
           node --check reader/second-item-a-public.js
           node --check reader/second-item-b1-public.js
           node --check reader/second-item-public-labels.js
+          node --check reader/third-item-a-public.js
+          node --check reader/third-item-b-public.js
+          node --check reader/third-item-c-public.js
+          node --check reader/third-item-c-collection.js
           node --check reader/person-reading-notes.js
           rm -rf .tmp/reader-js-check
 
       - name: Run behavior tests
-        run: python -m pytest tests/test_reader.py tests/test_reader_public_boundaries.py tests/test_reader_first_item_reading.py tests/test_first_item_c_public.py tests/test_first_item_b1_cost_public.py tests/test_reader_person_readability.py tests/test_reader_second_public_text.py tests/test_second_item_c_public.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py tests/test_third_fourth_item_public.py tests/test_historical_impact.py tests/test_historical_impact_source_collections.py -q
+        run: python -m pytest tests/test_reader.py tests/test_reader_public_boundaries.py tests/test_reader_first_item_reading.py tests/test_first_item_c_public.py tests/test_first_item_c_evidence.py tests/test_first_item_b1_cost_public.py tests/test_first_item_b2_public.py tests/test_first_item_b1_inputs.py tests/test_first_item_weights.py tests/test_first_item_public_outcomes.py tests/test_reader_person_readability.py tests/test_reader_second_public_text.py tests/test_second_item_c_public.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py tests/test_third_fourth_item_public.py tests/test_third_item_a_public_reading.py tests/test_third_item_b_public.py tests/test_third_item_c_public.py tests/test_reader_third_c_collection.py tests/test_historical_impact.py tests/test_historical_impact_source_collections.py -q
 
       - name: Commit validated generated reader artifacts
         id: validated_release
@@ -170,7 +206,7 @@ jobs:
             exit 0
           fi
 
-          release_paths=(reader/index.html reader/military.html reader/source-revision.json reader/data/person-reading-notes.json reader/data/people reader/data/military reader/data/first-item)
+          release_paths=(reader/third-item-c.html reader/data/third-item-c reader/index.html reader/military.html reader/first-item-a.html reader/first-item-b1.html reader/first-item-b2.html reader/second-item-b2.html reader/source-revision.json reader/data/person-reading-notes.json reader/data/people reader/data/military reader/data/first-item)
           if [[ -n "$(git status --porcelain -- "${release_paths[@]}")" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -205,7 +241,7 @@ jobs:
           rm -rf .tmp/pages-site
           mkdir -p .tmp/pages-site/reader
           cp index.html .tmp/pages-site/
-          cp reader/index.html reader/military.html .tmp/pages-site/reader/
+          cp reader/third-item-c.html reader/index.html reader/military.html reader/first-item-a.html reader/first-item-b1.html reader/first-item-b2.html reader/second-item-b2.html reader/readability.css reader/first-item-reading.js .tmp/pages-site/reader/
           cp -a reader/data .tmp/pages-site/reader/
           touch .tmp/pages-site/.nojekyll
 

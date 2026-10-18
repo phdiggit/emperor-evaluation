@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>各自的统一之路 · 帝王三镜</title>
+<link rel="stylesheet" href="readability.css">
+<style>
+:root{--green:#315d56;--muted:#72766b;--line:#deded5}*{box-sizing:border-box}body{margin:0;background:#f5f3ec;color:#29332f;font-family:"Microsoft YaHei",sans-serif}a{color:var(--green);text-underline-offset:4px}header,main{max-width:1040px;margin:auto;padding:24px}header{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line)}h1{font-size:36px;margin:24px 0 14px}.intro{line-height:1.9;max-width:46em;color:var(--muted)}label{display:block;margin:28px 0 10px;font-weight:600}input{width:100%;padding:14px;border:1px solid var(--line);border-radius:6px;font:inherit;background:#fffefa;color:inherit}.count{font-size:13px;color:var(--muted);margin:12px 0 24px}.first-a-reading{background:#fffefa;border-left:3px solid #97b0a5;margin:0 0 22px;scroll-margin-top:20px}.first-a-eyebrow a{text-decoration:none}.prose{line-height:1.85;margin:8px 0}summary{cursor:pointer;line-height:1.8;padding:4px 0}dd p{margin:0}.sources{line-height:1.9;font-size:13px}#empty{padding:30px;text-align:center}[hidden]{display:none!important}@media(max-width:600px){header,main{padding:18px}h1{font-size:28px}.first-a-heading h3{font-size:20px}}
+</style>
+</head>
+<body>
+<header><a href="index.html">帝王三镜</a><a href="first-item-b1.html">条件与效率</a><a href="first-item-b2.html">组织与协作</a><a href="first-item-c.html">战争解题</a><a href="index.html#guide">如何阅读</a></header>
+<main>
+<h1>各自的统一之路</h1>
+<p class="intro">有人从一个据点打起，有人接过已有的大国，也有人建立了政权，却没有留下可继承的控制。沿着每个人自己的问题，看看他究竟取得了什么。</p>
+<label for="entry-search">找一个人物，或一段经历</label>
+<input id="entry-search" type="search" placeholder="试试姓名、郓州、南渡……" autocomplete="off">
+<p class="count"><span id="entry-count">__A_COUNT__</span> 位人物 · 这里单独看奠基与统一成果，不代表统治绩效总评。</p>
+<section aria-label="人物阅读入口">__A_ENTRIES__</section>
+<p id="empty" hidden>没有找到相关人物或经历，可以换个词试试。</p>
+</main>
+<script>
+if(['localhost','127.0.0.1','[::1]'].includes(location.hostname))for(const link of document.querySelectorAll('[data-local-source]'))link.href='../'+link.dataset.localSource;
+const search=document.getElementById('entry-search'),entries=[...document.querySelectorAll('.first-a-reading')];
+search.addEventListener('input',()=>{const query=search.value.trim().toLocaleLowerCase(),exact=entries.some(entry=>entry.id.toLocaleLowerCase()===query);let visible=0;for(const entry of entries){entry.hidden=query!==''&&(exact?entry.id.toLocaleLowerCase()!==query:!entry.textContent.toLocaleLowerCase().includes(query));if(!entry.hidden)visible++;}document.getElementById('entry-count').textContent=visible;document.getElementById('empty').hidden=visible!==0;});
+</script>
+</body>
+</html>

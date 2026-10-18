@@ -1156,7 +1156,6 @@
           "cost_grade_delta": -1,
           "security_result_distribution": {
             "E0": 3,
-            "E1": 1,
             "E2": 3,
             "E3_REGIONAL_TERMINAL": 3
           },
@@ -1286,48 +1285,6 @@
               ],
               "achievement_grade_detail": "E0_UNCHANGED_UNRESOLVED",
               "security_result_grade": "E0"
-            },
-            {
-              "chain_id": "SQ-TUTANG-250",
-              "member_cycle_refs": [
-                "CAMPAIGN-V075-SG-WU-TUTANG-250"
-              ],
-              "effective_opponent_challenge_grade": "O5",
-              "challenge_context": "工程针对具国家级淮南投送能力的曹魏，但当期没有闭合魏军实际进攻，O5只描述有效对手能力，不倒推工程成果。",
-              "achievement_grade": "E1_CONTAINMENT",
-              "security_change_basis": "十万军修涂塘已形成阻路状态，但未证明实际阻止魏军入侵或产生新控制，故仅为有限遏制。",
-              "mobilization_peak": "W100_PLUS",
-              "mobilization_basis": "军十万人实际从事水工服役；人数不是伤亡。",
-              "force_destruction": "F0_NO_CONFIRMED_FORCE_LOSS",
-              "force_destruction_basis": "未载工程伤亡或部队失能；十万人服役规模不能替代损失证据。",
-              "process_burden": {
-                "repetition": "SINGLE_ENGINEERING",
-                "duration": "NOT_RECORDED"
-              },
-              "ruler_responsibility": "MAJOR_DRIVER",
-              "responsibility_basis": "孙权下令十万军施工，对大型防务工程投入负主要责任。",
-              "source_refs": [
-                "docs/史料通读产物/唐以前编年/三国/卷075-通读总结.md#WAR-LEAD-SG-WU-TUTANG-250",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#RULER-SHADOW-孙权::222—252::CAMPAIGN-V075-SG-WU-TUTANG-250"
-              ],
-              "acquisition_mode": "OFFENSIVE_COMBAT",
-              "result_type": "THREAT_CONTAINED_WITHOUT_DURABLE_CLOSURE",
-              "within_grade_position": "MID",
-              "terminal_result_profile": {
-                "threat_change": "THREAT_CONTAINED_WITHOUT_DURABLE_CLOSURE",
-                "control_change": "十万军修涂塘已形成阻路状态，但未证明实际阻止魏军入侵或产生新控制，故仅为有限遏制。",
-                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
-                "durability": "LIMITED_OR_NOT_CLOSED",
-                "terminal_member_ref": "CAMPAIGN-V075-SG-WU-TUTANG-250",
-                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
-              },
-              "effective_opponent_challenge_basis": "工程针对具国家级淮南投送能力的曹魏，但当期没有闭合魏军实际进攻，O5只描述有效对手能力，不倒推工程成果。",
-              "effective_opponent_challenge_source_refs": [
-                "docs/史料通读产物/唐以前编年/三国/卷075-通读总结.md#WAR-LEAD-SG-WU-TUTANG-250",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#RULER-SHADOW-孙权::222—252::CAMPAIGN-V075-SG-WU-TUTANG-250"
-              ],
-              "achievement_grade_detail": "E1_CONTAINMENT",
-              "security_result_grade": "E1"
             }
           ],
           "strategic_internal_chains": [
@@ -1545,7 +1502,54 @@
             "abnormal_process_chain_count": 6,
             "notes": "六条内部链均因跨郡、跨年、万人级或战略交通节点进入异常层；不按平乱数量给D加分。赤壁、荆州与夷陵等创业/政权取得及第三项C既有成果不在本窗口重复消费。"
           },
-          "cross_item_excluded_chains": [],
+          "cross_item_excluded_chains": [
+            {
+              "chain_id": "SQ-TUTANG-250",
+              "member_cycle_refs": [
+                "CAMPAIGN-V075-SG-WU-TUTANG-250"
+              ],
+              "effective_opponent_challenge_grade": "O5",
+              "challenge_context": "工程针对具国家级淮南投送能力的曹魏，但当期没有闭合魏军实际进攻，O5只描述有效对手能力，不倒推工程成果。",
+              "achievement_grade": "E1_CONTAINMENT",
+              "security_change_basis": "十万军修涂塘已形成阻路状态，但未证明实际阻止魏军入侵或产生新控制，故仅为有限遏制。",
+              "mobilization_peak": "W100_PLUS",
+              "mobilization_basis": "军十万人实际从事水工服役；人数不是伤亡。",
+              "force_destruction": "F0_NO_CONFIRMED_FORCE_LOSS",
+              "force_destruction_basis": "未载工程伤亡或部队失能；十万人服役规模不能替代损失证据。",
+              "process_burden": {
+                "repetition": "SINGLE_ENGINEERING",
+                "duration": "NOT_RECORDED"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "孙权下令十万军施工，对大型防务工程投入负主要责任。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/三国/卷075-通读总结.md#WAR-LEAD-SG-WU-TUTANG-250",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#RULER-SHADOW-孙权::222—252::CAMPAIGN-V075-SG-WU-TUTANG-250"
+              ],
+              "acquisition_mode": "OFFENSIVE_COMBAT",
+              "result_type": "THREAT_CONTAINED_WITHOUT_DURABLE_CLOSURE",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "THREAT_CONTAINED_WITHOUT_DURABLE_CLOSURE",
+                "control_change": "十万军修涂塘已形成阻路状态，但未证明实际阻止魏军入侵或产生新控制，故仅为有限遏制。",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "CAMPAIGN-V075-SG-WU-TUTANG-250",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "effective_opponent_challenge_basis": "工程针对具国家级淮南投送能力的曹魏，但当期没有闭合魏军实际进攻，O5只描述有效对手能力，不倒推工程成果。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/唐以前编年/三国/卷075-通读总结.md#WAR-LEAD-SG-WU-TUTANG-250",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#RULER-SHADOW-孙权::222—252::CAMPAIGN-V075-SG-WU-TUTANG-250"
+              ],
+              "achievement_grade_detail": "E1_CONTAINMENT",
+              "security_result_grade": "E1",
+              "reason": "仅有修涂塘与备运，没有军压下实际拒止魏军的交付，退出独立安全结果；已发生军队工程动员作为保障背景，不能虚造E1。",
+              "exclusion_reason": "仅有修涂塘与备运，没有军压下实际拒止魏军的交付，退出独立安全结果；已发生军队工程动员作为保障背景，不能虚造E1。",
+              "excluded_from_D": true,
+              "consumption_scope": "NONCOMBAT_PREPARATION_ONLY"
+            }
+          ],
           "non_military_loss_cost_exclusions": [],
           "attributable_cost_profile": {
             "cost_band": "C5",
@@ -1574,13 +1578,13 @@
           "formal_grade_write": true,
           "formal_score_write": true,
           "database_write": false,
-          "public_adjudication_summary": "战略结果由4条外部结果链和6条内部军事链共同构成。夷洲、辽东重损仍明显压制有限安全改善，但国家军事组织保持连续；以军事成本第5级高位修正战略安全净变化第2级为战略安全净变化第1级，不再沿用军事成本第6级的两档压制。 军事成本按独立规定判断为军事成本第5级（高位，关键结构已证实）；具体结构见成本依据。",
+          "public_adjudication_summary": "战略结果由3条外部结果链和6条内部军事链共同构成。夷洲、辽东重损仍明显压制有限安全改善，但国家军事组织保持连续；以军事成本第5级高位修正战略安全净变化第2级为战略安全净变化第1级，不再沿用军事成本第6级的两档压制。 军事成本按独立规定判断为军事成本第5级（高位，关键结构已证实）；具体结构见成本依据。",
           "public_evidence_items": [
             {
               "id": "THIRD-D-PUBLIC-1CBFEA4E35AB30BF",
               "public_label": "战略结果组合",
               "public_role": "战略结果",
-              "public_basis": "现有材料列出4条外部战略结果链和6条内部军事链。夷洲、辽东重损仍明显压制有限安全改善，但国家军事组织保持连续；以军事成本第5级高位修正战略安全净变化第2级为战略安全净变化第1级，不再沿用军事成本第6级的两档压制。 军事成本按独立规定判断为军事成本第5级（高位，关键结构已证实）；具体结构见成本依据。",
+              "public_basis": "现有材料列出3条外部战略结果链和6条内部军事链。夷洲、辽东重损仍明显压制有限安全改善，但国家军事组织保持连续；以军事成本第5级高位修正战略安全净变化第2级为战略安全净变化第1级，不再沿用军事成本第6级的两档压制。 军事成本按独立规定判断为军事成本第5级（高位，关键结构已证实）；具体结构见成本依据。",
               "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算。"
             },
             {
@@ -1616,47 +1620,10 @@
           "signed_security_candidate_before_cost": "D0",
           "cost_grade_delta": 0,
           "security_result_distribution": {
-            "E0": 1,
             "E3_REGIONAL_TERMINAL": 2,
             "EN3": 1
           },
           "external_strategic_chains": [
-            {
-              "chain_id": "SH-YONGAN-264",
-              "member_cycle_refs": [
-                "CAMPAIGN-V078-SG-YONGAN-264"
-              ],
-              "effective_opponent_challenge_grade": "O3",
-              "challenge_context": "永安为蜀亡后长江上游门户，罗宪守军与魏晋侧援形成主要方向防御，但尚非晋全国主力压境。",
-              "achievement_grade": "E0_NO_SECURITY_GAIN",
-              "acquisition_mode": "PROLONGED_SIEGE",
-              "result_type": "FAILED_OFFENSIVE_WITH_ORDERLY_WITHDRAWAL",
-              "within_grade_position": "MID",
-              "terminal_result_profile": "吴先后围永安六个月、增兵三万，因魏胡烈侧击西陵而撤，未取得巴东门户。",
-              "control_change": "无新增控制；永安转入魏晋体系，吴保持原边线。",
-              "security_change_basis": "行动未夺城也未造成吴既有控制恶化，按E0；永安疾病过半属于守方损失，不反计吴方成本。",
-              "mobilization_peak": "W30_100",
-              "mobilization_basis": "陆抗等三万人为明确吴方增援峰值。",
-              "force_destruction": "F1_LIMITED_FORCE_LOSS",
-              "force_destruction_basis": "吴方围城与撤退未载明确人员、资产或组织毁损；魏晋守方疾病不得反计。",
-              "process_burden": {
-                "repetition": "SINGLE_PROLONGED_SIEGE",
-                "duration": "SIX_MONTHS"
-              },
-              "ruler_responsibility": "MAJOR_DRIVER",
-              "responsibility_basis": "孙皓政权持续增兵围攻，具体战场执行由步协、陆抗承担。",
-              "source_refs": [
-                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md#WAR-LEAD-SG-YONGAN-264",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#CAMPAIGN-V078-SG-YONGAN-264"
-              ],
-              "effective_opponent_challenge_basis": "永安为蜀亡后长江上游门户，罗宪守军与魏晋侧援形成主要方向防御，但尚非晋全国主力压境。",
-              "effective_opponent_challenge_source_refs": [
-                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md#WAR-LEAD-SG-YONGAN-264",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#CAMPAIGN-V078-SG-YONGAN-264"
-              ],
-              "achievement_grade_detail": "E0_NO_SECURITY_GAIN",
-              "security_result_grade": "E0"
-            },
             {
               "chain_id": "SH-JIAOZHI-263-271",
               "member_cycle_refs": [
@@ -1791,7 +1758,48 @@
               "docs/史料通读产物/唐以前编年/两晋/卷080-通读总结.md#SEC-LEAD-WU-GUANGZHOU-279"
             ]
           },
-          "cross_item_excluded_chains": [],
+          "cross_item_excluded_chains": [
+            {
+              "chain_id": "SH-YONGAN-264",
+              "member_cycle_refs": [
+                "CAMPAIGN-V078-SG-YONGAN-264"
+              ],
+              "effective_opponent_challenge_grade": "O3",
+              "challenge_context": "永安为蜀亡后长江上游门户，罗宪守军与魏晋侧援形成主要方向防御，但尚非晋全国主力压境。",
+              "achievement_grade": "E0_NO_SECURITY_GAIN",
+              "acquisition_mode": "PROLONGED_SIEGE",
+              "result_type": "FAILED_OFFENSIVE_WITH_ORDERLY_WITHDRAWAL",
+              "within_grade_position": "MID",
+              "terminal_result_profile": "吴先后围永安六个月、增兵三万，因魏胡烈侧击西陵而撤，未取得巴东门户。",
+              "control_change": "无新增控制；永安转入魏晋体系，吴保持原边线。",
+              "security_change_basis": "行动未夺城也未造成吴既有控制恶化，按E0；永安疾病过半属于守方损失，不反计吴方成本。",
+              "mobilization_peak": "W30_100",
+              "mobilization_basis": "陆抗等三万人为明确吴方增援峰值。",
+              "force_destruction": "F1_LIMITED_FORCE_LOSS",
+              "force_destruction_basis": "吴方围城与撤退未载明确人员、资产或组织毁损；魏晋守方疾病不得反计。",
+              "process_burden": {
+                "repetition": "SINGLE_PROLONGED_SIEGE",
+                "duration": "SIX_MONTHS"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "孙皓政权持续增兵围攻，具体战场执行由步协、陆抗承担。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md#WAR-LEAD-SG-YONGAN-264",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#CAMPAIGN-V078-SG-YONGAN-264"
+              ],
+              "effective_opponent_challenge_basis": "永安为蜀亡后长江上游门户，罗宪守军与魏晋侧援形成主要方向防御，但尚非晋全国主力压境。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md#WAR-LEAD-SG-YONGAN-264",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#CAMPAIGN-V078-SG-YONGAN-264"
+              ],
+              "achievement_grade_detail": "E0_NO_SECURITY_GAIN",
+              "security_result_grade": "E0",
+              "reason": "264年永安围攻在孙休在位且已于其崩前撤军；退出孙皓成果成本，本人交州西陵和灭吴战争仍保留。",
+              "exclusion_reason": "264年永安围攻在孙休在位且已于其崩前撤军；退出孙皓成果成本，本人交州西陵和灭吴战争仍保留。",
+              "excluded_from_D": true,
+              "consumption_scope": "OUTSIDE_RULER_WINDOW"
+            }
+          ],
           "non_military_loss_cost_exclusions": [],
           "attributable_cost_profile": {
             "cost_band": "C6",
@@ -1823,13 +1831,13 @@
           "formal_grade_write": true,
           "formal_score_write": true,
           "database_write": false,
-          "public_adjudication_summary": "战略结果由4条外部结果链和0条内部军事链共同构成。交趾和西陵两条重大阶段或区域终局成果不能抵消终局全国防务崩溃与亡国全国或多数核心防务体系崩溃，成本前战略安全净变化第0级；成果与成本严格分轴，亡国只决定安全负结果上限。 军事成本按独立规定判断为军事成本第6级（中位，关键结构已证实）；具体结构见成本依据。",
+          "public_adjudication_summary": "战略结果由3条外部结果链和0条内部军事链共同构成。交趾和西陵两条重大阶段或区域终局成果不能抵消终局全国防务崩溃与亡国全国或多数核心防务体系崩溃，成本前战略安全净变化第0级；成果与成本严格分轴，亡国只决定安全负结果上限。 军事成本按独立规定判断为军事成本第6级（中位，关键结构已证实）；具体结构见成本依据。",
           "public_evidence_items": [
             {
               "id": "THIRD-D-PUBLIC-2B247B61EE2C855A",
               "public_label": "战略结果组合",
               "public_role": "战略结果",
-              "public_basis": "现有材料列出4条外部战略结果链和0条内部军事链。交趾和西陵两条重大阶段或区域终局成果不能抵消终局全国防务崩溃与亡国全国或多数核心防务体系崩溃，成本前战略安全净变化第0级；成果与成本严格分轴，亡国只决定安全负结果上限。 军事成本按独立规定判断为军事成本第6级（中位，关键结构已证实）；具体结构见成本依据。",
+              "public_basis": "现有材料列出3条外部战略结果链和0条内部军事链。交趾和西陵两条重大阶段或区域终局成果不能抵消终局全国防务崩溃与亡国全国或多数核心防务体系崩溃，成本前战略安全净变化第0级；成果与成本严格分轴，亡国只决定安全负结果上限。 军事成本按独立规定判断为军事成本第6级（中位，关键结构已证实）；具体结构见成本依据。",
               "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算。"
             },
             {
@@ -1865,34 +1873,33 @@
           "signed_security_candidate_before_cost": "D1",
           "cost_grade_delta": -1,
           "security_result_distribution": {
-            "E1": 1,
-            "E2": 1,
-            "E3_REGIONAL_TERMINAL": 2
+            "E0": 1,
+            "E2": 2,
+            "E3_REGIONAL_TERMINAL": 1
           },
           "external_strategic_chains": [
             {
               "chain_id": "CP-WEI-WU-222-226",
               "member_cycle_refs": [
                 "CAMPAIGN-V070-SG-WEI-WU-222-223",
-                "CAMPAIGN-V070-SG-WEI-WU-224-225",
-                "WAR-LEAD-SG-WEI-WU-226"
+                "CAMPAIGN-V070-SG-WEI-WU-224-225"
               ],
               "effective_opponent_challenge_grade": "O5",
-              "challenge_context": "孙吴为有完整军政、水军与长江多方向防御体系的国家级对手，能同时守江陵、濡须、广陵并反攻江夏。",
-              "achievement_grade": "E1_CONTAINMENT",
+              "challenge_context": "孙吴具成熟军政、水军、江陵濡须与下游江防，222—225年可在多个方向实际拒止魏军。",
+              "achievement_grade": "E0",
               "acquisition_mode": "REPEATED_MULTI_ROUTE_INVASION_AND_TERMINAL_DEFENSE",
-              "result_type": "FAILED_OFFENSIVES_WITH_SUCCESSFUL_STATUS_QUO_DEFENSE",
+              "result_type": "FAILED_OFFENSIVES_WITHOUT_NET_SECURITY_CHANGE",
               "within_grade_position": "LOW",
-              "terminal_result_profile": "222—223三路进攻未取江陵、濡须，224、225两次亲征未渡江夺地；226年吴攻江夏、襄阳被击退，魏仅守住既有边线。",
-              "control_change": "无新增吴地或耐久战略秩序；终点保有既有江夏、襄阳方向，双方疆界基本不变。",
-              "security_change_basis": "对同一孙吴对手、统一长江目标和曹丕连续授权的222—226阶段合成一链；终端守成给予E1，不以多次失败票数机械记EN，也不把无功远征成本倒灌成果档。",
+              "terminal_result_profile": "222—223年两方向进攻无功，224、225年亲征未渡江夺地；曹丕在世窗口没有本链净安全改善。",
+              "control_change": "未形成新增控制或本方安全态势净改善。",
+              "security_change_basis": "本人连续对吴进攻以225年撤回收束，取E0；226年江夏襄阳拒吴在本人死后，独立归曹叡，不作为曹丕止损或成本。",
               "mobilization_peak": "W100_PLUS_NAVAL",
               "mobilization_basis": "225年十余万戎卒、数千战船为可证峰值；222—223数路军不与峰值相加。",
               "force_destruction": "F2_LARGE_PERSONNEL_IMPAIRMENT_FORCE_STRUCTURE_RETAINED",
               "force_destruction_basis": "濡须魏军临阵与溺死千余，另有疫病撤军和受困船队；但无整支军团毁损比例、成建制崩溃或灾后重建，数千战船最终获救，不裁F3。",
               "process_burden": {
                 "repetition": "THREE_MAJOR_INVASION_WAVES_PLUS_DEFENSE",
-                "duration": "LONG_FIVE_YEAR"
+                "duration": "LONG_FOUR_YEAR"
               },
               "ruler_responsibility": "DECISIVE_DRIVER_WITH_LATE_MITIGATION",
               "responsibility_basis": "曹丕拒绝贾诩、辛毗、鲍勋和蒋济多次明确反对，亲自主导重复远征；其后接受撤军与救船方案只作止损，不抹去已发生高承载。",
@@ -1900,19 +1907,17 @@
                 "docs/史料通读产物/唐以前编年/三国/卷069-通读总结.md#WAR-LEAD-SG-WEI-WU-222-STAGE",
                 "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-WU-222-223",
                 "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-WU-224-225",
-                "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-WU-226",
                 "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#CAMPAIGN-V070-SG-WEI-WU-224-225"
               ],
-              "effective_opponent_challenge_basis": "孙吴为有完整军政、水军与长江多方向防御体系的国家级对手，能同时守江陵、濡须、广陵并反攻江夏。",
+              "effective_opponent_challenge_basis": "孙吴具成熟军政、水军、江陵濡须与下游江防，222—225年可在多个方向实际拒止魏军。",
               "effective_opponent_challenge_source_refs": [
                 "docs/史料通读产物/唐以前编年/三国/卷069-通读总结.md#WAR-LEAD-SG-WEI-WU-222-STAGE",
                 "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-WU-222-223",
                 "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-WU-224-225",
-                "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-WU-226",
                 "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#CAMPAIGN-V070-SG-WEI-WU-224-225"
               ],
-              "achievement_grade_detail": "E1_CONTAINMENT",
-              "security_result_grade": "E1"
+              "achievement_grade_detail": "E0",
+              "security_result_grade": "E0"
             },
             {
               "chain_id": "CP-XIANBEI-224-225",
@@ -1955,7 +1960,7 @@
               "member_cycle_refs": [
                 "CAMPAIGN-SG-WEI-HEXI-220"
               ],
-              "effective_opponent_challenge_grade": "O3",
+              "effective_opponent_challenge_grade": "O2",
               "achievement_grade": "E3_REGIONAL_TERMINAL",
               "basis": "麴演、张进、黄华与三种胡导致河西多郡控制分裂，苏则专命急进后张进被破、黄华降、新太守入敦煌，本对象终局河西平。",
               "mobilization_peak": "W3_10_OPPONENT_SCALE",
@@ -1989,9 +1994,9 @@
               "member_cycle_refs": [
                 "CAMPAIGN-SG-WEI-HEXI-221"
               ],
-              "effective_opponent_challenge_grade": "O3",
-              "achievement_grade": "E3_REGIONAL_TERMINAL",
-              "basis": "卢水胡七千余骑与麴光为不同于220年的新对象，张既以三千精兵和千余骑伏击、分化后河西悉平；敌斩获万数不计魏方成本。",
+              "effective_opponent_challenge_grade": "O2",
+              "achievement_grade": "E2",
+              "basis": "221年卢水胡七千余骑压力下，张既以三千伏兵与千余骑诱敌取胜，恢复本次区域方向。卡后麴光另叛属另一对象，不并作本链区域威胁永久终结。",
               "mobilization_peak": "W3_10",
               "force_destruction": "F1_LIMITED_FORCE_LOSS",
               "process_burden": {
@@ -2005,18 +2010,18 @@
               ],
               "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
               "acquisition_mode": "MULTI_STAGE_COMBAT",
-              "result_type": "REGIONAL_THREAT_TERMINATED",
+              "result_type": "REGIONAL_DIRECTION_RESTORED",
               "within_grade_position": "MID",
               "terminal_result_profile": {
-                "threat_change": "REGIONAL_THREAT_TERMINATED",
-                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "threat_change": "REGIONAL_DIRECTION_RESTORED",
+                "control_change": "本次卢水胡军事压力被破",
                 "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
                 "durability": "LIMITED_OR_NOT_CLOSED",
                 "terminal_member_ref": "CAMPAIGN-SG-WEI-HEXI-221",
-                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+                "aggregation_basis": "仅221年卢水胡实际接战；麴光另起退出本链成果、成本。"
               },
-              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
-              "security_result_grade": "E3_REGIONAL_TERMINAL"
+              "achievement_grade_detail": "E2",
+              "security_result_grade": "E2"
             }
           ],
           "ordinary_suppression_summary": {
@@ -2050,20 +2055,20 @@
             "public_level_label": "普通军事代价为第5级、高位",
             "public_component_label": "普通军事代价"
           },
-          "adjudication_basis": "国家级对吴主链最终只保住既有边线为E1，北边E2不足形成更高组合，成本前D1； 军事成本按独立合同裁为C5（HIGH，CONFIRMED）；具体结构见成本依据。",
+          "adjudication_basis": "本人对吴主链E0无净改善；河西两次区域恢复与北边E2为有限正向，但国家主攻连续无功且C5高位成本压制，成本前D1、成本后D0高位。226年曹叡拒吴成果成本退出本人。D只作安全成本审计，不给第三项独立加分。",
           "coverage_status": "CONFIRMED",
           "source_batch": "sol_a",
           "canonical_status": "FORMAL_CURRENT",
           "formal_grade_write": true,
           "formal_score_write": true,
           "database_write": false,
-          "public_adjudication_summary": "战略结果由2条外部结果链和2条内部军事链共同构成。国家级对吴主链最终只保住既有边线为止损或恢复原线，北边区域方向稳定或恢复不足形成更高组合，成本前战略安全净变化第1级； 军事成本按独立规定判断为军事成本第5级（高位，关键结构已证实）；具体结构见成本依据。",
+          "public_adjudication_summary": "战略结果由2条外部结果链和2条内部军事链共同构成。本人对吴主链没有净安全改善无净改善；河西两次区域恢复与北边区域方向稳定或恢复为有限正向，但国家主攻连续无功且军事成本第5级高位成本压制，成本前战略安全净变化第1级、成本后战略安全净变化第0级高位。226年曹叡拒吴成果成本退出本人。战略安全净变化只作安全成本核对，不给第三项独立加分。",
           "public_evidence_items": [
             {
               "id": "THIRD-D-PUBLIC-08802518407D0D1A",
               "public_label": "战略结果组合",
               "public_role": "战略结果",
-              "public_basis": "现有材料列出2条外部战略结果链和2条内部军事链。国家级对吴主链最终只保住既有边线为止损或恢复原线，北边区域方向稳定或恢复不足形成更高组合，成本前战略安全净变化第1级； 军事成本按独立规定判断为军事成本第5级（高位，关键结构已证实）；具体结构见成本依据。",
+              "public_basis": "现有材料列出2条外部战略结果链和2条内部军事链。本人对吴主链没有净安全改善无净改善；河西两次区域恢复与北边区域方向稳定或恢复为有限正向，但国家主攻连续无功且军事成本第5级高位成本压制，成本前战略安全净变化第1级、成本后战略安全净变化第0级高位。226年曹叡拒吴成果成本退出本人。战略安全净变化只作安全成本核对，不给第三项独立加分。",
               "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算。"
             },
             {
@@ -2100,6 +2105,7 @@
           "cost_grade_delta": -1,
           "security_result_distribution": {
             "E0": 1,
+            "E1": 1,
             "E2": 1,
             "E3_MAJOR_STAGE": 1,
             "E4_MAJOR_STRATEGIC": 1,
@@ -2281,6 +2287,40 @@
               "comparative_scale_basis": "与冻结34人同通道锚点比较对手终结程度、覆盖范围和耐久性；高成果不由灭国名称、本方投入或单次战果自动生成。",
               "achievement_grade_detail": "E4_MAJOR_STRATEGIC",
               "security_result_grade": "E4_MAJOR_STRATEGIC"
+            },
+            {
+              "chain_id": "CR-WU-226",
+              "member_cycle_refs": [
+                "WAR-LEAD-SG-WEI-WU-226"
+              ],
+              "effective_opponent_challenge_grade": "O4",
+              "challenge_context": "孙权亲军及诸葛瑾、别将多方向进攻魏边地。",
+              "achievement_grade": "E1",
+              "acquisition_mode": "BORDER_COUNTERATTACK",
+              "result_type": "BORDER_ATTACK_REPULSED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": "曹叡即位后，文聘守江夏、荀禹临时千人举火，孙权退；司马懿、曹真分别击退同期吴军。",
+              "control_change": "既有节点未失，无新增领土。",
+              "security_change_basis": "本人任初被动受攻后击退，按E1；不挪给前任。",
+              "mobilization_peak": "W0_3",
+              "mobilization_basis": "荀禹实际临时动员千人；其余魏军人数失载，不补合计。",
+              "force_destruction": "F1_LIMITED_FORCE_LOSS",
+              "force_destruction_basis": "有实际接战，魏方明确人员与资产损失失载，不把吴将被斩计魏损。",
+              "process_burden": {
+                "repetition": "SINGLE_BORDER_CRISIS",
+                "duration": "SHORT"
+              },
+              "ruler_responsibility": "ORDINARY_COMMAND_RESPONSIBILITY",
+              "responsibility_basis": "曹叡决定不发动中央大军；守将与临时应急各记执行。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-WU-226"
+              ],
+              "effective_opponent_challenge_basis": "本人即位后吴实际国家方面军投入，未证全国压倒优势。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#WAR-LEAD-SG-WEI-WU-226"
+              ],
+              "achievement_grade_detail": "E1",
+              "security_result_grade": "E1"
             }
           ],
           "strategic_internal_chains": [
@@ -2357,13 +2397,13 @@
           "formal_grade_write": true,
           "formal_score_write": true,
           "database_write": false,
-          "public_adjudication_summary": "战略结果由4条外部结果链和1条内部军事链共同构成。辽东主要战略方向的耐久改善与首次北伐重大阶段或区域终局成果阶段改善，对冲石亭主要方向耐久恶化和汉中没有净安全改善主动失败后，仍保留主要方向净改善，成本前为战略安全净变化第3级；石亭主要方向兵团组织严重毁损且皇帝对主动多路大战略负主要责任。孟达内部链不重复抬档。 军事成本按独立规定判断为军事成本第5级（中位，关键结构已证实）；具体结构见成本依据。",
+          "public_adjudication_summary": "战略结果由5条外部结果链和1条内部军事链共同构成。辽东主要战略方向的耐久改善与首次北伐重大阶段或区域终局成果阶段改善，对冲石亭主要方向耐久恶化和汉中没有净安全改善主动失败后，仍保留主要方向净改善，成本前为战略安全净变化第3级；石亭主要方向兵团组织严重毁损且皇帝对主动多路大战略负主要责任。孟达内部链不重复抬档。 军事成本按独立规定判断为军事成本第5级（中位，关键结构已证实）；具体结构见成本依据。",
           "public_evidence_items": [
             {
               "id": "THIRD-D-PUBLIC-97D6C9ECF3E1F6CB",
               "public_label": "战略结果组合",
               "public_role": "战略结果",
-              "public_basis": "现有材料列出4条外部战略结果链和1条内部军事链。辽东主要战略方向的耐久改善与首次北伐重大阶段或区域终局成果阶段改善，对冲石亭主要方向耐久恶化和汉中没有净安全改善主动失败后，仍保留主要方向净改善，成本前为战略安全净变化第3级；石亭主要方向兵团组织严重毁损且皇帝对主动多路大战略负主要责任。孟达内部链不重复抬档。 军事成本按独立规定判断为军事成本第5级（中位，关键结构已证实）；具体结构见成本依据。",
+              "public_basis": "现有材料列出5条外部战略结果链和1条内部军事链。辽东主要战略方向的耐久改善与首次北伐重大阶段或区域终局成果阶段改善，对冲石亭主要方向耐久恶化和汉中没有净安全改善主动失败后，仍保留主要方向净改善，成本前为战略安全净变化第3级；石亭主要方向兵团组织严重毁损且皇帝对主动多路大战略负主要责任。孟达内部链不重复抬档。 军事成本按独立规定判断为军事成本第5级（中位，关键结构已证实）；具体结构见成本依据。",
               "public_boundary": "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算。"
             },
             {

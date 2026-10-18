@@ -2,9 +2,9 @@
 from __future__ import annotations
 
 import copy
-import hashlib
 import json
 import re
+import posixpath
 from pathlib import Path
 from typing import Any
 
@@ -22,7 +22,7 @@ FORMAL_PATHS = {
     "C4": Path("docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json"),
 }
 CONTRACT_PATH = Path("docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md")
-PUBLIC_PROJECTION_SCHEMA = "second-item-c-public-projection-v1"
+PUBLIC_PROJECTION_SCHEMA = "second-item-c-authored-public-v3"
 AXES = ("C1", "C2", "C3", "C4")
 STATE_AXES = ("C1", "C2", "C3")
 
@@ -32,6 +32,10 @@ PUBLIC_EVIDENCE_FIELDS = (
     "public_role",
     "public_basis",
     "public_boundary",
+    "source_refs",
+    "evidence_mode",
+    "public_scope",
+    "source_binding_kind",
 )
 PUBLIC_ROLES = {
     "主要状态",
@@ -76,7 +80,7 @@ STATE_LABELS = {
 }
 LOSS_LABELS = {
     "L0": "未另证独立有效低谷",
-    "L1": "有界局部或短时损害",
+    "L1": "已证损害，按已证范围作有限修正",
     "L2": "重要地区或群体出现明显损害",
     "L3": "严重且广泛或长期反复的本轴损害",
 }
@@ -126,236 +130,11 @@ def _clean(value: object) -> str:
     return re.sub(r"[ \t]+", " ", text).strip()
 
 
-def _first_text(*values: object) -> str:
-    for value in values:
-        text = _clean(value)
-        if text:
-            return text
-    return ""
-
-
-def _unique(values: list[str]) -> list[str]:
-    result: list[str] = []
-    seen: set[str] = set()
-    for value in values:
-        text = value.strip()
-        if text and text not in seen:
-            seen.add(text)
-            result.append(text)
-    return result
-
-
-def _number(value: object) -> float:
-    if isinstance(value, bool) or value is None or value == "":
-        return 0.0
-    try:
-        return float(value)
-    except (TypeError, ValueError):
-        return 0.0
-
-
 def _records(payload: dict[str, Any]) -> list[dict[str, Any]]:
     rows = payload.get("scores") or payload.get("records") or []
     if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
         raise ValueError("C1-C4正式公开投影的记录集合无效")
     return rows
-
-
-def _state_phrase(axis: str, value: object) -> str:
-    match = re.fullmatch(r"C([123])[-/]([1-6])", str(value or "").strip())
-    if not match or match.group(1) != axis[1:]:
-        return f"{AXIS_NAMES[axis]}的当前状态"
-    band = int(match.group(2))
-    return f"{AXIS_NAMES[axis]}的{STATE_LABELS[axis][band]}状态"
-
-
-def _state_label(axis: str, value: object) -> str:
-    match = re.fullmatch(rf"{axis}[-/]([1-6])", str(value or "").strip())
-    return STATE_LABELS[axis][int(match[1])] if match else "当前状态"
-
-
-def _paragraphs(values: list[str]) -> str:
-    return "\n\n".join(_unique(values))
-
-
-def _stable_id(axis: str, row: dict[str, Any], key: str) -> str:
-    raw = f"{axis}|{row.get('ruler_id', '')}|{key}".encode("utf-8")
-    return f"{axis}-PUBLIC-{hashlib.sha256(raw).hexdigest()[:16].upper()}"
-
-
-def _item(axis: str, row: dict[str, Any], key: str, label: str, role: str, basis: str, boundary: str) -> dict[str, str]:
-    return {
-        "id": _stable_id(axis, row, key),
-        "public_label": label,
-        "public_role": role,
-        "public_basis": _clean(basis),
-        "public_boundary": _clean(boundary),
-    }
-
-
-def _state_review(row: dict[str, Any]) -> dict[str, Any]:
-    state = row.get("state_adjudication")
-    return state if isinstance(state, dict) else {}
-
-
-def _state_items(axis: str, row: dict[str, Any]) -> list[dict[str, str]]:
-    state = _state_review(row)
-    loss = state.get("loss_review") if isinstance(state.get("loss_review"), dict) else {}
-    main = _first_text(
-        loss.get("main_representativeness"),
-        row.get("adjudication_reason"),
-        row.get("stability_basis"),
-    )
-    if not main:
-        main = "正式记录没有提供可进一步拆分的主要状态说明；公开层不补造历史判断。"
-
-    grade = str(row.get("loss_grade") or loss.get("grade") or "").strip()
-    if grade in LOSS_LABELS:
-        low_basis = _first_text(loss.get("basis"), loss.get("deduplication"))
-        if grade == "L0":
-            low_basis = "未另证独立有效低谷；这不等于全任没有局部压力。"
-        elif not low_basis:
-            low_basis = "正式记录给出了低谷等级，但没有保留可直述的独立低谷说明；公开层不补造具体损害。"
-        low = f"{LOSS_LABELS[grade]}：{low_basis}"
-    else:
-        low = "当前正式记录没有独立低谷裁决子块；公开层不对池外记录另行推断。"
-
-    limitations = row.get("material_limitations") or []
-    if not isinstance(limitations, list):
-        limitations = [limitations]
-    limitation_text = _paragraphs([_clean(value) for value in limitations])
-    boundary_basis = (
-        limitation_text
-        if limitation_text
-        else "没有另列个人材料限制，评价范围仍以下述边界为准。"
-    )
-    state_label = _state_label(axis, row.get("main_band"))
-    return [
-        _item(axis, row, "state", f"主要状态：{state_label}", "主要状态", main, AXIS_BOUNDARIES[axis]),
-        _item(axis, row, "low", "低谷与损失", "低谷", low, AXIS_BOUNDARIES[axis]),
-        _item(axis, row, "boundary", "评价边界", "边界", boundary_basis, AXIS_BOUNDARIES[axis]),
-    ]
-
-
-def _recovery_basis(row: dict[str, Any]) -> tuple[str, set[str]]:
-    path = row.get("recovery_path_basis") or {}
-    parts: list[str] = []
-    recovered: set[str] = set()
-    if isinstance(path, dict):
-        for axis in STATE_AXES:
-            detail = path.get(axis)
-            if not isinstance(detail, dict):
-                continue
-            retained = bool(detail.get("retained_increment")) or _number(detail.get("linear_delta")) > 0
-            if not retained:
-                continue
-            recovered.add(axis)
-            start = _state_label(axis, detail.get("start_band"))
-            end = _state_label(axis, detail.get("highest_achieved_band"))
-            parts.append(f"{AXIS_NAMES[axis]}从“{start}”恢复至“{end}”。")
-    if not parts:
-        return "未形成明确的本人责任期恢复；短暂峰值或单纯止损不作为恢复结果。", recovered
-    return _paragraphs(parts), recovered
-
-
-def _responsibility_basis(row: dict[str, Any], recovered: set[str]) -> str:
-    chains = row.get("recovery_chain_attributions")
-    parts: list[str] = []
-    if isinstance(chains, dict):
-        for axis in STATE_AXES:
-            if axis not in recovered or not isinstance(chains.get(axis), dict):
-                continue
-            detail = chains[axis]
-            grade = str(detail.get("grade") or "")
-            labels = {"FULL": "本人独立决策或主导，承担主要责任", "SHARED": "本人和其他掌权者共同承担", "NONE": "尚未确认足够的本人责任"}
-            label = labels.get(grade, "责任范围按正式记录保留")
-            basis = _clean(detail.get("basis"))
-            parts.append(f"{AXIS_NAMES[axis]}恢复的责任：{label}。" + (f"\n{basis}" if basis else ""))
-    if parts:
-        return _paragraphs(parts)
-    attribution = row.get("recovery_attribution")
-    if isinstance(attribution, dict) and recovered:
-        grade = str(attribution.get("grade") or "")
-        labels = {"FULL": "本人独立决策或主导，承担主要责任", "SHARED": "本人和其他掌权者共同承担", "NONE": "尚未确认足够的本人责任"}
-        label = labels.get(grade, "责任范围按正式记录保留")
-        basis = _clean(attribution.get("basis"))
-        return _paragraphs([f"恢复成果的责任判断：{label}。", basis])
-    return "没有可归入本人责任期的恢复，因此不另行扩大恢复责任。"
-
-
-def _deterioration_basis(row: dict[str, Any]) -> str:
-    path = row.get("deterioration_path_basis") or {}
-    parts: list[str] = []
-    if isinstance(path, dict):
-        for axis in STATE_AXES:
-            detail = path.get(axis)
-            if not isinstance(detail, dict):
-                continue
-            if _number(detail.get("attributable_drop")) > 0 and _number(detail.get("attribution_factor")) > 0:
-                parts.append(f"{AXIS_NAMES[axis]}在本人责任范围内从接手状态下降到任期结束状态")
-    if parts:
-        return "；".join(parts) + "。"
-    if _number(row.get("deterioration_penalty")) > 0:
-        fallback = _first_text(row.get("deterioration_curve_summary"), row.get("negative_tail_adjudication_reason"))
-        if fallback:
-            return fallback
-    return "从接手到任期结束的可比状态中，没有认定本人造成明确下降。"
-
-
-def _cost_basis(row: dict[str, Any]) -> str:
-    review = row.get("active_civilian_cost_review")
-    review = review if isinstance(review, dict) else {}
-    basis = _first_text(
-        review.get("choice_and_civilian_basis"),
-        (row.get("c4_attribution_readjudication") or {}).get("behavior_chain_basis")
-        if isinstance(row.get("c4_attribution_readjudication"), dict)
-        else "",
-        row.get("military_cost_public_basis"),
-    )
-    grade = str(row.get("destructive_amplification_grade") or "DA0")
-    label = DA_LABELS.get(grade, "额外民力成本按正式记录保留")
-    if grade == "DA0":
-        return f"{label}。{basis}" if basis else f"{label}。"
-    return f"{label}：{basis or '正式记录没有保留可直述的成本事实。'}"
-
-
-def _c4_items(row: dict[str, Any]) -> list[dict[str, str]]:
-    recovery, recovered = _recovery_basis(row)
-    responsibility = _responsibility_basis(row, recovered)
-    deterioration = _deterioration_basis(row)
-    cost = _cost_basis(row)
-    review = row.get("active_civilian_cost_review")
-    review = review if isinstance(review, dict) else {}
-    absorbed = _first_text(
-        review.get("absorbed_and_excluded_basis"),
-        row.get("behavior_and_attribution"),
-    )
-    boundary = absorbed or "未另列个人排除事项，仍须遵守下述重复计算边界。"
-    return [
-        _item("C4", row, "recovery", "恢复对象与程度", "恢复", recovery, RECOVERY_BOUNDARY),
-        _item("C4", row, "responsibility", "恢复责任范围", "责任范围", responsibility, RESPONSIBILITY_BOUNDARY),
-        _item("C4", row, "deterioration", "状态恶化", "状态恶化", deterioration, DETERIORATION_BOUNDARY),
-        _item("C4", row, "cost", "额外代价", "额外代价", cost, COST_BOUNDARY),
-        _item("C4", row, "boundary", "重复计算边界", "边界", boundary, C4_BOUNDARY),
-    ]
-
-
-def _public_items(axis: str, row: dict[str, Any]) -> list[dict[str, str]]:
-    return _state_items(axis, row) if axis in STATE_AXES else _c4_items(row)
-
-
-def _public_summary(axis: str, row: dict[str, Any], items: list[dict[str, str]] | None = None) -> str:
-    items = items or _public_items(axis, row)
-    if axis in STATE_AXES:
-        return _paragraphs([
-            f"{items[0]['public_label']}。{items[0]['public_basis']}",
-            items[1]["public_basis"],
-            "评价范围：" + AXIS_BOUNDARIES[axis],
-        ])
-    return _paragraphs([
-        *[f"{item['public_label']}：\n{item['public_basis']}" for item in items[:4]],
-        "结果边界：" + C4_BOUNDARY,
-    ])
 
 
 def _projection_keys() -> set[str]:
@@ -374,7 +153,9 @@ def _scoring_signature(payload: dict[str, Any]) -> str:
     rows = snapshot.get("scores") or snapshot.get("records") or []
     for row in rows:
         if isinstance(row, dict):
-            for key in ("public_adjudication_summary", "public_evidence_items"):
+            for key in ("public_adjudication_summary", "public_evidence_items", "public_story",
+                        "public_boundary", "public_loss_label", "public_calculation", "public_source_documents",
+                        "public_related_source_refs", "public_source_note"):
                 row.pop(key, None)
     for key in _projection_keys():
         snapshot.pop(key, None)
@@ -386,9 +167,14 @@ def _refresh_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
     rows = _records(payload)
     evidence_count = 0
     for row in rows:
-        items = _public_items(axis, row)
-        row["public_adjudication_summary"] = _public_summary(axis, row, items)
-        row["public_evidence_items"] = items
+        items = row.get("public_evidence_items")
+        if not isinstance(items, list) or not items:
+            raise ValueError(f"第二项{axis}缺少直接维护的逐条公开依据：{row.get('ruler_name')}")
+        for field in ("public_story", "public_adjudication_summary", "public_boundary", "public_loss_label"):
+            if not isinstance(row.get(field), str) or not row[field].strip():
+                raise ValueError(f"第二项{axis}缺少直接维护的公开正文：{row.get('ruler_name')}/{field}")
+        from emperor_v4.evaluation.second_item_c_reading import calculation
+        row["public_calculation"] = calculation(axis, row)
         evidence_count += len(items)
     if _scoring_signature(payload) != before_signature:
         raise ValueError(f"第二项{axis}公开字段迁移意外改变了正式评分字段")
@@ -399,8 +185,8 @@ def _refresh_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
     payload["public_projection_evidence_item_count"] = evidence_count
     payload["public_projection_source"] = {
         "formal_contract": CONTRACT_PATH.as_posix(),
-        "identity": "人物ID与公开条目角色生成稳定公开条目ID；公开文字只由当前正式C1-C4字段确定性投影",
-        "reader_policy": "reader只消费public_adjudication_summary和public_evidence_items",
+        "identity": "正文、定档理由、范围与逐条史源直接维护在正式记录；刷新只同步计算说明、元数据及同值阅读视图",
+        "reader_policy": "reader逐字展示正式公开字段；不改写句子、不猜史源、不重算分数",
     }
     return payload
 
@@ -420,7 +206,10 @@ def _verify_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
     for row in rows:
         name = str(row.get("ruler_name") or row.get("ruler_id"))
         actual = row.get("public_evidence_items")
-        if not isinstance(actual, list) or len(actual) != (3 if axis in STATE_AXES else 5):
+        related = row.get('public_related_source_refs')
+        if not isinstance(related, list) or not isinstance(row.get('public_source_note'), str) or not row['public_source_note'].strip():
+            raise ValueError(f"第二项{axis}材料汇集与引用说明缺失：{name}")
+        if not isinstance(actual, list) or not actual:
             raise ValueError(f"第二项{axis}公开条目数量不完整：{name}")
         ids = [str(item.get("id") or "") for item in actual if isinstance(item, dict)]
         if len(ids) != len(actual) or len(ids) != len(set(ids)) or any(not value for value in ids):
@@ -435,18 +224,47 @@ def _verify_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
                 raise ValueError(f"第二项{axis}公开条目ID不稳定：{name}")
             if item["public_role"] not in PUBLIC_ROLES:
                 raise ValueError(f"第二项{axis}公开角色非法：{name}")
-            for field in PUBLIC_EVIDENCE_FIELDS[1:]:
+            if item['evidence_mode'] not in {'DIRECT', 'INFERRED', 'ASSESSMENT', 'BACKGROUND', 'EXCLUDED'}:
+                raise ValueError(f"第二项{axis}公开证据性质缺失：{name}")
+            if not isinstance(item['public_scope'], str) or not item['public_scope'].strip():
+                raise ValueError(f"第二项{axis}逐条采用范围缺失：{name}")
+            if item['evidence_mode'] == 'INFERRED' and not re.search('推断|推定', item['public_basis']):
+                raise ValueError(f"第二项{axis}推断必须在正文明确说明：{name}")
+            for field in ("public_label", "public_role", "public_basis"):
                 value = item[field]
                 if not isinstance(value, str) or not value.strip() or PUBLIC_FORBIDDEN_RE.search(value):
                     raise ValueError(f"第二项{axis}公开字段含空值或内部术语：{name}/{field}")
-        expected = _public_items(axis, row)
-        if actual != expected:
-            raise ValueError(f"第二项{axis}公开条目不是当前正式裁决的确定性投影：{name}")
+            boundary = item["public_boundary"]
+            if boundary is not None and (not isinstance(boundary, str) or not boundary.strip() or PUBLIC_FORBIDDEN_RE.search(boundary)):
+                raise ValueError(f"第二项{axis}条目边界无效：{name}")
+            binding = item['source_binding_kind']
+            if binding not in {'CLAIM_SUPPORT', 'MATERIAL_COLLECTION'}:
+                raise ValueError(f"第二项{axis}来源关系非法：{name}")
+            if not isinstance(item.get("source_refs"), list) or (binding == 'CLAIM_SUPPORT' and not item['source_refs']):
+                raise ValueError(f"第二项{axis}逐条史源缺失：{name}/{item['id']}")
+            if binding == 'MATERIAL_COLLECTION' and (item['source_refs'] or not related or item['evidence_mode'] == 'DIRECT'):
+                raise ValueError(f"第二项{axis}材料汇集不能冒充逐条事实证明：{name}")
+            for ref in item["source_refs"]:
+                if not isinstance(ref, dict) or any(not isinstance(ref.get(k), str) or not ref[k].strip() for k in ("path", "source_title", "source_locator", "source_kind")):
+                    raise ValueError(f"第二项{axis}逐条史源定位无效：{name}")
+            if item['evidence_mode'] == 'DIRECT' and not any(ref['source_kind'] in {'史料原文', '现代研究原文'} for ref in item['source_refs']):
+                raise ValueError(f"第二项{axis}直接史实不能仅引用裁决或摘要：{name}")
         summary = row.get("public_adjudication_summary")
         if not isinstance(summary, str) or not summary.strip() or PUBLIC_FORBIDDEN_RE.search(summary):
             raise ValueError(f"第二项{axis}人物级公开总结缺失或含内部术语：{name}")
-        if summary != _public_summary(axis, row, actual):
-            raise ValueError(f"第二项{axis}人物级公开总结不是当前正式裁决的确定性投影：{name}")
+        for field in ("public_story", "public_boundary", "public_loss_label"):
+            value = row.get(field)
+            if not isinstance(value, str) or not value.strip() or PUBLIC_FORBIDDEN_RE.search(value):
+                raise ValueError(f"第二项{axis}公开正文无效：{name}/{field}")
+        public_text = '\n'.join([row['public_story'], summary, row['public_boundary'],
+                                 *[item['public_basis'] for item in actual]])
+        if re.search(r"回写|硬承接|应撤销|已撤销|旧裁决|旧结算|旧理由|删除[“\"]|门未证实|军事成本恢复与额外代价", public_text):
+            raise ValueError(f"第二项{axis}公开正文仍有修订过程或损坏术语：{name}")
+        if row.get('loss_grade') == 'L1' and re.search(r"^(?:损害轻微|已证损害轻微|有界局部或短时损害|有局部或短时损害)", row['public_loss_label']):
+            raise ValueError(f"第二项{axis}低谷标签不得把最低已证冒充损害轻微：{name}")
+        from emperor_v4.evaluation.second_item_c_reading import calculation
+        if row.get('public_calculation') != calculation(axis, row):
+            raise ValueError(f"第二项{axis}公开计算与正式输入不一致：{name}")
         evidence_count += len(actual)
     if payload.get("public_projection_evidence_item_count") != evidence_count:
         raise ValueError(f"第二项{axis}公开条目计数不一致")
@@ -458,6 +276,9 @@ def _verify_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
         "record_count": len(rows),
         "public_evidence_item_count": evidence_count,
         "schema_version": PUBLIC_PROJECTION_SCHEMA,
+        "validation_scope": "字段、引用定位与同值；不判定史源是否语义支撑正文",
+        "claim_support_item_count": sum(item['source_binding_kind'] == 'CLAIM_SUPPORT' for row in rows for item in row['public_evidence_items']),
+        "material_collection_item_count": sum(item['source_binding_kind'] == 'MATERIAL_COLLECTION' for row in rows for item in row['public_evidence_items']),
     }
 
 
@@ -473,12 +294,83 @@ def verify_public_projection(workspace_root: Path) -> dict[str, Any]:
     }
     if any(ids != id_sets["C1"] for ids in id_sets.values()):
         raise ValueError("第二项C1-C4公开投影人物集合不一致")
+    payloads = {axis: load_json(root / path) for axis, path in FORMAL_PATHS.items()}
+    source_count = verify_source_bindings(payloads)
+    for axis, payload in payloads.items():
+        markdown_path = (root / FORMAL_PATHS[axis]).with_suffix('.md')
+        markdown = markdown_path.read_text(encoding='utf-8')
+        if render_public_markdown(markdown, payload) != markdown:
+            raise ValueError(f"第二项{axis}Markdown公开阅读视图未同步")
     return {
         "status": "PASS",
         "axis_reports": reports,
         "record_count": len(id_sets["C1"]),
+        "source_reference_count": source_count,
+        "validation_scope": "结构、摘录定位及阅读视图同值；不代表全池逐条语义复审完成",
         "schema_version": PUBLIC_PROJECTION_SCHEMA,
     }
+
+
+def verify_source_bindings(payloads: dict[str, dict[str, Any]]) -> int:
+    """Resolve authored source pointers; do not guess sources by prose similarity."""
+    indexed = {axis: {row['ruler_id']: row for row in _records(payload)} for axis, payload in payloads.items()}
+    count = 0
+    for axis, payload in payloads.items():
+        for row in _records(payload):
+            groups = [item['source_refs'] for item in row['public_evidence_items']]
+            groups.append(row['public_related_source_refs'])
+            for refs in groups:
+                for ref in refs:
+                    source_axis = ref.get('axis')
+                    if source_axis not in indexed or ref.get('ruler_id') != row['ruler_id']:
+                        raise ValueError(f"第二项C逐条史源人物或轴引用无效：{row['ruler_name']}")
+                    value = indexed[source_axis][row['ruler_id']]
+                    try:
+                        for part in ref['field_path']:
+                            value = value[part]
+                    except (KeyError, IndexError, TypeError) as exc:
+                        raise ValueError(f"第二项C逐条史源字段失效：{row['ruler_name']}/{ref}") from exc
+                    if ref.get('exact_quote') != value or not isinstance(value, str) or not value.strip():
+                        raise ValueError(f"第二项C逐条史源摘录与原字段不一致：{row['ruler_name']}")
+                    expected_path = FORMAL_PATHS[source_axis].as_posix() + '#ruler_id=' + row['ruler_id']
+                    if ref['path'] != expected_path:
+                        raise ValueError(f"第二项C逐条史源路径与对象不一致：{row['ruler_name']}")
+                    count += 1
+    return count
+
+
+def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
+    """Keep the existing settlement table; append one current authored view."""
+    start = '<!-- c-public-start -->'
+    end = '<!-- c-public-end -->'
+    core = re.sub(r'\n*' + re.escape(start) + r'.*?' + re.escape(end) + r'\n*', '\n', markdown, flags=re.S).rstrip()
+    lines = [core, '', start, '', '## 人物正文、逐条依据与史源', '']
+    for row in _records(payload):
+        lines += [f"### {row['ruler_name']}", '', f"<a id=\"{row['ruler_id']}\"></a>", '', row['public_story'], '',
+                  '**来源说明：**' + row['public_source_note'], '',
+                  '**定档理由：**' + row['public_adjudication_summary'], '', '**损害判断：**' + row['public_loss_label'], '',
+                  '<details><summary>逐条事实与史源</summary>', '']
+        for item in row['public_evidence_items']:
+            mode = {'DIRECT':'史料直接记载', 'INFERRED':'受约束推断', 'ASSESSMENT':'正式评价判断', 'BACKGROUND':'背景互证', 'EXCLUDED':'不采用的范围核对'}[item['evidence_mode']]
+            lines += [f"#### {item['public_label']}", '', f"**依据性质：**{mode}", '', item['public_basis'], '', '**采用范围：**' + item['public_scope'], '']
+            if item['source_binding_kind'] == 'MATERIAL_COLLECTION':
+                lines += ['本条沿用正式裁决叙述；相关材料列于人物材料汇集，尚未建立逐条事实的支持关系。', '']
+            if item['public_boundary']:
+                lines += ['**本条范围：**' + item['public_boundary'], '']
+            for ref in item['source_refs']:
+                target, _, anchor = ref['path'].partition('#')
+                target = posixpath.relpath(target, FORMAL_PATHS[payload['public_projection_axis']].parent.as_posix()) + ('#' + anchor if anchor else '')
+                lines += [f"- {ref['source_kind']}：{ref['source_title']}；{ref['source_locator']}；[原记录]({target})", '',
+                          '> ' + ref['exact_quote'].replace('\n', '\n> '), '']
+                if ref.get('source_url'):
+                    lines += [f"[所引史源]({ref['source_url']})", '']
+        if row['public_related_source_refs']:
+            lines += ['#### 相关材料汇集（不代表逐条事实已获证明）', '']
+            for ref in row['public_related_source_refs']:
+                lines += [f"- {ref['source_kind']}：{ref['source_title']}；{ref['source_locator']}", '', '> ' + ref['exact_quote'].replace('\n', '\n> '), '']
+        lines += ['</details>', '', '<details><summary>评价范围与计算</summary>', '', row['public_boundary'], '',
+                  row['public_calculation'], '', '</details>', '']
+    return '\n'.join([*lines, end, ''])
 
 
 def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
@@ -490,10 +382,13 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
     }
     for axis, payload in projected.items():
         _verify_payload(axis, payload)
+    verify_source_bindings(projected)
     if write:
         polities = load_ruler_polities(root)
         for axis, path in FORMAL_PATHS.items():
             write_json(root / path, projected[axis], ruler_polities=polities)
+            markdown_path = (root / path).with_suffix('.md')
+            markdown_path.write_text(render_public_markdown(markdown_path.read_text(encoding='utf-8'), projected[axis]), encoding='utf-8')
         report = verify_public_projection(root)
         report["status"] = "WRITTEN"
         return report

@@ -1,16 +1,16 @@
 {
   "schema_version": "battle-registry-manifest-v1",
   "content_schema_version": "battle-parent-contract-registry-v5",
-  "record_count": 9390,
+  "record_count": 9397,
   "bucket_count": 24,
   "partition_counts": {
     "five_dynasties": 577,
     "jin": 77,
-    "liao": 138,
+    "liao": 139,
     "ming": 1961,
-    "north_song": 823,
-    "qin_tang": 1413,
-    "qing": 172,
+    "north_song": 824,
+    "qin_tang": 1416,
+    "qing": 174,
     "south_song": 2440,
     "xixia": 482,
     "yuan": 1307
@@ -47,7 +47,9 @@
     "unification_horizontal_calibration",
     "five_dynasties_promotion",
     "north_song_promotion",
-    "post_tang_canonical_phase_promotion"
+    "post_tang_canonical_phase_promotion",
+    "person_military_scope_notes",
+    "personal_action_evidence_contract"
   ],
   "record_order": [
     "WAR-FD-1F2B5966EFD833A40709",
@@ -9439,7 +9441,14 @@
     "PCR-R2-0D2C7D268F43099E6D90",
     "PCR-R2-580A2A4FB1B0A9AB4FF8",
     "PCR-R2-1D6AF6FC1F22F25C1AD4",
-    "PCR-R2-LIJILONG-YIZHOU-GARRISON-LOSS"
+    "PCR-R2-LIJILONG-YIZHOU-GARRISON-LOSS",
+    "PUBLIC-PERSON-ZHAOKUANGYIN-JINLING-975",
+    "PUBLIC-PERSON-XUANYE-YUEZHOU-1678-1679",
+    "PUBLIC-PERSON-TUOBATAO-XIA-426-430",
+    "PUBLIC-PERSON-SHULVPING-HEISHAN-913",
+    "PUBLIC-PERSON-LIXIONG-CHENGDU-303-304",
+    "PUBLIC-PERSON-LVGUANG-GUZANG-386",
+    "PUBLIC-PERSON-HONGXIUQUAN-NANJING-1861-1864"
   ],
   "payload_metadata": {
     "schema_version": "battle-parent-contract-registry-v5",
@@ -27193,6 +27202,166 @@
           "subject_phase_count": 44
         }
       ]
+    },
+    "person_military_scope_notes": [
+      {
+        "scope_note_ref": "SCOPE-LIUYAN-MILITARY-CONTROL",
+        "person": "刘龑",
+        "period": {
+          "start": "910",
+          "end": "917"
+        },
+        "context": "刘隐将兵事交刘龑及高容、潮韶等取得",
+        "established_actions": "《新五代史》明载隐败后尽以兵事付龑，龑平诸寨并取潮韶及容邕；不是仅由其后来帝号推本人统军。",
+        "military_result_status": "PERSONAL_CONTROL_ESTABLISHED",
+        "source_refs": [
+          "https://zh.wikisource.org/wiki/新五代史/卷65"
+        ],
+        "source_quotes": [
+          "因盡以兵事付龑",
+          "龑悉平諸寨",
+          "又西與馬殷爭容、桂",
+          "龑取容管"
+        ]
+      },
+      {
+        "scope_note_ref": "SCOPE-FENGBA-407-409",
+        "person": "冯跋",
+        "period": {
+          "start": "407",
+          "end": "409"
+        },
+        "context": "冯跋政治取得北燕",
+        "established_actions": "407密谋杀慕容熙、立高云；409高云被杀时登门观变，实际诛乱由张泰李桑完成。",
+        "military_result_status": "NO_SEPARATE_PERSONAL_BATTLE_ESTABLISHED",
+        "source_refs": [
+          "https://zh.wikisource.org/wiki/晉書/卷125"
+        ],
+        "source_quotes": [
+          "遂殺熙，立高雲為主",
+          "跋升洪光門以觀變",
+          "桑斬班於西門，泰殺仁於庭中"
+        ]
+      },
+      {
+        "scope_note_ref": "SCOPE-LIUXUAN-GENGSHI",
+        "person": "刘玄",
+        "period": {
+          "start": "23",
+          "end": "25"
+        },
+        "context": "更始领袖与绿林各军军事责任",
+        "established_actions": "《后汉书》区分更始的拥立、任官与王匡王凤、刘縯刘秀等的战役责任；不能把诸军取胜仅依帝号转记本人。",
+        "military_result_status": "NOMINAL_LEADERSHIP_NOT_PERSONAL_COMMAND",
+        "source_refs": [
+          "https://zh.wikisource.org/wiki/後漢書/卷11"
+        ],
+        "source_quotes": [
+          "更始即帝位",
+          "悉拜置諸將",
+          "五月，伯升拔宛"
+        ]
+      },
+      {
+        "scope_note_ref": "SCOPE-ZHUYUJIAN-LONGWU",
+        "person": "朱聿键",
+        "period": {
+          "start": "1645",
+          "end": "1646"
+        },
+        "context": "隆武拟出江西湖广与实际军事权限",
+        "established_actions": "拟弃闽就楚、募兵出师；郑芝龙撤军后仙霞关无人守，本人出走被执。现源未闭本人一项具体战役解题。",
+        "military_result_status": "PLAN_AND_AUTHORITY_LIMITED",
+        "source_refs": [
+          "https://zh.wikisource.org/wiki/明史/卷118"
+        ],
+        "source_quotes": [
+          "聿鍵決意出江西、湖廣",
+          "芝龍假言海寇至，徹兵回安平鎮",
+          "仙霞嶺空無一人"
+        ]
+      },
+      {
+        "scope_note_ref": "SCOPE-ZHUYOULANG-YONGLI",
+        "person": "朱由榔",
+        "period": {
+          "start": "1646",
+          "end": "1659"
+        },
+        "context": "永历恢复、退守与各将实际军令",
+        "established_actions": "主要前线由李定国、白文选等统军；由榔最后进入缅甸后失去武装控制。没有由国家取得或覆亡直接转授本人指挥。",
+        "military_result_status": "PERSONAL_BATTLE_SOLUTION_NOT_ESTABLISHED",
+        "source_refs": [
+          "https://zh.wikisource.org/wiki/明史/卷120"
+        ],
+        "source_quotes": [
+          "李定國連敗於安隆，由榔走永昌",
+          "緬勒從官盡棄兵仗"
+        ]
+      },
+      {
+        "scope_note_ref": "SCOPE-FULIN-SOUTHERN-MING",
+        "person": "福临",
+        "period": {
+          "start": "1651",
+          "end": "1660"
+        },
+        "context": "亲政期南明战争的最高授权与方面指挥",
+        "established_actions": "本纪与洪承畴列传明确皇帝任多尼为大将军；实际多路进黔、分兵就粮与后续进军由承畴等执行和奏筹，不能依帝号承接其军事解题。",
+        "military_result_status": "AUTHORIZATION_WITHOUT_CLOSED_PERSONAL_SOLUTION",
+        "source_refs": [
+          "https://zh.wikisource.org/wiki/清史稿/卷5",
+          "https://zh.wikisource.org/wiki/清史稿/卷237"
+        ],
+        "source_quotes": [
+          "復命信郡王多尼為安遠靖寇大將軍",
+          "承疇與羅託會師常德",
+          "承疇上疏籌軍食",
+          "使分地就糧"
+        ]
+      },
+      {
+        "scope_note_ref": "SCOPE-ZHAOGOU-MINGZHOU",
+        "person": "赵构",
+        "period": {
+          "start": "1129",
+          "end": "1130"
+        },
+        "context": "高宗明州手札与实际守城战术",
+        "established_actions": "帝留张俊明州扞敌，手札为戮力共扞和封赏号召；清野、伏弩、两次接战分别明确归张俊及实际将领。",
+        "military_result_status": "AUTHORIZATION_AND_EXHORTATION_WITHOUT_PERSONAL_TACTIC",
+        "source_refs": [
+          "https://zh.wikisource.org/wiki/宋史/卷369"
+        ],
+        "source_quotes": [
+          "留俊於明州以拒敵",
+          "宜戮力共扞敵兵，一戰成功，當封王爵",
+          "下令清野，多以輕舟伏弩，閉關自守"
+        ]
+      },
+      {
+        "scope_note_ref": "SCOPE-LIBIAN-TAKEOVER",
+        "person": "李昪",
+        "period": {
+          "start": "918",
+          "end": "937"
+        },
+        "context": "徐知诰军府接管、安定与禅代",
+        "established_actions": "918闻徐知训被杀后引兵渡江，抵达时朱瑾已死，再安定军府；后受徐温任为执政并至937禅代。933建州未受命出兵、召还及败退是另一国家战争。",
+        "military_result_status": "POLITICAL_TAKEOVER_WITHOUT_INDEPENDENT_MILITARY_RESULT",
+        "source_refs": [
+          "WAR-FD-E37133C3F0221B8D9954-P03",
+          "WAR-FD-FFA0885BA55D8E66991F-P01"
+        ],
+        "source_quotes": [
+          "徐知诰闻变后立即引兵渡江；到达时朱瑾已死，遂安定军府。"
+        ]
+      }
+    ],
+    "personal_action_evidence_contract": {
+      "version": "public-person-action-evidence-v1",
+      "basis": "personal_action_attributions只保存具名人物的判断、实施、结果、限制和史源；不授个人战果档、不生成公共战争或成本，不决定第一项窗口及C分数。",
+      "scope_note_basis": "person_military_scope_notes保存非战斗取得、名义统属及来源未具年的事实边界，不作正向军事成果。"
     }
   },
   "shards": [
@@ -27536,7 +27705,7 @@
       "path": "01-战役登记/liao-09.json",
       "partition": "liao",
       "bucket": 9,
-      "record_count": 8
+      "record_count": 9
     },
     {
       "path": "01-战役登记/liao-10.json",
@@ -27896,7 +28065,7 @@
       "path": "01-战役登记/north_song-21.json",
       "partition": "north_song",
       "bucket": 21,
-      "record_count": 34
+      "record_count": 35
     },
     {
       "path": "01-战役登记/north_song-22.json",
@@ -27992,7 +28161,7 @@
       "path": "01-战役登记/qin_tang-13.json",
       "partition": "qin_tang",
       "bucket": 13,
-      "record_count": 75
+      "record_count": 76
     },
     {
       "path": "01-战役登记/qin_tang-14.json",
@@ -28046,13 +28215,13 @@
       "path": "01-战役登记/qin_tang-22.json",
       "partition": "qin_tang",
       "bucket": 22,
-      "record_count": 49
+      "record_count": 50
     },
     {
       "path": "01-战役登记/qin_tang-23.json",
       "partition": "qin_tang",
       "bucket": 23,
-      "record_count": 64
+      "record_count": 65
     },
     {
       "path": "01-战役登记/qing-00.json",
@@ -28088,7 +28257,7 @@
       "path": "01-战役登记/qing-05.json",
       "partition": "qing",
       "bucket": 5,
-      "record_count": 9
+      "record_count": 10
     },
     {
       "path": "01-战役登记/qing-06.json",
@@ -28190,7 +28359,7 @@
       "path": "01-战役登记/qing-22.json",
       "partition": "qing",
       "bucket": 22,
-      "record_count": 11
+      "record_count": 12
     },
     {
       "path": "01-战役登记/qing-23.json",

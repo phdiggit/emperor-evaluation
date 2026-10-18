@@ -134,14 +134,21 @@ def test_c_reader_projection_consumes_all_explicit_public_evidence():
         axis="C1",
         record={
             "ruler_name": "合成甲",
+            "public_story": "主要阶段出现有据可查的实际结果。",
+            "public_boundary": "只采用本人时期材料。",
+            "public_loss_label": "已证损害，程度范围仍有限定。",
+            "public_calculation": "合成用例的换算说明。",
+            "public_related_source_refs": [],
+            "public_source_note": "本合成用例只检验上游字段逐字投影。",
             "public_adjudication_summary": "当前主要状态与低谷均有独立公开说明。",
             "public_evidence_items": evidence,
         },
     )
 
-    assert projected["reader_public_evidence_items"] == evidence
-    assert len(projected["reader_highlights"]) == len(evidence)
+    assert projected["reader_public_c"]["public_evidence_items"] == evidence
     assert "reader_full_basis" not in projected
+    assert projected['reader_public_c']['public_story'] == projected['reader_story']
+    assert projected['reader_how'] == '合成用例的换算说明。'
 
 
 def test_historical_impact_contract_version_metadata_matches_current_contract():
@@ -246,8 +253,11 @@ for(const [id,notes] of Object.entries(payload.records)){
 }
 // Counts are reported, not fixed against a historical editorial batch.
 console.log(JSON.stringify({current,needsReview}));
+const build=fs.readFileSync('reader/build.py','utf8');
+assert.ok(build.includes('"person-reading-notes.js"'));
+assert.ok(build.includes('runtime_script_blocks()'));
 const copy=JSON.parse(fs.readFileSync('reader/public-copy.json','utf8'));
-assert.ok(copy.some(row=>row.to.includes('src="person-reading-notes.js"')));
+assert.ok(!copy.some(row=>String(row.to||'').includes('person-reading-notes.js')));
 ''')
 
 
@@ -434,11 +444,9 @@ def test_person_reader_first_item_public_terms_match_current_performance_vocabul
     assert "第一项结算分" in source
     assert "原始净收益" not in source
     assert "本项不计入统治绩效" in source
-    assert "firstOutcomeCalculationText(item.reader_how || \"\")" in source
-    assert "本人有效控制成果值为$1" in source
-    assert "项目整体成果" in source
-    assert "按正式归责分配个人成果" in source
-    assert "统一成果分 = 120 × (min(1000, 本人有效控制成果值) / 1000)^0.65" in source
+    assert "firstAReadingMarkup(item, record)" in source
+    assert "firstOutcomeCalculationText" not in source
+    assert "统一成果分 = 120 ×" not in source
     assert "四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅" in source
     assert "第一项净分 S1" not in source
     assert "总榜附加分 F" not in source
@@ -457,17 +465,18 @@ def test_profile_output_mode_is_evidence_thickness_not_a_grade_gate():
 def test_first_item_reader_distinguishes_shared_project_share_from_real_world_percentages():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
-    assert "本人成果规模" in source
-    assert "不是共同项目分成，也不是领土、人口或军队比例" in source
+    assert "firstAReadingMarkup(item, record)" in source
     assert "本项适用，但第一项结算分归零" in source
     assert "成果占比" not in source
     assert "正向净收益" not in source
 
-def test_person_page_drops_legacy_net_ledger_in_favor_of_net_detail_page():
+def test_person_page_drops_legacy_net_ledger_and_shares_authored_a_reading():
     from pathlib import Path
     home = (Path(__file__).resolve().parents[1] / 'reader/home-interactions.js').read_text(encoding='utf-8')
     person = (Path(__file__).resolve().parents[1] / 'reader/person-readability.js').read_text(encoding='utf-8')
     assert 'if (node.tagName === "DETAILS") node.remove();' in home
-    assert 'remains the single full calculation surface' in home
+    assert 'globalThis.ThirdItemAReading.html(item, record)' in home
+    labels = (Path(__file__).resolve().parents[1] / 'reader/second-item-public-labels.js').read_text(encoding='utf-8')
+    assert 'globalThis.ThirdItemAReading.html(item, record)' in labels
     assert 'function foldNetLedger()' not in person
     assert '完整计分账本（审计视图）' not in person

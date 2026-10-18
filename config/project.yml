@@ -35,8 +35,9 @@ canonical_ruler_pool:
   status: current
   candidate_count: 201
   included_count: 184
-  composite_ready_count: 174
+  composite_ready_count: 173
   pending_second_item_count: 10
+  pending_third_item_count: 1
   pending_first_item_scope_count: 0
   pending_first_item_formal_settlement_count: 0
   first_item_outside_candidate_pool_count: 2
@@ -80,16 +81,23 @@ formal_settlements:
       path: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项A统一主链客观贡献正式公开成果.json
       source: component_markdown
       verify_command: first-item-a-public-verify
-      fields: [public_outcome_basis, public_scope, public_boundary, public_project]
+      fields: [public_outcome_basis, public_scope, public_boundary, public_project, public_question, public_story]
       migration_note: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项A统一主链客观贡献公开字段迁移说明.md
     c_public_projection:
-      schema_version: first-item-c-public-v1
+      schema_version: first-item-c-public-v2
       source_markdown: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/04-第一项C本人军事统帅与战争解题能力正式结算.md
       verify_command: first-item-c-public-verify
-      fields: [公开裁决依据, 公开责任边界, 统一链战役清单]
+      evidence_registry: docs/公共成果/军事/01-战役登记.json
+      fields: [公开阅读问题, 公开阅读正文, 评价窗口, 本人责任与独立案例, 公共战役证据链, 公开裁决依据, 公开责任边界, 统一链战役清单, 战役清单引用, 统一链受挫清单, 受挫清单引用, 材料来源]
+    b2_public_projection:
+      schema_version: first-item-b2-public-v1
+      source_markdown: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/03-第一项B2创业组织与政治整合正式结算.md
+      verify_command: first-item-b2-public-verify
+      fields: [评价窗口, 本人控制链, 并行执行, 团队能力覆盖与组织杠杆, 异质整合, 材料来源, 公开阅读问题, 公开阅读正文]
     b1_cost_public_projection:
       schema_version: first-item-b1-cost-public-v1
       b1_source: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/02-第一项B1创业难度与战略效率正式结算.md
+      b1_current_inputs: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/02-第一项B1计时与对手正式依据.json
       cost_source: docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/06-军事成本正式裁决.json
       verify_command: first-item-b1-cost-public-verify
   second_item:
@@ -104,26 +112,32 @@ formal_settlements:
     json: docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.json
     markdown: docs/评分结算/净收益/第二项治国净收益/01-第二项治国净收益正式结算.md
     a_public_projection:
-      schema_version: second-item-a-public-projection-v1
+      schema_version: second-item-a-public-projection-v2
       command: second-item-a-public --write
       verify_command: second-item-a-verify
-      source: formal_a_nodes_plus_material_registry
+      source: authored_formal_a_records
     b2_public_projection:
-      schema_version: second-item-b2-public-projection-v1
+      schema_version: second-item-b2-authored-public-v2
       command: second-item-b2-public --write
       verify_command: second-item-b2-verify
-      source: formal_b2_profiles_and_lifecycle_identity
+      source: authored_formal_b2_records
+    b1_public_projection:
+      schema_version: second-item-b1-authored-public-v1
+      command: second-item-b1-public --write
+      verify_command: second-item-b1-verify
+      source: authored_formal_b1_records
     d1_d3_public_projection:
-      schema_version: second-item-d1-d3-public-projection-v1
+      schema_version: second-item-d1-d3-authored-public-v2
       command: second-item-d1-d3-public --write
       verify_command: second-item-d1-d3-public
-      source: formal_d1_d3_direction_cards
+      source: authored_formal_d1_d3_direction_cards
+      source_excerpts: docs/公共成果/制度行政/04-政权交接史料摘录.json
     c_public_projection:
-      schema_version: second-item-c-public-projection-v1
+      schema_version: second-item-c-authored-public-v2
       command: second-item-c-public --write
       verify_command: second-item-c-verify
       axes: [C1, C2, C3, C4]
-      source: formal_c1_c4_adjudications
+      source: authored_formal_c1_c4_records
     c4_attribution_readjudications_json: config/second-item/c4-attribution-readjudications.json
     c4_civilian_cost_audit_json: docs/评分结算/净收益/第二项治国净收益/财政民生/06-主动民力成本去重审计.json
     c4_civilian_cost_audit_markdown: docs/评分结算/净收益/第二项治国净收益/财政民生/06-主动民力成本去重审计.md
@@ -148,6 +162,14 @@ formal_settlements:
       command: third-fourth-item-public --write
       verify_command: third-fourth-item-public-verify
       source: formal_third_item_components_and_total
+      b_reading_source: docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json
+      b_reading_fields: axes.B1/B2/B4.public_reading
+      c_reading_source: docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json
+      c_reading_fields: public_reading.story/axes/evidence_items/contract_review
+      c_reading_collection: reader/third-item-c.html
+      b_raw_rate_authority: current_AB_axis_score_rate
+      b_adopted_rate_authority: result_credit_B80_adjudication
+      b4_review_authority: config/third-item/third-item-ab-handoff-adjudications.json#b4_maturity_review
   fourth_item:
     range: [-67.5, 67.5]
     role: signed_civilization_add_on
@@ -155,6 +177,16 @@ formal_settlements:
     markdown: docs/评分结算/净收益/第四项文明与国家整合收益/02-第四项文明与国家整合收益正式总榜.md
     a_verify_command: fourth-item-a-verify
     a_reading_view_command: fourth-item-a-views --write
+    a_reading_collection: reader/fourth-item-a.html
+    a_public_reading_source: axis_results.A.public_reading_and_A_packages.public_reading
+    b_reading_collection: reader/fourth-item-b.html
+    b_verify_command: fourth-item-b-verify
+    b_reading_view_command: fourth-item-b-views --write
+    b_public_reading_source: axis_results.B.public_reading_and_B_packages.public_reading
+    c_verify_command: fourth-item-c-verify
+    c_reading_view_command: fourth-item-c-views --write
+    c_reading_collection: reader/fourth-item-c.html
+    c_public_reading_source: axis_results.C.public_reading_and_C_packages.public_c_result_reading
     public_projection:
       schema_version: third-fourth-item-public-projection-v1
       command: third-fourth-item-public --write

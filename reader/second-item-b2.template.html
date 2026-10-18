@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>反馈纠错与权力约束 · 帝王三镜</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f3ec;color:#29332f;font:16px/1.9 "Microsoft YaHei",sans-serif}main,header{max-width:980px;margin:auto;padding:24px}header{border-bottom:1px solid #d7d9cc}a{color:#315d56}input{width:100%;padding:12px;font:inherit}article{margin:24px 0;padding:20px;background:#fffefa;border-left:3px solid #8ba89a}h2{margin:0}h3{margin-bottom:8px}summary{cursor:pointer}li{padding:12px 0}blockquote{border-left:2px solid #ccc;margin:12px 0;padding-left:16px;white-space:pre-wrap}.meta{color:#586659;font-size:14px}[hidden]{display:none!important}
+</style></head><body>
+<header><a href="index.html">帝王三镜</a> · <a href="index.html#guide">如何阅读</a></header>
+<main><h1>真实信息能否改变最高决定</h1>
+<p>看具体意见如何进入、本人如何处置、错误是否实际纠正，以及表达者能否安全履职。主动改意、信息上达与外部程序约束分别理解；设置渠道不直接算成有效纠错。</p>
+<p>这里展示反馈与约束正式记录的全部 <span id="count">__COUNT__</span> 位人物，包括未进入综合榜者；排列沿用正式记录顺序，不另生成排名。分数和折算见各人的治国成效页。</p>
+<label for="search">搜索人物、意见或事件</label><input id="search" type="search" autocomplete="off">
+<section aria-label="全池反馈纠错阅读">__ENTRIES__</section></main>
+<script>
+if(['localhost','127.0.0.1','[::1]'].includes(location.hostname))for(const link of document.querySelectorAll('[data-local-source]'))link.href='../'+link.dataset.localSource;
+const entries=[...document.querySelectorAll('article')];document.getElementById('search').addEventListener('input',event=>{const q=event.target.value.trim();let count=0;for(const entry of entries){entry.hidden=q!==''&&!entry.textContent.includes(q);if(!entry.hidden)count++;}document.getElementById('count').textContent=count;});
+</script></body></html>

@@ -10,12 +10,14 @@ from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.first_item_public_outcomes import (
     _parse_source_sections, SOURCE_MARKDOWN_PATH as A_SOURCE,
 )
+from emperor_v4.evaluation.first_item_b1_inputs import load_b1_inputs, load_opponent_systems, b1_components, calculation_text, INPUTS
+import json
 
 BASE = Path('docs/评分结算/净收益/第一项政权奠基与统一贡献及能力')
 B1_SOURCE = BASE / '02-第一项B1创业难度与战略效率正式结算.md'
 COST_SOURCE = BASE / '06-军事成本正式裁决.json'
 SCHEMA = 'first-item-b1-cost-public-v1'
-B1_FIELDS = {'公开起点说明':'public_start_basis', '公开对手说明':'public_opponent_basis', '公开效率说明':'public_efficiency_basis'}
+B1_FIELDS = {'公开起点说明':'public_start_basis', '公开对手说明':'public_opponent_basis', '公开效率说明':'public_efficiency_basis', '公开阅读问题':'public_question', '公开阅读正文':'public_story'}
 POSITIONS = {'LOW':'低位','MID':'中位','HIGH':'高位','HIGHEST':'极端上沿'}
 STATUSES = {'CONFIRMED':'关键结构已证实', 'LOWER_BOUND':'已证实下界，覆盖或上限仍有缺口', 'PROVISIONAL':'关键条件仍待确认'}
 
@@ -67,7 +69,25 @@ def load_first_item_b1_cost_public(root: Path) -> tuple[dict, dict]:
     cost_by_name = {row['ruler_name']:row for row in costs}
     if not expected or set(b1) != set(expected) or set(cost_by_name) != set(expected) or len(cost_by_name) != len(costs):
         raise ValueError('B1/成本公开记录须完整覆盖当前第一项正式对象且不得重复')
-    return ({name:project_b1(fields) for name,fields in b1.items()},
+    inputs = load_b1_inputs(root)
+    systems = load_opponent_systems(root)
+    method = json.loads((root / INPUTS).read_text(encoding='utf-8'))['public_method']
+    projected = {}
+    for name, fields in b1.items():
+        record = project_b1(fields)
+        record.update(b1_components(inputs[name], systems))
+        record['public_calculation'] = calculation_text(inputs[name], systems)
+        record['public_method'] = method
+        record['public_sources'] = list(dict.fromkeys([
+            B1_SOURCE.as_posix(), INPUTS.as_posix(), 'config/military/opponent-system-contract.json',
+            'docs/公共成果/军事/01-战役登记.json',
+            *[ref for ref in inputs[name]['source_refs'] if ref.startswith(('http://', 'https://', 'docs/', 'config/'))],
+        ]))
+        projected[name] = record
+    for field in ('public_question', 'public_story'):
+        if len({r[field] for r in projected.values()}) != len(projected):
+            raise ValueError(f'B1人物阅读入口重复：{field}')
+    return (projected,
             {name:project_cost(row) for name,row in cost_by_name.items()})
 
 

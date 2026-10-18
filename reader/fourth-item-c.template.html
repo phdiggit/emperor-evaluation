@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>知识生产与文化生态 · 帝王三镜</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f3ec;color:#29332f;font:16px/1.9 "Microsoft YaHei",sans-serif}main,header{max-width:980px;margin:auto;padding:24px}header{border-bottom:1px solid #d7d9cc}a{color:#315d56}input{width:100%;padding:12px;font:inherit}article.person{margin:24px 0;padding:20px;background:#fffefa;border-left:3px solid #8ba89a;scroll-margin-top:20px}article.person:target{border-left-color:#984333;outline:1px solid #c7ad7d}h2{margin:0}h4{margin:12px 0 8px}summary{cursor:pointer;padding:8px 0}.prose{white-space:pre-wrap;overflow-wrap:anywhere}.meta,.sources,.subline,.fourth-c-entry-links{font-size:14px;overflow-wrap:anywhere}[hidden]{display:none!important}details{margin:8px 0}.component{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}.net-material-card{padding:14px 0;border-top:1px solid #d7d9cc}.label{font-weight:bold;margin-top:16px}.fourth-c-entry-links{display:flex;flex-wrap:wrap;gap:8px 20px}a:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid #96763c;outline-offset:3px}@media(max-width:600px){main,header{padding:14px}article.person{padding:14px}}
+</style></head><body>
+<header><a href="index.html">帝王三镜</a> · <a href="index.html#guide">如何阅读</a></header>
+<main><h1>哪些知识得到生产、保存和传播，哪些受到破坏？</h1>
+<p>这里看实际掌权时期可以归于本人的知识产品、文本保存传播及文化生态变化。先读具体材料与本人责任，再看正负结果怎样合成分数；零值分别解释未确认独立变化、材料复核后不计分和正负相抵。</p>
+<p>收录第四项现有全部 <span id="total">__COUNT__</span> 条人物记录，按姓名排列。每人的主政时期、综合结算就绪状态和范围分别标明；保留的单项记录不表示已经进入综合评价池，本页不另作排名。</p>
+<label for="search">搜索人物、经历、史源或零值说明</label><input id="search" type="search" autocomplete="off"><p role="status">当前显示 <span id="count">__COUNT__</span> 人。<span id="location-note"></span></p>
+<section id="entries" aria-label="知识生产与文化生态全池阅读"></section></main>
+<script id="fourth-c-data" type="application/json">__PAYLOAD__</script>
+<script>
+const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sourceIdentity=__SOURCE_IDENTITY__;
+function link(path,label){const local=['localhost','127.0.0.1','[::1]'].includes(location.hostname);const href=/^https?:\/\//.test(path)?path:local||!sourceIdentity.repository||!sourceIdentity.revision?'../'+path:'https://github.com/'+sourceIdentity.repository+'/blob/'+sourceIdentity.revision+'/'+path;return `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`;}
+</script><script src="fourth-item-c-public.js"></script><script>
+const DATA=JSON.parse(document.getElementById('fourth-c-data').textContent);
+document.getElementById('entries').innerHTML=DATA.map(r=>`<article class="person" id="${esc(r.ruler_id)}"><h2>${esc(r.ruler_name)}</h2><p class="meta">${esc(r.polity)} · ${esc(r.pool_note)}</p>${FourthItemCReading.heading(r.item)}${FourthItemCReading.html(r.item,r,{collection:true})}</article>`).join('');
+const entries=[...document.querySelectorAll('article.person')], search=document.getElementById('search');
+const searchText=entries.map(entry=>entry.textContent.toLocaleLowerCase());
+function filter(){const q=search.value.trim().toLocaleLowerCase();let count=0;entries.forEach((entry,i)=>{entry.hidden=q!==''&&!searchText[i].includes(q);if(!entry.hidden)count++;});document.getElementById('count').textContent=count;}
+search.addEventListener('input',filter);
+function locate(){const note=document.getElementById('location-note');note.textContent='';if(!location.hash)return;let id;try{id=decodeURIComponent(location.hash.slice(1));}catch{note.textContent='人物定位地址无效。';return;}const entry=entries.find(item=>item.id===id);if(!entry){note.textContent='未找到该人物记录。';return;}if(entry.hidden){search.value='';filter();}entry.scrollIntoView({block:'start'});}
+window.addEventListener('hashchange',locate);locate();
+</script></body></html>
