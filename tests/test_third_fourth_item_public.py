@@ -16,6 +16,22 @@ from emperor_v4.evaluation.third_fourth_public_language import translate, langua
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_named_projects_preserve_exclusions_and_ordinary_enumeration():
+    from emperor_v4.evaluation.third_fourth_public_language import named_project_prose
+    text = '同一成果由第一项计入，第三项不重复计分；第二项独立结果不另加分。'
+    result = named_project_prose(text)
+    assert result == '同一成果由“政权奠基与统一贡献”计入，“军事与边疆”不重复计分；第二项独立结果不另加分。'
+    assert named_project_prose(result) == result
+    assert named_project_prose('第三项军事与边疆净收益') == '军事与边疆净收益'
+
+
+def test_generated_military_labels_keep_civilization_domain_unchanged():
+    text = '第一项已计入，同链去重。'
+    assert public._clean_public_text(text) == '“政权奠基与统一贡献”已计入，同一完整行动避免重复计分。'
+    with language_domain('civilization'):
+        assert public._clean_public_text(text) == text
+
+
 def test_zero_ml_projection_preserves_unresolved_basis_without_inventing_gate_failure():
     basis = "负向结果已证，尚缺同一战略链的本方成本与本人责任复核。"
     projection = public._ml_projection({"grade": "ML0", "basis": basis}, "SYNTHETIC-RULER")

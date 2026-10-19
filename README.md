@@ -129,7 +129,7 @@ python v4.py composite-ranking --write
 
 第一项 C 的事实真源是公共战役登记。正式 C Markdown 逐条绑定公共本人结果、成员、具名行动或范围说明，声明采用、窗口及同情境去重；缺证先回源补登记，不从 M1、武将汇总或旧判词反推。`python v4.py first-item-c-public-verify`验证全部当前对象、本人引用、源路径、处置和档分同值；阅读页`reader/first-item-c.html`默认展示逐人问题与经历，职责后再展开评价、胜败和逐条公共原字段。分值改判同步第一项总视图、综合榜与相关分析，再构建主阅读页和逐人缓存。
 
-第一项 B1 的逐人阅读问题、阅读正文、起点、对手和效率说明维护在 B1 正式 Markdown；计时阶段、具名对手及计算参数维护在正式入口登记的 B1 计时与对手依据。`python v4.py first-item-b1-cost-public-verify`核对来源、公式与正式分数，再用`python reader/build.py`及`python reader/build_first_item_reader_cache.py`同步展示。分数变动须先同步第一项总表并运行`python v4.py composite-ranking --write`，相关分析按其命令重建。阅读层直接展示上游内容，不补对手、不改工期；分阶段效率不合并成单一年数。军事成本的公开依据、责任时期、证据缺口与补充链接仍维护在成本正式 JSON，完整依据保留在深层展开项。
+第一项 B1 的逐人阅读问题、阅读正文、起点、对手和效率说明维护在 B1 正式 Markdown；计时阶段、具名对手及计算参数维护在正式入口登记的 B1 计时与对手依据。`python v4.py first-item-b1-cost-public-verify`核对来源、公式与正式分数，再用`python reader/build.py`及`python reader/build_first_item_reader_cache.py`同步展示。分数变动须先同步第一项总表并运行`python v4.py composite-ranking --write`，相关分析按其命令重建。阅读层直接展示上游内容，不补对手、不改工期；分阶段效率不合并成单一年数。军事成本正式 JSON 的`public_reading`分别维护战争负担、实际损失与限度、定档依据和范围；`public_source_records`逐一对应正式来源，具名区分材料汇集、通读摘要与范围规则，原书链接不冒充逐句证明。责任时期、证据缺口及逐事补充史源同步保留，完整依据与来源分层展开；阅读层不加工历史解释。
 
 第一项 B2 的评价窗口、本人控制链、三项档位依据及逐人阅读问题、正文维护在 B2 正式 Markdown。`python v4.py first-item-b2-public-verify`校验完整覆盖、公开投影与档位换分；修改后同步第一项总阅读视图，有分值变化时重建综合榜及相关分析，再运行`python reader/build.py`与`python reader/build_first_item_reader_cache.py`。`reader/first-item-b2.html`覆盖全部适用人物，人物主页、对照与详情使用同一上游正文；默认显示问题、经历与三个分数，逐层展开职责、裁决限制和史料，浏览器不补写组织事实或推断本人控制。
 

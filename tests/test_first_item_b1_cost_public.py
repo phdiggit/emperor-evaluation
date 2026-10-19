@@ -23,13 +23,25 @@ def test_b1_requires_declared_prose_and_keeps_multiple_stages():
 
 
 def test_cost_requires_every_gap_and_safe_explicit_links():
-    row = {'public_basis':'损失已确认，但总量不明。','public_responsibility_window':'本人负责时期。',
+    row = {'public_reading':{'burden':'实际组织守军与运输。','losses':'损失已确认，但总量不明。','grade_basis':'持续方向级投入。','boundary':'不计敌方损失。'},'public_responsibility_window':'本人负责时期。',
+           'public_source_note':'战事材料与原文入口分列。','source_refs':['docs/source.md#合成战事'],
+           'public_source_records':[{'path':'docs/source.md#合成战事','label':'合成战事材料','kind':'战事材料汇集'}],
            'public_unresolved_gaps':['后段缺乏材料。'], 'unresolved_gaps':['内部缺口'],
            'public_source_links':[{'label':'来源','url':'https://example.org/source'}],
            'cost_band':'C3','cost_position':'MID','evidence_status':'LOWER_BOUND'}
-    assert project_cost(row)['public_basis'] == row['public_basis']
+    projected = project_cost(row)
+    assert [section['text'] for section in projected['public_sections']] == list(row['public_reading'].values())
+    assert '损失已确认，但总量不明。' in projected['public_basis']
+    assert project_cost(row)['public_level_label'] == '中等成本（第3级／0—7级）'
+    assert '同一级内' in project_cost(row)['public_position_note']
     with pytest.raises(ValueError, match='逐条保留'):
         project_cost({**row, 'public_unresolved_gaps':[]})
+    with pytest.raises(ValueError, match='分别维护'):
+        project_cost({**row, 'public_reading':{'burden':'只保留投入。'}})
+    with pytest.raises(ValueError, match='完整保留'):
+        project_cost({**row, 'public_source_records':[]})
+    with pytest.raises(ValueError, match='补证过程'):
+        project_cost({**row, 'public_reading':{**row['public_reading'], 'losses':'补核原文入口后仍未知。'}})
     row['public_source_links'][0]['url']='javascript:alert(1)'
     with pytest.raises(ValueError, match='协议'):
         project_cost(row)
@@ -60,7 +72,7 @@ const fs=require('node:fs'), assert=require('node:assert/strict');
 const source=fs.readFileSync('reader/home-interactions.js','utf8');
 const helpers=source.slice(source.indexOf('function firstB1Markup'),source.indexOf('function firstCommanderMarkup'));
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-const {b1,cost}=new Function('esc','prose',helpers+';return {b1:firstB1Markup,cost:firstCostMarkup}')(esc,s=>'<p>'+esc(s)+'</p>');
+const {b1,cost}=new Function('esc','prose','link',helpers+';return {b1:firstB1Markup,cost:firstCostMarkup}')(esc,s=>'<p>'+esc(s)+'</p>',(ref,label)=>'<a href="'+esc(ref)+'">'+esc(label)+'</a>');
 const stages='先完成甲段。后完成乙段；两段分别计时，不据此推定总年数。';
 assert.ok(b1({reader_public_b1:{public_efficiency_basis:stages}}).includes(stages));
 const entryStart=source.indexOf('function firstB1ReadingMarkup'), entryEnd=source.indexOf('// Formal public fields are shared',entryStart);
@@ -71,8 +83,13 @@ assert.ok(entryHtml.indexOf('正文保留完整含义。')<entryHtml.indexOf('<d
 assert.ok(entryHtml.indexOf('<details class="first-b1-facts">')<entryHtml.indexOf('<details class="first-b1-method">'));
 assert.ok(!entryHtml.includes('<details open'));
 const basis='完整依据。'.repeat(100)+'末尾责任限制不得删除。';
-const html=cost({reader_public_cost:{public_basis:basis, public_responsibility_window:'只含本人时期。',public_unresolved_gaps:['上限尚不明确。'],public_source_links:[{label:'补充史料',url:'https://example.org/source'}]}});
+const html=cost({reader_public_cost:{public_level_label:'中等成本（第3级／0—7级）',public_sections:[{title:'实际损失与已知限度',text:basis}],public_responsibility_window:'只含本人时期。',public_unresolved_gaps:['上限尚不明确。'],public_source_links:[{label:'具名史料',url:'https://example.org/source'}]}});
+assert.ok(html.includes('中等成本（第3级／0—7级）'));
+assert.ok(html.indexOf(basis)>html.indexOf('<details class="first-cost-evidence">'));
 for(const text of [basis,'只含本人时期。','上限尚不明确。','https://example.org/source']) assert.ok(html.includes(text));
+const structured=cost({reader_public_cost:{public_sections:[{title:'战争负担',text:'主力实际执行运输。'},{title:'实际损失与已知限度',text:basis}],public_source_records:[{path:'docs/source.md#合成战事',label:'具名材料',kind:'战事材料汇集',source_url:'https://example.org/original'}],public_source_note:'摘要不能冒充原文。'}});
+for(const text of ['<h4>战争负担</h4>','主力实际执行运输。',basis,'docs/source.md#合成战事','具名材料','https://example.org/original'])assert.ok(structured.includes(text));
+assert.ok(structured.indexOf('具名材料')>structured.indexOf('<details class="first-cost-sources">'));
 for(const path of ['reader/home-interactions.js','reader/person-readability.js','reader/first-item-reading.js']) {
  const text=fs.readFileSync(path,'utf8');
  assert.ok(text.includes('firstB1ReadingMarkup(item, record)'));

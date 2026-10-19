@@ -111,7 +111,7 @@ def clean_retired_low_valley_references(value: Any, field_name: str = "") -> Any
     text = text.replace("K扣", "低谷修正扣")
     text = text.replace("由K", "由低谷修正")
     text = text.replace("不计K", "不计低谷修正")
-    text = text.replace("与K", "与低谷修正")
+    text = re.sub(r"与K(?![A-Za-z0-9_])", "与低谷修正", text)
     text = text.replace("进入K", "进入低谷修正")
     text = re.sub(r"(?<![A-Za-z0-9_])K[0-5](?![A-Za-z0-9_])", "历史低谷标签", text)
     return re.sub(r"(?<![A-Za-z0-9_])K(?![A-Za-z0-9_])", "低谷修正", text)

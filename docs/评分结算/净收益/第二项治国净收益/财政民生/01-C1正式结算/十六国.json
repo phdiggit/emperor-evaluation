@@ -276,38 +276,40 @@
               "described_state": "草创期主动停兵务农，三年后公共储备达到可支撑政权运行和防务的水平，证明生产与积储已实际恢复。",
               "identity_window_gate": "ELIGIBLE",
               "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
-              "proof_scope_constraints": [],
+              "proof_scope_constraints": [
+                "本人告谕中的资储与器械不能转成家庭富庶。"
+              ],
               "registration_metric_role": "NOT_REGISTRATION_METRIC",
               "source_url": "https://zh.wikisource.org/zh-hans/晋书/卷087",
-              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
-              "source_voice_basis": "新增联网材料按来源载体和主要发声者人工裁决。",
+              "source_voice": "POLICY_OR_EDICT",
+              "source_voice_basis": "李暠告谕中的国家储备自述；不是史家独立观察家庭生活。",
               "source_voice_matches": [
-                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+                "POLICY_OR_EDICT"
               ],
               "source_works": [
                 "《晋书》卷八十七《凉武昭王李玄盛传》"
               ],
               "state_roles": [
-                "李暠任内恢复阶段",
-                "C1-3升档观察"
+                "国家储备背景，不直接承担家庭状态"
               ],
               "verbatim_excerpt": "窃以诸事草创，仓帑未盈，故息兵按甲，务农养士。时移节迈，荏苒三年……今资储已足，器械已充。",
               "result_axis_owner": [
-                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+                "C1_SUPPORT_CONTEXT_ONLY"
               ]
             },
             {
               "anchor_time": "迁酒泉后任内中后期",
-              "described_state": "西凉核心统治区出现连续丰收与百姓安业，并与此前资储恢复形成两个可区分阶段，足以闭合主要地区普遍温饱。",
+              "described_state": "郡僚称连续丰收、百姓安业，可与生产恢复合用作核心区温饱的受约束旁证；不证明家庭粮储或资产余量。",
               "identity_window_gate": "ELIGIBLE",
               "macro_anchor_specificity": "BOUNDED_MULTI_AXIS_MACRO",
               "proof_scope_constraints": [
-                "CORE_POLITY_SCOPE"
+                "CORE_POLITY_SCOPE",
+                "请勒铭有颂扬动机，但连续丰收、百姓安业有具体结果含义；仅与生产恢复共同支持核心区温饱的受约束判断，不证家庭富庶。"
               ],
               "registration_metric_role": "NOT_REGISTRATION_METRIC",
               "source_url": "https://zh.wikisource.org/zh-hans/晋书/卷087",
-              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
-              "source_voice_basis": "新增联网材料按来源载体和主要发声者人工裁决。",
+              "source_voice": "OFFICIAL_SUMMARY",
+              "source_voice_basis": "史书转录郡僚请勒铭的结果陈述；有颂扬动机，仅作有限互证。",
               "source_voice_matches": [
                 "THIRD_PARTY_CHRONICLE_OR_TREATISE"
               ],
@@ -315,9 +317,7 @@
                 "《晋书》卷八十七《凉武昭王李玄盛传》"
               ],
               "state_roles": [
-                "李暠任内主要状态",
-                "李暠交班状态",
-                "C1-4直接锚"
+                "核心区温饱的受约束旁证，不独立证明广域家庭余量"
               ],
               "verbatim_excerpt": "玄盛既迁酒泉，乃敦劝稼穑。郡僚以年谷频登，百姓乐业，请勒铭酒泉，玄盛许之。",
               "result_axis_owner": [
@@ -325,7 +325,7 @@
               ]
             }
           ],
-          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "evidence_mode": "CONSTRAINED_RESULT_INFERENCE",
           "main_band": "C1-4",
           "material_limitations": [
             "材料集中于酒泉—敦煌核心区且带颂扬语境；历史低谷标签仅表示现有材料没有确认恢复后的有效低谷，不把史料沉默本身当稳定正证。"
@@ -449,7 +449,7 @@
             "source_ref": "config/second-item/c1-c2-c3-low-confidence-terminal-adjudications.json#ruler_id=RULER-SHADOW-李暠&axis=C1"
           },
           "public_story": "主要状态等级不变，但证据模式收紧。草创期“仓帑未盈—三年后资储已足”主要是国家生产/储备恢复背景，不能单独替代家庭状态；真正承担民生的是迁酒泉后“年谷频登、百姓乐业”。两者结合可受约束证实酒泉—敦煌核心统治区普遍温饱，但范围和家庭余量强度都不足民生“富庶”。",
-          "public_boundary": "材料集中于酒泉—敦煌核心区且带颂扬语境；历史低谷判断仅表示现有材料没有确认恢复后的有效低谷，不把史料沉默本身当稳定正证。\n\n这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
+          "public_boundary": "本人告谕中的资储与器械不能转成家庭富庶。\n\n请勒铭有颂扬动机，但连续丰收、百姓安业有具体结果含义；仅与生产恢复共同支持核心区温饱的受约束判断，不证家庭富庶。\n\n材料集中于酒泉—敦煌核心区且带颂扬语境；历史低谷判断仅表示现有材料没有确认恢复后的有效低谷，不把史料沉默本身当稳定正证。\n\n这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
           "public_loss_label": "未另证独立有效低谷；不等于全任没有损害",
           "public_calculation": "主要状态B档的基础分为54.9；本条已裁低谷的修正率为0%。最终分 = max（本轴最低分5.7，54.9 ×（1 − 0%）），只在最后按四舍五入保留一位小数，得到54.9分。低谷只计主要状态尚未包含的独立损害，不按事件条数重复相加。",
           "public_related_source_refs": [
@@ -510,7 +510,19 @@
               ]
             }
           ],
-          "public_source_note": "来源分为逐条采用的依据和相关材料汇集。材料汇集保留原有摘录、摘要及裁决线索，不表示其中每份材料都能证明每一条叙述；具体采用范围与推断性质见各条说明。"
+          "public_source_note": "来源分为逐条采用的依据和相关材料汇集。材料汇集保留原有摘录、摘要及裁决线索，不表示其中每份材料都能证明每一条叙述；具体采用范围与推断性质见各条说明。",
+          "evidence_admissibility": [
+            {
+              "quoted_phrase": "窃以诸事草创",
+              "adopted_role": "公共储备背景",
+              "proof_boundary": "本人告谕中的资储与器械不能转成家庭富庶。"
+            },
+            {
+              "quoted_phrase": "郡僚以年谷频登",
+              "adopted_role": "有范围的结果旁证",
+              "proof_boundary": "请勒铭有颂扬动机，但连续丰收、百姓安业有具体结果含义；仅与生产恢复共同支持核心区温饱的受约束判断，不证家庭富庶。"
+            }
+          ]
         },
         {
           "adjudication_reason": "任内前中期主要统治区普通家庭总体达到稳定温饱，但没有C1-5所要求的广域家庭余量强锚。《晋书·苻坚载记》“关、陇清晏，百姓丰乐”可直接承担C1-4主态；田畴、仓库、工商与治安只作其他轴或背景互证。",
@@ -1425,7 +1437,7 @@
           ],
           "peak_band": null,
           "polity": "后燕",
-          "rank": 104,
+          "rank": 105,
           "reign_range": [
             384,
             396
@@ -2175,7 +2187,7 @@
           ],
           "peak_band": null,
           "polity": "后赵",
-          "rank": 72,
+          "rank": 73,
           "reign_range": [
             319,
             333
@@ -2391,7 +2403,7 @@
           ],
           "peak_band": null,
           "polity": "北凉",
-          "rank": 104,
+          "rank": 105,
           "reign_range": [
             401,
             433
@@ -2619,7 +2631,7 @@
           ],
           "peak_band": null,
           "polity": "后秦",
-          "rank": 125,
+          "rank": 126,
           "reign_range": [
             384,
             393

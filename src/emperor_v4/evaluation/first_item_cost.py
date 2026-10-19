@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from emperor_v4.evaluation.formal_json_store import load_json
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
@@ -26,12 +27,22 @@ def render_cost_adjudications(source: dict[str, Any]) -> str:
         public = project_cost(row)
         lines.extend(['', f"## {row['ruler_name']}", '',
                       f"**成本程度：{public['public_level_label']}；{public['public_status_label']}**", '',
-                      '**责任时期：**' + public['public_responsibility_window'], '', public['public_basis']])
+                      '**责任时期：**' + public['public_responsibility_window'], ''])
+        for section in public['public_sections']:
+            lines.extend([f"### {section['title']}", '', section['text'], ''])
         lines.extend(f'- 证据缺口：{gap}' for gap in public['public_unresolved_gaps'])
-        lines.extend(f"- [{link['label']}]({link['url']})" for link in public['public_source_links'])
-        lines.extend(['', '<details><summary>原始裁决记录</summary>', '', row['basis'], '', '</details>', ''])
+        lines.extend(['', '<details><summary>核对所据材料与原书入口</summary>', '', public['public_source_note'], ''])
+        for ref in public['public_source_records']:
+            target = Path('docs/评分结算/净收益/第一项政权奠基与统一贡献及能力')
+            path, separator, anchor = ref['path'].partition('#')
+            relative = Path(os.path.relpath(path, target)).as_posix() + (separator + anchor if separator else '')
+            lines.append(f"- {ref['kind']}：[{ref['label']}]({relative})" + (f" · [回查所引卷篇]({ref['source_url']})" if ref.get('source_url') else ''))
+        lines.extend(f"- 补充史源：[{link['label']}]({link['url']})" for link in public['public_source_links'])
+        lines.extend(['', '</details>'])
+        lines.extend(['', '<details><summary>原始裁决记录</summary>', '', row['basis'], ''])
         lines.extend(f'- 证据入口：`{ref}`' for ref in row['source_refs'])
-    return '\n'.join(lines) + '\n'
+        lines.extend(['', '</details>', ''])
+    return '\n'.join(lines).rstrip() + '\n'
 
 
 def calculate_cost_debit(gross: float, band: str, position: str, mapping: dict[str, Any]) -> dict[str, float]:

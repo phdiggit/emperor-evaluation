@@ -14,6 +14,15 @@ from emperor_v4.evaluation.second_item_b1_settlement import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_public_boundary_names_projects_without_changing_technical_source():
+    from emperor_v4.evaluation.second_item_b1_settlement import _public_profile_boundary
+    profile = {'adjudication_boundary': '军队损耗与战役结果归第三项，居民结果归C1/C2/C4。'}
+    before = deepcopy(profile)
+    result = _public_profile_boundary(profile)
+    assert result == '军队损耗与战役结果归“军事与边疆”，居民生活、经济财政及恢复与额外代价分别计入对应的治国成效评价。'
+    assert profile == before
+
+
 def test_refresh_preserves_authored_experience_responsibility_and_reason():
     source = load_json(ROOT / B1_PATH)
     before = _scoring_signature(source)

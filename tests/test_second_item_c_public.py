@@ -205,3 +205,53 @@ def test_c4_authored_roles_and_boundaries_survive_refresh():
     for key in ('public_story','public_adjudication_summary','public_boundary','public_loss_label','public_evidence_items'):
         assert actual[key] == before[key]
     assert 'source_refs' in actual['public_evidence_items'][0]
+
+
+def _synthetic_recovery_reading(current=True):
+    from emperor_v4.evaluation.second_item_c_reading import RECOVERY_SECTIONS, recovery_anchor_line, recovery_story
+    row = {'ruler_name':'合成恢复对象', 'recovery_formula_version':'GOVERNANCE-STATE-RECOVERY-V4' if current else 'legacy',
+           'positive_score_retained':8.0, 'deterioration_penalty':2.0, 'destructive_amplification_penalty':0.0, 'score':6.0,
+           'recovery_path_basis':{a:{'start_band':a+'-2', 'highest_achieved_band':a+'-4'} for a in ('C1','C2','C3')}}
+    row['public_reading_sections'] = [{'id':sid,'title':title,'body':'独立构造的说明。'} for sid,title in RECOVERY_SECTIONS]
+    row['public_reading_sections'][1]['body'] = '\n\n'.join(recovery_anchor_line(a,row) for a in ('C1','C2','C3'))
+    row['public_reading_sections'][5]['body'] = '保留恢复 +8分 − 本人恶化 2分 − 独立额外成本 0分 = 净调整 +6.0分。'
+    row['public_story'] = recovery_story(row['public_reading_sections'])
+    return row
+
+
+def test_recovery_sections_require_complete_source_text_and_declared_anchors():
+    from emperor_v4.evaluation.second_item_c_reading import verify_recovery_reading, recovery_story
+    row = _synthetic_recovery_reading()
+    before = deepcopy(row)
+    verify_recovery_reading(row)
+    assert row == before
+    row['score'] = 7.0
+    with pytest.raises(ValueError, match='净调整与正式数值不同值'):
+        verify_recovery_reading(row)
+    row = deepcopy(before)
+    row['public_reading_sections'][1]['body'] = row['public_reading_sections'][1]['body'].replace('上升2档','上升1档')
+    row['public_story'] = recovery_story(row['public_reading_sections'])
+    with pytest.raises(ValueError, match='正式路径不同值'):
+        verify_recovery_reading(row)
+    row = _synthetic_recovery_reading()
+    row['public_reading_sections'].pop()
+    with pytest.raises(ValueError, match='分栏缺失'):
+        verify_recovery_reading(row)
+
+
+def test_legacy_recovery_cannot_present_adopted_high_point_as_current_handoff():
+    from emperor_v4.evaluation.second_item_c_reading import verify_recovery_reading, recovery_story
+    row = _synthetic_recovery_reading(current=False)
+    assert '原恢复计算采用点' in row['public_reading_sections'][1]['body']
+    with pytest.raises(ValueError, match='原机制边界'):
+        verify_recovery_reading(row)
+    row['public_reading_sections'][0]['body'] = '池外记录沿用原机制，采用点与交班终点分别说明。'
+    row['public_story'] = recovery_story(row['public_reading_sections'])
+    verify_recovery_reading(row)
+
+
+def test_recovery_sections_are_display_only():
+    row = _synthetic_recovery_reading()
+    before = deepcopy(row)
+    row['public_reading_sections'][0]['body'] += '补充显示说明。'
+    assert _scoring_signature({'scores':[row]}) == _scoring_signature({'scores':[before]})

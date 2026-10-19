@@ -180,6 +180,12 @@ def _authored_public_text(row: dict[str, Any], field: str) -> str:
     return value
 
 
+def _public_profile_boundary(profile: dict[str, Any]) -> str:
+    from emperor_v4.evaluation.third_fourth_public_language import named_project_prose
+    text = named_project_prose(str(profile.get("adjudication_boundary") or B1_PUBLIC_BOUNDARY))
+    return text.replace('居民结果归C1/C2/C4', '居民生活、经济财政及恢复与额外代价分别计入对应的治国成效评价')
+
+
 def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
     items: list[dict[str, Any]] = []
     for profile in _iter_profiles(row):
@@ -193,7 +199,7 @@ def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
             ),
             "public_tags": list(profile.get("adjudication_tags") or []),
             "public_basis": str(profile.get("adjudication_basis") or ""),
-            "public_boundary": str(profile.get("adjudication_boundary") or B1_PUBLIC_BOUNDARY),
+            "public_boundary": _public_profile_boundary(profile),
         })
     return items
 
@@ -931,7 +937,7 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
                 f"  - **{profile['public_label']}**（{tags}；本项计入：{_profile_contribution(profile)}）"
             )
             lines.append(f"    - 裁决：{str(profile['adjudication_basis']).rstrip('。')}。")
-            boundary = str(profile.get("adjudication_boundary") or "").strip()
+            boundary = _public_profile_boundary(profile) if profile.get("adjudication_boundary") else ''
             if boundary:
                 lines.append(f"    - 边界：{boundary.rstrip('。')}。")
             target_id = str(profile.get("absorbed_into_profile_id") or "")

@@ -714,7 +714,8 @@ def test_first_item_cost_body_and_commander_calculation_hide_internal_levels():
     assert "很低成本" in source
     assert "极高成本" in source
     assert "灾难级成本" in source
-    assert 'firstCostPublicText(data.public_basis)' in source
+    assert '${prose(section.text)}' in source
+    assert 'firstCostPublicText(data.public_basis)' not in source
     assert '${prose(source.public_basis)}' in source
     assert '${prose(source.public_method)}' in source
     assert "相关战争若已在军事与边疆项计入，本项不重复计算" in source
@@ -919,7 +920,7 @@ def test_edge_states_distinguish_not_applicable_zero_pending_and_signed_adjustme
     assert "Number(r.net.first_item_raw_score)===0" not in template
     assert "signedAdjustment" in template
     assert 'groupKey === "civilization"' in home
-    assert "本项适用，但第一项结算分归零" in home
+    assert "本项适用，但奠基与统一结算分归零" in home
     assert "function finiteNetNumber(value)" in home
     assert '&& Number(record.net?.first_item_raw_score) === 0' not in home
     assert '&& Number(record.net.first_item_raw_score) === 0' not in home
@@ -1718,7 +1719,7 @@ def test_first_item_applicability_is_three_state_and_never_inferred_from_items()
     for source in (home, person, first):
         assert '"NOT_APPLICABLE"' in source
         assert '"APPLICABLE"' in source
-        assert "第一项正式适用状态" in source
+        assert "奠基与统一的正式适用状态" in source
         assert "items.every(item =>" not in source
     assert "适用状态尚未确定，因此暂不作适用性推断" in template
     assert "n.first_item_status==='NOT_APPLICABLE'" in template
@@ -1821,7 +1822,7 @@ def test_first_item_public_copy_uses_settlement_score_not_legacy_net_benefit_ter
     for rel in ("reader/home-interactions.js", "reader/person-readability.js", "reader/index.template.html"):
         source = (root / rel).read_text(encoding="utf-8")
         assert "原始净收益" not in source
-    assert "第一项结算分" in (root / "reader/home-interactions.js").read_text(encoding="utf-8")
+    assert "奠基与统一结算分" in (root / "reader/home-interactions.js").read_text(encoding="utf-8")
     assert "本项不计入统治绩效" in (root / "reader/person-readability.js").read_text(encoding="utf-8")
 
 

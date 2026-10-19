@@ -159,7 +159,10 @@ def render_person(row: Mapping[str, Any], *, b_basis, b_grade, b_regions, depth_
     ]
     for name in ('A1', 'A2'):
         axis = axes[name]
-        lines.append(f"| {name} {titles[name]} | {axis['start_grade']}→{axis['end_grade']}档 · {axis['settlement_type_label']} | {float(axis['axis_points']):.2f}／60 |")
+        reading = axis.get('public_reading')
+        state = (f"{reading['start_label']}→{reading['end_label']} · {reading['type_label']}" if reading
+                 else f"{axis['start_grade']}→{axis['end_grade']}档 · {axis['settlement_type_label']}")
+        lines.append(f"| {name} {titles[name]} | {state} | {float(axis['axis_points']):.2f}／60 |")
     for name in ('B1', 'B2', 'B4'):
         rate = float(b[f'adjudicated_{name}_rate'])
         grade = 0 if rate < 30 else 1 if rate < 45 else 2 if rate < 60 else 3 if rate < 75 else 4 if rate < 90 else 5
@@ -174,9 +177,12 @@ def render_person(row: Mapping[str, Any], *, b_basis, b_grade, b_regions, depth_
                 relative = posixpath.relpath(path, 'docs/评分结算/净收益/第三项军事与边疆净收益/国防安全')
                 target = quote(relative, safe='/') + ('#' + quote(anchor, safe='=') if anchor else '')
                 links.append(f"- {ref['kind']}：[{ref['label']}]({target})")
-            lines += [f"**{name} {titles[name]}**", '', f"评价时期：{reading['window']}。", '', reading['story'], '',
-                      '为什么这样评：' + reading['decision'], '', '<details><summary>本人责任、计算与来源</summary>', '',
-                      reading['responsibility'], '', reading['method'], '', reading['calculation'], '',
+            lines += [f"**{name} {titles[name]}**", '', f"评价时期：{reading['window']}。类型：{reading['type_label']}。", '',
+                      f"**接班 · {reading['start_label']}**", '', reading['inherited'], '',
+                      f"**交班 · {reading['end_label']}**", '', reading['handover'], '',
+                      '**本人归责**', '', reading['responsibility'], '',
+                      '<details><summary>任内经历、定档与计算来源</summary>', '', reading['story'], '',
+                      '为什么这样评：' + reading['decision'], '', reading['method'], '', reading['calculation'], '',
                       reading['source_note'], '', *links, '', reading['boundary'], '',
                       *reading['scale'], '', '</details>', '']
         else:

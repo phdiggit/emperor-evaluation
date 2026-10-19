@@ -67,21 +67,29 @@ function firstCostPublicText(value) {
     .replace(/跨项证实：/g, "跨项去重：")
     .replace(/由第一项计入/g, "由奠基与统一项计入")
     .replace(/留第三项/g, "留在军事与边疆项")
-    .replace(/第([0-7一二三四五六七])级(?:成本)?/g, (_, level) => {
+    .replace(/第([0-7一二三四五六七])级(?:成本)?(?![／/])/g, (_, level) => {
       const index = chinese[level] != null ? chinese[level] : Number(level);
       return severity[index] || level;
     });
 }
 
-function firstCostMarkup(item) {
+function firstCostMarkup(item, record) {
   const data = item?.reader_public_cost || {};
   const publicLevel = firstCostPublicText(data.public_level_label);
-  const fields = [["成本程度", publicLevel], ["证据状态", data.public_status_label], ["责任时期", data.public_responsibility_window], ["完整成本说明", firstCostPublicText(data.public_basis)]];
+  const fields = [["成本程度", publicLevel], ["责任时期", data.public_responsibility_window]];
   const facts = fields.filter(([, value]) => value).map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(value)}`).join("");
   const gaps = (data.public_unresolved_gaps || []).map(value => `<li>${esc(firstCostPublicText(value))}</li>`).join("");
   const sources = (data.public_source_links || []).filter(source => /^https?:\/\//.test(source.url))
     .map(source => `<a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.label)} ↗</a>`).join(" ");
-  return `${facts}${gaps ? `<div class="label">证据缺口</div><ul>${gaps}</ul>` : ""}${sources ? `<p class="sources">${sources}</p>` : ""}`;
+  const sections = (data.public_sections || []).map(section => `<section class="first-cost-section"><h4>${esc(section.title)}</h4>${prose(section.text)}</section>`).join("");
+  const records = (data.public_source_records || []).map(source => `<li><span>${esc(source.kind)} · </span>${link(source.path, source.label + " ↗", record)}${source.source_url ? ` · <a href="${esc(source.source_url)}" target="_blank" rel="noopener">回查所引卷篇 ↗</a>` : ""}</li>`).join("");
+  const evidence = `<details class="first-cost-sources"><summary>核对所据材料与原书入口</summary>${prose(data.public_source_note || "")}${records ? `<ul class="sources">${records}</ul>` : ""}${sources ? `<div class="label">逐事补充史源</div><p class="sources">${sources}</p>` : ""}</details>`;
+  return `${facts}<details class="first-cost-evidence"><summary>完整成本依据与史料</summary>${sections}${data.public_status_label ? prose(data.public_status_label) : ""}${gaps ? `<div class="label">证据缺口</div><ul>${gaps}</ul>` : ""}${evidence}</details>`;
+}
+
+function firstCostRuleMarkup(item, calculation) {
+  const data = item.reader_public_cost || {};
+  return `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(data.public_scale_note)}${prose(data.public_position_note)}${prose(calculation)}</details>`;
 }
 
 function firstCommanderMarkup(item, record) {
@@ -526,7 +534,7 @@ function firstCommanderMarkup(item, record) {
       const preview = firstStatus === "NOT_APPLICABLE"
         ? `<p class="notice">该人物不适用第一项，本项不参与统治绩效计分。</p>`
         : key === "first" && firstStatus !== "APPLICABLE"
-          ? `<p class="notice">第一项正式适用状态尚未发布；阅读层不判断该人物是否适用本项。</p>`
+          ? `<p class="notice">奠基与统一的正式适用状态尚未发布；阅读层不判断该人物是否适用本项。</p>`
           : judgments.map(item => item.reader_public_a || item.reader_public_b || item.reader_public_third_c
             ? metricDetail(item, record, key)
             : `<div class="component"><span>${esc(item.public_component_label || item.label)}</span><b>${esc(netValue(item, key))}</b></div>`).join("");
@@ -1071,7 +1079,9 @@ function firstCommanderMarkup(item, record) {
     }
     if (item.reader_public_c && globalThis.SecondItemCReading) {
       const title = {"C1民生":"民生", "C2经济财政":"经济财政", "C3社会安全":"社会安全", "C4恢复与成本":"恢复与额外代价"}[item.label];
-      return `<article class="net-c-authored" data-second-source-label="${esc(item.label)}"><div class="component"><strong>${esc(title)}</strong><b>${esc(item.value)} 分</b></div>${globalThis.SecondItemCReading.html(item)}</article>`;
+      const grade = String(item.grade || "").match(/C[123]-([1-6])/);
+      const display = grade ? `${["E","D","C","B","A","S"][Number(grade[1])-1]}档` : `${Number(item.value)>0 ? "+" : ""}${item.value} 分（净调整）`;
+      return `<details class="net-metric-detail net-c-authored" data-second-source-label="${esc(item.label)}"><summary><span><strong>${esc(title)}</strong></span><b>${esc(display)}</b></summary><div class="net-metric-body">${globalThis.SecondItemCReading.html(item)}</div></details>`;
     }
     const displayLabel = item.public_component_label || item.label;
     const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
@@ -1307,9 +1317,8 @@ function firstCommanderMarkup(item, record) {
   }
 
   function renderFirstCost(item, record) {
-    const level = firstCostPublicText(item.reader_public_cost?.public_level_label || "");
-    const rule = `<details class="first-item-rule-box"><summary>这个分怎么算？</summary>${prose(`当前成本裁决：${level || "按正式成本严重度裁决"}。\\n${firstCostExactHow(item)}\\n当前扣减：${item.value} 分。`)}</details>`;
-    return firstMetricDetail("net-first-cost", "军事成本 · 战争代价", "从四轴毛分中扣除", item, `${firstCostMarkup(item)}${rule}`, record, `扣 ${item.value} 分`);
+    const rule = firstCostRuleMarkup(item, firstCostExactHow(item));
+    return firstMetricDetail("net-first-cost", "军事成本 · 战争代价", "从四轴毛分中扣除", item, `${firstCostMarkup(item, record)}${rule}`, record, `扣 ${item.value} 分`);
   }
 
 
@@ -1324,7 +1333,7 @@ function firstCommanderMarkup(item, record) {
     const net = byLabel["第一项净分"]?.value;
     const addOn = byLabel["附加F"]?.value;
     if ([a, b1, b2, c, gross, cost, net, addOn].some(value => value == null)) return "";
-    return `<div class="net-detail-total"><details><summary>查看第一项完整折算公式</summary>${prose(`四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅 = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n军事代价扣减 = ${cost}。\n第一项结算分 = max(0, ${gross} − ${cost}) = ${net} / 240。\n总榜附加 = 0.20 × 637 × (第一项结算分 / 240)^1.25 = ${addOn}。`)}</details></div>`;
+    return `<div class="net-detail-total"><details><summary>查看第一项完整折算公式</summary>${prose(`四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅 = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n军事代价扣减 = ${cost}。\n奠基与统一结算分 = max(0, ${gross} − ${cost}) = ${net} / 240。\n总榜附加 = 0.20 × 637 × (奠基与统一结算分 / 240)^1.25 = ${addOn}。`)}</details></div>`;
   }
 
   function firstItemOverview(record, bulletsByLabel, byLabel) {
@@ -1346,7 +1355,7 @@ function firstCommanderMarkup(item, record) {
     const items = record.net?.component_details?.first || [];
     const parts = Object.fromEntries(items.map(item => [item.label, item.value]));
     const score = [parts["A统一贡献"], parts["B1创业难度与效率"], parts["B2组织与整合"], parts["C军事统帅与战争解题"], parts["军事成本扣分"], parts["第一项净分"], parts["附加F"]];
-    return `<section class="first-item-overview"><h2>再看起点、组织、统帅与代价</h2><div class="first-item-story-grid">${b1.public_question ? `<div class="first-item-story-card"><a href="${netHref(record, "first", "b1")}">${esc(b1.public_question)} →</a></div>` : ""}${b2.public_question ? `<div class="first-item-story-card"><a href="${netHref(record, "first", "b2")}">${esc(b2.public_question)} →</a></div>` : ""}${cReading.public_question ? `<div class="first-item-story-card"><a href="${netHref(record, "first", "c")}">${esc(cReading.public_question)} →</a></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]} − 战争代价 ${score[4]} = <strong>第一项结算分 ${score[5]}</strong> → 总榜附加 <strong>+${score[6]}</strong></div>` : ""}</section>`;
+    return `<section class="first-item-overview"><h2>再看起点、组织、统帅与代价</h2><div class="first-item-story-grid">${b1.public_question ? `<div class="first-item-story-card"><a href="${netHref(record, "first", "b1")}">${esc(b1.public_question)} →</a></div>` : ""}${b2.public_question ? `<div class="first-item-story-card"><a href="${netHref(record, "first", "b2")}">${esc(b2.public_question)} →</a></div>` : ""}${cReading.public_question ? `<div class="first-item-story-card"><a href="${netHref(record, "first", "c")}">${esc(cReading.public_question)} →</a></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]} − 战争代价 ${score[4]} = <strong>奠基与统一结算分 ${score[5]}</strong> → 总榜附加 <strong>+${score[6]}</strong></div>` : ""}</section>`;
   }
 
   async function renderFirstMajor(record, focus = "") {
@@ -1359,7 +1368,7 @@ function firstCommanderMarkup(item, record) {
       return;
     }
     if (firstStatus !== "APPLICABLE") {
-      container.innerHTML = `<section class="panel"><h2>${esc(netMajorSpecs.first.title)}</h2><p class="notice">第一项正式适用状态尚未发布；阅读层不根据分项空值或现有材料自行判断是否适用。</p></section>`;
+      container.innerHTML = `<section class="panel"><h2>${esc(netMajorSpecs.first.title)}</h2><p class="notice">奠基与统一的正式适用状态尚未发布；阅读层不根据分项空值或现有材料自行判断是否适用。</p></section>`;
       return;
     }
 
@@ -1384,7 +1393,7 @@ function firstCommanderMarkup(item, record) {
 
     const windowText = bulletsByLabel["B1创业难度与效率"]["效率"] || "";
     const zeroNote = record.net?.first_item_status === "APPLICABLE" && finiteNetNumber(record.net?.first_item_raw_score) === 0
-      ? '<p class="notice"><strong>本项适用，但第一项结算分归零。</strong>这与“不适用”不同：本项已经进入结算，成果与能力分在扣除本人责任窗口内军事代价后归零，因此总榜附加为0。</p>'
+      ? '<p class="notice"><strong>本项适用，但奠基与统一结算分归零。</strong>这与“不适用”不同：本项已经进入结算，成果与能力分在扣除本人责任窗口内军事代价后归零，因此总榜附加为0。</p>'
       : "";
     const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl>${ownA.public_project ? `<dt>共同项目</dt><dd>${esc(firstPublicOutcomeText(ownA.public_project))}</dd>` : ""}${firstPublicOutcomeParts(ownA).map(([label, value]) => `<dt>${esc(label)}</dt><dd>${esc(firstPublicOutcomeText(value))}</dd>`).join("")}${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources">${link('docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md','查看完整规则合同 ↗',record)}</p></details>`;
 
@@ -1466,14 +1475,14 @@ function firstCommanderMarkup(item, record) {
     const firstStatus = record.net?.first_item_status;
     const extra = major === "first" && firstStatus === "APPLICABLE"
       ? rawFirstScore === 0
-        ? '<p class="subline">本项适用，但第一项结算分为0；总榜附加为0。</p>'
+        ? '<p class="subline">本项适用，但奠基与统一结算分为0；总榜附加为0。</p>'
         : rawFirstScore == null
-          ? `<p class="subline">本项适用，但第一项结算分未列；当前显示正式附加分 ${number(record.net?.first_item_add_on)}。</p>`
-          : `<p class="subline">第一项结算分：${number(rawFirstScore)}；此处显示进入总榜的附加分。</p>`
+          ? `<p class="subline">本项适用，但奠基与统一结算分未列；当前显示正式附加分 ${number(record.net?.first_item_add_on)}。</p>`
+          : `<p class="subline">奠基与统一结算分：${number(rawFirstScore)}；此处显示进入总榜的附加分。</p>`
       : major === "first" && firstStatus === "NOT_APPLICABLE"
         ? `<p class="subline">该人物第一项不适用。</p>`
         : major === "first"
-          ? `<p class="subline">第一项正式适用状态未发布；阅读层不作默认判断。</p>`
+          ? `<p class="subline">奠基与统一的正式适用状态未发布；阅读层不作默认判断。</p>`
           : major === "third"
           ? '<p class="subline">250分制净分；战略、控制与军事体系收益合计后，再扣实际军事代价。</p>'
           : major === "fourth"

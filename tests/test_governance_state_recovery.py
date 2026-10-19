@@ -4,12 +4,18 @@ import pytest
 
 from emperor_v4.evaluation.governance_state_recovery import (
     AXES,
+    clean_retired_low_valley_references,
     FIXED_POINTS,
     LOSS_RATES,
     _terminal_endpoint_display,
     retained_recovery,
     state_score,
 )
+
+
+def test_retired_diagnostic_cleanup_preserves_author_names():
+    assert clean_retired_low_valley_references('甲与Kung的研究') == '甲与Kung的研究'
+    assert clean_retired_low_valley_references('与K合用') == '与低谷修正合用'
 
 
 def test_terminal_endpoint_display_keeps_paired_losses_together():

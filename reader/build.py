@@ -404,6 +404,8 @@ def _attach_second_item_c_public_reader(item, *, axis, record, how="", source_re
         "public_related_source_refs", "public_source_note",
     )}
     result["public_loss_label"] = record["public_loss_label"]
+    if axis == 'C4':
+        result['reader_public_c']['public_reading_sections'] = deepcopy(record['public_reading_sections'])
     result["reader_story"] = record["public_story"]
     result["reader_summary"] = summary
     result["public_adjudication_summary"] = summary
@@ -1210,12 +1212,15 @@ def render_second_c_collection(root):
                              f"{paragraphs(item['public_boundary']) if item['public_boundary'] else ''}"
                              f"{relation}</li>")
             related = (f"<details><summary>相关材料汇集（不代表逐条事实已获证明）</summary>{render_sources(row['public_related_source_refs'])}</details>" if row['public_related_source_refs'] else '')
+            story = (''.join(f"<section class='c-recovery-section' data-recovery-section='{escape(s['id'])}'>"
+                             f"<h4>{escape(s['title'])}</h4>{paragraphs(s['body'])}</section>"
+                             for s in row['public_reading_sections'])
+                     if axis == 'C4' else paragraphs(row['public_story']))
             sections.append(
                 f"<section class='c-axis' data-axis='{axis}'><h3>{names[axis]} · {row['score']:g}分</h3>"
-                f"<div class='c-public-story'>{paragraphs(row['public_story'])}</div>"
-                f"{paragraphs(row['public_source_note'])}"
+                f"<div class='c-public-story'>{story}</div>"
                 f"<details><summary>为什么这样评</summary>{paragraphs(row['public_adjudication_summary'])}{paragraphs(row['public_loss_label'])}</details>"
-                f"<details><summary>裁决叙述与来源</summary><ul>{''.join(facts)}</ul>{related}</details>"
+                f"<details><summary>裁决叙述与来源</summary>{paragraphs(row['public_source_note'])}<ul>{''.join(facts)}</ul>{related}</details>"
                 f"<details><summary>评价范围与限制</summary>{paragraphs(row['public_boundary'])}</details>"
                 f"<details><summary>这个分怎么算？</summary>{paragraphs(row['public_calculation'])}</details></section>"
             )

@@ -17,11 +17,12 @@ def test_zero_state_is_a_real_level(zero):
 
 
 def synthetic_axis():
-    return dict(end_grade=3, end_state_value=30, positive_value_delta=0,
+    return dict(start_grade=4, end_grade=3, end_state_value=30, positive_value_delta=0,
                 negative_value_delta=-8, ceiling_progress_bonus=4,
                 maintenance_bonus=8, reversal_penalty=2,
                 within_band_deterioration_penalty=5,
-                unclamped_trajectory_value=29, axis_points=17.4)
+                unclamped_trajectory_value=29, axis_points=17.4,
+                settlement_type='CROSS_GRADE_DETERIORATION', settlement_type_label='跨档恶化型')
 
 
 def contract():
@@ -60,17 +61,59 @@ def test_calculation_preserves_clipping(positive,negative,raw,points):
 def test_authored_text_is_preserved_while_calculation_is_refreshed():
     axis=synthetic_axis()
     axis['public_reading']=dict(story='河谷防线恢复，关隘能够互相增援。',decision='主要方向仍有缺口。',
+                               inherited='接手时河谷有防御支点，交通尚未连贯。',handover='关隘恢复互援，仍有一处缺口。',
                                responsibility='本人决定调配援军。',window='独立构造的责任时期',boundary='不采用后继者成果。',
                                sources=[dict(path='synthetic.json',label='独立合成来源',kind='合成用例')])
     original=copy.deepcopy(axis)
     result=reading_projection('A1',axis,contract())
-    for key in ('story','decision','responsibility','window','boundary'):
+    for key in ('inherited','handover','story','decision','responsibility','window','boundary'):
         assert result[key] == original['public_reading'][key]
     assert axis == original
     assert result['calculation']
+    assert (result['start_label'], result['end_label']) == ('A档', 'B档')
+    assert result['type_label'] == '跨档恶化型'
+    assert result['scale'][0].startswith('E档（内部0档）')
     axis['public_reading']['story']='依据父卡撤回原档。'
     with pytest.raises(ValueError,match='内部术语'):
         reading_projection('A1',axis,contract())
+
+
+def test_reading_rejects_a_missing_handoff_panel():
+    axis = synthetic_axis()
+    axis['public_reading'] = dict(story='独立合成经历。', decision='独立判断。',
+                                 inherited='接手局面。', responsibility='本人部署。',
+                                 window='合成时期', boundary='合成范围',
+                                 sources=[dict(path='synthetic.json',label='合成来源',kind='合成用例')])
+    with pytest.raises(ValueError, match='缺少handover'):
+        reading_projection('A1', axis, contract())
+
+
+def test_renderer_preserves_all_panels_and_full_experience(tmp_path):
+    import shutil
+    import subprocess
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node.js required for renderer behavior')
+    script = tmp_path / 'a-reading.cjs'
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const context={link:(path,label)=>label};context.globalThis=context;
+vm.runInNewContext(fs.readFileSync('reader/third-item-a-public.js','utf8'),context);
+const reading={inherited:'上游接班<文本>',handover:'上游交班文本',story:'完整经历甲。\n\n完整经历乙。',
+ responsibility:'共同贡献不能独占。',decision:'主要方向仍有缺口。',window:'合成时期',
+ boundary:'独立合成范围。',sources:[],start_label:'C档',end_label:'A档',type_label:'合成类型',
+ method:'合成方法。',calculation:'合成计算。',source_note:'合成来源。',state_grade_note:'合成档位。',scale:[]};
+const html=context.ThirdItemAReading.html({reader_public_a:reading},{});
+assert(html.includes('接班 · C档'));assert(html.includes('交班 · A档'));
+assert(html.includes('上游接班&lt;文本&gt;'));assert(html.includes('上游交班文本'));
+assert(html.includes('完整经历甲。'));assert(html.includes('完整经历乙。'));
+assert(html.includes('共同贡献不能独占。'));
+assert(html.indexOf('完整经历甲。')>html.indexOf('<details>'));
+delete reading.handover;
+assert.throws(()=>context.ThirdItemAReading.html({reader_public_a:reading},{}),/接班或交班正文/);
+''', encoding='utf-8')
+    result = subprocess.run([node,str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr
 
 
 def test_current_sources_and_all_reader_surfaces_share_a_reading():

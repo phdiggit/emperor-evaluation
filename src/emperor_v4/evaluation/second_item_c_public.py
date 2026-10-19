@@ -155,7 +155,7 @@ def _scoring_signature(payload: dict[str, Any]) -> str:
         if isinstance(row, dict):
             for key in ("public_adjudication_summary", "public_evidence_items", "public_story",
                         "public_boundary", "public_loss_label", "public_calculation", "public_source_documents",
-                        "public_related_source_refs", "public_source_note"):
+                        "public_related_source_refs", "public_source_note", "public_reading_sections"):
                 row.pop(key, None)
     for key in _projection_keys():
         snapshot.pop(key, None)
@@ -205,6 +205,9 @@ def _verify_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
     evidence_count = 0
     for row in rows:
         name = str(row.get("ruler_name") or row.get("ruler_id"))
+        if axis == 'C4':
+            from emperor_v4.evaluation.second_item_c_reading import verify_recovery_reading
+            verify_recovery_reading(row)
         actual = row.get("public_evidence_items")
         related = row.get('public_related_source_refs')
         if not isinstance(related, list) or not isinstance(row.get('public_source_note'), str) or not row['public_source_note'].strip():
@@ -346,7 +349,9 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
     core = re.sub(r'\n*' + re.escape(start) + r'.*?' + re.escape(end) + r'\n*', '\n', markdown, flags=re.S).rstrip()
     lines = [core, '', start, '', '## 人物正文、逐条依据与史源', '']
     for row in _records(payload):
-        lines += [f"### {row['ruler_name']}", '', f"<a id=\"{row['ruler_id']}\"></a>", '', row['public_story'], '',
+        story = ('\n\n'.join('#### ' + s['title'] + '\n\n' + s['body'] for s in row['public_reading_sections'])
+                 if row.get('public_reading_sections') else row['public_story'])
+        lines += [f"### {row['ruler_name']}", '', f"<a id=\"{row['ruler_id']}\"></a>", '', story, '',
                   '**来源说明：**' + row['public_source_note'], '',
                   '**定档理由：**' + row['public_adjudication_summary'], '', '**损害判断：**' + row['public_loss_label'], '',
                   '<details><summary>逐条事实与史源</summary>', '']

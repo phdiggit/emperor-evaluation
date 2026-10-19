@@ -262,7 +262,7 @@
       if (!item || !meta?.grade || !FINANCE_MAX[sourceLabel]) continue;
       const summary = detail.querySelector(":scope > summary");
       setPublicGrade(summary?.querySelector(":scope > span"), summary?.querySelector(":scope > b"), meta.grade,
-        [`结算分 ${Number(item.value).toFixed(1)}`, meta.lossText, boundaryExcerpt(item)]);
+        ["主要状态", meta.lossText, boundaryExcerpt(item)]);
     }
     for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
       const sourceLabel = span.dataset.secondSourceLabel || "";
@@ -270,7 +270,7 @@
       const meta = stateGradeMeta(item);
       if (!item || !meta?.grade || !FINANCE_MAX[sourceLabel]) continue;
       setPublicGrade(span, span.parentElement?.querySelector(":scope > b"), meta.grade,
-        [`结算分 ${Number(item.value).toFixed(1)}`, meta.lossText, boundaryExcerpt(item)]);
+        ["主要状态", meta.lossText, boundaryExcerpt(item)]);
     }
   }
 
@@ -950,20 +950,9 @@
       const card = Array.from(document.querySelectorAll(".net-major-card")).find(node => /\/second(?:\/|$)/.test(node.getAttribute("href") || ""));
       if (card) {
         if (totals.total != null) writePublicScore(card.querySelector(".big"), `${fmt(totals.total)} 分`);
-        if ([totals.method, totals.finance, totals.handoff].every(value => value != null)) {
-          writePublicCopy(card.querySelector(":scope > .second-item-card-breakdown"),
-            `制度与行政 ${fmt(totals.method)} · 民生与社会 ${fmt(totals.finance)} · 政权交接 ${fmt(totals.handoff)}`);
-        }
       }
     }
     if (location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) {
-      const summary = document.querySelector(".second-item-reader-summary");
-      const cards = summary?.querySelectorAll(".second-item-total-grid > div");
-      if (cards?.length >= 3) {
-        const values = [totals.method, totals.finance, totals.handoff];
-        cards.forEach((card, index) => { if (values[index] != null) writePublicScore(card.querySelector("b"), `${fmt(values[index])} 分`); });
-        writePublicCopy(cards[1]?.querySelector("small"), "民生、经济财政、社会安全、恢复与额外代价");
-      }
       const intro = document.querySelector(".net-detail-page > .panel");
       const scoreLine = intro?.querySelector(":scope > p.subline");
       if (totals.total != null) writePublicCopy(scoreLine, `治国成效：${fmt(totals.total)} 分。先看结论，再展开到各项依据。`);

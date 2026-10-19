@@ -43,6 +43,25 @@ TERMS = {
 }
 DOMAIN = ContextVar('public_language_domain', default='military')
 
+
+def named_project_prose(text: str) -> str:
+    """Name cross-project accounting explicitly in generated military prose."""
+    for ordinal, title in (
+        ('一', '政权奠基与统一贡献及能力'),
+        ('二', '治国净收益'),
+        ('三', '军事与边疆净收益'),
+    ):
+        text = text.replace('第' + ordinal + '项' + title, title)
+    for ordinal, label in (('一', '政权奠基与统一贡献'), ('二', '治国成效'), ('三', '军事与边疆')):
+        suffix = r'(?!独立结果|结果|材料|证据|任务|成果|条件|要求|内容|指标|研究)' if ordinal == '二' else ''
+        text = re.sub('第' + ordinal + '项' + suffix, '“' + label + '”', text)
+    return (text.replace('跨项去重', '不同评价项目之间避免重复计分')
+            .replace('同链去重', '同一完整行动避免重复计分')
+            .replace('去重下界', '排除重复记录后的下界')
+            .replace('去重后', '排除重复记录后')
+            .replace('去重', '避免重复计分')
+            .replace('消费', '计入').replace('父卡', '完整战事记录'))
+
 @contextmanager
 def language_domain(domain):
     token = DOMAIN.set(domain)

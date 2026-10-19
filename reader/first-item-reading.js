@@ -157,7 +157,7 @@
   }
 
   function renderCost(item, record) {
-    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>战争代价</strong><small>本人创业／统一窗口内本方军事损失</small></span><b>${esc(score(item, "扣"))}</b></div>${firstCostMarkup(item)}${ruleDetails([item.reader_how || ""])}${sourceBlock(item, record)}</article>`;
+    return `<article class="context-story net-public-item first-item-card"><div class="component"><span><strong>战争代价</strong><small>本人创业／统一窗口内本方军事损失</small></span><b>${esc(score(item, "扣"))}</b></div>${firstCostMarkup(item, record)}${firstCostRuleMarkup(item, item.reader_how || "")}${sourceBlock(item, record)}</article>`;
   }
 
   function renderTotals(items) {
@@ -173,7 +173,7 @@
     if ([a, b1, b2, c, gross, cost, net, addOn].some(value => value == null)) return "";
     const addOnText = Number(addOn) > 0 ? `+${addOn}分` : `${addOn}分`;
     const publicEquation = `统一成果 ${a} + 难度效率 ${b1} + 组织整合 ${b2} + 统帅 ${c} − 战争代价 ${cost} = ${net}`;
-    return `<article class="context-story net-public-item first-item-total"><div class="component"><span><strong>第一项结算</strong><small>${esc(publicEquation)}</small></span><b>${esc(`${net}分`)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>统一使用同一条折算曲线</small></span><b>${esc(addOnText)}</b></div>${ruleDetails([`内部四项：A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。`, `第一项净分 S1 = max(0, ${gross} − ${cost}) = ${net}。`, `总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`])}</article>`;
+    return `<article class="context-story net-public-item first-item-total"><div class="component"><span><strong>奠基与统一结算</strong><small>${esc(publicEquation)}</small></span><b>${esc(`${net}分`)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>统一使用同一条折算曲线</small></span><b>${esc(addOnText)}</b></div>${ruleDetails([`内部四项：A + B1 + B2 + C = ${a} + ${b1} + ${b2} + ${c} = ${gross}。`, `第一项净分 S1 = max(0, ${gross} − ${cost}) = ${net}。`, `总榜附加分 F = 0.20 × 637 × (S1 / 240)^1.25 = ${addOn}。`])}</article>`;
   }
 
   function firstItemTarget() {
@@ -194,7 +194,7 @@
       return;
     }
     if (firstStatus !== "APPLICABLE") {
-      group.innerHTML = `<div class="first-item-public-v2">${heading}<p class="notice"><strong>第一项正式适用状态未发布。</strong>阅读层不根据现有分项自行判断是否适用。</p></div>`;
+      group.innerHTML = `<div class="first-item-public-v2">${heading}<p class="notice"><strong>奠基与统一的正式适用状态未发布。</strong>阅读层不根据现有分项自行判断是否适用。</p></div>`;
       return;
     }
     const formalName = FORMAL_NAME_ALIASES[record.ruler_name] || record.ruler_name;
@@ -214,7 +214,7 @@
     const rawNetScore = byLabel["第一项净分"]?.value;
     const netScore = rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore);
     const zeroNote = Number.isFinite(netScore) && netScore === 0
-      ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这里已经进入第一项结算，只是成果在扣除相关战争代价后没有留下正的净值。</p>`
+      ? `<p class="notice"><strong>本项适用，但没有形成正向净收益。</strong>这里已经进入奠基与统一结算，只是成果在扣除相关战争代价后没有留下正的净值。</p>`
       : "";
     const intro = "";
     group.innerHTML = `<div class="first-item-public-v2">${heading}${intro}${zeroNote}${cards.join("")}${renderTotals(items)}</div>`;

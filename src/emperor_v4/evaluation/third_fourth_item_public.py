@@ -253,6 +253,9 @@ def _clean_public_text(value: object) -> str:
     )
     for old, new in replacements:
         text = text.replace(old, new)
+    from emperor_v4.evaluation.third_fourth_public_language import DOMAIN, named_project_prose
+    if DOMAIN.get() != 'civilization':
+        text = named_project_prose(text)
     return re.sub(r"\s+", " ", text).strip()
 
 

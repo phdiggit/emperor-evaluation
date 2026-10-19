@@ -33,7 +33,8 @@ METHOD = (
     '状态档位从0到5，数值越高越安全；0是明确的危机状态，不是缺失数据。'
     '两轴分别评价威胁与战略主动、防线与纵深，不能把同一改善重复加分。'
 )
-READING_TEXT_FIELDS = ('story', 'decision', 'responsibility', 'window', 'boundary')
+READING_TEXT_FIELDS = ('inherited', 'handover', 'story', 'decision', 'responsibility', 'window', 'boundary')
+PUBLIC_STATE_GRADES = ('E', 'D', 'C', 'B', 'A', 'S')
 INTERNAL_PROSE = re.compile(r'父卡|闭合|倒灌|本轮|重裁|撤回|回滚|可本人责任于本人|本人本人责任|[A-Za-z_]{2,}')
 
 
@@ -65,7 +66,7 @@ def calculation(axis, contract):
         raise ValueError('第三项A公开计算与正式记录不一致，须先核对裁决，禁止修改分数迎合展示')
     n = lambda v: format(v.normalize(), 'f')
     lines = [
-        f'交班{end}档的状态基础值为{n(base)}。',
+        f'交班安全状态{PUBLIC_STATE_GRADES[end]}档（内部{end}档）的状态基础值为{n(base)}。',
         f'本人改善价值{n(positive)} × {n(improvement_weight)} = {n(positive * improvement_weight)}；本人恶化价值{n(negative)} × {n(deterioration_weight)} = {n(negative * deterioration_weight)}。',
         f'专项取高：封顶建设{n(ceiling)}、独立建设{n(construction)}、压力保全{n(maintenance)}，只计其中最高的{n(special)}。',
         f'负向调整取高：重大逆转{n(reversal)}、档内恶化{n(deterioration)}，只扣其中最高的{n(penalty)}。',
@@ -102,6 +103,13 @@ def reading_projection(axis_name, axis, contract):
     result['method'] = METHOD + '本轴0—5档对应的状态价值依次为' + '、'.join(str(v) for v in values) + '。本人改善价值为逐档状态价值差乘各档本人责任比例后相加；恶化价值按已裁责任窗口的状态价值下降及责任比例计算，为非正数。多次主政的改善与恶化分别保留，不先相抵。下列基础值、变化价值、专项和扣减均为轨迹点，最后统一乘0.6换为分数。'
     result['scale'] = [f'{i}档：{text}。' for i, text in enumerate(STATE_MEANINGS[axis_name])]
     result['calculation'] = calculation(axis, contract)
+    result['start_label'] = PUBLIC_STATE_GRADES[int(axis['start_grade'])] + '档'
+    result['end_label'] = PUBLIC_STATE_GRADES[int(axis['end_grade'])] + '档'
+    result['type_label'] = axis['settlement_type_label']
+    if axis['settlement_type'] == 'WITHIN_BAND_STRUCTURAL_IMPROVEMENT' and int(axis['end_grade']) >= 4:
+        result['type_label'] = '高位建设改善型'
+    result['state_grade_note'] = '安全状态按 E、D、C、B、A、S 从低到高，对应内部0—5档；它描述接班或交班的局面，和本人贡献得分分别阅读。'
+    result['scale'] = [f'{PUBLIC_STATE_GRADES[i]}档（内部{i}档）：{text}。' for i, text in enumerate(STATE_MEANINGS[axis_name])]
     return result
 
 

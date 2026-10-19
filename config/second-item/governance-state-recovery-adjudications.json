@@ -4960,11 +4960,11 @@
         "C1": {
           "s0_band": 3,
           "main_band": 4,
-          "end_band": 5,
+          "end_band": 4,
           "s0_label": "C1-3",
           "main_label": "C1-4",
-          "end_label": "C1-5",
-          "evidence_basis": "章帝后期《后汉书》总评“平徭简赋，而人赖其庆”，赞语又有“宪平人富”，可确认后期达到C1-5；但建初—元和前半期饥馑与谷食连续偏弱，故全任主态仍C1-4。",
+          "end_label": "C1-4",
+          "evidence_basis": "《后汉书》“平徭简赋，而人赖其庆”有实际减负受益含义，结合主要阶段生计与供给材料，维持C1-4。论赞“宪平人富”是同一治世评价中的概括，不能与前句拆成两条独立强锚；尚未具体闭合后期广域跨阶段家庭余粮、资产余量，故峰值及交班不登记C1-5，终点取C1-4。建初至元和前半期的供给偏弱参与主态取舍，章和广陵民饥另计有界低谷。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUDA",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUDA",
@@ -4977,7 +4977,7 @@
             "grade": "L1",
             "basis": "前半期持续供给偏弱已参与主态取舍；章和广陵民饥是另段有界家庭低谷。",
             "strong_dimensions": [],
-            "main_representativeness": "章帝后期《后汉书》总评“平徭简赋，而人赖其庆”，赞语又有“宪平人富”，可确认后期达到C1-5；但建初—元和前半期饥馑与谷食连续偏弱，故全任主态仍C1-4。",
+            "main_representativeness": "《后汉书》“平徭简赋，而人赖其庆”有实际减负受益含义，结合主要阶段生计与供给材料，维持C1-4。论赞“宪平人富”是同一治世评价中的概括，不能与前句拆成两条独立强锚；尚未具体闭合后期广域跨阶段家庭余粮、资产余量，故峰值及交班不登记C1-5，终点取C1-4。建初至元和前半期的供给偏弱参与主态取舍，章和广陵民饥另计有界低谷。",
             "full_window_reviewed": true,
             "deduplication": "前半期持续供给偏弱已参与主态取舍；章和广陵民饥是另段有界家庭低谷。",
             "evidence_refs": [
@@ -5092,8 +5092,8 @@
         },
         "terminal": {
           "C1": {
-            "band": 5,
-            "label": "C1-5",
+            "band": 4,
+            "label": "C1-4",
             "source": "S_end"
           },
           "C2": {
@@ -5116,12 +5116,12 @@
           "C2": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C3": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           }
         },
         "current_closed_recovery_axes": [
@@ -5130,27 +5130,33 @@
         "current_recovery_path_basis": {
           "C1": {
             "start_band": "C1-3",
-            "highest_achieved_band": "C1-5",
-            "linear_delta": 2,
-            "boundary_difficulty_credit": 2.3,
+            "highest_achieved_band": "C1-4",
+            "linear_delta": 1,
+            "boundary_difficulty_credit": 1.0,
             "axis_weight": 0.5,
-            "weighted_difficulty_credit": 1.15
+            "attribution_factor": 1.0,
+            "weighted_difficulty_credit": 0.5,
+            "retained_increment": true
           },
           "C2": {
             "start_band": "C2-5",
-            "highest_achieved_band": "C2-5",
+            "highest_achieved_band": "C2-3",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.2,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C3": {
             "start_band": "C3-4",
             "highest_achieved_band": "C3-4",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.3,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           }
         },
         "current_recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
@@ -5160,18 +5166,18 @@
           "basis": "恢复发生于本人唯一或明确主导的实际最高权力窗口。"
         },
         "calculation": {
-          "raw_recovery": 11.5,
-          "recovery_score": 11.5,
+          "raw_recovery": 5.0,
+          "recovery_score": 5.0,
           "terminal_band": 4,
           "terminal_cap": 27,
-          "positive_retained": 11.5,
+          "positive_retained": 5.0,
           "axis_details": {
             "C1": {
               "baseline_band": 3,
-              "end_band": 5,
+              "end_band": 4,
               "attribution_factor": 1.0,
-              "boundary_credit": 2.3,
-              "weighted_credit": 1.15,
+              "boundary_credit": 1.0,
+              "weighted_credit": 0.5,
               "retained_increment": true
             },
             "C2": {
@@ -7377,13 +7383,13 @@
       ],
       "axes": {
         "C1": {
-          "s0_band": 5,
+          "s0_band": 4,
           "main_band": 4,
           "end_band": 4,
-          "s0_label": "C1-5",
+          "s0_label": "C1-4",
           "main_label": "C1-4",
           "end_label": "C1-4",
-          "evidence_basis": "《续汉书/东观汉记》对和帝有“民安职业”“黎元宁康”“屡获丰年”等广域正证，足以维持C1-4；但缺“家给人足/民富”级家庭余量锚，不升C1-5。",
+          "evidence_basis": "接班承接章帝末C1-4，不再继承由“宪平人富”赞语推成的五档。本人窗口《续汉书/东观汉记》“民安职业”“黎元宁康”“屡获丰年”等结果及其范围约束，支持主要阶段与交班C1-4；缺广域家庭余量核心锚，不升C1-5。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUZHAO",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUZHAO",
@@ -7398,7 +7404,7 @@
               "duration",
               "severity"
             ],
-            "main_representativeness": "《续汉书/东观汉记》对和帝有“民安职业”“黎元宁康”“屡获丰年”等广域正证，足以维持C1-4；但缺“家给人足/民富”级家庭余量锚，不升C1-5。",
+            "main_representativeness": "接班承接章帝末C1-4，不再继承由“宪平人富”赞语推成的五档。本人窗口《续汉书/东观汉记》“民安职业”“黎元宁康”“屡获丰年”等结果及其范围约束，支持主要阶段与交班C1-4；缺广域家庭余量核心锚，不升C1-5。",
             "full_window_reviewed": true,
             "deduplication": "民安职业与丰年支持四档；三十余郡流冗及多阶段虚匮流离另证广泛持续家庭失保。",
             "evidence_refs": [
@@ -7485,8 +7491,8 @@
       "recovery": {
         "baseline": {
           "C1": {
-            "band": 5,
-            "label": "C1-5",
+            "band": 4,
+            "label": "C1-4",
             "source": "S0",
             "status": "RECHECKED_RETAIN_S0",
             "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
@@ -7530,7 +7536,7 @@
           "C1": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C2": {
             "factor": 1.0,
@@ -7540,7 +7546,7 @@
           "C3": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           }
         },
         "current_closed_recovery_axes": [
@@ -7548,12 +7554,14 @@
         ],
         "current_recovery_path_basis": {
           "C1": {
-            "start_band": "C1-5",
-            "highest_achieved_band": "C1-5",
+            "start_band": "C1-4",
+            "highest_achieved_band": "C1-4",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.5,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C2": {
             "start_band": "C2-3",
@@ -7561,15 +7569,19 @@
             "linear_delta": 1,
             "boundary_difficulty_credit": 1.0,
             "axis_weight": 0.2,
-            "weighted_difficulty_credit": 0.2
+            "attribution_factor": 1.0,
+            "weighted_difficulty_credit": 0.2,
+            "retained_increment": true
           },
           "C3": {
             "start_band": "C3-4",
             "highest_achieved_band": "C3-4",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.3,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           }
         },
         "current_recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
@@ -7586,7 +7598,7 @@
           "positive_retained": 2.0,
           "axis_details": {
             "C1": {
-              "baseline_band": 5,
+              "baseline_band": 4,
               "end_band": 4,
               "attribution_factor": 0,
               "boundary_credit": 0.0,
@@ -16694,12 +16706,12 @@
         },
         "C3": {
           "s0_band": 3,
-          "main_band": 4,
-          "end_band": 4,
+          "main_band": 3,
+          "end_band": 3,
           "s0_label": "C3-3",
-          "main_label": "C3-4",
-          "end_label": "C3-4",
-          "evidence_basis": "承接神宗末C3-3。其后同期奏议明确称“天下百姓莫不安乐”，结合司法疏决与常规秩序未见广域崩落，足以恢复至C3-4。五档仍缺多轴长期强结果。证据链：元祐四年刘挚奏称改政后“天下百姓莫不安乐”；同卷又记蔡、颍州界“近来惊劫贼盗稍多，人民不得安居”，后者仅属局部治安波动。",
+          "main_label": "C3-3",
+          "end_label": "C3-3",
+          "evidence_basis": "承接神宗末C3-3。刘挚“天下百姓莫不安乐”属于改政评价，未分别描述广域人身财产安全、基层秩序与司法救济，不能独立支持C3-4；恤刑和疏决安排亦不等于已经实现的广域安全改善。元祐期常规司法与地方治安继续运行，可受约束维持三档；保甲余党及蔡颍盗害使居民不得安居，是独立区域安全低谷，保留L2。交班未另证跨到四档，不计安全恢复。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-NS-GAO-TAOTAO",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-NS-GAO-TAOTAO",
@@ -16713,11 +16725,11 @@
           ],
           "loss_review": {
             "grade": "L2",
-            "basis": "改政安乐与司法疏决支持四档；保甲余党及蔡颍盗害使居民不得安居，另计实质安全低谷。",
+            "basis": "常规秩序基本运行支持三档；保甲余党及蔡颍盗害另证区域居民不得安居，保留独立L2，不以安乐赞语证明全国安全。",
             "strong_dimensions": [],
-            "main_representativeness": "承接神宗末C3-3。其后同期奏议明确称“天下百姓莫不安乐”，结合司法疏决与常规秩序未见广域崩落，足以恢复至C3-4。五档仍缺多轴长期强结果。证据链：元祐四年刘挚奏称改政后“天下百姓莫不安乐”；同卷又记蔡、颍州界“近来惊劫贼盗稍多，人民不得安居”，后者仅属局部治安波动。",
+            "main_representativeness": "承接神宗末C3-3。刘挚“天下百姓莫不安乐”属于改政评价，未分别描述广域人身财产安全、基层秩序与司法救济，不能独立支持C3-4；恤刑和疏决安排亦不等于已经实现的广域安全改善。元祐期常规司法与地方治安继续运行，可受约束维持三档；保甲余党及蔡颍盗害使居民不得安居，是独立区域安全低谷，保留L2。交班未另证跨到四档，不计安全恢复。",
             "full_window_reviewed": true,
-            "deduplication": "改政安乐与司法疏决支持四档；保甲余党及蔡颍盗害使居民不得安居，另计实质安全低谷。",
+            "deduplication": "常规秩序基本运行支持三档；保甲余党及蔡颍盗害另证区域居民不得安居，保留独立L2，不以安乐赞语证明全国安全。",
             "evidence_refs": [
               "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-NS-GAO-TAOTAO",
               "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-NS-GAO-TAOTAO",
@@ -16731,7 +16743,7 @@
               "https://zh.wikisource.org/zh-hans/續資治通鑑長編_(四庫全書本)/卷423"
             ]
           },
-          "state_score": 37.2
+          "state_score": 26.0
         }
       },
       "recovery": {
@@ -16773,8 +16785,8 @@
             "source": "S_end"
           },
           "C3": {
-            "band": 4,
-            "label": "C3-4",
+            "band": 3,
+            "label": "C3-3",
             "source": "S_end"
           }
         },
@@ -16782,46 +16794,50 @@
           "C1": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "全国主态基线与交班均为C1-3，未跨可计档界；不否认本人局部减役纠偏。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C2": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C3": {
-            "factor": 0.5,
-            "grade": "SHARED",
-            "basis": "交班仍高于可比恢复基线；沿用已裁实施责任SHARED，只保留实际净增档界。"
+            "factor": 0,
+            "grade": "NONE",
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           }
         },
-        "current_closed_recovery_axes": [
-          "C3"
-        ],
+        "current_closed_recovery_axes": [],
         "current_recovery_path_basis": {
           "C1": {
-            "start_band": 3,
-            "highest_achieved_band": 3,
+            "start_band": "C1-3",
+            "highest_achieved_band": "C1-3",
             "linear_delta": 0,
             "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.5,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C2": {
-            "start_band": 3,
-            "highest_achieved_band": 2,
+            "start_band": "C2-3",
+            "highest_achieved_band": "C2-2",
             "linear_delta": 0,
             "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.2,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C3": {
-            "start_band": 3,
-            "highest_achieved_band": 4,
-            "linear_delta": 1,
-            "boundary_difficulty_credit": 1.0,
+            "start_band": "C3-3",
+            "highest_achieved_band": "C3-3",
+            "linear_delta": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.3,
-            "weighted_difficulty_credit": 0.15
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           }
         },
         "current_recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
@@ -16831,11 +16847,11 @@
           "basis": "摄政窗口存在实质共治，现有材料不能可靠拆分。"
         },
         "calculation": {
-          "raw_recovery": 1.5,
-          "recovery_score": 1.5,
+          "raw_recovery": 0.0,
+          "recovery_score": 0.0,
           "terminal_band": 3,
           "terminal_cap": 24.9,
-          "positive_retained": 1.5,
+          "positive_retained": 0.0,
           "axis_details": {
             "C1": {
               "baseline_band": 3,
@@ -16855,11 +16871,11 @@
             },
             "C3": {
               "baseline_band": 3,
-              "end_band": 4,
-              "attribution_factor": 0.5,
-              "boundary_credit": 1.0,
-              "weighted_credit": 0.15,
-              "retained_increment": true
+              "end_band": 3,
+              "attribution_factor": 0,
+              "boundary_credit": 0.0,
+              "weighted_credit": 0.0,
+              "retained_increment": false
             }
           }
         },
@@ -17799,13 +17815,13 @@
           "state_score": 7.0
         },
         "C3": {
-          "s0_band": 4,
+          "s0_band": 3,
           "main_band": 3,
           "end_band": 2,
-          "s0_label": "C3-4",
+          "s0_label": "C3-3",
           "main_label": "C3-3",
           "end_label": "C3-2",
-          "evidence_basis": "任初承接四档；花石纲与括田侵夺直接伤害财产安全，河南等地长期恐慌使基层可预期性下降，方腊乱又扩大至多州县。主要状态降三档，末期人身财产保护进一步恶化为二档；",
+          "evidence_basis": "接手承接哲宗亲政末C3-3；本人主要阶段的基本秩序与任末安全下坠仍分别按既有三档主态、二档交班及已证低谷结算。上游四档撤销只修正接手锚，不把继承档变化解释为徽宗个人新造成的损害；恶化责任沿用已裁逐轴系数。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-NS-ZHAO-JI",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-NS-ZHAO-JI",
@@ -17822,7 +17838,7 @@
             "grade": "L0",
             "basis": "括田侵夺与方腊多州冲突已使主态降三档；原L重用该组伤害，未另证独立剩余。",
             "strong_dimensions": [],
-            "main_representativeness": "任初承接四档；花石纲与括田侵夺直接伤害财产安全，河南等地长期恐慌使基层可预期性下降，方腊乱又扩大至多州县。主要状态降三档，末期人身财产保护进一步恶化为二档；",
+            "main_representativeness": "接手承接哲宗亲政末C3-3；本人主要阶段的基本秩序与任末安全下坠仍分别按既有三档主态、二档交班及已证低谷结算。上游四档撤销只修正接手锚，不把继承档变化解释为徽宗个人新造成的损害；恶化责任沿用已裁逐轴系数。",
             "full_window_reviewed": true,
             "deduplication": "括田侵夺与方腊多州冲突已使主态降三档；原L重用该组伤害，未另证独立剩余。",
             "evidence_refs": [
@@ -17860,8 +17876,8 @@
             "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
           },
           "C3": {
-            "band": 4,
-            "label": "C3-4",
+            "band": 3,
+            "label": "C3-3",
             "source": "S0",
             "status": "RECHECKED_RETAIN_S0",
             "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
@@ -17889,44 +17905,50 @@
           "C1": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C2": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C3": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           }
         },
         "current_closed_recovery_axes": [],
         "current_recovery_path_basis": {
           "C1": {
             "start_band": "C1-3",
-            "highest_achieved_band": "C1-3",
+            "highest_achieved_band": "C1-1",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.5,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C2": {
             "start_band": "C2-3",
-            "highest_achieved_band": "C2-3",
+            "highest_achieved_band": "C2-2",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.2,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C3": {
-            "start_band": "C3-4",
-            "highest_achieved_band": "C3-4",
+            "start_band": "C3-3",
+            "highest_achieved_band": "C3-2",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.3,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           }
         },
         "current_recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
@@ -17959,7 +17981,7 @@
               "retained_increment": false
             },
             "C3": {
-              "baseline_band": 4,
+              "baseline_band": 3,
               "end_band": 2,
               "attribution_factor": 0,
               "boundary_credit": 0.0,
@@ -17968,7 +17990,7 @@
             }
           }
         },
-        "deterioration_penalty": 11.7,
+        "deterioration_penalty": 9.8,
         "deterioration_attribution_by_axis": {
           "C1": 1.0,
           "C2": 1.0,
@@ -18858,13 +18880,13 @@
           "state_score": 14.9
         },
         "C3": {
-          "s0_band": 4,
-          "main_band": 4,
-          "end_band": 4,
-          "s0_label": "C3-4",
-          "main_label": "C3-4",
-          "end_label": "C3-4",
-          "evidence_basis": "承接高滔滔末C3-4。亲政后诉理追究使七八百政治人物受祸，规模已非单一个案，足以构成司法高档阻断；但对象仍主要是官僚政治群体，现证不足以证明普通社会的人身财产、基层秩序或一般司法救济广域跌破四档。证据链：绍圣诉理扩大追究，史载“自后缘诉理被祸者凡七八百人”；该规模足以阻断C3-5，但受害主体主要为政治官僚，不能直接外推普通社会主态。",
+          "s0_band": 3,
+          "main_band": 3,
+          "end_band": 3,
+          "s0_label": "C3-3",
+          "main_label": "C3-3",
+          "end_label": "C3-3",
+          "evidence_basis": "亲政接手承接高滔滔末C3-3。原四档主要依赖继承，不能在上游四档正证撤销后继续传播。本人窗口常规司法与基层秩序仍可运行，取主态及交班三档；诉理扩大导致七八百政治人物受祸，属于司法任意的明确限制，但不直接外推为普通社会两面持续脆弱。现有材料未独立闭合广域人身财产保护与司法稳定四档。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-NS-ZHAO-XU-ZHEZONG",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-NS-ZHAO-XU-ZHEZONG",
@@ -18877,7 +18899,7 @@
             "grade": "L0",
             "basis": "政治官僚诉理受祸不足外推普通社会低谷，受约束四档保留。",
             "strong_dimensions": [],
-            "main_representativeness": "承接高滔滔末C3-4。亲政后诉理追究使七八百政治人物受祸，规模已非单一个案，足以构成司法高档阻断；但对象仍主要是官僚政治群体，现证不足以证明普通社会的人身财产、基层秩序或一般司法救济广域跌破四档。证据链：绍圣诉理扩大追究，史载“自后缘诉理被祸者凡七八百人”；该规模足以阻断C3-5，但受害主体主要为政治官僚，不能直接外推普通社会主态。",
+            "main_representativeness": "亲政接手承接高滔滔末C3-3。原四档主要依赖继承，不能在上游四档正证撤销后继续传播。本人窗口常规司法与基层秩序仍可运行，取主态及交班三档；诉理扩大导致七八百政治人物受祸，属于司法任意的明确限制，但不直接外推为普通社会两面持续脆弱。现有材料未独立闭合广域人身财产保护与司法稳定四档。",
             "full_window_reviewed": true,
             "deduplication": "政治官僚诉理受祸不足外推普通社会低谷，受约束四档保留。",
             "evidence_refs": [
@@ -18890,7 +18912,7 @@
               "docs/史料通读产物/北宋/续资治通鉴/volume-085.source-summary.md"
             ]
           },
-          "state_score": 40.0
+          "state_score": 28.0
         }
       },
       "recovery": {
@@ -18912,8 +18934,8 @@
             "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
           },
           "C3": {
-            "band": 4,
-            "label": "C3-4",
+            "band": 3,
+            "label": "C3-3",
             "source": "S0",
             "status": "RECHECKED_RETAIN_S0",
             "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
@@ -18932,8 +18954,8 @@
             "source": "S_end"
           },
           "C3": {
-            "band": 4,
-            "label": "C3-4",
+            "band": 3,
+            "label": "C3-3",
             "source": "S_end"
           }
         },
@@ -18941,7 +18963,7 @@
           "C1": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C2": {
             "factor": 1.0,
@@ -18951,7 +18973,7 @@
           "C3": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           }
         },
         "current_closed_recovery_axes": [
@@ -18962,9 +18984,11 @@
             "start_band": "C1-3",
             "highest_achieved_band": "C1-3",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.5,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C2": {
             "start_band": "C2-2",
@@ -18972,15 +18996,19 @@
             "linear_delta": 1,
             "boundary_difficulty_credit": 0.8,
             "axis_weight": 0.2,
-            "weighted_difficulty_credit": 0.16
+            "attribution_factor": 1.0,
+            "weighted_difficulty_credit": 0.16,
+            "retained_increment": true
           },
           "C3": {
-            "start_band": "C3-4",
-            "highest_achieved_band": "C3-4",
+            "start_band": "C3-3",
+            "highest_achieved_band": "C3-3",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.3,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           }
         },
         "current_recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
@@ -19013,8 +19041,8 @@
               "retained_increment": true
             },
             "C3": {
-              "baseline_band": 4,
-              "end_band": 4,
+              "baseline_band": 3,
+              "end_band": 3,
               "attribution_factor": 0,
               "boundary_credit": 0.0,
               "weighted_credit": 0.0,
@@ -19562,7 +19590,7 @@
           "s0_label": "C1-4",
           "main_label": "C1-4",
           "end_label": "C1-4",
-          "evidence_basis": "主态维持C1-4，但C1-5继续关闭。雍正元年本人即称“生齿殷繁，地土所出仅可赡给，偶遇荒歉民食维艰”，说明承平背景下多数家庭可维持，家庭余量却不宽；《清史稿》“康、乾之世，国富民殷”只作跨任背景，不能独占归因于胤禛，也不能替代本人窗口的广域家庭余量强锚。",
+          "evidence_basis": "承接普遍温饱盘面；《清史稿》跨康乾“国富民殷”只作长期环境约束，结合本人窗口持续的生产、赋役与灾后供给材料，受约束维持C1-4。雍正元年“仅可赡给、偶遇荒歉民食维艰”是劝农上谕中的概括和风险判断，不证明全国多数家庭余量不足，也不独立封顶。C1-5未获证，是本人窗口缺广域跨阶段家庭余量核心锚与第二纯C1轴互证；山东及陕甘实际民食困难仅按具体区域阶段计低谷。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-4EB7AC987FECC59F",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-4EB7AC987FECC59F",
@@ -19574,11 +19602,11 @@
           ],
           "loss_review": {
             "grade": "L2",
-            "basis": "主要家庭温饱但余量有限支持四档；山东三府粒食维艰与陕甘歉收另计区域低谷。",
+            "basis": "主要阶段普遍温饱受约束成立；山东三府粒食维艰与陕甘歉收另证区域低谷，不用元年劝农概括证明全国余量不足。",
             "strong_dimensions": [],
-            "main_representativeness": "主态维持C1-4，但C1-5继续关闭。雍正元年本人即称“生齿殷繁，地土所出仅可赡给，偶遇荒歉民食维艰”，说明承平背景下多数家庭可维持，家庭余量却不宽；《清史稿》“康、乾之世，国富民殷”只作跨任背景，不能独占归因于胤禛，也不能替代本人窗口的广域家庭余量强锚。",
+            "main_representativeness": "承接普遍温饱盘面；《清史稿》跨康乾“国富民殷”只作长期环境约束，结合本人窗口持续的生产、赋役与灾后供给材料，受约束维持C1-4。雍正元年“仅可赡给、偶遇荒歉民食维艰”是劝农上谕中的概括和风险判断，不证明全国多数家庭余量不足，也不独立封顶。C1-5未获证，是本人窗口缺广域跨阶段家庭余量核心锚与第二纯C1轴互证；山东及陕甘实际民食困难仅按具体区域阶段计低谷。",
             "full_window_reviewed": true,
-            "deduplication": "主要家庭温饱但余量有限支持四档；山东三府粒食维艰与陕甘歉收另计区域低谷。",
+            "deduplication": "主要阶段普遍温饱受约束成立；山东三府粒食维艰与陕甘歉收另证区域低谷，不用元年劝农概括证明全国余量不足。",
             "evidence_refs": [
               "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-4EB7AC987FECC59F",
               "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-4EB7AC987FECC59F",
@@ -19628,13 +19656,13 @@
           "state_score": 22.9
         },
         "C3": {
-          "s0_band": 5,
+          "s0_band": 4,
           "main_band": 4,
           "end_band": 4,
-          "s0_label": "C3-5",
+          "s0_label": "C3-4",
           "main_label": "C3-4",
           "end_label": "C3-4",
-          "evidence_basis": "S0承接康熙末C3-5，但本人窗口不能继续沿用不加赋、摊丁入地等C1/C2材料支撑社会安全五档。纯C3材料显示：直隶盗案长期多于他省，雍正七年仍“虽似略减而仍复不少”，且存在赃物甚微者仍罹重法；广东又出现紧贴汛地盗劫杀人而汛兵不救不追，东昌在田文镜访事下曾“民逮下狱甚众”。这些反证说明基层治安与普通司法并非多轴长期高位，C3-5不成立。另一方面雍正十一年直隶盗案已“较前减少”，常规秩序与纠偏机制仍可运行，故主态、终点取C3-4；",
+          "evidence_basis": "接手承接康熙末C3-4。本人窗口直隶盗案反复、广东汛兵不救不追与东昌居民大批被捕是具体治安及司法反证，雍正十一年盗案减少则是有地区范围的改善结果。主态与交班维持四档，不以不加赋、摊丁入地或一般承平自评推五档；上游改档后不再计算从五档跌至四档的本人恶化。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-4EB7AC987FECC59F",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-4EB7AC987FECC59F",
@@ -19648,7 +19676,7 @@
             "grade": "L2",
             "basis": "常规秩序与后续盗案减少支持四档；直隶盗害、广东劫杀不救及东昌滥捕另计实质损害，缺五档正证不代消费。",
             "strong_dimensions": [],
-            "main_representativeness": "S0承接康熙末C3-5，但本人窗口不能继续沿用不加赋、摊丁入地等C1/C2材料支撑社会安全五档。纯C3材料显示：直隶盗案长期多于他省，雍正七年仍“虽似略减而仍复不少”，且存在赃物甚微者仍罹重法；广东又出现紧贴汛地盗劫杀人而汛兵不救不追，东昌在田文镜访事下曾“民逮下狱甚众”。这些反证说明基层治安与普通司法并非多轴长期高位，C3-5不成立。另一方面雍正十一年直隶盗案已“较前减少”，常规秩序与纠偏机制仍可运行，故主态、终点取C3-4；",
+            "main_representativeness": "接手承接康熙末C3-4。本人窗口直隶盗案反复、广东汛兵不救不追与东昌居民大批被捕是具体治安及司法反证，雍正十一年盗案减少则是有地区范围的改善结果。主态与交班维持四档，不以不加赋、摊丁入地或一般承平自评推五档；上游改档后不再计算从五档跌至四档的本人恶化。",
             "full_window_reviewed": true,
             "deduplication": "常规秩序与后续盗案减少支持四档；直隶盗害、广东劫杀不救及东昌滥捕另计实质损害，缺五档正证不代消费。",
             "evidence_refs": [
@@ -19685,8 +19713,8 @@
             "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
           },
           "C3": {
-            "band": 5,
-            "label": "C3-5",
+            "band": 4,
+            "label": "C3-4",
             "source": "S0",
             "status": "RECHECKED_RETAIN_S0",
             "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
@@ -19714,17 +19742,17 @@
           "C1": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C2": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C3": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           }
         },
         "current_closed_recovery_axes": [],
@@ -19733,25 +19761,31 @@
             "start_band": "C1-4",
             "highest_achieved_band": "C1-4",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.5,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C2": {
             "start_band": "C2-4",
             "highest_achieved_band": "C2-4",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.2,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C3": {
-            "start_band": "C3-5",
-            "highest_achieved_band": "C3-5",
+            "start_band": "C3-4",
+            "highest_achieved_band": "C3-4",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.3,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           }
         },
         "current_recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
@@ -19784,7 +19818,7 @@
               "retained_increment": false
             },
             "C3": {
-              "baseline_band": 5,
+              "baseline_band": 4,
               "end_band": 4,
               "attribution_factor": 0,
               "boundary_credit": 0.0,
@@ -19793,7 +19827,7 @@
             }
           }
         },
-        "deterioration_penalty": 1.0,
+        "deterioration_penalty": 0.0,
         "deterioration_attribution_by_axis": {
           "C1": 0.0,
           "C2": 0.0,
@@ -19826,7 +19860,7 @@
           "s0_label": "C1-3",
           "main_label": "C1-4",
           "end_label": "C1-4",
-          "evidence_basis": "主态维持C1-4，C1-5不开放。跨康乾“国富民殷”可约束康熙中后期总体已达到普遍温饱，但不足独占归因。康熙五十七年本人尚称“未敢谓家给人足”，与缺少广域家庭余量+第二纯C1轴强锚相合。",
+          "evidence_basis": "主态维持C1-4。跨康乾“国富民殷”可支持康熙中后期总体普遍温饱，但不能将跨朝概括全部归于本人。现有本人窗口材料尚缺直接、广域且跨阶段的家庭余量核心锚及另一纯C1轴互证，未达到C1-5准入条件。“未敢谓家给人足”含自谦或自警的语气，不作为实际贫困证据，也不承担否决高档的作用。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829",
@@ -19845,7 +19879,7 @@
               "duration",
               "severity"
             ],
-            "main_representativeness": "主态维持C1-4，C1-5不开放。跨康乾“国富民殷”可约束康熙中后期总体已达到普遍温饱，但不足独占归因。康熙五十七年本人尚称“未敢谓家给人足”，与缺少广域家庭余量+第二纯C1轴强锚相合。",
+            "main_representativeness": "主态维持C1-4。跨康乾“国富民殷”可支持康熙中后期总体普遍温饱，但不能将跨朝概括全部归于本人。现有本人窗口材料尚缺直接、广域且跨阶段的家庭余量核心锚及另一纯C1轴互证，未达到C1-5准入条件。“未敢谓家给人足”含自谦或自警的语气，不作为实际贫困证据，也不承担否决高档的作用。",
             "full_window_reviewed": true,
             "deduplication": "中后期温饱独立成立；三藩期广域家庭流离及后续区域饥困另计持续严重失保。",
             "evidence_refs": [
@@ -19901,12 +19935,12 @@
         },
         "C3": {
           "s0_band": 3,
-          "main_band": 5,
-          "end_band": 5,
+          "main_band": 4,
+          "end_band": 4,
           "s0_label": "C3-3",
-          "main_label": "C3-5",
-          "end_label": "C3-5",
-          "evidence_basis": "纯C3高位材料中，康熙三十八年南巡诏直接称“中外升平”，并称江南各州县“市肆安辑”；康熙三十七年又有三个蒙古地区治理后“盗贼屏息”的实际结果，刑事层面长期维持秋审复核并由皇帝逐案审阅。由此可闭合长期广域基层秩序与司法救济五档。原结算中重复的“军兴未息/流离载道”和“永不加赋”等C1/C2材料全部剔除。",
+          "main_label": "C3-4",
+          "end_label": "C3-4",
+          "evidence_basis": "南巡诏“中外升平”是总体自评，不独立证明社会安全高档；“市肆安辑”及蒙古三处“盗贼屏息”具备地区和实际秩序含义，可以有范围地采用，但不能扩为全国多轴长期五档。秋审亲阅与“情有可原，即开生路”证明复核实践，不把程序本身等同广域救济结果。结合长期常规秩序、地方盗害治理及慎刑实际运行，受约束取主态、交班C3-4；缺多区域跨阶段人身财产和司法保护的五档强证。四川战时居民逃亡与保护失效另计L3，不以战争名称代替居民后果。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829",
@@ -19919,15 +19953,15 @@
           ],
           "loss_review": {
             "grade": "L3",
-            "basis": "长期市肆安辑、盗贼屏息及司法复核支持五档；四川百姓逃亡与保护失效另计重要地区持续严重低谷。",
+            "basis": "长期基本保护与有范围的治安改善支持四档；四川战时居民逃亡和保护失效另证重要地区持续严重安全低谷L3，不将升平自评作为主态正证。",
             "strong_dimensions": [
               "scope",
               "duration",
               "severity"
             ],
-            "main_representativeness": "纯C3高位材料中，康熙三十八年南巡诏直接称“中外升平”，并称江南各州县“市肆安辑”；康熙三十七年又有三个蒙古地区治理后“盗贼屏息”的实际结果，刑事层面长期维持秋审复核并由皇帝逐案审阅。由此可闭合长期广域基层秩序与司法救济五档。原结算中重复的“军兴未息/流离载道”和“永不加赋”等C1/C2材料全部剔除。",
+            "main_representativeness": "南巡诏“中外升平”是总体自评，不独立证明社会安全高档；“市肆安辑”及蒙古三处“盗贼屏息”具备地区和实际秩序含义，可以有范围地采用，但不能扩为全国多轴长期五档。秋审亲阅与“情有可原，即开生路”证明复核实践，不把程序本身等同广域救济结果。结合长期常规秩序、地方盗害治理及慎刑实际运行，受约束取主态、交班C3-4；缺多区域跨阶段人身财产和司法保护的五档强证。四川战时居民逃亡与保护失效另计L3，不以战争名称代替居民后果。",
             "full_window_reviewed": true,
-            "deduplication": "长期市肆安辑、盗贼屏息及司法复核支持五档；四川百姓逃亡与保护失效另计重要地区持续严重低谷。",
+            "deduplication": "长期基本保护与有范围的治安改善支持四档；四川战时居民逃亡和保护失效另证重要地区持续严重安全低谷L3，不将升平自评作为主态正证。",
             "evidence_refs": [
               "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829",
               "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829",
@@ -19939,7 +19973,7 @@
               "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
             ]
           },
-          "state_score": 45.8
+          "state_score": 35.2
         }
       },
       "recovery": {
@@ -19981,8 +20015,8 @@
             "source": "S_end"
           },
           "C3": {
-            "band": 5,
-            "label": "C3-5",
+            "band": 4,
+            "label": "C3-4",
             "source": "S_end"
           }
         },
@@ -20015,7 +20049,9 @@
             "linear_delta": 1,
             "boundary_difficulty_credit": 1.0,
             "axis_weight": 0.5,
-            "weighted_difficulty_credit": 0.5
+            "attribution_factor": 1.0,
+            "weighted_difficulty_credit": 0.5,
+            "retained_increment": true
           },
           "C2": {
             "start_band": "C2-3",
@@ -20023,15 +20059,19 @@
             "linear_delta": 1,
             "boundary_difficulty_credit": 1.0,
             "axis_weight": 0.2,
-            "weighted_difficulty_credit": 0.2
+            "attribution_factor": 1.0,
+            "weighted_difficulty_credit": 0.2,
+            "retained_increment": true
           },
           "C3": {
             "start_band": "C3-3",
-            "highest_achieved_band": "C3-5",
-            "linear_delta": 2,
-            "boundary_difficulty_credit": 2.3,
+            "highest_achieved_band": "C3-4",
+            "linear_delta": 1,
+            "boundary_difficulty_credit": 1.0,
             "axis_weight": 0.3,
-            "weighted_difficulty_credit": 0.69
+            "attribution_factor": 1.0,
+            "weighted_difficulty_credit": 0.3,
+            "retained_increment": true
           }
         },
         "current_recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
@@ -20041,11 +20081,11 @@
           "basis": "恢复发生于本人唯一或明确主导的实际最高权力窗口。"
         },
         "calculation": {
-          "raw_recovery": 13.9,
-          "recovery_score": 13.9,
+          "raw_recovery": 10.0,
+          "recovery_score": 10.0,
           "terminal_band": 4,
           "terminal_cap": 27,
-          "positive_retained": 13.9,
+          "positive_retained": 10.0,
           "axis_details": {
             "C1": {
               "baseline_band": 3,
@@ -20065,10 +20105,10 @@
             },
             "C3": {
               "baseline_band": 3,
-              "end_band": 5,
+              "end_band": 4,
               "attribution_factor": 1.0,
-              "boundary_credit": 2.3,
-              "weighted_credit": 0.69,
+              "boundary_credit": 1.0,
+              "weighted_credit": 0.3,
               "retained_increment": true
             }
           }
@@ -20362,7 +20402,7 @@
           "s0_label": "C1-4",
           "main_label": "C1-4",
           "end_label": "C1-3",
-          "evidence_basis": "主态C1-4维持，但原峰值C1-5不满足合同高档门。乾隆四年本人即承认“闾阎尚觉艰难，京师未见富庶”，七年又称农民“富厚尚难于骤见”；《清史稿》“康、乾之世，国富民殷”是跨任总评，只能支持承平背景，不能替代本人窗口“广域家庭余量强锚+另一纯C1轴互证”。原依赖部分地区消费/生活水平研究登记的峰值因此撤销。",
+          "evidence_basis": "《清史稿》跨康乾“国富民殷”约束长期承平环境，结合本人窗口的持续生产和家庭生活材料，受约束维持C1-4。廷试策问中“闾阎尚觉艰难、京师未见富庶”“富厚尚难于骤见”用于提出治理问题，不据此认定全国贫困或否决C1-5。现有地区性生活水平材料尚未闭合广域、跨阶段家庭余量及第二纯C1轴，故不登记五档峰值；实权末川楚田舍焚毁、无归无食是具体家庭结果，仍支持交班三档与独立低谷。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-6DACD59C17927ECA",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-6DACD59C17927ECA",
@@ -20377,7 +20417,7 @@
               "scope",
               "severity"
             ],
-            "main_representativeness": "主态C1-4维持，但原峰值C1-5不满足合同高档门。乾隆四年本人即承认“闾阎尚觉艰难，京师未见富庶”，七年又称农民“富厚尚难于骤见”；《清史稿》“康、乾之世，国富民殷”是跨任总评，只能支持承平背景，不能替代本人窗口“广域家庭余量强锚+另一纯C1轴互证”。原依赖部分地区消费/生活水平研究登记的峰值因此撤销。",
+            "main_representativeness": "《清史稿》跨康乾“国富民殷”约束长期承平环境，结合本人窗口的持续生产和家庭生活材料，受约束维持C1-4。廷试策问中“闾阎尚觉艰难、京师未见富庶”“富厚尚难于骤见”用于提出治理问题，不据此认定全国贫困或否决C1-5。现有地区性生活水平材料尚未闭合广域、跨阶段家庭余量及第二纯C1轴，故不登记五档峰值；实权末川楚田舍焚毁、无归无食是具体家庭结果，仍支持交班三档与独立低谷。",
             "full_window_reviewed": true,
             "deduplication": "主要阶段温饱独立成立；实权末川楚多省田舍焚毁、无归无食另证广泛严重失保。",
             "evidence_refs": [
@@ -29801,7 +29841,7 @@
           "s0_label": "C3-2",
           "main_label": "C3-3",
           "end_label": "C3-3",
-          "evidence_basis": "献文初有“兵革不起”等直接秩序恢复背景，足以支持主要阶段社会安全维持三档；原来的赈济、杂调和仓储材料继续退出C3核心。",
+          "evidence_basis": "献文初诏“兵革不起”只作和平背景，不独立证明普通居民安全。核心区常规治理持续运行，主要阶段与交班受约束取基本秩序三档；赈济、杂调和仓储不作安全正证，青齐共同体损害按现行跨项去重处理。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-拓跋弘",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-拓跋弘",
@@ -29813,7 +29853,7 @@
             "grade": "L0",
             "basis": "青齐强迁、没为奴婢造成的身份降格、乡里离散与共同体重构由第四项A独占；剥离该链后，现有C3材料未闭合额外低谷。",
             "strong_dimensions": [],
-            "main_representativeness": "献文初有“兵革不起”等秩序恢复背景，主态可维持三档；原来的赈济、杂调和仓储材料退出C3核心。",
+            "main_representativeness": "献文初诏“兵革不起”只作和平背景，不独立证明普通居民安全。核心区常规治理持续运行，主要阶段与交班受约束取基本秩序三档；赈济、杂调和仓储不作安全正证，青齐共同体损害按现行跨项去重处理。",
             "full_window_reviewed": true,
             "deduplication": "青齐强迁、没为奴婢造成的身份降格、乡里离散与共同体重构由第四项A独占；剥离该链后，现有C3材料未闭合额外低谷。",
             "evidence_refs": [
@@ -30833,7 +30873,7 @@
           "s0_label": "C3-2",
           "main_label": "C3-3",
           "end_label": "C3-3",
-          "evidence_basis": "敦煌草创期后，地方推举材料明确称李暠“温毅有惠政”，核心区长期未见普通社会广域失序；但现有直接C3材料仍偏薄，不能把年谷、仓储、百姓乐业等C1/C2材料转成四档。",
+          "evidence_basis": "敦煌推举材料“温毅有惠政”是地方接受与品评，不是直接居民安全结果。本人窗口持续的核心区治理和常规秩序仅能受约束支持基本可运行三档；缺广域人身财产保护及司法结果，不升四档。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-李暠",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-李暠",
@@ -30845,7 +30885,7 @@
             "grade": "L0",
             "basis": "惠政与核心秩序支持三档，年谷仓储与战名不跨作C3低谷。",
             "strong_dimensions": [],
-            "main_representativeness": "敦煌草创期后，地方推举材料明确称李暠“温毅有惠政”，核心区长期未见普通社会广域失序；但现有直接C3材料仍偏薄，不能把年谷、仓储、百姓乐业等C1/C2材料转成四档。",
+            "main_representativeness": "敦煌推举材料“温毅有惠政”是地方接受与品评，不是直接居民安全结果。本人窗口持续的核心区治理和常规秩序仅能受约束支持基本可运行三档；缺广域人身财产保护及司法结果，不升四档。",
             "full_window_reviewed": true,
             "deduplication": "惠政与核心秩序支持三档，年谷仓储与战名不跨作C3低谷。",
             "evidence_refs": [
@@ -47461,13 +47501,13 @@
       ],
       "axes": {
         "C1": {
-          "s0_band": 2,
-          "main_band": 2,
-          "end_band": 2,
-          "s0_label": "C1-2",
-          "main_label": "C1-2",
-          "end_label": "C1-2",
-          "evidence_basis": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。减远输停工役是正向动作，但1257年本人明确承认百姓疲弊；无第三方改善结果。",
+          "s0_band": 3,
+          "main_band": 3,
+          "end_band": 3,
+          "s0_label": "C1-3",
+          "main_label": "C1-3",
+          "end_label": "C1-3",
+          "evidence_basis": "《元史》记实际停止和林城役一千五百人、调整远输，并有持续农业、民户及征收体系，足以受约束确认基本生计与生产生活仍在运行，取C1-3；不把减役安排写成普遍温饱。拒受珍宝时“百姓疲弊，所急者钱尔”带有恤民自陈语境，未交代多数家庭已失去稳定维生的范围和阶段，不能独立推出C1-2。现有材料亦不足证明广域温饱。接手低位没有独立可比家庭锚，三档仅作保守比较起点，不从该代理起点领取恢复信用；交班仍取三档，南征规模不直接换算家庭损害。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-MONGKE",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-MONGKE",
@@ -47478,11 +47518,11 @@
           ],
           "loss_review": {
             "grade": "L0",
-            "basis": "百姓疲弊已构成二档，减役政策不反造低谷。",
+            "basis": "未另证独立有效低谷；拒宝时的疲弊自述与禁浮费命令不构成已实现的家庭或经济损害，不据此计L，也不补作DA。",
             "strong_dimensions": [],
-            "main_representativeness": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。减远输停工役是正向动作，但1257年本人明确承认百姓疲弊；无第三方改善结果。",
+            "main_representativeness": "《元史》记实际停止和林城役一千五百人、调整远输，并有持续农业、民户及征收体系，足以受约束确认基本生计与生产生活仍在运行，取C1-3；不把减役安排写成普遍温饱。拒受珍宝时“百姓疲弊，所急者钱尔”带有恤民自陈语境，未交代多数家庭已失去稳定维生的范围和阶段，不能独立推出C1-2。现有材料亦不足证明广域温饱。接手低位没有独立可比家庭锚，三档仅作保守比较起点，不从该代理起点领取恢复信用；交班仍取三档，南征规模不直接换算家庭损害。",
             "full_window_reviewed": true,
-            "deduplication": "百姓疲弊已构成二档，减役政策不反造低谷。",
+            "deduplication": "未另证独立有效低谷；拒宝时的疲弊自述与禁浮费命令不构成已实现的家庭或经济损害，不据此计L，也不补作DA。",
             "evidence_refs": [
               "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-MONGKE",
               "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-MONGKE",
@@ -47493,16 +47533,16 @@
               "https://zh.wikisource.org/zh-hans/元史/卷003"
             ]
           },
-          "state_score": 17.1
+          "state_score": 32.0
         },
         "C2": {
-          "s0_band": 2,
-          "main_band": 2,
-          "end_band": 2,
-          "s0_label": "C2-2",
-          "main_label": "C2-2",
-          "end_label": "C2-2",
-          "evidence_basis": "户籍与钱粮理算说明财政机器仍能运作，但本人窗口同时出现对浮费、不公理算和百姓疲弊的直接诊断。现有材料不能把这种状态抬到常规财政与民间经济均稳定的三档；反过来，国家仍能登记户籍、清理钱粮并实施财政约束，也不足判为一档系统失效，故维持C2-2。",
+          "s0_band": 3,
+          "main_band": 3,
+          "end_band": 3,
+          "s0_label": "C2-3",
+          "main_label": "C2-3",
+          "end_label": "C2-3",
+          "evidence_basis": "籍汉地民户、钱粮理算及持续征收支出证明经济财政机器能够基本运行；禁浮费、许自首不公是整改命令，不能单独证明此前长期存在结构性财政弱柱。“百姓疲弊，所急者钱尔”也未直接闭合生产、交易或常规收支的失衡后果。因此受约束取C2-3，不以缺乏两柱健康正证反判C2-2；亦无依据升健康四档。接手二档原无独立可比结果，改以三档比较代理且不计恢复，交班维持三档。",
           "evidence_refs": [
             "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-MONGKE",
             "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-MONGKE",
@@ -47513,11 +47553,11 @@
           ],
           "loss_review": {
             "grade": "L0",
-            "basis": "理算浮费与财政脆弱已由二档消费，无独立剩余。",
+            "basis": "未另证独立有效低谷；拒宝时的疲弊自述与禁浮费命令不构成已实现的家庭或经济损害，不据此计L，也不补作DA。",
             "strong_dimensions": [],
-            "main_representativeness": "户籍与钱粮理算说明财政机器仍能运作，但本人窗口同时出现对浮费、不公理算和百姓疲弊的直接诊断。现有材料不能把这种状态抬到常规财政与民间经济均稳定的三档；反过来，国家仍能登记户籍、清理钱粮并实施财政约束，也不足判为一档系统失效，故维持C2-2。",
+            "main_representativeness": "籍汉地民户、钱粮理算及持续征收支出证明经济财政机器能够基本运行；禁浮费、许自首不公是整改命令，不能单独证明此前长期存在结构性财政弱柱。“百姓疲弊，所急者钱尔”也未直接闭合生产、交易或常规收支的失衡后果。因此受约束取C2-3，不以缺乏两柱健康正证反判C2-2；亦无依据升健康四档。接手二档原无独立可比结果，改以三档比较代理且不计恢复，交班维持三档。",
             "full_window_reviewed": true,
-            "deduplication": "理算浮费与财政脆弱已由二档消费，无独立剩余。",
+            "deduplication": "未另证独立有效低谷；拒宝时的疲弊自述与禁浮费命令不构成已实现的家庭或经济损害，不据此计L，也不补作DA。",
             "evidence_refs": [
               "docs/评分结算/净收益/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-MONGKE",
               "docs/评分结算/净收益/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-MONGKE",
@@ -47528,7 +47568,7 @@
               "《元史·宪宗本纪》"
             ]
           },
-          "state_score": 7.0
+          "state_score": 14.9
         },
         "C3": {
           "s0_band": 2,
@@ -47570,20 +47610,20 @@
       "recovery": {
         "baseline": {
           "C1": {
-            "band": 2,
-            "label": "C1-2",
+            "band": 3,
+            "label": "C1-3",
             "source": "S0",
             "status": "RECHECKED_RETAIN_S0",
             "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
-            "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+            "basis": "独立接手结果不足，以基本运行三档作比较代理；未另证可计恢复，不由疲弊自述构造二档起点。"
           },
           "C2": {
-            "band": 2,
-            "label": "C2-2",
+            "band": 3,
+            "label": "C2-3",
             "source": "S0",
             "status": "RECHECKED_RETAIN_S0",
             "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
-            "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+            "basis": "独立接手结果不足，以基本运行三档作比较代理；未另证可计恢复，不由疲弊自述构造二档起点。"
           },
           "C3": {
             "band": 2,
@@ -47596,13 +47636,13 @@
         },
         "terminal": {
           "C1": {
-            "band": 2,
-            "label": "C1-2",
+            "band": 3,
+            "label": "C1-3",
             "source": "S_end"
           },
           "C2": {
-            "band": 2,
-            "label": "C2-2",
+            "band": 3,
+            "label": "C2-3",
             "source": "S_end"
           },
           "C3": {
@@ -47615,44 +47655,50 @@
           "C1": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C2": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           },
           "C3": {
             "factor": 0,
             "grade": "NONE",
-            "basis": "交班未保留高于可比基线的可计增量，或既有实施归责不归本人；不以中间峰值另领恢复。"
+            "basis": "未另证可比基线至交班仍保留的正向档界，不以赞语或整改命令领取恢复。"
           }
         },
         "current_closed_recovery_axes": [],
         "current_recovery_path_basis": {
           "C1": {
-            "start_band": "C1-2",
-            "highest_achieved_band": "C1-2",
+            "start_band": "C1-3",
+            "highest_achieved_band": "C1-3",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.5,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C2": {
-            "start_band": "C2-2",
-            "highest_achieved_band": "C2-2",
+            "start_band": "C2-3",
+            "highest_achieved_band": "C2-3",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.2,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           },
           "C3": {
             "start_band": "C3-2",
             "highest_achieved_band": "C3-2",
             "linear_delta": 0,
-            "boundary_difficulty_credit": 0,
+            "boundary_difficulty_credit": 0.0,
             "axis_weight": 0.3,
-            "weighted_difficulty_credit": 0.0
+            "attribution_factor": 0,
+            "weighted_difficulty_credit": 0.0,
+            "retained_increment": false
           }
         },
         "current_recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
@@ -47664,21 +47710,21 @@
         "calculation": {
           "raw_recovery": 0.0,
           "recovery_score": 0.0,
-          "terminal_band": 2,
-          "terminal_cap": 15.9,
+          "terminal_band": 3,
+          "terminal_cap": 24.9,
           "positive_retained": 0.0,
           "axis_details": {
             "C1": {
-              "baseline_band": 2,
-              "end_band": 2,
+              "baseline_band": 3,
+              "end_band": 3,
               "attribution_factor": 0,
               "boundary_credit": 0.0,
               "weighted_credit": 0.0,
               "retained_increment": false
             },
             "C2": {
-              "baseline_band": 2,
-              "end_band": 2,
+              "baseline_band": 3,
+              "end_band": 3,
               "attribution_factor": 0,
               "boundary_credit": 0.0,
               "weighted_credit": 0.0,

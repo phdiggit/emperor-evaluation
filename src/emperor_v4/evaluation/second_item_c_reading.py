@@ -11,6 +11,56 @@ from emperor_v4.evaluation.governance_state_recovery import FIXED_POINTS, LOSS_R
 NAMES = {"C1": "民生", "C2": "经济财政", "C3": "社会安全"}
 GRADES = {1: "E", 2: "D", 3: "C", 4: "B", 5: "A", 6: "S"}
 
+RECOVERY_SECTIONS = (
+    ("overview", "恢复幅度"),
+    ("recovery", "恢复基线与交班终点"),
+    ("responsibility", "本人作用与采用范围"),
+    ("deterioration", "恶化与本人责任"),
+    ("cost", "额外代价"),
+    ("net", "净调整"),
+)
+
+
+def recovery_anchor_line(axis: str, row: dict[str, Any]) -> str:
+    """Literal display of declared anchors, not an inference about history."""
+    from emperor_v4.evaluation.second_item_c_public import STATE_LABELS
+
+    path = row['recovery_path_basis'][axis]
+    start = int(path['start_band'].split('-')[-1])
+    end = int(path['highest_achieved_band'].split('-')[-1])
+    current = row.get('recovery_formula_version') == 'GOVERNANCE-STATE-RECOVERY-V4'
+    adopted = '' if current else '原恢复计算采用点：'
+    delta = end - start
+    change = f'上升{delta}档' if delta > 0 else f'下降{-delta}档' if delta < 0 else '同档，未跨档'
+    return (f'{NAMES[axis]}：{adopted}{GRADES[start]}档“{STATE_LABELS[axis][start]}” → '
+            f'{GRADES[end]}档“{STATE_LABELS[axis][end]}”，{change}。')
+
+
+def recovery_story(sections: list[dict[str, str]]) -> str:
+    return '\n\n'.join(section['title'] + '\n' + section['body'] for section in sections)
+
+
+def verify_recovery_reading(row: dict[str, Any]) -> None:
+    sections = row.get('public_reading_sections')
+    if (not isinstance(sections, list) or len(sections) != len(RECOVERY_SECTIONS)
+            or any(not isinstance(s, dict) or set(s) != {'id', 'title', 'body'}
+                   or s.get('id') != sid or s.get('title') != title
+                   or not isinstance(s.get('body'), str) or not s['body'].strip()
+                   for s, (sid, title) in zip(sections, RECOVERY_SECTIONS))):
+        raise ValueError(f'恢复阅读分栏缺失或不完整：{row.get("ruler_name")}')
+    if row.get('public_story') != recovery_story(sections):
+        raise ValueError(f'恢复阅读正文与分栏不同值：{row.get("ruler_name")}')
+    body = sections[1]['body']
+    if any(recovery_anchor_line(a, row) not in body for a in NAMES):
+        raise ValueError(f'恢复阅读档位与正式路径不同值：{row.get("ruler_name")}')
+    expected_net = (f'保留恢复 +{row["positive_score_retained"]:g}分 − 本人恶化 {row["deterioration_penalty"]:g}分'
+                    f' − 独立额外成本 {row["destructive_amplification_penalty"]:g}分 = 净调整 {row["score"]:+.1f}分。')
+    if expected_net not in sections[5]['body']:
+        raise ValueError(f'恢复阅读净调整与正式数值不同值：{row.get("ruler_name")}')
+    if (row.get('recovery_formula_version') != 'GOVERNANCE-STATE-RECOVERY-V4'
+            and not all(term in sections[0]['body'] for term in ('池外', '原机制'))):
+        raise ValueError(f'池外恢复阅读缺少原机制边界：{row.get("ruler_name")}')
+
 
 def calculation(axis: str, row: dict[str, Any]) -> str:
     """Explain declared inputs, including floors, caps and legacy boundaries."""

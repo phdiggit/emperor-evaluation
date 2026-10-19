@@ -229,7 +229,7 @@
     const addOn = byLabel["附加F"]?.value;
     if ([a, b1, b2, c, gross, cost, net, addOn].some(value => value == null)) return "";
     const addOnText = Number(addOn) > 0 ? `+${addOn}` : String(addOn);
-    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div><div class="component"><span><strong>第一项结算分</strong><small>统一成果、创业难度与效率、创业组织、本人统帅合计后，再扣除本人窗口内的军事代价</small></span><b>${esc(net)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>所有人物都使用同一条折算曲线，避免第一项量纲直接压过其他项目</small></span><b>${esc(addOnText)}</b></div>${prose("先算第一项结算分，再按全员统一曲线折算为总榜加成；因此两个数字不是同一量纲，也不应直接比较大小。") }<details><summary>查看完整公式</summary>${prose(`四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅 = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n第一项结算分 = max(0, 四轴毛分 − 军事代价扣减) = max(0, ${gross} − ${cost}) = ${net}。\n总榜附加 = 0.20 × 637 × (第一项结算分 / 240)^1.25 = ${addOn}。`)}</details></article>`;
+    return `<article class="context-story net-public-item first-item-total"><div class="label">第一项最后怎么进入总榜</div><div class="component"><span><strong>奠基与统一结算分</strong><small>统一成果、创业难度与效率、创业组织、本人统帅合计后，再扣除本人窗口内的军事代价</small></span><b>${esc(net)}</b></div><div class="component"><span><strong>进入总榜的加成</strong><small>所有人物都使用同一条折算曲线，避免奠基与统一的量纲直接压过其他项目</small></span><b>${esc(addOnText)}</b></div>${prose("先算奠基与统一结算分，再按全员统一曲线折算为总榜加成；因此两个数字不是同一量纲，也不应直接比较大小。") }<details><summary>查看完整公式</summary>${prose(`四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅 = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n奠基与统一结算分 = max(0, 四轴毛分 − 军事代价扣减) = max(0, ${gross} − ${cost}) = ${net}。\n总榜附加 = 0.20 × 637 × (奠基与统一结算分 / 240)^1.25 = ${addOn}。`)}</details></article>`;
   }
 
   async function hydrateFirstItemGroup(group, record, items) {
@@ -239,7 +239,7 @@
       return;
     }
     if (firstStatus !== "APPLICABLE") {
-      group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice"><strong>第一项正式适用状态未发布。</strong>阅读层不根据分项空值或现有材料自行判断该人物是否适用本项。</p>`;
+      group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="notice"><strong>奠基与统一的正式适用状态未发布。</strong>阅读层不根据分项空值或现有材料自行判断该人物是否适用本项。</p>`;
       return;
     }
 
@@ -258,14 +258,17 @@
     if (byLabel["B1创业难度与效率"]) cards.push(renderFirstB1(byLabel["B1创业难度与效率"], bulletsByLabel["B1创业难度与效率"], record));
     if (byLabel["B2组织与整合"]) cards.push(renderFirstB2(byLabel["B2组织与整合"], bulletsByLabel["B2组织与整合"], record));
     if (byLabel["C军事统帅与战争解题"]) cards.push(renderFirstC(byLabel["C军事统帅与战争解题"], bulletsByLabel["C军事统帅与战争解题"], record));
-    if (byLabel["军事成本扣分"]?.value != null) cards.push(`<article class="context-story net-public-item first-item-card"><div class="component"><strong>战争代价</strong><b>${esc(netValue(byLabel["军事成本扣分"]))}</b></div>${firstCostMarkup(byLabel["军事成本扣分"])}<details><summary>扣分怎样换算</summary>${prose(firstCostExactHow(byLabel["军事成本扣分"]))}</details>${firstItemSourceBlock(byLabel["军事成本扣分"], record)}</article>`);
+    if (byLabel["军事成本扣分"]?.value != null) {
+      const item = byLabel["军事成本扣分"];
+      cards.push(`<article class="context-story net-public-item first-item-card"><div class="component"><strong>战争代价</strong><b>${esc(netValue(item))}</b></div>${firstCostMarkup(item, record)}${firstCostRuleMarkup(item, firstCostExactHow(item))}${firstItemSourceBlock(item, record)}</article>`);
+    }
     const totals = firstItemTotals(items);
     const rawNetScore = byLabel["第一项净分"]?.value;
     const netScore = rawNetScore == null || rawNetScore === "" ? null : Number(rawNetScore);
     const zeroNote = Number.isFinite(netScore) && netScore === 0
-      ? `<p class="notice"><strong>本项适用，但第一项结算分归零。</strong>这与“不适用”不同：这里已经进入第一项结算，成果与能力分在扣除本人责任窗口内军事代价后归零。</p>`
+      ? `<p class="notice"><strong>本项适用，但奠基与统一结算分归零。</strong>这与“不适用”不同：这里已经进入奠基与统一结算，成果与能力分在扣除本人责任窗口内军事代价后归零。</p>`
       : "";
-    group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="reading-intro"><strong>本项只计算本人实际承担的创业／统一成果、本人统帅贡献及其代价；先形成第一项结算分，再统一折算为总榜加成。</strong>不适用不等于军事能力差。下面再按统一成果、创业难度与效率、创业组织与政治整合、本人统帅展开具体依据。</p>${zeroNote}${cards.join("")}${totals}`;
+    group.innerHTML = `<h3>${esc(netGroupNames.first)}</h3><p class="reading-intro"><strong>本项只计算本人实际承担的创业／统一成果、本人统帅贡献及其代价；先形成奠基与统一结算分，再统一折算为总榜加成。</strong>不适用不等于军事能力差。下面再按统一成果、创业难度与效率、创业组织与政治整合、本人统帅展开具体依据。</p>${zeroNote}${cards.join("")}${totals}`;
   }
 
   function netValue(item) {
@@ -378,13 +381,13 @@
         continue;
       }
       if (key === "first" && firstStatus !== "APPLICABLE") {
-        group.innerHTML = `${title}<p class="notice"><strong>第一项正式适用状态未发布。</strong>阅读层不根据分项空值或现有材料自行判断是否适用。</p>`;
+        group.innerHTML = `${title}<p class="notice"><strong>奠基与统一的正式适用状态未发布。</strong>阅读层不根据分项空值或现有材料自行判断是否适用。</p>`;
         intro.append(group);
         continue;
       }
 
       if (key === "first") {
-        group.innerHTML = `${title}<p class="subline">正在整理第一项的逐人计算口径…</p>`;
+        group.innerHTML = `${title}<p class="subline">正在整理奠基与统一的逐人计算口径…</p>`;
         intro.append(group);
         void hydrateFirstItemGroup(group, record, items);
         continue;
