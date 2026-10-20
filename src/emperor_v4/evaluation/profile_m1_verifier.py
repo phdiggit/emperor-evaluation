@@ -9,6 +9,9 @@ from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_record_integrity import verify_current_records
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 from emperor_v4.evaluation.profile_m1_evidence import verify_evidence_scope
+from emperor_v4.evaluation.profile_m1_public import validate_public_reading
+from emperor_v4.evaluation.profile_m1_public import archive_projection
+from emperor_v4.evaluation.profile_m1_public import load_archive_context
 from emperor_v4.evaluation.profile_m1_stability import verify_stability_review, verify_failure_aliases
 from emperor_v4.evaluation.talent_registry_store import load_talent_registry
 from emperor_v4.evaluation.profile_registry import profile_axis_entry
@@ -38,7 +41,16 @@ def verify() -> dict[str, int]:
     verify_current_records(payload)
     pool = load_json(ROOT / "config/common/canonical-ruler-pool.json")
     assert {r["ruler_id"] for r in rows} == {r["ruler_id"] for r in pool["records"] if r["pool_status"] == "INCLUDED"}
+    archive_context = load_archive_context(ROOT)
     for row in rows:
+        assert row.get('public_reading'), 'M1正式对象缺少直接维护的公开正文'
+        comparisons = row['public_reading'].get('comparisons', [])
+        assert len(comparisons) == 2, 'M1须提供两个有具体依据的同轴参照'
+        roles = {item.get('comparison_role') for item in comparisons}
+        assert roles in ({'SAME_POSITION','POSITION_CONTRAST'}, {'NO_SAME_POSITION_PEER','POSITION_CONTRAST'}), 'M1参照须同档同位加异位，或明确的无同位例外'
+        validate_public_reading(row)
+        if row.get('public_reading', {}).get('career_review') or row.get('public_reading', {}).get('comparisons'):
+            archive_projection(row, ROOT, archive_context)
         verify_stability_review(row)
         verify_evidence_scope(row)
         assert row["evidence_scope"]["schema_version"] == entry["evidence_scope_schema_version"]

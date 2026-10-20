@@ -32,6 +32,19 @@ def test_projection_preserves_reasons_and_deduplicates_sources():
     assert result["context_lookup"]["p"]["cycle_basis"] == "fact"
 
 
+def test_representative_task_preserves_explicit_process_and_attribution():
+    parent = {
+        "parent_id": "synthetic-task",
+        "title": "运输与前线接续",
+        "process_narrative": "前线报告缺粮后，控制者重新分配运输与接收责任。",
+        "attribution_basis": "控制者负责分工，具体运输由责任人办理。",
+        "source_refs": ["docs/synthetic-source.md"],
+    }
+    row = {"parent_chains": [parent], "representative_parent_ids": [parent["parent_id"]]}
+    projected = module("build").axis_projection(row, [])
+    assert projected["representative_contexts"] == [parent]
+
+
 def test_overview_keeps_upstream_prudent_rank_projection():
     projection = {
         "best": 2, "worst": 4,

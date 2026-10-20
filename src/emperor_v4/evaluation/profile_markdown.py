@@ -458,15 +458,16 @@ def _parent_lines(
 
 def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, str]) -> list[str]:
     if axis == "M1":
+        from emperor_v4.evaluation.profile_m1_public import public_grade
         lines = [
-            "| 展示序 | 人物 | 档位 | 雷达值 | 材料底池覆盖 | 本人能力证据 | 判断把握 | 定档范围 | 典型模式 |",
-            "|---:|---|---|---:|---|---|---|---|---|",
+            "| 展示序 | 人物 | 等级 | 判断把握 | 主要表现 |",
+            "|---:|---|---|---|---|",
         ]
         for display, row in enumerate(records, 1):
-            scope = row["evidence_scope"]
-            cells = [display, row["ruler_name"], _grade(row), row["radar_value"],
-                     scope["material_coverage_label"], scope["ability_evidence_label"],
-                     row["confidence"], scope["conclusion_mode_label"], row["typical_pattern"]]
+            name_link = f"[{row['ruler_name']}](../../../../reader/index.html#person/{row['ruler_id']}/profile/M1)"
+            cells = [display, name_link, public_grade(row),
+                     {'HIGH':'高','MEDIUM':'中','LOW':'低'}[row["confidence"]],
+                     row['public_reading']['headline']]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     if axis == "C1":
@@ -586,9 +587,15 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     if axis not in AXIS_FILES:
         raise ValueError(f"unsupported profile axis: {axis}")
     records = settlement["records"]
-    labels, shared = ({}, []) if axis in {"M4", "C3"} else _shared_limitations(records)
+    m1_archive_context = None
+    if axis == 'M1' and any(r.get('public_reading') for r in records):
+        from emperor_v4.evaluation.profile_m1_public import load_archive_context
+        m1_archive_context = load_archive_context(ROOT)
+    labels, shared = ({}, []) if axis in {"M4", "C3", "M1"} else _shared_limitations(records)
     profile_note = "> 独立人物画像轴。JSON是唯一机器入口；本文是同值阅读视图。"
-    if axis == "C1":
+    if axis == "M1":
+        reading_source_note = '- 逐人正文说明本人表现、定档与档内位置，事例和同轴比较均可回查既有档案或正式归责。'
+    elif axis == "C1":
         reading_source_note = f"- 全池表的‘典型模式’为人物类型摘要，‘限制’只显示最强计分负证档位；逐人条目展开完整主模式、裁档理由、限制和代表父链，每条父链最多列{C1_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合保留在正式JSON。"
     elif axis == "C2":
         reading_source_note = f"- 逐人条目只展开核心依据、档内定位、限制和代表父链；每条父链最多列{C2_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合与关联父链保留在正式JSON。"
@@ -606,7 +613,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         "## 阅读说明",
         "",
         "- 全池表采用稳定展示顺序，用于横向扫读。",
-        ("- `G0—G5`与档内位置共同映射雷达值；M1底池已完成全生涯逐战役登记，`E1—E3`描述本人能力证据形态，不表示材料覆盖进度。"
+        ("- 等级从E−至S+，±表示同档内位置；各轴不合计为人物能力总分。"
          if axis == "M1" else "- `G0—G5`与档内位置共同映射雷达值；`E1—E3`表示证据完成度，不能替代能力裁决。"),
         reading_source_note,
         "",
@@ -623,7 +630,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         lines.append("")
     if axis == "M1":
         lines.extend([
-            "## 军事画像口径",
+            '<details><summary>评价规则与专业说明</summary>',
             "",
             "- 裁档结果由正式 JSON 中的 `axis_grade` 与 `position` 给出，裁档理由须与之同值。",
             "- M1裁档理由与档内依据不得使用既有汇总数值；军事结算只可作为具体父周期结果的追溯入口。",
@@ -632,7 +639,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             "- " + records[0]["evidence_scope"]["material_coverage_basis"],
             "- " + records[0]["evidence_scope"]["confidence_basis"],
             "- " + records[0]["evidence_scope"]["grade_boundary"],
-            "",
+            "", '</details>', "",
         ])
     if axis == "C5":
         lines.extend([
@@ -677,6 +684,11 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     lines.extend(_overview_table(axis, records, labels))
     lines.extend(["", "## 逐人裁决依据", ""])
     for display, row in enumerate(records, 1):
+        if axis == 'M1' and row.get('public_reading'):
+            from emperor_v4.evaluation.profile_m1_public import markdown_reading
+            lines.extend([f"### {display}. {row['ruler_name']}（{row['ruler_id']}）", ''])
+            lines.extend(markdown_reading(row, m1_archive_context))
+            continue
         settlement_line = (
             f"- **结算**：`{_m2_display_grade(row)}` / 当前雷达值 `{_m2_display_radar(row)}` / "
             f"{row['axis_evidence_level']} / {row['score_status']} / {_m2_adjudication_label(row)}。"

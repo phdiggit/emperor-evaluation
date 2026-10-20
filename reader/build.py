@@ -174,6 +174,7 @@ FORMAL_CONTEXT_FIELDS = [
     "mechanism",
     "mechanisms",
     "cycle_basis",
+    "process_narrative",
     "basis",
     "source_refs",
     "cycle_anchor_refs",
@@ -206,8 +207,11 @@ def _formal_context_projection(context):
     return pick(context, FORMAL_CONTEXT_FIELDS)
 
 
-def axis_projection(row, fields):
+def axis_projection(row, fields, m1_archive_context=None):
     result = pick(row, fields)
+    if (row.get('public_reading') or {}).get('schema_version') == 'profile-m1-authored-reading-v1' and (row['public_reading'].get('career_review') or row['public_reading'].get('comparisons')):
+        from emperor_v4.evaluation.profile_m1_public import archive_projection
+        result['m1_archive_links'] = archive_projection(row, ROOT, m1_archive_context)
     chains = parent_chains(row)
     result["source_refs"] = list(dict.fromkeys(
         ref for owner in [row, *chains]
@@ -1542,19 +1546,25 @@ def build(*, check=False, write=True):
         if set(rows) != main_ids:
             raise ValueError(f"{code}: coverage differs from included pool")
         if code == "M1":
+            from emperor_v4.evaluation.profile_m1_public import validate_public_reading
             for row in rows.values():
                 verify_evidence_scope(row)
+                if not row.get('public_reading'):
+                    raise ValueError('M1正式对象缺少直接维护的公开正文')
+                validate_public_reading(row)
         axes[code] = rows
     axis_fields = ["axis_grade", "position", "radar_value", "output_mode", "confidence",
                    "applicability_status", "not_applicable_reason", "grade_basis", "typical_pattern",
                    "counterpattern", "limitations", "person_type", "score_status", "axis_evidence_level",
                    "adjudication_state", "display_point_only", "formal_status", "no_grade_closure",
                    "position_basis", "applicability_basis", "evidence_assessment_basis",
-                   "assessment_basis", "final_capability_review", "evidence_scope", "m1_stability_review"]
+                   "assessment_basis", "final_capability_review", "evidence_scope", "m1_stability_review", "public_reading"]
     net_fields = ["rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
                   "second_item_score", "third_item_score", "fourth_item_adjustment", "component_details",
                   "weight_sensitivity", "evidence_assessment", "prudent_score_interval",
                   "prudent_rank_projection", "governance_context"]
+    from emperor_v4.evaluation.profile_m1_public import load_archive_context
+    m1_archive_context = load_archive_context(ROOT)
     records = []
     for person in main:
         rid = person["ruler_id"]
@@ -1577,7 +1587,7 @@ def build(*, check=False, write=True):
             if reader_summary:
                 projected_net["reader_governance_summary"] = reader_summary
         record.update(net=projected_net,
-                      impact=history[rid], axes={code: axis_projection(rows[rid], axis_fields) for code, rows in axes.items()},
+                      impact=history[rid], axes={code: axis_projection(rows[rid], axis_fields, m1_archive_context) for code, rows in axes.items()},
                       supplementary=False)
         records.append(record)
     for row in impact.get("supplementary_records", []):

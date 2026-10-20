@@ -74,6 +74,8 @@ on:
       - config/third-item/**
       - src/emperor_v4/evaluation/historical_impact.py
       - src/emperor_v4/evaluation/profile_m1_verifier.py
+      - src/emperor_v4/evaluation/profile_m1_public.py
+      - tests/test_profile_m1_authored_reading.py
       - src/emperor_v4/evaluation/profile_markdown.py
       - tests/test_historical_impact*.py
       - docs/项目总纲/历史影响评价总则.md
@@ -189,6 +191,9 @@ jobs:
           node --check reader/third-item-c-collection.js
           node --check reader/person-reading-notes.js
           rm -rf .tmp/reader-js-check
+
+      - name: Verify authored M1 reading
+        run: python -m pytest tests/test_profile_m1_authored_reading.py -q
 
       - name: Run behavior tests
         run: python -m pytest tests/test_reader.py tests/test_reader_public_boundaries.py tests/test_reader_first_item_reading.py tests/test_first_item_c_public.py tests/test_first_item_c_evidence.py tests/test_first_item_b1_cost_public.py tests/test_first_item_b2_public.py tests/test_first_item_b1_inputs.py tests/test_first_item_weights.py tests/test_first_item_public_outcomes.py tests/test_reader_person_readability.py tests/test_reader_second_public_text.py tests/test_second_item_c_public.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py tests/test_third_fourth_item_public.py tests/test_third_item_a_public_reading.py tests/test_third_item_b_public.py tests/test_third_item_c_public.py tests/test_reader_third_c_collection.py tests/test_historical_impact.py tests/test_historical_impact_source_collections.py -q

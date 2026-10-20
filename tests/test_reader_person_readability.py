@@ -441,7 +441,7 @@ def test_person_readability_heading_normalizer_accepts_public_detail_titles():
 def test_person_reader_first_item_public_terms_match_current_performance_vocabulary():
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
-    assert "第一项结算分" in source
+    assert "奠基与统一结算分" in source
     assert "原始净收益" not in source
     assert "本项不计入统治绩效" in source
     assert "firstAReadingMarkup(item, record)" in source
@@ -466,7 +466,7 @@ def test_first_item_reader_distinguishes_shared_project_share_from_real_world_pe
     from pathlib import Path
     source = (Path(__file__).resolve().parents[1] / "reader/person-readability.js").read_text(encoding="utf-8")
     assert "firstAReadingMarkup(item, record)" in source
-    assert "本项适用，但第一项结算分归零" in source
+    assert "本项适用，但奠基与统一结算分归零" in source
     assert "成果占比" not in source
     assert "正向净收益" not in source
 

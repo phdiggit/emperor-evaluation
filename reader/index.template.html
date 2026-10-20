@@ -422,7 +422,7 @@ function formalContextStory(c,id='',options={}){
  const rawTitle=String(c.title||'').trim();
  const genericTitle=/^(?:(?:主要)?父情境\d+|父链[A-ZＡ-Ｚ]|主要结构链\d+|代表情境\d+)$/.test(rawTitle);
  const title=rawTitle&&!genericTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
- const body=c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
+ const body=c.process_narrative||c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
  const refs=formalContextSources(c);
  const rawIntensity=options.showIntensity===false?'':formalContextRawIntensity(c);
  const sources=(id||refs.length||rawIntensity)?`<details class="metadata"><summary>该情境的来源与原始标注</summary>${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${rawIntensity?`<p class="subline">材料强度原始字段：${esc(rawIntensity)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'来源原文 ↗'):prose(ref)).join('')}</details>`:'';
@@ -1051,8 +1051,20 @@ function profileSourceMarkup(ref,index,r){
  if(/^https?:\/\//.test(ref))return '<p class="sources">'+link(ref,`史料来源 ${index+1} ↗`,r)+'</p>';
  return prose(ref);
 }
+function m1AuthoredEvidence(r,a,suffix=''){
+ const p=a.public_reading;
+ const archive=a.m1_archive_links;
+ const archiveLink=item=>item.ref?link(item.ref,item.label||item.name,r):`<a href="${esc(item.href)}">${esc(item.label||item.name)} ↗</a>`;
+ const career=archive?`${archive.commander?`<p class="sources">${archiveLink(archive.commander)}</p>`:''}${archive.career.length?`<details class="m1-career-review"><summary>主要战事的本人作用与评价依据</summary>${archive.career.map(item=>`<section><h4>${esc(item.title)}</h4>${prose(item.basis)}<details class="metadata"><summary>相关战役与本人行动档案</summary><ul>${item.links.map(ref=>`<li>${archiveLink(ref)}</li>`).join('')}</ul></details></section>`).join('')}</details>`:''}`:'';
+ const comparisons=archive?.comparisons.length?`<section class="m1-public-judgment"><h4>同轴比较</h4>${archive.comparisons.map(item=>`<div class="label">${archiveLink(item)}</div>${prose(item.basis)}`).join('')}</section>`:'';
+ const cases=p.cases.map(item=>`<section class="context-story m1-public-case"><h4>${esc(item.title)}</h4>${item.role_label?`<span class="badge">${esc(item.role_label)}</span>`:''}${item.text?(item.text.replace(/。$/,'')===item.title?'':prose(item.text)):`<div class="label">本人行动</div>${prose(item.action)}<div class="label">结果与能力</div>${prose(item.result+item.meaning)}<p class="m1-role-boundary">${esc(item.boundary)}</p>`}<details class="metadata"><summary>事例来源与正式归责依据</summary>${item.sources.map(source=>link(source.ref,source.label+' ↗',r)).join('')}</details></section>`).join('');
+ const readingSources=p.sources?.length?`<details class="metadata"><summary>正式归责与相关来源</summary>${p.sources.map(source=>link(source.ref,source.label+' ↗',r)).join('')}</details>`:'';
+ const positionTitle={LOW:'为什么取低位（−）？',MID:'为什么取中位？',HIGH:'为什么取高位（+）？'}[a.position];
+ return `<details id="reason-M1${suffix}" class="axis-evidence m1-authored-evidence"><summary>${esc(DATA.axis_specs.M1.name)} <span class="badge">${grade(a)}</span><small class="axis-evidence-level">判断把握：${esc(conf(a.confidence))}</small></summary><p class="m1-public-headline"><strong>${esc(p.headline)}</strong></p>${prose(p.summary)}${career}${cases}<section class="m1-public-judgment"><h4>为什么评为 ${esc(letters[a.axis_grade])} 档？</h4>${prose(p.grade_reason)}<h4>${esc(positionTitle)}</h4>${prose(p.position_reason)}<h4>${a.axis_grade==='G5'?'当前等级的边界':'为什么没有进入更高档？'}</h4>${prose(p.higher_grade_limit)}</section>${comparisons}${readingSources}<details class="metadata"><summary>评价方法与正式记录</summary><p class="sources">${link(DATA.axis_specs.M1.contract,'军事能力评价规则 ↗',r)}${link(DATA.axis_specs.M1.markdown,'本轴完整阅读页 ↗',r)}${link(DATA.axis_specs.M1.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗',r)}</p></details></details>`;
+}
 function axisEvidence(r,c,suffix=''){
  const a=r.axes[c],spec=DATA.axis_specs[c];if(!a)return '';
+ if(c==='M1'&&a.public_reading)return m1AuthoredEvidence(r,a,suffix);
  const evidenceScope=axisEvidenceScope(a,c),evidenceLevel=evidenceScope.coverage;
  const structuredCounter=a.counterpattern&&typeof a.counterpattern==='object'&&!Array.isArray(a.counterpattern);
  const formalMaterials=structuredCounter?contexts(a):representativeContexts(a);
@@ -1082,10 +1094,19 @@ function personSystemNav(r,active='overview'){
 function personSubpageHead(r,label,active){
  return `<a class="back" href="#person/${encodeURIComponent(r.ruler_id)}">← 返回人物主页</a><div class="person-head"><div><div class="eyebrow">${esc(r.polity)} / ${esc(label)}</div><h1>${esc(personLabel(r))} · ${esc(label)}</h1><p class="muted">掌权背景：${esc(r.actual_power_window||'未列')}</p></div><button data-person-compare="${r.ruler_id}">选择另一人对照 →</button></div>${personSystemNav(r,active)}`;
 }
+function focusProfileAxis(){
+ const parts=location.hash.slice(8).split('/');
+ if(parts[1]!=='profile'||!DATA.axis_order.includes(parts[2]))return;
+ const target=document.getElementById('reason-'+parts[2]);
+ if(!target)return;
+ target.open=true;
+ requestAnimationFrame(()=>{if(document.getElementById(target.id)===target)target.scrollIntoView({behavior:'auto',block:'start'});});
+}
 function profilePage(r){
  nav('');
  if(!r){screen.innerHTML='<p>未找到该人物。</p><button data-home>返回人物总览</button>';return}
  screen.innerHTML=`${personSubpageHead(r,'人物画像','profile')}<div class="single-system-page">${profilePanel(r)}<section class="reading-wide single-system-evidence">${profileEvidencePanel(r)}</section></div>`;
+ focusProfileAxis();
 }
 function impactPage(r){
  nav('');

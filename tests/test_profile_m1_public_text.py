@@ -49,6 +49,9 @@ def test_formal_m1_public_reasons_exclude_talent_grades_and_machine_labels():
         public_refs.extend(ref for case in review.get("cases", []) for ref in case["source_refs"])
         assert not any("02-武将人才等级.json" in ref for ref in public_refs), row["ruler_id"]
     markdown = render_profile_markdown(settlement)
-    assert "本人战役事实摘录" in markdown
+    # Public reading is explicitly authored for every current record; the former
+    # raw paired-tier excerpt is no longer the public reading contract.
+    assert all(row['public_reading']['grade_reason'] in markdown for row in settlement['records'])
     assert not re.search(r"(?:结果责任|致败责任)=[A-Za-z_]+", markdown)
-    assert not re.search(r"武将锚|武将等级|武将档|M1\.\d_[A-Z_]+", markdown)
+    # Archive navigation is allowed; a talent grade must not become M1 evidence.
+    assert not re.search(r"武将锚|武将等级|武将档(?!案)|武将档案(?:中|的)?(?:等级|档位)|M1\.\d_[A-Z_]+", markdown)

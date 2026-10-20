@@ -8,6 +8,28 @@ from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_registry import profile_axis_entry
 
 
+def validate_text_fields(row: dict[str, Any]) -> None:
+    """Check field responsibilities without interpreting prose or choosing a grade."""
+    rid = row.get("ruler_id", "unknown")
+    fields = ("typical_pattern", "counterpattern", "grade_basis", "position_basis")
+    for key in fields:
+        value = row.get(key)
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError(f"M5裁决文本缺失: {rid}/{key}")
+    if row["grade_basis"].strip() == row["position_basis"].strip():
+        raise ValueError(f"M5档内理由重复裁档理由: {rid}")
+    limitations = row.get("limitations")
+    if not isinstance(limitations, list) or not limitations:
+        raise ValueError(f"M5材料限制缺失: {rid}")
+    if any(not isinstance(value, str) or not value.strip() for value in limitations):
+        raise ValueError(f"M5材料限制必须为非空文本列表: {rid}")
+    normalized = [value.strip() for value in limitations]
+    if len(set(normalized)) != len(normalized):
+        raise ValueError(f"M5材料限制重复: {rid}")
+    if set(normalized) & {row[key].strip() for key in fields}:
+        raise ValueError(f"M5材料限制复制裁决结论: {rid}")
+
+
 def render(payload: dict[str, Any]) -> str:
     lines = [
         "# M5 组织驾驭与执行编排正式结算", "",
@@ -36,6 +58,7 @@ def render(payload: dict[str, Any]) -> str:
         for parent in row["parent_chains"]:
             if parent["parent_id"] in selected:
                 lines.extend([f"- **{parent['title']}**：{parent['process_narrative'].splitlines()[0]}"])
+                lines.extend([f"  - **本人归责**：{parent['attribution_basis']}"])
         lines.extend(["", "**来源与定位：**", ""])
         for ref in row["source_refs"]:
             lines.append(f"- `{ref}`")
@@ -47,6 +70,7 @@ def render(payload: dict[str, Any]) -> str:
 
 def verify(root: Path) -> dict[str, Any]:
     from emperor_v4.evaluation.maintenance import verify_profile_current
+    from emperor_v4.evaluation.profile_record_integrity import verify_current_records
 
     entry = profile_axis_entry("M5")
     path = root / entry["json"]
@@ -59,6 +83,7 @@ def verify(root: Path) -> dict[str, Any]:
         raise ValueError("M5不得生成总分、排名或写入综合榜/数据库")
     pool = {r["ruler_id"]: r for r in load_json(root / "config/common/canonical-ruler-pool.json")["records"] if r["pool_status"] == "INCLUDED"}
     records = payload["records"]
+    verify_current_records(payload)
     if payload["record_count"] != len(records):
         raise ValueError("M5记录数声明不一致")
     if records != sorted(records, key=lambda r: (-r["radar_value"], r["ruler_id"])):
@@ -67,6 +92,7 @@ def verify(root: Path) -> dict[str, Any]:
     parent_ids: set[str] = set()
     for row in records:
         rid = row["ruler_id"]
+        validate_text_fields(row)
         person = pool[rid]
         for key in ("ruler_name", "polity"):
             if row[key] != person[key]:
