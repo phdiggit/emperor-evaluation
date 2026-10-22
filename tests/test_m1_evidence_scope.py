@@ -48,15 +48,20 @@ def test_retired_mapping_gate_cannot_override_current_scope():
         verify_evidence_scope(record)
 
 
-def test_m1_table_exposes_both_layers_without_regrading():
-    record = {"ruler_name": "合成对象", "axis_grade": "G2", "position": "MID", "radar_value": 45,
+@pytest.mark.parametrize("level,mode", [("E1", "EPISODE_TAG"), ("E2", "BOUNDED_PROFILE"), ("E3", "FULL_GRADE")])
+def test_m1_overview_uses_authored_reading_without_regrading_from_evidence_scope(level, mode):
+    record = {"ruler_id": "RULER-SYNTHETIC", "ruler_name": "合成对象",
+              "axis_grade": "G2", "position": "MID", "radar_value": 45,
               "confidence": "LOW", "typical_pattern": "共享权力下的有限本人行为。",
-              "evidence_scope": evidence_scope("E1", "EPISODE_TAG")}
+              "public_reading": {"headline": "本人统筹的行动有明确成果，现场指挥仍须区分。"},
+              "evidence_scope": evidence_scope(level, mode)}
     before = copy.deepcopy(record)
     table = "\n".join(_overview_table("M1", [record], {}))
-    assert COVERAGE_LABEL in table
-    assert ABILITY_LABELS["E1"] in table
-    assert "材料底池覆盖" in table and "本人能力证据" in table
+    assert "[合成对象](../../../../reader/index.html#person/RULER-SYNTHETIC/profile/M1)" in table
+    assert f"| C | 低 | {record['public_reading']['headline']} |" in table
+    assert record["typical_pattern"] not in table
+    assert COVERAGE_LABEL not in table and ABILITY_LABELS[level] not in table
+    assert "材料底池覆盖" not in table and "本人能力证据" not in table
     assert record == before
 
 

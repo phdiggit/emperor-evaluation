@@ -89,15 +89,34 @@ def _source_records_by_id(source: Mapping[str, Any]) -> dict[str, Mapping[str, A
     }
     if len(indexed) != len(records):
         raise ValueError("第三项C战略链正式源人物ID缺失或重复")
+    for row in records:
+        if "public_reading" in row.get("formal_writeback", {}).get("fields", {}):
+            raise ValueError("第三项C公开正文只维护在正式记录，不得存入战略链写回源")
     return indexed
+
+
+def _formal_public_readings(payload: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
+    records = list(payload.get("records") or ())
+    indexed = _records_by_id(payload)
+    if len(indexed) != len(records):
+        raise ValueError("第三项C正文来源人物ID缺失或重复")
+    readings = {}
+    for ruler_id, row in indexed.items():
+        reading = row.get("public_reading")
+        if not isinstance(reading, dict) or not reading:
+            raise ValueError(f"{ruler_id}缺少正式C公开正文，不得从旧写回源或生成记录补造")
+        readings[ruler_id] = reading
+    return readings
 
 
 def load_strategy_chain_source(workspace_root: Path) -> dict[str, Any]:
     source = json.loads(
         (workspace_root / SOURCE_PATH).read_text(encoding="utf-8")
     )
-    if source.get("schema_version") != "third-item-c-strategy-chain-adjudications-v1":
+    if source.get("schema_version") != "third-item-c-strategy-chain-adjudications-v2":
         raise ValueError("第三项C战略链正式源schema不合法")
+    if source.get("public_reading_source") != C_PATH.as_posix():
+        raise ValueError("第三项C公开正文来源必须是正式C记录")
     if source.get("canonical_status") != "FORMAL_SETTLEMENT_PATCH_SOURCE":
         raise ValueError("第三项C战略链正式源未声明为正式写回源")
     if source.get("status") != "CURRENT":
@@ -107,7 +126,7 @@ def load_strategy_chain_source(workspace_root: Path) -> dict[str, Any]:
     if source.get("parent_cycle_role") != "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN":
         raise ValueError("第三项C战略链正式源父周期角色错误")
     records = list(source.get("records") or ())
-    formal_ids = set(_records_by_id(load_json(workspace_root / C_PATH)))
+    formal_ids = set(_formal_public_readings(load_json(workspace_root / C_PATH)))
     source_ids = set(_source_records_by_id(source))
     if source_ids != formal_ids:
         raise ValueError(
@@ -121,9 +140,16 @@ def load_strategy_chain_source(workspace_root: Path) -> dict[str, Any]:
 
 
 def apply_strategy_chain_writeback_to_payload(
-    payload: Mapping[str, Any], source: Mapping[str, Any]
+    payload: Mapping[str, Any], source: Mapping[str, Any],
+    *, formal_payload: Mapping[str, Any],
 ) -> dict[str, Any]:
+    """Apply scoring fields, retaining authored reading from the formal records."""
     source_by_id = _source_records_by_id(source)
+    readings = _formal_public_readings(formal_payload)
+    payload_ids = set(_records_by_id(payload))
+    if (len(payload_ids) != len(payload.get("records") or ())
+            or payload_ids != set(readings) or payload_ids != set(source_by_id)):
+        raise ValueError("第三项C重建、战略链源与正文来源人物集合不一致")
     output = deepcopy(dict(payload))
     output_records: list[dict[str, Any]] = []
     for row in payload.get("records") or ():
@@ -133,6 +159,7 @@ def apply_strategy_chain_writeback_to_payload(
             fields = source_row["formal_writeback"]["fields"]
             for key, value in fields.items():
                 updated[key] = deepcopy(value)
+        updated["public_reading"] = deepcopy(readings[str(row["ruler_id"])])
         output_records.append(updated)
     output["records"] = output_records
     metadata = source.get("formal_payload_metadata") or {}
@@ -147,7 +174,7 @@ def write_third_item_c_strategy_chain_settlement(
 ) -> dict[str, Any]:
     source = load_strategy_chain_source(workspace_root)
     current = load_json(workspace_root / C_PATH)
-    updated = apply_strategy_chain_writeback_to_payload(current, source)
+    updated = apply_strategy_chain_writeback_to_payload(current, source, formal_payload=current)
     write_json(
         workspace_root / C_PATH,
         updated,

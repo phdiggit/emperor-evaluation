@@ -1,104 +1,21 @@
 name: Build reader
 
-# Source refresh commits created by Actions do not recursively trigger workflows;
-# a normal source push remains the validation/deployment entry point after deterministic public-projection refreshes.
+# Build from source and publish the validated artifact without source-branch writes.
 
 on:
   push:
     branches:
       - codex/single-ruler-session-control
     paths:
-      - reader/index.template.html
-      - reader/first-item-a.template.html
-      - reader/first-item-b1.template.html
-      - reader/first-item-b2.template.html
-      - reader/first-item-c.template.html
-      - reader/link-effects.css
-      - reader/home-interactions.js
-      - reader/third-item-a-public.js
-      - reader/third-item-c-public.js
-      - reader/third-item-c.template.html
-      - reader/third-item-c-collection.js
-      - src/emperor_v4/evaluation/third_item_c_public.py
-      - src/emperor_v4/evaluation/third_item_c_contract_reading.py
-      - tests/test_third_item_c_public.py
-      - tests/test_reader_third_c_collection.py
-      - reader/third-item-b-public.js
-      - reader/readability.css
-      - reader/readability.js
-      - reader/person-readability.js
-      - reader/person-reading-notes.js
-      - reader/person-reading-notes.json
-      - reader/first-item-reading.js
-      - reader/second-item-reading.js
-      - reader/second-item-public-alias.js
-      - reader/second-item-a-public.js
-      - reader/second-item-b1-public.js
-      - reader/second-item-public-labels.js
-      - reader/validate_first_item_docs.py
-      - reader/build_first_item_reader_cache.py
-      - src/emperor_v4/evaluation/first_item_public_outcomes.py
-      - src/emperor_v4/evaluation/first_item_c_public.py
-      - src/emperor_v4/evaluation/first_item_c_evidence.py
-      - src/emperor_v4/evaluation/first_item_b1_cost_public.py
-      - src/emperor_v4/evaluation/first_item_b2_public.py
-      - src/emperor_v4/evaluation/first_item_b1_inputs.py
-      - src/emperor_v4/evaluation/first_item_weights.py
-      - src/emperor_v4/evaluation/first_item_markdown_settlement.py
-      - config/military/opponent-system-contract.json
-      - tests/test_first_item_b1_inputs.py
-      - tests/test_first_item_weights.py
-      - tests/test_first_item_b1_cost_public.py
-      - tests/test_first_item_b2_public.py
-      - tests/test_first_item_c_public.py
-      - tests/test_first_item_c_evidence.py
-      - reader/lazy-details.js
-      - reader/public-copy.json
-      - reader/second-item-summaries.json
-      - reader/build.py
-      - reader/build_military_archive.py
-      - reader/military.template.html
-      - reader/military-archive.js
-      - reader/serve.py
-      - reader/_build_military_archive_core.py
-      - src/emperor_v4/evaluation/second_item_a_public.py
-      - src/emperor_v4/evaluation/third_fourth*
-      - src/emperor_v4/evaluation/second_item_c_public*
-      - tests/test_second_item_c_public.py
-      - tests/test_third_fourth_item_public.py
-      - tests/test_third_item_a_public_reading.py
-      - src/emperor_v4/evaluation/third_item_a_public.py
-      - src/emperor_v4/evaluation/third_item_b_public.py
-      - tests/test_third_item_b_public.py
-      - src/emperor_v4/evaluation/third_item_ab_reading.py
-      - config/third-item/**
-      - src/emperor_v4/evaluation/historical_impact.py
-      - src/emperor_v4/evaluation/profile_m1_verifier.py
-      - src/emperor_v4/evaluation/profile_m1_public.py
-      - tests/test_profile_m1_authored_reading.py
-      - src/emperor_v4/evaluation/profile_markdown.py
-      - tests/test_historical_impact*.py
-      - docs/项目总纲/历史影响评价总则.md
-      - src/emperor_v4/evaluation/second_item_b1_settlement.py
-      - tests/test_reader.py
-      - tests/test_reader_public_boundaries.py
-      - tests/test_reader_first_item_reading.py
-      - tests/test_first_item_public_outcomes.py
-      - tests/test_reader_person_readability.py
-      - tests/test_reader_second_public_text.py
-      - tests/test_reader_lazy_details.py
-      - tests/test_reader_military_archive.py
-      - tests/test_reader_military_archive_ref_policy.py
-      - tests/test_reader_military_archive_lineage.py
-      - config/project.yml
-      - config/common/**
-      - docs/评分结算/**
-      - docs/公共成果/制度行政/01-制度行政计分材料登记/**
-      - docs/公共成果/制度行政/03-重要制度发展节点链.json
-      - docs/公共成果/军事/01-战役登记.json
-      - docs/公共成果/军事/01-战役登记/**
-      - docs/公共成果/军事/02-武将人才等级.json
-      - docs/公共成果/军事/02-武将人才等级/**
+      - reader/**
+      - src/**
+      - config/**
+      - docs/**
+      - archive/**
+      - tests/**
+      - index.html
+      - pyproject.toml
+      - .gitignore
       - .github/workflows/reader-build.yml
   workflow_dispatch:
 
@@ -107,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -158,6 +75,11 @@ jobs:
       - name: Build first-item reader cache
         run: python reader/build_first_item_reader_cache.py
 
+      - name: Check generated reader parity
+        run: |
+          python reader/build.py --check
+          python reader/build_first_item_reader_cache.py --check
+
       - name: Check browser JavaScript syntax
         shell: bash
         run: |
@@ -196,9 +118,9 @@ jobs:
         run: python -m pytest tests/test_profile_m1_authored_reading.py -q
 
       - name: Run behavior tests
-        run: python -m pytest tests/test_reader.py tests/test_reader_public_boundaries.py tests/test_reader_first_item_reading.py tests/test_first_item_c_public.py tests/test_first_item_c_evidence.py tests/test_first_item_b1_cost_public.py tests/test_first_item_b2_public.py tests/test_first_item_b1_inputs.py tests/test_first_item_weights.py tests/test_first_item_public_outcomes.py tests/test_reader_person_readability.py tests/test_reader_second_public_text.py tests/test_second_item_c_public.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py tests/test_third_fourth_item_public.py tests/test_third_item_a_public_reading.py tests/test_third_item_b_public.py tests/test_third_item_c_public.py tests/test_reader_third_c_collection.py tests/test_historical_impact.py tests/test_historical_impact_source_collections.py -q
+        run: python -m pytest tests/test_cli_entrypoints.py tests/test_reader_site.py tests/test_reader.py tests/test_reader_public_boundaries.py tests/test_reader_first_item_reading.py tests/test_first_item_c_public.py tests/test_first_item_c_evidence.py tests/test_first_item_b1_cost_public.py tests/test_first_item_b2_public.py tests/test_first_item_b1_inputs.py tests/test_first_item_weights.py tests/test_first_item_public_outcomes.py tests/test_reader_person_readability.py tests/test_reader_second_public_text.py tests/test_second_item_c_public.py tests/test_reader_lazy_details.py tests/test_reader_military_archive.py tests/test_reader_military_archive_ref_policy.py tests/test_reader_military_archive_lineage.py tests/test_third_fourth_item_public.py tests/test_third_item_a_public_reading.py tests/test_third_item_b_public.py tests/test_third_item_c_public.py tests/test_third_item_c_reading_authority.py tests/test_reader_third_c_collection.py tests/test_historical_impact.py tests/test_historical_impact_source_collections.py -q
 
-      - name: Commit validated generated reader artifacts
+      - name: Check validated source is still current
         id: validated_release
         shell: bash
         run: |
@@ -206,33 +128,11 @@ jobs:
           git fetch origin "${GITHUB_REF_NAME}"
           remote_head="$(git rev-parse "origin/${GITHUB_REF_NAME}")"
           if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
-            echo "Validated source was superseded by ${remote_head}; skip release and deployment."
+            echo "Validated source was superseded by ${remote_head}; skip deployment."
             echo "publish=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
-          release_paths=(reader/third-item-c.html reader/data/third-item-c reader/index.html reader/military.html reader/first-item-a.html reader/first-item-b1.html reader/first-item-b2.html reader/second-item-b2.html reader/source-revision.json reader/data/person-reading-notes.json reader/data/people reader/data/military reader/data/first-item)
-          if [[ -n "$(git status --porcelain -- "${release_paths[@]}")" ]]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -A -- "${release_paths[@]}"
-            git commit -m "刷新阅读层"
-            git push
-          else
-            echo "Validated reader release artifacts are already current"
-          fi
-
-          release_head="$(git rev-parse HEAD)"
-          git fetch origin "${GITHUB_REF_NAME}"
-          remote_head="$(git rev-parse "origin/${GITHUB_REF_NAME}")"
-          if [[ "$remote_head" != "$release_head" ]]; then
-            echo "Branch moved to ${remote_head} after validation; skip deployment."
-            echo "publish=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
           echo "publish=true" >> "$GITHUB_OUTPUT"
-          echo "release_head=${release_head}" >> "$GITHUB_OUTPUT"
 
       - name: Configure Pages
         if: steps.validated_release.outputs.publish == 'true'
@@ -240,15 +140,7 @@ jobs:
 
       - name: Stage validated Pages site
         if: steps.validated_release.outputs.publish == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -rf .tmp/pages-site
-          mkdir -p .tmp/pages-site/reader
-          cp index.html .tmp/pages-site/
-          cp reader/third-item-c.html reader/index.html reader/military.html reader/first-item-a.html reader/first-item-b1.html reader/first-item-b2.html reader/second-item-b2.html reader/readability.css reader/first-item-reading.js .tmp/pages-site/reader/
-          cp -a reader/data .tmp/pages-site/reader/
-          touch .tmp/pages-site/.nojekyll
+        run: python v4.py reader --stage-only
 
       - name: Upload validated Pages artifact
         if: steps.validated_release.outputs.publish == 'true'

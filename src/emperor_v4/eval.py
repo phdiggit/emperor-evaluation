@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import sys
 from typing import Sequence
 
 
@@ -10,8 +11,13 @@ from typing import Sequence
 def _parser() -> argparse.ArgumentParser:
     from emperor_v4.evaluation.profile_registry import profile_axis_order
 
-    parser = argparse.ArgumentParser(description="皇帝综合评价体系 V4 评分命令")
+    parser = argparse.ArgumentParser(
+        description="皇帝综合评价体系 V4 维护与交付命令",
+        epilog="日常操作：maintenance 定位/校验/同步；reader 构建阅读站点；package 导出评估包。各命令后加 --help 查看参数。",
+    )
     commands = parser.add_subparsers(dest="command", required=True)
+    commands.add_parser("reader", help="构建、检查并打包完整阅读站点", add_help=False)
+    commands.add_parser("package", help="导出三体系评估包，或用 --list 只读查看清单", add_help=False)
     profile_axes = list(profile_axis_order())
     maintenance = commands.add_parser("maintenance", help="定位当前裁决、下游影响与必要校验")
     maintenance.add_argument("--component", action="append", required=True)
@@ -135,61 +141,23 @@ def _print_written(written: dict[str, Path]) -> int:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    args = _parser().parse_args(argv)
+    arguments = list(sys.argv[1:] if argv is None else argv)
+    workspace_commands = {"reader": "reader/build_site.py", "package": "package_net_review.py"}
+    if arguments and arguments[0] in workspace_commands:
+        import runpy
+        script = Path(__file__).resolve().parents[2] / workspace_commands[arguments[0]]
+        runpy.run_path(str(script))["main"](arguments[1:])
+        return 0
+    args = _parser().parse_args(arguments)
     from emperor_v4.evaluation.formal_json_store import json_read_session
     with json_read_session():
         return _dispatch(args)
 
 
 def _dispatch(args: argparse.Namespace) -> int:
-    from emperor_v4.evaluation.first_item_a_registry import write_first_item_a_registry
-    from emperor_v4.evaluation.first_item_b_registry import write_first_item_b_registry
-    from emperor_v4.evaluation.first_item_cost import build_first_item_cost_report
-    from emperor_v4.evaluation.fourth_item_a import verify as verify_fourth_item_a, write_views as write_fourth_item_a_views
-    from emperor_v4.evaluation.canonical_ruler_pool import (
-        build_canonical_ruler_pool,
-        write_canonical_ruler_pool,
-    )
-    from emperor_v4.evaluation.composite_ranking import (
-        build_composite_ranking,
-        write_composite_ranking,
-    )
-    from emperor_v4.evaluation.formal_settlements import (
-        verify_formal_settlements,
-        verify_second_item_a_snapshot,
-        verify_second_item_b2_snapshot,
-    )
-    from emperor_v4.evaluation.profile_c2_c5_cross_axis_audit import (
-        inspect_cross_axis_drift as inspect_profile_c2_c5_cross_axis_drift,
-    )
-    from emperor_v4.evaluation.profile_c3_settlement import build as build_profile_c3_settlement
-    from emperor_v4.evaluation.profile_c3_verifier import verify as verify_profile_c3_settlement
-    from emperor_v4.evaluation.profile_m4_settlement import build as build_profile_m4_settlement
-    from emperor_v4.evaluation.profile_m4_verifier import verify as verify_profile_m4_settlement
-    from emperor_v4.evaluation.profile_markdown import AXIS_FILES, write_axes as write_profile_markdown_axes
-    from emperor_v4.evaluation.profile_registry import write_profile_manifest
-    from emperor_v4.evaluation.profile_radar import write_samples as write_profile_radar_samples
-    from emperor_v4.evaluation.profile_video_card import write_samples as write_profile_video_card_samples
-    from emperor_v4.evaluation.profile_video_copy import write_samples as write_profile_video_copy_samples
-    from emperor_v4.evaluation.second_item_b1_settlement import (
-        rebuild_derived as rebuild_second_item_b1,
-        refresh_b1_public_projection_file,
-    )
-    from emperor_v4.evaluation.third_item_current_settlement import (
-        verify_current_third_item_settlement,
-        write_current_third_item_settlement,
-    )
-    from emperor_v4.evaluation.third_item_b1_settlement import rebuild_third_item_b1
-    from emperor_v4.evaluation.third_item_d_settlement import (
-        verify_third_item_d_formal_settlement,
-    )
-    from emperor_v4.evaluation.governance_state_recovery import (
-        activate_governance_state_recovery,
-        verify_governance_state_recovery_review,
-        write_governance_state_recovery_markdown,
-    )
 
     if args.command == "maintenance":
+        from emperor_v4.evaluation.formal_settlements import verify_second_item_b2_snapshot
         import contextlib
         import io
         from emperor_v4.evaluation.maintenance import inspect
@@ -242,6 +210,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 1 if failures or report["current_link_gaps"] else 0
     if args.command == "second-item-totals":
+        from emperor_v4.evaluation.second_item_b1_settlement import rebuild_derived as rebuild_second_item_b1
         report = rebuild_second_item_b1(Path(".").resolve(), write=args.write, refresh_source=False)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
@@ -290,6 +259,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     if args.command in ("fourth-item-a-verify", "fourth-item-a-views", "fourth-item-b-verify", "fourth-item-b-views", "fourth-item-c-verify", "fourth-item-c-views"):
+        from emperor_v4.evaluation.fourth_item_a import verify as verify_fourth_item_a, write_views as write_fourth_item_a_views
         if args.command in ("fourth-item-a-views", "fourth-item-b-views", "fourth-item-c-views") and args.write:
             report = write_fourth_item_a_views(args.workspace_root.resolve())
         else:
@@ -297,26 +267,31 @@ def _dispatch(args: argparse.Namespace) -> int:
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "formal-settlements-verify":
+        from emperor_v4.evaluation.formal_settlements import verify_formal_settlements
         report = verify_formal_settlements(Path(".").resolve(), items=set(args.item) if args.item else None)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "governance-state-recovery-verify":
+        from emperor_v4.evaluation.governance_state_recovery import verify_governance_state_recovery_review
         report = verify_governance_state_recovery_review(Path(".").resolve())
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "governance-state-recovery-report":
+        from emperor_v4.evaluation.governance_state_recovery import write_governance_state_recovery_markdown
         if not args.write:
             raise SystemExit("governance-state-recovery-report 必须显式传入 --write")
         path = write_governance_state_recovery_markdown(Path(".").resolve())
         print(path.relative_to(Path(".").resolve()).as_posix())
         return 0
     if args.command == "governance-state-recovery-activate":
+        from emperor_v4.evaluation.governance_state_recovery import activate_governance_state_recovery
         if not args.write:
             raise SystemExit("governance-state-recovery-activate 必须显式传入 --write")
         report = activate_governance_state_recovery(Path(".").resolve())
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "second-item-a-verify":
+        from emperor_v4.evaluation.formal_settlements import verify_second_item_a_snapshot
         report = verify_second_item_a_snapshot(args.workspace_root.resolve())
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
@@ -327,6 +302,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "second-item-b2-verify":
+        from emperor_v4.evaluation.formal_settlements import verify_second_item_b2_snapshot
         report = verify_second_item_b2_snapshot(args.workspace_root.resolve())
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
@@ -367,14 +343,17 @@ def _dispatch(args: argparse.Namespace) -> int:
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "second-item-b1-settlement":
+        from emperor_v4.evaluation.second_item_b1_settlement import rebuild_derived as rebuild_second_item_b1
         report = rebuild_second_item_b1(args.workspace_root.resolve(), write=args.write)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "second-item-b1-public":
+        from emperor_v4.evaluation.second_item_b1_settlement import refresh_b1_public_projection_file
         report = refresh_b1_public_projection_file(args.workspace_root.resolve(), write=args.write)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-c3-settlement":
+        from emperor_v4.evaluation.profile_c3_settlement import build as build_profile_c3_settlement
         payload = build_profile_c3_settlement(write=args.write)["settlement"]
         print(json.dumps({"record_count": payload["record_count"], "summary": payload["summary"]}, ensure_ascii=False, indent=2))
         return 0
@@ -383,42 +362,51 @@ def _dispatch(args: argparse.Namespace) -> int:
         print(json.dumps(verify(), ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-c3-verify":
+        from emperor_v4.evaluation.profile_c3_verifier import verify as verify_profile_c3_settlement
         print(json.dumps(verify_profile_c3_settlement(), ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-c2-c5-cross-axis-audit":
+        from emperor_v4.evaluation.profile_c2_c5_cross_axis_audit import inspect_cross_axis_drift as inspect_profile_c2_c5_cross_axis_drift
         print(json.dumps(inspect_profile_c2_c5_cross_axis_drift(), ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-m4-settlement":
+        from emperor_v4.evaluation.profile_m4_settlement import build as build_profile_m4_settlement
         payload = build_profile_m4_settlement(write=args.write)["settlement"]
         print(json.dumps({"record_count": payload["record_count"], "summary": payload["summary"]}, ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-m4-verify":
+        from emperor_v4.evaluation.profile_m4_verifier import verify as verify_profile_m4_settlement
         print(json.dumps(verify_profile_m4_settlement(), ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-markdown":
+        from emperor_v4.evaluation.profile_markdown import AXIS_FILES, write_axes as write_profile_markdown_axes
         if not args.write:
             raise SystemExit("profile-markdown 必须显式传入 --write")
         for path in write_profile_markdown_axes(args.axis or AXIS_FILES):
             print(path.relative_to(Path(".").resolve()).as_posix())
         return 0
     if args.command == "profile-manifest":
+        from emperor_v4.evaluation.profile_registry import write_profile_manifest
         if not args.write:
             raise SystemExit("profile-manifest 必须显式传入 --write")
         print(write_profile_manifest(args.axis).relative_to(Path(".").resolve()).as_posix())
         return 0
     if args.command == "profile-radar-samples":
+        from emperor_v4.evaluation.profile_radar import write_samples as write_profile_radar_samples
         if not args.write:
             raise SystemExit("profile-radar-samples 必须显式传入 --write")
         report = write_profile_radar_samples(args.output_dir)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-video-card-samples":
+        from emperor_v4.evaluation.profile_video_card import write_samples as write_profile_video_card_samples
         if not args.write:
             raise SystemExit("profile-video-card-samples 必须显式传入 --write")
         report = write_profile_video_card_samples(args.output_dir)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-video-copy-samples":
+        from emperor_v4.evaluation.profile_video_copy import write_samples as write_profile_video_copy_samples
         if not args.write:
             raise SystemExit("profile-video-copy-samples 必须显式传入 --write")
         report = write_profile_video_copy_samples(args.output_dir)
@@ -427,6 +415,7 @@ def _dispatch(args: argparse.Namespace) -> int:
 
     workspace_root = args.workspace_root.resolve()
     if args.command == "composite-ranking":
+        from emperor_v4.evaluation.composite_ranking import build_composite_ranking, write_composite_ranking
         if args.write:
             return _print_written(write_composite_ranking(workspace_root))
         payload = build_composite_ranking(workspace_root)
@@ -447,6 +436,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         )
         return 0
     if args.command == "canonical-ruler-pool":
+        from emperor_v4.evaluation.canonical_ruler_pool import build_canonical_ruler_pool, write_canonical_ruler_pool
         if args.write:
             return _print_written(write_canonical_ruler_pool(workspace_root))
         payload = build_canonical_ruler_pool(workspace_root)
@@ -474,14 +464,18 @@ def _dispatch(args: argparse.Namespace) -> int:
         )
         return 0
     if args.command == "first-item-cost-verify":
+        from emperor_v4.evaluation.first_item_cost import build_first_item_cost_report
         report = build_first_item_cost_report(workspace_root)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0 if report['status'] == 'READY' else 1
     if args.command == "first-item-a-registry":
+        from emperor_v4.evaluation.first_item_a_registry import write_first_item_a_registry
         return _print_written(write_first_item_a_registry(workspace_root))
     if args.command == "first-item-b-registry":
+        from emperor_v4.evaluation.first_item_b_registry import write_first_item_b_registry
         return _print_written(write_first_item_b_registry(workspace_root))
     if args.command == "third-item-d-verify":
+        from emperor_v4.evaluation.third_item_d_settlement import verify_third_item_d_formal_settlement
         result = verify_third_item_d_formal_settlement(workspace_root)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
@@ -498,6 +492,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     if args.command == "third-item-b1-settlement":
+        from emperor_v4.evaluation.third_item_b1_settlement import rebuild_third_item_b1
         print(json.dumps(
             rebuild_third_item_b1(workspace_root, write=args.write),
             ensure_ascii=False,
@@ -505,6 +500,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         ))
         return 0
     if args.command == "third-item-current-settlement":
+        from emperor_v4.evaluation.third_item_current_settlement import verify_current_third_item_settlement, write_current_third_item_settlement
         payload = (
             write_current_third_item_settlement(workspace_root)
             if args.write

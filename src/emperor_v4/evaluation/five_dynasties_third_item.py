@@ -3710,7 +3710,8 @@ def build_five_dynasties_formal_payloads(
         "pending_count": sum(not row.get("score_ready") for row in ab["records"]),
         "score_ready_count": sum(bool(row.get("score_ready")) for row in ab["records"]),
     })
-    c = _replace_partition_records(load_json(workspace_root / C_PATH), c_records)
+    formal_c = load_json(workspace_root / C_PATH)
+    c = _replace_partition_records(formal_c, c_records)
     from emperor_v4.evaluation.third_item_c_strategy_chain import (
         apply_strategy_chain_writeback_to_payload,
         load_strategy_chain_source,
@@ -3723,7 +3724,7 @@ def build_five_dynasties_formal_payloads(
     # for AB handoff checks.  Reapply the current C strategy-chain source after
     # that compatibility pass so it cannot silently restore parent-count
     # scoring or an old gate-rewritten grade.
-    c = apply_strategy_chain_writeback_to_payload(c, strategy_chain_source)
+    c = apply_strategy_chain_writeback_to_payload(c, strategy_chain_source, formal_payload=formal_c)
     _validate_formal_abc_contracts(ab["records"], c["records"])
     c.update({
         "scope": f"秦至唐95人当前值 + 五代十国12人当前结算{extension}",

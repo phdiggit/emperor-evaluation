@@ -280,7 +280,7 @@ def build(root: Path, output: Path, package: str = "all") -> dict:
             "router_count": manifest["router_count"]}
 
 
-def main() -> None:
+def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="原样打包三个体系的合同和结算，供聊天版临时会话读取")
     parser.add_argument("--package", choices=PACKAGE_KINDS, default="all",
                         help="默认生成一个完整三体系包；也可单选某体系合同或结算")
@@ -288,7 +288,7 @@ def main() -> None:
                         help="输出目录")
     parser.add_argument("--output", type=Path, help="指定ZIP输出路径")
     parser.add_argument("--list", action="store_true", help="只列出入包源文件，不生成文件")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if args.list:
         for path in collect(ROOT, args.package):
             print(path.relative_to(ROOT).as_posix())

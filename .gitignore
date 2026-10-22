@@ -14,6 +14,12 @@ coverage/
 dist/
 build/
 
+# Rebuildable reader publication artifacts (templates and authored inputs stay tracked)
+/reader/*.html
+!/reader/*.template.html
+/reader/data/
+/reader/source-revision.json
+
 # Local public-opinion research: scripts, datasets, reports and figures
 /research/network_public_opinion/
 
