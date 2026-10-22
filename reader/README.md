@@ -135,6 +135,6 @@ C5材料强度直接展示父情境`intensity`及`material_intensity`，名称�
 | `build.py`、军事档案／第一项缓存构建器、`build_site.py` | 投影、分片、校验和完整站点打包 |
 | 非模板HTML、`data/`、`source-revision.json` | 可重建生成物，不手工编辑、不进入Git |
 
-GitHub Actions在相关源变化后构建、检查并直接发布Pages artifact，不回写源码分支。发布前核对分支仍指向已验证提交，线上史源链接绑定该提交。`.tmp/pages-site/`只含运行页面、资源和阅读数据；本地完整史源阅读仍用`serve.py`。发布验收须对应到源提交的构建和行为检查，单看Pages成功不足以确认。
+GitHub Actions在主分支`GPT`的相关源变化后构建、检查并直接发布Pages artifact，不回写源码分支；发布任务共用并发组，避免不同运行交错发布。发布前核对分支仍指向已验证提交，线上史源链接绑定该提交。`.tmp/pages-site/`只含运行页面、资源和阅读数据；本地完整史源阅读仍用`serve.py`。发布验收须对应到源提交的构建和行为检查，单看Pages成功不足以确认。
 
 修改按影响选择已有组件与阅读测试。人物摘要重点运行`tests/test_reader_person_readability.py`和`tests/test_reader_public_boundaries.py`，复验人物／对照、缺失强度、撤回来源及加载失败；其他分项选对应测试。合并时先解决合同、源记录与生成器冲突，再重建，不拼接生成文案。测试验证合同、同源、只读及展示行为，不固定人物等级或历史批次数；结构通过不代替历史语义复核。

@@ -5,7 +5,7 @@ name: Build reader
 on:
   push:
     branches:
-      - codex/single-ruler-session-control
+      - GPT
     paths:
       - reader/**
       - src/**
@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: reader-build-v2-${{ github.ref_name }}
+  group: reader-pages-publication
   cancel-in-progress: true
 
 permissions:
