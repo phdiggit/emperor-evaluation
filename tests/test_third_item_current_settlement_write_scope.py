@@ -2,11 +2,7 @@ import json
 
 import pytest
 
-from emperor_v4.evaluation.third_item_current_settlement import (
-    _preserve_mapping_order_if_equal,
-    _replace_non_public_preserving_public,
-    _validate_overlapping_subject_windows,
-)
+from emperor_v4.evaluation.third_item_current_settlement import _replace_non_public_preserving_public, _validate_overlapping_subject_windows
 
 
 def test_scoring_sync_preserves_only_the_existing_public_projection():
@@ -56,18 +52,6 @@ def test_scoring_sync_preserves_only_the_existing_public_projection():
                 "public_note": "正式视图原有步骤说明",
             }
         ],
-    }
-
-
-def test_c_profile_rebuild_keeps_order_when_mapping_is_semantically_equal():
-    current = {"PROPORTIONATE_RETURN": 1, "LOW_RETURN": 2}
-    rebuilt = {"LOW_RETURN": 2, "PROPORTIONATE_RETURN": 1}
-
-    preserved = _preserve_mapping_order_if_equal(current, rebuilt)
-
-    assert list(preserved) == ["PROPORTIONATE_RETURN", "LOW_RETURN"]
-    assert _preserve_mapping_order_if_equal(current, {"LOW_RETURN": 3}) == {
-        "LOW_RETURN": 3
     }
 
 
@@ -121,7 +105,7 @@ def test_changed_a_endpoints_do_not_restore_retired_atomic_scores(monkeypatch, t
     monkeypatch.setattr(settlement, "load_ruler_polities", lambda root: {})
     saved = []
     monkeypatch.setattr(settlement, "write_json", lambda path, payload, **kwargs: saved.append(deepcopy(payload)))
-    monkeypatch.setattr(rendering, "_render_formal_markdown", lambda *args: "")
+    monkeypatch.setattr(rendering, "_render_formal_markdown", lambda *args, **kwargs: "")
     monkeypatch.setattr(settlement, "_write_text_atomic", lambda *args: None)
 
     settlement._synchronize_current_ab_view(tmp_path)

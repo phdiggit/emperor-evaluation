@@ -6,7 +6,6 @@
   const screen = document.getElementById("screen");
   if (!screen) return;
 
-  let scheduled = false;
 
   function currentRecord() {
     if (typeof byId === "undefined") return null;
@@ -177,16 +176,5 @@
     body.dataset.b1Public = "done";
   }
 
-  function schedule() {
-    if (scheduled) return;
-    scheduled = true;
-    requestAnimationFrame(() => {
-      scheduled = false;
-      patch();
-    });
-  }
-
-  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true, characterData:true});
-  window.addEventListener("hashchange", schedule);
-  schedule();
+  globalThis.SecondItemB1Public = Object.freeze({patch});
 })();

@@ -55,14 +55,6 @@ def test_polity_router_rejects_unknown_partial_route(tmp_path):
         load_json(path, polities=["宋"])
 
 
-def test_normal_json_remains_supported(tmp_path):
-    path = tmp_path / "normal.json"
-    payload = {"schema_version": "normal-v1", "records": [1, 2]}
-    path.write_text(json.dumps(payload), encoding="utf-8")
-
-    assert load_json(path) == payload
-
-
 def test_write_json_preserves_existing_router(tmp_path):
     path = tmp_path / "formal.json"
     first = {"records": [{"ruler_id": "A", "polity": "汉", "value": 1}]}

@@ -53,16 +53,6 @@ def test_rejects_conflicting_current_fields(defect):
         verify_current_records(payload)
 
 
-def test_military_stages_are_kept_inside_one_cycle():
-    payload = sample("M1")
-    item = payload["records"][0]["m1_role_projection"]["items"][0]
-    item["phase_evidence"] = [
-        {"m1_role_class": "STRATEGIC_DIRECTION", "direction": "NEGATIVE"},
-        {"m1_role_class": "OPERATIONAL_COORDINATION", "direction": "POSITIVE"},
-    ]
-    verify_current_records(payload)
-
-
 def test_nominal_authorization_cannot_carry_personal_military_failure():
     payload = sample("M1")
     row = payload["records"][0]

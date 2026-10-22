@@ -4,7 +4,6 @@
 (() => {
   const screen = document.getElementById("screen");
   if (!screen) return;
-  let scheduled = false;
   function currentRecord() {
     if (typeof byId === "undefined") return null;
     const match = location.hash.match(/^#net\/([^/?#]+)\/(?:second|all)(?:\/|$)/);
@@ -104,12 +103,5 @@
     body.dataset.aPublicKey = key;
     body.dataset.secondPublicOwner = "A";
   }
-  function schedule() {
-    if (scheduled) return;
-    scheduled = true;
-    requestAnimationFrame(() => { scheduled = false; patch(); });
-  }
-  new MutationObserver(schedule).observe(screen, {childList:true, subtree:true, characterData:true});
-  window.addEventListener("hashchange", schedule);
-  schedule();
+  globalThis.SecondItemAPublic = Object.freeze({patch});
 })();

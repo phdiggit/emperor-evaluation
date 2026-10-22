@@ -205,8 +205,11 @@ def write_profile_manifest(axes: Iterable[str] | None = None) -> Path:
         "> 以下为项目配置登记的正式当前轴。", "",
         "| 轴 | 名称 | 人数 | 机器入口 | 阅读视图 |", "|---|---|---:|---|---|",
     ]
+    from .derived_readings import PROFILE_AXES
     for entry in manifest["axes"]:
-        lines.append(f"| {entry['axis_code']} | {entry['axis_name']} | {entry['record_count']} | [JSON]({entry['json']}) | [Markdown]({entry['markdown']}) |")
+        reading = '本地生成' if entry['axis_code'] in PROFILE_AXES else f"[Markdown]({entry['markdown']})"
+        lines.append(f"| {entry['axis_code']} | {entry['axis_name']} | {entry['record_count']} | [JSON]({entry['json']}) | {reading} |")
+    lines.extend(['', 'M1、C3、C5的完整Markdown用`python v4.py reading-views`生成；JSON和评估包保留完整正文。'])
     lines.extend(["", "轴序以config/project.yml为准；各轴JSON保存当前裁决及完整来源，Markdown为同值阅读视图。不适用留空，不换算为零分。", ""])
     markdown.write_text("\n".join(lines), encoding="utf-8", newline="\n")
     if profile.get("summary_markdown"):

@@ -59,13 +59,9 @@ def test_current_authored_reading_is_shared_with_cache_and_markdown():
     assert {r['ruler_id'] for r in data['records']} == {r['ruler_id'] for r in pool['records'] if r['pool_status']=='INCLUDED'}
     for row in data['records']:
         assert row.get('public_reading')
-        validate_public_reading(row)
         cache = json.loads((ROOT / 'reader/data/people' / (row['ruler_id'] + '.json')).read_text(encoding='utf-8'))['record']['axes']['M1']
         assert cache['public_reading'] == row['public_reading']
-        if row['public_reading'].get('career_review'):
-            assert cache['m1_archive_links'] == archive_projection(row, ROOT, context)
-        else:
-            assert cache['m1_archive_links'] == archive_projection(row, ROOT, context)
+        assert cache['m1_archive_links'] == archive_projection(row, ROOT, context)
         peers=cache['m1_archive_links']['comparisons']
         assert len(peers)==2
         assert len({p['href'] for p in peers})==2
@@ -132,19 +128,16 @@ def test_direct_axis_focus_handles_hydration_and_stale_renders(tmp_path):
 
 
 def test_archive_resolution_preserves_person_only_sources_and_ignores_talent_grade(tmp_path, monkeypatch):
-    from emperor_v4.evaluation import battle_registry_store, formal_json_store
+    from emperor_v4.evaluation import battle_registry_store, formal_json_store, talent_registry_store
     row = synthetic()
     row['m1_role_projection']['profile_ref'] = 'PROFILE-SYNTHETIC'
     row['public_reading']['career_review'] = [dict(title='其他军事表现', basis='分别查看本人行动。', battle_refs=['WAR-SYNTHETIC', 'PERSON-ACTION-SYNTHETIC'])]
-    directory = tmp_path / 'reader/data/military'
-    directory.mkdir(parents=True)
-    (directory / 'battles-index.json').write_text(json.dumps({'records': [{'id': 'WAR-SYNTHETIC'}]}), encoding='utf-8')
-    commanders = {'records': [{'profile_ref': 'PROFILE-SYNTHETIC', 'name': '合成人物', 'grade': 'UNRELATED-GRADE'}]}
-    path = directory / 'commanders-index.json'
-    path.write_text(json.dumps(commanders), encoding='utf-8')
+    commanders = {'profiles': [{'profile_ref': 'PROFILE-SYNTHETIC', 'person': '合成人物', 'military_grade': 'UNRELATED-GRADE'}]}
+    monkeypatch.setattr(talent_registry_store, 'load_talent_registry', lambda path: commanders)
     monkeypatch.setattr(battle_registry_store, 'load_battle_registry', lambda path: {'records': [
         {'war_event_id': 'WAR-SYNTHETIC', 'canonical_label': '合成战争'},
         {'war_event_id': 'PERSON-ACTION-SYNTHETIC', 'canonical_label': '本人方案采纳',
+         'record_level': 'person_command_result_registration',
          'settlement_scope': 'PERSON_RESULT_ONLY', 'public_outcome_registered': False, 'source_refs': ['https://example.org/source']},
     ]})
     monkeypatch.setattr(formal_json_store, 'load_json', lambda path: {'records': []})
@@ -154,9 +147,9 @@ def test_archive_resolution_preserves_person_only_sources_and_ignores_talent_gra
     assert result['career'][0]['links'][0]['href'] == 'military.html#battle=WAR-SYNTHETIC'
     assert result['career'][0]['links'][1]['href'] == 'https://example.org/source'
     assert 'UNRELATED-GRADE' not in json.dumps(result)
-    commanders['records'][0]['grade'] = 'ANOTHER-UNRELATED-GRADE'
-    path.write_text(json.dumps(commanders), encoding='utf-8')
+    commanders['profiles'][0]['military_grade'] = 'ANOTHER-UNRELATED-GRADE'
     assert archive_projection(row, tmp_path) == result
+    assert not (tmp_path / 'reader').exists()
     row['public_reading']['career_review'][0]['battle_refs'] = ['UNKNOWN']
     with pytest.raises(ValueError, match='不存在'):
         archive_projection(row, tmp_path)
@@ -190,26 +183,3 @@ def test_person_and_comparison_use_lossless_authored_renderer(tmp_path):
                      + 'assert.equal(html.split(value).length-1,1);}', encoding='utf-8')
     result = subprocess.run([node, str(script)], capture_output=True, text=True, encoding='utf-8')
     assert result.returncode == 0, result.stderr
-
-
-def test_current_full_pool_renders_authored_prose_and_comparisons_without_generic_scope(tmp_path):
-    node=shutil.which('node')
-    if not node:pytest.skip('Node.js required for full-pool shared rendering')
-    template=(ROOT/'reader/index.template.html').read_text(encoding='utf-8')
-    source=template[template.index('function m1AuthoredEvidence('):template.index('function profilePanel(')]
-    entry=profile_axis_entry('M1')
-    rows=load_json(ROOT/entry['json'])['records']
-    ids_path=tmp_path/'ids.json'
-    ids_path.write_text(json.dumps([r['ruler_id'] for r in rows]),encoding='utf-8')
-    script=tmp_path/'m1-pool.cjs'
-    script.write_text('const fs=require("node:fs"),assert=require("node:assert/strict");\n'
-       +'const DATA={axis_specs:{M1:{name:"军事判断与统帅能力",contract:"rule.md",json:"formal.json",markdown:"reading.md"}}};\n'
-       +'const esc=x=>String(x??"");const prose=x=>x?"<p>"+esc(x)+"</p>":"";const link=(p,l)=>"<a href=\\\""+p+"\\\">"+l+"</a>";\n'
-       +'const letters={G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};const grade=a=>letters[a.axis_grade]+{LOW:"−",MID:"",HIGH:"+"}[a.position];const conf=x=>x;\n'
-       +source+'\n'
-       +'for(const id of JSON.parse(fs.readFileSync(process.argv[2],"utf8"))){const r=JSON.parse(fs.readFileSync("reader/data/people/"+id+".json","utf8")).record;const a=r.axes.M1,p=a.public_reading;'
-       +'for(const suffix of ["","-compare-0","-compare-1"]){const html=axisEvidence(r,"M1",suffix);assert.ok(html.includes(p.grade_reason));assert.ok(html.includes(p.position_reason));'
-       +'assert.ok(!html.includes("材料底池与本人能力证据"));for(const peer of a.m1_archive_links.comparisons){assert.ok(html.includes(peer.label));assert.ok(html.includes(peer.href));}'
-       +'for(const c of p.cases)assert.ok(html.includes(c.title));}}',encoding='utf-8')
-    result=subprocess.run([node,str(script),str(ids_path)],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
-    assert result.returncode==0,result.stderr

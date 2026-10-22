@@ -23,12 +23,14 @@ def prepared():
 
 def test_sources_are_verbatim_and_contracts_are_complete(prepared):
     entries, manifest = prepared
+    generated = packager.view_sources(ROOT)
     for item in manifest["files"]:
         content = (ROOT / item["path"]).read_bytes()
         assert entries[item["path"]] == content
         assert item["sha256"] == hashlib.sha256(content).hexdigest()
         assert item["bytes"] == len(content)
-        assert item["transformation"] == "VERBATIM"
+        expected_mode = "GENERATED" if item["path"] in generated else "VERBATIM"
+        assert item["transformation"] == expected_mode
     assert manifest["file_count"] == len(manifest["files"])
     for directory in ("docs/项目总纲", "docs/分项规则", "docs/证据规则"):
         for path in (ROOT / directory).rglob("*.md"):

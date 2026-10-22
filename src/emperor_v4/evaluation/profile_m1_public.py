@@ -76,12 +76,12 @@ def validate_public_reading(row: dict) -> None:
 
 def load_archive_context(root: Path) -> dict:
     """One operation owns its evidence indexes; nothing is cached across edits."""
-    from .battle_registry_store import load_battle_registry
+    from .battle_registry_store import load_battle_registry, person_only_registration
+    from .talent_registry_store import load_talent_registry
     from .formal_json_store import load_json
     from .profile_registry import profile_axis_entry
     battles = {r['war_event_id']: r for r in load_battle_registry(root / 'docs/公共成果/军事/01-战役登记.json')['records']}
-    index = json.loads((root / 'reader/data/military/battles-index.json').read_text(encoding='utf-8'))
-    commanders = json.loads((root / 'reader/data/military/commanders-index.json').read_text(encoding='utf-8'))
+    commanders = load_talent_registry(root / 'docs/公共成果/军事/02-武将人才等级.json')
     registry_path = root / 'docs/公共成果/军事/01-战役登记.json'
     manifest = json.loads(registry_path.read_text(encoding='utf-8')) if registry_path.exists() else {}
     locations = {}
@@ -89,9 +89,9 @@ def load_archive_context(root: Path) -> dict:
         shard_path = registry_path.parent / shard['path']
         for record in json.loads(shard_path.read_text(encoding='utf-8'))['records']:
             locations[record['war_event_id']] = shard_path.relative_to(root).as_posix() + '#war_event_id=' + record['war_event_id']
-    return {'battles': battles, 'index': index, 'indexed_ids': {r['id'] for r in index['records']},
+    return {'battles': battles, 'indexed_ids': {ref for ref, record in battles.items() if not person_only_registration(record)},
             'locations': locations,
-            'commanders': {r['profile_ref']: r for r in commanders['records']},
+            'commanders': {r['profile_ref']: {'name': r.get('person') or r['profile_ref']} for r in commanders['profiles']},
             'peers': {r['ruler_id']: r for r in load_json(root / profile_axis_entry('M1')['json'])['records']}}
 
 

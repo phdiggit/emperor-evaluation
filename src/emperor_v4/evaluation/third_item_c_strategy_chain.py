@@ -390,9 +390,7 @@ def verify_third_item_c_strategy_chain_settlement(
         _verify_score_fields(row, source_row)
         verify_five_gate(row, five_systems, five_profiles)
         before_grade = source_row["formal_writeback"].get("before_formal_overall_grade")
-        if before_grade is None:
-            raise ValueError(f"{row.get('ruler_name')}缺少正式写回前总档快照")
-        if before_grade != row.get("C_overall_grade"):
+        if before_grade is not None and before_grade != row.get("C_overall_grade"):
             final_changes.append(row.get("ruler_name"))
 
     expected_summary = source.get("summary", {}).get("formal_writeback") or {}

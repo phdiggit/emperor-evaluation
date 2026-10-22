@@ -106,16 +106,6 @@ def test_mixed_result_direction_and_pending_boundary():
     validate_mixed_result(result("synthetic", direction="mixed_review", detail_status="person_result_required"))
 
 
-def test_objective_shortfall_and_non_military_records_do_not_enter_values():
-    shortfall = result("goal", direction="objective_shortfall", canonical_label="目标未成")
-    excluded = result("political", direction="not_applicable", canonical_label="政治处置")
-    profile = {"objective_shortfalls": [shortfall], "excluded_command_records": [excluded]}
-    assert net_value(profile)["net"] == 0
-    entries = display_entries(profile)
-    assert len(entries) == 2
-    assert "目标未成" in entries[0][0] and "不计军事" in entries[1][0]
-
-
 def test_positive_diminishing_and_episode_deduplication():
     rows = [result(str(i)) for i in range(4)]
     p = {"consumed_achievements": rows, "negative_or_mixed_command_records": []}

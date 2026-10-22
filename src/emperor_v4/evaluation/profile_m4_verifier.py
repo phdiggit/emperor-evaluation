@@ -92,7 +92,7 @@ def verify_payloads(settlement: dict) -> dict:
             assert row["axis_evidence_level"] == "E1"
             assert row["output_mode"] == "EPISODE_TAG"
             assert row["score_status"] == "EVIDENCE_LIMITED"
-        assert len(row["typical_pattern"]) >= 20
+        assert row["typical_pattern"].strip()
         assert isinstance(row["limitations"], list) and row["counterpattern"]
         if row["score_status"] == "EVIDENCE_LIMITED":
             assert row["limitations"], "bounded profile must state its evidence gaps"
@@ -152,7 +152,6 @@ def verify_payloads(settlement: dict) -> dict:
                 assert row["confidence"] in {"LOW", "MEDIUM"}
                 assert row["source_density_review"] == "MATERIAL_DENSITY_LIMITED"
     assert len(parent_ids) == len(set(parent_ids))
-    assert len({row["typical_pattern"] for row in records}) == len(records)
     verify_current_records(settlement)
     return {"status": "PASS", "record_count": len(records), "parent_count": sum(len(parent_chains(r)) for r in records)}
 

@@ -474,7 +474,9 @@ def _attach_formal_public_reader(item, *, record, axis="", how="", source_refs=(
         raise ValueError(f"{axis or 'formal'} reader projection requires a formal record")
     projection = record
     projections = record.get("public_axis_projections")
-    if axis and isinstance(projections, dict) and isinstance(projections.get(axis), dict):
+    if axis and isinstance(record.get("axes"), dict):
+        projection = record["axes"][axis]
+    elif axis and isinstance(projections, dict) and isinstance(projections.get(axis), dict):
         projection = projections[axis]
     summary = projection.get("public_adjudication_summary")
     evidence = projection.get("public_evidence_items")
@@ -1420,6 +1422,7 @@ def build_third_c_collection(root):
                      + "<div class='third-c-detail-slot' aria-live='polite'><p>展开后加载完整正文与材料。</p></div></details></article>")
         search_rows[row['ruler_id']] = overview_text + '\n' + collection_search_text(detail)
     template = (root / 'reader/third-item-c.template.html').read_text(encoding='utf-8')
+    template = template.replace('__THIRD_C_FORMAL_SOURCE_LINK__', collection_source_link(THIRD_C_PATH.as_posix(), '查看正式记录'))
     assets['search.json'] = json.dumps(search_rows, ensure_ascii=False, separators=(',', ':')) + '\n'
     search_url = 'data/third-item-c/search.json?v=' + hashlib.sha256(assets['search.json'].encode('utf-8')).hexdigest()[:16]
     script = (root / 'reader/third-item-c-collection.js').read_text(encoding='utf-8')

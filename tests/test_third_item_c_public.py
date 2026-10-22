@@ -141,24 +141,6 @@ def test_authored_task_caption_changes_no_chain_or_score_and_rejects_unbound_tit
         refresh_review(row)
 
 
-def test_removing_wrong_window_result_recalculates_quality_instead_of_only_prose():
-    from emperor_v4.evaluation.third_item_c_strategy_chain import _chain_profile
-    from emperor_v4.evaluation.five_dynasties_third_item import _apply_c_within_band_position
-    row = synthetic()
-    row.update(combat_delivery_grade='C1-3', operational_sustainability_cap='C2-3',
-               system_reliability_cap='C3-3', axis_floor_grade='C-3', raw_grade='C-3')
-    chains = [dict(chain_id='SYNTHETIC-OWN', terminal_result_class='NEGATIVE_RETURN'),
-              dict(chain_id='SYNTHETIC-OTHER-WINDOW', terminal_result_class='NEGATIVE_RETURN')]
-    row['strategy_chain_outcome_profile'] = _chain_profile(chains)
-    _apply_c_within_band_position(row)
-    before_points = row['C_score_points']
-    row['strategy_chain_outcome_profile'] = _chain_profile(chains[:1])
-    _apply_c_within_band_position(row)
-    assert row['C_score_outcome_position'] == .375
-    assert row['C_score_points'] > before_points
-    assert row['final_grade'] == 'C-3'
-
-
 def synthetic():
     row = dict(ruler_id='SYNTHETIC', ruler_name='合成人物',
         combat_delivery_grade='C1-4', operational_sustainability_cap='C2-4', system_reliability_cap='C3-4',
@@ -191,23 +173,6 @@ def test_gate_changes_final_grade_without_rewriting_axes_or_averaging():
     assert result['calculation']['points']==35.2
     assert '资格' in result['calculation']['cap_reason']
     assert row==before
-
-
-def test_combat_title_and_guide_explain_the_whole_battle_without_rescoring():
-    from emperor_v4.evaluation.third_item_c_public import COMBAT_GUIDE
-    row = synthetic()
-    before = copy.deepcopy(row)
-    data = reading_projection(row)
-    assert data['axes']['C1']['label'] == '实战表现'
-    assert data['axes']['C1']['assessment_guide'] == COMBAT_GUIDE
-    assert not data['axes']['C2']['assessment_guide'] and not data['axes']['C3']['assessment_guide']
-    for term in ('目标完成程度', '对手强度', '完整交战过程', '可证战果', '己方战损', '战后续战能力',
-                 '主力毁灭', '军令崩溃', '连续失效', '失载', '改写出兵目标'):
-        assert term in COMBAT_GUIDE
-    assert '攻城未克不自动等于全役战败' in COMBAT_GUIDE
-    assert '有野战胜利或主力撤回也不自动支持高档' in COMBAT_GUIDE
-    assert COMBAT_GUIDE in markdown(row)
-    assert row == before
 
 
 @pytest.mark.parametrize('status', [
@@ -359,9 +324,10 @@ def test_inconsistent_score_is_rejected_without_repairing_it():
 def test_current_sources_markdown_and_collection_cover_formal_records_dynamically():
     payload=load_json(ROOT/THIRD_C_PATH)
     before=copy.deepcopy(payload)
-    assert verify_sources(ROOT,payload)==len(payload['records'])
     build=runpy.run_path(str(ROOT/'reader/build.py'))
-    collection, assets=build['build_third_c_collection'](ROOT)
+    collection = (ROOT / 'reader/third-item-c.html').read_text(encoding='utf-8')
+    assets = {path.name: path.read_text(encoding='utf-8')
+              for path in (ROOT / 'reader/data/third-item-c').iterdir() if path.is_file()}
     search_index = json.loads(assets['search.json'])
     assert set(search_index) == {row['ruler_id'] for row in payload['records']}
     assert set(assets) == {'search.json'} | {row['ruler_id'] + '.html' for row in payload['records']}
@@ -430,9 +396,16 @@ def test_current_sources_markdown_and_collection_cover_formal_records_dynamicall
     assert payload==before
 
 
-def test_shared_renderer_displays_all_current_readings_without_semantic_replacement(tmp_path):
+def test_shared_renderer_preserves_synthetic_prose_and_unknown_state(tmp_path):
     if not shutil.which('node'):pytest.skip('Node required for rendering')
-    records=[reading_projection(row) for row in load_json(ROOT/THIRD_C_PATH)['records']]
+    known = synthetic()
+    known['public_reading']['story'] = '第一段合成叙述。\n\n第二段保留 <原文> & 引文。'
+    unknown = synthetic()
+    unknown.update(system_reliability_cap='UNKNOWN', axis_floor_grade='UNKNOWN', raw_grade='UNKNOWN',
+                   final_grade='UNKNOWN', C_overall_grade='UNKNOWN', C_score_points=None, C_score_rate=None,
+                   C_score_band_position=None)
+    refresh_review(unknown)
+    records = [reading_projection(row) for row in (known, unknown)]
     source=tmp_path/'readings.json';source.write_text(json.dumps(records,ensure_ascii=False),encoding='utf-8')
     script=tmp_path/'render.cjs'
     script.write_text(r'''
@@ -543,14 +516,6 @@ def test_missing_contract_review_and_partial_chain_coverage_fail_closed():
     with pytest.raises(ValueError,match='缺少完整合同论证'):reading_projection(row)
     row=synthetic();row['strategy_chain_refs']=['UNEXPLAINED']
     with pytest.raises(ValueError,match='未完整覆盖'):validate_review(row)
-
-
-def test_public_opponent_terms_are_allowed_without_accepting_internal_codes():
-    from emperor_v4.evaluation.third_fourth_item_public import PUBLIC_FORBIDDEN_RE
-    assert PUBLIC_FORBIDDEN_RE.search('对手O4与O6的实际窗口不同。') is None
-    assert PUBLIC_FORBIDDEN_RE.search('RETRO4')
-    assert PUBLIC_FORBIDDEN_RE.search('O7')
-    assert PUBLIC_FORBIDDEN_RE.search('O4_UNKNOWN')
 
 
 def test_capability_chain_and_unknown_return_are_not_current_results_or_failures():

@@ -3,12 +3,8 @@ import importlib.util
 import json
 import shutil
 import subprocess
-from functools import partial
-from http.server import ThreadingHTTPServer
 from pathlib import Path
-from threading import Thread
 from urllib.parse import quote
-from urllib.request import urlopen
 
 import pytest
 from emperor_v4.evaluation.formal_json_store import load_json
@@ -51,7 +47,6 @@ def test_collection_covers_formal_records_and_links_only_available_reader_routes
             rid=quote(scope['ruler_id'],safe='')
             assert r['person_href']==f'index.html#person/{rid}'
             if r['detail_href']: assert r['detail_href']==f'index.html#net/{rid}/fourth/c'
-    assert html==module('build').render_fourth_c_collection(ROOT)
     for path in (ROOT/'reader/data/people').glob('*.json'):
         person=json.loads(path.read_text(encoding='utf-8'))['record']
         if person['supplementary']: continue
@@ -110,17 +105,3 @@ const fn=new Function('document','requestAnimationFrame','netMajorSpecs','generi
 fn({net:{component_details:{civilization:[]}}},'fourth','c');assert.equal(c,1);assert.equal(group,0);
 fn({net:{component_details:{civilization:[]}}},'fourth','civilization');assert.equal(c,1);assert.equal(group,1);
 ''')
-
-
-def test_local_server_serves_collection_and_its_shared_renderer():
-    serve=module('serve')
-    server=ThreadingHTTPServer(('127.0.0.1',0),partial(serve.ReaderHandler,directory=str(ROOT)))
-    thread=Thread(target=server.serve_forever,daemon=True);thread.start()
-    try:
-        for file in ('fourth-item-c.html','fourth-item-c-public.js'):
-            with urlopen(f'http://127.0.0.1:{server.server_port}/reader/{file}') as response:
-                assert response.status==200
-                body=response.read().decode('utf-8')
-                assert ('fourth-c-data' if file.endswith('.html') else 'FourthItemCReading') in body
-    finally:
-        server.shutdown();server.server_close();thread.join(timeout=2)

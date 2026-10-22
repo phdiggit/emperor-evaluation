@@ -9,7 +9,7 @@
 | [综合阅读层：帝王三镜](reader/README.md) | 人物总览、三体系并列阅读、双人对照和依据展开 |
 | [统治绩效综合榜](docs/评分结算/净收益/00-统治绩效综合评分榜.md) | 前四项净收益与综合排名；分项结果见[结算导航](docs/评分结算/README.md) |
 | [九轴人物画像](docs/评分结算/人物画像/九轴结算汇总.md) | 八个能力轴与独立的权力运用风格轴 |
-| [历史影响](docs/评分结算/历史影响/01-历史影响正式结算.md) | 公众总档与四维独立判断 |
+| [历史影响](docs/评分结算/历史影响/01-历史影响正式结算.json) | 公众总档与四维独立判断 |
 
 正式入口、权威来源及命令读取 [config/project.yml](config/project.yml)；当前人数、身份、适用性和就绪状态读取[规范人物池](config/common/canonical-ruler-pool.json)，准入说明见[正式评价对象范围](docs/项目总纲/正式评价对象范围.md)。本页不另存分数、人数或公式副本。
 
@@ -17,6 +17,7 @@
 
 ```powershell
 python -m pip install -e .
+python v4.py reading-views
 python v4.py --help
 ```
 
@@ -30,6 +31,7 @@ python v4.py --help
 | 校验所选组件 | 上述命令加 `--verify`；`--related` 追加关联组件校验 |
 | 同步确定性下游 | 上述命令加 `--sync`；随后按需运行 `reader` |
 | 完整构建阅读站点 | `reader`，输出 `.tmp/pages-site/` |
+| 重建大型阅读文档 | `reading-views`；加`--check`只读核对 |
 | 导出评估包 | `package`；`package --list` 只列清单 |
 
 `maintenance`支持 `I1`—`I4`、第二项各组件、`I3.D`、`profile.<轴代码>`、`pool`及`composite`。例如：
@@ -45,7 +47,7 @@ python v4.py maintenance --component profile.C2 --polity 西汉 --verify
 
 `python v4.py package`默认生成 `.tmp/evaluation-packages/皇帝三体系评估包.zip`；`--output <路径.zip>`指定文件，`--package`可单选某体系的合同或结算，具体选项见命令帮助。
 
-包内逐字节复制三体系原始合同、正式 JSON 及路由分片、Markdown 结算源／阅读视图、综合分析、项目入口、规范人物池、治理规模与复杂度分类源，以及 `docs/公共成果/` 下的 Markdown、JSON、文本。保留仓库路径，只另加使用说明与清单；不生成精简合同，不包含代码、展示素材、过程审计或其他目录的完整史料库。包外来源仍须另行补充，入包不代表完成全部溯源。
+包内逐字节复制三体系原始合同、正式 JSON 及路由分片、Markdown 结算源／保留的阅读视图、综合分析、项目入口、规范人物池、治理规模与复杂度分类源，以及 `docs/公共成果/` 下的 Markdown、JSON、文本。不入Git的大型阅读视图从当前正式来源在内存中生成，清单标为`GENERATED`；不依赖本地是否已有副本，不写回评分或证据。保留仓库路径，另附使用说明与清单；不生成精简合同，不包含代码、展示素材、过程审计或其他目录的完整史料库。包外来源仍须另行补充，入包不代表完成全部溯源。
 
 ## 验证
 
@@ -69,6 +71,8 @@ python v4.py maintenance --component profile.C2 --polity 西汉 --verify
 [文档导航](docs/README.md)说明合同、正式结果与证据目录职责。[归档](archive/README.md)保存完整退役组件的最后有效材料，其他历史版本由 Git 保存。
 
 `config/`保存入口、身份及当前裁决输入；`src/emperor_v4/evaluation/`保存读取、校验、确定性结算与投影逻辑。`reader/`保存模板、代码与人工文案，生成页面和数据不进入 Git。展示制作位于`docs/展示成果/`和`emperor-cards/`，临时脚本、日志及诊断放`.tmp/`。
+
+历史影响、画像M1／C3／C5、第二项D1／D3、第三项C及第四项B的Markdown是可完整重建的阅读视图，不进入Git。新检出后先运行`reading-views`再校验；完整阅读站点构建与CI会先生成这些文件。正文仍完整保留在JSON，原有路径与局部刷新命令有效。第一项Markdown真源、承担证据引用的阅读文档及含独立人工内容的Markdown继续保留。
 
 ## 边界
 

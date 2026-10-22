@@ -18,6 +18,9 @@ def _parser() -> argparse.ArgumentParser:
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("reader", help="构建、检查并打包完整阅读站点", add_help=False)
     commands.add_parser("package", help="导出三体系评估包，或用 --list 只读查看清单", add_help=False)
+    readings = commands.add_parser("reading-views", help="从当前正式来源生成不入Git的大型Markdown阅读视图")
+    readings.add_argument("--check", action="store_true", help="只读核对已有阅读视图")
+    readings.add_argument("--workspace-root", type=Path, default=Path('.'))
     profile_axes = list(profile_axis_order())
     maintenance = commands.add_parser("maintenance", help="定位当前裁决、下游影响与必要校验")
     maintenance.add_argument("--component", action="append", required=True)
@@ -155,6 +158,11 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 
 def _dispatch(args: argparse.Namespace) -> int:
+
+    if args.command == 'reading-views':
+        from emperor_v4.evaluation.derived_readings import run
+        print(json.dumps(run(args.workspace_root.resolve(), check=args.check), ensure_ascii=False, indent=2))
+        return 0
 
     if args.command == "maintenance":
         from emperor_v4.evaluation.formal_settlements import verify_second_item_b2_snapshot

@@ -43,31 +43,7 @@ const b2=context.renderB2({reader_summary:b2Text,reader_public_evidence_items:[
 ]});
 for(const text of [b2Text,'正向主导','部分阶段不另计','只合并该次前后过程。','合成原引文','尚未证明实际纠正','背景材料'])assert.ok(b2.textContent.includes(text),text);
 for (const raw of ['第五档；不等于损害轻微。','后任结果不得倒灌。','<不是HTML> & “原句”。']) assert.equal(context.financeText(raw),raw);
-assert.equal(context.boundaryText('同一机制只作一次判断；同一机制只作一次判断；'),'同一机制只作一次判断');
 assert.equal(context.financeBoundaryText('第五档；第五档；'),'第五档；第五档；');
-assert.equal(context.boundaryText('只计算逐字引文证明链条成立的制度接口'),'只计算现有直接史料能够确认的制度接口');
-assert.equal(context.boundaryText('运行结果是已形成；未计入长期接收加权。'),'实际运行情况：已形成；未因后世长期沿用获得额外提高。');
-assert.equal(context.boundaryText('未见有源D档或B档端点'),'未见有证据支持的D档或B档判断');
-assert.equal(context.boundaryText('未通过较高档条件槛'),'未通过较高档条件');
-assert.equal(context.boundaryText('一年观察窗内不能用远期爆雷压档，也不能因此降档。'),'一年观察窗内不能用远期爆雷压低等级，也不能因此下调等级。');
-assert.equal(context.boundaryText('综合净值为-1，减轻负账'),'综合判断仍偏负，减轻负向影响');
-assert.equal(context.boundaryText('后继结果不倒算本人，也不回填'),'后继结果不追溯计入本人，也不追溯计入本人');
-assert.equal(context.boundaryText('见父链及对应原始片段；本层只修正机制颗粒度，不新增史实'),'见证据链及对应原始片段；此处只说明机制范围，不新增历史事实');
-assert.equal(context.boundaryText('后任结果不得倒灌为本人主要状态'),'后任结果不得追溯作为本人主要状态');
-assert.equal(context.boundaryText('不能倒灌抹去后者的已观察收益'),'不能追溯用来抹去后者的已观察收益');
-assert.equal(context.boundaryText('灾害不得倒灌社会安全'),'灾害不得追溯计入社会安全');
-assert.equal(context.boundaryText('后任衣食滋殖不倒灌。'),'后任衣食滋殖不追溯计入本人。');
-assert.equal(context.boundaryText('后续扩张不回填本人窗口'),'后续扩张不追溯计入本人窗口');
-assert.equal(context.boundaryText('后续扩张不回填。'),'后续扩张不追溯计入本人。');
-assert.equal(context.boundaryText('后续扩张不得回填当前窗口'),'后续扩张不得追溯计入当前窗口');
-assert.equal(context.boundaryText('材料越窗，不准入当前判断'),'材料超出评价窗口，不纳入当前判断');
-assert.equal(context.boundaryText('公共法律底账完成复裁'),'公共法律正式记录完成复核');
-assert.equal(context.boundaryText('前中期主态可维持'),'前中期主要阶段状态可维持');
-assert.equal(context.boundaryText('第三项军事成本第五级低位由正式材料准入'),'严重军事成本（低位）由正式材料支持计入');
-assert.equal(context.boundaryText('削藩触发责任准入'),'削藩触发本人责任条件');
-assert.equal(context.boundaryText('跨代结果不回算本人，也不作为G4第二独立验证'),'跨代结果不回算本人，也不作为A档第二独立验证');
-assert.equal(context.boundaryText('靖难胜负只在D3计算；D1不受影响'),'靖难胜负只在交接稳定计算；行政连续性不受影响');
-assert.equal(context.boundaryText('当前G4档材料继续保留'),'当前A档材料继续保留');
 const fragments = [
   '保留恢复的责任范围：本人主导。',
   '未过较高档门，但不等于没有改善。',
@@ -91,13 +67,6 @@ for (const text of fragments) {
 // semantics are covered by the formal public-projection validators and the
 // renderer ownership assertions below.
 // Public cards use declared reader wording plus presentation-only cleanup; formal source text remains in the audit fold.
-assert.match(source, /const financeItem = \["C1民生","C2经济财政","C3社会安全","C4恢复与成本"\]\.includes\(label\)/);
-assert.match(source, /makeDetails\("范围与边界", financeItem \? publicFinanceBoundaryText\(item\.reader_boundary/);
-assert.match(source, /: publicBoundaryText\(item\.reader_boundary/);
-assert.match(source, /body: publicFinanceText\(entry\?\.public_basis\)/);
-assert.match(source, /label === "B2反馈与约束"/);
-assert.match(source, /b2Reading\(item\)/);
-assert.match(source, /if \(label === "A制度建设" \|\| label === "B1官僚治理"\) continue/);
 ''', encoding='utf-8')
     completed = subprocess.run([node, str(script), str(ROOT)], check=False, capture_output=True, text=True, encoding='utf-8')
     assert completed.returncode == 0, completed.stderr or completed.stdout
@@ -171,84 +140,3 @@ for(const source of [alias,labels]){
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
                             text=True, encoding='utf-8')
     assert result.returncode == 0, result.stderr
-
-
-def test_a_and_b1_dedicated_renderers_only_consume_built_row_public_projection():
-    from pathlib import Path
-    root = Path(__file__).resolve().parents[1]
-    a = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
-    b1 = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
-
-    for source in (a, b1):
-        assert "reader_public_evidence_items" in source
-        assert "reader_summary" in source
-        assert "reader_boundary" in source
-        assert "fetch(" not in source
-        assert "repoJson" not in source
-
-    assert "public_institution_nodes" not in a
-    assert "formalA" not in a
-
-    for forbidden in (
-        "PROFILE_KEYS",
-        "M_positive_profile",
-        "M_mixed_profile",
-        "M_negative_profile",
-        "formalB1",
-        "adjudication_status",
-        "absorbed_into_profile_id",
-        "signed_weight",
-    ):
-        assert forbidden not in b1
-
-    assert "public_direction" in b1
-    assert "public_tags" in b1
-    assert "并入同一运行链" in b1
-    assert "不单独计入" in b1
-
-
-def test_second_item_public_enum_mapping_and_dedicated_ownership():
-    from pathlib import Path
-    root = Path(__file__).resolve().parents[1]
-    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
-    a = (root / "reader/second-item-a-public.js").read_text(encoding="utf-8")
-    b1 = (root / "reader/second-item-b1-public.js").read_text(encoding="utf-8")
-    assert 'SecondItemMaterialCards' in alias
-    assert 'renderB2MaterialGroups(evidence)' in alias
-    assert 'MATERIAL_STRENGTH_TAGS' not in alias
-    assert 'materialStrengthFromTags' not in alias
-    assert 'data.tags.map(tag => [tag, "tag"])' in alias
-    assert 'A制度建设":"制度建设"' in alias
-    assert 'B1官僚治理":"官僚治理"' in alias
-    assert 'B2反馈与约束":"反馈与约束"' in alias
-    assert 'secondMethodDetailsMarkup(item, record)' not in a
-    assert 'secondMethodDetailsMarkup(item, record)' not in b1
-    assert 'secondPublicOwner = "A"' in a
-    assert 'secondPublicOwner = "B1"' in b1
-    assert 'entry.public_basis' in a
-    assert 'entry.public_sources' in a
-    assert 'SecondItemMaterialCards' not in a
-    assert 'SecondItemMaterialCards' in b1
-
-
-def test_finance_public_cards_group_only_by_formal_public_role():
-    from pathlib import Path
-    root = Path(__file__).resolve().parents[1]
-    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
-    assert "function financeRoleKey(role)" in alias
-    assert 'value === "主要状态"' in alias
-    assert 'value === "低谷"' in alias
-    assert 'value === "边界"' in alias
-    assert 'value === "恢复" || value === "责任范围"' in alias
-    assert 'value === "状态恶化" || value === "额外代价"' in alias
-    assert "materialStrengthFromTags(entry" not in alias
-
-
-def test_handoff_public_cards_group_only_by_formal_public_role():
-    from pathlib import Path
-    root = Path(__file__).resolve().parents[1]
-    alias = (root / "reader/second-item-public-alias.js").read_text(encoding="utf-8")
-    assert "function renderHandoffMaterialGroups(label, evidence)" in alias
-    assert 'role === "事前安排"' in alias
-    assert 'role === "交接结果" || role === "终局事实"' in alias
-    assert 'role === "前任行政资产承接"' in alias

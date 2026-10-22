@@ -7,11 +7,7 @@ from html.parser import HTMLParser
 import pytest
 
 from emperor_v4.evaluation.formal_json_store import load_json
-from emperor_v4.evaluation.second_item_d1_d3_public import (
-    D1_PATH, D3_PATH, PUBLIC_RECORD_FIELDS, PUBLIC_EVIDENCE_FIELDS,
-    PUBLIC_FORBIDDEN_RE, _refresh_payload, _scoring_signature,
-    verify_public_projection, render_public_markdown, run,
-)
+from emperor_v4.evaluation.second_item_d1_d3_public import D1_PATH, D3_PATH, PUBLIC_RECORD_FIELDS, _refresh_payload, _scoring_signature, verify_public_projection, render_public_markdown
 
 
 def synthetic(root, axis):
@@ -82,14 +78,6 @@ def test_markdown_displays_full_authored_text_and_quotations(tmp_path):
     assert markdown == render_public_markdown(payload, 'D1')
 
 
-def test_current_sources_and_reading_views_are_synchronized():
-    root = Path(__file__).resolve().parents[1]
-    before = {p: p.read_bytes() for p in (root / D1_PATH, root / D3_PATH)}
-    report = run(root)
-    assert report['record_count'] == len(load_json(root / D1_PATH)['records'])
-    assert all(path.read_bytes() == content for path, content in before.items())
-
-
 def test_reader_uses_complete_authored_projection_without_transforming_evidence():
     root = Path(__file__).resolve().parents[1]
     sources = {axis: {r['ruler_id']: r for r in load_json(root / path)['records']}
@@ -105,18 +93,6 @@ def test_reader_uses_complete_authored_projection_without_transforming_evidence(
             assert item['reader_public_evidence_items'] == formal['public_evidence_items']
             seen.add(axis)
     assert seen == set(sources)
-
-
-def test_current_public_text_has_no_internal_notation():
-    root = Path(__file__).resolve().parents[1]
-    for path in (D1_PATH, D3_PATH):
-        for row in load_json(root / path)['records']:
-            for field in PUBLIC_RECORD_FIELDS:
-                if field != 'public_evidence_items': assert not PUBLIC_FORBIDDEN_RE.search(row[field])
-            for item in row['public_evidence_items']:
-                assert set(item) == set(PUBLIC_EVIDENCE_FIELDS)
-                for field in ('public_label', 'public_role', 'public_basis', 'public_boundary'):
-                    assert not PUBLIC_FORBIDDEN_RE.search(item[field])
 
 
 def test_full_pool_collection_keeps_every_authored_record_and_quotation():

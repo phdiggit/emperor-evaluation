@@ -10,9 +10,11 @@
 python v4.py reader
 ```
 
-该命令调用`build_site.py`，依次构建军事档案、全部阅读页面与人物数据、第一项来源缓存，检查页面和缓存同值，再将完整静态站点打包到`.tmp/pages-site/`。新检出后先构建，再预览或运行依赖生成页面的测试。
+该命令调用`build_site.py`，先生成不入Git的大型Markdown阅读视图，再依次构建军事档案、全部阅读页面与人物数据、第一项来源缓存，检查页面和缓存同值，最后将完整静态站点打包到`.tmp/pages-site/`。新检出后先构建，再预览或运行依赖生成页面的测试；只生成Markdown用`python v4.py reading-views`。
 
 局部更新页面用`python reader/build.py`；第一项来源变化另运行`python reader/build_first_item_reader_cache.py`，军事登记或档案说明变化另运行`python reader/build_military_archive.py`。前两项命令加`--check`只读核对当前生成物。
+
+整站构建与 CI 对每份输出只生成一次；`--check`用于独立核对已有产物，不在刚完成构建后重复执行。发布前由行为测试、源与阅读同值检查及站点打包完整性检查负责验收。
 
 ## 本地预览
 
@@ -68,6 +70,8 @@ python reader/serve.py
 | 人物画像 | 对应轴正式JSON；M1正文直接维护在`public_reading` | `profile-markdown --axis <轴> --write` → `profile-manifest --axis <轴> --write` → 项目登记的轴校验；如`profile-m1-verify`、`profile-m5-verify`、`profile-c4-verify` |
 | 历史影响 | 正式记录的`public_total_basis`、四维`public_basis`与`public_boundary` | `historical-impact-views --write` → `historical-impact-verify` |
 | 军事人才 | 当前人物记录及其有效来源 | `military-talent-views --write` → `military-talent-verify`，再更新军事档案 |
+
+第三项A正文只在结果信用输入的`axes.A1/A2.public_reading`维护，B正文只在AB正式记录的`axes.B1/B2/B4.public_reading`维护。AB与结果信用记录不再保存`public_axis_projections`副本，AB的A轴也不复制正文；Markdown与阅读页面按人物ID读取上述来源。
 
 主态低谷与净恢复的逐人阅读页用`governance-state-recovery-report --write`刷新，以`governance-state-recovery-verify`核对；不额外维护跨项文件哈希。军事人才刷新保留身份和已裁档位，不从父战役重新生成裁决。
 

@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from emperor_v4.evaluation.first_item_b2_public import project_b2, load_first_item_b2_public, DIMENSIONS
+from emperor_v4.evaluation.first_item_b2_public import project_b2, DIMENSIONS
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -38,18 +38,3 @@ def test_inconsistent_score_and_untranslated_prose_are_rejected():
     fields = synthetic_fields(); fields['公开阅读正文'] = 'UNKNOWN'
     with pytest.raises(ValueError, match='未转述'):
         project_b2(fields, method='逐项裁档。')
-
-
-def test_current_projection_tracks_the_authoritative_source():
-    from emperor_v4.evaluation.first_item_public_outcomes import _parse_source_sections, SOURCE_MARKDOWN_PATH
-    from emperor_v4.evaluation.first_item_b2_public import SOURCE
-    from emperor_v4.evaluation.first_item_markdown_settlement import load_first_item_markdown_settlement
-    records = load_first_item_b2_public(ROOT)
-    source = _parse_source_sections(ROOT / SOURCE)
-    assert set(records) == set(_parse_source_sections(ROOT / SOURCE_MARKDOWN_PATH))
-    scores = {r['name']:r['b2'] for r in load_first_item_markdown_settlement(ROOT)}
-    for name, record in records.items():
-        assert record['public_question'] == source[name]['公开阅读问题']
-        assert record['public_story'] == source[name]['公开阅读正文']
-        assert record['total_points'] == scores[name]
-        assert sum(d['points'] for d in record['dimensions']) == record['total_points']

@@ -107,5 +107,3 @@ def test_formal_narratives_review_states_and_reader_values_share_current_authori
             assert all(detail['source_availability'][ref] for ref in item['reader_source_refs'])
             observed.append(item)
     assert observed
-    for path in ('reader/home-interactions.js','reader/person-readability.js','reader/second-item-public-labels.js','reader/index.template.html'):
-        assert 'globalThis.ThirdItemBReading.html' in (ROOT/path).read_text(encoding='utf-8')

@@ -1,6 +1,5 @@
 """Coverage is independent of ability shape, role certainty and grade."""
 import copy
-import importlib.util
 import json
 from pathlib import Path
 import shutil
@@ -63,15 +62,6 @@ def test_m1_overview_uses_authored_reading_without_regrading_from_evidence_scope
     assert COVERAGE_LABEL not in table and ABILITY_LABELS[level] not in table
     assert "材料底池覆盖" not in table and "本人能力证据" not in table
     assert record == before
-
-
-def test_reader_projects_formal_scope_verbatim():
-    spec = importlib.util.spec_from_file_location("reader_scope_build", ROOT / "reader/build.py")
-    builder = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(builder)
-    scope = evidence_scope("E1", "EPISODE_TAG")
-    projected = builder.axis_projection({"evidence_scope": scope}, ["evidence_scope"])
-    assert projected["evidence_scope"] == scope
 
 
 def test_person_and_compare_renderer_use_formal_scope_not_e_level_as_coverage():

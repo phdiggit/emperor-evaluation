@@ -12,6 +12,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from emperor_v4.evaluation.battle_registry_store import person_only_registration
+
 ROOT = Path(__file__).resolve().parents[1]
 BATTLE_MANIFEST = Path("docs/公共成果/军事/01-战役登记.json")
 BATTLE_DIR = Path("docs/公共成果/军事/01-战役登记")
@@ -409,15 +411,6 @@ def _bind_ref(mapping: dict[str, str], ref: Any, battle_id: str, label: str) -> 
     if prior and prior != battle_id:
         raise ValueError(f"{label} maps to two battles: {ref_text}: {prior}, {battle_id}")
     mapping[ref_text] = battle_id
-
-
-def person_only_registration(record: dict[str, Any]) -> bool:
-    if (record.get("record_level") == "person_command_result_registration"
-            and (record.get("public_outcome_registered") is False or record.get("settlement_scope") == "PERSON_RESULT_ONLY")):
-        if record.get("public_outcome_registered") is not False or record.get("settlement_scope") != "PERSON_RESULT_ONLY":
-            raise ValueError(f"invalid person-only registration: {record.get('war_event_id')}")
-        return True
-    return False
 
 
 def _remember_ref_candidate(candidates: dict[str, set[str]], ref: Any, battle_id: str) -> None:

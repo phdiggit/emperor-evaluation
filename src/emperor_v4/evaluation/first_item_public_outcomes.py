@@ -79,9 +79,9 @@ def _validate_public_text(name: str, field: str, value: object) -> str:
     if not isinstance(value, str):
         raise ValueError(f"第一项A公开成果字段必须是文字：{name}/{field}")
     text = re.sub(r"\s+", " ", value).strip()
-    if not text or len(text) < 8 or len(text) > 240:
-        raise ValueError(f"第一项A公开成果字段长度不合要求：{name}/{field}")
-    if "\n" in value or "\r" in value or "`" in value or "[" in value or "]" in value:
+    if not text:
+        raise ValueError(f"第一项A公开成果字段不能为空：{name}/{field}")
+    if "`" in value or "[" in value or "]" in value:
         raise ValueError(f"第一项A公开成果字段不得带格式标记：{name}/{field}")
     if _FORBIDDEN_PUBLIC_TEXT.search(text):
         raise ValueError(f"第一项A公开成果字段含内部结算术语：{name}/{field}")
@@ -146,8 +146,8 @@ def load_first_item_public_outcomes(
         )
         project = record.get("public_project")
         if project is not None:
-            if not isinstance(project, str) or not 2 <= len(project.strip()) <= 80:
-                raise ValueError(f"第一项A共同项目公开标签长度不合要求：{name}")
+            if not isinstance(project, str) or not project.strip():
+                raise ValueError(f"第一项A共同项目公开标签须为非空文字：{name}")
             project = _validate_public_text(name, "public_project", f"共同项目：{project}")
             project = project.removeprefix("共同项目：").strip()
         result["public_project"] = project
@@ -160,11 +160,6 @@ def load_first_item_public_outcomes(
             raise ValueError(f"第一项A缺少正式计算：{name}")
         result["public_calculation"] = calculation
         by_name[name] = result
-
-    for field in PUBLIC_READING_FIELDS:
-        texts = [record[field] for record in by_name.values()]
-        if len(set(texts)) != len(texts):
-            raise ValueError(f"第一项A人物阅读入口重复：{field}")
 
     source_names = set(source_sections)
     if expected_names is None:

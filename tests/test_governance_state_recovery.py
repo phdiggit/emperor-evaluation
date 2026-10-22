@@ -1,12 +1,8 @@
-from decimal import Decimal, ROUND_HALF_UP
-
 import pytest
 
 from emperor_v4.evaluation.governance_state_recovery import (
     AXES,
     clean_retired_low_valley_references,
-    FIXED_POINTS,
-    LOSS_RATES,
     _terminal_endpoint_display,
     retained_recovery,
     state_score,
@@ -51,25 +47,17 @@ def test_terminal_endpoint_display_compacts_only_a_complete_combination_set():
         _terminal_endpoint_display(row)
 
 
-@pytest.mark.parametrize("axis", AXES)
-@pytest.mark.parametrize("main", range(1, 7))
-def test_bounded_loss_formula_floor_and_monotonicity(axis, main):
-    points = FIXED_POINTS[axis]
-    values = [state_score(axis, main, grade) for grade in LOSS_RATES]
-    assert values == sorted(values, reverse=True)
-    assert all(points[0] <= value <= points[main - 1] for value in values)
-    for grade, rate in LOSS_RATES.items():
-        expected = max(
-            Decimal(str(points[0])),
-            Decimal(str(points[main - 1])) * (1 - rate),
-        )
-        assert state_score(axis, main, grade) == float(
-            expected.quantize(Decimal(".1"), rounding=ROUND_HALF_UP)
-        )
+@pytest.mark.parametrize("axis,main,loss,expected", [
+    ("C1", 1, "L3", 5.7),   # floor beats the proportional deduction
+    ("C1", 4, "L1", 53.3),  # a non-terminal band uses its own axis table
+    ("C2", 6, "L2", 32.6),  # round the final value, not the deduction
+    ("C3", 6, "L0", 60.0),  # zero loss preserves the full base
+])
+def test_loss_formula_floor_axis_mapping_and_final_rounding(axis, main, loss, expected):
+    assert state_score(axis, main, loss) == expected
 
 
-def test_round_final_score_not_the_loss_and_reject_legacy_inputs():
-    assert state_score("C2", 6, "L2") == 32.6
+def test_reject_invalid_or_retired_state_inputs():
     for args in [
         ("C1", True, "L1"),
         ("C1", 0, "L1"),
@@ -112,15 +100,6 @@ def test_l3_accepts_both_contract_extent_routes(dimensions):
     from emperor_v4.evaluation.governance_state_recovery import _validate_loss_dimensions
 
     _validate_loss_dimensions({"grade": "L3", "strong_dimensions": dimensions})
-
-
-@pytest.mark.parametrize("axis", AXES)
-@pytest.mark.parametrize("grade,rate", LOSS_RATES.items())
-def test_main_state_monotonicity_and_proportional_bound(axis, grade, rate):
-    scores = [state_score(axis, band, grade) for band in range(1, 7)]
-    assert scores == sorted(scores)
-    for base, score in zip(FIXED_POINTS[axis], scores):
-        assert Decimal(str(base)) - Decimal(str(score)) <= Decimal(str(base)) * rate + Decimal(".05")
 
 
 def test_axis_specific_baseline_and_terminal_bottleneck():

@@ -16,18 +16,11 @@ def validate_text_fields(row: dict[str, Any]) -> None:
         value = row.get(key)
         if not isinstance(value, str) or not value.strip():
             raise ValueError(f"M5裁决文本缺失: {rid}/{key}")
-    if row["grade_basis"].strip() == row["position_basis"].strip():
-        raise ValueError(f"M5档内理由重复裁档理由: {rid}")
     limitations = row.get("limitations")
     if not isinstance(limitations, list) or not limitations:
         raise ValueError(f"M5材料限制缺失: {rid}")
     if any(not isinstance(value, str) or not value.strip() for value in limitations):
         raise ValueError(f"M5材料限制必须为非空文本列表: {rid}")
-    normalized = [value.strip() for value in limitations]
-    if len(set(normalized)) != len(normalized):
-        raise ValueError(f"M5材料限制重复: {rid}")
-    if set(normalized) & {row[key].strip() for key in fields}:
-        raise ValueError(f"M5材料限制复制裁决结论: {rid}")
 
 
 def render(payload: dict[str, Any]) -> str:

@@ -88,18 +88,6 @@ THIRD_AXIS_LABELS = {
     "ML": "重大军事净毁损",
 }
 
-THIRD_AXIS_ROLES = {
-    "A1": "安全威胁变化",
-    "A2": "防线与纵深",
-    "B1": "控制范围变化",
-    "B2": "战略价值",
-    "B4": "稳定交付",
-    "C1": "实战结果",
-    "C2": "持续承载",
-    "C3": "体系可靠性",
-    "ML": "重大损失判断",
-}
-
 THIRD_BOUNDARIES = {
     "A1": "这里只看本人统治窗口内的安全威胁变化和战略主动，不把统一创业存量、继任者阶段或将领独立行动重复计入。",
     "A2": "这里只看本人窗口新增或保全的边防协同与战略纵深，不把继承存量重复计作本人建设。",
@@ -458,46 +446,19 @@ def _verify_projection_fields(row: dict[str, Any], *, prefix: str, ruler_id: str
     _validate_evidence(row.get("public_evidence_items"), prefix=prefix, ruler_id=ruler_id)
 
 
-def _ab_axis_projection(axis: str, row: dict[str, Any], ruler_id: str) -> dict[str, Any]:
-    raw = _first_text(row.get("reason"), row.get("rationale"), row.get("attribution_basis"))
-    if axis in {"A1", "A2"}:
-        start = _level_label(row.get("start"))
-        end = _level_label(row.get("end"))
-        prefix = f"接手时为{start}，结束时为{end}。"
-    else:
-        level = _level_label(row.get("grade"))
-        band = _band_label(row.get("band_position"))
-        prefix = f"当前结果为{level}{f'、{band}' if band else ''}。"
-    basis = f"{prefix}{raw}" if raw else f"{prefix}正式记录保留了本轴的当前结果。"
-    item = _item(
-        "THIRD-" + axis,
-        ruler_id,
-        "result",
-        THIRD_AXIS_LABELS[axis],
-        THIRD_AXIS_ROLES[axis],
-        basis,
-        THIRD_BOUNDARIES[axis],
-    )
-    return _projection(
-        summary=f"{THIRD_AXIS_LABELS[axis]}为{item['public_basis']}",
-        items=[item],
-        boundary=THIRD_BOUNDARIES[axis],
-        level_label=prefix.rstrip("。"),
-        component_label=THIRD_AXIS_LABELS[axis],
-    )
-
-
-def _ab_projection(row: dict[str, Any], a_projections: dict[str, Any] | None = None) -> dict[str, Any]:
+def _ab_projection(row: dict[str, Any], credit: dict[str, Any]) -> dict[str, Any]:
     ruler_id = str(row.get("ruler_id") or "")
     axes = row.get("axes") if isinstance(row.get("axes"), dict) else {}
-    axis_projections: dict[str, dict[str, Any]] = {}
     items: list[dict[str, str]] = []
     for axis in ("A1", "A2", "B1", "B2", "B4"):
-        if not isinstance(axes.get(axis), dict):
-            continue
-        projection = copy.deepcopy(a_projections[axis]) if a_projections and axis in a_projections else _ab_axis_projection(axis, axes[axis], ruler_id)
-        _apply_projection(axes[axis], projection)
-        axis_projections[axis] = projection
+        if axis in ('A1', 'A2'):
+            projection = credit['axes'][axis]
+            # A reading is owned by result credit; AB retains only its scoring fields.
+            _apply_projection(axes[axis], {})
+        else:
+            reading = b_reading_projection(axis, row, credit)
+            projection = _b_axis_projection(axis, reading, ruler_id)
+            _apply_projection(axes[axis], projection)
         items.append(
             _item(
                 "THIRD-AB",
@@ -566,7 +527,6 @@ def _ab_projection(row: dict[str, Any], a_projections: dict[str, Any] | None = N
         ),
         level_label="战略安全与边疆控制结果",
         component_label="战略安全与边疆控制",
-        axis_projections=axis_projections,
     )
 
 
@@ -610,14 +570,12 @@ def _credit_axis_projection(axis: str, row: dict[str, Any], ruler_id: str, contr
 def _credit_projection(row: dict[str, Any], contract: dict[str, Any], ab: dict[str, Any] | None = None) -> dict[str, Any]:
     ruler_id = str(row.get("ruler_id") or "")
     axes = row.get("axes") if isinstance(row.get("axes"), dict) else {}
-    axis_projections: dict[str, dict[str, Any]] = {}
     items: list[dict[str, str]] = []
     for axis in ("A1", "A2"):
         if not isinstance(axes.get(axis), dict):
             continue
         projection = _credit_axis_projection(axis, axes[axis], ruler_id, contract)
         _apply_projection(axes[axis], projection)
-        axis_projections[axis] = projection
         items.append(
             _item(
                 "THIRD-CREDIT",
@@ -671,7 +629,6 @@ def _credit_projection(row: dict[str, Any], contract: dict[str, Any], ab: dict[s
         boundary="起点、终点、本人责任和合成比例分别保留；不把同一安全结果在不同轴重复计算。",
         level_label="战略结果归属与合成",
         component_label="战略结果归属",
-        axis_projections=axis_projections,
     )
 
 
@@ -857,11 +814,7 @@ def _refresh_third(payloads: dict[str, dict[str, Any]]) -> dict[str, dict[str, A
         _apply_projection(row, _credit_projection(row, payloads['credit']['contract'], ab_rows[row['ruler_id']]))
     for row in ab_rows.values():
         credit = credit_rows[row['ruler_id']]
-        projections = copy.deepcopy(credit['public_axis_projections'])
-        for key in ('B1', 'B2', 'B4'):
-            reading = b_reading_projection(key, row, credit)
-            projections[key] = _b_axis_projection(key, reading, row['ruler_id'])
-        _apply_projection(row, _ab_projection(row, projections))
+        _apply_projection(row, _ab_projection(row, credit))
     for row in c_rows.values():
         _apply_projection(row, _c_projection(row))
     for row in d_rows.values():
@@ -1254,7 +1207,8 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
     verify_c_sources(root, projected_third['C'])
     if write:
         from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
-        ab_markdown = _render_formal_markdown('AB', projected_third['AB']['records'])
+        ab_markdown = _render_formal_markdown('AB', projected_third['AB']['records'],
+                                               credit_rows=_index(projected_third['credit']['records']))
         c_markdown = _render_formal_markdown('C', projected_third['C']['records'])
         polities = load_ruler_polities(root)
         for key, path in THIRD_ROUTED_PATHS.items():

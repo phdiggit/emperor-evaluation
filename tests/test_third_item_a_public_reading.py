@@ -125,8 +125,10 @@ def test_current_sources_and_all_reader_surfaces_share_a_reading():
         for axis_name,axis in row['axes'].items():
             reading=axis['public_reading']
             assert reading == reading_projection(axis_name,axis,credit['contract'])
-            assert reading == ab_by_id[row['ruler_id']]['axes'][axis_name]['public_reading']
-            assert reading['story'] != row['public_axis_projections'][axis_name]['public_adjudication_summary']
+            assert 'public_axis_projections' not in row
+            assert 'public_axis_projections' not in ab_by_id[row['ruler_id']]
+            assert 'public_reading' not in ab_by_id[row['ruler_id']]['axes'][axis_name]
+            assert reading['story'] != axis['public_adjudication_summary']
             assert not reading['unresolved_refs']
             expected[row['ruler_id'],axis_name]=reading
     seen=0
@@ -143,5 +145,3 @@ def test_current_sources_and_all_reader_surfaces_share_a_reading():
             assert item['reader_how'] == item['reader_public_a']['calculation']
             seen+=1
     assert seen
-    for filename in ('reader/person-readability.js','reader/home-interactions.js','reader/index.template.html','reader/second-item-public-labels.js'):
-        assert 'globalThis.ThirdItemAReading.html' in (ROOT/filename).read_text(encoding='utf-8')

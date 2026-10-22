@@ -4,7 +4,7 @@ from pathlib import Path
 import json
 import pytest
 
-from emperor_v4.evaluation.fourth_item_c_public import sources, calculation, axis_reading, verify_readings, markdown_reading
+from emperor_v4.evaluation.fourth_item_c_public import sources, calculation, axis_reading, markdown_reading
 from emperor_v4.evaluation.fourth_item_a import net_result
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.third_fourth_item_public import FOURTH_PATH, _refresh_fourth, _signature
@@ -81,7 +81,6 @@ def test_three_zero_states_and_retained_negative_record():
 def test_current_coverage_readonly_sources_and_person_caches():
     payload=load_json(ROOT/FOURTH_PATH)
     before=deepcopy(payload)
-    assert verify_readings(payload,ROOT)==len(payload['records'])
     packages={p['package_code']:p for p in payload['accepted_packages']}
     by_id={r['ruler_id']:r for r in payload['records']}
     projected=_refresh_fourth(deepcopy(payload))
@@ -104,12 +103,3 @@ def test_current_coverage_readonly_sources_and_person_caches():
             row=by_id[rid];a=next(a for a in row['axis_results'] if a['axis']=='C')
             assert item['reader_public_fourth_c']==axis_reading(row,a,packages)
             assert item['reader_how']==item['reader_public_fourth_c']['calculation']
-
-
-def test_shared_renderer_is_used_by_each_reader_route():
-    for filename in ('index.template.html','home-interactions.js','person-readability.js'):
-        script=(ROOT/'reader'/filename).read_text(encoding='utf-8')
-        assert 'FourthItemCReading.html' in script and 'reader_public_fourth_c' in script
-    renderer=(ROOT/'reader/fourth-item-c-public.js').read_text(encoding='utf-8')
-    assert 'replace(/结果方向' not in renderer
-    assert 'sourceList(e.sources,record)' in renderer

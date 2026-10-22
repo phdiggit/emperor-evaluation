@@ -38,7 +38,6 @@ def test_own_interval_rank_projection_uses_strict_competition_ties():
     assert (projected['best'], projected['worst']) == (1, 2)
 
 
-
 def test_paired_terminal_endpoints_do_not_cross_grade_and_loss():
     ruling = {
         'status': 'FINAL_PRUDENT_RANGE',

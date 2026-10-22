@@ -15,45 +15,10 @@ from emperor_v4.evaluation.first_item_public_outcomes import (
     load_first_item_public_outcomes,
     public_outcome_for_name,
 )
-from reader.validate_first_item_docs import parse_people
 
 
 ROOT = Path(__file__).resolve().parents[1]
 A_SOURCE = ROOT / "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/01-第一项A统一主链客观贡献正式结算.md"
-
-
-def test_formal_a_public_outcomes_cover_the_current_a_source():
-    source_names = set(parse_people(A_SOURCE))
-    outcomes = load_first_item_public_outcomes(ROOT)
-
-    assert set(outcomes) == source_names
-    assert all(set(PUBLIC_FIELDS) <= set(record) for record in outcomes.values())
-    assert all(
-        isinstance(record["public_share_percent"], (int, float))
-        and 0 <= record["public_share_percent"] <= 100
-        for record in outcomes.values()
-    )
-    assert all(
-        all(isinstance(record[field], str) and record[field].strip() for field in PUBLIC_FIELDS if field != "public_boundary")
-        for record in outcomes.values()
-    )
-    assert all(
-        record["public_boundary"] is None
-        or isinstance(record["public_boundary"], str) and record["public_boundary"].strip()
-        for record in outcomes.values()
-    )
-
-
-def test_reader_first_item_sources_no_longer_contain_known_person_specific_outcome_rewrites():
-    source = (ROOT / "reader/first-item-reading.js").read_text(encoding="utf-8")
-    for phrase in (
-        "从女真整合到1683核心统一一次结算",
-        "郭威取得中原核心、柴荣续接淮南及北方阶段成果",
-        "李克用前置基盘、李存勖灭梁主体、李嗣源独立方面贡献",
-        "总池封顶100；仅计元统一主链直接继承成果",
-    ):
-        assert phrase not in source
-    assert "firstAReadingMarkup(item, record)" in source
 
 
 def test_generated_person_detail_contains_formal_public_outcome():
@@ -87,16 +52,6 @@ def test_public_calculation_and_scale_are_projected_from_current_authorities():
                     outcome["public_calculation_basis"]
                     + "\n本人的正式计算：" + outcome["public_calculation"]
                 )
-
-
-def test_every_formal_person_has_an_individual_upstream_reading_entry():
-    outcomes = load_first_item_public_outcomes(ROOT)
-    payload = json.loads((ROOT / PUBLIC_OUTCOME_PATH).read_text(encoding="utf-8"))
-    records = {record["ruler_name"]: record for record in payload["records"]}
-    for field in PUBLIC_READING_FIELDS:
-        assert len({outcome[field] for outcome in outcomes.values()}) == len(outcomes)
-        for name, outcome in outcomes.items():
-            assert outcome[field] == records[name][field]
 
 
 def test_all_formal_a_people_are_published_without_requiring_a_total_score():

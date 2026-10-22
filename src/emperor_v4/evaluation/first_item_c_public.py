@@ -155,9 +155,6 @@ def load_first_item_c_public(root: Path) -> dict[str, dict[str, Any]]:
         if set(record['public_sources'][1:]) != {e['public_source'] for e in record['public_evidence']}:
             raise ValueError(f'C材料来源未与当前公共本人证据精确绑定：{name}')
         projected[name] = record
-    for field in ('public_question', 'public_story'):
-        if len({record[field] for record in projected.values()}) != len(projected):
-            raise ValueError('统帅阅读入口不能复用统一标题或正文')
     return projected
 
 

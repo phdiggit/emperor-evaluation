@@ -192,13 +192,14 @@ def inspect(root: Path, components: list[str], ruler_ids: list[str], polities: l
     }
 
 
-def verify_profile_current(root: Path, axis: str) -> dict:
+def verify_profile_current(root: Path, axis: str, *, payload: dict | None = None) -> dict:
     """Common profile contracts; axis-specific semantics use their own verifiers."""
     from emperor_v4.evaluation.profile_markdown import render_profile_markdown
     from emperor_v4.evaluation.profile_m4_settlement import SCORES
     from emperor_v4.evaluation.profile_publication import is_closed_no_grade, validate_closed_no_grade, validate_bounded_diplomatic_grade, validate_final_capability_review
     path = current_entries(root)[f"profile.{axis}"]
-    payload = load_json(path)
+    if payload is None:
+        payload = load_json(path)
     records = payload["records"]
     pool = load_json(root / "config/common/canonical-ruler-pool.json")
     expected = {r["ruler_id"] for r in pool["records"] if r["pool_status"] == "INCLUDED"}

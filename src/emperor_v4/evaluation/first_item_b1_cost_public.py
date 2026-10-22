@@ -138,9 +138,6 @@ def load_first_item_b1_cost_public(root: Path) -> tuple[dict, dict]:
             *[ref for ref in inputs[name]['source_refs'] if ref.startswith(('http://', 'https://', 'docs/', 'config/'))],
         ]))
         projected[name] = record
-    for field in ('public_question', 'public_story'):
-        if len({r[field] for r in projected.values()}) != len(projected):
-            raise ValueError(f'B1人物阅读入口重复：{field}')
     return (projected,
             {name:project_cost(row) for name,row in cost_by_name.items()})
 

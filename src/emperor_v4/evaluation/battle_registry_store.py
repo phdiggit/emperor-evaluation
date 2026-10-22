@@ -6,6 +6,15 @@ from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 
+def person_only_registration(record: dict) -> bool:
+    """Personal lineage supplements do not create another public battle."""
+    if (record.get("record_level") == "person_command_result_registration"
+            and (record.get("public_outcome_registered") is False or record.get("settlement_scope") == "PERSON_RESULT_ONLY")):
+        if record.get("public_outcome_registered") is not False or record.get("settlement_scope") != "PERSON_RESULT_ONLY":
+            raise ValueError(f"invalid person-only registration: {record.get('war_event_id')}")
+        return True
+    return False
+
 MANIFEST_SCHEMA = "battle-registry-manifest-v1"
 SHARD_SCHEMA = "battle-registry-shard-v1"
 DEFAULT_BUCKET_COUNT = 24

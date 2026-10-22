@@ -2,7 +2,7 @@
 
 Usage: python package_net_review.py
 Default: .tmp/evaluation-packages/皇帝三体系评估包.zip
-Reads the working tree without running scoring or rebuild commands.
+Reads current sources and renders untracked reading views without writing sources.
 """
 from __future__ import annotations
 
@@ -14,6 +14,8 @@ import tempfile
 import zipfile
 
 import yaml
+
+from emperor_v4.evaluation.derived_readings import view_sources, render_views
 
 
 ROOT = Path(__file__).resolve().parent
@@ -57,6 +59,7 @@ def collect(root: Path, package: str = "all") -> list[Path]:
     if package not in PACKAGE_KINDS:
         raise ValueError(f"未知包类型：{package}")
     root = root.resolve()
+    generated = view_sources(root)
     project = yaml.safe_load(source_path(root, "config/project.yml").read_text(encoding="utf-8-sig"))
     selected = {
         "config/project.yml",
@@ -151,10 +154,19 @@ def collect(root: Path, package: str = "all") -> list[Path]:
             if path.is_file() and path.suffix.lower() in {".md", ".json", ".txt"}:
                 selected.add(path.relative_to(root).as_posix())
 
+    for name in generated:
+        category = ('profile-settlements' if name.startswith(PROFILE_ROOT + '/') else
+                    'historical-impact-settlements' if name.startswith('docs/评分结算/历史影响/') else
+                    'settlements')
+        if package in ('all', category):
+            selected.add(name)
+
     # Follow only formal JSON router shards. Missing shards must fail packaging.
     pending = list(selected)
     while pending:
         name = pending.pop()
+        if name in generated:
+            continue
         path = source_path(root, name)
         if path.suffix != ".json":
             continue
@@ -168,7 +180,7 @@ def collect(root: Path, package: str = "all") -> list[Path]:
                 if target not in selected:
                     selected.add(target)
                     pending.append(target)
-    return [source_path(root, name) for name in sorted(selected)]
+    return [root / name if name in generated else source_path(root, name) for name in sorted(selected)]
 
 
 def package_note(package: str) -> bytes:
@@ -191,9 +203,9 @@ def package_note(package: str) -> bytes:
 
 ## 文件与数据约定
 
-所有入包源文件逐字节照搬当前工作树（包含未提交改动）；合同不删节、不改写、不合并。
+入包源文件逐字节照搬当前工作树（包含未提交改动）；不入Git的阅读视图从当前正式来源确定性生成，文件清单以GENERATED标明。合同不删节、不改写、不合并。
 原仓库目录保持不变，便于引用原路径，避免重名，并保持JSON路由与分片关系。
-文件清单记录来源路径、字节数和SHA-256；包内只额外生成本说明与文件清单。
+文件清单记录路径、字节数、SHA-256和生成方式；包内另附本说明与文件清单。
 
 第一项以其Markdown结算源为准；其余按项目配置读取正式JSON，Markdown为阅读视图。
 JSON若标记`formal-json-polity-router-v1`，必须按`routes[].path`读取相对该文件的分片；
@@ -216,14 +228,17 @@ def prepare(root: Path, package: str = "all") -> tuple[dict[str, bytes], dict]:
     entries: dict[str, bytes] = {}
     inventory = []
     routers = 0
-    for path in collect(root, package):
+    selected = collect(root, package)
+    generated_paths = set(view_sources(root)) & {p.relative_to(root).as_posix() for p in selected}
+    generated = render_views(root, generated_paths) if generated_paths else {}
+    for path in selected:
         name = path.relative_to(root).as_posix()
-        content = path.read_bytes()
+        content = generated[name].encode('utf-8') if name in generated else path.read_bytes()
         content.decode("utf-8-sig")
         entries[name] = content
         inventory.append({"path": name, "bytes": len(content),
                           "sha256": hashlib.sha256(content).hexdigest(),
-                          "transformation": "VERBATIM"})
+                          "transformation": "GENERATED" if name in generated else "VERBATIM"})
     for name, content in entries.items():
         if not name.endswith(".json"):
             continue

@@ -17,38 +17,16 @@ def test_first_item_source_caches_are_scoped_by_ruler_and_accept_formal_aliases(
 const fs = require("node:fs");
 const assert = require("node:assert/strict");
 
-const specs = [
-  {
-    path: process.argv[2],
-    loaderStart: "  function rawUrl",
-    loaderEnd: "\n  function bulletForName",
-    cacheName: "docCache",
-    loaderName: "loadDoc",
-    parserStart: "  function bulletForName",
-    parserEnd: "\n  function itemMap",
-    parserName: "bullets",
-  },
-  {
-    path: process.argv[3],
-    loaderStart: "  function firstItemRawUrl",
-    loaderEnd: "\n  function firstItemBulletsForName",
-    cacheName: "firstItemDocCache",
-    loaderName: "loadFirstItemDoc",
-    parserStart: "  function firstItemBulletsForName",
-    parserEnd: "\n  function firstItemPublicText",
-    parserName: "firstItemBullets",
-  },
-  {
-    path: process.argv[4],
-    loaderStart: "  function firstItemRawUrl",
-    loaderEnd: "\n  function firstItemBulletsForName",
-    cacheName: "firstItemDocCache",
-    loaderName: "loadFirstItemDoc",
-    parserStart: "  function firstItemBulletsForName",
-    parserEnd: "\n  function firstItemPublicText",
-    parserName: "firstItemBullets",
-  },
-];
+const specs = [{
+  path: process.argv[2],
+  loaderStart: "  function firstItemRawUrl",
+  loaderEnd: "\n  function firstItemBulletsForName",
+  cacheName: "firstItemDocCache",
+  loaderName: "loadFirstItemDoc",
+  parserStart: "  function firstItemBulletsForName",
+  parserEnd: "\n  function firstItemPublicText",
+  parserName: "firstItemBullets",
+}];
 
 (async () => {
   for (const spec of specs) {
@@ -82,27 +60,6 @@ const specs = [
     assert.equal(fields["事实"], "正式材料", `${spec.path}: formal-name fallback failed`);
   }
 
-  const publicSource = fs.readFileSync(specs[0].path, "utf8");
-  const targetStart = publicSource.indexOf("  function firstItemTarget()");
-  const targetEnd = publicSource.indexOf("\n  async function build", targetStart);
-  const targetRoot = {};
-  const target = new Function("location", "document", publicSource.slice(targetStart, targetEnd) + ";return firstItemTarget;");
-  assert.equal(target({hash:"#net/SYNTHETIC/first/a"}, {getElementById:()=>targetRoot,querySelector:()=>targetRoot})(), null);
-  assert.equal(target({hash:"#person/SYNTHETIC"}, {querySelector:()=>targetRoot})(), targetRoot);
-  const publicStart = publicSource.indexOf("  function publicFact");
-  const publicEnd = publicSource.indexOf("\n  function lDimension", publicStart);
-  assert.ok(publicStart >= 0 && publicEnd > publicStart, "public reader helpers not found");
-  const publicHelpers = new Function(
-    `${publicSource.slice(publicStart, publicEnd)};return {publicOutcomeText};`,
-  )();
-  const outcome = publicHelpers.publicOutcomeText(
-    "从秦国在关中、巴蜀、汉中等既有核心区域起步，先后取得韩、赵、魏、楚、燕、齐，完成六国统一。",
-  );
-  assert.equal(outcome, "从秦国在关中、巴蜀、汉中等既有核心区域起步，先后取得韩、赵、魏、楚、燕、齐，完成六国统一。");
-  assert.doesNotMatch(outcome, /单位|控制信用|有效控制信用/);
-  const technicalOutcome = publicHelpers.publicOutcomeText("从甲地起步，取得乙地；个人分得123控制信用。");
-  assert.equal(technicalOutcome, "从甲地起步，取得乙地；个人分得123控制信用。");
-
 })().catch(error => {
   console.error(error);
   process.exitCode = 1;
@@ -111,9 +68,7 @@ const specs = [
         encoding="utf-8",
     )
     files = [
-        "reader/first-item-reading.js",
         "reader/home-interactions.js",
-        "reader/person-readability.js",
     ]
     result = subprocess.run(
         [node, str(script), *files],

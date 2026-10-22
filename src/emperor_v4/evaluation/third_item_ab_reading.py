@@ -149,7 +149,7 @@ def b_reading_lines(row, name, title):
     return lines
 
 
-def render_person(row: Mapping[str, Any], *, b_basis, b_grade, b_regions, depth_lines) -> list[str]:
+def render_person(row: Mapping[str, Any], *, a_readings, b_basis, b_grade, b_regions, depth_lines) -> list[str]:
     axes = row['A120_axis_adjudications']
     b = row['B80_adjudication']
     titles = {'A1': '战略威胁', 'A2': '战略边界', 'B1': '控制规模', 'B2': '战略价值', 'B4': '交班成熟度'}
@@ -169,7 +169,7 @@ def render_person(row: Mapping[str, Any], *, b_basis, b_grade, b_regions, depth_
         lines.append(f"| {name} {titles[name]} | {grade}档 | {rate:g}% |")
     lines += ['', *([prose(row['A_axis_common_context']), ''] if row.get('A_axis_common_context') else [])]
     for name in ('A1', 'A2'):
-        reading = (row.get('axes', {}).get(name) or {}).get('public_reading')
+        reading = a_readings[name]['public_reading']
         if reading:
             links = []
             for ref in reading['sources']:

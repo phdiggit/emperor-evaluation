@@ -90,11 +90,6 @@ for(const text of [basis,'只含本人时期。','上限尚不明确。','https:
 const structured=cost({reader_public_cost:{public_sections:[{title:'战争负担',text:'主力实际执行运输。'},{title:'实际损失与已知限度',text:basis}],public_source_records:[{path:'docs/source.md#合成战事',label:'具名材料',kind:'战事材料汇集',source_url:'https://example.org/original'}],public_source_note:'摘要不能冒充原文。'}});
 for(const text of ['<h4>战争负担</h4>','主力实际执行运输。',basis,'docs/source.md#合成战事','具名材料','https://example.org/original'])assert.ok(structured.includes(text));
 assert.ok(structured.indexOf('具名材料')>structured.indexOf('<details class="first-cost-sources">'));
-for(const path of ['reader/home-interactions.js','reader/person-readability.js','reader/first-item-reading.js']) {
- const text=fs.readFileSync(path,'utf8');
- assert.ok(text.includes('firstB1ReadingMarkup(item, record)'));
- assert.ok(text.includes('firstCostMarkup('));
-}
 ''',encoding='utf-8')
     result=subprocess.run([node,str(script)],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
     assert result.returncode == 0,result.stderr

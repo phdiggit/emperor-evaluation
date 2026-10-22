@@ -6,16 +6,10 @@ import pytest
 
 pytestmark = pytest.mark.presentation
 
-from emperor_v4.evaluation.profile_radar import AXIS_ORDER, load_profiles, write_samples
+from emperor_v4.evaluation.profile_radar import write_samples
 
 
 ROOT = Path(__file__).resolve().parents[1]
-
-
-def test_radar_loader_consumes_configured_formal_axes() -> None:
-    profiles = load_profiles()
-    assert profiles
-    assert all(len(profile.values) == len(AXIS_ORDER) for profile in profiles.values())
 
 
 def test_radar_sample_write_refreshes_configured_formal_values(tmp_path: Path) -> None:

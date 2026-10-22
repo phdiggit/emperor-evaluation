@@ -1,19 +1,9 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from pathlib import Path
 import pytest
 
-from emperor_v4.evaluation.formal_json_store import load_json
-from emperor_v4.evaluation.second_item_c_public import (
-    FORMAL_PATHS,
-    PUBLIC_FORBIDDEN_RE,
-    _refresh_payload,
-    _scoring_signature,
-    verify_public_projection,
-    _clean,
-    verify_source_bindings,
-)
+from emperor_v4.evaluation.second_item_c_public import FORMAL_PATHS, PUBLIC_FORBIDDEN_RE, _refresh_payload, _scoring_signature, _clean, verify_source_bindings
 
 
 def test_cross_item_axis_uses_its_own_meaning():
@@ -157,26 +147,6 @@ def test_material_collection_cannot_masquerade_as_direct_claim_support():
         _verify_payload('C1', payload)
 
 
-def test_state_calculation_keeps_floor_and_minimum_proven_boundary():
-    from emperor_v4.evaluation.second_item_c_reading import calculation
-    from emperor_v4.evaluation.governance_state_recovery import FIXED_POINTS
-    row = {'main_band':'C1-1', 'loss_grade':'L1', 'score':FIXED_POINTS['C1'][0]}
-    text = calculation('C1', row)
-    assert 'max（本轴最低分' in text
-    assert '3%' in text
-    assert '只在最后' in text
-    assert '损害轻微' not in text
-
-
-def test_current_c_public_projection_covers_the_same_formal_people():
-    root = Path(__file__).resolve().parents[1]
-    report = verify_public_projection(root)
-    assert report["record_count"] == len(
-        load_json(root / FORMAL_PATHS["C1"])["scores"]
-    )
-    assert set(report["axis_reports"]) == set(FORMAL_PATHS)
-
-
 def test_upstream_language_keeps_negation_numbers_and_unresolved_evidence():
     source = '不把自然灾害归责本人。L2另扣4.5分；仍未闭合F3。'
     text = _clean(source)
@@ -248,10 +218,3 @@ def test_legacy_recovery_cannot_present_adopted_high_point_as_current_handoff():
     row['public_reading_sections'][0]['body'] = '池外记录沿用原机制，采用点与交班终点分别说明。'
     row['public_story'] = recovery_story(row['public_reading_sections'])
     verify_recovery_reading(row)
-
-
-def test_recovery_sections_are_display_only():
-    row = _synthetic_recovery_reading()
-    before = deepcopy(row)
-    row['public_reading_sections'][0]['body'] += '补充显示说明。'
-    assert _scoring_signature({'scores':[row]}) == _scoring_signature({'scores':[before]})

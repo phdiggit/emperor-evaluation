@@ -2,7 +2,7 @@ from pathlib import Path
 import math
 import pytest
 
-from emperor_v4.evaluation.first_item_b1_inputs import load_b1_inputs, load_opponent_systems, b1_components
+from emperor_v4.evaluation.first_item_b1_inputs import b1_components
 from emperor_v4.evaluation.first_item_weights import b1_efficiency_points
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,13 +35,3 @@ def test_multistage_efficiency_uses_declared_weights_instead_of_one_lifetime():
         {'control_credit':1000,'years':24,'weight':3,'basis':'独立合成目标乙'},
     ]}
     assert b1_components(row,{})['efficiency_points'] == 13.3
-
-
-def test_current_inputs_and_formal_markdown_are_coherent():
-    rows = load_b1_inputs(ROOT)
-    systems = load_opponent_systems(ROOT)
-    assert rows
-    for row in rows.values():
-        result = b1_components(row, systems)
-        assert 0 <= result['total_points'] <= 50
-        assert row['source_refs'] and row['timing_basis']

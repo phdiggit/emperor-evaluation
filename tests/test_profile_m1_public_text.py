@@ -3,8 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from emperor_v4.evaluation.formal_json_store import load_json
-from emperor_v4.evaluation.profile_markdown import _m1_public_registered_display, render_profile_markdown
+from emperor_v4.evaluation.profile_markdown import _m1_public_registered_display
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,26 +31,3 @@ def test_unknown_registered_responsibility_fails_closed():
 def test_unresolved_command_scope_remains_explicit_in_public_text():
     public = _m1_public_registered_display("结果责任=unresolved_command_scope")
     assert public == "本人结果责任：本人指挥范围尚未闭合"
-
-
-def test_formal_m1_public_reasons_exclude_talent_grades_and_machine_labels():
-    settlement = load_json(SETTLEMENT)
-    for row in settlement["records"]:
-        fields = [row.get(key) for key in (
-            "typical_pattern", "grade_basis", "position_basis", "phase_profile",
-            "failure_and_recovery", "counterpattern", "role_attribution",
-        )]
-        fields.extend(row.get("limitations") or [])
-        assert not any(UNTRANSLATED.search(value) for value in fields if isinstance(value, str)), row["ruler_id"]
-        public_refs = list(row["evidence_scope"]["source_refs"])
-        review = row.get("m1_stability_review") or {}
-        public_refs.extend(review.get("source_refs") or [])
-        public_refs.extend(ref for case in review.get("cases", []) for ref in case["source_refs"])
-        assert not any("02-武将人才等级.json" in ref for ref in public_refs), row["ruler_id"]
-    markdown = render_profile_markdown(settlement)
-    # Public reading is explicitly authored for every current record; the former
-    # raw paired-tier excerpt is no longer the public reading contract.
-    assert all(row['public_reading']['grade_reason'] in markdown for row in settlement['records'])
-    assert not re.search(r"(?:结果责任|致败责任)=[A-Za-z_]+", markdown)
-    # Archive navigation is allowed; a talent grade must not become M1 evidence.
-    assert not re.search(r"武将锚|武将等级|武将档(?!案)|武将档案(?:中|的)?(?:等级|档位)|M1\.\d_[A-Z_]+", markdown)

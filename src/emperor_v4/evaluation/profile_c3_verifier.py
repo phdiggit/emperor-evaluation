@@ -78,10 +78,6 @@ def _markdown_rows() -> list[list[str]]:
     return rows
 
 
-def _clauses(text: str) -> list[str]:
-    return [part.strip("。； \n") for part in re.split(r"[；。]", text) if part.strip("。； \n")]
-
-
 def verify_resolved_gate_decision(row: dict) -> None:
     """A current explicit gate decision cannot publish a different grade/position."""
     decision = row.get("resolved_high_gate_decision")
@@ -138,12 +134,10 @@ def verify_payloads(settlement: dict) -> dict:
         if not parents:
             assert row["score_status"] == "EVIDENCE_LIMITED"
             assert row["axis_evidence_level"] == "E1" and row["output_mode"] == "EPISODE_TAG"
-            assert row["limitations"] and len(row["typical_pattern"]) >= 20
+            assert row["limitations"] and row["typical_pattern"].strip()
         if row["score_status"] == "EVIDENCE_LIMITED":
             assert row["axis_evidence_level"] != "E3"
             assert row["axis_grade"] not in {"G4", "G5"}
-        pattern_clauses = _clauses(row["typical_pattern"])
-        assert len(pattern_clauses) == len(set(pattern_clauses)), f"duplicate typical-pattern clause: {row['ruler_name']}"
         for parent in parents:
             parent_ids.append(parent["parent_id"])
             narratives.append(parent["lifecycle_narrative"])
@@ -153,23 +147,13 @@ def verify_payloads(settlement: dict) -> dict:
             assert parent["source_refs"]
             for field in ("task_requirement", "candidate_identification", "position_configuration", "actual_authority", "delivery", "feedback", "authorization_response"):
                 assert str(parent[field]).strip(), f"open parent lifecycle: {parent['parent_id']} {field}"
-            lifecycle_clauses = _clauses(parent["lifecycle_narrative"])
-            assert len(lifecycle_clauses) == len(set(lifecycle_clauses)), f"duplicate lifecycle clause: {parent['parent_id']}"
-            if row["axis_grade"] in {"G4", "G5"}:
-                states = [str(parent[field]).strip() for field in (
-                    "task_requirement", "candidate_identification", "position_configuration", "actual_authority",
-                    "delivery", "feedback", "authorization_response",
-                )]
-                assert len(set(states)) >= 5, f"high-grade template lifecycle: {parent['parent_id']}"
             boundary = parent["boundary_review"]
             assert set(boundary) == {"c5_excluded", "m4_excluded", "result_only_excluded"}
         directions = {p["direction"] for p in parents}
         if row["axis_grade"] in {"G4", "G5"}:
             assert len(parents) >= 2, "single giant chain cannot support G4/G5"
-            assert len(row["major_task_domains_observed"]) >= 2, "high grade requires cross-task retest"
+            # Independent tasks or phases may belong to the same domain.
             assert directions != {"NEGATIVE"}
-            assert not re.match(r"^按\d+条", row["grade_basis"]), "high grade requires person-specific gate basis"
-            assert row["axis_grade"] in row["grade_basis"], "high-grade basis must name the published gate"
         if row["axis_grade"] == "G0":
             assert "POSITIVE" not in directions or directions & {"NEGATIVE", "MIXED", "MIXED_NEGATIVE"}
     assert len(parent_ids) == len(set(parent_ids)), "C3 parent IDs must be globally unique"

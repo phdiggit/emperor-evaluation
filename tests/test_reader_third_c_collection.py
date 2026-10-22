@@ -25,26 +25,6 @@ def test_grade_meaning_uses_each_axis_scale_and_keeps_unknown_distinct(grade):
         assert build['third_c_grade_meaning'](axis) == ('证据不足，暂不定档' if grade is None else scale[grade])
 
 
-def test_grade_guide_shows_current_scales_bands_and_short_board_rule():
-    from emperor_v4.evaluation.third_item_c_public import LABELS, SCALES
-    from emperor_v4.evaluation.third_item_c_strategy_chain import GRADE_RANGES
-    from html import escape
-    build = runpy.run_path(str(ROOT / 'reader/build.py'))
-    guide = build['render_third_c_grade_guide']()
-    for label, scale in zip(LABELS, SCALES):
-        assert escape(label) in guide
-        for meaning in scale:
-            assert escape(meaning) in guide
-    for g, (lower, upper) in enumerate(GRADE_RANGES):
-        assert f'{g}档' in guide
-        assert f'{lower}%—{upper}%' in guide
-    for explanation in ('三轴最低档', '不取平均', '资格上限取低', '不改写三轴原档', '待定', '不补零',
-                        '50×得分率÷100', '同档可以有不同分数', '0档也不等于固定0分', '直接取满分50分'):
-        assert explanation in guide
-    template = (ROOT / 'reader/third-item-c.template.html').read_text(encoding='utf-8')
-    assert template.index('__GRADE_GUIDE__') < template.index('__ENTRIES__')
-
-
 def test_local_server_serves_generated_collection_details_and_search_index_as_data():
     class Links(HTMLParser):
         def __init__(self):

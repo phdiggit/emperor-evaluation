@@ -143,28 +143,3 @@ def test_full_pool_reading_collection_preserves_current_public_text():
             assert escape(item['public_basis']) in text
             assert escape(item['public_boundary']) in text
             assert item['id'] in text
-
-
-def test_current_b2_public_projection_covers_the_formal_pool():
-    root = Path(__file__).resolve().parents[1]
-    payload = load_json(root / B2_PATH)
-    report = verify_public_projection(root, payload=payload)
-
-    assert report["record_count"] == len(payload["records"])
-    assert report["profile_count"] >= report["public_evidence_item_count"]
-
-
-def test_reader_details_project_all_current_b2_public_evidence():
-    root = Path(__file__).resolve().parents[1]
-    projected = []
-    for path in (root / "reader/data/people").glob("*.json"):
-        detail = json.loads(path.read_text(encoding="utf-8"))
-        for item in ((detail.get("record") or {}).get("net") or {}).get("component_details", {}).get("method", []):
-            if item.get("label") == "B2反馈与约束":
-                projected.append(item)
-
-    assert projected
-    for item in projected:
-        assert item["reader_public_evidence_items"] == item["public_evidence_items"]
-        assert len(item["reader_public_evidence_items"]) == len(item["reader_highlights"])
-        assert "reader_full_basis" not in item

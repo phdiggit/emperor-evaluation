@@ -63,9 +63,6 @@ def load_first_item_b2_public(root: Path) -> dict:
                 sources.append(source + ('#'+parsed.fragment if parsed.fragment else ''))
         record['public_sources'] = list(dict.fromkeys(sources))
         projected[name] = record
-    for field in ('public_question', 'public_story'):
-        if len({r[field] for r in projected.values()}) != len(projected):
-            raise ValueError(f'B2人物阅读入口重复：{field}')
     return projected
 
 

@@ -1585,7 +1585,8 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
     _validate_ab_axis_narratives(ab_payload)
     _validate_a_axis_closure(credit_payload, ab_payload)
     validate_ab_shared_handoffs(workspace_root, ab_payload["records"], check_b1=False)
-    expected_ab_markdown = _render_formal_markdown("AB", ab_payload["records"])
+    credit_by_id = {row["ruler_id"]: row for row in credit_payload["records"]}
+    expected_ab_markdown = _render_formal_markdown("AB", ab_payload["records"], credit_rows=credit_by_id)
     actual_ab_markdown = (workspace_root / AB_PATH).with_suffix(".md").read_text(encoding="utf-8")
     if actual_ab_markdown != expected_ab_markdown:
         raise ValueError("第三项AB Markdown与正式JSON渲染结果不一致")
@@ -1598,7 +1599,6 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
         raise ValueError("第三项正式结算存在重复人物ID")
 
     ready = []
-    credit_by_id = {row["ruler_id"]: row for row in credit_payload["records"]}
     for row in records:
         score = row.get("third_item_score_points")
         credit = credit_by_id.get(row["ruler_id"])
@@ -1922,7 +1922,10 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
         }
     )
     write_json(ab_path, ab_payload, ruler_polities=load_ruler_polities(workspace_root))
-    _write_text_atomic(ab_path.with_suffix(".md"), _render_formal_markdown("AB", ab_payload["records"]))
+    _write_text_atomic(ab_path.with_suffix(".md"), _render_formal_markdown(
+        "AB", ab_payload["records"],
+        credit_rows={row["ruler_id"]: row for row in credit_payload["records"]},
+    ))
 
 
 def _current_c_task_basis_reason(row, current_refs, known, counts) -> str:

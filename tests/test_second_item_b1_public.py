@@ -14,15 +14,6 @@ from emperor_v4.evaluation.second_item_b1_settlement import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_public_boundary_names_projects_without_changing_technical_source():
-    from emperor_v4.evaluation.second_item_b1_settlement import _public_profile_boundary
-    profile = {'adjudication_boundary': '军队损耗与战役结果归第三项，居民结果归C1/C2/C4。'}
-    before = deepcopy(profile)
-    result = _public_profile_boundary(profile)
-    assert result == '军队损耗与战役结果归“军事与边疆”，居民生活、经济财政及恢复与额外代价分别计入对应的治国成效评价。'
-    assert profile == before
-
-
 def test_refresh_preserves_authored_experience_responsibility_and_reason():
     source = load_json(ROOT / B1_PATH)
     before = _scoring_signature(source)
@@ -43,16 +34,6 @@ def test_refresh_preserves_authored_experience_responsibility_and_reason():
 def test_missing_or_count_template_cannot_replace_authored_reason(text):
     with pytest.raises(ValueError, match='公开正文'):
         _authored_public_text({'ruler_name': '合成对象', 'public_adjudication_summary': text}, 'public_adjudication_summary')
-
-
-def test_changing_prose_does_not_change_the_numeric_contract():
-    source = load_json(ROOT / B1_PATH)
-    changed = deepcopy(source)
-    row = changed['records'][0]
-    row['public_story'] = '合成对象任命责任官并派员核验。'
-    row['public_responsibility'] = '本人承担任命和核验部署，现场办理归责任官。'
-    row['public_adjudication_summary'] = '定档依据实际办理及其限制，不由材料条数反推。'
-    assert _scoring_signature(refresh_b1_public_projection(changed)) == _scoring_signature(source)
 
 
 def test_counted_card_cannot_claim_it_is_background_only():

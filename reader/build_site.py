@@ -59,12 +59,12 @@ def main(argv: list[str] | None = None) -> None:
                         help="Package already built and validated runtime files (used by CI)")
     args = parser.parse_args(argv)
     if not args.stage_only:
+        from emperor_v4.evaluation.derived_readings import run
+        run(ROOT)
         for script, options in (
             ("build_military_archive.py", ()),
             ("build.py", ()),
             ("build_first_item_reader_cache.py", ()),
-            ("build.py", ("--check",)),
-            ("build_first_item_reader_cache.py", ("--check",)),
         ):
             subprocess.run([sys.executable, str(ROOT / "reader" / script), *options],
                            cwd=ROOT, check=True)

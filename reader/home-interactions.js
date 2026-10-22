@@ -542,11 +542,6 @@ function firstCommanderMarkup(item, record) {
       reading.append(details);
     }
     reading.dataset.netCompact = "done";
-    // Remove legacy folds emitted by the base template. A's authored reading
-    // remains inside the current group, shared with its detail and comparison.
-    for (const node of Array.from(section.children)) {
-      if (node.tagName === "DETAILS") node.remove();
-    }
     section.dataset.netReadable = "done";
   }
 
@@ -1085,6 +1080,10 @@ function firstCommanderMarkup(item, record) {
     }
     const displayLabel = item.public_component_label || item.label;
     const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
+    if (SECOND_PUBLIC_GROUPS.has(groupKey) && item.reader_kind === "judgment") {
+      const audit = ["A制度建设", "B1官僚治理"].includes(item.label) ? "" : auditSourceBlock(item, record);
+      return `<details class="net-metric-detail" data-second-source-label="${esc(item.label)}"><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${audit}</div></details>`;
+    }
     const thirdItem = groupKey === "strategic" || groupKey === "military";
     const fourthItem = groupKey === "civilization";
     const formatPublic = value => ["A制度建设", "B1官僚治理"].includes(item.label) ? String(value || "") : thirdItem ? thirdItemPublicText(item, value) : fourthItem ? civilizationPublicText(value) : cleanNetText(value);
@@ -1596,10 +1595,16 @@ function firstCommanderMarkup(item, record) {
   let readerEnhancementQueued = false;
   function enhanceReaderSurface() {
     readerEnhancementQueued = false;
-    enhanceHomeRows();
-    enhancePersonNet();
-    for (const name of ["SecondItemReading", "ReaderReadability", "PersonReadability", "PersonReadingNotes"]) {
-      runReaderEnhancer(name);
+    readerSurfaceObserver.disconnect();
+    try {
+      enhanceHomeRows();
+      enhancePersonNet();
+      for (const name of ["SecondItemReading", "ReaderReadability", "PersonReadability", "PersonReadingNotes"]) {
+        runReaderEnhancer(name);
+      }
+      globalThis.SecondItemPublicLabels?.patch();
+    } finally {
+      readerSurfaceObserver.observe(screen, {childList: true, subtree: true, characterData: true});
     }
   }
 
@@ -1610,7 +1615,7 @@ function firstCommanderMarkup(item, record) {
   }
 
   window.ReaderSurfaceEnhancer = Object.freeze({schedule: scheduleReaderSurfaceEnhancement});
-  new MutationObserver(scheduleReaderSurfaceEnhancement).observe(screen, {childList: true, subtree: true});
+  const readerSurfaceObserver = new MutationObserver(scheduleReaderSurfaceEnhancement);
   ensureNetStyles();
   enhanceReaderSurface();
 

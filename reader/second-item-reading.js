@@ -223,17 +223,13 @@
   }
   function enhance(){
     ensureStyles();
-    // Normalize the generic second-item DOM first. Structural enrichment then
-    // adds summaries and C4 guidance without having them cleared on first pass.
-    patchPublicLayer("SecondItemPublicAlias");
     const netRecord=recordForNetRoute();if(netRecord)enhanceNetRoute(netRecord);
     const personRecord=recordForPersonRoute();if(personRecord)enhancePersonOverview(personRecord);
     const compareRecords=recordsForCompareRoute();if(compareRecords.length)enhanceCompare(compareRecords);
-    // Dedicated A/B1 bodies intentionally override only their owned metrics;
-    // labels run last so titles settle once.
+    // Finish the structural shell before its public renderers fill their owned bodies.
+    patchPublicLayer("SecondItemPublicAlias");
     patchPublicLayer("SecondItemAPublic");
     patchPublicLayer("SecondItemB1Public");
-    patchPublicLayer("SecondItemPublicLabels");
   }
   window.SecondItemReading = Object.freeze({enhance});
 })();

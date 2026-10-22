@@ -91,29 +91,6 @@ def test_local_reader_server_serves_detail_shards_as_raw_json():
         thread.join()
 
 
-@pytest.mark.parametrize("relative", [
-    "reader/data/military/battles-index.json",
-    "reader/data/military/commanders-index.json",
-])
-def test_local_reader_server_serves_military_indexes_as_json(relative):
-    server_module = serve_module()
-    server = ThreadingHTTPServer(("127.0.0.1", 0), partial(server_module.ReaderHandler, directory=str(ROOT)))
-    thread = Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    try:
-        with urlopen(f"http://127.0.0.1:{server.server_port}/{relative}") as response:
-            assert response.headers.get_content_type() == "application/json"
-            assert json.loads(response.read()) == json.loads((ROOT / relative).read_text(encoding="utf-8"))
-        index = json.loads((ROOT / relative).read_text(encoding="utf-8"))
-        source = index["records"][0]["source"]
-        encoded = "/".join(quote(part) for part in Path(source).parts)
-        with urlopen(f"http://127.0.0.1:{server.server_port}/{encoded}?raw=1") as response:
-            assert response.headers.get_content_type() == "application/json"
-            assert json.loads(response.read()) == json.loads((ROOT / source).read_text(encoding="utf-8"))
-    finally:
-        server.shutdown()
-        server.server_close()
-        thread.join()
 def test_source_links_use_local_files_in_preview_and_pin_published_sources(tmp_path):
     import shutil
     import subprocess
@@ -139,3 +116,39 @@ def test_source_links_use_local_files_in_preview_and_pin_published_sources(tmp_p
     )
     result = subprocess.run([node,str(script)],capture_output=True,text=True,encoding='utf-8')
     assert result.returncode == 0,result.stderr
+
+
+def test_surface_updates_coalesce_without_observing_their_own_writes(tmp_path):
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node.js required for scheduler behavior')
+    script = tmp_path / 'surface-scheduler.cjs'
+    script.write_text(r'''const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('reader/home-interactions.js','utf8');
+const begin=source.indexOf('  function runReaderEnhancer(');
+const end=source.indexOf('  ensureNetStyles();',begin);
+const queue=[],observers=[];
+let renders=0,fail=false;
+class Observer {
+ constructor(callback){this.callback=callback;this.active=false;observers.push(this);}
+ observe(){this.active=true;}
+ disconnect(){this.active=false;}
+ emit(){if(this.active)this.callback([]);}
+}
+const context={window:{},screen:{},MutationObserver:Observer,
+ requestAnimationFrame:callback=>queue.push(callback),
+ enhanceHomeRows:()=>{renders++;observers[0].emit();if(fail)throw Error('render failed');},
+ enhancePersonNet:()=>observers[0].emit()};
+vm.createContext(context);
+vm.runInContext(source.slice(begin,end)+'\nenhanceReaderSurface();',context);
+assert.equal(renders,1);
+assert.equal(queue.length,0,'render-owned changes must not schedule another render');
+observers[0].emit();observers[0].emit();context.window.ReaderSurfaceEnhancer.schedule();
+assert.equal(queue.length,1,'a burst of external changes has one render');
+queue.shift()();assert.equal(renders,2);assert.equal(queue.length,0);
+fail=true;observers[0].emit();assert.throws(()=>queue.shift()(),/render failed/);
+fail=false;observers[0].emit();assert.equal(queue.length,1,'observation resumes after an error');
+queue.shift()();assert.equal(renders,4);assert.equal(queue.length,0);
+''', encoding='utf-8')
+    result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    assert result.returncode == 0, result.stderr

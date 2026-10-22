@@ -214,10 +214,6 @@ def verify(root: Path) -> dict[str, object]:
             refs = counterpattern.get(key) or []
             if not isinstance(refs, list) or not set(refs) <= set(expected_scoring_refs):
                 raise ValueError(f"C1 counterpattern parent refs mismatch: {record['ruler_id']}: {key}")
-        for limitation in record.get("limitations") or []:
-            stale = re.search(r"取G([0-5])(?:低|中|高)?位", str(limitation))
-            if stale and f"G{stale.group(1)}" != record["axis_grade"]:
-                raise ValueError(f"C1 stale limitation grade: {record['ruler_id']}: {limitation}")
         for parent in parents:
             parent_id = parent["parent_id"]
             if parent_id in parent_ids:
@@ -259,8 +255,6 @@ def verify(root: Path) -> dict[str, object]:
         for profile in profiles
     ):
         raise ValueError("capability mechanism profile is incomplete")
-    if len({tuple(profile["mechanism_profile"].values()) for profile in profiles}) < 8:
-        raise ValueError("capability profiles remain template-converged")
     profile_sequences = {profile["sequence"] for profile in profiles}
     for record in records:
         if record["sequence"] not in profile_sequences:

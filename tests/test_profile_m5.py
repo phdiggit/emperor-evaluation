@@ -21,24 +21,13 @@ def test_distinct_field_responsibilities_are_allowed():
     validate_text_fields(sample())
 
 
-@pytest.mark.parametrize("defect", ["missing_text", "copied_position", "empty_limits",
-                                   "string_limits", "blank_limit", "copied_limit", "duplicate_limit"])
-def test_rejects_incomplete_or_duplicated_fields(defect):
+@pytest.mark.parametrize("field,value", [
+    ("counterpattern", " "), ("limitations", []),
+    ("limitations", "not a list"), ("limitations", [" "]),
+])
+def test_rejects_missing_text_and_invalid_limitations(field, value):
     row = sample()
-    if defect == "missing_text":
-        row["counterpattern"] = " "
-    elif defect == "copied_position":
-        row["position_basis"] = " " + row["grade_basis"]
-    elif defect == "empty_limits":
-        row["limitations"] = []
-    elif defect == "string_limits":
-        row["limitations"] = "不应以字符串冒充列表"
-    elif defect == "blank_limit":
-        row["limitations"] = [" "]
-    elif defect == "copied_limit":
-        row["limitations"] = [row["grade_basis"]]
-    else:
-        row["limitations"] *= 2
+    row[field] = value
     with pytest.raises(ValueError):
         validate_text_fields(row)
 

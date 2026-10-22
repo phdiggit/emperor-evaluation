@@ -125,21 +125,6 @@ assert.ok(html.includes('目标未完成，损失保留。'));
 assert.ok(!/<details[^>]*\bopen\b/.test(html));
 assert.ok(!render({reader_public_commander:{...publicData,public_battles:[]}}).includes('first-item-battles'));
 assert.ok(render({reader_summary:'甲战取得大捷'}).includes('公开说明尚未同步'));
-for(const path of ['reader/home-interactions.js','reader/person-readability.js','reader/first-item-reading.js']){
- const text=fs.readFileSync(path,'utf8');
- assert.ok(text.includes('firstCommanderMarkup(item, record)'));
- assert.ok(!/fallbackBattleAnchors|structuredBattleAnchors|publicCommanderText/.test(text));
-}
-const lazy=fs.readFileSync('reader/lazy-details.js','utf8');
-const begin=lazy.indexOf('  function simplifyFirstItemSourceLinks(');
-const finish=lazy.indexOf('\n  async function loadRecord',begin+1);
-const makeSource=keep=>({removed:false,hasAttribute:key=>keep&&key==='data-formal-public-source',
- querySelector:()=>({textContent:'裁决依据与来源'}),remove(){this.removed=true;}});
-const current=makeSource(true),legacy=makeSource(false);
-const document={querySelector:()=>({querySelectorAll:()=>[current,legacy],querySelector:()=>({})})};
-new Function('document',lazy.slice(begin,finish)+';simplifyFirstItemSourceLinks();')(document);
-assert.equal(current.removed,false);
-assert.equal(legacy.removed,false);
 ''', encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
     assert result.returncode == 0, result.stderr

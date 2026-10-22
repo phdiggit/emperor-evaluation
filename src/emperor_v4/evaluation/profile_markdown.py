@@ -576,7 +576,7 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
     return lines
 
 
-def render_profile_markdown(settlement: dict[str, Any]) -> str:
+def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path = ROOT) -> str:
     axis = settlement["axis_code"]
     if axis == "M5":
         from emperor_v4.evaluation.profile_m5 import render
@@ -590,7 +590,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     m1_archive_context = None
     if axis == 'M1' and any(r.get('public_reading') for r in records):
         from emperor_v4.evaluation.profile_m1_public import load_archive_context
-        m1_archive_context = load_archive_context(ROOT)
+        m1_archive_context = load_archive_context(workspace_root)
     labels, shared = ({}, []) if axis in {"M4", "C3", "M1"} else _shared_limitations(records)
     profile_note = "> 独立人物画像轴。JSON是唯一机器入口；本文是同值阅读视图。"
     if axis == "M1":

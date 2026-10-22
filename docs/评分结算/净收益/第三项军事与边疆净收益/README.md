@@ -21,7 +21,7 @@ C“军事体系有效性”：
 
 - [`C规则与计分合同`](../../../分项规则/第三项军事与边疆净收益/军事体系有效性/00-规则与计分合同.md)规定C1实战兑现度、C2持续作战能力、C3体系可靠性、战略链主评分颗粒、证据门槛及档内计分；C4、C5必须有按战略链去重后的重大胜绩，且数量不得少于重大体系失败。
 - [`军事体系有效性/01-皇帝C项正式结算.json`](军事体系有效性/01-皇帝C项正式结算.json)是机器计分唯一读取入口。
-- [`军事体系有效性/01-皇帝C项正式结算.md`](军事体系有效性/01-皇帝C项正式结算.md)是同一当前值的人工阅读视图，不构成第二份事实源。
+- `军事体系有效性/01-皇帝C项正式结算.md`是同值阅读视图，运行`python v4.py reading-views`生成，不进入Git；完整正文以对应JSON为准，也可通过[阅读站点](../../../../reader/README.md)的全池页浏览。
 - [`config/third-item/third-item-c-strategy-chain-adjudications.json`](../../../../config/third-item/third-item-c-strategy-chain-adjudications.json)是C战略链正式写回源；[`军事体系有效性/02-C父周期逐人语义审计.md`](军事体系有效性/02-C父周期逐人语义审计.md)登记201人的父周期保留、合并、观察排除与pending边界；D战略链只作交叉索引。
 - C战略链正式写回/校验入口为`python v4.py third-item-c-settlement --write`与`python v4.py third-item-c-settlement`；写回后再运行第三项合并与综合榜刷新。
 

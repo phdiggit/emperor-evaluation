@@ -51,40 +51,6 @@ def test_routed_reader_and_verifier_are_read_only(tmp_path: Path) -> None:
     assert before == {p: p.read_bytes() for p in tmp_path.rglob("*.json")}
 
 
-def test_reader_exposes_decision_before_expandable_evidence(tmp_path: Path) -> None:
-    from emperor_v4.evaluation.historical_impact import render
-    payload, _ = _workspace(tmp_path)
-    row = payload["records"][0]
-    row["scope_assessment"] = {
-        "actual_changes": "合成区域的服从关系改变。",
-        "baseline_and_exclusions": "既有控制区不计新增。",
-    }
-    result = render(payload)
-    anchor = "person-" + row["ruler_id"].lower()
-    assert f"](#{anchor})" in result
-    assert f'<a id="{anchor}"></a>' in result
-    card = result.split(f'<a id="{anchor}"></a>', 1)[1]
-    summary, evidence = card.split("<details>", 1)
-    assert row["scope_assessment"]["actual_changes"] in summary
-    assert row["scope_assessment"]["baseline_and_exclusions"] in summary
-    assert row["macro_chains"][0]["title"] in summary
-    assert row["nearest_feasible_counterfactual"] in evidence
-    assert result.count("<details>") == result.count("</details>")
-
-
-def test_changed_nature_basis_is_visible_without_changing_grade(tmp_path: Path) -> None:
-    from emperor_v4.evaluation.historical_impact import render
-
-    payload, _ = _workspace(tmp_path)
-    row = payload["records"][0]
-    row["impact_nature"] = "正向为主"
-    row["impact_nature_basis"] = "本人建立的国家接口持续运行；另一次短时冲突未形成相当的独立负向结构。"
-    text = render(payload)
-    assert f"｜{row['impact_nature']}｜" in text
-    assert "**影响性质依据：**" + row["impact_nature_basis"] in text
-    assert row["public_grade"] == "C"
-
-
 def test_reader_deduplicates_basis_without_losing_extra_reason(tmp_path: Path) -> None:
     from emperor_v4.evaluation.historical_impact import render
     payload, _ = _workspace(tmp_path)
@@ -119,21 +85,6 @@ def test_public_fields_are_required_and_cannot_contain_internal_wording(tmp_path
     write_polity_routed_json(path, payload, ruler_polities={})
     with pytest.raises(ValueError, match="公开字段"):
         verify(tmp_path, check_reader=False)
-
-
-def test_historical_reader_consumes_formal_public_text_without_semantic_rewrite() -> None:
-    root = Path(__file__).resolve().parents[1]
-    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
-    readability = (root / "reader" / "person-readability.js").read_text(encoding="utf-8")
-    public_copy = (root / "reader" / "public-copy.json").read_text(encoding="utf-8")
-    assert "public_total_basis" in template
-    assert "public_boundary" in template
-    assert "public_basis" in template
-    assert "historyReaderText" not in template
-    assert "historyReaderText" not in readability
-    assert "publicTotalReason" not in readability
-    assert "internalWording" not in public_copy
-    assert "historical-impact-reading.js" not in public_copy
 
 
 def test_repeated_receiver_does_not_become_independent_receptions(tmp_path: Path) -> None:
@@ -210,13 +161,3 @@ def test_sources_in_distinct_formal_collections_do_not_share_a_cache_entry(tmp_p
     write_polity_routed_json(path, payload, ruler_polities={})
     with pytest.raises(ValueError, match="事实字段不存在"):
         verify(tmp_path, check_reader=False)
-
-
-def test_reader_does_not_narrow_scope_or_paradigm_constructs():
-    from pathlib import Path
-    root = Path(__file__).resolve().parents[1]
-    template = (root / "reader" / "index.template.html").read_text(encoding="utf-8")
-    assert "实际改变覆盖到多大政治空间。" not in template
-    assert "后世最高权力是否实际使用这个人或其治道。" not in template
-    assert "政治主体或国家关键接口" in template
-    assert "作为政治参照并实际使用" in template
