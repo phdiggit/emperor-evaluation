@@ -206,6 +206,13 @@ def verify_profile_current(root: Path, axis: str, *, payload: dict | None = None
     if len(records) != len(expected) or {r["ruler_id"] for r in records} != expected:
         raise ValueError(f"Profile {axis} pool coverage mismatch")
     for row in records:
+        applicability = row.get("applicability") or {}
+        if applicability.get("status") == "NOT_APPLICABLE":
+            if any(key not in row or row[key] is not None for key in ("axis_grade", "position", "score_100", "radar_value")):
+                raise ValueError(f"Profile {axis}不适用不得给档或投零分: {row['ruler_id']}")
+            if not str(applicability.get("basis") or "").strip() or row.get("formal_status") != "FORMAL_CURRENT":
+                raise ValueError(f"Profile {axis}不适用缺少依据或正式状态: {row['ruler_id']}")
+            continue
         if axis == 'M2':
             validate_final_capability_review(row)
         if is_closed_no_grade(row):
