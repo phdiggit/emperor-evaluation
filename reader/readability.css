@@ -985,3 +985,11 @@
 .m1-public-case h4{margin:0 0 14px;font-size:18px}.m1-public-case .label{margin:12px 0 4px}.m1-public-case .prose{margin:4px 0;line-height:1.85}
 .m1-role-boundary{color:var(--muted,#626d65);font-size:14px;line-height:1.8;margin:14px 0 8px}.m1-public-judgment h4{margin:20px 0 6px}.m1-public-judgment .prose{margin:6px 0;line-height:1.85}
 .m1-career-review>section{margin:16px 0;padding:0 0 12px;border-bottom:1px solid var(--line)}.m1-career-review h4{margin:12px 0 6px}.m1-career-review li{margin:8px 0;line-height:1.8}
+
+/* Profile overview: each ability row and the whole style block form one link. */
+a.compact-axis,.profile-style-link{color:inherit;text-decoration:none;border-radius:4px}
+a.compact-axis{padding-left:8px;padding-right:8px}
+.profile-style-link{display:block;padding-left:8px;padding-right:8px}
+.axis-row-label{color:var(--green)}
+a.compact-axis:hover,a.compact-axis:focus-visible,.profile-style-link:hover,.profile-style-link:focus-visible{background:color-mix(in srgb,var(--gold) 9%,transparent)}
+a.compact-axis:hover .axis-row-label,a.compact-axis:focus-visible .axis-row-label,.profile-style-link:hover .axis-row-label,.profile-style-link:focus-visible .axis-row-label{text-decoration:underline}
