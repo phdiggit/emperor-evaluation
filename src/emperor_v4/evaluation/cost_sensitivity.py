@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import yaml
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.formal_json_store import load_json
 
 CONFIG_PATH = Path("config/third-item/cost-sensitivity-cases.json")
@@ -123,7 +124,7 @@ def run(root: Path, *, write: bool = False) -> dict:
     markdown = render(payload)
     if write:
         (root / OUTPUT_JSON).parent.mkdir(parents=True, exist_ok=True)
-        (root / OUTPUT_JSON).write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+        (root / OUTPUT_JSON).write_text(json_text(payload), encoding="utf-8", newline="\n")
         (root / OUTPUT_MD).write_text(markdown, encoding="utf-8", newline="\n")
     elif load_json(root / OUTPUT_JSON) != payload or (root / OUTPUT_MD).read_text(encoding="utf-8") != markdown:
         raise ValueError("军事成本裁决敏感性结果未同步；请运行cost-sensitivity --write")

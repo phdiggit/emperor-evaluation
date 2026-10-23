@@ -5,6 +5,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, Mapping
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.first_item_a_registry import load_qin_qing_first_item_roster
 from emperor_v4.evaluation.battle_registry_store import load_battle_registry
 from emperor_v4.evaluation.talent_registry_store import load_talent_registry
@@ -376,6 +377,6 @@ def write_first_item_b_registry(workspace_root: Path) -> dict[str, Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "01-第一项B政治整合能力结算.json"
     markdown_path = output_dir / "01-第一项B政治整合能力结算.md"
-    json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    json_path.write_text(json_text(payload), encoding="utf-8")
     markdown_path.write_text(render_first_item_b_registry_markdown(payload), encoding="utf-8")
     return {"json": json_path, "markdown": markdown_path}

@@ -40,7 +40,8 @@ def minimal_commander(tmp_path: Path) -> None:
 
 
 def test_military_archive_indexes_point_to_canonical_shards(tmp_path: Path):
-    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1})
+    policy = {"title": "合成阅读说明", "current_note": "合成采用边界"}
+    write_json(tmp_path / module.BATTLE_MANIFEST, {"record_count": 1, "payload_metadata": {"personnel_inference_reading": policy}})
     write_json(
         tmp_path / module.BATTLE_DIR / "demo-00.json",
         {
@@ -62,6 +63,7 @@ def test_military_archive_indexes_point_to_canonical_shards(tmp_path: Path):
     battles, commanders = module.build_indexes(tmp_path)
 
     assert battles["record_count"] == 1
+    assert battles["personnel_inference_reading"] == policy
     assert battles["records"][0]["id"] == "WAR-TEST-1"
     assert battles["result_ref_to_battle"]["PCR-TEST-1"] == "WAR-TEST-1"
     assert commanders["profile_count"] == 1

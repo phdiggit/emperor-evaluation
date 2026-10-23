@@ -19,6 +19,8 @@ def _units(payload: dict) -> list[dict]:
 
 def expand_reasons(payload: dict) -> dict:
     """Validate compact storage and return a private, complete reading payload."""
+    from .profile_unit_tables import expand_unit_table
+    payload = expand_unit_table(payload)
     if payload.get('reason_storage') != STORAGE:
         raise ValueError('单元理由目录版本不合法')
     catalog = payload.get('reason_catalog')
@@ -80,4 +82,10 @@ def load_unit_dispositions(path: Path) -> dict:
 
 
 def write_unit_dispositions(path: Path, payload: dict) -> None:
-    write_json(path, compact_reasons(payload), route=False)
+    from .profile_unit_tables import C1_SCHEMA, M4_SCHEMA, compact_unit_table
+    compact = compact_reasons(payload)
+    if payload.get('schema_version') == C1_SCHEMA:
+        compact = compact_unit_table(compact)
+    elif payload.get('schema_version') == M4_SCHEMA:
+        compact = compact_unit_table(compact, list_columns=('source_refs',))
+    write_json(path, compact, route=False)

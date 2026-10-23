@@ -7,6 +7,7 @@ from typing import Any
 
 import matplotlib.patches as patches
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.profile_radar import (
     AXIS_COLORS,
     AXIS_LABELS,
@@ -192,5 +193,5 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
         "composite_ranking_write": False,
         "cards": cards,
     }
-    (output_dir / "00-视频人物卡小样索引.json").write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (output_dir / "00-视频人物卡小样索引.json").write_text(json_text(index), encoding="utf-8")
     return index

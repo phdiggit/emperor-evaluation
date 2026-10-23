@@ -5,6 +5,10 @@ import json
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+from .battle_source_references import STORAGE, compact_references, expand_references
+from .battle_phase_objects import STORAGE as PHASE_OBJECT_STORAGE
+from emperor_v4.json_format import json_text
+
 
 def person_only_registration(record: dict) -> bool:
     """Personal lineage supplements do not create another public battle."""
@@ -35,6 +39,10 @@ def _atomic_write(path: Path, text: str) -> None:
     temporary.replace(path)
 
 
+def _registry_json_text(payload: Mapping[str, Any]) -> str:
+    return json_text(payload)
+
+
 def write_battle_registry(
     manifest_path: Path,
     payload: Mapping[str, Any],
@@ -44,7 +52,7 @@ def write_battle_registry(
     """Write the canonical battle registry as a small manifest plus stable shards."""
     if bucket_count < 1:
         raise ValueError("battle registry bucket_count must be positive")
-    records = [dict(row) for row in payload.get("records") or ()]
+    records = [compact_references(row) for row in payload.get("records") or ()]
     record_ids = [str(row.get("war_event_id") or "") for row in records]
     if any(not value for value in record_ids):
         raise ValueError("公共战役登记存在缺失war_event_id的记录")
@@ -71,7 +79,7 @@ def write_battle_registry(
             "record_count": len(shard_records),
             "records": shard_records,
         }
-        shard_text = json.dumps(shard_payload, ensure_ascii=False, indent=2) + "\n"
+        shard_text = _registry_json_text(shard_payload)
         _atomic_write(shard_path, shard_text)
         shard_entries.append(
             {
@@ -91,6 +99,8 @@ def write_battle_registry(
     metadata = {key: value for key, value in payload.items() if key != "records"}
     manifest: dict[str, Any] = {
         "schema_version": MANIFEST_SCHEMA,
+        "source_reference_storage": STORAGE,
+        "phase_object_storage": PHASE_OBJECT_STORAGE,
         "content_schema_version": str(payload.get("schema_version") or ""),
         "record_count": len(records),
         "bucket_count": bucket_count,
@@ -109,7 +119,7 @@ def write_battle_registry(
     }
     _atomic_write(
         manifest_path,
-        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+        _registry_json_text(manifest),
     )
     return manifest
 
@@ -126,6 +136,10 @@ def load_battle_registry(
             f"{manifest_path}不是{MANIFEST_SCHEMA}；公共战役消费者不得直接读取旧单体登记"
         )
     requested = None if partitions is None else {str(value) for value in partitions}
+    if manifest.get('source_reference_storage') != STORAGE:
+        raise ValueError('公共战役登记来源引用存储版本错误')
+    if manifest.get('phase_object_storage') != PHASE_OBJECT_STORAGE:
+        raise ValueError('公共战役登记阶段对象存储版本错误')
     available_partitions = {
         str(value) for value in (manifest.get("partition_counts") or {})
     }
@@ -148,7 +162,7 @@ def load_battle_registry(
         shard = json.loads(shard_path.read_text(encoding="utf-8"))
         if shard.get("schema_version") != SHARD_SCHEMA:
             raise ValueError(f"公共战役登记shard schema错误: {relative.as_posix()}")
-        rows = [dict(row) for row in shard.get("records") or ()]
+        rows = [expand_references(row) for row in shard.get("records") or ()]
         if len(rows) != int(entry.get("record_count") or -1):
             raise ValueError(f"公共战役登记shard数量漂移: {relative.as_posix()}")
         for row in rows:

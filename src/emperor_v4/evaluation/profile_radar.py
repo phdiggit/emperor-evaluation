@@ -7,6 +7,7 @@ from typing import Any
 
 import yaml
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_registry import profile_axis_order
 
@@ -304,7 +305,7 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
         "comparisons": [{"left": left, "right": right} for left, right in COMPARISONS],
         "files": sorted(written),
     }
-    (output_dir / "00-雷达图小样索引.json").write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (output_dir / "00-雷达图小样索引.json").write_text(json_text(index), encoding="utf-8")
     rationale = "\n".join(
         f"- `{row.ruler_id}`：{row.ruler_name}（九轴值：{' / '.join(map(str, row.values))}）"
         for row in selected

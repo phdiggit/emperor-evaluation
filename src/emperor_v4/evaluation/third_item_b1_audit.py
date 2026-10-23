@@ -1,4 +1,5 @@
 from __future__ import annotations
+from emperor_v4.json_format import json_text
 
 import argparse
 import json
@@ -447,7 +448,7 @@ def write_b1_audit(workspace_root: Path) -> dict[str, Any]:
     json_path = workspace_root / AUDIT_JSON_PATH
     md_path = workspace_root / AUDIT_MD_PATH
     json_path.parent.mkdir(parents=True, exist_ok=True)
-    json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    json_path.write_text(json_text(payload), encoding="utf-8")
     md_path.write_text(render_markdown(payload), encoding="utf-8")
     return payload
 

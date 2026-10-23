@@ -5,6 +5,7 @@ from pathlib import Path
 from statistics import mean, median
 from typing import Any, Mapping
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.canonical_ruler_pool import canonical_item_name
 from emperor_v4.evaluation.composite_details import (
@@ -596,7 +597,7 @@ def write_composite_ranking(workspace_root: Path) -> dict[str, Path]:
     json_path = workspace_root / OUTPUT_JSON
     markdown_path = workspace_root / OUTPUT_MARKDOWN
     _write_text_atomic(json_path,
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        json_text(payload),
     )
     _write_text_atomic(markdown_path,
         render_composite_ranking_markdown(payload)

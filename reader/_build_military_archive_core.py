@@ -12,6 +12,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.battle_registry_store import person_only_registration
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -68,12 +69,19 @@ NAMED_BATTLE_PREFIX_RE = re.compile(
 
 
 def _load(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8-sig"))
+    payload = json.loads(path.read_text(encoding="utf-8-sig"))
+    if payload.get('schema_version') == 'battle-registry-shard-v1':
+        from emperor_v4.evaluation.battle_source_references import expand_references
+        payload['records'] = [expand_references(row) for row in payload['records']]
+    elif payload.get('schema_version') == 'military-talent-registry-shard-v1':
+        from emperor_v4.evaluation.talent_evidence_storage import expand_shard
+        payload = expand_shard(payload)
+    return payload
 
 
 def _write(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    text = json.dumps(payload, ensure_ascii=False, separators=(",", ":"), sort_keys=False) + "\n"
+    text = json_text(payload)
     path.write_text(text, encoding="utf-8", newline="\n")
 
 
@@ -555,6 +563,7 @@ def build_indexes(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
     battle_index = {
         "schema_version": "reader-military-battle-index-v3",
         "source_manifest": BATTLE_MANIFEST.as_posix(),
+        "personnel_inference_reading": (battle_manifest.get("payload_metadata") or {}).get("personnel_inference_reading"),
         "first_item_c_source": FIRST_ITEM_C_SETTLEMENT.as_posix(),
         "record_count": len(battle_rows),
         "records": battle_rows,

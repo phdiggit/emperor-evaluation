@@ -6,6 +6,7 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any, Mapping
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.formal_json_store import (
     load_json,
     load_ruler_polities,
@@ -41,7 +42,7 @@ def _read(path: Path) -> dict[str, Any]:
 def _write_atomic(path: Path, payload: Mapping[str, Any]) -> None:
     temporary = path.with_name(f".{path.name}.b1-write-tmp")
     temporary.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        json_text(payload),
         encoding="utf-8",
         newline="\n",
     )

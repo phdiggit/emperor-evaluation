@@ -1,281 +1,40 @@
 {
-  "schema_version": "formal-json-polity-router-v1",
-  "route_key": "polity",
-  "content_schema_version": "",
-  "payload_key_order": [
-    "canonical_status",
-    "contract_position_mode",
-    "database_write",
-    "direction_card_ready_count",
-    "direction_card_write",
-    "direction_index_scale",
-    "grade_distribution",
-    "item_code",
-    "legacy_pnk_consumed",
-    "promotion_task_code",
-    "rank_tie_policy",
-    "record_count",
-    "records",
-    "schema_id",
-    "scope",
-    "source_documents",
-    "review_remediation",
-    "public_projection_schema_version",
-    "public_projection_status",
-    "public_projection_record_count",
-    "public_projection_profile_count",
-    "public_projection_evidence_item_count",
-    "public_projection_merged_group_count",
-    "public_projection_zero_weight_profile_count",
-    "public_projection_source"
-  ],
-  "payload_metadata": {
-    "canonical_status": "FORMAL_CURRENT",
-    "contract_position_mode": "DEDUPLICATED_M_CONFIGURATION_FIVE_POSITION",
-    "database_write": false,
-    "direction_card_ready_count": 185,
-    "direction_card_write": true,
-    "direction_index_scale": 80,
-    "grade_distribution": {
-      "G0": 15,
-      "G1": 64,
-      "G2": 73,
-      "G3": 26,
-      "G4": 5,
-      "G5": 2
-    },
-    "item_code": "B2",
-    "legacy_pnk_consumed": false,
-    "promotion_task_code": "I2-B2-REVIEW-REMEDIATION-185-V1",
-    "rank_tie_policy": "COMPETITION_RANK",
-    "record_count": 185,
-    "schema_id": "second-item-b2-direction-card-v1",
-    "scope": "185人B2方向卡",
-    "source_documents": [
-      {
-        "byte_sha256": "cb415af2e151372dee880a5a3c7be9708ff8b70d081d06d88468b0a795a603d6",
-        "path": "docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md"
-      },
-      {
-        "byte_sha256": "14a1df2887cb64a425f4d45dc9f88fded08cc3dfc8d5d3e96cd50eb1290135a2",
-        "path": "docs/公共成果/制度行政/01-制度行政计分材料登记.json"
-      },
-      {
-        "byte_sha256": "5bb74160cc28ada7f94c12dd621703ba897488fc1ae1aa1854ab475dbcf01355",
-        "path": "docs/公共成果/制度行政/02-制度行政计分材料使用索引.json"
-      },
-      {
-        "byte_sha256": "2f8369c3b244f50cdc86e45d2cc323151d4e0a74f708fe2f493c8e06e117aa3e",
-        "path": "docs/公共成果/制度行政/03-重要制度发展节点链.json"
-      }
-    ],
-    "review_remediation": {
-      "status": "APPLIED",
-      "review_file": "B2结算审查整改清单_工作版 (2).md",
-      "latest_decision_rule": "人物整改最终裁决总表覆盖后文早期审查记录",
-      "adjudicated_ruler_count": 142,
-      "formal_record_count": 185
-    },
-    "public_projection_schema_version": "second-item-b2-authored-public-v2",
-    "public_projection_status": "FORMAL_UPSTREAM_SOURCE",
-    "public_projection_record_count": 185,
-    "public_projection_profile_count": 418,
-    "public_projection_evidence_item_count": 405,
-    "public_projection_merged_group_count": 12,
-    "public_projection_zero_weight_profile_count": 54,
-    "public_projection_source": {
-      "formal_contract": "docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md",
-      "identity": "人物ID加lifecycle_key、absorbed_into_lifecycle_key或材料ID生成稳定公开条目ID",
-      "reader_policy": "公开正文直接维护于正式记录；命令只校验机制身份、方向、阶段边界及逐字史源，不从内部判词生成历史解释"
-    }
-  },
-  "collections": {
-    "records": {
-      "record_count": 185
-    }
-  },
-  "routes": [
-    {
-      "polity": "三国",
-      "path": "03-B2反馈纠错与权力约束方向卡/三国.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "东晋",
-      "path": "03-B2反馈纠错与权力约束方向卡/东晋.json",
-      "collection_counts": {
-        "records": 3
-      }
-    },
-    {
-      "polity": "东汉",
-      "path": "03-B2反馈纠错与权力约束方向卡/东汉.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "东魏",
-      "path": "03-B2反馈纠错与权力约束方向卡/东魏.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "五代十国",
-      "path": "03-B2反馈纠错与权力约束方向卡/五代十国.json",
-      "collection_counts": {
-        "records": 18
-      }
-    },
-    {
-      "polity": "元",
-      "path": "03-B2反馈纠错与权力约束方向卡/元.json",
-      "collection_counts": {
-        "records": 8
-      }
-    },
-    {
-      "polity": "刘宋",
-      "path": "03-B2反馈纠错与权力约束方向卡/刘宋.json",
-      "collection_counts": {
-        "records": 4
-      }
-    },
-    {
-      "polity": "北周",
-      "path": "03-B2反馈纠错与权力约束方向卡/北周.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "北魏",
-      "path": "03-B2反馈纠错与权力约束方向卡/北魏.json",
-      "collection_counts": {
-        "records": 6
-      }
-    },
-    {
-      "polity": "北齐",
-      "path": "03-B2反馈纠错与权力约束方向卡/北齐.json",
-      "collection_counts": {
-        "records": 3
-      }
-    },
-    {
-      "polity": "十六国",
-      "path": "03-B2反馈纠错与权力约束方向卡/十六国.json",
-      "collection_counts": {
-        "records": 17
-      }
-    },
-    {
-      "polity": "南齐",
-      "path": "03-B2反馈纠错与权力约束方向卡/南齐.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "唐",
-      "path": "03-B2反馈纠错与权力约束方向卡/唐.json",
-      "collection_counts": {
-        "records": 13
-      }
-    },
-    {
-      "polity": "唐末吴政权",
-      "path": "03-B2反馈纠错与权力约束方向卡/唐末吴政权.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "宋",
-      "path": "03-B2反馈纠错与权力约束方向卡/宋.json",
-      "collection_counts": {
-        "records": 16
-      }
-    },
-    {
-      "polity": "明",
-      "path": "03-B2反馈纠错与权力约束方向卡/明.json",
-      "collection_counts": {
-        "records": 17
-      }
-    },
-    {
-      "polity": "梁",
-      "path": "03-B2反馈纠错与权力约束方向卡/梁.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "清",
-      "path": "03-B2反馈纠错与权力约束方向卡/清.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "秦",
-      "path": "03-B2反馈纠错与权力约束方向卡/秦.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "西晋",
-      "path": "03-B2反馈纠错与权力约束方向卡/西晋.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "西汉",
-      "path": "03-B2反馈纠错与权力约束方向卡/西汉.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "西魏",
-      "path": "03-B2反馈纠错与权力约束方向卡/西魏.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "辽",
-      "path": "03-B2反馈纠错与权力约束方向卡/辽.json",
-      "collection_counts": {
-        "records": 10
-      }
-    },
-    {
-      "polity": "金",
-      "path": "03-B2反馈纠错与权力约束方向卡/金.json",
-      "collection_counts": {
-        "records": 9
-      }
-    },
-    {
-      "polity": "陈",
-      "path": "03-B2反馈纠错与权力约束方向卡/陈.json",
-      "collection_counts": {
-        "records": 4
-      }
-    },
-    {
-      "polity": "隋",
-      "path": "03-B2反馈纠错与权力约束方向卡/隋.json",
-      "collection_counts": {
-        "records": 2
-      }
-    }
-  ]
+"schema_version":"formal-json-polity-router-v1",
+"route_key":"polity",
+"content_schema_version":"",
+"payload_key_order":["canonical_status","contract_position_mode","database_write","direction_card_ready_count","direction_card_write","direction_index_scale","grade_distribution","item_code","legacy_pnk_consumed","promotion_task_code","rank_tie_policy","record_count","records","schema_id","scope","source_documents","review_remediation","public_projection_schema_version","public_projection_status","public_projection_record_count","public_projection_profile_count","public_projection_evidence_item_count","public_projection_merged_group_count","public_projection_zero_weight_profile_count","public_projection_source"],
+"payload_metadata":{"canonical_status":"FORMAL_CURRENT","contract_position_mode":"DEDUPLICATED_M_CONFIGURATION_FIVE_POSITION","database_write":false,"direction_card_ready_count":185,"direction_card_write":true,"direction_index_scale":80,"grade_distribution":{"G0":15,"G1":64,"G2":73,"G3":26,"G4":5,"G5":2},"item_code":"B2","legacy_pnk_consumed":false,"promotion_task_code":"I2-B2-REVIEW-REMEDIATION-185-V1","rank_tie_policy":"COMPETITION_RANK","record_count":185,"schema_id":"second-item-b2-direction-card-v1","scope":"185人B2方向卡","source_documents":[{"byte_sha256":"cb415af2e151372dee880a5a3c7be9708ff8b70d081d06d88468b0a795a603d6","path":"docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md"},{"byte_sha256":"14a1df2887cb64a425f4d45dc9f88fded08cc3dfc8d5d3e96cd50eb1290135a2","path":"docs/公共成果/制度行政/01-制度行政计分材料登记.json"},{"byte_sha256":"5bb74160cc28ada7f94c12dd621703ba897488fc1ae1aa1854ab475dbcf01355","path":"docs/公共成果/制度行政/02-制度行政计分材料使用索引.json"},{"byte_sha256":"2f8369c3b244f50cdc86e45d2cc323151d4e0a74f708fe2f493c8e06e117aa3e","path":"docs/公共成果/制度行政/03-重要制度发展节点链.json"}],"review_remediation":{"status":"APPLIED","review_file":"B2结算审查整改清单_工作版 (2).md","latest_decision_rule":"人物整改最终裁决总表覆盖后文早期审查记录","adjudicated_ruler_count":142,"formal_record_count":185},"public_projection_schema_version":"second-item-b2-authored-public-v2","public_projection_status":"FORMAL_UPSTREAM_SOURCE","public_projection_record_count":185,"public_projection_profile_count":418,"public_projection_evidence_item_count":405,"public_projection_merged_group_count":12,"public_projection_zero_weight_profile_count":54,"public_projection_source":{"formal_contract":"docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md","identity":"人物ID加lifecycle_key、absorbed_into_lifecycle_key或材料ID生成稳定公开条目ID","reader_policy":"公开正文直接维护于正式记录；命令只校验机制身份、方向、阶段边界及逐字史源，不从内部判词生成历史解释"}},
+"collections":{
+"records":{
+"record_count":185
+}
+},
+"routes":[
+{"polity":"三国","path":"03-B2反馈纠错与权力约束方向卡/三国.json","collection_counts":{"records":11}},
+{"polity":"东晋","path":"03-B2反馈纠错与权力约束方向卡/东晋.json","collection_counts":{"records":3}},
+{"polity":"东汉","path":"03-B2反馈纠错与权力约束方向卡/东汉.json","collection_counts":{"records":11}},
+{"polity":"东魏","path":"03-B2反馈纠错与权力约束方向卡/东魏.json","collection_counts":{"records":1}},
+{"polity":"五代十国","path":"03-B2反馈纠错与权力约束方向卡/五代十国.json","collection_counts":{"records":18}},
+{"polity":"元","path":"03-B2反馈纠错与权力约束方向卡/元.json","collection_counts":{"records":8}},
+{"polity":"刘宋","path":"03-B2反馈纠错与权力约束方向卡/刘宋.json","collection_counts":{"records":4}},
+{"polity":"北周","path":"03-B2反馈纠错与权力约束方向卡/北周.json","collection_counts":{"records":1}},
+{"polity":"北魏","path":"03-B2反馈纠错与权力约束方向卡/北魏.json","collection_counts":{"records":6}},
+{"polity":"北齐","path":"03-B2反馈纠错与权力约束方向卡/北齐.json","collection_counts":{"records":3}},
+{"polity":"十六国","path":"03-B2反馈纠错与权力约束方向卡/十六国.json","collection_counts":{"records":17}},
+{"polity":"南齐","path":"03-B2反馈纠错与权力约束方向卡/南齐.json","collection_counts":{"records":2}},
+{"polity":"唐","path":"03-B2反馈纠错与权力约束方向卡/唐.json","collection_counts":{"records":13}},
+{"polity":"唐末吴政权","path":"03-B2反馈纠错与权力约束方向卡/唐末吴政权.json","collection_counts":{"records":1}},
+{"polity":"宋","path":"03-B2反馈纠错与权力约束方向卡/宋.json","collection_counts":{"records":16}},
+{"polity":"明","path":"03-B2反馈纠错与权力约束方向卡/明.json","collection_counts":{"records":17}},
+{"polity":"梁","path":"03-B2反馈纠错与权力约束方向卡/梁.json","collection_counts":{"records":2}},
+{"polity":"清","path":"03-B2反馈纠错与权力约束方向卡/清.json","collection_counts":{"records":11}},
+{"polity":"秦","path":"03-B2反馈纠错与权力约束方向卡/秦.json","collection_counts":{"records":2}},
+{"polity":"西晋","path":"03-B2反馈纠错与权力约束方向卡/西晋.json","collection_counts":{"records":1}},
+{"polity":"西汉","path":"03-B2反馈纠错与权力约束方向卡/西汉.json","collection_counts":{"records":11}},
+{"polity":"西魏","path":"03-B2反馈纠错与权力约束方向卡/西魏.json","collection_counts":{"records":1}},
+{"polity":"辽","path":"03-B2反馈纠错与权力约束方向卡/辽.json","collection_counts":{"records":10}},
+{"polity":"金","path":"03-B2反馈纠错与权力约束方向卡/金.json","collection_counts":{"records":9}},
+{"polity":"陈","path":"03-B2反馈纠错与权力约束方向卡/陈.json","collection_counts":{"records":4}},
+{"polity":"隋","path":"03-B2反馈纠错与权力约束方向卡/隋.json","collection_counts":{"records":2}}
+]
 }

@@ -6,6 +6,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 from emperor_v4.evaluation.battle_registry_store import load_battle_registry
 from emperor_v4.evaluation.third_fourth_public_fields import (
@@ -2254,7 +2255,7 @@ def write_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
     markdown_path = json_path.with_suffix(".md")
     _write_text_atomic(
         json_path,
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        json_text(payload),
     )
     _write_text_atomic(markdown_path, _render_current_weighted_markdown(payload["records"]))
     return payload

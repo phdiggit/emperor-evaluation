@@ -11,6 +11,7 @@ from validate_first_item_docs import DOCS, parse_people
 from build import write_generated_text
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.first_item_public_outcomes import (  # noqa: E402
     load_first_item_public_outcomes,
     public_outcome_for_name,
@@ -115,7 +116,7 @@ def build_payloads() -> dict[str, str]:
             "public_cost": public_commander_for_name(public_cost, formal_name),
             "documents": documents,
         }
-        outputs[f"{ruler_id}.json"] = json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n"
+        outputs[f"{ruler_id}.json"] = json_text(payload)
     return outputs
 
 

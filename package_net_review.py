@@ -15,6 +15,7 @@ import zipfile
 
 import yaml
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.derived_readings import view_sources, render_views
 
 
@@ -51,7 +52,7 @@ def source_path(root: Path, relative: str) -> Path:
 
 
 def encode_json(value: object) -> bytes:
-    return (json.dumps(value, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    return (json_text(value)).encode("utf-8")
 
 
 def collect(root: Path, package: str = "all") -> list[Path]:

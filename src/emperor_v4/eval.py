@@ -22,6 +22,8 @@ def _parser() -> argparse.ArgumentParser:
     readings.add_argument("--check", action="store_true", help="只读核对已有阅读视图")
     readings.add_argument("--workspace-root", type=Path, default=Path('.'))
     profile_axes = list(profile_axis_order())
+    json_format = commands.add_parser('json-format', help='统一项目JSON排版，保持字段、数值、顺序和原文')
+    json_format.add_argument('--check', action='store_true')
     maintenance = commands.add_parser("maintenance", help="定位当前裁决、下游影响与必要校验")
     maintenance.add_argument("--component", action="append", required=True)
     maintenance.add_argument("--ruler-id", action="append", default=[])
@@ -158,6 +160,11 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 
 def _dispatch(args: argparse.Namespace) -> int:
+    if args.command == 'json-format':
+        from emperor_v4.json_format import format_repository
+        report = format_repository(Path('.'), check=args.check)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return int(report['status'] == 'OUTDATED')
 
     if args.command == 'reading-views':
         from emperor_v4.evaluation.derived_readings import run

@@ -7,6 +7,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 
 
@@ -1117,9 +1118,9 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False, refresh_source
         result_path.with_suffix(".md").write_text(result_md_text, encoding="utf-8", newline="\n")
         write_json(handoff_path, handoff)
         handoff_path.with_suffix(".md").write_text(handoff_md_text, encoding="utf-8", newline="\n")
-        method_path.write_text(json.dumps(method, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+        method_path.write_text(json_text(method), encoding="utf-8", newline="\n")
         method_path.with_suffix(".md").write_text(method_md_text, encoding="utf-8", newline="\n")
-        total_path.write_text(json.dumps(total, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+        total_path.write_text(json_text(total), encoding="utf-8", newline="\n")
         total_path.with_suffix(".md").write_text(total_md_text, encoding="utf-8", newline="\n")
     return {
         "record_count": len(b1["records"]),

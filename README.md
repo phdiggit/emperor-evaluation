@@ -51,6 +51,8 @@ python v4.py maintenance --component profile.C2 --polity 西汉 --verify
 
 ## 验证
 
+项目JSON统一使用UTF-8无BOM、LF换行、紧凑值和记录级换行，保持标准JSON及原有字段顺序；字符串内部空白不变。生成器共用`emperor_v4.json_format.json_text`。`python v4.py json-format`统一Git管理的JSON（含归档）及现有阅读层JSON产物；加`--check`只检查，格式不一致时非零退出。临时目录、依赖及其他忽略的本地数据不在范围内；终端输出和HTML内嵌数据保持各自展示方式。
+
 按 [AGENTS.md](AGENTS.md#实现与验证) 选择受影响范围；分项维护优先使用组件校验，不默认叠加全套检查。
 
 | 改动 | 检查或同步入口 |
@@ -72,7 +74,7 @@ python v4.py maintenance --component profile.C2 --polity 西汉 --verify
 
 `config/`保存入口、身份及当前裁决输入；`src/emperor_v4/evaluation/`保存读取、校验、确定性结算与投影逻辑。`reader/`保存模板、代码与人工文案，生成页面和数据不进入 Git。展示制作位于`docs/展示成果/`和`emperor-cards/`，临时脚本、日志及诊断放`.tmp/`。
 
-历史影响、画像M1／C3／C5、第二项D1／D3、第三项C及第四项B的Markdown是可完整重建的阅读视图，不进入Git。新检出后先运行`reading-views`再校验；完整阅读站点构建与CI会先生成这些文件。正文仍完整保留在JSON，原有路径与局部刷新命令有效。第一项Markdown真源、承担证据引用的阅读文档及含独立人工内容的Markdown继续保留。
+历史影响、画像M1／M4／M5／C1／C2／C3／C5、第二项C3／C4／D1／D3、第三项AB／C及第四项B的Markdown是可完整重建的阅读视图，不进入Git。新检出后先运行`reading-views`再校验；完整阅读站点构建与CI会先生成这些文件。正文仍完整保留在JSON，原有路径与局部刷新命令有效。第三项AB同时读取正式AB记录与本人信用裁决，不以旧Markdown补正文。第一项Markdown真源、财政民生C1／C2等承担证据引用的阅读文档及含独立人工内容的Markdown继续保留。
 
 ## 边界
 

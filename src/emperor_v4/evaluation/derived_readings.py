@@ -6,14 +6,15 @@ import yaml
 
 from .formal_json_store import json_read_session, load_json
 
-PROFILE_AXES = ('M1', 'C3', 'C5')
+PROFILE_AXES = ('M1', 'M4', 'M5', 'C1', 'C2', 'C3', 'C5')
 
 
 def view_sources(root: Path) -> dict[str, tuple[str, str]]:
     """Only fully reproducible, non-evidence Markdown views belong here."""
     from .fourth_item_a import AXIS_PATHS, JSON_PATH
     from .second_item_d1_d3_public import D1_PATH, D3_PATH
-    from .third_fourth_item_public import THIRD_C_PATH
+    from .second_item_c_public import FORMAL_PATHS, GENERATED_MARKDOWN_AXES
+    from .third_fourth_item_public import THIRD_AB_PATH, THIRD_C_PATH
 
     project = yaml.safe_load((root / 'config/project.yml').read_text(encoding='utf-8'))
     impact = project['historical_impact_assessment']
@@ -23,8 +24,12 @@ def view_sources(root: Path) -> dict[str, tuple[str, str]]:
         views[entry['markdown']] = ('profile', entry['json'])
     views[AXIS_PATHS['B'].as_posix()] = ('fourth.B', JSON_PATH.as_posix())
     views[THIRD_C_PATH.with_suffix('.md').as_posix()] = ('third.C', THIRD_C_PATH.as_posix())
+    views[THIRD_AB_PATH.with_suffix('.md').as_posix()] = ('third.AB', THIRD_AB_PATH.as_posix())
     for axis, path in (('D1', D1_PATH), ('D3', D3_PATH)):
         views[path.with_suffix('.md').as_posix()] = (axis, path.as_posix())
+    for axis in GENERATED_MARKDOWN_AXES:
+        path = FORMAL_PATHS[axis]
+        views[path.with_suffix('.md').as_posix()] = ('second.' + axis, path.as_posix())
     for name in views:
         path = Path(name)
         if (path.is_absolute() or '..' in path.parts or path.suffix != '.md'
@@ -51,10 +56,19 @@ def render_views(root: Path, paths=None) -> dict[str, str]:
         elif kind == 'profile':
             from .profile_markdown import render_profile_markdown
             text = render_profile_markdown(payload, workspace_root=root)
+        elif kind == 'third.AB':
+            from .five_dynasties_third_item import _render_formal_markdown
+            from .third_fourth_item_public import THIRD_CREDIT_PATH
+            credit = load_json(root / THIRD_CREDIT_PATH)
+            text = _render_formal_markdown('AB', payload['records'],
+                                          credit_rows={row['ruler_id']: row for row in credit['records']})
         elif kind == 'third.C':
             from .five_dynasties_third_item import _render_formal_markdown
             from .third_item_c_contract_reading import load_context
             text = _render_formal_markdown('C', payload['records'], c_review_context=load_context(root))
+        elif kind.startswith('second.C'):
+            from .second_item_c_public import render_complete_markdown
+            text = render_complete_markdown(payload)
         elif kind == 'fourth.B':
             from .fourth_item_a import _render_axis
             text = _render_axis(payload, 'B')[Path(path)]

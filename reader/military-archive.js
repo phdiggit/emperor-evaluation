@@ -196,12 +196,155 @@
     return `../${local}?raw=1`;
   }
 
+  function expandBattleSourceReferences(record) {
+    function phaseObjects(input) {
+      const field = "phase_object_catalog", refKey = "phase_object_ref";
+      const fields = new Set(["axis_source_refs", "P_inference", "border_control", "ruler_binding", "founding_startup_ledger", "cost_axes", "cost_axis_basis", "cost_evidence"]);
+      const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+      const catalog = has(input, field) ? input[field] : {};
+      if (!catalog || Array.isArray(catalog) || typeof catalog !== "object" ||
+          (has(input, field) && !Object.keys(catalog).length)) throw new Error("战役阶段对象目录无效");
+      const used = new Map(), signatures = new Set();
+      function check(value) {
+        if (Array.isArray(value)) value.forEach(check);
+        else if (value && typeof value === "object") {
+          if (has(value, field) || has(value, refKey)) throw new Error("战役阶段对象目录嵌套引用");
+          Object.values(value).forEach(check);
+        }
+      }
+      for (const [ref, entry] of Object.entries(catalog)) {
+        if (!ref || !entry || Array.isArray(entry) || typeof entry !== "object" ||
+            Object.keys(entry).length !== 2 || !has(entry, "field") || !has(entry, "value") ||
+            !fields.has(entry.field) || !entry.value || Array.isArray(entry.value) || typeof entry.value !== "object")
+          throw new Error("战役阶段对象目录条目无效");
+        check(entry.value);
+        const signature = JSON.stringify([entry.field, entry.value]);
+        if (signatures.has(signature)) throw new Error("战役阶段对象目录重复");
+        signatures.add(signature);
+      }
+      function expand(value) {
+        if (Array.isArray(value)) return value.map(expand);
+        if (!value || typeof value !== "object") return value;
+        if (has(value, field) || has(value, refKey)) throw new Error("战役阶段对象引用位置非法");
+        return Object.fromEntries(Object.entries(value).map(([key, child]) => {
+          if (child && typeof child === "object" && has(child, refKey)) {
+            const ref = child[refKey];
+            if (Object.keys(child).length !== 1 || typeof ref !== "string" || !has(catalog, ref) || key !== catalog[ref].field)
+              throw new Error("战役阶段对象引用悬空或跨字段");
+            used.set(ref, (used.get(ref) || 0) + 1);
+            return [key, JSON.parse(JSON.stringify(catalog[ref].value))];
+          }
+          return [key, expand(child)];
+        }));
+      }
+      const result = expand(Object.fromEntries(Object.entries(input).filter(([k]) => k !== field)));
+      if (used.size !== Object.keys(catalog).length || [...used.values()].some(n => n < 2))
+        throw new Error("战役阶段对象目录存在未共用条目");
+      return result;
+    }
+    record = phaseObjects(record);
+    const field = "source_reference_catalog", refKey = "source_list_ref";
+    const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+    const sourceKey = k => k.endsWith("source_refs") || ["source_anchor_refs", "source_revision_refs"].includes(k);
+    const catalog = has(record, field) ? record[field] : {};
+    if (!catalog || Array.isArray(catalog) || typeof catalog !== "object" ||
+        (has(record, field) && !Object.keys(catalog).length)) throw new Error("战役来源目录无效");
+    const used = new Map(), signatures = new Set();
+    function check(value) {
+      if (Array.isArray(value)) value.forEach(check);
+      else if (value && typeof value === "object") {
+        if (has(value, field) || has(value, refKey)) throw new Error("战役来源目录含占位符");
+        Object.values(value).forEach(check);
+      }
+    }
+    for (const [ref, value] of Object.entries(catalog)) {
+      if (!ref || !Array.isArray(value)) throw new Error("战役来源目录条目无效");
+      check(value);
+      const signature = JSON.stringify(value);
+      if (signatures.has(signature)) throw new Error("战役来源目录重复");
+      signatures.add(signature);
+    }
+    function expand(value) {
+      if (Array.isArray(value)) return value.map(expand);
+      if (!value || typeof value !== "object") return value;
+      if (has(value, field) || has(value, refKey)) throw new Error("战役来源引用位置非法");
+      return Object.fromEntries(Object.entries(value).map(([key, child]) => {
+        if (child && typeof child === "object" && has(child, refKey)) {
+          const ref = child[refKey];
+          if (!sourceKey(key) || Object.keys(child).length !== 1 || typeof ref !== "string" || !has(catalog, ref))
+            throw new Error("战役来源引用悬空或格式错误");
+          used.set(ref, (used.get(ref) || 0) + 1);
+          return [key, JSON.parse(JSON.stringify(catalog[ref]))];
+        }
+        return [key, expand(child)];
+      }));
+    }
+    const result = expand(Object.fromEntries(Object.entries(record).filter(([k]) => k !== field)));
+    if (used.size !== Object.keys(catalog).length || [...used.values()].some(n => n < 2))
+      throw new Error("战役来源目录存在未共用条目");
+    return result;
+  }
+
+  function expandTalentEvidence(profile) {
+    const field = "talent_evidence_catalog", refKey = "talent_evidence_ref";
+    const fields = ["consumed_achievements", "capability_episode_anchors", "negative_or_mixed_command_records", "failure_accountability"];
+    const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+    const catalog = has(profile, field) ? profile[field] : {};
+    if (!catalog || Array.isArray(catalog) || typeof catalog !== "object" ||
+        (has(profile, field) && !Object.keys(catalog).length)) throw new Error("人才证据目录无效");
+    function check(value) {
+      if (Array.isArray(value)) value.forEach(check);
+      else if (value && typeof value === "object") {
+        if (has(value, field) || has(value, refKey)) throw new Error("人才证据含嵌套目录或越界占位符");
+        Object.values(value).forEach(check);
+      }
+    }
+    const signatures = new Set(), used = new Map();
+    for (const [ref, value] of Object.entries(catalog)) {
+      if (!ref || !value || Array.isArray(value) || typeof value !== "object" || Object.keys(value).length < 2)
+        throw new Error("人才证据目录条目无效");
+      check(value);
+      const signature = JSON.stringify(value);
+      if (signatures.has(signature)) throw new Error("人才证据目录重复");
+      signatures.add(signature);
+    }
+    const result = JSON.parse(JSON.stringify(Object.fromEntries(Object.entries(profile).filter(([key]) => key !== field))));
+    for (const key of fields) {
+      if (!Array.isArray(result[key])) continue;
+      result[key] = result[key].map(value => {
+        if (!value || typeof value !== "object" || !has(value, refKey)) return value;
+        const ref = value[refKey], suffix = value.fields;
+        if (Array.isArray(value) || Object.keys(value).length !== 2 || !has(value, "fields") || typeof ref !== "string" || !has(catalog, ref) ||
+            !suffix || Array.isArray(suffix) || typeof suffix !== "object" || Object.keys(suffix).some(k => has(catalog[ref], k)))
+          throw new Error("人才证据引用悬空、格式无效或覆盖共享字段");
+        check(suffix);
+        used.set(ref, (used.get(ref) || 0) + 1);
+        return {...JSON.parse(JSON.stringify(catalog[ref])), ...suffix};
+      });
+    }
+    check(result);
+    if (used.size !== Object.keys(catalog).length || [...used.values()].some(n => n < 2))
+      throw new Error("人才证据目录存在未共用条目");
+    return result;
+  }
+
   async function json(path) {
     if (cache.has(path)) return cache.get(path);
     const url = path.startsWith("../") ? validatedRawUrl(path) : path;
     const pending = fetch(url, {cache: "no-cache"}).then(response => {
       if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
       return response.json();
+    }).then(payload => {
+      if (payload.schema_version === "battle-registry-shard-v1")
+        payload.records = payload.records.map(expandBattleSourceReferences);
+      if (payload.schema_version === "military-talent-registry-shard-v1") {
+        if (payload.evidence_storage != null && payload.evidence_storage !== "military-talent-evidence-prefixes-v1")
+          throw new Error("人才证据存储版本无效");
+        if (payload.evidence_storage == null && payload.profiles.some(p => Object.prototype.hasOwnProperty.call(p, "talent_evidence_catalog")))
+          throw new Error("人才证据分片缺少存储声明");
+        payload.profiles = payload.profiles.map(expandTalentEvidence);
+      }
+      return payload;
     });
     cache.set(path, pending);
     return pending;
@@ -359,11 +502,25 @@
       <div class="label">实际经过</div>${readableFields(phase.actual_process)}
       <div class="label">控制变化与阶段结束状态</div>${readableFields(control)}
       ${phase.carry_out ? `<div class="label">阶段后续</div>${readableFields(phase.carry_out)}` : ""}
-      ${factSection("本阶段成本及依据", { ...phase.cost_axes, 说明:"这些是本主体、本阶段的成本记录，不能把不同方或不同阶段机械相加为整场总档。", ...((phase.cost_evidence || phase.cost_axis_basis) ? {依据:phase.cost_evidence || phase.cost_axis_basis} : {}), ...(phase.wc_basis ? {综合成本依据:phase.wc_basis} : {})})}
+      ${factSection("本阶段历史成本及依据", { ...phase.cost_axes, 说明:"这些是本主体、本阶段的成本记录，不能把不同方或不同阶段机械相加为整场总档。", ...((phase.cost_evidence || phase.cost_axis_basis) ? {依据:phase.cost_evidence || phase.cost_axis_basis} : {}), ...(phase.wc_basis ? {综合成本依据:phase.wc_basis} : {})})}
       ${factSection("本阶段安全与物资回报", {安全结果:phase.strategic_security,安全依据:phase.strategic_security_detail,物资回报:phase.material_return,物资依据:phase.material_return_detail,阶段回报:phase.phase_return_class,裁定依据:phase.phase_return_basis})}
-      ${factSection("人员损害推定与限制", phase.P_inference)}
+      ${personnelInferenceSection(phase.P_inference)}
       ${factSection("平民损害与战争行为", [phase.civilian_harm_caused,phase.war_conduct_note,phase.war_conduct_notes,phase.civilian_harm_exclusion,phase.civilian_noncombatant_note,phase.post_capture_execution_note,phase.post_capture_execution_excluded_from_P,phase.casualty_de_duplication].filter(Boolean))}
       <details><summary>本阶段来源</summary>${sourceList(phase.source_anchor_refs || [])}</details></article>`;
+  }
+  function personnelInferenceSection(inference) {
+    if (inference == null || (typeof inference === "object" && !Object.keys(inference).length)) return "";
+    const policy = battleIndex?.personnel_inference_reading;
+    const keys = ["title", "observed_title", "observed_note", "missing_observed", "legacy_title", "legacy_note", "current_title", "current_note"];
+    if (!policy || keys.some(key => typeof policy[key] !== "string" || !policy[key].trim()))
+      throw new Error("人员损害推定缺少上游阅读边界");
+    const object = inference && typeof inference === "object" && !Array.isArray(inference);
+    const observed = object ? inference.P_observed : null;
+    const legacy = object ? Object.fromEntries(Object.entries(inference).filter(([key]) => key !== "P_observed")) : inference;
+    return `<details class="panel"><summary>${esc(policy.title)}</summary>
+      <h3>${esc(policy.observed_title)}</h3><p>${esc(policy.observed_note)}</p>${readableFields(observed == null || observed === "" ? policy.missing_observed : observed)}
+      <h3>${esc(policy.current_title)}</h3><p>${esc(policy.current_note)}</p>
+      <details><summary>${esc(policy.legacy_title)}</summary><p>${esc(policy.legacy_note)}</p>${readableFields(legacy)}</details></details>`;
   }
   function failureSection(record) {
     const failures = asList(record.attributable_failures);

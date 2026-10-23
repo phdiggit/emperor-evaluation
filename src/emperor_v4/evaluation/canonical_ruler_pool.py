@@ -7,6 +7,7 @@ from typing import Any, Mapping
 
 import yaml
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.first_item_markdown_settlement import (
     load_first_item_markdown_settlement,
@@ -651,7 +652,7 @@ def write_canonical_ruler_pool(workspace_root: Path) -> dict[str, Path]:
     payload = build_canonical_ruler_pool(workspace_root)
     json_path = workspace_root / POOL_JSON
     markdown_path = workspace_root / POOL_MARKDOWN
-    json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    json_path.write_text(json_text(payload), encoding="utf-8")
     markdown_path.write_text(render_canonical_ruler_pool_markdown(payload), encoding="utf-8")
     return {
         "json": json_path,

@@ -1,9 +1,12 @@
 from __future__ import annotations
+from emperor_v4.json_format import json_text
 
 from hashlib import sha256
 import json
 from pathlib import Path
 from typing import Any, Mapping
+
+from .talent_evidence_storage import STORAGE, compact_evidence, expand_shard
 
 
 MANIFEST_SCHEMA = "military-talent-registry-manifest-v1"
@@ -47,12 +50,13 @@ def write_talent_registry(
         shard_path = shard_root / filename
         shard_payload = {
             "schema_version": SHARD_SCHEMA,
+            "evidence_storage": STORAGE,
             "bucket": bucket,
             "bucket_count": bucket_count,
             "profile_count": len(shard_profiles),
-            "profiles": shard_profiles,
+            "profiles": [compact_evidence(row) for row in shard_profiles],
         }
-        shard_text = json.dumps(shard_payload, ensure_ascii=False, indent=2) + "\n"
+        shard_text = json_text(shard_payload)
         _atomic_write(shard_path, shard_text)
         entries.append(
             {
@@ -71,6 +75,7 @@ def write_talent_registry(
     metadata = {key: value for key, value in payload.items() if key != "profiles"}
     manifest: dict[str, Any] = {
         "schema_version": MANIFEST_SCHEMA,
+        "evidence_storage": STORAGE,
         "content_schema_version": str(payload.get("schema_version") or ""),
         "profile_count": len(profiles),
         "bucket_count": bucket_count,
@@ -81,7 +86,7 @@ def write_talent_registry(
     }
     _atomic_write(
         manifest_path,
-        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+        json_text(manifest),
     )
     return manifest
 
@@ -92,6 +97,8 @@ def load_talent_registry(manifest_path: Path) -> dict[str, Any]:
         raise ValueError(
             f"{manifest_path}不是{MANIFEST_SCHEMA}；消费者不得直接读取旧单体人才登记"
         )
+    if manifest.get('evidence_storage') not in (None, STORAGE):
+        raise ValueError('人才证据入口存储版本无效')
     profiles_by_id: dict[str, dict[str, Any]] = {}
     for entry in manifest.get("shards") or ():
         relative = Path(str(entry.get("path") or ""))
@@ -101,7 +108,7 @@ def load_talent_registry(manifest_path: Path) -> dict[str, Any]:
         shard = json.loads(shard_path.read_text(encoding="utf-8"))
         if shard.get("schema_version") != SHARD_SCHEMA:
             raise ValueError(f"武将人才等级shard schema错误: {relative.as_posix()}")
-        rows = [dict(row) for row in shard.get("profiles") or ()]
+        rows = [dict(row) for row in expand_shard(shard).get("profiles") or ()]
         if len(rows) != int(entry.get("profile_count") or -1):
             raise ValueError(f"武将人才等级shard数量漂移: {relative.as_posix()}")
         for row in rows:

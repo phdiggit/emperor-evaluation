@@ -517,45 +517,50 @@ def activate_governance_state_recovery(workspace_root: Path) -> dict[str, Any]:
     return verify_governance_state_recovery_review(root)
 
 
+def render_component_markdown(axis: str, payload: dict[str, Any]) -> str:
+    """Render the technical component body from current JSON without file I/O."""
+    rows = sorted(payload['scores'], key=lambda r: (r['rank'], r['ruler_id']))
+    lines = [f'# {axis}财政民生正式结算', '', f'> 当前规范池采用{VERSION}。池外命中低置信终裁者按正式端点结算，其余保留既有结果；池外均不进入当前综合榜。', '']
+    if axis in AXES:
+        lines += ['> 审慎端点只列本轮现有史料允许的敏感性解释；正式分数仍按表中的S_main和L计算。×表示该轴档位与L可组合；仅配对、仅列端点及两端均不得交叉组合。单点表示本轮未留异端；—表示没有低置信终裁。', '',
+                  '| 人物 | 政权 | 全任曲线 S0→S_main→S_end | L有限修正 | 本轮审慎端点 | 分数 |', '|---|---|---|---|---|---:|']
+        for row in rows:
+            s=row['state_anchors']
+            curve='→'.join(str(s.get(k,s.get('S_avg',''))) for k in ('S0','S_main','S_end'))
+            lines.append(f'| {row["ruler_name"]} | {row["polity"]} | {curve} | {row.get("loss_grade","池外既有裁决")} | {_terminal_endpoint_display(row)} | **{row["score"]:.1f}** |')
+    else:
+        lines += ['| 排名 | 人物 | 政权 | 保留恢复 | 归责恶化 | DA | C4净分（恢复 - 可归责恶化 - DA） |', '|---:|---|---|---:|---:|---|---:|']
+        for row in rows:
+            lines.append(f'| {row["rank"]} | {row["ruler_name"]} | {row["polity"]} | {row["positive_score_retained"]:.1f} | {row["deterioration_penalty"]:.1f} | {row["destructive_amplification_grade"]}/{row["destructive_amplification_penalty"]:.1f} | **{row["score"]:.1f}** |')
+    lines += ['', '## 逐人裁决', '']
+    for row in rows:
+        lines += [f'### {row["ruler_name"]}（{row["polity"]}）', '']
+        if axis in AXES:
+            s=row['state_anchors']
+            lines += [f'- 结算：主档{row["main_band"]}；{row.get("loss_grade","池外既有裁决")}；计{row["score"]:.1f}/{FIXED_POINTS[axis][-1]:.0f}。', f'- 三锚：{s.get("S0")}→{s.get("S_main",s.get("S_avg"))}→{s.get("S_end")}。', f'- 主态与交班依据：{row["adjudication_reason"]}', f'- 低谷与去重：{row.get("stability_basis", "见正式JSON既有裁决。") }']
+        else:
+            lines += [f'- 结算：C4净分**{row["score"]:.1f}**；保留恢复{row["positive_score_retained"]:.1f}，归责恶化{row["deterioration_penalty"]:.1f}，{row["destructive_amplification_grade"]}扣{row["destructive_amplification_penalty"]:.1f}。', f'- 恢复：{row.get("recovery_and_absorption", "")}', f'- 行为与归责：{row["behavior_and_attribution"]}', f'- 交班：{row.get("handoff_state", "")}', f'- 去重：{row.get("active_civilian_cost_review",{}).get("absorbed_and_excluded_basis", "")}']
+        materials=row.get('material_basis',[])
+        if materials:
+            lines.append('- 材料依据：')
+            for m in materials:
+                if isinstance(m,dict):
+                    lines.append('  - '+str(m.get('book',m.get('source','既有材料概述')))+'：'+str(clean_retired_low_valley_references(m.get('original_text',m.get('quote',m.get('basis',m.get('display_text','')))), 'material_basis')))
+                else:
+                    lines.append('  - '+str(m))
+        if row.get('state_adjudication'):
+            review_ref = row['state_adjudication'].get('review_ref', '').split('#', 1)[0]
+            lines.append(f'- 完整裁决与引用：[逐人源](../../../../../{review_ref})。')
+        lines.append('')
+    return '\n'.join(lines)
+
+
 def write_component_readers(workspace_root: Path) -> None:
     """Render current component values and ruling evidence, preserving JSON lineage."""
     root = workspace_root.resolve()
     for axis, rel in FORMAL_PATHS.items():
         payload = load_json(root / rel)
-        rows = sorted(payload['scores'], key=lambda r: (r['rank'], r['ruler_id']))
-        lines = [f'# {axis}财政民生正式结算', '', f'> 当前规范池采用{VERSION}。池外命中低置信终裁者按正式端点结算，其余保留既有结果；池外均不进入当前综合榜。', '']
-        if axis in AXES:
-            lines += ['> 审慎端点只列本轮现有史料允许的敏感性解释；正式分数仍按表中的S_main和L计算。×表示该轴档位与L可组合；仅配对、仅列端点及两端均不得交叉组合。单点表示本轮未留异端；—表示没有低置信终裁。', '',
-                      '| 人物 | 政权 | 全任曲线 S0→S_main→S_end | L有限修正 | 本轮审慎端点 | 分数 |', '|---|---|---|---|---|---:|']
-            for row in rows:
-                s=row['state_anchors']
-                curve='→'.join(str(s.get(k,s.get('S_avg',''))) for k in ('S0','S_main','S_end'))
-                lines.append(f'| {row["ruler_name"]} | {row["polity"]} | {curve} | {row.get("loss_grade","池外既有裁决")} | {_terminal_endpoint_display(row)} | **{row["score"]:.1f}** |')
-        else:
-            lines += ['| 排名 | 人物 | 政权 | 保留恢复 | 归责恶化 | DA | C4净分（恢复 - 可归责恶化 - DA） |', '|---:|---|---|---:|---:|---|---:|']
-            for row in rows:
-                lines.append(f'| {row["rank"]} | {row["ruler_name"]} | {row["polity"]} | {row["positive_score_retained"]:.1f} | {row["deterioration_penalty"]:.1f} | {row["destructive_amplification_grade"]}/{row["destructive_amplification_penalty"]:.1f} | **{row["score"]:.1f}** |')
-        lines += ['', '## 逐人裁决', '']
-        for row in rows:
-            lines += [f'### {row["ruler_name"]}（{row["polity"]}）', '']
-            if axis in AXES:
-                s=row['state_anchors']
-                lines += [f'- 结算：主档{row["main_band"]}；{row.get("loss_grade","池外既有裁决")}；计{row["score"]:.1f}/{FIXED_POINTS[axis][-1]:.0f}。', f'- 三锚：{s.get("S0")}→{s.get("S_main",s.get("S_avg"))}→{s.get("S_end")}。', f'- 主态与交班依据：{row["adjudication_reason"]}', f'- 低谷与去重：{row.get("stability_basis", "见正式JSON既有裁决。") }']
-            else:
-                lines += [f'- 结算：C4净分**{row["score"]:.1f}**；保留恢复{row["positive_score_retained"]:.1f}，归责恶化{row["deterioration_penalty"]:.1f}，{row["destructive_amplification_grade"]}扣{row["destructive_amplification_penalty"]:.1f}。', f'- 恢复：{row.get("recovery_and_absorption", "")}', f'- 行为与归责：{row["behavior_and_attribution"]}', f'- 交班：{row.get("handoff_state", "")}', f'- 去重：{row.get("active_civilian_cost_review",{}).get("absorbed_and_excluded_basis", "")}']
-            materials=row.get('material_basis',[])
-            if materials:
-                lines.append('- 材料依据：')
-                for m in materials:
-                    if isinstance(m,dict):
-                        lines.append('  - '+str(m.get('book',m.get('source','既有材料概述')))+'：'+str(clean_retired_low_valley_references(m.get('original_text',m.get('quote',m.get('basis',m.get('display_text','')))), 'material_basis')))
-                    else:
-                        lines.append('  - '+str(m))
-            if row.get('state_adjudication'):
-                review_ref = row['state_adjudication'].get('review_ref', '').split('#', 1)[0]
-                lines.append(f'- 完整裁决与引用：[逐人源](../../../../../{review_ref})。')
-            lines.append('')
-        (root/rel.with_suffix('.md')).write_text('\n'.join(lines),encoding='utf-8')
+        (root / rel.with_suffix('.md')).write_text(render_component_markdown(axis, payload), encoding='utf-8')
 
 
 def refresh_supporting_projections(workspace_root: Path) -> None:

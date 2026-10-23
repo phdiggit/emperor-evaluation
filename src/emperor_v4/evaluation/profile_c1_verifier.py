@@ -24,6 +24,17 @@ def _load(path: Path) -> dict:
     return load_json(path)
 
 
+def _negative_parents(parents: list[dict]) -> list[dict]:
+    """A mixed cycle may carry a separately adjudicated negative diagnosis."""
+    return [
+        parent for parent in parents
+        if parent['consumption_status'] == 'SCORING_PARENT'
+        and (parent['direction'] in {'NEGATIVE', 'MIXED_NEGATIVE'}
+             or (parent['direction'] == 'MIXED_POSITIVE'
+                 and parent.get('counter_diagnostic_role') in {'DW1', 'DW2', 'DW3', 'DW4'}))
+    ]
+
+
 def _contract_scores(contract: Path) -> dict[tuple[str, str], int]:
     scores: dict[tuple[str, str], int] = {}
     pattern = re.compile(r"^\| (G[0-5]) \| (\d+) \| (\d+) \| (\d+) \|$")
@@ -105,6 +116,11 @@ def _audit_source_ref_is_traceable(root: Path, ref: str, cache: dict[Path, str])
     if "=" in fragment:
         value = fragment.split("=", 1)[1].split("/", 1)[0]
         return bool(value) and value in text
+    if path.suffix == '.md':
+        for heading in re.findall(r'^#{1,6}\s+(.+?)\s*#*$', text, flags=re.M):
+            slug = re.sub(r'[^\w -]', '', heading.lower()).replace(' ', '-')
+            if fragment == slug:
+                return True
     return fragment in text
 
 
@@ -286,15 +302,11 @@ def verify(root: Path) -> dict[str, object]:
             if parent["direction"] == "MIXED_POSITIVE" and profile["dw"] != "DW0":
                 if parent.get("counter_diagnostic_role") != profile["dw"]:
                     raise ValueError(f"mixed parent lacks separate DW diagnosis: {parent['parent_id']}")
-        negative_parents = [
-            parent for parent in parents
-            if parent["consumption_status"] == "SCORING_PARENT"
-            and parent["direction"] in {"NEGATIVE", "MIXED_NEGATIVE"}
-        ]
+        negative_parents = _negative_parents(parents)
         if profile["dw"] == "DW0" and negative_parents:
             raise ValueError(f"DW0 profile has score-bearing negative parent: {record['ruler_id']}")
         if profile["dw"] != "DW0" and not negative_parents:
-            raise ValueError(f"DW profile lacks independent negative parent: {record['ruler_id']}")
+            raise ValueError(f"DW profile lacks score-bearing negative evidence: {record['ruler_id']}")
     for ruler_id in high_ids:
         profile = profile_by_id[ruler_id]
         record = next(record for record in records if record["ruler_id"] == ruler_id)

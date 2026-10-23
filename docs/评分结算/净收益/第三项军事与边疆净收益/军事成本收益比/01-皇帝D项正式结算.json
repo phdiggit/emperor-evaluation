@@ -1,336 +1,41 @@
 {
-  "schema_version": "formal-json-polity-router-v1",
-  "route_key": "polity",
-  "content_schema_version": "",
-  "payload_key_order": [
-    "schema_id",
-    "canonical_status",
-    "authority_mode",
-    "scope",
-    "rule_contract",
-    "record_count",
-    "grade_distribution",
-    "grade_position_distribution",
-    "input_lineage",
-    "cross_item_deduplication",
-    "formal_grade_write",
-    "formal_score_write",
-    "database_write",
-    "third_item_total_and_ranking_written",
-    "records",
-    "score_mapping",
-    "score_distribution",
-    "public_projection_schema_version",
-    "public_projection_status",
-    "public_projection_source",
-    "public_projection_record_count"
-  ],
-  "payload_metadata": {
-    "schema_id": "emperor-v4-d-strategy-chain-formal-settlement-batch-v2",
-    "canonical_status": "FORMAL_CURRENT",
-    "authority_mode": "FORMAL_SETTLEMENT_PATCH_SOURCE",
-    "scope": "秦至清201人战略链安全净变化—可归责军事成本正式档位结算",
-    "rule_contract": "docs/分项规则/第三项军事与边疆净收益/军事成本收益比/00-规则与结算合同.md",
-    "record_count": 201,
-    "grade_distribution": {
-      "D-N": 19,
-      "D0": 62,
-      "D1": 31,
-      "D2": 40,
-      "D3": 35,
-      "D4": 13,
-      "D5": 1
-    },
-    "grade_position_distribution": {
-      "D-N-NOT_APPLICABLE": 19,
-      "D0-HIGH": 19,
-      "D0-LOW": 39,
-      "D0-MID": 4,
-      "D1-HIGH": 13,
-      "D1-LOW": 9,
-      "D1-MID": 9,
-      "D2-HIGH": 16,
-      "D2-LOW": 14,
-      "D2-MID": 10,
-      "D3-HIGH": 18,
-      "D3-LOW": 9,
-      "D3-MID": 8,
-      "D4-HIGH": 7,
-      "D4-LOW": 2,
-      "D4-MID": 4,
-      "D5-HIGH": 1
-    },
-    "input_lineage": {
-      "runtime_depends_on_tmp": false
-    },
-    "cross_item_deduplication": {
-      "excluded_chain_count": 55,
-      "leaked_into_scoring_arrays": 0
-    },
-    "formal_grade_write": true,
-    "formal_score_write": true,
-    "database_write": false,
-    "third_item_total_and_ranking_written": false,
-    "score_mapping": {
-      "max_points": 40,
-      "method": "CURRENT_D_GRADE_AND_WITHIN_GRADE_POSITION_DISCRETE_MAPPING",
-      "points": {
-        "D0": {
-          "LOW": 0.0,
-          "MID": 3.0,
-          "HIGH": 6.0
-        },
-        "D1": {
-          "LOW": 10.0,
-          "MID": 12.0,
-          "HIGH": 14.0
-        },
-        "D2": {
-          "LOW": 18.0,
-          "MID": 20.0,
-          "HIGH": 22.0
-        },
-        "D3": {
-          "LOW": 24.0,
-          "MID": 26.0,
-          "HIGH": 28.0
-        },
-        "D4": {
-          "LOW": 30.0,
-          "MID": 32.0,
-          "HIGH": 34.0
-        },
-        "D5": {
-          "LOW": 36.0,
-          "MID": 38.0,
-          "HIGH": 40.0
-        },
-        "D-N": {
-          "NOT_APPLICABLE": 0.0
-        }
-      },
-      "legacy_Q_consumed": false
-    },
-    "score_distribution": {
-      "0.0": 58,
-      "3.0": 4,
-      "6.0": 19,
-      "10.0": 9,
-      "12.0": 9,
-      "14.0": 13,
-      "18.0": 14,
-      "20.0": 10,
-      "22.0": 16,
-      "24.0": 9,
-      "26.0": 8,
-      "28.0": 18,
-      "30.0": 2,
-      "32.0": 4,
-      "34.0": 7,
-      "40.0": 1
-    },
-    "public_projection_schema_version": "third-fourth-item-public-projection-v1",
-    "public_projection_status": "FORMAL_UPSTREAM_SOURCE",
-    "public_projection_source": {
-      "formal_contract": "docs/分项规则/第三项军事与边疆净收益/00-规则与计分合同.md",
-      "reader_policy": "reader只显示public_adjudication_summary、public_evidence_items和public_boundary"
-    },
-    "public_projection_record_count": 201
-  },
-  "collections": {
-    "records": {
-      "record_count": 201
-    }
-  },
-  "routes": [
-    {
-      "polity": "三国",
-      "path": "01-皇帝D项正式结算/三国.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "东晋",
-      "path": "01-皇帝D项正式结算/东晋.json",
-      "collection_counts": {
-        "records": 3
-      }
-    },
-    {
-      "polity": "东汉",
-      "path": "01-皇帝D项正式结算/东汉.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "东魏",
-      "path": "01-皇帝D项正式结算/东魏.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "五代十国",
-      "path": "01-皇帝D项正式结算/五代十国.json",
-      "collection_counts": {
-        "records": 19
-      }
-    },
-    {
-      "polity": "元",
-      "path": "01-皇帝D项正式结算/元.json",
-      "collection_counts": {
-        "records": 8
-      }
-    },
-    {
-      "polity": "刘宋",
-      "path": "01-皇帝D项正式结算/刘宋.json",
-      "collection_counts": {
-        "records": 4
-      }
-    },
-    {
-      "polity": "北周",
-      "path": "01-皇帝D项正式结算/北周.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "北魏",
-      "path": "01-皇帝D项正式结算/北魏.json",
-      "collection_counts": {
-        "records": 7
-      }
-    },
-    {
-      "polity": "北齐",
-      "path": "01-皇帝D项正式结算/北齐.json",
-      "collection_counts": {
-        "records": 3
-      }
-    },
-    {
-      "polity": "十六国",
-      "path": "01-皇帝D项正式结算/十六国.json",
-      "collection_counts": {
-        "records": 17
-      }
-    },
-    {
-      "polity": "南齐",
-      "path": "01-皇帝D项正式结算/南齐.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "唐",
-      "path": "01-皇帝D项正式结算/唐.json",
-      "collection_counts": {
-        "records": 13
-      }
-    },
-    {
-      "polity": "唐末吴政权",
-      "path": "01-皇帝D项正式结算/唐末吴政权.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "宋",
-      "path": "01-皇帝D项正式结算/宋.json",
-      "collection_counts": {
-        "records": 16
-      }
-    },
-    {
-      "polity": "明",
-      "path": "01-皇帝D项正式结算/明.json",
-      "collection_counts": {
-        "records": 17
-      }
-    },
-    {
-      "polity": "梁",
-      "path": "01-皇帝D项正式结算/梁.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "清",
-      "path": "01-皇帝D项正式结算/清.json",
-      "collection_counts": {
-        "records": 14
-      }
-    },
-    {
-      "polity": "秦",
-      "path": "01-皇帝D项正式结算/秦.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "西夏",
-      "path": "01-皇帝D项正式结算/西夏.json",
-      "collection_counts": {
-        "records": 9
-      }
-    },
-    {
-      "polity": "西晋",
-      "path": "01-皇帝D项正式结算/西晋.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "西汉",
-      "path": "01-皇帝D项正式结算/西汉.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "西魏",
-      "path": "01-皇帝D项正式结算/西魏.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "辽",
-      "path": "01-皇帝D项正式结算/辽.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "金",
-      "path": "01-皇帝D项正式结算/金.json",
-      "collection_counts": {
-        "records": 9
-      }
-    },
-    {
-      "polity": "陈",
-      "path": "01-皇帝D项正式结算/陈.json",
-      "collection_counts": {
-        "records": 4
-      }
-    },
-    {
-      "polity": "隋",
-      "path": "01-皇帝D项正式结算/隋.json",
-      "collection_counts": {
-        "records": 2
-      }
-    }
-  ]
+"schema_version":"formal-json-polity-router-v1",
+"route_key":"polity",
+"content_schema_version":"",
+"payload_key_order":["schema_id","canonical_status","authority_mode","scope","rule_contract","record_count","grade_distribution","grade_position_distribution","input_lineage","cross_item_deduplication","formal_grade_write","formal_score_write","database_write","third_item_total_and_ranking_written","records","score_mapping","score_distribution","public_projection_schema_version","public_projection_status","public_projection_source","public_projection_record_count"],
+"payload_metadata":{"schema_id":"emperor-v4-d-strategy-chain-formal-settlement-batch-v2","canonical_status":"FORMAL_CURRENT","authority_mode":"FORMAL_SETTLEMENT_PATCH_SOURCE","scope":"秦至清201人战略链安全净变化—可归责军事成本正式档位结算","rule_contract":"docs/分项规则/第三项军事与边疆净收益/军事成本收益比/00-规则与结算合同.md","record_count":201,"grade_distribution":{"D-N":19,"D0":62,"D1":31,"D2":40,"D3":35,"D4":13,"D5":1},"grade_position_distribution":{"D-N-NOT_APPLICABLE":19,"D0-HIGH":19,"D0-LOW":39,"D0-MID":4,"D1-HIGH":13,"D1-LOW":9,"D1-MID":9,"D2-HIGH":16,"D2-LOW":14,"D2-MID":10,"D3-HIGH":18,"D3-LOW":9,"D3-MID":8,"D4-HIGH":7,"D4-LOW":2,"D4-MID":4,"D5-HIGH":1},"input_lineage":{"runtime_depends_on_tmp":false},"cross_item_deduplication":{"excluded_chain_count":55,"leaked_into_scoring_arrays":0},"formal_grade_write":true,"formal_score_write":true,"database_write":false,"third_item_total_and_ranking_written":false,"score_mapping":{"max_points":40,"method":"CURRENT_D_GRADE_AND_WITHIN_GRADE_POSITION_DISCRETE_MAPPING","points":{"D0":{"LOW":0.0,"MID":3.0,"HIGH":6.0},"D1":{"LOW":10.0,"MID":12.0,"HIGH":14.0},"D2":{"LOW":18.0,"MID":20.0,"HIGH":22.0},"D3":{"LOW":24.0,"MID":26.0,"HIGH":28.0},"D4":{"LOW":30.0,"MID":32.0,"HIGH":34.0},"D5":{"LOW":36.0,"MID":38.0,"HIGH":40.0},"D-N":{"NOT_APPLICABLE":0.0}},"legacy_Q_consumed":false},"score_distribution":{"0.0":58,"3.0":4,"6.0":19,"10.0":9,"12.0":9,"14.0":13,"18.0":14,"20.0":10,"22.0":16,"24.0":9,"26.0":8,"28.0":18,"30.0":2,"32.0":4,"34.0":7,"40.0":1},"public_projection_schema_version":"third-fourth-item-public-projection-v1","public_projection_status":"FORMAL_UPSTREAM_SOURCE","public_projection_source":{"formal_contract":"docs/分项规则/第三项军事与边疆净收益/00-规则与计分合同.md","reader_policy":"reader只显示public_adjudication_summary、public_evidence_items和public_boundary"},"public_projection_record_count":201},
+"collections":{
+"records":{
+"record_count":201
+}
+},
+"routes":[
+{"polity":"三国","path":"01-皇帝D项正式结算/三国.json","collection_counts":{"records":11}},
+{"polity":"东晋","path":"01-皇帝D项正式结算/东晋.json","collection_counts":{"records":3}},
+{"polity":"东汉","path":"01-皇帝D项正式结算/东汉.json","collection_counts":{"records":11}},
+{"polity":"东魏","path":"01-皇帝D项正式结算/东魏.json","collection_counts":{"records":1}},
+{"polity":"五代十国","path":"01-皇帝D项正式结算/五代十国.json","collection_counts":{"records":19}},
+{"polity":"元","path":"01-皇帝D项正式结算/元.json","collection_counts":{"records":8}},
+{"polity":"刘宋","path":"01-皇帝D项正式结算/刘宋.json","collection_counts":{"records":4}},
+{"polity":"北周","path":"01-皇帝D项正式结算/北周.json","collection_counts":{"records":1}},
+{"polity":"北魏","path":"01-皇帝D项正式结算/北魏.json","collection_counts":{"records":7}},
+{"polity":"北齐","path":"01-皇帝D项正式结算/北齐.json","collection_counts":{"records":3}},
+{"polity":"十六国","path":"01-皇帝D项正式结算/十六国.json","collection_counts":{"records":17}},
+{"polity":"南齐","path":"01-皇帝D项正式结算/南齐.json","collection_counts":{"records":2}},
+{"polity":"唐","path":"01-皇帝D项正式结算/唐.json","collection_counts":{"records":13}},
+{"polity":"唐末吴政权","path":"01-皇帝D项正式结算/唐末吴政权.json","collection_counts":{"records":1}},
+{"polity":"宋","path":"01-皇帝D项正式结算/宋.json","collection_counts":{"records":16}},
+{"polity":"明","path":"01-皇帝D项正式结算/明.json","collection_counts":{"records":17}},
+{"polity":"梁","path":"01-皇帝D项正式结算/梁.json","collection_counts":{"records":2}},
+{"polity":"清","path":"01-皇帝D项正式结算/清.json","collection_counts":{"records":14}},
+{"polity":"秦","path":"01-皇帝D项正式结算/秦.json","collection_counts":{"records":2}},
+{"polity":"西夏","path":"01-皇帝D项正式结算/西夏.json","collection_counts":{"records":9}},
+{"polity":"西晋","path":"01-皇帝D项正式结算/西晋.json","collection_counts":{"records":2}},
+{"polity":"西汉","path":"01-皇帝D项正式结算/西汉.json","collection_counts":{"records":11}},
+{"polity":"西魏","path":"01-皇帝D项正式结算/西魏.json","collection_counts":{"records":1}},
+{"polity":"辽","path":"01-皇帝D项正式结算/辽.json","collection_counts":{"records":11}},
+{"polity":"金","path":"01-皇帝D项正式结算/金.json","collection_counts":{"records":9}},
+{"polity":"陈","path":"01-皇帝D项正式结算/陈.json","collection_counts":{"records":4}},
+{"polity":"隋","path":"01-皇帝D项正式结算/隋.json","collection_counts":{"records":2}}
+]
 }

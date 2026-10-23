@@ -1,249 +1,41 @@
 {
-  "schema_version": "formal-json-polity-router-v1",
-  "route_key": "polity",
-  "content_schema_version": "",
-  "payload_key_order": [
-    "canonical_status",
-    "data_quality_summary",
-    "database_write",
-    "exempt_count",
-    "formal_rank_write",
-    "formal_score_write",
-    "item_max_points",
-    "item_min_points",
-    "item_name",
-    "lineage",
-    "rank_tie_policy",
-    "ranked_count",
-    "record_count",
-    "records",
-    "schema_id",
-    "settlement_date",
-    "unique_ruler_id_count",
-    "unique_task_code_count"
-  ],
-  "payload_metadata": {
-    "canonical_status": "FORMAL_CURRENT",
-    "data_quality_summary": {
-      "exempt_axis_count": 6,
-      "factual_axis_count": 418,
-      "fully_factual_ruler_count": 69,
-      "verified_baseline_axis_count": 180,
-      "verified_normal_baseline_axis_count": 179
-    },
-    "database_write": false,
-    "exempt_count": 2,
-    "formal_rank_write": true,
-    "formal_score_write": true,
-    "item_max_points": 120,
-    "item_min_points": -18,
-    "item_name": "第五项 统治者政治素质",
-    "lineage": {
-      "negative_tail_recalculation": "H4_AND_HUHAI_C1_20260824",
-      "trusted_base_trait_count": 222
-    },
-    "rank_tie_policy": "COMPETITION_RANK",
-    "ranked_count": 199,
-    "record_count": 201,
-    "schema_id": "emperor-v4-fifth-item-formal-settlement-v2-evidence-truth",
-    "settlement_date": "2026-08-24",
-    "unique_ruler_id_count": 201,
-    "unique_task_code_count": 201
-  },
-  "collections": {
-    "records": {
-      "record_count": 201
-    }
-  },
-  "routes": [
-    {
-      "polity": "三国",
-      "path": "04-第五项统治者政治素质正式结算/三国.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "东晋",
-      "path": "04-第五项统治者政治素质正式结算/东晋.json",
-      "collection_counts": {
-        "records": 3
-      }
-    },
-    {
-      "polity": "东汉",
-      "path": "04-第五项统治者政治素质正式结算/东汉.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "东魏",
-      "path": "04-第五项统治者政治素质正式结算/东魏.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "五代十国",
-      "path": "04-第五项统治者政治素质正式结算/五代十国.json",
-      "collection_counts": {
-        "records": 19
-      }
-    },
-    {
-      "polity": "元",
-      "path": "04-第五项统治者政治素质正式结算/元.json",
-      "collection_counts": {
-        "records": 8
-      }
-    },
-    {
-      "polity": "刘宋",
-      "path": "04-第五项统治者政治素质正式结算/刘宋.json",
-      "collection_counts": {
-        "records": 4
-      }
-    },
-    {
-      "polity": "北周",
-      "path": "04-第五项统治者政治素质正式结算/北周.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "北魏",
-      "path": "04-第五项统治者政治素质正式结算/北魏.json",
-      "collection_counts": {
-        "records": 7
-      }
-    },
-    {
-      "polity": "北齐",
-      "path": "04-第五项统治者政治素质正式结算/北齐.json",
-      "collection_counts": {
-        "records": 3
-      }
-    },
-    {
-      "polity": "十六国",
-      "path": "04-第五项统治者政治素质正式结算/十六国.json",
-      "collection_counts": {
-        "records": 17
-      }
-    },
-    {
-      "polity": "南齐",
-      "path": "04-第五项统治者政治素质正式结算/南齐.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "唐",
-      "path": "04-第五项统治者政治素质正式结算/唐.json",
-      "collection_counts": {
-        "records": 13
-      }
-    },
-    {
-      "polity": "唐末吴政权",
-      "path": "04-第五项统治者政治素质正式结算/唐末吴政权.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "宋",
-      "path": "04-第五项统治者政治素质正式结算/宋.json",
-      "collection_counts": {
-        "records": 16
-      }
-    },
-    {
-      "polity": "明",
-      "path": "04-第五项统治者政治素质正式结算/明.json",
-      "collection_counts": {
-        "records": 17
-      }
-    },
-    {
-      "polity": "梁",
-      "path": "04-第五项统治者政治素质正式结算/梁.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "清",
-      "path": "04-第五项统治者政治素质正式结算/清.json",
-      "collection_counts": {
-        "records": 14
-      }
-    },
-    {
-      "polity": "秦",
-      "path": "04-第五项统治者政治素质正式结算/秦.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "西夏",
-      "path": "04-第五项统治者政治素质正式结算/西夏.json",
-      "collection_counts": {
-        "records": 9
-      }
-    },
-    {
-      "polity": "西晋",
-      "path": "04-第五项统治者政治素质正式结算/西晋.json",
-      "collection_counts": {
-        "records": 2
-      }
-    },
-    {
-      "polity": "西汉",
-      "path": "04-第五项统治者政治素质正式结算/西汉.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "西魏",
-      "path": "04-第五项统治者政治素质正式结算/西魏.json",
-      "collection_counts": {
-        "records": 1
-      }
-    },
-    {
-      "polity": "辽",
-      "path": "04-第五项统治者政治素质正式结算/辽.json",
-      "collection_counts": {
-        "records": 11
-      }
-    },
-    {
-      "polity": "金",
-      "path": "04-第五项统治者政治素质正式结算/金.json",
-      "collection_counts": {
-        "records": 9
-      }
-    },
-    {
-      "polity": "陈",
-      "path": "04-第五项统治者政治素质正式结算/陈.json",
-      "collection_counts": {
-        "records": 4
-      }
-    },
-    {
-      "polity": "隋",
-      "path": "04-第五项统治者政治素质正式结算/隋.json",
-      "collection_counts": {
-        "records": 2
-      }
-    }
-  ]
+"schema_version":"formal-json-polity-router-v1",
+"route_key":"polity",
+"content_schema_version":"",
+"payload_key_order":["canonical_status","data_quality_summary","database_write","exempt_count","formal_rank_write","formal_score_write","item_max_points","item_min_points","item_name","lineage","rank_tie_policy","ranked_count","record_count","records","schema_id","settlement_date","unique_ruler_id_count","unique_task_code_count"],
+"payload_metadata":{"canonical_status":"FORMAL_CURRENT","data_quality_summary":{"exempt_axis_count":6,"factual_axis_count":418,"fully_factual_ruler_count":69,"verified_baseline_axis_count":180,"verified_normal_baseline_axis_count":179},"database_write":false,"exempt_count":2,"formal_rank_write":true,"formal_score_write":true,"item_max_points":120,"item_min_points":-18,"item_name":"第五项 统治者政治素质","lineage":{"negative_tail_recalculation":"H4_AND_HUHAI_C1_20260824","trusted_base_trait_count":222},"rank_tie_policy":"COMPETITION_RANK","ranked_count":199,"record_count":201,"schema_id":"emperor-v4-fifth-item-formal-settlement-v2-evidence-truth","settlement_date":"2026-08-24","unique_ruler_id_count":201,"unique_task_code_count":201},
+"collections":{
+"records":{
+"record_count":201
+}
+},
+"routes":[
+{"polity":"三国","path":"04-第五项统治者政治素质正式结算/三国.json","collection_counts":{"records":11}},
+{"polity":"东晋","path":"04-第五项统治者政治素质正式结算/东晋.json","collection_counts":{"records":3}},
+{"polity":"东汉","path":"04-第五项统治者政治素质正式结算/东汉.json","collection_counts":{"records":11}},
+{"polity":"东魏","path":"04-第五项统治者政治素质正式结算/东魏.json","collection_counts":{"records":1}},
+{"polity":"五代十国","path":"04-第五项统治者政治素质正式结算/五代十国.json","collection_counts":{"records":19}},
+{"polity":"元","path":"04-第五项统治者政治素质正式结算/元.json","collection_counts":{"records":8}},
+{"polity":"刘宋","path":"04-第五项统治者政治素质正式结算/刘宋.json","collection_counts":{"records":4}},
+{"polity":"北周","path":"04-第五项统治者政治素质正式结算/北周.json","collection_counts":{"records":1}},
+{"polity":"北魏","path":"04-第五项统治者政治素质正式结算/北魏.json","collection_counts":{"records":7}},
+{"polity":"北齐","path":"04-第五项统治者政治素质正式结算/北齐.json","collection_counts":{"records":3}},
+{"polity":"十六国","path":"04-第五项统治者政治素质正式结算/十六国.json","collection_counts":{"records":17}},
+{"polity":"南齐","path":"04-第五项统治者政治素质正式结算/南齐.json","collection_counts":{"records":2}},
+{"polity":"唐","path":"04-第五项统治者政治素质正式结算/唐.json","collection_counts":{"records":13}},
+{"polity":"唐末吴政权","path":"04-第五项统治者政治素质正式结算/唐末吴政权.json","collection_counts":{"records":1}},
+{"polity":"宋","path":"04-第五项统治者政治素质正式结算/宋.json","collection_counts":{"records":16}},
+{"polity":"明","path":"04-第五项统治者政治素质正式结算/明.json","collection_counts":{"records":17}},
+{"polity":"梁","path":"04-第五项统治者政治素质正式结算/梁.json","collection_counts":{"records":2}},
+{"polity":"清","path":"04-第五项统治者政治素质正式结算/清.json","collection_counts":{"records":14}},
+{"polity":"秦","path":"04-第五项统治者政治素质正式结算/秦.json","collection_counts":{"records":2}},
+{"polity":"西夏","path":"04-第五项统治者政治素质正式结算/西夏.json","collection_counts":{"records":9}},
+{"polity":"西晋","path":"04-第五项统治者政治素质正式结算/西晋.json","collection_counts":{"records":2}},
+{"polity":"西汉","path":"04-第五项统治者政治素质正式结算/西汉.json","collection_counts":{"records":11}},
+{"polity":"西魏","path":"04-第五项统治者政治素质正式结算/西魏.json","collection_counts":{"records":1}},
+{"polity":"辽","path":"04-第五项统治者政治素质正式结算/辽.json","collection_counts":{"records":11}},
+{"polity":"金","path":"04-第五项统治者政治素质正式结算/金.json","collection_counts":{"records":9}},
+{"polity":"陈","path":"04-第五项统治者政治素质正式结算/陈.json","collection_counts":{"records":4}},
+{"polity":"隋","path":"04-第五项统治者政治素质正式结算/隋.json","collection_counts":{"records":2}}
+]
 }

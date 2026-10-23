@@ -25,6 +25,7 @@ CONTRACT_PATH = Path("docs/分项规则/第二项治国净收益/财政民生/00
 PUBLIC_PROJECTION_SCHEMA = "second-item-c-authored-public-v3"
 AXES = ("C1", "C2", "C3", "C4")
 STATE_AXES = ("C1", "C2", "C3")
+GENERATED_MARKDOWN_AXES = ('C3', 'C4')
 
 PUBLIC_EVIDENCE_FIELDS = (
     "id",
@@ -313,7 +314,9 @@ def verify_public_projection(workspace_root: Path) -> dict[str, Any]:
     for axis, payload in payloads.items():
         markdown_path = (root / FORMAL_PATHS[axis]).with_suffix('.md')
         markdown = markdown_path.read_text(encoding='utf-8')
-        if render_public_markdown(markdown, payload) != markdown:
+        expected = (render_complete_markdown(payload) if axis in GENERATED_MARKDOWN_AXES
+                    else render_public_markdown(markdown, payload))
+        if expected != markdown:
             raise ValueError(f"第二项{axis}Markdown公开阅读视图未同步")
     return {
         "status": "PASS",
@@ -392,6 +395,15 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
     return '\n'.join([*lines, end, ''])
 
 
+def render_complete_markdown(payload: dict[str, Any]) -> str:
+    """Rebuild the technical body and authored appendix without old Markdown."""
+    from .governance_state_recovery import render_component_markdown
+    axis = payload['public_projection_axis']
+    if axis not in FORMAL_PATHS:
+        raise ValueError('第二项财政民生完整阅读视图轴无效')
+    return render_public_markdown(render_component_markdown(axis, payload), payload)
+
+
 def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
     root = workspace_root.resolve()
     current = {axis: load_json(root / path) for axis, path in FORMAL_PATHS.items()}
@@ -407,7 +419,10 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
         for axis, path in FORMAL_PATHS.items():
             write_json(root / path, projected[axis], ruler_polities=polities)
             markdown_path = (root / path).with_suffix('.md')
-            markdown_path.write_text(render_public_markdown(markdown_path.read_text(encoding='utf-8'), projected[axis]), encoding='utf-8')
+            if axis in GENERATED_MARKDOWN_AXES:
+                markdown_path.write_text(render_complete_markdown(projected[axis]), encoding='utf-8', newline='\n')
+            else:
+                markdown_path.write_text(render_public_markdown(markdown_path.read_text(encoding='utf-8'), projected[axis]), encoding='utf-8')
         report = verify_public_projection(root)
         report["status"] = "WRITTEN"
         return report

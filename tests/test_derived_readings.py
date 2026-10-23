@@ -1,5 +1,6 @@
 """Generated reading lifecycle; no adjudication snapshots."""
 import importlib.util
+import json
 from pathlib import Path
 
 import pytest
@@ -51,3 +52,19 @@ def test_package_renders_missing_or_stale_views_without_writing_them(tmp_path, m
     assert target.exists() == existing
     if existing:
         assert target.read_text(encoding='utf-8') == '过期副本'
+
+
+def test_ab_view_rebuilds_from_both_json_inputs_without_old_markdown(tmp_path, monkeypatch):
+    from emperor_v4.evaluation import five_dynasties_third_item as renderer
+    from emperor_v4.evaluation.third_fourth_item_public import THIRD_CREDIT_PATH
+    formal = tmp_path / 'formal.json'
+    formal.write_text(json.dumps({'records': [{'ruler_id': 'X', 'fact': '当前正式事实'}]}), encoding='utf-8')
+    credit = tmp_path / THIRD_CREDIT_PATH; credit.parent.mkdir(parents=True)
+    credit.write_text(json.dumps({'records': [{'ruler_id': 'X', 'basis': '当前信用依据'}]}), encoding='utf-8')
+    original = {p: p.read_bytes() for p in (formal, credit)}
+    monkeypatch.setattr(renderer, '_render_formal_markdown', lambda kind, rows, *, credit_rows:
+                        rows[0]['fact'] + '；' + credit_rows['X']['basis'] + '\n')
+    monkeypatch.setattr(views, 'view_sources', lambda root: {'reading.md': ('third.AB', 'formal.json')})
+    views.run(tmp_path)
+    assert (tmp_path / 'reading.md').read_text(encoding='utf-8') == '当前正式事实；当前信用依据\n'
+    assert {p: p.read_bytes() for p in original} == original

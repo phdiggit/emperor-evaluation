@@ -10,7 +10,17 @@
 
 三套结果不互相换分。画像雷达、视频人物卡和文字小样在[展示成果](../展示成果/人物画像/README.md)，不属于裁决真源；综合阅读层在[`reader/`](../../reader/README.md)，退役组件在[`archive/`](../../archive/README.md)。
 
-历史影响、画像M1／C3／C5、第二项D1／D3、第三项C及第四项B的完整Markdown在本地运行`python v4.py reading-views`生成，不进入Git；正式JSON和评估包仍含完整正文。新检出后先生成再校验，第一项Markdown真源及仍被引用的证据文档保留。
+历史影响、画像M1／M4／M5／C1／C2／C3／C5、第二项C3／C4／D1／D3、第三项AB／C及第四项B的完整Markdown在本地运行`python v4.py reading-views`生成，不进入Git；正式JSON和评估包仍含完整正文。新检出后先生成再校验，第一项Markdown真源及仍被引用的证据文档保留。财政民生C3／C4同时重建技术正文与公开附录，不读取旧Markdown；C1／C2仍承担跨项证据引用，继续入库。第三项AB的正文由正式AB记录和`config/third-item/third-item-result-credit-adjudications.json`共同重建，事实引用直接定位这两份输入中的人物记录。
+
+第三项C的朝代分片可声明`public_reading_storage=formal-public-reading-texts-v1`：同一分片的`public_reading`内，完全相同且重复的较长文本保存在`reading_text_catalog`，采用处以`reading_text_ref`引用。仅去重字符串值，不合并材料、人物、角色或采用关系；相似文字不合并，原有ID和来源定位保留。正式消费者通过`formal_json_store.load_json`取得完整独立对象，写回通过`write_json`确定性压缩；不得将分片存储占位符直接用作裁决或展示正文。悬空、越界、混合格式、未知版本、重复或未共用目录项均拒绝。
+
+第二项财政民生C1—C4的分片沿用上述方式，声明`public_reading_storage=formal-public-reading-texts-v2`，并用`reading_text_fields`列出本分片参与去重的`public_`公开字段。字段可为正文、材料列表或来源对象；仅展开声明范围内的引用，范围外占位符及非公开字段声明均拒绝。计分与技术裁决字段不参加此存储去重。
+
+C1入口单元处置审计保留全部当前处置，采用`unit_storage=profile-unit-column-table-v1`：`unit_columns`明确列名及顺序，`unit_rows`逐行保存原值；重复字符串列可由`unit_value_catalogs`保存完整值，行内使用整数下标。理由仍使用既有理由目录。通过`profile_unit_reasons.load_unit_dispositions`还原完整单元对象，写回使用`write_unit_dispositions`；字段布局不一致时保留对象列表，不补空值。未知版本、混合格式、行宽错误、越界值、重复或未用目录值均拒绝。此表只改变存储，不从入口或状态生成处置、理由及父链归属。
+
+M4入口单元处置审计使用`profile-unit-column-table-v2`，在同样的列和行结构上增加`unit_string_list_catalogs`：只对声明的字符串列表列共享完全相同的字符串，行内列表逐项保存整数下标，保持来源顺序、重复项及空列表。列表目录与标量目录不得声明同一列；完整对象仍通过同一单元处置读写入口还原，不能从来源条数推定证据强度或改变既有处置。
+
+C2、C3、C5入口单元处置审计同样使用紧凑表。`formal_json_store.load_json`还原这些审计及C1、M4的完整单元对象，保留原来的理由正文或`reason_ref`；`write_json`对已登记的五类审计确定性存储为紧凑表。C1、M4等采用理由目录的审计，可再通过`load_unit_dispositions`展开理由。此机制不自动重裁，也不合并不同轴、人物或父链的单元。
 
 各项当前验收状态与局部复核边界见对应正式入口及共享审计；结构同值校验不替代语义验收，也不要求每次局部维护重开全池复审。
 

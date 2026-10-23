@@ -1,4 +1,5 @@
 from __future__ import annotations
+from emperor_v4.json_format import json_text
 
 import json
 from contextlib import contextmanager
@@ -47,7 +48,7 @@ def _read_json(path: Path) -> Any:
 
 
 def _atomic_write(path: Path, payload: Mapping[str, Any]) -> None:
-    content = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    content = (json_text(payload)).encode("utf-8")
     if path.exists() and path.read_bytes() == content:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -132,6 +133,14 @@ def write_polity_routed_json(
             "polity": polity,
             "collections": collections,
         }
+        from .formal_reading_texts import C_SCHEMA, FINANCE_SCHEMAS, compact_reading_texts
+        if payload.get('schema_id') == C_SCHEMA:
+            shard_payload = compact_reading_texts(shard_payload)
+        elif payload.get('schema_id') in FINANCE_SCHEMAS:
+            fields = sorted({key for block in collections.values() for row in block['records']
+                             for key in row if key.startswith('public_')})
+            if fields:
+                shard_payload = compact_reading_texts(shard_payload, fields=fields)
         _atomic_write(shard_path, shard_payload)
         routes.append(
             {
@@ -165,9 +174,16 @@ def write_polity_routed_json(
 
 
 def load_json(path: Path, *, polities: Iterable[str] | None = None) -> Any:
-    """Load a normal JSON file or reconstruct a polity-routed formal JSON."""
+    """Load logical JSON, reconstructing formal routes and retained unit tables."""
 
     raw = _read_json(path)
+    if isinstance(raw, dict):
+        from .cost_registry_storage import SHARD_SCHEMA as COST_SHARD_SCHEMA, expand_shard as expand_cost_shard
+        if raw.get('schema_version') == COST_SHARD_SCHEMA:
+            return expand_cost_shard(raw)
+        from .profile_unit_tables import TABLE_SCHEMAS, MARKER, expand_unit_table
+        if raw.get('schema_version') in TABLE_SCHEMAS or MARKER in raw:
+            return expand_unit_table(raw)
     if not isinstance(raw, dict) or raw.get("schema_version") != ROUTER_SCHEMA:
         return raw
     return _load_router(path, raw, polities=polities)
@@ -223,6 +239,13 @@ def write_json(
             raise ValueError("写入按朝代路由的正式JSON时必须提供ruler_polities")
         write_polity_routed_json(path, payload, ruler_polities=ruler_polities)
     else:
+        from .cost_registry_storage import SHARD_SCHEMA as COST_SHARD_SCHEMA, compact_shard as compact_cost_shard
+        if payload.get('schema_version') == COST_SHARD_SCHEMA:
+            payload = compact_cost_shard(payload)
+        from .profile_unit_tables import TABLE_SCHEMAS, M4_SCHEMA, compact_unit_table
+        if payload.get('schema_version') in TABLE_SCHEMAS:
+            payload = compact_unit_table(dict(payload),
+                                         list_columns=('source_refs',) if payload.get('schema_version') == M4_SCHEMA else ())
         _atomic_write(path, payload)
 
 
@@ -254,6 +277,10 @@ def _load_router(
             raise ValueError(f"正式结算分片schema错误: {relative.as_posix()}")
         if shard.get("polity") != polity:
             raise ValueError(f"正式结算分片朝代漂移: {relative.as_posix()}")
+        from .formal_reading_texts import C_SCHEMA, FINANCE_SCHEMAS, MARKER, CATALOG, FIELDS, expand_reading_texts
+        if ((manifest.get('payload_metadata') or {}).get('schema_id') in FINANCE_SCHEMAS | {C_SCHEMA}
+                or MARKER in shard or CATALOG in shard or FIELDS in shard):
+            shard = expand_reading_texts(shard)
         shard_collections = dict(shard.get("collections") or {})
         expected_counts = dict(route.get("collection_counts") or {})
         actual_counts: dict[str, int] = {}

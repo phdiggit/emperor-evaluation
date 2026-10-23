@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.profile_radar import (
     AXIS_LABELS,
     AXIS_ORDER,
@@ -194,6 +195,6 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
     output_dir = output_dir or ROOT / config["output_dir"]
     output_dir.mkdir(parents=True, exist_ok=True)
     payload = build_samples()
-    (output_dir / "00-视频人物画像文字小样.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (output_dir / "00-视频人物画像文字小样.json").write_text(json_text(payload), encoding="utf-8")
     (output_dir / "00-视频人物画像文字小样.md").write_text(_render_markdown(payload), encoding="utf-8")
     return payload

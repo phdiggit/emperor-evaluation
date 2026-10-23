@@ -35,6 +35,7 @@ READER_RUNTIME_SCRIPTS = (
     "person-reading-notes.js",
 )
 sys.path.insert(0, str(ROOT / "src"))
+from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.first_item_public_outcomes import (
     load_first_item_public_outcomes,
@@ -84,7 +85,7 @@ def reader_source_identity(*, write=False):
         identity = {"repository": repository, "revision": revision}
         if write:
             SOURCE_IDENTITY_PATH.write_text(
-                json.dumps(identity, ensure_ascii=False, indent=2) + "\n",
+                json_text(identity),
                 encoding="utf-8",
                 newline="\n",
             )
@@ -1439,7 +1440,7 @@ def build_third_c_collection(root):
         search_rows[row['ruler_id']] = overview_text + '\n' + collection_search_text(detail)
     template = (root / 'reader/third-item-c.template.html').read_text(encoding='utf-8')
     template = template.replace('__THIRD_C_FORMAL_SOURCE_LINK__', collection_source_link(THIRD_C_PATH.as_posix(), '查看正式记录'))
-    assets['search.json'] = json.dumps(search_rows, ensure_ascii=False, separators=(',', ':')) + '\n'
+    assets['search.json'] = json_text(search_rows)
     search_url = 'data/third-item-c/search.json?v=' + hashlib.sha256(assets['search.json'].encode('utf-8')).hexdigest()[:16]
     script = (root / 'reader/third-item-c-collection.js').read_text(encoding='utf-8')
     page = template.replace('__COUNT__', str(len(cards))).replace('__ENTRIES__', '\n'.join(cards)).replace('__COMBAT_GUIDE__', paragraphs(COMBAT_GUIDE)).replace('__GRADE_GUIDE__', render_third_c_grade_guide())
@@ -1645,7 +1646,7 @@ def build(*, check=False, write=True):
     detail_files = {}
     for record in records:
         relative = detail_ref(record["ruler_id"])
-        detail_files[Path(relative).name] = serialized_json(detail_payload(record)) + "\n"
+        detail_files[Path(relative).name] = json_text(detail_payload(record))
 
     payload = serialized_json(index_data, html_safe=True)
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")
