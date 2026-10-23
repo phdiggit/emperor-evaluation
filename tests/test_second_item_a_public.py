@@ -7,6 +7,54 @@ from emperor_v4.evaluation.second_item_a_public import (
     PUBLIC_PROJECTION_SCHEMA, _public_nodes, _refresh_payload,
     _scoring_signature, _verify_ref, public_markdown,
 )
+from emperor_v4.evaluation.formal_settlements import _verify_a_profile_registry_binding
+
+
+@pytest.mark.parametrize("strength,direction,effect,minus,weight", [
+    ("M2", "positive", "S+", 0, 2),
+    ("M3", "positive", "S++", 0, 4),
+    ("M3", "negative", "S-1", 1, -3),
+    ("M3", "mixed_positive", "NON_S", 0, 1),
+])
+def test_registered_profile_uses_contract_base_and_durability_bonus(
+    strength, direction, effect, minus, weight,
+):
+    nodes = {"SYNTHETIC": {"counts_toward_A": True,
+        "counts_toward_S": effect != "NON_S", "S_effect": effect,
+        "S_minus_weight": minus, "material_ids": ["SYNTHETIC-MATERIAL"]}}
+    profile = {"institution_node_id": "SYNTHETIC", "M": strength,
+        "direction": direction, "signed_weight": weight}
+    _verify_a_profile_registry_binding("合成甲", profile, nodes)
+    profile["signed_weight"] = weight + 0.5
+    with pytest.raises(ValueError, match="任内基值与S溢价"):
+        _verify_a_profile_registry_binding("合成甲", profile, nodes)
+
+
+def test_profile_reference_cannot_score_and_retired_identity_cannot_reenter():
+    nodes = {"CURRENT": {"counts_toward_A": False}}
+    profile = {"institution_node_id": "CURRENT", "signed_weight": 0}
+    _verify_a_profile_registry_binding("合成甲", profile, nodes)
+    profile["signed_weight"] = 1
+    with pytest.raises(ValueError, match="参考节点仍被计权"):
+        _verify_a_profile_registry_binding("合成甲", profile, nodes)
+    profile.update(institution_node_id="RETIRED", signed_weight=0)
+    with pytest.raises(ValueError, match="未登记或仍使用别名"):
+        _verify_a_profile_registry_binding("合成甲", profile, nodes)
+
+
+def test_weighted_profile_requires_material_binding():
+    nodes = {"SYNTHETIC": {"counts_toward_A": True, "counts_toward_S": False}}
+    profile = {"institution_node_id": "SYNTHETIC", "M": "M2",
+        "direction": "positive", "signed_weight": 1}
+    with pytest.raises(ValueError, match="缺少登记材料"):
+        _verify_a_profile_registry_binding("合成甲", profile, nodes)
+
+
+def test_factual_reference_is_not_presented_as_offsetting_proven_gains_and_losses():
+    row = payload()["records"][0]
+    row["M_positive_profile"][0].update(direction="neutral", signed_weight=0)
+    row["public_institution_nodes"][0].update(public_direction="事实参考", signed_weight=0)
+    assert _public_nodes(row)[0]["public_direction"] == "事实参考"
 
 
 def payload():

@@ -308,6 +308,43 @@ def verify_second_item_a_reader_material_binding(
     }
 
 
+def _verify_a_profile_registry_binding(
+    ruler_name: str,
+    profile: dict[str, Any],
+    nodes_by_id: dict[str, dict[str, Any]],
+) -> None:
+    """Check current identities and contract arithmetic, including zero-weight references."""
+    node_id = str(profile.get("institution_node_id") or "")
+    node = nodes_by_id.get(node_id)
+    if node is None:
+        raise ValueError(f"第二项A profile未登记或仍使用别名：{ruler_name}={node_id}")
+    weight = float(profile.get("signed_weight") or 0)
+    if not node.get("counts_toward_A"):
+        if weight != 0:
+            raise ValueError(f"第二项A参考节点仍被计权：{ruler_name}={node_id}")
+        return
+    factors = {"positive": 1, "mixed_positive": 0.5, "balanced": 0,
+               "mixed": 0, "neutral": 0, "mixed_negative": -0.5, "negative": -1}
+    bases = {"M0": 0, "M2": 1, "M3": 2}
+    strength, direction = profile.get("M"), profile.get("direction")
+    if strength not in bases or direction not in factors:
+        raise ValueError(f"第二项A profile的M或方向非法：{ruler_name}={node_id}")
+    bonus = 0.0
+    if node.get("counts_toward_S"):
+        effect = node.get("S_effect")
+        if effect in {"S+", "S++"}:
+            bonus = {"S+": 1.0, "S++": 2.0}[effect]
+        elif float(node.get("S_minus_weight") or 0) == 1:
+            bonus = -1.0
+        else:
+            raise ValueError(f"第二项A负向S不符合普通权重1：{ruler_name}={node_id}")
+    expected = bases[strength] * factors[direction] + bonus
+    if abs(weight - expected) > 1e-9:
+        raise ValueError(f"第二项A profile未按任内基值与S溢价计权：{ruler_name}={node_id}")
+    if weight and not (profile.get("material_ids") or node.get("material_ids")):
+        raise ValueError(f"第二项A计权profile缺少登记材料：{ruler_name}={node_id}")
+
+
 def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
     a_payload = load_json(workspace_root / SECOND_ITEM_COMPONENT_PATHS["A"])
     from emperor_v4.evaluation.second_item_a_public import verify_public_projection
@@ -315,6 +352,7 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
     public_projection_report = verify_public_projection(workspace_root, a_payload)
     registry = load_json(workspace_root / IMPORTANT_INSTITUTION_REGISTRY)
     nodes = registry.get("nodes") or []
+    nodes_by_id = {str(node["institution_node_id"]): node for node in nodes}
     active_node_ids = {
         str(node["institution_node_id"])
         for node in nodes
@@ -419,6 +457,7 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
             seen_lifecycles: set[object] = set()
             for profile_key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
                 for profile in row.get(profile_key) or []:
+                    _verify_a_profile_registry_binding(ruler_name, profile, nodes_by_id)
                     if profile.get("M") not in allowed_m:
                         raise ValueError(f"第二项A非法M档：{ruler_name}={profile.get('M')}")
                     direction = str(profile.get("direction"))
@@ -433,7 +472,7 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
                         or profile.get("lifecycle_id")
                         or (profile.get("mechanism"), profile.get("direction"))
                     )
-                    if lifecycle_key in seen_lifecycles and not profile.get("absorbed_into_lifecycle_key"):
+                    if lifecycle_key in seen_lifecycles:
                         raise ValueError(f"第二项A生命周期重复消费：{ruler_name}={lifecycle_key}")
                     seen_lifecycles.add(lifecycle_key)
         if explicit_patch_count != a_payload.get("v2_explicit_patch_count"):

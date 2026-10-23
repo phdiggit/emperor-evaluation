@@ -22,7 +22,7 @@ MARKDOWN_PATH = A_PATH.with_suffix(".md")
 PUBLIC_PROJECTION_SCHEMA = "second-item-a-public-projection-v2"
 PUBLIC_MARKER = "<!-- A_AUTHORED_PUBLIC_READING -->"
 PROFILE_KEYS = ("M_positive_profile", "M_mixed_profile", "M_negative_profile")
-PUBLIC_DIRECTIONS = {"positive":"正向", "positive_correction":"正向", "negative":"负向", "mixed_positive":"正向主导", "mixed_negative":"负向主导", "mixed":"正负并存", "balanced":"正负并存", "neutral":"正负并存"}
+PUBLIC_DIRECTIONS = {"positive":"正向", "positive_correction":"正向", "negative":"负向", "mixed_positive":"正向主导", "mixed_negative":"负向主导", "mixed":"正负并存", "balanced":"正负并存", "neutral":"事实参考"}
 PUBLIC_NODE_FIELDS = ("institution_node_id", "public_label", "public_direction", "public_tags", "signed_weight", "public_adjudication_basis", "public_boundary", "public_reception", "public_sources", "public_material_ids")
 PUBLIC_FORBIDDEN_RE = re.compile(r"(?<![A-Za-z])(?:M[0-3]|R[0-4]|G[0-5])(?![A-Za-z0-9])|S(?:\+\+|\+|−|-)\s*\d*|NON_S|position|canonical|生命周期|主档消费|门禁|该节点被判断为|已有材料支持|证明链条成立|净方向不在.*裁决|不在本节点中判断正负方向|正向影响权重为|制度净值为")
 
