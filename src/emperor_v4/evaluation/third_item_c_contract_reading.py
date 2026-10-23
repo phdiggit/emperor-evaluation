@@ -1,8 +1,8 @@
 """Trace current C evidence without assigning or changing historical grades.
 
-The authored review lives in public_reading. This module assembles explicit
-references, identifies missing bindings, and checks that the saved reading has
-not drifted from its inputs. A gate or a count never proves a semantic grade.
+Only authored review inputs live in public_reading. This module assembles the
+full review from current evidence and an explicitly supplied context. A gate
+or a count never proves a semantic grade.
 """
 from copy import deepcopy
 from html import escape
@@ -12,8 +12,12 @@ import re
 
 from .first_item_b1_inputs import load_opponent_systems
 from .opponent_system_contract import load_opponent_system_contract
+from .third_item_c_passages import expand_entry, expand_passages, validate_passages
 
-SCHEMA = 'third-item-c-contract-reading-v1'
+SCHEMA = 'third-item-c-contract-inputs-v1'
+BUILT_SCHEMA = 'third-item-c-contract-reading-v3'
+# The expanded, build-time reading shape stays stable for all reader surfaces.
+READING_SCHEMA = 'third-item-c-contract-reading-v1'
 RULE = 'docs/分项规则/第三项军事与边疆净收益/军事体系有效性/00-规则与计分合同.md'
 O_RULE = 'docs/证据规则/军事对手战争机器O档合同.md'
 O_SOURCE = 'config/military/opponent-system-contract.json'
@@ -147,7 +151,7 @@ def _additional_capability_chains(row):
 def build_review(row, context, *, task_aliases=(), axis_findings=None):
     """Build an evidence review; no numeric result is inferred or written here."""
     from .third_item_c_public import SCALES
-    authored = row['public_reading']
+    authored = expand_passages(row['public_reading'])
     items = {e['id']: e for e in authored['evidence_items']}
     chains = row.get('strategy_chains', []) + row.get('capability_only_strategy_chains', [])
     # Some settled records admit capability parents without a converted chain.
@@ -299,7 +303,7 @@ def build_review(row, context, *, task_aliases=(), axis_findings=None):
             evidence_refs=[e['id'] for e in source_facts], axis_links=axis_links, gaps=gaps,
             **({'boundary_evidence_refs': list(boundary_refs)} if boundary_refs else {}),
             evidence_sources=[dict(label=e['label'], path=s['path']) for e in source_facts + boundary_materials for s in e['sources']],
-            source_review=deepcopy(sourced)))
+            source_review_ref=cid if sourced is not None else None))
     axes = {}
     inheritance = row.get('inherited_system_assessment') if row.get('system_observation_status') == 'INHERITED_UNTESTED' else None
     for idx, (axis, field) in enumerate(AXES.items()):
@@ -315,7 +319,7 @@ def build_review(row, context, *, task_aliases=(), axis_findings=None):
         if g is not None and g >= 4 and any(c['gaps'] for c in chain_reviews):
             limits.append('对手、窗口、父周期或材料绑定仍有逐链缺口，尚不能据这些记录完整证明高难任务、多方向或稳定复制。')
         if g == 5:
-            high = [c for c in chain_reviews if not c['high_difficulty_exclusion'] and (not c['opponent_conflict'] or c['legacy_opponent_grade'].removeprefix('INTERNAL_') in ('O4','O5','O6') or c['source_review']) and any(s['binding_status'] in ('PERSON_GATE_AND_TASK','SOURCE_WINDOW_REVIEWED') and s['grade'] in ('O4','O5','O6') for s in c['opponents'])]
+            high = [c for c in chain_reviews if not c['high_difficulty_exclusion'] and (not c['opponent_conflict'] or c['legacy_opponent_grade'].removeprefix('INTERNAL_') in ('O4','O5','O6') or authored.get('source_reviews', {}).get(c['chain_id'])) and any(s['binding_status'] in ('PERSON_GATE_AND_TASK','SOURCE_WINDOW_REVIEWED') and s['grade'] in ('O4','O5','O6') for s in c['opponents'])]
             if len(high) < 3:limits.append('尚未明确串起至少三条跨期高难战略链；人数、事件条数与资格通过标签不能补足。')
             limits.append('五档还须逐项证明长期顶级表现；必要资格通过不等于足以排除四档。')
             if axis == 'C2':limits.append('必须审查所有主要方向是否发生整组保障崩溃，不能把有饥疫就自动算崩溃，也不能因最终胜利就免审。')
@@ -373,7 +377,7 @@ def build_review(row, context, *, task_aliases=(), axis_findings=None):
     missing_o = sum(not any(o['grade'] in ('O1','O2','O3','O4','O5','O6') and o['binding_status'] in ('SOURCE_WINDOW_REVIEWED','PERSON_GATE_AND_TASK') for o in c['opponents']) for c in chain_reviews)
     summary = (f'本人的战争按{len(row.get("strategy_chains", []))}条当前战略链、{len(row.get("capability_only_strategy_chains", []))}条能力专用链展开，其中{missing_o}条未采用确定的本人对手窗口档（包括审慎范围、未证独立体系或归属限制，不等于没有战役材料）。父周期只作证据下钻，同一连续战争不按战斗或材料条数重复计功。'
                if not inheritance else '本人按无任内实战的继承体系评价。前任战争只作基线，不能编成本人新战略链、胜绩或回报；须逐轴看任内延续和反证。')
-    return dict(schema_version=SCHEMA, sources=[RULE, O_RULE, C_SOURCE, PARENT_SOURCE, O_SOURCE],
+    return dict(schema_version=BUILT_SCHEMA, sources=[RULE, O_RULE, C_SOURCE, PARENT_SOURCE, O_SOURCE],
         summary=summary,
         method='对手O档先说明实际窗口的战争机器强度，再检验完整战略任务的难度、兑现、保障和跨将领运行。O档不是胜绩分数；高O、胜仗多、回报高都不能单独推出本轴高档。',
         o_scales=[dict(grade=k, label=v['label'], definition=v['definition']) for k,v in context['o_grades'].items()],
@@ -389,20 +393,53 @@ def build_review(row, context, *, task_aliases=(), axis_findings=None):
         conclusion='评分以当前正式裁决为准。具体战事、任务组织、门槛与证据缺口分别列明；已查明的归属错误和反证须用于重裁，必要证据不足时暂不定档，不把已有数值或结构通过标记当成历史论证。')
 
 
-def validate_review(row, context=None):
-    review = row['public_reading'].get('contract_review')
-    if not review or review.get('schema_version') != SCHEMA:
-        raise ValueError('C公开正文缺少完整合同论证')
-    if context is not None:
-        expected = build_review(row, context, task_aliases=review.get('task_aliases', []), axis_findings=review.get('axis_findings', {}))
-        if review != expected:
-            raise ValueError(f'{row["ruler_name"]}公开合同论证与当前战争、对手或轴证据不一致')
+def review_inputs(*, task_aliases=(), axis_findings=None):
+    """Create stored inputs without copying any generated review fields."""
+    return dict(schema_version=SCHEMA, task_aliases=deepcopy(list(task_aliases)),
+                axis_findings=deepcopy(axis_findings if axis_findings is not None else {}))
+
+
+def validate_review(row, context):
+    inputs = row['public_reading'].get('contract_review')
+    if not isinstance(inputs, dict) or inputs.get('schema_version') != SCHEMA:
+        raise ValueError('C公开正文缺少现行合同论证人工输入')
+    if set(inputs) != {'schema_version', 'task_aliases', 'axis_findings'}:
+        raise ValueError('C合同论证只保存人工输入，不得内嵌生成副本')
+    if (not isinstance(inputs['task_aliases'], list)
+            or any(not isinstance(a, dict) or not all(isinstance(a.get(k), str) and a[k].strip()
+                       for k in ('chain_id', 'task_ref', 'basis')) for a in inputs['task_aliases'])
+            or not isinstance(inputs['axis_findings'], dict)
+            or any(not isinstance(finding, dict) for finding in inputs['axis_findings'].values())):
+        raise ValueError('C合同论证人工输入结构无效')
+    if not isinstance(context, dict) or not {'systems', 'o_grades'} <= context.keys():
+        raise ValueError('C合同论证需要显式的现行对手与父周期上下文')
+    validate_passages(row['public_reading'])
+    review = build_review(row, context, task_aliases=inputs['task_aliases'], axis_findings=inputs['axis_findings'])
     ids = [c['chain_id'] for c in review['chains']]
     if ids != row.get('strategy_chain_refs', []) + row.get('capability_only_strategy_chain_refs', []) + [c['chain_id'] for c in _additional_capability_chains(row)]:
         raise ValueError('C公开合同论证未完整覆盖本人战略链')
+    sources = row['public_reading'].get('source_reviews', {})
+    if not isinstance(sources, dict):
+        raise ValueError('C回源复核须按本人战略链ID登记')
+    for chain in review['chains']:
+        expected_ref = chain['chain_id'] if sources.get(chain['chain_id']) is not None else None
+        if ('source_review' in chain or 'source_review_ref' not in chain
+                or chain['source_review_ref'] != expected_ref):
+            raise ValueError('C回源复核引用须对应本链唯一来源，不得内嵌副本')
     for axis, field in AXES.items():
         if review['axes'][axis]['grade'] != _number(row[field]):
             raise ValueError('C相邻档解释不得回写或替换当前档位')
+    return review
+
+
+def reading_review(row, *, context):
+    """Expand validated chain references for output without changing stored data."""
+    review = validate_review(row, context)
+    sources = row['public_reading'].get('source_reviews', {})
+    for chain in review['chains']:
+        ref = chain.pop('source_review_ref')
+        chain['source_review'] = expand_entry(row['public_reading'], sources[ref]) if ref is not None else None
+    review['schema_version'] = READING_SCHEMA
     return review
 
 

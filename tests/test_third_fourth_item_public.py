@@ -11,19 +11,170 @@ from emperor_v4.evaluation.third_fourth_public_language import translate, langua
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_projection_preserves_source_containers_and_only_replaces_owned_derived_fields():
+    row = dict(score=7, public_reading=dict(story='人工正文'),
+               public_b_source_catalog={'S':dict(path='source.md')},
+               public_basis='当前归责说明', public_adjudication_summary='旧投影', public_axis_projections={})
+    before = copy.deepcopy(row)
+    projection = dict(public_adjudication_summary='新投影')
+    public._apply_projection(row, projection)
+    assert row == {k:v for k,v in dict(before, **projection).items() if k!='public_axis_projections'}
+    row['public_reading']['story'] = '人工编辑'
+    assert projection == dict(public_adjudication_summary='新投影')
+
+
+def test_noop_projection_refresh_keeps_source_and_derived_field_order():
+    import json
+    row = dict(score=7, public_adjudication_summary='当前投影', public_reading=dict(story='人工正文'))
+    before = json.dumps(row, ensure_ascii=False)
+    public._apply_projection(row, dict(public_reading=copy.deepcopy(row['public_reading']),
+                                      public_adjudication_summary='当前投影'))
+    assert json.dumps(row, ensure_ascii=False) == before
+
+
+@pytest.mark.parametrize('field', ['public_reading','public_b_source_catalog','public_c_result_reading','public_exclusion_reading'])
+def test_projection_rejects_implicit_source_overwrite_without_partial_mutation(field):
+    row = {field:dict(text='人工维护'), 'public_adjudication_summary':'旧投影'}
+    before = copy.deepcopy(row)
+    with pytest.raises(ValueError, match='不得改写人工来源'):
+        public._apply_projection(row, {field:dict(text='不同正文')})
+    assert row == before
+
+
+def test_projection_rejects_unknown_fields_and_requires_explicit_retirement():
+    row = dict(public_reading=dict(story='旧重复正文'), public_adjudication_summary='旧投影')
+    public._apply_projection(row, {}, retired_sources={'public_reading'})
+    assert row == {}
+    with pytest.raises(ValueError, match='未声明维护归属'):
+        public._apply_projection(dict(public_unknown='尚未登记的正文'), {})
+    with pytest.raises(ValueError, match='未声明字段或评分字段'):
+        public._apply_projection({},dict(score=8))
+    with pytest.raises(ValueError, match='声明无效'):
+        public._apply_projection({}, {}, retired_sources={'score'})
+
+
+def test_third_refresh_never_persists_c_derived_public_fields(monkeypatch):
+    payloads = {key: dict(records=[dict(ruler_id='synthetic', score=7)])
+                for key in ('AB', 'C', 'D', 'credit', 'total')}
+    payloads['ML'] = dict(records=[])
+    payloads['credit']['contract'] = {}
+    authored = dict(story='权威叙述与限制。', axes=dict(C1=dict(basis='本人材料。')))
+    row = payloads['C']['records'][0]
+    row.update(public_reading=copy.deepcopy(authored), public_evidence_items=[dict(public_basis='旧副本。')],
+               public_adjudication_summary='过期汇总。', public_axis_projections={'C1': {}})
+    for name in ('_credit_projection', '_ab_projection', '_d_projection', '_third_projection'):
+        monkeypatch.setattr(public, name, lambda *args, **kwargs: {})
+    monkeypatch.setattr(public, '_third_projection', lambda *args: dict(
+        public_adjudication_summary='可重建汇总。', public_evidence_items=[],
+        public_military_cost={}, public_military_net_loss=dict(public_boundary='本人窗口。')))
+    public._refresh_third(payloads)
+    assert row == dict(ruler_id='synthetic', score=7, public_reading=authored)
+    total = payloads['total']['records'][0]
+    assert not public._THIRD_TOTAL_DERIVED_FIELDS.intersection(total)
+    assert total['public_military_net_loss']['public_boundary'] == '本人窗口。'
+    first = copy.deepcopy(payloads)
+    public._refresh_third(payloads)
+    assert payloads == first
+
+
+def _synthetic_third_components():
+    return dict(
+        row=dict(ruler_id='synthetic', score=7, global_cost_credit_profile=dict(basis='持续动员的代价。'),
+                 military_net_loss_basis='本人窗口内尚无完整损失依据。',
+                 public_adjudication_summary='过期汇总。', public_military_cost={}, public_evidence_items=[]),
+        ab=dict(ruler_id='synthetic', public_adjudication_summary='本期安全结果。'),
+        credit=dict(ruler_id='synthetic'), c=dict(ruler_id='synthetic', public_reading=dict(story='本期体系交付。')),
+        d=dict(ruler_id='synthetic'), ml=None,
+    )
+
+
+def test_third_total_reading_uses_current_components_without_mutating_sources():
+    sources = _synthetic_third_components()
+    before = copy.deepcopy(sources)
+    result = public.third_public_record(**sources)
+    assert sources == before
+    assert '过期' not in result['public_adjudication_summary']
+    assert result['public_evidence_items'][0]['public_basis'] == '本期安全结果。'
+    assert result['public_evidence_items'][1]['public_basis'] == '本期体系交付。'
+    assert '本人窗口内尚无完整损失依据。' in result['public_military_net_loss']['public_adjudication_summary']
+    assert result['score'] == before['row']['score']
+    result['global_cost_credit_profile']['basis'] = '消费端改动。'
+    result['public_evidence_items'][0]['public_basis'] = '消费端改动。'
+    assert sources == before
+    sources['c']['public_reading']['story'] = '修订后的体系交付。'
+    assert public.third_public_record(**sources)['public_evidence_items'][1]['public_basis'] == '修订后的体系交付。'
+
+
+@pytest.mark.parametrize('key', ['ab', 'credit', 'c', 'd', 'ml'])
+def test_third_total_reading_rejects_cross_subject_components(key):
+    sources = _synthetic_third_components()
+    sources[key] = dict(ruler_id='another-subject')
+    with pytest.raises(ValueError, match='来源人物不一致'):
+        public.third_public_record(**sources)
+
+
+def test_fourth_refresh_keeps_one_public_projection_per_axis(monkeypatch):
+    from emperor_v4.evaluation import fourth_item_a_public, fourth_item_b_public
+
+    def reading(row, axis, packages):
+        return dict(story=axis['public_reading']['story'], decision='合成裁决。', boundary='本人范围。')
+
+    monkeypatch.setattr(fourth_item_a_public, 'axis_reading', reading)
+    monkeypatch.setattr(fourth_item_b_public, 'axis_reading', reading)
+    monkeypatch.setattr(public, '_fourth_axis_projection', lambda row, axis, packages, parent: dict(public._projection(
+        summary=row['public_reading']['story'], items=[public._item(
+            'FOURTH-AXIS', 'synthetic', axis, axis, '现行事实', '合成事实。', '本人范围。')],
+        boundary='本人范围。', level_label='合成等级', component_label=axis),
+        public_reading=copy.deepcopy(row['public_reading'])))
+    row = dict(ruler_id='synthetic', axis_results=[dict(
+        axis=axis, package_refs=[], disposition='NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW',
+        direction='MIXED', signed_adjustment=0, public_reading=dict(story={'A':'共同体独立正文。','B':'教育独立正文。','C':'知识独立正文。'}[axis])) for axis in 'ABC'])
+    row['public_axis_projections'] = {'A': {'public_reading': {'story': '过期副本。'}}}
+    before = public._signature(row)
+    public._apply_projection(row, public._fourth_projection(row, {}))
+    assert public._signature(row) == before
+    assert 'public_axis_projections' not in row
+    assert 'public_adjudication_summary' not in row
+    assert 'public_evidence_items' not in row
+    assert [axis['public_reading']['story'] for axis in row['axis_results']] == ['共同体独立正文。','教育独立正文。','知识独立正文。']
+    saved = copy.deepcopy(row)
+    reading = public.fourth_public_record(row)
+    assert row == saved
+    assert reading['public_adjudication_summary'] == '；'.join(axis['public_adjudication_summary'] for axis in row['axis_results'])
+    assert reading['public_evidence_items'] == [e for axis in row['axis_results'] for e in axis['public_evidence_items']]
+    reading['public_evidence_items'][0]['public_basis'] = '消费端变更。'
+    assert row == saved
+    first = copy.deepcopy(row)
+    public._apply_projection(row, public._fourth_projection(row, {}))
+    assert row == first
+
+
+def test_fourth_summary_uses_axis_order_and_never_a_stale_root_copy():
+    texts = {'A':'共同体当前正文。', 'B':'教育当前正文。', 'C':'知识当前正文。'}
+    axes = [dict(axis=axis, public_adjudication_summary=texts[axis],
+                 public_evidence_items=[dict(id=axis, public_basis=f'{axis}依据。')]) for axis in 'CAB']
+    row = dict(ruler_id='synthetic', axis_results=axes, public_adjudication_summary='过期汇总。', public_evidence_items=[])
+    before = copy.deepcopy(row)
+    result = public.fourth_public_record(row)
+    assert result['public_adjudication_summary'] == '共同体当前正文。；教育当前正文。；知识当前正文。'
+    assert [e['id'] for e in result['public_evidence_items']] == list('ABC')
+    assert row == before
+
+
 def test_ab_projection_reads_a_from_credit_and_keeps_b_in_its_axis(monkeypatch):
+    import json
     def projection(label, story):
         return public._projection(summary=story, items=[public._item(
             'THIRD-AB', 'synthetic', label, label, '现行裁决叙述', story, '合成范围。')],
             boundary='合成范围。', level_label='合成等级', component_label=label)
 
     credit = dict(axes={axis: projection('安全结果', '当前接班与交班事实。') for axis in ('A1', 'A2')})
-    row = dict(ruler_id='synthetic', axes={axis: dict(score_rate=0) for axis in ('A1', 'A2', 'B1', 'B2', 'B4')})
+    row = dict(ruler_id='synthetic', public_b_source_catalog={}, axes={axis: dict(score_rate=0) for axis in ('A1', 'A2', 'B1', 'B2', 'B4')})
     # A stale duplicate must not override the source or survive a refresh.
     row['axes']['A1']['public_reading'] = dict(story='已经过期的事实。')
     row['public_axis_projections'] = {'A1': {'public_reading': {'story': '另一份过期副本。'}}}
     monkeypatch.setattr(public, 'b_reading_projection', lambda axis, ab, source: dict(
-        evidence_items=[], story='当前控制事实。', boundary='合成范围。',
+        evidence_items=[], sources=[], story='当前控制事实。', boundary='合成范围。',
         decision='当前控制裁决。', rate_note='合成得分率'))
     original_credit = copy.deepcopy(credit)
     public._apply_projection(row, public._ab_projection(row, credit))
@@ -34,8 +185,10 @@ def test_ab_projection_reads_a_from_credit_and_keeps_b_in_its_axis(monkeypatch):
     assert '当前接班与交班事实。' in row['public_adjudication_summary']
     assert '过期' not in str(row)
     first = copy.deepcopy(row)
+    serialized = json.dumps(row, ensure_ascii=False)
     public._apply_projection(row, public._ab_projection(row, credit))
     assert row == first
+    assert json.dumps(row, ensure_ascii=False) == serialized
 
 
 def test_zero_ml_projection_preserves_unresolved_basis_without_inventing_gate_failure():
@@ -75,7 +228,8 @@ def test_verifier_rejects_chinese_text_drift_without_internal_codes(component):
         if component == 'fourth':
             public._verify_fourth(payloads[component])
         else:
-            public._verify_third(payloads)
+            from emperor_v4.evaluation.third_item_c_contract_reading import load_context
+            public._verify_third(payloads, c_review_context=load_context(ROOT))
 
 
 @pytest.mark.parametrize('disposition,expected', [

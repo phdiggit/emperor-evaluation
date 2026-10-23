@@ -39,6 +39,8 @@ def verify() -> dict[str, int]:
     verify_profile_current(ROOT, "M1", payload=payload)
     archive_context = load_archive_context(ROOT)
     for row in rows:
+        from emperor_v4.evaluation.profile_m1_projection import registry_projection
+        registry_projection(row['military_talent_registry_projection'])
         assert row.get('public_reading'), 'M1正式对象缺少直接维护的公开正文'
         comparisons = row['public_reading'].get('comparisons', [])
         assert len(comparisons) == 2, 'M1须提供两个有具体依据的同轴参照'

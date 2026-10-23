@@ -27,8 +27,8 @@ def inherited_row(grades):
             "axis_continuity": {axis: {field: "synthetic evidence" for field in
                 ("baseline_basis", "continuity_basis", "source_refs", "grade_basis")} for axis in AXIS_FIELDS},
         },
-        "axis_floor_grade": f"C-{min(grades)}", "raw_grade": f"C-{min(grades)}",
-        "gate_cap": 3, "final_grade": f"C-{final}", "C_overall_grade": f"C-{final}",
+        "axis_floor_grade": f"C-{min(grades)}",
+        "gate_cap": 3, "final_grade": f"C-{final}",
         "C_score_rate": round(rate, 2), "C_score_points": rate / 2,
         "C_score_band_position": position, "C_score_outcome_position": 0.5,
         "C_score_band": {"lower_rate": lower, "upper_rate": upper},
@@ -75,3 +75,19 @@ def test_missing_observation_does_not_become_zero_or_fabricated_outcome():
     row["C_score_within_band_adjudication"] = {"position": "HIGH"}
     with pytest.raises(ValueError):
         _verify_inherited_system(row)
+
+
+@pytest.mark.parametrize('field,value', [('axis_floor_grade','C-2'),('final_grade','C-4')])
+def test_canonical_grade_fields_still_validate_axis_floor_and_gate(field, value):
+    row=inherited_row((4,4,4))
+    row[field]=value
+    with pytest.raises(ValueError):_verify_grade_projection(row)
+
+
+def test_unknown_grade_is_retained_and_missing_canonical_field_is_not_inferred():
+    row=inherited_row((4,4,4))
+    row.update(system_reliability_cap='UNKNOWN',axis_floor_grade='UNKNOWN',final_grade='UNKNOWN',C_score_points=None)
+    _verify_grade_projection(row)
+    _verify_score_fields(row)
+    del row['final_grade']
+    with pytest.raises(ValueError,match='UNKNOWN'):_verify_grade_projection(row)

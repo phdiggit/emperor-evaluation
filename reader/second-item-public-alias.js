@@ -4,18 +4,16 @@
   const screenEl = document.getElementById("screen");
   if (!screenEl) return;
 
-  const PUBLIC_GRADE = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
-  const STATE_GRADE = {1:"E",2:"D",3:"C",4:"B",5:"A",6:"S"};
-  const HANDOFF_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
-  const FINANCE_ORDINAL_GRADE = {"一":"E","二":"D","三":"C","四":"B","五":"A","六":"S","1":"E","2":"D","3":"C","4":"B","5":"A","6":"S"};
-  const LOSS_TEXT = {
-    0:"未见独立有效低谷",
-    1:"已证独立损害，按证据范围作有限修正",
-    2:"出现明显低谷",
-    3:"出现严重低谷",
-  };
-  const METHOD_MAX = {"A制度建设":100,"B1官僚治理":100,"B2反馈与约束":80};
-  const FINANCE_MAX = {"C1民生":80,"C2经济财政":35,"C3社会安全":60};
+  const PUBLIC_GRADE = globalThis.SecondItemDisplay.grades;
+  const {
+    stateGrades: STATE_GRADE, handoffGrades: HANDOFF_GRADE,
+    lossText: LOSS_TEXT, methodMax: METHOD_MAX, financeMax: FINANCE_MAX,
+    labels: PUBLIC_ITEM_LABELS,
+  } = globalThis.SecondItemDisplay;
+  const FINANCE_ORDINAL_GRADE = Object.fromEntries(
+    ["一", "二", "三", "四", "五", "六", "1", "2", "3", "4", "5", "6"]
+      .map((key, index) => [key, STATE_GRADE[index % 6 + 1]])
+  );
   const HANDOFF_LABELS = {
     "D1继任行政连续性":"行政承接",
     "D3政权交接稳定":"终局继承",
@@ -34,17 +32,6 @@
     "低侧封顶":"交接短板上限",
     "交接得分":"政权交接得分",
     "第二项合计":"治国成效合计",
-  };
-  const PUBLIC_ITEM_LABELS = {
-    "A制度建设":"制度建设",
-    "B1官僚治理":"官僚治理",
-    "B2反馈与约束":"反馈与约束",
-    "C1民生":"民生",
-    "C2经济财政":"经济财政",
-    "C3社会安全":"社会安全",
-    "C4恢复与成本":"恢复与额外代价",
-    "D1继任行政连续性":"行政连续性",
-    "D3政权交接稳定":"交接稳定",
   };
   const PUBLIC_ROLE_LABELS = {
     MAJOR_RESTRUCTURE:"重构",
@@ -942,96 +929,6 @@
       "统治如何收尾，会直接影响国家机器和继承秩序能否平稳延续。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否顺利；两项均以 S—E 六档显示。");
   }
 
-  function patchScorePresentation(record) {
-    if (!record?.net) return;
-    const totals = secondTotals(record);
-    if (location.hash.match(/^#net\/[^/?#]+\/(?:all)?$/)) {
-      const card = Array.from(document.querySelectorAll(".net-major-card")).find(node => /\/second(?:\/|$)/.test(node.getAttribute("href") || ""));
-      if (card) {
-        if (totals.total != null) writePublicScore(card.querySelector(".big"), `${fmt(totals.total)} 分`);
-      }
-    }
-    if (location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) {
-      const intro = document.querySelector(".net-detail-page > .panel");
-      const scoreLine = intro?.querySelector(":scope > p.subline");
-      if (totals.total != null) writePublicCopy(scoreLine, `治国成效：${fmt(totals.total)} 分。先看结论，再展开到各项依据。`);
-    }
-    if (location.hash.startsWith("#person/")) {
-      const panel = document.getElementById("person-outcome");
-      for (const row of panel?.querySelectorAll(":scope > .component") || []) {
-        const span = row.querySelector("span");
-        if (!span || !span.textContent.trim().startsWith("治国成效")) continue;
-        if (totals.total != null) writePublicScore(row.querySelector("b"), `${fmt(totals.total)} 分`);
-      }
-    }
-  }
-
-  function patchCompareScores(records) {
-    if (records.length < 2 || !location.hash.startsWith("#compare/")) return;
-    const row = Array.from(screenEl.querySelectorAll(".comparison tbody tr")).find(item => item.cells?.[0]?.textContent.trim() === "治国成效");
-    if (!row) return;
-    records.forEach((record, index) => {
-      const score = finite(record?.net?.second_item_score);
-      const cell = row.cells?.[index + 1];
-      if (!cell || score == null) return;
-      writePublicScore(cell.querySelector("b"), `${fmt(score)} 分`);
-    });
-  }
-
-  function replaceText(node, replacements) {
-    if (!node) return;
-    let next = node.textContent;
-    for (const [from, to] of replacements) next = next.replaceAll(from, to);
-    if (next !== node.textContent) node.textContent = next;
-  }
-
-  function patchPersonOutcomeLink() {
-    const record = personRecord();
-    const panel = document.getElementById("person-outcome");
-    if (!record || !panel) return;
-    const row = Array.from(panel.querySelectorAll(":scope > .component")).find(component => {
-      const label = component.querySelector("span")?.textContent.trim() || "";
-      return label.startsWith("治国成效") || label.startsWith("治国净收益");
-    });
-    if (!row || row.querySelector(":scope > .net-overview-jump")) return;
-    const anchor = document.createElement("a");
-    anchor.className = "net-overview-jump";
-    anchor.href = `#net/${encodeURIComponent(record.ruler_id)}/second`;
-    anchor.setAttribute("aria-label", `查看${record.ruler_name}的治国成效计分逻辑`);
-    while (row.firstChild) anchor.append(row.firstChild);
-    row.append(anchor);
-  }
-
-  function patchShellLanguage() {
-    const head = document.querySelector(".net-detail-head");
-    replaceText(head?.querySelector(".eyebrow"), [["净收益计分", "统治绩效"]]);
-    replaceText(head?.querySelector("h1"), [["净收益计分总览", "统治绩效构成"], ["治国净收益", "治国成效"]]);
-    replaceText(head?.querySelector(".muted"), [["总榜净收益", "统治绩效总分"]]);
-    const nav = document.querySelector(".net-major-nav");
-    if (nav) nav.setAttribute("aria-label", "统治绩效详情");
-    const secondNav = Array.from(nav?.querySelectorAll("a") || []).find(a => /\/second(?:\/|$)/.test(a.getAttribute("href") || ""));
-    if (secondNav && secondNav.textContent !== "治国成效") secondNav.textContent = "治国成效";
-    for (const cardTitle of document.querySelectorAll(".net-major-card h2")) {
-      replaceText(cardTitle, [["治国净收益", "治国成效"], ["净收益计分总览", "统治绩效构成"]]);
-    }
-    const reading = document.querySelector("#person-evidence .net-reading[data-net-compact='done']");
-    if (reading) {
-      const section = reading.closest("section.panel");
-      const heading = section?.querySelector(":scope > h2, :scope > h3");
-      if (heading?.textContent.trim() === "净收益构成") heading.textContent = "统治绩效构成";
-      for (const link of reading.querySelectorAll("a")) replaceText(link, [["净收益计分页", "统治绩效详情"], ["净收益计分", "统治绩效"]]);
-      for (const intro of reading.querySelectorAll("p.reading-intro")) replaceText(intro, [["独立净收益计分页", "独立统治绩效详情页"]]);
-    }
-    for (const message of screenEl.querySelectorAll(".empty p, .empty[role='status']")) {
-      replaceText(message, [
-        ["净收益计分详情加载失败", "统治绩效详情加载失败"],
-        ["净收益详情地址无效", "统治绩效详情地址无效"],
-        ["净收益正式结算", "统治绩效正式结算"],
-        ["净收益计分逻辑", "统治绩效详情"],
-      ]);
-    }
-  }
-
   function patchPublicGrades() {
     const net = netRecord();
     if (net && location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) {
@@ -1048,19 +945,12 @@
       const rows = Array.from(screenEl.querySelectorAll(".comparison tbody tr"));
       const structureRow = rows.find(row => ["分项构成", "构成与依据"].includes(row.cells?.[0]?.textContent.trim()));
       if (structureRow) records.forEach((record, index) => patchGradeGroups(structureRow.cells[index + 1], record));
-      patchCompareScores(records);
     }
   }
 
   function patch() {
     ensureStyles();
-    patchPersonOutcomeLink();
-    patchShellLanguage();
     patchPublicGrades();
-    const net = netRecord();
-    if (net) patchScorePresentation(net);
-    const person = personRecord();
-    if (person) patchScorePresentation(person);
   }
 
   globalThis.SecondItemPublicAlias = Object.freeze({patch});

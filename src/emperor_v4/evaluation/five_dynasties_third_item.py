@@ -377,6 +377,7 @@ def _ab_settlement_basis(row: Mapping[str, Any]) -> str:
 def _render_formal_markdown(
     kind: str, records: Sequence[Mapping[str, Any]], *,
     credit_rows: Mapping[str, Mapping[str, Any]] | None = None,
+    c_review_context=None,
 ) -> str:
     human_status = {
         "NOT_APPLICABLE": "不适用",
@@ -486,7 +487,7 @@ def _render_formal_markdown(
             lines.append(
                 f"| {rank} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
                 f"{human_label(row['combat_delivery_grade'])} | {human_label(row['operational_sustainability_cap'])} | "
-                f"{human_label(row['system_reliability_cap'])} | {row['C_overall_grade']} | "
+                f"{human_label(row['system_reliability_cap'])} | {row['final_grade']} | "
                 f"{float(row['C_score_rate']):.1f}% | {float(row[score_key]):.1f} | "
                 f"{int(row.get('strategy_chain_count') or 0)} | {int(row.get('independent_task_count') or 0)} |"
             )
@@ -513,9 +514,9 @@ def _render_formal_markdown(
             continue
         if row.get('public_reading'):
             from emperor_v4.evaluation.third_item_c_public import markdown as c_public_markdown
-            lines += [c_public_markdown(row), '']
+            lines += [c_public_markdown(row, context=c_review_context), '']
             continue
-        if row.get("C_overall_grade") == "C-N":
+        if row.get("final_grade") == "C-N":
             lines += [
                 f"- 裁决：{_markdown_cell(_joined_reasons(row.get('cap_reasons') or []))}",
                 "",
@@ -543,7 +544,7 @@ def _render_formal_markdown(
         for row in unscored:
             lines += [f"### {row['ruler_name']}（暂不计分）", '']
             if row.get('public_reading'):
-                lines += [c_public_markdown(row), '']
+                lines += [c_public_markdown(row, context=c_review_context), '']
             else:
                 lines += [_markdown_cell(_joined_reasons(row.get('cap_reasons') or [])), '']
     return "\n".join(lines).rstrip() + "\n"

@@ -38,6 +38,23 @@ def _scoring_signature(payload):
     return json.dumps(sorted(rows, key=lambda r: r['ruler_id']), ensure_ascii=False, sort_keys=True, separators=(',', ':'))
 
 
+def public_record(row):
+    """Format retained quotations for reading without modifying adopted evidence."""
+    result = copy.deepcopy(row)
+    for item in result['public_evidence_items']:
+        for ref in item['source_refs']:
+            excerpt = ref.get('excerpt')
+            if not isinstance(excerpt, str) or not excerpt.strip():
+                raise ValueError('D1/D3史源缺少excerpt')
+            formatted = _plain_source_excerpt(excerpt)
+            if not formatted:
+                raise ValueError('D1/D3展示引文为空')
+            if 'public_excerpt' in ref and ref['public_excerpt'] != formatted:
+                raise ValueError('D1/D3引文展示与原始转录文字不同值')
+            ref['public_excerpt'] = formatted
+    return result
+
+
 def _verify_text(value, *, name):
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f'D1/D3公开正文为空：{name}')
@@ -52,6 +69,10 @@ def _refresh_payload(payload, axis):
         for key in PUBLIC_RECORD_FIELDS:
             if key not in row:
                 raise ValueError(f'{axis}缺少直接维护的公开字段：{row.get("ruler_name")}/{key}')
+        public_record(row)
+        for item in row['public_evidence_items']:
+            for ref in item['source_refs']:
+                ref.pop('public_excerpt', None)
     payload.update(public_projection_schema_version=PUBLIC_PROJECTION_SCHEMA,
                    public_projection_axis=axis, public_projection_status='FORMAL_UPSTREAM_SOURCE',
                    public_projection_record_count=len(payload.get('records', [])),
@@ -64,11 +85,13 @@ def _refresh_payload(payload, axis):
 
 
 def _verify_source(root, ref, cache):
-    for key in ('path', 'source_title', 'source_locator', 'source_kind', 'excerpt', 'public_excerpt'):
+    for key in ('path', 'source_title', 'source_locator', 'source_kind', 'excerpt'):
         if not isinstance(ref.get(key), str) or not ref[key].strip():
             raise ValueError(f'D1/D3史源缺少{key}')
-    if ref['public_excerpt'] != _plain_source_excerpt(ref['excerpt']):
-        raise ValueError('D1/D3引文展示与原始转录文字不同值')
+    if 'public_excerpt' in ref:
+        raise ValueError('D1/D3只保存原始引文，不得内嵌展示引文副本')
+    if not _plain_source_excerpt(ref['excerpt']):
+        raise ValueError('D1/D3展示引文为空')
     relative = Path(ref['path'])
     path = (root / relative).resolve()
     if relative.is_absolute() or not path.is_relative_to((root / 'docs').resolve()) or not path.is_file():
@@ -145,6 +168,7 @@ def render_public_markdown(payload, axis):
     title = '行政连续性' if axis == 'D1' else '交接稳定'
     lines = [f'# {title}正式阅读视图', '', '> 正文、逐条史源与限制逐字读取正式JSON；档内指数不单独加分。', '']
     for row in payload['records']:
+        row = public_record(row)
         grade = int(row['handoff_level'][-1] if axis == 'D1' else row['D3_grade'][-1])
         lines += [f'## {row["ruler_name"]}（{row["polity"]}）', '',
                   f'- 公开档位：{"EDCBAS"[grade]}；内部指数：{row["direction_index"]}。', '',

@@ -5,6 +5,57 @@ import pytest
 from emperor_v4.evaluation.evidence_sensitivity import analyze, render, rank_assessments
 
 
+def test_compact_assessment_keeps_one_public_authority_and_is_read_only():
+    from emperor_v4.evaluation.evidence_sensitivity import compact_assessment
+    projection=dict(score_label='当前分数',rank_label='当前名次',public_basis='采用依据',public_issues=[])
+    original=dict(public_projection=deepcopy(projection),score_status='ADOPTED',**deepcopy(projection))
+    before=deepcopy(original)
+    compact=compact_assessment(original)
+    assert compact==dict(public_projection=projection,score_status='ADOPTED')
+    assert compact_assessment(compact)==compact
+    compact['public_projection']['public_issues'].append('消费端修改')
+    assert original==before
+    original['public_basis']='另有不同依据，不能直接删除'
+    with pytest.raises(ValueError,match='不同值'):compact_assessment(original)
+
+
+def referenced_inputs():
+    from emperor_v4.evaluation.evidence_sensitivity import REFERENCED_SCHEMA
+    ranked=[dict(ruler_id=rid,ruler_name=rid,evidence_assessment=dict(public_projection=dict(public_basis=rid)),
+                 prudent_score_interval=dict(lower=value,upper=value)) for rid,value in [('a',1),('b',2)]]
+    payload=dict(schema_version=REFERENCED_SCHEMA,ranking_source='current-ranking.json',pool_count=2,
+                 records=[dict(ruler_id=rid,ruler_name=rid) for rid in ('b','a')])
+    return payload,ranked
+
+
+def test_sensitivity_joins_current_ranking_by_identity_without_copying_into_source():
+    from emperor_v4.evaluation.evidence_sensitivity import ranking_reading_payload
+    payload,ranked=referenced_inputs();before=deepcopy((payload,ranked))
+    result=ranking_reading_payload(payload,ranked)
+    assert [r['ruler_id'] for r in result['records']]==['b','a']
+    assert [r['prudent_score_interval']['lower'] for r in result['records']]==[2,1]
+    assert all(r['evidence_assessment']['public_projection']['public_basis']==r['ruler_id'] for r in result['records'])
+    result['records'][0]['prudent_score_interval']['lower']=9
+    assert (payload,ranked)==before
+    ranked[1]['prudent_score_interval']['upper']=3
+    assert ranking_reading_payload(payload,ranked)['records'][0]['prudent_score_interval']['upper']==3
+
+
+@pytest.mark.parametrize('fault',['duplicate_source','duplicate_target','missing_id','different_pool','different_name','missing_context','embedded_copy','missing_records'])
+def test_sensitivity_rejects_ambiguous_or_duplicated_ranking_context(fault):
+    from emperor_v4.evaluation.evidence_sensitivity import ranking_reading_payload
+    payload,ranked=referenced_inputs()
+    if fault=='duplicate_source':ranked.append(deepcopy(ranked[0]))
+    elif fault=='duplicate_target':payload['records'][1]=deepcopy(payload['records'][0])
+    elif fault=='missing_id':del ranked[0]['ruler_id']
+    elif fault=='different_pool':ranked[0]['ruler_id']='other'
+    elif fault=='different_name':ranked[0]['ruler_name']='另一人'
+    elif fault=='missing_context':del ranked[0]['evidence_assessment']
+    elif fault=='embedded_copy':payload['records'][0]['prudent_score_interval']={}
+    else:ranked=None
+    with pytest.raises(ValueError):ranking_reading_payload(payload,ranked)
+
+
 def test_public_projection_only_quantifies_supported_scenarios():
     from emperor_v4.evaluation.evidence_sensitivity import public_assessment
     rows,gov,case=inputs()

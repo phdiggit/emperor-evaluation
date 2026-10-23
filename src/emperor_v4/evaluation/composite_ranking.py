@@ -280,7 +280,8 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
 
     ready_by_id = {row["ruler_id"]: row for row in ready}
     for row in records:
-        row["component_details"] = component_details(detail_sources, ready_by_id[row["ruler_id"]], row)
+        # Validate component/source agreement without persisting the reading copy.
+        component_details(detail_sources, ready_by_id[row["ruler_id"]], row)
     records.sort(key=lambda row: (-row["total_score"], row["ruler_id"]))
     scores = [float(row["total_score"]) for row in records]
     for index, row in enumerate(records):
@@ -291,6 +292,9 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
     annotate_ranking(workspace_root, records, pool['records'], detail_sources)
     from emperor_v4.evaluation.prudent_score_intervals import attach as attach_prudent_intervals
     prudent_coverage = attach_prudent_intervals(workspace_root, records)
+    from emperor_v4.evaluation.evidence_sensitivity import compact_assessment
+    for row in records:
+        row['evidence_assessment'] = compact_assessment(row['evidence_assessment'])
     pending.sort(key=lambda row: row["ruler_id"])
     fourth_review = {
         key: payloads["fourth_item"].get(key, {})

@@ -27,6 +27,12 @@ AXIS_FIELDS = {
 GRADE_RANGES = ((0, 29), (30, 44), (45, 59), (60, 74), (75, 89), (90, 100))
 
 
+def _reject_grade_aliases(row: Mapping[str, Any]) -> None:
+    aliases = {'raw_grade', 'C_overall_grade'} & row.keys()
+    if aliases:
+        raise ValueError(f'C总档只保存axis_floor_grade与final_grade，不得保存重复别名：{sorted(aliases)}')
+
+
 def _grade_number(value: object) -> int | None:
     match = re.search(r"(\d+)$", str(value or ""))
     return int(match.group(1)) if match else None
@@ -73,6 +79,8 @@ def _chain_profile(chains: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
 
 
 def _records_by_id(payload: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
+    for row in payload.get('records') or ():
+        _reject_grade_aliases(row)
     return {
         str(row["ruler_id"]): row
         for row in payload.get("records") or ()
@@ -90,6 +98,7 @@ def _source_records_by_id(source: Mapping[str, Any]) -> dict[str, Mapping[str, A
     if len(indexed) != len(records):
         raise ValueError("第三项C战略链正式源人物ID缺失或重复")
     for row in records:
+        _reject_grade_aliases(row.get('formal_writeback', {}).get('fields', {}))
         if "public_reading" in row.get("formal_writeback", {}).get("fields", {}):
             raise ValueError("第三项C公开正文只维护在正式记录，不得存入战略链写回源")
     return indexed
@@ -182,9 +191,11 @@ def write_third_item_c_strategy_chain_settlement(
     )
     from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
 
+    from emperor_v4.evaluation.third_item_c_contract_reading import load_context
     (workspace_root / C_PATH).with_suffix(".md").write_text(
-        _render_formal_markdown("C", updated["records"]),
+        _render_formal_markdown("C", updated["records"], c_review_context=load_context(workspace_root)),
         encoding="utf-8",
+        newline="\n",
     )
     result = source.get("summary", {}).get("formal_writeback") or {}
     return {
@@ -225,11 +236,11 @@ def _verify_inherited_system(row: Mapping[str, Any]) -> None:
 
 
 def _verify_grade_projection(row: Mapping[str, Any]) -> None:
+    _reject_grade_aliases(row)
     final = _grade_number(row.get("final_grade"))
-    overall = row.get("C_overall_grade")
     if final is None:
-        if overall != row.get("final_grade"):
-            raise ValueError(f"{row.get('ruler_name')}最终档兼容字段未同步")
+        if row.get('final_grade') != 'UNKNOWN' or row.get('axis_floor_grade') != 'UNKNOWN':
+            raise ValueError(f"{row.get('ruler_name')}缺证时三轴短板档与最终档须保持UNKNOWN")
         return
     axes = {
         axis: _grade_number(row.get(field))
@@ -240,13 +251,9 @@ def _verify_grade_projection(row: Mapping[str, Any]) -> None:
     floor = min(axes.values())
     if _grade_number(row.get("axis_floor_grade")) != floor:
         raise ValueError(f"{row.get('ruler_name')}axis_floor_grade不闭合")
-    if _grade_number(row.get("raw_grade")) != floor:
-        raise ValueError(f"{row.get('ruler_name')}raw_grade不闭合")
     gate = _grade_number(row.get("gate_cap"))
     if gate is None or final != min(floor, gate):
         raise ValueError(f"{row.get('ruler_name')}final_grade与gate_cap不闭合")
-    if overall != row.get("final_grade"):
-        raise ValueError(f"{row.get('ruler_name')}C_overall_grade与final_grade不一致")
 
 
 def _verify_score_fields(
@@ -350,7 +357,8 @@ def verify_third_item_c_strategy_chain_settlement(
     from emperor_v4.evaluation.third_item_c_contract_reading import load_context
     from emperor_v4.evaluation.talent_registry_store import load_talent_registry, talent_profiles_by_ref
     from emperor_v4.evaluation.third_item_c_five_gate import verify_five_gate
-    five_systems = load_context(workspace_root)["systems"]
+    c_review_context = load_context(workspace_root)
+    five_systems = c_review_context["systems"]
     five_profiles = talent_profiles_by_ref(load_talent_registry(
         workspace_root / "docs/公共成果/军事/02-武将人才等级.json"))
     for source_id, source_row in source_by_id.items():
@@ -390,7 +398,7 @@ def verify_third_item_c_strategy_chain_settlement(
         _verify_score_fields(row, source_row)
         verify_five_gate(row, five_systems, five_profiles)
         before_grade = source_row["formal_writeback"].get("before_formal_overall_grade")
-        if before_grade is not None and before_grade != row.get("C_overall_grade"):
+        if before_grade is not None and before_grade != row.get("final_grade"):
             final_changes.append(row.get("ruler_name"))
 
     expected_summary = source.get("summary", {}).get("formal_writeback") or {}
@@ -399,7 +407,7 @@ def verify_third_item_c_strategy_chain_settlement(
     if expected_summary.get("capability_only_strategy_chain_count") != capability_count:
         raise ValueError("第三项C能力专用战略链总数与正式记录不一致")
     distribution = dict(sorted(Counter(
-        str(row.get("C_overall_grade")) for row in payload["records"]
+        str(row.get("final_grade")) for row in payload["records"]
     ).items()))
     if payload.get("grade_distribution") != distribution:
         raise ValueError("第三项C档位分布摘要不一致")
@@ -407,7 +415,7 @@ def verify_third_item_c_strategy_chain_settlement(
     from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
 
     markdown_path = (workspace_root / C_PATH).with_suffix(".md")
-    if markdown_path.read_text(encoding="utf-8") != _render_formal_markdown("C", payload["records"]):
+    if markdown_path.read_text(encoding="utf-8") != _render_formal_markdown("C", payload["records"], c_review_context=c_review_context):
         raise ValueError("第三项C Markdown与正式C JSON渲染结果不一致")
     return {
         "status": "PASS",

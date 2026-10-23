@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.third_item_b_public import AXES, reading_projection, combination, region_values, verify_sources
+from emperor_v4.evaluation.third_item_b_sources import expand_readings, pack_sources
 
 ROOT = Path(__file__).resolve().parents[1]
 AB = Path('docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json')
@@ -25,7 +26,7 @@ def synthetic():
     row=dict(ruler_name='合成人物',ruler_id='SYNTHETIC',axes=axes,B80_score_points=11.4,
              control_contribution_type='NEW_RECOVERED_REBUILT',b1_control_equivalents=dict(start=1,end=1,net_change=0,weighted_value=.4),
              b1_region_adjudications=[])
-    return row,dict(B80_adjudication=b)
+    return pack_sources(row),dict(B80_adjudication=b)
 
 
 def test_raw_and_adopted_rates_are_separate_and_inputs_stay_read_only():
@@ -80,7 +81,7 @@ def test_b4_changed_review_basis_requires_authored_prose_to_be_checked():
 def test_source_cannot_support_itself_from_its_public_copy(tmp_path):
     (tmp_path/'source.json').write_text(json.dumps(dict(ruler_id='SYNTHETIC',public_copy='UNSUPPORTED')),encoding='utf-8')
     ref=dict(path='source.json',label='合成来源',kind='合成材料',binding='UNSUPPORTED')
-    payload=dict(records=[dict(axes={axis:dict(public_reading=dict(sources=[ref],evidence_items=[])) for axis in AXES})])
+    payload=dict(records=[pack_sources(dict(axes={axis:dict(public_reading=dict(sources=[ref],evidence_items=[])) for axis in AXES}))])
     with pytest.raises(ValueError,match='定位不匹配'):verify_sources(tmp_path,payload)
 
 
@@ -88,8 +89,9 @@ def test_formal_narratives_review_states_and_reader_values_share_current_authori
     ab=load_json(ROOT/AB);credits={row['ruler_id']:row for row in load_json(ROOT/CREDIT)['records']}
     expected={}
     for row in ab['records']:
+        readings=expand_readings(row)
         for axis in AXES:
-            reading=row['axes'][axis]['public_reading']
+            reading=readings[axis]
             assert reading==reading_projection(axis,row,credits[row['ruler_id']])
             if axis=='B4':
                 assert reading['review_status']==row['axes'][axis].get('maturity_review',{}).get('status','NOT_REVIEWED')

@@ -61,7 +61,7 @@ def _c4_row() -> dict:
 
 def test_c_public_projection_keeps_scoring_fields_and_exposes_every_required_role():
     for axis, row in [("C1", _state_row("C1"))]:
-        row.update(public_story='合成人物的具体经历。', public_adjudication_summary='当前证据只支持已证范围。',
+        row.update(public_source_note='合成来源说明。', public_story='合成人物的具体经历。', public_adjudication_summary='当前证据只支持已证范围。',
                    public_boundary='只计本轴对象。', public_loss_label='已证损害，尚不能确认更大范围。',
                    public_evidence_items=[{'id':'C1-PUBLIC-SYNTHETIC','public_label':'实际结果',
                      'public_role':'主要状态','public_basis':'合成史料对应的事实。','public_boundary':None,
@@ -88,6 +88,23 @@ def test_c_public_projection_keeps_scoring_fields_and_exposes_every_required_rol
 def test_refresh_rejects_missing_authored_fields_instead_of_guessing():
     with pytest.raises(ValueError, match='直接维护'):
         _refresh_payload('C1', {'scores':[_state_row('C1')]})
+
+
+@pytest.mark.parametrize('axis', ['C1', 'C2', 'C3', 'C4'])
+def test_calculation_is_generated_read_only_from_current_fields(axis):
+    from emperor_v4.evaluation.second_item_c_reading import calculation, calculation_record
+    row = _c4_row() if axis == 'C4' else _state_row(axis)
+    before = deepcopy(row)
+    expanded = calculation_record(axis, row)
+    assert expanded.pop('public_calculation') == calculation(axis, row)
+    assert expanded == row == before
+    expanded['ruler_name'] = '消费端修改'
+    assert row == before
+    row['score'] += 1
+    assert calculation_record(axis, row)['public_calculation'] == calculation(axis, row)
+    row['public_calculation'] = '旧副本'
+    with pytest.raises(ValueError, match='生成副本'):
+        calculation_record(axis, row)
 
 
 def test_source_binding_resolves_exact_quote_and_same_person():
@@ -142,6 +159,12 @@ def test_material_collection_cannot_masquerade_as_direct_claim_support():
     report = _verify_payload('C1', payload)
     assert report['claim_support_item_count'] == 0
     assert report['material_collection_item_count'] == 1
+    assert 'public_calculation' not in payload['records'][0]
+    embedded = deepcopy(payload)
+    embedded['records'][0]['public_calculation'] = '重新内嵌的生成副本'
+    with pytest.raises(ValueError, match='生成副本'):
+        _verify_payload('C1', embedded)
+    assert 'public_calculation' not in _refresh_payload('C1', embedded)['records'][0]
     payload['records'][0]['public_evidence_items'][0]['evidence_mode'] = 'DIRECT'
     with pytest.raises(ValueError, match='材料汇集不能冒充逐条事实证明'):
         _verify_payload('C1', payload)
@@ -160,8 +183,10 @@ def test_upstream_language_keeps_negation_numbers_and_unresolved_evidence():
 
 
 def test_c4_authored_roles_and_boundaries_survive_refresh():
+    from emperor_v4.evaluation.second_item_c_reading import RECOVERY_SECTIONS, recovery_story, recovery_public_record
     row = _c4_row()
-    row.update(public_story='恢复与本人责任分别有材料支持。', public_adjudication_summary='独立损害与恢复分别结算。',
+    row['public_reading_sections'] = [dict(id=sid,title=title,body='恢复与本人责任分别有材料支持。') for sid,title in RECOVERY_SECTIONS]
+    row.update(public_source_note='合成来源说明。', public_story=recovery_story(row['public_reading_sections']), public_adjudication_summary='独立损害与恢复分别结算。',
                public_boundary='已经计入的负担不重复计分。', public_loss_label='净调整。',
                public_evidence_items=[{'id':'C4-PUBLIC-SYNTHETIC-'+str(index),
                  'public_label':role,'public_role':role,'public_basis':text,'public_boundary':None,
@@ -172,9 +197,27 @@ def test_c4_authored_roles_and_boundaries_survive_refresh():
                    ('状态恶化','只计本人造成的可比下降。'),('额外代价','只计独立剩余负担。')])])
     before = deepcopy(row)
     actual = _refresh_payload('C4', {'records':[row]})['records'][0]
-    for key in ('public_story','public_adjudication_summary','public_boundary','public_loss_label','public_evidence_items'):
+    assert 'public_story' not in actual
+    assert recovery_public_record(actual)['public_story'] == before['public_story']
+    for key in ('public_adjudication_summary','public_boundary','public_loss_label','public_evidence_items','public_reading_sections'):
         assert actual[key] == before[key]
     assert 'source_refs' in actual['public_evidence_items'][0]
+
+
+def test_recovery_story_comes_from_current_sections_without_mutating_them():
+    from emperor_v4.evaluation.second_item_c_reading import recovery_public_record
+    row = _synthetic_recovery_reading()
+    expected = row.pop('public_story')
+    before = deepcopy(row)
+    result = recovery_public_record(row)
+    assert result['public_story'] == expected
+    result['public_reading_sections'][0]['body'] = '消费端修改。'
+    assert row == before
+    row['public_reading_sections'][0]['body'] = '修订后的恢复说明。'
+    assert '修订后的恢复说明。' in recovery_public_record(row)['public_story']
+    row['public_story'] = '失配的旧副本。'
+    with pytest.raises(ValueError, match='与分栏不同值'):
+        recovery_public_record(row)
 
 
 def _synthetic_recovery_reading(current=True):

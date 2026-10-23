@@ -70,11 +70,13 @@ def fmt(value):
 
 
 def calculation(row):
+    from .third_item_c_strategy_chain import _reject_grade_aliases
+    _reject_grade_aliases(row)
     axes = [grade(row[k]) for k in FIELDS]
-    raw, final = grade(row['raw_grade']), grade(row['final_grade'])
+    raw, final = grade(row['axis_floor_grade']), grade(row['final_grade'])
     cap = row['gate_cap']
     if any(value is None for value in axes):
-        if any(row.get(key) != 'UNKNOWN' for key in ('axis_floor_grade', 'raw_grade', 'final_grade', 'C_overall_grade')) or any(row.get(key) is not None for key in ('C_score_points', 'C_score_rate', 'C_score_band_position')):
+        if any(row.get(key) != 'UNKNOWN' for key in ('axis_floor_grade', 'final_grade')) or any(row.get(key) is not None for key in ('C_score_points', 'C_score_rate', 'C_score_band_position')):
             raise ValueError('必要轴缺证时总档和分数必须保持未知，不得按零分合成')
         return dict(axis_grades=axes, raw_grade=None, gate_cap=cap, final_grade=None,
                     points=None, rate=None, total_label='证据不足 · 暂不计分',
@@ -83,7 +85,7 @@ def calculation(row):
                     method=METHOD, outcome_text='已知战争结果仍保留，但不能替代缺证的必要能力。',
                     formula='军事体系及第三项合计暂不计分，不以零分填补，也不进入综合排名。',
                     outcome_profile=deepcopy(row.get('strategy_chain_outcome_profile') or {}))
-    if min(axes) != raw or grade(row['axis_floor_grade']) != raw or min(raw, cap) != final or grade(row['C_overall_grade']) != final:
+    if min(axes) != raw or min(raw, cap) != final:
         raise ValueError('第三项C三轴、原始总档、封顶与最终档不一致，禁止为展示改分')
     band = row['C_score_band']
     rate, points = float(row['C_score_rate']), float(row['C_score_points'])
@@ -138,13 +140,13 @@ def calculation(row):
                 outcome_profile=deepcopy(row.get('strategy_chain_outcome_profile') or {}))
 
 
-def reading_projection(row):
+def reading_projection(row, *, context):
     authored = row.get('public_reading')
     if not isinstance(authored, dict):
         raise ValueError(f'{row["ruler_name"]}缺少第三项C上游正文')
-    from .third_item_c_contract_reading import validate_review
-    validate_review(row)
-    result = deepcopy(authored)
+    from .third_item_c_contract_reading import reading_review
+    from .third_item_c_passages import expand_passages
+    result = expand_passages(authored)
     for key in ('story', 'window', 'responsibility', 'boundary', 'source_note'):
         value = result.get(key)
         if not isinstance(value, str) or not value.strip() or INTERNAL.search(value):
@@ -157,6 +159,14 @@ def reading_projection(row):
     if not evidence_ids or len(evidence_ids) != len(result['evidence_items']):
         raise ValueError('第三项C逐条材料为空或标识重复')
     evidence_by_id = {e['id']: e for e in result['evidence_items']}
+    # Validate authored bindings before deriving the review that consumes them.
+    for axis in AXES:
+        a = result['axes'][axis]
+        if not a.get('basis') or INTERNAL.search(a['basis']) or not a.get('evidence_refs') or not set(a['evidence_refs']) <= evidence_ids:
+            raise ValueError(f'{row["ruler_name"]} {axis}依据或显式材料绑定无效')
+        if any(not x.get('reason') or INTERNAL.search(x['reason']) or x.get('evidence_ref') not in a['evidence_refs'] for x in a.get('arguments', [])):
+            raise ValueError('逐轴论证必须说明所引材料的作用，并绑定本轴已声明的材料')
+    result['contract_review'] = reading_review(row, context=context)
     for i, axis in enumerate(AXES):
         a = result['axes'][axis]
         if not a.get('basis') or INTERNAL.search(a['basis']) or not a.get('evidence_refs') or not set(a['evidence_refs']) <= evidence_ids:
@@ -197,15 +207,14 @@ def reading_projection(row):
     return result
 
 
-def verify_sources(root, payload):
-    from .third_item_c_contract_reading import load_context, validate_review
-    context = load_context(root)
+def verify_sources(root, payload, *, context=None):
+    from .third_item_c_contract_reading import load_context
+    context = load_context(root) if context is None else context
     from emperor_v4.evaluation.battle_registry_store import load_battle_registry
     registry = load_battle_registry(root / 'docs/公共成果/军事/01-战役登记.json')
     battles = {r['war_event_id']: r for r in registry['records']}
     for row in payload['records']:
-        validate_review(row, context)
-        data = reading_projection(row)
+        data = reading_projection(row, context=context)
         chain_ids = {c['chain_id'] for c in data['contract_review']['chains']}
         for e in data['evidence_items']:
             if not set(e.get('c_chain_refs', [])) <= chain_ids:
@@ -235,8 +244,8 @@ def verify_sources(root, payload):
     return len(payload['records'])
 
 
-def markdown(row):
-    data = reading_projection(row)
+def markdown(row, *, context):
+    data = reading_projection(row, context=context)
     c = data['calculation']
     lines = [f'评价时期：{data["window"]}', '', data['assessment_scope_note'], '', data['review_note'], '', data['story'], '', data['responsibility'], '']
     for axis in AXES:

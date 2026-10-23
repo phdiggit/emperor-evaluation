@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 
 import pytest
 
@@ -13,10 +14,11 @@ def test_scoring_sync_preserves_only_the_existing_public_projection():
             "value": 1,
             "public_boundary": "正式视图原有边界",
         },
-        "steps": [
+        "strategy_chains": [
             {
+                "chain_id": "synthetic-chain",
                 "credit": 0.5,
-                "public_note": "正式视图原有步骤说明",
+                "public_boundary": "正式视图原有步骤说明",
             }
         ],
     }
@@ -26,19 +28,20 @@ def test_scoring_sync_preserves_only_the_existing_public_projection():
         "nested": {
             "value": 2,
             "public_boundary": "另一投影的边界不得迁入",
-            "public_extra": "正式视图不存在的公开字段不得新增",
+            "public_level_label": "正式视图不存在的公开字段不得新增",
         },
-        "steps": [
+        "strategy_chains": [
             {
+                "chain_id": "synthetic-chain",
                 "credit": 1.0,
-                "public_note": "另一投影的步骤说明不得迁入",
+                "public_boundary": "另一投影的步骤说明不得迁入",
             }
         ],
     }
 
     synchronized = _replace_non_public_preserving_public(current, source)
 
-    assert list(synchronized) == ["score", "public_basis", "nested", "steps"]
+    assert list(synchronized) == ["score", "public_basis", "nested", "strategy_chains"]
     assert synchronized == {
         "score": 2,
         "public_basis": "正式视图原有公开说明",
@@ -46,13 +49,104 @@ def test_scoring_sync_preserves_only_the_existing_public_projection():
             "value": 2,
             "public_boundary": "正式视图原有边界",
         },
-        "steps": [
+        "strategy_chains": [
             {
+                "chain_id": "synthetic-chain",
                 "credit": 1.0,
-                "public_note": "正式视图原有步骤说明",
+                "public_boundary": "正式视图原有步骤说明",
             }
         ],
     }
+
+
+def test_scoring_sync_matches_people_and_nested_owners_after_reordering():
+    current = dict(records=[dict(ruler_id=rid, score=score,
+        public_reading=dict(story=rid+'正文'),
+        axis_results=[dict(axis=axis, value=1, public_reading=dict(story=rid+axis+'正文')) for axis in ('X','Y')],
+        strategy_chains=[dict(chain_id=rid+'-chain', value=1, public_boundary=rid+'链范围')])
+        for rid,score in [('A',2),('B',1)]])
+    source = dict(records=[dict(ruler_id=rid, score=score,
+        public_reading=dict(story='外来正文不得迁入'),
+        axis_results=[dict(axis=axis, value=2) for axis in ('Y','X')],
+        strategy_chains=[dict(chain_id=rid+'-new', value=2),dict(chain_id=rid+'-chain', value=2)])
+        for rid,score in [('B',3),('A',2)]])
+    before = deepcopy((current, source))
+    result = _replace_non_public_preserving_public(current, source)
+    assert [r['ruler_id'] for r in result['records']] == ['B','A']
+    for row in result['records']:
+        rid = row['ruler_id']
+        assert row['public_reading']['story'] == rid+'正文'
+        assert [a['axis'] for a in row['axis_results']] == ['Y','X']
+        assert all(a['public_reading']['story'] == rid+a['axis']+'正文' and a['value']==2 for a in row['axis_results'])
+        assert 'public_boundary' not in row['strategy_chains'][0]
+        assert row['strategy_chains'][1]['public_boundary'] == rid+'链范围'
+    assert (current, source) == before
+    result['records'][0]['public_reading']['story'] = '消费端变更'
+    assert (current, source) == before
+
+
+def test_scoring_sync_keeps_survivors_on_insertion_and_deletion_without_importing_new_prose():
+    current = dict(records=[dict(ruler_id=rid, public_reading=dict(story=rid)) for rid in ('A','B')])
+    source = dict(records=[dict(ruler_id=rid, public_reading=dict(story='外来正文')) for rid in ('C','B','D')])
+    result = _replace_non_public_preserving_public(current, source)
+    assert result == dict(records=[dict(ruler_id='C'),dict(ruler_id='B',public_reading=dict(story='B')),dict(ruler_id='D')])
+
+
+@pytest.mark.parametrize('side', ['current','source'])
+@pytest.mark.parametrize('bad_rows', [[{'ruler_id':'A'},{'ruler_id':'A'}], [{}], [{'ruler_id':''}], [{'ruler_id':None}]])
+def test_scoring_sync_rejects_ambiguous_person_identity(side, bad_rows):
+    values = dict(current=dict(records=[dict(ruler_id='A', public_reading=dict(story='甲'))]),
+                  source=dict(records=[dict(ruler_id='A')]))
+    values[side]['records'] = bad_rows
+    before = deepcopy(values)
+    with pytest.raises(ValueError, match='身份'):
+        _replace_non_public_preserving_public(**values)
+    assert values == before
+
+
+def test_scoring_sync_never_matches_an_unidentified_public_list_by_position():
+    current = dict(steps=[dict(value=1, public_boundary='原范围')])
+    with pytest.raises(ValueError, match='未声明稳定身份'):
+        _replace_non_public_preserving_public(current, dict(steps=[dict(value=2)]))
+    assert _replace_non_public_preserving_public(dict(steps=[1,2]),dict(steps=[3])) == dict(steps=[3])
+
+
+def test_scoring_sync_requires_field_policy_and_rejects_cross_person_mapping():
+    with pytest.raises(ValueError, match='未声明维护归属'):
+        _replace_non_public_preserving_public(dict(public_new_source='人工正文'),{})
+    with pytest.raises(ValueError, match='未声明维护归属'):
+        _replace_non_public_preserving_public({},dict(public_new_source='人工正文'))
+    with pytest.raises(ValueError, match='身份不一致'):
+        _replace_non_public_preserving_public(dict(ruler_id='A',public_reading={}),dict(ruler_id='B'))
+
+
+def test_total_writer_keeps_public_fields_with_owner_when_scores_change_rank(monkeypatch, tmp_path):
+    from emperor_v4.evaluation import third_item_current_settlement as settlement
+    from emperor_v4.evaluation import five_dynasties_third_item as rendering
+
+    old = dict(records=[dict(ruler_id=rid, third_item_score_points=score,
+                           public_military_net_loss=dict(public_adjudication_summary=rid+'损失说明'))
+                        for rid,score in [('A',2),('B',1)]])
+    new = dict(records=[dict(ruler_id=rid, third_item_score_points=score)
+                        for rid,score in [('B',3),('A',2)]])
+    for path,payload in [(settlement.FORMAL_PATH,old), (settlement.AB_PATH,dict(records=[])),
+                         (settlement.RESULT_CREDIT_ADJUDICATIONS_PATH,dict(records=[]))]:
+        target = tmp_path/path
+        target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_text(json.dumps(payload,ensure_ascii=False),encoding='utf-8')
+    monkeypatch.setattr(settlement,'_load_a_axis_narrative_adjudications',lambda root:{})
+    for name in ('_validate_a_axis_closure','_synchronize_current_ab_view','_synchronize_current_c_outcome_view'):
+        monkeypatch.setattr(settlement,name,lambda *args,**kwargs:None)
+    monkeypatch.setattr(rendering,'validate_ab_shared_handoffs',lambda *args,**kwargs:None)
+    monkeypatch.setattr(settlement,'build_current_third_item_settlement',lambda root:deepcopy(new))
+    monkeypatch.setattr(settlement,'_render_current_weighted_markdown',lambda records:'synthetic view\n')
+    result = settlement.write_current_third_item_settlement(tmp_path)
+    saved = json.loads((tmp_path/settlement.FORMAL_PATH).read_text(encoding='utf-8'))
+    assert saved == result
+    assert [r['ruler_id'] for r in saved['records']] == ['B','A']
+    assert [r['third_item_score_points'] for r in saved['records']] == [3,2]
+    for row in saved['records']:
+        assert row['public_military_net_loss']['public_adjudication_summary'] == row['ruler_id']+'损失说明'
 
 
 def test_c_major_result_summary_counts_chains_and_separates_capability():

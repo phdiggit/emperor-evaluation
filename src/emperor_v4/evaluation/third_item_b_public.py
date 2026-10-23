@@ -7,8 +7,8 @@ import json
 import re
 from pathlib import Path
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.third_item_b_sources import AXES, expand_readings
 
-AXES = ('B1', 'B2', 'B4')
 RATE_TABLE = ((0, 15, 29), (30, 37, 44), (45, 52, 59), (60, 67, 74), (75, 82, 89), (90, 95, 100))
 BANDS = {'LOW': '低位', 'MID': '中位', 'HIGH': '高位'}
 REGION_LABELS = {'MESOPOTAMIA_CAUCASUS_NETWORK': '两河—阿塞拜疆—南高加索主要军政网络',
@@ -98,7 +98,7 @@ def reading_projection(axis_name, row, credit):
     authored = axis.get('public_reading')
     if not isinstance(authored, dict):
         raise ValueError(f"{row['ruler_name']} {axis_name}缺少直接维护的公开正文")
-    result = deepcopy(authored)
+    result = expand_readings(row)[axis_name]
     for field in ('story', 'decision', 'responsibility', 'window', 'boundary', 'adoption_basis'):
         value = result.get(field)
         if not isinstance(value, str) or not value.strip() or INTERNAL.search(value):
@@ -174,8 +174,9 @@ def verify_sources(root: Path, payload):
         if isinstance(value, list): return [non_public(item) for item in value]
         return value
     for row in payload['records']:
+        readings = expand_readings(row)
         for key in AXES:
-            reading = row['axes'][key]['public_reading']
+            reading = readings[key]
             refs = list(reading['sources']) + [ref for item in reading['evidence_items'] for ref in item['sources']]
             for ref in refs:
                 target = ref.get('path', '')

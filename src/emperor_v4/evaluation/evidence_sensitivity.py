@@ -13,6 +13,55 @@ CONFIG_PATH = Path('config/common/evidence-interpretation-cases.json')
 OUTPUT_JSON = Path('docs/评分结算/净收益/综合分析/02-证据裁决敏感性.json')
 OUTPUT_MD = OUTPUT_JSON.with_suffix('.md')
 STATUSES = {'SUPPORTED_INTERPRETATION', 'REJECTED_DIAGNOSTIC', 'UNRESOLVED_EVIDENCE_GAP'}
+PUBLIC_ASSESSMENT_ALIASES = ('score_label', 'rank_label', 'public_basis', 'public_issues')
+REFERENCED_SCHEMA = 'evidence-sensitivity-v2-ranking-reference'
+
+
+def compact_assessment(assessment: dict) -> dict:
+    """Keep published labels only in their public projection, without loss."""
+    result = deepcopy(assessment)
+    projection = result.get('public_projection')
+    if not isinstance(projection, dict) or not set(PUBLIC_ASSESSMENT_ALIASES) <= projection.keys():
+        raise ValueError('证据评价缺少完整公开投影')
+    for key in PUBLIC_ASSESSMENT_ALIASES:
+        if key in result and result[key] != projection[key]:
+            raise ValueError(f'证据评价外层字段与公开投影不同值：{key}')
+        result.pop(key, None)
+    return result
+
+
+def ranking_reading_payload(payload: dict, ranking_records) -> dict:
+    """Join current ranking context by identity; never persist copied contexts."""
+    if payload.get('schema_version') != REFERENCED_SCHEMA or not isinstance(payload.get('ranking_source'), str) or not payload['ranking_source']:
+        raise ValueError('证据敏感性缺少明确的总榜来源声明')
+    if not isinstance(ranking_records, list):
+        raise ValueError('证据敏感性阅读需要显式传入当前总榜记录')
+    records = payload.get('records')
+    if not isinstance(records, list) or payload.get('pool_count') != len(records):
+        raise ValueError('证据敏感性人物集合无效')
+    def index(rows):
+        result = {}
+        for row in rows:
+            rid = row.get('ruler_id') if isinstance(row, dict) else None
+            if not isinstance(rid, str) or not rid or rid in result:
+                raise ValueError('证据敏感性／总榜人物身份缺失或重复')
+            result[rid] = row
+        return result
+    source = index(ranking_records)
+    if set(index(records)) != set(source):
+        raise ValueError('证据敏感性与当前总榜人物集合不一致')
+    result = deepcopy(payload)
+    for row in result['records']:
+        ranked = source[row['ruler_id']]
+        if row.get('ruler_name') != ranked.get('ruler_name'):
+            raise ValueError('证据敏感性与当前总榜人物名称不一致，须重建')
+        for key in ('evidence_assessment', 'prudent_score_interval'):
+            if key in row:
+                raise ValueError('证据敏感性不得保存总榜评价或审慎区间副本')
+            if not isinstance(ranked.get(key), dict):
+                raise ValueError(f'当前总榜缺少{key}')
+            row[key] = deepcopy(ranked[key])
+    return result
 
 
 def public_assessment(row: dict, analysis: dict, registry: dict) -> dict:
@@ -318,13 +367,11 @@ def build(root: Path) -> dict:
                 if not any(r.get('ruler_id')==fragment.split('=',1)[1] for r in rows):
                     raise ValueError(f'证据人物锚不存在：{ref}')
     result=analyze(records,mapped,cases)
-    assessments={r['ruler_id']:r['evidence_assessment'] for r in records}
-    prudent_intervals={r['ruler_id']:r['prudent_score_interval'] for r in records}
+    result['schema_version'] = REFERENCED_SCHEMA
+    result['ranking_source'] = project['scoring_contract']['composite_ranking_json']
     details=load_detail_sources(root)
     pool_by_id={r['ruler_id']:r for r in pool}
     for row in result['records']:
-        row['evidence_assessment']=assessments[row['ruler_id']]
-        row['prudent_score_interval']=prudent_intervals[row['ruler_id']]
         person=pool_by_id[row['ruler_id']]; ids=person['source_item_ids']
         first_name=canonical_item_name('first_item',(person.get('source_item_names') or {}).get('first_item') or person['ruler_name'])
         first=details['first_cost'].get(first_name)
@@ -348,7 +395,9 @@ def build(root: Path) -> dict:
     return result
 
 
-def render(payload: dict) -> str:
+def render(payload: dict, *, ranking_records=None) -> str:
+    if payload.get('schema_version') == REFERENCED_SCHEMA or 'ranking_source' in payload:
+        payload = ranking_reading_payload(payload, ranking_records)
     labels={'SUPPORTED_INTERPRETATION':'证据允许解释','REJECTED_DIAGNOSTIC':'已排除假设','UNRESOLVED_EVIDENCE_GAP':'尚未闭合的证据问题'}
     lines=['# 证据裁决敏感性','',
            '本页只展示已登记的证据解释。全池列示不表示全池历史不确定性已量化；未量化不显示为零跨度。局部情景固定其他裁决与权重，不是统计置信区间，不构造综合置信度折扣。', '',
@@ -415,7 +464,8 @@ def render(payload: dict) -> str:
 
 def run(root: Path, *, write: bool=False) -> dict:
     payload=build(root)
-    markdown=render(payload)
+    ranking_records=load_json(root/payload['ranking_source'])['records']
+    markdown=render(payload,ranking_records=ranking_records)
     if write:
         (root/OUTPUT_JSON).write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
         (root/OUTPUT_MD).write_text(markdown,encoding='utf-8',newline='\n')

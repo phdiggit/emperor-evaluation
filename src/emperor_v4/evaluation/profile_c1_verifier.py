@@ -148,7 +148,8 @@ def verify(root: Path) -> dict[str, object]:
 
     settlement = _load(settlement_path)
     pool = _load(pool_path)
-    audit = _load(audit_path)
+    from emperor_v4.evaluation.profile_unit_reasons import load_unit_dispositions
+    audit = load_unit_dispositions(audit_path)
     review = _load(review_path)
     manifest = _load(manifest_path)
     config = yaml.safe_load(config_path.read_text(encoding="utf-8"))

@@ -70,6 +70,18 @@ python reader/serve.py
 
 第三项A正文只在结果信用输入的`axes.A1/A2.public_reading`维护，B正文只在AB正式记录的`axes.B1/B2/B4.public_reading`维护。AB与结果信用记录不再保存`public_axis_projections`副本，AB的A轴也不复制正文；Markdown与阅读页面按人物ID读取上述来源。
 
+B三轴及逐条依据的完整来源对象统一保存于本人的`public_b_source_catalog`，各处用`source_refs`保留原有顺序和重复采用；只合并字段、值与字段顺序均相同的对象。编辑来源保留登记ID，正文和引用须同步维护。公开构建、来源校验和阅读视图经`third_item_b_sources.expand_readings`展开；悬空引用、内嵌副本、重复或未使用的登记对象均报错。
+
+第三项总表不另存汇总文案、材料列表和`public_military_cost`副本；完整公开记录由`third_public_record`按同一人物ID从现行AB、C等组件组装。普通成本正文保留在`global_cost_credit_profile`，重大军事净毁损说明保留在`public_military_net_loss`；组装不修改来源，跨人物引用报错。
+
+综合榜的证据评价公开标签与正文只保存在`evidence_assessment.public_projection`。证据裁决敏感性结果通过顶层`ranking_source`声明总榜来源，不复制逐人证据评价和审慎区间；正式命令核验当前总榜并重建敏感性结果，阅读渲染显式传入总榜记录，按人物ID关联。身份缺失、重复、集合或名称不匹配、重新内嵌副本均报错；此关联不改变评分、情景计算或名次。
+
+第三／第四项更新字段的归属由`third_fourth_public_fields.py`显式登记。评分同步按人物、轴、战略链或材料包的稳定ID保留本对象的公开字段，禁止按数组位置移接；新增对象不继承其他来源的公开副本。公开刷新只清理列明的派生字段，正文和来源目录默认保留；A／B阅读计算字段的更新及AB旧A轴正文副本的移除在调用处明确声明。新增公开字段或含公开内容的对象列表须登记维护归属与身份规则，未知字段、重复或缺失身份均报错。
+
+第二项C4的正文只维护`public_reading_sections`六个分栏，`recovery_public_record`按既定顺序拼接阅读正文，不重复保存`public_story`。D1／D3保留原始采用引文`excerpt`及定位信息，`second_item_d1_d3_public.public_record`沿用既有格式规则生成`public_excerpt`，不另存展示副本；原始引文仍须与史源逐字核验。
+
+第四项各轴公开字段只在正式记录的`axis_results`内维护，人物级不另存轴投影、材料拼接列表或汇总文案副本；读取时按轴代码定位，汇总按A/B/C顺序组装，缺失或重复轴均报错。
+
 主态低谷与净恢复的逐人阅读页用`governance-state-recovery-report --write`刷新，以`governance-state-recovery-verify`核对；不额外维护跨项文件哈希。军事人才刷新保留身份和已裁档位，不从父战役重新生成裁决。
 
 ## 公众展示总原则
@@ -84,9 +96,27 @@ python reader/serve.py
 
 具体评分、归责和去重规则见上表所列合同。展示不另定义评分规则，也不从数量、篇幅或名望生成解释。
 
+综合榜正式JSON不保存`component_details`展示副本；阅读构建通过`composite_details.reading_records`按规范池人物ID与各项正式来源生成完整明细。总榜结算仍校验各项明细与合成结果同值，阅读构建检查就绪人物集合、身份及重复ID，不回写正式记录。
+
+画像C1、C3、M4保留的入口单元处置记录使用`profile-unit-reason-catalog-v1`理由存储格式：文件级`reason_catalog`保存完整原文，各单元按`reason_ref`引用。读取与维护使用`profile_unit_reasons.load_unit_dispositions`和`write_unit_dispositions`，写入自动合并完全相同的理由；理由不同则分别保留。目录不得存在悬空引用、未使用条目、重复正文或单元内嵌副本；不按处置状态猜测理由，不改变单元身份、来源、顺序或采用关系。
+
+第二项C1—C4不落盘`public_calculation`生成副本；`second_item_c_reading.calculation_record`按当前正式字段生成原有计算说明，供Markdown、人物详情和全池页面共用。刷新只维护元数据与阅读视图，正式校验拒绝重新内嵌计算说明；人工正文、来源说明及证据绑定仍直接维护在正式记录。
+
+M1人才登记投影使用`m1-registry-cells-v1`存储格式，保留成果难度、战役角色两份有序原列表；两段`<br>`拼接文本及配对列表由`profile_m1_projection.registry_projection`生成。独立维护的配对展示正文仍原样保存，不以拼接文本覆盖；列表长度或编号不匹配时拒绝生成。角色裁决及父链上下文不从人才登记反推。
+
+第二项C1—C4的完整来源说明保存在各轴`public_source_note_catalog`，每人按`public_source_note_ref`引用；不同原文分别保留。`second_item_c_source_notes.source_note_records`供读取方展开原文，`compact_source_notes`供刷新时合并完全相同的说明。缺失、悬空引用、目录未使用条目和内嵌副本均报错，不根据其他人物或来源类型猜补说明。
+
 ## 第三项C证据阅读
 
 `third-item-c-public.js`供人物页、详情、对照及全池页共用完整正文。三轴论证按`evidence_ref`连接具体材料；只有总评引用时，说明缺少具体战争依据，不按战名猜配。
+
+正式C记录只在`public_reading`保存公开内容；由它生成的总述、三轴投影、材料列表和显示标签不重复落盘。构建与校验通过`c_public_record`组装完整公开字段，第三项合并直接读取其中的权威总述。
+
+C的总档字段只保存`axis_floor_grade`（三轴短板）和`final_grade`（资格限制后的最终档）；正式记录与战略链写回字段均不保存`raw_grade`、`C_overall_grade`别名。阅读计算的`raw_grade`仍按前者生成，页面与综合明细使用后者作为最终档，未知档仍保留为未知。
+
+逐链回源复核只保存在`public_reading.source_reviews[chain_id]`。正式`contract_review`使用`third-item-c-contract-inputs-v1`，只保存`task_aliases`和`axis_findings`两类人工输入；逐链展开、三轴解释、量表和汇总由现行记录及显式传入的对手、父周期上下文生成。每次构建加载并复用一份上下文，不使用跨运行的旧缓存。阅读输出保持完整结构；人工输入的来源绑定、全链覆盖和相邻档依据仍须校验，正式记录重新内嵌生成字段即报错。
+
+材料卡和逐链复核中的来源摘录按完整对象去重，存入本人`public_reading.source_passage_catalog`，各处用有序的`source_passage_refs`引用。正文、来源路径、摘录类型及其他字段有差异时分别保留；引用顺序、重复引用与各材料的采用范围不变。构建时展开原摘录结构，修改登记中的摘录会同步到所有引用处，史源定位与引文仍须通过核验。
 
 材料展示原编号、采用范围、来源和摘录。`source_passages`只证明摘录能在所指通读文件中找到，不冒充已复核古籍原文。补充材料与跨任期等边界核对分别列出，不能混成本人战争事实。
 
@@ -131,6 +161,8 @@ C5材料强度读正式`intensity`、`material_intensity`；缺失、未知或�
 | `military-reading-notes.json` | 带出处的军事补充摘要与核心交战时间，不参与定档 |
 | `build.py`、军事档案／第一项缓存构建器、`build_site.py` | 投影、分片、校验和完整站点打包 |
 | 非模板HTML、`data/`、`source-revision.json` | 可重建生成物，不手工编辑、不进入Git |
+
+第二项显示名称、档位映射和量表上限统一由`second-item-display.js`提供，先于使用它的脚本加载。`second-item-reading.js`直接输出最终分数文案；公开正文渲染器负责各自内容，不再通过后置脚本反复改写分数或页面措辞。
 
 `GPT`相关源变化后，GitHub Actions构建、检查并发布Pages。发布前核对分支仍是已验证提交，史源链接绑定该提交；发布任务串行，不回写源码。`.tmp/pages-site/`只放运行资源，本地史源阅读使用`serve.py`。验收同时检查工作流和线上版本。
 

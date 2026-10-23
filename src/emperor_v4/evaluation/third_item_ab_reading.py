@@ -115,7 +115,8 @@ def source_links(row: Mapping[str, Any]) -> str:
 
 
 def b_reading_lines(row, name, title):
-    reading = row['axes'][name]['public_reading']
+    from emperor_v4.evaluation.third_item_b_sources import expand_readings
+    reading = expand_readings(row)[name]
     def sources(refs):
         result = []
         for ref in refs:

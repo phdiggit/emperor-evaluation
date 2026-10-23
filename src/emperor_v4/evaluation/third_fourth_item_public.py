@@ -15,6 +15,11 @@ from typing import Any
 from emperor_v4.evaluation.third_fourth_public_language import language_domain
 from emperor_v4.evaluation.third_item_a_public import reading_projection, verify_reading_sources
 from emperor_v4.evaluation.third_item_b_public import reading_projection as b_reading_projection, verify_sources as verify_b_sources
+from emperor_v4.evaluation.third_item_b_sources import AXES as B_AXES, CATALOG as B_SOURCE_CATALOG, pack_sources as pack_b_sources
+from emperor_v4.evaluation.third_fourth_public_fields import (
+    PROJECTION_SOURCE_FIELDS, PROJECTION_DERIVED_FIELDS, PUBLIC_PROJECTION_FIELDS,
+    scoring_view, validate_public_keys,
+)
 from emperor_v4.evaluation.third_item_c_public import reading_projection as c_reading_projection, verify_sources as verify_c_sources
 
 from emperor_v4.evaluation.formal_json_store import (
@@ -56,20 +61,6 @@ SOURCE_COVERAGE_LABELS = {
     "PARTIAL_BUT_SUFFICIENT": "来源覆盖：局部但足够",
     "INSUFFICIENT": "来源覆盖：不足",
 }
-PUBLIC_PROJECTION_FIELDS = {
-    "public_adjudication_summary",
-    "public_evidence_items",
-    "public_boundary",
-    "public_level_label",
-    "public_component_label",
-    "public_axis_projections",
-    "public_military_cost",
-    "public_military_net_loss",
-    "public_reading",
-    "public_exclusion_reading",
-    "public_c_result_reading",
-}
-
 THIRD_ROUTED_PATHS = {
     "AB": THIRD_AB_PATH,
     "C": THIRD_C_PATH,
@@ -339,11 +330,26 @@ def _projection(
     return result
 
 
-def _apply_projection(target: dict[str, Any], projection: dict[str, Any]) -> None:
-    for key in list(target):
-        if key.startswith("public_"):
-            target.pop(key, None)
-    target.update(copy.deepcopy(projection))
+def _apply_projection(target: dict[str, Any], projection: dict[str, Any], *,
+                      source_updates=frozenset(), retired_sources=frozenset()) -> None:
+    """Replace derived fields; protect source containers unless explicitly owned."""
+    validate_public_keys(target)
+    if set(projection) - PUBLIC_PROJECTION_FIELDS:
+        raise ValueError('公开投影包含未声明字段或评分字段')
+    if ((set(source_updates) | set(retired_sources)) - PROJECTION_SOURCE_FIELDS
+            or set(retired_sources) & set(projection)
+            or set(source_updates) - set(projection)):
+        raise ValueError('公开来源字段更新／退役声明无效')
+    for key in PROJECTION_SOURCE_FIELDS & projection.keys():
+        if key not in source_updates and (key not in target or projection[key] != target[key]):
+            raise ValueError(f'公开投影不得改写人工来源字段：{key}')
+    removed = PROJECTION_DERIVED_FIELDS | set(retired_sources)
+    updated = {key: value for key, value in target.items() if key not in removed}
+    updated.update(copy.deepcopy(projection))
+    # A no-op refresh must also preserve serialized field order.
+    if updated != target:
+        target.clear()
+        target.update(updated)
 
 
 def _records(payload: dict[str, Any], key: str = "records") -> list[dict[str, Any]]:
@@ -368,15 +374,7 @@ def _package_index(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 
 
 def _without_public(value: Any) -> Any:
-    if isinstance(value, dict):
-        return {
-            key: _without_public(child)
-            for key, child in value.items()
-            if not key.startswith("public_")
-        }
-    if isinstance(value, list):
-        return [_without_public(child) for child in value]
-    return value
+    return scoring_view(value)
 
 
 def _signature(value: Any) -> str:
@@ -449,16 +447,24 @@ def _verify_projection_fields(row: dict[str, Any], *, prefix: str, ruler_id: str
 def _ab_projection(row: dict[str, Any], credit: dict[str, Any]) -> dict[str, Any]:
     ruler_id = str(row.get("ruler_id") or "")
     axes = row.get("axes") if isinstance(row.get("axes"), dict) else {}
+    # Expand all three before updating any axis; stored inputs must never mix
+    # inline sources with references while another axis is being validated.
+    b_readings = {axis: b_reading_projection(axis, row, credit) for axis in B_AXES}
+    expanded = dict(row, axes={axis: dict(value) for axis, value in axes.items()})
+    for axis in B_AXES:
+        expanded['axes'][axis]['public_reading'] = b_readings[axis]
+    packed = pack_b_sources(expanded)
     items: list[dict[str, str]] = []
     for axis in ("A1", "A2", "B1", "B2", "B4"):
         if axis in ('A1', 'A2'):
             projection = credit['axes'][axis]
             # A reading is owned by result credit; AB retains only its scoring fields.
-            _apply_projection(axes[axis], {})
+            _apply_projection(axes[axis], {}, retired_sources={'public_reading'})
         else:
-            reading = b_reading_projection(axis, row, credit)
+            reading = b_readings[axis]
             projection = _b_axis_projection(axis, reading, ruler_id)
-            _apply_projection(axes[axis], projection)
+            projection['public_reading'] = packed['axes'][axis]['public_reading']
+            _apply_projection(axes[axis], projection, source_updates={'public_reading'})
         items.append(
             _item(
                 "THIRD-AB",
@@ -499,7 +505,7 @@ def _ab_projection(row: dict[str, Any], credit: dict[str, Any]) -> dict[str, Any
     summary = "；".join(item["public_basis"] for item in items)
     summary = summary or "战略安全与边疆控制结果由威胁变化、防线协同、实际控制和稳定交付共同形成。"
     summary += " 本人战略选择、国家资源配置与具体将领执行按各自事实区分。"
-    return _projection(
+    projection = _projection(
         summary=summary,
         items=items or [
             _item(
@@ -528,6 +534,8 @@ def _ab_projection(row: dict[str, Any], credit: dict[str, Any]) -> dict[str, Any
         level_label="战略安全与边疆控制结果",
         component_label="战略安全与边疆控制",
     )
+    projection[B_SOURCE_CATALOG] = packed[B_SOURCE_CATALOG]
+    return projection
 
 
 def _b_axis_projection(axis, reading, ruler_id):
@@ -575,7 +583,7 @@ def _credit_projection(row: dict[str, Any], contract: dict[str, Any], ab: dict[s
         if not isinstance(axes.get(axis), dict):
             continue
         projection = _credit_axis_projection(axis, axes[axis], ruler_id, contract)
-        _apply_projection(axes[axis], projection)
+        _apply_projection(axes[axis], projection, source_updates={'public_reading'})
         items.append(
             _item(
                 "THIRD-CREDIT",
@@ -632,9 +640,11 @@ def _credit_projection(row: dict[str, Any], contract: dict[str, Any], ab: dict[s
     )
 
 
-def _c_projection(row: dict[str, Any]) -> dict[str, Any]:
-    data = c_reading_projection(row)
+def _c_projection(row: dict[str, Any], *, reading=None, context=None) -> dict[str, Any]:
+    data = c_reading_projection(row, context=context) if reading is None else reading
     ruler_id = row['ruler_id']
+    if data.get('ruler_id') != ruler_id:
+        raise ValueError('C公开投影不得使用其他人物的阅读结果')
     def evidence(axis, prefix):
         a = data['axes'][axis]
         return [dict(id=_stable_id(prefix, ruler_id, axis), public_label=a['label'],
@@ -645,11 +655,20 @@ def _c_projection(row: dict[str, Any]) -> dict[str, Any]:
                    public_component_label=a['label'])
         for axis, a in data['axes'].items()
     }
+    authored = copy.deepcopy(row['public_reading'])
+    # Consumers also collect source links from this transient public record.
+    # Keep the complete generated review available there without persisting it.
+    authored['contract_review'] = copy.deepcopy(data['contract_review'])
     return dict(public_adjudication_summary=data['story'],
                 public_evidence_items=[evidence(axis, 'THIRD-C')[0] for axis in data['axes']],
                 public_boundary=data['boundary'], public_level_label=data['calculation']['total_label'],
                 public_component_label='军事体系整体结果', public_axis_projections=projections,
-                public_reading=copy.deepcopy(row['public_reading']))
+                public_reading=authored)
+
+
+def c_public_record(row: dict[str, Any], *, reading=None, context=None) -> dict[str, Any]:
+    """Assemble derived C fields for consumers; only public_reading is stored."""
+    return dict(row, **_c_projection(row, reading=reading, context=context))
 
 
 def _cost_projection(profile: dict[str, Any], ruler_id: str, *, prefix: str = "THIRD-COST") -> dict[str, Any]:
@@ -755,7 +774,7 @@ def _third_projection(row: dict[str, Any], ab: dict[str, Any], credit: dict[str,
     }
     loss = _ml_projection(ml_data, ruler_id, prefix="THIRD-ML")
     ab_summary = _first_text(ab.get("public_adjudication_summary"), credit.get("public_adjudication_summary"))
-    c_summary = _first_text(c.get("public_adjudication_summary"))
+    c_summary = _first_text(c['public_reading']['story'])
     items = [
         _item(
             "THIRD-TOTAL",
@@ -800,6 +819,25 @@ def _third_projection(row: dict[str, Any], ab: dict[str, Any], credit: dict[str,
     return projection
 
 
+_THIRD_TOTAL_DERIVED_FIELDS = {
+    "public_adjudication_summary", "public_evidence_items", "public_military_cost",
+}
+
+
+def third_public_record(row: dict[str, Any], *, ab: dict[str, Any], credit: dict[str, Any],
+                        c: dict[str, Any], d: dict[str, Any], ml: dict[str, Any] | None) -> dict[str, Any]:
+    """Assemble total reading fields from current components without mutating sources."""
+    ruler_id = row.get("ruler_id")
+    for key, source in (("AB", ab), ("credit", credit), ("C", c), ("D", d), ("ML", ml)):
+        if source is None and key == "ML":
+            continue
+        if not ruler_id or not source or source.get("ruler_id") != ruler_id:
+            raise ValueError(f"第三项汇总公开来源人物不一致：{key}")
+    result = copy.deepcopy(row)
+    _apply_projection(result, _third_projection(result, ab, credit, c, d, ml))
+    return result
+
+
 def _refresh_third(payloads: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
     ab_rows = _index(_records(payloads["AB"]))
     c_rows = _index(_records(payloads["C"]))
@@ -816,7 +854,7 @@ def _refresh_third(payloads: dict[str, dict[str, Any]]) -> dict[str, dict[str, A
         credit = credit_rows[row['ruler_id']]
         _apply_projection(row, _ab_projection(row, credit))
     for row in c_rows.values():
-        _apply_projection(row, _c_projection(row))
+        _apply_projection(row, {'public_reading': row['public_reading']})
     for row in d_rows.values():
         _apply_projection(row, _d_projection(row))
     for row in ml_rows.values():
@@ -826,6 +864,8 @@ def _refresh_third(payloads: dict[str, dict[str, Any]]) -> dict[str, dict[str, A
             row,
             _third_projection(row, ab_rows[ruler_id], credit_rows[ruler_id], c_rows[ruler_id], d_rows[ruler_id], ml_rows.get(ruler_id)),
         )
+        for field in _THIRD_TOTAL_DERIVED_FIELDS:
+            row.pop(field, None)
     for key, payload in payloads.items():
         payload["public_projection_schema_version"] = PUBLIC_PROJECTION_SCHEMA
         payload["public_projection_status"] = "FORMAL_UPSTREAM_SOURCE"
@@ -837,6 +877,8 @@ def _refresh_third(payloads: dict[str, dict[str, Any]]) -> dict[str, dict[str, A
         }
         if key == 'C':
             payload['public_projection_source']['reader_policy'] = '阅读层直接展示public_reading；计算解释由现行结算字段在上游确定性生成，不改写人物正文。'
+        if key == 'total':
+            payload['public_projection_source']['reader_policy'] = '汇总正文、材料列表与普通成本副本由third_public_record按人物ID从现行组件组装；总表保留成本依据和重大军事净毁损公开说明。'
     payloads["AB"]["public_projection_record_count"] = len(ab_rows)
     payloads["C"]["public_projection_record_count"] = len(c_rows)
     payloads["D"]["public_projection_record_count"] = len(d_rows)
@@ -1011,8 +1053,6 @@ def _fourth_axis_projection(row: dict[str, Any], axis: str, packages: dict[str, 
 
 def _fourth_projection(row: dict[str, Any], packages: dict[str, dict[str, Any]]) -> dict[str, Any]:
     axes = {str(axis.get("axis")): axis for axis in row.get("axis_results") or () if isinstance(axis, dict)}
-    axis_projections: dict[str, dict[str, Any]] = {}
-    items: list[dict[str, str]] = []
     for axis in "ABC":
         if not isinstance(axes.get(axis), dict):
             continue
@@ -1038,14 +1078,25 @@ def _fourth_projection(row: dict[str, Any], packages: dict[str, dict[str, Any]])
         else:
             projection = _fourth_axis_projection(axes[axis], axis, packages, parent=row)
         _apply_projection(axes[axis], projection)
-        axis_projections[axis] = projection
-        items.extend(projection["public_evidence_items"])
+    return dict(
+        public_boundary="国家共同体、教育与人才、知识与文化生态分别判断；继承存量、后世独立发展和同一成果不重复计入。",
+        public_level_label="第四项文明与国家整合正式结果",
+        public_component_label="第四项文明与国家整合",
+    )
+
+
+@language_domain('civilization')
+def fourth_public_record(row: dict[str, Any]) -> dict[str, Any]:
+    """Assemble the record summary from authoritative axes in A/B/C order."""
+    axes = {axis['axis']: axis for axis in row.get('axis_results', [])}
+    ordered = [axes[axis] for axis in 'ABC' if axis in axes]
+    items = [item for axis in ordered for item in axis['public_evidence_items']]
     summary = "；".join(
-        projection["public_adjudication_summary"] for projection in axis_projections.values()
+        axis["public_adjudication_summary"] for axis in ordered
     ) or "正式记录没有保留可直述的文明与国家整合结果。"
-    return _projection(
-        summary=summary,
-        items=items or [
+    return dict(row,
+        public_adjudication_summary=_clean_public_text(summary),
+        public_evidence_items=copy.deepcopy(items) or [
             _item(
                 "FOURTH-RECORD",
                 row.get("ruler_id"),
@@ -1056,10 +1107,6 @@ def _fourth_projection(row: dict[str, Any], packages: dict[str, dict[str, Any]])
                 "三轴分别判断；不把同一变化在多个轴重复计算。",
             )
         ],
-        boundary="国家共同体、教育与人才、知识与文化生态分别判断；继承存量、后世独立发展和同一成果不重复计入。",
-        level_label="第四项文明与国家整合正式结果",
-        component_label="第四项文明与国家整合",
-        axis_projections=axis_projections,
     )
 
 
@@ -1078,7 +1125,7 @@ def _refresh_fourth(payload: dict[str, Any]) -> dict[str, Any]:
     payload["public_projection_package_count"] = len(package_rows)
     payload["public_projection_source"] = {
         "formal_contract": "docs/分项规则/第四项文明与国家整合收益/00-规则与计分合同.md",
-        "reader_policy": "reader只显示public_adjudication_summary、public_evidence_items和public_boundary",
+        "reader_policy": "轴正文读取axis_results；人物汇总在构建时按A/B/C顺序聚合轴内公开字段，不另存副本。",
         "a_reader_policy": "A轴与A影响包的public_reading直接维护正文和逐条来源；刷新只保留正文并按实际组件生成计算与方向，阅读层不改写。",
     }
     return payload
@@ -1096,7 +1143,7 @@ def _load_payloads(root: Path) -> dict[str, dict[str, Any]]:
     }
 
 
-def _verify_third(payloads: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def _verify_third(payloads: dict[str, dict[str, Any]], *, c_review_context) -> dict[str, Any]:
     before = {key: _signature(value) for key, value in payloads.items() if key != "fourth"}
     expected = _refresh_third(copy.deepcopy({key: value for key, value in payloads.items() if key != "fourth"}))
     for key, payload in payloads.items():
@@ -1110,14 +1157,24 @@ def _verify_third(payloads: dict[str, dict[str, Any]]) -> dict[str, Any]:
             raise ValueError(f"第三项公开文案与当前来源转述不一致：{key}")
         _validate_public_strings(payload)
     total_rows = _index(_records(payloads["total"]))
+    component_rows = {key: _index(_records(payloads[key])) for key in ("AB", "C", "D", "credit", "ML")}
     for key in ("AB", "C", "D", "credit"):
         rows = _index(_records(payloads[key]))
         if set(rows) != set(total_rows):
             raise ValueError(f"第三项公开投影人物集合不一致：{key}")
         for ruler_id, row in rows.items():
-            _verify_projection_fields(row, prefix="THIRD", ruler_id=ruler_id)
+            projected = c_public_record(row, context=c_review_context) if key == 'C' else row
+            if key == 'C':
+                _validate_public_strings(projected)
+            _verify_projection_fields(projected, prefix="THIRD", ruler_id=ruler_id)
     for ruler_id, row in total_rows.items():
-        _verify_projection_fields(row, prefix="THIRD-TOTAL", ruler_id=ruler_id)
+        projected = third_public_record(
+            row, ab=component_rows['AB'][ruler_id], credit=component_rows['credit'][ruler_id],
+            c=component_rows['C'][ruler_id], d=component_rows['D'][ruler_id],
+            ml=component_rows['ML'].get(ruler_id),
+        )
+        _validate_public_strings(projected)
+        _verify_projection_fields(projected, prefix="THIRD-TOTAL", ruler_id=ruler_id)
         _verify_projection_fields(row["global_cost_credit_profile"], prefix="THIRD-COST", ruler_id=ruler_id)
         _verify_projection_fields(row["public_military_net_loss"], prefix="THIRD-ML", ruler_id=ruler_id)
     ml_rows = _index(_records(payloads["ML"]))
@@ -1145,7 +1202,7 @@ def _verify_fourth(payload: dict[str, Any]) -> dict[str, Any]:
     packages = _records(payload, "accepted_packages")
     for row in rows:
         ruler_id = str(row.get("ruler_id") or "")
-        _verify_projection_fields(row, prefix="FOURTH-RECORD", ruler_id=ruler_id)
+        _verify_projection_fields(fourth_public_record(row), prefix="FOURTH-RECORD", ruler_id=ruler_id)
         axes = {str(axis.get("axis")): axis for axis in row.get("axis_results") or () if isinstance(axis, dict)}
         for axis in "ABC":
             if axis in axes:
@@ -1162,14 +1219,16 @@ def _verify_fourth(payload: dict[str, Any]) -> dict[str, Any]:
 
 def verify_public_projection(workspace_root: Path) -> dict[str, Any]:
     root = workspace_root.resolve()
+    from .third_item_c_contract_reading import load_context
+    c_review_context = load_context(root)
     payloads = _load_payloads(root)
-    third = _verify_third(payloads)
+    third = _verify_third(payloads, c_review_context=c_review_context)
     third['a_reading_source_count'] = verify_reading_sources(root, payloads['credit'])
     third['b_reading_source_count'] = verify_b_sources(root, payloads['AB'])
-    third['c_reading_source_count'] = verify_c_sources(root, payloads['C'])
+    third['c_reading_source_count'] = verify_c_sources(root, payloads['C'], context=c_review_context)
     from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
     c_markdown = (root / THIRD_C_PATH).with_suffix('.md')
-    if c_markdown.read_text(encoding='utf-8') != _render_formal_markdown('C', payloads['C']['records']):
+    if c_markdown.read_text(encoding='utf-8') != _render_formal_markdown('C', payloads['C']['records'], c_review_context=c_review_context):
         raise ValueError('第三项C正式Markdown与当前上游公开正文不同步')
     fourth = _verify_fourth(payloads["fourth"])
     from .fourth_item_a_public import verify_readings
@@ -1190,6 +1249,8 @@ def verify_public_projection(workspace_root: Path) -> dict[str, Any]:
 
 def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
     root = workspace_root.resolve()
+    from .third_item_c_contract_reading import load_context
+    c_review_context = load_context(root)
     current = _load_payloads(root)
     third_current = {key: value for key, value in current.items() if key != "fourth"}
     projected_third = _refresh_third(copy.deepcopy(third_current))
@@ -1200,16 +1261,16 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
     if _signature(projected_fourth) != _signature(current['fourth']):
         raise ValueError("公开投影禁止改变第四项评分来源")
     # Validate the complete batch before any file is written.
-    _verify_third(projected_third)
+    _verify_third(projected_third, c_review_context=c_review_context)
     _verify_fourth(projected_fourth)
     verify_reading_sources(root, projected_third['credit'])
     verify_b_sources(root, projected_third['AB'])
-    verify_c_sources(root, projected_third['C'])
+    verify_c_sources(root, projected_third['C'], context=c_review_context)
     if write:
         from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
         ab_markdown = _render_formal_markdown('AB', projected_third['AB']['records'],
                                                credit_rows=_index(projected_third['credit']['records']))
-        c_markdown = _render_formal_markdown('C', projected_third['C']['records'])
+        c_markdown = _render_formal_markdown('C', projected_third['C']['records'], c_review_context=c_review_context)
         polities = load_ruler_polities(root)
         for key, path in THIRD_ROUTED_PATHS.items():
             write_json(root / path, projected_third[key], ruler_polities=polities)

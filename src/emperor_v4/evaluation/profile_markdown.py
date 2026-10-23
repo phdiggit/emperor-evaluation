@@ -729,6 +729,9 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
                     for title, field in (("本人归责", "attribution"), ("反馈", "feedback"), ("恢复", "recovery"), ("残余损失", "residual_loss"), ("裁决", "decision_basis")):
                         lines.append(f"    - {title}：{case[field]}")
             projection = row.get("military_talent_registry_projection") or {}
+            if projection:
+                from emperor_v4.evaluation.profile_m1_projection import registry_projection
+                projection = registry_projection(projection)
             paired = projection.get("paired_result_difficulty_campaign_roles_display")
             lines.append("- 本人战役事实摘录（成果等级/难度｜战役群名称/本人角色）：")
             lines.append(f"  {_m1_public_registered_display(paired) if paired else '—'}")

@@ -37,11 +37,42 @@ def test_reconstruction_preserves_formal_reading_without_mutating_inputs():
     assert (formal, rebuilt, source) == baseline
 
 
+def test_formal_c_writer_uses_the_same_utf8_lf_bytes_as_generated_packaging(monkeypatch, tmp_path):
+    from emperor_v4.evaluation import third_item_c_strategy_chain as settlement
+    from emperor_v4.evaluation import five_dynasties_third_item as rendering
+    from emperor_v4.evaluation import third_item_c_contract_reading as review
+    formal,_,source=inputs()
+    path=tmp_path/C_PATH
+    path.parent.mkdir(parents=True,exist_ok=True)
+    path.write_text(json.dumps(formal),encoding='utf-8')
+    monkeypatch.setattr(settlement,'load_strategy_chain_source',lambda root:source)
+    monkeypatch.setattr(settlement,'load_ruler_polities',lambda root:{})
+    monkeypatch.setattr(review,'load_context',lambda root:{})
+    text='# 合成阅读视图\n\n保留原文与来源。\n'
+    monkeypatch.setattr(rendering,'_render_formal_markdown',lambda *args,**kwargs:text)
+    settlement.write_third_item_c_strategy_chain_settlement(tmp_path)
+    assert path.with_suffix('.md').read_bytes()==text.encode('utf-8')
+
+
 def test_duplicate_writeback_reading_is_rejected():
     formal, rebuilt, source = inputs()
     source["records"][0]["formal_writeback"]["fields"]["public_reading"] = {"story": "Duplicate"}
     with pytest.raises(ValueError, match="不得存入战略链写回源"):
         apply_strategy_chain_writeback_to_payload(rebuilt, source, formal_payload=formal)
+
+
+@pytest.mark.parametrize('alias', ['raw_grade', 'C_overall_grade'])
+@pytest.mark.parametrize('location', ['source', 'formal', 'rebuilt'])
+def test_reconstruction_rejects_retired_grade_aliases_in_every_input(alias, location):
+    formal, rebuilt, source = inputs()
+    target = (source['records'][0]['formal_writeback']['fields'] if location=='source'
+              else (formal if location=='formal' else rebuilt)['records'][0])
+    target.update(axis_floor_grade='C-3', final_grade='C-3')
+    target[alias]='C-3'
+    before=deepcopy((formal,rebuilt,source))
+    with pytest.raises(ValueError, match='不得保存重复别名'):
+        apply_strategy_chain_writeback_to_payload(rebuilt,source,formal_payload=formal)
+    assert (formal,rebuilt,source)==before
 
 
 @pytest.mark.parametrize("fault", ["missing_reading", "missing_identity", "duplicate_identity", "other_identity"])

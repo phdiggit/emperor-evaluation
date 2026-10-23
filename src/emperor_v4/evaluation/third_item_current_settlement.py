@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from collections import Counter
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+from emperor_v4.evaluation.third_fourth_public_fields import (
+    SCORING_SYNC_PRESERVED_FIELDS, scoring_view, validate_public_keys,
+)
 from emperor_v4.evaluation.third_item_b_control_depth import control_depth_package_ids
 from emperor_v4.evaluation.third_item_a_scoring import (
     A_CHANGE_WEIGHTS, A_FORMULA, A_STATE_VALUES, calculate_a_axis,
@@ -23,46 +27,80 @@ from emperor_v4.evaluation.third_item_d_settlement import (
 
 def _without_public_fields(value: Any) -> Any:
     """Compare scoring views without treating public prose as score input."""
-
-    if isinstance(value, dict):
-        return {
-            key: _without_public_fields(child)
-            for key, child in value.items()
-            if not str(key).startswith("public_")
-        }
-    if isinstance(value, list):
-        return [_without_public_fields(child) for child in value]
-    return value
+    return scoring_view(value)
 
 
-def _replace_non_public_preserving_public(current: Any, source: Any) -> Any:
-    """Replace the scoring view without moving public prose between projections."""
+_PUBLIC_OWNER_IDENTITIES = {
+    'records': ('ruler_id',),
+    'axis_results': ('axis',),
+    'strategy_chains': ('chain_id',),
+    'capability_only_strategy_chains': ('chain_id',),
+    'strategic_internal_chains': ('chain_id',),
+    'external_strategic_chains': ('chain_id',),
+    'accepted_packages': ('ruler_id', 'package_code'),
+}
+
+
+def _owner_index(rows: Any, fields: tuple[str, ...], collection: str) -> dict:
+    if rows is None:
+        return {}
+    if not isinstance(rows, list):
+        raise ValueError(f'{collection}公开字段所属对象须为列表')
+    result = {}
+    for row in rows:
+        if not isinstance(row, Mapping) or any(
+            not isinstance(row.get(key), str) or not row[key].strip() or row[key] != row[key].strip()
+            for key in fields
+        ):
+            raise ValueError(f'{collection}公开字段所属对象缺少稳定身份：{fields}')
+        identity = tuple(row[key] for key in fields)
+        if identity in result:
+            raise ValueError(f'{collection}公开字段所属对象身份重复：{identity}')
+        result[identity] = row
+    return result
+
+
+def _contains_public_fields(value: Any) -> bool:
+    if isinstance(value, Mapping):
+        return any(str(key).startswith('public_') or _contains_public_fields(child) for key, child in value.items())
+    return isinstance(value, list) and any(_contains_public_fields(child) for child in value)
+
+
+def _replace_non_public_preserving_public(current: Any, source: Any, *, _collection: str = '') -> Any:
+    """Preserve declared public fields only at the same stable object identity."""
 
     if isinstance(source, Mapping):
         current_mapping = current if isinstance(current, Mapping) else {}
+        validate_public_keys(current_mapping)
+        validate_public_keys(source)
+        for key in ('ruler_id', 'axis', 'chain_id', 'package_code'):
+            if key in current_mapping and key in source and current_mapping[key] != source[key]:
+                raise ValueError(f'公开字段所属对象身份不一致：{key}')
         result = {}
         for key, child in current_mapping.items():
-            if str(key).startswith("public_"):
-                result[key] = child
+            if key in SCORING_SYNC_PRESERVED_FIELDS:
+                result[key] = deepcopy(child)
             elif key in source:
                 result[key] = _replace_non_public_preserving_public(
-                    child, source[key]
+                    child, source[key], _collection=key,
                 )
         for key, child in source.items():
-            if key not in current_mapping and not str(key).startswith("public_"):
-                result[key] = _replace_non_public_preserving_public(None, child)
+            if key not in current_mapping and key not in SCORING_SYNC_PRESERVED_FIELDS:
+                result[key] = _replace_non_public_preserving_public(None, child, _collection=key)
         return result
     if isinstance(source, list):
-        if isinstance(current, list) and len(current) == len(source):
+        identity_fields = _PUBLIC_OWNER_IDENTITIES.get(_collection)
+        if identity_fields:
+            old_by_id = _owner_index(current, identity_fields, _collection)
+            new_by_id = _owner_index(source, identity_fields, _collection)
             return [
-                _replace_non_public_preserving_public(old, new)
-                for old, new in zip(current, source, strict=True)
+                _replace_non_public_preserving_public(old_by_id.get(identity), row)
+                for identity, row in new_by_id.items()
             ]
-        return [
-            _replace_non_public_preserving_public(None, child)
-            for child in source
-        ]
-    return source
+        if _contains_public_fields(current):
+            raise ValueError(f'含公开字段的列表未声明稳定身份：{_collection or "<root>"}')
+        return [_replace_non_public_preserving_public(None, child) for child in source]
+    return deepcopy(source)
 
 
 def _preserve_mapping_order_if_equal(current: Any, rebuilt: dict) -> dict:
@@ -2165,9 +2203,10 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
         "rule": "同一父任务按显式ruler_id与CURRENT/CAPABILITY_ONLY范围分别消费，不复制另一人物行动、结果或成本。",
     }
     write_json(c_path, payload, ruler_polities=load_ruler_polities(workspace_root))
+    from emperor_v4.evaluation.third_item_c_contract_reading import load_context
     _write_text_atomic(
         c_path.with_suffix(".md"),
-        _render_formal_markdown("C", payload["records"]),
+        _render_formal_markdown("C", payload["records"], c_review_context=load_context(workspace_root)),
     )
 
 

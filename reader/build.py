@@ -20,6 +20,7 @@ SOURCE_IDENTITY_PATH = ROOT / "reader/source-revision.json"
 PERSON_NOTES_SOURCE = ROOT / "reader/person-reading-notes.json"
 PERSON_NOTES_SNAPSHOT = ROOT / "reader/data/person-reading-notes.json"
 READER_RUNTIME_SCRIPTS = (
+    "second-item-display.js",
     "fourth-item-a-public.js",
     "fourth-item-b-public.js",
     "fourth-item-c-public.js",
@@ -393,6 +394,9 @@ def _attach_second_item_c_public_reader(item, *, axis, record, how="", source_re
 
     if not isinstance(record, dict):
         raise ValueError(f"{axis} reader projection requires a formal record")
+    if axis == 'C4':
+        from emperor_v4.evaluation.second_item_c_reading import recovery_public_record
+        record = recovery_public_record(record)
     summary = record.get("public_adjudication_summary")
     evidence = record.get("public_evidence_items")
     if not isinstance(summary, str) or not summary.strip():
@@ -426,6 +430,8 @@ def _attach_d1_d3_public_reader(item, *, record, axis, how="", source_refs=()):
 
     if not isinstance(record, dict):
         raise ValueError(f"{axis} reader projection requires a formal record")
+    from emperor_v4.evaluation.second_item_d1_d3_public import public_record
+    record = public_record(record)
     summary = record.get("public_adjudication_summary")
     evidence = record.get("public_evidence_items")
     if not isinstance(summary, str) or not summary.strip():
@@ -476,6 +482,11 @@ def _attach_formal_public_reader(item, *, record, axis="", how="", source_refs=(
     projections = record.get("public_axis_projections")
     if axis and isinstance(record.get("axes"), dict):
         projection = record["axes"][axis]
+    elif axis and isinstance(record.get("axis_results"), list):
+        matches = [entry for entry in record["axis_results"] if entry.get("axis") == axis]
+        if len(matches) != 1:
+            raise ValueError(f"{axis} formal public axis must have one authoritative record")
+        projection = matches[0]
     elif axis and isinstance(projections, dict) and isinstance(projections.get(axis), dict):
         projection = projections[axis]
     summary = projection.get("public_adjudication_summary")
@@ -520,6 +531,11 @@ def _attach_formal_public_reader(item, *, record, axis="", how="", source_refs=(
 def load_net_reader_sources(root):
     """Load formal subitem evidence for reader-only explanations."""
     sources = load_detail_sources(root)
+    from emperor_v4.evaluation.second_item_c_reading import calculation_record
+    for axis in ('C1', 'C2', 'C3', 'C4'):
+        sources[axis] = {rid: calculation_record(axis, row) for rid, row in sources[axis].items()}
+    from emperor_v4.evaluation.third_item_c_contract_reading import load_context
+    sources['C_review_context'] = load_context(root)
     from emperor_v4.evaluation.third_fourth_item_public import FOURTH_PATH
     sources['fourth_packages'] = {p['package_code']: p for p in load_json(root / FOURTH_PATH)['accepted_packages']}
     sources['first_c_public'] = load_first_item_c_public(root)
@@ -790,6 +806,8 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             strategic[key]['reader_public_a'] = reading
             strategic[key]['reader_how'] = reading['calculation']
             strategic[key]['reader_source_refs'] = [ref['path'] for ref in reading['sources']]
+    from emperor_v4.evaluation.third_item_b_sources import expand_readings as expand_b_readings
+    b_readings = expand_b_readings(ab)
     for key in ("B1", "B2", "B4"):
         if key in strategic:
             rate = credit["B80_adjudication"][f"adjudicated_{key}_rate"]
@@ -797,7 +815,7 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
                 strategic[key], record=ab, axis=key,
                 how=f"当前结果先得到 {strategic[key].get('value')}% 的得分率，合成时采用 {rate:g}%。",
             )
-            reading = deepcopy(ab['axes'][key]['public_reading'])
+            reading = b_readings[key]
             if reading['raw_rate'] != strategic[key]['value'] or reading['adopted_rate'] != strategic[key]['applied_value']:
                 raise ValueError(f'{tid} {key}原始率或实际采用率与正式来源不一致')
             strategic[key]['reader_public_b'] = reading
@@ -822,7 +840,9 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
 
     c_record = sources["C"][tid]
     from emperor_v4.evaluation.third_item_c_public import reading_projection as c_reading_projection
-    c_reading = c_reading_projection(c_record)
+    from emperor_v4.evaluation.third_fourth_item_public import c_public_record, fourth_public_record
+    c_reading = c_reading_projection(c_record, context=sources['C_review_context'])
+    c_record = c_public_record(c_record, reading=c_reading)
     third = sources["third"][tid]
     military = {item["label"]: item for item in details.get("military", [])}
     specific_reason_keys = {
@@ -885,7 +905,7 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
     if military:
         details["military"] = [military[item["label"]] for item in details["military"]]
 
-    fourth = sources["fourth"][fid]
+    fourth = fourth_public_record(sources["fourth"][fid])
     fourth_axes = {axis["axis"]: axis for axis in fourth.get("axis_results", [])}
     civilization = {item["label"]: item for item in details.get("civilization", [])}
     label_to_axis = {"A国家共同体": "A", "B教育与人才": "B", "C文化知识": "C"}
@@ -1192,7 +1212,9 @@ def render_second_c_collection(root):
     from emperor_v4.evaluation.second_item_c_public import FORMAL_PATHS, verify_public_projection
     verify_public_projection(root)
     payloads = {axis: load_json(root / path) for axis, path in FORMAL_PATHS.items()}
-    indexed = {axis: {row['ruler_id']: row for row in payload['scores']} for axis, payload in payloads.items()}
+    from emperor_v4.evaluation.second_item_c_reading import calculation_record
+    from emperor_v4.evaluation.second_item_c_source_notes import source_note_records
+    indexed = {axis: {row['ruler_id']: calculation_record(axis, row) for row in source_note_records(payload)} for axis, payload in payloads.items()}
     cards = []
     names = {'C1': '民生', 'C2': '经济财政', 'C3': '社会安全', 'C4': '恢复与额外代价'}
     def paragraphs(value):
@@ -1236,42 +1258,35 @@ def render_second_c_collection(root):
     return template.replace('__COUNT__', str(len(cards))).replace('__ENTRIES__', '\n'.join(cards))
 
 
-def render_fourth_a_collection(root):
+def _render_fourth_ab_collection(root, axis_code, axis_reading, verify_readings):
     from emperor_v4.evaluation.third_fourth_item_public import FOURTH_PATH
-    from emperor_v4.evaluation.fourth_item_a_public import axis_reading, verify_readings
+
     payload = load_json(root / FOURTH_PATH)
     verify_readings(payload, root)
-    packages = {p['package_code']:p for p in payload['accepted_packages']}
+    packages = {p['package_code']: p for p in payload['accepted_packages']}
     pool = index(load_json(root / 'config/common/canonical-ruler-pool.json')['records'])
     records = []
-    for row in sorted(payload['records'], key=lambda r:(r['ruler_name'],r['ruler_id'])):
-        axis = next(a for a in row['axis_results'] if a['axis']=='A')
+    for row in sorted(payload['records'], key=lambda r: (r['ruler_name'], r['ruler_id'])):
+        axis = next(a for a in row['axis_results'] if a['axis'] == axis_code)
         scope = pool[row['ruler_id']]
-        note = ('已具综合结算' if scope['settlement_readiness']=='COMPOSITE_READY' else
-                '保留的池外单项记录，不纳入综合评价池' if scope['pool_status']=='EXCLUDED' else '其他分项待补，暂不进入综合总榜')
-        records.append(dict(ruler_id=row['ruler_id'],ruler_name=row['ruler_name'],polity=row['polity'],pool_note=note,
-                            item=dict(reader_public_fourth_a=axis_reading(row,axis,packages))))
-    template = (root / 'reader/fourth-item-a.template.html').read_text(encoding='utf-8')
-    return template.replace('__COUNT__',str(len(records))).replace('__PAYLOAD__', serialized_json(records,html_safe=True)).replace('__SOURCE_IDENTITY__', serialized_json(reader_source_identity(),html_safe=True))
+        note = ('已具综合结算' if scope['settlement_readiness'] == 'COMPOSITE_READY' else
+                '保留的池外单项记录，不纳入综合评价池' if scope['pool_status'] == 'EXCLUDED' else '其他分项待补，暂不进入综合总榜')
+        records.append(dict(ruler_id=row['ruler_id'], ruler_name=row['ruler_name'], polity=row['polity'], pool_note=note,
+                            item={f'reader_public_fourth_{axis_code.lower()}': axis_reading(row, axis, packages)}))
+    template = (root / f'reader/fourth-item-{axis_code.lower()}.template.html').read_text(encoding='utf-8')
+    return template.replace('__COUNT__', str(len(records))).replace('__PAYLOAD__', serialized_json(records, html_safe=True)).replace('__SOURCE_IDENTITY__', serialized_json(reader_source_identity(), html_safe=True))
+
+
+def render_fourth_a_collection(root):
+    from emperor_v4.evaluation.fourth_item_a_public import axis_reading, verify_readings
+
+    return _render_fourth_ab_collection(root, 'A', axis_reading, verify_readings)
 
 
 def render_fourth_b_collection(root):
-    from emperor_v4.evaluation.third_fourth_item_public import FOURTH_PATH
     from emperor_v4.evaluation.fourth_item_b_public import axis_reading, verify_readings
-    payload = load_json(root / FOURTH_PATH)
-    verify_readings(payload, root)
-    packages = {p['package_code']:p for p in payload['accepted_packages']}
-    pool = index(load_json(root / 'config/common/canonical-ruler-pool.json')['records'])
-    records = []
-    for row in sorted(payload['records'], key=lambda r:(r['ruler_name'],r['ruler_id'])):
-        axis = next(a for a in row['axis_results'] if a['axis']=='B')
-        scope = pool[row['ruler_id']]
-        note = ('已具综合结算' if scope['settlement_readiness']=='COMPOSITE_READY' else
-                '保留的池外单项记录，不纳入综合评价池' if scope['pool_status']=='EXCLUDED' else '其他分项待补，暂不进入综合总榜')
-        records.append(dict(ruler_id=row['ruler_id'],ruler_name=row['ruler_name'],polity=row['polity'],pool_note=note,
-                            item=dict(reader_public_fourth_b=axis_reading(row,axis,packages))))
-    template = (root / 'reader/fourth-item-b.template.html').read_text(encoding='utf-8')
-    return template.replace('__COUNT__',str(len(records))).replace('__PAYLOAD__', serialized_json(records,html_safe=True)).replace('__SOURCE_IDENTITY__', serialized_json(reader_source_identity(),html_safe=True))
+
+    return _render_fourth_ab_collection(root, 'B', axis_reading, verify_readings)
 
 
 def render_fourth_c_collection(root):
@@ -1354,11 +1369,12 @@ def render_third_c_grade_guide():
 
 def build_third_c_collection(root):
     from emperor_v4.evaluation.third_item_c_commander_reading import commander_html
-    from emperor_v4.evaluation.third_item_c_contract_reading import html_review
+    from emperor_v4.evaluation.third_item_c_contract_reading import html_review, load_context
     from emperor_v4.evaluation.third_fourth_item_public import THIRD_C_PATH
     from emperor_v4.evaluation.third_item_c_public import COMBAT_GUIDE, reading_projection, verify_sources
     payload = load_json(root / THIRD_C_PATH)
-    verify_sources(root, payload)
+    c_review_context = load_context(root)
+    verify_sources(root, payload, context=c_review_context)
     def paragraphs(value):
         return ''.join(f"<p class='prose'>{escape(text)}</p>" for text in value.split('\n\n'))
     def c_material(e):
@@ -1373,7 +1389,7 @@ def build_third_c_collection(root):
                 + '</details></li>')
     cards, assets, search_rows = [], {}, {}
     for row in payload['records']:
-        data = reading_projection(row)
+        data = reading_projection(row, context=c_review_context)
         c = data['calculation']
         def material_id(evidence_id):
             return row['ruler_id'] + '--evidence--' + evidence_id
@@ -1454,7 +1470,7 @@ def write_third_c_assets(directory, expected):
 
 
 def render_second_d_collection(root):
-    from emperor_v4.evaluation.second_item_d1_d3_public import D1_PATH, D3_PATH, MODES, verify_public_projection
+    from emperor_v4.evaluation.second_item_d1_d3_public import D1_PATH, D3_PATH, MODES, verify_public_projection, public_record
     verify_public_projection(root)
     payloads = {axis: load_json(root / path) for axis, path in (("D1", D1_PATH), ("D3", D3_PATH))}
     indexed = {axis: {row['ruler_id']: row for row in payload['records']} for axis, payload in payloads.items()}
@@ -1479,7 +1495,7 @@ def render_second_d_collection(root):
     for person in payloads['D1']['records']:
         sections = []
         for axis, title in (('D1', '行政连续性'), ('D3', '交接稳定')):
-            row = indexed[axis][person['ruler_id']]
+            row = public_record(indexed[axis][person['ruler_id']])
             level = row['handoff_level'] if axis == 'D1' else row['D3_grade']
             facts = ''.join(f'<li data-public-evidence-id="{escape(item["id"])}"><h4>{escape(item["public_label"])}</h4>'
                             f'<p class="meta">{MODES[item["evidence_mode"]]}</p>{paragraphs(item["public_basis"])}'
@@ -1503,7 +1519,8 @@ def build(*, check=False, write=True):
     main_ids = set(index(main))
     scoring = config["scoring_contract"]
     ranking = load_json(ROOT / scoring["composite_ranking_json"])
-    net = index(ranking["records"])
+    from emperor_v4.evaluation.composite_details import reading_records
+    net = index(reading_records(ROOT, ranking["records"], pool["records"]))
     ready = {r["ruler_id"] for r in main if r["settlement_readiness"] == "COMPOSITE_READY"}
     if set(net) != ready:
         raise ValueError("Composite ranking does not match current ready pool")

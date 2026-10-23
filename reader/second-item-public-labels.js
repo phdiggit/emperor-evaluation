@@ -4,18 +4,7 @@
   const screen = document.getElementById("screen");
   if (!screen) return;
 
-  const PUBLIC_LABELS = {
-    "A制度建设": "制度建设",
-    "B1官僚治理": "官僚治理",
-    "B2反馈与约束": "反馈与约束",
-    "C1民生": "民生",
-    "C2经济财政": "经济财政",
-    "C3社会安全": "社会安全",
-    "C4恢复与成本": "恢复与额外代价",
-    "D1继任行政连续性": "行政连续性",
-    "D3政权交接稳定": "交接稳定",
-  };
-
+  const PUBLIC_LABELS = globalThis.SecondItemDisplay.labels;
 
   function publicLabel(sourceLabel) {
     return PUBLIC_LABELS[String(sourceLabel || "")] || "";

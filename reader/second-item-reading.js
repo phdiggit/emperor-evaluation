@@ -4,14 +4,11 @@
   const screenEl = document.getElementById("screen");
   if (!screenEl) return;
 
-  const METHOD_BAND_LABELS = {G0:"E",G1:"D",G2:"C",G3:"B",G4:"A",G5:"S"};
-  const METHOD_MAX = {"A制度建设":100,"B1官僚治理":100,"B2反馈与约束":80};
-  const METHOD_PUBLIC = {"A制度建设":"制度建设","B1官僚治理":"官僚治理","B2反馈与约束":"反馈与约束"};
-  const FINANCE_MAX = {"C1民生":80,"C2经济财政":35,"C3社会安全":60};
-  const FINANCE_PUBLIC = {"C1民生":"民生","C2经济财政":"经济财政","C3社会安全":"社会安全"};
-  const STATE_PUBLIC_GRADE = {1:"E",2:"D",3:"C",4:"B",5:"A",6:"S"};
-  const LOSS_PUBLIC_TEXT = {0:"未见独立有效低谷",1:"已证独立损害，按证据范围作有限修正",2:"出现明显低谷",3:"出现严重低谷"};
-  const HANDOFF_PUBLIC_GRADE = {0:"E",1:"D",2:"C",3:"B",4:"A",5:"S"};
+  const {
+    grades: METHOD_BAND_LABELS, methodMax: METHOD_MAX, financeMax: FINANCE_MAX,
+    labels: PUBLIC_LABELS, stateGrades: STATE_PUBLIC_GRADE,
+    lossText: LOSS_PUBLIC_TEXT, handoffGrades: HANDOFF_PUBLIC_GRADE,
+  } = globalThis.SecondItemDisplay;
   function handoffGrade(value){const n=finite(value);return n!=null&&Number.isInteger(n)?HANDOFF_PUBLIC_GRADE[n]||"—":"—";}
 
   function finite(value){if(value==null||value==="")return null;const n=Number(value);return Number.isFinite(n)?n:null;}
@@ -50,8 +47,8 @@
   function stateMeta(item){const m=String(item?.grade||"").match(/\bC[123]-(\d+)\s*\/\s*L(\d+)\b/);if(!m)return"";const grade=STATE_PUBLIC_GRADE[Number(m[1])]||"";const loss=LOSS_PUBLIC_TEXT[Number(m[2])]||"";return[grade?`${grade}档`:"",loss].filter(Boolean).join("｜");}
   function stateGrade(item){const m=String(item?.grade||"").match(/\bC[123]-([1-6])\b/);return m?`${STATE_PUBLIC_GRADE[Number(m[1])]}档`:"档位未标明";}
   function groupJudgments(t){return [
-    ["制度与行政",["A制度建设","B1官僚治理","B2反馈与约束"].map(label=>`${METHOD_PUBLIC[label]} ${methodBand(t.method.get(label))}档`).join(" · ")],
-    ["民生与社会",["C1民生","C2经济财政","C3社会安全"].map(label=>`${FINANCE_PUBLIC[label]} ${stateGrade(t.finance.get(label))}`).join(" · ")],
+    ["制度与行政",["A制度建设","B1官僚治理","B2反馈与约束"].map(label=>`${PUBLIC_LABELS[label]} ${methodBand(t.method.get(label))}档`).join(" · ")],
+    ["民生与社会",["C1民生","C2经济财政","C3社会安全"].map(label=>`${PUBLIC_LABELS[label]} ${stateGrade(t.finance.get(label))}`).join(" · ")],
     ["政权交接",`行政连续性 ${handoffGrade(t.handoff.get("D1继任行政连续性")?.value)}档 · 交接稳定 ${handoffGrade(t.handoff.get("D3政权交接稳定")?.value)}档`]
   ];}
   function boundaryExcerpt(item){return String(item?.reader_boundary||"").trim()?"适用范围与限制见展开说明":"";}
@@ -95,7 +92,7 @@
     const card=Array.from(document.querySelectorAll(".net-major-card")).find(x=>x.getAttribute("href")?.includes("/second"));if(!card)return;
     card.classList.add("second-item-card");
     const heading=card.querySelector("h3,h2");if(heading&&heading.textContent.includes("治国净收益"))setNodeText(heading,"治国成效");
-    setNodeText(card.querySelector(".big"),t.totalScore==null?"—":`${fmt(t.totalScore)} / 387`);
+    setNodeText(card.querySelector(".big"),t.totalScore==null?"—":`${fmt(t.totalScore)} 分`);
     const desc=Array.from(card.querySelectorAll(":scope > p")).find(p=>!p.classList.contains("sources")&&!p.classList.contains("second-item-card-breakdown"));
     setNodeText(desc,"评价实际掌权期间的制度行政、民生社会与最终交接；军事、边疆与统一功业在其他板块单独评价。");
     if([t.methodScore,t.resultScore,t.handoffScore].some(v=>v==null))return;
@@ -108,13 +105,13 @@
     const key=[t.methodScore,t.resultScore,t.handoffScore,t.totalScore,t.c4,takeaway].join("|");
     if(summary.dataset.secondRenderKey!==key){summary.innerHTML=`<h2>先看治国结论</h2><p class="second-item-person-conclusion">${safeText(takeaway)}</p><div class="second-item-total-grid">${groupJudgments(t).map(([title,judgment])=>`<div><strong>${safeText(title)}</strong><p>${safeText(judgment)}</p></div>`).join("")}</div><p class="subline">各子项按 E、D、C、B、A、S 从低到高表示；民生三项展示主要状态，低谷另作修正。恢复与额外代价单列净调整。</p><details class="second-item-formula"><summary>这个分数怎么算？</summary><p>制度与行政 ${fmt(t.methodScore)} / 165；民生与社会 ${fmt(t.resultScore)} / 202；政权交接 ${fmt(t.handoffScore)} / 20。</p><div class="second-item-equation">${fmt(t.methodScore)} + ${fmt(t.resultScore)} + ${fmt(t.handoffScore)} = <strong>治国成效 ${fmt(t.totalScore)} / 387</strong></div><p class="subline">这些是不同权重的计分块，不直接等同于好坏档位。本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”。小数位来自统一计分公式，不表示历史判断本身具有同等测量精度。</p></details>`;summary.dataset.secondRenderKey=key;}
     const page=document.querySelector(".net-detail-page"),intro=page?.querySelector(":scope > .panel");
-    if(intro){const main=Array.from(intro.querySelectorAll(":scope > p")).find(p=>!p.classList.contains("subline")),score=intro.querySelector(":scope > p.subline");setNodeText(main,"治国成效看三件事：国家机器如何运转、统治时期民生与社会表现如何、离场时能否留下稳定可运行的交接。军事、边疆与统一功业另在其他板块评价。");setNodeText(score,`治国成效总分：${fmt(t.totalScore)} / 387。先看结论，再展开到各项依据。`);}
+    if(intro){const main=Array.from(intro.querySelectorAll(":scope > p")).find(p=>!p.classList.contains("subline")),score=intro.querySelector(":scope > p.subline");setNodeText(main,"治国成效看三件事：国家机器如何运转、统治时期民生与社会表现如何、离场时能否留下稳定可运行的交接。军事、边疆与统一功业另在其他板块评价。");setNodeText(score,`治国成效：${fmt(t.totalScore)} 分。先看结论，再展开到各项依据。`);}
   }
 
   function ensureMethodGroup(t){
     const section=document.getElementById("net-group-method");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"制度与行政");
     addGroupIntro(section,"method","这一组看国家机器如何建立规则、配置官僚并形成反馈约束。三项使用不同原始量表，统一折算后本组最高165分；具体折算方法放在各项展开内容中。");
-    for(const label of ["A制度建设","B1官僚治理","B2反馈与约束"]){const item=t.method.get(label),detail=metricDetail(section,[label,METHOD_PUBLIC[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;const note=label==="A制度建设"?boundaryExcerpt(item):joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}（用于本组折算，不单列得分）`,boundaryExcerpt(item));setMetricDisplay(detail,`${methodBand(item)}档`,note,METHOD_PUBLIC[label]);}
+    for(const label of ["A制度建设","B1官僚治理","B2反馈与约束"]){const item=t.method.get(label),detail=metricDetail(section,[label,PUBLIC_LABELS[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;const note=label==="A制度建设"?boundaryExcerpt(item):joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}（用于本组折算，不单列得分）`,boundaryExcerpt(item));setMetricDisplay(detail,`${methodBand(item)}档`,note,PUBLIC_LABELS[label]);}
   }
   function ensureC4Note(detail,value){
     const body=detail?.querySelector(":scope > .net-metric-body");if(!body)return;let note=body.querySelector(":scope > .second-item-c4-note");if(!note){note=document.createElement("p");note.className="second-item-c4-note";body.insertBefore(note,body.firstChild);}
@@ -127,7 +124,7 @@
     const section=document.getElementById("net-group-finance");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"民生与社会");
     if(!section.querySelector("[data-c-collection-link]")){const p=document.createElement("p");p.dataset.cCollectionLink="true";const a=document.createElement("a");a.href="second-item-c.html";a.textContent="阅读全池民生与社会 →";p.append(a);section.insertBefore(p,section.children[1]||null);}
     addGroupIntro(section,"finance","这一组看统治时期的民生、经济财政、社会安全，以及恢复与额外成本。前三项满分分别为80、35、60，C4另记恢复增量、本人可归责恶化与额外民力/治理成本的净调整；本组小计在下方展开说明。");
-    for(const label of ["C1民生","C2经济财政","C3社会安全"]){const item=t.finance.get(label),detail=metricDetail(section,[label,FINANCE_PUBLIC[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;setMetricDisplay(detail,stateGrade(item),joinNote("主要状态；低谷修正见展开依据",boundaryExcerpt(item)),FINANCE_PUBLIC[label]);}
+    for(const label of ["C1民生","C2经济财政","C3社会安全"]){const item=t.finance.get(label),detail=metricDetail(section,[label,PUBLIC_LABELS[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;setMetricDisplay(detail,stateGrade(item),joinNote("主要状态；低谷修正见展开依据",boundaryExcerpt(item)),PUBLIC_LABELS[label]);}
     const item=t.finance.get("C4恢复与成本"),detail=metricDetail(section,["C4恢复与成本","恢复与额外成本（C4）","C4恢复、恶化与额外成本调整"]);markSourceLabel(detail,"C4恢复与成本");
     if(item&&detail){setMetricDisplay(detail,`${signedFmt(item.value)} 分`,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)),"恢复与额外成本");ensureC4Note(detail,item.value);}
   }
@@ -154,7 +151,7 @@
     for(const [label,item] of itemMap.entries()){
       if(item.reader_public_c)continue;
       const raw=String(item?.reader_full_basis||"").trim(),summaryRaw=String(item?.reader_summary||"").trim();if(!raw||raw===summaryRaw)continue;
-      const displays=label==="C4恢复与成本"?[label,"恢复与额外成本（C4）","C4恢复、恶化与额外成本调整"]:label in METHOD_PUBLIC?[label,METHOD_PUBLIC[label]]:label in FINANCE_PUBLIC?[label,FINANCE_PUBLIC[label]]:[label];
+      const displays=label==="C4恢复与成本"?[label,"恢复与额外成本（C4）","C4恢复、恶化与额外成本调整"]:label in PUBLIC_LABELS?[label,PUBLIC_LABELS[label]]:[label];
       const detail=metricDetail(section,displays);if(!detail)continue;markSourceLabel(detail,label);const body=detail.querySelector(":scope > .net-metric-body");if(!body)continue;
       let block=formalBasisDetails(detail);if(!block){block=document.createElement("details");const audit=body.querySelector(":scope > .net-audit-sources");body.insertBefore(block,audit||null);block.append(document.createElement("summary"));}
       block.classList.add("net-formal-basis-raw");const summary=block.querySelector(":scope > summary");setNodeText(summary,"正式裁决原文（未改写）");
@@ -182,10 +179,10 @@
     if(!root||!record?.net||!kind)return;const map=itemsFor(record,kind);
     for(const row of root.querySelectorAll(":scope .component")){
       const span=row.querySelector(":scope > span"),value=row.querySelector(":scope > b");if(!span||!value)continue;const label=span.dataset.secondSourceLabel||directText(span)||span.querySelector("strong")?.textContent.trim()||"";let sourceLabel=label;
-      if(!map.has(sourceLabel)){sourceLabel=Object.keys(METHOD_PUBLIC).find(k=>METHOD_PUBLIC[k]===label)||Object.keys(FINANCE_PUBLIC).find(k=>FINANCE_PUBLIC[k]===label)||({"恢复与额外成本（C4）":"C4恢复与成本","行政连续性（D1）":"D1继任行政连续性","交接稳定（D3）":"D3政权交接稳定","行政连续性":"D1继任行政连续性","交接稳定":"D3政权交接稳定","交接短板上限":"低侧封顶","政权交接得分":"交接得分","治国成效合计":"第二项合计"}[label]||label);}
+      if(!map.has(sourceLabel)){sourceLabel=Object.keys(PUBLIC_LABELS).find(k=>PUBLIC_LABELS[k]===label)||({"恢复与额外成本（C4）":"C4恢复与成本","行政连续性（D1）":"D1继任行政连续性","交接稳定（D3）":"D3政权交接稳定","行政连续性":"D1继任行政连续性","交接稳定":"D3政权交接稳定","交接短板上限":"低侧封顶","政权交接得分":"交接得分","治国成效合计":"第二项合计"}[label]||label);}
       span.dataset.secondSourceLabel=sourceLabel;const item=map.get(sourceLabel);
-      if(kind==="method"&&item&&METHOD_MAX[sourceLabel]){setRowLabel(span,METHOD_PUBLIC[sourceLabel]);setNodeText(value,`${methodBand(item)}档`);replaceCompactNote(span,sourceLabel==="A制度建设"?boundaryExcerpt(item):joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`,boundaryExcerpt(item)));}
-      else if(kind==="finance"&&item&&FINANCE_MAX[sourceLabel]){setRowLabel(span,FINANCE_PUBLIC[sourceLabel]);setNodeText(value,`${fmt(item.value)} / ${FINANCE_MAX[sourceLabel]} 分`);replaceCompactNote(span,joinNote(stateMeta(item),boundaryExcerpt(item)));}
+      if(kind==="method"&&item&&METHOD_MAX[sourceLabel]){setRowLabel(span,PUBLIC_LABELS[sourceLabel]);setNodeText(value,`${methodBand(item)}档`);replaceCompactNote(span,sourceLabel==="A制度建设"?boundaryExcerpt(item):joinNote(`原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`,boundaryExcerpt(item)));}
+      else if(kind==="finance"&&item&&FINANCE_MAX[sourceLabel]){setRowLabel(span,PUBLIC_LABELS[sourceLabel]);setNodeText(value,`${fmt(item.value)} / ${FINANCE_MAX[sourceLabel]} 分`);replaceCompactNote(span,joinNote(stateMeta(item),boundaryExcerpt(item)));}
       else if(kind==="finance"&&item&&sourceLabel==="C4恢复与成本"){setRowLabel(span,"恢复与额外成本");setNodeText(value,`${signedFmt(item.value)} 分`);replaceCompactNote(span,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)));}
       else if(kind==="handoff"&&item&&sourceLabel==="D1继任行政连续性"){setRowLabel(span,"行政连续性");setNodeText(value,`${handoffGrade(item.value)}档`);replaceCompactNote(span,joinNote("行政承接",boundaryExcerpt(item)));}
       else if(kind==="handoff"&&item&&sourceLabel==="D3政权交接稳定"){setRowLabel(span,"交接稳定");setNodeText(value,`${handoffGrade(item.value)}档`);replaceCompactNote(span,joinNote("终局继承",boundaryExcerpt(item)));}
@@ -200,13 +197,13 @@
   }
   function enhancePersonOverview(record){
     if(!record?.detail_loaded||!record?.net||!location.hash.startsWith("#person/"))return;const panel=document.getElementById("person-outcome");if(!panel)return;const t=secondTotals(record);
-    for(const row of panel.querySelectorAll(":scope > .component")){const span=row.querySelector("span");if(!span||!["治国净收益","治国成效"].some(label=>directText(span).startsWith(label)))continue;setRowLabel(span,"治国成效");setNodeText(row.querySelector("b"),`${fmt(t.totalScore)} / 387`);}
+    for(const row of panel.querySelectorAll(":scope > .component")){const span=row.querySelector("span");if(!span||!["治国净收益","治国成效"].some(label=>directText(span).startsWith(label)))continue;setRowLabel(span,"治国成效");setNodeText(row.querySelector("b"),`${fmt(t.totalScore)} 分`);}
     enhanceCompactGroups(record);
   }
   function pendingSecondLabel(record){return record?.settlement_readiness==="PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"?"待正式结算":"未结算";}
   function enhanceCompare(records){
     if(records.length<2||records.some(r=>!r?.detail_loaded))return;const rows=Array.from(screenEl.querySelectorAll(".comparison tbody tr")),secondRow=rows.find(r=>["治国净收益","治国成效"].includes(r.cells?.[0]?.textContent.trim()));
-    if(secondRow){setNodeText(secondRow.cells?.[0],"治国成效");records.forEach((record,index)=>{const cell=secondRow.cells[index+1];if(!cell)return;if(!record?.net){setNodeText(cell,pendingSecondLabel(record));return;}const t=secondTotals(record),key=String(t.totalScore);if(cell.dataset.secondItemKey===key)return;cell.innerHTML=`<b>${fmt(t.totalScore)} / 387</b>`;cell.dataset.secondItemKey=key;});}
+    if(secondRow){setNodeText(secondRow.cells?.[0],"治国成效");records.forEach((record,index)=>{const cell=secondRow.cells[index+1];if(!cell)return;if(!record?.net){setNodeText(cell,pendingSecondLabel(record));return;}const t=secondTotals(record),key=String(t.totalScore);if(cell.dataset.secondItemKey===key)return;cell.innerHTML=`<b>${fmt(t.totalScore)} 分</b>`;cell.dataset.secondItemKey=key;});}
     const structureRow=rows.find(r=>["分项构成","构成与依据"].includes(r.cells?.[0]?.textContent.trim()));
     if(structureRow){records.forEach((record,index)=>{const cell=structureRow.cells[index+1];if(!cell)return;if(!record?.net){if(record?.settlement_readiness==="PENDING_SECOND_ITEM_FORMAL_SETTLEMENT")setNodeText(cell,"治国成效正式结算待补；当前没有本项正式结果。");return;}for(const details of cell.querySelectorAll("details")){const summary=details.querySelector(":scope > summary"),kind=groupKindFromSummary(summary);if(kind){setNodeText(summary,publicGroupTitle(kind));formatCompactGroup(details,record,kind);}}});}
   }

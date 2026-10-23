@@ -5,6 +5,7 @@ Historical prose and source bindings are never inferred by this module.
 from __future__ import annotations
 
 from typing import Any
+from copy import deepcopy
 
 from emperor_v4.evaluation.governance_state_recovery import FIXED_POINTS, LOSS_RATES
 
@@ -40,7 +41,7 @@ def recovery_story(sections: list[dict[str, str]]) -> str:
     return '\n\n'.join(section['title'] + '\n' + section['body'] for section in sections)
 
 
-def verify_recovery_reading(row: dict[str, Any]) -> None:
+def _recovery_sections(row: dict[str, Any]) -> list[dict[str, str]]:
     sections = row.get('public_reading_sections')
     if (not isinstance(sections, list) or len(sections) != len(RECOVERY_SECTIONS)
             or any(not isinstance(s, dict) or set(s) != {'id', 'title', 'body'}
@@ -48,8 +49,21 @@ def verify_recovery_reading(row: dict[str, Any]) -> None:
                    or not isinstance(s.get('body'), str) or not s['body'].strip()
                    for s, (sid, title) in zip(sections, RECOVERY_SECTIONS))):
         raise ValueError(f'恢复阅读分栏缺失或不完整：{row.get("ruler_name")}')
-    if row.get('public_story') != recovery_story(sections):
+    return sections
+
+
+def recovery_public_record(row: dict[str, Any]) -> dict[str, Any]:
+    """Assemble the literal story from the six authored sections, read-only."""
+    sections = _recovery_sections(row)
+    story = recovery_story(sections)
+    if 'public_story' in row and row['public_story'] != story:
         raise ValueError(f'恢复阅读正文与分栏不同值：{row.get("ruler_name")}')
+    return dict(deepcopy(row), public_story=story)
+
+
+def verify_recovery_reading(row: dict[str, Any]) -> None:
+    sections = _recovery_sections(row)
+    recovery_public_record(row)
     body = sections[1]['body']
     if any(recovery_anchor_line(a, row) not in body for a in NAMES):
         raise ValueError(f'恢复阅读档位与正式路径不同值：{row.get("ruler_name")}')
@@ -60,6 +74,13 @@ def verify_recovery_reading(row: dict[str, Any]) -> None:
     if (row.get('recovery_formula_version') != 'GOVERNANCE-STATE-RECOVERY-V4'
             and not all(term in sections[0]['body'] for term in ('池外', '原机制'))):
         raise ValueError(f'池外恢复阅读缺少原机制边界：{row.get("ruler_name")}')
+
+
+def calculation_record(axis: str, row: dict[str, Any]) -> dict[str, Any]:
+    """Expand the calculation for a consumer without changing authored fields."""
+    if 'public_calculation' in row:
+        raise ValueError('第二项C正式记录不得保存public_calculation生成副本')
+    return dict(deepcopy(row), public_calculation=calculation(axis, row))
 
 
 def calculation(axis: str, row: dict[str, Any]) -> str:

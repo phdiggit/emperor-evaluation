@@ -53,7 +53,8 @@ def render_views(root: Path, paths=None) -> dict[str, str]:
             text = render_profile_markdown(payload, workspace_root=root)
         elif kind == 'third.C':
             from .five_dynasties_third_item import _render_formal_markdown
-            text = _render_formal_markdown('C', payload['records'])
+            from .third_item_c_contract_reading import load_context
+            text = _render_formal_markdown('C', payload['records'], c_review_context=load_context(root))
         elif kind == 'fourth.B':
             from .fourth_item_a import _render_axis
             text = _render_axis(payload, 'B')[Path(path)]

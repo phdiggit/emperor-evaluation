@@ -1,11 +1,33 @@
 from pathlib import Path
 
+import pytest
+
 from reader.build import (
     _attach_b2_public_reader,
     _attach_reader,
     _attach_second_item_c_public_reader,
     axis_projection,
 )
+
+
+def test_fourth_reader_uses_unique_axis_record_without_duplicate_projection():
+    from reader.build import _attach_formal_public_reader
+
+    axis = dict(axis='B', public_adjudication_summary='本轴完整裁决与限制。',
+                public_evidence_items=[dict(public_label='事实', public_basis='本人采用的材料。', public_boundary='不含后任。')],
+                public_boundary='只限本人窗口。')
+    row = dict(axis_results=[axis], public_adjudication_summary='总体概述不能代替本轴。',
+               public_axis_projections={'B': dict(public_adjudication_summary='过期副本。')})
+    projected = _attach_formal_public_reader({}, record=row, axis='B')
+    assert projected['reader_summary'] == axis['public_adjudication_summary']
+    assert projected['reader_public_evidence_items'] == axis['public_evidence_items']
+    projected['reader_public_evidence_items'][0]['public_basis'] = '消费端修改。'
+    assert axis['public_evidence_items'][0]['public_basis'] == '本人采用的材料。'
+    with pytest.raises(ValueError, match='one authoritative'):
+        _attach_formal_public_reader({}, record=row, axis='A')
+    row['axis_results'].append(dict(axis))
+    with pytest.raises(ValueError, match='one authoritative'):
+        _attach_formal_public_reader({}, record=row, axis='B')
 
 
 def test_net_explanation_projection_uses_formal_text():

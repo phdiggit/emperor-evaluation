@@ -13,6 +13,17 @@ from emperor_v4.evaluation.third_item_c_public import calculation, reading_proje
 from emperor_v4.evaluation.third_fourth_item_public import THIRD_C_PATH, _c_projection, _signature
 
 ROOT = Path(__file__).resolve().parents[1]
+EMPTY_CONTEXT = {'systems': {}, 'o_grades': {}}
+from emperor_v4.evaluation.third_item_c_contract_reading import validate_review, review_inputs, load_context
+
+
+@pytest.mark.parametrize('alias', ['raw_grade', 'C_overall_grade'])
+def test_reading_calculation_uses_canonical_grades_and_rejects_stored_aliases(alias):
+    row=synthetic()
+    output=calculation(row)
+    assert output['raw_grade']==4 and output['final_grade']==3
+    row[alias]=row['axis_floor_grade'] if alias=='raw_grade' else row['final_grade']
+    with pytest.raises(ValueError,match='不得保存重复别名'):calculation(row)
 
 
 def test_window_correction_resolves_legacy_difference_only_with_matching_review():
@@ -52,7 +63,7 @@ def test_excluded_window_is_visible_without_becoming_an_active_chain():
     row['public_reading']['excluded_chain_reviews'] = [dict(
         chain_id='SYNTHETIC-OTHER-WINDOW', label='合成后任战事', basis='事件发生在评价窗口结束后。')]
     refresh_review(row)
-    review = row['public_reading']['contract_review']
+    review = validate_review(row, EMPTY_CONTEXT)
     assert review['chains'] == []
     assert '合成后任战事' in markdown_review(review)
     assert '事件发生在评价窗口结束后。' in html_review(review)
@@ -70,22 +81,23 @@ def test_audit_uses_explicit_material_links_and_preserves_judgment_prose():
         axis['arguments'] = [dict(evidence_ref='SYNTHETIC-EVIDENCE', reason='合成事实支持本轴判断。')]
     refresh_review(row)
     before = copy.deepcopy(row)
+    review = validate_review(row, EMPTY_CONTEXT)
     refs = []
     def link(ref):
         if ref != 'SYNTHETIC-EVIDENCE':
             raise ValueError('未绑定')
         refs.append(ref)
         return '<a href="#synthetic-material">合成防御</a>'
-    rendered = html_review(row['public_reading']['contract_review'], evidence_link=link)
+    rendered = html_review(review, evidence_link=link)
     assert refs and set(refs) == {'SYNTHETIC-EVIDENCE'}
     assert '合成事实支持本轴判断。' in rendered and 'href="#synthetic-material"' in rendered
     for term, meaning in AUDIT_TERMS:
         assert html.escape(term) in rendered and html.escape(meaning) in rendered
     assert html.escape(AUDIT_LINK_NOTE) in rendered
     assert row == before
-    row['public_reading']['contract_review']['axes']['C1']['evidence_refs'] = ['MISSING']
+    review['axes']['C1']['evidence_refs'] = ['MISSING']
     with pytest.raises(ValueError, match='未绑定'):
-        html_review(row['public_reading']['contract_review'], evidence_link=link)
+        html_review(review, evidence_link=link)
 
 
 def test_source_binding_locates_facts_without_adopting_new_axis_arguments():
@@ -95,8 +107,9 @@ def test_source_binding_locates_facts_without_adopting_new_axis_arguments():
     row['strategy_chain_refs'] = [cid]
     row['strategy_chains'] = [dict(chain_id=cid, label='合成防御任务', terminal_result_class='UNKNOWN')]
     item = row['public_reading']['evidence_items'][0]
-    item.update(c_chain_refs=[cid], source_passages=[dict(path='synthetic.md', quote='甲乙两地防守成功。')])
-    source = dict(source_material_refs=[eid], return_explanation='结果类别尚缺独立证据。', specific_gaps=[], source_passages=[])
+    item.update(c_chain_refs=[cid])
+    bind_passages(row, item, [dict(path='synthetic.md', quote='甲乙两地防守成功。')])
+    source = dict(source_material_refs=[eid], return_explanation='结果类别尚缺独立证据。', specific_gaps=[], source_passage_refs=[])
     row['public_reading']['source_reviews'] = {cid: source}
     before = copy.deepcopy(row)
     review = build_review(row, {'systems': {}, 'o_grades': {}})
@@ -116,7 +129,8 @@ def test_source_binding_locates_facts_without_adopting_new_axis_arguments():
     with pytest.raises(ValueError, match='总体评价'):
         build_review(row, {'systems': {}, 'o_grades': {}})
     item['kind'] = '既有史实摘要'
-    item['source_passages'] = []
+    item['source_passage_refs'] = []
+    row['public_reading']['source_passage_catalog'].clear()
     with pytest.raises(ValueError, match='来源摘录'):
         build_review(row, {'systems': {}, 'o_grades': {}})
     item['c_chain_refs'] = []
@@ -133,7 +147,7 @@ def test_authored_task_caption_changes_no_chain_or_score_and_rejects_unbound_tit
     chains = copy.deepcopy(row['strategy_chains'])
     points = row['C_score_points']
     refresh_review(row)
-    assert row['public_reading']['contract_review']['chains'][0]['title'] == '甲城围攻与援军作战'
+    assert validate_review(row, EMPTY_CONTEXT)['chains'][0]['title'] == '甲城围攻与援军作战'
     assert row['strategy_chains'] == chains
     assert row['C_score_points'] == points
     row['public_reading']['chain_titles']['NOT-AN-ADMITTED-TASK'] = '乙城作战'
@@ -144,11 +158,10 @@ def test_authored_task_caption_changes_no_chain_or_score_and_rejects_unbound_tit
 def synthetic():
     row = dict(ruler_id='SYNTHETIC', ruler_name='合成人物',
         combat_delivery_grade='C1-4', operational_sustainability_cap='C2-4', system_reliability_cap='C3-4',
-        axis_floor_grade='C-4', raw_grade='C-4', gate_cap=3, final_grade='C-3', C_overall_grade='C-3',
-        C_score_band=dict(lower_rate=60, upper_rate=74), C_score_rate=70.5, C_score_points=35.2,
+        axis_floor_grade='C-4', gate_cap=3, final_grade='C-3', C_score_band=dict(lower_rate=60, upper_rate=74), C_score_rate=70.5, C_score_points=35.2,
         C_score_band_position=.75, C_score_axis_surplus_position=.75, C_score_outcome_position=.2,
         strategy_chain_outcome_profile=dict(selected_chain_count=1, return_class_counts=dict(LOW_RETURN=1)),
-        public_reading=dict(story='两路军队完成防御，第三方向仍失守。', window='合成时期',
+        public_reading=dict(source_passage_catalog={}, story='两路军队完成防御，第三方向仍失守。', window='合成时期',
           responsibility='只评价本人实际掌权阶段的国家军队。', boundary='不将继任者战争计给本人。',
           source_note='这是独立构造的合成用例，没有真实人物。',
           axes={axis:dict(basis=text, evidence_refs=['SYNTHETIC-EVIDENCE']) for axis,text in
@@ -160,13 +173,100 @@ def synthetic():
 
 
 def refresh_review(row):
-    from emperor_v4.evaluation.third_item_c_contract_reading import build_review
-    row['public_reading']['contract_review'] = build_review(row, {'systems': {}, 'o_grades': {}})
+    row['public_reading']['contract_review'] = review_inputs()
+    validate_review(row, EMPTY_CONTEXT)
+
+
+@pytest.mark.parametrize('damage', ['old_schema', 'generated_axes', 'generated_summary', 'missing_aliases', 'missing_findings', 'bad_aliases', 'bad_findings'])
+def test_contract_storage_accepts_only_explicit_authored_inputs(damage):
+    row = synthetic()
+    inputs = row['public_reading']['contract_review']
+    if damage == 'old_schema': inputs['schema_version'] = 'third-item-c-contract-reading-v3'
+    elif damage == 'generated_axes': inputs['axes'] = {}
+    elif damage == 'generated_summary': inputs['summary'] = '生成的汇总。'
+    elif damage == 'missing_aliases': del inputs['task_aliases']
+    elif damage == 'missing_findings': del inputs['axis_findings']
+    elif damage == 'bad_aliases': inputs['task_aliases'] = [dict(basis='缺少任务绑定。')]
+    else: inputs['axis_findings'] = []
+    with pytest.raises(ValueError): validate_review(row, EMPTY_CONTEXT)
+
+
+def test_review_inputs_preserve_authored_arguments_without_aliasing():
+    aliases = [dict(chain_id='CHAIN', task_ref='TASK', basis='人工确认同一任务。')]
+    findings = {'C1':dict(evidence_refs=['FACT'], against_lower='本档证据。', against_upper='上档限制。')}
+    stored = review_inputs(task_aliases=aliases, axis_findings=findings)
+    assert set(stored) == {'schema_version','task_aliases','axis_findings'}
+    assert stored['task_aliases'] == aliases and stored['axis_findings'] == findings
+    aliases[0]['basis'] = '外部修改'
+    findings['C1']['evidence_refs'].append('OTHER')
+    assert stored['task_aliases'][0]['basis'] == '人工确认同一任务。'
+    assert stored['axis_findings']['C1']['evidence_refs'] == ['FACT']
+
+
+def bind_passages(row, entry, passages):
+    from emperor_v4.evaluation.third_item_c_passages import pack_passages
+    packed = pack_passages(dict(evidence_items=[dict(source_passages=passages)]))
+    row['public_reading']['source_passage_catalog'].update(packed['source_passage_catalog'])
+    entry['source_passage_refs'] = packed['evidence_items'][0]['source_passage_refs']
+
+
+def test_chain_source_review_has_one_authority_and_expands_only_for_reading():
+    from emperor_v4.evaluation.third_item_c_contract_reading import SCHEMA, BUILT_SCHEMA, READING_SCHEMA
+    from emperor_v4.evaluation.third_item_c_passages import expand_entry
+
+    row = synthetic()
+    row['strategy_chain_refs'] = ['SYNTHETIC-TASK']
+    row['strategy_chains'] = [dict(chain_id='SYNTHETIC-TASK', label='合成防御', terminal_result_class='UNKNOWN')]
+    source = dict(return_explanation='保留原有结果及限制。', specific_gaps=[], source_passage_refs=[])
+    row['public_reading']['source_reviews'] = {'SYNTHETIC-TASK': source}
+    refresh_review(row)
+    saved = copy.deepcopy(row)
+    review = validate_review(row, EMPTY_CONTEXT)
+    assert row['public_reading']['contract_review']['schema_version'] == SCHEMA
+    assert set(row['public_reading']['contract_review']) == {'schema_version','task_aliases','axis_findings'}
+    assert review['schema_version'] == BUILT_SCHEMA
+    assert review['chains'][0]['source_review_ref'] == 'SYNTHETIC-TASK'
+    assert 'source_review' not in review['chains'][0]
+    output = reading_projection(row, context=EMPTY_CONTEXT)['contract_review']
+    assert output['schema_version'] == READING_SCHEMA
+    assert output['chains'][0]['source_review'] == expand_entry(row['public_reading'], source)
+    assert 'source_review_ref' not in output['chains'][0]
+    output['chains'][0]['source_review']['specific_gaps'].append('消费端变更')
+    assert row == saved
+    source['specific_gaps'].append('新登记的具名缺口。')
+    refresh_review(row)
+    assert reading_projection(row, context=EMPTY_CONTEXT)['contract_review']['chains'][0]['source_review']['specific_gaps'] == source['specific_gaps']
+
+
+@pytest.mark.parametrize('change', ['wrong_chain', 'missing_source', 'duplicate', 'missing_ref'])
+def test_chain_source_review_rejects_stale_or_cross_chain_references(change):
+    from emperor_v4.evaluation.third_item_c_contract_reading import validate_review
+
+    row = synthetic()
+    row['strategy_chain_refs'] = ['SYNTHETIC-TASK']
+    row['strategy_chains'] = [dict(chain_id='SYNTHETIC-TASK', label='合成防御', terminal_result_class='UNKNOWN')]
+    source = dict(return_explanation='合成结果。', specific_gaps=[], source_passage_refs=[])
+    row['public_reading']['source_reviews'] = {'SYNTHETIC-TASK': source, 'OTHER-TASK': copy.deepcopy(source)}
+    refresh_review(row)
+    finding = dict(evidence_refs=['SYNTHETIC-EVIDENCE'], against_lower='具体事实足以支持本档。',
+                   against_upper='证据不足以支持上一档。', assessment_status='SOURCE_SUPPORTED',
+                   reviewed_chain_refs=['SYNTHETIC-TASK'], support='合成防御史实。')
+    row['public_reading']['contract_review']['axis_findings']['C1'] = finding
+    if change == 'wrong_chain':
+        finding['reviewed_chain_refs'] = ['OTHER-TASK']
+    elif change == 'missing_source':
+        del row['public_reading']['source_reviews']['SYNTHETIC-TASK']
+    elif change == 'duplicate':
+        row['public_reading']['contract_review']['chains'] = [dict(source_review=copy.deepcopy(source))]
+    else:
+        del finding['reviewed_chain_refs']
+    with pytest.raises(ValueError, match='局部选例|生成副本'):
+        validate_review(row, EMPTY_CONTEXT)
 
 
 def test_gate_changes_final_grade_without_rewriting_axes_or_averaging():
     row=synthetic(); before=copy.deepcopy(row)
-    result=reading_projection(row)
+    result=reading_projection(row, context=EMPTY_CONTEXT)
     assert result['calculation']['axis_grades']==[4,4,4]
     assert result['calculation']['raw_grade']==4
     assert result['calculation']['final_grade']==3
@@ -179,30 +279,32 @@ def test_gate_changes_final_grade_without_rewriting_axes_or_averaging():
     'SOURCE_SUPPORTED', 'ADJACENT_BOUNDARY_UNRESOLVED', 'INHERITED_LIMITED_ASSESSMENT',
     'CONTRACT_BOUNDARY_AMBIGUOUS', 'MATERIAL_EVIDENCE_MISSING', 'SOURCE_CONFLICT', 'SPECIFIC_SOURCE_GAP',
 ])
-def test_review_status_is_projected_from_its_own_axis_without_changing_grades(status):
+def test_review_status_is_projected_from_its_own_axis_without_changing_grades(status, monkeypatch):
     from emperor_v4.evaluation.third_item_c_public import REVIEW_LABELS
+    from emperor_v4.evaluation import third_item_c_contract_reading as reviews
     row = synthetic()
-    review = row['public_reading']['contract_review']['axes']['C1']
+    generated = reviews.reading_review(row, context=EMPTY_CONTEXT)
+    review = generated['axes']['C1']
     review.update(status=status, status_text='合成分界核查的具体限制。')
+    monkeypatch.setattr(reviews, 'reading_review', lambda row, *, context: copy.deepcopy(generated))
     before = copy.deepcopy(row)
-    data = reading_projection(row)
+    data = reading_projection(row, context=EMPTY_CONTEXT)
     assert data['axes']['C1']['review_status'] == status
     assert data['axes']['C1']['review_label'] == REVIEW_LABELS[status]
     assert data['axes']['C1']['review_text'] == review['status_text']
     assert data['axes']['C2']['review_status'] != status or status == 'MATERIAL_EVIDENCE_MISSING'
     assert data['calculation']['axis_grades'] == [4, 4, 4]
     assert row == before
-    row['public_reading']['contract_review']['axes']['C1']['status'] = 'UNDEFINED'
+    review['status'] = 'UNDEFINED'
     with pytest.raises(ValueError, match='未知分界论证状态'):
-        reading_projection(row)
+        reading_projection(row, context=EMPTY_CONTEXT)
 
 
 @pytest.mark.parametrize('position,value,label', [('LOW', .25, '低位'), ('MID', .5, '中位'), ('HIGH', .75, '高位')])
 def test_explicit_position_displays_adopted_value_original_reason_and_max_rule(position, value, label):
     row = synthetic()
     row.update(combat_delivery_grade='C1-3', operational_sustainability_cap='C2-3',
-               system_reliability_cap='C3-3', axis_floor_grade='C-3', raw_grade='C-3',
-               C_score_axis_surplus_position=0, C_score_band_position=value,
+               system_reliability_cap='C3-3', axis_floor_grade='C-3', C_score_axis_surplus_position=0, C_score_band_position=value,
                C_score_rate=60 + 14 * value, C_score_points=round((60 + 14 * value) / 2, 1))
     reason = '合成反证与正面事实须一并权衡；原文符号 < 与 & 原样保留。'
     row['C_score_within_band_adjudication'] = dict(position=position, reason=reason)
@@ -220,8 +322,7 @@ def test_explicit_position_displays_adopted_value_original_reason_and_max_rule(p
 def test_missing_necessary_axis_has_no_score_or_zero_substitution():
     row = synthetic()
     row.update(operational_sustainability_cap='UNKNOWN', axis_floor_grade='UNKNOWN',
-               raw_grade='UNKNOWN', final_grade='UNKNOWN', C_overall_grade='UNKNOWN',
-               C_score_points=None, C_score_rate=None, C_score_band_position=None)
+               final_grade='UNKNOWN', C_score_points=None, C_score_rate=None, C_score_band_position=None)
     result = calculation(row)
     assert result['axis_grades'] == [4, None, 4]
     assert result['points'] is None and result['final_grade'] is None
@@ -234,38 +335,61 @@ def test_missing_necessary_axis_has_no_score_or_zero_substitution():
 def test_unknown_axis_review_and_projection_preserve_known_axis_evidence():
     row = synthetic()
     row.update(system_reliability_cap='UNKNOWN', axis_floor_grade='UNKNOWN',
-               raw_grade='UNKNOWN', final_grade='UNKNOWN', C_overall_grade='UNKNOWN',
-               C_score_points=None, C_score_rate=None, C_score_band_position=None)
+               final_grade='UNKNOWN', C_score_points=None, C_score_rate=None, C_score_band_position=None)
     refresh_review(row)
-    result = reading_projection(row)
+    result = reading_projection(row, context=EMPTY_CONTEXT)
     assert result['axes']['C1']['grade'] == 4
     assert result['axes']['C3']['grade'] is None
     assert result['axes']['C3']['grade_label'] == '待定'
     assert result['contract_review']['axes']['C3']['criterion'] == '必要证据不足，暂不定档'
     from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
-    rendered = _render_formal_markdown('C', [row])
+    rendered = _render_formal_markdown('C', [row], c_review_context=EMPTY_CONTEXT)
     assert '暂不计分' in rendered
     assert row['public_reading']['axes']['C3']['basis'] in rendered
 
 
+def test_c_derived_public_record_has_no_storage_dependency_or_input_mutation():
+    from emperor_v4.evaluation.third_fourth_item_public import c_public_record
+    row = synthetic()
+    row['public_adjudication_summary'] = '过期副本不能覆盖原文。'
+    row['public_axis_projections'] = {}
+    before = copy.deepcopy(row)
+    reading = reading_projection(row, context=EMPTY_CONTEXT)
+    projected = c_public_record(row, reading=reading)
+    assert projected['public_adjudication_summary'] == row['public_reading']['story']
+    assert projected['public_axis_projections']['C1']['public_adjudication_summary'] == row['public_reading']['axes']['C1']['basis']
+    assert projected['public_reading']['contract_review'] == reading['contract_review']
+    assert projected['public_reading']['contract_review']['sources']
+    assert 'sources' not in row['public_reading']['contract_review']
+    assert row == before
+    del row['public_adjudication_summary'], row['public_axis_projections']
+    assert c_public_record(row, context=EMPTY_CONTEXT) == projected
+    projected['public_reading']['story'] = '消费端变更。'
+    assert row['public_reading']['story'] == before['public_reading']['story']
+    with pytest.raises(ValueError, match='其他人物'):
+        c_public_record(row, reading=dict(reading, ruler_id='OTHER-PERSON'))
+
+
 def test_authored_prose_survives_projection_and_missing_fields_fail_closed():
-    row=synthetic(); data=reading_projection(row)
+    row=synthetic(); data=reading_projection(row, context=EMPTY_CONTEXT)
     assert data['story']==row['public_reading']['story']
-    projected=_c_projection(row)
-    assert projected['public_reading']==row['public_reading']
+    projected=_c_projection(row, context=EMPTY_CONTEXT)
+    expanded = copy.deepcopy(row['public_reading'])
+    expanded['contract_review'] = data['contract_review']
+    assert projected['public_reading']==expanded
     assert projected['public_axis_projections']['C2']['public_adjudication_summary']==data['axes']['C2']['basis']
     row['public_reading']['story']='第一项已经计分，第三项不再计入。'
-    with pytest.raises(ValueError,match='公开正文无效'):reading_projection(row)
+    with pytest.raises(ValueError,match='公开正文无效'):reading_projection(row, context=EMPTY_CONTEXT)
     row['public_reading']['story']=data['story']
     del row['public_reading']['axes']['C2']
-    with pytest.raises(ValueError,match='分别维护'): reading_projection(row)
+    with pytest.raises(ValueError,match='分别维护'): reading_projection(row, context=EMPTY_CONTEXT)
 
 
 def test_repeated_axis_summary_or_unbound_evidence_is_rejected():
     row=synthetic();row['public_reading']['axes']['C2']['basis']=row['public_reading']['axes']['C1']['basis']
-    with pytest.raises(ValueError,match='复用'):reading_projection(row)
+    with pytest.raises(ValueError,match='复用'):reading_projection(row, context=EMPTY_CONTEXT)
     row=synthetic();row['public_reading']['axes']['C3']['evidence_refs']=['MISSING']
-    with pytest.raises(ValueError,match='绑定'):reading_projection(row)
+    with pytest.raises(ValueError,match='绑定'):reading_projection(row, context=EMPTY_CONTEXT)
 
 
 def test_overall_judgment_is_not_presented_as_concrete_war_evidence():
@@ -273,18 +397,18 @@ def test_overall_judgment_is_not_presented_as_concrete_war_evidence():
     row['public_reading']['evidence_items'][0]['id']='C-DECISION'
     row['public_reading']['evidence_items'][0]['kind']='现行评价判断'
     for a in row['public_reading']['axes'].values():a['evidence_refs']=['C-DECISION']
-    data=reading_projection(row)
+    data=reading_projection(row, context=EMPTY_CONTEXT)
     assert all(not a['materials'] and a['evidence_note'] for a in data['axes'].values())
 
 
 def test_axis_argument_requires_specific_binding_and_explanation():
     row=synthetic()
     row['public_reading']['axes']['C1']['arguments']=[dict(evidence_ref='SYNTHETIC-EVIDENCE',reason='成功防守证明主要任务实际完成。')]
-    data=reading_projection(row)
+    data=reading_projection(row, context=EMPTY_CONTEXT)
     assert data['axes']['C1']['materials'][0]['text']=='甲乙两地防守成功。'
     assert data['axes']['C1']['materials'][0]['reason']=='成功防守证明主要任务实际完成。'
     row['public_reading']['axes']['C1']['arguments'][0]['evidence_ref']='UNBOUND'
-    with pytest.raises(ValueError,match='逐轴论证'):reading_projection(row)
+    with pytest.raises(ValueError,match='逐轴论证'):reading_projection(row, context=EMPTY_CONTEXT)
 
 
 def test_source_passage_must_exist_under_its_declared_heading(tmp_path,monkeypatch):
@@ -295,9 +419,9 @@ def test_source_passage_must_exist_under_its_declared_heading(tmp_path,monkeypat
     row=synthetic()
     (tmp_path/'synthetic.md').write_text('### SYNTHETIC-EVENT 合成战争\n甲地防御成功。\n\n### OTHER 另一战争\n乙地失守。\n',encoding='utf-8')
     evidence=row['public_reading']['evidence_items'][0]
-    evidence['source_passages']=[dict(path='synthetic.md#SYNTHETIC-EVENT',quote='甲地防御成功。')]
+    bind_passages(row, evidence, [dict(path='synthetic.md#SYNTHETIC-EVENT',quote='甲地防御成功。')])
     assert verify_sources(tmp_path,{'records':[row]})==1
-    evidence['source_passages'][0]['quote']='乙地失守。'
+    row['public_reading']['source_passage_catalog'][evidence['source_passage_refs'][0]]['quote']='乙地失守。'
     with pytest.raises(ValueError,match='摘录与所引原记录不一致'):verify_sources(tmp_path,{'records':[row]})
 
 
@@ -305,8 +429,7 @@ def test_top_grade_and_inherited_cap_are_explicit():
     row=synthetic()
     for key in ('combat_delivery_grade','operational_sustainability_cap','system_reliability_cap'):
         row[key]=row[key][:-1]+'5'
-    row.update(raw_grade='C-5',axis_floor_grade='C-5',gate_cap=5,final_grade='C-5',C_overall_grade='C-5',
-               C_score_band=dict(lower_rate=90,upper_rate=100),C_score_rate=100,C_score_points=50,
+    row.update(axis_floor_grade='C-5',gate_cap=5,final_grade='C-5',C_score_band=dict(lower_rate=90,upper_rate=100),C_score_rate=100,C_score_points=50,
                C_score_band_position=1,C_score_axis_surplus_position=1,C_score_outcome_position=1)
     refresh_review(row)
     assert '满分50分' in calculation(row)['position']
@@ -322,6 +445,7 @@ def test_inconsistent_score_is_rejected_without_repairing_it():
 
 
 def test_current_sources_markdown_and_collection_cover_formal_records_dynamically():
+    context=load_context(ROOT)
     payload=load_json(ROOT/THIRD_C_PATH)
     before=copy.deepcopy(payload)
     build=runpy.run_path(str(ROOT/'reader/build.py'))
@@ -341,8 +465,8 @@ def test_current_sources_markdown_and_collection_cover_formal_records_dynamicall
         assert '?v=' + hashlib.sha256(detail.encode('utf-8')).hexdigest()[:16] in entry
         assert 'third-c-material' not in entry
         assert 'third-c-detail-slot' in entry
-        data=reading_projection(row)
-        text=markdown(row)
+        data=reading_projection(row, context=context)
+        text=markdown(row, context=context)
         for term, meaning in data['audit_terms']:
             assert html.escape(term) in detail and html.escape(meaning) in detail
         assert data['story'] in text
@@ -392,7 +516,7 @@ def test_current_sources_markdown_and_collection_cover_formal_records_dynamicall
             assert axis['against_upper'] in text and html.escape(axis['against_upper']) in detail
             for ref in axis['evidence_refs'] + axis.get('authored_finding_evidence_refs', []):
                 assert f"data-c-material-ref='{html.escape(row['ruler_id'] + '--evidence--' + ref)}'" in detail
-        assert _signature(_c_projection(row))=='{}'
+        assert _signature(_c_projection(row, context=context))=='{}'
     assert payload==before
 
 
@@ -401,11 +525,10 @@ def test_shared_renderer_preserves_synthetic_prose_and_unknown_state(tmp_path):
     known = synthetic()
     known['public_reading']['story'] = '第一段合成叙述。\n\n第二段保留 <原文> & 引文。'
     unknown = synthetic()
-    unknown.update(system_reliability_cap='UNKNOWN', axis_floor_grade='UNKNOWN', raw_grade='UNKNOWN',
-                   final_grade='UNKNOWN', C_overall_grade='UNKNOWN', C_score_points=None, C_score_rate=None,
+    unknown.update(system_reliability_cap='UNKNOWN', axis_floor_grade='UNKNOWN', final_grade='UNKNOWN', C_score_points=None, C_score_rate=None,
                    C_score_band_position=None)
     refresh_review(unknown)
-    records = [reading_projection(row) for row in (known, unknown)]
+    records = [reading_projection(row, context=EMPTY_CONTEXT) for row in (known, unknown)]
     source=tmp_path/'readings.json';source.write_text(json.dumps(records,ensure_ascii=False),encoding='utf-8')
     script=tmp_path/'render.cjs'
     script.write_text(r'''
@@ -504,18 +627,22 @@ def test_opponent_candidate_conflict_is_visible_and_never_rewrites_a_grade():
     assert c['opponent_conflict'] and c['opponents'][0]['binding_status']=='PUBLIC_TASK_CANDIDATE'
     assert c['legacy_opponent_grade']=='O3' and c['opponents'][0]['grade']=='O4'
     assert row==before
-    row['public_reading']['contract_review']=result
-    validate_review(row,context)
-    row['public_reading']['contract_review']['chains'][0]['opponents'][0]['grade']='O6'
-    with pytest.raises(ValueError,match='不一致'):validate_review(row,context)
+    assert validate_review(row,context) == result
+    changed=copy.deepcopy(context)
+    changed['systems']['OPP']['organization_grade']='O6'
+    assert validate_review(row,changed)['chains'][0]['opponents'][0]['grade']=='O6'
+    assert validate_review(row,context)==result
+    assert row==before
+    row['public_reading']['contract_review']['chains']=result['chains']
+    with pytest.raises(ValueError,match='生成副本'):validate_review(row,context)
 
 
 def test_missing_contract_review_and_partial_chain_coverage_fail_closed():
     from emperor_v4.evaluation.third_item_c_contract_reading import validate_review
     row=synthetic();del row['public_reading']['contract_review']
-    with pytest.raises(ValueError,match='缺少完整合同论证'):reading_projection(row)
+    with pytest.raises(ValueError,match='合同论证人工输入'):reading_projection(row, context=EMPTY_CONTEXT)
     row=synthetic();row['strategy_chain_refs']=['UNEXPLAINED']
-    with pytest.raises(ValueError,match='未完整覆盖'):validate_review(row)
+    with pytest.raises(ValueError,match='未完整覆盖'):validate_review(row, EMPTY_CONTEXT)
 
 
 def test_capability_chain_and_unknown_return_are_not_current_results_or_failures():
@@ -579,7 +706,7 @@ def test_public_capability_group_requires_prior_admission_and_cannot_duplicate_a
     assert result['chains'][0]['consumption']=='CAPABILITY_ONLY'
     assert '未改写正式战略链台账' in result['chains'][0]['consumption_text']
     assert not result['chains'][0]['major_success']
-    row['public_reading']['contract_review']=result;validate_review(row)
+    validate_review(row, EMPTY_CONTEXT)
     assert row['strategy_chain_outcome_profile']==before['strategy_chain_outcome_profile']
     assert row['C_score_points']==before['C_score_points']
     row['capability_only_strategy_chains']=[dict(chain_id='EXISTING',source_parent_refs=['ADMITTED'])]
@@ -591,7 +718,8 @@ def test_object_review_with_ownership_conflict_is_not_an_admitted_high_window():
     from emperor_v4.evaluation.third_item_c_contract_reading import build_review
     row=synthetic();row['strategy_chain_refs']=['CHAIN']
     row['strategy_chains']=[dict(chain_id='CHAIN',label='合成交班任务',member_parent_refs=['TASK'])]
-    row['public_reading']['source_reviews']={'CHAIN':dict(opponent_refs=['OPP'],admissibility_conflict=True,admissibility_conflict_basis='合成原段位于前任窗口。',actual_window='前任阶段',source_passages=[dict(path='synthetic.md',quote='合成引文。')],reviewed_parent_refs=['TASK'],return_explanation='前任阶段，不能计给本人。',specific_gaps=['本人并未接令或交手。'])}
+    row['public_reading']['source_reviews']={'CHAIN':dict(opponent_refs=['OPP'],admissibility_conflict=True,admissibility_conflict_basis='合成原段位于前任窗口。',actual_window='前任阶段',reviewed_parent_refs=['TASK'],return_explanation='前任阶段，不能计给本人。',specific_gaps=['本人并未接令或交手。'])}
+    bind_passages(row, row['public_reading']['source_reviews']['CHAIN'], [dict(path='synthetic.md',quote='合成引文。')])
     entry=dict(subject_ruler_id=row['ruler_id'],source_chain_refs=['CHAIN'],opponent_label='合成国家',organization_grade='O5',actual_competition_window='前任阶段',basis='实际对象可识别。',source_campaign_refs=['TASK'])
     context={'systems':{'OPP':dict(opponent_label='合成国家',organization_grade='O5',basis='总体。',source_campaign_refs=['TASK'],window_assessments={'PHASE':entry})},'o_grades':{}}
     result=build_review(row,context)

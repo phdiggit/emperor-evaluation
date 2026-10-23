@@ -139,6 +139,7 @@ def _records(payload: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _projection_keys() -> set[str]:
     return {
+        "public_source_note_catalog",
         "public_projection_schema_version",
         "public_projection_status",
         "public_projection_axis",
@@ -155,7 +156,7 @@ def _scoring_signature(payload: dict[str, Any]) -> str:
         if isinstance(row, dict):
             for key in ("public_adjudication_summary", "public_evidence_items", "public_story",
                         "public_boundary", "public_loss_label", "public_calculation", "public_source_documents",
-                        "public_related_source_refs", "public_source_note", "public_reading_sections"):
+                        "public_related_source_refs", "public_source_note", "public_source_note_ref", "public_reading_sections"):
                 row.pop(key, None)
     for key in _projection_keys():
         snapshot.pop(key, None)
@@ -167,14 +168,20 @@ def _refresh_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
     rows = _records(payload)
     evidence_count = 0
     for row in rows:
+        reading = row
+        if axis == 'C4':
+            from emperor_v4.evaluation.second_item_c_reading import recovery_public_record
+            reading = recovery_public_record(row)
+            row.pop('public_story', None)
         items = row.get("public_evidence_items")
         if not isinstance(items, list) or not items:
             raise ValueError(f"第二项{axis}缺少直接维护的逐条公开依据：{row.get('ruler_name')}")
         for field in ("public_story", "public_adjudication_summary", "public_boundary", "public_loss_label"):
-            if not isinstance(row.get(field), str) or not row[field].strip():
+            if not isinstance(reading.get(field), str) or not reading[field].strip():
                 raise ValueError(f"第二项{axis}缺少直接维护的公开正文：{row.get('ruler_name')}/{field}")
         from emperor_v4.evaluation.second_item_c_reading import calculation
-        row["public_calculation"] = calculation(axis, row)
+        calculation(axis, row)
+        row.pop('public_calculation', None)
         evidence_count += len(items)
     if _scoring_signature(payload) != before_signature:
         raise ValueError(f"第二项{axis}公开字段迁移意外改变了正式评分字段")
@@ -188,7 +195,8 @@ def _refresh_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
         "identity": "正文、定档理由、范围与逐条史源直接维护在正式记录；刷新只同步计算说明、元数据及同值阅读视图",
         "reader_policy": "reader逐字展示正式公开字段；不改写句子、不猜史源、不重算分数",
     }
-    return payload
+    from emperor_v4.evaluation.second_item_c_source_notes import compact_source_notes
+    return compact_source_notes(payload)
 
 
 def _verify_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
@@ -198,16 +206,22 @@ def _verify_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
         raise ValueError(f"第二项{axis}公开投影不是正式上游真源")
     if payload.get("public_projection_axis") != axis:
         raise ValueError(f"第二项{axis}公开投影轴标记不一致")
-    rows = _records(payload)
+    from emperor_v4.evaluation.second_item_c_source_notes import source_note_records
+    rows = source_note_records(payload)
     if payload.get("public_projection_record_count") != len(rows):
         raise ValueError(f"第二项{axis}公开投影人物计数不一致")
     all_ids: set[str] = set()
     evidence_count = 0
     for row in rows:
         name = str(row.get("ruler_name") or row.get("ruler_id"))
+        from emperor_v4.evaluation.second_item_c_reading import calculation_record
+        row = calculation_record(axis, row)
         if axis == 'C4':
-            from emperor_v4.evaluation.second_item_c_reading import verify_recovery_reading
+            from emperor_v4.evaluation.second_item_c_reading import verify_recovery_reading, recovery_public_record
+            if 'public_story' in row:
+                raise ValueError('第二项C4只保存阅读分栏，不得另存拼接正文副本')
             verify_recovery_reading(row)
+            row = recovery_public_record(row)
         actual = row.get("public_evidence_items")
         related = row.get('public_related_source_refs')
         if not isinstance(related, list) or not isinstance(row.get('public_source_note'), str) or not row['public_source_note'].strip():
@@ -265,9 +279,6 @@ def _verify_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
             raise ValueError(f"第二项{axis}公开正文仍有修订过程或损坏术语：{name}")
         if row.get('loss_grade') == 'L1' and re.search(r"^(?:损害轻微|已证损害轻微|有界局部或短时损害|有局部或短时损害)", row['public_loss_label']):
             raise ValueError(f"第二项{axis}低谷标签不得把最低已证冒充损害轻微：{name}")
-        from emperor_v4.evaluation.second_item_c_reading import calculation
-        if row.get('public_calculation') != calculation(axis, row):
-            raise ValueError(f"第二项{axis}公开计算与正式输入不一致：{name}")
         evidence_count += len(actual)
     if payload.get("public_projection_evidence_item_count") != evidence_count:
         raise ValueError(f"第二项{axis}公开条目计数不一致")
@@ -348,7 +359,10 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
     end = '<!-- c-public-end -->'
     core = re.sub(r'\n*' + re.escape(start) + r'.*?' + re.escape(end) + r'\n*', '\n', markdown, flags=re.S).rstrip()
     lines = [core, '', start, '', '## 人物正文、逐条依据与史源', '']
-    for row in _records(payload):
+    from emperor_v4.evaluation.second_item_c_source_notes import source_note_records
+    for row in source_note_records(payload):
+        from emperor_v4.evaluation.second_item_c_reading import calculation_record
+        row = calculation_record(payload['public_projection_axis'], row)
         story = ('\n\n'.join('#### ' + s['title'] + '\n\n' + s['body'] for s in row['public_reading_sections'])
                  if row.get('public_reading_sections') else row['public_story'])
         lines += [f"### {row['ruler_name']}", '', f"<a id=\"{row['ruler_id']}\"></a>", '', story, '',

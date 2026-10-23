@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from copy import deepcopy
 from typing import Any
 
 from emperor_v4.evaluation.formal_json_store import load_json
@@ -66,6 +67,9 @@ def load_detail_sources(root: Path) -> dict[str, Any]:
     for key, path in SOURCES.items():
         payload = load_json(root / path)
         rows = payload["scores"] if "scores" in payload else payload["records"]
+        if key in ('C1', 'C2', 'C3', 'C4'):
+            from emperor_v4.evaluation.second_item_c_source_notes import source_note_records
+            rows = source_note_records(payload)
         indexed = {r["ruler_id"]: r for r in rows}
         if len(indexed) != len(rows):
             raise ValueError(f"子项明细人物ID重复：{path}")
@@ -82,6 +86,27 @@ def load_detail_sources(root: Path) -> dict[str, Any]:
         _canonical_first_index(list(_table(root / path).items()), f"第一项明细表 {path}")
         for path in COMPONENT_SETTLEMENTS
     ]
+    return result
+
+
+def reading_records(root: Path, records: list[dict[str, Any]], pool_records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Build component readings from current sources, without changing formal rows."""
+    ready = {r['ruler_id']: r for r in pool_records
+             if r['pool_status'] == 'INCLUDED' and r['settlement_readiness'] == 'COMPOSITE_READY'}
+    if len({r['ruler_id'] for r in pool_records}) != len(pool_records):
+        raise ValueError('综合明细规范池人物ID重复')
+    ids = [r['ruler_id'] for r in records]
+    if len(set(ids)) != len(ids) or set(ids) != set(ready):
+        raise ValueError('综合明细与规范池就绪人物集合不一致')
+    for row in records:
+        if 'component_details' in row:
+            raise ValueError('综合正式记录不得保存生成的component_details副本')
+        if row['ruler_name'] != ready[row['ruler_id']]['ruler_name']:
+            raise ValueError('综合明细人物身份不一致')
+    sources = load_detail_sources(root)
+    result = deepcopy(records)
+    for row in result:
+        row['component_details'] = component_details(sources, ready[row['ruler_id']], row)
     return result
 
 
@@ -191,7 +216,7 @@ def component_details(sources: dict[str, Any], pool: dict[str, Any], row: dict[s
         ("C1实战交付", "combat_delivery_grade"), ("C2持续作战", "operational_sustainability_cap"), ("C3体系可靠性", "system_reliability_cap"))]
     equal(c["C_score_points"], third["C50_score_points"], "C50")
     cost = third["global_cost_credit_profile"]
-    military += [cell("C50", third["C50_score_points"], c["C_overall_grade"], SOURCES["C"]), cell("普通成本扣分", third["cost_debit_points"], f"{cost['cost_band']} / {cost['position']}", SOURCES["third"]), cell("ML扣分", abs(third["military_net_loss_penalty"]), third["military_net_loss_grade"], SOURCES["third"]), cell("实际扣分", third["applied_military_debit_points"], "取较大值", SOURCES["third"]), cell("第三项合计", third["third_item_score_points"], "合计", SOURCES["third"])]
+    military += [cell("C50", third["C50_score_points"], c["final_grade"], SOURCES["C"]), cell("普通成本扣分", third["cost_debit_points"], f"{cost['cost_band']} / {cost['position']}", SOURCES["third"]), cell("ML扣分", abs(third["military_net_loss_penalty"]), third["military_net_loss_grade"], SOURCES["third"]), cell("实际扣分", third["applied_military_debit_points"], "取较大值", SOURCES["third"]), cell("第三项合计", third["third_item_score_points"], "合计", SOURCES["third"])]
     equal(third["A120_score_points"]+third["B80_score_points"]+third["C50_score_points"]-third["applied_military_debit_points"], row["third_item_score"], "第三项")
     details["military"] = military
     fourth = sources["fourth"][fid]

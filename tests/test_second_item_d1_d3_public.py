@@ -7,7 +7,7 @@ from html.parser import HTMLParser
 import pytest
 
 from emperor_v4.evaluation.formal_json_store import load_json
-from emperor_v4.evaluation.second_item_d1_d3_public import D1_PATH, D3_PATH, PUBLIC_RECORD_FIELDS, _refresh_payload, _scoring_signature, verify_public_projection, render_public_markdown
+from emperor_v4.evaluation.second_item_d1_d3_public import D1_PATH, D3_PATH, PUBLIC_RECORD_FIELDS, _refresh_payload, _scoring_signature, verify_public_projection, render_public_markdown, public_record
 
 
 def synthetic(root, axis):
@@ -43,6 +43,20 @@ def test_refresh_preserves_authored_text_sources_and_nonpublic_fields(tmp_path):
         assert _scoring_signature(refreshed) == signature
         for field in PUBLIC_RECORD_FIELDS:
             assert refreshed['records'][0][field] == before['records'][0][field]
+        assert all('public_excerpt' not in ref for item in refreshed['records'][0]['public_evidence_items'] for ref in item['source_refs'])
+
+
+def test_reading_formats_only_the_retained_quote_and_keeps_editorial_notes(tmp_path):
+    row = synthetic(tmp_path, 'D1')['records'][0]
+    raw = "'''[[甲]]'''<ref>乙</ref><br>丙"
+    row['public_evidence_items'][0]['source_refs'][0]['excerpt'] = raw
+    before = deepcopy(row)
+    result = public_record(row)
+    source = result['public_evidence_items'][0]['source_refs'][0]
+    assert source['excerpt'] == raw
+    assert source['public_excerpt'] == '甲〔校注：乙〕\n丙'
+    source['excerpt'] = '消费端修改。'
+    assert row == before
 
 
 def test_missing_authored_text_is_rejected_instead_of_inferred(tmp_path):
@@ -88,7 +102,7 @@ def test_reader_uses_complete_authored_projection_without_transforming_evidence(
         for item in (record.get('net') or {}).get('component_details', {}).get('handoff', []):
             axis = {'D1继任行政连续性': 'D1', 'D3政权交接稳定': 'D3'}.get(item.get('label'))
             if not axis: continue
-            formal = sources[axis][record['ruler_id']]
+            formal = public_record(sources[axis][record['ruler_id']])
             assert item['reader_public_d'] == {k: formal[k] for k in PUBLIC_RECORD_FIELDS}
             assert item['reader_public_evidence_items'] == formal['public_evidence_items']
             seen.add(axis)
@@ -123,6 +137,7 @@ def test_full_pool_collection_keeps_every_authored_record_and_quotation():
     expected_ids, expected_evidence = set(), set()
     for path in (D1_PATH, D3_PATH):
         for row in load_json(root / path)['records']:
+            row = public_record(row)
             expected_ids.add(row['ruler_id'])
             text = page.people[row['ruler_id']]
             for field in PUBLIC_RECORD_FIELDS:
