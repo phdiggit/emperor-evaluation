@@ -40,7 +40,7 @@ def _change_value(values: list[int], axis: Mapping[str, Any]) -> Decimal:
             if step.get("from_grade") != start + index or step.get("to_grade") != start + index + 1:
                 raise ValueError("A改善逐档路径与窗口不一致")
             credit = _decimal(step["credit"])
-            if credit not in map(Decimal, ("0", ".25", ".5", ".75", "1")):
+            if credit not in map(Decimal, ("0", ".5", "1")):
                 raise ValueError("A逐档改善信用不合法")
             credits += credit
             result += (values[start + index + 1] - values[start + index]) * credit

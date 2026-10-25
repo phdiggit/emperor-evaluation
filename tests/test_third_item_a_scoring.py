@@ -45,9 +45,9 @@ def test_state_value_order_responsibility_and_high_position_retention(name):
 
 def test_each_crossing_uses_its_own_credit_and_value():
     a = axis(1, 3)
-    a["improvement_step_credits"][0]["credit"] = .25
-    a["attributable_delta"] = 1.25
-    assert attributable_value_delta("A2", a) == Decimal(16)
+    a["improvement_step_credits"][0]["credit"] = .5
+    a["attributable_delta"] = 1.5
+    assert attributable_value_delta("A2", a) == Decimal(18)
     with pytest.raises(ValueError, match="路径"):
         a["improvement_step_credits"][0]["from_grade"] = 0
         calculate_a_axis("A2", a)
@@ -111,6 +111,35 @@ def test_special_credit_uses_max_and_clipping_preserves_raw_value():
 def test_axis_rounding_is_half_up():
     result = calculate_a_axis("A1", axis(0, 0), structure_credit=.075)
     assert result["axis_points"] == .05
+
+
+@pytest.mark.parametrize('old_credit',[.25,.75])
+def test_retired_personal_role_fractions_cannot_be_used_for_sovereign_improvement(old_credit):
+    a=axis(2,3,old_credit)
+    with pytest.raises(ValueError,match='改善信用'):calculate_a_axis('A1',a)
+
+
+def test_mixed_source_credit_requires_named_basis_and_does_not_reduce_full_sovereign_credit():
+    from emperor_v4.evaluation.third_item_a_credit import validate_attribution
+    validate_attribution({'attribution_mode':'SOVEREIGN_AUTHORITY'},1)
+    validate_attribution({'attribution_mode':'EXCLUDED'},0)
+    with pytest.raises(ValueError,match='具名|混合归属'):
+        validate_attribution({'attribution_mode':'MIXED_SOURCES'},.5)
+    validate_attribution({'attribution_mode':'MIXED_SOURCES','mixed_source_type':'EXTERNAL_CHANGE','mixed_source_basis':'合成邻国自主撤军与本方围控共同形成结果'},.5)
+    with pytest.raises(ValueError):
+        validate_attribution({'attribution_mode':'MIXED_SOURCES','mixed_source_type':'MINISTER_EXECUTION','mixed_source_basis':'合成将领执行'},.5)
+    with pytest.raises(ValueError):validate_attribution({'attribution_mode':'SOVEREIGN_AUTHORITY'},.5)
+
+
+def test_shared_war_allows_separately_proved_effects_but_not_one_effect_renamed():
+    from emperor_v4.evaluation.third_item_a_credit import validate_shared_consequences
+    r={'a_result_allocation':{'shared_source_refs':['synthetic-war'],
+        'A1':{'result_id':'enemy-capacity','consequence':'合成对手常备入侵集团被解散'},
+        'A2':{'result_id':'own-support','consequence':'合成补给线与两道防线形成持续协同'}}}
+    before=deepcopy(r);validate_shared_consequences(r,{'synthetic-war'});assert r==before
+    r['a_result_allocation']['A2']['result_id']='enemy-capacity'
+    with pytest.raises(ValueError,match='同一后果'):validate_shared_consequences(r,{'synthetic-war'})
+    with pytest.raises(ValueError,match='共用来源'):validate_shared_consequences(before,{'another-war'})
 
 
 @pytest.mark.parametrize("name", A_STATE_VALUES)

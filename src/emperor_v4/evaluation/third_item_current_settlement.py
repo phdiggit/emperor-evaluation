@@ -16,6 +16,9 @@ from emperor_v4.evaluation.third_item_b_control_depth import control_depth_packa
 from emperor_v4.evaluation.third_item_a_scoring import (
     A_CHANGE_WEIGHTS, A_FORMULA, A_STATE_VALUES, calculate_a_axis,
 )
+from emperor_v4.evaluation.third_item_a_credit import (
+    ATTRIBUTION_SCALE, positive_source_refs, validate_attribution, validate_shared_consequences,
+)
 from emperor_v4.evaluation.opponent_system_contract import (
     build_opponent_system_index,
     load_opponent_system_contract,
@@ -498,8 +501,10 @@ def _ceiling_progress_credit(axis: Mapping[str, Any]) -> float:
     if level not in levels or int(axis["end_grade"]) != 5 or axis.get("active_window_segments"):
         raise ValueError("封顶建设须为5档终点且完成单窗口归责")
     credit = axis.get("ceiling_progress_attribution_credit")
-    if isinstance(credit, bool) or not isinstance(credit, (int, float)) or credit not in {0.25, 0.5, 0.75, 1.0}:
+    if isinstance(credit, bool) or not isinstance(credit, (int, float)) or credit not in {0.5, 1.0}:
         raise ValueError("封顶建设缺少合法本人归责信用")
+    validate_attribution({key.removeprefix('ceiling_progress_'): value for key,value in axis.items()
+                          if key.startswith('ceiling_progress_')}, credit)
     for key in ("basis", "entry_structure", "handover_structure", "level_basis", "attribution_basis", "deduplication_basis"):
         if not isinstance(axis.get("ceiling_progress_" + key), str) or not axis["ceiling_progress_" + key].strip():
             raise ValueError(f"封顶建设缺少{key}")
@@ -519,7 +524,7 @@ def _within_band_structure_credit(axis: Mapping[str, Any]) -> float:
     if not isinstance(evidence, Mapping):
         raise ValueError("A轴档内结构改善必须为证据对象")
     credit = evidence.get("attribution_credit")
-    if not isinstance(credit, (int, float)) or isinstance(credit, bool) or credit not in {0.25, 0.5, 0.75, 1.0}:
+    if not isinstance(credit, (int, float)) or isinstance(credit, bool) or credit not in {0.5, 1.0}:
         raise ValueError("A轴档内结构改善归责信用不合法")
     if not 0 <= int(axis["end_grade"]) < 5:
         raise ValueError("A轴独立结构建设的5档终点须走封顶路径")
@@ -573,13 +578,7 @@ def _validate_result_credit_contract(
         raise ValueError("A状态价值表、变化权重或公式不一致")
     if contract.get("construction_base_points") != CONSTRUCTION_BASE_POINTS:
         raise ValueError("A轴建设基础点须统一为显著14、重大28")
-    if contract.get("improvement_attribution_scale") != {
-        "NONE": 0,
-        "LIMITED": 0.25,
-        "JOINT": 0.5,
-        "PRIMARY": 0.75,
-        "LEADING": 1.0,
-    }:
+    if contract.get("improvement_attribution_scale") != ATTRIBUTION_SCALE:
         raise ValueError("A120逐档改善归责映射不合法")
     if contract.get("improvement_attribution_formula") != (
         "positive attributable_delta = sum(improvement_step_credits.credit)"
@@ -630,7 +629,7 @@ def _validate_result_credit_contract(
 
     if formal_ab_payload is not None and set(formal_by_id) != {str(row["ruler_id"]) for row in records}:
         raise ValueError("A120结果信用与AB当前人物覆盖不一致")
-    allowed_credits = {0.0, 0.25, 0.5, 0.75, 1.0}
+    allowed_credits = set(ATTRIBUTION_SCALE.values())
     for row in records:
         ruler_id = str(row["ruler_id"])
         formal = formal_by_id.get(ruler_id)
@@ -643,11 +642,13 @@ def _validate_result_credit_contract(
         if row["score_ready"] != all(axis["score_ready"] for axis in row["axes"].values()):
             raise ValueError(f"{row['ruler_name']}A轴与人物就绪状态不一致")
         axis_points = 0.0
-        historic_ref_sets: list[set[str]] = []
         positive_axis_ref_sets: list[tuple[str, set[str]]] = []
         for axis_name in ("A1", "A2"):
             axis = row["axes"][axis_name]
             structure_credit = _within_band_structure_credit(axis)
+            if structure_credit:
+                evidence = axis['within_band_structure_improvement']
+                validate_attribution(evidence, evidence['attribution_credit'])
             ceiling = str(axis.get("ceiling_progress"))
             ceiling_bonus = float(axis.get("ceiling_progress_bonus") or 0)
             if ceiling_bonus != _ceiling_progress_credit(axis):
@@ -711,6 +712,9 @@ def _validate_result_credit_contract(
             if len(steps) != expected_step_count:
                 raise ValueError(f"{row['ruler_name']} {axis_name}逐档改善归责数量不一致")
             for index, step in enumerate(steps):
+                validate_attribution(step, step['credit'])
+                if step['credit'] > 0 and not step.get('source_refs'):
+                    raise ValueError('A正向改善须绑定具体来源，不以空引用回避后果去重')
                 if (
                     (not active_segments and int(step.get("from_grade", -1)) != start + index)
                     or (not active_segments and int(step.get("to_grade", -1)) != start + index + 1)
@@ -755,7 +759,7 @@ def _validate_result_credit_contract(
                         "O4_REALIZED", "O5_REALIZED", "O6_REALIZED"
                     }
                     or gate.get("pressure_origin") != "EXTERNAL_NOT_SELF_INDUCED"
-                    or float(gate.get("maintenance_attribution_credit") or 0) not in {0.75, 1.0}
+                    or float(gate.get("maintenance_attribution_credit") or 0) != 1.0
                     or gate.get("terminal_grade_held") is not True
                     or gate.get("cross_axis_consumption_check") != "PASS"
                     or not str(gate.get("preserved_object") or "").strip()
@@ -798,7 +802,7 @@ def _validate_result_credit_contract(
                 if (
                     gate.get("pressure_level") not in {"O4_REALIZED", "O5_REALIZED", "O6_REALIZED"}
                     or gate.get("pressure_origin") != "EXTERNAL_NOT_SELF_INDUCED"
-                    or float(gate.get("maintenance_attribution_credit") or 0) not in {0.75, 1.0}
+                    or float(gate.get("maintenance_attribution_credit") or 0) != 1.0
                     or gate.get("terminal_grade_held") is not True
                     or gate.get("cross_axis_consumption_check") != "PASS"
                     or not str(gate.get("preserved_object") or "").strip()
@@ -820,7 +824,7 @@ def _validate_result_credit_contract(
                 continuity_refs = list(gate.get("continued_effectiveness_refs") or ())
                 if gate.get("pressure_level") not in {"O5_O6_REALIZED", "REPEATED_O4_EQUIVALENT"}:
                     raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成压力不合法")
-                if float(gate.get("maintenance_attribution_credit") or 0) not in {0.75, 1.0}:
+                if float(gate.get("maintenance_attribution_credit") or 0) != 1.0:
                     raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成本人归责不足")
                 if gate.get("pressure_origin") != "EXTERNAL_NOT_SELF_INDUCED":
                     raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成危机来源不合法")
@@ -838,28 +842,10 @@ def _validate_result_credit_contract(
                     }
                     if not set(map(str, pressure_refs + continuity_refs)).issubset(allowed_refs):
                         raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成引用越界")
-                historic_ref_sets.append(set(map(str, pressure_refs + continuity_refs)))
             elif axis.get("historic_maintenance_gate") is not None:
                 raise ValueError(f"{row['ruler_name']} {axis_name}非历史级守成不得保留历史门")
 
-            positive_refs: set[str] = set()
-            if structure_credit:
-                positive_refs.update(
-                    map(str, axis["within_band_structure_improvement"]["parent_cycle_refs"])
-                )
-            if ceiling_bonus:
-                positive_refs.update(map(str, axis["ceiling_progress_parent_cycle_refs"]))
-            if bonus:
-                gate = (
-                    axis.get("low_position_resilience_gate")
-                    or axis.get("historic_maintenance_gate")
-                    or axis.get("maintenance_evidence_gate")
-                    or {}
-                )
-                for field in (
-                    "pressure_refs", "preservation_refs", "continued_effectiveness_refs",
-                ):
-                    positive_refs.update(map(str, gate.get(field) or ()))
+            positive_refs = positive_source_refs(axis)
             if positive_refs:
                 positive_axis_ref_sets.append((axis_name, positive_refs))
 
@@ -881,13 +867,8 @@ def _validate_result_credit_contract(
             expected_axis_points = calculated["axis_points"]
             axis_points += expected_axis_points
 
-        if len(historic_ref_sets) > 1 and historic_ref_sets[0] & historic_ref_sets[1]:
-            raise ValueError(f"{row['ruler_name']}同一防守链不得在A1、A2重复记历史级守成")
         if len(positive_axis_ref_sets) > 1:
-            _, first_refs = positive_axis_ref_sets[0]
-            _, second_refs = positive_axis_ref_sets[1]
-            if first_refs & second_refs:
-                raise ValueError(f"{row['ruler_name']}同一父链不得在A1、A2重复记正向专项")
+            validate_shared_consequences(row, positive_axis_ref_sets[0][1] & positive_axis_ref_sets[1][1])
 
         if abs(float(row["A120_points"]) - round(axis_points, 2)) > 0.001:
             raise ValueError(f"{row['ruler_name']} A120汇总不一致")
