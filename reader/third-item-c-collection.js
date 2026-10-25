@@ -110,6 +110,8 @@
     const ready = await loadPerson(entry);
     if (version !== navigationVersion) return;
     const target = ready && document.getElementById(id) || entry;
+    const materialBody = target.dataset.cEvidence && target.querySelector('details');
+    if (materialBody) materialBody.open = true;
     for (let parent = target.parentElement; parent; parent = parent.parentElement) {
       if (parent.tagName === 'DETAILS') parent.open = true;
     }

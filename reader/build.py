@@ -847,16 +847,14 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
     third = sources["third"][tid]
     military = {item["label"]: item for item in details.get("military", [])}
     specific_reason_keys = {
-        "C1实战交付": ("combat_delivery_basis", "C1_basis"),
-        "C2持续作战": ("operational_sustainability_basis", "C2_basis"),
-        "C3体系可靠性": ("system_reliability_basis", "C3_basis"),
+        "C1联合主评": ("joint_assessment",),
     }
     for label, keys in specific_reason_keys.items():
         if label in military:
             axis = label[:2]
             military[label] = _attach_formal_public_reader(
                 military[label], record=c_record, axis=axis,
-                how="这是军事体系结果的组成方面，不单独加分；三方面共同确定军事体系结果。",
+                how="以实战兑现为主评，保障、组织与恢复事实共同决定整体档位。",
             )
             if axis == 'C1':
                 military[label]['reader_public_third_c'] = c_reading
@@ -1342,30 +1340,14 @@ def third_c_grade_meaning(axis):
 
 
 def render_third_c_grade_guide():
-    from emperor_v4.evaluation.third_item_c_public import LABELS, SCALES, fmt
-    from emperor_v4.evaluation.third_item_c_strategy_chain import GRADE_RANGES
-    scales = ''.join(
-        f'<section><h3>{escape(label)}</h3><ol start="0">'
-        + ''.join(f'<li>{escape(meaning)}</li>' for meaning in scale) + '</ol></section>'
-        for label, scale in zip(LABELS, SCALES))
-    bands = ''.join(
-        f'<tr><th scope="row">{g}档</th><td>{low}%—{high}%'
-        + ('（现行取100%）' if g == 5 else '') + '</td><td>'
-        + ('50分' if g == 5 else f'{fmt(50 * low / 100)}—{fmt(50 * high / 100)}分')
-        + '</td></tr>' for g, (low, high) in enumerate(GRADE_RANGES))
-    return ('<section class="third-c-grade-guide" aria-labelledby="grade-guide-title">'
-            '<h2 id="grade-guide-title">档位与分数怎么读</h2>'
-            '<p>三个方面各按0—5档判断，含义随方面而异，具体含义直接列在各人的档位旁。'
-            '三轴不相加、不取平均：先取三轴最低档作为原始总档，再与重大胜绩等资格上限取低，得到最终档；资格封顶不改写三轴原档。'
-            '任一必要轴待定时，总档和分数暂缺，不补零。</p>'
-            '<p>军事体系满分50分。最终档先确定得分率区间，再按正式档内位置确定具体得分率，以“50×得分率÷100”换算分数。'
-            '同档可以有不同分数，三轴各自不单独加分；0档也不等于固定0分，分数差不表示能力差的倍数。'
-            '三轴均为5档且全部资格通过时，按现行合同直接取满分50分。每人的采用位置和计算见其“查看规则与分数计算”。</p>'
-            '<details class="third-c-scale-reference"><summary>查看三方面的0—5档含义</summary>' + scales + '</details>'
-            '<details class="third-c-band-reference"><summary>查看最终档与分数区间</summary>'
-            '<table><caption>最终结算档的得分率与50分制换算</caption><thead><tr><th scope="col">最终档</th>'
-            '<th scope="col">合同得分率区间</th><th scope="col">对应分数</th></tr></thead><tbody>' + bands
-            + '</tbody></table></details></section>')
+    from emperor_v4.evaluation.third_item_c_public import SCALES, METHOD
+    from emperor_v4.evaluation.third_item_c_joint import BANDS
+    meanings=''.join('<li>'+escape(t)+'</li>' for t in SCALES[0])
+    bands=''.join(f'<tr><th>{g}档</th><td>{lo}%—{hi}%</td></tr>' for g,(lo,hi) in enumerate(BANDS))
+    return ('<section class="third-c-grade-guide"><h2>档位与分数怎么读</h2><p>'+escape(METHOD)+'</p>'
+            '<p>以实际作战为主，保障、组织和恢复事实共同决定整体判断。缺证暂不计分；继承保有能力最高三档。</p>'
+            '<details><summary>0—5档含义</summary><ol start="0">'+meanings+'</ol></details>'
+            '<details><summary>得分率区间</summary><table>'+bands+'</table></details></section>')
 
 
 def build_third_c_collection(root):
@@ -1380,14 +1362,14 @@ def build_third_c_collection(root):
         return ''.join(f"<p class='prose'>{escape(text)}</p>" for text in value.split('\n\n'))
     def c_material(e):
         excerpts = ''.join('<p class="meta">来源摘录（' + escape(p.get('kind', e['kind'])) + '）</p><blockquote>' + escape(p['quote']) + '</blockquote>' for p in e.get('source_passages', []))
-        return (f"<li class='third-c-material' id='{escape(material_id(e['id']))}' tabindex='-1' data-c-evidence='{escape(e['id'])}'><h5>{escape(e['label'])}</h5>"
+        return (f"<li class='third-c-material' id='{escape(material_id(e['id']))}' tabindex='-1' data-c-evidence='{escape(e['id'])}'><details><summary>{escape(e['label'])}</summary>"
                 + paragraphs(e['kind']) + paragraphs(e['text'])
                 + (paragraphs('为什么影响判断：' + e['reason']) if e.get('reason') else '')
                 + '<details><summary>本条的范围与原记录</summary>' + paragraphs(e['scope'])
                 + ' '.join(collection_source_link(s['path'], s['label'] + ' ↗') for s in e['sources'])
                 + excerpts
                 + (paragraphs('原登记史源：' + '；'.join(map(str, e['historical_source_refs']))) if e.get('historical_source_refs') else '')
-                + '</details></li>')
+                + '</details></details></li>')
     cards, assets, search_rows = [], {}, {}
     for row in payload['records']:
         data = reading_projection(row, context=c_review_context)
@@ -1404,28 +1386,23 @@ def build_third_c_collection(root):
         def argument(e):
             return (f"<li><a href='#{quote(material_id(e['id']), safe='')}' data-c-material-ref='{escape(material_id(e['id']))}'>{escape(e['label'])} ↗</a>"
                     + (paragraphs(e['reason']) if e.get('reason') else '') + '</li>')
-        axes = ''.join(
-            f"<section class='third-c-axis' data-axis='{axis}'><h4>{escape(a['label'])} · {escape(a['grade_label'])}</h4>"
-            + f"<p class='third-c-review-status' data-review-status='{escape(a['review_status'])}'>分界论证：{escape(a['review_label'])}。{escape(a['review_text'])}</p>"
-            + paragraphs(a['basis'])
-            + ('<details class="third-c-assessment-guide"><summary>目标未完成时，怎样判断实战表现？</summary>' + paragraphs(a['assessment_guide']) + '</details>' if a['assessment_guide'] else '')
-            + (commander_html(a['commander_profiles']) if axis == 'C3' else '') + ("<p class='notice third-c-evidence-gap'>" + escape(a['evidence_note']) + '</p>' if a['evidence_note'] else '')
-            + (f"<details class='third-c-arguments'><summary>具体战事与定档作用（{len(a['materials'])}条）</summary><ol>" + ''.join(argument(e) for e in a['materials']) + '</ol></details>' if a['materials'] else '')
-            + '<details><summary>本轴各档含义</summary><ol start="0">' + ''.join(f'<li>{escape(t)}</li>' for t in a['scale']) + '</ol></details></section>'
-            for axis, a in data['axes'].items())
+        axes = (paragraphs(c['grade_path']) + paragraphs(data['position_explanation'])
+                + '<details><summary>各档含义与判断方法</summary><ol start="0">'
+                + ''.join(f'<li>{escape(t)}</li>' for t in data['axes']['C1']['scale']) + '</ol>'
+                + paragraphs(data['axes']['C1']['assessment_guide'])
+                + paragraphs(data['assessment_scope_note']) + '</details>')
         evidence = ''.join(c_material(e) for e in data['evidence_items'])
         overview = ''.join(f"<div><span>{escape(a['label'])}</span><strong>{escape(a['grade_label'])}</strong><span class='third-c-grade-meaning'>{escape(third_c_grade_meaning(a))}</span><small class='third-c-review-status' data-review-status='{escape(a['review_status'])}'>分界论证：{escape(a['review_label'])}</small></div>" for a in data['axes'].values())
         detail = (f"<div class='third-c-person-body'><p class='meta'>评价时期：{escape(data['window'])}</p>"
                      + f"<div class='component'><strong>军事体系表现</strong><b>{escape(c['total_label'])}</b></div>"
-                     + f"<p class='notice third-c-scope-note'>{escape(data['assessment_scope_note'])}</p>"
-                     + f"<p class='meta third-c-review-note'>{escape(data['review_note'])}</p>"
                      + paragraphs(data['story'])
-                     + '<details class="third-c-reasons"><summary>为什么这样评价？</summary>' + axes + '</details>'
+                     + '<details class="third-c-reasons"><summary>档位与档内位置</summary>' + axes + '</details>'
                      + '<details><summary>本人责任与评价范围</summary>' + paragraphs(data['responsibility']) + paragraphs(data['boundary']) + '</details>'
-                     + '<details class="third-c-evidence-list"><summary>查看战事材料与来源</summary>' + paragraphs(data['source_note']) + '<ul>' + evidence + '</ul></details>'
-                     + '<details class="third-c-audit"><summary>深入核对：对手、完整任务与档位分界</summary>' + html_review(data['contract_review'], collection_source_link, evidence_link=material_link) + '</details>'
-                     + '<details class="third-c-calculation"><summary>查看规则与分数计算</summary>'
-                     + ''.join(paragraphs(c[k]) for k in ('grade_path', 'cap_reason', 'outcome_text', 'position', 'formula'))
+                     + commander_html(data['commander_profiles'])
+                     + '<details class="third-c-evidence-list"><summary>战事摘要与来源</summary>' + paragraphs(data['source_note']) + '<ul>' + evidence + '</ul></details>'
+                     + '<details class="third-c-audit"><summary>任务范围、对手与关键阶段</summary>' + html_review(data['contract_review'], collection_source_link, evidence_link=material_link) + '</details>'
+                     + '<details class="third-c-calculation"><summary>分数怎样计算</summary>'
+                     + ''.join(paragraphs(c[k]) for k in ('formula',))
                      + '<details><summary>共同计算规则</summary>' + paragraphs(c['method']) + '</details></details>'
                      + '</div>')
         detail_ref(row['ruler_id'])
@@ -1435,7 +1412,7 @@ def build_third_c_collection(root):
         overview_text = ' '.join((row['ruler_name'], row['polity'], data['window'], data['story']))
         cards.append(f"<article id='{escape(row['ruler_id'])}' data-formal-public-source data-detail-url='{escape(url)}' data-search='{escape(overview_text)}'><details class='third-c-person'>"
                      + f"<summary class='third-c-person-summary'><div class='third-c-person-title'><h2>{escape(row['ruler_name'])}</h2><span class='meta'>{escape(row['polity'])}</span></div>"
-                     + f"<div class='third-c-overview' aria-label='三方面的正式判断'>{overview}</div></summary>"
+                     + f"<div class='third-c-overview' aria-label='整体正式判断'>{overview}</div></summary>"
                      + "<div class='third-c-detail-slot' aria-live='polite'><p>展开后加载完整正文与材料。</p></div></details></article>")
         search_rows[row['ruler_id']] = overview_text + '\n' + collection_search_text(detail)
     template = (root / 'reader/third-item-c.template.html').read_text(encoding='utf-8')

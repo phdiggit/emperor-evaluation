@@ -78,3 +78,18 @@ def test_cost_limits_take_max_with_ml_and_never_claim_endpoints_admissible(tmp_p
     assert envelope['rank_proven_within_registered_enclosure'] is True
     assert envelope['public_display'] is False
     assert rows[0]['evidence_assessment']['rank_status']=='NOT_ESTABLISHED'
+def test_registered_pending_subject_has_no_invented_score_or_rank(tmp_path):
+    import json
+    from copy import deepcopy
+    from emperor_v4.evaluation.rank_envelope import apply
+    for path,payload in [
+        ('config/first-item/military-cost-debits.json',{'max_debit_points':80}),
+        ('config/third-item/third-item-cost-credit-factors.json',{'cost_debit_base_points':80})]:
+        dest=tmp_path/path;dest.parent.mkdir(parents=True,exist_ok=True)
+        dest.write_text(json.dumps(payload),encoding='utf8')
+    pool=[dict(ruler_id='pending',settlement_readiness='PENDING_THIRD_ITEM_FORMAL_SETTLEMENT')]
+    registry={'cases':[dict(case_id='open',ruler_id='pending',status='UNRESOLVED_EVIDENCE_GAP')],
+        'rank_envelope':{'case_scopes':{'open':dict(dependency_basis='保留待定主体的依赖范围',affected=[dict(ruler_id='pending',components=['C3'])])}}}
+    before=deepcopy(registry);records=[]
+    apply(tmp_path,records,pool,{},registry)
+    assert records==[] and registry==before

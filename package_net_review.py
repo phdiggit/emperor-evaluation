@@ -17,6 +17,7 @@ import yaml
 
 from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.derived_readings import view_sources, render_views
+from emperor_v4.evaluation.reading_layout import is_reading_fragment
 
 
 ROOT = Path(__file__).resolve().parent
@@ -76,6 +77,8 @@ def collect(root: Path, package: str = "all") -> list[Path]:
         for path in directory.rglob("*"):
             if not path.is_file() or path.name == "README.md":
                 continue
+            if is_reading_fragment(path.relative_to(root).as_posix(), generated):
+                continue  # Generated from current JSON below, including on a fresh checkout.
             if contracts:
                 include = path.suffix == ".md"
             else:
@@ -232,9 +235,9 @@ def prepare(root: Path, package: str = "all") -> tuple[dict[str, bytes], dict]:
     selected = collect(root, package)
     generated_paths = set(view_sources(root)) & {p.relative_to(root).as_posix() for p in selected}
     generated = render_views(root, generated_paths) if generated_paths else {}
-    for path in selected:
-        name = path.relative_to(root).as_posix()
-        content = generated[name].encode('utf-8') if name in generated else path.read_bytes()
+    selected_by_name = {p.relative_to(root).as_posix(): p for p in selected}
+    for name in sorted(set(selected_by_name) | set(generated)):
+        content = generated[name].encode('utf-8') if name in generated else selected_by_name[name].read_bytes()
         content.decode("utf-8-sig")
         entries[name] = content
         inventory.append({"path": name, "bytes": len(content),

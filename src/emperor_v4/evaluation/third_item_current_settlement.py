@@ -1626,9 +1626,8 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
     validate_ab_shared_handoffs(workspace_root, ab_payload["records"], check_b1=False)
     credit_by_id = {row["ruler_id"]: row for row in credit_payload["records"]}
     expected_ab_markdown = _render_formal_markdown("AB", ab_payload["records"], credit_rows=credit_by_id)
-    actual_ab_markdown = (workspace_root / AB_PATH).with_suffix(".md").read_text(encoding="utf-8")
-    if actual_ab_markdown != expected_ab_markdown:
-        raise ValueError("第三项AB Markdown与正式JSON渲染结果不一致")
+    from .reading_layout import check_reading
+    check_reading(workspace_root, AB_PATH.with_suffix('.md'), expected_ab_markdown)
     records = list(payload.get("records") or ())
     if payload.get("schema_id") != "emperor-v4-third-item-formal-settlement-v7-fixed-cost-debit":
         raise ValueError("第三项正式结算schema不合法")
@@ -1961,7 +1960,8 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
         }
     )
     write_json(ab_path, ab_payload, ruler_polities=load_ruler_polities(workspace_root))
-    _write_text_atomic(ab_path.with_suffix(".md"), _render_formal_markdown(
+    from .reading_layout import write_reading
+    write_reading(workspace_root, AB_PATH.with_suffix('.md'), _render_formal_markdown(
         "AB", ab_payload["records"],
         credit_rows={row["ruler_id"]: row for row in credit_payload["records"]},
     ))
@@ -2205,8 +2205,9 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
     }
     write_json(c_path, payload, ruler_polities=load_ruler_polities(workspace_root))
     from emperor_v4.evaluation.third_item_c_contract_reading import load_context
-    _write_text_atomic(
-        c_path.with_suffix(".md"),
+    from .reading_layout import write_reading
+    write_reading(
+        workspace_root, C_PATH.with_suffix('.md'),
         _render_formal_markdown("C", payload["records"], c_review_context=load_context(workspace_root)),
     )
 

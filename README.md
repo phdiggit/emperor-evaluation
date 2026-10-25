@@ -76,6 +76,8 @@ python v4.py maintenance --component profile.C2 --polity 西汉 --verify
 
 历史影响、画像M1／M4／M5／C1／C2／C3／C5、第二项C3／C4／D1／D3、第三项AB／C及第四项B的Markdown是可完整重建的阅读视图，不进入Git。新检出后先运行`reading-views`再校验；完整阅读站点构建与CI会先生成这些文件。正文仍完整保留在JSON，原有路径与局部刷新命令有效。第三项AB同时读取正式AB记录与本人信用裁决，不以旧Markdown补正文。第一项Markdown真源、财政民生C1／C2等承担证据引用的阅读文档及含独立人工内容的Markdown继续保留。
 
+历史影响、第二项C3／C4和第三项AB／C采用“总览索引＋逐人正文”：原Markdown路径保留结果表及人物链接，完整正文位于同名`-逐人阅读/`目录，以人物ID命名；长人物页按完整段落、列表条目和折叠章节分页。相对来源链接随文件位置同步调整。生成、校验、局部刷新与评估包均包含分片；不以删减事实或来源缩小文件。需要完整合并版时显式运行`python v4.py reading-views --combined-output .tmp/reading-views-combined`，导出不会覆盖正常阅读入口。
+
 ## 边界
 
 执行约定见[AGENTS.md](AGENTS.md)，评分与证据边界见现行合同。结算和验证离线运行，不使用模型、网络或外部数据库；阅读站点的静态发布流程另见[阅读层说明](reader/README.md#构建产物与维护边界)。旧服务与 shadow 执行链已退役，仍被当前裁决引用的史料或审计不得仅凭名称删除。

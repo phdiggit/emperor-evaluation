@@ -61,6 +61,10 @@ def apply(root: Path, records: list[dict], pool: list[dict], details: dict, regi
         for target in scope['affected']:
             rid = target['ruler_id']
             if rid not in indexed:
+                if rid in pool_index and pool_index[rid].get('settlement_readiness') != 'COMPOSITE_READY':
+                    # Keep the declared dependency scope, but do not fabricate
+                    # a total or rank for a canonical pending/excluded subject.
+                    continue
                 raise ValueError('争议影响对象不在当前排名池')
             if not target['components']:
                 raise ValueError('争议影响组件不能为空')

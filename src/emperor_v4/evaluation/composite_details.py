@@ -213,7 +213,7 @@ def component_details(sources: dict[str, Any], pool: dict[str, Any], row: dict[s
     strategic.append(cell("B80", third["B80_score_points"], "合成", SOURCES["third"]))
     details["strategic"] = strategic
     military = [cell(label, None, c[key], SOURCES["C"], "不单独计分") for label, key in (
-        ("C1实战交付", "combat_delivery_grade"), ("C2持续作战", "operational_sustainability_cap"), ("C3体系可靠性", "system_reliability_cap"))]
+        ("C1联合主评", "combat_delivery_grade"),)]
     equal(c["C_score_points"], third["C50_score_points"], "C50")
     cost = third["global_cost_credit_profile"]
     military += [cell("C50", third["C50_score_points"], c["final_grade"], SOURCES["C"]), cell("普通成本扣分", third["cost_debit_points"], f"{cost['cost_band']} / {cost['position']}", SOURCES["third"]), cell("ML扣分", abs(third["military_net_loss_penalty"]), third["military_net_loss_grade"], SOURCES["third"]), cell("实际扣分", third["applied_military_debit_points"], "取较大值", SOURCES["third"]), cell("第三项合计", third["third_item_score_points"], "合计", SOURCES["third"])]

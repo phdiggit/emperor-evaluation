@@ -648,10 +648,10 @@ def _c_projection(row: dict[str, Any], *, reading=None, context=None) -> dict[st
     def evidence(axis, prefix):
         a = data['axes'][axis]
         return [dict(id=_stable_id(prefix, ruler_id, axis), public_label=a['label'],
-                     public_role='逐轴评价判断', public_basis=a['basis'], public_boundary=data['boundary'])]
+                     public_role='整体评价判断', public_basis=_clean_public_text(a['basis']), public_boundary=_clean_public_text(data['boundary']))]
     projections = {
-        axis: dict(public_adjudication_summary=a['basis'], public_evidence_items=evidence(axis, 'THIRD-'+axis),
-                   public_boundary=data['boundary'], public_level_label=a['grade_label'],
+        axis: dict(public_adjudication_summary=_clean_public_text(a['basis']), public_evidence_items=evidence(axis, 'THIRD-'+axis),
+                   public_boundary=_clean_public_text(data['boundary']), public_level_label=a['grade_label'],
                    public_component_label=a['label'])
         for axis, a in data['axes'].items()
     }
@@ -659,9 +659,9 @@ def _c_projection(row: dict[str, Any], *, reading=None, context=None) -> dict[st
     # Consumers also collect source links from this transient public record.
     # Keep the complete generated review available there without persisting it.
     authored['contract_review'] = copy.deepcopy(data['contract_review'])
-    return dict(public_adjudication_summary=data['story'],
+    return dict(public_adjudication_summary=_clean_public_text(data['story']),
                 public_evidence_items=[evidence(axis, 'THIRD-C')[0] for axis in data['axes']],
-                public_boundary=data['boundary'], public_level_label=data['calculation']['total_label'],
+                public_boundary=_clean_public_text(data['boundary']), public_level_label=data['calculation']['total_label'],
                 public_component_label='军事体系整体结果', public_axis_projections=projections,
                 public_reading=authored)
 
@@ -1227,9 +1227,8 @@ def verify_public_projection(workspace_root: Path) -> dict[str, Any]:
     third['b_reading_source_count'] = verify_b_sources(root, payloads['AB'])
     third['c_reading_source_count'] = verify_c_sources(root, payloads['C'], context=c_review_context)
     from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
-    c_markdown = (root / THIRD_C_PATH).with_suffix('.md')
-    if c_markdown.read_text(encoding='utf-8') != _render_formal_markdown('C', payloads['C']['records'], c_review_context=c_review_context):
-        raise ValueError('第三项C正式Markdown与当前上游公开正文不同步')
+    from .reading_layout import check_reading
+    check_reading(root, THIRD_C_PATH.with_suffix('.md'), _render_formal_markdown('C', payloads['C']['records'], c_review_context=c_review_context))
     fourth = _verify_fourth(payloads["fourth"])
     from .fourth_item_a_public import verify_readings
     fourth['a_authored_reading_count'] = verify_readings(payloads['fourth'], root)
@@ -1282,12 +1281,9 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
             }[key]
             write_json(root / path, projected_third[key])
         write_json(root / FOURTH_PATH, projected_fourth, ruler_polities=polities)
-        markdown_path = (root / THIRD_AB_PATH).with_suffix('.md')
-        if markdown_path.read_text(encoding='utf-8') != ab_markdown:
-            markdown_path.write_text(ab_markdown, encoding='utf-8', newline='\n')
-        c_markdown_path = (root / THIRD_C_PATH).with_suffix('.md')
-        if c_markdown_path.read_text(encoding='utf-8') != c_markdown:
-            c_markdown_path.write_text(c_markdown, encoding='utf-8', newline='\n')
+        from .reading_layout import write_reading
+        write_reading(root, THIRD_AB_PATH.with_suffix('.md'), ab_markdown)
+        write_reading(root, THIRD_C_PATH.with_suffix('.md'), c_markdown)
         report = verify_public_projection(root)
         report["status"] = "WRITTEN"
         return report

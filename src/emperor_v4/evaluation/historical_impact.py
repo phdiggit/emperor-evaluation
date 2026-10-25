@@ -72,6 +72,7 @@ def _validate_public_text(value: Any, label: str, ruler_id: str) -> None:
 
 
 def render(payload: dict[str, Any]) -> str:
+    from .reading_layout import person_start, PERSON_END
     lines = ["# 历史影响量级正式结算", "",
         "> 正式JSON保存当前裁决，本页为同值阅读视图。", "",
         "公众总档为S+、S、A、B、C、D、E，均表示影响量级，不是成绩优劣；四维使用独立七档标尺。性质与量级分开，人物按时代阅读。", "",
@@ -92,7 +93,7 @@ def render(payload: dict[str, Any]) -> str:
         lines.extend(["", f'<a id="{section}-records"></a>', "", f"## {title}逐人依据", ""])
         for row in payload[key]:
             confidence = {"HIGH": "高", "MEDIUM": "中", "LOW": "低"}[row["confidence"]]
-            lines.extend([f'<a id="person-{row["ruler_id"].lower()}"></a>', "", f"### {row['identity_label']}", "",
+            lines.extend([person_start(row['ruler_id']), f'<a id="person-{row["ruler_id"].lower()}"></a>', "", f"### {row['identity_label']}", "",
                 f"**总档：{row['public_grade']}·{PUBLIC_MEANINGS[row['public_grade']]}｜{row['impact_nature']}｜置信度：{confidence}**", "",
                 "；".join(f"{label}：{_dimension(row, d)}" for d, label in DIMENSIONS.items()) + "。", ""])
             lines.extend(["**公开总档依据：**" + row["public_total_basis"], "",
@@ -163,7 +164,7 @@ def render(payload: dict[str, Any]) -> str:
                 lines.extend(["<details>", "<summary>相关事实入口（不自动充当本主链证据）</summary>", ""])
                 lines.extend("- " + _source_label(s) for s in row["related_fact_entries"])
                 lines.extend(["", "</details>"])
-            lines.extend(["", "</details>", ""])
+            lines.extend(["", "</details>", "", PERSON_END, ""])
     return "\n".join(line.rstrip() for line in "\n".join(lines).splitlines()).rstrip() + "\n"
 
 
@@ -171,7 +172,8 @@ def write_views(root: Path) -> dict[str, Any]:
     verify(root, check_reader=False)
     entry = _entry(root)
     payload = load_json(root / entry["json"])
-    (root / entry["markdown"]).write_text(render(payload), encoding="utf-8", newline="\n")
+    from .reading_layout import write_reading
+    write_reading(root, entry['markdown'], render(payload))
     return {"status": "WRITTEN", "markdown": entry["markdown"]}
 
 
@@ -284,6 +286,7 @@ def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
                         raise ValueError(f"历史影响外部来源缺少离线证据说明: {rid}")
                 elif source["kind"] != "IMPORTED_ADJUDICATION" or not all(source.get(k) for k in ("document", "section", "subsection", "adopted_excerpt", "evidence_role")):
                     raise ValueError(f"历史影响导入段落定位不完整: {rid}")
-    if check_reader and (root / entry["markdown"]).read_text(encoding="utf-8") != render(payload):
-        raise ValueError("历史影响JSON与阅读视图不同值")
+    if check_reader:
+        from .reading_layout import check_reading
+        check_reading(root, entry['markdown'], render(payload))
     return {"status": "PASS", "validation_scope": "IDENTITY_COVERAGE_LABELS_LINEAGE_AND_READER_NOT_HISTORICAL_READJUDICATION", "main_pool_count": len(main), "supplementary_count": len(extra)}

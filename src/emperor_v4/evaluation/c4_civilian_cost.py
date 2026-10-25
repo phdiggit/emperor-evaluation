@@ -56,13 +56,11 @@ def verify_snapshot(workspace_root: Path) -> dict[str, Any]:
     if audit["record_count"] != len(rows) or audit.get("contract_version") != VERSION:
         raise ValueError("C4 civilian audit metadata mismatch")
     scores = sorted((row["score"] for row in rows), reverse=True)
-    markdown = (workspace_root / ROOT_PATH / "04-C4正式结算.md").read_text(encoding="utf-8")
-    # The authored public appendix has its own parity gate. Parse the original
-    # technical ruler blocks here so its headings cannot duplicate the roster.
-    blocks = re.split(r"(?m)^### ", markdown.split('<!-- c-public-start -->', 1)[0])[1:]
-    reader = {block.split("（", 1)[0]: block for block in blocks}
-    if len(reader) != len(rows):
-        raise ValueError("C4 reader coverage mismatch")
+    from .second_item_c_public import render_complete_markdown
+    from .reading_layout import check_reading
+    # Compare every current index/person page to JSON, including the complete
+    # technical verdict and public evidence; do not infer a roster from headings.
+    check_reading(workspace_root, ROOT_PATH / '04-C4正式结算.md', render_complete_markdown(source))
     for row in rows:
         validate_record(row)
         review = row["active_civilian_cost_review"]
@@ -74,7 +72,4 @@ def verify_snapshot(workspace_root: Path) -> dict[str, Any]:
                 raise ValueError(f"C4 civilian audit basis mismatch: {row['ruler_id']}")
         if row["rank"] != scores.index(row["score"]) + 1 or row["main_band"] != "C4":
             raise ValueError(f"C4 score presentation mismatch: {row['ruler_id']}")
-        block = reader.get(row["ruler_name"], "")
-        if row["behavior_and_attribution"] not in block or f"C4净分**{row['score']:.1f}**" not in block:
-            raise ValueError(f"C4 reader verdict mismatch: {row['ruler_id']}")
     return {"status": "PASS", "record_count": len(rows), "scope": "STRUCTURE_AND_PROJECTIONS_NOT_SEMANTIC_REGRADING"}

@@ -313,9 +313,12 @@ def verify_public_projection(workspace_root: Path) -> dict[str, Any]:
     source_count = verify_source_bindings(payloads)
     for axis, payload in payloads.items():
         markdown_path = (root / FORMAL_PATHS[axis]).with_suffix('.md')
+        if axis in GENERATED_MARKDOWN_AXES:
+            from .reading_layout import check_reading
+            check_reading(root, FORMAL_PATHS[axis].with_suffix('.md'), render_complete_markdown(payload))
+            continue
         markdown = markdown_path.read_text(encoding='utf-8')
-        expected = (render_complete_markdown(payload) if axis in GENERATED_MARKDOWN_AXES
-                    else render_public_markdown(markdown, payload))
+        expected = render_public_markdown(markdown, payload)
         if expected != markdown:
             raise ValueError(f"第二项{axis}Markdown公开阅读视图未同步")
     return {
@@ -358,6 +361,7 @@ def verify_source_bindings(payloads: dict[str, dict[str, Any]]) -> int:
 
 def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
     """Keep the existing settlement table; append one current authored view."""
+    from .reading_layout import person_start, PERSON_END
     start = '<!-- c-public-start -->'
     end = '<!-- c-public-end -->'
     core = re.sub(r'\n*' + re.escape(start) + r'.*?' + re.escape(end) + r'\n*', '\n', markdown, flags=re.S).rstrip()
@@ -368,6 +372,8 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
         row = calculation_record(payload['public_projection_axis'], row)
         story = ('\n\n'.join('#### ' + s['title'] + '\n\n' + s['body'] for s in row['public_reading_sections'])
                  if row.get('public_reading_sections') else row['public_story'])
+        if payload['public_projection_axis'] in GENERATED_MARKDOWN_AXES:
+            lines += [person_start(row['ruler_id'])]
         lines += [f"### {row['ruler_name']}", '', f"<a id=\"{row['ruler_id']}\"></a>", '', story, '',
                   '**来源说明：**' + row['public_source_note'], '',
                   '**定档理由：**' + row['public_adjudication_summary'], '', '**损害判断：**' + row['public_loss_label'], '',
@@ -392,6 +398,8 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
                 lines += [f"- {ref['source_kind']}：{ref['source_title']}；{ref['source_locator']}", '', '> ' + ref['exact_quote'].replace('\n', '\n> '), '']
         lines += ['</details>', '', '<details><summary>评价范围与计算</summary>', '', row['public_boundary'], '',
                   row['public_calculation'], '', '</details>', '']
+        if payload['public_projection_axis'] in GENERATED_MARKDOWN_AXES:
+            lines += [PERSON_END, '']
     return '\n'.join([*lines, end, ''])
 
 
@@ -420,7 +428,8 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
             write_json(root / path, projected[axis], ruler_polities=polities)
             markdown_path = (root / path).with_suffix('.md')
             if axis in GENERATED_MARKDOWN_AXES:
-                markdown_path.write_text(render_complete_markdown(projected[axis]), encoding='utf-8', newline='\n')
+                from .reading_layout import write_reading
+                write_reading(root, path.with_suffix('.md'), render_complete_markdown(projected[axis]))
             else:
                 markdown_path.write_text(render_public_markdown(markdown_path.read_text(encoding='utf-8'), projected[axis]), encoding='utf-8')
         report = verify_public_projection(root)

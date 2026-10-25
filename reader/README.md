@@ -12,6 +12,8 @@ python v4.py reader
 
 该命令调用`build_site.py`，先生成不入Git的大型Markdown阅读视图，再依次构建军事档案、全部阅读页面与人物数据、第一项来源缓存，检查页面和缓存同值，最后将完整静态站点打包到`.tmp/pages-site/`。新检出后先构建，再预览或运行依赖生成页面的测试；只生成Markdown用`python v4.py reading-views`。
 
+历史影响、第二项C3／C4和第三项AB／C的Markdown入口为轻量总览，人物正文在旁边同名`-逐人阅读/`目录；长正文继续分页。正文和来源完整保留，生成与校验同时覆盖索引及全部分片。需要整份导出时运行`python v4.py reading-views --combined-output .tmp/reading-views-combined`；常规预览继续打开原路径。
+
 局部更新页面用`python reader/build.py`；第一项来源变化另运行`python reader/build_first_item_reader_cache.py`，军事登记或档案说明变化另运行`python reader/build_military_archive.py`。前两项命令加`--check`只读核对当前生成物。
 
 整站构建与 CI 对每份输出只生成一次；`--check`用于独立核对已有产物，不在刚完成构建后重复执行。发布前由行为测试、源与阅读同值检查及站点打包完整性检查负责验收。
@@ -108,19 +110,17 @@ M1人才登记投影使用`m1-registry-cells-v1`存储格式，保留成果难�
 
 ## 第三项C证据阅读
 
-`third-item-c-public.js`供人物页、详情、对照及全池页共用完整正文。三轴论证按`evidence_ref`连接具体材料；只有总评引用时，说明缺少具体战争依据，不按战名猜配。
+人物页、详情与对照使用`third-item-c-public.js`，全池页由`build_third_c_collection`生成；两者读取同一份正式`public_reading`正文。每人只展示一次连贯评价，不再逐字段重复总述、正证与反证。档位与档内位置、战事摘要、来源和计算按需展开。
 
-正式C记录只在`public_reading`保存公开内容；由它生成的总述、三轴投影、材料列表和显示标签不重复落盘。构建与校验通过`c_public_record`组装完整公开字段，第三项合并直接读取其中的权威总述。
+公开正文的`story`、`position_explanation`及`task_titles`须在正式C记录中明确编写；页面不得猜写战名、拼接正反证或推算新的位置理由。任务标题覆盖本人现存战略链，编号继续留作引用键。战略链配置不保存公开正文副本。
 
-C的总档字段只保存`axis_floor_grade`（三轴短板）和`final_grade`（资格限制后的最终档）；正式记录与战略链写回字段均不保存`raw_grade`、`C_overall_grade`别名。阅读计算的`raw_grade`仍按前者生成，页面与综合明细使用后者作为最终档，未知档仍保留为未知。
+`combat_delivery_grade`与`final_grade`保存同值的主评和整体档，`joint_assessment`保留正式正反证及位置裁决。阅读整改不得改写这些字段或分数。生成的量表、计分、任务与对手窗口只供投影，不重新内嵌成为第二套真源。
 
-逐链回源复核只保存在`public_reading.source_reviews[chain_id]`。正式`contract_review`使用`third-item-c-contract-inputs-v1`，只保存`task_aliases`和`axis_findings`两类人工输入；逐链展开、三轴解释、量表和汇总由现行记录及显式传入的对手、父周期上下文生成。每次构建加载并复用一份上下文，不使用跨运行的旧缓存。阅读输出保持完整结构；人工输入的来源绑定、全链覆盖和相邻档依据仍须校验，正式记录重新内嵌生成字段即报错。
-
-材料卡和逐链复核中的来源摘录按完整对象去重，存入本人`public_reading.source_passage_catalog`，各处用有序的`source_passage_refs`引用。正文、来源路径、摘录类型及其他字段有差异时分别保留；引用顺序、重复引用与各材料的采用范围不变。构建时展开原摘录结构，修改登记中的摘录会同步到所有引用处，史源定位与引文仍须通过核验。
+材料的`source_passages`保存来源摘录及定位。改写摘要与标题时保留材料ID、任务绑定、来源路径及引文；摘录能否在对应来源锚点找到，仍由来源校验核对。
 
 材料展示原编号、采用范围、来源和摘录。`source_passages`只证明摘录能在所指通读文件中找到，不冒充已复核古籍原文。补充材料与跨任期等边界核对分别列出，不能混成本人战争事实。
 
-档位含义读公开`scale`，分数区间读`GRADE_RANGES`。三轴、原始档、资格上限、最终档和档内位置分开显示；人工选择的档内位置同时展示理由和计算。已支持、待证、冲突、须重裁分别标明。
+档位含义读公开`scale`，分数区间读现行联合计分区间。整体档与显式档内位置分别说明，不展示已退役的三轴短板或资格上限。待定保持空分，不改写为零分。
 
 人物与材料锚点可分享，跨入口打开后定位到对应材料，不丢失当前人物。
 

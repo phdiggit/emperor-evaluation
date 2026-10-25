@@ -379,6 +379,7 @@ def _render_formal_markdown(
     credit_rows: Mapping[str, Mapping[str, Any]] | None = None,
     c_review_context=None,
 ) -> str:
+    from .reading_layout import person_start, PERSON_END
     human_status = {
         "NOT_APPLICABLE": "不适用",
         "NOT_APPLICABLE_NO_SYSTEM_STRESS": "无体系压力任务",
@@ -449,19 +450,19 @@ def _render_formal_markdown(
                 "A1/A2与B1/B2/B4原子档用于解释；当前计分只读取A120和非线性合成的B80。成本尚未在本表折算，最终分见第三项总榜。",
                 "",
                 "| 排名 | 皇帝 | 政权 | 在位 | A客观锚 | A正向信用 | A120 | B1率 | B2率 | B4率 | B80 | A+B/200 |",
-                "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+                "|---:|---|---|---|---:|---:|---:|---:|---:|---:|",
             ]
         else:
             lines += [
                 "| 排名 | 皇帝 | 政权 | 在位 | A1/40 | A2/40 | A/80 | B1/25 | B2/30 | B4/25 | B/80 | A/B总分/160 |",
-                "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+                "|---:|---|---|---|---:|---:|---:|---:|---:|---:|",
             ]
         for rank, row in ranked:
             axes = row["axes"]
             if current_ab:
                 b_current = row["B80_adjudication"]
                 lines.append(
-                    f"| {rank} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
+                    f"| {rank} | [{row['ruler_name']}](#person-{row['ruler_id'].lower()}) | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
                     f"{float(row['A120_non_cost_anchor_points']):.2f} | {float(row['A120_positive_result_credit_points']):.2f} | "
                     f"{float(row['A120_score_points']):.2f} | {float(b_current['adjudicated_B1_rate']):.0f}% | "
                     f"{float(b_current['adjudicated_B2_rate']):.0f}% | {float(b_current['adjudicated_B4_rate']):.0f}% | "
@@ -474,20 +475,19 @@ def _render_formal_markdown(
                 b2 = float(axes["B2"]["axis_points"])
                 b4 = float(axes["B4"]["axis_points"])
                 lines.append(
-                    f"| {rank} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
+                    f"| {rank} | [{row['ruler_name']}](#person-{row['ruler_id'].lower()}) | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
                     f"{a1:.1f} | {a2:.1f} | {a1 + a2:.1f} | {b1:.1f} | {b2:.1f} | "
                     f"{b4:.1f} | {b1 + b2 + b4:.1f} | {float(row[score_key]):.1f} |"
                 )
     else:
         lines += [
-            "| 排名 | 皇帝 | 政权 | 在位 | C1 | C2 | C3 | C总体 | 得分率 | C/50 | 当前战略链 | 父周期证据 |",
-            "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+            "| 排名 | 皇帝 | 政权 | 在位 | 联合主评 | C总体 | 得分率 | C/50 | 当前战略链 | 父周期证据 |",
+            "|---:|---|---|---|---:|---:|---:|---:|---:|---:|",
         ]
         for rank, row in ranked:
             lines.append(
-                f"| {rank} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
-                f"{human_label(row['combat_delivery_grade'])} | {human_label(row['operational_sustainability_cap'])} | "
-                f"{human_label(row['system_reliability_cap'])} | {row['final_grade']} | "
+                f"| {rank} | [{row['ruler_name']}](#person-{row['ruler_id'].lower()}) | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
+                f"{human_label(row['combat_delivery_grade'])} | {row['final_grade']} | "
                 f"{float(row['C_score_rate']):.1f}% | {float(row[score_key]):.1f} | "
                 f"{int(row.get('strategy_chain_count') or 0)} | {int(row.get('independent_task_count') or 0)} |"
             )
@@ -499,7 +499,8 @@ def _render_formal_markdown(
         ]
     for rank, row in ranked:
         score_text = f"{float(row[score_key]):.2f}" if current_ab else f"{float(row[score_key]):.1f}"
-        lines += [f"### {rank}. {row['ruler_name']}（{score_text}）", ""]
+        lines += [person_start(row['ruler_id']), f'<a id="person-{row["ruler_id"].lower()}"></a>',
+                  f"### {rank}. {row['ruler_name']}（{score_text}）", ""]
         if kind == "AB":
             if current_ab:
                 from emperor_v4.evaluation.third_item_ab_reading import render_person
@@ -511,15 +512,16 @@ def _render_formal_markdown(
                 )
             else:
                 lines += [f"- 裁决：{_ab_settlement_basis(row)}", ""]
+            lines += [PERSON_END, '']
             continue
         if row.get('public_reading'):
             from emperor_v4.evaluation.third_item_c_public import markdown as c_public_markdown
-            lines += [c_public_markdown(row, context=c_review_context), '']
+            lines += [c_public_markdown(row, context=c_review_context), '', PERSON_END, '']
             continue
         if row.get("final_grade") == "C-N":
             lines += [
                 f"- 裁决：{_markdown_cell(_joined_reasons(row.get('cap_reasons') or []))}",
-                "",
+                "", PERSON_END, '',
             ]
             continue
         if row.get("system_observation_status") == "INHERITED_UNTESTED":
@@ -536,15 +538,16 @@ def _render_formal_markdown(
         lines += [
             position_line,
             f"- 裁决：{_markdown_cell(c_basis)}",
-            "",
+            "", PERSON_END, '',
         ]
     if kind == 'C' and unscored:
         from emperor_v4.evaluation.third_item_c_public import markdown as c_public_markdown
         lines += ['## 必要证据不足，暂不计分', '']
         for row in unscored:
-            lines += [f"### {row['ruler_name']}（暂不计分）", '']
+            lines += [person_start(row['ruler_id']), f"### {row['ruler_name']}（暂不计分）", '']
             if row.get('public_reading'):
                 lines += [c_public_markdown(row, context=c_review_context), '']
             else:
                 lines += [_markdown_cell(_joined_reasons(row.get('cap_reasons') or [])), '']
+            lines += [PERSON_END, '']
     return "\n".join(lines).rstrip() + "\n"

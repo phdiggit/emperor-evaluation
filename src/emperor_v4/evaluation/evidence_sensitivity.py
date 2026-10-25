@@ -122,6 +122,19 @@ def public_assessment(row: dict, analysis: dict, registry: dict) -> dict:
     return projection
 
 
+def ranking_cases(records, pool, cases):
+    """Keep registered pending cases without inventing their rank or a delta."""
+    ready={r['ruler_id'] for r in records}
+    known={r['ruler_id'] for r in pool}
+    active,deferred=[],[]
+    for case in cases:
+        subjects={case['ruler_id']}|{c['ruler_id'] for c in case.get('changes',[])}
+        if not subjects<=known:raise ValueError('解释对象不在规范人物池')
+        if subjects<=ready:active.append(case)
+        else:deferred.append(case['case_id'])
+    return active,deferred
+
+
 def analyze(records: list[dict], governance: dict[str, dict], cases: list[dict]) -> dict:
     """Reprice explicit state rulings; linked endpoint changes fail closed.
 
@@ -295,7 +308,8 @@ def annotate_ranking(root: Path, records: list[dict], pool: list[dict], details:
     gov = load_json(root / 'config/second-item/governance-state-recovery-adjudications.json')['records']
     by_id = {r['ruler_id']: r for r in gov}
     mapped = {r['ruler_id']: by_id[r['source_item_ids']['second_item']] for r in pool if r['ruler_id'] in {x['ruler_id'] for x in records}}
-    analysis = analyze(records, mapped, registry['cases'])
+    active_cases,_ = ranking_cases(records,pool,registry['cases'])
+    analysis = analyze(records, mapped, active_cases)
     assessments = rank_assessments(records, analysis, registry.get('coverage_closures', []))
     pool_by_id = {r['ruler_id']:r for r in pool}
     from emperor_v4.evaluation.canonical_ruler_pool import canonical_item_name
@@ -367,7 +381,9 @@ def build(root: Path) -> dict:
                 rows=payload.get('records',payload.get('scores',[]))
                 if not any(r.get('ruler_id')==fragment.split('=',1)[1] for r in rows):
                     raise ValueError(f'证据人物锚不存在：{ref}')
-    result=analyze(records,mapped,cases)
+    active_cases,deferred = ranking_cases(records,pool,cases)
+    result=analyze(records,mapped,active_cases)
+    result['deferred_non_ranking_case_ids']=deferred
     result['schema_version'] = REFERENCED_SCHEMA
     result['ranking_source'] = project['scoring_contract']['composite_ranking_json']
     details=load_detail_sources(root)

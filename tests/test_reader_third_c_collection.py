@@ -110,6 +110,7 @@ for(const [entry,text] of [[a,'甲 早期防御'],[b,'乙 后期远征']]){
 const input=new Element('search'),scope=new Element('search-scope'),status=new Element('search-status'),count=new Element('count');
 scope.value='overview';status.dataset.searchUrl='search.json?v=current';
 const material=new Element('RULER-B--evidence--MATERIAL');
+material.dataset.cEvidence='MATERIAL';material.slot=new Element('', 'DETAILS');
 const materialDetails=new Element('', 'DETAILS');materialDetails.parentElement=b.slot;material.parentElement=materialDetails;
 const nodes=new Map([a,b,input,scope,status,count,material].map(e=>[e.id,e]));
 const document=new Element();document.querySelectorAll=()=>[a,b];document.getElementById=id=>nodes.get(id);document.createElement=tag=>new Element('',tag.toUpperCase());
@@ -150,6 +151,7 @@ vm.runInNewContext(fs.readFileSync('reader/third-item-c-collection.js','utf8'),{
  location.hash='#'+encodeURIComponent(material.id);await windowEvents.hashchange();
  assert.equal(b.hidden,false);assert.equal(count.textContent,2,'direct links clear conflicting filters');
  assert.equal(b.details.open,true);assert.equal(materialDetails.open,true);assert.ok(material.scrolled&&material.focused);
+assert.equal(material.slot.open,true,'deep links open the nested material body');
  let prevented=false;const link={dataset:{cMaterialRef:material.id}};
  await document.emit('click',{target:{closest:()=>link},button:0,preventDefault:()=>{prevented=true;}});
  assert.ok(prevented);assert.equal(location.hash,'#'+encodeURIComponent(material.id));
@@ -184,12 +186,14 @@ vm.runInNewContext(fs.readFileSync('reader/third-item-c-public.js','utf8'),conte
 const otherTarget={dataset:{cEvidence:'FACT'},scrollIntoView:()=>{throw Error('must not open another panel');}};
 const root={querySelectorAll:selector=>{assert.equal(selector,'.third-c-evidence-list [data-c-evidence]');return [target];}};
 const details={tagName:'DETAILS',open:false,parentElement:root};
-const target={dataset:{cEvidence:'FACT'},parentElement:details,scrollIntoView:()=>{target.scrolled=true;},focus:()=>{target.focused=true;}};
+const materialBody={open:false};
+const target={dataset:{cEvidence:'FACT'},querySelector:()=>materialBody,parentElement:details,scrollIntoView:()=>{target.scrolled=true;},focus:()=>{target.focused=true;}};
 let prevented=false;
 const anchor={dataset:{cLocalEvidence:'FACT'},closest:selector=>{assert.equal(selector,'.third-c-public-reading');return root;}};
 const event={button:0,target:{closest:()=>anchor},preventDefault:()=>{prevented=true;}};
 click(event);
 assert.ok(prevented&&details.open&&target.scrolled&&target.focused);
+assert.ok(materialBody.open,'the material body must open as well as its ancestors');
 assert.equal(location.hash,'#compare/SYNTHETIC-A/SYNTHETIC-B');
 assert.ok(!otherTarget.scrolled);
 prevented=false;click({...event,ctrlKey:true});assert.equal(prevented,false,'modified clicks keep the canonical collection URL');

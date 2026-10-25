@@ -16,7 +16,7 @@ def inputs():
     rebuilt = {"records": [{"ruler_id": "synthetic", "score": -1,
                              "public_reading": {"story": "Obsolete generated text"}}]}
     source = {
-        "schema_version": "third-item-c-strategy-chain-adjudications-v2",
+        "schema_version": "third-item-c-strategy-chain-adjudications-v3",
         "public_reading_source": C_PATH.as_posix(),
         "canonical_status": "FORMAL_SETTLEMENT_PATCH_SOURCE", "status": "CURRENT",
         "primary_scoring_unit": "STRATEGIC_CHAIN",

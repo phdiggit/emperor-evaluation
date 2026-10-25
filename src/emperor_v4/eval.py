@@ -20,6 +20,7 @@ def _parser() -> argparse.ArgumentParser:
     commands.add_parser("package", help="导出三体系评估包，或用 --list 只读查看清单", add_help=False)
     readings = commands.add_parser("reading-views", help="从当前正式来源生成不入Git的大型Markdown阅读视图")
     readings.add_argument("--check", action="store_true", help="只读核对已有阅读视图")
+    readings.add_argument("--combined-output", type=Path, help="显式导出完整合并版到独立目录，默认生成轻量总览与逐人正文")
     readings.add_argument("--workspace-root", type=Path, default=Path('.'))
     profile_axes = list(profile_axis_order())
     json_format = commands.add_parser('json-format', help='统一项目JSON排版，保持字段、数值、顺序和原文')
@@ -168,7 +169,7 @@ def _dispatch(args: argparse.Namespace) -> int:
 
     if args.command == 'reading-views':
         from emperor_v4.evaluation.derived_readings import run
-        print(json.dumps(run(args.workspace_root.resolve(), check=args.check), ensure_ascii=False, indent=2))
+        print(json.dumps(run(args.workspace_root.resolve(), check=args.check, combined_output=args.combined_output), ensure_ascii=False, indent=2))
         return 0
 
     if args.command == "maintenance":

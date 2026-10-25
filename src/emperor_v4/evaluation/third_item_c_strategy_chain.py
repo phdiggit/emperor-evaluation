@@ -21,8 +21,7 @@ C_PATH = Path(
 
 AXIS_FIELDS = {
     "C1": "combat_delivery_grade",
-    "C2": "operational_sustainability_cap",
-    "C3": "system_reliability_cap",
+
 }
 GRADE_RANGES = ((0, 29), (30, 44), (45, 59), (60, 74), (75, 89), (90, 100))
 
@@ -30,7 +29,7 @@ GRADE_RANGES = ((0, 29), (30, 44), (45, 59), (60, 74), (75, 89), (90, 100))
 def _reject_grade_aliases(row: Mapping[str, Any]) -> None:
     aliases = {'raw_grade', 'C_overall_grade'} & row.keys()
     if aliases:
-        raise ValueError(f'C总档只保存axis_floor_grade与final_grade，不得保存重复别名：{sorted(aliases)}')
+        raise ValueError(f'C总档只保存final_grade及其C1主评，不得保存重复别名：{sorted(aliases)}')
 
 
 def _grade_number(value: object) -> int | None:
@@ -41,6 +40,16 @@ def _grade_number(value: object) -> int | None:
 def _normalize_return_class(value: object) -> str:
     text = str(value or "UNKNOWN")
     return "PROPORTIONATE_RETURN" if text == "COMMENSURATE_RETURN" else text
+
+
+def _major_parent_refs(chains, outcome):
+    refs=[]
+    for chain in chains:
+        if not chain.get('major_system_'+outcome):continue
+        for field in ('member_parent_refs','source_parent_refs','source_event_refs'):
+            refs.extend(chain.get(field) or [])
+        refs.extend(chain[field] for field in ('canonical_strategy_ref','canonical_parent_ref') if chain.get(field))
+    return list(dict.fromkeys(refs))
 
 
 def _chain_profile(chains: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
@@ -122,7 +131,7 @@ def load_strategy_chain_source(workspace_root: Path) -> dict[str, Any]:
     source = json.loads(
         (workspace_root / SOURCE_PATH).read_text(encoding="utf-8")
     )
-    if source.get("schema_version") != "third-item-c-strategy-chain-adjudications-v2":
+    if source.get("schema_version") != "third-item-c-strategy-chain-adjudications-v3":
         raise ValueError("第三项C战略链正式源schema不合法")
     if source.get("public_reading_source") != C_PATH.as_posix():
         raise ValueError("第三项C公开正文来源必须是正式C记录")
@@ -192,149 +201,32 @@ def write_third_item_c_strategy_chain_settlement(
     from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
 
     from emperor_v4.evaluation.third_item_c_contract_reading import load_context
-    (workspace_root / C_PATH).with_suffix(".md").write_text(
+    from .reading_layout import write_reading
+    write_reading(workspace_root, C_PATH.with_suffix('.md'),
         _render_formal_markdown("C", updated["records"], c_review_context=load_context(workspace_root)),
-        encoding="utf-8",
-        newline="\n",
     )
     result = source.get("summary", {}).get("formal_writeback") or {}
     return {
         "status": "WRITTEN",
         "source": str(SOURCE_PATH).replace("\\", "/"),
         "record_count": len(updated.get("records") or ()),
-        "final_grade_change_count": result.get("final_grade_change_count"),
-        "formal_unknown_resolved_count": result.get("formal_unknown_resolved_count"),
+        "score_ready_count": sum(bool(row.get('score_ready')) for row in updated['records']),
         "remaining_unknown_names": result.get("remaining_unknown_names"),
     }
 
 
-def _verify_inherited_system(row: Mapping[str, Any]) -> None:
-    if row.get("final_grade") == "C-N":
-        raise ValueError("C-N按零分合成已停用；须审核继承体系或保留UNKNOWN")
-    if row.get("system_observation_status") != "INHERITED_UNTESTED":
-        return
-    evidence = row.get("inherited_system_assessment") or {}
-    if evidence.get("status") != "EVIDENCE_SUPPORTED" or evidence.get("window_review") != "NO_ACTUAL_SYSTEM_STRESS":
-        raise ValueError("继承体系缺少完整无实战窗口核查")
-    for field in ("ruler_window", "baseline_window", "baseline_ruler_id", "baseline_source_refs", "counterevidence_review"):
-        if not evidence.get(field):
-            raise ValueError(f"继承体系缺少{field}")
-    if evidence.get("continuity_status") != "SUPPORTED_WITH_LIMITS":
-        raise ValueError("体系延续未闭合或存在断裂")
-    for axis in AXIS_FIELDS:
-        finding = (evidence.get("axis_continuity") or {}).get(axis) or {}
-        if not all(finding.get(field) for field in ("baseline_basis", "continuity_basis", "source_refs", "grade_basis")):
-            raise ValueError(f"继承体系{axis}证据不完整")
-    for field in ("strategy_chains", "capability_only_strategy_chains", "current_item_task_refs", "capability_only_parent_refs",
-                  "major_system_success_refs", "major_system_failure_refs", "major_system_success_chain_refs", "major_system_failure_chain_refs"):
-        if row.get(field):
-            raise ValueError("继承体系不得挪入他人任务或替代已有实战")
-    if row.get("gate_cap") != 3 or _grade_number(row.get("final_grade")) is None:
-        raise ValueError("继承体系须有事实档并执行总档上限3")
-    if row.get("C_score_within_band_adjudication") is not None:
-        raise ValueError("继承体系无本人战果，档内采用中性位置")
+def _verify_inherited_system(row):
+    from .third_item_c_joint import verify_joint
+    verify_joint(row)
 
-
-def _verify_grade_projection(row: Mapping[str, Any]) -> None:
+def _verify_grade_projection(row):
+    from .third_item_c_joint import verify_joint
     _reject_grade_aliases(row)
-    final = _grade_number(row.get("final_grade"))
-    if final is None:
-        if row.get('final_grade') != 'UNKNOWN' or row.get('axis_floor_grade') != 'UNKNOWN':
-            raise ValueError(f"{row.get('ruler_name')}缺证时三轴短板档与最终档须保持UNKNOWN")
-        return
-    axes = {
-        axis: _grade_number(row.get(field))
-        for axis, field in AXIS_FIELDS.items()
-    }
-    if any(value is None for value in axes.values()):
-        raise ValueError(f"{row.get('ruler_name')}三轴档位不完整")
-    floor = min(axes.values())
-    if _grade_number(row.get("axis_floor_grade")) != floor:
-        raise ValueError(f"{row.get('ruler_name')}axis_floor_grade不闭合")
-    gate = _grade_number(row.get("gate_cap"))
-    if gate is None or final != min(floor, gate):
-        raise ValueError(f"{row.get('ruler_name')}final_grade与gate_cap不闭合")
+    verify_joint(row)
 
-
-def _verify_score_fields(
-    row: Mapping[str, Any], source_row: Mapping[str, Any] | None = None
-) -> None:
-    final = _grade_number(row.get("final_grade"))
-    if row.get("final_grade") == "C-N":
-        raise ValueError("C-N按零分合成已停用")
-    if final is None:
-        if row.get("C_score_points") is not None:
-            raise ValueError(f"{row.get('ruler_name')}UNKNOWN仍有C分")
-        return
-    rate = float(row.get("C_score_rate"))
-    points = float(row.get("C_score_points"))
-    # C_score_rate is stored to two decimals while C_score_points is rounded
-    # from the unrounded rate; checking the rounded rate alone creates a false
-    # half-point failure at values such as 2.90% -> 1.5 points.
-    if abs(points - 50 * rate / 100) > 0.051:
-        raise ValueError(f"{row.get('ruler_name')}C分与得分率不一致")
-    position = float(row.get("C_score_band_position"))
-    if not 0 <= position <= 1:
-        raise ValueError(f"{row.get('ruler_name')}档内位置越界")
-    band = row.get("C_score_band") or {}
-    if band != {
-        "lower_rate": GRADE_RANGES[final][0],
-        "upper_rate": GRADE_RANGES[final][1],
-    }:
-        raise ValueError(f"{row.get('ruler_name')}C档区间与最终档不一致")
-    if final == 5:
-        if rate != 100.0 or position != 1.0:
-            raise ValueError(f"{row.get('ruler_name')}C5分值未闭合")
-        return
-
-    axes = {
-        axis: _grade_number(row.get(field))
-        for axis, field in AXIS_FIELDS.items()
-    }
-    surplus = sum(int(value) - final for value in axes.values())
-    expected_axis_position = max(0.0, min(1.0, surplus / (2 * (5 - final))))
-    profile = row.get("strategy_chain_outcome_profile") or {}
-    counts = profile.get("return_class_counts") or {}
-    known = sum(
-        int(counts.get(outcome, 0))
-        for outcome in (
-            "HIGH_RETURN",
-            "PROPORTIONATE_RETURN",
-            "LOW_RETURN",
-            "NEGATIVE_RETURN",
-        )
-    )
-    if row.get("system_observation_status") == "INHERITED_UNTESTED":
-        expected_outcome_position = 0.5
-        if row.get("C_score_outcome_position") != expected_outcome_position:
-            raise ValueError("继承体系结果位置必须中性，不能伪造战果")
-    elif known:
-        quality = (
-            int(counts.get("HIGH_RETURN", 0))
-            + 0.55 * int(counts.get("PROPORTIONATE_RETURN", 0))
-            + 0.2 * int(counts.get("LOW_RETURN", 0))
-        ) / known
-        expected_outcome_position = 0.5 + (quality - 0.5) * min(1.0, known / 4)
-    else:
-        expected_outcome_position = 0.5
-    if abs(float(row.get("C_score_outcome_position")) - round(expected_outcome_position, 4)) > 0.0001:
-        raise ValueError(f"{row.get('ruler_name')}结果质量位置未按合同派生")
-    position_decision = row.get("C_score_within_band_adjudication") or {}
-    explicit_position = {
-        "LOW": 0.25,
-        "MID": 0.5,
-        "HIGH": 0.75,
-    }.get(str(position_decision.get("position")))
-    expected_position = max(
-        expected_axis_position,
-        explicit_position if explicit_position is not None else expected_outcome_position,
-    )
-    lower, upper = GRADE_RANGES[final]
-    expected_rate = lower + (upper - lower) * expected_position
-    if abs(position - round(expected_position, 4)) > 0.0001:
-        raise ValueError(f"{row.get('ruler_name')}战略链档内位置未按合同派生")
-    if abs(rate - round(expected_rate, 2)) > 0.001:
-        raise ValueError(f"{row.get('ruler_name')}战略链得分率未按合同派生")
+def _verify_score_fields(row, source_row=None):
+    from .third_item_c_joint import verify_joint
+    verify_joint(row)
 
 
 def verify_third_item_c_strategy_chain_settlement(
@@ -353,14 +245,11 @@ def verify_third_item_c_strategy_chain_settlement(
     all_chain_ids: set[str] = set()
     current_count = 0
     capability_count = 0
-    final_changes = []
     from emperor_v4.evaluation.third_item_c_contract_reading import load_context
-    from emperor_v4.evaluation.talent_registry_store import load_talent_registry, talent_profiles_by_ref
     from emperor_v4.evaluation.third_item_c_five_gate import verify_five_gate
     c_review_context = load_context(workspace_root)
     five_systems = c_review_context["systems"]
-    five_profiles = talent_profiles_by_ref(load_talent_registry(
-        workspace_root / "docs/公共成果/军事/02-武将人才等级.json"))
+    five_profiles = {}
     for source_id, source_row in source_by_id.items():
         row = formal_by_id[source_id]
         if row.get("ruler_name") != source_row.get("ruler_name"):
@@ -391,15 +280,15 @@ def verify_third_item_c_strategy_chain_settlement(
             all_chain_ids.add(chain_id)
         if row.get("strategy_chain_outcome_profile") != _chain_profile(current_chains):
             raise ValueError(f"{row.get('ruler_name')}战略链回报剖面不一致")
+        for outcome in ('success','failure'):
+            if row.get('major_system_'+outcome+'_refs') != _major_parent_refs(current_chains+capability_chains,outcome):
+                raise ValueError(f"{row.get('ruler_name')}重大胜负父阶段引用未同步")
         current_count += len(current_chains)
         capability_count += len(capability_chains)
         _verify_inherited_system(row)
         _verify_grade_projection(row)
         _verify_score_fields(row, source_row)
         verify_five_gate(row, five_systems, five_profiles)
-        before_grade = source_row["formal_writeback"].get("before_formal_overall_grade")
-        if before_grade is not None and before_grade != row.get("final_grade"):
-            final_changes.append(row.get("ruler_name"))
 
     expected_summary = source.get("summary", {}).get("formal_writeback") or {}
     if expected_summary.get("current_strategy_chain_count") != current_count:
@@ -414,17 +303,14 @@ def verify_third_item_c_strategy_chain_settlement(
 
     from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
 
-    markdown_path = (workspace_root / C_PATH).with_suffix(".md")
-    if markdown_path.read_text(encoding="utf-8") != _render_formal_markdown("C", payload["records"], c_review_context=c_review_context):
-        raise ValueError("第三项C Markdown与正式C JSON渲染结果不一致")
+    from .reading_layout import check_reading
+    check_reading(workspace_root, C_PATH.with_suffix('.md'), _render_formal_markdown("C", payload["records"], c_review_context=c_review_context))
     return {
         "status": "PASS",
         "formal_record_count": len(formal_by_id),
         "source_record_count": len(source_by_id),
         "strategy_chain_count": current_count,
         "capability_only_strategy_chain_count": capability_count,
-        "final_grade_change_count": len(expected_summary.get("final_grade_changes_from_scored_records") or ()),
-        "formal_status_transition_count": len(final_changes),
-        "formal_unknown_resolved_count": expected_summary.get("formal_unknown_resolved_count"),
+        "score_ready_count": sum(bool(row.get('score_ready')) for row in payload['records']),
         "remaining_unknown_names": expected_summary.get("remaining_unknown_names"),
     }

@@ -29,7 +29,7 @@ def test_sources_are_verbatim_and_contracts_are_complete(prepared):
         assert entries[item["path"]] == content
         assert item["sha256"] == hashlib.sha256(content).hexdigest()
         assert item["bytes"] == len(content)
-        expected_mode = "GENERATED" if item["path"] in generated else "VERBATIM"
+        expected_mode = "GENERATED" if (item["path"] in generated or packager.is_reading_fragment(item['path'], generated)) else "VERBATIM"
         assert item["transformation"] == expected_mode
     assert manifest["file_count"] == len(manifest["files"])
     for directory in ("docs/项目总纲", "docs/分项规则", "docs/证据规则"):

@@ -226,3 +226,21 @@ def test_duplicate_axis_and_missing_dependency_proof_are_rejected():
     case['changes'][0]['dependency_basis']=''
     with pytest.raises(ValueError,match='联动|端点'):
         analyze(rows,gov,[case])
+def test_pending_canonical_case_is_kept_out_of_numeric_rank_analysis():
+    from emperor_v4.evaluation.evidence_sensitivity import ranking_cases
+    records=[{'ruler_id':'ready'}]
+    pool=[{'ruler_id':'ready'},{'ruler_id':'pending'}]
+    cases=[{'case_id':'pending-case','ruler_id':'pending','changes':[]}]
+    active,deferred=ranking_cases(records,pool,cases)
+    assert active==[] and deferred==['pending-case']
+    assert cases[0]['ruler_id']=='pending'
+
+
+def test_pending_dependency_defers_the_whole_case_and_unknown_identity_fails_closed():
+    import pytest
+    from emperor_v4.evaluation.evidence_sensitivity import ranking_cases
+    records=[{'ruler_id':'ready'}];pool=records+[{'ruler_id':'pending'}]
+    case={'case_id':'linked','ruler_id':'ready','changes':[{'ruler_id':'pending'}]}
+    assert ranking_cases(records,pool,[case])==([],['linked'])
+    case['changes'][0]['ruler_id']='typo'
+    with pytest.raises(ValueError):ranking_cases(records,pool,[case])

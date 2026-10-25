@@ -40,7 +40,8 @@ def view_sources(root: Path) -> dict[str, tuple[str, str]]:
 
 
 @json_read_session()
-def render_views(root: Path, paths=None) -> dict[str, str]:
+def render_views(root: Path, paths=None, *, combined: bool = False) -> dict[str, str]:
+    from .reading_layout import reading_files
     specs = view_sources(root)
     selected = set(specs) if paths is None else set(paths)
     if not selected <= specs.keys():
@@ -75,20 +76,32 @@ def render_views(root: Path, paths=None) -> dict[str, str]:
         else:
             from .second_item_d1_d3_public import render_public_markdown
             text = render_public_markdown(payload, kind)
-        rendered[path] = text
+        rendered.update({path: text} if combined else reading_files(path, text))
     return rendered
 
 
-def run(root: Path, *, check: bool = False) -> dict:
+def run(root: Path, *, check: bool = False, combined_output: Path | None = None) -> dict:
     # Render every selected view before writing any output; never run settlements.
+    if combined_output is not None:
+        if check:
+            raise ValueError('--check不能与合并版导出同时使用')
+        from .reading_layout import relocate_links
+        output = combined_output.resolve()
+        if output == root.resolve() or output.is_relative_to((root / 'docs').resolve()):
+            raise ValueError('合并版须导出到独立目录，不得覆盖正式阅读入口')
+        views = render_views(root, combined=True)
+        destinations = {name: (output / name).as_posix() for name in views}
+        for name, text in views.items():
+            source = (root / name).as_posix()
+            destination = destinations[name]
+            relocated = relocate_links(text, source, destination,
+                                       documents={(root / n).as_posix(): p for n, p in destinations.items()})
+            target = Path(destination); target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(relocated, encoding='utf-8', newline='\n')
+        return {'status': 'EXPORTED', 'view_count': len(views), 'output': str(output)}
     views = render_views(root)
-    changed = [name for name, text in views.items()
-               if not (root / name).is_file() or (root / name).read_bytes() != text.encode('utf-8')]
-    if check and changed:
-        raise ValueError('派生阅读缺失或过期，请运行 python v4.py reading-views：' + '；'.join(changed))
-    if not check:
-        for name in changed:
-            path = root / name
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(views[name], encoding='utf-8', newline='\n')
-    return {'status': 'PASS' if check else 'WRITTEN', 'view_count': len(views), 'updated': changed}
+    from .reading_layout import synchronize
+    changed = synchronize(root, views, [name for name in views if '-逐人阅读/' not in name], check=check)
+    return {'status': 'PASS' if check else 'WRITTEN',
+            'view_count': sum('-逐人阅读/' not in name for name in views),
+            'file_count': len(views), 'updated': changed}
