@@ -201,6 +201,55 @@ ctx.location.hash='#person/SYNTHETIC/profile/history-dimension-range';vm.runInCo
 ''')
 
 
+def test_detail_pages_use_one_structure_view_and_open_total_reason(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],axis_order:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:'#person/SYNTHETIC/profile'},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+ctx.r={ruler_id:'SYNTHETIC',ruler_name:'合成人物',impact:{public_grade:'B',impact_nature:'合成影响',confidence:'LOW'}};
+ctx.historyArgs=[];
+vm.runInContext(`
+ nav=()=>{};radar=()=>'<svg class="test-radar"></svg>';gradeHelp=()=>'';
+ profileEvidencePanel=(r,showRadar)=>'<section id="full-profile-evidence">'+(showRadar?radar(r):'')+'</section>';
+ historySections=(...args)=>{historyArgs=args;return '<details id="full-history-evidence">完整依据</details>'};
+ profilePage(r);
+`,ctx);
+let html=vm.runInContext('screen.innerHTML',ctx);
+assert.equal((html.match(/test-radar/g)||[]).length,1);
+assert.ok(html.indexOf('test-radar')<html.indexOf('full-profile-evidence'));
+assert.ok(!html.includes('compact-axes'));
+ctx.location.hash='#person/SYNTHETIC/impact';vm.runInContext('impactPage(r)',ctx);
+html=vm.runInContext('screen.innerHTML',ctx);
+assert.ok(html.includes('impact-detail-result')&&html.includes('full-history-evidence'));
+assert.ok(!html.includes('impact-dimension-card'));
+assert.equal(ctx.historyArgs[3],true,'the total-grade reason opens by default on the detail page');
+''')
+
+
+def test_net_major_card_respects_applicability_and_shared_score_format(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/home-interactions.js','utf8');
+const fn=source.slice(source.indexOf('  function majorCard('),source.indexOf('  function renderNetShell('));
+const ctx={esc:String,number:v=>v.toFixed(2),scoreNumber:v=>typeof v==='number'?v.toFixed(1):'—',finiteNetNumber:v=>typeof v==='number'?v:null,majorValue:(r,k)=>r.net.value,netHref:(r,k)=>'#net/'+r.ruler_id+'/'+k,fourthAdjustmentNote:()=>'',netMajorSpecs:{first:{title:'合成主链',description:'仅供适用对象的过程介绍'},third:{title:'合成军事',description:'净分'},fourth:{title:'合成调整',description:'有符号调整'}}};
+vm.createContext(ctx);vm.runInContext(fn,ctx);
+ctx.r={ruler_id:'SYNTHETIC',net:{first_item_status:'NOT_APPLICABLE',value:0}};
+let html=vm.runInContext("majorCard(r,'first')",ctx);
+assert.ok(html.includes('不适用')&&html.includes('查看适用规则与说明'));
+assert.ok(!html.includes(ctx.netMajorSpecs.first.description));
+ctx.r.net.first_item_status='APPLICABLE';ctx.r.net.first_item_raw_score=0;
+html=vm.runInContext("majorCard(r,'first')",ctx);
+assert.ok(!html.includes('不适用'));assert.ok(html.includes('本项适用'));
+ctx.r.net.first_item_status='PENDING';html=vm.runInContext("majorCard(r,'first')",ctx);
+assert.ok(!html.includes('附加分按0'));assert.ok(!html.includes(ctx.netMajorSpecs.first.description));
+ctx.r.net.value=23.4;html=vm.runInContext("majorCard(r,'third')",ctx);
+assert.ok(html.includes('23.4')&&!html.includes('23.40'));
+html=vm.runInContext("majorCard(r,'fourth')",ctx);assert.ok(html.includes('+23.4')&&!html.includes('+23.40'));
+''')
+
+
 def test_person_note_locators_are_local_and_never_pin_scores(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const record={axes:{C5:{typical_pattern:'合成事项：复核改变了一项决定。',axis_grade:'G3'}},net:{total_score:10}};

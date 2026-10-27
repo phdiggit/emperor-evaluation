@@ -1009,7 +1009,7 @@
 .system-route-nav{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 18px;padding:8px;border:1px solid var(--line);border-radius:6px;background:#eeefe7}
 .system-route-nav a{padding:5px 9px;border-radius:4px;text-decoration:none}
 .system-route-nav a.active{background:var(--ink);color:#fff}
-.single-system-page{max-width:1040px;margin:0 auto}
+.single-system-page{max-width:none;margin:0}
 .single-system-page>.panel{margin-bottom:18px}
 .single-system-evidence{max-width:none;margin:18px 0 0}
 .guide-rank-context{margin-top:16px}
@@ -1131,3 +1131,8 @@ a.compact-axis{padding-left:8px;padding-right:8px}
 .axis-row-label{color:var(--green)}
 a.compact-axis:hover,a.compact-axis:focus-visible,.profile-style-link:hover,.profile-style-link:focus-visible{background:color-mix(in srgb,var(--gold) 9%,transparent)}
 a.compact-axis:hover .axis-row-label,a.compact-axis:focus-visible .axis-row-label,.profile-style-link:hover .axis-row-label,.profile-style-link:focus-visible .axis-row-label{text-decoration:underline}
+
+.profile-detail-intro .radar { max-width: 480px; height: 280px; margin: 8px auto; }
+.impact-detail-result { display: flex; gap: 24px; align-items: center; margin: 12px 0; }
+.impact-detail-result .big { margin: 0; }
+.impact-detail-result p { margin: 0 0 6px; }
