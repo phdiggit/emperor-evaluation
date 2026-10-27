@@ -53,7 +53,7 @@ def render_views(root: Path, paths=None, *, combined: bool = False) -> dict[str,
         payload = load_json(root / source)
         if kind == 'impact':
             from .historical_impact import render
-            text = render(payload)
+            text = render(payload, document_path=path)
         elif kind == 'profile':
             from .profile_markdown import render_profile_markdown
             text = render_profile_markdown(payload, workspace_root=root)

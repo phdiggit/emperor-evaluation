@@ -45,6 +45,7 @@ from emperor_v4.evaluation.first_item_public_outcomes import (
 )
 from emperor_v4.evaluation.profile_parent_schema import parent_chains, representative_parent_chains
 from emperor_v4.evaluation.profile_m1_evidence import verify_evidence_scope
+from emperor_v4.evaluation.historical_impact import SOURCE_DISPLAY
 from emperor_v4.evaluation.first_item_c_public import (
     load_first_item_c_public, public_commander_for_name,
     SOURCE_MARKDOWN_PATH as FIRST_C_SOURCE,
@@ -1609,6 +1610,7 @@ def build(*, check=False, write=True):
                   impact_grades=impact_config["public_grade_order"],
                   impact_dimension_grades=impact_config["dimension_grade_order"],
                   impact_labels=impact["public_label_mapping"],
+                  impact_source_display=SOURCE_DISPLAY,
                   sources=dict(net=scoring["composite_ranking_json"], impact=impact_config["json"],
                                net_reader=scoring["composite_ranking_markdown"], impact_reader=impact_config["markdown"]))
 

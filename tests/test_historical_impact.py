@@ -110,6 +110,44 @@ def test_related_entry_is_not_promoted_to_chain_evidence(tmp_path: Path) -> None
     assert row["macro_chains"][0]["source_ref_indices"] == [0]
 
 
+def test_source_reading_retains_passage_notes_review_scope_and_local_locator(tmp_path):
+    from emperor_v4.evaluation.historical_impact import render, SOURCE_DISPLAY
+    payload, _ = _workspace(tmp_path)
+    row = payload['records'][0]
+    row['source_refs'][0]['adoption_limit'] = '这段为项目判断，不是古籍原文。'
+    row['source_review_scope'] = '仅限已记录的局部核对。'
+    row['source_trace']['limit'] = '部分原始定位无法恢复。'
+    row['source_refs'].extend([
+        dict(kind='HISTORICAL_WEB_SOURCE', title='合成研究', url='https://example.org/source',
+             evidence_note='只核对目录中的篇名。', verification_mode='RETRIEVED_CATALOGUE_OR_ABSTRACT_OFFLINE_NOTE'),
+        dict(kind='LOCAL_FORMAL_RECORD', path='docs/事实.json', ruler_id='SYNTHETIC',
+             collection='scores', field_paths=['state_anchors'], parent_ids=['P1'],
+             evidence_note='仅比较同一事件的责任。', use_scope='CAUSAL_ALTERNATIVE_CHECK'),
+    ])
+    # The extra sources remain unassigned and must not become chain evidence.
+    before = deepcopy(payload)
+    rendered = render(payload, document_path='docs/评分结算/历史影响/result.md')
+    for text in [row['source_refs'][0]['adopted_excerpt'], row['source_review_scope'], row['source_trace']['limit'],
+                 '项目采纳段落（非古籍原文）', '只核对目录中的篇名。', 'scores', 'state_anchors', 'P1',
+                 SOURCE_DISPLAY['verification_mode']['RETRIEVED_CATALOGUE_OR_ABSTRACT_OFFLINE_NOTE'],
+                 '未另分配到上述段落的登记来源', '未为本节单独绑定来源']:
+        assert text in rendered
+    assert '../../%E4%BA%8B%E5%AE%9E.json#ruler_id=SYNTHETIC' in rendered
+    assert payload == before
+
+
+@pytest.mark.parametrize('indices', [[True], [0.0], ['0'], [-1], [7], None, '0'])
+@pytest.mark.parametrize('owner', ['chain', 'paradigm_review'])
+def test_source_indices_reject_invalid_types_and_missing_targets(tmp_path, indices, owner):
+    payload, path = _workspace(tmp_path)
+    row = payload['records'][0]
+    target = row['macro_chains'][0] if owner == 'chain' else row[owner]
+    target['source_ref_indices'] = indices
+    write_polity_routed_json(path, payload, ruler_polities={})
+    with pytest.raises(ValueError, match='来源索引'):
+        verify(tmp_path, check_reader=False)
+
+
 @pytest.mark.parametrize("violation", ["label", "source_index", "scope", "scoring", "scope_boundary", "scope_review", "engineering", "foundation_ref", "reception", "counterfactual"])
 def test_invalid_current_contract_is_rejected(tmp_path: Path, violation: str) -> None:
     payload, path = _workspace(tmp_path)

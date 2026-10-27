@@ -238,19 +238,7 @@ function impactPublicText(t){
   .replace(/文学名望当前材料不以政治范式替代明确证据/g,'文学名望本身不能替代政治范式所需的明确接收证据');
 }
 function impactTotalPublicText(h){
- const dims=h?.dimensions||{};
- const scope=dims.scope?.grade||'',depth=dims.depth_duration?.grade||'',causal=dims.personal_causality?.grade||'',paradigm=dims.paradigm?.grade||'',gradeValue=h?.public_grade||'';
- if(!(scope&&depth&&causal&&paradigm&&gradeValue))return impactPublicText(h?.public_total_basis||'');
- const formal=String(h?.public_total_basis||'');
- let causalNote='用于判断这些变化有多少真正依赖本人。';
- if(/个人因果[^。]*下调一档/.test(formal))causalNote='本人归责不足以支撑更高的基础判断，因此综合量级向下修正。';
- else if(/个人因果[^。]*(?:提出一档上调|上调一档)/.test(formal))causalNote='本人归责较强，对基础判断形成上调作用，但仍受影响范围与持续程度约束。';
- else if(/个人因果[^。]*(?:维持[^。；]*基础|不再改变量级|不会仅凭这一项提高总量级)/.test(formal))causalNote='该项没有单独改变由范围与持续形成的基础判断。';
- let paradigmNote='只作为后世实际接收的有限补充，不与前三项做平均。';
- if(/政治范式[^。；]*(?:上调一档|提高一档)/.test(formal))paradigmNote='后世最高权力的实际接收证据足够强，因此在前三项判断之后形成一档上调；仍受影响范围、持续程度与证据去重约束。';
- else if(/政治范式[^。；]*(?:不改变|不提高|仅修正|不再改变量级)/.test(formal))paradigmNote='本次没有单独改变前三项形成的综合判断，也不与前三项做平均。';
- const meaning=impactMeaning[gradeValue]?'（'+impactMeaning[gradeValue]+'）':'';
- return '影响范围为'+scope+'，深度与持续为'+depth+'；两者先确定基础影响。个人因果为'+causal+'；'+causalNote+'政治范式为'+paradigm+'；'+paradigmNote+'综合后公开等级为'+gradeValue+meaning+'。';
+ return String(h?.public_total_basis||'当前正式记录未另列公开总档说明。');
 }
 function impactDimensionPublicText(key,value){
  let text=impactPublicText(value);
@@ -322,14 +310,33 @@ function impactSourceLabel(s){
  if(s?.document)return s.document;
  return ({LOCAL_FORMAL_DOCUMENT:'项目正式材料',HISTORICAL_WEB_SOURCE:'史料／研究来源'}[s?.kind]||'来源');
 }
+function impactSourceTerm(key,value){
+ return DATA.impact_source_display?.[key]?.[value]||`未识别（${String(value)}）`;
+}
+function impactSourceCard(s,r){
+ if(!s||typeof s!=='object')return '<li class="notice">来源记录失效，请核对正式记录。</li>';
+ if(s.kind==='IMPORTED_ADJUDICATION')return `<li><strong>项目采纳段落（非古籍原文）</strong><p class="subline">${esc([s.document,s.section,s.subsection].filter(Boolean).join(' · '))}</p>${s.adopted_excerpt?`<blockquote>${esc(s.adopted_excerpt)}</blockquote>`:'<p>当前记录未保留采纳段落。</p>'}<p class="subline">${esc(s.adoption_limit||'只展示正式记录保留的采纳依据，不表示已逐句复核原始史书。')}</p>${r.impact?.source_trace?.limit?`<p class="subline">${esc(r.impact.source_trace.limit)}</p>`:''}</li>`;
+ const known=['HISTORICAL_WEB_SOURCE','LOCAL_FORMAL_RECORD','LOCAL_FORMAL_DOCUMENT'].includes(s.kind);
+ const target=known?(s.url||s.path||''):'',title=impactSourceLabel(s);
+ const head=target?link(target,title,r):`<span>${esc(title)}</span>`;
+ const locators=[['ruler_id','人物标识'],['ruler_name','人物'],['collection','记录集合'],['parent_ids','情境编号'],['field_paths','字段或材料定位']].filter(([key])=>s[key]&&(!Array.isArray(s[key])||s[key].length)).map(([key,label])=>`<div class="impact-source-locator"><strong>${label}</strong>${prose(s[key])}</div>`).join('');
+ const note=s.evidence_note?`<div class="label">本条采用说明</div>${prose(s.evidence_note)}`:'';
+ const scope=s.use_scope?`<p class="subline">使用范围：${esc(impactSourceTerm('use_scope',s.use_scope))}</p>`:'';
+ const verification=s.verification_mode?`<p class="subline">记录中的核对方式：${esc(impactSourceTerm('verification_mode',s.verification_mode))}</p>`:'';
+ return `<li><strong>${esc(impactSourceTerm('kind',s.kind))}</strong><p>${head}</p>${note}${scope}${verification}${locators}</li>`;
+}
 function impactSourceList(r,indices,labelText='本节依据'){
  const refs=r.impact?.source_refs||[];
- const selected=[...new Set((indices||[]).filter(Number.isInteger))].map(i=>refs[i]).filter(s=>s&&!impactAuditSource(s));
- if(!selected.length){
-  const declared=(indices||[]).some(Number.isInteger);
-  return declared?`<details class="impact-source-list"><summary>${esc(labelText)}</summary><p class="subline">当前没有可直接打开的独立史料链接；完整采纳依据与来源范围见本人物页底部的正式记录入口。</p></details>`:'';
- }
- return `<details class="impact-source-list"><summary>${esc(labelText)}</summary><ul>${selected.map(s=>{const target=s.url||s.path||'';const title=impactSourceLabel(s);const head=target?link(target,title,r):`<span>${esc(title)}</span>`;return `<li>${head}</li>`}).join('')}</ul></details>`;
+ const declared=Array.isArray(indices)?indices:[];
+ const invalid=!Array.isArray(indices)&&indices!=null||declared.some(i=>!Number.isInteger(i)||i<0||i>=refs.length);
+ const selected=[...new Set(declared.filter(i=>Number.isInteger(i)&&i>=0&&i<refs.length))].map(i=>refs[i]);
+ const missing=invalid?'<p class="notice">来源编号失效，请核对正式记录；未使用其他来源代替。</p>':!selected.length?'<p class="subline">当前正式记录未为本节单独绑定来源；来源总览中的其他材料不自动证明本节论断。</p>':'';
+ const original=selected.length&&!selected.some(s=>s?.kind==='HISTORICAL_WEB_SOURCE')?'<p class="subline">本节尚未直接绑定外部原典或研究链接，以下项目记录不等于古籍原文复核。</p>':'';
+ return `<details class="impact-source-list"><summary>${esc(labelText)}</summary>${missing}${original}${selected.length?`<ul>${selected.map(s=>impactSourceCard(s,r)).join('')}</ul>`:''}</details>`;
+}
+function impactSourceOverview(r){
+ const h=r.impact||{},refs=h.source_refs||[],related=h.related_fact_entries||[];
+ return `<details class="impact-source-overview"><summary>来源总览与核对边界</summary>${h.source_review_scope?prose(h.source_review_scope):''}${h.source_trace?.limit?prose(h.source_trace.limit):''}<p class="subline">以下核对方式为正式记录已有说明，不表示本次重新通读了全部原史；未注明核对方式的材料不补认已核验。</p>${impactSourceList(r,refs.map((_,i)=>i),'全部已登记依据')}${related.length?`<details class="impact-related-sources"><summary>相关事实入口（不自动充当本节证据）</summary><p class="subline">这些入口仅按人物关联，不能代替具体主链或分维的来源绑定。</p><ul>${related.map(s=>impactSourceCard(s,r)).join('')}</ul></details>`:''}</details>`;
 }
 function historySections(r,idSuffix='',compact=false){
  const h=r.impact,chains=h.macro_chains||[];
@@ -348,7 +355,7 @@ function historySections(r,idSuffix='',compact=false){
  const depthBody=`${prose(publicBasis('depth_duration'))}${impactSourceList(r,depthIndices,'深度依据')}`;
  const causalBody=`${prose(publicBasis('personal_causality'))}${counterfactual?`<div class="label">如果没有这个人</div>${prose(counterfactual)}`:''}${personalBoundary?`<div class="label">详细归责边界</div>${prose(personalBoundary)}`:''}${impactSourceList(r,causalIndices,'因果依据')}`;
  const paradigmBody=`${prose(publicBasis('paradigm'))}${paradigmReceptionProse(paradigmReview)}${impactSourceList(r,paradigmIndices,'范式依据')}`;
- return `${compact?'':'<h2 class="evidence-card-title">历史影响依据</h2>'}<details><summary>历史影响量级为什么这样定？</summary>${prose(impactTotalPublicText(h))}</details>${h.impact_nature_basis?`<details><summary>影响性质为何是${esc(h.impact_nature)}？</summary>${prose(impactPublicText(h.impact_nature_basis))}</details>`:''}${compact?impactScaleNote():''}<details class="impact-core-chains impact-evidence-fold"><summary>核心历史主链</summary><p class="subline">事实主链用于追溯实际变化；四维和总档说明直接读取正式公开裁决。</p>${chains.map(c=>`<details id="${hid(`chain-${c.chain_id}`)}"><summary>${esc(impactPublicText(c.title))}</summary>${prose(impactPublicText(c.narrative))}${impactSourceList(r,c.source_ref_indices,'本链依据')}</details>`).join('')}</details>${dimension('scope','影响范围','实际改写覆盖了哪些政治空间、政治主体或国家关键接口。',scopeBody)}${dimension('depth_duration','深度与持续','本人退出后哪些结构继续约束后继。',depthBody)}${dimension('personal_causality','个人因果','这些变化有多少真正依赖本人。',causalBody)}${dimension('paradigm','政治范式','后世最高权力是否把本人或其治世作为政治参照并实际使用。',paradigmBody)}<details id="${hid('history-judgment-boundary')}" class="impact-dimension-section impact-boundary impact-evidence-fold"><summary><span>判断边界</span><span class="subline">判断把握：${conf(h.confidence)}</span></summary>${evidenceBoundary?prose(evidenceBoundary):'<p class="subline">当前正式记录未另列补充边界。</p>'}</details><p class="sources impact-reading-links">${link(DATA.sources.impact_reader,'历史影响完整阅读页 ↗')}${link(DATA.sources.impact,'正式记录入口 ↗')}</p>`;
+ return `${compact?'':'<h2 class="evidence-card-title">历史影响依据</h2>'}<details><summary>历史影响量级为什么这样定？</summary>${prose(impactTotalPublicText(h))}</details>${h.impact_nature_basis?`<details><summary>影响性质为何是${esc(h.impact_nature)}？</summary>${prose(impactPublicText(h.impact_nature_basis))}</details>`:''}${compact?impactScaleNote():''}<details class="impact-core-chains impact-evidence-fold"><summary>核心历史主链</summary><p class="subline">事实主链用于追溯实际变化；四维和总档说明直接读取正式公开裁决。</p>${chains.map(c=>`<details id="${hid(`chain-${c.chain_id}`)}"><summary>${esc(impactPublicText(c.title))}</summary>${prose(impactPublicText(c.narrative))}${impactSourceList(r,c.source_ref_indices,'本链依据')}</details>`).join('')}</details>${dimension('scope','影响范围','实际改写覆盖了哪些政治空间、政治主体或国家关键接口。',scopeBody)}${dimension('depth_duration','深度与持续','本人退出后哪些结构继续约束后继。',depthBody)}${dimension('personal_causality','个人因果','这些变化有多少真正依赖本人。',causalBody)}${dimension('paradigm','政治范式','后世最高权力是否把本人或其治世作为政治参照并实际使用。',paradigmBody)}<details id="${hid('history-judgment-boundary')}" class="impact-dimension-section impact-boundary impact-evidence-fold"><summary><span>判断边界</span><span class="subline">判断把握：${conf(h.confidence)}</span></summary>${evidenceBoundary?prose(evidenceBoundary):'<p class="subline">当前正式记录未另列补充边界。</p>'}</details>${impactSourceOverview(r)}<p class="sources impact-reading-links">${link(DATA.sources.impact_reader,'历史影响完整阅读页 ↗')}${link(DATA.sources.impact,'正式记录入口 ↗')}</p>`;
 }
 
 const format=t=>esc(t).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');

@@ -269,3 +269,91 @@ def test_representative_projection_passes_existing_formal_fields_without_inferen
         assert projected[key] == source[key]
     assert "material_intensity" not in projected
     assert row == before
+
+
+def test_reader_keeps_authored_total_and_labels_adopted_sources(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const source=template.split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+ctx.h={public_total_basis:'合成对象的独立定档理由：旧国家终结，但后继重建不归本人。',public_grade:'B',dimensions:{scope:{grade:'S'}}};
+assert.equal(vm.runInContext('impactTotalPublicText(h)',ctx),ctx.h.public_total_basis);
+ctx.r={ruler_id:'synthetic',impact:{source_refs:[{kind:'IMPORTED_ADJUDICATION',document:'旧裁决清单.md',section:'合成对象',adopted_excerpt:'保留下来的项目判断。',adoption_limit:'原史未逐句复核。'}],source_trace:{limit:'原文件无法恢复。'}}};
+const sourceHtml=vm.runInContext('impactSourceList(r,[0])',ctx);
+assert.ok(sourceHtml.includes('项目采纳段落（非古籍原文）'));
+assert.ok(sourceHtml.includes('保留下来的项目判断。'));
+assert.ok(sourceHtml.includes('原文件无法恢复。'));
+assert.ok(sourceHtml.includes('原史未逐句复核。'));
+assert.ok(!sourceHtml.includes('href='));
+''')
+
+
+def test_impact_source_cards_expose_scoped_evidence_and_failures_for_current_pool(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const source=template.split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const artifact=fs.readFileSync('reader/index.html','utf8');
+const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+ctx.r={ruler_id:'SYNTHETIC',ruler_name:'合成对象',impact:{source_refs:[
+ {kind:'LOCAL_FORMAL_RECORD',path:'docs/历史审计合成.json',ruler_id:'SYNTHETIC',collection:'scores',field_paths:['state_anchors'],parent_ids:['P1'],evidence_note:'只核对这一事实。',use_scope:'SPATIAL_FACT_CHECK_ONLY'},
+ {kind:'HISTORICAL_WEB_SOURCE',title:'目录材料',url:'https://example.org/catalogue',evidence_note:'只有目录，未读正文。',verification_mode:'RETRIEVED_CATALOGUE_OR_ABSTRACT_OFFLINE_NOTE'},
+],related_fact_entries:[{kind:'LOCAL_FORMAL_RECORD',path:'docs/unbound.json',ruler_id:'SYNTHETIC'}]}};
+let html=vm.runInContext('impactSourceList(r,[0])',ctx);
+for(const text of ['历史审计合成.json','scores','state_anchors','P1','只核对这一事实。','仅用于空间事实核对','尚未直接绑定外部原典'])assert.ok(html.includes(text),text);
+assert.ok(!html.includes('unbound.json'),'person-level related source must not leak into chain evidence');
+html=vm.runInContext('impactSourceList(r,[1])',ctx);
+assert.ok(html.includes('只有目录，未读正文。'));
+assert.ok(html.includes('仅核对目录或摘要的离线记录'));
+assert.ok(!html.includes('尚未直接绑定外部原典'));
+html=vm.runInContext('impactSourceList(r,[])',ctx);
+assert.ok(html.includes('未为本节单独绑定来源'));
+assert.ok(!html.includes('历史审计合成.json'));
+for(const indices of [[-1],[9],['0'],null,'bad']){
+ ctx.indices=indices;html=vm.runInContext('impactSourceList(r,indices)',ctx);
+ if(indices===null)assert.ok(html.includes('未为本节单独绑定来源'));
+ else assert.ok(html.includes('来源编号失效'));
+}
+ctx.r.impact.source_refs[1].verification_mode='FUTURE_MODE';
+html=vm.runInContext('impactSourceList(r,[1])',ctx);
+assert.ok(html.includes('未识别（FUTURE_MODE）'));
+html=vm.runInContext('impactSourceOverview(r)',ctx);
+assert.ok(html.includes('不自动充当本节证据'));
+assert.ok(html.includes('unbound.json'));
+// Full-pool parity uses live authored fields, with no frozen source counts.
+let sources=0,chains=0;
+for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')||f.startsWith('HIMPACT-'))){
+ if(!file.endsWith('.json'))continue;
+ ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
+ const h=ctx.r.impact;if(!h)continue;
+ const before=JSON.stringify(h);
+ html=vm.runInContext('impactSourceOverview(r)',ctx);
+ for(const s of h.source_refs||[]){
+  ctx.s=s;const card=vm.runInContext('impactSourceCard(s,r)',ctx);
+  for(const key of ['evidence_note','adopted_excerpt'])if(s[key]){
+   ctx.value=s[key];const expected=vm.runInContext(key==='adopted_excerpt'?'esc(value)':'prose(value)',ctx);
+   assert.ok(card.includes(expected),file+': '+key);
+  }
+  for(const key of ['verification_mode','use_scope'])if(s[key]){
+   assert.ok(data.impact_source_display[key][s[key]],file+': unknown '+key);
+   assert.ok(card.includes(data.impact_source_display[key][s[key]]));
+  }
+  sources++;
+ }
+ for(const c of h.macro_chains||[]){
+  ctx.indices=c.source_ref_indices;
+  const card=vm.runInContext('impactSourceList(r,indices)',ctx);
+  assert.ok(!card.includes('来源编号失效'),file+': '+c.chain_id);
+  assert.equal(card.includes('尚未直接绑定外部原典'),!c.source_ref_indices.some(i=>h.source_refs[i].kind==='HISTORICAL_WEB_SOURCE'));
+  chains++;
+ }
+ assert.equal(JSON.stringify(h),before);
+}
+assert.ok(sources>0&&chains>0);
+''')

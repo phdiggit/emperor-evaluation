@@ -4,10 +4,11 @@ from __future__ import annotations
 from collections import Counter
 from pathlib import Path
 import re
+import posixpath
 from typing import Any
 
 import yaml
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote
 from emperor_v4.evaluation.formal_json_store import load_json, json_read_session
 
 PUBLIC_GRADES = ("S+", "S", "A", "B", "C", "D", "E")
@@ -16,6 +17,35 @@ LABEL_MAPPING = dict(zip(DIMENSION_GRADES, PUBLIC_GRADES))
 DIMENSIONS = {"scope": "范围", "depth_duration": "深度/持续", "personal_causality": "个人因果", "paradigm": "范式"}
 PUBLIC_MEANINGS = dict(zip(PUBLIC_GRADES, ("最高量级历史影响", "超重大历史影响", "重大长期历史影响", "重大历史影响", "显著历史影响", "有限但真实影响", "弱历史影响")))
 PUBLIC_FIELD_SCHEMA_VERSION = "historical-impact-public-v1"
+SOURCE_DISPLAY = {
+    "kind": {
+        "IMPORTED_ADJUDICATION": "项目采纳段落（非古籍原文）",
+        "HISTORICAL_WEB_SOURCE": "外部史料或研究材料",
+        "LOCAL_FORMAL_RECORD": "项目正式人物记录（非古籍原文）",
+        "LOCAL_FORMAL_DOCUMENT": "项目正式材料（非古籍原文）",
+    },
+    "use_scope": {
+        "SPATIAL_FACT_CHECK_ONLY": "仅用于空间事实核对",
+        "CAUSAL_ALTERNATIVE_CHECK": "用于本人作用与替代路径核对",
+        "STRUCTURAL_CONTINUITY_CHECK": "用于结构延续核对",
+        "PARADIGM_RECEPTION": "用于后世人物借鉴核对",
+    },
+    "verification_mode": {
+        "PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_READ": "原典数字转录文本核对",
+        "PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW": "原典数字转录文本定向核对",
+        "IMPERIAL_EDUCATION_PROGRAM_SCOPED_REVIEW": "帝王教育材料定向核对",
+        "SCOPED_WEB_TEXT_REVIEW": "网页正文定向核对",
+        "SEARCH_RETURNED_TEXT_SCOPED_REVIEW": "搜索返回文字定向核对",
+        "DOMESTIC_RESEARCH_SCOPED_REVIEW": "国内研究材料定向核对",
+        "DOMESTIC_JOURNAL_SCOPED_REVIEW": "国内期刊材料定向核对",
+        "RETRIEVED_CATALOGUE_OR_ABSTRACT_OFFLINE_NOTE": "仅核对目录或摘要的离线记录",
+        "SCOPED_WEB_TEXT_OR_SEARCH_BODY_REVIEW": "网页或搜索返回正文定向核对",
+        "WEB_TEXT_SCOPED_REVIEW": "网页文本定向核对",
+        "PRIMARY_TEXT_WEB_SCOPED_REVIEW": "原典网页文本定向核对",
+        "SEARCH_RETURNED_BODY_SCOPED_REVIEW": "搜索返回正文定向核对",
+        "IMPERIAL_COLLECTION_SCOPED_REVIEW": "帝王文集定向核对",
+    },
+}
 PUBLIC_INTERNAL_PATTERNS = (
     r"项目(?:底账|重审|第三项|第一项A|B2|D|M[1-5]|C[1-5])",
     r"(?:项目底账|项目正式战役群|当前第三项控制账)",
@@ -25,14 +55,33 @@ PUBLIC_INTERNAL_PATTERNS = (
 )
 
 
-def _source_label(source: dict) -> str:
+def _source_label(source: dict, *, document_path: str = "") -> str:
     kind = source["kind"]
     if kind == "IMPORTED_ADJUDICATION":
-        return f"采纳段落：{source['document']}，{source['section']}／{source.get('subsection', '')}"
+        head = f"**{SOURCE_DISPLAY['kind'][kind]}**：{source['document']}，{source['section']}／{source.get('subsection', '')}"
+        passage = source.get('adopted_excerpt', '').replace('\n', '\n  > ')
+        return head + f"\n\n  > {passage}\n\n  采纳边界：" + source.get('adoption_limit', '仅展示正式记录保留的段落，不表示已经逐句复核原始史书。')
     if kind == "HISTORICAL_WEB_SOURCE":
-        return f"[{source['title']}]({source['url']})：{source['evidence_note']}"
-    locator = "、".join(source.get("parent_ids", [])) or "、".join(source.get("field_paths", [])) or source.get("ruler_id", source.get("ruler_name", ""))
-    return f"本地事实：`{source['path']}`；定位：{locator}"
+        parts = [f"**{SOURCE_DISPLAY['kind'][kind]}**：[{source['title']}]({source['url']})"]
+    else:
+        target = posixpath.relpath(source['path'], posixpath.dirname(document_path) or '.')
+        if source.get('ruler_id'):
+            target += '#ruler_id=' + source['ruler_id']
+        parts = [f"**{SOURCE_DISPLAY['kind'].get(kind, '未识别的来源类型')}**：[{source['path']}]({quote(target, safe='/#=')})"]
+        locator = []
+        for key, label in (("ruler_id", "人物标识"), ("ruler_name", "人物"), ("collection", "记录集合")):
+            if source.get(key):
+                locator.append(f"{label}：{source[key]}")
+        for key, label in (("parent_ids", "情境编号"), ("field_paths", "字段或材料定位")):
+            if source.get(key):
+                locator.append(label + "：" + "、".join(source[key]))
+        parts.extend(locator)
+    if source.get('evidence_note'):
+        parts.append('本条采用说明：' + source['evidence_note'])
+    for key, label in (("use_scope", "使用范围"), ("verification_mode", "记录中的核对方式")):
+        if source.get(key):
+            parts.append(label + '：' + SOURCE_DISPLAY[key].get(source[key], f"未识别（{source[key]}）"))
+    return '\n\n  '.join(parts)
 
 
 def _source_collection(source: dict[str, Any]) -> str:
@@ -71,8 +120,16 @@ def _validate_public_text(value: Any, label: str, ruler_id: str) -> None:
             raise ValueError(f"历史影响公开字段含内部话术: {ruler_id}/{label}")
 
 
-def render(payload: dict[str, Any]) -> str:
+def _validate_source_indices(indices: Any, count: int, label: str, *, required: bool = False) -> None:
+    if (not isinstance(indices, list) or (required and not indices)
+            or any(type(i) is not int or not 0 <= i < count for i in indices)):
+        raise ValueError(f"历史影响来源索引无效: {label}")
+
+
+def render(payload: dict[str, Any], *, document_path: str = "") -> str:
     from .reading_layout import person_start, PERSON_END
+    def source_label(source):
+        return _source_label(source, document_path=document_path)
     lines = ["# 历史影响量级正式结算", "",
         "> 正式JSON保存当前裁决，本页为同值阅读视图。", "",
         "公众总档为S+、S、A、B、C、D、E，均表示影响量级，不是成绩优劣；四维使用独立七档标尺。性质与量级分开，人物按时代阅读。", "",
@@ -134,7 +191,9 @@ def render(payload: dict[str, Any]) -> str:
                 lines.extend(["**补充裁决依据：**", "", "\n\n".join(additional), ""])
             for chain in row["macro_chains"]:
                 lines.extend([f"**影响主链：{chain['title']}**", "", chain["narrative"], ""])
-                lines.extend("- " + _source_label(row["source_refs"][i]) for i in chain["source_ref_indices"])
+                if not any(row['source_refs'][i]['kind'] == 'HISTORICAL_WEB_SOURCE' for i in chain['source_ref_indices']):
+                    lines.extend(["本链尚未直接绑定外部原典或研究链接；项目采纳段落和正式事实记录不等于古籍原文复核。", ""])
+                lines.extend("- " + source_label(row["source_refs"][i]) for i in chain["source_ref_indices"])
                 lines.append("")
             if row.get("contextual_evidence"):
                 lines.extend(["**非独立计档的过程事实：**", ""])
@@ -145,12 +204,18 @@ def render(payload: dict[str, Any]) -> str:
                 lines.extend(["**个人因果边界：**", "", row["personal_causal_boundary"], ""])
             shown_refs = {i for c in row["macro_chains"] for i in c["source_ref_indices"]}
             shown_refs.update(row.get("paradigm_review", {}).get("source_ref_indices", []))
-            causal_refs = [i for i in row.get("causal_review", {}).get("source_ref_indices", []) if i not in shown_refs]
-            if causal_refs:
-                lines.extend(["**归责核对来源：**", ""])
-                lines.extend("- " + _source_label(row["source_refs"][i]) for i in causal_refs)
+            for key, label in (("scope_assessment", "范围核对来源"), ("depth_review", "持续性核对来源"), ("causal_review", "归责核对来源")):
+                indices = row.get(key, {}).get('source_ref_indices', [])
+                shown_refs.update(indices)
+                lines.extend([f"**{label}：**", ""])
+                if indices:
+                    lines.extend("- " + source_label(row['source_refs'][i]) for i in indices)
+                else:
+                    lines.append('当前正式记录未为本节单独绑定来源；其他登记材料不自动证明本节论断。')
                 lines.append("")
-            lines.extend(["**范式与示范：**", "", row["paradigm_analysis"], "", "**来源与核对范围：**", "", *row["historical_source_notes"]])
+            lines.extend(["**范式与示范：**", "", row["paradigm_analysis"], "", "**来源与核对范围：**", "",
+                          row.get('source_review_scope', ''), "", row.get('source_trace', {}).get('limit', ''), "",
+                          "以下核对方式为正式记录已有说明，不表示本次重新通读全部原史；未注明核对方式的材料不补认已核验。", "", *row["historical_source_notes"]])
             review = row.get("paradigm_review")
             if review:
                 statuses = {"LOCATED_RECEPTION": "已定位接收", "IMAGE_ONLY": "目前仅有形象传播", "NOT_LOCATED": "当前未定位接收"}
@@ -158,11 +223,15 @@ def render(payload: dict[str, Any]) -> str:
                 for reception in review["receptions"]:
                     lines.append(f"- {reception['receiver']}｜{reception['carrier']}｜{reception['actual_use']}")
                 for i in review.get("source_ref_indices", []):
-                    lines.append("- " + _source_label(row["source_refs"][i]))
+                    lines.append("- " + source_label(row["source_refs"][i]))
+            unassigned = [i for i in range(len(row['source_refs'])) if i not in shown_refs]
+            if unassigned:
+                lines.extend(["", "**未另分配到上述段落的登记来源（不自动证明其他论断）：**", ""])
+                lines.extend('- ' + source_label(row['source_refs'][i]) for i in unassigned)
             lines.extend(["", "**置信度边界：**" + row.get("confidence_basis", "仅表示当前量级判断稳定性，不保证替代年表唯一。"), ""])
             if row.get("related_fact_entries"):
                 lines.extend(["<details>", "<summary>相关事实入口（不自动充当本主链证据）</summary>", ""])
-                lines.extend("- " + _source_label(s) for s in row["related_fact_entries"])
+                lines.extend("- " + source_label(s) for s in row["related_fact_entries"])
                 lines.extend(["", "</details>"])
             lines.extend(["", "</details>", "", PERSON_END, ""])
     return "\n".join(line.rstrip() for line in "\n".join(lines).splitlines()).rstrip() + "\n"
@@ -173,7 +242,7 @@ def write_views(root: Path) -> dict[str, Any]:
     entry = _entry(root)
     payload = load_json(root / entry["json"])
     from .reading_layout import write_reading
-    write_reading(root, entry['markdown'], render(payload))
+    write_reading(root, entry['markdown'], render(payload, document_path=entry['markdown']))
     return {"status": "WRITTEN", "markdown": entry["markdown"]}
 
 
@@ -235,7 +304,8 @@ def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
             if not 1 <= len(chains) <= 3 or len({c["chain_id"] for c in chains}) != len(chains):
                 raise ValueError(f"历史影响宏观主链不符合合同: {rid}")
             for chain in chains:
-                if not chain["title"] or not chain["narrative"] or not chain["source_ref_indices"] or any(i < 0 or i >= len(row["source_refs"]) for i in chain["source_ref_indices"]):
+                _validate_source_indices(chain.get('source_ref_indices'), len(row['source_refs']), f"{rid}/{chain['chain_id']}", required=True)
+                if not chain["title"] or not chain["narrative"]:
                     raise ValueError(f"历史影响主链来源错误: {rid}")
                 if chain.get("chain_kind") != "MACRO_TRANSFORMATION":
                     raise ValueError(f"工程或其他非宏观事实不能独立作为主链: {rid}")
@@ -258,8 +328,7 @@ def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
             if pgrade in {"S-", "S", "S+"} and len({c["receiver"] for c in receptions}) < 2:
                 raise ValueError(f"高范式缺少独立接收者: {rid}")
             for key in ("paradigm_review", "scope_assessment", "depth_review", "causal_review"):
-                if any(i < 0 or i >= len(row["source_refs"]) for i in row.get(key, {}).get("source_ref_indices", [])):
-                    raise ValueError(f"专项依据来源索引越界: {rid}/{key}")
+                _validate_source_indices(row.get(key, {}).get('source_ref_indices', []), len(row['source_refs']), f"{rid}/{key}")
             if any(s["kind"] not in {"LOCAL_FORMAL_RECORD", "LOCAL_FORMAL_DOCUMENT"} for s in row.get("related_fact_entries", [])):
                 raise ValueError(f"相关事实入口类型错误: {rid}")
             for source in row["source_refs"] + row.get("related_fact_entries", []):
@@ -288,5 +357,5 @@ def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
                     raise ValueError(f"历史影响导入段落定位不完整: {rid}")
     if check_reader:
         from .reading_layout import check_reading
-        check_reading(root, entry['markdown'], render(payload))
+        check_reading(root, entry['markdown'], render(payload, document_path=entry['markdown']))
     return {"status": "PASS", "validation_scope": "IDENTITY_COVERAGE_LABELS_LINEAGE_AND_READER_NOT_HISTORICAL_READJUDICATION", "main_pool_count": len(main), "supplementary_count": len(extra)}
