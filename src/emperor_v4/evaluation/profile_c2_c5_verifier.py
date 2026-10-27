@@ -57,6 +57,32 @@ def _md_rows() -> list[tuple[int, str, str, str, str, str]]:
     return rows
 
 
+def validate_active_case_links(row: dict) -> None:
+    """Validate current adjudication links, independently of past import audits."""
+    parents = {p['parent_id']: p for p in parent_chains(row)}
+    categories = {'positive_parent_refs': {'POSITIVE'}, 'negative_parent_refs': {'NEGATIVE'},
+                  'mixed_parent_refs': {'MIXED', 'MIXED_POSITIVE', 'MIXED_NEGATIVE', 'MIXED_BALANCED'}}
+    listed = []
+    for category, directions in categories.items():
+        for ref in row.get('counterpattern', {}).get(category, []):
+            assert ref in parents, f"unresolved current C5 context: {ref}"
+            assert parents[ref]['direction'] in directions, f"C5 direction mismatch: {ref}"
+            listed.append(ref)
+    assert len(listed) == len(set(listed)), 'duplicate current C5 context reference'
+    assert set(listed) == set(parents), 'current C5 context index is incomplete'
+    assert set(row.get('representative_parent_ids', [])) <= set(parents)
+    for group in row.get('unit_groups', []):
+        if group['status'] == 'SCORING_PARENT':
+            assert group.get('parent_id') in parents, 'current unit refers to a retired C5 context'
+    if any(p.get('threat_state') for p in parents.values()):
+        assert row['political_conflict_scope_status'] == 'CONFLICTS_REVIEWED'
+    if row['axis_evidence_level'] == 'E3':
+        intensities = [p['intensity'] for p in parents.values()]
+        assert any(i.startswith('MI4') for i in intensities) or (
+            len(parents) >= 2 and any(i.startswith('MI3') for i in intensities)
+        ), 'C5 E3 requires cross-phase material or independent parents with a sustained chain'
+
+
 def verify() -> dict[str, object]:
     c5, audit, density, structure = (
         _load(path) for path in (C5, C5_AUDIT, C5_DENSITY, C5_STRUCTURE)
@@ -71,8 +97,8 @@ def verify() -> dict[str, object]:
     assert c5_statuses <= allowed_same_chain
 
     scope_counts: dict[str, int] = {}
-    c5_parent_ids = set()
     for row in c5["records"]:
+        validate_active_case_links(row)
         scope_status = str(row.get("political_conflict_scope_status") or "")
         assert scope_status in {"CONFLICTS_REVIEWED", "NO_MAJOR_CONFLICT"}
         scope_counts[scope_status] = scope_counts.get(scope_status, 0) + 1
@@ -94,7 +120,6 @@ def verify() -> dict[str, object]:
         ]
         parents = {parent["parent_id"]: parent for parent in parent_rows}
         assert len(parents) == len(parent_rows)
-        c5_parent_ids.update(parents)
         assert set(row["axis_relevance_check"]["scoring_parent_refs"]) == set(parents)
         for group in row["unit_groups"]:
             if group["status"] == "SCORING_PARENT":
@@ -119,7 +144,9 @@ def verify() -> dict[str, object]:
         "SCORING_PARENT", "BACKGROUND_VALIDATION", "AXIS_OUT_WITH_REASON"
     }, "all entries cannot receive one uniform disposition"
     assert sum(audit["status_counts"].values()) == len(units)
-    assert {unit["scoring_parent_id"] for unit in units if unit["status"] == "SCORING_PARENT"} <= c5_parent_ids
+    # The import audit retains source lineage, including contexts legitimately
+    # retired by later adjudication. Current scoring links are checked above;
+    # an old audit's parent IDs must not freeze a past judgment into a gate.
     assert all((unit["status"] == "SCORING_PARENT") == bool(unit["scoring_parent_id"]) for unit in units)
 
     assert _md_rows() == [

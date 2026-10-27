@@ -350,6 +350,38 @@ for(const record of data.records.filter(r=>!r.supplementary)){
 ''')
 
 
+def test_power_style_cases_are_readable_without_an_extra_disclosure(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const artifact=fs.readFileSync('reader/index.html','utf8');
+const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+for(const entry of data.records.filter(r=>!r.supplementary)){
+ ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+entry.ruler_id+'.json','utf8')).record;
+ const before=JSON.stringify(ctx.r);
+ const html=vm.runInContext("axisEvidence(r,'C5')",ctx);
+ const points=ctx.r.axes.C5.public_evidence_points;
+ assert.equal((html.match(/class="power-evidence-case"/g)||[]).length,points.length,entry.ruler_id);
+ assert.ok(!html.includes('<details class="public-evidence-points">'),entry.ruler_id);
+ const footer=html.indexOf('<details class="metadata power-context-index">');
+ assert.ok(footer>html.indexOf('power-evidence-points'),entry.ruler_id);
+ const readable=html.slice(0,footer).replace(/<[^>]*>/g,'');
+ for(const point of points){
+  ctx.title=point.title;
+  assert.ok(readable.includes(vm.runInContext('esc(profilePublicPattern(title))',ctx)),entry.ruler_id);
+  for(const detail of point.details){
+   ctx.detail=detail;
+   assert.ok(readable.includes(vm.runInContext('esc(profilePublicPattern(detail))',ctx)),entry.ruler_id);
+  }
+ }
+ assert.equal(JSON.stringify(ctx.r),before);
+}
+''')
+
+
 @pytest.mark.parametrize('axis', ['C3', 'M4'])
 def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     import json
@@ -480,7 +512,7 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
    const html=vm.runInContext('axisEvidence(r,code,suffix)',ctx);
    if(expected){
     ctx.expected=expected;
-    const content=vm.runInContext('prose(expected)',ctx);
+    const content=vm.runInContext("code==='C5'?powerProse(expected):prose(expected)",ctx);
     const label=vm.runInContext("ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据'",ctx);
     assert.ok(html.includes('<section class="axis-grade-explanation"><div class="label">'+label+'</div>'+content),file+': '+code);
     assert.ok(html.indexOf('axis-grade-explanation')<html.indexOf('<details class="axis-further-check">'),file+': '+code);

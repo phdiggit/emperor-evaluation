@@ -472,9 +472,23 @@ function representativeContexts(a,axisCode=''){
  if(!items.length)return '';
  return `<div class="label">正式代表情境</div>${items.map((c,index)=>formalContextStory(c,c.parent_id||c.parent_ref||`代表情境${index+1}`,{axisCode})).join('')}`;
 }
-function publicEvidencePoints(a){
+function powerProse(value){
+ if(Array.isArray(value))return value.map(powerProse).join('');
+ if(typeof value!=='string')return axisProse(value);
+ const sentences=value.match(/[^。；\n]+[。；]?|\n/g)||[];
+ const paragraphs=[];let current='';
+ for(const sentence of sentences){
+  if(sentence==='\n'){if(current){paragraphs.push(current);current='';}continue;}
+  if(current&&current.length+sentence.length>160){paragraphs.push(current);current='';}
+  current+=sentence;
+ }
+ if(current)paragraphs.push(current);
+ return paragraphs.map(axisProse).join('');
+}
+function publicEvidencePoints(a,expanded=false){
  const points=Array.isArray(a.public_evidence_points)?a.public_evidence_points:[];
  if(!points.length)return '';
+ if(expanded)return `<section class="power-evidence-points">${points.map(point=>`<section class="power-evidence-case">${point?.title?`<h4>${esc(profilePublicPattern(point.title))}</h4>`:''}${powerProse(point?.details||'')}</section>`).join('')}</section>`;
  return `<details class="public-evidence-points"><summary>查看代表性证据</summary>${points.map(point=>{const title=point?.title?`<div class="label">${esc(profilePublicPattern(point.title))}</div>`:'';return `${title}${axisProse(point?.details||'')}`;}).join('')}</details>`;
 }
 
@@ -1101,12 +1115,14 @@ function axisEvidence(r,c,suffix=''){
  if(c==='M1'&&a.public_reading)return m1AuthoredEvidence(r,a,suffix);
  const evidenceScope=axisEvidenceScope(a,c),evidenceLevel=evidenceScope.coverage;
  const structuredCounter=a.counterpattern&&typeof a.counterpattern==='object'&&!Array.isArray(a.counterpattern);
- const formalMaterials=structuredCounter?contexts(a,true,c):representativeContexts(a,c);
+ const hasPowerCases=c==='C5'&&Array.isArray(a.public_evidence_points)&&a.public_evidence_points.length>0;
+ const formalIndex=structuredCounter?contexts(a,true,c):representativeContexts(a,c);
+ const formalMaterials=hasPowerCases?`<details class="metadata power-context-index"><summary>正式情境索引：方向、强度与依据</summary>${formalIndex}</details>`:formalIndex;
  const counterText=!structuredCounter&&a.counterpattern?'<div class="label">反例与限制</div>'+axisProse(a.counterpattern):'';
  const primaryPattern=a.typical_pattern||a.not_applicable_reason||'';
  const distinctGradeBasis=profileDistinctGradeBasis(a.grade_basis,primaryPattern);
  const basisLabel=ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据';
- const gradeExplanation=distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${prose(distinctGradeBasis)}</section>`:'';
+ const gradeExplanation=distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${c==='C5'?powerProse(distinctGradeBasis):prose(distinctGradeBasis)}</section>`:'';
  const distinctPositionBasis=profileDistinctPositionBasis(a.position_basis,primaryPattern,a.grade_basis||'');
  const distinctLimitations=profileDistinctLimitations(a.limitations,primaryPattern,a.grade_basis||'',a.position_basis||'',a.evidence_assessment_basis||'');
  const boundaryParts=`${profileHasContent(distinctLimitations)?axisProse(distinctLimitations):''}${profileHasContent(a.evidence_assessment_basis)?axisProse(a.evidence_assessment_basis):''}`;
@@ -1114,7 +1130,7 @@ function axisEvidence(r,c,suffix=''){
  const hasTalentCases=c==='C3'&&formalMaterials;
  const adjudicationBody=`${hasTalentCases?counterText:''}${distinctPositionBasis?`<div class="label">档内定位</div>${prose(distinctPositionBasis)}`:''}${boundaryParts?`<div class="label">限制与证据边界</div>${boundaryParts}`:''}${closureParts}`;
  const adjudicationDetails=adjudicationBody?`<details class="metadata adjudication"><summary>裁决详情：档内定位与限制</summary>${adjudicationBody}</details>`:'';
- const further=`${evidenceScope.detail}${m1FailureReview(a)}${formalMaterials}${publicEvidencePoints(a)}${hasTalentCases?'':counterText}${adjudicationDetails}`;
+ const further=`${evidenceScope.detail}${m1FailureReview(a)}${hasPowerCases?'':formalMaterials}${publicEvidencePoints(a,hasPowerCases)}${hasTalentCases?'':counterText}${adjudicationDetails}${hasPowerCases?formalMaterials:''}`;
  return `<details id="reason-${c}${suffix}" class="axis-evidence"><summary>${esc(spec.name)} <span class="badge">${grade(a)}</span>${evidenceLevel?'<small class="axis-evidence-level">材料覆盖：'+esc(evidenceLevel)+'</small>':''}</summary>${ungraded(a)?'<p class="notice">证据审查已结案，本轴不发布等级或分数；不表示能力低下。</p>':''}${pending(a)?'<p class="notice">本轴当前尚未完成裁决；历史保留值不作为现行等级或雷达值。</p>':''}<div class="label">正式记录中的人物表现</div>${prose(profilePublicPattern(a.typical_pattern||a.not_applicable_reason||'本轴未另列人物表现，请展开裁决详情。'))}${gradeExplanation}${a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY'?'<p class="notice">本轴E为终局证据认定：现有材料未显示外交能力。它与已证实外交失能的裁决分开，不表示史料已证明潜在能力为零。</p>':''}${a.applicability_basis?'<div class="label">适用范围</div>'+axisProse(a.applicability_basis):''}<details class="axis-further-check"><summary>进一步核对：代表情境、反例与限制</summary>${further}</details><details class="metadata"><summary>原始记录与专业信息</summary><p class="subline">展示模式：${esc(evidenceScope.modeLabel)} · 判断把握：${esc(conf(a.confidence))}${evidenceLevel?' · 材料覆盖：'+esc(evidenceLevel):''} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>${[...new Set([...(a.source_refs||[]),...(a.evidence_scope?.source_refs||[])])].map((ref,index)=>profileSourceMarkup(ref,index,r)).join('')}<p class="sources">${link(spec.markdown,'本轴完整阅读页 ↗',r)}${link(spec.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗')}</p></details></details>`;
 }
 function profilePanel(r){
