@@ -250,6 +250,30 @@ html=vm.runInContext("majorCard(r,'fourth')",ctx);assert.ok(html.includes('+23.4
 ''')
 
 
+def test_impact_dimensions_use_distinct_meanings_and_rank_range_adds_information(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+const labels=['scope','depth_duration','personal_causality','paradigm'].map(key=>{
+ ctx.key=key;return vm.runInContext("impactDimensionLabel(key,'A+')",ctx);
+});
+assert.equal(new Set(labels).size,labels.length,'the same letter has different meanings on different dimensions');
+for(const label of labels)assert.ok(label&&!label.includes('A+'));
+ctx.n={rank:3,prudent_rank_projection:{best:3,worst:3}};
+const before=JSON.stringify(ctx.n);let html=vm.runInContext('netPositionSummary(n)',ctx);
+assert.ok(html.includes('当前排名 第 3 名'));
+assert.ok(!html.includes('考虑史料分歧'));
+assert.equal(JSON.stringify(ctx.n),before);
+ctx.n.prudent_rank_projection={best:2,worst:5};
+html=vm.runInContext('netPositionSummary(n)',ctx);
+assert.ok(html.includes('当前排名 第 3 名')&&html.includes('考虑史料分歧：第 2—5 名'));
+assert.ok(!/审慎位置|规则点位|点估计/.test(html));
+''')
+
+
 def test_person_note_locators_are_local_and_never_pin_scores(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const record={axes:{C5:{typical_pattern:'合成事项：复核改变了一项决定。',axis_grade:'G3'}},net:{total_score:10}};

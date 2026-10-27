@@ -1136,3 +1136,10 @@ a.compact-axis:hover .axis-row-label,a.compact-axis:focus-visible .axis-row-labe
 .impact-detail-result { display: flex; gap: 24px; align-items: center; margin: 12px 0; }
 .impact-detail-result .big { margin: 0; }
 .impact-detail-result p { margin: 0 0 6px; }
+.impact-public-meaning { font: 26px/1.45 "SimSun", serif; color: var(--red); margin: 12px 0; }
+.impact-home-meaning { font: 18px/1.5 "SimSun", serif; color: var(--red); }
+.impact-home-meaning small { display: block; font: 12px/1.6 "Microsoft YaHei", sans-serif; color: var(--muted); }
+.impact-dimension-description { display: block; color: var(--ink); font-size: 13px; line-height: 1.6; font-weight: 500; }
+.impact-dimension-card > a .impact-dimension-description { grid-column: 1 / -1; }
+.impact-dimension-section > summary .impact-dimension-description { max-width: 55%; text-align: right; }
+@media(max-width:700px){.impact-detail-result{align-items:flex-start;flex-direction:column;gap:6px}}
