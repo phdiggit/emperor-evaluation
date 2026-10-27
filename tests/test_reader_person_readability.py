@@ -313,6 +313,43 @@ assert.ok(html.includes(ctx.c.lifecycle_narrative));
 ''')
 
 
+def test_talent_layout_preserves_all_current_cases_and_keeps_metadata_secondary(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const source=template.split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const artifact=fs.readFileSync('reader/index.html','utf8');
+const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+for(const record of data.records.filter(r=>!r.supplementary)){
+ const r=JSON.parse(fs.readFileSync('reader/data/people/'+record.ruler_id+'.json','utf8')).record;
+ for(const c of r.axes.C3.representative_contexts||[]){
+  ctx.c=c;
+  const html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C3'})",ctx);
+  const footer=html.indexOf('<details class="metadata talent-context-sources">');
+  assert.ok(footer>=0,record.ruler_id);
+  assert.ok(!html.slice(0,footer).includes('context-direction'),record.ruler_id);
+  assert.equal((html.match(/class="talent-evidence-item"/g)||[]).length,(c.evidence_detail||[]).length,record.ruler_id);
+  const plain=html.replace(/<[^>]*>/g,'');
+  for(const item of c.evidence_detail||[]){
+   ctx.item=item;
+   const body=vm.runInContext("(()=>{const t=profilePublicPattern(item),i=t.indexOf('：');return esc(i>0&&i<=48?t.slice(i+1):t)})()",ctx);
+   assert.ok(plain.includes(body),record.ruler_id+': missing authored evidence');
+  }
+ }
+ ctx.r=r;
+ const axis=vm.runInContext("axisEvidence(r,'C3')",ctx);
+ if(r.axes.C3.counterpattern){
+  const judgment=axis.indexOf('<details class="metadata adjudication">');
+  assert.ok(judgment>=0,record.ruler_id);
+  assert.ok(!axis.slice(0,judgment).includes('<div class="label">反例与限制</div>'),record.ruler_id);
+ }
+}
+''')
+
+
 @pytest.mark.parametrize('axis', ['C3', 'M4'])
 def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     import json
