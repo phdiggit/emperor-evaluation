@@ -111,6 +111,41 @@
   overflow-wrap: anywhere;
 }
 
+.organization-context-story {
+  border-left-color: var(--line);
+  padding: 16px 18px 10px;
+}
+
+.organization-context-story .public-context-title {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.organization-context-story[data-direction="POSITIVE"] {
+  border-left-color: var(--green);
+}
+
+.organization-context-story[data-direction="NEGATIVE"] {
+  border-left-color: #a55b43;
+}
+
+.organization-process-part + .organization-process-part {
+  margin-top: 12px;
+}
+
+.organization-process-part h5 {
+  margin: 0 0 5px;
+  font-size: 14px;
+}
+
+.organization-process-part .prose {
+  margin: 5px 0;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
 .formal-context-chips {
   display: flex;
   flex-wrap: wrap;

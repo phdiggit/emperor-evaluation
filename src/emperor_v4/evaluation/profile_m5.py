@@ -45,13 +45,16 @@ def render(payload: dict[str, Any]) -> str:
         ])
         if row["position_basis"] != row["grade_basis"]:
             lines.extend(["**档内限制：**", "", row["position_basis"], ""])
+        lines.extend(["**反例与判断边界：**", "", row["counterpattern"], ""])
         lines.extend(["**限制**：", "", "\n\n".join(row["limitations"]), ""])
-        lines.extend(["**代表过程（节选）：**", ""])
+        lines.extend(["**正式过程与边界：**", ""])
         selected = set(row["representative_parent_ids"])
         for parent in row["parent_chains"]:
             if parent["parent_id"] in selected:
-                lines.extend([f"- **{parent['title']}**：{parent['process_narrative'].splitlines()[0]}"])
-                lines.extend([f"  - **本人归责**：{parent['attribution_basis']}"])
+                lines.extend([f"#### {parent['title']}", "",
+                              "\n\n".join(line.strip() for line in parent['process_narrative'].splitlines() if line.strip()), "",
+                              f"- **本人归责**：{parent['attribution_basis']}",
+                              f"- **跨轴边界**：{parent['secondary_projection_reason']}", ""])
         lines.extend(["", "**来源与定位：**", ""])
         for ref in row["source_refs"]:
             lines.append(f"- `{ref}`")

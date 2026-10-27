@@ -382,7 +382,7 @@ for(const entry of data.records.filter(r=>!r.supplementary)){
 ''')
 
 
-@pytest.mark.parametrize('axis', ['C1', 'C3', 'M4'])
+@pytest.mark.parametrize('axis', ['C1', 'C3', 'M4', 'M5'])
 def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     import json
     import yaml
@@ -403,6 +403,8 @@ def test_formal_context_process_matches_current_source_for_entire_axis(axis):
                 assert context.get('lifecycle_narrative'), (row['ruler_id'], context['parent_id'])
             elif axis == 'M4':
                 assert context.get('coalition_task') and context.get('exit_result'), (row['ruler_id'], context['parent_id'])
+            elif axis == 'M5':
+                assert context.get('process_narrative'), (row['ruler_id'], context['parent_id'])
             else:
                 assert context.get('cycle_basis'), (row['ruler_id'], context['parent_id'])
 
@@ -468,6 +470,65 @@ for(const entry of data.records.filter(r=>!r.supplementary)){
   }
  }
  assert.equal(JSON.stringify(ctx.a),before);
+}
+''')
+
+
+def test_organization_context_uses_authored_sections_and_compact_metadata(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+ctx.c={parent_id:'synthetic-organization',title:'运输 <与> 前线',process_narrative:'任务分解：运输与前线分别负责。\n故障后重配权限，后续恢复交付。',attribution_basis:'方案由专业人员提出，本人实际授权。',secondary_projection_reason:'不把战果直接计入组织能力。',source_refs:['docs/synthetic.md']};
+const before=JSON.stringify(ctx.c);
+const html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'M5'})",ctx);
+assert.ok(html.includes('<h4 class="public-context-title">运输 &lt;与&gt; 前线</h4>'));
+assert.ok(html.includes('<h5>任务分解</h5>'));
+assert.ok(html.includes('运输与前线分别负责。'));
+assert.ok(html.includes('故障后重配权限，后续恢复交付。'));
+const footer=html.indexOf('<details class="metadata organization-context-sources">');
+assert.ok(footer>html.indexOf('后续恢复交付'));
+assert.ok(html.indexOf(ctx.c.attribution_basis)>footer);
+assert.ok(html.indexOf(ctx.c.secondary_projection_reason)>footer);
+assert.ok(!html.includes('context-direction'));
+assert.equal(JSON.stringify(ctx.c),before);
+''')
+
+
+def test_organization_layout_preserves_current_processes_and_separates_counter_summary(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const source=template.split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const artifact=fs.readFileSync('reader/index.html','utf8');
+const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+const normalize=s=>s.replace(/[\s：]/g,'');
+for(const entry of data.records.filter(r=>!r.supplementary)){
+ ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+entry.ruler_id+'.json','utf8')).record;
+ const a=ctx.r.axes.M5,before=JSON.stringify(a);
+ const axis=vm.runInContext("axisEvidence(r,'M5')",ctx);
+ assert.equal((axis.match(/class="context-story formal-context-story organization-context-story"/g)||[]).length,a.representative_contexts.length,entry.ruler_id);
+ const judgment=axis.indexOf('<details class="metadata adjudication">');
+ assert.ok(judgment>0,entry.ruler_id);
+ assert.ok(axis.indexOf('<div class="label">反例与判断边界</div>')>judgment,entry.ruler_id);
+ for(const c of a.representative_contexts){
+  ctx.c=c;
+  const html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'M5'})",ctx);
+  const footer=html.indexOf('<details class="metadata organization-context-sources">');
+  assert.ok(footer>=0,entry.ruler_id);
+  const plain=normalize(html.slice(0,footer).replace(/<[^>]*>/g,''));
+  for(const line of c.process_narrative.split(/\n+/).filter(s=>s.trim())){
+   ctx.line=line.trim();
+   assert.ok(plain.includes(normalize(vm.runInContext('esc(profilePublicPattern(line))',ctx))),entry.ruler_id+': '+c.parent_id);
+  }
+  if(!c.direction)assert.ok(!html.includes('context-direction'),entry.ruler_id);
+ }
+ assert.equal(JSON.stringify(a),before);
 }
 ''')
 
@@ -579,7 +640,7 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
    const html=vm.runInContext('axisEvidence(r,code,suffix)',ctx);
    if(expected){
     ctx.expected=expected;
-    const content=vm.runInContext("['C1','C5'].includes(code)?powerProse(expected):prose(expected)",ctx);
+    const content=vm.runInContext("['C1','C5','M5'].includes(code)?powerProse(expected):prose(expected)",ctx);
     const label=vm.runInContext("ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据'",ctx);
     assert.ok(html.includes('<section class="axis-grade-explanation"><div class="label">'+label+'</div>'+content),file+': '+code);
     assert.ok(html.indexOf('axis-grade-explanation')<html.indexOf('<details class="axis-further-check">'),file+': '+code);
