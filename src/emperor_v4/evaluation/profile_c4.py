@@ -36,11 +36,19 @@ def _grade(row: dict[str, Any]) -> str:
     return 'NOT_APPLICABLE' if row['axis_grade'] is None else f"{row['axis_grade']}-{row['position']}"
 
 
+def _text(value: Any) -> str:
+    if isinstance(value, list):
+        return '\n'.join(f'- {_text(item)}' for item in value)
+    if isinstance(value, dict):
+        return '\n'.join(f'- {key}：{_text(item)}' for key, item in value.items())
+    return str(value or '')
+
+
 def render(payload: dict[str, Any]) -> str:
     lines = ['# C4 治理架构与制度设计能力正式结算', '',
              '> 独立人物画像轴。正式JSON为唯一当前档位真源。', '',
              '## 阅读说明', '',
-             '按雷达值降序、同值按稳定人物ID排列，不适用列末尾并留空，不换成零分。代表父链仅作节选，完整证据、史源及归责见JSON。', '',
+             '按雷达值降序、同值按稳定人物ID排列，不适用列末尾并留空，不换成零分。下文展开全部现行制度过程及适用边界；条目数不等于独立设计数，整合设计的部件不重复计数。完整结构化记录见JSON。', '',
              '## 全池结算表', '',
              '| 人物 | 档位 | 雷达值 | 证据 | 典型模式 |', '|---|---|---:|---|---|']
     for row in payload['records']:
@@ -52,18 +60,46 @@ def render(payload: dict[str, Any]) -> str:
         lines.extend(['', f"### {row['ruler_name']}（{row['ruler_id']}）", '',
                       f"- 结算：**{_grade(row)}**；雷达值：{row['radar_value'] if row['radar_value'] is not None else '不适用'}；{row['axis_evidence_level']} / {row['confidence']}。",
                       f"- **主模式**：{row['typical_pattern']}",
+                      f"- **适用范围**：{row['applicability']['basis']}",
                       f"- **裁档理由**：{row['grade_basis']}",
                       f"- 档内定位：{row['position_basis']}",
+                      f"- **反例与判断边界**：{row['counterpattern']}",
                       f"- **限制**：{'；'.join(row['limitations'])}"])
+        if row.get('evidence_assessment_basis'):
+            lines.append(f"- 材料覆盖：{row['evidence_assessment_basis']}")
         if row.get('architecture_review'):
             lines.extend(['', '#### 架构量级复核', '', row['architecture_review']['basis'].replace('**限制**', '**结构下沿**')])
-        parents = {p['parent_id']: p for p in row['parent_chains']}
-        for parent_id in row['representative_parent_ids']:
-            parent = parents[parent_id]
-            body = parent['mechanism']
-            if len(body) > 360:
-                body = body[:360] + '……（节选，完整内容见正式JSON）'
-            lines.extend(['', f"- 代表父链：**{parent['title']}**：{body}"])
+        for parent in row['parent_chains']:
+            lines.extend(['', f"#### {parent['title']}", '', parent['mechanism']])
+            shown = {parent['mechanism']}
+            for key, label in (
+                ('structural_problem', '原有问题'), ('constraints', '当时的约束'),
+                ('feasible_choice', '可行选择'), ('personal_choice', '本人选择'),
+                ('interfaces', '职责与规则变化'), ('operation', '实际运行'),
+                ('feedback', '运行反馈'), ('revision', '后续修订'),
+                ('validation_boundary', '采用边界'),
+            ):
+                value = _text(parent.get(key))
+                if value and value not in shown:
+                    lines.extend(['', f'**{label}**：{value}'])
+                    shown.add(value)
+            lines.extend(['', f"- 正式方向：{parent['direction']}；归责：{parent['attribution']}"])
+            if parent.get('consumption_status'):
+                lines.append(f"- 材料用途：{parent['consumption_status']}")
+            for source in parent.get('source_review', []):
+                lines.extend(['', f"- 所读史源：[{source['source_title']}]({source['source_url']})"])
+                for key, label in (('passage_locator', '段落定位'), ('adopted_fact', '采用事实'),
+                                   ('counterevidence', '反证与限定'), ('limitation', '采用范围')):
+                    if source.get(key):
+                        lines.append(f"- {label}：{source[key]}")
+            if parent.get('historical_source_descriptions'):
+                lines.extend(['', '来源说明：' + '；'.join(parent['historical_source_descriptions'])])
+            refs = list(dict.fromkeys(parent['source_refs'] + parent.get('direct_process_refs', [])))
+            lines.extend(['', '- 过程依据：' + '；'.join(f'`{ref}`' for ref in refs)])
+        if row.get('horizontal_calibration'):
+            lines.extend(['', '#### 同轴比较', '', row['horizontal_calibration']['decision_basis']])
+            for item in row['horizontal_calibration']['comparators']:
+                lines.append(f"- `{item['ruler_id']}`：{item['comparison']}")
         lines.extend(['', '- 来源：' + '；'.join(f'`{ref}`' for ref in row['source_refs'])])
     return '\n'.join(lines) + '\n'
 

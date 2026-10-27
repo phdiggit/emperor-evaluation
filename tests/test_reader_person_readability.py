@@ -382,20 +382,20 @@ for(const entry of data.records.filter(r=>!r.supplementary)){
 ''')
 
 
-@pytest.mark.parametrize('axis', ['C1', 'C2', 'C3', 'M4', 'M5'])
+@pytest.mark.parametrize('axis', ['C1', 'C2', 'C3', 'C4', 'M4', 'M5'])
 def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     import json
     import yaml
-    from reader.build import ROOT, FORMAL_CONTEXT_FIELDS, LEARNING_CONTEXT_FIELDS, load_json
+    from reader.build import ROOT, FORMAL_CONTEXT_FIELDS, LEARNING_CONTEXT_FIELDS, DESIGN_CONTEXT_FIELDS, load_json
     from emperor_v4.evaluation.profile_parent_schema import representative_parent_chains
 
     project = yaml.safe_load((ROOT / 'config/project.yml').read_text(encoding='utf-8'))
     spec = project['profile_assessment']['settled_axes'][axis]
     for row in load_json(ROOT / spec['json'])['records']:
         projected = axis_projection(row, [])
-        context_fields = FORMAL_CONTEXT_FIELDS + (LEARNING_CONTEXT_FIELDS if axis == 'C2' else [])
+        context_fields = FORMAL_CONTEXT_FIELDS + (LEARNING_CONTEXT_FIELDS if axis == 'C2' else []) + (DESIGN_CONTEXT_FIELDS if axis == 'C4' else [])
         expected = [{key: context[key] for key in context_fields if key in context}
-                    for context in representative_parent_chains(row)]
+                    for context in (row['parent_chains'] if axis == 'C4' else representative_parent_chains(row))]
         assert projected['representative_contexts'] == expected, row['ruler_id']
         record = json.loads((ROOT / 'reader/data/people' / (row['ruler_id'] + '.json')).read_text(encoding='utf-8'))['record']
         assert record['axes'][axis]['representative_contexts'] == expected, row['ruler_id']
@@ -408,6 +408,8 @@ def test_formal_context_process_matches_current_source_for_entire_axis(axis):
                 assert context.get('coalition_task') and context.get('exit_result'), (row['ruler_id'], context['parent_id'])
             elif axis == 'M5':
                 assert context.get('process_narrative'), (row['ruler_id'], context['parent_id'])
+            elif axis == 'C4':
+                assert context.get('mechanism'), (row['ruler_id'], context['parent_id'])
             else:
                 assert context.get('cycle_basis'), (row['ruler_id'], context['parent_id'])
 
@@ -873,3 +875,42 @@ def test_note_coverage_follows_current_main_pool():
     from reader.build import person_note_reference_issues
     records = [{'ruler_id': 'main'}, {'ruler_id': 'extra', 'supplementary': True}]
     assert person_note_reference_issues(records, {'records': {}}) == [('main', 'coverage', [])]
+
+
+def test_design_context_keeps_rules_before_metadata_and_all_current_processes(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const artifact=fs.readFileSync('reader/index.html','utf8');
+const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+ctx.c={parent_id:'synthetic',title:'规则 <与> 反馈',mechanism:'正式安排有明确分工。',direction:'MIXED',interfaces:['资源核算','人员归属'],validation_boundary:'未观察长期结果。',attribution:'本人选择，专业官员执行。',source_refs:['docs/synthetic.md']};
+const original=JSON.stringify(ctx.c);
+let html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C4'})",ctx);
+assert.ok(html.includes('<h4 class="public-context-title">规则 &lt;与&gt; 反馈</h4>'));
+assert.ok(html.indexOf('正式安排有明确分工。')<html.indexOf('design-context-sources'));
+for(const text of ['资源核算','人员归属','未观察长期结果。','本人选择，专业官员执行。'])assert.ok(html.includes(text));
+assert.ok(html.indexOf('context-direction')>html.indexOf('design-context-sources'));
+assert.equal(JSON.stringify(ctx.c),original);
+let processes=0;
+for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')&&f.endsWith('.json'))){
+ ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
+ const a=ctx.r.axes?.C4;if(!a)continue;
+ const before=JSON.stringify(ctx.r);
+ const html=vm.runInContext("axisEvidence(r,'C4')",ctx);
+ assert.ok(html.includes('design-context-story'),file);
+ assert.ok(html.indexOf('反例与判断边界')>html.indexOf('metadata adjudication'),file);
+ for(const c of a.representative_contexts){
+  ctx.c=c;
+  const card=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C4'})",ctx);
+  assert.ok(html.includes(card),file+': '+c.parent_id);
+  assert.ok(card.includes(vm.runInContext('powerProse(c.mechanism)',ctx)),file+': truncated process');
+  processes++;
+ }
+ if(a.architecture_review?.basis){ctx.basis=a.architecture_review.basis;assert.ok(html.includes(vm.runInContext('powerProse(basis)',ctx)));}
+ assert.equal(JSON.stringify(ctx.r),before);
+}
+assert.ok(processes>0);
+''')
