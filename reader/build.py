@@ -211,6 +211,7 @@ FORMAL_CONTEXT_FIELDS = [
     "cycle_anchor_refs",
     "direct_process_refs",
     "direction",
+    "consumption_status",
     "intensity",
     "material_intensity",
     "attribution",

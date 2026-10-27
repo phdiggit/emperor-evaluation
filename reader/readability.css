@@ -84,6 +84,33 @@
   font-size: 13px;
 }
 
+.strategy-context-story .public-context-title {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.strategy-context-story {
+  border-left-color: var(--line);
+}
+
+.strategy-context-story[data-direction="POSITIVE"],
+.strategy-context-story[data-direction="MIXED_POSITIVE"] {
+  border-left-color: var(--green);
+}
+
+.strategy-context-story[data-direction="NEGATIVE"],
+.strategy-context-story[data-direction="MIXED_NEGATIVE"] {
+  border-left-color: #a55b43;
+}
+
+.strategy-context-story > .prose {
+  margin: 8px 0;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
 .formal-context-chips {
   display: flex;
   flex-wrap: wrap;

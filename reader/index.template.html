@@ -448,9 +448,18 @@ function talentContextStory(c,id){
  const metadata=`${fullProcess}${boundaries.length?`<div class="label">评价边界</div>${boundaries.map(axisProse).join('')}`:''}${formalContextMetadata(c)}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.length?`<div class="label">来源与依据</div>${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?`<p class="sources">${link(ref,/^https?:\/\//.test(ref)?'外部史料与材料 ↗':'项目依据记录 ↗')}</p>`:prose(ref)).join('')}`:''}`;
  return `<section class="context-story formal-context-story talent-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>${narrative}<details class="metadata talent-context-sources"><summary>评价边界与来源</summary>${metadata}</details></section>`;
 }
+function strategyContextStory(c,id){
+ const title=c.evidence_title||c.title||'';
+ const body=c.cycle_basis||c.process_narrative||c.basis||'';
+ const refs=formalContextSources(c);
+ const roles={SCORING_PARENT:'计分情境',BACKGROUND_VALIDATION:'背景验证',AXIS_OUT_WITH_REASON:'不用于本轴计分'};
+ const metadata=`${formalContextMetadata(c)}${Object.entries(c.boundary_review||{}).map(([label,value])=>formalMetaField(label,value)).join('')}${c.consumption_status?`<p class="subline">材料用途：${esc(roles[c.consumption_status]||c.consumption_status)}</p>`:''}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?`<p class="sources">${link(ref,/^https?:\/\//.test(ref)?'外部史料与材料 ↗':'项目依据记录 ↗')}</p>`:prose(ref)).join('')}`;
+ return `<section class="context-story formal-context-story strategy-context-story" data-direction="${esc(c.direction||'')}">${title?`<h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>`:''}${body?powerProse(body):'<p class="notice">该情境尚未提供过程正文。</p>'}<details class="metadata strategy-context-sources"><summary>评价边界与来源</summary>${metadata}</details></section>`;
+}
 function formalContextStory(c,id='',options={}){
  if(!c)return prose(id?'相关情境材料未附正文':'正式记录未列情境正文');
  if(options.axisCode==='C3')return talentContextStory(c,id);
+ if(options.axisCode==='C1')return strategyContextStory(c,id);
  const rawTitle=String(c.title||c.evidence_title||'').trim();
  const genericTitle=/^(?:(?:主要)?父情境\d+|父链[A-ZＡ-Ｚ]|主要结构链\d+|代表情境\d+)$/.test(rawTitle);
  const title=rawTitle&&!genericTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
@@ -465,7 +474,13 @@ function formalContextStory(c,id='',options={}){
 
 function contexts(a,showIntensity=true,axisCode=''){
  const labels={positive_parent_refs:'正向表现',counter_parent_refs:'反例与下沿',negative_parent_refs:'负向表现',mixed_parent_refs:'正负混合表现'};
- return Object.entries(a.counterpattern).map(([key,refs])=>`<div class="label">${esc(labels[key]||key)}</div>${Array.isArray(refs)&&refs.length?refs.map(id=>formalContextStory(a.context_lookup?.[id],id,{showIntensity,axisCode})).join(''):'<p class="subline">当前未列独立情境。</p>'}`).join('');
+ const main=Object.entries(a.counterpattern).map(([key,refs])=>`<div class="label">${esc(labels[key]||key)}</div>${Array.isArray(refs)&&refs.length?refs.map(id=>formalContextStory(a.context_lookup?.[id],id,{showIntensity,axisCode})).join(''):'<p class="subline">当前未列独立情境。</p>'}`).join('');
+ if(axisCode!=='C1')return main;
+ const shown=new Set(Object.values(a.counterpattern).flat());
+ const remaining=(a.representative_contexts||[]).filter(c=>!shown.has(c.parent_id||c.parent_ref));
+ const scoring=remaining.filter(c=>c.consumption_status==='SCORING_PARENT');
+ const boundaries=remaining.filter(c=>c.consumption_status!=='SCORING_PARENT');
+ return main+(scoring.length?`<div class="label">其他计分代表情境</div>${scoring.map(c=>formalContextStory(c,c.parent_id||c.parent_ref,{showIntensity,axisCode})).join('')}`:'')+(boundaries.length?`<details class="metadata strategy-boundary-contexts"><summary>归责与适用边界：非计分代表材料</summary>${boundaries.map(c=>formalContextStory(c,c.parent_id||c.parent_ref,{showIntensity,axisCode})).join('')}</details>`:'');
 }
 function representativeContexts(a,axisCode=''){
  const items=Array.isArray(a.representative_contexts)?a.representative_contexts:[];
@@ -1122,7 +1137,7 @@ function axisEvidence(r,c,suffix=''){
  const primaryPattern=a.typical_pattern||a.not_applicable_reason||'';
  const distinctGradeBasis=profileDistinctGradeBasis(a.grade_basis,primaryPattern);
  const basisLabel=ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据';
- const gradeExplanation=distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${c==='C5'?powerProse(distinctGradeBasis):prose(distinctGradeBasis)}</section>`:'';
+ const gradeExplanation=distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${['C1','C5'].includes(c)?powerProse(distinctGradeBasis):prose(distinctGradeBasis)}</section>`:'';
  const distinctPositionBasis=profileDistinctPositionBasis(a.position_basis,primaryPattern,a.grade_basis||'');
  const distinctLimitations=profileDistinctLimitations(a.limitations,primaryPattern,a.grade_basis||'',a.position_basis||'',a.evidence_assessment_basis||'');
  const boundaryParts=`${profileHasContent(distinctLimitations)?axisProse(distinctLimitations):''}${profileHasContent(a.evidence_assessment_basis)?axisProse(a.evidence_assessment_basis):''}`;

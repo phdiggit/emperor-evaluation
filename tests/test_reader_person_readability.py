@@ -382,7 +382,7 @@ for(const entry of data.records.filter(r=>!r.supplementary)){
 ''')
 
 
-@pytest.mark.parametrize('axis', ['C3', 'M4'])
+@pytest.mark.parametrize('axis', ['C1', 'C3', 'M4'])
 def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     import json
     import yaml
@@ -401,8 +401,75 @@ def test_formal_context_process_matches_current_source_for_entire_axis(axis):
         for context in expected:
             if axis == 'C3':
                 assert context.get('lifecycle_narrative'), (row['ruler_id'], context['parent_id'])
-            else:
+            elif axis == 'M4':
                 assert context.get('coalition_task') and context.get('exit_result'), (row['ruler_id'], context['parent_id'])
+            else:
+                assert context.get('cycle_basis'), (row['ruler_id'], context['parent_id'])
+
+
+def test_strategy_context_preserves_process_and_separates_non_scoring_material(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+ctx.c={parent_id:'positive',direction:'POSITIVE',consumption_status:'SCORING_PARENT',evidence_title:'选择 <与> 反馈',cycle_basis:'先确定可执行目标。\n\n反馈到达后收缩投入。',boundary_review:{归责:'执行由臣下承担。'},source_refs:['docs/synthetic.md']};
+const before=JSON.stringify(ctx.c);
+let html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C1'})",ctx);
+assert.ok(html.includes('<h4 class="public-context-title">选择 &lt;与&gt; 反馈</h4>'));
+const footer=html.indexOf('<details class="metadata strategy-context-sources">');
+for(const sentence of ['先确定可执行目标。','反馈到达后收缩投入。'])assert.ok(html.indexOf(sentence)<footer);
+assert.ok(html.indexOf('context-direction')>footer);
+assert.ok(html.indexOf('计分情境')>footer);
+assert.ok(html.indexOf('执行由臣下承担。')>footer);
+assert.ok(html.includes('docs/synthetic.md'));
+assert.equal(JSON.stringify(ctx.c),before);
+ctx.a={counterpattern:{positive_parent_refs:['positive'],counter_parent_refs:[]},context_lookup:{positive:ctx.c},representative_contexts:[ctx.c,{parent_id:'boundary',consumption_status:'BACKGROUND_VALIDATION',direction:'LIMITATION',cycle_basis:'此事有共享归责，不能认定独立周期。'}]};
+html=vm.runInContext("contexts(a,true,'C1')",ctx);
+const boundary=html.indexOf('<details class="metadata strategy-boundary-contexts">');
+assert.ok(boundary>0);
+assert.ok(html.indexOf('此事有共享归责')>boundary);
+assert.equal((html.match(/先确定可执行目标/g)||[]).length,1);
+assert.ok(!html.slice(0,boundary).includes('此事有共享归责'));
+ctx.a.representative_contexts.push({parent_id:'additional',consumption_status:'SCORING_PARENT',direction:'POSITIVE',cycle_basis:'另一计分过程仍须显示。'});
+html=vm.runInContext("contexts(a,true,'C1')",ctx);
+assert.ok(html.includes('其他计分代表情境'));
+assert.ok(html.indexOf('另一计分过程')<html.indexOf('strategy-boundary-contexts'));
+''')
+
+
+def test_strategy_layout_keeps_every_current_representative_process(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const source=template.split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const artifact=fs.readFileSync('reader/index.html','utf8');
+const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+for(const entry of data.records.filter(r=>!r.supplementary)){
+ const record=JSON.parse(fs.readFileSync('reader/data/people/'+entry.ruler_id+'.json','utf8')).record;
+ ctx.a=record.axes.C1;
+ const before=JSON.stringify(ctx.a);
+ const html=vm.runInContext("contexts(a,true,'C1')",ctx);
+ for(const c of ctx.a.representative_contexts||[]){
+  assert.ok(html.includes(c.parent_id),entry.ruler_id+': '+c.parent_id);
+  ctx.c=c;
+  const own=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C1'})",ctx);
+  const footer=own.indexOf('<details class="metadata strategy-context-sources">');
+  assert.ok(footer>=0,entry.ruler_id);
+  const plain=own.slice(0,footer).replace(/<[^>]*>/g,'');
+  for(const sentence of c.cycle_basis.split(/[。；\n]/).filter(s=>s.trim())){
+   ctx.s=sentence.trim();
+   const expected=vm.runInContext('esc(profilePublicPattern(s))',ctx);
+   assert.ok(plain.includes(expected),entry.ruler_id+': missing '+c.parent_id+': '+expected);
+  }
+ }
+ assert.equal(JSON.stringify(ctx.a),before);
+}
+''')
 
 
 def test_coalition_context_renders_complete_formal_process_and_limits(tmp_path):
@@ -512,7 +579,7 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
    const html=vm.runInContext('axisEvidence(r,code,suffix)',ctx);
    if(expected){
     ctx.expected=expected;
-    const content=vm.runInContext("code==='C5'?powerProse(expected):prose(expected)",ctx);
+    const content=vm.runInContext("['C1','C5'].includes(code)?powerProse(expected):prose(expected)",ctx);
     const label=vm.runInContext("ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据'",ctx);
     assert.ok(html.includes('<section class="axis-grade-explanation"><div class="label">'+label+'</div>'+content),file+': '+code);
     assert.ok(html.indexOf('axis-grade-explanation')<html.indexOf('<details class="axis-further-check">'),file+': '+code);
