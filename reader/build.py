@@ -251,6 +251,14 @@ DESIGN_CONTEXT_FIELDS = [
     "historical_source_descriptions", "source_review",
 ]
 
+DIPLOMATIC_CONTEXT_FIELDS = [
+    "relationship_phase", "political_membership_at_cycle_start",
+    "membership_relative_to_evaluated_ruler", "counterparty_condition_authenticity",
+    "identity_transition_point", "axis_out_reason", "source_adoption_note",
+    "attribution_basis", "actual_window", "adversity_origin", "marriage_policy_review",
+    "source_review",
+]
+
 
 def runtime_script_blocks():
     """Freeze validated runtime JS directly into the generated reader artifact."""
@@ -262,11 +270,12 @@ def runtime_script_blocks():
     return "\n".join(blocks)
 
 
-def _formal_context_projection(context, *, learning=False, design=False):
+def _formal_context_projection(context, *, learning=False, design=False, diplomatic=False):
     # Public reading may only expose fields that already exist in the formal
     # record. Never synthesize direction, strength, attribution or limits here.
     return pick(context, FORMAL_CONTEXT_FIELDS + (LEARNING_CONTEXT_FIELDS if learning else [])
-                + (DESIGN_CONTEXT_FIELDS if design else []))
+                + (DESIGN_CONTEXT_FIELDS if design else [])
+                + (DIPLOMATIC_CONTEXT_FIELDS if diplomatic else []))
 
 
 def axis_projection(row, fields, m1_archive_context=None):
@@ -308,8 +317,9 @@ def axis_projection(row, fields, m1_archive_context=None):
     if declared_representatives:
         result["representative_contexts"] = [
             _formal_context_projection(context, learning=row.get('axis_code') == 'C2',
-                                       design=row.get('axis_code') == 'C4')
-            for context in (chains if row.get('axis_code') == 'C4' else representative_parent_chains(row))
+                                       design=row.get('axis_code') == 'C4',
+                                       diplomatic=row.get('axis_code') == 'M2')
+            for context in (chains if row.get('axis_code') in {'C4', 'M2'} else representative_parent_chains(row))
             if isinstance(context, dict)
         ]
 

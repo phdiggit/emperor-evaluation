@@ -382,20 +382,20 @@ for(const entry of data.records.filter(r=>!r.supplementary)){
 ''')
 
 
-@pytest.mark.parametrize('axis', ['C1', 'C2', 'C3', 'C4', 'M4', 'M5'])
+@pytest.mark.parametrize('axis', ['C1', 'C2', 'C3', 'C4', 'M2', 'M4', 'M5'])
 def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     import json
     import yaml
-    from reader.build import ROOT, FORMAL_CONTEXT_FIELDS, LEARNING_CONTEXT_FIELDS, DESIGN_CONTEXT_FIELDS, load_json
+    from reader.build import ROOT, FORMAL_CONTEXT_FIELDS, LEARNING_CONTEXT_FIELDS, DESIGN_CONTEXT_FIELDS, DIPLOMATIC_CONTEXT_FIELDS, load_json
     from emperor_v4.evaluation.profile_parent_schema import representative_parent_chains
 
     project = yaml.safe_load((ROOT / 'config/project.yml').read_text(encoding='utf-8'))
     spec = project['profile_assessment']['settled_axes'][axis]
     for row in load_json(ROOT / spec['json'])['records']:
         projected = axis_projection(row, [])
-        context_fields = FORMAL_CONTEXT_FIELDS + (LEARNING_CONTEXT_FIELDS if axis == 'C2' else []) + (DESIGN_CONTEXT_FIELDS if axis == 'C4' else [])
+        context_fields = FORMAL_CONTEXT_FIELDS + (LEARNING_CONTEXT_FIELDS if axis == 'C2' else []) + (DESIGN_CONTEXT_FIELDS if axis == 'C4' else []) + (DIPLOMATIC_CONTEXT_FIELDS if axis == 'M2' else [])
         expected = [{key: context[key] for key in context_fields if key in context}
-                    for context in (row['parent_chains'] if axis == 'C4' else representative_parent_chains(row))]
+                    for context in (row['parent_chains'] if axis in {'C4', 'M2'} else representative_parent_chains(row))]
         assert projected['representative_contexts'] == expected, row['ruler_id']
         record = json.loads((ROOT / 'reader/data/people' / (row['ruler_id'] + '.json')).read_text(encoding='utf-8'))['record']
         assert record['axes'][axis]['representative_contexts'] == expected, row['ruler_id']
@@ -913,4 +913,43 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
  assert.equal(JSON.stringify(ctx.r),before);
 }
 assert.ok(processes>0);
+''')
+
+
+def test_diplomatic_reader_separates_all_current_adopted_and_boundary_material(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const data=JSON.parse(fs.readFileSync('reader/index.html','utf8').match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+let checked=0;
+for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')&&f.endsWith('.json'))){
+ ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
+ const a=ctx.r.axes?.M2;if(!a)continue;
+ const before=JSON.stringify(ctx.r);
+ const html=vm.runInContext("axisEvidence(r,'M2')",ctx);
+ const boundary=html.indexOf('diplomatic-boundary-contexts');
+ const scoring=a.representative_contexts.filter(c=>c.consumption_status==='SCORING_PARENT');
+ const excluded=a.representative_contexts.filter(c=>c.consumption_status!=='SCORING_PARENT');
+ assert.equal(html.includes('<div class="label">计分外交过程</div>'),scoring.length>0,file);
+ assert.equal(boundary>=0,excluded.length>0,file);
+ for(const c of a.representative_contexts){
+  ctx.c=c;
+  const card=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'M2'})",ctx);
+  const at=html.indexOf(card);assert.ok(at>=0,file+': missing '+c.parent_id);
+  const footer=card.indexOf('diplomatic-context-sources');
+  const body=vm.runInContext('powerProse(c.cycle_basis)',ctx);
+  assert.ok(card.includes(body),file+': truncated body');
+  assert.ok(card.indexOf(body)<footer,file+': process must precede metadata');
+  if(c.consumption_status==='SCORING_PARENT')assert.ok(boundary<0||at<boundary,file);
+  else assert.ok(at>boundary,file+': excluded evidence leaked into scoring section');
+  for(const review of c.source_review||[]){ctx.review=review;assert.ok(card.includes(review.source_url),file);assert.ok(card.includes(vm.runInContext('powerProse(review.limitation)',ctx)),file);}
+  checked++;
+ }
+ if(a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY')assert.equal(scoring.length,0,file);
+ assert.equal(JSON.stringify(ctx.r),before);
+}
+assert.ok(checked>0);
 ''')

@@ -483,6 +483,7 @@ function formalContextStory(c,id='',options={}){
  if(options.axisCode==='M4')return coalitionContextStory(c,id,options);
  if(options.axisCode==='C2')return learningContextStory(c,id,options);
  if(options.axisCode==='C4')return designContextStory(c,id,options);
+ if(options.axisCode==='M2')return diplomaticContextStory(c,id,options);
  const rawTitle=String(c.title||c.evidence_title||'').trim();
  const genericTitle=/^(?:(?:主要)?父情境\d+|父链[A-ZＡ-Ｚ]|主要结构链\d+|代表情境\d+)$/.test(rawTitle);
  const title=rawTitle&&!genericTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
@@ -495,6 +496,20 @@ function formalContextStory(c,id='',options={}){
  return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c,options)}${narrative}${coalitionContextBoundary(c)}${sources}</div>`;
 }
 
+function diplomaticContextStory(c,id,options){
+ const membership={EXTERNAL_TO_EVALUATED_RULER:'周期起点为外部对象',INTERNAL_TO_EVALUATED_RULER:'周期起点为本方内部对象'}[c.membership_relative_to_evaluated_ruler]||'该条目未另登记周期起点身份，请结合正文核对';
+ const status={SCORING_PARENT:'本轴计分过程',BACKGROUND_VALIDATION:'背景与证据限制，不计分',AXIS_OUT_WITH_REASON:'其他能力范围，不计入外交'}[c.consumption_status]||'';
+ const marriage=c.marriage_policy_review;
+ const refs=formalContextSources(c);
+ const metadata=`${status?`<p class="subline">${status}</p>`:''}<p class="subline">${membership}</p>${c.identity_transition_point?`<div class="label">关系身份转换点</div>${powerProse(c.identity_transition_point)}`:''}${formalContextMetadata(c,options)}${c.axis_out_reason?`<div class="label">适用边界</div>${powerProse(c.axis_out_reason)}`:''}${c.source_adoption_note?powerProse(c.source_adoption_note):''}${marriage?.basis?`<div class="label">婚姻条件的采用范围</div>${powerProse(marriage.basis)}`:''}${learningSourceReviews(c)}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'过程依据 ↗'):prose(ref)).join('')}`;
+ return `<section class="context-story formal-context-story diplomatic-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(c.evidence_title||c.title||'对外条件与承诺'))}</h4>${c.cycle_basis?powerProse(c.cycle_basis):'<p class="notice">该条目未提供外交过程正文。</p>'}<details class="metadata diplomatic-context-sources"><summary>关系边界、归责与来源</summary>${metadata}</details></section>`;
+}
+function diplomaticContexts(a){
+ const items=a.representative_contexts||[];
+ const scoring=items.filter(c=>c.consumption_status==='SCORING_PARENT');
+ const boundaries=items.filter(c=>c.consumption_status!=='SCORING_PARENT');
+ return (scoring.length?`<div class="label">计分外交过程</div>${scoring.map(c=>formalContextStory(c,c.parent_id,{axisCode:'M2'})).join('')}`:'')+(boundaries.length?`<details class="metadata diplomatic-boundary-contexts"><summary>背景、归责与其他能力边界：不计分材料</summary>${boundaries.map(c=>formalContextStory(c,c.parent_id,{axisCode:'M2'})).join('')}</details>`:'');
+}
 function designContextStory(c,id,options){
  const body=c.mechanism||'';
  const fields=[['structural_problem','原有问题'],['constraints','当时的约束'],['feasible_choice','可行选择'],['personal_choice','本人选择'],['interfaces','职责与规则变化'],['operation','实际运行'],['feedback','运行反馈'],['revision','后续修订'],['validation_boundary','采用边界']];
@@ -1192,7 +1207,7 @@ function axisEvidence(r,c,suffix=''){
  const evidenceScope=axisEvidenceScope(a,c),evidenceLevel=evidenceScope.coverage;
  const structuredCounter=a.counterpattern&&typeof a.counterpattern==='object'&&!Array.isArray(a.counterpattern);
  const hasPowerCases=c==='C5'&&Array.isArray(a.public_evidence_points)&&a.public_evidence_points.length>0;
- const formalIndex=structuredCounter?contexts(a,true,c):representativeContexts(a,c);
+ const formalIndex=c==='M2'?diplomaticContexts(a):structuredCounter?contexts(a,true,c):representativeContexts(a,c);
  const formalMaterials=hasPowerCases?`<details class="metadata power-context-index"><summary>正式情境索引：方向、强度与依据</summary>${formalIndex}</details>`:formalIndex;
  const counterText=!structuredCounter&&a.counterpattern?`<div class="label">${['C2','C4','M4','M5'].includes(c)?'反例与判断边界':'反例与限制'}</div>${['C2','C4','M4','M5'].includes(c)?powerProse(a.counterpattern):axisProse(a.counterpattern)}`:'';
  const primaryPattern=a.typical_pattern||a.not_applicable_reason||'';
@@ -1203,7 +1218,7 @@ function axisEvidence(r,c,suffix=''){
  const distinctLimitations=profileDistinctLimitations(a.limitations,primaryPattern,a.grade_basis||'',a.position_basis||'',a.evidence_assessment_basis||'');
  const boundaryParts=`${profileHasContent(distinctLimitations)?axisProse(distinctLimitations):''}${profileHasContent(a.evidence_assessment_basis)?axisProse(a.evidence_assessment_basis):''}`;
  const closureParts=a.no_grade_closure?`<div class="label">复查范围</div>${axisProse(a.no_grade_closure.review_scope)}<div class="label">证据缺口</div>${axisProse(a.no_grade_closure.evidence_gap)}<div class="label">重开条件</div>${axisProse(a.no_grade_closure.reopen_condition)}`:'';
- const hasTalentCases=c==='C2'||(['C3','C4','M4','M5'].includes(c)&&formalMaterials);
+ const hasTalentCases=c==='C2'||(['C3','C4','M2','M4','M5'].includes(c)&&formalMaterials);
  const architecture=c==='C4'&&a.architecture_review?.basis?`<div class="label">治理架构与量级依据</div>${powerProse(a.architecture_review.basis)}`:'';
  const adjudicationBody=`${hasTalentCases?counterText:''}${distinctPositionBasis?`<div class="label">档内定位</div>${prose(distinctPositionBasis)}`:''}${boundaryParts?`<div class="label">限制与证据边界</div>${boundaryParts}`:''}${architecture}${closureParts}${c==='C2'?learningNonScoring(a):''}`;
  const adjudicationDetails=adjudicationBody?`<details class="metadata adjudication"><summary>裁决详情：档内定位与限制</summary>${adjudicationBody}</details>`:'';

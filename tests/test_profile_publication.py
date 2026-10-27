@@ -68,6 +68,24 @@ def test_bounded_diplomacy_does_not_publish_uncertainty_as_full_evidence():
 from emperor_v4.evaluation.profile_markdown import _m2_display_grade, _m2_display_radar
 
 
+def test_m2_markdown_preserves_complete_process_and_adoption_scope():
+    from copy import deepcopy
+    from emperor_v4.evaluation.profile_markdown import _m2_parent_lines
+    parent = dict(parent_id='synthetic', evidence_title='一次条件选择', cycle_basis='执行和反馈。' * 100,
+                  direction='NEGATIVE', intensity='MI1', consumption_status='AXIS_OUT_WITH_REASON',
+                  identity_transition_point='归入之后为内部安置。', axis_out_reason='内部关系不计外交。',
+                  source_refs=['docs/synthetic.md#L20'], direct_process_refs=['docs/synthetic.md#L20'],
+                  source_review=[dict(source_title='合成史源', source_url='https://example.org/source',
+                      passage_locator='特定章节', adopted_fact='对象的条件有记载。',
+                      counterevidence='未证明本人逐项设计。', limitation='只限一项局部过程。')])
+    before = deepcopy(parent)
+    text = '\n'.join(_m2_parent_lines(parent))
+    for value in (parent['cycle_basis'], parent['identity_transition_point'], parent['axis_out_reason'],
+                  'docs/synthetic.md#L20', '未证明本人逐项设计。', '只限一项局部过程。'):
+        assert value in text
+    assert parent == before
+
+
 def closed_record():
     return dict(adjudication_state=CLOSED_NO_GRADE, axis_grade=None, position=None,
                 score_100=None, radar_value=None, output_mode="NO_GRADE",

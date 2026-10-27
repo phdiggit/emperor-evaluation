@@ -66,6 +66,32 @@ def _m2_source_display_ref(value: str) -> str:
     return value
 
 
+def _m2_parent_lines(parent: dict[str, Any]) -> Iterable[str]:
+    yield f"##### {parent.get('evidence_title') or '对外条件与承诺'}"
+    yield ''
+    yield _parent_basis(parent)
+    yield ''
+    yield f"- 正式方向：{parent['direction']}；强度：{parent['intensity']}；用途：{parent['consumption_status']}"
+    for key, label in (('attribution_basis', '本人归责'), ('identity_transition_point', '关系转换点'),
+                       ('axis_out_reason', '采用边界'), ('source_adoption_note', '来源采用说明')):
+        if parent.get(key):
+            yield f'- {label}：{parent[key]}'
+    if parent.get('membership_relative_to_evaluated_ruler'):
+        yield f"- 周期起点身份：{parent['membership_relative_to_evaluated_ruler']}"
+    marriage = parent.get('marriage_policy_review') or {}
+    if marriage.get('basis'):
+        yield '- 婚姻条件采用范围：' + marriage['basis']
+    for review in parent.get('source_review', []):
+        yield f"- 所读史源：[{review['source_title']}]({review['source_url']})"
+        for key, label in (('passage_locator', '段落定位'), ('adopted_fact', '采用事实'),
+                           ('counterevidence', '反证与限定'), ('limitation', '采用范围')):
+            yield f'- {label}：{review[key]}'
+    refs = list(dict.fromkeys(parent.get('source_refs', []) + parent.get('direct_process_refs', [])))
+    if refs:
+        yield '- 来源：' + '；'.join(refs)
+    yield ''
+
+
 def _limitation_values(record: dict[str, Any]) -> list[str]:
     values = record.get("limitations") or []
     if isinstance(values, str):
@@ -741,6 +767,8 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
         ])
         if axis == "C5":
             lines.extend(_c5_political_review_lines(row))
+        if axis == 'M2' and isinstance(row['counterpattern'], str):
+            lines.append(f"- **反例与判断边界**：{row['counterpattern']}")
         if axis == "C2":
             lines.append(f"- **主要表现**：{row['typical_pattern']}")
             lines.append(f"- **反例与判断边界**：{row['counterpattern']}")
@@ -807,6 +835,14 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
                 lines.append("- **跨轴投影边界**：")
                 lines.extend(f"  - {reason}" for reason in projection_reasons)
         parents = _parent_chains(row)
+        if axis == 'M2':
+            for scoring, label in ((True, '计分外交过程'), (False, '背景、归责与其他能力边界：不计分材料')):
+                selected = [p for p in parents if (p.get('consumption_status') == 'SCORING_PARENT') == scoring]
+                if selected:
+                    lines.extend(['', f'#### {label}', ''])
+                    for parent in selected:
+                        lines.extend(_m2_parent_lines(parent))
+            parents = []
         if axis in {"C1", "C2"}:
             parents = _representative_parent_chains(row)
         if parents:
@@ -832,7 +868,7 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
                             strip_source_locators=axis == "M2",
                         )
                     )
-        else:
+        elif axis != 'M2':
             lines.append("- **代表父链**：当前无闭合父链；不得把缺材料当作负证。")
         if axis == "C5" and row.get("source_refs"):
             lines.append("- **史料与定位**：")
@@ -850,7 +886,7 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
             "## M4 专项边界", "",
             "档位来自显式逐人国内集团联盟生命周期裁决；M2外部联盟、C3个人用人、C5权力伦理、第一项B开国团队成果、第四项A社会整合结果、第二项治理结果、集团数量和材料数量均不转换为M4。", "",
         ])
-    return "\n".join(lines)
+    return "\n".join(lines).rstrip() + "\n" if axis == 'M2' else "\n".join(lines)
 
 
 def write_axes(axis_codes: Iterable[str]) -> list[Path]:
