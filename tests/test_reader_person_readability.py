@@ -284,6 +284,35 @@ def test_representative_projection_keeps_authored_lifecycle():
     assert 'direction' not in projected
 
 
+def test_talent_context_uses_authored_items_and_compact_metadata(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+ctx.c={parent_id:'synthetic',evidence_title:'用人经历',direction:'MIXED',evidence_detail:['行政分工：负责人按专业分任。','军事任用：反馈后调整权限。','<script>：必须转义。'],lifecycle_narrative:'完整过程中的额外限制仍需保留。',boundary_review:{c5_excluded:'处罚比例另行判断。'},source_refs:['docs/synthetic.md']};
+const original=JSON.stringify(ctx.c);
+let html=vm.runInContext("formalContextStory(c,'synthetic',{axisCode:'C3'})",ctx);
+assert.equal((html.match(/class="talent-evidence-item"/g)||[]).length,ctx.c.evidence_detail.length);
+assert.ok(html.includes('<h5>行政分工</h5>'));
+assert.ok(html.includes('负责人按专业分任。'));
+assert.ok(html.includes('&lt;script&gt;'));
+assert.ok(!html.includes('<script>'));
+assert.equal((html.match(/<summary>/g)||[]).length,1);
+const footer=html.indexOf('<details class="metadata talent-context-sources">');
+assert.ok(footer>html.indexOf('军事任用'));
+assert.ok(html.indexOf('正负混合')>footer);
+assert.ok(html.indexOf('处罚比例另行判断。')>footer);
+assert.ok(html.includes(ctx.c.lifecycle_narrative));
+assert.ok(html.includes('docs/synthetic.md'));
+assert.equal(JSON.stringify(ctx.c),original);
+delete ctx.c.evidence_detail;
+html=vm.runInContext("formalContextStory(c,'synthetic',{axisCode:'C3'})",ctx);
+assert.ok(html.includes(ctx.c.lifecycle_narrative));
+''')
+
+
 @pytest.mark.parametrize('axis', ['C3', 'M4'])
 def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     import json

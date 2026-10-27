@@ -220,6 +220,7 @@ FORMAL_CONTEXT_FIELDS = [
     "limitation",
     "intensity_and_role_basis",
     "evidence_title",
+    "evidence_detail",
     "lifecycle_narrative",
     "coalition_task",
     "group_structure",

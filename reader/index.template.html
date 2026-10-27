@@ -429,8 +429,28 @@ function coalitionContextBoundary(c){
  const fields=Object.entries(c.boundary_review||{}).filter(([,value])=>typeof value==='string'&&value.trim());
  return fields.length?`<details class="metadata"><summary>该情境与其他评价的边界</summary>${fields.map(([key,value])=>`<div class="label">${esc(labels[key]||key)}</div>${prose(value)}`).join('')}</details>`:'';
 }
+function talentContextStory(c,id){
+ const items=(Array.isArray(c.evidence_detail)?c.evidence_detail:[]).filter(item=>typeof item==='string'&&item.trim());
+ const sections=items.map(item=>{
+  const text=profilePublicPattern(item);
+  const split=text.indexOf('：');
+  const titled=split>0&&split<=48;
+  const body=titled?text.slice(split+1):text;
+  const sentence=body.indexOf('。');
+  const lead=sentence>0&&sentence<64?`<p class="talent-evidence-lead"><strong>${esc(body.slice(0,sentence+1))}</strong></p>${axisProse(body.slice(sentence+1))}`:'';
+  return `<section class="talent-evidence-item">${titled?`<h5>${esc(text.slice(0,split))}</h5>`:''}${lead||axisProse(body)}</section>`;
+ }).join('');
+ const narrative=sections||axisProse(c.lifecycle_narrative||c.basis||'该情境的正式记录未提供可展示的过程正文，请核对原始记录。');
+ const refs=formalContextSources(c);
+ const boundaries=Object.values(c.boundary_review||{}).filter(value=>typeof value==='string'&&value.trim());
+ const title=c.evidence_title||c.title||'用人经历';
+ const fullProcess=items.length&&c.lifecycle_narrative&&profileComparableText(items.join('；'))!==profileComparableText(c.lifecycle_narrative)?`<div class="label">完整过程说明</div>${axisProse(c.lifecycle_narrative)}`:'';
+ const metadata=`${fullProcess}${boundaries.length?`<div class="label">评价边界</div>${boundaries.map(axisProse).join('')}`:''}${formalContextMetadata(c)}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.length?`<div class="label">来源与依据</div>${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?`<p class="sources">${link(ref,/^https?:\/\//.test(ref)?'外部史料与材料 ↗':'项目依据记录 ↗')}</p>`:prose(ref)).join('')}`:''}`;
+ return `<section class="context-story formal-context-story talent-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>${narrative}<details class="metadata talent-context-sources"><summary>评价边界与来源</summary>${metadata}</details></section>`;
+}
 function formalContextStory(c,id='',options={}){
  if(!c)return prose(id?'相关情境材料未附正文':'正式记录未列情境正文');
+ if(options.axisCode==='C3')return talentContextStory(c,id);
  const rawTitle=String(c.title||c.evidence_title||'').trim();
  const genericTitle=/^(?:(?:主要)?父情境\d+|父链[A-ZＡ-Ｚ]|主要结构链\d+|代表情境\d+)$/.test(rawTitle);
  const title=rawTitle&&!genericTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
@@ -443,14 +463,14 @@ function formalContextStory(c,id='',options={}){
  return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c,options)}${narrative}${coalitionContextBoundary(c)}${sources}</div>`;
 }
 
-function contexts(a,showIntensity=true){
+function contexts(a,showIntensity=true,axisCode=''){
  const labels={positive_parent_refs:'正向表现',counter_parent_refs:'反例与下沿',negative_parent_refs:'负向表现',mixed_parent_refs:'正负混合表现'};
- return Object.entries(a.counterpattern).map(([key,refs])=>`<div class="label">${esc(labels[key]||key)}</div>${Array.isArray(refs)&&refs.length?refs.map(id=>formalContextStory(a.context_lookup?.[id],id,{showIntensity})).join(''):'<p class="subline">当前未列独立情境。</p>'}`).join('');
+ return Object.entries(a.counterpattern).map(([key,refs])=>`<div class="label">${esc(labels[key]||key)}</div>${Array.isArray(refs)&&refs.length?refs.map(id=>formalContextStory(a.context_lookup?.[id],id,{showIntensity,axisCode})).join(''):'<p class="subline">当前未列独立情境。</p>'}`).join('');
 }
-function representativeContexts(a){
+function representativeContexts(a,axisCode=''){
  const items=Array.isArray(a.representative_contexts)?a.representative_contexts:[];
  if(!items.length)return '';
- return `<div class="label">正式代表情境</div>${items.map((c,index)=>formalContextStory(c,c.parent_id||c.parent_ref||`代表情境${index+1}`)).join('')}`;
+ return `<div class="label">正式代表情境</div>${items.map((c,index)=>formalContextStory(c,c.parent_id||c.parent_ref||`代表情境${index+1}`,{axisCode})).join('')}`;
 }
 function publicEvidencePoints(a){
  const points=Array.isArray(a.public_evidence_points)?a.public_evidence_points:[];
@@ -1081,7 +1101,7 @@ function axisEvidence(r,c,suffix=''){
  if(c==='M1'&&a.public_reading)return m1AuthoredEvidence(r,a,suffix);
  const evidenceScope=axisEvidenceScope(a,c),evidenceLevel=evidenceScope.coverage;
  const structuredCounter=a.counterpattern&&typeof a.counterpattern==='object'&&!Array.isArray(a.counterpattern);
- const formalMaterials=structuredCounter?contexts(a):representativeContexts(a);
+ const formalMaterials=structuredCounter?contexts(a,true,c):representativeContexts(a,c);
  const counterText=!structuredCounter&&a.counterpattern?'<div class="label">反例与限制</div>'+axisProse(a.counterpattern):'';
  const primaryPattern=a.typical_pattern||a.not_applicable_reason||'';
  const distinctGradeBasis=profileDistinctGradeBasis(a.grade_basis,primaryPattern);
@@ -1091,9 +1111,10 @@ function axisEvidence(r,c,suffix=''){
  const distinctLimitations=profileDistinctLimitations(a.limitations,primaryPattern,a.grade_basis||'',a.position_basis||'',a.evidence_assessment_basis||'');
  const boundaryParts=`${profileHasContent(distinctLimitations)?axisProse(distinctLimitations):''}${profileHasContent(a.evidence_assessment_basis)?axisProse(a.evidence_assessment_basis):''}`;
  const closureParts=a.no_grade_closure?`<div class="label">复查范围</div>${axisProse(a.no_grade_closure.review_scope)}<div class="label">证据缺口</div>${axisProse(a.no_grade_closure.evidence_gap)}<div class="label">重开条件</div>${axisProse(a.no_grade_closure.reopen_condition)}`:'';
- const adjudicationBody=`${distinctPositionBasis?`<div class="label">档内定位</div>${prose(distinctPositionBasis)}`:''}${boundaryParts?`<div class="label">限制与证据边界</div>${boundaryParts}`:''}${closureParts}`;
+ const hasTalentCases=c==='C3'&&formalMaterials;
+ const adjudicationBody=`${hasTalentCases?counterText:''}${distinctPositionBasis?`<div class="label">档内定位</div>${prose(distinctPositionBasis)}`:''}${boundaryParts?`<div class="label">限制与证据边界</div>${boundaryParts}`:''}${closureParts}`;
  const adjudicationDetails=adjudicationBody?`<details class="metadata adjudication"><summary>裁决详情：档内定位与限制</summary>${adjudicationBody}</details>`:'';
- const further=`${evidenceScope.detail}${m1FailureReview(a)}${formalMaterials}${publicEvidencePoints(a)}${counterText}${adjudicationDetails}`;
+ const further=`${evidenceScope.detail}${m1FailureReview(a)}${formalMaterials}${publicEvidencePoints(a)}${hasTalentCases?'':counterText}${adjudicationDetails}`;
  return `<details id="reason-${c}${suffix}" class="axis-evidence"><summary>${esc(spec.name)} <span class="badge">${grade(a)}</span>${evidenceLevel?'<small class="axis-evidence-level">材料覆盖：'+esc(evidenceLevel)+'</small>':''}</summary>${ungraded(a)?'<p class="notice">证据审查已结案，本轴不发布等级或分数；不表示能力低下。</p>':''}${pending(a)?'<p class="notice">本轴当前尚未完成裁决；历史保留值不作为现行等级或雷达值。</p>':''}<div class="label">正式记录中的人物表现</div>${prose(profilePublicPattern(a.typical_pattern||a.not_applicable_reason||'本轴未另列人物表现，请展开裁决详情。'))}${gradeExplanation}${a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY'?'<p class="notice">本轴E为终局证据认定：现有材料未显示外交能力。它与已证实外交失能的裁决分开，不表示史料已证明潜在能力为零。</p>':''}${a.applicability_basis?'<div class="label">适用范围</div>'+axisProse(a.applicability_basis):''}<details class="axis-further-check"><summary>进一步核对：代表情境、反例与限制</summary>${further}</details><details class="metadata"><summary>原始记录与专业信息</summary><p class="subline">展示模式：${esc(evidenceScope.modeLabel)} · 判断把握：${esc(conf(a.confidence))}${evidenceLevel?' · 材料覆盖：'+esc(evidenceLevel):''} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>${[...new Set([...(a.source_refs||[]),...(a.evidence_scope?.source_refs||[])])].map((ref,index)=>profileSourceMarkup(ref,index,r)).join('')}<p class="sources">${link(spec.markdown,'本轴完整阅读页 ↗',r)}${link(spec.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗')}</p></details></details>`;
 }
 function profilePanel(r){
