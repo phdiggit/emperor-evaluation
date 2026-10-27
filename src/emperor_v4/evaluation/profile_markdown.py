@@ -426,6 +426,14 @@ def _parent_lines(
             if value:
                 label = {"m2": "对外关系", "c3": "个人用人授权", "c5": "权力运用与克制", "result_axes": "结果评价"}.get(key, key)
                 yield f"  - **{label}边界**：{value}"
+    if parent.get("cycle_type"):
+        lifecycle = parent.get("lifecycle_review")
+        if lifecycle and lifecycle != parent.get("basis"):
+            yield f"  - **过程补充与验证边界**：{lifecycle}"
+        for review in parent.get("source_review", []):
+            yield f"  - **史源采用**：{review['source_title']}；{review['source_url']}；{review['passage_locator']}"
+            for key, label in (("adopted_fact", "采用事实"), ("counterevidence", "反证与限定"), ("limitation", "采用范围")):
+                yield f"    - {label}：{review[key]}"
     refs = _parent_refs(
         parent,
         compact_sources=compact_sources,
@@ -733,6 +741,18 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
         ])
         if axis == "C5":
             lines.extend(_c5_political_review_lines(row))
+        if axis == "C2":
+            lines.append(f"- **主要表现**：{row['typical_pattern']}")
+            lines.append(f"- **反例与判断边界**：{row['counterpattern']}")
+            floor = row.get("evidence_floor_review")
+            if floor:
+                lines.append(f"- **证据下限**：{floor['basis']}")
+                lines.append(f"- **重开条件**：{floor['reopen_condition']}")
+            for observation in row.get("non_scoring_observations", []):
+                lines.append(f"- **不计分材料的边界**：{observation['reason']}")
+                if observation.get("basis"):
+                    lines.append(f"  - 事实：{observation['basis']}")
+                lines.append("  - 来源：" + "；".join(observation["source_refs"]))
         if axis == "C5" and row.get("public_evidence_points"):
             lines.append("- **关键事实与边界**：")
             for point in row["public_evidence_points"]:

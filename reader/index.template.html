@@ -481,6 +481,7 @@ function formalContextStory(c,id='',options={}){
  if(options.axisCode==='C1')return strategyContextStory(c,id);
  if(options.axisCode==='M5')return organizationContextStory(c,id);
  if(options.axisCode==='M4')return coalitionContextStory(c,id,options);
+ if(options.axisCode==='C2')return learningContextStory(c,id,options);
  const rawTitle=String(c.title||c.evidence_title||'').trim();
  const genericTitle=/^(?:(?:主要)?父情境\d+|父链[A-ZＡ-Ｚ]|主要结构链\d+|代表情境\d+)$/.test(rawTitle);
  const title=rawTitle&&!genericTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
@@ -491,6 +492,26 @@ function formalContextStory(c,id='',options={}){
  const sections=coalitionContextSections(c);
  const narrative=sections||(body?axisProse(body):'<p class="notice">该情境的正式记录未提供可展示的过程正文，请核对原始记录。</p>');
  return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c,options)}${narrative}${coalitionContextBoundary(c)}${sources}</div>`;
+}
+
+function learningSourceReviews(c){
+ return (c.source_review||[]).map(review=>`<section class="learning-source-review"><div class="label">${esc(review.source_title||'史源采用与限制')}</div>${review.source_url?link(review.source_url,'所读史源 ↗'):''}${[['原文定位','passage_locator'],['采用事实','adopted_fact'],['反证与限定','counterevidence'],['采用范围','limitation']].map(([label,key])=>review[key]?`<div class="label">${label}</div>${powerProse(review[key])}`:'').join('')}</section>`).join('');
+}
+function learningContextStory(c,id,options){
+ const kind={TRUTH_ACQUISITION:'核验信息与辨别信源',ERROR_CORRECTION:'反馈后的判断更新',REFUSAL_OR_RECURRENCE:'拒绝核验或同类复发'}[c.cycle_type]||'信息与判断变化';
+ const title=c.evidence_title||kind;
+ const basis=c.basis||'';
+ const same=text=>String(text||'').replace(/[\s，。；：、`]/g,'');
+ const extra=c.lifecycle_review&&same(c.lifecycle_review)!==same(basis)?`<div class="label">过程补充与验证边界</div>${powerProse(c.lifecycle_review)}`:'';
+ const suppression=c.feedback_suppression_review||{};
+ const feedback=suppression.review_status==='REVIEWED'?`<div class="label">反馈到达与跨轴边界</div>${['feedback_arrival','c2_slice','c5_exclusion'].map(key=>suppression[key]?powerProse(suppression[key]):'').join('')}`:'';
+ const refs=formalContextSources(c);
+ return `<section class="context-story formal-context-story learning-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>${basis?powerProse(basis):'<p class="notice">该情境尚缺可展示的具体过程。</p>'}<details class="metadata learning-context-sources"><summary>过程边界与来源</summary><p class="subline">${esc(kind)}</p>${formalContextMetadata(c,options)}${extra}${c.secondary_projection_reason?powerProse(c.secondary_projection_reason):''}${feedback}${learningSourceReviews(c)}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'过程依据 ↗'):prose(ref)).join('')}</details></section>`;
+}
+function learningNonScoring(a){
+ const items=a.non_scoring_observations||[];
+ if(!items.length)return '';
+ return `<details class="metadata learning-non-scoring"><summary>证据与适用边界：不计分材料</summary>${items.map(item=>`<section class="context-story">${item.basis?powerProse(item.basis):''}<div class="label">判断边界</div>${powerProse(item.reason)}<details class="metadata"><summary>依据与记录定位</summary>${item.source_parent_ref?`<p class="subline">${esc(item.source_parent_ref)}</p>`:''}${(item.source_refs||[]).map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'边界依据 ↗'):prose(ref)).join('')}</details></section>`).join('')}</details>`;
 }
 
 function contexts(a,showIntensity=true,axisCode=''){
@@ -764,6 +785,7 @@ function m1FailureReview(a){
  return `<details class="metadata"><summary>军事失败与恢复复核</summary>${axisProse(review.basis)}${review.cases.map(item=>`<section><h4>${esc(item.label)}</h4><p class="subline">${item.negative_tier?'本人负向后果等级：'+esc(item.negative_tier)+'（事件后果尺度，不是人物画像等级）':'未单列独立负向后果等级；按已登记的实际损害复核'}</p>${axisProse(item.consequence)}${fields.map(([label,key])=>`<div class="label">${label}</div>${axisProse(item[key])}`).join('')}</section>`).join('')}</details>`;
 }
 function axisEvidenceScope(a,c){
+ if(c==='C2'&&a.evidence_floor_review){const floor=a.evidence_floor_review;return {coverage:readerText(a.axis_evidence_level||''),modeLabel:'证据下限（有界）',detail:`<section class="learning-evidence-floor"><div class="label">局部证据下限</div>${powerProse(floor.basis)}<div class="label">重开判断的条件</div>${powerProse(floor.reopen_condition)}</section>`};}
  if(c!=='M1')return {coverage:readerText(a.axis_evidence_level||''),modeLabel:mode(a.output_mode),detail:''};
  const scope=a.evidence_scope;
  if(!scope)return {coverage:'',modeLabel:'正式证据说明尚未载入',detail:''};
@@ -1155,17 +1177,17 @@ function axisEvidence(r,c,suffix=''){
  const hasPowerCases=c==='C5'&&Array.isArray(a.public_evidence_points)&&a.public_evidence_points.length>0;
  const formalIndex=structuredCounter?contexts(a,true,c):representativeContexts(a,c);
  const formalMaterials=hasPowerCases?`<details class="metadata power-context-index"><summary>正式情境索引：方向、强度与依据</summary>${formalIndex}</details>`:formalIndex;
- const counterText=!structuredCounter&&a.counterpattern?`<div class="label">${['M4','M5'].includes(c)?'反例与判断边界':'反例与限制'}</div>${['M4','M5'].includes(c)?powerProse(a.counterpattern):axisProse(a.counterpattern)}`:'';
+ const counterText=!structuredCounter&&a.counterpattern?`<div class="label">${['C2','M4','M5'].includes(c)?'反例与判断边界':'反例与限制'}</div>${['C2','M4','M5'].includes(c)?powerProse(a.counterpattern):axisProse(a.counterpattern)}`:'';
  const primaryPattern=a.typical_pattern||a.not_applicable_reason||'';
  const distinctGradeBasis=profileDistinctGradeBasis(a.grade_basis,primaryPattern);
  const basisLabel=ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据';
- const gradeExplanation=distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${['C1','C5','M4','M5'].includes(c)?powerProse(distinctGradeBasis):prose(distinctGradeBasis)}</section>`:'';
+ const gradeExplanation=distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${['C1','C2','C5','M4','M5'].includes(c)?powerProse(distinctGradeBasis):prose(distinctGradeBasis)}</section>`:'';
  const distinctPositionBasis=profileDistinctPositionBasis(a.position_basis,primaryPattern,a.grade_basis||'');
  const distinctLimitations=profileDistinctLimitations(a.limitations,primaryPattern,a.grade_basis||'',a.position_basis||'',a.evidence_assessment_basis||'');
  const boundaryParts=`${profileHasContent(distinctLimitations)?axisProse(distinctLimitations):''}${profileHasContent(a.evidence_assessment_basis)?axisProse(a.evidence_assessment_basis):''}`;
  const closureParts=a.no_grade_closure?`<div class="label">复查范围</div>${axisProse(a.no_grade_closure.review_scope)}<div class="label">证据缺口</div>${axisProse(a.no_grade_closure.evidence_gap)}<div class="label">重开条件</div>${axisProse(a.no_grade_closure.reopen_condition)}`:'';
- const hasTalentCases=['C3','M4','M5'].includes(c)&&formalMaterials;
- const adjudicationBody=`${hasTalentCases?counterText:''}${distinctPositionBasis?`<div class="label">档内定位</div>${prose(distinctPositionBasis)}`:''}${boundaryParts?`<div class="label">限制与证据边界</div>${boundaryParts}`:''}${closureParts}`;
+ const hasTalentCases=c==='C2'||(['C3','M4','M5'].includes(c)&&formalMaterials);
+ const adjudicationBody=`${hasTalentCases?counterText:''}${distinctPositionBasis?`<div class="label">档内定位</div>${prose(distinctPositionBasis)}`:''}${boundaryParts?`<div class="label">限制与证据边界</div>${boundaryParts}`:''}${closureParts}${c==='C2'?learningNonScoring(a):''}`;
  const adjudicationDetails=adjudicationBody?`<details class="metadata adjudication"><summary>裁决详情：档内定位与限制</summary>${adjudicationBody}</details>`:'';
  const further=`${evidenceScope.detail}${m1FailureReview(a)}${hasPowerCases?'':formalMaterials}${publicEvidencePoints(a,hasPowerCases)}${hasTalentCases?'':counterText}${adjudicationDetails}${hasPowerCases?formalMaterials:''}`;
  return `<details id="reason-${c}${suffix}" class="axis-evidence"><summary>${esc(spec.name)} <span class="badge">${grade(a)}</span>${evidenceLevel?'<small class="axis-evidence-level">材料覆盖：'+esc(evidenceLevel)+'</small>':''}</summary>${ungraded(a)?'<p class="notice">证据审查已结案，本轴不发布等级或分数；不表示能力低下。</p>':''}${pending(a)?'<p class="notice">本轴当前尚未完成裁决；历史保留值不作为现行等级或雷达值。</p>':''}<div class="label">正式记录中的人物表现</div>${prose(profilePublicPattern(a.typical_pattern||a.not_applicable_reason||'本轴未另列人物表现，请展开裁决详情。'))}${gradeExplanation}${a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY'?'<p class="notice">本轴E为终局证据认定：现有材料未显示外交能力。它与已证实外交失能的裁决分开，不表示史料已证明潜在能力为零。</p>':''}${a.applicability_basis?'<div class="label">适用范围</div>'+axisProse(a.applicability_basis):''}<details class="axis-further-check"><summary>进一步核对：代表情境、反例与限制</summary>${further}</details><details class="metadata"><summary>原始记录与专业信息</summary><p class="subline">展示模式：${esc(evidenceScope.modeLabel)} · 判断把握：${esc(conf(a.confidence))}${evidenceLevel?' · 材料覆盖：'+esc(evidenceLevel):''} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>${[...new Set([...(a.source_refs||[]),...(a.evidence_scope?.source_refs||[])])].map((ref,index)=>profileSourceMarkup(ref,index,r)).join('')}<p class="sources">${link(spec.markdown,'本轴完整阅读页 ↗',r)}${link(spec.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗')}</p></details></details>`;

@@ -382,24 +382,27 @@ for(const entry of data.records.filter(r=>!r.supplementary)){
 ''')
 
 
-@pytest.mark.parametrize('axis', ['C1', 'C3', 'M4', 'M5'])
+@pytest.mark.parametrize('axis', ['C1', 'C2', 'C3', 'M4', 'M5'])
 def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     import json
     import yaml
-    from reader.build import ROOT, FORMAL_CONTEXT_FIELDS, load_json
+    from reader.build import ROOT, FORMAL_CONTEXT_FIELDS, LEARNING_CONTEXT_FIELDS, load_json
     from emperor_v4.evaluation.profile_parent_schema import representative_parent_chains
 
     project = yaml.safe_load((ROOT / 'config/project.yml').read_text(encoding='utf-8'))
     spec = project['profile_assessment']['settled_axes'][axis]
     for row in load_json(ROOT / spec['json'])['records']:
         projected = axis_projection(row, [])
-        expected = [{key: context[key] for key in FORMAL_CONTEXT_FIELDS if key in context}
+        context_fields = FORMAL_CONTEXT_FIELDS + (LEARNING_CONTEXT_FIELDS if axis == 'C2' else [])
+        expected = [{key: context[key] for key in context_fields if key in context}
                     for context in representative_parent_chains(row)]
         assert projected['representative_contexts'] == expected, row['ruler_id']
         record = json.loads((ROOT / 'reader/data/people' / (row['ruler_id'] + '.json')).read_text(encoding='utf-8'))['record']
         assert record['axes'][axis]['representative_contexts'] == expected, row['ruler_id']
         for context in expected:
-            if axis == 'C3':
+            if axis == 'C2':
+                assert context.get('basis') and context.get('lifecycle_review'), (row['ruler_id'], context['parent_id'])
+            elif axis == 'C3':
                 assert context.get('lifecycle_narrative'), (row['ruler_id'], context['parent_id'])
             elif axis == 'M4':
                 assert context.get('coalition_task') and context.get('exit_result'), (row['ruler_id'], context['parent_id'])
@@ -614,6 +617,71 @@ def test_coalition_markdown_preserves_structured_process_and_boundary():
     assert parent['source_refs'][0] in text
 
 
+def test_learning_context_preserves_process_boundaries_and_non_scoring_material(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+ctx.c={parent_id:'synthetic',cycle_type:'TRUTH_ACQUISITION',direction:'POSITIVE',basis:'先比较两份矛盾报告。\n\n后来根据实测改变处置。',lifecycle_review:'先比较两份矛盾报告。\n\n后来根据实测改变处置。',secondary_projection_reason:'这里不评价处罚比例。',cycle_anchor_refs:['docs/synthetic.md']};
+const before=JSON.stringify(ctx.c);
+let html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C2'})",ctx);
+const footer=html.indexOf('<details class="metadata learning-context-sources">');
+for(const sentence of ['先比较两份矛盾报告。','后来根据实测改变处置。']){
+ assert.ok(html.indexOf(sentence)<footer);
+ assert.equal((html.split(sentence).length-1),1);
+}
+assert.ok(html.indexOf('这里不评价处罚比例。')>footer);
+assert.ok(html.indexOf('docs/synthetic.md')>footer);
+assert.equal(JSON.stringify(ctx.c),before);
+ctx.a={axis_evidence_level:'E1',evidence_floor_review:{basis:'当前只观察到局部核验。',reopen_condition:'需补本人理解与后续验证。'},non_scoring_observations:[{basis:'另一事只有结果。',reason:'本人更新尚未证实。',source_refs:['docs/boundary.md']}]};
+const floor=vm.runInContext("axisEvidenceScope(a,'C2')",ctx);
+assert.ok(floor.modeLabel.includes('证据下限'));
+assert.ok(floor.detail.includes(ctx.a.evidence_floor_review.reopen_condition));
+html=vm.runInContext('learningNonScoring(a)',ctx);
+for(const text of ['不计分材料','另一事只有结果。','本人更新尚未证实。','docs/boundary.md'])assert.ok(html.includes(text));
+// Cover every currently published learning process without fixing counts or grades.
+for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')&&f.endsWith('.json'))){
+ const record=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
+ const a=record.axes?.C2;if(!a)continue;
+ for(const c of a.representative_contexts||[]){
+  ctx.c=c;ctx.value=c.basis;
+  html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C2'})",ctx);
+  assert.ok(html.includes(vm.runInContext('powerProse(value)',ctx)),file+': '+c.parent_id);
+ }
+ ctx.a=a;
+ html=vm.runInContext('learningNonScoring(a)',ctx);
+ for(const item of a.non_scoring_observations||[]){
+  ctx.value=item.reason;assert.ok(html.includes(vm.runInContext('powerProse(value)',ctx)));
+ }
+}
+''')
+
+
+def test_learning_markdown_keeps_current_reason_process_and_non_scoring_limits():
+    import yaml
+    from reader.build import ROOT, load_json
+    from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+
+    project = yaml.safe_load((ROOT / 'config/project.yml').read_text(encoding='utf-8'))
+    spec = project['profile_assessment']['settled_axes']['C2']
+    data = load_json(ROOT / spec['json'])
+    text = render_profile_markdown(data)
+    for row in data['records']:
+        assert row['typical_pattern'] in text
+        assert row['grade_basis'] in text
+        assert row['position_basis'] in text
+        for parent in row['parent_chains']:
+            assert parent['basis'] in text
+            assert parent['lifecycle_review'] in text
+            for review in parent.get('source_review', []):
+                assert review['source_url'] in text
+                assert review['limitation'] in text
+        for observation in row.get('non_scoring_observations', []):
+            assert observation['reason'] in text
+
+
 def test_overview_reference_report_tracks_projection_changes():
     from reader.build import person_note_reference_issues
     records = [{'ruler_id': 'synthetic', 'net': {'component_details': {
@@ -680,7 +748,7 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
    const html=vm.runInContext('axisEvidence(r,code,suffix)',ctx);
    if(expected){
     ctx.expected=expected;
-    const content=vm.runInContext("['C1','C5','M4','M5'].includes(code)?powerProse(expected):prose(expected)",ctx);
+    const content=vm.runInContext("['C1','C2','C5','M4','M5'].includes(code)?powerProse(expected):prose(expected)",ctx);
     const label=vm.runInContext("ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据'",ctx);
     assert.ok(html.includes('<section class="axis-grade-explanation"><div class="label">'+label+'</div>'+content),file+': '+code);
     assert.ok(html.indexOf('axis-grade-explanation')<html.indexOf('<details class="axis-further-check">'),file+': '+code);

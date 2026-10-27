@@ -236,6 +236,14 @@ FORMAL_CONTEXT_FIELDS = [
     "boundary_review",
 ]
 
+LEARNING_CONTEXT_FIELDS = [
+    "cycle_type",
+    "lifecycle_review",
+    "secondary_projection_reason",
+    "feedback_suppression_review",
+    "source_review",
+]
+
 
 def runtime_script_blocks():
     """Freeze validated runtime JS directly into the generated reader artifact."""
@@ -247,14 +255,16 @@ def runtime_script_blocks():
     return "\n".join(blocks)
 
 
-def _formal_context_projection(context):
+def _formal_context_projection(context, *, learning=False):
     # Public reading may only expose fields that already exist in the formal
     # record. Never synthesize direction, strength, attribution or limits here.
-    return pick(context, FORMAL_CONTEXT_FIELDS)
+    return pick(context, FORMAL_CONTEXT_FIELDS + (LEARNING_CONTEXT_FIELDS if learning else []))
 
 
 def axis_projection(row, fields, m1_archive_context=None):
     result = pick(row, fields)
+    if row.get('axis_code') == 'C2':
+        result.update(pick(row, ['review_status', 'evidence_floor_review', 'non_scoring_observations']))
     if (row.get('public_reading') or {}).get('schema_version') == 'profile-m1-authored-reading-v1' and (row['public_reading'].get('career_review') or row['public_reading'].get('comparisons')):
         from emperor_v4.evaluation.profile_m1_public import archive_projection
         result['m1_archive_links'] = archive_projection(row, ROOT, m1_archive_context)
@@ -267,7 +277,7 @@ def axis_projection(row, fields, m1_archive_context=None):
     if isinstance(counter, dict):
         ids = {ref for values in counter.values() if isinstance(values, list) for ref in values if isinstance(ref, str)}
         result["context_lookup"] = {
-            p["parent_id"]: _formal_context_projection(p)
+            p["parent_id"]: _formal_context_projection(p, learning=row.get('axis_code') == 'C2')
             for p in chains if p.get("parent_id") in ids
         }
         missing = ids - result["context_lookup"].keys()
@@ -283,7 +293,7 @@ def axis_projection(row, fields, m1_archive_context=None):
     )
     if declared_representatives:
         result["representative_contexts"] = [
-            _formal_context_projection(context)
+            _formal_context_projection(context, learning=row.get('axis_code') == 'C2')
             for context in representative_parent_chains(row)
             if isinstance(context, dict)
         ]
