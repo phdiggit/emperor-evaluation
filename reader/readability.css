@@ -950,8 +950,10 @@
 .home-profile-style-row b{flex:0 0 auto;color:var(--gold);font:16px/1.35 Georgia,serif}
 .home-eval-impact{align-items:stretch}
 .home-impact-body{display:flex;flex:1 1 auto;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4px 0 9px}
-.home-impact-mark{display:flex;align-items:center;justify-content:center;gap:9px}
+.home-impact-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;width:100%}
 .home-impact-mark .impact-grade{font-size:42px;line-height:1.05}
+.home-impact-mark .impact-home-meaning{width:100%;font-size:16px;text-wrap:balance}
+.home-impact-mark .badge{flex:none;white-space:nowrap}
 .home-impact-body>small{margin-top:9px}
 @media(max-width:1050px){
   .home-simple-card{grid-template-columns:minmax(170px,.8fr) minmax(270px,1.25fr) minmax(170px,.8fr)}
