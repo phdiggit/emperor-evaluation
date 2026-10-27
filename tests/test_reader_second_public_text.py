@@ -142,7 +142,7 @@ class Element {
 const context={Node:{TEXT_NODE:3},document:{createElement:tag=>new Element(tag),createTextNode:value=>new Text(value)}};
 vm.createContext(context);
 vm.runInContext(section(alias,'  function setPublicText(','  function patchMethodGrades(')
- +section(labels,'  function patchLabelNode(','  function currentPersonId(')
+ +section(labels,'  function patchLabelNode(','  function ensureStyles(')
  +section(structural,'  function setNodeText(','  function safeText(')
  +section(structural,'  function replaceCompactNote(','  function formatCompactGroup('),context);
 const value=new Element('b'),span=new Element('span'),strong=new Element('strong'),note=new Element('small'),link=new Element('a');

@@ -593,7 +593,7 @@ function compactAxisMeta(a){
  const coverage=readerText(a?.axis_evidence_level||'');
  return [coverage, a?.confidence?`判断把握：${conf(a.confidence)}`:''].filter(Boolean).join(' · ');
 }
-function axisRows(r,codes,linked=true){return codes.map(c=>{const meta=compactAxisMeta(r.axes[c]);const tag=linked?'a':'div';return `<${tag} class="axis-row compact-axis"${linked?` href="#reason-${c}" data-reason="${c}"`:''}><span class="axis-row-name"><span class="axis-row-label">${esc(shortNames[c]||DATA.axis_specs[c].name)}</span>${meta?`<small class="axis-row-meta">${esc(meta)}</small>`:''}</span><b class="axis-letter ${pending(r.axes[c])||ungraded(r.axes[c])?'pending':''}">${grade(r.axes[c])}</b></${tag}>`}).join('')}
+function axisRows(r,codes,linked=true,brief=false){return codes.map(c=>{const meta=brief?'':compactAxisMeta(r.axes[c]);const tag=linked?'a':'div';return `<${tag} class="axis-row compact-axis"${linked?` href="#reason-${c}" data-reason="${c}"`:''}><span class="axis-row-name"><span class="axis-row-label">${esc(shortNames[c]||DATA.axis_specs[c].name)}</span>${meta?`<small class="axis-row-meta">${esc(meta)}</small>`:''}</span><b class="axis-letter ${pending(r.axes[c])||ungraded(r.axes[c])?'pending':''}">${grade(r.axes[c])}</b></${tag}>`}).join('')}
 
 function gradeHelp(kind){
   if(kind==='impact')return `<details class="grade-help"><summary>影响等级怎样读？</summary><p>历史影响总等级和四个维度使用两套不同的发布刻度。总等级更粗，四维保留S−与A+等中间档；两者都表示影响量级，不是能力或功绩，也不能按字母直接一一换算或求平均。</p><p><b>判断顺序</b> · 先用范围与深度共同确定基础量级，再看个人因果是否修正；政治范式只作有限补充，不替代主链，也不把四维做平均。</p>${impactTechnicalHelp()}<p><b>历史影响总等级</b> · ${DATA.impact_grades.join(' → ')}</p><p><b>四维档位</b> · ${(DATA.impact_dimension_grades||[]).join(' → ')}</p>${DATA.impact_grades.map(g=>`<p><b>${esc(g)}</b> · ${esc(impactMeaning[g])}</p>`).join('')}</details>`;
@@ -808,7 +808,7 @@ function netPanel(r){
  return `<section id="person-outcome" class="panel net"><div class="eyebrow">01 / 统治结果</div><h2>统治绩效</h2><p class="subline">看治国、军事、统一与文明整合如何共同构成统治绩效</p>${n?`<div class="big">${scoreNumber(n.total_score)}</div>${netPositionSummary(n)}${`<div class="component"><span>治国成效</span><b>${scoreNumber(n.second_item_score)}</b></div><div class="component"><span>军事与边疆</span><b>${scoreNumber(n.third_item_score)}</b></div>`}${firstAddOnComponent(n)}${`<div class="component"><span>文明与国家整合</span><b>${signedAdjustment(n.fourth_item_adjustment)}</b></div>`}<p class="subline">分差不表示历史贡献的倍数，也不是百分制。</p><details><summary>总分口径与权重敏感性</summary><p>总分由上列四项构成。它同时计入现行规则定义的结果与过程分量，不是货币收益减成本；零分也不代表每个方面都没有收益或损害。</p>${evidenceAssessment(n,true)}<p>第一项${n.first_item_status==='APPLICABLE'?(firstRawScore(n)===0?'适用，但第一项结算分为0，附加分为0；这与“不适用”不同':firstRawScore(n)==null?`适用，但第一项结算分未列；当前附加分为 ${number(n.first_item_add_on)}`:`第一项结算分为 ${number(firstRawScore(n))}，按公式折算为附加分 ${number(n.first_item_add_on)}；第一项结算分不再重复相加`):n.first_item_status==='NOT_APPLICABLE'?'不适用，附加分按0计入总分；不代表能力失败':'正式适用状态未发布，因此不作适用性推断'}。</p><p class="subline">统治绩效总分 = 治国成效 + 军事与边疆 + 奠基与统一附加 + 文明与国家整合。</p>${n.weight_sensitivity?.all_scenarios?`<p>固定现有裁决，在已声明的 ${DATA.weight_sensitivity.scenario_count} 种权重情景中，名次范围为第 ${n.weight_sensitivity.all_scenarios.best}—${n.weight_sensitivity.all_scenarios.worst} 名。</p><p class="subline">权重敏感性与审慎位置投影不是同一件事；前者改变权重，后者固定权重并只投影本人的现有史料审慎区间。</p>`:''}${link('docs/项目总纲/皇帝统治绩效评价合同.md','评分规则与情景设定 ↗')}</details>`:`<div class="big">—</div><p>${r.supplementary?'历史影响补充样本，不纳入统治绩效正式评价与排序。':'未进入统治绩效正式排序，不能按零分理解。'}</p><p class="subline">${esc(({PENDING_SECOND_ITEM_FORMAL_SETTLEMENT:'第二项正式结算待补',PENDING_THIRD_ITEM_FORMAL_SETTLEMENT:'第三项正式结算待补',PENDING_FIRST_ITEM_FORMAL_SETTLEMENT:'第一项正式结算待补',SUPPLEMENTARY:'补充历史样本，仅提供历史影响'}[r.settlement_readiness]||r.settlement_readiness))}</p>`}${r.fourth_c_collection_ref?(globalThis.FourthItemCReading?.entryLinks(r)||''):''}<p class="sources">${link(DATA.sources.net_reader,'统治绩效完整依据 ↗')}</p></section>`;
 }
 
-function impactPanel(r){const h=r.impact;return `<section id="person-impact" class="panel impact"><div class="eyebrow">03 / 历史后效</div><h2>历史影响量级</h2><p class="subline">路径改变的规模、深度与归责</p><p class="subline">先看范围与深度定基础，再看本人归责；政治范式只作有限补充。</p><div class="big" style="color:var(--red)">${esc(h.public_grade)}</div><p>${esc(impactMeaning[h.public_grade]||'')}</p><span class="badge">${esc(h.impact_nature)}</span> <span class="subline">判断把握：${conf(h.confidence)}</span>${impactScaleNote()}<div class="dimensions">${Object.entries(dimNames).map(([k,n])=>`<div class="impact-dimension-card"><a href="#history-dimension-${k}" data-section="history-dimension-${k}" aria-label="查看${esc(n)}依据"><span>${esc(n)}</span><b>${esc(h.dimensions[k]?.grade||'—')}</b><small class="impact-dimension-question">${esc(impactDimensionQuestions[k]||'查看本维度依据')}</small><small>查看依据 ↓</small></a></div>`).join('')}</div>${gradeHelp('impact')}<p class="sources"><a href="#history-evidence" data-section="history-evidence">查看历史影响依据 ↓</a></p></section>`}
+function impactPanel(r,overview=false){const h=r.impact;const html=`<section id="person-impact" class="panel impact"><div class="eyebrow">03 / 历史后效</div><h2>历史影响量级</h2><p class="subline">路径改变的规模、深度与归责</p>${overview?'':'<p class="subline">先看范围与深度定基础，再看本人归责；政治范式只作有限补充。</p>'}<div class="big" style="color:var(--red)">${esc(h.public_grade)}</div><p>${esc(impactMeaning[h.public_grade]||'')}</p><span class="badge">${esc(h.impact_nature)}</span> <span class="subline">判断把握：${conf(h.confidence)}</span>${overview?'':impactScaleNote()}<div class="dimensions">${Object.entries(dimNames).map(([k,n])=>`<div class="impact-dimension-card"><a href="#history-dimension-${k}" data-section="history-dimension-${k}" aria-label="查看${esc(n)}依据"><span>${esc(n)}</span><b>${esc(h.dimensions[k]?.grade||'—')}</b><small class="impact-dimension-question">${esc(impactDimensionQuestions[k]||'查看本维度依据')}</small><small>查看依据 ↓</small></a></div>`).join('')}</div>${gradeHelp('impact')}<p class="sources"><a href="#history-evidence" data-section="history-evidence">查看历史影响依据 ↓</a></p></section>`;return overview?personDetailLinks(html,r,'impact'):html;}
 
 function m1FailureReview(a){
  const review=a.m1_stability_review;
@@ -1225,8 +1225,16 @@ function axisEvidence(r,c,suffix=''){
  const further=`${evidenceScope.detail}${m1FailureReview(a)}${hasPowerCases?'':formalMaterials}${publicEvidencePoints(a,hasPowerCases)}${hasTalentCases?'':counterText}${adjudicationDetails}${hasPowerCases?formalMaterials:''}`;
  return `<details id="reason-${c}${suffix}" class="axis-evidence"><summary>${esc(spec.name)} <span class="badge">${grade(a)}</span>${evidenceLevel?'<small class="axis-evidence-level">材料覆盖：'+esc(evidenceLevel)+'</small>':''}</summary>${ungraded(a)?'<p class="notice">证据审查已结案，本轴不发布等级或分数；不表示能力低下。</p>':''}${pending(a)?'<p class="notice">本轴当前尚未完成裁决；历史保留值不作为现行等级或雷达值。</p>':''}<div class="label">正式记录中的人物表现</div>${prose(profilePublicPattern(a.typical_pattern||a.not_applicable_reason||'本轴未另列人物表现，请展开裁决详情。'))}${gradeExplanation}${a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY'?'<p class="notice">本轴E为终局证据认定：现有材料未显示外交能力。它与已证实外交失能的裁决分开，不表示史料已证明潜在能力为零。</p>':''}${a.applicability_basis?'<div class="label">适用范围</div>'+axisProse(a.applicability_basis):''}<details class="axis-further-check"><summary>进一步核对：代表情境、反例与限制</summary>${further}</details><details class="metadata"><summary>原始记录与专业信息</summary><p class="subline">展示模式：${esc(evidenceScope.modeLabel)} · 判断把握：${esc(conf(a.confidence))}${evidenceLevel?' · 材料覆盖：'+esc(evidenceLevel):''} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>${[...new Set([...(a.source_refs||[]),...(a.evidence_scope?.source_refs||[])])].map((ref,index)=>profileSourceMarkup(ref,index,r)).join('')}<p class="sources">${link(spec.markdown,'本轴完整阅读页 ↗',r)}${link(spec.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗')}</p></details></details>`;
 }
-function profilePanel(r){
- return `<section id="person-capability" class="panel profile"><div class="eyebrow">02 / 人物画像</div><h2>人物画像</h2><p class="subline">八轴能力与权力风格分别评价</p>${r.supplementary?'<p>该对象只作为补充历史样本，不进入人物画像正式评价范围。</p>':`<h3>八轴能力</h3><div class="compact-axes">${axisRows(r,DATA.capability_axes)}</div><a class="style-axis profile-style-link" href="#reason-${DATA.independent_axes[0]}" data-reason="${DATA.independent_axes[0]}"><h3>权力运用风格</h3><p class="subline c5-style-note">风格轴：S端表示更克制，不代表能力高低。</p>${axisRows(r,DATA.independent_axes,false)}</a>${gradeHelp('profile')}<p class="sources"><a href="#profile-evidence" data-section="profile-evidence">查看表现、反例与限制 ↓</a></p>`}</section>`;
+function personDetailLinks(html,r,view){
+ const base=`#person/${encodeURIComponent(r.ruler_id)}/${view}`;
+ return html.replace(/href="#([^"]+)" data-(?:reason|section)="[^"]+"/g,(_,id)=>{
+  const focus=view==='profile'?(id.startsWith('reason-')?id.slice(7):''):id;
+  return `href="${base}${focus?'/'+encodeURIComponent(focus):''}"`;
+ }).replace(/ ↓/g,' →');
+}
+function profilePanel(r,overview=false){
+ const html=`<section id="person-capability" class="panel profile"><div class="eyebrow">02 / 人物画像</div><h2>人物画像</h2><p class="subline">八轴能力与权力风格分别评价</p>${r.supplementary?'<p>该对象只作为补充历史样本，不进入人物画像正式评价范围。</p>':`<h3>八轴能力</h3><div class="compact-axes">${axisRows(r,DATA.capability_axes,true,overview)}</div>${overview?`<details class="overview-radar"><summary>查看八轴能力结构图</summary>${radar(r)}<p class="subline">只展示能力结构；不按面积或均值比较整体能力。</p></details>`:''}<a class="style-axis profile-style-link" href="#reason-${DATA.independent_axes[0]}" data-reason="${DATA.independent_axes[0]}"><h3>权力运用风格</h3><p class="subline c5-style-note">S端表示更克制，不代表能力高低。</p>${axisRows(r,DATA.independent_axes,false,overview)}</a>${gradeHelp('profile')}<p class="sources"><a href="#profile-evidence" data-section="profile-evidence">查看表现、反例与限制 →</a></p>`}</section>`;
+ return overview?personDetailLinks(html,r,'profile'):html;
 }
 function profileEvidencePanel(r){
  return `<section id="profile-evidence" class="panel evidence"><h2>人物画像依据</h2><p class="subline evidence-layer-guide">先读主要表现与当前等级的整体依据，再按需展开代表情境、档内定位和来源。材料强度只描述情境的持续性、作用范围和机制化程度，不表示正负方向、能力高低或得分。</p>${!r.supplementary?`<details open><summary>查看八轴能力雷达</summary>${radar(r)}<p class="subline">E−在中心，S+在外缘，相邻等级等距。只展示能力结构；权力运用与克制不并入能力图，不按面积、均值或比例比较整体能力。</p></details>${DATA.axis_order.map(c=>axisEvidence(r,c)).join('')}`:'<p>该补充样本不在人物画像正式评价范围。</p>'}</section>`;
@@ -1253,10 +1261,21 @@ function profilePage(r){
  screen.innerHTML=`${personSubpageHead(r,'人物画像','profile')}<div class="single-system-page">${profilePanel(r)}<section class="reading-wide single-system-evidence">${profileEvidencePanel(r)}</section></div>`;
  focusProfileAxis();
 }
+function focusImpactSection(){
+ const parts=location.hash.slice(8).split('/');
+ if(parts[1]!=='impact')return;
+ const id=parts[2];
+ if(!['history-evidence','history-judgment-boundary',...Object.keys(dimNames).map(k=>'history-dimension-'+k)].includes(id))return;
+ const target=document.getElementById(id);
+ if(!target)return;
+ if(target.tagName==='DETAILS')target.open=true;
+ requestAnimationFrame(()=>{if(document.getElementById(id)===target)target.scrollIntoView({behavior:'auto',block:'start'});});
+}
 function impactPage(r){
  nav('');
  if(!r){screen.innerHTML='<p>未找到该人物。</p><button data-home>返回人物总览</button>';return}
  screen.innerHTML=`${personSubpageHead(r,'历史影响','impact')}<div class="single-system-page">${impactPanel(r)}<section id="history-evidence" class="panel evidence reading-wide single-system-evidence">${historySections(r)}</section></div>`;
+ focusImpactSection();
 }
 function person(r){
  const view=typeof location==='undefined'?'':(()=>{const parts=location.hash.slice(8).split('/');return parts.length>1?parts[1]:''})();
@@ -1266,17 +1285,10 @@ function person(r){
  const supplementary=!!r.supplementary;
  const pageMode=supplementary?'历史影响补充样本':'三套评价';
  const contextNote=supplementary?'该对象只进入历史影响补充样本，不纳入统治绩效正式评价范围或人物画像正式评价范围。':powerContextNote;
- const chapterNav=supplementary
-  ? '<nav class="person-nav" aria-label="人物页章节"><a href="#person-impact" data-section="person-impact">历史影响概览</a><a href="#person-evidence" data-section="person-evidence">展开依据</a></nav>'
-  : '<nav class="person-nav" aria-label="人物页章节"><a href="#person-outcome" data-section="person-outcome">统治绩效概览</a><a href="#person-capability" data-section="person-capability">人物画像</a><a href="#person-impact" data-section="person-impact">历史影响概览</a><a href="#person-evidence" data-section="person-evidence">展开依据</a></nav>';
  const overview=supplementary
-  ? `<div class="single-system-page">${impactPanel(r)}</div>`
-  : `<div class="three overview-panels">${netPanel(r)}${profilePanel(r)}${impactPanel(r)}</div>`;
- const evidenceHeader=supplementary
-  ? '<h2>历史影响依据</h2><p class="muted">本页只展开历史影响正式依据。</p>'
-  : '<h2>结论背后的依据</h2><p class="muted">三套结论各自成立。按想了解的问题展开，不把同一字母当成相同尺度。</p>';
- const nonImpactEvidence=supplementary?'':`${r.net?`<section class="panel"><h3>统治绩效构成</h3></section>`:''}${profileEvidencePanel(r)}`;
- screen.innerHTML=`<button class="back" data-home>← 人物总览</button><div class="person-head"><div><div class="eyebrow">${esc(r.polity)} / ${esc(pageMode)}</div><h1>${esc(personLabel(r))}</h1><p class="muted">掌权背景：${esc(r.actual_power_window||'未列')} ${supplementary?'<span class="scope-label">· 历史影响补充样本</span>':''}</p></div><button data-person-compare="${r.ruler_id}">选择另一人对照 →</button></div><p class="subline power-context-note">${esc(contextNote)}</p>${personSystemNav(r,'overview')}${chapterNav}${overview}<section id="person-evidence" class="evidence reading-wide">${evidenceHeader}${nonImpactEvidence}<section id="history-evidence" class="panel evidence">${historySections(r)}</section></section>`;
+  ? `<div class="single-system-page">${impactPanel(r,true)}</div>`
+  : `<div class="three overview-panels">${netPanel(r)}${profilePanel(r,true)}${impactPanel(r,true)}</div>`;
+ screen.innerHTML=`<button class="back" data-home>← 人物总览</button><div class="person-head"><div><div class="eyebrow">${esc(r.polity)} / ${esc(pageMode)}</div><h1>${esc(personLabel(r))}</h1><p class="muted">掌权背景：${esc(r.actual_power_window||'未列')} ${supplementary?'<span class="scope-label">· 历史影响补充样本</span>':''}</p></div><button data-person-compare="${r.ruler_id}">选择另一人对照 →</button></div><p class="subline power-context-note">${esc(contextNote)}</p>${personSystemNav(r,'overview')}${overview}`;
 }
 
 function compare(){

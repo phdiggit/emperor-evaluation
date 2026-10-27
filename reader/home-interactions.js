@@ -314,9 +314,6 @@ function firstCommanderMarkup(item, record) {
       .net-overview-jump{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;color:inherit;text-decoration:none}
       .net-overview-jump:hover strong,.net-overview-jump:hover span:first-child{color:var(--green)}
       .net-overview-jump small{display:block;margin-top:2px;font-size:11px;color:var(--green)}
-      .net-summary-group{margin:0;padding:12px 0}
-      .net-summary-group>summary{font-size:15px}
-      .net-summary-group .component{margin:9px 0;font-size:13px}
       .net-detail-page{max-width:1040px;margin:26px auto}
       .net-detail-head{margin:8px 0 18px}
       .net-major-nav{position:sticky;top:0;z-index:6;display:flex;gap:10px;padding:10px 12px;margin:0 0 20px;background:#eeefe7;border:1px solid var(--line);border-radius:5px;overflow-x:auto;white-space:nowrap}
@@ -444,13 +441,6 @@ function firstCommanderMarkup(item, record) {
     return byId.get(decodeURIComponent(match[1])) || null;
   }
 
-  function netEvidenceSection() {
-    return Array.from(document.querySelectorAll("#person-evidence > section.panel")).find(section => {
-      const heading = section.querySelector(":scope > h2, :scope > h3");
-      return ["统治绩效构成", "净收益构成"].includes(heading?.textContent.trim());
-    }) || null;
-  }
-
   function enhanceNetOverview(record) {
     const panel = document.getElementById("person-outcome");
     if (!panel || !record?.net || panel.dataset.netLinks === "done") return;
@@ -484,72 +474,10 @@ function firstCommanderMarkup(item, record) {
     panel.dataset.netLinks = "done";
   }
 
-  function compactNetReading(record) {
-    const section = netEvidenceSection();
-    if (!section) return;
-    let reading = section.querySelector(".net-reading");
-    if (reading?.dataset.netCompact === "done") return;
-    const groups = Object.entries(record.net?.component_details || {});
-    if (!groups.length) return;
-
-    if (!reading) {
-      reading = document.createElement("div");
-      reading.className = "net-reading";
-      const heading = section.querySelector(":scope > h2, :scope > h3");
-      if (heading) heading.after(reading);
-      else section.prepend(reading);
-    }
-    reading.innerHTML = `<p class="reading-intro">按评价内容展开，先读具体经历和判断，再查看本人责任、计算和来源。</p><p class="sources"><a href="${netHref(record, "all")}">打开完整统治绩效详情 →</a></p>`;
-
-    for (const [key, items] of groups) {
-      if (!Array.isArray(items)) continue;
-      const details = document.createElement("details");
-      details.className = "net-summary-group";
-      const major = netGroupMajor[key] || "all";
-      const judgments = items.filter(item => item.reader_kind === "judgment" && (item.value != null || item.unit === "不单独计分" || item.public_level_label));
-      const firstStatus = key === "first" ? record.net?.first_item_status : "";
-      if (key === "first" && firstStatus === "APPLICABLE") {
-        const a = items.find(item => item.label === "A统一贡献")?.reader_public_outcome;
-        if (a?.public_question && a?.public_story) {
-          const teaser = document.createElement("div");
-          teaser.className = "first-a-teaser";
-          teaser.innerHTML = `<h4><a href="${netHref(record, "first", "a")}">${esc(a.public_question)} →</a></h4>${prose(a.public_story)}`;
-          reading.append(teaser);
-        }
-        const b1 = items.find(item => item.label === "B1创业难度与效率")?.reader_public_b1;
-        if (b1?.public_question && b1?.public_story) {
-          const teaser = document.createElement("div");
-          teaser.className = "first-a-teaser first-b1-teaser";
-          teaser.innerHTML = `<h4><a href="${netHref(record, "first", "b1")}">${esc(b1.public_question)} →</a></h4>${prose(b1.public_story)}`;
-          reading.append(teaser);
-        }
-        const b2 = items.find(item => item.label === "B2组织与整合")?.reader_public_b2;
-        if (b2?.public_question && b2?.public_story) {
-          const teaser = document.createElement("div");
-          teaser.className = "first-a-teaser first-b2-teaser";
-          teaser.innerHTML = `<h4><a href="${netHref(record, "first", "b2")}">${esc(b2.public_question)} →</a></h4>${prose(b2.public_story)}`;
-          reading.append(teaser);
-        }
-      }
-      const preview = firstStatus === "NOT_APPLICABLE"
-        ? `<p class="notice">该人物不适用第一项，本项不参与统治绩效计分。</p>`
-        : key === "first" && firstStatus !== "APPLICABLE"
-          ? `<p class="notice">奠基与统一的正式适用状态尚未发布；阅读层不判断该人物是否适用本项。</p>`
-          : judgments.map(item => item.reader_public_a || item.reader_public_b || item.reader_public_third_c
-            ? metricDetail(item, record, key)
-            : `<div class="component"><span>${esc(item.public_component_label || item.label)}</span><b>${esc(netValue(item, key))}</b></div>`).join("");
-      details.innerHTML = `<summary>${esc(netGroupNames[key] || key)}</summary>${preview}<p class="sources"><a href="${netHref(record, major, key)}">查看这组完整计分逻辑 →</a></p>`;
-      reading.append(details);
-    }
-    reading.dataset.netCompact = "done";
-    section.dataset.netReadable = "done";
-  }
-
   function enhancePersonNet() {
     const record = currentPersonRecord();
     if (!record?.detail_loaded) return;
     enhanceNetOverview(record);
-    compactNetReading(record);
   }
 
   function cleanNetText(value) {
@@ -1500,7 +1428,7 @@ function firstCommanderMarkup(item, record) {
   }
 
   function renderNetLanding(record) {
-    renderNetShell(record, "all", `<section class="panel"><h2>怎么读这页</h2><p>先选一个大项。每个指标优先展示当前人物自己的结算逻辑和公式；整份正式结算文件只保留为最深层复核入口。</p></section><div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div>`);
+    renderNetShell(record, "all", `<section class="panel"><h2>选择要了解的经历</h2><p>按大项阅读具体经历、本人作用与评价理由，再按需展开计算和来源。</p></section><div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div>`);
   }
 
   function renderNetMajor(record, major, focus) {

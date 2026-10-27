@@ -145,6 +145,62 @@ def _run_reading_notes_node(tmp_path, body):
     assert result.returncode == 0, result.stderr
 
 
+def test_person_home_links_route_to_full_evidence_without_duplicate_bodies(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const source=template.split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:'#person/SYNTHETIC'},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+ctx.r={ruler_id:'SYNTHETIC',ruler_name:'合成人物',polity:'合成',actual_power_window:'合成时期'};
+ctx.fragment='<a href="#reason-M1" data-reason="M1">能力</a><a href="#profile-evidence" data-section="profile-evidence">全部依据</a>';
+let html=vm.runInContext("personDetailLinks(fragment,r,'profile')",ctx);
+assert.ok(html.includes('href="#person/SYNTHETIC/profile/M1"'));
+assert.ok(html.includes('href="#person/SYNTHETIC/profile"'));
+assert.ok(!html.includes('data-reason')&&!html.includes('data-section'));
+ctx.fragment='<a href="#history-dimension-range" data-section="history-dimension-range">范围</a>';
+html=vm.runInContext("personDetailLinks(fragment,r,'impact')",ctx);
+assert.ok(html.includes('href="#person/SYNTHETIC/impact/history-dimension-range"'));
+ctx.r.ruler_id='SYNTHETIC / 人物';
+html=vm.runInContext("personDetailLinks(fragment,r,'impact')",ctx);
+assert.ok(html.includes('#person/'+encodeURIComponent(ctx.r.ruler_id)+'/impact/'));
+// A home render uses overview cards only; the three full systems remain routes.
+ctx.r.ruler_id='SYNTHETIC';ctx.rendered=[];
+vm.runInContext(`
+ nav=()=>{};netPanel=()=>'<section id="person-outcome">结论</section>';
+ profilePanel=(r,overview)=>{rendered.push(['profile',overview]);return '<section id="person-capability">能力结论</section>'};
+ impactPanel=(r,overview)=>{rendered.push(['impact',overview]);return '<section id="person-impact">影响结论</section>'};
+ person(r);
+`,ctx);
+html=vm.runInContext('screen.innerHTML',ctx);
+assert.ok(html.includes('overview-panels'));
+assert.ok(!html.includes('person-evidence')&&!html.includes('person-nav'));
+assert.ok(ctx.rendered.every(([,overview])=>overview===true));
+ctx.r.supplementary=true;ctx.rendered=[];vm.runInContext('person(r)',ctx);
+html=vm.runInContext('screen.innerHTML',ctx);
+assert.ok(!html.includes('person-capability')&&!html.includes('person-outcome'));
+assert.equal(ctx.rendered.length,1);assert.equal(ctx.rendered[0][0],'impact');
+''')
+
+
+def test_impact_detail_focus_opens_fold_and_ignores_stale_render(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8');
+const focus=source.slice(source.indexOf('function focusImpactSection('),source.indexOf('function impactPage('));
+let target=null,frames=[],scrolled=0;
+const ctx={dimNames:{range:'范围'},location:{hash:'#person/SYNTHETIC/impact/history-dimension-range'},document:{getElementById:id=>target?.id===id?target:null},requestAnimationFrame:fn=>frames.push(fn)};
+vm.createContext(ctx);vm.runInContext(focus,ctx);
+vm.runInContext('focusImpactSection()',ctx);assert.equal(frames.length,0);
+target={id:'history-dimension-range',tagName:'DETAILS',open:false,scrollIntoView(){scrolled++}};
+vm.runInContext('focusImpactSection()',ctx);assert.equal(target.open,true);frames.shift()();assert.equal(scrolled,1);
+vm.runInContext('focusImpactSection()',ctx);target={id:'history-dimension-range'};frames.shift()();assert.equal(scrolled,1);
+ctx.location.hash='#person/SYNTHETIC/impact/unknown';vm.runInContext('focusImpactSection()',ctx);assert.equal(frames.length,0);
+ctx.location.hash='#person/SYNTHETIC/profile/history-dimension-range';vm.runInContext('focusImpactSection()',ctx);assert.equal(frames.length,0);
+''')
+
+
 def test_person_note_locators_are_local_and_never_pin_scores(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const record={axes:{C5:{typical_pattern:'合成事项：复核改变了一项决定。',axis_grade:'G3'}},net:{total_score:10}};

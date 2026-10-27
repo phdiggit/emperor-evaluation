@@ -1026,6 +1026,16 @@
 .axis-row-meta{display:block;margin-top:2px;color:var(--muted);font-size:11px;line-height:1.45;font-weight:400}
 .c5-style-note{margin:2px 0 4px}
 @media(max-width:700px){.axis-row-meta{font-size:10px}}
+
+/* Person home keeps conclusions together; full evidence lives on system pages. */
+.overview-panels > .panel { min-width: 0; }
+.overview-panels .profile-style-link { display: block; color: inherit; text-decoration: none; }
+.overview-panels .profile-style-link:hover h3 { color: var(--green); }
+.overview-panels .compact-axis { padding: 9px 0; }
+.overview-radar { margin: 8px 0 0; padding: 9px 0; font-size: 13px; }
+.overview-radar .radar { max-width: 340px; margin: 8px auto; }
+.overview-panels .dimensions { margin: 12px 0; }
+.overview-panels .impact-dimension-question { display: none; }
 .compare-evidence-meta{display:block;margin-top:4px;color:var(--muted);font-size:11px;line-height:1.5;font-weight:400;white-space:normal}
 
 

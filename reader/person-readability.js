@@ -30,7 +30,7 @@
     const axis = record.axes?.C5;
     if (!axis) return;
     const row = document.querySelector("#person-capability .style-axis .axis-row");
-    if (!row || row.querySelector(".c5-scale-note")) return;
+    if (!row || row.closest(".overview-panels") || row.querySelector(".c5-scale-note")) return;
     if (axis.person_type) {
       const type = document.createElement("div");
       type.className = "c5-type subline";
