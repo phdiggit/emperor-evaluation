@@ -420,14 +420,21 @@ function formalContextSources(c){
  const refs=[...(c?.source_refs||[]),...(c?.cycle_anchor_refs||[]),...(c?.direct_process_refs||[])].filter(ref=>typeof ref==='string'&&ref);
  return [...new Set(refs)];
 }
-function coalitionContextSections(c){
+function coalitionContextSections(c,omitTask=false){
  const fields=[['coalition_task','当时的合作任务'],['group_structure','涉及哪些集团'],['interests_and_security_expectations','各方利益与安全预期'],['personal_choice','本人作出的选择'],['status_and_resource_configuration','地位、权限与资源安排'],['political_credit_and_delivery','承诺与实际交付'],['feedback_and_conflict_handling','反馈与冲突处理'],['exit_result','后续结果与退出'],['counterevidence','反证与限制'],['lifecycle_reasoning','完整过程的判断依据']];
- return fields.filter(([key])=>typeof c[key]==='string'&&c[key].trim()).map(([key,label])=>`<div class="coalition-context-section" data-context-field="${key}"><div class="label">${label}</div>${prose(c[key])}</div>`).join('');
+ return fields.filter(([key])=>(!omitTask||key!=='coalition_task')&&typeof c[key]==='string'&&c[key].trim()).map(([key,label])=>`<div class="coalition-context-section" data-context-field="${key}"><div class="label">${label}</div>${powerProse(c[key])}</div>`).join('');
 }
-function coalitionContextBoundary(c){
+function coalitionContextBoundary(c,inline=false){
  const labels={m2:'对外关系',c3:'个人用人授权',c5:'权力运用与克制',result_axes:'结果评价'};
  const fields=Object.entries(c.boundary_review||{}).filter(([,value])=>typeof value==='string'&&value.trim());
- return fields.length?`<details class="metadata"><summary>该情境与其他评价的边界</summary>${fields.map(([key,value])=>`<div class="label">${esc(labels[key]||key)}</div>${prose(value)}`).join('')}</details>`:'';
+ const body=fields.map(([key,value])=>`<div class="label">${esc(labels[key]||key)}</div>${prose(value)}`).join('');
+ return body?(inline?body:`<details class="metadata"><summary>该情境与其他评价的边界</summary>${body}</details>`):'';
+}
+function coalitionContextStory(c,id,options){
+ const title=c.title||c.evidence_title||c.coalition_task||'内部集团合作过程';
+ const refs=formalContextSources(c);
+ const metadata=formalContextMetadata(c,options)+coalitionContextBoundary(c,true)+(id?`<p class="subline">情境记录编号：${esc(id)}</p>`:'')+refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'过程依据 ↗'):prose(ref)).join('');
+ return `<section class="context-story formal-context-story coalition-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>${coalitionContextSections(c,title===c.coalition_task)}<details class="metadata coalition-context-sources"><summary>评价边界与来源</summary>${metadata}</details></section>`;
 }
 function talentContextStory(c,id){
  const items=(Array.isArray(c.evidence_detail)?c.evidence_detail:[]).filter(item=>typeof item==='string'&&item.trim());
@@ -473,6 +480,7 @@ function formalContextStory(c,id='',options={}){
  if(options.axisCode==='C3')return talentContextStory(c,id);
  if(options.axisCode==='C1')return strategyContextStory(c,id);
  if(options.axisCode==='M5')return organizationContextStory(c,id);
+ if(options.axisCode==='M4')return coalitionContextStory(c,id,options);
  const rawTitle=String(c.title||c.evidence_title||'').trim();
  const genericTitle=/^(?:(?:主要)?父情境\d+|父链[A-ZＡ-Ｚ]|主要结构链\d+|代表情境\d+)$/.test(rawTitle);
  const title=rawTitle&&!genericTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
@@ -763,6 +771,7 @@ function axisEvidenceScope(a,c){
 }
 function profilePublicPattern(value){
  const cleaned=String(value??'')
+  .replace(/G([0-5])[- /]*(LOW|MID|HIGH)/g,(_,g,p)=>letters['G'+g]+'档'+pos(p))
   .replace(/^'?本轮按武将登记逐项复核：([^，]+)，([\s\S]+?)。，角色=([A-Za-z_]+)。\2。'?$/,"本轮按武将登记逐项复核：$1，$2。，角色=$3。")
   .replace(/`?(M1|M2|M4|M5|C1|C2|C3|C4|C5)-P[A-Za-z0-9_-]+`?/g,(_,code)=>(shortNames[code]||code)+"既有情境材料")
   .replace(/稳定父链[A-Za-z0-9_:-]{4,}已/g,"相关证据链已")
@@ -1146,16 +1155,16 @@ function axisEvidence(r,c,suffix=''){
  const hasPowerCases=c==='C5'&&Array.isArray(a.public_evidence_points)&&a.public_evidence_points.length>0;
  const formalIndex=structuredCounter?contexts(a,true,c):representativeContexts(a,c);
  const formalMaterials=hasPowerCases?`<details class="metadata power-context-index"><summary>正式情境索引：方向、强度与依据</summary>${formalIndex}</details>`:formalIndex;
- const counterText=!structuredCounter&&a.counterpattern?`<div class="label">${c==='M5'?'反例与判断边界':'反例与限制'}</div>${c==='M5'?powerProse(a.counterpattern):axisProse(a.counterpattern)}`:'';
+ const counterText=!structuredCounter&&a.counterpattern?`<div class="label">${['M4','M5'].includes(c)?'反例与判断边界':'反例与限制'}</div>${['M4','M5'].includes(c)?powerProse(a.counterpattern):axisProse(a.counterpattern)}`:'';
  const primaryPattern=a.typical_pattern||a.not_applicable_reason||'';
  const distinctGradeBasis=profileDistinctGradeBasis(a.grade_basis,primaryPattern);
  const basisLabel=ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据';
- const gradeExplanation=distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${['C1','C5','M5'].includes(c)?powerProse(distinctGradeBasis):prose(distinctGradeBasis)}</section>`:'';
+ const gradeExplanation=distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${['C1','C5','M4','M5'].includes(c)?powerProse(distinctGradeBasis):prose(distinctGradeBasis)}</section>`:'';
  const distinctPositionBasis=profileDistinctPositionBasis(a.position_basis,primaryPattern,a.grade_basis||'');
  const distinctLimitations=profileDistinctLimitations(a.limitations,primaryPattern,a.grade_basis||'',a.position_basis||'',a.evidence_assessment_basis||'');
  const boundaryParts=`${profileHasContent(distinctLimitations)?axisProse(distinctLimitations):''}${profileHasContent(a.evidence_assessment_basis)?axisProse(a.evidence_assessment_basis):''}`;
  const closureParts=a.no_grade_closure?`<div class="label">复查范围</div>${axisProse(a.no_grade_closure.review_scope)}<div class="label">证据缺口</div>${axisProse(a.no_grade_closure.evidence_gap)}<div class="label">重开条件</div>${axisProse(a.no_grade_closure.reopen_condition)}`:'';
- const hasTalentCases=['C3','M5'].includes(c)&&formalMaterials;
+ const hasTalentCases=['C3','M4','M5'].includes(c)&&formalMaterials;
  const adjudicationBody=`${hasTalentCases?counterText:''}${distinctPositionBasis?`<div class="label">档内定位</div>${prose(distinctPositionBasis)}`:''}${boundaryParts?`<div class="label">限制与证据边界</div>${boundaryParts}`:''}${closureParts}`;
  const adjudicationDetails=adjudicationBody?`<details class="metadata adjudication"><summary>裁决详情：档内定位与限制</summary>${adjudicationBody}</details>`:'';
  const further=`${evidenceScope.detail}${m1FailureReview(a)}${hasPowerCases?'':formalMaterials}${publicEvidencePoints(a,hasPowerCases)}${hasTalentCases?'':counterText}${adjudicationDetails}${hasPowerCases?formalMaterials:''}`;

@@ -102,6 +102,8 @@ B三轴及逐条依据的完整来源对象统一保存于本人的`public_b_sou
 
 画像C1、C3、M4保留的入口单元处置记录使用`profile-unit-reason-catalog-v1`理由存储格式：文件级`reason_catalog`保存完整原文，各单元按`reason_ref`引用。读取与维护使用`profile_unit_reasons.load_unit_dispositions`和`write_unit_dispositions`，写入自动合并完全相同的理由；理由不同则分别保留。目录不得存在悬空引用、未使用条目、重复正文或单元内嵌副本；不按处置状态猜测理由，不改变单元身份、来源、顺序或采用关系。
 
+M4逐条合作过程在人物页、双人对照及Markdown阅读页中完整展开集团、利益、本人安排、兑现、反馈、退出和反证。任务作为卡片标题，方向、强度、跨轴边界与来源合并在正文后的折叠区，人物反例总述收进裁决详情。画像正文提到档内比较时明确保留高、中、低位，人物等级徽标仍使用既定符号。
+
 第二项C1—C4不落盘`public_calculation`生成副本；`second_item_c_reading.calculation_record`按当前正式字段生成原有计算说明，供Markdown、人物详情和全池页面共用。刷新只维护元数据与阅读视图，正式校验拒绝重新内嵌计算说明；人工正文、来源说明及证据绑定仍直接维护在正式记录。
 
 M1人才登记投影使用`m1-registry-cells-v1`存储格式，保留成果难度、战役角色两份有序原列表；两段`<br>`拼接文本及配对列表由`profile_m1_projection.registry_projection`生成。独立维护的配对展示正文仍原样保存，不以拼接文本覆盖；列表长度或编号不匹配时拒绝生成。角色裁决及父链上下文不从人才登记反推。

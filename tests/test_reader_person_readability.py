@@ -564,14 +564,54 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
  const r=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
  const a=r.axes?.M4;if(!a)continue;
  for(const c of a.representative_contexts||[]){
-  ctx.c=c;html=vm.runInContext("formalContextStory(c)",ctx);
+  ctx.c=c;html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'M4'})",ctx);
   for(const key of fields)if(c[key]){
    ctx.value=c[key];
-   assert.ok(html.includes(vm.runInContext('prose(value)',ctx)),file+': '+c.parent_id+': '+key);
+   const expected=key==='coalition_task'?vm.runInContext('esc(profilePublicPattern(value))',ctx):vm.runInContext('powerProse(value)',ctx);
+   assert.ok(html.includes(expected),file+': '+c.parent_id+': '+key);
   }
  }
 }
 ''')
+
+
+def test_coalition_prose_keeps_position_and_places_metadata_after_process(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const element={addEventListener(){},classList:{toggle(){}}};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);vm.runInContext(source,ctx);
+// In prose, a comparison must retain its position; badges use grade() separately.
+for(let g=0;g<=5;g++)for(const [p,label] of [['LOW','低位'],['MID','中位'],['HIGH','高位']]){
+ ctx.input=`尚不足以支持G${g}-${p}。`;
+ assert.ok(vm.runInContext('profilePublicPattern(input)',ctx).includes('档'+label));
+}
+ctx.c={parent_id:'synthetic',coalition_task:'重组 <旧集团>',group_structure:'旧臣与新核心。',personal_choice:'保留参与并分配权限。',exit_result:'合作延续。',counterevidence:'交接尚缺验证。',direction:'MIXED',material_intensity:'MI2',source_refs:['docs/synthetic.md'],boundary_review:{c3:'此处只评价集团合作。'}};
+const before=JSON.stringify(ctx.c);
+let html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'M4'})",ctx);
+const footer=html.indexOf('<details class="metadata coalition-context-sources">');
+assert.ok(html.includes('<h4 class="public-context-title">重组 &lt;旧集团&gt;</h4>'));
+assert.equal((html.match(/重组 &lt;旧集团&gt;/g)||[]).length,1);
+for(const text of ['旧臣与新核心。','保留参与并分配权限。','合作延续。','交接尚缺验证。'])assert.ok(html.indexOf(text)<footer);
+for(const text of ['context-direction','此处只评价集团合作。','docs/synthetic.md'])assert.ok(html.indexOf(text)>footer);
+assert.equal(JSON.stringify(ctx.c),before);
+''')
+
+
+def test_coalition_markdown_preserves_structured_process_and_boundary():
+    from emperor_v4.evaluation.profile_markdown import _parent_lines
+
+    parent = dict(parent_id='synthetic', coalition_task='处理旧新集团合作。',
+                  group_structure='两类集团。', personal_choice='保留并重配。',
+                  exit_result='延续至交接。', counterevidence='局部冲突仍存。',
+                  lifecycle_reasoning='经过反馈后恢复。',
+                  boundary_review={'c3': '不替代个人用人评价。'}, source_refs=['docs/synthetic.md'])
+    text = '\n'.join(_parent_lines(parent))
+    for key in ('coalition_task', 'group_structure', 'personal_choice', 'exit_result', 'counterevidence', 'lifecycle_reasoning'):
+        assert parent[key] in text
+    assert parent['boundary_review']['c3'] in text
+    assert parent['source_refs'][0] in text
 
 
 def test_overview_reference_report_tracks_projection_changes():
@@ -640,7 +680,7 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
    const html=vm.runInContext('axisEvidence(r,code,suffix)',ctx);
    if(expected){
     ctx.expected=expected;
-    const content=vm.runInContext("['C1','C5','M5'].includes(code)?powerProse(expected):prose(expected)",ctx);
+    const content=vm.runInContext("['C1','C5','M4','M5'].includes(code)?powerProse(expected):prose(expected)",ctx);
     const label=vm.runInContext("ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据'",ctx);
     assert.ok(html.includes('<section class="axis-grade-explanation"><div class="label">'+label+'</div>'+content),file+': '+code);
     assert.ok(html.indexOf('axis-grade-explanation')<html.indexOf('<details class="axis-further-check">'),file+': '+code);

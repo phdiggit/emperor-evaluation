@@ -407,6 +407,25 @@ def _parent_lines(
         yield f"- `{parent.get('parent_id', 'NO-ID')}`（{direction_label} / {strength}）：{_parent_basis(parent)}"
     else:
         yield f"- `{parent.get('parent_id', 'NO-ID')}`（{direction} / {strength}）：{_parent_basis(parent)}"
+    if parent.get("coalition_task"):
+        fields = (
+            ("group_structure", "涉及哪些集团"),
+            ("interests_and_security_expectations", "各方利益与安全预期"),
+            ("personal_choice", "本人作出的选择"),
+            ("status_and_resource_configuration", "地位、权限与资源安排"),
+            ("political_credit_and_delivery", "承诺与实际交付"),
+            ("feedback_and_conflict_handling", "反馈与冲突处理"),
+            ("exit_result", "后续结果与退出"),
+            ("counterevidence", "反证与限制"),
+            ("lifecycle_reasoning", "完整过程的判断依据"),
+        )
+        for key, label in fields:
+            if parent.get(key):
+                yield f"  - **{label}**：{parent[key]}"
+        for key, value in (parent.get("boundary_review") or {}).items():
+            if value:
+                label = {"m2": "对外关系", "c3": "个人用人授权", "c5": "权力运用与克制", "result_axes": "结果评价"}.get(key, key)
+                yield f"  - **{label}边界**：{value}"
     refs = _parent_refs(
         parent,
         compact_sources=compact_sources,
