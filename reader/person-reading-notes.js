@@ -22,6 +22,7 @@
   }
 
   function validPath(path) {
+    if (Array.isArray(path) && path.length === 1 && path[0] === "settlement_readiness") return true;
     if (!Array.isArray(path) || path.length < 2) return false;
     if (!path.every(key => (typeof key === "string" && key && !unsafeKeys.has(key)) ||
         (Number.isInteger(key) && key >= 0))) return false;
@@ -65,7 +66,7 @@
 
   // Shared deterministic logic is also exercised with synthetic records in Node.
   if (typeof module !== "undefined" && module.exports) {
-    module.exports = {validateNotes, validateBlock, validPath, resolve, assessBlock};
+    module.exports = {validateNotes, validateBlock, validPath, resolve, assessBlock, sourceFor};
     return;
   }
 
@@ -97,6 +98,7 @@
   }
 
   function sourceFor(record, path) {
+    if (path[0] === "settlement_readiness") return {path: "config/common/canonical-ruler-pool.json", label: "正式评价池就绪状态"};
     if (path[0] === "axes") {
       const spec = DATA.axis_specs[path[1]];
       return spec ? {path: spec.json, label: `${spec.name}正式记录`} : null;
@@ -127,7 +129,11 @@
   }
 
   function renderBlock(key, block, record, className) {
-    if (assessBlock(block, record).status !== "current") return null;
+    if (assessBlock(block, record).status !== "current") {
+      const notice = el("section", className);
+      notice.append(el("h3", "", labels[key]), el("p", "subline", "这段摘要的依据已更新，正在等待复核；请继续阅读下方的当前评价与逐项依据。"));
+      return notice;
+    }
     const section = el("section", className);
     section.append(el("h3", "", labels[key]));
     section.append(el("p", "note-text", block.text), evidenceList(block, record));

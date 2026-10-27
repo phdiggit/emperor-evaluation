@@ -6,7 +6,7 @@ globalThis.SecondItemDisplay = Object.freeze({
   stateGrades: Object.freeze({1:"E", 2:"D", 3:"C", 4:"B", 5:"A", 6:"S"}),
   handoffGrades: Object.freeze({0:"E", 1:"D", 2:"C", 3:"B", 4:"A", 5:"S"}),
   lossText: Object.freeze({
-    0:"未见独立有效低谷", 1:"已证独立损害，按证据范围作有限修正",
+    0:"现有证据尚不足以确认应单独计入的较差状态", 1:"已证独立损害，按证据范围作有限修正",
     2:"出现明显低谷", 3:"出现严重低谷",
   }),
   methodMax: Object.freeze({"A制度建设":100, "B1官僚治理":100, "B2反馈与约束":80}),

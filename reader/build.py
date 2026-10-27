@@ -127,6 +127,34 @@ def person_notes_snapshot(*, check=False, write=True):
         write_generated_text(PERSON_NOTES_SNAPSHOT, expected)
 
 
+def person_note_reference_issues(records, notes):
+    """Report missing editorial anchors against the actual public projection."""
+    by_id = {record['ruler_id']: record for record in records}
+    issues = []
+    expected_ids = {record['ruler_id'] for record in records if not record.get('supplementary')}
+    for rid in sorted(expected_ids ^ notes.get('records', {}).keys()):
+        issues.append((rid, 'coverage', []))
+    for rid, entry in notes.get('records', {}).items():
+        for section in sorted({'outcome', 'profile', 'impact'} - entry.get('overview', {}).keys()):
+            issues.append((rid, section, []))
+        for section, block in entry.get('overview', {}).items():
+            if not block.get('text') or not block.get('evidence'):
+                issues.append((rid, section, []))
+            for reference in block.get('evidence', []):
+                value = by_id.get(rid)
+                for key in reference['path']:
+                    if isinstance(value, dict):
+                        value = value.get(key)
+                    elif isinstance(value, list) and isinstance(key, int) and 0 <= key < len(value):
+                        value = value[key]
+                    else:
+                        value = None
+                        break
+                if not isinstance(value, str) or reference['quote'] not in value:
+                    issues.append((rid, section, reference['path']))
+    return issues
+
+
 def index(rows):
     result = {r["ruler_id"]: r for r in rows}
     if len(result) != len(rows):
@@ -191,6 +219,19 @@ FORMAL_CONTEXT_FIELDS = [
     "limitations",
     "limitation",
     "intensity_and_role_basis",
+    "evidence_title",
+    "lifecycle_narrative",
+    "coalition_task",
+    "group_structure",
+    "interests_and_security_expectations",
+    "personal_choice",
+    "status_and_resource_configuration",
+    "political_credit_and_delivery",
+    "feedback_and_conflict_handling",
+    "exit_result",
+    "counterevidence",
+    "lifecycle_reasoning",
+    "boundary_review",
 ]
 
 
@@ -1598,6 +1639,11 @@ def build(*, check=False, write=True):
     index(records)
 
     source_identity = reader_source_identity(write=write and not check)
+    note_issues = person_note_reference_issues(records, json.loads(PERSON_NOTES_SOURCE.read_text(encoding='utf-8')))
+    if note_issues:
+        affected = sorted({rid for rid, _, _ in note_issues})
+        sample = '; '.join(f'{rid}/{section}/{path}' for rid, section, path in note_issues[:6])
+        raise ValueError(f"Reader overview references need review: {len(note_issues)} issues / {len(affected)} people: {sample}")
     person_notes_snapshot(check=check, write=write)
     common = dict(main_count=len(main), ranked_count=len(net),
                   source_repository=source_identity["repository"],

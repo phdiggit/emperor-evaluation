@@ -300,10 +300,6 @@ function netGroups(r){
   return `<details><summary>${esc(groupNames[key]||key)}</summary><p class="subline">只列正式分项与结果；当前判断按正式记录展示，计算中间项和小计不在对照页展开。</p>${judgments.map(x=>x.reader_public_fourth_c?`<div class="fourth-c-authored">${globalThis.FourthItemCReading.heading(x)}${globalThis.FourthItemCReading.html(x,r)}</div>`:x.reader_public_fourth_b?`<div class="fourth-b-authored">${globalThis.FourthItemBReading.heading(x)}${globalThis.FourthItemBReading.html(x,r)}</div>`:x.reader_public_fourth_a?`<div class="fourth-a-authored">${globalThis.FourthItemAReading.heading(x)}${globalThis.FourthItemAReading.html(x,r)}</div>`:x.reader_public_third_c?`<div class="third-c-authored">${globalThis.ThirdItemCReading.heading(x)}${globalThis.ThirdItemCReading.html(x,r)}</div>`:x.reader_public_b&&globalThis.ThirdItemBReading?`<div class="third-b-authored">${globalThis.ThirdItemBReading.heading(x)}${globalThis.ThirdItemBReading.html(x,r)}</div>`:x.reader_public_a&&globalThis.ThirdItemAReading?`<div class="third-a-authored"><div class="component"><strong>${esc(x.public_component_label)}</strong><b>${esc(x.value)} / 60 分</b></div>${globalThis.ThirdItemAReading.html(x,r)}</div>`:x.reader_public_d&&globalThis.SecondItemDReading?`<div class="net-d-authored"><div class="component"><strong>${esc(x.public_component_label||x.label)}</strong>${compareNetValue(x,key)}</div>${globalThis.SecondItemDReading.html(x)}</div>`:x.reader_public_c&&globalThis.SecondItemCReading?`<div class="net-c-authored"><div class="component"><strong>${esc(x.public_component_label||x.label)}</strong><b>${esc(x.value)} 分</b></div>${globalThis.SecondItemCReading.html(x)}</div>`:`<div class="component"><span>${esc(publicNetComponentLabel(x))}</span>${compareNetValue(x,key)}</div>${key==='method'&&x.label==='B2反馈与约束'&&globalThis.SecondItemB2Reading?globalThis.SecondItemB2Reading.html(x):''}${key==='method'&&x.label==='A制度建设'?`<div class="second-a-teaser"><p>${esc(x.reader_story)}</p><p>${esc(x.reader_summary)}</p><a href="#net/${encodeURIComponent(r.ruler_id)}/second">读制度建设依据 →</a></div>`:''}${key==='first'&&x.reader_public_outcome?.public_question?`<div class="first-a-teaser"><h4><a href="#net/${encodeURIComponent(r.ruler_id)}/first/a">${esc(x.reader_public_outcome.public_question)} →</a></h4><p>${esc(x.reader_public_outcome.public_story)}</p></div>`:''}${key==='first'&&x.reader_public_b1?.public_question?`<div class="first-a-teaser first-b1-teaser"><h4><a href="#net/${encodeURIComponent(r.ruler_id)}/first/b1">${esc(x.reader_public_b1.public_question)} →</a></h4><p>${esc(x.reader_public_b1.public_story)}</p></div>`:''}${key==='first'&&x.reader_public_b2?.public_question?`<div class="first-a-teaser first-b2-teaser"><h4><a href="#net/${encodeURIComponent(r.ruler_id)}/first/b2">${esc(x.reader_public_b2.public_question)} →</a></h4><p>${esc(x.reader_public_b2.public_story)}</p></div>`:''}${key==='first'&&x.reader_public_commander?.public_question?`<div class="first-a-teaser first-c-teaser"><h4><a href="#net/${encodeURIComponent(r.ruler_id)}/first/c">${esc(x.reader_public_commander.public_question)} →</a></h4><p>${esc(x.reader_public_commander.public_story)}</p></div>`:''}`).join('')}</details>`;
  }).join('');
 }
-const impactAuditSource=s=>{
- const name=[s?.document,s?.path,s?.title,s?.kind].filter(Boolean).join(' ');
- return s?.kind==='IMPORTED_ADJUDICATION'||/裁决清单|历史审计|重审持续记录|阶段复裁|整改报告/.test(name);
-};
 function impactSourceLabel(s){
  if(s?.title)return s.title;
  if(s?.path)return s.path.split('/').pop();
@@ -424,16 +420,27 @@ function formalContextSources(c){
  const refs=[...(c?.source_refs||[]),...(c?.cycle_anchor_refs||[]),...(c?.direct_process_refs||[])].filter(ref=>typeof ref==='string'&&ref);
  return [...new Set(refs)];
 }
+function coalitionContextSections(c){
+ const fields=[['coalition_task','当时的合作任务'],['group_structure','涉及哪些集团'],['interests_and_security_expectations','各方利益与安全预期'],['personal_choice','本人作出的选择'],['status_and_resource_configuration','地位、权限与资源安排'],['political_credit_and_delivery','承诺与实际交付'],['feedback_and_conflict_handling','反馈与冲突处理'],['exit_result','后续结果与退出'],['counterevidence','反证与限制'],['lifecycle_reasoning','完整过程的判断依据']];
+ return fields.filter(([key])=>typeof c[key]==='string'&&c[key].trim()).map(([key,label])=>`<div class="coalition-context-section" data-context-field="${key}"><div class="label">${label}</div>${prose(c[key])}</div>`).join('');
+}
+function coalitionContextBoundary(c){
+ const labels={m2:'对外关系',c3:'个人用人授权',c5:'权力运用与克制',result_axes:'结果评价'};
+ const fields=Object.entries(c.boundary_review||{}).filter(([,value])=>typeof value==='string'&&value.trim());
+ return fields.length?`<details class="metadata"><summary>该情境与其他评价的边界</summary>${fields.map(([key,value])=>`<div class="label">${esc(labels[key]||key)}</div>${prose(value)}`).join('')}</details>`:'';
+}
 function formalContextStory(c,id='',options={}){
  if(!c)return prose(id?'相关情境材料未附正文':'正式记录未列情境正文');
- const rawTitle=String(c.title||'').trim();
+ const rawTitle=String(c.title||c.evidence_title||'').trim();
  const genericTitle=/^(?:(?:主要)?父情境\d+|父链[A-ZＡ-Ｚ]|主要结构链\d+|代表情境\d+)$/.test(rawTitle);
  const title=rawTitle&&!genericTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
- const body=c.process_narrative||c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
+ const body=c.process_narrative||c.lifecycle_narrative||c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
  const refs=formalContextSources(c);
  const rawIntensity=options.showIntensity===false?'':formalContextRawIntensity(c);
- const sources=(id||refs.length||rawIntensity)?`<details class="metadata"><summary>该情境的来源与原始标注</summary>${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${rawIntensity?`<p class="subline">材料强度原始字段：${esc(rawIntensity)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'来源原文 ↗'):prose(ref)).join('')}</details>`:'';
- return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c,options)}${body?axisProse(body):''}${sources}</div>`;
+ const sources=(id||refs.length||rawIntensity)?`<details class="metadata"><summary>该情境的来源与原始标注</summary>${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${rawIntensity?`<p class="subline">材料强度原始字段：${esc(rawIntensity)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,/^docs\/史料通读产物\//.test(ref)?'项目史料通读 ↗':/^(docs\/|config\/|archive\/)/.test(ref)?'项目依据记录 ↗':'外部史料与材料 ↗'):prose(ref)).join('')}</details>`:'';
+ const sections=coalitionContextSections(c);
+ const narrative=sections||(body?axisProse(body):'<p class="notice">该情境的正式记录未提供可展示的过程正文，请核对原始记录。</p>');
+ return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c,options)}${narrative}${coalitionContextBoundary(c)}${sources}</div>`;
 }
 
 function contexts(a,showIntensity=true){
@@ -1010,7 +1017,7 @@ function profileComparableText(value){
 function profileDistinctGradeBasis(value,primary){
  const shown=profilePublicPattern(value);
  const a=profileComparableText(shown),b=profileComparableText(primary);
- if(b.length>=24&&(a===b||a.endsWith(b)))return "";
+ if(b.length>=24&&a===b)return "";
  return shown;
 }
 function profilePositionPublicPattern(value){
@@ -1078,20 +1085,22 @@ function axisEvidence(r,c,suffix=''){
  const counterText=!structuredCounter&&a.counterpattern?'<div class="label">反例与限制</div>'+axisProse(a.counterpattern):'';
  const primaryPattern=a.typical_pattern||a.not_applicable_reason||'';
  const distinctGradeBasis=profileDistinctGradeBasis(a.grade_basis,primaryPattern);
+ const basisLabel=ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据';
+ const gradeExplanation=distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${prose(distinctGradeBasis)}</section>`:'';
  const distinctPositionBasis=profileDistinctPositionBasis(a.position_basis,primaryPattern,a.grade_basis||'');
  const distinctLimitations=profileDistinctLimitations(a.limitations,primaryPattern,a.grade_basis||'',a.position_basis||'',a.evidence_assessment_basis||'');
  const boundaryParts=`${profileHasContent(distinctLimitations)?axisProse(distinctLimitations):''}${profileHasContent(a.evidence_assessment_basis)?axisProse(a.evidence_assessment_basis):''}`;
  const closureParts=a.no_grade_closure?`<div class="label">复查范围</div>${axisProse(a.no_grade_closure.review_scope)}<div class="label">证据缺口</div>${axisProse(a.no_grade_closure.evidence_gap)}<div class="label">重开条件</div>${axisProse(a.no_grade_closure.reopen_condition)}`:'';
- const adjudicationBody=`${distinctGradeBasis?`<div class="label">定档依据</div>${prose(distinctGradeBasis)}`:''}${distinctPositionBasis?`<div class="label">档内定位</div>${prose(distinctPositionBasis)}`:''}${boundaryParts?`<div class="label">限制与证据边界</div>${boundaryParts}`:''}${closureParts}`;
- const adjudicationDetails=adjudicationBody?`<details class="metadata adjudication"><summary>裁决详情：定档、档内定位与限制</summary>${adjudicationBody}</details>`:'';
+ const adjudicationBody=`${distinctPositionBasis?`<div class="label">档内定位</div>${prose(distinctPositionBasis)}`:''}${boundaryParts?`<div class="label">限制与证据边界</div>${boundaryParts}`:''}${closureParts}`;
+ const adjudicationDetails=adjudicationBody?`<details class="metadata adjudication"><summary>裁决详情：档内定位与限制</summary>${adjudicationBody}</details>`:'';
  const further=`${evidenceScope.detail}${m1FailureReview(a)}${formalMaterials}${publicEvidencePoints(a)}${counterText}${adjudicationDetails}`;
- return `<details id="reason-${c}${suffix}" class="axis-evidence"><summary>${esc(spec.name)} <span class="badge">${grade(a)}</span>${evidenceLevel?'<small class="axis-evidence-level">材料覆盖：'+esc(evidenceLevel)+'</small>':''}</summary>${ungraded(a)?'<p class="notice">证据审查已结案，本轴不发布等级或分数；不表示能力低下。</p>':''}${pending(a)?'<p class="notice">本轴当前尚未完成裁决；历史保留值不作为现行等级或雷达值。</p>':''}<div class="label">正式记录中的人物表现</div>${prose(profilePublicPattern(a.typical_pattern||a.not_applicable_reason||'本轴未另列人物表现，请展开裁决详情。'))}${a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY'?'<p class="notice">本轴E为终局证据认定：现有材料未显示外交能力。它与已证实外交失能的裁决分开，不表示史料已证明潜在能力为零。</p>':''}${a.applicability_basis?'<div class="label">适用范围</div>'+axisProse(a.applicability_basis):''}<details class="axis-further-check"><summary>进一步核对：代表情境、反例与限制</summary>${further}</details><details class="metadata"><summary>原始记录与专业信息</summary><p class="subline">展示模式：${esc(evidenceScope.modeLabel)} · 判断把握：${esc(conf(a.confidence))}${evidenceLevel?' · 材料覆盖：'+esc(evidenceLevel):''} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>${[...new Set([...(a.source_refs||[]),...(a.evidence_scope?.source_refs||[])])].map((ref,index)=>profileSourceMarkup(ref,index,r)).join('')}<p class="sources">${link(spec.markdown,'本轴完整阅读页 ↗',r)}${link(spec.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗')}</p></details></details>`;
+ return `<details id="reason-${c}${suffix}" class="axis-evidence"><summary>${esc(spec.name)} <span class="badge">${grade(a)}</span>${evidenceLevel?'<small class="axis-evidence-level">材料覆盖：'+esc(evidenceLevel)+'</small>':''}</summary>${ungraded(a)?'<p class="notice">证据审查已结案，本轴不发布等级或分数；不表示能力低下。</p>':''}${pending(a)?'<p class="notice">本轴当前尚未完成裁决；历史保留值不作为现行等级或雷达值。</p>':''}<div class="label">正式记录中的人物表现</div>${prose(profilePublicPattern(a.typical_pattern||a.not_applicable_reason||'本轴未另列人物表现，请展开裁决详情。'))}${gradeExplanation}${a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY'?'<p class="notice">本轴E为终局证据认定：现有材料未显示外交能力。它与已证实外交失能的裁决分开，不表示史料已证明潜在能力为零。</p>':''}${a.applicability_basis?'<div class="label">适用范围</div>'+axisProse(a.applicability_basis):''}<details class="axis-further-check"><summary>进一步核对：代表情境、反例与限制</summary>${further}</details><details class="metadata"><summary>原始记录与专业信息</summary><p class="subline">展示模式：${esc(evidenceScope.modeLabel)} · 判断把握：${esc(conf(a.confidence))}${evidenceLevel?' · 材料覆盖：'+esc(evidenceLevel):''} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>${[...new Set([...(a.source_refs||[]),...(a.evidence_scope?.source_refs||[])])].map((ref,index)=>profileSourceMarkup(ref,index,r)).join('')}<p class="sources">${link(spec.markdown,'本轴完整阅读页 ↗',r)}${link(spec.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗')}</p></details></details>`;
 }
 function profilePanel(r){
  return `<section id="person-capability" class="panel profile"><div class="eyebrow">02 / 人物画像</div><h2>人物画像</h2><p class="subline">八轴能力与权力风格分别评价</p>${r.supplementary?'<p>该对象只作为补充历史样本，不进入人物画像正式评价范围。</p>':`<h3>八轴能力</h3><div class="compact-axes">${axisRows(r,DATA.capability_axes)}</div><a class="style-axis profile-style-link" href="#reason-${DATA.independent_axes[0]}" data-reason="${DATA.independent_axes[0]}"><h3>权力运用风格</h3><p class="subline c5-style-note">风格轴：S端表示更克制，不代表能力高低。</p>${axisRows(r,DATA.independent_axes,false)}</a>${gradeHelp('profile')}<p class="sources"><a href="#profile-evidence" data-section="profile-evidence">查看表现、反例与限制 ↓</a></p>`}</section>`;
 }
 function profileEvidencePanel(r){
- return `<section id="profile-evidence" class="panel evidence"><h2>人物画像依据</h2><p class="subline evidence-layer-guide">默认先读主要表现；需要时再展开“进一步核对”和“原始记录”。材料强度只描述情境的持续性、作用范围和机制化程度，不表示正负方向、能力高低或得分。</p>${!r.supplementary?`<details open><summary>查看八轴能力雷达</summary>${radar(r)}<p class="subline">E−在中心，S+在外缘，相邻等级等距。只展示能力结构；权力运用与克制不并入能力图，不按面积、均值或比例比较整体能力。</p></details>${DATA.axis_order.map(c=>axisEvidence(r,c)).join('')}`:'<p>该补充样本不在人物画像正式评价范围。</p>'}</section>`;
+ return `<section id="profile-evidence" class="panel evidence"><h2>人物画像依据</h2><p class="subline evidence-layer-guide">先读主要表现与当前等级的整体依据，再按需展开代表情境、档内定位和来源。材料强度只描述情境的持续性、作用范围和机制化程度，不表示正负方向、能力高低或得分。</p>${!r.supplementary?`<details open><summary>查看八轴能力雷达</summary>${radar(r)}<p class="subline">E−在中心，S+在外缘，相邻等级等距。只展示能力结构；权力运用与克制不并入能力图，不按面积、均值或比例比较整体能力。</p></details>${DATA.axis_order.map(c=>axisEvidence(r,c)).join('')}`:'<p>该补充样本不在人物画像正式评价范围。</p>'}</section>`;
 }
 function personSystemNav(r,active='overview'){
  const id=encodeURIComponent(r.ruler_id);
