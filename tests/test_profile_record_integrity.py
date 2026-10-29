@@ -30,7 +30,7 @@ def test_source_alias_is_traceable_but_not_another_scoring_parent():
     verify_current_records(payload)
 
 
-@pytest.mark.parametrize("defect", ["episode", "alias", "disposition", "suppression", "score", "intensity"])
+@pytest.mark.parametrize("defect", ["episode", "alias", "disposition", "suppression", "isolated", "score", "intensity"])
 def test_rejects_conflicting_current_fields(defect):
     payload = sample()
     row = payload["records"][0]
@@ -45,6 +45,8 @@ def test_rejects_conflicting_current_fields(defect):
                                            "source_refs": ["source"]}]
     elif defect == "suppression":
         row["directional_strength_balance_review"] = {"suppression_parent_ids": ["removed-parent"]}
+    elif defect == "isolated":
+        row["directional_strength_balance_review"] = {"isolated_positive_parent_ids": ["removed-parent"]}
     elif defect == "score":
         row["radar_value"] += 1
     else:

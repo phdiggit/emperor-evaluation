@@ -286,6 +286,8 @@ def axis_projection(row, fields, m1_archive_context=None):
                       applicability_basis=applicability.get('basis'))
         if row.get('architecture_review'):
             result['architecture_review'] = pick(row['architecture_review'], ['magnitude', 'basis'])
+        if row.get('horizontal_calibration'):
+            result['horizontal_calibration'] = row['horizontal_calibration']
     if row.get('axis_code') == 'C2':
         result.update(pick(row, ['review_status', 'evidence_floor_review', 'non_scoring_observations']))
     if (row.get('public_reading') or {}).get('schema_version') == 'profile-m1-authored-reading-v1' and (row['public_reading'].get('career_review') or row['public_reading'].get('comparisons')):
@@ -383,6 +385,19 @@ def _attach_reader(item, *, kind, summary="", how="", boundary="", source_refs=(
     return result
 
 
+def _attach_quality_status(result, record):
+    confidence = record.get("confidence")
+    labels = {"LOW": "低", "MEDIUM": "中", "HIGH": "高"}
+    if confidence not in labels:
+        raise ValueError(f"Quality confidence missing: {record.get('ruler_name')}")
+    result["reader_confidence"] = confidence
+    result["reader_evidence_status"] = record.get("evidence_status")
+    result["reader_grade_origin"] = record.get("grade_origin")
+    result["reader_quality_status"] = "置信度：" + labels[confidence]
+    if record.get("grade_origin") == "MISSING_EVIDENCE_DEFAULT":
+        result["reader_quality_status"] += "；缺证默认，不代表已证良好表现"
+
+
 def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
     """Project B2's explicit public fields without semantic fallback guessing."""
 
@@ -392,7 +407,7 @@ def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
     evidence = record.get("public_evidence_items")
     if not isinstance(summary, str) or not summary.strip():
         raise ValueError(f"B2 formal public summary is missing: {record.get('ruler_name')}")
-    if not isinstance(evidence, list) or not evidence:
+    if not isinstance(evidence, list) or (not evidence and record.get("grade_origin") != "MISSING_EVIDENCE_DEFAULT"):
         raise ValueError(f"B2 formal public evidence is missing: {record.get('ruler_name')}")
     result = dict(item)
     result["reader_kind"] = "judgment"
@@ -400,6 +415,7 @@ def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
     result["public_adjudication_summary"] = summary
     result["public_evidence_items"] = deepcopy(evidence)
     result["reader_public_evidence_items"] = deepcopy(evidence)
+    _attach_quality_status(result, record)
     result["reader_highlights"] = _unique_texts(
         [
             f"{entry.get('public_label')}：{entry.get('public_basis')}"
@@ -449,6 +465,7 @@ def _attach_method_public_reader(item, *, axis, record, how=""):
     if axis == "A":
         result["reader_story"] = record["public_story"]
     elif axis == "B1":
+        _attach_quality_status(result, record)
         for source_key, reader_key in (
             ("public_story", "reader_story"),
             ("public_responsibility", "reader_responsibility"),
@@ -1280,6 +1297,7 @@ def render_second_b2_collection(root):
                          f"<details><summary>本条史料与归责依据</summary>{''.join(sources)}</details></li>")
         cards.append(f"<article id='{escape(row['ruler_id'])}'><h2>{escape(row['ruler_name'])}</h2>"
                      f"<p class='meta'>{escape(row['polity'])} · {escape(str(window))}</p>"
+                     f"<p class='quality-status'>置信度：{escape({'LOW':'低','MEDIUM':'中','HIGH':'高'}[row['confidence']])}{'；缺证默认，不代表已证良好表现' if row.get('grade_origin') == 'MISSING_EVIDENCE_DEFAULT' else ''}</p>"
                      f"<h3>为什么是这个等级</h3><p class='b2-adjudication-summary'>{escape(row['public_adjudication_summary'])}</p>"
                      f"<details><summary>逐条事实、方向、边界与史料</summary><ul>{''.join(items)}</ul></details></article>")
     template = (root / 'reader/second-item-b2.template.html').read_text(encoding='utf-8')

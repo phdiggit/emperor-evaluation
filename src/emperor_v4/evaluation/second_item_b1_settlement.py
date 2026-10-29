@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from emperor_v4.json_format import json_text
+from emperor_v4.evaluation.governance_quality import ASSESSMENT_METHOD, direction_index, is_direct, validate_quality_assessment
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 
 
@@ -37,7 +38,6 @@ INTERVALS = {
     "G4": (70.0, 84.9),
     "G5": (85.0, 100.0),
 }
-THRESHOLDS = {"G0": 0.0, "G1": 0.5, "G2": 1.0, "G3": 2.0, "G4": 3.0, "G5": 4.0}
 GATE_CODES = {
     "G0": "B1_G0_SYSTEMIC_ADMIN_BREAKDOWN",
     "G1": "B1_G1_DYSFUNCTION_DOMINANT",
@@ -57,10 +57,10 @@ ADJUDICATION_STATUSES = {
     "ZERO_NET",
 }
 PUBLIC_STATUS_LABELS = {
-    "COUNTED_INDEPENDENT": "独立计入",
+    "COUNTED_INDEPENDENT": "直接依据",
     "ABSORBED_SAME_LIFECYCLE": "并入同一运行链",
-    "BOUNDARY_CONTEXT": "不单独计入",
-    "ZERO_NET": "不增加净值",
+    "BOUNDARY_CONTEXT": "背景与核验",
+    "ZERO_NET": "正负合看",
 }
 PUBLIC_DIRECTION_LABELS = {
     "positive": "正向",
@@ -144,7 +144,7 @@ def _validate_independent_public_card_distinctness(row: dict[str, Any]) -> None:
 
 def _public_tags(profile: dict[str, Any], status: str) -> list[str]:
     unscored = profile.get("M") == "M0"
-    role = "边界材料" if unscored else "补充材料" if status == "ABSORBED_SAME_LIFECYCLE" else (
+    role = "边界材料" if unscored else "交叉核验" if profile.get("evidence_use") == "verification" else "补充材料" if status == "ABSORBED_SAME_LIFECYCLE" else (
         "边界材料" if status == "BOUNDARY_CONTEXT" else PUBLIC_ROLE_LABELS.get(
             str(profile.get("b1_role") or ""), "行政运行链"
         )
@@ -158,13 +158,6 @@ def _public_tags(profile: dict[str, Any], status: str) -> list[str]:
     if closure and not unscored and status != "BOUNDARY_CONTEXT":
         values.append(closure)
     return list(dict.fromkeys(value for value in values if value))
-
-
-def _weight_text(value: object) -> str:
-    number = float(value or 0.0)
-    if number.is_integer():
-        return f"{number:+.0f}"
-    return f"{number:+.1f}"
 
 
 def _public_summary(row: dict[str, Any]) -> str:
@@ -207,20 +200,14 @@ def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _group_key(profile: dict[str, Any]) -> str:
     return str(
-        profile.get("grade_independence_lifecycle_key")
-        or profile.get("lifecycle_group_key")
+        profile.get("lifecycle_group_key")
         or profile.get("lifecycle_key")
         or profile["material_id"]
     )
 
 
 def _excluded(profile: dict[str, Any]) -> bool:
-    return profile.get("position_weight_override") == 0 or profile.get("position_count_mode") in {
-        "absorbed_same_lifecycle",
-        "balanced_mixed_lifecycle",
-        "context_only",
-        "context_only_no_effective_mechanism",
-    }
+    return not is_direct(profile)
 
 
 def profile_id(ruler_id: str, profile: dict[str, Any]) -> str:
@@ -236,52 +223,19 @@ def profile_id(ruler_id: str, profile: dict[str, Any]) -> str:
 
 
 def active_groups(row: dict[str, Any]) -> list[dict[str, Any]]:
-    groups: dict[str, list[dict[str, Any]]] = {}
-    for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
-        for profile in row.get(key) or []:
-            if _excluded(profile):
-                continue
-            groups.setdefault(_group_key(profile), []).append(profile)
-    representatives = []
-    for group_profiles in groups.values():
-        nonzero = [profile for profile in group_profiles if float(profile.get("signed_weight") or 0.0) != 0]
-        if not nonzero:
+    groups: dict[str, dict[str, Any]] = {}
+    for profile in _iter_profiles(row):
+        if not is_direct(profile):
             continue
-        representatives.append(max(nonzero, key=lambda profile: abs(float(profile["signed_weight"]))))
-    return representatives
-
-
-def position_residual(row: dict[str, Any]) -> float:
-    profiles = active_groups(row)
-    residual = sum(float(profile.get("signed_weight") or 0.0) for profile in profiles)
-    for profile in profiles:
-        if profile.get("M") != "M3" or float(profile.get("signed_weight") or 0.0) >= 0:
-            continue
-        if profile.get("direction") == "mixed_negative":
-            continue
-        severity = str(profile.get("severity") or "")
-        if "terminal" in severity:
-            residual -= 1.0
-        elif "cross" in severity:
-            residual -= 0.5
-    return round(residual - THRESHOLDS[str(row["grade"])], 3)
-
-
-def position_from_residual(residual: float) -> str:
-    if residual < -1:
-        return "lower"
-    if residual < 0:
-        return "lower-middle"
-    if residual < 1:
-        return "middle"
-    if residual < 2:
-        return "middle-upper"
-    return "upper"
+        key = _group_key(profile)
+        if key in groups:
+            raise ValueError(f"B1同一运行过程有重复直接材料：{row['ruler_name']} / {key}")
+        groups[key] = profile
+    return list(groups.values())
 
 
 def index_from_grade_position(grade: str, position: str) -> float:
-    low, high = INTERVALS[grade]
-    return round(low + POSITION_Q[position] * (high - low), 1)
+    return direction_index(grade, position)
 
 
 def _competition_ranks(records: list[dict[str, Any]], score_key: str) -> None:
@@ -292,27 +246,15 @@ def _competition_ranks(records: list[dict[str, Any]], score_key: str) -> None:
 
 
 def _public_position_basis(row: dict[str, Any]) -> str:
-    position_cn = {
-        "lower": "下位",
-        "lower-middle": "中下位",
-        "middle": "中位",
-        "middle-upper": "中上位",
-        "upper": "上位",
-    }
+    position_cn = {"lower":"下位", "lower-middle":"中下位", "middle":"中位", "middle-upper":"中上位", "upper":"上位"}
     grade = str(row["grade"])
-    public_grade = dict(zip(INTERVALS, ("E", "D", "C", "B", "A", "S")))[grade]
     low, high = INTERVALS[grade]
-    groups = active_groups(row)
-    weight = sum(float(profile.get("signed_weight") or 0) for profile in groups)
-    residual = position_residual(row)
-    severity = round(weight - THRESHOLDS[grade] - residual, 3)
-    terms = "、".join(f"{profile.get('public_label')}（{_weight_text(profile.get('signed_weight'))}）" for profile in groups)
+    public_grade = {"G0":"E", "G1":"D", "G2":"C", "G3":"B", "G4":"A", "G5":"S"}[grade]
+    basis = str(row.get("public_position_basis") or "").strip()
+    if not basis:
+        raise ValueError(f"B1缺少直接维护的公开位置理由：{row.get('ruler_name')}")
     return (
-        f"先依据上述经历判断为{public_grade}档，再计算档内位置；材料条数不直接决定档位。"
-        f"去重后的计权依据为：{terms or '无有效计权材料'}，合计{weight:g}；"
-        f"减去本档固定占用{THRESHOLDS[grade]:g}和独立严重失灵修正{severity:g}，余额为{residual:g}。"
-        "余额小于−1为下位，−1至不足0为中下位，0至不足1为中位，1至不足2为中上位，至少2为上位。"
-        f"本人为{position_cn[row['position']]}，取区间位置{POSITION_Q[row['position']]:g}；"
+        f"{basis.rstrip('。')}。本人为{position_cn[row['position']]}，取区间位置{POSITION_Q[row['position']]:g}；"
         f"{public_grade}档区间{low:g}—{high:g}，指数={low:g}+{POSITION_Q[row['position']]:g}×({high:g}−{low:g})"
         f"={float(row['direction_index']):.1f}/100（保留一位小数）。该指数再进入制度与行政合成，不单列得分。"
     )
@@ -340,7 +282,7 @@ def _scoring_signature(payload: dict[str, Any]) -> str:
                 key: profile.get(key)
                 for key in (
                     "material_id", "evidence_slice", "M", "direction", "direction_factor",
-                    "signed_weight", "lifecycle_key", "lifecycle_group_key",
+                    "evidence_use", "material_review_basis", "lifecycle_key", "lifecycle_group_key",
                     "grade_independence_lifecycle_key", "position_count_mode",
                     "position_weight_override", "absorbed_into_lifecycle_key", "b1_role",
                     "severity", "severity_scope",
@@ -350,81 +292,12 @@ def _scoring_signature(payload: dict[str, Any]) -> str:
             "ruler_id": row.get("ruler_id"),
             "grade": row.get("grade"),
             "position": row.get("position"),
-            "position_residual": row.get("position_residual"),
-            "grade_threshold_consumed": row.get("grade_threshold_consumed"),
             "position_q": row.get("position_q"),
             "direction_index": row.get("direction_index"),
             "rank": row.get("rank"),
             "profiles": profiles,
         })
     return json.dumps(snapshot, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-
-
-def _prepare_profile_adjudication(payload: dict[str, Any]) -> tuple[int, Counter[str]]:
-    profile_count = 0
-    status_counts: Counter[str] = Counter()
-    for row in payload["records"]:
-        profiles = list(_iter_profiles(row))
-        for profile in profiles:
-            profile_count += 1
-            status = str(profile.get("adjudication_status") or "")
-            if status not in ADJUDICATION_STATUSES:
-                raise ValueError(f"B1 profile缺少正式公开裁决状态：{row['ruler_name']} / {profile.get('material_id')}")
-            mode = str(profile.get("position_count_mode") or "")
-            if status == "ABSORBED_SAME_LIFECYCLE" and mode not in {"absorbed_same_lifecycle", "balanced_mixed_lifecycle"}:
-                raise ValueError(f"B1 absorbed状态与position_count_mode不一致：{row['ruler_name']} / {profile.get('material_id')}")
-            if status == "BOUNDARY_CONTEXT" and mode not in {"context_only", "context_only_no_effective_mechanism"} and profile.get("direction") != "context":
-                raise ValueError(f"B1 boundary状态与position_count_mode不一致：{row['ruler_name']} / {profile.get('material_id')}")
-            if status == "ZERO_NET" and float(profile.get("signed_weight") or 0.0) != 0.0 and mode != "balanced_mixed_lifecycle":
-                raise ValueError(f"B1 zero-net状态与权重不一致：{row['ruler_name']} / {profile.get('material_id')}")
-
-            label = _normalize_public_text(profile.get("public_label"))
-            basis = _normalize_public_text(profile.get("adjudication_basis"))
-            if not label or not basis:
-                raise ValueError(f"B1 profile缺少正式公开名称或裁决：{row['ruler_name']} / {profile.get('material_id')}")
-            boundary = _normalize_public_text(profile.get("adjudication_boundary"))
-            public_text = " ".join((label, basis, boundary))
-            if PUBLIC_FORBIDDEN_RE.search(public_text):
-                raise ValueError(f"B1 profile公开字段仍含内部术语：{row['ruler_name']} / {profile.get('material_id')}")
-            if profile.get("adjudication_tags") != _public_tags(profile, status):
-                raise ValueError(f"B1 profile公开标签与正式字段不一致：{row['ruler_name']} / {profile.get('material_id')}")
-            profile["public_label"] = label
-            profile["adjudication_basis"] = basis
-            if boundary:
-                profile["adjudication_boundary"] = boundary
-            else:
-                profile.pop("adjudication_boundary", None)
-            profile.pop("adjudication_basis_source", None)
-
-        by_id = {str(profile["profile_id"]): profile for profile in profiles}
-        for profile in profiles:
-            status = str(profile["adjudication_status"])
-            if status == "ABSORBED_SAME_LIFECYCLE":
-                target_id = str(profile.get("absorbed_into_profile_id") or "")
-                target = by_id.get(target_id)
-                if target is None or target is profile or target.get("adjudication_status") not in {
-                    "COUNTED_INDEPENDENT", "ZERO_NET"
-                }:
-                    raise ValueError(f"B1 absorbed profile缺少唯一主profile：{row['ruler_name']} / {profile.get('material_id')}")
-            elif profile.get("absorbed_into_profile_id"):
-                raise ValueError(f"非并入profile不得保留absorbed_into_profile_id：{row['ruler_name']} / {profile.get('material_id')}")
-            status_counts[status] += 1
-
-        _authored_public_text(row, "public_story")
-        _authored_public_text(row, "public_responsibility")
-        row["public_adjudication_summary"] = _public_summary(row)
-        row["public_index_calculation"] = _public_position_basis(row)
-        row["public_boundary"] = B1_PUBLIC_BOUNDARY
-        row["public_evidence_items"] = _public_evidence_items(row)
-        row["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
-
-    payload["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
-    payload["profile_adjudication_record_count"] = len(payload.get("records") or [])
-    payload["profile_adjudication_profile_count"] = profile_count
-    payload["profile_adjudication_status_counts"] = dict(sorted(status_counts.items()))
-    payload.pop("profile_adjudication_basis_source_counts", None)
-    payload.pop("profile_adjudication_polish_count", None)
-    return profile_count, status_counts
 
 
 def refresh_b1_public_projection(payload: dict[str, Any]) -> dict[str, Any]:
@@ -520,68 +393,29 @@ def refresh_b1_public_projection_file(workspace_root: Path, *, write: bool = Fal
 
 
 def refresh_b1_payload(payload: dict[str, Any]) -> dict[str, Any]:
-    before = _scoring_signature(payload)
     records = payload["records"]
     for row in records:
-        ruler_id = str(row["ruler_id"])
-        for key in PROFILE_KEYS:
-            for profile in row.get(key) or []:
-                profile.pop("position_depth_bonus", None)
-                if profile.get("position_count_mode") == "representative_delivery_depth":
-                    profile.pop("position_count_mode", None)
-                profile["profile_id"] = profile_id(ruler_id, profile)
-    _prepare_profile_adjudication(payload)
-    for row in records:
-        residual = position_residual(row)
-        active = active_groups(row)
-        if row["grade"] == "G0" and not active:
-            position = "middle"
-        else:
-            position = position_from_residual(residual)
-        row["position_residual"] = residual
-        row["grade_threshold_consumed"] = THRESHOLDS[row["grade"]]
-        row["position"] = position
-        row["position_q"] = POSITION_Q[position]
-        row["direction_index"] = index_from_grade_position(row["grade"], position)
+        validate_quality_assessment(row, "B1")
+        for profile in _iter_profiles(row):
+            profile["profile_id"] = profile_id(str(row["ruler_id"]), profile)
+        row["position_q"] = POSITION_Q[row["position"]]
+        row["direction_index"] = index_from_grade_position(row["grade"], row["position"])
         row["index_interval"] = list(INTERVALS[row["grade"]])
         row["grade_gate_code"] = GATE_CODES[row["grade"]]
-        row["position_basis"] = (
-            f"有效生命周期签名M权重合计扣除{row['grade']}门槛占用"
-            f"{THRESHOLDS[row['grade']]:g}后，净余量={residual:g}，按合同机械映射为{position}。"
-        )
-        row["structured_grade_basis"] = _structured_basis(row)
-        row["profile_semantic_review_status"] = "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED"
-        row.pop("v50_review_decision", None)
-        row.pop("v50_review_status", None)
-        row.pop("v50_review_basis", None)
-        row.pop("structured_basis_source", None)
-        row.pop("structured_basis_source_line", None)
+        row["profile_semantic_review_status"] = ASSESSMENT_METHOD
     _competition_ranks(records, "direction_index")
-    payload["grade_distribution"] = dict(sorted(Counter(row["grade"] for row in records).items()))
-    payload["promotion_task_code"] = "B1-V54-LOW-GATE-NEGATIVE-PURITY-CONTRACT-READJUDICATION"
+    payload["grade_distribution"] = {g:sum(r["grade"] == g for r in records) for g in INTERVALS}
+    payload["contract_position_mode"] = "AUTHORED_QUALITY_POSITION"
+    payload["assessment_method"] = ASSESSMENT_METHOD
     payload["contract_recalculation_status"] = "FORMAL_COMPLETE"
-    payload["contract_recalculation_count"] = len(records)
-    payload["profile_semantic_review_count"] = len(records)
-    payload["position_basis_refresh_count"] = len(records)
-    payload["structured_basis_count"] = len(records)
-    for key in (
-        "profile_semantic_patch_count",
-        "v50_review_covered_count",
-        "v50_review_preserved_count",
-        "v50_review_preserved_rulers",
-        "v50_person_patch_count",
-        "v50_explicit_value_patch_count",
-        "structured_basis_source_counts",
-        "structured_basis_conflict_policy",
-        "structured_basis_review_covered_count",
-    ):
-        payload.pop(key, None)
-    if _scoring_signature(payload) != before:
-        raise ValueError("B1逐材料公开字段迁移意外改变了正式评分字段")
-    contract = CONTRACT_PATH.read_bytes()
+    for key in ("contract_recalculation_count", "profile_semantic_review_count", "position_basis_refresh_count", "structured_basis_count"):
+        payload[key] = len(records)
+    payload.pop("promotion_task_code", None)
+    refresh_b1_public_projection(payload)
+    contract = hashlib.sha256(CONTRACT_PATH.read_bytes()).hexdigest()
     for source in payload.get("source_documents") or []:
         if source.get("path") == CONTRACT_PATH.as_posix():
-            source["byte_sha256"] = hashlib.sha256(contract).hexdigest()
+            source["byte_sha256"] = contract
     return payload
 
 
@@ -589,151 +423,21 @@ def validate_gate_references(payload: dict[str, Any]) -> None:
     validate_profile_contract(payload)
     validate_public_profile_contract(payload)
     for row in payload["records"]:
-        active = {_group_key(profile): profile for profile in active_groups(row)}
-        by_id = {str(profile["profile_id"]): profile for profile in active.values()}
-        grade = str(row["grade"])
-        active_negative_m3 = [
-            profile
-            for profile in active.values()
-            if profile.get("M") == "M3" and float(profile.get("signed_weight") or 0.0) < 0
-        ]
-        if grade == "G0" and not any(
-            profile.get("severity") == "N3-terminal"
-            and profile.get("severity_scope") == "broad"
-            and profile.get("b1_role") == "core"
-            for profile in active_negative_m3
-        ):
-            raise ValueError(f"B1 G0缺少broad N3-terminal核心失效链：{row['ruler_name']}")
-        if grade == "G1":
-            has_terminal_residual = any(
-                profile.get("severity") == "N3-terminal"
-                for profile in active_negative_m3
-            )
-            has_dominant_cross = any(
-                profile.get("severity") == "N3-cross"
-                and profile.get("severity_scope") in {"major-stage", "broad"}
-                for profile in active_negative_m3
-            )
-            dominant_domains = [
-                profile
-                for profile in active_negative_m3
-                if profile.get("severity") == "N3-domain"
-                and profile.get("severity_scope") in {"major-stage", "broad"}
-            ]
-            if not (has_terminal_residual or has_dominant_cross or len(dominant_domains) >= 2):
-                raise ValueError(f"B1 G1缺少terminal残存、主要阶段cross或两条独立domain负链：{row['ruler_name']}")
-        if grade == "G3":
-            route = row.get("g3_gate_route")
-            refs = row.get("g3_gate_profile_ids") or []
-            profiles = [by_id.get(str(profile_ref)) for profile_ref in refs]
-            if len(refs) != len(set(map(str, refs))) or any(profile is None for profile in profiles):
-                raise ValueError(f"B1 G3门禁引用缺失或重复：{row['ruler_name']}")
-            if route == "CORE_M3":
-                if len(profiles) != 1 or profiles[0]["M"] != "M3" or profiles[0].get("b1_role") != "core" or float(profiles[0]["signed_weight"]) <= 0:
-                    raise ValueError(f"B1 G3核心M3路线无效：{row['ruler_name']}")
-            elif route == "CENTRAL_OR_DISTRIBUTED_M3":
-                if len(profiles) != 1 or profiles[0]["M"] != "M3" or profiles[0].get("b1_role") not in {"central", "distributed"} or float(profiles[0]["signed_weight"]) <= 0:
-                    raise ValueError(f"B1 G3中枢/分布式M3路线无效：{row['ruler_name']}")
-            elif route == "MULTI_CHAIN":
-                if len(profiles) < 2 or any(
-                    profile["M"] not in {"M2", "M3"}
-                    or profile.get("b1_role") == "context"
-                    or float(profile["signed_weight"]) <= 0
-                    for profile in profiles
-                ):
-                    raise ValueError(f"B1 G3多链路线不足两条独立正M2/M3：{row['ruler_name']}")
-            else:
-                raise ValueError(f"B1 G3缺少合法门禁路线：{row['ruler_name']}")
-        if grade in {"G4", "G5"}:
-            refs = [row.get("g4_core_profile_id"), row.get("g4_secondary_profile_id")]
-            if any(not ref or str(ref) not in by_id for ref in refs):
-                raise ValueError(f"B1 G4门禁引用缺失：{row['ruler_name']}")
-            core, secondary = (by_id[str(ref)] for ref in refs)
-            if core["M"] != "M3" or core.get("b1_role") != "core" or float(core["signed_weight"]) <= 0:
-                raise ValueError(f"B1 G4核心链不是B1-core正M3：{row['ruler_name']}")
-            if secondary["M"] not in {"M2", "M3"} or float(secondary["signed_weight"]) <= 0:
-                raise ValueError(f"B1 G4第二验证无效：{row['ruler_name']}")
-            if _group_key(core) == _group_key(secondary):
-                raise ValueError(f"B1 G4两条链未去重：{row['ruler_name']}")
-            if any(
-                profile.get("M") == "M3"
-                and float(profile.get("signed_weight") or 0.0) < 0
-                and profile.get("severity") == "N3-cross"
-                and profile.get("severity_scope") in {"major-stage", "broad"}
-                for profile in active.values()
-            ):
-                raise ValueError(f"B1 G4/G5仍有独立major-stage/broad N3-cross：{row['ruler_name']}")
-        if grade == "G5":
-            extra_id = row.get("g5_extra_basis_id")
-            route = row.get("g5_extra_route")
-            if not extra_id or str(extra_id) not in by_id:
-                raise ValueError(f"B1 G5额外链缺失：{row['ruler_name']}")
-            extra = by_id[str(extra_id)]
-            consumed = {row["g4_core_profile_id"], row["g4_secondary_profile_id"]}
-            if (
-                route not in {"THIRD_CORE_M3", "CROSS_STAGE_REPLACEMENT", "PRESSURE_RECOVERY"}
-                or extra["M"] not in {"M2", "M3"}
-                or (route == "THIRD_CORE_M3" and extra["M"] != "M3")
-                or (route == "THIRD_CORE_M3" and extra.get("b1_role") != "core")
-                or float(extra["signed_weight"]) <= 0
-                or extra_id in consumed
-            ):
-                raise ValueError(f"B1 G5额外链无效或被G4重复消费：{row['ruler_name']}")
-            if any(
-                profile.get("M") == "M3"
-                and float(profile.get("signed_weight") or 0.0) < 0
-                and profile.get("severity") in {"N3-cross", "N3-terminal"}
-                and profile.get("severity_scope") in {"major-stage", "broad"}
-                for profile in active.values()
-            ):
-                raise ValueError(f"B1 G5仍有主要阶段跨功能失灵：{row['ruler_name']}")
+        validate_quality_assessment(row, "B1")
+        active_groups(row)
 
 
 def validate_profile_contract(payload: dict[str, Any]) -> None:
     for row in payload["records"]:
-        for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
-            for profile in row.get(key) or []:
-                role = profile.get("b1_role")
-                if role not in ALLOWED_B1_ROLES:
-                    raise ValueError(f"B1 profile缺少合法b1_role：{row['ruler_name']} / {profile.get('material_id')}")
-                if _excluded(profile):
-                    if role != "context":
-                        raise ValueError(f"B1排除profile必须标为context：{row['ruler_name']} / {profile.get('material_id')}")
-                    continue
-                level = profile.get("M")
-                weight = float(profile.get("signed_weight") or 0.0)
-                if level in {"M2", "M3"}:
-                    factors = {
-                        "positive": 1.0, "positive_correction": 1.0,
-                        "mixed_positive": 0.5, "mixed": 0.0, "neutral": 0.0,
-                        "mixed_negative": -0.5, "negative": -1.0,
-                    }
-                    factor = factors.get(str(profile.get("direction")))
-                    if factor is None or profile.get("direction_factor") != factor:
-                        raise ValueError(f"B1方向与direction_factor不一致：{row['ruler_name']} / {profile.get('material_id')}")
-                    expected = (1.0 if level == "M2" else 2.0) * factor
-                    if abs(weight - expected) > 1e-9:
-                        raise ValueError(
-                            f"B1 M档与signed_weight不一致：{row['ruler_name']} / {profile.get('material_id')} / {level} / {weight:g}"
-                        )
-                elif level == "M0":
-                    if weight != 0 or role != "context":
-                        raise ValueError(f"B1 M0必须零权重且为context：{row['ruler_name']} / {profile.get('material_id')}")
-                else:
-                    raise ValueError(f"B1非法M档：{row['ruler_name']} / {profile.get('material_id')}")
-                if level == "M3" and weight < 0:
-                    if profile.get("direction") == "mixed_negative":
-                        if any(profile.get(field) is not None for field in ("severity", "severity_scope", "severity_basis")):
-                            raise ValueError(f"B1混合负M3不得保留独立Severity：{row['ruler_name']} / {profile.get('material_id')}")
-                    else:
-                        if profile.get("severity") not in ALLOWED_SEVERITIES:
-                            raise ValueError(f"B1有效负M3缺少Severity：{row['ruler_name']} / {profile.get('material_id')}")
-                        if profile.get("severity_scope") not in ALLOWED_SEVERITY_SCOPES:
-                            raise ValueError(f"B1有效负M3缺少Severity scope：{row['ruler_name']} / {profile.get('material_id')}")
-                        if profile.get("severity") in {"N3-cross", "N3-terminal"} and role != "core":
-                            raise ValueError(f"B1 cross/terminal负M3必须标为core失灵：{row['ruler_name']} / {profile.get('material_id')}")
-                elif any(profile.get(field) is not None for field in ("severity", "severity_scope", "severity_basis")):
-                    raise ValueError(f"B1非负M3残留Severity字段：{row['ruler_name']} / {profile.get('material_id')}")
+        validate_quality_assessment(row, "B1")
+        for profile in _iter_profiles(row):
+            if profile.get("b1_role") not in ALLOWED_B1_ROLES:
+                raise ValueError(f"B1材料缺少责任角色：{row['ruler_name']}")
+            if profile.get("M") == "M3" and profile.get("direction") == "negative" and is_direct(profile):
+                if profile.get("severity") not in ALLOWED_SEVERITIES or profile.get("severity_scope") not in ALLOWED_SEVERITY_SCOPES:
+                    raise ValueError(f"B1负面系统运行缺少功能与范围：{row['ruler_name']}")
+            elif any(profile.get(key) is not None for key in ("severity", "severity_scope", "severity_basis")):
+                raise ValueError(f"B1非独立负面系统材料残留严重失灵标记：{row['ruler_name']}")
 
 
 def validate_public_profile_contract(payload: dict[str, Any]) -> None:
@@ -756,13 +460,6 @@ def validate_public_profile_contract(payload: dict[str, Any]) -> None:
             if status not in ADJUDICATION_STATUSES:
                 raise ValueError(f"B1逐材料公开裁决状态缺失：{row['ruler_name']} / {profile.get('material_id')}")
             status_counts[status] += 1
-            mode = str(profile.get("position_count_mode") or "")
-            if status == "ABSORBED_SAME_LIFECYCLE" and mode not in {"absorbed_same_lifecycle", "balanced_mixed_lifecycle"}:
-                raise ValueError(f"B1 absorbed状态与position_count_mode不一致：{row['ruler_name']} / {profile.get('material_id')}")
-            if status == "BOUNDARY_CONTEXT" and mode not in {"context_only", "context_only_no_effective_mechanism"} and profile.get("direction") != "context":
-                raise ValueError(f"B1 boundary状态与position_count_mode不一致：{row['ruler_name']} / {profile.get('material_id')}")
-            if status == "ZERO_NET" and float(profile.get("signed_weight") or 0.0) != 0.0 and mode != "balanced_mixed_lifecycle":
-                raise ValueError(f"B1 zero-net状态与权重不一致：{row['ruler_name']} / {profile.get('material_id')}")
             label = str(profile.get("public_label") or "").strip()
             basis = str(profile.get("adjudication_basis") or "").strip()
             if not label or not basis:
@@ -800,14 +497,7 @@ def _summary(row: dict[str, Any]) -> str:
 
 
 def _profile_contribution(profile: dict[str, Any]) -> str:
-    status = str(profile.get("adjudication_status") or "")
-    if status == "ABSORBED_SAME_LIFECYCLE":
-        return "并入同一运行链"
-    if status == "BOUNDARY_CONTEXT":
-        return "不单独计入"
-    if status == "ZERO_NET":
-        return "0（不增加净值）"
-    return _weight_text(profile.get("signed_weight"))
+    return {"direct":"直接评价", "verification":"交叉核验", "context":"背景与边界", "absorbed":"并入同一过程"}.get(str(profile.get("evidence_use")), "用途未明")
 
 
 def _source_label(source_title: str) -> str:
@@ -891,7 +581,7 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
     lines = [
         "# B1官僚治理与行政执行方向卡", "", "## 一、方向卡结论", "",
         (
-            f"B1已按新合同完成{len(records)}人全池门禁与档内位置重算，最高内部指数为"
+            f"B1按组织运行质量评价{len(records)}人，最高内部指数为"
             f"{records[0]['ruler_name']} {float(records[0]['direction_index']):.1f}，"
             f"平均{sum(scores) / len(scores):.1f}，中位数{scores[len(scores) // 2]:.1f}，"
             f"范围{scores[0]:.1f}—{scores[-1]:.1f}。"
@@ -903,7 +593,7 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
     ]
     lines.extend(f"| {grade} | {payload['grade_distribution'].get(grade, 0)} |" for grade in INTERVALS)
     lines.extend([
-        "", "## 四、185人方向卡排序", "",
+        "", "## 四、方向卡排序", "",
         "| 排名 | 人物 | 政权 | 档位 | 运行摘要 | 内部指数/100 |",
         "|---:|---|---|---|---|---:|",
     ])
@@ -919,6 +609,7 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
             f"### {row['ruler_name']}（{row['polity']}，分项第{row['rank']}名）", "",
             f"- 档位：{row['grade']}（{position_cn[row['position']]}）",
             f"- 内部指数：{float(row['direction_index']):.1f}/100",
+            f"- 置信度：{ {'LOW':'低','MEDIUM':'中','HIGH':'高'}[row['confidence']]}",
             f"- 具体经历：{row['public_story']}",
             f"- 本人责任：{row['public_responsibility']}",
             "- 结算依据：",
@@ -935,7 +626,7 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
         for profile in _iter_profiles(row):
             tags = "、".join(str(tag) for tag in profile.get("adjudication_tags") or [])
             lines.append(
-                f"  - **{profile['public_label']}**（{tags}；本项计入：{_profile_contribution(profile)}）"
+                f"  - **{profile['public_label']}**（{tags}；用途：{_profile_contribution(profile)}）"
             )
             lines.append(f"    - 裁决：{str(profile['adjudication_basis']).rstrip('。')}。")
             boundary = _public_profile_boundary(profile) if profile.get("adjudication_boundary") else ''

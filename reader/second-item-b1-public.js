@@ -151,6 +151,7 @@
     const groups = groupedEvidence(evidence);
     body.innerHTML = "";
     const reading = make("div", "second-item-public-reading second-item-b1-reading");
+    reading.append(make("p", "subline quality-status", item.reader_quality_status || ""));
     reading.append(make("h4", "", "具体经历"), make("p", "prose second-item-b1-story", story));
     reading.append(make("h4", "", "本人承担什么责任"), make("p", "prose second-item-b1-responsibility", responsibility));
     const reason = make("div", "second-item-b1-summary");

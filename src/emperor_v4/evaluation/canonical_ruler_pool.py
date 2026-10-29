@@ -436,10 +436,14 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                     "对象未通过评价池准入，不进入第一项池内缺口统计。"
                     if reason_code is not None
                     else (
-                        FIRST_ITEM_NOT_APPLICABLE_ALLOWLIST.get(name)
-                        or first_item_scope_notes.get(name)
-                        or FIRST_ITEM_PENDING_FORMAL_SETTLEMENT.get(name)
-                        or "新第一项正式总榜未列示；按现行合同不适用，F=0。"
+                        "第一项已有正式结算；净分读取该人物正式记录，附加分由综合公式换算。"
+                        if source_rows["first_item"] is not None
+                        else (
+                            FIRST_ITEM_NOT_APPLICABLE_ALLOWLIST.get(name)
+                            or first_item_scope_notes.get(name)
+                            or FIRST_ITEM_PENDING_FORMAL_SETTLEMENT.get(name)
+                            or "第一项正式结算未收录；按现行适用性裁决不适用，F=0。"
+                        )
                     )
                 ),
                 "first_item_readiness": (

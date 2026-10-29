@@ -36,6 +36,23 @@ def _grade(row: dict[str, Any]) -> str:
     return 'NOT_APPLICABLE' if row['axis_grade'] is None else f"{row['axis_grade']}-{row['position']}"
 
 
+def validate_calibration(row: dict[str, Any], by_id: dict[str, dict[str, Any]]) -> None:
+    calibration = row.get('horizontal_calibration')
+    if row['axis_grade'] == 'G5' and not calibration:
+        raise ValueError('C4 G5缺同轴比较')
+    if not calibration:
+        return
+    comparators = calibration.get('comparators', [])
+    if not calibration.get('decision_basis') or calibration.get('scores_used_as_formula') is not False or len(comparators) < 2:
+        raise ValueError('C4同轴比较依据不完整')
+    comparator_ids = [item.get('ruler_id') for item in comparators]
+    if len(set(comparator_ids)) != len(comparator_ids):
+        raise ValueError('C4同轴比较对象重复')
+    for item in comparators:
+        if item.get('ruler_id') not in by_id or item['ruler_id'] == row['ruler_id'] or not item.get('comparison'):
+            raise ValueError('C4同轴比较对象或依据无效')
+
+
 def _text(value: Any) -> str:
     if isinstance(value, list):
         return '\n'.join(f'- {_text(item)}' for item in value)
@@ -108,6 +125,7 @@ def verify(root: Path = ROOT) -> dict[str, Any]:
     payload = load_json(root / JSON_PATH)
     pool = {r['ruler_id']: r for r in load_json(root / 'config/common/canonical-ruler-pool.json')['records'] if r['pool_status'] == 'INCLUDED'}
     records = payload['records']
+    by_id = {row['ruler_id']: row for row in records}
     if len(records) != len(pool) or {r['ruler_id'] for r in records} != set(pool) or payload['record_count'] != len(records):
         raise ValueError('C4规范池覆盖不一致')
     expected_order = sorted(records, key=lambda row: (-(row['radar_value'] if row['radar_value'] is not None else -1), row['ruler_id']))
@@ -146,6 +164,7 @@ def verify(root: Path = ROOT) -> dict[str, Any]:
             raise ValueError('C4父链或代表链无效')
         if not row['grade_basis'] or not row['position_basis'] or not row['limitations']:
             raise ValueError('C4裁决依据不完整')
+        validate_calibration(row, by_id)
         for ref in row['source_refs'] + [ref for p in parents for ref in p['source_refs']]:
             file, _, anchor = ref.partition('#')
             if not (root / file).is_file():

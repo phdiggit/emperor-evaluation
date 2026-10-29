@@ -44,14 +44,30 @@ def test_counted_card_cannot_claim_it_is_background_only():
         validate_public_profile_contract(source)
 
 
-def test_index_math_uses_current_weights_and_grade_interval():
-    # An invented case: +2 minus a fixed grade occupation of 2 gives middle.
+def test_index_math_uses_authored_position_and_grade_interval():
     row = {'grade':'G3', 'position':'middle', 'direction_index':62.5,
-           'M_positive_profile':[{'public_label':'合成考核', 'M':'M3', 'direction':'positive',
-                                  'signed_weight':2, 'material_id':'SYNTHETIC', 'lifecycle_key':'ONE'}]}
+           'public_position_basis':'合成对象的职责覆盖和质量支持本档典型位置。'}
     text = _public_position_basis(row)
-    assert '合计2' in text and '余额为0' in text
+    assert row['public_position_basis'] in text and '余额' not in text
     assert '55+0.5×(69.9−55)=62.5/100' in text
+
+
+def test_current_b1_validation_does_not_require_historical_batch_versions(monkeypatch):
+    from emperor_v4.evaluation import formal_settlements
+
+    original_load = formal_settlements.load_json
+    source_path = (ROOT / B1_PATH).resolve()
+    current = original_load(source_path)
+    current.pop('review_material_absorption', None)
+    for row in current['records']:
+        row.pop('review_material_basis', None)
+
+    def load_current(path, *args, **kwargs):
+        return current if path.resolve() == source_path else original_load(path, *args, **kwargs)
+
+    monkeypatch.setattr(formal_settlements, 'load_json', load_current)
+    result = formal_settlements.verify_second_item_b1_snapshot(ROOT)
+    assert result['record_count'] == len(current['records'])
 
 
 def test_unscored_suggestion_cannot_publish_a_sustained_operation_badge():
@@ -73,6 +89,9 @@ def test_every_ready_reader_record_projects_the_current_authored_fields_verbatim
                 continue
             row = source[record['ruler_id']]
             seen.add(record['ruler_id'])
+            assert item['reader_confidence'] == row['confidence']
+            assert item['reader_evidence_status'] == row['evidence_status']
+            assert item['reader_grade_origin'] == row['grade_origin']
             for public, reader in (('public_story','reader_story'), ('public_responsibility','reader_responsibility'),
                                    ('public_adjudication_summary','reader_summary'), ('public_index_calculation','reader_index_calculation'),
                                    ('public_evidence_items','reader_public_evidence_items')):

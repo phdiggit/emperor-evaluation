@@ -83,6 +83,7 @@ def test_method_public_projection_preserves_all_nodes_and_boundaries():
     }]
     result = builder._attach_method_public_reader(
         {}, axis="B1", record={
+            "confidence": "MEDIUM",
             "public_adjudication_summary": tail,
             "public_story": "受命者办理事务，结果有记录。",
             "public_responsibility": "本人负责授权，现场工作归受命者。",

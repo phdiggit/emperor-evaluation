@@ -643,6 +643,7 @@
   function b2Reading(item) {
     const reading = document.createElement("div");
     reading.className = "second-item-public-reading b2-public-reading";
+    reading.append(makeTextBlock("p", "subline quality-status", String(item.reader_quality_status || "")));
     reading.append(makeTextBlock("div", "label", "为什么是这个等级"));
     reading.append(makeTextBlock("p", "prose b2-adjudication-summary", String(item.public_adjudication_summary || item.reader_summary || "")));
     reading.append(makeTextBlock("p", "subline", "看具体意见如何进入、本人如何处置及结果是否改变。主动改意、接受信息与受到外部程序约束分别理解；背景材料不当作独立功过。"));

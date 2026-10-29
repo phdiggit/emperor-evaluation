@@ -80,6 +80,7 @@ def test_b2_reader_projection_consumes_all_explicit_public_evidence():
         {"label": "B2反馈与约束", "value": 38.0, "source": "docs/评分结算/测试.json"},
         record={
             "ruler_name": "合成甲",
+            "confidence": "MEDIUM",
             "public_adjudication_summary": "主要反馈机制能够改变决策，整体判断为中档（中位）。",
             "public_evidence_items": evidence,
         },
@@ -932,13 +933,15 @@ const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:J
 vm.createContext(ctx);vm.runInContext(source,ctx);
 ctx.r={ruler_id:'SYNTHETIC',ruler_name:'合成对象',impact:{source_refs:[
  {kind:'LOCAL_FORMAL_RECORD',path:'docs/历史审计合成.json',ruler_id:'SYNTHETIC',collection:'scores',field_paths:['state_anchors'],parent_ids:['P1'],evidence_note:'只核对这一事实。',use_scope:'SPATIAL_FACT_CHECK_ONLY'},
- {kind:'HISTORICAL_WEB_SOURCE',title:'目录材料',url:'https://example.org/catalogue',evidence_note:'只有目录，未读正文。',verification_mode:'RETRIEVED_CATALOGUE_OR_ABSTRACT_OFFLINE_NOTE'},
+ {kind:'HISTORICAL_WEB_SOURCE',title:'目录材料',url:'https://example.org/catalogue',evidence_note:'只有目录，未读正文。',verification_mode:'RETRIEVED_CATALOGUE_OR_ABSTRACT_OFFLINE_NOTE',adopted_excerpt:'合成目录所载：甲 < 乙。',adoption_limit:'只证明目录条目，不证明正文事实。'},
 ],related_fact_entries:[{kind:'LOCAL_FORMAL_RECORD',path:'docs/unbound.json',ruler_id:'SYNTHETIC'}]}};
 let html=vm.runInContext('impactSourceList(r,[0])',ctx);
 for(const text of ['历史审计合成.json','scores','state_anchors','P1','只核对这一事实。','仅用于空间事实核对','尚未直接绑定外部原典'])assert.ok(html.includes(text),text);
 assert.ok(!html.includes('unbound.json'),'person-level related source must not leak into chain evidence');
 html=vm.runInContext('impactSourceList(r,[1])',ctx);
 assert.ok(html.includes('只有目录，未读正文。'));
+ assert.ok(html.includes('合成目录所载：甲 &lt; 乙。'));
+ assert.ok(html.includes('只证明目录条目，不证明正文事实。'));
 assert.ok(html.includes('仅核对目录或摘要的离线记录'));
 assert.ok(!html.includes('尚未直接绑定外部原典'));
 html=vm.runInContext('impactSourceList(r,[])',ctx);
@@ -1031,6 +1034,15 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
  const html=vm.runInContext("axisEvidence(r,'C4')",ctx);
  assert.ok(html.includes('design-context-story'),file);
  assert.ok(html.indexOf('反例与判断边界')>html.indexOf('metadata adjudication'),file);
+ if(a.horizontal_calibration){
+  assert.ok(html.includes('同轴比较'),file);
+  ctx.calibration=a.horizontal_calibration;
+  assert.ok(html.includes(vm.runInContext('powerProse(calibration.decision_basis)',ctx)),file);
+  for(const item of a.horizontal_calibration.comparators){
+   ctx.comparison=item.comparison;
+   assert.ok(html.includes(vm.runInContext('powerProse(comparison)',ctx)),file);
+  }
+ }
  for(const c of a.representative_contexts){
   ctx.c=c;
   const card=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C4'})",ctx);
@@ -1043,6 +1055,30 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
 }
 assert.ok(processes>0);
 ''')
+
+
+def test_design_projection_keeps_current_joint_judgment_and_comparators():
+    from copy import deepcopy
+
+    row = {
+        'axis_code': 'C4', 'ruler_id': 'synthetic-a',
+        'applicability': {'status': 'APPLICABLE', 'basis': '有真实结构选择。'},
+        'architecture_review': {'magnitude': 'AM3', 'basis': '独立设计有复验，接口仍有冲突。'},
+        'parent_chains': [], 'source_refs': [],
+        'horizontal_calibration': {
+            'decision_basis': '综合设计、运行与反馈强度和厚度。',
+            'scores_used_as_formula': False,
+            'comparators': [
+                {'ruler_id': 'synthetic-b', 'comparison': '复验更宽，但适配有缺陷。'},
+                {'ruler_id': 'synthetic-c', 'comparison': '整合更深，持续运行有限。'},
+            ],
+        },
+    }
+    before = deepcopy(row)
+    projected = axis_projection(row, ['ruler_id'])
+    assert projected['architecture_review']['basis'] == row['architecture_review']['basis']
+    assert projected['horizontal_calibration'] == row['horizontal_calibration']
+    assert row == before
 
 
 def test_diplomatic_reader_separates_all_current_adopted_and_boundary_material(tmp_path):

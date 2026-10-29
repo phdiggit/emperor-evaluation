@@ -43,9 +43,13 @@ def verify_current_records(payload: dict) -> None:
         balance = r.get('directional_strength_balance_review', {})
         suppression = set(balance.get('suppression_parent_ids', []))
         assert suppression <= set(ids), f'{label}: stale suppression references'
+        isolated = set(balance.get('isolated_positive_parent_ids', []))
+        assert isolated <= set(ids), f'{label}: stale isolated positive references'
         for p in parents:
             if p['parent_id'] in suppression:
                 assert p['direction'] in ('NEGATIVE', 'MIXED_NEGATIVE', 'MIXED'), f'{label}: positive suppression parent'
+            if p['parent_id'] in isolated:
+                assert p['direction'] in ('POSITIVE', 'MIXED_POSITIVE', 'MIXED'), f'{label}: negative isolated positive parent'
             if 'intensity' in p and 'material_intensity' in p:
                 assert p['intensity'] == p['material_intensity'], f'{label}: conflicting intensity'
         calibration = r.get('horizontal_calibration')

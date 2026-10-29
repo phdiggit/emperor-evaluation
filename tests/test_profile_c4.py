@@ -2,7 +2,7 @@ from copy import deepcopy
 
 import pytest
 
-from emperor_v4.evaluation.profile_c4 import render, validate_decision
+from emperor_v4.evaluation.profile_c4 import render, validate_calibration, validate_decision
 
 
 def decision():
@@ -56,6 +56,36 @@ def test_g5_single_integrated_am4_needs_no_second_am3():
         "integrated_architecture_policy": "单组一体化架构，不拆分补票。",
     }
     validate_decision(row)
+
+
+def test_calibration_uses_current_identities_without_changing_rulings():
+    row = dict(decision(), ruler_id='synthetic-a')
+    row['horizontal_calibration'] = {
+        'decision_basis': '合看设计、运行与反馈，不以对方分数换算。',
+        'scores_used_as_formula': False,
+        'comparators': [
+            {'ruler_id': 'synthetic-b', 'comparison': '独立问题复验更宽，但协调代价更大。'},
+            {'ruler_id': 'synthetic-c', 'comparison': '整合集中，跨压力运行尚有限。'},
+        ],
+    }
+    records = {rid: {'ruler_id': rid} for rid in ('synthetic-a', 'synthetic-b', 'synthetic-c')}
+    before = deepcopy(row)
+    validate_calibration(row, records)
+    assert row == before
+    invalid = deepcopy(row)
+    invalid['horizontal_calibration']['comparators'][0]['ruler_id'] = 'missing'
+    with pytest.raises(ValueError, match='对象或依据'):
+        validate_calibration(invalid, records)
+    invalid = deepcopy(row)
+    invalid['horizontal_calibration']['scores_used_as_formula'] = True
+    with pytest.raises(ValueError, match='依据不完整'):
+        validate_calibration(invalid, records)
+
+
+def test_historical_grade_requires_calibration_without_prescribing_position():
+    for position in ('LOW', 'MID', 'HIGH'):
+        with pytest.raises(ValueError, match='缺同轴比较'):
+            validate_calibration({'axis_grade': 'G5', 'position': position}, {})
 
 
 def test_reader_keeps_all_design_processes_and_source_limits():

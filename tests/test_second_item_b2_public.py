@@ -23,7 +23,7 @@ def _profile(*, direction: str, weight: float, mechanism: str, lifecycle: str | 
         "M": "M2",
         "direction": direction,
         "direction_factor": 1.0 if weight >= 0 else -1.0,
-        "signed_weight": weight,
+        "evidence_use": "direct" if weight else "context",
         "material_id": mechanism,
         "mechanism": mechanism,
         "result_closure": "observed_or_repeated",
@@ -106,7 +106,7 @@ def test_b2_refresh_fails_without_authored_text():
 
 def test_b2_effective_group_cannot_be_marked_as_wholly_background(tmp_path):
     row = _row()
-    row['M_mixed_profile'][0]['signed_weight'] = 0
+    row['M_mixed_profile'][0]['evidence_use'] = 'absorbed'
     item = row['public_evidence_items'][0]
     item['public_direction'] = _public_direction(list(_group_profiles(row).values())[0])
     item['public_tags'] = ['部分阶段不另计']
@@ -139,6 +139,13 @@ def test_full_pool_reading_collection_preserves_current_public_text():
     assert text.count('<article id=') == len(payload['records'])
     for row in payload['records']:
         assert escape(row['public_adjudication_summary']) in text
+        projected = module._attach_b2_public_reader({}, record=row)
+        assert projected['reader_confidence'] == row['confidence']
+        assert projected['reader_grade_origin'] == row['grade_origin']
+        assert projected['reader_public_evidence_items'] == row['public_evidence_items']
+        if row.get('grade_origin') == 'MISSING_EVIDENCE_DEFAULT':
+            assert '缺证默认' in projected['reader_quality_status']
+            assert not projected['reader_public_evidence_items']
         for item in row['public_evidence_items']:
             assert escape(item['public_basis']) in text
             assert escape(item['public_boundary']) in text

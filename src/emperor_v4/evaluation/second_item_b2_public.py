@@ -7,6 +7,7 @@ import json
 import re
 from pathlib import Path
 from typing import Any
+from emperor_v4.evaluation.governance_quality import is_direct
 
 from emperor_v4.evaluation.formal_json_store import (
     load_json,
@@ -65,7 +66,7 @@ def _profile_rows(row: dict[str, Any]):
 
 
 def _group_key(profile: dict[str, Any], index: int) -> str:
-    for key in ("absorbed_into_lifecycle_key", "lifecycle_key", "material_id"):
+    for key in ("lifecycle_group_key", "absorbed_into_lifecycle_key", "lifecycle_key", "material_id"):
         value = str(profile.get(key) or "").strip()
         if value:
             return value
@@ -90,37 +91,33 @@ def _stable_id(row: dict[str, Any], group_key: str) -> str:
 
 
 def _public_direction(profiles: list[dict[str, Any]]) -> str:
-    weights = [_number(profile.get("signed_weight")) for profile in profiles]
-    positive = any(value > 0 for value in weights)
-    negative = any(value < 0 for value in weights)
-    if positive and negative:
-        total = sum(weights)
-        if total > 0:
-            return "正向主导"
-        if total < 0:
-            return "负向主导"
-        return "正负并存"
-    if positive:
-        return "正向主导" if any(str(p.get("direction")) == "mixed_positive" for p in profiles) else "正向"
-    if negative:
-        return "负向主导" if any(str(p.get("direction")) == "mixed_negative" for p in profiles) else "负向"
+    effective = [p for p in profiles if is_direct(p)]
+    profiles = effective or profiles
+    authored = {p["lifecycle_direction"] for p in profiles if p.get("lifecycle_direction")}
+    if len(authored) > 1:
+        raise ValueError("B2同一反馈过程的总体方向不一致")
+    if authored:
+        value = authored.pop()
+        if value not in PUBLIC_DIRECTIONS:
+            raise ValueError("B2同一反馈过程的总体方向非法")
+        return value
     directions = {str(profile.get("direction") or "") for profile in profiles}
     if "positive" in directions and "negative" in directions:
         return "正负并存"
+    if "mixed_positive" in directions:
+        return "正向主导"
+    if "mixed_negative" in directions:
+        return "负向主导"
     if "positive" in directions:
         return "正向"
     if "negative" in directions:
         return "负向"
-    if directions & {"mixed_negative"}:
-        return "负向主导"
-    if directions & {"mixed_positive"}:
-        return "正向主导"
     return "正负并存"
 
 
 def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
     items = row.get("public_evidence_items")
-    if not isinstance(items, list) or not items:
+    if not isinstance(items, list) or (not items and row.get("grade_origin") != "MISSING_EVIDENCE_DEFAULT"):
         raise ValueError(f"B2缺少直接维护的逐条公开正文：{row.get('ruler_name')}")
     return copy.deepcopy(items)
 
@@ -207,7 +204,7 @@ def _refresh_payload(payload: dict[str, Any]) -> dict[str, Any]:
         evidence_count += len(items)
         merged_count += sum(1 for group in groups.values() if len(group) > 1)
         zero_weight_count += sum(
-            1 for _, _, profile in profiles if _number(profile.get("signed_weight")) == 0
+            1 for _, _, profile in profiles if not is_direct(profile)
         )
     if _scoring_signature(payload) != before_signature:
         raise ValueError("第二项B2公开字段迁移意外改变了正式评分字段")
@@ -258,10 +255,10 @@ def verify_public_projection(
         expected_evidence_count += len(groups)
         expected_merged_count += sum(1 for group in groups.values() if len(group) > 1)
         expected_zero_weight_count += sum(
-            1 for _, _, profile in profiles if _number(profile.get("signed_weight")) == 0
+            1 for _, _, profile in profiles if not is_direct(profile)
         )
         actual_items = row.get("public_evidence_items")
-        if not isinstance(actual_items, list) or not actual_items:
+        if not isinstance(actual_items, list) or (not actual_items and row.get("grade_origin") != "MISSING_EVIDENCE_DEFAULT"):
             raise ValueError(f"第二项B2缺少逐人公开材料列表：{name}")
         ids = [str(item.get("id") or "") for item in actual_items if isinstance(item, dict)]
         if len(ids) != len(actual_items) or len(ids) != len(set(ids)) or any(not value for value in ids):
@@ -291,7 +288,7 @@ def verify_public_projection(
         for item, group in zip(actual_items, groups.values()):
             if item["public_direction"] != _public_direction(group):
                 raise ValueError(f"第二项B2公开方向与正式方向不一致：{name}")
-            effective = [p for p in group if _number(p.get("signed_weight")) != 0]
+            effective = [p for p in group if is_direct(p)]
             if ("背景材料" in item["public_tags"]) != (not effective):
                 raise ValueError(f"第二项B2整条背景标记与有效阶段不一致：{name}")
             partial = bool(effective) and len(effective) < len(group)
@@ -337,23 +334,29 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
             continue
         row = records[match[1]]
         seen.add(match[1])
-        body = part[match.end():].strip()
-        if '<!-- b2-public-start -->' in body:
-            body = body.split('<!-- b2-public-end -->', 1)[1].strip()
-        opener = '<details><summary>技术结算与原材料</summary>'
-        if body.startswith(opener) and body.endswith('</details>'):
-            body = body[len(opener):-len('</details>')].strip()
-        lines = ['<!-- b2-public-start -->', '', row['public_adjudication_summary'], '']
+        position = {'lower':'下位','lower-middle':'中下位','middle':'中位','middle-upper':'中上位','upper':'上位'}[row['position']]
+        confidence = {'LOW':'低','MEDIUM':'中','HIGH':'高'}[row['confidence']]
+        lines = [f"- 档位：{row['grade']}（{position}）", f"- 内部指数：{row['direction_index']:.1f}/80", f"- 置信度：{confidence}"]
+        if row.get('grade_origin') == 'MISSING_EVIDENCE_DEFAULT':
+            lines.append('- 证据状态：缺证默认；不代表已证良好表现。')
+        lines += ['', row['public_adjudication_summary'], '', '- 结算依据：']
+        lines += [f"  - {line.rstrip('。')}。" for line in row['settlement_basis']]
+        lines += ['', '- 材料依据：']
+        lines += [f"  - {line.rstrip('。')}。" for line in row['material_basis']]
+        lines.append('')
         for item in row['public_evidence_items']:
             lines += [f"- **{item['public_label']}**（{item['public_direction']}；{'、'.join(item['public_tags'])}）",
                       f"  - 事实与判断：{item['public_basis']}", f"  - 适用边界：{item['public_boundary']}"]
             for ref in item['source_refs']:
                 target = '../../../../公共成果/制度行政/01-制度行政计分材料登记/' + Path(ref['path']).name
                 lines.append(f"  - 来源：{ref['source_title']} {ref['source_locator']}；[材料登记]({target})")
-        lines += ['', '<!-- b2-public-end -->', '', opener, '', body, '', '</details>', '']
-        parts[index] = match[0] + '\n' + '\n'.join(lines) + '\n'
+        parts[index] = f"### {row['ruler_name']}（{row['polity']}，分项第{row['rank']}名）\n\n" + '\n'.join(lines) + '\n\n'
     if seen != set(records):
         raise ValueError('B2 Markdown人物块与正式记录不一致')
+    all_names = set(re.findall(r'^### ([^（\n]+)（', markdown, flags=re.MULTILINE))
+    if all_names == set(records):
+        lines = ['# B2反馈纠错与权力约束方向卡', '', '按实际反馈质量、表达保护、范围归责及反证恢复维护当前裁决。内部指数使用80刻度，按正式总则合成。', '', '缺证对象明确标为低置信度默认结算，不以缺少记载推定良好表现。', '', '## 逐人裁决与材料依据', '']
+        parts[0] = '\n'.join(lines) + '\n'
     return ''.join(parts).rstrip() + '\n'
 
 
