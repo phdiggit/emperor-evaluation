@@ -203,6 +203,34 @@ def _validate_stage_reviews(root: Path, ranked_ids: set[str]) -> tuple[int, int,
     return len(reviews), axis_count, dict(methods)
 
 
+def _unquantified_reviews(registry: dict, ranked_ids: set[str]) -> dict[str,list[dict]]:
+    """Expose declared gaps without manufacturing numerical scenarios."""
+    result: dict[str,list[dict]] = defaultdict(list)
+    for case in registry['cases']:
+        gaps = case.get('unquantified_components', [])
+        if not gaps:
+            continue
+        if (case['status'] != 'UNRESOLVED_EVIDENCE_GAP' or not case.get('limitations')
+                or not case.get('source_refs')):
+            raise ValueError('未量化缺口缺少当前状态、边界或来源')
+        scope = {r['ruler_id']:set(r['components']) for r in
+                 registry['rank_envelope']['case_scopes'][case['case_id']]['affected']}
+        seen = set()
+        for gap in gaps:
+            rid, components = gap['ruler_id'], gap['components']
+            if (rid in seen or not components or len(set(components)) != len(components)
+                    or not set(components) <= scope.get(rid, set())):
+                raise ValueError('未量化缺口与具名依赖范围不一致')
+            seen.add(rid)
+            if rid in ranked_ids:
+                result[rid].append({'case_id':case['case_id'], 'components':components,
+                    'question':case['question'],
+                    'basis':case.get('public_basis',case['basis']),
+                    'limitations':case.get('public_limitations',case['limitations']),
+                    'source_refs':case['source_refs']})
+    return result
+
+
 def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
     """Attach one sourced prudent interval to each ranked record."""
     root = root.resolve()
@@ -238,12 +266,16 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
     if len(all_reviews)!=len(cost_source['records']) or set(reviews)!=expected_cost:
         raise ValueError('军事成本审慎复核没有逐人覆盖现行下界与暂定对象')
     scenario_cases={s['case_id'] for s in scenario_source['scenarios']}
+    unquantified = _unquantified_reviews(case_source, set(by_id))
     for cid, case in active_cases.items():
         if case['ruler_id'] not in by_id:
             continue
         if cid in scenario_cases:
             continue
         scope=case_source['rank_envelope']['case_scopes'][cid]['affected']
+        gaps = {r['ruler_id']:set(r['components']) for r in case.get('unquantified_components', [])}
+        if scope and all(set(r['components']) <= gaps.get(r['ruler_id'], set()) for r in scope):
+            continue
         if case['ruler_id'] not in reviews or len(scope)!=1 or scope[0]['components']!=['THIRD_COST']:
             raise ValueError(f'现行未决命题未进入审慎区间：{cid}')
     cost_deltas = {rid:0.0 for rid in by_id}
@@ -275,6 +307,10 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
         for ref in scenario['source_refs']:_check_ref(root,ref)
         for mutation in scenario['affected']:
             rid=mutation['ruler_id']
+            for gap in active_cases[cid].get('unquantified_components', []):
+                if (gap['ruler_id'] == rid and
+                        set(mutation.get('axes', {})) & set(gap['components'])):
+                    raise ValueError('未量化分项不得同时填写数值候选')
             if rid not in by_id:
                 if rid in pool_ids:
                     continue
@@ -401,6 +437,13 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
         row['prudent_rank_projection'] = _own_interval_rank_projection(
             records, rid, low, high
         )
+        if unquantified.get(rid):
+            interval = row['prudent_score_interval']
+            interval['unquantified_reviews'] = unquantified[rid]
+            interval['coverage_status'] = 'PARTIAL_RANGE_WITH_UNQUANTIFIED_GAPS'
+            interval['endpoint_attainability'] = 'QUANTIFIED_PART_ONLY_NOT_COMPLETE_EVIDENCE_RANGE'
+            interval['basis'] += ' 另有明确未量化缺口；本区间只覆盖可量化部分，不是全部证据解释的完整边界。'
+            row['prudent_rank_projection']['coverage_status'] = 'QUANTIFIED_PART_ONLY'
         assessment=row.get('evidence_assessment',{})
         projection=assessment.get('public_projection',{})
         if projection:
@@ -414,6 +457,11 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
                    '候选端点并非已采信的替代分数，亦不生成候选名次。新增史料可以重开。')
             projection.update(score_label=label,public_basis=basis)
             assessment.update(score_label=label,public_basis=basis)
+            if unquantified.get(rid):
+                label='可量化部分已列；另有未量化证据缺口'
+                basis+=' 未量化事项不作零分差，不据已列区间宣称完整分数或名次范围。'
+                projection.update(score_label=label,public_basis=basis)
+                assessment.update(score_label=label,public_basis=basis)
     return {'pool_count':len(records),'nonpoint_count':intervals,'cost_review_count':len(reviews),
             'low_evidence_axis_review_count':len(axis_reviews),
             'governance_axis_review_methods':dict(method_counts),

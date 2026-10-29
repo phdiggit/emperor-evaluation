@@ -107,3 +107,34 @@ def test_cost_candidate_and_net_loss_take_one_larger_debit():
     factors = {'C5': {'HIGH': 0.7}, 'C6': {'LOW': 0.625, 'HIGH': 0.45}}
     assert _cost_delta(40, 40, 'C6', 'LOW', factors) == 0
     assert _cost_delta(40, 40, 'C6', 'HIGH', factors) == -4
+def test_unquantified_review_preserves_gap_without_numeric_delta():
+    from emperor_v4.evaluation.prudent_score_intervals import _unquantified_reviews
+    registry = {
+        'cases': [{'case_id':'synthetic-gap', 'ruler_id':'synthetic-person',
+                   'status':'UNRESOLVED_EVIDENCE_GAP', 'question':'终点是否可比？',
+                   'basis':'合成对象存在范围变化。', 'limitations':'尚无可量化替代。',
+                   'source_refs':['synthetic-source'],
+                   'unquantified_components':[{'ruler_id':'synthetic-person', 'components':['C1','C4']}]}],
+        'rank_envelope':{'case_scopes':{'synthetic-gap':{'affected':[
+            {'ruler_id':'synthetic-person', 'components':['C1','C4']}]}}},
+    }
+    result = _unquantified_reviews(registry, {'synthetic-person'})
+    gap = result['synthetic-person'][0]
+    assert gap['components'] == ['C1','C4']
+    assert not {'delta','conditional_delta_range','lower','upper'} & gap.keys()
+    assert not _unquantified_reviews(registry, set())
+
+
+def test_unquantified_review_rejects_unscoped_components():
+    import pytest
+    from emperor_v4.evaluation.prudent_score_intervals import _unquantified_reviews
+    registry = {
+        'cases':[{'case_id':'synthetic-gap','ruler_id':'synthetic-person',
+                  'status':'UNRESOLVED_EVIDENCE_GAP','question':'合成问题',
+                  'basis':'合成依据','limitations':'尚未定价','source_refs':['synthetic-source'],
+                  'unquantified_components':[{'ruler_id':'synthetic-person','components':['C4']}]}],
+        'rank_envelope':{'case_scopes':{'synthetic-gap':{'affected':[
+            {'ruler_id':'synthetic-person','components':['C1']}]}}},
+    }
+    with pytest.raises(ValueError, match='范围不一致'):
+        _unquantified_reviews(registry, {'synthetic-person'})
