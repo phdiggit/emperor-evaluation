@@ -99,6 +99,7 @@ const state={compare:['left','right'],differences:false};
 const context={DATA:data,state,screen,byId:new Map(),nav(){},history:{replaceState(){}},
  document:{getElementById(id){assert.equal(id,'differences');return checkbox;},querySelector(selector){assert.equal(selector,'.comparison');return table;}},
  esc:String,number:v=>String(v??'—'),scoreNumber:v=>String(v??'—'),conf:String,dimNames:{extent:'范围'},gradeHelp:()=>'',evidenceAssessment:()=>'',impactDimensionGrade:(key,grade)=>String(grade||'未列'),impactMeaning:{B:'合成影响量级'},
+ governanceScope:()=>'',governanceReading:()=>'',
  netGroups:r=>`<p>构成-${r.ruler_id}</p>`,historySections:r=>`<p>后效-${r.ruler_id}</p>`,
  axisEvidence:(r,c)=>`<details><summary>${c}</summary><p>${r.axes[c].evidence}</p></details>`};
 vm.createContext(context);
@@ -163,7 +164,7 @@ def test_home_filters_preserve_context_and_use_formal_identity(tmp_path):
 const fs=require('node:fs'),assert=require('node:assert/strict'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8');
 function section(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert.ok(a>=0&&b>a);return source.slice(a,b);}
-const nodes=Object.fromEntries(['search','polity','scope','sort','impact-filter','toggle-home-view','toggle-filters','advanced-filters','filter-state','clear-filters','count','rows','selection'].map(id=>[id,{id,value:'',hidden:false,textContent:'',innerHTML:'',handlers:{},attributes:{},focus(){this.focused=true;},setAttribute(k,v){this.attributes[k]=v;},addEventListener(k,v){this.handlers[k]=v;}}]));
+const nodes=Object.fromEntries(['show-performance','governance-scale','search','polity','scope','sort','impact-filter','toggle-home-view','toggle-filters','advanced-filters','filter-state','clear-filters','count','rows','selection'].map(id=>[id,{id,value:'',hidden:false,textContent:'',innerHTML:'',handlers:{},attributes:{},focus(){this.focused=true;},setAttribute(k,v){this.attributes[k]=v;},addEventListener(k,v){this.handlers[k]=v;}}]));
 let writes=0,html='';
 const screen={set innerHTML(v){writes++;html=v;},get innerHTML(){return html;}};
 function record(id,extra={}){return {ruler_id:id,ruler_name:id,polity:'合成朝代',supplementary:false,axes:{},net:null,impact:{identity_label:id+'（合成称号）',reading_start_year:1,public_grade:'B',impact_nature:'合成性质',confidence:'MEDIUM'},...extra};}
@@ -171,7 +172,7 @@ const records=[record('left'),record('right'),record('supplement',{supplementary
 records[0].impact.identity_label='left（<不作为HTML>）';
 const original=JSON.stringify(records);
 const state={q:'',polity:'',scope:'main',sort:'time',compare:['left'],grade:'',differences:false,filtersOpen:false,homeView:'simple'};
-const context={DATA:{records,impact_grades:['B'],main_count:2,ranked_count:0,supplementary_count:1,capability_axes:[],independent_axes:[],axis_specs:{}},state,screen,byId:new Map(records.map(r=>[r.ruler_id,r])),document:{getElementById:id=>nodes[id]},nav(){},number:String,conf:String,impactMeaning:{B:'合成影响量级'}};
+const context={DATA:{records,impact_grades:['B'],main_count:2,ranked_count:0,supplementary_count:1,capability_axes:[],independent_axes:[],axis_specs:{}},state,screen,byId:new Map(records.map(r=>[r.ruler_id,r])),document:{getElementById:id=>nodes[id]},nav(){},number:String,scoreNumber:v=>String(v??'—'),conf:String,impactMeaning:{B:'合成影响量级'}};
 vm.createContext(context);
 vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function home(){','function netPanel('),context);
 vm.runInContext('home()',context);
@@ -218,6 +219,18 @@ assert.ok(nodes['rows'].innerHTML.includes('data-person="left"'));
 assert.equal(nodes['clear-filters'].disabled,true);assert.equal(nodes.search.focused,true);
 assert.equal(JSON.stringify(records),original,'filtering must not mutate formal records');
 assert.equal(vm.runInContext('personLabel({ruler_name:"只有本名"})',context),'只有本名');
+records[0].net={rank:9,total_score:12,second_item_score:8,third_item_score:4,
+ governance_context:{scale_band:'REGIONAL',scale_label:'区域',complexity_label:'多区'}};
+records[1].net={rank:2,total_score:30,second_item_score:20,third_item_score:10,
+ governance_context:{scale_band:'EMPIRE',scale_label:'超广域',complexity_label:'复合'}};
+const withScores=JSON.stringify(records);
+change('governance-scale','REGIONAL');nodes['show-performance'].onclick();
+assert.ok(nodes.rows.innerHTML.includes('performance-table'));
+assert.ok(nodes.rows.innerHTML.includes('<td>9</td>'),'filtered view retains global rank');
+assert.ok(!nodes.rows.innerHTML.includes('data-person="right"'));
+assert.ok(nodes.rows.innerHTML.includes('名次保留全池正式名次'));
+nodes['clear-filters'].onclick();assert.equal(nodes['governance-scale'].value,'');
+assert.equal(JSON.stringify(records),withScores,'scope filtering does not rescore or rerank');
 ''', encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
                             text=True, encoding='utf-8')

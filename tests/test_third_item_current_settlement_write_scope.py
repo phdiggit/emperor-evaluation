@@ -6,6 +6,68 @@ import pytest
 from emperor_v4.evaluation.third_item_current_settlement import _replace_non_public_preserving_public, _validate_overlapping_subject_windows
 
 
+@pytest.mark.parametrize('binding_fault', [None, 'missing', 'extra', 'wrong_scope'])
+def test_c_outcome_sync_keeps_strategy_authority_and_exact_ruler_bindings(monkeypatch, tmp_path, binding_fault):
+    from emperor_v4.evaluation import third_item_current_settlement as current
+    from emperor_v4.evaluation import third_item_c_strategy_chain as strategic
+    from emperor_v4.evaluation import third_item_c_contract_reading as reading
+    from emperor_v4.evaluation import five_dynasties_third_item as rendering
+    from emperor_v4.evaluation import reading_layout
+
+    records = [dict(ruler_id=rid, ruler_name=rid, independent_task_groups=['shared'],
+                    current_item_task_refs=['shared'], current_task_basis_reason='current source reason',
+                    task_outcome_profile={'source': 'current strategic source'},
+                    public_reading={'story': rid+' authored reading'}) for rid in ['alpha', 'beta']]
+    formal = {'records': records}
+    source = {'records': [dict(ruler_id=r['ruler_id'], formal_writeback={'fields': {
+        'current_task_basis_reason': r['current_task_basis_reason'],
+        'task_outcome_profile': r['task_outcome_profile'],
+    }}) for r in records]}
+    binding = dict(parent_cycle_ref='shared',
+                   ruler_bindings=[dict(ruler_id=r['ruler_id'], consumption_scope='CURRENT_RULER_WINDOW_VIEW') for r in records],
+                   binding_status='EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED', reason='Each side owns its window.')
+    configured = {'shared_parent_ruler_binding_adjudications': [binding]}
+    if binding_fault == 'missing':
+        configured['shared_parent_ruler_binding_adjudications'] = []
+    elif binding_fault == 'extra':
+        configured['shared_parent_ruler_binding_adjudications'].append(dict(binding, parent_cycle_ref='unused'))
+    elif binding_fault == 'wrong_scope':
+        binding['ruler_bindings'][0]['consumption_scope'] = 'AUTHORIZED_CAPABILITY_ONLY_VIEW'
+    before = deepcopy((formal, source, configured))
+    def load(path):
+        if path == tmp_path/current.C_PATH:
+            return deepcopy(formal)
+        assert path == tmp_path/current.C_OUTCOME_ADJUDICATIONS_PATH
+        return deepcopy(configured)
+    writes = []
+    monkeypatch.setattr(current, '_load', load)
+    monkeypatch.setattr(strategic, 'load_strategy_chain_source', lambda root: source)
+    monkeypatch.setattr(current, '_current_d_security_result_index', lambda root: {})
+    monkeypatch.setattr(current, '_build_d_security_result_profile', lambda *args: {'legacy': 'generated'})
+    monkeypatch.setattr(current, '_current_c_task_basis_reason', lambda *args: 'legacy generated reason')
+    monkeypatch.setattr(current, 'load_ruler_polities', lambda root: {})
+    monkeypatch.setattr(current, 'write_json', lambda path, payload, **kwargs: writes.append(deepcopy(payload)))
+    monkeypatch.setattr(reading, 'load_context', lambda root: {})
+    monkeypatch.setattr(rendering, '_render_formal_markdown', lambda *args, **kwargs: 'reading')
+    monkeypatch.setattr(reading_layout, 'write_reading', lambda *args, **kwargs: None)
+    if binding_fault:
+        match = '消费范围不一致' if binding_fault == 'wrong_scope' else '精确覆盖'
+        with pytest.raises(ValueError, match=match):
+            current._synchronize_current_c_outcome_view(tmp_path)
+        assert not writes
+    else:
+        current._synchronize_current_c_outcome_view(tmp_path)
+        assert len(writes) == 1
+        for actual, expected in zip(writes[0]['records'], records):
+            assert actual['current_task_basis_reason'] == expected['current_task_basis_reason']
+            assert actual['task_outcome_profile'] == expected['task_outcome_profile']
+            assert actual['public_reading'] == expected['public_reading']
+        contract = writes[0]['shared_parent_ruler_binding_contract']
+        assert contract['shared_parent_count'] == 1
+        assert contract['binding_count'] == len(records)
+    assert (formal, source, configured) == before
+
+
 def test_scoring_sync_preserves_only_the_existing_public_projection():
     current = {
         "score": 1,

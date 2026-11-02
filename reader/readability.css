@@ -490,6 +490,38 @@
     gap: 14px;
   }
 
+  #rows .performance-table tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fcfbf7;
+  }
+  #rows .performance-table td {
+    display: block;
+    min-width: 0;
+    white-space: normal;
+    border: 0;
+    padding: 8px 0;
+  }
+  #rows .performance-table td:nth-child(2) { text-align: right; }
+  #rows .performance-table td:nth-child(3),
+  #rows .performance-table td:nth-child(4),
+  #rows .performance-table td:nth-child(7) { grid-column: 1 / -1; }
+  #rows .performance-table td::before {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  #rows .performance-table td:nth-child(1)::before { content: "全池正式名次"; }
+  #rows .performance-table td:nth-child(4)::before { content: "综合绩效"; }
+  #rows .performance-table td:nth-child(5)::before { content: "治国"; }
+  #rows .performance-table td:nth-child(6)::before { content: "军事边疆"; }
+  #rows .performance-table details,
+  #rows .performance-table .governance-reading { min-width: 0; max-width: 100%; }
+
   #rows tr.home-click-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

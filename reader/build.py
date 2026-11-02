@@ -1100,6 +1100,20 @@ def public_governance_context(context):
     return result
 
 
+def governance_display(component_details):
+    """Copy current formal display values; do not infer grades or rescore."""
+    groups = {key: {item['label']: item for item in items}
+              for key, items in component_details.items()}
+    finance = groups.get('finance', {})
+    return {
+        'states': [pick(finance[label], ['label', 'grade', 'value'])
+                   for label in ('C1民生', 'C2经济财政', 'C3社会安全') if label in finance],
+        'recovery': finance.get('C4恢复与成本', {}).get('value'),
+        'method': groups.get('method', {}).get('治理手段', {}).get('value'),
+        'handoff': groups.get('handoff', {}).get('交接得分', {}).get('value'),
+    }
+
+
 def record_summary(record):
     """Project a small, self-sufficient overview row without evidence prose."""
     net = record.get("net")
@@ -1119,7 +1133,7 @@ def record_summary(record):
     summary["net"] = pick(net, [
         "rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
         "second_item_score", "third_item_score", "fourth_item_adjustment",
-        "evidence_assessment", "prudent_score_interval", "prudent_rank_projection", "governance_context",
+        "evidence_assessment", "prudent_score_interval", "prudent_rank_projection", "governance_context", "governance_display",
     ]) if net else None
     if summary["net"] and net.get('evidence_assessment'):
         summary["net"]['evidence_assessment'] = pick(net['evidence_assessment'],
@@ -1678,6 +1692,7 @@ def build(*, check=False, write=True):
                 net_reader_sources,
                 first_item_public_outcomes,
             )
+            projected_net['governance_display'] = governance_display(projected_net['component_details'])
             reader_summary = second_item_reader_summaries.get(rid)
             if reader_summary:
                 projected_net["reader_governance_summary"] = reader_summary

@@ -224,7 +224,9 @@ def component_details(sources: dict[str, Any], pool: dict[str, Any], row: dict[s
     civilization = []
     for key, label in (("A", "A国家共同体"), ("B", "B教育与人才"), ("C", "C文化知识")):
         r = axes[key]
-        grade = " / ".join(str(r[k]) for k in ("direction", "magnitude_grade", "band") if r.get(k) is not None)
+        grade = (f'独立结果：正毛额{r["positive_gross"]:g}，负毛额{r["negative_gross"]:g}'
+                 if r.get('calculation_version') else
+                 " / ".join(str(r[k]) for k in ("direction", "magnitude_grade", "band") if r.get(k) is not None))
         civilization.append(cell(label, r["signed_adjustment"], grade or r["disposition"], FOURTH))
     equal(sum(x["value"] for x in civilization), row["fourth_item_adjustment"], "第四项")
     civilization.append(cell("第四项调整", row["fourth_item_adjustment"], "合计", FOURTH))

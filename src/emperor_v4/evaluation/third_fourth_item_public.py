@@ -1095,7 +1095,7 @@ def fourth_public_record(row: dict[str, Any]) -> dict[str, Any]:
         axis["public_adjudication_summary"] for axis in ordered
     ) or "正式记录没有保留可直述的文明与国家整合结果。"
     return dict(row,
-        public_adjudication_summary=_clean_public_text(summary),
+        public_adjudication_summary=(summary if any(a.get('calculation_version') for a in ordered) else _clean_public_text(summary)),
         public_evidence_items=copy.deepcopy(items) or [
             _item(
                 "FOURTH-RECORD",
@@ -1112,6 +1112,9 @@ def fourth_public_record(row: dict[str, Any]) -> dict[str, Any]:
 
 @language_domain('civilization')
 def _refresh_fourth(payload: dict[str, Any]) -> dict[str, Any]:
+    if payload.get('schema_version') == 'fourth-item-independent-results-v2':
+        from .fourth_item_results import project
+        return project(payload)
     rows = _records(payload)
     package_rows = _records(payload, "accepted_packages")
     packages = _package_index(package_rows) if package_rows else {}
@@ -1189,6 +1192,9 @@ def _verify_third(payloads: dict[str, dict[str, Any]], *, c_review_context) -> d
 
 
 def _verify_fourth(payload: dict[str, Any]) -> dict[str, Any]:
+    if payload.get('schema_version') == 'fourth-item-independent-results-v2':
+        from .fourth_item_results import verify_projection
+        return verify_projection(payload)
     before = _signature(payload)
     expected = _refresh_fourth(copy.deepcopy(payload))
     if before != _signature(payload):
@@ -1236,8 +1242,8 @@ def verify_public_projection(workspace_root: Path) -> dict[str, Any]:
     fourth['b_authored_reading_count'] = verify_b_readings(payloads['fourth'], root)
     from .fourth_item_c_public import verify_readings as verify_c_readings
     fourth['c_authored_reading_count'] = verify_c_readings(payloads['fourth'], root)
-    if third["record_count"] != fourth["record_count"]:
-        raise ValueError("第三项与第四项公开投影人物数量不一致")
+    from .fourth_item_results import verify_payload
+    verify_payload(payloads['fourth'], root)
     return {
         "status": "PASS",
         "schema_version": PUBLIC_PROJECTION_SCHEMA,

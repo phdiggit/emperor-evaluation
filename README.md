@@ -60,6 +60,7 @@ python v4.py maintenance --component profile.C2 --polity 西汉 --verify
 | 正式入口或登记 | `python v4.py project-entries-verify` |
 | 评价池 | `python v4.py canonical-ruler-pool`只读核对，确认修改时加`--write` |
 | 综合计分输入 | `python v4.py composite-ranking --write`，再同步实际受影响分析和阅读层 |
+| 第四项独立结果 | 正式JSON的`axis_results.results`为计价输入；`python v4.py fourth-item-a-views --write`同步三轴及总榜，`fourth-item-a-verify`核对价格、毛净额、来源及交班。旧证据包不参与换分，排除对象不计入主池 |
 | 军损解释情景 | `python v4.py cost-sensitivity --write`；基准档位变化先复核案例 |
 | 证据解释情景 | 综合榜重建后运行`python v4.py evidence-sensitivity --write` |
 | 全链结算一致性 | `python v4.py formal-settlements-verify`；可用`--item`限定分项 |

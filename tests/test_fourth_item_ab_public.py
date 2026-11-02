@@ -62,21 +62,9 @@ def test_missing_authored_body_cannot_fall_back_to_generic_translation(api, axis
         api.package_reading(package)
 
 
-def test_axis_binding_rejects_foreign_schema_and_same_axis_background(api, axis):
-    package = synthetic_package(api, axis)
-    other = import_module(f"emperor_v4.evaluation.fourth_item_{'b' if axis == 'A' else 'a'}_public")
-    with pytest.raises(ValueError, match=f'第四项{axis}'):
-        api.package_reading({**package, 'public_reading': {**package['public_reading'], 'schema': other.SCHEMA}})
-
-    prose = {key: '合成正文。' for key in (
-        'question', 'window', 'story', 'decision', 'responsibility', 'boundary', 'source_note')}
-    prose.update(schema=api.SCHEMA, assessment_sources=package['public_reading']['sources'], context_items=[
-        dict(package_ref=package['package_code'], story='同轴材料不可冒充跨轴背景。', boundary='合成边界。',
-             source_refs=package['source_refs'], sources=package['public_reading']['sources'])])
-    row = dict(ruler_id='SYNTHETIC', ruler_name='合成对象')
-    axis_row = dict(public_reading=prose, package_refs=[], signed_adjustment=0)
-    with pytest.raises(ValueError, match='背景材料跨人、跨界或丢失引用'):
-        api.axis_reading(row, axis_row, {package['package_code']: package})
+def test_axis_binding_rejects_legacy_net_grade(api, axis):
+    with pytest.raises(ValueError, match='旧净档接口'):
+        api.axis_reading(dict(ruler_name='合成人物'),dict(axis=axis, signed_adjustment=0),{})
 
 
 def test_current_reader_surfaces_match_formal_readings(api, axis):

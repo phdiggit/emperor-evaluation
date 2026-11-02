@@ -21,7 +21,7 @@ GOVERNANCE_CONTEXT = "config/common/composite-governance-context.json"
 OUTPUT_JSON = "docs/评分结算/净收益/00-统治绩效综合评分榜.json"
 OUTPUT_MARKDOWN = "docs/评分结算/净收益/00-统治绩效综合评分榜.md"
 FIRST_ITEM_ADD_ON_COEFFICIENT = 0.20
-FIRST_ITEM_SENSITIVITY_COEFFICIENTS = (0.18, 0.20, 0.22)
+FIRST_ITEM_SENSITIVITY_COEFFICIENTS = (0.20, 0.30, 0.40)
 
 SETTLEMENT_SPECS = {
     "second_item": (
@@ -134,6 +134,8 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         for item, (relative, _) in SETTLEMENT_SPECS.items()
     }
     payloads = {item: _read_json(path) for item, path in settlement_paths.items()}
+    from .fourth_item_results import verify_payload
+    fourth_validation = verify_payload(payloads['fourth_item'], workspace_root)
     indexed = {
         item: _index_records(payload, item) for item, payload in payloads.items()
     }
@@ -297,14 +299,10 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
     for row in records:
         row['evidence_assessment'] = compact_assessment(row['evidence_assessment'])
     pending.sort(key=lambda row: row["ruler_id"])
-    fourth_review = {
-        key: payloads["fourth_item"].get(key, {})
-        for key in ("promotion_gate", "coverage_completion_gate")
-    }
-    fourth_review_complete = all(
-        bool(gate) and all(value is True for value in gate.values())
-        for gate in fourth_review.values()
-    )
+    fourth_review = dict(calculation_version=payloads['fourth_item']['schema_version'],
+                         adjudication=payloads['fourth_item']['adoption_review'],
+                         validation=fourth_validation)
+    fourth_review_complete = fourth_validation['semantic_review_complete']
     return {
         "schema_id": "emperor-v4-composite-ranking-v1",
         "status": (
@@ -314,7 +312,7 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         "fourth_item_semantic_review_complete": fourth_review_complete,
         "fourth_item_review_gates": fourth_review,
         "ranking_population": "COMPOSITE_READY",
-        "formula": f"T = S2 + S3 + {FIRST_ITEM_ADD_ON_COEFFICIENT:.2f} * 637 * (S1 / 240) ^ 1.25 + CIV4",
+        "formula": f"T = S2 + S3 + {FIRST_ITEM_ADD_ON_COEFFICIENT:.2f} * 637 * (S1 / 240) ^ 1.25 + S4",
         "first_item_not_applicable_policy": "F=0; not treated as a zero-score failure",
         "rank_tie_policy": "competition_rank_then_ruler_id",
         "governance_context_legend": {
@@ -529,7 +527,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "",
         "以下是诊断设置，不修改正式权重，也不根据人物名次选择参数：",
         "",
-        "- 奠基附加系数取18%、20%、22%；文明调整倍数取0.8、1、1.2，正负端同步缩放。共同项固定时形成9种附加项组合。",
+        "- 奠基附加系数取20%、30%、40%：20%为正式基准，30%与40%分别将现有奠基附加提高50%与100%，用于检验更重奠基与统一贡献的视角，不是基准附近的对称误差区间，也不是第一项占个人总分的比例。文明调整倍数仍取0.8、1、1.2，正负端同步缩放。共同项固定时形成9种附加项组合。",
         "- 共同项倾斜参数d取-0.2、0、0.2，以(1+d, 1-d)分别乘第二、三项，再同乘637/[387×(1+d)+250×(1-d)]，保持共同正向上限637及奠基附加尺度一致。",
         f"- 三组参数全组合共{payload['weight_sensitivity']['scenario_count']}种情景，包含基准；总分仍保留两位小数并采用竞争排名。所有情景采用同一入榜池，未结算对象不参与。",
         "",

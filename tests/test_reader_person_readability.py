@@ -336,7 +336,10 @@ for(const [id,notes] of Object.entries(payload.records)){
   for(const ref of block.evidence){
    if(ref.path[0]==='net'){
     const item=record.net?.component_details?.[ref.path[2]]?.[ref.path[3]];
-    if(item)assert.ok(typeof item.source==='string' && item.source.startsWith('docs/'));
+    if(item){
+     assert.ok(typeof item.source==='string' && /^(docs|config)\//.test(item.source));
+     assert.ok(fs.existsSync(item.source.split('#')[0]),'current formal source must exist');
+    }
    }
   }
  }

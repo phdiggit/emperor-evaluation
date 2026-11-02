@@ -581,6 +581,7 @@
 {"direction":"positive","dynasty":"明","evidence_role":"reception_gate","item_code":"A","mechanism_strength":"M0","node_id":"SRC-MING-YUEGANG-RECEPTION","reception_scope":"R3","result_closure":"fixed_historical_adjudication","ruler":"朱载坖","settlement_role_zh":"S耐久门禁","terminality":"none"},
 {"ruler":"朱载坖","dynasty":"明","item_code":"B1","node_id":"B1-SUPP-MING-LONGQING-ALTAN-TRADE-M2","direction":"positive","mechanism_strength":"M2","reception_scope":"R1","result_closure":"observed_or_repeated","evidence_role":"score_evidence","settlement_role_zh":"直接定档/计分"},
 {"ruler":"朱载坖","dynasty":"明","item_code":"B1","node_id":"B1-SUPP-MING-LONGQING-GAOGONG-PERSONNEL-M3","direction":"positive","mechanism_strength":"M3","reception_scope":"R1","result_closure":"sustained_or_systemic","evidence_role":"score_evidence","settlement_role_zh":"直接定档/计分"},
+{"ruler":"朱载坖","dynasty":"明","item_code":"B1","node_id":"B1-MING-LONGQING-PROCUREMENT-OVERRIDE","direction":"negative","mechanism_strength":"M3","reception_scope":"R0","result_closure":"sustained_or_systemic","evidence_role":"score_evidence","settlement_role_zh":"直接定档/计分"},
 {"direction":"positive","dynasty":"明","evidence_role":"score_evidence","item_code":"D1","mechanism_strength":"M3","node_id":"EV-LQ-D1-CONT-03","reception_scope":"R0","result_closure":"institution_lifecycle_adjudicated","ruler":"朱载坖","settlement_role_zh":"直接定档/计分","terminality":"none"},
 {"direction":"positive_reception","dynasty":"唐","evidence_role":"context","item_code":"A","mechanism_strength":"M0","node_id":"I2-A-ZHENGUAN-CORE-RECEPTION-R3","reception_scope":"R3","result_closure":"reception_only","ruler":"李世民","settlement_role_zh":"沿革参考或补充归责（不另计A）","terminality":"none"},
 {"direction":"positive_reception","dynasty":"唐","evidence_role":"reception_gate","item_code":"A","mechanism_strength":"M0","node_id":"I2-A-ZHENGUAN-CORE-RECEPTION-R3-A-R3","reception_scope":"R3","result_closure":"reception_only","ruler":"李世民","settlement_role_zh":"S耐久门禁","terminality":"none"},
@@ -1507,10 +1508,13 @@
 {"ruler":"胡亥","dynasty":"秦","item_code":"B2","node_id":"I2-QIN-HH-FEEDBACK-CLOSURE-001","direction":"negative","mechanism_strength":"M3","reception_scope":"R0","result_closure":"observed","evidence_role":"score_evidence","settlement_role_zh":"直接定档/计分"},
 {"ruler":"杨广","dynasty":"隋","item_code":"B2","node_id":"LAW-16-010-M2-M3-02-AUDIT","direction":"negative","mechanism_strength":"M2","reception_scope":"R0","result_closure":"sustained_or_systemic","evidence_role":"score_evidence","settlement_role_zh":"直接定档/计分"},
 {"ruler":"杨广","dynasty":"隋","item_code":"B2","node_id":"I2-SUI-YG-FEEDBACK-COLLAPSE-002-M2-M3-02-AUDIT","direction":"negative","mechanism_strength":"M3","reception_scope":"R0","result_closure":"sustained_or_systemic","evidence_role":"score_evidence","settlement_role_zh":"直接定档/计分"},
-{"ruler":"杨广","dynasty":"隋","item_code":"B2","node_id":"I2-SUI-YG-SUWEI-LIFECYCLE-002-M2-M3-02-AUDIT","direction":"negative","mechanism_strength":"M2","reception_scope":"R0","result_closure":"sustained_or_systemic","evidence_role":"score_evidence","settlement_role_zh":"直接定档/计分"}
+{"ruler":"杨广","dynasty":"隋","item_code":"B2","node_id":"I2-SUI-YG-SUWEI-LIFECYCLE-002-M2-M3-02-AUDIT","direction":"negative","mechanism_strength":"M2","reception_scope":"R0","result_closure":"sustained_or_systemic","evidence_role":"score_evidence","settlement_role_zh":"直接定档/计分"},
+{"ruler":"刘邦","dynasty":"西汉","item_code":"A","node_id":"I2-WHAN-LB-COMMANDERY-KINGDOM-A-R0","direction":"balanced","mechanism_strength":"M3","reception_scope":"R0","result_closure":"institution_lifecycle_adjudicated","evidence_role":"score_evidence","settlement_role_zh":"完整生命周期合评（净0）","terminality":"none"},
+{"direction":"negative","dynasty":"北宋","evidence_role":"direct","item_code":"B2","mechanism_strength":"M3","node_id":"NS-ZGY-B2-SUCCESSION-REM0NSTRATORS-991","reception_scope":"R0","result_closure":"observed_or_repeated","ruler":"赵光义","settlement_role_zh":"反馈纠错直接依据","terminality":"none"},
+{"direction":"mixed_negative","dynasty":"北宋","evidence_role":"direct","item_code":"B2","mechanism_strength":"M3","node_id":"NS-ZGY-B2-WANGYUCHENG-REMONSTRANCE","reception_scope":"R0","result_closure":"observed_or_repeated","ruler":"赵光义","settlement_role_zh":"反馈纠错直接依据","terminality":"none"}
 ],
-"usage_count":1503,
-"unique_material_count":1380,
+"usage_count":1507,
+"unique_material_count":1384,
 "verification_rows":[
 {"ruler":"冯太后","dynasty":"北魏","item_code":"B1","node_id":"I2-NWEI-FT-EQUAL-FIELD-M2-AUDIT","direction":"positive","mechanism_strength":"M2","reception_scope":"R0","result_closure":"institution_lifecycle_adjudicated","evidence_role":"verification","settlement_role_zh":"背景与交叉核验"},
 {"ruler":"冯跋","dynasty":"北燕","item_code":"B1","node_id":"B1-SUPP-BEYAN-FENGBA-CORRUPTION-RESULT","direction":"positive","mechanism_strength":"M2","reception_scope":"R1","result_closure":"observed_or_repeated","evidence_role":"verification","settlement_role_zh":"背景与交叉核验"},
@@ -1986,8 +1990,9 @@
 {"ruler":"赵昀","dynasty":"南宋","item_code":"B2","node_id":"SS-ZY-CENSOR-CONTROL","direction":"negative","mechanism_strength":"M2","reception_scope":"R0","result_closure":"observed_or_repeated","evidence_role":"verification_evidence","settlement_role_zh":"背景或核验"},
 {"ruler":"赵昀","dynasty":"南宋","item_code":"B2","node_id":"SS-ZY-PUBLIC-LAND-SPEECH","direction":"negative","mechanism_strength":"M0","reception_scope":"R0","result_closure":"sustained_or_systemic","evidence_role":"verification_evidence","settlement_role_zh":"背景或核验"},
 {"ruler":"赵昀","dynasty":"南宋","item_code":"B2","node_id":"SS-ZY-LATE-JUSTICE-COLLAPSE","direction":"negative","mechanism_strength":"M0","reception_scope":"R0","result_closure":"sustained_or_systemic","evidence_role":"verification_evidence","settlement_role_zh":"背景或核验"},
-{"ruler":"孙皓","dynasty":"吴","item_code":"B2","node_id":"B-QUALITY-MAT-76322A222C5985AB","direction":"context","mechanism_strength":"M0","reception_scope":"R0","result_closure":"not_closed","evidence_role":"verification_evidence","settlement_role_zh":"背景或核验"}
+{"ruler":"孙皓","dynasty":"吴","item_code":"B2","node_id":"B-QUALITY-MAT-76322A222C5985AB","direction":"context","mechanism_strength":"M0","reception_scope":"R0","result_closure":"not_closed","evidence_role":"verification_evidence","settlement_role_zh":"背景或核验"},
+{"ruler":"刘邦","dynasty":"西汉","item_code":"A","node_id":"I2-WHAN-LB-COMMANDERY-KINGDOM-RECEPTION-A-R3","direction":"mixed_reception","mechanism_strength":"M0","reception_scope":"R3","result_closure":"institution_lifecycle_adjudicated","evidence_role":"verification","settlement_role_zh":"后继接收核验（不另计A）","terminality":"none"}
 ],
-"verification_usage_count":475,
-"verification_material_count":430
+"verification_usage_count":476,
+"verification_material_count":431
 }

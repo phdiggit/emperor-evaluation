@@ -17,13 +17,13 @@ project:
   code: emperor-evaluation-v4
   name: 皇帝综合评价体系 V4
   language: zh-CN
-  status: fourth_item_semantic_closure_complete
+  status: fourth_item_independent_results_adopted
 
 scoring_contract:
   governing_document: docs/项目总纲/皇帝统治绩效评价合同.md
   common_positive_denominator: 637
   first_item_add_on_formula: F = 0.20 * 637 * (S1 / 240) ^ 1.25
-  composite_formula: T = S2 + S3 + F + CIV4
+  composite_formula: T = S2 + S3 + F + S4
   scored_items: [first_item, second_item, third_item, fourth_item]
   database_write: false
   cross_item_ranking_write: true
@@ -173,27 +173,34 @@ formal_settlements:
       b_adopted_rate_authority: result_credit_B80_adjudication
       b4_review_authority: config/third-item/third-item-ab-handoff-adjudications.json#b4_maturity_review
   fourth_item:
-    range: [-67.5, 67.5]
+    range: null
+    contract: docs/分项规则/第四项文明与国家整合收益/00-规则与计分合同.md
+    calculation_version: fourth-item-independent-results-v2
+    authority: records.axis_results.results
+    axis_weights: {A: 1, B: 1, C: 1}
+    multiplier: 1
+    aggregation: signed_independent_result_sum_without_caps
+    evidence_package_role: source_lineage_only
     role: signed_civilization_add_on
     json: docs/评分结算/净收益/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json
     markdown: docs/评分结算/净收益/第四项文明与国家整合收益/02-第四项文明与国家整合收益正式总榜.md
     a_verify_command: fourth-item-a-verify
     a_reading_view_command: fourth-item-a-views --write
     a_reading_collection: reader/fourth-item-a.html
-    a_public_reading_source: axis_results.A.public_reading_and_A_packages.public_reading
+    a_public_reading_source: axis_results.A.results_and_public_reading
     b_reading_collection: reader/fourth-item-b.html
     b_verify_command: fourth-item-b-verify
     b_reading_view_command: fourth-item-b-views --write
-    b_public_reading_source: axis_results.B.public_reading_and_B_packages.public_reading
+    b_public_reading_source: axis_results.B.results_and_public_reading
     c_verify_command: fourth-item-c-verify
     c_reading_view_command: fourth-item-c-views --write
     c_reading_collection: reader/fourth-item-c.html
-    c_public_reading_source: axis_results.C.public_reading_and_C_packages.public_c_result_reading
+    c_public_reading_source: axis_results.C.results_and_public_reading
     public_projection:
-      schema_version: third-fourth-item-public-projection-v1
+      schema_version: fourth-item-independent-results-v2
       command: third-fourth-item-public --write
       verify_command: third-fourth-item-public-verify
-      source: formal_fourth_item_axis_results_and_packages
+      source: formal_fourth_item_independent_results
 
 evidence_interpretation_sensitivity:
   role: non_scoring_evidence_interpretation_analysis

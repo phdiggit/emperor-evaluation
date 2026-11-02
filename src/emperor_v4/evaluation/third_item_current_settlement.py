@@ -1966,10 +1966,16 @@ def _current_c_task_basis_reason(row, current_refs, known, counts) -> str:
 
 def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
     from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
+    from emperor_v4.evaluation.third_item_c_strategy_chain import (
+        apply_strategy_chain_writeback_to_payload,
+        load_strategy_chain_source,
+    )
 
     """Keep every current C task visible without inventing missing outcomes."""
     c_path = workspace_root / C_PATH
     payload = _load(c_path)
+    formal_payload = deepcopy(payload)
+    strategy_source = load_strategy_chain_source(workspace_root)
     adjudication_payload = _load(workspace_root / C_OUTCOME_ADJUDICATIONS_PATH)
     adjudications = {
         str(item["ruler_id"]): item
@@ -2138,6 +2144,11 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
         row["current_task_basis_reason"] = _current_c_task_basis_reason(
             row, current_refs, known, counts
         )
+    # Parent outcome bookkeeping cannot override the current strategic-chain
+    # authority's reasons, outcome profiles or major success/failure references.
+    payload = apply_strategy_chain_writeback_to_payload(
+        payload, strategy_source, formal_payload=formal_payload,
+    )
     shared_owners: dict[str, list[tuple[str, str]]] = {}
     for row in payload["records"]:
         capability_only = {
@@ -2159,7 +2170,12 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
         if len(bindings) > 1
     }
     if set(duplicated) != set(shared_binding_adjudications):
-        raise ValueError("C共享父任务人物绑定裁决没有精确覆盖当前重复父任务集合")
+        missing = sorted(set(duplicated) - set(shared_binding_adjudications))
+        extra = sorted(set(shared_binding_adjudications) - set(duplicated))
+        raise ValueError(
+            "C共享父任务人物绑定裁决没有精确覆盖当前重复父任务集合："
+            f"缺失{missing}；多余{extra}"
+        )
     for ref, expected in duplicated.items():
         decision = shared_binding_adjudications[ref]
         actual = sorted(

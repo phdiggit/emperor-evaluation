@@ -40,6 +40,8 @@ python reader/serve.py
 
 筛选和展开状态保留，清除筛选不清空对照。手机端可以缩短介绍，不能裁掉人物依据。画像不排名、不算总分；历史影响同档不另排名。各体系的取证时期按各自合同，不能只凭身份页的掌权时间推断。
 
+人物总览的“绩效榜”按正式综合分排序，只展示已入综合榜对象；治理范围筛选保留全池正式名次，不另编组内名次。范围与结构复杂度并列，不折算权重。人物页和比较页将C1—C3状态、C4恢复与可归责损害、治理机制与交接分别展示，显示值来自现行正式分项投影。同范围入口可查看全部已入榜对象，附近参照按综合分接近程度选取；选择另一人时默认同范围，也可切换跨范围比较。各轴具体证据覆盖仍以其正式正文为准。
+
 ## 数据与解释边界
 
 数据入口由`config/project.yml`登记，以`ruler_id`连接。第一项读Markdown真源，其余读对应正式JSON。正文、理由、限制和来源在上游维护，人物页、对照页和专页使用同一份内容。
@@ -66,7 +68,7 @@ python reader/serve.py
 | 第三项A | `config/third-item/third-item-result-credit-adjudications.json`各A轴的`public_reading` | `third-fourth-item-public --write` → `formal-settlements-verify --item third_item` |
 | 第三项B | AB正式JSON的B1、B2、B4各轴`public_reading` | `third-fourth-item-public --write` → `third-fourth-item-public-verify` |
 | 第三项C | 正式C JSON的`public_reading`；战略链配置不保存正文副本 | 正文：`third-fourth-item-public --write` → `third-fourth-item-public-verify`；战略链写回与校验用`third-item-c-settlement`，写回才加`--write` |
-| 第四项A／B／C | 正式JSON的轴与材料公开字段；C逐条史源为`public_c_result_reading.sources` | `third-fourth-item-public --write` → 对应`fourth-item-a/b/c-views --write` → `fourth-item-a/b/c-verify`（选实际轴命令） |
+| 第四项A／B／C | 正式JSON的`axis_results.results`、准入处置、来源与交班；旧证据包仅保留来源追溯 | `third-fourth-item-public --write` → `fourth-item-a-views --write`同步三轴及总榜 → `fourth-item-a-verify`检查独立结果与阅读同值 |
 | 人物画像 | 对应轴正式JSON；M1正文直接维护在`public_reading` | `profile-markdown --axis <轴> --write` → `profile-manifest --axis <轴> --write` → 项目登记的轴校验；如`profile-m1-verify`、`profile-m5-verify`、`profile-c4-verify` |
 | 历史影响 | 正式记录的`public_total_basis`、四维`public_basis`与`public_boundary` | `historical-impact-views --write` → `historical-impact-verify` |
 | 军事人才 | 当前人物记录及其有效来源 | `military-talent-views --write` → `military-talent-verify`，再更新军事档案 |
@@ -83,7 +85,7 @@ B三轴及逐条依据的完整来源对象统一保存于本人的`public_b_sou
 
 第二项C4的正文只维护`public_reading_sections`六个分栏，`recovery_public_record`按既定顺序拼接阅读正文，不重复保存`public_story`。D1／D3保留原始采用引文`excerpt`及定位信息，`second_item_d1_d3_public.public_record`沿用既有格式规则生成`public_excerpt`，不另存展示副本；原始引文仍须与史源逐字核验。
 
-第四项各轴公开字段只在正式记录的`axis_results`内维护，人物级不另存轴投影、材料拼接列表或汇总文案副本；读取时按轴代码定位，汇总按A/B/C顺序组装，缺失或重复轴均报错。
+第四项裁决保存在正式记录的`axis_results`内，逐结果计价并发布正负毛额与净额；公开字段从当前结果、来源与交班确定性生成，人物级不另存轴投影、材料拼接列表或汇总文案副本。读取时按轴代码定位，汇总按A/B/C顺序组装，缺失或重复轴均报错；不再由轴净档换分。
 
 主态低谷与净恢复的逐人阅读页用`governance-state-recovery-report --write`刷新，以`governance-state-recovery-verify`核对；不额外维护跨项文件哈希。军事人才刷新保留身份和已裁档位，不从父战役重新生成裁决。
 

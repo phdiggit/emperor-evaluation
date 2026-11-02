@@ -50,10 +50,10 @@ SETTLEMENT_SPECS = {
     },
     "fourth_item": {
         "path": "docs/评分结算/净收益/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
-        "schema": "fourth-item-signed-addon-formal-settlement-v1",
+        "schema": "fourth-item-independent-results-v2",
         "score": "fourth_item_signed_adjustment",
         "rank": "rank",
-        "range": (-67.5, 67.5),
+        "range": None,
     },
 }
 
@@ -1094,7 +1094,7 @@ def verify_formal_settlements(workspace_root: Path, *, items: set[str] | None = 
             raise ValueError(f"{item} ruler_id缺失或重复")
 
         ranked: list[tuple[float, int, str]] = []
-        minimum, maximum = spec["range"]
+        minimum, maximum = spec["range"] or (float('-inf'), float('inf'))
         for row in records:
             score = row.get(spec["score"])
             rank = row.get(spec["rank"])
@@ -1126,20 +1126,8 @@ def verify_formal_settlements(workspace_root: Path, *, items: set[str] | None = 
         if item == "fourth_item":
             from emperor_v4.evaluation.fourth_item_a import verify as verify_fourth_axes
             reports[item]["axis_contracts"] = verify_fourth_axes(workspace_root)
-            gates = {
-                key: payload.get(key, {})
-                for key in ("promotion_gate", "coverage_completion_gate")
-            }
-            reports[item]["semantic_review_complete"] = all(
-                bool(gate) and all(value is True for value in gate.values())
-                for gate in gates.values()
-            )
-            reports[item]["open_semantic_gates"] = [
-                f"{group}.{key}"
-                for group, gate in gates.items()
-                for key, value in gate.items()
-                if value is not True
-            ]
+            reports[item]["semantic_review_complete"] = reports[item]["axis_contracts"]["semantic_review_complete"]
+            reports[item]["adoption_review"] = payload['adoption_review']
     if items is not None:
         if not items or items - ({"first_item"} | SETTLEMENT_SPECS.keys()):
             raise ValueError(f"Unknown formal item selection: {items}")

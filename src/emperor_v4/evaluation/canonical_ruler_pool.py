@@ -244,6 +244,14 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
     }
 
     prior_pool = _read_json(workspace_root / POOL_JSON)
+    # Fourth-item excluded subjects retain identity/evidence lineage separately;
+    # only admitted subjects have a current independent-result score.
+    fourth = payloads['fourth_item']
+    if fourth.get('schema_version') == 'fourth-item-independent-results-v2':
+        excluded = fourth.get('excluded_records', [])
+        if any(r.get('fourth_item_signed_adjustment') is not None for r in excluded):
+            raise ValueError('第四项排除对象不得带新制分数')
+        fourth['records'] = list(fourth['records']) + excluded
     master_records = list(prior_pool.get("records") or ())
     master_ids = [str(row.get("ruler_id") or "") for row in master_records]
     if not master_records or any(not value for value in master_ids) or len(set(master_ids)) != len(master_ids):

@@ -262,6 +262,7 @@ function firstCommanderMarkup(item, record) {
     if (!container) return;
 
     for (const row of container.querySelectorAll("tbody tr")) {
+      if (row.closest('.performance-table')) continue;
       const record = recordForRow(row);
       if (!record) continue;
 
@@ -427,7 +428,7 @@ function firstCommanderMarkup(item, record) {
     if (adjustment === 0 && hasNoIndependentChange) {
       return "本项总调整为0：当前分项未确认可单独计入的净变化；0不表示相关领域没有史料，只表示没有形成独立有符号调整。";
     }
-    return "三个分项合计范围为 -67.5～+67.5；正负值直接进入总榜。";
+    return "三轴独立结果等权、正负线性相加，无固定分数上限；净额直接进入总榜，数值相抵不代表损害已修复。";
   }
 
   function netHref(record, major = "all", focus = "") {
@@ -728,10 +729,10 @@ function firstCommanderMarkup(item, record) {
     4:"跨场景或系统性改变",
   };
   const CIV_PUBLIC_POINTS = {
-    1:{LOW:3.0,MID:4.5,HIGH:6.0},
-    2:{LOW:7.5,MID:9.5,HIGH:11.5},
-    3:{LOW:13.5,MID:16.0,HIGH:18.0},
-    4:{LOW:19.0,MID:21.0,HIGH:22.5},
+    1:{LOW:1,MID:1.5,HIGH:2},
+    2:{LOW:3,MID:4,HIGH:5},
+    3:{LOW:8,MID:10,HIGH:12},
+    4:{LOW:16,MID:20,HIGH:24},
   };
   const THIRD_COST_FACTOR = {
     0:{LOW:1.0,MID:1.0,HIGH:1.0},
@@ -1430,11 +1431,11 @@ function firstCommanderMarkup(item, record) {
   function renderNetShell(record, active, body) {
     nav("");
     const systemNav = typeof personSystemNav === "function" ? personSystemNav(record, "net") : "";
-    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(personLabel(record))}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权背景：${esc(record.actual_power_window || "未列")} · 统治绩效总分 ${scoreNumber(record.net?.total_score)}</p></div></div><p class="subline net-power-context-note">本项采用的时间与责任范围见各条依据；不能仅凭上述背景时期判断事件是否计入。</p>${systemNav}${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
+    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(personLabel(record))}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权背景：${esc(record.actual_power_window || "未列")} · 统治绩效总分 ${scoreNumber(record.net?.total_score)}</p></div></div><p class="subline net-power-context-note">本项采用的时间与责任范围见各条依据；不能仅凭上述背景时期判断事件是否计入。</p>${governanceScope(record.net)}${systemNav}${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
   }
 
   function renderNetLanding(record) {
-    renderNetShell(record, "all", `<section class="panel"><h2>选择要了解的经历</h2><p>按大项阅读具体经历、本人作用与评价理由，再按需展开计算和来源。</p></section><div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div>`);
+    renderNetShell(record, "all", `<section class="panel">${governanceReading(record,false)}<h2>选择要了解的经历</h2><p>按大项阅读具体经历、本人作用与评价理由，再按需展开计算和来源。</p></section><div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div>`);
   }
 
   function renderNetMajor(record, major, focus) {
