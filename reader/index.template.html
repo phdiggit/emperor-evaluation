@@ -661,14 +661,18 @@ function updateHomeFilterState(){
  document.getElementById('clear-filters').disabled=!state.q&&!state.polity&&state.scope==='main'&&!state.grade&&!state.scale&&state.sort==='time';
 }
 const missingNetLabels={
- PENDING_SECOND_ITEM_FORMAL_SETTLEMENT:'治国成效待正式结算',
- PENDING_THIRD_ITEM_FORMAL_SETTLEMENT:'军事与边疆待正式结算',
- PENDING_FIRST_ITEM_FORMAL_SETTLEMENT:'奠基与统一待正式结算',
+ PENDING_SECOND_ITEM_FORMAL_SETTLEMENT:'治国成效尚未结算',
+ PENDING_THIRD_ITEM_FORMAL_SETTLEMENT:'军事与边疆尚未结算',
+ PENDING_FIRST_ITEM_FORMAL_SETTLEMENT:'奠基与统一尚未结算',
  SUPPLEMENTARY:'不在统治绩效正式评价范围'
 };
 function missingNetLabel(r){
  if(r?.supplementary)return '不在统治绩效正式评价范围';
- return missingNetLabels[r?.settlement_readiness]||'未入榜';
+ return missingNetLabels[r?.settlement_readiness]||'统治绩效总分和排名尚未发布';
+}
+function missingNetStatus(r){
+ const label=missingNetLabel(r);
+ return label.endsWith('尚未结算')?label+'，暂不发布总分和排名。':label+'。';
 }
 function signedAdjustment(value){
  if(typeof value!=='number'||!Number.isFinite(value))return '—';
@@ -860,7 +864,7 @@ function netPositionSummary(n){
 }
 function netPanel(r){
  const n=r.net;
- return `<section id="person-outcome" class="panel net"><div class="eyebrow">01 / 统治结果</div><h2>统治绩效</h2><p class="subline">看治国、军事、统一与文明整合如何共同构成统治绩效</p>${n?`<div class="big">${scoreNumber(n.total_score)}</div>${netPositionSummary(n)}${governanceReading(r,false)}${`<div class="component"><span>治国成效</span><b>${scoreNumber(n.second_item_score)}</b></div><div class="component"><span>军事与边疆</span><b>${scoreNumber(n.third_item_score)}</b></div>`}${firstAddOnComponent(n)}${`<div class="component"><span>文明与国家整合</span><b>${signedAdjustment(n.fourth_item_adjustment)}</b></div>`}<p class="subline">分差不表示历史贡献的倍数，也不是百分制。</p><details><summary>总分口径与权重敏感性</summary><p>总分由上列四项构成。它同时计入现行规则定义的结果与过程分量，不是货币收益减成本；零分也不代表每个方面都没有收益或损害。</p>${evidenceAssessment(n,true)}<p>第一项${n.first_item_status==='APPLICABLE'?(firstRawScore(n)===0?'适用，但第一项结算分为0，附加分为0；这与“不适用”不同':firstRawScore(n)==null?`适用，但第一项结算分未列；当前附加分为 ${number(n.first_item_add_on)}`:`第一项结算分为 ${number(firstRawScore(n))}，按公式折算为附加分 ${number(n.first_item_add_on)}；第一项结算分不再重复相加`):n.first_item_status==='NOT_APPLICABLE'?'不适用，附加分按0计入总分；不代表能力失败':'正式适用状态未发布，因此不作适用性推断'}。</p><p class="subline">统治绩效总分 = 治国成效 + 军事与边疆 + 奠基与统一附加 + 文明与国家整合。</p>${n.weight_sensitivity?.all_scenarios?`<p>固定现有裁决，在已声明的 ${DATA.weight_sensitivity.scenario_count} 种权重情景中，名次范围为第 ${n.weight_sensitivity.all_scenarios.best}—${n.weight_sensitivity.all_scenarios.worst} 名。</p>${founderWeightReading(n)}<p class="subline">权重敏感性与考虑史料分歧后的名次不是同一件事；前者改变权重，后者固定权重并只投影本人的现有史料审慎区间，不包含规模折算。</p>`:''}${link('docs/项目总纲/皇帝统治绩效评价合同.md','评分规则与情景设定 ↗')}</details>`:`<div class="big">—</div><p>${r.supplementary?'历史影响补充样本，不纳入统治绩效正式评价与排序。':'未进入统治绩效正式排序，不能按零分理解。'}</p><p class="subline">${esc(({PENDING_SECOND_ITEM_FORMAL_SETTLEMENT:'第二项正式结算待补',PENDING_THIRD_ITEM_FORMAL_SETTLEMENT:'第三项正式结算待补',PENDING_FIRST_ITEM_FORMAL_SETTLEMENT:'第一项正式结算待补',SUPPLEMENTARY:'补充历史样本，仅提供历史影响'}[r.settlement_readiness]||r.settlement_readiness))}</p>`}<p class="sources">${link(DATA.sources.net_reader,'统治绩效完整依据 ↗')}</p></section>`;
+ return `<section id="person-outcome" class="panel net"><div class="eyebrow">01 / 统治结果</div><h2>统治绩效</h2><p class="subline">看治国、军事、统一与文明整合如何共同构成统治绩效</p>${n?`<div class="big">${scoreNumber(n.total_score)}</div>${netPositionSummary(n)}${governanceReading(r,false)}${`<div class="component"><span>治国成效</span><b>${scoreNumber(n.second_item_score)}</b></div><div class="component"><span>军事与边疆</span><b>${scoreNumber(n.third_item_score)}</b></div>`}${firstAddOnComponent(n)}${`<div class="component"><span>文明与国家整合</span><b>${signedAdjustment(n.fourth_item_adjustment)}</b></div>`}<p class="subline">分差不表示历史贡献的倍数，也不是百分制。</p><details><summary>总分口径与权重敏感性</summary><p>总分由上列四项构成。它同时计入现行规则定义的结果与过程分量，不是货币收益减成本；零分也不代表每个方面都没有收益或损害。</p>${evidenceAssessment(n,true)}<p>第一项${n.first_item_status==='APPLICABLE'?(firstRawScore(n)===0?'适用，但第一项结算分为0，附加分为0；这与“不适用”不同':firstRawScore(n)==null?`适用，但第一项结算分未列；当前附加分为 ${number(n.first_item_add_on)}`:`第一项结算分为 ${number(firstRawScore(n))}，按公式折算为附加分 ${number(n.first_item_add_on)}；第一项结算分不再重复相加`):n.first_item_status==='NOT_APPLICABLE'?'不适用，附加分按0计入总分；不代表能力失败':'正式适用状态未发布，因此不作适用性推断'}。</p><p class="subline">统治绩效总分 = 治国成效 + 军事与边疆 + 奠基与统一附加 + 文明与国家整合。</p>${n.weight_sensitivity?.all_scenarios?`<p>固定现有裁决，在已声明的 ${DATA.weight_sensitivity.scenario_count} 种权重情景中，名次范围为第 ${n.weight_sensitivity.all_scenarios.best}—${n.weight_sensitivity.all_scenarios.worst} 名。</p>${founderWeightReading(n)}<p class="subline">权重敏感性与考虑史料分歧后的名次不是同一件事；前者改变权重，后者固定权重并只投影本人的现有史料审慎区间，不包含规模折算。</p>`:''}${link('docs/项目总纲/皇帝统治绩效评价合同.md','评分规则与情景设定 ↗')}</details>`:`<div class="big">—</div><p>${esc(missingNetStatus(r))}</p>`}<p class="sources">${n?link(DATA.sources.net_reader,'统治绩效完整依据 ↗'):r.supplementary?'':link(DATA.sources.net_reader,'查看综合榜的待结算名单 ↗')}</p></section>`;
 }
 
 function impactPanel(r,overview=false){const h=r.impact;const html=`<section id="person-impact" class="panel impact"><div class="eyebrow">${r.supplementary?'历史后效':'03 / 历史后效'}</div><h2>历史影响量级</h2><p class="subline">路径改变的规模、深度与归责</p>${overview?'':'<p class="subline">先看范围与深度定基础，再看本人归责；政治范式只作有限补充。</p>'}<div class="impact-public-meaning">${esc(impactMeaning[h.public_grade]||'未列')}</div><p class="subline">综合档位 ${esc(h.public_grade)}</p><span class="badge">${esc(h.impact_nature)}</span> <span class="subline">判断把握：${conf(h.confidence)}</span>${impactScaleNote()}<div class="dimensions">${Object.entries(dimNames).map(([k,n])=>`<div class="impact-dimension-card"><a href="#history-dimension-${k}" data-section="history-dimension-${k}" aria-label="查看${esc(n)}依据"><span>${esc(n)}</span>${impactDimensionGrade(k,h.dimensions[k]?.grade)}<small class="impact-dimension-question">${esc(impactDimensionQuestions[k]||'查看本维度依据')}</small><small>查看依据 ↓</small></a></div>`).join('')}</div>${gradeHelp('impact')}<p class="sources"><a href="#history-evidence" data-section="history-evidence">查看历史影响依据 ↓</a></p></section>`;return overview?personDetailLinks(html,r,'impact'):html;}
@@ -1200,6 +1204,12 @@ function profileDistinctGradeBasis(value,primary){
  if(b.length>=24&&a===b)return "";
  return shown;
 }
+function powerGradeBasisCoversPattern(basis,pattern){
+ const clauses=value=>profilePublicPattern(value).split(/[。；\n]+/).map(profileComparableText).filter(Boolean);
+ const primary=clauses(pattern);
+ const rationale=new Set(clauses(basis));
+ return primary.length>0&&primary.every(clause=>rationale.has(clause));
+}
 function profilePositionPublicPattern(value){
  const cleaned=String(value??'')
   .replace(/规范池实际权力窗口为[^；]+，仅作主政背景；本裁决消费全生涯已闭合的可归责军事机会，不以该窗口作为事件准入截止线。；?/g,"")
@@ -1266,9 +1276,10 @@ function axisEvidence(r,c,suffix=''){
  const formalMaterials=hasPowerCases?`<details class="metadata power-context-index"><summary>正式情境索引：方向、强度与依据</summary>${formalIndex}</details>`:formalIndex;
  const counterText=!structuredCounter&&a.counterpattern?`<div class="label">${['C2','C4','M4','M5'].includes(c)?'反例与判断边界':'反例与限制'}</div>${['C2','C4','M4','M5'].includes(c)?powerProse(a.counterpattern):axisProse(a.counterpattern)}`:'';
  const primaryPattern=a.typical_pattern||a.not_applicable_reason||'';
+ const combinePowerBasis=hasPowerCases&&powerGradeBasisCoversPattern(a.grade_basis,primaryPattern);
  const distinctGradeBasis=profileDistinctGradeBasis(a.grade_basis,primaryPattern);
  const basisLabel=ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据';
- const gradeExplanation=distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${['C1','C2','C5','M4','M5'].includes(c)?powerProse(distinctGradeBasis):prose(distinctGradeBasis)}</section>`:'';
+ const gradeExplanation=combinePowerBasis?`<section class="axis-grade-explanation"><div class="label">典型表现与定档理由</div>${powerProse(a.grade_basis)}</section>`:distinctGradeBasis?`<section class="axis-grade-explanation"><div class="label">${basisLabel}</div>${['C1','C2','C5','M4','M5'].includes(c)?powerProse(distinctGradeBasis):prose(distinctGradeBasis)}</section>`:'';
  const distinctPositionBasis=profileDistinctPositionBasis(a.position_basis,primaryPattern,a.grade_basis||'');
  const distinctLimitations=profileDistinctLimitations(a.limitations,primaryPattern,a.grade_basis||'',a.position_basis||'',a.evidence_assessment_basis||'');
  const boundaryParts=`${profileHasContent(distinctLimitations)?axisProse(distinctLimitations):''}${profileHasContent(a.evidence_assessment_basis)?axisProse(a.evidence_assessment_basis):''}`;
@@ -1279,7 +1290,7 @@ function axisEvidence(r,c,suffix=''){
  const adjudicationBody=`${hasTalentCases?counterText:''}${distinctPositionBasis?`<div class="label">档内定位</div>${prose(distinctPositionBasis)}`:''}${boundaryParts?`<div class="label">限制与证据边界</div>${boundaryParts}`:''}${architecture}${calibration}${closureParts}${c==='C2'?learningNonScoring(a):''}`;
  const adjudicationDetails=adjudicationBody?`<details class="metadata adjudication"><summary>裁决详情：档内定位与限制</summary>${adjudicationBody}</details>`:'';
  const further=`${evidenceScope.detail}${m1FailureReview(a)}${hasPowerCases?'':formalMaterials}${publicEvidencePoints(a,hasPowerCases)}${hasTalentCases?'':counterText}${adjudicationDetails}${hasPowerCases?formalMaterials:''}`;
- return `<details id="reason-${c}${suffix}" class="axis-evidence"><summary>${esc(spec.name)} <span class="badge">${grade(a)}</span>${profileGradeScopeMarkup(a)}${evidenceLevel?'<small class="axis-evidence-level">材料覆盖：'+esc(evidenceLevel)+'</small>':''}</summary>${ungraded(a)?'<p class="notice">证据审查已结案，本轴不发布等级或分数；不表示能力低下。</p>':''}${pending(a)?'<p class="notice">本轴当前尚未完成裁决；历史保留值不作为现行等级或雷达值。</p>':''}<div class="label">正式记录中的人物表现</div>${prose(profilePublicPattern(a.typical_pattern||a.not_applicable_reason||'本轴未另列人物表现，请展开裁决详情。'))}${gradeExplanation}${a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY'?'<p class="notice">本轴E为终局证据认定：现有材料未显示外交能力。它与已证实外交失能的裁决分开，不表示史料已证明潜在能力为零。</p>':''}${a.applicability_basis?'<div class="label">适用范围</div>'+axisProse(a.applicability_basis):''}<details class="axis-further-check"><summary>进一步核对：代表情境、反例与限制</summary>${further}</details><details class="metadata"><summary>原始记录与专业信息</summary><p class="subline">展示模式：${esc(evidenceScope.modeLabel)} · 判断把握：${esc(conf(a.confidence))}${evidenceLevel?' · 材料覆盖：'+esc(evidenceLevel):''} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>${[...new Set([...(a.source_refs||[]),...(a.evidence_scope?.source_refs||[])])].map((ref,index)=>profileSourceMarkup(ref,index,r)).join('')}<p class="sources">${link(spec.markdown,'本轴完整阅读页 ↗',r)}${link(spec.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗')}</p></details></details>`;
+ return `<details id="reason-${c}${suffix}" class="axis-evidence"><summary>${esc(spec.name)} <span class="badge">${grade(a)}</span>${profileGradeScopeMarkup(a)}${evidenceLevel?'<small class="axis-evidence-level">材料覆盖：'+esc(evidenceLevel)+'</small>':''}</summary>${ungraded(a)?'<p class="notice">证据审查已结案，本轴不发布等级或分数；不表示能力低下。</p>':''}${pending(a)?'<p class="notice">本轴当前尚未完成裁决；历史保留值不作为现行等级或雷达值。</p>':''}${combinePowerBasis?'':`<div class="label">正式记录中的人物表现</div>${prose(profilePublicPattern(a.typical_pattern||a.not_applicable_reason||'本轴未另列人物表现，请展开裁决详情。'))}`}${gradeExplanation}${a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY'?'<p class="notice">本轴E为终局证据认定：现有材料未显示外交能力。它与已证实外交失能的裁决分开，不表示史料已证明潜在能力为零。</p>':''}${a.applicability_basis?'<div class="label">适用范围</div>'+axisProse(a.applicability_basis):''}<details class="axis-further-check"><summary>进一步核对：代表情境、反例与限制</summary>${further}</details><details class="metadata"><summary>原始记录与专业信息</summary><p class="subline">展示模式：${esc(evidenceScope.modeLabel)} · 判断把握：${esc(conf(a.confidence))}${evidenceLevel?' · 材料覆盖：'+esc(evidenceLevel):''} · ${ungraded(a)?'当前状态：无档结案':pending(a)?'当前状态：'+grade(a):a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态：不适用':'公开等级：'+grade(a)}</p>${[...new Set([...(a.source_refs||[]),...(a.evidence_scope?.source_refs||[])])].map((ref,index)=>profileSourceMarkup(ref,index,r)).join('')}<p class="sources">${link(spec.markdown,'本轴完整阅读页 ↗',r)}${link(spec.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗')}</p></details></details>`;
 }
 function personDetailLinks(html,r,view){
  const base=`#person/${encodeURIComponent(r.ruler_id)}/${view}`;
@@ -1350,12 +1361,6 @@ function person(r){
 function compare(){
  nav('compare');if(state.compare.length<2){comparePicker();return}
  const [a,b]=state.compare.map(id=>byId.get(id));history.replaceState(null,'','#compare/'+state.compare.map(encodeURIComponent).join('/'));
- const missingNetLabel=r=>r?.supplementary?'不在统治绩效正式评价范围':({
-   PENDING_SECOND_ITEM_FORMAL_SETTLEMENT:'治国成效待正式结算',
-   PENDING_THIRD_ITEM_FORMAL_SETTLEMENT:'军事与边疆待正式结算',
-   PENDING_FIRST_ITEM_FORMAL_SETTLEMENT:'奠基与统一待正式结算',
-   SUPPLEMENTARY:'不在统治绩效正式评价范围'
- }[r?.settlement_readiness]||'未入榜');
  const firstRawScore=n=>{const value=n?.first_item_raw_score;return typeof value==='number'&&Number.isFinite(value)?value:null};
  const compareFirstAddOn=r=>!r?.net?'—':r.net.first_item_status==='NOT_APPLICABLE'?'不适用':r.net.first_item_status!=='APPLICABLE'?'状态未发布':firstRawScore(r.net)===0?'0.0 · 本项适用':scoreNumber(r.net.first_item_add_on);
  const signedAdjustment=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?'+'+scoreNumber(n):scoreNumber(value);};

@@ -130,17 +130,23 @@ def person_note_reference_issues(records, notes):
     """Report missing editorial anchors against the actual public projection."""
     by_id = {record['ruler_id']: record for record in records}
     issues = []
-    expected_ids = {record['ruler_id'] for record in records if not record.get('supplementary')}
-    for rid in sorted(expected_ids ^ notes.get('records', {}).keys()):
+    for rid in sorted(by_id.keys() ^ notes.get('records', {}).keys()):
         issues.append((rid, 'coverage', []))
     for rid, entry in notes.get('records', {}).items():
-        for section in sorted({'outcome', 'profile', 'impact'} - entry.get('overview', {}).keys()):
+        record = by_id.get(rid, {})
+        supplementary = record.get('supplementary')
+        expected_sections = {'impact'} if supplementary else {'outcome', 'profile', 'impact'}
+        overview = entry.get('overview', {})
+        for section in sorted(expected_sections ^ overview.keys()):
             issues.append((rid, section, []))
-        for section, block in entry.get('overview', {}).items():
+        for section, block in overview.items():
             if not block.get('text') or not block.get('evidence'):
                 issues.append((rid, section, []))
             for reference in block.get('evidence', []):
-                value = by_id.get(rid)
+                if supplementary and reference['path'][:1] != ['impact']:
+                    issues.append((rid, section, reference['path']))
+                    continue
+                value = record
                 for key in reference['path']:
                     if isinstance(value, dict):
                         value = value.get(key)

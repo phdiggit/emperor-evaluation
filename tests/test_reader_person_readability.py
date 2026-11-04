@@ -303,6 +303,10 @@ const payload={schema_id:'reader-person-overviews-v2',records:{'RULER-SYNTHETIC'
 api.validateNotes(payload);
 const copy=JSON.parse(JSON.stringify(payload));delete copy.records['RULER-SYNTHETIC'].overview.impact;
 assert.throws(()=>api.validateNotes(copy),/three overview/);
+const supplementary={...payload,records:{'HIMPACT-SYNTHETIC':{overview:{impact:b()}}}};
+api.validateNotes(supplementary);
+supplementary.records['HIMPACT-SYNTHETIC'].overview.impact.evidence[0].path=['axes','C5','typical_pattern'];
+assert.throws(()=>api.validateNotes(supplementary),/historical impact evidence/);
 for(const extra of ['axes','strength','weight','role','limits']){
  const invalid=JSON.parse(JSON.stringify(payload));invalid.records['RULER-SYNTHETIC'][extra]={};
  assert.throws(()=>api.validateNotes(invalid),/Only overview/);
@@ -325,6 +329,12 @@ def test_person_notes_use_current_sources_without_snapshot_expectations(tmp_path
 const fs=require('node:fs');
 const payload=api.validateNotes(JSON.parse(fs.readFileSync('reader/person-reading-notes.json','utf8')));
 let current=0,needsReview=0;
+for(const file of fs.readdirSync('reader/data/people').filter(file=>file.endsWith('.json'))){
+ const record=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
+ const notes=payload.records[record.ruler_id];
+ assert.deepEqual(Object.keys(notes?.overview||{}).sort(),
+   record.supplementary?['impact']:['impact','outcome','profile'],record.ruler_id);
+}
 for(const [id,notes] of Object.entries(payload.records)){
  const record=JSON.parse(fs.readFileSync('reader/data/people/'+id+'.json','utf8')).record;
  assert.equal(record.ruler_id,id);
@@ -845,6 +855,8 @@ ctx.primary='局部任务中曾经授予负责人真实的执行权限，并取�
 ctx.basis='整体仍反复出现信息受阻与责任失配，局部成功不足以改变全期判断。'+ctx.primary;
 assert.equal(vm.runInContext('profileDistinctGradeBasis(primary,primary)',ctx),'');
 assert.ok(vm.runInContext('profileDistinctGradeBasis(basis,primary)',ctx),'unique prefix must survive repeated factual ending');
+assert.equal(vm.runInContext('powerGradeBasisCoversPattern("臣子坚持按律量刑；皇帝接受。另一案中，进谏者获免。", "臣子坚持按律量刑；皇帝接受。")',ctx),true);
+assert.equal(vm.runInContext('powerGradeBasisCoversPattern("臣子坚持按律量刑；皇帝拒绝。", "臣子坚持按律量刑；皇帝接受。")',ctx),false);
 ctx.r={ruler_id:'synthetic',axes:{M5:{axis_grade:'G1',position:'MID',typical_pattern:ctx.primary,grade_basis:ctx.basis,position_basis:'仍有正常负责人继续工作。',limitations:['只限已观察任务。'],source_refs:[]}}};
 ctx.code='M5';
 const original=JSON.stringify(ctx.r);
@@ -877,15 +889,17 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
  for(const [code,a] of Object.entries(ctx.r.axes)){
   if(code==='M1'&&a.public_reading)continue;
   ctx.code=code;ctx.a=a;
-  const expected=vm.runInContext("profileDistinctGradeBasis(a.grade_basis,a.typical_pattern||a.not_applicable_reason||'')",ctx);
+  const combined=vm.runInContext("code==='C5'&&a.public_evidence_points?.length>0&&powerGradeBasisCoversPattern(a.grade_basis,a.typical_pattern||a.not_applicable_reason||'')",ctx);
+  const expected=combined?a.grade_basis:vm.runInContext("profileDistinctGradeBasis(a.grade_basis,a.typical_pattern||a.not_applicable_reason||'')",ctx);
   for(const suffix of ['', '-compare-0']){
    ctx.suffix=suffix;
    const html=vm.runInContext('axisEvidence(r,code,suffix)',ctx);
    if(expected){
     ctx.expected=expected;
     const content=vm.runInContext("['C1','C2','C5','M4','M5'].includes(code)?powerProse(expected):prose(expected)",ctx);
-    const label=vm.runInContext("ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据'",ctx);
+    const label=combined?'典型表现与定档理由':vm.runInContext("ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据'",ctx);
     assert.ok(html.includes('<section class="axis-grade-explanation"><div class="label">'+label+'</div>'+content),file+': '+code);
+    if(combined)assert.ok(!html.includes('<div class="label">正式记录中的人物表现</div>'),file+': repeated pattern');
     assert.ok(html.indexOf('axis-grade-explanation')<html.indexOf('<details class="axis-further-check">'),file+': '+code);
    }
   }
@@ -1017,10 +1031,12 @@ assert.equal(api.validPath(['ruler_id']),false);
 ''')
 
 
-def test_note_coverage_follows_current_main_pool():
+def test_note_coverage_includes_supplementary_samples():
     from reader.build import person_note_reference_issues
     records = [{'ruler_id': 'main'}, {'ruler_id': 'extra', 'supplementary': True}]
-    assert person_note_reference_issues(records, {'records': {}}) == [('main', 'coverage', [])]
+    assert person_note_reference_issues(records, {'records': {}}) == [
+        ('extra', 'coverage', []), ('main', 'coverage', []),
+    ]
 
 
 def test_design_context_keeps_rules_before_metadata_and_all_current_processes(tmp_path):

@@ -1512,7 +1512,7 @@ function firstCommanderMarkup(item, record) {
       const record = await loadNetRecord(summary);
       if (generation !== netRenderGeneration || !location.hash.startsWith("#net/")) return true;
       if (!record.net) {
-        screen.innerHTML = `<div class="empty"><p>${esc(personLabel(record))}没有可展示的统治绩效正式结算。</p>${record.fourth_c_collection_ref?globalThis.FourthItemCReading.entryLinks(record):''}<a href="#person/${encodeURIComponent(record.ruler_id)}">返回人物页</a></div>`;
+        screen.innerHTML = `<div class="empty"><h1>${esc(personLabel(record))} · 统治绩效</h1><p>${esc(missingNetStatus(record))}</p>${record.fourth_c_collection_ref?globalThis.FourthItemCReading.entryLinks(record):''}<a href="#person/${encodeURIComponent(record.ruler_id)}">返回人物页</a></div>`;
         return true;
       }
       renderNetMajor(record, parsed.major, parsed.focus);

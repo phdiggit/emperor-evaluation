@@ -46,12 +46,18 @@
   function validateNotes(payload) {
     if (!exactKeys(payload, ["schema_id", "records"]) || payload.schema_id !== schema || !plain(payload.records)) throw Error("Invalid reading-note schema");
     for (const [id, notes] of Object.entries(payload.records)) {
-      if (!id.startsWith("RULER-") || /[\/\\]/.test(id) || !plain(notes)) throw Error("Invalid reading-note identity");
+      if (!/^(?:RULER|HIMPACT)-[^/\\]+$/.test(id) || !plain(notes)) throw Error("Invalid reading-note identity");
       // Editorial freedom is limited to the three overview summaries. Decisions,
       // strength, counterevidence and boundaries belong to the formal records.
       if (!exactKeys(notes, ["overview"])) throw Error("Only overview summaries are allowed");
-      if (!exactKeys(notes.overview, overviewKeys)) throw Error("Reading note needs three overview sections");
+      const impactOnly = exactKeys(notes.overview, ["impact"]);
+      if (!impactOnly && (id.startsWith("HIMPACT-") || !exactKeys(notes.overview, overviewKeys))) {
+        throw Error("Reading note needs three overview sections or an impact-only overview");
+      }
       for (const block of Object.values(notes.overview)) validateBlock(block);
+      if (impactOnly && notes.overview.impact.evidence.some(ref => ref.path[0] !== "impact")) {
+        throw Error("Impact-only reading note needs historical impact evidence");
+      }
     }
     return payload;
   }
@@ -143,7 +149,7 @@
   function applyOverview(record, notes) {
     for (const [key, id] of [["outcome", "person-outcome"], ["profile", "person-capability"], ["impact", "person-impact"]]) {
       const panel = document.getElementById(id);
-      if (!panel || panel.querySelector(":scope > .person-reading-note")) continue;
+      if (!panel || !notes.overview[key] || panel.querySelector(":scope > .person-reading-note")) continue;
       const block = renderBlock(key, notes.overview[key], record, "person-reading-note");
       if (block) panel.querySelector(":scope > h2")?.after(block);
     }
