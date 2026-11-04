@@ -161,7 +161,8 @@ def test_person_and_comparison_use_lossless_authored_renderer(tmp_path):
         pytest.skip('Node.js required for shared reader behavior')
     template = (ROOT / 'reader/index.template.html').read_text(encoding='utf-8')
     scope = template[template.index('function profileGradeScope('):template.index('function compactAxisMeta(')]
-    source = scope + template[template.index('function m1AuthoredEvidence('):template.index('function profilePanel(')]
+    failure_review = template[template.index('function m1FailureReview('):template.index('function axisEvidenceScope(')]
+    source = scope + failure_review + template[template.index('function m1AuthoredEvidence('):template.index('function profilePanel(')]
     row = synthetic()
     row['m1_archive_links'] = {'commander': {'label': '本人武将档案', 'href': 'military.html#commander=SYNTHETIC'},
                              'career': [{'title': '合成生涯说明', 'basis': '其他行动的具体作用。',
@@ -171,7 +172,7 @@ def test_person_and_comparison_use_lossless_authored_renderer(tmp_path):
     script.write_text('const assert=require("node:assert/strict");\n'
                      + 'const axis=' + json.dumps(row, ensure_ascii=False) + ';\n'
                      + 'const DATA={axis_specs:{M1:{name:"军事判断与统帅能力",contract:"rule.md",json:"formal.json",markdown:"formal.md"}}};\n'
-                     + 'const esc=x=>String(x??"");const prose=x=>"<p>"+esc(x)+"</p>";const link=(p,l)=>"<a>"+l+"</a>";\n'
+                     + 'const esc=x=>String(x??"");const prose=x=>"<p>"+esc(x)+"</p>";const axisProse=prose;const link=(p,l)=>"<a>"+l+"</a>";\n'
                      + 'const grade=a=>a.display_point_only?"历史显示点":"B";const conf=x=>x;const letters={G3:"B"};\n'
                      + source + '\n'
                      + 'assert.equal(profileGradeScope({output_mode:"FULL_GRADE"}),"");'
