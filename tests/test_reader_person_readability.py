@@ -961,6 +961,17 @@ assert.ok(html.includes('未识别（FUTURE_MODE）'));
 html=vm.runInContext('impactSourceOverview(r)',ctx);
 assert.ok(html.includes('不自动充当本节证据'));
 assert.ok(html.includes('unbound.json'));
+ctx.r.impact.depth_review={source_ref_indices:[1]};
+html=vm.runInContext('historySections(r,"-compare-0",true)',ctx);
+const scope=html.slice(html.indexOf('id="history-dimension-scope-compare-0"'),html.indexOf('id="history-dimension-depth_duration-compare-0"'));
+const depth=html.slice(html.indexOf('id="history-dimension-depth_duration-compare-0"'),html.indexOf('id="history-dimension-personal_causality-compare-0"'));
+assert.ok(scope.includes('本节尚未单独绑定来源'));
+for(const id of ['history-core-chains-compare-0','history-source-overview-compare-0']){
+ assert.ok(scope.includes('data-section="'+id+'"'));
+ assert.ok(html.includes('id="'+id+'"'));
+}
+assert.ok(!scope.includes('目录材料'));
+assert.ok(depth.includes('目录材料')&&!depth.includes('尚未单独绑定来源'));
 // Full-pool parity uses live authored fields, with no frozen source counts.
 let sources=0,chains=0;
 for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')||f.startsWith('HIMPACT-'))){

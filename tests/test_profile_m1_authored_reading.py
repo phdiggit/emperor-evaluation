@@ -160,7 +160,8 @@ def test_person_and_comparison_use_lossless_authored_renderer(tmp_path):
     if not node:
         pytest.skip('Node.js required for shared reader behavior')
     template = (ROOT / 'reader/index.template.html').read_text(encoding='utf-8')
-    source = template[template.index('function m1AuthoredEvidence('):template.index('function profilePanel(')]
+    scope = template[template.index('function profileGradeScope('):template.index('function compactAxisMeta(')]
+    source = scope + template[template.index('function m1AuthoredEvidence('):template.index('function profilePanel(')]
     row = synthetic()
     row['m1_archive_links'] = {'commander': {'label': '本人武将档案', 'href': 'military.html#commander=SYNTHETIC'},
                              'career': [{'title': '合成生涯说明', 'basis': '其他行动的具体作用。',
@@ -171,10 +172,17 @@ def test_person_and_comparison_use_lossless_authored_renderer(tmp_path):
                      + 'const axis=' + json.dumps(row, ensure_ascii=False) + ';\n'
                      + 'const DATA={axis_specs:{M1:{name:"军事判断与统帅能力",contract:"rule.md",json:"formal.json",markdown:"formal.md"}}};\n'
                      + 'const esc=x=>String(x??"");const prose=x=>"<p>"+esc(x)+"</p>";const link=(p,l)=>"<a>"+l+"</a>";\n'
-                     + 'const grade=()=>"B";const conf=x=>x;const letters={G3:"B"};\n'
+                     + 'const grade=a=>a.display_point_only?"历史显示点":"B";const conf=x=>x;const letters={G3:"B"};\n'
                      + source + '\n'
+                     + 'assert.equal(profileGradeScope({output_mode:"FULL_GRADE"}),"");'
+                     + 'assert.equal(profileGradeScope({output_mode:"EPISODE_TAG"}),"仅有局部证据");'
+                     + 'assert.equal(profileGradeScope({output_mode:"EPISODE_TAG",assessment_basis:"NO_DEMONSTRATED_CAPABILITY"}),"未显示外交能力");'
+                     + 'assert.equal(profileGradeScope({output_mode:"BOUNDED_PROFILE",evidence_floor_review:{}}),"证据下限");'
+                     + 'assert.equal(profileGradeScope({output_mode:"BOUNDED_PROFILE",display_point_only:true}),"");'
+                     + 'axis.output_mode="BOUNDED_PROFILE";'
                      + 'for(const suffix of ["","-compare-left","-compare-right"]){const html=axisEvidence({axes:{M1:axis}},"M1",suffix);'
                      + 'assert.ok(html.includes("reason-M1"+suffix));assert.ok(!html.includes("材料底池"));'
+                     + 'assert.ok(html.slice(0,html.indexOf("</summary>")).includes("结论有范围"));'
                      + 'assert.ok(!html.includes("进一步核对"));'
                      + 'assert.ok(html.includes("military.html#commander=SYNTHETIC"));assert.ok(html.includes("military.html#battle=SYNTHETIC"));'
                      + 'assert.ok(html.includes("其他行动的具体作用。"));assert.ok(html.includes("本人角色与复验分别比较。"));'

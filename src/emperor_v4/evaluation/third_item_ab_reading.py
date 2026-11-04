@@ -169,6 +169,16 @@ def render_person(row: Mapping[str, Any], *, a_readings, b_basis, b_grade, b_reg
         grade = 0 if rate < 30 else 1 if rate < 45 else 2 if rate < 60 else 3 if rate < 75 else 4 if rate < 90 else 5
         lines.append(f"| {name} {titles[name]} | {grade}档 | {rate:g}% |")
     lines += ['', *([prose(row['A_axis_common_context']), ''] if row.get('A_axis_common_context') else [])]
+    readings = [a_readings[name]['public_reading'] for name in ('A1', 'A2')]
+    shared = ''
+    if all(readings):
+        first, second = readings
+        candidate = first['responsibility'].strip()
+        if (candidate == second['responsibility'].strip()
+                and all(candidate != reading['handover'].strip() for reading in readings)):
+            shared = candidate
+    if shared:
+        lines += ['**两轴共用的本人归责**', '', shared, '']
     for name in ('A1', 'A2'):
         reading = a_readings[name]['public_reading']
         if reading:
@@ -178,11 +188,15 @@ def render_person(row: Mapping[str, Any], *, a_readings, b_basis, b_grade, b_reg
                 relative = posixpath.relpath(path, 'docs/评分结算/净收益/第三项军事与边疆净收益/国防安全')
                 target = quote(relative, safe='/') + ('#' + quote(anchor, safe='=') if anchor else '')
                 links.append(f"- {ref['kind']}：[{ref['label']}]({target})")
+            responsibility = reading['responsibility'].strip()
+            combined = responsibility == reading['handover'].strip()
+            handover_title = '交班与归责依据' if combined else '交班'
             lines += [f"**{name} {titles[name]}**", '', f"评价时期：{reading['window']}。类型：{reading['type_label']}。", '',
                       f"**接班 · {reading['start_label']}**", '', reading['inherited'], '',
-                      f"**交班 · {reading['end_label']}**", '', reading['handover'], '',
-                      '**本人归责**', '', reading['responsibility'], '',
-                      '<details><summary>任内经历、定档与计算来源</summary>', '', reading['story'], '',
+                      f"**{handover_title} · {reading['end_label']}**", '', reading['handover'], '']
+            if not combined and responsibility != shared:
+                lines += ['**本人归责**', '', reading['responsibility'], '']
+            lines += ['<details><summary>任内经历、定档与计算来源</summary>', '', reading['story'], '',
                       '为什么这样评：' + reading['decision'], '', reading['method'], '', reading['calculation'], '',
                       reading['source_note'], '', *links, '', reading['boundary'], '',
                       *reading['scale'], '', '</details>', '']

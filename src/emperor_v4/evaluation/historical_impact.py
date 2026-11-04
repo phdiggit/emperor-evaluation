@@ -27,6 +27,7 @@ SOURCE_DISPLAY = {
     "use_scope": {
         "SPATIAL_FACT_CHECK_ONLY": "仅用于空间事实核对",
         "CAUSAL_ALTERNATIVE_CHECK": "用于本人作用与替代路径核对",
+        "PERSONAL_CAUSALITY_CHECK": "用于本人作用核对",
         "STRUCTURAL_CONTINUITY_CHECK": "用于结构延续核对",
         "PARADIGM_RECEPTION": "用于后世人物借鉴核对",
     },
@@ -35,6 +36,7 @@ SOURCE_DISPLAY = {
         "PRIMARY_TEXT_DIGITAL_TRANSCRIPTION_SCOPED_REVIEW": "原典数字转录文本定向核对",
         "IMPERIAL_EDUCATION_PROGRAM_SCOPED_REVIEW": "帝王教育材料定向核对",
         "SCOPED_WEB_TEXT_REVIEW": "网页正文定向核对",
+        "SCOPED_SOURCE_REVIEW": "所列材料定向核对",
         "SEARCH_RETURNED_TEXT_SCOPED_REVIEW": "搜索返回文字定向核对",
         "DOMESTIC_RESEARCH_SCOPED_REVIEW": "国内研究材料定向核对",
         "DOMESTIC_JOURNAL_SCOPED_REVIEW": "国内期刊材料定向核对",
@@ -211,7 +213,7 @@ def render(payload: dict[str, Any], *, document_path: str = "") -> str:
                 if indices:
                     lines.extend("- " + source_label(row['source_refs'][i]) for i in indices)
                 else:
-                    lines.append('当前正式记录未为本节单独绑定来源；其他登记材料不自动证明本节论断。')
+                    lines.append('当前正式记录未为本节单独绑定来源。可查看本人物的核心历史主链及“来源与核对范围”；各条材料按其登记的采用范围阅读。')
                 lines.append("")
             lines.extend(["**范式与示范：**", "", row["paradigm_analysis"], "", "**来源与核对范围：**", "",
                           row.get('source_review_scope', ''), "", row.get('source_trace', {}).get('limit', ''), "",

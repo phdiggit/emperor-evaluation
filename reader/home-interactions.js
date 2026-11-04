@@ -982,7 +982,7 @@ function firstCommanderMarkup(item, record) {
     return cards ? `<div class="label">正式裁决材料</div>${coverageNote}<ul class="net-material-list">${cards}</ul>` : "";
   }
 
-  function metricDetail(item, record, groupKey = "") {
+  function metricDetail(item, record, groupKey = "", sharedResponsibility = "") {
     if (item.reader_public_fourth_c) {
       return `<article class="fourth-c-authored">${globalThis.FourthItemCReading.heading(item)}${globalThis.FourthItemCReading.html(item, record)}</article>`;
     }
@@ -999,7 +999,7 @@ function firstCommanderMarkup(item, record) {
       return `<article class="third-b-authored">${globalThis.ThirdItemBReading.heading(item)}${globalThis.ThirdItemBReading.html(item, record)}</article>`;
     }
     if (item.reader_public_a && globalThis.ThirdItemAReading) {
-      return `<article class="third-a-authored"><div class="component"><strong>${esc(item.public_component_label)}</strong><b>${esc(item.value)} / 60 分</b></div>${globalThis.ThirdItemAReading.html(item, record)}</article>`;
+      return `<article class="third-a-authored"><div class="component"><strong>${esc(item.public_component_label)}</strong><b>${esc(item.value)} / 60 分</b></div>${globalThis.ThirdItemAReading.html(item, record, sharedResponsibility)}</article>`;
     }
     if (item.reader_public_c && globalThis.SecondItemCReading) {
       const title = {"C1民生":"民生", "C2经济财政":"经济财政", "C3社会安全":"社会安全", "C4恢复与成本":"恢复与额外代价"}[item.label];
@@ -1330,11 +1330,11 @@ function firstCommanderMarkup(item, record) {
   }
 
 
-  function thirdJudgmentCards(record, items, labels, groupKey) {
+  function thirdJudgmentCards(record, items, labels, groupKey, sharedResponsibility = "") {
     const wanted = new Set(labels);
     return items
       .filter(item => wanted.has(item.label) && item.reader_kind === "judgment")
-      .map(item => metricDetail(item, record, groupKey)).join("");
+      .map(item => metricDetail(item, record, groupKey, sharedResponsibility)).join("");
   }
 
   function thirdCalculationRows(items, labels, groupKey, summary) {
@@ -1348,9 +1348,13 @@ function firstCommanderMarkup(item, record) {
   function thirdMajorGroups(record, details) {
     const strategic = details.strategic || [];
     const military = details.military || [];
+    const aReadings = ["A1", "A2"].map(label => strategic.find(item => item.label === label)?.reader_public_a);
+    const aReader = globalThis.ThirdItemAReading;
+    const shared = aReader?.sharedResponsibility(aReadings) || "";
     const strategicSection = `<section id="net-group-strategic" class="panel net-detail-group"><h2>战略收益与国防</h2>
       <div class="net-third-subgroup"><h3>战略安全成果（满分120分）</h3><p class="subline net-third-subgroup-note">先读具体经历，再分别看威胁是否受控、防线能否协同。两轴各60分：交班安全状态形成基础分，本人造成的改善、恶化和独立建设另行计入；同档交班仍可有基础分。</p>
-        ${thirdJudgmentCards(record, strategic, ["A1","A2"], "strategic")}
+        ${shared ? aReader.responsibilitySection("两轴共用的本人归责", shared) : ""}
+        ${thirdJudgmentCards(record, strategic, ["A1","A2"], "strategic", shared)}
         ${thirdCalculationRows(strategic, ["A120"], "strategic", "安全状态小计怎么形成？")}
       </div>
       <div class="net-third-subgroup"><h3>控制成果质量（合成满分80分）</h3><p class="subline net-third-subgroup-note">先看控制对象和接班、交班范围，再看本人合格成果的战略作用与移交条件。三轴分别保留原始得分率和实际采用率；不是领土占比、现实概率或独立得分。成熟度未完成复核时，现值保留与复核状态分别说明。</p>

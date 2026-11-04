@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from typing import Any
 from copy import deepcopy
+import re
 
 from emperor_v4.evaluation.governance_state_recovery import FIXED_POINTS, LOSS_RATES
 
@@ -71,6 +72,12 @@ def verify_recovery_reading(row: dict[str, Any]) -> None:
                     f' − 独立额外成本 {row["destructive_amplification_penalty"]:g}分 = 净调整 {row["score"]:+.1f}分。')
     if expected_net not in sections[5]['body']:
         raise ValueError(f'恢复阅读净调整与正式数值不同值：{row.get("ruler_name")}')
+    for summary_net in re.findall(
+        r'保留恢复 \+[\d.]+分 − 本人恶化 [\d.]+分 − 独立额外成本 [\d.]+分 = 净调整 [+-][\d.]+分。',
+        row.get('public_adjudication_summary', ''),
+    ):
+        if summary_net != expected_net:
+            raise ValueError(f'恢复公开摘要的算式与正式数值不同值：{row.get("ruler_name")}')
     if (row.get('recovery_formula_version') != 'GOVERNANCE-STATE-RECOVERY-V4'
             and not all(term in sections[0]['body'] for term in ('池外', '原机制'))):
         raise ValueError(f'池外恢复阅读缺少原机制边界：{row.get("ruler_name")}')

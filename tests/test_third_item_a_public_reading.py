@@ -109,6 +109,19 @@ assert(html.includes('上游接班&lt;文本&gt;'));assert(html.includes('上游
 assert(html.includes('完整经历甲。'));assert(html.includes('完整经历乙。'));
 assert(html.includes('共同贡献不能独占。'));
 assert(html.indexOf('完整经历甲。')>html.indexOf('<details>'));
+const reader=context.ThirdItemAReading;
+const other={...reading,handover:'另一轴的交班依据。'};
+const shared=reader.sharedResponsibility([reading,other]);
+assert.equal(shared,reading.responsibility);
+assert(reader.responsibilitySection('两轴共用的本人归责',shared).includes(shared));
+assert(!reader.html({reader_public_a:reading},{},shared).includes(shared));
+assert(!reader.html({reader_public_a:other},{},shared).includes(shared));
+assert.equal(reader.sharedResponsibility([reading,{...other,responsibility:'另一项独立责任。'}]),'');
+const combined={...reading,responsibility:reading.handover};
+assert.equal(reader.sharedResponsibility([combined,{...other,responsibility:combined.responsibility}]),'');
+const combinedHtml=reader.html({reader_public_a:combined},{});
+assert(combinedHtml.includes('交班与归责依据 · A档'));
+assert.equal(combinedHtml.split(combined.handover).length,2);
 delete reading.handover;
 assert.throws(()=>context.ThirdItemAReading.html({reader_public_a:reading},{}),/接班或交班正文/);
 ''', encoding='utf-8')
