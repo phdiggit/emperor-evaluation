@@ -20,7 +20,6 @@ SOURCE_IDENTITY_PATH = ROOT / "reader/source-revision.json"
 PERSON_NOTES_SOURCE = ROOT / "reader/person-reading-notes.json"
 PERSON_NOTES_SNAPSHOT = ROOT / "reader/data/person-reading-notes.json"
 READER_RUNTIME_SCRIPTS = (
-    "second-item-display.js",
     "fourth-item-a-public.js",
     "fourth-item-b-public.js",
     "fourth-item-c-public.js",
@@ -260,10 +259,10 @@ DIPLOMATIC_CONTEXT_FIELDS = [
 ]
 
 
-def runtime_script_blocks():
+def runtime_script_blocks(filenames=READER_RUNTIME_SCRIPTS):
     """Freeze validated runtime JS directly into the generated reader artifact."""
     blocks = []
-    for filename in READER_RUNTIME_SCRIPTS:
+    for filename in filenames:
         source = (ROOT / "reader" / filename).read_text(encoding="utf-8")
         source = source.replace("</script>", r"<\/script>")
         blocks.append(f"<script>\n{source}\n</script>")
@@ -1767,7 +1766,9 @@ def build(*, check=False, write=True):
     output = ROOT / "reader/index.html"
     if template.count("__READER_DATA__") != 1:
         raise ValueError("Reader template must contain exactly one data placeholder")
-    rendered = template.replace("__READER_DATA__", payload)
+    rendered = template.replace("__READER_DATA__", payload).replace(
+        "__SECOND_ITEM_DISPLAY__", runtime_script_blocks(("second-item-display.js",)), 1
+    )
 
     expected_detail_names = set(detail_files)
     actual_detail_names = {p.name for p in DETAILS_DIR.glob("*.json")} if DETAILS_DIR.exists() else set()
