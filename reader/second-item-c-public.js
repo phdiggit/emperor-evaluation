@@ -7,7 +7,11 @@
     return refs.map(ref => {
       const target = typeof link === "function" ? link(ref.path, "查看所引原记录 ↗") : `<a href="${escape(ref.path)}">查看所引原记录 ↗</a>`;
       const original = ref.source_url ? ` <a href="${escape(ref.source_url)}" target="_blank" rel="noopener">查看所引史源 ↗</a>` : "";
-      return `<section class="c-public-source"><p>${escape(ref.source_kind)} · ${escape(ref.source_title)} · ${escape(ref.source_locator)}</p><blockquote class="prose">${escape(ref.exact_quote)}</blockquote><p class="sources">${target}${original}</p></section>`;
+      const parts = String(ref.source_title || "").split("；").map(part => part.trim());
+      const grouped = typeof link === "function" && parts.length > 1 &&
+        parts.every(part => /^(?:docs\/|config\/|archive\/|https?:\/\/)/.test(part))
+        ? parts.map((part, index) => link(part, `相关材料 ${index + 1} ↗`)).join(" ") : "";
+      return `<section class="c-public-source"><p>${escape(ref.source_kind)} · ${escape(ref.source_title)} · ${escape(ref.source_locator)}</p><blockquote class="prose">${escape(ref.exact_quote)}</blockquote><p class="sources">${target}${original} ${grouped}</p></section>`;
     }).join("");
   }
   function html(item) {

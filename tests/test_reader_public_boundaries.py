@@ -53,7 +53,7 @@ const personLabel=new Function(identitySource+'return personLabel;')();
 const costStart=home.indexOf('function firstCostPublicText');
 const costEnd=home.indexOf('\n\nfunction firstCostMarkup',costStart);
 const firstCostPublicText=new Function(home.slice(costStart,costEnd)+';return firstCostPublicText;')();
-const render=new Function('esc','firstPublicSharePercent','firstPublicOutcomeParts','firstPublicOutcomeText','firstFactText','personLabel','firstCostPublicText',overview+'return firstItemOverview;')(esc,()=>'',a=>[['成果',a.public_outcome_basis]],String,String,personLabel,firstCostPublicText);
+const render=new Function('majorContents',overview+'return firstItemOverview;')(()=>'<nav>本页目录</nav>');
 const html=render({ruler_name:'合成对象'}, {}, {'A统一贡献':{reader_public_outcome:{public_question:'合成阅读问题',public_story:long}}});
 assert.equal(html.split(long).length-1,0); // The overview links to the full narrative card.
 const aStart=home.indexOf('function firstAReadingMarkup'),aEnd=home.indexOf('// Formal public fields are shared',aStart);
@@ -93,7 +93,7 @@ const capabilities=['M1','M2','M4','M5','C1','C2','C3','C4'];
 const codes=[...capabilities,'C5'];
 let writes=0,html='',emphasis=false;
 const checkbox={},table={classList:{toggle(name,value){assert.equal(name,'emphasize-differences');emphasis=value;}}};
-const screen={set innerHTML(value){writes++;html=value;},get innerHTML(){return html;}};
+const screen={set innerHTML(value){writes++;html=value;},get innerHTML(){return html;},querySelectorAll(){return [];}};
 const data={capability_axes:capabilities,independent_axes:['C5'],axis_specs:Object.fromEntries(codes.map(c=>[c,{name:c}]))};
 const state={compare:['left','right'],differences:false};
 const context={DATA:data,state,screen,byId:new Map(),nav(){},history:{replaceState(){}},

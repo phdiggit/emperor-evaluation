@@ -187,6 +187,13 @@ def source_file(ref):
     return re.sub(r":\d+(?:-\d+)?$", "", unquote(ref.split("#", 1)[0]))
 
 
+def split_source_refs(ref):
+    parts = [part.strip() for part in ref.split("；")]
+    if all(part.startswith(("docs/", "config/", "archive/", "https://", "http://")) for part in parts):
+        return parts
+    return [ref]
+
+
 def apply_public_copy(template):
     """Apply reader-only wording without changing any settlement payload."""
     path = ROOT / "reader/public-copy.json"
@@ -372,7 +379,8 @@ def _formal_source_refs(record, *extra):
             refs.append(ref)
     if isinstance(record, dict):
         refs.extend(sorted(local_sources(record)))
-    return list(dict.fromkeys(refs))[:8]
+    selected = list(dict.fromkeys(refs))[:8]
+    return list(dict.fromkeys(part for ref in selected for part in split_source_refs(ref)))
 
 
 def _attach_reader(item, *, kind, summary="", how="", boundary="", source_refs=(), highlights=()):
@@ -1153,8 +1161,33 @@ def record_summary(record):
 def source_availability(value):
     return {
         ref: (ROOT / source_file(ref)).exists()
-        for ref in sorted(local_sources(value))
+        for ref in sorted({part for group in local_sources(value) for part in split_source_refs(group)
+                           if part.startswith(("docs/", "config/", "archive/"))})
     }
+
+
+def historical_source_links():
+    """Pin retired First Item citations to their verified original records."""
+    current = "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/"
+    retired = "docs/评分结算/第一项创业与政权取得能力/"
+    revision = "5c2ef3ee2db42abf915f60923cf841b7583a8147"
+    base = f"https://github.com/phdiggit/emperor-evaluation/blob/{revision}/"
+    strategy = "战略决策能力/01-第一项A战略决策能力结算.json"
+    integration = "政治整合能力/01-第一项B政治整合能力结算.json"
+    strategy_lines = {
+        "RULER-NS-ZHAO-GUANGYI": 10607,
+        "RULER-QIN-YINGZHENG": 2019,
+        "RULER-SHADOW-刘崇": 9076,
+        "RULER-SHADOW-吕光": 8645,
+        "RULER-SHADOW-慕容垂": 3230,
+        "RULER-SHADOW-苻坚": 6222,
+        "RULER-SHADOW-高季兴": 8779,
+        "RULER-WEI-SIMASHI": 12281,
+    }
+    links = {f"{current}{strategy}#ruler_id={ruler_id}": f"{base}{retired}{strategy}#L{line}"
+             for ruler_id, line in strategy_lines.items()}
+    links[f"{current}{integration}#records/79"] = f"{base}{retired}{integration}#L10518"
+    return links
 
 
 def detail_payload(record):
@@ -1335,11 +1368,17 @@ def render_second_c_collection(root):
     def paragraphs(value):
         return ''.join(f"<p class='prose'>{escape(text)}</p>" for text in value.split('\n\n'))
     def render_sources(refs):
-        return ''.join(
-            f"<section><p>{escape(ref['source_kind'])} · {escape(ref['source_title'])} · {escape(ref['source_locator'])}</p>"
-            f"<blockquote>{escape(ref['exact_quote'])}</blockquote>{collection_source_link(ref['path'], '查看所引原记录 ↗')}"
-            + (f" <a href='{escape(ref['source_url'])}' target='_blank' rel='noopener'>查看所引史源 ↗</a>" if ref.get('source_url') else '') + '</section>'
-            for ref in refs)
+        sections = []
+        for ref in refs:
+            parts = split_source_refs(ref['source_title'])
+            grouped = (' '.join(collection_source_link(part, f'相关材料 {index} ↗')
+                                for index, part in enumerate(parts, 1)) if len(parts) > 1 else '')
+            original = collection_source_link(ref['source_url'], '查看所引史源 ↗') if ref.get('source_url') else ''
+            sections.append(
+                f"<section><p>{escape(ref['source_kind'])} · {escape(ref['source_title'])} · {escape(ref['source_locator'])}</p>"
+                f"<blockquote>{escape(ref['exact_quote'])}</blockquote>{collection_source_link(ref['path'], '查看所引原记录 ↗')} "
+                f"{original} {grouped}</section>")
+        return ''.join(sections)
     for person in payloads['C1']['scores']:
         sections = []
         for axis in FORMAL_PATHS:
@@ -1723,6 +1762,7 @@ def build(*, check=False, write=True):
     common = dict(main_count=len(main), ranked_count=len(net),
                   source_repository=source_identity["repository"],
                   source_revision=source_identity["revision"],
+                  historical_source_links=historical_source_links(),
                   weight_sensitivity=ranking.get("weight_sensitivity", {}),
                   supplementary_count=len(records)-len(main), formula=ranking["formula"],
                   capability_axes=profile["capability_axes"], independent_axes=profile["independent_profile_axes"],

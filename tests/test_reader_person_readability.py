@@ -64,6 +64,21 @@ def test_net_explanation_projection_uses_formal_text():
     ]
 
 
+def test_grouped_source_paths_are_linked_separately(tmp_path, monkeypatch):
+    from reader import build
+
+    local = "docs/source.md#L2"
+    external = "https://example.org/source"
+    missing = "docs/missing.md"
+    record = {"source_refs": [f"{local}；{external}；{missing}"]}
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "docs/source.md").touch()
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+
+    assert build._formal_source_refs(record) == [local, external, missing]
+    assert build.source_availability(record) == {local: True, missing: False}
+
+
 def test_b2_reader_projection_consumes_all_explicit_public_evidence():
     evidence = [
         {
@@ -213,6 +228,8 @@ ctx.r={ruler_id:'SYNTHETIC',ruler_name:'合成人物',impact:{public_grade:'B',i
 ctx.historyArgs=[];
 vm.runInContext(`
  nav=()=>{};radar=()=>'<svg class="test-radar"></svg>';gradeHelp=()=>'';
+ DATA.capability_axes=['M1'];DATA.independent_axes=['C5'];
+ axisRows=(r,codes)=>codes.map(code=>'<a href="#reason-'+code+'" data-reason="'+code+'">'+code+'</a>').join('');
  profileEvidencePanel=(r,showRadar)=>'<section id="full-profile-evidence">'+(showRadar?radar(r):'')+'</section>';
  historySections=(...args)=>{historyArgs=args;return '<details id="full-history-evidence">完整依据</details>'};
  profilePage(r);
@@ -220,11 +237,12 @@ vm.runInContext(`
 let html=vm.runInContext('screen.innerHTML',ctx);
 assert.equal((html.match(/test-radar/g)||[]).length,1);
 assert.ok(html.indexOf('test-radar')<html.indexOf('full-profile-evidence'));
-assert.ok(!html.includes('compact-axes'));
+assert.ok(html.includes('#person/SYNTHETIC/profile/M1'));
+assert.ok(html.includes('#person/SYNTHETIC/profile/C5'));
 ctx.location.hash='#person/SYNTHETIC/impact';vm.runInContext('impactPage(r)',ctx);
 html=vm.runInContext('screen.innerHTML',ctx);
 assert.ok(html.includes('impact-detail-result')&&html.includes('full-history-evidence'));
-assert.ok(!html.includes('impact-dimension-card'));
+assert.ok(html.includes('#person/SYNTHETIC/impact/history-dimension-scope'));
 assert.equal(ctx.historyArgs[3],true,'the total-grade reason opens by default on the detail page');
 ''')
 

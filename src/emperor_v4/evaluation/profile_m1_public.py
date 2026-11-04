@@ -222,6 +222,19 @@ def markdown_reading(row: dict, context: dict | None = None) -> list[str]:
     lines += [f'#### 为什么评为 {letter} 档？', '', p['grade_reason'], '',
               '#### ' + position_title, '', p['position_reason'], '',
               ('#### 当前等级的边界' if row['axis_grade'] == 'G5' else '#### 为什么没有进入更高档？'), '', p['higher_grade_limit'], '']
+    if row.get('counterpattern') or row.get('limitations'):
+        lines += ['#### 正式反例与限制', '', row.get('counterpattern') or '', '']
+        lines += [f"- {text}" for text in row.get('limitations', [])]
+        lines.append('')
+    if review := row.get('m1_stability_review'):
+        lines += ['#### 军事失败与恢复复核', '', review['basis'], '']
+        for case in review['cases']:
+            lines += [f"##### {case['label']}", '', case['consequence'], '']
+            if case.get('negative_tier'):
+                lines += [f"本人负向后果等级：{case['negative_tier']}（事件后果尺度）。", '']
+            for key, label in [('attribution', '本人归责'), ('feedback', '反馈'),
+                               ('recovery', '恢复'), ('residual_loss', '残余损失'), ('decision_basis', '裁决')]:
+                lines += [f"**{label}** {case[key]}", '']
     if p.get('comparisons'):
         lines += ['#### 同轴比较', '']
         for item in archive['comparisons']:

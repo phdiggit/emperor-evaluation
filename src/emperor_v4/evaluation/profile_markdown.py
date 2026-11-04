@@ -174,71 +174,6 @@ def _c3_person_type(record: dict[str, Any]) -> str:
     return "高权任用失控型" if has_risk else "人才保护失灵型"
 
 
-def _c3_grade_reason(record: dict[str, Any]) -> str:
-    grade = str(record.get("axis_grade") or "")
-    raw = str(record.get("grade_basis") or "")
-    match = re.search(r"为什么是G\d[：:](.*?)(?=；为什么是(?:LOW|MID|HIGH)|$)", raw)
-    if match:
-        reason = match.group(1)
-    else:
-        reason = re.sub(r"^G\d-(?:LOW|MID|HIGH)[：:]\s*", "", raw)
-        reason = re.split(r"(?:因此定位为|因此定为|故定为)G\d", reason, maxsplit=1)[0]
-    clauses = _c3_clauses(reason)
-    reason = "；".join(clauses[:2]) if clauses else "见结构化父链与正式裁决。"
-    return f"{grade}：{_c3_short_text(reason, 150)}"
-
-
-def _c3_position_reason(record: dict[str, Any]) -> str:
-    grade = str(record.get("axis_grade") or "")
-    position = str(record.get("position") or "")
-    text = " ".join(
-        str(record.get(key) or "")
-        for key in ("typical_pattern", "counterpattern", "grade_basis", "position_basis")
-    )
-    has_feedback = bool(re.search(r"反馈|纠偏|重配|替换|收权|复用|复发", text))
-    has_risk = bool(re.search(r"失灵|错配|误用|偏置|反转|风险|反证|下沿|不足|不稳|清洗|受损", text))
-    templates = {
-        "G5": {
-            "HIGH": "正向宽度接近极限，但仍缺少压过反证的更强上沿。",
-            "MID": "历史级跨域闭环成立，但错配或人才保护反证压住上沿。",
-            "LOW": "历史级能力成立，但成熟期稳定性与人才保护反证较重。",
-        },
-        "G4": {
-            "HIGH": "跨任务复验与反馈闭环最强，但全域迁移仍不及G5。",
-            "MID": "跨任务强链成立，但稳定性仍有明确下沿。",
-            "LOW": "达到G4门槛，但第二稳定器、长期反馈或跨任务复验仍不足。",
-        },
-        "G3": {
-            "HIGH": "至少一条强链成立，但跨任务稳定性不足以进G4。",
-            "MID": "多类责任中心可见，但强度或反馈复验仍居中。",
-            "LOW": "局部强链存在，但主要任务或反馈覆盖有限。",
-        },
-        "G2": {
-            "HIGH": "局部强链较突出，但跨域复验不足。",
-            "MID": "责任链已有闭合，但长期反馈与迁移性不足。",
-            "LOW": "仅见局部配置，持续授权与纠偏证据有限。",
-        },
-        "G1": {
-            "HIGH": "已见明确责任中心，但闭环不稳或材料覆盖偏窄。",
-            "MID": "局部识别可见，岗位与反馈闭环偏弱。",
-            "LOW": "责任中心与后续响应均较薄。",
-        },
-        "G0": {
-            "HIGH": "负向机制跨对象或阶段闭合，已超过单一失误。",
-            "MID": "负向责任链占主导，但仍保留局部正证。",
-            "LOW": "高权任用与反馈接口出现基础性失灵。",
-        },
-    }
-    reason = templates.get(grade, {}).get(position, "由同档材料强度与反例共同确定。")
-    if grade == "G4" and position == "MID" and has_feedback:
-        reason = "跨任务强链成立，且有反馈纠偏；稳定性仍有明确下沿。"
-    if grade == "G3" and position == "HIGH" and not has_risk:
-        reason = "至少一条强链成立，跨任务稳定性尚不足以进G4。"
-    if grade == "G2" and position == "HIGH" and has_risk:
-        reason = "局部强链较突出，但风险反馈仍未形成稳定闭环。"
-    return f"{position}：{_c3_short_text(reason, 120)}"
-
-
 def _c3_limitation(record: dict[str, Any]) -> str:
     if record.get("score_status") == "EVIDENCE_LIMITED":
         return "证据受限：结论限于已核实的主要任务与阶段。"
@@ -761,13 +696,13 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
             "",
             settlement_line,
             f"- **{'核心依据' if axis == 'C2' else '主模式'}**：{row.get('grade_basis') if axis == 'C2' else row['typical_pattern']}",
-            *([] if axis == "C2" else [f"- **裁档理由**：{_c3_grade_reason(row) if axis == 'C3' else (row.get('grade_basis') or '见结构化父链与正式裁决源。')}" ]),
-            f"- **{'档内定位' if axis == 'C2' else '档内位置'}**：{_c3_position_reason(row) if axis == 'C3' else (row.get('position_basis') or '由同档材料强度与反例共同确定。')}",
-            f"- **限制**：{_c3_limitation(row) if axis == 'C3' else _limitations(row, labels)}",
+            *([] if axis == "C2" else [f"- **裁档理由**：{row.get('grade_basis') or '见结构化父链与正式裁决源。'}"]),
+            f"- **{'档内定位' if axis == 'C2' else '档内位置'}**：{row.get('position_basis') or '由同档材料强度与反例共同确定。'}",
+            f"- **限制**：{_limitations(row, labels)}",
         ])
         if axis == "C5":
             lines.extend(_c5_political_review_lines(row))
-        if axis == 'M2' and isinstance(row['counterpattern'], str):
+        if axis in {'M2', 'M4', 'C3'} and isinstance(row['counterpattern'], str):
             lines.append(f"- **反例与判断边界**：{row['counterpattern']}")
         if axis == "C2":
             lines.append(f"- **主要表现**：{row['typical_pattern']}")

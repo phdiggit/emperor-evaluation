@@ -210,6 +210,8 @@ def html_review(review,source_link=None,*,evidence_link=None):
         out+='<details><summary>'+escape(c['title'])+'</summary>'+p(('纳入整体判断；' if c['adopted'] else '保留记录，未纳入采用；')+c['scope']+'；'+c['result'])
         for w in c['opponent_windows']:out+=p(w.get('label','')+'；'+w.get('status',''))
         out+='<details><summary>详细裁决依据</summary>'+p(c['basis'])+'</details></details>'
-    for phase in review['phase_reviews']:out+='<details><summary>'+escape(phase['label'])+'</summary>'+p(phase['joint_phase_reason'])+'</details>'
+    for phase in review['phase_reviews']:
+        difficulty = phase.get('adopted_difficulty') or '未采用高难度'
+        out += '<details><summary>'+escape(phase['label'])+'</summary>'+p('采用难度：'+difficulty)+p(phase['joint_phase_reason'])+'</details>'
     for e in review['excluded_chain_reviews']:out+='<details><summary>未采用：'+escape(e['label'])+'</summary>'+p(e['basis'])+'</details>'
-    return out+''.join(p(x) for x in review['limitations'])
+    return out+''.join(p(x) for x in [*review['limitations'], review['conclusion']])

@@ -317,7 +317,7 @@ function firstCommanderMarkup(item, record) {
       .net-overview-jump small{display:block;margin-top:2px;font-size:11px;color:var(--green)}
       .net-detail-page{max-width:none;margin:12px 0 0}.net-detail-page>.panel{margin-bottom:16px}
       .net-detail-head{margin:8px 0 18px}
-      .net-major-nav{position:sticky;top:0;z-index:6;display:flex;gap:10px;padding:10px 12px;margin:0 0 20px;background:#eeefe7;border:1px solid var(--line);border-radius:5px;overflow-x:auto;white-space:nowrap}
+      .net-major-nav{position:sticky;top:0;z-index:6;display:flex;gap:8px;padding:4px 0 7px;margin:0 0 14px;background:var(--paper);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
       .net-major-nav a{padding:5px 8px;border-radius:4px;text-decoration:none}
       .net-major-nav a.active{background:var(--ink);color:white}
       .net-major-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
@@ -347,11 +347,6 @@ function firstCommanderMarkup(item, record) {
       .net-detail-group{margin:0 0 20px}.net-detail-group>h2{margin-top:0}
       .net-detail-total{border-left:3px solid var(--green);padding:12px 16px;background:#eef1ea;margin-top:18px}
       .first-item-overview{border:1px solid var(--line);border-left:4px solid var(--green);border-radius:7px;padding:18px;margin-bottom:16px;background:#f6f7f1}
-      .first-item-overview h2{font-size:22px;margin:0 0 6px}.first-item-overview>.subline{margin-bottom:12px}
-      .first-item-story-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-      .first-item-story-card{padding:12px 14px;border:1px solid var(--line);border-radius:5px;background:#fcfbf7;min-width:0}
-      .first-item-story-card.wide{grid-column:1/-1}.first-item-story-card>b{display:block;color:var(--green);margin-bottom:5px}
-      .first-item-story-card p{margin:4px 0;font-size:13px;line-height:1.75}.first-item-story-card ul{margin:5px 0;padding-left:18px;font-size:13px;line-height:1.75}
       .first-item-scoreline{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-size:14px;line-height:1.75;overflow-wrap:anywhere}.first-item-scoreline strong{color:var(--green)}
       .first-item-scope{margin:12px 0 16px;padding:10px 0}.first-item-rule-box{margin-top:14px}
       .first-item-rule-box>summary{font-size:13px;color:var(--muted)}
@@ -377,8 +372,6 @@ function firstCommanderMarkup(item, record) {
         .net-material-head{display:block}
         .net-material-meta{justify-content:flex-start;margin-top:6px}
         .net-material-chip{white-space:normal;overflow-wrap:anywhere}
-        .first-item-story-grid{grid-template-columns:1fr}
-        .first-item-story-card.wide{grid-column:auto}
       }
     `;
     document.head.append(style);
@@ -984,13 +977,13 @@ function firstCommanderMarkup(item, record) {
 
   function metricDetail(item, record, groupKey = "", sharedResponsibility = "") {
     if (item.reader_public_fourth_c) {
-      return `<article class="fourth-c-authored">${globalThis.FourthItemCReading.heading(item)}${globalThis.FourthItemCReading.html(item, record)}</article>`;
+      return `<article id="net-group-c" class="fourth-c-authored">${globalThis.FourthItemCReading.heading(item)}${globalThis.FourthItemCReading.html(item, record)}</article>`;
     }
     if (item.reader_public_fourth_b) {
-      return `<article class="fourth-b-authored">${globalThis.FourthItemBReading.heading(item)}${globalThis.FourthItemBReading.html(item, record)}</article>`;
+      return `<article id="net-group-b" class="fourth-b-authored">${globalThis.FourthItemBReading.heading(item)}${globalThis.FourthItemBReading.html(item, record)}</article>`;
     }
     if (item.reader_public_fourth_a) {
-      return `<article class="fourth-a-authored">${globalThis.FourthItemAReading.heading(item)}${globalThis.FourthItemAReading.html(item, record)}</article>`;
+      return `<article id="net-group-a" class="fourth-a-authored">${globalThis.FourthItemAReading.heading(item)}${globalThis.FourthItemAReading.html(item, record)}</article>`;
     }
     if (item.reader_public_third_c) {
       return `<article class="third-c-authored">${globalThis.ThirdItemCReading.heading(item)}${globalThis.ThirdItemCReading.html(item, record)}</article>`;
@@ -1264,26 +1257,11 @@ function firstCommanderMarkup(item, record) {
     return `<div class="net-detail-total"><details><summary>查看第一项完整折算公式</summary>${prose(`四轴毛分 = 统一成果 + 创业难度与效率 + 创业组织与整合 + 本人统帅 = ${a} + ${b1} + ${b2} + ${c} = ${gross}。\n军事代价扣减 = ${cost}。\n奠基与统一结算分 = max(0, ${gross} − ${cost}) = ${net} / 240。\n总榜附加 = 0.20 × 637 × (奠基与统一结算分 / 240)^1.25 = ${addOn}。`)}</details></div>`;
   }
 
-  function firstItemOverview(record, bulletsByLabel, byLabel) {
-    const b1 = byLabel["B1创业难度与效率"]?.reader_public_b1 || {};
-    const b2 = byLabel["B2组织与整合"]?.reader_public_b2 || {};
-    const cost = byLabel["军事成本扣分"];
-    const b1Parts = [
-      ["起点", b1.public_start_basis],
-      ["对手", b1.public_opponent_basis],
-      ["速度", b1.public_efficiency_basis],
-    ].filter(([, value]) => value);
-    const cReading = byLabel["C军事统帅与战争解题"]?.reader_public_commander || {};
-    const costData = cost?.reader_public_cost || {};
-    const costText = [
-      firstCostPublicText(costData.public_level_label || ""),
-      costData.public_status_label || "",
-      costData.public_responsibility_window ? `责任窗口：${costData.public_responsibility_window}` : "",
-    ].filter(Boolean).join(" · ");
+  function firstItemOverview(record) {
     const items = record.net?.component_details?.first || [];
     const parts = Object.fromEntries(items.map(item => [item.label, item.value]));
     const score = [parts["A统一贡献"], parts["B1创业难度与效率"], parts["B2组织与整合"], parts["C军事统帅与战争解题"], parts["军事成本扣分"], parts["第一项净分"], parts["附加F"]];
-    return `<section class="first-item-overview"><h2>再看起点、组织、统帅与代价</h2><div class="first-item-story-grid">${b1.public_question ? `<div class="first-item-story-card"><a href="${netHref(record, "first", "b1")}">${esc(b1.public_question)} →</a></div>` : ""}${b2.public_question ? `<div class="first-item-story-card"><a href="${netHref(record, "first", "b2")}">${esc(b2.public_question)} →</a></div>` : ""}${cReading.public_question ? `<div class="first-item-story-card"><a href="${netHref(record, "first", "c")}">${esc(cReading.public_question)} →</a></div>` : ""}${costText ? `<div class="first-item-story-card wide"><b>战争代价</b><p>${esc(costText)}</p></div>` : ""}</div>${score.every(value => value != null) ? `<div class="first-item-scoreline">统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]} − 战争代价 ${score[4]} = <strong>奠基与统一结算分 ${score[5]}</strong> → 总榜附加 <strong>+${score[6]}</strong></div>` : ""}</section>`;
+    return `<section class="first-item-overview">${majorContents(record, "first")}${score.every(value => value != null) ? `<div class="first-item-scoreline">统一成果 ${score[0]} + 创业难度与效率 ${score[1]} + 创业组织 ${score[2]} + 本人统帅 ${score[3]} − 战争代价 ${score[4]}${score[4] > score[0] + score[1] + score[2] + score[3] ? "（扣减后按零分下限结算）" : " ="} <strong>奠基与统一结算分 ${score[5]}</strong> → 总榜附加 <strong>+${score[6]}</strong></div>` : ""}</section>`;
   }
 
   async function renderFirstMajor(record, focus = "") {
@@ -1325,7 +1303,7 @@ function firstCommanderMarkup(item, record) {
       : "";
     const scope = `<details class="first-item-scope"><summary>本项采用的时间与责任范围</summary><dl>${ownA.public_project ? `<dt>共同项目</dt><dd>${esc(firstPublicOutcomeText(ownA.public_project))}</dd>` : ""}${firstPublicOutcomeParts(ownA).map(([label, value]) => `<dt>${esc(label)}</dt><dd>${esc(firstPublicOutcomeText(value))}</dd>`).join("")}${windowText ? `<dt>完成效率计时</dt><dd>${esc(firstFactText(windowText))}</dd>` : ""}${byLabel["军事成本扣分"]?.reader_boundary ? `<dt>军事成本责任范围</dt><dd>${esc(byLabel["军事成本扣分"].reader_boundary)}</dd>` : ""}</dl><p class="sources">${link('docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md','查看完整规则合同 ↗',record)}</p></details>`;
 
-    container.innerHTML = `<section class="panel net-detail-group">${cards.shift() || ""}${firstItemOverview(record, bulletsByLabel, byLabel)}${zeroNote}${scope}${cards.join("")}${firstTotals(items)}</section>`;
+    container.innerHTML = `<section class="panel net-detail-group">${firstItemOverview(record)}${zeroNote}${scope}${cards.join("")}${firstTotals(items)}</section>`;
     if (focus) requestAnimationFrame(() => document.getElementById(`net-first-${focus}`)?.scrollIntoView({behavior: "smooth", block: "start"}));
   }
 
@@ -1352,22 +1330,22 @@ function firstCommanderMarkup(item, record) {
     const aReader = globalThis.ThirdItemAReading;
     const shared = aReader?.sharedResponsibility(aReadings) || "";
     const strategicSection = `<section id="net-group-strategic" class="panel net-detail-group"><h2>战略收益与国防</h2>
-      <div class="net-third-subgroup"><h3>战略安全成果（满分120分）</h3><p class="subline net-third-subgroup-note">先读具体经历，再分别看威胁是否受控、防线能否协同。两轴各60分：交班安全状态形成基础分，本人造成的改善、恶化和独立建设另行计入；同档交班仍可有基础分。</p>
+      <div id="net-group-safety" class="net-third-subgroup"><h3>战略安全成果（满分120分）</h3><p class="subline net-third-subgroup-note">先读具体经历，再分别看威胁是否受控、防线能否协同。两轴各60分：交班安全状态形成基础分，本人造成的改善、恶化和独立建设另行计入；同档交班仍可有基础分。</p>
         ${shared ? aReader.responsibilitySection("两轴共用的本人归责", shared) : ""}
         ${thirdJudgmentCards(record, strategic, ["A1","A2"], "strategic", shared)}
         ${thirdCalculationRows(strategic, ["A120"], "strategic", "安全状态小计怎么形成？")}
       </div>
-      <div class="net-third-subgroup"><h3>控制成果质量（合成满分80分）</h3><p class="subline net-third-subgroup-note">先看控制对象和接班、交班范围，再看本人合格成果的战略作用与移交条件。三轴分别保留原始得分率和实际采用率；不是领土占比、现实概率或独立得分。成熟度未完成复核时，现值保留与复核状态分别说明。</p>
+      <div id="net-group-control" class="net-third-subgroup"><h3>控制成果质量（合成满分80分）</h3><p class="subline net-third-subgroup-note">先看控制对象和接班、交班范围，再看本人合格成果的战略作用与移交条件。三轴分别保留原始得分率和实际采用率；不是领土占比、现实概率或独立得分。成熟度未完成复核时，现值保留与复核状态分别说明。</p>
         ${thirdJudgmentCards(record, strategic, ["B1","B2","B4"], "strategic")}
         ${thirdCalculationRows(strategic, ["B80"], "strategic", "控制成果小计怎么形成？")}
       </div>
     </section>`;
     const militarySection = `<section id="net-group-military" class="panel net-detail-group"><h2>军事体系与成本</h2>
-      <div class="net-third-subgroup"><h3>军事体系表现</h3>
+      <div id="net-group-system" class="net-third-subgroup"><h3>军事体系表现</h3>
         ${thirdJudgmentCards(record, military, ["C1实战交付","C2持续作战","C3体系可靠性"], "military")}
         ${thirdCalculationRows(military, ["C50"], "military", "军事体系结果怎么形成？")}
       </div>
-      <div class="net-third-subgroup"><h3>军事代价</h3><p class="subline net-third-subgroup-note">普通军事代价与重大军事净毁损按正式规则合并，避免同一损失重复扣减。</p>
+      <div id="net-group-cost" class="net-third-subgroup"><h3>军事代价</h3><p class="subline net-third-subgroup-note">普通军事代价与重大军事净毁损按正式规则合并，避免同一损失重复扣减。</p>
         ${thirdJudgmentCards(record, military, ["普通成本扣分","ML扣分"], "military")}
         ${thirdCalculationRows(military, ["实际扣分"], "military", "实际军事代价怎么形成？")}
       </div>
@@ -1385,11 +1363,20 @@ function firstCommanderMarkup(item, record) {
     const container = document.getElementById("net-major-body");
     if (container) container.innerHTML = content || `<section class="panel"><p class="notice">这一项暂未形成可展示的完整分项记录。</p></section>`;
     if (focus) requestAnimationFrame(() => {
-      const target = major === 'fourth' && focus === 'c'
-        ? container?.querySelector('.fourth-c-authored')
-        : document.getElementById(`net-group-${focus}`);
+      const target = document.getElementById(`net-group-${focus}`);
       target?.scrollIntoView({behavior: "smooth", block: "start"});
     });
+  }
+
+  function majorContents(record, major) {
+    const entries = {
+      first: [["a","统一成果"],["b1","条件与效率"],["b2","组织与协作"],["c","本人统帅"],["cost","战争代价"]],
+      second: [["method","制度与行政"],["finance","民生与社会"],["handoff","政权交接"]],
+      third: [["safety","战略安全"],["control","控制成果"],["system","军事体系"],["cost","军事代价"]],
+      fourth: [["a","共同体整合"],["b","教育与人才"],["c","知识与文化"]],
+    }[major] || [];
+    return `<nav class="net-page-contents" aria-label="本页目录">${entries.map(([id,label]) =>
+      `<a href="${netHref(record, major, id)}">${esc(label)}</a>`).join("")}</nav>`;
   }
 
   function majorNav(record, active) {
@@ -1429,17 +1416,17 @@ function firstCommanderMarkup(item, record) {
         ? "本项只评价建国、复国或统一创业主链。当前正式结算未将本人纳入该主链，附加分按0计入总分；不据此判断能力高低。"
         : "请先查看正式适用状态与本项范围，不从空值推断为0分或不适用。"
       : spec.description;
-    return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(spec.title)}</h2><div class="big">${shownValue}</div>${extra}<p>${esc(description)}</p><p class="sources">${inactiveFirst?'查看适用规则与说明 →':'查看完整计分逻辑 →'}</p></a>`;
+    return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(spec.title)}</h2><div class="big">${shownValue}</div>${major === "first" && !inactiveFirst ? '<p class="net-card-score-label">总榜附加分</p>' : ""}${extra}<p>${esc(description)}</p><p class="sources">${inactiveFirst?'查看适用规则与说明 →':'查看分项与依据 →'}</p></a>`;
   }
 
   function renderNetShell(record, active, body) {
     nav("");
     const systemNav = typeof personSystemNav === "function" ? personSystemNav(record, "net") : "";
-    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(personLabel(record))}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权背景：${esc(record.actual_power_window || "未列")} · 统治绩效总分 ${scoreNumber(record.net?.total_score)}</p></div></div><p class="subline net-power-context-note">本项采用的时间与责任范围见各条依据；不能仅凭上述背景时期判断事件是否计入。</p>${governanceScope(record.net)}${systemNav}${majorNav(record, active)}<section class="net-detail-page">${body}</section>`;
+    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(personLabel(record))}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权背景：${esc(record.actual_power_window || "未列")} · 统治绩效总分 ${scoreNumber(record.net?.total_score)}</p></div></div><p class="subline net-power-context-note">本项采用的时间与责任范围见各条依据；不能仅凭上述背景时期判断事件是否计入。</p>${governanceScope(record.net)}${systemNav}${majorNav(record, active)}<section class="net-detail-page" data-net-person="${esc(record.ruler_id)}" data-net-major="${esc(active)}">${body}</section>`;
   }
 
   function renderNetLanding(record) {
-    renderNetShell(record, "all", `<section class="panel">${governanceReading(record,false)}<h2>选择要了解的经历</h2><p>按大项阅读具体经历、本人作用与评价理由，再按需展开计算和来源。</p></section><div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div>`);
+    renderNetShell(record, "all", `<div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div><section class="panel net-governance-preview"><h2>治国成效预览</h2>${governanceReading(record,false)}</section>`);
   }
 
   function renderNetMajor(record, major, focus) {
@@ -1460,7 +1447,7 @@ function firstCommanderMarkup(item, record) {
       : major === "fourth"
         ? `本项进入总榜的有符号调整：${shownValue}。 ${fourthAdjustmentNote(record)}`
         : `本项进入总榜的分值：${shownValue}。`;
-    renderNetShell(record, major, `<section class="panel"><h2>${esc(spec.title)}</h2><p>${esc(spec.description)}</p>${major === 'fourth' ? '<p><a href="fourth-item-a.html">阅读全部人物的国家共同体与社会整合依据 →</a> · <a href="fourth-item-b.html">阅读全部人物的教育与人才流动依据 →</a> · <a href="fourth-item-c.html">阅读全部人物的知识文化依据 →</a></p>' : ''}<p class="subline">${esc(scoreNote)}</p></section><div id="net-major-body"><div class="empty">正在整理当前人物的逐项结算逻辑…</div></div>`);
+    renderNetShell(record, major, `<section class="panel net-major-intro" aria-label="分项结果与目录"><p class="net-major-score-note">${esc(scoreNote)}</p><p class="subline">${esc(spec.description)}</p>${majorContents(record, major)}</section><div id="net-major-body"><div class="empty">正在整理当前人物的逐项结算逻辑…</div></div>`);
     renderGenericMajor(record, major, focus);
   }
 
@@ -1500,6 +1487,19 @@ function firstCommanderMarkup(item, record) {
   async function renderNetRoute() {
     const parsed = parseNetRoute();
     if (!parsed) return false;
+    const current = screen.querySelector(".net-detail-page");
+    if (current?.dataset.netPerson === parsed.rulerId && current.dataset.netMajor === parsed.major) {
+      const prefix = parsed.major === "first" ? "net-first-" : "net-group-";
+      const target = parsed.focus && document.getElementById(prefix + parsed.focus);
+      if (target && current.contains(target)) {
+        target.scrollIntoView({behavior: "auto", block: "start"});
+        return true;
+      }
+      if (!parsed.focus) {
+        window.scrollTo(0, 0);
+        return true;
+      }
+    }
     const summary = byId.get(parsed.rulerId);
     nav("");
     if (!summary) {

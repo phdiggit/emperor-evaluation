@@ -863,7 +863,7 @@
       reading.append(makeTextBlock("div", "label", "为什么这样判断"));
       const evidence = item.reader_public_evidence_items;
       const facts = publicFacts(item);
-      if (label === "B2反馈与约束" && Array.isArray(evidence) && evidence.length) {
+      if (label === "B2反馈与约束") {
         reading.replaceChildren(...b2Reading(item).childNodes);
         reading.classList.add("b2-public-reading");
       } else if (["C1民生","C2经济财政","C3社会安全","C4恢复与成本"].includes(label) && Array.isArray(evidence) && evidence.length) {

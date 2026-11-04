@@ -27,8 +27,11 @@
   }
   function html(item, record, options = {}) {
     const d = reading(item);
+    const midpoint = d.decision_basis.length / 2;
+    const firstHalf = d.decision_basis.slice(0, midpoint);
+    const decision = firstHalf === d.decision_basis.slice(midpoint) ? firstHalf : d.decision_basis;
     const materials = d.evidence_items.map((e,i) => `<article class="net-material-card"><h4>材料${i+1} · ${esc(e.status)}</h4>${prose(e.result)}<details><summary>本人责任与跨项边界</summary>${prose(e.responsibility)}${prose(e.scope)}</details>${e.exclusion_reason?`<div class="label">为什么这条不计分</div>${prose(e.exclusion_reason)}`:""}<details><summary>这条材料怎样参与合成</summary>${prose(e.components)}${prose(e.hard_negative)}</details><details><summary>这条材料的逐条史源（${e.sources.length}条引用）</summary>${sourceList(e.sources,record)}</details></article>`).join("");
-    return `<div class="fourth-c-public-reading" data-formal-public-source><h4>${esc(d.question)}</h4><p class="meta">评价时期：${esc(d.window)}</p>${entryLinks(record,{...options,formalId:item.reader_c_collection_id})}<div class="label">${d.evidence_items.length ? "为什么采用这个幅度和位置" : "为什么是0分"}</div>${prose(d.decision_basis)}${materials}<details><summary>查看完整分数合成</summary>${prose(d.calculation)}<details><summary>通用规则与尺度</summary>${prose(d.method)}<ul>${d.scale.map((v,i)=>`<li>${i+1}级：${esc(v)}</li>`).join("")}</ul></details></details><details><summary>现行评价依据与材料范围</summary>${d.review_basis !== d.decision_basis ? prose(d.review_basis) : ""}${prose(d.source_note)}${sourceList(d.assessment_sources,record)}</details></div>`;
+    return `<div class="fourth-c-public-reading" data-formal-public-source><h4>${esc(d.question)}</h4><p class="meta">评价时期：${esc(d.window)}</p>${entryLinks(record,{...options,formalId:item.reader_c_collection_id})}<div class="label">${d.evidence_items.length ? "为什么采用这个幅度和位置" : "为什么是0分"}</div>${prose(decision)}${materials}<details><summary>查看完整分数合成</summary>${prose(d.calculation)}<details><summary>通用规则与尺度</summary>${prose(d.method)}<ul>${d.scale.map((v,i)=>`<li>${i+1}级：${esc(v)}</li>`).join("")}</ul></details></details><details><summary>现行评价依据与材料范围</summary>${d.review_basis !== d.decision_basis ? prose(d.review_basis) : ""}${prose(d.responsibility)}${prose(d.boundary)}${prose(d.source_note)}${sourceList(d.assessment_sources,record)}</details></div>`;
   }
   globalThis.FourthItemCReading = Object.freeze({heading,html,entryLinks});
 })();

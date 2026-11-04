@@ -178,7 +178,10 @@ def render(payload: dict[str, Any], *, document_path: str = "") -> str:
                 lines.extend(["**范围观察窗口：**" + row["scope_assessment"]["observation_window"], ""])
             entry = row.get("counterfactual_entry")
             if entry:
-                lines.extend(["**反事实起点：**" + entry["anchor"], "", "**保留条件：**" + entry["retained_conditions"], ""])
+                lines.extend(["**反事实起点：**" + entry["anchor"], "", "**保留条件：**" + entry["retained_conditions"], "",
+                              "**身份与结果边界：**" + entry["identity_exclusion"], ""])
+                if entry["functional_alternative"] != row["nearest_feasible_counterfactual"]:
+                    lines.extend(["**替代路径：**" + entry["functional_alternative"], ""])
             foundation = row.get("foundation")
             if foundation:
                 lines.extend([f"**归责与修正：**{foundation['causal_adjustment']}{foundation['paradigm_adjustment']}最终按已裁边界落内部{foundation['decided_internal_band']}，对应公众{foundation['decided_public_grade']}。", ""])

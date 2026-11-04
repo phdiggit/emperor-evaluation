@@ -151,7 +151,10 @@
       const panel = document.getElementById(id);
       if (!panel || !notes.overview[key] || panel.querySelector(":scope > .person-reading-note")) continue;
       const block = renderBlock(key, notes.overview[key], record, "person-reading-note");
-      if (block) panel.querySelector(":scope > h2")?.after(block);
+      if (block) {
+        const anchor = panel.querySelector(":scope > [data-reading-note-anchor]") || panel.querySelector(":scope > h2");
+        anchor?.after(block);
+      }
     }
   }
 
