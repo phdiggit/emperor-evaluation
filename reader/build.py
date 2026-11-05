@@ -1168,11 +1168,13 @@ def record_summary(record):
 
 
 def source_availability(value):
-    return {
-        ref: (ROOT / source_file(ref)).exists()
-        for ref in sorted({part for group in local_sources(value) for part in split_source_refs(group)
-                           if part.startswith(("docs/", "config/", "archive/"))})
-    }
+    refs = {part for group in local_sources(value) for part in split_source_refs(group)
+            if part.startswith(("docs/", "config/", "archive/"))}
+    availability = {}
+    for ref in sorted(refs):
+        path = ROOT / source_file(ref)
+        availability[ref] = "directory" if path.is_dir() else path.is_file()
+    return availability
 
 
 def published_reading_fallbacks(specs):

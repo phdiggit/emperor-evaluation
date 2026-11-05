@@ -70,13 +70,15 @@ def test_grouped_source_paths_are_linked_separately(tmp_path, monkeypatch):
     local = "docs/source.md#L2"
     external = "https://example.org/source"
     missing = "docs/missing.md"
-    record = {"source_refs": [f"{local}；{external}；{missing}"]}
+    directory = "docs/sources"
+    record = {"source_refs": [f"{local}；{external}；{missing}；{directory}"]}
     (tmp_path / "docs").mkdir()
     (tmp_path / "docs/source.md").touch()
+    (tmp_path / directory).mkdir()
     monkeypatch.setattr(build, "ROOT", tmp_path)
 
-    assert build._formal_source_refs(record) == [local, external, missing]
-    assert build.source_availability(record) == {local: True, missing: False}
+    assert build._formal_source_refs(record) == [local, external, missing, directory]
+    assert build.source_availability(record) == {local: True, missing: False, directory: "directory"}
 
 
 def test_b2_reader_projection_consumes_all_explicit_public_evidence():

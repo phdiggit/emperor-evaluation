@@ -151,16 +151,17 @@ def test_source_links_use_local_files_in_preview_and_pin_published_sources(tmp_p
     root = Path(__file__).resolve().parents[1]
     source = (root/'reader/index.template.html').read_text(encoding='utf-8')
     start = source.index('const localReaderHost=')
-    end = source.index('const href=', start)
+    end = source.index('const personId=', start)
     fragment = source[start:end]
     script = tmp_path/'source-links.cjs'
     script.write_text(
         "const assert=require('node:assert/strict');\n"
         + 'const fragment='+__import__('json').dumps(fragment)+';\n'
-        + "const make=new Function('location','DATA',fragment+'return {base:sourceRepoBase(),raw:validatedRawUrl(\"docs/test.md\")};');\n"
-        + "const data={source_repository:'example/project',source_revision:'a'.repeat(40)};\n"
+        + "const make=new Function('location','DATA',fragment+'return {base:sourceRepoBase(),raw:validatedRawUrl(\"docs/test.md\"),directory:href(\"docs/sources\"),file:href(\"docs/test.md\")};');\n"
+        + "const data={source_repository:'example/project',source_revision:'a'.repeat(40),source_availability:{'docs/sources':'directory'}};\n"
         + "for(const hostname of ['localhost','127.0.0.1','[::1]']){const result=make({hostname},data);assert.equal(result.base,'');assert.equal(result.raw,'../docs/test.md?raw=1');}\n"
-        + "const result=make({hostname:'example.github.io'},data);assert.ok(result.base.includes('/blob/'+data.source_revision+'/'));assert.ok(result.raw.includes(data.source_revision+'/docs/test.md'));\n",
+        + "const result=make({hostname:'example.github.io'},data);assert.ok(result.base.includes('/blob/'+data.source_revision+'/'));assert.ok(result.raw.includes(data.source_revision+'/docs/test.md'));\n"
+        + "assert.equal(result.file,result.base+'docs/test.md');assert.ok(result.directory.endsWith('/tree/'+data.source_revision+'/docs/sources'));\n",
         encoding='utf-8',
     )
     result = subprocess.run([node,str(script)],capture_output=True,text=True,encoding='utf-8')
