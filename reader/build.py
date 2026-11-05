@@ -1150,7 +1150,7 @@ def record_summary(record):
     }
     summary = pick(record, [
         "ruler_id", "ruler_name", "polity", "actual_power_window",
-        "settlement_readiness", "supplementary", "fourth_c_collection_ref", "pending_third_c_ref", "pending_first_ref",
+        "settlement_readiness", "supplementary", "fourth_c_collection_ref", "pending_third_c_ref", "pending_first_ref", "pending_second_ref",
     ])
     summary["net"] = pick(net, [
         "rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
@@ -1738,6 +1738,9 @@ def build(*, check=False, write=True):
             third_id = person.get("source_item_ids", {}).get("third_item", rid)
             if f"{third_id}.html" in third_c_assets:
                 record["pending_third_c_ref"] = third_id
+            second_id = person["source_item_ids"].get("second_item")
+            if all(second_id in net_reader_sources[key] for key in ("B2", "C1", "D1")):
+                record["pending_second_ref"] = second_id
         fourth_id = person.get('source_item_ids', {}).get('fourth_item', rid)
         if fourth_id in net_reader_sources['fourth']:
             record['fourth_c_collection_ref'] = fourth_id
