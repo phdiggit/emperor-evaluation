@@ -1150,7 +1150,7 @@ def record_summary(record):
     }
     summary = pick(record, [
         "ruler_id", "ruler_name", "polity", "actual_power_window",
-        "settlement_readiness", "supplementary", "fourth_c_collection_ref", "pending_third_c_ref",
+        "settlement_readiness", "supplementary", "fourth_c_collection_ref", "pending_third_c_ref", "pending_first_ref",
     ])
     summary["net"] = pick(net, [
         "rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
@@ -1743,6 +1743,10 @@ def build(*, check=False, write=True):
             record['fourth_c_collection_ref'] = fourth_id
         record["actual_power_window"] = public_power_window(record.get("actual_power_window"))
         projected_net = pick(net[rid], net_fields) if rid in net else None
+        if not projected_net:
+            first_name = person.get("source_item_names", {}).get("first_item")
+            if first_name in first_item_public_outcomes:
+                record["pending_first_ref"] = first_name
         if projected_net:
             projected_net['evidence_assessment'] = net[rid]['evidence_assessment']['public_projection']
             projected_net["governance_context"] = public_governance_context(projected_net.get("governance_context"))
