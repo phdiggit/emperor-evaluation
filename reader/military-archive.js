@@ -657,7 +657,7 @@
     if (phaseOnly || ungraded) {
       const status = recordStatus(record);
       const period = row.period && !row.period.includes("未知") ? row.period : "当前登记未注明具体年代";
-      const merged = battleForRef(record.merged_into);
+      const merged = battleForRef(record.merged_into || row.adjudicated_merge_parent);
       app.innerHTML = `${archiveHead(record.canonical_label || row.name, `${dynastyLabel(record.dynasty)} · 军事资料`, period)}
         <section class="panel"><h2>${esc(status)}</h2><p>${phases.length ? `本记录分为 ${phases.length} 个主体阶段。双方或各阶段的经过与得失分别记录，未设整场结果总档。` : "这条资料未单列公共战役结果档；不适用分档、转出、合并或背景资料均不等于战果为零。"}</p>${readableFields(record.observable_result || record.basis)}${merged ? `<a href="#battle=${encodeURIComponent(merged.id)}">查看合并后的记录：${esc(merged.name)} →</a>` : ""}</section>
         ${personalEvidenceSection()}${phases.map(phaseBlock).join("")}

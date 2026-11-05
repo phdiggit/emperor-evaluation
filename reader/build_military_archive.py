@@ -587,6 +587,13 @@ def _build_outputs(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], d
                 ],
                 "sources": ["config/military/unification-campaign-tier-adjudications.json", *group.get("source_refs", [])],
             }
+    ordinary_path = root / "config/military/ordinary-campaign-adjudications.json"
+    ordinary = _CORE._load(ordinary_path) if ordinary_path.is_file() else {}
+    merge_parents = {
+        row["war_event_id"]: row["merged_into_war_event_ref"]
+        for row in ordinary.get("adjudications", [])
+        if row.get("merged_into_war_event_ref")
+    }
     notes_path = root / "reader/military-reading-notes.json"
     notes = _CORE._load(notes_path).get("records", {}) if notes_path.is_file() else {}
     by_id = {row["id"]: row for row in battle_index["records"]}
@@ -612,6 +619,10 @@ def _build_outputs(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], d
             row = by_id.get(record.get("war_event_id"))
             if row is not None:
                 row["disposition"] = record.get("disposition")
+                parent = merge_parents.get(row["id"])
+                if (row["disposition"] == "MERGED_INTO_PARENT"
+                        and not record.get("merged_into") and parent in by_id and parent != row["id"]):
+                    row["adjudicated_merge_parent"] = parent
                 row["public_outcome_registered"] = record.get("public_outcome_registered")
                 row["phase_count"] = len(record.get("subject_phase_views") or [])
                 row["source_files"] = [ref for ref in record.get("source_lineage", {}).get("source_files", []) if (root / ref.split("#", 1)[0]).is_file()]
