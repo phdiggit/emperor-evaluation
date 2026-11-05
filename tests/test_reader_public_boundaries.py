@@ -165,6 +165,8 @@ const fs=require('node:fs'),assert=require('node:assert/strict'),vm=require('nod
 const source=fs.readFileSync('reader/index.template.html','utf8');
 function section(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert.ok(a>=0&&b>a);return source.slice(a,b);}
 const nodes=Object.fromEntries(['show-performance','governance-scale','search','polity','scope','sort','impact-filter','toggle-home-view','toggle-filters','advanced-filters','filter-state','clear-filters','count','rows','selection'].map(id=>[id,{id,value:'',hidden:false,textContent:'',innerHTML:'',handlers:{},attributes:{},focus(){this.focused=true;},setAttribute(k,v){this.attributes[k]=v;},addEventListener(k,v){this.handlers[k]=v;}}]));
+const totalSortOption={disabled:false};
+nodes.sort.querySelector=selector=>selector==='option[value="net"]'?totalSortOption:null;
 let writes=0,html='';
 const screen={set innerHTML(v){writes++;html=v;},get innerHTML(){return html;}};
 function record(id,extra={}){return {ruler_id:id,ruler_name:id,polity:'合成朝代',supplementary:false,axes:{},net:null,impact:{identity_label:id+'（合成称号）',reading_start_year:1,public_grade:'B',impact_nature:'合成性质',confidence:'MEDIUM'},...extra};}

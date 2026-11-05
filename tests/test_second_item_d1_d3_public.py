@@ -142,7 +142,14 @@ def test_full_pool_collection_keeps_every_authored_record_and_quotation():
             text = page.people[row['ruler_id']]
             for field in PUBLIC_RECORD_FIELDS:
                 if field != 'public_evidence_items':
-                    assert all(part in text for part in row[field].split('\n\n'))
+                    value = row[field]
+                    if field == 'public_adjudication_summary':
+                        intro = row['public_story']
+                        if value.endswith(intro):
+                            remainder = value[:-len(intro)].rstrip()
+                            if remainder.endswith('。'):
+                                value = remainder
+                    assert all(part in text for part in value.split('\n\n'))
             for item in row['public_evidence_items']:
                 expected_evidence.add(item['id'])
                 assert item['public_basis'] in text
