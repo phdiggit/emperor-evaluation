@@ -362,6 +362,17 @@ assert.match(rendered,/C1实战交付/);
 assert.match(rendered,/C2持续作战/);
 assert.doesNotMatch(rendered,/隐藏空项/);
 
+vm.runInContext(
+  section(home,'  function thirdJudgmentCards','  function renderGenericMajor')
+  +'\nthis.thirdMajorGroups=thirdMajorGroups;', genericCtx);
+const third=genericCtx.thirdMajorGroups({}, {military:[
+  {label:'C1联合主评',reader_kind:'judgment',value:null,unit:'不单独计分'},
+  {label:'C1实战交付',reader_kind:'support',value:null}
+]});
+assert.match(third,/<metric>C1联合主评<\/metric>/);
+assert.doesNotMatch(third,/<metric>C1实战交付<\/metric>/);
+
+
 const fallbackCtx={
   finite:v=>{if(v==null||v==='')return null;const n=Number(v);return Number.isFinite(n)?n:null;},
   fmt:v=>Number(v).toFixed(1)

@@ -1342,7 +1342,7 @@ function firstCommanderMarkup(item, record) {
     </section>`;
     const militarySection = `<section id="net-group-military" class="panel net-detail-group"><h2>军事体系与成本</h2>
       <div id="net-group-system" class="net-third-subgroup"><h3>军事体系表现</h3>
-        ${thirdJudgmentCards(record, military, ["C1实战交付","C2持续作战","C3体系可靠性"], "military")}
+        ${thirdJudgmentCards(record, military, ["C1联合主评","C1实战交付","C2持续作战","C3体系可靠性"], "military")}
         ${thirdCalculationRows(military, ["C50"], "military", "军事体系结果怎么形成？")}
       </div>
       <div id="net-group-cost" class="net-third-subgroup"><h3>军事代价</h3><p class="subline net-third-subgroup-note">普通军事代价与重大军事净毁损按正式规则合并，避免同一损失重复扣减。</p>
