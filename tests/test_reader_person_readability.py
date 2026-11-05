@@ -99,6 +99,24 @@ def test_battle_source_line_requires_unique_exact_event_id(tmp_path, monkeypatch
     assert build.source_line_target(path + "#war_event_id=WAR-2") is None
 
 
+def test_campaign_group_line_keeps_multiple_phases_in_one_battle(tmp_path, monkeypatch):
+    from reader import build
+
+    path = "docs/battles.json"
+    file = tmp_path / path
+    file.parent.mkdir()
+    file.write_text(
+        '{"records":[\n'
+        '{"war_event_id":"A","phases":[{"campaign_group_ref":"ONE"},'
+        '{"campaign_group_ref":"ONE"},{"campaign_group_ref":"BOTH"}]},\n'
+        '{"war_event_id":"B","campaign_group_ref":"BOTH"}\n]}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+    assert build.source_line_target(path + "#campaign_group_ref=ONE") == path + "#L2"
+    assert build.source_line_target(path + "#campaign_group_ref=BOTH") is None
+
+
 def test_published_ruler_link_follows_only_unique_manifest_route(tmp_path, monkeypatch):
     from reader import build
 

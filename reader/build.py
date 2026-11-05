@@ -1191,8 +1191,11 @@ def source_record_lines(path, key, *, record_rows=False):
                 row = json.loads(line.strip().rstrip(","))
             except json.JSONDecodeError:
                 continue
-            value = row.get(key) if isinstance(row, dict) else None
-            values = [value] if isinstance(value, str) else []
+            if key == "campaign_group_ref":
+                values = set(values) if isinstance(row, dict) and row.get("war_event_id") else []
+            else:
+                value = row.get(key) if isinstance(row, dict) else None
+                values = [value] if isinstance(value, str) else []
         for value in values:
             lines[value] = number if value not in lines else None
     return lines
@@ -1213,13 +1216,13 @@ def source_line_target(ref):
     path, _, fragment = ref.partition("#")
     key, _, value = unquote(fragment).partition("=")
     if not path.startswith(("docs/", "config/", "archive/")) or not path.endswith(".json") or key not in {
-        "war_event_id", "phase_id", "material_id", "evidence_id", "ruler_id", "parent_id",
+        "war_event_id", "phase_id", "material_id", "evidence_id", "ruler_id", "parent_id", "campaign_group_ref",
     } or not value:
         return None
     source = ROOT / source_file(path)
     if not source.is_file():
         return None
-    lines = source_record_lines(source, key)
+    lines = source_record_lines(source, key, record_rows=key == "campaign_group_ref")
     if value in lines:
         return f"{path}#L{lines[value]}" if lines[value] else None
     if key in {"ruler_id", "parent_id", "evidence_id"}:
@@ -1294,7 +1297,7 @@ def collection_source_link(ref, label):
     if identity['repository'] and identity['revision']:
         target = source_line_target(ref) or ref
         path, _, fragment = target.partition('#')
-        if path.endswith('.json') and fragment.startswith('/'):
+        if path.endswith('.json') and fragment.startswith(('/', 'campaign_group_ref=')):
             href = f"source.html?revision={identity['revision']}&ref={quote(target, safe='')}"
         else:
             href = 'https://github.com/' + identity['repository'] + '/blob/' + identity['revision'] + '/' + quote(target, safe='/#=')
