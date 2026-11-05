@@ -48,7 +48,15 @@ const dimNames={scope:'影响范围',depth_duration:'深度与持续',personal_c
 const localReaderHost=()=>['localhost','127.0.0.1','[::1]'].includes(location.hostname);
 const sourceRepoBase=(kind='blob')=>!localReaderHost()&&DATA.source_repository&&DATA.source_revision?'https://github.com/'+DATA.source_repository.split('/').map(encodeURIComponent).join('/')+'/'+kind+'/'+encodeURIComponent(DATA.source_revision)+'/':'';
 const validatedRawUrl=p=>{const path=String(p||'').split('#',1)[0].replace(/^\.\.\//,'');if(!localReaderHost()&&DATA.source_repository&&DATA.source_revision)return 'https://raw.githubusercontent.com/'+DATA.source_repository.split('/').map(encodeURIComponent).join('/')+'/'+encodeURIComponent(DATA.source_revision)+'/'+path.split('/').map(encodeURIComponent).join('/');return '../'+path+'?raw=1'};
-const href=p=>{const base=sourceRepoBase(DATA.source_availability?.[p]==='directory'?'tree':'blob');p=p.replace(/\.md:(\d+)(?:-(\d+))?$/,(_,a,b)=>'.md#L'+a+(b?'-L'+b:''));const [path,...fragment]=p.split('#');const hash=fragment.length?'#'+encodeURIComponent(fragment.join('#')):'';if(base&&/^(?:docs|config|archive)\//.test(path))return base+path.split('/').map(encodeURIComponent).join('/')+hash;return '../'+path.split('/').map(encodeURIComponent).join('/')+hash};
+const href=p=>{
+ const base=sourceRepoBase(DATA.source_availability?.[p]==='directory'?'tree':'blob');
+ const line=base&&DATA.source_line_anchors?.[p];
+ p=p.replace(/\.md:(\d+)(?:-(\d+))?$/,(_,a,b)=>'.md#L'+a+(b?'-L'+b:''));
+ const [path,...fragment]=p.split('#');
+ const hash=line?'#L'+line:fragment.length?'#'+encodeURIComponent(fragment.join('#')):'';
+ if(base&&/^(?:docs|config|archive)\//.test(path))return base+path.split('/').map(encodeURIComponent).join('/')+hash;
+ return '../'+path.split('/').map(encodeURIComponent).join('/')+hash;
+};
 const personId=()=>{try{return decodeURIComponent(location.hash.slice(8).split('/')[0])}catch{return ''}};
 const personView=()=>{const parts=location.hash.slice(8).split('/');return parts.length>1?parts[1]:''};
 const link=(p,label,subject)=>{

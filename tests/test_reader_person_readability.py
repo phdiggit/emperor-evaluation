@@ -81,6 +81,24 @@ def test_grouped_source_paths_are_linked_separately(tmp_path, monkeypatch):
     assert build.source_availability(record) == {local: True, missing: False, directory: "directory"}
 
 
+def test_battle_source_line_requires_unique_exact_event_id(tmp_path, monkeypatch):
+    from reader import build
+
+    path = "docs/公共成果/军事/01-战役登记/example.json"
+    file = tmp_path / path
+    file.parent.mkdir(parents=True)
+    file.write_text(
+        '{"records":[\n{"war_event_id":"WAR-1"},\n'
+        '{"war_event_id":"WAR-12"},\n{"war_event_id":"WAR-12"}\n]}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+
+    assert build.source_line_anchor(path + "#war_event_id=WAR-1") == 2
+    assert build.source_line_anchor(path + "#war_event_id=WAR-12") is None
+    assert build.source_line_anchor(path + "#war_event_id=WAR-2") is None
+
+
 def test_b2_reader_projection_consumes_all_explicit_public_evidence():
     evidence = [
         {

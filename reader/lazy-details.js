@@ -105,6 +105,7 @@
       };
       byId.set(id, full);
       Object.assign(DATA.source_availability, payload.source_availability || {});
+      Object.assign(DATA.source_line_anchors ??= {}, payload.source_line_anchors || {});
       return full;
     })().finally(() => pendingLoads.delete(id));
 

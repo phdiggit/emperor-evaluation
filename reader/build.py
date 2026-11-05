@@ -3,6 +3,7 @@ from pathlib import Path
 from copy import deepcopy
 import json
 import os
+from functools import lru_cache
 import sys
 import argparse
 import hashlib
@@ -1177,6 +1178,27 @@ def source_availability(value):
     return availability
 
 
+@lru_cache(maxsize=256)
+def battle_record_lines(path):
+    lines = {}
+    for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        for event_id in re.findall(r'"war_event_id"\s*:\s*"([^"]+)"', line):
+            lines[event_id] = number if event_id not in lines else None
+    return lines
+
+
+def source_line_anchor(ref):
+    path, _, fragment = ref.partition("#")
+    if not path.startswith("docs/公共成果/军事/01-战役登记/") or not path.endswith(".json"):
+        return None
+    if not fragment.startswith("war_event_id="):
+        return None
+    source = ROOT / source_file(path)
+    if source.is_file():
+        return battle_record_lines(source).get(unquote(fragment.removeprefix("war_event_id=")))
+    return None
+
+
 def published_reading_fallbacks(specs):
     """Use formal data for generated readings deliberately excluded from Git."""
     ignored = set((ROOT / ".gitignore").read_text(encoding="utf-8").splitlines())
@@ -1216,9 +1238,11 @@ def detail_payload(record):
     impact = record.get("impact")
     if impact:
         record = {**record, "impact": {**impact, "reading_causality": reading_causality(impact)}}
+    availability = source_availability(record)
     return {
         "record": record,
-        "source_availability": source_availability(record),
+        "source_availability": availability,
+        "source_line_anchors": {ref: line for ref in availability if (line := source_line_anchor(ref))},
     }
 
 
@@ -1234,7 +1258,9 @@ def collection_source_link(ref, label):
         return f"<a href='{escape(ref)}' target='_blank' rel='noopener'>{escape(label)}</a>"
     identity = reader_source_identity()
     if identity['repository'] and identity['revision']:
-        href = 'https://github.com/' + identity['repository'] + '/blob/' + identity['revision'] + '/' + quote(ref, safe='/#=')
+        line = source_line_anchor(ref)
+        target = ref.split('#', 1)[0] + f'#L{line}' if line else ref
+        href = 'https://github.com/' + identity['repository'] + '/blob/' + identity['revision'] + '/' + quote(target, safe='/#=')
     else:
         href = '../' + quote(ref, safe='/#=')
     return f"<a href='{escape(href)}' data-local-source='{escape(ref)}' target='_blank' rel='noopener'>{escape(label)}</a>"
