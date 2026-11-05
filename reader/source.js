@@ -15,10 +15,11 @@ async function showSource() {
   const pointer = ref.slice(separator + 1);
   const groupPrefix = "campaign_group_ref=";
   const group = pointer.startsWith(groupPrefix) ? pointer.slice(groupPrefix.length) : "";
+  const evidence = pointer.match(/^evidence_id=([^/]+)\/evidence_fields\/(.+)$/);
   const segments = path.split("/");
   if (!["docs", "config", "archive"].includes(segments[0]) ||
       segments.some(part => !part || part === "." || part === ".." || part.includes("\\")) ||
-      !path.endsWith(".json") || separator < 0 || (!pointer.startsWith("/") && !group) || !/^[a-f0-9]{40,64}$/.test(revision)) {
+      !path.endsWith(".json") || separator < 0 || (!pointer.startsWith("/") && !group && !evidence) || !/^[a-f0-9]{40,64}$/.test(revision)) {
     throw new Error("资料地址无效。");
   }
   const metadata = await fetch("source-revision.json");
@@ -38,6 +39,15 @@ async function showSource() {
     node = (node.records || []).filter(row => row.war_event_id && containsCampaignGroup(row, group));
     if (!node.length) throw new Error("这个战役组在正式文件中没有可定位的登记。");
     label = `${group} · ${node.length} 条战役登记`;
+  } else if (evidence) {
+    const [, id, field] = evidence;
+    const records = (node.records || []).filter(row => row.evidence_id === id);
+    const fields = records[0]?.evidence_fields;
+    if (records.length !== 1 || !fields || !Object.hasOwn(fields, field)) {
+      throw new Error("这个证据字段在正式文件中无法唯一定位。");
+    }
+    node = fields[field];
+    label = `${id} · ${field}`;
   } else {
     for (const part of pointer.slice(1).split("/")) {
       const key = part.replace(/~1/g, "/").replace(/~0/g, "~");

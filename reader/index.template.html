@@ -53,7 +53,7 @@ const href=p=>{
  p=(base&&DATA.source_line_targets?.[p])||p;
  p=p.replace(/\.md:(\d+)(?:-(\d+))?$/,(_,a,b)=>'.md#L'+a+(b?'-L'+b:''));
  const [path,...fragment]=p.split('#');
- if(base&&path.endsWith('.json')&&(fragment[0]?.startsWith('/')||fragment[0]?.startsWith('campaign_group_ref='))){
+ if(base&&path.endsWith('.json')&&/^(?:\/|campaign_group_ref=|evidence_id=[^/]+\/evidence_fields\/)/.test(fragment[0]||'')){
   return 'source.html?'+new URLSearchParams({revision:DATA.source_revision,ref:p}).toString();
  }
  const hash=fragment.length?'#'+encodeURIComponent(fragment.join('#')):'';

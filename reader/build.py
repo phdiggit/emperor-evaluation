@@ -1309,7 +1309,7 @@ def collection_source_link(ref, label):
     if identity['repository'] and identity['revision']:
         target = source_line_target(ref) or ref
         path, _, fragment = target.partition('#')
-        if path.endswith('.json') and fragment.startswith(('/', 'campaign_group_ref=')):
+        if path.endswith('.json') and re.match(r'^(?:/|campaign_group_ref=|evidence_id=[^/]+/evidence_fields/)', fragment):
             href = f"source.html?revision={identity['revision']}&ref={quote(target, safe='')}"
         else:
             href = 'https://github.com/' + identity['repository'] + '/blob/' + identity['revision'] + '/' + quote(target, safe='/#=')
