@@ -217,10 +217,10 @@ def _anchor_score(anchor: str, search_text: str) -> int:
     return int(coverage * 100) if coverage >= 0.6 else 0
 
 
-def _parse_first_item_c_anchors(path: Path) -> list[dict[str, str]]:
+def _parse_first_item_c_anchors(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         return []
-    found: list[dict[str, str]] = []
+    found: list[dict[str, Any]] = []
     seen: set[tuple[str, str, str, str]] = set()
     text = path.read_text(encoding="utf-8-sig")
     sections = list(SECTION_RE.finditer(text))
@@ -232,6 +232,7 @@ def _parse_first_item_c_anchors(path: Path) -> list[dict[str, str]]:
         difficulty: str,
         role: str | None = None,
         preserve_name: bool = False,
+        registry_binding: dict[str, str] | None = None,
     ) -> None:
         raw_anchor = raw_anchor.strip(" ：，；。、")
         anchor = raw_anchor if preserve_name else _clean_anchor_name(raw_anchor)
@@ -250,6 +251,8 @@ def _parse_first_item_c_anchors(path: Path) -> list[dict[str, str]]:
             "result_grade": result,
             "difficulty_grade": difficulty,
         })
+        if registry_binding:
+            found[-1]["registry_binding"] = registry_binding
 
     for index, heading in enumerate(sections):
         ruler = heading.group("name").strip()
@@ -257,6 +260,9 @@ def _parse_first_item_c_anchors(path: Path) -> list[dict[str, str]]:
         block = text[heading.end():end]
         structured_lines = [line for line in block.splitlines() if "统一链战役清单" in line]
         if structured_lines:
+            marker = "- **战役清单引用**："
+            bindings = next((json.loads(line[len(marker):]) for line in block.splitlines()
+                             if line.startswith(marker)), {})
             for line in structured_lines:
                 value = line.split("统一链战役清单**：", 1)[-1].rstrip("。")
                 for raw_item in value.split("；"):
@@ -273,6 +279,7 @@ def _parse_first_item_c_anchors(path: Path) -> list[dict[str, str]]:
                         difficulty,
                         structured.group("role"),
                         True,
+                        bindings.get(structured.group("anchor").strip()),
                     )
             continue
 
@@ -324,7 +331,7 @@ def _member_result_rows(member: dict[str, Any]) -> tuple[set[tuple[str, str]], l
 
 
 def _resolve_first_item_c_anchors(
-    anchors: list[dict[str, str]],
+    anchors: list[dict[str, Any]],
     match_rows: list[dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], dict[str, int]]:
     resolved: list[dict[str, Any]] = []

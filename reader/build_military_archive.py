@@ -268,7 +268,7 @@ def _commander_evidence_rows(
                         str(achievement.get(key) or "")
                         for key in ("canonical_label", "basis")
                     )
-                    signature = (battle_id, grade, difficulty, _CORE._compact_text(search_text), names)
+                    signature = (battle_id, grade, difficulty, _CORE._compact_text(search_text), names, frozenset(refs))
                     if signature in seen:
                         continue
                     seen.add(signature)
@@ -282,6 +282,7 @@ def _commander_evidence_rows(
                         "search_text": search_text,
                         "source_keys": source_keys,
                         "source_fragments": source_fragments,
+                        "registry_refs": refs,
                     })
     return rows
 
@@ -334,14 +335,17 @@ def _resolve_registry_evidence(
     routed: list[tuple[int, str]] = []
     weak_routed: list[tuple[int, str]] = []
     unbound_rows: list[tuple[int, dict[str, Any]]] = []
+    binding = anchor.get("registry_binding")
 
     for row in rows:
+        if binding and binding["ref"] not in row.get("registry_refs", ()):
+            continue
         if ruler not in row["members"]:
             continue
         if wanted != (row["result_grade"], row["difficulty_grade"]):
             continue
         battle_id = row.get("id")
-        score = _CORE._anchor_score(anchor["anchor"], row["search_text"])
+        score = 1 if binding else _CORE._anchor_score(anchor["anchor"], row["search_text"])
         if score:
             if battle_id:
                 routed.append((score, str(battle_id)))
@@ -442,21 +446,34 @@ def _recount_anchor_stats(anchors: list[dict[str, Any]]) -> dict[str, int]:
     return stats
 
 
-def _reconcile_first_item_c(root: Path, battle_index: dict[str, Any]) -> None:
+def _reconcile_first_item_c(
+    root: Path,
+    battle_index: dict[str, Any],
+    routes: dict[str, str],
+    group_candidates: dict[str, set[str]],
+) -> None:
     anchors = battle_index.get("first_item_c_anchors") or []
-    if not any(item.get("status") == "unresolved_atomic" for item in anchors if isinstance(item, dict)):
-        # Still normalize the expanded diagnostics schema for downstream readers.
-        battle_index["first_item_c_anchor_stats"] = _recount_anchor_stats(anchors)
-        return
-    routes, group_candidates = _collect_registry_routes(root)
-    evidence = _commander_evidence_rows(root, routes, group_candidates)
-    public_rows = _public_battle_rows(root)
     for anchor in anchors:
-        if not isinstance(anchor, dict) or anchor.get("status") != "unresolved_atomic":
-            continue
-        decision = _resolve_registry_evidence(anchor, evidence, public_rows)
-        if decision:
-            anchor.update(decision)
+        binding = anchor.get("registry_binding")
+        if anchor["anchor_kind"] == "atomic" and binding:
+            # Prefer the declared battle or personal-result ID over the display title.
+            target = routes.get(binding["war_event_id"]) or routes.get(binding["ref"])
+            anchor.update(
+                battle_id=target,
+                status="resolved_unique" if target else "unresolved_atomic",
+                resolution_mode="registry_ref" if target else None,
+                candidate_count=int(bool(target)),
+            )
+    unresolved = [anchor for anchor in anchors if anchor["status"] == "unresolved_atomic"]
+    if unresolved:
+        evidence = _commander_evidence_rows(root, routes, group_candidates)
+        public_rows = _public_battle_rows(root)
+        for anchor in unresolved:
+            decision = _resolve_registry_evidence(anchor, evidence, public_rows)
+            if decision:
+                anchor.update(decision)
+            elif anchor.get("registry_binding"):
+                anchor.update(status="search_only_unbound_registry")
     battle_index["first_item_c_anchor_stats"] = _recount_anchor_stats(anchors)
     lookup = _CORE._anchor_lookup(anchors)
     battle_index["first_item_c_anchor_lookup"] = lookup
@@ -565,10 +582,10 @@ def _reader_evidence(root: Path, battle_index: dict[str, Any]) -> dict[str, dict
 
 def _build_outputs(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     battle_index, commander_index = _CORE.build_indexes(root)
-    _reconcile_first_item_c(root, battle_index)
     # All published reference types must work for dossier links, including a
     # direct war_event_id rather than only a personal result reference.
-    routes, _ = _collect_registry_routes(root)
+    routes, group_candidates = _collect_registry_routes(root)
+    _reconcile_first_item_c(root, battle_index, routes, group_candidates)
     battle_index["result_ref_to_battle"].update(routes)
     contexts: dict[str, dict[str, Any]] = {}
     context_path = root / "config/military/unification-campaign-tier-adjudications.json"

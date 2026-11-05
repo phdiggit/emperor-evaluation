@@ -379,6 +379,33 @@ def test_strategic_and_window_phrases_do_not_become_fake_atomic_battles(tmp_path
     assert battles["first_item_c_anchor_stats"]["unresolved_atomic"] == 0
 
 
+def test_declared_first_item_binding_resolves_independently_of_title(tmp_path):
+    path = tmp_path / module.FIRST_ITEM_C_SETTLEMENT
+    bindings = {
+        "改写后的战果": {"war_event_id": "WAR-PARENT", "kind": "result", "ref": "PERSON-1"},
+        "仅本人登记": {"war_event_id": "PERSON-2", "kind": "result", "ref": "PERSON-2"},
+        "统筹行动": {"war_event_id": "WAR-PARENT", "kind": "result", "ref": "PERSON-3"},
+    }
+    write_first_item_c(
+        path,
+        "# 第一项C\n\n### 1. 测试君主\n\n"
+        "- **统一链战役清单**：改写后的战果｜前线作战｜A｜D3；"
+        "仅本人登记｜前线作战｜B｜D2；统筹行动｜战略统筹｜B｜—。\n"
+        "- **战役清单引用**：" + json.dumps(bindings, ensure_ascii=False) + "\n",
+    )
+    anchors = module._parse_first_item_c_anchors(path)
+    for row in anchors:
+        row.update(status="unresolved_atomic" if row["anchor_kind"] == "atomic" else "search_only_strategic",
+                   battle_id=None, resolution_mode=None, candidate_count=0)
+    index = {"first_item_c_anchors": anchors}
+    module._reconcile_first_item_c(tmp_path, index, {"WAR-PARENT": "WAR-PARENT"}, {})
+    by_name = {row["anchor"]: row for row in anchors}
+    assert by_name["改写后的战果"]["battle_id"] == "WAR-PARENT"
+    assert by_name["仅本人登记"]["status"] == "search_only_unbound_registry"
+    assert by_name["仅本人登记"]["battle_id"] is None
+    assert by_name["统筹行动"]["status"] == "search_only_strategic"
+
+
 def test_named_battle_prefix_is_retained_from_process_description():
     variants = module._anchor_variants("高平之战亲征中的现场稳定与组织")
     assert module._compact_text("高平之战") in variants
