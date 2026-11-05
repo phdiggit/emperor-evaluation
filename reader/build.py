@@ -1175,6 +1175,16 @@ def source_availability(value):
     }
 
 
+def published_reading_fallbacks(specs):
+    """Use formal data for generated readings deliberately excluded from Git."""
+    ignored = set((ROOT / ".gitignore").read_text(encoding="utf-8").splitlines())
+    return {
+        spec["markdown"]: spec["json"]
+        for spec in specs
+        if "/" + spec["markdown"] in ignored
+    }
+
+
 def historical_source_links():
     """Pin retired First Item citations to their verified original records."""
     current = "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/"
@@ -1795,6 +1805,7 @@ def build(*, check=False, write=True):
                   impact_dimension_grades=impact_config["dimension_grade_order"],
                   impact_labels=impact["public_label_mapping"],
                   impact_source_display=SOURCE_DISPLAY,
+                  published_reading_fallbacks=published_reading_fallbacks([impact_config, *profile["settled_axes"].values()]),
                   sources=dict(net=scoring["composite_ranking_json"], impact=impact_config["json"],
                                net_reader=scoring["composite_ranking_markdown"], impact_reader=impact_config["markdown"]))
 

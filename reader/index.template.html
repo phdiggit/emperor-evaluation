@@ -54,6 +54,8 @@ const personView=()=>{const parts=location.hash.slice(8).split('/');return parts
 const link=(p,label,subject)=>{
  if(!p)return '';
  if(/^https?:\/\//.test(p))return `<a href="${esc(p)}" target="_blank" rel="noopener">${esc(label)}</a>`;
+ const publishedFallback=sourceRepoBase()&&DATA.published_reading_fallbacks?.[p];
+ if(publishedFallback)return link(publishedFallback,'查看正式结算数据 ↗',subject);
  if(DATA.source_availability[p]===false){
   const historical=DATA.historical_source_links?.[p];
   return historical?link(encodeURI(historical),'查阅旧版依据 ↗'):`<span class="unavailable-source">该历史引用暂不可打开</span>`;
