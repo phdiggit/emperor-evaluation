@@ -345,6 +345,9 @@
         payload.profiles = payload.profiles.map(expandTalentEvidence);
       }
       return payload;
+    }).catch(error => {
+      cache.delete(path);
+      throw error;
     });
     cache.set(path, pending);
     return pending;
@@ -803,7 +806,8 @@
     } catch (error) {
       if (sequence !== renderSequence) return;
       console.error(error);
-      app.innerHTML = `<div class="empty">军事档案加载失败：${esc(error.message || error)}<br><a href="index.html">返回人物总览</a></div>`;
+      app.innerHTML = `${archiveHead("军事档案加载失败", "公共军事成果 · 只读档案", error.message || error)}<p><button type="button" id="archive-retry">重试加载</button> · <a href="index.html">返回人物总览</a></p>`;
+      document.getElementById("archive-retry").onclick = route;
     }
   }
 

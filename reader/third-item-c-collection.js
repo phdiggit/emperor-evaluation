@@ -37,7 +37,10 @@
         const retry = document.createElement('button');
         retry.type = 'button';
         retry.textContent = '重新加载';
-        retry.addEventListener('click', () => loadPerson(entry));
+        retry.addEventListener('click', () => {
+          if (entryForAnchor(currentAnchor()) === entry) revealPerson();
+          else loadPerson(entry);
+        });
         slot.append(retry);
         return false;
       } finally {
@@ -98,11 +101,18 @@
     }
   }
 
+  function currentAnchor() {
+    try { return decodeURIComponent(location.hash.slice(1)); } catch { return ''; }
+  }
+
+  function entryForAnchor(id) {
+    return byId.get(id) || entries.find(person => id.startsWith(person.id + '--evidence--'));
+  }
+
   async function revealPerson() {
     const version = ++navigationVersion;
-    let id;
-    try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
-    const entry = byId.get(id) || entries.find(person => id.startsWith(person.id + '--evidence--'));
+    const id = currentAnchor();
+    const entry = entryForAnchor(id);
     if (!entry) return;
     // A direct link takes priority over previous filters; its visible count stays accurate.
     if (entry.hidden) { input.value = ''; await filter(); }
