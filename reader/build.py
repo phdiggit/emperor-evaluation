@@ -44,7 +44,7 @@ from emperor_v4.evaluation.first_item_public_outcomes import (
 )
 from emperor_v4.evaluation.profile_parent_schema import parent_chains, representative_parent_chains
 from emperor_v4.evaluation.profile_m1_evidence import verify_evidence_scope
-from emperor_v4.evaluation.historical_impact import SOURCE_DISPLAY
+from emperor_v4.evaluation.historical_impact import SOURCE_DISPLAY, reading_causality
 from emperor_v4.evaluation.first_item_c_public import (
     load_first_item_c_public, public_commander_for_name,
     SOURCE_MARKDOWN_PATH as FIRST_C_SOURCE,
@@ -535,6 +535,14 @@ def _attach_second_item_c_public_reader(item, *, axis, record, how="", source_re
     return result
 
 
+def _handoff_display_reason(record):
+    summary = record["public_adjudication_summary"]
+    prefix = summary.removesuffix(record["public_story"]).rstrip()
+    if summary.endswith(record["public_story"]) and prefix.endswith("。"):
+        return prefix
+    return summary
+
+
 def _attach_d1_d3_public_reader(item, *, record, axis, how="", source_refs=()):
     """Project D1/D3's explicit public fields without generic fallback guessing."""
 
@@ -553,6 +561,7 @@ def _attach_d1_d3_public_reader(item, *, record, axis, how="", source_refs=()):
     result["public_component_label"] = {"D1": "行政连续性", "D3": "交接稳定"}[axis]
     result["reader_summary"] = summary
     result["public_adjudication_summary"] = summary
+    result["reader_handoff_reason"] = _handoff_display_reason(record)
     result["public_evidence_items"] = deepcopy(evidence)
     result["reader_public_evidence_items"] = deepcopy(evidence)
     result["reader_public_d"] = {
@@ -1192,6 +1201,9 @@ def historical_source_links():
 
 def detail_payload(record):
     """Full per-person data fetched only when a person or comparison is opened."""
+    impact = record.get("impact")
+    if impact:
+        record = {**record, "impact": {**impact, "reading_causality": reading_causality(impact)}}
     return {
         "record": record,
         "source_availability": source_availability(record),
@@ -1635,7 +1647,7 @@ def render_second_d_collection(root):
                             f'{paragraphs(item["public_boundary"])}<details><summary>本条史料与评价依据</summary>'
                             f'{sources(item["source_refs"])}</details></li>' for item in row['public_evidence_items'])
             sections.append(f'<section class="d-axis" data-axis="{axis}" data-formal-public-source><h3>{title} · {handoff_public_grade(level[-1])}档</h3>'
-                            f'{paragraphs(row["public_story"])}<details><summary>为什么这样评</summary>{paragraphs(row["public_adjudication_summary"])}</details>'
+                            f'{paragraphs(row["public_story"])}<details><summary>为什么这样评</summary>{paragraphs(_handoff_display_reason(row))}</details>'
                             f'<details><summary>观察范围与本人责任</summary>{paragraphs(row["public_window"])}{paragraphs(row["public_responsibility"])}{paragraphs(row["public_boundary"])}</details>'
                             f'<details><summary>逐条事实与史料</summary><ul>{facts}</ul></details></section>')
         total = totals[person['ruler_id']]

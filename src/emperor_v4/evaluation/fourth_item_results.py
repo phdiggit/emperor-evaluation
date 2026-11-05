@@ -62,6 +62,23 @@ def _sources(refs):
     return [dict(original=s, target=s if s.startswith(('http://', 'https://', 'docs/', 'config/')) else '', label=s, kind='裁决所引材料') for s in dict.fromkeys(refs)]
 
 
+def join_reading_text(*parts, separator=' '):
+    """Keep the first occurrence of each complete sentence across adjacent fields."""
+    seen = set()
+    paragraphs = []
+    for part in parts:
+        unique = []
+        for sentence in re.split(r'(?<=[。！？\n])', part):
+            key = sentence.strip()
+            if key not in seen or not key:
+                seen.add(key)
+                unique.append(sentence)
+        remaining = ''.join(unique).strip()
+        if remaining:
+            paragraphs.append(remaining)
+    return separator.join(paragraphs)
+
+
 def axis_reading(row, axis, packages=None):
     if axis.get('calculation_version') != SCHEMA:
         raise ValueError('第四项阅读不接受旧净档接口')
@@ -91,7 +108,7 @@ def axis_reading(row, axis, packages=None):
                      level_basis=basis, coverage=basis, duration=public_text(axis['handoff_basis']),
                      components=components, major_negative='损害独立保留，数值相抵不代表修复。' if value < 0 else '',
                      hard_negative='损害独立保留，数值相抵不代表修复。' if value < 0 else '',
-                     boundary=boundary, scope=basis+' '+boundary, source_note='下列材料用于本条结果；等级与责任判断属于项目裁决。',
+                     boundary=boundary, scope=join_reading_text(basis, boundary), source_note='下列材料用于本条结果；等级与责任判断属于项目裁决。',
                      sources=sources, exclusion_reason='')
         evidence.append(entry)
     calculation = '；'.join(f'{public_text(r["title"])} {r["contribution"]:+g}' for r in results)
@@ -116,7 +133,7 @@ def project(payload):
         for axis in row['axis_results']:
             reading = axis_reading(row, axis)
             axis['public_reading'] = reading
-            axis['public_adjudication_summary'] = reading['story'] + '\n' + reading['decision']
+            axis['public_adjudication_summary'] = join_reading_text(reading['story'], reading['decision'], separator='\n')
             axis['public_boundary'] = reading['boundary']
             axis['public_level_label'] = reading['status']
             axis['public_component_label'] = AXIS_NAMES[axis['axis']]
@@ -252,7 +269,8 @@ def verify_payload(payload, root):
 def markdown_reading(data):
     lines = [f'**{data["question"]}**', '', f'评价时期：{data["window"]}', '', data['decision'], '']
     for e in data['evidence_items']:
-        lines += ['#### '+e['title'], '', e['components'], '', e['level_basis'], '', e['responsibility'], '', e['boundary'], '']
+        explanation = join_reading_text(e['level_basis'], e['responsibility'], e['boundary'], separator='\n\n')
+        lines += ['#### '+e['title'], '', e['components'], '', explanation, '']
         lines += ['- '+(f'[{s["label"]}]({s["target"]})' if s['target'] else s['label']) for s in e['sources']]
         lines += ['']
     lines += [data['calculation'], '', data['method'], '', data['source_note']]

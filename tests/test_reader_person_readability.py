@@ -1039,13 +1039,24 @@ assert.ok(sources>0&&chains>0);
 
 def test_pending_overview_can_cite_pool_status_without_allowing_scores(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
-const record={ruler_id:'synthetic',settlement_readiness:'PENDING_TEST'};
+const record={ruler_id:'synthetic',settlement_readiness:'PENDING_TEST',detail_ref:'data/people/synthetic.json'};
 const block={text:'当前分项尚未齐备，未入榜不能按零分理解。',evidence:[{path:['settlement_readiness'],quote:record.settlement_readiness}]};
 api.validateBlock(block);
 assert.equal(api.assessBlock(block,record).status,'current');
-assert.deepEqual(api.sourceFor(record,['settlement_readiness']),{path:'config/common/canonical-ruler-pool.json',label:'正式评价池就绪状态'});
+assert.equal(api.sourceFor(record,['settlement_readiness']).href,record.detail_ref);
 assert.equal(api.validPath(['total_score']),false);
 assert.equal(api.validPath(['ruler_id']),false);
+''')
+
+
+def test_overview_evidence_links_target_person_detail_routes(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const record={ruler_id:'RULER-synthetic'};
+const sample={ruler_id:'HIMPACT-synthetic'};
+assert.equal(api.sourceFor(record,['axes','C2','typical_pattern']).href,'#person/RULER-synthetic/profile/C2');
+assert.equal(api.sourceFor(record,['net','component_details','finance',0,'summary']).href,'#net/RULER-synthetic/second/finance');
+assert.equal(api.sourceFor(sample,['impact','macro_chains',0,'narrative']).href,'#person/HIMPACT-synthetic/impact/history-evidence');
+assert.equal(api.sourceFor(sample,['impact','scope_assessment','baseline_and_exclusions']).href,'#person/HIMPACT-synthetic/impact/history-dimension-scope');
 ''')
 
 

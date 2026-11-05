@@ -368,10 +368,10 @@ function historySections(r,idSuffix='',compact=false,openTotal=false){
  const depthIndices=depthReview.source_ref_indices||[];
  const causalIndices=causalReview.source_ref_indices||[];
  const paradigmIndices=paradigmReview.source_ref_indices||[];
- const counterfactual=impactPublicText(h.nearest_feasible_counterfactual||h.counterfactual_entry?.functional_alternative||causalReview.strongest_alternative||'');
- const personalBoundary=impactPublicText(h.personal_causal_boundary||'');
- const evidenceBoundary=[...new Set([h.public_boundary,h.confidence_basis].filter(Boolean))].map(impactPublicText);
- const entry=h.counterfactual_entry||{};
+ const causality=h.reading_causality||{};
+ const counterfactual=impactPublicText(causality.counterfactual);
+ const personalBoundary=impactPublicText(causality.boundary);
+ const evidenceBoundary=[...new Set([causality.public_boundary??h.public_boundary,h.confidence_basis].filter(Boolean))].map(impactPublicText);
  const publicBasis=key=>impactDimensionPublicText(key,h.dimensions?.[key]?.public_basis||'当前正式记录未另列公开说明。');
  const hid=base=>`${base}${idSuffix}`;
  const dimension=(key,title,question,body)=>`<details id="${hid(`history-dimension-${key}`)}" class="impact-dimension-section impact-evidence-fold"><summary><span>${esc(title)}</span>${impactDimensionGrade(key,h.dimensions?.[key]?.grade)}</summary><p class="subline">${esc(question)}</p>${body}<details class="metadata impact-dimension-technical"><summary>本维度的专业档位与尺度</summary><p>专业档位：${esc(h.dimensions?.[key]?.grade||'—')}。这是本维度的独立尺度，不能作为综合档位的分项成绩。</p></details></details>`;
@@ -382,8 +382,9 @@ function historySections(r,idSuffix='',compact=false,openTotal=false){
  const contextualFacts=(h.contextual_evidence||[]).map(e=>`<section>${prose(e.basis)}${prose(e.source_scope)}${e.source_ref_indices?.length?impactSourceList(r,e.source_ref_indices,'过程事实来源'):''}</section>`).join('');
  const scopeBody=`${prose(publicBasis('scope'))}${prose(scopeReview.observation_window)}${prose(scopeReview.actual_changes)}${prose(scopeReview.baseline_and_exclusions)}${dimensionSources(scopeIndices,'范围依据')}`;
  const depthBody=`${prose(publicBasis('depth_duration'))}${prose(depthReview.basis)}${prose(depthReview.limits)}${dimensionSources(depthIndices,'深度依据')}`;
- const counterfactualConditions=Object.fromEntries([['反事实起点',entry.anchor],['保留条件',entry.retained_conditions],['替代路径',entry.functional_alternative!==h.nearest_feasible_counterfactual?entry.functional_alternative:''],['身份与结果边界',entry.identity_exclusion]].filter(([,value])=>value));
- const causalBody=`${prose(publicBasis('personal_causality'))}${counterfactual?`<div class="label">如果没有这个人</div>${prose(counterfactual)}`:''}${prose(counterfactualConditions)}${personalBoundary?`<div class="label">详细归责边界</div>${prose(personalBoundary)}`:''}${dimensionSources(causalIndices,'因果依据')}`;
+ const counterfactualConditions=Object.fromEntries([['反事实起点',causality.anchor],['保留条件',causality.retained_conditions],['替代路径',causality.functional_alternative],['身份与结果边界',causality.identity_exclusion]].filter(([,value])=>value).map(([label,value])=>[label,impactPublicText(value)]));
+ const causalBasis=causality.public_basis?impactDimensionPublicText('personal_causality',causality.public_basis):publicBasis('personal_causality');
+ const causalBody=`${prose(causalBasis)}${counterfactual?`<div class="label">如果没有这个人</div>${prose(counterfactual)}`:''}${prose(counterfactualConditions)}${personalBoundary?`<div class="label">详细归责边界</div>${prose(personalBoundary)}`:''}${dimensionSources(causalIndices,'因果依据')}`;
  const paradigmBody=`${prose(publicBasis('paradigm'))}${paradigmReceptionProse(paradigmReview)}${dimensionSources(paradigmIndices,'范式依据')}`;
  return `${compact?'':'<h2 class="evidence-card-title">历史影响依据</h2>'}<details${openTotal?' open':''}><summary>历史影响量级为什么这样定？</summary>${prose(impactTotalPublicText(h))}</details>${h.impact_nature_basis?`<details><summary>影响性质为何是${esc(h.impact_nature)}？</summary>${prose(impactPublicText(h.impact_nature_basis))}</details>`:''}${compact?impactScaleNote():''}<details id="${mainChainId}" class="impact-core-chains impact-evidence-fold"><summary>核心历史主链</summary><p class="subline">事实主链用于追溯实际变化；四维和总档说明直接读取正式公开裁决。</p>${chains.map(c=>`<details id="${hid(`chain-${c.chain_id}`)}"><summary>${esc(impactPublicText(c.title))}</summary>${prose(impactPublicText(c.narrative))}${impactSourceList(r,c.source_ref_indices,'本链依据')}</details>`).join('')}${contextualFacts?`<details><summary>仅作背景的过程事实</summary>${contextualFacts}</details>`:''}</details>${dimension('scope','影响范围','实际改写覆盖了哪些政治空间、政治主体或国家关键接口。',scopeBody)}${dimension('depth_duration','深度与持续','本人退出后哪些结构继续约束后继。',depthBody)}${dimension('personal_causality','个人因果','这些变化有多少真正依赖本人。',causalBody)}${dimension('paradigm','政治范式','后世最高权力是否把本人或其治世作为政治参照并实际使用。',paradigmBody)}<details id="${hid('history-judgment-boundary')}" class="impact-dimension-section impact-boundary impact-evidence-fold"><summary><span>判断边界</span><span class="subline">判断把握：${conf(h.confidence)}</span></summary>${evidenceBoundary.length?prose(evidenceBoundary):'<p class="subline">当前正式记录未另列补充边界。</p>'}</details>${impactSourceOverview(r,overviewId)}<p class="sources impact-reading-links">${link(DATA.sources.impact_reader,'历史影响完整阅读页 ↗')}${link(DATA.sources.impact,'正式记录入口 ↗')}</p>`;
 }
@@ -646,16 +647,25 @@ function gradeHelp(kind){
 
 function comparePicker(){
  const preferredScale=byId.get(state.compare[0])?.net?.governance_context?.scale_band||'';
- screen.innerHTML=`<h1>选择两位人物</h1><p>按姓名、帝号或朝代搜索。当前已选 ${state.compare.length} 人。</p><p>${state.compare.map(id=>`<button data-remove-compare="${esc(id)}">${esc(personLabel(byId.get(id)))} ×</button>`).join(' ')}</p><input id="compare-search" aria-label="搜索对照人物" placeholder="搜索姓名、帝号或朝代"><label>参照范围 <select id="compare-scale"><option value="">全部范围</option>${Object.entries(governanceScales).map(([key,label])=>`<option value="${key}" ${key===preferredScale?'selected':''}>${label}</option>`).join('')}</select></label><p class="subline">优先同范围参照；可切换跨范围比较。结构复杂度独立展示。</p><div id="compare-candidates" class="candidate-grid"></div>`;
- const update=()=>{const q=document.getElementById('compare-search').value?.trim()||'';document.getElementById('compare-candidates').innerHTML=DATA.records.filter(r=>(!document.getElementById('compare-scale').value||r.net?.governance_context?.scale_band===document.getElementById('compare-scale').value)&&!state.compare.includes(r.ruler_id)&&(r.ruler_name+r.polity+(r.impact.identity_label||'')).includes(q)).map(r=>`<button data-pick-compare="${esc(r.ruler_id)}">${esc(personLabel(r))}<small>${esc(r.polity)}${r.supplementary?' · 补充历史样本':''}</small>${r.net?governanceScope(r.net):''}</button>`).join('')||'<p>没有匹配人物。</p>'};
- document.getElementById('compare-search').addEventListener('input',update);document.getElementById('compare-scale').addEventListener('change',update);update();
+ screen.innerHTML=`<h1>选择两位人物</h1><p>按姓名、帝号或朝代搜索。当前已选 ${state.compare.length} 人。</p><p>${state.compare.map(id=>`<button data-remove-compare="${esc(id)}">${esc(personLabel(byId.get(id)))} ×</button>`).join(' ')}</p><input id="compare-search" aria-label="搜索对照人物" placeholder="搜索姓名、帝号或朝代"><label>参照范围 <select id="compare-scale">${preferredScale?'<option value="auto">自动推荐</option>':''}<option value="">全部范围</option>${Object.entries(governanceScales).map(([key,label])=>`<option value="${key}">${label}</option>`).join('')}</select></label><p class="subline">${preferredScale?`自动推荐显示同范围人物（${esc(governanceScales[preferredScale])}），输入关键词时搜索全部范围。`:''}手动选择治理范围后，搜索限于所选范围。结构复杂度独立展示。</p><div id="compare-candidates" class="candidate-grid"></div>`;
+ const search=document.getElementById('compare-search');
+ const scaleSelect=document.getElementById('compare-scale');
+ const candidates=document.getElementById('compare-candidates');
+ const update=()=>{
+  const q=search.value.trim();
+  const scale=scaleSelect.value==='auto'?(q?'':preferredScale):scaleSelect.value;
+  candidates.innerHTML=DATA.records.filter(r=>(!scale||r.net?.governance_context?.scale_band===scale)&&!state.compare.includes(r.ruler_id)&&(r.ruler_name+r.polity+(r.impact.identity_label||'')).includes(q)).map(r=>`<button data-pick-compare="${esc(r.ruler_id)}">${esc(personLabel(r))}<small>${esc(r.polity)}${r.supplementary?' · 补充历史样本':''}</small>${r.net?governanceScope(r.net):''}</button>`).join('')||(scale?'<p>此范围内没有匹配人物。可切换到全部范围。</p>':'<p>没有匹配人物。</p>');
+ };
+ search.addEventListener('input',update);
+ scaleSelect.addEventListener('change',update);
+ update();
 }
 
 function home(){nav('home');screen.innerHTML=`<section class="hero home-hero"><div><div class="eyebrow">The three perspectives</div><h1>功过、才具、历史回声。</h1><p class="muted">同一个人，三个问题。把做成的事、做事的能力与留下的后效，放在一起读。</p></div><div class="legend"><div><b>统治绩效</b><p>看统治留下的结果、表现与可归责代价</p></div><div><b>人物画像</b><p>八轴能力与权力运用风格</p></div><div><b>历史影响</b><p>改变了多大、多久的路径</p></div></div></section>
  <div class="toolbar home-toolbar"><input id="search" aria-label="搜索人物" placeholder="搜索姓名、帝号、朝代" value="${esc(state.q)}"><select id="polity" aria-label="朝代"><option value="">全部朝代</option>${[...new Set(DATA.records.map(r=>r.polity))].map(p=>`<option ${p===state.polity?'selected':''}>${esc(p)}</option>`).join('')}</select><label class="governance-filter"><span>治理范围</span> <select id="governance-scale" aria-label="治理范围"><option value="">全部治理范围</option>${Object.entries(governanceScales).map(([key,label])=>`<option value="${key}">${label}</option>`).join('')}</select></label><button id="show-performance" type="button">绩效榜</button><button id="toggle-home-view" type="button">完整表格</button><button id="toggle-filters" type="button" aria-controls="advanced-filters" aria-expanded="${state.filtersOpen}">更多筛选</button><div id="advanced-filters" class="home-advanced" ${state.filtersOpen?'':'hidden'}><label><span>样本范围</span><select id="scope"><option value="main">正式评价对象</option><option value="supplementary">历史影响补充样本</option></select></label><label><span>排序方式</span><select id="sort"><option value="time">历史顺序</option><option value="net">正式总分</option><option value="impact">历史影响总等级</option></select></label><label><span>影响等级</span><select id="impact-filter"><option value="">全部影响等级</option>${DATA.impact_grades.map(g=>`<option>${esc(g)}</option>`).join('')}</select></label></div><div class="home-filter-meta"><span class="count" id="count" role="status"></span><span id="filter-state" class="subline" aria-live="polite"></span><button id="clear-filters" class="back" type="button">清除筛选</button></div></div><div id="rows"></div><p class="footer-note">正式评价对象 ${DATA.main_count} 人 · 统治绩效入榜 ${DATA.ranked_count} 人 · 历史影响补充样本 ${DATA.supplementary_count} 人。${DATA.records.some(r=>Object.values(r.axes).some(pending))?`画像另有 ${DATA.records.reduce((n,r)=>n+Object.values(r.axes).filter(pending).length,0)} 个轴记录待补证或重裁。`:''}${DATA.records.some(r=>Object.values(r.axes).some(ungraded))?`另有 ${DATA.records.reduce((n,r)=>n+Object.values(r.axes).filter(ungraded).length,0)} 个轴记录无档结案。`:''}</p><p class="toast" id="selection" aria-live="polite"></p>`;
- document.getElementById('show-performance').onclick=()=>{state.sort='net';state.scope='main';document.getElementById('sort').value='net';document.getElementById('scope').value='main';renderRows()};
+ document.getElementById('show-performance').onclick=()=>{state.sort='net';state.scope='main';document.getElementById('scope').value='main';renderRows()};
  const homeViewToggle=document.getElementById('toggle-home-view');
- if(homeViewToggle)homeViewToggle.onclick=()=>{state.homeView=state.homeView==='full'?'simple':'full';if(state.sort==='net'){state.sort='time';document.getElementById('sort').value='time'}renderRows()};
+ if(homeViewToggle)homeViewToggle.onclick=()=>{state.homeView=state.homeView==='full'?'simple':'full';if(state.sort==='net')state.sort='time';renderRows()};
  document.getElementById('toggle-filters').onclick=()=>{state.filtersOpen=!state.filtersOpen;updateHomeFilterState()};
  for(const [id,key] of [['scope','scope'],['sort','sort'],['impact-filter','grade'],['governance-scale','scale']])document.getElementById(id).value=state[key];
  for(const [id,key] of [['search','q'],['polity','polity'],['scope','scope'],['sort','sort'],['impact-filter','grade'],['governance-scale','scale']])document.getElementById(id).addEventListener(id==='search'?'input':'change',e=>{state[key]=e.target.value;renderRows()});document.getElementById('clear-filters').onclick=()=>{Object.assign(state,{q:'',polity:'',scope:'main',grade:'',scale:'',sort:'time'});for(const [id,key] of [['search','q'],['polity','polity'],['scope','scope'],['sort','sort'],['impact-filter','grade'],['governance-scale','scale']])document.getElementById(id).value=state[key];renderRows();document.getElementById('search').focus()};renderRows();}
@@ -670,11 +680,22 @@ function homeFilterDescription(){
 function updateHomeFilterState(){
  const advanced=document.getElementById('advanced-filters'),toggle=document.getElementById('toggle-filters'),summary=document.getElementById('filter-state');
  if(!advanced||!toggle||!summary)return;
+ const supplementary=state.scope==='supplementary';
+ const sort=document.getElementById('sort'),scale=document.getElementById('governance-scale');
+ if(supplementary){
+  state.scale='';
+  if(state.sort==='net')state.sort='time';
+ }
+ sort.querySelector('option[value="net"]').disabled=supplementary;
+ sort.value=state.sort;
+ scale.disabled=supplementary;
+ scale.value=state.scale;
+ document.getElementById('show-performance').textContent=supplementary?'切换到绩效榜':'绩效榜';
  advanced.hidden=!state.filtersOpen;
  toggle.setAttribute('aria-expanded',String(state.filtersOpen));
  const count=Number(state.scope!=='main')+Number(state.sort!=='time')+Number(!!state.grade);
  toggle.textContent=(state.filtersOpen?'收起筛选':'更多筛选')+(count?' · '+count:'');
- summary.textContent=homeFilterDescription();
+ summary.textContent=homeFilterDescription()+(supplementary?'。补充样本仅评价历史影响，治理范围筛选和正式总分排序仅适用于正式评价对象。':'');
  document.getElementById('clear-filters').disabled=!state.q&&!state.polity&&state.scope==='main'&&!state.grade&&!state.scale&&state.sort==='time';
 }
 const missingNetLabels={

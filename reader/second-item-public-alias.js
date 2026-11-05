@@ -767,7 +767,7 @@
     reading.className = "handoff-authored-reading";
     reading.dataset.formalPublicSource = "";
     for (const paragraph of authored.public_story.split(/\n\n+/)) reading.append(makeTextBlock("p", "prose", paragraph));
-    reading.append(makeDetails("为什么这样评", authored.public_adjudication_summary));
+    reading.append(makeDetails("为什么这样评", item.reader_handoff_reason ?? authored.public_adjudication_summary));
     reading.append(makeTextBlock("p", "prose", `观察范围：${authored.public_window}`));
     reading.append(makeTextBlock("p", "prose", `本人责任：${authored.public_responsibility}`));
     reading.append(renderHandoffMaterialGroups(item.label, authored.public_evidence_items));

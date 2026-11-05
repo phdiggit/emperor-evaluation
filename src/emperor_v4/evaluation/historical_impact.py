@@ -128,6 +128,44 @@ def _validate_source_indices(indices: Any, count: int, label: str, *, required: 
         raise ValueError(f"历史影响来源索引无效: {label}")
 
 
+def reading_causality(row: dict[str, Any]) -> dict[str, str]:
+    """Project the personal-causality prose in display order without repeating sentences."""
+    entry = row.get("counterfactual_entry") or {}
+    counterfactual = (row.get("nearest_feasible_counterfactual")
+                      or entry.get("functional_alternative")
+                      or (row.get("causal_review") or {}).get("strongest_alternative"))
+    fields = {
+        "public_basis": row["dimensions"]["personal_causality"].get("public_basis"),
+        "counterfactual": counterfactual,
+        "anchor": entry.get("anchor"),
+        "retained_conditions": entry.get("retained_conditions"),
+        "functional_alternative": entry.get("functional_alternative"),
+        "identity_exclusion": entry.get("identity_exclusion"),
+        "boundary": row.get("personal_causal_boundary"),
+        "public_boundary": row.get("public_boundary"),
+    }
+    seen = set()
+    reading = {}
+    for key, value in fields.items():
+        paragraphs = []
+        for paragraph in re.split(r"\n\s*\n", value or ""):
+            prefix = ""
+            if key == "public_boundary":
+                prefix = "个人因果边界：" if paragraph.startswith("个人因果边界：") else ""
+                paragraph = paragraph.removeprefix(prefix)
+            sentences = []
+            for sentence in re.findall(r"[^。！？\n]+[。！？]?|[。！？]|\n", paragraph):
+                normalized = sentence.strip().removesuffix("。")
+                if not normalized or normalized not in seen:
+                    sentences.append(sentence)
+                    if normalized and key != "public_boundary":
+                        seen.add(normalized)
+            if text := "".join(sentences).strip():
+                paragraphs.append(prefix + text)
+        reading[key] = "\n\n".join(paragraphs)
+    return reading
+
+
 def render(payload: dict[str, Any], *, document_path: str = "") -> str:
     from .reading_layout import person_start, PERSON_END
     def source_label(source):
@@ -152,14 +190,17 @@ def render(payload: dict[str, Any], *, document_path: str = "") -> str:
         lines.extend(["", f'<a id="{section}-records"></a>', "", f"## {title}逐人依据", ""])
         for row in payload[key]:
             confidence = {"HIGH": "高", "MEDIUM": "中", "LOW": "低"}[row["confidence"]]
+            causality = reading_causality(row)
             lines.extend([person_start(row['ruler_id']), f'<a id="person-{row["ruler_id"].lower()}"></a>', "", f"### {row['identity_label']}", "",
                 f"**总档：{row['public_grade']}·{PUBLIC_MEANINGS[row['public_grade']]}｜{row['impact_nature']}｜置信度：{confidence}**", "",
                 "；".join(f"{label}：{_dimension(row, d)}" for d, label in DIMENSIONS.items()) + "。", ""])
             lines.extend(["**公开总档依据：**" + row["public_total_basis"], "",
                 *(["**影响性质依据：**" + row["impact_nature_basis"], ""] if row.get("impact_nature_basis") else []),
                 "**公开维度说明：**", "",
-                *[f"{label}：{row['dimensions'][d]['public_basis']}" for d, label in DIMENSIONS.items()], "",
-                "**公开边界：**" + row["public_boundary"], ""])
+                *[f"{label}：{causality['public_basis'] if d == 'personal_causality' else row['dimensions'][d]['public_basis']}"
+                  for d, label in DIMENSIONS.items()], ""])
+            if causality["public_boundary"]:
+                lines.extend(["**公开边界：**" + causality["public_boundary"], ""])
             lines.extend(["**核心足迹：**" + "；".join(c["title"] for c in row["macro_chains"]), ""])
             scope = row.get("scope_assessment")
             if scope:
@@ -176,12 +217,6 @@ def render(payload: dict[str, Any], *, document_path: str = "") -> str:
                 f"**参考掌权/活动窗口：**{row['reference_power_window']}。反事实起点以关键行动主链为准。", ""])
             if row.get("scope_assessment", {}).get("observation_window") and row["scope_assessment"]["observation_window"] != row.get("counterfactual_entry", {}).get("anchor"):
                 lines.extend(["**范围观察窗口：**" + row["scope_assessment"]["observation_window"], ""])
-            entry = row.get("counterfactual_entry")
-            if entry:
-                lines.extend(["**反事实起点：**" + entry["anchor"], "", "**保留条件：**" + entry["retained_conditions"], "",
-                              "**身份与结果边界：**" + entry["identity_exclusion"], ""])
-                if entry["functional_alternative"] != row["nearest_feasible_counterfactual"]:
-                    lines.extend(["**替代路径：**" + entry["functional_alternative"], ""])
             foundation = row.get("foundation")
             if foundation:
                 lines.extend([f"**归责与修正：**{foundation['causal_adjustment']}{foundation['paradigm_adjustment']}最终按已裁边界落内部{foundation['decided_internal_band']}，对应公众{foundation['decided_public_grade']}。", ""])
@@ -204,9 +239,14 @@ def render(payload: dict[str, Any], *, document_path: str = "") -> str:
                 lines.extend(["**非独立计档的过程事实：**", ""])
                 lines.extend("- " + e["basis"] for e in row["contextual_evidence"])
                 lines.append("")
-            lines.extend(["**最近可行反事实：**", "", row["nearest_feasible_counterfactual"], ""])
-            if row["personal_causal_boundary"] != row["nearest_feasible_counterfactual"]:
-                lines.extend(["**个人因果边界：**", "", row["personal_causal_boundary"], ""])
+            if causality["counterfactual"]:
+                lines.extend(["**最近可行反事实：**", "", causality["counterfactual"], ""])
+            for field, label in (("anchor", "反事实起点"), ("retained_conditions", "保留条件"),
+                                 ("functional_alternative", "替代路径"), ("identity_exclusion", "身份与结果边界")):
+                if causality[field]:
+                    lines.extend([f"**{label}：**" + causality[field], ""])
+            if causality["boundary"]:
+                lines.extend(["**个人因果边界：**", "", causality["boundary"], ""])
             shown_refs = {i for c in row["macro_chains"] for i in c["source_ref_indices"]}
             shown_refs.update(row.get("paradigm_review", {}).get("source_ref_indices", []))
             for key, label in (("scope_assessment", "范围核对来源"), ("depth_review", "持续性核对来源"), ("causal_review", "归责核对来源")):

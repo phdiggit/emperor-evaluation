@@ -7,7 +7,28 @@ import pytest
 import yaml
 
 from emperor_v4.evaluation.formal_json_store import write_polity_routed_json
-from emperor_v4.evaluation.historical_impact import LABEL_MAPPING, verify, write_views
+from emperor_v4.evaluation.historical_impact import LABEL_MAPPING, reading_causality, verify, write_views
+
+
+@pytest.mark.parametrize("has_nearest", [True, False])
+def test_causality_reading_retains_unique_sentences_across_display_fields(has_nearest):
+    row = {
+        "dimensions": {"personal_causality": {"public_basis": "本人主导改制。"}},
+        "nearest_feasible_counterfactual": "替代者维持原制。" if has_nearest else "",
+        "counterfactual_entry": {
+            "functional_alternative": "替代者维持原制。" + ("但能调整税率。" if has_nearest else ""),
+            "retained_conditions": "保留既有官员。",
+        },
+        "personal_causal_boundary": "本人主导改制。替代者维持原制。\n\n保留既有官员。执行由地方官负责。",
+        "public_boundary": "个人因果边界：替代者维持原制。后继调整另行归责。",
+    }
+    reading = reading_causality(row)
+    assert reading["public_basis"] == "本人主导改制。"
+    assert reading["counterfactual"] == "替代者维持原制。"
+    assert reading["functional_alternative"] == ("但能调整税率。" if has_nearest else "")
+    assert reading["retained_conditions"] == "保留既有官员。"
+    assert reading["boundary"] == "执行由地方官负责。"
+    assert reading["public_boundary"] == "个人因果边界：后继调整另行归责。"
 
 
 def _workspace(root: Path) -> tuple[dict, Path]:

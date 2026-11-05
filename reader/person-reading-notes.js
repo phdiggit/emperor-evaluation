@@ -104,14 +104,29 @@
   }
 
   function sourceFor(record, path) {
-    if (path[0] === "settlement_readiness") return {path: "config/common/canonical-ruler-pool.json", label: "正式评价池就绪状态"};
-    if (path[0] === "axes") {
-      const spec = DATA.axis_specs[path[1]];
-      return spec ? {path: spec.json, label: `${spec.name}正式记录`} : null;
+    const id = encodeURIComponent(record.ruler_id);
+    if (path[0] === "settlement_readiness") {
+      return {href: record.detail_ref, label: "本人当前记录 · 结算状态"};
     }
-    if (path[0] === "impact") return {path: DATA.sources.impact, label: "历史影响正式记录"};
-    const item = record.net?.component_details?.[path[2]]?.[path[3]];
-    return item?.source ? {path: item.source, label: "统治绩效相关正式记录"} : null;
+    if (path[0] === "axes") {
+      return {href: `#person/${id}/profile/${path[1]}`, label: "查看本轴依据"};
+    }
+    if (path[0] === "impact") {
+      const focus = {
+        scope_assessment: "history-dimension-scope",
+        depth_review: "history-dimension-depth_duration",
+        causal_review: "history-dimension-personal_causality",
+        paradigm_review: "history-dimension-paradigm",
+        public_boundary: "history-judgment-boundary",
+      }[path[1]] || "history-evidence";
+      return {href: `#person/${id}/impact/${focus}`, label: "查看本人历史影响依据"};
+    }
+    const group = path[2];
+    const section = {
+      first: "first", method: "second/method", finance: "second/finance", handoff: "second/handoff",
+      strategic: "third/strategic", military: "third/military", civilization: "fourth",
+    }[group] || "all";
+    return {href: `#net/${id}/${section}`, label: "查看本人统治绩效依据"};
   }
 
   function evidenceList(block, record) {
@@ -121,11 +136,15 @@
     const list = el("ul");
     for (const ref of block.evidence) {
       const item = el("li"), source = sourceFor(record, ref.path);
-      if (source) {
-        const holder = el("span");
-        // Reuse the established source router; it supplies local availability and person parameters.
-        holder.innerHTML = link(source.path.split("#")[0] + "#ruler_id=" + record.ruler_id, source.label + " ↗", record);
-        item.append(holder);
+      if (source.href) {
+        const anchor = el("a", "", source.label + " →");
+        anchor.href = source.href;
+        if (ref.path[0] === "impact") {
+          anchor.addEventListener("click", () => {
+            if (location.hash === source.href) focusImpactSection();
+          });
+        }
+        item.append(anchor);
       }
       item.append(el("q", "", ref.quote));
       list.append(item);
