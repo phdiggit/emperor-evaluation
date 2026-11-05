@@ -1179,7 +1179,7 @@ def source_availability(value):
 
 
 @lru_cache(maxsize=1024)
-def source_record_lines(path, key, *, record_rows=False):
+def source_record_lines(path, key, *, record_rows=False, axis=None):
     lines = {}
     field = re.compile(r'(?<!\\)"' + re.escape(key) + r'"\s*:\s*("(?:[^"\\]|\\.)*")')
     for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
@@ -1191,6 +1191,12 @@ def source_record_lines(path, key, *, record_rows=False):
                 row = json.loads(line.strip().rstrip(","))
             except json.JSONDecodeError:
                 continue
+            if axis is not None:
+                if not isinstance(row, dict):
+                    continue
+                axes = row.get("axes")
+                if row.get("axis") != axis and not (isinstance(axes, dict) and axis in axes):
+                    continue
             if key == "campaign_group_ref":
                 values = set(values) if isinstance(row, dict) and row.get("war_event_id") else []
             else:
@@ -1216,16 +1222,22 @@ def source_line_target(ref):
     path, _, fragment = ref.partition("#")
     key, _, value = unquote(fragment).partition("=")
     if not path.startswith(("docs/", "config/", "archive/")) or not path.endswith(".json") or key not in {
-        "war_event_id", "phase_id", "material_id", "evidence_id", "ruler_id", "parent_id", "campaign_group_ref",
+        "war_event_id", "phase_id", "material_id", "evidence_id", "ruler_id", "parent_id", "campaign_group_ref", "task_code",
     } or not value:
         return None
     source = ROOT / source_file(path)
     if not source.is_file():
         return None
-    lines = source_record_lines(source, key, record_rows=key == "campaign_group_ref")
+    axis = None
+    if key == "ruler_id" and "&" in value:
+        qualified = re.fullmatch(r"([^&]+)&axis=(C[123])", value)
+        if not qualified:
+            return None
+        value, axis = qualified.groups()
+    lines = source_record_lines(source, key, record_rows=axis is not None or key in {"campaign_group_ref", "task_code"}, axis=axis)
     if value in lines:
         return f"{path}#L{lines[value]}" if lines[value] else None
-    if key in {"ruler_id", "parent_id", "evidence_id"}:
+    if axis is None and key in {"ruler_id", "parent_id", "evidence_id"}:
         matches = [(shard, shard_lines[value]) for shard in source_record_shards(source)
                    if value in (shard_lines := source_record_lines(shard, key, record_rows=key == "ruler_id"))]
         if len(matches) == 1 and matches[0][1]:

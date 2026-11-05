@@ -117,6 +117,25 @@ def test_campaign_group_line_keeps_multiple_phases_in_one_battle(tmp_path, monke
     assert build.source_line_target(path + "#campaign_group_ref=BOTH") is None
 
 
+def test_published_adjudication_links_use_axis_and_exact_task(tmp_path, monkeypatch):
+    from reader import build
+
+    path = "config/reviews.json"
+    file = tmp_path / path
+    file.parent.mkdir()
+    file.write_text(
+        '{"records":[\n'
+        '{"ruler_id":"A","axis":"C1","task_code":"FIRST"},\n'
+        '{"ruler_id":"A","axis":"C2","task_code":"SECOND","related":{"task_code":"FIRST"}}\n]}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+    assert build.source_line_target(path + "#ruler_id=A&axis=C1") == path + "#L2"
+    assert build.source_line_target(path + "#ruler_id=A&axis=C2") == path + "#L3"
+    assert build.source_line_target(path + "#ruler_id=A&axis=C3") is None
+    assert build.source_line_target(path + "#task_code=FIRST") == path + "#L2"
+
+
 def test_published_ruler_link_follows_only_unique_manifest_route(tmp_path, monkeypatch):
     from reader import build
 
