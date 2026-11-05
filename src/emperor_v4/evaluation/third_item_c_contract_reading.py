@@ -208,7 +208,12 @@ def html_review(review,source_link=None,*,evidence_link=None):
     out=p(review['method'])
     for c in review['chains']:
         out+='<details><summary>'+escape(c['title'])+'</summary>'+p(('纳入整体判断；' if c['adopted'] else '保留记录，未纳入采用；')+c['scope']+'；'+c['result'])
-        for w in c['opponent_windows']:out+=p(w.get('label','')+'；'+w.get('status',''))
+        for w in c['opponent_windows']:
+            out += p(w.get('label','') + '；' + w.get('status',''))
+            pointers = dict.fromkeys(entry['registry_pointer'] for entry in w.get('opponents', [])
+                                     if entry.get('registry_pointer'))
+            if source_link and pointers:
+                out += '<p>' + ' '.join(source_link(ref, '查看对手登记 ↗') for ref in pointers) + '</p>'
         out+='<details><summary>详细裁决依据</summary>'+p(c['basis'])+'</details></details>'
     for phase in review['phase_reviews']:
         difficulty = phase.get('adopted_difficulty') or '未采用高难度'

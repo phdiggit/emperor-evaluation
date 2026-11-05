@@ -1293,7 +1293,11 @@ def collection_source_link(ref, label):
     identity = reader_source_identity()
     if identity['repository'] and identity['revision']:
         target = source_line_target(ref) or ref
-        href = 'https://github.com/' + identity['repository'] + '/blob/' + identity['revision'] + '/' + quote(target, safe='/#=')
+        path, _, fragment = target.partition('#')
+        if path.endswith('.json') and fragment.startswith('/'):
+            href = f"source.html?revision={identity['revision']}&ref={quote(target, safe='')}"
+        else:
+            href = 'https://github.com/' + identity['repository'] + '/blob/' + identity['revision'] + '/' + quote(target, safe='/#=')
     else:
         href = '../' + quote(ref, safe='/#=')
     return f"<a href='{escape(href)}' data-local-source='{escape(ref)}' target='_blank' rel='noopener'>{escape(label)}</a>"

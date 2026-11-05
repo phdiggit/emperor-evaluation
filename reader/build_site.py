@@ -9,7 +9,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 GENERATED_PAGES = (
-    "index.html", "military.html",
+    "index.html", "military.html", "source.html",
     "first-item-a.html", "first-item-b1.html", "first-item-b2.html", "first-item-c.html",
     "second-item-b2.html", "second-item-c.html", "second-item-d.html",
     "third-item-c.html", "fourth-item-a.html", "fourth-item-b.html", "fourth-item-c.html",

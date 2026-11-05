@@ -53,6 +53,9 @@ const href=p=>{
  p=(base&&DATA.source_line_targets?.[p])||p;
  p=p.replace(/\.md:(\d+)(?:-(\d+))?$/,(_,a,b)=>'.md#L'+a+(b?'-L'+b:''));
  const [path,...fragment]=p.split('#');
+ if(base&&path.endsWith('.json')&&fragment[0]?.startsWith('/')){
+  return 'source.html?'+new URLSearchParams({revision:DATA.source_revision,ref:p}).toString();
+ }
  const hash=fragment.length?'#'+encodeURIComponent(fragment.join('#')):'';
  if(base&&/^(?:docs|config|archive)\//.test(path))return base+path.split('/').map(encodeURIComponent).join('/')+hash;
  return '../'+path.split('/').map(encodeURIComponent).join('/')+hash;
@@ -70,7 +73,7 @@ const link=(p,label,subject)=>{
  }
  let url=href(p);
  const person=subject||byId.get(personId());
- if(person&&!/^https?:\/\//.test(url)&&/\.(md|json)$/.test(p.split('#')[0])){
+ if(person&&url.startsWith('../')&&/\.(md|json)$/.test(p.split('#')[0])){
   const [path,hash]=url.split('#');
   url=path+'?person='+encodeURIComponent(person.ruler_id)+'&name='+encodeURIComponent(person.ruler_name)+(hash?'#'+hash:'');
  }
