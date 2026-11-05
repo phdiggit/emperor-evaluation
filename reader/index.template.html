@@ -903,7 +903,7 @@ function netPanel(r){
     r.pending_first_ref ? `<a href="first-item-a.html#${encodeURIComponent(r.pending_first_ref)}">查看已结算的奠基成果 ↗</a>` : '',
     r.pending_first_ref ? `<a href="first-item-c.html#${encodeURIComponent(r.pending_first_ref)}">查看本人统帅依据 ↗</a>` : '',
     link(DATA.sources.net_reader,'查看综合榜的待结算名单 ↗')
- ].filter(Boolean).join(' · ')}</p></section>`;
+ ].filter(Boolean).join(' · ')}</p>${!n&&r.fourth_c_collection_ref?globalThis.FourthItemCReading.entryLinks(r):''}</section>`;
 }
 
 function impactPanel(r,overview=false){const h=r.impact;const html=`<section id="person-impact" class="panel impact"><div class="eyebrow">${r.supplementary?'历史后效':'03 / 历史后效'}</div><h2>历史影响量级</h2><p class="subline">路径改变的规模、深度与归责</p>${overview?'':'<p class="subline">先看范围与深度定基础，再看本人归责；政治范式只作有限补充。</p>'}<div class="impact-public-meaning">${esc(impactMeaning[h.public_grade]||'未列')}</div><p class="subline">综合档位 ${esc(h.public_grade)}</p><span class="badge">${esc(h.impact_nature)}</span> <span class="subline">判断把握：${conf(h.confidence)}</span>${impactScaleNote()}<div class="dimensions">${Object.entries(dimNames).map(([k,n])=>`<div class="impact-dimension-card"><a href="#history-dimension-${k}" data-section="history-dimension-${k}" aria-label="查看${esc(n)}依据"><span>${esc(n)}</span>${impactDimensionGrade(k,h.dimensions[k]?.grade)}<small class="impact-dimension-question">${esc(impactDimensionQuestions[k]||'查看本维度依据')}</small><small>查看依据 ↓</small></a></div>`).join('')}</div>${gradeHelp('impact')}<p class="sources"><a href="#history-evidence" data-section="history-evidence">查看历史影响依据 ↓</a></p></section>`;return overview?personDetailLinks(html,r,'impact'):html;}
