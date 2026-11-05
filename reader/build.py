@@ -37,6 +37,7 @@ READER_RUNTIME_SCRIPTS = (
 sys.path.insert(0, str(ROOT / "src"))
 from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.formal_json_store import ROUTER_SCHEMA, load_json
+from emperor_v4.evaluation.third_fourth_item_public import THIRD_TOTAL_PATH
 from emperor_v4.evaluation.first_item_public_outcomes import (
     load_first_item_public_outcomes,
     public_outcome_for_name,
@@ -1234,7 +1235,11 @@ def source_line_target(ref):
         if not qualified:
             return None
         value, axis = qualified.groups()
-    lines = source_record_lines(source, key, record_rows=axis is not None or key in {"campaign_group_ref", "task_code"}, axis=axis)
+    record_rows = (
+        axis is not None or key in {"campaign_group_ref", "task_code"}
+        or (key == "ruler_id" and path == THIRD_TOTAL_PATH.as_posix())
+    )
+    lines = source_record_lines(source, key, record_rows=record_rows, axis=axis)
     if value in lines:
         return f"{path}#L{lines[value]}" if lines[value] else None
     if axis is None and key in {"ruler_id", "parent_id", "evidence_id"}:
