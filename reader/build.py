@@ -1219,8 +1219,26 @@ def source_record_shards(path):
     return tuple(path.parent / route for route in routes)
 
 
+@lru_cache(maxsize=128)
+def archived_record_targets(source):
+    targets = {}
+    for shard in source_record_shards(source):
+        collection = json.loads(shard.read_bytes()).get("collections", {}).get("records", {})
+        lines = source_record_lines(shard, "ruler_id", record_rows=True)
+        for position, row in zip(collection.get("positions", []), collection.get("records", []), strict=True):
+            line = lines.get(row.get("ruler_id"))
+            target = f"{shard.relative_to(ROOT).as_posix()}#L{line}" if line else None
+            targets[position] = target if position not in targets else None
+    return targets
+
+
 def source_line_target(ref):
     path, _, fragment = ref.partition("#")
+    position = re.fullmatch(r"records/(0|[1-9]\d*)", fragment)
+    if path.startswith("archive/") and path.endswith(".json") and position:
+        source = ROOT / source_file(path)
+        if source.is_file():
+            return archived_record_targets(source).get(int(position[1]))
     key, _, value = unquote(fragment).partition("=")
     if not path.startswith(("docs/", "config/", "archive/")) or not path.endswith(".json") or key not in {
         "war_event_id", "phase_id", "material_id", "evidence_id", "ruler_id", "parent_id", "campaign_group_ref", "task_code",
