@@ -94,9 +94,32 @@ def test_battle_source_line_requires_unique_exact_event_id(tmp_path, monkeypatch
     )
     monkeypatch.setattr(build, "ROOT", tmp_path)
 
-    assert build.source_line_anchor(path + "#war_event_id=WAR-1") == 2
-    assert build.source_line_anchor(path + "#war_event_id=WAR-12") is None
-    assert build.source_line_anchor(path + "#war_event_id=WAR-2") is None
+    assert build.source_line_target(path + "#war_event_id=WAR-1") == path + "#L2"
+    assert build.source_line_target(path + "#war_event_id=WAR-12") is None
+    assert build.source_line_target(path + "#war_event_id=WAR-2") is None
+
+
+def test_published_ruler_link_follows_only_unique_manifest_route(tmp_path, monkeypatch):
+    from reader import build
+
+    path = "docs/profile.json"
+    manifest = tmp_path / path
+    manifest.parent.mkdir()
+    manifest.write_text(
+        '{"schema_version":"formal-json-polity-router-v1",'
+        '"routes":[{"path":"a.json"},{"path":"b.json"}]}',
+        encoding="utf-8",
+    )
+    (manifest.parent / "a.json").write_text(
+        '[\n{"ruler_id":"A"},\n{"ruler_id":"B"}\n]', encoding="utf-8",
+    )
+    (manifest.parent / "b.json").write_text(
+        '[\n{"ruler_id":"B","peer":{"ruler_id":"A"}}\n]', encoding="utf-8",
+    )
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+
+    assert build.source_line_target(path + "#ruler_id=A") == "docs/a.json#L2"
+    assert build.source_line_target(path + "#ruler_id=B") is None
 
 
 def test_b2_reader_projection_consumes_all_explicit_public_evidence():

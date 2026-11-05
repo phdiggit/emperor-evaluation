@@ -36,7 +36,7 @@ READER_RUNTIME_SCRIPTS = (
 )
 sys.path.insert(0, str(ROOT / "src"))
 from emperor_v4.json_format import json_text
-from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.formal_json_store import ROUTER_SCHEMA, load_json
 from emperor_v4.evaluation.first_item_public_outcomes import (
     load_first_item_public_outcomes,
     public_outcome_for_name,
@@ -1178,24 +1178,56 @@ def source_availability(value):
     return availability
 
 
-@lru_cache(maxsize=256)
-def battle_record_lines(path):
+@lru_cache(maxsize=1024)
+def source_record_lines(path, key, *, record_rows=False):
     lines = {}
+    field = re.compile(r'(?<!\\)"' + re.escape(key) + r'"\s*:\s*("(?:[^"\\]|\\.)*")')
     for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-        for event_id in re.findall(r'"war_event_id"\s*:\s*"([^"]+)"', line):
-            lines[event_id] = number if event_id not in lines else None
+        values = [json.loads(match) for match in field.findall(line)]
+        if record_rows and values:
+            # A routed shard writes one record object per line. Nested references
+            # to other rulers are not entries in the routed collection.
+            try:
+                row = json.loads(line.strip().rstrip(","))
+            except json.JSONDecodeError:
+                continue
+            value = row.get(key) if isinstance(row, dict) else None
+            values = [value] if isinstance(value, str) else []
+        for value in values:
+            lines[value] = number if value not in lines else None
     return lines
 
 
-def source_line_anchor(ref):
+@lru_cache(maxsize=128)
+def source_record_shards(path):
+    manifest = json.loads(path.read_bytes())
+    if not isinstance(manifest, dict) or manifest.get("schema_version") != ROUTER_SCHEMA:
+        return ()
+    routes = tuple(Path(route["path"]) for route in manifest["routes"])
+    if any(route.is_absolute() or ".." in route.parts for route in routes):
+        raise ValueError("Published citation shard path is outside its manifest directory")
+    return tuple(path.parent / route for route in routes)
+
+
+def source_line_target(ref):
     path, _, fragment = ref.partition("#")
-    if not path.startswith("docs/公共成果/军事/01-战役登记/") or not path.endswith(".json"):
-        return None
-    if not fragment.startswith("war_event_id="):
+    key, _, value = unquote(fragment).partition("=")
+    if not path.startswith(("docs/", "config/", "archive/")) or not path.endswith(".json") or key not in {
+        "war_event_id", "phase_id", "material_id", "evidence_id", "ruler_id", "parent_id",
+    } or not value:
         return None
     source = ROOT / source_file(path)
-    if source.is_file():
-        return battle_record_lines(source).get(unquote(fragment.removeprefix("war_event_id=")))
+    if not source.is_file():
+        return None
+    lines = source_record_lines(source, key)
+    if value in lines:
+        return f"{path}#L{lines[value]}" if lines[value] else None
+    if key in {"ruler_id", "parent_id", "evidence_id"}:
+        matches = [(shard, shard_lines[value]) for shard in source_record_shards(source)
+                   if value in (shard_lines := source_record_lines(shard, key, record_rows=key == "ruler_id"))]
+        if len(matches) == 1 and matches[0][1]:
+            shard, line = matches[0]
+            return f"{shard.relative_to(ROOT).as_posix()}#L{line}"
     return None
 
 
@@ -1233,16 +1265,18 @@ def historical_source_links():
     return links
 
 
-def detail_payload(record):
+def detail_payload(record, axis_specs):
     """Full per-person data fetched only when a person or comparison is opened."""
     impact = record.get("impact")
     if impact:
         record = {**record, "impact": {**impact, "reading_causality": reading_causality(impact)}}
     availability = source_availability(record)
+    axis_refs = [f"{axis_specs[code]['json']}#ruler_id={record['ruler_id']}" for code in record["axes"]]
     return {
         "record": record,
         "source_availability": availability,
-        "source_line_anchors": {ref: line for ref in availability if (line := source_line_anchor(ref))},
+        "source_line_targets": {ref: target for ref in dict.fromkeys([*availability, *axis_refs])
+                                if (target := source_line_target(ref))},
     }
 
 
@@ -1258,8 +1292,7 @@ def collection_source_link(ref, label):
         return f"<a href='{escape(ref)}' target='_blank' rel='noopener'>{escape(label)}</a>"
     identity = reader_source_identity()
     if identity['repository'] and identity['revision']:
-        line = source_line_anchor(ref)
-        target = ref.split('#', 1)[0] + f'#L{line}' if line else ref
+        target = source_line_target(ref) or ref
         href = 'https://github.com/' + identity['repository'] + '/blob/' + identity['revision'] + '/' + quote(target, safe='/#=')
     else:
         href = '../' + quote(ref, safe='/#=')
@@ -1848,7 +1881,7 @@ def build(*, check=False, write=True):
     detail_files = {}
     for record in records:
         relative = detail_ref(record["ruler_id"])
-        detail_files[Path(relative).name] = json_text(detail_payload(record))
+        detail_files[Path(relative).name] = json_text(detail_payload(record, common["axis_specs"]))
 
     payload = serialized_json(index_data, html_safe=True)
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")

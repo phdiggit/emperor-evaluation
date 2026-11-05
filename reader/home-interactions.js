@@ -1478,7 +1478,7 @@ function firstCommanderMarkup(item, record) {
       const full = {...payload.record, detail_ref: record.detail_ref, detail_loaded: true};
       byId.set(id, full);
       Object.assign(DATA.source_availability, payload.source_availability || {});
-      Object.assign(DATA.source_line_anchors ??= {}, payload.source_line_anchors || {});
+      Object.assign(DATA.source_line_targets ??= {}, payload.source_line_targets || {});
       return full;
     })().finally(() => pendingNetRecords.delete(id));
     pendingNetRecords.set(id, pending);
