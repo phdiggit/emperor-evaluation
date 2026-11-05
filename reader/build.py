@@ -1321,7 +1321,7 @@ def render_first_c_collection(records):
             facts = ''.join(f"<dt>{escape(label)}</dt><dd><p class='prose'>{escape(value)}</p></dd>" for label, value in row['public_facts'])
             source_refs = '<br>'.join(escape(ref) for ref in row['source_refs'])
             evidence_rows.append(f"<article class='first-c-evidence-entry'><h4>{escape(row['label'])}</h4><span class='first-c-direction'>{escape(row['disposition'])}</span><p class='prose'>{escape(row['window_basis'])}</p><p class='prose'>{escape(row['reason'])}</p><dl>{facts}</dl>{collection_source_link(row['public_source'], '查看所在公共登记分片 ↗')}<p class='sources'>{source_refs}</p></article>")
-        evidence = "<details class='first-c-registry'><summary>逐条对照公共战役登记</summary>" + ''.join(evidence_rows) + '</details>'
+        evidence = "<details class='first-c-registry'><summary>逐条对照公共战役登记</summary><p class='subline first-c-registry-note'>每条先列第一项 C 的现行处置、责任范围和理由，再列公共战役登记原文。原文中的评审用语与旧档位保留供核对；本项采用情况以现行处置及上方战果、受挫清单为准。</p>" + ''.join(evidence_rows) + '</details>'
         cards.append(
             f"<article id='{escape(name)}' class='first-a-reading first-c-reading'>"
             f"<div class='first-a-eyebrow'><a href='#{escape(name)}'>{escape(name)}</a> · 本人统帅</div>"
