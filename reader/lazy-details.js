@@ -119,13 +119,14 @@
     }
 
     const generation = ++renderGeneration;
+    const requestedHash = location.hash;
     nav("");
     loading(`正在加载${record.ruler_name}的完整资料…`);
     loadRecord(record).then(full => {
-      if (generation !== renderGeneration || personId() !== full.ruler_id) return;
+      if (generation !== renderGeneration || location.hash !== requestedHash) return;
       basePerson(full);
     }).catch(error => {
-      if (generation === renderGeneration) loadFailure(error);
+      if (generation === renderGeneration && location.hash === requestedHash) loadFailure(error);
     });
   };
 
@@ -146,13 +147,14 @@
     }
 
     const generation = ++renderGeneration;
+    const requestedHash = location.hash;
     nav("compare");
     loading("正在加载两位人物的完整对照资料…");
     Promise.all(selected.map(loadRecord)).then(() => {
-      if (generation !== renderGeneration || !location.hash.startsWith("#compare")) return;
+      if (generation !== renderGeneration || location.hash !== requestedHash) return;
       baseCompare();
     }).catch(error => {
-      if (generation === renderGeneration) loadFailure(error);
+      if (generation === renderGeneration && location.hash === requestedHash) loadFailure(error);
     });
   };
 

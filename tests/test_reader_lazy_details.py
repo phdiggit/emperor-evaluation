@@ -50,6 +50,55 @@ async function check(file, name, end) {
     assert result.returncode == 0, result.stderr
 
 
+def test_late_detail_responses_do_not_replace_another_route(tmp_path):
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js required for loader behavior")
+    script = tmp_path / "stale-detail.cjs"
+    script.write_text(r'''
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const file = fs.readFileSync(process.argv[2], 'utf8');
+const source = file.slice(file.indexOf('  person = function('), file.indexOf('  home = function('));
+
+async function check(view, requested, current, succeeds, expected) {
+  const calls = [], pending = [];
+  const a = {ruler_id:'A'}, b = {ruler_id:'B'};
+  const ctx = {
+    location:{hash:requested}, renderGeneration:0, state:{compare:['A','B']},
+    byId:new Map([['A',a],['B',b]]), nav(){}, loading(){},
+    personId:()=> 'A',
+    basePerson:()=>calls.push('person'), baseCompare:()=>calls.push('compare'),
+    loadFailure:()=>calls.push('failure'),
+    loadRecord:record=>new Promise((resolve,reject)=>pending.push({record,resolve,reject}))
+  };
+  vm.createContext(ctx);
+  vm.runInContext(source,ctx);
+  ctx[view](a);
+  assert.equal(pending.length,view==='person'?1:2);
+  ctx.location.hash=current;
+  for(const {record,resolve,reject} of pending)
+    succeeds?resolve(record):reject(new Error('synthetic load failure'));
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.deepEqual(calls,expected);
+}
+
+(async()=>{
+  await check('compare','#compare/A/B','#compare/A/A',true,[]);
+  await check('compare','#compare/A/B','#net/A/all',false,[]);
+  await check('compare','#compare/A/B','#compare/A/B',true,['compare']);
+  await check('person','#person/A','#compare/A/A',false,[]);
+  await check('person','#person/A','#person/A',false,['failure']);
+})().catch(error=>{console.error(error);process.exitCode=1});
+''', encoding="utf-8")
+    result = subprocess.run(
+        [node, str(script), str(ROOT / "reader/lazy-details.js")],
+        capture_output=True, text=True, encoding="utf-8",
+    )
+    assert result.returncode == 0, result.stderr
+
+
 def serve_module():
     spec = importlib.util.spec_from_file_location("reader_serve_lazy", ROOT / "reader/serve.py")
     module = importlib.util.module_from_spec(spec)
