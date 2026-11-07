@@ -10,6 +10,7 @@ from copy import deepcopy
 from pathlib import Path
 import hashlib
 import re
+from urllib.parse import unquote, urlsplit
 
 from .formal_json_store import load_json
 
@@ -60,6 +61,65 @@ def public_text(value):
 
 def _sources(refs):
     return [dict(original=s, target=s if s.startswith(('http://', 'https://', 'docs/', 'config/')) else '', label=s, kind='裁决所引材料') for s in dict.fromkeys(refs)]
+
+
+def _material_sources(result):
+    from .second_item_c_source_display import bibliographic_source, display_project_summary
+
+    def project_label(path):
+        stem = Path(path.partition('#')[0]).stem
+        title = re.sub(r'^\d+-|(?:非战役)?通读总结|[.-]source-summary', '', stem).strip(' -')
+        return title if re.search(r'[\u3400-\u9fff]', title) else '项目材料'
+
+    cards = []
+    bound = set()
+    for entry in result.get('evidence', []):
+        url = entry.get('url') or entry.get('source_url') or ''
+        path = entry.get('source_path') or entry.get('path') or ''
+        bound.update(filter(None, (path, url)))
+        title = entry.get('source_title') or entry.get('title') or ''
+        if title.startswith('当前第二项'):
+            title = '第二项治国裁决'
+        locator = re.sub(r'[；，、 ]*(?:网页)?正文\d+(?:[—–-]\d+)?行$', '', entry.get('locator') or '')
+        citation = bibliographic_source({'source_title': title, 'source_locator': locator, 'source_url': url})
+        target = next(iter(citation['source_urls']), '')
+        context = entry.get('public_context', '')
+        excerpt = entry.get('verified_excerpt') or entry.get('excerpt') or ''
+        saved = not excerpt and path.endswith('.txt') and entry.get('context')
+        cards.append(dict(
+            kind='所引史源' if target or excerpt or saved else '项目依据',
+            label=citation['source_title'] or ('所引文本' if target or excerpt or saved else project_label(path)),
+            target=target, locator=citation['source_locator'], context=context, quote=excerpt or saved or '',
+            quote_label='既有文本节录' if saved else '所引摘句',
+            claim=display_project_summary(entry.get('claim') or entry.get('finding') or ''),
+            limit=display_project_summary(entry.get('limit') or ''),
+        ))
+    for ref in dict.fromkeys(result['source_refs']):
+        if ref in bound:
+            continue
+        if ref.startswith(('docs/', 'config/', 'archive/')):
+            cards.append(dict(kind='项目依据', label=project_label(ref), target=''))
+        elif ref.startswith(('http://', 'https://')):
+            url = urlsplit(ref)
+            title = unquote(url.path.removeprefix('/wiki/')) if url.hostname == 'zh.wikisource.org' and url.path.startswith('/wiki/') else ''
+            citation = bibliographic_source({'source_title': title, 'source_locator': '', 'source_url': ref})
+            target = next(iter(citation['source_urls']), '')
+            cards.append(dict(kind='所引史源或研究' if target else '项目依据',
+                              label=citation['source_title'] or ('查看所引材料' if target else '项目材料'), target=target))
+        else:
+            cards.append(dict(kind='项目来源说明', label=display_project_summary(ref), target=''))
+    return [card for i, card in enumerate(cards) if card not in cards[:i]]
+
+
+def display_axis_reading(row, axis):
+    reading = axis_reading(row, axis)
+    for key in ('story', 'decision', 'decision_basis', 'zero_reason', 'review_basis'):
+        reading[key] = reading[key].replace('须记录zero_scan_checked=true', '须完成零值核对')
+    for entry, result in zip(reading['evidence_items'], axis['results'], strict=True):
+        entry['sources'] = _material_sources(result)
+    reading['assessment_sources'][0]['label'] = '第四项正式结算记录'
+    reading['assessment_sources'][1]['label'] = '第四项计分规则'
+    return reading
 
 
 def join_reading_text(*parts, separator=' '):
@@ -271,7 +331,15 @@ def markdown_reading(data):
     for e in data['evidence_items']:
         explanation = join_reading_text(e['level_basis'], e['responsibility'], e['boundary'], separator='\n\n')
         lines += ['#### '+e['title'], '', e['components'], '', explanation, '']
-        lines += ['- '+(f'[{s["label"]}]({s["target"]})' if s['target'] else s['label']) for s in e['sources']]
+        for source in e['sources']:
+            title = f"[{source['label']}]({source['target']})" if source['target'] else source['label']
+            lines += [f"- {source['kind']} · {title}" + (f" · {source['locator']}" if source.get('locator') else '')]
+            for key, label in (('context', '语境'), ('claim', '采用说明'), ('limit', '采用范围')):
+                if source.get(key):
+                    lines += ['', f"  {label}：{source[key]}"]
+            if source.get('quote'):
+                lines += ['', '  ' + source['quote_label'], '',
+                          *(('  > ' + line).rstrip() for line in source['quote'].splitlines())]
         lines += ['']
     lines += [data['calculation'], '', data['method'], '', data['source_note']]
     return '\n'.join(lines)
@@ -289,7 +357,7 @@ def render(payload):
         lines = ['# 第四项'+a+'轴'+AXIS_NAMES[a]+'正式结算', '', METHOD, '']
         for row in rows:
             axis = next(x for x in row['axis_results'] if x['axis'] == a)
-            lines += ['## '+row['ruler_name'], '', markdown_reading(axis_reading(row, axis)), '']
+            lines += ['## '+row['ruler_name'], '', markdown_reading(display_axis_reading(row, axis)), '']
         views[AXIS_PATHS[a]] = '\n'.join(lines).rstrip()+'\n'
     return views
 

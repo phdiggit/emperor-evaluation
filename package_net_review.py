@@ -146,6 +146,9 @@ def collect(root: Path, package: str = "all") -> list[Path]:
                 if name != current[key]:
                     raise ValueError(f"画像正式入口与config/project.yml不一致：{name}")
                 selected.add(name)
+            for evidence in current.get("audit_jsons", []):
+                if evidence["audit_kind"] == "C4_ADJUDICATION_EVIDENCE":
+                    selected.add((Path(PROFILE_ROOT) / evidence["path"]).as_posix())
 
     if package in {"all", "historical-impact-settlements"}:
         selected.update((impact["json"], impact["markdown"]))

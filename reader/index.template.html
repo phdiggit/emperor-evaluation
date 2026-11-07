@@ -32,6 +32,7 @@ main:has(.overview-panels){padding-top:16px}.person-head h1{font-size:30px;line-
 </head>
 <body><header><strong>帝王三镜</strong><span>结果 · 能力 · 后效</span><nav aria-label="主导航"><button id="home-nav">人物总览</button><button id="compare-nav">并列对照</button><button id="guide-nav">如何阅读</button></nav></header><main id="screen"></main>
 <script type="application/json" id="reader-data">__READER_DATA__</script>
+<script src="source-links.js"></script>
 __SECOND_ITEM_DISPLAY__
 <script>
 "use strict";
@@ -64,6 +65,14 @@ const personId=()=>{try{return decodeURIComponent(location.hash.slice(8).split('
 const personView=()=>{const parts=location.hash.slice(8).split('/');return parts.length>1?parts[1]:''};
 const link=(p,label,subject)=>{
  if(!p)return '';
+ if(ReaderSourceLinks.isMachineSource(p)){
+  const destination=ReaderSourceLinks.personRoute(p);
+  const person=destination&&byId.get(destination.id);
+  if(person&&DATA.source_availability[p]!==false&&(!destination.route.startsWith('#net/')||person.net)&&location.hash!==destination.route){
+   return `<a href="${esc(destination.route)}">查看对应人物的阅读页 →</a>`;
+  }
+  return `<span class="unavailable-source">此条项目依据未单列阅读入口</span>`;
+ }
  if(/^https?:\/\//.test(p))return `<a href="${esc(p)}" target="_blank" rel="noopener">${esc(label)}</a>`;
  const publishedFallback=sourceRepoBase()&&DATA.published_reading_fallbacks?.[p];
  if(publishedFallback)return link(publishedFallback,'查看正式结算数据 ↗',subject);
@@ -339,27 +348,31 @@ function netGroups(r){
  }).join('');
 }
 function impactSourceLabel(s){
- if(s?.title)return s.title;
- if(s?.path)return s.path.split('/').pop();
- if(s?.document)return s.document;
+ const title=ReaderSourceLinks.metadataLabel(s?.reading_title||s?.title);
+ if(title)return title;
+ if(s?.kind==='IMPORTED_ADJUDICATION')return [s.section?.replace(/^\d+\.\s*/,''),s.subsection].filter(Boolean).join(' · ');
  return ({LOCAL_FORMAL_DOCUMENT:'项目正式材料',HISTORICAL_WEB_SOURCE:'史料／研究来源'}[s?.kind]||'来源');
 }
 function impactSourceTerm(key,value){
- return DATA.impact_source_display?.[key]?.[value]||`未识别（${String(value)}）`;
+ return DATA.impact_source_display?.[key]?.[value]||(value?'记录中的说明待核对':'');
 }
 function impactSourceCard(s,r){
  if(!s||typeof s!=='object')return '<li class="notice">来源记录失效，请核对正式记录。</li>';
- if(s.kind==='IMPORTED_ADJUDICATION')return `<li><strong>项目采纳段落（非古籍原文）</strong><p class="subline">${esc([s.document,s.section,s.subsection].filter(Boolean).join(' · '))}</p>${s.adopted_excerpt?`<blockquote>${esc(s.adopted_excerpt)}</blockquote>`:'<p>当前记录未保留采纳段落。</p>'}<p class="subline">${esc(s.adoption_limit||'只展示正式记录保留的采纳依据，不表示已逐句复核原始史书。')}</p>${r.impact?.source_trace?.limit?`<p class="subline">${esc(r.impact.source_trace.limit)}</p>`:''}</li>`;
+ if(s.kind==='IMPORTED_ADJUDICATION'){
+  const excerpt=s.reading_adopted_excerpt??s.adopted_excerpt;
+  return `<li><strong>项目采纳段落（非古籍原文）</strong><p class="subline">${esc(impactSourceLabel(s))}</p>${excerpt?`<blockquote>${esc(excerpt)}</blockquote>`:'<p>当前记录未保留采纳段落。</p>'}<p class="subline">${esc(s.adoption_limit||'只展示正式记录保留的采纳依据，不表示已逐句复核原始史书。')}</p></li>`;
+ }
  const known=['HISTORICAL_WEB_SOURCE','LOCAL_FORMAL_RECORD','LOCAL_FORMAL_DOCUMENT'].includes(s.kind);
- const target=known?(s.url||s.path||''):'',title=impactSourceLabel(s);
- const head=target?link(target,title,r):`<span>${esc(title)}</span>`;
- const locators=[['ruler_id','人物标识'],['ruler_name','人物'],['collection','记录集合'],['parent_ids','情境编号'],['field_paths','字段或材料定位']].filter(([key])=>s[key]&&(!Array.isArray(s[key])||s[key].length)).map(([key,label])=>`<div class="impact-source-locator"><strong>${label}</strong>${prose(s[key])}</div>`).join('');
+ const target=s.kind==='HISTORICAL_WEB_SOURCE'?(s.reading_url??s.url??''):'',title=impactSourceLabel(s);
+ const recordRef=s.kind==='LOCAL_FORMAL_RECORD'&&s.path&&s.ruler_id?s.path+'#ruler_id='+s.ruler_id:'';
+ const head=target?link(target,title,r):`<span>${esc(title)}</span>${recordRef?' · '+link(recordRef,'查看对应人物的阅读页',r):s.kind==='HISTORICAL_WEB_SOURCE'?' · 此条项目依据未单列阅读入口':''}`;
+ const originals=(s.public_passages||[]).map(p=>`<section><strong>${esc(ReaderSourceLinks.metadataLabel(p.locator))}</strong>${prose(p.context)}<blockquote>${esc(p.quote)}</blockquote></section>`).join('');
  const note=s.evidence_note?`<div class="label">本条采用说明</div>${prose(s.evidence_note)}`:'';
  const passage=known&&s.adopted_excerpt?`<div class="label">采用段落</div><blockquote>${esc(s.adopted_excerpt)}</blockquote>`:'';
  const adoptionLimit=known&&s.adoption_limit?`<div class="label">采用限制</div>${prose(s.adoption_limit)}`:'';
- const scope=s.use_scope?`<p class="subline">使用范围：${esc(impactSourceTerm('use_scope',s.use_scope))}</p>`:'';
- const verification=s.verification_mode?`<p class="subline">记录中的核对方式：${esc(impactSourceTerm('verification_mode',s.verification_mode))}</p>`:'';
- return `<li><strong>${esc(impactSourceTerm('kind',s.kind))}</strong><p>${head}</p>${note}${passage}${adoptionLimit}${scope}${verification}${locators}</li>`;
+ const scope=impactSourceTerm('use_scope',s.use_scope);
+ const verification=impactSourceTerm('verification_mode',s.verification_mode);
+ return `<li><strong>${esc(impactSourceTerm('kind',s.kind)||'所引材料')}</strong><p>${head}</p>${originals}${note}${passage}${adoptionLimit}${scope?`<p class="subline">使用范围：${esc(scope)}</p>`:''}${verification?`<p class="subline">记录中的核对方式：${esc(verification)}</p>`:''}</li>`;
 }
 function impactSourceList(r,indices,labelText='本节依据'){
  const refs=r.impact?.source_refs||[];
@@ -370,9 +383,25 @@ function impactSourceList(r,indices,labelText='本节依据'){
  const original=selected.length&&!selected.some(s=>s?.kind==='HISTORICAL_WEB_SOURCE')?'<p class="subline">本节尚未直接绑定外部原典或研究链接，以下项目记录不等于古籍原文复核。</p>':'';
  return `<details class="impact-source-list"><summary>${esc(labelText)}</summary>${missing}${original}${selected.length?`<ul>${selected.map(s=>impactSourceCard(s,r)).join('')}</ul>`:''}</details>`;
 }
-function impactSourceOverview(r,id){
+function impactSourceOverview(r,id,bindings=[]){
  const h=r.impact||{},refs=h.source_refs||[],related=h.related_fact_entries||[];
- return `<details id="${esc(id)}" class="impact-source-overview"><summary>来源总览与核对边界</summary>${h.source_review_scope?prose(h.source_review_scope):''}${h.source_trace?.limit?prose(h.source_trace.limit):''}<p class="subline">以下核对方式为正式记录已有说明，不表示本次重新通读了全部原史；未注明核对方式的材料不补认已核验。</p>${impactSourceList(r,refs.map((_,i)=>i),'全部已登记依据')}${related.length?`<details class="impact-related-sources"><summary>相关事实入口（不自动充当本节证据）</summary><p class="subline">这些入口仅按人物关联，不能代替具体主链或分维的来源绑定。</p><ul>${related.map(s=>impactSourceCard(s,r)).join('')}</ul></details>`:''}</details>`;
+ const sectionsBySource=new Map();
+ for(const {target,label,indices} of bindings){
+  if(!Array.isArray(indices))continue;
+  for(const i of new Set(indices)){
+   if(!Number.isInteger(i)||i<0||i>=refs.length)continue;
+   if(!sectionsBySource.has(i))sectionsBySource.set(i,new Map());
+   sectionsBySource.get(i).set(target,label);
+  }
+ }
+ const entries=refs.map((source,i)=>{
+  const sections=sectionsBySource.get(i);
+  if(!sections)return impactSourceCard(source,r);
+  const links=Array.from(sections,([target,label])=>`<a href="#${esc(target)}" data-section="${esc(target)}">${esc(label)} ↗</a>`).join(' · ');
+  return `<li><strong>${esc(impactSourceLabel(source))}</strong><p class="sources">出处与采用说明见 ${links}</p></li>`;
+ }).join('');
+ const register=entries?`<details><summary>已登记依据索引</summary><ul>${entries}</ul></details>`:'';
+ return `<details id="${esc(id)}" class="impact-source-overview"><summary>来源总览与核对边界</summary>${(h.reading_source_review_scope??h.source_review_scope)?prose(h.reading_source_review_scope??h.source_review_scope):''}${(h.reading_source_limit??h.source_trace?.limit)?prose(h.reading_source_limit??h.source_trace?.limit):''}<p class="subline">以下核对方式为正式记录已有说明，不表示本次重新通读了全部原史；未注明核对方式的材料不补认已核验。</p>${register}${related.length?`<details class="impact-related-sources"><summary>相关事实入口（不自动充当本节证据）</summary><p class="subline">这些入口仅按人物关联，不能代替具体主链或分维的来源绑定。</p><ul>${related.map(s=>impactSourceCard(s,r)).join('')}</ul></details>`:''}</details>`;
 }
 function historySections(r,idSuffix='',compact=false,openTotal=false){
  const h=r.impact,chains=h.macro_chains||[];
@@ -389,6 +418,12 @@ function historySections(r,idSuffix='',compact=false,openTotal=false){
  const hid=base=>`${base}${idSuffix}`;
  const dimension=(key,title,question,body)=>`<details id="${hid(`history-dimension-${key}`)}" class="impact-dimension-section impact-evidence-fold"><summary><span>${esc(title)}</span>${impactDimensionGrade(key,h.dimensions?.[key]?.grade)}</summary><p class="subline">${esc(question)}</p>${body}<details class="metadata impact-dimension-technical"><summary>本维度的专业档位与尺度</summary><p>专业档位：${esc(h.dimensions?.[key]?.grade||'—')}。这是本维度的独立尺度，不能作为综合档位的分项成绩。</p></details></details>`;
  const mainChainId=hid('history-core-chains'),overviewId=hid('history-source-overview');
+ const sourceBindings=[
+  ...chains.map(c=>({target:hid(`chain-${c.chain_id}`),label:impactPublicText(c.title),indices:c.source_ref_indices||[]})),
+  {target:mainChainId,label:'背景过程事实',indices:(h.contextual_evidence||[]).flatMap(e=>e.source_ref_indices||[])},
+  ...[['scope','范围依据',scopeIndices],['depth_duration','深度依据',depthIndices],['personal_causality','归责依据',causalIndices],['paradigm','范式依据',paradigmIndices]]
+   .map(([key,label,indices])=>({target:hid(`history-dimension-${key}`),label,indices})),
+ ];
  const dimensionSources=(indices,label)=>Array.isArray(indices)&&!indices.length
   ? `<p class="subline">本节尚未单独绑定来源。可查看<a href="#${mainChainId}" data-section="${mainChainId}">核心历史主链</a>或<a href="#${overviewId}" data-section="${overviewId}">来源总览</a>了解已登记材料；这些材料各有采用范围。</p>`
   : impactSourceList(r,indices,label);
@@ -399,7 +434,7 @@ function historySections(r,idSuffix='',compact=false,openTotal=false){
  const causalBasis=causality.public_basis?impactDimensionPublicText('personal_causality',causality.public_basis):publicBasis('personal_causality');
  const causalBody=`${prose(causalBasis)}${counterfactual?`<div class="label">如果没有这个人</div>${prose(counterfactual)}`:''}${prose(counterfactualConditions)}${personalBoundary?`<div class="label">详细归责边界</div>${prose(personalBoundary)}`:''}${dimensionSources(causalIndices,'因果依据')}`;
  const paradigmBody=`${prose(publicBasis('paradigm'))}${paradigmReceptionProse(paradigmReview)}${dimensionSources(paradigmIndices,'范式依据')}`;
- return `${compact?'':'<h2 class="evidence-card-title">历史影响依据</h2>'}<details${openTotal?' open':''}><summary>历史影响量级为什么这样定？</summary>${prose(impactTotalPublicText(h))}</details>${h.impact_nature_basis?`<details><summary>影响性质为何是${esc(h.impact_nature)}？</summary>${prose(impactPublicText(h.impact_nature_basis))}</details>`:''}${compact?impactScaleNote():''}<details id="${mainChainId}" class="impact-core-chains impact-evidence-fold"><summary>核心历史主链</summary><p class="subline">事实主链用于追溯实际变化；四维和总档说明直接读取正式公开裁决。</p>${chains.map(c=>`<details id="${hid(`chain-${c.chain_id}`)}"><summary>${esc(impactPublicText(c.title))}</summary>${prose(impactPublicText(c.narrative))}${impactSourceList(r,c.source_ref_indices,'本链依据')}</details>`).join('')}${contextualFacts?`<details><summary>仅作背景的过程事实</summary>${contextualFacts}</details>`:''}</details>${dimension('scope','影响范围','实际改写覆盖了哪些政治空间、政治主体或国家关键接口。',scopeBody)}${dimension('depth_duration','深度与持续','本人退出后哪些结构继续约束后继。',depthBody)}${dimension('personal_causality','个人因果','这些变化有多少真正依赖本人。',causalBody)}${dimension('paradigm','政治范式','后世最高权力是否把本人或其治世作为政治参照并实际使用。',paradigmBody)}<details id="${hid('history-judgment-boundary')}" class="impact-dimension-section impact-boundary impact-evidence-fold"><summary><span>判断边界</span><span class="subline">判断把握：${conf(h.confidence)}</span></summary>${evidenceBoundary.length?prose(evidenceBoundary):'<p class="subline">当前正式记录未另列补充边界。</p>'}</details>${impactSourceOverview(r,overviewId)}<p class="sources impact-reading-links">${link(DATA.sources.impact_reader,'历史影响完整阅读页 ↗')}${link(DATA.sources.impact,'正式记录入口 ↗')}</p>`;
+ return `${compact?'':'<h2 class="evidence-card-title">历史影响依据</h2>'}<details${openTotal?' open':''}><summary>历史影响量级为什么这样定？</summary>${prose(impactTotalPublicText(h))}</details>${h.impact_nature_basis?`<details><summary>影响性质为何是${esc(h.impact_nature)}？</summary>${prose(impactPublicText(h.impact_nature_basis))}</details>`:''}${compact?impactScaleNote():''}<details id="${mainChainId}" class="impact-core-chains impact-evidence-fold"><summary>核心历史主链</summary><p class="subline">事实主链用于追溯实际变化；四维和总档说明直接读取正式公开裁决。</p>${chains.map(c=>`<details id="${hid(`chain-${c.chain_id}`)}"><summary>${esc(impactPublicText(c.title))}</summary>${prose(impactPublicText(c.narrative))}${impactSourceList(r,c.source_ref_indices,'本链依据')}</details>`).join('')}${contextualFacts?`<details><summary>仅作背景的过程事实</summary>${contextualFacts}</details>`:''}</details>${dimension('scope','影响范围','实际改写覆盖了哪些政治空间、政治主体或国家关键接口。',scopeBody)}${dimension('depth_duration','深度与持续','本人退出后哪些结构继续约束后继。',depthBody)}${dimension('personal_causality','个人因果','这些变化有多少真正依赖本人。',causalBody)}${dimension('paradigm','政治范式','后世最高权力是否把本人或其治世作为政治参照并实际使用。',paradigmBody)}<details id="${hid('history-judgment-boundary')}" class="impact-dimension-section impact-boundary impact-evidence-fold"><summary><span>判断边界</span><span class="subline">判断把握：${conf(h.confidence)}</span></summary>${evidenceBoundary.length?prose(evidenceBoundary):'<p class="subline">当前正式记录未另列补充边界。</p>'}</details>${impactSourceOverview(r,overviewId,sourceBindings)}<p class="sources impact-reading-links">${link(DATA.sources.impact_reader,'历史影响完整阅读页 ↗')}${link(DATA.sources.impact,'正式记录入口 ↗')}</p>`;
 }
 
 const format=t=>esc(t).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
@@ -441,11 +476,6 @@ function formalMetaField(label,value,extraClass=''){
  if(!nonEmptyFormal(value))return '';
  return `<div class="formal-context-meta-row ${extraClass}"><strong>${esc(label)}</strong>${axisProse(value)}</div>`;
 }
-function formalContextRawIntensity(c){
- const entries=contextIntensityEntries(c);
- if(!entries.length)return '';
- return entries.map(([k,v])=>`${k}=${typeof v==='string'?v:JSON.stringify(v)}`).join('；');
-}
 function formalContextMetadata(c,{showIntensity=true}={}){
  const direction=contextDirection(c);
  const intensityEntries=contextIntensityEntries(c);
@@ -464,13 +494,21 @@ function formalContextMetadata(c,{showIntensity=true}={}){
  if(!chips.length&&!details.length)return '';
  return `<div class="formal-context-meta">${chips.length?`<div class="formal-context-chips">${chips.join('')}</div>`:''}${details.length?`<div class="formal-context-meta-details">${details.join('')}</div>`:''}</div>`;
 }
-function formalContextSources(c){
+function formalContextSources(c,reviewedLinksShown=false){
  const refs=[...(c?.source_refs||[]),...(c?.cycle_anchor_refs||[]),...(c?.direct_process_refs||[])].filter(ref=>typeof ref==='string'&&ref);
- return [...new Set(refs)];
+ const reviewed=new Set(reviewedLinksShown?(c.source_review||[]).map(review=>review.source_url):[]);
+ return [...new Set(refs)].filter(ref=>!reviewed.has(ref));
 }
 function coalitionContextSections(c,omitTask=false){
  const fields=[['coalition_task','当时的合作任务'],['group_structure','涉及哪些集团'],['interests_and_security_expectations','各方利益与安全预期'],['personal_choice','本人作出的选择'],['status_and_resource_configuration','地位、权限与资源安排'],['political_credit_and_delivery','承诺与实际交付'],['feedback_and_conflict_handling','反馈与冲突处理'],['exit_result','后续结果与退出'],['counterevidence','反证与限制'],['lifecycle_reasoning','完整过程的判断依据']];
- return fields.filter(([key])=>(!omitTask||key!=='coalition_task')&&typeof c[key]==='string'&&c[key].trim()).map(([key,label])=>`<div class="coalition-context-section" data-context-field="${key}"><div class="label">${label}</div>${powerProse(c[key])}</div>`).join('');
+ const grouped=new Map();
+ for(const [key,label] of fields){
+  if((omitTask&&key==='coalition_task')||typeof c[key]!=='string'||!c[key].trim())continue;
+  const group=grouped.get(c[key])||[];
+  group.push([key,label]);
+  grouped.set(c[key],group);
+ }
+ return Array.from(grouped,([body,group])=>`<div class="coalition-context-section" data-context-field="${group[0][0]}"><div class="label">${group.map(([,label])=>label).join('／')}</div>${powerProse(body)}</div>`).join('');
 }
 function coalitionContextBoundary(c,inline=false){
  const labels={m2:'对外关系',c3:'个人用人授权',c5:'权力运用与克制',result_axes:'结果评价'};
@@ -480,8 +518,8 @@ function coalitionContextBoundary(c,inline=false){
 }
 function coalitionContextStory(c,id,options){
  const title=c.title||c.evidence_title||c.coalition_task||'内部集团合作过程';
- const refs=formalContextSources(c);
- const metadata=formalContextMetadata(c,options)+coalitionContextBoundary(c,true)+(id?`<p class="subline">情境记录编号：${esc(id)}</p>`:'')+refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'过程依据 ↗'):prose(ref)).join('');
+ const refs=formalContextSources(c,true);
+ const metadata=formalContextMetadata(c,options)+coalitionContextBoundary(c,true)+learningSourceReviews(c)+refs.map(ref=>profileSourceMarkup(ref)).join('');
  return `<section class="context-story formal-context-story coalition-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>${coalitionContextSections(c,title===c.coalition_task)}<details class="metadata coalition-context-sources"><summary>评价边界与来源</summary>${metadata}</details></section>`;
 }
 function talentContextStory(c,id){
@@ -496,11 +534,11 @@ function talentContextStory(c,id){
   return `<section class="talent-evidence-item">${titled?`<h5>${esc(text.slice(0,split))}</h5>`:''}${lead||axisProse(body)}</section>`;
  }).join('');
  const narrative=sections||axisProse(c.lifecycle_narrative||c.basis||'该情境的正式记录未提供可展示的过程正文，请核对原始记录。');
- const refs=formalContextSources(c);
+ const refs=formalContextSources(c,true);
  const boundaries=Object.values(c.boundary_review||{}).filter(value=>typeof value==='string'&&value.trim());
  const title=c.evidence_title||c.title||'用人经历';
  const fullProcess=items.length&&c.lifecycle_narrative&&profileComparableText(items.join('；'))!==profileComparableText(c.lifecycle_narrative)?`<div class="label">完整过程说明</div>${axisProse(c.lifecycle_narrative)}`:'';
- const metadata=`${fullProcess}${boundaries.length?`<div class="label">评价边界</div>${boundaries.map(axisProse).join('')}`:''}${formalContextMetadata(c)}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.length?`<div class="label">来源与依据</div>${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?`<p class="sources">${link(ref,/^https?:\/\//.test(ref)?'外部史料与材料 ↗':'项目依据记录 ↗')}</p>`:prose(ref)).join('')}`:''}`;
+ const metadata=`${fullProcess}${boundaries.length?`<div class="label">评价边界</div>${boundaries.map(axisProse).join('')}`:''}${formalContextMetadata(c)}${learningSourceReviews(c)}${refs.length?`<div class="label">来源与依据</div>${refs.map(ref=>profileSourceMarkup(ref)).join('')}`:''}`;
  return `<section class="context-story formal-context-story talent-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>${narrative}<details class="metadata talent-context-sources"><summary>评价边界与来源</summary>${metadata}</details></section>`;
 }
 function organizationContextStory(c,id){
@@ -511,16 +549,16 @@ function organizationContextStory(c,id){
   const titled=split>0&&split<=24&&/^(问题基线|任务分解|责任中心|本人分工|权责匹配|协调|监督|执行|反馈|故障|边界)/.test(text);
   return `<section class="organization-process-part">${titled?`<h5>${esc(text.slice(0,split))}</h5>`:''}${powerProse(titled?text.slice(split+1):text)}</section>`;
  }).join('');
- const refs=formalContextSources(c);
- const metadata=`${formalContextMetadata(c)}${c.secondary_projection_reason?formalMetaField('跨轴边界',c.secondary_projection_reason):''}${Object.entries(c.boundary_review||{}).map(([label,value])=>formalMetaField(label,value)).join('')}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?`<p class="sources">${link(ref,/^https?:\/\//.test(ref)?'外部史料与材料 ↗':'项目依据记录 ↗')}</p>`:prose(ref)).join('')}`;
+ const refs=formalContextSources(c,true);
+ const metadata=`${formalContextMetadata(c)}${c.secondary_projection_reason?formalMetaField('跨轴边界',c.secondary_projection_reason):''}${Object.entries(c.boundary_review||{}).map(([label,value])=>formalMetaField(label,value)).join('')}${learningSourceReviews(c)}${refs.map(ref=>profileSourceMarkup(ref)).join('')}`;
  return `<section class="context-story formal-context-story organization-context-story" data-direction="${esc(c.direction||'')}"><h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>${narrative||'<p class="notice">该情境尚未提供过程正文。</p>'}<details class="metadata organization-context-sources"><summary>归责、评价边界与来源</summary>${metadata}</details></section>`;
 }
 function strategyContextStory(c,id){
  const title=c.evidence_title||c.title||'';
  const body=c.cycle_basis||c.process_narrative||c.basis||'';
- const refs=formalContextSources(c);
+ const refs=formalContextSources(c,true);
  const roles={SCORING_PARENT:'计分情境',BACKGROUND_VALIDATION:'背景验证',AXIS_OUT_WITH_REASON:'不用于本轴计分'};
- const metadata=`${formalContextMetadata(c)}${Object.entries(c.boundary_review||{}).map(([label,value])=>formalMetaField(label,value)).join('')}${c.consumption_status?`<p class="subline">材料用途：${esc(roles[c.consumption_status]||c.consumption_status)}</p>`:''}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?`<p class="sources">${link(ref,/^https?:\/\//.test(ref)?'外部史料与材料 ↗':'项目依据记录 ↗')}</p>`:prose(ref)).join('')}`;
+ const metadata=`${formalContextMetadata(c)}${Object.entries(c.boundary_review||{}).map(([label,value])=>formalMetaField(label,value)).join('')}${c.consumption_status?`<p class="subline">材料用途：${esc(roles[c.consumption_status]||c.consumption_status)}</p>`:''}${learningSourceReviews(c)}${refs.map(ref=>profileSourceMarkup(ref)).join('')}`;
  return `<section class="context-story formal-context-story strategy-context-story" data-direction="${esc(c.direction||'')}">${title?`<h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>`:''}${body?powerProse(body):'<p class="notice">该情境尚未提供过程正文。</p>'}<details class="metadata strategy-context-sources"><summary>评价边界与来源</summary>${metadata}</details></section>`;
 }
 function formalContextStory(c,id='',options={}){
@@ -536,9 +574,9 @@ function formalContextStory(c,id='',options={}){
  const genericTitle=/^(?:(?:主要)?父情境\d+|父链[A-ZＡ-Ｚ]|主要结构链\d+|代表情境\d+)$/.test(rawTitle);
  const title=rawTitle&&!genericTitle?`<div class="public-context-title">${esc(profilePublicPattern(rawTitle))}</div>`:'';
  const body=c.process_narrative||c.lifecycle_narrative||c.mechanism||c.cycle_basis||c.basis||c.intensity_and_role_basis||'';
- const refs=formalContextSources(c);
- const rawIntensity=options.showIntensity===false?'':formalContextRawIntensity(c);
- const sources=(id||refs.length||rawIntensity)?`<details class="metadata"><summary>该情境的来源与原始标注</summary>${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${rawIntensity?`<p class="subline">材料强度原始字段：${esc(rawIntensity)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,/^docs\/史料通读产物\//.test(ref)?'项目史料通读 ↗':/^(docs\/|config\/|archive\/)/.test(ref)?'项目依据记录 ↗':'外部史料与材料 ↗'):prose(ref)).join('')}</details>`:'';
+ const refs=formalContextSources(c,true);
+ const evidence=learningSourceReviews(c)+refs.map(ref=>profileSourceMarkup(ref)).join('');
+ const sources=evidence?`<details class="metadata"><summary>该情境的来源</summary>${evidence}</details>`:'';
  const sections=coalitionContextSections(c);
  const narrative=sections||(body?axisProse(body):'<p class="notice">该情境的正式记录未提供可展示的过程正文，请核对原始记录。</p>');
  return `<div class="context-story formal-context-story">${title}${formalContextMetadata(c,options)}${narrative}${coalitionContextBoundary(c)}${sources}</div>`;
@@ -548,8 +586,8 @@ function diplomaticContextStory(c,id,options){
  const membership={EXTERNAL_TO_EVALUATED_RULER:'周期起点为外部对象',INTERNAL_TO_EVALUATED_RULER:'周期起点为本方内部对象'}[c.membership_relative_to_evaluated_ruler]||'该条目未另登记周期起点身份，请结合正文核对';
  const status={SCORING_PARENT:'本轴计分过程',BACKGROUND_VALIDATION:'背景与证据限制，不计分',AXIS_OUT_WITH_REASON:'其他能力范围，不计入外交'}[c.consumption_status]||'';
  const marriage=c.marriage_policy_review;
- const refs=formalContextSources(c);
- const metadata=`${status?`<p class="subline">${status}</p>`:''}<p class="subline">${membership}</p>${c.identity_transition_point?`<div class="label">关系身份转换点</div>${powerProse(c.identity_transition_point)}`:''}${formalContextMetadata(c,options)}${c.axis_out_reason?`<div class="label">适用边界</div>${powerProse(c.axis_out_reason)}`:''}${c.source_adoption_note?powerProse(c.source_adoption_note):''}${marriage?.basis?`<div class="label">婚姻条件的采用范围</div>${powerProse(marriage.basis)}`:''}${learningSourceReviews(c)}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'过程依据 ↗'):prose(ref)).join('')}`;
+ const refs=formalContextSources(c,true);
+ const metadata=`${status?`<p class="subline">${status}</p>`:''}<p class="subline">${membership}</p>${c.identity_transition_point?`<div class="label">关系身份转换点</div>${powerProse(c.identity_transition_point)}`:''}${formalContextMetadata(c,options)}${c.axis_out_reason?`<div class="label">适用边界</div>${powerProse(c.axis_out_reason)}`:''}${c.source_adoption_note?powerProse(c.source_adoption_note):''}${marriage?.basis?`<div class="label">婚姻条件的采用范围</div>${powerProse(marriage.basis)}`:''}${learningSourceReviews(c)}${refs.map(ref=>profileSourceMarkup(ref)).join('')}`;
  return `<section class="context-story formal-context-story diplomatic-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(c.evidence_title||c.title||'对外条件与承诺'))}</h4>${c.cycle_basis?powerProse(c.cycle_basis):'<p class="notice">该条目未提供外交过程正文。</p>'}<details class="metadata diplomatic-context-sources"><summary>关系边界、归责与来源</summary>${metadata}</details></section>`;
 }
 function diplomaticContexts(a){
@@ -569,13 +607,15 @@ function designContextStory(c,id,options){
   seen.add(text);return true;
  }).map(([key,label])=>`<div class="label">${label}</div>${powerProse(c[key])}`).join('');
  const status={SCORING_PARENT:'本轴计分过程',BACKGROUND_VALIDATION:'背景与运行验证',SUPPORTING_COMPONENT:'整合设计的组成部分',AXIS_OUT_WITH_REASON:'本轴适用边界'}[c.consumption_status]||'';
- const refs=formalContextSources(c);
+ const refs=formalContextSources(c,true);
  const sourceNotes=(c.historical_source_descriptions||[]).map(powerProse).join('');
- const metadata=`${status?`<p class="subline">${status}</p>`:''}${c.architecture_magnitude?`<div class="label">设计量级</div>${axisProse(c.architecture_magnitude)}`:''}${formalContextMetadata(c,options)}${learningSourceReviews(c)}${sourceNotes?`<div class="label">正式记录的来源说明</div>${sourceNotes}`:''}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'过程依据 ↗'):prose(ref)).join('')}`;
+ const metadata=`${status?`<p class="subline">${status}</p>`:''}${c.architecture_magnitude?`<div class="label">设计量级</div>${axisProse(c.architecture_magnitude)}`:''}${formalContextMetadata(c,options)}${learningSourceReviews(c)}${sourceNotes?`<div class="label">正式记录的来源说明</div>${sourceNotes}`:''}${refs.map(ref=>profileSourceMarkup(ref)).join('')}`;
  return `<section class="context-story formal-context-story design-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(c.title||'制度安排与适用边界'))}</h4>${body?powerProse(body):'<p class="notice">该条目未提供制度过程正文。</p>'}${extra}<details class="metadata design-context-sources"><summary>归责、适用边界与来源</summary>${metadata}</details></section>`;
 }
 function learningSourceReviews(c){
- return (c.source_review||[]).map(review=>`<section class="learning-source-review"><div class="label">${esc(review.source_title||'史源采用与限制')}</div>${review.source_url?link(review.source_url,'所读史源 ↗'):''}${[['原文定位','passage_locator'],['采用事实','adopted_fact'],['反证与限定','counterevidence'],['采用范围','limitation']].map(([label,key])=>review[key]?`<div class="label">${label}</div>${powerProse(review[key])}`:'').join('')}</section>`).join('');
+ if(!c.source_review?.length)return '';
+ const locator=ReaderSourceLinks.metadataLabel;
+ return (c.source_review||[]).map(review=>`<section class="learning-source-review"><div class="label">${esc(locator(review.source_title)||'史源采用与限制')}</div>${review.source_url?link(review.source_url,'所读史源 ↗'):''}${(review.public_passages||[]).map(p=>`<section>${locator(p.locator)?`<strong>${esc(locator(p.locator))}</strong>`:''}${prose(p.context)}<blockquote>${esc(p.quote)}</blockquote></section>`).join('')}${[['原文定位',locator(review.passage_locator)],['采用事实',review.adopted_fact],['反证与限定',review.counterevidence],['采用范围',review.limitation]].map(([label,value])=>value?`<div class="label">${label}</div>${powerProse(value)}`:'').join('')}</section>`).join('');
 }
 function learningContextStory(c,id,options){
  const kind={TRUTH_ACQUISITION:'核验信息与辨别信源',ERROR_CORRECTION:'反馈后的判断更新',REFUSAL_OR_RECURRENCE:'拒绝核验或同类复发'}[c.cycle_type]||'信息与判断变化';
@@ -585,13 +625,13 @@ function learningContextStory(c,id,options){
  const extra=c.lifecycle_review&&same(c.lifecycle_review)!==same(basis)?`<div class="label">过程补充与验证边界</div>${powerProse(c.lifecycle_review)}`:'';
  const suppression=c.feedback_suppression_review||{};
  const feedback=suppression.review_status==='REVIEWED'?`<div class="label">反馈到达与跨轴边界</div>${['feedback_arrival','c2_slice','c5_exclusion'].map(key=>suppression[key]?powerProse(suppression[key]):'').join('')}`:'';
- const refs=formalContextSources(c);
- return `<section class="context-story formal-context-story learning-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>${basis?powerProse(basis):'<p class="notice">该情境尚缺可展示的具体过程。</p>'}<details class="metadata learning-context-sources"><summary>过程边界与来源</summary><p class="subline">${esc(kind)}</p>${formalContextMetadata(c,options)}${extra}${c.secondary_projection_reason?powerProse(c.secondary_projection_reason):''}${feedback}${learningSourceReviews(c)}${id?`<p class="subline">情境记录编号：${esc(id)}</p>`:''}${refs.map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'过程依据 ↗'):prose(ref)).join('')}</details></section>`;
+ const refs=formalContextSources(c,true);
+ return `<section class="context-story formal-context-story learning-context-story"><h4 class="public-context-title">${esc(profilePublicPattern(title))}</h4>${basis?powerProse(basis):'<p class="notice">该情境尚缺可展示的具体过程。</p>'}<details class="metadata learning-context-sources"><summary>过程边界与来源</summary><p class="subline">${esc(kind)}</p>${formalContextMetadata(c,options)}${extra}${c.secondary_projection_reason?powerProse(c.secondary_projection_reason):''}${feedback}${learningSourceReviews(c)}${refs.map(ref=>profileSourceMarkup(ref)).join('')}</details></section>`;
 }
 function learningNonScoring(a){
  const items=a.non_scoring_observations||[];
  if(!items.length)return '';
- return `<details class="metadata learning-non-scoring"><summary>证据与适用边界：不计分材料</summary>${items.map(item=>`<section class="context-story">${item.basis?powerProse(item.basis):''}<div class="label">判断边界</div>${powerProse(item.reason)}<details class="metadata"><summary>依据与记录定位</summary>${item.source_parent_ref?`<p class="subline">${esc(item.source_parent_ref)}</p>`:''}${(item.source_refs||[]).map(ref=>/^(docs\/|config\/|archive\/|https?:\/\/)/.test(ref)?link(ref,'边界依据 ↗'):prose(ref)).join('')}</details></section>`).join('')}</details>`;
+ return `<details class="metadata learning-non-scoring"><summary>证据与适用边界：不计分材料</summary>${items.map(item=>`<section class="context-story">${item.basis?powerProse(item.basis):''}<div class="label">判断边界</div>${powerProse(item.reason)}<details class="metadata"><summary>所引材料</summary>${learningSourceReviews(item)}${formalContextSources(item,true).map(ref=>/^(?:docs|archive)\/.*\.md(?:[#:]|$)/.test(ref)?'<p class="sources">'+link(ref,'查看所引材料 ↗')+'</p>':profileSourceMarkup(ref)).join('')}</details></section>`).join('')}</details>`;
 }
 
 function contexts(a,showIntensity=true,axisCode=''){
@@ -625,8 +665,9 @@ function powerProse(value){
 function publicEvidencePoints(a,expanded=false){
  const points=Array.isArray(a.public_evidence_points)?a.public_evidence_points:[];
  if(!points.length)return '';
- if(expanded)return `<section class="power-evidence-points">${points.map(point=>`<section class="power-evidence-case">${point?.title?`<h4>${esc(profilePublicPattern(point.title))}</h4>`:''}${powerProse(point?.details||'')}</section>`).join('')}</section>`;
- return `<details class="public-evidence-points"><summary>查看代表性证据</summary>${points.map(point=>{const title=point?.title?`<div class="label">${esc(profilePublicPattern(point.title))}</div>`:'';return `${title}${axisProse(point?.details||'')}`;}).join('')}</details>`;
+ const sources=point=>point?.source_review?.length?`<details class="metadata"><summary>史料与采用范围</summary>${learningSourceReviews(point)}</details>`:'';
+ if(expanded)return `<section class="power-evidence-points">${points.map(point=>`<section class="power-evidence-case">${point?.title?`<h4>${esc(profilePublicPattern(point.title))}</h4>`:''}${powerProse(point?.details||'')}${sources(point)}</section>`).join('')}</section>`;
+ return `<details class="public-evidence-points"><summary>查看代表性证据</summary>${points.map(point=>{const title=point?.title?`<div class="label">${esc(profilePublicPattern(point.title))}</div>`:'';return `${title}${axisProse(point?.details||'')}${sources(point)}`;}).join('')}</details>`;
 }
 
 function nav(name){for(const n of ['home','compare','guide'])document.getElementById(n+'-nav').classList.toggle('active',n===name)}
@@ -829,6 +870,7 @@ function prudentCostText(value){
 }
 function prudentGeneralText(value){
  return String(value??"")
+  .replace(/\bLOWER_BOUND\b/g,"按现有史料确认的下限")
   .replace(/低置信逐轴终裁的合法端点/g,"当前史料允许的逐项审慎范围")
   .replace(/逐人条件档位与联动/g,"逐项可支持的判断范围及关联调整")
   .replace(/候选端点/g,"审慎范围端点")
@@ -936,6 +978,8 @@ function axisEvidenceScope(a,c){
 }
 function profilePublicPattern(value){
  const cleaned=String(value??'')
+  .replace(/\bactual_power_attribution\b/g,"本人实际权力归责")
+  .replace(/\bsource_review\b/g,"史源采用说明")
   .replace(/G([0-5])[- /]*(LOW|MID|HIGH)/g,(_,g,p)=>letters['G'+g]+'档'+pos(p))
   .replace(/^'?本轮按武将登记逐项复核：([^，]+)，([\s\S]+?)。，角色=([A-Za-z_]+)。\2。'?$/,"本轮按武将登记逐项复核：$1，$2。，角色=$3。")
   .replace(/`?(M1|M2|M4|M5|C1|C2|C3|C4|C5)-P[A-Za-z0-9_-]+`?/g,(_,code)=>(shortNames[code]||code)+"既有情境材料")
@@ -1303,9 +1347,25 @@ function profileDistinctLimitations(value,...priorValues){
  return arrayInput?kept:(kept[0]||'');
 }
 function profileSourceMarkup(ref,index,r){
- if(/^(?:docs\/|config\/|archive\/)/.test(ref))return '<p class="sources">'+link(ref,`正式材料 ${index+1} ↗`,r)+'</p>';
- if(/^https?:\/\//.test(ref))return '<p class="sources">'+link(ref,`史料来源 ${index+1} ↗`,r)+'</p>';
- return prose(ref);
+ const fixed=String(ref).match(/^([^/@]+)\/卷([^@]+)@(\d+)(?:#(.*))?$/s);
+ if(fixed){
+  const [,book,volume,revision,excerpt]=fixed;
+  const url='https://zh.wikisource.org/wiki/'+encodeURIComponent(book)+'/卷'+encodeURIComponent(volume)+'?oldid='+revision;
+  return '<p class="sources">'+link(url,`《${book}》卷${volume} ↗`,r)+'</p>'+(excerpt?prose('定位摘句：'+excerpt):'');
+ }
+ if(/^(?:docs\/|config\/|archive\/)/.test(ref)){
+  const title=ReaderSourceLinks.projectSourceTitle(ref);
+  const destination=ReaderSourceLinks.personRoute(ref);
+  return prose(title?'项目依据 · '+title:'项目依据')+(destination?'<p class="sources">'+link(ref,'查看对应记录',r)+'</p>':'');
+ }
+ if(/^https?:\/\//.test(ref)){
+  let url;
+  try{url=new URL(ref)}catch{return prose('此条史源链接待核对。')}
+  if(/(^|\.)(?:github\.com|githubusercontent\.com|github\.io)$/.test(url.hostname)||/\.(?:jsonl?|ndjson)$/i.test(url.pathname))return prose('项目依据');
+  return '<p class="sources">'+link(ref,'查看所引史源 ↗',r)+'</p>';
+ }
+ const label=ReaderSourceLinks.metadataLabel(ref);
+ return prose(label||'此条尚未单列公开原典卷篇。');
 }
 function m1AuthoredEvidence(r,a,suffix=''){
  const p=a.public_reading;
@@ -1313,7 +1373,10 @@ function m1AuthoredEvidence(r,a,suffix=''){
  const archiveLink=item=>item.ref?link(item.ref,item.label||item.name,r):`<a href="${esc(item.href)}">${esc(item.label||item.name)} ↗</a>`;
  const career=archive?`${archive.commander?`<p class="sources">${archiveLink(archive.commander)}</p>`:''}${archive.career.length?`<details class="m1-career-review"><summary>主要战事的本人作用与评价依据</summary>${archive.career.map(item=>`<section><h4>${esc(item.title)}</h4>${prose(item.basis)}<details class="metadata"><summary>相关战役与本人行动档案</summary><ul>${item.links.map(ref=>`<li>${archiveLink(ref)}</li>`).join('')}</ul></details></section>`).join('')}</details>`:''}`:'';
  const comparisons=archive?.comparisons.length?`<section class="m1-public-judgment"><h4>同轴比较</h4>${archive.comparisons.map(item=>`<div class="label">${archiveLink(item)}</div>${prose(item.basis)}`).join('')}</section>`:'';
- const cases=p.cases.map(item=>`<section class="context-story m1-public-case"><h4>${esc(item.title)}</h4>${item.role_label?`<span class="badge">${esc(item.role_label)}</span>`:''}${item.text?(item.text.replace(/。$/,'')===item.title?'':prose(item.text)):`<div class="label">本人行动</div>${prose(item.action)}<div class="label">结果与能力</div>${prose(item.result+item.meaning)}<p class="m1-role-boundary">${esc(item.boundary)}</p>`}<details class="metadata"><summary>事例来源与正式归责依据</summary>${item.sources.map(source=>link(source.ref,source.label+' ↗',r)).join('')}</details></section>`).join('');
+ const cases=p.cases.map(item=>{
+  const excerpts=(item.source_excerpts || []).map(source=>`<section class="m1-source-excerpt"><p>${link(source.url,source.label+' ↗',r)}</p>${prose(source.context)}<blockquote>${esc(source.quote)}</blockquote></section>`).join('');
+  return `<section class="context-story m1-public-case"><h4>${esc(item.title)}</h4>${item.role_label?`<span class="badge">${esc(item.role_label)}</span>`:''}${item.text?(item.text.replace(/。$/,'')===item.title?'':prose(item.text)):`<div class="label">本人行动</div>${prose(item.action)}<div class="label">结果与能力</div>${prose(item.result+item.meaning)}<p class="m1-role-boundary">${esc(item.boundary)}</p>`}<details class="metadata"><summary>事例来源与正式归责依据</summary>${excerpts}${item.sources.map(source=>link(source.ref,source.label+' ↗',r)).join('')}</details></section>`;
+ }).join('');
  const readingSources=p.sources?.length?`<details class="metadata"><summary>正式归责与相关来源</summary>${p.sources.map(source=>link(source.ref,source.label+' ↗',r)).join('')}</details>`:'';
  const positionTitle={LOW:'为什么取低位（−）？',MID:'为什么取中位？',HIGH:'为什么取高位（+）？'}[a.position];
  return `<details id="reason-M1${suffix}" class="axis-evidence m1-authored-evidence"><summary>${esc(DATA.axis_specs.M1.name)} <span class="badge">${grade(a)}</span>${profileGradeScopeMarkup(a)}<small class="axis-evidence-level">判断把握：${esc(conf(a.confidence))}</small></summary><p class="m1-public-headline"><strong>${esc(p.headline)}</strong></p>${prose(p.summary)}${career}${cases}<section class="m1-public-judgment"><h4>为什么评为 ${esc(letters[a.axis_grade])} 档？</h4>${prose(p.grade_reason)}<h4>${esc(positionTitle)}</h4>${prose(p.position_reason)}<h4>${a.axis_grade==='G5'?'当前等级的边界':'为什么没有进入更高档？'}</h4>${prose(p.higher_grade_limit)}</section>${comparisons}${readingSources}${m1FailureReview(a)}${(a.counterpattern||a.limitations?.length)?`<details class="metadata"><summary>正式反例与限制</summary>${axisProse(a.counterpattern)}${axisProse(a.limitations)}</details>`:""}<details class="metadata"><summary>评价方法与正式记录</summary><p class="sources">${link(DATA.axis_specs.M1.contract,'军事能力评价规则 ↗',r)}${link(DATA.axis_specs.M1.markdown,'本轴完整阅读页 ↗',r)}${link(DATA.axis_specs.M1.json+'#ruler_id='+r.ruler_id,'正式记录入口 ↗',r)}</p></details></details>`;
@@ -1452,7 +1515,7 @@ function founderWeightReading(n){
 }
 function guide(){nav('guide');screen.innerHTML=`<div class="eyebrow">Reading guide</div><h1>三个问题，一份人物理解。</h1><section class="panel guide-quick"><h2>30秒读懂</h2><div class="guide-quick-grid"><div><strong>看结果</strong><p>统治绩效看实际做成了什么，也把可归责代价算进去。</p></div><div><strong>看怎么做事</strong><p>人物画像看面对问题时如何判断、组织、用人和行动。</p></div><div><strong>看留下什么</strong><p>历史影响看本人退出后，改变了多大范围，又持续了多久。</p></div><div><strong>三者可以不一致</strong><p>能力强不保证结果一定好；影响很大也不等于影响一定正面。</p></div></div></section><details class="guide-more"><summary>继续看详细口径与边界</summary><div class="three"><section class="panel net"><h2>01 看结果</h2><p>统治绩效评价实际结果、统治手段与可归责代价。先看总分，再看治国、军事、奠基附加与文明整合的构成。</p><p>仅有正式入榜资格的人物显示排名。未入榜、不适用与零分分别表达。</p></section><section class="panel profile"><h2>02 看人物画像</h2><p>八轴分别观察军事、外交、联盟、组织、判断、学习、用人与制度设计等能力。已完成裁决的能力从E−到S+分18级展示；证据不足、待补证、待重裁或不适用都会单独标明，不会自动按低等级处理。逐轴可查看等级、主要表现、反例与适用范围。</p><p>权力运用与克制是九轴画像中的独立行为风格项，与八个能力轴一起展示。雷达不计算面积得分，不生成全能指数。</p></section><section class="panel impact"><h2>03 看后效</h2><p>历史影响评价一个人改变历史路径的范围、深度与持续时间，以及其中有多少能够归于本人。历史影响总等级直接读取正式裁决，不由其他分数换算。</p><p>正向、负向或混合性质单列。高影响可以伴随净损害。</p><p>阅读顺序：先看影响范围、深度与持续，再看本人归责；政治范式只作有限补充。</p>${impactScaleNote()}${impactTechnicalHelp()}</section></div><section class="panel guide-rank-context"><h2>考虑史料分歧后的名次、按当前评分排名与治理背景</h2><div class="guide-term-grid"><div><strong>考虑史料分歧后的名次</strong><p>当前排名按现有评分计算；如果采用史料支持的其他判断会改变名次，再补充这一范围。计算时只改变此人的分数，其他人物的分数不变，因此它不代表所有人物同时重新评价后的名次范围。</p></div><div><strong>按当前评分排名</strong><p>按当前评分和既定权重计算的名次。细小分差不代表能同样精确地区分历史表现。主页面总分只显示1位小数以避免制造虚假精度；排名仍按未舍入的正式结算值计算，因此显示同分的人仍可能有先后。</p></div><div><strong>史料分歧对应的分数范围</strong><p>固定现有权重，只在当前史料已经允许的裁决端点之间计算，不包含规模折算；不是统计置信区间，也不是未来史料的绝对边界；不包含规模折算。</p></div><div><strong>权重敏感性</strong><p>固定人物正式裁决，只改变项目已经声明的权重情景。它反映规则权重变化，与史料不确定性是两条不同问题。</p></div><div><strong>治理背景</strong><p>治理规模与复杂度只用于说明实际掌权窗口面对的治理对象和结构，当前不计分、不加难度奖励，也不改变正式名次。当前榜单没有对区域、广域与超广域治理难度做分数校准，因此跨规模名次应与这一背景一起读。</p></div></div></section><section class="panel evidence"><h2>结论不一致时，读什么？</h2><p>先看统治绩效的损益构成，再读能力轴的行为情境，最后检查历史影响的共同主链与反事实。一次行动可能有能力表现、实际成本和长期后效；来源相同不表示三个体系评价同一命题。</p><p>本页只展示已经裁定的事实和限制。尚未正式裁定的跨体系因果解释，不从字母或分数差自动生成。</p><p><strong>材料标签怎样读？</strong> “材料强度”描述情境的持续性、作用范围和机制化程度；“来源覆盖”描述公开证据包的来源是否足够，两者不是同一尺度，也都不表示正负方向、能力高低或得分。只有正式记录明确发布相应字段时页面才展示；没有这类标签只表示正式记录未发布该字段，不等于证据弱，页面也不会自行补判。</p><p>正式评价对象 ${DATA.main_count} 人，统治绩效入榜 ${DATA.ranked_count} 人；历史影响另有 ${DATA.supplementary_count} 位补充历史样本，不计入正式评价对象统计。</p><p class="subline">本页展示最近一次正式发布的结算数据；正式记录更新后会在后续发布中同步。</p><p class="sources">${link('docs/项目总纲/皇帝综合评价体系合同.md','三体系总规则 ↗')}${link('docs/项目总纲/历史影响评价总则.md','历史影响规则 ↗')}${link('docs/项目总纲/皇帝人物画像评估体系合同.md','人物画像规则 ↗')}${link('docs/项目总纲/皇帝统治绩效评价合同.md','统治绩效规则 ↗')}</p></section></details>`;}
 document.getElementById('home-nav').onclick=()=>go('#overview');document.getElementById('compare-nav').onclick=()=>go('#compare');document.getElementById('guide-nav').onclick=()=>go('#guide');
-screen.addEventListener('click',e=>{const section=e.target.closest('[data-section]');if(section){e.preventDefault();const target=document.getElementById(section.dataset.section);if(target?.tagName==='DETAILS')target.open=true;target?.scrollIntoView({behavior:'smooth',block:'start'});return}const chain=e.target.closest('[data-chain]');if(chain){e.preventDefault();const target=document.getElementById('chain-'+chain.dataset.chain);if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});}return}const reason=e.target.closest('[data-reason]');if(reason){e.preventDefault();const target=document.getElementById('reason-'+reason.dataset.reason);if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});}return}const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-governance-peers')){Object.assign(state,{scale:b.dataset.governancePeers,q:'',polity:'',grade:'',scope:'main',sort:'net'});go('#overview');return}if(b.hasAttribute('data-pick-compare')){const id=b.dataset.pickCompare;if(!state.compare.includes(id)){if(state.compareReplace===0)state.compare.unshift(id);else state.compare.push(id)}state.compareReplace=null;compare();return}if(b.hasAttribute('data-remove-compare')){state.compare=state.compare.filter(id=>id!==b.dataset.removeCompare);compare();return}if(b.hasAttribute('data-replace-compare')){state.compareReplace=Number(b.dataset.replaceCompare);state.compare=state.compare.filter((_,i)=>i!==state.compareReplace);history.replaceState(null,'','#compare');compare();return}if(b.hasAttribute('data-swap-compare')){state.compare.reverse();compare();return}if(b.hasAttribute('data-person'))go('#person/'+b.dataset.person);if(b.hasAttribute('data-home'))go('#overview');if(b.hasAttribute('data-person-compare')){const id=b.dataset.personCompare;state.compare=[id];state.compareReplace=null;go('#compare')}if(b.hasAttribute('data-select')){const id=b.dataset.select;if(state.compare.includes(id))state.compare=state.compare.filter(x=>x!==id);else if(state.compare.length<2)state.compare.push(id);else{document.getElementById('selection').textContent='已选两人，请先取消一人，或进入对照页替换。';return}renderRows()}});
+screen.addEventListener('click',e=>{const section=e.target.closest('[data-section]');if(section){e.preventDefault();const target=document.getElementById(section.dataset.section);for(let node=target;node;node=node.parentElement)if(node.tagName==='DETAILS')node.open=true;target?.scrollIntoView({behavior:'smooth',block:'start'});return}const chain=e.target.closest('[data-chain]');if(chain){e.preventDefault();const target=document.getElementById('chain-'+chain.dataset.chain);if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});}return}const reason=e.target.closest('[data-reason]');if(reason){e.preventDefault();const target=document.getElementById('reason-'+reason.dataset.reason);if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});}return}const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-governance-peers')){Object.assign(state,{scale:b.dataset.governancePeers,q:'',polity:'',grade:'',scope:'main',sort:'net'});go('#overview');return}if(b.hasAttribute('data-pick-compare')){const id=b.dataset.pickCompare;if(!state.compare.includes(id)){if(state.compareReplace===0)state.compare.unshift(id);else state.compare.push(id)}state.compareReplace=null;compare();return}if(b.hasAttribute('data-remove-compare')){state.compare=state.compare.filter(id=>id!==b.dataset.removeCompare);compare();return}if(b.hasAttribute('data-replace-compare')){state.compareReplace=Number(b.dataset.replaceCompare);state.compare=state.compare.filter((_,i)=>i!==state.compareReplace);history.replaceState(null,'','#compare');compare();return}if(b.hasAttribute('data-swap-compare')){state.compare.reverse();compare();return}if(b.hasAttribute('data-person'))go('#person/'+b.dataset.person);if(b.hasAttribute('data-home'))go('#overview');if(b.hasAttribute('data-person-compare')){const id=b.dataset.personCompare;state.compare=[id];state.compareReplace=null;go('#compare')}if(b.hasAttribute('data-select')){const id=b.dataset.select;if(state.compare.includes(id))state.compare=state.compare.filter(x=>x!==id);else if(state.compare.length<2)state.compare.push(id);else{document.getElementById('selection').textContent='已选两人，请先取消一人，或进入对照页替换。';return}renderRows()}});
 function route(){const h=location.hash;if(h.startsWith('#person/'))person(byId.get(personId()));else if(h==='#compare')compare();else if(h.startsWith('#compare/')){let ids;try{ids=h.slice(9).split('/').map(decodeURIComponent)}catch{ids=[]}if(ids.length===2&&ids[0]!==ids[1]&&ids.every(id=>byId.has(id))){state.compare=ids;compare()}else{nav('compare');screen.innerHTML='<p>对照地址无效，请重新选择两位人物。</p><button data-home>返回人物总览</button>'}}else if(h==='#guide')guide();else home();window.scrollTo(0,0)}
 window.addEventListener('hashchange',route);route();
 </script></body></html>

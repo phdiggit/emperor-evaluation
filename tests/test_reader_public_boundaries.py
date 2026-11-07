@@ -8,6 +8,35 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_project_machine_citations_do_not_open_repository_files(tmp_path):
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node.js required for browser behavior')
+    script = tmp_path/'source-links.cjs'
+    script.write_text(r'''
+const fs=require('node:fs'),assert=require('node:assert/strict'),vm=require('node:vm');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const context={URL,location:{hostname:'published.example',hash:''},
+  DATA:{source_availability:{},source_repository:'owner/repo',source_revision:'sample'},
+  esc:String,byId:new Map([['synthetic',{net:{}}],['pending',{}]])};
+vm.createContext(context);
+vm.runInContext(fs.readFileSync('reader/source-links.js','utf8'),context);
+vm.runInContext(template.slice(template.indexOf('const localReaderHost'),template.indexOf('const letters='))+';globalThis.testLink=link;',context);
+const link=context.testLink;
+const path='docs/评分结算/净收益/第三项示例/记录.json';
+assert.match(link(path+'#ruler_id=synthetic','原始记录'),/#net\/synthetic\/third/);
+assert.doesNotMatch(link(path+'#ruler_id=pending','原始记录'),/<a\b|\.json/);
+assert.doesNotMatch(link(path+'#records/0','原始记录'),/<a\b|records\/0|\.json/);
+assert.doesNotMatch(link('https://github.com/owner/repo/blob/main/a%2Ejsonl?raw=1','原始记录'),/<a\b|github/);
+assert.match(link('https://example.org/卷三','书名卷篇'),/href="https:\/\/example.org\/卷三"/);
+assert.match(link('docs/分项规则/规则.md','规则'),/github\.com/);
+assert.equal(context.ReaderSourceLinks.metadataLabel('material_basis / 0 / original_text'),'');
+assert.equal(context.ReaderSourceLinks.metadataLabel('《合成史书》卷三 · 南郡'),'《合成史书》卷三 · 南郡');
+''',encoding='utf-8')
+    result=subprocess.run([node,str(script)],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
+    assert result.returncode == 0,result.stderr
+
+
 def test_public_readers_keep_complete_prose_and_independent_source_panels(tmp_path):
     node = shutil.which('node')
     if not node:
@@ -68,7 +97,8 @@ assert.ok(!aHtml.includes('<details open'));
 const noNote=aMarkup({value:12,reader_how:'合成计算。',reader_public_outcome:{public_question:'合成问题？',public_story:long,public_scope:'合成范围',public_outcome_basis:'合成起点',public_boundary:null,public_share_percent:10,public_scale_basis:'合成尺度说明'}},{});
 assert.ok(!noNote.includes('<dt>具体范围说明</dt>'));
 assert.ok(noNote.includes('合成范围'));
-const b2Markup=new Function('esc','prose','link',home.slice(aStart,aEnd)+'return firstB2ReadingMarkup;')(esc,prose,(ref)=>'<a>'+esc(ref)+'</a>');
+const materialSource=home.slice(home.indexOf('function firstOrganizationSources'),aStart);
+const b2Markup=new Function('esc','prose','link',materialSource+home.slice(aStart,aEnd)+'return firstB2ReadingMarkup;')(esc,prose,(ref)=>'<a>'+esc(ref)+'</a>');
 const b2Html=b2Markup({value:12,reader_public_b2:{public_question:'合成组织问题？',public_story:long,public_window:'本阶段',public_control:'授权两处主责',public_method:'逐项裁档相加',total_points:12,dimensions:[{label:'合成分项',points:4,basis:text}],public_sources:['docs/example.md']}},{});
 assert.equal(b2Html.split(long).length-1,1);
 assert.ok(b2Html.includes(text));
@@ -173,7 +203,7 @@ function record(id,extra={}){return {ruler_id:id,ruler_name:id,polity:'合成朝
 const records=[record('left'),record('right'),record('supplement',{supplementary:true})];
 records[0].impact.identity_label='left（<不作为HTML>）';
 const original=JSON.stringify(records);
-const state={q:'',polity:'',scope:'main',sort:'time',compare:['left'],grade:'',differences:false,filtersOpen:false,homeView:'simple'};
+const state={q:'',polity:'',scope:'main',sort:'time',compare:['left'],grade:'',scale:'',differences:false,filtersOpen:false,homeView:'simple'};
 const context={DATA:{records,impact_grades:['B'],main_count:2,ranked_count:0,supplementary_count:1,capability_axes:[],independent_axes:[],axis_specs:{}},state,screen,byId:new Map(records.map(r=>[r.ruler_id,r])),document:{getElementById:id=>nodes[id]},nav(){},number:String,scoreNumber:v=>String(v??'—'),conf:String,impactMeaning:{B:'合成影响量级'}};
 vm.createContext(context);
 vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function home(){','function netPanel('),context);
@@ -268,16 +298,14 @@ const before=JSON.stringify(record),html=api.contexts(record,true);
 assert.ok(html.includes('context-intensity'));
 assert.ok(html.includes('完整生命周期情境'));
 assert.ok(html.includes('formal-context-chip context-intensity'));
-const auditIndex=html.indexOf('<details class="metadata">');
-const rawIndex=html.indexOf('MI2_LIFECYCLE');
-assert.ok(auditIndex>=0&&rawIndex>auditIndex,'raw intensity code must stay inside collapsed audit details');
+assert.ok(!html.includes('MI2_LIFECYCLE'),'reader shows the translated intensity');
 assert.ok(html.includes(record.context_lookup.P.basis));
 assert.equal(JSON.stringify(record),before);
 assert.ok(!api.contexts(record,false).includes('context-intensity'),'do not add this presentation to unrelated axes');
 record.context_lookup.P.intensity='<img onerror=alert(1)>';
 const unsafe=api.contexts(record,true);
 assert.ok(!unsafe.includes('<img'));
-assert.ok(unsafe.includes('&lt;img'));
+assert.ok(!unsafe.includes('onerror=alert'));
 ''', encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
                             text=True, encoding='utf-8')

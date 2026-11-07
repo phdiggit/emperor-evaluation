@@ -7,7 +7,7 @@ from html.parser import HTMLParser
 import pytest
 
 from emperor_v4.evaluation.formal_json_store import load_json
-from emperor_v4.evaluation.second_item_d1_d3_public import D1_PATH, D3_PATH, PUBLIC_RECORD_FIELDS, _refresh_payload, _scoring_signature, verify_public_projection, render_public_markdown, public_record
+from emperor_v4.evaluation.second_item_d1_d3_public import D1_PATH, D3_PATH, PUBLIC_RECORD_FIELDS, _refresh_payload, _scoring_signature, display_reason, display_source, verify_public_projection, render_public_markdown, public_record
 
 
 def synthetic(root, axis):
@@ -103,7 +103,12 @@ def test_reader_uses_complete_authored_projection_without_transforming_evidence(
             axis = {'D1继任行政连续性': 'D1', 'D3政权交接稳定': 'D3'}.get(item.get('label'))
             if not axis: continue
             formal = public_record(sources[axis][record['ruler_id']])
-            assert item['reader_public_d'] == {k: formal[k] for k in PUBLIC_RECORD_FIELDS}
+            expected = {k: formal[k] for k in PUBLIC_RECORD_FIELDS}
+            expected['public_evidence_items'] = [
+                {**entry, 'source_refs': [display_source(ref) for ref in entry['source_refs']]}
+                for entry in formal['public_evidence_items']
+            ]
+            assert item['reader_public_d'] == expected
             assert item['reader_public_evidence_items'] == formal['public_evidence_items']
             seen.add(axis)
     assert seen == set(sources)
@@ -142,18 +147,17 @@ def test_full_pool_collection_keeps_every_authored_record_and_quotation():
             text = page.people[row['ruler_id']]
             for field in PUBLIC_RECORD_FIELDS:
                 if field != 'public_evidence_items':
-                    value = row[field]
-                    if field == 'public_adjudication_summary':
-                        intro = row['public_story']
-                        if value.endswith(intro):
-                            remainder = value[:-len(intro)].rstrip()
-                            if remainder.endswith('。'):
-                                value = remainder
-                    assert all(part in text for part in value.split('\n\n'))
+                    expected = display_reason(row) if field == 'public_adjudication_summary' else row[field]
+                    if expected != row[field]:
+                        assert row[field][len(expected):].lstrip() == row['public_story']
+                    assert all(part in text for part in expected.split('\n\n'))
             for item in row['public_evidence_items']:
                 expected_evidence.add(item['id'])
                 assert item['public_basis'] in text
-                for ref in item['source_refs']:
+                for raw in item['source_refs']:
+                    ref = display_source(raw)
                     assert ref['public_excerpt'] in text
+                    assert ref['source_locator'] in text
+                    assert all(part in text for part in ref['source_context'].split('\n\n'))
     assert set(page.people) == expected_ids
     assert page.evidence == expected_evidence

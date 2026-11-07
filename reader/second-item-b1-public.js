@@ -50,12 +50,12 @@
     return groups;
   }
 
-  function card(entry, {supplement = false} = {}) {
+  function card(entry, {supplement = false, record} = {}) {
     const api = globalThis.SecondItemMaterialCards;
     const direction = String(entry?.public_direction || "");
     const tags = (Array.isArray(entry?.public_tags) ? entry.public_tags : [])
       .filter(tag => !/^(?:正向|负向|正负并存)/.test(String(tag)));
-    if (api?.card) return api.card({
+    const li = api?.card ? api.card({
       title: entry?.public_label || "行政运行机制",
       direction,
       tags,
@@ -63,22 +63,32 @@
       boundary: entry?.public_boundary,
       supplement,
       verbatim: true,
-    });
-
-    const li = make("li", supplement ? "second-item-b1-card second-item-b1-supplement" : "second-item-b1-card");
-    li.append(make("strong", "", entry?.public_label || "行政运行机制"));
-    if (entry?.public_basis) li.append(make("p", "", entry.public_basis));
+    }) : make("li", supplement ? "second-item-b1-card second-item-b1-supplement" : "second-item-b1-card");
+    if (!api?.card) {
+      li.append(make("strong", "", entry?.public_label || "行政运行机制"));
+      if (entry?.public_basis) li.append(make("p", "", entry.public_basis));
+    }
+    if (entry?.source_excerpts?.length) {
+      const materials = make("details", "second-item-b1-sources");
+      materials.append(make("summary", "", "本条原典与上下文"));
+      for (const source of entry.source_excerpts) {
+        const heading = make("p", "sources", source.label);
+        if (typeof link === "function") heading.innerHTML = link(source.url, source.label + " ↗", record);
+        materials.append(heading, make("p", "prose", source.context), make("blockquote", "", source.quote));
+      }
+      li.append(materials);
+    }
     return li;
   }
 
-  function group(title, entries, {supplement = false} = {}) {
+  function group(title, entries, {supplement = false, record} = {}) {
     const api = globalThis.SecondItemMaterialCards;
-    if (api?.group) return api.group(title, entries.map(entry => card(entry, {supplement})));
+    if (api?.group) return api.group(title, entries.map(entry => card(entry, {supplement, record})));
     if (!entries.length) return document.createDocumentFragment();
     const section = make("section", "second-item-b1-group");
     section.append(make("h4", "", title));
     const list = make("ul", "second-item-b1-list");
-    list.replaceChildren(...entries.map(entry => card(entry, {supplement})));
+    list.replaceChildren(...entries.map(entry => card(entry, {supplement, record})));
     section.append(list);
     return section;
   }
@@ -157,11 +167,11 @@
     const reason = make("div", "second-item-b1-summary");
     reason.append(make("strong", "", "为什么是这个等级"), make("p", "prose", formalSummary));
     reading.append(reason);
-    reading.append(group("正向行政运行", groups.positive));
-    reading.append(group("负向行政失灵", groups.negative));
-    reading.append(group("正负并存的行政机制", groups.mixed));
-    reading.append(group("并入同一运行链的补充材料", groups.supplement, {supplement:true}));
-    reading.append(group("边界材料（不单独计入）", groups.boundary));
+    reading.append(group("正向行政运行", groups.positive, {record}));
+    reading.append(group("负向行政失灵", groups.negative, {record}));
+    reading.append(group("正负并存的行政机制", groups.mixed, {record}));
+    reading.append(group("并入同一运行链的补充材料", groups.supplement, {supplement:true, record}));
+    reading.append(group("边界材料（不单独计入）", groups.boundary, {record}));
     body.append(reading);
 
     const boundaryText = item.reader_boundary;

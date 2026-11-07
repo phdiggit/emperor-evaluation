@@ -14,7 +14,7 @@ from urllib.parse import urlsplit
 from emperor_v4.evaluation.first_item_public_outcomes import (
     _parse_source_sections, PUBLIC_NAME_ALIASES, SOURCE_MARKDOWN_PATH as A_SOURCE,
 )
-from emperor_v4.evaluation.first_item_c_evidence import load_evidence_index, project_evidence, declared_positive_values
+from emperor_v4.evaluation.first_item_c_evidence import load_evidence_index, project_evidence, declared_positive_values, reading_basis
 
 SOURCE_MARKDOWN_PATH = Path('docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/04-第一项C本人军事统帅与战争解题能力正式结算.md')
 SCHEMA = 'first-item-c-public-v2'
@@ -125,6 +125,7 @@ def load_first_item_c_public(root: Path) -> dict[str, dict[str, Any]]:
             if not isinstance(declared_refs, list) or not declared_refs:
                 raise ValueError(f'C受挫未绑定公共材料：{name}/{setback["name"]}')
             setback['public_sources'] = []
+            setback['archive_urls'] = []
             for declared in declared_refs:
                 if not isinstance(declared, dict) or set(declared) != {'war_event_id', 'kind', 'ref'}:
                     raise ValueError(f'C受挫公共引用格式错误：{name}')
@@ -134,6 +135,8 @@ def load_first_item_c_public(root: Path) -> dict[str, dict[str, Any]]:
                 if matches[0]['disposition'] in {'窗口外', '独立方向', '同名异人'}:
                     raise ValueError(f'C受挫引用超出本人主链窗口：{name}/{setback["name"]}')
                 setback['public_sources'].append(matches[0]['public_source'])
+                if matches[0]['archive_url'] and matches[0]['archive_url'] not in setback['archive_urls']:
+                    setback['archive_urls'].append(matches[0]['archive_url'])
         refs = re.findall(r'\[[^\]]+\]\(([^)]+)\)', fields.get('材料来源', ''))
         if not refs:
             raise ValueError(f'统帅缺少史源引用：{name}')
@@ -154,6 +157,8 @@ def load_first_item_c_public(root: Path) -> dict[str, dict[str, Any]]:
         record.update(public_method=method[1], public_sources=list(dict.fromkeys(sources)))
         if set(record['public_sources'][1:]) != {e['public_source'] for e in record['public_evidence']}:
             raise ValueError(f'C材料来源未与当前公共本人证据精确绑定：{name}')
+        for battle in record['public_battles']:
+            battle['name'] = reading_basis(battle['name'])
         projected[name] = record
     return projected
 

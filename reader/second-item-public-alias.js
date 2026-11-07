@@ -600,6 +600,21 @@
     return section;
   }
 
+  function appendMaterialSourceLinks(source, urls) {
+    if (!urls?.length) return;
+    const links = makeTextBlock("p", "sources", "");
+    for (const url of urls) {
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.textContent = "查看所引史源 ↗";
+      anchor.target = "_blank";
+      anchor.rel = "noopener";
+      if (links.childNodes.length) links.append(document.createTextNode(" · "));
+      links.append(anchor);
+    }
+    source.append(links);
+  }
+
   function renderB2MaterialGroups(evidence) {
     const groups = {positive:[], negative:[], mixed:[]};
     for (const entry of evidence || []) {
@@ -620,12 +635,10 @@
       sources.append(makeTextBlock("summary", "", "本条史料与归责依据"));
       for (const ref of entry.source_refs || []) {
         const source = makeTextBlock("div", "b2-source", "");
-        source.append(makeTextBlock("p", "", [ref.source_title, ref.source_locator].filter(Boolean).join(" · ")));
+        source.append(makeTextBlock("p", "", [ref.source_kind, ref.source_title, ref.source_locator].filter(Boolean).join(" · ") || "所引材料"));
+        if (ref.source_context) source.append(makeTextBlock("p", "prose", ref.source_context));
         if (ref.exact_quote) source.append(makeTextBlock("blockquote", "prose", ref.exact_quote));
-        const links = document.createElement("p");
-        links.className = "sources";
-        if (typeof link === "function") links.innerHTML = link(ref.path, "查看所引材料登记 ↗") + (ref.source_url ? " " + link(ref.source_url, "查看史源 ↗") : "");
-        source.append(links);
+        appendMaterialSourceLinks(source, ref.source_urls);
         sources.append(source);
       }
       card.append(sources);
@@ -719,19 +732,12 @@
       sources.append(makeTextBlock("summary", "", "本条史料与评价依据"));
       for (const ref of entry.source_refs) {
         const source = document.createElement("section");
-        source.append(makeTextBlock("p", "meta", `${ref.source_kind} · ${ref.source_title} · ${ref.source_locator}`));
+        source.append(makeTextBlock("p", "meta", [ref.source_kind, ref.source_title, ref.source_locator].filter(Boolean).join(" · ")));
+        if (ref.source_context) source.append(makeTextBlock("p", "prose", ref.source_context));
         if (ref.support_role) source.append(makeTextBlock("p", "meta", ref.support_role));
-        source.append(makeTextBlock("blockquote", "prose", ref.public_excerpt));
-        const links = document.createElement("p");
-        links.className = "sources";
-        if (typeof link === "function") links.innerHTML = link(ref.path, "查看所引记录 ↗");
-        if (ref.source_url?.startsWith("https://")) {
-          const anchor = document.createElement("a");
-          anchor.href = ref.source_url; anchor.textContent = "查看史源 ↗";
-          anchor.target = "_blank"; anchor.rel = "noopener";
-          links.append(document.createTextNode(" · "), anchor);
-        }
-        source.append(links); sources.append(source);
+        if (ref.public_excerpt !== entry.public_basis) source.append(makeTextBlock("blockquote", "prose", ref.public_excerpt));
+        appendMaterialSourceLinks(source, ref.source_urls);
+        sources.append(source);
       }
       card.append(sources);
       const modes = {DIRECT:"史料直接记载", INFERRED:"受约束推断", ASSESSMENT:"正式评价判断", BACKGROUND:"背景核对"};

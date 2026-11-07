@@ -68,9 +68,12 @@ def test_current_coverage_readonly_sources_and_person_caches():
         a=next(a for a in row['axis_results'] if a['axis']=='C')
         reading=axis_reading(row,a,packages)
         assert [e['result_id'] for e in reading['evidence_items']]==[r['result_id'] for r in a['results']]
-        for result_row,item in zip(a['results'],reading['evidence_items']):
+        for result_row,item in zip(a['results'],a['public_reading']['evidence_items']):
             assert set(result_row['source_refs']) <= {s['original'] for s in item['sources']}
             assert all(s['target'] in ('',s['original']) for s in item['sources'])
+        for item in reading['evidence_items']:
+            assert all('original' not in s and (not s['target'] or s['target'].startswith(('https://', 'http://')))
+                       for s in item['sources'])
         md=markdown_reading(reading)
         assert reading['calculation'] in md and reading['decision_basis'] in md
         if not a['signed_adjustment']:

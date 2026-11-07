@@ -248,7 +248,13 @@ def _run_reading_notes_node(tmp_path, body):
     root = Path(__file__).resolve().parents[1]
     script = tmp_path / 'person-notes.cjs'
     script.write_text("const assert=require('node:assert/strict');\n"
-                      "const api=require(process.cwd()+'/reader/person-reading-notes.js');\n" + body,
+                      "const api=require(process.cwd()+'/reader/person-reading-notes.js');\n"
+                      "function runReaderScript(source, context) {\n"
+                      "  const vm=require('node:vm');\n"
+                      "  context.URL ??= URL;\n"
+                      "  vm.runInContext(require('node:fs').readFileSync('reader/source-links.js','utf8'),context);\n"
+                      "  return vm.runInContext(source,context);\n"
+                      "}\n" + body,
                       encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=root, capture_output=True,
                             text=True, encoding='utf-8')
@@ -261,8 +267,8 @@ const fs=require('node:fs'),vm=require('node:vm');
 const template=fs.readFileSync('reader/index.template.html','utf8');
 const source=template.split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:'#person/SYNTHETIC'},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:'#person/SYNTHETIC'},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.r={ruler_id:'SYNTHETIC',ruler_name:'合成人物',polity:'合成',actual_power_window:'合成时期'};
 ctx.fragment='<a href="#reason-M1" data-reason="M1">能力</a><a href="#profile-evidence" data-section="profile-evidence">全部依据</a>';
 let html=vm.runInContext("personDetailLinks(fragment,r,'profile')",ctx);
@@ -316,8 +322,8 @@ def test_detail_pages_use_one_structure_view_and_open_total_reason(tmp_path):
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],axis_order:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:'#person/SYNTHETIC/profile'},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],axis_order:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:'#person/SYNTHETIC/profile'},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.r={ruler_id:'SYNTHETIC',ruler_name:'合成人物',impact:{public_grade:'B',impact_nature:'合成影响',confidence:'LOW'}};
 ctx.historyArgs=[];
 vm.runInContext(`
@@ -368,8 +374,8 @@ def test_impact_dimensions_use_distinct_meanings_and_rank_range_adds_information
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 const labels=['scope','depth_duration','personal_causality','paradigm'].map(key=>{
  ctx.key=key;return vm.runInContext("impactDimensionLabel(key,'A+')",ctx);
 });
@@ -544,8 +550,8 @@ def test_talent_context_uses_authored_items_and_compact_metadata(tmp_path):
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.c={parent_id:'synthetic',evidence_title:'用人经历',direction:'MIXED',evidence_detail:['行政分工：负责人按专业分任。','军事任用：反馈后调整权限。','<script>：必须转义。'],lifecycle_narrative:'完整过程中的额外限制仍需保留。',boundary_review:{c5_excluded:'处罚比例另行判断。'},source_refs:['docs/synthetic.md']};
 const original=JSON.stringify(ctx.c);
 let html=vm.runInContext("formalContextStory(c,'synthetic',{axisCode:'C3'})",ctx);
@@ -560,7 +566,7 @@ assert.ok(footer>html.indexOf('军事任用'));
 assert.ok(html.indexOf('正负混合')>footer);
 assert.ok(html.indexOf('处罚比例另行判断。')>footer);
 assert.ok(html.includes(ctx.c.lifecycle_narrative));
-assert.ok(html.includes('docs/synthetic.md'));
+assert.ok(html.includes('项目依据'));
 assert.equal(JSON.stringify(ctx.c),original);
 delete ctx.c.evidence_detail;
 html=vm.runInContext("formalContextStory(c,'synthetic',{axisCode:'C3'})",ctx);
@@ -576,8 +582,8 @@ const source=template.split('<script>')[1].split("document.getElementById('home-
 const artifact=fs.readFileSync('reader/index.html','utf8');
 const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 for(const record of data.records.filter(r=>!r.supplementary)){
  const r=JSON.parse(fs.readFileSync('reader/data/people/'+record.ruler_id+'.json','utf8')).record;
  for(const c of r.axes.C3.representative_contexts||[]){
@@ -612,8 +618,8 @@ const source=fs.readFileSync('reader/index.template.html','utf8').split('<script
 const artifact=fs.readFileSync('reader/index.html','utf8');
 const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 for(const entry of data.records.filter(r=>!r.supplementary)){
  ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+entry.ruler_id+'.json','utf8')).record;
  const before=JSON.stringify(ctx.r);
@@ -649,8 +655,16 @@ def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     for row in load_json(ROOT / spec['json'])['records']:
         projected = axis_projection(row, [])
         context_fields = FORMAL_CONTEXT_FIELDS + (LEARNING_CONTEXT_FIELDS if axis == 'C2' else []) + (DESIGN_CONTEXT_FIELDS if axis == 'C4' else []) + (DIPLOMATIC_CONTEXT_FIELDS if axis == 'M2' else [])
-        expected = [{key: context[key] for key in context_fields if key in context}
-                    for context in (row['parent_chains'] if axis in {'C4', 'M2'} else representative_parent_chains(row))]
+        contexts = row['parent_chains'] if axis in {'C4', 'M2'} else representative_parent_chains(row)
+        expected = []
+        for context in contexts:
+            public = {key: context[key] for key in context_fields if key in context}
+            reviews = context.get('source_review')
+            if isinstance(reviews, list):
+                structured = [review for review in reviews if isinstance(review, dict)]
+                if structured or 'source_review' in public:
+                    public['source_review'] = structured
+            expected.append(public)
         assert projected['representative_contexts'] == expected, row['ruler_id']
         record = json.loads((ROOT / 'reader/data/people' / (row['ruler_id'] + '.json')).read_text(encoding='utf-8'))['record']
         assert record['axes'][axis]['representative_contexts'] == expected, row['ruler_id']
@@ -674,8 +688,8 @@ def test_strategy_context_preserves_process_and_separates_non_scoring_material(t
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.c={parent_id:'positive',direction:'POSITIVE',consumption_status:'SCORING_PARENT',evidence_title:'选择 <与> 反馈',cycle_basis:'先确定可执行目标。\n\n反馈到达后收缩投入。',boundary_review:{归责:'执行由臣下承担。'},source_refs:['docs/synthetic.md']};
 const before=JSON.stringify(ctx.c);
 let html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C1'})",ctx);
@@ -685,7 +699,7 @@ for(const sentence of ['先确定可执行目标。','反馈到达后收缩投�
 assert.ok(html.indexOf('context-direction')>footer);
 assert.ok(html.indexOf('计分情境')>footer);
 assert.ok(html.indexOf('执行由臣下承担。')>footer);
-assert.ok(html.includes('docs/synthetic.md'));
+assert.ok(html.includes('项目依据'));
 assert.equal(JSON.stringify(ctx.c),before);
 ctx.a={counterpattern:{positive_parent_refs:['positive'],counter_parent_refs:[]},context_lookup:{positive:ctx.c},representative_contexts:[ctx.c,{parent_id:'boundary',consumption_status:'BACKGROUND_VALIDATION',direction:'LIMITATION',cycle_basis:'此事有共享归责，不能认定独立周期。'}]};
 html=vm.runInContext("contexts(a,true,'C1')",ctx);
@@ -709,15 +723,15 @@ const source=template.split('<script>')[1].split("document.getElementById('home-
 const artifact=fs.readFileSync('reader/index.html','utf8');
 const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 for(const entry of data.records.filter(r=>!r.supplementary)){
  const record=JSON.parse(fs.readFileSync('reader/data/people/'+entry.ruler_id+'.json','utf8')).record;
  ctx.a=record.axes.C1;
  const before=JSON.stringify(ctx.a);
  const html=vm.runInContext("contexts(a,true,'C1')",ctx);
  for(const c of ctx.a.representative_contexts||[]){
-  assert.ok(html.includes(c.parent_id),entry.ruler_id+': '+c.parent_id);
+  assert.ok(!html.includes('情境记录编号：'+c.parent_id),entry.ruler_id+': '+c.parent_id);
   ctx.c=c;
   const own=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C1'})",ctx);
   const footer=own.indexOf('<details class="metadata strategy-context-sources">');
@@ -739,8 +753,8 @@ def test_organization_context_uses_authored_sections_and_compact_metadata(tmp_pa
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.c={parent_id:'synthetic-organization',title:'运输 <与> 前线',process_narrative:'任务分解：运输与前线分别负责。\n故障后重配权限，后续恢复交付。',attribution_basis:'方案由专业人员提出，本人实际授权。',secondary_projection_reason:'不把战果直接计入组织能力。',source_refs:['docs/synthetic.md']};
 const before=JSON.stringify(ctx.c);
 const html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'M5'})",ctx);
@@ -765,8 +779,8 @@ const source=template.split('<script>')[1].split("document.getElementById('home-
 const artifact=fs.readFileSync('reader/index.html','utf8');
 const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 const normalize=s=>s.replace(/[\s：]/g,'');
 for(const entry of data.records.filter(r=>!r.supplementary)){
  ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+entry.ruler_id+'.json','utf8')).record;
@@ -798,8 +812,8 @@ def test_coalition_context_renders_complete_formal_process_and_limits(tmp_path):
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 const fields=['coalition_task','group_structure','interests_and_security_expectations','personal_choice','status_and_resource_configuration','political_credit_and_delivery','feedback_and_conflict_handling','exit_result','counterevidence','lifecycle_reasoning'];
 ctx.c={parent_id:'synthetic',direction:'MIXED',source_refs:['docs/synthetic.md'],boundary_review:{c3:'集团合作不代替个人识别判断。'}};
 for(const key of fields)ctx.c[key]=key+'：<合成> & 正式原文。';
@@ -807,7 +821,7 @@ const before=JSON.stringify(ctx.c);
 let html=vm.runInContext("formalContextStory(c,'synthetic')",ctx);
 for(const key of fields)assert.ok(html.includes(key+'：&lt;合成&gt; &amp; 正式原文。'),key);
 assert.ok(html.includes(ctx.c.boundary_review.c3));
-assert.ok(html.includes('该情境的来源与原始标注'));
+assert.ok(html.includes('该情境的来源'));
 assert.ok(!html.includes('未提供可展示的过程正文'));
 assert.equal(JSON.stringify(ctx.c),before);
 ctx.c={parent_id:'empty',direction:'POSITIVE'};
@@ -840,8 +854,8 @@ def test_coalition_prose_keeps_position_and_places_metadata_after_process(tmp_pa
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 // In prose, a comparison must retain its position; badges use grade() separately.
 for(let g=0;g<=5;g++)for(const [p,label] of [['LOW','低位'],['MID','中位'],['HIGH','高位']]){
  ctx.input=`尚不足以支持G${g}-${p}。`;
@@ -854,7 +868,7 @@ const footer=html.indexOf('<details class="metadata coalition-context-sources">'
 assert.ok(html.includes('<h4 class="public-context-title">重组 &lt;旧集团&gt;</h4>'));
 assert.equal((html.match(/重组 &lt;旧集团&gt;/g)||[]).length,1);
 for(const text of ['旧臣与新核心。','保留参与并分配权限。','合作延续。','交接尚缺验证。'])assert.ok(html.indexOf(text)<footer);
-for(const text of ['context-direction','此处只评价集团合作。','docs/synthetic.md'])assert.ok(html.indexOf(text)>footer);
+for(const text of ['context-direction','此处只评价集团合作。','项目依据'])assert.ok(html.indexOf(text)>footer);
 assert.equal(JSON.stringify(ctx.c),before);
 ''')
 
@@ -871,7 +885,8 @@ def test_coalition_markdown_preserves_structured_process_and_boundary():
     for key in ('coalition_task', 'group_structure', 'personal_choice', 'exit_result', 'counterevidence', 'lifecycle_reasoning'):
         assert parent[key] in text
     assert parent['boundary_review']['c3'] in text
-    assert parent['source_refs'][0] in text
+    assert '项目依据' in text
+    assert parent['source_refs'][0] not in text
 
 
 def test_learning_context_preserves_process_boundaries_and_non_scoring_material(tmp_path):
@@ -879,8 +894,8 @@ def test_learning_context_preserves_process_boundaries_and_non_scoring_material(
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.c={parent_id:'synthetic',cycle_type:'TRUTH_ACQUISITION',direction:'POSITIVE',basis:'先比较两份矛盾报告。\n\n后来根据实测改变处置。',lifecycle_review:'先比较两份矛盾报告。\n\n后来根据实测改变处置。',secondary_projection_reason:'这里不评价处罚比例。',cycle_anchor_refs:['docs/synthetic.md']};
 const before=JSON.stringify(ctx.c);
 let html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C2'})",ctx);
@@ -890,7 +905,7 @@ for(const sentence of ['先比较两份矛盾报告。','后来根据实测改�
  assert.equal((html.split(sentence).length-1),1);
 }
 assert.ok(html.indexOf('这里不评价处罚比例。')>footer);
-assert.ok(html.indexOf('docs/synthetic.md')>footer);
+assert.ok(html.indexOf('项目依据')>footer);
 assert.equal(JSON.stringify(ctx.c),before);
 ctx.a={axis_evidence_level:'E1',evidence_floor_review:{basis:'当前只观察到局部核验。',reopen_condition:'需补本人理解与后续验证。'},non_scoring_observations:[{basis:'另一事只有结果。',reason:'本人更新尚未证实。',source_refs:['docs/boundary.md']}]};
 const floor=vm.runInContext("axisEvidenceScope(a,'C2')",ctx);
@@ -961,8 +976,8 @@ const source=template.split('<script>')[1].split("document.getElementById('home-
 const artifact=fs.readFileSync('reader/index.html','utf8');
 const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.primary='局部任务中曾经授予负责人真实的执行权限，并取得阶段性交付。';
 ctx.basis='整体仍反复出现信息受阻与责任失配，局部成功不足以改变全期判断。'+ctx.primary;
 assert.equal(vm.runInContext('profileDistinctGradeBasis(primary,primary)',ctx),'');
@@ -1030,21 +1045,21 @@ const fs=require('node:fs'),vm=require('node:vm');
 const template=fs.readFileSync('reader/index.template.html','utf8');
 const source=template.split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.h={public_total_basis:'合成对象的独立定档理由：旧国家终结，但后继重建不归本人。',public_grade:'B',dimensions:{scope:{grade:'S'}}};
 assert.equal(vm.runInContext('impactTotalPublicText(h)',ctx),ctx.h.public_total_basis);
 ctx.c={parent_id:'P1',evidence_title:'授职与反馈',lifecycle_narrative:'一度取得交付，后来反馈受阻。',source_refs:['docs/史料通读产物/synthetic.md']};
 const contextHtml=vm.runInContext("formalContextStory(c,'P1')",ctx);
 assert.ok(contextHtml.includes(ctx.c.evidence_title));
 assert.ok(contextHtml.includes(ctx.c.lifecycle_narrative));
-assert.ok(contextHtml.includes('项目史料通读'));
+assert.ok(contextHtml.includes('项目依据'));
 assert.ok(!contextHtml.includes('来源原文'));
 ctx.r={ruler_id:'synthetic',impact:{source_refs:[{kind:'IMPORTED_ADJUDICATION',document:'旧裁决清单.md',section:'合成对象',adopted_excerpt:'保留下来的项目判断。',adoption_limit:'原史未逐句复核。'}],source_trace:{limit:'原文件无法恢复。'}}};
 const sourceHtml=vm.runInContext('impactSourceList(r,[0])',ctx);
 assert.ok(sourceHtml.includes('项目采纳段落（非古籍原文）'));
 assert.ok(sourceHtml.includes('保留下来的项目判断。'));
-assert.ok(sourceHtml.includes('原文件无法恢复。'));
+assert.ok(vm.runInContext('impactSourceOverview(r)',ctx).includes('原文件无法恢复。'));
 assert.ok(sourceHtml.includes('原史未逐句复核。'));
 assert.ok(!sourceHtml.includes('href='));
 ''')
@@ -1058,14 +1073,15 @@ const source=template.split('<script>')[1].split("document.getElementById('home-
 const artifact=fs.readFileSync('reader/index.html','utf8');
 const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.r={ruler_id:'SYNTHETIC',ruler_name:'合成对象',impact:{source_refs:[
  {kind:'LOCAL_FORMAL_RECORD',path:'docs/历史审计合成.json',ruler_id:'SYNTHETIC',collection:'scores',field_paths:['state_anchors'],parent_ids:['P1'],evidence_note:'只核对这一事实。',use_scope:'SPATIAL_FACT_CHECK_ONLY'},
  {kind:'HISTORICAL_WEB_SOURCE',title:'目录材料',url:'https://example.org/catalogue',evidence_note:'只有目录，未读正文。',verification_mode:'RETRIEVED_CATALOGUE_OR_ABSTRACT_OFFLINE_NOTE',adopted_excerpt:'合成目录所载：甲 < 乙。',adoption_limit:'只证明目录条目，不证明正文事实。'},
 ],related_fact_entries:[{kind:'LOCAL_FORMAL_RECORD',path:'docs/unbound.json',ruler_id:'SYNTHETIC'}]}};
 let html=vm.runInContext('impactSourceList(r,[0])',ctx);
-for(const text of ['历史审计合成.json','scores','state_anchors','P1','只核对这一事实。','仅用于空间事实核对','尚未直接绑定外部原典'])assert.ok(html.includes(text),text);
+for(const text of ['只核对这一事实。','仅用于空间事实核对','尚未直接绑定外部原典'])assert.ok(html.includes(text),text);
+assert.ok(!html.includes('历史审计合成'));
 assert.ok(!html.includes('unbound.json'),'person-level related source must not leak into chain evidence');
 html=vm.runInContext('impactSourceList(r,[1])',ctx);
 assert.ok(html.includes('只有目录，未读正文。'));
@@ -1083,10 +1099,10 @@ for(const indices of [[-1],[9],['0'],null,'bad']){
 }
 ctx.r.impact.source_refs[1].verification_mode='FUTURE_MODE';
 html=vm.runInContext('impactSourceList(r,[1])',ctx);
-assert.ok(html.includes('未识别（FUTURE_MODE）'));
+assert.ok(!html.includes('FUTURE_MODE'));
 html=vm.runInContext('impactSourceOverview(r)',ctx);
 assert.ok(html.includes('不自动充当本节证据'));
-assert.ok(html.includes('unbound.json'));
+assert.ok(!html.includes('unbound'));
 ctx.r.impact.depth_review={source_ref_indices:[1]};
 html=vm.runInContext('historySections(r,"-compare-0",true)',ctx);
 const scope=html.slice(html.indexOf('id="history-dimension-scope-compare-0"'),html.indexOf('id="history-dimension-depth_duration-compare-0"'));
@@ -1098,6 +1114,9 @@ for(const id of ['history-core-chains-compare-0','history-source-overview-compar
 }
 assert.ok(!scope.includes('目录材料'));
 assert.ok(depth.includes('目录材料')&&!depth.includes('尚未单独绑定来源'));
+const overview=html.slice(html.indexOf('id="history-source-overview-compare-0"'));
+assert.ok(overview.includes('data-section="history-dimension-depth_duration-compare-0"'));
+assert.ok(!overview.includes('合成目录所载'));
 // Full-pool parity uses live authored fields, with no frozen source counts.
 let sources=0,chains=0;
 for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')||f.startsWith('HIMPACT-'))){
@@ -1109,7 +1128,7 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
  for(const s of h.source_refs||[]){
   ctx.s=s;const card=vm.runInContext('impactSourceCard(s,r)',ctx);
   for(const key of ['evidence_note','adopted_excerpt'])if(s[key]){
-   ctx.value=s[key];const expected=vm.runInContext(key==='adopted_excerpt'?'esc(value)':'prose(value)',ctx);
+   ctx.value=key==='adopted_excerpt'?(s.reading_adopted_excerpt??s[key]):s[key];const expected=vm.runInContext(key==='adopted_excerpt'?'esc(value)':'prose(value)',ctx);
    assert.ok(card.includes(expected),file+': '+key);
   }
   for(const key of ['verification_mode','use_scope'])if(s[key]){
@@ -1137,7 +1156,7 @@ const record={ruler_id:'synthetic',settlement_readiness:'PENDING_TEST',detail_re
 const block={text:'当前分项尚未齐备，未入榜不能按零分理解。',evidence:[{path:['settlement_readiness'],quote:record.settlement_readiness}]};
 api.validateBlock(block);
 assert.equal(api.assessBlock(block,record).status,'current');
-assert.equal(api.sourceFor(record,['settlement_readiness']).href,record.detail_ref);
+assert.equal(api.sourceFor(record,['settlement_readiness']).href,'#net/synthetic/all');
 assert.equal(api.validPath(['total_score']),false);
 assert.equal(api.validPath(['ruler_id']),false);
 ''')
@@ -1169,8 +1188,8 @@ const source=fs.readFileSync('reader/index.template.html','utf8').split('<script
 const artifact=fs.readFileSync('reader/index.html','utf8');
 const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.c={parent_id:'synthetic',title:'规则 <与> 反馈',mechanism:'正式安排有明确分工。',direction:'MIXED',interfaces:['资源核算','人员归属'],validation_boundary:'未观察长期结果。',attribution:'本人选择，专业官员执行。',source_refs:['docs/synthetic.md']};
 const original=JSON.stringify(ctx.c);
 let html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C4'})",ctx);
@@ -1240,8 +1259,8 @@ const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
 const data=JSON.parse(fs.readFileSync('reader/index.html','utf8').match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
-vm.createContext(ctx);vm.runInContext(source,ctx);
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
+vm.createContext(ctx);runReaderScript(source,ctx);
 let checked=0;
 for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')&&f.endsWith('.json'))){
  ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;

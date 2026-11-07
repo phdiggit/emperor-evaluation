@@ -4,7 +4,7 @@ from __future__ import annotations
 from pathlib import Path
 import re
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.first_item_public_outcomes import (
@@ -22,6 +22,43 @@ POSITIONS = {'LOW':'低位','MID':'中位','HIGH':'高位','HIGHEST':'极端上�
 STATUSES = {'CONFIRMED':'关键结构已证实', 'LOWER_BOUND':'已证实下界，覆盖或上限仍有缺口', 'PROVISIONAL':'关键条件仍待确认'}
 COST_SECTIONS = {'burden':'战争负担', 'losses':'实际损失与已知限度', 'grade_basis':'为什么是这一程度', 'boundary':'计入与排除范围'}
 SOURCE_KINDS = {'战事材料汇集', '史料通读摘要', '公共战役登记', '范围与去重依据', '计分与范围规则'}
+
+
+def reading_sources(fields, refs):
+    from .second_item_c_source_display import bibliographic_source
+
+    cards = []
+    suffixes = dict.fromkeys(match.group(1) for key in fields
+                             if (match := re.fullmatch(r'原典(?:卷篇|上下文|摘录)(\d*)', key)))
+    for suffix in suffixes:
+        title = re.fullmatch(r'\[([^\]]+)\]\((https://[^)]+)\)', fields.get('原典卷篇' + suffix, ''))
+        context, excerpt = (fields.get(key + suffix) for key in ('原典上下文', '原典摘录'))
+        if not title or not context or not excerpt:
+            raise ValueError('第一项公开原典须有卷篇链接、上下文和摘录')
+        label, url = title.groups()
+        citation = bibliographic_source({'source_title': label, 'source_locator': '', 'source_url': url})
+        if citation['source_urls'] != [url]:
+            raise ValueError('第一项公开原典链接无效')
+        cards.append({'title': label, 'url': url, 'context': context, 'quote': excerpt})
+    for ref in dict.fromkeys(refs):
+        parsed = urlparse(ref)
+        if parsed.scheme:
+            if any(card.get('url') == ref for card in cards):
+                continue
+            title = unquote(re.sub(r'^/(?:wiki|zh(?:-[a-z]+)?)/', '', parsed.path)) if parsed.hostname == 'zh.wikisource.org' else ''
+            citation = bibliographic_source({'source_title': title, 'source_locator': '', 'source_url': ref})
+            if citation['source_urls']:
+                cards.append({'title': citation['source_title'] or '所引史源或研究', 'url': ref})
+        else:
+            name = Path(parsed.path).stem
+            label = {
+                'opponent-system-contract': '对手组织与作战条件',
+                '01-战役登记': '战役事实资料',
+            }.get(name) or re.sub(r'^\d+-|(?:非战役)?通读总结|[.-]source-summary', '', name).strip(' -')
+            label = '项目依据 · ' + label if re.search(r'[\u3400-\u9fff]', label) else '项目依据'
+            if {'title': label} not in cards:
+                cards.append({'title': label})
+    return cards
 
 
 def public_text(value: object, field: str) -> str:
@@ -78,6 +115,26 @@ def project_cost(row: dict[str, Any]) -> dict[str, Any]:
         if parsed.scheme not in {'http','https'} or not parsed.netloc:
             raise ValueError('成本公开来源协议无效')
         result['public_source_links'].append({'label':public_text(link['label'],'source label'),'url':link['url']})
+    excerpts = row.get('public_source_excerpts', [])
+    if not isinstance(excerpts, list):
+        raise ValueError('成本公开原典须逐段登记')
+    result['reading_sources'] = []
+    from .second_item_c_source_display import bibliographic_source
+
+    for excerpt in excerpts:
+        if not isinstance(excerpt, dict) or set(excerpt) != {'title', 'url', 'context', 'quote'}:
+            raise ValueError('成本公开原典须有卷篇、链接、上下文和摘录')
+        title = public_text(excerpt['title'], 'source title')
+        url = excerpt['url']
+        if not isinstance(url, str) or not url.startswith('https://') or bibliographic_source({
+            'source_title': title, 'source_locator': '', 'source_url': url,
+        })['source_urls'] != [url]:
+            raise ValueError('成本公开原典链接无效')
+        result['reading_sources'].append({
+            'title': title, 'url': url,
+            'context': public_text(excerpt['context'], 'source context'),
+            'quote': public_text(excerpt['quote'], 'source excerpt'),
+        })
     band = str(row.get('cost_band',''))
     if not re.fullmatch(r'C[0-7]',band) or row.get('cost_position') not in POSITIONS or row.get('evidence_status') not in STATUSES:
         raise ValueError('成本公开等级或证据状态无效')
@@ -137,6 +194,7 @@ def load_first_item_b1_cost_public(root: Path) -> tuple[dict, dict]:
             'docs/公共成果/军事/01-战役登记.json',
             *[ref for ref in inputs[name]['source_refs'] if ref.startswith(('http://', 'https://', 'docs/', 'config/'))],
         ]))
+        record['reading_sources'] = reading_sources(fields, record['public_sources'][1:])
         projected[name] = record
     return (projected,
             {name:project_cost(row) for name,row in cost_by_name.items()})

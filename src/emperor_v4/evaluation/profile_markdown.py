@@ -66,6 +66,27 @@ def _m2_source_display_ref(value: str) -> str:
     return value
 
 
+def profile_source_display(ref: str) -> str:
+    from .second_item_c_source_display import bibliographic_source, project_source_title
+    from urllib.parse import quote
+
+    fixed = re.fullmatch(r'([^/@]+)/卷([^@]+)@(\d+)(?:#(.*))?', ref, flags=re.S)
+    if fixed:
+        book, volume, revision, excerpt = fixed.groups()
+        url = 'https://zh.wikisource.org/wiki/' + quote(f'{book}/卷{volume}', safe='/') + '?oldid=' + revision
+        return f'[《{book}》卷{volume}]({url})' + (f'，定位摘句：{excerpt}' if excerpt else '')
+
+    if ref.startswith(('docs/', 'config/', 'archive/')):
+        name = project_source_title(ref)
+        return f'项目依据 · {name}' if name else '项目依据'
+    if ref.startswith(('https://', 'http://')):
+        source = bibliographic_source({'source_title': '', 'source_locator': '', 'source_url': ref})
+        return f'[查看所引史源]({ref})' if source['source_urls'] else '项目依据'
+    if re.match(r'^(?:SRC-|WAR-|RULER-|MIL-|[CM]\dP-|volume-\d+|[LP]\d{3,})', ref, re.I):
+        return '此条尚未单列公开原典卷篇。'
+    return ref
+
+
 def _m2_parent_lines(parent: dict[str, Any]) -> Iterable[str]:
     yield f"##### {parent.get('evidence_title') or '对外条件与承诺'}"
     yield ''
@@ -81,14 +102,13 @@ def _m2_parent_lines(parent: dict[str, Any]) -> Iterable[str]:
     marriage = parent.get('marriage_policy_review') or {}
     if marriage.get('basis'):
         yield '- 婚姻条件采用范围：' + marriage['basis']
-    for review in parent.get('source_review', []):
-        yield f"- 所读史源：[{review['source_title']}]({review['source_url']})"
-        for key, label in (('passage_locator', '段落定位'), ('adopted_fact', '采用事实'),
-                           ('counterevidence', '反证与限定'), ('limitation', '采用范围')):
-            yield f'- {label}：{review[key]}'
-    refs = list(dict.fromkeys(parent.get('source_refs', []) + parent.get('direct_process_refs', [])))
+    reviews = parent.get('source_review', [])
+    yield from _source_review_lines(reviews, "")
+    reviewed_links = {review['source_url'] for review in reviews}
+    refs = [ref for ref in dict.fromkeys(parent.get('source_refs', []) + parent.get('direct_process_refs', []))
+            if ref not in reviewed_links]
     if refs:
-        yield '- 来源：' + '；'.join(refs)
+        yield '- 来源：' + '；'.join(dict.fromkeys(map(profile_source_display, refs)))
     yield ''
 
 
@@ -233,7 +253,10 @@ def _c3_parent_lines(parent: dict[str, Any]) -> list[str]:
             f"  - 交付与反馈：{_c3_parent_field(parent, 'delivery')}；{_c3_parent_field(parent, 'feedback')}"
         )
         lines.append(f"  - 后续响应：{_c3_parent_field(parent, 'authorization_response')}")
-    refs = _parent_refs(parent)
+    reviews = parent.get('source_review', [])
+    lines.extend(_source_review_lines(reviews))
+    reviewed_links = {review['source_url'] for review in reviews}
+    refs = list(dict.fromkeys(profile_source_display(ref) for ref in _parent_refs(parent) if ref not in reviewed_links))
     if refs:
         display_refs = refs[:C3_DISPLAY_REF_LIMIT]
         suffix = f"；其余{len(refs) - len(display_refs)}条见正式JSON" if len(refs) > len(display_refs) else ""
@@ -351,6 +374,28 @@ def _parent_refs(
     return refs
 
 
+def _source_review_lines(reviews, indent="  "):
+    from .second_item_c_source_display import bibliographic_source
+
+    for review in reviews:
+        citation = bibliographic_source({'source_title': review['source_title'],
+                                         'source_locator': review.get('passage_locator', ''),
+                                         'source_url': review['source_url']})
+        title = citation['source_title'] or '史源采用与限制'
+        if citation['source_urls']:
+            title = f"[{title}]({citation['source_urls'][0]})"
+        yield f"{indent}- **史源采用**：{title}"
+        if citation['source_locator']:
+            yield f"{indent}  - 原文定位：{citation['source_locator']}"
+        for passage in review.get("public_passages", []):
+            yield f"{indent}  - {passage['locator']}。{passage['context']}"
+            for line in passage["quote"].splitlines():
+                yield f"{indent}    > {line}"
+        for key, label in (("adopted_fact", "采用事实"), ("counterevidence", "反证与限定"), ("limitation", "采用范围")):
+            if review.get(key):
+                yield f"{indent}  - {label}：{review[key]}"
+
+
 def _parent_lines(
     parent: dict[str, Any],
     *,
@@ -380,9 +425,12 @@ def _parent_lines(
             ("counterevidence", "反证与限制"),
             ("lifecycle_reasoning", "完整过程的判断依据"),
         )
+        grouped = {}
         for key, label in fields:
             if parent.get(key):
-                yield f"  - **{label}**：{parent[key]}"
+                grouped.setdefault(parent[key], []).append(label)
+        for value, field_labels in grouped.items():
+            yield f"  - **{'／'.join(field_labels)}**：{value}"
         for key, value in (parent.get("boundary_review") or {}).items():
             if value:
                 label = {"m2": "对外关系", "c3": "个人用人授权", "c5": "权力运用与克制", "result_axes": "结果评价"}.get(key, key)
@@ -391,17 +439,19 @@ def _parent_lines(
         lifecycle = parent.get("lifecycle_review")
         if lifecycle and lifecycle != parent.get("basis"):
             yield f"  - **过程补充与验证边界**：{lifecycle}"
-        for review in parent.get("source_review", []):
-            yield f"  - **史源采用**：{review['source_title']}；{review['source_url']}；{review['passage_locator']}"
-            for key, label in (("adopted_fact", "采用事实"), ("counterevidence", "反证与限定"), ("limitation", "采用范围")):
-                yield f"    - {label}：{review[key]}"
+    raw_reviews = parent.get("source_review")
+    reviews = [review for review in raw_reviews if isinstance(review, dict)] if isinstance(raw_reviews, list) else []
+    yield from _source_review_lines(reviews)
     refs = _parent_refs(
         parent,
         compact_sources=compact_sources,
         include_cycle_anchors=include_cycle_anchors,
     )
+    reviewed_links = {review['source_url'] for review in reviews}
+    refs = [ref for ref in refs if ref not in reviewed_links]
     if strip_source_locators:
         refs = list(dict.fromkeys(_m2_source_display_ref(ref) for ref in refs))
+    refs = list(dict.fromkeys(map(profile_source_display, refs)))
     if refs:
         if compact_sources and len(refs) > source_limit:
             display_refs = refs[:source_limit]
@@ -691,13 +741,20 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
                 f"- **材料底池覆盖**：{scope['material_coverage_label']}。\n"
                 f"- **本人能力证据**：{scope['ability_evidence_label']}（`{row['axis_evidence_level']}`）；{scope['conclusion_mode_label']}。"
             )
+        reading_fields = {}
+        if axis == 'C2':
+            reading_fields[row.get('grade_basis')] = ['核心依据']
+        else:
+            reading_fields[row['typical_pattern']] = ['主模式']
+            reading_fields.setdefault(row.get('grade_basis') or '见结构化父链与正式裁决源。', []).append('裁档理由')
+        reading_fields.setdefault(row.get('position_basis') or '由同档材料强度与反例共同确定。', []).append(
+            '档内定位' if axis == 'C2' else '档内位置'
+        )
         lines.extend([
             f"### {display}. {row['ruler_name']}（{row['ruler_id']}）",
             "",
             settlement_line,
-            f"- **{'核心依据' if axis == 'C2' else '主模式'}**：{row.get('grade_basis') if axis == 'C2' else row['typical_pattern']}",
-            *([] if axis == "C2" else [f"- **裁档理由**：{row.get('grade_basis') or '见结构化父链与正式裁决源。'}"]),
-            f"- **{'档内定位' if axis == 'C2' else '档内位置'}**：{row.get('position_basis') or '由同档材料强度与反例共同确定。'}",
+            *(f"- **{'／'.join(field_labels)}**：{value}" for value, field_labels in reading_fields.items()),
             f"- **限制**：{_limitations(row, labels)}",
         ])
         if axis == "C5":
@@ -715,12 +772,14 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
                 lines.append(f"- **不计分材料的边界**：{observation['reason']}")
                 if observation.get("basis"):
                     lines.append(f"  - 事实：{observation['basis']}")
-                lines.append("  - 来源：" + "；".join(observation["source_refs"]))
+                lines.extend(_source_review_lines(observation.get("source_review", [])))
+                lines.append("  - 来源：" + "；".join(dict.fromkeys(map(profile_source_display, observation["source_refs"]))))
         if axis == "C5" and row.get("public_evidence_points"):
             lines.append("- **关键事实与边界**：")
             for point in row["public_evidence_points"]:
                 lines.append(f"  - **{point['title']}**")
                 lines.extend(f"    - {detail}" for detail in point.get("details", []))
+                lines.extend(_source_review_lines(point.get("source_review", []), "    "))
         if axis == "M1":
             stability = row.get("m1_stability_review")
             if stability:
@@ -807,7 +866,7 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
             lines.append("- **代表父链**：当前无闭合父链；不得把缺材料当作负证。")
         if axis == "C5" and row.get("source_refs"):
             lines.append("- **史料与定位**：")
-            lines.extend(f"  - {ref}" for ref in row["source_refs"])
+            lines.extend(f"  - {ref}" for ref in dict.fromkeys(map(profile_source_display, row["source_refs"])))
         lines.append("")
     if axis == "C3":
         lines.extend([

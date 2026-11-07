@@ -845,6 +845,7 @@ def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] 
 
     markdown = path.with_suffix(".md").read_text(encoding="utf-8")
     from emperor_v4.evaluation.second_item_b2_public import render_public_markdown
+    from emperor_v4.evaluation.second_item_c_source_display import display_project_summary
     if render_public_markdown(markdown, {"records": records}) != markdown:
         raise ValueError("第二项B2 Markdown公开正文与正式记录不同值")
     sections = markdown.split("\n### ")[1:]
@@ -875,7 +876,7 @@ def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] 
             raise ValueError(f"第二项B2审查人物仍沿用旧裁决说明：{current['ruler_name']}")
         if any(f"  - {line.rstrip('。')}。" not in section for line in current["settlement_basis"]):
             raise ValueError(f"第二项B2 Markdown结算依据未逐条同步：{current['ruler_name']}")
-        if any(f"  - {line.rstrip('。')}。" not in section for line in current["material_basis"]):
+        if any(f"  - {display_project_summary(line).rstrip('。')}。" not in section for line in current["material_basis"]):
             raise ValueError(f"第二项B2 Markdown材料依据未逐条同步：{current['ruler_name']}")
     material_blocks = re.findall(
         r"^- 材料依据：\n(?P<lines>(?:  - .*\n?)+)", markdown, flags=re.MULTILINE

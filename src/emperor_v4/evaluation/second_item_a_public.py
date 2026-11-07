@@ -141,8 +141,17 @@ def _require_prose(value: object, context: str) -> str:
     return value
 
 
+def display_source_label(source: dict) -> str:
+    label = source["label"]
+    if re.fullmatch(r"材料记录 · [A-Z0-9-]+", label):
+        return "项目材料记录"
+    return label
+
+
 def _public_nodes(row: dict[str, Any]) -> list[dict[str, Any]]:
     """Check identity, direction and weight; preserve authored words exactly."""
+    from .second_item_c_source_display import validate_source_excerpts
+
     nodes = row.get("public_institution_nodes")
     groups = _node_groups(row)
     if not isinstance(nodes, list):
@@ -152,8 +161,9 @@ def _public_nodes(row: dict[str, Any]) -> list[dict[str, Any]]:
         raise ValueError(f"第二项A公开节点与正式身份不一致：{row.get('ruler_name')}")
     for node in nodes:
         context = f"{row.get('ruler_name')} / {node.get('institution_node_id')}"
-        if set(node) != set(PUBLIC_NODE_FIELDS):
+        if set(node) - {"source_excerpts"} != set(PUBLIC_NODE_FIELDS):
             raise ValueError(f"第二项A公开节点字段不完整：{context}")
+        validate_source_excerpts(node.get("source_excerpts", []), "第二项A")
         formal = _merge_group(groups[node["institution_node_id"]])
         if node["public_direction"] != _public_direction(formal) or node["signed_weight"] != _signed_weight(formal):
             raise ValueError(f"第二项A公开节点改变了正式方向或权重：{context}")
@@ -187,6 +197,7 @@ def _public_evidence_items(row: dict[str, Any], nodes: list[dict[str, Any]]) -> 
         "public_boundary": n["public_boundary"], "public_reception": n["public_reception"],
         "public_sources": copy.deepcopy(n["public_sources"]),
         "public_material_ids": copy.deepcopy(n["public_material_ids"]),
+        **({"source_excerpts": copy.deepcopy(n["source_excerpts"])} if n.get("source_excerpts") else {}),
     } for n in nodes]
 
 
@@ -253,6 +264,8 @@ def refresh_public_projection(workspace_root: Path) -> dict[str, Any]:
 
 
 def public_markdown(payload: dict[str, Any]) -> str:
+    from .second_item_c_source_display import is_machine_source
+
     lines = [PUBLIC_MARKER, "## 三、制度建设逐人阅读", "", "正文与定档理由直接读取正式JSON；计算表见上文。没有制度节点的记录只显示证据边界，不计作材料卡。", ""]
     for row in payload["records"]:
         lines += [f"### {row['ruler_name']}", "", row["public_story"], "", "**定档理由：**" + row["public_adjudication_summary"], ""]
@@ -260,7 +273,15 @@ def public_markdown(payload: dict[str, Any]) -> str:
             lines += [f"#### {n['public_label']}（{n['public_direction']}）", "", n["public_adjudication_basis"], "", n["public_reception"], ""]
             if n["public_boundary"]:
                 lines += ["范围与边界：" + n["public_boundary"], ""]
-            lines += ["来源：" + "；".join(f"[{v['label']}]({v['ref']})" for v in n["public_sources"]), ""]
+            for excerpt in n.get("source_excerpts", []):
+                lines += [f"[{excerpt['label']}]({excerpt['url']})", "", excerpt["context"], "",
+                          f"> {excerpt['quote']}", ""]
+            sources = []
+            for source in n["public_sources"]:
+                label, target = display_source_label(source), source['ref']
+                sources.append(f'{label}（此条项目依据未单列阅读入口）' if is_machine_source(target)
+                               else f'[{label}]({target})')
+            lines += ["来源：" + "；".join(dict.fromkeys(sources)), ""]
         lines += ["评价范围：" + row["public_boundary"], ""]
     return "\n".join(lines).rstrip() + "\n"
 

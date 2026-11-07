@@ -180,6 +180,12 @@ def _public_profile_boundary(profile: dict[str, Any]) -> str:
     return text.replace('居民结果归C1/C2/C4', '居民生活、经济财政及恢复与额外代价分别计入对应的治国成效评价')
 
 
+def _profile_source_excerpts(profile: dict[str, Any]) -> list[dict[str, str]]:
+    from .second_item_c_source_display import validate_source_excerpts
+
+    return validate_source_excerpts(profile.get("public_source_excerpts", []), "B1")
+
+
 def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
     items: list[dict[str, Any]] = []
     for profile in _iter_profiles(row):
@@ -195,6 +201,8 @@ def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
             "public_basis": str(profile.get("adjudication_basis") or ""),
             "public_boundary": _public_profile_boundary(profile),
         })
+        if excerpts := _profile_source_excerpts(profile):
+            items[-1]["source_excerpts"] = excerpts
     return items
 
 
@@ -635,6 +643,9 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
             target_id = str(profile.get("absorbed_into_profile_id") or "")
             if target_id:
                 lines.append(f"    - 并入：{target_labels.get(target_id, '对应主运行链')}。")
+            for excerpt in _profile_source_excerpts(profile):
+                lines.extend([f"    - [{excerpt['label']}]({excerpt['url']})", "",
+                              f"      {excerpt['context']}", "", f"      > {excerpt['quote']}", ""])
         lines.extend([material_by_name[row["ruler_name"]], ""])
     return "\n".join(lines).rstrip() + "\n"
 

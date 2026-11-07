@@ -15,10 +15,11 @@ def test_personal_archive_preserves_responsibility_boundaries(tmp_path):
     script = tmp_path / "military.cjs"
     script.write_text(r'''
 const fs = require('node:fs');
+const path = require('node:path');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const app = {innerHTML:''};
-const sandbox = {document:{getElementById:()=>app,querySelector:()=>null},window:{addEventListener(){}}, console};
+const sandbox = {URL,document:{getElementById:()=>app,querySelector:()=>null},window:{addEventListener(){}}, console};
 let source = fs.readFileSync(process.argv[2], 'utf8').replace(/\r\n/g, '\n');
 source = source.replace('\n  route();\n})();', `
   battleIndex = {result_ref_to_battle:{}};
@@ -31,7 +32,9 @@ source = source.replace('\n  route();\n})();', `
   }};
 })();`);
 // The IIFE uses lexical this from the VM global.
-vm.runInNewContext(source, sandbox);
+vm.createContext(sandbox);
+vm.runInContext(fs.readFileSync(path.join(path.dirname(process.argv[2]),'source-links.js'),'utf8'),sandbox);
+vm.runInContext(source, sandbox);
 assert.equal(sandbox.api.directionName('mixed_review'), '正负并存');
 assert.equal(sandbox.api.resultLabel('mixed_review'), '得失量级');
 const item = {canonical_label:'设计方案',campaign_tier:'B',parent_campaign_tier:'S+',parent_combat_difficulty:'D4',result_direction:'positive'};
@@ -47,7 +50,8 @@ const failure = {campaign_ref:'personal-loss',capability_episode_ref:'episode-lo
   assert.equal((rendered.match(/class="achievement"/g)||[]).length,2);
   assert(!rendered.includes('最高关联整场'));
   assert(rendered.includes('个人得失量级 A'));
-  assert(rendered.includes('synthetic.json'));
+  assert(!rendered.includes('synthetic.json'));
+  assert(rendered.includes('此条项目依据未单列阅读入口'));
 })().catch(error=>{console.error(error);process.exitCode=1;});
 ''', encoding="utf-8")
     result = subprocess.run([node, str(script), str(ROOT / "reader/military-archive.js")], capture_output=True, text=True, encoding="utf-8")

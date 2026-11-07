@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import copy
 import json
-import os
 import re
 from pathlib import Path
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
@@ -55,6 +54,28 @@ def public_record(row):
     return result
 
 
+def display_source(ref):
+    from .second_item_c_source_display import bibliographic_source, display_project_summary
+
+    kind = {
+        '史料原文引句（登记转录）': '史料原文引句',
+        '既有史料摘要（含转录引句）': '项目史料摘要（含引句）',
+    }.get(ref['source_kind'], ref['source_kind'])
+    excerpt = ref['public_excerpt']
+    if kind.startswith('项目史料摘要'):
+        excerpt = display_project_summary(excerpt)
+    return {**bibliographic_source(ref), 'source_kind': ref.get('public_source_kind', kind),
+            'public_excerpt': ref.get('public_source_excerpt', excerpt),
+            'source_context': ref.get('public_source_context', ''), 'support_role': ref.get('support_role', '')}
+
+
+def display_reason(record):
+    summary = record['public_adjudication_summary']
+    story = record['public_story']
+    prefix = summary.removesuffix(story).rstrip()
+    return prefix if summary.endswith(story) and prefix.endswith('。') else summary
+
+
 def _verify_text(value, *, name):
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f'D1/D3公开正文为空：{name}')
@@ -90,6 +111,10 @@ def _verify_source(root, ref, cache):
             raise ValueError(f'D1/D3史源缺少{key}')
     if 'public_excerpt' in ref:
         raise ValueError('D1/D3只保存原始引文，不得内嵌展示引文副本')
+    for key in ('public_source_title', 'public_source_kind', 'public_source_excerpt',
+                'public_source_context', 'public_source_locator', 'public_source_url'):
+        if key in ref and (not isinstance(ref[key], str) or not ref[key].strip()):
+            raise ValueError(f'D1/D3公开史源说明为空：{key}')
     if not _plain_source_excerpt(ref['excerpt']):
         raise ValueError('D1/D3展示引文为空')
     relative = Path(ref['path'])
@@ -172,16 +197,23 @@ def render_public_markdown(payload, axis):
         grade = int(row['handoff_level'][-1] if axis == 'D1' else row['D3_grade'][-1])
         lines += [f'## {row["ruler_name"]}（{row["polity"]}）', '',
                   f'- 公开档位：{"EDCBAS"[grade]}；内部指数：{row["direction_index"]}。', '',
-                  row['public_story'], '', '**为什么这样评**', '', row['public_adjudication_summary'], '',
+                  row['public_story'], '', '**为什么这样评**', '', display_reason(row), '',
                   f'观察范围：{row["public_window"]}', '', f'本人责任：{row["public_responsibility"]}', '',
                   f'评价限制：{row["public_boundary"]}', '']
         for item in row['public_evidence_items']:
             lines += [f'### {item["public_label"]}（{MODES[item["evidence_mode"]]}）', '', item['public_basis'], '', item['public_boundary'], '']
-            for ref in item['source_refs']:
-                target = os.path.relpath(ref['path'], D1_PATH.parent).replace('\\', '/')
-                lines += [f'- {ref["source_kind"]} · {ref["source_title"]} · {ref["source_locator"]}', '',
-                          '\n'.join('> ' + line.rstrip() if line.rstrip() else '>' for line in ref['public_excerpt'].split('\n')), '',
-                          f'[查看所引记录]({target})' + (f' · [查看史源]({ref["source_url"]})' if ref.get('source_url', '').startswith('https://') else ''), '']
+            for raw in item['source_refs']:
+                ref = display_source(raw)
+                citation = ' · '.join(ref[key] for key in ('source_kind', 'source_title', 'source_locator') if ref[key])
+                lines += [f'- {citation}', '']
+                if ref['source_context']:
+                    lines += [ref['source_context'], '']
+                if ref['public_excerpt'] != item['public_basis']:
+                    lines += ['\n'.join('> ' + line.rstrip() if line.rstrip() else '>' for line in ref['public_excerpt'].split('\n')), '']
+                if ref.get('support_role'):
+                    lines += [ref['support_role'], '']
+                if ref['source_urls']:
+                    lines += [' · '.join(f'[查看所引史源]({url})' for url in ref['source_urls']), '']
     return '\n'.join(lines).rstrip() + '\n'
 
 

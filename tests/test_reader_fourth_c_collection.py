@@ -73,10 +73,11 @@ let entries=[];const events={},nodes={};
 for(const id of ['search','count','location-note'])nodes[id]={value:'',textContent:'',addEventListener:(event,cb)=>{events[id+':'+event]=cb;}};
 nodes['fourth-c-data']={textContent:raw};
 nodes.entries={set innerHTML(text){entries=[...text.matchAll(/<article class="person" id="([^"]+)">([\s\S]*?)(?=<article class="person" id=|$)/g)].map(m=>({id:decode(m[1]),textContent:decode(m[2].replace(/<[^>]*>/g,'')),hidden:false,scrolled:0,scrollIntoView(){this.scrolled++;}}));}};
-const ctx={location:{hostname:'127.0.0.1',hash:'#'+encodeURIComponent(data[0].ruler_id)},document:{getElementById:id=>nodes[id],querySelectorAll:()=>entries},window:{addEventListener:(event,cb)=>{events[event]=cb;}}};vm.createContext(ctx);
+const ctx={URL,location:{hostname:'127.0.0.1',hash:'#'+encodeURIComponent(data[0].ruler_id)},document:{getElementById:id=>nodes[id],querySelectorAll:()=>entries},window:{addEventListener:(event,cb)=>{events[event]=cb;}}};vm.createContext(ctx);
 for(const script of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)){
  if(script[1].includes('application/json'))continue;
- if(script[1].includes('src='))vm.runInContext(fs.readFileSync(path.join(root,'reader/fourth-item-c-public.js'),'utf8'),ctx);
+ const src=script[1].match(/\bsrc="([^"]+)"/)?.[1];
+ if(src)vm.runInContext(fs.readFileSync(path.join(root,'reader',src),'utf8'),ctx);
  else vm.runInContext(script[2],ctx);
 }
 assert.equal(entries.length,data.length);assert.equal(entries[0].scrolled,1);

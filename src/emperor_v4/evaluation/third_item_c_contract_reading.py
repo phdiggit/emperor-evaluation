@@ -40,7 +40,8 @@ def load_context(root):
                 raise ValueError('对手窗口评定缺少主体、投入范围、具体依据或逐字出处')
     parent_payload = json.loads((root / PARENT_SOURCE).read_text(encoding='utf-8'))
     parents = {(r['ruler_id'], c['cycle_ref']): c for r in parent_payload['people'] for c in r['parent_cycles']}
-    return {'systems': systems, 'o_grades': contract['grades'], 'parent_cycles': parents}
+    return {'systems': systems, 'o_grades': contract['grades'], 'parent_cycles': parents,
+            'source_root': root, 'source_volumes': {}}
 
 
 def _unique(values):

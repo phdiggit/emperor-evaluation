@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import pytest
 from emperor_v4.evaluation.third_fourth_item_public import _level_label
-from emperor_v4.evaluation.third_item_a_public import calculation, reading_projection
+from emperor_v4.evaluation.third_item_a_public import calculation, display_reading, reading_projection
 from emperor_v4.evaluation.formal_json_store import load_json
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -147,6 +147,9 @@ def test_current_sources_and_all_reader_surfaces_share_a_reading():
     seen=0
     pool=load_json(ROOT/'config/common/canonical-ruler-pool.json')
     pool_by_id={row['ruler_id']:row for row in pool['records']}
+    from emperor_v4.evaluation.profile_m1_public import load_archive_context
+    from emperor_v4.evaluation.third_item_b_sources import battle_source_routes
+    battle_routes=battle_source_routes(load_archive_context(ROOT))
     for path in (ROOT/'reader/data/people').glob('*.json'):
         row=json.loads(path.read_text(encoding='utf-8'))['record']
         for item in (row.get('net') or {}).get('component_details',{}).get('strategic',[]):
@@ -154,7 +157,7 @@ def test_current_sources_and_all_reader_surfaces_share_a_reading():
             # Third-item source IDs are those declared by the canonical pool.
             canonical=pool_by_id[row['ruler_id']]
             source_id=canonical['source_item_ids']['third_item']
-            assert item['reader_public_a'] == expected[source_id,item['label']]
+            assert item['reader_public_a'] == display_reading(expected[source_id,item['label']], battle_routes=battle_routes)
             assert item['reader_how'] == item['reader_public_a']['calculation']
             seen+=1
     assert seen

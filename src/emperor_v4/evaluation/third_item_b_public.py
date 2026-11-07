@@ -167,6 +167,8 @@ def reading_projection(axis_name, row, credit):
 
 
 def verify_sources(root: Path, payload):
+    from .second_item_c_source_display import bibliographic_source
+
     checked = set(); contents = {}
     def non_public(value):
         if isinstance(value, dict):
@@ -179,6 +181,14 @@ def verify_sources(root: Path, payload):
             reading = readings[key]
             refs = list(reading['sources']) + [ref for item in reading['evidence_items'] for ref in item['sources']]
             for ref in refs:
+                if 'public_citation' in ref:
+                    citation = ref['public_citation']
+                    fields = {'title', 'url', 'context', 'quote'}
+                    if (not isinstance(citation, dict) or set(citation) != fields
+                            or any(not isinstance(value, str) or not value.strip() for value in citation.values())
+                            or bibliographic_source({'source_title': citation['title'], 'source_locator': '',
+                                                     'source_url': citation['url']})['source_urls'] != [citation['url']]):
+                        raise ValueError('第三项B公开原典引用缺少书目、链接、上下文或原文')
                 target = ref.get('path', '')
                 identity = (target, ref.get('binding'))
                 if identity in checked: continue

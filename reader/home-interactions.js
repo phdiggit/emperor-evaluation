@@ -13,18 +13,26 @@ function firstAReadingMarkup(item, record) {
   const facts = [["起点", outcome.public_outcome_basis], ["成果范围", outcome.public_scope], ["具体范围说明", outcome.public_boundary]]
     .filter(([, value]) => value)
     .map(([label, value]) => `<dt>${esc(label)}</dt><dd>${prose(value)}</dd>`).join("");
-  const method = `<details class="first-a-method"><summary>查看尺度、计算与史料</summary>${scale ? prose(scale) : ""}${prose(outcome.public_scale_basis)}${prose(item.reader_how || "")}${sources ? `<p class="sources">${sources}</p>` : ""}</details>`;
+  const evidence = firstOrganizationSources({reading_sources: outcome.reading_sources}, record);
+  const method = `<details class="first-a-method"><summary>查看尺度、计算与史料</summary>${scale ? prose(scale) : ""}${prose(outcome.public_scale_basis)}${prose(item.reader_how || "")}${evidence}${sources ? `<p class="sources">${sources}</p>` : ""}</details>`;
   return `<div class="first-a-eyebrow">奠基与统一 · 成果</div><div class="first-a-heading"><h3>${esc(outcome.public_question)}</h3><span class="first-a-score">${esc(item.value)}<small> / 120</small></span></div><div class="first-a-story">${prose(outcome.public_story)}</div><details class="first-a-attribution"><summary>展开成果与归属</summary>${outcome.public_project ? `<p class="first-a-project">共同项目：${esc(outcome.public_project)}</p>` : ""}<dl>${facts}</dl>${method}</details><p class="first-a-directory-link"><a href="first-item-a.html">浏览其他人物的统一成果 →</a></p>`;
 }
 
-// All B1 judgments, prose, arithmetic and source references are published upstream.
+function firstOrganizationSources(data, record) {
+  const cards = (data.reading_sources || []).map(source => {
+    const title = source.url ? link(source.url, source.title + " ↗", record) : esc(source.title);
+    return `<section><p>${title}</p>${source.context ? prose(source.context) : ""}${source.quote ? `<blockquote>${esc(source.quote)}</blockquote>` : ""}</section>`;
+  }).join("");
+  const formal = data.public_sources?.[0];
+  return cards + (formal ? `<p class="sources">${link(formal, "查看本轴正式结算 ↗", record)}</p>` : "");
+}
+
 function firstB2ReadingMarkup(item, record) {
   const data = item?.reader_public_b2;
   if (!data?.public_question || !data?.public_story || !Array.isArray(data.dimensions)) return '<p class="notice">本人的组织与协作说明尚未同步。</p>';
   const components = data.dimensions.map(d=>`<span>${esc(d.label)} <b>${esc(d.points)}</b><small> / 10</small></span>`).join("");
   const reasons = data.dimensions.map(d=>`<dt>${esc(d.label)} · ${esc(d.points)}/10</dt><dd>${prose(d.basis)}</dd>`).join("");
-  const sources = (data.public_sources || []).map(ref=>link(ref,"查看依据 ↗",record)).join(" ");
-  const method = `<details class="first-b2-method"><summary>查看三项裁决、限制与史料</summary>${prose(data.public_method)}<dl>${reasons}</dl><p class="sources">${sources}</p></details>`;
+  const method = `<details class="first-b2-method"><summary>查看三项裁决、限制与史料</summary>${prose(data.public_method)}<dl>${reasons}</dl>${firstOrganizationSources(data, record)}</details>`;
   return `<div class="first-a-eyebrow">奠基与统一 · 组织与协作</div><div class="first-a-heading"><h3>${esc(data.public_question)}</h3><span class="first-a-score">${esc(data.total_points)}<small> / 30</small></span></div><div class="first-a-story">${prose(data.public_story)}</div><div class="first-b1-components">${components}</div><details class="first-b2-facts"><summary>展开当时的职责与本人作用</summary><dl><dt>评价时期</dt><dd>${prose(data.public_window)}</dd><dt>本人实际授权与调度</dt><dd>${prose(data.public_control)}</dd></dl>${method}</details><p class="first-a-directory-link"><a href="first-item-b2.html">浏览其他人物的组织与协作 →</a></p>`;
 }
 
@@ -34,8 +42,7 @@ function firstB1ReadingMarkup(item, record) {
   const components = [["起点难度",data.start_points,15],["对手压力",data.opponent_points,15],["成果效率",data.efficiency_points,20]]
     .map(([label,value,cap])=>`<span>${label} <b>${esc(value)}</b><small> / ${cap}</small></span>`).join("");
   const facts = firstB1Markup(item);
-  const sources = (data.public_sources || []).map(ref=>link(ref,"查看依据 ↗",record)).join(" ");
-  const method = `<details class="first-b1-method"><summary>查看分数计算与史料</summary>${prose(data.public_method)}${prose(data.public_calculation)}<p class="sources">${sources}</p></details>`;
+  const method = `<details class="first-b1-method"><summary>查看分数计算与史料</summary>${prose(data.public_method)}${prose(data.public_calculation)}${firstOrganizationSources(data, record)}</details>`;
   return `<div class="first-a-eyebrow">奠基与统一 · 条件与效率</div><div class="first-a-heading"><h3>${esc(data.public_question)}</h3><span class="first-a-score">${esc(item.value)}<small> / 50</small></span></div><div class="first-a-story">${prose(data.public_story)}</div><div class="first-b1-components">${components}</div><details class="first-b1-facts"><summary>展开家底、实际对手与计时</summary>${facts}${method}</details><p class="first-a-directory-link"><a href="first-item-b1.html">浏览其他人物的创业条件与效率 →</a></p>`;
 }
 
@@ -83,7 +90,10 @@ function firstCostMarkup(item, record) {
     .map(source => `<a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.label)} ↗</a>`).join(" ");
   const sections = (data.public_sections || []).map(section => `<section class="first-cost-section"><h4>${esc(section.title)}</h4>${prose(section.text)}</section>`).join("");
   const records = (data.public_source_records || []).map(source => `<li><span>${esc(source.kind)} · </span>${link(source.path, source.label + " ↗", record)}${source.source_url ? ` · <a href="${esc(source.source_url)}" target="_blank" rel="noopener">回查所引卷篇 ↗</a>` : ""}</li>`).join("");
-  const evidence = `<details class="first-cost-sources"><summary>核对所据材料与原书入口</summary>${prose(data.public_source_note || "")}${records ? `<ul class="sources">${records}</ul>` : ""}${sources ? `<div class="label">逐事补充史源</div><p class="sources">${sources}</p>` : ""}</details>`;
+  const excerpts = firstOrganizationSources({reading_sources: data.reading_sources}, record);
+  const formalRef = item.reader_source_refs?.find(ref => ref.includes("06-军事成本正式裁决.json"));
+  const formal = formalRef ? `<p class="sources">${link(formalRef, "查看军事成本正式裁决 ↗", record)}</p>` : "";
+  const evidence = `<details class="first-cost-sources"><summary>核对所据材料与原书入口</summary>${excerpts}${prose(data.public_source_note || "")}${records ? `<ul class="sources">${records}</ul>` : ""}${sources ? `<div class="label">逐事补充史源</div><p class="sources">${sources}</p>` : ""}${formal}</details>`;
   return `${facts}<details class="first-cost-evidence"><summary>完整成本依据与史料</summary>${sections}${data.public_status_label ? prose(data.public_status_label) : ""}${gaps ? `<div class="label">证据缺口</div><ul>${gaps}</ul>` : ""}${evidence}</details>`;
 }
 
@@ -98,12 +108,20 @@ function firstCommanderMarkup(item, record) {
     return '<p class="notice">本人统帅的公开说明尚未同步。</p>';
   }
   const battles = source.public_battles.length
-    ? `<div class="first-c-positive"><h4>已定档的正向结果</h4><p class="subline">“战役成果”和“任务难度”使用军事材料自己的字母刻度，不是人物画像等级。这里只列该次正向结果；同场受挫在下方合看。</p><ul class="first-item-battles">${source.public_battles.map(battle => `<li><strong>${esc(battle.name)}</strong> · ${esc(battle.role)} · 战役成果：${esc(battle.result)} · ${esc(battle.difficulty ? `任务难度：${battle.difficulty}` : '任务难度：未单列')} ${battle.archive_url ? `<a href="${esc(battle.archive_url)}">查看战役档案 ↗</a>` : battle.public_source ? link(battle.public_source,"查看公共本人条目 ↗",record) : `<a href="military.html#search=${encodeURIComponent(battle.name)}">检索相关战事 ↗</a>`}</li>`).join('')}</ul></div>`
+    ? `<div class="first-c-positive"><h4>已定档的正向结果</h4><p class="subline">“战役成果”和“任务难度”使用军事材料自己的字母刻度，不是人物画像等级。这里只列该次正向结果；同场受挫在下方合看。</p><ul class="first-item-battles">${source.public_battles.map(battle => `<li><strong>${esc(battle.name)}</strong> · ${esc(battle.role)} · 战役成果：${esc(battle.result)} · ${esc(battle.difficulty ? `任务难度：${battle.difficulty}` : '任务难度：未单列')} ${battle.archive_url ? `<a href="${esc(battle.archive_url)}">查看战役档案 ↗</a>` : ""}</li>`).join('')}</ul></div>`
     : '';
-  const setbacks = source.public_setbacks.length ? `<div class="first-c-setbacks"><h4>同时保留的受挫与损失</h4>${source.public_setbacks.map(row=>`<div class="first-c-setback"><strong>${esc(row.name)}</strong><span class="first-c-direction">${esc(row.direction)}</span>${prose(row.process)}${(row.public_sources || []).map(ref=>link(ref,"核对公共登记 ↗",record)).join(" ")}</div>`).join("")}</div>` : "";
-  const sources = (source.public_sources || []).map(ref=>link(ref,"查看依据 ↗",record)).join(" ");
-  const evidence = (source.public_evidence || []).length ? `<details class="first-c-registry"><summary>逐条对照公共战役登记</summary><p class="subline first-c-registry-note">每条先列第一项 C 的现行处置、责任范围和理由，再列公共战役登记原文。原文中的评审用语与旧档位保留供核对；本项采用情况以现行处置及上方战果、受挫清单为准。</p>${source.public_evidence.map(row=>`<article class="first-c-evidence-entry"><h4>${esc(row.label)}</h4><span class="first-c-direction">${esc(row.disposition)}</span>${prose(row.window_basis)}${prose(row.reason)}<dl>${(row.public_facts || []).map(([label,value])=>`<dt>${esc(label)}</dt><dd>${prose(value)}</dd>`).join("")}</dl>${link(row.public_source,"查看所在公共登记分片 ↗",record)}<p class="sources">${row.source_refs.map(ref=>esc(ref)).join("<br>")}</p></article>`).join("")}</details>` : "";
-  const method = `<details class="first-c-method"><summary>查看评价、胜败依据、规则与史料</summary><div class="label">当前评价</div>${prose(source.public_basis)}<div class="label">具体范围与责任边界</div>${prose(source.public_boundary)}${battles}${setbacks}${evidence}${prose(source.public_method)}<p class="sources">${sources}</p></details>`;
+  const setbacks = source.public_setbacks.length ? `<div class="first-c-setbacks"><h4>同时保留的受挫与损失</h4>${source.public_setbacks.map(row=>`<div class="first-c-setback"><strong>${esc(row.name)}</strong><span class="first-c-direction">${esc(row.direction)}</span>${prose(row.process)}${(row.archive_urls || []).map(url=>`<a href="${esc(url)}">查看战役档案 ↗</a>`).join(" ")}</div>`).join("")}</div>` : "";
+  const evidenceSources = new Set((source.public_evidence || []).map(row => row.public_source));
+  const sources = (source.public_sources || []).filter(ref => !evidenceSources.has(ref))
+    .map(ref => link(ref, "查看规则与补充依据 ↗", record)).join(" ");
+  const sentences = value => String(value || "").split(/(?<=[。！？])/);
+  const covered = new Set([...sentences(source.public_cases), ...sentences(source.public_boundary)].map(sentence => sentence.trim()));
+  const basis = sentences(source.public_basis).filter(sentence => !covered.has(sentence.trim())).join("").trim();
+  const judgment = basis ? `<div class="label">当前评价</div>${prose(basis)}` : "";
+  const citations = row => (row.reading_citations || []).map(ref => `<section><p>${link(ref.url, ref.title + " ↗", record)}</p>${ref.context ? prose(ref.context) : ""}${ref.quote ? `<blockquote>${esc(ref.quote)}</blockquote>` : ""}${ref.locator_excerpt ? `<p class="meta">定位摘句：${esc(ref.locator_excerpt)}</p>` : ""}</section>`).join("")
+    || '<p class="meta">此条尚未单列可直接打开的原典卷篇。</p>';
+  const evidence = (source.public_evidence || []).length ? `<details class="first-c-registry"><summary>逐条事实、采用范围与史源</summary>${source.public_evidence.map(row=>`<article class="first-c-evidence-entry"><h4>${esc(row.label)}</h4><span class="first-c-direction">${esc(row.disposition)}</span>${prose(row.window_basis)}${prose(row.reason)}<dl>${(row.public_facts || []).map(([label,value])=>`<dt>${esc(label)}</dt><dd>${prose(value)}</dd>`).join("")}</dl>${citations(row)}${row.archive_url ? `<p><a href="${esc(row.archive_url)}">查看战役档案 ↗</a></p>` : ""}</article>`).join("")}</details>` : "";
+  const method = `<details class="first-c-method"><summary>查看评价、胜败依据、规则与史料</summary>${judgment}<div class="label">具体范围与责任边界</div>${prose(source.public_boundary)}${battles}${setbacks}${evidence}${prose(source.public_method)}<p class="sources">${sources}</p></details>`;
   return `<div class="first-item-commander-public"><div class="first-a-eyebrow">奠基与统一 · 本人统帅</div><div class="first-a-heading"><h3>${esc(source.public_question)}</h3><span class="first-a-score">${esc(source.total_points)}<small> / 40</small></span></div><div class="first-a-story">${prose(source.public_story)}</div><details class="first-c-facts"><summary>展开战争范围与本人指挥</summary><dl><dt>评价时期</dt><dd>${prose(source.public_window)}</dd><dt>本人责任与独立任务</dt><dd>${prose(source.public_cases)}</dd></dl>${method}</details><p class="first-a-directory-link"><a href="first-item-c.html">浏览其他人物的战争解题 →</a></p></div>`;
 }
 
@@ -493,6 +511,17 @@ function firstCommanderMarkup(item, record) {
       return link(ref, label, record);
     }).join(" ");
     return `<details class="net-audit-sources"><summary>正式文档与史料</summary><p class="subline">这些链接指向整份正式文件，供读者核对；上面的当前人物事实才是正文。</p><p class="sources">${links}</p></details>`;
+  }
+
+  function militarySourceCards(sources, record) {
+    if (!sources?.length) return "";
+    const cards = sources.map(source => {
+      const title = source.title || "查看所引史源";
+      const citation = source.url ? link(source.url, title + " ↗", record) : esc(source.title);
+      const excerpt = !source.text ? "" : source.summary ? prose(source.text) : `<blockquote>${esc(source.text)}</blockquote>`;
+      return `<section><h4>${esc(source.label)}</h4><p class="meta">${esc(source.kind)} ${citation}</p>${source.context ? prose(source.context) : ""}${excerpt}${source.boundary ? prose("采用范围：" + source.boundary) : ""}</section>`;
+    }).join("");
+    return `<details class="net-military-source-cards"><summary>所引史料与采用范围</summary><p class="subline">所列材料也用于核对时间、参战方和归责。实际计入的本方损失以成本裁决为准。</p>${cards}</details>`;
   }
 
   const MATERIAL_CARD_GROUPS = new Set(["strategic", "military", "civilization"]);
@@ -1034,20 +1063,20 @@ function firstCommanderMarkup(item, record) {
       ? `<details><summary>当前人物的完整裁决原文</summary>${prose(fullBasis)}</details>`
       : "";
     const materialCards = metricMaterialCards(item, groupKey);
-    const summaryFold = structuredMaterials && summary
+    const summaryFold = structuredMaterials && summary && !publicEvidence.some(entry => formatPublic(entry?.public_basis || "") === summary)
       ? `<details class="net-material-summary"><summary>总体裁决摘要</summary>${prose(summary)}</details>`
       : "";
     const facts = materialCards || (highlights.length
       ? `<div class="label">关键事实</div><ul>${highlights.map(text => `<li>${esc(text)}</li>`).join("")}</ul>`
       : "");
-    const limit = boundary
+    const limit = boundary && !(structuredMaterials && publicEvidence.some(entry => formatPublic(entry?.public_boundary || "") === boundary))
       ? materialCards
         ? `<details class="net-overall-boundary"><summary>总体范围与边界</summary>${prose(boundary)}</details>`
         : `<div class="label">限制与边界</div>${prose(boundary)}`
       : "";
     const formula = scoreHowDetails(item, groupKey, how, formalLevel, record);
     const secondSource = SECOND_PUBLIC_GROUPS.has(groupKey) ? ` data-second-source-label="${esc(item.label)}"` : "";
-    return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevelDisplay ? `<small class="net-formal-level">当前判断：${esc(formalLevelDisplay)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${summaryFold}${limit}${formula}${full}${auditSourceBlock(item, record)}</div></details>`;
+    return `<details class="net-metric-detail"${secondSource}><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}${formalLevelDisplay ? `<small class="net-formal-level">当前判断：${esc(formalLevelDisplay)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${logic ? `<div class="label">当前人物结算逻辑</div>${prose(logic)}` : ""}${facts}${summaryFold}${limit}${formula}${full}${militarySourceCards(item.reader_military_sources, record)}${auditSourceBlock(item, record)}</div></details>`;
   }
 
   const PUBLIC_CALCULATION_KEEP = {

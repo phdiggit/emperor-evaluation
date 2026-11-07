@@ -72,11 +72,12 @@ const fs=require('node:fs'), assert=require('node:assert/strict');
 const source=fs.readFileSync('reader/home-interactions.js','utf8');
 const helpers=source.slice(source.indexOf('function firstB1Markup'),source.indexOf('function firstCommanderMarkup'));
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-const {b1,cost}=new Function('esc','prose','link',helpers+';return {b1:firstB1Markup,cost:firstCostMarkup}')(esc,s=>'<p>'+esc(s)+'</p>',(ref,label)=>'<a href="'+esc(ref)+'">'+esc(label)+'</a>');
+const materialSource=source.slice(source.indexOf('function firstOrganizationSources'),source.indexOf('function firstB2ReadingMarkup'));
+const {b1,cost}=new Function('esc','prose','link',materialSource+helpers+';return {b1:firstB1Markup,cost:firstCostMarkup}')(esc,s=>'<p>'+esc(s)+'</p>',(ref,label)=>'<a href="'+esc(ref)+'">'+esc(label)+'</a>');
 const stages='先完成甲段。后完成乙段；两段分别计时，不据此推定总年数。';
 assert.ok(b1({reader_public_b1:{public_efficiency_basis:stages}}).includes(stages));
 const entryStart=source.indexOf('function firstB1ReadingMarkup'), entryEnd=source.indexOf('// Formal public fields are shared',entryStart);
-const entry=new Function('esc','prose','link','firstB1Markup',source.slice(entryStart,entryEnd)+'return firstB1ReadingMarkup;')(esc,s=>'<p>'+esc(s)+'</p>',ref=>'<a>'+esc(ref)+'</a>',b1);
+const entry=new Function('esc','prose','link','firstB1Markup',materialSource+source.slice(entryStart,entryEnd)+'return firstB1ReadingMarkup;')(esc,s=>'<p>'+esc(s)+'</p>',ref=>'<a>'+esc(ref)+'</a>',b1);
 const entryHtml=entry({value:25,reader_public_b1:{public_question:'合成问题？',public_story:'正文保留完整含义。',public_efficiency_basis:stages,public_method:'合成规则。',public_calculation:'合成计算。',start_points:5,opponent_points:0,efficiency_points:20,public_sources:['docs/source.md']}},{});
 for(const text of ['合成问题？','正文保留完整含义。',stages,'合成计算。','docs/source.md'])assert.ok(entryHtml.includes(text));
 assert.ok(entryHtml.indexOf('正文保留完整含义。')<entryHtml.indexOf('<details class="first-b1-facts">'));
@@ -87,9 +88,11 @@ const html=cost({reader_public_cost:{public_level_label:'中等成本（第3级�
 assert.ok(html.includes('中等成本（第3级／0—7级）'));
 assert.ok(html.indexOf(basis)>html.indexOf('<details class="first-cost-evidence">'));
 for(const text of [basis,'只含本人时期。','上限尚不明确。','https://example.org/source']) assert.ok(html.includes(text));
-const structured=cost({reader_public_cost:{public_sections:[{title:'战争负担',text:'主力实际执行运输。'},{title:'实际损失与已知限度',text:basis}],public_source_records:[{path:'docs/source.md#合成战事',label:'具名材料',kind:'战事材料汇集',source_url:'https://example.org/original'}],public_source_note:'摘要不能冒充原文。'}});
+const structured=cost({reader_public_cost:{public_sections:[{title:'战争负担',text:'主力实际执行运输。'},{title:'实际损失与已知限度',text:basis}],reading_sources:[{title:'合成原典卷篇',url:'https://example.org/chapter',context:'史家记述。',quote:'合成原文。'}],public_source_records:[{path:'docs/source.md#合成战事',label:'具名材料',kind:'战事材料汇集',source_url:'https://example.org/original'}],public_source_note:'摘要不能冒充原文。'}});
 for(const text of ['<h4>战争负担</h4>','主力实际执行运输。',basis,'docs/source.md#合成战事','具名材料','https://example.org/original'])assert.ok(structured.includes(text));
 assert.ok(structured.indexOf('具名材料')>structured.indexOf('<details class="first-cost-sources">'));
+assert.ok(structured.includes('https://example.org/chapter'));
+assert.ok(structured.indexOf('<blockquote>合成原文。</blockquote>') < structured.indexOf('具名材料'));
 ''',encoding='utf-8')
     result=subprocess.run([node,str(script)],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
     assert result.returncode == 0,result.stderr

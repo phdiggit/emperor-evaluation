@@ -62,6 +62,7 @@ def _text(value: Any) -> str:
 
 
 def render(payload: dict[str, Any]) -> str:
+    from .profile_markdown import _source_review_lines, profile_source_display
     lines = ['# C4 治理架构与制度设计能力正式结算', '',
              '> 独立人物画像轴。正式JSON为唯一当前档位真源。', '',
              '## 阅读说明', '',
@@ -103,21 +104,16 @@ def render(payload: dict[str, Any]) -> str:
             lines.extend(['', f"- 正式方向：{parent['direction']}；归责：{parent['attribution']}"])
             if parent.get('consumption_status'):
                 lines.append(f"- 材料用途：{parent['consumption_status']}")
-            for source in parent.get('source_review', []):
-                lines.extend(['', f"- 所读史源：[{source['source_title']}]({source['source_url']})"])
-                for key, label in (('passage_locator', '段落定位'), ('adopted_fact', '采用事实'),
-                                   ('counterevidence', '反证与限定'), ('limitation', '采用范围')):
-                    if source.get(key):
-                        lines.append(f"- {label}：{source[key]}")
+            lines.extend(_source_review_lines(parent.get('source_review', []), ""))
             if parent.get('historical_source_descriptions'):
                 lines.extend(['', '来源说明：' + '；'.join(parent['historical_source_descriptions'])])
-            refs = list(dict.fromkeys(parent['source_refs'] + parent.get('direct_process_refs', [])))
-            lines.extend(['', '- 过程依据：' + '；'.join(f'`{ref}`' for ref in refs)])
+            refs = dict.fromkeys(map(profile_source_display, parent['source_refs'] + parent.get('direct_process_refs', [])))
+            lines.extend(['', '- 过程依据：' + '；'.join(refs)])
         if row.get('horizontal_calibration'):
             lines.extend(['', '#### 同轴比较', '', row['horizontal_calibration']['decision_basis']])
             for item in row['horizontal_calibration']['comparators']:
                 lines.append(f"- `{item['ruler_id']}`：{item['comparison']}")
-        lines.extend(['', '- 来源：' + '；'.join(f'`{ref}`' for ref in row['source_refs'])])
+        lines.extend(['', '- 来源：' + '；'.join(dict.fromkeys(map(profile_source_display, row['source_refs'])))])
     return '\n'.join(lines) + '\n'
 
 

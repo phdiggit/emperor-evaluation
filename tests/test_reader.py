@@ -65,6 +65,7 @@ def test_method_public_projection_preserves_all_nodes_and_boundaries():
         "public_direction": "正向",
         "public_basis": "\n\n".join((node["public_adjudication_basis"], node["public_scope"], node["public_reception"])),
         "public_boundary": node["public_boundary"],
+        "public_sources": [{"label": "合成书目", "ref": "https://example.org/source", "kind": "史料原文"}],
     } for node in nodes]
     result = builder._attach_method_public_reader(
         {}, axis="A", record={

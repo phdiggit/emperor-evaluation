@@ -106,7 +106,7 @@
   function sourceFor(record, path) {
     const id = encodeURIComponent(record.ruler_id);
     if (path[0] === "settlement_readiness") {
-      return {href: record.detail_ref, label: "本人当前记录 · 结算状态"};
+      return {href: `#net/${id}/all`, label: "查看本人结算状态"};
     }
     if (path[0] === "axes") {
       return {href: `#person/${id}/profile/${path[1]}`, label: "查看本轴依据"};
@@ -146,7 +146,11 @@
         }
         item.append(anchor);
       }
-      item.append(el("q", "", ref.quote));
+      if (ref.path[0] === "settlement_readiness") {
+        item.append(el("span", "note-provenance", missingNetStatus(record)));
+      } else {
+        item.append(el("q", "", ref.quote));
+      }
       list.append(item);
     }
     fold.append(list);

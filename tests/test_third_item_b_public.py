@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.third_item_b_public import AXES, reading_projection, combination, region_values, verify_sources
-from emperor_v4.evaluation.third_item_b_sources import expand_readings, pack_sources
+from emperor_v4.evaluation.third_item_b_sources import display_reading, expand_readings, pack_sources
 
 ROOT = Path(__file__).resolve().parents[1]
 AB = Path('docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json')
@@ -97,13 +97,16 @@ def test_formal_narratives_review_states_and_reader_values_share_current_authori
                 assert reading['review_status']==row['axes'][axis].get('maturity_review',{}).get('status','NOT_REVIEWED')
             expected[row['ruler_id'],axis]=reading
     pool={row['ruler_id']:row for row in load_json(ROOT/'config/common/canonical-ruler-pool.json')['records']}
+    from emperor_v4.evaluation.profile_m1_public import load_archive_context
+    from emperor_v4.evaluation.third_item_b_sources import battle_source_routes
+    battle_routes=battle_source_routes(load_archive_context(ROOT))
     observed=[]
     for path in (ROOT/'reader/data/people').glob('*.json'):
         detail=json.loads(path.read_text(encoding='utf-8'));row=detail['record']
         for item in (row.get('net') or {}).get('component_details',{}).get('strategic',[]):
             if item['label'] not in AXES:continue
             source_id=pool[row['ruler_id']]['source_item_ids']['third_item']
-            assert item['reader_public_b']==expected[source_id,item['label']]
+            assert item['reader_public_b']==display_reading(expected[source_id,item['label']], battle_routes=battle_routes)
             assert item['value']==item['reader_public_b']['raw_rate']
             assert item['applied_value']==item['reader_public_b']['adopted_rate']
             assert all(detail['source_availability'][ref] for ref in item['reader_source_refs'])

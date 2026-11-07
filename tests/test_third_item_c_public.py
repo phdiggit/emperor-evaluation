@@ -29,7 +29,8 @@ def test_grade_five_uses_the_adopted_position_instead_of_full_marks():
 def test_unknown_has_no_score_and_does_not_erase_material():
     r=row(None);p=reading_projection(r,context=EMPTY)
     assert p['axes']['C1']['grade'] is None and p['calculation']['points'] is None
-    assert p['evidence_items']==r['public_reading']['evidence_items']
+    assert p['evidence_items']==[{**r['public_reading']['evidence_items'][0],
+                                 'reading_source_labels': ['合成来源']}]
     r['C_score_points']=0
     with pytest.raises(ValueError):calculation(r)
 

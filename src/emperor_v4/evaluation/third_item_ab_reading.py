@@ -1,7 +1,6 @@
 """Reader layout for current AB decisions; never changes adjudication values."""
 
 import re
-import posixpath
 from typing import Any, Mapping
 from urllib.parse import quote
 
@@ -91,7 +90,9 @@ def a_reason(row: Mapping[str, Any], name: str) -> str:
 
 
 def source_links(row: Mapping[str, Any]) -> str:
-    """Keep a small source index and a direct link to the complete formal record."""
+    """Keep readable source labels and links to existing reading documents."""
+    from .second_item_c_source_display import is_machine_source
+
     paths: list[str] = []
     refs = list(row.get('source_refs') or [])
     for axis in row['A120_axis_adjudications'].values():
@@ -109,22 +110,28 @@ def source_links(row: Mapping[str, Any]) -> str:
             label = f"《{book}》卷{volume[1]}·" + ('通读总结' if volume[2] == 'source-summary' else '战役记录')
         elif '/03-军事行动成本和收益登记/' in path:
             label = '军事行动登记'
-        links.append(f"[{label}](../../../../{quote(path[5:], safe='/')})")
-    links.append('[完整裁决与引用](01-皇帝AB项正式结算.json)')
-    return '；'.join(links)
+        if is_machine_source(path):
+            links.append(f'{label}（此条项目依据未单列阅读入口）')
+        else:
+            links.append(f"[{label}](../../../../{quote(path[5:], safe='/')})")
+    return '；'.join(links) or '相关依据见上文的逐条材料与说明。'
+
+
+def reading_source_lines(refs):
+    result = []
+    for ref in refs:
+        label = f"[{ref['label']}]({ref['url']})" if ref.get('url') else ref['label']
+        result.append(f"- {ref['kind']}：{label}")
+        if ref.get('context'):
+            result += ['', '  ' + ref['context']]
+        if ref.get('quote'):
+            result += ['', *(('  > ' + line).rstrip() for line in ref['quote'].splitlines()), '']
+    return result
 
 
 def b_reading_lines(row, name, title):
-    from emperor_v4.evaluation.third_item_b_sources import expand_readings
-    reading = expand_readings(row)[name]
-    def sources(refs):
-        result = []
-        for ref in refs:
-            path, _, anchor = ref['path'].partition('#')
-            relative = posixpath.relpath(path, 'docs/评分结算/净收益/第三项军事与边疆净收益/国防安全')
-            target = quote(relative, safe='/') + ('#' + quote(anchor, safe='=') if anchor else '')
-            result.append(f"- {ref['kind']}：[{ref['label']}]({target})")
-        return result
+    from emperor_v4.evaluation.third_item_b_sources import display_reading, expand_readings
+    reading = display_reading(expand_readings(row)[name])
     lines = [f'**{name} {title}**', '', f"评价时期：{reading['window']}。", '',
              reading['story'], '', reading['rate_note'], '']
     if reading.get('review_note'):
@@ -145,8 +152,11 @@ def b_reading_lines(row, name, title):
               reading['method'], '', reading['calculation'], '', reading['combination'], '',
               *reading['rate_table'], '', *reading['scale'], '', reading['source_note'], '']
     for evidence in reading['evidence_items']:
-        lines += [f"**{evidence['label']}**（现行裁决叙述）", '', evidence['basis'], '', *sources(evidence['sources']), '']
-    lines += ['人物相关现行材料：', '', *sources(reading['sources']), '', '</details>', '']
+        lines += [f"**{evidence['label']}**（现行裁决叙述）", '', evidence['basis'], '', *reading_source_lines(evidence['sources']), '']
+    additional = reading['sources']
+    if additional:
+        lines += ['补充来源：', '', *reading_source_lines(additional), '']
+    lines += ['</details>', '']
     return lines
 
 
@@ -182,12 +192,11 @@ def render_person(row: Mapping[str, Any], *, a_readings, b_basis, b_grade, b_reg
     for name in ('A1', 'A2'):
         reading = a_readings[name]['public_reading']
         if reading:
-            links = []
-            for ref in reading['sources']:
-                path, _, anchor = ref['path'].partition('#')
-                relative = posixpath.relpath(path, 'docs/评分结算/净收益/第三项军事与边疆净收益/国防安全')
-                target = quote(relative, safe='/') + ('#' + quote(anchor, safe='=') if anchor else '')
-                links.append(f"- {ref['kind']}：[{ref['label']}]({target})")
+            from emperor_v4.evaluation.third_item_a_public import display_reading
+            sources = display_reading(reading)['sources']
+            links = reading_source_lines(sources)
+            if not any(ref.get('url') for ref in sources):
+                links = ['本轴尚未单列可直接打开的原典卷篇。', '', *links]
             responsibility = reading['responsibility'].strip()
             combined = responsibility == reading['handover'].strip()
             handover_title = '交班与归责依据' if combined else '交班'

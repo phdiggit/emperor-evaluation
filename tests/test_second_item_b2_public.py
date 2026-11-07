@@ -14,6 +14,7 @@ from emperor_v4.evaluation.second_item_b2_public import (
     _group_profiles,
     _stable_id,
     _public_direction,
+    display_sources,
     verify_public_projection,
 )
 
@@ -142,7 +143,11 @@ def test_full_pool_reading_collection_preserves_current_public_text():
         projected = module._attach_b2_public_reader({}, record=row)
         assert projected['reader_confidence'] == row['confidence']
         assert projected['reader_grade_origin'] == row['grade_origin']
-        assert projected['reader_public_evidence_items'] == row['public_evidence_items']
+        assert projected['public_evidence_items'] == row['public_evidence_items']
+        assert projected['reader_public_evidence_items'] == [
+            {**item, 'source_refs': display_sources(item['source_refs'])}
+            for item in row['public_evidence_items']
+        ]
         if row.get('grade_origin') == 'MISSING_EVIDENCE_DEFAULT':
             assert '缺证默认' in projected['reader_quality_status']
             assert not projected['reader_public_evidence_items']

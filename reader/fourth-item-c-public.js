@@ -3,7 +3,7 @@
   const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const prose = v => String(v ?? "").split(/\n\n+/).filter(Boolean).map(p => `<p class="prose">${esc(p)}</p>`).join("");
   function sourceList(items, record) {
-    return `<ol class="sources fourth-c-sources">${items.map(s => `<li><strong>${esc(s.kind)}</strong>：${s.target ? link(s.target,s.label+" ↗",record) : esc(s.label)}${s.target ? `<details><summary>原引用与定位</summary>${prose(s.original)}</details>` : prose(s.original)}</li>`).join("")}</ol>`;
+    return `<ol class="sources fourth-c-sources">${items.map(s => `<li><strong>${esc(s.kind)}</strong>：${s.target ? link(s.target,s.label+" ↗",record) : esc(s.label)}${s.locator ? prose(s.locator) : ""}${s.context ? prose(s.context) : ""}${s.quote ? `<p class="meta">${esc(s.quote_label)}</p><blockquote>${esc(s.quote)}</blockquote>` : ""}${s.claim ? prose("采用说明：" + s.claim) : ""}${s.limit ? prose("采用范围：" + s.limit) : ""}</li>`).join("")}</ol>`;
   }
   function reading(item) {
     if (!item.reader_public_fourth_c) throw new Error("缺少第四项C正式来源与分数说明");

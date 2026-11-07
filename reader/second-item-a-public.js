@@ -37,6 +37,11 @@
     if (boundary) li.append(boundary);
     const sources = make("details", "second-item-a-sources");
     sources.append(make("summary", "", "本条证据与原始记录"));
+    for (const source of entry.source_excerpts || []) {
+      const heading = make("p", "sources", source.label);
+      if (typeof link === "function") heading.innerHTML = link(source.url, source.label + " ↗", record);
+      sources.append(heading, make("p", "prose", source.context), make("blockquote", "", source.quote));
+    }
     if (entry.public_reception) sources.append(make("p", "second-item-a-reception", entry.public_reception));
     if (typeof link === "function") {
       const holder = make("p", "sources");

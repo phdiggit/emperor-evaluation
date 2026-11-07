@@ -49,8 +49,8 @@ class AxisReading:
         return data
 
     def axis_reading(self, row, axis, packages):
-        from .fourth_item_results import axis_reading
-        return axis_reading(row, axis, packages)
+        from .fourth_item_results import display_axis_reading
+        return display_axis_reading(row, axis)
 
     def verify_readings(self, payload, root=None):
         from .fourth_item_results import verify_readings

@@ -171,7 +171,12 @@ def _verify_sources(root: Path, item: dict[str, Any], profiles: list[dict[str, A
             candidates.append({"path": relative.as_posix(), "material_id": material["material_id"],
                                "source_title": "正式材料登记", "source_locator": "",
                                "source_url": "", "exact_quote": ""})
-        if ref not in candidates:
+        binding = {key: value for key, value in ref.items() if key != 'public_source_context'}
+        if 'public_source_context' in ref and (
+            not isinstance(ref['public_source_context'], str) or not ref['public_source_context'].strip()
+        ):
+            raise ValueError('B2公开史源说明为空')
+        if binding not in candidates:
             raise ValueError(f"B2公开史源不与登记逐字同值：{ref['material_id']}")
 
 
@@ -324,7 +329,25 @@ def verify_public_projection(
     }
 
 
+def display_sources(refs):
+    """Show each excerpt and citation once, leaving register IDs in formal records."""
+    from .second_item_c_source_display import bibliographic_source, display_project_summary
+
+    groups = {}
+    for ref in refs:
+        context = ref.get('public_source_context', '')
+        key = (*(ref[k] for k in ('path', 'source_title', 'source_locator', 'source_url', 'exact_quote')), context)
+        if key not in groups:
+            quote = ref['exact_quote']
+            summary = display_project_summary(quote)
+            groups[key] = {**bibliographic_source(ref), 'exact_quote': summary, 'source_context': context,
+                           'source_kind': '项目史料摘要' if summary != quote.strip() else ''}
+    return list(groups.values())
+
+
 def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
+    from .second_item_c_source_display import display_project_summary
+
     records = {row['ruler_name']: row for row in payload['records']}
     parts = re.split(r'(?=^### )', markdown, flags=re.MULTILINE)
     seen = set()
@@ -342,14 +365,19 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
         lines += ['', row['public_adjudication_summary'], '', '- 结算依据：']
         lines += [f"  - {line.rstrip('。')}。" for line in row['settlement_basis']]
         lines += ['', '- 材料依据：']
-        lines += [f"  - {line.rstrip('。')}。" for line in row['material_basis']]
+        lines += [f"  - {display_project_summary(line).rstrip('。')}。" for line in row['material_basis']]
         lines.append('')
         for item in row['public_evidence_items']:
             lines += [f"- **{item['public_label']}**（{item['public_direction']}；{'、'.join(item['public_tags'])}）",
                       f"  - 事实与判断：{item['public_basis']}", f"  - 适用边界：{item['public_boundary']}"]
-            for ref in item['source_refs']:
-                target = '../../../../公共成果/制度行政/01-制度行政计分材料登记/' + Path(ref['path']).name
-                lines.append(f"  - 来源：{ref['source_title']} {ref['source_locator']}；[材料登记]({target})")
+            for ref in display_sources(item['source_refs']):
+                citation = ' · '.join(filter(None, (ref['source_kind'], ref['source_title'], ref['source_locator']))) or '所引材料'
+                links = ' · '.join(f'[查看所引史源]({url})' for url in ref['source_urls'])
+                lines.append('  - ' + ' · '.join(filter(None, (citation, links))))
+                if ref['source_context']:
+                    lines += ['', '    ' + ref['source_context']]
+                if ref['exact_quote']:
+                    lines += ['', *(('    > ' + line).rstrip() for line in ref['exact_quote'].splitlines()), '']
         parts[index] = f"### {row['ruler_name']}（{row['polity']}，分项第{row['rank']}名）\n\n" + '\n'.join(lines) + '\n\n'
     if seen != set(records):
         raise ValueError('B2 Markdown人物块与正式记录不一致')

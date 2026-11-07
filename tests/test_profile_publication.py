@@ -81,7 +81,7 @@ def test_m2_markdown_preserves_complete_process_and_adoption_scope():
     before = deepcopy(parent)
     text = '\n'.join(_m2_parent_lines(parent))
     for value in (parent['cycle_basis'], parent['identity_transition_point'], parent['axis_out_reason'],
-                  'docs/synthetic.md#L20', '未证明本人逐项设计。', '只限一项局部过程。'):
+                  '项目依据', '未证明本人逐项设计。', '只限一项局部过程。'):
         assert value in text
     assert parent == before
 

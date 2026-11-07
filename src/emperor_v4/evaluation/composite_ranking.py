@@ -575,7 +575,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
             "- [第三项：军事与边疆净收益](第三项军事与边疆净收益/02-第三项正式结算.md)",
             "- [第四项：文明与国家整合收益](第四项文明与国家整合收益/02-第四项文明与国家整合收益正式总榜.md)",
             "",
-            "同值数据入口为[`00-统治绩效综合评分榜.json`](00-统治绩效综合评分榜.json)。"
+            "表中分数和名次按当前正式结算展示。"
             "本表由前四项正式结果与规范评价池确定性生成；运行"
             "`codex-win run -- python v4.py composite-ranking --write`可重建JSON和Markdown。",
             "",

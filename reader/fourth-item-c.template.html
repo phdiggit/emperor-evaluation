@@ -11,10 +11,11 @@
 <label for="search">搜索人物、经历、史源或零值说明</label><input id="search" type="search" autocomplete="off"><p role="status">当前显示 <span id="count">__COUNT__</span> 人。<span id="location-note"></span></p>
 <section id="entries" aria-label="知识生产与文化生态全池阅读"></section></main>
 <script id="fourth-c-data" type="application/json">__PAYLOAD__</script>
+<script src="source-links.js"></script>
 <script>
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const sourceIdentity=__SOURCE_IDENTITY__;
-function link(path,label){const local=['localhost','127.0.0.1','[::1]'].includes(location.hostname);const href=/^https?:\/\//.test(path)?path:local||!sourceIdentity.repository||!sourceIdentity.revision?'../'+path:'https://github.com/'+sourceIdentity.repository+'/blob/'+sourceIdentity.revision+'/'+path;return `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`;}
+function link(path,label){if(ReaderSourceLinks.isMachineSource(path))return '<span>此条项目依据未单列阅读入口</span>';const local=['localhost','127.0.0.1','[::1]'].includes(location.hostname);const href=/^https?:\/\//.test(path)?path:local||!sourceIdentity.repository||!sourceIdentity.revision?'../'+path:'https://github.com/'+sourceIdentity.repository+'/blob/'+sourceIdentity.revision+'/'+path;return `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`;}
 </script><script src="fourth-item-c-public.js"></script><script>
 const DATA=JSON.parse(document.getElementById('fourth-c-data').textContent);
 document.getElementById('entries').innerHTML=DATA.map(r=>`<article class="person" id="${esc(r.ruler_id)}"><h2>${esc(r.ruler_name)}</h2><p class="meta">${esc(r.polity)} · ${esc(r.pool_note)}</p>${FourthItemCReading.heading(r.item)}${FourthItemCReading.html(r.item,r,{collection:true})}</article>`).join('');

@@ -6,7 +6,7 @@ import re
 from urllib.parse import urlsplit
 
 from emperor_v4.evaluation.first_item_public_outcomes import _parse_source_sections, SOURCE_MARKDOWN_PATH
-from emperor_v4.evaluation.first_item_b1_cost_public import public_text
+from emperor_v4.evaluation.first_item_b1_cost_public import public_text, reading_sources
 
 SOURCE = Path('docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/03-第一项B2创业组织与政治整合正式结算.md')
 SCHEMA = 'first-item-b2-public-v1'
@@ -62,6 +62,7 @@ def load_first_item_b2_public(root: Path) -> dict:
                 source = path.relative_to(root.resolve()).as_posix()
                 sources.append(source + ('#'+parsed.fragment if parsed.fragment else ''))
         record['public_sources'] = list(dict.fromkeys(sources))
+        record['reading_sources'] = reading_sources(fields, record['public_sources'][1:])
         projected[name] = record
     return projected
 

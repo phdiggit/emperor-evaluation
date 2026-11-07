@@ -55,8 +55,8 @@ def package_reading(package):
 
 
 def axis_reading(row, axis, packages):
-    from .fourth_item_results import axis_reading as current_reading
-    return current_reading(row, axis, packages)
+    from .fourth_item_results import display_axis_reading
+    return display_axis_reading(row, axis)
 
 
 def verify_readings(payload, root=None):
@@ -65,15 +65,5 @@ def verify_readings(payload, root=None):
 
 
 def markdown_reading(data):
-    def refs(items):
-        return '\n'.join('- '+s['kind']+'：'+(f'[{s["label"]}]({s["target"]})' if s['target'] else s['label'])+'\n\n  原引用（含项目采用说明）：'+s['original'] for s in items)
-    lines = [f'**{data["question"]}**', '', '评价时期：'+data['window'], '', data['status'], '', data['decision_basis']]
-    if data['zero_reason']:
-        lines += ['', '**为什么是0分**', '', data['zero_reason']]
-    for index, item in enumerate(data['evidence_items'], 1):
-        lines += ['', f'#### 材料{index}：{item["status"]}', '', item['result'], '', '**本人责任**', '', item['responsibility'], '', item['scope'], '', item['components'], '', item['hard_negative']]
-        if item['exclusion_reason']:
-            lines += ['', '不计分原因：'+item['exclusion_reason']]
-        lines += ['', '**这条材料的来源**', '', refs(item['sources'])]
-    lines += ['', '**分数怎样合成**', '', data['calculation'], '', data['method'], '', '**现行复核边界**', '', data['review_basis'], '', data['source_note'], '', refs(data['assessment_sources'])]
-    return '\n'.join(lines)
+    from .fourth_item_results import markdown_reading as current_markdown
+    return current_markdown(data)

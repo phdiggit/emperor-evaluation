@@ -2,6 +2,8 @@
 from copy import deepcopy
 import hashlib
 import json
+import re
+from urllib.parse import quote
 
 AXES = ('B1', 'B2', 'B4')
 CATALOG = 'public_b_source_catalog'
@@ -66,6 +68,76 @@ def expand_readings(row):
             entry.clear()
             entry.update(expanded)
     return readings
+
+
+def supplemental_sources(reading):
+    """List only references that are absent from the individual claims."""
+    claim_refs = {
+        _encoded(source)
+        for evidence in reading['evidence_items']
+        for source in evidence['sources']
+    }
+    return [source for source in reading['sources'] if _encoded(source) not in claim_refs]
+
+
+def battle_source_routes(context):
+    """Resolve only unique bindings within the cited public registry shard."""
+    candidates = {}
+    for battle_id in context['indexed_ids']:
+        location = context['locations'].get(battle_id)
+        if not location:
+            continue
+        shard = location.partition('#')[0]
+        candidates[location] = {battle_id}
+        record = context['battles'][battle_id]
+        groups = {record.get('campaign_group_ref')}
+        groups.update(phase.get('campaign_group_ref') for phase in record.get('subject_phase_views') or [])
+        for group in groups - {None, ''}:
+            candidates.setdefault(f'{shard}#campaign_group_ref={group}', set()).add(battle_id)
+    return {path: next(iter(ids)) for path, ids in candidates.items() if len(ids) == 1}
+
+
+def display_sources(sources, *, battle_routes=None):
+    """Render book citations separately from references to project decisions."""
+    from .second_item_c_source_display import bibliographic_source
+
+    result = []
+    for source in sources:
+        citation = source.get('public_citation')
+        if citation:
+            display = {'kind': '史料原文', 'label': citation['title'], 'url': citation['url'],
+                       'context': citation['context'], 'quote': citation['quote']}
+        else:
+            label = source['label'].removeprefix('原裁决引用：')
+            if label == 'CROSS_ITEM::FIRST_ITEM_CLOSED_STOCK':
+                label = '第一项已结算的控制成果'
+            label = re.sub(r'^[^：\s]+\.(?:md|jsonl?)：', '', label)
+            label = re.sub(r'[；，]?原文锚[PL]\d+(?:[—–-][PL]\d+)?$', '', label)
+            if re.fullmatch(r'[^《》]+\.(?:md|jsonl?)|[a-z0-9_]+(?:-[a-z0-9_]+){2,}', label, re.I):
+                title = bibliographic_source({'source_title': source['path'], 'source_locator': ''})['source_title']
+                label = title or '所引项目记录'
+            if source['kind'] in {'现行规则', '现行空间尺度'}:
+                kind = '项目规则'
+            elif label.startswith('《') and source['kind'] == '裁决中保留的书目或共享锚引用':
+                kind = '所引书目'
+            elif source['kind'] in {'现行军事材料记录', '既有军事材料记录'}:
+                kind = '战役资料'
+            else:
+                kind = '项目依据'
+            display = {'kind': kind, 'label': label}
+            if kind == '战役资料' and battle_routes:
+                battle_id = battle_routes.get(source['path'])
+                if battle_id and source['path'].partition('=')[2] == source.get('binding'):
+                    display['archive_href'] = 'military.html#battle=' + quote(battle_id, safe='')
+        if display not in result:
+            result.append(display)
+    return result
+
+
+def display_reading(reading, *, battle_routes=None):
+    return {**reading, 'sources': display_sources(supplemental_sources(reading), battle_routes=battle_routes),
+            'evidence_items': [{**item, 'sources': display_sources(item['sources'], battle_routes=battle_routes)}
+                               for item in reading['evidence_items']]}
 
 
 def pack_sources(row):

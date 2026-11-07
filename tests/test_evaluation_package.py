@@ -73,6 +73,37 @@ def test_net_packages_include_current_governance_context(package):
     assert context_path in paths
 
 
+def test_profile_packages_include_current_c4_adjudication_evidence(prepared):
+    entries, _ = prepared
+    project = yaml.safe_load(entries["config/project.yml"])
+    c4 = project["profile_assessment"]["settled_axes"]["C4"]
+    evidence, = [entry for entry in c4["audit_jsons"]
+                 if entry["audit_kind"] == "C4_ADJUDICATION_EVIDENCE"]
+    path = Path(packager.PROFILE_ROOT) / evidence["path"]
+    packed_evidence = entries[path.as_posix()]
+    assert packed_evidence == (ROOT / path).read_bytes()
+    assert ROOT / path in packager.collect(ROOT, "profile-settlements")
+    by_id = {row["evidence_id"]: row for row in json.loads(packed_evidence)["records"]}
+    router_path = Path(c4["json"])
+    router = json.loads(entries[router_path.as_posix()])
+    prefix = path.as_posix() + "#evidence_id="
+    checked = 0
+    for route in router["routes"]:
+        shard_path = (router_path.parent / route["path"]).as_posix()
+        records = json.loads(entries[shard_path])["collections"]["records"]["records"]
+        for record in records:
+            for chain in record["parent_chains"]:
+                for ref in chain.get("direct_process_refs", []):
+                    if not ref.startswith(prefix):
+                        continue
+                    evidence_id, separator, field = ref.removeprefix(prefix).partition("/evidence_fields/")
+                    entry = by_id[evidence_id]
+                    if separator:
+                        assert entry["evidence_fields"][field]
+                    checked += 1
+    assert checked
+
+
 def test_complete_package_includes_public_results(prepared):
     entries, _ = prepared
     public_root = ROOT / packager.PUBLIC_RESULTS_ROOT

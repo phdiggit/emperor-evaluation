@@ -49,8 +49,9 @@ def validate_public_reading(row: dict) -> None:
     stability = {item['cycle_ref']: item for item in (row.get('m1_stability_review') or {}).get('cases', [])}
     seen = set()
     for case in cases:
-        compact = {'episode_ref', 'sources', 'title', 'text'} <= set(case) and not (set(case) - {'episode_ref', 'sources', 'title', 'text', 'role_label'})
-        if not compact and set(case) != {'episode_ref', 'sources', *CASE_FIELDS}:
+        keys = set(case) - {'source_excerpts'}
+        compact = {'episode_ref', 'sources', 'title', 'text'} <= keys <= {'episode_ref', 'sources', 'title', 'text', 'role_label'}
+        if not compact and keys != {'episode_ref', 'sources', *CASE_FIELDS}:
             raise ValueError('M1公开事例须分别说明本人行动、结果、能力含义与责任边界')
         ref = case['episode_ref']
         if ref not in roles and ref not in parents and ref not in stability or ref in seen:
@@ -68,6 +69,20 @@ def validate_public_reading(row: dict) -> None:
             if set(source) != {'ref', 'label'} or source['ref'] not in allowed:
                 raise ValueError('M1公开来源未在对应本人情境中登记')
             _prose(source['label'])
+        excerpts = case.get('source_excerpts', [])
+        if not isinstance(excerpts, list):
+            raise ValueError('M1原典须按连续段落登记')
+        for excerpt in excerpts:
+            from .second_item_c_source_display import bibliographic_source
+
+            if not isinstance(excerpt, dict) or set(excerpt) != {'label', 'url', 'context', 'quote'}:
+                raise ValueError('M1原典须包含卷篇、链接、上下文与原文')
+            for key in ('label', 'context', 'quote'):
+                _prose(excerpt[key])
+            if not isinstance(excerpt['url'], str) or bibliographic_source({
+                'source_title': excerpt['label'], 'source_locator': '', 'source_url': excerpt['url'],
+            })['source_urls'] != [excerpt['url']]:
+                raise ValueError('M1原典链接无效')
     for source in reading.get('sources', []):
         if set(source) != {'ref', 'label'} or not source['ref'].startswith(('docs/', 'config/', 'https://', 'http://')):
             raise ValueError('M1公开来源路径无效')
@@ -179,6 +194,20 @@ def comparison_projection(row: dict, peer: dict, basis: str) -> dict:
 
 
 def markdown_reading(row: dict, context: dict | None = None) -> list[str]:
+    from .second_item_c_source_display import is_machine_source
+
+    def source_line(source):
+        target = source.get('href') or source['ref']
+        label = source['label']
+        if is_machine_source(target):
+            return f'- {label}（此条项目依据未单列阅读入口）'
+        if target.startswith('military.html'):
+            target = 'reader/' + target
+        if target.startswith(('docs/', 'config/', 'reader/')):
+            path, separator, anchor = target.partition('#')
+            target = posixpath.relpath(path, 'docs/评分结算/人物画像/M1') + separator + anchor
+        return f'- [{label}]({target})'
+
     validate_public_reading(row)
     p = row['public_reading']
     letter = {'G0': 'E', 'G1': 'D', 'G2': 'C', 'G3': 'B', 'G4': 'A', 'G5': 'S'}[row['axis_grade']]
@@ -195,13 +224,7 @@ def markdown_reading(row: dict, context: dict | None = None) -> list[str]:
         for item, projected in zip(p['career_review'], archive['career'], strict=True):
             lines += ['**' + item['title'] + '**：' + item['basis'], '']
             lines += ['<details><summary>相关战役与本人行动档案</summary>', '']
-            for source in projected['links']:
-                target = source.get('href') or source['ref']
-                if target.startswith('military.html'):
-                    target = posixpath.relpath('reader/' + target, 'docs/评分结算/人物画像/M1')
-                elif target.startswith(('docs/', 'config/')):
-                    target = posixpath.relpath(target, 'docs/评分结算/人物画像/M1')
-                lines.append(f"- [{source['label']}]({target})")
+            lines.extend(map(source_line, projected['links']))
             lines += ['', '</details>', '']
     for case in p['cases']:
         if 'text' in case:
@@ -211,12 +234,10 @@ def markdown_reading(row: dict, context: dict | None = None) -> list[str]:
                   '**结果与能力**：' + case['result'] + case['meaning'], '',
                   '**本人作用的边界**：' + case['boundary'], '',
                   '<details><summary>这件事的史料</summary>', '']
-        for source in case['sources']:
-            ref = source['ref']
-            if ref.startswith(('docs/', 'config/')):
-                path, separator, anchor = ref.partition('#')
-                ref = posixpath.relpath(path, 'docs/评分结算/人物画像/M1') + (separator + anchor if separator else '')
-            lines.append(f"- [{source['label']}]({ref})")
+        for excerpt in case.get('source_excerpts', []):
+            lines += [f"[{excerpt['label']}]({excerpt['url']})", '', excerpt['context'], '',
+                      f"> {excerpt['quote']}", '']
+        lines.extend(map(source_line, case['sources']))
         lines += ['', '</details>', '']
     position_title = {'LOW': '为什么取低位（−）？', 'MID': '为什么取中位？', 'HIGH': '为什么取高位（+）？'}[row['position']]
     lines += [f'#### 为什么评为 {letter} 档？', '', p['grade_reason'], '',
@@ -242,11 +263,6 @@ def markdown_reading(row: dict, context: dict | None = None) -> list[str]:
             lines += [f"[{item['label']}]({target})", '', item['basis'], '']
     if p.get('sources'):
         lines += ['<details><summary>正式归责与相关来源</summary>', '']
-        for source in p['sources']:
-            ref = source['ref']
-            if ref.startswith(('docs/', 'config/')):
-                path, separator, anchor = ref.partition('#')
-                ref = posixpath.relpath(path, 'docs/评分结算/人物画像/M1') + (separator + anchor if separator else '')
-            lines.append(f"- [{source['label']}]({ref})")
+        lines.extend(map(source_line, p['sources']))
         lines += ['', '</details>', '']
     return lines

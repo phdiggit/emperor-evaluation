@@ -124,6 +124,8 @@ def load_first_item_public_outcomes(
     if payload.get("record_count") != len(records):
         raise ValueError("第一项A公开成果record_count与records长度不一致")
 
+    from .first_item_b1_cost_public import reading_sources
+
     by_name: dict[str, dict[str, Any]] = {}
     for record in records:
         if not isinstance(record, dict):
@@ -159,6 +161,7 @@ def load_first_item_public_outcomes(
         if not calculation:
             raise ValueError(f"第一项A缺少正式计算：{name}")
         result["public_calculation"] = calculation
+        result["reading_sources"] = reading_sources(source_sections[name], [])
         by_name[name] = result
 
     source_names = set(source_sections)

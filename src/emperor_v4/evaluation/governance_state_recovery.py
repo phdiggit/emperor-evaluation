@@ -555,8 +555,7 @@ def render_component_markdown(axis: str, payload: dict[str, Any]) -> str:
                 else:
                     lines.append('  - '+str(m))
         if row.get('state_adjudication'):
-            review_ref = row['state_adjudication'].get('review_ref', '').split('#', 1)[0]
-            lines.append(f'- 完整裁决与引用：[逐人源](../../../../../{review_ref})。')
+            lines.append('- 阅读说明与史源见本页的逐人材料。')
         if axis in {'C3', 'C4'}:
             lines.append(PERSON_END)
         lines.append('')
@@ -630,7 +629,7 @@ def write_governance_state_recovery_markdown(workspace_root: Path) -> Path:
         for a in AXES:
             loss = r['axes'][a]['loss_review']
             lines.append(f'- {a} {loss["grade"]}：{loss["basis"]}')
-        lines += [f'- 完整三锚、主态依据、恢复归责及史源见[逐人裁决源](../../../../../config/second-item/governance-state-recovery-adjudications.json)。','']
+        lines += ['- 完整三锚、主态依据、恢复归责及史源见各分项逐人阅读。', '']
     path=root / REVIEW_MARKDOWN_PATH
     path.write_text('\n'.join(lines),encoding='utf-8')
     return path

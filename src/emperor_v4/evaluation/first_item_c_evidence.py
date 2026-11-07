@@ -6,11 +6,13 @@ command from a reign nor derives a ruler's grade from battles or other profiles.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote, unquote, urlsplit
 import yaml
 
-from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+from emperor_v4.evaluation.battle_registry_store import load_battle_registry, person_only_registration
 
 REGISTRY = Path('docs/公共成果/军事/01-战役登记.json')
 DISPOSITIONS = {'采用', '同情境合并', '窗口外', '独立方向', '组织授权', '归责未闭', '史源冲突', '非战争取得', '同名异人', '行为责任'}
@@ -27,6 +29,57 @@ def _list(value: Any) -> list[dict]:
     if isinstance(value, dict):
         return [value]
     return [row for row in value or [] if isinstance(row, dict)]
+
+
+def reading_basis(text):
+    terms = {
+        'objective_shortfall': '目标未完成',
+        'fact_id': '史实登记',
+        'stage_executor': '阶段执行者折减',
+        'operational_design': '高层作战设计',
+        'tactical_execution': '战术执行',
+        'attributable_failure': '可归责的军事失利',
+        'war_conduct_negative': '负面战争行为',
+        'failure': '军事失利',
+        'NO_FAULT': '未见可归责的决策过错',
+        'UNKNOWN': '过错尚未确定',
+        'person_ref': '人物身份记录',
+        'person_result': '本人指挥结果',
+        'command_adverse': '负向指挥结果',
+        'authorization_only': '仅负授权责任',
+        'decisive_successor': '接手后完成关键成果',
+        'no_frontline_difficulty': '未取得可单列的前线难度',
+        'COMMANDER_RESPONSIBILITY_AFTER_UNRESOLVED_SEARCH': '本人承担统帅责任，具体过错待定',
+    }
+    text = text.replace('P0015为此战，旧P0020是郭药师降宋', '所引段落记载此战，旧引落在郭药师降宋')
+    text = re.sub(r"\{'start': '([^']+)', 'end': 'order_only'\}", r'\1（只能确认先后顺序）', text)
+    return re.sub(r'(?<![A-Za-z0-9_])(?:' + '|'.join(terms) + r')(?![A-Za-z0-9_])',
+                  lambda match: terms[match[0]], text)
+
+
+def _reading_citations(refs, authored):
+    """Read explicit book locators and excerpts without exposing registration IDs."""
+    from .second_item_c_source_display import bibliographic_source
+
+    citations = []
+    for ref in dict.fromkeys(refs):
+        if ref in authored:
+            citation = authored[ref]
+        else:
+            match = re.fullmatch(r'([^/@]+/卷[^@]+)@(\d+)(?:#(.*))?', ref, flags=re.S)
+            if match:
+                book, revision, excerpt = match.groups()
+                url = 'https://zh.wikisource.org/wiki/' + quote(book, safe='/') + '?oldid=' + revision
+            else:
+                url_parts = urlsplit(ref)
+                if url_parts.hostname != 'zh.wikisource.org' or not url_parts.path.startswith('/wiki/'):
+                    continue
+                book, url, excerpt = unquote(url_parts.path.removeprefix('/wiki/')), ref, ''
+            projected = bibliographic_source({'source_title': book, 'source_locator': '', 'source_url': url})
+            citation = {'title': projected['source_title'], 'url': projected['source_urls'][0], 'locator_excerpt': excerpt or ''}
+        if citation not in citations:
+            citations.append(citation)
+    return citations
 
 
 def load_evidence_index(root: Path) -> dict[str, Any]:
@@ -51,6 +104,8 @@ def resolve_binding(index: dict, binding: dict, *, person: str) -> dict:
     if binding.get('disposition') not in DISPOSITIONS or not binding.get('window_basis') or not binding.get('reason'):
         raise ValueError(f'C公共证据须声明窗口、采用处置与理由：{person}')
     kind, ref = binding.get('kind'), binding.get('ref')
+    archive_url = ''
+    authored = {}
     if kind == 'scope_note':
         row = index['scope_notes'].get(ref)
         if row is None or row.get('person') != person:
@@ -65,6 +120,9 @@ def resolve_binding(index: dict, binding: dict, *, person: str) -> dict:
         parent = index['records'].get(binding.get('war_event_id'))
         if parent is None:
             raise ValueError(f'C引用不存在的公共战役：{binding.get("war_event_id")}')
+        if not person_only_registration(parent):
+            archive_url = 'military.html#battle=' + binding['war_event_id']
+        authored = parent.get('public_source_reading', {})
         if kind == 'action':
             matches = [r for r in parent.get('personal_action_attributions', []) if r.get('evidence_ref') == ref and r.get('person') == person]
         elif kind == 'result':
@@ -109,11 +167,12 @@ def resolve_binding(index: dict, binding: dict, *, person: str) -> dict:
         raise ValueError(f'C公共本人证据缺少史源：{person}/{ref}')
     if any('人物画像/' in str(source) or '/M1/' in str(source) for source in source_refs):
         raise ValueError('C公共证据不得以M1裁决反向充当史源')
-    return {'label': label, 'disposition': binding['disposition'], 'window_basis': binding['window_basis'],
-            'reason': binding['reason'], 'source_refs': list(dict.fromkeys(source_refs)),
+    return {'label': label, 'disposition': binding['disposition'], 'window_basis': reading_basis(binding['window_basis']),
+            'reason': reading_basis(binding['reason']), 'source_refs': list(dict.fromkeys(source_refs)),
             'war_event_id': binding.get('war_event_id'), 'ref': ref, 'kind': kind,
-            'case_group': binding.get('case_group'), 'public_facts': [[label, value] for label, value in facts if value],
-            'public_source': public_source}
+            'case_group': binding.get('case_group'), 'public_facts': [[label, reading_basis(value)] for label, value in facts if value],
+            'public_source': public_source, 'archive_url': archive_url,
+            'reading_citations': _reading_citations(source_refs, authored)}
 
 
 def project_evidence(value: str, index: dict, *, person: str) -> list[dict]:

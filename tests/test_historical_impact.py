@@ -149,11 +149,11 @@ def test_source_reading_retains_passage_notes_review_scope_and_local_locator(tmp
     before = deepcopy(payload)
     rendered = render(payload, document_path='docs/评分结算/历史影响/result.md')
     for text in [row['source_refs'][0]['adopted_excerpt'], row['source_review_scope'], row['source_trace']['limit'],
-                 '项目采纳段落（非古籍原文）', '只核对目录中的篇名。', 'scores', 'state_anchors', 'P1',
+                 '项目采纳段落（非古籍原文）', '只核对目录中的篇名。', '仅比较同一事件的责任。',
                  SOURCE_DISPLAY['verification_mode']['RETRIEVED_CATALOGUE_OR_ABSTRACT_OFFLINE_NOTE'],
                  '未另分配到上述段落的登记来源', '未为本节单独绑定来源']:
         assert text in rendered
-    assert '../../%E4%BA%8B%E5%AE%9E.json#ruler_id=SYNTHETIC' in rendered
+    assert all(text not in rendered for text in ('state_anchors', '事实.json', 'ruler_id=SYNTHETIC'))
     assert payload == before
 
 

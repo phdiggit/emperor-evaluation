@@ -4,12 +4,46 @@ from copy import deepcopy
 import pytest
 
 from emperor_v4.evaluation.second_item_c_public import FORMAL_PATHS, PUBLIC_FORBIDDEN_RE, _refresh_payload, _scoring_signature, _clean, verify_source_bindings
+from emperor_v4.evaluation.second_item_c_source_display import material_excerpts, reading_source
 
+
+def test_c_material_citation_keeps_human_context_and_excludes_repository_links():
+    public = reading_source({
+        'path': 'docs/settlement.json#ruler_id=synthetic',
+        'field_path': ['material_basis', 0, 'original_text'],
+        'source_kind': '史料原文',
+        'source_title': '《合成史书》卷三财政民生卡',
+        'source_locator': 'material_basis / 0 / original_text；南郡；原文 https://example.org/volume-3',
+        'source_url': 'https://github.com/example/repo/blob/main/data.jsonl',
+        'public_source_context': '合成用例，臣下奏报南郡灾情。',
+        'exact_quote': '南郡饥，民流亡。',
+    })
+    assert public == {
+        'source_kind': '史料原文',
+        'source_title': '《合成史书》卷三',
+        'source_locator': '南郡',
+        'source_urls': ['https://example.org/volume-3'],
+        'source_context': '合成用例，臣下奏报南郡灾情。',
+        'exact_quote': '南郡饥，民流亡。',
+    }
 
 def test_cross_item_axis_uses_its_own_meaning():
     assert _clean('第四项A独占身份后果，A记录制度。') == '第四项国家共同体与社会整合独占身份后果，制度建设记录制度。'
     assert '教育可及与人才流动' in _clean('第四项B')
     assert '知识生产与文化生态' in _clean('第四项C')
+
+
+def test_grouped_material_retains_each_authored_passage_and_context():
+    common = dict(source_kind='史料原文', source_title='《合成史书》卷三',
+                  source_locator='material_basis / 0 / original_text', exact_quote='民饥。')
+    report = dict(title='《合成史书》卷三', url='https://example.org/volume-3', text='南郡民饥。',
+                  context='州臣就南郡灾情上奏。')
+    reply = dict(title='《合成诏令》卷一', url='https://example.org/volume-1', text='朕命赈之。',
+                 context='皇帝答复同一奏报，所涉为南郡。')
+    sources = [dict(common, public_source_passages=[report]),
+               dict(common, public_source_passages=[report, reply])]
+    assert material_excerpts(sources) == [report, reply]
+    assert material_excerpts([common, sources[1]]) == [dict(title='', url='', text='民饥。'), report, reply]
 
 
 def _state_row(axis: str) -> dict:

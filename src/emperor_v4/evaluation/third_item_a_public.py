@@ -115,12 +115,21 @@ def reading_projection(axis_name, axis, contract):
 
 def verify_reading_sources(root: Path, payload):
     """Paths and declared bindings must resolve; a collection is not a quote."""
+    from .second_item_c_source_display import bibliographic_source
+
     checked = set()
     contents = {}
     for row in payload['records']:
         for axis_name in ('A1', 'A2'):
             reading = row['axes'][axis_name]['public_reading']
             for ref in reading['sources']:
+                if 'public_citation' in ref:
+                    citation = ref['public_citation']
+                    if (not isinstance(citation, dict) or set(citation) != {'title', 'url', 'context', 'quote'}
+                            or any(not isinstance(text, str) or not text.strip() for text in citation.values())
+                            or bibliographic_source({'source_title': citation['title'], 'source_locator': '',
+                                                     'source_url': citation['url']})['source_urls'] != [citation['url']]):
+                        raise ValueError('第三项A公开原典引用缺少书目、链接、上下文或原文')
                 key = (ref['path'], ref.get('binding'))
                 if key in checked:
                     continue
@@ -133,3 +142,12 @@ def verify_reading_sources(root: Path, payload):
                     raise ValueError(f'第三项A公开来源定位不匹配：{key}')
                 checked.add(key)
     return len(checked)
+
+
+def display_reading(reading, *, battle_routes=None):
+    from .third_item_b_sources import display_sources
+
+    official = {'正式裁决记录', '正式归责与计算记录'}
+    refs = (ref for ref in reading['sources'] if ref['kind'] not in official or ref.get('public_citation'))
+    return {**reading, 'sources': display_sources(refs, battle_routes=battle_routes),
+            'official_sources': [ref for ref in reading['sources'] if ref['kind'] in official]}

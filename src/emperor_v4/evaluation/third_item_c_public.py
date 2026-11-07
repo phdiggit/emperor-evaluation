@@ -2,6 +2,7 @@
 from copy import deepcopy
 from pathlib import Path
 import json
+import re
 from .third_item_c_joint import grade, verify_joint
 
 AXES=('C1',)
@@ -18,6 +19,83 @@ REVIEW_NOTE='档位与位置来自正式联合裁决；保障、组织事实不�
 REVIEW_LABELS={'SOURCE_SUPPORTED':'有明确采用依据','SPECIFIC_SOURCE_GAP':'必要证据不足'}
 AUDIT_TERMS=(('高难阶段','实际约束与重大军事交付必须同时成立。'),('独立复验','按实际任务和压力变化判断，同役阶段不重复计算。'))
 AUDIT_LINK_NOTE='来源链接只按正式记录已有绑定展示；有链接不等于史料已穷尽。'
+
+
+def material_source_label(source):
+    from .second_item_c_source_display import project_source_title
+
+    label = source['label']
+    if label.startswith(('docs/', 'config/', 'archive/')):
+        title = project_source_title(label)
+        return '项目依据 · ' + title if title else '项目军事材料'
+    label = re.sub(r'[；，]?原文锚[PL]\d+(?:[—-][PL]\d+)?', '', label)
+    return label if re.search(r'[\u3400-\u9fff]', label) else '项目军事材料'
+
+
+def editorial_passage(text):
+    """Render project annotations without editing the excerpt used by lineage checks."""
+    from .second_item_c_source_display import display_project_summary
+
+    text = re.sub(r'^[ \t]*(?:-[ \t]*)?(?:absorbed_stages|campaign_group):[ \t]*[A-Z0-9_, -]+$', '', text, flags=re.M)
+    text = re.sub(r'`(?:campaign_group|settlement_role|settlement_owner|machine_settlement|settlement_status|absorbed_stages)=[A-Za-z0-9_, /-]+`[；。]?', '', text)
+    text = re.sub(r'`?absorbed_stages[:=][ \t]*([^`\n]+)`?', r'同一过程的各阶段：\1', text)
+    text = re.sub(r'\bsettlement_role:[ \t]*(stage|terminal|scope_end_open)\b',
+                  lambda m: {'stage': '本段为战役的一个阶段', 'terminal': '本段记载战役收束',
+                             'scope_end_open': '观察期结束时战事尚未收束'}[m[1]], text)
+    text = re.sub(r'^- 父级收束：[ \t]*$', '', text, flags=re.M)
+    for token, label in {
+        'war_terminal': '本轮战争结束',
+        'campaign': '战役',
+        'core_heartland': '核心腹地',
+        'dominant_pole': '主导竞争力量',
+        'strong': '强盛',
+        'major_degradation': '作战能力显著受损',
+        'mixed/partial': '得失并存、部分目标达成',
+        'strategic_gateway': '战略门户',
+        'first_tier_pole': '第一梯队竞争力量',
+        'scope_end_open': '观察期结束时仍未收束',
+        'REDIRECTED_MIXED_PARENT': '阶段分开登记的混合战役群',
+        'combat_difficulty': '战役难度',
+        'D_NOT_REQUIRED': '不适用难度分档',
+        'NEGATIVE_RETURN': '负回报',
+        'source_review': '史源采用说明',
+        'source_passages': '已登记来源段落',
+    }.items():
+        text = re.sub(rf'`?(?<![A-Za-z0-9_]){re.escape(token)}(?![A-Za-z0-9_])`?', label, text)
+    return display_project_summary(text)
+
+
+def passage_kind(value):
+    if value in {'战役底账逐字史源', '原文摘录', '史料原文'}:
+        return '既有史料摘录'
+    if value.startswith('EXISTING_'):
+        return '项目既有材料'
+    return re.sub(r'^(?:公共战役|既有底账|现行公共战役|底账)', '', value)
+
+
+def source_volume(ref, context):
+    from .second_item_c_source_display import bibliographic_source
+
+    path = ref.partition('#')[0]
+    if ('source_root' not in context or not path.startswith('docs/史料通读产物/')
+            or not path.endswith('.battle-adjudications.json')):
+        return {}
+    cache = context['source_volumes']
+    if path not in cache:
+        root = context['source_root'].resolve()
+        source_path = (root / path).resolve()
+        if not source_path.is_relative_to(root / 'docs' / '史料通读产物') or not source_path.is_file():
+            return {}
+        data = json.loads(source_path.read_text(encoding='utf-8'))
+        title = data.get('source_volume') or ''
+        if isinstance(title, int):
+            title = f'{source_path.parent.name}/卷{title}'
+        url = (data.get('source_identity') or {}).get('source_url') or data.get('source_url') or ''
+        citation = bibliographic_source({'source_title': title, 'source_locator': '', 'source_url': url})
+        cache[path] = {'title': citation['source_title'], 'url': citation['source_urls'][0]} if (
+            citation['source_title'] and citation['source_urls']
+        ) else {}
+    return cache[path]
 
 def fmt(value):return f'{float(value):.4f}'.rstrip('0').rstrip('.')
 
@@ -59,6 +137,25 @@ def reading_projection(row, *, context):
         if e['kind'] not in ('现行评价判断','既有史实摘要','史料原文'):raise ValueError('未知C材料类别')
         if not set(e.get('c_chain_refs',[]))<=set(row.get('strategy_chain_refs',[])+row.get('capability_only_strategy_chain_refs',[])):
             raise ValueError('C材料引用本人范围外任务')
+        e['reading_source_labels'] = list(dict.fromkeys(map(material_source_label, e['sources'])))
+        originals = e.get('public_originals', [])
+        if not isinstance(originals, list) or any(
+            not isinstance(source, dict) or set(source) != {'title', 'url', 'context', 'quote'}
+            or any(not isinstance(value, str) or not value.strip() for value in source.values())
+            or not source['url'].startswith('https://zh.wikisource.org/wiki/')
+            for source in originals
+        ):
+            raise ValueError('C公开原典须有卷篇、链接、语境与正文')
+        for passage in e.get('source_passages', []):
+            passage['reading_kind'] = passage_kind(passage.get('kind') or e['kind'])
+            passage['reading_quote'] = (passage['quote'] if passage['reading_kind'] == '既有史料摘录'
+                                        else editorial_passage(passage['quote']))
+            if passage['reading_kind'] == '既有史料摘录':
+                volume = source_volume(passage['path'], context)
+                if volume:
+                    passage['reading_volume'] = volume
+        if e['kind'] != '史料原文':
+            e['text'] = editorial_passage(e['text'])
     g=grade(row['final_grade']);a=row['joint_assessment']
     p['axes']={'C1':dict(label=LABELS[0],grade=g,grade_label='待定' if g is None else str(g)+'档',
         basis=p['story'],assessment_guide=COMBAT_GUIDE,scale=SCALES[0],materials=items,
@@ -69,6 +166,8 @@ def reading_projection(row, *, context):
     p.update(calculation=calculation(row),contract_review=reading_review(row,context=context),
         assessment_scope_note=ASSESSMENT_SCOPE,review_note=REVIEW_NOTE,audit_terms=list(AUDIT_TERMS),
         audit_link_note=AUDIT_LINK_NOTE,ruler_id=row['ruler_id'])
+    for task in p['contract_review']['chains'] + p['contract_review']['excluded_chain_reviews']:
+        task['basis'] = editorial_passage(task['basis'])
     p['commander_profiles']=commander_projection(row)
     return p
 
@@ -151,8 +250,20 @@ def markdown(row,*,context):
         p['responsibility'],'',p['boundary'],'',p['source_note'],'']
     for e in p['evidence_items']:
         lines+=['#### '+e['label'],'',e['kind']+'：'+e['text'],'',e['scope'],'',
-            '来源：'+'；'.join(s['path'] for s in e['sources']),'']
-        for s in e.get('source_passages',[]):lines+=['> '+s['quote'].replace('\n','\n> '),'']
+            '所引材料：'+'；'.join(e['reading_source_labels']),'']
+        for source in e.get('public_originals', []):
+            lines += [f"[{source['title']}]({source['url']})", '', source['context'], '',
+                      '> ' + source['quote'].replace('\n', '\n> '), '']
+        for s in e.get('source_passages', []):
+            if s.get('source_subject_phase'):
+                lines += [s['source_subject_phase'], '']
+            volume = s.get('reading_volume')
+            if volume:
+                lines += [f"[{volume['title']}]({volume['url']})", '']
+            if s['reading_quote'].strip() == e['text'].strip():
+                lines += [f"上文依据（{s['reading_kind']}）", '']
+            elif s['reading_quote']:
+                lines += [s['reading_kind'], '', '> ' + s['reading_quote'].replace('\n', '\n> '), '']
     if p['commander_profiles']['entries']:
         lines+=['#### 将领与本任事实','',p['commander_profiles']['note'],'']
         for commander in p['commander_profiles']['entries']:

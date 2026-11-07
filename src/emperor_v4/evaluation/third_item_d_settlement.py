@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 from typing import Any, Mapping
+from urllib.parse import unquote, urlsplit
 
 from emperor_v4.evaluation.formal_json_store import load_json
 
@@ -280,6 +281,41 @@ def _ordinary_summary(value: object) -> str:
     return "；".join(parts) if parts else "无另需展开的普通平乱成本。"
 
 
+def reading_sources(row: Mapping[str, Any]) -> list[dict[str, Any]]:
+    from .second_item_c_source_display import bibliographic_source
+
+    def citation_for(url, title=''):
+        parsed = urlsplit(url)
+        if not title and parsed.hostname == 'zh.wikisource.org':
+            title = unquote(re.sub(r'^/(?:wiki|zh(?:-[a-z]+)?)/', '', parsed.path))
+        citation = bibliographic_source({'source_title': title, 'source_locator': '', 'source_url': url})
+        return citation['source_title'], next(iter(citation['source_urls']), '')
+
+    cards = []
+    for source in (row.get('military_fact_basis') or {}).get('source_excerpts') or []:
+        title, url = citation_for(source.get('source_url', ''), source.get('public_source_title', ''))
+        kind = source.get('kind') or ''
+        summary = '摘要' in kind or '非连续' in kind
+        cards.append({
+            'label': source['label'],
+            'title': title,
+            'url': url,
+            'kind': '项目史料摘要' if summary else '所引原文' if source.get('public_excerpt') else '既有摘录',
+            'text': source.get('public_excerpt') or source['text'],
+            'context': source.get('public_context', ''),
+            'boundary': source.get('boundary', ''),
+            'summary': summary,
+        })
+    listed = {card['url'] for card in cards}
+    for ref in dict.fromkeys((row.get('attributable_cost_profile') or {}).get('source_refs') or []):
+        if ref.startswith(('https://', 'http://')) and ref not in listed:
+            title, url = citation_for(ref)
+            if url:
+                cards.append({'label': '成本资料', 'title': title, 'url': url, 'kind': '所引卷篇或研究',
+                              'text': '', 'context': '', 'boundary': '', 'summary': False})
+    return cards
+
+
 def render_third_item_d_markdown(payload: Mapping[str, Any]) -> str:
     records = sorted(
         payload["records"],
@@ -397,6 +433,23 @@ def render_third_item_d_markdown(payload: Mapping[str, Any]) -> str:
         ordinary = row.get("ordinary_suppression_summary")
         if ordinary not in (None, "", [], {}):
             lines.append(f"- **普通平乱摘要**：{_ordinary_summary(ordinary)}")
+        excerpts = reading_sources(row)
+        if excerpts:
+            lines += ['', '#### 所引史料与采用范围', '',
+                      '所列材料也用于核对时间、参战方和归责。实际计入的本方损失以成本裁决为准。', '']
+            for source in excerpts:
+                title = source['title'] or '查看所引史源'
+                link = f"[{title}]({source['url']})" if source['url'] else source['title']
+                lines += [' · '.join(filter(None, (source['label'], source['kind'], link))), '']
+                if source['context']:
+                    lines += [source['context'], '']
+                if source['text']:
+                    if source['summary']:
+                        lines += [source['text'], '']
+                    else:
+                        lines += [*(('> ' + line).rstrip() for line in source['text'].splitlines()), '']
+                if source['boundary']:
+                    lines += ['采用范围：' + source['boundary'], '']
         lines += [f"- **最终裁决**：{_reader_text(row['adjudication_basis'])}", ""]
     return "\n".join(lines).rstrip() + "\n"
 

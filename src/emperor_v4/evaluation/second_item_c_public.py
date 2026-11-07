@@ -4,7 +4,6 @@ from __future__ import annotations
 import copy
 import json
 import re
-import posixpath
 from pathlib import Path
 from typing import Any
 
@@ -362,6 +361,28 @@ def verify_source_bindings(payloads: dict[str, dict[str, Any]]) -> int:
 def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
     """Keep the existing settlement table; append one current authored view."""
     from .reading_layout import person_start, PERSON_END
+    from .second_item_c_materials import material_groups
+    from .second_item_c_source_display import material_excerpts, reading_source
+
+    def citation(raw):
+        ref = reading_source(raw)
+        line = '；'.join(ref[key] for key in ('source_kind', 'source_title', 'source_locator', 'source_context') if ref[key])
+        for index, url in enumerate(ref['source_urls'], 1):
+            label = f'史源 {index}' if len(ref['source_urls']) > 1 else '所引史源'
+            line += f"；[{label}]({url})"
+        return '- ' + line
+
+    def excerpts(refs):
+        lines = []
+        for passage in material_excerpts(refs):
+            title, url = passage['title'], passage['url']
+            if title:
+                lines += [f'[{title}]({url})' if url else title, '']
+            if passage.get('context'):
+                lines += [passage['context'], '']
+            lines += ['> ' + passage['text'].replace('\n', '\n> '), '']
+        return lines
+
     start = '<!-- c-public-start -->'
     end = '<!-- c-public-end -->'
     core = re.sub(r'\n*' + re.escape(start) + r'.*?' + re.escape(end) + r'\n*', '\n', markdown, flags=re.S).rstrip()
@@ -386,16 +407,15 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
             if item['public_boundary']:
                 lines += ['**本条范围：**' + item['public_boundary'], '']
             for ref in item['source_refs']:
-                target, _, anchor = ref['path'].partition('#')
-                target = posixpath.relpath(target, FORMAL_PATHS[payload['public_projection_axis']].parent.as_posix()) + ('#' + anchor if anchor else '')
-                lines += [f"- {ref['source_kind']}：{ref['source_title']}；{ref['source_locator']}；[原记录]({target})", '',
-                          '> ' + ref['exact_quote'].replace('\n', '\n> '), '']
-                if ref.get('source_url'):
-                    lines += [f"[所引史源]({ref['source_url']})", '']
-        if row['public_related_source_refs']:
-            lines += ['#### 相关材料汇集（不代表逐条事实已获证明）', '']
-            for ref in row['public_related_source_refs']:
-                lines += [f"- {ref['source_kind']}：{ref['source_title']}；{ref['source_locator']}", '', '> ' + ref['exact_quote'].replace('\n', '\n> '), '']
+                lines += [citation(ref), '', *excerpts([ref])]
+        refs = row['public_related_source_refs']
+        if refs:
+            lines += ['#### 相关材料汇集', '']
+            for label, groups in material_groups(refs).items():
+                lines += [f'##### {label}', '']
+                for group in groups:
+                    lines.extend(citation(refs[index]) for index in group)
+                    lines += ['', *excerpts([refs[index] for index in group])]
         lines += ['</details>', '', '<details><summary>评价范围与计算</summary>', '', row['public_boundary'], '',
                   row['public_calculation'], '', '</details>', '']
         if payload['public_projection_axis'] in GENERATED_MARKDOWN_AXES:

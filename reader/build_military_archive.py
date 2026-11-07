@@ -498,7 +498,8 @@ def _reader_evidence(root: Path, battle_index: dict[str, Any]) -> dict[str, dict
                 parts.extend(str(phase.get(key) or "") for key in ("evaluation_subject_phase", "actual_process", "carry_in", "carry_out"))
                 parts.append(str((phase.get("ruler_binding") or {}).get("ruler_name") or ""))
             row["search_text"] = " ".join(parts)
-            if not phases:
+            authored_sources = record.get("public_source_reading", {})
+            if not phases and not authored_sources:
                 continue
             filename = "evidence/" + shard.name
             row["evidence_source"] = "data/military/" + filename
@@ -538,6 +539,16 @@ def _reader_evidence(root: Path, battle_index: dict[str, Any]) -> dict[str, dict
                     "source": row["source"], "group": "", "refs": refs,
                     "quotes": [quote for quote in record["source_quotes"] if isinstance(quote, str)],
                 })
+            for ref, citation in authored_sources.items():
+                existing = next((card for card in detail["source_cards"] if card.get("authored_citation") == citation), None)
+                if existing:
+                    existing["refs"].append(ref)
+                else:
+                    detail["source_cards"].append({
+                        "title": record["canonical_label"], "source_volume": citation["title"],
+                        "source_url": citation["url"], "refs": [ref], "quotes": [citation["quote"]],
+                        "authored_citation": citation,
+                    })
     seen = set()
     lineage_anchors = [anchor for anchor in battle_index.get("first_item_c_anchors", []) if anchor.get("status") == "resolved_unique" and anchor.get("resolution_mode") == "registry_lineage"]
     public_rows = _public_battle_rows(root) if lineage_anchors else []
