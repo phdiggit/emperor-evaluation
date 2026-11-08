@@ -1421,41 +1421,28 @@ function firstCommanderMarkup(item, record) {
     const spec = netMajorSpecs[major];
     const rawFirstScore = finiteNetNumber(record.net?.first_item_raw_score);
     const firstStatus = record.net?.first_item_status;
-    const extra = major === "first" && firstStatus === "APPLICABLE"
-      ? rawFirstScore === 0
-        ? '<p class="subline">本项适用，但奠基与统一结算分为0；总榜附加为0。</p>'
-        : rawFirstScore == null
-          ? `<p class="subline">本项适用，但奠基与统一结算分未列；当前显示正式附加分 ${scoreNumber(record.net?.first_item_add_on)}。</p>`
-          : `<p class="subline">奠基与统一结算分：${scoreNumber(rawFirstScore)}；此处显示进入总榜的附加分。</p>`
-      : major === "first" && firstStatus === "NOT_APPLICABLE"
-        ? `<p class="subline">该人物第一项不适用。</p>`
-        : major === "first"
-          ? `<p class="subline">奠基与统一的正式适用状态未发布；阅读层不作默认判断。</p>`
-          : major === "third"
-          ? '<p class="subline">250分制净分；战略、控制与军事体系收益合计后，再扣实际军事代价。</p>'
-          : major === "fourth"
-            ? `<p class="subline">${esc(fourthAdjustmentNote(record))}</p>`
-            : "";
-    const shownValue = major === "first" && firstStatus === "NOT_APPLICABLE"
-      ? "不适用"
-      : value == null ? "—" : major === "fourth" && Number(value) > 0 ? `+${scoreNumber(value)}` : scoreNumber(value);
+    const shownValue = performanceScore(record.net, major);
     const inactiveFirst = major === "first" && firstStatus !== "APPLICABLE";
     const description = inactiveFirst
       ? firstStatus === "NOT_APPLICABLE"
         ? "本项只评价建国、复国或统一创业主链。当前正式结算未将本人纳入该主链，附加分按0计入总分；不据此判断能力高低。"
         : "请先查看正式适用状态与本项范围，不从空值推断为0分或不适用。"
       : spec.description;
-    return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(spec.title)}</h2><div class="big">${shownValue}</div>${major === "first" && !inactiveFirst ? '<p class="net-card-score-label">总榜附加分</p>' : ""}${extra}<p>${esc(description)}</p><p class="sources">${inactiveFirst?'查看适用规则与说明 →':'查看分项与依据 →'}</p></a>`;
+    return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(spec.title)}</h2><div class="big">${shownValue}</div><p>${esc(description)}</p><p class="sources">${inactiveFirst?'查看适用规则与说明 →':'查看分项与依据 →'}</p></a>`;
   }
 
   function renderNetShell(record, active, body) {
     nav("");
     const systemNav = typeof personSystemNav === "function" ? personSystemNav(record, "net") : "";
-    screen.innerHTML = `<a class="back" href="#person/${encodeURIComponent(record.ruler_id)}">← 返回${esc(personLabel(record))}人物页</a><div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权背景：${esc(record.actual_power_window || "未列")} · 统治绩效总分 ${scoreNumber(record.net?.total_score)}</p></div></div><p class="subline net-power-context-note">本项采用的时间与责任范围见各条依据；不能仅凭上述背景时期判断事件是否计入。</p>${governanceScope(record.net)}${systemNav}${majorNav(record, active)}<section class="net-detail-page" data-net-person="${esc(record.ruler_id)}" data-net-major="${esc(active)}">${body}</section>`;
+    const overview = active === "all";
+    screen.innerHTML = `<div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权时期 ${esc(record.actual_power_window || "未列")}${overview ? "" : ` · 统治绩效 ${performanceScore(record.net)}`}</p></div></div>${governanceScope(record.net)}${systemNav}${overview ? "" : `<div class="net-detail-public-score">本项表现 <strong>${performanceScore(record.net, active)}</strong><small>独立量尺；下方计算使用原分</small></div>`}${overview ? "" : majorNav(record, active)}<section class="net-detail-page" data-net-person="${esc(record.ruler_id)}" data-net-major="${esc(active)}" data-net-score-mode="${meritTierPreview ? "merit" : "letter"}">${body}${overview ? "" : performanceScaleHelp(record.net)}</section>`;
   }
 
   function renderNetLanding(record) {
-    renderNetShell(record, "all", `<div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div><section class="panel net-governance-preview"><h2>治国成效预览</h2>${governanceReading(record,false)}</section>`);
+    const {rank} = record.net;
+    const uncertainty = rankUncertaintyText(record.net);
+    const total = `<section class="panel net-total-overview"><div><h2>统治绩效 · 展示分</h2><strong class="big">${performanceScore(record.net)}</strong></div><div><strong>第 ${esc(rank)} 名</strong><p class="subline">共 ${esc(DATA.ranked_count)} 人上榜</p>${uncertainty ? `<p class="subline">考虑史料分歧，${esc(uncertainty)}</p>` : ""}</div></section>`;
+    renderNetShell(record, "all", `${total}<h2 class="net-breakdown-heading">分项表现</h2><p class="subline">奠基、治国和军事分别读分；文明默认显示有符号净增量，不能与展示分相加。</p><div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div>${performanceScaleHelp(record.net)}`);
   }
 
   function renderNetMajor(record, major, focus) {
@@ -1518,7 +1505,8 @@ function firstCommanderMarkup(item, record) {
     const parsed = parseNetRoute();
     if (!parsed) return false;
     const current = screen.querySelector(".net-detail-page");
-    if (current?.dataset.netPerson === parsed.rulerId && current.dataset.netMajor === parsed.major) {
+    if (current?.dataset.netPerson === parsed.rulerId && current.dataset.netMajor === parsed.major &&
+        current.dataset.netScoreMode === (meritTierPreview ? "merit" : "letter")) {
       const prefix = parsed.major === "first" ? "net-first-" : "net-group-";
       const target = parsed.focus && document.getElementById(prefix + parsed.focus);
       if (target && current.contains(target)) {

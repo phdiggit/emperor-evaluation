@@ -9,7 +9,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_second_overview_scores_render_final_text_without_alias_patch(tmp_path):
+def test_second_overview_preserves_selected_score_without_alias_patch(tmp_path):
     node = shutil.which('node')
     if not node:
         pytest.skip('Node.js required for reader behavior')
@@ -18,7 +18,7 @@ def test_second_overview_scores_render_final_text_without_alias_patch(tmp_path):
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('reader/second-item-reading.js','utf8');
 function section(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert.ok(a>=0&&b>a);return source.slice(a,b);}
-const score={dataset:{},textContent:''},description={dataset:{},textContent:'',classList:{contains:()=>false}};
+const score={dataset:{},textContent:'校准显示值'},description={dataset:{},textContent:'',classList:{contains:()=>false}};
 const card={classList:{add(){}},getAttribute:()=> '#net/synthetic/second',
  querySelector:selector=>selector==='.big'?score:null,querySelectorAll:()=>[description]};
 const context={location:{hash:'#net/synthetic/all'},document:{querySelectorAll:()=>[card]}};
@@ -27,20 +27,20 @@ vm.runInContext(fs.readFileSync('reader/second-item-display.js','utf8'),context)
 vm.runInContext(section('  const {','  function ensureStyles(')
  +section('  function ensureLandingCard(','  function ensureSecondSummary(')
  +section('  function pendingSecondLabel(','  function enhanceNetRoute('),context);
-for(const [value,expected] of [[0,'0.0 分'],[-2.5,'-2.5 分'],[12.25,'12.3 分'],[null,'—']]){
+for(const value of [0,-2.5,12.25,null]){
  context.ensureLandingCard({}, {totalScore:value});
- assert.equal(score.textContent,expected);
+ assert.equal(score.textContent,'校准显示值');
 }
-const cells=[{dataset:{},textContent:'治国成效'}, {dataset:{}}, {dataset:{},textContent:''}];
+const cells=[{dataset:{},textContent:'治国成效'}, {dataset:{},innerHTML:'<b>校准显示值</b>'}, {dataset:{},textContent:''}];
 context.screenEl={querySelectorAll:()=>[{cells}]};
 const settled={detail_loaded:true,net:{second_item_score:0,component_details:{}}};
 const pending={detail_loaded:true,settlement_readiness:'PENDING_SECOND_ITEM_FORMAL_SETTLEMENT'};
 context.enhanceCompare([settled,pending]);
-assert.equal(cells[1].innerHTML,'<b>0.0 分</b>');
+assert.equal(cells[1].innerHTML,'<b>校准显示值</b>');
 assert.equal(cells[2].textContent,'待正式结算');
 settled.net.second_item_score=-2.5;
 context.enhanceCompare([settled,pending]);
-assert.equal(cells[1].innerHTML,'<b>-2.5 分</b>');
+assert.equal(cells[1].innerHTML,'<b>校准显示值</b>');
 ''', encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
                             text=True, encoding='utf-8')

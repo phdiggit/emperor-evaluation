@@ -133,6 +133,7 @@ const context={DATA:data,state,screen,byId:new Map(),nav(){},history:{replaceSta
  netGroups:r=>`<p>构成-${r.ruler_id}</p>`,historySections:r=>`<p>后效-${r.ruler_id}</p>`,
  axisEvidence:(r,c)=>`<details><summary>${c}</summary><p>${r.axes[c].evidence}</p></details>`};
 vm.createContext(context);
+vm.runInContext(section('function performanceScore(','const conf='),context);
 vm.runInContext(section('const letters=','const groupNames=')+section('function radar(r)','function axisRows(')+section('function compare(){','function guide()'),context);
 function evalAxis(axis,fn='radarValue'){context.axis=axis;return vm.runInContext(`${fn}(axis)`,context);}
 for(let i=0;i<18;i++){
@@ -206,6 +207,7 @@ const original=JSON.stringify(records);
 const state={q:'',polity:'',scope:'main',sort:'time',compare:['left'],grade:'',scale:'',differences:false,filtersOpen:false,homeView:'simple'};
 const context={DATA:{records,impact_grades:['B'],main_count:2,ranked_count:0,supplementary_count:1,capability_axes:[],independent_axes:[],axis_specs:{}},state,screen,byId:new Map(records.map(r=>[r.ruler_id,r])),document:{getElementById:id=>nodes[id]},nav(){},number:String,scoreNumber:v=>String(v??'—'),conf:String,impactMeaning:{B:'合成影响量级'}};
 vm.createContext(context);
+vm.runInContext(section('function performanceScore(','const conf='),context);
 vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function home(){','function netPanel('),context);
 vm.runInContext('home()',context);
 assert.equal(nodes['advanced-filters'].hidden,true);

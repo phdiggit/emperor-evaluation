@@ -36,6 +36,7 @@ READER_RUNTIME_SCRIPTS = (
 )
 sys.path.insert(0, str(ROOT / "src"))
 from emperor_v4.json_format import json_text
+from emperor_v4.reader_scores import project as public_scores, metadata as public_score_metadata
 from emperor_v4.evaluation.formal_json_store import ROUTER_SCHEMA, load_json
 from emperor_v4.evaluation.third_fourth_item_public import THIRD_TOTAL_PATH
 from emperor_v4.evaluation.first_item_public_outcomes import (
@@ -1104,6 +1105,11 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             how=f"国家共同体、教育与人才、知识与文化生态三轴调整相加：{' + '.join(str(v) for v in values)} = {civilization['第四项调整'].get('value')} 分。",
         )
         civilization["第四项调整"]["public_component_label"] = "第四项文明与国家整合调整"
+        civilization["第四项调整"]["reader_signed_balance"] = {
+            "positive_gross": fourth["positive_gross"],
+            "negative_gross": fourth["negative_gross"],
+            "result_count": sum(len(axis["results"]) for axis in fourth["axis_results"]),
+        }
     if civilization:
         details["civilization"] = [civilization[item["label"]] for item in details["civilization"]]
 
@@ -1199,7 +1205,7 @@ def record_summary(record):
     ])
     summary["net"] = pick(net, [
         "rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
-        "second_item_score", "third_item_score", "fourth_item_adjustment",
+        "second_item_score", "third_item_score", "fourth_item_adjustment", "public_scores",
         "evidence_assessment", "prudent_score_interval", "prudent_rank_projection", "governance_context", "governance_display",
     ]) if net else None
     if summary["net"] and net.get('evidence_assessment'):
@@ -2013,8 +2019,11 @@ def build(*, check=False, write=True):
         affected = sorted({rid for rid, _, _ in note_issues})
         sample = '; '.join(f'{rid}/{section}/{path}' for rid, section, path in note_issues[:6])
         raise ValueError(f"Reader overview references need review: {len(note_issues)} issues / {len(affected)} people: {sample}")
+    for record in records:
+        if record.get("net"):
+            record["net"]["public_scores"] = public_scores(record["net"])
     person_notes_snapshot(check=check, write=write)
-    common = dict(main_count=len(main), ranked_count=len(net),
+    common = dict(main_count=len(main), ranked_count=len(net), public_score_scale=public_score_metadata(),
                   source_repository=source_identity["repository"],
                   source_revision=source_identity["revision"],
                   historical_source_links=historical_source_links(),

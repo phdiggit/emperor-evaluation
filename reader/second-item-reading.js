@@ -92,7 +92,7 @@
     const card=Array.from(document.querySelectorAll(".net-major-card")).find(x=>x.getAttribute("href")?.includes("/second"));if(!card)return;
     card.classList.add("second-item-card");
     const heading=card.querySelector("h3,h2");if(heading&&heading.textContent.includes("治国净收益"))setNodeText(heading,"治国成效");
-    setNodeText(card.querySelector(".big"),t.totalScore==null?"—":`${fmt(t.totalScore)} 分`);
+    // The main template owns the selected display scale.
     const desc=Array.from(card.querySelectorAll(":scope > p")).find(p=>!p.classList.contains("sources")&&!p.classList.contains("second-item-card-breakdown"));
     setNodeText(desc,"评价实际掌权期间的制度行政、民生社会与最终交接；军事、边疆与统一功业在其他板块单独评价。");
     if([t.methodScore,t.resultScore,t.handoffScore].some(v=>v==null))return;
@@ -197,13 +197,13 @@
   }
   function enhancePersonOverview(record){
     if(!record?.detail_loaded||!record?.net||!location.hash.startsWith("#person/"))return;const panel=document.getElementById("person-outcome");if(!panel)return;const t=secondTotals(record);
-    for(const row of panel.querySelectorAll(":scope > .component")){const span=row.querySelector("span");if(!span||!["治国净收益","治国成效"].some(label=>directText(span).startsWith(label)))continue;setRowLabel(span,"治国成效");setNodeText(row.querySelector("b"),`${fmt(t.totalScore)} 分`);}
+    for(const row of panel.querySelectorAll(":scope > .component")){const span=row.querySelector("span");if(!span||!["治国净收益","治国成效"].some(label=>directText(span).startsWith(label)))continue;setRowLabel(span,"治国成效");}
     enhanceCompactGroups(record);
   }
   function pendingSecondLabel(record){return record?.settlement_readiness==="PENDING_SECOND_ITEM_FORMAL_SETTLEMENT"?"待正式结算":"未结算";}
   function enhanceCompare(records){
     if(records.length<2||records.some(r=>!r?.detail_loaded))return;const rows=Array.from(screenEl.querySelectorAll(".comparison tbody tr")),secondRow=rows.find(r=>["治国净收益","治国成效"].includes(r.cells?.[0]?.textContent.trim()));
-    if(secondRow){setNodeText(secondRow.cells?.[0],"治国成效");records.forEach((record,index)=>{const cell=secondRow.cells[index+1];if(!cell)return;if(!record?.net){setNodeText(cell,pendingSecondLabel(record));return;}const t=secondTotals(record),key=String(t.totalScore);if(cell.dataset.secondItemKey===key)return;cell.innerHTML=`<b>${fmt(t.totalScore)} 分</b>`;cell.dataset.secondItemKey=key;});}
+    if(secondRow){setNodeText(secondRow.cells?.[0],"治国成效");records.forEach((record,index)=>{const cell=secondRow.cells[index+1];if(!cell)return;if(!record?.net){setNodeText(cell,pendingSecondLabel(record));return;}/* Preserve the current display score rendered by the template. */});}
     const structureRow=rows.find(r=>["分项构成","构成与依据"].includes(r.cells?.[0]?.textContent.trim()));
     if(structureRow){records.forEach((record,index)=>{const cell=structureRow.cells[index+1];if(!cell)return;if(!record?.net){if(record?.settlement_readiness==="PENDING_SECOND_ITEM_FORMAL_SETTLEMENT")setNodeText(cell,"治国成效正式结算待补；当前没有本项正式结果。");return;}for(const details of cell.querySelectorAll("details")){const summary=details.querySelector(":scope > summary"),kind=groupKindFromSummary(summary);if(kind){setNodeText(summary,publicGroupTitle(kind));formatCompactGroup(details,record,kind);}}});}
   }
