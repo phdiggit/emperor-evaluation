@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import hashlib
 from pathlib import Path
 
 import sys
@@ -65,6 +66,9 @@ def build_payloads() -> dict[str, str]:
     # Full formal-source validation is a separate CI step. This builder only
     # projects the already-validated sources into the current Reader subset.
     parsed = {code: parse_people(path) for code, path in DOCS.items()}
+    source_version = hashlib.sha256(''.join(
+        path.read_text(encoding='utf-8') for path in sorted(DOCS.values())
+    ).encode('utf-8')).hexdigest()
     people = applicable_people()
     public_outcomes = load_first_item_public_outcomes(ROOT)
     public_commanders = load_first_item_c_public(ROOT)
@@ -106,6 +110,7 @@ def build_payloads() -> dict[str, str]:
             documents[LABELS[code]] = section_text(reader_name, parsed[code][formal_name])
         payload = {
             "schema_version": "reader-first-item-source-v2",
+            "source_version": source_version,
             "ruler_id": ruler_id,
             "ruler_name": reader_name,
             "formal_name": formal_name,

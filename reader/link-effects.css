@@ -169,12 +169,12 @@ header nav button,
     right: 0;
   }
 
-  #screen summary:hover {
+  #screen summary:not(.explore-summary):hover {
     color: var(--red);
     background-color: color-mix(in srgb, var(--gold) 8%, transparent);
   }
 
-  #screen summary:hover::after {
+  #screen summary:not(.explore-summary):hover::after {
     color: var(--red);
   }
 

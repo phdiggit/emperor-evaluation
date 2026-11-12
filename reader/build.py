@@ -3,7 +3,6 @@ from pathlib import Path
 from copy import deepcopy
 import json
 import os
-from functools import lru_cache
 import sys
 import argparse
 import hashlib
@@ -21,6 +20,7 @@ SOURCE_IDENTITY_PATH = ROOT / "reader/source-revision.json"
 PERSON_NOTES_SOURCE = ROOT / "reader/person-reading-notes.json"
 PERSON_NOTES_SNAPSHOT = ROOT / "reader/data/person-reading-notes.json"
 READER_RUNTIME_SCRIPTS = (
+    "fourth-item-reasons.js",
     "fourth-item-a-public.js",
     "fourth-item-b-public.js",
     "fourth-item-c-public.js",
@@ -35,10 +35,11 @@ READER_RUNTIME_SCRIPTS = (
     "person-reading-notes.js",
 )
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT))
+from reader.presentation import period_label, prepare_collections
 from emperor_v4.json_format import json_text
 from emperor_v4.reader_scores import project as public_scores, metadata as public_score_metadata
-from emperor_v4.evaluation.formal_json_store import ROUTER_SCHEMA, load_json
-from emperor_v4.evaluation.third_fourth_item_public import THIRD_TOTAL_PATH
+from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.first_item_public_outcomes import (
     load_first_item_public_outcomes,
     public_outcome_for_name,
@@ -47,7 +48,9 @@ from emperor_v4.evaluation.first_item_public_outcomes import (
 )
 from emperor_v4.evaluation.profile_parent_schema import parent_chains, representative_parent_chains
 from emperor_v4.evaluation.profile_m1_evidence import verify_evidence_scope
-from emperor_v4.evaluation.historical_impact import SOURCE_DISPLAY, reading_causality, reading_source as impact_reading_source, source_review_text
+from emperor_v4.evaluation.historical_impact import (
+    SOURCE_DISPLAY, reading_causality, reading_source as impact_reading_source, reading_story_sources,
+)
 from emperor_v4.evaluation.first_item_c_public import (
     load_first_item_c_public, public_commander_for_name,
     SOURCE_MARKDOWN_PATH as FIRST_C_SOURCE,
@@ -144,10 +147,48 @@ def person_note_reference_issues(records, notes):
         overview = entry.get('overview', {})
         for section in sorted(expected_sections ^ overview.keys()):
             issues.append((rid, section, []))
-        for section, block in overview.items():
+        sections = dict(overview)
+        sections.update({f"net.{key}": block for key, block in entry.get("net", {}).items()})
+        for axis, reason in entry.get('profile_grade_reasons', {}).items():
+            path = ['axes', axis, 'grade_basis']
+            source = record.get('axes', {}).get(axis, {}).get('grade_basis')
+            if not source or reason.get('source') != source or not str(reason.get('text') or '').strip():
+                issues.append((rid, f'profile_grade_reasons.{axis}', path))
+        for system, chapters in entry.get('reading', {}).items():
+            if system not in {'profile', 'impact', 'second', 'third', 'fourth'} or not isinstance(chapters, list) or not chapters:
+                raise ValueError(f'Invalid reader narrative section: {rid}/{system}')
+            for i, chapter in enumerate(chapters):
+                if set(chapter) != {'title', 'text', 'evidence'} or not chapter['title']:
+                    raise ValueError(f'Invalid reader narrative chapter: {rid}/{system}/{i}')
+                groups = {'second': {'method', 'finance', 'handoff'}, 'third': {'strategic', 'military'}, 'fourth': {'civilization'}}
+                for ref in chapter['evidence']:
+                    path = ref.get('path', [])
+                    allowed = (system == 'profile' and path[:1] == ['axes']) or (system == 'impact' and path[:1] == ['impact'])
+                    if system in groups:
+                        allowed = len(path) >= 5 and path[:2] == ['net', 'component_details'] and path[2] in groups[system]
+                    if not allowed:
+                        issues.append((rid, f'reading.{system}.{i}', path))
+                sections[f'reading.{system}.{i}'] = chapter
+        for section, block in sections.items():
             if not block.get('text') or not block.get('evidence'):
                 issues.append((rid, section, []))
             for reference in block.get('evidence', []):
+                if section == 'net.fourth' and reference.get('path', [])[:3] != ['net', 'component_details', 'civilization']:
+                    issues.append((rid, section, reference.get('path', [])))
+                    continue
+                if section == 'net.third':
+                    path = reference.get('path', [])
+                    allowed = False
+                    if len(path) >= 5 and path[:2] == ['net', 'component_details']:
+                        group, position = path[2:4]
+                        items = (record.get('net') or {}).get('component_details', {}).get(group, [])
+                        if isinstance(position, int) and 0 <= position < len(items):
+                            item = items[position]
+                            allowed = (group == 'strategic' and item.get('label') in ('A1', 'A2', 'B1', 'B2', 'B4')) or (
+                                group == 'military' and item.get('label') in ('普通成本扣分', 'ML扣分', '第三项合计'))
+                    if not allowed:
+                        issues.append((rid, section, path))
+                        continue
                 if supplementary and reference['path'][:1] != ['impact']:
                     issues.append((rid, section, reference['path']))
                     continue
@@ -422,6 +463,17 @@ def _attach_quality_status(result, record):
         result["reader_quality_status"] += "；缺证默认，不代表已证良好表现"
 
 
+def _b2_reader_rating(record):
+    bands = {"G0": "E", "G1": "D", "G2": "C", "G3": "B", "G4": "A", "G5": "S"}
+    positions = {
+        "lower": ("-", "下位"), "lower-middle": ("-", "中下位"),
+        "middle": ("", "中位"),
+        "middle-upper": ("+", "中上位"), "upper": ("+", "上位"),
+    }
+    suffix, position = positions[record["position"]]
+    return bands[record["grade"]] + suffix, position
+
+
 def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
     """Project B2's explicit public fields without semantic fallback guessing."""
     from emperor_v4.evaluation.second_item_b2_public import display_sources
@@ -444,6 +496,8 @@ def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
         if 'source_refs' in entry else deepcopy(entry) for entry in evidence
     ]
     _attach_quality_status(result, record)
+    result["reader_b2_grade"], result["reader_b2_position"] = _b2_reader_rating(record)
+    result["reader_b2_collection_id"] = record["ruler_id"]
     result["reader_highlights"] = _unique_texts(
         [
             f"{entry.get('public_label')}：{entry.get('public_basis')}"
@@ -570,14 +624,6 @@ def _attach_second_item_c_public_reader(item, *, axis, record, how="", source_re
     if refs:
         result["reader_source_refs"] = refs
     return result
-
-
-def _handoff_display_reason(record):
-    summary = record["public_adjudication_summary"]
-    prefix = summary.removesuffix(record["public_story"]).rstrip()
-    if summary.endswith(record["public_story"]) and prefix.endswith("。"):
-        return prefix
-    return summary
 
 
 def _attach_d1_d3_public_reader(item, *, record, axis, how="", source_refs=()):
@@ -1057,6 +1103,13 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             f"{military.get('ML扣分', {}).get('value')} 取较高值 = {military['实际扣分'].get('value')} 分。"
         )
     if "第三项合计" in military:
+        d_record = sources.get('THIRD_D', {}).get(tid, {})
+        chains = d_record.get('external_strategic_chains', []) + d_record.get('strategic_internal_chains', [])
+        military["第三项合计"]["reader_security_basis"] = "\n".join(
+            [d_record.get('public_adjudication_summary', '')] +
+            [str(chain.get(key) or '') for chain in chains
+             for key in ('chain_name', 'final_control_result', 'headline')]
+        ).strip()
         a120 = strategic.get("A120", {}).get("value")
         b80 = strategic.get("B80", {}).get("value")
         c50 = military.get("C50", {}).get("value")
@@ -1125,38 +1178,18 @@ def detail_ref(ruler_id):
 
 def axis_summary(axis):
     """Keep only fields needed by overview grade rendering before detail fetch."""
-    return pick(axis, [
+    summary = pick(axis, [
         "axis_grade", "position", "output_mode", "applicability_status",
-        "adjudication_state", "display_point_only",
+        "adjudication_state", "display_point_only", "assessment_basis",
+        "score_status", "formal_status",
     ])
+    if axis.get('evidence_floor_review'):
+        summary['evidence_floor_review'] = True
+    return summary
 
 
 def public_power_window(value):
-    """Turn structured-looking power windows into stable human-readable text."""
-    if value is None:
-        return ""
-    if not isinstance(value, str):
-        value = json.dumps(value, ensure_ascii=False, separators=(",", ":"))
-    text = value.strip()
-    if not text.startswith("["):
-        return text
-    try:
-        parsed = json.loads(text)
-    except (TypeError, ValueError, json.JSONDecodeError):
-        return text
-    if not isinstance(parsed, list) or not parsed:
-        return text
-    spans = []
-    for span in parsed:
-        if not isinstance(span, list) or len(span) != 2:
-            return text
-        start, end = span
-        if not isinstance(start, int) or isinstance(start, bool) or not isinstance(end, int) or isinstance(end, bool):
-            return text
-        def year_label(year):
-            return f"前{abs(year)}" if year < 0 else str(year)
-        spans.append(f"{year_label(start)}—{year_label(end)}年")
-    return "；".join(spans)
+    return period_label(value)
 
 
 def public_governance_context(context):
@@ -1201,7 +1234,7 @@ def record_summary(record):
     }
     summary = pick(record, [
         "ruler_id", "ruler_name", "polity", "actual_power_window",
-        "settlement_readiness", "supplementary", "fourth_c_collection_ref", "pending_third_c_ref", "pending_first_ref", "pending_second_ref",
+        "settlement_readiness", "supplementary", "fourth_c_collection_ref", "reading_entries",
     ])
     summary["net"] = pick(net, [
         "rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
@@ -1219,155 +1252,26 @@ def record_summary(record):
 
 
 def source_availability(value):
-    refs = {part for group in local_sources(value) for part in split_source_refs(group)
-            if part.startswith(("docs/", "config/", "archive/"))}
-    availability = {}
-    for ref in sorted(refs):
-        path = ROOT / source_file(ref)
-        availability[ref] = "directory" if path.is_dir() else path.is_file()
-    return availability
-
-
-@lru_cache(maxsize=1024)
-def source_record_lines(path, key, *, record_rows=False, axis=None):
-    lines = {}
-    field = re.compile(r'(?<!\\)"' + re.escape(key) + r'"\s*:\s*("(?:[^"\\]|\\.)*")')
-    for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-        values = [json.loads(match) for match in field.findall(line)]
-        if record_rows and values:
-            # A routed shard writes one record object per line. Nested references
-            # to other rulers are not entries in the routed collection.
-            try:
-                row = json.loads(line.strip().rstrip(","))
-            except json.JSONDecodeError:
-                continue
-            if axis is not None:
-                if not isinstance(row, dict):
-                    continue
-                axes = row.get("axes")
-                if row.get("axis") != axis and not (isinstance(axes, dict) and axis in axes):
-                    continue
-            if key == "campaign_group_ref":
-                values = set(values) if isinstance(row, dict) and row.get("war_event_id") else []
-            else:
-                value = row.get(key) if isinstance(row, dict) else None
-                values = [value] if isinstance(value, str) else []
-        for value in values:
-            lines[value] = number if value not in lines else None
-    return lines
-
-
-@lru_cache(maxsize=128)
-def source_record_shards(path):
-    manifest = json.loads(path.read_bytes())
-    if not isinstance(manifest, dict) or manifest.get("schema_version") != ROUTER_SCHEMA:
-        return ()
-    routes = tuple(Path(route["path"]) for route in manifest["routes"])
-    if any(route.is_absolute() or ".." in route.parts for route in routes):
-        raise ValueError("Published citation shard path is outside its manifest directory")
-    return tuple(path.parent / route for route in routes)
-
-
-@lru_cache(maxsize=128)
-def archived_record_targets(source):
-    targets = {}
-    for shard in source_record_shards(source):
-        collection = json.loads(shard.read_bytes()).get("collections", {}).get("records", {})
-        lines = source_record_lines(shard, "ruler_id", record_rows=True)
-        for position, row in zip(collection.get("positions", []), collection.get("records", []), strict=True):
-            line = lines.get(row.get("ruler_id"))
-            target = f"{shard.relative_to(ROOT).as_posix()}#L{line}" if line else None
-            targets[position] = target if position not in targets else None
-    return targets
-
-
-def source_line_target(ref):
-    path, _, fragment = ref.partition("#")
-    position = re.fullmatch(r"records/(0|[1-9]\d*)", fragment)
-    if path.startswith("archive/") and path.endswith(".json") and position:
-        source = ROOT / source_file(path)
-        if source.is_file():
-            return archived_record_targets(source).get(int(position[1]))
-    key, _, value = unquote(fragment).partition("=")
-    if not path.startswith(("docs/", "config/", "archive/")) or not path.endswith(".json") or key not in {
-        "war_event_id", "phase_id", "material_id", "evidence_id", "ruler_id", "parent_id", "campaign_group_ref", "task_code",
-    } or not value:
-        return None
-    source = ROOT / source_file(path)
-    if not source.is_file():
-        return None
-    axis = None
-    if key == "ruler_id" and "&" in value:
-        qualified = re.fullmatch(r"([^&]+)&axis=(C[123])", value)
-        if not qualified:
-            return None
-        value, axis = qualified.groups()
-    record_rows = (
-        axis is not None or key in {"campaign_group_ref", "task_code"}
-        or (key == "ruler_id" and path == THIRD_TOTAL_PATH.as_posix())
-    )
-    lines = source_record_lines(source, key, record_rows=record_rows, axis=axis)
-    if value in lines:
-        return f"{path}#L{lines[value]}" if lines[value] else None
-    if axis is None and key in {"ruler_id", "parent_id", "evidence_id"}:
-        matches = [(shard, shard_lines[value]) for shard in source_record_shards(source)
-                   if value in (shard_lines := source_record_lines(shard, key, record_rows=key == "ruler_id"))]
-        if len(matches) == 1 and matches[0][1]:
-            shard, line = matches[0]
-            return f"{shard.relative_to(ROOT).as_posix()}#L{line}"
-    return None
-
-
-def published_reading_fallbacks(specs):
-    """Use formal data for generated readings deliberately excluded from Git."""
-    ignored = set((ROOT / ".gitignore").read_text(encoding="utf-8").splitlines())
     return {
-        spec["markdown"]: spec["json"]
-        for spec in specs
-        if "/" + spec["markdown"] in ignored
+        ref: (ROOT / source_file(ref)).exists()
+        for ref in sorted({part for group in local_sources(value) for part in split_source_refs(group)
+                           if part.startswith(("docs/", "config/", "archive/"))})
     }
 
 
-def historical_source_links():
-    """Pin retired First Item citations to their verified original records."""
-    current = "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力/"
-    retired = "docs/评分结算/第一项创业与政权取得能力/"
-    revision = "5c2ef3ee2db42abf915f60923cf841b7583a8147"
-    base = f"https://github.com/phdiggit/emperor-evaluation/blob/{revision}/"
-    strategy = "战略决策能力/01-第一项A战略决策能力结算.json"
-    integration = "政治整合能力/01-第一项B政治整合能力结算.json"
-    strategy_lines = {
-        "RULER-NS-ZHAO-GUANGYI": 10607,
-        "RULER-QIN-YINGZHENG": 2019,
-        "RULER-SHADOW-刘崇": 9076,
-        "RULER-SHADOW-吕光": 8645,
-        "RULER-SHADOW-慕容垂": 3230,
-        "RULER-SHADOW-苻坚": 6222,
-        "RULER-SHADOW-高季兴": 8779,
-        "RULER-WEI-SIMASHI": 12281,
-    }
-    links = {f"{current}{strategy}#ruler_id={ruler_id}": f"{base}{retired}{strategy}#L{line}"
-             for ruler_id, line in strategy_lines.items()}
-    links[f"{current}{integration}#records/79"] = f"{base}{retired}{integration}#L10518"
-    return links
-
-
-def detail_payload(record, axis_specs):
+def detail_payload(record):
     """Full per-person data fetched only when a person or comparison is opened."""
     impact = record.get("impact")
     if impact:
         display_sources = {key: [impact_reading_source(source) for source in impact.get(key, [])]
                            for key in ("source_refs", "related_fact_entries")}
-        record = {**record, "impact": {**impact, **display_sources, "reading_causality": reading_causality(impact),
-                                      "reading_source_review_scope": source_review_text(impact.get("source_review_scope", "")),
-                                      "reading_source_limit": source_review_text((impact.get("source_trace") or {}).get("limit", ""))}}
-    availability = source_availability(record)
-    axis_refs = [f"{axis_specs[code]['json']}#ruler_id={record['ruler_id']}" for code in record["axes"]]
+        story_sources = reading_story_sources(impact)
+        if story_sources:
+            display_sources["reading_story_sources"] = story_sources
+        record = {**record, "impact": {**impact, **display_sources, "reading_causality": reading_causality(impact)}}
     return {
         "record": record,
-        "source_availability": availability,
-        "source_line_targets": {ref: target for ref in dict.fromkeys([*availability, *axis_refs])
-                                if (target := source_line_target(ref))},
+        "source_availability": source_availability(record),
     }
 
 
@@ -1379,22 +1283,12 @@ def serialized_json(value, *, html_safe=False):
 
 
 def collection_source_link(ref, label):
-    from emperor_v4.evaluation.second_item_c_source_display import is_machine_source
-    if is_machine_source(ref):
-        return '<span class="unavailable-source">此条项目依据未单列阅读入口</span>'
-    if ref.startswith(('http://', 'https://')):
+    from emperor_v4.evaluation.second_item_c_source_display import _external_source, project_source_title
+
+    if _external_source(ref):
         return f"<a href='{escape(ref)}' target='_blank' rel='noopener'>{escape(label)}</a>"
-    identity = reader_source_identity()
-    if identity['repository'] and identity['revision']:
-        target = source_line_target(ref) or ref
-        path, _, fragment = target.partition('#')
-        if path.endswith('.json') and re.match(r'^(?:/|campaign_group_ref=|evidence_id=[^/]+/evidence_fields/)', fragment):
-            href = f"source.html?revision={identity['revision']}&ref={quote(target, safe='')}"
-        else:
-            href = 'https://github.com/' + identity['repository'] + '/blob/' + identity['revision'] + '/' + quote(target, safe='/#=')
-    else:
-        href = '../' + quote(ref, safe='/#=')
-    return f"<a href='{escape(href)}' data-local-source='{escape(ref)}' target='_blank' rel='noopener'>{escape(label)}</a>"
+    title = label.rstrip(' ↗→') if label.startswith('《') else project_source_title(ref)
+    return escape(title) if title.startswith('《') else ''
 
 
 def render_first_a_collection(outcomes):
@@ -1437,8 +1331,7 @@ def first_organization_sources(record):
         context = f"<p class='prose'>{escape(source['context'])}</p>" if source.get('context') else ''
         excerpt = f"<blockquote>{escape(source['quote'])}</blockquote>" if source.get('quote') else ''
         cards.append(f'<section><p>{title}</p>{context}{excerpt}</section>')
-    formal = collection_source_link(record['public_sources'][0], '查看本轴正式结算 ↗')
-    return ''.join(cards) + f"<p class='sources'>{formal}</p>"
+    return ''.join(cards)
 
 
 def render_first_b1_collection(records):
@@ -1496,14 +1389,17 @@ def render_first_c_collection(records):
         basis = ''.join(sentence for sentence in re.split(r'(?<=[。！？])', record['public_basis'])
                         if sentence.strip() not in covered).strip()
         judgment = f"<h4>当前评价</h4><p class='prose'>{escape(basis)}</p>" if basis else ''
+        battle_labels = {entry['archive_url']: entry['label'] for entry in record['public_evidence']
+                         if entry['archive_url']}
         battles = ''.join(
-            f"<li><strong>{escape(row['name'])}</strong> · {escape(row['role'])} · 战役成果：{escape(row['result'])} · "
+            f"<li><strong>{escape(battle_labels.get(row.get('archive_url'), '所引战役') if row['name'].startswith('WAR-') else row['name'])}</strong> · "
+            f"{escape(row['role'])} · 战役成果：{escape(row['result'])} · "
             f"{escape('任务难度：' + row['difficulty'] if row['difficulty'] else '任务难度：未单列')} "
             + (f"<a href='{escape(row['archive_url'])}'>查看战役档案 ↗</a></li>" if row.get('archive_url')
              else '</li>')
             for row in record['public_battles']
         )
-        positive = f"<div class='first-c-positive'><h4>已定档的正向结果</h4><p class='subline'>字母刻度属于军事材料，不是人物画像等级；只表示该次正向结果，同场受挫在下方合看。</p><ul>{battles}</ul></div>" if battles else ''
+        positive = f"<div class='first-c-positive'><h4>主要战果</h4><ul>{battles}</ul></div>" if battles else ''
         setbacks = ''.join(f"<div class='first-c-setback'><strong>{escape(row['name'])}</strong><span class='first-c-direction'>{escape(row['direction'])}</span><p class='prose'>{escape(row['process'])}</p>" + ' '.join(f"<a href='{escape(url)}'>查看战役档案 ↗</a>" for url in row['archive_urls']) + '</div>' for row in record['public_setbacks'])
         negative = f"<div class='first-c-setbacks'><h4>同时保留的受挫与损失</h4>{setbacks}</div>" if setbacks else ''
         evidence_rows = []
@@ -1538,15 +1434,37 @@ def render_first_c_collection(records):
     return template.replace('__C_COUNT__', str(len(cards))).replace('__C_ENTRIES__', '\n'.join(cards))
 
 
-def render_second_b2_collection(root):
+def render_second_b2_collection(root, main, method):
     from emperor_v4.evaluation.second_item_b2_public import B2_PATH, display_sources, verify_public_projection
     payload = load_json(root / B2_PATH)
     verify_public_projection(root, payload)
+    people = {}
+    for person in main:
+        sid = person['source_item_ids']['second_item']
+        if sid is None:
+            continue
+        if sid in people:
+            raise ValueError(f'Second-item B2 reader mapping is not unique: {sid}')
+        people[sid] = person
     cards = []
     for row in payload['records']:
-        window = row['reign_range']
-        if isinstance(window, list):
-            window = '、'.join(str(value) for value in window)
+        rid = row['ruler_id']
+        grade, position = _b2_reader_rating(row)
+        quality = {}
+        _attach_quality_status(quality, row)
+        calculation = method[rid]
+        if calculation['B2_direction_index'] != row['direction_index']:
+            raise ValueError(f'Second-item B2 reader index disagrees with formal method settlement: {rid}')
+        person = people.get(rid)
+        if person:
+            person_id = quote(person['ruler_id'], safe='')
+            if person['settlement_readiness'] == 'COMPOSITE_READY':
+                destination = f"<p><a href='index.html#net/{person_id}/second/feedback'>查看此人的治国成效 · 反馈与约束 →</a></p>"
+            else:
+                destination = f"<p class='meta'>尚未进入综合榜。<a href='index.html#person/{person_id}'>查看人物页 →</a></p>"
+        else:
+            destination = "<p class='meta'>保留的池外单项记录。</p>"
+        window = period_label(row['reign_range'])
         items = []
         for item in row['public_evidence_items']:
             sources = []
@@ -1562,9 +1480,16 @@ def render_second_b2_collection(root):
                          f"<details><summary>本条史料与归责依据</summary>{''.join(sources)}</details></li>")
         cards.append(f"<article id='{escape(row['ruler_id'])}'><h2>{escape(row['ruler_name'])}</h2>"
                      f"<p class='meta'>{escape(row['polity'])} · {escape(str(window))}</p>"
-                     f"<p class='quality-status'>置信度：{escape({'LOW':'低','MEDIUM':'中','HIGH':'高'}[row['confidence']])}{'；缺证默认，不代表已证良好表现' if row.get('grade_origin') == 'MISSING_EVIDENCE_DEFAULT' else ''}</p>"
+                     f"<p class='b2-rating'><strong>正式档位 <span class='b2-grade'>{escape(grade)}</span></strong>"
+                     f" · 档内位置：<span class='b2-position'>{escape(position)}</span></p>"
+                     f"<p class='quality-status'>{escape(quality['reader_quality_status'])}</p>"
                      f"<h3>为什么是这个等级</h3><p class='b2-adjudication-summary'>{escape(row['public_adjudication_summary'])}</p>"
-                     f"<details><summary>逐条事实、方向、边界与史料</summary><ul>{''.join(items)}</ul></details></article>")
+                     f"<details><summary>逐条事实、方向、边界与史料</summary><ul>{''.join(items)}</ul></details>"
+                     f"<details class='b2-calculation'><summary>查看表现指数与折算</summary>"
+                     f"<p>原始表现指数 <span class='b2-index'>{row['direction_index']:.1f}</span> / 80。"
+                     f"按 45 / 80 × 原始表现指数，四舍五入到一位小数，"
+                     f"计入治理手段 <span class='b2-converted'>{calculation['B2_45']:.1f}</span> / 45 分。</p></details>"
+                     f"{destination}</article>")
     template = (root / 'reader/second-item-b2.template.html').read_text(encoding='utf-8')
     return template.replace('__COUNT__', str(len(cards))).replace('__ENTRIES__', '\n'.join(cards))
 
@@ -1612,7 +1537,7 @@ def render_second_c_collection(root):
                 sources = render_sources(item['source_refs'])
                 mode = {'DIRECT':'史料直接记载', 'INFERRED':'受约束推断', 'ASSESSMENT':'正式评价判断', 'BACKGROUND':'背景互证', 'EXCLUDED':'不采用的范围核对'}[item['evidence_mode']]
                 relation = (f"<details><summary>本条史料与评价依据</summary>{sources}</details>" if item['source_binding_kind'] == 'CLAIM_SUPPORT'
-                            else '<p class="meta">本条沿用正式裁决叙述；相关材料列于人物材料汇集，尚未建立逐条事实的支持关系。</p>')
+                            else '<p class="meta">未单列出处</p>')
                 facts.append(f"<li data-public-evidence-id='{escape(item['id'])}'><h4>{escape(item['public_label'])}</h4>"
                              f"<p class='meta'>{mode}</p>{paragraphs(item['public_basis'])}{paragraphs('采用范围：' + item['public_scope'])}"
                              f"{paragraphs(item['public_boundary']) if item['public_boundary'] else ''}"
@@ -1663,7 +1588,7 @@ def _render_fourth_ab_collection(root, axis_code, axis_reading, verify_readings)
         records.append(dict(ruler_id=row['ruler_id'], ruler_name=row['ruler_name'], polity=row['polity'], pool_note=note,
                             item={f'reader_public_fourth_{axis_code.lower()}': axis_reading(row, axis, packages)}))
     template = (root / f'reader/fourth-item-{axis_code.lower()}.template.html').read_text(encoding='utf-8')
-    return template.replace('__COUNT__', str(len(records))).replace('__PAYLOAD__', serialized_json(records, html_safe=True)).replace('__SOURCE_IDENTITY__', serialized_json(reader_source_identity(), html_safe=True))
+    return template.replace('__COUNT__', str(len(records))).replace('__PAYLOAD__', serialized_json(records, html_safe=True))
 
 
 def render_fourth_a_collection(root):
@@ -1707,7 +1632,7 @@ def render_fourth_c_collection(root):
                             detail_href=f'index.html#net/{person_id}/fourth/c' if ready else '',
                             item=dict(reader_c_collection_id=row['ruler_id'], reader_public_fourth_c=axis_reading(row, axis, packages))))
     template = (root / 'reader/fourth-item-c.template.html').read_text(encoding='utf-8')
-    return template.replace('__COUNT__', str(len(records))).replace('__PAYLOAD__', serialized_json(records, html_safe=True)).replace('__SOURCE_IDENTITY__', serialized_json(reader_source_identity(), html_safe=True))
+    return template.replace('__COUNT__', str(len(records))).replace('__PAYLOAD__', serialized_json(records, html_safe=True))
 
 
 def collection_search_text(markup):
@@ -1818,7 +1743,6 @@ def build_third_c_collection(root):
                      + "<div class='third-c-detail-slot' aria-live='polite'><p>展开后加载完整正文与材料。</p></div></details></article>")
         search_rows[row['ruler_id']] = overview_text + '\n' + collection_search_text(detail)
     template = (root / 'reader/third-item-c.template.html').read_text(encoding='utf-8')
-    template = template.replace('__THIRD_C_FORMAL_SOURCE_LINK__', collection_source_link(THIRD_C_PATH.as_posix(), '查看正式记录'))
     assets['search.json'] = json_text(search_rows)
     search_url = 'data/third-item-c/search.json?v=' + hashlib.sha256(assets['search.json'].encode('utf-8')).hexdigest()[:16]
     script = (root / 'reader/third-item-c-collection.js').read_text(encoding='utf-8')
@@ -1893,6 +1817,55 @@ def render_second_d_collection(root):
     return template.replace('__COUNT__', str(len(cards))).replace('__ENTRIES__', '\n'.join(cards))
 
 
+def person_search_data(pool, impact, titles):
+    """Publish identity terms for search using existing labels and sourced additions."""
+    people = index(pool['records'])
+    labels = index([*impact['records'], *impact.get('supplementary_records', [])])
+    first_item_names = pool.get('item_name_aliases', {}).get('first_item', {})
+    search_ids = people.keys() | labels.keys()
+    missing, unknown = search_ids - titles.keys(), titles.keys() - search_ids
+    if missing or unknown:
+        raise ValueError(f'Person-search title coverage mismatch: missing={sorted(missing)}, unknown={sorted(unknown)}')
+    rows = []
+    for rid in sorted(search_ids):
+        person = people.get(rid, labels.get(rid))
+        polity = person['polity']
+        aliases = set()
+        label = labels.get(rid, {}).get('identity_label', '')
+        # Use named titles from the public label, excluding explanatory qualifiers.
+        for bracket in re.findall(r'[（(]([^）)]+)[）)]', label):
+            for title in re.split(r'[／/]', bracket):
+                title = title.strip()
+                if re.search(r'(?:帝|后|王|[祖宗]|后主|始皇|二世|大汗)$', title):
+                    aliases.add(title)
+                    if re.search(r'[祖宗]$', title) and len(title) > 2:
+                        aliases.add(title[-2:])
+                    for prefix in (polity, re.sub(r'^[东西南北前后]([汉晋宋魏齐周燕赵凉秦])$', r'\1', polity)):
+                        if title.startswith(prefix) and len(title) > len(prefix) + 1:
+                            aliases.add(title[len(prefix):])
+        curated = titles[rid]
+        if not curated.get('sources'):
+            raise ValueError(f'Missing sources for person-search titles: {rid}')
+        temple = curated['temple_names']
+        posthumous = curated['posthumous_names']
+        if not (temple or posthumous or curated['aliases']):
+            raise ValueError(f'Missing person-search names: {rid}')
+        short = [title[:-2] + '帝' for title in posthumous if title.endswith('皇帝') and len(title) > 2]
+        pairs = curated.get('title_pairs')
+        if pairs is None:
+            pairs = [(temple[0], title) for title in posthumous if title.endswith('皇帝')] if len(temple) == 1 else []
+        if any(a not in temple or b not in posthumous for a, b in pairs):
+            raise ValueError(f'Unknown name in person-search title pair: {rid}')
+        terms = [*temple, *posthumous, *short, *(a + b for a, b in pairs)]
+        aliases.update(curated['aliases'])
+        aliases.update(prefix + title for prefix in ['', *curated['dynasties']] for title in terms)
+        name = person['ruler_name']
+        former_names = {alias for alias, canonical in first_item_names.items() if canonical == name}
+        source_ids = set(person.get('source_item_ids', {}).values()) - people.keys() - labels.keys()
+        rows.append([rid, name, sorted(aliases | former_names), sorted(source_ids | former_names), sorted({polity, *curated['dynasties']})])
+    return 'globalThis.READER_PERSON_IDENTITIES=' + serialized_json(rows) + ';\n'
+
+
 def build(*, check=False, write=True):
     config = yaml.safe_load((ROOT / "config/project.yml").read_text(encoding="utf-8"))
     pool = load_json(ROOT / config["canonical_ruler_pool"]["json"])
@@ -1911,7 +1884,7 @@ def build(*, check=False, write=True):
     first_b1_output = ROOT / 'reader/first-item-b1.html'
     first_b2_collection = render_first_b2_collection(net_reader_sources['first_b2_public'])
     first_b2_output = ROOT / 'reader/first-item-b2.html'
-    second_b2_collection = render_second_b2_collection(ROOT)
+    second_b2_collection = render_second_b2_collection(ROOT, main, net_reader_sources['method'])
     second_b2_output = ROOT / 'reader/second-item-b2.html'
     second_c_collection = render_second_c_collection(ROOT)
     second_c_output = ROOT / 'reader/second-item-c.html'
@@ -1933,9 +1906,31 @@ def build(*, check=False, write=True):
     first_a_output = ROOT / "reader/first-item-a.html"
     impact_config = config["historical_impact_assessment"]
     impact = load_json(ROOT / impact_config["json"])
+    search_titles = json.loads((ROOT / 'reader/person-search-titles.json').read_text(encoding='utf-8'))
+    search_asset = person_search_data(pool, impact, search_titles)
+    search_output = ROOT / 'reader/data/person-search.js'
     history = index(impact["records"])
     if set(history) != main_ids:
         raise ValueError("Historical impact coverage differs from included pool")
+    collections, reading_entries = prepare_collections({
+        'first-item-a.html': ('奠基与统一成果', first_a_collection),
+        'first-item-b1.html': ('创业条件与效率', first_b1_collection),
+        'first-item-b2.html': ('组织整合', first_b2_collection),
+        'first-item-c.html': ('本人统帅', first_c_collection),
+        'second-item-b2.html': ('反馈与约束', second_b2_collection),
+        'second-item-c.html': ('民生与社会', second_c_collection),
+        'second-item-d.html': ('政权交接', second_d_collection),
+        'third-item-c.html': ('军事体系', third_c_collection),
+        'fourth-item-a.html': ('国家共同体与社会整合', fourth_a_collection),
+        'fourth-item-b.html': ('教育与人才', fourth_b_collection),
+        'fourth-item-c.html': ('知识与文化', fourth_c_collection),
+    }, pool, impact)
+    first_a_collection, first_b1_collection, first_b2_collection, first_c_collection = (
+        collections[name] for name in ('first-item-a.html','first-item-b1.html','first-item-b2.html','first-item-c.html'))
+    second_b2_collection, second_c_collection, second_d_collection, third_c_collection = (
+        collections[name] for name in ('second-item-b2.html','second-item-c.html','second-item-d.html','third-item-c.html'))
+    fourth_a_collection, fourth_b_collection, fourth_c_collection = (
+        collections[name] for name in ('fourth-item-a.html','fourth-item-b.html','fourth-item-c.html'))
     profile = config["profile_assessment"]
     groups = profile["capability_axes"] + profile["independent_profile_axes"]
     if len(groups) != len(set(groups)) or set(groups) != set(profile["axis_order"]):
@@ -1972,22 +1967,11 @@ def build(*, check=False, write=True):
     for person in main:
         rid = person["ruler_id"]
         record = pick(person, ["ruler_id", "ruler_name", "polity", "actual_power_window", "settlement_readiness"])
-        if person["settlement_readiness"] == "PENDING_THIRD_ITEM_FORMAL_SETTLEMENT":
-            third_id = person.get("source_item_ids", {}).get("third_item", rid)
-            if f"{third_id}.html" in third_c_assets:
-                record["pending_third_c_ref"] = third_id
-            second_id = person["source_item_ids"].get("second_item")
-            if all(second_id in net_reader_sources[key] for key in ("B2", "C1", "D1")):
-                record["pending_second_ref"] = second_id
         fourth_id = person.get('source_item_ids', {}).get('fourth_item', rid)
         if fourth_id in net_reader_sources['fourth']:
             record['fourth_c_collection_ref'] = fourth_id
         record["actual_power_window"] = public_power_window(record.get("actual_power_window"))
         projected_net = pick(net[rid], net_fields) if rid in net else None
-        if not projected_net:
-            first_name = person.get("source_item_names", {}).get("first_item")
-            if first_name in first_item_public_outcomes:
-                record["pending_first_ref"] = first_name
         if projected_net:
             projected_net['evidence_assessment'] = net[rid]['evidence_assessment']['public_projection']
             projected_net["governance_context"] = public_governance_context(projected_net.get("governance_context"))
@@ -2001,6 +1985,7 @@ def build(*, check=False, write=True):
             reader_summary = second_item_reader_summaries.get(rid)
             if reader_summary:
                 projected_net["reader_governance_summary"] = reader_summary
+        record["reading_entries"] = reading_entries.get(rid, [])
         record.update(net=projected_net,
                       impact=history[rid], axes={code: axis_projection(rows[rid], axis_fields, m1_archive_context) for code, rows in axes.items()},
                       supplementary=False)
@@ -2014,19 +1999,31 @@ def build(*, check=False, write=True):
     index(records)
 
     source_identity = reader_source_identity(write=write and not check)
-    note_issues = person_note_reference_issues(records, json.loads(PERSON_NOTES_SOURCE.read_text(encoding='utf-8')))
+    person_notes = json.loads(PERSON_NOTES_SOURCE.read_text(encoding='utf-8'))
+    note_issues = person_note_reference_issues(records, person_notes)
     if note_issues:
         affected = sorted({rid for rid, _, _ in note_issues})
         sample = '; '.join(f'{rid}/{section}/{path}' for rid, section, path in note_issues[:6])
         raise ValueError(f"Reader overview references need review: {len(note_issues)} issues / {len(affected)} people: {sample}")
     for record in records:
-        if record.get("net"):
-            record["net"]["public_scores"] = public_scores(record["net"])
+        entry = person_notes['records'][record['ruler_id']]
+        narrative = entry.get('reading')
+        if narrative:
+            record['reader_narratives'] = narrative
+        if reasons := entry.get('profile_grade_reasons'):
+            record['reader_profile_grade_reasons'] = {axis: reason['text'] for axis, reason in reasons.items()}
+        if not record.get('net'):
+            continue
+        for key, field in [('third', 'reader_military_summary'), ('fourth', 'reader_civilization_summary')]:
+            conclusion = entry.get('net', {}).get(key)
+            if not conclusion or not conclusion.get('text') or not conclusion.get('evidence'):
+                raise ValueError(f"Missing {key} overview: {record['ruler_id']}")
+            record['net'][field] = conclusion['text']
+        record['net']['public_scores'] = public_scores(record['net'])
     person_notes_snapshot(check=check, write=write)
     common = dict(main_count=len(main), ranked_count=len(net), public_score_scale=public_score_metadata(),
                   source_repository=source_identity["repository"],
                   source_revision=source_identity["revision"],
-                  historical_source_links=historical_source_links(),
                   weight_sensitivity=ranking.get("weight_sensitivity", {}),
                   supplementary_count=len(records)-len(main), formula=ranking["formula"],
                   capability_axes=profile["capability_axes"], independent_axes=profile["independent_profile_axes"],
@@ -2036,7 +2033,6 @@ def build(*, check=False, write=True):
                   impact_dimension_grades=impact_config["dimension_grade_order"],
                   impact_labels=impact["public_label_mapping"],
                   impact_source_display=SOURCE_DISPLAY,
-                  published_reading_fallbacks=published_reading_fallbacks([impact_config, *profile["settled_axes"].values()]),
                   sources=dict(net=scoring["composite_ranking_json"], impact=impact_config["json"],
                                net_reader=scoring["composite_ranking_markdown"], impact_reader=impact_config["markdown"]))
 
@@ -2047,14 +2043,32 @@ def build(*, check=False, write=True):
     index_data = dict(records=[record_summary(record) for record in records], **common)
     index_data["detail_schema_version"] = "reader-person-detail-v1"
     index_data["source_availability"] = source_availability(common)
+    source_documents = ROOT / "docs/评分结算/净收益/第一项政权奠基与统一贡献及能力"
+    first_documents = [path for path in sorted(source_documents.glob('0[1-4]-*.md'))
+                       if re.match(r'0[1-4]-第一项(?:A|B[12]|C)', path.name)]
+    if len(first_documents) != 4:
+        raise ValueError('Expected the four first-item source documents')
+    index_data["first_source_version"] = hashlib.sha256(''.join(
+        path.read_text(encoding='utf-8') for path in first_documents
+    ).encode('utf-8')).hexdigest()
+    index_data['first_document_versions'] = {
+        path.name: hashlib.sha256(path.read_text(encoding='utf-8').encode('utf-8')).hexdigest()
+        for path in first_documents
+    }
+    notes_text = PERSON_NOTES_SOURCE.read_text(encoding='utf-8')
+    index_data["notes_version"] = hashlib.sha256((notes_text if notes_text.endswith('\n') else notes_text + '\n').encode('utf-8')).hexdigest()
 
     detail_files = {}
-    for record in records:
+    for record, summary in zip(records, index_data['records']):
         relative = detail_ref(record["ruler_id"])
-        detail_files[Path(relative).name] = json_text(detail_payload(record, common["axis_specs"]))
+        detail = detail_payload(record)
+        version = hashlib.sha256(json_text(detail).encode('utf-8')).hexdigest()
+        detail['detail_version'] = summary['detail_version'] = version
+        detail_files[Path(relative).name] = json_text(detail)
 
     payload = serialized_json(index_data, html_safe=True)
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")
+    template = template.replace('/*__PERSON_NARRATIVES__*/', (ROOT / 'reader/person-narratives.js').read_text(encoding='utf-8'))
     template = apply_public_copy(template)
     link_effects = (ROOT / "reader/link-effects.css").read_text(encoding="utf-8").strip()
     readability_css = (ROOT / "reader/readability.css").read_text(encoding="utf-8").strip()
@@ -2064,6 +2078,7 @@ def build(*, check=False, write=True):
     home_interactions = (ROOT / "reader/home-interactions.js").read_text(encoding="utf-8").strip()
     readability_js = (ROOT / "reader/readability.js").read_text(encoding="utf-8").strip()
     person_readability_js = (ROOT / "reader/person-readability.js").read_text(encoding="utf-8").strip()
+    reading_state_js = (ROOT / "reader/reading-state.js").read_text(encoding="utf-8").strip()
     if "</style>" not in template:
         raise ValueError("Reader template must contain a style block")
     template = template.replace("</style>", f"\n{link_effects}\n{readability_css}\n</style>", 1)
@@ -2071,7 +2086,7 @@ def build(*, check=False, write=True):
         raise ValueError("Reader template must contain a body close tag")
     template = template.replace(
         "</body>",
-        f"{runtime_scripts}\n<script>\n{lazy_details}\n</script>\n<script>\n{second_item_reading_js}\n</script>\n<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n<script>\n{person_readability_js}\n</script>\n</body>",
+        f"{runtime_scripts}\n<script>\n{lazy_details}\n</script>\n<script>\n{second_item_reading_js}\n</script>\n<script>\n{home_interactions}\n</script>\n<script>\n{readability_js}\n</script>\n<script>\n{person_readability_js}\n</script>\n<script>\n{reading_state_js}\n</script>\n</body>",
         1,
     )
     output = ROOT / "reader/index.html"
@@ -2084,6 +2099,8 @@ def build(*, check=False, write=True):
     expected_detail_names = set(detail_files)
     actual_detail_names = {p.name for p in DETAILS_DIR.glob("*.json")} if DETAILS_DIR.exists() else set()
     if check:
+        if not search_output.is_file() or search_output.read_text(encoding='utf-8') != search_asset:
+            raise ValueError('Person search data is stale; run python reader/build.py')
         verify_third_c_assets(third_c_dir, third_c_assets)
         if not fourth_c_output.exists() or fourth_c_output.read_bytes() != fourth_c_collection.encode('utf-8'):
             raise ValueError('Fourth-item C full-pool reading collection is stale')
@@ -2117,6 +2134,7 @@ def build(*, check=False, write=True):
             if (DETAILS_DIR / name).read_bytes() != content.encode("utf-8"):
                 raise ValueError(f"Reader detail shard is stale: {name}")
     elif write:
+        write_generated_text(search_output, search_asset)
         write_third_c_assets(third_c_dir, third_c_assets)
         write_generated_text(fourth_a_output, fourth_a_collection)
         write_generated_text(fourth_b_output, fourth_b_collection)

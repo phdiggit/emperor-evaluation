@@ -3,8 +3,11 @@ from __future__ import annotations
 from copy import deepcopy
 import json
 from pathlib import Path
+import re
+from urllib.parse import quote
 import pytest
 
+from emperor_v4.evaluation.composite_details import SOURCES
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.second_item_b2_public import (
     B2_PATH,
@@ -135,12 +138,41 @@ def test_full_pool_reading_collection_preserves_current_public_text():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     from html import escape
-    text = module.render_second_b2_collection(root)
+    pool = load_json(root / 'config/common/canonical-ruler-pool.json')['records']
+    main = [person for person in pool if person['pool_status'] == 'INCLUDED']
+    by_second = {person['source_item_ids']['second_item']: person for person in main}
+    method = {row['ruler_id']: row for row in load_json(root / SOURCES['method'])['records']}
+    text = module.render_second_b2_collection(root, main, method)
     payload = load_json(root/B2_PATH)
-    assert text.count('<article id=') == len(payload['records'])
+    cards = dict(re.findall(r"<article id='([^']+)'>(.*?)</article>", text, re.S))
+    assert set(cards) == {row['ruler_id'] for row in payload['records']}
+    assert text.count('<article id=') == len(cards)
     for row in payload['records']:
-        assert escape(row['public_adjudication_summary']) in text
+        rid = row['ruler_id']
+        card = cards[rid]
+        assert escape(row['public_adjudication_summary']) in card
         projected = module._attach_b2_public_reader({}, record=row)
+        band = dict(G0='E', G1='D', G2='C', G3='B', G4='A', G5='S')[row['grade']]
+        suffix, position = {
+            'lower': ('-', '下位'), 'lower-middle': ('-', '中下位'), 'middle': ('', '中位'),
+            'middle-upper': ('+', '中上位'), 'upper': ('+', '上位'),
+        }[row['position']]
+        assert projected['reader_b2_grade'] == band + suffix
+        assert projected['reader_b2_position'] == position
+        assert projected['reader_b2_collection_id'] == rid
+        assert f"class='b2-grade'>{band}{suffix}</span>" in card
+        assert f"class='b2-position'>{position}</span>" in card
+        assert f"class='b2-index'>{row['direction_index']:.1f}</span>" in card
+        assert f"class='b2-converted'>{method[rid]['B2_45']:.1f}</span>" in card
+        person = by_second.get(rid)
+        if person and person['settlement_readiness'] == 'COMPOSITE_READY':
+            assert f"index.html#net/{quote(person['ruler_id'], safe='')}/second/feedback" in card
+        elif person:
+            assert 'index.html#net/' not in card
+            assert f"index.html#person/{quote(person['ruler_id'], safe='')}" in card
+        else:
+            assert '保留的池外单项记录' in card
+            assert 'index.html#' not in card
         assert projected['reader_confidence'] == row['confidence']
         assert projected['reader_grade_origin'] == row['grade_origin']
         assert projected['public_evidence_items'] == row['public_evidence_items']
@@ -150,8 +182,9 @@ def test_full_pool_reading_collection_preserves_current_public_text():
         ]
         if row.get('grade_origin') == 'MISSING_EVIDENCE_DEFAULT':
             assert '缺证默认' in projected['reader_quality_status']
+            assert '缺证默认' in card
             assert not projected['reader_public_evidence_items']
         for item in row['public_evidence_items']:
-            assert escape(item['public_basis']) in text
-            assert escape(item['public_boundary']) in text
-            assert item['id'] in text
+            assert escape(item['public_basis']) in card
+            assert escape(item['public_boundary']) in card
+            assert item['id'] in card

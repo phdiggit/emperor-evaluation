@@ -6,16 +6,25 @@
   const input = document.getElementById('search');
   const scope = document.getElementById('search-scope');
   const status = document.getElementById('search-status');
+  const locationNote = document.getElementById('location-note');
   const normalize = value => String(value).normalize('NFKC').toLowerCase().replace(/\s+/g, ' ').trim();
   const overview = new Map(entries.map(entry => [entry.id, normalize(entry.dataset.search)]));
   const loaded = new Set();
   const pending = new Map();
   let searchIndex, searchPromise, searchVersion = 0, navigationVersion = 0;
 
-  function localSources(container) {
-    if (['localhost', '127.0.0.1', '[::1]'].includes(location.hostname)) {
-      for (const link of container.querySelectorAll('[data-local-source]')) link.href = '../' + link.dataset.localSource;
-    }
+  const locationId = ReaderCollectionSearch.fragment;
+
+  function entryForLocation(id) {
+    return id && (byId.get(id) || entries.find(entry => id.startsWith(entry.id + '--evidence--')));
+  }
+
+  function showLocationNote(message, entry) {
+    if (entry) entry.querySelector('.third-c-detail-slot').before(locationNote);
+    else status.after(locationNote);
+    locationNote.textContent = message;
+    locationNote.hidden = false;
+    locationNote.scrollIntoView({block: 'start'});
   }
 
   function loadPerson(entry) {
@@ -29,7 +38,6 @@
         const response = await fetch(entry.dataset.detailUrl, {cache: 'no-cache'});
         if (!response.ok) throw new Error('Detail unavailable');
         slot.innerHTML = await response.text();
-        localSources(slot);
         loaded.add(entry.id);
         return true;
       } catch {
@@ -37,10 +45,7 @@
         const retry = document.createElement('button');
         retry.type = 'button';
         retry.textContent = '重新加载';
-        retry.addEventListener('click', () => {
-          if (entryForAnchor(currentAnchor()) === entry) revealPerson();
-          else loadPerson(entry);
-        });
+        retry.addEventListener('click', () => entryForLocation(locationId()) === entry ? revealPerson() : loadPerson(entry));
         slot.append(retry);
         return false;
       } finally {
@@ -88,11 +93,7 @@
       }
     }
     if (version !== searchVersion) return;
-    const matches = [];
-    for (const entry of entries) {
-      entry.hidden = Boolean(query && !index.get(entry.id).includes(query));
-      if (!entry.hidden) matches.push(entry);
-    }
+    const matches = ReaderPersonSearch.filterCards(entries, query, {text: entry => index.get(entry.id)});
     document.getElementById('count').textContent = matches.length;
     status.textContent = query ? `找到 ${matches.length} 位人物。` : '完整正文与材料在选用该搜索范围时加载。';
     if (query && matches.length === 1) {
@@ -101,25 +102,31 @@
     }
   }
 
-  function currentAnchor() {
-    try { return decodeURIComponent(location.hash.slice(1)); } catch { return ''; }
-  }
-
-  function entryForAnchor(id) {
-    return byId.get(id) || entries.find(person => id.startsWith(person.id + '--evidence--'));
-  }
-
-  async function revealPerson() {
+  async function revealPerson({ready, reset} = {}) {
     const version = ++navigationVersion;
-    const id = currentAnchor();
-    const entry = entryForAnchor(id);
-    if (!entry) return;
-    // A direct link takes priority over previous filters; its visible count stays accurate.
-    if (entry.hidden) { input.value = ''; await filter(); }
-    entry.querySelector('.third-c-person').open = true;
-    const ready = await loadPerson(entry);
+    locationNote.hidden = true;
+    locationNote.textContent = '';
+    const id = locationId();
+    if (id === '') return;
+    if (id === null) return showLocationNote('人物或材料定位地址无效。');
+    const entry = entryForLocation(id);
+    if (!entry) return showLocationNote('未找到链接指定的人物记录。');
+    await ready;
     if (version !== navigationVersion) return;
-    const target = ready && document.getElementById(id) || entry;
+    if (entry.hidden) {
+      if (!reset) return;
+      await reset();
+    }
+    if (version !== navigationVersion) return;
+    entry.querySelector('.third-c-person').open = true;
+    const loadedDetail = await loadPerson(entry);
+    if (version !== navigationVersion) return;
+    if (!loadedDetail) {
+      entry.scrollIntoView();
+      return;
+    }
+    const target = document.getElementById(id);
+    if (!target) return showLocationNote('未找到链接指定的材料。已打开该人物的记录。', entry);
     const materialBody = target.dataset.cEvidence && target.querySelector('details');
     if (materialBody) materialBody.open = true;
     for (let parent = target.parentElement; parent; parent = parent.parentElement) {
@@ -133,16 +140,13 @@
     const details = entry.querySelector('.third-c-person');
     details.addEventListener('toggle', () => { if (details.open) loadPerson(entry); });
   }
+  const followLocation = ReaderCollectionSearch.bind({input, scope, filter, locate: revealPerson});
   document.addEventListener('click', event => {
     const link = event.target.closest('a[data-c-material-ref]');
     if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
     const hash = '#' + encodeURIComponent(link.dataset.cMaterialRef);
-    if (location.hash === hash) revealPerson();
+    if (location.hash === hash) followLocation();
     else location.hash = hash;
   });
-  input.addEventListener('input', filter);
-  scope.addEventListener('change', filter);
-  addEventListener('hashchange', revealPerson);
-  revealPerson();
 })();

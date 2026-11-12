@@ -110,19 +110,32 @@ def test_direct_axis_focus_handles_hydration_and_stale_renders(tmp_path):
     if not node:
         pytest.skip('Node.js required for direct axis routing')
     template = (ROOT / 'reader/index.template.html').read_text(encoding='utf-8')
-    source = template[template.index('function focusProfileAxis('):template.index('function profilePage(')]
+    source = template[template.index('function focusPersonDetail('):template.index('function profilePage(')]
     page = template[template.index('function profilePage('):template.index('function impactPage(')]
-    assert page.index('screen.innerHTML=') < page.index('focusProfileAxis();')
+    assert page.index('screen.innerHTML=') < page.index("focusPersonDetail('profile');")
     script = tmp_path / 'profile-axis-focus.cjs'
-    script.write_text('const assert=require("node:assert/strict");let target=null,frames=[],scrolled=0;\n'
-                     + 'const DATA={axis_order:["M1","C1"]};const location={hash:"#person/SYNTHETIC/profile/M1"};\n'
-                     + 'const document={getElementById:id=>target?.id===id?target:null};const requestAnimationFrame=fn=>frames.push(fn);\n'
-                     + source + '\n'
-                     + 'focusProfileAxis();assert.equal(frames.length,0);'
-                     + 'target={id:"reason-M1",open:false,scrollIntoView(){scrolled++}};focusProfileAxis();assert.equal(target.open,true);frames.shift()();assert.equal(scrolled,1);'
-                     + 'focusProfileAxis();target={id:"reason-M1"};frames.shift()();assert.equal(scrolled,1);'
-                     + 'location.hash="#person/SYNTHETIC/profile";focusProfileAxis();assert.equal(frames.length,0);'
-                     + 'location.hash="#person/SYNTHETIC/profile/UNKNOWN";focusProfileAxis();assert.equal(frames.length,0);', encoding='utf-8')
+    script.write_text(source + r'''
+const assert=require('node:assert/strict');
+const DATA={axis_order:['M1','C1']};
+const location={hash:'#person/SYNTHETIC/profile/%4D1'};
+const frames=[];
+let scrolled=0,target=null;
+const note={hidden:true,scrollIntoView(){this.scrolled=true;}};
+const document={getElementById:id=>id==='person-detail-location-note'?note:target?.id===id?target:null};
+const requestAnimationFrame=fn=>frames.push(fn);
+focusPersonDetail('profile');
+assert.ok(!note.hidden&&note.scrolled&&note.textContent.includes('未找到链接指定的画像轴'));
+assert.equal(frames.length,0);
+note.hidden=true;
+target={id:'reason-M1',tagName:'DETAILS',open:false,scrollIntoView(){scrolled++;}};
+focusPersonDetail('profile');
+assert.equal(target.open,true);frames.shift()();assert.equal(scrolled,1);
+focusPersonDetail('profile');target={id:'reason-M1'};frames.shift()();assert.equal(scrolled,1);
+location.hash='#person/SYNTHETIC/profile';focusPersonDetail('profile');
+assert.equal(frames.length,0);assert.ok(note.hidden);
+location.hash='#person/SYNTHETIC/profile/UNKNOWN';focusPersonDetail('profile');
+assert.equal(frames.length,0);assert.ok(!note.hidden);
+''', encoding='utf-8')
     result = subprocess.run([node, str(script)], capture_output=True, text=True, encoding='utf-8')
     assert result.returncode == 0, result.stderr
 

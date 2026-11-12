@@ -189,6 +189,71 @@ def reading_causality(row: dict[str, Any]) -> dict[str, str]:
     return reading
 
 
+def reading_story_sources(row: dict[str, Any]) -> dict[str, Any] | None:
+    """Select sources for the public event and dimension text."""
+    chains = row.get("macro_chains")
+    if not chains or not all(chain.get("public_events") for chain in chains):
+        return None
+    sources = [reading_source(source) for source in row["source_refs"]]
+
+    def select(indices, seen=()):
+        links = {}
+        for index in indices:
+            source = sources[index]
+            if (url := source.get("reading_url")) and url not in seen:
+                links.setdefault(url, {"url": url, "title": source["reading_title"]})
+        return list(links.values())
+
+    events = [
+        [select(event["source_ref_indices"]) for event in chain["public_events"]]
+        for chain in chains
+    ]
+    event_urls = {source["url"] for chain in events for event in chain for source in event}
+    reviews = {
+        "scope": "scope_assessment", "depth_duration": "depth_review",
+        "personal_causality": "causal_review", "paradigm": "paradigm_review",
+    }
+    documents = {
+        source["path"]: source["reading_title"] for source in sources
+        if source["kind"] == "LOCAL_FORMAL_DOCUMENT" and source["path"].endswith(".md")
+    }
+    return {
+        "events": events,
+        "dimensions": {key: select(row["dimensions"][key].get(
+            "public_source_ref_indices", row.get(review, {}).get("source_ref_indices", [])
+        ), event_urls)
+                       for key, review in reviews.items()},
+        "documents": [{"path": path, "title": title} for path, title in documents.items()],
+    }
+
+
+def _render_public_story(row, sources, document_path):
+    import posixpath
+    from urllib.parse import quote
+
+    def references(links):
+        if not links:
+            return []
+        return ["出处　" + " · ".join(f"[{link['title']}]({link['url']})" for link in links), ""]
+
+    lines = ["**为什么是这个档位**", "", row["public_total_basis"], "", "**主要影响轨迹**", ""]
+    for chain, links in zip(row["macro_chains"], sources["events"], strict=True):
+        lines.extend([f"**{chain['title']}**", "", chain["narrative"], ""])
+        for event, event_links in zip(chain["public_events"], links, strict=True):
+            lines.extend([f"**{event['title']}**", "", event["text"], "", *references(event_links)])
+    for key, label in DIMENSIONS.items():
+        lines.extend([f"**{label} · {row['dimensions'][key]['grade']}**", "",
+                      row["dimensions"][key]["public_basis"], "", *references(sources["dimensions"][key])])
+    lines.extend(["**评价时期与把握**", "", row["public_boundary"], "", row["confidence_basis"], ""])
+    if sources["documents"] and document_path:
+        lines.extend(["**项目参考文档**", ""])
+        for source in sources["documents"]:
+            path = posixpath.relpath(source["path"], posixpath.dirname(document_path))
+            lines.append(f"- [{source['title']}]({quote(path)})")
+        lines.append("")
+    return lines
+
+
 def render(payload: dict[str, Any], *, document_path: str = "") -> str:
     from .reading_layout import person_start, PERSON_END
     def source_label(source):
@@ -217,6 +282,10 @@ def render(payload: dict[str, Any], *, document_path: str = "") -> str:
             lines.extend([person_start(row['ruler_id']), f'<a id="person-{row["ruler_id"].lower()}"></a>', "", f"### {row['identity_label']}", "",
                 f"**总档：{row['public_grade']}·{PUBLIC_MEANINGS[row['public_grade']]}｜{row['impact_nature']}｜置信度：{confidence}**", "",
                 "；".join(f"{label}：{_dimension(row, d)}" for d, label in DIMENSIONS.items()) + "。", ""])
+            if story_sources := reading_story_sources(row):
+                lines.extend(_render_public_story(row, story_sources, document_path))
+                lines.extend([f"[返回{title}总表](#{section}-table)", "", PERSON_END, ""])
+                continue
             lines.extend(["**公开总档依据：**" + row["public_total_basis"], "",
                 *(["**影响性质依据：**" + row["impact_nature_basis"], ""] if row.get("impact_nature_basis") else []),
                 "**公开维度说明：**", "",
@@ -360,7 +429,10 @@ def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
             if "impact_nature_basis" in row:
                 _validate_public_text(row["impact_nature_basis"], "impact_nature_basis", rid)
             for dimension_key in DIMENSIONS:
-                _validate_public_text(row["dimensions"][dimension_key].get("public_basis"), f"dimensions.{dimension_key}.public_basis", rid)
+                dimension = row["dimensions"][dimension_key]
+                _validate_public_text(dimension.get("public_basis"), f"dimensions.{dimension_key}.public_basis", rid)
+                if "public_source_ref_indices" in dimension:
+                    _validate_source_indices(dimension["public_source_ref_indices"], len(row["source_refs"]), f"{rid}/{dimension_key}")
             if row["dimensions"]["scope"]["boundary_note"]:
                 raise ValueError(f"范围只发布主档，边界须写为事实说明: {rid}")
             if "scope_assessment" in row and not all(row["scope_assessment"].get(k) for k in ("actual_changes", "baseline_and_exclusions", "overall_grade_reasoning", "method")):
@@ -381,6 +453,22 @@ def verify(root: Path, *, check_reader: bool = True) -> dict[str, Any]:
                     raise ValueError(f"历史影响主链来源错误: {rid}")
                 if chain.get("chain_kind") != "MACRO_TRANSFORMATION":
                     raise ValueError(f"工程或其他非宏观事实不能独立作为主链: {rid}")
+            if any("public_events" in chain for chain in chains):
+                for chain in chains:
+                    label = f"{rid}/{chain['chain_id']}"
+                    events = chain.get("public_events")
+                    if not isinstance(events, list) or not events:
+                        raise ValueError(f"历史影响公开事件缺失: {label}")
+                    _validate_public_text(chain["title"], "title", label)
+                    _validate_public_text(chain["narrative"], "narrative", label)
+                    for event in events:
+                        _validate_public_text(event.get("title"), "public_events.title", label)
+                        _validate_public_text(event.get("text"), "public_events.text", label)
+                        indices = event.get("source_ref_indices")
+                        _validate_source_indices(indices, len(row["source_refs"]), label, required=True)
+                        if any(i not in chain["source_ref_indices"] or not reading_source(row["source_refs"][i]).get("reading_url")
+                               for i in indices):
+                            raise ValueError(f"历史影响公开事件缺少对应轨迹的可读出处: {label}")
             foundation = row["foundation"]
             if foundation.get("base_band") not in DIMENSION_GRADES or not foundation.get("chain_ids") or not set(foundation["chain_ids"]) <= {c["chain_id"] for c in chains}:
                 raise ValueError(f"基础档缺少有效宏观主链: {rid}")

@@ -72,8 +72,20 @@ const decode=s=>s.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"
 let entries=[];const events={},nodes={};
 for(const id of ['search','count','location-note'])nodes[id]={value:'',textContent:'',addEventListener:(event,cb)=>{events[id+':'+event]=cb;}};
 nodes['fourth-c-data']={textContent:raw};
-nodes.entries={set innerHTML(text){entries=[...text.matchAll(/<article class="person" id="([^"]+)">([\s\S]*?)(?=<article class="person" id=|$)/g)].map(m=>({id:decode(m[1]),textContent:decode(m[2].replace(/<[^>]*>/g,'')),hidden:false,scrolled:0,scrollIntoView(){this.scrolled++;}}));}};
-const ctx={URL,location:{hostname:'127.0.0.1',hash:'#'+encodeURIComponent(data[0].ruler_id)},document:{getElementById:id=>nodes[id],querySelectorAll:()=>entries},window:{addEventListener:(event,cb)=>{events[event]=cb;}}};vm.createContext(ctx);
+nodes.entries={set innerHTML(text){entries=[...text.matchAll(/<article class="person" id="([^"]+)">([\s\S]*?)(?=<article class="person" id=|$)/g)].map(m=>({id:decode(m[1]),textContent:decode(m[2].replace(/<[^>]*>/g,'')),hidden:false,scrolled:0,contains(target){return target===this;},scrollIntoView(){this.scrolled++;}}));}};
+const location={hostname:'127.0.0.1',hash:'#'+encodeURIComponent(data[0].ruler_id)};
+const states=new Map();
+const history={get state(){return states.get(location.hash);},replaceState(state){states.set(location.hash,state);}};
+const document={
+ getElementById:id=>nodes[id]??entries.find(entry=>entry.id===id),
+ querySelectorAll:()=>entries.map(entry=>Object.assign(entry,{querySelector(selector){
+  assert.equal(selector,'.fourth-c-public-reading');
+  return {before(reading){entry.reading=reading;}};
+ }})),
+ createElement:tag=>({tag,open:false,append(){}})
+};
+const ctx={URL,location,history,document,addEventListener:(event,cb)=>{events[event]=cb;}};
+vm.createContext(ctx);
 for(const script of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)){
  if(script[1].includes('application/json'))continue;
  const src=script[1].match(/\bsrc="([^"]+)"/)?.[1];
@@ -81,10 +93,15 @@ for(const script of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)){
  else vm.runInContext(script[2],ctx);
 }
 assert.equal(entries.length,data.length);assert.equal(entries[0].scrolled,1);
+assert.equal(entries[0].reading.open,true);
+assert.equal(entries[1].reading.open,false);
 nodes.search.value=data[0].ruler_name;events['search:input']();assert.equal(entries[0].hidden,false);
 nodes.search.value='__NO_SUCH_SYNTHETIC_TERM__';events['search:input']();assert.equal(nodes.count.textContent,0);
+ctx.location.hash='#'+encodeURIComponent(data[1].ruler_id);events.hashchange();
+assert.equal(nodes.search.value,'');assert.equal(nodes.count.textContent,data.length);assert.equal(entries[1].hidden,false);assert.equal(entries[1].scrolled,1);
+assert.equal(entries[1].reading.open,true);
 ctx.location.hash='#'+encodeURIComponent(data[0].ruler_id);events.hashchange();
-assert.equal(nodes.search.value,'');assert.equal(nodes.count.textContent,data.length);assert.equal(entries[0].hidden,false);assert.equal(entries[0].scrolled,2);
+assert.equal(nodes.search.value,'__NO_SUCH_SYNTHETIC_TERM__');assert.equal(nodes.count.textContent,0);assert.equal(entries[0].hidden,true);
 ctx.location.hash='#%E0%A4%A';events.hashchange();assert(nodes['location-note'].textContent.length>0);
 for(const r of data){const nav=ctx.FourthItemCReading.entryLinks(r,{collection:true});if(r.person_href)assert(nav.includes(r.person_href));else assert(!nav.includes('#person/'));if(r.detail_href)assert(nav.includes(r.detail_href));else assert(!nav.includes('#net/'));}
 const nav=ctx.FourthItemCReading.entryLinks({ruler_id:'canonical id',fourth_c_collection_ref:'formal id',net:{}});

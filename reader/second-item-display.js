@@ -2,6 +2,13 @@
 
 // Display vocabulary only. Scores and judgments come from the formal records.
 globalThis.SecondItemDisplay = Object.freeze({
+  methodGrade(item) {
+    if (item?.reader_b2_grade) return item.reader_b2_grade;
+    const text=String(item?.grade||''), band=text.match(/\bG([0-5])\b/i);
+    if (!band) return '';
+    const suffix=/lower|low/i.test(text)?'-':/upper|high/i.test(text)?'+':'';
+    return (this.grades[`G${band[1]}`]||'')+suffix;
+  },
   grades: Object.freeze({G0:"E", G1:"D", G2:"C", G3:"B", G4:"A", G5:"S"}),
   stateGrades: Object.freeze({1:"E", 2:"D", 3:"C", 4:"B", 5:"A", 6:"S"}),
   handoffGrades: Object.freeze({0:"E", 1:"D", 2:"C", 3:"B", 4:"A", 5:"S"}),

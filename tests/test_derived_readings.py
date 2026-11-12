@@ -35,23 +35,29 @@ def test_unregistered_output_is_rejected_before_reading_source(tmp_path, monkeyp
     assert list(tmp_path.iterdir()) == []
 
 
-def test_historical_reading_keeps_project_source_label_without_raw_link(tmp_path, monkeypatch):
+def test_historical_source_links_use_registered_document_location(tmp_path, monkeypatch):
+    import re
+    from urllib.parse import unquote, urlsplit
     from emperor_v4.evaluation import historical_impact as impact
 
     path = 'docs/ratings/impact.md'
-    target = tmp_path / 'docs/合成材料.json'
+    target = tmp_path / 'docs/fact.json'
     target.parent.mkdir(parents=True)
     target.write_text('{}', encoding='utf-8')
-    source = dict(kind='LOCAL_FORMAL_DOCUMENT', path='docs/合成材料.json', ruler_name='合成对象',
-                  evidence_note='仅核对这一条背景事实。')
+    source = dict(path='docs/fact.json', title='合成材料')
+    row = dict(public_total_basis='合成评价', macro_chains=[], public_boundary='合成范围',
+               confidence_basis='合成置信依据',
+               dimensions={key: dict(grade='B', public_basis='合成维度') for key in impact.DIMENSIONS})
+    sources = dict(events=[], dimensions={key: [] for key in impact.DIMENSIONS})
     (tmp_path / 'input.json').write_text(json.dumps(source), encoding='utf-8')
     monkeypatch.setattr(views, 'view_sources', lambda root: {path: ('impact', 'input.json')})
     monkeypatch.setattr(impact, 'render', lambda payload, **options:
-                        '# 合成阅读\n\n' + impact._source_label(payload))
+                        '\n'.join(impact._render_public_story(
+                            row, dict(sources, documents=[payload]), options.get('document_path', ''))))
     files = views.render_views(tmp_path)
-    assert '合成材料' in files[path]
-    assert source['evidence_note'] in files[path]
-    assert '合成材料.json' not in files[path]
+    href = re.search(r'\]\(([^)]+)\)', files[path])[1]
+    resolved = (tmp_path / Path(path).parent / unquote(urlsplit(href).path)).resolve()
+    assert resolved == target.resolve()
 
 
 @pytest.mark.parametrize('existing', [False, True])

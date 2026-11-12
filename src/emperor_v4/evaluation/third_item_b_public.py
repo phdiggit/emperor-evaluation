@@ -89,7 +89,7 @@ def combination(row, credit):
         f"实际采用率：控制规模{fmt(rates['B1'])}%，战略价值{fmt(rates['B2'])}%，交班成熟度{fmt(rates['B4'])}%。\n\n"
         f"规模与价值合成率 = 0.55 × {fmt(rates['B1']/100)} + 0.45 × {fmt(rates['B2']/100)} = {fmt(mix)}。\n\n"
         f"成熟度修正系数 = 0.70 + 0.30 × {fmt(rates['B4']/100)} = {fmt(maturity)}。\n\n"
-        f"控制成果合成 = 80 × {fmt(mix)} × {fmt(maturity)}；沿用当前确定性结算保留两位小数的结果，为{result:.2f}分。"
+        f"控制成果合成 = 80 × {fmt(mix)} × {fmt(maturity)}；结果保留两位小数，为{result:.2f}分。"
     )
 
 
@@ -119,14 +119,14 @@ def reading_projection(axis_name, row, credit):
                   method=METHOD, combination=combination(row, credit))
     result['recorded_diagnostic_rate'] = diagnostic
     result['diagnostic_note'] = (
-        f'合成记录另存诊断率{fmt(diagnostic)}%，与现行轴记录的{fmt(raw)}%不同；它不替代现行原始评定，也不参与当前合成。按已裁排除理由分别保留这些数值，不为展示覆盖旧字段。'
+        f'合成记录另存诊断率{fmt(diagnostic)}%，与现行轴记录的{fmt(raw)}%不同；它不替代现行原始评定，也不参与当前合成。这些数值用途不同；排除哪些成果及其原因见采用说明。'
         if dec(diagnostic) != dec(raw) else ''
     )
     result['rate_table'] = [f"{i}档：低位{values[0]}%、中位{values[1]}%、高位{values[2]}%。" for i, values in enumerate(RATE_TABLE)]
     contribution, cap = CONTRIBUTIONS[row['control_contribution_type']]
     result['contribution_label'] = contribution
     result['contribution_cap'] = cap
-    result['contribution_note'] = f'原记录贡献类型为“{contribution}”，战略价值和成熟度最高可评{cap}档；这是上限，不保证达到该档。另有跨项排除时，以实际采用率为准。'
+    result['contribution_note'] = f'本人的控制贡献属于“{contribution}”，战略价值和成熟度最高可评{cap}档；这是上限，不保证达到该档。另有跨项排除时，以实际采用率为准。'
     if axis_name == 'B1':
         snapshot = row['b1_control_equivalents']
         start, end, net, weighted = (dec(snapshot[k]) for k in ('start', 'end', 'net_change', 'weighted_value'))
@@ -143,7 +143,7 @@ def reading_projection(axis_name, row, credit):
             f'加权控制值 = 0.6 × {fmt(net)} + 0.4 × {fmt(end)} = {fmt(before_exclusion)}当量。\n\n'
             f'{adjustment}，本项计档控制值为{fmt(weighted)}当量；正式原始评定为{level_label}，得分率{fmt(raw)}%，实际采用{fmt(applied)}%。'
         )
-        result['calculation'] += '\n\n0档仍区分低、中、高位，对应0%、15%、29%；0档不等于每种情形都必然采用0%。具体档内位置沿用当前正式裁决，不在阅读层按空间值插值或补判。'
+        result['calculation'] += '\n\n0档仍区分低、中、高位，对应0%、15%、29%；0档不等于每种情形都必然采用0%。档内位置还需结合具体控制证据判断，不能仅按空间值插值。'
     else:
         result['calculation'] = result['rate_note'] + ' ' + result['adoption_basis']
     if axis_name == 'B4':
@@ -152,9 +152,9 @@ def reading_projection(axis_name, row, credit):
             raise ValueError('B4复核来源已变化，须核对并同步公开判词，不能只刷新状态')
         status = review.get('status', 'NOT_REVIEWED')
         notes = {
-            'CONFIRMED': '已完成现行成熟度边界复核；具体判定仍以本人交班状态和任内运行证据为准。',
-            'EVIDENCE_GAP': '成熟度复核仍缺必要证据：现值暂留，尚未通过新边界复核；不因此自动升档或降档。',
-            'NOT_REVIEWED': '当前为保留的正式值，尚未登记完成现行成熟度边界复核；不得把现值或此处展示当作已通过复核的证明。',
+            'CONFIRMED': '已复核：依据本人离任时的控制状态和任内实际运行情况评价。',
+            'EVIDENCE_GAP': '待补证：判断成果能否稳定维持的必要证据尚未补齐，暂列现有评价；这不代表已通过复核，也不据此自动升档或降档。',
+            'NOT_REVIEWED': '尚待复核：当前暂列已有评价，成果能否稳定维持尚未完成核对；页面列出分值不代表已通过复核。',
         }
         if status not in notes:
             raise ValueError('未知B4复核状态，须明确公开解释')

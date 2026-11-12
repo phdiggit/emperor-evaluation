@@ -11,7 +11,7 @@ spec.loader.exec_module(site)
 
 
 def fixture_sources(root):
-    paths = ["index.html", "reader/data/person-reading-notes.json",
+    paths = ["index.html", "reader/data/person-reading-notes.json", "reader/data/person-search.js",
              "reader/runtime.js", "reader/style.css", "reader/source-revision.json",
              "reader/private.template.html", "reader/authored.json", "reader/build.py"]
     paths += [f"reader/{name}" for name in site.GENERATED_PAGES]
@@ -29,7 +29,7 @@ def test_site_contains_all_runtime_outputs_and_no_authoring_sources(tmp_path):
         assert (output / "reader" / name).read_bytes() == (tmp_path / "reader" / name).read_bytes()
     for name in site.DATA_DIRECTORIES:
         assert (output / "reader/data" / name / "synthetic.json").is_file()
-    for name in ("runtime.js", "style.css", "source-revision.json", "data/person-reading-notes.json"):
+    for name in ("runtime.js", "style.css", "source-revision.json", "data/person-reading-notes.json", "data/person-search.js"):
         assert (output / "reader" / name).is_file()
     for name in ("private.template.html", "authored.json", "build.py"):
         assert not (output / "reader" / name).exists()

@@ -107,10 +107,7 @@
   }
 
   function publicMethodGrade(item) {
-    const text = String(item?.grade || "");
-    const band = text.match(/\bG([0-5])\b/i);
-    if (!band) return "";
-    return `${PUBLIC_GRADE[`G${band[1]}`] || ""}${positionSuffix(text)}`;
+    return globalThis.SecondItemDisplay.methodGrade(item);
   }
 
   function stateGradeMeta(item) {
@@ -127,9 +124,7 @@
   }
 
   function boundaryExcerpt(item) {
-    const text = String(item?.reader_boundary || "").trim();
-    if (!text) return "";
-    return "适用范围与限制见展开说明";
+    return "";
   }
 
   function ensureStyles() {
@@ -225,7 +220,7 @@
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       const summary = detail.querySelector(":scope > summary");
       setPublicGrade(summary?.querySelector(":scope > span"), summary?.querySelector(":scope > b"), grade,
-        sourceLabel === "A制度建设" ? [boundaryExcerpt(item)] : [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`, boundaryExcerpt(item)]);
+        [boundaryExcerpt(item)]);
     }
     for (const span of root.querySelectorAll(".component > span[data-second-source-label]")) {
       const sourceLabel = span.dataset.secondSourceLabel || "";
@@ -233,7 +228,7 @@
       const grade = publicMethodGrade(item);
       if (!item || !grade || !METHOD_MAX[sourceLabel]) continue;
       setPublicGrade(span, span.parentElement?.querySelector(":scope > b"), grade,
-        sourceLabel === "A制度建设" ? [boundaryExcerpt(item)] : [`原始表现指数 ${Number(item.value).toFixed(1)} / ${METHOD_MAX[sourceLabel]}（用于本组折算，不单列得分）`, boundaryExcerpt(item)]);
+        [boundaryExcerpt(item)]);
     }
   }
 
@@ -656,11 +651,23 @@
   function b2Reading(item) {
     const reading = document.createElement("div");
     reading.className = "second-item-public-reading b2-public-reading";
+    if (item.reader_b2_grade) {
+      reading.append(makeTextBlock("p", "subline b2-rating", `正式档位 ${item.reader_b2_grade} · 档内位置：${item.reader_b2_position}`));
+    }
     reading.append(makeTextBlock("p", "subline quality-status", String(item.reader_quality_status || "")));
     reading.append(makeTextBlock("div", "label", "为什么是这个等级"));
     reading.append(makeTextBlock("p", "prose b2-adjudication-summary", String(item.public_adjudication_summary || item.reader_summary || "")));
     reading.append(makeTextBlock("p", "subline", "看具体意见如何进入、本人如何处置及结果是否改变。主动改意、接受信息与受到外部程序约束分别理解；背景材料不当作独立功过。"));
     reading.append(renderB2MaterialGroups(item.reader_public_evidence_items || item.public_evidence_items || []));
+    if (item.reader_b2_collection_id) {
+      const link = document.createElement("a");
+      link.href = "second-item-b2.html#" + encodeURIComponent(item.reader_b2_collection_id);
+      link.textContent = "在反馈与约束专页查看此人 →";
+      const sources = document.createElement("p");
+      sources.className = "sources";
+      sources.append(link);
+      reading.append(sources);
+    }
     return reading;
   }
   globalThis.SecondItemB2Reading = Object.freeze({
@@ -925,17 +932,6 @@
     }
   }
 
-  function patchGroupIntros(record) {
-    if (!record?.net || !location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) return;
-    const values = secondTotals(record);
-    writePublicCopy(document.querySelector('[data-second-intro="method"]'),
-      `这一组看国家机器如何建立规则、配置官僚并形成反馈约束。当前合计 ${fmt(values.method)} 分；公开层先看等级和历史依据，具体表现指数与折算放在展开内容里。`);
-    writePublicCopy(document.querySelector('[data-second-intro="finance"]'),
-      `这一组看统治时期普通家庭、经济财政和社会安全的主要状态，再结合任内低谷、恢复与额外代价形成结果判断。当前合计 ${fmt(values.finance)} 分。`);
-    writePublicCopy(document.querySelector('[data-second-intro="handoff"]'),
-      "统治如何收尾，会直接影响国家机器和继承秩序能否平稳延续。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否顺利；两项均以 S—E 六档显示。");
-  }
-
   function patchPublicGrades() {
     const net = netRecord();
     if (net && location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/)) {
@@ -943,7 +939,6 @@
       patchGradeGroups(root, net);
       patchMetricBodies(net);
       patchCalculationRows(root, net);
-      patchGroupIntros(net);
     }
     const person = personRecord();
     if (person) patchGradeGroups(screenEl, person);

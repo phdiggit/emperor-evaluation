@@ -71,6 +71,40 @@ def test_region_missing_anchor_is_not_invented_as_zero():
     assert result['start'] is None and result['end']==.5
 
 
+def test_control_facts_precede_calculation_without_losing_sources_or_review(tmp_path):
+    import shutil
+    import subprocess
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node.js required for reader behavior')
+    script = tmp_path / 'control-reading.cjs'
+    script.write_text(r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const context={link:(path,label)=>label};context.globalThis=context;
+vm.runInNewContext(fs.readFileSync('reader/third-item-b-public.js','utf8'),context);
+const data={story:'边郡控制的经历。',decision:'规模档位与排除说明。',window:'合成时期',
+ regions:[],raw_rate:75,adopted_rate:0,control_measurement:'接班与交班量化说明。',
+ evidence_items:[{label:'边郡',basis:'驻军恢复，任内持续运行。',sources:[{kind:'史料',label:'合成卷篇',quote:'原文<必须保留>'}]}],
+ sources:[],responsibility:'本人决策与将领执行分别评价。',contribution_note:'不算后任扩张。',
+ boundary:'证据限于边郡。',rate_note:'原始率75%，排除重复成果后采用0%。',adoption_basis:'重复成果已在其他项计分。',
+ method:'合成方法。',calculation:'合成计算。',combination:'合成结果。',rate_table:[],scale:[],source_note:'来源限制。',
+ review_status:'EVIDENCE_GAP',review_note:'待补证：尚未完成核对。'};
+const item={public_component_label:'控制范围',reader_public_b:data};
+const html=context.ThirdItemBReading.html(item,{});
+assert(html.indexOf('驻军恢复，任内持续运行。')<html.indexOf('<details>'));
+assert(html.includes('原文&lt;必须保留&gt;'));
+assert(html.indexOf('接班与交班量化说明。')>html.indexOf('分数怎么算：采用率 0%'));
+assert(html.includes(data.rate_note)&&html.includes(data.adoption_basis));
+assert(html.indexOf(data.review_note)<html.indexOf('<details>'));
+assert(html.includes('data-review-status="EVIDENCE_GAP"'));
+assert(html.split('驻军恢复，任内持续运行。').length===2);
+const heading=context.ThirdItemBReading.heading(item);
+assert(heading.includes('data-raw-rate="75"')&&heading.includes('data-adopted-rate="0"'));
+''',encoding='utf-8')
+    result=subprocess.run([node,str(script)],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
+    assert result.returncode==0,result.stderr
+
+
 def test_b4_changed_review_basis_requires_authored_prose_to_be_checked():
     row,credit=synthetic()
     row['axes']['B4']['maturity_review']=dict(status='CONFIRMED',basis='新的运行判断')

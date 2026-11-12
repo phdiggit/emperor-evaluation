@@ -29,17 +29,23 @@ async function check(file, name, end) {
   const fetch = async (_, options) => {
     requests++;
     const version = options?.cache === 'force-cache' ? 'old' : 'current';
-    return {ok:true,json:async()=>({record:{ruler_id:'synthetic',version}})};
+    return {ok:true,json:async()=>({detail_version:version,record:{ruler_id:'synthetic',version}})};
   };
   const byId = new Map(), DATA = {source_availability:{}};
   const loader = new Function('fetch','byId','DATA', 'const pendingLoads=new Map(),pendingNetRecords=new Map();'+code+';return '+name)(fetch,byId,DATA);
-  const summary = {ruler_id:'synthetic',detail_ref:'data/synthetic.json'};
+  const summary = {ruler_id:'synthetic',detail_ref:'data/synthetic.json',detail_version:'current'};
   const [a,b] = await Promise.all([loader(summary),loader(summary)]);
   assert.equal(a.version,'current');
   assert.equal(b.version,'current');
   assert.equal(requests,1);
   await loader(byId.get('synthetic'));
   assert.equal(requests,1);
+  byId.clear();
+  await assert.rejects(loader({...summary,detail_version:'old'}), error=>error.readerVersionMismatch);
+  assert.equal(byId.size,0,'mismatched shards must not replace current records');
+  await assert.rejects(loader({...summary,detail_version:undefined}), error=>error.readerVersionMismatch);
+  await loader(summary);
+  assert.equal(byId.get('synthetic').version,'current','version rejection does not poison retries');
 }
 (async()=>{
   await check(process.argv[2],'loadRecord','\n  person =');
@@ -47,55 +53,6 @@ async function check(file, name, end) {
 })().catch(error=>{console.error(error);process.exitCode=1});
 ''',encoding="utf-8")
     result = subprocess.run([node,str(script),str(ROOT/"reader/lazy-details.js"),str(ROOT/"reader/home-interactions.js")],capture_output=True,text=True,encoding="utf-8")
-    assert result.returncode == 0, result.stderr
-
-
-def test_late_detail_responses_do_not_replace_another_route(tmp_path):
-    node = shutil.which("node")
-    if not node:
-        pytest.skip("Node.js required for loader behavior")
-    script = tmp_path / "stale-detail.cjs"
-    script.write_text(r'''
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const vm = require('node:vm');
-const file = fs.readFileSync(process.argv[2], 'utf8');
-const source = file.slice(file.indexOf('  person = function('), file.indexOf('  home = function('));
-
-async function check(view, requested, current, succeeds, expected) {
-  const calls = [], pending = [];
-  const a = {ruler_id:'A'}, b = {ruler_id:'B'};
-  const ctx = {
-    location:{hash:requested}, renderGeneration:0, state:{compare:['A','B']},
-    byId:new Map([['A',a],['B',b]]), nav(){}, loading(){},
-    personId:()=> 'A',
-    basePerson:()=>calls.push('person'), baseCompare:()=>calls.push('compare'),
-    loadFailure:()=>calls.push('failure'),
-    loadRecord:record=>new Promise((resolve,reject)=>pending.push({record,resolve,reject}))
-  };
-  vm.createContext(ctx);
-  vm.runInContext(source,ctx);
-  ctx[view](a);
-  assert.equal(pending.length,view==='person'?1:2);
-  ctx.location.hash=current;
-  for(const {record,resolve,reject} of pending)
-    succeeds?resolve(record):reject(new Error('synthetic load failure'));
-  await new Promise(resolve=>setImmediate(resolve));
-  assert.deepEqual(calls,expected);
-}
-
-(async()=>{
-  await check('compare','#compare/A/B','#compare/A/A',true,[]);
-  await check('compare','#compare/A/B','#net/A/all',false,[]);
-  await check('compare','#compare/A/B','#compare/A/B',true,['compare']);
-  await check('person','#person/A','#compare/A/A',false,[]);
-  await check('person','#person/A','#person/A',false,['failure']);
-})().catch(error=>{console.error(error);process.exitCode=1});
-''', encoding="utf-8")
-    result = subprocess.run(
-        [node, str(script), str(ROOT / "reader/lazy-details.js")],
-        capture_output=True, text=True, encoding="utf-8",
-    )
     assert result.returncode == 0, result.stderr
 
 
@@ -157,11 +114,10 @@ def test_source_links_use_local_files_in_preview_and_pin_published_sources(tmp_p
     script.write_text(
         "const assert=require('node:assert/strict');\n"
         + 'const fragment='+__import__('json').dumps(fragment)+';\n'
-        + "const make=new Function('location','DATA',fragment+'return {base:sourceRepoBase(),raw:validatedRawUrl(\"docs/test.md\"),directory:href(\"docs/sources\"),file:href(\"docs/test.md\")};');\n"
-        + "const data={source_repository:'example/project',source_revision:'a'.repeat(40),source_availability:{'docs/sources':'directory'}};\n"
-        + "for(const hostname of ['localhost','127.0.0.1','[::1]']){const result=make({hostname},data);assert.equal(result.base,'');assert.equal(result.raw,'../docs/test.md?raw=1');}\n"
-        + "const result=make({hostname:'example.github.io'},data);assert.ok(result.base.includes('/blob/'+data.source_revision+'/'));assert.ok(result.raw.includes(data.source_revision+'/docs/test.md'));\n"
-        + "assert.equal(result.file,result.base+'docs/test.md');assert.ok(result.directory.endsWith('/tree/'+data.source_revision+'/docs/sources'));\n",
+        + "const make=new Function('location','DATA',fragment+'return validatedRawUrl(\"docs/test.md\");');\n"
+        + "const data={source_repository:'example/project',source_revision:'a'.repeat(40)};\n"
+        + "for(const hostname of ['localhost','127.0.0.1','[::1]'])assert.equal(make({hostname},data),'../docs/test.md?raw=1');\n"
+        + "const result=make({hostname:'example.github.io'},data);assert.ok(result.includes(data.source_revision+'/docs/test.md'));\n",
         encoding='utf-8',
     )
     result = subprocess.run([node,str(script)],capture_output=True,text=True,encoding='utf-8')

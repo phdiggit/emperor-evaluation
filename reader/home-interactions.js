@@ -86,10 +86,12 @@ function firstCostMarkup(item, record) {
   const fields = [["成本程度", publicLevel], ["责任时期", data.public_responsibility_window]];
   const facts = fields.filter(([, value]) => value).map(([label, value]) => `<div class="label">${esc(label)}</div>${prose(value)}`).join("");
   const gaps = (data.public_unresolved_gaps || []).map(value => `<li>${esc(firstCostPublicText(value))}</li>`).join("");
-  const sources = (data.public_source_links || []).filter(source => /^https?:\/\//.test(source.url))
-    .map(source => `<a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.label)} ↗</a>`).join(" ");
+  const sources = (data.public_source_links || []).map(source => link(source.url, source.label + " ↗")).filter(Boolean).join(" ");
   const sections = (data.public_sections || []).map(section => `<section class="first-cost-section"><h4>${esc(section.title)}</h4>${prose(section.text)}</section>`).join("");
-  const records = (data.public_source_records || []).map(source => `<li><span>${esc(source.kind)} · </span>${link(source.path, source.label + " ↗", record)}${source.source_url ? ` · <a href="${esc(source.source_url)}" target="_blank" rel="noopener">回查所引卷篇 ↗</a>` : ""}</li>`).join("");
+  const records = (data.public_source_records || []).map(source => {
+    const reference = link(source.source_url, source.label + " ↗") || link(source.path, source.label, record);
+    return reference ? `<li>${reference}</li>` : "";
+  }).join("");
   const excerpts = firstOrganizationSources({reading_sources: data.reading_sources}, record);
   const formalRef = item.reader_source_refs?.find(ref => ref.includes("06-军事成本正式裁决.json"));
   const formal = formalRef ? `<p class="sources">${link(formalRef, "查看军事成本正式裁决 ↗", record)}</p>` : "";
@@ -107,8 +109,12 @@ function firstCommanderMarkup(item, record) {
   if (!source?.public_question || !source?.public_story || !source?.public_basis || !source?.public_boundary || !Array.isArray(source.public_battles) || !Array.isArray(source.public_setbacks)) {
     return '<p class="notice">本人统帅的公开说明尚未同步。</p>';
   }
+  const battleLabels = new Map((source.public_evidence || []).filter(row => row.archive_url).map(row => [row.archive_url, row.label]));
   const battles = source.public_battles.length
-    ? `<div class="first-c-positive"><h4>已定档的正向结果</h4><p class="subline">“战役成果”和“任务难度”使用军事材料自己的字母刻度，不是人物画像等级。这里只列该次正向结果；同场受挫在下方合看。</p><ul class="first-item-battles">${source.public_battles.map(battle => `<li><strong>${esc(battle.name)}</strong> · ${esc(battle.role)} · 战役成果：${esc(battle.result)} · ${esc(battle.difficulty ? `任务难度：${battle.difficulty}` : '任务难度：未单列')} ${battle.archive_url ? `<a href="${esc(battle.archive_url)}">查看战役档案 ↗</a>` : ""}</li>`).join('')}</ul></div>`
+    ? `<div class="first-c-positive"><h4>主要战果</h4><ul class="first-item-battles">${source.public_battles.map(battle => {
+      const name = battle.name.startsWith("WAR-") ? battleLabels.get(battle.archive_url) || "所引战役" : battle.name;
+      return `<li><strong>${esc(name)}</strong> · ${esc(battle.role)} · 战役成果：${esc(battle.result)} · ${esc(battle.difficulty ? `任务难度：${battle.difficulty}` : '任务难度：未单列')} ${battle.archive_url ? `<a href="${esc(battle.archive_url)}">查看战役档案 ↗</a>` : ""}</li>`;
+    }).join('')}</ul></div>`
     : '';
   const setbacks = source.public_setbacks.length ? `<div class="first-c-setbacks"><h4>同时保留的受挫与损失</h4>${source.public_setbacks.map(row=>`<div class="first-c-setback"><strong>${esc(row.name)}</strong><span class="first-c-direction">${esc(row.direction)}</span>${prose(row.process)}${(row.archive_urls || []).map(url=>`<a href="${esc(url)}">查看战役档案 ↗</a>`).join(" ")}</div>`).join("")}</div>` : "";
   const evidenceSources = new Set((source.public_evidence || []).map(row => row.public_source));
@@ -136,27 +142,34 @@ function firstCommanderMarkup(item, record) {
 
   const netMajorSpecs = {
     all: {
-      title: "统治绩效构成",
+      title: "统治绩效总览",
       description: "四个大项分别展开；先看单人结算逻辑，再看公式，最后才进入原始正式文档。",
       groups: [],
     },
     first: {
       title: "政权奠基与统一",
+      scoreCap: 127.4,
+      scoreMeaning: "建国、复国或统一贡献折算成的加分。",
       description: "先看本人在建国、复国或统一主链里实际做成了什么、面对什么难题、怎样组织与统帅，再看规则怎样把这些事实换成分数。",
       groups: ["first"],
     },
     second: {
       title: "治国成效",
+      scoreCap: 387,
+      scoreMeaning: "合计制度与行政、民生与社会、政权交接的表现。",
       description: "制度与行政、民生与社会、政权交接共同构成治国成效。",
       groups: ["method", "finance", "handoff"],
     },
     third: {
       title: "军事与边疆",
+      scoreCap: 250,
+      scoreMeaning: "合计战略安全、疆域控制与军队表现，再扣军事代价。",
       description: "战略安全收益、军事体系兑现与军事成本在同一项内结算。",
       groups: ["strategic", "military"],
     },
     fourth: {
       title: "文明与国家整合",
+      scoreMeaning: "合计共同体、教育和知识文化的收益与损害。",
       description: "看本人窗口在共同体、教育人才与知识文化三方面形成的可归责净变化；这是有符号调整，不是文明程度或时代先进程度排名。",
       groups: ["civilization"],
     },
@@ -186,6 +199,7 @@ function firstCommanderMarkup(item, record) {
     "治国成效": "second",
     "治国净收益": "second", // 旧页面/缓存兼容
     "军事与边疆": "third",
+    "政权奠基与统一": "first",
     "奠基与统一附加": "first",
     "文明与国家整合": "fourth",
   };
@@ -340,7 +354,14 @@ function firstCommanderMarkup(item, record) {
       .net-major-nav a.active{background:var(--ink);color:white}
       .net-major-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
       .net-major-card{display:block;color:inherit;text-decoration:none}
-      .net-major-card h2{margin-top:0}.net-major-card .big{font-size:36px}
+      .net-major-card h2{margin:0 0 8px}
+      .net-total-overview{display:flex;flex-wrap:wrap;align-items:end;gap:12px 32px}
+      .net-total-overview h2,.net-total-overview p{margin:0}
+      .net-total-overview .big{display:block;font-size:44px}
+      .net-breakdown-heading{font-size:19px;margin:16px 0 10px}
+      .net-card-score{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}
+      .net-card-score strong{font-size:25px}
+      .net-card-reference{margin:4px 0 8px;font-weight:600;color:var(--green)}
       .net-metric-detail{border:1px solid var(--line);border-radius:6px;padding:0;margin:12px 0;background:#fcfbf7}
       .net-metric-detail>summary{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;padding:14px 38px 14px 14px;margin:0}
       .net-metric-detail>summary small{display:block;margin-top:3px;font-weight:400}
@@ -475,6 +496,14 @@ function firstCommanderMarkup(item, record) {
         hint.textContent = major === "first" && a?.public_question ? `${a.public_question} →` : "查看计分逻辑 →";
         text.append(hint);
       }
+      const score = anchor.querySelector("b");
+      const note = scoreReadingNote(record.net, major);
+      if (score && note) {
+        const explanation = document.createElement("small");
+        explanation.className = "score-reading-note";
+        explanation.textContent = note;
+        anchor.append(explanation);
+      }
       row.append(anchor);
     }
 
@@ -504,13 +533,8 @@ function firstCommanderMarkup(item, record) {
   function auditSourceBlock(item, record) {
     const refs = uniqueSourceRefs(item);
     if (!refs.length) return "";
-    const links = refs.map((ref, index) => {
-      const label = ref === item.applied_source && ref !== item.source
-        ? "采用值原始记录 ↗"
-        : index === 0 ? "原始正式文档 ↗" : `补充史料／记录 ${index} ↗`;
-      return link(ref, label, record);
-    }).join(" ");
-    return `<details class="net-audit-sources"><summary>正式文档与史料</summary><p class="subline">这些链接指向整份正式文件，供读者核对；上面的当前人物事实才是正文。</p><p class="sources">${links}</p></details>`;
+    const links = [...new Set(refs.map(ref => link(ref, "查看所引史源 ↗", record)).filter(Boolean))];
+    return links.length ? `<details class="net-audit-sources"><summary>出处</summary><ul class="sources">${links.map(citation => `<li>${citation}</li>`).join("")}</ul></details>` : "";
   }
 
   function militarySourceCards(sources, record) {
@@ -1033,7 +1057,8 @@ function firstCommanderMarkup(item, record) {
     const intro = netPublicIntro[displayLabel] || netPublicIntro[item.label] || "";
     if (SECOND_PUBLIC_GROUPS.has(groupKey) && item.reader_kind === "judgment") {
       const audit = ["A制度建设", "B1官僚治理"].includes(item.label) ? "" : auditSourceBlock(item, record);
-      return `<details class="net-metric-detail" data-second-source-label="${esc(item.label)}"><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${audit}</div></details>`;
+      const anchor = item.label === "B2反馈与约束" ? ' id="net-group-feedback"' : "";
+      return `<details${anchor} class="net-metric-detail" data-second-source-label="${esc(item.label)}"><summary><span><strong>${esc(displayLabel)}</strong>${intro ? `<small>${esc(intro)}</small>` : ""}</span><b>${esc(netValue(item, groupKey))}</b></summary><div class="net-metric-body">${audit}</div></details>`;
     }
     const thirdItem = groupKey === "strategic" || groupKey === "military";
     const fourthItem = groupKey === "civilization";
@@ -1123,7 +1148,7 @@ function firstCommanderMarkup(item, record) {
     if (firstItemDocCache.has(cacheKey)) return firstItemDocCache.get(cacheKey);
     const pending = fetch(firstItemRawUrl(ref), {cache: "no-cache"})
       .then(response => response.ok ? response.text() : "")
-      .catch(() => "");
+      .catch(error => { firstItemDocCache.delete(cacheKey); throw error; });
     firstItemDocCache.set(cacheKey, pending);
     return pending;
   }
@@ -1233,20 +1258,6 @@ function firstCommanderMarkup(item, record) {
   function firstMetricDetail(id, title, subtitle, item, body, record, valueText = "") {
     const shown = valueText || netValue(item);
     return `<details id="${id}" data-ruler="${esc(personLabel(record))}" class="net-metric-detail"><summary><span><strong>${title}</strong><small>${subtitle}</small></span><b>${esc(shown)}</b></summary><div class="net-metric-body">${body}${auditSourceBlock(item, record)}</div></details>`;
-  }
-
-  function firstEvidenceMarkup(value, component) {
-    const text = String(value || "");
-    const base = new URL(`../${firstItemDocs[component]}`, location.href);
-    let output = "", cursor = 0;
-    for (const match of text.matchAll(/\[([^\]]+)\]\(([^)]+)\)/g)) {
-      output += esc(text.slice(cursor, match.index));
-      const href = new URL(match[2], base);
-      output += ["http:", "https:"].includes(href.protocol)
-        ? `<a href="${esc(href.href)}" target="_blank" rel="noopener">${esc(match[1])} ↗</a>` : esc(match[1]);
-      cursor = match.index + match[0].length;
-    }
-    return output + esc(text.slice(cursor));
   }
 
   function renderFirstA(item, data, record) {
@@ -1364,14 +1375,15 @@ function firstCommanderMarkup(item, record) {
         ${thirdJudgmentCards(record, strategic, ["A1","A2"], "strategic", shared)}
         ${thirdCalculationRows(strategic, ["A120"], "strategic", "安全状态小计怎么形成？")}
       </div>
-      <div id="net-group-control" class="net-third-subgroup"><h3>控制成果质量（合成满分80分）</h3><p class="subline net-third-subgroup-note">先看控制对象和接班、交班范围，再看本人合格成果的战略作用与移交条件。三轴分别保留原始得分率和实际采用率；不是领土占比、现实概率或独立得分。成熟度未完成复核时，现值保留与复核状态分别说明。</p>
+      <div id="net-group-control" class="net-third-subgroup"><h3>控制成果质量（合成满分80分）</h3><p class="subline net-third-subgroup-note">这一项看控制了哪些地区、这些成果有多重要，以及离任时能否稳定维持。具体史事在下方列出，得分率和计算可展开查看；得分率不代表领土占比或成功概率。尚未完成复核的评价会单独标明。</p>
         ${thirdJudgmentCards(record, strategic, ["B1","B2","B4"], "strategic")}
+        ${globalThis.ThirdItemBReading?.combinationHtml(strategic) || ""}
         ${thirdCalculationRows(strategic, ["B80"], "strategic", "控制成果小计怎么形成？")}
       </div>
     </section>`;
     const militarySection = `<section id="net-group-military" class="panel net-detail-group"><h2>军事体系与成本</h2>
       <div id="net-group-system" class="net-third-subgroup"><h3>军事体系表现</h3>
-        ${thirdJudgmentCards(record, military, ["C1联合主评","C1实战交付","C2持续作战","C3体系可靠性"], "military")}
+        ${thirdJudgmentCards(record, military, ["C1实战交付","C2持续作战","C3体系可靠性"], "military")}
         ${thirdCalculationRows(military, ["C50"], "military", "军事体系结果怎么形成？")}
       </div>
       <div id="net-group-cost" class="net-third-subgroup"><h3>军事代价</h3><p class="subline net-third-subgroup-note">普通军事代价与重大军事净毁损按正式规则合并，避免同一损失重复扣减。</p>
@@ -1390,20 +1402,25 @@ function firstCommanderMarkup(item, record) {
       ? thirdMajorGroups(record, details)
       : spec.groups.map(key => genericNetGroup(record, key, details[key] || [])).join("");
     const container = document.getElementById("net-major-body");
-    if (container) container.innerHTML = content || `<section class="panel"><p class="notice">这一项暂未形成可展示的完整分项记录。</p></section>`;
+    if (container) container.innerHTML = (record.reader_narratives?.[major] ? narrativeEvidence(record, major, content) : content) || `<section class="panel"><p class="notice">这一项暂未形成可展示的完整分项记录。</p></section>`;
+    if (focus === "feedback") scheduleReaderSurfaceEnhancement();
     if (focus) requestAnimationFrame(() => {
       const target = document.getElementById(`net-group-${focus}`);
-      target?.scrollIntoView({behavior: "smooth", block: "start"});
+      const detail = target?.tagName === "DETAILS";
+      for(let parent=target;parent;parent=parent.parentElement)if(parent.tagName==='DETAILS')parent.open=true;
+      target?.scrollIntoView({behavior: detail ? "auto" : "smooth", block: "start"});
     });
   }
 
+  const netContents = {
+    first: [["a","统一成果"],["b1","条件与效率"],["b2","组织与协作"],["c","本人统帅"],["cost","战争代价"]],
+    second: [["method","制度与行政"],["feedback","反馈与约束"],["finance","民生与社会"],["handoff","政权交接"]],
+    third: [["safety","战略安全"],["control","控制成果"],["system","军事体系"],["cost","军事代价"]],
+    fourth: [["a","共同体整合"],["b","教育与人才"],["c","知识与文化"]],
+  };
+
   function majorContents(record, major) {
-    const entries = {
-      first: [["a","统一成果"],["b1","条件与效率"],["b2","组织与协作"],["c","本人统帅"],["cost","战争代价"]],
-      second: [["method","制度与行政"],["finance","民生与社会"],["handoff","政权交接"]],
-      third: [["safety","战略安全"],["control","控制成果"],["system","军事体系"],["cost","军事代价"]],
-      fourth: [["a","共同体整合"],["b","教育与人才"],["c","知识与文化"]],
-    }[major] || [];
+    const entries = netContents[major] || [];
     return `<nav class="net-page-contents" aria-label="本页目录">${entries.map(([id,label]) =>
       `<a href="${netHref(record, major, id)}">${esc(label)}</a>`).join("")}</nav>`;
   }
@@ -1417,32 +1434,26 @@ function firstCommanderMarkup(item, record) {
   }
 
   function majorCard(record, major) {
-    const value = majorValue(record, major);
-    const spec = netMajorSpecs[major];
-    const rawFirstScore = finiteNetNumber(record.net?.first_item_raw_score);
-    const firstStatus = record.net?.first_item_status;
-    const shownValue = performanceScore(record.net, major);
-    const inactiveFirst = major === "first" && firstStatus !== "APPLICABLE";
-    const description = inactiveFirst
-      ? firstStatus === "NOT_APPLICABLE"
-        ? "本项只评价建国、复国或统一创业主链。当前正式结算未将本人纳入该主链，附加分按0计入总分；不据此判断能力高低。"
-        : "请先查看正式适用状态与本项范围，不从空值推断为0分或不适用。"
-      : spec.description;
-    return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(spec.title)}</h2><div class="big">${shownValue}</div><p>${esc(description)}</p><p class="sources">${inactiveFirst?'查看适用规则与说明 →':'查看分项与依据 →'}</p></a>`;
+    const {title} = netMajorSpecs[major];
+    const score = performanceScore(record.net, major);
+    const reading = majorCardReading(record, major);
+    const paragraphs = reading.paragraphs.map(text => `<p>${esc(text)}</p>`).join("");
+    return `<a class="panel net-major-card" href="${netHref(record, major)}"><h2>${esc(title)}</h2><div class="net-card-score"><strong>${score}</strong><p class="score-reading-note">${esc(scoreReadingNote(record.net, major))}</p></div><div class="net-card-reading" data-card-reading="${esc(major)}">${paragraphs}</div><span class="sources">${esc(reading.linkLabel)} →</span></a>`;
   }
+
 
   function renderNetShell(record, active, body) {
     nav("");
     const systemNav = typeof personSystemNav === "function" ? personSystemNav(record, "net") : "";
     const overview = active === "all";
-    screen.innerHTML = `<div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权时期 ${esc(record.actual_power_window || "未列")}${overview ? "" : ` · 统治绩效 ${performanceScore(record.net)}`}</p></div></div>${governanceScope(record.net)}${systemNav}${overview ? "" : `<div class="net-detail-public-score">本项表现 <strong>${performanceScore(record.net, active)}</strong><small>独立量尺；下方计算使用原分</small></div>`}${overview ? "" : majorNav(record, active)}<section class="net-detail-page" data-net-person="${esc(record.ruler_id)}" data-net-major="${esc(active)}" data-net-score-mode="${meritTierPreview ? "merit" : "letter"}">${body}${overview ? "" : performanceScaleHelp(record.net)}</section>`;
+    screen.innerHTML = `<div class="person-head net-detail-head"><div><div class="eyebrow">${esc(record.polity)} / 统治绩效</div><h1>${esc(personLabel(record))} · ${esc(netMajorSpecs[active]?.title || "统治绩效")}</h1><p class="muted">掌权时期 ${esc(record.actual_power_window || "未列")}${overview ? "" : ` · 统治绩效 ${performanceScore(record.net)}`}</p></div></div>${governanceScope(record.net)}${systemNav}${overview ? "" : `<div class="net-detail-public-score">本项表现 <strong>${performanceScore(record.net, active)}</strong><small>${esc(scoreReadingNote(record.net, active))}${record.net?.public_scores?.[active]?.state==="SCORED" ? " 下方计算使用计分原分。" : ""}</small></div>`}${overview ? "" : majorNav(record, active)}<section class="net-detail-page" data-net-person="${esc(record.ruler_id)}" data-net-major="${esc(active)}" data-net-score-mode="${meritTierPreview ? "merit" : "letter"}">${overview ? "" : performanceScaleHelp(record.net)}${body}</section>`;
   }
 
   function renderNetLanding(record) {
     const {rank} = record.net;
     const uncertainty = rankUncertaintyText(record.net);
-    const total = `<section class="panel net-total-overview"><div><h2>统治绩效 · 展示分</h2><strong class="big">${performanceScore(record.net)}</strong></div><div><strong>第 ${esc(rank)} 名</strong><p class="subline">共 ${esc(DATA.ranked_count)} 人上榜</p>${uncertainty ? `<p class="subline">考虑史料分歧，${esc(uncertainty)}</p>` : ""}</div></section>`;
-    renderNetShell(record, "all", `${total}<h2 class="net-breakdown-heading">分项表现</h2><p class="subline">奠基、治国和军事分别读分；文明默认显示有符号净增量，不能与展示分相加。</p><div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div>${performanceScaleHelp(record.net)}`);
+    const total = `<section class="panel net-total-overview"><div><h2>统治绩效 · 展示分</h2><strong class="big">${performanceScore(record.net)}</strong><p class="score-reading-note">${esc(scoreReadingNote(record.net))}</p></div><div><strong>第 ${esc(rank)} 名</strong><p class="subline">共 ${esc(DATA.ranked_count)} 人上榜</p>${uncertainty ? `<p class="subline">考虑史料分歧，${esc(uncertainty)}</p>` : ""}</div></section>`;
+    renderNetShell(record, "all", `${total}${performanceScaleHelp(record.net)}<h2 class="net-breakdown-heading">分项表现</h2><p class="subline">奠基、治国和军事分别读分；文明默认显示有符号净增量，不能与展示分相加。</p><div class="net-major-grid">${["first", "second", "third", "fourth"].map(major => majorCard(record, major)).join("")}</div>`);
   }
 
   function renderNetMajor(record, major, focus) {
@@ -1454,28 +1465,34 @@ function firstCommanderMarkup(item, record) {
     const value = majorValue(record, major);
     if (major === "first") {
       renderNetShell(record, major, `<div id="net-major-body"><div class="empty">正在整理当前人物的主链事实…</div></div>`);
-      void renderFirstMajor(record, focus);
+      const firstContainer = document.getElementById('net-major-body');
+      void renderFirstMajor(record, focus).catch(error => {
+        if (firstContainer?.isConnected) firstContainer.innerHTML = `<p class="notice">${error.readerVersionMismatch ? '阅读资料已更新，请刷新页面后继续。' : '来源加载失败，请重试。'}</p><button onclick="location.reload()">刷新页面</button>`;
+      });
       return;
     }
     const shownValue = value == null ? "—" : major === "fourth" && Number(value) > 0 ? `+${scoreNumber(value)}` : scoreNumber(value);
     const scoreNote = major === "third"
-      ? `本项进入总榜的净分：${shownValue} / 250；已扣实际军事代价。`
+      ? `本项计分原分：${shownValue} / 250；已扣实际军事代价。`
       : major === "fourth"
-        ? `本项进入总榜的有符号调整：${shownValue}。 ${fourthAdjustmentNote(record)}`
-        : `本项进入总榜的分值：${shownValue}。`;
-    renderNetShell(record, major, `<section class="panel net-major-intro" aria-label="分项结果与目录"><p class="net-major-score-note">${esc(scoreNote)}</p><p class="subline">${esc(spec.description)}</p>${majorContents(record, major)}</section><div id="net-major-body"><div class="empty">正在整理当前人物的逐项结算逻辑…</div></div>`);
+        ? `本项有符号调整原分：${shownValue}。 ${fourthAdjustmentNote(record)}`
+        : `本项计分原分：${shownValue}。`;
+    const introduction = major === "third" ? record.net?.reader_military_summary || ""
+      : major === "fourth" ? record.net?.reader_civilization_summary || "" : spec.description;
+    renderNetShell(record, major, `<section class="panel net-major-intro" aria-label="分项结果与目录"><p class="net-major-score-note">${esc(scoreNote)}</p>${record.reader_narratives?.[major] ? "" : `<p class="subline">${esc(introduction)}</p>`}${majorContents(record, major)}</section>${personNarrative(record,major)}<div id="net-major-body"><div class="empty">正在整理当前人物的逐项结算逻辑…</div></div>`);
     renderGenericMajor(record, major, focus);
   }
 
   function parseNetRoute(hash = location.hash) {
-    const match = hash.match(/^#net\/([^/?#]+)(?:\/(all|first|second|third|fourth))?(?:\/([^/?#]+))?$/);
+    const match = hash.match(/^#net\/([^/?#]+)(?:\/(all|first|second|third|fourth)(?:\/([^/?#]+))?)?$/);
     if (!match) return null;
     try {
-      return {
-        rulerId: decodeURIComponent(match[1]),
-        major: match[2] || "all",
-        focus: match[3] ? decodeURIComponent(match[3]) : "",
-      };
+      const rulerId = decodeURIComponent(match[1]);
+      const major = match[2] || "all";
+      const focus = match[3] ? decodeURIComponent(match[3]) : "";
+      if (focus && !netContents[major]?.some(([id]) => id === focus) &&
+          !(major !== "first" && netMajorSpecs[major].groups.includes(focus))) return null;
+      return {rulerId, major, focus};
     } catch {
       return null;
     }
@@ -1491,10 +1508,12 @@ function firstCommanderMarkup(item, record) {
       if (!response.ok) throw new Error(`Failed to load ${record.detail_ref}: HTTP ${response.status}`);
       const payload = await response.json();
       if (!payload?.record || payload.record.ruler_id !== id) throw new Error(`Detail payload ruler_id mismatch for ${id}`);
-      const full = {...payload.record, detail_ref: record.detail_ref, detail_loaded: true};
+      if (!record.detail_version || payload.detail_version !== record.detail_version) {
+        throw Object.assign(new Error('阅读资料已更新，请刷新页面后继续。'), {readerVersionMismatch: true});
+      }
+      const full = {...payload.record, detail_ref: record.detail_ref, detail_version: record.detail_version, detail_loaded: true};
       byId.set(id, full);
       Object.assign(DATA.source_availability, payload.source_availability || {});
-      Object.assign(DATA.source_line_targets ??= {}, payload.source_line_targets || {});
       return full;
     })().finally(() => pendingNetRecords.delete(id));
     pendingNetRecords.set(id, pending);
@@ -1502,14 +1521,22 @@ function firstCommanderMarkup(item, record) {
   }
 
   async function renderNetRoute() {
+    const generation = ++netRenderGeneration;
     const parsed = parseNetRoute();
-    if (!parsed) return false;
+    const summary = parsed && byId.get(parsed.rulerId);
+    if (!summary) {
+      nav("");
+      screen.innerHTML = `<div class="empty"><p>统治绩效详情地址无效。</p><a href="#overview">返回人物总览</a></div>`;
+      window.scrollTo(0, 0);
+      return true;
+    }
     const current = screen.querySelector(".net-detail-page");
     if (current?.dataset.netPerson === parsed.rulerId && current.dataset.netMajor === parsed.major &&
         current.dataset.netScoreMode === (meritTierPreview ? "merit" : "letter")) {
       const prefix = parsed.major === "first" ? "net-first-" : "net-group-";
       const target = parsed.focus && document.getElementById(prefix + parsed.focus);
       if (target && current.contains(target)) {
+        openReadingAncestors(target);
         target.scrollIntoView({behavior: "auto", block: "start"});
         return true;
       }
@@ -1518,19 +1545,14 @@ function firstCommanderMarkup(item, record) {
         return true;
       }
     }
-    const summary = byId.get(parsed.rulerId);
     nav("");
-    if (!summary) {
-      screen.innerHTML = `<div class="empty"><p>统治绩效详情地址无效。</p><a href="#overview">返回人物总览</a></div>`;
-      return true;
-    }
-    const generation = ++netRenderGeneration;
     screen.innerHTML = `<div class="empty" role="status">正在加载${esc(summary.ruler_name)}的统治绩效详情…</div>`;
     try {
       const record = await loadNetRecord(summary);
       if (generation !== netRenderGeneration || !location.hash.startsWith("#net/")) return true;
       if (!record.net) {
-        screen.innerHTML = `<div class="empty"><h1>${esc(personLabel(record))} · 统治绩效</h1><p>${esc(missingNetStatus(record))}</p>${record.fourth_c_collection_ref?globalThis.FourthItemCReading.entryLinks(record):''}<a href="#person/${encodeURIComponent(record.ruler_id)}">返回人物页</a></div>`;
+        screen.innerHTML = `${personSubpageHead(record, "统治绩效", "net")}<section class="panel partial-net-reading"><p>${esc(missingNetStatus(record))}</p>${availableReadingEntries(record)}</section>`;
+        window.scrollTo(0, 0);
         return true;
       }
       renderNetMajor(record, parsed.major, parsed.focus);
@@ -1538,6 +1560,10 @@ function firstCommanderMarkup(item, record) {
     } catch (error) {
       console.error(error);
       if (generation === netRenderGeneration) {
+        if (error.readerVersionMismatch) {
+          screen.innerHTML = '<div class="empty"><p>阅读资料已更新，请刷新页面后继续。</p><button onclick="location.reload()">刷新页面</button></div>';
+          return true;
+        }
         screen.innerHTML = `<div class="empty"><p>统治绩效详情加载失败。</p><p class="subline">人物总览与人物主页仍可正常使用。</p><a href="#person/${encodeURIComponent(summary.ruler_id)}">返回人物页</a></div>`;
       }
     }
@@ -1577,6 +1603,14 @@ function firstCommanderMarkup(item, record) {
   enhanceReaderSurface();
 
   screen.addEventListener("click", event => {
+    const contentsLink = event.target.closest(".net-page-contents a");
+    if (contentsLink?.getAttribute("href") === location.hash && event.button === 0 &&
+        !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+      event.preventDefault();
+      go(location.hash);
+      return;
+    }
+
     const quickOpen = event.target.closest("[data-home-open]");
     if (quickOpen) {
       event.preventDefault();
@@ -1623,9 +1657,10 @@ function firstCommanderMarkup(item, record) {
   });
 
   const baseRoute = route;
+  const isNetRoute = () => location.hash === "#net" || location.hash.startsWith("#net/");
   window.removeEventListener("hashchange", baseRoute);
   route = function() {
-    if (location.hash.startsWith("#net/")) {
+    if (isNetRoute()) {
       void renderNetRoute();
       return;
     }
@@ -1634,5 +1669,5 @@ function firstCommanderMarkup(item, record) {
   };
   window.addEventListener("hashchange", route);
 
-  if (location.hash.startsWith("#net/")) void renderNetRoute();
+  if (isNetRoute()) void renderNetRoute();
 })();

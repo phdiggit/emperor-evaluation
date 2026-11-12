@@ -152,7 +152,7 @@
 
     if (!evidence.length || !formalSummary || !story || !responsibility) {
       body.innerHTML = "";
-      body.append(make("p", "notice", "官僚治理的正式人物级公开投影尚未同步。"));
+      body.append(make("p", "notice", "这位人物的官僚治理阅读资料暂不可用。"));
       body.dataset.b1Public = "missing";
       body.dataset.secondPublicBodyKey = key;
       return;

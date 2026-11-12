@@ -45,6 +45,9 @@
           if (!payload || payload.ruler_id !== rulerId || !payload.documents || !payload.public_outcome) {
             throw new Error(`First-item source cache mismatch for ${rulerId}`);
           }
+          if (!DATA.first_source_version || payload.source_version !== DATA.first_source_version) {
+            throw Object.assign(new Error('阅读资料已更新，请刷新页面后继续。'), {readerVersionMismatch: true});
+          }
           return payload;
         })
         .catch(error => {
@@ -69,11 +72,16 @@
             return new Response(markdown, {status: 200, headers: {"Content-Type": "text/markdown; charset=utf-8"}});
           }
         } catch (error) {
+          if (error.readerVersionMismatch) throw error;
           console.warn("First-item source cache unavailable; falling back to formal source.", error);
         }
       }
     }
-    return browserFetch(input, options);
+    const response = await browserFetch(input, options);
+    if (match && response.ok) {
+      await requireReaderTextVersion(await response.clone().text(), DATA.first_document_versions?.[match[0]]);
+    }
+    return response;
   };
 
   function loading(message) {
@@ -82,6 +90,10 @@
 
   function loadFailure(error) {
     console.error(error);
+    if (error.readerVersionMismatch) {
+      screen.innerHTML = '<div class="empty"><p>阅读资料已更新，请刷新页面后继续。</p><button onclick="location.reload()">刷新页面</button></div>';
+      return;
+    }
     screen.innerHTML = `<div class="empty"><p>完整资料加载失败。</p><p class="subline">请检查网络后重试；人物总览仍可正常使用。</p><button data-home>返回人物总览</button></div>`;
   }
 
@@ -98,14 +110,17 @@
       if (!payload || !payload.record || payload.record.ruler_id !== id) {
         throw new Error(`Detail payload ruler_id mismatch for ${id}`);
       }
+      if (!record.detail_version || payload.detail_version !== record.detail_version) {
+        throw Object.assign(new Error('阅读资料已更新，请刷新页面后继续。'), {readerVersionMismatch: true});
+      }
       const full = {
         ...payload.record,
         detail_ref: record.detail_ref,
+        detail_version: record.detail_version,
         detail_loaded: true,
       };
       byId.set(id, full);
       Object.assign(DATA.source_availability, payload.source_availability || {});
-      Object.assign(DATA.source_line_targets ??= {}, payload.source_line_targets || {});
       return full;
     })().finally(() => pendingLoads.delete(id));
 
@@ -120,14 +135,13 @@
     }
 
     const generation = ++renderGeneration;
-    const requestedHash = location.hash;
     nav("");
     loading(`正在加载${record.ruler_name}的完整资料…`);
     loadRecord(record).then(full => {
-      if (generation !== renderGeneration || location.hash !== requestedHash) return;
+      if (generation !== renderGeneration || personId() !== full.ruler_id) return;
       basePerson(full);
     }).catch(error => {
-      if (generation === renderGeneration && location.hash === requestedHash) loadFailure(error);
+      if (generation === renderGeneration && location.hash.startsWith('#person/') && personId() === record.ruler_id) loadFailure(error);
     });
   };
 
@@ -148,14 +162,13 @@
     }
 
     const generation = ++renderGeneration;
-    const requestedHash = location.hash;
     nav("compare");
     loading("正在加载两位人物的完整对照资料…");
     Promise.all(selected.map(loadRecord)).then(() => {
-      if (generation !== renderGeneration || location.hash !== requestedHash) return;
+      if (generation !== renderGeneration || !location.hash.startsWith("#compare")) return;
       baseCompare();
     }).catch(error => {
-      if (generation === renderGeneration && location.hash === requestedHash) loadFailure(error);
+      if (generation === renderGeneration && location.hash.startsWith('#compare')) loadFailure(error);
     });
   };
 

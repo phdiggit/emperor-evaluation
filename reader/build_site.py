@@ -9,7 +9,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 GENERATED_PAGES = (
-    "index.html", "military.html", "source.html",
+    "index.html", "military.html",
     "first-item-a.html", "first-item-b1.html", "first-item-b2.html", "first-item-c.html",
     "second-item-b2.html", "second-item-c.html", "second-item-d.html",
     "third-item-c.html", "fourth-item-a.html", "fourth-item-b.html", "fourth-item-c.html",
@@ -22,7 +22,7 @@ def stage_site(root: Path = ROOT) -> Path:
     root = root.resolve()
     reader = root / "reader"
     files = [root / "index.html", *(reader / name for name in GENERATED_PAGES),
-             reader / "data/person-reading-notes.json"]
+             reader / "data/person-reading-notes.json", reader / "data/person-search.js"]
     directories = [reader / "data" / name for name in DATA_DIRECTORIES]
     for path in files:
         if not path.is_file():

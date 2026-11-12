@@ -413,15 +413,6 @@ def build(root: Path) -> dict:
 
 
 def render(payload: dict, *, ranking_records=None) -> str:
-    from .second_item_c_source_display import is_machine_source, project_source_title
-
-    def citation(ref):
-        label = project_source_title(ref) if not ref.startswith(('http://', 'https://')) else ''
-        if is_machine_source(ref):
-            return (label or '项目材料') + '（此条依据未单列阅读入口）'
-        target = ref if ref.startswith(('http://', 'https://')) else '../../../../' + ref
-        return f'[{label or "查看所引史源"}]({target})'
-
     if payload.get('schema_version') == REFERENCED_SCHEMA or 'ranking_source' in payload:
         payload = ranking_reading_payload(payload, ranking_records)
     labels={'SUPPORTED_INTERPRETATION':'证据允许解释','REJECTED_DIAGNOSTIC':'已排除假设','UNRESOLVED_EVIDENCE_GAP':'尚未闭合的证据问题'}
@@ -440,7 +431,7 @@ def render(payload: dict, *, ranking_records=None) -> str:
             lines += ['该假设已排除，不列作可接受的替代分数或名次。','']
         else:
             lines += ['正式分数维持当前裁决；具体候选见下表。候选尚未成为合法替代，不据此改名次。','']
-        lines += ['依据：'+ '；'.join(dict.fromkeys(map(citation, case['source_refs']))), '']
+        lines += ['依据：'+ '；'.join(f'[{ref}]({ref if ref.startswith("http") else "../../../../"+ref})' for ref in case['source_refs']), '']
     lines += ['## 逐人当前档与有限复核候选','',
               '当前档直接读取正式源。审慎区间按现有史料中逐人排除后的候选及共享联动计算，不是统计覆盖率，也不保证未来新史料不能重开。非单点端点可能无法同时实现；单点不证明历史真值唯一。', '',
               '| 人物 | 当前C1／C2／C3主态 | 当前军事成本／净毁损 | 具体复核档位 | 现有史料审慎总分区间 |',

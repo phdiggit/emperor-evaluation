@@ -133,10 +133,15 @@ def b_reading_lines(row, name, title):
     from emperor_v4.evaluation.third_item_b_sources import display_reading, expand_readings
     reading = display_reading(expand_readings(row)[name])
     lines = [f'**{name} {title}**', '', f"评价时期：{reading['window']}。", '',
-             reading['story'], '', reading['rate_note'], '']
+             reading['story'], '']
     if reading.get('review_note'):
         lines += ['**' + reading['review_note'] + '**', '']
-    lines += ['为什么这样评：' + reading['decision'], '', '<details><summary>本人贡献、采用率、计算与来源</summary>', '',
+    if name == 'B1':
+        for evidence in reading['evidence_items']:
+            lines += [f"**{evidence['label']}**", '', evidence['basis'], '']
+    lines += ['<details><summary>本人贡献、分数计算与史料依据</summary>', '',
+              reading['rate_note'], '', reading['decision'], '',
+              *([reading['control_measurement'], ''] if reading.get('control_measurement') else []),
               reading['responsibility'], '', reading['contribution_note'], '', reading['boundary'], '']
     if reading.get('review_explanation'):
         lines += ['复核具体依据：' + reading['review_explanation'], '']
@@ -145,14 +150,14 @@ def b_reading_lines(row, name, title):
         for region in reading['regions']:
             start = region['start'] if region['start'] is not None else '未单列'
             end = region['end'] if region['end'] is not None else '未单列'
-            disposition = '已排除，不作独立控制增益' if region['excluded'] else '按现行快照核对'
+            disposition = '已排除，不作独立控制增益' if region['excluded'] else '按本项范围计入'
             lines.append(f"| {region['label']} | {start} | {end} | {disposition} |")
-        lines += ['', '当量来自现行区域裁决；未单列不等于0。总快照及跨项排除分别核对，不把旧区域记录不加区分地重新相加。', '']
+        lines += ['', '当量用于比较不同时代的控制范围，不等于面积或人口；未单列不等于0。已在其他项目计分的成果不重复计入，各地区数值不能直接相加。', '']
     lines += [reading['adoption_basis'], '', *([reading['diagnostic_note'], ''] if reading['diagnostic_note'] else []),
               reading['method'], '', reading['calculation'], '', reading['combination'], '',
               *reading['rate_table'], '', *reading['scale'], '', reading['source_note'], '']
     for evidence in reading['evidence_items']:
-        lines += [f"**{evidence['label']}**（现行裁决叙述）", '', evidence['basis'], '', *reading_source_lines(evidence['sources']), '']
+        lines += [f"**{evidence['label']}**（评价依据）", '', evidence['basis'], '', *reading_source_lines(evidence['sources']), '']
     additional = reading['sources']
     if additional:
         lines += ['补充来源：', '', *reading_source_lines(additional), '']

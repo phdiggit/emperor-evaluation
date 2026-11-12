@@ -49,10 +49,12 @@ def test_military_archive_indexes_point_to_canonical_shards(tmp_path: Path):
                 "war_event_id": "WAR-TEST-1",
                 "dynasty": "测试朝",
                 "canonical_label": "测试战役",
+                "observable_result": "争夺测试关隘后撤军",
                 "campaign_tier": "A",
                 "combat_difficulty": "D3",
                 "members": [{
                     "actor_name": "测试将领",
+                    "actor_ref": "PERSON-TEST",
                     "person_command_result": [{"result_ref": "PCR-TEST-1"}],
                 }],
             }]
@@ -65,6 +67,8 @@ def test_military_archive_indexes_point_to_canonical_shards(tmp_path: Path):
     assert battles["record_count"] == 1
     assert battles["personnel_inference_reading"] == policy
     assert battles["records"][0]["id"] == "WAR-TEST-1"
+    assert "测试关隘" in battles["records"][0]["search_text"]
+    assert battles["records"][0]["commander_refs"] == ["MIL-PROFILE-TEST"]
     assert battles["result_ref_to_battle"]["PCR-TEST-1"] == "WAR-TEST-1"
     assert commanders["profile_count"] == 1
     assert commanders["records"][0]["profile_ref"] == "MIL-PROFILE-TEST"
@@ -377,33 +381,6 @@ def test_strategic_and_window_phrases_do_not_become_fake_atomic_battles(tmp_path
     assert by_anchor["欺敌渡河并建立核心"]["status"] == "search_only_strategic"
     assert by_anchor["松锦围攻未克是同窗口"]["status"] == "search_only_nonspecific"
     assert battles["first_item_c_anchor_stats"]["unresolved_atomic"] == 0
-
-
-def test_declared_first_item_binding_resolves_independently_of_title(tmp_path):
-    path = tmp_path / module.FIRST_ITEM_C_SETTLEMENT
-    bindings = {
-        "改写后的战果": {"war_event_id": "WAR-PARENT", "kind": "result", "ref": "PERSON-1"},
-        "仅本人登记": {"war_event_id": "PERSON-2", "kind": "result", "ref": "PERSON-2"},
-        "统筹行动": {"war_event_id": "WAR-PARENT", "kind": "result", "ref": "PERSON-3"},
-    }
-    write_first_item_c(
-        path,
-        "# 第一项C\n\n### 1. 测试君主\n\n"
-        "- **统一链战役清单**：改写后的战果｜前线作战｜A｜D3；"
-        "仅本人登记｜前线作战｜B｜D2；统筹行动｜战略统筹｜B｜—。\n"
-        "- **战役清单引用**：" + json.dumps(bindings, ensure_ascii=False) + "\n",
-    )
-    anchors = module._parse_first_item_c_anchors(path)
-    for row in anchors:
-        row.update(status="unresolved_atomic" if row["anchor_kind"] == "atomic" else "search_only_strategic",
-                   battle_id=None, resolution_mode=None, candidate_count=0)
-    index = {"first_item_c_anchors": anchors}
-    module._reconcile_first_item_c(tmp_path, index, {"WAR-PARENT": "WAR-PARENT"}, {})
-    by_name = {row["anchor"]: row for row in anchors}
-    assert by_name["改写后的战果"]["battle_id"] == "WAR-PARENT"
-    assert by_name["仅本人登记"]["status"] == "search_only_unbound_registry"
-    assert by_name["仅本人登记"]["battle_id"] is None
-    assert by_name["统筹行动"]["status"] == "search_only_strategic"
 
 
 def test_named_battle_prefix_is_retained_from_process_description():

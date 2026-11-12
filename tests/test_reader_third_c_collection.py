@@ -95,6 +95,8 @@ class Element {
   setAttribute(key,value){this.attributes[key]=value;}
   removeAttribute(key){delete this.attributes[key];}
   append(child){this.children.push(child);}
+  before(sibling){sibling.parentElement=this.parentElement;}
+  after(sibling){sibling.parentElement=this.parentElement;}
   querySelectorAll(){return this.links||[];}
   querySelector(selector){return selector==='.third-c-person'?this.details:this.slot;}
   scrollIntoView(){this.scrolled=true;}
@@ -105,14 +107,14 @@ for(const [entry,text] of [[a,'甲 早期防御'],[b,'乙 后期远征']]){
  entry.dataset={detailUrl:entry.id+'.html?v=current',search:text};
  entry.details=new Element('', 'DETAILS');entry.details.parentElement=entry;
  entry.slot=new Element();entry.slot.parentElement=entry.details;
- const source=new Element();source.dataset.localSource='docs/synthetic.md#fact';entry.slot.links=[source];
 }
 const input=new Element('search'),scope=new Element('search-scope'),status=new Element('search-status'),count=new Element('count');
 scope.value='overview';status.dataset.searchUrl='search.json?v=current';
 const material=new Element('RULER-B--evidence--MATERIAL');
 material.dataset.cEvidence='MATERIAL';material.slot=new Element('', 'DETAILS');
 const materialDetails=new Element('', 'DETAILS');materialDetails.parentElement=b.slot;material.parentElement=materialDetails;
-const nodes=new Map([a,b,input,scope,status,count,material].map(e=>[e.id,e]));
+const locationNote=new Element('location-note');
+const nodes=new Map([a,b,input,scope,status,count,material,locationNote].map(e=>[e.id,e]));
 const document=new Element();document.querySelectorAll=()=>[a,b];document.getElementById=id=>nodes.get(id);document.createElement=tag=>new Element('',tag.toUpperCase());
 const windowEvents={},requests=[],failures=new Map(),deferred=new Map();
 const location={hash:'',hostname:'127.0.0.1'};
@@ -121,9 +123,15 @@ const fetch=async(url,options)=>{
  requests.push(url);assert.equal(options.cache,'no-cache');
  if(deferred.has(url))await deferred.get(url);
  const fail=failures.get(url)||0;if(fail){failures.set(url,fail-1);return {ok:false};}
- return {ok:true,text:async()=>'<div>完整材料与逐轴正文</div>',json:async()=>({'RULER-A':'甲 早期防御 隐藏证据甲','RULER-B':'乙 后期远征 隐藏证据乙'})};
+ return {ok:true,text:async()=>'<div>完整材料与逐轴正文<a href="https://example.org/source">史料</a></div>',json:async()=>({'RULER-A':'甲 早期防御 隐藏证据甲','RULER-B':'乙 后期远征 隐藏证据乙'})};
 };
-vm.runInNewContext(fs.readFileSync('reader/third-item-c-collection.js','utf8'),{document,location,fetch,addEventListener:(type,fn)=>{windowEvents[type]=fn;}});
+const scripts=['person-search.js','collection-search.js','third-item-c-collection.js'].map(file=>fs.readFileSync('reader/'+file,'utf8')).join('\n');
+const states=new Map();
+const history={
+ get state(){return states.get(location.hash);},
+ replaceState(state){states.set(location.hash,state);}
+};
+vm.runInNewContext(scripts,{document,location,history,fetch,addEventListener:(type,fn)=>{windowEvents[type]=fn;}});
 (async()=>{
  assert.equal(requests.length,0,'initial page must not fetch details or full-text index');
  a.details.open=true;
@@ -132,7 +140,7 @@ vm.runInNewContext(fs.readFileSync('reader/third-item-c-collection.js','utf8'),{
  assert.equal(requests.length,1,'simultaneous opens share one request');
  release();await flush();
  assert.ok(a.slot.innerHTML.includes('完整材料'));
- assert.equal(a.slot.links[0].href,'../docs/synthetic.md#fact');
+ assert.ok(a.slot.innerHTML.includes('href="https://example.org/source"'));
  await a.details.emit('toggle');await flush();assert.equal(requests.length,1,'loaded details reuse page memory');
  failures.set(b.dataset.detailUrl,1);b.details.open=true;await b.details.emit('toggle');await flush();
  assert.ok(b.slot.textContent.includes('加载失败'));assert.ok(!('aria-busy' in b.slot.attributes));
@@ -151,17 +159,27 @@ vm.runInNewContext(fs.readFileSync('reader/third-item-c-collection.js','utf8'),{
  location.hash='#'+encodeURIComponent(material.id);await windowEvents.hashchange();
  assert.equal(b.hidden,false);assert.equal(count.textContent,2,'direct links clear conflicting filters');
  assert.equal(b.details.open,true);assert.equal(materialDetails.open,true);assert.ok(material.scrolled&&material.focused);
-assert.equal(material.slot.open,true,'deep links open the nested material body');
+ assert.equal(material.slot.open,true,'deep links open the nested material body');
+ location.hash='';await windowEvents.hashchange();
+ assert.equal(input.value,'隐藏证据甲');assert.equal(scope.value,'full');
+ assert.equal(b.hidden,true,'history restores the prior full-text results');
+ location.hash='#'+encodeURIComponent(material.id);await windowEvents.hashchange();
  let prevented=false;const link={dataset:{cMaterialRef:material.id}};
  await document.emit('click',{target:{closest:()=>link},button:0,preventDefault:()=>{prevented=true;}});
  assert.ok(prevented);assert.equal(location.hash,'#'+encodeURIComponent(material.id));
+ location.hash='#RULER-B--evidence--missing';await windowEvents.hashchange();
+ assert.ok(!locationNote.hidden&&locationNote.textContent.includes('未找到链接指定的材料'));
+ assert.equal(locationNote.parentElement,b.details,'the notice follows the person to the fallback location');
+ location.hash='#'+encodeURIComponent(material.id);await windowEvents.hashchange();
+ assert.ok(locationNote.hidden,'valid links clear the notice');
  location.hash='#invalid%';await windowEvents.hashchange();
+ assert.ok(!locationNote.hidden&&locationNote.textContent.includes('地址无效'));
  // A late full-text result must not overwrite a newer overview query.
  // The page-memory search index was already loaded, so test this in a fresh runtime.
  const lateEvents={};let finishSearch;
  const lateFetch=async(url,options)=>{if(url===status.dataset.searchUrl){await new Promise(r=>{finishSearch=r;});return fetch(url,options);}return fetch(url,options);};
- location.hash='';scope.value='full';input.value='隐藏证据乙';
- vm.runInNewContext(fs.readFileSync('reader/third-item-c-collection.js','utf8'),{document,location,fetch:lateFetch,addEventListener:(type,fn)=>{lateEvents[type]=fn;}});
+ states.clear();location.hash='';scope.value='full';input.value='隐藏证据乙';
+ vm.runInNewContext(scripts,{document,location,history,fetch:lateFetch,addEventListener:(type,fn)=>{lateEvents[type]=fn;}});
  const oldSearch=input.emit('input');await flush();
  scope.value='overview';input.value='早期防御';await scope.emit('change');
  finishSearch();await oldSearch;

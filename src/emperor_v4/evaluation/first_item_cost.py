@@ -16,7 +16,6 @@ MAPPING_PATH = 'config/first-item/military-cost-debits.json'
 
 def render_cost_adjudications(source: dict[str, Any]) -> str:
     from emperor_v4.evaluation.first_item_b1_cost_public import project_cost
-    from emperor_v4.evaluation.second_item_c_source_display import is_machine_source
 
     lines = ['# 第一项军事成本裁决', '',
              '本表记录逐人成本裁决。全部适用对象及跨项去重闭合后，按已确认映射从四轴合计扣除军事成本，净分进入第一项正式结算及综合榜；待裁决不等于零成本。', '',
@@ -40,14 +39,11 @@ def render_cost_adjudications(source: dict[str, Any]) -> str:
             target = Path('docs/评分结算/净收益/第一项政权奠基与统一贡献及能力')
             path, separator, anchor = ref['path'].partition('#')
             relative = Path(os.path.relpath(path, target)).as_posix() + (separator + anchor if separator else '')
-            label = ref['label']
-            label = f'{label}（项目记录未单列阅读入口）' if is_machine_source(relative) else f'[{label}]({relative})'
-            original = ref.get('source_url')
-            lines.append(f"- {ref['kind']}：{label}" + (f" · [回查所引卷篇]({original})" if original and not is_machine_source(original) else ''))
+            lines.append(f"- {ref['kind']}：[{ref['label']}]({relative})" + (f" · [回查所引卷篇]({ref['source_url']})" if ref.get('source_url') else ''))
         lines.extend(f"- 补充史源：[{link['label']}]({link['url']})" for link in public['public_source_links'])
         lines.extend(['', '</details>'])
         lines.extend(['', '<details><summary>原始裁决理由</summary>', '', row['basis'], '',
-                      '</details>', ''])
+                      '</details>', '', '[查看军事成本正式裁决](06-军事成本正式裁决.json)', ''])
     return '\n'.join(lines).rstrip() + '\n'
 
 

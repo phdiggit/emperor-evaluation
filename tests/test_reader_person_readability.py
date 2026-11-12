@@ -10,6 +10,59 @@ from reader.build import (
 )
 
 
+def test_compact_home_profile_keeps_style_and_marks_partial_coverage(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const source=template.slice(template.indexOf('function profileSummaryAxes('),template.indexOf('function renderRows('));
+const codes=['a','b','c','d'];
+const ctx={DATA:{capability_axes:codes,independent_axes:['style'],axis_specs:{}},
+ shortNames:{a:'方向甲',b:'方向乙',c:'方向丙',d:'方向丁',style:'权力运用与克制'},esc:String,
+ profileLevelIndex:a=>a?.rated?1:null,grade:a=>a?.display||(a?.rated?'A':'待补证')};
+vm.createContext(ctx);vm.runInContext(template.slice(template.indexOf('function profileGradeScope('),template.indexOf('function profileGradeScopeMarkup('))+source,ctx);
+ctx.r={axes:{a:{rated:true,axis_grade:'G4'},b:{rated:true,axis_grade:'G5'},c:{rated:true,axis_grade:'G4'},
+ d:{rated:false,axis_grade:'G0'},style:{display:'合成风格'}}};
+const before=JSON.stringify(ctx.r);
+let html=vm.runInContext('homeProfileSummary(r)',ctx);
+assert.ok(html.includes('长处：方向甲、方向乙等3项'));
+assert.ok(!html.includes('短板：'));
+assert.ok(html.includes('能力已评3/4项')&&html.includes('权力运用与克制')&&html.includes('合成风格'));
+assert.ok(!html.includes('home-profile-axis'));
+assert.equal(JSON.stringify(ctx.r),before);
+ctx.r.axes.d.rated=true;
+html=vm.runInContext('homeProfileSummary(r)',ctx);
+assert.ok(html.includes('短板：方向丁')&&html.includes('按各轴已评范围'));
+ctx.r.axes.d.output_mode='BOUNDED_PROFILE';
+assert.ok(vm.runInContext('homeProfileSummary(r)',ctx).includes('方向丁（结论有范围）'));
+ctx.r.axes.c.evidence_floor_review=true;
+assert.ok(vm.runInContext('homeProfileSummary(r)',ctx).includes('部分长短处有证据范围限制'));
+ctx.r.axes.d.evidence_floor_review=true;
+html=vm.runInContext('homeProfileSummary(r)',ctx);
+assert.ok(!html.includes('短板：方向丁')&&html.includes('证据边界：'));
+delete ctx.r.axes.d.evidence_floor_review;
+ctx.r.axes.d.assessment_basis='NO_DEMONSTRATED_CAPABILITY';
+assert.ok(!vm.runInContext('homeProfileSummary(r)',ctx).includes('短板：方向丁'));
+ctx.r.supplementary=true;
+assert.ok(vm.runInContext('homeProfileSummary(r)',ctx).includes('不在人物画像正式评价范围'));
+''')
+
+
+def test_military_conclusion_rejects_capability_only_source_even_when_quote_matches():
+    from reader.build import person_note_reference_issues
+
+    reference = dict(path=['net', 'component_details', 'military', 0, 'reader_summary'], quote='合成事实')
+    overview = {key: dict(text='合成提要', evidence=[dict(path=['impact', 'public_boundary'], quote='范围')])
+                for key in ('outcome', 'profile', 'impact')}
+    record = dict(ruler_id='synthetic', supplementary=False, impact=dict(public_boundary='范围'),
+                  net=dict(component_details=dict(military=[dict(label='C1联合主评', reader_summary='合成事实')])))
+    notes = dict(records={'synthetic': dict(overview=overview, net=dict(third=dict(text='合成综述', evidence=[reference])))})
+    assert person_note_reference_issues([record], notes) == [('synthetic', 'net.third', reference['path'])]
+    record['net']['component_details']['military'][0]['label'] = '普通成本扣分'
+    assert not person_note_reference_issues([record], notes)
+    record['net']['component_details']['military'][0]['reader_summary'] = '依据已修改'
+    assert person_note_reference_issues([record], notes)
+
+
 def test_fourth_reader_uses_unique_axis_record_without_duplicate_projection():
     from reader.build import _attach_formal_public_reader
 
@@ -70,107 +123,13 @@ def test_grouped_source_paths_are_linked_separately(tmp_path, monkeypatch):
     local = "docs/source.md#L2"
     external = "https://example.org/source"
     missing = "docs/missing.md"
-    directory = "docs/sources"
-    record = {"source_refs": [f"{local}；{external}；{missing}；{directory}"]}
+    record = {"source_refs": [f"{local}；{external}；{missing}"]}
     (tmp_path / "docs").mkdir()
     (tmp_path / "docs/source.md").touch()
-    (tmp_path / directory).mkdir()
     monkeypatch.setattr(build, "ROOT", tmp_path)
 
-    assert build._formal_source_refs(record) == [local, external, missing, directory]
-    assert build.source_availability(record) == {local: True, missing: False, directory: "directory"}
-
-
-def test_battle_source_line_requires_unique_exact_event_id(tmp_path, monkeypatch):
-    from reader import build
-
-    path = "docs/公共成果/军事/01-战役登记/example.json"
-    file = tmp_path / path
-    file.parent.mkdir(parents=True)
-    file.write_text(
-        '{"records":[\n{"war_event_id":"WAR-1"},\n'
-        '{"war_event_id":"WAR-12"},\n{"war_event_id":"WAR-12"}\n]}',
-        encoding="utf-8",
-    )
-    monkeypatch.setattr(build, "ROOT", tmp_path)
-
-    assert build.source_line_target(path + "#war_event_id=WAR-1") == path + "#L2"
-    assert build.source_line_target(path + "#war_event_id=WAR-12") is None
-    assert build.source_line_target(path + "#war_event_id=WAR-2") is None
-
-
-def test_campaign_group_line_keeps_multiple_phases_in_one_battle(tmp_path, monkeypatch):
-    from reader import build
-
-    path = "docs/battles.json"
-    file = tmp_path / path
-    file.parent.mkdir()
-    file.write_text(
-        '{"records":[\n'
-        '{"war_event_id":"A","phases":[{"campaign_group_ref":"ONE"},'
-        '{"campaign_group_ref":"ONE"},{"campaign_group_ref":"BOTH"}]},\n'
-        '{"war_event_id":"B","campaign_group_ref":"BOTH"}\n]}',
-        encoding="utf-8",
-    )
-    monkeypatch.setattr(build, "ROOT", tmp_path)
-    assert build.source_line_target(path + "#campaign_group_ref=ONE") == path + "#L2"
-    assert build.source_line_target(path + "#campaign_group_ref=BOTH") is None
-
-
-def test_published_adjudication_links_use_axis_and_exact_task(tmp_path, monkeypatch):
-    from reader import build
-
-    path = "config/reviews.json"
-    file = tmp_path / path
-    file.parent.mkdir()
-    file.write_text(
-        '{"records":[\n'
-        '{"ruler_id":"A","axis":"C1","task_code":"FIRST"},\n'
-        '{"ruler_id":"A","axis":"C2","task_code":"SECOND","related":{"task_code":"FIRST"}}\n]}',
-        encoding="utf-8",
-    )
-    monkeypatch.setattr(build, "ROOT", tmp_path)
-    assert build.source_line_target(path + "#ruler_id=A&axis=C1") == path + "#L2"
-    assert build.source_line_target(path + "#ruler_id=A&axis=C2") == path + "#L3"
-    assert build.source_line_target(path + "#ruler_id=A&axis=C3") is None
-    assert build.source_line_target(path + "#task_code=FIRST") == path + "#L2"
-
-
-def test_third_total_source_ignores_nested_person_mentions(tmp_path, monkeypatch):
-    from reader import build
-
-    path = build.THIRD_TOTAL_PATH
-    file = tmp_path / path
-    file.parent.mkdir(parents=True)
-    file.write_text(
-        '{"records":[\n{"ruler_id":"A"},\n{"ruler_id":"B","peer":{"ruler_id":"A"}}\n]}',
-        encoding="utf-8",
-    )
-    monkeypatch.setattr(build, "ROOT", tmp_path)
-    assert build.source_line_target(path.as_posix() + "#ruler_id=A") == path.as_posix() + "#L2"
-
-
-def test_published_ruler_link_follows_only_unique_manifest_route(tmp_path, monkeypatch):
-    from reader import build
-
-    path = "docs/profile.json"
-    manifest = tmp_path / path
-    manifest.parent.mkdir()
-    manifest.write_text(
-        '{"schema_version":"formal-json-polity-router-v1",'
-        '"routes":[{"path":"a.json"},{"path":"b.json"}]}',
-        encoding="utf-8",
-    )
-    (manifest.parent / "a.json").write_text(
-        '[\n{"ruler_id":"A"},\n{"ruler_id":"B"}\n]', encoding="utf-8",
-    )
-    (manifest.parent / "b.json").write_text(
-        '[\n{"ruler_id":"B","peer":{"ruler_id":"A"}}\n]', encoding="utf-8",
-    )
-    monkeypatch.setattr(build, "ROOT", tmp_path)
-
-    assert build.source_line_target(path + "#ruler_id=A") == "docs/a.json#L2"
-    assert build.source_line_target(path + "#ruler_id=B") is None
+    assert build._formal_source_refs(record) == [local, external, missing]
+    assert build.source_availability(record) == {local: True, missing: False}
 
 
 def test_b2_reader_projection_consumes_all_explicit_public_evidence():
@@ -188,7 +147,10 @@ def test_b2_reader_projection_consumes_all_explicit_public_evidence():
     projected = _attach_b2_public_reader(
         {"label": "B2反馈与约束", "value": 38.0, "source": "docs/评分结算/测试.json"},
         record={
+            "ruler_id": "SYNTHETIC-B2",
             "ruler_name": "合成甲",
+            "grade": "G2",
+            "position": "middle",
             "confidence": "MEDIUM",
             "public_adjudication_summary": "主要反馈机制能够改变决策，整体判断为中档（中位）。",
             "public_evidence_items": evidence,
@@ -252,6 +214,7 @@ def _run_reading_notes_node(tmp_path, body):
                       "function runReaderScript(source, context) {\n"
                       "  const vm=require('node:vm');\n"
                       "  context.URL ??= URL;\n"
+                      "  source=source.replace('/*__PERSON_NARRATIVES__*/',require('node:fs').readFileSync('reader/person-narratives.js','utf8'));\n"
                       "  vm.runInContext(require('node:fs').readFileSync('reader/source-links.js','utf8'),context);\n"
                       "  return vm.runInContext(source,context);\n"
                       "}\n" + body,
@@ -300,20 +263,196 @@ assert.equal(ctx.rendered.length,1);assert.equal(ctx.rendered[0][0],'impact');
 ''')
 
 
-def test_impact_detail_focus_opens_fold_and_ignores_stale_render(tmp_path):
+def test_second_enhancement_preserves_public_scores_on_home_and_compare(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const publicMarkup='<b>83.2 <span class="performance-grade">C+</span></b>';
+const score={innerHTML:publicMarkup,textContent:'83.2 C+',dataset:{}};
+const label={textContent:'治国成效',dataset:{}};
+const pendingCell={textContent:'未结算',dataset:{}};
+const row={cells:[label,score,pendingCell]};
+const screen={querySelectorAll(selector){return selector==='.comparison tbody tr'?[row]:[];}};
+const personRow={querySelector(selector){return selector==='b'?score:{childNodes:[{nodeType:3,nodeValue:'治国成效'}]};}};
+const panel={querySelectorAll(){return [personRow];}};
+const ctx={document:{getElementById(id){return id==='screen'?screen:panel;}},
+ window:{},location:{hash:'#person/SYNTHETIC'},Node:{TEXT_NODE:3},SecondItemDisplay:{}};
+vm.createContext(ctx);
+let source=fs.readFileSync('reader/second-item-reading.js','utf8');
+source=source.replace('Object.freeze({enhance})','Object.freeze({enhance,enhancePersonOverview,enhanceCompare})');
+vm.runInContext(source,ctx);
+const secondApi=ctx.window.SecondItemReading;
+const record={detail_loaded:true,net:{second_item_score:173.7,component_details:{}}};
+const pending={detail_loaded:true,settlement_readiness:'PENDING_SECOND_ITEM_FORMAL_SETTLEMENT'};
+for(let pass=0;pass<2;pass++){
+ secondApi.enhancePersonOverview(record);secondApi.enhanceCompare([record,pending]);
+ assert.equal(score.innerHTML,publicMarkup);assert.equal(score.textContent,'83.2 C+');
+ assert.equal(pendingCell.textContent,'待正式结算');
+}
+// A new template render must also remain intact on the next enhancement pass.
+score.innerHTML='<b>91.0 <span class="performance-grade">A</span></b>';
+secondApi.enhanceCompare([record,pending]);assert.ok(score.innerHTML.includes('91.0'));
+''')
+
+
+def test_home_profile_meanings_follow_current_grades_and_respect_unrated_states(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const element={addEventListener(){},classList:{toggle(){}}};
+const data={records:[],source_availability:{},capability_axes:['C1','C2']};
+const ctx={document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element;}},window:{},location:{hostname:'localhost',hash:''}};
+vm.createContext(ctx);runReaderScript(source,ctx);
+ctx.r={axes:{C1:{axis_grade:'G4',position:'MID'},C2:{axis_grade:'G2',position:'LOW'},C5:{axis_grade:'G5',position:'LOW'}}};
+const original=JSON.stringify(ctx.r);
+let html=vm.runInContext('powerOverview(r)',ctx);
+assert.ok(html.includes('S−')&&html.includes('历史级长板')&&html.includes('href="#reason-C5"'));
+let lead=vm.runInContext('profileOverviewLead(r)',ctx);
+assert.ok(lead.includes('长处：战略判断')&&lead.includes('短板：学习纠错'));
+assert.ok(!lead.includes('权力运用'));
+assert.equal(JSON.stringify(ctx.r),original);
+for(const state of ['REASSESSMENT_REQUIRED','UNRESOLVED_EVIDENCE_GAP','EVIDENCE_INSUFFICIENT_CLOSED']){
+ ctx.r.axes.C5.adjudication_state=state;ctx.r.axes.C1.adjudication_state=state;
+ html=vm.runInContext('powerOverview(r)',ctx);lead=vm.runInContext('profileOverviewLead(r)',ctx);
+ assert.ok(!html.includes('历史级长板'));assert.ok(!lead.includes('战略判断'));
+}
+ctx.r.axes.C5={axis_grade:'G5',position:'HIGH',applicability_status:'NOT_APPLICABLE'};
+html=vm.runInContext('powerOverview(r)',ctx);assert.ok(html.includes('不适用')&&!html.includes('历史级长板'));
+''')
+
+
+def test_merit_trial_toggle_preserves_data_and_distinguishes_component_indices(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const source=template.slice(template.indexOf('function performanceScore('),template.indexOf('function performanceScaleHelp('));
+const ctx={esc:String,DATA:{records:[]}};vm.createContext(ctx);vm.runInContext(template.slice(template.indexOf('function profileGradeScope('),template.indexOf('function profileGradeScopeMarkup('))+source,ctx);
+ctx.net={public_scores:{total:{state:'SCORED',score:88.5,grade:'B',trial_tier:{code:'ming',label:'明',display_label:'明上',position:'上',score:87.5,boundary_neighbor:null}},second:{state:'SCORED',score:91.5,grade:'A',trial_rating:{kind:'performance',score:81.5,grade:'突出'}},first:{state:'NOT_APPLICABLE'},fourth:{state:'NO_CONFIRMED_CHANGE'}}};
+const before=JSON.stringify(ctx.net);
+let output=vm.runInContext('performanceScore(net)',ctx);
+assert.ok(output.includes('明上')&&output.includes('87.5'));
+const second=vm.runInContext("performanceScore(net,'second')",ctx);
+assert.ok(second.includes('81.5')&&second.includes('突出')&&!second.includes('91.5')&&!second.includes('>A<')&&!second.includes('明上'));
+vm.runInContext('meritTierPreview=false',ctx);
+output=vm.runInContext('performanceScore(net)',ctx);
+assert.ok(output.includes('88.5')&&output.includes('>B<')&&!output.includes('明上'));
+const originalSecond=vm.runInContext("performanceScore(net,'second')",ctx);
+assert.ok(originalSecond.includes('91.5')&&originalSecond.includes('>A<'));
+assert.equal(vm.runInContext("performanceScore(net,'first')",ctx),'不适用');
+assert.equal(vm.runInContext("performanceScore(net,'fourth')",ctx),'未确认独立变化');
+assert.equal(JSON.stringify(ctx.net),before);
+vm.runInContext('meritTierPreview=true',ctx);
+ctx.net.public_scores.total.trial_tier={code:'hun',label:'昏',display_label:'昏上',score:39.5,position:'上',boundary_neighbor:'庸'};
+output=vm.runInContext('performanceScore(net)',ctx);
+assert.ok(output.includes('昏上')&&output.includes('近庸档界')&&!output.includes('高位'));
+delete ctx.net.public_scores.total.trial_tier;
+delete ctx.net.public_scores.second.trial_rating;
+for(const key of ['total','second']){
+ ctx.key=key;output=vm.runInContext('performanceScore(net,key)',ctx);
+ assert.ok(output.includes('展示数据待同步'));
+ assert.ok(!output.includes('88.5')&&!output.includes('91.5'));
+}
+vm.runInContext('meritTierPreview=false',ctx);
+assert.ok(vm.runInContext("performanceScore(net,'second')",ctx).includes('91.5'));
+''')
+
+
+def test_scale_help_explains_the_selected_zero_point_and_active_anchors(tmp_path):
+    import json
+    from emperor_v4.reader_scores import metadata
+    script=r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const source=template.slice(template.indexOf('function performanceScore('),template.indexOf('const conf='));
+const ctx={esc:String,DATA:{records:[],public_score_scale:__META__}};
+vm.createContext(ctx);vm.runInContext(template.slice(template.indexOf('function profileGradeScope('),template.indexOf('function profileGradeScopeMarkup('))+source,ctx);
+let html=vm.runInContext('performanceScaleHelp()',ctx);
+assert.equal((html.match(/<summary>分数怎么算？<\/summary>/g)||[]).length,1);
+assert.ok(html.includes('先按规则合计原分，再换算综合展示分'));
+ctx.net={public_scores:{total:{state:'SCORED'},first:{state:'NOT_APPLICABLE'},second:{state:'SCORED'},fourth:{state:'SCORED'}}};
+assert.ok(vm.runInContext("scoreReadingNote(net)",ctx).includes('名次按原分排序'));
+assert.ok(vm.runInContext("scoreReadingNote(net,'first')",ctx).includes('不代表0分'));
+assert.ok(vm.runInContext("scoreReadingNote(net,'second')",ctx).includes('不能与其他展示分相加'));
+assert.ok(vm.runInContext("scoreReadingNote(net,'fourth')",ctx).includes('净增量＝'));
+ctx.net.public_scores.fourth.state='NO_CONFIRMED_CHANGE';
+assert.ok(vm.runInContext("scoreReadingNote(net,'fourth')",ctx).includes('不等于正负相抵'));
+assert.equal(vm.runInContext("scoreReadingNote(null,'second')",ctx),'');
+assert.ok(html.includes('适用者零净分对应0'));
+assert.ok(html.includes('文明净增量不经过这条曲线'));
+assert.ok(!html.includes('综合绩效（原方案对照）'));
+vm.runInContext('meritTierPreview=false',ctx);
+html=vm.runInContext('performanceScaleHelp()',ctx);
+ctx.net.public_scores.fourth.state='SCORED';
+assert.ok(!vm.runInContext("scoreReadingNote(net,'fourth')",ctx).includes('净增量＝'));
+const meta=ctx.DATA.public_score_scale;
+assert.ok(html.includes('文明的原分零点对应'+meta.scales.fourth.anchors[0][1]));
+assert.ok(!html.includes('适用者零净分对应0'));
+assert.ok(!html.includes('文明净增量不经过这条曲线'));
+assert.ok(html.includes('综合绩效（原方案对照）'));
+assert.ok(!html.includes('综合绩效（五档十五级试读）'));
+'''
+    _run_reading_notes_node(tmp_path, script.replace('__META__', json.dumps(metadata(), ensure_ascii=False)))
+
+
+def test_net_detail_cache_rerenders_when_score_mode_changes(tmp_path):
+    _run_reading_notes_node(tmp_path, r'''
+const fs=require('node:fs'),vm=require('node:vm');
+const home=fs.readFileSync('reader/home-interactions.js','utf8');
+const template=fs.readFileSync('reader/index.template.html','utf8');
+const helpers=template.slice(template.indexOf('function performanceScore('),template.indexOf('function performanceScaleHelp('));
+const shell=home.slice(home.indexOf('  function renderNetShell('),home.indexOf('  function renderNetLanding('));
+const route=home.slice(home.indexOf('  async function renderNetRoute('),home.indexOf('  function runReaderEnhancer('));
+const record={ruler_id:'synthetic',ruler_name:'合成人物',net:{public_scores:{
+ total:{state:'SCORED',score:88,grade:'B',trial_tier:{code:'ming',display_label:'明中',score:84}},
+ second:{state:'SCORED',score:85,grade:'B',trial_rating:{kind:'performance',score:65,grade:'中等'}}}}};
+let current=null,renders=0;
+const ctx={esc:String,personLabel:r=>r.ruler_name,nav(){},governanceScope(){return '';},majorNav(){return '';},performanceScaleHelp(){return '';},
+ netMajorSpecs:{second:{title:'治国'}},netRenderGeneration:0,byId:new Map([['synthetic',record]]),
+ parseNetRoute:()=>({rulerId:'synthetic',major:'second',focus:null}),location:{hash:'#net/synthetic/second'},
+ screen:{innerHTML:'',querySelector:()=>current},window:{scrollTo(){}},document:{getElementById(){return null;}},
+ loadNetRecord:async r=>r,console};
+vm.createContext(ctx);vm.runInContext(helpers+shell+route,ctx);
+ctx.renderNetMajor=(r,major)=>{
+ renders++;ctx.activeRecord=r;ctx.activeMajor=major;
+ vm.runInContext("renderNetShell(activeRecord,activeMajor,'合成正文')",ctx);
+ const html=ctx.screen.innerHTML;
+ current={dataset:{netPerson:html.match(/data-net-person="([^"]+)"/)[1],netMajor:html.match(/data-net-major="([^"]+)"/)[1],netScoreMode:html.match(/data-net-score-mode="([^"]+)"/)[1]}};
+};
+(async()=>{
+ await vm.runInContext('renderNetRoute()',ctx);
+ assert.equal(renders,1);assert.ok(ctx.screen.innerHTML.includes('65.0'));
+ await vm.runInContext('renderNetRoute()',ctx);assert.equal(renders,1);
+ vm.runInContext('meritTierPreview=false',ctx);
+ await vm.runInContext('renderNetRoute()',ctx);
+ assert.equal(renders,2);assert.equal(current.dataset.netScoreMode,'letter');assert.ok(ctx.screen.innerHTML.includes('85.0'));
+ vm.runInContext('meritTierPreview=true',ctx);
+ await vm.runInContext('renderNetRoute()',ctx);
+ assert.equal(renders,3);assert.equal(current.dataset.netScoreMode,'merit');assert.ok(ctx.screen.innerHTML.includes('65.0'));
+})().catch(error=>{console.error(error);process.exitCode=1;});
+''')
+
+
+def test_impact_detail_focus_opens_fold_and_reports_invalid_targets(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8');
-const focus=source.slice(source.indexOf('function focusImpactSection('),source.indexOf('function impactPage('));
+const focus=source.slice(source.indexOf('function focusPersonDetail('),source.indexOf('function profilePage('));
 let target=null,frames=[],scrolled=0;
-const ctx={dimNames:{range:'范围'},location:{hash:'#person/SYNTHETIC/impact/history-dimension-range'},document:{getElementById:id=>target?.id===id?target:null},requestAnimationFrame:fn=>frames.push(fn)};
+const note={hidden:true,scrollIntoView(){this.scrolled=true;}};
+const ctx={dimNames:{range:'范围'},location:{hash:'#person/SYNTHETIC/impact/history-dimension-range'},document:{getElementById:id=>id==='person-detail-location-note'?note:target?.id===id?target:null},requestAnimationFrame:fn=>frames.push(fn)};
 vm.createContext(ctx);vm.runInContext(focus,ctx);
-vm.runInContext('focusImpactSection()',ctx);assert.equal(frames.length,0);
+vm.runInContext("focusPersonDetail('impact')",ctx);
+assert.equal(frames.length,0);assert.ok(!note.hidden&&note.scrolled&&note.textContent.includes('未找到链接指定的历史影响章节'));
+note.hidden=true;
 target={id:'history-dimension-range',tagName:'DETAILS',open:false,scrollIntoView(){scrolled++}};
-vm.runInContext('focusImpactSection()',ctx);assert.equal(target.open,true);frames.shift()();assert.equal(scrolled,1);
-vm.runInContext('focusImpactSection()',ctx);target={id:'history-dimension-range'};frames.shift()();assert.equal(scrolled,1);
-ctx.location.hash='#person/SYNTHETIC/impact/unknown';vm.runInContext('focusImpactSection()',ctx);assert.equal(frames.length,0);
-ctx.location.hash='#person/SYNTHETIC/profile/history-dimension-range';vm.runInContext('focusImpactSection()',ctx);assert.equal(frames.length,0);
+vm.runInContext("focusPersonDetail('impact')",ctx);assert.equal(target.open,true);frames.shift()();assert.equal(scrolled,1);assert.ok(note.hidden);
+vm.runInContext("focusPersonDetail('impact')",ctx);target={id:'history-dimension-range'};frames.shift()();assert.equal(scrolled,1);
+ctx.location.hash='#person/SYNTHETIC/impact';vm.runInContext("focusPersonDetail('impact')",ctx);assert.ok(note.hidden);
+for(const part of ['unknown','%E0%A4%A','history-dimension-range/extra']){
+ note.hidden=true;
+ ctx.location.hash='#person/SYNTHETIC/impact/'+part;
+ vm.runInContext("focusPersonDetail('impact')",ctx);
+ assert.equal(frames.length,0);assert.ok(!note.hidden);
+}
 ''')
 
 
@@ -347,27 +486,36 @@ assert.equal(ctx.historyArgs[3],true,'the total-grade reason opens by default on
 ''')
 
 
-def test_net_major_card_respects_applicability_and_shared_score_format(tmp_path):
+def test_net_major_card_uses_public_scale_and_keeps_states_and_authored_reading(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/home-interactions.js','utf8');
-const fn=source.slice(source.indexOf('  function majorCard('),source.indexOf('  function renderNetShell('));
-const ctx={esc:String,number:v=>v.toFixed(2),scoreNumber:v=>typeof v==='number'?v.toFixed(1):'—',finiteNetNumber:v=>typeof v==='number'?v:null,majorValue:(r,k)=>r.net.value,netHref:(r,k)=>'#net/'+r.ruler_id+'/'+k,fourthAdjustmentNote:()=>'',netMajorSpecs:{first:{title:'合成主链',description:'仅供适用对象的过程介绍'},third:{title:'合成军事',description:'净分'},fourth:{title:'合成调整',description:'有符号调整'}}};
 const template=fs.readFileSync('reader/index.template.html','utf8');
 const helper=template.slice(template.indexOf('function performanceScore('),template.indexOf('function performanceScaleHelp('));
-vm.createContext(ctx);vm.runInContext(helper+fn,ctx);
-ctx.r={ruler_id:'SYNTHETIC',net:{first_item_status:'NOT_APPLICABLE',value:0,public_scores:{first:{state:'NOT_APPLICABLE'}}}};
-let html=vm.runInContext("majorCard(r,'first')",ctx);
-assert.ok(html.includes('不适用')&&html.includes('查看适用规则与说明'));
-assert.ok(!html.includes(ctx.netMajorSpecs.first.description));
-ctx.r.net.first_item_status='APPLICABLE';ctx.r.net.first_item_raw_score=0;ctx.r.net.public_scores.first={state:'SCORED',score:40,grade:'E',trial_rating:{score:0,grade:'很有限',kind:'founder_contribution'}};
-html=vm.runInContext("majorCard(r,'first')",ctx);
-assert.ok(!html.includes('不适用'));assert.ok(html.includes('0.0'));
-ctx.r.net.first_item_status='PENDING';ctx.r.net.public_scores.first={state:'PENDING'};html=vm.runInContext("majorCard(r,'first')",ctx);
-assert.ok(!html.includes('附加分按0'));assert.ok(!html.includes(ctx.netMajorSpecs.first.description));
-ctx.r.net.value=23.4;ctx.r.net.public_scores.third={state:'SCORED',trial_rating:{score:23.4,grade:'很差',kind:'performance'}};ctx.r.net.public_scores.fourth={state:'SCORED',trial_rating:{score:23.4,positive_gross:24.9,negative_gross:1.5,kind:'signed_increment'}};html=vm.runInContext("majorCard(r,'third')",ctx);
-assert.ok(html.includes('23.4')&&!html.includes('23.40'));
-html=vm.runInContext("majorCard(r,'fourth')",ctx);assert.ok(html.includes('+23.4')&&!html.includes('+23.40'));
+const fn=source.slice(source.indexOf('  function majorCard('),source.indexOf('  function renderNetShell('));
+const readingHelpers=template.slice(template.indexOf('function majorCardReading('),template.indexOf('function compare(){'));
+const ctx={esc:String,netHref:(r,k)=>'#net/'+r.ruler_id+'/'+k,netMajorSpecs:{first:{title:'奠基'},second:{title:'治国'},third:{title:'军事'},fourth:{title:'文明'}}};
+vm.createContext(ctx);vm.runInContext(helper+readingHelpers+fn,ctx);
+ctx.r={ruler_id:'SYNTHETIC',net:{first_item_status:'NOT_APPLICABLE',second_item_score:200,
+ public_scores:{first:{state:'NOT_APPLICABLE'},second:{state:'SCORED',score:85,grade:'B',trial_rating:{kind:'performance',score:74,grade:'中等'}},third:{state:'SCORED',score:30,grade:'E−',trial_rating:{kind:'performance',score:10,grade:'很差'}},fourth:{state:'SCORED',score:60,grade:'D−',trial_rating:{kind:'signed_increment',score:0,positive_gross:3,negative_gross:3}}},
+ reader_governance_summary:'制度延续，交接平稳。',reader_military_summary:'北境退敌修城，南方远征失利。',reader_civilization_summary:'放归受拘者；同时限制另一群体的居留。',
+ component_details:{military:[{reader_public_third_c:{story:'创业战争能力旁证'}}]}}};
+let html=vm.runInContext("majorCard(r,'second')",ctx);
+assert.ok(html.includes('74.0')&&html.includes('中等')&&html.includes('制度延续'));
+assert.ok(!html.includes('200')&&!html.includes('中位数')&&!html.includes('上限'));
+html=vm.runInContext("majorCard(r,'first')",ctx);assert.ok(html.includes('不适用')&&!html.includes('0.0'));
+html=vm.runInContext("majorCard(r,'third')",ctx);assert.ok(html.includes('10.0')&&html.includes('很差')&&html.includes('远征失利')&&!html.includes('创业战争能力旁证'));
+const compared=vm.runInContext("compareMajorReading(r,'third')",ctx);
+assert.ok(compared.includes('北境退敌修城，南方远征失利。'));
+assert.ok(compared.includes('href="#net/SYNTHETIC/third"'));
+assert.ok(!compared.includes('创业战争能力旁证'));
+html=vm.runInContext("majorCard(r,'fourth')",ctx);assert.ok(html.includes('0.0')&&html.includes('正负相抵')&&html.includes('正向 +3.0')&&html.includes('负向 −3.0')&&html.includes('放归受拘者；同时限制另一群体的居留。'));
+ctx.r.net.public_scores.fourth={state:'NO_CONFIRMED_CHANGE'};
+assert.ok(vm.runInContext("majorCard(r,'fourth')",ctx).includes('未确认独立变化'));
+ctx.r.net.first_item_status='APPLICABLE';ctx.r.net.public_scores.first={state:'SCORED',score:40,grade:'E',trial_rating:{kind:'founder_contribution',score:40,grade:'有限'}};
+assert.ok(vm.runInContext("majorCard(r,'first')",ctx).includes('40.0'));
+delete ctx.r.net.reader_military_summary;
+assert.ok(!vm.runInContext("majorCard(r,'third')",ctx).includes('创业战争能力旁证'));
 ''')
 
 
@@ -387,10 +535,18 @@ ctx.n={rank:3,prudent_rank_projection:{best:3,worst:3}};
 const before=JSON.stringify(ctx.n);let html=vm.runInContext('netPositionSummary(n)',ctx);
 assert.ok(html.includes('当前排名 第 3 名'));
 assert.ok(!html.includes('考虑史料分歧'));
+assert.equal(vm.runInContext('rankIfRescored(n)',ctx),'仍为第 3 名');
 assert.equal(JSON.stringify(ctx.n),before);
 ctx.n.prudent_rank_projection={best:2,worst:5};
 html=vm.runInContext('netPositionSummary(n)',ctx);
-assert.ok(html.includes('当前排名 第 3 名')&&html.includes('考虑史料分歧：第 2—5 名'));
+assert.ok(html.includes('当前排名 第 3 名')&&html.includes('已测算解释下，第 2—5 名'));
+assert.ok(!html.includes('仅覆盖可量化的部分'));
+ctx.n.prudent_rank_projection.coverage_status='QUANTIFIED_PART_ONLY';
+assert.ok(vm.runInContext('netPositionSummary(n)',ctx).includes('第 2—5 名（仅覆盖可量化的部分）'));
+ctx.n.prudent_rank_projection.best=ctx.n.prudent_rank_projection.worst=ctx.n.rank;
+assert.ok(vm.runInContext('netPositionSummary(n)',ctx).includes('仍为第 3 名（仅覆盖可量化的部分）'));
+delete ctx.n.prudent_rank_projection;
+assert.equal(vm.runInContext('rankIfRescored(n)',ctx),'暂无测算');
 assert.ok(!/审慎位置|规则点位|点估计/.test(html));
 ''')
 
@@ -421,6 +577,16 @@ const b=()=>({text:'合成的事实与边界。',evidence:[{path:['impact','publ
 const payload={schema_id:'reader-person-overviews-v2',records:{'RULER-SYNTHETIC':{
  overview:{outcome:b(),profile:b(),impact:b()}}}};
 api.validateNotes(payload);
+const withNet=JSON.parse(JSON.stringify(payload));
+withNet.records['RULER-SYNTHETIC'].net={third:{text:'北境退敌，远征失利。',evidence:[{path:['net','component_details','strategic',0,'reader_public_a','handover'],quote:'合成来源'}]}};
+api.validateNotes(withNet);
+withNet.records['RULER-SYNTHETIC'].net.fourth={text:'放免人口，也限制居留。',evidence:[{path:['net','component_details','civilization',0,'reader_public_fourth_a','story'],quote:'合成来源'}]};
+api.validateNotes(withNet);
+withNet.records['RULER-SYNTHETIC'].net.fourth.evidence[0].path=['impact','public_boundary'];
+assert.throws(()=>api.validateNotes(withNet),/own outcome evidence/);
+delete withNet.records['RULER-SYNTHETIC'].net.fourth;
+withNet.records['RULER-SYNTHETIC'].net.third.evidence[0].path=['net','component_details','military',0,'reader_public_third_c','story'];
+assert.throws(()=>api.validateNotes(withNet),/current strategic and cost evidence/);
 const copy=JSON.parse(JSON.stringify(payload));delete copy.records['RULER-SYNTHETIC'].overview.impact;
 assert.throws(()=>api.validateNotes(copy),/three overview/);
 const supplementary={...payload,records:{'HIMPACT-SYNTHETIC':{overview:{impact:b()}}}};
@@ -429,7 +595,7 @@ supplementary.records['HIMPACT-SYNTHETIC'].overview.impact.evidence[0].path=['ax
 assert.throws(()=>api.validateNotes(supplementary),/historical impact evidence/);
 for(const extra of ['axes','strength','weight','role','limits']){
  const invalid=JSON.parse(JSON.stringify(payload));invalid.records['RULER-SYNTHETIC'][extra]={};
- assert.throws(()=>api.validateNotes(invalid),/Only overview/);
+ assert.throws(()=>api.validateNotes(invalid),/Invalid reading-note sections/);
  assert.throws(()=>api.validateBlock({...b(),[extra]:'自行分类'}),/prose/);
 }
 assert.throws(()=>api.validateBlock({...b(),evidence:[{...b().evidence[0],strength:'强'}]}),/locator/);
@@ -914,7 +1080,8 @@ const floor=vm.runInContext("axisEvidenceScope(a,'C2')",ctx);
 assert.ok(floor.modeLabel.includes('证据下限'));
 assert.ok(floor.detail.includes(ctx.a.evidence_floor_review.reopen_condition));
 html=vm.runInContext('learningNonScoring(a)',ctx);
-for(const text of ['不计分材料','另一事只有结果。','本人更新尚未证实。','docs/boundary.md'])assert.ok(html.includes(text));
+for(const text of ['不计分材料','另一事只有结果。','本人更新尚未证实。'])assert.ok(html.includes(text));
+assert.ok(!html.includes('docs/boundary.md'));
 // Cover every currently published learning process without fixing counts or grades.
 for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')&&f.endsWith('.json'))){
  const record=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
@@ -1019,17 +1186,22 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
   if(code==='M1'&&a.public_reading)continue;
   ctx.code=code;ctx.a=a;
   const combined=vm.runInContext("code==='C5'&&a.public_evidence_points?.length>0&&powerGradeBasisCoversPattern(a.grade_basis,a.typical_pattern||a.not_applicable_reason||'')",ctx);
-  const expected=combined?a.grade_basis:vm.runInContext("profileDistinctGradeBasis(a.grade_basis,a.typical_pattern||a.not_applicable_reason||'')",ctx);
+  const authored=ctx.r.reader_profile_grade_reasons?.[code];
+  const expected=authored||(combined?a.grade_basis:vm.runInContext("profileDistinctGradeBasis(a.grade_basis,a.typical_pattern||a.not_applicable_reason||'')",ctx));
   for(const suffix of ['', '-compare-0']){
    ctx.suffix=suffix;
    const html=vm.runInContext('axisEvidence(r,code,suffix)',ctx);
    if(expected){
     ctx.expected=expected;
-    const content=vm.runInContext("['C1','C2','C5','M4','M5'].includes(code)?powerProse(expected):prose(expected)",ctx);
-    const label=combined?'典型表现与定档理由':vm.runInContext("ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据'",ctx);
+    const content=vm.runInContext(authored?'prose(expected)':"['C1','C2','C5','M4','M5'].includes(code)?powerProse(expected):prose(expected)",ctx);
+    const label=authored?'为什么这样评':combined?'典型表现与定档理由':vm.runInContext("ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据'",ctx);
     assert.ok(html.includes('<section class="axis-grade-explanation"><div class="label">'+label+'</div>'+content),file+': '+code);
     if(combined)assert.ok(!html.includes('<div class="label">正式记录中的人物表现</div>'),file+': repeated pattern');
     assert.ok(html.indexOf('axis-grade-explanation')<html.indexOf('<details class="axis-further-check">'),file+': '+code);
+   }
+   const featured=html.indexOf('axis-representative-story');
+   if(featured>=0){
+    assert.ok(featured<html.indexOf('<details class="axis-further-check">'),file+': '+code);
    }
   }
   checked++;
@@ -1059,9 +1231,8 @@ assert.ok(contextHtml.includes('项目依据'));
 assert.ok(!contextHtml.includes('来源原文'));
 ctx.r={ruler_id:'synthetic',impact:{source_refs:[{kind:'IMPORTED_ADJUDICATION',document:'旧裁决清单.md',section:'合成对象',adopted_excerpt:'保留下来的项目判断。',adoption_limit:'原史未逐句复核。'}],source_trace:{limit:'原文件无法恢复。'}}};
 const sourceHtml=vm.runInContext('impactSourceList(r,[0])',ctx);
-assert.ok(sourceHtml.includes('项目采纳段落（非古籍原文）'));
+assert.ok(sourceHtml.includes('采用的评价依据'));
 assert.ok(sourceHtml.includes('保留下来的项目判断。'));
-assert.ok(vm.runInContext('impactSourceOverview(r)',ctx).includes('原文件无法恢复。'));
 assert.ok(sourceHtml.includes('原史未逐句复核。'));
 assert.ok(!sourceHtml.includes('href='));
 ''')
@@ -1082,7 +1253,7 @@ ctx.r={ruler_id:'SYNTHETIC',ruler_name:'合成对象',impact:{source_refs:[
  {kind:'HISTORICAL_WEB_SOURCE',title:'目录材料',url:'https://example.org/catalogue',evidence_note:'只有目录，未读正文。',verification_mode:'RETRIEVED_CATALOGUE_OR_ABSTRACT_OFFLINE_NOTE',adopted_excerpt:'合成目录所载：甲 < 乙。',adoption_limit:'只证明目录条目，不证明正文事实。'},
 ],related_fact_entries:[{kind:'LOCAL_FORMAL_RECORD',path:'docs/unbound.json',ruler_id:'SYNTHETIC'}]}};
 let html=vm.runInContext('impactSourceList(r,[0])',ctx);
-for(const text of ['只核对这一事实。','仅用于空间事实核对','尚未直接绑定外部原典'])assert.ok(html.includes(text),text);
+for(const text of ['只核对这一事实。','仅用于空间事实核对','相关人物评价'])assert.ok(html.includes(text),text);
 assert.ok(!html.includes('历史审计合成'));
 assert.ok(!html.includes('unbound.json'),'person-level related source must not leak into chain evidence');
 html=vm.runInContext('impactSourceList(r,[1])',ctx);
@@ -1090,28 +1261,26 @@ assert.ok(html.includes('只有目录，未读正文。'));
  assert.ok(html.includes('合成目录所载：甲 &lt; 乙。'));
  assert.ok(html.includes('只证明目录条目，不证明正文事实。'));
 assert.ok(html.includes('仅核对目录或摘要的离线记录'));
-assert.ok(!html.includes('尚未直接绑定外部原典'));
 html=vm.runInContext('impactSourceList(r,[])',ctx);
-assert.ok(html.includes('未为本节单独绑定来源'));
+assert.ok(html.includes('本节未单列出处'));
 assert.ok(!html.includes('历史审计合成.json'));
 for(const indices of [[-1],[9],['0'],null,'bad']){
  ctx.indices=indices;html=vm.runInContext('impactSourceList(r,indices)',ctx);
- if(indices===null)assert.ok(html.includes('未为本节单独绑定来源'));
- else assert.ok(html.includes('来源编号失效'));
+ if(indices===null)assert.ok(html.includes('本节未单列出处'));
+ else assert.ok(html.includes('部分出处暂不可用'));
 }
 ctx.r.impact.source_refs[1].verification_mode='FUTURE_MODE';
 html=vm.runInContext('impactSourceList(r,[1])',ctx);
 assert.ok(!html.includes('FUTURE_MODE'));
 html=vm.runInContext('impactSourceOverview(r)',ctx);
-assert.ok(html.includes('不自动充当本节证据'));
+assert.ok(html.includes('延伸阅读'));
 assert.ok(!html.includes('unbound'));
 ctx.r.impact.depth_review={source_ref_indices:[1]};
 html=vm.runInContext('historySections(r,"-compare-0",true)',ctx);
 const scope=html.slice(html.indexOf('id="history-dimension-scope-compare-0"'),html.indexOf('id="history-dimension-depth_duration-compare-0"'));
 const depth=html.slice(html.indexOf('id="history-dimension-depth_duration-compare-0"'),html.indexOf('id="history-dimension-personal_causality-compare-0"'));
-assert.ok(scope.includes('本节尚未单独绑定来源'));
+assert.ok(scope.includes('本节未单列出处'));
 for(const id of ['history-core-chains-compare-0','history-source-overview-compare-0']){
- assert.ok(scope.includes('data-section="'+id+'"'));
  assert.ok(html.includes('id="'+id+'"'));
 }
 assert.ok(!scope.includes('目录材料'));
@@ -1142,8 +1311,8 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
  for(const c of h.macro_chains||[]){
   ctx.indices=c.source_ref_indices;
   const card=vm.runInContext('impactSourceList(r,indices)',ctx);
-  assert.ok(!card.includes('来源编号失效'),file+': '+c.chain_id);
-  assert.equal(card.includes('尚未直接绑定外部原典'),!c.source_ref_indices.some(i=>h.source_refs[i].kind==='HISTORICAL_WEB_SOURCE'));
+  assert.ok(!card.includes('部分出处暂不可用'),file+': '+c.chain_id);
+  assert.equal(card.includes('本节未单列出处'),!c.source_ref_indices.length);
   chains++;
  }
  assert.equal(JSON.stringify(h),before);

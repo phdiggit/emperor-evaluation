@@ -268,7 +268,7 @@ def _commander_evidence_rows(
                         str(achievement.get(key) or "")
                         for key in ("canonical_label", "basis")
                     )
-                    signature = (battle_id, grade, difficulty, _CORE._compact_text(search_text), names, frozenset(refs))
+                    signature = (battle_id, grade, difficulty, _CORE._compact_text(search_text), names)
                     if signature in seen:
                         continue
                     seen.add(signature)
@@ -282,7 +282,6 @@ def _commander_evidence_rows(
                         "search_text": search_text,
                         "source_keys": source_keys,
                         "source_fragments": source_fragments,
-                        "registry_refs": refs,
                     })
     return rows
 
@@ -335,17 +334,14 @@ def _resolve_registry_evidence(
     routed: list[tuple[int, str]] = []
     weak_routed: list[tuple[int, str]] = []
     unbound_rows: list[tuple[int, dict[str, Any]]] = []
-    binding = anchor.get("registry_binding")
 
     for row in rows:
-        if binding and binding["ref"] not in row.get("registry_refs", ()):
-            continue
         if ruler not in row["members"]:
             continue
         if wanted != (row["result_grade"], row["difficulty_grade"]):
             continue
         battle_id = row.get("id")
-        score = 1 if binding else _CORE._anchor_score(anchor["anchor"], row["search_text"])
+        score = _CORE._anchor_score(anchor["anchor"], row["search_text"])
         if score:
             if battle_id:
                 routed.append((score, str(battle_id)))
@@ -446,58 +442,59 @@ def _recount_anchor_stats(anchors: list[dict[str, Any]]) -> dict[str, int]:
     return stats
 
 
-def _reconcile_first_item_c(
-    root: Path,
-    battle_index: dict[str, Any],
-    routes: dict[str, str],
-    group_candidates: dict[str, set[str]],
-) -> None:
+def _reconcile_first_item_c(root: Path, battle_index: dict[str, Any]) -> None:
     anchors = battle_index.get("first_item_c_anchors") or []
+    if not any(item.get("status") == "unresolved_atomic" for item in anchors if isinstance(item, dict)):
+        # Still normalize the expanded diagnostics schema for downstream readers.
+        battle_index["first_item_c_anchor_stats"] = _recount_anchor_stats(anchors)
+        return
+    routes, group_candidates = _collect_registry_routes(root)
+    evidence = _commander_evidence_rows(root, routes, group_candidates)
+    public_rows = _public_battle_rows(root)
     for anchor in anchors:
-        binding = anchor.get("registry_binding")
-        if anchor["anchor_kind"] == "atomic" and binding:
-            # Prefer the declared battle or personal-result ID over the display title.
-            target = routes.get(binding["war_event_id"]) or routes.get(binding["ref"])
-            anchor.update(
-                battle_id=target,
-                status="resolved_unique" if target else "unresolved_atomic",
-                resolution_mode="registry_ref" if target else None,
-                candidate_count=int(bool(target)),
-            )
-    unresolved = [anchor for anchor in anchors if anchor["status"] == "unresolved_atomic"]
-    if unresolved:
-        evidence = _commander_evidence_rows(root, routes, group_candidates)
-        public_rows = _public_battle_rows(root)
-        for anchor in unresolved:
-            decision = _resolve_registry_evidence(anchor, evidence, public_rows)
-            if decision:
-                anchor.update(decision)
-            elif anchor.get("registry_binding"):
-                anchor.update(status="search_only_unbound_registry")
+        if not isinstance(anchor, dict) or anchor.get("status") != "unresolved_atomic":
+            continue
+        decision = _resolve_registry_evidence(anchor, evidence, public_rows)
+        if decision:
+            anchor.update(decision)
     battle_index["first_item_c_anchor_stats"] = _recount_anchor_stats(anchors)
     lookup = _CORE._anchor_lookup(anchors)
     battle_index["first_item_c_anchor_lookup"] = lookup
     battle_index["first_item_c_anchor_lookup_count"] = len(lookup)
 
 
-def _reader_evidence(root: Path, battle_index: dict[str, Any]) -> dict[str, dict[str, Any]]:
+def _reader_evidence(root: Path, battle_index: dict[str, Any], commander_index: dict[str, Any]) -> dict[str, dict[str, Any]]:
     """Project existing source cards and personal results; never infer grades."""
     by_id = {row["id"]: row for row in battle_index["records"]}
     routes = battle_index["result_ref_to_battle"]
     outputs: dict[str, dict[str, Any]] = {}
     details: dict[str, dict[str, Any]] = {}
     sources: dict[str, Any] = {}
+    profiles_by_actor: dict[str, set[str]] = {}
+    for profile in commander_index["records"]:
+        for ref in [profile.get("person_ref"), *profile.get("actor_refs", [])]:
+            if ref:
+                profiles_by_actor.setdefault(ref, set()).add(profile["profile_ref"])
+    battle_profiles: dict[str, set[str]] = {}
     for shard in sorted((root / _CORE.BATTLE_DIR).glob("*.json")):
         for record in _CORE._load(shard).get("records", []):
             if _CORE.person_only_registration(record):
                 continue
             row = by_id[record["war_event_id"]]
             phases = record.get("subject_phase_views") or []
-            parts = []
+            outcome = record.get("observable_result")
+            parts = [outcome] if isinstance(outcome, str) and outcome else []
             for phase in phases:
                 parts.extend(str(phase.get(key) or "") for key in ("evaluation_subject_phase", "actual_process", "carry_in", "carry_out"))
                 parts.append(str((phase.get("ruler_binding") or {}).get("ruler_name") or ""))
-            row["search_text"] = " ".join(parts)
+            row["search_text"] = " ".join(dict.fromkeys(part for part in parts if part))
+            members = record.get("members") or []
+            if isinstance(members, dict):
+                members = [members]
+            for member in members if isinstance(members, list) else []:
+                refs = profiles_by_actor.get(member.get("actor_ref"), set()) if isinstance(member, dict) else set()
+                if len(refs) == 1:
+                    battle_profiles.setdefault(row["id"], set()).update(refs)
             authored_sources = record.get("public_source_reading", {})
             if not phases and not authored_sources:
                 continue
@@ -575,6 +572,8 @@ def _reader_evidence(root: Path, battle_index: dict[str, Any]) -> dict[str, dict
                             for key in ("person_command_result_ref", "capability_episode_ref", "campaign_ref"):
                                 if item.get(key):
                                     routes[item[key]] = battle_id
+                    if battle_id in by_id:
+                        battle_profiles.setdefault(battle_id, set()).add(profile["profile_ref"])
                     if battle_id not in details:
                         continue
                     ref = item.get("person_command_result_ref") or item.get("capability_episode_ref") or item.get("campaign_ref")
@@ -586,17 +585,17 @@ def _reader_evidence(root: Path, battle_index: dict[str, Any]) -> dict[str, dict
                         "person": profile.get("person"), "profile_ref": profile.get("profile_ref"),
                         "source": shard.relative_to(root).as_posix(), "record": item,
                     })
-                    names = [profile.get("person"), *(profile.get("name_aliases") or [])]
-                    by_id[battle_id]["search_text"] += " " + " ".join(str(name) for name in names if name)
+    for battle_id, refs in battle_profiles.items():
+        by_id[battle_id]["commander_refs"] = sorted(refs)
     return outputs
 
 
 def _build_outputs(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     battle_index, commander_index = _CORE.build_indexes(root)
+    _reconcile_first_item_c(root, battle_index)
     # All published reference types must work for dossier links, including a
     # direct war_event_id rather than only a personal result reference.
-    routes, group_candidates = _collect_registry_routes(root)
-    _reconcile_first_item_c(root, battle_index, routes, group_candidates)
+    routes, _ = _collect_registry_routes(root)
     battle_index["result_ref_to_battle"].update(routes)
     contexts: dict[str, dict[str, Any]] = {}
     context_path = root / "config/military/unification-campaign-tier-adjudications.json"
@@ -615,13 +614,6 @@ def _build_outputs(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], d
                 ],
                 "sources": ["config/military/unification-campaign-tier-adjudications.json", *group.get("source_refs", [])],
             }
-    ordinary_path = root / "config/military/ordinary-campaign-adjudications.json"
-    ordinary = _CORE._load(ordinary_path) if ordinary_path.is_file() else {}
-    merge_parents = {
-        row["war_event_id"]: row["merged_into_war_event_ref"]
-        for row in ordinary.get("adjudications", [])
-        if row.get("merged_into_war_event_ref")
-    }
     notes_path = root / "reader/military-reading-notes.json"
     notes = _CORE._load(notes_path).get("records", {}) if notes_path.is_file() else {}
     by_id = {row["id"]: row for row in battle_index["records"]}
@@ -647,14 +639,10 @@ def _build_outputs(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], d
             row = by_id.get(record.get("war_event_id"))
             if row is not None:
                 row["disposition"] = record.get("disposition")
-                parent = merge_parents.get(row["id"])
-                if (row["disposition"] == "MERGED_INTO_PARENT"
-                        and not record.get("merged_into") and parent in by_id and parent != row["id"]):
-                    row["adjudicated_merge_parent"] = parent
                 row["public_outcome_registered"] = record.get("public_outcome_registered")
                 row["phase_count"] = len(record.get("subject_phase_views") or [])
                 row["source_files"] = [ref for ref in record.get("source_lineage", {}).get("source_files", []) if (root / ref.split("#", 1)[0]).is_file()]
-    evidence = _reader_evidence(root, battle_index)
+    evidence = _reader_evidence(root, battle_index, commander_index)
     return battle_index, commander_index, evidence
 
 

@@ -8,7 +8,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_project_machine_citations_do_not_open_repository_files(tmp_path):
+def test_project_citations_do_not_open_repository_files(tmp_path):
     node = shutil.which('node')
     if not node:
         pytest.skip('Node.js required for browser behavior')
@@ -18,7 +18,7 @@ const fs=require('node:fs'),assert=require('node:assert/strict'),vm=require('nod
 const template=fs.readFileSync('reader/index.template.html','utf8');
 const context={URL,location:{hostname:'published.example',hash:''},
   DATA:{source_availability:{},source_repository:'owner/repo',source_revision:'sample'},
-  esc:String,byId:new Map([['synthetic',{net:{}}],['pending',{}]])};
+  esc:String,personLabel:person=>person.ruler_name,byId:new Map([['synthetic',{ruler_name:'甲',net:{}}],['pending',{}]])};
 vm.createContext(context);
 vm.runInContext(fs.readFileSync('reader/source-links.js','utf8'),context);
 vm.runInContext(template.slice(template.indexOf('const localReaderHost'),template.indexOf('const letters='))+';globalThis.testLink=link;',context);
@@ -29,9 +29,19 @@ assert.doesNotMatch(link(path+'#ruler_id=pending','原始记录'),/<a\b|\.json/)
 assert.doesNotMatch(link(path+'#records/0','原始记录'),/<a\b|records\/0|\.json/);
 assert.doesNotMatch(link('https://github.com/owner/repo/blob/main/a%2Ejsonl?raw=1','原始记录'),/<a\b|github/);
 assert.match(link('https://example.org/卷三','书名卷篇'),/href="https:\/\/example.org\/卷三"/);
-assert.match(link('docs/分项规则/规则.md','规则'),/github\.com/);
+for(const ref of ['docs/分项规则/规则.md','../docs/规则.md','https://github.com/owner/repo/blob/main/README.md','https://raw.githubusercontent.com/owner/repo/main/README.md']){
+  assert.equal(link(ref,'规则'),'');
+}
+assert.equal(link('docs/史料通读产物/某时期/合成史书/volume-003.md','所引史源'),'《合成史书》卷3');
 assert.equal(context.ReaderSourceLinks.metadataLabel('material_basis / 0 / original_text'),'');
 assert.equal(context.ReaderSourceLinks.metadataLabel('《合成史书》卷三 · 南郡'),'《合成史书》卷三 · 南郡');
+const sourceList = new Function('profileSourceMarkup','localReaderHost','DATA','esc',
+  template.slice(template.indexOf('function profileSourceList('),template.indexOf('function profileSourceMarkup('))+'return profileSourceList;');
+const volume='docs/史料通读产物/唐以前编年/某朝/卷003-通读总结.md';
+const grouped=sourceList(()=>'整卷来源',()=>true,{source_availability:{[volume+'#L10']:true}},String);
+const mixed=grouped([volume,volume+'#L10',volume+'#L20',volume+'#L10'],{});
+assert.match(mixed,/整卷来源.*卷3通读总结.*#L10.*第 10 行.*第 20 行/);
+assert.equal(mixed.split('第 10 行').length,2);
 ''',encoding='utf-8')
     result=subprocess.run([node,str(script)],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
     assert result.returncode == 0,result.stderr
@@ -44,7 +54,7 @@ def test_public_readers_keep_complete_prose_and_independent_source_panels(tmp_pa
     script = tmp_path/'public-boundaries.cjs'
     script.write_text(r'''
 const fs=require('node:fs'),assert=require('node:assert/strict');
-const home=fs.readFileSync('reader/home-interactions.js','utf8');
+const home=fs.readFileSync('reader/home-interactions.js','utf8').replace(/\r\n/g,'\n');
 const readability=fs.readFileSync('reader/readability.js','utf8');
 const esc=t=>String(t??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 const prose=t=>'<p>'+esc(t)+'</p>';
@@ -77,7 +87,7 @@ assert.ok(alias.includes('renderB2MaterialGroups(evidence)'));
 const overview=home.slice(home.indexOf('  function firstItemOverview'),home.indexOf('  async function renderFirstMajor'));
 const long='已有成果。'.repeat(100)+'末尾仍有不能归给本人的部分。';
 const template=fs.readFileSync('reader/index.template.html','utf8');
-const identitySource=template.slice(template.indexOf('function personLabel('),template.indexOf('const powerContextNote='));
+const identitySource=template.slice(template.indexOf('function personLabel('),template.indexOf('// Reader labels summarize'));
 const personLabel=new Function(identitySource+'return personLabel;')();
 const costStart=home.indexOf('function firstCostPublicText');
 const costEnd=home.indexOf('\n\nfunction firstCostMarkup',costStart);
@@ -133,8 +143,9 @@ const context={DATA:data,state,screen,byId:new Map(),nav(){},history:{replaceSta
  netGroups:r=>`<p>构成-${r.ruler_id}</p>`,historySections:r=>`<p>后效-${r.ruler_id}</p>`,
  axisEvidence:(r,c)=>`<details><summary>${c}</summary><p>${r.axes[c].evidence}</p></details>`};
 vm.createContext(context);
-vm.runInContext(section('function performanceScore(','const conf='),context);
-vm.runInContext(section('const letters=','const groupNames=')+section('function radar(r)','function axisRows(')+section('function compare(){','function guide()'),context);
+vm.runInContext(section('function performanceScore(', 'const conf=')+section('const letters=','const groupNames=')+section('function radar(r)','function axisRows(')+
+ section('const missingNetLabels=','function missingNetStatus(')+section('const rankRescoreLabel=','function rankUncertaintyText(')+
+ section('function majorCardReading(','function guide()'),context);
 function evalAxis(axis,fn='radarValue'){context.axis=axis;return vm.runInContext(`${fn}(axis)`,context);}
 for(let i=0;i<18;i++){
  const axis={axis_grade:'G'+Math.floor(i/3),position:['LOW','MID','HIGH'][i%3],radar_value:-999};
@@ -149,7 +160,8 @@ for(const axis of [null,{}, {...valid,axis_grade:'G9'}, {...valid,position:'UNKN
  {...valid,adjudication_state:'UNRESOLVED_EVIDENCE_GAP'},
  {...valid,adjudication_state:'REASSESSMENT_REQUIRED'}, {...valid,display_point_only:true},
  {...valid,applicability_status:'NOT_APPLICABLE'}, {...valid,output_mode:'NOT_APPLICABLE'}])assert.equal(evalAxis(axis),null);
-function record(id){return {ruler_id:id,ruler_name:id,actual_power_window:'合成时期',net:{total_score:10,rank:1,second_item_score:5},
+function record(id){return {ruler_id:id,ruler_name:id,actual_power_window:'合成时期',net:{total_score:10,rank:1,second_item_score:5,reader_governance_summary:'具体史事-'+id,
+ public_scores:{second:{state:'SCORED',score:70,grade:'B',trial_rating:{kind:'performance',score:70,grade:'中等'}}}},
  impact:{public_grade:'B',impact_nature:'合成说明',dimensions:{extent:{grade:'B'}},confidence:'medium'},
  axes:Object.fromEntries(codes.map(c=>[c,{...valid,evidence:`${id}-${c}-独立依据`}]))};}
 const left=record('left'),right=record('right');right.axes.M2.position='HIGH';
@@ -170,7 +182,12 @@ const initialHTML=html,initialWrites=writes,rowCount=(html.match(/<tr/g)||[]).le
 for(const id of ['left','right'])for(const c of codes)assert.ok(html.includes(`${id}-${c}-独立依据`));
 assert.ok(html.includes('data-compare-equal="true"'));
 assert.ok(html.includes('data-compare-equal="false"'));
-assert.ok(html.includes('突出当前展示值／档位差异'));
+assert.ok(html.includes('<tr data-compare-equal="true"><td>治国成效</td>'));
+for(const id of ['left','right']){
+ assert.ok(html.includes('具体史事-'+id));
+ assert.ok(html.includes('href="#net/'+id+'/second"'));
+}
+assert.ok(html.includes('突出分数与档位差异'));
 // Toggling only changes the table's class, not DOM/evidence/open state/scroll.
 checkbox.onchange({target:{checked:true}});assert.equal(emphasis,true);
 assert.equal(writes,initialWrites);assert.equal(html,initialHTML);
@@ -179,6 +196,9 @@ state.differences=true;vm.runInContext('compare()',context);
 assert.equal((html.match(/<tr/g)||[]).length,rowCount);
 for(const id of ['left','right'])for(const c of codes)assert.ok(html.includes(`${id}-${c}-独立依据`));
 assert.equal(JSON.stringify([left,right]),before,'rendering must not change formal inputs');
+context.byId.set('right',{...right,net:null,supplementary:true});
+vm.runInContext('compare()',context);
+assert.match(html,/<td>治国成效<\/td>.*?<td data-compare-person="right">不在统治绩效正式评价范围<\/td>/);
 ''', encoding='utf-8')
     result = subprocess.run([node, str(script)], cwd=ROOT, capture_output=True,
                             text=True, encoding='utf-8')
@@ -196,19 +216,19 @@ const fs=require('node:fs'),assert=require('node:assert/strict'),vm=require('nod
 const source=fs.readFileSync('reader/index.template.html','utf8');
 function section(start,end){const a=source.indexOf(start),b=source.indexOf(end,a);assert.ok(a>=0&&b>a);return source.slice(a,b);}
 const nodes=Object.fromEntries(['show-performance','governance-scale','search','polity','scope','sort','impact-filter','toggle-home-view','toggle-filters','advanced-filters','filter-state','clear-filters','count','rows','selection'].map(id=>[id,{id,value:'',hidden:false,textContent:'',innerHTML:'',handlers:{},attributes:{},focus(){this.focused=true;},setAttribute(k,v){this.attributes[k]=v;},addEventListener(k,v){this.handlers[k]=v;}}]));
-const totalSortOption={disabled:false};
-nodes.sort.querySelector=selector=>selector==='option[value="net"]'?totalSortOption:null;
+const netSortOption={disabled:false};
+nodes.sort.querySelector=selector=>selector==='option[value="net"]'?netSortOption:null;
 let writes=0,html='';
 const screen={set innerHTML(v){writes++;html=v;},get innerHTML(){return html;}};
 function record(id,extra={}){return {ruler_id:id,ruler_name:id,polity:'合成朝代',supplementary:false,axes:{},net:null,impact:{identity_label:id+'（合成称号）',reading_start_year:1,public_grade:'B',impact_nature:'合成性质',confidence:'MEDIUM'},...extra};}
-const records=[record('left'),record('right'),record('supplement',{supplementary:true})];
+const records=[record('left'),record('right'),record('unranked'),record('supplement',{supplementary:true})];
 records[0].impact.identity_label='left（<不作为HTML>）';
 const original=JSON.stringify(records);
 const state={q:'',polity:'',scope:'main',sort:'time',compare:['left'],grade:'',scale:'',differences:false,filtersOpen:false,homeView:'simple'};
-const context={DATA:{records,impact_grades:['B'],main_count:2,ranked_count:0,supplementary_count:1,capability_axes:[],independent_axes:[],axis_specs:{}},state,screen,byId:new Map(records.map(r=>[r.ruler_id,r])),document:{getElementById:id=>nodes[id]},nav(){},number:String,scoreNumber:v=>String(v??'—'),conf:String,impactMeaning:{B:'合成影响量级'}};
+const history={state:null,replaceState(value){this.state=value;}};
+const context={DATA:{records,impact_grades:['B'],main_count:2,ranked_count:0,supplementary_count:1,capability_axes:[],independent_axes:[],axis_specs:{}},state,screen,history,byId:new Map(records.map(r=>[r.ruler_id,r])),document:{getElementById:id=>nodes[id]},nav(){},number:String,scoreNumber:v=>String(v??'—'),conf:String,impactMeaning:{B:'合成影响量级'}};
 vm.createContext(context);
-vm.runInContext(section('function performanceScore(','const conf='),context);
-vm.runInContext(section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function home(){','function netPanel('),context);
+vm.runInContext(section('function performanceScore(', 'const conf=')+section('const esc=','const number=')+section('const letters=','const groupNames=')+section('function historicalOrder(','function comparePicker(')+section('function home(){','function netPanel('),context);
 vm.runInContext('home()',context);
 assert.equal(nodes['advanced-filters'].hidden,true);
 assert.equal(nodes['toggle-filters'].attributes['aria-expanded'],'false');
@@ -229,9 +249,15 @@ assert.equal(nodes['advanced-filters'].hidden,false);
 assert.equal(nodes['toggle-filters'].attributes['aria-expanded'],'true');
 function change(id,value){nodes[id].value=value;nodes[id].handlers[id==='search'?'input':'change']({target:{value}});}
 change('search','合成称号');assert.ok(!nodes['rows'].innerHTML.includes('data-person="left"'));assert.ok(nodes['rows'].innerHTML.includes('data-person="right"'));
+assert.match(nodes.rows.innerHTML,/匹配的历史影响补充样本[\s\S]*href="#person\/supplement"/);
+change('search','supplement');
+assert.equal(nodes.scope.value,'main');
+assert.match(nodes.count.textContent,/显示 0 位正式评价对象 · 另有 1 个历史影响补充样本/);
+assert.ok(!nodes.rows.innerHTML.includes('没有匹配人物'));
 change('search','');change('scope','supplementary');change('impact-filter','B');change('sort','impact');
 assert.ok(nodes['rows'].innerHTML.includes('data-person="supplement"'));
 assert.ok(!nodes['rows'].innerHTML.includes('data-person="right"'));
+assert.ok(!nodes.rows.innerHTML.includes('supplementary-results-title'));
 nodes['toggle-filters'].onclick();
 assert.equal(nodes['advanced-filters'].hidden,true);
 assert.ok(nodes['filter-state'].textContent.includes('补充历史样本'));
@@ -263,6 +289,30 @@ assert.ok(nodes.rows.innerHTML.includes('performance-table'));
 assert.ok(nodes.rows.innerHTML.includes('<td>9</td>'),'filtered view retains global rank');
 assert.ok(!nodes.rows.innerHTML.includes('data-person="right"'));
 assert.ok(nodes.rows.innerHTML.includes('名次保留全池正式名次'));
+nodes['toggle-home-view'].onclick();
+assert.equal(nodes.sort.value,'net');
+assert.equal(nodes['governance-scale'].value,'REGIONAL');
+assert.ok(nodes.rows.innerHTML.includes('<table>'));
+assert.ok(nodes.rows.innerHTML.includes('当前排名 第 9 名'));
+nodes['toggle-home-view'].onclick();
+assert.ok(nodes.rows.innerHTML.includes('performance-table'));
+change('search','unranked');
+assert.ok(nodes.rows.innerHTML.includes('尚未进入绩效榜'));
+assert.ok(nodes.rows.innerHTML.includes('data-person="unranked"'));
+assert.ok(!nodes.rows.innerHTML.includes('没有匹配人物'));
+assert.equal(nodes.sort.value,'net');
+assert.equal(nodes['governance-scale'].value,'REGIONAL');
+change('search','supplement');
+assert.match(nodes.rows.innerHTML,/href="#person\/supplement"/);
+assert.match(nodes.count.textContent,/显示 0 位入榜人物 · 另有 1 个历史影响补充样本/);
+assert.ok(!nodes.rows.innerHTML.includes('尚未进入绩效榜'));
+Object.assign(state,{q:'',sort:'time',scale:'',filtersOpen:false,homeView:'full'});
+vm.runInContext('home()',context); // Simulate a fresh script restoring the current history entry.
+assert.ok(html.includes('value="supplement"'));
+assert.equal(nodes.sort.value,'net');assert.equal(nodes['governance-scale'].value,'REGIONAL');
+assert.equal(nodes['advanced-filters'].hidden,false);
+assert.equal(state.homeView,'simple');
+assert.deepEqual(state.compare,['left']);
 nodes['clear-filters'].onclick();assert.equal(nodes['governance-scale'].value,'');
 assert.equal(JSON.stringify(records),withScores,'scope filtering does not rescore or rerank');
 ''', encoding='utf-8')
@@ -337,15 +387,7 @@ def test_generated_reader_release_pins_dynamic_sources():
 
 
 def test_reader_formats_structured_power_windows_without_changing_formal_source():
-    from pathlib import Path
-    source = (Path(__file__).resolve().parents[1] / "reader/build.py").read_text(encoding="utf-8")
-
-    namespace = {"json": __import__("json"), "deepcopy": __import__("copy").deepcopy}
-    start = source.index("def public_power_window(value):")
-    end = source.index("\ndef record_summary(record):", start)
-    exec(source[start:end], namespace)
-    fmt = namespace["public_power_window"]
-    ctx = namespace["public_governance_context"]
+    from reader.build import public_power_window as fmt, public_governance_context as ctx
 
     assert fmt("[[1435, 1449], [1457, 1464]]") == "1435—1449年；1457—1464年"
     assert fmt("[[-238, -221], [-220, -210]]") == "前238—前221年；前220—前210年"
@@ -391,17 +433,6 @@ const rendered=genericCtx.genericNetGroup({},'military',[
 assert.match(rendered,/C1实战交付/);
 assert.match(rendered,/C2持续作战/);
 assert.doesNotMatch(rendered,/隐藏空项/);
-
-vm.runInContext(
-  section(home,'  function thirdJudgmentCards','  function renderGenericMajor')
-  +'\nthis.thirdMajorGroups=thirdMajorGroups;', genericCtx);
-const third=genericCtx.thirdMajorGroups({}, {military:[
-  {label:'C1联合主评',reader_kind:'judgment',value:null,unit:'不单独计分'},
-  {label:'C1实战交付',reader_kind:'support',value:null}
-]});
-assert.match(third,/<metric>C1联合主评<\/metric>/);
-assert.doesNotMatch(third,/<metric>C1实战交付<\/metric>/);
-
 
 const fallbackCtx={
   finite:v=>{if(v==null||v==='')return null;const n=Number(v);return Number.isFinite(n)?n:null;},

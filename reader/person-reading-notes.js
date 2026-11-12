@@ -47,9 +47,33 @@
     if (!exactKeys(payload, ["schema_id", "records"]) || payload.schema_id !== schema || !plain(payload.records)) throw Error("Invalid reading-note schema");
     for (const [id, notes] of Object.entries(payload.records)) {
       if (!/^(?:RULER|HIMPACT)-[^/\\]+$/.test(id) || !plain(notes)) throw Error("Invalid reading-note identity");
-      // Editorial freedom is limited to the three overview summaries. Decisions,
-      // strength, counterevidence and boundaries belong to the formal records.
-      if (!exactKeys(notes, ["overview"])) throw Error("Only overview summaries are allowed");
+      // System overviews and the missing third-item conclusion share this
+      // editorial source. Numeric decisions remain in the formal records.
+      if (!own(notes, 'overview') || Object.keys(notes).some(key => !['overview','net','reading','profile_grade_reasons'].includes(key))) throw Error("Invalid reading-note sections");
+      if (own(notes, 'profile_grade_reasons')) {
+        if (id.startsWith('HIMPACT-') || !plain(notes.profile_grade_reasons)) throw Error('Invalid profile grade reasons');
+        for (const [axis, reason] of Object.entries(notes.profile_grade_reasons)) {
+          if (!/^(?:C[1-5]|M[1245])$/.test(axis) || !exactKeys(reason, ['source', 'text']) || !text(reason.source) || !text(reason.text) || forbidden.test(reason.text)) throw Error('Invalid profile grade reason');
+        }
+      }
+      if (notes.reading) {
+        if (!plain(notes.reading) || id.startsWith('HIMPACT-')) throw Error('Invalid narrative owner');
+        for (const [system, chapters] of Object.entries(notes.reading)) {
+          if (!['profile','impact','second','third','fourth'].includes(system) || !Array.isArray(chapters) || !chapters.length) throw Error('Invalid narrative section');
+          for (const chapter of chapters) {
+            if (!exactKeys(chapter,['title','text','evidence']) || !text(chapter.title)) throw Error('Invalid narrative chapter');
+            validateBlock({text:chapter.text,evidence:chapter.evidence});
+            const groups={second:['method','finance','handoff'],third:['strategic','military'],fourth:['civilization']};
+            if (chapter.evidence.some(ref=>system==='profile'?ref.path[0]!=='axes':system==='impact'?ref.path[0]!=='impact':ref.path[0]!=='net'||ref.path[1]!=='component_details'||!groups[system].includes(ref.path[2]))) throw Error('Narrative evidence belongs to another system');
+          }
+        }
+      }
+      if (notes.net) {
+        if (id.startsWith("HIMPACT-") || (!exactKeys(notes.net, ["third"]) && !exactKeys(notes.net, ["third", "fourth"]))) throw Error("Invalid net conclusion");
+        for (const block of Object.values(notes.net)) validateBlock(block);
+        if (notes.net.third.evidence.some(ref => ref.path[0] !== "net" || ref.path.some(key => key === "reader_public_third_c"))) throw Error("Military overview needs current strategic and cost evidence");
+        if (notes.net.fourth?.evidence.some(ref => ref.path[0] !== "net" || ref.path[1] !== "component_details" || ref.path[2] !== "civilization")) throw Error("Civilization conclusion needs its own outcome evidence");
+      }
       const impactOnly = exactKeys(notes.overview, ["impact"]);
       if (!impactOnly && (id.startsWith("HIMPACT-") || !exactKeys(notes.overview, overviewKeys))) {
         throw Error("Reading note needs three overview sections or an impact-only overview");
@@ -78,7 +102,7 @@
 
   const root = document.getElementById("screen");
   if (!root) return;
-  let payload = null, loading = null, failed = false, queued = false;
+  let payload = null, loading = null, failed = false, queued = false, versionMismatch = false;
   const el = (tag, className, value) => {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -158,18 +182,20 @@
   }
 
   function renderBlock(key, block, record, className) {
+    const heading = record.reader_narratives ? {outcome:'他治下的人过得怎样？',profile:'他怎样作决定和用人？',impact:'他留下了什么？'}[key] : labels[key];
     if (assessBlock(block, record).status !== "current") {
       const notice = el("section", className);
-      notice.append(el("h3", "", labels[key]), el("p", "subline", "这段摘要的依据已更新，正在等待复核；请继续阅读下方的当前评价与逐项依据。"));
+      notice.append(el("h3", "", heading), el("p", "subline", "这段摘要的依据已更新，正在等待复核；请继续阅读下方的当前评价与逐项依据。"));
       return notice;
     }
     const section = el("section", className);
-    section.append(el("h3", "", labels[key]));
+    section.append(el("h3", "", heading));
     section.append(el("p", "note-text", block.text), evidenceList(block, record));
     return section;
   }
 
   function applyOverview(record, notes) {
+    if (personView() && record.reader_narratives?.[personView()]) return;
     for (const [key, id] of [["outcome", "person-outcome"], ["profile", "person-capability"], ["impact", "person-impact"]]) {
       const panel = document.getElementById(id);
       if (!panel || !notes.overview[key] || panel.querySelector(":scope > .person-reading-note")) continue;
@@ -194,13 +220,24 @@
     if (!active.length) return; // Home and comparison views do not fetch overview summaries.
     if (!payload) {
       if (failed) {
+        if (versionMismatch && !root.querySelector('[data-notes-version-notice]')) {
+          const notice = el('p', 'notice', '阅读摘要已更新，请刷新页面后继续；当前页面保留原有评价。');
+          notice.dataset.notesVersionNotice = '';
+          root.prepend(notice);
+        }
         return;
       } else if (!loading) {
         loading = fetch("data/person-reading-notes.json", {cache: "no-cache"})
-          .then(response => { if (!response.ok) throw Error("Reading notes unavailable"); return response.json(); })
+          .then(response => { if (!response.ok) throw Error("Reading notes unavailable"); return response.text(); })
+          .then(value => requireReaderTextVersion(value, DATA.notes_version))
+          .then(JSON.parse)
           .then(validateNotes)
           .then(value => { payload = value; schedule(); })
-          .catch(() => { failed = true; schedule(); });
+          .catch(error => {
+            failed = true;
+            versionMismatch = Boolean(error.readerVersionMismatch);
+            schedule();
+          });
       }
       return;
     }
