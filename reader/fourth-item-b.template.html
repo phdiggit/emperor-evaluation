@@ -8,6 +8,7 @@
 <header><a href="index.html">帝王三镜</a> · <a href="index.html#guide">如何阅读</a></header>
 <main><h1>谁获得了学习与进身机会，谁又被挡在门外？</h1>
 <p>看学校是否实际教学、谁能入学，以及学成后能否获得新的机会。</p>
+__SHARED_RULES__
 <label for="search">搜索人物、经历或材料</label><input id="search" type="search" autocomplete="off"><p>当前显示 <span id="count">__COUNT__</span> 人。</p>
 <p id="location-note" role="status"></p>
 <section id="entries" aria-label="教育可及与人才流动全池阅读"></section></main>
@@ -21,7 +22,7 @@ function link(path,label){
 }
 </script><script src="fourth-item-b-public.js"></script><script>
 const DATA=JSON.parse(document.getElementById('fourth-b-data').textContent);
-document.getElementById('entries').innerHTML=DATA.map(r=>`<article class="person" id="${esc(r.ruler_id)}"><h2>${esc(r.display_name || r.ruler_name)}</h2><p class="meta">${esc(r.polity)} · ${esc(r.pool_note)}</p>${FourthItemBReading.heading(r.item,{collection:true})}${FourthItemBReading.html(r.item,r)}</article>`).join('');
+document.getElementById('entries').innerHTML=DATA.map(r=>`<article class="person" id="${esc(r.ruler_id)}"><h2>${esc(r.display_name || r.ruler_name)}</h2><p class="meta">${esc(r.polity)} · ${esc(r.pool_note)}</p>${FourthItemBReading.heading(r.item,{collection:true})}${FourthItemBReading.html(r.item,r,{collection:true})}</article>`).join('');
 ReaderCollectionSearch.bindCards([...document.querySelectorAll('article.person')],{
  bodyStart:'.fourth-b-public-reading',
  input:document.getElementById('search'),

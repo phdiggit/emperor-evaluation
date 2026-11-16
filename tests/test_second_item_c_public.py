@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
 import pytest
 
+from emperor_v4.evaluation.formal_json_store import load_json, write_json
+from emperor_v4.evaluation.formal_reading_texts import FINANCE_SCHEMAS
 from emperor_v4.evaluation.second_item_c_public import FORMAL_PATHS, PUBLIC_FORBIDDEN_RE, _refresh_payload, _scoring_signature, _clean, verify_source_bindings
 from emperor_v4.evaluation.second_item_c_source_display import material_excerpts, reading_source
 
@@ -176,6 +179,92 @@ def test_related_materials_are_locatable_without_becoming_claim_support():
     row['material_basis'][0]['original_text'] = '不能靠改写摘录伪装为原文。'
     with pytest.raises(ValueError, match='摘录与原字段不一致'):
         verify_source_bindings({'C1':{'scores':[row]}})
+
+
+def test_only_complete_contiguous_card_prose_is_shared_with_the_story():
+    from emperor_v4.evaluation.reading_layout import evidence_repeated_in_story
+
+    row = {
+        "public_story": "春季减轻征收。\n\n秋季仓储增加。年末仍有局部饥荒。",
+        "public_evidence_items": [
+            {"id": "same", "public_basis": "春季减轻征收。秋季仓储增加。"},
+            {"id": "partial", "public_basis": "仓储增加。"},
+            {"id": "discontinuous", "public_basis": "春季减轻征收。年末仍有局部饥荒。"},
+            {"id": "extra", "public_basis": "秋季仓储增加。新增储粮主要用于赈济。"},
+        ],
+    }
+    assert evidence_repeated_in_story(row) == ["same"]
+
+
+def test_state_display_keeps_a_qualification_absent_from_the_story():
+    from emperor_v4.evaluation.second_item_c_reading import display_state_finding
+
+    row = {
+        "public_story": "春季减轻征收。秋季仓储增加。年末仍有局部饥荒。",
+        "public_adjudication_summary": "秋季仓储增加。",
+        "public_loss_label": "年末局部饥荒另有直接依据。",
+    }
+    assert display_state_finding("C1", row) == ("", row["public_loss_label"])
+    row["public_adjudication_summary"] += "仅采用东部州县的结果。"
+    assert display_state_finding("C1", row) == (row["public_adjudication_summary"], row["public_loss_label"])
+
+
+def test_repeated_low_finding_keeps_individual_evidence_and_limits():
+    from emperor_v4.evaluation.second_item_c_reading import display_evidence_basis
+
+    label = "现有证据尚不足以确认另一段应单独计入的较差状态"
+    row = {"loss_grade": "L0", "public_loss_label": label}
+    item = {
+        "evidence_mode": "ASSESSMENT",
+        "source_binding_kind": "MATERIAL_COLLECTION",
+        "public_basis": label + "；这不表示任内没有局部压力或损害。",
+    }
+    assert display_evidence_basis("C2", row, item) == ""
+    direct = {**item, "source_binding_kind": "CLAIM_SUPPORT"}
+    assert display_evidence_basis("C2", row, direct) == item["public_basis"]
+    limited = {**item, "public_basis": item["public_basis"] + "动员损失限于西部。"}
+    assert display_evidence_basis("C2", row, limited) == limited["public_basis"]
+
+
+def test_axis_guide_shares_only_the_whole_final_boundary_paragraph():
+    from emperor_v4.evaluation.second_item_c_reading import COMMON_AXIS_BOUNDARIES, specific_public_boundary
+
+    common = COMMON_AXIS_BOUNDARIES["C1"]
+    individual = "目前只核实了河内一地的家庭处境。"
+    assert specific_public_boundary("C1", common) == ""
+    assert specific_public_boundary("C1", individual + "\n\n" + common) == individual
+    combined = individual + common
+    assert specific_public_boundary("C1", combined) == combined
+    assert specific_public_boundary("C2", common) == common
+
+
+def test_routed_c_quote_resolves_cross_axis_and_detects_source_edits(tmp_path):
+    schema = {axis: next(s for s in FINANCE_SCHEMAS if f'-{axis}-' in s) for axis in ('C1', 'C4')}
+    paths = {axis: tmp_path / FORMAL_PATHS[axis].name for axis in schema}
+    ruler = {'ruler_id': 'SYNTHETIC', 'ruler_name': '合成甲', 'polity': '合成朝'}
+    quote = '原字段记录了两处受损，第三处未见材料。'
+    source = {**ruler, 'material_basis': [{'original_text': quote}],
+              'public_evidence_items': [], 'public_related_source_refs': []}
+    ref = {'axis': 'C1', 'ruler_id': ruler['ruler_id'],
+           'path': FORMAL_PATHS['C1'].as_posix() + '#ruler_id=SYNTHETIC',
+           'field_path': ['material_basis', 0, 'original_text'], 'exact_quote': quote}
+    citing = {**ruler, 'public_evidence_items': [{'source_refs': [deepcopy(ref)]}],
+              'public_related_source_refs': [{**ref, 'public_excerpt': '这条另有公开摘录。'}]}
+    payloads = {
+        axis: {'schema_id': schema[axis], 'public_projection_axis': axis, 'scores': [row]}
+        for axis, row in [('C1', source), ('C4', citing)]
+    }
+    for axis, payload in payloads.items():
+        write_json(paths[axis], payload, ruler_polities={}, route=True)
+    stored = json.loads((paths['C4'].with_suffix('') / '合成朝.json').read_bytes())
+    stored_ref = stored['collections']['scores']['records'][0]['public_related_source_refs'][0]
+    assert set(stored_ref['exact_quote']) == {'sha256'}
+    assert load_json(paths['C4'], polities=iter(['合成朝'])) == payloads['C4']
+
+    source['material_basis'][0]['original_text'] = '原字段改为只记录一处受损。'
+    write_json(paths['C1'], payloads['C1'], ruler_polities={})
+    with pytest.raises(ValueError, match='摘录与原字段不一致.*合成甲/C1/.*original_text'):
+        load_json(paths['C4'])
 
 
 def test_material_collection_cannot_masquerade_as_direct_claim_support():

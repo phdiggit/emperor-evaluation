@@ -10,7 +10,7 @@
 
 三套结果不互相换分。画像雷达、视频人物卡和文字小样在[展示成果](../展示成果/人物画像/README.md)，不属于裁决真源；综合阅读层在[`reader/`](../../reader/README.md)，退役组件在[`archive/`](../../archive/README.md)。
 
-历史影响、画像M1／M4／M5／C1／C2／C3／C5、第二项C3／C4／D1／D3、第三项AB／C及第四项B的完整Markdown在本地运行`python v4.py reading-views`生成，不进入Git；正式JSON和评估包仍含完整正文。新检出后先生成再校验，第一项Markdown真源及仍被引用的证据文档保留。财政民生C3／C4同时重建技术正文与公开附录，不读取旧Markdown；C1／C2仍承担跨项证据引用，继续入库。第三项AB的正文由正式AB记录和`config/third-item/third-item-result-credit-adjudications.json`共同重建，事实引用直接定位这两份输入中的人物记录。
+历史影响、画像M1／M4／M5／C1／C2／C3／C5、第二项C3／C4／D1／D3、第三项AB／C及第四项B的完整Markdown在本地运行`python v4.py reading-views`生成，不进入Git；正式JSON和评估包仍含完整正文。新检出后先生成再校验，第一项Markdown真源及仍被引用的证据文档保留。财政民生C3／C4同时重建技术正文与公开附录，不读取旧Markdown；C1／C2仍承担跨项证据引用，继续入库。第三项AB的正文由正式AB记录和`docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/03-A120与B80结果信用正式裁决.json`共同重建，事实引用直接定位这两份输入中的人物记录。
 
 第三项C的朝代分片可声明`public_reading_storage=formal-public-reading-texts-v1`：同一分片的`public_reading`内，完全相同且重复的较长文本保存在`reading_text_catalog`，采用处以`reading_text_ref`引用。仅去重字符串值，不合并材料、人物、角色或采用关系；相似文字不合并，原有ID和来源定位保留。正式消费者通过`formal_json_store.load_json`取得完整独立对象，写回通过`write_json`确定性压缩；不得将分片存储占位符直接用作裁决或展示正文。悬空、越界、混合格式、未知版本、重复或未共用目录项均拒绝。
 

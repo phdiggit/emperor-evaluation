@@ -134,7 +134,7 @@ def person_notes_snapshot(*, check=False, write=True):
         write_generated_text(PERSON_NOTES_SNAPSHOT, expected)
 
 
-def person_note_reference_issues(records, notes):
+def person_note_reference_issues(records, notes, *, require_home_intro=False):
     """Report missing editorial anchors against the actual public projection."""
     by_id = {record['ruler_id']: record for record in records}
     issues = []
@@ -148,6 +148,8 @@ def person_note_reference_issues(records, notes):
         for section in sorted(expected_sections ^ overview.keys()):
             issues.append((rid, section, []))
         sections = dict(overview)
+        if require_home_intro or 'home_intro' in entry:
+            sections['home_intro'] = entry.get('home_intro', {})
         sections.update({f"net.{key}": block for key, block in entry.get("net", {}).items()})
         for axis, reason in entry.get('profile_grade_reasons', {}).items():
             path = ['axes', axis, 'grade_basis']
@@ -173,6 +175,9 @@ def person_note_reference_issues(records, notes):
             if not block.get('text') or not block.get('evidence'):
                 issues.append((rid, section, []))
             for reference in block.get('evidence', []):
+                if 'explanation' in reference and (not section.startswith('reading.') or
+                        not isinstance(reference['explanation'], str) or not reference['explanation'].strip()):
+                    raise ValueError(f'Invalid narrative evidence explanation: {rid}/{section}')
                 if section == 'net.fourth' and reference.get('path', [])[:3] != ['net', 'component_details', 'civilization']:
                     issues.append((rid, section, reference.get('path', [])))
                     continue
@@ -238,22 +243,6 @@ def split_source_refs(ref):
     if all(part.startswith(("docs/", "config/", "archive/", "https://", "http://")) for part in parts):
         return parts
     return [ref]
-
-
-def apply_public_copy(template):
-    """Apply reader-only wording without changing any settlement payload."""
-    path = ROOT / "reader/public-copy.json"
-    replacements = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(replacements, list):
-        raise ValueError("Reader public copy must be a list")
-    for i, item in enumerate(replacements):
-        if not isinstance(item, dict) or not isinstance(item.get("from"), str) or not isinstance(item.get("to"), str):
-            raise ValueError(f"Invalid reader public copy entry: {i}")
-        old, new = item["from"], item["to"]
-        if old not in template:
-            raise ValueError(f"Reader public copy source is stale: {old}")
-        template = template.replace(old, new)
-    return template
 
 
 FORMAL_CONTEXT_FIELDS = [
@@ -328,16 +317,22 @@ def runtime_script_blocks(filenames=READER_RUNTIME_SCRIPTS):
     return "\n".join(blocks)
 
 
-def _formal_context_projection(context, *, learning=False, design=False, diplomatic=False):
+def _formal_context_projection(context, *, learning=False, design=False, diplomatic=False, organization=False, strategy=False):
     # Public reading may only expose fields that already exist in the formal
     # record. Never synthesize direction, strength, attribution or limits here.
     result = pick(context, FORMAL_CONTEXT_FIELDS + (LEARNING_CONTEXT_FIELDS if learning else [])
                 + (DESIGN_CONTEXT_FIELDS if design else [])
-                + (DIPLOMATIC_CONTEXT_FIELDS if diplomatic else []))
+                + (DIPLOMATIC_CONTEXT_FIELDS if diplomatic else [])
+                + (["secondary_projection_reason"] if organization or strategy else []))
     if isinstance(context.get("source_review"), list):
         reviews = [review for review in context["source_review"] if isinstance(review, dict)]
         if reviews or "source_review" in result:
             result["source_review"] = reviews
+    if organization:
+        from emperor_v4.evaluation.profile_m5 import uses_shared_scope
+
+        if uses_shared_scope(context):
+            result["uses_m5_scope_guide"] = True
     return result
 
 
@@ -357,6 +352,13 @@ def axis_projection(row, fields, m1_archive_context=None):
         from emperor_v4.evaluation.profile_m1_public import archive_projection
         result['m1_archive_links'] = archive_projection(row, ROOT, m1_archive_context)
     chains = parent_chains(row)
+    if row.get("axis_code") == "C3":
+        from emperor_v4.evaluation.profile_c3_reading import additional_process_start
+
+        result["reader_process_starts"] = {
+            parent["parent_id"]: additional_process_start(parent)
+            for parent in chains if parent.get("evidence_detail") and parent.get("lifecycle_narrative")
+        }
     result["source_refs"] = list(dict.fromkeys(
         ref for owner in [row, *chains]
         for ref in owner.get("source_refs", []) if isinstance(ref, str)
@@ -366,7 +368,7 @@ def axis_projection(row, fields, m1_archive_context=None):
         ids = {ref for values in counter.values() if isinstance(values, list) for ref in values if isinstance(ref, str)}
         result["context_lookup"] = {
             p["parent_id"]: _formal_context_projection(
-                p, learning=row.get('axis_code') == 'C2')
+                p, learning=row.get('axis_code') == 'C2', strategy=row.get('axis_code') == 'C1')
             for p in chains if p.get("parent_id") in ids
         }
         missing = ids - result["context_lookup"].keys()
@@ -384,7 +386,9 @@ def axis_projection(row, fields, m1_archive_context=None):
         result["representative_contexts"] = [
             _formal_context_projection(context, learning=row.get('axis_code') == 'C2',
                                        design=row.get('axis_code') == 'C4',
-                                       diplomatic=row.get('axis_code') == 'M2')
+                                       diplomatic=row.get('axis_code') == 'M2',
+                                       organization=row.get('axis_code') == 'M5',
+                                       strategy=row.get('axis_code') == 'C1')
             for context in (chains if row.get('axis_code') in {'C4', 'M2'} else representative_parent_chains(row))
             if isinstance(context, dict)
         ]
@@ -394,6 +398,11 @@ def axis_projection(row, fields, m1_archive_context=None):
             pick(point, ["title", "details", "source_review"])
             for point in row["public_evidence_points"] if isinstance(point, dict)
         ]
+    if row.get("axis_code") == "C5":
+        from emperor_v4.evaluation.profile_c5_reading import uses_shared_position_guide
+
+        if uses_shared_position_guide(row):
+            result["uses_shared_position_guide"] = True
     return result
 
 def _clean_text(value):
@@ -476,7 +485,7 @@ def _b2_reader_rating(record):
 
 def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
     """Project B2's explicit public fields without semantic fallback guessing."""
-    from emperor_v4.evaluation.second_item_b2_public import display_sources
+    from emperor_v4.evaluation.second_item_b2_public import display_boundary, display_sources
 
     if not isinstance(record, dict):
         raise ValueError("B2 reader projection requires a formal record")
@@ -492,7 +501,8 @@ def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
     result["public_adjudication_summary"] = summary
     result["public_evidence_items"] = deepcopy(evidence)
     result["reader_public_evidence_items"] = [
-        {**deepcopy(entry), 'source_refs': display_sources(entry['source_refs'])}
+        {**deepcopy(entry), 'source_refs': display_sources(entry['source_refs']),
+         'display_boundary': display_boundary(entry['public_boundary'])}
         if 'source_refs' in entry else deepcopy(entry) for entry in evidence
     ]
     _attach_quality_status(result, record)
@@ -524,17 +534,19 @@ def _attach_b2_public_reader(item, *, record, how="", source_refs=()):
 def _attach_method_public_reader(item, *, axis, record, how=""):
     """A/B1 overviews consume the same declared public prose as detail cards."""
     summary = record.get("public_adjudication_summary")
+    boundary = record.get("public_boundary")
     if not isinstance(summary, str) or not summary.strip():
         raise ValueError(f"{axis} formal public summary is missing: {record.get('ruler_name')}")
     if axis == "A":
-        from emperor_v4.evaluation.second_item_a_public import display_source_label
+        from emperor_v4.evaluation.second_item_a_public import (
+            display_boundary, display_source_label, display_summary, public_evidence_items,
+        )
 
-        evidence = record.get("public_evidence_items")
-        if not isinstance(evidence, list):
-            raise ValueError(f"A formal public evidence is missing: {record.get('ruler_name')}")
         if not isinstance(record.get("public_story"), str) or not record["public_story"].strip():
             raise ValueError(f"A formal public story is missing: {record.get('ruler_name')}")
-        evidence = deepcopy(evidence)
+        evidence = public_evidence_items(record)
+        summary = display_summary(summary)
+        boundary = display_boundary(boundary) if boundary else ""
         for entry in evidence:
             for source in entry["public_sources"]:
                 source["label"] = display_source_label(source)
@@ -552,6 +564,8 @@ def _attach_method_public_reader(item, *, axis, record, how=""):
     if axis == "A":
         result["reader_story"] = record["public_story"]
     elif axis == "B1":
+        from emperor_v4.evaluation.second_item_b1_settlement import display_index_calculation
+
         _attach_quality_status(result, record)
         for source_key, reader_key in (
             ("public_story", "reader_story"),
@@ -562,11 +576,10 @@ def _attach_method_public_reader(item, *, axis, record, how=""):
             if not isinstance(value, str) or not value.strip():
                 raise ValueError(f"B1 formal {source_key} is missing: {record.get('ruler_name')}")
             result[reader_key] = value
-        result["reader_how"] = record["public_index_calculation"] + "\n\n" + how
-    declared_boundary = record.get("public_boundary")
-    if isinstance(declared_boundary, str) and declared_boundary.strip():
-        result["reader_boundary"] = declared_boundary
-    else:
+        result["reader_how"] = display_index_calculation(record["public_index_calculation"])
+    if isinstance(boundary, str) and boundary.strip():
+        result["reader_boundary"] = boundary
+    elif axis == "B1":
         boundaries = _unique_texts([node.get("public_boundary") for node in evidence], limit=None)
         if boundaries:
             result["reader_boundary"] = "\n\n".join(boundaries)
@@ -596,8 +609,28 @@ def _attach_second_item_c_public_reader(item, *, axis, record, how="", source_re
         "public_related_source_refs", "public_source_note",
     )}
     from emperor_v4.evaluation.second_item_c_materials import material_groups
+    from emperor_v4.evaluation.reading_layout import evidence_repeated_in_story
+    from emperor_v4.evaluation.second_item_c_reading import (
+        display_calculation, display_evidence_basis, display_state_finding, specific_public_boundary,
+    )
     from emperor_v4.evaluation.second_item_c_source_display import material_excerpts, reading_source
+    from emperor_v4.evaluation.second_item_c_source_notes import specific_source_note, uses_shared_collection_scope
     public = result["reader_public_c"]
+    display_summary, display_loss = display_state_finding(axis, record)
+    for name, value in (
+        ("adjudication_summary", display_summary), ("loss_label", display_loss),
+        ("calculation", display_calculation(record["public_calculation"])),
+    ):
+        if public["public_" + name] != value:
+            public["display_" + name] = value
+    public["specific_source_note"] = specific_source_note(record["public_source_note"])
+    public["specific_boundary"] = specific_public_boundary(axis, record["public_boundary"])
+    shared_scope_ids = [entry['id'] for entry in evidence if uses_shared_collection_scope(entry)]
+    if shared_scope_ids:
+        public["shared_collection_scope_ids"] = shared_scope_ids
+    repeated = evidence_repeated_in_story(record)
+    if repeated:
+        public["story_evidence_ids"] = repeated
     refs = record["public_related_source_refs"]
     groups = material_groups(refs)
     public["related_material_groups"] = groups
@@ -610,6 +643,9 @@ def _attach_second_item_c_public_reader(item, *, axis, record, how="", source_re
         public["related_material_excerpts"] = grouped_excerpts
     public["public_related_source_refs"] = [reading_source(ref) for ref in record["public_related_source_refs"]]
     for entry in public["public_evidence_items"]:
+        basis = display_evidence_basis(axis, record, entry)
+        if basis != entry['public_basis']:
+            entry['display_basis'] = basis
         if 'source_refs' in entry:
             entry['source_refs'] = [reading_source(ref) for ref in entry['source_refs']]
     result["public_loss_label"] = record["public_loss_label"]
@@ -631,7 +667,8 @@ def _attach_d1_d3_public_reader(item, *, record, axis, how="", source_refs=()):
 
     if not isinstance(record, dict):
         raise ValueError(f"{axis} reader projection requires a formal record")
-    from emperor_v4.evaluation.second_item_d1_d3_public import display_reason, display_source, public_record
+    from emperor_v4.evaluation.reading_layout import evidence_repeated_in_story
+    from emperor_v4.evaluation.second_item_d1_d3_public import display_reason, display_scope, display_source, public_record
     record = public_record(record)
     summary = record.get("public_adjudication_summary")
     evidence = record.get("public_evidence_items")
@@ -645,15 +682,20 @@ def _attach_d1_d3_public_reader(item, *, record, axis, how="", source_refs=()):
     result["reader_summary"] = summary
     result["public_adjudication_summary"] = summary
     result["reader_handoff_reason"] = display_reason(record)
+    repeated = evidence_repeated_in_story(record)
+    if repeated:
+        result["reader_handoff_story_evidence_ids"] = repeated
     result["public_evidence_items"] = deepcopy(evidence)
     result["reader_public_evidence_items"] = deepcopy(evidence)
     result["reader_public_d"] = {
-        key: deepcopy(record[key]) for key in (
-            "public_story", "public_adjudication_summary", "public_window",
-            "public_responsibility", "public_boundary", "public_evidence_items",
-        )
+        "public_story": record["public_story"],
+        "public_adjudication_summary": summary,
+        **{key: display_scope(record[key], axis, key) for key in ("public_window", "public_responsibility", "public_boundary")},
+        "public_evidence_items": deepcopy(evidence),
     }
+    result["reader_handoff_scope_href"] = f"second-item-d.html#handoff-scope-{axis.lower()}"
     for entry in result["reader_public_d"]["public_evidence_items"]:
+        entry['public_boundary'] = display_scope(entry['public_boundary'], axis, 'public_boundary')
         entry['source_refs'] = [display_source(ref) for ref in entry['source_refs']]
     result["reader_highlights"] = _unique_texts(
         [
@@ -998,7 +1040,8 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
         details["handoff"] = [handoff[item["label"]] for item in details["handoff"]]
 
     credit = sources["credit"][tid]
-    ab = sources["AB"][tid]
+    from emperor_v4.evaluation.third_fourth_item_public import ab_public_record
+    ab = ab_public_record(sources["AB"][tid], credit)
     strategic = {item["label"]: item for item in details.get("strategic", [])}
     from emperor_v4.evaluation.third_item_a_public import display_reading as display_a_reading
 
@@ -1012,8 +1055,7 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
             strategic[key]['reader_public_a'] = display_a_reading(reading, battle_routes=sources.get('public_battle_routes'))
             strategic[key]['reader_how'] = reading['calculation']
             strategic[key]['reader_source_refs'] = [ref['path'] for ref in reading['sources']]
-    from emperor_v4.evaluation.third_item_b_sources import display_reading, expand_readings as expand_b_readings
-    b_readings = expand_b_readings(ab)
+    from emperor_v4.evaluation.third_item_b_sources import display_reading
     for key in ("B1", "B2", "B4"):
         if key in strategic:
             rate = credit["B80_adjudication"][f"adjudicated_{key}_rate"]
@@ -1021,7 +1063,7 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
                 strategic[key], record=ab, axis=key,
                 how=f"当前结果先得到 {strategic[key].get('value')}% 的得分率，合成时采用 {rate:g}%。",
             )
-            reading = b_readings[key]
+            reading = ab['axes'][key]['public_reading']
             if reading['raw_rate'] != strategic[key]['value'] or reading['adopted_rate'] != strategic[key]['applied_value']:
                 raise ValueError(f'{tid} {key}原始率或实际采用率与正式来源不一致')
             strategic[key]['reader_public_b'] = display_reading(reading, battle_routes=sources.get('public_battle_routes'))
@@ -1046,7 +1088,7 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
 
     c_record = sources["C"][tid]
     from emperor_v4.evaluation.third_item_c_public import reading_projection as c_reading_projection
-    from emperor_v4.evaluation.third_fourth_item_public import c_public_record, fourth_public_record
+    from emperor_v4.evaluation.third_fourth_item_public import c_public_record, d_public_record, fourth_public_record
     c_reading = c_reading_projection(c_record, context=sources['C_review_context'])
     c_record = c_public_record(c_record, reading=c_reading)
     third = sources["third"][tid]
@@ -1104,6 +1146,8 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
         )
     if "第三项合计" in military:
         d_record = sources.get('THIRD_D', {}).get(tid, {})
+        if d_record:
+            d_record = d_public_record(d_record)
         chains = d_record.get('external_strategic_chains', []) + d_record.get('strategic_internal_chains', [])
         military["第三项合计"]["reader_security_basis"] = "\n".join(
             [d_record.get('public_adjudication_summary', '')] +
@@ -1235,6 +1279,7 @@ def record_summary(record):
     summary = pick(record, [
         "ruler_id", "ruler_name", "polity", "actual_power_window",
         "settlement_readiness", "supplementary", "fourth_c_collection_ref", "reading_entries",
+        "reader_home_intro",
     ])
     summary["net"] = pick(net, [
         "rank", "total_score", "first_item_status", "first_item_raw_score", "first_item_add_on",
@@ -1291,10 +1336,24 @@ def collection_source_link(ref, label):
     return escape(title) if title.startswith('《') else ''
 
 
+def first_collection_shared_rules(records, *fields):
+    """Show a rule once when the current collection shares its exact wording."""
+    shared = {}
+    for field in fields:
+        values = {record[field] for record in records.values()}
+        if len(values) == 1 and (value := next(iter(values))):
+            shared[field] = value
+    paragraphs = ''.join(f"<p class='prose'>{escape(text)}</p>" for text in shared.values())
+    html = f"<details class='first-common-rules'><summary>这个分怎么算？</summary>{paragraphs}</details>" if shared else ''
+    return shared, html
+
+
 def render_first_a_collection(outcomes):
     """Publish every formal A reading entry, including people without a total score."""
     sections = parse_first_a_source(ROOT / FIRST_A_SOURCE)
     cards = []
+    rule_fields = ('public_scale_basis', 'public_calculation_basis')
+    shared, rules = first_collection_shared_rules(outcomes, *rule_fields)
     for name, outcome in outcomes.items():
         result = sections[name].get("结算结果", "")
         match = re.search(r"A为\s*([\d.]+)/120", result)
@@ -1305,7 +1364,8 @@ def render_first_a_collection(outcomes):
         project = f"<p class='first-a-project'>共同项目：{escape(outcome['public_project'])}</p>" if outcome["public_project"] else ""
         method = "".join(f"<p class='prose'>{escape(text)}</p>" for text in (
             f"本人成果规模：约{outcome['public_share_percent']:g}%全国核心统一尺度。",
-            outcome["public_scale_basis"], outcome["public_calculation_basis"], outcome["public_calculation"],
+            *(outcome[field] for field in rule_fields if field not in shared),
+            outcome["public_calculation"],
         ))
         sources = first_organization_sources({
             'reading_sources': outcome['reading_sources'],
@@ -1321,7 +1381,7 @@ def render_first_a_collection(outcomes):
             f"{sources}</details></details></article>"
         )
     template = (ROOT / "reader/first-item-a.template.html").read_text(encoding="utf-8")
-    return template.replace("__A_COUNT__", str(len(cards))).replace("__A_ENTRIES__", "\n".join(cards))
+    return template.replace("__A_COUNT__", str(len(cards))).replace("__A_ENTRIES__", "\n".join(cards)).replace("__SHARED_RULES__", rules)
 
 
 def first_organization_sources(record):
@@ -1337,32 +1397,36 @@ def first_organization_sources(record):
 def render_first_b1_collection(records):
     """Display every declared B1 reading entry; no judgment is made here."""
     cards = []
+    shared, rules = first_collection_shared_rules(records, 'public_method')
     for name, record in records.items():
         facts = ''.join(f"<dt>{label}</dt><dd><p class='prose'>{escape(record[key])}</p></dd>" for label, key in (
             ('当时的家底', 'public_start_basis'), ('实际对手', 'public_opponent_basis'), ('计时范围', 'public_efficiency_basis')))
         components = ''.join(f"<span>{label} <b>{record[key]:g}</b><small> / {cap}</small></span>" for label, key, cap in (
             ('起点难度', 'start_points', 15), ('对手压力', 'opponent_points', 15), ('成果效率', 'efficiency_points', 20)))
         sources = first_organization_sources(record)
+        method = '' if 'public_method' in shared else f"<p class='prose'>{escape(record['public_method'])}</p>"
         cards.append(
             f"<article id='{escape(name)}' class='first-a-reading first-b1-reading'>"
             f"<div class='first-a-eyebrow'><a href='#{escape(name)}'>{escape(name)}</a> · 条件与效率</div>"
             f"<div class='first-a-heading'><h3>{escape(record['public_question'])}</h3><span class='first-a-score'>{record['total_points']:g}<small> / 50</small></span></div>"
             f"<div class='first-a-story'><p class='prose'>{escape(record['public_story'])}</p></div><div class='first-b1-components'>{components}</div>"
             f"<details class='first-b1-facts'><summary>展开家底、实际对手与计时</summary><dl>{facts}</dl>"
-            f"<details class='first-b1-method'><summary>查看分数计算与史料</summary><p class='prose'>{escape(record['public_method'])}</p>"
+            f"<details class='first-b1-method'><summary>查看分数计算与史料</summary>{method}"
             f"<p class='prose'>{escape(record['public_calculation'])}</p>{sources}</details></details></article>"
         )
     template = (ROOT / 'reader/first-item-b1.template.html').read_text(encoding='utf-8')
-    return template.replace('__B1_COUNT__', str(len(cards))).replace('__B1_ENTRIES__', '\n'.join(cards))
+    return template.replace('__B1_COUNT__', str(len(cards))).replace('__B1_ENTRIES__', '\n'.join(cards)).replace('__SHARED_RULES__', rules)
 
 
 def render_first_b2_collection(records):
     """Display the complete upstream B2 pool, including people without a total."""
     cards = []
+    shared, rules = first_collection_shared_rules(records, 'public_method')
     for name, record in records.items():
         components = ''.join(f"<span>{escape(d['label'])} <b>{d['points']}</b><small> / 10</small></span>" for d in record['dimensions'])
         reasons = ''.join(f"<dt>{escape(d['label'])} · {d['points']}/10</dt><dd><p class='prose'>{escape(d['basis'])}</p></dd>" for d in record['dimensions'])
         sources = first_organization_sources(record)
+        method = '' if 'public_method' in shared else f"<p class='prose'>{escape(record['public_method'])}</p>"
         cards.append(
             f"<article id='{escape(name)}' class='first-a-reading first-b2-reading'>"
             f"<div class='first-a-eyebrow'><a href='#{escape(name)}'>{escape(name)}</a> · 组织与协作</div>"
@@ -1370,16 +1434,17 @@ def render_first_b2_collection(records):
             f"<div class='first-a-story'><p class='prose'>{escape(record['public_story'])}</p></div><div class='first-b1-components'>{components}</div>"
             f"<details class='first-b2-facts'><summary>展开当时的职责与本人作用</summary><dl><dt>评价时期</dt><dd><p class='prose'>{escape(record['public_window'])}</p></dd>"
             f"<dt>本人实际授权与调度</dt><dd><p class='prose'>{escape(record['public_control'])}</p></dd></dl>"
-            f"<details class='first-b2-method'><summary>查看三项裁决、限制与史料</summary><p class='prose'>{escape(record['public_method'])}</p>"
+            f"<details class='first-b2-method'><summary>查看三项裁决、限制与史料</summary>{method}"
             f"<dl>{reasons}</dl>{sources}</details></details></article>"
         )
     template = (ROOT / 'reader/first-item-b2.template.html').read_text(encoding='utf-8')
-    return template.replace('__B2_COUNT__', str(len(cards))).replace('__B2_ENTRIES__', '\n'.join(cards))
+    return template.replace('__B2_COUNT__', str(len(cards))).replace('__B2_ENTRIES__', '\n'.join(cards)).replace('__SHARED_RULES__', rules)
 
 
 def render_first_c_collection(records):
     """Render every declared C story and its evidence without inventing prose."""
     cards = []
+    shared, rules = first_collection_shared_rules(records, 'public_method')
     for name, record in records.items():
         evidence_sources = {row['public_source'] for row in record['public_evidence']}
         sources = ' '.join(collection_source_link(ref, '查看规则与补充依据 ↗')
@@ -1419,6 +1484,7 @@ def render_first_c_collection(records):
             materials = ''.join(citations) or '<p class="meta">此条尚未单列可直接打开的原典卷篇。</p>'
             evidence_rows.append(f"<article class='first-c-evidence-entry'><h4>{escape(row['label'])}</h4><span class='first-c-direction'>{escape(row['disposition'])}</span><p class='prose'>{escape(row['window_basis'])}</p><p class='prose'>{escape(row['reason'])}</p><dl>{facts}</dl>{materials}{archive}</article>")
         evidence = "<details class='first-c-registry'><summary>逐条事实、采用范围与史源</summary>" + ''.join(evidence_rows) + '</details>'
+        method = '' if 'public_method' in shared else f"<p class='prose'>{escape(record['public_method'])}</p>"
         cards.append(
             f"<article id='{escape(name)}' class='first-a-reading first-c-reading'>"
             f"<div class='first-a-eyebrow'><a href='#{escape(name)}'>{escape(name)}</a> · 本人统帅</div>"
@@ -1428,14 +1494,14 @@ def render_first_c_collection(records):
             f"<dt>本人责任与独立任务</dt><dd><p class='prose'>{escape(record['public_cases'])}</p></dd></dl>"
             f"<details class='first-c-method'><summary>查看评价、胜败依据、规则与史料</summary>{judgment}"
             f"<h4>具体范围与责任边界</h4><p class='prose'>{escape(record['public_boundary'])}</p>{positive}{negative}{evidence}"
-            f"<p class='prose'>{escape(record['public_method'])}</p><p class='sources'>{sources}</p></details></details></article>"
+            f"{method}<p class='sources'>{sources}</p></details></details></article>"
         )
     template = (ROOT / 'reader/first-item-c.template.html').read_text(encoding='utf-8')
-    return template.replace('__C_COUNT__', str(len(cards))).replace('__C_ENTRIES__', '\n'.join(cards))
+    return template.replace('__C_COUNT__', str(len(cards))).replace('__C_ENTRIES__', '\n'.join(cards)).replace('__SHARED_RULES__', rules)
 
 
 def render_second_b2_collection(root, main, method):
-    from emperor_v4.evaluation.second_item_b2_public import B2_PATH, display_sources, verify_public_projection
+    from emperor_v4.evaluation.second_item_b2_public import B2_PATH, SCOPE_GUIDE, display_boundary, display_sources, verify_public_projection
     payload = load_json(root / B2_PATH)
     verify_public_projection(root, payload)
     people = {}
@@ -1467,6 +1533,8 @@ def render_second_b2_collection(root, main, method):
         window = period_label(row['reign_range'])
         items = []
         for item in row['public_evidence_items']:
+            boundary = display_boundary(item['public_boundary'])
+            boundary_html = f'<details><summary>范围与边界</summary><p>{escape(boundary)}</p></details>' if boundary else ''
             sources = []
             for ref in display_sources(item['source_refs']):
                 source_links = ' '.join(collection_source_link(url, '查看所引史源 ↗') for url in ref['source_urls'])
@@ -1476,7 +1544,7 @@ def render_second_b2_collection(root, main, method):
                                (f"<blockquote>{escape(ref['exact_quote'])}</blockquote>" if ref['exact_quote'] else ''))
             items.append(f"<li data-public-evidence-id='{escape(item['id'])}'><strong>{escape(item['public_label'])}</strong>"
                          f"<p class='meta'>{escape(item['public_direction'])} · {escape('、'.join(item['public_tags']))}</p>"
-                         f"<p>{escape(item['public_basis'])}</p><details><summary>范围与边界</summary><p>{escape(item['public_boundary'])}</p></details>"
+                         f"<p>{escape(item['public_basis'])}</p>{boundary_html}"
                          f"<details><summary>本条史料与归责依据</summary>{''.join(sources)}</details></li>")
         cards.append(f"<article id='{escape(row['ruler_id'])}'><h2>{escape(row['ruler_name'])}</h2>"
                      f"<p class='meta'>{escape(row['polity'])} · {escape(str(window))}</p>"
@@ -1491,7 +1559,7 @@ def render_second_b2_collection(root, main, method):
                      f"计入治理手段 <span class='b2-converted'>{calculation['B2_45']:.1f}</span> / 45 分。</p></details>"
                      f"{destination}</article>")
     template = (root / 'reader/second-item-b2.template.html').read_text(encoding='utf-8')
-    return template.replace('__COUNT__', str(len(cards))).replace('__ENTRIES__', '\n'.join(cards))
+    return template.replace('__COUNT__', str(len(cards))).replace('__SCOPE__', escape(SCOPE_GUIDE)).replace('__ENTRIES__', '\n'.join(cards))
 
 
 def render_second_c_collection(root):
@@ -1500,8 +1568,13 @@ def render_second_c_collection(root):
     from emperor_v4.evaluation.second_item_c_public import FORMAL_PATHS, verify_public_projection
     verify_public_projection(root)
     payloads = {axis: load_json(root / path) for axis, path in FORMAL_PATHS.items()}
-    from emperor_v4.evaluation.second_item_c_reading import calculation_record
-    from emperor_v4.evaluation.second_item_c_source_notes import source_note_records
+    from emperor_v4.evaluation.reading_layout import evidence_repeated_in_story
+    from emperor_v4.evaluation.second_item_c_reading import (
+        axis_scope_guide, calculation_record, display_calculation, display_evidence_basis, display_state_finding, specific_public_boundary,
+    )
+    from emperor_v4.evaluation.second_item_c_source_notes import (
+        SOURCE_GUIDE, source_note_records, specific_source_note, uses_shared_collection_scope,
+    )
     indexed = {axis: {row['ruler_id']: calculation_record(axis, row) for row in source_note_records(payload)} for axis, payload in payloads.items()}
     cards = []
     names = {'C1': '民生', 'C2': '经济财政', 'C3': '社会安全', 'C4': '恢复与额外代价'}
@@ -1533,15 +1606,20 @@ def render_second_c_collection(root):
         for axis in FORMAL_PATHS:
             row = indexed[axis][person['ruler_id']]
             facts = []
+            repeated = set(evidence_repeated_in_story(row))
             for item in row['public_evidence_items']:
                 sources = render_sources(item['source_refs'])
                 mode = {'DIRECT':'史料直接记载', 'INFERRED':'受约束推断', 'ASSESSMENT':'正式评价判断', 'BACKGROUND':'背景互证', 'EXCLUDED':'不采用的范围核对'}[item['evidence_mode']]
-                relation = (f"<details><summary>本条史料与评价依据</summary>{sources}</details>" if item['source_binding_kind'] == 'CLAIM_SUPPORT'
-                            else '<p class="meta">未单列出处</p>')
+                basis = display_evidence_basis(axis, row, item)
+                basis = paragraphs(basis) if basis and item['id'] not in repeated else ''
+                direct = item['source_binding_kind'] == 'CLAIM_SUPPORT'
+                relation = '逐条史源' if direct else '材料汇集'
+                scope = '' if uses_shared_collection_scope(item) else paragraphs('采用范围：' + item['public_scope'])
+                source_list = f"<details><summary>本条史料与评价依据</summary>{sources}</details>" if direct else ''
                 facts.append(f"<li data-public-evidence-id='{escape(item['id'])}'><h4>{escape(item['public_label'])}</h4>"
-                             f"<p class='meta'>{mode}</p>{paragraphs(item['public_basis'])}{paragraphs('采用范围：' + item['public_scope'])}"
+                             f"<p class='meta'>{mode} · {relation}</p>{basis}{scope}"
                              f"{paragraphs(item['public_boundary']) if item['public_boundary'] else ''}"
-                             f"{relation}</li>")
+                             f"{source_list}</li>")
             refs = row['public_related_source_refs']
             related = ''
             if refs:
@@ -1558,18 +1636,36 @@ def render_second_c_collection(root):
                              f"<h4>{escape(s['title'])}</h4>{paragraphs(s['body'])}</section>"
                              for s in row['public_reading_sections'])
                      if axis == 'C4' else paragraphs(row['public_story']))
+            source_note = specific_source_note(row['public_source_note'])
+            summary, loss_label = display_state_finding(axis, row)
+            boundary = specific_public_boundary(axis, row['public_boundary'])
+            limits = f"<details><summary>评价范围与限制</summary>{paragraphs(boundary)}</details>" if boundary else ''
             sections.append(
                 f"<section class='c-axis' data-axis='{axis}'><h3>{names[axis]} · {row['score']:g}分</h3>"
                 f"<div class='c-public-story'>{story}</div>"
-                f"<details><summary>为什么这样评</summary>{paragraphs(row['public_adjudication_summary'])}{paragraphs(row['public_loss_label'])}</details>"
-                f"<details><summary>裁决叙述与来源</summary>{paragraphs(row['public_source_note'])}<ul>{''.join(facts)}</ul>{related}</details>"
-                f"<details><summary>评价范围与限制</summary>{paragraphs(row['public_boundary'])}</details>"
-                f"<details><summary>这个分怎么算？</summary>{paragraphs(row['public_calculation'])}</details></section>"
+                f"<details><summary>为什么这样评</summary>{paragraphs(summary)}{paragraphs(loss_label)}</details>"
+                f"<details><summary>裁决叙述与来源</summary>{paragraphs(source_note) if source_note else ''}<ul>{''.join(facts)}</ul>{related}</details>"
+                f"{limits}"
+                f"<details><summary>这个分怎么算？</summary>{paragraphs(display_calculation(row['public_calculation']))}</details></section>"
             )
         cards.append(f"<article id='{escape(person['ruler_id'])}'><h2>{escape(person['ruler_name'])}</h2>"
                      f"<p class='meta'>{escape(person['polity'])}</p>{''.join(sections)}</article>")
     template = (root / 'reader/second-item-c.template.html').read_text(encoding='utf-8')
-    return template.replace('__COUNT__', str(len(cards))).replace('__ENTRIES__', '\n'.join(cards))
+    axes = ''.join(f"<dt>{escape(item['label'])}</dt><dd>{escape(item['text'])}</dd>" for item in axis_scope_guide())
+    return (template.replace('__COUNT__', str(len(cards))).replace('__SOURCE_GUIDE__', escape(SOURCE_GUIDE))
+            .replace('__AXIS_GUIDE__', axes)
+            .replace('__ENTRIES__', '\n'.join(cards)))
+
+
+def _render_fourth_collection_page(root, axis_code, records):
+    from emperor_v4.evaluation.fourth_item_results import AXIS_SCOPE, METHOD, SCALE, ZERO_SCOPE
+
+    levels = ''.join(f'<li>{i}级 · {escape(text)}</li>' for i, text in enumerate(SCALE, 1))
+    rules = (f'<details id="fourth-common-rules" class="fourth-common-rules"><summary>评价范围与计分规则</summary>'
+             f'<p>{escape(AXIS_SCOPE[axis_code])}</p><p>{escape(METHOD)}</p><ul>{levels}</ul><p>{escape(ZERO_SCOPE)}</p></details>')
+    template = (root / f'reader/fourth-item-{axis_code.lower()}.template.html').read_text(encoding='utf-8')
+    return (template.replace('__COUNT__', str(len(records))).replace('__SHARED_RULES__', rules)
+            .replace('__PAYLOAD__', serialized_json(records, html_safe=True)))
 
 
 def _render_fourth_ab_collection(root, axis_code, axis_reading, verify_readings):
@@ -1587,8 +1683,7 @@ def _render_fourth_ab_collection(root, axis_code, axis_reading, verify_readings)
                 '保留的池外单项记录，不纳入综合评价池' if scope['pool_status'] == 'EXCLUDED' else '其他分项待补，暂不进入综合总榜')
         records.append(dict(ruler_id=row['ruler_id'], ruler_name=row['ruler_name'], polity=row['polity'], pool_note=note,
                             item={f'reader_public_fourth_{axis_code.lower()}': axis_reading(row, axis, packages)}))
-    template = (root / f'reader/fourth-item-{axis_code.lower()}.template.html').read_text(encoding='utf-8')
-    return template.replace('__COUNT__', str(len(records))).replace('__PAYLOAD__', serialized_json(records, html_safe=True))
+    return _render_fourth_collection_page(root, axis_code, records)
 
 
 def render_fourth_a_collection(root):
@@ -1631,8 +1726,7 @@ def render_fourth_c_collection(root):
                             person_href=f'index.html#person/{person_id}' if available else '',
                             detail_href=f'index.html#net/{person_id}/fourth/c' if ready else '',
                             item=dict(reader_c_collection_id=row['ruler_id'], reader_public_fourth_c=axis_reading(row, axis, packages))))
-    template = (root / 'reader/fourth-item-c.template.html').read_text(encoding='utf-8')
-    return template.replace('__COUNT__', str(len(records))).replace('__PAYLOAD__', serialized_json(records, html_safe=True))
+    return _render_fourth_collection_page(root, 'C', records)
 
 
 def collection_search_text(markup):
@@ -1655,21 +1749,21 @@ def third_c_grade_meaning(axis):
 
 
 def render_third_c_grade_guide():
-    from emperor_v4.evaluation.third_item_c_public import SCALES, METHOD
+    from emperor_v4.evaluation.third_item_c_public import ASSESSMENT_SCOPE, SCALES, METHOD
     from emperor_v4.evaluation.third_item_c_joint import BANDS
     meanings=''.join('<li>'+escape(t)+'</li>' for t in SCALES[0])
     bands=''.join(f'<tr><th>{g}档</th><td>{lo}%—{hi}%</td></tr>' for g,(lo,hi) in enumerate(BANDS))
-    return ('<section class="third-c-grade-guide"><h2>档位与分数怎么读</h2><p>'+escape(METHOD)+'</p>'
-            '<p>以实际作战为主，保障、组织和恢复事实共同决定整体判断。缺证暂不计分；继承保有能力最高三档。</p>'
+    return ('<section id="third-c-grade-guide" class="third-c-grade-guide"><h2>档位与分数怎么读</h2><p>'+escape(METHOD)+'</p>'
+            '<p>'+escape(ASSESSMENT_SCOPE)+'</p><p>缺证时暂不计分。仅证实继承保有能力时，最高取三档。</p>'
             '<details><summary>0—5档含义</summary><ol start="0">'+meanings+'</ol></details>'
             '<details><summary>得分率区间</summary><table>'+bands+'</table></details></section>')
 
 
 def build_third_c_collection(root):
     from emperor_v4.evaluation.third_item_c_commander_reading import commander_html
-    from emperor_v4.evaluation.third_item_c_contract_reading import html_review, load_context
+    from emperor_v4.evaluation.third_item_c_contract_reading import TASK_SCOPE_GUIDE, html_review, load_context
     from emperor_v4.evaluation.third_fourth_item_public import THIRD_C_PATH
-    from emperor_v4.evaluation.third_item_c_public import COMBAT_GUIDE, reading_projection, verify_sources
+    from emperor_v4.evaluation.third_item_c_public import reading_projection, verify_sources
     payload = load_json(root / THIRD_C_PATH)
     c_review_context = load_context(root)
     verify_sources(root, payload, context=c_review_context)
@@ -1690,10 +1784,11 @@ def build_third_c_collection(root):
                 excerpts.append(f'<p class="meta">上文依据（{kind}）</p>')
             elif passage['reading_quote']:
                 excerpts.append(f'<p class="meta">来源摘录（{kind}）</p><blockquote>{escape(passage["reading_quote"])}</blockquote>')
+        scope = e.get('display_scope', e['scope'])
         return (f"<li class='third-c-material' id='{escape(material_id(e['id']))}' tabindex='-1' data-c-evidence='{escape(e['id'])}'><details><summary>{escape(e['label'])}</summary>"
                 + paragraphs(e['kind']) + paragraphs(e['text'])
                 + (paragraphs('为什么影响判断：' + e['reason']) if e.get('reason') else '')
-                + '<details><summary>本条的范围与所引材料</summary>' + paragraphs(e['scope'])
+                + '<details><summary>本条的范围与所引材料</summary>' + (paragraphs(scope) if scope else '')
                 + paragraphs('所引材料：' + '；'.join(e['reading_source_labels']))
                 + ''.join(excerpts)
                 + '</details></details></li>')
@@ -1713,24 +1808,23 @@ def build_third_c_collection(root):
         def argument(e):
             return (f"<li><a href='#{quote(material_id(e['id']), safe='')}' data-c-material-ref='{escape(material_id(e['id']))}'>{escape(e['label'])} ↗</a>"
                     + (paragraphs(e['reason']) if e.get('reason') else '') + '</li>')
-        axes = (paragraphs(c['grade_path']) + paragraphs(data['position_explanation'])
-                + '<details><summary>各档含义与判断方法</summary><ol start="0">'
-                + ''.join(f'<li>{escape(t)}</li>' for t in data['axes']['C1']['scale']) + '</ol>'
-                + paragraphs(data['axes']['C1']['assessment_guide'])
-                + paragraphs(data['assessment_scope_note']) + '</details>')
+        axes = paragraphs(c['grade_path']) + paragraphs(data['position_explanation'])
         evidence = ''.join(c_material(e) for e in data['evidence_items'])
+        scope = ''.join(paragraphs(text) for name in ('responsibility', 'boundary')
+                        if (text := data.get('display_' + name, data[name])))
+        source_note = data.get('display_source_note', data['source_note'])
         overview = ''.join(f"<div><span>{escape(a['label'])}</span><strong>{escape(a['grade_label'])}</strong><span class='third-c-grade-meaning'>{escape(third_c_grade_meaning(a))}</span><small class='third-c-review-status' data-review-status='{escape(a['review_status'])}'>分界论证：{escape(a['review_label'])}</small></div>" for a in data['axes'].values())
         detail = (f"<div class='third-c-person-body'><p class='meta'>评价时期：{escape(data['window'])}</p>"
                      + f"<div class='component'><strong>军事体系表现</strong><b>{escape(c['total_label'])}</b></div>"
                      + paragraphs(data['story'])
                      + '<details class="third-c-reasons"><summary>档位与档内位置</summary>' + axes + '</details>'
-                     + '<details><summary>本人责任与评价范围</summary>' + paragraphs(data['responsibility']) + paragraphs(data['boundary']) + '</details>'
+                     + ('<details><summary>本人责任与评价范围</summary>' + scope + '</details>' if scope else '')
                      + commander_html(data['commander_profiles'])
-                     + '<details class="third-c-evidence-list"><summary>战事摘要与来源</summary>' + paragraphs(data['source_note']) + '<ul>' + evidence + '</ul></details>'
+                     + '<details class="third-c-evidence-list"><summary>战事摘要与来源</summary>' + (paragraphs(source_note) if source_note else '') + '<ul>' + evidence + '</ul></details>'
                      + '<details class="third-c-audit"><summary>任务范围、对手与关键阶段</summary>' + html_review(data['contract_review'], collection_source_link, evidence_link=material_link) + '</details>'
                      + '<details class="third-c-calculation"><summary>分数怎样计算</summary>'
-                     + ''.join(paragraphs(c[k]) for k in ('formula',))
-                     + '<details><summary>共同计算规则</summary>' + paragraphs(c['method']) + '</details></details>'
+                     + paragraphs(c['formula'])
+                     + '<p class="sources"><a href="#third-c-grade-guide">查看共同档义与计分规则 ↗</a></p></details>'
                      + '</div>')
         detail_ref(row['ruler_id'])
         name = row['ruler_id'] + '.html'
@@ -1743,10 +1837,11 @@ def build_third_c_collection(root):
                      + "<div class='third-c-detail-slot' aria-live='polite'><p>展开后加载完整正文与材料。</p></div></details></article>")
         search_rows[row['ruler_id']] = overview_text + '\n' + collection_search_text(detail)
     template = (root / 'reader/third-item-c.template.html').read_text(encoding='utf-8')
+    template = template.replace('__TASK_SCOPE__', escape(TASK_SCOPE_GUIDE))
     assets['search.json'] = json_text(search_rows)
     search_url = 'data/third-item-c/search.json?v=' + hashlib.sha256(assets['search.json'].encode('utf-8')).hexdigest()[:16]
     script = (root / 'reader/third-item-c-collection.js').read_text(encoding='utf-8')
-    page = template.replace('__COUNT__', str(len(cards))).replace('__ENTRIES__', '\n'.join(cards)).replace('__COMBAT_GUIDE__', paragraphs(COMBAT_GUIDE)).replace('__GRADE_GUIDE__', render_third_c_grade_guide())
+    page = template.replace('__COUNT__', str(len(cards))).replace('__ENTRIES__', '\n'.join(cards)).replace('__GRADE_GUIDE__', render_third_c_grade_guide())
     return page.replace('__SEARCH_URL__', escape(search_url)).replace('__COLLECTION_SCRIPT__', script), assets
 
 
@@ -1774,7 +1869,11 @@ def write_third_c_assets(directory, expected):
 
 
 def render_second_d_collection(root):
-    from emperor_v4.evaluation.second_item_d1_d3_public import D1_PATH, D3_PATH, MODES, display_reason, display_source, verify_public_projection, public_record
+    from emperor_v4.evaluation.reading_layout import evidence_repeated_in_story
+    from emperor_v4.evaluation.second_item_d1_d3_public import (
+        D1_PATH, D3_PATH, MODES, SCOPE_GUIDE, display_reason, display_scope, display_source,
+        public_record, verify_public_projection,
+    )
     verify_public_projection(root)
     payloads = {axis: load_json(root / path) for axis, path in (("D1", D1_PATH), ("D3", D3_PATH))}
     indexed = {axis: {row['ruler_id']: row for row in payload['records']} for axis, payload in payloads.items()}
@@ -1802,18 +1901,27 @@ def render_second_d_collection(root):
         for axis, title in (('D1', '行政连续性'), ('D3', '交接稳定')):
             row = public_record(indexed[axis][person['ruler_id']])
             level = row['handoff_level'] if axis == 'D1' else row['D3_grade']
-            facts = ''.join(f'<li data-public-evidence-id="{escape(item["id"])}"><h4>{escape(item["public_label"])}</h4>'
-                            f'<p class="meta">{MODES[item["evidence_mode"]]}</p>{paragraphs(item["public_basis"])}'
-                            f'{paragraphs(item["public_boundary"])}<details><summary>本条史料与评价依据</summary>'
-                            f'{sources(item["source_refs"], item["public_basis"])}</details></li>' for item in row['public_evidence_items'])
+            repeated = set(evidence_repeated_in_story(row))
+            facts = []
+            for item in row['public_evidence_items']:
+                basis = '' if item['id'] in repeated else item['public_basis']
+                boundary = display_scope(item['public_boundary'], axis, 'public_boundary')
+                facts.append(f'<li data-public-evidence-id="{escape(item["id"])}"><h4>{escape(item["public_label"])}</h4>'
+                             f'<p class="meta">{MODES[item["evidence_mode"]]}</p>{paragraphs(basis) if basis else ""}'
+                             f'{paragraphs(boundary) if boundary else ""}<details><summary>本条史料与评价依据</summary>'
+                             f'{sources(item["source_refs"], basis)}</details></li>')
+            scope = ''.join(paragraphs(detail) for field in ('public_window', 'public_responsibility', 'public_boundary')
+                            if (detail := display_scope(row[field], axis, field)))
             sections.append(f'<section class="d-axis" data-axis="{axis}" data-formal-public-source><h3>{title} · {handoff_public_grade(level[-1])}档</h3>'
                             f'{paragraphs(row["public_story"])}<details><summary>为什么这样评</summary>{paragraphs(display_reason(row))}</details>'
-                            f'<details><summary>观察范围与本人责任</summary>{paragraphs(row["public_window"])}{paragraphs(row["public_responsibility"])}{paragraphs(row["public_boundary"])}</details>'
-                            f'<details><summary>逐条事实与史料</summary><ul>{facts}</ul></details></section>')
+                            f'{scope}<p class="meta"><a href="#handoff-scope-{axis.lower()}">查看共同评价范围</a></p>'
+                            f'<details><summary>逐条事实与史料</summary><ul>{"".join(facts)}</ul></details></section>')
         total = totals[person['ruler_id']]
         cards.append(f'<article id="{escape(person["ruler_id"])}"><h2>{escape(person["ruler_name"])}</h2>'
                      f'<p class="meta">{escape(person["polity"])} · 政权交接 {total["score"]:g} / 20</p>{"".join(sections)}</article>')
     template = (root / 'reader/second-item-d.template.html').read_text(encoding='utf-8')
+    for axis, guide in SCOPE_GUIDE.items():
+        template = template.replace(f'__{axis}_SCOPE__', ''.join(map(paragraphs, guide)))
     return template.replace('__COUNT__', str(len(cards))).replace('__ENTRIES__', '\n'.join(cards))
 
 
@@ -2000,13 +2108,15 @@ def build(*, check=False, write=True):
 
     source_identity = reader_source_identity(write=write and not check)
     person_notes = json.loads(PERSON_NOTES_SOURCE.read_text(encoding='utf-8'))
-    note_issues = person_note_reference_issues(records, person_notes)
+    note_issues = person_note_reference_issues(records, person_notes, require_home_intro=True)
     if note_issues:
         affected = sorted({rid for rid, _, _ in note_issues})
         sample = '; '.join(f'{rid}/{section}/{path}' for rid, section, path in note_issues[:6])
         raise ValueError(f"Reader overview references need review: {len(note_issues)} issues / {len(affected)} people: {sample}")
     for record in records:
         entry = person_notes['records'][record['ruler_id']]
+        record['reader_overviews'] = entry['overview']
+        record['reader_home_intro'] = entry['home_intro']['text']
         narrative = entry.get('reading')
         if narrative:
             record['reader_narratives'] = narrative
@@ -2021,7 +2131,36 @@ def build(*, check=False, write=True):
             record['net'][field] = conclusion['text']
         record['net']['public_scores'] = public_scores(record['net'])
     person_notes_snapshot(check=check, write=write)
+    from emperor_v4.evaluation.profile_c2_reading import SCOPE_GUIDE as C2_SCOPE_GUIDE
+    from emperor_v4.evaluation.profile_c4 import SCOPE_GUIDE as C4_SCOPE_GUIDE
+    from emperor_v4.evaluation.profile_c5_reading import POSITION_GUIDE as C5_POSITION_GUIDE
+    from emperor_v4.evaluation.profile_m1_public import M1_REVIEW_GUIDE
+    from emperor_v4.evaluation.profile_markdown import C1_SCOPE_GUIDE
+    from emperor_v4.evaluation.profile_m2_reading import SCOPE_GUIDE as M2_SCOPE_GUIDE
+    from emperor_v4.evaluation.profile_m4_reading import SCOPE_GUIDE as M4_SCOPE_GUIDE
+    from emperor_v4.evaluation.profile_m5 import SCOPE_GUIDE as M5_SCOPE_GUIDE
+    from emperor_v4.evaluation.rank_reading import metadata as rank_reading_metadata
+    from emperor_v4.evaluation.second_item_a_public import SCOPE_GUIDE as INSTITUTION_SCOPE_GUIDE
+    from emperor_v4.evaluation.second_item_b1_settlement import B1_SCOPE_GUIDE, B1_SHARED_MATERIAL_BOUNDARIES
+    from emperor_v4.evaluation.second_item_c_reading import axis_scope_guide
+    from emperor_v4.evaluation.second_item_c_source_notes import SOURCE_GUIDE
+    from emperor_v4.evaluation.third_item_a_public import scope_guide as third_a_scope_guide
+
     common = dict(main_count=len(main), ranked_count=len(net), public_score_scale=public_score_metadata(),
+                  rank_reading=rank_reading_metadata(),
+                  institution_scope_guide=INSTITUTION_SCOPE_GUIDE,
+                  b1_scope_guide={"text": B1_SCOPE_GUIDE, "shared_material_boundaries": B1_SHARED_MATERIAL_BOUNDARIES},
+                  finance_source_guide=SOURCE_GUIDE,
+                  third_a_scope_guide=third_a_scope_guide(),
+                  finance_axis_scope=axis_scope_guide(),
+                  m5_scope_guide=M5_SCOPE_GUIDE,
+                  c2_scope_guide=C2_SCOPE_GUIDE,
+                  c4_scope_guide=C4_SCOPE_GUIDE,
+                  c5_position_guide=C5_POSITION_GUIDE,
+                  m1_review_guide=M1_REVIEW_GUIDE,
+                  c1_scope_guide=C1_SCOPE_GUIDE,
+                  m2_scope_guide=M2_SCOPE_GUIDE,
+                  m4_scope_guide=M4_SCOPE_GUIDE,
                   source_repository=source_identity["repository"],
                   source_revision=source_identity["revision"],
                   weight_sensitivity=ranking.get("weight_sensitivity", {}),
@@ -2069,7 +2208,8 @@ def build(*, check=False, write=True):
     payload = serialized_json(index_data, html_safe=True)
     template = (ROOT / "reader/index.template.html").read_text(encoding="utf-8")
     template = template.replace('/*__PERSON_NARRATIVES__*/', (ROOT / 'reader/person-narratives.js').read_text(encoding='utf-8'))
-    template = apply_public_copy(template)
+    source_links_version = hashlib.sha256((ROOT / 'reader/source-links.js').read_bytes()).hexdigest()
+    template = template.replace('src="source-links.js"', f'src="source-links.js?v={source_links_version}"')
     link_effects = (ROOT / "reader/link-effects.css").read_text(encoding="utf-8").strip()
     readability_css = (ROOT / "reader/readability.css").read_text(encoding="utf-8").strip()
     runtime_scripts = runtime_script_blocks()

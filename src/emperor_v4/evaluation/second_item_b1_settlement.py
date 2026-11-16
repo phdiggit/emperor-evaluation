@@ -4,12 +4,13 @@ import hashlib
 import json
 import re
 from collections import Counter
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
 from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.governance_quality import ASSESSMENT_METHOD, direction_index, is_direct, validate_quality_assessment
-from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
+from emperor_v4.evaluation.formal_json_store import B1_PROFILE_ADJUDICATION_STYLE, load_json, load_ruler_polities, write_json
 
 
 B1_PATH = Path("docs/评分结算/净收益/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json")
@@ -93,6 +94,19 @@ B1_PUBLIC_BOUNDARY = (
     "制度设置本身、异议反馈与纠错，以及民生、法律、军事结果和后世接收只作背景或邻项依据；"
     "同一行政运行链的正负事实合并，不重复计入。"
 )
+B1_SCOPE_GUIDE = (
+    "看本人怎样选任、分工、协调和替补，以及官僚组织能否把命令和资源转成实际交付。"
+    "同一运行过程的得失合并判断。跨分项材料用于核验，制度设置、纠错、民生、法律、军事和后世接收各按对应项目评价。"
+)
+B1_SHARED_MATERIAL_BOUNDARIES = (
+    B1_PUBLIC_BOUNDARY,
+    "同一机制同一运行过程只计入一次",
+    "跨分项重复只作核验，不重复计分",
+    "只评价官僚组织的运行，不替代其他项目的结果评价",
+    "正负作用合并理解，避免重复计算",
+    "不同项目区分各自采用的行为，同一行政过程不重复计权",
+)
+_INDEX_CALCULATION_SUFFIX = "该指数再进入制度与行政合成，不单列得分。"
 PUBLIC_FORBIDDEN_RE = re.compile(
     r"(?:本轮|重审|恢复原|旧裁决|\bv20\b|\bv50\b|按合同|门禁|主档|消费|闭合|净余量|"
     r"(?<![A-Za-z])position(?![A-Za-z])|(?<![A-Za-z])fallback(?![A-Za-z])|"
@@ -202,7 +216,7 @@ def _public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
             "public_boundary": _public_profile_boundary(profile),
         })
         if excerpts := _profile_source_excerpts(profile):
-            items[-1]["source_excerpts"] = excerpts
+            items[-1]["source_excerpts"] = deepcopy(excerpts)
     return items
 
 
@@ -264,8 +278,12 @@ def _public_position_basis(row: dict[str, Any]) -> str:
     return (
         f"{basis.rstrip('。')}。本人为{position_cn[row['position']]}，取区间位置{POSITION_Q[row['position']]:g}；"
         f"{public_grade}档区间{low:g}—{high:g}，指数={low:g}+{POSITION_Q[row['position']]:g}×({high:g}−{low:g})"
-        f"={float(row['direction_index']):.1f}/100（保留一位小数）。该指数再进入制度与行政合成，不单列得分。"
+        f"={float(row['direction_index']):.1f}/100（保留一位小数）。{_INDEX_CALCULATION_SUFFIX}"
     )
+
+
+def display_index_calculation(text: str) -> str:
+    return text.removesuffix(_INDEX_CALCULATION_SUFFIX)
 
 
 def _structured_basis(row: dict[str, Any]) -> list[dict[str, str]]:
@@ -279,6 +297,23 @@ def _structured_basis(row: dict[str, Any]) -> list[dict[str, str]]:
             "text": _public_position_basis(row),
         },
     ]
+
+
+def markdown_basis_lines(row: dict[str, Any]) -> list[str]:
+    return [
+        f"  - **{point['role']}**：{display_index_calculation(point['text']).rstrip('。')}。"
+        for point in _structured_basis(row)
+    ]
+
+
+def b1_reading_fields(row: dict[str, Any]) -> dict[str, Any]:
+    basis = _structured_basis(row)
+    return {
+        "public_index_calculation": basis[1]["text"],
+        "public_boundary": B1_PUBLIC_BOUNDARY,
+        "public_evidence_items": _public_evidence_items(row),
+        "structured_grade_basis": basis,
+    }
 
 
 def _scoring_signature(payload: dict[str, Any]) -> str:
@@ -362,12 +397,9 @@ def refresh_b1_public_projection(payload: dict[str, Any]) -> dict[str, Any]:
         _authored_public_text(row, "public_story")
         _authored_public_text(row, "public_responsibility")
         row["public_adjudication_summary"] = _public_summary(row)
-        row["public_index_calculation"] = _public_position_basis(row)
-        row["public_boundary"] = B1_PUBLIC_BOUNDARY
-        row["public_evidence_items"] = _public_evidence_items(row)
-        row["structured_grade_basis"] = _structured_basis(row)
+        row.update(b1_reading_fields(row))
 
-    payload["profile_adjudication_style"] = "B1-PROFILE-ADJUDICATION-V2"
+    payload["profile_adjudication_style"] = B1_PROFILE_ADJUDICATION_STYLE
     payload["profile_adjudication_record_count"] = len(payload.get("records") or [])
     payload["profile_adjudication_profile_count"] = expected_profile_count
     payload["profile_adjudication_status_counts"] = dict(sorted(status_counts.items()))
@@ -449,7 +481,7 @@ def validate_profile_contract(payload: dict[str, Any]) -> None:
 
 
 def validate_public_profile_contract(payload: dict[str, Any]) -> None:
-    if payload.get("profile_adjudication_style") != "B1-PROFILE-ADJUDICATION-V2":
+    if payload.get("profile_adjudication_style") != B1_PROFILE_ADJUDICATION_STYLE:
         raise ValueError("B1缺少正式逐材料公开裁决合同标记")
     expected_profile_count = 0
     status_counts: Counter[str] = Counter()
@@ -594,9 +626,9 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
             f"平均{sum(scores) / len(scores):.1f}，中位数{scores[len(scores) // 2]:.1f}，"
             f"范围{scores[0]:.1f}—{scores[-1]:.1f}。"
         ),
-        "", "> B1使用100刻度内部指数，不是第二项独立分值；正式结果按当前总则合成。", "",
+        "", "> 100刻度的方向指数用于制度建设与行政执行的合成。", "",
         "## 二、评价边界", "",
-        "评价官僚组织能否把政策与国家任务转化为可观察行政交付；官名、少数名臣、静态建制、宏观盛衰及邻项结果不得替代B1机制链。", "",
+        B1_SCOPE_GUIDE, "",
         "## 三、档位分布", "", "| 档位 | 人数 |", "|---|---:|",
     ]
     lines.extend(f"| {grade} | {payload['grade_distribution'].get(grade, 0)} |" for grade in INTERVALS)
@@ -622,10 +654,7 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
             f"- 本人责任：{row['public_responsibility']}",
             "- 结算依据：",
         ])
-        lines.extend(
-            f"  - **{point['role']}**：{str(point['text']).rstrip('。')}。"
-            for point in _structured_basis(row)
-        )
+        lines.extend(markdown_basis_lines(row))
         lines.append("- 逐材料裁决：")
         target_labels = {
             str(profile.get("profile_id")): str(profile.get("public_label") or "行政运行机制")
@@ -638,7 +667,7 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
             )
             lines.append(f"    - 裁决：{str(profile['adjudication_basis']).rstrip('。')}。")
             boundary = _public_profile_boundary(profile) if profile.get("adjudication_boundary") else ''
-            if boundary:
+            if boundary and boundary not in B1_SHARED_MATERIAL_BOUNDARIES:
                 lines.append(f"    - 边界：{boundary.rstrip('。')}。")
             target_id = str(profile.get("absorbed_into_profile_id") or "")
             if target_id:

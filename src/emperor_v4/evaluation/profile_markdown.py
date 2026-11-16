@@ -9,6 +9,14 @@ from typing import Any, Iterable
 
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.military_public_text import registered_military_display as _m1_public_registered_display
+from emperor_v4.evaluation.profile_c2_reading import SCOPE_GUIDE as C2_SCOPE_GUIDE
+from emperor_v4.evaluation.profile_c3_reading import counter_repeated_in_grade
+from emperor_v4.evaluation.profile_c5_reading import (
+    COMMON_CONFLICT_FINDING, CONFLICT_REVIEW_GUIDE, EXPANSION_LABELS,
+    POSITION_GUIDE as C5_POSITION_GUIDE, uses_shared_position_guide,
+)
+from emperor_v4.evaluation.profile_m2_reading import SCOPE_GUIDE as M2_SCOPE_GUIDE, TERMINAL_GRADE_SUFFIX
+from emperor_v4.evaluation.profile_m4_reading import SCOPE_GUIDE as M4_SCOPE_GUIDE
 from emperor_v4.evaluation.profile_publication import is_closed_no_grade
 from emperor_v4.evaluation.profile_registry import (
     PROFILE_ROOT,
@@ -23,6 +31,10 @@ from emperor_v4.evaluation.profile_parent_schema import (
 
 AXIS_FILES = profile_axis_files()
 C1_DISPLAY_REF_LIMIT = 4
+C1_SCOPE_GUIDE = {
+    "text": "采用内部联盟材料时，集团合作或中枢配置说明当时局面。战略判断看本人如何选择目标、配置资源、承担风险或根据反馈调整；集团整合由内部联盟评价。",
+    "projection": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。",
+}
 C2_DISPLAY_REF_LIMIT = 4
 C3_DISPLAY_REF_LIMIT = 3
 
@@ -39,6 +51,8 @@ def _grade(record: dict[str, Any]) -> str:
 def _m2_adjudication_label(record: dict[str, Any]) -> str:
     if is_closed_no_grade(record):
         return "证据不足，已无档结案"
+    if record.get("assessment_basis") == "NO_DEMONSTRATED_CAPABILITY":
+        return "未显示外交能力"
     state = str(record.get("adjudication_state") or "FORMAL_CURRENT")
     if state == "UNRESOLVED_EVIDENCE_GAP":
         return "待补证（旧值仅显示）"
@@ -95,7 +109,7 @@ def _m2_parent_lines(parent: dict[str, Any]) -> Iterable[str]:
     yield f"- 正式方向：{parent['direction']}；强度：{parent['intensity']}；用途：{parent['consumption_status']}"
     for key, label in (('attribution_basis', '本人归责'), ('identity_transition_point', '关系转换点'),
                        ('axis_out_reason', '采用边界'), ('source_adoption_note', '来源采用说明')):
-        if parent.get(key):
+        if parent.get(key) and (key != 'source_adoption_note' or parent[key] != M2_SCOPE_GUIDE['source_note']):
             yield f'- {label}：{parent[key]}'
     if parent.get('membership_relative_to_evaluated_ruler'):
         yield f"- 周期起点身份：{parent['membership_relative_to_evaluated_ruler']}"
@@ -133,6 +147,22 @@ def _shared_limitations(records: list[dict[str, Any]]) -> tuple[dict[str, str], 
 def _limitations(record: dict[str, Any], labels: dict[str, str]) -> str:
     values = [labels.get(value, value) for value in _limitation_values(record)]
     return "；".join(values) or "无"
+
+
+def _counter_after_grade(counter: str, grade_basis: str) -> str:
+    """Reuse a complete leading run of sentences already in the grade rationale."""
+    sentence = re.compile(r"[^。！？\n]+[。！？]?")
+    grade = [m.group().strip() for m in sentence.finditer(grade_basis) if m.group().strip()]
+    spans = [m for m in sentence.finditer(counter) if m.group().strip()]
+    prefix = [m.group().strip() for m in spans]
+    length = max((
+        n for i in range(len(grade)) for n in range(1, min(len(prefix), len(grade) - i) + 1)
+        if grade[i:i + n] == prefix[:n]
+    ), default=0)
+    if not length:
+        return counter
+    remaining = counter[spans[length - 1].end():].lstrip()
+    return counter if remaining.startswith(tuple("”’」』）】〉》")) else remaining
 
 
 def _c5_person_type(record: dict[str, Any]) -> str:
@@ -234,6 +264,8 @@ def _c3_parent_field(parent: dict[str, Any], key: str) -> str:
 
 
 def _c3_parent_lines(parent: dict[str, Any]) -> list[str]:
+    from emperor_v4.evaluation.profile_c3_reading import additional_process_start
+
     direction = parent.get("direction", "—")
     title = str(parent.get("evidence_title") or parent.get("source_domain") or "责任中心")
     details = [str(value) for value in parent.get("evidence_detail") or [] if value]
@@ -241,6 +273,10 @@ def _c3_parent_lines(parent: dict[str, Any]) -> list[str]:
     if details:
         lines.append("  - 清单要点：")
         lines.extend(f"    - {detail}" for detail in details)
+        supplement = (parent.get("lifecycle_narrative") or "")[additional_process_start(parent):].strip()
+        if supplement:
+            lines.append("  - 补充过程：")
+            lines.extend(f"    {line}" if line.strip() else "" for line in supplement.splitlines())
         lines.append(f"  - 后续响应：{_c3_parent_field(parent, 'authorization_response')}")
     else:
         lines.append(
@@ -269,15 +305,19 @@ def _c5_political_review_lines(record: dict[str, Any]) -> list[str]:
     if not review:
         return []
     scope_status = {
-        "CONFLICTS_REVIEWED": "已识别冲突已逐案复核",
-        "NO_MAJOR_CONFLICT": "未命中需重开的重大冲突触发",
+        "CONFLICTS_REVIEWED": "已逐案复核",
+        "NO_MAJOR_CONFLICT": "已查材料未见需重开的重大冲突",
     }.get(
         str(record.get("political_conflict_scope_status") or ""),
         str(record.get("political_conflict_scope_status") or "—"),
     )
     radius = str(review.get("expansion_radius_code") or "—")
     adjudication = str(review.get("semantic_adjudication") or "").strip()
-    lines = [f"- **政治斗争复核**：{scope_status}；{radius}。{adjudication}"]
+    if radius == "NA_NO_TRIGGER" and adjudication == COMMON_CONFLICT_FINDING:
+        lines = [f"- **政治斗争复核**：{scope_status}。[复核范围](#c5-conflict-review)"]
+    else:
+        note = EXPANSION_LABELS.get(radius, radius)
+        lines = [f"- **政治斗争复核**：{scope_status}；{note}。{adjudication}"]
     if review.get("dedup_instruction"):
         lines.append(f"- **政治斗争去重**：{review['dedup_instruction']}")
     return lines
@@ -391,9 +431,18 @@ def _source_review_lines(reviews, indent="  "):
             yield f"{indent}  - {passage['locator']}。{passage['context']}"
             for line in passage["quote"].splitlines():
                 yield f"{indent}    > {line}"
-        for key, label in (("adopted_fact", "采用事实"), ("counterevidence", "反证与限定"), ("limitation", "采用范围")):
-            if review.get(key):
-                yield f"{indent}  - {label}：{review[key]}"
+        adopted = review.get("adopted_fact")
+        counter = review.get("counterevidence")
+        scope = review.get("limitation")
+        if adopted:
+            yield f"{indent}  - 采用事实：{adopted}"
+        if isinstance(counter, str) and counter.strip() and isinstance(scope, str) and counter.strip() == scope.strip():
+            yield f"{indent}  - 反证与采用范围：{counter}"
+        else:
+            if counter:
+                yield f"{indent}  - 反证与限定：{counter}"
+            if scope:
+                yield f"{indent}  - 采用范围：{scope}"
 
 
 def _parent_lines(
@@ -402,6 +451,8 @@ def _parent_lines(
     compact_sources: bool = False,
     include_cycle_anchors: bool = False,
     source_limit: int = C1_DISPLAY_REF_LIMIT,
+    shared_projection_reasons: tuple[str, ...] = (),
+    shared_coalition_boundaries: dict[str, str] | None = None,
     show_routing: bool = False,
     strip_source_locators: bool = False,
 ) -> Iterable[str]:
@@ -432,7 +483,7 @@ def _parent_lines(
         for value, field_labels in grouped.items():
             yield f"  - **{'／'.join(field_labels)}**：{value}"
         for key, value in (parent.get("boundary_review") or {}).items():
-            if value:
+            if value and (shared_coalition_boundaries or {}).get(key) != value:
                 label = {"m2": "对外关系", "c3": "个人用人授权", "c5": "权力运用与克制", "result_axes": "结果评价"}.get(key, key)
                 yield f"  - **{label}边界**：{value}"
     if parent.get("cycle_type"):
@@ -462,7 +513,7 @@ def _parent_lines(
         else:
             yield "  - 来源：" + "；".join(refs)
     projection_reason = str(parent.get("secondary_projection_reason") or "").strip()
-    if projection_reason:
+    if projection_reason and parent.get("secondary_projection_reason") not in shared_projection_reasons:
         yield "  - 跨轴投影边界：" + projection_reason
     handoff = parent.get("route_handoff")
     if show_routing and handoff:
@@ -597,7 +648,7 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
                 row["confidence"],
                 row["output_mode"],
                 _m2_adjudication_label(row),
-                row["typical_pattern"],
+                "—" if row.get("assessment_basis") == "NO_DEMONSTRATED_CAPABILITY" else row["typical_pattern"],
             ]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
@@ -629,10 +680,14 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
     if axis == 'M1' and any(r.get('public_reading') for r in records):
         from emperor_v4.evaluation.profile_m1_public import load_archive_context
         m1_archive_context = load_archive_context(workspace_root)
-    labels, shared = ({}, []) if axis in {"M4", "C3", "M1"} else _shared_limitations(records)
+    labels, shared = ({}, []) if axis in {"M2", "M4", "C2", "C3", "M1"} else _shared_limitations(records)
+    if axis == "C2":
+        labels = {text: f"[{note['label']}](#c2-scope-guide)" for text, note in C2_SCOPE_GUIDE["coverage"].items()}
+    elif axis == "M2":
+        labels = {text: f"[{note['label']}](#m2-scope-guide)" for text, note in M2_SCOPE_GUIDE["limits"].items()}
     profile_note = "> 独立人物画像轴。JSON是唯一机器入口；本文是同值阅读视图。"
     if axis == "M1":
-        reading_source_note = '- 逐人正文说明本人表现、定档与档内位置，事例和同轴比较均可回查既有档案或正式归责。'
+        reading_source_note = '- 事例和同轴比较可回查既有档案或正式归责。单列名称的项目依据可在本人正式记录中定位。'
     elif axis == "C1":
         reading_source_note = f"- 全池表的‘典型模式’为人物类型摘要，‘限制’只显示最强计分负证档位；逐人条目展开完整主模式、裁档理由、限制和代表父链，每条父链最多列{C1_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合保留在正式JSON。"
     elif axis == "C2":
@@ -661,13 +716,28 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
             "- M2中标为‘待补证’或‘待重算’的人物只保留整改前历史显示点；阅读视图不把旧值当作当前实裁或当前雷达值。",
             "- 轴外父链仍保留完整来源与去向，`AXIS_OUT_WITH_REASON`/`BACKGROUND_VALIDATION`不参与M2档位。",
             "",
+            '<a id="m2-scope-guide"></a>', "", "### 外交证据怎样采用", "",
+            M2_SCOPE_GUIDE["terminal_text"], "",
+        ])
+        lines.extend(f"- **{note['label']}**　{note['text']}" for note in M2_SCOPE_GUIDE["limits"].values())
+        lines.extend([f"- **团队成果与过程来源**　{M2_SCOPE_GUIDE['source_text']}", ""])
+    if axis == "C2":
+        lines.extend(['<a id="c2-scope-guide"></a>', "", "### 评价范围与补证", "", C2_SCOPE_GUIDE["text"], ""])
+        lines.extend(f"- **{note['label']}**　{note['text']}" for note in C2_SCOPE_GUIDE["coverage"].values())
+        lines.extend([
+            f"- **证据下限**　{C2_SCOPE_GUIDE['floor']['scope_text']}{C2_SCOPE_GUIDE['floor']['reopen_text']}",
+            "- 跨轴采用规则见[画像总合同](../../../项目总纲/皇帝人物画像评估体系合同.md#profile-cross-axis)。",
+            "",
         ])
     if shared:
         lines.extend(["### 共用限制说明", ""])
         lines.extend(f"- `{label}`：{text}" for label, text in shared)
         lines.append("")
     if axis == "M1":
+        from emperor_v4.evaluation.profile_m1_public import M1_REVIEW_GUIDE
+
         lines.extend([
+            '<a id="m1-review-guide"></a>', '',
             '<details><summary>评价规则与专业说明</summary>',
             "",
             "- 裁档结果由正式 JSON 中的 `axis_grade` 与 `position` 给出，裁档理由须与之同值。",
@@ -677,6 +747,7 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
             "- " + records[0]["evidence_scope"]["material_coverage_basis"],
             "- " + records[0]["evidence_scope"]["confidence_basis"],
             "- " + records[0]["evidence_scope"]["grade_boundary"],
+            "- " + M1_REVIEW_GUIDE["text"],
             "", '</details>', "",
         ])
     if axis == "C5":
@@ -686,38 +757,34 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
             "- 逐人正式值、关键事实和材料依据以当前 JSON 及同值阅读视图为准。",
             "- 每人均单列关键事实、裁档理由与史料定位；链接只作阅读入口，不能替代具名史源与卷次。",
             "- 个案烈度与MI覆盖分离；一般政治斗争、轴外成败和他人独立行为不得倒灌C5。",
+            f"- {C5_POSITION_GUIDE}",
+            '<a id="c5-conflict-review"></a>', "",
+            f"- {CONFLICT_REVIEW_GUIDE}",
             "- 政治斗争中，ACTIVE现实威胁阶段的必要战斗、制伏和拘捕不因敌对身份计负；这不是按actual_power_window或即位时间排除。威胁解除后继续处死、报复或向家属、宗族、党附扩大，重新进入C5比例审查。",
             "- R0—R4只表示清算扩大半径：R2为单一家庭/直系子嗣等有界扩大，R3为宗族、多支皇族、较广党附或明确政治群体，R4为一般民众、多个无关群体或制度化可复制的系统扩张；半径不直接等于MI强度或G档。",
             "- 逐人依据先展示当前裁决事实，再展示与主要入口绑定的结构化代表父链；两者共同限定结论，不按材料条数加减档位。",
             "",
         ])
-    if axis == "C2":
-        lines.extend([
-            "## 信息处理画像口径",
-            "",
-            "- 逐人正式值、关键事实和材料依据以当前 JSON 及同值阅读视图为准。",
-            "- “证据下限”只概括当前已观察模式，不得解释为全生涯能力实质低下。",
-            "- 不按目标分布放宽G档门槛，不用跨轴组合链、结果倒推或无父链默认落点代替裁决。",
-            "",
-        ])
     cross_axis_note = [
         "## 跨轴计分边界",
         "",
-        "- 同一史料或事件出现在多个轴，不等于同一能力被重复计分；正式计分以各轴独立构念、父链命题和归责边界为准。",
-        "- 同源材料须分别说明各轴的独立命题与归责边界；当前正式父链保留依据，不依赖历史过程审计。",
+        "- 共同规则见[画像总合同的跨轴去重](../../../项目总纲/皇帝人物画像评估体系合同.md#profile-cross-axis)。各轴采用的证据和归责见下文。",
     ]
     axis_boundary_note = {
         "M1": "- M1消费可归责的军事方向、战区统筹、直接指挥与失败后重组；依角色区分可证明的能力，不把名将临阵成果上收。C1另评跨领域战略判断，M2另评外交条件交换。",
         "M2": "- M2只消费外部对象的条件、承诺、反馈和执行；战略目标与风险取舍留在C1，内部集团整合留在M4。",
         "C1": "- C1只消费战略目标、优先级、风险、资源与退出；具体战役解题留在M1，外部条件交换留在M2。",
-        "C2": "- C2只消费信息取得、反证理解与认知更新；战略选择、外交条件和权力程序不因共享史料转入C2。",
         "C3": "- C3只消费人才识别、配置、授权与交付反馈；集团生命周期和外交对象关系分别留在M4/M2。",
         "C5": "- C5只消费权力边界、异议安全、惩罚程序与比例；军事、外交和人才成果不因共享史料转入C5。",
-        "M4": "- M4只消费内部政治集团、藩镇、继承与权力整合；外部外交、军事操作和个人用人不因共享史料重复计入。",
     }.get(axis)
     if axis_boundary_note:
         cross_axis_note.insert(2, axis_boundary_note)
-    lines.extend(cross_axis_note)
+    if axis == "M4":
+        cross_axis_note[2:2] = ['<a id="m4-scope-guide"></a>', "", M4_SCOPE_GUIDE["text"], ""]
+    if axis == "C1":
+        cross_axis_note.extend(['', '<a id="c1-scope-guide"></a>', '', C1_SCOPE_GUIDE["text"], ''])
+    if axis != "C2":
+        lines.extend(cross_axis_note)
     lines.extend(["", "## 全池结算表", ""])
     lines.extend(_overview_table(axis, records, labels))
     lines.extend(["", "## 逐人裁决依据", ""])
@@ -742,32 +809,74 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
                 f"- **本人能力证据**：{scope['ability_evidence_label']}（`{row['axis_evidence_level']}`）；{scope['conclusion_mode_label']}。"
             )
         reading_fields = {}
+        c2_counter = ""
+        terminal_m2 = axis == "M2" and row.get("assessment_basis") == "NO_DEMONSTRATED_CAPABILITY"
         if axis == 'C2':
-            reading_fields[row.get('grade_basis')] = ['核心依据']
+            grade_basis = row["grade_basis"]
+            counter = row["counterpattern"]
+            c2_counter = _counter_after_grade(counter, grade_basis)
+            reading_fields[grade_basis] = ['核心依据与反例' if counter.strip() and not c2_counter else '核心依据']
+        elif terminal_m2:
+            grade_basis = row["grade_basis"]
+            reading_fields[grade_basis.removesuffix(TERMINAL_GRADE_SUFFIX).rstrip() or grade_basis] = ['核对结果']
         else:
             reading_fields[row['typical_pattern']] = ['主模式']
             reading_fields.setdefault(row.get('grade_basis') or '见结构化父链与正式裁决源。', []).append('裁档理由')
-        reading_fields.setdefault(row.get('position_basis') or '由同档材料强度与反例共同确定。', []).append(
-            '档内定位' if axis == 'C2' else '档内位置'
-        )
+        shared_position = ((terminal_m2 and row.get("position_basis") == M2_SCOPE_GUIDE["terminal_position"])
+                           or (axis == "C5" and uses_shared_position_guide(row)))
+        if not shared_position:
+            reading_fields.setdefault(row.get('position_basis') or '由同档材料强度与反例共同确定。', []).append(
+                '档内定位' if axis == 'C2' else '档内位置'
+            )
+        limitation_line = _limitations(row, labels)
+        if axis == "C3":
+            counter = row.get("counterpattern")
+            grade_basis = row.get("grade_basis") or ""
+            repeated_counter = (isinstance(counter, str) and counter != grade_basis
+                                and counter_repeated_in_grade(counter, grade_basis))
+            if repeated_counter:
+                fields = reading_fields[grade_basis]
+                fields[fields.index("裁档理由")] = "裁档理由与反例"
+            elif isinstance(counter, str) and counter.strip():
+                reading_fields.setdefault(counter, []).append("反例与判断边界")
+            remaining = []
+            for text in _limitation_values(row):
+                if repeated_counter and text.strip() == counter.strip():
+                    text = grade_basis
+                if text in reading_fields:
+                    if "限制" not in reading_fields[text]:
+                        reading_fields[text].append("限制")
+                elif text not in remaining:
+                    remaining.append(text)
+            limitation_line = "；".join(remaining)
         lines.extend([
             f"### {display}. {row['ruler_name']}（{row['ruler_id']}）",
             "",
             settlement_line,
             *(f"- **{'／'.join(field_labels)}**：{value}" for value, field_labels in reading_fields.items()),
-            f"- **限制**：{_limitations(row, labels)}",
+            *([f"- **限制**：{limitation_line}"] if limitation_line else []),
         ])
         if axis == "C5":
             lines.extend(_c5_political_review_lines(row))
-        if axis in {'M2', 'M4', 'C3'} and isinstance(row['counterpattern'], str):
+        if axis in {'M2', 'M4'} and isinstance(row['counterpattern'], str):
             lines.append(f"- **反例与判断边界**：{row['counterpattern']}")
         if axis == "C2":
             lines.append(f"- **主要表现**：{row['typical_pattern']}")
-            lines.append(f"- **反例与判断边界**：{row['counterpattern']}")
+            if c2_counter:
+                if c2_counter == C2_SCOPE_GUIDE["counter"]:
+                    c2_counter = C2_SCOPE_GUIDE["counter_text"]
+                lines.append(f"- **反例与判断边界**：{c2_counter}")
             floor = row.get("evidence_floor_review")
             if floor:
-                lines.append(f"- **证据下限**：{floor['basis']}")
-                lines.append(f"- **重开条件**：{floor['reopen_condition']}")
+                shared_floor = C2_SCOPE_GUIDE["floor"]
+                if floor['basis'] == shared_floor['basis']:
+                    lines.append("- [局部证据下限](#c2-scope-guide)")
+                else:
+                    lines.append(f"- **证据下限**：{floor['basis']}")
+                if floor['reopen_condition'] != shared_floor['reopen_condition']:
+                    lines.append(f"- **重开条件**：{floor['reopen_condition']}")
+                elif floor['basis'] != shared_floor['basis']:
+                    lines.append("- [补证条件](#c2-scope-guide)")
             for observation in row.get("non_scoring_observations", []):
                 lines.append(f"- **不计分材料的边界**：{observation['reason']}")
                 if observation.get("basis"):
@@ -836,6 +945,8 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
                     lines.extend(['', f'#### {label}', ''])
                     for parent in selected:
                         lines.extend(_m2_parent_lines(parent))
+            if any(p.get('source_adoption_note') == M2_SCOPE_GUIDE['source_note'] for p in parents):
+                lines.append('- [查看团队成果与过程来源的采用规则](#m2-scope-guide)')
             parents = []
         if axis in {"C1", "C2"}:
             parents = _representative_parent_chains(row)
@@ -851,6 +962,7 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
                             compact_sources=True,
                             include_cycle_anchors=True,
                             source_limit=C2_DISPLAY_REF_LIMIT,
+                            shared_projection_reasons=C2_SCOPE_GUIDE["reason_texts"],
                         )
                     )
                 else:
@@ -860,10 +972,23 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
                             compact_sources=axis == "C1",
                             show_routing=axis == "M2",
                             strip_source_locators=axis == "M2",
+                            shared_projection_reasons=(C1_SCOPE_GUIDE["projection"],) if axis == "C1" else (),
+                            shared_coalition_boundaries=M4_SCOPE_GUIDE["common"] if axis == "M4" else None,
                         )
                     )
+        elif axis == 'C2':
+            lines.append("- **过程证据**：已核材料尚无符合本轴证据条件的完整过程。")
         elif axis != 'M2':
             lines.append("- **代表父链**：当前无闭合父链；不得把缺材料当作负证。")
+        if axis == "C2" and any(p.get("secondary_projection_reason") in C2_SCOPE_GUIDE["reason_texts"] for p in parents):
+            lines.append("- [查看本轴的通用评价范围](#c2-scope-guide)")
+        if axis == "C1" and any(p.get("secondary_projection_reason") == C1_SCOPE_GUIDE["projection"] for p in parents):
+            lines.append("- [内部联盟材料如何用于战略判断](#c1-scope-guide)")
+        if axis == "M4" and any(
+            M4_SCOPE_GUIDE["common"].get(key) == value
+            for p in parents for key, value in (p.get("boundary_review") or {}).items() if value
+        ):
+            lines.append("- [查看内部联盟的通用评价范围](#m4-scope-guide)")
         if axis == "C5" and row.get("source_refs"):
             lines.append("- **史料与定位**：")
             lines.extend(f"  - {ref}" for ref in dict.fromkeys(map(profile_source_display, row["source_refs"])))
@@ -874,11 +999,6 @@ def render_profile_markdown(settlement: dict[str, Any], *, workspace_root: Path 
             "",
             "档位来自显式逐人裁决源；不读取第五项B或其他画像轴的档位、方向、MI或分值。最终治绩、名臣数量、官职数量、处罚伦理与集团成果均不得换算为C3。",
             "",
-        ])
-    if axis == "M4":
-        lines.extend([
-            "## M4 专项边界", "",
-            "档位来自显式逐人国内集团联盟生命周期裁决；M2外部联盟、C3个人用人、C5权力伦理、第一项B开国团队成果、第四项A社会整合结果、第二项治理结果、集团数量和材料数量均不转换为M4。", "",
         ])
     return "\n".join(lines).rstrip() + "\n" if axis == 'M2' else "\n".join(lines)
 

@@ -15,10 +15,11 @@ MAPPING_PATH = 'config/first-item/military-cost-debits.json'
 
 
 def render_cost_adjudications(source: dict[str, Any]) -> str:
-    from emperor_v4.evaluation.first_item_b1_cost_public import project_cost
+    from emperor_v4.evaluation.first_item_b1_cost_public import COST_SOURCE_GUIDE, project_cost
 
     lines = ['# 第一项军事成本裁决', '',
-             '本表记录逐人成本裁决。全部适用对象及跨项去重闭合后，按已确认映射从四轴合计扣除军事成本，净分进入第一项正式结算及综合榜；待裁决不等于零成本。', '',
+             '军事成本按已确认的档位和位置从四轴合计扣除。正式净分须等适用对象的成本裁决和跨项去重完成。', '',
+             COST_SOURCE_GUIDE, '',
              '| 人物 | 成本档 | 位置 | 状态 | 责任窗口 |', '|---|---|---|---|---|']
     for row in source['records']:
         lines.append('| ' + ' | '.join(str(row.get(key) or '待裁决') for key in
@@ -31,7 +32,9 @@ def render_cost_adjudications(source: dict[str, Any]) -> str:
         for section in public['public_sections']:
             lines.extend([f"### {section['title']}", '', section['text'], ''])
         lines.extend(f'- 证据缺口：{gap}' for gap in public['public_unresolved_gaps'])
-        lines.extend(['', '<details><summary>核对所据材料与原书入口</summary>', '', public['public_source_note'], ''])
+        lines.extend(['', '<details><summary>核对所据材料与原书入口</summary>', ''])
+        if 'display_source_note' not in public:
+            lines.extend([public['public_source_note'], ''])
         for excerpt in public['reading_sources']:
             lines.extend([f"#### [{excerpt['title']}]({excerpt['url']})", '', excerpt['context'], '',
                           f"> {excerpt['quote']}", ''])

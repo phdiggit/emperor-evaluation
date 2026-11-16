@@ -118,7 +118,7 @@ def _preserve_mapping_order_if_equal(current: Any, rebuilt: dict) -> dict:
 AB_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
 C_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json")
 FORMAL_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json")
-RESULT_CREDIT_ADJUDICATIONS_PATH = Path("config/third-item/third-item-result-credit-adjudications.json")
+RESULT_CREDIT_ADJUDICATIONS_PATH = AB_PATH.with_name("03-A120与B80结果信用正式裁决.json")
 CANONICAL_RULER_POOL_PATH = Path("config/common/canonical-ruler-pool.json")
 COST_CREDIT_FACTORS_PATH = Path("config/third-item/third-item-cost-credit-factors.json")
 MILITARY_NET_LOSS_PENALTIES_PATH = Path("config/third-item/third-item-military-net-loss-penalties.json")
@@ -887,8 +887,7 @@ def _validate_result_credit_contract(
             raise ValueError(f"{row['ruler_name']} B80与三轴得分率不一致")
         if require_synchronized and formal is not None and (
             float(formal.get("A120_score_points")) != float(row["A120_points"])
-            or _without_public_fields(formal.get("A120_axis_adjudications"))
-            != _without_public_fields(row["axes"])
+            or "A120_axis_adjudications" in formal
             or _without_public_fields(formal.get("B80_adjudication"))
             != _without_public_fields(row["B80_adjudication"])
             or formal.get("score_ready") != row["score_ready"]
@@ -1113,6 +1112,11 @@ def _validate_cost_factor_contract(payload: Mapping[str, Any]) -> None:
         raise ValueError("C0-LOW必须保持1.0")
 
 
+_UNREGISTERED_NET_LOSS_BASIS = (
+    "当前未登记单独的重大军事净毁损裁决，普通军事成本仍按正式记录扣减；未登记本身不证明追加条件已被逐项排除。"
+)
+
+
 def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> str:
     human_status = {
         "NOT_APPLICABLE": "不适用",
@@ -1148,9 +1152,12 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
     lines = [
         "# 秦至清第三项军事与边疆正式结算",
         "",
-        "本表按A120战略安全结果、B80边疆控制结果、C50军事体系能力合并。普通成本按当前C档映射固定扣分；军事净毁损（ML）与普通成本取高，不叠加。",
+        "本表合计战略安全、边疆控制与军事体系表现。扣减取普通成本与重大军事净毁损（ML）中的较高值。",
         "",
         "公式：第三项 = A120 + B80 + C50 - max（固定成本扣分，|ML|）。",
+        "",
+        "无单列裁决时按已登记普通成本扣减。重大净毁损各项门槛的结论以单列裁决为准。"
+        "裁决与扣减条件见[合并计分与军事扣减合同](../../../分项规则/第三项军事与边疆净收益/00-合并计分与军事扣减合同.md#third-ml)。",
         "",
         "| 排名 | 皇帝 | 政权 | 在位 | A120 | B80 | C50 | 全局成本 | 固定成本 | ML | 实际扣分 | 总分 |",
         "|---:|---|---|---|---:|---:|---:|---|---:|---:|---:|---:|",
@@ -1179,8 +1186,11 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
             "",
             f"- 成本：{human_label(profile['cost_band'])}-{human_label(profile['position'])}，固定扣{float(row['cost_debit_points']):.2f}分。{human_basis(profile['basis'])}",
         ]
+        net_loss_basis = row['military_net_loss_basis']
+        detail = "无单列裁决。" if net_loss_basis == _UNREGISTERED_NET_LOSS_BASIS else human_basis(net_loss_basis)
         lines += [
-            f"- ML：{row['military_net_loss_grade']}（{abs(float(row['military_net_loss_penalty'])):.2f}分）。与普通成本取高，实际扣{float(row['applied_military_debit_points']):.2f}分（{debit_source}）。{human_basis(row['military_net_loss_basis'])}",
+            f"- ML：{row['military_net_loss_grade']}（{abs(float(row['military_net_loss_penalty'])):.2f}分）。"
+            f"实际扣{float(row['applied_military_debit_points']):.2f}分（{debit_source}）。{detail}",
             "",
         ]
     return "\n".join(lines).rstrip() + "\n"
@@ -1411,7 +1421,7 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         net_loss = military_net_loss_by_name.get(name)
         net_loss_grade = str(net_loss["grade"]) if net_loss else "ML0"
         net_loss_penalty = float(expected_penalties[net_loss_grade])
-        net_loss_basis = str(net_loss["basis"]) if net_loss else "当前未登记单独的重大军事净毁损裁决，普通军事成本仍按正式记录扣减；未登记本身不证明追加条件已被逐项排除。"
+        net_loss_basis = str(net_loss["basis"]) if net_loss else _UNREGISTERED_NET_LOSS_BASIS
         net_loss_attribution = (
             "NONE"
             if net_loss is None
@@ -1860,9 +1870,6 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 "B80_score_points": b80,
                 "AB200_score_points": round(a120 + b80, 2),
                 "score_ready": credit["score_ready"],
-                "A120_axis_adjudications": _replace_non_public_preserving_public(
-                    row.get("A120_axis_adjudications"), credit["axes"]
-                ),
                 "B80_adjudication": _replace_non_public_preserving_public(
                     row.get("B80_adjudication"), credit["B80_adjudication"]
                 ),

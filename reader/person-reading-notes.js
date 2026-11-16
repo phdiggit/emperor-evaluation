@@ -35,11 +35,12 @@
 
   const exactKeys = (value, keys) => plain(value) && Object.keys(value).length === keys.length && keys.every(key => own(value, key));
 
-  function validateBlock(block) {
+  function validateBlock(block, allowExplanation = false) {
     if (!exactKeys(block, ["text", "evidence"]) || !text(block.text) || forbidden.test(block.text)) throw Error("Invalid reading-note prose");
     if (!Array.isArray(block.evidence) || !block.evidence.length) throw Error("Reading note needs evidence");
     for (const ref of block.evidence) {
-      if (!exactKeys(ref, ["path", "quote"]) || !validPath(ref.path) || !text(ref.quote)) throw Error("Invalid reading-note locator");
+      const explained = allowExplanation && exactKeys(ref, ['path', 'quote', 'explanation']) && text(ref.explanation) && !forbidden.test(ref.explanation);
+      if ((!exactKeys(ref, ["path", "quote"]) && !explained) || !validPath(ref.path) || !text(ref.quote)) throw Error("Invalid reading-note locator");
     }
   }
 
@@ -49,7 +50,8 @@
       if (!/^(?:RULER|HIMPACT)-[^/\\]+$/.test(id) || !plain(notes)) throw Error("Invalid reading-note identity");
       // System overviews and the missing third-item conclusion share this
       // editorial source. Numeric decisions remain in the formal records.
-      if (!own(notes, 'overview') || Object.keys(notes).some(key => !['overview','net','reading','profile_grade_reasons'].includes(key))) throw Error("Invalid reading-note sections");
+      if (!own(notes, 'overview') || Object.keys(notes).some(key => !['overview','net','reading','profile_grade_reasons','home_intro'].includes(key))) throw Error("Invalid reading-note sections");
+      if (own(notes, 'home_intro')) validateBlock(notes.home_intro);
       if (own(notes, 'profile_grade_reasons')) {
         if (id.startsWith('HIMPACT-') || !plain(notes.profile_grade_reasons)) throw Error('Invalid profile grade reasons');
         for (const [axis, reason] of Object.entries(notes.profile_grade_reasons)) {
@@ -62,7 +64,7 @@
           if (!['profile','impact','second','third','fourth'].includes(system) || !Array.isArray(chapters) || !chapters.length) throw Error('Invalid narrative section');
           for (const chapter of chapters) {
             if (!exactKeys(chapter,['title','text','evidence']) || !text(chapter.title)) throw Error('Invalid narrative chapter');
-            validateBlock({text:chapter.text,evidence:chapter.evidence});
+            validateBlock({text:chapter.text,evidence:chapter.evidence}, true);
             const groups={second:['method','finance','handoff'],third:['strategic','military'],fourth:['civilization']};
             if (chapter.evidence.some(ref=>system==='profile'?ref.path[0]!=='axes':system==='impact'?ref.path[0]!=='impact':ref.path[0]!=='net'||ref.path[1]!=='component_details'||!groups[system].includes(ref.path[2]))) throw Error('Narrative evidence belongs to another system');
           }
@@ -102,7 +104,6 @@
 
   const root = document.getElementById("screen");
   if (!root) return;
-  let payload = null, loading = null, failed = false, queued = false, versionMismatch = false;
   const el = (tag, className, value) => {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -182,7 +183,7 @@
   }
 
   function renderBlock(key, block, record, className) {
-    const heading = record.reader_narratives ? {outcome:'他治下的人过得怎样？',profile:'他怎样作决定和用人？',impact:'他留下了什么？'}[key] : labels[key];
+    const heading = record.reader_narratives ? {outcome:'主要史事',profile:'他怎样作决定和用人？',impact:'他留下了什么？'}[key] : labels[key];
     if (assessBlock(block, record).status !== "current") {
       const notice = el("section", className);
       notice.append(el("h3", "", heading), el("p", "subline", "这段摘要的依据已更新，正在等待复核；请继续阅读下方的当前评价与逐项依据。"));
@@ -215,42 +216,16 @@
   }
 
   function enhance() {
-    queued = false;
     const active = subjects();
-    if (!active.length) return; // Home and comparison views do not fetch overview summaries.
-    if (!payload) {
-      if (failed) {
-        if (versionMismatch && !root.querySelector('[data-notes-version-notice]')) {
-          const notice = el('p', 'notice', '阅读摘要已更新，请刷新页面后继续；当前页面保留原有评价。');
-          notice.dataset.notesVersionNotice = '';
-          root.prepend(notice);
-        }
-        return;
-      } else if (!loading) {
-        loading = fetch("data/person-reading-notes.json", {cache: "no-cache"})
-          .then(response => { if (!response.ok) throw Error("Reading notes unavailable"); return response.text(); })
-          .then(value => requireReaderTextVersion(value, DATA.notes_version))
-          .then(JSON.parse)
-          .then(validateNotes)
-          .then(value => { payload = value; schedule(); })
-          .catch(error => {
-            failed = true;
-            versionMismatch = Boolean(error.readerVersionMismatch);
-            schedule();
-          });
-      }
-      return;
-    }
+    if (!active.length) return;
     addStyles();
     for (const record of active) {
-      const notes = payload.records[record.ruler_id];
-      if (!notes) continue; // No invented fallback paragraph for people not yet editorially reviewed.
+      // The person shard's version covers both the overview and its evidence.
+      if (!record.reader_overviews) continue;
+      const notes = {overview: record.reader_overviews};
+      validateNotes({schema_id: schema, records: {[record.ruler_id]: notes}});
       applyOverview(record, notes);
     }
-  }
-
-  function schedule() {
-    if (!queued) { queued = true; requestAnimationFrame(enhance); }
   }
   globalThis.PersonReadingNotes = Object.freeze({enhance});
 })();

@@ -181,7 +181,7 @@ def test_rejected_hypothesis_never_enters_supported_bounds():
     assert result['cases'][0]['scenario']['rank']==3
     assert result['records'][0]['local_supported_rank_range'] is None
     assert '本情景77.10' not in render(result)
-    assert '该假设已排除' in render(result)
+    assert '性质：已排除假设。' in render(result)
 
 
 def test_unquantified_is_not_zero_width_or_high_confidence():

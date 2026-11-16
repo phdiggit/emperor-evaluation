@@ -15,9 +15,11 @@ from emperor_v4.evaluation.first_item_markdown_settlement import (
 )
 from emperor_v4.evaluation.formal_json_store import load_json, json_read_session
 from emperor_v4.evaluation.second_item_b1_settlement import (
+    B1_SCOPE_GUIDE,
     _structured_basis,
     active_groups,
     index_from_grade_position,
+    markdown_basis_lines,
     validate_gate_references,
     validate_public_profile_contract,
     verify_derived_views,
@@ -676,6 +678,8 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
             raise ValueError(f"第二项B1竞争排名不一致：{row.get('ruler_name')}")
 
     markdown = path.with_suffix(".md").read_text(encoding="utf-8")
+    if markdown.count(B1_SCOPE_GUIDE) != 1:
+        raise ValueError("第二项B1阅读版缺少共同评价范围或重复展示")
     expected_order = [
         str(row["ruler_name"])
         for row in sorted(records, key=lambda item: (int(item["rank"]), str(item["ruler_id"])))
@@ -706,10 +710,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
             line.startswith(expected_table_prefix) and line.endswith(expected_table_suffix)
             for line in markdown.splitlines()
         )
-        structured_basis = "\n".join(
-            f"  - **{point['role']}**：{str(point['text']).rstrip('。')}。"
-            for point in row["structured_grade_basis"]
-        )
+        structured_basis = "\n".join(markdown_basis_lines(row))
         expected_detail = (
             f"### {row['ruler_name']}（{row['polity']}，分项第{row['rank']}名）\n\n"
             f"- 档位：{row['grade']}（{position_cn[row['position']]}）\n"

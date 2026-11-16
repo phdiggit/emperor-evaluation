@@ -2,7 +2,7 @@ from copy import deepcopy
 
 import pytest
 
-from emperor_v4.evaluation.profile_c4 import render, validate_calibration, validate_decision
+from emperor_v4.evaluation.profile_c4 import SCOPE_GUIDE, render, validate_calibration, validate_decision
 
 
 def decision():
@@ -90,9 +90,12 @@ def test_historical_grade_requires_calibration_without_prescribing_position():
 
 def test_reader_keeps_all_design_processes_and_source_limits():
     row = decision()
+    common = SCOPE_GUIDE['limitations'][0]
+    specific = common + '此例仅覆盖两处州县。'
     row.update(ruler_id='synthetic', ruler_name='合成例', typical_pattern='局部制度调整。',
                grade_basis='依据已观察设计判断。', position_basis='长期复验有限。',
-               counterpattern='机关仍可继续工作。', limitations=['只限区域制度。'],
+               counterpattern='机关仍可继续工作。', limitations=[common, specific],
+               evidence_assessment_basis=SCOPE_GUIDE['coverage'],
                confidence='MEDIUM', applicability={'status': 'APPLICABLE', 'basis': '有实际选择。'},
                source_refs=['docs/synthetic.md'], representative_parent_ids=['selected'])
     long_body = '具体的制度规则和运行结果。' * 50
@@ -100,7 +103,7 @@ def test_reader_keeps_all_design_processes_and_source_limits():
         dict(parent_id='selected', title='已选局部设计', mechanism=long_body, direction='POSITIVE',
              attribution='本人选择，臣僚执行。', source_refs=['docs/synthetic.md']),
         dict(parent_id='extra', title='另一条适用边界', mechanism='既有制度延续不算原创。',
-             interfaces=['人员归属', '资源核算'], direction='MIXED', attribution='前制。',
+             interfaces=['人员归属', '资源核算'], direction='MIXED', attribution=SCOPE_GUIDE['attribution'],
              source_refs=['docs/boundary.md'], source_review=[dict(
                  source_title='合成来源', source_url='https://example.org/source',
                  passage_locator='具体章节', adopted_fact='规则实际实施。',
@@ -113,4 +116,9 @@ def test_reader_keeps_all_design_processes_and_source_limits():
                   '存在地区差异。', '未覆盖长期。', '机关仍可继续工作。'):
         assert value in text
     assert '……（节选' not in text
+    assert text.count(SCOPE_GUIDE['text']) == 1
+    assert text.count('[查看制度设计的通用评价范围](#c4-scope-guide)') == 1
+    assert specific in text and text.count(common) == 1
+    assert SCOPE_GUIDE['coverage'] not in text and SCOPE_GUIDE['attribution'] not in text
+    assert '本人选择，臣僚执行。' in text
     assert row == before

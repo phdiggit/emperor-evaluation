@@ -111,6 +111,6 @@ def calculation_text(row: dict, systems: dict) -> str:
         value = b1_efficiency_points(stage['control_credit'], stage['years'])
         lines.append(f"{stage['label']}：规模{stage['control_credit']:g}；实际{stage['years']:g}年/期望{expected:.2f}年，速度比{stage['years']/expected:.3f}，阶段效率{value:g}，加权值{stage['weight']:g}。{stage['basis']}")
     if not row['efficiency_stages']:
-        lines.append('没有最终保留的新增或恢复成果，效率为0；这不等于做事缓慢。')
+        lines.append('终点无保留的新增或恢复成果，效率计0分。')
     lines.append(f"完成效率{points['efficiency_points']:g}/20；合计{points['start_points']:g}+{points['opponent_points']:g}+{points['efficiency_points']:g}={points['total_points']:g}/50。")
     return '\n'.join(lines)

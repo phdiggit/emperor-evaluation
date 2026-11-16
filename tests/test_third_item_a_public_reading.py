@@ -108,7 +108,7 @@ assert(html.includes('接班 · C档'));assert(html.includes('交班 · A档'));
 assert(html.includes('上游接班&lt;文本&gt;'));assert(html.includes('上游交班文本'));
 assert(html.includes('完整经历甲。'));assert(html.includes('完整经历乙。'));
 assert(html.includes('共同贡献不能独占。'));
-assert(html.indexOf('完整经历甲。')>html.indexOf('<details>'));
+assert(html.indexOf('完整经历甲。')<html.indexOf('接班 · C档'));
 const reader=context.ThirdItemAReading;
 const other={...reading,handover:'另一轴的交班依据。'};
 const shared=reader.sharedResponsibility([reading,other]);
@@ -122,6 +122,10 @@ assert.equal(reader.sharedResponsibility([combined,{...other,responsibility:comb
 const combinedHtml=reader.html({reader_public_a:combined},{});
 assert(combinedHtml.includes('交班与归责依据 · A档'));
 assert.equal(combinedHtml.split(combined.handover).length,2);
+const compact={...reading,story:'材料所载交班过程。',handover:'材料所载交班过程。',display_handover:''};
+const compactHtml=reader.html({reader_public_a:compact},{});
+assert.equal(compactHtml.split(compact.handover).length,2);
+assert.ok(compactHtml.includes('交班 · A档'));
 delete reading.handover;
 assert.throws(()=>context.ThirdItemAReading.html({reader_public_a:reading},{}),/接班或交班正文/);
 ''', encoding='utf-8')
@@ -130,7 +134,8 @@ assert.throws(()=>context.ThirdItemAReading.html({reader_public_a:reading},{}),/
 
 
 def test_current_sources_and_all_reader_surfaces_share_a_reading():
-    credit=load_json(ROOT/'config/third-item/third-item-result-credit-adjudications.json')
+    from emperor_v4.evaluation.third_item_current_settlement import RESULT_CREDIT_ADJUDICATIONS_PATH
+    credit=load_json(ROOT/RESULT_CREDIT_ADJUDICATIONS_PATH)
     ab=load_json(ROOT/'docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json')
     ab_by_id={r['ruler_id']:r for r in ab['records']}
     expected={}

@@ -75,9 +75,7 @@ python v4.py maintenance --component profile.C2 --polity 西汉 --verify
 
 `config/`保存入口、身份及当前裁决输入；`src/emperor_v4/evaluation/`保存读取、校验、确定性结算与投影逻辑。`reader/`保存模板、代码与人工文案，生成页面和数据不进入 Git。展示制作位于`docs/展示成果/`和`emperor-cards/`，临时脚本、日志及诊断放`.tmp/`。
 
-历史影响、画像M1／M4／M5／C1／C2／C3／C5、第二项C3／C4／D1／D3、第三项AB／C及第四项B的Markdown是可完整重建的阅读视图，不进入Git。新检出后先运行`reading-views`再校验；完整阅读站点构建与CI会先生成这些文件。正文仍完整保留在JSON，原有路径与局部刷新命令有效。第三项AB同时读取正式AB记录与本人信用裁决，不以旧Markdown补正文。第一项Markdown真源、财政民生C1／C2等承担证据引用的阅读文档及含独立人工内容的Markdown继续保留。
-
-历史影响、第二项C3／C4和第三项AB／C采用“总览索引＋逐人正文”：原Markdown路径保留结果表及人物链接，完整正文位于同名`-逐人阅读/`目录，以人物ID命名；长人物页按完整段落、列表条目和折叠章节分页。相对来源链接随文件位置同步调整。生成、校验、局部刷新与评估包均包含分片；不以删减事实或来源缩小文件。需要完整合并版时显式运行`python v4.py reading-views --combined-output .tmp/reading-views-combined`，导出不会覆盖正常阅读入口。
+Markdown 阅读视图的保留范围见[评分结算目录](docs/评分结算/README.md)。新检出后按[阅读构建说明](reader/README.md#构建与检查)生成视图，再校验或预览。逐人分片和完整合并版的使用方法见同一说明。
 
 ## 边界
 

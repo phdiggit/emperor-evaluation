@@ -1,4 +1,4 @@
-"""Lossless, shard-local storage for repeated authored public-reading strings."""
+"""Lossless storage for repeated strings in declared settlement fields."""
 from collections import Counter
 from copy import deepcopy
 import json
@@ -9,7 +9,8 @@ CATALOG = 'reading_text_catalog'
 REF = 'reading_text_ref'
 MARKER = 'public_reading_storage'
 FIELDS = 'reading_text_fields'
-C_SCHEMA = 'emperor-v4-third-item-c-formal-settlement-v4-strategy-chain'
+C_SCHEMA = 'third-item-c-joint-settlement-v1'
+C_WRITEBACK_STORAGE = 'third-item-c-writeback-texts-v1'
 FINANCE_SCHEMAS = frozenset([
     *(f'SECOND-ITEM-{axis}-FORMAL-V7.0-L-ADJUSTMENT' for axis in ('C1', 'C2', 'C3')),
     'SECOND-ITEM-C4-FORMAL-V8.0-RECOVERY-DETERIORATION-DA6',
@@ -20,12 +21,17 @@ def _encoded(value):
     return json.dumps(value, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
 
 
-def _readings(shard, fields):
+def _reading_slots(shard, fields):
     for block in shard.get('collections', {}).values():
         for row in block.get('records', []):
             for field in fields:
                 if field in row:
-                    yield row[field]
+                    yield row, field
+
+
+def _writeback_slots(source, _fields):
+    for row in source['records']:
+        yield row['formal_writeback'], 'fields'
 
 
 def _validate_fields(fields):
@@ -48,8 +54,17 @@ def _check_plain(value):
 
 def compact_reading_texts(shard, *, fields=('public_reading',)):
     """Accept expanded records only; do not share roles, IDs or similar prose."""
-    _check_plain(shard)
     _validate_fields(fields)
+    version = STORAGE if tuple(fields) == ('public_reading',) else FIELD_STORAGE
+    return _compact_texts(shard, fields, _reading_slots, version)
+
+
+def compact_c_writeback_texts(source):
+    return _compact_texts(source, (), _writeback_slots, C_WRITEBACK_STORAGE)
+
+
+def _compact_texts(shard, fields, slots, version):
+    _check_plain(shard)
     counts = Counter()
 
     def collect(value):
@@ -62,8 +77,8 @@ def compact_reading_texts(shard, *, fields=('public_reading',)):
             for child in value:
                 collect(child)
 
-    for reading in _readings(shard, fields):
-        collect(reading)
+    for row, field in slots(shard, fields):
+        collect(row[field])
     catalog = {}
     refs = {}
     for value, count in counts.items():
@@ -86,13 +101,10 @@ def compact_reading_texts(shard, *, fields=('public_reading',)):
         return value
 
     result = deepcopy(shard)
-    for block in result['collections'].values():
-        for row in block['records']:
-            for field in fields:
-                if field in row:
-                    row[field] = replace(row[field])
-    result[MARKER] = STORAGE if tuple(fields) == ('public_reading',) else FIELD_STORAGE
-    if result[MARKER] == FIELD_STORAGE:
+    for row, field in slots(result, fields):
+        row[field] = replace(row[field])
+    result[MARKER] = version
+    if version == FIELD_STORAGE:
         result[FIELDS] = list(fields)
     result[CATALOG] = catalog
     return result if len(_encoded(result)) < len(_encoded(shard)) else deepcopy(shard)
@@ -100,15 +112,26 @@ def compact_reading_texts(shard, *, fields=('public_reading',)):
 
 def expand_reading_texts(shard):
     """Expand into private records; reject corrupt or misplaced references."""
+    return _expand_texts(shard, _reading_slots, (STORAGE, FIELD_STORAGE))
+
+
+def expand_c_writeback_texts(source):
+    return _expand_texts(source, _writeback_slots, (C_WRITEBACK_STORAGE,))
+
+
+def _expand_texts(shard, slots, versions):
     if MARKER not in shard and CATALOG not in shard and FIELDS not in shard:
         _check_plain(shard)
         return shard
     version = shard.get(MARKER)
-    if version not in (STORAGE, FIELD_STORAGE):
+    if version not in versions:
         raise ValueError('正式阅读文本存储版本无效')
-    fields = ('public_reading',) if version == STORAGE else shard.get(FIELDS)
-    _validate_fields(fields)
-    if version == STORAGE and FIELDS in shard:
+    fields = shard.get(FIELDS) if version == FIELD_STORAGE else (
+        ('public_reading',) if version == STORAGE else ()
+    )
+    if version == FIELD_STORAGE:
+        _validate_fields(fields)
+    elif FIELDS in shard:
         raise ValueError('正式阅读文本存储版本与字段范围不符')
     catalog = shard.get(CATALOG)
     if (not isinstance(catalog, dict) or not catalog
@@ -136,12 +159,9 @@ def expand_reading_texts(shard):
     result.pop(MARKER)
     result.pop(CATALOG)
     result.pop(FIELDS, None)
-    for block in result.get('collections', {}).values():
-        for row in block.get('records', []):
-            for field in fields:
-                if field in row:
-                    row[field] = expand(row[field])
-    # Any remaining placeholder lies outside the declared public fields.
+    for row, field in slots(result, fields):
+        row[field] = expand(row[field])
+    # Any remaining placeholder lies outside the declared fields.
     _check_plain(result)
     if set(used) != set(catalog) or any(n < 2 for n in used.values()):
         raise ValueError('正式阅读文本目录存在未共用条目')

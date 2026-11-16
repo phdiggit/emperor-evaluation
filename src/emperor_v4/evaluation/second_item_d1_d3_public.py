@@ -1,4 +1,4 @@
-"""Validate authored D1/D3 public records; project prose without rewriting it."""
+"""Validate authored D1/D3 records and project shared reading guidance."""
 from __future__ import annotations
 
 import copy
@@ -19,6 +19,70 @@ PUBLIC_FORBIDDEN_RE = re.compile(
     r'[A-Za-z][A-Za-z_:-]{1,}|本轮|重裁|门禁|闭合|主档|倒灌|position|跨窗|消费')
 BROKEN_TEXT_RE = re.compile(r'(?:止于|达到|裁为|取|判为)[。；]|。；|、。|未提供可直述|形成持续的实际结果')
 MODES = dict(DIRECT='史料直接记载', INFERRED='受约束推断', ASSESSMENT='正式评价判断', BACKGROUND='背景核对')
+
+SCOPE_GUIDE = {
+    'D1': (
+        '从本人实际最高治理权终止起，通常观察三年内人员、官署和命令是否继续运行。'
+        '最上档还可参考本人明确留下并获持续接用的行政资产，旁证看接用关系和实际价值。继任者的新政以及人员自己的能力和军功分别归责。',
+        '争位影响本项的条件是实际中断行政。政策成效、廉洁、战争伤亡和继承安全各有评价范围。'
+        '逐条材料区分原文与史料摘要，采用可定位的行政运行或断裂事实。',
+    ),
+    'D3': (
+        '从最后有效继承安排观察至实际权力承接，再观察约一年。摄政按实际失权开窗。'
+        '本人承担其安排延续下来的争位和控制权风险。一年内开始的同一冲突可追至结束，继任者独立引发的新冲突另行归责。',
+        '档位看最高权力是否有效承接，是否发生争位、暴力接管或中央分裂。'
+        '和平投降、名义继承和幼主身份均须结合实际承接结果。行政表现与后世治乱各有评价范围。',
+    ),
+}
+
+_D1_BOUNDARY = (
+    '行政连续不等于政策正确、官员廉洁或继承过程和平。'
+    '交接争位只有造成官署、人员或命令的实际断裂时才影响本项；不重复计入战争伤亡和日常行政的政策收益。'
+)
+_D3_BOUNDARY = (
+    '本项看最高权力是否形成有效接续，以及是否出现争位、暴力接管或中央分裂；'
+    '不以行政机器后来好坏替代交接安全，也不将后世王朝寿命归给前任。'
+)
+_SHARED_SCOPE = {
+    'D1': {
+        'public_window': (
+            '从本人实际最高治理权终止后起，通常观察三年内旧人员、官署及命令的实际运行。'
+            '最上档还可采用有明确任用与连续使用关系的长期资产旁证；'
+            '旁证不按经过年数加分，也不将继任者独立决策或全部成果归给前任。',
+        ),
+        'public_responsibility': (
+            '只评价本人留下的行政资产是否被实际接用；'
+            '继任者的独立新政及工作人员本人的能力、军功分别保留，不全部归给前任。',
+        ),
+        'public_boundary': (
+            '所引原文与既有摘要分列；本条仅采用其中可定位的行政运行或断裂事实。' + _D1_BOUNDARY,
+            _D1_BOUNDARY,
+        ),
+    },
+    'D3': {
+        'public_window': (
+            '从最后有效继承安排观察至实际权力承接，再观察约一年；只追踪前任安排直接延续的争位或控制权风险。'
+            '已在一年内开始的同一冲突可追至结束；继任者新造的冲突及更晚治乱不计入。',
+        ),
+        'public_responsibility': (
+            '只评价本人退出时留下的继承安排及其即时权力结果；摄政者按实际权力终止点观察。'
+            '和平投降、名义继承或幼主身份均不单独决定档位。',
+        ),
+        'public_boundary': (_D3_BOUNDARY,),
+    },
+}
+
+
+def display_scope(value, axis, field):
+    """Keep case details when the shared passage already appears in the guide."""
+    for shared in _SHARED_SCOPE[axis][field]:
+        if value == shared:
+            return ''
+        if value.endswith('。' + shared):
+            return value.removesuffix(shared)
+        if value.startswith(shared + ' '):
+            return value.removeprefix(shared).lstrip()
+    return value
 
 
 def _plain_source_excerpt(value):
@@ -190,25 +254,38 @@ def _verify_payload(root, payload, axis, cache):
 
 
 def render_public_markdown(payload, axis):
+    from .reading_layout import evidence_repeated_in_story
+
     title = '行政连续性' if axis == 'D1' else '交接稳定'
-    lines = [f'# {title}正式阅读视图', '', '> 正文、逐条史源与限制逐字读取正式JSON；档内指数不单独加分。', '']
+    lines = [f'# {title}正式阅读视图', '', '> 档内指数不单独加分。', '',
+             '<a id="handoff-scope"></a>', '', '## 共同评价范围', '']
+    for paragraph in SCOPE_GUIDE[axis]:
+        lines += [paragraph, '']
     for row in payload['records']:
         row = public_record(row)
         grade = int(row['handoff_level'][-1] if axis == 'D1' else row['D3_grade'][-1])
         lines += [f'## {row["ruler_name"]}（{row["polity"]}）', '',
                   f'- 公开档位：{"EDCBAS"[grade]}；内部指数：{row["direction_index"]}。', '',
-                  row['public_story'], '', '**为什么这样评**', '', display_reason(row), '',
-                  f'观察范围：{row["public_window"]}', '', f'本人责任：{row["public_responsibility"]}', '',
-                  f'评价限制：{row["public_boundary"]}', '']
+                  row['public_story'], '', '**为什么这样评**', '', display_reason(row), '']
+        for field, label in (('public_window', '观察范围'), ('public_responsibility', '本人责任'), ('public_boundary', '评价限制')):
+            if detail := display_scope(row[field], axis, field):
+                lines += [detail if detail.startswith('实际退出点：') else f'{label}：{detail}', '']
+        lines += ['[查看共同评价范围](#handoff-scope)', '']
+        repeated = set(evidence_repeated_in_story(row))
         for item in row['public_evidence_items']:
-            lines += [f'### {item["public_label"]}（{MODES[item["evidence_mode"]]}）', '', item['public_basis'], '', item['public_boundary'], '']
+            basis = '' if item['id'] in repeated else item['public_basis']
+            lines += [f'### {item["public_label"]}（{MODES[item["evidence_mode"]]}）', '']
+            if basis:
+                lines += [basis, '']
+            if boundary := display_scope(item['public_boundary'], axis, 'public_boundary'):
+                lines += [boundary, '']
             for raw in item['source_refs']:
                 ref = display_source(raw)
                 citation = ' · '.join(ref[key] for key in ('source_kind', 'source_title', 'source_locator') if ref[key])
                 lines += [f'- {citation}', '']
                 if ref['source_context']:
                     lines += [ref['source_context'], '']
-                if ref['public_excerpt'] != item['public_basis']:
+                if ref['public_excerpt'] != basis:
                     lines += ['\n'.join('> ' + line.rstrip() if line.rstrip() else '>' for line in ref['public_excerpt'].split('\n')), '']
                 if ref.get('support_role'):
                     lines += [ref['support_role'], '']

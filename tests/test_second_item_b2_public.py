@@ -12,11 +12,13 @@ from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.second_item_b2_public import (
     B2_PATH,
     PUBLIC_FORBIDDEN_RE,
+    SCOPE_GUIDE,
     _refresh_payload,
     _scoring_signature,
     _group_profiles,
     _stable_id,
     _public_direction,
+    display_boundary,
     display_sources,
     verify_public_projection,
 )
@@ -147,6 +149,7 @@ def test_full_pool_reading_collection_preserves_current_public_text():
     cards = dict(re.findall(r"<article id='([^']+)'>(.*?)</article>", text, re.S))
     assert set(cards) == {row['ruler_id'] for row in payload['records']}
     assert text.count('<article id=') == len(cards)
+    assert text.count(escape(SCOPE_GUIDE)) == 1
     for row in payload['records']:
         rid = row['ruler_id']
         card = cards[rid]
@@ -177,7 +180,8 @@ def test_full_pool_reading_collection_preserves_current_public_text():
         assert projected['reader_grade_origin'] == row['grade_origin']
         assert projected['public_evidence_items'] == row['public_evidence_items']
         assert projected['reader_public_evidence_items'] == [
-            {**item, 'source_refs': display_sources(item['source_refs'])}
+            {**item, 'source_refs': display_sources(item['source_refs']),
+             'display_boundary': display_boundary(item['public_boundary'])}
             for item in row['public_evidence_items']
         ]
         if row.get('grade_origin') == 'MISSING_EVIDENCE_DEFAULT':
@@ -186,5 +190,6 @@ def test_full_pool_reading_collection_preserves_current_public_text():
             assert not projected['reader_public_evidence_items']
         for item in row['public_evidence_items']:
             assert escape(item['public_basis']) in card
-            assert escape(item['public_boundary']) in card
+            if boundary := display_boundary(item['public_boundary']):
+                assert escape(boundary) in card
             assert item['id'] in card

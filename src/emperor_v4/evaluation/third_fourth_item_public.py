@@ -14,13 +14,18 @@ from pathlib import Path
 from typing import Any
 from emperor_v4.evaluation.third_fourth_public_language import language_domain
 from emperor_v4.evaluation.third_item_a_public import reading_projection, verify_reading_sources
-from emperor_v4.evaluation.third_item_b_public import reading_projection as b_reading_projection, verify_sources as verify_b_sources
-from emperor_v4.evaluation.third_item_b_sources import AXES as B_AXES, CATALOG as B_SOURCE_CATALOG, pack_sources as pack_b_sources
+from emperor_v4.evaluation.third_item_b_public import (
+    DERIVED_READING_FIELDS as B_DERIVED_READING_FIELDS, SHARED_BOUNDARY as B_SHARED_BOUNDARY,
+    SHARED_SOURCE_NOTE as B_SHARED_SOURCE_NOTE, reading_projection as b_reading_projection,
+    verify_sources as verify_b_sources,
+)
+from emperor_v4.evaluation.third_item_b_sources import AXES as B_AXES
 from emperor_v4.evaluation.third_fourth_public_fields import (
     PROJECTION_SOURCE_FIELDS, PROJECTION_DERIVED_FIELDS, PUBLIC_PROJECTION_FIELDS,
     scoring_view, validate_public_keys,
 )
 from emperor_v4.evaluation.third_item_c_public import reading_projection as c_reading_projection, verify_sources as verify_c_sources
+from emperor_v4.evaluation.third_item_current_settlement import RESULT_CREDIT_ADJUDICATIONS_PATH as THIRD_CREDIT_PATH
 
 from emperor_v4.evaluation.formal_json_store import (
     load_json,
@@ -38,7 +43,6 @@ THIRD_C_PATH = Path(
 THIRD_D_PATH = Path(
     "docs/评分结算/净收益/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
 )
-THIRD_CREDIT_PATH = Path("config/third-item/third-item-result-credit-adjudications.json")
 THIRD_ML_PATH = Path("config/third-item/third-item-military-net-loss-penalties.json")
 THIRD_TOTAL_PATH = Path("docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json")
 FOURTH_PATH = Path(
@@ -65,6 +69,7 @@ THIRD_ROUTED_PATHS = {
     "AB": THIRD_AB_PATH,
     "C": THIRD_C_PATH,
     "D": THIRD_D_PATH,
+    "credit": THIRD_CREDIT_PATH,
 }
 
 THIRD_AXIS_LABELS = {
@@ -444,27 +449,20 @@ def _verify_projection_fields(row: dict[str, Any], *, prefix: str, ruler_id: str
     _validate_evidence(row.get("public_evidence_items"), prefix=prefix, ruler_id=ruler_id)
 
 
-def _ab_projection(row: dict[str, Any], credit: dict[str, Any]) -> dict[str, Any]:
+def ab_public_record(row: dict[str, Any], credit: dict[str, Any]) -> dict[str, Any]:
+    """Assemble AB reading from its authored B fields and the A result credit."""
+    if not row.get('ruler_id') or row['ruler_id'] != credit.get('ruler_id'):
+        raise ValueError('AB公开阅读与结果信用人物不一致')
     ruler_id = str(row.get("ruler_id") or "")
-    axes = row.get("axes") if isinstance(row.get("axes"), dict) else {}
-    # Expand all three before updating any axis; stored inputs must never mix
-    # inline sources with references while another axis is being validated.
-    b_readings = {axis: b_reading_projection(axis, row, credit) for axis in B_AXES}
-    expanded = dict(row, axes={axis: dict(value) for axis, value in axes.items()})
-    for axis in B_AXES:
-        expanded['axes'][axis]['public_reading'] = b_readings[axis]
-    packed = pack_b_sources(expanded)
+    result = copy.deepcopy(row)
     items: list[dict[str, str]] = []
     for axis in ("A1", "A2", "B1", "B2", "B4"):
         if axis in ('A1', 'A2'):
             projection = credit['axes'][axis]
-            # A reading is owned by result credit; AB retains only its scoring fields.
-            _apply_projection(axes[axis], {}, retired_sources={'public_reading'})
         else:
-            reading = b_readings[axis]
+            reading = b_reading_projection(axis, row, credit)
             projection = _b_axis_projection(axis, reading, ruler_id)
-            projection['public_reading'] = packed['axes'][axis]['public_reading']
-            _apply_projection(axes[axis], projection, source_updates={'public_reading'})
+            _apply_projection(result['axes'][axis], projection, source_updates={'public_reading'})
         items.append(
             _item(
                 "THIRD-AB",
@@ -534,8 +532,23 @@ def _ab_projection(row: dict[str, Any], credit: dict[str, Any]) -> dict[str, Any
         level_label="战略安全与边疆控制结果",
         component_label="战略安全与边疆控制",
     )
-    projection[B_SOURCE_CATALOG] = packed[B_SOURCE_CATALOG]
-    return projection
+    _apply_projection(result, projection)
+    return result
+
+
+def _strip_ab_public_copies(row: dict[str, Any]) -> None:
+    _apply_projection(row, {})
+    for axis in ('A1', 'A2'):
+        _apply_projection(row['axes'][axis], {}, retired_sources={'public_reading'})
+    for axis in B_AXES:
+        axis_row = row['axes'][axis]
+        reading = {key: value for key, value in axis_row['public_reading'].items()
+                   if key not in B_DERIVED_READING_FIELDS}
+        if reading.get('boundary') == B_SHARED_BOUNDARY:
+            del reading['boundary']
+        if reading.get('source_note') == B_SHARED_SOURCE_NOTE:
+            del reading['source_note']
+        _apply_projection(axis_row, {'public_reading': reading}, source_updates={'public_reading'})
 
 
 def _b_axis_projection(axis, reading, ruler_id):
@@ -714,16 +727,19 @@ def _ml_projection(row: dict[str, Any], ruler_id: str, *, prefix: str = "THIRD-M
     )
 
 
-def _d_projection(row: dict[str, Any]) -> dict[str, Any]:
+def d_public_record(source: dict[str, Any]) -> dict[str, Any]:
+    """Build the D summary and cost captions from the formal chains and cost record."""
+    row = dict(source)
     ruler_id = str(row.get("ruler_id") or "")
     profile = row.get("attributable_cost_profile")
-    profile = profile if isinstance(profile, dict) else {}
+    profile = dict(profile) if isinstance(profile, dict) else {}
     cost = _cost_projection(profile, ruler_id, prefix="THIRD-D-COST")
     _apply_projection(profile, cost)
     row["attributable_cost_profile"] = profile
     external_count = len(row.get("external_strategic_chains") or [])
     internal_count = len(row.get("strategic_internal_chains") or [])
     result_basis = _first_text(row.get("adjudication_basis")) or "正式记录保留了战略结果组合。"
+    summary = f"战略结果由{external_count}条外部结果链和{internal_count}条内部军事链共同构成。{result_basis}"
     items = [
         _item(
             "THIRD-D",
@@ -731,7 +747,7 @@ def _d_projection(row: dict[str, Any]) -> dict[str, Any]:
             "result",
             "战略结果组合",
             "战略结果",
-            f"正式记录列出{external_count}条外部战略结果链和{internal_count}条内部军事链。{result_basis}",
+            summary,
             "不同战略目标、阶段结果和内部代价分别说明；同一终局、区域恢复和重复动员不重复计算。",
         ),
         cost["public_evidence_items"][0],
@@ -741,18 +757,18 @@ def _d_projection(row: dict[str, Any]) -> dict[str, Any]:
             "responsibility",
             "责任与重复计算边界",
             "责任边界",
-            "国家战略结果、具体统帅执行和本方军事代价分别保留，不能用单一终局名称替代责任判断。",
-            "D项结果不把普通军事代价和重大净毁损重复写成两次损失。",
+            "逐链核对国家战略结果、统帅执行和本方代价，再判断本人责任。",
+            "军事净毁损与普通代价的扣分关系见第三项合并规则。",
         ),
     ]
-    summary = f"战略结果由{external_count}条外部结果链和{internal_count}条内部军事链共同构成。{result_basis}"
-    return _projection(
+    _apply_projection(row, _projection(
         summary=summary,
         items=items,
         boundary="战略结果、具体执行、普通军事代价和重大净毁损按各自对象说明，不把同一阶段结果重复计算。",
         level_label=f"战略结果为{_level_label(row.get('D_grade'))}",
         component_label="战略结果与军事代价",
-    )
+    ))
+    return row
 
 
 def _third_projection(row: dict[str, Any], ab: dict[str, Any], credit: dict[str, Any], c: dict[str, Any], d: dict[str, Any], ml: dict[str, Any] | None) -> dict[str, Any]:
@@ -851,18 +867,20 @@ def _refresh_third(payloads: dict[str, dict[str, Any]]) -> dict[str, dict[str, A
     for row in credit_rows.values():
         _apply_projection(row, _credit_projection(row, payloads['credit']['contract'], ab_rows[row['ruler_id']]))
     for row in ab_rows.values():
-        credit = credit_rows[row['ruler_id']]
-        _apply_projection(row, _ab_projection(row, credit))
+        _strip_ab_public_copies(row)
     for row in c_rows.values():
         _apply_projection(row, {'public_reading': row['public_reading']})
     for row in d_rows.values():
-        _apply_projection(row, _d_projection(row))
+        _apply_projection(row, {})
+        if isinstance(row.get('attributable_cost_profile'), dict):
+            _apply_projection(row['attributable_cost_profile'], {})
     for row in ml_rows.values():
         _apply_projection(row, _ml_projection(row, str(row.get("ruler_id") or "")))
     for ruler_id, row in total_rows.items():
         _apply_projection(
             row,
-            _third_projection(row, ab_rows[ruler_id], credit_rows[ruler_id], c_rows[ruler_id], d_rows[ruler_id], ml_rows.get(ruler_id)),
+            _third_projection(row, ab_public_record(ab_rows[ruler_id], credit_rows[ruler_id]),
+                              credit_rows[ruler_id], c_rows[ruler_id], d_rows[ruler_id], ml_rows.get(ruler_id)),
         )
         for field in _THIRD_TOTAL_DERIVED_FIELDS:
             row.pop(field, None)
@@ -877,6 +895,10 @@ def _refresh_third(payloads: dict[str, dict[str, Any]]) -> dict[str, dict[str, A
         }
         if key == 'C':
             payload['public_projection_source']['reader_policy'] = '阅读层直接展示public_reading；计算解释由现行结算字段在上游确定性生成，不改写人物正文。'
+        if key == 'AB':
+            payload['public_projection_source']['reader_policy'] = '保留B轴正文与来源引用，分项公开字段由ab_public_record从现行结果信用与AB记录组装。'
+        if key == 'D':
+            payload['public_projection_source']['reader_policy'] = '保留逐链裁决和成本依据；公开摘要和普通代价说明按需从现行记录生成。'
         if key == 'total':
             payload['public_projection_source']['reader_policy'] = '汇总正文、材料列表与普通成本副本由third_public_record按人物ID从现行组件组装；总表保留成本依据和重大军事净毁损公开说明。'
     payloads["AB"]["public_projection_record_count"] = len(ab_rows)
@@ -1088,6 +1110,9 @@ def _fourth_projection(row: dict[str, Any], packages: dict[str, dict[str, Any]])
 @language_domain('civilization')
 def fourth_public_record(row: dict[str, Any]) -> dict[str, Any]:
     """Assemble the record summary from authoritative axes in A/B/C order."""
+    from .fourth_item_results import SCHEMA, reading_record
+    if any(axis.get('calculation_version') == SCHEMA for axis in row.get('axis_results', [])):
+        row = reading_record(row)
     axes = {axis['axis']: axis for axis in row.get('axis_results', [])}
     ordered = [axes[axis] for axis in 'ABC' if axis in axes]
     items = [item for axis in ordered for item in axis['public_evidence_items']]
@@ -1166,13 +1191,21 @@ def _verify_third(payloads: dict[str, dict[str, Any]], *, c_review_context) -> d
         if set(rows) != set(total_rows):
             raise ValueError(f"第三项公开投影人物集合不一致：{key}")
         for ruler_id, row in rows.items():
-            projected = c_public_record(row, context=c_review_context) if key == 'C' else row
-            if key == 'C':
+            projected = row
+            if key == 'AB':
+                projected = ab_public_record(row, component_rows['credit'][ruler_id])
+            elif key == 'C':
+                projected = c_public_record(row, context=c_review_context)
+            elif key == 'D':
+                projected = d_public_record(row)
+                _verify_projection_fields(projected['attributable_cost_profile'], prefix="THIRD-D-COST", ruler_id=ruler_id)
+            if key in ('AB', 'C', 'D'):
                 _validate_public_strings(projected)
             _verify_projection_fields(projected, prefix="THIRD", ruler_id=ruler_id)
     for ruler_id, row in total_rows.items():
         projected = third_public_record(
-            row, ab=component_rows['AB'][ruler_id], credit=component_rows['credit'][ruler_id],
+            row, ab=ab_public_record(component_rows['AB'][ruler_id], component_rows['credit'][ruler_id]),
+            credit=component_rows['credit'][ruler_id],
             c=component_rows['C'][ruler_id], d=component_rows['D'][ruler_id],
             ml=component_rows['ML'].get(ruler_id),
         )
@@ -1279,12 +1312,7 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
         polities = load_ruler_polities(root)
         for key, path in THIRD_ROUTED_PATHS.items():
             write_json(root / path, projected_third[key], ruler_polities=polities)
-        for key in ("credit", "ML", "total"):
-            path = {
-                "credit": THIRD_CREDIT_PATH,
-                "ML": THIRD_ML_PATH,
-                "total": THIRD_TOTAL_PATH,
-            }[key]
+        for key, path in (("ML", THIRD_ML_PATH), ("total", THIRD_TOTAL_PATH)):
             write_json(root / path, projected_third[key])
         write_json(root / FOURTH_PATH, projected_fourth, ruler_polities=polities)
         from .reading_layout import write_reading

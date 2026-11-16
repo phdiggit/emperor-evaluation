@@ -446,9 +446,30 @@ def _render_formal_markdown(
     ]
     if kind == "AB":
         if current_ab:
+            from .third_item_a_public import scope_guide
+            from .third_item_b_public import METHOD, RATE_TABLE_LINES, SCALES, SHARED_BOUNDARY, SHARED_SOURCE_NOTE
+
+            a_guide = scope_guide()
             lines += [
                 "A1/A2与B1/B2/B4原子档用于解释；当前计分只读取A120和非线性合成的B80。成本尚未在本表折算，最终分见第三项总榜。",
                 "",
+                '<a id="a-common-rules"></a>',
+                '<details><summary>战略安全的通用规则与状态档位</summary>', '',
+                *(line for paragraph in a_guide['paragraphs'] for line in (paragraph, '')),
+            ]
+            for axis in a_guide['axes']:
+                lines += [f"**{axis['title']}**", '', *(f'- {row}' for row in axis['rows']), '']
+            lines += [
+                '</details>', '',
+                '<a id="b-common-rules"></a>',
+                '<details><summary>控制成果的评价标准与得分率</summary>', '',
+                METHOD, '', SHARED_BOUNDARY, '', SHARED_SOURCE_NOTE, '',
+                *(f'- {line}' for line in RATE_TABLE_LINES), '',
+            ]
+            for axis, title in (("B1", "控制规模"), ("B2", "战略价值"), ("B4", "交班成熟度")):
+                lines += [f'**{title}**', '', *(f'- {level}档：{basis}。' for level, basis in enumerate(SCALES[axis])), '']
+            lines += [
+                '</details>', '',
                 "| 排名 | 皇帝 | 政权 | 在位 | A客观锚 | A正向信用 | A120 | B1率 | B2率 | B4率 | B80 | A+B/200 |",
                 "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
             ]
@@ -460,7 +481,7 @@ def _render_formal_markdown(
         for rank, row in ranked:
             axes = row["axes"]
             if current_ab:
-                b_current = row["B80_adjudication"]
+                b_current = credit_rows[row['ruler_id']]['B80_adjudication']
                 lines.append(
                     f"| {rank} | [{row['ruler_name']}](#person-{row['ruler_id'].lower()}) | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
                     f"{float(row['A120_non_cost_anchor_points']):.2f} | {float(row['A120_positive_result_credit_points']):.2f} | "
@@ -480,7 +501,15 @@ def _render_formal_markdown(
                     f"{b4:.1f} | {b1 + b2 + b4:.1f} | {float(row[score_key]):.1f} |"
                 )
     else:
+        from .third_item_c_contract_reading import TASK_SCOPE_GUIDE
+        from .third_item_c_public import ASSESSMENT_SCOPE, METHOD, SCALES
+
         lines += [
+            '<a id="third-c-task-scope"></a>', '', TASK_SCOPE_GUIDE, '',
+            '<a id="third-c-grade-guide"></a>', '',
+            '<details><summary>档位与计分规则</summary>', '', METHOD, '', ASSESSMENT_SCOPE, '',
+            *(f'- {grade}档：{meaning}。' for grade, meaning in enumerate(SCALES[0])),
+            '', '</details>', '',
             "| 排名 | 皇帝 | 政权 | 在位 | 联合主评 | C总体 | 得分率 | C/50 | 当前战略链 | 父周期证据 |",
             "|---:|---|---|---|---:|---:|---:|---:|---:|---:|",
         ]
@@ -505,7 +534,7 @@ def _render_formal_markdown(
             if current_ab:
                 from emperor_v4.evaluation.third_item_ab_reading import render_person
                 lines += render_person(
-                    row, a_readings=credit_rows[row['ruler_id']]['axes'],
+                    row, credit=credit_rows[row['ruler_id']],
                     b_basis=_b_reader_basis, b_grade=_b_reader_grade,
                     b_regions=_b1_region_change_reader_text,
                     depth_lines=render_control_depth_packages,

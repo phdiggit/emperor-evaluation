@@ -11,6 +11,20 @@ SCHEMA = 'profile-m1-authored-reading-v1'
 FIELDS = ('headline', 'summary', 'grade_reason', 'position_reason', 'higher_grade_limit')
 CASE_FIELDS = ('title', 'action', 'result', 'meaning', 'boundary')
 INTERNAL = re.compile(r'G[0-5]|D[0-4]|材料底池|本轮|父卡|消费|闭合|例外路径|逐项复核|规范军事登记')
+M1_REVIEW_GUIDE = {
+    'text': (
+        '材料覆盖看生涯战役和史源是否可查，能力覆盖看本人有没有可归责的行动与复验。'
+        '同一任务的各阶段合看。复核军事受挫时，分别判断本人责任、作战能力恢复及残余损失。'
+        '对本人收到的失败反馈和后续调整，采用有明确记载的过程。'
+    ),
+    'common_counter': '只在现行父链明确记录失败到达和后续调整时解释；本人归责和恢复是否发生分别判断，不虚构未发生的能力复验。',
+    'limitations': {
+        '独立可归责军事表现与跨任务复验有限，不表示材料底池未覆盖全生涯。': '可归责表现和跨任务复验有限。',
+        '可归责强军事表现集中于同一任务或生命周期，不能拆作多次独立复验。': '有力的本人证据集中于同一任务或完整过程。',
+        '可归责军事表现的阶段分布限制能力迁移判断，不表示生涯战役登记缺失。': '可归责表现的阶段分布限制了对跨阶段能力的判断。',
+        '已登记行为尚不能对所有M1子面提供同等强度的本人能力证明。': '各项军事能力的本人证据强弱不一。',
+    },
+}
 
 
 def public_grade(row: dict) -> str:
@@ -200,7 +214,7 @@ def markdown_reading(row: dict, context: dict | None = None) -> list[str]:
         target = source.get('href') or source['ref']
         label = source['label']
         if is_machine_source(target):
-            return f'- {label}（此条项目依据未单列阅读入口）'
+            return f'- {label}'
         if target.startswith('military.html'):
             target = 'reader/' + target
         if target.startswith(('docs/', 'config/', 'reader/')):
@@ -243,9 +257,20 @@ def markdown_reading(row: dict, context: dict | None = None) -> list[str]:
     lines += [f'#### 为什么评为 {letter} 档？', '', p['grade_reason'], '',
               '#### ' + position_title, '', p['position_reason'], '',
               ('#### 当前等级的边界' if row['axis_grade'] == 'G5' else '#### 为什么没有进入更高档？'), '', p['higher_grade_limit'], '']
-    if row.get('counterpattern') or row.get('limitations'):
-        lines += ['#### 正式反例与限制', '', row.get('counterpattern') or '', '']
-        lines += [f"- {text}" for text in row.get('limitations', [])]
+    counterpattern = row.get('counterpattern') or ''
+    show_shared_guide = counterpattern == M1_REVIEW_GUIDE['common_counter']
+    if show_shared_guide:
+        counterpattern = ''
+    limitation_map = M1_REVIEW_GUIDE['limitations']
+    limitations = row.get('limitations', [])
+    show_shared_guide = show_shared_guide or any(text in limitation_map for text in limitations)
+    if counterpattern or limitations or show_shared_guide:
+        lines += ['#### 正式反例与限制', '']
+        if counterpattern:
+            lines += [counterpattern, '']
+        lines += [f"- {limitation_map.get(text, text)}" for text in limitations]
+        if show_shared_guide:
+            lines.append('- [能力覆盖与失败恢复](#m1-review-guide)')
         lines.append('')
     if review := row.get('m1_stability_review'):
         lines += ['#### 军事失败与恢复复核', '', review['basis'], '']

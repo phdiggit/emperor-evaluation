@@ -360,6 +360,7 @@ def render_third_item_d_markdown(payload: Mapping[str, Any]) -> str:
         "- D先看统治窗口内对外战略链和异常内部战略链造成的安全态势净变化，正向E与负向EN同权。",
         "- 军事成本按独立合同裁决，只记录本方实际投入与毁损；归责决定消费窗口，不改变损害严重度，敌军、叛军和平民损失不计入。",
         "- 第一项创业统一链及第三项C独占任务整链退出D局部结算，并在逐人段落的“跨项排除链”中明示。",
+        "- 逐人史源用于核对时间、参战方与归责，计入的本方损失见各人的成本裁决。",
         "",
         "## 档位分布",
         "",
@@ -402,41 +403,34 @@ def render_third_item_d_markdown(payload: Mapping[str, Any]) -> str:
         lines += [
             f"### {index}. {row['ruler_name']}（{grade}·{position_labels[str(row['D_within_grade_position'])]}；{profile['cost_band']}·{cost_status}/{cost_position}）",
             "",
-            "- **对外战略链**：",
         ]
-        external = list(row.get("external_strategic_chains") or ())
-        if not external:
-            lines.append("  - 无合格独立链。")
-        for chain in external:
-            lines.append(f"  - {_chain_evidence_line(chain)}")
-        lines.append("- **异常内部链**：")
-        internal = list(row.get("strategic_internal_chains") or ())
-        if not internal:
-            lines.append("  - 无。")
-        for chain in internal:
-            lines.append(f"  - {_chain_evidence_line(chain)}")
-        excluded = list(row.get("cross_item_excluded_chains") or ())
-        lines.append("- **跨项排除链**：")
-        if not excluded:
-            lines.append("  - 无。")
+        external = row.get("external_strategic_chains") or ()
+        internal = row.get("strategic_internal_chains") or ()
+        for name, chains in (("对外战略链", external), ("异常内部链", internal)):
+            if chains:
+                lines.append(f"- **{name}**：")
+                lines.extend(f"  - {_chain_evidence_line(chain)}" for chain in chains)
+        if not external and not internal:
+            lines.append("- 本项未采用对外或异常内部战略链。")
+        excluded = row.get("cross_item_excluded_chains") or ()
+        if excluded:
+            lines.append("- **跨项排除链**：")
         for chain in excluded:
             reason = chain.get("reason") or chain.get("basis") or "整链退出D，不参与成果或成本计算。"
             lines.append(f"  - `{chain['chain_id']}`：{_reader_text(reason)}")
-        lines.append(
-            f"- **可归责成本**：{profile['cost_band']}（{cost_status}，{cost_position}）。"
-        )
         cost_structure = _cost_structure_lines(profile)
-        lines += ["- **成本结构**：", *cost_structure]
+        if cost_structure:
+            lines += ["- **成本结构**：", *cost_structure]
         exclusions = list(row.get("non_military_loss_cost_exclusions") or ())
         if exclusions:
             lines.append(f"- **非本方军事成本排除**：{_reader_text(exclusions)}")
         ordinary = row.get("ordinary_suppression_summary")
         if ordinary not in (None, "", [], {}):
             lines.append(f"- **普通平乱摘要**：{_ordinary_summary(ordinary)}")
+        lines += [f"- **最终裁决**：{_reader_text(row['adjudication_basis'])}", ""]
         excerpts = reading_sources(row)
         if excerpts:
-            lines += ['', '#### 所引史料与采用范围', '',
-                      '所列材料也用于核对时间、参战方和归责。实际计入的本方损失以成本裁决为准。', '']
+            lines += ['<details><summary>所引史料与采用范围</summary>', '']
             for source in excerpts:
                 title = source['title'] or '查看所引史源'
                 link = f"[{title}]({source['url']})" if source['url'] else source['title']
@@ -450,7 +444,7 @@ def render_third_item_d_markdown(payload: Mapping[str, Any]) -> str:
                         lines += [*(('> ' + line).rstrip() for line in source['text'].splitlines()), '']
                 if source['boundary']:
                     lines += ['采用范围：' + source['boundary'], '']
-        lines += [f"- **最终裁决**：{_reader_text(row['adjudication_basis'])}", ""]
+            lines += ['</details>', '']
     return "\n".join(lines).rstrip() + "\n"
 
 

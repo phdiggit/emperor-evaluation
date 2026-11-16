@@ -64,6 +64,11 @@ def source_label(ref):
 
 
 def markdown_reading(data):
+    if 'common_result_basis' in data:
+        from .fourth_item_results import markdown_reading as current_markdown
+
+        return current_markdown(data)
+
     def sources(refs):
         return '\n'.join('- ' + s['kind'] + '：' + (f'[{s["label"]}]({s["target"]})' if s['target'] else s['label']) for s in refs)
     lines = [f'**{data["question"]}**', '', f'评价时期：{data["window"]}。', '', data['story'], '', '**为什么这样评**', '', data['decision'], '', '**本人责任**', '', data['responsibility']]

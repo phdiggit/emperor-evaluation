@@ -5,13 +5,40 @@ from pathlib import Path
 
 import pytest
 
-from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.formal_json_store import B1_PROFILE_ADJUDICATION_STYLE, load_json, write_json
 from emperor_v4.evaluation.second_item_b1_settlement import (
-    B1_PATH, _authored_public_text, _public_position_basis, _public_tags,
+    B1_PATH, _authored_public_text, _public_position_basis, _public_tags, b1_reading_fields,
     _scoring_signature, refresh_b1_public_projection, validate_public_profile_contract,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_routed_b1_preserves_field_references_without_storing_the_cards(tmp_path):
+    path = tmp_path / "b1.json"
+    source = {
+        "ruler_id": "SYNTHETIC", "polity": "合成朝",
+        "grade": "G3", "position": "middle", "direction_index": 62.5,
+        "public_position_basis": "该组织完成职责内的任务。",
+        "public_adjudication_summary": "这次交付有正式记载。",
+        "M_positive_profile": [
+            {"profile_id": "P2", "material_id": "SHARED", "adjudication_basis": "该证据记下前期交付。"},
+            {"profile_id": "P1", "material_id": "SHARED", "adjudication_basis": "该证据也记下后期交付。"},
+        ],
+    }
+    payload = {"profile_adjudication_style": B1_PROFILE_ADJUDICATION_STYLE,
+               "records": [{**source, **b1_reading_fields(source)}]}
+    write_json(path, payload, ruler_polities={}, route=True)
+    shard = json.loads((tmp_path / "b1" / "合成朝.json").read_bytes())
+    assert shard["collections"]["records"]["records"] == [source]
+    logical = load_json(path, polities=["合成朝"])
+    assert logical == payload
+    cards = logical["records"][0]["public_evidence_items"]
+    assert [(card["profile_id"], card["material_id"]) for card in cards] == [("P2", "SHARED"), ("P1", "SHARED")]
+    cards[0]["public_basis"] = "过期副本。"
+    with pytest.raises(ValueError, match="阅读副本与正式依据不一致"):
+        write_json(path, logical, ruler_polities={})
+    assert load_json(path) == payload
 
 
 def test_refresh_preserves_authored_experience_responsibility_and_reason():

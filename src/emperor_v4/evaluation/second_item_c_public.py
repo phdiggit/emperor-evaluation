@@ -2,8 +2,11 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import re
+from base64 import urlsafe_b64encode
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -24,7 +27,7 @@ CONTRACT_PATH = Path("docs/分项规则/第二项治国净收益/财政民生/00
 PUBLIC_PROJECTION_SCHEMA = "second-item-c-authored-public-v3"
 AXES = ("C1", "C2", "C3", "C4")
 STATE_AXES = ("C1", "C2", "C3")
-GENERATED_MARKDOWN_AXES = ('C3', 'C4')
+SHARDED_MARKDOWN_AXES = ('C3', 'C4')
 
 PUBLIC_EVIDENCE_FIELDS = (
     "id",
@@ -297,29 +300,20 @@ def _verify_payload(axis: str, payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def verify_public_projection(workspace_root: Path) -> dict[str, Any]:
+    from .reading_layout import check_reading
+
     root = workspace_root.resolve()
-    reports = {
-        axis: _verify_payload(axis, load_json(root / path))
-        for axis, path in FORMAL_PATHS.items()
-    }
+    payloads = {axis: load_json(root / path) for axis, path in FORMAL_PATHS.items()}
+    reports = {axis: _verify_payload(axis, payload) for axis, payload in payloads.items()}
     id_sets = {
-        axis: {str(row.get("ruler_id")) for row in _records(load_json(root / path))}
-        for axis, path in FORMAL_PATHS.items()
+        axis: {str(row.get("ruler_id")) for row in _records(payload)}
+        for axis, payload in payloads.items()
     }
     if any(ids != id_sets["C1"] for ids in id_sets.values()):
         raise ValueError("第二项C1-C4公开投影人物集合不一致")
-    payloads = {axis: load_json(root / path) for axis, path in FORMAL_PATHS.items()}
     source_count = verify_source_bindings(payloads)
     for axis, payload in payloads.items():
-        markdown_path = (root / FORMAL_PATHS[axis]).with_suffix('.md')
-        if axis in GENERATED_MARKDOWN_AXES:
-            from .reading_layout import check_reading
-            check_reading(root, FORMAL_PATHS[axis].with_suffix('.md'), render_complete_markdown(payload))
-            continue
-        markdown = markdown_path.read_text(encoding='utf-8')
-        expected = render_public_markdown(markdown, payload)
-        if expected != markdown:
-            raise ValueError(f"第二项{axis}Markdown公开阅读视图未同步")
+        check_reading(root, FORMAL_PATHS[axis].with_suffix('.md'), render_complete_markdown(payload))
     return {
         "status": "PASS",
         "axis_reports": reports,
@@ -330,38 +324,92 @@ def verify_public_projection(workspace_root: Path) -> dict[str, Any]:
     }
 
 
+def _source_references(row: dict[str, Any]):
+    for item in row["public_evidence_items"]:
+        yield from item["source_refs"]
+    yield from row["public_related_source_refs"]
+
+
+def _index_sources(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {row["ruler_id"]: row for row in _records(payload)}
+
+
+def _source_quote(row, ref, sources):
+    axis = ref.get("axis")
+    ruler_id = row["ruler_id"]
+    if axis not in FORMAL_PATHS or ref.get("ruler_id") != ruler_id:
+        raise ValueError(f"第二项C逐条史源人物或轴引用无效：{row['ruler_name']}")
+    expected_path = FORMAL_PATHS[axis].as_posix() + "#ruler_id=" + ruler_id
+    if ref.get("path") != expected_path:
+        raise ValueError(f"第二项C逐条史源路径与对象不一致：{row['ruler_name']}")
+    try:
+        value = sources(axis)[ruler_id]
+        for part in ref["field_path"]:
+            value = value[part]
+    except (KeyError, IndexError, TypeError) as exc:
+        raise ValueError(f"第二项C逐条史源字段失效：{row['ruler_name']}/{axis}/{ref.get('field_path')}") from exc
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"第二项C逐条史源字段不是有效正文：{row['ruler_name']}/{axis}/{ref['field_path']}")
+    return value
+
+
+def _quote_fingerprint(quote: str) -> dict[str, str]:
+    digest = hashlib.sha256(quote.encode("utf-8")).digest()
+    return {"sha256": urlsafe_b64encode(digest).decode("ascii").rstrip("=")}
+
+
+def compact_source_quotes(row: dict[str, Any]) -> None:
+    """Replace only bound quotes in a private record prepared for storage."""
+    for key in ("public_evidence_items", "public_related_source_refs"):
+        row[key] = copy.deepcopy(row[key])
+    for ref in _source_references(row):
+        quote = ref.get("exact_quote")
+        if not isinstance(quote, str) or not quote.strip():
+            raise ValueError(f"第二项C逐条史源摘录无效：{row['ruler_name']}/{ref.get('field_path')}")
+        ref["exact_quote"] = _quote_fingerprint(quote)
+
+
+def expand_source_quotes(payload: dict[str, Any], load_axis: Callable[[str], dict[str, Any]]) -> None:
+    """Read only the axes needed by packed quotes, without recursive projection."""
+    indexed = {payload["public_projection_axis"]: _index_sources(payload)}
+
+    def sources(axis):
+        if axis not in indexed:
+            indexed[axis] = _index_sources(load_axis(axis))
+        return indexed[axis]
+
+    for row in _records(payload):
+        for ref in _source_references(row):
+            packed = ref.get("exact_quote")
+            if isinstance(packed, str):
+                continue
+            quote = _source_quote(row, ref, sources)
+            if packed != _quote_fingerprint(quote):
+                raise ValueError(f"第二项C逐条史源摘录与原字段不一致：{row['ruler_name']}/{ref['axis']}/{ref['field_path']}")
+            ref["exact_quote"] = quote
+
+
 def verify_source_bindings(payloads: dict[str, dict[str, Any]]) -> int:
     """Resolve authored source pointers; do not guess sources by prose similarity."""
-    indexed = {axis: {row['ruler_id']: row for row in _records(payload)} for axis, payload in payloads.items()}
+    indexed = {axis: _index_sources(payload) for axis, payload in payloads.items()}
     count = 0
-    for axis, payload in payloads.items():
+    for payload in payloads.values():
         for row in _records(payload):
-            groups = [item['source_refs'] for item in row['public_evidence_items']]
-            groups.append(row['public_related_source_refs'])
-            for refs in groups:
-                for ref in refs:
-                    source_axis = ref.get('axis')
-                    if source_axis not in indexed or ref.get('ruler_id') != row['ruler_id']:
-                        raise ValueError(f"第二项C逐条史源人物或轴引用无效：{row['ruler_name']}")
-                    value = indexed[source_axis][row['ruler_id']]
-                    try:
-                        for part in ref['field_path']:
-                            value = value[part]
-                    except (KeyError, IndexError, TypeError) as exc:
-                        raise ValueError(f"第二项C逐条史源字段失效：{row['ruler_name']}/{ref}") from exc
-                    if ref.get('exact_quote') != value or not isinstance(value, str) or not value.strip():
-                        raise ValueError(f"第二项C逐条史源摘录与原字段不一致：{row['ruler_name']}")
-                    expected_path = FORMAL_PATHS[source_axis].as_posix() + '#ruler_id=' + row['ruler_id']
-                    if ref['path'] != expected_path:
-                        raise ValueError(f"第二项C逐条史源路径与对象不一致：{row['ruler_name']}")
-                    count += 1
+            for ref in _source_references(row):
+                if ref.get("exact_quote") != _source_quote(row, ref, indexed.__getitem__):
+                    raise ValueError(f"第二项C逐条史源摘录与原字段不一致：{row['ruler_name']}/{ref['axis']}/{ref['field_path']}")
+                count += 1
     return count
 
 
 def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
     """Keep the existing settlement table; append one current authored view."""
-    from .reading_layout import person_start, PERSON_END
+    from .reading_layout import evidence_repeated_in_story, person_start, PERSON_END
     from .second_item_c_materials import material_groups
+    from .second_item_c_reading import (
+        COMMON_AXIS_BOUNDARIES, LOSS_GUIDE, NAMES, RECOVERY_STEP_GUIDE, calculation_record, display_calculation,
+        display_evidence_basis, display_state_finding, specific_public_boundary,
+    )
     from .second_item_c_source_display import material_excerpts, reading_source
 
     def citation(raw):
@@ -386,24 +434,42 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
     start = '<!-- c-public-start -->'
     end = '<!-- c-public-end -->'
     core = re.sub(r'\n*' + re.escape(start) + r'.*?' + re.escape(end) + r'\n*', '\n', markdown, flags=re.S).rstrip()
-    lines = [core, '', start, '', '## 人物正文、逐条依据与史源', '']
-    from emperor_v4.evaluation.second_item_c_source_notes import source_note_records
+    from emperor_v4.evaluation.second_item_c_source_notes import (
+        SOURCE_GUIDE, source_note_records, specific_source_note, uses_shared_collection_scope,
+    )
+
+    axis = payload['public_projection_axis']
+    lines = [core, '', start, '', '## 人物正文、逐条依据与史源', '',
+             '<a id="finance-source-guide"></a>', '', SOURCE_GUIDE, '',
+             '<a id="finance-axis-scope"></a>', '', '**本轴通用范围**', '', COMMON_AXIS_BOUNDARIES[axis], '']
+    if axis in NAMES:
+        lines += [LOSS_GUIDE, '']
+    elif axis == 'C4':
+        lines += ['**恢复跨档难度**', '', RECOVERY_STEP_GUIDE, '']
     for row in source_note_records(payload):
-        from emperor_v4.evaluation.second_item_c_reading import calculation_record
         row = calculation_record(payload['public_projection_axis'], row)
+        summary, loss_label = display_state_finding(axis, row)
         story = ('\n\n'.join('#### ' + s['title'] + '\n\n' + s['body'] for s in row['public_reading_sections'])
                  if row.get('public_reading_sections') else row['public_story'])
-        if payload['public_projection_axis'] in GENERATED_MARKDOWN_AXES:
+        if axis in SHARDED_MARKDOWN_AXES:
             lines += [person_start(row['ruler_id'])]
-        lines += [f"### {row['ruler_name']}", '', f"<a id=\"{row['ruler_id']}\"></a>", '', story, '',
-                  '**来源说明：**' + row['public_source_note'], '',
-                  '**定档理由：**' + row['public_adjudication_summary'], '', '**损害判断：**' + row['public_loss_label'], '',
-                  '<details><summary>逐条事实与史源</summary>', '']
+        lines += [f"### {row['ruler_name']}", '', f"<a id=\"{row['ruler_id']}\"></a>", '', story, '']
+        if summary:
+            lines += ['**定档理由：**' + summary, '']
+        lines += ['**损害判断：**' + loss_label, '',
+                  '<details><summary>逐条事实与史源</summary>', '', '[查看史源关系说明](#finance-source-guide)', '']
+        if note := specific_source_note(row['public_source_note']):
+            lines += ['**本人物史源说明**', '', note, '']
+        repeated = set(evidence_repeated_in_story(row))
         for item in row['public_evidence_items']:
             mode = {'DIRECT':'史料直接记载', 'INFERRED':'受约束推断', 'ASSESSMENT':'正式评价判断', 'BACKGROUND':'背景互证', 'EXCLUDED':'不采用的范围核对'}[item['evidence_mode']]
-            lines += [f"#### {item['public_label']}", '', f"**依据性质：**{mode}", '', item['public_basis'], '', '**采用范围：**' + item['public_scope'], '']
-            if item['source_binding_kind'] == 'MATERIAL_COLLECTION':
-                lines += ['本条沿用正式裁决叙述；相关材料列于人物材料汇集，尚未建立逐条事实的支持关系。', '']
+            relation = '材料汇集' if item['source_binding_kind'] == 'MATERIAL_COLLECTION' else '逐条史源'
+            lines += [f"#### {item['public_label']}", '', f"**依据性质：**{mode} · {relation}", '']
+            basis = display_evidence_basis(axis, row, item)
+            if basis and item['id'] not in repeated:
+                lines += [basis, '']
+            if not uses_shared_collection_scope(item):
+                lines += ['**采用范围：**' + item['public_scope'], '']
             if item['public_boundary']:
                 lines += ['**本条范围：**' + item['public_boundary'], '']
             for ref in item['source_refs']:
@@ -416,9 +482,11 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
                 for group in groups:
                     lines.extend(citation(refs[index]) for index in group)
                     lines += ['', *excerpts([refs[index] for index in group])]
-        lines += ['</details>', '', '<details><summary>评价范围与计算</summary>', '', row['public_boundary'], '',
-                  row['public_calculation'], '', '</details>', '']
-        if payload['public_projection_axis'] in GENERATED_MARKDOWN_AXES:
+        boundary = specific_public_boundary(axis, row['public_boundary'])
+        lines += ['</details>', '', '<details><summary>评价范围与计算</summary>', '',
+                  '[查看本轴通用范围](#finance-axis-scope)', '',
+                  *([boundary, ''] if boundary else []), display_calculation(row['public_calculation']), '', '</details>', '']
+        if axis in SHARDED_MARKDOWN_AXES:
             lines += [PERSON_END, '']
     return '\n'.join([*lines, end, ''])
 
@@ -443,15 +511,12 @@ def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
         _verify_payload(axis, payload)
     verify_source_bindings(projected)
     if write:
+        from .reading_layout import write_reading
+
         polities = load_ruler_polities(root)
         for axis, path in FORMAL_PATHS.items():
             write_json(root / path, projected[axis], ruler_polities=polities)
-            markdown_path = (root / path).with_suffix('.md')
-            if axis in GENERATED_MARKDOWN_AXES:
-                from .reading_layout import write_reading
-                write_reading(root, path.with_suffix('.md'), render_complete_markdown(projected[axis]))
-            else:
-                markdown_path.write_text(render_public_markdown(markdown_path.read_text(encoding='utf-8'), projected[axis]), encoding='utf-8')
+            write_reading(root, path.with_suffix('.md'), render_complete_markdown(projected[axis]))
         report = verify_public_projection(root)
         report["status"] = "WRITTEN"
         return report

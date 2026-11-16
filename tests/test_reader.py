@@ -57,25 +57,27 @@ def test_unresolved_context_fails_instead_of_silently_losing_evidence():
 def test_method_public_projection_preserves_all_nodes_and_boundaries():
     builder = module("build")
     tail = "正面表现。" * 80 + "但不能据此认定全部责任。"
-    nodes = [{"public_label": f"制度{i}", "public_adjudication_basis": tail,
-              "public_boundary": f"限制{i}不能删除。", "public_scope": "只含本段。",
-              "public_reception": "后续接收尚不确定。"} for i in range(7)]
-    a_evidence = [{
-        "public_label": node["public_label"],
-        "public_direction": "正向",
-        "public_basis": "\n\n".join((node["public_adjudication_basis"], node["public_scope"], node["public_reception"])),
-        "public_boundary": node["public_boundary"],
-        "public_sources": [{"label": "合成书目", "ref": "https://example.org/source", "kind": "史料原文"}],
-    } for node in nodes]
+    sources = [{"label": "合成书目", "ref": "https://example.org/source"}]
+    excerpt = {"label": "合成书目", "url": sources[0]["ref"], "context": "同一材料可分别支撑两个节点。", "quote": "合成原文。"}
+    nodes = [{
+        "institution_node_id": node_id, "public_label": f"制度{node_id}",
+        "public_adjudication_basis": tail, "public_direction": "正向", "public_tags": ["局部建设"],
+        "public_boundary": f"限制{node_id}不能删除。", "public_reception": "后续接收尚不确定。",
+        "public_sources": sources, "public_material_ids": ["SYNTHETIC"], "source_excerpts": [excerpt],
+    } for node_id in ("B", "A")]
     result = builder._attach_method_public_reader(
         {}, axis="A", record={
             "public_adjudication_summary": tail,
             "public_story": "本人建设事实。",
             "public_boundary": "制度建设人物级边界。",
-            "public_evidence_items": a_evidence,
+            "public_institution_nodes": nodes,
         })
     assert result["reader_summary"] == tail
-    assert result["reader_public_evidence_items"] == a_evidence
+    cards = result["reader_public_evidence_items"]
+    assert [card["institution_node_id"] for card in cards] == ["B", "A"]
+    assert [card["public_boundary"] for card in cards] == ["限制B不能删除。", "限制A不能删除。"]
+    assert all(card["public_basis"] == tail and card["public_sources"] == sources
+               and card["source_excerpts"] == [excerpt] for card in cards)
     assert result["reader_boundary"] == "制度建设人物级边界。"
     b1_evidence = [{
         "public_label": "运行链",

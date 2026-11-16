@@ -459,7 +459,7 @@
       if (a == null || b1 == null || ab == null) return "";
       const high = Math.max(a, b1);
       const low = Math.min(a, b1);
-      return `制度建设与官僚治理不各自直接加分，而是组成同一主块：0.8 × [较高表现指数 ${fmt(high)} + 0.5 × 较低表现指数 ${fmt(low)}] = ${fmt(ab)} 分。`;
+      return `0.8 × [较高表现指数 ${fmt(high)} + 0.5 × 较低表现指数 ${fmt(low)}] = ${fmt(ab)} 分。`;
     }
     if (label === "B2反馈与约束") {
       const b2 = finite(method.get("B2反馈与约束")?.value);
@@ -487,17 +487,21 @@
     const add = (name, value) => { if (value) rows.push([name, value]); };
 
     if (item.reader_public_c) {
-      details.append(makeTextBlock("p", "prose", item.reader_public_c.public_calculation));
+      const record = item.reader_public_c;
+      details.append(makeTextBlock("p", "prose", record.display_calculation ?? record.public_calculation));
       return details;
     }
 
     if (METHOD_MAX[label]) {
       const grade = publicMethodGrade(item);
       add("当前裁决", [grade ? `${grade}档` : "", `原始表现指数 ${fmt(item.value)} / ${METHOD_MAX[label]}`].filter(Boolean).join(" · "));
-      const formal = label === "B1官僚治理" ? String(item.reader_how || "") : publicTechnicalText(item.reader_how || "该原始表现指数进入制度与行政合成，不作为本项直接得分。");
       const expanded = secondMethodExpandedHow(label);
-      add("换算规则", [formal, expanded].filter(Boolean).join(" "));
-      add("当前结果", "用于制度与行政折算，不单列得分");
+      if (label === "B1官僚治理") {
+        add("档内换算", item.reader_how);
+        add("制度与行政合成", expanded || "方向指数用于制度与行政合成。");
+      } else {
+        add(label === "A制度建设" ? "制度与行政合成" : "换算规则", expanded || publicTechnicalText(item.reader_how || ""));
+      }
     } else if (FINANCE_MAX[label] || label === "C4恢复与成本") {
       throw new Error("第二项C缺少上游正式计算说明，请重建阅读数据");
     } else if (HANDOFF_LABELS[label]) {
@@ -620,7 +624,7 @@
         direction,
         tags: entry?.public_tags || [],
         body: entry?.public_basis,
-        boundary: entry?.public_boundary,
+        boundary: entry?.display_boundary ?? entry?.public_boundary,
         verbatim: true,
         dataset: {publicEvidenceId: entry?.id || ""},
       }));
@@ -657,7 +661,6 @@
     reading.append(makeTextBlock("p", "subline quality-status", String(item.reader_quality_status || "")));
     reading.append(makeTextBlock("div", "label", "为什么是这个等级"));
     reading.append(makeTextBlock("p", "prose b2-adjudication-summary", String(item.public_adjudication_summary || item.reader_summary || "")));
-    reading.append(makeTextBlock("p", "subline", "看具体意见如何进入、本人如何处置及结果是否改变。主动改意、接受信息与受到外部程序约束分别理解；背景材料不当作独立功过。"));
     reading.append(renderB2MaterialGroups(item.reader_public_evidence_items || item.public_evidence_items || []));
     if (item.reader_b2_collection_id) {
       const link = document.createElement("a");
@@ -665,7 +668,9 @@
       link.textContent = "在反馈与约束专页查看此人 →";
       const sources = document.createElement("p");
       sources.className = "sources";
-      sources.append(link);
+      const scope = makeTextBlock("a", "", "反馈与约束的共同评价范围");
+      scope.href = "second-item-b2.html#feedback-scope";
+      sources.append(link, document.createTextNode(" · "), scope);
       reading.append(sources);
     }
     return reading;
@@ -718,9 +723,10 @@
   }
 
 
-  function renderHandoffMaterialGroups(label, evidence) {
+  function renderHandoffMaterialGroups(label, evidence, repeated) {
     const groups = {preparation:[], result:[], continuity:[], other:[]};
     for (const entry of evidence || []) {
+      const basis = repeated.has(entry.id) ? "" : entry.public_basis;
       const role = String(entry?.public_role || "").trim();
       const key = role === "事前安排" ? "preparation"
         : (role === "交接结果" || role === "终局事实") ? "result"
@@ -730,7 +736,7 @@
         verbatim: true,
         title: entry.public_label,
         tags: role ? [role] : [],
-        body: entry.public_basis,
+        body: basis,
         boundary: entry.public_boundary,
         dataset: {publicEvidenceId: entry?.id || ""},
       });
@@ -742,7 +748,7 @@
         source.append(makeTextBlock("p", "meta", [ref.source_kind, ref.source_title, ref.source_locator].filter(Boolean).join(" · ")));
         if (ref.source_context) source.append(makeTextBlock("p", "prose", ref.source_context));
         if (ref.support_role) source.append(makeTextBlock("p", "meta", ref.support_role));
-        if (ref.public_excerpt !== entry.public_basis) source.append(makeTextBlock("blockquote", "prose", ref.public_excerpt));
+        if (ref.public_excerpt !== basis) source.append(makeTextBlock("blockquote", "prose", ref.public_excerpt));
         appendMaterialSourceLinks(source, ref.source_urls);
         sources.append(source);
       }
@@ -781,10 +787,17 @@
     reading.dataset.formalPublicSource = "";
     for (const paragraph of authored.public_story.split(/\n\n+/)) reading.append(makeTextBlock("p", "prose", paragraph));
     reading.append(makeDetails("为什么这样评", item.reader_handoff_reason ?? authored.public_adjudication_summary));
-    reading.append(makeTextBlock("p", "prose", `观察范围：${authored.public_window}`));
-    reading.append(makeTextBlock("p", "prose", `本人责任：${authored.public_responsibility}`));
-    reading.append(renderHandoffMaterialGroups(item.label, authored.public_evidence_items));
-    reading.append(makeDetails("范围与边界", authored.public_boundary));
+    if (authored.public_window) reading.append(makeTextBlock("p", "prose", authored.public_window.startsWith("实际退出点：") ? authored.public_window : `观察范围：${authored.public_window}`));
+    if (authored.public_responsibility) reading.append(makeTextBlock("p", "prose", `本人责任：${authored.public_responsibility}`));
+    if (authored.public_boundary) reading.append(makeDetails("范围与边界", authored.public_boundary));
+    if (item.reader_handoff_scope_href) {
+      const link = makeTextBlock("a", "", "查看共同评价范围");
+      link.href = item.reader_handoff_scope_href;
+      const paragraph = makeTextBlock("p", "meta", "");
+      paragraph.append(link);
+      reading.append(paragraph);
+    }
+    reading.append(renderHandoffMaterialGroups(item.label, authored.public_evidence_items, new Set(item.reader_handoff_story_evidence_ids)));
     return reading;
   }
 
@@ -860,7 +873,7 @@
       if (!item || item.reader_kind !== "judgment") continue;
       const body = detail.querySelector(":scope > .net-metric-body");
       if (!body) continue;
-      const key = [item.reader_summary || "", JSON.stringify(item.reader_public_d || null), JSON.stringify(item.reader_public_evidence_items || []), ...(item.reader_highlights || []), item.reader_boundary || "", item.reader_how || "", item.reader_full_basis || ""].join("|");
+      const key = [item.reader_summary || "", JSON.stringify(item.reader_public_d || null), item.reader_handoff_scope_href || "", JSON.stringify(item.reader_public_evidence_items || []), ...(item.reader_handoff_story_evidence_ids || []), ...(item.reader_highlights || []), item.reader_boundary || "", item.reader_how || "", item.reader_full_basis || ""].join("|");
       if (body.dataset.secondPublicBodyKey === key && body.querySelector(":scope > .second-item-public-reading")) continue;
       const audit = body.querySelector(":scope > .net-audit-sources");
       if (audit) audit.remove();

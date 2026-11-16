@@ -3,11 +3,12 @@ from __future__ import annotations
 
 from collections import Counter
 from pathlib import Path
+import posixpath
 import re
 from typing import Any
 
 import yaml
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 from emperor_v4.evaluation.formal_json_store import load_json, json_read_session
 
 PUBLIC_GRADES = ("S+", "S", "A", "B", "C", "D", "E")
@@ -16,6 +17,8 @@ LABEL_MAPPING = dict(zip(DIMENSION_GRADES, PUBLIC_GRADES))
 DIMENSIONS = {"scope": "范围", "depth_duration": "深度/持续", "personal_causality": "个人因果", "paradigm": "范式"}
 PUBLIC_MEANINGS = dict(zip(PUBLIC_GRADES, ("最高量级历史影响", "超重大历史影响", "重大长期历史影响", "重大历史影响", "显著历史影响", "有限但真实影响", "弱历史影响")))
 PUBLIC_FIELD_SCHEMA_VERSION = "historical-impact-public-v1"
+STANDARD_IMPORTED_LIMIT = "仅采纳可定位的事实与论证段落，旧档位文字不作为当前裁决。"
+IMPORTED_SCOPE_NOTE = "旧裁决摘录用于回查所采用的事实和论证。现行档位及理由见本页裁决。"
 SOURCE_DISPLAY = {
     "kind": {
         "IMPORTED_ADJUDICATION": "项目采纳段落（非古籍原文）",
@@ -73,6 +76,8 @@ def reading_source(source):
         result['reading_adopted_excerpt'] = (source.get('adopted_excerpt', '')
                                              .replace('MAJOR_NEGATIVE_RESTRUCTURE / M3', '重大负向制度变化')
                                              .replace('DECISIVE_DRIVER', '决定性推动者'))
+        if source.get('adoption_limit') == STANDARD_IMPORTED_LIMIT:
+            result['shared_adoption_limit'] = True
     elif kind == 'HISTORICAL_WEB_SOURCE':
         result['reading_title'] = source.get('title') or '外部史料或研究材料'
         result['reading_url'] = source['url'] if not is_machine_source(source['url']) else ''
@@ -81,16 +86,24 @@ def reading_source(source):
     return result
 
 
-def _source_label(source: dict) -> str:
+def _source_label(source: dict, *, document_path: str = "", share_imported_scope: bool = False) -> str:
     source = reading_source(source)
     kind = source["kind"]
     title = source['reading_title']
     if kind == "IMPORTED_ADJUDICATION":
         head = f"**{SOURCE_DISPLAY['kind'][kind]}**：{title}"
         passage = source['reading_adopted_excerpt'].replace('\n', '\n  > ')
-        return head + f"\n\n  > {passage}\n\n  采纳边界：" + source.get('adoption_limit', '仅展示正式记录保留的段落，不表示已经逐句复核原始史书。')
+        note = source.get('adoption_limit', '核对范围限于项目采纳的段落。')
+        limit = "" if share_imported_scope and source.get('shared_adoption_limit') else f"\n\n  采纳边界：{note}"
+        return head + f"\n\n  > {passage}" + limit
     if url := source.get('reading_url'):
         title = f"[{title}]({url})"
+    elif document_path and kind in {"LOCAL_FORMAL_DOCUMENT", "LOCAL_FORMAL_RECORD"}:
+        if path := source.get('path'):
+            target = quote(posixpath.relpath(path, posixpath.dirname(document_path)))
+            if kind == "LOCAL_FORMAL_RECORD" and source.get('ruler_id'):
+                target += '#ruler_id=' + quote(source['ruler_id'])
+            title = f"[{title}]({target})"
     parts = [f"**{SOURCE_DISPLAY['kind'].get(kind, '未识别的来源类型')}**：{title}"]
     if kind == 'HISTORICAL_WEB_SOURCE' and not source.get('reading_url'):
         parts.append('此条项目依据未单列阅读入口。')
@@ -190,67 +203,58 @@ def reading_causality(row: dict[str, Any]) -> dict[str, str]:
 
 
 def reading_story_sources(row: dict[str, Any]) -> dict[str, Any] | None:
-    """Select sources for the public event and dimension text."""
+    """Reuse the registered catalogue, retaining every declared adoption in order."""
     chains = row.get("macro_chains")
     if not chains or not all(chain.get("public_events") for chain in chains):
         return None
-    sources = [reading_source(source) for source in row["source_refs"]]
-
-    def select(indices, seen=()):
-        links = {}
-        for index in indices:
-            source = sources[index]
-            if (url := source.get("reading_url")) and url not in seen:
-                links.setdefault(url, {"url": url, "title": source["reading_title"]})
-        return list(links.values())
-
-    events = [
-        [select(event["source_ref_indices"]) for event in chain["public_events"]]
-        for chain in chains
-    ]
-    event_urls = {source["url"] for chain in events for event in chain for source in event}
     reviews = {
         "scope": "scope_assessment", "depth_duration": "depth_review",
         "personal_causality": "causal_review", "paradigm": "paradigm_review",
     }
-    documents = {
-        source["path"]: source["reading_title"] for source in sources
-        if source["kind"] == "LOCAL_FORMAL_DOCUMENT" and source["path"].endswith(".md")
-    }
+    shared = any(ref['kind'] == 'IMPORTED_ADJUDICATION' and ref.get('adoption_limit') == STANDARD_IMPORTED_LIMIT
+                 for ref in row['source_refs'])
     return {
-        "events": events,
-        "dimensions": {key: select(row["dimensions"][key].get(
+        "chains": [list(chain["source_ref_indices"]) for chain in chains],
+        "events": [[list(event["source_ref_indices"]) for event in chain["public_events"]] for chain in chains],
+        "dimensions": {key: list(row["dimensions"][key].get(
             "public_source_ref_indices", row.get(review, {}).get("source_ref_indices", [])
-        ), event_urls)
+        ))
                        for key, review in reviews.items()},
-        "documents": [{"path": path, "title": title} for path, title in documents.items()],
+        "imported_scope_note": IMPORTED_SCOPE_NOTE if shared else "",
     }
 
 
 def _render_public_story(row, sources, document_path):
-    import posixpath
-    from urllib.parse import quote
+    def anchor(index):
+        return f'impact-source-{row["ruler_id"].lower()}-{index + 1}'
 
-    def references(links):
-        if not links:
+    def references(indices):
+        if not indices:
             return []
-        return ["出处　" + " · ".join(f"[{link['title']}]({link['url']})" for link in links), ""]
+        return ["史源　" + " · ".join(f"[〔{i + 1}〕](#{quote(anchor(i))})" for i in indices), ""]
 
-    lines = ["**为什么是这个档位**", "", row["public_total_basis"], "", "**主要影响轨迹**", ""]
-    for chain, links in zip(row["macro_chains"], sources["events"], strict=True):
-        lines.extend([f"**{chain['title']}**", "", chain["narrative"], ""])
+    lines = ["**主要影响轨迹**", ""]
+    for chain, indices, links in zip(row["macro_chains"], sources["chains"], sources["events"], strict=True):
+        lines.extend([f"**{chain['title']}**", "", chain["narrative"], "", *references(indices)])
         for event, event_links in zip(chain["public_events"], links, strict=True):
             lines.extend([f"**{event['title']}**", "", event["text"], "", *references(event_links)])
+    lines.extend(["**为什么是这个档位**", "", row["public_total_basis"], ""])
     for key, label in DIMENSIONS.items():
         lines.extend([f"**{label} · {row['dimensions'][key]['grade']}**", "",
                       row["dimensions"][key]["public_basis"], "", *references(sources["dimensions"][key])])
     lines.extend(["**评价时期与把握**", "", row["public_boundary"], "", row["confidence_basis"], ""])
-    if sources["documents"] and document_path:
-        lines.extend(["**项目参考文档**", ""])
-        for source in sources["documents"]:
-            path = posixpath.relpath(source["path"], posixpath.dirname(document_path))
-            lines.append(f"- [{source['title']}]({quote(path)})")
-        lines.append("")
+    if row['source_refs']:
+        lines.extend(['<details><summary>登记史源与采用范围</summary>', ''])
+        if sources['imported_scope_note']:
+            lines.extend([sources['imported_scope_note'], ''])
+        for i, ref in enumerate(row['source_refs']):
+            label = _source_label(ref, document_path=document_path, share_imported_scope=True)
+            lines.extend([f'<a id="{anchor(i)}"></a>', '', f'〔{i + 1}〕{label}', ''])
+        lines.extend(['</details>', ''])
+    if row.get('related_fact_entries'):
+        lines.extend(['<details><summary>延伸阅读</summary>', ''])
+        lines.extend('- ' + _source_label(ref, document_path=document_path) for ref in row['related_fact_entries'])
+        lines.extend(['', '</details>', ''])
     return lines
 
 
@@ -260,10 +264,9 @@ def render(payload: dict[str, Any], *, document_path: str = "") -> str:
         return _source_label(source)
     lines = ["# 历史影响量级正式结算", "",
         "> 正式JSON保存当前裁决，本页为同值阅读视图。", "",
-        "公众总档为S+、S、A、B、C、D、E，均表示影响量级，不是成绩优劣；四维使用独立七档标尺。性质与量级分开，人物按时代阅读。", "",
-        "主链注明实际采纳段落；仅能定位人物的本地入口另列为相关资料。旧会话引用不再作为史源，采纳裁决段落不等于重新通读原始史料。工程只作宏观转型的过程，不能单列抬档。", "",
+        "总档表示改变历史的量级，影响性质说明主要后果的方向。范围与深度共同确定基础档，再按本人作用调整，后世借鉴只作有限修正。四维各用独立的七档标尺。", "",
         "[主池总表](#main-table) · [主池逐人依据](#main-records) · [补充样本](#supplementary-table)", "",
-        "范围看实际改变的政治空间，深度看结构后效，个人因果看本人归责，范式看后世实际使用。总档不是四维平均；完整论证与来源可在各人卡片内展开。", "",
+        "总表按时代排列。点击人物可查看定档理由、判断把握和所用史源。项目采纳段落供回查所用事实和论证，核对范围以所列段落为限。仅用于定位人物的资料列在延伸阅读。", "",
         "## 主池覆盖", "",
         f"规范人物池已覆盖{payload['record_count']}人；另列{payload['supplementary_record_count']}个既有补充样本，不计入主池分布。", "",
         "| 总档 | 主池人数 |", "|---|---:|"]
@@ -271,7 +274,7 @@ def render(payload: dict[str, Any], *, document_path: str = "") -> str:
     lines.extend(f"| {g}·{PUBLIC_MEANINGS[g]} | {counts[g]} |" for g in PUBLIC_GRADES)
     for key, title in (("records", "主池"), ("supplementary_records", "补充样本")):
         section = "main" if key == "records" else "supplementary"
-        lines.extend(["", f'<a id="{section}-table"></a>', "", f"## {title}总表", "", "点击人物查看结论与依据。总档释义见上表；置信度在逐人卡片展示。", "", "| 人物及身份 | 政权 | 总档 | 性质 | 范围 | 深度/持续 | 个人因果 | 范式 |", "|---|---|---|---|---|---|---|---|"])
+        lines.extend(["", f'<a id="{section}-table"></a>', "", f"## {title}总表", "", "| 人物及身份 | 政权 | 总档 | 性质 | 范围 | 深度/持续 | 个人因果 | 范式 |", "|---|---|---|---|---|---|---|---|"])
         for row in payload[key]:
             cells = [f"[{row['identity_label']}](#person-{row['ruler_id'].lower()})", row["polity"], row["public_grade"], row["impact_nature"], *(row["dimensions"][d]["grade"] for d in DIMENSIONS)]
             lines.append("| " + " | ".join(cells) + " |")

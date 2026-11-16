@@ -1,6 +1,6 @@
 "use strict";
 
-// Historical words come verbatim from the authored formal A record.
+// Render the formal A reading projection.
 (() => {
   const screen = document.getElementById("screen");
   if (!screen) return;
@@ -93,6 +93,8 @@
     body.replaceChildren(reading);
     const boundary = fold("评价范围与证据边界", item.reader_boundary);
     if (boundary) body.append(boundary);
+    const scope = fold("制度建设怎样评价", DATA.institution_scope_guide);
+    if (scope) body.append(scope);
     const scoreHow = globalThis.SecondItemScoreHowDetails?.(item, "A制度建设");
     if (scoreHow) body.append(scoreHow);
     const audit = make("details", "second-item-dedicated-audit");

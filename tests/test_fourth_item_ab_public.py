@@ -90,4 +90,6 @@ def test_current_reader_surfaces_match_formal_readings(api, axis):
     for row in records:
         source = by_id[row['ruler_id']]
         axis_row = next(a for a in source['axis_results'] if a['axis'] == axis)
-        assert row['item'][field] == api.axis_reading(source, axis_row, packages)
+        reading = api.axis_reading(source, axis_row, packages)
+        assert row['item'][field] == reading
+        assert reading['calculation'] in api.markdown_reading(reading)

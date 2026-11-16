@@ -10,40 +10,42 @@ from reader.build import (
 )
 
 
-def test_compact_home_profile_keeps_style_and_marks_partial_coverage(tmp_path):
+def test_home_profile_graphic_preserves_grades_bounds_and_unrated_axes(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const fs=require('node:fs'),vm=require('node:vm');
 const template=fs.readFileSync('reader/index.template.html','utf8');
-const source=template.slice(template.indexOf('function profileSummaryAxes('),template.indexOf('function renderRows('));
-const codes=['a','b','c','d'];
-const ctx={DATA:{capability_axes:codes,independent_axes:['style'],axis_specs:{}},
- shortNames:{a:'方向甲',b:'方向乙',c:'方向丙',d:'方向丁',style:'权力运用与克制'},esc:String,
- profileLevelIndex:a=>a?.rated?1:null,grade:a=>a?.display||(a?.rated?'A':'待补证')};
-vm.createContext(ctx);vm.runInContext(template.slice(template.indexOf('function profileGradeScope('),template.indexOf('function profileGradeScopeMarkup('))+source,ctx);
-ctx.r={axes:{a:{rated:true,axis_grade:'G4'},b:{rated:true,axis_grade:'G5'},c:{rated:true,axis_grade:'G4'},
- d:{rated:false,axis_grade:'G0'},style:{display:'合成风格'}}};
-const before=JSON.stringify(ctx.r);
-let html=vm.runInContext('homeProfileSummary(r)',ctx);
-assert.ok(html.includes('长处：方向甲、方向乙等3项'));
-assert.ok(!html.includes('短板：'));
-assert.ok(html.includes('能力已评3/4项')&&html.includes('权力运用与克制')&&html.includes('合成风格'));
-assert.ok(!html.includes('home-profile-axis'));
-assert.equal(JSON.stringify(ctx.r),before);
-ctx.r.axes.d.rated=true;
-html=vm.runInContext('homeProfileSummary(r)',ctx);
-assert.ok(html.includes('短板：方向丁')&&html.includes('按各轴已评范围'));
-ctx.r.axes.d.output_mode='BOUNDED_PROFILE';
-assert.ok(vm.runInContext('homeProfileSummary(r)',ctx).includes('方向丁（结论有范围）'));
-ctx.r.axes.c.evidence_floor_review=true;
-assert.ok(vm.runInContext('homeProfileSummary(r)',ctx).includes('部分长短处有证据范围限制'));
-ctx.r.axes.d.evidence_floor_review=true;
-html=vm.runInContext('homeProfileSummary(r)',ctx);
-assert.ok(!html.includes('短板：方向丁')&&html.includes('证据边界：'));
-delete ctx.r.axes.d.evidence_floor_review;
-ctx.r.axes.d.assessment_basis='NO_DEMONSTRATED_CAPABILITY';
-assert.ok(!vm.runInContext('homeProfileSummary(r)',ctx).includes('短板：方向丁'));
+const codes=Array.from({length:8},(_,i)=>'axis'+i);
+const ctx={DATA:{capability_axes:codes},shortNames:Object.fromEntries(codes.map((c,i)=>[c,'方向'+i])),esc:String};
+vm.createContext(ctx);
+vm.runInContext(template.slice(template.indexOf('const letters='),template.indexOf('// Public identity')),ctx);
+vm.runInContext(template.slice(template.indexOf('function profileGradeScope('),template.indexOf('function profileGradeScopeMarkup(')),ctx);
+vm.runInContext(template.slice(template.indexOf('function homeProfileGraphic('),template.indexOf('function renderRows(')),ctx);
+ctx.r={axes:Object.fromEntries(codes.map(c=>[c,{axis_grade:'G4',position:'MID'}]))};
+const original=JSON.stringify(ctx.r);
+let html=vm.runInContext('homeProfileGraphic(r)',ctx);
+assert.equal((html.match(/class="home-result-axis"/g)||[]).length,codes.length);
+assert.equal((html.match(/<b>A<\/b>/g)||[]).length,codes.length);
+assert.ok(html.includes('home-radar-shape'));
+assert.equal(JSON.stringify(ctx.r),original);
+ctx.r.axes.axis0={axis_grade:'G0',position:'LOW',evidence_floor_review:true};
+ctx.r.axes.axis1.output_mode='BOUNDED_PROFILE';
+ctx.r.axes.axis2.assessment_basis='NO_DEMONSTRATED_CAPABILITY';
+html=vm.runInContext('homeProfileGraphic(r)',ctx);
+assert.ok(html.includes('†证据下限')&&html.includes('＊结论有范围')&&html.includes('‡未显示外交能力'));
+assert.ok(html.includes('cx="170" cy="86"'));
+for(const flags of [{adjudication_state:'REASSESSMENT_REQUIRED'},
+ {adjudication_state:'UNRESOLVED_EVIDENCE_GAP'},
+ {adjudication_state:'EVIDENCE_INSUFFICIENT_CLOSED'},
+ {applicability_status:'NOT_APPLICABLE'}]){
+ ctx.r.axes.axis0={axis_grade:'G0',position:'LOW',...flags};
+ html=vm.runInContext('homeProfileGraphic(r)',ctx);
+ assert.ok(!html.includes('class="home-radar-shape"'));
+ assert.equal((html.match(/class="home-radar-point"/g)||[]).length,codes.length-1);
+ assert.ok(html.includes('home-axis-status'));
+}
 ctx.r.supplementary=true;
-assert.ok(vm.runInContext('homeProfileSummary(r)',ctx).includes('不在人物画像正式评价范围'));
+html=vm.runInContext('homeProfileGraphic(r)',ctx);
+assert.ok(html.includes('不在人物画像正式评价范围')&&!html.includes('<svg'));
 ''')
 
 
@@ -214,7 +216,7 @@ def _run_reading_notes_node(tmp_path, body):
                       "function runReaderScript(source, context) {\n"
                       "  const vm=require('node:vm');\n"
                       "  context.URL ??= URL;\n"
-                      "  source=source.replace('/*__PERSON_NARRATIVES__*/',require('node:fs').readFileSync('reader/person-narratives.js','utf8'));\n"
+                      "  source=source.replace('/*__PERSON_NARRATIVES__*/',()=>require('node:fs').readFileSync('reader/person-narratives.js','utf8'));\n"
                       "  vm.runInContext(require('node:fs').readFileSync('reader/source-links.js','utf8'),context);\n"
                       "  return vm.runInContext(source,context);\n"
                       "}\n" + body,
@@ -367,14 +369,15 @@ const ctx={esc:String,DATA:{records:[],public_score_scale:__META__}};
 vm.createContext(ctx);vm.runInContext(template.slice(template.indexOf('function profileGradeScope('),template.indexOf('function profileGradeScopeMarkup('))+source,ctx);
 let html=vm.runInContext('performanceScaleHelp()',ctx);
 assert.equal((html.match(/<summary>分数怎么算？<\/summary>/g)||[]).length,1);
-assert.ok(html.includes('先按规则合计原分，再换算综合展示分'));
+assert.ok(html.includes('先合计计分原分并排出名次，再换算综合展示分'));
 ctx.net={public_scores:{total:{state:'SCORED'},first:{state:'NOT_APPLICABLE'},second:{state:'SCORED'},fourth:{state:'SCORED'}}};
 assert.ok(vm.runInContext("scoreReadingNote(net)",ctx).includes('名次按原分排序'));
-assert.ok(vm.runInContext("scoreReadingNote(net,'first')",ctx).includes('不代表0分'));
+assert.ok(vm.runInContext("scoreReadingNote(net,'first')",ctx).includes('建国、复国或统一'));
 assert.ok(vm.runInContext("scoreReadingNote(net,'second')",ctx).includes('不能与其他展示分相加'));
 assert.ok(vm.runInContext("scoreReadingNote(net,'fourth')",ctx).includes('净增量＝'));
 ctx.net.public_scores.fourth.state='NO_CONFIRMED_CHANGE';
-assert.ok(vm.runInContext("scoreReadingNote(net,'fourth')",ctx).includes('不等于正负相抵'));
+assert.equal(vm.runInContext("scoreReadingNote(net,'fourth')",ctx),'');
+assert.equal(vm.runInContext("performanceScore(net,'fourth')",ctx),'未确认独立变化');
 assert.equal(vm.runInContext("scoreReadingNote(null,'second')",ctx),'');
 assert.ok(html.includes('适用者零净分对应0'));
 assert.ok(html.includes('文明净增量不经过这条曲线'));
@@ -439,7 +442,7 @@ const focus=source.slice(source.indexOf('function focusPersonDetail('),source.in
 let target=null,frames=[],scrolled=0;
 const note={hidden:true,scrollIntoView(){this.scrolled=true;}};
 const ctx={dimNames:{range:'范围'},location:{hash:'#person/SYNTHETIC/impact/history-dimension-range'},document:{getElementById:id=>id==='person-detail-location-note'?note:target?.id===id?target:null},requestAnimationFrame:fn=>frames.push(fn)};
-vm.createContext(ctx);vm.runInContext(focus,ctx);
+vm.createContext(ctx);runReaderScript(focus,ctx);
 vm.runInContext("focusPersonDetail('impact')",ctx);
 assert.equal(frames.length,0);assert.ok(!note.hidden&&note.scrolled&&note.textContent.includes('未找到链接指定的历史影响章节'));
 note.hidden=true;
@@ -447,6 +450,11 @@ target={id:'history-dimension-range',tagName:'DETAILS',open:false,scrollIntoView
 vm.runInContext("focusPersonDetail('impact')",ctx);assert.equal(target.open,true);frames.shift()();assert.equal(scrolled,1);assert.ok(note.hidden);
 vm.runInContext("focusPersonDetail('impact')",ctx);target={id:'history-dimension-range'};frames.shift()();assert.equal(scrolled,1);
 ctx.location.hash='#person/SYNTHETIC/impact';vm.runInContext("focusPersonDetail('impact')",ctx);assert.ok(note.hidden);
+ctx.location.hash='#person/SYNTHETIC/impact/reading-impact-source-1';
+const sourceFold={tagName:'DETAILS',open:false};
+target={id:'reading-impact-source-1',parentElement:sourceFold,scrollIntoView(){scrolled++}};
+vm.runInContext("focusPersonDetail('impact')",ctx);frames.shift()();
+assert.ok(sourceFold.open);assert.equal(scrolled,2);
 for(const part of ['unknown','%E0%A4%A','history-dimension-range/extra']){
  note.hidden=true;
  ctx.location.hash='#person/SYNTHETIC/impact/'+part;
@@ -512,6 +520,12 @@ assert.ok(!compared.includes('创业战争能力旁证'));
 html=vm.runInContext("majorCard(r,'fourth')",ctx);assert.ok(html.includes('0.0')&&html.includes('正负相抵')&&html.includes('正向 +3.0')&&html.includes('负向 −3.0')&&html.includes('放归受拘者；同时限制另一群体的居留。'));
 ctx.r.net.public_scores.fourth={state:'NO_CONFIRMED_CHANGE'};
 assert.ok(vm.runInContext("majorCard(r,'fourth')",ctx).includes('未确认独立变化'));
+ctx.r.net.reader_civilization_summary='现有记录未确认独立的社会接纳、教育或知识文化变化。';
+for(const render of ["majorCard(r,'fourth')","compareMajorReading(r,'fourth')"]){
+ const result=vm.runInContext(render,ctx);
+ assert.equal(result.split('未确认独立变化').length-1,1);
+ assert.ok(!result.includes('暂无分项摘要')&&!result.includes('社会接纳、教育或知识文化'));
+}
 ctx.r.net.first_item_status='APPLICABLE';ctx.r.net.public_scores.first={state:'SCORED',score:40,grade:'E',trial_rating:{kind:'founder_contribution',score:40,grade:'有限'}};
 assert.ok(vm.runInContext("majorCard(r,'first')",ctx).includes('40.0'));
 delete ctx.r.net.reader_military_summary;
@@ -539,7 +553,7 @@ assert.equal(vm.runInContext('rankIfRescored(n)',ctx),'仍为第 3 名');
 assert.equal(JSON.stringify(ctx.n),before);
 ctx.n.prudent_rank_projection={best:2,worst:5};
 html=vm.runInContext('netPositionSummary(n)',ctx);
-assert.ok(html.includes('当前排名 第 3 名')&&html.includes('已测算解释下，第 2—5 名'));
+assert.ok(html.includes('当前排名 第 3 名')&&html.includes('仅重算本人的名次，第 2—5 名'));
 assert.ok(!html.includes('仅覆盖可量化的部分'));
 ctx.n.prudent_rank_projection.coverage_status='QUANTIFIED_PART_ONLY';
 assert.ok(vm.runInContext('netPositionSummary(n)',ctx).includes('第 2—5 名（仅覆盖可量化的部分）'));
@@ -625,7 +639,7 @@ for(const [id,notes] of Object.entries(payload.records)){
  const record=JSON.parse(fs.readFileSync('reader/data/people/'+id+'.json','utf8')).record;
  assert.equal(record.ruler_id,id);
  const before=JSON.stringify(record);
- for(const block of Object.values(notes.overview)){
+ for(const block of [...Object.values(notes.overview),notes.home_intro]){
   const result=api.assessBlock(block,record);
   assert.equal(result.status,'current',id+': overview reference is stale');
   if(result.status==='current')current++;else needsReview++;
@@ -646,8 +660,6 @@ console.log(JSON.stringify({current,needsReview}));
 const build=fs.readFileSync('reader/build.py','utf8');
 assert.ok(build.includes('"person-reading-notes.js"'));
 assert.ok(build.includes('runtime_script_blocks()'));
-const copy=JSON.parse(fs.readFileSync('reader/public-copy.json','utf8'));
-assert.ok(!copy.some(row=>String(row.to||'').includes('person-reading-notes.js')));
 ''')
 
 
@@ -713,6 +725,15 @@ def test_representative_projection_keeps_authored_lifecycle():
     assert 'direction' not in projected
 
 
+def test_talent_reading_merges_only_a_complete_repeated_counterexample():
+    from emperor_v4.evaluation.profile_c3_reading import counter_repeated_in_grade
+
+    counter = '原任务负责人卸任，此后职责由他人承接。'
+    assert counter_repeated_in_grade(counter, f'本人先有明确授权；但{counter}')
+    assert not counter_repeated_in_grade(counter, f'没有证据表明{counter}')
+    assert not counter_repeated_in_grade(counter + '偏远地区的后续尚不明确。', counter)
+
+
 def test_talent_context_uses_authored_items_and_compact_metadata(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const fs=require('node:fs'),vm=require('node:vm');
@@ -756,9 +777,14 @@ for(const record of data.records.filter(r=>!r.supplementary)){
  const r=JSON.parse(fs.readFileSync('reader/data/people/'+record.ruler_id+'.json','utf8')).record;
  for(const c of r.axes.C3.representative_contexts||[]){
   ctx.c=c;
-  const html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C3'})",ctx);
+  ctx.processStart=r.axes.C3.reader_process_starts?.[c.parent_id];
+  const html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C3',processStart})",ctx);
   const footer=html.indexOf('<details class="metadata talent-context-sources">');
   assert.ok(footer>=0,record.ruler_id);
+  if(Number.isInteger(ctx.processStart)){
+   const remaining=Array.from(c.lifecycle_narrative).slice(ctx.processStart).join('').trim();
+   assert.equal(html.includes('补充过程说明'),Boolean(remaining),c.parent_id);
+  }
   assert.ok(!html.slice(0,footer).includes('context-direction'),record.ruler_id);
   assert.equal((html.match(/class="talent-evidence-item"/g)||[]).length,(c.evidence_detail||[]).length,record.ruler_id);
   const plain=html.replace(/<[^>]*>/g,'');
@@ -779,6 +805,16 @@ for(const record of data.records.filter(r=>!r.supplementary)){
 ''')
 
 
+def test_power_position_guide_requires_an_exact_matching_convention():
+    from emperor_v4.evaluation.profile_c5_reading import uses_shared_position_guide
+
+    generic = '按逐案覆盖、复发强度、程序与反馈后收束综合定位为C档中位。'
+    row = {'axis_grade': 'G2', 'position': 'MID', 'position_basis': generic}
+    assert uses_shared_position_guide(row)
+    assert not uses_shared_position_guide({**row, 'position': 'HIGH'})
+    assert not uses_shared_position_guide({**row, 'position_basis': generic + '后期未再出现同类处分。'})
+
+
 def test_power_style_cases_are_readable_without_an_extra_disclosure(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const fs=require('node:fs'),vm=require('node:vm');
@@ -788,11 +824,17 @@ const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*
 const element={addEventListener(){},classList:{toggle(){}}};
 const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
 vm.createContext(ctx);runReaderScript(source,ctx);
+const help=vm.runInContext("gradeHelp('profile')",ctx);
+assert.ok(data.c5_position_guide&&help.includes(data.c5_position_guide));
 for(const entry of data.records.filter(r=>!r.supplementary)){
  ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+entry.ruler_id+'.json','utf8')).record;
  const before=JSON.stringify(ctx.r);
  const html=vm.runInContext("axisEvidence(r,'C5')",ctx);
- const points=ctx.r.axes.C5.public_evidence_points;
+ const a=ctx.r.axes.C5;
+ ctx.a=a;
+ const position=a.uses_shared_position_guide?'':vm.runInContext("profileDistinctPositionBasis(a.position_basis,a.typical_pattern,a.grade_basis)",ctx);
+ assert.equal(html.includes('<div class="label">档内定位</div>'),Boolean(position),entry.ruler_id);
+ const points=a.public_evidence_points;
  assert.equal((html.match(/class="power-evidence-case"/g)||[]).length,points.length,entry.ruler_id);
  assert.ok(!html.includes('<details class="public-evidence-points">'),entry.ruler_id);
  const footer=html.indexOf('<details class="metadata power-context-index">');
@@ -816,6 +858,7 @@ def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     import json
     import yaml
     from reader.build import ROOT, FORMAL_CONTEXT_FIELDS, LEARNING_CONTEXT_FIELDS, DESIGN_CONTEXT_FIELDS, DIPLOMATIC_CONTEXT_FIELDS, load_json
+    from emperor_v4.evaluation.profile_m5 import uses_shared_scope
     from emperor_v4.evaluation.profile_parent_schema import representative_parent_chains
 
     project = yaml.safe_load((ROOT / 'config/project.yml').read_text(encoding='utf-8'))
@@ -823,10 +866,16 @@ def test_formal_context_process_matches_current_source_for_entire_axis(axis):
     for row in load_json(ROOT / spec['json'])['records']:
         projected = axis_projection(row, [])
         context_fields = FORMAL_CONTEXT_FIELDS + (LEARNING_CONTEXT_FIELDS if axis == 'C2' else []) + (DESIGN_CONTEXT_FIELDS if axis == 'C4' else []) + (DIPLOMATIC_CONTEXT_FIELDS if axis == 'M2' else [])
+        if axis == 'C1':
+            context_fields += ['secondary_projection_reason']
         contexts = row['parent_chains'] if axis in {'C4', 'M2'} else representative_parent_chains(row)
         expected = []
         for context in contexts:
             public = {key: context[key] for key in context_fields if key in context}
+            if axis == 'M5':
+                public['secondary_projection_reason'] = context['secondary_projection_reason']
+                if uses_shared_scope(context):
+                    public['uses_m5_scope_guide'] = True
             reviews = context.get('source_review')
             if isinstance(reviews, list):
                 structured = [review for review in reviews if isinstance(review, dict)]
@@ -858,7 +907,7 @@ const source=fs.readFileSync('reader/index.template.html','utf8').split('<script
 const element={addEventListener(){},classList:{toggle(){}}};
 const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
 vm.createContext(ctx);runReaderScript(source,ctx);
-ctx.c={parent_id:'positive',direction:'POSITIVE',consumption_status:'SCORING_PARENT',evidence_title:'选择 <与> 反馈',cycle_basis:'先确定可执行目标。\n\n反馈到达后收缩投入。',boundary_review:{归责:'执行由臣下承担。'},source_refs:['docs/synthetic.md']};
+ctx.c={parent_id:'positive',direction:'POSITIVE',consumption_status:'SCORING_PARENT',evidence_title:'选择 <与> 反馈',cycle_basis:'先确定可执行目标。\n\n反馈到达后收缩投入。',secondary_projection_reason:'此处采用本人对边境目标的调整。',boundary_review:{归责:'执行由臣下承担。'},source_refs:['docs/synthetic.md']};
 const before=JSON.stringify(ctx.c);
 let html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C1'})",ctx);
 assert.ok(html.includes('<h4 class="public-context-title">选择 &lt;与&gt; 反馈</h4>'));
@@ -867,6 +916,7 @@ for(const sentence of ['先确定可执行目标。','反馈到达后收缩投�
 assert.ok(html.indexOf('context-direction')>footer);
 assert.ok(html.indexOf('计分情境')>footer);
 assert.ok(html.indexOf('执行由臣下承担。')>footer);
+assert.ok(html.indexOf('此处采用本人对边境目标的调整。')>footer);
 assert.ok(html.includes('项目依据'));
 assert.equal(JSON.stringify(ctx.c),before);
 ctx.a={counterpattern:{positive_parent_refs:['positive'],counter_parent_refs:[]},context_lookup:{positive:ctx.c},representative_contexts:[ctx.c,{parent_id:'boundary',consumption_status:'BACKGROUND_VALIDATION',direction:'LIMITATION',cycle_basis:'此事有共享归责，不能认定独立周期。'}]};
@@ -979,8 +1029,9 @@ def test_coalition_context_renders_complete_formal_process_and_limits(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const data=JSON.parse(fs.readFileSync('reader/index.html','utf8').match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
 vm.createContext(ctx);runReaderScript(source,ctx);
 const fields=['coalition_task','group_structure','interests_and_security_expectations','personal_choice','status_and_resource_configuration','political_credit_and_delivery','feedback_and_conflict_handling','exit_result','counterevidence','lifecycle_reasoning'];
 ctx.c={parent_id:'synthetic',direction:'MIXED',source_refs:['docs/synthetic.md'],boundary_review:{c3:'集团合作不代替个人识别判断。'}};
@@ -1002,15 +1053,26 @@ assert.ok(html.includes(ctx.c.coalition_task)&&html.includes(ctx.c.exit_result))
 assert.ok(!html.includes('完整过程的判断依据'));
 // Every published coalition field, including counterevidence, reaches the same
 // renderer used by person and comparison views. No historical counts are fixed.
+const guide=data.m4_scope_guide;
 for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')&&f.endsWith('.json'))){
  const r=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
  const a=r.axes?.M4;if(!a)continue;
+ ctx.r=r;
+ const axis=vm.runInContext("axisEvidence(r,'M4')",ctx);
+ const shared=a.representative_contexts.some(c=>Object.entries(c.boundary_review).some(([key,value])=>guide.common[key]===value));
+ assert.equal(axis.split('class="metadata m4-scope-guide"').length-1,shared?1:0,file);
+ if(shared)assert.ok(axis.includes(guide.text),file);
  for(const c of a.representative_contexts||[]){
   ctx.c=c;html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'M4'})",ctx);
   for(const key of fields)if(c[key]){
    ctx.value=c[key];
    const expected=key==='coalition_task'?vm.runInContext('esc(profilePublicPattern(value))',ctx):vm.runInContext('powerProse(value)',ctx);
    assert.ok(html.includes(expected),file+': '+c.parent_id+': '+key);
+  }
+  const metadata=html.slice(html.indexOf('coalition-context-sources'));
+  for(const [key,value] of Object.entries(c.boundary_review)){
+   ctx.value=value;
+   assert.equal(metadata.includes(vm.runInContext('prose(value)',ctx)),guide.common[key]!==value,file+': '+c.parent_id+': '+key);
   }
  }
 }
@@ -1043,6 +1105,7 @@ assert.equal(JSON.stringify(ctx.c),before);
 
 def test_coalition_markdown_preserves_structured_process_and_boundary():
     from emperor_v4.evaluation.profile_markdown import _parent_lines
+    from emperor_v4.evaluation.profile_m4_reading import SCOPE_GUIDE
 
     parent = dict(parent_id='synthetic', coalition_task='处理旧新集团合作。',
                   group_structure='两类集团。', personal_choice='保留并重配。',
@@ -1055,14 +1118,21 @@ def test_coalition_markdown_preserves_structured_process_and_boundary():
     assert parent['boundary_review']['c3'] in text
     assert '项目依据' in text
     assert parent['source_refs'][0] not in text
+    common = SCOPE_GUIDE['common']
+    near_match = common['c3'] + '此案的授权只限京城。'
+    parent['boundary_review'] = {'m2': common['m2'], 'c3': near_match}
+    text = '\n'.join(_parent_lines(parent, shared_coalition_boundaries=common))
+    assert common['m2'] not in text and near_match in text
 
 
 def test_learning_context_preserves_process_boundaries_and_non_scoring_material(tmp_path):
     _run_reading_notes_node(tmp_path, r'''
 const fs=require('node:fs'),vm=require('node:vm');
 const source=fs.readFileSync('reader/index.template.html','utf8').split('<script>')[1].split("document.getElementById('home-nav').onclick")[0];
+const artifact=fs.readFileSync('reader/index.html','utf8');
+const data=JSON.parse(artifact.match(/<script[^>]*id="reader-data"[^>]*>([\s\S]*?)<\/script>/)[1]);
 const element={addEventListener(){},classList:{toggle(){}}};
-const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify({records:[],source_availability:{}})}:element}},location:{hostname:'localhost',hash:''},window:{}};
+const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
 vm.createContext(ctx);runReaderScript(source,ctx);
 ctx.c={parent_id:'synthetic',cycle_type:'TRUTH_ACQUISITION',direction:'POSITIVE',basis:'先比较两份矛盾报告。\n\n后来根据实测改变处置。',lifecycle_review:'先比较两份矛盾报告。\n\n后来根据实测改变处置。',secondary_projection_reason:'这里不评价处罚比例。',cycle_anchor_refs:['docs/synthetic.md']};
 const before=JSON.stringify(ctx.c);
@@ -1083,13 +1153,28 @@ html=vm.runInContext('learningNonScoring(a)',ctx);
 for(const text of ['不计分材料','另一事只有结果。','本人更新尚未证实。'])assert.ok(html.includes(text));
 assert.ok(!html.includes('docs/boundary.md'));
 // Cover every currently published learning process without fixing counts or grades.
+const guide=data.c2_scope_guide;
 for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')&&f.endsWith('.json'))){
  const record=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
  const a=record.axes?.C2;if(!a)continue;
+ ctx.r=record;
+ const axis=vm.runInContext("axisEvidence(r,'C2')",ctx);
+ const shared=a.representative_contexts.some(c=>guide.reason_texts.includes(c.secondary_projection_reason));
+ const notes=a.limitations.filter(value=>Object.hasOwn(guide.coverage,value));
+ assert.equal(axis.split('class="metadata c2-scope-guide"').length-1,shared||notes.length?1:0,file);
+ for(const value of notes){
+  const note=guide.coverage[value];
+  assert.ok(note.label.startsWith(a.axis_evidence_level),file+': coverage guidance must match evidence level');
+  assert.ok(axis.includes(note.text),file);
+ }
  for(const c of a.representative_contexts||[]){
   ctx.c=c;ctx.value=c.basis;
   html=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C2'})",ctx);
   assert.ok(html.includes(vm.runInContext('powerProse(value)',ctx)),file+': '+c.parent_id);
+  if(c.secondary_projection_reason){
+   const scope=vm.runInContext('powerProse(c.secondary_projection_reason)',ctx);
+   assert.equal(html.includes(scope),!guide.reason_texts.includes(c.secondary_projection_reason),file+': '+c.parent_id);
+  }
  }
  ctx.a=a;
  html=vm.runInContext('learningNonScoring(a)',ctx);
@@ -1103,12 +1188,15 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
 def test_learning_markdown_keeps_current_reason_process_and_non_scoring_limits():
     import yaml
     from reader.build import ROOT, load_json
+    from emperor_v4.evaluation.profile_c2_reading import SCOPE_GUIDE
     from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
     project = yaml.safe_load((ROOT / 'config/project.yml').read_text(encoding='utf-8'))
     spec = project['profile_assessment']['settled_axes']['C2']
     data = load_json(ROOT / spec['json'])
     text = render_profile_markdown(data)
+    assert text.count('id="c2-scope-guide"') == 1
+    assert all(f'- 跨轴投影边界：{reason}' not in text for reason in SCOPE_GUIDE['reason_texts'])
     for row in data['records']:
         assert row['typical_pattern'] in text
         assert row['grade_basis'] in text
@@ -1116,6 +1204,9 @@ def test_learning_markdown_keeps_current_reason_process_and_non_scoring_limits()
         for parent in row['parent_chains']:
             assert parent['basis'] in text
             assert parent['lifecycle_review'] in text
+            reason = parent.get('secondary_projection_reason')
+            if reason and reason not in SCOPE_GUIDE['reason_texts']:
+                assert f'- 跨轴投影边界：{reason}' in text
             for review in parent.get('source_review', []):
                 assert review['source_url'] in text
                 assert review['limitation'] in text
@@ -1135,6 +1226,31 @@ def test_overview_reference_report_tracks_projection_changes():
     assert person_note_reference_issues(records, notes) == [('synthetic', key, path) for key in ('outcome', 'profile', 'impact')]
     path[3] = 5
     assert person_note_reference_issues(records, notes)
+
+
+def test_home_intro_requires_current_evidence_and_respects_supplementary_scope():
+    from copy import deepcopy
+    from reader.build import person_note_reference_issues, record_summary
+
+    record = {'ruler_id': 'synthetic', 'supplementary': True,
+              'impact': {'public_total_basis': '合成政权迁都，后继沿用。'}, 'axes': {}, 'net': None}
+    block = {'text': '迁都后由继任者沿用。', 'evidence': [
+        {'path': ['impact', 'public_total_basis'], 'quote': '迁都，后继沿用'}]}
+    notes = {'records': {'synthetic': {'overview': {'impact': deepcopy(block)}}}}
+    assert ('synthetic', 'home_intro', []) in person_note_reference_issues(
+        [record], notes, require_home_intro=True)
+    notes['records']['synthetic']['home_intro'] = deepcopy(block)
+    assert not person_note_reference_issues([record], notes, require_home_intro=True)
+    record['reader_home_intro'] = block['text']
+    assert record_summary(record)['reader_home_intro'] == block['text']
+    notes['records']['synthetic']['home_intro']['evidence'][0]['quote'] = '已撤回的材料'
+    assert ('synthetic', 'home_intro', ['impact', 'public_total_basis']) in person_note_reference_issues(
+        [record], notes, require_home_intro=True)
+    record['net'] = {'basis': '迁都，后继沿用'}
+    notes['records']['synthetic']['home_intro']['evidence'] = [
+        {'path': ['net', 'basis'], 'quote': '迁都，后继沿用'}]
+    assert ('synthetic', 'home_intro', ['net', 'basis']) in person_note_reference_issues(
+        [record], notes, require_home_intro=True)
 
 
 def test_axis_grade_explanation_is_visible_before_nested_evidence_for_current_pool(tmp_path):
@@ -1191,12 +1307,25 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
   for(const suffix of ['', '-compare-0']){
    ctx.suffix=suffix;
    const html=vm.runInContext('axisEvidence(r,code,suffix)',ctx);
+   if(code==='M5'){
+    const contexts=a.representative_contexts||[];
+    const guideCount=html.split('class="metadata m5-scope-guide"').length-1;
+    assert.equal(guideCount,contexts.some(c=>c.uses_m5_scope_guide)?1:0,file);
+    for(const context of contexts){
+     assert.ok(context.secondary_projection_reason,file+': '+context.parent_id);
+     ctx.contextCase=context;
+     const card=vm.runInContext('organizationContextStory(contextCase)',ctx);
+     const boundary=vm.runInContext("formalMetaField('跨轴边界',contextCase.secondary_projection_reason)",ctx);
+     assert.equal(card.includes(boundary),!context.uses_m5_scope_guide,file+': '+context.parent_id);
+     assert.ok(html.includes(card),file+': '+context.parent_id);
+    }
+   }
    if(expected){
     ctx.expected=expected;
     const content=vm.runInContext(authored?'prose(expected)':"['C1','C2','C5','M4','M5'].includes(code)?powerProse(expected):prose(expected)",ctx);
     const label=authored?'为什么这样评':combined?'典型表现与定档理由':vm.runInContext("ungraded(a)||pending(a)||a.applicability_status==='NOT_APPLICABLE'||a.output_mode==='NOT_APPLICABLE'?'当前状态的依据':'当前等级的整体依据'",ctx);
     assert.ok(html.includes('<section class="axis-grade-explanation"><div class="label">'+label+'</div>'+content),file+': '+code);
-    if(combined)assert.ok(!html.includes('<div class="label">正式记录中的人物表现</div>'),file+': repeated pattern');
+    if(combined)assert.ok(!html.includes('<div class="label">这个判断主要依据什么表现？</div>'),file+': repeated pattern');
     assert.ok(html.indexOf('axis-grade-explanation')<html.indexOf('<details class="axis-further-check">'),file+': '+code);
    }
    const featured=html.indexOf('axis-representative-story');
@@ -1315,6 +1444,20 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
   assert.equal(card.includes('本节未单列出处'),!c.source_ref_indices.length);
   chains++;
  }
+ if(h.reading_story_sources){
+  const story=vm.runInContext('historySections(r,"-compare-0",true)',ctx);
+  const adopted=[];
+  for(const chain of h.macro_chains){
+   adopted.push(...chain.source_ref_indices);
+   for(const event of chain.public_events)adopted.push(...event.source_ref_indices);
+  }
+  for(const [axis,review] of [['scope','scope_assessment'],['depth_duration','depth_review'],['personal_causality','causal_review'],['paradigm','paradigm_review']]){
+   adopted.push(...(h.dimensions[axis].public_source_ref_indices??h[review]?.source_ref_indices??[]));
+  }
+  const jumps=Array.from(story.matchAll(/data-section="impact-source-(\d+)-compare-0"/g),m=>Number(m[1])-1);
+  assert.deepEqual(jumps,adopted,file+': ordered adoption');
+  for(let i=0;i<h.source_refs.length;i++) assert.equal(story.split('id="impact-source-'+(i+1)+'-compare-0"').length-1,1,file);
+ }
  assert.equal(JSON.stringify(h),before);
 }
 assert.ok(sources>0&&chains>0);
@@ -1370,12 +1513,17 @@ for(const text of ['资源核算','人员归属','未观察长期结果。','本
 assert.ok(html.indexOf('context-direction')>html.indexOf('design-context-sources'));
 assert.equal(JSON.stringify(ctx.c),original);
 let processes=0;
+const guide=data.c4_scope_guide;
 for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')&&f.endsWith('.json'))){
  ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
  const a=ctx.r.axes?.C4;if(!a)continue;
  const before=JSON.stringify(ctx.r);
  const html=vm.runInContext("axisEvidence(r,'C4')",ctx);
  assert.ok(html.includes('design-context-story'),file);
+ const usesGuide=a.applicability_basis===guide.applicability||a.evidence_assessment_basis===guide.coverage||a.limitations.some(value=>guide.limitations.includes(value))
+    ||a.representative_contexts.some(c=>c.attribution===guide.attribution);
+ assert.equal(html.split('class="metadata c4-scope-guide"').length-1,usesGuide?1:0,file);
+ if(a.applicability_basis===guide.applicability)assert.ok(!html.includes(guide.applicability),file);
  assert.ok(html.indexOf('反例与判断边界')>html.indexOf('metadata adjudication'),file);
  if(a.horizontal_calibration){
   assert.ok(html.includes('同轴比较'),file);
@@ -1391,6 +1539,10 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
   const card=vm.runInContext("formalContextStory(c,c.parent_id,{axisCode:'C4'})",ctx);
   assert.ok(html.includes(card),file+': '+c.parent_id);
   assert.ok(card.includes(vm.runInContext('powerProse(c.mechanism)',ctx)),file+': truncated process');
+  if(c.attribution){
+   const attribution=vm.runInContext("formalMetaField('归责',c.attribution)",ctx);
+   assert.equal(card.includes(attribution),c.attribution!==guide.attribution,file+': '+c.parent_id);
+  }
   processes++;
  }
  if(a.architecture_review?.basis){ctx.basis=a.architecture_review.basis;assert.ok(html.includes(vm.runInContext('powerProse(basis)',ctx)));}
@@ -1433,6 +1585,7 @@ const element={addEventListener(){},classList:{toggle(){}}};
 const ctx={URL,document:{getElementById(id){return id==='reader-data'?{textContent:JSON.stringify(data)}:element}},location:{hostname:'localhost',hash:''},window:{}};
 vm.createContext(ctx);runReaderScript(source,ctx);
 let checked=0;
+const guide=data.m2_scope_guide;
 for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('RULER-')&&f.endsWith('.json'))){
  ctx.r=JSON.parse(fs.readFileSync('reader/data/people/'+file,'utf8')).record;
  const a=ctx.r.axes?.M2;if(!a)continue;
@@ -1441,6 +1594,17 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
  const boundary=html.indexOf('diplomatic-boundary-contexts');
  const scoring=a.representative_contexts.filter(c=>c.consumption_status==='SCORING_PARENT');
  const excluded=a.representative_contexts.filter(c=>c.consumption_status!=='SCORING_PARENT');
+ const terminal=a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY';
+ const notes=(a.limitations||[]).filter(value=>Object.hasOwn(guide.limits,value));
+ const usesSourceNote=a.representative_contexts.some(c=>c.source_adoption_note===guide.source_note);
+ assert.equal(html.split('class="metadata m2-scope-guide"').length-1,terminal||usesSourceNote||notes.length?1:0,file);
+ for(const value of notes)assert.ok(html.includes(guide.limits[value].text),file);
+ if(terminal){
+  assert.equal(scoring.length,0,file);
+  assert.ok(html.includes('未显示外交能力')&&html.includes(guide.terminal_text),file);
+  assert.ok(!html.includes('本轴E为终局证据认定'),file);
+ }
+ if(usesSourceNote)assert.ok(html.includes(guide.source_text),file);
  assert.equal(html.includes('<div class="label">计分外交过程</div>'),scoring.length>0,file);
  assert.equal(boundary>=0,excluded.length>0,file);
  for(const c of a.representative_contexts){
@@ -1451,12 +1615,15 @@ for(const file of fs.readdirSync('reader/data/people').filter(f=>f.startsWith('R
   const body=vm.runInContext('powerProse(c.cycle_basis)',ctx);
   assert.ok(card.includes(body),file+': truncated body');
   assert.ok(card.indexOf(body)<footer,file+': process must precede metadata');
+  if(c.source_adoption_note){
+   const adoption=vm.runInContext('powerProse(c.source_adoption_note)',ctx);
+   assert.equal(card.includes(adoption),c.source_adoption_note!==guide.source_note,file+': '+c.parent_id);
+  }
   if(c.consumption_status==='SCORING_PARENT')assert.ok(boundary<0||at<boundary,file);
   else assert.ok(at>boundary,file+': excluded evidence leaked into scoring section');
   for(const review of c.source_review||[]){ctx.review=review;assert.ok(card.includes(review.source_url),file);assert.ok(card.includes(vm.runInContext('powerProse(review.limitation)',ctx)),file);}
   checked++;
  }
- if(a.assessment_basis==='NO_DEMONSTRATED_CAPABILITY')assert.equal(scoring.length,0,file);
  assert.equal(JSON.stringify(ctx.r),before);
 }
 assert.ok(checked>0);

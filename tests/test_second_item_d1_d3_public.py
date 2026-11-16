@@ -8,6 +8,7 @@ import pytest
 
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.second_item_d1_d3_public import D1_PATH, D3_PATH, PUBLIC_RECORD_FIELDS, _refresh_payload, _scoring_signature, display_reason, display_source, verify_public_projection, render_public_markdown, public_record
+from emperor_v4.evaluation.second_item_d1_d3_public import SCOPE_GUIDE, display_scope
 
 
 def synthetic(root, axis):
@@ -92,7 +93,7 @@ def test_markdown_displays_full_authored_text_and_quotations(tmp_path):
     assert markdown == render_public_markdown(payload, 'D1')
 
 
-def test_reader_uses_complete_authored_projection_without_transforming_evidence():
+def test_reader_keeps_authored_evidence_after_consolidating_shared_scope():
     root = Path(__file__).resolve().parents[1]
     sources = {axis: {r['ruler_id']: r for r in load_json(root / path)['records']}
                for axis, path in [('D1', D1_PATH), ('D3', D3_PATH)]}
@@ -104,12 +105,16 @@ def test_reader_uses_complete_authored_projection_without_transforming_evidence(
             if not axis: continue
             formal = public_record(sources[axis][record['ruler_id']])
             expected = {k: formal[k] for k in PUBLIC_RECORD_FIELDS}
+            for field in ('public_window', 'public_responsibility', 'public_boundary'):
+                expected[field] = display_scope(expected[field], axis, field)
             expected['public_evidence_items'] = [
-                {**entry, 'source_refs': [display_source(ref) for ref in entry['source_refs']]}
+                {**entry, 'public_boundary': display_scope(entry['public_boundary'], axis, 'public_boundary'),
+                 'source_refs': [display_source(ref) for ref in entry['source_refs']]}
                 for entry in formal['public_evidence_items']
             ]
             assert item['reader_public_d'] == expected
             assert item['reader_public_evidence_items'] == formal['public_evidence_items']
+            assert item['reader_handoff_scope_href'] == f'second-item-d.html#handoff-scope-{axis.lower()}'
             seen.add(axis)
     assert seen == set(sources)
 
@@ -138,22 +143,35 @@ def test_full_pool_collection_keeps_every_authored_record_and_quotation():
 
     root = Path(__file__).resolve().parents[1]
     page = Collection()
-    page.feed((root / 'reader/second-item-d.html').read_text(encoding='utf-8'))
+    html = (root / 'reader/second-item-d.html').read_text(encoding='utf-8')
+    page.feed(html)
     expected_ids, expected_evidence = set(), set()
-    for path in (D1_PATH, D3_PATH):
+    for axis, path in [('D1', D1_PATH), ('D3', D3_PATH)]:
+        anchor = f'handoff-scope-{axis.lower()}'
+        assert html.count(f'id="{anchor}"') == 1 and f'href="#{anchor}"' in html
+        assert all(html.count(paragraph) == 1 for paragraph in SCOPE_GUIDE[axis])
         for row in load_json(root / path)['records']:
             row = public_record(row)
             expected_ids.add(row['ruler_id'])
             text = page.people[row['ruler_id']]
             for field in PUBLIC_RECORD_FIELDS:
                 if field != 'public_evidence_items':
-                    expected = display_reason(row) if field == 'public_adjudication_summary' else row[field]
-                    if expected != row[field]:
-                        assert row[field][len(expected):].lstrip() == row['public_story']
+                    if field == 'public_adjudication_summary':
+                        expected = display_reason(row)
+                        if expected != row[field]:
+                            assert row[field][len(expected):].lstrip() == row['public_story']
+                    else:
+                        expected = row[field] if field == 'public_story' else display_scope(row[field], axis, field)
                     assert all(part in text for part in expected.split('\n\n'))
             for item in row['public_evidence_items']:
                 expected_evidence.add(item['id'])
-                assert item['public_basis'] in text
+                assert display_scope(item['public_boundary'], axis, 'public_boundary') in text
+                basis = item['public_basis']
+                if basis not in text:
+                    # The card may reuse the story across a rendered paragraph break.
+                    compact = ''.join(basis.split())
+                    assert compact in ''.join(row['public_story'].split())
+                    assert compact in ''.join(text.split())
                 for raw in item['source_refs']:
                     ref = display_source(raw)
                     assert ref['public_excerpt'] in text

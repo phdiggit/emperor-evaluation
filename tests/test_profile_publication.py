@@ -68,9 +68,36 @@ def test_bounded_diplomacy_does_not_publish_uncertainty_as_full_evidence():
 from emperor_v4.evaluation.profile_markdown import _m2_display_grade, _m2_display_radar
 
 
+def test_profile_counter_reading_reuses_complete_sentences_only():
+    from emperor_v4.evaluation.profile_markdown import _counter_after_grade
+
+    grade = "最初听取了奏报。次年重新调查。第三年修订旧规。"
+    assert _counter_after_grade("次年重新调查。查问没有覆盖外地。", grade) == "查问没有覆盖外地。"
+    assert _counter_after_grade("次年没有重新调查。", grade) == "次年没有重新调查。"
+    assert _counter_after_grade("次年重新调查。第三年修订旧规。", grade) == ""
+    quoted = "次年重新调查。”这句话只见于后出记载。"
+    assert _counter_after_grade(quoted, grade) == quoted
+
+
+def test_c3_markdown_shares_complete_process_entries_and_keeps_new_context():
+    from emperor_v4.evaluation.profile_markdown import _c3_parent_lines
+
+    common = "任用主管后，投入了两批运粮人手"
+    different = "粮运恢复后，追加了边地仓储职责。"
+    parent = {"evidence_detail": [common], "lifecycle_narrative": f"{common}；{different}"}
+    lines = "\n".join(_c3_parent_lines(parent))
+    assert lines.count(common) == 1
+    assert different in lines
+
+    qualified = common + "仍未满额。"
+    parent["lifecycle_narrative"] = qualified
+    assert qualified in "\n".join(_c3_parent_lines(parent))
+
+
 def test_m2_markdown_preserves_complete_process_and_adoption_scope():
     from copy import deepcopy
     from emperor_v4.evaluation.profile_markdown import _m2_parent_lines
+    from emperor_v4.evaluation.profile_m2_reading import SCOPE_GUIDE
     parent = dict(parent_id='synthetic', evidence_title='一次条件选择', cycle_basis='执行和反馈。' * 100,
                   direction='NEGATIVE', intensity='MI1', consumption_status='AXIS_OUT_WITH_REASON',
                   identity_transition_point='归入之后为内部安置。', axis_out_reason='内部关系不计外交。',
@@ -84,6 +111,10 @@ def test_m2_markdown_preserves_complete_process_and_adoption_scope():
                   '项目依据', '未证明本人逐项设计。', '只限一项局部过程。'):
         assert value in text
     assert parent == before
+    parent['source_adoption_note'] = SCOPE_GUIDE['source_note']
+    assert SCOPE_GUIDE['source_note'] not in '\n'.join(_m2_parent_lines(parent))
+    parent['source_adoption_note'] += '具体条件仅见于一次奏报。'
+    assert parent['source_adoption_note'] in '\n'.join(_m2_parent_lines(parent))
 
 
 def closed_record():

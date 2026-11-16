@@ -27,11 +27,9 @@
   }
   function html(item, record, options = {}) {
     const d = reading(item);
-    const midpoint = d.decision_basis.length / 2;
-    const firstHalf = d.decision_basis.slice(0, midpoint);
-    const decision = firstHalf === d.decision_basis.slice(midpoint) ? firstHalf : d.decision_basis;
-    const materials = d.evidence_items.map((e,i) => `<article class="net-material-card"><h4>${esc(e.title || `材料${i+1}`)}</h4><p class="subline">${esc(e.status)}</p>${prose(e.result)}<details><summary>本人责任与跨项边界</summary>${prose(e.responsibility)}${prose(e.scope)}</details>${e.exclusion_reason?`<div class="label">为什么这条不计分</div>${prose(e.exclusion_reason)}`:""}<details><summary>这条材料怎样参与合成</summary>${prose(e.components)}${prose(e.hard_negative)}</details><details><summary>这条材料的逐条史源（${e.sources.length}条引用）</summary>${sourceList(e.sources,record)}</details></article>`).join("");
-    return `<div class="fourth-c-public-reading" data-formal-public-source><h4>${esc(d.question)}</h4><p class="meta">评价时期：${esc(d.window)}</p>${entryLinks(record,{...options,formalId:item.reader_c_collection_id})}<div class="label">${d.evidence_items.length ? "为什么采用这个幅度和位置" : "为什么是0分"}</div>${FourthItemReasons.decision(decision, prose)}${materials}<details><summary>查看完整分数合成</summary>${prose(d.calculation)}<details><summary>通用规则与尺度</summary>${prose(d.method)}<ul>${d.scale.map((v,i)=>`<li>${i+1}级：${esc(v)}</li>`).join("")}</ul></details></details><details><summary>现行评价依据与材料范围</summary>${d.review_basis !== d.decision_basis ? FourthItemReasons.decision(d.review_basis, prose) : ""}${prose(d.responsibility)}${prose(d.boundary)}${prose(d.source_note)}${sourceList(d.assessment_sources,record)}</details></div>`;
+    const decision = FourthItemReasons.decision(d.display_decision ?? d.decision, prose);
+    const materials = d.evidence_items.map((e,i) => `<article class="net-material-card"><h4>${esc(e.title || `材料${i+1}`)}</h4><p class="subline">${esc(e.status)}</p>${e.level_basis ? prose(e.level_basis) : ""}<p class="subline">${esc(e.components)}</p><details><summary>史源与跨项边界（${e.sources.length}条引用）</summary>${e.boundary ? prose(e.boundary) : ""}${sourceList(e.sources,record)}</details></article>`).join("");
+    return `<div class="fourth-c-public-reading" data-formal-public-source><h4>${esc(d.question)}</h4><p class="meta">评价时期：${esc(d.window)}</p>${entryLinks(record,{...options,formalId:item.reader_c_collection_id})}${materials || decision}${FourthItemReasons.sharedContext(d, prose)}${materials ? `<details><summary>本轴为什么这样计</summary>${decision}</details>` : ""}${FourthItemReasons.calculation(d, prose, {collection: options.collection, axis: "c"})}<details><summary>现行评价依据与材料范围</summary>${d.review_basis !== d.decision_basis ? FourthItemReasons.decision(d.review_basis, prose) : ""}${prose(d.display_boundary ?? d.boundary)}${sourceList(d.assessment_sources,record)}</details></div>`;
   }
   globalThis.FourthItemCReading = Object.freeze({heading,html,entryLinks});
 })();

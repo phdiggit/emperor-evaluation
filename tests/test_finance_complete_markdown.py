@@ -26,11 +26,6 @@ def test_public_refresh_creates_generated_components_without_old_markdown(tmp_pa
                 for axis in public.FORMAL_PATHS}
     original = deepcopy(payloads)
     by_path = {tmp_path / path: payloads[axis] for axis, path in public.FORMAL_PATHS.items()}
-    for axis, path in public.FORMAL_PATHS.items():
-        target = (tmp_path / path).with_suffix('.md')
-        target.parent.mkdir(parents=True, exist_ok=True)
-        if axis not in public.GENERATED_MARKDOWN_AXES:
-            target.write_text('保留的证据正文\n', encoding='utf-8')
     monkeypatch.setattr(public, 'load_json', lambda path: deepcopy(by_path[path]))
     monkeypatch.setattr(public, '_refresh_payload', lambda axis, payload: payload)
     monkeypatch.setattr(public, '_verify_payload', lambda axis, payload: {})
@@ -39,8 +34,7 @@ def test_public_refresh_creates_generated_components_without_old_markdown(tmp_pa
     monkeypatch.setattr(public, 'write_json', lambda *args, **kwargs: None)
     monkeypatch.setattr(public, 'verify_public_projection', lambda root: {'status': 'PASS'})
     monkeypatch.setattr(public, 'render_complete_markdown', lambda payload: payload['public_projection_axis'] + '完整正文\n')
-    monkeypatch.setattr(public, 'render_public_markdown', lambda markdown, payload: markdown)
     assert public.run(tmp_path, write=True)['status'] == 'WRITTEN'
-    for axis in public.GENERATED_MARKDOWN_AXES:
+    for axis in public.FORMAL_PATHS:
         assert (tmp_path / public.FORMAL_PATHS[axis]).with_suffix('.md').read_bytes() == (axis + '完整正文\n').encode('utf-8')
     assert payloads == original

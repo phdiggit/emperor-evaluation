@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""Validate authored A prose and copy it verbatim to evidence / Markdown views.
+"""Validate authored A prose and build evidence and Markdown views.
 
 Historical prose is edited in the formal records. This module never creates,
 translates, truncates or repairs that prose from scoring fields or material counts.
@@ -8,7 +8,6 @@ translates, truncates or repairs that prose from scoring fields or material coun
 
 import copy
 import hashlib
-import json
 import math
 import re
 from pathlib import Path
@@ -21,6 +20,23 @@ A_PATH = Path("docs/评分结算/净收益/第二项治国净收益/制度行政
 MARKDOWN_PATH = A_PATH.with_suffix(".md")
 PUBLIC_PROJECTION_SCHEMA = "second-item-a-public-projection-v2"
 PUBLIC_MARKER = "<!-- A_AUTHORED_PUBLIC_READING -->"
+SCOPE_GUIDE = (
+    "制度建设看本人改变了哪些规则，以及这些规则的净作用。实际行政、民生和战争得失各有评价入口。"
+    "同一制度的编纂、实施、失败与恢复合并判断一次。材料列出已核到的制度变化。"
+    "后继采用须有证据指向同一项核心规则，才可进入长期沿用的加权判断。"
+    "单列名称的项目依据可在各节点的正式记录中定位。"
+)
+_COMMON_BOUNDARY = (
+    "本项只评价本人改变的制度规则及其净作用；日常执行、民生结果和战争得失分别在对应项目评价。"
+    "未列材料不代表不存在其他制度行为。"
+)
+_COMMON_SUMMARY_SUFFIX = "同一制度的编纂、施行、失败或恢复不因材料分卡重复结算。"
+_RECEPTION_LABELS = {
+    "本节点未取得额外的长期沿用认定；不据此断言后世完全没有沿用。": "长期沿用未获认定。",
+    "本节点未单独取得额外的长期沿用认定。": "长期沿用未获认定。",
+    "本条只计已核定的建设或损害；没有另增长期沿用溢价。": "沿用加权：无。",
+    "现有证据尚不足确认本次具体改变形成长期沿用。": "长期沿用尚缺证据。",
+}
 PROFILE_KEYS = ("M_positive_profile", "M_mixed_profile", "M_negative_profile")
 PUBLIC_DIRECTIONS = {"positive":"正向", "positive_correction":"正向", "negative":"负向", "mixed_positive":"正向主导", "mixed_negative":"负向主导", "mixed":"正负并存", "balanced":"正负并存", "neutral":"事实参考"}
 PUBLIC_NODE_FIELDS = ("institution_node_id", "public_label", "public_direction", "public_tags", "signed_weight", "public_adjudication_basis", "public_boundary", "public_reception", "public_sources", "public_material_ids")
@@ -188,23 +204,34 @@ def _public_nodes(row: dict[str, Any]) -> list[dict[str, Any]]:
     return nodes
 
 
-def _public_evidence_items(row: dict[str, Any], nodes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def display_boundary(value: str) -> str:
+    if value == _COMMON_BOUNDARY:
+        return ""
+    return value.removeprefix(_COMMON_BOUNDARY + " ")
+
+
+def display_summary(value: str) -> str:
+    if not value.endswith(_COMMON_SUMMARY_SUFFIX):
+        return value
+    return value.removesuffix(_COMMON_SUMMARY_SUFFIX).rstrip() or value
+
+
+def public_evidence_items(row: dict[str, Any]) -> list[dict[str, Any]]:
+    """Build reader cards in authored node order, without a stored copy."""
+    nodes = row.get("public_institution_nodes")
+    if not isinstance(nodes, list):
+        raise ValueError(f"第二项A缺少人工节点正文：{row.get('ruler_name')}")
     return [{
         "institution_node_id": n["institution_node_id"],
         "public_label": n["public_label"], "public_direction": n["public_direction"],
         "public_tags": copy.deepcopy(n["public_tags"]),
         "public_basis": n["public_adjudication_basis"],
-        "public_boundary": n["public_boundary"], "public_reception": n["public_reception"],
+        "public_boundary": n["public_boundary"],
+        "public_reception": _RECEPTION_LABELS.get(n["public_reception"], n["public_reception"]),
         "public_sources": copy.deepcopy(n["public_sources"]),
         "public_material_ids": copy.deepcopy(n["public_material_ids"]),
         **({"source_excerpts": copy.deepcopy(n["source_excerpts"])} if n.get("source_excerpts") else {}),
     } for n in nodes]
-
-
-def _scoring_signature(payload: dict[str, Any]) -> str:
-    # Protect all non-public record fields, including totals, IDs and rankings.
-    rows = [{k: v for k, v in row.items() if not k.startswith("public_")} for row in payload.get("records", [])]
-    return json.dumps(sorted(rows, key=lambda r: r["ruler_id"]), ensure_ascii=False, sort_keys=True)
 
 
 def _verify_ref(root: Path, ref: object) -> None:
@@ -244,33 +271,26 @@ def _verify_ref(root: Path, ref: object) -> None:
                         raise ValueError(f"第二项A来源路径无匹配：{ref}") from exc
 
 
-def _refresh_payload(payload: dict[str, Any], workspace_root: Path) -> dict[str, Any]:
-    before = _scoring_signature(payload)
+def _validate_public_records(payload: dict[str, Any]) -> None:
     if payload.get("public_projection_schema_version") != PUBLIC_PROJECTION_SCHEMA:
         raise ValueError("第二项A必须先维护正式人工正文，不再从旧字段自动生成事实")
     for row in payload.get("records", []):
+        if "public_evidence_items" in row:
+            raise ValueError(f"第二项A正式记录不得保存逐节点阅读副本：{row.get('ruler_name')}")
         _require_prose(row.get("public_story"), str(row.get("ruler_name")))
         _require_prose(row.get("public_adjudication_summary"), str(row.get("ruler_name")))
         _require_prose(row.get("public_boundary"), str(row.get("ruler_name")))
-        nodes = _public_nodes(row)
-        row["public_evidence_items"] = _public_evidence_items(row, nodes)
-    if _scoring_signature(payload) != before:
-        raise ValueError("第二项A阅读投影改变了评分字段")
-    return payload
-
-
-def refresh_public_projection(workspace_root: Path) -> dict[str, Any]:
-    return _refresh_payload(load_json(workspace_root / A_PATH), workspace_root)
+        _public_nodes(row)
 
 
 def public_markdown(payload: dict[str, Any]) -> str:
     from .second_item_c_source_display import is_machine_source
 
-    lines = [PUBLIC_MARKER, "## 三、制度建设逐人阅读", "", "正文与定档理由直接读取正式JSON；计算表见上文。没有制度节点的记录只显示证据边界，不计作材料卡。", ""]
+    lines = [PUBLIC_MARKER, "## 三、制度建设逐人阅读", "", SCOPE_GUIDE, ""]
     for row in payload["records"]:
-        lines += [f"### {row['ruler_name']}", "", row["public_story"], "", "**定档理由：**" + row["public_adjudication_summary"], ""]
-        for n in row["public_institution_nodes"]:
-            lines += [f"#### {n['public_label']}（{n['public_direction']}）", "", n["public_adjudication_basis"], "", n["public_reception"], ""]
+        lines += [f"### {row['ruler_name']}", "", row["public_story"], "", "**定档理由：**" + display_summary(row["public_adjudication_summary"]), ""]
+        for n in public_evidence_items(row):
+            lines += [f"#### {n['public_label']}（{n['public_direction']}）", "", n["public_basis"], "", n["public_reception"], ""]
             if n["public_boundary"]:
                 lines += ["范围与边界：" + n["public_boundary"], ""]
             for excerpt in n.get("source_excerpts", []):
@@ -279,10 +299,11 @@ def public_markdown(payload: dict[str, Any]) -> str:
             sources = []
             for source in n["public_sources"]:
                 label, target = display_source_label(source), source['ref']
-                sources.append(f'{label}（此条项目依据未单列阅读入口）' if is_machine_source(target)
+                sources.append(label if is_machine_source(target)
                                else f'[{label}]({target})')
             lines += ["来源：" + "；".join(dict.fromkeys(sources)), ""]
-        lines += ["评价范围：" + row["public_boundary"], ""]
+        if boundary := display_boundary(row["public_boundary"]):
+            lines += ["评价范围：" + boundary, ""]
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -295,9 +316,7 @@ def _markdown_view(workspace_root: Path, payload: dict[str, Any]) -> str:
 def verify_public_projection(workspace_root: Path, payload: dict[str, Any] | None = None) -> dict[str, Any]:
     if payload is None:
         payload = load_json(workspace_root / A_PATH)
-    projected = _refresh_payload(copy.deepcopy(payload), workspace_root)
-    if projected != payload:
-        raise ValueError("第二项A公开证据未与人工正文同步；运行second-item-a-public --write")
+    _validate_public_records(payload)
     rows = payload.get("records", [])
     if payload.get("public_projection_record_count") != len(rows):
         raise ValueError("第二项A公开人物计数不一致")
@@ -325,14 +344,14 @@ def verify_public_projection(workspace_root: Path, payload: dict[str, Any] | Non
 
 
 def run(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
-    current = load_json(workspace_root / A_PATH)
-    projected = _refresh_payload(copy.deepcopy(current), workspace_root)
+    payload = load_json(workspace_root / A_PATH)
     if write:
-        for source in projected.get("source_documents", []):
+        _validate_public_records(payload)
+        for source in payload.get("source_documents", []):
             if source.get("path") == "docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md":
                 source["byte_sha256"] = hashlib.sha256((workspace_root / source["path"]).read_bytes()).hexdigest()
-        write_json(workspace_root / A_PATH, projected, ruler_polities=load_ruler_polities(workspace_root))
-        (workspace_root / MARKDOWN_PATH).write_text(_markdown_view(workspace_root, projected), encoding="utf-8", newline="\n")
-    report = verify_public_projection(workspace_root, projected if write else current)
+        write_json(workspace_root / A_PATH, payload, ruler_polities=load_ruler_polities(workspace_root))
+        (workspace_root / MARKDOWN_PATH).write_text(_markdown_view(workspace_root, payload), encoding="utf-8", newline="\n")
+    report = verify_public_projection(workspace_root, payload)
     if write: report["status"] = "WRITTEN"
     return report

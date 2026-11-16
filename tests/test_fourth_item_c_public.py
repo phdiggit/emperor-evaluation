@@ -5,7 +5,7 @@ import json
 import pytest
 
 from emperor_v4.evaluation.fourth_item_c_public import sources, axis_reading, markdown_reading
-from emperor_v4.evaluation.fourth_item_results import totals, price, disposition
+from emperor_v4.evaluation.fourth_item_results import SCHEMA, axis_reading as formal_axis_reading, totals, price, disposition
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.third_fourth_item_public import FOURTH_PATH, _refresh_fourth, _signature
 
@@ -52,6 +52,36 @@ def test_large_damage_is_retained_without_repricing_other_results():
     assert disposition([])=='NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW'
 
 
+def test_fourth_reading_shares_axis_context_and_keeps_each_results_evidence():
+    common = '两项工程都曾在本时期交付。'
+    responsibility = '本人下令，两组官员分别执行。'
+    boundary = '后任扩编属于另一时期。'
+    entries = []
+    for name, direction, body in [('P', 'POSITIVE', '第一种典籍公开刊行。'),
+                                  ('N', 'NEGATIVE', '第二种典籍遭到禁毁。')]:
+        entry = {**result(direction=direction), 'result_id': name, 'title': name,
+                 'basis': common + '\n\n' + body,
+                 'cross_item_handoff': {'basis': f'{body}{boundary}'},
+                 'source_refs': [f'https://example.org/{name}']}
+        entry['contribution'] = price(entry)
+        entries.append(entry)
+    row = {'ruler_name': '合成对象', 'actual_power_window': [[100, 110]]}
+    axis = {'axis': 'C', 'calculation_version': SCHEMA, 'results': entries,
+            'baseline_basis': '起点有不同文献产品。', 'handoff_basis': '交班信息有限。',
+            'decision_basis': '正向和负向分别成立。', 'responsibility': responsibility,
+            'cross_item_handoff': {'owned_outcome': '采用本轴文化结果。'}, **totals(entries)}
+    before = deepcopy(axis)
+    reading = axis_reading(row, axis, {})
+    assert reading['common_result_basis'] == common
+    assert [item['level_basis'] for item in reading['evidence_items']] == ['第一种典籍公开刊行。', '第二种典籍遭到禁毁。']
+    assert all(item['boundary'] == boundary for item in reading['evidence_items'])
+    text = markdown_reading(reading)
+    assert text.count(common) == text.count(responsibility) == 1
+    assert text.count(boundary) == 2
+    assert all(e['source_refs'][0] in text for e in entries)
+    assert axis == before
+
+
 @pytest.mark.parametrize('changes',[dict(eligibility='UNRESOLVED'),dict(level=0),dict(level=True),dict(band=None),dict(direction='MIXED')])
 def test_unresolved_or_invalid_result_cannot_be_priced(changes):
     with pytest.raises(ValueError):price({**result(),**changes})
@@ -63,21 +93,23 @@ def test_current_coverage_readonly_sources_and_person_caches():
     packages={p['package_code']:p for p in payload['accepted_packages']}
     by_id={r['ruler_id']:r for r in payload['records']}
     projected=_refresh_fourth(deepcopy(payload))
-    assert _signature(projected)==_signature(payload) and payload==before
+    assert projected==payload and _signature(projected)==_signature(payload) and payload==before
     for row in payload['records']:
         a=next(a for a in row['axis_results'] if a['axis']=='C')
         reading=axis_reading(row,a,packages)
         assert [e['result_id'] for e in reading['evidence_items']]==[r['result_id'] for r in a['results']]
-        for result_row,item in zip(a['results'],a['public_reading']['evidence_items']):
+        assert all('public_reading' not in axis for axis in row['axis_results'])
+        for result_row,item in zip(a['results'],formal_axis_reading(row,a)['evidence_items'],strict=True):
             assert set(result_row['source_refs']) <= {s['original'] for s in item['sources']}
             assert all(s['target'] in ('',s['original']) for s in item['sources'])
         for item in reading['evidence_items']:
             assert all('original' not in s and (not s['target'] or s['target'].startswith(('https://', 'http://')))
                        for s in item['sources'])
         md=markdown_reading(reading)
-        assert reading['calculation'] in md and reading['decision_basis'] in md
+        assert reading['calculation'] in md
+        assert reading.get('display_decision', reading['decision_basis']) in md
         if not a['signed_adjustment']:
-            assert reading['zero_reason'] in md
+            assert reading['zero_reason'] == reading['decision_basis']
     for path in (ROOT/'reader/data/people').glob('*.json'):
         record=json.loads(path.read_text(encoding='utf-8'))['record']
         for item in (record.get('net') or {}).get('component_details',{}).get('civilization',[]):

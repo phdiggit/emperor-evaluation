@@ -28,6 +28,40 @@ RETURNS = {'HIGH_RETURN': '高收益', 'PROPORTIONATE_RETURN': '相称收益',
            'NEGATIVE_RETURN': '负收益', 'UNKNOWN': '未明确分类',
            'NOT_APPLICABLE_CAPABILITY_ONLY': '能力观察，不参与当前回报类别'}
 AXES = {'C1': 'combat_delivery_grade'}
+TASK_SCOPE_GUIDE = (
+    '本项回报取本人实际主政时期的任务，同一压力对象的连续阶段按完整过程判断。'
+    '创业统一中已有可评价政权或实际主政后的任务可作能力观察。'
+    '高难重大交付须同时证实两点。实际对手投入或关键阶段约束达到高难，本方也完成了重大军事任务。'
+    '重大交付看本方实际击破主要作战集团、突破主要防御体系或挫败主要进攻体系。'
+    '局部得失、拒退、目标完成和首领归降用于说明过程，重大交付另据实际作战结果确认。'
+    '经核实的战斗、受降和守御按实际作用用于判断能力，即使该链未评为重大胜绩。'
+    '最高决策者的战略与资源配置、将领的临阵指挥，以及前后任和盟军的作用分别归责。'
+    '综合已核材料判断军队如何行动、交付了什么及受挫后能否恢复。任务记录标出采用范围和未明之处，缺载留为未知。'
+)
+_TASK_SCOPE_COPY = (
+    '回报类别仍按完整链原裁决采用。',
+    '来源容器只按上述本人窗口及本链压力对象消费，其他阶段或对象不借入。',
+)
+_TASK_FINDINGS = {
+    '本人窗口现有已核准O档未达O4—O6，对应公共战役登记也未提供可采用的D3—D4关键阶段；不以母体国号、敌军名望、动员规模或本次结果补造高难资格。':
+        '已核对手未达O4—O6，战役登记未见可采用的D3—D4阶段。',
+    '本链既有战斗、受降、守御及其能力作用分别保留；重大胜绩已审不成立，不等于本链没有军事能力正证。':
+        '重大胜绩复核：未成立。',
+    '现有采用事实未能独立证明本方实际击破主要作战集团、突破主要防御体系或挫败主要进攻体系；局部得失、一般拒退、目标完成或首领归降不足。'
+    '本链重大胜绩已审不成立，完整过程及反证见对应史实和来源；不改写其结果质量或重大失败。':
+        '重大胜绩复核：采用材料未证重大军事交付。',
+}
+
+
+def task_display_basis(value):
+    display = value
+    for clause in _TASK_SCOPE_COPY:
+        value = value.replace(clause + ' ', '').replace(clause, '')
+    for clause, label in _TASK_FINDINGS.items():
+        value = value.replace(clause, label)
+    return value.strip() if value != display else value
+
+
 def load_context(root):
     contract = load_opponent_system_contract(root)
     systems=load_opponent_systems(root)
@@ -180,11 +214,10 @@ def build_review(row,context,*,task_aliases=(),axis_findings=None):
             adopted=cid in a['adopted_chain_refs']))
     excluded=[dict(chain_id=ref,label=row['public_reading']['task_titles'].get(ref,'未采用的观察材料'),basis=basis.replace('不改正式结果','退出本人采用'))
         for ref,basis in a.get('excluded_observations',{}).items()]
-    return dict(schema_version=READING_SCHEMA,summary=row['public_reading']['story'],method='逐项核对实际任务、对手及关键阶段。是否采用和未明之处分别保留，不按胜负条数计算能力。',
+    return dict(schema_version=READING_SCHEMA,summary=row['public_reading']['story'],
         sources=[RULE,O_RULE,C_SOURCE],chains=chains,phase_reviews=deepcopy(a.get('key_phase_reviews',[])),
         excluded_chain_reviews=excluded,
-        limitations=deepcopy(a.get('limitations',[])),inheritance=deepcopy(row.get('inherited_system_assessment')),
-        conclusion='采用范围与未明之处见各任务说明；来源未穷尽，不将缺载视作不存在。')
+        limitations=deepcopy(a.get('limitations',[])),inheritance=deepcopy(row.get('inherited_system_assessment')))
 
 def review_inputs(*,task_aliases=(),axis_findings=None):
     return dict(schema_version=SCHEMA,task_aliases=list(task_aliases),axis_findings=axis_findings or {})
@@ -193,26 +226,29 @@ def validate_review(row,context):return build_review(row,context)
 def reading_review(row,*,context):return validate_review(row,context)
 
 def markdown_review(review):
-    lines=['#### 完整任务与关键阶段','',review['method'],'']
+    lines=['#### 完整任务与关键阶段','']
     for c in review['chains']:
-        lines+=['##### '+c['title'],'',c['scope']+'；'+('纳入本次整体判断' if c['adopted'] else '保留事实与未采用边界')+'；'+c['result'],'',c['basis'],'']
+        lines+=['##### '+c['title'],'',c.get('display_basis', c['basis']),'',
+                c['scope']+'；'+('纳入本次整体判断' if c['adopted'] else '保留事实与未采用边界')+'；'+c['result'],'']
         for w in c['opponent_windows']:
             lines+=['实际对手窗口：'+w.get('label','')+'；'+w.get('status',''),'']
     for p in review['phase_reviews']:
         lines+=['关键阶段：'+p['label']+'；'+str(p.get('adopted_difficulty') or '未采用高D'),' ',p['joint_phase_reason'],'']
     for e in review['excluded_chain_reviews']:lines+=['不计分：'+e['label']+'；'+e['basis'],'']
-    lines+=review['limitations']+[review['conclusion']]
+    lines+=review['limitations']+['', '[任务、归责与高难证据的共同范围](#third-c-task-scope)']
     return '\n'.join(line.rstrip() for line in lines)
 
 def html_review(review,source_link=None,*,evidence_link=None):
     def p(x):return '<p class="prose">'+escape(str(x))+'</p>'
-    out=p(review['method'])
+    out=''
     for c in review['chains']:
-        out+='<details><summary>'+escape(c['title'])+'</summary>'+p(('纳入整体判断；' if c['adopted'] else '保留记录，未纳入采用；')+c['scope']+'；'+c['result'])
+        out+='<details><summary>'+escape(c['title'])+'</summary>'+p(c.get('display_basis', c['basis']))
+        out+=p(('纳入整体判断；' if c['adopted'] else '保留记录，未纳入采用；')+c['scope']+'；'+c['result'])
         for w in c['opponent_windows']:out+=p(w.get('label','')+'；'+w.get('status',''))
-        out+='<details><summary>详细裁决依据</summary>'+p(c['basis'])+'</details></details>'
+        out+='</details>'
     for phase in review['phase_reviews']:
         difficulty = phase.get('adopted_difficulty') or '未采用高难度'
         out += '<details><summary>'+escape(phase['label'])+'</summary>'+p('采用难度：'+difficulty)+p(phase['joint_phase_reason'])+'</details>'
     for e in review['excluded_chain_reviews']:out+='<details><summary>未采用：'+escape(e['label'])+'</summary>'+p(e['basis'])+'</details>'
-    return out+''.join(p(x) for x in [*review['limitations'], review['conclusion']])
+    return (out+''.join(p(x) for x in review['limitations'])
+            + '<p class="sources"><a href="#third-c-task-scope">任务、归责与高难证据的共同范围</a></p>')

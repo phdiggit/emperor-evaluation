@@ -111,6 +111,8 @@ def test_direct_axis_focus_handles_hydration_and_stale_renders(tmp_path):
         pytest.skip('Node.js required for direct axis routing')
     template = (ROOT / 'reader/index.template.html').read_text(encoding='utf-8')
     source = template[template.index('function focusPersonDetail('):template.index('function profilePage(')]
+    narratives = (ROOT / 'reader/person-narratives.js').read_text(encoding='utf-8')
+    source += narratives[narratives.index('function narrativeSourceId('):narratives.index('function netEntryFocus(')]
     page = template[template.index('function profilePage('):template.index('function impactPage(')]
     assert page.index('screen.innerHTML=') < page.index("focusPersonDetail('profile');")
     script = tmp_path / 'profile-axis-focus.cjs'
@@ -175,7 +177,7 @@ def test_person_and_comparison_use_lossless_authored_renderer(tmp_path):
     template = (ROOT / 'reader/index.template.html').read_text(encoding='utf-8')
     scope = template[template.index('function profileGradeScope('):template.index('function compactAxisMeta(')]
     failure_review = template[template.index('function m1FailureReview('):template.index('function axisEvidenceScope(')]
-    source = scope + failure_review + template[template.index('function m1AuthoredEvidence('):template.index('function profilePanel(')]
+    source = scope + failure_review + template[template.index('function m1CounterAndLimitations('):template.index('function profilePanel(')]
     row = synthetic()
     row['m1_archive_links'] = {'commander': {'label': '本人武将档案', 'href': 'military.html#commander=SYNTHETIC'},
                              'career': [{'title': '合成生涯说明', 'basis': '其他行动的具体作用。',

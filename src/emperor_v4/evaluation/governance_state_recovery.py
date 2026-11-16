@@ -549,13 +549,17 @@ def render_component_markdown(axis: str, payload: dict[str, Any]) -> str:
         materials=row.get('material_basis',[])
         if materials:
             lines.append('- 材料依据：')
-            for m in materials:
-                if isinstance(m,dict):
-                    lines.append('  - '+str(m.get('book',m.get('source','既有材料概述')))+'：'+str(clean_retired_low_valley_references(m.get('original_text',m.get('quote',m.get('basis',m.get('display_text','')))), 'material_basis')))
+            excerpts = []
+            for material in materials:
+                if isinstance(material, dict):
+                    title = material.get('book', material.get('source', '既有材料概述'))
+                    text = material.get('original_text', material.get('quote',
+                                        material.get('basis', material.get('display_text', ''))))
+                    excerpt = clean_retired_low_valley_references(text, 'material_basis')
+                    excerpts.append(f'  - {title}：{excerpt}')
                 else:
-                    lines.append('  - '+str(m))
-        if row.get('state_adjudication'):
-            lines.append('- 阅读说明与史源见本页的逐人材料。')
+                    excerpts.append(f'  - {material}')
+            lines.extend(dict.fromkeys(excerpts))
         if axis in {'C3', 'C4'}:
             lines.append(PERSON_END)
         lines.append('')
@@ -564,15 +568,13 @@ def render_component_markdown(axis: str, payload: dict[str, Any]) -> str:
 
 def write_component_readers(workspace_root: Path) -> None:
     """Render current component values and ruling evidence, preserving JSON lineage."""
+    from .reading_layout import write_reading
+    from .second_item_c_public import render_complete_markdown
+
     root = workspace_root.resolve()
-    for axis, rel in FORMAL_PATHS.items():
+    for rel in FORMAL_PATHS.values():
         payload = load_json(root / rel)
-        if axis in {'C3', 'C4'}:
-            from .second_item_c_public import render_complete_markdown
-            from .reading_layout import write_reading
-            write_reading(root, rel.with_suffix('.md'), render_complete_markdown(payload))
-        else:
-            (root / rel.with_suffix('.md')).write_text(render_component_markdown(axis, payload), encoding='utf-8')
+        write_reading(root, rel.with_suffix('.md'), render_complete_markdown(payload))
 
 
 def refresh_supporting_projections(workspace_root: Path) -> None:
@@ -623,13 +625,14 @@ def write_governance_state_recovery_markdown(workspace_root: Path) -> Path:
     for r in review['records']:
         cells=[f'{r["axes"][a]["main_band"]}/{r["axes"][a]["end_band"]}/{r["axes"][a]["loss_review"]["grade"]}/{r["axes"][a]["state_score"]:.1f}' for a in AXES]
         lines.append('| '+r['ruler_name']+' | '+' | '.join(cells)+f' | {r["recovery"]["calculation"]["positive_retained"]:.1f} |')
-    lines += ['', '## 逐轴依据', '']
+    links = [f"[{axis}逐人阅读]({path.with_suffix('.md').name})" for axis, path in FORMAL_PATHS.items()]
+    lines += ['', '## 逐轴依据', '', '完整三锚、主态依据、恢复归责及史源见各分项。' + ' · '.join(links), '']
     for r in review['records']:
         lines += [f'### {r["ruler_name"]}', '']
         for a in AXES:
             loss = r['axes'][a]['loss_review']
             lines.append(f'- {a} {loss["grade"]}：{loss["basis"]}')
-        lines += ['- 完整三锚、主态依据、恢复归责及史源见各分项逐人阅读。', '']
+        lines.append('')
     path=root / REVIEW_MARKDOWN_PATH
     path.write_text('\n'.join(lines),encoding='utf-8')
     return path

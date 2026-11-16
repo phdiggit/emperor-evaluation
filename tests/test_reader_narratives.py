@@ -45,6 +45,7 @@ vm.createContext(context);vm.runInContext(fs.readFileSync('reader/person-narrati
 const r={ruler_id:'synthetic',axes:{C1:{typical_pattern:'具体选择'}},reader_narratives:{profile:[{
  title:'<主题>',text:'合成正文',evidence:[{path:['axes','C1','typical_pattern'],quote:'具体选择'}]}]}};
 let html=context.personNarrative(r,'profile');
+assert.ok(html.includes('href="#person/synthetic/profile/reading-profile-source-1"'));
 assert.ok(html.includes('&lt;主题>'));assert.ok(html.includes('合成正文'));assert.ok(html.includes('#person/synthetic/profile/C1'));
 const original=JSON.stringify(r);
 assert.ok(context.narrativeEvidence(r,'profile','<p>全部反证</p>').includes('<p>全部反证</p>'));
@@ -52,6 +53,9 @@ assert.equal(JSON.stringify(r),original);
 r.axes.C1.typical_pattern='已经修改';html=context.personNarrative(r,'profile');
 assert.ok(!html.includes('合成正文'));assert.ok(html.includes('依据已更新'));
 assert.equal(context.narrativeEvidence({},'profile','original'),'original');
+assert.equal(context.narrativeSourceId('profile','reading-profile-source-1'),'reading-profile-source-1');
+assert.equal(context.narrativeSourceId('impact','reading-profile-source-1'),'');
+assert.equal(context.narrativeSourceId('profile','reading-profile-source-0'),'');
 const outer={tagName:'DETAILS',open:false,parentElement:context.screen};
 const inner={tagName:'DETAILS',open:false,parentElement:outer};
 context.openReadingAncestors(inner);assert.ok(inner.open&&outer.open);
@@ -109,8 +113,51 @@ def test_control_combination_is_displayed_once_for_the_group(tmp_path):
     node(tmp_path,r'''
 const context={};vm.createContext(context);vm.runInContext(fs.readFileSync('reader/third-item-b-public.js','utf8'),context);
 const items=['B1','B2','B4'].map(label=>({label,public_component_label:label,reader_public_b:{
- evidence_items:[],sources:[],rate_table:[],scale:[],method:'共同规则',combination:'共同合成',calculation:'本轴计算'}}));
-const html=items.map(item=>context.ThirdItemBReading.html(item,{})).join('')+context.ThirdItemBReading.combinationHtml(items);
-assert.equal(html.split('共同规则').length-1,1);assert.equal(html.split('共同合成').length-1,1);
+ evidence_items:[],sources:[],rate_table:[],scale:[label+'合成判定条件'],method:'三轴共用判断说明',combination:'共同合成',calculation:'本轴计算'}}));
+const html=items.map(item=>context.ThirdItemBReading.html(item,{}, {sharedRules:true})).join('')+context.ThirdItemBReading.combinationHtml(items);
+assert.equal(html.split('三轴共用判断说明').length-1,1);assert.equal(html.split('共同合成').length-1,1);
+for(const item of items)assert.equal(html.split(item.label+'合成判定条件').length-1,1);
 assert.equal(html.split('本轴计算').length-1,3);
+''')
+
+
+def test_explained_citations_preserve_quotes_and_link_to_named_entries(tmp_path):
+    node(tmp_path,r'''
+const api=require(process.cwd()+'/reader/person-reading-notes.js');
+const ref={path:['net','component_details','method',0,'reader_story'],quote:'完整事实与限制',explanation:'说明这项安排已经执行。'};
+const block={text:'合成正文',evidence:[ref]};
+api.validateBlock(block,true);
+assert.throws(()=>api.validateBlock(block),/locator/);
+for(const explanation of ['', '<script>', 'M5内部代码'])
+ assert.throws(()=>api.validateBlock({...block,evidence:[{...ref,explanation}]},true),/locator/);
+const context={esc:s=>String(s).replace(/</g,'&lt;')};vm.createContext(context);
+vm.runInContext(fs.readFileSync('reader/person-narratives.js','utf8'),context);
+const item={label:'A制度建设',reader_kind:'judgment',reader_story:ref.quote};
+const r={ruler_id:'RULER-SYNTHETIC',net:{component_details:{method:[item]}},reader_narratives:{second:[{title:'主题',...block}]}};
+const before=JSON.stringify(r),html=context.personNarrative(r,'second');
+assert.ok(html.includes(ref.explanation));
+assert.ok(html.includes('<details><summary>核对对应评价原文</summary><blockquote>'+ref.quote));
+assert.ok(html.includes('#net/RULER-SYNTHETIC/second/'+encodeURIComponent('entry-method-A制度建设')));
+assert.equal(JSON.stringify(r),before);
+item.reader_story='已撤回';assert.ok(!context.personNarrative(r,'second').includes(ref.explanation));
+''')
+
+
+def test_entry_routes_find_same_label_in_correct_group_after_reordering(tmp_path):
+    node(tmp_path,r'''
+const item={dataset:{secondSourceLabel:'合成条目'}},other={dataset:{secondSourceLabel:'其他条目'}};
+let nodes=[other,item];
+const context={document:{getElementById:id=>id==='net-group-method'?{querySelectorAll:()=>nodes}:null}};
+vm.createContext(context);vm.runInContext(fs.readFileSync('reader/person-narratives.js','utf8'),context);
+assert.equal(context.netFocusTarget('second','entry-method-合成条目'),item);
+nodes.reverse();assert.equal(context.netFocusTarget('second','entry-method-合成条目'),item);
+assert.equal(context.netFocusTarget('second','entry-finance-合成条目'),null);
+assert.equal(context.netFocusTarget('second','entry-method-已撤回'),null);
+assert.equal(context.netEntryFocus('third','entry-method-合成条目'),null);
+const source=fs.readFileSync('reader/home-interactions.js','utf8');
+context.netContents={second:[],third:[]};context.netMajorSpecs={second:{groups:['method','finance','handoff']},third:{groups:['military']}};
+vm.runInContext(source.slice(source.indexOf('  function parseNetRoute('),source.indexOf('  async function loadNetRecord(')),context);
+const parsed=context.parseNetRoute('#net/RULER-SYNTHETIC/second/'+encodeURIComponent('entry-method-合成条目'));
+assert.equal(parsed.focus,'entry-method-合成条目');
+assert.equal(context.parseNetRoute('#net/RULER-SYNTHETIC/third/entry-method-合成条目'),null);
 ''')

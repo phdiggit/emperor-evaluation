@@ -116,6 +116,15 @@ def apply(root: Path, records: list[dict], pool: list[dict], details: dict, regi
                 # ML and ordinary debit share a maximum; never add them twice.
                 minimum=max(minimum,abs(float(third['military_net_loss_penalty'])))
                 lo,hi=-third_max,-minimum
+            elif component in {'THIRD_SECURITY', 'THIRD_CONTROL'}:
+                # Keep result uncertainty separate from the cost debit. These
+                # are deliberately outer contract limits, not historical
+                # alternatives or extra amounts added to the current score.
+                field, maximum = {
+                    'THIRD_SECURITY': ('A120_score_points', 120.0),
+                    'THIRD_CONTROL': ('B80_score_points', 80.0),
+                }[component]
+                current=float(third[field]); lo,hi=0.0,maximum
             else:
                 raise ValueError('未知保守检验组件：'+component)
             if not lo-0.01 <= current <= hi+0.01:

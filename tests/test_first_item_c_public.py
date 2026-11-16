@@ -104,7 +104,7 @@ def test_all_browser_paths_render_basis_and_boundary_even_with_battles(tmp_path)
     script = tmp_path / 'commander.cjs'
     script.write_text(r'''
 const fs=require('node:fs'), assert=require('node:assert/strict');
-const source=fs.readFileSync('reader/home-interactions.js','utf8');
+const source=fs.readFileSync('reader/home-interactions.js','utf8').replace(/\r\n/g,'\n');
 const fn=source.match(/function firstCommanderMarkup\(item, record\) {[\s\S]*?\n}\n/)[0];
 const escape=text=>String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const render=new Function('esc','prose','link',fn+';return firstCommanderMarkup;')(escape,text=>'<p>'+escape(text)+'</p>',()=>'<a>来源</a>');

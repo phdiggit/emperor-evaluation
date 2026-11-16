@@ -14,6 +14,28 @@ PAGE_BYTES = 200_000
 PAGE_LINES = 2500
 
 
+def _sentences(text: str) -> list[str]:
+    return [" ".join(line.split()) for line in re.split(r"(?<=[。！？])|\n+", text) if line.strip()]
+
+
+def _contains_sentences(story: list[str], passage: list[str]) -> bool:
+    return bool(passage) and any(story[i:i + len(passage)] == passage for i in range(len(story) - len(passage) + 1))
+
+
+def passage_in_story(story: str, passage: str) -> bool:
+    """Check whether the entire passage already appears contiguously in the story."""
+    return _contains_sentences(_sentences(story), _sentences(passage))
+
+
+def evidence_repeated_in_story(row: dict) -> list[str]:
+    """Identify complete card prose already visible in a continuous authored story."""
+    if row.get("public_reading_sections"):
+        return []
+    story = _sentences(row["public_story"])
+    return [item["id"] for item in row["public_evidence_items"]
+            if _contains_sentences(story, _sentences(item["public_basis"]))]
+
+
 def fragment_directory(path: str | Path) -> str:
     return str(Path(path).with_suffix('')).replace('\\', '/') + '-逐人阅读'
 

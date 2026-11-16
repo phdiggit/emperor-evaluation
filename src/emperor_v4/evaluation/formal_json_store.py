@@ -10,6 +10,9 @@ from typing import Any, Iterable, Mapping
 
 ROUTER_SCHEMA = "formal-json-polity-router-v1"
 SHARD_SCHEMA = "formal-json-polity-shard-v1"
+B1_PROFILE_ADJUDICATION_STYLE = "B1-PROFILE-ADJUDICATION-V2"
+M5_SCHEMA = "profile-m5-formal-settlement-v1"
+M5_SHARED_FIELDS = "m5_shared_fields"
 _READ_SESSION: ContextVar[dict | None] = ContextVar("formal_json_read_session", default=None)
 
 
@@ -91,8 +94,17 @@ def write_polity_routed_json(
     the exact logical payload and ordering.
     """
 
+    from .formal_reading_texts import C_SCHEMA, FINANCE_SCHEMAS, compact_reading_texts
+
     routed: dict[str, list[tuple[int, str, dict[str, Any]]]] = {}
     metadata: dict[str, Any] = {}
+    compact_b1 = payload.get("profile_adjudication_style") == B1_PROFILE_ADJUDICATION_STYLE
+    finance = payload.get("schema_id") in FINANCE_SCHEMAS
+    quote_collection = None
+    if finance and payload.get("public_projection_axis"):
+        from .second_item_c_public import compact_source_quotes
+
+        quote_collection = "scores" if payload.get("scores") else "records"
     for key, value in payload.items():
         if isinstance(value, list) and value and all(isinstance(row, dict) for row in value):
             rows: list[tuple[int, str, dict[str, Any]]] = []
@@ -101,7 +113,16 @@ def write_polity_routed_json(
                 if polity is None:
                     rows = []
                     break
-                rows.append((position, _safe_route_name(polity), dict(row)))
+                stored = dict(row)
+                if compact_b1 and key == "records":
+                    from .second_item_b1_settlement import b1_reading_fields
+
+                    for field, value in b1_reading_fields(row).items():
+                        if field in stored and stored.pop(field) != value:
+                            raise ValueError(f"B1阅读副本与正式依据不一致：{row.get('ruler_id')}/{field}")
+                if key == quote_collection:
+                    compact_source_quotes(stored)
+                rows.append((position, _safe_route_name(polity), stored))
             if rows:
                 routed[key] = rows
                 continue
@@ -133,14 +154,17 @@ def write_polity_routed_json(
             "polity": polity,
             "collections": collections,
         }
-        from .formal_reading_texts import C_SCHEMA, FINANCE_SCHEMAS, compact_reading_texts
         if payload.get('schema_id') == C_SCHEMA:
             shard_payload = compact_reading_texts(shard_payload)
-        elif payload.get('schema_id') in FINANCE_SCHEMAS:
+        elif finance:
             fields = sorted({key for block in collections.values() for row in block['records']
                              for key in row if key.startswith('public_')})
             if fields:
                 shard_payload = compact_reading_texts(shard_payload, fields=fields)
+        elif payload.get("schema_version") == M5_SCHEMA:
+            from .profile_m5 import compact_shared_fields
+
+            compact_shared_fields(shard_payload)
         _atomic_write(shard_path, shard_payload)
         routes.append(
             {
@@ -178,6 +202,10 @@ def load_json(path: Path, *, polities: Iterable[str] | None = None) -> Any:
 
     raw = _read_json(path)
     if isinstance(raw, dict):
+        if raw.get("schema_version") == SHARD_SCHEMA and M5_SHARED_FIELDS in raw:
+            from .profile_m5 import expand_shared_fields
+
+            return expand_shared_fields(raw)
         from .cost_registry_storage import SHARD_SCHEMA as COST_SHARD_SCHEMA, expand_shard as expand_cost_shard
         if raw.get('schema_version') == COST_SHARD_SCHEMA:
             return expand_cost_shard(raw)
@@ -186,7 +214,23 @@ def load_json(path: Path, *, polities: Iterable[str] | None = None) -> Any:
             return expand_unit_table(raw)
     if not isinstance(raw, dict) or raw.get("schema_version") != ROUTER_SCHEMA:
         return raw
-    return _load_router(path, raw, polities=polities)
+    requested = None if polities is None else tuple(polities)
+    result = _load_router(path, raw, polities=requested)
+    from .formal_reading_texts import FINANCE_SCHEMAS
+    if result.get("schema_id") in FINANCE_SCHEMAS and result.get("public_projection_axis"):
+        from .second_item_c_public import FORMAL_PATHS, expand_source_quotes
+
+        def load_axis(axis: str) -> dict[str, Any]:
+            sibling = path.with_name(FORMAL_PATHS[axis].name)
+            sibling_raw = _read_json(sibling)
+            payload = (_load_router(sibling, sibling_raw, polities=requested)
+                       if sibling_raw.get("schema_version") == ROUTER_SCHEMA else sibling_raw)
+            if payload.get("public_projection_axis") != axis:
+                raise ValueError(f"第二项C跨轴史源入口与轴不符：{sibling}")
+            return payload
+
+        expand_source_quotes(result, load_axis)
+    return result
 
 
 def load_ruler_polities(workspace_root: Path) -> dict[str, str]:
@@ -277,6 +321,12 @@ def _load_router(
             raise ValueError(f"正式结算分片schema错误: {relative.as_posix()}")
         if shard.get("polity") != polity:
             raise ValueError(f"正式结算分片朝代漂移: {relative.as_posix()}")
+        if M5_SHARED_FIELDS in shard:
+            from .profile_m5 import expand_shared_fields
+
+            if (manifest.get("payload_metadata") or {}).get("schema_version") != M5_SCHEMA:
+                raise ValueError(f"非M5正式结算分片包含M5字段引用: {relative.as_posix()}")
+            shard = expand_shared_fields(shard)
         from .formal_reading_texts import C_SCHEMA, FINANCE_SCHEMAS, MARKER, CATALOG, FIELDS, expand_reading_texts
         if ((manifest.get('payload_metadata') or {}).get('schema_id') in FINANCE_SCHEMAS | {C_SCHEMA}
                 or MARKER in shard or CATALOG in shard or FIELDS in shard):
@@ -313,4 +363,11 @@ def _load_router(
             result[str(key)] = metadata[key]
     for key, value in metadata.items():
         result.setdefault(key, value)
+    if metadata.get("profile_adjudication_style") == B1_PROFILE_ADJUDICATION_STYLE:
+        from .second_item_b1_settlement import b1_reading_fields
+
+        # Preserve field-addressable references to the logical B1 record.
+        for row in result["records"]:
+            for field, value in b1_reading_fields(row).items():
+                row.setdefault(field, value)
     return result

@@ -116,10 +116,11 @@ def test_fourth_detail_focus_scrolls_to_c_card_and_preserves_group_focus(tmp_pat
 const fs=require('fs'),assert=require('assert/strict'),path=require('path');
 const text=fs.readFileSync(path.join(process.argv[2],'reader/home-interactions.js'),'utf8');
 const begin=text.indexOf('  function renderGenericMajor('),end=text.indexOf('\n  function majorNav(',begin),code=text.slice(begin,end);
+const narratives=fs.readFileSync(path.join(process.argv[2],'reader/person-narratives.js'),'utf8');
 let c=0,group=0;
 const card={scrollIntoView(){c++;}},old={scrollIntoView(){group++;}},container={innerHTML:''};
 const document={getElementById(id){if(id==='net-major-body')return container;if(id==='net-group-c')return card;assert.equal(id,'net-group-civilization');return old;}};
-const fn=new Function('document','requestAnimationFrame','netMajorSpecs','genericNetGroup',code+';return renderGenericMajor;')(document,cb=>cb(),{fourth:{groups:['civilization']}},()=>'<article>完整正文</article>');
+const fn=new Function('document','requestAnimationFrame','netMajorSpecs','genericNetGroup',narratives+'\n'+code+';return renderGenericMajor;')(document,cb=>cb(),{fourth:{groups:['civilization']}},()=>'<article>完整正文</article>');
 fn({net:{component_details:{civilization:[]}}},'fourth','c');assert.equal(c,1);assert.equal(group,0);
 fn({net:{component_details:{civilization:[]}}},'fourth','civilization');assert.equal(c,1);assert.equal(group,1);
 ''')

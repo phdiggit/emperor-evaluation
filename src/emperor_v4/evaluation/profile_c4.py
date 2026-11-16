@@ -12,6 +12,21 @@ JSON_PATH = DIRECTORY / '01-C4治理架构与制度设计正式结算.json'
 MARKDOWN_PATH = JSON_PATH.with_suffix('.md')
 PROJECTION = {'G0': (2, 7, 12), 'G1': (18, 25, 31), 'G2': (38, 45, 51),
               'G3': (58, 65, 71), 'G4': (77, 82, 87), 'G5': (91, 94, 97)}
+SCOPE_GUIDE = {
+    'text': (
+        '制度设计看本人怎样建立或改造长期规则，再结合实际运行、反馈和反例判断效果。'
+        '有材料证实本人在生涯中具备真实结构选择权时即可评价，正式掌权时段用于说明人物背景。'
+        '本人的取舍、沿用的前制和臣下的设计与实施分别归责，依据见各案所引材料。'
+        '结论适用于材料覆盖的制度、领域和阶段。其他轴的成果各按所属评价规则判断。'
+    ),
+    'limitations': (
+        '本人设计、前制与臣僚贡献分别归责；判断限于所列长期规则和运行证据，不把其他能力轴的成果直接换成制度设计。',
+        '现有判断限于已列制度过程及其运行反馈，未覆盖完整生涯和所有治理领域。',
+    ),
+    'coverage': '材料覆盖依据所列制度变化、本人选择、运行反馈与反证判断；未涉及的阶段和制度领域不作确定外推。',
+    'applicability': '人物生涯中具有所引且可归责的结构选择机会；规范actual_power_window仅作人物背景，不作为C4适用性或证据准入门。',
+    'attribution': '依所引裁决材料区分本人、前制与臣下信用，见完整证据。',
+}
 
 
 def validate_decision(row: dict[str, Any]) -> None:
@@ -62,11 +77,13 @@ def _text(value: Any) -> str:
 
 
 def render(payload: dict[str, Any]) -> str:
-    from .profile_markdown import _source_review_lines, profile_source_display
+    from .profile_markdown import _counter_after_grade, _source_review_lines, profile_source_display
     lines = ['# C4 治理架构与制度设计能力正式结算', '',
              '> 独立人物画像轴。正式JSON为唯一当前档位真源。', '',
              '## 阅读说明', '',
-             '按雷达值降序、同值按稳定人物ID排列，不适用列末尾并留空，不换成零分。下文展开全部现行制度过程及适用边界；条目数不等于独立设计数，整合设计的部件不重复计数。完整结构化记录见JSON。', '',
+             '表格按雷达值降序排列，同值按人物ID排序。不适用列在末尾，雷达值留空。下文列出制度过程及采用范围，整合设计按整体计入。', '',
+             '<a id="c4-scope-guide"></a>', '',
+             '### 制度设计的评价范围', '', SCOPE_GUIDE['text'], '',
              '## 全池结算表', '',
              '| 人物 | 档位 | 雷达值 | 证据 | 典型模式 |', '|---|---|---:|---|---|']
     for row in payload['records']:
@@ -75,16 +92,26 @@ def render(payload: dict[str, Any]) -> str:
         lines.append(f"| {row['ruler_name']} | {_grade(row)} | {value} | {row['axis_evidence_level']} | {pattern} |")
     lines.extend(['', '## 逐人裁决依据'])
     for row in payload['records']:
+        counter = _counter_after_grade(row['counterpattern'], row['grade_basis'])
+        grade_label = '裁档理由与反例' if row['counterpattern'].strip() and not counter else '裁档理由'
+        limits = [value for value in row['limitations']
+                  if value.strip() != row['counterpattern'].strip() and value not in SCOPE_GUIDE['limitations']]
+        coverage = row.get('evidence_assessment_basis')
+        applicability = row['applicability']['basis']
+        shared_scope = (any(value in SCOPE_GUIDE['limitations'] for value in row['limitations'])
+                        or coverage == SCOPE_GUIDE['coverage'] or applicability == SCOPE_GUIDE['applicability'])
         lines.extend(['', f"### {row['ruler_name']}（{row['ruler_id']}）", '',
                       f"- 结算：**{_grade(row)}**；雷达值：{row['radar_value'] if row['radar_value'] is not None else '不适用'}；{row['axis_evidence_level']} / {row['confidence']}。",
                       f"- **主模式**：{row['typical_pattern']}",
-                      f"- **适用范围**：{row['applicability']['basis']}",
-                      f"- **裁档理由**：{row['grade_basis']}",
-                      f"- 档内定位：{row['position_basis']}",
-                      f"- **反例与判断边界**：{row['counterpattern']}",
-                      f"- **限制**：{'；'.join(row['limitations'])}"])
-        if row.get('evidence_assessment_basis'):
-            lines.append(f"- 材料覆盖：{row['evidence_assessment_basis']}")
+                      *([f"- **适用范围**：{applicability}"] if applicability != SCOPE_GUIDE['applicability'] else []),
+                      f"- **{grade_label}**：{row['grade_basis']}",
+                      f"- 档内定位：{row['position_basis']}"])
+        if counter:
+            lines.append(f"- **反例与判断边界**：{counter}")
+        if limits:
+            lines.append(f"- **限制**：{'；'.join(limits)}")
+        if coverage and coverage != SCOPE_GUIDE['coverage']:
+            lines.append(f"- 材料覆盖：{coverage}")
         if row.get('architecture_review'):
             lines.extend(['', '#### 架构量级复核', '', row['architecture_review']['basis'].replace('**限制**', '**结构下沿**')])
         for parent in row['parent_chains']:
@@ -101,7 +128,12 @@ def render(payload: dict[str, Any]) -> str:
                 if value and value not in shown:
                     lines.extend(['', f'**{label}**：{value}'])
                     shown.add(value)
-            lines.extend(['', f"- 正式方向：{parent['direction']}；归责：{parent['attribution']}"])
+            direction = f"- 正式方向：{parent['direction']}"
+            if parent['attribution'] == SCOPE_GUIDE['attribution']:
+                shared_scope = True
+            else:
+                direction += f"；归责：{parent['attribution']}"
+            lines.extend(['', direction])
             if parent.get('consumption_status'):
                 lines.append(f"- 材料用途：{parent['consumption_status']}")
             lines.extend(_source_review_lines(parent.get('source_review', []), ""))
@@ -110,9 +142,14 @@ def render(payload: dict[str, Any]) -> str:
             refs = dict.fromkeys(map(profile_source_display, parent['source_refs'] + parent.get('direct_process_refs', [])))
             lines.extend(['', '- 过程依据：' + '；'.join(refs)])
         if row.get('horizontal_calibration'):
-            lines.extend(['', '#### 同轴比较', '', row['horizontal_calibration']['decision_basis']])
+            lines.extend(['', '#### 同轴比较', ''])
+            decision = row['horizontal_calibration']['decision_basis']
+            if decision.strip() != row['position_basis'].strip():
+                lines.append(decision)
             for item in row['horizontal_calibration']['comparators']:
                 lines.append(f"- `{item['ruler_id']}`：{item['comparison']}")
+        if shared_scope:
+            lines.extend(['', '[查看制度设计的通用评价范围](#c4-scope-guide)'])
         lines.extend(['', '- 来源：' + '；'.join(dict.fromkeys(map(profile_source_display, row['source_refs'])))])
     return '\n'.join(lines) + '\n'
 

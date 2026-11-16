@@ -94,7 +94,7 @@
       screen.innerHTML = '<div class="empty"><p>阅读资料已更新，请刷新页面后继续。</p><button onclick="location.reload()">刷新页面</button></div>';
       return;
     }
-    screen.innerHTML = `<div class="empty"><p>完整资料加载失败。</p><p class="subline">请检查网络后重试；人物总览仍可正常使用。</p><button data-home>返回人物总览</button></div>`;
+    screen.innerHTML = `<div class="empty"><p>完整资料加载失败。</p><p class="subline">请检查网络后重试；人物总览仍可正常使用。</p><button type="button" data-reader-retry onclick="route()">重新加载本页</button><button data-home>返回人物总览</button></div>`;
   }
 
   async function loadRecord(record) {

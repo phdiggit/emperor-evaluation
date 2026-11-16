@@ -1,4 +1,4 @@
-"""Deterministic calculation notes for authored C reading records.
+"""Deterministic calculation and display for authored C reading records.
 
 Historical prose and source bindings are never inferred by this module.
 """
@@ -11,7 +11,24 @@ import re
 from emperor_v4.evaluation.governance_state_recovery import FIXED_POINTS, LOSS_RATES
 
 NAMES = {"C1": "民生", "C2": "经济财政", "C3": "社会安全"}
+COMMON_AXIS_BOUNDARIES = {
+    "C1": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
+    "C2": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。",
+    "C3": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
+    "C4": "这里只展示本人责任期内的保留恢复、状态变化和独立额外民力成本；三个绝对状态轴、纯军事投入及同一已计后果不在本轴重复计算。",
+}
 GRADES = {1: "E", 2: "D", 3: "C", 4: "B", 5: "A", 6: "S"}
+LOSS_GUIDE = (
+    "低谷只计主态之外、另有依据的损害。每轴按全任评一个低谷修正档。"
+    "未确认独立低谷时，局部压力及已计入主态的损害仍可在人物正文和材料中查阅。"
+)
+RECOVERY_STEP_GUIDE = (
+    "向上跨档难度依次为：E→D 0.6、D→C 0.8、C→B 1.0、B→A 1.3、A→S 1.6；"
+    "只累计可比恢复基线至任期结束仍保留的档界。本人责任系数取1、0.5或0。"
+)
+_LOSS_CALCULATION_SUFFIX = "低谷只计主要状态尚未包含的独立损害，不按事件条数重复相加。"
+_L0_BASIS = "现有证据尚不足以确认另一段应单独计入的较差状态"
+_L0_NOTE = _L0_BASIS + "；这不表示任内没有局部压力或损害。"
 
 RECOVERY_SECTIONS = (
     ("overview", "恢复幅度"),
@@ -21,6 +38,58 @@ RECOVERY_SECTIONS = (
     ("cost", "额外代价"),
     ("net", "净调整"),
 )
+
+
+def specific_public_boundary(axis: str, boundary: str) -> str:
+    """Leave authored limits intact, sharing only a whole standard final paragraph."""
+    standard = COMMON_AXIS_BOUNDARIES[axis]
+    text = boundary.strip()
+    if text == standard:
+        return ""
+    suffix = "\n\n" + standard
+    return text.removesuffix(suffix).rstrip() if text.endswith(suffix) else boundary
+
+
+def axis_scope_guide() -> list[dict[str, str]]:
+    axes = [
+        {"label": NAMES.get(axis, "恢复与额外代价"), "text": boundary}
+        for axis, boundary in COMMON_AXIS_BOUNDARIES.items()
+    ]
+    return [*axes, {"label": "低谷修正", "text": LOSS_GUIDE},
+            {"label": "恢复跨档难度", "text": RECOVERY_STEP_GUIDE}]
+
+
+def _uses_shared_l0_finding(axis: str, row: dict[str, Any]) -> bool:
+    return (axis in NAMES and row.get("loss_grade") == "L0"
+            and row.get("public_loss_label") in (_L0_BASIS, _L0_BASIS + "；不表示任内没有损害"))
+
+
+def display_evidence_basis(axis: str, row: dict[str, Any], item: dict[str, Any]) -> str:
+    basis = item["public_basis"]
+    if (basis == _L0_NOTE and item.get("evidence_mode") == "ASSESSMENT"
+            and item.get("source_binding_kind") == "MATERIAL_COLLECTION"
+            and _uses_shared_l0_finding(axis, row)):
+        return ""
+    return basis
+
+
+def display_state_finding(axis: str, row: dict[str, Any]) -> tuple[str, str]:
+    from .reading_layout import passage_in_story
+
+    summary, loss_label = row["public_adjudication_summary"], row["public_loss_label"]
+    if _uses_shared_l0_finding(axis, row):
+        summary = summary.removesuffix(_L0_NOTE).rstrip() or summary
+        loss_label = "已核材料未确认主态之外的独立低谷。"
+    story = (recovery_story(row["public_reading_sections"])
+             if row.get("public_reading_sections") else row.get("public_story", ""))
+    if passage_in_story(story, summary):
+        summary = ""
+    return summary, loss_label
+
+
+def display_calculation(text: str) -> str:
+    paragraphs = text.removesuffix(_LOSS_CALCULATION_SUFFIX).split("\n\n")
+    return "\n\n".join(paragraph for paragraph in paragraphs if paragraph != RECOVERY_STEP_GUIDE)
 
 
 def recovery_anchor_line(axis: str, row: dict[str, Any]) -> str:
@@ -108,7 +177,7 @@ def calculation(axis: str, row: dict[str, Any]) -> str:
             f"主要状态{GRADES[band]}档的基础分为{base:g}；本条已裁低谷的修正率为{rate:g}%。"
             f"最终分 = max（本轴最低分{floor:g}，{base:g} ×（1 − {rate:g}%）），"
             f"只在最后按四舍五入保留一位小数，得到{row['score']:.1f}分。"
-            "低谷只计主要状态尚未包含的独立损害，不按事件条数重复相加。"
+            + _LOSS_CALCULATION_SUFFIX
         )
     current = row.get("recovery_formula_version") == "GOVERNANCE-STATE-RECOVERY-V4"
     lines = []
@@ -129,7 +198,7 @@ def calculation(axis: str, row: dict[str, Any]) -> str:
             f"记录中的加权恢复贡献为{weighted:g}（乘10计入恢复分）。"
         )
     if current:
-        lines.append("向上跨档难度依次为：E→D 0.6、D→C 0.8、C→B 1.0、B→A 1.3、A→S 1.6；只累计可比恢复基线至任期结束仍保留的档界。本人责任系数取1、0.5或0。")
+        lines.append(RECOVERY_STEP_GUIDE)
     recovery = row.get("recovery_score", 0)
     retained = row.get("positive_score_retained", 0)
     cap = row.get("terminal_cap", 27)

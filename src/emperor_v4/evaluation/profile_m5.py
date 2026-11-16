@@ -1,11 +1,71 @@
 """Read and validate current M5 decisions; never infer grades from evidence text."""
 from __future__ import annotations
 
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
-from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.formal_json_store import M5_SHARED_FIELDS, load_json
 from emperor_v4.evaluation.profile_registry import profile_axis_entry
+
+
+_SHARED_FIELDS_VERSION = "same-as-v1"
+_COMMON_SCOPE_REASONS = (
+    "只取多责任中心的任务、权责资源、协调监督与替补过程；C3个人识配、C4长期结构、B1运行结果不转档。",
+    "仅消费本人任务分派、权责资源、协调监督和接续；识配、制度创制、外交交换、作战成败与惩罚伦理分别剥离。",
+)
+SCOPE_GUIDE = (
+    "组织执行看本人如何分派多个责任中心的任务、配置权责和资源、协调监督，以及发生故障时怎样安排替补和接续。"
+    "识人授权、长期制度设计、外交交换和惩罚伦理各按所属项目判断。治理运行与作战结果用于核验执行，组织档位依据本人编排过程。"
+)
+
+
+def uses_shared_scope(parent: dict[str, Any]) -> bool:
+    return parent.get("secondary_projection_reason") in _COMMON_SCOPE_REASONS
+
+
+def compact_shared_fields(shard: dict[str, Any]) -> None:
+    """Replace exact copies in the private shard records before writing."""
+    changed = False
+    for row in shard["collections"].get("records", {}).get("records", []):
+        scope = row.get("search_scope")
+        if isinstance(scope, list) and scope == row.get("source_refs"):
+            row["search_scope"] = {"same_as": "source_refs"}
+            changed = True
+        parents = row.get("parent_chains", [])
+        packed = [
+            {**parent, "basis": {"same_as": "process_narrative"}}
+            if isinstance(parent.get("basis"), str) and parent["basis"] == parent.get("process_narrative")
+            else parent
+            for parent in parents
+        ]
+        if packed != parents:
+            row["parent_chains"] = packed
+            changed = True
+    if changed:
+        shard[M5_SHARED_FIELDS] = _SHARED_FIELDS_VERSION
+
+
+def _restore_shared_field(record: dict[str, Any], field: str, source: str, kind: type, context: str) -> None:
+    value = record.get(field)
+    if not isinstance(value, dict) or "same_as" not in value:
+        return
+    original = record.get(source)
+    if value != {"same_as": source} or not isinstance(original, kind):
+        raise ValueError(f"M5字段引用无效: {context}/{field}")
+    record[field] = deepcopy(original)
+
+
+def expand_shared_fields(shard: dict[str, Any]) -> dict[str, Any]:
+    """Restore the original fields in a freshly loaded M5 shard."""
+    records = shard.get("collections", {}).get("records", {}).get("records")
+    if shard.pop(M5_SHARED_FIELDS) != _SHARED_FIELDS_VERSION or not isinstance(records, list):
+        raise ValueError("M5字段引用分片格式无效")
+    for row in records:
+        _restore_shared_field(row, "search_scope", "source_refs", list, row.get("ruler_id", ""))
+        for parent in row.get("parent_chains", []):
+            _restore_shared_field(parent, "basis", "process_narrative", str, parent.get("parent_id", ""))
+    return shard
 
 
 def validate_text_fields(row: dict[str, Any]) -> None:
@@ -28,7 +88,9 @@ def render(payload: dict[str, Any]) -> str:
         "# M5 组织驾驭与执行编排正式结算", "",
         "> 正式JSON是唯一裁决真源；本页为同值阅读视图。", "",
         "## 阅读说明", "",
-        "C4评价长期组织结构，M5评价具体任务中的多中心分工、协调监督与替补。以下按雷达值及稳定人物ID展示；逐人列出裁档依据、事实限制和代表过程。", "",
+        "全池表按雷达值和稳定人物ID展示。逐人条目列出代表过程、裁档理由与限制。", "",
+        '<a id="m5-scope-guide"></a>', "",
+        "### 组织执行的评价范围", "", SCOPE_GUIDE, "",
         "## 全池结算表", "",
         "| 人物 | 政权 | 档位 | 雷达值 | 证据 | 置信度 |", "|---|---|---|---:|---|---|",
     ]
@@ -36,10 +98,19 @@ def render(payload: dict[str, Any]) -> str:
         lines.append(f"| {row['ruler_name']} | {row['polity']} | {row['axis_grade']}-{row['position']} | {row['radar_value']} | {row['axis_evidence_level']} | {row['confidence']} |")
     lines.extend(["", "## 逐人裁决依据", ""])
     for row in payload["records"]:
+        selected = set(row["representative_parent_ids"])
+        parents = [parent for parent in row["parent_chains"] if parent["parent_id"] in selected]
+        pattern = row["typical_pattern"]
+        pattern_in_process = any(
+            pattern.strip() in [line.strip() for line in parent["process_narrative"].splitlines()]
+            for parent in parents
+        )
+        attributions = {parent["attribution_basis"] for parent in parents}
+        shared_attribution = len(parents) > 1 and len(attributions) == 1
         lines.extend([
             f"### {row['ruler_name']}（{row['ruler_id']}）", "",
             f"- **结算**：{row['axis_grade']}-{row['position']} / {row['radar_value']}；{row['axis_evidence_level']} / {row['confidence']} / {row['output_mode']} / {row['score_status']}。",
-            f"- **主模式**：{row['typical_pattern']}",
+            *([f"- **主模式**：{pattern}"] if not pattern_in_process else []),
             "- **裁档理由**：", "",
             row["grade_basis"], "",
         ])
@@ -48,13 +119,18 @@ def render(payload: dict[str, Any]) -> str:
         lines.extend(["**反例与判断边界：**", "", row["counterpattern"], ""])
         lines.extend(["**限制**：", "", "\n\n".join(row["limitations"]), ""])
         lines.extend(["**正式过程与边界：**", ""])
-        selected = set(row["representative_parent_ids"])
-        for parent in row["parent_chains"]:
-            if parent["parent_id"] in selected:
-                lines.extend([f"#### {parent['title']}", "",
-                              "\n\n".join(line.strip() for line in parent['process_narrative'].splitlines() if line.strip()), "",
-                              f"- **本人归责**：{parent['attribution_basis']}",
-                              f"- **跨轴边界**：{parent['secondary_projection_reason']}", ""])
+        for parent in parents:
+            lines.extend([f"#### {parent['title']}", "",
+                          "\n\n".join(line.strip() for line in parent['process_narrative'].splitlines() if line.strip()), ""])
+            if not shared_attribution:
+                lines.append(f"- **本人归责**：{parent['attribution_basis']}")
+            if not uses_shared_scope(parent):
+                lines.append(f"- **跨轴边界**：{parent['secondary_projection_reason']}")
+            lines.append("")
+        if shared_attribution:
+            lines.extend([f"- **以上代表过程的共同归责**：{parents[0]['attribution_basis']}", ""])
+        if any(uses_shared_scope(parent) for parent in parents):
+            lines.extend(["[查看组织执行的通用评价范围](#m5-scope-guide)", ""])
         lines.extend(["", "**来源与定位：**", ""])
         for ref in row["source_refs"]:
             lines.append(f"- `{ref}`")

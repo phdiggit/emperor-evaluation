@@ -11,6 +11,7 @@ from emperor_v4.evaluation.first_item_cost import COST_PATH
 from emperor_v4.evaluation.first_item_markdown_settlement import (
     COMPONENT_SETTLEMENTS, TOTAL_SETTLEMENT, load_first_item_markdown_settlement,
 )
+from emperor_v4.evaluation.third_item_current_settlement import RESULT_CREDIT_ADJUDICATIONS_PATH
 
 SECOND = "docs/评分结算/净收益/第二项治国净收益/"
 THIRD = "docs/评分结算/净收益/第三项军事与边疆净收益/"
@@ -24,7 +25,7 @@ SOURCES = {
     "handoff": SECOND + "政权交接稳定/03-交接质量20分正式结算.json",
     "second": SECOND + "01-第二项治国净收益正式结算.json",
     "AB": THIRD + "国防安全/01-皇帝AB项正式结算.json",
-    "credit": "config/third-item/third-item-result-credit-adjudications.json",
+    "credit": RESULT_CREDIT_ADJUDICATIONS_PATH.as_posix(),
     "C": THIRD + "军事体系有效性/01-皇帝C项正式结算.json",
     "third": THIRD + "02-第三项正式结算.json",
     "fourth": FOURTH,

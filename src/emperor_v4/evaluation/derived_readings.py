@@ -13,7 +13,7 @@ def view_sources(root: Path) -> dict[str, tuple[str, str]]:
     """Only fully reproducible, non-evidence Markdown views belong here."""
     from .fourth_item_a import AXIS_PATHS, JSON_PATH
     from .second_item_d1_d3_public import D1_PATH, D3_PATH
-    from .second_item_c_public import FORMAL_PATHS, GENERATED_MARKDOWN_AXES
+    from .second_item_c_public import FORMAL_PATHS
     from .third_fourth_item_public import THIRD_AB_PATH, THIRD_C_PATH
 
     project = yaml.safe_load((root / 'config/project.yml').read_text(encoding='utf-8'))
@@ -27,8 +27,7 @@ def view_sources(root: Path) -> dict[str, tuple[str, str]]:
     views[THIRD_AB_PATH.with_suffix('.md').as_posix()] = ('third.AB', THIRD_AB_PATH.as_posix())
     for axis, path in (('D1', D1_PATH), ('D3', D3_PATH)):
         views[path.with_suffix('.md').as_posix()] = (axis, path.as_posix())
-    for axis in GENERATED_MARKDOWN_AXES:
-        path = FORMAL_PATHS[axis]
+    for axis, path in FORMAL_PATHS.items():
         views[path.with_suffix('.md').as_posix()] = ('second.' + axis, path.as_posix())
     for name in views:
         path = Path(name)

@@ -93,3 +93,34 @@ def test_registered_pending_subject_has_no_invented_score_or_rank(tmp_path):
     before=deepcopy(registry);records=[]
     apply(tmp_path,records,pool,{},registry)
     assert records==[] and registry==before
+
+
+def test_military_result_gaps_replace_each_component_once_and_preserve_cost(tmp_path):
+    import json
+    from emperor_v4.evaluation.rank_envelope import apply
+    for path,payload in [
+        ('config/first-item/military-cost-debits.json',{'max_debit_points':80}),
+        ('config/third-item/third-item-cost-credit-factors.json',{'cost_debit_base_points':80})]:
+        dest=tmp_path/path;dest.parent.mkdir(parents=True,exist_ok=True)
+        dest.write_text(json.dumps(payload),encoding='utf8')
+    # Independent synthetic ruler: A=60, B=30, C=25, debit=max(10,20)=20.
+    rows=[dict(ruler_id='a',ruler_name='synthetic',rank=1,
+        first_item_status='NOT_APPLICABLE',first_item_raw_score=None,
+        second_item_score=50,third_item_score=95,fourth_item_adjustment=5,
+        total_score=150,evidence_assessment={'closure_ids':[],'rank_status':'NOT_ESTABLISHED'})]
+    pool=[dict(ruler_id='a',ruler_name='synthetic',source_item_ids={'second_item':'a','third_item':'a'})]
+    details={'first_cost':{},'third':{'a':dict(A120_score_points=60,B80_score_points=30,
+        global_cost_credit_profile={'status':'LOWER_BOUND'},
+        applied_military_debit_points=20,cost_debit_points=10,military_net_loss_penalty=-20)}}
+    cases=[dict(case_id=cid,ruler_id='a',status='UNRESOLVED_EVIDENCE_GAP') for cid in ('scope','linked')]
+    scopes={cid:dict(dependency_basis='same shared control ledger',affected=[
+        dict(ruler_id='a',components=['THIRD_SECURITY','THIRD_CONTROL'])]) for cid in ('scope','linked')}
+    apply(tmp_path,rows,pool,details,{'cases':cases,'rank_envelope':{'case_scopes':scopes}})
+    envelope=rows[0]['evidence_assessment']['contract_envelope']
+    # Lower: 50 + 0 + 0 + 25 - 80 + 5 = 0; upper: 50+120+80+25-20+5=260.
+    assert envelope['score_outer_bounds']==[0,260]
+    assert {t['component'] for t in envelope['terms']}=={'THIRD_SECURITY','THIRD_CONTROL','THIRD_COST'}
+    assert len(envelope['terms'])==3
+    assert envelope['is_admissible_score_interval'] is False
+    assert envelope['public_display'] is False
+    assert rows[0]['total_score']==150

@@ -29,14 +29,6 @@
     S: "决定性击败第一梯队竞争极、国家级终局或同量级结果",
     "S+": "统一终局、多个第一梯队竞争极终局或外部霸权终局等最高量级结果",
   };
-  const resultBoundary = {
-    C: "C只说明这条记录形成的是局部或辅助结果；不代表战斗本身轻松。",
-    B: "B说明已经完成重要目标，但结果仍没有闭合主要战略终局。",
-    A: "A说明已经形成重大阶段、区域、门户或主力集团级结果，但还没有达到独立战略终局。",
-    "S-": "S−说明已经形成强区域终局、核心根据地或长期独立战略方向；它高于普通重大阶段结果，但仍低于国家级决定性终局。",
-    S: "S看的是这条记录直接形成的国家级或第一梯队竞争极结果，不按兵力悬殊、战术传奇性或后世名气定级。即使战斗极其惊险，如果统一战争并未在这一战直接结束，也不会仅因后续影响巨大自动升到S+。",
-    "S+": "S+保留给统一终局、多个第一梯队竞争极同时终结或同量级外部霸权终局；它不是“比S更精彩”或“难度更高”。",
-  };
   const difficultyMeaning = {
     D0: "未形成有效军事对抗，或主要接收已崩解残余",
     D1: "本方综合优势足以稳定覆盖常规风险",
@@ -206,9 +198,9 @@
     return publicMilitaryText(String(value || "").replace(/(?:战争|战役)?(?:父级|父群)$/, "战役"));
   }
   function resultExplanation(grade, direction) {
-    if (["negative", "defeat"].includes(direction)) return `${grade || "未定档"}表示该条记录中失败造成的损失规模，不表示取得同档胜利。`;
-    if (["mixed", "mixed_review"].includes(direction)) return `${grade || "未定档"}表示该条记录的综合得失量级；归属主体与范围须结合具体依据阅读。`;
-    return resultBoundary[grade] || "只评价正式记录已确认的结果；未定档不等于零成果。";
+    if (["negative", "defeat"].includes(direction)) return "按本条记录的实际损失定档。";
+    if (["mixed", "mixed_review"].includes(direction)) return "按本条记录的综合得失定档。";
+    return resultMeaning[grade] || "";
   }
   function battleForRef(ref) {
     return battleById.get(ref) || battleById.get(battleIndex.result_ref_to_battle?.[ref]) || null;
@@ -533,7 +525,7 @@
   function gradeChips(result, difficulty, resultLabel = "战果", difficultyLabel = "难度") {
     result = resultOrder.includes(result) ? result : null;
     difficulty = difficultyOrder.includes(difficulty) ? difficulty : null;
-    const hint = resultLabel.includes("损失") ? "本方失败损失的规模，不表示胜利" : resultLabel.includes("得失") ? "综合得失的规模，需结合实际结果阅读" : resultMeaning[result] || "战略结果档";
+    const hint = resultLabel.includes("损失") ? "本方已记录的损失量级" : resultLabel.includes("得失") ? "本条记录的综合得失量级" : resultMeaning[result] || "战略结果档";
     const resultChip = result ? `<span class="chip result" title="${esc(hint)}">${esc(resultLabel)} ${esc(result)}</span>` : "";
     const difficultyChip = difficulty ? `<span class="chip diff" title="${esc(difficultyMeaning[difficulty] || "作战难度档")}">${esc(difficultyLabel)} ${esc(difficulty)}</span>` : "";
     return `<div class="chips">${resultChip}${difficultyChip}</div>`;
@@ -635,7 +627,7 @@
     if (value == null || value === "" || (typeof value === "object" && !Object.keys(value).length)) return "";
     return `<details class="panel" ${open ? "open" : ""}><summary>${esc(title)}</summary>${readableFields(value)}</details>`;
   }
-  function phaseBlock(phase, index) {
+  function phaseBlock(phase, index, inferencePolicy) {
     const control = phase.border_control || {};
     return `<details class="panel" id="${esc(phase.phase_id || `phase-${index}`)}"><summary>${index + 1}. ${esc(publicMilitaryText(phase.evaluation_subject_phase || "阶段记录"))}</summary>
       <p>${esc(publicMilitaryTerm(phase.subject_role, publicMilitaryTerms, "具体角色见阶段标题与经过"))}</p>
@@ -643,25 +635,44 @@
       <div class="label">实际经过</div>${readableFields(phase.actual_process)}
       <div class="label">控制变化与阶段结束状态</div>${readableFields(control)}
       ${phase.carry_out ? `<div class="label">阶段后续</div>${readableFields(phase.carry_out)}` : ""}
-      ${factSection("本阶段历史成本及依据", { ...phase.cost_axes, 说明:"这些是本主体、本阶段的成本记录，不能把不同方或不同阶段机械相加为整场总档。", ...((phase.cost_evidence || phase.cost_axis_basis) ? {依据:phase.cost_evidence || phase.cost_axis_basis} : {}), ...(phase.wc_basis ? {综合成本依据:phase.wc_basis} : {})})}
+      ${factSection("本阶段历史成本及依据", { ...phase.cost_axes, ...((phase.cost_evidence || phase.cost_axis_basis) ? {依据:phase.cost_evidence || phase.cost_axis_basis} : {}), ...(phase.wc_basis ? {综合成本依据:phase.wc_basis} : {})})}
       ${factSection("本阶段安全与物资回报", {安全结果:phase.strategic_security,安全依据:phase.strategic_security_detail,物资回报:phase.material_return,物资依据:phase.material_return_detail,阶段回报:phase.phase_return_class,裁定依据:phase.phase_return_basis})}
-      ${personnelInferenceSection(phase.P_inference)}
+      ${personnelInferenceSection(phase.P_inference, inferencePolicy)}
       ${factSection("平民损害与战争行为", [phase.civilian_harm_caused,phase.war_conduct_note,phase.war_conduct_notes,phase.civilian_harm_exclusion,phase.civilian_noncombatant_note,phase.post_capture_execution_note,phase.post_capture_execution_excluded_from_P,phase.casualty_de_duplication].filter(Boolean))}
       <details><summary>本阶段来源</summary>${sourceList(phase.source_anchor_refs || [])}</details></details>`;
   }
-  function personnelInferenceSection(inference) {
-    if (inference == null || (typeof inference === "object" && !Object.keys(inference).length)) return "";
+  function phaseSections(phases) {
+    if (!phases.length) return "";
+    const hasCosts = phases.some(phase => Object.keys(phase.cost_axes || {}).length || phase.cost_evidence || phase.cost_axis_basis || phase.wc_basis);
+    const scope = hasCosts ? '<p class="subline">各阶段的成本按实际承担主体列示，整场成本另读正式汇总。</p>' : "";
+    const inferencePolicy = phases.some(phase => hasPersonnelInference(phase.P_inference)) ? personnelInferencePolicy() : null;
+    const blocks = phases.map((phase, index) => phaseBlock(phase, index, inferencePolicy)).join("");
+    return `<section class="military-phases"><h2>各阶段的经过与结果</h2>${scope}${blocks}${inferencePolicy ? personnelInferenceGuide(inferencePolicy) : ""}</section>`;
+  }
+  function hasPersonnelInference(inference) {
+    return inference != null && (typeof inference !== "object" || Object.keys(inference).length > 0);
+  }
+  function personnelInferencePolicy() {
     const policy = battleIndex?.personnel_inference_reading;
     const keys = ["title", "observed_title", "observed_note", "missing_observed", "legacy_title", "legacy_note", "current_title", "current_note"];
     if (!policy || keys.some(key => typeof policy[key] !== "string" || !policy[key].trim()))
       throw new Error("人员损害推定缺少上游阅读边界");
+    return policy;
+  }
+  function personnelInferenceGuide(policy) {
+    return `<details class="panel"><summary>${esc(policy.title)}</summary>
+      <h3>${esc(policy.observed_title)}</h3><p>${esc(policy.observed_note)}</p>
+      <h3>${esc(policy.current_title)}</h3><p>${esc(policy.current_note)}</p>
+      <h3>${esc(policy.legacy_title)}</h3><p>${esc(policy.legacy_note)}</p></details>`;
+  }
+  function personnelInferenceSection(inference, policy) {
+    if (!hasPersonnelInference(inference)) return "";
     const object = inference && typeof inference === "object" && !Array.isArray(inference);
     const observed = object ? inference.P_observed : null;
     const legacy = object ? Object.fromEntries(Object.entries(inference).filter(([key]) => key !== "P_observed")) : inference;
-    return `<details class="panel"><summary>${esc(policy.title)}</summary>
-      <h3>${esc(policy.observed_title)}</h3><p>${esc(policy.observed_note)}</p>${readableFields(observed == null || observed === "" ? policy.missing_observed : observed)}
-      <h3>${esc(policy.current_title)}</h3><p>${esc(policy.current_note)}</p>
-      <details><summary>${esc(policy.legacy_title)}</summary><p>${esc(policy.legacy_note)}</p>${readableFields(legacy)}</details></details>`;
+    return `<details class="panel"><summary>本阶段人员损害记录</summary>
+      <h3>${esc(policy.observed_title)}</h3>${readableFields(observed == null || observed === "" ? policy.missing_observed : observed)}
+      <details><summary>${esc(policy.legacy_title)}</summary>${readableFields(legacy)}</details></details>`;
   }
   function failureSection(record) {
     const failures = asList(record.attributable_failures);
@@ -711,12 +722,20 @@
     const profiles = searchCommanders(ruler);
     const intro = document.createElement("section");
     intro.className = "panel";
-    intro.innerHTML = `<h2>${esc(ruler)} · 第一项引文查找</h2><p>第一项有概括性或未唯一定位的引文，不能将它当作一个战役名硬匹配。下列列出正式记录中与本人物有关或提及其姓名的军事资料，供继续查找；这些记录不代表全部已被第一项采用。</p>${phrases.length ? `<details open><summary>原引用中的查找线索</summary><ul>${phrases.map(phrase=>`<li>${esc(phrase)}</li>`).join("")}</ul></details>` : ""}${profiles.length ? `<p>${profiles.map(profile=>`<a href="#commander=${encodeURIComponent(profile.profile_ref)}">${esc(profile.name)} · 统帅证据记录 →</a>`).join("　")}</p>` : ""}<p><a href="first-item-c.html">查看奠基时期统帅表现 →</a></p>`;
+    intro.innerHTML = `<h2>${esc(ruler)} · 第一项引文查找</h2><p>以下是引文尚未定位到单一战役时可继续查阅的人物相关资料。第一项实际采用的记录见下方结算入口。</p>${phrases.length ? `<details open><summary>原引用中的查找线索</summary><ul>${phrases.map(phrase=>`<li>${esc(phrase)}</li>`).join("")}</ul></details>` : ""}${profiles.length ? `<p>${profiles.map(profile=>`<a href="#commander=${encodeURIComponent(profile.profile_ref)}">${esc(profile.name)} · 统帅证据记录 →</a>`).join("　")}</p>` : ""}<p><a href="first-item-c.html">查看奠基时期统帅表现 →</a></p>`;
     app.querySelector(".panel")?.before(intro);
   }
 
   function searchHref(term, profileRef = "") {
     return `#search=${encodeURIComponent(term)}${profileRef ? `&person=${encodeURIComponent(profileRef)}` : ""}`;
+  }
+
+  function battleGradeGuide() {
+    const grid = meanings => `<div class="grade-grid">${Object.entries(meanings).map(([grade, text]) =>
+      `<div><strong>${esc(grade)}</strong><br><small>${esc(text)}</small></div>`).join("")}</div>`;
+    return `<details class="panel"><summary>战果和难度怎么看？</summary>
+      <p>结果档依据本条记录直接形成的后果。负向档表示损失量级，混合档表示综合得失。个人档位按具名人物的任务及责任另列。按阶段登记的资料可分别查看各方经过与结果。</p>
+      <h3>结果量级</h3>${grid(resultMeaning)}<h3>任务难度</h3>${grid(difficultyMeaning)}</details>`;
   }
 
   function searchView(term = "", profileRef = "") {
@@ -744,7 +763,7 @@
       : choices.length
         ? `<div class="panel"><p>这个关键词匹配到多位人物。请选择人物查看其关联战役。</p><ul>${choices.map(row => `<li><a href="${esc(searchHref(term, row.profile_ref))}">${esc(row.name)}（${esc(row.dynasty)}）</a></li>`).join("")}</ul></div>`
         : "";
-    app.innerHTML = `<h1>军事档案</h1><p>按战役查经过、战果和责任，按人物查军事生涯。</p><div class="panel"><form id="archive-search" class="toolbar"><input id="archive-q" value="${esc(term)}" placeholder="搜索战役、人物、朝代，例如：鄱阳湖、李世民、明"><button>搜索</button></form></div>${selection}${term ? `<section><h2>战役档案 <small>${battles.length}</small></h2><div class="cards">${battles.length ? battles.slice(0,30).map(battleCard).join("") : '<div class="empty">没有找到匹配战役。</div>'}</div></section><section><h2>统帅档案 <small>${commanders.length}</small></h2><div class="cards">${commanders.length ? commanders.slice(0,30).map(commanderCard).join("") : '<div class="empty">没有找到匹配人物。</div>'}</div></section>` : `<div class="stats"><div class="stat"><b>${battleIndex.record_count}</b><div>战役档案</div></div><div class="stat"><b>${commanderIndex.profile_count}</b><div>统帅档案</div></div></div><details class="panel"><summary>战果和难度怎么看？</summary><p>战果看结果的大小，难度看任务本身。进入战役详情可查看各方人物的表现。</p><div class="grade-grid">${Object.entries(resultMeaning).map(([k,v]) => `<div><strong>${esc(k)}</strong><br><small>${esc(v)}</small></div>`).join("")}</div><div class="grade-grid" style="margin-top:10px">${Object.entries(difficultyMeaning).map(([k,v]) => `<div><strong>${esc(k)}</strong><br><small>${esc(v)}</small></div>`).join("")}</div></details>`}`;
+    app.innerHTML = `<h1>军事档案</h1><p>按战役查经过、战果和责任，按人物查军事生涯。</p><div class="panel"><form id="archive-search" class="toolbar"><input id="archive-q" value="${esc(term)}" placeholder="搜索战役、人物、朝代，例如：鄱阳湖、李世民、明"><button>搜索</button></form></div>${selection}${term ? `<section><h2>战役档案 <small>${battles.length}</small></h2><div class="cards">${battles.length ? battles.slice(0,30).map(battleCard).join("") : '<div class="empty">没有找到匹配战役。</div>'}</div></section><section><h2>统帅档案 <small>${commanders.length}</small></h2><div class="cards">${commanders.length ? commanders.slice(0,30).map(commanderCard).join("") : '<div class="empty">没有找到匹配人物。</div>'}</div></section>` : `<div class="stats"><div class="stat"><b>${battleIndex.record_count}</b><div>战役档案</div></div><div class="stat"><b>${commanderIndex.profile_count}</b><div>统帅档案</div></div></div>`}${battleGradeGuide()}`;
     document.getElementById("archive-search")?.addEventListener("submit", event => {
       event.preventDefault();
       const q = document.getElementById("archive-q")?.value.trim() || "";
@@ -792,7 +811,16 @@
     return commanderByActor.get(member.actor_ref) || commanderByName.get(member.actor_name) || null;
   }
 
-  function memberBlock(member) {
+  function containsMilitaryPassage(text, passage) {
+    const sentences = value => String(value ?? "").split(/(?<=[。！？])|\n+/)
+      .map(line => line.trim().replace(/\s+/g, " ")).filter(Boolean);
+    const story = sentences(text);
+    const pieces = sentences(passage);
+    return pieces.length > 0 && story.some((_, i) =>
+      pieces.every((sentence, offset) => story[i + offset] === sentence));
+  }
+
+  function memberBlock(member, shownActions = []) {
     const idx = member.person_command_index || {};
     const results = asList(member.person_command_result);
     const result = results[0] || {};
@@ -802,13 +830,53 @@
     const personDifficulty = result.combat_difficulty || idx.projected_combat_difficulty;
     const role = publicMilitaryTerm(member.role_code, roleName, "责任角色未细分");
     const capability = publicMilitaryTerm(idx.capability_mode, capabilityName, "承担方式未细分");
-    const basis = publicMilitaryText(result.basis || idx.basis || member.contribution_scope || "");
-    const scopeNote = (personGrade || personDifficulty)
-      ? '<small>这里评的是该人物在本战役中可归责的部分，不等于整场战役总档。</small>'
-      : "";
+    const basis = result.basis || idx.basis || member.contribution_scope || "";
+    const personProse = (text, shownText = text) => shownActions.some(action => containsMilitaryPassage(action, text))
+      ? "" : militaryProse(shownText);
     const direction = result.result_direction || idx.result_direction || member.command_result_direction;
-    const resultCards = results.length ? results.map(row => `<div><strong>${esc(publicBattleTitle(row.result_label && !/^(WAR-|PCR-|HAN-)/.test(row.result_label) ? row.result_label : "本人责任记录"))}</strong><span class="chip">${esc(directionName(row.result_direction || direction))}</span>${gradeChips(row.result_tier, row.combat_difficulty, `个人${resultLabel(row.result_direction || direction)}`, "个人任务难度")}${militaryProse(row.basis || basis)}</div>`).join("") : `<span class="chip">${esc(directionName(direction))}</span>${gradeChips(personGrade, personDifficulty, `个人${resultLabel(direction)}`, "个人任务难度")}${militaryProse(result.basis || idx.basis || member.contribution_scope || "")}`;
-    return `<div class="member"><div class="member-head"><strong>${esc(member.actor_name || "未具名")}</strong><span>${esc(role)}</span></div>${idx.capability_mode ? `<p>本人承担：${esc(capability)}</p>` : ""}${scopeNote}${resultCards}${profileLink ? `<p class="sources">${profileLink}</p>` : ""}</div>`;
+    const resultCards = results.length ? results.map(row => `<div><strong>${esc(publicBattleTitle(row.result_label && !/^(WAR-|PCR-|HAN-)/.test(row.result_label) ? row.result_label : "本人责任记录"))}</strong><span class="chip">${esc(directionName(row.result_direction || direction))}</span>${gradeChips(row.result_tier, row.combat_difficulty, `个人${resultLabel(row.result_direction || direction)}`, "个人任务难度")}${row.basis ? personProse(row.basis) : personProse(basis, publicMilitaryText(basis))}</div>`).join("") : `<span class="chip">${esc(directionName(direction))}</span>${gradeChips(personGrade, personDifficulty, `个人${resultLabel(direction)}`, "个人任务难度")}${personProse(basis)}`;
+    return `<div class="member"><div class="member-head"><strong>${esc(member.actor_name || "未具名")}</strong><span>${esc(role)}</span></div>${idx.capability_mode ? `<p>本人承担：${esc(capability)}</p>` : ""}${resultCards}${profileLink ? `<p class="sources">${profileLink}</p>` : ""}</div>`;
+  }
+
+  function battleMembers(record, showEmpty = false, shownActions = []) {
+    const members = asList(record.members);
+    if (!showEmpty && !members.length) return "";
+    const nameCounts = new Map();
+    for (const member of members) {
+      const name = member.actor_name;
+      if (name) nameCounts.set(name, (nameCounts.get(name) || 0) + 1);
+    }
+    const passages = new Map();
+    for (const action of shownActions) {
+      if (nameCounts.get(action.person) !== 1 || !action.text) continue;
+      const texts = passages.get(action.person) || [];
+      texts.push(action.text);
+      passages.set(action.person, texts);
+    }
+    const body = members.length
+      ? '<p class="subline">个人档位按具名人物的实际任务和责任列示。</p>' + members.map(member => memberBlock(member, passages.get(member.actor_name))).join("")
+      : '<p class="muted">本条暂未单列具名责任。</p>';
+    return `<section class="panel"><h2>责任人物</h2>${body}</section>`;
+  }
+
+  function battleAssessment(record, row) {
+    const result = record.campaign_tier;
+    const difficulty = difficultyOrder.includes(record.combat_difficulty) ? record.combat_difficulty : "未单列";
+    const resultNote = resultExplanation(result, record.result_direction);
+    const difficultyNote = difficultyMeaning[record.combat_difficulty] || "";
+    const observable = String(record.observable_result || "").trim();
+    const process = String(record.battle_process || record.actual_process || row.reading_context?.process || "").trim();
+    const resultText = publicMilitaryText(observable);
+    const basis = publicMilitaryText(record.tier_basis || "").trim();
+    const diffBasis = publicMilitaryText(record.combat_difficulty_basis || "").trim();
+    const resultBasis = basis && ![resultNote, resultText, publicMilitaryText(process)].includes(basis)
+      ? `<details><summary>结果档依据</summary><p class="prose">${esc(basis)}</p></details>` : "";
+    const difficultyBasis = diffBasis && diffBasis !== difficultyNote
+      ? `<details><summary>作战难度依据</summary><p class="prose">${esc(diffBasis)}</p></details>` : "";
+    return `<section class="panel"><h2>结果与定档</h2><p>登记方向 ${esc(directionName(record.result_direction))}。各方结果和本人责任见具名记录。</p>
+      ${observable && observable !== process ? `<p class="prose">${esc(resultText)}</p>` : ""}
+      <div class="grade-grid"><div><strong>战役登记${esc(resultLabel(record.result_direction))} ${esc(result)}</strong>${resultNote ? `<br><small>${esc(resultNote)}</small>` : ""}</div><div><strong>整场战役难度 ${esc(difficulty)}</strong>${difficultyNote ? `<br><small>${esc(difficultyNote)}</small>` : ""}</div></div>
+      ${resultBasis}${difficultyBasis}</section>`;
   }
 
   async function renderBattle(id, sequence) {
@@ -823,17 +891,15 @@
     activeEvidence = evidence[id] || null;
     activeBattleId = id;
     const phases = asList(record.subject_phase_views);
-    const phaseOnly = phases.length > 0 && !resultOrder.includes(record.campaign_tier);
-    const ungraded = !resultOrder.includes(record.campaign_tier);
-    if (phaseOnly || ungraded) {
+    if (!resultOrder.includes(record.campaign_tier)) {
       const status = recordStatus(record);
       const period = row.period && !row.period.includes("未知") ? row.period : "当前登记未注明具体年代";
       const merged = battleForRef(record.merged_into);
       app.innerHTML = `${archiveHead(publicBattleTitle(record.canonical_label || row.name), `${dynastyLabel(record.dynasty)} · 军事资料`, period)}
-        <section class="panel"><h2>${esc(status)}</h2><p>${phases.length ? `本记录分为 ${phases.length} 个主体阶段。双方或各阶段的经过与得失分别记录，未设整场结果总档。` : "这条资料未单列公共战役结果档；不适用分档、转出、合并或背景资料均不等于战果为零。"}</p>${readableFields(record.observable_result || record.basis)}${merged ? `<a href="#battle=${encodeURIComponent(merged.id)}">查看合并后的记录：${esc(merged.name)} →</a>` : ""}</section>
-        ${personalEvidenceSection()}${phases.map(phaseBlock).join("")}
+        <section class="panel"><h2>${esc(status)}</h2>${readableFields(record.observable_result || record.basis)}<p class="muted">整场结果档未单列。${phases.length ? `下列 ${phases.length} 条为主体阶段记录。` : ""}</p>${merged ? `<a href="#battle=${encodeURIComponent(merged.id)}">查看合并后的记录 · ${esc(merged.name)} →</a>` : ""}</section>
+        ${personalEvidenceSection()}${phaseSections(phases)}
         ${!phases.length && (record.battle_process || record.actual_process || row.context) ? factSection("已记录的经过",record.battle_process || record.actual_process || row.context,true) : ""}
-        ${asList(record.members).length ? `<section class="panel"><h2>责任人物</h2>${asList(record.members).map(memberBlock).join("")}</section>` : ""}
+        ${battleMembers(record)}
         ${failureSection(record)}${limitsSection(record)}${sourceEvidenceSection()}
         <details class="panel"><summary>正式来源</summary>${sourceList([...(record.source_refs || []),...(row.source_files || []),row.source])}</details>`;
       window.scrollTo(0,0);
@@ -841,16 +907,14 @@
       return;
     }
     const period = row.period && !row.period.includes("未知") ? row.period : row.reading_context?.period || "具体起止未单列，见史料定位";
-    const observable = publicMilitaryText(record.observable_result || "");
-    const tierBasis = publicMilitaryText(record.tier_basis || "");
-    const diffBasis = publicMilitaryText(record.combat_difficulty_basis || "");
-    const costValue = record.cost_or_burden || record.cost_summary || "当前登记未形成可单独展示的成本摘要。";
-    const cost = readableFields(costValue);
-    const members = asList(record.members);
-    const resultGrade = record.campaign_tier || "—";
-    const difficultyGrade = difficultyOrder.includes(record.combat_difficulty) ? record.combat_difficulty : "未单列";
-    const perspective = `战役登记方向：${directionName(record.result_direction)}。本汇总未单列评价主体，不能据结果方向推定属于哪一方；各方结果与本人责任以下方具名记录为准。`;
-    app.innerHTML = `${archiveHead(publicBattleTitle(record.canonical_label || id), `${dynastyLabel(record.dynasty)} · 战役档案`, period)}${battleNarrative(record, row)}<section class="panel"><h2>结果与定档</h2><p>${esc(perspective)}</p><div class="grade-grid"><div><strong>战役登记${esc(resultLabel(record.result_direction))} ${esc(resultGrade)}</strong><br><small>${esc(resultExplanation(record.campaign_tier, record.result_direction))}</small></div><div><strong>整场战役难度 ${esc(difficultyGrade)}</strong><br><small>${esc(difficultyMeaning[record.combat_difficulty] || "按正式战役登记裁定。")}</small></div></div>${observable ? `<div class="label">实际结果与评价视角</div><p class="prose">${esc(observable)}</p>` : ""}</section><section class="panel"><h2>为什么这样定档？</h2><details><summary>为什么结果量级是 ${esc(resultGrade)}</summary>${tierBasis ? `<p class="prose">${esc(tierBasis)}</p>` : `<p class="prose">${esc(resultExplanation(record.campaign_tier, record.result_direction))}</p>`}</details><details><summary>为什么难度是 ${esc(difficultyGrade)}</summary>${diffBasis ? `<p class="prose">${esc(diffBasis)}</p>` : `<p class="prose">${esc(difficultyMeaning[record.combat_difficulty] || "按正式战役登记裁定。")}</p>`}</details></section>${personalEvidenceSection()}${phases.map(phaseBlock).join("")}<section class="panel"><h2>责任人物</h2>${members.length ? members.map(memberBlock).join("") : '<p class="muted">当前登记没有闭合到具名人物责任。</p>'}</section>${failureSection(record)}${limitsSection(record)}${sourceEvidenceSection()}<details class="panel"><summary>军事成本</summary>${cost}${record.uncertainties?.length ? `<ul>${record.uncertainties.map(v => `<li>${esc(publicMilitaryText(v))}</li>`).join("")}</ul>` : ""}</details><details class="panel"><summary>正式来源</summary>${sourceList([...(record.source_refs || []), ...(record.source_lineage?.source_revision_refs || []), ...(row.source_files || []), row.source])}</details>`;
+    const cost = readableFields(record.cost_or_burden || record.cost_summary || "本条未单列成本摘要。");
+    const narrative = battleNarrative(record, row);
+    app.innerHTML = `${archiveHead(publicBattleTitle(record.canonical_label || id), `${dynastyLabel(record.dynasty)} · 战役档案`, period)}
+        ${narrative.html}${battleAssessment(record, row)}
+        ${personalEvidenceSection()}${phaseSections(phases)}${battleMembers(record, true, narrative.shownActions)}
+        ${failureSection(record)}${limitsSection(record)}${sourceEvidenceSection()}
+        <details class="panel"><summary>军事成本</summary>${cost}</details>
+        <details class="panel"><summary>正式来源</summary>${sourceList([...(record.source_refs || []), ...(record.source_lineage?.source_revision_refs || []), ...(row.source_files || []), row.source])}</details>`;
     focusEvidence();
   }
 
@@ -858,7 +922,11 @@
     const context = row.reading_context || {};
     const actions = context.actions || asList(record.members).map(member => ({person:member.actor_name, text:member.military_capability_contribution?.basis})).filter(action => action.text);
     const process = record.battle_process || record.actual_process || context.process;
-    return `<section class="panel"><h2>${process ? "战役经过" : "行动与责任摘录"}</h2>${!process ? '<p class="muted">本记录未单列连续战役经过；以下按人物保留行动、归责及计分边界，不作为完整战史叙述。</p>' : ""}${context.prewar || row.context ? `<div class="label">战前态势</div>${militaryProse(context.prewar || row.context)}` : ""}${context.objective ? `<div class="label">作战目标</div>${militaryProse(context.objective)}` : ""}${process ? militaryProse(process) : actions.length ? `<div class="label">已确认的关键行动</div>${actions.map(action=>`<div class="military-action"><h3>${esc(action.person || "")}</h3>${militaryProse(action.text)}</div>`).join("")}` : '<p class="muted">当前来源未单列连续经过；以下结果与责任记录可分别核查。</p>'}${context.sources?.length ? `<details><summary>经过与时间来源</summary>${sourceList(context.sources)}</details>` : ""}</section>`;
+    const body = process ? militaryProse(process)
+      : actions.length ? actions.map(action => `<div class="military-action"><h3>${esc(action.person || "")}</h3>${militaryProse(action.text)}</div>`).join("")
+      : '<p class="muted">连续经过与具名行动未单列。</p>';
+    const html = `<section class="panel"><h2>${process ? "战役经过" : "行动与责任摘录"}</h2>${context.prewar || row.context ? `<div class="label">战前态势</div>${militaryProse(context.prewar || row.context)}` : ""}${context.objective ? `<div class="label">作战目标</div>${militaryProse(context.objective)}` : ""}${body}${context.sources?.length ? `<details><summary>经过与时间来源</summary>${sourceList(context.sources)}</details>` : ""}</section>`;
+    return {html, shownActions: process ? [] : actions};
   }
 
   function achievementBlock(item) {
@@ -870,7 +938,7 @@
     const resultGrade = item.campaign_tier;
     const difficultyGrade = item.combat_difficulty;
     const linked = (!resultGrade && item.parent_campaign_tier) || (!difficultyGrade && item.parent_combat_difficulty);
-    const parentContext = linked ? `<details><summary>关联整场战役信息</summary>${gradeChips(item.parent_campaign_tier, item.parent_combat_difficulty, "整场结果量级", "整场难度")}<p class="muted">整场档位仅供了解背景，不用于补齐本人的结果或任务难度。</p></details>` : "";
+    const parentContext = linked ? `<details><summary>关联整场战役（背景）</summary>${gradeChips(item.parent_campaign_tier, item.parent_combat_difficulty, "整场结果量级", "整场难度")}</details>` : "";
     const missing = `${!resultGrade ? '<small>个人结果档未单列。</small>' : ""}${!difficultyGrade ? '<small>个人任务难度未单列。</small>' : ""}`;
     return `<div class="achievement"><strong>${esc(publicBattleTitle(item.canonical_label || ref || "军事能力记录"))}</strong><span class="chip">${esc(directionName(item.result_direction))}</span>${gradeChips(resultGrade, difficultyGrade, `个人${resultLabel(item.result_direction)}`, "个人任务难度")}${missing}${item.capability_mode ? `<p class="muted">承担方式：${esc(capability)}</p>` : ""}${basis ? militaryProse(item.basis) : ""}${item.responsibility_basis ? `<details><summary>责任认定依据</summary>${militaryProse(item.responsibility_basis)}</details>` : ""}${parentContext}${link ? `<p class="sources">${link}</p>` : ""}${item.source_refs?.length ? `<details><summary>史料依据</summary>${sourceList(item.source_refs)}</details>` : ""}</div>`;
   }
@@ -891,7 +959,7 @@
 
   function commanderReason(profile, achievements, adverse, row) {
     const blocked = {historic_blocked_by_failure_pressure:"历史级",top_blocked_by_failure_pressure:"顶级",elite_blocked_by_failure_pressure:"精英级"}[profile.rule_path];
-    const route = blocked ? `重大失败限制了${blocked}路径；当前总档保留为${militaryGrade[profile.military_grade] || "正式档位"}。` : commanderRoutes[profile.rule_path];
+    const route = blocked ? `重大失败限制了${blocked}路径。` : commanderRoutes[profile.rule_path];
     const episodes = asList(profile.capability_episode_anchors);
     const peak = highestGrade(achievements, resultOrder, ["campaign_tier"]);
     const peakItems = achievements.filter(item => item.campaign_tier === peak);
@@ -901,7 +969,10 @@
       return battle ? `<a href="#battle=${encodeURIComponent(battle.id)}">${label}</a>` : label;
     }).join("；");
     const gate = profile.stability_gate || {};
-    return `<section class="panel"><h2>为什么是这个总档？</h2>${route ? `<p>${esc(route)}</p>` : '<p>当前总档的具体裁决见下方正式记录。</p>'}${peakItems.length ? `<div class="label">个人战果峰值及其战役</div><p>${names(peakItems)}</p>` : ""}${episodes.length ? `<details><summary>独立能力情境（${episodes.length}项）</summary><p>${names(episodes)}</p><p class="muted">按正式记录归并，同一连续战役中的多条个人成果不重复视为独立复验。</p></details>` : ""}${Number.isInteger(gate.major_positive_context_count) ? `<p>正式稳定性复核采用 ${gate.major_positive_context_count} 项重大正向情境、${gate.major_adverse_context_count ?? "未注明"} 项重大不利情境。${gate.stability_cap_applied ? "重大失败已限制最终总档。" : "本次复核未因重大失败下压总档。"}</p>` : ""}${adverse.length ? `<div class="label">纳入复核的不利记录</div><p>${names(adverse)}</p>` : ""}<details><summary>总档正式依据与规则</summary>${sourceList([row.source + (profile.profile_ref ? '#' + profile.profile_ref : ''), "docs/证据规则/公共成果登记与人物画像规则.md"])}${militaryProse(profile.grade_basis || "")}</details></section>`;
+    const gateEffect = gate.stability_cap_applied
+      ? (blocked ? "" : "重大失败已限制最终总档。")
+      : "本次复核未因重大失败下压总档。";
+    return `<section class="panel"><h2>为什么是这个总档？</h2>${route ? `<p>${esc(route)}</p>` : '<p>当前总档的具体裁决见下方正式记录。</p>'}${peakItems.length ? `<div class="label">个人战果峰值及其战役</div><p>${names(peakItems)}</p>` : ""}${episodes.length ? `<details><summary>独立能力情境（${episodes.length}项）</summary><p>${names(episodes)}</p><p class="muted">按正式记录归并，同一连续战役中的多条个人成果不重复视为独立复验。</p></details>` : ""}${Number.isInteger(gate.major_positive_context_count) ? `<p>正式稳定性复核采用 ${gate.major_positive_context_count} 项重大正向情境、${gate.major_adverse_context_count ?? "未注明"} 项重大不利情境。${gateEffect}</p>` : ""}${adverse.length ? `<div class="label">纳入复核的不利记录</div><p>${names(adverse)}</p>` : ""}<details><summary>总档正式依据与规则</summary>${sourceList([row.source + (profile.profile_ref ? '#' + profile.profile_ref : ''), "docs/证据规则/公共成果登记与人物画像规则.md"])}${militaryProse(profile.grade_basis || "")}</details></section>`;
   }
 
   async function renderCommander(profileRef, sequence) {

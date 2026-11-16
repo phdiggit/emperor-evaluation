@@ -22,6 +22,11 @@ POSITIONS = {'LOW':'低位','MID':'中位','HIGH':'高位','HIGHEST':'极端上�
 STATUSES = {'CONFIRMED':'关键结构已证实', 'LOWER_BOUND':'已证实下界，覆盖或上限仍有缺口', 'PROVISIONAL':'关键条件仍待确认'}
 COST_SECTIONS = {'burden':'战争负担', 'losses':'实际损失与已知限度', 'grade_basis':'为什么是这一程度', 'boundary':'计入与排除范围'}
 SOURCE_KINDS = {'战事材料汇集', '史料通读摘要', '公共战役登记', '范围与去重依据', '计分与范围规则'}
+COST_SOURCE_GUIDE = '军事投入、损失和归责按材料所列对象与时期核对。所引卷篇可回查原书，史料摘要、范围划分与计分依据各有标识。'
+COMMON_COST_SOURCE_NOTE = (
+    '下列战事材料与通读摘要保留原史源定位；范围划分与计分记录另列，不把它们当作史料原文。'
+    '原书链接用于回查所引卷篇，具体对象、数字和采用范围以上述说明及所引记录为准。'
+)
 
 
 def reading_sources(fields, refs):
@@ -81,6 +86,8 @@ def project_cost(row: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(reading, dict) or set(reading) != set(COST_SECTIONS):
         raise ValueError('成本公开正文须分别维护战争负担、实际损失、定档依据和范围')
     result = {key: public_text(row.get(key),key) for key in ('public_responsibility_window','public_source_note')}
+    if result['public_source_note'] == COMMON_COST_SOURCE_NOTE:
+        result['display_source_note'] = COST_SOURCE_GUIDE
     result['public_sections'] = [dict(title=title, text=public_text(reading[key],key)) for key,title in COST_SECTIONS.items()]
     result['public_basis'] = '\n\n'.join(section['title']+'：'+section['text'] for section in result['public_sections'])
     if re.search(r'补核|补充史料\d|原文入口|跨项证实|现行第三项仍有', result['public_basis']):

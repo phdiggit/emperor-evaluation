@@ -7,6 +7,7 @@ from pathlib import Path
 import json
 import re
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.third_item_a_scoring import A_STATE_VALUES
 
 
 STATE_MEANINGS = {
@@ -36,6 +37,46 @@ METHOD = (
 READING_TEXT_FIELDS = ('inherited', 'handover', 'story', 'decision', 'responsibility', 'window', 'boundary')
 PUBLIC_STATE_GRADES = ('E', 'D', 'C', 'B', 'A', 'S')
 INTERNAL_PROSE = re.compile(r'父卡|闭合|倒灌|本轮|重裁|撤回|回滚|可本人责任于本人|本人本人责任|[A-Za-z_]{2,}')
+STATE_GRADE_NOTE = '安全状态按 E、D、C、B、A、S 从低到高，对应内部0—5档；它描述接班或交班的局面，和本人贡献得分分别阅读。'
+_COMMON_BOUNDARY = (
+    '这里只评价本人责任窗口。交班安全状态与本人贡献分开；继承的安全状态可形成基础分，不自动作为本人建设。'
+    '统一创业已计的取得成果、他人独立行动和继任者阶段不重复计作本人贡献。'
+)
+_COMMON_SOURCE_NOTE = (
+    '经历文字是现行正式裁决的叙述，不是史料原文。来源按正式裁决、归责与范围材料、既有军事记录及史料汇集分别标明；'
+    '保留原裁决的引用关系，不把材料汇集冒充逐句原文证明。'
+)
+
+
+def _method(values):
+    return (
+        METHOD + '本轴0—5档对应的状态价值依次为' + '、'.join(map(str, values)) + '。'
+        '本人改善价值为逐档状态价值差乘各档本人责任比例后相加；恶化价值按已裁责任窗口的状态价值下降及责任比例计算，为非正数。'
+        '多次主政的改善与恶化分别保留，不先相抵。下列基础值、变化价值、专项和扣减均为轨迹点，最后统一乘0.6换为分数。'
+    )
+
+
+def _state_scale(axis_name):
+    return [f'{PUBLIC_STATE_GRADES[i]}档（内部{i}档）：{text}。' for i, text in enumerate(STATE_MEANINGS[axis_name])]
+
+
+def scope_guide():
+    return {
+        'paragraphs': (
+            '战略威胁看主要对手能否迫使国家被动应战，战略边界看防线、门户与纵深怎样协同。两轴各60分，同一改善在对应轴计一次。',
+            '每轴以交班时的实际安全状态定基础值，同档交班也有对应基础值。逐档改善与分段恶化各按状态价值差乘本人责任比例，多次主政分别保留。'
+            '改善、独立建设和压力保全各自需要相应证据。统一创业已计的取得成果、他人独立行动和继任阶段有各自归属。',
+            '封顶建设、独立建设、压力保全三项取高，重大逆转与档内恶化两项取高扣减。'
+            '基础值、变化、专项和扣减先按轨迹点计算，最后乘0.6换为分数。安全状态由E至S对应内部0—5档，E档表示已判明的危机状态。',
+            '人物经历是依据史料写成的裁决叙述。所列依据区分原典引文、史料汇集、既有军事记录和正式归责材料。',
+        ),
+        'axes': [
+            {'title': title, 'rows': [
+                f'{label} 状态价值 {value}。' for label, value in zip(_state_scale(axis), A_STATE_VALUES[axis], strict=True)
+            ]}
+            for axis, title in (('A1', '战略威胁'), ('A2', '战略边界'))
+        ],
+    }
 
 
 def _number(value):
@@ -100,16 +141,15 @@ def reading_projection(axis_name, axis, contract):
     values = contract['state_values'][axis_name]
     if _number(axis['end_state_value']) != _number(values[int(axis['end_grade'])]):
         raise ValueError(f'第三项{axis_name}交班状态价值与合同不一致')
-    result['method'] = METHOD + '本轴0—5档对应的状态价值依次为' + '、'.join(str(v) for v in values) + '。本人改善价值为逐档状态价值差乘各档本人责任比例后相加；恶化价值按已裁责任窗口的状态价值下降及责任比例计算，为非正数。多次主政的改善与恶化分别保留，不先相抵。下列基础值、变化价值、专项和扣减均为轨迹点，最后统一乘0.6换为分数。'
-    result['scale'] = [f'{i}档：{text}。' for i, text in enumerate(STATE_MEANINGS[axis_name])]
+    result['method'] = _method(values)
     result['calculation'] = calculation(axis, contract)
     result['start_label'] = PUBLIC_STATE_GRADES[int(axis['start_grade'])] + '档'
     result['end_label'] = PUBLIC_STATE_GRADES[int(axis['end_grade'])] + '档'
     result['type_label'] = axis['settlement_type_label']
     if axis['settlement_type'] == 'WITHIN_BAND_STRUCTURAL_IMPROVEMENT' and int(axis['end_grade']) >= 4:
         result['type_label'] = '高位建设改善型'
-    result['state_grade_note'] = '安全状态按 E、D、C、B、A、S 从低到高，对应内部0—5档；它描述接班或交班的局面，和本人贡献得分分别阅读。'
-    result['scale'] = [f'{PUBLIC_STATE_GRADES[i]}档（内部{i}档）：{text}。' for i, text in enumerate(STATE_MEANINGS[axis_name])]
+    result['state_grade_note'] = STATE_GRADE_NOTE
+    result['scale'] = _state_scale(axis_name)
     return result
 
 
@@ -145,9 +185,32 @@ def verify_reading_sources(root: Path, payload):
 
 
 def display_reading(reading, *, battle_routes=None):
+    from .reading_layout import passage_in_story
     from .third_item_b_sources import display_sources
 
     official = {'正式裁决记录', '正式归责与计算记录'}
     refs = (ref for ref in reading['sources'] if ref['kind'] not in official or ref.get('public_citation'))
-    return {**reading, 'sources': display_sources(refs, battle_routes=battle_routes),
+    projected = dict(reading)
+    for field in ('inherited', 'handover', 'responsibility'):
+        if passage_in_story(reading['story'], reading[field]):
+            projected['display_' + field] = ''
+    if reading['inherited'].strip() == reading['handover'].strip():
+        projected['shared_state_basis'] = True
+        projected['display_handover'] = ''
+    for field, shared in (('boundary', _COMMON_BOUNDARY), ('source_note', _COMMON_SOURCE_NOTE),
+                          ('state_grade_note', STATE_GRADE_NOTE)):
+        if projected.get(field) == shared:
+            projected[field] = ''
+    if any(projected.get('method') == _method(values) for values in A_STATE_VALUES.values()):
+        projected['method'] = ''
+    if any(projected.get('scale') == _state_scale(axis) for axis in STATE_MEANINGS):
+        projected['scale'] = []
+    original = reading['calculation']
+    compact = original.replace('专项取高：封顶建设0、独立建设0、压力保全0，只计其中最高的0。',
+                               '封顶建设、独立建设和压力保全均为0。')
+    compact = compact.replace('负向调整取高：重大逆转0、档内恶化0，只扣其中最高的0。',
+                              '重大逆转与档内恶化均为0。')
+    if compact != original:
+        projected['display_calculation'] = compact
+    return {**projected, 'sources': display_sources(refs, battle_routes=battle_routes),
             'official_sources': [ref for ref in reading['sources'] if ref['kind'] in official]}

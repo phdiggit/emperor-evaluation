@@ -7,6 +7,7 @@ import re
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from emperor_v4.evaluation.formal_reading_texts import compact_c_writeback_texts, expand_c_writeback_texts
 from emperor_v4.evaluation.formal_json_store import (
     load_json,
     load_ruler_polities,
@@ -15,6 +16,7 @@ from emperor_v4.evaluation.formal_json_store import (
 
 
 SOURCE_PATH = Path("config/third-item/third-item-c-strategy-chain-adjudications.json")
+SOURCE_SCHEMA = "third-item-c-strategy-chain-adjudications-v4"
 C_PATH = Path(
     "docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json"
 )
@@ -113,6 +115,53 @@ def _source_records_by_id(source: Mapping[str, Any]) -> dict[str, Mapping[str, A
     return indexed
 
 
+def _derived_writeback_fields(fields: Mapping[str, Any]) -> dict[str, Any]:
+    from .third_item_c_joint import grade, score_fields
+
+    assessment = fields["joint_assessment"]
+    g = grade(fields["combat_delivery_grade"])
+    result = score_fields(g, assessment.get("position"))
+    if g is not None:
+        result["C_score_within_band_adjudication"]["reason"] = assessment["position_basis"]
+    result.update(final_grade=f"C-{g}" if g is not None else "UNKNOWN", score_ready=g is not None)
+
+    current = fields["strategy_chains"]
+    capability = fields["capability_only_strategy_chains"]
+    result.update(
+        strategy_chain_count=len(current),
+        strategy_chain_refs=[chain["chain_id"] for chain in current],
+        capability_only_strategy_chain_count=len(capability),
+        capability_only_strategy_chain_refs=[chain["chain_id"] for chain in capability],
+        strategy_chain_outcome_profile=_chain_profile(current),
+        current_item_task_count=len(fields["current_item_task_refs"]),
+    )
+    for outcome in ("success", "failure"):
+        flag = f"major_system_{outcome}"
+        refs = [chain["chain_id"] for chain in current if chain.get(flag)]
+        capability_refs = [chain["chain_id"] for chain in capability if chain.get(flag)]
+        result[f"{flag}_refs"] = _major_parent_refs(current + capability, outcome)
+        result[f"{flag}_chain_refs"] = refs
+        result[f"strategy_chain_major_{outcome}_count"] = len(refs)
+        result[f"capability_only_major_{outcome}_count"] = len(capability_refs)
+        # Success lists can exclude explicitly retained boundary observations.
+        if outcome == "failure":
+            result["capability_only_major_failure_chain_refs"] = capability_refs
+    return result
+
+
+def compact_strategy_chain_source(source: Mapping[str, Any]) -> dict[str, Any]:
+    """Prepare a current expanded writeback source for lossless storage."""
+    result = deepcopy(dict(source))
+    if result.get("schema_version") != SOURCE_SCHEMA:
+        raise ValueError("第三项C战略链正式源schema不合法")
+    for row in _source_records_by_id(result).values():
+        fields = row["formal_writeback"]["fields"]
+        for key, value in _derived_writeback_fields(fields).items():
+            if key in fields and fields.pop(key) != value:
+                raise ValueError(f'{row["ruler_id"]}的C派生字段与输入不同值：{key}')
+    return compact_c_writeback_texts(result)
+
+
 def _formal_public_readings(payload: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
     records = list(payload.get("records") or ())
     indexed = _records_by_id(payload)
@@ -131,7 +180,7 @@ def load_strategy_chain_source(workspace_root: Path) -> dict[str, Any]:
     source = json.loads(
         (workspace_root / SOURCE_PATH).read_text(encoding="utf-8")
     )
-    if source.get("schema_version") != "third-item-c-strategy-chain-adjudications-v3":
+    if source.get("schema_version") != SOURCE_SCHEMA:
         raise ValueError("第三项C战略链正式源schema不合法")
     if source.get("public_reading_source") != C_PATH.as_posix():
         raise ValueError("第三项C公开正文来源必须是正式C记录")
@@ -143,6 +192,7 @@ def load_strategy_chain_source(workspace_root: Path) -> dict[str, Any]:
         raise ValueError("第三项C战略链正式源主评分颗粒错误")
     if source.get("parent_cycle_role") != "EVIDENCE_ONLY_AND_DISPUTE_DRILLDOWN":
         raise ValueError("第三项C战略链正式源父周期角色错误")
+    source = expand_c_writeback_texts(source)
     records = list(source.get("records") or ())
     formal_ids = set(_formal_public_readings(load_json(workspace_root / C_PATH)))
     source_ids = set(_source_records_by_id(source))
@@ -152,8 +202,13 @@ def load_strategy_chain_source(workspace_root: Path) -> dict[str, Any]:
             f"多余{sorted(source_ids - formal_ids)}"
         )
     for row in records:
-        if not row.get("formal_writeback", {}).get("fields"):
+        fields = row.get("formal_writeback", {}).get("fields")
+        if not fields:
             raise ValueError(f"{row.get('ruler_name')}缺少正式写回字段")
+        derived = _derived_writeback_fields(fields)
+        if set(derived) & set(fields):
+            raise ValueError(f'{row["ruler_id"]}的C写回源不得保存派生字段')
+        fields.update(derived)
     return source
 
 

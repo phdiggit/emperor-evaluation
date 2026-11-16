@@ -1,11 +1,9 @@
 """Contract checks use synthetic records; historical verdicts are not fixtures."""
-from copy import deepcopy
-
 import pytest
 
 from emperor_v4.evaluation.second_item_a_public import (
-    PUBLIC_PROJECTION_SCHEMA, _public_nodes, _refresh_payload,
-    _scoring_signature, _verify_ref, public_markdown,
+    PUBLIC_PROJECTION_SCHEMA, _public_nodes, _validate_public_records,
+    _verify_ref, public_evidence_items,
 )
 from emperor_v4.evaluation.formal_settlements import _verify_a_profile_registry_binding
 
@@ -76,37 +74,32 @@ def payload():
         "public_story":"本人建立文书复核组织。",
         "public_adjudication_summary":"有限建设已经运行，长期范围不明，支持C级下位。",
         "public_boundary":"只评价该制度改变。",
-        "public_institution_nodes":[node], "public_evidence_items":[],
+        "public_institution_nodes":[node],
     }]}
 
 
-def test_projection_preserves_authored_prose_and_all_scoring_fields(tmp_path):
-    original = payload()
-    result = _refresh_payload(deepcopy(original), tmp_path)
-    assert _scoring_signature(result) == _scoring_signature(original)
-    row = result["records"][0]
-    assert row["public_story"] == original["records"][0]["public_story"]
-    assert row["public_adjudication_summary"] == original["records"][0]["public_adjudication_summary"]
-    assert row["public_evidence_items"][0]["public_basis"] == row["public_institution_nodes"][0]["public_adjudication_basis"]
-    assert _refresh_payload(deepcopy(result), tmp_path) == result
-    assert row["public_story"] in public_markdown(result)
-    assert row["public_adjudication_summary"] in public_markdown(result)
+def test_formal_records_reject_even_an_in_sync_card_copy():
+    data = payload()
+    row = data["records"][0]
+    row["public_evidence_items"] = public_evidence_items(row)
+    with pytest.raises(ValueError, match="不得保存逐节点阅读副本"):
+        _validate_public_records(data)
 
 
 @pytest.mark.parametrize("field", ["public_story", "public_adjudication_summary"])
-def test_missing_authored_words_fail_closed(tmp_path, field):
+def test_missing_authored_words_fail_closed(field):
     data = payload()
     data["records"][0].pop(field)
     with pytest.raises(ValueError, match="人工正文"):
-        _refresh_payload(data, tmp_path)
+        _validate_public_records(data)
 
 
 @pytest.mark.parametrize("text", ["该节点被判断为重构，已有材料支持。", "不在本节点中判断正负方向", "制度净值为1", "M2运行"])
-def test_stale_or_technical_copy_is_rejected_not_rewritten(tmp_path, text):
+def test_stale_or_technical_copy_is_rejected_not_rewritten(text):
     data = payload()
     data["records"][0]["public_institution_nodes"][0]["public_adjudication_basis"] = text
     with pytest.raises(ValueError, match="人工正文"):
-        _refresh_payload(data, tmp_path)
+        _validate_public_records(data)
     assert data["records"][0]["public_institution_nodes"][0]["public_adjudication_basis"] == text
 
 
@@ -119,13 +112,12 @@ def test_public_node_cannot_override_formal_identity_direction_or_weight(key,val
         _public_nodes(row)
 
 
-def test_no_nodes_is_an_empty_list_not_a_counted_explanation_card(tmp_path):
+def test_no_nodes_is_an_empty_list_not_a_counted_explanation_card():
     data = payload()
     row = data["records"][0]
     row.update(important_institutions=[], M_positive_profile=[], public_institution_nodes=[])
-    result = _refresh_payload(data, tmp_path)
-    assert result["records"][0]["public_evidence_items"] == []
-    assert result["records"][0]["public_story"]
+    _validate_public_records(data)
+    assert public_evidence_items(row) == []
 
 
 def test_source_anchor_resolves_and_missing_anchor_or_path_is_rejected(tmp_path):

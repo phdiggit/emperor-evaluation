@@ -25,7 +25,49 @@ AXIS_PATHS = {a: BASE / name / f'01-皇帝{a}项正式结算.md' for a, name in 
 POINTS = {1: (1, 1.5, 2), 2: (3, 4, 5), 3: (8, 10, 12), 4: (16, 20, 24)}
 BANDS = ('LOW', 'MID', 'HIGH')
 SCALE = ['局部、短期或低强度变化', '清晰可验证的有限变化', '主要领域形成稳定的重大变化', '跨场景新范式或系统性破坏']
-METHOD = '每条独立结果按层级与位置计价，正负采用同一价格表：1级为1/1.5/2分，2级为3/4/5分，3级为8/10/12分，4级为16/20/24分。逐条线性相加，三轴等权、总倍率1，不截断或饱和。合计不另定等级；数值相抵不表示损害已被修复。'
+METHOD = '从低位到高位，1级计1/1.5/2分，2级计3/4/5分，3级计8/10/12分，4级计16/20/24分。贡献加分，损害按同表扣分。三轴等权相加，总倍率为1，净额无固定上限。合计以净额表达，不另定档。各条损害在正负相抵时仍保留。'
+ZERO_SCOPE = (
+    '本轴为零时，先看已核材料是否确认了可归给本人、能够独立计入的变化。有独立结果时，零分表示贡献与损害相抵。'
+    '同朝材料可以帮助划定采用范围。具体的受教或任职机会归教育与人才，知识产品、保存与传播归知识文化。'
+    '本人责任取实际主政期内的行为、授权或明确维持。下属独立行动与继任者新决策分别归责。'
+)
+AXIS_SCOPE = {
+    'A': '看群体是否获得实际参与机会，以及身份、居留和亲属归属发生了什么变化。军政任职可以验证群体进入。选任质量与行政产出各有评价入口。',
+    'B': '看实际受教、培养、可达性、资格与进身机会。学校、考试和名臣人数须结合实际运行与机会变化判断。',
+    'C': '看已经交付、可供使用的知识产品，以及文本保存传播、特定学术内容和专业知识网络的实际变化。',
+}
+_COMMON_AXIS_BOUNDARY = {
+    'A': '实际成员参与、身份/居留/亲属归属及其结构变化；军政职位仅验证群体进入，不计选任质量或行政产出。',
+    'B': '实际受教、培养、可达性、资格与升进入口结果；不以学校/考试名称或名臣数量直接加价。',
+    'C': '已交付并可使用的知识产品、文本保存传播、特定学术内容和专业知识网络的实际变化。',
+}
+_ZERO_COPY = {
+    'B': {
+        '此处的0分表示尚未确认相对继承状态的独立净变化，不表示没有学校、没有人才或本人毫无教育活动。': '',
+        '这一说明是评价范围，不是本人新增教育事实；当前没有逐条教学或流动材料可支持非零调整。': '',
+        '本人另有知识文化相关材料，具体内容与来源列于下方；它们不能自动证明新的学习或任职机会。': '另有材料在知识文化轴评价。',
+    },
+    'C': {
+        '知识生产、传播与文化生态：现有材料经复核后未形成可单独计入的净变化。': '',
+        '当前没有足够依据把具体新增知识产品、保存传播或生态变化单独归于本人，因此本项为0分；这不表示本人没有文化活动，也不表示史料已经穷尽。': '',
+        '本人另有教育与人才流动结果材料，其准入及结果另行评价；学校设置、受教或任职事实不能自动再推成独立知识文化收益。': '另有材料在教育与人才轴评价。',
+    },
+}
+
+
+def _zero_decision(text, *, code, name, window):
+    lead = {
+        'B': f'{name}在{window}的现行教育与人才流动记录没有接纳独立计分材料。',
+        'C': f'{name}在{window}的现行知识文化记录未接纳独立计分材料。',
+    }.get(code)
+    if lead and text.startswith(lead):
+        text = text.removeprefix(lead).lstrip()
+    for original, reading in _ZERO_COPY.get(code, {}).items():
+        text = text.replace(original, reading)
+    return text.strip() or {
+        'B': '现有材料尚不能确认本人改变了哪些群体的受教、培养或进身机会。',
+        'C': '现有材料尚不能确认可归给本人的知识产品、保存、传播或文化生态变化。',
+    }.get(code, '现有材料尚不能确认可归给本人的群体参与或身份变化。')
 
 
 def price(result):
@@ -113,18 +155,57 @@ def _material_sources(result):
 
 def display_axis_reading(row, axis):
     reading = axis_reading(row, axis)
+    entries = reading['evidence_items']
+    code = axis['axis']
     for key in ('story', 'decision', 'decision_basis', 'zero_reason', 'review_basis'):
         reading[key] = reading[key].replace('须记录zero_scan_checked=true', '须完成零值核对')
-    for entry, result in zip(reading['evidence_items'], axis['results'], strict=True):
+    # Overview evidence anchors refer to the authored fields.
+    decision = reading['decision']
+    if code == 'C':
+        mid = len(decision) // 2
+        if decision[:mid] == decision[mid:]:
+            decision = decision[:mid]
+    if reading['boundary'] == _COMMON_AXIS_BOUNDARY[code]:
+        reading['display_boundary'] = ''
+    if code == 'A' and reading['responsibility'] == (
+        f'评价限于{row["ruler_name"]}的实际主政时期。'
+        '当前没有独立社会整合项结果可据以具体归责，不从在位或朝代整体趋势推定本人功过。'
+    ):
+        reading['display_responsibility'] = ''
+    if not entries:
+        reading['status'] = '未确认独立变化'
+        name = row['ruler_name']
+        decision = _zero_decision(decision, code=code, name=name, window=reading['window'])
+        if reading['responsibility'] == '仅评价本人实际主政窗口内的行为、授权或明确维持；下属独立行为与后继者新决策分别归责。':
+            reading['display_responsibility'] = ''
+    if decision != reading['decision']:
+        reading['display_decision'] = decision
+    paragraphs = [re.split(r'\n\s*\n', entry['level_basis'].strip()) for entry in entries]
+    common = []
+    if len(entries) > 1:
+        for column in zip(*paragraphs):
+            if not column[0] or any(value != column[0] for value in column[1:]):
+                break
+            common.append(column[0])
+    reading['common_result_basis'] = '\n\n'.join(common)
+    if entries and axis['axis'] in 'AB':
+        reading['baseline'] = public_text(axis['baseline_basis'])
+        reading['duration'] = public_text(axis['handoff_basis'])
+    for entry, result, body in zip(entries, axis['results'], paragraphs, strict=True):
         entry['sources'] = _material_sources(result)
+        entry['boundary'] = join_reading_text(entry['boundary'], already_shown=(entry['level_basis'],))
+        entry['level_basis'] = '\n\n'.join(body[len(common):])
+        for field in ('baseline', 'responsibility', 'duration', 'major_negative', 'hard_negative', 'coverage', 'scope', 'source_note'):
+            del entry[field]
+    reading.pop('source_note')
     reading['assessment_sources'][0]['label'] = '第四项正式结算记录'
     reading['assessment_sources'][1]['label'] = '第四项计分规则'
     return reading
 
 
-def join_reading_text(*parts, separator=' '):
+def join_reading_text(*parts, separator=' ', already_shown=()):
     """Keep the first occurrence of each complete sentence across adjacent fields."""
-    seen = set()
+    seen = {sentence.strip() for part in already_shown for sentence in re.split(r'(?<=[。！？\n])', part)}
     paragraphs = []
     for part in parts:
         unique = []
@@ -174,13 +255,13 @@ def axis_reading(row, axis, packages=None):
     calculation = '；'.join(f'{public_text(r["title"])} {r["contribution"]:+g}' for r in results)
     calculation += f'。正毛额{total["positive_gross"]:g}分，负毛额{total["negative_gross"]:g}分，净额{total["signed_adjustment"]:+g}分。'
     if not results:
-        calculation = '当前复核未接纳独立结果，计0分；不等于没有相关历史活动。'
+        calculation = '当前未确认独立变化，本轴计0分。'
     reason = public_text(axis['decision_basis'])
     window = row['actual_power_window']
     if isinstance(window, list):
         window = '；'.join(f'{w[0]}—{w[1]}年' for w in window)
     return dict(question=f'{row["ruler_name"]}的{AXIS_NAMES[a]}发生了哪些独立变化？', window=str(window),
-                story='；'.join(e['story'] for e in evidence) if evidence else reason,
+                story='；'.join(e['story'] for e in evidence) if evidence else '现有材料未确认可单独计入的变化。',
                 decision=reason, decision_basis=reason, zero_reason=reason if not total['signed_adjustment'] else '',
                 responsibility=public_text(axis['responsibility']), boundary=public_text(axis['cross_item_handoff']['owned_outcome']),
                 review_basis=reason, source_note='以当前有限证据评价本人窗口内的独立结果；未把其他项目缺少记录视为0分。',
@@ -188,22 +269,52 @@ def axis_reading(row, axis, packages=None):
                 status=status, points=total['signed_adjustment'], calculation=calculation, method=METHOD, scale=SCALE)
 
 
+_RECORD_READING_LABELS = dict(
+    public_boundary='三轴独立结果等权相加；相抵不表示损害修复，合计不另定等级。',
+    public_level_label='独立结果净额',
+    public_component_label='第四项文明与国家整合',
+)
+_AXIS_READING_FIELDS = {
+    'public_reading', 'public_adjudication_summary', 'public_boundary',
+    'public_level_label', 'public_component_label', 'public_evidence_items',
+}
+_RECORD_READING_FIELDS = _RECORD_READING_LABELS.keys() | {
+    'public_adjudication_summary', 'public_evidence_items', 'public_axis_projections',
+}
+
+
+def _axis_public_fields(row, axis):
+    reading = axis_reading(row, axis)
+    summary = reading['decision']
+    evidence = [dict(id=e['result_id'], public_label=e['title'], public_role=e['status'],
+                     public_basis=e['level_basis'], public_boundary=e['boundary']) for e in reading['evidence_items']]
+    if evidence:
+        summary = join_reading_text(reading['story'], summary, separator='\n')
+    else:
+        evidence = [dict(id=f'{row["ruler_id"]}-{axis["axis"]}-none', public_label='无准入结果',
+                         public_role='证据复核', public_basis=summary, public_boundary=reading['boundary'])]
+    return dict(public_reading=reading, public_adjudication_summary=summary,
+                public_boundary=reading['boundary'], public_level_label=reading['status'],
+                public_component_label=AXIS_NAMES[axis['axis']], public_evidence_items=evidence)
+
+
+def reading_record(row):
+    """Build the current axis projections for a reader without editing the source."""
+    axes = row['axis_results']
+    if Counter(axis['axis'] for axis in axes) != Counter('ABC'):
+        raise ValueError('第四项公开阅读缺少独立轴或存在重复')
+    return dict(row, **_RECORD_READING_LABELS,
+                axis_results=[dict(axis, **_axis_public_fields(row, axis)) for axis in axes])
+
+
 def project(payload):
+    """Keep the formal snapshot at the independent result level."""
     for row in payload['records']:
         for axis in row['axis_results']:
-            reading = axis_reading(row, axis)
-            axis['public_reading'] = reading
-            axis['public_adjudication_summary'] = join_reading_text(reading['story'], reading['decision'], separator='\n')
-            axis['public_boundary'] = reading['boundary']
-            axis['public_level_label'] = reading['status']
-            axis['public_component_label'] = AXIS_NAMES[axis['axis']]
-            axis['public_evidence_items'] = [dict(id=e['result_id'], public_label=e['title'], public_role=e['status'],
-                                                   public_basis=e['level_basis'], public_boundary=e['boundary']) for e in reading['evidence_items']]
-            if not axis['public_evidence_items']:
-                axis['public_evidence_items'] = [dict(id=row['ruler_id']+'-'+axis['axis']+'-none', public_label='无准入结果', public_role='证据复核', public_basis=reading['decision'], public_boundary=reading['boundary'])]
-        row['public_boundary'] = '三轴独立结果等权相加；相抵不表示损害修复，合计不另定等级。'
-        row['public_level_label'] = '独立结果净额'
-        row['public_component_label'] = '第四项文明与国家整合'
+            for field in _AXIS_READING_FIELDS:
+                axis.pop(field, None)
+        for field in _RECORD_READING_FIELDS:
+            row.pop(field, None)
     payload['public_projection_schema_version'] = SCHEMA
     payload['public_projection_status'] = 'FORMAL_UPSTREAM_SOURCE'
     payload['public_projection_record_count'] = len(payload['records'])
@@ -212,7 +323,7 @@ def project(payload):
 
 def verify_projection(payload):
     if payload.get('schema_version') != SCHEMA or project(deepcopy(payload)) != payload:
-        raise ValueError('第四项公开文案与当前来源转述不一致（独立结果接口）')
+        raise ValueError('第四项正式结果不得保存可重建的公开阅读副本')
     return dict(status='PASS', schema_version=SCHEMA, record_count=len(payload['records']),
                 package_count=len(payload['accepted_packages']))
 
@@ -221,8 +332,9 @@ def verify_readings(payload, root=None, axis_code=None):
     for row in payload['records']:
         for axis in row['axis_results']:
             if axis_code is None or axis['axis'] == axis_code:
-                if axis.get('public_reading') != axis_reading(row, axis):
-                    raise ValueError('第四项阅读不是独立结果的确定性投影')
+                if _AXIS_READING_FIELDS & axis.keys():
+                    raise ValueError('第四项轴不得保存可重建的公开阅读副本')
+                axis_reading(row, axis)
     return len(payload['records'])
 
 
@@ -326,10 +438,14 @@ def verify_payload(payload, root):
     return dict(status='PASS', scope=SCHEMA, ruler_count=len(ids), result_count=len(seen), semantic_review_complete=True)
 
 
-def markdown_reading(data):
-    lines = [f'**{data["question"]}**', '', f'评价时期：{data["window"]}', '', data['decision'], '']
+def markdown_reading(data, *, include_method=True):
+    lines = [f'**{data["question"]}**', '', f'评价时期：{data["window"]}', '']
+    has_results = bool(data['evidence_items'])
+    decision = data.get('display_decision', data['decision'])
+    if not has_results:
+        lines += [decision, '', data['calculation'], '']
     for e in data['evidence_items']:
-        explanation = join_reading_text(e['level_basis'], e['responsibility'], e['boundary'], separator='\n\n')
+        explanation = join_reading_text(e['level_basis'], e['boundary'], separator='\n\n')
         lines += ['#### '+e['title'], '', e['components'], '', explanation, '']
         for source in e['sources']:
             title = f"[{source['label']}]({source['target']})" if source['target'] else source['label']
@@ -341,8 +457,25 @@ def markdown_reading(data):
                 lines += ['', '  ' + source['quote_label'], '',
                           *(('  > ' + line).rstrip() for line in source['quote'].splitlines())]
         lines += ['']
-    lines += [data['calculation'], '', data['method'], '', data['source_note']]
-    return '\n'.join(lines)
+    if data.get('common_result_basis'):
+        lines += ['**各条结果的共同依据**', '', data['common_result_basis'], '']
+    scope = [('比较起点', data.get('baseline')),
+             ('本人责任', data.get('display_responsibility', data['responsibility'])),
+             ('交班与延续', data.get('duration'))]
+    for label, value in scope:
+        if value:
+            lines += [f'**{label}**', '', value, '']
+    if boundary := data.get('display_boundary', data['boundary']):
+        lines += ['**个案评价范围**', '', boundary, '']
+    if has_results or include_method:
+        summary = '评价理由与计算' if has_results else '通用计分规则'
+        lines += [f'<details><summary>{summary}</summary>', '']
+        if has_results:
+            lines += [decision, '', data['calculation'], '']
+        if include_method:
+            lines += [data['method'], '', ZERO_SCOPE, '']
+        lines += ['</details>']
+    return '\n'.join(lines).rstrip()
 
 
 def render(payload):
@@ -354,10 +487,10 @@ def render(payload):
         total.append(f'| {r["rank"]} | {r["ruler_name"]} | {v["A"]:g} | {v["B"]:g} | {v["C"]:g} | {r["positive_gross"]:g} | {r["negative_gross"]:g} | {r["fourth_item_signed_adjustment"]:g} |')
     views = {TOTAL_PATH:'\n'.join(total)+'\n'}
     for a in 'ABC':
-        lines = ['# 第四项'+a+'轴'+AXIS_NAMES[a]+'正式结算', '', METHOD, '']
+        lines = ['# 第四项'+a+'轴'+AXIS_NAMES[a]+'正式结算', '', AXIS_SCOPE[a], '', METHOD, '', ZERO_SCOPE, '']
         for row in rows:
             axis = next(x for x in row['axis_results'] if x['axis'] == a)
-            lines += ['## '+row['ruler_name'], '', markdown_reading(display_axis_reading(row, axis)), '']
+            lines += ['## '+row['ruler_name'], '', markdown_reading(display_axis_reading(row, axis), include_method=False), '']
         views[AXIS_PATHS[a]] = '\n'.join(lines).rstrip()+'\n'
     return views
 

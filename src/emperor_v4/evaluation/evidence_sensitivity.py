@@ -417,7 +417,7 @@ def render(payload: dict, *, ranking_records=None) -> str:
         payload = ranking_reading_payload(payload, ranking_records)
     labels={'SUPPORTED_INTERPRETATION':'证据允许解释','REJECTED_DIAGNOSTIC':'已排除假设','UNRESOLVED_EVIDENCE_GAP':'尚未闭合的证据问题'}
     lines=['# 证据裁决敏感性','',
-           '本页只展示已登记的证据解释。全池列示不表示全池历史不确定性已量化；未量化不显示为零跨度。局部情景固定其他裁决与权重，不是统计置信区间，不构造综合置信度折扣。', '',
+           '本页按命题展示已登记的替代解释与尚待复核的证据。成立的情景列分数与名次，候选只列其条件。未量化事项单列。区间和名次的区别见[综合榜阅读说明](../00-统治绩效综合评分榜.md#ranking-reading-guide)。', '',
            f'当前入榜池：{payload["pool_count"]}人；证据解释按下列具体命题呈现。', '']
     for case in payload['cases']:
         lines += [f'## {case["ruler_name"]}：{case["question"]}', '',f'性质：{labels[case["status"]]}。', '',case.get('public_basis',case['basis']),'',f'限制：{case.get("public_limitations",case["limitations"])}','']
@@ -427,20 +427,16 @@ def render(payload: dict, *, ranking_records=None) -> str:
             for change in case['calculations']:
                 lines += [f'- {change["ruler_id"]} {change["axis"]}：{change["baseline_axis_score"]:.1f}→{change["alternative_axis_score"]:.1f}；联动：{change["dependency_basis"]}；去重：{change["deduplication_basis"]}。']
             lines += ['']
-        elif case['status'] == 'REJECTED_DIAGNOSTIC':
-            lines += ['该假设已排除，不列作可接受的替代分数或名次。','']
-        else:
-            lines += ['正式分数维持当前裁决；具体候选见下表。候选尚未成为合法替代，不据此改名次。','']
         lines += ['依据：'+ '；'.join(f'[{ref}]({ref if ref.startswith("http") else "../../../../"+ref})' for ref in case['source_refs']), '']
     lines += ['## 逐人当前档与有限复核候选','',
-              '当前档直接读取正式源。审慎区间按现有史料中逐人排除后的候选及共享联动计算，不是统计覆盖率，也不保证未来新史料不能重开。非单点端点可能无法同时实现；单点不证明历史真值唯一。', '',
+              '左列为当前正式档，右列为具体可复核的候选与审慎原分。', '',
               '| 人物 | 当前C1／C2／C3主态 | 当前军事成本／净毁损 | 具体复核档位 | 现有史料审慎总分区间 |',
               '|---|---|---|---|---:|']
     for row in payload['records']:
         annotation=row.get('existing_evidence_annotations',{})
         mains=annotation.get('governance_main_grades',{})
         reviews=row.get('evidence_assessment',{}).get('public_projection',{}).get('grade_reviews',[])
-        labels='；'.join(r['display'] for r in reviews) or '本轮未提出有源异档；采用左列当前档，来源限制另列。'
+        labels='；'.join(r['display'] for r in reviews) or '无已登记的异档候选'
         interval=row.get('prudent_score_interval')
         cost_review=interval.get('cost_review') if interval else None
         if cost_review:
@@ -451,6 +447,8 @@ def render(payload: dict, *, ranking_records=None) -> str:
                 for x in interval.get('axis_reviews',[])
             )
         display_range=(f'{interval["lower"]:.2f}—{interval["upper"]:.2f}' if interval else '尚未逐人复核')
+        if interval and interval.get('coverage_status') == 'PARTIAL_RANGE_WITH_UNQUANTIFIED_GAPS':
+            display_range += '（仅覆盖可量化的部分）'
         lines.append(f'| {row["ruler_name"]} | {"／".join(str(mains.get(a,"—")) for a in ("C1","C2","C3"))} | {annotation.get("third_item_cost_grade","—")}／{annotation.get("military_net_loss_grade","—")} | {labels} | {display_range} |')
     lines += ['', '### 军事净毁损条件分差', '',
               '只改变列示净毁损档，保持普通成本与其他分项不变；未采信的候选不生成替代名次，也不与其他争议极值叠加。', '',
@@ -460,17 +458,16 @@ def render(payload: dict, *, ranking_records=None) -> str:
             if review['kind']=='MILITARY_NET_LOSS':
                 lines.append(f'| {row["ruler_name"]} | {review["display"]} | {review["conditional_effect_text"]} | {review["basis"]} {review["excluded_basis"]} |')
     lines += ['', '## 分项史源标签','',
-              '未量化表示尚未形成有史源支持的数值替代，不等于真实分数可在合同全域浮动。合同极限及名次外界只用于内部排除检验，不作为公开分数范围。','',
-              '下表逐人读取现行正式入口的证据标签，不把这些标签转换成概率，也不把自动汇集当作逐项史源复审通过。不同组件标签的定义不同；CONFIRMED不是高置信度排名，LOWER_BOUND表示成本下界，NOT_APPLICABLE不是零成本。治理标签原样保留，不擅自合并状态与归责的置信度。', '',
+              '下表沿用各分项的正式证据标签。CONFIRMED 表示成本裁决已确认，LOWER_BOUND 表示已证的成本下界，NOT_APPLICABLE 表示该项成本评价不适用。排名判断另列。', '',
               '| 人物 | 第一项成本证据 | 治理C1／C2／C3原标签 | 第三项成本证据 | 本人局部证据情景名次范围 |',
               '|---|---|---|---|---|']
     for row in payload['records']:
         bounds=row['local_supported_rank_range']
         annotation=row.get('existing_evidence_annotations',{})
         confidence=annotation.get('governance_confidence_as_recorded',{})
-        lines.append(f'| {row["ruler_name"]} | {annotation.get("first_item_cost_evidence_status") or "未记录"} | {"／".join(str(confidence.get(a) or "未记录") for a in ("C1","C2","C3"))} | {annotation.get("third_item_cost_status") or "未记录"} | {str(bounds[0])+"—"+str(bounds[1]) if bounds else "采用当前名次；候选未作合法替代"} |')
+        lines.append(f'| {row["ruler_name"]} | {annotation.get("first_item_cost_evidence_status") or "未记录"} | {"／".join(str(confidence.get(a) or "未记录") for a in ("C1","C2","C3"))} | {annotation.get("third_item_cost_status") or "未记录"} | {str(bounds[0])+"—"+str(bounds[1]) if bounds else "尚无已成立情景"} |')
     lines += ['', '## 当前裁决与证据说明', '',
-              '未判定不等于不稳定；完整本人范围与完整全池联动范围分别声明，不将互斥情景的分项极值拼接。', '',
+              '本人完整情景和全池联动分别核对。缺少完整复核时，名次稳健性标为未判定。', '',
               '| 人物 | 分数边界 | 名次稳健性 |', '|---|---|---|']
     for row in payload['records']:
         assessment=(row.get('evidence_assessment') or {}).get('public_projection')

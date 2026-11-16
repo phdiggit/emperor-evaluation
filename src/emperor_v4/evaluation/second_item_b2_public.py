@@ -345,6 +345,22 @@ def display_sources(refs):
     return list(groups.values())
 
 
+SCOPE_GUIDE = (
+    '看意见怎样进入决策、本人怎样处置、错误是否实际得到纠正，以及表达者能否安全履职。'
+    '主动改意、信息上达与外部程序约束分别举证。渠道设置须结合实际运行，背景材料用于核对。'
+    '一次反馈过程只评价一次，按已知的本人责任、范围和结果采用。一般行政执行、财政民生结果和交班后果由相应项目评价。'
+)
+_SHARED_BOUNDARIES = frozenset((
+    '这条机制单独评价一次；不把同一次纠错的重复记载当作多项成绩或损害。',
+    '一般行政执行、财政民生结果及交班后果由相应项目评价。',
+    '仅按本材料明确的本人责任、运行范围和结果采用，不据未知补成果或损害。',
+))
+
+
+def display_boundary(value: str) -> str:
+    return ''.join(part for part in re.split(r'(?<=[。！？])', value) if part.strip() not in _SHARED_BOUNDARIES).strip()
+
+
 def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
     from .second_item_c_source_display import display_project_summary
 
@@ -361,15 +377,21 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
         confidence = {'LOW':'低','MEDIUM':'中','HIGH':'高'}[row['confidence']]
         lines = [f"- 档位：{row['grade']}（{position}）", f"- 内部指数：{row['direction_index']:.1f}/80", f"- 置信度：{confidence}"]
         if row.get('grade_origin') == 'MISSING_EVIDENCE_DEFAULT':
-            lines.append('- 证据状态：缺证默认；不代表已证良好表现。')
-        lines += ['', row['public_adjudication_summary'], '', '- 结算依据：']
-        lines += [f"  - {line.rstrip('。')}。" for line in row['settlement_basis']]
+            lines.append('- 证据状态：缺证默认。')
+        summary = row['public_adjudication_summary']
+        basis = [line.rstrip('。') for line in row['settlement_basis']]
+        if summary.rstrip('。') not in basis:
+            lines += ['', summary]
+        lines += ['', '- 结算依据：']
+        lines += [f"  - {line}。" for line in basis]
         lines += ['', '- 材料依据：']
         lines += [f"  - {display_project_summary(line).rstrip('。')}。" for line in row['material_basis']]
         lines.append('')
         for item in row['public_evidence_items']:
             lines += [f"- **{item['public_label']}**（{item['public_direction']}；{'、'.join(item['public_tags'])}）",
-                      f"  - 事实与判断：{item['public_basis']}", f"  - 适用边界：{item['public_boundary']}"]
+                      f"  - 事实与判断：{item['public_basis']}"]
+            if boundary := display_boundary(item['public_boundary']):
+                lines.append(f"  - 适用边界：{boundary}")
             for ref in display_sources(item['source_refs']):
                 citation = ' · '.join(filter(None, (ref['source_kind'], ref['source_title'], ref['source_locator']))) or '所引材料'
                 links = ' · '.join(f'[查看所引史源]({url})' for url in ref['source_urls'])
@@ -383,7 +405,9 @@ def render_public_markdown(markdown: str, payload: dict[str, Any]) -> str:
         raise ValueError('B2 Markdown人物块与正式记录不一致')
     all_names = set(re.findall(r'^### ([^（\n]+)（', markdown, flags=re.MULTILINE))
     if all_names == set(records):
-        lines = ['# B2反馈纠错与权力约束方向卡', '', '按实际反馈质量、表达保护、范围归责及反证恢复维护当前裁决。内部指数使用80刻度，按正式总则合成。', '', '缺证对象明确标为低置信度默认结算，不以缺少记载推定良好表现。', '', '## 逐人裁决与材料依据', '']
+        lines = ['# B2反馈纠错与权力约束方向卡', '', SCOPE_GUIDE, '',
+                 '内部指数使用80刻度，按正式总则合成。材料不足时采用低置信度默认结算，逐人标注为“缺证默认”。',
+                 '', '## 逐人裁决与材料依据', '']
         parts[0] = '\n'.join(lines) + '\n'
     return ''.join(parts).rstrip() + '\n'
 

@@ -1,7 +1,8 @@
 from copy import deepcopy
 import pytest
 from emperor_v4.evaluation.second_item_c_source_notes import (
-    CATALOG, NOTE, REF, compact_source_notes, source_note_records,
+    CATALOG, NOTE, REF, STANDARD_COLLECTION_SCOPE, STANDARD_SOURCE_NOTE, compact_source_notes,
+    source_note_records, specific_source_note, uses_shared_collection_scope,
 )
 
 
@@ -45,3 +46,19 @@ def test_invalid_storage_fails_closed(case):
 def test_no_default_note_is_invented():
     data = sample(); data['scores'][0].pop(NOTE)
     with pytest.raises(ValueError): compact_source_notes(data)
+
+
+def test_display_removes_only_exact_shared_introduction():
+    limit = '该书仅用于核对财政条目的年代。'
+    assert specific_source_note(STANDARD_SOURCE_NOTE) == ''
+    assert specific_source_note(STANDARD_SOURCE_NOTE + '\n\n' + limit) == limit
+    assert specific_source_note(limit) == limit
+    joined = STANDARD_SOURCE_NOTE + limit
+    assert specific_source_note(joined) == joined
+
+
+def test_only_material_collection_cards_can_share_the_standard_scope():
+    item = {'source_binding_kind': 'MATERIAL_COLLECTION', 'public_scope': STANDARD_COLLECTION_SCOPE}
+    assert uses_shared_collection_scope(item)
+    assert not uses_shared_collection_scope({**item, 'source_binding_kind': 'CLAIM_SUPPORT'})
+    assert not uses_shared_collection_scope({**item, 'public_scope': '该来源仅用于核对登记年代。'})

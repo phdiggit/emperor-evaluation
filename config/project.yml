@@ -145,6 +145,7 @@ formal_settlements:
     role: common_military
     json: docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.json
     markdown: docs/评分结算/净收益/第三项军事与边疆净收益/02-第三项正式结算.md
+    result_credit_json: docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/03-A120与B80结果信用正式裁决.json
     c_parent_cycle_audit_json: config/third-item/third-item-c-parent-cycle-adjudications.json
     c_parent_cycle_audit_markdown: docs/评分结算/净收益/第三项军事与边疆净收益/军事体系有效性/02-C父周期逐人语义审计.md
     c_strategy_chain_adjudications: config/third-item/third-item-c-strategy-chain-adjudications.json
@@ -162,7 +163,7 @@ formal_settlements:
       command: third-fourth-item-public --write
       verify_command: third-fourth-item-public-verify
       source: formal_third_item_components_and_total
-      a_reading_source: config/third-item/third-item-result-credit-adjudications.json
+      a_reading_source: docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/03-A120与B80结果信用正式裁决.json
       a_reading_fields: axes.A1/A2.public_reading
       b_reading_source: docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json
       b_reading_fields: axes.B1/B2/B4.public_reading
@@ -187,15 +188,15 @@ formal_settlements:
     a_verify_command: fourth-item-a-verify
     a_reading_view_command: fourth-item-a-views --write
     a_reading_collection: reader/fourth-item-a.html
-    a_public_reading_source: axis_results.A.results_and_public_reading
+    a_public_reading_source: axis_results.A.results_and_decision_basis
     b_reading_collection: reader/fourth-item-b.html
     b_verify_command: fourth-item-b-verify
     b_reading_view_command: fourth-item-b-views --write
-    b_public_reading_source: axis_results.B.results_and_public_reading
+    b_public_reading_source: axis_results.B.results_and_decision_basis
     c_verify_command: fourth-item-c-verify
     c_reading_view_command: fourth-item-c-views --write
     c_reading_collection: reader/fourth-item-c.html
-    c_public_reading_source: axis_results.C.results_and_public_reading
+    c_public_reading_source: axis_results.C.results_and_decision_basis
     public_projection:
       schema_version: fourth-item-independent-results-v2
       command: third-fourth-item-public --write

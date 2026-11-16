@@ -52,6 +52,8 @@
 
   function card(entry, {supplement = false, record} = {}) {
     const api = globalThis.SecondItemMaterialCards;
+    const shared = typeof DATA === "undefined" ? [] : DATA.b1_scope_guide?.shared_material_boundaries || [];
+    const boundary = shared.includes(entry?.public_boundary) ? "" : entry?.public_boundary;
     const direction = String(entry?.public_direction || "");
     const tags = (Array.isArray(entry?.public_tags) ? entry.public_tags : [])
       .filter(tag => !/^(?:正向|负向|正负并存)/.test(String(tag)));
@@ -60,13 +62,14 @@
       direction,
       tags,
       body: entry?.public_basis,
-      boundary: entry?.public_boundary,
+      boundary,
       supplement,
       verbatim: true,
     }) : make("li", supplement ? "second-item-b1-card second-item-b1-supplement" : "second-item-b1-card");
     if (!api?.card) {
       li.append(make("strong", "", entry?.public_label || "行政运行机制"));
       if (entry?.public_basis) li.append(make("p", "", entry.public_basis));
+      if (boundary) li.append(detailsBlock("材料采用范围", boundary));
     }
     if (entry?.source_excerpts?.length) {
       const materials = make("details", "second-item-b1-sources");
@@ -174,8 +177,8 @@
     reading.append(group("边界材料（不单独计入）", groups.boundary, {record}));
     body.append(reading);
 
-    const boundaryText = item.reader_boundary;
-    const boundary = detailsBlock("总体范围与边界", boundaryText);
+    const guide = typeof DATA === "undefined" ? null : DATA.b1_scope_guide;
+    const boundary = detailsBlock("行政执行的评价范围", guide?.text || item.reader_boundary);
     if (boundary) body.append(boundary);
 
     const scoreHow = globalThis.SecondItemScoreHowDetails?.(item, "B1官僚治理");

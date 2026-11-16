@@ -44,16 +44,16 @@ def test_historical_source_links_use_registered_document_location(tmp_path, monk
     target = tmp_path / 'docs/fact.json'
     target.parent.mkdir(parents=True)
     target.write_text('{}', encoding='utf-8')
-    source = dict(path='docs/fact.json', title='合成材料')
-    row = dict(public_total_basis='合成评价', macro_chains=[], public_boundary='合成范围',
+    source = dict(kind='LOCAL_FORMAL_DOCUMENT', path='docs/fact.json', title='合成材料')
+    row = dict(ruler_id='SYNTHETIC', public_total_basis='合成评价', macro_chains=[], public_boundary='合成范围',
                confidence_basis='合成置信依据',
                dimensions={key: dict(grade='B', public_basis='合成维度') for key in impact.DIMENSIONS})
-    sources = dict(events=[], dimensions={key: [] for key in impact.DIMENSIONS})
+    sources = dict(chains=[], events=[], dimensions={key: [] for key in impact.DIMENSIONS}, imported_scope_note='')
     (tmp_path / 'input.json').write_text(json.dumps(source), encoding='utf-8')
     monkeypatch.setattr(views, 'view_sources', lambda root: {path: ('impact', 'input.json')})
     monkeypatch.setattr(impact, 'render', lambda payload, **options:
                         '\n'.join(impact._render_public_story(
-                            row, dict(sources, documents=[payload]), options.get('document_path', ''))))
+                            dict(row, source_refs=[payload]), sources, options.get('document_path', ''))))
     files = views.render_views(tmp_path)
     href = re.search(r'\]\(([^)]+)\)', files[path])[1]
     resolved = (tmp_path / Path(path).parent / unquote(urlsplit(href).path)).resolve()
@@ -81,12 +81,17 @@ def test_package_renders_missing_or_stale_views_without_writing_them(tmp_path, m
 
 def test_ab_view_rebuilds_from_both_json_inputs_without_old_markdown(tmp_path, monkeypatch):
     from emperor_v4.evaluation import five_dynasties_third_item as renderer
+    from emperor_v4.evaluation.formal_json_store import write_polity_routed_json
     from emperor_v4.evaluation.third_fourth_item_public import THIRD_CREDIT_PATH
     formal = tmp_path / 'formal.json'
     formal.write_text(json.dumps({'records': [{'ruler_id': 'X', 'fact': '当前正式事实'}]}), encoding='utf-8')
-    credit = tmp_path / THIRD_CREDIT_PATH; credit.parent.mkdir(parents=True)
-    credit.write_text(json.dumps({'records': [{'ruler_id': 'X', 'basis': '当前信用依据'}]}), encoding='utf-8')
-    original = {p: p.read_bytes() for p in (formal, credit)}
+    credit = tmp_path / THIRD_CREDIT_PATH
+    manifest = write_polity_routed_json(
+        credit, {'records': [{'ruler_id': 'X', 'basis': '当前信用依据'}]},
+        ruler_polities={'X': '合成朝代'},
+    )
+    shard = credit.parent / manifest['routes'][0]['path']
+    original = {p: p.read_bytes() for p in (formal, credit, shard)}
     monkeypatch.setattr(renderer, '_render_formal_markdown', lambda kind, rows, *, credit_rows:
                         rows[0]['fact'] + '；' + credit_rows['X']['basis'] + '\n')
     monkeypatch.setattr(views, 'view_sources', lambda root: {'reading.md': ('third.AB', 'formal.json')})

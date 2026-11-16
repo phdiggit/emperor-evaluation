@@ -931,6 +931,56 @@
   .axis-further-check{padding:8px 10px}
 }
 
+/* Home result cards: compact identity, full public profile results. */
+.home-result-card .home-result-period{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.home-result-card .home-person-summary{margin-top:18px;font-size:15px;line-height:1.8}
+.home-result-card .home-result-background{margin-top:16px;padding:8px 0 0;font-size:12px;color:var(--muted)}
+.home-result-background .governance-scope{margin-top:8px}
+.home-result-card .home-eval-profile{padding:12px 14px}
+.home-result-card .home-eval-profile .home-simple-label{margin-bottom:2px}
+.home-result-radar{display:block;width:100%;height:180px;overflow:visible}
+.home-result-radar text{font-size:12px;fill:var(--ink)}
+.home-result-radar .home-radar-grade{font:14px Georgia,serif;fill:var(--green);font-weight:600}
+.home-radar-grid{fill:none;stroke:var(--line);stroke-width:1}
+.home-radar-shape{fill:#2865591c;stroke:var(--green);stroke-width:1.7}
+.home-radar-point{fill:var(--green)}
+.home-result-axis-table{display:none}
+.home-result-unavailable{display:block;font-size:12px;color:var(--muted);line-height:1.7}
+.home-result-card .home-eval-static:hover{transform:none}
+.home-result-profile-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px;width:100%;margin-bottom:4px}
+.home-result-style{display:inline-flex;align-items:baseline;gap:7px;white-space:nowrap;font-size:11px;color:var(--muted)}
+.home-result-style b{font:15px Georgia,serif;color:var(--gold)}
+.home-result-axis-note{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;width:100%;margin-top:3px;font-size:10px;color:var(--muted)}
+.home-result-net-result,.home-result-impact-result{display:flex;flex:1;flex-direction:column;justify-content:center;align-items:center;width:100%;gap:8px;padding-bottom:18px;text-align:center}
+.home-result-impact-heading{display:flex;flex-direction:column;gap:6px;align-items:center}
+.home-result-card .home-result-impact-heading .impact-home-meaning{font-size:16px;color:var(--red);text-wrap:balance}
+.home-result-card .home-result-impact-heading .impact-grade{font-size:36px;line-height:1.15}
+.home-result-impact-result>small{font-size:11px;margin-top:3px}
+@media(max-width:700px){
+ .home-result-card.home-simple-card{grid-template-columns:1fr}
+ .home-result-card .home-simple-cell{grid-column:1;border-left:0;border-top:1px solid var(--line)}
+ .home-result-card .home-simple-identity{grid-column:1;border-bottom:0}
+ .home-result-card .home-person-summary{margin-top:10px;font-size:14px;line-height:1.65}
+ .home-result-card .home-result-background{margin-top:10px;padding-top:6px}
+ .home-result-card .home-eval-card{min-height:0;padding:10px 14px}
+ .home-result-card .home-eval-net{display:flex;flex-direction:row;align-items:center;gap:10px}
+ .home-result-card .home-eval-net .home-simple-label{flex:0 0 auto}
+ .home-result-card .home-result-net-result{align-items:flex-end;padding:0;gap:0;text-align:right}
+ .home-result-card .home-simple-score{font-size:25px}
+ .home-result-card .home-net-rank{font-size:12px;margin:0}
+ .home-result-card .home-result-radar{display:none}
+ .home-result-axis-table{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px;width:100%;margin:3px 0 7px}
+ .home-result-axis{display:grid;grid-template-columns:minmax(0,1fr) 2.4em;align-items:center;gap:5px;padding:3px 0;font-size:12px}
+ .home-result-axis b{font:16px Georgia,serif;color:var(--green);text-align:left}
+ .home-axis-with-status .home-result-axis{grid-template-columns:minmax(0,1fr) 4em}
+ .home-result-axis b.home-axis-status{font:11px/1.5 "Microsoft YaHei",sans-serif;color:var(--muted)}
+ .home-result-card .home-result-impact-result{display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 8px;padding:0;text-align:left}
+ .home-result-card .home-result-impact-heading{flex-direction:row;justify-content:flex-start;gap:10px}
+ .home-result-card .home-result-impact-heading .impact-home-meaning{font-size:14px}
+ .home-result-card .home-result-impact-heading .impact-grade{font-size:25px}
+ .home-result-impact-result>small{grid-column:1/-1;margin:0}
+}
+
 /* Home result-card redesign: identity + three equal reading entrances. */
 .home-simple-card{
   grid-template-columns:minmax(250px,1.25fr) minmax(185px,.82fr) minmax(290px,1.25fr) minmax(190px,.82fr);
@@ -945,6 +995,7 @@
 .home-simple-identity>small{display:block;margin-top:8px}
 .home-simple-identity .inline-table-filter{padding:0;border:0}
 .home-power-window{max-width:30ch;line-height:1.6}
+.home-person-summary{margin:8px 0 0;font-size:14px;line-height:1.55}
 .home-eval-card{
   position:relative;
   display:flex;
@@ -1173,6 +1224,7 @@
 .third-a-type{display:inline-block;padding:2px 9px;border:1px solid var(--line);border-radius:12px;background:var(--panel-soft,#f3f4ee);font-size:12px;color:var(--green)}
 .third-a-states{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}
 .third-a-states>section{padding:12px 14px;background:var(--panel-soft,#f3f4ee);border-radius:5px}
+.third-a-states>section:only-child{grid-column:1/-1}
 .third-a-states h4{margin:0 0 8px}.third-a-states .prose{margin:0;line-height:1.85}
 @media(max-width:700px){.third-a-states{grid-template-columns:1fr}}
 .first-cost-section{margin:14px 0}.first-cost-section h4{margin:0 0 6px;font-size:14px}.first-cost-section .prose{margin:0;line-height:1.9}
@@ -1324,6 +1376,7 @@ header>nav{align-items:center;flex-wrap:wrap}
 .narrative-sources blockquote{white-space:pre-wrap;font-size:13px;line-height:1.8}
 .narrative-sources h3{font-size:15px}
 .narrative-sources>section[id]{scroll-margin-top:65px}
+.net-metric-detail[data-second-source-label]{scroll-margin-top:65px}
 .narrative-profile-grades{margin:20px 0;padding:14px 0;border-top:1px solid var(--line)}
 .narrative-profile-grades>summary{font-size:14px;color:var(--green);cursor:pointer}
 #screen:has(.person-narrative) .single-system-evidence{margin:16px 0 0;padding:0;background:transparent;border:0}
@@ -1343,15 +1396,11 @@ header>nav{align-items:center;flex-wrap:wrap}
 #screen .explore-summary span{font:inherit;color:inherit;letter-spacing:normal}
 #screen .explore-profile,#screen .explore-evidence{--explore-ink:#234b42;--explore-line:#d7dfd5;background:#fcfbf7;border:1px solid var(--line);border-top:3px solid #739486;border-radius:7px;color:var(--explore-ink);box-shadow:0 5px 22px #234b4208}
 #screen .explore-summary:hover,#screen .explore-summary:focus-visible{color:var(--explore-ink)}
-#screen .explore-kicker{font-size:11px;font-weight:600;letter-spacing:3px;opacity:.8}
 #screen .explore-title{display:block;font:600 25px/1.4 "Microsoft YaHei",sans-serif;letter-spacing:0}
-#screen .explore-description{display:block;font-size:14px;line-height:1.7;opacity:.9;max-width:46em}
 #screen .explore-preview{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
 #screen .explore-grade{display:flex;align-items:center;gap:16px;border:1px solid #d7dfd5;background:#edf2ec;border-radius:6px;padding:8px 12px;font-size:12px}
 #screen .explore-grade b{font:23px/1 Georgia,serif;color:#234b42}
 #screen .explore-grade-scope{display:block;margin-top:3px;font-size:11px;line-height:1.4;color:#52675e}
-#screen .explore-topics{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-#screen .explore-topics>span{border:1px solid #d7dfd5;border-radius:5px;padding:5px 10px;font-size:12px;background:#edf2ec}
 #screen .explore-action{display:flex;align-items:center;justify-content:space-between;margin-top:5px;padding-top:13px;border-top:1px solid var(--explore-line);font-size:13px;font-weight:600}
 #screen .explore-action>span:last-child{font-size:23px;line-height:1}
 #screen .explore-open{display:none}
@@ -1361,3 +1410,7 @@ header>nav{align-items:center;flex-wrap:wrap}
 @media(hover:hover){#screen .explore-summary:hover{box-shadow:0 8px 24px #243d371c;border-color:#739486}}
 @media(max-width:600px){#screen .explore-summary{padding:21px 20px;gap:10px}#screen .explore-title{font-size:21px}#screen .explore-grade{gap:10px;padding:7px 9px}#screen .explore-preview{gap:7px}}
 @media(prefers-reduced-motion:reduce){#screen .explore-summary{transition:none}}
+.narrative-evidence-note{margin:14px 0;padding:0 0 12px;border-bottom:1px solid var(--line)}
+.narrative-evidence-note>p{margin:7px 0;line-height:1.8}
+.narrative-evidence-note>details{font-size:13px;color:var(--muted)}
+.narrative-evidence-note:last-child{border-bottom:0}

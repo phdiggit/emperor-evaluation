@@ -109,6 +109,10 @@
     const id = locationId();
     if (id === '') return;
     if (id === null) return showLocationNote('人物或材料定位地址无效。');
+    if (id === 'third-c-grade-guide' || id === 'third-c-task-scope') {
+      document.getElementById(id)?.scrollIntoView();
+      return;
+    }
     const entry = entryForLocation(id);
     if (!entry) return showLocationNote('未找到链接指定的人物记录。');
     await ready;

@@ -40,5 +40,21 @@
       `<section class="fourth-reason-topic"><h4>${title}</h4>${paragraphs(text.slice(offsets[index], offsets[index + 1]), prose)}</section>`
     ).join("");
   }
-  globalThis.FourthItemReasons = Object.freeze({decision});
+  function sharedContext(data, prose) {
+    const common = data.common_result_basis
+      ? `<section><h4>各条结果的共同依据</h4>${prose(data.common_result_basis)}</section>`
+      : "";
+    const fields = [["比较起点", data.baseline], ["本人责任", data.display_responsibility ?? data.responsibility], ["交班与延续", data.duration]]
+      .filter(([, text]) => text);
+    const scope = fields.map(([label, text]) => `<section><h4>${label}</h4>${prose(text)}</section>`).join("");
+    return common + (scope ? `<details><summary>${fields.map(([label]) => label).join("、")}</summary>${scope}</details>` : "");
+  }
+
+  function calculation(data, prose, {collection, axis}) {
+    const guide = collection ? "" : `<p class="sources"><a href="fourth-item-${axis}.html#fourth-common-rules">评价范围与计分规则 →</a></p>`;
+    return data.evidence_items.length
+      ? `<details><summary>分数怎样合成</summary>${prose(data.calculation)}${guide}</details>` : guide;
+  }
+
+  globalThis.FourthItemReasons = Object.freeze({decision, sharedContext, calculation});
 })();

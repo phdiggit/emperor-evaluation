@@ -62,7 +62,7 @@ def test_third_refresh_never_persists_c_derived_public_fields(monkeypatch):
     row = payloads['C']['records'][0]
     row.update(public_reading=copy.deepcopy(authored), public_evidence_items=[dict(public_basis='旧副本。')],
                public_adjudication_summary='过期汇总。', public_axis_projections={'C1': {}})
-    for name in ('_credit_projection', '_ab_projection', '_d_projection', '_third_projection'):
+    for name in ('_credit_projection', '_strip_ab_public_copies', 'ab_public_record'):
         monkeypatch.setattr(public, name, lambda *args, **kwargs: {})
     monkeypatch.setattr(public, '_third_projection', lambda *args: dict(
         public_adjudication_summary='可重建汇总。', public_evidence_items=[],
@@ -162,13 +162,12 @@ def test_fourth_summary_uses_axis_order_and_never_a_stale_root_copy():
 
 
 def test_ab_projection_reads_a_from_credit_and_keeps_b_in_its_axis(monkeypatch):
-    import json
     def projection(label, story):
         return public._projection(summary=story, items=[public._item(
             'THIRD-AB', 'synthetic', label, label, '现行裁决叙述', story, '合成范围。')],
             boundary='合成范围。', level_label='合成等级', component_label=label)
 
-    credit = dict(axes={axis: projection('安全结果', '当前接班与交班事实。') for axis in ('A1', 'A2')})
+    credit = dict(ruler_id='synthetic', axes={axis: projection('安全结果', '当前接班与交班事实。') for axis in ('A1', 'A2')})
     row = dict(ruler_id='synthetic', public_b_source_catalog={}, axes={axis: dict(score_rate=0) for axis in ('A1', 'A2', 'B1', 'B2', 'B4')})
     # A stale duplicate must not override the source or survive a refresh.
     row['axes']['A1']['public_reading'] = dict(story='已经过期的事实。')
@@ -177,18 +176,21 @@ def test_ab_projection_reads_a_from_credit_and_keeps_b_in_its_axis(monkeypatch):
         evidence_items=[], sources=[], story='当前控制事实。', boundary='合成范围。',
         decision='当前控制裁决。', rate_note='合成得分率'))
     original_credit = copy.deepcopy(credit)
-    public._apply_projection(row, public._ab_projection(row, credit))
+    for axis in ('B1', 'B2', 'B4'):
+        row['axes'][axis]['public_reading'] = dict(story='当前控制事实。', calculation='可以重新生成。')
+    public._strip_ab_public_copies(row)
+    stored = copy.deepcopy(row)
+    projected = public.ab_public_record(row, credit)
     assert credit == original_credit
     assert 'public_axis_projections' not in row
     assert all(not any(k.startswith('public_') for k in row['axes'][axis]) for axis in ('A1', 'A2'))
-    assert all(row['axes'][axis]['public_reading']['story'] == '当前控制事实。' for axis in ('B1', 'B2', 'B4'))
-    assert '当前接班与交班事实。' in row['public_adjudication_summary']
+    assert all(row['axes'][axis]['public_reading'] == {'story': '当前控制事实。'} for axis in ('B1', 'B2', 'B4'))
+    assert 'public_adjudication_summary' not in row
+    assert '当前接班与交班事实。' in projected['public_adjudication_summary']
+    assert all(projected['axes'][axis]['public_evidence_items'] for axis in ('B1', 'B2', 'B4'))
     assert '过期' not in str(row)
-    first = copy.deepcopy(row)
-    serialized = json.dumps(row, ensure_ascii=False)
-    public._apply_projection(row, public._ab_projection(row, credit))
-    assert row == first
-    assert json.dumps(row, ensure_ascii=False) == serialized
+    assert public.ab_public_record(row, credit) == projected
+    assert row == stored
 
 
 def test_zero_ml_projection_preserves_unresolved_basis_without_inventing_gate_failure():
@@ -214,8 +216,11 @@ def test_translation_uses_domain_and_keeps_negation_and_quantities():
     assert translate('C4') == '军事成本第4级'
 
 
-@pytest.mark.parametrize('component', ['total', 'fourth'])
-def test_verifier_rejects_chinese_text_drift_without_internal_codes(component):
+@pytest.mark.parametrize(('component', 'error'), [
+    ('total', '公开文案与当前来源转述不一致'),
+    ('fourth', '不得保存可重建的公开阅读副本'),
+])
+def test_verifier_rejects_saved_public_summary_without_internal_codes(component, error):
     payloads = public._load_payloads(ROOT)
     # One aligned subject is sufficient to exercise drift rejection; do not revalidate the pool.
     rid = payloads['total']['records'][0]['ruler_id']
@@ -224,7 +229,7 @@ def test_verifier_rejects_chinese_text_drift_without_internal_codes(component):
         if key == 'fourth':
             payload['accepted_packages'] = [p for p in payload['accepted_packages'] if p['ruler_id'] == rid]
     payloads[component]['records'][0]['public_adjudication_summary'] = '多个、与形成完整证据。'
-    with pytest.raises(ValueError, match='公开文案与当前来源转述不一致'):
+    with pytest.raises(ValueError, match=error):
         if component == 'fourth':
             public._verify_fourth(payloads[component])
         else:

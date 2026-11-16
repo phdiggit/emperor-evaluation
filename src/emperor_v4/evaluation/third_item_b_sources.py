@@ -135,9 +135,36 @@ def display_sources(sources, *, battle_routes=None):
 
 
 def display_reading(reading, *, battle_routes=None):
-    return {**reading, 'sources': display_sources(supplemental_sources(reading), battle_routes=battle_routes),
-            'evidence_items': [{**item, 'sources': display_sources(item['sources'], battle_routes=battle_routes)}
-                               for item in reading['evidence_items']]}
+    from .reading_layout import passage_in_story
+    from .third_item_b_public import EQUAL_RATE_ADOPTION_BASIS, SHARED_BOUNDARY, SHARED_SOURCE_NOTE
+    projected = dict(reading)
+    review = reading.get('review_explanation')
+    if review and passage_in_story(reading['story'], review):
+        projected['display_review_explanation'] = ''
+    generic_responsibility = (
+        f'原记录将本人贡献归为“{reading["contribution_label"]}”，战略价值与交班成熟度上限为{reading["contribution_cap"]}档；'
+        '只核对本人窗口中的实际控制成果，不把继承存量自动当作本人新建。'
+    )
+    if reading['responsibility'] == generic_responsibility:
+        projected['display_responsibility'] = ''
+    measurement = reading.get('control_measurement') or ''
+    shown = measurement.removesuffix('当量是跨朝共同空间尺度，不等于现代面积或人口。')
+    if shown != measurement:
+        projected['display_control_measurement'] = shown.rstrip()
+    evidence = []
+    for item in reading['evidence_items']:
+        displayed = {**item, 'sources': display_sources(item['sources'], battle_routes=battle_routes)}
+        if passage_in_story(reading['story'], item['basis']):
+            displayed['display_basis'] = ''
+        evidence.append(displayed)
+    return {**projected, 'shared_boundary': reading['boundary'] == SHARED_BOUNDARY,
+            'shared_source_note': reading['source_note'] == SHARED_SOURCE_NOTE,
+            'shared_adoption_basis': (
+                reading.get('adoption_basis') == EQUAL_RATE_ADOPTION_BASIS
+                and reading.get('raw_rate') == reading.get('adopted_rate')
+            ),
+            'sources': display_sources(supplemental_sources(reading), battle_routes=battle_routes),
+            'evidence_items': evidence}
 
 
 def pack_sources(row):

@@ -6,7 +6,6 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any, Mapping
 
-from emperor_v4.json_format import json_text
 from emperor_v4.evaluation.formal_json_store import (
     load_json,
     load_ruler_polities,
@@ -37,16 +36,6 @@ RATE_TO_BAND = {
 
 def _read(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
-
-def _write_atomic(path: Path, payload: Mapping[str, Any]) -> None:
-    temporary = path.with_name(f".{path.name}.b1-write-tmp")
-    temporary.write_text(
-        json_text(payload),
-        encoding="utf-8",
-        newline="\n",
-    )
-    temporary.replace(path)
 
 
 def _detailed_rate(row: Mapping[str, Any]) -> float:
@@ -382,7 +371,7 @@ def rebuild_third_item_b1(workspace_root: Path, *, write: bool = False) -> dict[
     ab_path = workspace_root / AB_PATH
     credit_path = workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH
     ab_payload = deepcopy(load_json(ab_path))
-    credit_payload = deepcopy(_read(credit_path))
+    credit_payload = deepcopy(load_json(credit_path))
     ab_by_id = {str(row["ruler_id"]): row for row in ab_payload["records"]}
     credit_by_id = {str(row["ruler_id"]): row for row in credit_payload["records"]}
     if set(ab_by_id) != set(decisions) or set(credit_by_id) != set(decisions):
@@ -419,11 +408,12 @@ def rebuild_third_item_b1(workspace_root: Path, *, write: bool = False) -> dict[
     if not write:
         return report
 
-    _write_atomic(credit_path, credit_payload)
+    ruler_polities = load_ruler_polities(workspace_root)
+    write_json(credit_path, credit_payload, ruler_polities=ruler_polities)
     write_json(
         ab_path,
         ab_payload,
-        ruler_polities=load_ruler_polities(workspace_root),
+        ruler_polities=ruler_polities,
     )
     third = write_current_third_item_settlement(workspace_root)
     report.update(

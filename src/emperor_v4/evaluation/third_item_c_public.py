@@ -12,13 +12,18 @@ SCALES=((
  '核心任务整体失去作战能力','主要任务反复不能兑现','能执行重要或区域任务，主要任务总体偏弱',
  '通常任务有可靠执行，高难复验或压力覆盖有边界','高难主要任务充分交付并有独立复验，整体可靠',
  '多个高阶体系、跨期主要任务持续顶级兑现，并有本项外战复验'),)
-METHOD='先确定整体档位，再按低、中、高位分别取该档得分率区间的25%、50%、75%处。以50分乘得分率，四舍五入至一位；五档也不自动满分。'
-COMBAT_GUIDE='同时考察对手、作战过程、实际战果、失败程度，以及军队能否在同一压力下恢复。对手强大或条件困难只是高难任务的前提，不直接决定档位；同一任务不按阶段重复算作多次成功。'
+METHOD='先确定整体档位。低、中、高位分别取该档得分率区间的25%、50%、75%处，五档也用同一规则。以50分乘得分率，四舍五入至一位小数。'
+COMBAT_GUIDE='判断难度和表现时，合看对手、实际作战约束、军队如何行动、交付了什么，以及受挫后能否恢复。同一任务的多个阶段合计为一次任务。'
 ASSESSMENT_SCOPE='任内战争与仅用于观察能力的其他阶段分开。最高档还须经多个强大军事体系、跨期主要任务及本人任内对外战争的实战检验。'
 REVIEW_NOTE='档位与位置来自正式联合裁决；保障、组织事实不独立计分。未审材料与未知不当作零失败。'
 REVIEW_LABELS={'SOURCE_SUPPORTED':'有明确采用依据','SPECIFIC_SOURCE_GAP':'必要证据不足'}
 AUDIT_TERMS=(('高难阶段','实际约束与重大军事交付必须同时成立。'),('独立复验','按实际任务和压力变化判断，同役阶段不重复计算。'))
 AUDIT_LINK_NOTE='来源链接只按正式记录已有绑定展示；有链接不等于史料已穷尽。'
+SHARED_READING_TEXT = {
+    'responsibility': '评价本人实际掌权时期国家军队的表现。皇帝承担战略与资源配置责任，具体将领的临阵指挥另按事实归属。',
+    'boundary': '只采用已核实且属于本人掌权时期的材料；前任、后任及盟军的作用分别说明。材料不足处保留未知。',
+    'source_note': '先看战事摘要；需要核对时，再展开对应记录与来源摘录。各条材料共同支撑整体评价，不按条数计分。',
+}
 
 
 def material_source_label(source):
@@ -116,7 +121,7 @@ def calculation(row):
         formula=f'50 × {fmt(rate)} ÷ 100，四舍五入至一位＝{fmt(points)}分。',method=METHOD)
 
 def reading_projection(row, *, context):
-    from .third_item_c_contract_reading import reading_review
+    from .third_item_c_contract_reading import reading_review, task_display_basis
     from .third_item_c_commander_reading import commander_projection
     p=deepcopy(row.get('public_reading'))
     if not isinstance(p,dict) or p.get('schema_version')!='third-item-c-joint-public-v1':
@@ -156,6 +161,8 @@ def reading_projection(row, *, context):
                     passage['reading_volume'] = volume
         if e['kind'] != '史料原文':
             e['text'] = editorial_passage(e['text'])
+        if e['scope'] == '本人掌权时期的已核材料；同一任务的不同阶段不重复计功。':
+            e['display_scope'] = ''
     g=grade(row['final_grade']);a=row['joint_assessment']
     p['axes']={'C1':dict(label=LABELS[0],grade=g,grade_label='待定' if g is None else str(g)+'档',
         basis=p['story'],assessment_guide=COMBAT_GUIDE,scale=SCALES[0],materials=items,
@@ -168,7 +175,20 @@ def reading_projection(row, *, context):
         audit_link_note=AUDIT_LINK_NOTE,ruler_id=row['ruler_id'])
     for task in p['contract_review']['chains'] + p['contract_review']['excluded_chain_reviews']:
         task['basis'] = editorial_passage(task['basis'])
+    for task in p['contract_review']['chains']:
+        basis = task_display_basis(task['basis'])
+        if basis != task['basis']:
+            task['display_basis'] = basis
     p['commander_profiles']=commander_projection(row)
+    for field, common in SHARED_READING_TEXT.items():
+        text = p[field]
+        if text == common:
+            p['display_' + field] = ''
+        elif text.startswith(common + ' '):
+            p['display_' + field] = text[len(common):].lstrip()
+    responsibility = p.get('display_responsibility', p['responsibility'])
+    if responsibility == p.get('display_boundary', p['boundary']):
+        p['display_boundary'] = ''
     return p
 
 def _json_passage_matches(document, anchor, quote):
@@ -244,13 +264,17 @@ def verify_sources(root,payload,*,context=None):
 
 def markdown(row,*,context):
     from .third_item_c_contract_reading import markdown_review
-    p=reading_projection(row,context=context);a=row['joint_assessment']
+    p=reading_projection(row,context=context)
     lines=[p['calculation']['total_label'],'',p['window'],'',p['story'],'',
-        '档内位置：'+p['position_explanation'],'',
-        p['responsibility'],'',p['boundary'],'',p['source_note'],'']
+        '档内位置：'+p['position_explanation'],'']
+    for field in SHARED_READING_TEXT:
+        if text := p.get('display_' + field, p[field]):
+            lines += [text, '']
     for e in p['evidence_items']:
-        lines+=['#### '+e['label'],'',e['kind']+'：'+e['text'],'',e['scope'],'',
-            '所引材料：'+'；'.join(e['reading_source_labels']),'']
+        lines+=['#### '+e['label'],'',e['kind']+'：'+e['text'],'']
+        if scope := e.get('display_scope', e['scope']):
+            lines += [scope, '']
+        lines += ['所引材料：'+'；'.join(e['reading_source_labels']),'']
         for source in e.get('public_originals', []):
             lines += [f"[{source['title']}]({source['url']})", '', source['context'], '',
                       '> ' + source['quote'].replace('\n', '\n> '), '']
@@ -270,5 +294,6 @@ def markdown(row,*,context):
             lines+=['- '+commander['name']+' · '+commander['grade_label']+'：'+commander['qualification_text']]
             for result in commander['own_window_results']:lines+=['  - '+result['label']]
         lines+=['']
-    lines+=[markdown_review(p['contract_review']),'',p['calculation']['formula'],'']
+    lines += [markdown_review(p['contract_review']), '', p['calculation']['formula'], '',
+             '[档位与计分规则](#third-c-grade-guide)', '']
     return '\n'.join(lines)

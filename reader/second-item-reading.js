@@ -90,38 +90,28 @@
     if(!location.hash.match(/^#net\/[^/?#]+\/second(?:\/|$)/))return;const body=document.getElementById("net-major-body"),container=body?.querySelector(':scope > .narrative-evidence')||body;if(!container||[t.methodScore,t.resultScore,t.handoffScore,t.totalScore].some(v=>v==null))return;
     const takeaway=personConclusion(t,record);let summary=container.querySelector(":scope > .second-item-reader-summary");if(!summary){summary=document.createElement("section");summary.className="second-item-reader-summary";container.insertBefore(summary,container.querySelector(':scope > summary')?.nextSibling||container.firstChild);}
     const key=[t.methodScore,t.resultScore,t.handoffScore,t.totalScore,t.c4,takeaway].join("|");
-    if(summary.dataset.secondRenderKey!==key){summary.innerHTML=`<h2>先看治国结论</h2><p class="second-item-person-conclusion">${safeText(takeaway)}</p><div class="second-item-total-grid">${groupJudgments(t).map(([title,judgment])=>`<div><strong>${safeText(title)}</strong><p>${safeText(judgment)}</p></div>`).join("")}</div><p class="subline">各子项按 E、D、C、B、A、S 从低到高表示；民生三项展示主要状态，低谷另作修正。恢复与额外代价单列净调整。</p><details class="second-item-formula"><summary>计分原分怎么算？</summary><p>制度与行政 ${fmt(t.methodScore)} / 165；民生与社会 ${fmt(t.resultScore)} / 202；政权交接 ${fmt(t.handoffScore)} / 20。</p><div class="second-item-equation">${fmt(t.methodScore)} + ${fmt(t.resultScore)} + ${fmt(t.handoffScore)} = <strong>治国成效 ${fmt(t.totalScore)} / 387</strong></div><p class="subline">这些是不同权重的计分块，不直接等同于好坏档位。本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”。小数位来自统一计分公式，不表示历史判断本身具有同等测量精度。</p></details>`;summary.dataset.secondRenderKey=key;}
+    if(summary.dataset.secondRenderKey!==key){summary.innerHTML=`<h2>治国结论与分项评价</h2><p class="second-item-person-conclusion">${safeText(takeaway)}</p><div class="second-item-total-grid">${groupJudgments(t).map(([title,judgment])=>`<div><strong>${safeText(title)}</strong><p>${safeText(judgment)}</p></div>`).join("")}</div><p class="subline">民生三项展示主要状态，低谷另作修正；恢复与额外代价单列净调整。</p><details class="second-item-formula"><summary>等级与计分原分怎样读？</summary><p>各子项按 E、D、C、B、A、S 从低到高表示。下列计算使用计分原分；各组的小计说明保留具体折算与上限。</p><p>制度与行政 ${fmt(t.methodScore)} / 165；民生与社会 ${fmt(t.resultScore)} / 202；政权交接 ${fmt(t.handoffScore)} / 20。</p><div class="second-item-equation">${fmt(t.methodScore)} + ${fmt(t.resultScore)} + ${fmt(t.handoffScore)} = <strong>治国成效 ${fmt(t.totalScore)} / 387</strong></div><p class="subline">这些是不同权重的计分块，不直接等同于好坏档位。本项量表理论范围为 -27.5～387。0不是及格线、历史平均或“中性线”。小数位来自统一计分公式，不表示历史判断本身具有同等测量精度。</p></details>`;summary.dataset.secondRenderKey=key;}
     const page=document.querySelector(".net-detail-page"),intro=page?.querySelector(":scope > .panel");
     if(intro&&record.reader_narratives?.second){intro.querySelectorAll(':scope > p').forEach(node=>node.hidden=true);return;}
-    if(intro){const main=Array.from(intro.querySelectorAll(":scope > p")).find(p=>!p.classList.contains("subline")),score=intro.querySelector(":scope > p.subline");setNodeText(main,"治国成效看三件事：国家机器如何运转、统治时期民生与社会表现如何、离场时能否留下稳定可运行的交接。军事、边疆与统一功业另在其他板块评价。");setNodeText(score,"先读各项等级与历史依据；计分原分和折算方法见下方计算说明。");}
+    if(intro){const main=Array.from(intro.querySelectorAll(":scope > p")).find(p=>!p.classList.contains("subline")),score=intro.querySelector(":scope > p.subline");setNodeText(main,"从制度运转、百姓处境和政权交接读治国表现；军事、边疆与统一功业另行评价。");if(score)score.hidden=true;}
   }
 
   function ensureMethodGroup(t){
     const section=document.getElementById("net-group-method");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"制度与行政");
-    addGroupIntro(section,"method","这一组看国家机器如何建立规则、配置官僚并形成反馈约束。先读等级和历史依据，原始指数与折算方法见计算说明。");
+    addGroupIntro(section,"method","看规则如何落地、官员如何任用与考核，以及信息和异议能否上达。");
     for(const label of ["A制度建设","B1官僚治理","B2反馈与约束"]){const item=t.method.get(label),detail=metricDetail(section,[label,PUBLIC_LABELS[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;}
-  }
-  function ensureC4Note(detail,value){
-    const body=detail?.querySelector(":scope > .net-metric-body");if(!body)return;let note=body.querySelector(":scope > .second-item-c4-note");if(!note){note=document.createElement("p");note.className="second-item-c4-note";body.insertBefore(note,body.firstChild);}
-    if(value==null)setNodeText(note,"这是净调整项，不与前三项使用同一满分尺度；具体正负构成以下方正式裁决为准。");
-    else if(value>0)setNodeText(note,"这是净调整项。正数表示恢复增量在扣除本人可归责恶化与额外民力、治理成本后仍有净加分。");
-    else if(value<0)setNodeText(note,"这是净调整项。负数表示本人可归责恶化和/或额外民力、治理成本超过恢复增量，形成净扣分；具体构成以下方正式裁决为准。");
-    else setNodeText(note,"本调整项为0只表示这里的净调整为0：可能没有新增可计变化，也可能相关恶化已经在前三项中体现而不再重复扣。0不等于“没有问题”。");
   }
   function ensureFinanceGroup(t){
     const section=document.getElementById("net-group-finance");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"民生与社会");
     if(!section.querySelector("[data-c-collection-link]")){const p=document.createElement("p");p.dataset.cCollectionLink="true";const a=document.createElement("a");a.href="second-item-c.html";a.textContent="阅读全池民生与社会 →";p.append(a);section.insertBefore(p,section.children[1]||null);}
-    addGroupIntro(section,"finance","这一组看统治时期的民生、经济财政、社会安全，以及恢复与额外成本。恢复、本人造成的恶化与额外代价另列净调整；原分小计见下方计算说明。");
+    addGroupIntro(section,"finance","分别看家庭生活、生产财政与社会安全；恢复、本人造成的恶化和额外负担单列。");
     for(const label of ["C1民生","C2经济财政","C3社会安全"]){const item=t.finance.get(label),detail=metricDetail(section,[label,PUBLIC_LABELS[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;}
     const item=t.finance.get("C4恢复与成本"),detail=metricDetail(section,["C4恢复与成本","恢复与额外成本（C4）","C4恢复、恶化与额外成本调整"]);markSourceLabel(detail,"C4恢复与成本");
-    if(item&&detail){setMetricDisplay(detail,`${signedFmt(item.value)} 原分`,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)),"恢复与额外成本");ensureC4Note(detail,item.value);}
+    if(item&&detail)setMetricDisplay(detail,`${signedFmt(item.value)} 原分`,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)),"恢复与额外成本");
   }
   function ensureHandoffGroup(t){
     const section=document.getElementById("net-group-handoff");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"政权交接");
-    const d1i=t.handoff.get("D1继任行政连续性"),d3i=t.handoff.get("D3政权交接稳定"),d1=finite(d1i?.value),d3=finite(d3i?.value),cap=finite(t.handoff.get("低侧封顶")?.value),score=t.handoffScore;
-    let exp="统治如何收尾，会直接决定国家机器和继承秩序能否平稳延续，因此交接结果计入治国成效。行政连续性看旧国家机器有多少被接住，交接稳定看继承过程是否稳定。";
-    if([d1,d3,cap,score].every(v=>v!=null))exp=`行政连续性为 ${handoffGrade(d1)}档，交接稳定为 ${handoffGrade(d3)}档。两项共同决定交接表现；原分、上限与折算方法见本组小计。`;
-    addGroupIntro(section,"handoff",exp);
+    addGroupIntro(section,"handoff","分别看行政能否接续，以及最高权力能否平稳交接。");
     if(!section.querySelector(":scope > .d-collection-link")){
       const p=document.createElement("p");p.className="d-collection-link";
       const a=document.createElement("a");a.href="second-item-d.html";a.textContent="查看政权交接全池正文与史料 ↗";p.append(a);section.insertBefore(p,section.querySelector(":scope > .net-metric-detail"));

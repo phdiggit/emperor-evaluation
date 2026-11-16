@@ -16,6 +16,9 @@ from typing import Any
 
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation import governance_state_recovery as gov_math
+from emperor_v4.evaluation.rank_reading import (
+    ASSESSMENT_BASIS, PARTIAL_ASSESSMENT_SUFFIX, PARTIAL_SCORE_SUFFIX, SCORE_INTERVAL_BASIS,
+)
 
 COST_REVIEW = Path('config/common/prudent-military-cost-grade-reviews.json')
 GOV_REVIEW = Path('config/common/prudent-governance-grade-scenarios.json')
@@ -405,10 +408,9 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
         review=reviews.get(rid)
         per_axis_methods = {axis: axis_reviews[(source_id,axis)]['decision_final']
                             for axis in gov_math.AXES if (source_id,axis) in axis_reviews}
-        basis = '依低置信逐轴终裁的合法端点计算现有史料审慎区间；不是统计置信区间或未来史料的绝对界。'
         row['prudent_score_interval']={
             'lower':low,'upper':high,
-            'basis':basis,
+            'basis':SCORE_INTERVAL_BASIS,
             'confidence_scope':'CURRENT_CORPUS_EVIDENCE_REVIEW_NOT_PROBABILITY',
             'governance_main_review_methods':per_axis_methods,
             'cost_review':None if review is None else {
@@ -442,7 +444,7 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
             interval['unquantified_reviews'] = unquantified[rid]
             interval['coverage_status'] = 'PARTIAL_RANGE_WITH_UNQUANTIFIED_GAPS'
             interval['endpoint_attainability'] = 'QUANTIFIED_PART_ONLY_NOT_COMPLETE_EVIDENCE_RANGE'
-            interval['basis'] += ' 另有明确未量化缺口；本区间只覆盖可量化部分，不是全部证据解释的完整边界。'
+            interval['basis'] += PARTIAL_SCORE_SUFFIX
             row['prudent_rank_projection']['coverage_status'] = 'QUANTIFIED_PART_ONLY'
         assessment=row.get('evidence_assessment',{})
         projection=assessment.get('public_projection',{})
@@ -453,13 +455,12 @@ def attach(root: Path, records: list[dict[str,Any]]) -> dict[str,int]:
                 label='现有史料审慎单点；来源限制已说明'
             else:
                 label='现有史料审慎单点'
-            basis=('正式分数和名次采用当前裁决。现有史料审慎区间按逐人条件档位与联动另列；'
-                   '候选端点并非已采信的替代分数，亦不生成候选名次。新增史料可以重开。')
+            basis=ASSESSMENT_BASIS
             projection.update(score_label=label,public_basis=basis)
             assessment.update(score_label=label,public_basis=basis)
             if unquantified.get(rid):
                 label='可量化部分已列；另有未量化证据缺口'
-                basis+=' 未量化事项不作零分差，不据已列区间宣称完整分数或名次范围。'
+                basis+=PARTIAL_ASSESSMENT_SUFFIX
                 projection.update(score_label=label,public_basis=basis)
                 assessment.update(score_label=label,public_basis=basis)
     return {'pool_count':len(records),'nonpoint_count':intervals,'cost_review_count':len(reviews),

@@ -52,7 +52,8 @@
 {"region_id":"THREE_SURRENDER_CITIES","display_name":"三受降城—黄河北河防节点","spatial_weight":0.3,"kind":"STANDARD","domain":"NORTH_STEPPE","notes":"唐代三受降城等沿河节点网络的小锚。","origin":"EXISTING_CONTRACT_OR_EXISTING_SETTLEMENT_SCALE"},
 {"region_id":"GAOCHANG_XIZHOU","display_name":"高昌—西州","spatial_weight":0.2,"kind":"STANDARD","domain":"WESTERN_REGIONS","notes":"西域内部小型稳定节点锚；使用西域整体2.0时不得叠加。","origin":"EXISTING_CONTRACT_OR_EXISTING_SETTLEMENT_SCALE"},
 {"region_id":"HAMI_GATEWAY","display_name":"哈密—伊州门户","spatial_weight":0.2,"kind":"STANDARD","domain":"WESTERN_REGIONS","notes":"小型门户控制锚；与更大西域整体/走廊锚发生重叠时不得重复。","origin":"V1_EXTENSION_CALIBRATED","calibration_basis":"按高昌—西州0.2同级小型门户锚校准；若进入西域整体控制则由2.0复合锚吸收。"},
-{"region_id":"HONGKONG_KOWLOON_GATEWAY","display_name":"香港岛—九龙门户","spatial_weight":0.2,"kind":"STANDARD","domain":"MARITIME","notes":"只用于该门户本身的控制变化；不能替代整个海防或华南控制快照。","origin":"EXISTING_CONTRACT_OR_EXISTING_SETTLEMENT_SCALE"}
+{"region_id":"HONGKONG_KOWLOON_GATEWAY","display_name":"香港岛—九龙门户","spatial_weight":0.2,"kind":"STANDARD","domain":"MARITIME","notes":"只用于该门户本身的控制变化；不能替代整个海防或华南控制快照。","origin":"EXISTING_CONTRACT_OR_EXISTING_SETTLEMENT_SCALE"},
+{"region_id":"LONGYOU_QINFENG_FRONTIER","display_name":"陇右—秦凤边疆走廊","spatial_weight":0.5,"kind":"STANDARD","domain":"NORTHWEST","notes":"临洮、兰、河、巩、秦及德顺、镇戎、关陇门户的区域军政网络；凤翔只用于门户支撑，稳定关中核心、河南州县和西夏河西排除。与辽东0.5同级区域网络校准，低于河西—陇右0.8及关中—陇右1.2复合锚；不按现代面积或州数计价。","origin":"CURRENT_CONTRACT_CROSS_REGION_CALIBRATION","source_refs":["docs/公共成果/军事/金朝陇右秦凤空间与交班依据.md"]}
 ],
 "mutual_exclusion_sets":[
 {"set_id":"NORTH_GRASSLAND_COMPOSITE","members":["NORTH_GRASSLAND_WHOLE","MOBEI_TIELE_SPACE","MONAN_EASTERN_TURKS_SPACE","XIONGNU_VASSAL_SPACE"],"rule":"NORTH_GRASSLAND_WHOLE与其覆盖的同一草原主体空间不得并计；MOBEI_TIELE_SPACE与MONAN_EASTERN_TURKS_SPACE可在事实空间确实分离时并计；XIONGNU_VASSAL_SPACE与漠南锚涉及同一属部时二选一。"},
@@ -62,7 +63,8 @@
 {"set_id":"TIBET_QINGHAI_COMPOSITE","members":["TIBETAN_PLATEAU_SYSTEM","TUYUHUN_QINGHAI_SPACE"],"rule":"青藏高原整体锚覆盖同一青海空间时，不再叠加吐谷浑—青海锚。"},
 {"set_id":"NORTHWEST_OVERLAP","members":["HEXI_LONGYOU_CORRIDOR","HEXI_NINGXIA_ORDOS","GUANZHONG_LONGYOU_BELT"],"rule":"三者存在地理交叠；同一账必须按实际边界拆分或选择一个不重复口径，不能机械相加。"},
 {"set_id":"SOUTH_OVERLAP","members":["LINGNAN_FRONTIER","ANNAM_NORTHERN_VIETNAM"],"rule":"若交趾/安南控制已包含在岭南锚的同一实际空间，则不得重复；只有明确超出稳定岭南核心的对外控制才可另用安南锚。"},
-{"set_id":"KOREA_OVERLAP","members":["KOREA_PENINSULA_NETWORK","KOREA_HAN_COMMANDERIES"],"rule":"同一时期同一空间不得同时按半岛整体网络和汉郡小锚重复。"}
+{"set_id":"KOREA_OVERLAP","members":["KOREA_PENINSULA_NETWORK","KOREA_HAN_COMMANDERIES"],"rule":"同一时期同一空间不得同时按半岛整体网络和汉郡小锚重复。"},
+{"set_id":"LONGYOU_QINFENG_OVERLAP","members":["LONGYOU_QINFENG_FRONTIER","HEXI_LONGYOU_CORRIDOR","GUANZHONG_LONGYOU_BELT","HEXI_NINGXIA_ORDOS","TUYUHUN_QINGHAI_SPACE","HANZHONG_QINLING_FRONTIER"],"rule":"陇右—秦凤与其他西北、青海、秦岭锚涉及同一实际州城、走廊或网络时只能选择一个口径；空间确实分离须先说明边界，不能机械相加。"}
 ],
 "legacy_aliases":{"MESOPOTAMIA_CAUCASUS_NETWORK":"MESOPOTAMIA_AZERBAIJAN_SOUTH_CAUCASUS","HAN_HENAN_SHUOFANG":"HENAN_SHUOFANG_CORRIDOR","NORTHWEST_HEXI":"HEXI_LONGYOU_CORRIDOR","TANG_HEXI_LONGYOU":"HEXI_LONGYOU_CORRIDOR","NORTHERN_FRONTIER":"NORTHERN_BORDER_COMMANDERIES","WESTERN_REGIONS":"WESTERN_REGIONS_WHOLE","LINGNAN_SOUTH":"LINGNAN_FRONTIER","SOUTHWEST":"SOUTHWEST_FRONTIER","NORTHEAST_KOREA":"KOREA_HAN_COMMANDERIES","TANG_NORTHEAST_KOREA":"KOREA_PENINSULA_NETWORK","TANG_MONAN_EASTERN_TURKS":"MONAN_EASTERN_TURKS_SPACE","TANG_MOBEI_TIELE":"MOBEI_TIELE_SPACE","TANG_TUYUHUN_VASSAL":"TUYUHUN_QINGHAI_SPACE","TANG_SONGWAI_JIMI":"SONGWAI_JIMI_SPACE","TANG_KUCHA_DUDUFU":"KUCHA_NODE_NETWORK","TANG_GAOCHANG_XIZHOU":"GAOCHANG_XIZHOU","TANG_THREE_SURRENDER_CITIES":"THREE_SURRENDER_CITIES","LIAO_SIXTEEN_PREFECTURES_DEFENSE_BELT":"YANYUN_DEFENSE_BELT","QING_HONGKONG_KOWLOON_GATEWAY":"HONGKONG_KOWLOON_GATEWAY"},
 "legacy_must_rebuild":[

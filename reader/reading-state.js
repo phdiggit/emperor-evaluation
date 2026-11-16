@@ -1,12 +1,35 @@
 "use strict";
 
+function readerPageTitle(hash, records, compareIds = []) {
+  const brand = '帝王三镜';
+  let parts;
+  try { parts = hash.split('/').map(decodeURIComponent); }
+  catch { return `地址无效 · ${brand}`; }
+  const name = id => records.get(id)?.ruler_name;
+  if (['#person','#net'].includes(parts[0])) {
+    const person = name(parts[1]);
+    if (!person) return `未找到人物 · ${brand}`;
+    const sections = parts[0] === '#person'
+      ? {profile:'人物画像',impact:'历史影响',net:'统治绩效'}
+      : {first:'政权奠基与统一',second:'治国成效',third:'军事与边疆',fourth:'文明与国家整合',all:'统治绩效'};
+    const section = sections[parts[2]] || (parts[0] === '#net' ? '统治绩效' : '人物总览');
+    return `${person} · ${section} · ${brand}`;
+  }
+  if (parts[0] === '#compare') {
+    const ids = parts.length > 1 ? parts.slice(1) : compareIds;
+    const names = ids.map(name).filter(Boolean);
+    return `${names.length === 2 ? names.join('与') + ' · ' : ''}人物对照 · ${brand}`;
+  }
+  return `${parts[0] === '#guide' ? '阅读指南' : '综合阅读'} · ${brand}`;
+}
+
 (() => {
   // State belongs to a person/system, while scroll positions belong to exact
   // routes. Opening a new axis must still follow its explicit destination.
   const pages = new Map(), positions = new Map();
   const pageKey = hash => /^#(?:person|net)\//.test(hash)
     ? hash.split('/').slice(0, 3).join('/') : hash;
-  let active = location.hash, restoring = false, queued = false, generation = 0;
+  let active = location.hash, restoring = true, queued = false, generation = 0;
 
   function detailKey(node) {
     const parts = [];
@@ -37,6 +60,7 @@
 
   function restore() {
     queued = false;
+    document.title = readerPageTitle(location.hash, byId, state.compare);
     if (location.hash !== active || screen.querySelector('.empty')) return;
     const saved = pages.get(pageKey(active));
     for (const node of screen.querySelectorAll('details')) {
@@ -48,12 +72,14 @@
     if (restoring && parts[0] === '#person' && parts.length === 4) {
       let id;
       try { id = decodeURIComponent(parts[3]); } catch { return; }
-      const target = document.getElementById(parts[2] === 'profile' ? 'reason-' + id : id);
+      const target = document.getElementById(narrativeSourceId(parts[2], id) || (parts[2] === 'profile' ? 'reason-' + id : id));
       for(let node=target;node;node=node.parentElement)if(node.tagName==='DETAILS')node.open=true;
       if(target?.id==='history-evidence'){const evidence=target.querySelector('.narrative-evidence');if(evidence)evidence.open=true;}
     }
     if (restoring && parts[0] === '#net' && parts.length === 4) {
-      const target=document.getElementById((parts[2]==='first'?'net-first-':'net-group-')+parts[3]);
+      let focus;
+      try { focus = decodeURIComponent(parts[3]); } catch { return; }
+      const target=netFocusTarget(parts[2], focus);
       for(let node=target;node;node=node.parentElement)if(node.tagName==='DETAILS')node.open=true;
     }
     if (restoring) {
@@ -77,6 +103,7 @@
   function begin() {
     save();
     active = location.hash;
+    document.title = readerPageTitle(active, byId, state.compare);
     restoring = true;
     generation++;
     schedule();
@@ -104,4 +131,6 @@
       return prior(...args);
     };
   }
+  document.title = readerPageTitle(location.hash, byId, state.compare);
+  schedule(); // Initial deep links also wait for their asynchronously loaded DOM.
 })();

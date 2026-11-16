@@ -66,8 +66,7 @@ def a_calculation(axis: Mapping[str, Any]) -> str:
     return ''.join(parts) + f"＝**{float(axis['axis_points']):.2f}分**。"
 
 
-def a_reason(row: Mapping[str, Any], name: str) -> str:
-    axis = row['A120_axis_adjudications'][name]
+def a_reason(row: Mapping[str, Any], name: str, axis: Mapping[str, Any]) -> str:
     structure = axis.get('within_band_structure_improvement')
     if structure:
         level = {'SIGNIFICANT': '显著', 'DECISIVE': '重大'}[structure['improvement_level']]
@@ -89,13 +88,13 @@ def a_reason(row: Mapping[str, Any], name: str) -> str:
     return prose(*pieces, ruler=str(row['ruler_name']))
 
 
-def source_links(row: Mapping[str, Any]) -> str:
+def source_links(row: Mapping[str, Any], axes: Mapping[str, Any]) -> str:
     """Keep readable source labels and links to existing reading documents."""
     from .second_item_c_source_display import is_machine_source
 
     paths: list[str] = []
     refs = list(row.get('source_refs') or [])
-    for axis in row['A120_axis_adjudications'].values():
+    for axis in axes.values():
         refs.extend((axis.get('within_band_structure_improvement') or {}).get('source_refs', []))
     for ref in refs:
         path = str(ref).split('#', 1)[0]
@@ -129,22 +128,28 @@ def reading_source_lines(refs):
     return result
 
 
-def b_reading_lines(row, name, title):
-    from emperor_v4.evaluation.third_item_b_sources import display_reading, expand_readings
-    reading = display_reading(expand_readings(row)[name])
+def b_reading_lines(reading, name, title):
+    from emperor_v4.evaluation.third_item_b_public import SHARED_BOUNDARY, SHARED_SOURCE_NOTE
+    from emperor_v4.evaluation.third_item_b_sources import display_reading
+    reading = display_reading(reading)
+    measurement = reading.get('display_control_measurement', reading.get('control_measurement'))
     lines = [f'**{name} {title}**', '', f"评价时期：{reading['window']}。", '',
              reading['story'], '']
     if reading.get('review_note'):
         lines += ['**' + reading['review_note'] + '**', '']
     if name == 'B1':
         for evidence in reading['evidence_items']:
-            lines += [f"**{evidence['label']}**", '', evidence['basis'], '']
+            if basis := evidence.get('display_basis', evidence['basis']):
+                lines += [f"**{evidence['label']}**", '', basis, '']
     lines += ['<details><summary>本人贡献、分数计算与史料依据</summary>', '',
               reading['rate_note'], '', reading['decision'], '',
-              *([reading['control_measurement'], ''] if reading.get('control_measurement') else []),
-              reading['responsibility'], '', reading['contribution_note'], '', reading['boundary'], '']
-    if reading.get('review_explanation'):
-        lines += ['复核具体依据：' + reading['review_explanation'], '']
+              *([measurement, ''] if measurement else [])]
+    if responsibility := reading.get('display_responsibility', reading['responsibility']):
+        lines += [responsibility, '']
+    if reading['boundary'] != SHARED_BOUNDARY:
+        lines += [reading['boundary'], '']
+    if review := reading.get('display_review_explanation', reading.get('review_explanation')):
+        lines += ['复核具体依据：' + review, '']
     if reading.get('regions'):
         lines += ['| 控制对象 | 接班当量 | 交班当量 | 采用范围 |', '|---|---:|---:|---|']
         for region in reading['regions']:
@@ -152,12 +157,20 @@ def b_reading_lines(row, name, title):
             end = region['end'] if region['end'] is not None else '未单列'
             disposition = '已排除，不作独立控制增益' if region['excluded'] else '按本项范围计入'
             lines.append(f"| {region['label']} | {start} | {end} | {disposition} |")
-        lines += ['', '当量用于比较不同时代的控制范围，不等于面积或人口；未单列不等于0。已在其他项目计分的成果不重复计入，各地区数值不能直接相加。', '']
-    lines += [reading['adoption_basis'], '', *([reading['diagnostic_note'], ''] if reading['diagnostic_note'] else []),
-              reading['method'], '', reading['calculation'], '', reading['combination'], '',
-              *reading['rate_table'], '', *reading['scale'], '', reading['source_note'], '']
+        lines.append('')
+    if not reading['shared_adoption_basis']:
+        lines += [reading['adoption_basis'], '']
+    if reading['diagnostic_note']:
+        lines += [reading['diagnostic_note'], '']
+    if reading['calculation'] != reading['rate_note'] + ' ' + reading['adoption_basis']:
+        lines += [reading['calculation'], '']
+    if reading['source_note'] != SHARED_SOURCE_NOTE:
+        lines += [reading['source_note'], '']
     for evidence in reading['evidence_items']:
-        lines += [f"**{evidence['label']}**（评价依据）", '', evidence['basis'], '', *reading_source_lines(evidence['sources']), '']
+        lines += [f"**{evidence['label']}**（史源）", '']
+        if name != 'B1' and (basis := evidence.get('display_basis', evidence['basis'])):
+            lines += [basis, '']
+        lines += [*reading_source_lines(evidence['sources']), '']
     additional = reading['sources']
     if additional:
         lines += ['补充来源：', '', *reading_source_lines(additional), '']
@@ -165,9 +178,11 @@ def b_reading_lines(row, name, title):
     return lines
 
 
-def render_person(row: Mapping[str, Any], *, a_readings, b_basis, b_grade, b_regions, depth_lines) -> list[str]:
-    axes = row['A120_axis_adjudications']
-    b = row['B80_adjudication']
+def render_person(row: Mapping[str, Any], *, credit, b_basis, b_grade, b_regions, depth_lines) -> list[str]:
+    from emperor_v4.evaluation.third_item_a_public import display_reading
+    from emperor_v4.evaluation.third_item_b_public import AXES, reading_projection
+    axes = credit['axes']
+    b = credit['B80_adjudication']
     titles = {'A1': '战略威胁', 'A2': '战略边界', 'B1': '控制规模', 'B2': '战略价值', 'B4': '交班成熟度'}
     lines = [
         f"**A {float(row['A120_score_points']):.2f}／120 · B {float(row['B80_score_points']):.2f}／80**",
@@ -184,38 +199,56 @@ def render_person(row: Mapping[str, Any], *, a_readings, b_basis, b_grade, b_reg
         grade = 0 if rate < 30 else 1 if rate < 45 else 2 if rate < 60 else 3 if rate < 75 else 4 if rate < 90 else 5
         lines.append(f"| {name} {titles[name]} | {grade}档 | {rate:g}% |")
     lines += ['', *([prose(row['A_axis_common_context']), ''] if row.get('A_axis_common_context') else [])]
-    readings = [a_readings[name]['public_reading'] for name in ('A1', 'A2')]
+    readings = [display_reading(raw) if (raw := axes[name]['public_reading']) else None
+                for name in ('A1', 'A2')]
     shared = ''
     if all(readings):
         first, second = readings
-        candidate = first['responsibility'].strip()
-        if (candidate == second['responsibility'].strip()
+        candidate = first.get('display_responsibility', first['responsibility']).strip()
+        if (candidate == second.get('display_responsibility', second['responsibility']).strip()
                 and all(candidate != reading['handover'].strip() for reading in readings)):
             shared = candidate
-    if shared:
-        lines += ['**两轴共用的本人归责**', '', shared, '']
-    for name in ('A1', 'A2'):
-        reading = a_readings[name]['public_reading']
+    for name, reading in zip(('A1', 'A2'), readings, strict=True):
         if reading:
-            from emperor_v4.evaluation.third_item_a_public import display_reading
-            sources = display_reading(reading)['sources']
+            sources = reading['sources']
             links = reading_source_lines(sources)
             if not any(ref.get('url') for ref in sources):
-                links = ['本轴尚未单列可直接打开的原典卷篇。', '', *links]
+                links = ['原典直达链接暂缺。', '', *links]
             responsibility = reading['responsibility'].strip()
             combined = responsibility == reading['handover'].strip()
             handover_title = '交班与归责依据' if combined else '交班'
+            inherited = reading.get('display_inherited', reading['inherited'])
+            handover = reading.get('display_handover', reading['handover'])
+            shown_responsibility = reading.get('display_responsibility', reading['responsibility'])
             lines += [f"**{name} {titles[name]}**", '', f"评价时期：{reading['window']}。类型：{reading['type_label']}。", '',
-                      f"**接班 · {reading['start_label']}**", '', reading['inherited'], '',
-                      f"**{handover_title} · {reading['end_label']}**", '', reading['handover'], '']
-            if not combined and responsibility != shared:
-                lines += ['**本人归责**', '', reading['responsibility'], '']
-            lines += ['<details><summary>任内经历、定档与计算来源</summary>', '', reading['story'], '',
-                      '为什么这样评：' + reading['decision'], '', reading['method'], '', reading['calculation'], '',
-                      reading['source_note'], '', *links, '', reading['boundary'], '',
-                      *reading['scale'], '', '</details>', '']
+                      reading['story'], '']
+            start = f"接班 · {reading['start_label']}"
+            end = f"{handover_title} · {reading['end_label']}"
+            if reading.get('shared_state_basis'):
+                lines += [f"**{start} → {end}**", '', *([inherited, ''] if inherited else [])]
+            else:
+                lines += [f"**{start}**", '', *([inherited, ''] if inherited else []),
+                          f"**{end}**", '', *([handover, ''] if handover else [])]
+            if shown_responsibility and not combined and responsibility != shared:
+                lines += ['**本人归责**', '', shown_responsibility, '']
+            lines += ['<details><summary>定档理由、计算与来源</summary>', '',
+                      '为什么这样评：' + reading['decision'], '']
+            for field in ('method', 'calculation', 'source_note'):
+                if text := reading.get('display_' + field, reading[field]):
+                    lines += [text, '']
+            lines += [*links, '']
+            for field in ('boundary', 'state_grade_note'):
+                if reading[field]:
+                    lines += [reading[field], '']
+            if reading['scale']:
+                lines += [*reading['scale'], '']
+            lines += ['</details>', '']
         else:
-            lines += [f"**{name} {titles[name]}**", '', a_reason(row, name), '', '计分：' + a_calculation(axes[name]), '']
+            lines += [f"**{name} {titles[name]}**", '', a_reason(row, name, axes[name]), '', '计分：' + a_calculation(axes[name]), '']
+    if any(readings):
+        if shared:
+            lines += ['**两轴共用的本人归责**', '', shared, '']
+        lines += ['[战略安全的通用规则与状态档位](#a-common-rules)', '']
     control = row.get('b1_control_equivalents') or {}
     b1 = row['axes']['B1']
     net = control.get('net_change', b1.get('raw_net_change'))
@@ -229,11 +262,15 @@ def render_person(row: Mapping[str, Any], *, a_readings, b_basis, b_grade, b_reg
         amounts.append(f"交班规模{float(end):g}当量")
     authored_b = all(row['axes'][key].get('public_reading') for key in ('B1', 'B2', 'B4'))
     if authored_b:
-        for name in ('B1', 'B2', 'B4'):
-            lines += b_reading_lines(row, name, titles[name])
+        b_readings = {name: reading_projection(name, row, credit) for name in AXES}
+        for name, reading in b_readings.items():
+            lines += b_reading_lines(reading, name, titles[name])
+        shared = b_readings['B1']
+        lines += ['<details><summary>控制成果小计</summary>', '', shared['combination'], '',
+                  shared['contribution_note'], '', '[各轴档位、得分率与共同规则](#b-common-rules)', '', '</details>', '']
     else:
         lines += ['**B1 控制规模**', '', prose(b_regions(row), '，'.join(amounts)), '']
-    for name in (() if authored_b else ('B2', 'B4')):
+    for name in ('B2', 'B4'):
         adjusted = float(row['axes'][name].get('score_rate') or 0) != float(b[f'adjudicated_{name}_rate'])
         basis = b.get('consistency_basis') if adjusted else b_basis(row, name)
         lines += [f"**{name} {titles[name]}**", '', prose(basis, ruler=str(row['ruler_name'])), '']
@@ -245,7 +282,9 @@ def render_person(row: Mapping[str, Any], *, a_readings, b_basis, b_grade, b_reg
         'SAVED_UNDER_MAJOR_PRESSURE': '重大失控压力下的保全或恢复',
         'ROUTINE_MAINTENANCE': '常规维护', 'INHERITED_ONLY': '仅继承存量，不计本人控制贡献',
     }.get(str(row.get('control_contribution_type')), '见正式控制成果裁决')
-    lines += [f"B项本人贡献：{contribution}。", '', '<details>', '<summary>计分明细与来源</summary>', '']
+    if not authored_b:
+        lines += [f"B项本人贡献：{contribution}。", '']
+    lines += ['<details>', '<summary>计分明细与来源</summary>', '']
     for name in ('A1', 'A2'):
         axis = axes[name]
         steps = axis.get('improvement_step_credits') or []
@@ -263,13 +302,15 @@ def render_person(row: Mapping[str, Any], *, a_readings, b_basis, b_grade, b_reg
                 lines.append(f"- {name}专项边界：{prose(basis, ruler=str(row['ruler_name']))}")
         if float(axis.get('reversal_penalty') or 0) or float(axis.get('within_band_deterioration_penalty') or 0):
             lines.append(f"- {name}负向调整：重大逆转{float(axis.get('reversal_penalty') or 0):g}与档内恶化{float(axis.get('within_band_deterioration_penalty') or 0):g}轨迹点取高，再乘0.6。")
-    if weighted is not None:
+    if not authored_b and weighted is not None:
         lines.append(f"- B1计档控制值：{float(weighted):g}当量。")
-    if excluded:
+    if not authored_b and excluded:
         lines.append(f"- B1跨项{'扣除' if excluded > 0 else '补回'}：{abs(excluded):g}当量；客观净变化{float(net):+g}当量。")
-    for name in ('B2','B4'):
+    for name in (() if authored_b else ('B2', 'B4')):
         if float(row['axes'][name].get('score_rate') or 0) != float(b[f'adjudicated_{name}_rate']):
             lines.append(f"- {b_grade(row,name)}。")
             lines.append(f"- {name}{b_basis(row,name)}")
-    lines += [f"- B合成：80×（0.55×{float(b['adjudicated_B1_rate'])/100:g}＋0.45×{float(b['adjudicated_B2_rate'])/100:g}）×（0.70＋0.30×{float(b['adjudicated_B4_rate'])/100:g}）＝{float(row['B80_score_points']):.2f}分。", *depth_lines(row), f"- 来源：{source_links(row)}", '', '</details>', '']
+    if not authored_b:
+        lines.append(f"- B合成：80×（0.55×{float(b['adjudicated_B1_rate'])/100:g}＋0.45×{float(b['adjudicated_B2_rate'])/100:g}）×（0.70＋0.30×{float(b['adjudicated_B4_rate'])/100:g}）＝{float(row['B80_score_points']):.2f}分。")
+    lines += [*depth_lines(row), f"- 来源：{source_links(row, axes)}", '', '</details>', '']
     return lines

@@ -6,10 +6,10 @@ import pytest
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.third_item_b_public import AXES, reading_projection, combination, region_values, verify_sources
 from emperor_v4.evaluation.third_item_b_sources import display_reading, expand_readings, pack_sources
+from emperor_v4.evaluation.third_item_current_settlement import RESULT_CREDIT_ADJUDICATIONS_PATH as CREDIT
 
 ROOT = Path(__file__).resolve().parents[1]
 AB = Path('docs/评分结算/净收益/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json')
-CREDIT = Path('config/third-item/third-item-result-credit-adjudications.json')
 
 
 def synthetic():
@@ -71,6 +71,29 @@ def test_region_missing_anchor_is_not_invented_as_zero():
     assert result['start'] is None and result['end']==.5
 
 
+def test_control_markdown_reuses_story_evidence_and_keeps_its_source():
+    from emperor_v4.evaluation.third_item_ab_reading import b_reading_lines
+
+    row, credit = synthetic()
+    reading = reading_projection('B1', row, credit)
+    item = reading['evidence_items'][0]
+    text = '\n'.join(b_reading_lines(reading, 'B1', '控制规模'))
+    assert text.count(item['basis']) == 1
+    assert '合成来源' in text
+    assert reading['calculation'] in text
+
+
+def test_maturity_review_detail_already_visible_in_story_is_displayed_once():
+    row, credit = synthetic()
+    reading = reading_projection('B1', row, credit)
+    reading['review_explanation'] = reading['story']
+    shown = display_reading(reading)
+    assert shown['display_review_explanation'] == ''
+    assert shown['review_explanation'] == reading['story']
+    reading['review_explanation'] += '交班前仍缺一项军粮记录。'
+    assert 'display_review_explanation' not in display_reading(reading)
+
+
 def test_control_facts_precede_calculation_without_losing_sources_or_review(tmp_path):
     import shutil
     import subprocess
@@ -100,6 +123,17 @@ assert(html.includes('data-review-status="EVIDENCE_GAP"'));
 assert(html.split('驻军恢复，任内持续运行。').length===2);
 const heading=context.ThirdItemBReading.heading(item);
 assert(heading.includes('data-raw-rate="75"')&&heading.includes('data-adopted-rate="0"'));
+const symbolic={...data,regions:undefined,calculation:data.rate_note+' '+data.adoption_basis,
+ shared_source_note:true,rate_table:['通用档位换算。'],scale:['合成判定条件。']};
+const sharedItem={...item,reader_public_b:symbolic};
+const sharedHtml=context.ThirdItemBReading.html(sharedItem,{}, {sharedRules:true});
+assert.equal(sharedHtml.split(data.rate_note).length,2);
+assert.equal(sharedHtml.split(data.adoption_basis).length,2);
+assert(!sharedHtml.includes(data.source_note)&&!sharedHtml.includes(symbolic.rate_table[0]));
+assert(!sharedHtml.includes(symbolic.scale[0]));
+const common=context.ThirdItemBReading.combinationHtml([sharedItem,{label:'B80',value:11.4}]);
+assert(common.includes('11.4 / 80')&&common.includes(data.source_note)&&common.includes(symbolic.rate_table[0]));
+assert.equal(common.split(symbolic.scale[0]).length,2);
 ''',encoding='utf-8')
     result=subprocess.run([node,str(script)],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
     assert result.returncode==0,result.stderr
@@ -125,8 +159,8 @@ def test_formal_narratives_review_states_and_reader_values_share_current_authori
     for row in ab['records']:
         readings=expand_readings(row)
         for axis in AXES:
-            reading=readings[axis]
-            assert reading==reading_projection(axis,row,credits[row['ruler_id']])
+            reading=reading_projection(axis,row,credits[row['ruler_id']])
+            assert all(reading[key]==value for key,value in readings[axis].items())
             if axis=='B4':
                 assert reading['review_status']==row['axes'][axis].get('maturity_review',{}).get('status','NOT_REVIEWED')
             expected[row['ruler_id'],axis]=reading

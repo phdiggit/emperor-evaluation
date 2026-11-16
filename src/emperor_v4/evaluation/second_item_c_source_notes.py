@@ -5,6 +5,33 @@ CATALOG = 'public_source_note_catalog'
 NOTE = 'public_source_note'
 REF = 'public_source_note_ref'
 
+STANDARD_SOURCE_NOTE = (
+    '来源分为逐条采用的依据和相关材料汇集。材料汇集保留原有摘录、摘要及裁决线索，'
+    '不表示其中每份材料都能证明每一条叙述；具体采用范围与推断性质见各条说明。'
+)
+SOURCE_GUIDE = (
+    '“逐条史源”列出本卡绑定的来源，采用范围见各卡。'
+    '“材料汇集”保存本人物本轴的相关摘录、摘要和裁决线索，供回查。汇集材料与各条叙述的支持关系尚未逐条核实。'
+)
+STANDARD_COLLECTION_SCOPE = (
+    '本条沿用现行正式裁决叙述；下列人物材料尚未逐条核实与本条事实的支持关系，不据材料同列推定已经获证。'
+)
+
+
+def specific_source_note(note: str) -> str:
+    """Separate the exact common introduction from a person's own source note."""
+    first = note.strip()
+    if first == STANDARD_SOURCE_NOTE:
+        return ''
+    suffix = first.removeprefix(STANDARD_SOURCE_NOTE)
+    return suffix.lstrip() if suffix != first and suffix[:1].isspace() else note
+
+
+def uses_shared_collection_scope(item: dict) -> bool:
+    return (item.get('source_binding_kind') == 'MATERIAL_COLLECTION'
+            and item.get('public_scope') == STANDARD_COLLECTION_SCOPE)
+
+
 
 def _rows(payload):
     rows = payload.get('scores', payload.get('records'))

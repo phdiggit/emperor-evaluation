@@ -10,6 +10,7 @@ from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.third_item_b_sources import AXES, expand_readings
 
 RATE_TABLE = ((0, 15, 29), (30, 37, 44), (45, 52, 59), (60, 67, 74), (75, 82, 89), (90, 95, 100))
+RATE_TABLE_LINES = tuple(f"{i}档：低位{lo}%、中位{mid}%、高位{hi}%。" for i, (lo, mid, hi) in enumerate(RATE_TABLE))
 BANDS = {'LOW': '低位', 'MID': '中位', 'HIGH': '高位'}
 REGION_LABELS = {'MESOPOTAMIA_CAUCASUS_NETWORK': '两河—阿塞拜疆—南高加索主要军政网络',
                  'QING_TAIWAN_PENGHU': '台湾—澎湖控制空间'}
@@ -25,12 +26,25 @@ SCALES = {
     'B4': ('没有合格本人控制成果可供评价，或成果已丧失、始终只有名义控制', '主要成果仍处战时占领、围困或随时可能失控状态', '控制结构未完备，仍依赖临时重兵、个人威望或异常资源投入', '已有常态运行成果，但主要成果仍有关键功能缺口，或本人造成的另一主要方向退控尚未恢复', '全部主要成果具备常态运行和正常移交的必要安排，但任内运行验证尚不足以确认完全摆脱应急或个人临时维持', '必要安排及任内实际运行均已证明，关键功能由常态机制持续承接，能正常移交'),
 }
 METHOD = (
-    '三轴合成满分80分，不把三个得分率直接相加。控制规模与战略价值按55%／45%合成，'
-    '再乘交班成熟度修正系数。百分数在公式中先除以100。'
-    '控制规模认可60%的窗口净变化和40%的交班规模；这不是现代面积、人口占比或成功概率。'
-    '战略价值与交班成熟度只评价本人合格成果，先区分新建收复、压力下保全、常规维护与纯继承。'
-    '同一成果已经计入“政权奠基与统一贡献”的部分不再计入“军事与边疆”，原始判断、实际采用率分别保留。'
+    '三轴合成满分80分。控制规模与战略价值按55%和45%合成，再乘交班成熟度修正系数。百分数在公式中先除以100。'
+    '控制规模按本人窗口净变化的60%与交班规模的40%计档。当量按统一的历史分区及实际覆盖率比较各朝控制空间。现代面积与人口各用独立统计口径。'
+    '表中“未单列”的时点缺少单列数值，各区域当量按各自采用范围列示，合计见计档算式。'
+    '控制规模0档仍分低、中、高位。档内位置取决于具体控制证据。'
+    '合成使用各轴采用的得分率。权重与成熟度系数各按规则确定。因跨项排除或上限调整时，保留原始率与采用理由。'
 )
+EQUAL_RATE_ADOPTION_BASIS = '原始得分率与正式采用率一致；该率只参与控制成果合成，不是百分制总评，也不是合成权重。'
+SHARED_BOUNDARY = (
+    '战略价值和成熟度采用本人窗口内的合格控制成果，区分新建收复、压力下保全与常规维护。纯继承归入接班存量。'
+    '成熟度覆盖全部主要成果，采用本人任内运行和交班时的状态。同一成果已计入政权奠基与统一的部分从本项排除，原始率与实际采用率分别列示。'
+)
+SHARED_SOURCE_NOTE = (
+    '依据正文来自现行区域和归责裁决。来源按正式裁决、军事记录、材料汇集与原裁决书目列示，材料汇集提供进一步查找的线索。'
+)
+DERIVED_READING_FIELDS = {
+    'raw_rate', 'adopted_rate', 'level_label', 'rate_note', 'scale', 'method', 'combination',
+    'recorded_diagnostic_rate', 'diagnostic_note', 'rate_table', 'contribution_label',
+    'contribution_cap', 'contribution_note', 'snapshot', 'regions', 'calculation', 'review_status', 'review_note',
+}
 INTERNAL = re.compile(r'[A-Za-z_]{2,}|父卡|闭合|倒灌|本轮|重裁|回滚|数值不变|旧ID|规范化|全量重审|可本人责任于本人|本人本人责任')
 
 
@@ -99,6 +113,8 @@ def reading_projection(axis_name, row, credit):
     if not isinstance(authored, dict):
         raise ValueError(f"{row['ruler_name']} {axis_name}缺少直接维护的公开正文")
     result = expand_readings(row)[axis_name]
+    result.setdefault('boundary', SHARED_BOUNDARY)
+    result.setdefault('source_note', SHARED_SOURCE_NOTE)
     for field in ('story', 'decision', 'responsibility', 'window', 'boundary', 'adoption_basis'):
         value = result.get(field)
         if not isinstance(value, str) or not value.strip() or INTERNAL.search(value):
@@ -119,14 +135,14 @@ def reading_projection(axis_name, row, credit):
                   method=METHOD, combination=combination(row, credit))
     result['recorded_diagnostic_rate'] = diagnostic
     result['diagnostic_note'] = (
-        f'合成记录另存诊断率{fmt(diagnostic)}%，与现行轴记录的{fmt(raw)}%不同；它不替代现行原始评定，也不参与当前合成。这些数值用途不同；排除哪些成果及其原因见采用说明。'
+        f'合成记录还保留{fmt(diagnostic)}%的诊断率，用于核对。诊断率不参与当前合成，排除的成果见采用说明。'
         if dec(diagnostic) != dec(raw) else ''
     )
-    result['rate_table'] = [f"{i}档：低位{values[0]}%、中位{values[1]}%、高位{values[2]}%。" for i, values in enumerate(RATE_TABLE)]
+    result['rate_table'] = list(RATE_TABLE_LINES)
     contribution, cap = CONTRIBUTIONS[row['control_contribution_type']]
     result['contribution_label'] = contribution
     result['contribution_cap'] = cap
-    result['contribution_note'] = f'本人的控制贡献属于“{contribution}”，战略价值和成熟度最高可评{cap}档；这是上限，不保证达到该档。另有跨项排除时，以实际采用率为准。'
+    result['contribution_note'] = f'本人贡献类型为“{contribution}”，该类型的战略价值和交班成熟度上限为{cap}档。合成采用跨项排除后的正式得分率。'
     if axis_name == 'B1':
         snapshot = row['b1_control_equivalents']
         start, end, net, weighted = (dec(snapshot[k]) for k in ('start', 'end', 'net_change', 'weighted_value'))
@@ -139,11 +155,10 @@ def reading_projection(axis_name, row, credit):
         adjustment = (f'按现行跨项与空间口径裁决补回{fmt(-excluded)}当量后' if excluded < 0
                       else f'按现行跨项裁决排除{fmt(excluded)}当量后')
         result['calculation'] = (
-            f'接班控制空间{fmt(start)}当量，交班{fmt(end)}当量；正式责任窗口净变化为{fmt(net)}当量。多次主政只计本人各窗口变化，不把间隔他人的变化归本人。\n\n'
+            f'接班控制空间{fmt(start)}当量，交班{fmt(end)}当量。本人各主政窗口的净变化合计{fmt(net)}当量。\n\n'
             f'加权控制值 = 0.6 × {fmt(net)} + 0.4 × {fmt(end)} = {fmt(before_exclusion)}当量。\n\n'
-            f'{adjustment}，本项计档控制值为{fmt(weighted)}当量；正式原始评定为{level_label}，得分率{fmt(raw)}%，实际采用{fmt(applied)}%。'
+            f'{adjustment}，本项计档控制值为{fmt(weighted)}当量。'
         )
-        result['calculation'] += '\n\n0档仍区分低、中、高位，对应0%、15%、29%；0档不等于每种情形都必然采用0%。档内位置还需结合具体控制证据判断，不能仅按空间值插值。'
     else:
         result['calculation'] = result['rate_note'] + ' ' + result['adoption_basis']
     if axis_name == 'B4':
@@ -152,9 +167,9 @@ def reading_projection(axis_name, row, credit):
             raise ValueError('B4复核来源已变化，须核对并同步公开判词，不能只刷新状态')
         status = review.get('status', 'NOT_REVIEWED')
         notes = {
-            'CONFIRMED': '已复核：依据本人离任时的控制状态和任内实际运行情况评价。',
-            'EVIDENCE_GAP': '待补证：判断成果能否稳定维持的必要证据尚未补齐，暂列现有评价；这不代表已通过复核，也不据此自动升档或降档。',
-            'NOT_REVIEWED': '尚待复核：当前暂列已有评价，成果能否稳定维持尚未完成核对；页面列出分值不代表已通过复核。',
+            'CONFIRMED': '已复核，采用本人任内的实际运行和交班状态。',
+            'EVIDENCE_GAP': '待补证。判断交班稳定性的材料尚未齐备，暂用现有评价。',
+            'NOT_REVIEWED': '交班成熟度尚未复核，暂用现有评价。',
         }
         if status not in notes:
             raise ValueError('未知B4复核状态，须明确公开解释')
