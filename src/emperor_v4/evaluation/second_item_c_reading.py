@@ -15,7 +15,7 @@ COMMON_AXIS_BOUNDARIES = {
     "C1": "这里只展示普通家庭的衣食、家庭负担与家庭形成结果；战争胜负、纯军事损失、制度设计和后续继任结果不在本轴重复计算。",
     "C2": "这里只展示生产、市场货币、常规税基与储备结果；家庭生活结果、治安司法、战争成本、恢复过程和制度设计不在本轴重复计算。",
     "C3": "这里只展示居民人身财产安全、基层秩序与司法救济结果；外部军事安全、粮价储备、制度设计和政权存续不在本轴重复计算。",
-    "C4": "这里只展示本人责任期内的保留恢复、状态变化和独立额外民力成本；三个绝对状态轴、纯军事投入及同一已计后果不在本轴重复计算。",
+    "C4": "这里分别展示本人责任期内的保留恢复、剩余恶化、损害总价与已计回补；回补只消除重复成本，不是新增功绩。未采用新机制者明确保留旧制，纯军事投入不重复计算。",
 }
 GRADES = {1: "E", 2: "D", 3: "C", 4: "B", 5: "A", 6: "S"}
 LOSS_GUIDE = (
@@ -137,8 +137,8 @@ def verify_recovery_reading(row: dict[str, Any]) -> None:
     body = sections[1]['body']
     if any(recovery_anchor_line(a, row) not in body for a in NAMES):
         raise ValueError(f'恢复阅读档位与正式路径不同值：{row.get("ruler_name")}')
-    expected_net = (f'保留恢复 +{row["positive_score_retained"]:g}分 − 本人恶化 {row["deterioration_penalty"]:g}分'
-                    f' − 独立额外成本 {row["destructive_amplification_penalty"]:g}分 = 净调整 {row["score"]:+.1f}分。')
+    from .civilian_harm import formal_net_line
+    expected_net = formal_net_line(row)
     if expected_net not in sections[5]['body']:
         raise ValueError(f'恢复阅读净调整与正式数值不同值：{row.get("ruler_name")}')
     for summary_net in re.findall(
@@ -227,6 +227,14 @@ def calculation(axis: str, row: dict[str, Any]) -> str:
     else:
         lines.append(f"原记录保留的恶化扣分为{deterioration:g}分。")
     grade = row.get("destructive_amplification_grade", "DA0")
+    from .civilian_harm import is_adopted, formal_calculation, formal_net_line, mechanism_label
+    if is_adopted(row):
+        c = formal_calculation(row)
+        lines.append(f"同组损害剥离后恶化为{c['E_remaining']:g}分，较原恶化回补{c['C_E']:g}分；该回补已反映在剩余恶化中，不再加一次。")
+        lines.append(formal_net_line(row) + '新制不对C4单项截断；已计回补不是恢复功绩。')
+        return '\n\n'.join(lines)
+    if row.get('civilian_harm_adjudication'):
+        lines.append(mechanism_label(row)+'，新损害总价未裁，不将旧制剩余价当作新P。')
     from emperor_v4.evaluation.second_item_c_public import DA_LABELS
     cost = row.get("destructive_amplification_penalty", 0)
     lines.append(f"额外民力成本采用“{DA_LABELS[grade]}”，按成本档表扣{cost:g}分；只计未被状态、低谷、恶化或军事成本包含的独立负担。")

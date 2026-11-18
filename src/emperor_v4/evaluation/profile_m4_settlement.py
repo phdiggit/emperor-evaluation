@@ -18,7 +18,6 @@ SETTLEMENT = PROFILE_ROOT / "M4/34-M4政治联盟与内部联盟管理正式结�
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "M4/35-M4主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "M4/36-M4高档联盟生命周期复核.json"
-FULL_POOL_REVIEW = PROFILE_ROOT / "M4/37-M4全池两轮复审.json"
 
 # These source identifiers include retired evidence origins; they are not
 # active scoring or publication entries. Archive paths retain the source facts.

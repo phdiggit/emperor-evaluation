@@ -137,6 +137,13 @@ formal_settlements:
       verify_command: second-item-c-verify
       axes: [C1, C2, C3, C4]
       source: authored_formal_c1_c4_records
+    civilian_harm_mechanism:
+      version: C4-CIVILIAN-HARM-V2
+      status: PARTIALLY_ADOPTED_WITH_EXPLICIT_BASELINES
+      contract: docs/分项规则/第二项治国净收益/财政民生/01-主动民力成本与军事分账合同.md
+      adjudications: docs/评分结算/净收益/第二项治国净收益/财政民生/04-C4正式结算.json
+      authority_field: civilian_harm_adjudication
+      semantic_completion: ADOPTED_RECORD_SCOPE_ONLY
     c4_attribution_readjudications_json: config/second-item/c4-attribution-readjudications.json
     c4_civilian_cost_audit_json: docs/评分结算/净收益/第二项治国净收益/财政民生/06-主动民力成本去重审计.json
     c4_civilian_cost_audit_markdown: docs/评分结算/净收益/第二项治国净收益/财政民生/06-主动民力成本去重审计.md
@@ -346,8 +353,6 @@ profile_assessment:
           path: M4/35-M4主要入口单元处置审计.json
         - audit_kind: HIGH_GRADE_LIFECYCLE
           path: M4/36-M4高档联盟生命周期复核.json
-        - audit_kind: FULL_POOL_REVIEW
-          path: M4/37-M4全池两轮复审.json
       formalization_note: M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图，人物裁决变化只通过局部patch进入正式JSON，不由程序自动改档。
     M5:
       name: 组织驾驭与执行编排

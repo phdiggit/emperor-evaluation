@@ -128,12 +128,8 @@ def _governance_score(rid: str, ruling: dict, c4: dict) -> float:
         {a: rec['attribution'][a]['factor'] for a in gov_math.AXES},
     )
     deterioration = gov_math._deterioration(ruling)
-    da = c4[rid]['destructive_amplification_penalty']
-    c4score = gov_math._round(max(
-        Decimal(str(gov_math.C4_SCORE_MIN)),
-        min(Decimal(str(gov_math.C4_SCORE_MAX)),
-            Decimal(str(calc['positive_retained']))-Decimal(str(deterioration))-Decimal(str(da))),
-    ))
+    from .civilian_harm import formal_calculation
+    c4score = formal_calculation(c4[rid], ruling, calc['positive_retained'], deterioration, scenario=True)['C4']
     return round(axis_sum + c4score, 1)
 
 

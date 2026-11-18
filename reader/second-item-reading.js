@@ -107,7 +107,7 @@
     addGroupIntro(section,"finance","分别看家庭生活、生产财政与社会安全；恢复、本人造成的恶化和额外负担单列。");
     for(const label of ["C1民生","C2经济财政","C3社会安全"]){const item=t.finance.get(label),detail=metricDetail(section,[label,PUBLIC_LABELS[label]]);markSourceLabel(detail,label);if(!item||!detail)continue;}
     const item=t.finance.get("C4恢复与成本"),detail=metricDetail(section,["C4恢复与成本","恢复与额外成本（C4）","C4恢复、恶化与额外成本调整"]);markSourceLabel(detail,"C4恢复与成本");
-    if(item&&detail)setMetricDisplay(detail,`${signedFmt(item.value)} 原分`,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)),"恢复与额外成本");
+    if(item&&detail)setMetricDisplay(detail,`${signedFmt(item.value)} 原分`,joinNote("净调整项",item.civilian_harm_formula || "恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)),"恢复与额外成本");
   }
   function ensureHandoffGroup(t){
     const section=document.getElementById("net-group-handoff");if(!section)return;setNodeText(section.querySelector(":scope > h2"),"政权交接");
@@ -159,7 +159,7 @@
       if(!map.has(sourceLabel)){sourceLabel=Object.keys(PUBLIC_LABELS).find(k=>PUBLIC_LABELS[k]===label)||({"恢复与额外成本（C4）":"C4恢复与成本","行政连续性（D1）":"D1继任行政连续性","交接稳定（D3）":"D3政权交接稳定","行政连续性":"D1继任行政连续性","交接稳定":"D3政权交接稳定","交接短板上限":"低侧封顶","政权交接得分":"交接得分","治国成效合计":"第二项合计"}[label]||label);}
       span.dataset.secondSourceLabel=sourceLabel;const item=map.get(sourceLabel);
       if((kind==="method"&&METHOD_MAX[sourceLabel])||(kind==="finance"&&FINANCE_MAX[sourceLabel])){setRowLabel(span,PUBLIC_LABELS[sourceLabel]);}
-      else if(kind==="finance"&&item&&sourceLabel==="C4恢复与成本"){setRowLabel(span,"恢复与额外成本");setNodeText(value,`${signedFmt(item.value)} 原分`);replaceCompactNote(span,joinNote("净调整项","恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)));}
+      else if(kind==="finance"&&item&&sourceLabel==="C4恢复与成本"){setRowLabel(span,"恢复与额外成本");setNodeText(value,`${signedFmt(item.value)} 原分`);replaceCompactNote(span,joinNote("净调整项",item.civilian_harm_formula || "恢复 − 可归责恶化 − 额外成本",boundaryExcerpt(item)));}
       else if(kind==="handoff"&&item&&sourceLabel==="D1继任行政连续性"){setRowLabel(span,"行政连续性");replaceCompactNote(span,joinNote("行政承接",boundaryExcerpt(item)));}
       else if(kind==="handoff"&&item&&sourceLabel==="D3政权交接稳定"){setRowLabel(span,"交接稳定");replaceCompactNote(span,joinNote("终局继承",boundaryExcerpt(item)));}
       else if(kind==="handoff"&&sourceLabel==="低侧封顶"){setRowLabel(span,"交接短板上限");replaceCompactNote(span,"交接短板决定本项最高可得分");}

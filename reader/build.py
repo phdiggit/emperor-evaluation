@@ -603,6 +603,10 @@ def _attach_second_item_c_public_reader(item, *, axis, record, how="", source_re
     result = dict(item)
     result["reader_kind"] = "judgment"
     result["public_component_label"] = {"C1":"民生", "C2":"经济财政", "C3":"社会安全", "C4":"恢复与额外代价"}[axis]
+    if axis == 'C4':
+        from emperor_v4.evaluation.civilian_harm import formal_net_line, mechanism_label
+        result['civilian_harm_formula'] = formal_net_line(record)
+        result['civilian_harm_status_label'] = mechanism_label(record)
     result["reader_public_c"] = {key: deepcopy(record[key]) for key in (
         "public_story", "public_adjudication_summary", "public_evidence_items",
         "public_boundary", "public_loss_label", "public_calculation",
@@ -985,7 +989,8 @@ def project_net_explanations(person, row, sources, first_item_public_outcomes=No
         item = finance[label]
         record = sources[key][sid]
         if key == "C4" and item.get("note"):
-            how = f"正向保留 − 恶化扣分 − 破坏放大扣分 = {item.get('note')} = {item.get('value')} 分。"
+            from emperor_v4.evaluation.civilian_harm import formal_net_line
+            how = formal_net_line(record)
         else:
             how = f"正式状态判断与损失修正按本轴合同换算为 {item.get('value')} 分。"
         finance[label] = _attach_second_item_c_public_reader(

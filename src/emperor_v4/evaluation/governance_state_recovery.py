@@ -11,6 +11,8 @@ from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from typing import Any
 
+from .civilian_harm import legacy_c4_score, formal_calculation, is_adopted, mechanism_label, formal_net_line
+
 from emperor_v4.evaluation.formal_json_store import (
     load_json,
     load_ruler_polities,
@@ -336,7 +338,9 @@ def verify_governance_state_recovery_review(workspace_root: Path) -> dict[str, A
             raise ValueError(f'C4 calculation mismatch: {rid}')
         if active:
             c4 = formal['C4'][rid]
-            value = _round(max(Decimal(C4_SCORE_MIN), min(Decimal(C4_SCORE_MAX), Decimal(str(calculated['positive_retained'])) - Decimal(str(rec['deterioration_penalty'])) - Decimal(str(c4['destructive_amplification_penalty'])))))
+            value = formal_calculation(c4, r, calculated['positive_retained'], rec['deterioration_penalty'])['C4']
+            if is_adopted(c4) and c4['civilian_harm_adjudication']['actual_states'] != {a:{'main_band':r['axes'][a]['main_band'], 'loss_grade':r['axes'][a]['loss_review']['grade']} for a in AXES}:
+                raise ValueError(f'Civilian-harm actual state binding drift: {rid}')
             if c4['score'] != value or c4['recovery_formula_version'] != VERSION or c4['recovery_score'] != calculated['recovery_score'] or c4['deterioration_penalty'] != rec['deterioration_penalty']:
                 raise ValueError(f'Formal C4 drift: {rid}')
             for a in AXES:
@@ -443,7 +447,10 @@ def _apply_c4(row: dict[str, Any], ruling: dict[str, Any]) -> None:
     row['recovery_formula_version'] = VERSION
     row['difficulty_weighted_recovery_credit'] = row['weighted_net_recovery_delta'] = round(cal['raw_recovery'] / 10, 2)
     row['recovery_path_basis'] = {a: {'start_band':rec['baseline'][a]['label'], 'highest_achieved_band':rec['terminal'][a]['label'], 'linear_delta':max(0, rec['terminal'][a]['band']-rec['baseline'][a]['band']), 'boundary_difficulty_credit':cal['axis_details'][a]['boundary_credit'], 'axis_weight':WEIGHTS[a], 'attribution_factor':cal['axis_details'][a]['attribution_factor'], 'weighted_difficulty_credit':cal['axis_details'][a]['weighted_credit'], 'retained_increment':cal['axis_details'][a]['retained_increment']} for a in AXES}
-    row['score'] = row['raw_score'] = _round(max(Decimal(C4_SCORE_MIN), min(Decimal(C4_SCORE_MAX), Decimal(str(cal['positive_retained']))-Decimal(str(rec['deterioration_penalty']))-Decimal(str(row['destructive_amplification_penalty'])))))
+    calculation = formal_calculation(row, ruling, cal['positive_retained'], rec['deterioration_penalty'])
+    row['score'] = row['raw_score'] = calculation['C4']
+    if is_adopted(row):
+        row['civilian_harm_calculation'] = calculation
     for key in ('v2_recovery_attribution', 'v2_recovery_baseline_review', 'v2_state_recovery_adjudication'):
         row.pop(key, None)
     row['state_recovery_adjudication'] = {'version': VERSION, 'review_ref':f'{REVIEW_PATH.as_posix()}#ruler_id={row["ruler_id"]}', 'baseline': rec['baseline'], 'terminal': rec['terminal'], 'attribution': rec['attribution'], 'calculation':cal}
@@ -462,6 +469,8 @@ def _apply_c4(row: dict[str, Any], ruling: dict[str, Any]) -> None:
     for key in ('adjudication_reason', 'public_adjudication', 'c4_attribution_readjudication', 'deterioration_curve_summary', 'negative_tail_adjudication_reason', 'attribution_readjudication_reason', 'behavior_and_attribution'):
         if key in row:
             row[key] = clean_retired_low_valley_references(current_text(row[key]), key)
+    from .civilian_harm import refresh_current_summary
+    refresh_current_summary(row)
 
 
 def activate_governance_state_recovery(workspace_root: Path) -> dict[str, Any]:
@@ -533,9 +542,9 @@ def render_component_markdown(axis: str, payload: dict[str, Any]) -> str:
             curve='→'.join(str(s.get(k,s.get('S_avg',''))) for k in ('S0','S_main','S_end'))
             lines.append(f'| {reading_name(row)} | {row["polity"]} | {curve} | {row.get("loss_grade","池外既有裁决")} | {_terminal_endpoint_display(row)} | **{row["score"]:.1f}** |')
     else:
-        lines += ['| 排名 | 人物 | 政权 | 保留恢复 | 归责恶化 | DA | C4净分（恢复 - 可归责恶化 - DA） |', '|---:|---|---|---:|---:|---|---:|']
+        lines += ['| 排名 | 人物 | 政权 | 保留恢复 | 原恶化（剥离前） | 损害计价与适用状态 | C4净调整 |', '|---:|---|---|---:|---:|---|---:|']
         for row in rows:
-            lines.append(f'| {row["rank"]} | {reading_name(row)} | {row["polity"]} | {row["positive_score_retained"]:.1f} | {row["deterioration_penalty"]:.1f} | {row["destructive_amplification_grade"]}/{row["destructive_amplification_penalty"]:.1f} | **{row["score"]:.1f}** |')
+            lines.append(f'| {row["rank"]} | {reading_name(row)} | {row["polity"]} | {row["positive_score_retained"]:.1f} | {row["deterioration_penalty"]:.1f} | {mechanism_label(row)} | **{row["score"]:.1f}** |')
     lines += ['', '## 逐人裁决', '']
     for row in rows:
         if axis in {'C3', 'C4'}:
@@ -545,7 +554,7 @@ def render_component_markdown(axis: str, payload: dict[str, Any]) -> str:
             s=row['state_anchors']
             lines += [f'- 结算：主档{row["main_band"]}；{row.get("loss_grade","池外既有裁决")}；计{row["score"]:.1f}/{FIXED_POINTS[axis][-1]:.0f}。', f'- 三锚：{s.get("S0")}→{s.get("S_main",s.get("S_avg"))}→{s.get("S_end")}。', f'- 主态与交班依据：{row["adjudication_reason"]}', f'- 低谷与去重：{row.get("stability_basis", "见正式JSON既有裁决。") }']
         else:
-            lines += [f'- 结算：C4净分**{row["score"]:.1f}**；保留恢复{row["positive_score_retained"]:.1f}，归责恶化{row["deterioration_penalty"]:.1f}，{row["destructive_amplification_grade"]}扣{row["destructive_amplification_penalty"]:.1f}。', f'- 恢复：{row.get("recovery_and_absorption", "")}', f'- 行为与归责：{row["behavior_and_attribution"]}', f'- 交班：{row.get("handoff_state", "")}', f'- 去重：{row.get("active_civilian_cost_review",{}).get("absorbed_and_excluded_basis", "")}']
+            lines += [f'- 结算：{mechanism_label(row)}；{formal_net_line(row)}', f'- 恢复：{row.get("recovery_and_absorption", "")}', f'- 行为与归责：{row["behavior_and_attribution"]}', f'- 交班：{row.get("handoff_state", "")}', f'- 去重：{row.get("civilian_harm_adjudication",{}).get("state_credit_basis",row.get("active_civilian_cost_review",{}).get("absorbed_and_excluded_basis", ""))}']
         materials=row.get('material_basis',[])
         if materials:
             lines.append('- 材料依据：')
@@ -597,6 +606,8 @@ def refresh_supporting_projections(workspace_root: Path) -> None:
         if r is None:
             continue
         _apply_c4(row,r)
+        if is_adopted(row):
+            continue
         cost = row['active_civilian_cost_review']
         basis = cost['absorbed_and_excluded_basis']
         basis = clean_retired_low_valley_references(re.split(r' V[34]消费核对：', basis, maxsplit=1)[0], 'absorbed_and_excluded_basis')

@@ -180,9 +180,10 @@ def component_details(sources: dict[str, Any], pool: dict[str, Any], row: dict[s
         grade = r["main_band"]
         note = ""
         if key == "C4":
-            grade += f" / {r['destructive_amplification_grade']}"
-            note = f"{r['positive_score_retained']:g}−{r['deterioration_penalty']:g}−{r['destructive_amplification_penalty']:g}"
-            equal(r['positive_score_retained']-r['deterioration_penalty']-r['destructive_amplification_penalty'], r['score'], "C4拆分")
+            from .civilian_harm import formal_calculation, formal_net_line, mechanism_label
+            grade += f" / {mechanism_label(r)}"
+            note = formal_net_line(r)
+            equal(formal_calculation(r)['C4'], r['score'], "C4拆分")
         else:
             grade += f" / {r['loss_grade']}"
         finance.append(cell(label, r["score"], grade, SOURCES[key], note=note))

@@ -13,7 +13,6 @@ from emperor_v4.evaluation.profile_record_integrity import verify_current_record
 
 from emperor_v4.evaluation.profile_m4_settlement import (
     AUDIT,
-    FULL_POOL_REVIEW,
     HIGH_REVIEW,
     MANIFEST,
     MARKDOWN,
